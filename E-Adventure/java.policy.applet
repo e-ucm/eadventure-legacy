@@ -1,0 +1,6 @@
+grant {
+  permission java.lang.RuntimePermission "modifyThreadGroup";
+  permission java.lang.RuntimePermission "modifyThread";
+  permission java.lang.RuntimePermission "exitVM";
+};
+
