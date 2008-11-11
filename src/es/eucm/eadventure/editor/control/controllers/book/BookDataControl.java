@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapterdata.book.Book;
-import es.eucm.eadventure.common.data.chapterdata.book.BookParagraph;
 import es.eucm.eadventure.common.data.chapterdata.resources.Resources;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;

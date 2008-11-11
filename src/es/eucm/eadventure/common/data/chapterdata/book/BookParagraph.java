@@ -1,4 +1,4 @@
-package es.eucm.eadventure.adventureeditor.data.chapterdata.book;
+package es.eucm.eadventure.common.data.chapterdata.book;
 
 /**
  * Main class of the paragraphs of one book
