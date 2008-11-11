@@ -1,0 +1,1415 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>&lt;e-Adventure&gt; - Editor de Aventuras, Español</comment>
+	<entry key="MainWindow.Title">Editor de aventuras - {#0}</entry>
+	<entry key="MainWindow.Title.NewFile">Nuevo archivo</entry>
+	
+	<entry key="MenuFile.Title">Archivo</entry>
+	<entry key="MenuFile.New">Nuevo</entry>
+	<entry key="MenuFile.NewAdventurePlayerVisible">Tipo de aventura: Jugador en Pantalla</entry>
+	<entry key="MenuFile.NewAdventurePlayerTransparent">Tipo de aventura: Primera persona</entry>
+	<entry key="MenuFile.NewAssessmentFile">Archivo de evaluación</entry>
+	<entry key="MenuFile.Load">Abrir...</entry>
+	<entry key="MenuFile.Save">Guardar</entry>
+	<entry key="MenuFile.SaveAs">Guardar como...</entry>
+	<entry key="MenuFile.LOMProperties">Propiedades de Objeto de Aprendizaje (LO)</entry>
+	<entry key="MenuFile.ExportLOM">Exportar como Objeto de Aprendizaje (LO)</entry>
+	<entry key="MenuFile.ExportGame">Exportar como fichero EAD</entry>
+	<entry key="MenuFile.ExportStandalone">Exportar como fichero jar ejecutable</entry>
+	<entry key="MenuFile.Export">Exportar proyecto...</entry>
+	<entry key="MenuFile.Import">Importar...</entry>
+	<entry key="MenuFile.ImportGame">Importar juego como nuevo proyecto</entry>
+	<entry key="MenuFile.ImportChapter">Importar capítulo</entry>
+	
+	<entry key="MenuFile.Exit">Salir</entry>
+
+	<entry key="About">Acerca de</entry>
+	<entry key="Menu.About">Acerca de</entry>
+	
+	<entry key="MenuRun.Title">Ejecutar</entry>
+	<entry key="MenuRun.Normal">Normal</entry>	
+	
+	
+	<entry key="MenuReturnMode.Option">Volver al modo de Edición de Aventura</entry>
+	<entry key="MenuReturnMode">Modo de edición</entry>
+	
+	<entry key="MenuChapters.Title">Capítulos</entry>
+	<entry key="MenuChapters.AddChapter">Añadir capítulo</entry>
+	<entry key="MenuChapters.DeleteChapter">Eliminar capítulo</entry>
+	<entry key="MenuChapters.Flags">Editar flags del capítulo...</entry>
+	<entry key="MenuChapters.MoveChapterUp">Mover capítulo arriba</entry>
+	<entry key="MenuChapters.MoveChapterDown">Mover capítulo abajo</entry>
+
+	<entry key="MenuAdventure.Title">Aventura</entry>
+	<entry key="MenuAdventure.CheckConsistency">Comprobar validez</entry>
+	<entry key="MenuAdventure.AdventureData">Editar datos de la aventura...</entry>
+	<entry key="MenuAdventure.GUIStyles">Seleccionar estilo de GUI...</entry>
+	<entry key="MenuAdventure.CustomizeGUI">Personalizar elementos de la interfaz...</entry>
+	<entry key="MenuAdventure.AssessmentFiles">Administrar archivos de evaluación...</entry>
+	<entry key="MenuAdventure.AdaptationFiles">Administrar archivos de adaptación...</entry>
+	<entry key="MenuAdventure.BackgroundAssets">Administrar recursos de fondos...</entry>
+	<entry key="MenuAdventure.AnimationAssets">Administrar recursos de animaciones...</entry>
+	<entry key="MenuAdventure.ImageAssets">Administrar recursos de imágenes...</entry>
+	<entry key="MenuAdventure.IconAssets">Administrar recursos de iconos...</entry>
+	<entry key="MenuAdventure.AudioAssets">Administrar recursos de audio...</entry>
+	<entry key="MenuAdventure.VideoAssets">Administrar recursos de video...</entry>
+	<entry key="MenuAdventure.ChangeToModePlayerTransparent">Convertir a aventura en primera persona</entry>
+	<entry key="MenuAdventure.ChangeToModePlayerVisible">Convertir a aventura con jugador visible</entry>
+	<entry key="MenuAdventure.ModePlayerTransparent">Modo primera persona</entry>
+	<entry key="MenuAdventure.ModePlayerVisible">Modo jugador visible</entry>
+	<entry key="MenuAdventure.Commentaries">Comentarios automáticos</entry>
+    <entry key="MenuAdventure.CommentariesLabel">Marcar para habilitar los comentarios automáticos del jugador</entry>
+	
+	<entry key="MenuConfiguration.Title">Configuración</entry>
+	<entry key="MenuConfiguration.ShowItemReferences">Mostrar por defecto referencias a objeto</entry>
+	<entry key="MenuConfiguration.ShowNPCReferences">Mostrar por defecto referencias a personajes</entry>
+	<entry key="MenuConfiguration.ShowStartDialog">Mostrar asistente de inicio al comenzar</entry>
+	<entry key="MenuConfiguration.Language">Cambiar idioma</entry>
+	<entry key="MenuConfiguration.Language.English">Inglés</entry>
+	<entry key="MenuConfiguration.Language.Spanish">Castellano</entry>
+	
+		
+	<entry key="StartDialog.Title">Editor de aventuras</entry>
+	<entry key="StartDialog.Message">Para comenzar a usar el editor de &lt;e-Adventure&gt;, debe escoger entre crear un nuevo archivo para almacenar la nueva aventura, o seleccionar una aventura ya creada para editarla.</entry>
+	<entry key="StartDialog.Option0">Nueva aventura</entry>
+	<entry key="StartDialog.Option1">Abrir aventura</entry>
+	<entry key="StartDialog.HelpMessage">Bienvenido al editor &lt;e-Adventure&gt; 
+Para comenzar a usar el editor puede elegir entre las opciones mostradas aquí. Puede crear un nuevo archivo seleccionando uno de los botones inferiores. Se permite crear dos tipos de aventura distintos (esta decisión se puede cambiar más adelante):	
+  - Aventuras que muestran el personaje correspondiente al jugador, como en los juegos de la saga Monkey Island (Modo jugador visible).
+  - Aventuras en las que no se ve el personaje del jugador, como en los juegos de la saga Myst (Modo primera persona).
+
+Si no desea crear un nuevo juego, puede abrir un archivo ya existente empleando los botones de carpeta ubicados arriba. 
+	 </entry>
+	<entry key="StartDialog.NewAdventure-VisibleMode.Description"> Ha seleccionado crear una nueva aventura en modo "jugador visible"</entry>
+	<entry key="StartDialog.NewAdventure-TransparentMode.Description"> Ha seleccionado crear una nueva aventura en modo "primera persona"</entry>
+	
+	<entry key="Adventure.CompletePath">Ruta completa</entry>
+	<entry key="StartDialog.CreateNew">Crear nuevo</entry>
+	<entry key="StartDialog.DoNotShow">No mostrar este diálogo la próxima vez</entry>
+	<entry key="StartDialog.DocumentTypes">Tipos de documento</entry>
+	<entry key="StartDialog.Recent.OpenedToday">Abierto hoy</entry>
+	<entry key="StartDialog.Recent">Recientes</entry>
+	<entry key="StartDialog.Recent.OpenedYesterday">Abierto ayer</entry>
+	<entry key="StartDialog.Recent.OpenedOlder">Anteriores</entry>
+	<entry key="StartDialog.Recent.ColumnHeader0"></entry>
+	<entry key="StartDialog.Recent.ColumnHeader1">Archivo</entry>
+	<entry key="StartDialog.Recent.ColumnHeader2"></entry>
+
+	<entry key="StartDialog.NewAdaptationFile.Description"> You have selected to create a new Adaptation file. For the present release this option is unavailable. You must create the adaptation file by opening/creating a new adventure game; then use the facility therein included  </entry>
+	<entry key="StartDialog.NewAssessmentFile.Description"> You have selected to create a new Assessment file. For the present release this option is unavailable. You must create the assessment file by opening/creating a new adventure game; then use the facility therein included  </entry>
+
+	<entry key="ErrorSolving.Chapter.Title">Error: Capítulo Ilegible</entry>
+	<entry key="ErrorSolving.Chapter.Message">Al leer el capítulo "{#1}" ocurrió el siguiente problema: {#0}.
+Por favor, seleccione una de las siguientes opciones:
+1) Borrar el capítulo, 2) Reemplazarlo con otro fichero, 3) Abortar el proceso.</entry>	
+	<entry key="GeneralText.Delete">Borrar</entry>
+	<entry key="GeneralText.Replace">Reemplazar</entry>
+	<entry key="GeneralText.Abort">Abortar</entry>
+	<entry key="GeneralText.Select">Seleccionar</entry>
+	<entry key="GeneralText.Folders">Carpetas</entry>
+	<entry key="GeneralText.Project">Proyecto</entry>
+	<entry key="ErrorSolving.Chapter.NotReplaced.Title">Error al reemplazar el capítulo.</entry>
+	<entry key="ErrorSolving.Chapter.NotReplaced.Message">Ocurrió un error al reemplazar el capítulo. 
+Dicha operación no se completó.</entry>
+	<entry key="ErrorSolving.Asset.Deleted.Title">Error: Referencia a recurso no encontrado</entry>
+	<entry key="ErrorSolving.Asset.Deleted.Message">No se encontró el fichero "{#0}".
+Las referencias a dicho recurso fueron eliminadas.</entry> 
+	<entry key="ErrorSolving.AssessmentReferenced.Deleted.Title">Error: Referencia a perfil de evaluación no encontrado</entry>
+	<entry key="ErrorSolving.AssessmentReferenced.Deleted.Message">No se encontró el perfil de evaluación referenciado: "{#0}".
+Se han borrado las referencias a dicho perfil.</entry>
+	<entry key="ErrorSolving.AdaptationReferenced.Deleted.Title">Error: Referencia a perfil de adaptación no encontrado</entry>
+	<entry key="ErrorSolving.AdaptationReferenced.Deleted.Message">No se encontró el perfil de adaptación referenciado: "{#0}".
+Se han borrado las referencias a dicho perfil.</entry> 
+	
+	<entry key="Error.Title">Error</entry>
+	
+	<entry key="Error.EffectMovePlayerNotAllowed.Title">Operación no permitida</entry>
+	<entry key="Error.EffectMovePlayerNotAllowed.Message">Lo sentimos, pero el efecto "mover jugador" no está permitido en el modo actual de aventura</entry>
+	
+	<entry key="Error.AssetNotFound0">No se encontró el fichero de evaluación "{#0}".</entry>
+	<entry key="Error.AssetNotFound1">No se encontró el fichero de adaptación "{#0}".</entry>
+	<entry key="Error.AssetNotFound2">No se encontró la imagen de fondo "{#0}".</entry>
+	<entry key="Error.AssetNotFound3">No se encontró la animación "{#0}".</entry>
+	<entry key="Error.AssetNotFound4">No se encontró la imagen "{#0}".</entry>
+	<entry key="Error.AssetNotFound5">No se encontró el icono "{#0}".</entry>
+	<entry key="Error.AssetNotFound6">No se encontró el fichero de audio "{#0}".</entry>
+	<entry key="Error.AssetNotFound7">No se encontró el fichero de video "{#0}".</entry>
+	<entry key="Error.AssetNotFound8">No se encontró el cursor "{#0}".</entry>
+	<entry key="Error.AssetNotFound9">No se encontró el fichero de texto con estilo "{#0}".</entry>
+	
+	<entry key="Error.LoadDescriptor.SAX">Ocurrió un problema con la consistencia XML del descriptor de la aventura</entry>
+	<entry key="Error.LoadDescriptor.IO">Ocurrió un problema al leer el descriptor de la aventura</entry>
+	<entry key="Error.LoadData.SAX">Ocurrió un problema con la consistencia XML de los datos</entry>
+	<entry key="Error.LoadData.IO">Ocurrió un problema al leer los datos</entry>
+	<entry key="Error.LoadAssessmentData.SAX">Ocurrió un problema con la consistencia XML de los datos de evaluación</entry>
+	<entry key="Error.LoadAssessmentData.IO">Ocurrió un problema con la lectura de los datos de evaluación</entry>
+	<entry key="Error.LoadAssessment.Referenced">Ocurrió un problema al leer un perfil de evaluación referenciado</entry>
+	<entry key="Error.LoadAdaptationData.SAX">Ocurrió un problema con la consistencia XML de los datos de adaptación</entry>
+	<entry key="Error.LoadAdaptationData.IO">Ocurrió un problema con la lectura de los datos de adaptación</entry>
+	<entry key="Error.LoadAdaptation.Referenced">Ocurrió un problema al leer un perfil de adaptación referenciado</entry>
+	
+	<entry key="Error.DeletingFolderContents">Un error inesperado ocurrió al borrar los contenidos de la carpeta.</entry>
+	<entry key="Error.Import.FileNotFound.Title">No se encontró el fichero</entry>
+	<entry key="Error.Import.FileNotFound.Message">No se pudo completar el proceso de importación: No se encontró el archivo "{#0}".</entry>
+	<entry key="Error.ProjectFolderName">El nombre seleccionado para la carpeta no es correcto.</entry>
+	
+	<entry key="Error.LoadAborted.Title">¡Se canceló el proceso de carga!</entry>
+	<entry key="Error.LoadAborted.Message">Hubo un error crítico al cargar los ficheros del proyecto.
+Quizá el archivo descriptor.xml no se encuentre o sea ilegible.
+Se abortó el proceso.</entry>
+	<entry key="Error.CopyingFiles">Ocurrió un problema copiando el fichero {#0} al destino {#1}</entry>
+	<entry key="Error.LoadData">Se ha producido un error en la lectura. Podría haber un problema con el formato de la 
+		aventura, o no se encuentran los archivos \"descriptor.dtd\" o \"eadventure.dtd\".</entry>
+	<entry key="Error.LoadAssessmentData">Se ha producido un error en la lectura del fichero de evaluación.
+	Podría haber un problema con el formato del fichero, o no se encuentra el archivos \"assessment.dtd\".</entry>
+	<entry key="Error.LoadAdaptationData">Se ha producido un error en la lectura del fichero de adaptación.
+	Podría haber un problema con el formato del fichero, o no se encuentra el archivos \"adaptation.dtd\".</entry>
+	
+	<entry key="Error.WriteData">Ha habido un error guardando los datos, por favor póngase en contacto con el equipo de desarrollo.</entry>
+	<entry key="Error.SpecialAssetNotFound">El asset especial "{#0}" no se ha encontrado y no será añadido a la aventura.
+		Por favor compruebe que dicho archivo se encuentra junto con el editor, dado que su carencia puede dar lugar a funcionamientos erróneos de las aventuras</entry>
+
+	<entry key="Error.CreateAssessmentFile.Title">No se pudo crear el archivo de evaluación</entry>
+	<entry key="Error.CreateAssessmentFile.Message">Se ha producido un error al crear el fichero de evaluación</entry>
+	
+	<entry key="Error.CreateAdaptationFile.Title">No se pudo crear el archivo de evaluación</entry>
+	<entry key="Error.CreateAdaptationFile.Message">Se ha producido un error al crear el fichero de evaluación</entry>
+	
+	<entry key="Error.CreatingFolder">Ocurrió un error al crear la carpeta</entry>
+	
+	<entry key="Error.DTD.NotCopied.Title">Archivo importante no copiado</entry>
+	<entry key="Error.DTD.NotCopied.Message">El archivo "{#0}" no pudo copiarse al proyecto (quizá el fichero esté corrupto o no exista).
+Esto puede provocar errores al ejectuar los juegos con el motor.</entry>
+	
+	<entry key="Error.DTD.NotFound.Title">Archivo importante no encontrado</entry>
+	<entry key="Error.DTD.NotFound.Message">No se encontró el archivo "{#0}".
+Esto puede provocar errores al cargar las aventuras.</entry>
+	
+
+	<entry key="SwapPlayerMode.Title">Cambiar tipo de aventura - Confirmación</entry>
+	<entry key="SwapPlayerMode.Message">Seguro que desea cambiar de modalidad? 
+	En cualquier caso, es posible volver a la modalidad anterior sin perder datos.</entry>
+
+	<entry key="Operation.CreateProject">Operación: Creando proyecto nuevo</entry>
+	<entry key="Operation.LoadProject">Operación: Cargando proyecto</entry>
+	<entry key="Operation.SaveProject">Operación: Guardando proyecto</entry>
+	<entry key="Operation.SaveProjectAs">Operación: Guardando proyecto como</entry>
+	<entry key="Operation.ImportProject">Operación: Importando proyecto</entry>
+	<entry key="Operation.ExportProject.AsLO">Operación: Exportando proyecto como Objeto de Aprendizaje</entry>
+	<entry key="Operation.ExportProject.AsJAR">Operación: Exportando proyecto como juego autocontenido (.JAR)</entry>
+	<entry key="Operation.ExportProject.AsEAD">Operación: Exportando proyecto como juego EAD (archivo .EAD)</entry>
+	<entry key="Operation.SetAllAnimations.Title">¿Definir el resto de animaciones?</entry>
+	<entry key="Operation.SetAllAnimations.Message">El resto de animaciones no han sido definidas todavía.
+¿Desea completar las animaciones con el recurso seleccionado?</entry>
+	
+	<entry key="Operation.DeleteResourcesBlock.Confirmation.Title">Confirmación de borrado de apariencia</entry>
+	<entry key="Operation.DeleteResourcesBlock.Confirmation.Message">¿Está seguro de querer borrar los datos? Esta operación no se puede deshacer</entry>
+
+	<entry key="Operation.NewFileTitle">Nuevo archivo</entry>
+	<entry key="Operation.NewFileMessage">El archivo actual tiene cambios sin salvar. ¿Quiere guardar los cambios antes de crear un nuevo archivo?</entry>
+
+	<entry key="Operation.NewProjectTitle">Proyecto nuevo: seleccionar carpeta</entry>
+	<entry key="Operation.NewProjectMessage">  Seleccione la carpeta del proyecto. Puede seleccionar una de las existentes o crear una nueva.
+En cualquier caso el nombre de la carpeta sólo puede contener los siguientes caracteres: {#0}.
+Carpetas con nombres que contengan otro tipo de caracteres o tildes no serán válidos.</entry>
+
+	<entry key="Operation.NewProject.ForbiddenParent.Title">Error: Carpeta de proyecto no válida</entry>
+	<entry key="Operation.NewProject.ForbiddenParent.Message">Lo sentimos, pero ninguna carpeta de proyecto puede estar contenida en el directorio restringido "web".</entry>
+	
+	<entry key="Operation.NewProject.FolderNotEmptyTitle">La carpeta no está vacía</entry>
+	<entry key="Operation.NewProject.FolderNotEmptyMessage">El directorio seleccionado no está vacío.
+¿Quiere borrar sus contenidos? (Los datos se perderán).
+Si la carpeta del proyecto no está vacía, por favor compruebe
+que no contiene ningún fichero con el nombre 'descriptor.xml' o 'chapterXX.xml',
+donde XX es un múmero cualquiera.</entry>
+
+	<entry key="Operation.NewProject.FolderNotCreatedTitle">La carpeta no existe.</entry>
+	<entry key="Operation.NewProject.FolderNotCreatedMessage">La carpeta no ha sido creada. ¿Desea crearla ahora?</entry>
+
+	<entry key="Operation.LoadFileTitle">Abrir archivo</entry>
+	<entry key="Operation.LoadFileMessage">El archivo actual tiene cambios sin salvar. ¿Quiere guardar los cambios antes de abrir otro archivo?</entry>
+	
+	<entry key="Operation.FileLoadedTitle">Proyecto cargado correctamente</entry>
+	<entry key="Operation.FileLoadedMessage">El proyecto pudo cargarse correctamente.</entry>
+
+	<entry key="Operation.FileNotLoadedTitle">¡No se pudo cargar el proecto!</entry>
+	<entry key="Operation.FileNotLoadedMessage">El proyecto no pudo cargarse.</entry>
+	
+	
+	<entry key="Operation.SaveFileTitle">Guardar archivo</entry>
+	<entry key="Operation.SaveChangesTitle">¿Guardar cambios?</entry>
+	<entry key="Operation.SaveChangesMessage">El proyecto actual tiene cambios no guardados. ¿Quieres salvarlos antes de continuar?</entry>
+	<entry key="Operation.OverwriteExistingFile">El archivo seleccionado "{#0}" no está vacío.
+		Si escoge guardar la aventura con este nombre, los datos previos se borrarán.
+		¿Está seguro de querer guardar los datos en este archivo?</entry>
+
+	<entry key="Operation.ExitTitle">Salir</entry>
+	<entry key="Operation.ExitMessage">El archivo actual tiene cambios sin salvar. ¿Quiere guardar los cambios antes de salir?</entry>
+
+	<entry key="Operation.AdventureConsistencyTitle">Validez de la aventura</entry>
+	<entry key="Operation.AdventurInconsistentWarning">La aventura es inválida y no podrá ejecutarse en el motor &lt;e-Adventure&gt;.
+		Por favor ejecute "Comprobar validez" y solucione los problemas para validar la aventura.</entry>
+	<entry key="Operation.AdventureConsistentReport">La aventura es completamente válida y puede ser ejecutada en el motor &lt;e-Adventure&gt;</entry>
+	<entry key="Operation.AdventureInconsistentReport">La aventura es inválida y no podrá ejecutarse hasta que los siguientes errores hayan sido solucionados:</entry>
+	<entry key="Operation.AdventureConsistencyErrorResources">El recurso "{#0}" es indispensable, y no está asociado a ningún archivo</entry>
+	<entry key="Operation.AdventureConsistencyErrorBookParagraph">El párrafo no tiene ninguna imagen asociada</entry>
+	<entry key="Operation.AdventureConsistencyErrorBookPage">La página del libro no tiene ningún archivo de origen asociado</entry>
+	<entry key="Operation.AdventureConsistencyErrorPlayAnimation">El efecto "Reproducir animación" no tiene ninguna animación asociada</entry>
+	<entry key="Operation.AdventureConsistencyErrorPlaySound">El efecto "Reproducir sonido" no tiene ningún archivo sonido asociado</entry>
+
+	<entry key="Operation.AddChapterTitle">Añadir nuevo capítulo</entry>
+	<entry key="Operation.AddChapterMessage">Introduzca el título para el nuevo capítulo:</entry>
+	<entry key="Operation.AddChapterDefaultValue">Título del capítulo</entry>
+
+	<entry key="Operation.DeleteChapterTitle">Eliminar capítulo</entry>
+	<entry key="Operation.DeleteChapterMessage">¿Está seguro de que quiere eliminar este capítulo?
+		Después del borrado será imposible recuperar la información.</entry>
+	<entry key="Operation.DeleteChapterErrorLastChapter">No se puede borrar el último capítulo de la aventura.
+		Toda aventura debe de tener por lo menos un capítulo.</entry>
+
+	<entry key="Operation.AddSceneTitle">Añadir nueva escena</entry>
+	<entry key="Operation.AddSceneMessage">Introduzca un identificador para la nueva escena:</entry>
+	<entry key="Operation.AddSceneDefaultValue">IdEscena</entry>
+
+	<entry key="Operation.AddCutsceneTitle">Añadir nueva escena intermedia</entry>
+	<entry key="Operation.AddCutsceneMessage">Introduzca un identificador para la nueva escena intermedia:</entry>
+	<entry key="Operation.AddCutsceneDefaultValue">IdEscenaIntermedia</entry>
+
+	<entry key="Operation.AddBookTitle">Añadir nuevo libro</entry>
+	<entry key="Operation.AddBookMessage">Introduzca un identificador para el nuevo libro:</entry>
+	<entry key="Operation.AddBookDefaultValue">IdLibro</entry>
+
+	<entry key="Operation.AddItemTitle">Añadir nuevo objeto</entry>
+	<entry key="Operation.AddItemMessage">Introduzca un identificador para el nuevo objeto:</entry>
+	<entry key="Operation.AddItemDefaultValue">IdObjeto</entry>
+
+	<entry key="Operation.AddNPCTitle">Añadir nuevo personaje</entry>
+	<entry key="Operation.AddNPCMessage">Introduzca un identificador para el nuevo personaje</entry>
+	<entry key="Operation.AddNPCDefaultValue">IdPersonaje</entry>
+
+	<entry key="Operation.AddConversationTitle">Añadir nueva conversación</entry>
+	<entry key="Operation.AddConversationMessage">Introduzca un identificador para la nueva conversación:</entry>
+	<entry key="Operation.AddConversationDefaultValue">ConversationId</entry>
+
+	<entry key="Operation.AddNextSceneTitle">Añadir enlace a siguiente escena</entry>
+	<entry key="Operation.AddNextSceneMessage">Seleccione una escena para enlazar a la estructura de la siguiente escena:</entry>
+	<entry key="Operation.AddNextSceneErrorNoScenes">Debe haber al menos una escena o escena intermedia para crear una estructura de siguiente escena</entry>
+
+	<entry key="Operation.AddExitTitle">Añadir salida</entry>
+	<entry key="Operation.AddExitErrorNoNextScenes">No puede añadir una salida en una escena sin enlazarle una estructura de siguiente escena</entry>
+
+	<entry key="Operation.AddItemReferenceTitle">Añadir referencia a objeto</entry>
+	<entry key="Operation.AddItemReferenceMessage">Seleccione el objeto que quiere añadir a la escena:</entry>
+	<entry key="Operation.AddItemReferenceErrorNoItems">Debe haber al menos un objeto en el capítulo para añadir una referencia</entry>
+
+	<entry key="Operation.AddNPCReferenceTitle">Añadir referencia a personaje</entry>
+	<entry key="Operation.AddNPCReferenceMessage">Seleccione el personaje que quiere añadir a la escena:</entry>
+	<entry key="Operation.AddNPCReferenceErrorNoNPCs">Debe haber al menos un personaje en el capítulo para añadir una referencia</entry>
+
+	<entry key="Operation.AddConversationReferenceTitle">Añadir referencia a conversación</entry>
+	<entry key="Operation.AddConversationReferenceMessage">Seleccione la conversación que quiere enlazar al personaje:</entry>
+	<entry key="Operation.AddConversationReferenceErrorNoConversations">Debe haber al menos una conversación en el capítulo para añadir una referencia</entry>
+
+	<entry key="Operation.AddAssessmentRuleTitle">Añadir regla de evaluación</entry>
+	<entry key="Operation.AddAssessmentRuleMessage">Escriba un identificador para la nueva regla</entry>
+	<entry key="Operation.AddAssessmentRuleDefaultValue">IdReglaDeEvaluacion</entry>
+	
+	<entry key="Operation.DeleteResourcesTitle">Eliminar recursos</entry>
+	<entry key="Operation.DeleteResourcesErrorLastResources">El último bloque de recursos de la estructura no puede ser eliminado</entry>
+
+	<entry key="Operation.DeleteNextSceneTitle">Eliminar enlace a siguiente escena</entry>
+	<entry key="Operation.DeleteNextSceneErrorLastNextScene">La última siguiente escena de la salida no puede ser eliminada.
+		Sin embargo el elemento "Salida" sí puede ser eliminado.</entry>
+
+	<entry key="Operation.RenameSceneTitle">Renombrar escena</entry>
+	<entry key="Operation.RenameSceneMessage">Introduzca un nuevo identificador con el que renombrar la escena:</entry>
+
+	<entry key="Operation.RenameCutsceneTitle">Renombrar escena intermedia</entry>
+	<entry key="Operation.RenameCutsceneMessage">Introduzca un nuevo identificador con el que renombrar la escena intermedia:</entry>
+
+	<entry key="Operation.RenameBookTitle">Renombrar libro</entry>
+	<entry key="Operation.RenameBookMessage">Introduzca un nuevo identificador con el que renombrar el libro:</entry>
+
+	<entry key="Operation.RenameItemTitle">Renombrar objeto</entry>
+	<entry key="Operation.RenameItemMessage">Introduzca un nuevo identificador con el que renombrar el objeto:</entry>
+
+	<entry key="Operation.RenameNPCTitle">Renombrar personaje</entry>
+	<entry key="Operation.RenameNPCMessage">Introduzca un nuevo identificador con el que renombrar el personaje:</entry>
+
+	<entry key="Operation.RenameConversationTitle">Renombrar conversación</entry>
+	<entry key="Operation.RenameConversationMessage">Introduzca un nuevo identificador con el que renombrar la conversación:</entry>
+	
+	<entry key="Operation.RenameAdaptationFile">Renombrar fichero de adpatación</entry>
+	<entry key="Operation.RenameAdaptationFile.Message">¿Está seguro de que quiere renombrar el fichero?</entry>
+	<entry key="Operation.RenameAssesssmentFile">Renombrar fichero de evaluación</entry>
+	<entry key="Operation.RenameAssessmentFile.Message">¿Está seguro de que desea renombrar el fichero?</entry>
+	<entry key="Operation.RenameAdaptationFile.FileName">Introduzca el nombre del archivo</entry>
+	<entry key="Operation.RenameAdaptationFile.FileName.Message">Introduzca el nombre del archivo de adaptación</entry>
+	<entry key="Operation.RenameAssessmentFile.FileName">Introduzca el nombre del archivo</entry>
+	<entry key="Operation.RenameAssessmentFile.FileName.Message">Introduzca el nombre del archivo de evaluación</entry>
+	<entry key="Operation.RenameXMLFile.ErrorSlash">Error</entry>
+	<entry key="Operation.RenameXMLFile.ErrorSlash.Message">El nombre del fichero no puede contener / ni \</entry>
+
+	<entry key="Operation.DeleteElementTitle">Eliminar elemento</entry>
+	<entry key="Operation.DeleteElementWarning">El elemento "{#0}" tiene {#1} referencias en el capítulo, dichas referencias se eliminarán junto con el elemento.
+		¿Está seguro de que desea eliminarlo?</entry>
+	<entry key="Operation.RenameElementWarning">El elemento "{#0}" tiene {#1} referencias en el capítulo.
+		¿Está seguro de que desea renombrarlo?</entry>
+	<entry key="Operation.ErrorLastScene">No se puede eliminar la última escena del capítulo.
+		Todo capítulo debe tener al menos una escena o escena intermedia.</entry>
+
+	<entry key="Operation.IdErrorTitle">Error de identificador</entry>
+	<entry key="Operation.IdErrorBlankSpaces">El identificador no debe contener espacios en blanco</entry>
+	<entry key="Operation.IdErrorAlreadyUsed">El identificador introducido ya está en uso</entry>
+	<entry key="Operation.IdErrorReservedIdentifier">El identificador "{#0}" está reservado para propósitos internos</entry>
+	<entry key="Operation.IdErrorFirstCharacter">El primer carácter de un identificador debe ser una letra</entry>
+
+	<entry key="Operation.EditAdaptationFile">Cambiar a modo de edición de adaptación</entry>
+	<entry key="Operation.EditAdaptationFile.Message">¿Quiere cambiar al modo de edición del archivo de adaptación?
+	Para volver al modo de edición de la aventura más adelante puede usar el 
+	comando correspondiente en la barra de menú</entry>
+	
+	<entry key="Operation.EditAssessmentFile">Cambiar a modo de edición de evaluación</entry>
+	<entry key="Operation.EditAssessmentFile.Message">¿Quiere cambiar al modo de edición del archivo de evaluación?
+	Para volver al modo de edición de la aventura más adelante puede usar el 
+	comando correspondiente en la barra de menú</entry>
+
+	<entry key="Operation.EditAdaptationFile.Error">No es posible editar el archivo de adaptación</entry>
+	<entry key="Operation.EditAdaptationFile.Error.Message">Por favor seleccione un archivo de adaptación antes de ejecutar la acción</entry>
+	
+	<entry key="Operation.EditAssessmentFile.Error">No es posible editar el archivo de evaluación</entry>
+	<entry key="Operation.EditAssessmentFile.Error.Message">Por favor seleccione un archivo de evaluación antes de ejecutar la acción</entry>
+	
+	<entry key="Operation.CreateAssessmentFile">Crear nuevo archivo de evaluación</entry>
+	<entry key="Operation.CreateAssessmentFile.Message">¿Está seguro de que quiere crear un nuevo fichero de adadptación?</entry>
+	<entry key="Operation.CreateAssessmentFile.FileName">Nombre del archivo de evaluación</entry>
+	<entry key="Operation.CreateAssessmentFile.FileName.Message">Escriba el nombre del archivo de evaluación</entry>
+	<entry key="Operation.CreateAssessmentFile.FileName.DefaultValue">evaluacion.xml</entry>
+
+	<entry key="Operation.CreateAdaptationFile">Crear nuevo archivo de adaptación</entry>
+	<entry key="Operation.CreateAdaptationFile.Message">¿Está seguro de que quiere crear un nuevo fichero de adadptación?</entry>
+	<entry key="Operation.CreateAdaptationFile.FileName">Nombre del archivo de adaptación</entry>
+	<entry key="Operation.CreateAdaptationFile.FileName.Message">Escriba el nombre del archivo de adaptación</entry>
+	<entry key="Operation.CreateAdaptationFile.FileName.DefaultValue">adaptacion.xml</entry>
+
+	<entry key="Operation.OverwriteAdaptationFile">El archivo ya existe</entry>
+	<entry key="Operation.OverwriteAssessmentFile">El archivo ya existe</entry>
+	<entry key="Operation.OverwriteAdaptationFile.Message">El archivo ya existe. ¿Desea sobreescribirlo?</entry>
+	<entry key="Operation.OverwriteAssessmentFile.Message">El archivo ya existe. ¿Desea sobreescribirlo?</entry>
+	
+	<entry key="Operation.RenameAssessmentRuleTitle">Nuevo Identificador</entry>
+	<entry key="Operation.RenameAssessmentRuleMessage">Escriba el nuevo identificador para la regla de evaluación</entry>
+	
+	<entry key="Operation.ExportT.Success.Title">Exportación completada</entry>
+	<entry key="Operation.ExportT.Success.Message">Se completó la exportación de forma satisfactoria.</entry>
+	<entry key="Operation.ExportT.TargetInProjectDir.Title">Error: El fichero a crear no válido</entry>
+	<entry key="Operation.ExportT.TargetInProjectDir.Message">Lo sentimos, pero el fichero generado no puede estar contenido
+en una carpeta que pertenezca a la carpeta del proyecto, ni en la carpeta "web" cuyo uso está restringido.
+Por favor, inténtelo de nuevo cambiando dicho directorio.</entry>
+
+	<entry key="Operation.ExportT.NotSuccess.Title">¡Fallo en la exportación!</entry>
+	<entry key="Operation.ExportT.NotSuccess.Message">Ocurrió un error al exportar el proyecto. Se canceló el proceso.</entry>
+	
+	<entry key="Operation.ExportToLOM.Title">Seleccione el nombre del Objeto de Aprendizaje</entry>
+	<entry key="Operation.ExportToLOM.Message">Por favor, seleccione el nombre del Objeto de Aprendizaje.
+	No tiene por qué ser igual que el nombre del archivo: Este nombre será empleado por el LMS para identificar la aventura</entry>
+	<entry key="Operation.ExportToLOM.DefaultValue">learningObject</entry>
+	
+	<entry key="Operation.ExportToLOM.LONameNotValid.Title">Error: El nombre no es válido</entry>
+	<entry key="Operation.ExportToLOM.LONameNotValid.Message">El nombre seleccionado no es válido. No puede contener espacios ni ser vacío</entry>
+
+	<entry key="Operation.ExportToLOM.AuthorNameOrganizationNotValid.Title">Error: los credenciales introducidos no son válidos</entry>
+	<entry key="Operation.ExportToLOM.AuthorNameOrganizationNotValid.Message">Los campos "Autor" y "Organziación" deben tener, al menos, 6 caracteres</entry>
+	
+	<entry key="Operation.ExportToLOM.LOMName">Nombre del Objeto de Aprendizahe</entry>
+	<entry key="Operation.ExportToLOM.LOMName.Description">No tiene por qué ser igual que el nombre del archivo: Este nombre será empleado por el LMS para identificar la aventura</entry>
+
+	<entry key="Operation.ExportToLOM.Credentials">Credenciales de autor</entry>
+	<entry key="Operation.ExportToLOM.Credentials.Description">Por motivos de seguridad, los contenidos del Objeto de Aprendizaje deben ser firmados digitalmente. Por favor, escriba su nombre completo y el nombre de su organización para la firma</entry>
+
+	<entry key="Operation.ExportToLOM.AuthorName">Autor</entry>
+	<entry key="Operation.ExportToLOM.OrganizationName">Organización</entry>
+	<entry key="Operation.ExportToLOM.OK">Aceptar</entry>
+	
+	<entry key="GUIStyles.Title">Estilo de GUI de la aventura</entry>
+	<entry key="GUIStyles.Traditional">GUI Tradicional</entry>
+	<entry key="GUIStyles.TraditionalDescription">Este tipo de interfaz presenta un gran parecido con las primeras aventuras gráficas de LucasArts. El usuario dispone de una serie de botones para efectuar acciones y un inventario en la parte inferior de la pantalla</entry>
+	<entry key="GUIStyles.Contextual">GUI Contextual</entry>
+	<entry key="GUIStyles.ContextualDescription">Este tipo de interfaz presenta un gran parecido con las últimas aventuras gráficas de LucasArts. Las acciones se muestran por pantalla encima del personaje u objeto, cuando el usuario así lo desea; el inventario también permanece oculto hasta que el usuario decide hacerlo visible</entry>
+
+	<entry key="AssessmentFiles.Title">Archivos de evaluación</entry>
+	<entry key="AssessmentFiles.AddFile">Añadir archivo de evaluación</entry>
+	<entry key="AssessmentFiles.DeleteFile">Eliminar archivo de evaluación</entry>
+
+	<entry key="AdaptationFiles.Title">Archivos de adaptación</entry>
+	<entry key="AdaptationFiles.AddFile">Añadir archivo de adaptación</entry>
+	<entry key="AdaptationFiles.DeleteFile">Eliminar archivo de adaptación</entry>
+
+	<entry key="Adaptation.ErrorNoFlags.Title">Flag inexistente</entry>
+	<entry key="Adaptation.ErrorNoFlags">Debe crear los flags en las opciones del capítulo antes de emplearlos</entry>
+	
+	<entry key="Assets.AddAsset">Añadir recurso</entry>
+	<entry key="Assets.DeleteAsset">Eliminar recurso</entry>
+	<entry key="Assets.DeleteAssetWarning">El recurso "{#0}" tiene {#1} referencias en la aventura, dichas referencias se eliminarán junto con el recurso.
+		¿Está seguro de que desea elminarlo?</entry>
+	<entry key="Assets.WarningAssetFound">El recurso "{#0}" ya se encuentra en esta categoría.
+		¿Desea sobreescribirlo?</entry>
+
+	<entry key="BackgroundAssets.Title">Recursos de fondos</entry>
+	<entry key="BackgroundAssets.Preview">Previsualización del fondo</entry>
+	<entry key="BackgroundAssets.ErrorBackgroundSize">El archivo "{#0}" no puede ser añadido como recurso de fondo.
+		El tamaño mínimo para un fondo es de 800x400 pixels, mientras que el archivo tiene {#1}x{#2}</entry>
+
+	<entry key="AnimationAssets.Title">Recursos de animaciones</entry>
+	<entry key="AnimationAssets.Preview">Previsualización de la animación</entry>
+
+	<entry key="ImageAssets.Title">Recursos de imágenes</entry>
+	<entry key="ImageAssets.Preview">Previsualización de la imagen</entry>
+
+	<entry key="IconAssets.Title">Recursos de iconos</entry>
+	<entry key="IconAssets.Preview">Previsualización del icono</entry>
+	<entry key="IconAssets.ErrorIconSize">El archivo "{#0}" no puede ser añadido como recurso de icono.
+		El tamaño establecido para los iconos es de 80x48, mientras que el archivo tiene {#1}x{#2}</entry>
+
+	<entry key="AudioAssets.Title">Recursos de audio</entry>
+	<entry key="AudioAssets.Preview">Reproductor de audio</entry>
+
+	<entry key="FormattedTextAssets.Title">Recursos de texto con formato</entry>
+	<entry key="FormattedTextAssets.Preview">Previsualización</entry>
+	<entry key="FormattedTextAssets.NotAvailable">No disponible</entry>
+
+	<entry key="Flags.Title">Flags</entry>
+	<entry key="Flags.AddFlag">Añadir flag</entry>
+	<entry key="Flags.DeleteFlag">Eliminar flag</entry>
+	<entry key="Flags.DefaultFlagId">IdFlag</entry>
+	<entry key="Flags.FlagName">Nombre del flag</entry>
+	<entry key="Flags.FlagReferences">Referencias</entry>
+	<entry key="Flags.AddFlagMessage">Introduzca el nombre para el nuevo flag:</entry>
+	<entry key="Flags.ErrorFlagWithReferences">Para eliminar un flag, no debe tener ninguna referencia</entry>
+	<entry key="Flags.ErrorFlagAlreadyExists">El identificador de flag introducido ya se encuentra en uso</entry>
+	<entry key="Flags.ErrorFlagWhitespaces">El identificador de flag introducido no debe contener espacios en blanco</entry>
+
+	<entry key="Conditions.Title">Condiciones</entry>
+	<entry key="Conditions.MainBlockTab">Bloque principal</entry>
+	<entry key="Conditions.MainBlockTitle">Bloque principal de condiciones</entry>
+	<entry key="Conditions.EitherBlockTab">Bloque "o-alternativa" #{#0}</entry>
+	<entry key="Conditions.EitherBlockTitle">Bloque "o-alternativa" de condiciones #{#0}</entry>
+	<entry key="Conditions.AddCondition">Añadir condición</entry>
+	<entry key="Conditions.EditCondition">Editar condición</entry>
+	<entry key="Conditions.DeleteCondition">Eliminar condición</entry>
+	<entry key="Conditions.AddEitherBlock">Añadir bloque de condiciones alternativas</entry>
+	<entry key="Conditions.EditConditionMessage">Seleccione los valores para el estado y el flag de la condición:</entry>
+	<entry key="Conditions.State">Estado</entry>
+	<entry key="Conditions.Flag">Flag</entry>
+	<entry key="Conditions.ErrorNoFlags">Para añadir una condición, debe haber al menos un flag en el capítulo</entry>
+
+	<entry key="Effects.Title">Efectos</entry>
+	<entry key="Effects.Description">Utilice los botones para añadir, eliminar y mover los efectos. Puede editarlos haciendo doble click sobre ellos</entry>
+	<entry key="Effects.EffectNumberColumnTitle">#</entry>
+	<entry key="Effects.EffectDescriptionColumnTitle">Descripción del efecto</entry>
+	<entry key="Effects.AddEffectButton">Añadir efecto</entry>
+	<entry key="Effects.DeleteEffectButton">Eliminar efecto</entry>
+	<entry key="Effects.OperationAddEffect">Añadir efecto</entry>
+	<entry key="Effects.SelectEffectType">Seleccione el tipo de efecto que desea añadir:</entry>
+
+	<entry key="Effect.Activate">Activar</entry>
+	<entry key="Effect.Deactivate">Desactivar</entry>
+	<entry key="Effect.ConsumeObject">Consumir objeto</entry>
+	<entry key="Effect.GenerateObject">Generar objeto</entry>
+	<entry key="Effect.CancelAction">Cancelar acción</entry>
+	<entry key="Effect.SpeakPlayer">Protagonista dice</entry>
+	<entry key="Effect.SpeakCharacter">Personaje dice</entry>
+	<entry key="Effect.TriggerBook">Disparar libro</entry>
+	<entry key="Effect.PlaySound">Reproducir sonido</entry>
+	<entry key="Effect.PlayAnimation">Reproducir animación</entry>
+	<entry key="Effect.MovePlayer">Mover protagonista</entry>
+	<entry key="Effect.MoveCharacter">Mover personaje</entry>
+	<entry key="Effect.TriggerConversation">Lanzar conversación</entry>
+	<entry key="Effect.TriggerCutscene">Lanzar escena intermedia</entry>
+	<entry key="Effect.TriggerLastScene">Lanzar última escena</entry>
+	<entry key="Effect.TriggerScene">Lanzar escena</entry>
+	<entry key="Effect.RandomEffect">Efecto con probabilidad</entry>
+
+	<entry key="Effect.ActivateInfo">Activar flag: {#0}</entry>
+	<entry key="Effect.DeactivateInfo">Desactivar flag: {#0}</entry>
+	<entry key="Effect.ConsumeObjectInfo">Consumir objeto {#0}</entry>
+	<entry key="Effect.GenerateObjectInfo">Generar objeto {#0}</entry>
+	<entry key="Effect.CancelActionInfo">Cancelar acción por defecto</entry>
+	<entry key="Effect.SpeakPlayerInfo">Protagonista dice "{#0}"</entry>
+	<entry key="Effect.SpeakCharacterInfo">Personaje {#0} dice "{#1}"</entry>
+	<entry key="Effect.TriggerBookInfo">Disparar libro {#0}</entry>
+	<entry key="Effect.PlaySoundInfo">Reproducir efecto de sonido "{#0}"</entry>
+	<entry key="Effect.PlayAnimationInfo">Reproducir efecto de animación "{#0}"</entry>
+	<entry key="Effect.MovePlayerInfo">Mover protagonista a x:{#0} y:{#1}</entry>
+	<entry key="Effect.MoveCharacterInfo">Mover personaje {#0} a x:{#1} y:{#2}</entry>
+	<entry key="Effect.TriggerConversationInfo">Lanzar conversación {#0}</entry>
+	<entry key="Effect.TriggerCutsceneInfo">Lanzar escena intermedia {#0}</entry>
+	<entry key="Effect.TriggerSceneInfo">Lanzar escena {#0}</entry>
+	<entry key="Effect.TriggerLastSceneInfo">Lanzar última escena</entry>
+	<entry key="Effect.RandomInfo">{#2} (probabilidad = {#0}%); {#3} (probabilidad = {#1}%)</entry>
+
+	<entry key="ImageDialog.Title">Previsualización de imagen - {#0}</entry>
+	<entry key="SlidesDialog.Title">Previsualización de diapositivas - {#0}</entry>
+	<entry key="AnimationDialog.Title">Previsualización de animación - {#0}</entry>
+	<entry key="AudioDialog.Title">Reproductor de audio - {#0}</entry>
+	<entry key="ConversationDialog.Title">Previsualización de conversación - {#0}</entry>
+
+	<entry key="ImagePanel.ImageNotAvalaible">Imagen no disponible</entry>
+
+	<entry key="AnimationPanel.AnimationNotAvalaible">Animación no disponible</entry>
+
+	<entry key="ActivateEffect.Title">Efecto activar</entry>
+	<entry key="ActivateEffect.Description">Seleccione el flag que será activado:</entry>
+
+	<entry key="DeactivateEffect.Title">Efecto desactivar</entry>
+	<entry key="DeactivateEffect.Description">Seleccione el flag que será desactivado:</entry>
+
+	<entry key="ActivateDeactivateEffect.ErrorNoFlags">Para añadir este tipo de efecto, debe haber al menos un flag en el capítulo</entry>
+
+	<entry key="MoveNPCEffect.Title">Efecto mover personaje</entry>
+	<entry key="MoveNPCEffect.Description">Seleccione un personaje al que mover y el punto de destino:</entry>
+	<entry key="MoveNPCEffect.ErrorNoCharacters">Para añadir este tipo de efecto, debe haber al menos un personaje en el capítulo</entry>
+
+	<entry key="MovePlayerEffect.Title">Efecto mover protagonista</entry>
+	<entry key="MovePlayerEffect.Description">Seleccione un punto de destino para el protagonista:</entry>
+
+	<entry key="ConsumeObject.Title">Efecto consumir objeto</entry>
+	<entry key="ConsumeObject.Description">Seleccione el objeto que será consumido:</entry>
+
+	<entry key="GenerateObject.Title">Efecto generar objeto</entry>
+	<entry key="GenerateObject.Description">Seleccione el objeto que será generado en el inventario:</entry>
+
+	<entry key="ConsumeGenerateObjectEffect.ErrorNoItems">Para añadir este tipo de efecto, debe haber al menos un objeto en el capítulo</entry>
+
+	<entry key="PlayAnimationEffect.Title">Efecto reproducir animación</entry>
+	<entry key="PlayAnimationEffect.Description">Seleccione una animación y una posición de destino para reproducirla:</entry>
+
+	<entry key="PlaySoundEffect.Title">Efecto reproducir sonido</entry>
+	<entry key="PlaySoundEffect.Description">Seleccione el sonido que será reproducido:</entry>
+	<entry key="PlaySoundEffect.BackgroundCheckBox">Ejecutar el sonido en segundo plano</entry>
+
+	<entry key="SpeakCharacterEffect.Title">Efecto personaje dice</entry>
+	<entry key="SpeakCharacterEffect.Description">Seleccione un personaje, y escriba la línea que pronunciará:</entry>
+	<entry key="SpeakCharacterEffect.ErrorNoCharacters">Para añadir este tipo de efecto, debe haber al menos un personaje en el capítulo</entry>
+
+	<entry key="SpeakPlayerEffect.Title">Efecto protagonista dice</entry>
+	<entry key="SpeakPlayerEffect.Description">Introduzca la línea que el protagonista pronunciará:</entry>
+
+	<entry key="TriggerBookEffect.Title">Efecto lanzar libro</entry>
+	<entry key="TriggerBookEffect.Description">Seleccione el libro que se mostrará:</entry>
+	<entry key="TriggerBookEffect.ErrorNoBooks">Para añadir este tipo de efecto, debe haber al menos un libro en el capítulo</entry>
+
+	<entry key="TriggerConversationEffect.Title">Efecto lanzar conversación</entry>
+	<entry key="TriggerConversationEffect.Description">Seleccione la conversación que se ejecutará:</entry>
+	<entry key="TriggerConversationEffect.ErrorNoConversations">Para añadir este tipo de efecto, debe haber al menos una conversación en el capítulo</entry>
+
+	<entry key="TriggerCutsceneEffect.Title">Efecto lanzar escena intermedia</entry>
+	<entry key="TriggerCutsceneEffect.Description">Seleccione la escena intermedia que se ejecutará:</entry>
+	<entry key="TriggerCutsceneEffect.ErrorNoCutscenes">Para añadir este tipo de efecto, debe haber al menos una escena intermedia en el capítulo</entry>
+
+	<entry key="TriggerSceneEffect.Title">Efecto lanzar escena</entry>
+	<entry key="TriggerSceneEffect.Description">Seleccione la escena que se ejecutará:</entry>
+	<entry key="TriggerSceneEffect.ErrorNoScenes">Para añadir este tipo de efecto, debe haber al menos una escena en el capítulo</entry>
+	
+	<entry key="RandomEffect.Title">Efecto con probabilidad</entry>
+	<entry key="RandomEffect.DeleteEffect">Borrar este efecto</entry>
+	<entry key="RandomEffect.EditEffect">Editar este efecto</entry>
+	<entry key="RandomEffect.Description">Seleccione dos efectos y la probabilidad con la que se ejecutará cada uno(%)</entry>
+	<entry key="RandomEffect.Probability.Title">Probabilidad</entry>
+	<entry key="RandomEffect.Probability.Description">Probabilidad del primer efecto(1-100):</entry>
+	<entry key="RandomEffect.Positive.Title">Primer efecto</entry>
+	<entry key="RandomEffect.Negative.Title">Segundo efecto (opcional)</entry>
+
+	<entry key="SceneLocation.SceneListDescription">Seleccione la escena para escoger el punto de destino:</entry>
+	<entry key="SceneLocation.NoSceneSelected">Ninguna escena seleccionada</entry>
+	<entry key="SceneLocation.XCoordinate">Coordenada X</entry>
+	<entry key="SceneLocation.YCoordinate">Coordenada Y</entry>
+	<entry key="SceneLocation.Width">Ancho del área</entry>
+	<entry key="SceneLocation.Height">Alto del área</entry>
+
+	<entry key="Resources.Title">Recursos</entry>
+	<entry key="Resources.Information">En este panel puede editar los recursos del elemento. Use los botones de "Examinar" para escoger los recursos para el elemento, y "Ver"/"Reproducir" para llevar a cabo una vista previa</entry>
+	<entry key="Resources.Conditions">Condiciones del bloque de recursos</entry>
+	<entry key="Resources.NewBlock">Nueva apariencia</entry>
+	<entry key="Resources.DeleteBlock">Borrar apariencia</entry>
+
+	<entry key="Resources.EditAsset">Editar recurso</entry>
+	<entry key="Resources.EditAssetMessage">Seleccione un recurso de la lista:</entry>
+	<entry key="Resources.DeleteAsset">Eliminar recurso</entry>
+	<entry key="Resources.Select">Seleccionar...</entry>
+	<entry key="Resources.New">Nuevo</entry>
+	<entry key="Resources.Edit">Editar</entry>	
+	<entry key="Resources.ViewAsset">Ver</entry>
+	<entry key="Resources.PlayAsset">Reproducir</entry>
+	<entry key="Resources.PlayVideoAsset">Reproducir</entry>
+	<entry key="Resources.ErrorNoAssets">No hay recursos asociados a esta categoría.
+		Por favor añada algunos recursos con las opciones del menú "Aventura" en la ventana principal.</entry>
+
+	<entry key="Resources.DescriptionSceneBackground">Imagen de fondo de la escena</entry>
+	<entry key="Resources.DescriptionSceneForeground">Máscara frontal de la escena</entry>
+	<entry key="Resources.DescriptionSceneHardMap">Mapa de durezas de la escena</entry>
+	<entry key="Resources.DescriptionSceneMusic">Música de la escena</entry>
+	<entry key="Resources.DescriptionSlidesceneSlides">Conjunto de diapositivas de la escena</entry>
+	<entry key="Resources.DescriptionBookBackground">Imagen de fondo del libro</entry>
+	<entry key="Resources.DescriptionItemImage">Imagen del objeto</entry>
+	<entry key="Resources.DescriptionItemIcon">Icono de inventario del objeto</entry>
+	<entry key="Resources.DescriptionCharacterAnimationStandUp">Animación del personaje mirando hacia arriba</entry>
+	<entry key="Resources.DescriptionCharacterAnimationStandDown">Animación del personaje mirando hacia abajo</entry>
+	<entry key="Resources.DescriptionCharacterAnimationStandRight">Animación del personaje mirando hacia la derecha</entry>
+	<entry key="Resources.DescriptionCharacterAnimationSpeakUp">Animación del personaje hablando hacia arriba</entry>
+	<entry key="Resources.DescriptionCharacterAnimationSpeakDown">Animación del personaje hablando hacia abajo</entry>
+	<entry key="Resources.DescriptionCharacterAnimationSpeakRight">Animación del personaje hablando hacia la derecha</entry>
+	<entry key="Resources.DescriptionCharacterAnimationUseRight">Animación del personaje usando un objeto</entry>
+	<entry key="Resources.DescriptionCharacterAnimationWalkUp">Animación del personaje andando hacia arriba</entry>
+	<entry key="Resources.DescriptionCharacterAnimationWalkDown">Animación del personaje andando hacia abajo</entry>
+	<entry key="Resources.DescriptionCharacterAnimationWalkRight">Animación del personaje andando hacia la derecha</entry>
+	<entry key="Resources.DescriptionVideoscenes">Video para la escena intermedia</entry>
+
+	<entry key="Adventure.Title">Datos de la aventura</entry>
+	<entry key="Adventure.AdventureTitle">Título de la aventura</entry>
+	<entry key="Adventure.AdventureDescription">Descripción de la aventura</entry>
+	<entry key="Adventure.PlayerMode">Tipo de aventura (Jugador Visible o Primera Persona)</entry>
+	<entry key="Adventure.CurrentPlayerMode">Modo actual</entry>
+	<entry key="Adventure.ModePlayerTransparent.Name">Primera persona</entry>
+	<entry key="Adventure.ModePlayerTransparent.Description">No se muestra al jugador en pantalla</entry>
+	<entry key="Adventure.ModePlayerVisible.Name">Jugador Visible</entry>
+	<entry key="Adventure.ModePlayerVisible.Description">El jugador se muestra y se mueve por la pantalla</entry>
+
+	<entry key="Chapter.Title">Capítulo</entry>
+	<entry key="Chapter.ChapterTitle">Título del capítulo</entry>
+	<entry key="Chapter.Description">Descripción del capítulo</entry>
+	<entry key="Chapter.AssessmentPath">Archivo de evaluación del capítulo</entry>
+	<entry key="Chapter.AdaptationPath">Archivo de adaptación del capítulo</entry>
+	<entry key="Chapter.InitialScene">Escena inicial del capítulo</entry>
+
+	<entry key="ScenesList.Title">Escenas</entry>
+	<entry key="ScenesList.ListTitle">Lista de escenas</entry>
+	<entry key="ScenesList.Information">Las escenas son las localizaciones en las que transcurre la acción. El protagonista puede moverse a lo largo de la escena, así como interactuar con las salidas, objetos y personajes que estén presentes.</entry>
+	<entry key="ScenesList.ColumnHeader0">Identificador de la escena</entry>
+	<entry key="ScenesList.ColumnHeader1">Número de salidas</entry>
+	<entry key="ScenesList.ColumnHeader2">Número de objetos</entry>
+	<entry key="ScenesList.ColumnHeader3">Número de personajes</entry>
+	<entry key="ScenesList.ExitsNumber">{#0} salidas</entry>
+	<entry key="ScenesList.ItemsNumber">{#0} objetos</entry>
+	<entry key="ScenesList.NPCsNumber">{#0} personajes</entry>
+
+	<entry key="Scene.Title">Escena</entry>
+	<entry key="Scene.Documentation">Documentación de la escena</entry>
+	<entry key="Scene.Name">Nombre de la escena</entry>
+	<entry key="Scene.DefaultInitialPosition">Posición inicial por defecto del protagonista</entry>
+	<entry key="Scene.UseInitialPosition">Usar una posición inicial por defecto en esta escena</entry>
+	<entry key="Scene.EditInitialPosition">Editar la posición inicial por defecto de la escena</entry>
+	<entry key="Scene.Preview">Previsualización de la escena completa</entry>
+	<entry key="Scene.LookPanelTitle">Apariencias</entry>
+	<entry key="Scene.LookPanelTip">Panel para la edición de apariencias alternativas para la escena</entry>
+	<entry key="Scene.DocPanelTitle">Información</entry>
+	<entry key="Scene.DocPanelTip">Panel para la edición de información adicional</entry>
+	
+	<entry key="ExitsList.Title">Salidas</entry>
+	<entry key="ExitsList.PreviewTitle">Previsualización de la posición de las salidas</entry>
+	<entry key="ExitsList.Information">Las salidas son áreas definidas en la escena, a través de las cuales el protagonista puede acceder a otras localizaciones. Cuando el protagonista se mueve dentro del área de la salida, se desplaza hasta el lugar indicado por la estructura de "Siguiente escena" que esté activa en la salida.</entry>
+
+	<entry key="ActiveAreasList.Title">Zonas activas</entry>
+	<entry key="ActiveAreasList.PreviewTitle">Previsualización de las zonas activas</entry>
+	<entry key="ActiveAreasList.Information">Las zonas activas son regiones rectangulares de la escena con las que se puede interactuar.</entry>
+
+	<entry key="BarriersList.Title">Barreras</entry>
+	<entry key="BarriersList.PreviewTitle">Previsualización de las barreras</entry>
+	<entry key="BarriersList.Information">Las barreras son zonas rectangulares de la escena que bloquean el paso del protagonista.</entry>
+
+	<entry key="Exit.Title">Salida</entry>
+	<entry key="Exit.Documentation">Documentación de la salida</entry>
+	<entry key="Exit.Preview">Posición y tamaño de la salida</entry>
+	<entry key="Exit.AdvancedOptions">Opciones avanzadas</entry>
+
+	<entry key="ExitLook.TextPanelTitle">Etiqueta de la salida</entry>
+	<entry key="ExitLook.CustomizeText">Etiqueta personalizada</entry>
+	<entry key="ExitLook.HelpText">Aquí puede modificar la apariencia del cursor al colocarse sobre la salida y la etiqueta que aparece junto al mismo. Por defecto, se muestra un cursor estándar y la etiqueta contiene el nombre de la escena de destino.   Esa información se puede cambiar en la definición de la salida y en la definición del enlace con la escena siguiente. En caso de definirse en la propia salida, afectará a todos los posibles enlaces de salida que no tengan su propia información personalizada. Para que el cambio afecte a un único enlace, podrá indicarlo en las opciones avanzadas del propio enlace.</entry>
+	<entry key="ExitLook.HelpTextTitle">¿Para qué sirve esto?</entry>
+	<entry key="ExitLook.CustomizeCursor">Cursor personalizado</entry>
+	<entry key="ExitLook.CursorPanelTitle">Cursor</entry>
+	
+	<entry key="ActiveArea.Title">Zona activa</entry>
+	<entry key="ActiveArea.Documentation">Descripción de la zona activa (no se usa en el motor)</entry>
+	<entry key="ActiveArea.Preview">Posición y tamaño de la zona activa</entry>
+	
+	<entry key="ActiveArea.MainPanelTitle">Zona activa</entry>
+	<entry key="ActiveArea.MainPanelTip">Zona activa</entry>
+	<entry key="ActiveArea.Conditions">Condiciones para el área activa</entry>
+	
+	<entry key="ActiveArea.Name">Nombre de la zona activa</entry>
+	<entry key="ActiveArea.Description">Breve descripción de la zona activa</entry>
+	<entry key="ActiveArea.DetailedDescription">Descripción detallada de la zona activa</entry>
+	<entry key="ActiveArea.DocPanelTitle">Documentación</entry>
+	<entry key="ActiveArea.DocPanelTip">Panel para la documentación de la zona activa</entry>
+	
+	<entry key="Barrier.Title">Barrera</entry>
+	<entry key="Barrier.Documentation">Descripción de la barrera (no se usa en el motor)</entry>
+	<entry key="Barrier.Preview">Posición y tamaño de la barrera</entry>
+	
+	<entry key="Barrier.MainPanelTitle">Barrera</entry>
+	<entry key="Barrier.MainPanelTip">Barrera</entry>
+	<entry key="Barrier.Conditions">Condiciones para la barrera</entry>
+	
+	<entry key="Barrier.Name">Nombre de la barrera</entry>
+	<entry key="Barrier.Description">Breve descripción de la barrera</entry>
+	<entry key="Barrier.DetailedDescription">Descripción detallada de la barrera</entry>
+	<entry key="Barrier.DocPanelTitle">Documentación</entry>
+	<entry key="Barrier.DocPanelTip">Panel para la documentación de la barrera</entry>
+
+	<entry key="NextScene.Title">Siguiente escena</entry>
+	<entry key="NextScene.NextSceneId">Identificador de la siguiente escena</entry>
+	<entry key="NextScene.DestinyPosition">Posición de destino para el protagonista</entry>
+	<entry key="NextScene.UseDestinyPosition">Usar una posición de destino para el protagonista</entry>
+	<entry key="NextScene.EditDestinyPosition">Editar la posición de destino para el protagonista en la nueva escena</entry>
+	<entry key="NextScene.Conditions">Condiciones de la "Siguiente escena"</entry>
+	<entry key="NextScene.Effects">Efectos de la "Siguiente escena"</entry>
+	<entry key="NextScene.PostEffects">Post-efectos de la "Siguiente escena"</entry>
+	<entry key="NextScene.AdvancedOptions">Opciones avanzadas</entry>
+
+	<entry key="ElementReference.ItemReferences">Mostrar referencias a objetos</entry>
+	<entry key="ElementReference.NPCReferences">Mostrar referencias a personajes</entry>
+
+	<entry key="ItemReferencesList.Title">Referencias a objetos</entry>
+	<entry key="ItemReferencesList.PreviewTitle">Previsualización de la posición de los objetos</entry>
+	<entry key="ItemReferencesList.Information">Las referencias a objeto son los objetos que se pueden encontrar en la escena. Cada objeto se define de forma independiente, pero se puede asociar a múltiples escenas. Para cada referencia, se debe seleccionar donde colocar el objeto, y bajo que circunstancias se quiere que éste se muestre por pantalla.</entry>
+
+	<entry key="ItemReference.Title">Referencia a objeto</entry>
+	<entry key="ItemReference.Documentation">Documentación de la referencia a objeto</entry>
+	<entry key="ItemReference.ItemId">Identificador del objeto referenciado</entry>
+	<entry key="ItemReference.Conditions">Condiciones de la referencia a objeto</entry>
+	<entry key="ItemReference.Position">Posición de la referencia a objeto</entry>
+
+	<entry key="NPCReferencesList.Title">Referencias a personajes</entry>
+	<entry key="NPCReferencesList.PreviewTitle">Previsualización de la posición de los personajes</entry>
+	<entry key="NPCReferencesList.Information">Las referencias a personaje son los personajes que se pueden encontrar en la escena. Cada personaje se define de forma independiente, pero se puede asociar a múltiples escenas. Para cada referencia, se debe seleccionar donde colocar el personaje, y bajo que circunstancias se quiere que éste se muestre por pantalla.</entry>
+
+	<entry key="NPCReference.Title">Referencia a personaje</entry>
+	<entry key="NPCReference.Documentation">Documentación de la referencia a personaje (no se usa en el motor)</entry>
+	<entry key="NPCReference.NPCId">Identificador del personaje referenciado</entry>
+	<entry key="NPCReference.Conditions">Condiciones de la referencia a personaje</entry>
+	<entry key="NPCReference.Position">Posición de la referencia a personaje</entry>
+
+	<entry key="CutscenesList.Title">Escenas intermedias</entry>
+	<entry key="CutscenesList.ListTitle">Lista de escenas intermedias</entry>
+	<entry key="CutscenesList.Information">Las escenas intermedias se usan para mostrar información al jugador de manera no interactiva. Se pueden usar para mostrar un prólogo o epílogo con texto e imágenes, así como otras muchas aplicaciones.</entry>
+	<entry key="CutscenesList.ColumnHeader0">Identificador de la escena intermedia</entry>
+	<entry key="CutscenesList.ColumnHeader1">Tipo de escena intermedia</entry>
+	<entry key="CutscenesList.Slidescene">Escena de diapositivas</entry>
+	<entry key="CutscenesList.Videoscene">Escena de vídeo</entry>
+	
+	<entry key="Cutscene.Title">Escena intermedia</entry>
+	<entry key="Cutscene.Documentation">Descripción de la escena intermedia (no se usa en el motor)</entry>
+	<entry key="Cutscene.Name">Nombre de la escena intermedia</entry>
+
+	<entry key="Videoscene.Title">Escena de vídeo</entry>
+	<entry key="Videoscene.Documentation">Descripción de la escena de vídeo (no se usa en el motor)</entry>
+	<entry key="Videoscene.Name">Nombre de la escena de vídeo</entry>
+	
+	<entry key="Error.NoVideoFormat">Error cargando el video</entry>
+	<entry key="Error.NoVideoFormat.Message">Formato de video no admitido</entry>
+	
+	<entry key="Error.VideoGeneralError">Error cargando el video</entry>
+	<entry key="Error.VideoGeneralError.Message">Se produjo un error cargando el video. Quizá el archivo esté corrupto o tenga un formato no permitido</entry>
+	
+	
+	<entry key="BooksList.Title">Libros</entry>
+	<entry key="BooksList.ListTitle">Lista de libros</entry>
+	<entry key="BooksList.Information">Los libros son elementos que se pueden mostrar durante el juego para proveer al jugador con información en forma de texto. En este panel se puede ver la lista de los libros definidos, así como el número de párrafos del que dispone cada uno.</entry>
+	<entry key="BooksList.ColumnHeader0">Identificador del libro</entry>
+	<entry key="BooksList.ColumnHeader1">Número de párrafos</entry>
+	<entry key="BooksList.ParagraphsNumber">{#0} párrafos</entry>
+	<entry key="BooksList.PagesNumber">{#0} páginas</entry>
+
+	<entry key="BookTypes.Title">Seleccione el tipo de libro</entry>
+	<entry key="BookTypes.Simple">Contenido Simple</entry>
+	<entry key="BookTypes.SimpleDescription">El libro se crea en el propio editor, añadiendo títulos, párrafos, imágenes y listas.</entry>
+	<entry key="BookTypes.Formatted">Texto con formato</entry>
+	<entry key="BookTypes.FormattedDescription">Este tipo soporta contenido con formato que se puede leer de un archivo RTF o HTML.</entry>
+
+	<entry key="Book.Title">Libro</entry>
+	<entry key="Book.Documentation">Documentación del libro</entry>
+	<entry key="Book.Preview">Previsualización del libro vacío</entry>
+	<entry key="Book.DocAndApp">Información adicional</entry>
+	<entry key="Book.Contents">Contenido del libro</entry>
+	<entry key="Book.DocAndApp.Tip">Panel para introducir información adicional sobre el libro y modificar su apariencia</entry>
+	<entry key="Book.Contents.Tip">Panel para editar los contenidos del libro</entry>
+	
+	<entry key="BookPagesList.TypeResource">Archivo local</entry>
+	<entry key="BookPagesList.TypeURL">URL</entry>
+	<entry key="BookPagesList.Title">Lista de páginas</entry>
+	<entry key="BookPages.Preview">Previsualización del libro</entry>
+	<entry key="BookPages.PreviewDescription">Para ver una previsualización detallada del libro (como se verá dentro del juego), pulse el botón inferior</entry>
+	<entry key="BookPages.PreviewDescription2">Esta es una previsualización sencilla de la página seleccionada. Úsela para ajustar los márgenes del libro.</entry>
+	<entry key="BookPages.List">Lista de páginas</entry>
+	<entry key="BookPages.ListDescription">Número de páginas: {#0}</entry>
+	
+	<entry key="BookPages.AddPage">Crear nueva página</entry>
+	<entry key="BookPages.DeletePage">Borrar página seleccioanda</entry>
+	<entry key="BookPages.MovePageUp">Subir la página seleccionada</entry>
+	<entry key="BookPages.MovePageDown">Bajar la página seleccionada</entry>
+	
+	
+	<entry key="BookPage.Title">Página seleccionada: {#0} ({#1})</entry>
+	<entry key="BookPage.Scrollable">Sí</entry>
+	<entry key="BookPage.None">Ninguna</entry>
+	<entry key="BookPage.NotApplicable">no aplicable</entry>
+	<entry key="BookPage.ScrollableTitle">Usar barras de scroll</entry>
+	<entry key="BookPage.ScrollableToolTip">Cuando se selecciona esta opción, se emplearán barras de scroll siempre que la página no quepa en la pantalla</entry>
+	<entry key="BookPage.NotScrollable">No</entry>
+	<entry key="BookPage.Margin"> Margen </entry>
+	<entry key="BookPage.MarginToolTip">Use esta barra para ajustar el espacio entre la página y el borde de la imagen de fondo</entry>
+	<entry key="BookPage.URL">Escriba aquí la URL</entry>
+	<entry key="BookPage.AssetPath">Ubicación del recurso seleccionado</entry>
+	<entry key="BookPage.NotValidURL">No se puede acceder a la URL indicada. Por favor, compruebe la dirección y el funcionamiento de su conexión a Internet</entry>
+	<entry key="BookPage.NotValidResource">Se han encontrado problemas con el archivo seleccionado, es posible que no pueda verse correctamente en el juego</entry>
+	<entry key="BookPage.Valid">El contenido parece válido.</entry>
+	
+	
+	<entry key="BookPageType.Title">Ubicación del contenido</entry>
+	<entry key="BookPageType.Resource">Recurso Local</entry>
+	<entry key="BookPageType.ResourceDescription">Escoja este tipo para seleccionar el contenido desde un archivo local. El archivo será añadido al fichero de la aventura.</entry>
+	<entry key="BookPageType.URL">URL</entry>
+	<entry key="BookPageType.URLDescription">Escoja este tipo para escribir la dirección URL del contenido a mostrar. El contenido se mostrará desde la URL en tiempo de ejecución</entry>	
+
+	<entry key="BookParagraphsList.Title">Párrafos del libro</entry>
+	<entry key="BookParagraphsList.ListTitle">Lista de párrafos del libro</entry>
+	<entry key="BookParagraphsList.Information">Cada libro está compuesto por una serie de párrafos que son mostrados en orden. Estos parrafos pueden almacenar texto, títulos, listas, imágenes... y pueden ser combinados en cualquier orden.</entry>
+	<entry key="BookParagraphsList.ColumnHeader0">Tipo de párrafo</entry>
+	<entry key="BookParagraphsList.ColumnHeader1">Palabras</entry>
+	<entry key="BookParagraphsList.TextParagraph">{#0} - Párrafo de texto</entry>
+	<entry key="BookParagraphsList.TitleParagraph">{#0} - Párrafo de título</entry>
+	<entry key="BookParagraphsList.BulletParagraph">{#0} - Párrafo de lista</entry>
+	<entry key="BookParagraphsList.ImageParagraph">{#0} - Párrafo de imagen</entry>
+	<entry key="BookParagraphsList.WordCount">{#0} palabras</entry>
+	<entry key="BookParagraphsList.NotApplicable">- No aplicable -</entry>
+
+	<entry key="BookParagraphs.Preview">Previsualización del libro</entry>
+	<entry key="BookParagraphs.PreviewDescription">NOTE: Esta es una previsualización de reference. La apariencia dentro del juego podria variar.</entry>
+	<entry key="BookParagraphs.List">Lista de párrafos disponibles</entry>
+	<entry key="BookParagraphs.ListDescription">Número de párrafos: {#0}</entry>
+	
+	<entry key="BookParagraphs.AddParagraph">Crear nuevo párrafo (Título, Texto, Elemento de Lista o Imagen)</entry>
+	<entry key="BookParagraphs.DeleteParagraph">Borrar el párrafo seleccionado</entry>
+	<entry key="BookParagraphs.MoveParagraphUp">Subir el párrafo seleccionado</entry>
+	<entry key="BookParagraphs.MoveParagraphDown">Bajar el párrafo seleccionado</entry>
+	
+	<entry key="BookParagraph.NotAvailable">No seleccionó ningún párrafo</entry>
+	<entry key="BookParagraph.None">Ninguno</entry>
+	
+	<entry key="BookParagraph.TitlePanel">Párrafo seleccionado: {#0} ({#1})</entry>
+	<entry key="BookParagraph.DescriptionPanel">Use estos campos para modificar el párrafo:</entry>
+	<entry key="BookParagraph.Text">Texto del párrafo</entry>
+	<entry key="BookParagraph.Title">Texto del párrafo de título</entry>
+	<entry key="BookParagraph.Bullet">Texto del párrafo de lista</entry>
+	<entry key="BookParagraph.ImagePath">Ruta a la imagen del párrafo</entry>
+	<entry key="BookParagraph.Preview">Previsualización de la imagen mostrada</entry>
+
+	<entry key="ItemsList.Title">Objetos</entry>
+	<entry key="ItemsList.ListTitle">Lista de objetos</entry>
+	<entry key="ItemsList.Information">Los objetos son uno de los principales elementos con los que puede interactuar el protagonista. Pueden ser colocados en las escenas, generados, consumidos o colocados en el inventario. Además, se pueden realizar una amplia variedad de acciones con los objetos.</entry>
+	<entry key="ItemsList.ColumnHeader0">Identificador del objeto</entry>
+	<entry key="ItemsList.ColumnHeader1">Número de acciones</entry>
+	<entry key="ItemsList.ActionsNumber">{#0} acciones</entry>
+
+	<entry key="Item.Title">Objeto</entry>
+	<entry key="Item.Documentation">Documentación del objeto (no se usa en el motor)</entry>
+	<entry key="Item.Name">Nombre del objeto</entry>
+	<entry key="Item.Description">Descripción breve del objeto (se muestra al mirar el objeto)</entry>
+	<entry key="Item.DetailedDescription">Descripción detallada del objeto (se muestra al examinar el objeto)</entry>
+	<entry key="Item.Preview">Previsualización del objeto</entry>
+	<entry key="Item.LookPanelTitle">Apariencias</entry>
+	<entry key="Item.LookPanelTip">Panel para la edición de las distintas apariencias del objeto</entry>
+	<entry key="Item.DocPanelTitle">Información</entry>
+	<entry key="Item.DocPanelTip">Panel para editar la información del objeto</entry>
+
+
+	<entry key="ActionsList.Title">Acciones</entry>
+	<entry key="ActionsList.ListTitle">Lista de acciones</entry>
+	<entry key="ActionsList.Information">Cada objeto puede tener enlazado una serie de acciones, cada una con sus condiciones y efectos. Estas acciones se ejecutarán cuando el jugador interaccione con los objetos de determinadas maneras.</entry>
+	<entry key="ActionsList.ColumnHeader0">Tipo de acción</entry>
+	<entry key="ActionsList.ColumnHeader1">Tiene condiciones</entry>
+	<entry key="ActionsList.ColumnHeader2">Tiene efectos</entry>
+	<entry key="ActionsList.ExamineAction">Examinar</entry>
+	<entry key="ActionsList.GrabAction">Coger</entry>
+	<entry key="ActionsList.GiveToAction">Entregar a {#0}</entry>
+	<entry key="ActionsList.UseWithAction">Usar con {#0}</entry>
+	<entry key="ActionsList.UseAction">Usar</entry>
+
+	<entry key="Action.Title">Acción</entry>
+	<entry key="Action.OperationAddAction">Añadir acción</entry>
+	<entry key="Action.MessageSelectItem">Seleccione un objeto para ser el objetivo de la acción:</entry>
+	<entry key="Action.ErrorNoItems">No hay objetos definidos en el capítulo.
+		Es imposible añadir una acción de este tipo.</entry>
+	<entry key="Action.MessageSelectNPC">Seleccione un personaje para ser el objetivo de la acción:</entry>
+	<entry key="Action.ErrorNoNPCs">No hay personajes definidos en el capítulo.
+		Es imposible añadir una acción de este tipo</entry>
+	<entry key="Action.Documentation">Documentación de la acción</entry>
+	<entry key="Action.IdTarget">Elemento de destino para la acción</entry>
+	<entry key="Action.Conditions">Condición de la acción</entry>
+
+	<entry key="Player.Title">Protagonista</entry>
+	<entry key="Player.Documentation">Información del protagonista</entry>
+	<entry key="Player.TextColor">Color de las líneas de diálogo del protagonista</entry>
+	<entry key="Player.FrontColor">Editar el color principal</entry>
+	<entry key="Player.BorderColor">Editar el color del borde</entry>
+	<entry key="Player.Name">Nombre del protagonista</entry>
+	<entry key="Player.Description">Descripción breve del protagonista</entry>
+	<entry key="Player.DetailedDescription">Descripción detallada del protagonista</entry>
+	<entry key="Player.Preview">Previsualización del protagonista</entry>
+	<entry key="Player.LookPanelTitle">Apariencias</entry>
+	<entry key="Player.LookPanelTip">Panel para la edición de las posibles apariencias del protagonista</entry>
+	<entry key="Player.DocPanelTitle">Información</entry>
+	<entry key="Player.DocPanelTip">Panel para editar la información del protagonista</entry>
+
+	<entry key="NPCsList.Title">Personajes</entry>
+	<entry key="NPCsList.ListTitle">Lista de personajes</entry>
+	<entry key="NPCsList.Information">Los personajes juegan un papel muy importante en cada aventura. Pueden entablar conversaciones con el protagonista, ofreciendo información o consejo; pueden además interactuar con objetos, entragando y recibiendo dichos elementos del jugador.</entry>
+	<entry key="NPCsList.ColumnHeader0">Identificador del personaje</entry>
+	<entry key="NPCsList.ColumnHeader1">Número de conversaciones</entry>
+	<entry key="NPCsList.ConversationsNumber">{#0} conversaciones</entry>
+
+	<entry key="NPC.Title">Personaje</entry>
+	<entry key="NPC.Documentation">Documentación del personaje (no se usa en el editor)</entry>
+	<entry key="NPC.TextColor">Color de las líneas de diálogo del personaje</entry>
+	<entry key="NPC.FrontColor">Editar el color principal</entry>
+	<entry key="NPC.BorderColor">Editar el color del borde</entry>
+	<entry key="NPC.Name">Nombre del personaje</entry>
+	<entry key="NPC.Description">Descripción breve del personaje (se muestra al mirar el personaje)</entry>
+	<entry key="NPC.DetailedDescription">Descripción detallada del personaje (se muestra al examinar el personaje)</entry>
+	<entry key="NPC.Preview">Previsualización del personaje</entry>
+	<entry key="NPC.LookPanelTitle">Apariencias</entry>
+	<entry key="NPC.LookPanelTip">Panel para la edición de las posibles apariencias del personaje </entry>
+	<entry key="NPC.DocPanelTitle">Información</entry>
+	<entry key="NPC.DocPanelTip">Panel para editar la información del personaje</entry>
+
+	<entry key="ConversationReferencesList.Title">Referencias a conversación</entry>
+	<entry key="ConversationReferencesList.ListTitle">Lista de referencias a conversación</entry>
+	<entry key="ConversationReferencesList.Information">Cada personaje tiene asociadas una serie de referencias a conversaciones. De esta forma, cuando el protagonista se dirige a un personaje, se ejecutará una conversación. Cada referencia a conversación puede tener opciones, de modo que serán ejecutadas en momentos determinados de la aventura.</entry>
+	<entry key="ConversationReferencesList.ColumnHeader0">Conversación referenciada</entry>
+	<entry key="ConversationReferencesList.ColumnHeader1">Tiene condiciones</entry>
+
+	<entry key="ConversationReference.Title">Referencia a conversación</entry>
+	<entry key="ConversationReference.Documentation">Documentación de la referencia a conversación</entry>
+	<entry key="ConversationReference.ConversationId">Identificador de la conversación referenciada</entry>
+	<entry key="ConversationReference.Conditions">Condiciones de la referencia a conversación</entry>
+
+	<entry key="ConversationsList.Title">Conversaciones</entry>
+	<entry key="ConversationsList.ListTitle">Lista de conversaciones</entry>
+	<entry key="ConversationsList.Information">Las conversaciones se previsualizan cuando el protagonista decide dirigirse a ciertos personajes, o en determinados momentos del juego. Estas conversaciones se componen de bloques de texto lineal, así como de partes en las que el protagonista puede elegir una opción de dialogo, que tendrá un efecto sobre el desarrollo de la conversación.</entry>
+	<entry key="ConversationsList.ColumnHeader0">Identificador de la conversación</entry>
+	<entry key="ConversationsList.ColumnHeader1">Número de líneas</entry>
+	<entry key="ConversationsList.LinesNumber">{#0} líneas</entry>
+
+	<entry key="Conversations.InsertLine">Insertar línea</entry>
+	<entry key="Conversations.DeleteLine">Borrar línea</entry>
+	<entry key="Conversations.EditAudio">Editar audio</entry>
+	<entry key="Conversations.EditEffect">Editar efectos</entry>
+	<entry key="Conversations.DeleteLink">Borrar enlace</entry>
+	<entry key="Conversations.DeleteOption">Borrar opción</entry>
+
+
+	<entry key="Conversation.OptionPreviewConversation">Previsualizar conversación</entry>
+	<entry key="Conversation.OptionPreviewPartialConversation">Previsualizar conversación desde este nodo</entry>
+	<entry key="Conversation.OptionAddDialogueNode">Añadir nodo de diálogo</entry>
+	<entry key="Conversation.OptionAddOptionNode">Añadir nodo de opciones</entry>
+	<entry key="Conversation.OptionDeleteNode">Eliminar nodo</entry>
+	<entry key="Conversation.OptionLinkNode">Enlazar nodo a...</entry>
+	<entry key="Conversation.OptionMoveNode">Mover nodo a...</entry>
+	<entry key="Conversation.OptionAddGoBackTag">Añadir marca "Volver"</entry>
+	<entry key="Conversation.OptionRemoveGoBackTag">Eliminar marca "Volver"</entry>
+	<entry key="Conversation.OperationAddChild">Añadir hijo</entry>
+	<entry key="Conversation.ConfirmationAddChildToNodeWithEffects">¿Está seguro de que quiere añadir un hijo al nodo terminal seleccionado?
+		Si se añade un hijo, los efectos de este nodo se perderán.</entry>
+	<entry key="Conversation.OperationModeNode">Mover nodo</entry>
+	<entry key="Conversation.ErrorMoveNode">No se puede mover el nodo seleccionado a la posición dada</entry>
+	<entry key="Conversation.OperationLinkNode">Enlazar nodo</entry>
+	<entry key="Conversation.ErrorLinkNode">No se puede enlazar el nodo seleccionado con el nodo dado</entry>
+	<entry key="Conversation.ConfirmationLinkNode">¿Está seguro de que quiere enlazar este nodo a otro?
+		Si se añade un enlace, los efectos de este nodo de perderán.</entry>
+	<entry key="Conversation.OperationDeleteNode">Eliminar nodo</entry>
+	<entry key="Conversation.ConfirmDeleteNode">¿Está seguro de que quiere eliminar este nodo?
+		El nodo se eliminará junto con sus hijos, si estos no están enlazados a otras
+		partes de la conversación. Los datos eliminados no podrán recuperarse.</entry>
+	<entry key="Conversation.OperationDeleteLink">Eliminar enlace</entry>
+	<entry key="Conversation.ConfirmationDeleteLink">¿Está seguro de que quiere eliminar el enlace con el hijo?
+		Todo nodo sin padre se perderá. 
+		Los datos eliminados no podrán recuperarse.</entry>
+	<entry key="Conversation.OperationDeleteOption">Eliminar opción</entry>
+	<entry key="Conversation.ConfirmationDeleteOption">¿Está seguro de que quiere borrar esta opción?
+		Todo nodo sin padre se perderá. 
+		Los datos eliminados no podrán recuperarse.</entry>
+	<entry key="Conversation.OperationAddGoBackTag">Añadir marca "Volver"</entry>
+	<entry key="Conversation.ConfirmationAddGoBackTag">¿Está seguro de que quiere añadir una marca "Volver" al nodo terminal seleccionado?
+		Si la marca se añade, los efectos de este nodo se perderán.</entry>
+	<entry key="Conversation.StatusBarNormal">Estado: Normal</entry>
+	<entry key="Conversation.StatusWaitingToMove">Estado: Esperando nodo de destino para mover el nodo seleccionado</entry>
+	<entry key="Conversation.StatusWaitingToLink">Estado: Esperando nodo de destino para enlazar como hijo al nodo seleccionado</entry>
+
+	<entry key="LinesPanel.NoNodeSelected">Ningún nodo seleccionado</entry>
+	<entry key="LinesPanel.DialogueNode">Nodo de diálogo</entry>
+	<entry key="LinesPanel.OptionNode">Nodo de opciones</entry>
+
+	<entry key="ConversationLine.PlayerName">Protagonista</entry>
+	<entry key="ConversationLine.NewOption">Nueva opción</entry>
+	<entry key="ConversationLine.DefaultText">Nueva línea</entry>
+
+	<entry key="ResourcesList.SelectResourcesBlock">Bloque de recursos a usar en la previsualización del elemento</entry>
+	<entry key="ResourcesList.ResourcesBlockNumber">Bloque de recursos #</entry>
+
+	<entry key="PlayerPosition.Title">Posición del protagonista</entry>
+	<entry key="PlayerPosition.PositionPanel">Seleccione el lugar en el que aparecerá el protagonista</entry>
+
+	<entry key="TreeNode.AddElement">Añadir elemento</entry>
+	<entry key="TreeNode.DeleteElement">Eliminar elemento</entry>
+	<entry key="TreeNode.MoveElementUp">Subir elemento</entry>
+	<entry key="TreeNode.MoveElementDown">Bajar elemento</entry>
+	<entry key="TreeNode.RenameElement">Renombrar elemento...</entry>
+
+	<entry key="TreeNode.AddElement0">Añadir capítulo</entry>
+	<entry key="TreeNode.AddElement1">Añadir lista de escenas</entry>
+	<entry key="TreeNode.AddElement2">Añadir escena</entry>
+	<entry key="TreeNode.AddElement3">Añadir lista de salidas</entry>
+	<entry key="TreeNode.AddElement4">Añadir salida</entry>
+	<entry key="TreeNode.AddElement5">Añadir lista de referencias a objeto</entry>
+	<entry key="TreeNode.AddElement6">Añadir referencia a objeto</entry>
+	<entry key="TreeNode.AddElement7">Añadir lista de referencias a personaje</entry>
+	<entry key="TreeNode.AddElement8">Añadir referencia a personaje</entry>
+	<entry key="TreeNode.AddElement9">Añadir lista de escenas intermedias</entry>
+	<entry key="TreeNode.AddElement10">Añadir escena de diapositivas</entry>
+	<entry key="TreeNode.AddElement11">Añadir lista de libros</entry>
+	<entry key="TreeNode.AddElement12">Añadir libro</entry>
+	<entry key="TreeNode.AddElement13">Añadir lista de párrafos</entry>
+	<entry key="TreeNode.AddElement14">Añadir párrafo de título</entry>
+	<entry key="TreeNode.AddElement15">Añadir párrafo de texto</entry>
+	<entry key="TreeNode.AddElement16">Añadir párrafo de lista</entry>
+	<entry key="TreeNode.AddElement17">Añadir párrafo de imagen</entry>
+	<entry key="TreeNode.AddElement18">Añadir lista de objetos</entry>
+	<entry key="TreeNode.AddElement19">Añadir objeto</entry>
+	<entry key="TreeNode.AddElement20">Añadir lista de acciones</entry>
+	<entry key="TreeNode.AddElement21">Añadir acción "Examinar"</entry>
+	<entry key="TreeNode.AddElement22">Añadir acción "Coger"</entry>
+	<entry key="TreeNode.AddElement23">Añadir acción "Usar"</entry>
+	<entry key="TreeNode.AddElement24">Añadir acción "Usar con"</entry>
+	<entry key="TreeNode.AddElement25">Añadir acción "Entregar a"</entry>
+	<entry key="TreeNode.AddElement26">Añadir protagonista</entry>
+	<entry key="TreeNode.AddElement27">Añadir lista de personajes</entry>
+	<entry key="TreeNode.AddElement28">Añadir personaje</entry>
+	<entry key="TreeNode.AddElement29">Añadir lista de referencias a conversación</entry>
+	<entry key="TreeNode.AddElement30">Añadir referencia a conversación</entry>
+	<entry key="TreeNode.AddElement31">Añadir lista de conversaciones</entry>
+	<entry key="TreeNode.AddElement32">Añadir conversación de árbol</entry>
+	<entry key="TreeNode.AddElement33">Añadir conversación de grafo</entry>
+	<entry key="TreeNode.AddElement34">Añadir recursos</entry>
+	<entry key="TreeNode.AddElement35">Añadir siguiente escena</entry>
+	<entry key="TreeNode.AddElement36">Añadir fin de escena</entry>
+	<entry key="TreeNode.AddElement37">Añadir escena de vídeo</entry>
+	<entry key="TreeNode.AddElement38">Añadir regla de evaluacíón</entry>
+	<entry key="TreeNode.AddElement39">Añadir regla de adaptación</entry>
+	<entry key="TreeNode.AddElement40">Añadir perfil de evaluación</entry>
+	<entry key="TreeNode.AddElement41">Añadir perfil de adaptación</entry>
+	<entry key="TreeNode.AddElement43">Añadir página</entry>
+	<entry key="TreeNode.AddElement44">Añadir temporizador</entry>
+	<entry key="TreeNode.AddElement47">Añadir perfil de evaluación</entry>
+	<entry key="TreeNode.AddElement48">Añadir perfil de adaptación</entry>
+	<entry key="TreeNode.AddElement49">Añadir regla temporizada</entry>
+	<entry key="TreeNode.AddElement50">Añadir zonas activas</entry>
+	<entry key="TreeNode.AddElement51">Añadir zona activa</entry>
+	<entry key="TreeNode.AddElement52">Añadir barreras</entry>
+	<entry key="TreeNode.AddElement53">Añadir barrera</entry>
+	
+	
+	<entry key="GeneralText.Yes">Sí</entry>
+	<entry key="GeneralText.No">No</entry>
+	<entry key="GeneralText.OK">Aceptar</entry>
+	<entry key="GeneralText.Cancel">Cancelar</entry>
+	<entry key="GeneralText.New">Nuevo</entry>
+	<entry key="GeneralText.Open">Abrir</entry>
+	<entry key="GeneralText.Close">Cerrar</entry>
+	<entry key="GeneralText.Information">Información</entry>
+	<entry key="GeneralText.PreviewText">Esta es una línea de prueba</entry>
+	<entry key="GeneralText.EditConditions">Editar condiciones</entry>
+	<entry key="GeneralText.EditInitConditions">Editar condiciones iniciales</entry>
+	<entry key="GeneralText.EditEndConditions">Edit condiciones finales</entry>
+	<entry key="GeneralText.EditEffects">Editar efectos</entry>
+	<entry key="GeneralText.EditPostEffects">Editar post efectos</entry>
+
+	<entry key="DefaultValue.AdventureTitle">Título de la aventura</entry>
+	<entry key="DefaultValue.ChapterTitle">Título del capítulo</entry>
+	<entry key="DefaultValue.SceneId">IdEscena</entry>
+
+	<entry key="Element.Name0">Capítulo</entry>
+	<entry key="Element.Name1">Escenas</entry>
+	<entry key="Element.Name2">Escena</entry>
+	<entry key="Element.Name3">Salidas</entry>
+	<entry key="Element.Name4">Salida</entry>
+	<entry key="Element.Name5">Referencias a objeto</entry>
+	<entry key="Element.Name6">Referencia a objeto</entry>
+	<entry key="Element.Name7">Referencias a personaje</entry>
+	<entry key="Element.Name8">Referencia a personaje</entry>
+	<entry key="Element.Name9">Escenas intermedias</entry>
+	<entry key="Element.Name10">Escena de diapositivas</entry>
+	<entry key="Element.Name11">Libros</entry>
+	<entry key="Element.Name12">Libro</entry>
+	<entry key="Element.Name13">Párrafos</entry>
+	<entry key="Element.Name14">Párrafo de título</entry>
+	<entry key="Element.Name15">Párrafo de texto</entry>
+	<entry key="Element.Name16">Párrafo de lista</entry>
+	<entry key="Element.Name17">Párrafo de imagen</entry>
+	<entry key="Element.Name18">Objetos</entry>
+	<entry key="Element.Name19">Objeto</entry>
+	<entry key="Element.Name20">Acciones</entry>
+	<entry key="Element.Name21">Examinar</entry>
+	<entry key="Element.Name22">Coger</entry>
+	<entry key="Element.Name23">Usar</entry>
+	<entry key="Element.Name24">Usar con</entry>
+	<entry key="Element.Name25">Entregar a</entry>
+	<entry key="Element.Name26">Jugador</entry>
+	<entry key="Element.Name27">Personajes</entry>
+	<entry key="Element.Name28">Personaje</entry>
+	<entry key="Element.Name29">Referencias a conversaciones</entry>
+	<entry key="Element.Name30">Referencia a conversación</entry>
+	<entry key="Element.Name31">Conversaciones</entry>
+	<entry key="Element.Name32">Conversación de árbol</entry>
+	<entry key="Element.Name33">Conversación de grafo</entry>
+	<entry key="Element.Name34">Bloque de recursos</entry>
+	<entry key="Element.Name35">Siguiente escena</entry>
+	<entry key="Element.Name36">Fin de escena</entry>
+	<entry key="Element.Name37">Video scene</entry>
+	<entry key="Element.Name38">Regla de evaluación</entry>
+	<entry key="Element.Name39">Regla de adaptación</entry>
+	<entry key="Element.Name40">Perfil de evaluación</entry>
+	<entry key="Element.Name41">Perfil de adaptación</entry>
+	<entry key="Element.Name42">Libro con estilos</entry>
+	<entry key="Element.Name43">Página de libro</entry>
+	<entry key="Element.Name44">Temporizador</entry>
+	<entry key="Element.Name45">Temporizadores</entry>
+	<entry key="Element.Name46">Características avanzadas</entry>
+	<entry key="Element.Name47">Perfiles de evaluación</entry>
+	<entry key="Element.Name48">Perfiles de adaptación</entry>
+	<entry key="Element.Name49">Regla temporizada</entry>
+	<entry key="Element.Name50">Zonas activas</entry>
+	<entry key="Element.Name51">Zona activa</entry>
+	<entry key="Element.Name52">Barreras</entry>
+	<entry key="Element.Name53">Barrera</entry>
+		
+	<entry key="Element.Ref">Ref: {#0}</entry>
+	<entry key="Element.BookParagraph">Párrafo de libro</entry>
+	<entry key="Element.BookPage">Página de libro</entry>
+	<entry key="Element.Action">Acción</entry>
+	<entry key="Element.Effects">Efectos</entry>
+	<entry key="Element.PostEffects">Post efectos</entry>
+		
+	<entry key="AssetsChooser.Animation">Escoja una animación</entry>
+	<entry key="AssetsChooser.Audio">Escoja una pista de sonido</entry>
+	<entry key="AssetsChooser.Image">Escoja una imagen</entry>
+	<entry key="AssetsChooser.Background">Escoja una imagen de fondo</entry>
+	<entry key="AssetsChooser.Icon">Escoja una imagen de icono</entry>
+	<entry key="AssetsChooser.Cursor">Escoja una imagen de cursor</entry>
+	<entry key="AssetsChooser.FormattedText">Escoja un archivo RTF o HTML</entry>
+	
+	<entry key="Cursors.Information"> Desde este menú puede personalizar la apariencia del raton para los distintos eventos del juego. 
+Si no los cambia, el juego empleará los cursores por defecto (ambientación fantástica).</entry>
+	<entry key="Cursors.HelpText.Title">Texto de ayuda</entry>
+	<entry key="Cursors.DeleteCursor">Borrar cursor</entry>
+	<entry key="Cursors.Select">Seleccionar...</entry>
+	<entry key="Cursors.Preview">Ver cursor</entry>
+	<entry key="Cursors.TypeNotAllowed">Este tipo de cursor no está permitido en la interfaz actual</entry>
+	<entry key="Cursors.Title">Cursores</entry>
+	<entry key="Cursors.Tip">Personalización de cursores</entry>
+
+	<entry key="Cursor.default.Description">Cursor por defecto</entry>
+	<entry key="Cursor.over.Description">Cursor de interacción</entry>
+	<entry key="Cursor.action.Description">Cursor de acción</entry>
+	<entry key="Cursor.exit.Description">Cursor de salida</entry>
+	<entry key="Cursor.use.Description">Cursor de "usar"</entry>
+	<entry key="Cursor.look.Description">Cursor de "mirar"</entry>
+	<entry key="Cursor.talk.Description">Cursor de "hablar"</entry>
+	<entry key="Cursor.examine.Description">Cursor de "examinar"</entry>
+	<entry key="Cursor.grab.Description">Cursor de "coger"</entry>
+	<entry key="Cursor.give.Description">Cursor de "dar"</entry>
+	
+	<entry key="Cursor.default.Tip">Este es el cursor principal que se emplea para todas las situaciones si no se define uno alternativo</entry>
+	<entry key="Cursor.over.Tip">Este cursor se emplea cuando el ratón se coloca encima de un objeto o zona activa (sólo interfaz contextual)</entry>
+	<entry key="Cursor.action.Tip">Este cursor se emplea cuando se va a realizar una acción (sólo interfaz contextual)</entry>
+	<entry key="Cursor.exit.Tip">Este cursor se emplea cuando el ratón se coloca encima de una salida</entry>
+	<entry key="Cursor.use.Tip">Este cursor se emplea para seleccionar el objetivo de una acción "usar" (sólo interfaz tradicional)</entry>
+	<entry key="Cursor.look.Tip">Este cursor se emplea para seleccionar el objetivo de una acción "mirar" (sólo interfaz tradicional)</entry>
+	<entry key="Cursor.talk.Tip">Este cursor se emplea para seleccionar el objetivo de una acción "hablar" (sólo interfaz tradicional)</entry>
+	<entry key="Cursor.examine.Tip">Este cursor se emplea para seleccionar el objetivo de una acción "examinar" (sólo interfaz tradicional)</entry>
+	<entry key="Cursor.grab.Tip">Este cursor se emplea para seleccionar el objetivo de una acción "coger" (sólo interfaz tradicional)</entry>
+	<entry key="Cursor.give.Tip">Este cursor se emplea para seleccionar el objetivo de una acción "dar" (sólo interfaz tradicional)</entry>
+	
+	<entry key="Cursor.PreviewTitle">Previsualización</entry>
+	
+	<entry key="CursorAssets.Preview">Previsualización</entry>
+	<entry key="CustomizeGUI.Title">Personalizacion de la GUI</entry>
+	<entry key="CustomizeGUI.Cursors.HelpText">	Desde este menú puede personalizar la apariencia del raton para los distintos eventos del juego. Si no los cambia, el juego empleará los cursores por defecto (ambientación fantástica).</entry>
+	<entry key="VideoAssets.Title">Recursos de vídeo</entry>
+	<entry key="VideoAssets.Preview">Previsualización del vídeo</entry>
+	<entry key="VideoDialog.Title">Previsualización del vídeo</entry>
+	
+	<entry key="AssessmentRule.Importance.VeryLow">Muy baja</entry>
+	<entry key="AssessmentRule.Importance.Low">Baja</entry>
+	<entry key="AssessmentRule.Importance.Normal">Normal</entry>
+	<entry key="AssessmentRule.Importance.VeryHigh">Muy alta</entry>
+	<entry key="AssessmentRule.Importance.High">Alta</entry>
+	
+	<entry key="AssessmentRule.Title">Regla de evaluación</entry>
+	<entry key="AssessmentRule.Concept">Concepto</entry>
+	<entry key="AssessmentRule.Information">En esta sección podrá editar una nueva regla de evaluación. En &lt;e-Adventure&gt;, las reglas de evaluación se definen como un conjunto de condiciones (flags) que, si se satisfacen, activan la regla para que ejecute su efecto. El efecto puede cambie propiedades del LMS y generar entradas en el informe de evaluación.Para editar una regla, primero describa su importancia y la descripción del concepto a evaluar. Luego, indique la condición de activación de la regla y el efecto correspondiente.</entry>	
+	<entry key="AssessmentRule.Conditions">Condición</entry>
+	<entry key="AssessmentRule.Importance.Title">Importancia</entry>
+	
+	<entry key="AssessmentRule.Effect.Text">Texto a incluir en el informe de evaluación</entry>
+	<entry key="AssessmentRule.Effect.Title">Efecto</entry>
+	<entry key="AssessmentRule.Effect.PropertiesTitle">Modificación de propiedades</entry>
+	
+	<entry key="TimedAssessmentRule.Information">En esta sección podrá editar una nueva regla de evaluación temporizada. Estas reglas son similares a las reglas de evaluación genéricas que miden el intervalo de tiempo transcurrido entre dos eventos, definidos como conjuntos de condiciones (inicial y final). En lugar de tener un único efecto, las reglas temporizadas pueden tener distintos bloques de efectos en función del tiempo transcurrido. Empleando los controles de este panel, podrá introducir las condiciones y los distintos bloques de efectos. </entry>	
+	<entry key="TimedAssessmentRule.Effects">Selector de efectos</entry>
+	<entry key="TimedAssessmentRule.MinTime">Tiempo mínimo:  </entry>
+	<entry key="TimedAssessmentRule.MaxTime">Tiempo máximo:  </entry>
+	<entry key="TimedAssessmentRule.Time">Intervalo de tiempo</entry>
+	
+	<entry key="AssessmentRulesList.ColumnHeader0">Id</entry>
+	<entry key="AssessmentRulesList.ColumnHeader1">Importancia</entry>
+	<entry key="AssessmentRulesList.ColumnHeader2">Tiene condiciones</entry>
+	<entry key="AssessmentRulesList.ListTitle">Lista de reglas de evaluación</entry>
+	<entry key="AssessmentRulesList.Title">Resumen de reglas de evaluación</entry>
+	<entry key="AssessmentRulesList.Information">Estas son las reglas de evaluación definidas en este perfil. Para añadir nuevas reglas o editar las existentes, use el botón derecho en el perfil de evaluación en el árbol de la izquierda y seleccione la opción correspondiente.</entry>
+
+	<entry key="AssessmentProfiles.Title">Perfiles de evaluación</entry>
+	<entry key="AssessmentProfiles.Information">Esta sección del árbol permite la creación y modificación de los perfiles de evaluación. Para activar uno de los perfiles, emplee el selector en la pantalla de edición de las propiedades generales del capítulo.</entry>
+	
+	<entry key="AdaptationRulesList.ColumnHeader0">Id</entry>
+	<entry key="AdaptationRulesList.ColumnHeader1">Propiedades externas</entry>
+	<entry key="AdaptationRulesList.ColumnHeader2">Escena inicial</entry>
+	<entry key="AdaptationRulesList.ColumnHeader3">Estado inicial de los flags</entry>
+	<entry key="AdaptationRulesList.ListTitle">Lista de reglas de adaptación</entry>
+	<entry key="AdaptationRulesList.Title">Resumen del perfil de adaptación</entry>
+	<entry key="AdaptationRulesList.Information">Estas son las reglas de adaptación definidas en este perfil. Para añadir nuevas reglas o editar las existentes, use el botón derecho en el perfil de adaptación en el árbol de la izquierda y seleccione la opción correspondiente.   En esta misma página puede definir un estado inicial por defecto para el juego que se aplicará en caso de no poder activar ninguna de las reglas de adaptación. Esto permite tener perfiles de adaptación estáticos que no requieren la intervención de un LMS.</entry>
+
+	<entry key="AdaptationProfiles.Title">Perfiles de adaptación</entry>
+	<entry key="AdaptationProfiles.Information">Esta sección del árbol permite la creación y modificación de los perfiles de adaptación. Para activar uno de los perfiles, emplee el selector en la pantalla de edición de las propiedades generales del capítulo.</entry>
+	
+	<entry key="AdaptationRule.Title">Regla de adaptación</entry>
+	<entry key="AdaptationRule.Description">Descripción</entry>
+	<entry key="AdaptationRule.Information">En esta sección puede editar una regla de adaptación. Las reglas de adaptación en &lt;e-Adventure&gt; leen valores de un sistema externo (por defecto, propiedades de una Unidad de Aprendizaje de IMS Learning Design) y cambian el estado del juego (flags) para adaptarse a distintos contextos de ejecución. La regla consiste por tanto en un conjunto de propiedades que representa el estado de la Unidad de Aprendizaje y un conjunto de valores para los flags de la aventura que representan el estado que debe adoptar el juego en tal caso.</entry>
+	
+	<entry key="AdaptationRule.UOLState.Title">Estado de la Unidad de Aprendizaje</entry>
+	<entry key="AdaptationRule.GameState.Title">Estado que debe adoptar el juego</entry>
+	<entry key="AdaptationRule.GameState.InitialScene">Escena inicial (opcional)</entry>
+	<entry key="AdaptationRule.GameState.ActionFlags">Estado de los flags</entry>
+	
+	<entry key="AdaptationRule.InitialState.Title">Estado inicial estático (por defecto)</entry>
+	<entry key="AdaptationRule.InitialState.InitialScene">Escena inicial (opcional)</entry>
+	<entry key="AdaptationRule.InitialState.ActionFlags">Estado de los flags</entry>
+	
+	<entry key="EndScene.Information">Escena final: Cuando el juego ejecute esta transición el capítulo terminará.</entry>
+	<entry key="EndScene.Title">Escena final</entry>
+	
+	<entry key="LOM.Title">Propiedades del Objeto de Aprendizaje (LO)</entry>
+	<entry key="LOM.General.Tab">General</entry> <!--No traducimos los nombres propios del estándar -->
+	<entry key="LOM.General.Tip">Información general del recurso</entry>
+	<entry key="LOM.General.Title">Title</entry>
+	<entry key="LOM.General.Language">Language</entry>
+	<entry key="LOM.General.Language.English">English</entry>
+	<entry key="LOM.General.Language.Spanish">Español</entry>
+	<entry key="LOM.General.Description">Description</entry>
+	<entry key="LOM.General.Keyword">Keyword</entry>
+	<entry key="LOM.General.SetDefaults">Valores por defecto</entry>
+	<entry key="LOM.General.SetDefaultsTip">Pulse aquí para que los campos título y descripción adopten los datos generales de la aventura</entry>
+
+	<entry key="LOM.LifeCycle.Tab">Life Cycle</entry> <!--No traducimos los nombres propios del estándar -->
+	<entry key="LOM.LifeCycle.Tip">Información de ciclo de vida</entry>
+	<entry key="LOM.LifeCycle.Version">Version</entry>
+
+	<entry key="LOM.Technical.Tab">Technical</entry>
+	<entry key="LOM.Technical.Tip">Információn técnica del recurso</entry>
+	<entry key="LOM.Technical.MinimumVersion">Minimum version</entry>
+	<entry key="LOM.Technical.MaximumVersion">Maximum version</entry>
+
+	<entry key="LOM.Educational.Tab">Educational</entry> <!--No traducimos los nombres propios del estándar -->
+	<entry key="LOM.Educational.Tip">Información educativa del recurso</entry>
+	<entry key="LOM.Educational.InteractivityType">Interactivity Type</entry>
+	<entry key="LOM.Educational.InteractivityType0">Active</entry>
+	<entry key="LOM.Educational.InteractivityType1">Explosive</entry>
+	<entry key="LOM.Educational.InteractivityType2">Mixed</entry>
+	
+	<entry key="LOM.Educational.LearningResourceType">Learning resource type</entry> <!-- 0 -->
+	<entry key="LOM.Educational.LearningResourceType0">Exercise</entry> <!-- 0 -->
+	<entry key="LOM.Educational.LearningResourceType1">Simulation</entry><!-- 1  -->
+	<entry key="LOM.Educational.LearningResourceType2">Exam</entry><!-- 10 -->
+	<entry key="LOM.Educational.LearningResourceType3">Self assessment</entry><!-- 13 -->
+	<entry key="LOM.Educational.LearningResourceType4">Lecture</entry><!-- 14 -->
+	
+	<entry key="LOM.Educational.InteractivityLevel">Interactivity level</entry>
+	<entry key="LOM.Educational.InteractivityLevel0">Very low</entry>
+	<entry key="LOM.Educational.InteractivityLevel1">Low</entry>
+	<entry key="LOM.Educational.InteractivityLevel2">Medium</entry>
+	<entry key="LOM.Educational.InteractivityLevel3">High</entry>
+	<entry key="LOM.Educational.InteractivityLevel4">Very high</entry>
+	
+	<entry key="LOM.Educational.SemanticDensity">Semantic Density</entry>
+	<entry key="LOM.Educational.SemanticDensity0">Very low</entry>
+	<entry key="LOM.Educational.SemanticDensity1">Low</entry>
+	<entry key="LOM.Educational.SemanticDensity2">Medium</entry>
+	<entry key="LOM.Educational.SemanticDensity3">High</entry>
+	<entry key="LOM.Educational.SemanticDensity4">Very high</entry>
+
+	<entry key="LOM.Educational.IntendedEndUserRole">Intended end user role</entry>
+	<entry key="LOM.Educational.IntendedEndUserRole0">Teacher</entry>
+	<entry key="LOM.Educational.IntendedEndUserRole1">Author</entry>
+	<entry key="LOM.Educational.IntendedEndUserRole2">Learner</entry>
+	<entry key="LOM.Educational.IntendedEndUserRole3">Manager</entry>
+	
+	<entry key="LOM.Educational.Context">Context</entry> <!--No traducimos los nombres propios del estándar -->
+	<entry key="LOM.Educational.Context0">School</entry>
+	<entry key="LOM.Educational.Context1">Higher education</entry>
+	<entry key="LOM.Educational.Context2">Training</entry>
+	<entry key="LOM.Educational.Context3">Other</entry>
+	
+	<entry key="LOM.Educational.Difficulty">Difficulty</entry>
+	<entry key="LOM.Educational.Difficulty0">Very easy</entry>
+	<entry key="LOM.Educational.Difficulty1">Easy</entry>
+	<entry key="LOM.Educational.Difficulty2">Medium</entry>
+	<entry key="LOM.Educational.Difficulty3">Difficult</entry>
+	<entry key="LOM.Educational.Difficulty4">Very difficult</entry>
+	
+	<entry key="LOM.Educational.TypicalLearningTime">Typical learning time</entry>
+	<entry key="LOM.Educational.TypicalAgeRange">Typical age range</entry>
+	<entry key="LOM.Educational.Description">Description</entry>
+	
+	<entry key="LOM.Duration.Years">Years</entry> <!--No traducimos los nombres propios del estándar -->
+	<entry key="LOM.Duration.Months">Months</entry>
+	<entry key="LOM.Duration.Days">Days</entry>
+	<entry key="LOM.Duration.Hours">Hours</entry>
+	<entry key="LOM.Duration.Minutes">Minutes</entry>
+	<entry key="LOM.Duration.Seconds">Seconds</entry>
+	
+	<entry key="LOM.Duration.InvalidValue.Message">El valor introducido no es válido para {#0}. Por favor, escriba un número entero positivo o déjelo en blanco.</entry>
+	<entry key="LOM.Duration.InvalidValue.Title">Valor incorrecto</entry>
+	
+	
+	<entry key="Timer.InitConditions">Condiciones para activación del temporizador</entry>
+	<entry key="Timer.EndConditions">Condiciones de desactivación del temporizador</entry>
+	<entry key="Timer.Documentation">Descripción del temporizador (no se usa en el motor)</entry>
+	<entry key="Timer.Effects">Efectos a ejecutar si expira el temporizador</entry>
+	<entry key="Timer.PostEffects">Efectos a ejecutar si se desactiva el temporizador</entry>
+	<entry key="Timer.Time">Tiempo</entry>
+	
+	<entry key="TimersList.Title">Temporizadores</entry>
+	<entry key="TimersList.ListTitle">Lista de temporizadores</entry>
+	<entry key="TimersList.Information">Los temporizadores se pueden usar para forzar la ejecución de eventos tras un determinado tiempo. Los temporizadores arrancan cuando su condición de activación se vuelve evalúa a cierto y empiezan a contar el tiempo. Si el intervalo indicado expira, se ejecutará el bloque de efectos correspondiente. Los temporizadores también se pueden detener si se vuelve cierta su condición de desactivación. En tal caso, se puede ejecutar otro bloque de efectos distinto.</entry>
+	<entry key="TimersList.ColumnHeader0">Índice</entry>
+	<entry key="TimersList.ColumnHeader1">Tiempo</entry>
+	<entry key="TimersList.ColumnHeader2">Tiene condición de activación</entry>
+	<entry key="TimersList.ColumnHeader3">Tiene condición de desactivación</entry>
+	<entry key="TimersList.ColumnHeader4">Tiene efectos al expirar</entry>
+	<entry key="TimersList.ColumnHeader5">Tiene efectos al ser desactivado</entry>
+	
+	<entry key="AdvancedFeatures.Title">Características avanzadas</entry>
+	<entry key="AdvancedFeatures.Information">Esta sección del árbol se emplea para añadir y gestionar características avanzadas del editor.</entry>
+	
+</properties>

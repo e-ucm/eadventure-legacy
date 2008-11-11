@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="jars/jffmpeg-1.1.0.jar"/>
+	<classpathentry kind="lib" path="jars/jl1.0.jar"/>
+	<classpathentry kind="lib" path="jars/jmf.jar"/>
+	<classpathentry kind="lib" path="jars/mp3spi1.9.4.jar"/>
+	<classpathentry kind="lib" path="jars/plugin.jar"/>
+	<classpathentry kind="lib" path="jars/tools.jar"/>
+	<classpathentry kind="lib" path="jars/tritonus_share.jar"/>
+	<classpathentry kind="lib" path="jars/truezip-6.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

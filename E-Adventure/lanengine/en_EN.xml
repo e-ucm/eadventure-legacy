@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>&lt;e-Adventure&gt; adventure engine text</comment>
+	<entry key="ErrorMessage.Title">File not valid. Please, select a new file</entry>
+	<entry key="ErrorMessage.Content">File error</entry>
+	<entry key="MainWindow.FolderText">Select the folder where the eAdventure files are located</entry>
+	<entry key="MainWindow.ListGamesText">This is the list of available games in the location you have provided</entry>
+	<entry key="MainWindow.GameDescriptionText">This is the description of the game currently selected</entry>
+	<entry key="MainWindow.SelectGameText">[Select a game to view its description...]</entry>
+	<entry key="MainWindow.buttonLoad">Load</entry>
+	<entry key="MainWindow.buttonRefresh">Refresh</entry>
+	<entry key="MainWindow.buttonCancel">Cancel</entry>
+	<entry key="MainWindow.buttonExamine">Examine...</entry>
+	<entry key="MainWindow.InvalidAdventure">Invalid Adventure</entry>
+	<entry key="MainWindow.TabOpen">Open Game</entry>
+	<entry key="MainWindow.TabAbout">About e-Adventure</entry>
+	<entry key="Information.FileAbout">aboutEN.html</entry>
+	
+	<entry key="HUD.Traditional.btnExamine">gui/hud/traditional/btnExamineEN.png</entry>
+	<entry key="HUD.Traditional.btnExamineFocus">gui/hud/traditional/btnExamineFocusEN.png</entry>	
+	<entry key="HUD.Traditional.btnExaminePressed">gui/hud/traditional/btnExaminePressedEN.png</entry>
+	
+	<entry key="HUD.Traditional.btnGive">gui/hud/traditional/btnGiveEN.png</entry>
+	<entry key="HUD.Traditional.btnGiveFocus">gui/hud/traditional/btnGiveFocusEN.png</entry>
+	<entry key="HUD.Traditional.btnGivePressed">gui/hud/traditional/btnGivePressedEN.png</entry>
+
+	<entry key="HUD.Traditional.btnGrab">gui/hud/traditional/btnGrabEN.png</entry>
+	<entry key="HUD.Traditional.btnGrabFocus">gui/hud/traditional/btnGrabFocusEN.png</entry>
+	<entry key="HUD.Traditional.btnGrabPressed">gui/hud/traditional/btnGrabPressedEN.png</entry>
+	
+	<entry key="HUD.Traditional.btnLook">gui/hud/traditional/btnLookEN.png</entry>
+	<entry key="HUD.Traditional.btnLookFocus">gui/hud/traditional/btnLookFocusEN.png</entry>
+	<entry key="HUD.Traditional.btnLookPressed">gui/hud/traditional/btnLookPressedEN.png</entry>
+	
+	<entry key="HUD.Traditional.btnTalk">gui/hud/traditional/btnTalkEN.png</entry>
+	<entry key="HUD.Traditional.btnTalkFocus">gui/hud/traditional/btnTalkFocusEN.png</entry>
+	<entry key="HUD.Traditional.btnTalkPressed">gui/hud/traditional/btnTalkPressedEN.png</entry>
+	
+	<entry key="HUD.Traditional.btnUse">gui/hud/traditional/btnUseEN.png</entry>
+	<entry key="HUD.Traditional.btnUseFocus">gui/hud/traditional/btnUseFocusEN.png</entry>
+	<entry key="HUD.Traditional.btnUsePressed">gui/hud/traditional/btnUsePressedEN.png</entry>
+	
+	<entry key="Options.OptionsPanel">gui/options/OptionsPanelEN.png</entry>
+	<entry key="Options.SaveLoadPanel">gui/options/SaveLoadPanelEN.png</entry>
+	<entry key="Options.SavePanel">gui/options/SavePanelEN.png</entry>
+	<entry key="Options.LoadPanel">gui/options/LoadPanelEN.png</entry>
+	<entry key="Options.ConfigurationPanel">gui/options/ConfigurationPanelEN.png</entry>
+	
+	<entry key="GameText.PleaseWait">Please Wait</entry>
+	<entry key="GameText.LoadingData">Loading Data...</entry>
+	<entry key="GameText.LoadingXML">Loading XML...</entry>
+	<entry key="GameText.LoadingFinished">Loading Finished</entry>
+	<entry key="GameText.Go">Go</entry>
+	<entry key="GameText.Look">Look</entry>
+	<entry key="GameText.Examine">Examine</entry>
+	<entry key="GameText.Grab">Grab</entry>
+	<entry key="GameText.Talk">Talk</entry>
+	<entry key="GameText.Give">Give</entry>
+	<entry key="GameText.Use">Use</entry>
+	<entry key="GameText.At">At</entry>
+	<entry key="GameText.To">To</entry>
+	<entry key="GameText.With">With</entry>
+	<entry key="GameText.BackToGame">Back to Game</entry>
+	<entry key="GameText.Save/Load">Save/Load</entry>
+	<entry key="GameText.Configuration">Configuration</entry>
+	<entry key="GameText.GenerateReport">Generate Report</entry>
+	<entry key="GameText.ExitGame">Exit Game</entry>
+	<entry key="GameText.Save">Save</entry>
+	<entry key="GameText.Load">Load</entry>
+	<entry key="GameText.Empty">Empty</entry>
+	<entry key="GameText.Music">Music</entry>
+	<entry key="GameText.Effects">Effects</entry>
+	<entry key="GameText.On">On</entry>
+	<entry key="GameText.Off">Off</entry>
+	<entry key="GameText.TextSpeed">Text Speed</entry>
+	<entry key="GameText.Slow">Slow</entry>
+	<entry key="GameText.Normal">Normal</entry>
+	<entry key="GameText.Fast">Fast</entry>
+	<entry key="GameText.Back">Back</entry>
+	<entry key="GameText.TextTalkObject1">That's silly</entry>
+	<entry key="GameText.TextTalkObject2">I'm not going to do that!</entry>
+	<entry key="GameText.TextTalkCannot1">I can't talk to him</entry>
+	<entry key="GameText.TextTalkCannot2">This is not the moment, not the place</entry>
+	<entry key="GameText.TextGiveNPC1">What??</entry>
+	<entry key="GameText.TextGiveNPC2">I won't do that</entry>
+	<entry key="GameText.TextGiveObjectNotInventory1">I don't have it yet</entry>
+	<entry key="GameText.TextGiveObjectNotInventory2">I need the object to give it</entry>
+	<entry key="GameText.TextGiveCannot1">I can't give it away</entry>
+	<entry key="GameText.TextGiveCannot2">I refuse to do that</entry>
+	<entry key="GameText.TextGrabNPC1">Won't fit in my pocket</entry>
+	<entry key="GameText.TextGrabNPC2">C'mon! That's impossible!</entry>
+	<entry key="GameText.TextGrabObjectInventory1">I have it already</entry>
+	<entry key="GameText.TextGrabObjectInventory2">Should I put it in the meta-inventory?</entry>
+	<entry key="GameText.TextGrabCannot1">I can't grab this</entry>
+	<entry key="GameText.TextGrabCannot2">Too much weight...</entry>
+	<entry key="GameText.TextUseNPC1">Use? In what way?</entry>
+	<entry key="GameText.TextUseNPC2">Ehhh... NO?</entry>
+	<entry key="GameText.TextUseCannot1">I don't think this is going to work</entry>
+	<entry key="GameText.TextUseCannot2">Ok... NO</entry>
+	
+	<entry key="Report.Importance.VeryLow">Very Low</entry>
+	<entry key="Report.Importance.Low">Low</entry>
+	<entry key="Report.Importance.Normal">Normal</entry>
+	<entry key="Report.Importance.High">High</entry>
+	<entry key="Report.Importance.VeryHigh">Very High</entry>
+</properties>
