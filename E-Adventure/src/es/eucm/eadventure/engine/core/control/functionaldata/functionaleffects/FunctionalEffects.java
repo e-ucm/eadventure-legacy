@@ -8,7 +8,7 @@ import es.eucm.eadventure.engine.core.control.Game;
  * A list of effects that can be triggered by an unique
  * player's action during the game.
  */
-public class Effects {
+public class FunctionalEffects {
 
     /**
      * Stores if the effect cancel the normal course of the action
@@ -18,13 +18,13 @@ public class Effects {
     /**
      * List of effects to be triggered
      */
-    private ArrayList<Effect> effects;
+    private ArrayList<FunctionalEffect> effects;
 
     /**
-     * Creates a new list of Effects.
+     * Creates a new list of FunctionalEffects.
      */
-    public Effects( ) {
-        effects = new ArrayList<Effect>( );
+    public FunctionalEffects( ) {
+        effects = new ArrayList<FunctionalEffect>( );
         hasCancelAction = false;
     }
 
@@ -32,7 +32,7 @@ public class Effects {
      * Adds a new effect to the list.
      * @param effect the effect to be added
      */
-    public void add( Effect effect ) {
+    public void add( FunctionalEffect effect ) {
         effects.add( effect );
     }
 
@@ -41,7 +41,7 @@ public class Effects {
      * @param index the effect position
      * @return the effect in the given position
      */
-    public Effect getEffect( int index ) {
+    public FunctionalEffect getEffect( int index ) {
         return effects.get( index );
     }
 

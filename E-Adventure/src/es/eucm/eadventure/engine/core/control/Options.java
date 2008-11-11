@@ -55,7 +55,7 @@ public class Options {
 
         // Set the default values
         options.setProperty( "Music", "On" );
-        options.setProperty( "Effects", "On" );
+        options.setProperty( "FunctionalEffects", "On" );
         options.setProperty( "TextSpeed", "1" );
     }
     
@@ -105,7 +105,7 @@ public class Options {
      * @return True if the effects are active, false otherwise
      */
     public boolean isEffectsActive( ) {
-        return options.getProperty( "Effects" ).equals( "On" );
+        return options.getProperty( "FunctionalEffects" ).equals( "On" );
     }
     
     /**
@@ -129,7 +129,7 @@ public class Options {
      * @param active True if the effects must be activated, false if deactivated
      */
     public void setEffectsActive( boolean active ) {
-        options.setProperty( "Effects", ( active? "On" : "Off" ) );
+        options.setProperty( "FunctionalEffects", ( active? "On" : "Off" ) );
     }
     
     /**

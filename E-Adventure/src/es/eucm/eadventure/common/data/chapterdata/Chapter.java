@@ -10,9 +10,6 @@ import es.eucm.eadventure.common.data.chapterdata.elements.NPC;
 import es.eucm.eadventure.common.data.chapterdata.elements.Player;
 import es.eucm.eadventure.common.data.chapterdata.scenes.Cutscene;
 import es.eucm.eadventure.common.data.chapterdata.scenes.Scene;
-import es.eucm.eadventure.editor.data.adaptation.AdaptationRule;
-import es.eucm.eadventure.editor.data.adaptation.AdaptedState;
-import es.eucm.eadventure.editor.data.assessment.AssessmentRule;
 
 /**
  * This class hold the data of a chapter in eAdventure.

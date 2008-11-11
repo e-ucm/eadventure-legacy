@@ -1,23 +1,18 @@
 package es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects;
 
+import es.eucm.eadventure.common.data.chapterdata.effects.GenerateObjectEffect;
 import es.eucm.eadventure.engine.core.control.Game;
 
 /**
  * An effect that generates an object in the inventory.
  */
-public class GenerateObjectEffect implements Effect {
+public class FunctionalGenerateObjectEffect extends FunctionalEffect {
 
     /**
-     * Id of the item to be generated
+     * Creates a new FunctionalGenerateObjectEffect.
      */
-    private String idTarget;
-
-    /**
-     * Creates a new GenerateObjectEffect.
-     * @param idTarget the id of the object to be generated
-     */
-    public GenerateObjectEffect( String idTarget ) {
-        this.idTarget = idTarget;
+    public FunctionalGenerateObjectEffect( GenerateObjectEffect effect ) {
+    	super(effect);
     }
 
     /*
@@ -25,7 +20,7 @@ public class GenerateObjectEffect implements Effect {
      * @see es.eucm.eadventure.engine.engine.data.effects.Effect#triggerEffect()
      */
     public void triggerEffect( ) {
-        Game.getInstance( ).generateItem( idTarget );
+        Game.getInstance( ).generateItem( ((GenerateObjectEffect)effect).getIdTarget() );
     }
 
     /*
@@ -38,7 +33,7 @@ public class GenerateObjectEffect implements Effect {
     
     /*
      *  (non-Javadoc)
-     * @see es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.Effect#isStillRunning()
+     * @see es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffect#isStillRunning()
      */
     public boolean isStillRunning( ) {
         return false;

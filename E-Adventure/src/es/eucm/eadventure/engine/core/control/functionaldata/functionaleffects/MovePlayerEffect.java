@@ -6,7 +6,7 @@ import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
 /**
  * An effect that makes the player to move to the given position.
  */
-public class MovePlayerEffect implements Effect {
+public class MovePlayerEffect extends FunctionalEffect {
 
     /**
      * The destination of the player
@@ -20,6 +20,7 @@ public class MovePlayerEffect implements Effect {
      * @param y Y final position for the player
      */
     public MovePlayerEffect( int x, int y ) {
+    	super(null);
         this.x = x;
         this.y = y;
     }
@@ -44,7 +45,7 @@ public class MovePlayerEffect implements Effect {
     
     /*
      *  (non-Javadoc)
-     * @see es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.Effect#isStillRunning()
+     * @see es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffect#isStillRunning()
      */
     public boolean isStillRunning( ) {
         boolean stillRunning = false;

@@ -2,25 +2,26 @@ package es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects;
 
 import java.util.Random;
 
-public class RandomEffect implements Effect{
+public class RandomEffect extends FunctionalEffect{
 
     private static final Random r = new Random();
     
-    private Effect positiveEffect;
+    private FunctionalEffect positiveEffect;
     
-    private Effect negativeEffect;
+    private FunctionalEffect negativeEffect;
     
     private boolean positive;
     
     private int probability;
     
-    private Effect effectTriggered;
+    private FunctionalEffect effectTriggered;
     
     public RandomEffect (int probability){
+    	super(null);
         this.probability = probability;
     }
     
-    private Effect getEffectToBeTriggered(){
+    private FunctionalEffect getEffectToBeTriggered(){
         int number = r.nextInt( 100 ); 
         positive = number < probability;
         if (positive){
@@ -56,14 +57,14 @@ public class RandomEffect implements Effect{
     /**
      * @param positiveEffect the positiveEffect to set
      */
-    public void setPositiveEffect( Effect positiveEffect ) {
+    public void setPositiveEffect( FunctionalEffect positiveEffect ) {
         this.positiveEffect = positiveEffect;
     }
 
     /**
      * @param negativeEffect the negativeEffect to set
      */
-    public void setNegativeEffect( Effect negativeEffect ) {
+    public void setNegativeEffect( FunctionalEffect negativeEffect ) {
         this.negativeEffect = negativeEffect;
     }
 

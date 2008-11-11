@@ -2,7 +2,7 @@ package es.eucm.eadventure.engine.loader.subparsers;
 
 import org.xml.sax.Attributes;
 
-import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.Effects;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
 import es.eucm.eadventure.engine.core.data.gamedata.Action;
 import es.eucm.eadventure.engine.core.data.gamedata.GameData;
 import es.eucm.eadventure.common.data.chapterdata.conditions.Conditions;
@@ -67,7 +67,7 @@ public class ActiveAreaSubParser extends SubParser {
 	/**
 	 * Current effects being parsed.
 	 */
-	private Effects currentEffects;
+	private FunctionalEffects currentEffects;
 
 	/**
 	 * Subparser for effects and conditions.
@@ -139,7 +139,7 @@ public class ActiveAreaSubParser extends SubParser {
 			// If it is an examine, use or grab tag, create new conditions and effects
 			else if( qName.equals( "examine" ) || qName.equals( "grab" ) || qName.equals( "use" ) ) {
 				currentConditions = new Conditions( );
-				currentEffects = new Effects( );
+				currentEffects = new FunctionalEffects( );
 				currentDocumentation = null;
 				reading = READING_ACTION;
 			}
@@ -151,7 +151,7 @@ public class ActiveAreaSubParser extends SubParser {
 						currentIdTarget = attrs.getValue( i );
 
 				currentConditions = new Conditions( );
-				currentEffects = new Effects( );
+				currentEffects = new FunctionalEffects( );
 				currentDocumentation = null;
 				reading = READING_ACTION;
 			}

@@ -2,7 +2,8 @@ package es.eucm.eadventure.engine.loader.subparsers;
 
 import org.xml.sax.Attributes;
 
-import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.Effects;
+//import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
+import es.eucm.eadventure.common.data.chapterdata.effects.Effects;
 import es.eucm.eadventure.engine.core.data.gamedata.GameData;
 import es.eucm.eadventure.common.data.chapterdata.Timer;
 import es.eucm.eadventure.common.data.chapterdata.conditions.Conditions;

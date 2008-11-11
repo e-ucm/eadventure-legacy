@@ -10,7 +10,7 @@ import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 /**
  * An effect that plays a sound 
  */
-public class PlayAnimationEffect implements Effect {
+public class PlayAnimationEffect extends FunctionalEffect {
 
 
     /**
@@ -39,6 +39,7 @@ public class PlayAnimationEffect implements Effect {
      * @param path path to the sound file
      */
     public PlayAnimationEffect( String path, int x, int y ) {
+    	super(null);
         this.path = path;
         this.x = x;
         this.y = y;
@@ -63,7 +64,7 @@ public class PlayAnimationEffect implements Effect {
 
     /*
      *  (non-Javadoc)
-     * @see es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.Effect#isStillRunning()
+     * @see es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffect#isStillRunning()
      */
     public boolean isStillRunning(  ) {
         return animation.isPlayingForFirstTime( );

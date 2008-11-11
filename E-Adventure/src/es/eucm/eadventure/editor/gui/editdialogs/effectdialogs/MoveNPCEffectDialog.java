@@ -64,7 +64,7 @@ public class MoveNPCEffectDialog extends EffectDialog {
 	public MoveNPCEffectDialog( HashMap<Integer, String> currentProperties ) {
 
 		// Call the super method
-		super( TextConstants.getText( "MoveNPCEffect.Title" ) );
+		super( TextConstants.getText( "FunctionalMoveNPCEffect.Title" ) );
 
 		// Take the list of characters
 		String[] charactersArray = controller.getIdentifierSummary( ).getNPCIds( );
@@ -86,7 +86,7 @@ public class MoveNPCEffectDialog extends EffectDialog {
 			GridBagConstraints c = new GridBagConstraints( );
 
 			// Set the border of the panel with the description
-			mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "MoveNPCEffect.Description" ) ) ) );
+			mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "FunctionalMoveNPCEffect.Description" ) ) ) );
 
 			// Create and add the list of characters
 			c.insets = new Insets( 2, 4, 4, 4 );
@@ -153,7 +153,7 @@ public class MoveNPCEffectDialog extends EffectDialog {
 
 		// If the list had no elements, show an error message
 		else
-			controller.showErrorDialog( TextConstants.getText( "MoveNPCEffect.Title" ), TextConstants.getText( "MoveNPCEffect.ErrorNoCharacters" ) );
+			controller.showErrorDialog( TextConstants.getText( "FunctionalMoveNPCEffect.Title" ), TextConstants.getText( "FunctionalMoveNPCEffect.ErrorNoCharacters" ) );
 	}
 
 	@Override

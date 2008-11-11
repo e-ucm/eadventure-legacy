@@ -1,7 +1,5 @@
 package es.eucm.eadventure.common.data.chapterdata;
 
-import java.util.ArrayList;
-
 import es.eucm.eadventure.common.data.chapterdata.ExitLook;
 import es.eucm.eadventure.common.data.chapterdata.conditions.Conditions;
 import es.eucm.eadventure.common.data.chapterdata.effects.Effects;
@@ -32,7 +30,7 @@ public class NextScene {
 	private Conditions conditions;
 
 	/**
-	 * Effects triggered before exiting the current scene
+	 * FunctionalEffects triggered before exiting the current scene
 	 */
 	private Effects effects;
 

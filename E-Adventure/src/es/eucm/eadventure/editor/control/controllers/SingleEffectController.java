@@ -81,13 +81,13 @@ public class SingleEffectController extends EffectsController{
 		boolean effectAdded = false;
 
 		// Create a list with the names of the effects (in the same order as the next)
-		final String[] effectNames = { TextConstants.getText( "Effect.Activate" ), TextConstants.getText( "Effect.Deactivate" ), TextConstants.getText( "Effect.ConsumeObject" ), TextConstants.getText( "Effect.GenerateObject" ), TextConstants.getText( "Effect.SpeakPlayer" ), TextConstants.getText( "Effect.SpeakCharacter" ), TextConstants.getText( "Effect.TriggerBook" ), TextConstants.getText( "Effect.PlaySound" ), TextConstants.getText( "Effect.PlayAnimation" ), TextConstants.getText( "Effect.MovePlayer" ), TextConstants.getText( "Effect.MoveCharacter" ), TextConstants.getText( "Effect.TriggerConversation" ), TextConstants.getText( "Effect.TriggerCutscene" ), TextConstants.getText( "Effect.TriggerScene" ), TextConstants.getText( "Effect.TriggerLastScene" ) };
+		final String[] effectNames = { TextConstants.getText( "FunctionalEffect.Activate" ), TextConstants.getText( "FunctionalEffect.Deactivate" ), TextConstants.getText( "FunctionalEffect.ConsumeObject" ), TextConstants.getText( "FunctionalEffect.GenerateObject" ), TextConstants.getText( "FunctionalEffect.SpeakPlayer" ), TextConstants.getText( "FunctionalEffect.SpeakCharacter" ), TextConstants.getText( "FunctionalEffect.TriggerBook" ), TextConstants.getText( "FunctionalEffect.PlaySound" ), TextConstants.getText( "FunctionalEffect.PlayAnimation" ), TextConstants.getText( "FunctionalEffect.MovePlayer" ), TextConstants.getText( "FunctionalEffect.MoveCharacter" ), TextConstants.getText( "FunctionalEffect.TriggerConversation" ), TextConstants.getText( "FunctionalEffect.TriggerCutscene" ), TextConstants.getText( "FunctionalEffect.TriggerScene" ), TextConstants.getText( "FunctionalEffect.TriggerLastScene" ) };
 
 		// Create a list with the types of the effects (in the same order as the previous)
 		final int[] effectTypes = { Effect.ACTIVATE, Effect.DEACTIVATE, Effect.CONSUME_OBJECT, Effect.GENERATE_OBJECT, Effect.SPEAK_PLAYER, Effect.SPEAK_CHAR, Effect.TRIGGER_BOOK, Effect.PLAY_SOUND, Effect.PLAY_ANIMATION, Effect.MOVE_PLAYER, Effect.MOVE_NPC, Effect.TRIGGER_CONVERSATION, Effect.TRIGGER_CUTSCENE, Effect.TRIGGER_SCENE, Effect.TRIGGER_LAST_SCENE };
 
 		// Show a dialog to select the type of the effect
-		String selectedValue = controller.showInputDialog( TextConstants.getText( "Effects.OperationAddEffect" ), TextConstants.getText( "Effects.SelectEffectType" ), effectNames );
+		String selectedValue = controller.showInputDialog( TextConstants.getText( "FunctionalEffects.OperationAddEffect" ), TextConstants.getText( "FunctionalEffects.SelectEffectType" ), effectNames );
 
 		// If some effect was selected
 		if( selectedValue != null ) {

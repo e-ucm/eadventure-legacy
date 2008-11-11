@@ -33,7 +33,7 @@ import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalNPC;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalScene;
 import es.eucm.eadventure.engine.core.control.functionaldata.TalkingElement;
-import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.Effect;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffect;
 import es.eucm.eadventure.engine.core.control.gamestate.GameState;
 import es.eucm.eadventure.engine.core.control.gamestate.GameStateBook;
 import es.eucm.eadventure.engine.core.control.gamestate.GameStateConversation;
@@ -205,7 +205,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     /**
      * Queue of effects to be performed
      */
-    private ArrayList<Effect> effectsQueue;
+    private ArrayList<FunctionalEffect> effectsQueue;
 
     /**
      * Stores the character currently talking
@@ -367,7 +367,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         itemSummary = new ItemSummary( gameData.getItems( ) );
         inventory = new Inventory( );
         
-        effectsQueue = new ArrayList<Effect>( );        
+        effectsQueue = new ArrayList<FunctionalEffect>( );        
         
 
         g.clearRect( 0, 0, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT );
@@ -876,9 +876,9 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
 
     /**
      * Returns the effects queue
-     * @return Effects queue stored in the game
+     * @return FunctionalEffects queue stored in the game
      */
-    public ArrayList<Effect> getEffectsQueue( ) {
+    public ArrayList<FunctionalEffect> getEffectsQueue( ) {
         return effectsQueue;
     }
     
@@ -893,10 +893,10 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      * Stores a series of effects in the queue, and changes the state of the game
      * @param effects List of effects to be stored
      */
-    public void storeEffectsInQueue( List<Effect> effects ) {
+    public void storeEffectsInQueue( List<FunctionalEffect> effects ) {
         storeEffectsInQueue(effects, false);
     }
-    public void storeEffectsInQueue( List<Effect> effects, boolean fromConversation ) {
+    public void storeEffectsInQueue( List<FunctionalEffect> effects, boolean fromConversation ) {
         for( int i = 0; i < effects.size( ); i++ )
             effectsQueue.add( i, effects.get( i ) );
 
@@ -908,9 +908,9 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
 
     /**
      * Places an effect in the end of the queue, and changes the state of the game
-     * @param effect Effect to be enqueued
+     * @param effect FunctionalEffect to be enqueued
      */
-    public void enqueueEffect( Effect effect ) {
+    public void enqueueEffect( FunctionalEffect effect ) {
         effectsQueue.add( effect );
         setState( STATE_RUN_EFFECTS );
     }

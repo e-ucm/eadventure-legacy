@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 import es.eucm.eadventure.engine.core.control.Game;
-import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.Effect;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffect;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.PlayAnimationEffect;
 import es.eucm.eadventure.engine.core.gui.GUI;
 
@@ -16,7 +16,7 @@ public class GameStateRunEffects extends GameState {
     /**
      * The current effect being executed
      */
-    private Effect currentExecutingEffect;
+    private FunctionalEffect currentExecutingEffect;
     
     private boolean fromConversation;
     
@@ -80,7 +80,7 @@ public class GameStateRunEffects extends GameState {
             boolean stop = false;
             // Execute effects while some of them is not instantaneous
             while( !stop && !game.getEffectsQueue( ).isEmpty( ) ) {
-                Effect currentEffect = game.getEffectsQueue( ).remove( 0 );
+                FunctionalEffect currentEffect = game.getEffectsQueue( ).remove( 0 );
                 currentEffect.triggerEffect( );
                 stop = !currentEffect.isInstantaneous( );
                 if( stop )

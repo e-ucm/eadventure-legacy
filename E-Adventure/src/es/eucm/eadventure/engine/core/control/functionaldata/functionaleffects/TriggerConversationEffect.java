@@ -5,7 +5,7 @@ import es.eucm.eadventure.engine.core.control.Game;
 /**
  * An effect that triggers a conversation.
  */
-public class TriggerConversationEffect implements Effect {
+public class TriggerConversationEffect extends FunctionalEffect {
 
     /**
      * Id of the conversation to be played
@@ -17,6 +17,7 @@ public class TriggerConversationEffect implements Effect {
      * @param targetConversationId the id of the conversation to be triggered
      */
     public TriggerConversationEffect( String targetConversationId ) {
+    	super(null);
         this.targetConversationId = targetConversationId;
     }
 
@@ -39,7 +40,7 @@ public class TriggerConversationEffect implements Effect {
 
     /*
      *  (non-Javadoc)
-     * @see es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.Effect#isStillRunning()
+     * @see es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffect#isStillRunning()
      */
     public boolean isStillRunning( ) {
         return false;

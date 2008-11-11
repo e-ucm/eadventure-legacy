@@ -1,6 +1,6 @@
 package es.eucm.eadventure.engine.core.data.gamedata;
 
-import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.Effects;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
 import es.eucm.eadventure.common.data.chapterdata.conditions.Conditions;
 
 /**
@@ -49,9 +49,9 @@ public class Action {
     private Conditions conditions;
 
     /**
-     * Effects of performing the action
+     * FunctionalEffects of performing the action
      */
-    private Effects effects;
+    private FunctionalEffects effects;
 
     /**
      * Creates a new Action.
@@ -60,7 +60,7 @@ public class Action {
      * @param conditions the conditions of the action
      * @param effects the effects of the action
      */
-    public Action( int type, String idTarget, Conditions conditions, Effects effects ) {
+    public Action( int type, String idTarget, Conditions conditions, FunctionalEffects effects ) {
         this.type = type;
         this.idTarget = idTarget;
         this.conditions = conditions;
@@ -73,7 +73,7 @@ public class Action {
      * @param conditions the conditions of the action
      * @param effects the effects of the action
      */
-    public Action( int type, Conditions conditions, Effects effects ) {
+    public Action( int type, Conditions conditions, FunctionalEffects effects ) {
         this.type = type;
         this.idTarget = null;
         this.conditions = conditions;
@@ -108,7 +108,7 @@ public class Action {
      * Returns the effects of the action.
      * @return the effects of the action
      */
-    public Effects getEffects( ) {
+    public FunctionalEffects getEffects( ) {
         return effects;
     }
 }

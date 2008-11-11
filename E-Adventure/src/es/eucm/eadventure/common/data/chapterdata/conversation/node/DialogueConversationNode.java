@@ -30,7 +30,7 @@ public class DialogueConversationNode extends ConversationNode {
 	private boolean terminal;
 
 	/**
-	 * Effect to be triggered when the node has finished (if it's terminal)
+	 * FunctionalEffect to be triggered when the node has finished (if it's terminal)
 	 */
 	private Effects effects;
 
