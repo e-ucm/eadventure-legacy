@@ -1,4 +1,4 @@
-package es.eucm.eadventure.adventureeditor.data.chapterdata.book;
+package es.eucm.eadventure.common.data.chapterdata.book;
 
 /**
  * Main class for the Page (HTML or RTF document) of a book

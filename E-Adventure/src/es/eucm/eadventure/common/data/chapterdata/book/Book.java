@@ -1,9 +1,9 @@
-package es.eucm.eadventure.adventureeditor.data.chapterdata.book;
+package es.eucm.eadventure.common.data.chapterdata.book;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import es.eucm.eadventure.adventureeditor.data.chapterdata.resources.Resources;
+import es.eucm.eadventure.common.data.chapterdata.resources.Resources;
 
 /**
  * This class holds a "bookscene" data
