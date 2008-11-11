@@ -4,7 +4,7 @@ import java.util.Vector;
 
 import org.xml.sax.Attributes;
 
-import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.Effects;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
 import es.eucm.eadventure.engine.core.data.gamedata.GameData;
 import es.eucm.eadventure.engine.core.data.gamedata.conversation.Conversation;
 import es.eucm.eadventure.engine.core.data.gamedata.conversation.node.DialogueNode;
@@ -62,7 +62,7 @@ public class GraphConversationSubParser extends SubParser {
     /**
      * Current effect (of the current node)
      */
-    private Effects currentEffects;
+    private FunctionalEffects currentEffects;
     
     /**
      * Subparser for the effect
@@ -167,7 +167,7 @@ public class GraphConversationSubParser extends SubParser {
             // If it is an effect tag
             else if( qName.equals( "effect" ) ) {
                 // Create the new effects, and the subparser
-                currentEffects = new Effects( );
+                currentEffects = new FunctionalEffects( );
                 effectSubParser = new EffectSubParser( currentEffects, gameData );
                 subParsing = SUBPARSING_EFFECT;
             }

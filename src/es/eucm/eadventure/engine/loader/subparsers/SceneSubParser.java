@@ -2,7 +2,7 @@ package es.eucm.eadventure.engine.loader.subparsers;
 
 import org.xml.sax.Attributes;
 
-import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.Effects;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
 import es.eucm.eadventure.engine.core.data.gamedata.ElementReference;
 import es.eucm.eadventure.engine.core.data.gamedata.Exit;
 import es.eucm.eadventure.engine.core.data.gamedata.ExitLook;
@@ -118,7 +118,7 @@ public class SceneSubParser extends SubParser {
     /**
      * Stores the current effects being parsed
      */
-    private Effects currentEffects;
+    private FunctionalEffects currentEffects;
     
     /**
      * The subparser for the condition or effect tags
@@ -295,14 +295,14 @@ public class SceneSubParser extends SubParser {
             
             // If it is a effect tag, create the new effect, the subparser and switch the state
             else if( qName.equals( "effect" ) ) {
-                currentEffects = new Effects( );
+                currentEffects = new FunctionalEffects( );
                 subParser = new EffectSubParser( currentEffects, gameData );
                 subParsing = SUBPARSING_EFFECT;
             }
             
             // If it is a post-effect tag, create the new effect, the subparser and switch the state
             else if( qName.equals( "post-effect" ) ) {
-                currentEffects = new Effects( );
+                currentEffects = new FunctionalEffects( );
                 subParser = new EffectSubParser( currentEffects, gameData );
                 subParsing = SUBPARSING_EFFECT;
             }

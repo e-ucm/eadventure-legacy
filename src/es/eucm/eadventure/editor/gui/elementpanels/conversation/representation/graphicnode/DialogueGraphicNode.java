@@ -38,7 +38,7 @@ public class DialogueGraphicNode extends GraphicNode {
 		if( !node.isTerminal( ) )
 			g.drawString( "D", (int) position.getX( ) - 10, (int) position.getY( ) + 11 );
 
-		// If the node is terminal, draw a "T" (and the "Effect" string if necessary)
+		// If the node is terminal, draw a "T" (and the "FunctionalEffect" string if necessary)
 		else {
 			g.drawString( "T", (int) position.getX( ) - 12, (int) position.getY( ) + 11 );
 		}
@@ -47,7 +47,7 @@ public class DialogueGraphicNode extends GraphicNode {
 		if( node.hasEffects( ) ) {
 			g.setColor( Color.BLACK );
 			g.setFont( new Font( "Monospaced", Font.PLAIN, 10 ) );
-			g.drawString( "Effect", (int) position.getX( ) + NODE_RADIUS, (int) position.getY( ) + NODE_RADIUS );
+			g.drawString( "FunctionalEffect", (int) position.getX( ) + NODE_RADIUS, (int) position.getY( ) + NODE_RADIUS );
 		}
 
 	}

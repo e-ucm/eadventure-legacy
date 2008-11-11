@@ -6,7 +6,7 @@ import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalNPC;
 /**
  * An effect that makes a character to speak a line of text.
  */
-public class SpeakCharEffect implements Effect {
+public class SpeakCharEffect extends FunctionalEffect {
 
     /**
      * Id of the character who will talk
@@ -24,6 +24,7 @@ public class SpeakCharEffect implements Effect {
      * @param line the text to be spoken
      */
     public SpeakCharEffect( String idTarget, String line ) {
+    	super(null);
         this.idTarget = idTarget;
         this.line = line;
     }
@@ -50,7 +51,7 @@ public class SpeakCharEffect implements Effect {
     
     /*
      *  (non-Javadoc)
-     * @see es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.Effect#isStillRunning()
+     * @see es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffect#isStillRunning()
      */
     public boolean isStillRunning( ) {
         if( Game.getInstance( ).getCharacterCurrentlyTalking( ) != null && !Game.getInstance( ).getCharacterCurrentlyTalking( ).isTalking( ) )

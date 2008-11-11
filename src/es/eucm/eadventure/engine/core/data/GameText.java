@@ -134,7 +134,7 @@ public class GameText {
     public static final String TEXT_MUSIC = TextConstantsEngine.getText( "GameText.Music" );
     
     /**
-     * Text for the "Effects" section of the configuration
+     * Text for the "FunctionalEffects" section of the configuration
      */
     public static final String TEXT_EFFECTS = TextConstantsEngine.getText( "GameText.Effects" );
     

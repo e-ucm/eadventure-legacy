@@ -6,7 +6,7 @@ import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
 /**
  * An effect that makes the player to speak a line of text.
  */
-public class SpeakPlayerEffect implements Effect {
+public class SpeakPlayerEffect extends FunctionalEffect {
 
     /**
      * Text for the player to speak
@@ -18,6 +18,7 @@ public class SpeakPlayerEffect implements Effect {
      * @param line the text to be spoken
      */
     public SpeakPlayerEffect( String line ) {
+    	super(null);
         this.line = line;
     }
 
@@ -41,7 +42,7 @@ public class SpeakPlayerEffect implements Effect {
     
     /*
      *  (non-Javadoc)
-     * @see es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.Effect#isStillRunning()
+     * @see es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffect#isStillRunning()
      */
     public boolean isStillRunning( ) {
         if( Game.getInstance( ).getCharacterCurrentlyTalking( ) != null && !Game.getInstance( ).getCharacterCurrentlyTalking( ).isTalking( ) )

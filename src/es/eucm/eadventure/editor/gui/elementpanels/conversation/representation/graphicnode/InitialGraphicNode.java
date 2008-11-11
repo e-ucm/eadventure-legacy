@@ -38,7 +38,7 @@ public class InitialGraphicNode extends GraphicNode {
 		if( node.hasEffects( ) ) {
 			g.setColor( Color.BLACK );
 			g.setFont( new Font( "Monospaced", Font.PLAIN, 10 ) );
-			g.drawString( "Effect", (int) position.getX( ) + NODE_RADIUS, (int) position.getY( ) + NODE_RADIUS );
+			g.drawString( "FunctionalEffect", (int) position.getX( ) + NODE_RADIUS, (int) position.getY( ) + NODE_RADIUS );
 		}
 	}
 

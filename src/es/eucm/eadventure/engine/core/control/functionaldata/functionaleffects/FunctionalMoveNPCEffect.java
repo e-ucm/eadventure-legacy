@@ -1,34 +1,23 @@
 package es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects;
 
+import es.eucm.eadventure.common.data.chapterdata.effects.MoveNPCEffect;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalNPC;
 
 /**
  * An effect that makes a character to walk to a given position.
  */
-public class MoveNPCEffect implements Effect {
+public class FunctionalMoveNPCEffect extends FunctionalEffect {
+
 
     /**
-     * Id of the npc who will walk
-     */
-    private String idTarget;
-
-    /**
-     * The destination of the npc
-     */
-    private int x;
-    private int y;
-
-    /**
-     * Creates a new MoveNPCEffect.
+     * Creates a new FunctionalMoveNPCEffect.
      * @param idTarget the id of the character who will walk
      * @param x X final position for the NPC
      * @param y Y final position for the NPC
      */
-    public MoveNPCEffect( String idTarget, int x, int y ) {
-        this.idTarget = idTarget;
-        this.x = x;
-        this.y = y;
+    public FunctionalMoveNPCEffect( MoveNPCEffect effect ) {
+    	super(effect);
     }
 
     /*
@@ -36,9 +25,9 @@ public class MoveNPCEffect implements Effect {
      * @see es.eucm.eadventure.engine.engine.data.effects.Effect#triggerEffect()
      */
     public void triggerEffect( ) {
-        FunctionalNPC npc = Game.getInstance( ).getFunctionalScene( ).getNPC( idTarget );
+        FunctionalNPC npc = Game.getInstance( ).getFunctionalScene( ).getNPC( ((MoveNPCEffect)effect).getIdTarget() );
         if( npc != null ) {
-            npc.setDestiny( x, y);
+            npc.setDestiny( ((MoveNPCEffect)effect).getX(), ((MoveNPCEffect)effect).getY());
             npc.setState( FunctionalNPC.WALK );
         }
     }
@@ -53,12 +42,12 @@ public class MoveNPCEffect implements Effect {
     
     /*
      *  (non-Javadoc)
-     * @see es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.Effect#isStillRunning()
+     * @see es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffect#isStillRunning()
      */
     public boolean isStillRunning( ) {
         boolean stillRunning = false;
         
-        FunctionalNPC npc = Game.getInstance( ).getFunctionalScene( ).getNPC( idTarget );
+        FunctionalNPC npc = Game.getInstance( ).getFunctionalScene( ).getNPC( ((MoveNPCEffect)effect).getIdTarget() );
         if( npc != null ) {
             stillRunning = npc.isWalking();
         }

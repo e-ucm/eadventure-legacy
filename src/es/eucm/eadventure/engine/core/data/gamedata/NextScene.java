@@ -3,7 +3,7 @@ package es.eucm.eadventure.engine.core.data.gamedata;
 import java.util.ArrayList;
 
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
-import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.Effects;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
 import es.eucm.eadventure.common.data.chapterdata.conditions.Conditions;
 
 /**
@@ -32,14 +32,14 @@ public class NextScene {
     private Conditions conditions;
 
     /**
-     * Effects triggered before exiting the current scene
+     * FunctionalEffects triggered before exiting the current scene
      */
-    private Effects effects;
+    private FunctionalEffects effects;
     
     /**
      * Post effects triggered after exiting the current scene
      */
-    private Effects postEffects;
+    private FunctionalEffects postEffects;
     
     /**
      * A list of assets. Required to store, when desired, customized cursors for the exits
@@ -56,8 +56,8 @@ public class NextScene {
         x = Integer.MIN_VALUE;
         y = Integer.MIN_VALUE;
         conditions = new Conditions( );
-        effects = new Effects( );
-        postEffects = new Effects( );
+        effects = new FunctionalEffects( );
+        postEffects = new FunctionalEffects( );
     }
 
     /**
@@ -72,8 +72,8 @@ public class NextScene {
         this.x = positionX;
         this.y = positionY;
         conditions = new Conditions( );
-        effects = new Effects( );
-        postEffects = new Effects( );
+        effects = new FunctionalEffects( );
+        postEffects = new FunctionalEffects( );
     }
 
     /**
@@ -120,7 +120,7 @@ public class NextScene {
      * Returns the effects for this next scene
      * @return the effects for this next scene
      */
-    public Effects getEffects( ) {
+    public FunctionalEffects getEffects( ) {
         return effects;
     }
     
@@ -128,7 +128,7 @@ public class NextScene {
      * Returns the post-effects for this next scene
      * @return the post-effects for this next scene
      */
-    public Effects getPostEffects( ) {
+    public FunctionalEffects getPostEffects( ) {
         return postEffects;
     }
 
@@ -144,7 +144,7 @@ public class NextScene {
      * Changes the effects for this next scene
      * @param effects the new effects
      */
-    public void setEffects( Effects effects ) {
+    public void setEffects( FunctionalEffects effects ) {
         this.effects = effects;
     }
     
@@ -152,7 +152,7 @@ public class NextScene {
      * Changes the post-effects for this next scene
      * @param effects the new post-effects
      */
-    public void setPostEffects( Effects postEffects ) {
+    public void setPostEffects( FunctionalEffects postEffects ) {
         this.postEffects = postEffects;
     }
     

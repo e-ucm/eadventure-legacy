@@ -6,7 +6,7 @@ import es.eucm.eadventure.engine.core.data.gamedata.NextScene;
 /**
  * An effect that triggers a cutscene
  */
-public class TriggerSceneEffect implements Effect {
+public class TriggerSceneEffect extends FunctionalEffect {
 
     /**
      * Id of the cutscene to be played
@@ -22,6 +22,7 @@ public class TriggerSceneEffect implements Effect {
      * @param targetCutsceneId the id of the cutscene to be triggered
      */
     public TriggerSceneEffect( String targetSceneId, int x, int y ) {
+    	super(null);
         this.targetSceneId = targetSceneId;
         this.x = x;
         this.y = y;      
@@ -48,7 +49,7 @@ public class TriggerSceneEffect implements Effect {
     
     /*
      *  (non-Javadoc)
-     * @see es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.Effect#isStillRunning()
+     * @see es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffect#isStillRunning()
      */
     public boolean isStillRunning( ) {
         return false;

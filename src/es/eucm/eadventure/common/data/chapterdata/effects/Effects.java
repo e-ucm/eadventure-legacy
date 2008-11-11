@@ -54,4 +54,8 @@ public class Effects {
 	public List<Effect> getEffects( ) {
 		return effects;
 	}
+	
+	public void storeAllEffects(){
+		
+	}
 }

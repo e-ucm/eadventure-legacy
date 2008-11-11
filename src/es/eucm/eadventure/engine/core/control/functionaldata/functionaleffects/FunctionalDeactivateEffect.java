@@ -1,23 +1,18 @@
 package es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects;
 
+import es.eucm.eadventure.common.data.chapterdata.effects.DeactivateEffect;
 import es.eucm.eadventure.engine.core.control.Game;
 
 /**
- * An effect that activates a flag
+ * An effect that deactivates a flag.
  */
-public class ActivateEffect implements Effect {
+public class FunctionalDeactivateEffect extends FunctionalEffect {
 
     /**
-     * Name of the flag to be activated
+     * Creates a new FunctionalDeactivateEffect.
      */
-    private String idFlag;
-
-    /**
-     * Creates a new Activate effect.
-     * @param idFlag the id of the flag to be activated
-     */
-    public ActivateEffect( String idFlag ) {
-        this.idFlag = idFlag;
+    public FunctionalDeactivateEffect( DeactivateEffect effect ) {
+    	super(effect);
     }
 
     /*
@@ -25,7 +20,7 @@ public class ActivateEffect implements Effect {
      * @see es.eucm.eadventure.engine.engine.data.effects.Effect#triggerEffect()
      */
     public void triggerEffect( ) {
-        Game.getInstance( ).getFlags( ).activateFlag( idFlag );
+        Game.getInstance( ).getFlags( ).deactivateFlag( ((DeactivateEffect)effect).getIdFlag() );
         Game.getInstance( ).updateDataPendingFromFlags( false );
     }
 
@@ -39,10 +34,9 @@ public class ActivateEffect implements Effect {
 
     /*
      *  (non-Javadoc)
-     * @see es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.Effect#isStillRunning()
+     * @see es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffect#isStillRunning()
      */
     public boolean isStillRunning( ) {
         return false;
     }
-
 }

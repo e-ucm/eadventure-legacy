@@ -2,7 +2,7 @@ package es.eucm.eadventure.engine.core.data.gamedata.conversation.node;
 
 import java.util.Vector;
 
-import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.Effects;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
 import es.eucm.eadventure.engine.core.data.gamedata.conversation.util.ConversationLine;
 
 /**
@@ -161,7 +161,7 @@ public class OptionNode implements Node {
      *  (non-Javadoc)
      * @see es.eucm.eadventure.engine.engine.data.conversation.node.Node#setEffects(es.eucm.eadventure.engine.engine.data.effects.Effects)
      */
-    public void setEffects( Effects effects ) {
+    public void setEffects( FunctionalEffects effects ) {
         // Empty, cannot set an effect into a option node, for it cannot be terminal
     }
 
@@ -169,7 +169,7 @@ public class OptionNode implements Node {
      *  (non-Javadoc)
      * @see es.eucm.eadventure.engine.engine.data.conversation.node.Node#getEffects()
      */
-    public Effects getEffects( ) {
+    public FunctionalEffects getEffects( ) {
         return null;
     }
 

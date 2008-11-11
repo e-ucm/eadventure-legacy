@@ -1,6 +1,6 @@
 package es.eucm.eadventure.engine.core.data.gamedata.conversation.node;
 
-import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.Effects;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
 import es.eucm.eadventure.engine.core.data.gamedata.conversation.util.ConversationLine;
 
 /**
@@ -131,12 +131,12 @@ public interface Node {
      * Sets the effects triggered when the conversation is finished (only terminal nodes accept effects)
      * @param effects New effects
      */
-    public void setEffects( Effects effects );
+    public void setEffects( FunctionalEffects effects );
 
     /**
      * Returns the effect triggered when the conversation is finished
      * @return The effect held by the node if it is terminal, null otherwise
      */
-    public Effects getEffects( );
+    public FunctionalEffects getEffects( );
 
 }

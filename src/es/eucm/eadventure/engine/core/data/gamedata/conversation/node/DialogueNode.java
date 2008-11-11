@@ -2,7 +2,7 @@ package es.eucm.eadventure.engine.core.data.gamedata.conversation.node;
 
 import java.util.Vector;
 
-import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.Effects;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
 import es.eucm.eadventure.engine.core.data.gamedata.conversation.util.ConversationLine;
 
 /**
@@ -29,9 +29,9 @@ public class DialogueNode implements Node {
     private boolean terminal;
 
     /**
-     * Effect to be triggered when the node has finished (if it's terminal)
+     * FunctionalEffect to be triggered when the node has finished (if it's terminal)
      */
-    private Effects effects;
+    private FunctionalEffects effects;
 
     private boolean effectConsumed=false;
 
@@ -44,7 +44,7 @@ public class DialogueNode implements Node {
         dialogue = new Vector<ConversationLine>( );
         nextNode = null;
         terminal = true;
-        effects = new Effects( );
+        effects = new FunctionalEffects( );
     }
 
     /*
@@ -95,7 +95,7 @@ public class DialogueNode implements Node {
         Node deletedChild = nextNode;
         nextNode = null;
         terminal = true;
-        //effects = new Effects( );
+        //effects = new FunctionalEffects( );
         return deletedChild;
     }
 
@@ -199,7 +199,7 @@ public class DialogueNode implements Node {
      *  (non-Javadoc)
      * @see es.eucm.eadventure.engine.engine.data.conversation.node.Node#setEffects(es.eucm.eadventure.engine.engine.data.effects.Effects)
      */
-    public void setEffects( Effects effects ) {
+    public void setEffects( FunctionalEffects effects ) {
         this.effects = effects;
     }
 
@@ -207,7 +207,7 @@ public class DialogueNode implements Node {
      *  (non-Javadoc)
      * @see es.eucm.eadventure.engine.engine.data.conversation.node.Node#getEffects()
      */
-    public Effects getEffects( ) {
+    public FunctionalEffects getEffects( ) {
         return effects;
     }
 

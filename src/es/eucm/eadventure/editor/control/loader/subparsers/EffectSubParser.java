@@ -241,7 +241,7 @@ public class EffectSubParser extends SubParser {
             positiveBlockRead = false;
         }
 
-		// Not reading Random effect: Add the new Effect if not null
+		// Not reading Random effect: Add the new FunctionalEffect if not null
 		if (!readingRandomEffect && newEffect!=null){
 			effects.add( newEffect );
 		}
@@ -291,7 +291,7 @@ public class EffectSubParser extends SubParser {
 			newEffect = new SpeakCharEffect( currentCharIdTarget, currentString.toString( ).trim( ) ) ;
 		}
 		
-		// Not reading Random effect: Add the new Effect if not null
+		// Not reading Random effect: Add the new FunctionalEffect if not null
 		if (!readingRandomEffect && newEffect!=null){
 			effects.add( newEffect );
 		}

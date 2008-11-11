@@ -5,7 +5,7 @@ import es.eucm.eadventure.engine.core.control.Game;
 /**
  * An effect that raises a "bookscene".
  */
-public class TriggerBookEffect implements Effect {
+public class TriggerBookEffect extends FunctionalEffect {
 
     /**
      * Id of the book to be shown
@@ -17,6 +17,7 @@ public class TriggerBookEffect implements Effect {
      * @param targetBookId the id of the book to be shown
      */
     public TriggerBookEffect( String targetBookId ) {
+    	super(null);
         this.targetBookId = targetBookId;
     }
 
@@ -39,7 +40,7 @@ public class TriggerBookEffect implements Effect {
     
     /*
      *  (non-Javadoc)
-     * @see es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.Effect#isStillRunning()
+     * @see es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffect#isStillRunning()
      */
     public boolean isStillRunning( ) {
         return false;

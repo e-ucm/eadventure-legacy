@@ -6,7 +6,7 @@ import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 /**
  * An effect that plays an animation 
  */
-public class PlaySoundEffect implements Effect {
+public class PlaySoundEffect extends FunctionalEffect {
   
     /**
      * Whether the sound must be played in background
@@ -29,6 +29,7 @@ public class PlaySoundEffect implements Effect {
      * @param path path to the sound file
      */
     public PlaySoundEffect( boolean background, String path ) {
+    	super(null);
         this.background = background;
         this.path = path;
     }
@@ -54,7 +55,7 @@ public class PlaySoundEffect implements Effect {
 
     /*
      *  (non-Javadoc)
-     * @see es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.Effect#isStillRunning()
+     * @see es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffect#isStillRunning()
      */
     public boolean isStillRunning( ) {
         return !background && MultimediaManager.getInstance().isPlaying( soundID );

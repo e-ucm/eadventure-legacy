@@ -6,7 +6,7 @@ import es.eucm.eadventure.engine.core.data.gamedata.NextScene;
 /**
  * An effect that takes the player to a new scene. 
  */
-public class NextSceneEffect implements Effect {
+public class NextSceneEffect extends FunctionalEffect {
 
     /**
      * Information about the next scene to be loaded
@@ -18,6 +18,7 @@ public class NextSceneEffect implements Effect {
      * @param nextScene the next scene
      */
     public NextSceneEffect( NextScene nextScene ) {
+    	super(null);
         this.nextScene = nextScene;
     }
 
@@ -40,7 +41,7 @@ public class NextSceneEffect implements Effect {
 
     /*
      *  (non-Javadoc)
-     * @see es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.Effect#isStillRunning()
+     * @see es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffect#isStillRunning()
      */
     public boolean isStillRunning( ) {
         return false;

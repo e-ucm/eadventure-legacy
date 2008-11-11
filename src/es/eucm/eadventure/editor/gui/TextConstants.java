@@ -269,46 +269,46 @@ public class TextConstants {
 		guiStrings.put( "Conditions.Flag", "Flag" );
 		guiStrings.put( "Conditions.ErrorNoFlags", "To add a condition, there must be at least one flag in the chapter" );
 
-		guiStrings.put( "Effects.Title", "Effects" );
-		guiStrings.put( "Effects.Description", "Use the buttons to add, delete and move effects. You can edit them by double clicking" );
-		guiStrings.put( "Effects.EffectNumberColumnTitle", "#" );
-		guiStrings.put( "Effects.EffectDescriptionColumnTitle", "Effect description" );
-		guiStrings.put( "Effects.AddEffectButton", "Add effect" );
-		guiStrings.put( "Effects.DeleteEffectButton", "Delete effect" );
-		guiStrings.put( "Effects.OperationAddEffect", "Add effect" );
-		guiStrings.put( "Effects.SelectEffectType", "Select the type of effect you want to add" );
+		guiStrings.put( "FunctionalEffects.Title", "FunctionalEffects" );
+		guiStrings.put( "FunctionalEffects.Description", "Use the buttons to add, delete and move effects. You can edit them by double clicking" );
+		guiStrings.put( "FunctionalEffects.EffectNumberColumnTitle", "#" );
+		guiStrings.put( "FunctionalEffects.EffectDescriptionColumnTitle", "FunctionalEffect description" );
+		guiStrings.put( "FunctionalEffects.AddEffectButton", "Add effect" );
+		guiStrings.put( "FunctionalEffects.DeleteEffectButton", "Delete effect" );
+		guiStrings.put( "FunctionalEffects.OperationAddEffect", "Add effect" );
+		guiStrings.put( "FunctionalEffects.SelectEffectType", "Select the type of effect you want to add" );
 
-		guiStrings.put( "Effect.Activate", "Activate" );
-		guiStrings.put( "Effect.Deactivate", "Deactivate" );
-		guiStrings.put( "Effect.ConsumeObject", "Consume object" );
-		guiStrings.put( "Effect.GenerateObject", "Generate object" );
-		guiStrings.put( "Effect.CancelAction", "Cancel action" );
-		guiStrings.put( "Effect.SpeakPlayer", "Speak player" );
-		guiStrings.put( "Effect.SpeakCharacter", "Speak character" );
-		guiStrings.put( "Effect.TriggerBook", "Trigger book" );
-		guiStrings.put( "Effect.PlaySound", "Play sound" );
-		guiStrings.put( "Effect.PlayAnimation", "Play animation" );
-		guiStrings.put( "Effect.MovePlayer", "Move player" );
-		guiStrings.put( "Effect.MoveCharacter", "Move character" );
-		guiStrings.put( "Effect.TriggerConversation", "Trigger conversation" );
-		guiStrings.put( "Effect.TriggerCutscene", "Trigger cutscene" );
-		guiStrings.put( "Effect.TriggerScene", "Trigger scene" );
+		guiStrings.put( "FunctionalEffect.Activate", "Activate" );
+		guiStrings.put( "FunctionalEffect.Deactivate", "Deactivate" );
+		guiStrings.put( "FunctionalEffect.ConsumeObject", "Consume object" );
+		guiStrings.put( "FunctionalEffect.GenerateObject", "Generate object" );
+		guiStrings.put( "FunctionalEffect.CancelAction", "Cancel action" );
+		guiStrings.put( "FunctionalEffect.SpeakPlayer", "Speak player" );
+		guiStrings.put( "FunctionalEffect.SpeakCharacter", "Speak character" );
+		guiStrings.put( "FunctionalEffect.TriggerBook", "Trigger book" );
+		guiStrings.put( "FunctionalEffect.PlaySound", "Play sound" );
+		guiStrings.put( "FunctionalEffect.PlayAnimation", "Play animation" );
+		guiStrings.put( "FunctionalEffect.MovePlayer", "Move player" );
+		guiStrings.put( "FunctionalEffect.MoveCharacter", "Move character" );
+		guiStrings.put( "FunctionalEffect.TriggerConversation", "Trigger conversation" );
+		guiStrings.put( "FunctionalEffect.TriggerCutscene", "Trigger cutscene" );
+		guiStrings.put( "FunctionalEffect.TriggerScene", "Trigger scene" );
 
-		guiStrings.put( "Effect.ActivateInfo", "Activate flag: {#0}" );
-		guiStrings.put( "Effect.DeactivateInfo", "Deactivate flag: {#0}" );
-		guiStrings.put( "Effect.ConsumeObjectInfo", "Consume object {#0}" );
-		guiStrings.put( "Effect.GenerateObjectInfo", "Generate object {#0}" );
-		guiStrings.put( "Effect.CancelActionInfo", "Cancel default action" );
-		guiStrings.put( "Effect.SpeakPlayerInfo", "Player speaks \"{#0}\"" );
-		guiStrings.put( "Effect.SpeakCharacterInfo", "Character {#0} speaks \"{#1}\"" );
-		guiStrings.put( "Effect.TriggerBookInfo", "Trigger book {#0}" );
-		guiStrings.put( "Effect.PlaySoundInfo", "Play sound effect \"{#0}\"" );
-		guiStrings.put( "Effect.PlayAnimationInfo", "Play animation effect \"{#0}\"" );
-		guiStrings.put( "Effect.MovePlayerInfo", "Move player to x:{#0} y:{#1}" );
-		guiStrings.put( "Effect.MoveCharacterInfo", "Move character {#0} to x:{#0} y:{#1}" );
-		guiStrings.put( "Effect.TriggerConversationInfo", "Trigger conversation {#0}" );
-		guiStrings.put( "Effect.TriggerCutsceneInfo", "Trigger cutscene {#0}" );
-		guiStrings.put( "Effect.TriggerSceneInfo", "Trigger scene {#0}" );
+		guiStrings.put( "FunctionalEffect.ActivateInfo", "Activate flag: {#0}" );
+		guiStrings.put( "FunctionalEffect.DeactivateInfo", "Deactivate flag: {#0}" );
+		guiStrings.put( "FunctionalEffect.ConsumeObjectInfo", "Consume object {#0}" );
+		guiStrings.put( "FunctionalEffect.GenerateObjectInfo", "Generate object {#0}" );
+		guiStrings.put( "FunctionalEffect.CancelActionInfo", "Cancel default action" );
+		guiStrings.put( "FunctionalEffect.SpeakPlayerInfo", "Player speaks \"{#0}\"" );
+		guiStrings.put( "FunctionalEffect.SpeakCharacterInfo", "Character {#0} speaks \"{#1}\"" );
+		guiStrings.put( "FunctionalEffect.TriggerBookInfo", "Trigger book {#0}" );
+		guiStrings.put( "FunctionalEffect.PlaySoundInfo", "Play sound effect \"{#0}\"" );
+		guiStrings.put( "FunctionalEffect.PlayAnimationInfo", "Play animation effect \"{#0}\"" );
+		guiStrings.put( "FunctionalEffect.MovePlayerInfo", "Move player to x:{#0} y:{#1}" );
+		guiStrings.put( "FunctionalEffect.MoveCharacterInfo", "Move character {#0} to x:{#0} y:{#1}" );
+		guiStrings.put( "FunctionalEffect.TriggerConversationInfo", "Trigger conversation {#0}" );
+		guiStrings.put( "FunctionalEffect.TriggerCutsceneInfo", "Trigger cutscene {#0}" );
+		guiStrings.put( "FunctionalEffect.TriggerSceneInfo", "Trigger scene {#0}" );
 
 		guiStrings.put( "ImageDialog.Title", "Image preview - {#0}" );
 		guiStrings.put( "SlidesDialog.Title", "Slides preview - {#0}" );
@@ -320,17 +320,17 @@ public class TextConstants {
 
 		guiStrings.put( "AnimationPanel.AnimationNotAvalaible", "Animation not avalaible" );
 
-		guiStrings.put( "ActivateEffect.Title", "Activate effect" );
-		guiStrings.put( "ActivateEffect.Description", "Select the flag to be activated" );
+		guiStrings.put( "FunctionalActivateEffect.Title", "Activate effect" );
+		guiStrings.put( "FunctionalActivateEffect.Description", "Select the flag to be activated" );
 
-		guiStrings.put( "DeactivateEffect.Title", "Deactivate effect" );
-		guiStrings.put( "DeactivateEffect.Description", "Select the flag to be deactivated" );
+		guiStrings.put( "FunctionalDeactivateEffect.Title", "Deactivate effect" );
+		guiStrings.put( "FunctionalDeactivateEffect.Description", "Select the flag to be deactivated" );
 
 		guiStrings.put( "ActivateDeactivateEffect.ErrorNoFlags", "To add this type of effect, there must be at least one flag in the chapter" );
 
-		guiStrings.put( "MoveNPCEffect.Title", "Move character effect" );
-		guiStrings.put( "MoveNPCEffect.Description", "Select a character to move, and the destination point" );
-		guiStrings.put( "MoveNPCEffect.ErrorNoCharacters", "To add this type of effect, there must be at least one character in the chapter" );
+		guiStrings.put( "FunctionalMoveNPCEffect.Title", "Move character effect" );
+		guiStrings.put( "FunctionalMoveNPCEffect.Description", "Select a character to move, and the destination point" );
+		guiStrings.put( "FunctionalMoveNPCEffect.ErrorNoCharacters", "To add this type of effect, there must be at least one character in the chapter" );
 
 		guiStrings.put( "MovePlayerEffect.Title", "Move player effect" );
 		guiStrings.put( "MovePlayerEffect.Description", "Select a destination point to move the player" );
@@ -455,7 +455,7 @@ public class TextConstants {
 		guiStrings.put( "NextScene.UseDestinyPosition", "Use a destiny position for the player" );
 		guiStrings.put( "NextScene.EditDestinyPosition", "Edit the destiny position for the player in the new scene" );
 		guiStrings.put( "NextScene.Conditions", "Conditions of the next scene" );
-		guiStrings.put( "NextScene.Effects", "Effects of the next scene" );
+		guiStrings.put( "NextScene.Effects", "FunctionalEffects of the next scene" );
 		guiStrings.put( "NextScene.PostEffects", "Post-effects of the next scene" );
 
 		guiStrings.put( "ElementReference.ItemReferences", "Show item references" );
@@ -744,7 +744,7 @@ public class TextConstants {
 		guiStrings.put( "Element.Ref", "Ref: {#0}" );
 		guiStrings.put( "Element.BookParagraph", "Book paragraph" );
 		guiStrings.put( "Element.Action", "Action" );
-		guiStrings.put( "Element.Effects", "Effects" );
+		guiStrings.put( "Element.Effects", "FunctionalEffects" );
 		guiStrings.put( "Element.PostEffects", "Post effects" );
 	}
 

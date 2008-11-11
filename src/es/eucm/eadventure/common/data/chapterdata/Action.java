@@ -54,7 +54,7 @@ public class Action {
 	private Conditions conditions;
 
 	/**
-	 * Effects of performing the action
+	 * FunctionalEffects of performing the action
 	 */
 	private Effects effects;
 

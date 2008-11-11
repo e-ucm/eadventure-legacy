@@ -2,13 +2,14 @@ package es.eucm.eadventure.engine.loader.subparsers;
 
 import org.xml.sax.Attributes;
 
-import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.ActivateEffect;
-import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.ConsumeObjectEffect;
-import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.DeactivateEffect;
-import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.Effect;
-import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.Effects;
-import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.GenerateObjectEffect;
-import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.MoveNPCEffect;
+import es.eucm.eadventure.common.data.chapterdata.effects.*;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalConsumeObjectEffect;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalDeactivateEffect;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalActivateEffect;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffect;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalGenerateObjectEffect;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalMoveNPCEffect;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.MovePlayerEffect;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.PlayAnimationEffect;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.PlaySoundEffect;
@@ -37,7 +38,7 @@ public class EffectSubParser extends SubParser {
     /**
      * Stores the effects being parsed
      */
-    private Effects effects;
+    private FunctionalEffects effects;
     
     /**
      * Constants for reading random-effect
@@ -53,18 +54,27 @@ public class EffectSubParser extends SubParser {
      * @param effects Structure in which the effects will be placed
      * @param gameData Game data to store the readed data
      */
-    public EffectSubParser( Effects effects, GameData gameData ) {
+    public EffectSubParser( FunctionalEffects effects, GameData gameData ) {
         super( gameData );
         this.effects = effects;
     }
     
+    /**
+     * Constructor
+     * @param effects Structure in which the effects will be placed
+     * @param gameData Game data to store the readed data
+     */
+    public EffectSubParser( es.eucm.eadventure.common.data.chapterdata.effects.Effects effects, GameData gameData ) {
+        super( gameData );
+        //this.effects = effects;
+    }
 
     /*
      *  (non-Javadoc)
      * @see es.eucm.eadventure.engine.loader.subparsers.SubParser#startElement(java.lang.String, java.lang.String, java.lang.String, org.xml.sax.Attributes)
      */
     public void startElement( String namespaceURI, String sName, String qName, Attributes attrs ) {
-        Effect newEffect = null;
+        FunctionalEffect newEffect = null;
         
         // If it is a cancel-action tag
         if( qName.equals( "cancel-action" ) ) {
@@ -75,7 +85,7 @@ public class EffectSubParser extends SubParser {
         else if( qName.equals( "activate" ) ) {
             for( int i = 0; i < attrs.getLength( ); i++ )
                 if( attrs.getQName( i ).equals( "flag" ) ) {
-                    newEffect = new ActivateEffect( attrs.getValue( i ) );
+                    newEffect = new FunctionalActivateEffect( new ActivateEffect (attrs.getValue( i )) );
                     gameData.addFlag( attrs.getValue( i ) );
                 }
         }
@@ -84,7 +94,7 @@ public class EffectSubParser extends SubParser {
         else if( qName.equals( "deactivate" ) ) {
             for( int i = 0; i < attrs.getLength( ); i++ )
                 if( attrs.getQName( i ).equals( "flag" ) ) {
-                    newEffect =  new DeactivateEffect( attrs.getValue( i ) ) ;
+                    newEffect =  new FunctionalDeactivateEffect( new DeactivateEffect (attrs.getValue( i )) ) ;
                     gameData.addFlag( attrs.getValue( i ) );
                 }
         }
@@ -93,14 +103,14 @@ public class EffectSubParser extends SubParser {
         else if( qName.equals( "consume-object" ) ) {
             for( int i = 0; i < attrs.getLength( ); i++ )
                 if( attrs.getQName( i ).equals( "idTarget" ) )
-                    newEffect =  new ConsumeObjectEffect( attrs.getValue( i ) ) ;
+                    newEffect =  new FunctionalConsumeObjectEffect( new ConsumeObjectEffect (attrs.getValue( i )) ) ;
         }
 
         // If it is a generate-object tag
         else if( qName.equals( "generate-object" ) ) {
             for( int i = 0; i < attrs.getLength( ); i++ )
                 if( attrs.getQName( i ).equals( "idTarget" ) )
-                    newEffect =  new GenerateObjectEffect( attrs.getValue( i ) ) ;
+                    newEffect =  new FunctionalGenerateObjectEffect( new GenerateObjectEffect (attrs.getValue( i )) ) ;
         }
 
         // If it is a speak-char tag
@@ -220,7 +230,7 @@ public class EffectSubParser extends SubParser {
             }
             
             // Add the new move NPC effect
-            newEffect =  new MoveNPCEffect( npcTarget, x, y ) ;
+            newEffect =  new FunctionalMoveNPCEffect( new MoveNPCEffect (npcTarget, x, y) ) ;
         }
 
         // Random effect tag
@@ -238,7 +248,7 @@ public class EffectSubParser extends SubParser {
             positiveBlockRead = false;
         }
 
-        // Not reading Random effect: Add the new Effect if not null
+        // Not reading Random effect: Add the new FunctionalEffect if not null
         if (!readingRandomEffect && newEffect!=null){
             effects.add( newEffect );
         }
@@ -271,7 +281,7 @@ public class EffectSubParser extends SubParser {
      */
     public void endElement( String namespaceURI, String sName, String qName ) {
         
-        Effect newEffect = null;
+        FunctionalEffect newEffect = null;
         
         // If it is a speak-player
         if( qName.equals( "speak-player" ) ) {
@@ -285,7 +295,7 @@ public class EffectSubParser extends SubParser {
             newEffect = new SpeakCharEffect( currentCharIdTarget, currentString.toString( ).trim( ) ) ;
         }
         
-        // Not reading Random effect: Add the new Effect if not null
+        // Not reading Random effect: Add the new FunctionalEffect if not null
         if (!readingRandomEffect && newEffect!=null){
             effects.add( newEffect );
         }

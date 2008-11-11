@@ -28,7 +28,7 @@ public class TimerDataControl extends DataControl {
 	private ConditionsController endConditionsController;
 
 	/**
-	 * Effects controller
+	 * FunctionalEffects controller
 	 */
 	private EffectsController effectsController;
 
@@ -76,7 +76,7 @@ public class TimerDataControl extends DataControl {
 	/**
 	 * Returns the effects of the next scene.
 	 * 
-	 * @return Effects of the next scene
+	 * @return FunctionalEffects of the next scene
 	 */
 	public EffectsController getEffects( ) {
 		return effectsController;

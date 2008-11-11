@@ -18,7 +18,7 @@ public class MoveNPCEffect implements Effect {
 	private int y;
 
 	/**
-	 * Creates a new MoveNPCEffect.
+	 * Creates a new FunctionalMoveNPCEffect.
 	 * 
 	 * @param idTarget
 	 *            the id of the character who will walk

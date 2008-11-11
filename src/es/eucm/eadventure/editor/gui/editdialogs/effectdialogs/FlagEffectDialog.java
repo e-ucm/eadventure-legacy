@@ -37,12 +37,12 @@ public class FlagEffectDialog extends EffectDialog {
 	/**
 	 * Texts for the different titles of the dialogs.
 	 */
-	private static final String[] dialogTitles = { "ActivateEffect.Title", "DeactivateEffect.Title" };
+	private static final String[] dialogTitles = { "FunctionalActivateEffect.Title", "FunctionalDeactivateEffect.Title" };
 
 	/**
 	 * Texts for the different descriptions of the dialogs.
 	 */
-	private static final String[] dialogDescriptions = { "ActivateEffect.Description", "DeactivateEffect.Description" };
+	private static final String[] dialogDescriptions = { "FunctionalActivateEffect.Description", "FunctionalDeactivateEffect.Description" };
 
 	/**
 	 * Combo box with the flags.
