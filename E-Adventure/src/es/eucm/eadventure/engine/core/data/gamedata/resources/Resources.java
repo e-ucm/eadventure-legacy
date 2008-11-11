@@ -2,7 +2,7 @@ package es.eucm.eadventure.engine.core.data.gamedata.resources;
 
 import java.util.ArrayList;
 
-import es.eucm.eadventure.engine.core.data.gamedata.conditions.Conditions;
+import es.eucm.eadventure.common.data.chapterdata.conditions.Conditions;
 
 /**
  * The list of resources of an element in the game under certain conditions.

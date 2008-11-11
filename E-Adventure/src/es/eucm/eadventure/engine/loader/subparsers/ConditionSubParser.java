@@ -3,8 +3,8 @@ package es.eucm.eadventure.engine.loader.subparsers;
 import org.xml.sax.Attributes;
 
 import es.eucm.eadventure.engine.core.data.gamedata.GameData;
-import es.eucm.eadventure.engine.core.data.gamedata.conditions.Condition;
-import es.eucm.eadventure.engine.core.data.gamedata.conditions.Conditions;
+import es.eucm.eadventure.common.data.chapterdata.conditions.Condition;
+import es.eucm.eadventure.common.data.chapterdata.conditions.Conditions;
 
 /**
  * Class to subparse conditions

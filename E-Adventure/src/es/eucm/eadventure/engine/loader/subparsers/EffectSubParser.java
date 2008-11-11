@@ -2,25 +2,25 @@ package es.eucm.eadventure.engine.loader.subparsers;
 
 import org.xml.sax.Attributes;
 
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.ActivateEffect;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.ConsumeObjectEffect;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.DeactivateEffect;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.Effect;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.Effects;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.GenerateObjectEffect;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.MoveNPCEffect;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.MovePlayerEffect;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.PlayAnimationEffect;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.PlaySoundEffect;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.RandomEffect;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.SpeakCharEffect;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.SpeakPlayerEffect;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.TriggerBookEffect;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.TriggerConversationEffect;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.TriggerCutsceneEffect;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.TriggerLastSceneEffect;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.TriggerSceneEffect;
 import es.eucm.eadventure.engine.core.data.gamedata.GameData;
-import es.eucm.eadventure.engine.core.data.gamedata.effects.ActivateEffect;
-import es.eucm.eadventure.engine.core.data.gamedata.effects.ConsumeObjectEffect;
-import es.eucm.eadventure.engine.core.data.gamedata.effects.DeactivateEffect;
-import es.eucm.eadventure.engine.core.data.gamedata.effects.Effect;
-import es.eucm.eadventure.engine.core.data.gamedata.effects.Effects;
-import es.eucm.eadventure.engine.core.data.gamedata.effects.GenerateObjectEffect;
-import es.eucm.eadventure.engine.core.data.gamedata.effects.MoveNPCEffect;
-import es.eucm.eadventure.engine.core.data.gamedata.effects.MovePlayerEffect;
-import es.eucm.eadventure.engine.core.data.gamedata.effects.PlayAnimationEffect;
-import es.eucm.eadventure.engine.core.data.gamedata.effects.PlaySoundEffect;
-import es.eucm.eadventure.engine.core.data.gamedata.effects.RandomEffect;
-import es.eucm.eadventure.engine.core.data.gamedata.effects.SpeakCharEffect;
-import es.eucm.eadventure.engine.core.data.gamedata.effects.SpeakPlayerEffect;
-import es.eucm.eadventure.engine.core.data.gamedata.effects.TriggerBookEffect;
-import es.eucm.eadventure.engine.core.data.gamedata.effects.TriggerConversationEffect;
-import es.eucm.eadventure.engine.core.data.gamedata.effects.TriggerCutsceneEffect;
-import es.eucm.eadventure.engine.core.data.gamedata.effects.TriggerLastSceneEffect;
-import es.eucm.eadventure.engine.core.data.gamedata.effects.TriggerSceneEffect;
 
 /**
  * Class to subparse effects

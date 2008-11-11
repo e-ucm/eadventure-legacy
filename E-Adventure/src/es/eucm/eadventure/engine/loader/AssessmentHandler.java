@@ -12,8 +12,8 @@ import org.xml.sax.helpers.DefaultHandler;
 import es.eucm.eadventure.engine.assessment.AssessmentProperty;
 import es.eucm.eadventure.engine.assessment.AssessmentRule;
 import es.eucm.eadventure.engine.assessment.TimedAssessmentRule;
-import es.eucm.eadventure.engine.core.data.gamedata.conditions.Condition;
-import es.eucm.eadventure.engine.core.data.gamedata.conditions.Conditions;
+import es.eucm.eadventure.common.data.chapterdata.conditions.Condition;
+import es.eucm.eadventure.common.data.chapterdata.conditions.Conditions;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 
 /**

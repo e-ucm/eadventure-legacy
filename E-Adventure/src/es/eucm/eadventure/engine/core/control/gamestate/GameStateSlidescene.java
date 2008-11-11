@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.animations.ImageSet;
+import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 import es.eucm.eadventure.engine.core.data.gamedata.NextScene;
 import es.eucm.eadventure.engine.core.data.gamedata.book.Book;
 import es.eucm.eadventure.engine.core.data.gamedata.resources.Asset;
@@ -82,7 +83,7 @@ public class GameStateSlidescene extends GameState {
                 // Search for a next scene structure
                 NextScene nextScene = null;
                 for( NextScene currentNextScene : slidescene.getNextScenes( ) )
-                    if( currentNextScene.getConditions( ).allConditionsOk( ) )
+                    if( new FunctionalConditions(currentNextScene.getConditions( )).allConditionsOk( ) )
                         nextScene = currentNextScene;
 
                 // If it had a next scene, jump to it
@@ -106,7 +107,7 @@ public class GameStateSlidescene extends GameState {
         // Get the active resources block
         Resources newResources = null;
         for( int i = 0; i < slidescene.getResources( ).size( ) && newResources == null; i++ )
-            if( slidescene.getResources( ).get( i ).getConditions( ).allConditionsOk( ) )
+            if( new FunctionalConditions(slidescene.getResources( ).get( i ).getConditions( )).allConditionsOk( ) )
                 newResources = slidescene.getResources( ).get( i );
 
         // If no resource block is available, create a default one 

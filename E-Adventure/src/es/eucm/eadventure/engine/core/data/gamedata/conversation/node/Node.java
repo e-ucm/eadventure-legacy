@@ -1,7 +1,7 @@
 package es.eucm.eadventure.engine.core.data.gamedata.conversation.node;
 
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.Effects;
 import es.eucm.eadventure.engine.core.data.gamedata.conversation.util.ConversationLine;
-import es.eucm.eadventure.engine.core.data.gamedata.effects.Effects;
 
 /**
  * Interface that comprises all the possible nodes for a conversation. Initially, two classes implement this

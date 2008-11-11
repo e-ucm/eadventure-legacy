@@ -1,4 +1,4 @@
-package es.eucm.eadventure.engine.core.data.gamedata.effects;
+package es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects;
 
 import es.eucm.eadventure.engine.core.control.Game;
 
@@ -39,7 +39,7 @@ public class TriggerBookEffect implements Effect {
     
     /*
      *  (non-Javadoc)
-     * @see es.eucm.eadventure.engine.core.data.gamedata.effects.Effect#isStillRunning()
+     * @see es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.Effect#isStillRunning()
      */
     public boolean isStillRunning( ) {
         return false;

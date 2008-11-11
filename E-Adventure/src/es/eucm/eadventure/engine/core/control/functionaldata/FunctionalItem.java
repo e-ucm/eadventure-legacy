@@ -191,7 +191,7 @@ public class FunctionalItem extends FunctionalElement {
         for( int i = 0; i < item.getActions( ).size( ) && !examined; i++ ) {
             Action action = item.getAction( i );
             if( action.getType( ) == Action.EXAMINE ) {
-                if( action.getConditions( ).allConditionsOk( ) ) {
+                if( new FunctionalConditions( action.getConditions( ) ).allConditionsOk( ) ) {
                     // Store the effects
                     action.getEffects( ).storeAllEffects( );
                     examined = true;
@@ -210,7 +210,7 @@ public class FunctionalItem extends FunctionalElement {
         for( int i = 0; i < item.getActions( ).size( ) && !canBeUsedAlone; i++ ) {
             Action action = item.getAction( i );
             if( action.getType( ) == Action.USE ) {
-                if( action.getConditions( ).allConditionsOk( ) ) {
+                if( new FunctionalConditions( action.getConditions( ) ).allConditionsOk( ) ) {
                     canBeUsedAlone = true;
                 } 
             }
@@ -232,7 +232,7 @@ public class FunctionalItem extends FunctionalElement {
         for( int i = 0; i < item.getActions( ).size( ) && !grabbed; i++ ) {
             Action action = item.getAction( i );
             if( action.getType( ) == Action.GRAB ) {
-                if( action.getConditions( ).allConditionsOk( ) ) {
+                if( new FunctionalConditions(action.getConditions( ) ).allConditionsOk( ) ) {
                     // If the it has not a cancel action, grab the item
                     if( !action.getEffects( ).hasCancelAction( ) )
                         Game.getInstance( ).grabItem( item.getId( ) );
@@ -258,7 +258,7 @@ public class FunctionalItem extends FunctionalElement {
         for( int i = 0; i < item.getActions( ).size( ) && !used; i++ ) {
             Action action = item.getAction( i );
             if( action.getType( ) == Action.USE ) {
-                if( action.getConditions( ).allConditionsOk( ) ) {
+                if( new FunctionalConditions( action.getConditions( ) ).allConditionsOk( ) ) {
                     // Store the effects
                     action.getEffects( ).storeAllEffects( );
                     used = true;
@@ -281,7 +281,7 @@ public class FunctionalItem extends FunctionalElement {
         for( int i = 0; i < item.getActions( ).size( ) && !usedWith; i++ ) {
             Action action = item.getAction( i );
             if( action.getType( ) == Action.USE_WITH && action.getIdTarget( ).equals( anotherItem.getItem( ).getId( ) ) ) {
-                if( action.getConditions( ).allConditionsOk( ) ) {
+                if( new FunctionalConditions( action.getConditions( ) ).allConditionsOk( ) ) {
                     // Store the effects
                     action.getEffects( ).storeAllEffects( );
                     usedWith = true;
@@ -304,7 +304,7 @@ public class FunctionalItem extends FunctionalElement {
         for( int i = 0; i < item.getActions( ).size( ) && !givenTo; i++ ) {
             Action action = item.getAction( i );
             if( action.getType( ) == Action.GIVE_TO && action.getIdTarget( ).equals( npc.getElement( ).getId( ) ) ) {
-                if( action.getConditions( ).allConditionsOk( ) ) {
+                if( new FunctionalConditions( action.getConditions( ) ).allConditionsOk( ) ) {
                     // If the item has not a cancel action, consume the item
                     if( !action.getEffects( ).hasCancelAction( ) )
                         Game.getInstance( ).consumeItem( item.getId( ) );
@@ -327,7 +327,7 @@ public class FunctionalItem extends FunctionalElement {
         // Get the active resources block
         Resources newResources = null;
         for( int i = 0; i < item.getResources( ).size( ) && newResources == null; i++ )
-            if( item.getResources( ).get( i ).getConditions( ).allConditionsOk( ) )
+            if( new FunctionalConditions( item.getResources( ).get( i ).getConditions( ) ).allConditionsOk( ) )
                 newResources = item.getResources( ).get( i );
 
         // If no resource block is available, create a default one 

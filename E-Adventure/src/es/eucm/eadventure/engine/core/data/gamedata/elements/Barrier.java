@@ -1,6 +1,6 @@
 package es.eucm.eadventure.engine.core.data.gamedata.elements;
 
-import es.eucm.eadventure.engine.core.data.gamedata.conditions.Conditions;
+import es.eucm.eadventure.common.data.chapterdata.conditions.Conditions;
 
 
 /**

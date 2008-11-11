@@ -1,4 +1,4 @@
-package es.eucm.eadventure.engine.core.data.gamedata.effects;
+package es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects;
 
 import java.awt.Graphics2D;
 
@@ -63,7 +63,7 @@ public class PlayAnimationEffect implements Effect {
 
     /*
      *  (non-Javadoc)
-     * @see es.eucm.eadventure.engine.core.data.gamedata.effects.Effect#isStillRunning()
+     * @see es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.Effect#isStillRunning()
      */
     public boolean isStillRunning(  ) {
         return animation.isPlayingForFirstTime( );

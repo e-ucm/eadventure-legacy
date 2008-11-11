@@ -4,8 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 import es.eucm.eadventure.engine.core.control.Game;
-import es.eucm.eadventure.engine.core.data.gamedata.effects.Effect;
-import es.eucm.eadventure.engine.core.data.gamedata.effects.PlayAnimationEffect;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.Effect;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.PlayAnimationEffect;
 import es.eucm.eadventure.engine.core.gui.GUI;
 
 /**

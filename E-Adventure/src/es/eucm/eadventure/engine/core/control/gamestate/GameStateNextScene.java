@@ -2,6 +2,7 @@ package es.eucm.eadventure.engine.core.control.gamestate;
 
 import es.eucm.eadventure.engine.core.control.ActionManager;
 import es.eucm.eadventure.engine.core.control.Game;
+import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalScene;
 import es.eucm.eadventure.engine.core.data.gamedata.NextScene;
@@ -46,11 +47,11 @@ public class GameStateNextScene extends GameState {
                    // Take the old and the new music path
                     String oldMusicPath = null;
                     for( int i = 0; i < game.getFunctionalScene( ).getScene( ).getResources( ).size( ) && oldMusicPath == null; i++ )
-                        if( game.getFunctionalScene( ).getScene( ).getResources( ).get( i ).getConditions( ).allConditionsOk( ) )
+                        if( new FunctionalConditions( game.getFunctionalScene( ).getScene( ).getResources( ).get( i ).getConditions( )).allConditionsOk( ) )
                             oldMusicPath = game.getFunctionalScene( ).getScene( ).getResources( ).get( i ).getAssetPath( Scene.RESOURCE_TYPE_MUSIC );
                     String newMusicPath = null;
                     for( int i = 0; i < scene.getResources( ).size( ) && newMusicPath == null; i++ )
-                        if( scene.getResources( ).get( i ).getConditions( ).allConditionsOk( ) )
+                        if( new FunctionalConditions(scene.getResources( ).get( i ).getConditions( )).allConditionsOk( ) )
                             newMusicPath = scene.getResources( ).get( i ).getAssetPath( Scene.RESOURCE_TYPE_MUSIC );
                     
                     // If the music paths are the same, take the music identifier

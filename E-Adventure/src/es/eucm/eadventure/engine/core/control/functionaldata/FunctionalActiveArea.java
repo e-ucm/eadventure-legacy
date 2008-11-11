@@ -93,7 +93,7 @@ public class FunctionalActiveArea extends FunctionalItem{
         for( int i = 0; i < item.getActions( ).size( ) && !givenTo; i++ ) {
             Action action = item.getAction( i );
             if( action.getType( ) == Action.GIVE_TO && action.getIdTarget( ).equals( npc.getElement( ).getId( ) ) ) {
-                if( action.getConditions( ).allConditionsOk( ) ) {
+                if( new FunctionalConditions( action.getConditions( ) ).allConditionsOk( ) ) {
                     // Store the effects
                     action.getEffects( ).storeAllEffects( );
                     givenTo = true;
@@ -115,7 +115,7 @@ public class FunctionalActiveArea extends FunctionalItem{
         for( int i = 0; i < item.getActions( ).size( ) && !grabbed; i++ ) {
             Action action = item.getAction( i );
             if( action.getType( ) == Action.GRAB ) {
-                if( action.getConditions( ).allConditionsOk( ) ) {
+                if( new FunctionalConditions ( action.getConditions( ) ).allConditionsOk( ) ) {
                     // Store the effects
                     action.getEffects( ).storeAllEffects( );
                     grabbed = true;

@@ -21,6 +21,7 @@ import de.schlichtherle.io.FileOutputStream;
 import de.schlichtherle.io.FileWriter;
 
 import es.eucm.eadventure.engine.core.control.Game;
+import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 import es.eucm.eadventure.engine.core.data.gamedata.NextScene;
 import es.eucm.eadventure.engine.core.data.gamedata.elements.NPC;
 import es.eucm.eadventure.engine.core.data.gamedata.resources.Asset;
@@ -127,7 +128,7 @@ public class GameStateVideoscene extends GameState  implements ControllerListene
             NextScene nextScene = null;
 
             for( NextScene currentNextScene : videoscene.getNextScenes( ) )
-                if( currentNextScene.getConditions( ).allConditionsOk( ) )
+                if( new FunctionalConditions( currentNextScene.getConditions( )).allConditionsOk( ) )
                     nextScene = currentNextScene;
 
             if( nextScene != null ) {
@@ -194,7 +195,7 @@ public class GameStateVideoscene extends GameState  implements ControllerListene
         // Get the active resources block
         Resources newResources = null;
         for( int i = 0; i < videoscene.getResources( ).size( ) && newResources == null; i++ )
-            if( videoscene.getResources( ).get( i ).getConditions( ).allConditionsOk( ) )
+            if( new FunctionalConditions(videoscene.getResources( ).get( i ).getConditions( )).allConditionsOk( ) )
                 newResources = videoscene.getResources( ).get( i );
 
         // If no resource block is available, create a default, empty one 

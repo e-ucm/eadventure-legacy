@@ -727,7 +727,7 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
         // Get the active resources block
         Resources newResources = null;
         for( int i = 0; i < player.getResources( ).size( ) && newResources == null; i++ )
-            if( player.getResources( ).get( i ).getConditions( ).allConditionsOk( ) )
+            if( new FunctionalConditions(player.getResources( ).get( i ).getConditions( )).allConditionsOk( ) )
                 newResources = player.getResources( ).get( i );
 
         // If no resource block is available, create a default one 

@@ -1,4 +1,4 @@
-package es.eucm.eadventure.engine.core.data.gamedata.effects;
+package es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects;
 
 /**
  * This interface defines any individual effect that can

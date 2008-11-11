@@ -1,4 +1,4 @@
-package es.eucm.eadventure.engine.core.data.gamedata.effects;
+package es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects;
 
 import java.util.ArrayList;
 

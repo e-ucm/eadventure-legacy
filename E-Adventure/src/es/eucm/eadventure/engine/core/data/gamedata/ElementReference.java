@@ -1,6 +1,6 @@
 package es.eucm.eadventure.engine.core.data.gamedata;
 
-import es.eucm.eadventure.engine.core.data.gamedata.conditions.Conditions;
+import es.eucm.eadventure.common.data.chapterdata.conditions.Conditions;
 
 /**
  * This class holds the data for a element reference in eAdventure

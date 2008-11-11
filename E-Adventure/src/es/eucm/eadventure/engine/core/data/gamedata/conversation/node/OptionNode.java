@@ -2,8 +2,8 @@ package es.eucm.eadventure.engine.core.data.gamedata.conversation.node;
 
 import java.util.Vector;
 
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.Effects;
 import es.eucm.eadventure.engine.core.data.gamedata.conversation.util.ConversationLine;
-import es.eucm.eadventure.engine.core.data.gamedata.effects.Effects;
 
 /**
  * This conversational node contains a set of lines, which represent the possible options that the player can choose in

@@ -2,10 +2,10 @@ package es.eucm.eadventure.engine.loader.subparsers;
 
 import org.xml.sax.Attributes;
 
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.Effects;
 import es.eucm.eadventure.engine.core.data.gamedata.Action;
 import es.eucm.eadventure.engine.core.data.gamedata.GameData;
-import es.eucm.eadventure.engine.core.data.gamedata.conditions.Conditions;
-import es.eucm.eadventure.engine.core.data.gamedata.effects.Effects;
+import es.eucm.eadventure.common.data.chapterdata.conditions.Conditions;
 import es.eucm.eadventure.engine.core.data.gamedata.elements.Item;
 import es.eucm.eadventure.engine.core.data.gamedata.resources.Asset;
 import es.eucm.eadventure.engine.core.data.gamedata.resources.Resources;

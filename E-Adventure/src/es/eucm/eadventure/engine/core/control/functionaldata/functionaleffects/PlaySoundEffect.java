@@ -1,4 +1,4 @@
-package es.eucm.eadventure.engine.core.data.gamedata.effects;
+package es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects;
 
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
@@ -54,7 +54,7 @@ public class PlaySoundEffect implements Effect {
 
     /*
      *  (non-Javadoc)
-     * @see es.eucm.eadventure.engine.core.data.gamedata.effects.Effect#isStillRunning()
+     * @see es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.Effect#isStillRunning()
      */
     public boolean isStillRunning( ) {
         return !background && MultimediaManager.getInstance().isPlaying( soundID );

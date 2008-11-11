@@ -1,7 +1,7 @@
 package es.eucm.eadventure.engine.core.data.gamedata;
 
-import es.eucm.eadventure.engine.core.data.gamedata.conditions.Conditions;
-import es.eucm.eadventure.engine.core.data.gamedata.effects.Effects;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.Effects;
+import es.eucm.eadventure.common.data.chapterdata.conditions.Conditions;
 
 /**
  * An action that can be done during the game.

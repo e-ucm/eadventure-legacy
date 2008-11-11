@@ -27,7 +27,7 @@ public class FunctionalStyledBook extends FunctionalBook{
         //Get the background image
         Resources resources = null;
         for( int i = 0; i < book.getResources( ).size( ) && resources == null; i++ )
-            if( book.getResources( ).get( i ).getConditions( ).allConditionsOk( ) )
+            if( new FunctionalConditions(book.getResources( ).get( i ).getConditions( )).allConditionsOk( ) )
                 resources = book.getResources( ).get( i );
             
         Image background = MultimediaManager.getInstance( ).loadImageFromZip( resources.getAssetPath( Book.RESOURCE_TYPE_BACKGROUND ), MultimediaManager.IMAGE_SCENE );

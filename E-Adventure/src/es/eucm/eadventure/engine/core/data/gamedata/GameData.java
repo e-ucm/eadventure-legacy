@@ -3,6 +3,7 @@ package es.eucm.eadventure.engine.core.data.gamedata;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.common.data.chapterdata.Timer;
 import es.eucm.eadventure.engine.core.data.gamedata.book.Book;
 import es.eucm.eadventure.engine.core.data.gamedata.conversation.Conversation;
 import es.eucm.eadventure.engine.core.data.gamedata.elements.Item;

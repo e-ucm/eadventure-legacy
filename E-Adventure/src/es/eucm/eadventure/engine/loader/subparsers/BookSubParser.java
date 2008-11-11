@@ -9,7 +9,7 @@ import es.eucm.eadventure.engine.core.data.gamedata.book.BookImage;
 import es.eucm.eadventure.engine.core.data.gamedata.book.BookPage;
 import es.eucm.eadventure.engine.core.data.gamedata.book.BookText;
 import es.eucm.eadventure.engine.core.data.gamedata.book.BookTitle;
-import es.eucm.eadventure.engine.core.data.gamedata.conditions.Conditions;
+import es.eucm.eadventure.common.data.chapterdata.conditions.Conditions;
 import es.eucm.eadventure.engine.core.data.gamedata.resources.Asset;
 import es.eucm.eadventure.engine.core.data.gamedata.resources.Resources;
 

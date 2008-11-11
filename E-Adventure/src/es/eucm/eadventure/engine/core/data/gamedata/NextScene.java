@@ -2,8 +2,9 @@ package es.eucm.eadventure.engine.core.data.gamedata;
 
 import java.util.ArrayList;
 
-import es.eucm.eadventure.engine.core.data.gamedata.conditions.Conditions;
-import es.eucm.eadventure.engine.core.data.gamedata.effects.Effects;
+import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.Effects;
+import es.eucm.eadventure.common.data.chapterdata.conditions.Conditions;
 
 /**
  * This class holds the data of a next scene in eAdventure
@@ -160,7 +161,7 @@ public class NextScene {
      */
     public String getExitText( ) {
         String exitText=null;
-            if (getConditions( ).allConditionsOk( ) && look!=null){
+            if (new FunctionalConditions(getConditions( )).allConditionsOk( ) && look!=null){
                 exitText=look.getExitText( );
             }
         return exitText;
@@ -174,7 +175,7 @@ public class NextScene {
      */
     public String getCursorPath(){
         String cursorPath=null;
-            if (getConditions( ).allConditionsOk( ) && look!=null){
+            if (new FunctionalConditions(getConditions( )).allConditionsOk( ) && look!=null){
                 cursorPath=look.getCursorPath( );
             }
         return cursorPath;    

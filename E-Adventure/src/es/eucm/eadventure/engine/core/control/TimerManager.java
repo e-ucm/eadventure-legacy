@@ -1,10 +1,9 @@
 package es.eucm.eadventure.engine.core.control;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
-import es.eucm.eadventure.engine.core.data.gamedata.conditions.Conditions;
+import es.eucm.eadventure.common.data.chapterdata.conditions.Conditions;
+import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 
 public class TimerManager {
 
@@ -89,7 +88,7 @@ public class TimerManager {
                 // check if current conditions are satisfied.
                 if( currentTimer.getState( ) == FunctionalTimer.STATE_NO_INIT 
                         || currentTimer.getState( ) == FunctionalTimer.STATE_DONE ) {
-                    if( currentTimer.getInitConditions( ).allConditionsOk( ) ) {
+                    if( new FunctionalConditions(currentTimer.getInitConditions( )).allConditionsOk( ) ) {
                         currentTimer.setLastUpdate( currentTime );
                         currentTimer.setState( FunctionalTimer.STATE_RUNNING );
 
@@ -105,7 +104,7 @@ public class TimerManager {
                 // 2) Check if a timer cycle has been accomplished to notify the
                 // listener
                 else if( currentTimer.getState( ) == FunctionalTimer.STATE_RUNNING ) {
-                    if( currentTimer.getEndConditions( ).allConditionsOk( ) ) {
+                    if( new FunctionalConditions( currentTimer.getEndConditions( ) ).allConditionsOk( ) ) {
                         currentTimer.setLastUpdate( currentTime );
                         currentTimer.setState( FunctionalTimer.STATE_DONE );
 

@@ -4,13 +4,13 @@ import java.util.Vector;
 
 import org.xml.sax.Attributes;
 
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.Effects;
 import es.eucm.eadventure.engine.core.data.gamedata.GameData;
 import es.eucm.eadventure.engine.core.data.gamedata.conversation.Conversation;
 import es.eucm.eadventure.engine.core.data.gamedata.conversation.node.DialogueNode;
 import es.eucm.eadventure.engine.core.data.gamedata.conversation.node.Node;
 import es.eucm.eadventure.engine.core.data.gamedata.conversation.node.OptionNode;
 import es.eucm.eadventure.engine.core.data.gamedata.conversation.util.ConversationLine;
-import es.eucm.eadventure.engine.core.data.gamedata.effects.Effects;
 
 /**
  * Class to subparse tree conversations

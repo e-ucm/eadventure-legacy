@@ -3,7 +3,7 @@ package es.eucm.eadventure.engine.loader.subparsers;
 import org.xml.sax.Attributes;
 
 import es.eucm.eadventure.engine.core.data.gamedata.GameData;
-import es.eucm.eadventure.engine.core.data.gamedata.conditions.Conditions;
+import es.eucm.eadventure.common.data.chapterdata.conditions.Conditions;
 import es.eucm.eadventure.engine.core.data.gamedata.elements.Player;
 import es.eucm.eadventure.engine.core.data.gamedata.resources.Asset;
 import es.eucm.eadventure.engine.core.data.gamedata.resources.Resources;

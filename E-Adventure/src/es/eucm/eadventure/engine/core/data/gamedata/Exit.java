@@ -2,7 +2,8 @@ package es.eucm.eadventure.engine.core.data.gamedata;
 
 import java.util.ArrayList;
 
-import es.eucm.eadventure.engine.core.data.gamedata.conditions.Conditions;
+import es.eucm.eadventure.common.data.chapterdata.conditions.Conditions;
+import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 import es.eucm.eadventure.engine.core.data.gamedata.resources.Resources;
 
 /**
@@ -121,7 +122,7 @@ public class Exit {
     public String getExitText( ) {
         String exitText=null;
         for (NextScene nextScene:nextScenes){
-            if (nextScene.getConditions( ).allConditionsOk( )){
+            if (new FunctionalConditions(nextScene.getConditions( )).allConditionsOk( )){
                 exitText=nextScene.getExitText( );
             }
         }
@@ -140,7 +141,7 @@ public class Exit {
     public String getCursorPath(){
         String cursorPath=null;
         for (NextScene nextScene:nextScenes){
-            if (nextScene.getConditions( ).allConditionsOk( )){
+            if (new FunctionalConditions(nextScene.getConditions( )).allConditionsOk( )){
                 cursorPath=nextScene.getCursorPath( );
             }
         }

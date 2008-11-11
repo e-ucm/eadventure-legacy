@@ -154,7 +154,7 @@ public class FunctionalScene implements Renderable {
 
         // Add the functional items
         for( ElementReference itemReference : scene.getItemReferences( ) )
-            if( itemReference.getConditions( ).allConditionsOk( ) )
+            if( new FunctionalConditions(itemReference.getConditions( )).allConditionsOk( ) )
                 if( itemSummary.isItemNormal( itemReference.getIdTarget( ) ) )
                     for( Item currentItem : gameData.getItems( ) )
                         if( itemReference.getIdTarget( ).equals( currentItem.getId( ) ) )
@@ -162,19 +162,19 @@ public class FunctionalScene implements Renderable {
 
         // Add the functional characters
         for( ElementReference npcReference : scene.getCharacterReferences( ) )
-            if( npcReference.getConditions( ).allConditionsOk( ) )
+            if( new FunctionalConditions(npcReference.getConditions( )).allConditionsOk( ) )
                 for( NPC currentNPC : gameData.getCharacters( ) )
                     if( npcReference.getIdTarget( ).equals( currentNPC.getId( ) ) )
                         npcs.add( new FunctionalNPC( currentNPC, npcReference.getX( ), npcReference.getY( ) ) );
         
         // Add the functional active areas
         for( ActiveArea activeArea : scene.getActiveAreas( ) )
-            if( activeArea.getConditions( ).allConditionsOk( ) )
+            if( new FunctionalConditions(activeArea.getConditions( )).allConditionsOk( ) )
                 this.areas.add( new FunctionalActiveArea( activeArea ) );
         
         // Add the functional barriers
         for( Barrier barrier : scene.getBarriers( ) )
-            if( barrier.getConditions( ).allConditionsOk( ) )
+            if( new FunctionalConditions(barrier.getConditions( )).allConditionsOk( ) )
                 this.barriers.add( new FunctionalBarrier( barrier ) );
 
 
@@ -199,7 +199,7 @@ public class FunctionalScene implements Renderable {
         for( ElementReference itemReference : scene.getItemReferences( ) ) {
             
             // For every item that should be there
-            if( itemReference.getConditions( ).allConditionsOk( ) ) {
+            if( new FunctionalConditions(itemReference.getConditions( )).allConditionsOk( ) ) {
                 boolean found = false;
                 
                 // If the functional item is present, update its resources
@@ -227,7 +227,7 @@ public class FunctionalScene implements Renderable {
         for( ElementReference npcReference : scene.getCharacterReferences( ) ) {
             
             // For every item that should be there
-            if( npcReference.getConditions( ).allConditionsOk( ) ) {
+            if( new FunctionalConditions(npcReference.getConditions( )).allConditionsOk( ) ) {
                 boolean found = false;
                 
                 // If the functional character is present, update its resources
@@ -253,7 +253,7 @@ public class FunctionalScene implements Renderable {
         for( ActiveArea activeArea : scene.getActiveAreas( ) ) {
             
             // For every item that should be there
-            if( activeArea.getConditions( ).allConditionsOk( ) ) {
+            if( new FunctionalConditions(activeArea.getConditions( )).allConditionsOk( ) ) {
                 boolean found = false;
                 
                 // If the functional item is present, update its resources
@@ -280,7 +280,7 @@ public class FunctionalScene implements Renderable {
             // For every present item, check if it must be kept
             for( ElementReference itemReference : scene.getItemReferences( ) ) {
                 if( itemReference.getIdTarget( ).equals( currentItem.getItem( ).getId( ) ) &&
-                    itemReference.getConditions( ).allConditionsOk( ) ) {
+                		new FunctionalConditions(itemReference.getConditions( )).allConditionsOk( ) ) {
                     keepItem = true;
                 }
             }
@@ -303,7 +303,7 @@ public class FunctionalScene implements Renderable {
             // For every present character, check if it must be kept
             for( ElementReference npcReference : scene.getCharacterReferences( ) ) {
                 if( npcReference.getIdTarget( ).equals( currentNPC.getNPC( ).getId( ) ) &&
-                    npcReference.getConditions( ).allConditionsOk( ) ) {
+                		new FunctionalConditions(npcReference.getConditions( )).allConditionsOk( ) ) {
                     keepNPC = true;
                 }
             }
@@ -325,7 +325,7 @@ public class FunctionalScene implements Renderable {
             // For every present item, check if it must be kept
             for( ActiveArea activeArea : scene.getActiveAreas( ) ) {
                 if( activeArea.getId( ).equals( currentActiveArea.getItem( ).getId( ) ) &&
-                    activeArea.getConditions( ).allConditionsOk( ) ) {
+                		new FunctionalConditions(activeArea.getConditions( )).allConditionsOk( ) ) {
                     keepActiveArea = true;
                 }
             }
@@ -835,7 +835,7 @@ public class FunctionalScene implements Renderable {
         // Get the active resources block
         Resources newResources = null;
         for( int i = 0; i < scene.getResources( ).size( ) && newResources == null; i++ )
-            if( scene.getResources( ).get( i ).getConditions( ).allConditionsOk( ) )
+            if( new FunctionalConditions(scene.getResources( ).get( i ).getConditions( )).allConditionsOk( ) )
                 newResources = scene.getResources( ).get( i );
 
         // If no resource block is available, create a default one 

@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalBook;
+import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalStyledBook;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalTextBook;
 import es.eucm.eadventure.engine.core.data.gamedata.book.Book;
@@ -106,7 +107,7 @@ public class GameStateBook extends GameState {
         // Get the active resources block
         Resources newResources = null;
         for( int i = 0; i < book.getBook( ).getResources( ).size( ) && newResources == null; i++ )
-            if( book.getBook( ).getResources( ).get( i ).getConditions( ).allConditionsOk( ) )
+            if( new FunctionalConditions(book.getBook( ).getResources( ).get( i ).getConditions( )).allConditionsOk( ) )
                 newResources = book.getBook( ).getResources( ).get( i );
 
         // If no resource block is available, create a default one 

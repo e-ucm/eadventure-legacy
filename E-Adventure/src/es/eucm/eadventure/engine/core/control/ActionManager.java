@@ -6,6 +6,7 @@ import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
 
+import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
 import es.eucm.eadventure.engine.core.data.gamedata.Exit;
 import es.eucm.eadventure.engine.core.data.gamedata.scenes.GeneralScene;
@@ -221,7 +222,7 @@ public class ActionManager {
             
             // Pick the FIRST valid next-scene structure
             for( int i = 0; i < exit.getNextScenes( ).size( ) && nextScene == null; i++ )
-                if( exit.getNextScenes( ).get( i ).getConditions( ).allConditionsOk( ) )
+                if( new FunctionalConditions( exit.getNextScenes( ).get( i ).getConditions( ) ).allConditionsOk( ) )
                     nextScene = game.getGameData( ).getGeneralScene( exit.getNextScenes( ).get( i ).getNextSceneId( ) );
 
             //Check the text (customized or not)

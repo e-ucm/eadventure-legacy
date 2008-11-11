@@ -3,6 +3,7 @@ package es.eucm.eadventure.engine.core.control.animations.pc;
 import java.util.ArrayList;
 
 import es.eucm.eadventure.engine.core.control.Game;
+import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalNPC;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
 import es.eucm.eadventure.engine.core.data.GameText;
@@ -34,7 +35,7 @@ public class PCWalkingToTalk extends PCState {
             boolean triggeredConversation = false;
             
             for( int i = 0; i < conversationReferences.size( ) && !triggeredConversation; i++ ) {
-                if( conversationReferences.get( i ).getConditions( ).allConditionsOk( ) ) {
+                if( new FunctionalConditions( conversationReferences.get( i ).getConditions( ) ).allConditionsOk( ) ) {
                     Game.getInstance( ).setCurrentNPC( npc );
                     Game.getInstance( ).setConversation( conversationReferences.get( i ).getIdTarget( ) );
                     Game.getInstance( ).setState( Game.STATE_CONVERSATION );
@@ -55,7 +56,7 @@ public class PCWalkingToTalk extends PCState {
         ArrayList<ConversationReference> conversationReferences = npc.getNPC( ).getConversationReferences( );     
         boolean anyConversation = false;
         for( int i = 0; i < conversationReferences.size( ) && !anyConversation; i++ )
-            if( conversationReferences.get( i ).getConditions( ).allConditionsOk( ) )
+            if( new FunctionalConditions( conversationReferences.get( i ).getConditions( ) ).allConditionsOk( ) )
                 anyConversation = true;
         
         if( anyConversation ) {

@@ -410,7 +410,7 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
         // Get the active resources block
         Resources newResources = null;
         for( int i = 0; i < npc.getResources( ).size( ) && newResources == null; i++ )
-            if( npc.getResources( ).get( i ).getConditions( ).allConditionsOk( ) )
+            if( new FunctionalConditions( npc.getResources( ).get( i ).getConditions( ) ).allConditionsOk( ) )
                 newResources = npc.getResources( ).get( i );
 
         // If no resource block is available, create a default one 
