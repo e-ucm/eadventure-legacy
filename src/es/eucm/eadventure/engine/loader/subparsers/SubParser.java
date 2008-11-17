@@ -2,7 +2,7 @@ package es.eucm.eadventure.engine.loader.subparsers;
 
 import org.xml.sax.Attributes;
 
-import es.eucm.eadventure.engine.core.data.gamedata.GameData;
+import es.eucm.eadventure.common.data.chapterdata.Chapter;
 
 /**
  * Abstract class for subparsing elements of the script
@@ -19,7 +19,7 @@ public abstract class SubParser {
     /**
      * Game data to store the data
      */
-    protected GameData gameData;
+    protected Chapter gameData;
     
     /* Methods */
     
@@ -27,7 +27,7 @@ public abstract class SubParser {
      * Constructor
      * @param gameData Game data to store the read data
      */
-    public SubParser( GameData gameData ) {
+    public SubParser( Chapter gameData ) {
         this.gameData = gameData;
         currentString = new StringBuffer( );
     }

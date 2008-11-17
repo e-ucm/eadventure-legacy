@@ -8,7 +8,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import es.eucm.eadventure.engine.core.data.gamedata.GameData;
+import es.eucm.eadventure.common.data.chapterdata.Chapter;
 import es.eucm.eadventure.editor.control.loader.subparsers.BookSubParser;
 import es.eucm.eadventure.engine.loader.subparsers.CharacterSubParser;
 import es.eucm.eadventure.engine.loader.subparsers.GraphConversationSubParser;
@@ -92,7 +92,7 @@ public class ScriptHandler extends DefaultHandler {
     /**
      * Game data
      */
-    private GameData gameData;
+    private Chapter gameData;
 
     /* Methods */
 
@@ -100,14 +100,14 @@ public class ScriptHandler extends DefaultHandler {
      * Default constructor
      */
     public ScriptHandler( ) {
-        gameData = new GameData( );
+        gameData = new Chapter( );
     }
 
     /**
      * Returns the game data read
      * @return The game data from the XML script
      */
-    public GameData getGameData( ) {
+    public Chapter getGameData( ) {
         return gameData;
     }
 

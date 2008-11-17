@@ -2,6 +2,7 @@ package es.eucm.eadventure.engine.core.control;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import es.eucm.eadventure.common.data.chapterdata.elements.Item;
 
@@ -34,7 +35,7 @@ public class ItemSummary implements Serializable {
      * Default constructor
      * @param items List of items, which will be stored as normal items
      */
-    public ItemSummary( ArrayList<Item> items ) {
+    public ItemSummary( List<Item> items ) {
         normalItems = new ArrayList<String>( );
         grabbedItems = new ArrayList<String>( );
         consumedItems = new ArrayList<String>( );

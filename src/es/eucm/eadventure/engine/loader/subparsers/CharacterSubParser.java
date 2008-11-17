@@ -3,7 +3,7 @@ package es.eucm.eadventure.engine.loader.subparsers;
 import org.xml.sax.Attributes;
 
 import es.eucm.eadventure.common.data.chapterdata.ConversationReference;
-import es.eucm.eadventure.engine.core.data.gamedata.GameData;
+import es.eucm.eadventure.common.data.chapterdata.Chapter;
 import es.eucm.eadventure.common.data.chapterdata.conditions.Conditions;
 import es.eucm.eadventure.common.data.chapterdata.resources.Asset;
 import es.eucm.eadventure.common.data.chapterdata.elements.NPC;
@@ -82,7 +82,7 @@ public class CharacterSubParser extends SubParser {
      * Constructor
      * @param gameData Game data to store the readed data
      */
-    public CharacterSubParser( GameData gameData ) {
+    public CharacterSubParser( Chapter gameData ) {
         super( gameData );
     }
 

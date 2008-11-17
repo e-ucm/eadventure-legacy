@@ -13,7 +13,7 @@ import es.eucm.eadventure.engine.core.control.ItemSummary;
 import es.eucm.eadventure.engine.core.data.GameText;
 import es.eucm.eadventure.common.data.chapterdata.ElementReference;
 import es.eucm.eadventure.common.data.chapterdata.Exit;
-import es.eucm.eadventure.engine.core.data.gamedata.GameData;
+import es.eucm.eadventure.common.data.chapterdata.Chapter;
 import es.eucm.eadventure.common.data.chapterdata.elements.ActiveArea;
 import es.eucm.eadventure.common.data.chapterdata.elements.Barrier;
 import es.eucm.eadventure.common.data.chapterdata.elements.Item;
@@ -115,7 +115,7 @@ public class FunctionalScene implements Renderable {
         barriers = new ArrayList<FunctionalBarrier>( );
 
         // Pick the item summary
-        GameData gameData = Game.getInstance( ).getGameData( );
+        Chapter gameData = Game.getInstance( ).getGameData( );
         ItemSummary itemSummary = Game.getInstance( ).getItemSummary( );
         
         // Select the resources
@@ -192,7 +192,7 @@ public class FunctionalScene implements Renderable {
         player.updateResources( );
         
         // Pick the game data
-        GameData gameData = Game.getInstance( ).getGameData( );
+        Chapter gameData = Game.getInstance( ).getGameData( );
             
         // Check the item references of the scene
         for( ElementReference itemReference : scene.getItemReferences( ) ) {

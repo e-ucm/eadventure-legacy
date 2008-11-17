@@ -2,7 +2,7 @@ package es.eucm.eadventure.engine.loader.subparsers;
 
 import org.xml.sax.Attributes;
 
-import es.eucm.eadventure.engine.core.data.gamedata.GameData;
+import es.eucm.eadventure.common.data.chapterdata.Chapter;
 import es.eucm.eadventure.common.data.chapterdata.NextScene;
 import es.eucm.eadventure.common.data.chapterdata.conditions.Conditions;
 import es.eucm.eadventure.common.data.chapterdata.effects.Effects;
@@ -91,7 +91,7 @@ public class VideosceneSubParser extends SubParser {
      * Constructor
      * @param gameData Game data to store the readed data
      */
-    public VideosceneSubParser( GameData gameData ) {
+    public VideosceneSubParser( Chapter gameData ) {
         super( gameData );
     }
 
@@ -203,7 +203,7 @@ public class VideosceneSubParser extends SubParser {
             
             // If it is a videoscene tag, store the videsocene in the game data
             if( qName.equals( "videoscene" ) ) {
-                gameData.addGeneralScene( videoscene );
+                gameData.addCutscene( videoscene );
             }
             
             // If it is a resources tag, add it to the videoscene

@@ -2,7 +2,7 @@ package es.eucm.eadventure.engine.loader.subparsers;
 
 import org.xml.sax.Attributes;
 
-import es.eucm.eadventure.engine.core.data.gamedata.GameData;
+import es.eucm.eadventure.common.data.chapterdata.Chapter;
 import es.eucm.eadventure.common.data.chapterdata.NextScene;
 import es.eucm.eadventure.common.data.chapterdata.conditions.Conditions;
 import es.eucm.eadventure.common.data.chapterdata.effects.Effects;
@@ -93,7 +93,7 @@ public class SlidesceneSubParser extends SubParser {
      * Constructor
      * @param gameData Game data to store the readed data
      */
-    public SlidesceneSubParser( GameData gameData ) {
+    public SlidesceneSubParser( Chapter gameData ) {
         super( gameData );
     }
 
@@ -205,7 +205,7 @@ public class SlidesceneSubParser extends SubParser {
             
             // If it is a slidescene tag, add it to the game data
             if( qName.equals( "slidescene" ) ) {
-                gameData.addGeneralScene( slidescene );
+                gameData.addCutscene( slidescene );
             }
             
             // If it is a resources tag, add it to the slidescene

@@ -2,7 +2,7 @@ package es.eucm.eadventure.engine.loader.subparsers;
 
 import org.xml.sax.Attributes;
 
-import es.eucm.eadventure.engine.core.data.gamedata.GameData;
+import es.eucm.eadventure.common.data.chapterdata.Chapter;
 import es.eucm.eadventure.common.data.chapterdata.conditions.Conditions;
 import es.eucm.eadventure.common.data.chapterdata.resources.Asset;
 import es.eucm.eadventure.common.data.chapterdata.elements.Player;
@@ -56,7 +56,7 @@ public class PlayerSubParser extends SubParser {
      * Constructor
      * @param gameData Game data to store the readed data
      */
-    public PlayerSubParser( GameData gameData ) {
+    public PlayerSubParser( Chapter gameData ) {
         super( gameData );
     }
 

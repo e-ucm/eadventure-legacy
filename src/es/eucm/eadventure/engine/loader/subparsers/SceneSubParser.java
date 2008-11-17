@@ -5,7 +5,7 @@ import org.xml.sax.Attributes;
 import es.eucm.eadventure.common.data.chapterdata.ElementReference;
 import es.eucm.eadventure.common.data.chapterdata.Exit;
 import es.eucm.eadventure.common.data.chapterdata.ExitLook;
-import es.eucm.eadventure.engine.core.data.gamedata.GameData;
+import es.eucm.eadventure.common.data.chapterdata.Chapter;
 import es.eucm.eadventure.common.data.chapterdata.NextScene;
 import es.eucm.eadventure.common.data.chapterdata.conditions.Conditions;
 import es.eucm.eadventure.common.data.chapterdata.effects.Effects;
@@ -131,7 +131,7 @@ public class SceneSubParser extends SubParser {
      * Constructor
      * @param gameData Game data to store the readed data
      */
-    public SceneSubParser( GameData gameData ) {
+    public SceneSubParser( Chapter gameData ) {
         super( gameData );
     }
     
@@ -338,7 +338,7 @@ public class SceneSubParser extends SubParser {
             
             // If it is a scene tag, store the scene in the game data
             if( qName.equals( "scene" ) ) {
-                gameData.addGeneralScene( scene );
+                gameData.addScene( scene );
             }
             
             // If it is a resources tag, add the resources to the scene
