@@ -350,7 +350,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         Chapter chapter = gameDescriptor.getChapters( ).get( currentChapter );
         
         // Load the script data
-        gameData = Loader.loadData( chapter.getPath() );
+        gameData = Loader.loadData( chapter.getName() );
         
         // Create the flags summary and the assessment engine
         flags = new FlagSummary( gameData.getFlags( ) );
@@ -1046,7 +1046,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
                 currentChapter = saveGame.getChapter();
                 
                 Chapter chapter = gameDescriptor.getChapters( ).get( currentChapter );
-                gameData = Loader.loadData( chapter.getPath( ) );
+                gameData = Loader.loadData( chapter.getName( ) );
                 
                 totalTime = saveGame.getTotalTime();
                 flags = saveGame.getFlags( );
