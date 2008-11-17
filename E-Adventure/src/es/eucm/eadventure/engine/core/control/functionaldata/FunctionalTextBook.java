@@ -10,12 +10,8 @@ import java.util.ArrayList;
 
 import javax.swing.JEditorPane;
 
-import es.eucm.eadventure.engine.core.data.gamedata.book.Book;
-import es.eucm.eadventure.engine.core.data.gamedata.book.BookBullet;
-import es.eucm.eadventure.engine.core.data.gamedata.book.BookImage;
-import es.eucm.eadventure.engine.core.data.gamedata.book.BookParagraph;
-import es.eucm.eadventure.engine.core.data.gamedata.book.BookText;
-import es.eucm.eadventure.engine.core.data.gamedata.book.BookTitle;
+import es.eucm.eadventure.common.data.chapterdata.book.Book;
+import es.eucm.eadventure.common.data.chapterdata.book.BookParagraph;
 import es.eucm.eadventure.engine.core.gui.GUI;
 
 public class FunctionalTextBook extends FunctionalBook{
@@ -95,16 +91,16 @@ public class FunctionalTextBook extends FunctionalBook{
             for( BookParagraph paragraph : book.getParagraphs() ) {
                 switch( paragraph.getType( ) ) {
                     case BookParagraph.TITLE:
-                        functionalParagraphs.add( new FunctionalBookTitle( (BookTitle) paragraph ) );
+                        functionalParagraphs.add( new FunctionalBookTitle( paragraph ) );
                         break;
                     case BookParagraph.BULLET:
-                        functionalParagraphs.add( new FunctionalBookBullet( (BookBullet)paragraph ) );
+                        functionalParagraphs.add( new FunctionalBookBullet( paragraph ) );
                         break;
                     case BookParagraph.IMAGE:
-                        functionalParagraphs.add( new FunctionalBookImage( (BookImage)paragraph ) );
+                        functionalParagraphs.add( new FunctionalBookImage( paragraph ) );
                         break;
                     case BookParagraph.TEXT:
-                        functionalParagraphs.add( new FunctionalBookText( (BookText)paragraph ) );
+                        functionalParagraphs.add( new FunctionalBookText( paragraph ) );
                         break;
                 }
             }

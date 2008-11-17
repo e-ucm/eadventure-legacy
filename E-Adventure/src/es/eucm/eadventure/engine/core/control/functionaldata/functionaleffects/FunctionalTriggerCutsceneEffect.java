@@ -1,31 +1,20 @@
 package es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects;
 
+import es.eucm.eadventure.common.data.chapterdata.effects.TriggerCutsceneEffect;
 import es.eucm.eadventure.engine.core.control.Game;
-import es.eucm.eadventure.engine.core.data.gamedata.NextScene;
+import es.eucm.eadventure.common.data.chapterdata.NextScene;
 
 /**
  * An effect that triggers a cutscene
  */
-public class TriggerSceneEffect extends FunctionalEffect {
-
-    /**
-     * Id of the cutscene to be played
-     */
-    protected String targetSceneId;
-    
-    protected int x;
-
-    protected int y;
+public class FunctionalTriggerCutsceneEffect extends FunctionalEffect {
 
     /**
      * Creates a new TriggerCutsceneEffect
      * @param targetCutsceneId the id of the cutscene to be triggered
      */
-    public TriggerSceneEffect( String targetSceneId, int x, int y ) {
-    	super(null);
-        this.targetSceneId = targetSceneId;
-        this.x = x;
-        this.y = y;      
+    public FunctionalTriggerCutsceneEffect( TriggerCutsceneEffect effect ) {
+    	super(effect);
     }
 
     /*
@@ -33,8 +22,8 @@ public class TriggerSceneEffect extends FunctionalEffect {
      * @see es.eucm.eadventure.engine.engine.data.effects.Effect#triggerEffect()
      */
     public void triggerEffect( ) {
-        if( targetSceneId!=null && !Game.getInstance( ).getGameData( ).isCutscene( targetSceneId ) ) {
-            Game.getInstance( ).setNextScene( new NextScene( targetSceneId, x, y ) );
+        if( Game.getInstance( ).getGameData( ).isCutscene( ((TriggerCutsceneEffect)effect).getTargetCutsceneId() ) ) {
+            Game.getInstance( ).setNextScene( new NextScene( ((TriggerCutsceneEffect)effect).getTargetCutsceneId() ) );
             Game.getInstance( ).setState( Game.STATE_NEXT_SCENE );
         }
     }

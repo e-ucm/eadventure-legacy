@@ -6,10 +6,11 @@ import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
-import es.eucm.eadventure.engine.core.data.gamedata.Action;
-import es.eucm.eadventure.engine.core.data.gamedata.elements.ActiveArea;
-import es.eucm.eadventure.engine.core.data.gamedata.elements.Item;
-import es.eucm.eadventure.engine.core.data.gamedata.resources.Resources;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
+import es.eucm.eadventure.common.data.chapterdata.Action;
+import es.eucm.eadventure.common.data.chapterdata.elements.ActiveArea;
+import es.eucm.eadventure.common.data.chapterdata.elements.Item;
+import es.eucm.eadventure.common.data.chapterdata.resources.Resources;
 
 public class FunctionalActiveArea extends FunctionalItem{
 
@@ -95,7 +96,7 @@ public class FunctionalActiveArea extends FunctionalItem{
             if( action.getType( ) == Action.GIVE_TO && action.getIdTarget( ).equals( npc.getElement( ).getId( ) ) ) {
                 if( new FunctionalConditions( action.getConditions( ) ).allConditionsOk( ) ) {
                     // Store the effects
-                    action.getEffects( ).storeAllEffects( );
+                	FunctionalEffects.storeAllEffects(action.getEffects( ));
                     givenTo = true;
                 }
             }
@@ -117,7 +118,7 @@ public class FunctionalActiveArea extends FunctionalItem{
             if( action.getType( ) == Action.GRAB ) {
                 if( new FunctionalConditions ( action.getConditions( ) ).allConditionsOk( ) ) {
                     // Store the effects
-                    action.getEffects( ).storeAllEffects( );
+                	FunctionalEffects.storeAllEffects(action.getEffects( ));
                     grabbed = true;
                 } 
             }

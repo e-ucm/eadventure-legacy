@@ -6,7 +6,7 @@ import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
-import es.eucm.eadventure.engine.core.data.gamedata.book.BookBullet;
+import es.eucm.eadventure.common.data.chapterdata.book.BookParagraph;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 
@@ -18,7 +18,7 @@ public class FunctionalBookBullet extends FunctionalBookParagraph {
     /**
      * The bullet book
      */
-    private BookBullet bookBullet;
+    private BookParagraph bookBullet;
     
     /**
      * The text of the book
@@ -34,7 +34,7 @@ public class FunctionalBookBullet extends FunctionalBookParagraph {
      * Creates a new FunctionalBookBullet
      * @param bullet the bullet book to be rendered
      */
-    public FunctionalBookBullet( BookBullet bullet ) {
+    public FunctionalBookBullet( BookParagraph bullet ) {
         this.bookBullet = bullet;
         this.init();
         imgBullet = MultimediaManager.getInstance( ).loadImage( "gui/bullet.png", MultimediaManager.IMAGE_SCENE );
@@ -48,7 +48,7 @@ public class FunctionalBookBullet extends FunctionalBookParagraph {
         textLines = new ArrayList<String>( );
 
         //Get the text of the book
-        String text = bookBullet.getText( );
+        String text = bookBullet.getContent( );
         String word = "";
         String line = "";
         //while there is still text to be process

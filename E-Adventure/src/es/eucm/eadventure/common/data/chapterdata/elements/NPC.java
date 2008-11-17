@@ -10,15 +10,66 @@ import es.eucm.eadventure.common.data.chapterdata.ConversationReference;
  */
 public class NPC extends Element {
 
+    /**
+     * The tag for the standup animation
+     */
+    public static final String RESOURCE_TYPE_STAND_UP = "standup";
+    
+    /**
+     * The tag for the standdown animation
+     */
+    public static final String RESOURCE_TYPE_STAND_DOWN = "standdown";
+    
+    /**
+     * The tag for the standright animation
+     */
+    public static final String RESOURCE_TYPE_STAND_RIGHT = "standright";
+    
+    /**
+     * The tag for the speakup animation
+     */
+    public static final String RESOURCE_TYPE_SPEAK_UP = "speakup";
+    
+    /**
+     * The tag for the speakdown animation
+     */
+    public static final String RESOURCE_TYPE_SPEAK_DOWN = "speakdown";
+    
+    /**
+     * The tag for the speakright animation
+     */
+    public static final String RESOURCE_TYPE_SPEAK_RIGHT = "speakright";
+    
+    /**
+     * The tag for the useright animation
+     */
+    public static final String RESOURCE_TYPE_USE_RIGHT = "useright";
+    
+    /**
+     * The tag for the walkup animation
+     */
+    public static final String RESOURCE_TYPE_WALK_UP = "walkup";
+    
+    /**
+     * The tag for the walkdown animation
+     */
+    public static final String RESOURCE_TYPE_WALK_DOWN = "walkdown";
+    
+    /**
+     * The tag for the walkright animation
+     */
+    public static final String RESOURCE_TYPE_WALK_RIGHT = "walkright";
+
+	
 	/**
 	 * The front color of the text of the character
 	 */
-	private String textFrontColor;
+	protected String textFrontColor;
 
 	/**
 	 * The border color of the text of the character
 	 */
-	private String textBorderColor;
+	protected String textBorderColor;
 
 	/**
 	 * List of conversation references of the player

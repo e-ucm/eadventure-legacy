@@ -55,7 +55,21 @@ public class Effects {
 		return effects;
 	}
 	
-	public void storeAllEffects(){
-		
+	/** 
+	 * Checks if there is any cancel action effect in the list
+	 */
+	public boolean hasCancelAction( ){
+		boolean hasCancelAction = false;
+		for (Effect effect: effects){
+			if (effect.getType() == Effect.CANCEL_ACTION){
+				hasCancelAction = true; break;
+			}
+		}
+		return hasCancelAction;
 	}
+	
+	/*public void storeAllEffects(){
+		
+	}*/
+	
 }

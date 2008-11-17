@@ -2,12 +2,12 @@ package es.eucm.eadventure.engine.loader.subparsers;
 
 import org.xml.sax.Attributes;
 
-import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
-import es.eucm.eadventure.engine.core.data.gamedata.Action;
+import es.eucm.eadventure.common.data.chapterdata.Action;
 import es.eucm.eadventure.engine.core.data.gamedata.GameData;
 import es.eucm.eadventure.common.data.chapterdata.conditions.Conditions;
-import es.eucm.eadventure.engine.core.data.gamedata.elements.ActiveArea;
-import es.eucm.eadventure.engine.core.data.gamedata.scenes.Scene;
+import es.eucm.eadventure.common.data.chapterdata.effects.Effects;
+import es.eucm.eadventure.common.data.chapterdata.elements.ActiveArea;
+import es.eucm.eadventure.common.data.chapterdata.scenes.Scene;
 
 
 /**
@@ -67,7 +67,7 @@ public class ActiveAreaSubParser extends SubParser {
 	/**
 	 * Current effects being parsed.
 	 */
-	private FunctionalEffects currentEffects;
+	private Effects currentEffects;
 
 	/**
 	 * Subparser for effects and conditions.
@@ -139,7 +139,7 @@ public class ActiveAreaSubParser extends SubParser {
 			// If it is an examine, use or grab tag, create new conditions and effects
 			else if( qName.equals( "examine" ) || qName.equals( "grab" ) || qName.equals( "use" ) ) {
 				currentConditions = new Conditions( );
-				currentEffects = new FunctionalEffects( );
+				currentEffects = new Effects( );
 				currentDocumentation = null;
 				reading = READING_ACTION;
 			}
@@ -151,7 +151,7 @@ public class ActiveAreaSubParser extends SubParser {
 						currentIdTarget = attrs.getValue( i );
 
 				currentConditions = new Conditions( );
-				currentEffects = new FunctionalEffects( );
+				currentEffects = new Effects( );
 				currentDocumentation = null;
 				reading = READING_ACTION;
 			}

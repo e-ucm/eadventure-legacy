@@ -1,8 +1,15 @@
 package es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects;
 
+import es.eucm.eadventure.common.data.chapterdata.effects.TriggerSceneEffect;
 import es.eucm.eadventure.engine.core.control.Game;
 
-public class TriggerLastSceneEffect extends TriggerSceneEffect{
+/**
+ * Special case of FunctionalTriggerSceneEffect. Triggers the last scene rendered
+ * on the screen
+ * @author Javier
+ *
+ */
+public class FunctionalTriggerLastSceneEffect extends FunctionalTriggerSceneEffect{
 
     private static String getLastSceneId(){
         if (Game.getInstance( ).getLastScene( )!=null){
@@ -13,28 +20,26 @@ public class TriggerLastSceneEffect extends TriggerSceneEffect{
     
     private static int getLastSceneX(){
         if (Game.getInstance( ).getLastScene( )!=null){
-            return Game.getInstance( ).getLastScene( ).getX( );
+            return Game.getInstance( ).getLastScene( ).getDestinyX( );
         }
         return Integer.MIN_VALUE;
     }
     
     private static int getLastSceneY(){
         if (Game.getInstance( ).getLastScene( )!=null){
-            return Game.getInstance( ).getLastScene( ).getY( );
+            return Game.getInstance( ).getLastScene( ).getDestinyY( );
         }
         return Integer.MIN_VALUE;
     }
 
     
-    public TriggerLastSceneEffect( ) {
-        super( null, Integer.MIN_VALUE, Integer.MIN_VALUE );
+    public FunctionalTriggerLastSceneEffect( ) {
+        super( new TriggerSceneEffect (null, Integer.MIN_VALUE, Integer.MIN_VALUE) );
     }
 
 
     public void triggerEffect( ) {
-        super.targetSceneId = getLastSceneId();
-        super.x = getLastSceneX();
-        super.y = getLastSceneY();
+    	effect = new TriggerSceneEffect(getLastSceneId(), getLastSceneX(),getLastSceneY());
         super.triggerEffect( );
     }
     

@@ -1,32 +1,21 @@
 package es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects;
 
+import es.eucm.eadventure.common.data.chapterdata.effects.SpeakCharEffect;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalNPC;
 
 /**
  * An effect that makes a character to speak a line of text.
  */
-public class SpeakCharEffect extends FunctionalEffect {
-
-    /**
-     * Id of the character who will talk
-     */
-    private String idTarget;
-
-    /**
-     * Text for the character to speak
-     */
-    private String line;
+public class FunctionalSpeakCharEffect extends FunctionalEffect {
 
     /**
      * Creates a new SpeakCharEffect.
      * @param idTarget the id of the character who will speak
      * @param line the text to be spoken
      */
-    public SpeakCharEffect( String idTarget, String line ) {
-    	super(null);
-        this.idTarget = idTarget;
-        this.line = line;
+    public FunctionalSpeakCharEffect( SpeakCharEffect effect ) {
+    	super(effect);
     }
 
     /*
@@ -34,9 +23,9 @@ public class SpeakCharEffect extends FunctionalEffect {
      * @see es.eucm.eadventure.engine.engine.data.effects.Effect#triggerEffect()
      */
     public void triggerEffect( ) {
-        FunctionalNPC npc = Game.getInstance( ).getFunctionalScene( ).getNPC( idTarget );
+        FunctionalNPC npc = Game.getInstance( ).getFunctionalScene( ).getNPC( ((SpeakCharEffect)effect).getIdTarget() );
         if( npc != null ) {
-            npc.speak( line );
+            npc.speak( ((SpeakCharEffect)effect).getLine() );
             Game.getInstance( ).setCharacterCurrentlyTalking( npc );
         }
     }

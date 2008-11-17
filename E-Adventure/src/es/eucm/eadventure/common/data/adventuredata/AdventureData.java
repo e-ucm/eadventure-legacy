@@ -1,12 +1,15 @@
-package es.eucm.eadventure.engine.core.data.gamedescriptor;
+package es.eucm.eadventure.common.data.adventuredata;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.common.data.chapterdata.Chapter;
+import es.eucm.eadventure.engine.core.data.gamedescriptor.CustomCursor;
+
 /**
  * Stores the description of the eAdventure file
  */
-public class GameDescriptor {
+public class AdventureData {
     
     /**
      * Constant for traditional GUI
@@ -59,7 +62,7 @@ public class GameDescriptor {
     /**
      * Constructor
      */
-    public GameDescriptor( ) {
+    public AdventureData( ) {
         chapters = new ArrayList<Chapter>( );
         cursors = new ArrayList<CustomCursor>();
     }

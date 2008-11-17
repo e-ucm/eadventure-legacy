@@ -1,24 +1,25 @@
 package es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects;
 
 import es.eucm.eadventure.engine.core.control.Game;
+import es.eucm.eadventure.common.data.chapterdata.NextScene;
 
 /**
- * An effect that raises a "bookscene".
+ * An effect that takes the player to a new scene. 
  */
-public class TriggerBookEffect extends FunctionalEffect {
+public class FunctionalNextSceneEffect extends FunctionalEffect {
 
     /**
-     * Id of the book to be shown
+     * Information about the next scene to be loaded
      */
-    private String targetBookId;
+    private NextScene nextScene;
 
     /**
-     * Creates a new TriggerBookEffect
-     * @param targetBookId the id of the book to be shown
+     * Creates a new FunctionalNextSceneEffect
+     * @param nextScene the next scene
      */
-    public TriggerBookEffect( String targetBookId ) {
+    public FunctionalNextSceneEffect( NextScene nextScene ) {
     	super(null);
-        this.targetBookId = targetBookId;
+        this.nextScene = nextScene;
     }
 
     /*
@@ -26,8 +27,8 @@ public class TriggerBookEffect extends FunctionalEffect {
      * @see es.eucm.eadventure.engine.engine.data.effects.Effect#triggerEffect()
      */
     public void triggerEffect( ) {
-        Game.getInstance( ).setBook( targetBookId );
-        Game.getInstance( ).setState( Game.STATE_BOOK );
+        Game.getInstance( ).setNextScene( nextScene );
+        Game.getInstance( ).setState( Game.STATE_NEXT_SCENE );
     }
 
     /*
@@ -37,7 +38,7 @@ public class TriggerBookEffect extends FunctionalEffect {
     public boolean isInstantaneous( ) {
         return false;
     }
-    
+
     /*
      *  (non-Javadoc)
      * @see es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffect#isStillRunning()
@@ -45,5 +46,4 @@ public class TriggerBookEffect extends FunctionalEffect {
     public boolean isStillRunning( ) {
         return false;
     }
-
 }

@@ -8,12 +8,12 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 
+import es.eucm.eadventure.common.data.adventuredata.AdventureData;
 import es.eucm.eadventure.engine.core.control.ActionManager;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalItem;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
-import es.eucm.eadventure.engine.core.data.gamedescriptor.GameDescriptor;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.core.gui.hud.HUD;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
@@ -122,7 +122,7 @@ public class ContextualHUD extends HUD {
         
         lastMouseMoved = null;
         
-        GameDescriptor descriptor =Game.getInstance().getGameDescriptor( ); 
+        AdventureData descriptor =Game.getInstance().getGameDescriptor( ); 
         
         if (descriptor.getCursorPath( CURSOR_OVER )==null){
             cursorOver = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImage( "gui/cursors/over.png", MultimediaManager.IMAGE_MENU ), new Point( 5, 5 ), "cursorOver" );            

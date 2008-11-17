@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffect;
-import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.PlayAnimationEffect;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalPlayAnimationEffect;
 import es.eucm.eadventure.engine.core.gui.GUI;
 
 /**
@@ -91,9 +91,9 @@ public class GameStateRunEffects extends GameState {
         // Special conditions for the play animation effect
         // FIXME Edu: ¿Mover esto de aqui?
         else if ( currentExecutingEffect != null && currentExecutingEffect.isStillRunning( )) {
-            if(currentExecutingEffect instanceof PlayAnimationEffect){
-                ((PlayAnimationEffect)currentExecutingEffect).draw( g );
-                ((PlayAnimationEffect)currentExecutingEffect).update( elapsedTime );
+            if(currentExecutingEffect instanceof FunctionalPlayAnimationEffect){
+                ((FunctionalPlayAnimationEffect)currentExecutingEffect).draw( g );
+                ((FunctionalPlayAnimationEffect)currentExecutingEffect).update( elapsedTime );
             }
         }
         

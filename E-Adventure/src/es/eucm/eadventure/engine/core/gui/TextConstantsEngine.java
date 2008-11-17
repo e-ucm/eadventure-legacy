@@ -347,8 +347,8 @@ public class TextConstantsEngine {
         guiStrings.put( "FunctionalMoveNPCEffect.Description", "Select a character to move, and the destination point" );
         guiStrings.put( "FunctionalMoveNPCEffect.ErrorNoCharacters", "To add this type of effect, there must be at least one character in the chapter" );
 
-        guiStrings.put( "MovePlayerEffect.Title", "Move player effect" );
-        guiStrings.put( "MovePlayerEffect.Description", "Select a destination point to move the player" );
+        guiStrings.put( "FunctionalMovePlayerEffect.Title", "Move player effect" );
+        guiStrings.put( "FunctionalMovePlayerEffect.Description", "Select a destination point to move the player" );
 
         guiStrings.put( "ConsumeObject.Title", "Consume object effect" );
         guiStrings.put( "ConsumeObject.Description", "Select the item to be consumed" );
@@ -358,8 +358,8 @@ public class TextConstantsEngine {
 
         guiStrings.put( "ConsumeGenerateObjectEffect.ErrorNoItems", "To add this type of effect, there must be at least one item in the chapter" );
 
-        guiStrings.put( "PlayAnimationEffect.Title", "Play animation effect" );
-        guiStrings.put( "PlayAnimationEffect.Description", "Select an animation and a destination to play it" );
+        guiStrings.put( "FunctionalPlayAnimationEffect.Title", "Play animation effect" );
+        guiStrings.put( "FunctionalPlayAnimationEffect.Description", "Select an animation and a destination to play it" );
 
         guiStrings.put( "PlaySoundEffect.Title", "Play sound effect" );
         guiStrings.put( "PlaySoundEffect.Description", "Select a sound file to be played" );

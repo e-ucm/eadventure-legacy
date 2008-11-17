@@ -5,9 +5,10 @@ import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalScene;
-import es.eucm.eadventure.engine.core.data.gamedata.NextScene;
-import es.eucm.eadventure.engine.core.data.gamedata.scenes.GeneralScene;
-import es.eucm.eadventure.engine.core.data.gamedata.scenes.Scene;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
+import es.eucm.eadventure.common.data.chapterdata.NextScene;
+import es.eucm.eadventure.common.data.chapterdata.scenes.GeneralScene;
+import es.eucm.eadventure.common.data.chapterdata.scenes.Scene;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 
@@ -66,8 +67,8 @@ public class GameStateNextScene extends GameState {
                 
                 // Set the player position
                 if( nextScene.hasPlayerPosition( ) ) {
-                    game.getFunctionalPlayer( ).setX( nextScene.getX( ) );
-                    game.getFunctionalPlayer( ).setY( nextScene.getY( ) );
+                    game.getFunctionalPlayer( ).setX( nextScene.getDestinyX( ) );
+                    game.getFunctionalPlayer( ).setY( nextScene.getDestinyY( ) );
                 }
                 
                 // If no next scene position was defined, use the scene default
@@ -87,7 +88,7 @@ public class GameStateNextScene extends GameState {
                 game.getActionManager( ).setActionSelected( ActionManager.ACTION_GOTO );
                 
                 // Play the post effects only if we arrive to a playable scene
-                nextScene.getPostEffects( ).storeAllEffects( );
+                FunctionalEffects.storeAllEffects(nextScene.getPostEffects( ));
 
                 // Switch to run effects node
                 game.setState( Game.STATE_RUN_EFFECTS );

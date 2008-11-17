@@ -2,28 +2,41 @@ package es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects;
 
 import java.util.Random;
 
-public class RandomEffect extends FunctionalEffect{
+import es.eucm.eadventure.common.data.chapterdata.effects.Effect;
+import es.eucm.eadventure.common.data.chapterdata.effects.RandomEffect;
+
+/**
+ * Functional class for RandomEffect
+ * @author Javier
+ */
+public class FunctionalRandomEffect extends FunctionalEffect{
 
     private static final Random r = new Random();
     
+    /**
+     * Functional positive effect
+     */
     private FunctionalEffect positiveEffect;
     
+    /**
+     * Functional negative effect
+     */
     private FunctionalEffect negativeEffect;
     
     private boolean positive;
-    
-    private int probability;
-    
+
+    /**
+     * Effect to be triggered: Points to positiveEffect or negativeEffect
+     */
     private FunctionalEffect effectTriggered;
     
-    public RandomEffect (int probability){
-    	super(null);
-        this.probability = probability;
+    public FunctionalRandomEffect (RandomEffect effect){
+    	super(effect);
     }
     
     private FunctionalEffect getEffectToBeTriggered(){
         int number = r.nextInt( 100 ); 
-        positive = number < probability;
+        positive = number < ((RandomEffect)effect).getProbability();
         if (positive){
             //System.out.println(number+" < "+probability+" : Triggering positive effect" );
         } else {
@@ -57,15 +70,15 @@ public class RandomEffect extends FunctionalEffect{
     /**
      * @param positiveEffect the positiveEffect to set
      */
-    public void setPositiveEffect( FunctionalEffect positiveEffect ) {
-        this.positiveEffect = positiveEffect;
+    public void setPositiveEffect( Effect positiveEffect ) {
+        this.positiveEffect = FunctionalEffect.buildFunctionalEffect(positiveEffect);
     }
 
     /**
      * @param negativeEffect the negativeEffect to set
      */
-    public void setNegativeEffect( FunctionalEffect negativeEffect ) {
-        this.negativeEffect = negativeEffect;
+    public void setNegativeEffect( Effect negativeEffect ) {
+        this.negativeEffect = FunctionalEffect.buildFunctionalEffect(negativeEffect);
     }
 
 }

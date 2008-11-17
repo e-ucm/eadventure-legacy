@@ -2,6 +2,8 @@ package es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects;
 
 import java.util.ArrayList;
 
+import es.eucm.eadventure.common.data.chapterdata.effects.Effect;
+import es.eucm.eadventure.common.data.chapterdata.effects.Effects;
 import es.eucm.eadventure.engine.core.control.Game;
 
 /**
@@ -18,22 +20,37 @@ public class FunctionalEffects {
     /**
      * List of effects to be triggered
      */
-    private ArrayList<FunctionalEffect> effects;
+    private ArrayList<FunctionalEffect> functionalEffects;
 
     /**
-     * Creates a new list of FunctionalEffects.
+     * Creates a new, empty list of FunctionalEffects.
      */
-    public FunctionalEffects( ) {
-        effects = new ArrayList<FunctionalEffect>( );
+    public FunctionalEffects(  ) {
+        functionalEffects = new ArrayList<FunctionalEffect>( );
         hasCancelAction = false;
     }
 
     /**
+     * Creates a new, empty list of FunctionalEffects.
+     */
+    public FunctionalEffects( Effects effects ) {
+    	this();
+    	// Add a new functional effect to the list for each effect in effects structure
+    	for ( Effect effect: effects.getEffects() ){
+    		FunctionalEffect fe = FunctionalEffect.buildFunctionalEffect(effect);
+    		if (fe!=null)
+    			functionalEffects.add(fe);
+    	}
+    	// If the effects structure has cancel action, add it
+    	hasCancelAction = effects.hasCancelAction( );
+    }
+    
+    /**
      * Adds a new effect to the list.
      * @param effect the effect to be added
      */
-    public void add( FunctionalEffect effect ) {
-        effects.add( effect );
+    private void add( FunctionalEffect effect ) {
+        functionalEffects.add( effect );
     }
 
     /**
@@ -42,7 +59,7 @@ public class FunctionalEffects {
      * @return the effect in the given position
      */
     public FunctionalEffect getEffect( int index ) {
-        return effects.get( index );
+        return functionalEffects.get( index );
     }
 
     /**
@@ -64,12 +81,19 @@ public class FunctionalEffects {
     /**
      * Queues the effects in the game effects queue to be done when possible.
      */
-    public void storeAllEffects( ) {
-        Game.getInstance( ).storeEffectsInQueue( effects );
+    public static void storeAllEffects( Effects effects ) {
+        Game.getInstance( ).storeEffectsInQueue( new FunctionalEffects(effects).getEffects() );
     }
     
-    public void storeAllEffects( boolean fromConversation ) {
-        Game.getInstance( ).storeEffectsInQueue( effects, fromConversation );
+    public static void storeAllEffects( Effects effects, boolean fromConversation ) {
+        Game.getInstance( ).storeEffectsInQueue( new FunctionalEffects(effects).getEffects(), fromConversation );
     }
+
+	/**
+	 * @return the functionalEffects
+	 */
+	public ArrayList<FunctionalEffect> getEffects() {
+		return functionalEffects;
+	}
 
 }

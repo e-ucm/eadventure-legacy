@@ -1,4 +1,4 @@
-package es.eucm.eadventure.engine.core.data.gamedata.resources;
+package es.eucm.eadventure.common.data.chapterdata.resources;
 
 /**
  * Defines an asset of any type (background, slides, image, icon, [...],

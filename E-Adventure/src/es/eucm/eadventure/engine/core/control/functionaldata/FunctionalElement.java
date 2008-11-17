@@ -2,7 +2,7 @@ package es.eucm.eadventure.engine.core.control.functionaldata;
 
 import java.awt.Color;
 
-import es.eucm.eadventure.engine.core.data.gamedata.elements.Element;
+import es.eucm.eadventure.common.data.chapterdata.elements.Element;
 
 /**
  * This class defines the common behaviour from the characters and

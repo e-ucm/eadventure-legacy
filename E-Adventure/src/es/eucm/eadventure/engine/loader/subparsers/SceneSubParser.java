@@ -2,16 +2,16 @@ package es.eucm.eadventure.engine.loader.subparsers;
 
 import org.xml.sax.Attributes;
 
-import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
-import es.eucm.eadventure.engine.core.data.gamedata.ElementReference;
-import es.eucm.eadventure.engine.core.data.gamedata.Exit;
-import es.eucm.eadventure.engine.core.data.gamedata.ExitLook;
+import es.eucm.eadventure.common.data.chapterdata.ElementReference;
+import es.eucm.eadventure.common.data.chapterdata.Exit;
+import es.eucm.eadventure.common.data.chapterdata.ExitLook;
 import es.eucm.eadventure.engine.core.data.gamedata.GameData;
-import es.eucm.eadventure.engine.core.data.gamedata.NextScene;
+import es.eucm.eadventure.common.data.chapterdata.NextScene;
 import es.eucm.eadventure.common.data.chapterdata.conditions.Conditions;
-import es.eucm.eadventure.engine.core.data.gamedata.resources.Asset;
-import es.eucm.eadventure.engine.core.data.gamedata.resources.Resources;
-import es.eucm.eadventure.engine.core.data.gamedata.scenes.Scene;
+import es.eucm.eadventure.common.data.chapterdata.effects.Effects;
+import es.eucm.eadventure.common.data.chapterdata.resources.Asset;
+import es.eucm.eadventure.common.data.chapterdata.resources.Resources;
+import es.eucm.eadventure.common.data.chapterdata.scenes.Scene;
 
 /**
  * Class to subparse scenes
@@ -118,7 +118,7 @@ public class SceneSubParser extends SubParser {
     /**
      * Stores the current effects being parsed
      */
-    private FunctionalEffects currentEffects;
+    private Effects currentEffects;
     
     /**
      * The subparser for the condition or effect tags
@@ -295,14 +295,14 @@ public class SceneSubParser extends SubParser {
             
             // If it is a effect tag, create the new effect, the subparser and switch the state
             else if( qName.equals( "effect" ) ) {
-                currentEffects = new FunctionalEffects( );
+                currentEffects = new Effects( );
                 subParser = new EffectSubParser( currentEffects, gameData );
                 subParsing = SUBPARSING_EFFECT;
             }
             
             // If it is a post-effect tag, create the new effect, the subparser and switch the state
             else if( qName.equals( "post-effect" ) ) {
-                currentEffects = new FunctionalEffects( );
+                currentEffects = new Effects( );
                 subParser = new EffectSubParser( currentEffects, gameData );
                 subParsing = SUBPARSING_EFFECT;
             }

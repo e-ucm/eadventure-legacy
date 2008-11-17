@@ -12,10 +12,10 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.SAXException;
 
+import es.eucm.eadventure.common.data.adventuredata.AdventureData;
 import es.eucm.eadventure.engine.adaptation.AdaptationEngine;
 import es.eucm.eadventure.engine.assessment.AssessmentRule;
 import es.eucm.eadventure.engine.core.data.gamedata.GameData;
-import es.eucm.eadventure.engine.core.data.gamedescriptor.GameDescriptor;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 
 /**
@@ -27,8 +27,8 @@ public class Loader {
      * Loads the descriptor of the current ZIP adventure loaded
      * @return The descriptor data of the game
      */
-    public static GameDescriptor loadDescriptor( ) {
-        GameDescriptor gameDescriptor = null;
+    public static AdventureData loadDescriptor( ) {
+        AdventureData gameDescriptor = null;
         
         try {
             // Load the file with the script handler

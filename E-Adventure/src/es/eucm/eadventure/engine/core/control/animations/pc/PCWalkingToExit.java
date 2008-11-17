@@ -3,11 +3,12 @@ package es.eucm.eadventure.engine.core.control.animations.pc;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
-import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.NextSceneEffect;
-import es.eucm.eadventure.engine.core.data.gamedata.Exit;
-import es.eucm.eadventure.engine.core.data.gamedata.NextScene;
-import es.eucm.eadventure.engine.core.data.gamedata.elements.Player;
-import es.eucm.eadventure.engine.core.data.gamedata.resources.Resources;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalNextSceneEffect;
+import es.eucm.eadventure.common.data.chapterdata.Exit;
+import es.eucm.eadventure.common.data.chapterdata.NextScene;
+import es.eucm.eadventure.common.data.chapterdata.elements.Player;
+import es.eucm.eadventure.common.data.chapterdata.resources.Resources;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 
 /**
@@ -39,8 +40,8 @@ public class PCWalkingToExit extends PCState {
                         nextScene = exit.getNextScenes( ).get( i );
 
                 if( nextScene != null ) {
-                    nextScene.getEffects( ).storeAllEffects( );
-                    Game.getInstance().enqueueEffect( new NextSceneEffect( nextScene ) );
+                	FunctionalEffects.storeAllEffects(nextScene.getEffects( ));
+                    Game.getInstance().enqueueEffect( new FunctionalNextSceneEffect( nextScene ) );
                 }
             }
         }

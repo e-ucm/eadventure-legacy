@@ -3,13 +3,14 @@ package es.eucm.eadventure.engine.core.control.functionaldata;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 
+import es.eucm.eadventure.common.data.chapterdata.resources.Asset;
 import es.eucm.eadventure.engine.core.control.ActionManager;
 import es.eucm.eadventure.engine.core.control.Game;
-import es.eucm.eadventure.engine.core.data.gamedata.Action;
-import es.eucm.eadventure.engine.core.data.gamedata.elements.Element;
-import es.eucm.eadventure.engine.core.data.gamedata.elements.Item;
-import es.eucm.eadventure.engine.core.data.gamedata.resources.Asset;
-import es.eucm.eadventure.engine.core.data.gamedata.resources.Resources;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
+import es.eucm.eadventure.common.data.chapterdata.Action;
+import es.eucm.eadventure.common.data.chapterdata.elements.Element;
+import es.eucm.eadventure.common.data.chapterdata.elements.Item;
+import es.eucm.eadventure.common.data.chapterdata.resources.Resources;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
@@ -193,7 +194,7 @@ public class FunctionalItem extends FunctionalElement {
             if( action.getType( ) == Action.EXAMINE ) {
                 if( new FunctionalConditions( action.getConditions( ) ).allConditionsOk( ) ) {
                     // Store the effects
-                    action.getEffects( ).storeAllEffects( );
+                	FunctionalEffects.storeAllEffects(action.getEffects( ));
                     examined = true;
                 }
             }
@@ -238,7 +239,7 @@ public class FunctionalItem extends FunctionalElement {
                         Game.getInstance( ).grabItem( item.getId( ) );
                     
                     // Store the effects
-                    action.getEffects( ).storeAllEffects( );
+                    FunctionalEffects.storeAllEffects(action.getEffects( ));
                     grabbed = true;
                 } 
             }
@@ -260,7 +261,7 @@ public class FunctionalItem extends FunctionalElement {
             if( action.getType( ) == Action.USE ) {
                 if( new FunctionalConditions( action.getConditions( ) ).allConditionsOk( ) ) {
                     // Store the effects
-                    action.getEffects( ).storeAllEffects( );
+                	FunctionalEffects.storeAllEffects(action.getEffects( ));
                     used = true;
                 } 
             }
@@ -283,7 +284,7 @@ public class FunctionalItem extends FunctionalElement {
             if( action.getType( ) == Action.USE_WITH && action.getIdTarget( ).equals( anotherItem.getItem( ).getId( ) ) ) {
                 if( new FunctionalConditions( action.getConditions( ) ).allConditionsOk( ) ) {
                     // Store the effects
-                    action.getEffects( ).storeAllEffects( );
+                	FunctionalEffects.storeAllEffects(action.getEffects( ));
                     usedWith = true;
                 }
             }
@@ -310,7 +311,7 @@ public class FunctionalItem extends FunctionalElement {
                         Game.getInstance( ).consumeItem( item.getId( ) );
                     
                     // Store the effects
-                    action.getEffects( ).storeAllEffects( );
+                    FunctionalEffects.storeAllEffects(action.getEffects( ));
                     givenTo = true;
                 }
             }

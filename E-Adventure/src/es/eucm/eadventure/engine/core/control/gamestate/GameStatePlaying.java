@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import es.eucm.eadventure.engine.core.control.Game;
-import es.eucm.eadventure.engine.core.data.gamedata.NextScene;
+import es.eucm.eadventure.common.data.chapterdata.NextScene;
 import es.eucm.eadventure.engine.core.gui.GUI;
 
 /**

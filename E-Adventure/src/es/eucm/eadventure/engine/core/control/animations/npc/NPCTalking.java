@@ -4,9 +4,9 @@ package es.eucm.eadventure.engine.core.control.animations.npc;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.Options;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalNPC;
-import es.eucm.eadventure.engine.core.data.gamedata.elements.NPC;
-import es.eucm.eadventure.engine.core.data.gamedata.resources.Resources;
-import es.eucm.eadventure.engine.core.data.gamedescriptor.GameDescriptor;
+import es.eucm.eadventure.common.data.adventuredata.AdventureData;
+import es.eucm.eadventure.common.data.chapterdata.elements.NPC;
+import es.eucm.eadventure.common.data.chapterdata.resources.Resources;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 
@@ -116,7 +116,7 @@ public class NPCTalking extends NPCState {
     public void initialize( ) {
         totalTime = 0;
         // Check the player mode
-        if (Game.getInstance( ).getGameDescriptor( ).getPlayerMode( ) == GameDescriptor.MODE_PLAYER_1STPERSON
+        if (Game.getInstance( ).getGameDescriptor( ).getPlayerMode( ) == AdventureData.MODE_PLAYER_1STPERSON
                 || Game.getInstance( ).getFunctionalPlayer( ).getX( ) >= npc.getX( )){
             setCurrentDirection( EAST );
         } else 

@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapterdata.Timer;
-import es.eucm.eadventure.engine.core.data.gamedata.book.Book;
-import es.eucm.eadventure.engine.core.data.gamedata.conversation.Conversation;
-import es.eucm.eadventure.engine.core.data.gamedata.elements.Item;
-import es.eucm.eadventure.engine.core.data.gamedata.elements.NPC;
-import es.eucm.eadventure.engine.core.data.gamedata.elements.Player;
-import es.eucm.eadventure.engine.core.data.gamedata.scenes.GeneralScene;
+import es.eucm.eadventure.common.data.chapterdata.book.Book;
+import es.eucm.eadventure.common.data.chapterdata.conversation.Conversation;
+import es.eucm.eadventure.common.data.chapterdata.elements.Item;
+import es.eucm.eadventure.common.data.chapterdata.elements.NPC;
+import es.eucm.eadventure.common.data.chapterdata.elements.Player;
+import es.eucm.eadventure.common.data.chapterdata.scenes.GeneralScene;
 
 /**
  * This class hold the data of a game in eAdventure

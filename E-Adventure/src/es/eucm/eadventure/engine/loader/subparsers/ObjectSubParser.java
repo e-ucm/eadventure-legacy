@@ -2,13 +2,13 @@ package es.eucm.eadventure.engine.loader.subparsers;
 
 import org.xml.sax.Attributes;
 
-import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
-import es.eucm.eadventure.engine.core.data.gamedata.Action;
+import es.eucm.eadventure.common.data.chapterdata.Action;
 import es.eucm.eadventure.engine.core.data.gamedata.GameData;
 import es.eucm.eadventure.common.data.chapterdata.conditions.Conditions;
-import es.eucm.eadventure.engine.core.data.gamedata.elements.Item;
-import es.eucm.eadventure.engine.core.data.gamedata.resources.Asset;
-import es.eucm.eadventure.engine.core.data.gamedata.resources.Resources;
+import es.eucm.eadventure.common.data.chapterdata.effects.Effects;
+import es.eucm.eadventure.common.data.chapterdata.resources.Asset;
+import es.eucm.eadventure.common.data.chapterdata.elements.Item;
+import es.eucm.eadventure.common.data.chapterdata.resources.Resources;
 
 /**
  * Class to subparse objetcs
@@ -70,7 +70,7 @@ public class ObjectSubParser extends SubParser {
     /**
      * Current effects being parsed
      */
-    private FunctionalEffects currentEffects;
+    private Effects currentEffects;
     
     /**
      * Subparser for effects and conditions
@@ -135,7 +135,7 @@ public class ObjectSubParser extends SubParser {
             // If it is an examine, use or grab tag, create new conditions and effects
             else if( qName.equals( "examine" ) || qName.equals( "grab" ) || qName.equals( "use" ) ) {
                 currentConditions = new Conditions( );
-                currentEffects = new FunctionalEffects( );
+                currentEffects = new Effects( );
             }
     
             // If it is an use-with or give-to tag, create new conditions and effects, and store the idTarget
@@ -145,7 +145,7 @@ public class ObjectSubParser extends SubParser {
                         currentIdTarget = attrs.getValue( i );
     
                 currentConditions = new Conditions( );
-                currentEffects = new FunctionalEffects( );
+                currentEffects = new Effects( );
             }
             
             // If it is a condition tag, create new conditions and switch the state
@@ -157,7 +157,7 @@ public class ObjectSubParser extends SubParser {
             
             // If it is a effect tag, create new effects and switch the state
             else if( qName.equals( "effect" ) ) {
-                currentEffects = new FunctionalEffects( );
+                currentEffects = new Effects( );
                 subParser = new EffectSubParser( currentEffects, gameData );
                 subParsing = SUBPARSING_EFFECT;
             }

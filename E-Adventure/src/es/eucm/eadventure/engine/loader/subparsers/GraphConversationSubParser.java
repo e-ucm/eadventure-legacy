@@ -4,13 +4,14 @@ import java.util.Vector;
 
 import org.xml.sax.Attributes;
 
-import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
+import es.eucm.eadventure.common.data.chapterdata.effects.Effects;
 import es.eucm.eadventure.engine.core.data.gamedata.GameData;
-import es.eucm.eadventure.engine.core.data.gamedata.conversation.Conversation;
-import es.eucm.eadventure.engine.core.data.gamedata.conversation.node.DialogueNode;
-import es.eucm.eadventure.engine.core.data.gamedata.conversation.node.Node;
-import es.eucm.eadventure.engine.core.data.gamedata.conversation.node.OptionNode;
-import es.eucm.eadventure.engine.core.data.gamedata.conversation.util.ConversationLine;
+import es.eucm.eadventure.common.data.chapterdata.conversation.Conversation;
+import es.eucm.eadventure.common.data.chapterdata.conversation.GraphConversation;
+import es.eucm.eadventure.common.data.chapterdata.conversation.line.ConversationLine;
+import es.eucm.eadventure.common.data.chapterdata.conversation.node.DialogueConversationNode;
+import es.eucm.eadventure.common.data.chapterdata.conversation.node.ConversationNode;
+import es.eucm.eadventure.common.data.chapterdata.conversation.node.OptionConversationNode;
 
 /**
  * Class to subparse graph conversations
@@ -42,12 +43,12 @@ public class GraphConversationSubParser extends SubParser {
     /**
      * Stores the current node
      */
-    private Node currentNode;
+    private ConversationNode currentNode;
 
     /**
      * Set of nodes for the graph
      */
-    private Vector<Node> graphNodes;
+    private Vector<ConversationNode> graphNodes;
 
     /**
      * Stores the current set of links (of the current node)
@@ -62,7 +63,7 @@ public class GraphConversationSubParser extends SubParser {
     /**
      * Current effect (of the current node)
      */
-    private FunctionalEffects currentEffects;
+    private Effects currentEffects;
     
     /**
      * Subparser for the effect
@@ -105,7 +106,7 @@ public class GraphConversationSubParser extends SubParser {
                     if( attrs.getQName( i ).equals( "id" ) )
                         conversationName = attrs.getValue( i );
                 
-                graphNodes = new Vector<Node>( );
+                graphNodes = new Vector<ConversationNode>( );
                 nodeLinks = new Vector<Vector<Integer>>( );
             }
     
@@ -113,10 +114,10 @@ public class GraphConversationSubParser extends SubParser {
             else if( qName.equals( "dialogue-node" ) || qName.equals( "option-node" ) ) {
                 // Create the node depending of the tag
                 if( qName.equals( "dialogue-node" ) )
-                    currentNode = new DialogueNode( );
+                    currentNode = new DialogueConversationNode( );
     
                 if( qName.equals( "option-node" ) )
-                    currentNode = new OptionNode( );
+                    currentNode = new OptionConversationNode( );
     
                 // Create a new vector for the links of the current node
                 currentLinks = new Vector<Integer>( );
@@ -167,7 +168,7 @@ public class GraphConversationSubParser extends SubParser {
             // If it is an effect tag
             else if( qName.equals( "effect" ) ) {
                 // Create the new effects, and the subparser
-                currentEffects = new FunctionalEffects( );
+                currentEffects = new Effects( );
                 effectSubParser = new EffectSubParser( currentEffects, gameData );
                 subParsing = SUBPARSING_EFFECT;
             }
@@ -190,7 +191,7 @@ public class GraphConversationSubParser extends SubParser {
             // If the tag ending is the conversation, create the graph conversation, with the first node of the list
             if( qName.equals( "graph-conversation" ) ) {
                 setNodeLinks( );
-                gameData.addConversation( new Conversation( conversationName, graphNodes.get( 0 ) ) );
+                gameData.addConversation( new GraphConversation( conversationName, graphNodes.get( 0 ) ) );
             }
     
             // If a node is closed
@@ -263,7 +264,7 @@ public class GraphConversationSubParser extends SubParser {
         // The size of graphNodes and nodeLinks should be the same
         for( int i = 0; i < graphNodes.size( ); i++ ) {
             // Extract the node and its links
-            Node node = graphNodes.get( i );
+            ConversationNode node = graphNodes.get( i );
             Vector<Integer> links = nodeLinks.get( i );
 
             // For each reference, insert the referenced node into the father node

@@ -1,28 +1,21 @@
 package es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects;
 
+import es.eucm.eadventure.common.data.chapterdata.effects.MovePlayerEffect;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
 
 /**
  * An effect that makes the player to move to the given position.
  */
-public class MovePlayerEffect extends FunctionalEffect {
+public class FunctionalMovePlayerEffect extends FunctionalEffect {
 
     /**
-     * The destination of the player
-     */
-    private int x;
-    private int y;
-
-    /**
-     * Creates a new MovePlayerEffect.
+     * Creates a new FunctionalMovePlayerEffect.
      * @param x X final position for the player
      * @param y Y final position for the player
      */
-    public MovePlayerEffect( int x, int y ) {
-    	super(null);
-        this.x = x;
-        this.y = y;
+    public FunctionalMovePlayerEffect( MovePlayerEffect effect ) {
+    	super(effect);
     }
 
     /*
@@ -31,7 +24,8 @@ public class MovePlayerEffect extends FunctionalEffect {
      */
     public void triggerEffect( ) {
         FunctionalPlayer player = Game.getInstance( ).getFunctionalPlayer( );
-        player.setDestiny( x, y );
+        player.setDestiny( ((MovePlayerEffect)effect).getX(),
+        		((MovePlayerEffect)effect).getY() );
         player.setState( FunctionalPlayer.WALK );
     }
 

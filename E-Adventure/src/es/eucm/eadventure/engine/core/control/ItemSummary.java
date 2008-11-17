@@ -3,7 +3,7 @@ package es.eucm.eadventure.engine.core.control;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import es.eucm.eadventure.engine.core.data.gamedata.elements.Item;
+import es.eucm.eadventure.common.data.chapterdata.elements.Item;
 
 /**
  * Summary of the items in the adventure 

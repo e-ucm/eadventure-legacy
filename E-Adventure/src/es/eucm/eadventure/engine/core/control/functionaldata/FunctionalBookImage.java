@@ -3,7 +3,7 @@ package es.eucm.eadventure.engine.core.control.functionaldata;
 import java.awt.Graphics2D;
 import java.awt.Image;
 
-import es.eucm.eadventure.engine.core.data.gamedata.book.BookImage;
+import es.eucm.eadventure.common.data.chapterdata.book.BookParagraph;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 
 /**
@@ -14,7 +14,7 @@ public class FunctionalBookImage extends FunctionalBookParagraph {
     /**
      * The image book
      */
-    private BookImage bookImage;
+    private BookParagraph bookImage;
     
     /**
      * The image of the image book
@@ -25,11 +25,11 @@ public class FunctionalBookImage extends FunctionalBookParagraph {
      * Creates a new FunctionalBookImage
      * @param image the image to be rendered
      */
-    public FunctionalBookImage( BookImage image ) {
+    public FunctionalBookImage( BookParagraph image ) {
         //set the book image
         this.bookImage = image;
         //and loads the image
-        this.image = MultimediaManager.getInstance( ).loadImageFromZip( bookImage.getImagePath( ), MultimediaManager.IMAGE_SCENE );
+        this.image = MultimediaManager.getInstance( ).loadImageFromZip( bookImage.getContent( ), MultimediaManager.IMAGE_SCENE );
     }
 
     /*

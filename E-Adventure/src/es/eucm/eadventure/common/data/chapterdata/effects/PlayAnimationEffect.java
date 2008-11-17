@@ -21,7 +21,7 @@ public class PlayAnimationEffect implements Effect {
 	private int y;
 
 	/**
-	 * Creates a new PlayAnimationEffect.
+	 * Creates a new FunctionalPlayAnimationEffect.
 	 * 
 	 * @param path
 	 *            path to the animation file

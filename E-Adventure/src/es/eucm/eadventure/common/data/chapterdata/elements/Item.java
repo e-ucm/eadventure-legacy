@@ -11,6 +11,16 @@ import es.eucm.eadventure.common.data.chapterdata.Action;
 public class Item extends Element {
 
 	/**
+     * The tag of the item's image
+     */
+    public static final String RESOURCE_TYPE_IMAGE = "image";
+    
+    /**
+     * The tag of the item's icon
+     */
+    public static final String RESOURCE_TYPE_ICON = "icon";
+
+	/**
 	 * List of actions associated with the item
 	 */
 	private List<Action> actions;
@@ -24,6 +34,16 @@ public class Item extends Element {
 	public Item( String id ) {
 		super( id );
 		actions = new ArrayList<Action>( );
+	}
+	
+	/**
+	 * Convenient constructor for ActiveAreas 
+	 */
+	public Item( String id, String name, String description, String detailedDescription ){
+		this (id);
+		this.name = name;
+		this.description = description;
+		this.detailedDescription = detailedDescription;
 	}
 
 	/**
@@ -46,6 +66,26 @@ public class Item extends Element {
 	}
 
 	/**
+	 * Returns the size of the list of actions
+	 * @return Size (int) of the list of actions
+	 */
+	public int getActionsCount(){
+		if (actions == null)
+			return 0;
+		else
+			return actions.size();
+	}
+	
+	/**
+	 * Returns Action object at place i
+	 * @param i
+	 * @return
+	 */
+	public Action getAction (int i){
+		return actions.get(i);
+	}
+	
+	/**
 	 * Changes the list of actions of the item
 	 * 
 	 * @param actions
@@ -54,4 +94,22 @@ public class Item extends Element {
 	public void setActions( ArrayList<Action> actions ) {
 		this.actions = actions;
 	}
+	
+    /*
+     *  (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    public String toString( ) {
+        StringBuffer sb = new StringBuffer( 40 );
+
+        sb.append( "\n" );
+        sb.append( super.toString( ) );
+        for( Action action : actions )
+            sb.append( action.toString( ) );
+
+        sb.append( "\n" );
+
+        return sb.toString( );
+    }
+
 }

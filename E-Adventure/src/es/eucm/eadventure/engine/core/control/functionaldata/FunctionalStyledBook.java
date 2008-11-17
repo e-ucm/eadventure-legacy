@@ -6,9 +6,9 @@ import java.util.ArrayList;
 
 import javax.swing.JScrollPane;
 
-import es.eucm.eadventure.engine.core.data.gamedata.book.Book;
-import es.eucm.eadventure.engine.core.data.gamedata.book.BookPage;
-import es.eucm.eadventure.engine.core.data.gamedata.resources.Resources;
+import es.eucm.eadventure.common.data.chapterdata.book.Book;
+import es.eucm.eadventure.common.data.chapterdata.book.BookPage;
+import es.eucm.eadventure.common.data.chapterdata.resources.Resources;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 

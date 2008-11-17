@@ -5,6 +5,11 @@ package es.eucm.eadventure.common.data.chapterdata.scenes;
  */
 public class Slidescene extends Cutscene {
 
+    /**
+     * The tag for the slides
+     */
+    public static final String RESOURCE_TYPE_SLIDES = "slides";
+
 	/**
 	 * Creates a new Slidescene
 	 * 

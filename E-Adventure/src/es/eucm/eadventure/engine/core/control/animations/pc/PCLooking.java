@@ -2,8 +2,8 @@ package es.eucm.eadventure.engine.core.control.animations.pc;
 
 import es.eucm.eadventure.engine.core.control.animations.AnimationState;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
-import es.eucm.eadventure.engine.core.data.gamedata.elements.Player;
-import es.eucm.eadventure.engine.core.data.gamedata.resources.Resources;
+import es.eucm.eadventure.common.data.chapterdata.elements.Player;
+import es.eucm.eadventure.common.data.chapterdata.resources.Resources;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 
 /**
