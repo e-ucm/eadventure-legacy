@@ -1,6 +1,6 @@
 package es.eucm.eadventure.engine.core.control.functionaldata;
 
-import es.eucm.eadventure.engine.core.data.gamedata.resources.Resources;
+import es.eucm.eadventure.common.data.chapterdata.resources.Resources;
 
 
 /**

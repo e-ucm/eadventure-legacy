@@ -8,6 +8,7 @@ import es.eucm.eadventure.common.data.chapterdata.book.BookPage;
 import es.eucm.eadventure.common.data.chapterdata.book.BookParagraph;
 import es.eucm.eadventure.common.data.chapterdata.conditions.Conditions;
 import es.eucm.eadventure.common.data.chapterdata.resources.Resources;
+import es.eucm.eadventure.engine.core.data.gamedata.GameData;
 
 /**
  * Class to subparse books
@@ -61,6 +62,10 @@ public class BookSubParser extends SubParser {
 	 */
 	public BookSubParser( Chapter chapter ) {
 		super( chapter );
+	}
+
+	public BookSubParser(GameData gameData) {
+		super (null);
 	}
 
 	/*

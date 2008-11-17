@@ -141,4 +141,17 @@ public abstract class ConversationNode implements ConversationNodeView {
 	 * @return The effect held by the node if it is terminal, null otherwise
 	 */
 	public abstract Effects getEffects( );
+	
+    /**
+     * Returns if the node has a valid effect set
+     * @return True if the node has an effect (even if empty), false otherwise
+     */
+    public abstract boolean hasValidEffect( );
+    
+    public abstract void consumeEffect();
+    
+    public abstract void resetEffect();
+    
+    public abstract boolean isEffectConsumed();
+
 }

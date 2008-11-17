@@ -22,6 +22,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import es.eucm.eadventure.common.data.adventuredata.AdventureData;
+import es.eucm.eadventure.common.data.chapterdata.Chapter;
 import es.eucm.eadventure.common.data.chapterdata.Timer;
 import es.eucm.eadventure.engine.adaptation.AdaptationEngine;
 import es.eucm.eadventure.engine.adaptation.AdaptedState;
@@ -34,6 +36,7 @@ import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalScene;
 import es.eucm.eadventure.engine.core.control.functionaldata.TalkingElement;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffect;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
 import es.eucm.eadventure.engine.core.control.gamestate.GameState;
 import es.eucm.eadventure.engine.core.control.gamestate.GameStateBook;
 import es.eucm.eadventure.engine.core.control.gamestate.GameStateConversation;
@@ -46,14 +49,12 @@ import es.eucm.eadventure.engine.core.control.gamestate.GameStateSlidescene;
 import es.eucm.eadventure.engine.core.control.gamestate.GameStateVideoscene;
 import es.eucm.eadventure.engine.core.data.GameText;
 import es.eucm.eadventure.engine.core.data.gamedata.GameData;
-import es.eucm.eadventure.engine.core.data.gamedata.NextScene;
+import es.eucm.eadventure.common.data.chapterdata.NextScene;
 import es.eucm.eadventure.engine.core.data.gamedata.SaveGame;
-import es.eucm.eadventure.engine.core.data.gamedata.book.Book;
-import es.eucm.eadventure.engine.core.data.gamedata.conversation.Conversation;
-import es.eucm.eadventure.engine.core.data.gamedata.scenes.GeneralScene;
-import es.eucm.eadventure.engine.core.data.gamedata.scenes.Scene;
-import es.eucm.eadventure.engine.core.data.gamedescriptor.Chapter;
-import es.eucm.eadventure.engine.core.data.gamedescriptor.GameDescriptor;
+import es.eucm.eadventure.common.data.chapterdata.book.Book;
+import es.eucm.eadventure.common.data.chapterdata.conversation.Conversation;
+import es.eucm.eadventure.common.data.chapterdata.scenes.GeneralScene;
+import es.eucm.eadventure.common.data.chapterdata.scenes.Scene;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.loader.Loader;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
@@ -132,7 +133,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     /**
      * Descriptor info of the adventure
      */
-    private GameDescriptor gameDescriptor;
+    private AdventureData gameDescriptor;
 
     /**
      * Game data of the adventure
@@ -349,7 +350,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         Chapter chapter = gameDescriptor.getChapters( ).get( currentChapter );
         
         // Load the script data
-        gameData = Loader.loadData( chapter.getPath( ) );
+        gameData = Loader.loadData( chapter.getPath() );
         
         // Create the flags summary and the assessment engine
         flags = new FlagSummary( gameData.getFlags( ) );
@@ -401,7 +402,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         
         // Create the functional player
         functionalPlayer = new FunctionalPlayer( gameData.getPlayer( ) );
-        functionalPlayer.setTransparent( gameDescriptor.getPlayerMode( )==GameDescriptor.MODE_PLAYER_1STPERSON );
+        functionalPlayer.setTransparent( gameDescriptor.getPlayerMode( )==AdventureData.MODE_PLAYER_1STPERSON );
 
         // Add timers to the TimerManager
         this.gameTimers = new HashMap<Integer, Timer>();
@@ -607,7 +608,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      * Returns the game descriptor
      * @return Game descriptor
      */
-    public GameDescriptor getGameDescriptor( ) {
+    public AdventureData getGameDescriptor( ) {
         return gameDescriptor;
     }
 
@@ -1163,7 +1164,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     public void cycleCompleted( int timerId, long elapsedTime ) {
         //System.out.println("Timer " + timerId + " expired, executing effects.");
         Timer timer = gameTimers.get( new Integer(timerId) );
-        timer.getEffects( ).storeAllEffects( );
+        FunctionalEffects.storeAllEffects(timer.getEffects( ));
     }
 
     public void timerStarted( int timerId, long currentTime ) {
@@ -1174,7 +1175,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     public void timerStopped( int timerId, long currentTime ) {
         //System.out.println("Timer " + timerId + " was stopped, executing effects");
         Timer timer = gameTimers.get( new Integer(timerId) );
-        timer.getPostEffects( ).storeAllEffects( );
+        FunctionalEffects.storeAllEffects(timer.getPostEffects( ));
         //timerManager.deleteTimer( timerId );
     }
 }

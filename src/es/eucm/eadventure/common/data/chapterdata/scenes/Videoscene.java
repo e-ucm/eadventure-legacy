@@ -5,6 +5,11 @@ package es.eucm.eadventure.common.data.chapterdata.scenes;
  */
 public class Videoscene extends Cutscene {
 
+    /**
+     * The tag for the video
+     */
+    public static final String RESOURCE_TYPE_VIDEO = "video";
+	
 	/**
 	 * Creates a new Videoscene
 	 * 

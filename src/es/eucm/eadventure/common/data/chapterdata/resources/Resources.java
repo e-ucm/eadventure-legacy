@@ -40,6 +40,14 @@ public class Resources {
 		deleteAsset( type );
 		assets.put( type, path );
 	}
+	
+    /**
+     * Adds an asset to the resources.
+     * @param asset the asset to be added
+     */
+    public void addAsset( Asset asset ) {
+    	addAsset ( asset.getType(), asset.getPath() );
+    }
 
 	/**
 	 * Deletes the given asset from the resources block.
@@ -107,4 +115,18 @@ public class Resources {
 	public void setConditions( Conditions conditions ) {
 		this.conditions = conditions;
 	}
+	
+    /**
+     * Returns whether exists an asset of the given type.
+     * @param type the type of the asset
+     * @return whether exists an asset of the given type
+     */
+    public boolean existAsset( String type ) {
+        boolean existAsset = false;
+        
+        existAsset = assets.containsKey(type);
+        
+        return existAsset;
+    }
+
 }

@@ -1,18 +1,40 @@
 package es.eucm.eadventure.common.data.chapterdata.effects;
 
-
+/**
+ * Data representation of a random effect. According to a probability defined by user, the system chooses between two effects which is to be launched
+ * So the behaviour is:
+ * 		PROBABILITY times POSITIVE EFFECT is triggered
+ *      100-PROBABILITY times NEGATIVE EFFECT is triggered
+ * @author Javier
+ */
 public class RandomEffect implements Effect{
 
+	/** 
+	 * Effect to be triggered PROBABILITY% of the times
+	 */
     private Effect positiveEffect;
-    
+
+    /** 
+	 * Effect to be triggered 100-PROBABILITY% of the times
+	 */
     private Effect negativeEffect;
     
+    /**
+     * Probability in range 0%-100%
+     */
     private int probability;
 	
+    /**
+     * Constructor
+     * @param probability
+     */
     public RandomEffect ( int probability ){
     	this.probability = probability;
     }
     
+    /**
+     * Default constructor. Sets probability to 50%
+     */
     public RandomEffect (){
     	this(50);
     }

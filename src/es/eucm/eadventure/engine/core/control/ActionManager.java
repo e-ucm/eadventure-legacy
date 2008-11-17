@@ -6,10 +6,11 @@ import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
 
+import es.eucm.eadventure.common.data.chapterdata.Exit;
+import es.eucm.eadventure.common.data.chapterdata.NextScene;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
-import es.eucm.eadventure.engine.core.data.gamedata.Exit;
-import es.eucm.eadventure.engine.core.data.gamedata.scenes.GeneralScene;
+import es.eucm.eadventure.common.data.chapterdata.scenes.GeneralScene;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 
@@ -199,7 +200,7 @@ public class ActionManager {
             
         } else if( exit != null && actionSelected == ACTION_GOTO ) {
             //Check if the exit has a customized cursor. If it has already been created, retrieve it. Otherwise, create it
-            boolean isCursorSet = exit.getCursorPath( )!=null && !exit.getCursorPath( ).equals( "" );
+            boolean isCursorSet = getCursorPath( exit )!=null && !getCursorPath( exit ).equals( "" );
             //Customized. It has already been created
             if (isCursorSet && cursors.containsKey( exit )){
                 setExitCursor(cursors.get( exit ));
@@ -207,7 +208,7 @@ public class ActionManager {
  
             //Customized. Not created yet.
             else if(isCursorSet && !cursors.containsKey( exit )){
-                Cursor newCursor = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( exit.getCursorPath( ), MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "exitCursor("+exit+")" );
+                Cursor newCursor = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( getCursorPath( exit ), MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "exitCursor("+exit+")" );
                 this.cursors.put( exit, newCursor );
                 setExitCursor(newCursor);
             }
@@ -226,10 +227,44 @@ public class ActionManager {
                     nextScene = game.getGameData( ).getGeneralScene( exit.getNextScenes( ).get( i ).getNextSceneId( ) );
 
             //Check the text (customized or not)
-            if (exit.getExitText( )!=null ){
-                setExit (exit.getExitText( ));
+            if (getExitText( exit )!=null ){
+                setExit (getExitText( exit  ));
             } else if( nextScene != null )
                 setExit( nextScene.getName( ) );
         }
     }
+    
+    public String getExitText( Exit exit ) {
+        String exitText=null;
+        for (NextScene nextScene:exit.getNextScenes()){
+            if (new FunctionalConditions(nextScene.getConditions( )).allConditionsOk( )){
+                exitText=nextScene.getExitText( );
+            }
+        }
+        
+        if (exitText==null && exit.getDefaultExitLook()!=null)
+            exitText=exit.getDefaultExitLook().getExitText( );
+        
+        return exitText;
+    }
+
+    
+    /**
+     * Returns the cursor of the first resources block which all conditions are met
+     * @return the cursor
+     */
+    public String getCursorPath(Exit exit){
+        String cursorPath=null;
+        for (NextScene nextScene:exit.getNextScenes()){
+            if (new FunctionalConditions(nextScene.getConditions( )).allConditionsOk( )){
+                cursorPath=nextScene.getCursorPath( );
+            }
+        }
+        
+        if (cursorPath==null && exit.getDefaultExitLook()!=null)
+            cursorPath=exit.getDefaultExitLook().getCursorPath( );
+        
+        return cursorPath;
+   }
+
 }

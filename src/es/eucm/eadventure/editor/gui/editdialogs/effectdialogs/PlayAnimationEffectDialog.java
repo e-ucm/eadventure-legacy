@@ -69,7 +69,7 @@ public class PlayAnimationEffectDialog extends EffectDialog {
 	public PlayAnimationEffectDialog( EffectsController effectsController, HashMap<Integer, String> currentProperties ) {
 
 		// Call the super method
-		super( TextConstants.getText( "PlayAnimationEffect.Title" ) );
+		super( TextConstants.getText( "FunctionalPlayAnimationEffect.Title" ) );
 		this.effectsController = effectsController;
 
 		// Create the set of values for the scenes
@@ -86,7 +86,7 @@ public class PlayAnimationEffectDialog extends EffectDialog {
 		// Create the asset panel and set the border
 		JPanel assetPanel = new JPanel( );
 		assetPanel.setLayout( new GridBagLayout( ) );
-		assetPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "PlayAnimationEffect.Title" ) ) );
+		assetPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "FunctionalPlayAnimationEffect.Title" ) ) );
 		GridBagConstraints c = new GridBagConstraints( );
 		c.insets = new Insets( 4, 4, 4, 4 );
 		c.fill = GridBagConstraints.NONE;
@@ -129,7 +129,7 @@ public class PlayAnimationEffectDialog extends EffectDialog {
 		c = new GridBagConstraints( );
 
 		// Set the border of the panel with the description
-		mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "PlayAnimationEffect.Description" ) ) ) );
+		mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "FunctionalPlayAnimationEffect.Description" ) ) ) );
 
 		// Add the asset panel to the main panel
 		c.insets = new Insets( 2, 4, 4, 4 );

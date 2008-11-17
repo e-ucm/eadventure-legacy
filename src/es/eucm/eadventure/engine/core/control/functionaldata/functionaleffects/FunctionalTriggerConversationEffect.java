@@ -1,24 +1,19 @@
 package es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects;
 
+import es.eucm.eadventure.common.data.chapterdata.effects.TriggerConversationEffect;
 import es.eucm.eadventure.engine.core.control.Game;
 
 /**
  * An effect that triggers a conversation.
  */
-public class TriggerConversationEffect extends FunctionalEffect {
-
-    /**
-     * Id of the conversation to be played
-     */
-    private String targetConversationId;
+public class FunctionalTriggerConversationEffect extends FunctionalEffect {
 
     /**
      * Creates a new TriggerConversationEffect.
      * @param targetConversationId the id of the conversation to be triggered
      */
-    public TriggerConversationEffect( String targetConversationId ) {
-    	super(null);
-        this.targetConversationId = targetConversationId;
+    public FunctionalTriggerConversationEffect( TriggerConversationEffect effect ) {
+    	super(effect);
     }
 
     /*
@@ -26,7 +21,7 @@ public class TriggerConversationEffect extends FunctionalEffect {
      * @see es.eucm.eadventure.engine.engine.data.effects.Effect#triggerEffect()
      */
     public void triggerEffect( ) {
-        Game.getInstance( ).setConversation( targetConversationId );
+        Game.getInstance( ).setConversation( ((TriggerConversationEffect)effect).getTargetConversationId() );
         Game.getInstance( ).setState( Game.STATE_CONVERSATION ); 
     }
 

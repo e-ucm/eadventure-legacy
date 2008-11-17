@@ -1,15 +1,16 @@
 package es.eucm.eadventure.engine.core.control.animations.pc;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalNPC;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
 import es.eucm.eadventure.engine.core.data.GameText;
-import es.eucm.eadventure.engine.core.data.gamedata.ConversationReference;
-import es.eucm.eadventure.engine.core.data.gamedata.elements.Player;
-import es.eucm.eadventure.engine.core.data.gamedata.resources.Resources;
+import es.eucm.eadventure.common.data.chapterdata.ConversationReference;
+import es.eucm.eadventure.common.data.chapterdata.elements.Player;
+import es.eucm.eadventure.common.data.chapterdata.resources.Resources;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 
 /**
@@ -31,7 +32,7 @@ public class PCWalkingToTalk extends PCState {
             player.setX( player.getX( ) + player.getSpeedX( )*elapsedTime/1000 );
         }else {
             FunctionalNPC npc = (FunctionalNPC) player.getFinalElement( );
-            ArrayList<ConversationReference> conversationReferences = npc.getNPC( ).getConversationReferences( );
+            List<ConversationReference> conversationReferences = npc.getNPC( ).getConversationReferences( );
             boolean triggeredConversation = false;
             
             for( int i = 0; i < conversationReferences.size( ) && !triggeredConversation; i++ ) {
@@ -53,7 +54,7 @@ public class PCWalkingToTalk extends PCState {
     @Override
     public void initialize( ) {
         FunctionalNPC npc = (FunctionalNPC) player.getFinalElement( );
-        ArrayList<ConversationReference> conversationReferences = npc.getNPC( ).getConversationReferences( );     
+        List<ConversationReference> conversationReferences = npc.getNPC( ).getConversationReferences( );     
         boolean anyConversation = false;
         for( int i = 0; i < conversationReferences.size( ) && !anyConversation; i++ )
             if( new FunctionalConditions( conversationReferences.get( i ).getConditions( ) ).allConditionsOk( ) )

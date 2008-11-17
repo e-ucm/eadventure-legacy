@@ -25,6 +25,8 @@ public class OptionConversationNode extends ConversationNode {
 	 * Links to the path to follow for each option
 	 */
 	private List<ConversationNode> optionNodes;
+	
+    private boolean effectConsumed=false;
 
 	/* Methods */
 
@@ -130,4 +132,24 @@ public class OptionConversationNode extends ConversationNode {
 	public Effects getEffects( ) {
 		return null;
 	}
+	
+    /*
+     *  (non-Javadoc)
+     * @see es.eucm.eadventure.engine.engine.data.conversation.node.Node#hasValidEffect()
+     */
+    public boolean hasValidEffect( ) {
+        return false;
+    }
+
+    public void consumeEffect( ) {
+        effectConsumed=true;
+    }
+
+    public boolean isEffectConsumed( ) {
+        return effectConsumed;
+    }
+    public void resetEffect( ) {
+        effectConsumed = false;
+     }
+
 }

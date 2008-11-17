@@ -1,5 +1,8 @@
 package es.eucm.eadventure.common.data.chapterdata.conversation;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import es.eucm.eadventure.common.data.chapterdata.conversation.node.ConversationNode;
 
 /**
@@ -88,4 +91,28 @@ public abstract class Conversation {
 	public void setId( String id ) {
 		this.conversationId = id;
 	}
+	
+    public List<ConversationNode> getAllNodes (){
+        List<ConversationNode> nodes = new ArrayList<ConversationNode>();
+        getAllNodes ( root, nodes );
+        return nodes;
+    }
+    
+    private void getAllNodes(ConversationNode firstNode, List<ConversationNode> nodes){
+        for (int i=0; i<firstNode.getChildCount( ); i++){
+        	ConversationNode child = firstNode.getChild( i );
+            // Check the child is not in the list yet
+            boolean isInList = false; 
+            for (ConversationNode aNode: nodes){
+                if (aNode == child){
+                    isInList = true;break;
+                }
+                    
+            }
+            if (!isInList){
+                nodes.add( child );
+                getAllNodes( child, nodes);
+            }
+        }
+    }
 }

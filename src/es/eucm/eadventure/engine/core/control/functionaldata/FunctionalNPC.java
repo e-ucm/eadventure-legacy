@@ -3,16 +3,16 @@ package es.eucm.eadventure.engine.core.control.functionaldata;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
+import es.eucm.eadventure.common.data.chapterdata.resources.Asset;
 import es.eucm.eadventure.engine.core.control.ActionManager;
 import es.eucm.eadventure.engine.core.control.animations.npc.NPCIdle;
 import es.eucm.eadventure.engine.core.control.animations.npc.NPCState;
 import es.eucm.eadventure.engine.core.control.animations.npc.NPCTalking;
 import es.eucm.eadventure.engine.core.control.animations.npc.NPCWalking;
-import es.eucm.eadventure.engine.core.data.gamedata.elements.Element;
-import es.eucm.eadventure.engine.core.data.gamedata.elements.Item;
-import es.eucm.eadventure.engine.core.data.gamedata.elements.NPC;
-import es.eucm.eadventure.engine.core.data.gamedata.resources.Asset;
-import es.eucm.eadventure.engine.core.data.gamedata.resources.Resources;
+import es.eucm.eadventure.common.data.chapterdata.elements.Element;
+import es.eucm.eadventure.common.data.chapterdata.elements.Item;
+import es.eucm.eadventure.common.data.chapterdata.elements.NPC;
+import es.eucm.eadventure.common.data.chapterdata.resources.Resources;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 
 /**

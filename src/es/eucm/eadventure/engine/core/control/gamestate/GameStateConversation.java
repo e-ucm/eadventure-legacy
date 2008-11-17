@@ -7,8 +7,9 @@ import java.awt.event.MouseEvent;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalNPC;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
-import es.eucm.eadventure.engine.core.data.gamedata.conversation.node.Node;
-import es.eucm.eadventure.engine.core.data.gamedata.conversation.util.ConversationLine;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
+import es.eucm.eadventure.common.data.chapterdata.conversation.line.ConversationLine;
+import es.eucm.eadventure.common.data.chapterdata.conversation.node.ConversationNode;
 import es.eucm.eadventure.engine.core.gui.GUI;
 
 /**
@@ -74,7 +75,7 @@ public class GameStateConversation extends GameState {
     /**
      * Current conversational node being played
      */
-    private Node currentNode;
+    private ConversationNode currentNode;
     
     /**
      * Index of the line being played
@@ -108,7 +109,7 @@ public class GameStateConversation extends GameState {
         RESPONSE_TEXT_HEIGHT = RESPONSE_TEXT_ASCENT + 2;
         
         // Set the initial node
-        currentNode = game.getConversation( ).getStartingNode( );
+        currentNode = game.getConversation( ).getRootNode( );
         currentLine = 0;
         firstLineDisplayed = 0;
         optionHighlighted = -1;
@@ -138,7 +139,7 @@ public class GameStateConversation extends GameState {
         //g.drawString( Integer.toString( fps ), 780, 14 );
 
         // If the current node is a dialoge node
-        if( currentNode.getType( ) == Node.DIALOGUE ) {
+        if( currentNode.getType( ) == ConversationNode.DIALOGUE ) {
             
             // If no button as pressed, keep the characters speaking lines
             if( mouseClickedButton == MOUSE_BUTTON_NONE ) {
@@ -164,7 +165,7 @@ public class GameStateConversation extends GameState {
         }
         
         // If it is a node option, display the different options
-        else if( currentNode.getType( ) == Node.OPTION ) {
+        else if( currentNode.getType( ) == ConversationNode.OPTION ) {
             
             // If we can paint all the lines in screen, do it
             if( currentNode.getLineCount( ) <= RESPONSE_TEXT_NUMBER_LINES ) {
@@ -226,7 +227,7 @@ public class GameStateConversation extends GameState {
 
     @Override
     public synchronized void mouseClicked( MouseEvent e ) {
-        if( currentNode.getType( ) == Node.OPTION && RESPONSE_TEXT_Y <= e.getY( ) ) {
+        if( currentNode.getType( ) == ConversationNode.OPTION && RESPONSE_TEXT_Y <= e.getY( ) ) {
             int optionSelected = ( e.getY( ) - RESPONSE_TEXT_Y ) / RESPONSE_TEXT_HEIGHT;
             
             // If all the lines are in the screen, select normally
@@ -269,7 +270,7 @@ public class GameStateConversation extends GameState {
         }
         
         // If it is a dialogue node, keep the event
-        else if( currentNode.getType( ) == Node.DIALOGUE ) {
+        else if( currentNode.getType( ) == ConversationNode.DIALOGUE ) {
             if( e.getButton() == MouseEvent.BUTTON1 ) {
                 mouseClickedButton = MOUSE_BUTTON_LEFT;
             }
@@ -300,7 +301,7 @@ public class GameStateConversation extends GameState {
             ConversationLine line = currentNode.getLine( currentLine );
             if( line.isPlayerLine( ) ) {
                 FunctionalPlayer player = game.getFunctionalPlayer( );
-                if (line.hasValidAudio( ))
+                if (line.isValidAudio( ))
                     player.speak( line.getText(), line.getAudioPath( ) );
                 else
                     player.speak( line.getText( ) );
@@ -314,7 +315,7 @@ public class GameStateConversation extends GameState {
                     npc = game.getFunctionalScene( ).getNPC( line.getName( ) );
                 
                 if( npc != null ) {
-                    if (line.hasValidAudio( )){
+                    if (line.isValidAudio( )){
                         npc.speak( line.getText( ), line.getAudioPath( ) );
                     }else
                         npc.speak( line.getText( ) );
@@ -331,7 +332,7 @@ public class GameStateConversation extends GameState {
             if( currentNode.hasValidEffect( )&&!currentNode.isEffectConsumed( ) ) {
                 currentNode.consumeEffect( );
                 game.pushCurrentState( );
-                currentNode.getEffects( ).storeAllEffects( !currentNode.isTerminal( ) );
+                FunctionalEffects.storeAllEffects(currentNode.getEffects( ));
                 GUI.getInstance().toggleHud( true );
                 
                 //if (currentNode.isTerminal( ))
@@ -342,7 +343,7 @@ public class GameStateConversation extends GameState {
             
             else if ((!currentNode.hasValidEffect( ) || currentNode.isEffectConsumed( ) ) && currentNode.isTerminal( )){
                 // Reset effects in nodes
-                for (Node node: game.getConversation( ).getAllNodes( )){
+                for (ConversationNode node: game.getConversation( ).getAllNodes( )){
                     node.resetEffect( );
                 }
                 GUI.getInstance().toggleHud( true );

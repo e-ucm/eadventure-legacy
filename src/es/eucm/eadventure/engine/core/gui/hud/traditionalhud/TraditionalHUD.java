@@ -9,11 +9,11 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 
+import es.eucm.eadventure.common.data.adventuredata.AdventureData;
 import es.eucm.eadventure.engine.core.control.ActionManager;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
 import es.eucm.eadventure.engine.core.data.GameText;
-import es.eucm.eadventure.engine.core.data.gamedescriptor.GameDescriptor;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.core.gui.hud.HUD;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
@@ -295,7 +295,7 @@ public class TraditionalHUD extends HUD {
 
         background = MultimediaManager.getInstance( ).loadImage( "gui/hud/traditional/HUD.png", MultimediaManager.IMAGE_MENU );
         
-        GameDescriptor descriptor =Game.getInstance().getGameDescriptor( ); 
+        AdventureData descriptor =Game.getInstance().getGameDescriptor( ); 
         
         if (descriptor.getCursorPath( USE_CURSOR )==null){
             actionCursors[0] = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImage( "gui/cursors/use.png", MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "useCursor" );            

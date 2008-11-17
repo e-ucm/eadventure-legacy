@@ -4,13 +4,14 @@ import java.util.Vector;
 
 import org.xml.sax.Attributes;
 
-import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
+import es.eucm.eadventure.common.data.chapterdata.effects.Effects;
 import es.eucm.eadventure.engine.core.data.gamedata.GameData;
-import es.eucm.eadventure.engine.core.data.gamedata.conversation.Conversation;
-import es.eucm.eadventure.engine.core.data.gamedata.conversation.node.DialogueNode;
-import es.eucm.eadventure.engine.core.data.gamedata.conversation.node.Node;
-import es.eucm.eadventure.engine.core.data.gamedata.conversation.node.OptionNode;
-import es.eucm.eadventure.engine.core.data.gamedata.conversation.util.ConversationLine;
+import es.eucm.eadventure.common.data.chapterdata.conversation.Conversation;
+import es.eucm.eadventure.common.data.chapterdata.conversation.TreeConversation;
+import es.eucm.eadventure.common.data.chapterdata.conversation.line.ConversationLine;
+import es.eucm.eadventure.common.data.chapterdata.conversation.node.DialogueConversationNode;
+import es.eucm.eadventure.common.data.chapterdata.conversation.node.ConversationNode;
+import es.eucm.eadventure.common.data.chapterdata.conversation.node.OptionConversationNode;
 
 /**
  * Class to subparse tree conversations
@@ -57,17 +58,17 @@ public class TreeConversationSubParser extends SubParser {
     /**
      * Stores the current node
      */
-    private Node currentNode;
+    private ConversationNode currentNode;
 
     /**
      * Stores the past optional nodes, for back tracking
      */
-    private Vector<Node> pastOptionNodes;
+    private Vector<ConversationNode> pastOptionNodes;
 
     /**
      * Current effect (of the current node)
      */
-    private FunctionalEffects currentEffects;
+    private Effects currentEffects;
     
     /**
      * The subparser for the effect
@@ -113,9 +114,9 @@ public class TreeConversationSubParser extends SubParser {
     
                 // Create a dialogue node (which will be the root node) and add it to a new tree
                 // The content of the tree will be built adding nodes directly to the root
-                currentNode = new DialogueNode( );
-                conversation = new Conversation( conversationName, currentNode );
-                pastOptionNodes = new Vector<Node>( );
+                currentNode = new DialogueConversationNode( );
+                conversation = new TreeConversation( conversationName, currentNode );
+                pastOptionNodes = new Vector<ConversationNode>( );
             }
     
          // If it is a non-player character line, store the character name and audio path (if present)
@@ -151,7 +152,7 @@ public class TreeConversationSubParser extends SubParser {
             // If it is a point with a set of possible responses, create a new OptionNode
             else if( qName.equals( "response" ) ) {
                 // Create a new OptionNode, and link it to the current node
-                Node nuevoNodoOpcion = new OptionNode( );
+            	ConversationNode nuevoNodoOpcion = new OptionConversationNode( );
                 currentNode.addChild( nuevoNodoOpcion );
     
                 // Change the actual node for the option node recently created
@@ -165,7 +166,7 @@ public class TreeConversationSubParser extends SubParser {
     
             // If it is an effect tag, create new effect, new subparser and switch state
             else if( qName.equals( "effect" ) ) {
-                currentEffects = new FunctionalEffects( );
+                currentEffects = new Effects( );
                 effectSubParser = new EffectSubParser( currentEffects, gameData );
                 subParsing = SUBPARSING_EFFECT;
             }
@@ -210,7 +211,7 @@ public class TreeConversationSubParser extends SubParser {
                 // If we were waiting an option, create a new DialogueNode
                 if( state == STATE_WAITING_OPTION ) {
                     // Create a new DialogueNode, and link it to the current node (which will be a OptionNode)
-                    Node newDialogueNode = new DialogueNode( );
+                	ConversationNode newDialogueNode = new DialogueConversationNode( );
                     currentNode.addChild( newDialogueNode );
     
                     // Add the current node (OptionNode) in the list of past option nodes, and change the current node

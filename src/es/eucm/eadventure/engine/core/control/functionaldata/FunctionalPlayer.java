@@ -2,6 +2,7 @@ package es.eucm.eadventure.engine.core.control.functionaldata;
 
 import java.awt.Color;
 
+import es.eucm.eadventure.common.data.chapterdata.resources.Asset;
 import es.eucm.eadventure.engine.core.control.ActionManager;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.animations.pc.PCExamining;
@@ -21,11 +22,10 @@ import es.eucm.eadventure.engine.core.control.animations.pc.PCWalkingToGrab;
 import es.eucm.eadventure.engine.core.control.animations.pc.PCWalkingToTalk;
 import es.eucm.eadventure.engine.core.control.animations.pc.PCWalkingToUse;
 import es.eucm.eadventure.engine.core.control.animations.pc.PCWalkingToUseSingle;
-import es.eucm.eadventure.engine.core.data.gamedata.Exit;
-import es.eucm.eadventure.engine.core.data.gamedata.elements.Element;
-import es.eucm.eadventure.engine.core.data.gamedata.elements.Player;
-import es.eucm.eadventure.engine.core.data.gamedata.resources.Asset;
-import es.eucm.eadventure.engine.core.data.gamedata.resources.Resources;
+import es.eucm.eadventure.common.data.chapterdata.Exit;
+import es.eucm.eadventure.common.data.chapterdata.elements.Element;
+import es.eucm.eadventure.common.data.chapterdata.elements.Player;
+import es.eucm.eadventure.common.data.chapterdata.resources.Resources;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;

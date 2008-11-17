@@ -3,24 +3,6 @@ package es.eucm.eadventure.engine.loader.subparsers;
 import org.xml.sax.Attributes;
 
 import es.eucm.eadventure.common.data.chapterdata.effects.*;
-import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalConsumeObjectEffect;
-import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalDeactivateEffect;
-import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalActivateEffect;
-import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffect;
-import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
-import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalGenerateObjectEffect;
-import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalMoveNPCEffect;
-import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.MovePlayerEffect;
-import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.PlayAnimationEffect;
-import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.PlaySoundEffect;
-import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.RandomEffect;
-import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.SpeakCharEffect;
-import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.SpeakPlayerEffect;
-import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.TriggerBookEffect;
-import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.TriggerConversationEffect;
-import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.TriggerCutsceneEffect;
-import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.TriggerLastSceneEffect;
-import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.TriggerSceneEffect;
 import es.eucm.eadventure.engine.core.data.gamedata.GameData;
 
 /**
@@ -38,7 +20,7 @@ public class EffectSubParser extends SubParser {
     /**
      * Stores the effects being parsed
      */
-    private FunctionalEffects effects;
+    private Effects effects;
     
     /**
      * Constants for reading random-effect
@@ -54,38 +36,28 @@ public class EffectSubParser extends SubParser {
      * @param effects Structure in which the effects will be placed
      * @param gameData Game data to store the readed data
      */
-    public EffectSubParser( FunctionalEffects effects, GameData gameData ) {
+    public EffectSubParser( Effects effects, GameData gameData ) {
         super( gameData );
         this.effects = effects;
     }
     
-    /**
-     * Constructor
-     * @param effects Structure in which the effects will be placed
-     * @param gameData Game data to store the readed data
-     */
-    public EffectSubParser( es.eucm.eadventure.common.data.chapterdata.effects.Effects effects, GameData gameData ) {
-        super( gameData );
-        //this.effects = effects;
-    }
-
     /*
      *  (non-Javadoc)
      * @see es.eucm.eadventure.engine.loader.subparsers.SubParser#startElement(java.lang.String, java.lang.String, java.lang.String, org.xml.sax.Attributes)
      */
     public void startElement( String namespaceURI, String sName, String qName, Attributes attrs ) {
-        FunctionalEffect newEffect = null;
+       Effect newEffect = null;
         
         // If it is a cancel-action tag
         if( qName.equals( "cancel-action" ) ) {
-            effects.setHasCancelAction( true );
+            effects.add(new CancelActionEffect());
         }
 
         // If it is a activate tag
         else if( qName.equals( "activate" ) ) {
             for( int i = 0; i < attrs.getLength( ); i++ )
                 if( attrs.getQName( i ).equals( "flag" ) ) {
-                    newEffect = new FunctionalActivateEffect( new ActivateEffect (attrs.getValue( i )) );
+                    newEffect = new ActivateEffect (attrs.getValue( i ) );
                     gameData.addFlag( attrs.getValue( i ) );
                 }
         }
@@ -94,7 +66,7 @@ public class EffectSubParser extends SubParser {
         else if( qName.equals( "deactivate" ) ) {
             for( int i = 0; i < attrs.getLength( ); i++ )
                 if( attrs.getQName( i ).equals( "flag" ) ) {
-                    newEffect =  new FunctionalDeactivateEffect( new DeactivateEffect (attrs.getValue( i )) ) ;
+                    newEffect =  new DeactivateEffect (attrs.getValue( i ) ) ;
                     gameData.addFlag( attrs.getValue( i ) );
                 }
         }
@@ -103,14 +75,14 @@ public class EffectSubParser extends SubParser {
         else if( qName.equals( "consume-object" ) ) {
             for( int i = 0; i < attrs.getLength( ); i++ )
                 if( attrs.getQName( i ).equals( "idTarget" ) )
-                    newEffect =  new FunctionalConsumeObjectEffect( new ConsumeObjectEffect (attrs.getValue( i )) ) ;
+                    newEffect =  new ConsumeObjectEffect (attrs.getValue( i ) ) ;
         }
 
         // If it is a generate-object tag
         else if( qName.equals( "generate-object" ) ) {
             for( int i = 0; i < attrs.getLength( ); i++ )
                 if( attrs.getQName( i ).equals( "idTarget" ) )
-                    newEffect =  new FunctionalGenerateObjectEffect( new GenerateObjectEffect (attrs.getValue( i )) ) ;
+                    newEffect =  new GenerateObjectEffect (attrs.getValue( i ) ) ;
         }
 
         // If it is a speak-char tag
@@ -128,7 +100,7 @@ public class EffectSubParser extends SubParser {
         else if( qName.equals( "trigger-book" ) ) {
             for( int i = 0; i < attrs.getLength( ); i++ )
                 if( attrs.getQName( i ).equals( "idTarget" ) )
-                    newEffect =  new TriggerBookEffect( attrs.getValue( i ) ) ;
+                    newEffect =  new TriggerBookEffect(attrs.getValue( i ) ) ;
         }
         
         // If it is a trigger-last-scene tag
@@ -149,21 +121,21 @@ public class EffectSubParser extends SubParser {
             }
             
             // Add the new play sound effect
-            newEffect =  new PlaySoundEffect( background, path ) ;
+            newEffect =  new PlaySoundEffect(background, path ) ;
         }
         
         // If it is a trigger-conversation tag
         else if( qName.equals( "trigger-conversation" ) ) {
             for( int i = 0; i < attrs.getLength( ); i++ )
                 if( attrs.getQName( i ).equals( "idTarget" ) )
-                    newEffect = new TriggerConversationEffect( attrs.getValue( i ) ) ;
+                    newEffect = new TriggerConversationEffect(attrs.getValue( i ) ) ;
         }
 
         // If it is a trigger-cutscene tag
         else if( qName.equals( "trigger-cutscene" ) ) {
             for( int i = 0; i < attrs.getLength( ); i++ )
                 if( attrs.getQName( i ).equals( "idTarget" ) )
-                    newEffect =  new TriggerCutsceneEffect( attrs.getValue( i ) );
+                    newEffect =  new TriggerCutsceneEffect (attrs.getValue( i ) );
         }
         
         // If it is a trigger-scene tag
@@ -179,7 +151,7 @@ public class EffectSubParser extends SubParser {
                 else if( attrs.getQName( i ).equals( "y" ) )
                     y = Integer.parseInt( attrs.getValue( i ) ); 
             
-            newEffect =  new TriggerSceneEffect( scene, x, y ) ;
+            newEffect =  new TriggerSceneEffect(scene, x, y ) ;
         }
         
         // If it is a play-animation tag
@@ -197,7 +169,7 @@ public class EffectSubParser extends SubParser {
             }
             
             // Add the new play sound effect
-            newEffect =  new PlayAnimationEffect( path, x, y ) ;
+            newEffect =  new PlayAnimationEffect (path, x, y ) ;
         }
         
         // If it is a move-player tag
@@ -212,7 +184,7 @@ public class EffectSubParser extends SubParser {
             }
             
             // Add the new move player effect
-            newEffect =  new MovePlayerEffect( x, y ) ;
+            newEffect =  new MovePlayerEffect (x, y ) ;
         }
         
         // If it is a move-npc tag
@@ -230,7 +202,7 @@ public class EffectSubParser extends SubParser {
             }
             
             // Add the new move NPC effect
-            newEffect =  new FunctionalMoveNPCEffect( new MoveNPCEffect (npcTarget, x, y) ) ;
+            newEffect =  new MoveNPCEffect (npcTarget, x, y ) ;
         }
 
         // Random effect tag
@@ -261,7 +233,7 @@ public class EffectSubParser extends SubParser {
             } 
             // Otherwise, determine if it is positive or negative effect 
             else if (newEffect!=null && !positiveBlockRead){
-                randomEffect.setPositiveEffect( newEffect );
+            	randomEffect.setPositiveEffect( newEffect );
                 positiveBlockRead = true;
             }
             // Negative effect 
@@ -281,12 +253,12 @@ public class EffectSubParser extends SubParser {
      */
     public void endElement( String namespaceURI, String sName, String qName ) {
         
-        FunctionalEffect newEffect = null;
+        Effect newEffect = null;
         
         // If it is a speak-player
         if( qName.equals( "speak-player" ) ) {
             // Add the effect and clear the current string
-            newEffect = new SpeakPlayerEffect( currentString.toString( ).trim( ) ) ;
+            newEffect = new SpeakPlayerEffect(currentString.toString( ).trim( ) ) ;
         }
 
         // If it is a speak-char

@@ -22,9 +22,9 @@ public class DescriptorData {
 	 */
 	public static final int GUI_CONTEXTUAL = 1;
 
-	public static final int PLAYER_VISIBLE = 0;
+	public static final int MODE_PLAYER_1STPERSON = 0;
 
-	public static final int PLAYER_TRANSPARENT = 1;
+	public static final int MODE_PLAYER_3RDPERSON = 1;
 
 	/**
 	 * Title of the adventure.
@@ -50,7 +50,7 @@ public class DescriptorData {
 		title = null;
 		description = null;
 		guiType = -1;
-		playerMode = PLAYER_VISIBLE;
+		playerMode = MODE_PLAYER_1STPERSON;
 	}
 
 	/**
@@ -73,7 +73,7 @@ public class DescriptorData {
 	}
 
 	public DescriptorData( String adventureTitle, String sceneId ) {
-		this( adventureTitle, sceneId, PLAYER_VISIBLE );
+		this( adventureTitle, sceneId, MODE_PLAYER_1STPERSON );
 	}
 
 	/**

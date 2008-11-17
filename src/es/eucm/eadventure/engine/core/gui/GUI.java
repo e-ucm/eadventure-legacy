@@ -26,8 +26,8 @@ import java.util.ArrayList;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 
+import es.eucm.eadventure.common.data.adventuredata.AdventureData;
 import es.eucm.eadventure.engine.core.control.Game;
-import es.eucm.eadventure.engine.core.data.gamedescriptor.GameDescriptor;
 import es.eucm.eadventure.engine.core.gui.hud.HUD;
 import es.eucm.eadventure.engine.core.gui.hud.contextualhud.ContextualHUD;
 import es.eucm.eadventure.engine.core.gui.hud.traditionalhud.TraditionalHUD;
@@ -194,9 +194,9 @@ public class GUI implements FocusListener {
      */
     public void initGUI( int guiType, boolean customized ) {
         // Create the hud, depending on guiType
-        if( guiType == GameDescriptor.GUI_TRADITIONAL )
+        if( guiType == AdventureData.GUI_TRADITIONAL )
             hud = new TraditionalHUD( );
-        else if( guiType == GameDescriptor.GUI_CONTEXTUAL )
+        else if( guiType == AdventureData.GUI_CONTEXTUAL )
             hud = new ContextualHUD( );
         
         // Center window on screen

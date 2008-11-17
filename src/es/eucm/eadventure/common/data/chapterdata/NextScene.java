@@ -196,7 +196,33 @@ public class NextScene {
 		this.postEffects = postEffects;
 	}
 	
+    /**
+     * @return the exitText
+     */
+    public String getExitText( ) {
+        String exitText=null;
+            //if (new FunctionalConditions(getConditions( )).allConditionsOk( ) && look!=null){
+        	if (look!=null){
+                exitText=look.getExitText( );
+            }
+        return exitText;
+    }
+
     
+    /**
+     * Returns the cursor of the first resources block which all conditions are met
+     * @return the cursor. Null is returned if no look had its conditions satisfied, 
+     * or if no one was set
+     */
+    public String getCursorPath(){
+        String cursorPath=null;
+            //if (new FunctionalConditions(getConditions( )).allConditionsOk( ) && look!=null){
+        	if (look!=null){
+                cursorPath=look.getCursorPath( );
+            }
+        return cursorPath;    
+   }
+	
     public ExitLook getExitLook(){
         return this.look;
     }

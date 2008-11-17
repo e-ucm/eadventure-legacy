@@ -33,6 +33,8 @@ public class DialogueConversationNode extends ConversationNode {
 	 * FunctionalEffect to be triggered when the node has finished (if it's terminal)
 	 */
 	private Effects effects;
+	
+    private boolean effectConsumed=false;
 
 	/* Methods */
 
@@ -165,6 +167,23 @@ public class DialogueConversationNode extends ConversationNode {
 	@Override
 	public Effects getEffects( ) {
 		return effects;
+	}
+
+    public void consumeEffect( ) {
+        effectConsumed=true;
+    }
+
+    public boolean isEffectConsumed( ) {
+        return effectConsumed;
+    }
+
+    public void resetEffect( ) {
+       effectConsumed = false;
+    }
+
+	@Override
+	public boolean hasValidEffect() {
+		return effects != null;
 	}
 
 }

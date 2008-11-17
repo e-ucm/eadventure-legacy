@@ -6,7 +6,7 @@ import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
-import es.eucm.eadventure.engine.core.data.gamedata.book.BookTitle;
+import es.eucm.eadventure.common.data.chapterdata.book.BookParagraph;
 import es.eucm.eadventure.engine.core.gui.GUI;
 
 /**
@@ -17,7 +17,7 @@ public class FunctionalBookTitle extends FunctionalBookParagraph {
     /**
      * The text book
      */
-    private BookTitle bookTitle;
+    private BookParagraph bookTitle;
     
     /**
      * The text of the book
@@ -28,7 +28,7 @@ public class FunctionalBookTitle extends FunctionalBookParagraph {
      * Creates a new FunctionalBookText
      * @param text the text to be rendered
      */
-    public FunctionalBookTitle( BookTitle title ) {
+    public FunctionalBookTitle( BookParagraph title ) {
         this.bookTitle = title;
         this.init();
     }
@@ -37,7 +37,7 @@ public class FunctionalBookTitle extends FunctionalBookParagraph {
         textLines = new ArrayList<String>( );
 
         //Get the text of the book
-        String text = bookTitle.getText( );
+        String text = bookTitle.getContent();
         String word = "";
         String line = "";
         

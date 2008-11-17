@@ -173,4 +173,46 @@ public class Exit {
     public void setDefaultExitLook( ExitLook defaultExitLook ) {
         this.defaultExitLook = defaultExitLook;
     }
+    
+    /**
+     * Returns whether a point is inside the exit
+     * @param x the horizontal positon
+     * @param y the vertical position
+     * @return true if the point (x, y) is inside the exit, false otherwise
+     */
+    public boolean isPointInside( int x, int y ) {
+        return x > getX0() && x < getX1() && y > getY0() && y < getY1();
+    }
+
+    /**
+     * Returns the horizontal coordinate of the upper left corner of the exit
+     * @return the horizontal coordinate of the upper left corner of the exit
+     */
+    public int getX0( ) {
+        return getX();
+    }
+
+    /**
+     * Returns the vertical coordinate of the upper left corner of the exit
+     * @return the vertical coordinate of the upper left corner of the exit
+     */
+    public int getX1( ) {
+        return getX()+getWidth();
+    }
+
+    /**
+     * Returns the horizontal coordinate of the bottom right of the exit
+     * @return the horizontal coordinate of the bottom right of the exit
+     */
+    public int getY0( ) {
+        return getY();
+    }
+
+    /**
+     * Returns the vertical coordinate of the bottom right of the exit
+     * @return the vertical coordinate of the bottom right of the exit
+     */
+    public int getY1( ) {
+        return getY()+getHeight();
+    }
 }

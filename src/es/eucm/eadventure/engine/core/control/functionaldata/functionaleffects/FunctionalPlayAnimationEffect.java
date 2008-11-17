@@ -2,6 +2,7 @@ package es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects;
 
 import java.awt.Graphics2D;
 
+import es.eucm.eadventure.common.data.chapterdata.effects.PlayAnimationEffect;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.animations.Animation;
 import es.eucm.eadventure.engine.core.gui.GUI;
@@ -10,27 +11,8 @@ import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 /**
  * An effect that plays a sound 
  */
-public class PlayAnimationEffect extends FunctionalEffect {
+public class FunctionalPlayAnimationEffect extends FunctionalEffect {
 
-
-    /**
-     * Upper-left coordinate of the animation in the X
-     */
-    private int x;
-    
-    /**
-     * Upper-left coordinate of the animation in the Y
-     */
-    private int y;
-    
-    /**
-     * The path to the base animation file
-     */
-    private String path;
-    
-    /**
-     * The animation to be played
-     */
     private Animation animation;
 
     /**
@@ -38,11 +20,8 @@ public class PlayAnimationEffect extends FunctionalEffect {
      * @param background whether to play the sound in background
      * @param path path to the sound file
      */
-    public PlayAnimationEffect( String path, int x, int y ) {
-    	super(null);
-        this.path = path;
-        this.x = x;
-        this.y = y;
+    public FunctionalPlayAnimationEffect( PlayAnimationEffect effect ) {
+    	super(effect);
     }
 
     /*
@@ -50,7 +29,7 @@ public class PlayAnimationEffect extends FunctionalEffect {
      * @see es.eucm.eadventure.engine.engine.data.effects.Effect#triggerEffect()
      */
     public void triggerEffect( ) {
-        animation = MultimediaManager.getInstance( ).loadAnimation( path, false, MultimediaManager.IMAGE_SCENE );
+        animation = MultimediaManager.getInstance( ).loadAnimation( ((PlayAnimationEffect)effect).getPath(), false, MultimediaManager.IMAGE_SCENE );
         animation.start( );
     }
 
@@ -75,7 +54,7 @@ public class PlayAnimationEffect extends FunctionalEffect {
     }
     
     public void draw( Graphics2D g ) {
-        GUI.getInstance( ).addElementToDraw( animation.getImage( ), Math.round( x - ( animation.getImage( ).getWidth( null ) / 2 ) ) - Game.getInstance().getFunctionalScene().getOffsetX(), Math.round( y - ( animation.getImage( ).getHeight( null ) / 2 ) ), Math.round( y ) );
+        GUI.getInstance( ).addElementToDraw( animation.getImage( ), Math.round( ((PlayAnimationEffect)effect).getX() - ( animation.getImage( ).getWidth( null ) / 2 ) ) - Game.getInstance().getFunctionalScene().getOffsetX(), Math.round( ((PlayAnimationEffect)effect).getY() - ( animation.getImage( ).getHeight( null ) / 2 ) ), Math.round( ((PlayAnimationEffect)effect).getY() ) );
     }
 
 }

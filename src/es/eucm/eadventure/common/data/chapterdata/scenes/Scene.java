@@ -12,6 +12,26 @@ import es.eucm.eadventure.common.data.chapterdata.elements.Barrier;
  * This class holds the data for a scene in eAdventure
  */
 public class Scene extends GeneralScene {
+	
+    /**
+     * The tag for the background image
+     */
+    public static final String RESOURCE_TYPE_BACKGROUND = "background";
+    
+    /**
+     * The tag for the foreground image
+     */
+    public static final String RESOURCE_TYPE_FOREGROUND = "foreground";
+    
+    /**
+     * The tag for the hard map image
+     */
+    public static final String RESOURCE_TYPE_HARDMAP = "hardmap";
+    
+    /**
+     * The tag for the background music
+     */
+    public static final String RESOURCE_TYPE_MUSIC = "bgmusic";
 
 	/**
 	 * Default X position for the player

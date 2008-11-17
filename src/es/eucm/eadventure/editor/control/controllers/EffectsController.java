@@ -131,65 +131,65 @@ public class EffectsController {
 		switch( effect.getType( ) ) {
 			case Effect.ACTIVATE:
 				ActivateEffect activateEffect = (ActivateEffect) effect;
-				effectInfo = TextConstants.getText( "FunctionalEffect.ActivateInfo", activateEffect.getIdFlag( ) );
+				effectInfo = TextConstants.getText( "Effect.ActivateInfo", activateEffect.getIdFlag( ) );
 				break;
 			case Effect.DEACTIVATE:
 				DeactivateEffect deactivateEffect = (DeactivateEffect) effect;
-				effectInfo = TextConstants.getText( "FunctionalEffect.DeactivateInfo", deactivateEffect.getIdFlag( ) );
+				effectInfo = TextConstants.getText( "Effect.DeactivateInfo", deactivateEffect.getIdFlag( ) );
 				break;
 			case Effect.CONSUME_OBJECT:
 				ConsumeObjectEffect consumeObjectEffect = (ConsumeObjectEffect) effect;
-				effectInfo = TextConstants.getText( "FunctionalEffect.ConsumeObjectInfo", consumeObjectEffect.getIdTarget( ) );
+				effectInfo = TextConstants.getText( "Effect.ConsumeObjectInfo", consumeObjectEffect.getIdTarget( ) );
 				break;
 			case Effect.GENERATE_OBJECT:
 				GenerateObjectEffect generateObjectEffect = (GenerateObjectEffect) effect;
-				effectInfo = TextConstants.getText( "FunctionalEffect.GenerateObjectInfo", generateObjectEffect.getIdTarget( ) );
+				effectInfo = TextConstants.getText( "Effect.GenerateObjectInfo", generateObjectEffect.getIdTarget( ) );
 				break;
 			case Effect.CANCEL_ACTION:
-				effectInfo = TextConstants.getText( "FunctionalEffect.CancelActionInfo" );
+				effectInfo = TextConstants.getText( "Effect.CancelActionInfo" );
 				break;
 			case Effect.SPEAK_PLAYER:
 				SpeakPlayerEffect speakPlayerEffect = (SpeakPlayerEffect) effect;
-				effectInfo = TextConstants.getText( "FunctionalEffect.SpeakPlayerInfo", speakPlayerEffect.getLine( ) );
+				effectInfo = TextConstants.getText( "Effect.SpeakPlayerInfo", speakPlayerEffect.getLine( ) );
 				break;
 			case Effect.SPEAK_CHAR:
 				SpeakCharEffect speakCharEffect = (SpeakCharEffect) effect;
-				effectInfo = TextConstants.getText( "FunctionalEffect.SpeakCharacterInfo", new String[] { speakCharEffect.getIdTarget( ), speakCharEffect.getLine( ) } );
+				effectInfo = TextConstants.getText( "Effect.SpeakCharacterInfo", new String[] { speakCharEffect.getIdTarget( ), speakCharEffect.getLine( ) } );
 				break;
 			case Effect.TRIGGER_BOOK:
 				TriggerBookEffect triggerBookEffect = (TriggerBookEffect) effect;
-				effectInfo = TextConstants.getText( "FunctionalEffect.TriggerBookInfo", triggerBookEffect.getTargetBookId( ) );
+				effectInfo = TextConstants.getText( "Effect.TriggerBookInfo", triggerBookEffect.getTargetBookId( ) );
 				break;
 			case Effect.PLAY_SOUND:
 				PlaySoundEffect playSoundEffect = (PlaySoundEffect) effect;
-				effectInfo = TextConstants.getText( "FunctionalEffect.PlaySoundInfo", playSoundEffect.getPath( ) );
+				effectInfo = TextConstants.getText( "Effect.PlaySoundInfo", playSoundEffect.getPath( ) );
 				break;
 			case Effect.PLAY_ANIMATION:
 				PlayAnimationEffect playAnimationEffect = (PlayAnimationEffect) effect;
-				effectInfo = TextConstants.getText( "FunctionalEffect.PlayAnimationInfo", playAnimationEffect.getPath( ) );
+				effectInfo = TextConstants.getText( "Effect.PlayAnimationInfo", playAnimationEffect.getPath( ) );
 				break;
 			case Effect.MOVE_PLAYER:
 				MovePlayerEffect movePlayerEffect = (MovePlayerEffect) effect;
-				effectInfo = TextConstants.getText( "FunctionalEffect.MovePlayerInfo", new String[] { String.valueOf( movePlayerEffect.getX( ) ), String.valueOf( movePlayerEffect.getY( ) ) } );
+				effectInfo = TextConstants.getText( "Effect.MovePlayerInfo", new String[] { String.valueOf( movePlayerEffect.getX( ) ), String.valueOf( movePlayerEffect.getY( ) ) } );
 				break;
 			case Effect.MOVE_NPC:
 				MoveNPCEffect moveNPCEffect = (MoveNPCEffect) effect;
-				effectInfo = TextConstants.getText( "FunctionalEffect.MoveCharacterInfo", new String[] { moveNPCEffect.getIdTarget( ), String.valueOf( moveNPCEffect.getX( ) ), String.valueOf( moveNPCEffect.getY( ) ) } );
+				effectInfo = TextConstants.getText( "Effect.MoveCharacterInfo", new String[] { moveNPCEffect.getIdTarget( ), String.valueOf( moveNPCEffect.getX( ) ), String.valueOf( moveNPCEffect.getY( ) ) } );
 				break;
 			case Effect.TRIGGER_CONVERSATION:
 				TriggerConversationEffect triggerConversationEffect = (TriggerConversationEffect) effect;
-				effectInfo = TextConstants.getText( "FunctionalEffect.TriggerConversationInfo", triggerConversationEffect.getTargetConversationId( ) );
+				effectInfo = TextConstants.getText( "Effect.TriggerConversationInfo", triggerConversationEffect.getTargetConversationId( ) );
 				break;
 			case Effect.TRIGGER_CUTSCENE:
 				TriggerCutsceneEffect triggerCutsceneEffect = (TriggerCutsceneEffect) effect;
-				effectInfo = TextConstants.getText( "FunctionalEffect.TriggerCutsceneInfo", triggerCutsceneEffect.getTargetCutsceneId( ) );
+				effectInfo = TextConstants.getText( "Effect.TriggerCutsceneInfo", triggerCutsceneEffect.getTargetCutsceneId( ) );
 				break;
 			case Effect.TRIGGER_SCENE:
 				TriggerSceneEffect triggerSceneEffect = (TriggerSceneEffect) effect;
-				effectInfo = TextConstants.getText( "FunctionalEffect.TriggerSceneInfo", triggerSceneEffect.getTargetSceneId( ) );
+				effectInfo = TextConstants.getText( "Effect.TriggerSceneInfo", triggerSceneEffect.getTargetSceneId( ) );
 				break;
 			case Effect.TRIGGER_LAST_SCENE:
-				effectInfo = TextConstants.getText( "FunctionalEffect.TriggerLastSceneInfo");
+				effectInfo = TextConstants.getText( "Effect.TriggerLastSceneInfo");
 				break;
 			case Effect.RANDOM_EFFECT:
 				RandomEffect randomEffect = (RandomEffect)effect;
@@ -197,7 +197,7 @@ public class EffectsController {
 				if (randomEffect.getPositiveEffect( )!=null)
 				posInfo = getEffectInfo (randomEffect.getPositiveEffect( ));
 				negInfo = getEffectInfo (randomEffect.getNegativeEffect( ));
-				effectInfo = TextConstants.getText( "FunctionalEffect.RandomInfo", new String[]{Integer.toString( randomEffect.getProbability( ) ), Integer.toString( 100-randomEffect.getProbability( ) ), posInfo, negInfo});
+				effectInfo = TextConstants.getText( "Effect.RandomInfo", new String[]{Integer.toString( randomEffect.getProbability( ) ), Integer.toString( 100-randomEffect.getProbability( ) ), posInfo, negInfo});
 				break;
 		}
 
@@ -213,17 +213,17 @@ public class EffectsController {
 		boolean effectAdded = false;
 
 		// Create a list with the names of the effects (in the same order as the next)
-		final String[] effectNames = { TextConstants.getText( "FunctionalEffect.Activate" ), TextConstants.getText( "FunctionalEffect.Deactivate" ), TextConstants.getText( "FunctionalEffect.ConsumeObject" ), TextConstants.getText( "FunctionalEffect.GenerateObject" ), TextConstants.getText( "FunctionalEffect.CancelAction" ), TextConstants.getText( "FunctionalEffect.SpeakPlayer" ), TextConstants.getText( "FunctionalEffect.SpeakCharacter" ), TextConstants.getText( "FunctionalEffect.TriggerBook" ), TextConstants.getText( "FunctionalEffect.PlaySound" ), TextConstants.getText( "FunctionalEffect.PlayAnimation" ), TextConstants.getText( "FunctionalEffect.MovePlayer" ), TextConstants.getText( "FunctionalEffect.MoveCharacter" ), TextConstants.getText( "FunctionalEffect.TriggerConversation" ), TextConstants.getText( "FunctionalEffect.TriggerCutscene" ), TextConstants.getText( "FunctionalEffect.TriggerScene" ), TextConstants.getText( "FunctionalEffect.TriggerLastScene" ) , TextConstants.getText( "FunctionalEffect.RandomEffect" )};
+		final String[] effectNames = { TextConstants.getText( "Effect.Activate" ), TextConstants.getText( "Effect.Deactivate" ), TextConstants.getText( "Effect.ConsumeObject" ), TextConstants.getText( "Effect.GenerateObject" ), TextConstants.getText( "Effect.CancelAction" ), TextConstants.getText( "Effect.SpeakPlayer" ), TextConstants.getText( "Effect.SpeakCharacter" ), TextConstants.getText( "Effect.TriggerBook" ), TextConstants.getText( "Effect.PlaySound" ), TextConstants.getText( "Effect.PlayAnimation" ), TextConstants.getText( "Effect.MovePlayer" ), TextConstants.getText( "Effect.MoveCharacter" ), TextConstants.getText( "Effect.TriggerConversation" ), TextConstants.getText( "Effect.TriggerCutscene" ), TextConstants.getText( "Effect.TriggerScene" ), TextConstants.getText( "Effect.TriggerLastScene" ) , TextConstants.getText( "Effect.RandomEffect" )};
 
 		// Create a list with the types of the effects (in the same order as the previous)
 		final int[] effectTypes = { Effect.ACTIVATE, Effect.DEACTIVATE, Effect.CONSUME_OBJECT, Effect.GENERATE_OBJECT, Effect.CANCEL_ACTION, Effect.SPEAK_PLAYER, Effect.SPEAK_CHAR, Effect.TRIGGER_BOOK, Effect.PLAY_SOUND, Effect.PLAY_ANIMATION, Effect.MOVE_PLAYER, Effect.MOVE_NPC, Effect.TRIGGER_CONVERSATION, Effect.TRIGGER_CUTSCENE, Effect.TRIGGER_SCENE, Effect.TRIGGER_LAST_SCENE, Effect.RANDOM_EFFECT };
 
 		// Show a dialog to select the type of the effect
-		String selectedValue = controller.showInputDialog( TextConstants.getText( "FunctionalEffects.OperationAddEffect" ), TextConstants.getText( "FunctionalEffects.SelectEffectType" ), effectNames );
+		String selectedValue = controller.showInputDialog( TextConstants.getText( "Effects.OperationAddEffect" ), TextConstants.getText( "Effects.SelectEffectType" ), effectNames );
 
 		// If some effect was selected
 		if( selectedValue != null && 
-				!selectedValue.equals( TextConstants.getText( "FunctionalEffect.RandomEffect" ) )) {
+				!selectedValue.equals( TextConstants.getText( "Effect.RandomEffect" ) )) {
 			// Store the type of the effect selected
 			int selectedType = 0;
 			for( int i = 0; i < effectNames.length; i++ )
@@ -749,7 +749,7 @@ public class EffectsController {
 					e.add( randomEffect.getPositiveEffect( ) );
 				if (randomEffect.getNegativeEffect( )!=null)
 					e.add( randomEffect.getNegativeEffect( ) );
-				EffectsController.isValid( currentPath+ " >> " + TextConstants.getText( "FunctionalEffect.RandomEffect" ), incidences, e );
+				EffectsController.isValid( currentPath+ " >> " + TextConstants.getText( "Effect.RandomEffect" ), incidences, e );
 				
 			}
 		}
@@ -816,7 +816,7 @@ public class EffectsController {
 				PlayAnimationEffect animationEffect = (PlayAnimationEffect)effect;
 				assetPath = animationEffect.getPath( );
 				assetType = AssetsController.CATEGORY_ANIMATION;
-				//( (PlayAnimationEffect) effect ).getPath( ).equals( assetPath ) ) || ( type == FunctionalEffect.PLAY_SOUND && ( (PlaySoundEffect) effect ).getPath( ).equals( assetPath ) ) )
+				//( (PlayAnimationEffect) effect ).getPath( ).equals( assetPath ) ) || ( type == Effect.PLAY_SOUND && ( (PlaySoundEffect) effect ).getPath( ).equals( assetPath ) ) )
 			} else if ( type == Effect.PLAY_SOUND ){
 				PlaySoundEffect soundEffect = (PlaySoundEffect)effect;
 				assetPath = soundEffect.getPath( );

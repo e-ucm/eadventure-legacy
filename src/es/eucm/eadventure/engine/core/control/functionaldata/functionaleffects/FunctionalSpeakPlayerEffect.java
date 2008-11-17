@@ -1,25 +1,20 @@
 package es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects;
 
+import es.eucm.eadventure.common.data.chapterdata.effects.SpeakPlayerEffect;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
 
 /**
  * An effect that makes the player to speak a line of text.
  */
-public class SpeakPlayerEffect extends FunctionalEffect {
+public class FunctionalSpeakPlayerEffect extends FunctionalEffect {
 
     /**
-     * Text for the player to speak
-     */
-    private String line;
-
-    /**
-     * Creates a new SpeakPlayerEffect.
+     * Creates a new FunctionalSpeakPlayerEffect.
      * @param line the text to be spoken
      */
-    public SpeakPlayerEffect( String line ) {
-    	super(null);
-        this.line = line;
+    public FunctionalSpeakPlayerEffect( SpeakPlayerEffect effect ) {
+    	super(effect);
     }
 
     /*
@@ -28,7 +23,7 @@ public class SpeakPlayerEffect extends FunctionalEffect {
      */
     public void triggerEffect( ) {
         FunctionalPlayer player = Game.getInstance( ).getFunctionalPlayer( );
-        player.speak( line );
+        player.speak( ((SpeakPlayerEffect)effect).getLine() );
         Game.getInstance( ).setCharacterCurrentlyTalking( player );
     }
 

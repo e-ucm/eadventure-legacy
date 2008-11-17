@@ -49,6 +49,11 @@ public abstract class GeneralScene {
 	 * List of resources for the scene.
 	 */
 	private List<Resources> resources;
+	
+    /**
+     * Stores if the scene should be loaded at the begining
+     */
+    private boolean initialScene;
 
 	/**
 	 * Creates a new GeneralScene.
@@ -150,4 +155,21 @@ public abstract class GeneralScene {
 	public void addResources( Resources resources ) {
 		this.resources.add( resources );
 	}
+	
+    /**
+     * Returns whether this is the initial scenene
+     * @return true if this is the initial scnene, false otherwise
+     */
+    public boolean isInitialScene( ) {
+        return initialScene;
+    }
+
+    /**
+     * Changes whether this is the initial scene
+     * @param initialScene true if this is the initial scene, false otherwise
+     */
+    public void setInitialScene( boolean initialScene ) {
+        this.initialScene = initialScene;
+    }
+
 }

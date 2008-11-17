@@ -1,23 +1,14 @@
 package es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects;
 
+import es.eucm.eadventure.common.data.chapterdata.effects.PlaySoundEffect;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 
 /**
  * An effect that plays an animation 
  */
-public class PlaySoundEffect extends FunctionalEffect {
+public class FunctionalPlaySoundEffect extends FunctionalEffect {
   
-    /**
-     * Whether the sound must be played in background
-     */
-    private boolean background;
-    
-    /**
-     * The path to the sound file
-     */
-    private String path;
-    
     /**
      * The sound to be played
      */
@@ -28,10 +19,8 @@ public class PlaySoundEffect extends FunctionalEffect {
      * @param background whether to play the sound in background
      * @param path path to the sound file
      */
-    public PlaySoundEffect( boolean background, String path ) {
-    	super(null);
-        this.background = background;
-        this.path = path;
+    public FunctionalPlaySoundEffect( PlaySoundEffect effect ) {
+    	super(effect);
     }
 
     /*
@@ -40,7 +29,7 @@ public class PlaySoundEffect extends FunctionalEffect {
      */
     public void triggerEffect( ) {
         if( Game.getInstance().getOptions().isEffectsActive() ){
-            soundID = MultimediaManager.getInstance().loadSound( path, false );
+            soundID = MultimediaManager.getInstance().loadSound( ((PlaySoundEffect)effect).getPath(), false );
             MultimediaManager.getInstance().startPlaying( soundID );
         }
     }
@@ -50,7 +39,7 @@ public class PlaySoundEffect extends FunctionalEffect {
      * @see es.eucm.eadventure.engine.engine.data.effects.Effect#isInstantaneous()
      */
     public boolean isInstantaneous( ) {
-        return background;
+        return ((PlaySoundEffect)effect).isBackground();
     }
 
     /*
@@ -58,6 +47,6 @@ public class PlaySoundEffect extends FunctionalEffect {
      * @see es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffect#isStillRunning()
      */
     public boolean isStillRunning( ) {
-        return !background && MultimediaManager.getInstance().isPlaying( soundID );
+        return !((PlaySoundEffect)effect).isBackground() && MultimediaManager.getInstance().isPlaying( soundID );
     }
 }
