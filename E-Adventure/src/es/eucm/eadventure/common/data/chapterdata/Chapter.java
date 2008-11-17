@@ -9,6 +9,7 @@ import es.eucm.eadventure.common.data.chapterdata.elements.Item;
 import es.eucm.eadventure.common.data.chapterdata.elements.NPC;
 import es.eucm.eadventure.common.data.chapterdata.elements.Player;
 import es.eucm.eadventure.common.data.chapterdata.scenes.Cutscene;
+import es.eucm.eadventure.common.data.chapterdata.scenes.GeneralScene;
 import es.eucm.eadventure.common.data.chapterdata.scenes.Scene;
 
 /**
@@ -86,6 +87,11 @@ public class Chapter {
 	 */
 	private List<Timer> timers;
 	
+    /**
+     * List of the flags present in the game
+     */
+    private List<String> flags;
+	
 	/**
 	 * Empty constructor. Sets values to null and creates empty lists.
 	 */
@@ -105,6 +111,7 @@ public class Chapter {
 		characters = new ArrayList<NPC>( );
 		conversations = new ArrayList<Conversation>( );
 		timers = new ArrayList<Timer>();
+		flags = new ArrayList<String>( );
 	}
 
 	/**
@@ -179,6 +186,29 @@ public class Chapter {
 	public String getInitialScene( ) {
 		return initialScene;
 	}
+	
+    /**
+     * Returns the initial scene
+     * @return the initial scene
+     */
+    public GeneralScene getInitialGeneralScene( ) {
+        GeneralScene initialGeneralScene = null;
+        if (initialScene!=null){
+        	initialGeneralScene = getGeneralScene ( initialScene );
+        } else {
+            // Return the FIRST initial scene stored
+            for( int i = 0; i < getGeneralScenes().size( ) && initialGeneralScene == null; i++ )
+                if( getGeneralScenes().get( i ).isInitialScene( ) )
+                    initialGeneralScene = getGeneralScenes().get( i );
+
+            // If there is no initial scene, return the first scene
+            if (initialGeneralScene==null)
+                initialGeneralScene=getGeneralScenes().get( 0 );
+        	
+        }
+
+        return initialGeneralScene;
+    }
 
 	/**
 	 * Returns the list of playable scenes in the game.
@@ -389,6 +419,24 @@ public class Chapter {
 
 		return selectedScene;
 	}
+	
+	/**
+	 * Returns a cutscene with the given id.
+	 * 
+	 * @param sceneId
+	 *            Scene id
+	 * @return Scene requested, null if it was not found
+	 */
+	public Cutscene getCutscene( String sceneId ) {
+		Cutscene selectedScene = null;
+
+		for( Cutscene scene : cutscenes )
+			if( scene.getId( ).equals( sceneId ) )
+				selectedScene = scene;
+
+		return selectedScene;
+	}
+
 
 	/**
 	 * Returns an item with the given id.
@@ -459,4 +507,89 @@ public class Chapter {
 		return this.assessmentPath!=null && !this.assessmentPath.equals("");
 	}
 
+    /**
+     * Returns the list of flags in the game
+     * @return the list of flags in the game
+     */
+    public List<String> getFlags( ) {
+        return flags;
+    }
+    
+    /**
+     * Adds a flag to the list of flags in the game
+     * @param flag the flag to add
+     */
+    public void addFlag( String flag ) {
+        if( !flags.contains( flag ) )
+            flags.add( flag );
+    }
+    
+    /**
+     * Returns the scene with the given id. If the scene is not found, null is returned
+     * @param generalSceneId the id of the scene to find
+     * @return the scene with the given id
+     */
+    public GeneralScene getGeneralScene( String generalSceneId ) {
+        GeneralScene scene = getScene (generalSceneId);
+        if (scene == null)
+        	scene = getCutscene (generalSceneId);
+
+        return scene;
+    }
+    
+    /**
+     * Returns the list of general scenes in the game
+     * @return the list of general scenes in the game
+     */
+    public List<GeneralScene> getGeneralScenes( ) {
+    	List<GeneralScene> generalScenes = new ArrayList<GeneralScene>();
+    	for (Scene scene: scenes){
+    		generalScenes.add(scene);
+    	}
+    	for (Cutscene cutscene: cutscenes){
+    		generalScenes.add(cutscene);
+    	}
+        return generalScenes;
+    }
+
+	/**
+	 * Returns an book with the given id.
+	 * 
+	 * @param bookId
+	 *            book id
+	 * @return book requested, null if it was not found
+	 */
+	public Book getBook( String bookId ) {
+		Book selectedbook = null;
+
+		for( Book book : books )
+			if( book.getId( ).equals( bookId ) )
+				selectedbook = book;
+
+		return selectedbook;
+	}
+	
+	/**
+	 * Returns a Conversation with the given id.
+	 * 
+	 * @param ConversationId
+	 *            Conversation id
+	 * @return Conversation requested, null if it was not found
+	 */
+	public Conversation getConversation( String conversationId ) {
+		Conversation selectedConversation = null;
+
+		for( Conversation conversation : conversations )
+			if( conversation.getId( ).equals( conversationId ) )
+				selectedConversation = conversation;
+
+		return selectedConversation;
+	}
+	
+	/**
+	 * Returns true if the argumented id matches to a cutscene
+	 */
+	public boolean isCutscene ( String id ){
+		return getCutscene(id)!=null;
+	}
 }

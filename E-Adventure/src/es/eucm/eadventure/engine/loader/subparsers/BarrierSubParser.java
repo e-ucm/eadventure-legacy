@@ -2,7 +2,7 @@ package es.eucm.eadventure.engine.loader.subparsers;
 
 import org.xml.sax.Attributes;
 
-import es.eucm.eadventure.engine.core.data.gamedata.GameData;
+import es.eucm.eadventure.common.data.chapterdata.Chapter;
 import es.eucm.eadventure.common.data.chapterdata.conditions.Conditions;
 import es.eucm.eadventure.common.data.chapterdata.elements.Barrier;
 import es.eucm.eadventure.common.data.chapterdata.scenes.Scene;
@@ -80,7 +80,7 @@ public class BarrierSubParser extends SubParser {
 	 * @param chapter
 	 *            Chapter data to store the read data
 	 */
-	public BarrierSubParser( GameData chapter, Scene scene ) {
+	public BarrierSubParser( Chapter chapter, Scene scene ) {
 		super( chapter );
 		this.scene = scene;
 	}

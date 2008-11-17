@@ -3,7 +3,7 @@ package es.eucm.eadventure.engine.loader.subparsers;
 import org.xml.sax.Attributes;
 
 import es.eucm.eadventure.common.data.chapterdata.effects.*;
-import es.eucm.eadventure.engine.core.data.gamedata.GameData;
+import es.eucm.eadventure.common.data.chapterdata.Chapter;
 
 /**
  * Class to subparse effects
@@ -36,7 +36,7 @@ public class EffectSubParser extends SubParser {
      * @param effects Structure in which the effects will be placed
      * @param gameData Game data to store the readed data
      */
-    public EffectSubParser( Effects effects, GameData gameData ) {
+    public EffectSubParser( Effects effects, Chapter gameData ) {
         super( gameData );
         this.effects = effects;
     }

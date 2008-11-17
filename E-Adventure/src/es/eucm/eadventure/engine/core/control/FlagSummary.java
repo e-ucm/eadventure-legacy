@@ -3,6 +3,7 @@ package es.eucm.eadventure.engine.core.control;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -25,7 +26,7 @@ public class FlagSummary implements Serializable {
      * Default constructor
      * @param flagNames Arraylist containing the name of the flags on the game
      */
-    public FlagSummary( ArrayList<String> flagNames ) {
+    public FlagSummary( List<String> flagNames ) {
         flags = new HashMap<String,Flag>( );
         
         for( String name : flagNames ) {

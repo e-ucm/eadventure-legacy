@@ -5,7 +5,7 @@ import java.util.Vector;
 import org.xml.sax.Attributes;
 
 import es.eucm.eadventure.common.data.chapterdata.effects.Effects;
-import es.eucm.eadventure.engine.core.data.gamedata.GameData;
+import es.eucm.eadventure.common.data.chapterdata.Chapter;
 import es.eucm.eadventure.common.data.chapterdata.conversation.Conversation;
 import es.eucm.eadventure.common.data.chapterdata.conversation.GraphConversation;
 import es.eucm.eadventure.common.data.chapterdata.conversation.line.ConversationLine;
@@ -86,7 +86,7 @@ public class GraphConversationSubParser extends SubParser {
      * Constructor
      * @param gameData Game data to store the readed data
      */
-    public GraphConversationSubParser( GameData gameData ) {
+    public GraphConversationSubParser( Chapter gameData ) {
         super( gameData );
     }
 

@@ -2,7 +2,7 @@ package es.eucm.eadventure.engine.loader.subparsers;
 
 import org.xml.sax.Attributes;
 
-import es.eucm.eadventure.engine.core.data.gamedata.GameData;
+import es.eucm.eadventure.common.data.chapterdata.Chapter;
 import es.eucm.eadventure.common.data.chapterdata.conditions.Condition;
 import es.eucm.eadventure.common.data.chapterdata.conditions.Conditions;
 
@@ -45,7 +45,7 @@ public class ConditionSubParser extends SubParser {
      * @param conditions Structure in which the conditions will be placed
      * @param gameData Game data to store the readed data
      */
-    public ConditionSubParser( Conditions conditions, GameData gameData ) {
+    public ConditionSubParser( Conditions conditions, Chapter gameData ) {
         super( gameData );
         this.conditions = conditions;
     }

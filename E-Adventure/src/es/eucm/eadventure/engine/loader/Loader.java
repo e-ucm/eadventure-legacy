@@ -15,7 +15,7 @@ import org.xml.sax.SAXException;
 import es.eucm.eadventure.common.data.adventuredata.AdventureData;
 import es.eucm.eadventure.engine.adaptation.AdaptationEngine;
 import es.eucm.eadventure.engine.assessment.AssessmentRule;
-import es.eucm.eadventure.engine.core.data.gamedata.GameData;
+import es.eucm.eadventure.common.data.chapterdata.Chapter;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 
 /**
@@ -66,8 +66,8 @@ public class Loader {
      * @param filename Name of the XML file containing the script
      * @return The script stored as game data
      */
-    public static GameData loadData( String filename ) {
-        GameData gameData = null;
+    public static Chapter loadData( String filename ) {
+        Chapter gameData = null;
 
         try {
             // Load the file with the script handler

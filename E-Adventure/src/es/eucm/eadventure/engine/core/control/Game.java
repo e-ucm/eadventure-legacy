@@ -48,7 +48,6 @@ import es.eucm.eadventure.engine.core.control.gamestate.GameStateRunEffects;
 import es.eucm.eadventure.engine.core.control.gamestate.GameStateSlidescene;
 import es.eucm.eadventure.engine.core.control.gamestate.GameStateVideoscene;
 import es.eucm.eadventure.engine.core.data.GameText;
-import es.eucm.eadventure.engine.core.data.gamedata.GameData;
 import es.eucm.eadventure.common.data.chapterdata.NextScene;
 import es.eucm.eadventure.engine.core.data.gamedata.SaveGame;
 import es.eucm.eadventure.common.data.chapterdata.book.Book;
@@ -138,7 +137,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     /**
      * Game data of the adventure
      */
-    private GameData gameData;
+    private Chapter gameData;
 
     /**
      * Flag summary
@@ -616,7 +615,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      * Returns the game data
      * @return Game data
      */
-    public GameData getGameData( ) {
+    public Chapter getGameData( ) {
         return gameData;
     }
 
