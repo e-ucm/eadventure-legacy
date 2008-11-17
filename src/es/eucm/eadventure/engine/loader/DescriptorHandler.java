@@ -135,7 +135,7 @@ public class DescriptorHandler extends DefaultHandler {
             // Store the path of the chapter
             for( int i = 0; i < attrs.getLength( ); i++ )
                 if( attrs.getQName( i ).equals( "path" ) )
-                    currentChapter.setPath( attrs.getValue( i ) );
+                    currentChapter.setName( attrs.getValue( i ) );
             
             // Change the state
             reading = READING_CHAPTER;

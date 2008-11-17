@@ -87,12 +87,6 @@ public class Chapter {
 	private List<Timer> timers;
 	
 	/**
-	 * Relative path of the chapter
-	 */
-	private String path;
-
-
-	/**
 	 * Empty constructor. Sets values to null and creates empty lists.
 	 */
 	public Chapter( ) {
@@ -461,15 +455,8 @@ public class Chapter {
 		this.name = name;
 	}
 
-	public String getPath() {
-		return path;
-	}
-
 	public boolean hasAssessmentProfile() {
 		return this.assessmentPath!=null && !this.assessmentPath.equals("");
 	}
 
-	public void setPath(String path) {
-		this.path = path;
-	}
 }
