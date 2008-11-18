@@ -1,4 +1,4 @@
-package es.eucm.eadventure.engine.core.data.gamedata;
+package es.eucm.eadventure.engine.core.data;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

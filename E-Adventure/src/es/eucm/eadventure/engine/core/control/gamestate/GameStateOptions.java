@@ -18,7 +18,7 @@ import es.eucm.eadventure.engine.assessment.ReportDialog;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.Options;
 import es.eucm.eadventure.engine.core.data.GameText;
-import es.eucm.eadventure.engine.core.data.gamedata.SaveGame;
+import es.eucm.eadventure.engine.core.data.SaveGame;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
