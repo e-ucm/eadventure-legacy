@@ -1,10 +1,9 @@
-package es.eucm.eadventure.engine.assessment;
+package es.eucm.eadventure.common.data.assessment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
-
+import es.eucm.eadventure.common.data.chapter.conditions.*;
 
 /**
  * Timed Rule for the assesment engine
@@ -48,7 +47,7 @@ public class TimedAssessmentRule extends AssessmentRule {
     	effects = new ArrayList<TimedAssessmentEffect>();
     	this.endConditions = new Conditions();
     	effectIndex = -1;
-    	elapsedTime = 0;
+       	elapsedTime = 0;
     	isDone = false;
     }
     
@@ -137,20 +136,32 @@ public class TimedAssessmentRule extends AssessmentRule {
 	}
 
 	/**
+	 * @return the effects
+	 */
+	public List<TimedAssessmentEffect> getEffects( ) {
+		return effects;
+	}
+
+	/**
 	 * @param effects the effects to set
 	 */
+	public void setEffects( List<TimedAssessmentEffect> effects ) {
+		this.effects = effects;
+	}
+	
 	public void addEffect(){
 		this.effectIndex++;
 		effects.add( new TimedAssessmentEffect() );
 	}
 	
-	   public void addEffect(int min, int max){
-	        this.effectIndex++;
-	        TimedAssessmentEffect newEffect = new TimedAssessmentEffect();
-	        newEffect.setMinTime( min );
-	        newEffect.setMaxTime( max );
-	        effects.add( newEffect );
-	    }
+	public void addEffect(int min, int max){
+		this.effectIndex++;
+		TimedAssessmentEffect newEffect = new TimedAssessmentEffect();
+		newEffect.setMinTime( min );
+		newEffect.setMaxTime( max );
+		effects.add( newEffect );
+	}
+
 
 	/**
      * Sets the text of the rule
@@ -188,8 +199,8 @@ public class TimedAssessmentRule extends AssessmentRule {
         // Evaluate the rule
         for (TimedAssessmentEffect effect  : this.effects){
             if (elapsedTime >=effect.getMinTime( ) && elapsedTime <=effect.getMaxTime( )){
-                this.properties = effect.getAssessmentProperties( );
-                this.text = "[ELAPSED TIME = "+getTimeHhMmSs()+" ] "+effect.getText( );
+                this.effect.properties = effect.getAssessmentProperties( );
+                this.effect.text = "[ELAPSED TIME = "+getTimeHhMmSs()+" ] "+effect.getText( );
                 //System.out.println( "[RULE EVALUATION] "+text );
                 break;
             }

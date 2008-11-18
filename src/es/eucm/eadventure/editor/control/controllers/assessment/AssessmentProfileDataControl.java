@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+import es.eucm.eadventure.common.data.assessment.AssessmentRule;
+import es.eucm.eadventure.common.data.assessment.TimedAssessmentRule;
 import es.eucm.eadventure.common.data.chapter.scenes.Scene;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.auxiliar.File;
@@ -11,8 +13,6 @@ import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
-import es.eucm.eadventure.editor.data.assessment.AssessmentRule;
-import es.eucm.eadventure.editor.data.assessment.TimedAssessmentRule;
 import es.eucm.eadventure.editor.data.supportdata.FlagSummary;
 import es.eucm.eadventure.editor.gui.TextConstants;
 
@@ -231,12 +231,23 @@ public class AssessmentProfileDataControl extends DataControl{
 		
 	}
 
+    /**
+     * String values for the different importance values (for printing)
+     */
+    public static final String[] IMPORTANCE_VALUES_PRINT = {
+        "Very low",
+        "Low",
+        "Normal",
+        "High",
+        "Very high"
+    };
+	
 	public String[][] getAssessmentRulesInfo( ) {
 		String[][] info = new String[this.assessmentRules.size()][3];
 		
 		for (int i=0; i<assessmentRules.size( ); i++){
 			info[i][0] = assessmentRules.get( i ).getId( );
-			info[i][1] = AssessmentRule.IMPORTANCE_VALUES_PRINT[assessmentRules.get( i ).getImportance( )];
+			info[i][1] = IMPORTANCE_VALUES_PRINT[assessmentRules.get( i ).getImportance( )];
 			info[i][2] = (assessmentRules.get( i ).getConditions( ).isEmpty( ))?"No":"Yes";
 		}
 		return info;

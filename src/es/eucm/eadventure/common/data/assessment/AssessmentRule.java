@@ -1,4 +1,4 @@
-package es.eucm.eadventure.editor.data.assessment;
+package es.eucm.eadventure.common.data.assessment;
 
 import java.util.List;
 
@@ -50,16 +50,7 @@ public class AssessmentRule {
         "veryhigh"
     };
     
-    /**
-     * String values for the different importance values (for printing)
-     */
-    public static final String[] IMPORTANCE_VALUES_PRINT = {
-        "Very low",
-        "Low",
-        "Normal",
-        "High",
-        "Very high"
-    };
+
     
     /**
      * Id of the rule

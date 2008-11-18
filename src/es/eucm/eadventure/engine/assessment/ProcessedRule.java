@@ -7,6 +7,9 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import es.eucm.eadventure.common.data.assessment.AssessmentRule;
+import es.eucm.eadventure.common.data.assessment.TimedAssessmentRule;
+
 /**
  * Stores the information of a processed rule, including the time in which the rule was executed 
  */

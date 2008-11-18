@@ -1,4 +1,4 @@
-package es.eucm.eadventure.editor.data.assessment;
+package es.eucm.eadventure.common.data.assessment;
 
 
 public class TimedAssessmentEffect extends AssessmentEffect{
