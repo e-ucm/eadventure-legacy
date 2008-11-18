@@ -1,11 +1,11 @@
 package es.eucm.eadventure.editor.control.controllers.lom;
 
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.data.lomdata.LOMEducational;
-import es.eucm.eadventure.editor.data.lomdata.LOMGeneral;
-import es.eucm.eadventure.editor.data.lomdata.LOMLifeCycle;
-import es.eucm.eadventure.editor.data.lomdata.LOMTechnical;
-import es.eucm.eadventure.editor.data.lomdata.LangString;
+import es.eucm.eadventure.editor.data.lom.LOMEducational;
+import es.eucm.eadventure.editor.data.lom.LOMGeneral;
+import es.eucm.eadventure.editor.data.lom.LOMLifeCycle;
+import es.eucm.eadventure.editor.data.lom.LOMTechnical;
+import es.eucm.eadventure.editor.data.lom.LangString;
 
 public class LOMDataControl {
 

@@ -1,4 +1,4 @@
-package es.eucm.eadventure.editor.data.lomdata;
+package es.eucm.eadventure.editor.data.lom;
 
 public class Vocabulary {
 

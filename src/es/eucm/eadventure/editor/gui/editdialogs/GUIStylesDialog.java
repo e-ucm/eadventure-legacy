@@ -22,7 +22,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextPane;
 
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.data.adventuredata.AdventureDataControl;
+import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
 import es.eucm.eadventure.editor.gui.TextConstants;
 
 /**

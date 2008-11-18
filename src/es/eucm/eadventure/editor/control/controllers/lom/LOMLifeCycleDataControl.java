@@ -1,8 +1,8 @@
 package es.eucm.eadventure.editor.control.controllers.lom;
 
-import es.eucm.eadventure.editor.data.lomdata.LOMGeneral;
-import es.eucm.eadventure.editor.data.lomdata.LOMLifeCycle;
-import es.eucm.eadventure.editor.data.lomdata.LangString;
+import es.eucm.eadventure.editor.data.lom.LOMGeneral;
+import es.eucm.eadventure.editor.data.lom.LOMLifeCycle;
+import es.eucm.eadventure.editor.data.lom.LangString;
 import es.eucm.eadventure.editor.gui.TextConstants;
 
 public class LOMLifeCycleDataControl {

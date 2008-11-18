@@ -1,15 +1,14 @@
-package es.eucm.eadventure.editor.data.adventuredata;
+package es.eucm.eadventure.editor.control.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfilesDataControl;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfilesDataControl;
 import es.eucm.eadventure.editor.control.controllers.lom.LOMDataControl;
-import es.eucm.eadventure.editor.data.adventuredata.CustomCursor;
+import es.eucm.eadventure.common.data.adventure.CustomCursor;
 import es.eucm.eadventure.editor.gui.assetchooser.AssetChooser;
 
 /**

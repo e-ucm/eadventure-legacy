@@ -3,7 +3,7 @@ package es.eucm.eadventure.editor.control.controllers;
 import java.util.ArrayList;
 
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.data.supportdata.FlagSummary;
+import es.eucm.eadventure.editor.data.support.FlagSummary;
 import es.eucm.eadventure.editor.gui.TextConstants;
 
 /**

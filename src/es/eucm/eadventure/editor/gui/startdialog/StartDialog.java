@@ -47,13 +47,13 @@ import java.io.File;
 
 import javax.swing.JFileChooser;
 
+import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.auxiliar.filefilters.EADAndFolderFileFilter;
 import es.eucm.eadventure.editor.control.auxiliar.filefilters.EADFileFilter;
 import es.eucm.eadventure.editor.control.auxiliar.filefilters.FolderFileFilter;
 import es.eucm.eadventure.editor.control.config.ConfigData;
 import es.eucm.eadventure.editor.control.loader.Loader;
-import es.eucm.eadventure.editor.data.adventuredata.DescriptorData;
 import es.eucm.eadventure.editor.gui.LoadingScreen;
 import es.eucm.eadventure.editor.gui.TextConstants;
 

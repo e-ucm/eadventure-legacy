@@ -9,8 +9,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import es.eucm.eadventure.common.data.chapter.Chapter;
-import es.eucm.eadventure.editor.data.adventuredata.AdventureDataControl;
-import es.eucm.eadventure.editor.data.adventuredata.CustomCursor;
+import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
+import es.eucm.eadventure.common.data.adventure.CustomCursor;
 
 public class DescriptorDOMWriter {
 

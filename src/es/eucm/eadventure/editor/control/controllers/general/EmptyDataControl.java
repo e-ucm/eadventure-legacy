@@ -3,7 +3,7 @@ package es.eucm.eadventure.editor.control.controllers.general;
 import java.util.List;
 
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.data.supportdata.FlagSummary;
+import es.eucm.eadventure.editor.data.support.FlagSummary;
 
 public class EmptyDataControl extends DataControl{
 

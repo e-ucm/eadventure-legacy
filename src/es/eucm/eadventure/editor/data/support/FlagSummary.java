@@ -1,4 +1,4 @@
-package es.eucm.eadventure.editor.data.supportdata;
+package es.eucm.eadventure.editor.data.support;
 
 import java.util.ArrayList;
 import java.util.List;

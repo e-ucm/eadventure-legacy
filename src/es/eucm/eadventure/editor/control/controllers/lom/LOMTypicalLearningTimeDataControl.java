@@ -1,6 +1,6 @@
 package es.eucm.eadventure.editor.control.controllers.lom;
 
-import es.eucm.eadventure.editor.data.lomdata.LOMEducational;
+import es.eucm.eadventure.editor.data.lom.LOMEducational;
 
 public class LOMTypicalLearningTimeDataControl extends LOMDurationDataControl{
 

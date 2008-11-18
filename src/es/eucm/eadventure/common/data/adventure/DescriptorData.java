@@ -1,9 +1,4 @@
-package es.eucm.eadventure.editor.data.adventuredata;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import es.eucm.eadventure.common.data.chapter.Chapter;
+package es.eucm.eadventure.common.data.adventure;
 
 /**
  * This class holds all the information of the adventure, including the chapters and the configuration of the HUD.
@@ -29,19 +24,19 @@ public class DescriptorData {
 	/**
 	 * Title of the adventure.
 	 */
-	private String title;
+	protected String title;
 
 	/**
 	 * Description of the adventure.
 	 */
-	private String description;
+	protected String description;
 
 	/**
 	 * Type of the GUI (Traditional or contextual)
 	 */
-	private int guiType;
+	protected int guiType;
 
-	private int playerMode;
+	protected int playerMode;
 
 	/**
 	 * Empty constructor. Sets all values to null.
