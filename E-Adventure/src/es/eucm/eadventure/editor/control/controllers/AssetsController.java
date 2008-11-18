@@ -19,6 +19,7 @@ import javax.swing.JFileChooser;
 
 import java.io.FileInputStream;
 
+import es.eucm.eadventure.common.loader.incidences.Incidence;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.auxiliar.File;
 import es.eucm.eadventure.editor.control.auxiliar.FileFilter;
@@ -33,7 +34,6 @@ import es.eucm.eadventure.editor.control.auxiliar.filefilters.MP3FileFilter;
 import es.eucm.eadventure.editor.control.auxiliar.filefilters.PNGAnimationFileFilter;
 import es.eucm.eadventure.editor.control.auxiliar.filefilters.PNGFileFilter;
 import es.eucm.eadventure.editor.control.auxiliar.filefilters.XMLFileFilter;
-import es.eucm.eadventure.editor.control.loader.incidences.Incidence;
 import es.eucm.eadventure.editor.gui.TextConstants;
 import es.eucm.eadventure.editor.gui.assetchooser.AnimationChooser;
 import es.eucm.eadventure.editor.gui.assetchooser.AssetChooser;

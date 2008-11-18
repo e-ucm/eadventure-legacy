@@ -11,16 +11,16 @@ import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import es.eucm.eadventure.common.data.chapter.Chapter;
-import es.eucm.eadventure.editor.control.loader.subparsers.BookSubParser;
-import es.eucm.eadventure.editor.control.loader.subparsers.CharacterSubParser;
-import es.eucm.eadventure.editor.control.loader.subparsers.CutsceneSubParser;
-import es.eucm.eadventure.editor.control.loader.subparsers.GraphConversationSubParser;
-import es.eucm.eadventure.editor.control.loader.subparsers.ItemSubParser;
-import es.eucm.eadventure.editor.control.loader.subparsers.PlayerSubParser;
-import es.eucm.eadventure.editor.control.loader.subparsers.SceneSubParser;
-import es.eucm.eadventure.editor.control.loader.subparsers.SubParser;
-import es.eucm.eadventure.editor.control.loader.subparsers.TimerSubParser;
-import es.eucm.eadventure.editor.control.loader.subparsers.TreeConversationSubParser;
+import es.eucm.eadventure.common.loader.subparsers.BookSubParser;
+import es.eucm.eadventure.common.loader.subparsers.CharacterSubParser;
+import es.eucm.eadventure.common.loader.subparsers.CutsceneSubParser;
+import es.eucm.eadventure.common.loader.subparsers.GraphConversationSubParser;
+import es.eucm.eadventure.common.loader.subparsers.ItemSubParser;
+import es.eucm.eadventure.common.loader.subparsers.PlayerSubParser;
+import es.eucm.eadventure.common.loader.subparsers.SceneSubParser;
+import es.eucm.eadventure.common.loader.subparsers.SubParser;
+import es.eucm.eadventure.common.loader.subparsers.TimerSubParser;
+import es.eucm.eadventure.common.loader.subparsers.TreeConversationSubParser;
 
 /**
  * This class is the handler to parse the e-Adventure XML file

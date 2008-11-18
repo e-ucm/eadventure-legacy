@@ -9,13 +9,10 @@ import java.awt.GridBagLayout;
 import java.awt.HeadlessException;
 import java.awt.Insets;
 import java.awt.LayoutManager;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -24,7 +21,6 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -47,14 +43,11 @@ import java.io.File;
 
 import javax.swing.JFileChooser;
 
-import es.eucm.eadventure.common.data.adventure.DescriptorData;
+import es.eucm.eadventure.common.data.adventure.AdventureData;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.auxiliar.filefilters.EADAndFolderFileFilter;
-import es.eucm.eadventure.editor.control.auxiliar.filefilters.EADFileFilter;
-import es.eucm.eadventure.editor.control.auxiliar.filefilters.FolderFileFilter;
 import es.eucm.eadventure.editor.control.config.ConfigData;
 import es.eucm.eadventure.editor.control.loader.Loader;
-import es.eucm.eadventure.editor.gui.LoadingScreen;
 import es.eucm.eadventure.editor.gui.TextConstants;
 
 public class StartDialog extends JFileChooser {
@@ -569,12 +562,12 @@ public class StartDialog extends JFileChooser {
 				panelIcon.setLayout( new BorderLayout( ) );
 				try {
 					String path = (String) value;
-					DescriptorData d = Loader.loadDescriptorData( path );
+					AdventureData d = Loader.loadDescriptorData( path );
 
-					if( d.getPlayerMode( ) == DescriptorData.MODE_PLAYER_3RDPERSON ) {
+					if( d.getPlayerMode( ) == AdventureData.MODE_PLAYER_3RDPERSON ) {
 						return new JLabel( new ImageIcon( "img/TransparentAdventure32.png" ) );
 						//return panelIcon;
-					} else if( d.getPlayerMode( ) == DescriptorData.MODE_PLAYER_1STPERSON ) {
+					} else if( d.getPlayerMode( ) == AdventureData.MODE_PLAYER_1STPERSON ) {
 						return new JLabel( new ImageIcon( "img/NormalAdventure32.png" ) );
 						//return panelIcon;
 					} else {

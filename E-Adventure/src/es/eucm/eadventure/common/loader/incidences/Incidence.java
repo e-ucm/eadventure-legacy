@@ -1,4 +1,4 @@
-package es.eucm.eadventure.editor.control.loader.incidences;
+package es.eucm.eadventure.common.loader.incidences;
 
 import java.util.List;
 

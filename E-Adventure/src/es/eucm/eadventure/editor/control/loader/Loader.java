@@ -10,14 +10,12 @@ import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.SAXException;
 
 import java.io.FileInputStream;
-import java.util.ArrayList;
 import java.util.List;
 
-import es.eucm.eadventure.common.data.adventure.DescriptorData;
+import es.eucm.eadventure.common.data.adventure.AdventureData;
 import es.eucm.eadventure.common.data.chapter.Chapter;
-import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.common.loader.incidences.Incidence;
 import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
-import es.eucm.eadventure.editor.control.loader.incidences.Incidence;
 import es.eucm.eadventure.editor.control.loader.parsers.AdventureHandler;
 import es.eucm.eadventure.editor.control.loader.parsers.ChapterHandler;
 import es.eucm.eadventure.editor.control.loader.parsers.DescriptorHandler;
@@ -78,8 +76,8 @@ public class Loader {
 		return adventureData;
 	}
 
-	public static DescriptorData loadDescriptorData( String zipFile ) {
-		DescriptorData adventureData = null;
+	public static AdventureData loadDescriptorData( String zipFile ) {
+		AdventureData adventureData = null;
 
 		try {
 			// Set the adventure handler

@@ -1,16 +1,12 @@
 package es.eucm.eadventure.editor.control.loader.parsers;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.FileInputStream;
 
 import org.xml.sax.Attributes;
-import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import es.eucm.eadventure.common.data.adventure.DescriptorData;
+import es.eucm.eadventure.common.data.adventure.AdventureData;
 import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
 
 /**
@@ -28,7 +24,7 @@ public class DescriptorHandler extends DefaultHandler {
 	/**
 	 * Adventure data being read.
 	 */
-	private DescriptorData descriptorData;
+	private AdventureData descriptorData;
 
 	/**
 	 * String to store the current string in the XML file
@@ -47,7 +43,7 @@ public class DescriptorHandler extends DefaultHandler {
 	 */
 	public DescriptorHandler( String zipFile ) {
 		this.zipFile = zipFile;
-		descriptorData = new DescriptorData( );
+		descriptorData = new AdventureData( );
 	}
 
 	/**
@@ -55,7 +51,7 @@ public class DescriptorHandler extends DefaultHandler {
 	 * 
 	 * @return The descriptor data from the XML descriptor
 	 */
-	public DescriptorData getAdventureData( ) {
+	public AdventureData getAdventureData( ) {
 		return descriptorData;
 	}
 

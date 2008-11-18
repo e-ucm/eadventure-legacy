@@ -1,13 +1,11 @@
-package es.eucm.eadventure.engine.loader.subparsers;
+package es.eucm.eadventure.common.loader.subparsers;
 
 import org.xml.sax.Attributes;
 
-//import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.data.chapter.Timer;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.common.data.chapter.effects.Effects;
-
 
 /**
  * Class to subparse timers
@@ -105,14 +103,14 @@ public class TimerSubParser extends SubParser {
 			// If it is a condition tag, create the new condition, the subparser and switch the state
 			else if( qName.equals( "init-condition" ) ||  qName.equals( "end-condition" )) {
 				currentConditions = new Conditions( );
-				subParser = new ConditionSubParser( currentConditions, gameData );
+				subParser = new ConditionSubParser( currentConditions, chapter );
 				subParsing = SUBPARSING_CONDITION;
 			}
 
 			// If it is a effect tag, create the new effect, the subparser and switch the state
 			else if( qName.equals( "effect" ) ||  qName.equals( "post-effect" )) {
 				currentEffects = new Effects( );
-				subParser = new EffectSubParser( currentEffects, gameData );
+				subParser = new EffectSubParser( currentEffects, chapter );
 				subParsing = SUBPARSING_EFFECT;
 			}
 
@@ -137,7 +135,7 @@ public class TimerSubParser extends SubParser {
 
 			// If it is a timer tag, add it to the game data
 			if( qName.equals( "timer" ) ) {
-				gameData.addTimer( timer );
+				chapter.addTimer( timer );
 			}
 
 			// If it is a documentation tag, hold the documentation in the slidescene
