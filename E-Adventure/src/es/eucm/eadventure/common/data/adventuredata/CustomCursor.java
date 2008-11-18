@@ -1,4 +1,4 @@
-package es.eucm.eadventure.engine.core.data.gamedescriptor;
+package es.eucm.eadventure.common.data.adventuredata;
 
 public class CustomCursor {
 
