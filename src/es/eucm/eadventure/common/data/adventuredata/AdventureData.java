@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapterdata.Chapter;
-import es.eucm.eadventure.engine.core.data.gamedescriptor.CustomCursor;
 
 /**
  * Stores the description of the eAdventure file
