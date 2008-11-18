@@ -112,7 +112,7 @@ public class Loader {
             AssessmentHandler assessmentHandler = new AssessmentHandler( );
             
             // If a filename was specified
-            if( filename != null ) {
+            if( filename != null && !filename.equals("")) {
                 // Load the assessment rules
                 InputStream is = ResourceHandler.getInstance( ).getResourceAsStreamFromZip( filename );
                 
@@ -157,7 +157,7 @@ public class Loader {
             AdaptationHandler adaptationHandler = new AdaptationHandler( );
             
             // If a filename was specified
-            if( filename != null ) {
+            if( filename != null && !filename.equals("")) {
                 // Load the adaptation file
                 InputStream is = ResourceHandler.getInstance( ).getResourceAsStreamFromZip( filename );
                 

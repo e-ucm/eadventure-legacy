@@ -9,7 +9,7 @@ import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import es.eucm.eadventure.common.data.chapterdata.Chapter;
-import es.eucm.eadventure.editor.control.loader.subparsers.BookSubParser;
+import es.eucm.eadventure.engine.loader.subparsers.BookSubParser;
 import es.eucm.eadventure.engine.loader.subparsers.CharacterSubParser;
 import es.eucm.eadventure.engine.loader.subparsers.GraphConversationSubParser;
 import es.eucm.eadventure.engine.loader.subparsers.ObjectSubParser;
@@ -140,7 +140,7 @@ public class ScriptHandler extends DefaultHandler {
 
             // Subparse book
             else if( qName.equals( "book" ) ) {
-                subParser = null;
+                subParser = new BookSubParser ( gameData );
                 subParsing = BOOK;
             }
 
@@ -182,8 +182,13 @@ public class ScriptHandler extends DefaultHandler {
         }
 
         // If an element is being subparsed, spread the call
-        if( subParsing != NONE )
-            subParser.startElement( namespaceURI, sName, qName, attrs );
+        if( subParsing != NONE ){
+        	try{
+        		subParser.startElement( namespaceURI, sName, qName, attrs );
+        	} catch (NullPointerException e){
+        		System.out.println(e.getMessage());
+        	}
+        }
     }
 
     /*	
