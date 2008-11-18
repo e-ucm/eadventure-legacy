@@ -25,9 +25,12 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import es.eucm.eadventure.common.data.assessment.AssessmentRule;
+import es.eucm.eadventure.common.data.assessment.TimedAssessmentRule;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.TimerEventListener;
 import es.eucm.eadventure.engine.core.control.TimerManager;
+import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 import es.eucm.eadventure.engine.loader.Loader;
 
 /**
@@ -87,7 +90,7 @@ public class AssessmentEngine implements TimerEventListener{
         while( i < assessmentRules.size( ) ) {
             
             // If it was activated, execute the rule
-            if( assessmentRules.get( i ).isActive( ) ) {
+            if( isActive( assessmentRules.get( i ) ) ) {
                 AssessmentRule oldRule = assessmentRules.remove( i );
                 ProcessedRule rule = new ProcessedRule( oldRule , Game.getInstance( ).getTime( ) );
                 
@@ -102,6 +105,10 @@ public class AssessmentEngine implements TimerEventListener{
             else
                 i++;
         }
+    }
+    
+    private static boolean isActive ( AssessmentRule rule ){
+    	return new FunctionalConditions(rule.getConditions()).allConditionsOk( );
     }
     
     /**

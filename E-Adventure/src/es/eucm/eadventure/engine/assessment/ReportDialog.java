@@ -26,6 +26,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileFilter;
 
+import es.eucm.eadventure.common.data.assessment.AssessmentRule;
 import es.eucm.eadventure.engine.core.gui.TextConstantsEngine;
 
 /**
@@ -34,6 +35,17 @@ import es.eucm.eadventure.engine.core.gui.TextConstantsEngine;
  */
 public class ReportDialog extends JDialog {
 
+    /**
+     * String values for the different importance values (for printing)
+     */
+    public static final String[] IMPORTANCE_VALUES_PRINT = {
+        TextConstantsEngine.getText( "Report.Importance.VeryLow" ),
+        TextConstantsEngine.getText( "Report.Importance.Low" ),
+        TextConstantsEngine.getText( "Report.Importance.Normal" ),
+        TextConstantsEngine.getText( "Report.Importance.High" ),
+        TextConstantsEngine.getText( "Report.Importance.VeryHigh" )
+    };
+	
     /**
      * Width of the dialog.
      */
@@ -188,7 +200,7 @@ public class ReportDialog extends JDialog {
         
         c.insets = new Insets( 10, 2, 3, 10 );
         c.gridx = 2;
-        cmbImportanceFilter = new JComboBox( AssessmentRule.IMPORTANCE_VALUES_PRINT );
+        cmbImportanceFilter = new JComboBox( IMPORTANCE_VALUES_PRINT );
         cmbImportanceFilter.setSelectedIndex( AssessmentRule.N_IMPORTANCE_VALUES / 2 );
         cmbImportanceFilter.setEnabled( chkHTMLReport.isSelected( ) );
         htmlReportPanel.add( cmbImportanceFilter, c );

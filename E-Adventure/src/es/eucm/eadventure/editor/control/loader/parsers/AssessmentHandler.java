@@ -7,11 +7,11 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import es.eucm.eadventure.common.data.assessment.AssessmentProperty;
+import es.eucm.eadventure.common.data.assessment.AssessmentRule;
+import es.eucm.eadventure.common.data.assessment.TimedAssessmentRule;
 import es.eucm.eadventure.common.data.chapter.conditions.Condition;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
-import es.eucm.eadventure.editor.data.assessment.AssessmentProperty;
-import es.eucm.eadventure.editor.data.assessment.AssessmentRule;
-import es.eucm.eadventure.editor.data.assessment.TimedAssessmentRule;
 
 /**
  * This class is the handler to parse the assesment rules file of the adventure

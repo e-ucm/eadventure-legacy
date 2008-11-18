@@ -13,8 +13,8 @@ import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.SAXException;
 
 import es.eucm.eadventure.common.data.adventure.AdventureData;
+import es.eucm.eadventure.common.data.assessment.AssessmentRule;
 import es.eucm.eadventure.engine.adaptation.AdaptationEngine;
-import es.eucm.eadventure.engine.assessment.AssessmentRule;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 

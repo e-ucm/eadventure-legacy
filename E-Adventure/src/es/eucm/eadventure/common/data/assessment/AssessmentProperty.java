@@ -1,4 +1,4 @@
-package es.eucm.eadventure.editor.data.assessment;
+package es.eucm.eadventure.common.data.assessment;
 
 import java.io.Serializable;
 

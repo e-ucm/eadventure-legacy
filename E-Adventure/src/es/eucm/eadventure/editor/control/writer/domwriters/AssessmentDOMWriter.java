@@ -10,10 +10,10 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import es.eucm.eadventure.editor.data.assessment.AssessmentProperty;
-import es.eucm.eadventure.editor.data.assessment.AssessmentRule;
-import es.eucm.eadventure.editor.data.assessment.TimedAssessmentEffect;
-import es.eucm.eadventure.editor.data.assessment.TimedAssessmentRule;
+import es.eucm.eadventure.common.data.assessment.AssessmentProperty;
+import es.eucm.eadventure.common.data.assessment.AssessmentRule;
+import es.eucm.eadventure.common.data.assessment.TimedAssessmentEffect;
+import es.eucm.eadventure.common.data.assessment.TimedAssessmentRule;
 
 public class AssessmentDOMWriter {
 

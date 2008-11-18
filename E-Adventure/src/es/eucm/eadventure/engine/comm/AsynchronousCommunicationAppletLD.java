@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import es.eucm.eadventure.common.data.assessment.AssessmentProperty;
 import es.eucm.eadventure.engine.adaptation.AdaptationEngine;
-import es.eucm.eadventure.engine.assessment.AssessmentProperty;
 
 import netscape.javascript.JSObject;
 
