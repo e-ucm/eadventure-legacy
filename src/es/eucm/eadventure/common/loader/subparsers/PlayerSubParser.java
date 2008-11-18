@@ -1,35 +1,19 @@
-package es.eucm.eadventure.editor.control.loader.subparsers;
+package es.eucm.eadventure.common.loader.subparsers;
 
 import org.xml.sax.Attributes;
 
 import es.eucm.eadventure.common.data.chapter.Chapter;
-import es.eucm.eadventure.common.data.chapter.ConversationReference;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
-import es.eucm.eadventure.common.data.chapter.elements.NPC;
+import es.eucm.eadventure.common.data.chapter.elements.Player;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 
 /**
- * Class to subparse characters
+ * Class to subparse objetcs
  */
-public class CharacterSubParser extends SubParser {
+public class PlayerSubParser extends SubParser {
 
 	/* Attributes */
-
-	/**
-	 * Constant for reading nothing
-	 */
-	private static final int READING_NONE = 0;
-
-	/**
-	 * Constant for reading resources tag
-	 */
-	private static final int READING_RESOURCES = 1;
-
-	/**
-	 * Constant for reading conversation reference tag
-	 */
-	private static final int READING_CONVERSATION_REFERENCE = 2;
 
 	/**
 	 * Constant for subparsing nothing
@@ -42,37 +26,27 @@ public class CharacterSubParser extends SubParser {
 	private static final int SUBPARSING_CONDITION = 1;
 
 	/**
-	 * Stores the current element being parsed
-	 */
-	private int reading = READING_NONE;
-
-	/**
 	 * Stores the current element being subparsed
 	 */
 	private int subParsing = SUBPARSING_NONE;
 
 	/**
-	 * The character being read
+	 * Player being parsed
 	 */
-	private NPC npc;
+	private Player player;
 
 	/**
-	 * Current resources being read
+	 * Current resources being parsed
 	 */
 	private Resources currentResources;
 
 	/**
-	 * Current conversation reference being read
-	 */
-	private ConversationReference conversationReference;
-
-	/**
-	 * Current conditions being read
+	 * Current conditions being parsed
 	 */
 	private Conditions currentConditions;
 
 	/**
-	 * Subparser for the conditions
+	 * Subparser for conditions
 	 */
 	private SubParser conditionSubParser;
 
@@ -84,7 +58,7 @@ public class CharacterSubParser extends SubParser {
 	 * @param chapter
 	 *            Chapter data to store the read data
 	 */
-	public CharacterSubParser( Chapter chapter ) {
+	public PlayerSubParser( Chapter chapter ) {
 		super( chapter );
 	}
 
@@ -99,21 +73,21 @@ public class CharacterSubParser extends SubParser {
 		// If no element is being subparsed
 		if( subParsing == SUBPARSING_NONE ) {
 
-			// If it is a character tag, store the id of the character
-			if( qName.equals( "character" ) ) {
-				String characterId = "";
-
-				for( int i = 0; i < attrs.getLength( ); i++ )
-					if( attrs.getQName( i ).equals( "id" ) )
-						characterId = attrs.getValue( i );
-
-				npc = new NPC( characterId );
+			// If it is a player tag, create the player
+			if( qName.equals( "player" ) ) {
+				player = new Player( );
 			}
 
-			// If it is a resources tag, create the new resources, and switch the element being parsed
+			// If it is a resources tag, create new resources
 			else if( qName.equals( "resources" ) ) {
 				currentResources = new Resources( );
-				reading = READING_RESOURCES;
+			}
+
+			// If it is a condition tag, create new conditions, new subparser and switch the state
+			else if( qName.equals( "condition" ) ) {
+				currentConditions = new Conditions( );
+				conditionSubParser = new ConditionSubParser( currentConditions, chapter );
+				subParsing = SUBPARSING_CONDITION;
 			}
 
 			// If it is an asset tag, read it and add it to the current resources
@@ -144,28 +118,9 @@ public class CharacterSubParser extends SubParser {
 
 				// Set the color in the npc
 				if( qName.equals( "frontcolor" ) )
-					npc.setTextFrontColor( color );
+					player.setTextFrontColor( color );
 				if( qName.equals( "bordercolor" ) )
-					npc.setTextBorderColor( color );
-			}
-
-			// If it is a conversation reference tag, store the destination id, and switch the element being parsed
-			else if( qName.equals( "conversation-ref" ) ) {
-				String idTarget = "";
-
-				for( int i = 0; i < attrs.getLength( ); i++ )
-					if( attrs.getQName( i ).equals( "idTarget" ) )
-						idTarget = attrs.getValue( i );
-
-				conversationReference = new ConversationReference( idTarget );
-				reading = READING_CONVERSATION_REFERENCE;
-			}
-
-			// If it is a condition tag, create a new subparser
-			else if( qName.equals( "condition" ) ) {
-				currentConditions = new Conditions( );
-				conditionSubParser = new ConditionSubParser( currentConditions, chapter );
-				subParsing = SUBPARSING_CONDITION;
+					player.setTextBorderColor( color );
 			}
 		}
 
@@ -186,44 +141,34 @@ public class CharacterSubParser extends SubParser {
 		// If no element is being subparsed
 		if( subParsing == SUBPARSING_NONE ) {
 
-			// If it is a character tag, store the character in the game data
-			if( qName.equals( "character" ) ) {
-				chapter.addCharacter( npc );
+			// If it is a player tag, store the player in the game data
+			if( qName.equals( "player" ) ) {
+				chapter.setPlayer( player );
 			}
 
-			// If it is a documentation tag, hold the documentation in the character
+			// If it is a documentation tag, hold the documentation in the player
 			else if( qName.equals( "documentation" ) ) {
-				if( reading == READING_NONE )
-					npc.setDocumentation( currentString.toString( ).trim( ) );
-				else if( reading == READING_CONVERSATION_REFERENCE )
-					conversationReference.setDocumentation( currentString.toString( ).trim( ) );
+				player.setDocumentation( currentString.toString( ).trim( ) );
 			}
 
-			// If it is a resources tag, add the resources in the character
+			// If it is a resources tag, add the resources to the player
 			else if( qName.equals( "resources" ) ) {
-				npc.addResources( currentResources );
-				reading = READING_NONE;
+				player.addResources( currentResources );
 			}
 
-			// If it is a name tag, store the name
+			// If it is a name tag, add the name to the player
 			else if( qName.equals( "name" ) ) {
-				npc.setName( currentString.toString( ).trim( ) );
+				player.setName( currentString.toString( ).trim( ) );
 			}
 
-			// If it is a brief tag, store the brief description
+			// If it is a brief tag, add the brief description to the player
 			else if( qName.equals( "brief" ) ) {
-				npc.setDescription( currentString.toString( ).trim( ) );
+				player.setDescription( currentString.toString( ).trim( ) );
 			}
 
-			// If it is a detailed tag, store the detailed description
+			// If it is a detailed tag, add the detailed description to the player
 			else if( qName.equals( "detailed" ) ) {
-				npc.setDetailedDescription( currentString.toString( ).trim( ) );
-			}
-
-			// If it is a conversation reference tag, add the reference to the character
-			else if( qName.equals( "conversation-ref" ) ) {
-				npc.addConversationReference( conversationReference );
-				reading = READING_NONE;
+				player.setDetailedDescription( currentString.toString( ).trim( ) );
 			}
 
 			// Reset the current string
@@ -232,21 +177,12 @@ public class CharacterSubParser extends SubParser {
 
 		// If a condition is being subparsed
 		else if( subParsing == SUBPARSING_CONDITION ) {
-
-			// Spread the end element call
+			// Spread the call
 			conditionSubParser.endElement( namespaceURI, sName, qName );
 
-			// If the condition is being closed
+			// If the condition tag is being closed, add the condition to the resources, and switch the state
 			if( qName.equals( "condition" ) ) {
-				// Add the condition to the resources
-				if( reading == READING_RESOURCES )
-					currentResources.setConditions( currentConditions );
-
-				// Add the condition to the conversation reference
-				if( reading == READING_CONVERSATION_REFERENCE )
-					conversationReference.setConditions( currentConditions );
-
-				// Stop subparsing
+				currentResources.setConditions( currentConditions );
 				subParsing = SUBPARSING_NONE;
 			}
 		}
@@ -258,7 +194,7 @@ public class CharacterSubParser extends SubParser {
 	 * @see es.eucm.eadventure.engine.loader.subparsers.SubParser#characters(char[], int, int)
 	 */
 	public void characters( char[] buf, int offset, int len ) {
-		// If no element is being subparsed, read the characters
+		// If no element is being subparsed
 		if( subParsing == SUBPARSING_NONE )
 			super.characters( buf, offset, len );
 

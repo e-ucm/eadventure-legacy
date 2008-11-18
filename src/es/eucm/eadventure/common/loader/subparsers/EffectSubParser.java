@@ -1,4 +1,4 @@
-package es.eucm.eadventure.editor.control.loader.subparsers;
+package es.eucm.eadventure.common.loader.subparsers;
 
 import org.xml.sax.Attributes;
 
@@ -81,6 +81,7 @@ public class EffectSubParser extends SubParser {
 			for( int i = 0; i < attrs.getLength( ); i++ )
 				if( attrs.getQName( i ).equals( "flag" ) ) {
 					newEffect=  new ActivateEffect( attrs.getValue( i ) ) ;
+					chapter.addFlag( attrs.getValue( i ) );
 				}
 		}
 
@@ -89,6 +90,7 @@ public class EffectSubParser extends SubParser {
 			for( int i = 0; i < attrs.getLength( ); i++ )
 				if( attrs.getQName( i ).equals( "flag" ) ) {
 					newEffect=  new DeactivateEffect( attrs.getValue( i ) ) ;
+					chapter.addFlag( attrs.getValue( i ) );
 				}
 		}
 

@@ -9,17 +9,16 @@ import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import es.eucm.eadventure.common.data.chapter.Chapter;
-import es.eucm.eadventure.engine.loader.subparsers.BookSubParser;
-import es.eucm.eadventure.engine.loader.subparsers.CharacterSubParser;
-import es.eucm.eadventure.engine.loader.subparsers.GraphConversationSubParser;
-import es.eucm.eadventure.engine.loader.subparsers.ObjectSubParser;
-import es.eucm.eadventure.engine.loader.subparsers.PlayerSubParser;
-import es.eucm.eadventure.engine.loader.subparsers.SceneSubParser;
-import es.eucm.eadventure.engine.loader.subparsers.SlidesceneSubParser;
-import es.eucm.eadventure.engine.loader.subparsers.SubParser;
-import es.eucm.eadventure.engine.loader.subparsers.TimerSubParser;
-import es.eucm.eadventure.engine.loader.subparsers.TreeConversationSubParser;
-import es.eucm.eadventure.engine.loader.subparsers.VideosceneSubParser;
+import es.eucm.eadventure.common.loader.subparsers.BookSubParser;
+import es.eucm.eadventure.common.loader.subparsers.CharacterSubParser;
+import es.eucm.eadventure.common.loader.subparsers.CutsceneSubParser;
+import es.eucm.eadventure.common.loader.subparsers.GraphConversationSubParser;
+import es.eucm.eadventure.common.loader.subparsers.ItemSubParser;
+import es.eucm.eadventure.common.loader.subparsers.PlayerSubParser;
+import es.eucm.eadventure.common.loader.subparsers.SceneSubParser;
+import es.eucm.eadventure.common.loader.subparsers.SubParser;
+import es.eucm.eadventure.common.loader.subparsers.TimerSubParser;
+import es.eucm.eadventure.common.loader.subparsers.TreeConversationSubParser;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 
 /**
@@ -128,13 +127,13 @@ public class ScriptHandler extends DefaultHandler {
 
             // Subparse videoscene
             else if( qName.equals( "videoscene" ) ) {
-                subParser = new VideosceneSubParser( gameData );
+                subParser = new CutsceneSubParser( gameData );
                 subParsing = VIDEOSCENE;
             }
 
             // Subparse slidescene
             else if( qName.equals( "slidescene" ) ) {
-                subParser = new SlidesceneSubParser( gameData );
+                subParser = new CutsceneSubParser( gameData );
                 subParsing = SLIDESCENE;
             }
 
@@ -146,7 +145,7 @@ public class ScriptHandler extends DefaultHandler {
 
             // Subparse object
             else if( qName.equals( "object" ) ) {
-                subParser = new ObjectSubParser( gameData );
+                subParser = new ItemSubParser( gameData );
                 subParsing = OBJECT;
             }
 

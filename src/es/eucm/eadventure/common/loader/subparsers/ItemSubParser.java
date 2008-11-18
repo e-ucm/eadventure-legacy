@@ -1,4 +1,4 @@
-package es.eucm.eadventure.editor.control.loader.subparsers;
+package es.eucm.eadventure.common.loader.subparsers;
 
 import org.xml.sax.Attributes;
 
@@ -6,13 +6,14 @@ import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.common.data.chapter.effects.Effects;
-import es.eucm.eadventure.common.data.chapter.elements.ActiveArea;
-import es.eucm.eadventure.common.data.chapter.scenes.Scene;
+import es.eucm.eadventure.common.data.chapter.elements.Item;
+import es.eucm.eadventure.common.data.chapter.resources.Resources;
+import es.eucm.eadventure.editor.control.controllers.AssetsController;
 
 /**
  * Class to subparse items.
  */
-public class ActiveAreaSubParser extends SubParser {
+public class ItemSubParser extends SubParser {
 
 	/* Attributes */
 
@@ -22,9 +23,14 @@ public class ActiveAreaSubParser extends SubParser {
 	private static final int READING_NONE = 0;
 
 	/**
-	 * Constant for reading action tag.
+	 * Constant for reading resources tag.
 	 */
-	private static final int READING_ACTION = 1;
+	private static final int READING_RESOURCES = 1;
+
+	/**
+	 * Constant for reading actin tag.
+	 */
+	private static final int READING_ACTION = 2;
 
 	/**
 	 * Constant for subparsing nothing.
@@ -52,9 +58,14 @@ public class ActiveAreaSubParser extends SubParser {
 	private int subParsing = SUBPARSING_NONE;
 
 	/**
-	 * ActiveArea being parsed.
+	 * Object being parsed.
 	 */
-	private ActiveArea activeArea;
+	private Item object;
+
+	/**
+	 * Current resources being parsed.
+	 */
+	private Resources currentResources;
 
 	/**
 	 * Current conditions being parsed.
@@ -80,13 +91,6 @@ public class ActiveAreaSubParser extends SubParser {
 	 * Stores an idTarget.
 	 */
 	private String currentIdTarget;
-	
-	/**
-	 * Stores the scene where the area should be attached
-	 */
-	private Scene scene;
-	
-	private int nAreas;
 
 	/* Methods */
 
@@ -96,16 +100,10 @@ public class ActiveAreaSubParser extends SubParser {
 	 * @param chapter
 	 *            Chapter data to store the read data
 	 */
-	public ActiveAreaSubParser( Chapter chapter, Scene scene, int nAreas ) {
+	public ItemSubParser( Chapter chapter ) {
 		super( chapter );
-		this.nAreas =nAreas;
-		this.scene = scene;
 	}
 
-	private String generateId(){
-		return Integer.toString( nAreas+1 );
-	}
-	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -117,22 +115,37 @@ public class ActiveAreaSubParser extends SubParser {
 		// If no element is being subparsed
 		if( subParsing == SUBPARSING_NONE ) {
 			// If it is a object tag, create the new object (with its id)
-			if( qName.equals( "active-area" ) ) {
+			if( qName.equals( "object" ) ) {
+				String objectId = "";
 
-				int x = 0, y = 0, width = 0, height = 0;
+				for( int i = 0; i < attrs.getLength( ); i++ )
+					if( attrs.getQName( i ).equals( "id" ) )
+						objectId = attrs.getValue( i );
+
+				object = new Item( objectId );
+			}
+
+			// If it is a resources tag, create the new resources and switch the state
+			else if( qName.equals( "resources" ) ) {
+				currentResources = new Resources( );
+				reading = READING_RESOURCES;
+			}
+
+			// If it is an asset tag, read it and add it to the current resources
+			else if( qName.equals( "asset" ) ) {
+				String type = "";
+				String path = "";
 
 				for( int i = 0; i < attrs.getLength( ); i++ ) {
-					if( attrs.getQName( i ).equals( "x" ) )
-						x = Integer.parseInt( attrs.getValue( i ) );
-					if( attrs.getQName( i ).equals( "y" ) )
-						y = Integer.parseInt( attrs.getValue( i ) );
-					if( attrs.getQName( i ).equals( "width" ) )
-						width = Integer.parseInt( attrs.getValue( i ) );
-					if( attrs.getQName( i ).equals( "height" ) )
-						height = Integer.parseInt( attrs.getValue( i ) );
+					if( attrs.getQName( i ).equals( "type" ) )
+						type = attrs.getValue( i );
+					if( attrs.getQName( i ).equals( "uri" ) )
+						path = attrs.getValue( i );
 				}
 
-				activeArea = new ActiveArea( generateId(), x, y, width, height );
+				// If the asset is not an special one
+				if( !AssetsController.isAssetSpecial( path ) )
+					currentResources.addAsset( type, path );
 			}
 
 			// If it is an examine, use or grab tag, create new conditions and effects
@@ -171,7 +184,7 @@ public class ActiveAreaSubParser extends SubParser {
 
 		// If it is reading an effect or a condition, spread the call
 		if( subParsing != SUBPARSING_NONE ) {
-			String id = this.activeArea.getId( );
+			String id = this.object.getId( );
 			subParser.startElement( namespaceURI, sName, qName, attrs );
 		}
 	}
@@ -188,38 +201,44 @@ public class ActiveAreaSubParser extends SubParser {
 		if( subParsing == SUBPARSING_NONE ) {
 
 			// If it is an object tag, store the object in the game data
-			if( qName.equals( "active-area" ) ) {
-				scene.addActiveArea( activeArea );
+			if( qName.equals( "object" ) ) {
+				chapter.addItem( object );
+			}
+
+			// If it is a resources tag, add it to the object
+			else if( qName.equals( "resources" ) ) {
+				object.addResources( currentResources );
+				reading = READING_NONE;
 			}
 
 			// If it is a name tag, store the name in the object
 			else if( qName.equals( "name" ) ) {
-				activeArea.setName( currentString.toString( ).trim( ) );
+				object.setName( currentString.toString( ).trim( ) );
 			}
 
 			// If it is a documentation tag, hold the documentation in the current element
 			else if( qName.equals( "documentation" ) ) {
 				if( reading == READING_NONE )
-					activeArea.setDocumentation( currentString.toString( ).trim( ) );
+					object.setDocumentation( currentString.toString( ).trim( ) );
 				else if( reading == READING_ACTION )
 					currentDocumentation = currentString.toString( ).trim( );
 			}
 
 			// If it is a brief tag, store the brief description in the object
 			else if( qName.equals( "brief" ) ) {
-				activeArea.setDescription( currentString.toString( ).trim( ) );
+				object.setDescription( currentString.toString( ).trim( ) );
 			}
 
 			// If it is a detailed tag, store the detailed description in the object
 			else if( qName.equals( "detailed" ) ) {
-				activeArea.setDetailedDescription( currentString.toString( ).trim( ) );
+				object.setDetailedDescription( currentString.toString( ).trim( ) );
 			}
 
 			// If it is an examine tag, store the new action in the object
 			else if( qName.equals( "examine" ) ) {
 				Action examineAction = new Action( Action.EXAMINE, currentConditions, currentEffects );
 				examineAction.setDocumentation( currentDocumentation );
-				activeArea.addAction( examineAction );
+				object.addAction( examineAction );
 				reading = READING_NONE;
 			}
 
@@ -227,7 +246,7 @@ public class ActiveAreaSubParser extends SubParser {
 			else if( qName.equals( "grab" ) ) {
 				Action grabAction = new Action( Action.GRAB, currentConditions, currentEffects );
 				grabAction.setDocumentation( currentDocumentation );
-				activeArea.addAction( grabAction );
+				object.addAction( grabAction );
 				reading = READING_NONE;
 			}
 
@@ -235,7 +254,7 @@ public class ActiveAreaSubParser extends SubParser {
 			else if( qName.equals( "use" ) ) {
 				Action useAction = new Action( Action.USE, currentConditions, currentEffects );
 				useAction.setDocumentation( currentDocumentation );
-				activeArea.addAction( useAction );
+				object.addAction( useAction );
 				reading = READING_NONE;
 			}
 
@@ -243,7 +262,7 @@ public class ActiveAreaSubParser extends SubParser {
 			else if( qName.equals( "use-with" ) ) {
 				Action useWithAction = new Action( Action.USE_WITH, currentIdTarget, currentConditions, currentEffects );
 				useWithAction.setDocumentation( currentDocumentation );
-				activeArea.addAction( useWithAction );
+				object.addAction( useWithAction );
 				reading = READING_NONE;
 			}
 
@@ -251,7 +270,7 @@ public class ActiveAreaSubParser extends SubParser {
 			else if( qName.equals( "give-to" ) ) {
 				Action giveToAction = new Action( Action.GIVE_TO, currentIdTarget, currentConditions, currentEffects );
 				giveToAction.setDocumentation( currentDocumentation );
-				activeArea.addAction( giveToAction );
+				object.addAction( giveToAction );
 				reading = READING_NONE;
 			}
 
@@ -266,9 +285,10 @@ public class ActiveAreaSubParser extends SubParser {
 
 			// If the condition tag is being closed
 			if( qName.equals( "condition" ) ) {
-				if (reading == READING_NONE){
-					this.activeArea.setConditions( currentConditions );
-				}
+				// Store the conditions in the resources
+				if( reading == READING_RESOURCES )
+					currentResources.setConditions( currentConditions );
+
 				// Switch state
 				subParsing = SUBPARSING_NONE;
 			}

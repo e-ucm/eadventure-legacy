@@ -2,7 +2,7 @@ package es.eucm.eadventure.editor.control.auxiliar.filefilters;
 
 import java.io.File;
 
-import es.eucm.eadventure.common.data.adventure.DescriptorData;
+import es.eucm.eadventure.common.data.adventure.AdventureData;
 import es.eucm.eadventure.editor.control.auxiliar.FileFilter;
 import es.eucm.eadventure.editor.control.loader.Loader;
 
@@ -68,7 +68,7 @@ public class FolderFileFilter extends FileFilter {
 				}
 			}
 			if (containsDescriptor){
-				DescriptorData descriptor = Loader.loadDescriptorData( file.getAbsolutePath( ) );
+				AdventureData descriptor = Loader.loadDescriptorData( file.getAbsolutePath( ) );
 				descriptorValid = descriptor!=null;
 			}
 			accepted &= containsDescriptor && descriptorValid;

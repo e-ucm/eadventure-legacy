@@ -1,4 +1,4 @@
-package es.eucm.eadventure.engine.loader.subparsers;
+package es.eucm.eadventure.common.loader.subparsers;
 
 import org.xml.sax.Attributes;
 
@@ -98,7 +98,7 @@ public class BookSubParser extends SubParser {
 			// If it is a condition tag, create a new subparser
 			else if( qName.equals( "condition" ) ) {
 				currentConditions = new Conditions( );
-				conditionSubParser = new ConditionSubParser( currentConditions, gameData );
+				conditionSubParser = new ConditionSubParser( currentConditions, chapter );
 				subParsing = SUBPARSING_CONDITION;
 			}
 
@@ -203,7 +203,7 @@ public class BookSubParser extends SubParser {
 
 			// If it is a book tag, add the book to the game data
 			if( qName.equals( "book" ) ) {
-				gameData.addBook( book );
+				chapter.addBook( book );
 			}
 
 			// If it is a resources tag, add the resources to the book

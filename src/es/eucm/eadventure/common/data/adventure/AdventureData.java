@@ -8,8 +8,47 @@ import es.eucm.eadventure.common.data.chapter.Chapter;
 /**
  * Stores the description of the eAdventure file
  */
-public class AdventureData extends DescriptorData{
-    
+public class AdventureData{
+	/**
+	 * Constant for traditional GUI.
+	 */
+	public static final int GUI_TRADITIONAL = 0;
+
+	/**
+	 * Constant for contextual GUI.
+	 */
+	public static final int GUI_CONTEXTUAL = 1;
+
+	/**
+	 * Constant for 1st person adventure mode
+	 */
+	public static final int MODE_PLAYER_1STPERSON = 0;
+
+	/**
+	 * Constant for 3rd person adventure mode
+	 */
+	public static final int MODE_PLAYER_3RDPERSON = 1;
+
+	/**
+	 * Title of the adventure.
+	 */
+	protected String title;
+
+	/**
+	 * Description of the adventure.
+	 */
+	protected String description;
+
+	/**
+	 * Type of the GUI (Traditional or contextual)
+	 */
+	protected int guiType;
+
+	/**
+	 * Adventure mode (1st person/3rd person)
+	 */
+	protected int playerMode;
+
     /**
      * Stores if the GUI's graphics are customized
      */
@@ -36,8 +75,82 @@ public class AdventureData extends DescriptorData{
     public AdventureData( ) {
         chapters = new ArrayList<Chapter>( );
         cursors = new ArrayList<CustomCursor>();
+		title = null;
+		description = null;
+		guiType = -1;
+		playerMode = MODE_PLAYER_1STPERSON;
     }
-    
+
+	/**
+	 * Returns the title of the adventure
+	 * 
+	 * @return Adventure's title
+	 */
+	public String getTitle( ) {
+		return title;
+	}
+
+	/**
+	 * Returns the description of the adventure.
+	 * 
+	 * @return Adventure's description
+	 */
+	public String getDescription( ) {
+		return description;
+	}
+
+	/**
+	 * Returns the GUI type of the adventure.
+	 * 
+	 * @return Adventure's GUI type
+	 */
+	public int getGUIType( ) {
+		return guiType;
+	}
+
+	/**
+	 * Sets the title of the adventure.
+	 * 
+	 * @param title
+	 *            New title for the adventure
+	 */
+	public void setTitle( String title ) {
+		this.title = title;
+	}
+
+	/**
+	 * Sets the description of the adventure.
+	 * 
+	 * @param description
+	 *            New description for the adventure
+	 */
+	public void setDescription( String description ) {
+		this.description = description;
+	}
+
+	/**
+	 * Sets the GUI type of the adventure.
+	 * 
+	 * @param guiType
+	 *            New GUI type for the adventure
+	 */
+	public void setGUIType( int guiType ) {
+		this.guiType = guiType;
+	}
+
+	/**
+	 * @return the playerMode
+	 */
+	public int getPlayerMode( ) {
+		return playerMode;
+	}
+
+	/**
+	 * @param playerMode the playerMode to set
+	 */
+	public void setPlayerMode( int playerMode ) {
+		this.playerMode = playerMode;
+	}
     
     /**
      * Returns whether the GUI is customized

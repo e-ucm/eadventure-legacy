@@ -17,6 +17,7 @@ import javax.swing.filechooser.FileFilter;
 
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.data.chapter.elements.Player;
+import es.eucm.eadventure.common.loader.incidences.Incidence;
 import es.eucm.eadventure.editor.control.auxiliar.File;
 import es.eucm.eadventure.editor.control.auxiliar.filefilters.EADFileFilter;
 import es.eucm.eadventure.editor.control.auxiliar.filefilters.FolderFileFilter;
@@ -33,7 +34,6 @@ import es.eucm.eadventure.editor.control.controllers.general.ChapterDataControl;
 import es.eucm.eadventure.editor.control.controllers.item.ItemDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
 import es.eucm.eadventure.editor.control.loader.Loader;
-import es.eucm.eadventure.editor.control.loader.incidences.Incidence;
 import es.eucm.eadventure.editor.control.writer.Writer;
 import es.eucm.eadventure.editor.data.support.FlagSummary;
 import es.eucm.eadventure.editor.data.support.IdentifierSummary;

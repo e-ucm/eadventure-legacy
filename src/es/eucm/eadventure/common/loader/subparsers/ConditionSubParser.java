@@ -1,4 +1,4 @@
-package es.eucm.eadventure.editor.control.loader.subparsers;
+package es.eucm.eadventure.common.loader.subparsers;
 
 import org.xml.sax.Attributes;
 
@@ -77,6 +77,8 @@ public class ConditionSubParser extends SubParser {
 						conditions.addCondition( new Condition( attrs.getValue( i ), true ) );
 					if( reading == READING_EITHER )
 						currentEitherCondition.addCondition( new Condition( attrs.getValue( i ), true ) );
+					
+					chapter.addFlag( attrs.getValue( i ) );
 				}
 			}
 		}
@@ -91,6 +93,8 @@ public class ConditionSubParser extends SubParser {
 						conditions.addCondition( new Condition( attrs.getValue( i ), false ) );
 					if( reading == READING_EITHER )
 						currentEitherCondition.addCondition( new Condition( attrs.getValue( i ), false ) );
+					
+					chapter.addFlag( attrs.getValue( i ) );
 				}
 			}
 		}
