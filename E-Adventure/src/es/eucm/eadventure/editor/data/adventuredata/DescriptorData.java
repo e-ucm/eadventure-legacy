@@ -3,7 +3,7 @@ package es.eucm.eadventure.editor.data.adventuredata;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.eucm.eadventure.common.data.chapterdata.Chapter;
+import es.eucm.eadventure.common.data.chapter.Chapter;
 
 /**
  * This class holds all the information of the adventure, including the chapters and the configuration of the HUD.

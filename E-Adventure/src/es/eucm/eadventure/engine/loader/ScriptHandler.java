@@ -8,7 +8,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import es.eucm.eadventure.common.data.chapterdata.Chapter;
+import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.engine.loader.subparsers.BookSubParser;
 import es.eucm.eadventure.engine.loader.subparsers.CharacterSubParser;
 import es.eucm.eadventure.engine.loader.subparsers.GraphConversationSubParser;

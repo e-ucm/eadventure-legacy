@@ -2,8 +2,8 @@ package es.eucm.eadventure.engine.loader.subparsers;
 
 import org.xml.sax.Attributes;
 
-import es.eucm.eadventure.common.data.chapterdata.effects.*;
-import es.eucm.eadventure.common.data.chapterdata.Chapter;
+import es.eucm.eadventure.common.data.chapter.Chapter;
+import es.eucm.eadventure.common.data.chapter.effects.*;
 
 /**
  * Class to subparse effects

@@ -7,8 +7,8 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import es.eucm.eadventure.common.data.chapterdata.conditions.Condition;
-import es.eucm.eadventure.common.data.chapterdata.conditions.Conditions;
+import es.eucm.eadventure.common.data.chapter.conditions.Condition;
+import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.editor.data.assessment.AssessmentProperty;
 import es.eucm.eadventure.editor.data.assessment.AssessmentRule;
 import es.eucm.eadventure.editor.data.assessment.TimedAssessmentRule;

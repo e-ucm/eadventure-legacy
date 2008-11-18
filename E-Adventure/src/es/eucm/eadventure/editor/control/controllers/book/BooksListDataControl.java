@@ -3,8 +3,8 @@ package es.eucm.eadventure.editor.control.controllers.book;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.eucm.eadventure.common.data.chapterdata.book.Book;
-import es.eucm.eadventure.common.data.chapterdata.resources.Resources;
+import es.eucm.eadventure.common.data.chapter.book.Book;
+import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;

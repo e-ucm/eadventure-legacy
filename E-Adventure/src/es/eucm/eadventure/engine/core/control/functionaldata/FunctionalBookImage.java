@@ -3,7 +3,7 @@ package es.eucm.eadventure.engine.core.control.functionaldata;
 import java.awt.Graphics2D;
 import java.awt.Image;
 
-import es.eucm.eadventure.common.data.chapterdata.book.BookParagraph;
+import es.eucm.eadventure.common.data.chapter.book.BookParagraph;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 
 /**

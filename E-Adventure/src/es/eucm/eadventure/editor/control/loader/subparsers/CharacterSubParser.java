@@ -2,11 +2,11 @@ package es.eucm.eadventure.editor.control.loader.subparsers;
 
 import org.xml.sax.Attributes;
 
-import es.eucm.eadventure.common.data.chapterdata.Chapter;
-import es.eucm.eadventure.common.data.chapterdata.ConversationReference;
-import es.eucm.eadventure.common.data.chapterdata.conditions.Conditions;
-import es.eucm.eadventure.common.data.chapterdata.elements.NPC;
-import es.eucm.eadventure.common.data.chapterdata.resources.Resources;
+import es.eucm.eadventure.common.data.chapter.Chapter;
+import es.eucm.eadventure.common.data.chapter.ConversationReference;
+import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
+import es.eucm.eadventure.common.data.chapter.elements.NPC;
+import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 
 /**

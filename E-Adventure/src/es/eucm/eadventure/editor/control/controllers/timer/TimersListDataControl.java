@@ -3,11 +3,11 @@ package es.eucm.eadventure.editor.control.controllers.timer;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.eucm.eadventure.common.data.chapterdata.Timer;
-import es.eucm.eadventure.common.data.chapterdata.scenes.Cutscene;
-import es.eucm.eadventure.common.data.chapterdata.scenes.Scene;
-import es.eucm.eadventure.common.data.chapterdata.scenes.Slidescene;
-import es.eucm.eadventure.common.data.chapterdata.scenes.Videoscene;
+import es.eucm.eadventure.common.data.chapter.Timer;
+import es.eucm.eadventure.common.data.chapter.scenes.Cutscene;
+import es.eucm.eadventure.common.data.chapter.scenes.Scene;
+import es.eucm.eadventure.common.data.chapter.scenes.Slidescene;
+import es.eucm.eadventure.common.data.chapter.scenes.Videoscene;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;

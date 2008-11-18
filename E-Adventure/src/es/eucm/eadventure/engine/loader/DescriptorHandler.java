@@ -8,8 +8,8 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import es.eucm.eadventure.common.data.adventuredata.AdventureData;
-import es.eucm.eadventure.common.data.chapterdata.Chapter;
+import es.eucm.eadventure.common.data.adventure.AdventureData;
+import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.engine.core.data.GameText;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 

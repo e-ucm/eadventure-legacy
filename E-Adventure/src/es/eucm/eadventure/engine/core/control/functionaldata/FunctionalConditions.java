@@ -1,7 +1,7 @@
 package es.eucm.eadventure.engine.core.control.functionaldata;
 
-import es.eucm.eadventure.common.data.chapterdata.conditions.Conditions;
-import es.eucm.eadventure.common.data.chapterdata.conditions.Condition;
+import es.eucm.eadventure.common.data.chapter.conditions.Condition;
+import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.engine.core.control.FlagSummary;
 import es.eucm.eadventure.engine.core.control.Game;
 

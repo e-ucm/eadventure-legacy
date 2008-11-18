@@ -2,7 +2,7 @@ package es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects;
 
 import java.awt.Graphics2D;
 
-import es.eucm.eadventure.common.data.chapterdata.effects.PlayAnimationEffect;
+import es.eucm.eadventure.common.data.chapter.effects.PlayAnimationEffect;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.animations.Animation;
 import es.eucm.eadventure.engine.core.gui.GUI;

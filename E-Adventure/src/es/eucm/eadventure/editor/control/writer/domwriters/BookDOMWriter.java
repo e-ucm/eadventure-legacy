@@ -8,10 +8,10 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import es.eucm.eadventure.common.data.chapterdata.book.Book;
-import es.eucm.eadventure.common.data.chapterdata.book.BookPage;
-import es.eucm.eadventure.common.data.chapterdata.book.BookParagraph;
-import es.eucm.eadventure.common.data.chapterdata.resources.Resources;
+import es.eucm.eadventure.common.data.chapter.book.Book;
+import es.eucm.eadventure.common.data.chapter.book.BookPage;
+import es.eucm.eadventure.common.data.chapter.book.BookParagraph;
+import es.eucm.eadventure.common.data.chapter.resources.Resources;
 
 public class BookDOMWriter {
 

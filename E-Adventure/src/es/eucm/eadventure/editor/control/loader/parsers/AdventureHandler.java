@@ -19,7 +19,9 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import java.io.FileInputStream;
 
-import es.eucm.eadventure.common.data.chapterdata.Chapter;
+import es.eucm.eadventure.common.data.adaptation.AdaptationRule;
+import es.eucm.eadventure.common.data.adaptation.AdaptedState;
+import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.auxiliar.File;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
@@ -28,8 +30,6 @@ import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfil
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfileDataControl;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfilesDataControl;
 import es.eucm.eadventure.editor.control.loader.incidences.Incidence;
-import es.eucm.eadventure.editor.data.adaptation.AdaptationRule;
-import es.eucm.eadventure.editor.data.adaptation.AdaptedState;
 import es.eucm.eadventure.editor.data.adventuredata.AdventureDataControl;
 import es.eucm.eadventure.editor.data.assessment.AssessmentRule;
 import es.eucm.eadventure.editor.gui.TextConstants;

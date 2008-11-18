@@ -27,9 +27,9 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellEditor;
 
-import es.eucm.eadventure.common.data.chapterdata.conversation.line.ConversationLine;
-import es.eucm.eadventure.common.data.chapterdata.conversation.node.ConversationNode;
-import es.eucm.eadventure.common.data.chapterdata.conversation.node.ConversationNodeView;
+import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine;
+import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
+import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationRuleDataControl;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentRuleDataControl;

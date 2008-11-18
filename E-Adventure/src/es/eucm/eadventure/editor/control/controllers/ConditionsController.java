@@ -1,7 +1,7 @@
 package es.eucm.eadventure.editor.control.controllers;
 
-import es.eucm.eadventure.common.data.chapterdata.conditions.Condition;
-import es.eucm.eadventure.common.data.chapterdata.conditions.Conditions;
+import es.eucm.eadventure.common.data.chapter.conditions.Condition;
+import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.data.supportdata.FlagSummary;
 

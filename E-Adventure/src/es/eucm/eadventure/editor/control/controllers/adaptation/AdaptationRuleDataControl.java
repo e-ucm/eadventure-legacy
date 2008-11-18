@@ -2,11 +2,11 @@ package es.eucm.eadventure.editor.control.controllers.adaptation;
 
 import java.util.List;
 
+import es.eucm.eadventure.common.data.adaptation.AdaptationRule;
+import es.eucm.eadventure.common.data.adaptation.UOLProperty;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.data.adaptation.AdaptationRule;
-import es.eucm.eadventure.editor.data.adaptation.UOLProperty;
 import es.eucm.eadventure.editor.data.assessment.AssessmentProperty;
 import es.eucm.eadventure.editor.data.assessment.AssessmentRule;
 import es.eucm.eadventure.editor.data.supportdata.FlagSummary;

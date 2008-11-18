@@ -10,13 +10,13 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import es.eucm.eadventure.common.data.chapterdata.conversation.Conversation;
-import es.eucm.eadventure.common.data.chapterdata.conversation.GraphConversation;
-import es.eucm.eadventure.common.data.chapterdata.conversation.TreeConversation;
-import es.eucm.eadventure.common.data.chapterdata.conversation.line.ConversationLine;
-import es.eucm.eadventure.common.data.chapterdata.conversation.node.ConversationNode;
-import es.eucm.eadventure.common.data.chapterdata.conversation.node.DialogueConversationNode;
-import es.eucm.eadventure.common.data.chapterdata.conversation.node.OptionConversationNode;
+import es.eucm.eadventure.common.data.chapter.conversation.Conversation;
+import es.eucm.eadventure.common.data.chapter.conversation.GraphConversation;
+import es.eucm.eadventure.common.data.chapter.conversation.TreeConversation;
+import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine;
+import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
+import es.eucm.eadventure.common.data.chapter.conversation.node.DialogueConversationNode;
+import es.eucm.eadventure.common.data.chapter.conversation.node.OptionConversationNode;
 
 public class ConversationDOMWriter {
 

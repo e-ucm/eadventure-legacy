@@ -3,9 +3,9 @@ package es.eucm.eadventure.editor.control.controllers.conversation;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.eucm.eadventure.common.data.chapterdata.conversation.Conversation;
-import es.eucm.eadventure.common.data.chapterdata.conversation.GraphConversation;
-import es.eucm.eadventure.common.data.chapterdata.conversation.TreeConversation;
+import es.eucm.eadventure.common.data.chapter.conversation.Conversation;
+import es.eucm.eadventure.common.data.chapter.conversation.GraphConversation;
+import es.eucm.eadventure.common.data.chapter.conversation.TreeConversation;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.data.supportdata.FlagSummary;

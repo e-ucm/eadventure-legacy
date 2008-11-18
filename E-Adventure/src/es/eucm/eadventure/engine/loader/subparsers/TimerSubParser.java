@@ -3,10 +3,10 @@ package es.eucm.eadventure.engine.loader.subparsers;
 import org.xml.sax.Attributes;
 
 //import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
-import es.eucm.eadventure.common.data.chapterdata.effects.Effects;
-import es.eucm.eadventure.common.data.chapterdata.Chapter;
-import es.eucm.eadventure.common.data.chapterdata.Timer;
-import es.eucm.eadventure.common.data.chapterdata.conditions.Conditions;
+import es.eucm.eadventure.common.data.chapter.Chapter;
+import es.eucm.eadventure.common.data.chapter.Timer;
+import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
+import es.eucm.eadventure.common.data.chapter.effects.Effects;
 
 
 /**

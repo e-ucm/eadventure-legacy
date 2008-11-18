@@ -1,10 +1,13 @@
 package es.eucm.eadventure.engine.adaptation;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import es.eucm.eadventure.common.data.adaptation.AdaptationRule;
+import es.eucm.eadventure.common.data.adaptation.AdaptedState;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.loader.Loader;
 
@@ -81,7 +84,7 @@ public class AdaptationEngine {
      */
     public synchronized void processExternalState(Map<String,String> uolState) {
         for (AdaptationRule r : externalAdaptationRules) {
-            if ( r.evaluate( uolState )) {
+            if ( evaluate(r, uolState )) {
                 //System.out.println("Rule triggered");
                 Game.getInstance( ).setAdaptedStateToExecute( r.getAdaptedState( ) );
                 
@@ -89,6 +92,32 @@ public class AdaptationEngine {
                 return;
             }
         }
+    }
+    
+    private static boolean evaluate(AdaptationRule rule, Map<String,String> currentState) {
+        boolean activated = true;
+        
+        Iterator<String> keysIt = rule.getPropertyNames().iterator( );
+        while(activated && keysIt.hasNext( )) {
+            String key = keysIt.next( );
+            try {
+                //System.out.print("Comparing " + propertyInUoL + " with "+ propertyInRule);
+                activated = currentState.get( key ).equals( rule.getPropertyValue( key ) );
+                if(activated){
+                    //System.out.println(" TRUE");
+                } else {
+                    //System.out.println(" FALSE");
+                }
+            } catch (NullPointerException e) {
+                throw new IllegalArgumentException("The external state does not reflect all relevant properties: Property " + key + " not found.");
+            }
+        }
+        if(activated){
+           // System.out.println("Rule returns with TRUE");
+        } else {
+           // System.out.println("Rule returns with FALSE");
+        }
+        return activated;
     }
     
     /**

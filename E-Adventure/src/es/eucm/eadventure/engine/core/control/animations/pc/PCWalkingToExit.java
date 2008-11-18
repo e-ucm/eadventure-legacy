@@ -5,10 +5,10 @@ import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalCondition
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalNextSceneEffect;
-import es.eucm.eadventure.common.data.chapterdata.Exit;
-import es.eucm.eadventure.common.data.chapterdata.NextScene;
-import es.eucm.eadventure.common.data.chapterdata.elements.Player;
-import es.eucm.eadventure.common.data.chapterdata.resources.Resources;
+import es.eucm.eadventure.common.data.chapter.Exit;
+import es.eucm.eadventure.common.data.chapter.NextScene;
+import es.eucm.eadventure.common.data.chapter.elements.Player;
+import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 
 /**

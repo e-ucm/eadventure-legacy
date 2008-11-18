@@ -2,8 +2,8 @@ package es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects;
 
 import java.util.ArrayList;
 
-import es.eucm.eadventure.common.data.chapterdata.effects.Effect;
-import es.eucm.eadventure.common.data.chapterdata.effects.Effects;
+import es.eucm.eadventure.common.data.chapter.effects.Effect;
+import es.eucm.eadventure.common.data.chapter.effects.Effects;
 import es.eucm.eadventure.engine.core.control.Game;
 
 /**

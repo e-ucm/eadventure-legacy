@@ -3,9 +3,9 @@ package es.eucm.eadventure.editor.control.controllers.cutscene;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.eucm.eadventure.common.data.chapterdata.NextScene;
-import es.eucm.eadventure.common.data.chapterdata.resources.Resources;
-import es.eucm.eadventure.common.data.chapterdata.scenes.Cutscene;
+import es.eucm.eadventure.common.data.chapter.NextScene;
+import es.eucm.eadventure.common.data.chapter.resources.Resources;
+import es.eucm.eadventure.common.data.chapter.scenes.Cutscene;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;

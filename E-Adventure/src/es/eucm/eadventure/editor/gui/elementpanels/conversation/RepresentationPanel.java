@@ -15,8 +15,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 
-import es.eucm.eadventure.common.data.chapterdata.conversation.node.ConversationNode;
-import es.eucm.eadventure.common.data.chapterdata.conversation.node.ConversationNodeView;
+import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
+import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.config.ConversationConfigData;
 import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;

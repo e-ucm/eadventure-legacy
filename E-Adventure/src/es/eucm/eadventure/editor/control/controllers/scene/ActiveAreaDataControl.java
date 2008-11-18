@@ -2,7 +2,7 @@ package es.eucm.eadventure.editor.control.controllers.scene;
 
 import java.util.List;
 
-import es.eucm.eadventure.common.data.chapterdata.elements.ActiveArea;
+import es.eucm.eadventure.common.data.chapter.elements.ActiveArea;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ActionsListDataControl;

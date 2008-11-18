@@ -1,6 +1,6 @@
 package es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects;
 
-import es.eucm.eadventure.common.data.chapterdata.effects.ActivateEffect;
+import es.eucm.eadventure.common.data.chapter.effects.ActivateEffect;
 import es.eucm.eadventure.engine.core.control.Game;
 
 /**

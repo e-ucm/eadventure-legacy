@@ -5,7 +5,7 @@ import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
-import es.eucm.eadventure.common.data.chapterdata.book.BookParagraph;
+import es.eucm.eadventure.common.data.chapter.book.BookParagraph;
 import es.eucm.eadventure.engine.core.gui.GUI;
 
 /**

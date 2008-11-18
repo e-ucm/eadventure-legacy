@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.SystemColor;
 
-import es.eucm.eadventure.common.data.chapterdata.conversation.node.ConversationNodeView;
+import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
 
 /**
  * Graphic representation of a dialogue node with a go-back tag
