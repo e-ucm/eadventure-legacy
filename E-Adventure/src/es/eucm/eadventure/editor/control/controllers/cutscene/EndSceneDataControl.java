@@ -6,7 +6,7 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.general.NextSceneDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
-import es.eucm.eadventure.editor.data.supportdata.FlagSummary;
+import es.eucm.eadventure.editor.data.support.FlagSummary;
 
 public class EndSceneDataControl extends DataControl {
 

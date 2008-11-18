@@ -2,9 +2,9 @@ package es.eucm.eadventure.editor.control.auxiliar.filefilters;
 
 import java.io.File;
 
+import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.editor.control.auxiliar.FileFilter;
 import es.eucm.eadventure.editor.control.loader.Loader;
-import es.eucm.eadventure.editor.data.adventuredata.DescriptorData;
 
 /**
  * Filter for ZIP files (and folders).

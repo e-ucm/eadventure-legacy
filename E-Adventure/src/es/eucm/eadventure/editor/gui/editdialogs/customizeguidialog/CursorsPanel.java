@@ -4,36 +4,21 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
-
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
-import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.control.controllers.AssetsController;
-import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
-import es.eucm.eadventure.editor.data.adventuredata.AdventureDataControl;
-import es.eucm.eadventure.editor.data.adventuredata.CustomCursor;
+import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
 import es.eucm.eadventure.editor.gui.TextConstants;
-import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
-import es.eucm.eadventure.editor.gui.displaydialogs.AnimationDialog;
-import es.eucm.eadventure.editor.gui.displaydialogs.AudioDialog;
 import es.eucm.eadventure.editor.gui.displaydialogs.ImageDialog;
-import es.eucm.eadventure.editor.gui.displaydialogs.SlidesDialog;
-import es.eucm.eadventure.editor.gui.displaydialogs.VideoDialog;
-import es.eucm.eadventure.editor.gui.editdialogs.ConditionsDialog;
-import es.eucm.eadventure.editor.gui.elementpanels.PreviewUpdater;
 
 /**
  * 

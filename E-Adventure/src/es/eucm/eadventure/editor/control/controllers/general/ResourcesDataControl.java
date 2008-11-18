@@ -7,7 +7,7 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.data.supportdata.FlagSummary;
+import es.eucm.eadventure.editor.data.support.FlagSummary;
 import es.eucm.eadventure.editor.gui.TextConstants;
 import es.eucm.eadventure.editor.gui.assetchooser.AnimationChooser;
 import es.eucm.eadventure.editor.gui.assetchooser.AssetChooser;

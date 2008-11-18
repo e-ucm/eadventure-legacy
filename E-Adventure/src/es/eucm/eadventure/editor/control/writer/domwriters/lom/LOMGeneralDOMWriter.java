@@ -8,7 +8,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import es.eucm.eadventure.editor.data.lomdata.LOMGeneral;
+import es.eucm.eadventure.editor.data.lom.LOMGeneral;
 
 
 public class LOMGeneralDOMWriter extends LOMSimpleDataWriter{

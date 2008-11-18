@@ -6,7 +6,7 @@ import es.eucm.eadventure.common.data.chapter.NextScene;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
-import es.eucm.eadventure.editor.data.supportdata.FlagSummary;
+import es.eucm.eadventure.editor.data.support.FlagSummary;
 import es.eucm.eadventure.editor.gui.TextConstants;
 
 public class NextSceneDataControl extends DataControl {

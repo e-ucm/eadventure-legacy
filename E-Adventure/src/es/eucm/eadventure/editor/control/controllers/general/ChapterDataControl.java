@@ -25,7 +25,7 @@ import es.eucm.eadventure.editor.control.controllers.cutscene.CutscenesListDataC
 import es.eucm.eadventure.editor.control.controllers.item.ItemsListDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ScenesListDataControl;
 import es.eucm.eadventure.editor.control.controllers.timer.TimersListDataControl;
-import es.eucm.eadventure.editor.data.supportdata.FlagSummary;
+import es.eucm.eadventure.editor.data.support.FlagSummary;
 import es.eucm.eadventure.editor.gui.TextConstants;
 
 /**

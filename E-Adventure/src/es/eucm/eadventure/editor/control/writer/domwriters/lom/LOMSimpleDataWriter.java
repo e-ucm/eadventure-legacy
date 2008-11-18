@@ -8,8 +8,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import es.eucm.eadventure.editor.data.lomdata.LangString;
-import es.eucm.eadventure.editor.data.lomdata.Vocabulary;
+import es.eucm.eadventure.editor.data.lom.LangString;
+import es.eucm.eadventure.editor.data.lom.Vocabulary;
 
 public class LOMSimpleDataWriter {
 

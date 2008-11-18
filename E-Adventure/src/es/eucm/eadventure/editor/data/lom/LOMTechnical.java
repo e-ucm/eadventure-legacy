@@ -1,4 +1,4 @@
-package es.eucm.eadventure.editor.data.lomdata;
+package es.eucm.eadventure.editor.data.lom;
 
 
 import es.eucm.eadventure.editor.control.controllers.lom.LOMTextDataControl;

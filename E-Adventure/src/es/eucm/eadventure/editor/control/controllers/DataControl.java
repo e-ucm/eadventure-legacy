@@ -3,7 +3,7 @@ package es.eucm.eadventure.editor.control.controllers;
 import java.util.List;
 
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.data.supportdata.FlagSummary;
+import es.eucm.eadventure.editor.data.support.FlagSummary;
 
 /**
  * This abstract class checks the operations that can be performed onto the data elements of the script. Each class must

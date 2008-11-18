@@ -10,8 +10,8 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import es.eucm.eadventure.editor.data.adventuredata.AdventureDataControl;
-import es.eucm.eadventure.editor.data.adventuredata.DescriptorData;
+import es.eucm.eadventure.common.data.adventure.DescriptorData;
+import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
 
 /**
  * This class is the handler to parse the e-Adventure descriptor file.

@@ -23,7 +23,7 @@ import es.eucm.eadventure.common.data.chapter.effects.TriggerLastSceneEffect;
 import es.eucm.eadventure.common.data.chapter.effects.TriggerSceneEffect;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.auxiliar.categoryfilters.AnimationFileFilter;
-import es.eucm.eadventure.editor.data.supportdata.FlagSummary;
+import es.eucm.eadventure.editor.data.support.FlagSummary;
 import es.eucm.eadventure.editor.gui.TextConstants;
 import es.eucm.eadventure.editor.gui.assetchooser.AssetChooser;
 import es.eucm.eadventure.editor.gui.editdialogs.effectdialogs.EffectDialog;

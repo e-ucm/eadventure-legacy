@@ -3,7 +3,7 @@ package es.eucm.eadventure.editor.control.controllers;
 import es.eucm.eadventure.common.data.chapter.conditions.Condition;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.data.supportdata.FlagSummary;
+import es.eucm.eadventure.editor.data.support.FlagSummary;
 
 /**
  * Controller for the conditions. This class operates on the conditions blocks to add new single conditions, and either

@@ -8,36 +8,7 @@ import es.eucm.eadventure.common.data.chapter.Chapter;
 /**
  * Stores the description of the eAdventure file
  */
-public class AdventureData {
-    
-    /**
-     * Constant for traditional GUI
-     */
-    public static final int GUI_TRADITIONAL = 0;
-    
-    /**
-     * Constant for contextual GUI
-     */
-    public static final int GUI_CONTEXTUAL = 1;
-
-    public static final int MODE_PLAYER_1STPERSON = 1;
-
-    public static final int MODE_PLAYER_3RDPERSON = 0;
-    
-    /**
-     * Stores the title of the adventure
-     */
-    private String title;
-    
-    /**
-     * Stores the description of the adventure
-     */
-    private String description;
-    
-    /**
-     * Stores the type of the GUI
-     */
-    private int guiType;
+public class AdventureData extends DescriptorData{
     
     /**
      * Stores if the GUI's graphics are customized
@@ -49,10 +20,11 @@ public class AdventureData {
      */
     private List<Chapter> chapters;
     
+    /**
+     * List of custom cursors
+     */
     private List<CustomCursor> cursors;
 
-    private int playerMode;
-    
     /**
      * This flag tells if the adventure should show automatic commentaries.
      */
@@ -66,45 +38,6 @@ public class AdventureData {
         cursors = new ArrayList<CustomCursor>();
     }
     
-    /**
-     * Returns the title of the adventure
-     * @return Adventure's title
-     */
-    public String getTitle( ) {
-        return title;
-    }
-
-    /**
-     * Sets the title of the adventure
-     * @param title New title for the adventure
-     */
-    public void setTitle( String title ) {
-        this.title = title;
-    }
-    
-    /**
-     * Returns the description of the adventure
-     * @return Adventure's description
-     */
-    public String getDescription( ) {
-        return description;
-    }
-
-    /**
-     * Sets the description of the adventure
-     * @param description New description for the adventure
-     */
-    public void setDescription( String description ) {
-        this.description = description;
-    }
-    
-    /**
-     * Returns the type of the GUI
-     * @return Type of the GUI
-     */
-    public int getGUIType( ) {
-        return guiType;
-    }
     
     /**
      * Returns whether the GUI is customized
@@ -140,17 +73,6 @@ public class AdventureData {
         chapters.add( chapter );
     }
 
-    public void setPlayerMode( int playerMode ) {
-        this.playerMode=playerMode;
-    }
-
-    /**
-     * @return the playerMode
-     */
-    public int getPlayerMode( ) {
-        return playerMode;
-    }
-    
     public void addCursor(CustomCursor cursor){
         cursors.add( cursor );
         this.guiCustomized=true;
