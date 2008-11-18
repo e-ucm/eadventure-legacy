@@ -10,8 +10,8 @@ import java.util.ArrayList;
 
 import javax.swing.JEditorPane;
 
-import es.eucm.eadventure.common.data.chapterdata.book.Book;
-import es.eucm.eadventure.common.data.chapterdata.book.BookParagraph;
+import es.eucm.eadventure.common.data.chapter.book.Book;
+import es.eucm.eadventure.common.data.chapter.book.BookParagraph;
 import es.eucm.eadventure.engine.core.gui.GUI;
 
 public class FunctionalTextBook extends FunctionalBook{

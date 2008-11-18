@@ -2,7 +2,7 @@ package es.eucm.eadventure.editor.control.config;
 
 import java.awt.Point;
 
-import es.eucm.eadventure.common.data.chapterdata.conversation.GraphConversation;
+import es.eucm.eadventure.common.data.chapter.conversation.GraphConversation;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ChapterDataControl;

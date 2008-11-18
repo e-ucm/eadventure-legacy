@@ -8,23 +8,23 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import es.eucm.eadventure.common.data.chapterdata.effects.ActivateEffect;
-import es.eucm.eadventure.common.data.chapterdata.effects.ConsumeObjectEffect;
-import es.eucm.eadventure.common.data.chapterdata.effects.DeactivateEffect;
-import es.eucm.eadventure.common.data.chapterdata.effects.Effect;
-import es.eucm.eadventure.common.data.chapterdata.effects.Effects;
-import es.eucm.eadventure.common.data.chapterdata.effects.GenerateObjectEffect;
-import es.eucm.eadventure.common.data.chapterdata.effects.MoveNPCEffect;
-import es.eucm.eadventure.common.data.chapterdata.effects.MovePlayerEffect;
-import es.eucm.eadventure.common.data.chapterdata.effects.PlayAnimationEffect;
-import es.eucm.eadventure.common.data.chapterdata.effects.PlaySoundEffect;
-import es.eucm.eadventure.common.data.chapterdata.effects.RandomEffect;
-import es.eucm.eadventure.common.data.chapterdata.effects.SpeakCharEffect;
-import es.eucm.eadventure.common.data.chapterdata.effects.SpeakPlayerEffect;
-import es.eucm.eadventure.common.data.chapterdata.effects.TriggerBookEffect;
-import es.eucm.eadventure.common.data.chapterdata.effects.TriggerConversationEffect;
-import es.eucm.eadventure.common.data.chapterdata.effects.TriggerCutsceneEffect;
-import es.eucm.eadventure.common.data.chapterdata.effects.TriggerSceneEffect;
+import es.eucm.eadventure.common.data.chapter.effects.ActivateEffect;
+import es.eucm.eadventure.common.data.chapter.effects.ConsumeObjectEffect;
+import es.eucm.eadventure.common.data.chapter.effects.DeactivateEffect;
+import es.eucm.eadventure.common.data.chapter.effects.Effect;
+import es.eucm.eadventure.common.data.chapter.effects.Effects;
+import es.eucm.eadventure.common.data.chapter.effects.GenerateObjectEffect;
+import es.eucm.eadventure.common.data.chapter.effects.MoveNPCEffect;
+import es.eucm.eadventure.common.data.chapter.effects.MovePlayerEffect;
+import es.eucm.eadventure.common.data.chapter.effects.PlayAnimationEffect;
+import es.eucm.eadventure.common.data.chapter.effects.PlaySoundEffect;
+import es.eucm.eadventure.common.data.chapter.effects.RandomEffect;
+import es.eucm.eadventure.common.data.chapter.effects.SpeakCharEffect;
+import es.eucm.eadventure.common.data.chapter.effects.SpeakPlayerEffect;
+import es.eucm.eadventure.common.data.chapter.effects.TriggerBookEffect;
+import es.eucm.eadventure.common.data.chapter.effects.TriggerConversationEffect;
+import es.eucm.eadventure.common.data.chapter.effects.TriggerCutsceneEffect;
+import es.eucm.eadventure.common.data.chapter.effects.TriggerSceneEffect;
 
 public class EffectsDOMWriter {
 

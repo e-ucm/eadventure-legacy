@@ -2,7 +2,7 @@ package es.eucm.eadventure.editor.control.loader.subparsers;
 
 import org.xml.sax.Attributes;
 
-import es.eucm.eadventure.common.data.chapterdata.Chapter;
+import es.eucm.eadventure.common.data.chapter.Chapter;
 
 /**
  * Abstract class for subparsing elements of the script

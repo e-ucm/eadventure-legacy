@@ -7,7 +7,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.eucm.eadventure.common.data.chapterdata.conversation.node.ConversationNodeView;
+import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
 import es.eucm.eadventure.editor.control.controllers.conversation.TreeConversationDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.conversation.representation.graphicnode.DialogueGraphicNode;
 import es.eucm.eadventure.editor.gui.elementpanels.conversation.representation.graphicnode.GoBackGraphicNode;

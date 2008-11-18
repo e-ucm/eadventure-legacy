@@ -2,7 +2,7 @@ package es.eucm.eadventure.editor.data.assessment;
 
 import java.util.List;
 
-import es.eucm.eadventure.common.data.chapterdata.conditions.*;
+import es.eucm.eadventure.common.data.chapter.conditions.*;
 
 /**
  * Rule for the assesment engine

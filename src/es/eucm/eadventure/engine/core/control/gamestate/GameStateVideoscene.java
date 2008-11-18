@@ -20,13 +20,13 @@ import javax.media.StopEvent;
 import de.schlichtherle.io.FileOutputStream;
 import de.schlichtherle.io.FileWriter;
 
-import es.eucm.eadventure.common.data.chapterdata.resources.Asset;
+import es.eucm.eadventure.common.data.chapter.NextScene;
+import es.eucm.eadventure.common.data.chapter.elements.NPC;
+import es.eucm.eadventure.common.data.chapter.resources.Asset;
+import es.eucm.eadventure.common.data.chapter.resources.Resources;
+import es.eucm.eadventure.common.data.chapter.scenes.Videoscene;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
-import es.eucm.eadventure.common.data.chapterdata.NextScene;
-import es.eucm.eadventure.common.data.chapterdata.elements.NPC;
-import es.eucm.eadventure.common.data.chapterdata.resources.Resources;
-import es.eucm.eadventure.common.data.chapterdata.scenes.Videoscene;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 

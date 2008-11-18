@@ -1,8 +1,8 @@
 package es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects;
 
-import es.eucm.eadventure.common.data.chapterdata.effects.TriggerCutsceneEffect;
+import es.eucm.eadventure.common.data.chapter.NextScene;
+import es.eucm.eadventure.common.data.chapter.effects.TriggerCutsceneEffect;
 import es.eucm.eadventure.engine.core.control.Game;
-import es.eucm.eadventure.common.data.chapterdata.NextScene;
 
 /**
  * An effect that triggers a cutscene

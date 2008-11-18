@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 import es.eucm.eadventure.engine.core.control.FlagSummary;
 import es.eucm.eadventure.engine.core.control.ItemSummary;
-import es.eucm.eadventure.common.data.chapterdata.elements.Item;
+import es.eucm.eadventure.common.data.chapter.elements.Item;
 
 /**
  * This class manages the saved games in eAdventure

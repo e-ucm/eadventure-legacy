@@ -12,8 +12,8 @@ import java.util.List;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
-import es.eucm.eadventure.common.data.chapterdata.book.Book;
-import es.eucm.eadventure.common.data.chapterdata.book.BookPage;
+import es.eucm.eadventure.common.data.chapter.book.Book;
+import es.eucm.eadventure.common.data.chapter.book.BookPage;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.book.BookDataControl;
 import es.eucm.eadventure.editor.gui.otherpanels.BookPagePreviewPanel;

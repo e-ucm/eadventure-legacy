@@ -2,8 +2,8 @@ package es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects;
 
 import java.util.Random;
 
-import es.eucm.eadventure.common.data.chapterdata.effects.Effect;
-import es.eucm.eadventure.common.data.chapterdata.effects.RandomEffect;
+import es.eucm.eadventure.common.data.chapter.effects.Effect;
+import es.eucm.eadventure.common.data.chapter.effects.RandomEffect;
 
 /**
  * Functional class for RandomEffect

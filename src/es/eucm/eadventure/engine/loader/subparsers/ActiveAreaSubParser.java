@@ -2,12 +2,12 @@ package es.eucm.eadventure.engine.loader.subparsers;
 
 import org.xml.sax.Attributes;
 
-import es.eucm.eadventure.common.data.chapterdata.Action;
-import es.eucm.eadventure.common.data.chapterdata.Chapter;
-import es.eucm.eadventure.common.data.chapterdata.conditions.Conditions;
-import es.eucm.eadventure.common.data.chapterdata.effects.Effects;
-import es.eucm.eadventure.common.data.chapterdata.elements.ActiveArea;
-import es.eucm.eadventure.common.data.chapterdata.scenes.Scene;
+import es.eucm.eadventure.common.data.chapter.Action;
+import es.eucm.eadventure.common.data.chapter.Chapter;
+import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
+import es.eucm.eadventure.common.data.chapter.effects.Effects;
+import es.eucm.eadventure.common.data.chapter.elements.ActiveArea;
+import es.eucm.eadventure.common.data.chapter.scenes.Scene;
 
 
 /**

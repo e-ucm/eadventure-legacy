@@ -11,9 +11,9 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import es.eucm.eadventure.editor.data.adaptation.AdaptationRule;
-import es.eucm.eadventure.editor.data.adaptation.AdaptedState;
-import es.eucm.eadventure.editor.data.adaptation.UOLProperty;
+import es.eucm.eadventure.common.data.adaptation.AdaptationRule;
+import es.eucm.eadventure.common.data.adaptation.AdaptedState;
+import es.eucm.eadventure.common.data.adaptation.UOLProperty;
 
 /**
  * This handler reads the initial values for the adaptation engine

@@ -6,7 +6,7 @@ import java.util.List;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 import es.eucm.eadventure.engine.core.gui.TextConstantsEngine;
 
-import es.eucm.eadventure.common.data.chapterdata.conditions.Conditions;
+import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 
 /**
  * Rule for the assesment engine

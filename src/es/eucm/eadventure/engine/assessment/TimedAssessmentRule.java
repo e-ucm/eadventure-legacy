@@ -3,7 +3,7 @@ package es.eucm.eadventure.engine.assessment;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.eucm.eadventure.common.data.chapterdata.conditions.Conditions;
+import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 
 
 /**

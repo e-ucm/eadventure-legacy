@@ -1,6 +1,6 @@
 package es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects;
 
-import es.eucm.eadventure.common.data.chapterdata.effects.TriggerBookEffect;
+import es.eucm.eadventure.common.data.chapter.effects.TriggerBookEffect;
 import es.eucm.eadventure.engine.core.control.Game;
 
 /**

@@ -2,8 +2,8 @@ package es.eucm.eadventure.editor.control.controllers.timer;
 
 import java.util.List;
 
-import es.eucm.eadventure.common.data.chapterdata.NextScene;
-import es.eucm.eadventure.common.data.chapterdata.Timer;
+import es.eucm.eadventure.common.data.chapter.NextScene;
+import es.eucm.eadventure.common.data.chapter.Timer;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;

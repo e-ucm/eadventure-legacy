@@ -14,7 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
-import es.eucm.eadventure.common.data.chapterdata.effects.Effect;
+import es.eucm.eadventure.common.data.chapter.effects.Effect;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.control.controllers.SingleEffectController;

@@ -8,7 +8,7 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 
-import es.eucm.eadventure.common.data.adventuredata.AdventureData;
+import es.eucm.eadventure.common.data.adventure.AdventureData;
 import es.eucm.eadventure.engine.core.control.ActionManager;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;

@@ -4,14 +4,14 @@ import java.util.Vector;
 
 import org.xml.sax.Attributes;
 
-import es.eucm.eadventure.common.data.chapterdata.effects.Effects;
-import es.eucm.eadventure.common.data.chapterdata.Chapter;
-import es.eucm.eadventure.common.data.chapterdata.conversation.Conversation;
-import es.eucm.eadventure.common.data.chapterdata.conversation.GraphConversation;
-import es.eucm.eadventure.common.data.chapterdata.conversation.line.ConversationLine;
-import es.eucm.eadventure.common.data.chapterdata.conversation.node.DialogueConversationNode;
-import es.eucm.eadventure.common.data.chapterdata.conversation.node.ConversationNode;
-import es.eucm.eadventure.common.data.chapterdata.conversation.node.OptionConversationNode;
+import es.eucm.eadventure.common.data.chapter.Chapter;
+import es.eucm.eadventure.common.data.chapter.conversation.Conversation;
+import es.eucm.eadventure.common.data.chapter.conversation.GraphConversation;
+import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine;
+import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
+import es.eucm.eadventure.common.data.chapter.conversation.node.DialogueConversationNode;
+import es.eucm.eadventure.common.data.chapter.conversation.node.OptionConversationNode;
+import es.eucm.eadventure.common.data.chapter.effects.Effects;
 
 /**
  * Class to subparse graph conversations

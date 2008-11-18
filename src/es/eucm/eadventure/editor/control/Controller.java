@@ -15,8 +15,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 
-import es.eucm.eadventure.common.data.chapterdata.Chapter;
-import es.eucm.eadventure.common.data.chapterdata.elements.Player;
+import es.eucm.eadventure.common.data.chapter.Chapter;
+import es.eucm.eadventure.common.data.chapter.elements.Player;
 import es.eucm.eadventure.editor.control.auxiliar.File;
 import es.eucm.eadventure.editor.control.auxiliar.filefilters.EADFileFilter;
 import es.eucm.eadventure.editor.control.auxiliar.filefilters.FolderFileFilter;

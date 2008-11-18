@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-import es.eucm.eadventure.common.data.chapterdata.scenes.Scene;
+import es.eucm.eadventure.common.data.chapter.scenes.Scene;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.auxiliar.File;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;

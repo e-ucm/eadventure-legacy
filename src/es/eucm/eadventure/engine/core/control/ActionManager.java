@@ -6,11 +6,11 @@ import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
 
-import es.eucm.eadventure.common.data.chapterdata.Exit;
-import es.eucm.eadventure.common.data.chapterdata.NextScene;
+import es.eucm.eadventure.common.data.chapter.Exit;
+import es.eucm.eadventure.common.data.chapter.NextScene;
+import es.eucm.eadventure.common.data.chapter.scenes.GeneralScene;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
-import es.eucm.eadventure.common.data.chapterdata.scenes.GeneralScene;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 

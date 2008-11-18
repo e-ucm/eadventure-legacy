@@ -1,6 +1,6 @@
 package es.eucm.eadventure.engine.core.control.functionaldata;
 
-import es.eucm.eadventure.common.data.chapterdata.elements.Barrier;
+import es.eucm.eadventure.common.data.chapter.elements.Barrier;
 
 public class FunctionalBarrier{
     private Barrier barrier;

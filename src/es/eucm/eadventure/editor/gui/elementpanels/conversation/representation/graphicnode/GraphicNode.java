@@ -6,7 +6,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.eucm.eadventure.common.data.chapterdata.conversation.node.ConversationNodeView;
+import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
 
 /**
  * This class is the graphic representation of a given conversational node. Basically, it holds a link to the node, its

@@ -2,7 +2,7 @@ package es.eucm.eadventure.engine.core.control;
 
 import java.util.HashMap;
 
-import es.eucm.eadventure.common.data.chapterdata.conditions.Conditions;
+import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 
 public class TimerManager {

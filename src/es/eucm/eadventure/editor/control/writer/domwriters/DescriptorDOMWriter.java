@@ -8,7 +8,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import es.eucm.eadventure.common.data.chapterdata.Chapter;
+import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.editor.data.adventuredata.AdventureDataControl;
 import es.eucm.eadventure.editor.data.adventuredata.CustomCursor;
 

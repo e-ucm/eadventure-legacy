@@ -3,8 +3,8 @@ package es.eucm.eadventure.engine.core.control.animations.pc;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
 import es.eucm.eadventure.engine.core.data.GameText;
-import es.eucm.eadventure.common.data.chapterdata.elements.Player;
-import es.eucm.eadventure.common.data.chapterdata.resources.Resources;
+import es.eucm.eadventure.common.data.chapter.elements.Player;
+import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 
 /**

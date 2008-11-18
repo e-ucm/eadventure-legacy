@@ -7,10 +7,10 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
-import es.eucm.eadventure.common.data.chapterdata.Action;
-import es.eucm.eadventure.common.data.chapterdata.elements.ActiveArea;
-import es.eucm.eadventure.common.data.chapterdata.elements.Item;
-import es.eucm.eadventure.common.data.chapterdata.resources.Resources;
+import es.eucm.eadventure.common.data.chapter.Action;
+import es.eucm.eadventure.common.data.chapter.elements.ActiveArea;
+import es.eucm.eadventure.common.data.chapter.elements.Item;
+import es.eucm.eadventure.common.data.chapter.resources.Resources;
 
 public class FunctionalActiveArea extends FunctionalItem{
 

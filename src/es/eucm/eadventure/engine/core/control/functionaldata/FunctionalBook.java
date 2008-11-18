@@ -4,7 +4,7 @@ import java.awt.Image;
 
 import javax.swing.JDialog;
 
-import es.eucm.eadventure.common.data.chapterdata.book.Book;
+import es.eucm.eadventure.common.data.chapter.book.Book;
 
 /**
  * This class manages the eGame "bookscenes".

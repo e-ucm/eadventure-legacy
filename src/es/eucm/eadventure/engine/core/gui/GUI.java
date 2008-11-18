@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 
-import es.eucm.eadventure.common.data.adventuredata.AdventureData;
+import es.eucm.eadventure.common.data.adventure.AdventureData;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.gui.hud.HUD;
 import es.eucm.eadventure.engine.core.gui.hud.contextualhud.ContextualHUD;

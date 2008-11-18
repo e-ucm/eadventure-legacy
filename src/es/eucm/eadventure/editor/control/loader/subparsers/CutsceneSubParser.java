@@ -2,14 +2,14 @@ package es.eucm.eadventure.editor.control.loader.subparsers;
 
 import org.xml.sax.Attributes;
 
-import es.eucm.eadventure.common.data.chapterdata.Chapter;
-import es.eucm.eadventure.common.data.chapterdata.NextScene;
-import es.eucm.eadventure.common.data.chapterdata.conditions.Conditions;
-import es.eucm.eadventure.common.data.chapterdata.effects.Effects;
-import es.eucm.eadventure.common.data.chapterdata.resources.Resources;
-import es.eucm.eadventure.common.data.chapterdata.scenes.Cutscene;
-import es.eucm.eadventure.common.data.chapterdata.scenes.Slidescene;
-import es.eucm.eadventure.common.data.chapterdata.scenes.Videoscene;
+import es.eucm.eadventure.common.data.chapter.Chapter;
+import es.eucm.eadventure.common.data.chapter.NextScene;
+import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
+import es.eucm.eadventure.common.data.chapter.effects.Effects;
+import es.eucm.eadventure.common.data.chapter.resources.Resources;
+import es.eucm.eadventure.common.data.chapter.scenes.Cutscene;
+import es.eucm.eadventure.common.data.chapter.scenes.Slidescene;
+import es.eucm.eadventure.common.data.chapter.scenes.Videoscene;
 
 /**
  * Class to subparse slidescenes

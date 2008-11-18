@@ -8,15 +8,15 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import es.eucm.eadventure.common.data.chapterdata.Action;
-import es.eucm.eadventure.common.data.chapterdata.ElementReference;
-import es.eucm.eadventure.common.data.chapterdata.Exit;
-import es.eucm.eadventure.common.data.chapterdata.ExitLook;
-import es.eucm.eadventure.common.data.chapterdata.NextScene;
-import es.eucm.eadventure.common.data.chapterdata.elements.ActiveArea;
-import es.eucm.eadventure.common.data.chapterdata.elements.Barrier;
-import es.eucm.eadventure.common.data.chapterdata.resources.Resources;
-import es.eucm.eadventure.common.data.chapterdata.scenes.Scene;
+import es.eucm.eadventure.common.data.chapter.Action;
+import es.eucm.eadventure.common.data.chapter.ElementReference;
+import es.eucm.eadventure.common.data.chapter.Exit;
+import es.eucm.eadventure.common.data.chapter.ExitLook;
+import es.eucm.eadventure.common.data.chapter.NextScene;
+import es.eucm.eadventure.common.data.chapter.elements.ActiveArea;
+import es.eucm.eadventure.common.data.chapter.elements.Barrier;
+import es.eucm.eadventure.common.data.chapter.resources.Resources;
+import es.eucm.eadventure.common.data.chapter.scenes.Scene;
 
 public class SceneDOMWriter {
 

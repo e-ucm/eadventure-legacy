@@ -3,13 +3,13 @@ package es.eucm.eadventure.editor.data.supportdata;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.eucm.eadventure.common.data.chapterdata.Chapter;
-import es.eucm.eadventure.common.data.chapterdata.book.Book;
-import es.eucm.eadventure.common.data.chapterdata.conversation.Conversation;
-import es.eucm.eadventure.common.data.chapterdata.elements.Item;
-import es.eucm.eadventure.common.data.chapterdata.elements.NPC;
-import es.eucm.eadventure.common.data.chapterdata.scenes.Cutscene;
-import es.eucm.eadventure.common.data.chapterdata.scenes.Scene;
+import es.eucm.eadventure.common.data.chapter.Chapter;
+import es.eucm.eadventure.common.data.chapter.book.Book;
+import es.eucm.eadventure.common.data.chapter.conversation.Conversation;
+import es.eucm.eadventure.common.data.chapter.elements.Item;
+import es.eucm.eadventure.common.data.chapter.elements.NPC;
+import es.eucm.eadventure.common.data.chapter.scenes.Cutscene;
+import es.eucm.eadventure.common.data.chapter.scenes.Scene;
 
 /**
  * This class holds the summary of all the identifiers present on the script.

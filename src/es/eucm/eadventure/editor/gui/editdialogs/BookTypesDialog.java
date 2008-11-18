@@ -21,7 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextPane;
 
-import es.eucm.eadventure.common.data.chapterdata.book.Book;
+import es.eucm.eadventure.common.data.chapter.book.Book;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.gui.TextConstants;
 

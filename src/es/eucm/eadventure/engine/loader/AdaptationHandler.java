@@ -10,8 +10,8 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import es.eucm.eadventure.engine.adaptation.AdaptationRule;
-import es.eucm.eadventure.engine.adaptation.AdaptedState;
+import es.eucm.eadventure.common.data.adaptation.AdaptationRule;
+import es.eucm.eadventure.common.data.adaptation.AdaptedState;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 
 /**
@@ -125,7 +125,7 @@ public class AdaptationHandler extends DefaultHandler {
                     value = attrs.getValue( i ); 
                 }
             }
-            rule_temp.addProperty( id, value );
+            rule_temp.addUOLProperty( id, value );
         }
             
     }
