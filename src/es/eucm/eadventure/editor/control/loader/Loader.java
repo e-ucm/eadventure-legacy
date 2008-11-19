@@ -12,7 +12,7 @@ import org.xml.sax.SAXException;
 import java.io.FileInputStream;
 import java.util.List;
 
-import es.eucm.eadventure.common.data.adventure.AdventureData;
+import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.loader.incidences.Incidence;
 import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
@@ -76,8 +76,8 @@ public class Loader {
 		return adventureData;
 	}
 
-	public static AdventureData loadDescriptorData( String zipFile ) {
-		AdventureData adventureData = null;
+	public static DescriptorData loadDescriptorData( String zipFile ) {
+		DescriptorData adventureData = null;
 
 		try {
 			// Set the adventure handler

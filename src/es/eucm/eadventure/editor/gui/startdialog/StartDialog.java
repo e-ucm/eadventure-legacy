@@ -43,7 +43,7 @@ import java.io.File;
 
 import javax.swing.JFileChooser;
 
-import es.eucm.eadventure.common.data.adventure.AdventureData;
+import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.auxiliar.filefilters.EADAndFolderFileFilter;
 import es.eucm.eadventure.editor.control.config.ConfigData;
@@ -562,12 +562,12 @@ public class StartDialog extends JFileChooser {
 				panelIcon.setLayout( new BorderLayout( ) );
 				try {
 					String path = (String) value;
-					AdventureData d = Loader.loadDescriptorData( path );
+					DescriptorData d = Loader.loadDescriptorData( path );
 
-					if( d.getPlayerMode( ) == AdventureData.MODE_PLAYER_3RDPERSON ) {
+					if( d.getPlayerMode( ) == DescriptorData.MODE_PLAYER_3RDPERSON ) {
 						return new JLabel( new ImageIcon( "img/TransparentAdventure32.png" ) );
 						//return panelIcon;
-					} else if( d.getPlayerMode( ) == AdventureData.MODE_PLAYER_1STPERSON ) {
+					} else if( d.getPlayerMode( ) == DescriptorData.MODE_PLAYER_1STPERSON ) {
 						return new JLabel( new ImageIcon( "img/NormalAdventure32.png" ) );
 						//return panelIcon;
 					} else {

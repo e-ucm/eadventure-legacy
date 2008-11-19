@@ -23,7 +23,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
-import es.eucm.eadventure.common.data.adventure.AdventureData;
+import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.data.chapter.NextScene;
 import es.eucm.eadventure.common.data.chapter.Timer;
@@ -132,7 +132,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     /**
      * Descriptor info of the adventure
      */
-    private AdventureData gameDescriptor;
+    private DescriptorData gameDescriptor;
 
     /**
      * Game data of the adventure
@@ -401,7 +401,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         
         // Create the functional player
         functionalPlayer = new FunctionalPlayer( gameData.getPlayer( ) );
-        functionalPlayer.setTransparent( gameDescriptor.getPlayerMode( )==AdventureData.MODE_PLAYER_1STPERSON );
+        functionalPlayer.setTransparent( gameDescriptor.getPlayerMode( )==DescriptorData.MODE_PLAYER_1STPERSON );
 
         // Add timers to the TimerManager
         this.gameTimers = new HashMap<Integer, Timer>();
@@ -607,7 +607,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      * Returns the game descriptor
      * @return Game descriptor
      */
-    public AdventureData getGameDescriptor( ) {
+    public DescriptorData getGameDescriptor( ) {
         return gameDescriptor;
     }
 

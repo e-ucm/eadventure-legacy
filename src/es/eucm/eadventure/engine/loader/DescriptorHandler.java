@@ -8,7 +8,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import es.eucm.eadventure.common.data.adventure.AdventureData;
+import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.engine.core.data.GameText;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
@@ -37,7 +37,7 @@ public class DescriptorHandler extends DefaultHandler {
     /**
      * Stores the game descriptor being read
      */
-    private AdventureData gameDescriptor;
+    private DescriptorData gameDescriptor;
     
     /**
      * Stores the element which is being read
@@ -54,14 +54,14 @@ public class DescriptorHandler extends DefaultHandler {
      */
     public DescriptorHandler( ) {
         currentString = new StringBuffer( );
-        gameDescriptor = new AdventureData( );
+        gameDescriptor = new DescriptorData( );
     }
     
     /**
      * Returns the game descriptor read
      * @return Game descriptor
      */
-    public AdventureData getGameDescriptor( ) {
+    public DescriptorData getGameDescriptor( ) {
         return gameDescriptor;
     }
     
@@ -74,16 +74,16 @@ public class DescriptorHandler extends DefaultHandler {
         
         // If the element is the GUI configuration, store the values
         if( qName.equals( "gui" ) ) {
-            int guiType = AdventureData.GUI_TRADITIONAL;
+            int guiType = DescriptorData.GUI_TRADITIONAL;
             boolean guiCustomized = false;
             
             for( int i = 0; i < attrs.getLength( ); i++ ) {
                 // Type of the GUI
                 if( attrs.getQName( i ).equals( "type" ) ) {
                     if( attrs.getValue( i ).equals( "traditional" ) )
-                        guiType = AdventureData.GUI_TRADITIONAL;
+                        guiType = DescriptorData.GUI_TRADITIONAL;
                     else if( attrs.getValue( i ).equals( "contextual" ) )
-                        guiType = AdventureData.GUI_CONTEXTUAL;
+                        guiType = DescriptorData.GUI_CONTEXTUAL;
                 }
                 
                 // Customized GUI
@@ -119,10 +119,10 @@ public class DescriptorHandler extends DefaultHandler {
             for( int i = 0; i < attrs.getLength( ); i++ ) {
                 if (attrs.getQName( i ).equals( "playerTransparent" )){
                     if (attrs.getValue( i ).equals( "yes" )){
-                        gameDescriptor.setPlayerMode(AdventureData.MODE_PLAYER_1STPERSON);
+                        gameDescriptor.setPlayerMode(DescriptorData.MODE_PLAYER_1STPERSON);
                     }
                     else if(attrs.getValue( i ).equals( "no" )){
-                        gameDescriptor.setPlayerMode(AdventureData.MODE_PLAYER_3RDPERSON);
+                        gameDescriptor.setPlayerMode(DescriptorData.MODE_PLAYER_3RDPERSON);
                     }
                 }
             }
