@@ -73,9 +73,9 @@ public class DescriptorHandler extends DefaultHandler {
 			for( int i = 0; i < attrs.getLength( ); i++ )
 				if( attrs.getQName( i ).equals( "type" ) )
 					if( attrs.getValue( i ).equals( "traditional" ) )
-						descriptorData.setGUIType( AdventureDataControl.GUI_TRADITIONAL );
+						descriptorData.setGUIType( DescriptorData.GUI_TRADITIONAL );
 					else if( attrs.getValue( i ).equals( "contextual" ) )
-						descriptorData.setGUIType( AdventureDataControl.GUI_CONTEXTUAL );
+						descriptorData.setGUIType( DescriptorData.GUI_CONTEXTUAL );
 		}
 
 		// If reading the mode tag:
@@ -83,9 +83,9 @@ public class DescriptorHandler extends DefaultHandler {
 			for( int i = 0; i < attrs.getLength( ); i++ )
 				if( attrs.getQName( i ).equals( "playerTransparent" ) )
 					if( attrs.getValue( i ).equals( "yes" ) )
-						descriptorData.setPlayerMode( AdventureDataControl.PLAYER_1STPERSON );
+						descriptorData.setPlayerMode( DescriptorData.MODE_PLAYER_1STPERSON );
 					else if( attrs.getValue( i ).equals( "no" ) )
-						descriptorData.setPlayerMode( AdventureDataControl.PLAYER_3RDPERSON );
+						descriptorData.setPlayerMode( DescriptorData.MODE_PLAYER_3RDPERSON );
 		}
 
 	}

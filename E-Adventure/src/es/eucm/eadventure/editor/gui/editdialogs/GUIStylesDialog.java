@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextPane;
 
+import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
 import es.eucm.eadventure.editor.gui.TextConstants;
@@ -145,9 +146,9 @@ public class GUIStylesDialog extends JDialog {
 		ButtonGroup guiButtonGroup = new ButtonGroup( );
 		guiButtonGroup.add( traditionalRadioButton );
 		guiButtonGroup.add( contextualRadioButton );
-		if( optionSelected == AdventureDataControl.GUI_TRADITIONAL )
+		if( optionSelected == DescriptorData.GUI_TRADITIONAL )
 			traditionalRadioButton.setSelected( true );
-		else if( optionSelected == AdventureDataControl.GUI_CONTEXTUAL )
+		else if( optionSelected == DescriptorData.GUI_CONTEXTUAL )
 			contextualRadioButton.setSelected( true );
 
 		// If the dialog is being closed, disable the selection option
@@ -196,9 +197,9 @@ public class GUIStylesDialog extends JDialog {
 		 */
 		public void actionPerformed( ActionEvent e ) {
 			if( e.getSource( ).equals( traditionalRadioButton ) )
-				optionSelected = AdventureDataControl.GUI_TRADITIONAL;
+				optionSelected = DescriptorData.GUI_TRADITIONAL;
 			else if( e.getSource( ).equals( contextualRadioButton ) )
-				optionSelected = AdventureDataControl.GUI_CONTEXTUAL;
+				optionSelected = DescriptorData.GUI_CONTEXTUAL;
 		}
 	}
 }

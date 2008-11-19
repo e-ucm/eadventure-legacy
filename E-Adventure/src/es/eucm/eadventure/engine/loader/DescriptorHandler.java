@@ -183,7 +183,7 @@ public class DescriptorHandler extends DefaultHandler {
         // Change the state if ends reading a chapter
         else if( qName.equals( "chapter" ) ) {
             // Add the new chapter and change the state
-            gameDescriptor.addChapter( currentChapter );
+            gameDescriptor.addChapterSummary( currentChapter );
             reading = READING_NONE;
         }
             

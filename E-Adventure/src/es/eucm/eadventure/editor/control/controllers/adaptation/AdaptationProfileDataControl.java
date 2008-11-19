@@ -1,46 +1,49 @@
 package es.eucm.eadventure.editor.control.controllers.adaptation;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 
+import es.eucm.eadventure.common.data.adaptation.AdaptationProfile;
 import es.eucm.eadventure.common.data.adaptation.AdaptationRule;
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
-import es.eucm.eadventure.common.data.assessment.AssessmentRule;
-import es.eucm.eadventure.common.data.chapter.scenes.Scene;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.auxiliar.File;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
 import es.eucm.eadventure.editor.data.support.FlagSummary;
 import es.eucm.eadventure.editor.gui.TextConstants;
 
 public class AdaptationProfileDataControl extends DataControl{
 
+	/**
+	 * Data control for each rule
+	 */
 	private List<AdaptationRuleDataControl> dataControls;
-	private List<AdaptationRule> adaptationRules;
-	private AdaptedState initialState;
-	private String path;
+
+	/**
+	 * The profile
+	 */
+	private AdaptationProfile profile;
 	
 	//TODO PANEL
 	
 	private int number;
 	public AdaptationProfileDataControl( List<AdaptationRule> adpRules, AdaptedState initialState, String path){
+		this (new AdaptationProfile (adpRules, initialState, path));
+	}
+	
+	public AdaptationProfileDataControl(AdaptationProfile profile) {
 		number = 0;
 		dataControls = new ArrayList<AdaptationRuleDataControl>();
-		this.adaptationRules = adpRules;
-		this.initialState = initialState;
+		this.profile = profile;
 		
-		for (AdaptationRule rule: adpRules){
+		for (AdaptationRule rule: profile.getRules()){
 			rule.setId(generateId());
 			dataControls.add( new AdaptationRuleDataControl(rule) );
 		}
-		
-		this.path = path;
 	}
-	
+
 	private String generateId(){
 		number++;
 		return "#"+number;
@@ -57,7 +60,7 @@ public class AdaptationProfileDataControl extends DataControl{
 			// Add thew new adp rule
 			AdaptationRule adpRule = new AdaptationRule ();
 			adpRule.setId( adpRuleId );
-			this.adaptationRules.add( adpRule );
+			profile.addRule( adpRule );
 			dataControls.add( new AdaptationRuleDataControl( adpRule ) );
 			controller.getIdentifierSummary( ).addAssessmentRuleId( adpRuleId );
 			controller.dataModified( );
@@ -120,7 +123,7 @@ public class AdaptationProfileDataControl extends DataControl{
 
 		// Ask for confirmation
 		if( controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { adpRuleId, references } ) ) ) {
-			if( this.adaptationRules.remove( dataControl.getContent( ) ) ) {
+			if( profile.getRules().remove( dataControl.getContent( ) ) ) {
 				dataControls.remove( dataControl );
 				controller.deleteIdentifierReferences( adpRuleId );
 				controller.getIdentifierSummary( ).deleteAdaptationRuleId( adpRuleId );
@@ -143,7 +146,7 @@ public class AdaptationProfileDataControl extends DataControl{
 
 	@Override
 	public Object getContent( ) {
-		return this.adaptationRules;
+		return profile;
 	}
 	
 	public List<AdaptationRuleDataControl> getAdaptationRules(){
@@ -158,10 +161,10 @@ public class AdaptationProfileDataControl extends DataControl{
 	@Override
 	public boolean moveElementDown( DataControl dataControl ) {
 		boolean elementMoved = false;
-		int elementIndex = adaptationRules.indexOf( dataControl.getContent( ) );
+		int elementIndex = profile.getRules().indexOf( dataControl.getContent( ) );
 
-		if( elementIndex < adaptationRules.size( ) - 1 ) {
-			adaptationRules.add( elementIndex + 1, adaptationRules.remove( elementIndex ) );
+		if( elementIndex < profile.getRules().size( ) - 1 ) {
+			profile.getRules().add( elementIndex + 1, profile.getRules().remove( elementIndex ) );
 			dataControls.add( elementIndex + 1, dataControls.remove( elementIndex ) );
 			controller.dataModified( );
 			elementMoved = true;
@@ -173,10 +176,10 @@ public class AdaptationProfileDataControl extends DataControl{
 	@Override
 	public boolean moveElementUp( DataControl dataControl ) {
 		boolean elementMoved = false;
-		int elementIndex = adaptationRules.indexOf( dataControl.getContent( ) );
+		int elementIndex = profile.getRules().indexOf( dataControl.getContent( ) );
 
 		if( elementIndex > 0 ) {
-			adaptationRules.add( elementIndex - 1, adaptationRules.remove( elementIndex ) );
+			profile.getRules().add( elementIndex - 1, profile.getRules().remove( elementIndex ) );
 			dataControls.add( elementIndex - 1, dataControls.remove( elementIndex ) );
 			controller.dataModified( );
 			elementMoved = true;
@@ -186,7 +189,7 @@ public class AdaptationProfileDataControl extends DataControl{
 	}
 
 	public String getFileName(){
-		return path.substring( Math.max( path.lastIndexOf( "/" ), path.lastIndexOf( "\\" ) )+1);
+		return profile.getPath().substring( Math.max( profile.getPath().lastIndexOf( "/" ), profile.getPath().lastIndexOf( "\\" ) )+1);
 	}
 	
 	@Override
@@ -198,7 +201,7 @@ public class AdaptationProfileDataControl extends DataControl{
 			
 			//Prompt for file name:
 			String fileName = controller.showInputDialog( TextConstants.getText( "Operation.RenameAdaptationFile.FileName" ), TextConstants.getText( "Operation.RenameAdaptationFile.FileName.Message" ), getFileName() );
-			if (fileName!=null && !fileName.equals( path.substring( path.lastIndexOf( "/" ) + 1 ) )){
+			if (fileName!=null && !fileName.equals( profile.getPath().substring( profile.getPath().lastIndexOf( "/" ) + 1 ) )){
 				if (fileName.contains( "/") || fileName.contains( "\\" )){
 					controller.showErrorDialog( TextConstants.getText( "Operation.RenameXMLFile.ErrorSlash" ), TextConstants.getText( "Operation.RenameXMLFile.ErrorSlash.Message" ) );
 					return false;
@@ -212,10 +215,10 @@ public class AdaptationProfileDataControl extends DataControl{
 				}
 				
 				//Checks if the file exists. In that case, ask to overwrite it
-						File assessmentFile = new File (Controller.getInstance( ).getProjectFolder( ), path );
+						File assessmentFile = new File (Controller.getInstance( ).getProjectFolder( ), profile.getPath() );
 						renamed = assessmentFile.renameTo( new File(Controller.getInstance( ).getProjectFolder( ), AssetsController.getCategoryFolder( AssetsController.CATEGORY_ADAPTATION ) +"/"+fileName) );
 						controller.dataModified( );
-						this.path = AssetsController.getCategoryFolder( AssetsController.CATEGORY_ADAPTATION ) +"/"+fileName;
+						this.profile.setPath( AssetsController.getCategoryFolder( AssetsController.CATEGORY_ADAPTATION ) +"/"+fileName );
 			}
 			
 		}
@@ -234,34 +237,34 @@ public class AdaptationProfileDataControl extends DataControl{
 			dataControl.updateFlagSummary( flagSummary );
 		
 		//Update the initial state
-		for (String flag: initialState.getFlags( )){
+		for (String flag: profile.getInitialState().getFlags( )){
 			flagSummary.addReference( flag );	
 		}
 		
 	}
 
 	/**
-	 * @return the initialState
+	 * @return the profile.getInitialState()
 	 */
 	public AdaptedState getInitialState( ) {
-		return initialState;
+		return profile.getInitialState();
 	}
 
 	/**
-	 * @param initialState the initialState to set
+	 * @param profile.getInitialState() the profile.getInitialState() to set
 	 */
 	public void setInitialState( AdaptedState initialState ) {
-		this.initialState = initialState;
+		this.profile.setInitialState( profile.getInitialState() );
 	}
 
 	public void setInitialScene( String initScene ) {
-		if (initialState==null)
-			initialState = new AdaptedState();
-		initialState.setInitialScene( initScene );
+		if (profile.getInitialState()==null)
+			profile.setInitialState( new AdaptedState() );
+		profile.getInitialState().setInitialScene( initScene );
 	}
 	
 	public String getInitialScene(  ) {
-		return initialState.getInitialScene( );
+		return profile.getInitialState().getInitialScene( );
 	}
 
 	public boolean addFlagAction( int selectedRow ) {
@@ -272,7 +275,7 @@ public class AdaptationProfileDataControl extends DataControl{
 		if (flags!=null && flags.length>0){
 
 			//	By default, the flag is activated. Default flag will be the first one
-			initialState.addActivatedFlag( flags[0] );
+			profile.getInitialState().addActivatedFlag( flags[0] );
 			added=true;
 		}
 		
@@ -286,74 +289,74 @@ public class AdaptationProfileDataControl extends DataControl{
 	}
 
 	public void deleteFlagAction( int selectedRow ) {
-		if (selectedRow >=0 && selectedRow <initialState.getFlags( ).size( )){
-			initialState.removeFlag( selectedRow );
+		if (selectedRow >=0 && selectedRow <profile.getInitialState().getFlags( ).size( )){
+			profile.getInitialState().removeFlag( selectedRow );
 			controller.updateFlagSummary( );
 		}
 	}
 
 	public int getFlagActionCount( ) {
-		return initialState.getFlags( ).size( );
+		return profile.getInitialState().getFlags( ).size( );
 	}
 
 	public void changeAction( int rowIndex ) {
-		if (rowIndex >=0 && rowIndex <initialState.getFlags( ).size( )){
-			initialState.changeAction( rowIndex );
+		if (rowIndex >=0 && rowIndex <profile.getInitialState().getFlags( ).size( )){
+			profile.getInitialState().changeAction( rowIndex );
 		}
 
 		
 	}
 
 	public void setFlag( int rowIndex, String flag ) {
-		if (rowIndex >=0 && rowIndex <initialState.getFlags(  ).size( )){
-			initialState.changeFlag( rowIndex, flag );
+		if (rowIndex >=0 && rowIndex <profile.getInitialState().getFlags(  ).size( )){
+			profile.getInitialState().changeFlag( rowIndex, flag );
 			controller.updateFlagSummary( );
 		}
 		
 	}
 
 	public String getFlag( int rowIndex ) {
-		return initialState.getFlag( rowIndex );
+		return profile.getInitialState().getFlag( rowIndex );
 	}
 
 	public String getAction( int rowIndex ) {
-		return initialState.getAction( rowIndex );
+		return profile.getInitialState().getAction( rowIndex );
 	}
 
 	public String[][] getAdaptationRulesInfo( ) {
-		String[][] info = new String[adaptationRules.size( )][4];
+		String[][] info = new String[profile.getRules().size( )][4];
 		
-		for (int i=0; i<adaptationRules.size( ); i++){
-			info[i][0]=adaptationRules.get( i ).getId( );
-			info[i][1]=String.valueOf( adaptationRules.get( i ).getUOLProperties( ).size( ));
-			if (adaptationRules.get( i ).getAdaptedState( ).getInitialScene( )==null)
+		for (int i=0; i<profile.getRules().size( ); i++){
+			info[i][0]=profile.getRules().get( i ).getId( );
+			info[i][1]=String.valueOf( profile.getRules().get( i ).getUOLProperties( ).size( ));
+			if (profile.getRules().get( i ).getAdaptedState( ).getInitialScene( )==null)
 				info[i][2]="<Not selected>";
 			else
-				info[i][2]=adaptationRules.get( i ).getAdaptedState( ).getInitialScene( );
-			info[i][3]=String.valueOf( adaptationRules.get( i ).getAdaptedState( ).getFlags( ).size( ));
+				info[i][2]=profile.getRules().get( i ).getAdaptedState( ).getInitialScene( );
+			info[i][3]=String.valueOf( profile.getRules().get( i ).getAdaptedState( ).getFlags( ).size( ));
 		}
 		return info;
 	}
 
 	public void setAction( int rowIndex, String string ) {
-		if (!initialState.getAction( rowIndex ).equals( string ))
-			initialState.changeAction( rowIndex );
+		if (!profile.getInitialState().getAction( rowIndex ).equals( string ))
+			profile.getInitialState().changeAction( rowIndex );
 		
 		
 	}
 
 	/**
-	 * @return the path
+	 * @return the profile.getPath()
 	 */
 	public String getPath( ) {
-		return path;
+		return profile.getPath();
 	}
 
 	/**
-	 * @param path the path to set
+	 * @param profile.getPath() the profile.getPath() to set
 	 */
-	public void setPath( String path ) {
-		this.path = path;
+	public void setPath( String path) {
+		this.profile.setPath( path );
 	}
 
 	@Override

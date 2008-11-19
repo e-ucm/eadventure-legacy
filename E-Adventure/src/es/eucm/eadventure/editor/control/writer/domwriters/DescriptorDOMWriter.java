@@ -11,6 +11,7 @@ import org.w3c.dom.Node;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
 import es.eucm.eadventure.common.data.adventure.CustomCursor;
+import es.eucm.eadventure.common.data.adventure.DescriptorData;
 
 public class DescriptorDOMWriter {
 
@@ -62,9 +63,9 @@ public class DescriptorDOMWriter {
 			Node configurationNode = doc.createElement( "configuration" );
 			//GUI Element
 			Element guiElement = doc.createElement( "gui" );
-			if( adventureData.getGUIType( ) == AdventureDataControl.GUI_TRADITIONAL )
+			if( adventureData.getGUIType( ) == DescriptorData.GUI_TRADITIONAL )
 				guiElement.setAttribute( "type", "traditional" );
-			else if( adventureData.getGUIType( ) == AdventureDataControl.GUI_CONTEXTUAL )
+			else if( adventureData.getGUIType( ) == DescriptorData.GUI_CONTEXTUAL )
 				guiElement.setAttribute( "type", "contextual" );
 			
 			if (adventureData.getCursors( ).size( )>0){
@@ -81,9 +82,9 @@ public class DescriptorDOMWriter {
 
 			//Player mode element
 			Element playerModeElement = doc.createElement( "mode" );
-			if( adventureData.getPlayerMode( ) == AdventureDataControl.PLAYER_1STPERSON )
+			if( adventureData.getPlayerMode( ) == DescriptorData.MODE_PLAYER_1STPERSON )
 				playerModeElement.setAttribute( "playerTransparent", "yes" );
-			else if( adventureData.getPlayerMode( ) == AdventureDataControl.PLAYER_3RDPERSON )
+			else if( adventureData.getPlayerMode( ) == DescriptorData.MODE_PLAYER_3RDPERSON )
 				playerModeElement.setAttribute( "playerTransparent", "no" );
 			configurationNode.appendChild( playerModeElement );
 
