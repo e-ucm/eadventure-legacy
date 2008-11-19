@@ -23,6 +23,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
+import es.eucm.eadventure.common.data.adventure.ChapterSummary;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.data.chapter.NextScene;
@@ -346,7 +347,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         System.gc( );
 
         // Extract the chapter
-        Chapter chapter = gameDescriptor.getChapters( ).get( currentChapter );
+        ChapterSummary chapter = gameDescriptor.getChapterSummaries( ).get( currentChapter );
         
         // Load the script data
         gameData = Loader.loadData( chapter.getName() );
@@ -504,7 +505,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
                 //If there is an assessment profile, show the "Save Report" dialog
                 //FIXME: Quick dirty fix
                 if(currentChapter>0) {
-                    if(gameDescriptor.getChapters().get(currentChapter-1).hasAssessmentProfile( )) {
+                    if(gameDescriptor.getChapterSummaries().get(currentChapter-1).hasAssessmentProfile( )) {
                         
                         int i=0;
                         File reportFile = null;
@@ -547,7 +548,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
                     }
                 }
                 
-                if( currentChapter == gameDescriptor.getChapters().size() )
+                if( currentChapter == gameDescriptor.getChapterSummaries().size() )
                     gameOver = true;
             
             }
@@ -1044,7 +1045,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             if ( gameDescriptor.getTitle( ).equals( saveGame.getTitle() ) ){
                 currentChapter = saveGame.getChapter();
                 
-                Chapter chapter = gameDescriptor.getChapters( ).get( currentChapter );
+                ChapterSummary chapter = gameDescriptor.getChapterSummaries( ).get( currentChapter );
                 gameData = Loader.loadData( chapter.getName( ) );
                 
                 totalTime = saveGame.getTotalTime();

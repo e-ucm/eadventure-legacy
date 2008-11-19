@@ -15,6 +15,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 
+import es.eucm.eadventure.common.data.adventure.AdventureData;
+import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.data.chapter.elements.Player;
 import es.eucm.eadventure.common.loader.incidences.Incidence;
@@ -771,7 +773,7 @@ public class Controller {
 	}
 
 	public boolean isPlayTransparent( ) {
-		return adventureData.getPlayerMode( ) == AdventureDataControl.PLAYER_1STPERSON;
+		return adventureData.getPlayerMode( ) == DescriptorData.MODE_PLAYER_1STPERSON;
 	}
 
 	public void swapPlayerMode( boolean showConfirmation ) {
@@ -780,10 +782,10 @@ public class Controller {
 			swap = showStrictConfirmDialog( TextConstants.getText( "SwapPlayerMode.Title" ), TextConstants.getText( "SwapPlayerMode.Message" ) );
 
 		if( swap ) {
-			if( adventureData.getPlayerMode( ) == AdventureDataControl.PLAYER_1STPERSON ) {
-				adventureData.setPlayerMode( AdventureDataControl.PLAYER_3RDPERSON );
-			} else if( adventureData.getPlayerMode( ) == AdventureDataControl.PLAYER_3RDPERSON ) {
-				adventureData.setPlayerMode( AdventureDataControl.PLAYER_1STPERSON );
+			if( adventureData.getPlayerMode( ) == DescriptorData.MODE_PLAYER_1STPERSON ) {
+				adventureData.setPlayerMode( DescriptorData.MODE_PLAYER_3RDPERSON );
+			} else if( adventureData.getPlayerMode( ) == DescriptorData.MODE_PLAYER_3RDPERSON ) {
+				adventureData.setPlayerMode( DescriptorData.MODE_PLAYER_1STPERSON );
 			}
 			dataModified( );
 		}
@@ -931,9 +933,9 @@ public class Controller {
 			currentZipName = selectedDir.getName( );
 			int playerMode = -1;
 			if( fileType == FILE_ADVENTURE_3RDPERSON_PLAYER )
-				playerMode = AdventureDataControl.PLAYER_3RDPERSON;
+				playerMode = DescriptorData.MODE_PLAYER_3RDPERSON;
 			else if( fileType == FILE_ADVENTURE_1STPERSON_PLAYER )
-				playerMode = AdventureDataControl.PLAYER_1STPERSON;
+				playerMode = DescriptorData.MODE_PLAYER_1STPERSON;
 			adventureData = new AdventureDataControl( TextConstants.getText( "DefaultValue.AdventureTitle" ), TextConstants.getText( "DefaultValue.ChapterTitle" ), TextConstants.getText( "DefaultValue.SceneId" ), playerMode );
 
 			// Select the first chapter
@@ -1302,7 +1304,7 @@ public class Controller {
 			// Load the data from the file, and update the info
 			List<Incidence> incidences = new ArrayList<Incidence>();
 			//ls.start( );
-			AdventureDataControl loadedAdventureData = Loader.loadData( completeFilePath, incidences );
+			AdventureData loadedAdventureData = Loader.loadData( completeFilePath, incidences );
 
 			//mainWindow.setNormalState( );
 			
@@ -1313,7 +1315,7 @@ public class Controller {
 				currentZipFile = newFile.getAbsolutePath( );
 				currentZipPath = newFile.getParent( );
 				currentZipName = newFile.getName( );
-				adventureData = loadedAdventureData;
+				adventureData = new AdventureDataControl(loadedAdventureData);
 				
 				// Select the first chapter
 				selectedChapter = 0;
@@ -2081,10 +2083,10 @@ public class Controller {
 		int optionSelected = guiStylesDialog.getOptionSelected( );
 		if( optionSelected != -1 && adventureData.getGUIType( ) != optionSelected ) {
 			if( optionSelected == 0 ) {
-				adventureData.setGUIType( AdventureDataControl.GUI_TRADITIONAL );
+				adventureData.setGUIType( DescriptorData.GUI_TRADITIONAL );
 				dataModified( );
 			} else if( optionSelected == 1 ) {
-				adventureData.setGUIType( AdventureDataControl.GUI_CONTEXTUAL );
+				adventureData.setGUIType( DescriptorData.GUI_CONTEXTUAL );
 				dataModified( );
 			}
 		}

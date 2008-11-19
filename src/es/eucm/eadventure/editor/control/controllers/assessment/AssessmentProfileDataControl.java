@@ -4,38 +4,42 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
 import es.eucm.eadventure.common.data.assessment.AssessmentRule;
 import es.eucm.eadventure.common.data.assessment.TimedAssessmentRule;
-import es.eucm.eadventure.common.data.chapter.scenes.Scene;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.auxiliar.File;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.control.controllers.EffectsController;
-import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
 import es.eucm.eadventure.editor.data.support.FlagSummary;
 import es.eucm.eadventure.editor.gui.TextConstants;
 
 public class AssessmentProfileDataControl extends DataControl{
 
+	/**
+	 * Controllers for each assessment rule
+	 */
 	private List<AssessmentRuleDataControl> dataControls;
-	private List<AssessmentRule> assessmentRules;
+
+	/**
+	 * The profile
+	 */
+	private AssessmentProfile profile;
 	
-	private String path;
-	
-	public AssessmentProfileDataControl( List<AssessmentRule> assessmentRules, String path){
+	public AssessmentProfileDataControl ( AssessmentProfile profile ){
 		dataControls = new ArrayList<AssessmentRuleDataControl>();
-		this.assessmentRules = assessmentRules;
-		
-		for (AssessmentRule rule: assessmentRules){
+		this.profile = profile;
+		for (AssessmentRule rule: profile.getRules()){
 			dataControls.add( new AssessmentRuleDataControl(rule) );
 		}
-		
-		this.path = path;
+	}
+	
+	public AssessmentProfileDataControl( List<AssessmentRule> assessmentRules, String path){
+		this( new AssessmentProfile (assessmentRules, path) );
 	}
 	
 	public String getFileName(){
-		return path.substring( Math.max( path.lastIndexOf( "/" ), path.lastIndexOf( "\\" ) )+1);
+		return profile.getPath().substring( Math.max( profile.getPath().lastIndexOf( "/" ), profile.getPath().lastIndexOf( "\\" ) )+1);
 	}
 
 	
@@ -56,7 +60,7 @@ public class AssessmentProfileDataControl extends DataControl{
 				} else {
 					assRule = new AssessmentRule (assRuleId, AssessmentRule.IMPORTANCE_NORMAL);
 				}
-				this.assessmentRules.add( assRule );
+				this.profile.getRules().add( assRule );
 				dataControls.add( new AssessmentRuleDataControl( assRule ) );
 				controller.getIdentifierSummary( ).addAssessmentRuleId( assRuleId );
 				controller.dataModified( );
@@ -120,7 +124,7 @@ public class AssessmentProfileDataControl extends DataControl{
 
 		// Ask for confirmation
 		if( controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { assRuleId, references } ) ) ) {
-			if( this.assessmentRules.remove( dataControl.getContent( ) ) ) {
+			if( this.profile.getRules().remove( dataControl.getContent( ) ) ) {
 				dataControls.remove( dataControl );
 				controller.deleteIdentifierReferences( assRuleId );
 				controller.getIdentifierSummary( ).deleteAssessmentRuleId( assRuleId );
@@ -143,7 +147,7 @@ public class AssessmentProfileDataControl extends DataControl{
 
 	@Override
 	public Object getContent( ) {
-		return this.assessmentRules;
+		return profile;
 	}
 	
 	public List<AssessmentRuleDataControl> getAssessmentRules(){
@@ -158,10 +162,10 @@ public class AssessmentProfileDataControl extends DataControl{
 	@Override
 	public boolean moveElementDown( DataControl dataControl ) {
 		boolean elementMoved = false;
-		int elementIndex = assessmentRules.indexOf( dataControl.getContent( ) );
+		int elementIndex = profile.getRules().indexOf( dataControl.getContent( ) );
 
-		if( elementIndex < assessmentRules.size( ) - 1 ) {
-			assessmentRules.add( elementIndex + 1, assessmentRules.remove( elementIndex ) );
+		if( elementIndex < profile.getRules().size( ) - 1 ) {
+			profile.getRules().add( elementIndex + 1, profile.getRules().remove( elementIndex ) );
 			dataControls.add( elementIndex + 1, dataControls.remove( elementIndex ) );
 			controller.dataModified( );
 			elementMoved = true;
@@ -173,10 +177,10 @@ public class AssessmentProfileDataControl extends DataControl{
 	@Override
 	public boolean moveElementUp( DataControl dataControl ) {
 		boolean elementMoved = false;
-		int elementIndex = assessmentRules.indexOf( dataControl.getContent( ) );
+		int elementIndex = profile.getRules().indexOf( dataControl.getContent( ) );
 
 		if( elementIndex > 0 ) {
-			assessmentRules.add( elementIndex - 1, assessmentRules.remove( elementIndex ) );
+			profile.getRules().add( elementIndex - 1, profile.getRules().remove( elementIndex ) );
 			dataControls.add( elementIndex - 1, dataControls.remove( elementIndex ) );
 			controller.dataModified( );
 			elementMoved = true;
@@ -194,7 +198,7 @@ public class AssessmentProfileDataControl extends DataControl{
 			
 			//Prompt for file name:
 			String fileName = controller.showInputDialog( TextConstants.getText( "Operation.RenameAssessmentFile.FileName" ), TextConstants.getText( "Operation.RenameAssessmentFile.FileName.Message" ), getFileName() );
-			if (fileName!=null && !fileName.equals( path.substring( path.lastIndexOf( "/" ) + 1 ) )){
+			if (fileName!=null && !fileName.equals( profile.getPath().substring( profile.getPath().lastIndexOf( "/" ) + 1 ) )){
 				if (fileName.contains( "/") || fileName.contains( "\\" )){
 					controller.showErrorDialog( TextConstants.getText( "Operation.RenameXMLFile.ErrorSlash" ), TextConstants.getText( "Operation.RenameXMLFile.ErrorSlash.Message" ) );
 					return false;
@@ -209,10 +213,10 @@ public class AssessmentProfileDataControl extends DataControl{
 				}
 				
 				//Checks if the file exists. In that case, ask to overwrite it
-						File assessmentFile = new File (Controller.getInstance( ).getProjectFolder( ), path );
+						File assessmentFile = new File (Controller.getInstance( ).getProjectFolder( ), profile.getPath() );
 						renamed = assessmentFile.renameTo( new File(Controller.getInstance( ).getProjectFolder( ), AssetsController.getCategoryFolder( AssetsController.CATEGORY_ASSESSMENT ) +"/"+fileName) );
 						controller.dataModified( );
-						this.path = AssetsController.getCategoryFolder( AssetsController.CATEGORY_ASSESSMENT ) +"/"+fileName;
+						profile.setPath( AssetsController.getCategoryFolder( AssetsController.CATEGORY_ASSESSMENT ) +"/"+fileName );
 			}
 			
 		}
@@ -243,12 +247,12 @@ public class AssessmentProfileDataControl extends DataControl{
     };
 	
 	public String[][] getAssessmentRulesInfo( ) {
-		String[][] info = new String[this.assessmentRules.size()][3];
+		String[][] info = new String[this.profile.getRules().size()][3];
 		
-		for (int i=0; i<assessmentRules.size( ); i++){
-			info[i][0] = assessmentRules.get( i ).getId( );
-			info[i][1] = IMPORTANCE_VALUES_PRINT[assessmentRules.get( i ).getImportance( )];
-			info[i][2] = (assessmentRules.get( i ).getConditions( ).isEmpty( ))?"No":"Yes";
+		for (int i=0; i<profile.getRules().size( ); i++){
+			info[i][0] = profile.getRules().get( i ).getId( );
+			info[i][1] = IMPORTANCE_VALUES_PRINT[profile.getRules().get( i ).getImportance( )];
+			info[i][2] = (profile.getRules().get( i ).getConditions( ).isEmpty( ))?"No":"Yes";
 		}
 		return info;
 	}
@@ -257,14 +261,14 @@ public class AssessmentProfileDataControl extends DataControl{
 	 * @return the path
 	 */
 	public String getPath( ) {
-		return path;
+		return profile.getPath();
 	}
 
 	/**
 	 * @param path the path to set
 	 */
 	public void setPath( String path ) {
-		this.path = path;
+		profile.setPath(path);
 	}
 
 	@Override

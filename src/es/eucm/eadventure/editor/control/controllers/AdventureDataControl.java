@@ -1,14 +1,19 @@
 package es.eucm.eadventure.editor.control.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfileDataControl;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfilesDataControl;
+import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfileDataControl;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfilesDataControl;
 import es.eucm.eadventure.editor.control.controllers.lom.LOMDataControl;
+import es.eucm.eadventure.common.data.adventure.AdventureData;
 import es.eucm.eadventure.common.data.adventure.CustomCursor;
+import es.eucm.eadventure.common.data.adventure.DescriptorData;
+import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
+import es.eucm.eadventure.common.data.adaptation.AdaptationProfile;
 import es.eucm.eadventure.editor.gui.assetchooser.AssetChooser;
 
 /**
@@ -19,120 +24,15 @@ import es.eucm.eadventure.editor.gui.assetchooser.AssetChooser;
 public class AdventureDataControl {
 
 	/**
-	 * Constant for traditional GUI.
+	 * The whole data of the adventure
 	 */
-	public static final int GUI_TRADITIONAL = 0;
-
-	/**
-	 * Constant for contextual GUI.
-	 */
-	public static final int GUI_CONTEXTUAL = 1;
-
-	public static final int PLAYER_3RDPERSON = 0;
-
-	public static final int PLAYER_1STPERSON = 1;
+	private AdventureData adventureData;
 	
-	
-	public static final String DEFAULT_CURSOR="default";
-    public static final String USE_CURSOR="use";
-    public static final String LOOK_CURSOR="look";
-    public static final String EXAMINE_CURSOR="examine";
-    public static final String TALK_CURSOR="talk";
-    public static final String GRAB_CURSOR="grab";
-    public static final String GIVE_CURSOR="give";
-    public static final String EXIT_CURSOR="exit";
-    public static final String CURSOR_OVER="over";
-    public static final String CURSOR_ACTION="action";
-	
-    private static String getCursorTypeString (int index){
-    	switch(index){
-    		case 0:return DEFAULT_CURSOR;
-    		case 1:return CURSOR_OVER;
-    		case 2:return CURSOR_ACTION;
-    		case 3:return EXIT_CURSOR;
-    		case 4:return USE_CURSOR;
-    		case 5:return LOOK_CURSOR;
-    		case 6:return EXAMINE_CURSOR;
-    		case 7:return TALK_CURSOR;
-    		case 8:return GRAB_CURSOR;
-    		case 9:return GIVE_CURSOR;
-    		default: return null;
-    	}
-    }
-    
-    private static int getCursorTypeIndex(String type){
-    	if (type.equals( DEFAULT_CURSOR )){
-    		return 0;
-    	}else if (type.equals( USE_CURSOR )){
-    		return 4;
-    	}else if (type.equals( LOOK_CURSOR )){
-    		return 5;
-    	}else if (type.equals( EXAMINE_CURSOR )){
-    		return 6;
-    	}else if (type.equals( TALK_CURSOR )){
-    		return 7;
-    	}else if (type.equals( GRAB_CURSOR )){
-    		return 8;
-    	}else if (type.equals( GIVE_CURSOR )){
-    		return 9;
-    	}else if (type.equals( EXIT_CURSOR )){
-    		return 3;
-    	}else if (type.equals( CURSOR_OVER )){
-    		return 1;
-    	}else if (type.equals( CURSOR_ACTION )){
-    		return 2;
-    	}else{
-    		return -1;
-    	}
-    }
-    
-    private static final String[] cursorTypes ={DEFAULT_CURSOR, CURSOR_OVER, CURSOR_ACTION,EXIT_CURSOR, USE_CURSOR, LOOK_CURSOR, EXAMINE_CURSOR, TALK_CURSOR, GRAB_CURSOR, GIVE_CURSOR }; 
-
-    public static String[] getCursorTypes(){
-    	return cursorTypes;
-    }
-    
-    private static final boolean[][] typeAllowed = {
-    	//TRADITIONAL GUI
-    	{
-    		true, false, false, true, true,true,true,true,true,true
-    	},
-    	//CONTEXTUAL GUI
-    	{
-    		true, true, true, true, false,false,false,false,false,false
-    	}	
-    };
-    
 	/**
-	 * Title of the adventure.
+	 * Controller for LOM data (only required when
+	 * exporting games to LOM)
 	 */
-	private String title;
-
-	/**
-	 * Description of the adventure.
-	 */
-	private String description;
-
-	/**
-	 * Type of the GUI (Traditional or contextual)
-	 */
-	private int guiType;
-
-	private int playerMode;
-
-	/**
-	 * List of chapters of the adventure.
-	 */
-	private List<Chapter> chapters;
-	
-	private List<CustomCursor> cursors;
-	
 	private LOMDataControl lomController;
-	
-	/**
-	 * This flag tells if the adventure should show automatic commentaries.
-	 */
-	private boolean commentaries = false;
 	
 	/**
 	 * Assessment file data controller
@@ -145,18 +45,32 @@ public class AdventureDataControl {
 	private AdaptationProfilesDataControl adaptationProfilesDataControl;
 
 	/**
+	 * Constructs the data control with the adventureData
+	 */
+	public AdventureDataControl( AdventureData data ){
+		this( );
+		adventureData = data;
+
+		// add profiles subcontrollers
+		for ( AssessmentProfile profile: data.getAssessmentProfiles() ){
+			assessmentProfilesDataControl.getProfiles().add(new AssessmentProfileDataControl(profile))	;
+		}
+		
+		for ( AdaptationProfile profile: data.getAdaptationProfiles() ){
+			adaptationProfilesDataControl.getProfiles().add(new AdaptationProfileDataControl(profile))	;
+		}
+		
+
+	}
+	
+	/**
 	 * Empty constructor. Sets all values to null.
 	 */
 	public AdventureDataControl( ) {
-		title = null;
-		description = null;
-		guiType = -1;
-		chapters = null;
-		playerMode = PLAYER_3RDPERSON;
-		 cursors = new ArrayList<CustomCursor>();
-		 lomController = new LOMDataControl();
-		 assessmentProfilesDataControl = new AssessmentProfilesDataControl();
-		 adaptationProfilesDataControl = new AdaptationProfilesDataControl();
+		adventureData = new AdventureData();
+		lomController = new LOMDataControl();
+		assessmentProfilesDataControl = new AssessmentProfilesDataControl();
+		adaptationProfilesDataControl = new AdaptationProfilesDataControl();
 	}
 
 	/**
@@ -171,21 +85,19 @@ public class AdventureDataControl {
 	 *            Default identifier for the scene
 	 */
 	public AdventureDataControl( String adventureTitle, String chapterTitle, String sceneId, int playerMode ) {
-		title = adventureTitle;
-		description = "";
-		guiType = GUI_CONTEXTUAL;
-		this.playerMode = playerMode;
-		 cursors = new ArrayList<CustomCursor>();
-
-		chapters = new ArrayList<Chapter>( );
-		chapters.add( new Chapter( chapterTitle, sceneId ) );
-		 lomController = new LOMDataControl();
-		 assessmentProfilesDataControl = new AssessmentProfilesDataControl();
-		 adaptationProfilesDataControl = new AdaptationProfilesDataControl();
+		adventureData = new AdventureData( );
+		adventureData.setTitle(adventureTitle);
+		adventureData.setDescription("");
+		adventureData.setGUIType( DescriptorData.GUI_CONTEXTUAL );
+		adventureData.setPlayerMode( playerMode );
+		adventureData.addChapter( new Chapter( chapterTitle, sceneId ) );
+		lomController = new LOMDataControl();
+		assessmentProfilesDataControl = new AssessmentProfilesDataControl();
+		adaptationProfilesDataControl = new AdaptationProfilesDataControl();
 	}
 
 	public AdventureDataControl( String adventureTitle, String chapterTitle, String sceneId ) {
-		this( adventureTitle, chapterTitle, sceneId, PLAYER_3RDPERSON );
+		this( adventureTitle, chapterTitle, sceneId, DescriptorData.MODE_PLAYER_3RDPERSON );
 	}
 
 	/**
@@ -201,23 +113,22 @@ public class AdventureDataControl {
 	 *            Chapters of the adventure
 	 */
 	public AdventureDataControl( String title, String description, List<Chapter> chapters ) {
-		this.title = title;
-		this.description = description;
-		guiType = GUI_TRADITIONAL;
-		this.chapters = chapters;
-		this.playerMode = PLAYER_3RDPERSON;
-		 cursors = new ArrayList<CustomCursor>();
+		adventureData = new AdventureData();
+		adventureData.setTitle(title);
+		adventureData.setDescription(description);
+		adventureData.setGUIType( DescriptorData.GUI_TRADITIONAL );
+		adventureData.setChapters( chapters );
+		adventureData.setPlayerMode( DescriptorData.MODE_PLAYER_3RDPERSON );
 		 
-		 //TODO
-		 lomController = new LOMDataControl();
+		lomController = new LOMDataControl();
 	}
 
     public boolean isCursorTypeAllowed( String type ){
-    	return isCursorTypeAllowed(AdventureDataControl.getCursorTypeIndex( type ));
+    	return isCursorTypeAllowed(DescriptorData.getCursorTypeIndex( type ));
     }
 
     public boolean isCursorTypeAllowed( int type ){
-    	return typeAllowed[guiType][type];
+    	return DescriptorData.typeAllowed[adventureData.getGUIType()][type];
     }
 
 	
@@ -227,7 +138,7 @@ public class AdventureDataControl {
 	 * @return Adventure's title
 	 */
 	public String getTitle( ) {
-		return title;
+		return adventureData.getTitle();
 	}
 
 	/**
@@ -236,7 +147,7 @@ public class AdventureDataControl {
 	 * @return Adventure's description
 	 */
 	public String getDescription( ) {
-		return description;
+		return adventureData.getDescription();
 	}
 
 	/**
@@ -245,7 +156,7 @@ public class AdventureDataControl {
 	 * @return Adventure's GUI type
 	 */
 	public int getGUIType( ) {
-		return guiType;
+		return adventureData.getGUIType();
 	}
 
 	/**
@@ -254,7 +165,7 @@ public class AdventureDataControl {
 	 * @return Adventure's chapters list
 	 */
 	public List<Chapter> getChapters( ) {
-		return chapters;
+		return adventureData.getChapters();
 	}
 
 	/**
@@ -264,7 +175,7 @@ public class AdventureDataControl {
 	 *            New title for the adventure
 	 */
 	public void setTitle( String title ) {
-		this.title = title;
+		this.adventureData.setTitle(title);
 	}
 
 	/**
@@ -274,7 +185,7 @@ public class AdventureDataControl {
 	 *            New description for the adventure
 	 */
 	public void setDescription( String description ) {
-		this.description = description;
+		adventureData.setDescription(description);
 	}
 
 	/**
@@ -284,7 +195,7 @@ public class AdventureDataControl {
 	 *            New GUI type for the adventure
 	 */
 	public void setGUIType( int guiType ) {
-		this.guiType = guiType;
+		adventureData.setGUIType( guiType );
 	}
 
 	/**
@@ -294,29 +205,29 @@ public class AdventureDataControl {
 	 *            New chapters list for the adventure
 	 */
 	public void setChapters( List<Chapter> chapters ) {
-		this.chapters = chapters;
+		adventureData.setChapters(chapters);
 	}
 
 	/**
 	 * @return the playerMode
 	 */
 	public int getPlayerMode( ) {
-		return playerMode;
+		return adventureData.getPlayerMode();
 	}
 
 	/**
 	 * @param playerMode the playerMode to set
 	 */
 	public void setPlayerMode( int playerMode ) {
-		this.playerMode = playerMode;
+		adventureData.setPlayerMode(playerMode);
 	}
 	
     public void addCursor(CustomCursor cursor){
-        cursors.add( cursor );
+        adventureData.getCursors().add( cursor );
     }
     
     public List<CustomCursor> getCursors(){
-        return cursors;
+        return adventureData.getCursors();
     }
     
     public void addCursor(String type, String path){
@@ -324,7 +235,7 @@ public class AdventureDataControl {
     }
     
     public String getCursorPath(String type){
-        for (CustomCursor cursor: cursors){
+        for (CustomCursor cursor: adventureData.getCursors()){
             if (cursor.getType( ).equals( type )){
                 return cursor.getPath( );
             }
@@ -333,24 +244,24 @@ public class AdventureDataControl {
     }
     
     public String getCursorPath(int type){
-        return getCursorPath(getCursorTypeString(type));
+        return getCursorPath(DescriptorData.getCursorTypeString(type));
     }
     
     public void deleteCursor(int type){
-    	String typeS = getCursorTypeString(type);
+    	String typeS = DescriptorData.getCursorTypeString(type);
     	int position=-1;
-    	for (int i=0; i<cursors.size( ); i++){
-    		if (cursors.get(i).getType( ).equals( typeS )){
+    	for (int i=0; i<adventureData.getCursors().size( ); i++){
+    		if (adventureData.getCursors().get(i).getType( ).equals( typeS )){
     			position= i;break;
     		}
     	}
     	if (position>=0)
-    		cursors.remove( position );
+    		adventureData.getCursors().remove( position );
     }
 
     public void editCursorPath(int t){
     	if (isCursorTypeAllowed(t)){
-    		String type = getCursorTypeString(t);
+    		String type = DescriptorData.getCursorTypeString(t);
 
     		String selectedCursor = null;
     		AssetChooser chooser = AssetsController.getAssetChooser( AssetsController.CATEGORY_CURSOR, AssetsController.FILTER_NONE );
@@ -379,9 +290,9 @@ public class AdventureDataControl {
     					assetIndex = i;
 
     			boolean exists = false;
-    			for (int i=0; i<cursors.size( ); i++){
-    				if (cursors.get( i ).getType( ).equals( type )){
-    					cursors.get( i ).setPath( assetPaths[assetIndex] );
+    			for (int i=0; i<adventureData.getCursors().size( ); i++){
+    				if (adventureData.getCursors().get( i ).getType( ).equals( type )){
+    					adventureData.getCursors().get( i ).setPath( assetPaths[assetIndex] );
     					exists=true;
     				}
     			}
@@ -422,10 +333,10 @@ public class AdventureDataControl {
 	}
 
 	public boolean isCommentaries() {
-		return commentaries;
+		return adventureData.isCommentaries();
 	}
 
 	public void setCommentaries(boolean commentaries) {
-		this.commentaries = commentaries;
+		adventureData.setCommentaries(commentaries);
 	}
 }

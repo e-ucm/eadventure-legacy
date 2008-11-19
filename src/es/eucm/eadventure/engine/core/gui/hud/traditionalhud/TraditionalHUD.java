@@ -250,15 +250,6 @@ public class TraditionalHUD extends HUD {
      */
     public static final int ITEM_SPACING_Y = ITEM_HEIGHT;
     
-    /// CONSTANTS FOR CUSTOMIZED CURSORS
-    public static final String USE_CURSOR="use";
-    public static final String LOOK_CURSOR="look";
-    public static final String EXAMINE_CURSOR="examine";
-    public static final String TALK_CURSOR="talk";
-    public static final String GRAB_CURSOR="grab";
-    public static final String GIVE_CURSOR="give";
-    public static final String EXIT_CURSOR="exit";
-    
     /**
      * The ActionButtons element
      */
@@ -283,8 +274,6 @@ public class TraditionalHUD extends HUD {
      * The different cursor for each action
      */
     private Cursor[] actionCursors;
-    
-   
 
     /**
      * Function that initializa the HUD class
@@ -297,53 +286,53 @@ public class TraditionalHUD extends HUD {
         
         DescriptorData descriptor =Game.getInstance().getGameDescriptor( ); 
         
-        if (descriptor.getCursorPath( USE_CURSOR )==null){
+        if (descriptor.getCursorPath( DescriptorData.USE_CURSOR )==null){
             actionCursors[0] = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImage( "gui/cursors/use.png", MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "useCursor" );            
         }
         else{
-            actionCursors[0] = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( descriptor.getCursorPath( USE_CURSOR ), MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "useCursor" );            
+            actionCursors[0] = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( descriptor.getCursorPath( DescriptorData.USE_CURSOR ), MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "useCursor" );            
         }
         
-        if (descriptor.getCursorPath( LOOK_CURSOR )==null){
+        if (descriptor.getCursorPath( DescriptorData.LOOK_CURSOR )==null){
             actionCursors[1] = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImage( "gui/cursors/look.png", MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "lookCursor" );            
         }
         else{
-            actionCursors[1] = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( descriptor.getCursorPath( LOOK_CURSOR ), MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "lookCursor" );            
+            actionCursors[1] = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( descriptor.getCursorPath( DescriptorData.LOOK_CURSOR ), MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "lookCursor" );            
         }
         
-        if (descriptor.getCursorPath( EXAMINE_CURSOR )==null){
+        if (descriptor.getCursorPath( DescriptorData.EXAMINE_CURSOR )==null){
             actionCursors[2] = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImage( "gui/cursors/examine.png", MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "examineCursor" );            
         }
         else{
-            actionCursors[2] = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( descriptor.getCursorPath( EXAMINE_CURSOR ), MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "examineCursor" );            
+            actionCursors[2] = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( descriptor.getCursorPath( DescriptorData.EXAMINE_CURSOR ), MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "examineCursor" );            
         }
         
-        if (descriptor.getCursorPath( TALK_CURSOR )==null){
+        if (descriptor.getCursorPath( DescriptorData.TALK_CURSOR )==null){
             actionCursors[3] = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImage( "gui/cursors/talk.png", MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "talkCursor" );                        
         }
         else{
-            actionCursors[3] = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( descriptor.getCursorPath( TALK_CURSOR ), MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "talkCursor" );            
+            actionCursors[3] = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( descriptor.getCursorPath( DescriptorData.TALK_CURSOR ), MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "talkCursor" );            
         }
         
-        if (descriptor.getCursorPath( GRAB_CURSOR )==null){
+        if (descriptor.getCursorPath( DescriptorData.GRAB_CURSOR )==null){
             actionCursors[4] = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImage( "gui/cursors/grab.png", MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "grabCursor" );
         }
         else{
-            actionCursors[4] = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( descriptor.getCursorPath( GRAB_CURSOR ), MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "grabCursor" );            
+            actionCursors[4] = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( descriptor.getCursorPath( DescriptorData.GRAB_CURSOR ), MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "grabCursor" );            
         }
         
-        if (descriptor.getCursorPath( GIVE_CURSOR )==null){
+        if (descriptor.getCursorPath( DescriptorData.GIVE_CURSOR )==null){
             actionCursors[5] = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImage( "gui/cursors/give.png", MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "giveCursor" );
         }
         else{
-            actionCursors[5] = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( descriptor.getCursorPath( GIVE_CURSOR ), MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "giveCursor" );            
+            actionCursors[5] = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( descriptor.getCursorPath( DescriptorData.GIVE_CURSOR ), MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "giveCursor" );            
         }
         
-        if (descriptor.getCursorPath( EXIT_CURSOR )==null){
+        if (descriptor.getCursorPath( DescriptorData.EXIT_CURSOR )==null){
             actionCursors[6] = null;
         }
         else{
-            actionCursors[6] = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( descriptor.getCursorPath( EXIT_CURSOR ), MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "exitCursor" );            
+            actionCursors[6] = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( descriptor.getCursorPath( DescriptorData.EXIT_CURSOR ), MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "exitCursor" );            
         }
         
         actionButtons = new ActionButtons( false );

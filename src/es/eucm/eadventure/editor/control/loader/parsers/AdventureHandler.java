@@ -19,19 +19,17 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import java.io.FileInputStream;
 
+import es.eucm.eadventure.common.data.adaptation.AdaptationProfile;
 import es.eucm.eadventure.common.data.adaptation.AdaptationRule;
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
+import es.eucm.eadventure.common.data.adventure.AdventureData;
+import es.eucm.eadventure.common.data.adventure.DescriptorData;
+import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
 import es.eucm.eadventure.common.data.assessment.AssessmentRule;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.loader.incidences.Incidence;
-import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.auxiliar.File;
-import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
-import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfileDataControl;
-import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfilesDataControl;
-import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfileDataControl;
-import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfilesDataControl;
 import es.eucm.eadventure.editor.gui.TextConstants;
 
 /**
@@ -64,7 +62,7 @@ public class AdventureHandler extends DefaultHandler {
 	/**
 	 * Adventure data being read.
 	 */
-	private AdventureDataControl adventureData;
+	private AdventureData adventureData;
 	
 	/**
 	 * List of incidences
@@ -79,12 +77,12 @@ public class AdventureHandler extends DefaultHandler {
 	/**
 	 * Assessment controller: to be filled with the assessment data
 	 */ 
-	private AssessmentProfilesDataControl assessmentController;
+	private List<AssessmentProfile> assessmentController;
 	
 	/**
 	 * Adaptation controller: to be filled with the adaptation data
 	 */
-	private AdaptationProfilesDataControl adaptationController;
+	private List<AdaptationProfile> adaptationController;
 
 	/**
 	 * Chapter being currently read.
@@ -150,11 +148,11 @@ public class AdventureHandler extends DefaultHandler {
 		List<String> adaptationPaths = new ArrayList<String>();
 		getXMLFilePaths(zipFile, assessmentPaths, adaptationPaths);
 		
-		adventureData = new AdventureDataControl( );
+		adventureData = new AdventureData( );
 		this.incidences = incidences;
 		chapters = new ArrayList<Chapter>( );
-		this.assessmentController = adventureData.getAssessmentRulesListDataControl( );
-		this.adaptationController = adventureData.getAdaptationRulesListDataControl( );
+		this.assessmentController = adventureData.getAssessmentProfiles();
+		this.adaptationController = adventureData.getAdaptationProfiles();
 		
 		// Load all the assessment files
 		for (String assessmentPath : assessmentPaths){
@@ -179,8 +177,8 @@ public class AdventureHandler extends DefaultHandler {
 				// Finally add the new controller to the list
 				// Create the new profile
 				
-				AssessmentProfileDataControl newProfile = new AssessmentProfileDataControl(assParser.getAssessmentRules( ), assessmentPath);
-				assessmentController.getProfiles( ).add( newProfile );
+				AssessmentProfile newProfile = new AssessmentProfile(assParser.getAssessmentRules( ), assessmentPath);
+				assessmentController.add( newProfile );
 
 			} catch( ParserConfigurationException e ) {
 				//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadAssessmentData" ) );
@@ -222,8 +220,8 @@ public class AdventureHandler extends DefaultHandler {
 				chapterIS.close( );
 				
 				// Finally add the new controller to the list
-				AdaptationProfileDataControl newProfile = new AdaptationProfileDataControl(adpParser.getAdaptationRules( ), adpParser.getInitialState( ), adaptationPath);
-				adaptationController.getProfiles( ).add( newProfile );
+				AdaptationProfile newProfile = new AdaptationProfile(adpParser.getAdaptationRules( ), adpParser.getInitialState( ), adaptationPath);
+				adaptationController.add( newProfile );
 
 			} catch( ParserConfigurationException e ) {
 				//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadAdaptationData" ) );
@@ -246,7 +244,7 @@ public class AdventureHandler extends DefaultHandler {
 	 * 
 	 * @return The adventure data from the XML descriptor
 	 */
-	public AdventureDataControl getAdventureData( ) {
+	public AdventureData getAdventureData( ) {
 		return adventureData;
 	}
 
@@ -267,9 +265,9 @@ public class AdventureHandler extends DefaultHandler {
 			for( int i = 0; i < attrs.getLength( ); i++ )
 				if( attrs.getQName( i ).equals( "type" ) )
 					if( attrs.getValue( i ).equals( "traditional" ) )
-						adventureData.setGUIType( AdventureDataControl.GUI_TRADITIONAL );
+						adventureData.setGUIType( DescriptorData.GUI_TRADITIONAL );
 					else if( attrs.getValue( "type" ).equals( "contextual" ) )
-						adventureData.setGUIType( AdventureDataControl.GUI_CONTEXTUAL );
+						adventureData.setGUIType( DescriptorData.GUI_CONTEXTUAL );
 		}
 		
 	       //Cursor
@@ -290,9 +288,9 @@ public class AdventureHandler extends DefaultHandler {
 			for( int i = 0; i < attrs.getLength( ); i++ )
 				if( attrs.getQName( i ).equals( "playerTransparent" ) )
 					if( attrs.getValue( i ).equals( "yes" ) )
-						adventureData.setPlayerMode( AdventureDataControl.PLAYER_1STPERSON );
+						adventureData.setPlayerMode( DescriptorData.MODE_PLAYER_1STPERSON );
 					else if( attrs.getValue( i ).equals( "no" ) )
-						adventureData.setPlayerMode( AdventureDataControl.PLAYER_3RDPERSON );
+						adventureData.setPlayerMode( DescriptorData.MODE_PLAYER_3RDPERSON );
 		}
 
 		// If reading the contents tag, switch to the chapters mode

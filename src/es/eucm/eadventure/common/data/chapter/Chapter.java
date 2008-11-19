@@ -3,6 +3,7 @@ package es.eucm.eadventure.common.data.chapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.common.data.adventure.ChapterSummary;
 import es.eucm.eadventure.common.data.chapter.book.Book;
 import es.eucm.eadventure.common.data.chapter.conversation.Conversation;
 import es.eucm.eadventure.common.data.chapter.elements.Item;
@@ -15,32 +16,7 @@ import es.eucm.eadventure.common.data.chapter.scenes.Scene;
 /**
  * This class hold the data of a chapter in eAdventure.
  */
-public class Chapter {
-
-	/**
-	 * Chapter's title.
-	 */
-	private String title;
-
-	/**
-	 * Chapter's description.
-	 */
-	private String description;
-
-	/**
-	 * Adaptation file's path, if there is any.
-	 */
-	private String adaptationPath;
-
-	/**
-	 * Assessment file's path, if there is any.
-	 */
-	private String assessmentPath;
-	
-	/**
-	 * Relative name to the zip where it was contained. Used for replacing 
-	 */
-	private String name;
+public class Chapter extends ChapterSummary{
 
 	/**
 	 * Identifier of the initial scene.
@@ -96,12 +72,7 @@ public class Chapter {
 	 * Empty constructor. Sets values to null and creates empty lists.
 	 */
 	public Chapter( ) {
-		title = null;
-		description = null;
-		adaptationPath = "";
-		assessmentPath = "";
-		initialScene = null;
-
+		super();
 		// Create lists
 		scenes = new ArrayList<Scene>( );
 		cutscenes = new ArrayList<Cutscene>( );
@@ -123,10 +94,7 @@ public class Chapter {
 	 *            Identifier for the scene
 	 */
 	public Chapter( String title, String sceneId ) {
-		this.title = title;
-		description = "";
-		adaptationPath = "";
-		assessmentPath = "";
+		super(title);
 		initialScene = sceneId;
 
 		// Create lists
@@ -142,41 +110,7 @@ public class Chapter {
 		scenes.add( new Scene( sceneId ) );
 	}
 
-	/**
-	 * Returns the title of the chapter
-	 * 
-	 * @return Chapter's title
-	 */
-	public String getTitle( ) {
-		return title;
-	}
 
-	/**
-	 * Returns the description of the chapter.
-	 * 
-	 * @return Chapter's description
-	 */
-	public String getDescription( ) {
-		return description;
-	}
-
-	/**
-	 * Returns the path of the adaptation file.
-	 * 
-	 * @return the path of the adaptation file
-	 */
-	public String getAdaptationPath( ) {
-		return adaptationPath;
-	}
-
-	/**
-	 * Returns the path of the assessment file.
-	 * 
-	 * @return the path of the assessment file
-	 */
-	public String getAssessmentPath( ) {
-		return assessmentPath;
-	}
 
 	/**
 	 * Returns the initial scene identifier.
@@ -273,45 +207,6 @@ public class Chapter {
 		return conversations;
 	}
 
-	/**
-	 * Sets the title of the chapter.
-	 * 
-	 * @param title
-	 *            New title for the chapter
-	 */
-	public void setTitle( String title ) {
-		this.title = title;
-	}
-
-	/**
-	 * Sets the description of the chapter.
-	 * 
-	 * @param description
-	 *            New description for the chapter
-	 */
-	public void setDescription( String description ) {
-		this.description = description;
-	}
-
-	/**
-	 * Changes the path of the adaptation file.
-	 * 
-	 * @param adaptationPath
-	 *            the new path of the adaptation file
-	 */
-	public void setAdaptationPath( String adaptationPath ) {
-		this.adaptationPath = adaptationPath;
-	}
-
-	/**
-	 * Changes the path of the assessment file.
-	 * 
-	 * @param assessmentPath
-	 *            the new path of the assessment file
-	 */
-	public void setAssessmentPath( String assessmentPath ) {
-		this.assessmentPath = assessmentPath;
-	}
 
 	/**
 	 * Changes the initial scene of the chapter.
@@ -487,24 +382,6 @@ public class Chapter {
 	 */
 	public void setTimers( List<Timer> timers ){
 		this.timers = timers;
-	}
-
-	/**
-	 * @return the name
-	 */
-	public String getName( ) {
-		return name;
-	}
-
-	/**
-	 * @param name the name to set
-	 */
-	public void setName( String name ) {
-		this.name = name;
-	}
-
-	public boolean hasAssessmentProfile() {
-		return this.assessmentPath!=null && !this.assessmentPath.equals("");
 	}
 
     /**

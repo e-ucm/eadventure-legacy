@@ -16,6 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
+import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
 import es.eucm.eadventure.editor.gui.TextConstants;
 import es.eucm.eadventure.editor.gui.displaydialogs.ImageDialog;
@@ -64,7 +65,7 @@ public class CursorsPanel extends JScrollPane {
 		
 		//super( );
 		this.adventureData = adventureData;
-		this.cursorTypes = AdventureDataControl.getCursorTypes( ); 
+		this.cursorTypes = DescriptorData.getCursorTypes( ); 
 
 		// Load the image for the delete content button
 		Icon deleteContentIcon = new ImageIcon( "img/icons/deleteContent.png" );

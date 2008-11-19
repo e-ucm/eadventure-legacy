@@ -53,8 +53,6 @@ public class GUI implements FocusListener {
      */
     public static final int MAX_WIDTH_IN_TEXT = 300;
     
-    public static final String DEFAULT_CURSOR="default";
-
     /**
      * Antialiasing of the game shapes
      */
@@ -216,9 +214,9 @@ public class GUI implements FocusListener {
         hud.init( );
         
         // Load the customized default cursor
-        if( Game.getInstance().getGameDescriptor().getCursorPath( DEFAULT_CURSOR )!=null ){
+        if( Game.getInstance().getGameDescriptor().getCursorPath( DescriptorData.DEFAULT_CURSOR )!=null ){
             //System.out.println("PATH CURSOR = "+Game.getInstance( ).getGameDescriptor( ).getCursorPath( DEFAULT_CURSOR ) );
-            defaultCursor = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( Game.getInstance( ).getGameDescriptor( ).getCursorPath( DEFAULT_CURSOR ), MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "defaultCursor" );
+            defaultCursor = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( Game.getInstance( ).getGameDescriptor( ).getCursorPath( DescriptorData.DEFAULT_CURSOR ), MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "defaultCursor" );
         // Load the default default cursor
         }else 
             defaultCursor = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImage( "gui/cursors/default.png", MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "defaultCursor" );
