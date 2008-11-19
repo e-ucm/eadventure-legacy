@@ -12,12 +12,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import es.eucm.eadventure.common.data.adventure.AdventureData;
+import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.editor.gui.TextConstants;
 
 public class DescriptorDataPanel extends JPanel {
 
-	private AdventureData currentDescriptor = null;
+	private DescriptorData currentDescriptor = null;
 
 	private JTextField titleTextField;
 
@@ -31,7 +31,7 @@ public class DescriptorDataPanel extends JPanel {
 
 	private String absoultePath;
 
-	public DescriptorDataPanel( AdventureData descriptor, String absolutePath ) {
+	public DescriptorDataPanel( DescriptorData descriptor, String absolutePath ) {
 		super( );
 		this.currentDescriptor = descriptor;
 		this.absoultePath = absolutePath;
@@ -115,7 +115,7 @@ public class DescriptorDataPanel extends JPanel {
 		if( descriptor == null ) {
 			playerMode = new JTextField( "" );
 			playerModeDescription.setText( "" );
-		} else if( descriptor.getPlayerMode( ) == AdventureData.MODE_PLAYER_3RDPERSON ) {
+		} else if( descriptor.getPlayerMode( ) == DescriptorData.MODE_PLAYER_3RDPERSON ) {
 			playerMode = new JTextField( TextConstants.getText( "Adventure.ModePlayerTransparent.Name" ) );
 			playerModeDescription.setText( TextConstants.getText( "Adventure.ModePlayerTransparent.Description" ) );
 		} else {
@@ -143,21 +143,21 @@ public class DescriptorDataPanel extends JPanel {
 	/**
 	 * @return the currentDescriptor
 	 */
-	public AdventureData getCurrentDescriptor( ) {
+	public DescriptorData getCurrentDescriptor( ) {
 		return currentDescriptor;
 	}
 
 	/**
 	 * @param currentDescriptor the currentDescriptor to set
 	 */
-	public void update( AdventureData currentDescriptor, String absolutePath ) {
+	public void update( DescriptorData currentDescriptor, String absolutePath ) {
 		this.currentDescriptor = currentDescriptor;
 		this.absoultePath = absolutePath;
 		//Update the text fields
 		if( currentDescriptor == null ) {
 			playerMode.setText( "" );
 			playerModeDescription.setText( "" );
-		} else if( currentDescriptor.getPlayerMode( ) == AdventureData.MODE_PLAYER_3RDPERSON ) {
+		} else if( currentDescriptor.getPlayerMode( ) == DescriptorData.MODE_PLAYER_3RDPERSON ) {
 			playerMode.setText( TextConstants.getText( "Adventure.ModePlayerTransparent.Name" ) );
 			playerModeDescription.setText( TextConstants.getText( "Adventure.ModePlayerTransparent.Description" ) );
 		} else {

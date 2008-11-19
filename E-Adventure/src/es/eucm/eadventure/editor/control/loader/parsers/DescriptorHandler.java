@@ -6,7 +6,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import es.eucm.eadventure.common.data.adventure.AdventureData;
+import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
 
 /**
@@ -24,7 +24,7 @@ public class DescriptorHandler extends DefaultHandler {
 	/**
 	 * Adventure data being read.
 	 */
-	private AdventureData descriptorData;
+	private DescriptorData descriptorData;
 
 	/**
 	 * String to store the current string in the XML file
@@ -43,7 +43,7 @@ public class DescriptorHandler extends DefaultHandler {
 	 */
 	public DescriptorHandler( String zipFile ) {
 		this.zipFile = zipFile;
-		descriptorData = new AdventureData( );
+		descriptorData = new DescriptorData( );
 	}
 
 	/**
@@ -51,7 +51,7 @@ public class DescriptorHandler extends DefaultHandler {
 	 * 
 	 * @return The descriptor data from the XML descriptor
 	 */
-	public AdventureData getAdventureData( ) {
+	public DescriptorData getAdventureData( ) {
 		return descriptorData;
 	}
 
