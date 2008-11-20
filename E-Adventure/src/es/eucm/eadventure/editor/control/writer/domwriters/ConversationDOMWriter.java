@@ -160,11 +160,16 @@ public class ConversationDOMWriter {
 			for( int i = 0; i < currentNode.getLineCount( ); i++ ) {
 				// Create the "option" element
 				Element optionElement = document.createElement( "option" );
-
+				ConversationLine line = currentNode.getLine( i );
 				// Create the actual option (a "speak-player" element) and add its respective text
 				Element lineElement = document.createElement( "speak-player" );
 				lineElement.setTextContent( currentNode.getLine( i ).getText( ) );
 
+				//If there is audio track, store it as attribute
+				if( line.isValidAudio( ) )
+					lineElement.setAttribute( "uri", line.getAudioPath( ) );
+
+				
 				// Insert the text line in the option node
 				optionElement.appendChild( lineElement );
 

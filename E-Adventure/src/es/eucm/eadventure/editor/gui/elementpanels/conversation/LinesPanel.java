@@ -24,12 +24,12 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
+import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
 import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
 import es.eucm.eadventure.common.gui.TextConstants;
-import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
 
 /**
  * This class is the panel used to display and edit nodes. It holds node operations, like adding and removing lines,
@@ -261,7 +261,8 @@ class LinesPanel extends JPanel {
 		moveLineUpButton.setEnabled( false );
 		moveLineDownButton.setEnabled( false );
 		deleteOptionButton.setEnabled( false );
-
+		editAudioButton.setEnabled(false);
+		 
 		// Create constraints
 		GridBagConstraints c = new GridBagConstraints( );
 
@@ -283,12 +284,16 @@ class LinesPanel extends JPanel {
 		c.gridheight = 1;
 		add( moveLineUpButton, c );
 
-		c.gridy = 2;
+		c.gridy = 3;
 		add( moveLineDownButton, c );
 
-		// Add the go to child button
+		// Add the delete option button
 		c.gridy = 1;
 		add( deleteOptionButton, c );
+		
+		// Add the sound option button
+		c.gridy = 2;
+		add(editAudioButton,c);
 	}
 
 	/**
