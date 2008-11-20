@@ -1341,11 +1341,17 @@ public class AssetsController {
 		public String[] listNames(String filePath) {
 			if (absolutePath == null){
 				File dir = new File(Controller.getInstance().getProjectFolder(), filePath);
-				return dir.list();
+				if (dir.exists() && dir.isDirectory())
+					return dir.list();
+				else
+					return new String[0];
 			}
 			else {
 				File dir = new File(absolutePath, filePath);
-				return dir.list();
+				if (dir.exists() && dir.isDirectory())
+					return dir.list();
+				else
+					return new String[0];
 			}
 		}
 	
