@@ -89,6 +89,14 @@ public class DescriptorData{
 	 */
 	public static final int GUI_CONTEXTUAL = 1;
 
+	
+	public static final int GRAPHICS_WINDOWED = 0;
+	
+	public static final int GRAPHICS_BLACKBKG = 1;
+	
+	public static final int GRAPHICS_FULLSCREEN = 2;
+
+	
 	/**
 	 * Constant for 1st person adventure mode
 	 */
@@ -113,6 +121,12 @@ public class DescriptorData{
 	 * Type of the GUI (Traditional or contextual)
 	 */
 	protected int guiType;
+
+	
+	/**
+	 * Default graphic configuration (fullscreen, windowed, etc)
+	 */
+	private int graphicConfig;
 
 	/**
 	 * Adventure mode (1st person/3rd person)
@@ -286,5 +300,12 @@ public class DescriptorData{
         this.commentaries = commentaries;
     }
     
+	public int getGraphicConfig() {
+		return this.graphicConfig;
+	}
+	 
+	public void setGraphicConfig(int graphicConfig) {
+		this.graphicConfig = graphicConfig;
+	}
     
 }

@@ -11,6 +11,7 @@ import es.eucm.eadventure.common.data.chapter.scenes.Slidescene;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.animations.ImageSet;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
+import es.eucm.eadventure.common.data.chapter.scenes.Scene;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
@@ -45,6 +46,41 @@ public class GameStateSlidescene extends GameState {
         
         // Select the resources
         Resources resources = createResourcesBlock( );
+                
+        // Create a background music identifier to not replay the music from the start
+        long backgroundMusicId = -1;
+        
+        // If there is a funcional scene
+        if( game.getFunctionalScene( ) != null ) {
+           // Take the old and the new music path
+            String oldMusicPath = null;
+            for( int i = 0; i < game.getFunctionalScene( ).getScene( ).getResources( ).size( ) && oldMusicPath == null; i++ )
+                if( game.getFunctionalScene( ).getScene( ).getResources( ).get( i ).getConditions( ).allConditionsOk( ) )
+                    oldMusicPath = game.getFunctionalScene( ).getScene( ).getResources( ).get( i ).getAssetPath( Scene.RESOURCE_TYPE_MUSIC );
+            String newMusicPath = null;
+            for( int i = 0; i < slidescene.getResources( ).size( ) && newMusicPath == null; i++ )
+                if( slidescene.getResources( ).get( i ).getConditions( ).allConditionsOk( ) )
+                    newMusicPath = slidescene.getResources( ).get( i ).getAssetPath( Scene.RESOURCE_TYPE_MUSIC );
+            
+            // If the music paths are the same, take the music identifier
+            if( oldMusicPath != null && newMusicPath != null && oldMusicPath.equals( newMusicPath ) )
+                backgroundMusicId = game.getFunctionalScene( ).getBackgroundMusicId( );
+            else
+                game.getFunctionalScene( ).stopBackgroundMusic( );
+        }
+        if( Game.getInstance( ).getOptions( ).isMusicActive( ) ){
+            if( backgroundMusicId != -1 ){
+                if( !MultimediaManager.getInstance( ).isPlaying( backgroundMusicId ) ){
+                    backgroundMusicId = MultimediaManager.getInstance( ).loadMusic( resources.getAssetPath( Scene.RESOURCE_TYPE_MUSIC ), true );
+                    MultimediaManager.getInstance( ).startPlaying( backgroundMusicId );
+                }
+            }else{
+                if( resources.existAsset( Scene.RESOURCE_TYPE_MUSIC ) ) {
+                    backgroundMusicId = MultimediaManager.getInstance( ).loadMusic( resources.getAssetPath( Scene.RESOURCE_TYPE_MUSIC ), true );
+                    MultimediaManager.getInstance( ).startPlaying( backgroundMusicId );
+                }
+            }
+        }
         
         // Create the set of slides and start it
         slides = MultimediaManager.getInstance( ).loadSlides( resources.getAssetPath( Slidescene.RESOURCE_TYPE_SLIDES ), MultimediaManager.IMAGE_SCENE );

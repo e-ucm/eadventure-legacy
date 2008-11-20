@@ -48,6 +48,7 @@ import es.eucm.eadventure.editor.gui.editdialogs.AdventureDataDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.ExportToLOMDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.FlagsDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.GUIStylesDialog;
+import es.eucm.eadventure.editor.gui.editdialogs.GraphicConfigDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.assetsdialogs.AnimationAssetsDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.assetsdialogs.AudioAssetsDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.assetsdialogs.ImageAssetsDialog;
@@ -2774,5 +2775,16 @@ public class Controller {
 	
 	public String getLoadingImage (){
 		return ConfigData.getLoadingImage( );
+	}
+	
+	public void showGraphicConfigDialog() {
+		// Show the dialog
+		GraphicConfigDialog guiStylesDialog = new GraphicConfigDialog( adventureData.getGraphicConfig( ) );
+
+		// If the new GUI style is different from the current, and valid, change the value
+		int optionSelected = guiStylesDialog.getOptionSelected( );
+		if( optionSelected != -1 && this.adventureData.getGraphicConfig( ) != optionSelected ) {
+			adventureData.setGraphicConfig(optionSelected);
+		}
 	}
 }

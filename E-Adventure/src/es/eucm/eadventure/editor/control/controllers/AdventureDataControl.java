@@ -339,4 +339,12 @@ public class AdventureDataControl {
 	public void setCommentaries(boolean commentaries) {
 		adventureData.setCommentaries(commentaries);
 	}
+	
+	public int getGraphicConfig() {
+		return adventureData.getGraphicConfig();
+	}
+	 
+	public void setGraphicConfig(int graphicConfig) {
+		this.adventureData.setGraphicConfig(graphicConfig);
+	}
 }

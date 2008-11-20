@@ -44,6 +44,8 @@
 	<entry key="MenuAdventure.AdventureData">Edit adventure data...</entry>
 	<entry key="MenuAdventure.GUIStyles">Select GUI style...</entry>
 	<entry key="MenuAdventure.CustomizeGUI">Customize GUI elements...</entry>
+	<entry key="MenuAdventure.GraphicConfig">Select Grahpic Configuration...</entry>
+	<entry key="MenuAdventure.Visualization">Visualization...</entry>
 	<entry key="MenuAdventure.AssessmentFiles">Manage assessment files...</entry>
 	<entry key="MenuAdventure.AdaptationFiles">Manage adaptation files...</entry>
 	<entry key="MenuAdventure.BackgroundAssets">Manage background assets...</entry>
@@ -430,6 +432,14 @@ Please, try it again with other destiny directory.</entry>
 	<entry key="GUIStyles.TraditionalDescription">This type of GUI is much like the earlier adventures of LucasArts. The user has a set of buttons to perform actions, and an inventory in the lower part of the screen</entry>
 	<entry key="GUIStyles.Contextual">Contextual GUI</entry>
 	<entry key="GUIStyles.ContextualDescription">This type of GUI is much like the latest adventures of LucasArts. The actions are displayed in front of the object, when the user selects them. Also, the inventory is not visible everytime, so the user can bring it up whenever he wants</entry>
+
+	<entry key="GraphicConfig.Title">Graphic configuration for the adventure</entry>
+	<entry key="GraphicConfig.Windowed">Run in a window</entry>
+	<entry key="GraphicConfig.WindowedDescription">The adventure appears in a window on top of the users desktop</entry>
+	<entry key="GraphicConfig.BlackBkg">Run with a black background</entry>
+	<entry key="GraphicConfig.BlackBkgDescription">The adventure appears in a window with the rest of the screen in black (the users desktop is hidden)</entry>
+	<entry key="GraphicConfig.Fullscreen">Run in fullscreen mode (Windows only)</entry>
+	<entry key="GraphicConfig.FullscreenDescription">The adventure uses all the screen realstate available on the system</entry>
 
 	<entry key="AssessmentFiles.Title">Assessment files</entry>
 	<entry key="AssessmentFiles.AddFile">Add assessment file</entry>

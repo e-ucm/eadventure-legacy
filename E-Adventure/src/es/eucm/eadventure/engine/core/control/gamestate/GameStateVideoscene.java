@@ -1,12 +1,8 @@
 package es.eucm.eadventure.engine.core.control.gamestate;
 
-import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.media.ControllerEvent;
 import javax.media.ControllerListener;
@@ -17,12 +13,7 @@ import javax.media.PrefetchCompleteEvent;
 import javax.media.RealizeCompleteEvent;
 import javax.media.StopEvent;
 
-import de.schlichtherle.io.FileOutputStream;
-import de.schlichtherle.io.FileWriter;
-
 import es.eucm.eadventure.common.data.chapter.NextScene;
-import es.eucm.eadventure.common.data.chapter.elements.NPC;
-import es.eucm.eadventure.common.data.chapter.resources.Asset;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.data.chapter.scenes.Videoscene;
 import es.eucm.eadventure.engine.core.control.Game;
@@ -89,12 +80,12 @@ public class GameStateVideoscene extends GameState  implements ControllerListene
             if( video != null ) {
                 video.addMouseListener( Game.getInstance( ) );
 
-                GUI.getInstance( ).getFrame( ).removeAll( );
+                //GUI.getInstance( ).getFrame( ).removeAll( );
                 GUI.getInstance( ).showComponent( video );
-                //GUI.getInstance( ).getFrame( ).add( video, BorderLayout.CENTER );
-                GUI.getInstance( ).getFrame( ).createBufferStrategy( 1 );
-                GUI.getInstance( ).getFrame( ).validate( );
-                GUI.getInstance( ).getFrame( ).repaint( );
+                ////GUI.getInstance( ).getFrame( ).add( video, BorderLayout.CENTER );
+                //GUI.getInstance( ).getFrame( ).createBufferStrategy( 1 );
+                //GUI.getInstance( ).getFrame( ).validate( );
+                //GUI.getInstance( ).getFrame( ).repaint( );
 
                 stop = false;
                 mediaPlayer.start( );
@@ -104,7 +95,6 @@ public class GameStateVideoscene extends GameState  implements ControllerListene
             e.printStackTrace( );
             loadNextScene( );
         }
-        
 
     }
 
@@ -128,14 +118,13 @@ public class GameStateVideoscene extends GameState  implements ControllerListene
             NextScene nextScene = null;
 
             for( NextScene currentNextScene : videoscene.getNextScenes( ) )
-                if( new FunctionalConditions( currentNextScene.getConditions( )).allConditionsOk( ) )
+                if( currentNextScene.getConditions( ).allConditionsOk( ) )
                     nextScene = currentNextScene;
 
             if( nextScene != null ) {
                 game.setNextScene( nextScene );
                 game.setState( Game.STATE_NEXT_SCENE );
             }
-
             else
                 game.setState( Game.STATE_RUN_EFFECTS );
         }
