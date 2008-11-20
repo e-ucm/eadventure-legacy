@@ -1303,7 +1303,7 @@ public class Controller {
 			// Load the data from the file, and update the info
 			List<Incidence> incidences = new ArrayList<Incidence>();
 			//ls.start( );
-			AdventureData loadedAdventureData = Loader.loadAdventureData( AssetsController.getInputStreamCreator(), 
+			AdventureData loadedAdventureData = Loader.loadAdventureData( AssetsController.getInputStreamCreator(completeFilePath), 
 					AssetsController.getCategoryFolder(AssetsController.CATEGORY_ASSESSMENT),
 					AssetsController.getCategoryFolder(AssetsController.CATEGORY_ADAPTATION),incidences );
 

@@ -70,8 +70,12 @@ public class AssessmentEngine implements TimerEventListener{
      * @param assessmentPath Path of the file containing the assessment data
      */
     public void loadAssessmentRules( String assessmentPath ) {
-    	AssessmentProfile profile = Loader.loadAssessmentProfile(ResourceHandler.getInstance(), assessmentPath, new ArrayList<Incidence>());
-        assessmentRules = profile.getRules();
+    	if (assessmentPath!=null && !assessmentPath.equals("")){
+	    	AssessmentProfile profile = Loader.loadAssessmentProfile(ResourceHandler.getInstance(), assessmentPath, new ArrayList<Incidence>());
+	        assessmentRules = profile.getRules();
+    	} else {
+    		assessmentRules = new ArrayList<AssessmentRule>();
+    	}
         
         // Iterate through the rules: those timed add them to the timer manager 
         for (AssessmentRule assessmentRule: assessmentRules){

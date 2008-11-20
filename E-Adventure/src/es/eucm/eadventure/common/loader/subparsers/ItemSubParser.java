@@ -8,7 +8,6 @@ import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.common.data.chapter.effects.Effects;
 import es.eucm.eadventure.common.data.chapter.elements.Item;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
-import es.eucm.eadventure.editor.control.controllers.AssetsController;
 
 /**
  * Class to subparse items.
@@ -144,7 +143,7 @@ public class ItemSubParser extends SubParser {
 				}
 
 				// If the asset is not an special one
-				if( !AssetsController.isAssetSpecial( path ) )
+//				if( !AssetsController.isAssetSpecial( path ) )
 					currentResources.addAsset( type, path );
 			}
 

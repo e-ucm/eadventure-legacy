@@ -2,11 +2,8 @@ package es.eucm.eadventure.common.loader.subparsers;
 
 import org.xml.sax.Attributes;
 
-import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
-import es.eucm.eadventure.common.data.chapter.effects.Effects;
-import es.eucm.eadventure.common.data.chapter.elements.ActiveArea;
 import es.eucm.eadventure.common.data.chapter.elements.Barrier;
 import es.eucm.eadventure.common.data.chapter.scenes.Scene;
 

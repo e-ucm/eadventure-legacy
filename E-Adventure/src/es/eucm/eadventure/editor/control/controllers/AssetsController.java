@@ -1331,7 +1331,7 @@ public class AssetsController {
 				return getInputStream(filePath);
 			else
 				try {
-					return new FileInputStream(absolutePath);
+					return new FileInputStream(new File(absolutePath, filePath));
 				} catch (FileNotFoundException e) {
 					return null;
 				}
@@ -1344,7 +1344,7 @@ public class AssetsController {
 				return dir.list();
 			}
 			else {
-				File dir = new File(absolutePath);
+				File dir = new File(absolutePath, filePath);
 				return dir.list();
 			}
 		}
