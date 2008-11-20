@@ -46,6 +46,8 @@
 	<entry key="MenuAdventure.AdventureData">Editar datos de la aventura...</entry>
 	<entry key="MenuAdventure.GUIStyles">Seleccionar estilo de GUI...</entry>
 	<entry key="MenuAdventure.CustomizeGUI">Personalizar elementos de la interfaz...</entry>
+	<entry key="MenuAdventure.GraphicConfig">Elegir configuración gráfica...</entry>
+	<entry key="MenuAdventure.Visualization">Visualización...</entry>
 	<entry key="MenuAdventure.AssessmentFiles">Administrar archivos de evaluación...</entry>
 	<entry key="MenuAdventure.AdaptationFiles">Administrar archivos de adaptación...</entry>
 	<entry key="MenuAdventure.BackgroundAssets">Administrar recursos de fondos...</entry>
@@ -437,6 +439,14 @@ Por favor, inténtelo de nuevo cambiando dicho directorio.</entry>
 	<entry key="GUIStyles.TraditionalDescription">Este tipo de interfaz presenta un gran parecido con las primeras aventuras gráficas de LucasArts. El usuario dispone de una serie de botones para efectuar acciones y un inventario en la parte inferior de la pantalla</entry>
 	<entry key="GUIStyles.Contextual">GUI Contextual</entry>
 	<entry key="GUIStyles.ContextualDescription">Este tipo de interfaz presenta un gran parecido con las últimas aventuras gráficas de LucasArts. Las acciones se muestran por pantalla encima del personaje u objeto, cuando el usuario así lo desea; el inventario también permanece oculto hasta que el usuario decide hacerlo visible</entry>
+
+	<entry key="GraphicConfig.Title">Configuración gráfica de la aventura</entry>
+	<entry key="GraphicConfig.Windowed">Ejecutar en una ventana</entry>
+	<entry key="GraphicConfig.WindowedDescription">La aventura aparece en una ventana sobre el escritorio del usuario</entry>
+	<entry key="GraphicConfig.BlackBkg">Ejectuar sobre un fondo negro</entry>
+	<entry key="GraphicConfig.BlackBkgDescription">La aventura aparece en una ventana con el resto de la pantalla en negro (el escritorio del usuario no queda visible)</entry>
+	<entry key="GraphicConfig.Fullscreen">Ejectuar en modo pantalla completa (solo Windows)</entry>
+	<entry key="GraphicConfig.FullscreenDescription">La aventura utiliza toda la pantalla disponible</entry>
 
 	<entry key="AssessmentFiles.Title">Archivos de evaluación</entry>
 	<entry key="AssessmentFiles.AddFile">Añadir archivo de evaluación</entry>

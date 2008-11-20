@@ -316,6 +316,17 @@ public class MultimediaManager {
         }
     }
     
+    public void stopPlayingMusic(){
+        Collection<Sound> sounds = soundCache.values();
+        ArrayList<Sound> soundsToRemove = new ArrayList<Sound>();
+        for(Sound sound : sounds){
+            if(sound.getId()==musicSoundId){
+                sound.stopPlaying();
+            }
+        }
+    }
+
+    
     public void stopPlayingInmediately(long soundId){
         if( soundCache.containsKey( soundId ) ){
             Sound sound = soundCache.get( soundId );

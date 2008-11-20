@@ -324,20 +324,31 @@ public class MainWindow extends JFrame {
 			}
 		} );
 		adventureMenu.add( itAdventureData );
+		
+		JMenu visualization = new JMenu(TextConstants.getText("MenuAdventure.Visualization"));
 		JMenuItem itGUIStyles = new JMenuItem( TextConstants.getText( "MenuAdventure.GUIStyles" ) );
 		itGUIStyles.addActionListener( new ActionListener( ) {
 			public void actionPerformed( ActionEvent e ) {
 				controller.showGUIStylesDialog( );
 			}
 		} );
-		adventureMenu.add( itGUIStyles );
+		visualization.add( itGUIStyles );
 		JMenuItem itCustomizeGUI = new JMenuItem( TextConstants.getText( "MenuAdventure.CustomizeGUI" ) );
 		itCustomizeGUI.addActionListener( new ActionListener( ) {
 			public void actionPerformed( ActionEvent e ) {
 				controller.showCustomizeGUIDialog( );
 			}
 		} );
-		adventureMenu.add( itCustomizeGUI );
+		visualization.add( itCustomizeGUI );
+		JMenuItem itGraphicConfig = new JMenuItem( TextConstants.getText( "MenuAdventure.GraphicConfig"));
+		itGraphicConfig.addActionListener( new ActionListener() {
+			public void actionPerformed( ActionEvent e) {
+				controller.showGraphicConfigDialog();
+			}
+		});
+		visualization.add( itGraphicConfig);
+		adventureMenu.add( visualization);
+		
 		if( controller.isPlayTransparent( ) ) {
 			itPlayerMode = new JMenuItem( TextConstants.getText( "MenuAdventure.ChangeToModePlayerVisible" ) );
 			itPlayerMode.setToolTipText( TextConstants.getText( "MenuAdventure.ModePlayerVisible" ) );

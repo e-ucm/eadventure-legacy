@@ -95,14 +95,11 @@ public class GameStateNextScene extends GameState {
                 break;
                 
             case GeneralScene.SLIDESCENE:
-                // Stop the music
-                if( game.getFunctionalScene( ) != null )
-                    game.getFunctionalScene( ).stopBackgroundMusic( );
-                
+                               
                 // If it is a slidescene, load the slidescene
                 game.setState( Game.STATE_SLIDE_SCENE );
                 break;
-                
+               
             case GeneralScene.VIDEOSCENE:
                 // Stop the music
                 if( game.getFunctionalScene( ) != null )

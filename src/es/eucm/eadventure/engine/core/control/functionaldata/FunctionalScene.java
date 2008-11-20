@@ -57,7 +57,7 @@ public class FunctionalScene implements Renderable {
     /**
      * Background music
      */
-    private long backgroundMusicId;
+    private long backgroundMusicId = -1;
 
     /**
      * Functional player present in the scene
@@ -180,6 +180,19 @@ public class FunctionalScene implements Renderable {
 
         updateOffset( );
     }
+
+    /**
+     * Creates a new FunctionalScene only with a given background music.
+     * 
+     * @param backgroundMusicId Background music identifier
+     */
+    public FunctionalScene(long backgroundMusicId ) {
+        // Load the background music (if it is not loaded)
+        this.backgroundMusicId = backgroundMusicId;
+        if( backgroundMusicId == -1 )
+            playBackgroundMusic( );
+    }
+
     
     /**
      * Update the resources and elements of the scene, depending on
@@ -436,7 +449,8 @@ public class FunctionalScene implements Renderable {
      * @see es.eucm.eadventure.engine.engine.control.functionaldata.Renderable#update(long)
      */
     public void update( long elapsedTime ) {
-        
+        playBackgroundMusic();
+              
         // Update the items
         for( FunctionalItem item : items )
             item.update( elapsedTime );
@@ -821,10 +835,11 @@ public class FunctionalScene implements Renderable {
                 if( resources.existAsset( Scene.RESOURCE_TYPE_MUSIC ) ) {
                     backgroundMusicId = MultimediaManager.getInstance( ).loadMusic( resources.getAssetPath( Scene.RESOURCE_TYPE_MUSIC ), true );
                     MultimediaManager.getInstance( ).startPlaying( backgroundMusicId );
+                } else {
+                    MultimediaManager.getInstance( ).stopPlayingMusic();
                 }
             }
-        }
-    }
+        }    }
     
     /**
      * Creates the current resource block to be used

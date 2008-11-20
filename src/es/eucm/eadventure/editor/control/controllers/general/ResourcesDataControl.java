@@ -57,7 +57,7 @@ public class ResourcesDataControl extends DataControl {
 
 			case Controller.CUTSCENE_SLIDES:
 				// Slidescene assets
-				assetsInformation = new AssetInformation[] { new AssetInformation( TextConstants.getText( "Resources.DescriptionSlidesceneSlides" ), "slides", true, AssetsController.CATEGORY_ANIMATION, AssetsController.FILTER_JPG ) };
+				assetsInformation = new AssetInformation[] { new AssetInformation( TextConstants.getText( "Resources.DescriptionSlidesceneSlides" ), "slides", true, AssetsController.CATEGORY_ANIMATION, AssetsController.FILTER_JPG ), new AssetInformation( TextConstants.getText( "Resources.DescriptionSceneMusic" ), "bgmusic", false, AssetsController.CATEGORY_AUDIO, AssetsController.FILTER_NONE ) };
 				break;
 
 			case Controller.CUTSCENE_VIDEO:

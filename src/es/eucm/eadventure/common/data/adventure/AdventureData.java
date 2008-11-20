@@ -96,5 +96,7 @@ public class AdventureData extends DescriptorData{
 	public void setChapters(List<Chapter> chapters) {
 		this.chapters = chapters;
 	}
+	
+	
 
 }
