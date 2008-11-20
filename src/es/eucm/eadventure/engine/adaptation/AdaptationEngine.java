@@ -42,32 +42,37 @@ public class AdaptationEngine {
      */
     @SuppressWarnings("unchecked")
     public void init( String adaptationPath ) {
-        AdaptationProfile profile = Loader.loadAdaptationProfile( ResourceHandler.getInstance(), adaptationPath, new ArrayList<Incidence>() );
-        initialAdaptedState = profile.getInitialState();
-        externalAdaptationRules = profile.getRules();
-        
-        if(initialAdaptedState!=null) {
-            Game.getInstance().setAdaptedStateToExecute(initialAdaptedState);
-        }
-     
-        //If we are an applet...
-        if(Game.getInstance( ).isAppletMode( )) {
-            
-            Game.getInstance( ).getComm( ).setAdaptationEngine(this);
-            
-            //Create a Set with all the properties that should be requested from the server
-            externalPropertyNames = new HashSet<String>();
-            for(AdaptationRule rule : externalAdaptationRules) {
-                for(String name : rule.getPropertyNames()) {
-                    externalPropertyNames.add( name );
-                }
-            }
-            
-            //Request an initial state and set the clock to ask again later
-            requestNewState( );
-            adaptationClock = new AdaptationClock( this );
-            adaptationClock.start( );
-        }
+    	if (adaptationPath!=null && !adaptationPath.equals("")){
+		    AdaptationProfile profile = Loader.loadAdaptationProfile( ResourceHandler.getInstance(), adaptationPath, new ArrayList<Incidence>() );
+		    initialAdaptedState = profile.getInitialState();
+		    externalAdaptationRules = profile.getRules();
+    	} else {
+    		initialAdaptedState = new AdaptedState();
+    		externalAdaptationRules = new ArrayList<AdaptationRule>();
+    	}
+		    
+	    if(initialAdaptedState!=null) {
+	        Game.getInstance().setAdaptedStateToExecute(initialAdaptedState);
+	    }
+	 
+	    //If we are an applet...
+	    if(Game.getInstance( ).isAppletMode( )) {
+	        
+	        Game.getInstance( ).getComm( ).setAdaptationEngine(this);
+	        
+	        //Create a Set with all the properties that should be requested from the server
+	        externalPropertyNames = new HashSet<String>();
+	        for(AdaptationRule rule : externalAdaptationRules) {
+	            for(String name : rule.getPropertyNames()) {
+	                externalPropertyNames.add( name );
+	            }
+	        }
+	        
+	        //Request an initial state and set the clock to ask again later
+	        requestNewState( );
+	        adaptationClock = new AdaptationClock( this );
+	        adaptationClock.start( );
+	    }
     }
     
     /**

@@ -1,6 +1,5 @@
 package es.eucm.eadventure.common.loader.parsers;
 
-import java.io.FileFilter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,7 +18,6 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import java.io.FileInputStream;
 
-import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.common.data.adaptation.AdaptationProfile;
 import es.eucm.eadventure.common.data.adventure.AdventureData;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
@@ -91,6 +89,8 @@ public class AdventureHandler extends DefaultHandler {
 	 * String to store the current string in the XML file
 	 */
 	protected StringBuffer currentString;
+	
+	private InputStreamCreator isCreator;
 
 	private static void getXMLFilePaths (InputStreamCreator isCreator, String assessmentFolderPath, String adaptationFolderPath, List<String> assessmentPaths, List<String> adaptationPaths){
 
@@ -118,7 +118,7 @@ public class AdventureHandler extends DefaultHandler {
 	 *            Path to the zip file which helds the chapter files
 	 */
 	public AdventureHandler(  InputStreamCreator isCreator, String assessmentFolder, String adaptationFolder, List<Incidence> incidences ) {
-		
+		this.isCreator = isCreator;
 		List<String> assessmentPaths = new ArrayList<String>();
 		List<String> adaptationPaths = new ArrayList<String>();
 		getXMLFilePaths(isCreator, assessmentFolder, adaptationFolder, assessmentPaths, adaptationPaths );
@@ -226,7 +226,7 @@ public class AdventureHandler extends DefaultHandler {
 				SAXParser saxParser = factory.newSAXParser( );
 
 				// Set the input stream with the file
-				InputStream chapterIS = new FileInputStream( zipFile + "/" + chapterPath );
+				InputStream chapterIS = isCreator.buildInputStream( chapterPath );
 
 				// Parse the data and close the data
 				saxParser.parse( chapterIS, chapterParser );

@@ -90,7 +90,7 @@ public class Loader {
 
 		try {
 			// Set the adventure handler
-			DescriptorHandler adventureParser = new DescriptorHandler(  );
+			DescriptorHandler descriptorParser = new DescriptorHandler(  );
 
 			// Create a new factory
 			SAXParserFactory factory = SAXParserFactory.newInstance( );
@@ -99,11 +99,11 @@ public class Loader {
 
 			// Read and close the inputstrea
 			InputStream descriptorIS = isCreator.buildInputStream("descriptor.xml"); 
-			saxParser.parse( descriptorIS, adventureParser );
+			saxParser.parse( descriptorIS, descriptorParser );
 			descriptorIS.close( );
 
 			// Store the adventure data
-			adventureData = adventureParser.getAdventureData( );
+			adventureData = descriptorParser.getGameDescriptor();
 
 		} catch( ParserConfigurationException e ) {
 			//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadData" ) );
