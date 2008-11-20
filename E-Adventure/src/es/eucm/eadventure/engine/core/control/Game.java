@@ -12,9 +12,12 @@ import java.awt.event.MouseMotionListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
+import java.util.Stack;
 
 import javax.swing.JButton;
 import javax.swing.JEditorPane;
@@ -204,9 +207,9 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     private GameStateConversation conversationStored;
     
     /**
-     * Queue of effects to be performed
+     * LIFO of Queues of effects to be performed
      */
-    private ArrayList<FunctionalEffect> effectsQueue;
+    private Stack<ArrayList<FunctionalEffect>> effectsQueue;
 
     /**
      * Stores the character currently talking
@@ -276,6 +279,11 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      * Structure for game timers. The key is the id returned by TimerManager
      */
     private HashMap<Integer, Timer> gameTimers;
+    
+    /**
+     * Stack to store each conversation nested 
+     */
+    private Stack<GameState> stackOfState;
 
     /**
      * Returns the instance of Game
@@ -294,24 +302,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         instance = null;
     }
 
-    public void pushCurrentState(){
-        if (this.currentState instanceof GameStateConversation ){
-           // System.out.println( "CONVERSATION PUSHED" );
-            this.conversationStored = (GameStateConversation)currentState;
-        }
-    }
-    
-    public GameState popCurrentState(){
-        GameState toReturn=null;
-        if (conversationStored!=null){
-            //System.out.println( "CONVERSATION POPED" );
-            this.currentState=conversationStored;
-            toReturn = currentState;
-            conversationStored=null;
-        }
-        return toReturn;
-    }
-    
+   
     /**
      * Sets the adventure file path
      * @param adventurePath The path of the adventure file
@@ -367,9 +358,13 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         actionManager = new ActionManager( );
         itemSummary = new ItemSummary( gameData.getItems( ) );
         inventory = new Inventory( );
-        
-        effectsQueue = new ArrayList<FunctionalEffect>( );        
-        
+       
+        // Initialize the stack of queue of effects
+        effectsQueue = new Stack<ArrayList<FunctionalEffect>>( );        
+        effectsQueue.push(new ArrayList<FunctionalEffect>());
+       
+        // Initialize the stack of states (used to keep the conversations and can throw its effects)
+        stackOfState = new Stack<GameState>();
 
         g.clearRect( 0, 0, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT );
         GUI.drawString( g, GameText.TEXT_PLEASE_WAIT, 400, 280 );
@@ -447,7 +442,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             gameDescriptor = Loader.loadDescriptorData( ResourceHandler.getInstance() );
             
             currentState = new GameStateLoading( );
-    
+            
             GUI.getInstance( ).initGUI( gameDescriptor.getGUIType( ), gameDescriptor.isGUICustomized( ) );
     
             GUI.getInstance( ).getFrame( ).addKeyListener( this );
@@ -721,21 +716,41 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         return actionManager;
     }
 
-    public void setAndPushState (int state){
-        this.pushCurrentState( );
-        this.setState( state );
-    }
-    
+    /**
+     * Pop the state stack, changing to the state to just pop state
+     */
     public void setAndPopState (){
         GameState oldState = this.popCurrentState();
-        if (oldState!=null){
-            //if (oldState instanceof GameStateConversation)
-                this.currentState=oldState;
-            //else
-              //  setAndPopState();
-        }else
+        if (oldState!=null)
+          this.currentState=oldState;
+        else
             setState (STATE_PLAYING);
     }
+    
+   /**
+    * Push in the state stack the GameState gs
+    * 
+    * @param gs GameState to store 
+    */
+    public void pushCurrentState(GameState gs){
+        
+    	stackOfState.push(gs);
+    	
+    }
+    
+    /**
+     *   Take out the last state introduced in the stack.
+     * 
+     * @return null if is empty stack, the top state in other case
+     */
+    public GameState popCurrentState(){
+       
+    	GameState toReturn=null;
+        if (!(stackOfState.size() == 0))
+        	toReturn = stackOfState.pop();
+        return toReturn;
+    }
+    	
     
     /**
      * Sets the new state for the game
@@ -879,9 +894,9 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      * Returns the effects queue
      * @return FunctionalEffects queue stored in the game
      */
-    public ArrayList<FunctionalEffect> getEffectsQueue( ) {
+  /*  public Stack<ArrayList<FunctionalEffect>> getEffectsQueue( ) {
         return effectsQueue;
-    }
+    }*/
     
     /**
      * Clears all the effects from the effects queue
@@ -898,21 +913,70 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         storeEffectsInQueue(effects, false);
     }
     public void storeEffectsInQueue( List<FunctionalEffect> effects, boolean fromConversation ) {
-        for( int i = 0; i < effects.size( ); i++ )
-            effectsQueue.add( i, effects.get( i ) );
-
+       
+    	for( int i = 0; i < effects.size( ); i++ )
+    		effectsQueue.peek().add( i, effects.get( i ) );
+    	
         if (fromConversation)
-            setState( STATE_RUN_EFFECTS_FROM_CONVERSATION );
+        	setState( STATE_RUN_EFFECTS_FROM_CONVERSATION );
         else
             setState( STATE_RUN_EFFECTS );
     }
-
+    
+    /**
+     * Gets the first element of the top of the stack
+     */
+    public FunctionalEffect getFirstElementOfTop(){
+    	//Con esto que esta comentado no solo avanzo en la cola, sino en la pila tb
+    	/*if (effectsQueue.peek().size()==1 && effectsQueue.size()!=1){
+    		FunctionalEffect fe = effectsQueue.peek().remove(0);
+    		popEffectsStack();
+    		return fe;
+    	}else
+    		return effectsQueue.peek().remove(0);*/
+    	//Solo avanzamos en la cola
+    	return effectsQueue.peek().remove(0);
+    }
+    
+    /**
+     * Pop the Stack
+     */
+    public void popEffectsStack(){
+    	effectsQueue.pop();
+    }
+    
+    /**
+     * Check if the Stack only have one empty FIFO
+     */
+    public boolean isEmptyFIFOinStack(){
+    	/*if (effectsQueue.size()==1)
+    		return (effectsQueue.peek().isEmpty());
+    	else return false;*/
+    	return effectsQueue.peek().isEmpty();
+    }
+    
+    
+    public void endConversation(){
+    	this.popEffectsStack();
+    	if (!isEmptyFIFOinStack())
+    		setState(STATE_RUN_EFFECTS);
+        else 
+        	setState (STATE_PLAYING);
+    }
+    
+    /**
+     * Adds a element to Stack
+     */
+    public void addToTheStack(ArrayList<FunctionalEffect> el){
+    	effectsQueue.push(el);
+    }
+    
     /**
      * Places an effect in the end of the queue, and changes the state of the game
      * @param effect FunctionalEffect to be enqueued
      */
     public void enqueueEffect( FunctionalEffect effect ) {
-        effectsQueue.add( effect );
+    	effectsQueue.peek().add(effect);
         setState( STATE_RUN_EFFECTS );
     }
 
@@ -1062,6 +1126,16 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
                 ArrayList<String> grabbedItems = itemSummary.getGrabbedItems( );
                 for( String item : grabbedItems ) {
                     inventory.storeItem( new FunctionalItem( gameData.getItem( item ) ) );
+               
+                 // Add timers to the TimerManager
+                 /*   this.gameTimers = new HashMap<Integer, Timer>();
+                    for (Timer timer: gameData.getTimers( )){
+                        int id = timerManager.addTimer( timer.getInitCond( ), timer.getEndCond( ), this, timer.getTime( ) );
+                        gameTimers.put( new Integer(id), timer );
+                    }    
+                   */ 
+                //TODO no estoy seguro 
+                lastMouseEvent = null;
                 }
             }
             setState( STATE_PLAYING );
