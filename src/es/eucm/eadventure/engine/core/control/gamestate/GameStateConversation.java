@@ -3,10 +3,12 @@ package es.eucm.eadventure.engine.core.control.gamestate;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalNPC;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffect;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
 import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
@@ -113,6 +115,10 @@ public class GameStateConversation extends GameState {
         currentLine = 0;
         firstLineDisplayed = 0;
         optionHighlighted = -1;
+        
+        // Push a new element in the Stack of effects
+        game.addToTheStack(new ArrayList<FunctionalEffect>());
+       
     }
 
     /*
@@ -331,7 +337,10 @@ public class GameStateConversation extends GameState {
             //if( currentNode.isTerminal( ) ) {
             if( currentNode.hasValidEffect( )&&!currentNode.isEffectConsumed( ) ) {
                 currentNode.consumeEffect( );
-                game.pushCurrentState( );
+                // Store the state in the stack. Later trigger the effects, 
+                // it must come back to this conversation and continue it
+                game.pushCurrentState(this);
+                
                 FunctionalEffects.storeAllEffects(currentNode.getEffects( ));
                 GUI.getInstance().toggleHud( true );
                 
@@ -347,7 +356,12 @@ public class GameStateConversation extends GameState {
                     node.resetEffect( );
                 }
                 GUI.getInstance().toggleHud( true );
-                game.setState ( Game.STATE_PLAYING);
+                //FIXME comprobar que esta bien
+                //The conversation has finished, pop its effects queue 
+                game.endConversation();
+                
+                //FIXME esta línea la incluimos en el metodo game.endConversation()
+                //game.setState ( Game.STATE_PLAYING);
             }
             
             //TODO MODIFIED: Antes no estaba el else if (era solo else)
