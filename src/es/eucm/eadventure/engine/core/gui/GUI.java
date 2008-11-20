@@ -204,7 +204,7 @@ public class GUI implements FocusListener {
         gameFrame.setVisible( true );
         gameFrame.setFocusable( true );
         // Double buffered painting
-        gameFrame.setAlwaysOnTop( true );
+        //gameFrame.setAlwaysOnTop( true );
         gameFrame.createBufferStrategy( 2 );
         gameFrame.validate( );
         
@@ -289,7 +289,7 @@ public class GUI implements FocusListener {
             dialog = null;
         }
         gameFrame.setFocusable( true );
-        gameFrame.setAlwaysOnTop( true );
+        //gameFrame.setAlwaysOnTop( true );
         gameFrame.setVisible( true );
         gameFrame.setExtendedState( Frame.NORMAL );
         
