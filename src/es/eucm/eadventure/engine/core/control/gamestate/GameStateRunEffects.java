@@ -2,10 +2,13 @@ package es.eucm.eadventure.engine.core.control.gamestate;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 
+import es.eucm.eadventure.common.data.chapterdata.effects.TriggerConversationEffect;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffect;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalPlayAnimationEffect;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalTriggerConversationEffect;
 import es.eucm.eadventure.engine.core.gui.GUI;
 
 /**
@@ -53,6 +56,9 @@ public class GameStateRunEffects extends GameState {
         GUI.getInstance( ).drawScene( g );
         GUI.getInstance( ).drawHUD( g );
         
+        
+       
+        
         // Draw the FPS
         //g.setColor( Color.WHITE );
         //g.drawString( Integer.toString( fps ), 780, 14 );
@@ -63,30 +69,37 @@ public class GameStateRunEffects extends GameState {
             // Delete the current effect
             currentExecutingEffect = null;
             
+            
+            
             // If no more effects must be executed, switch the state
-            if( game.getEffectsQueue( ).isEmpty( ) ) {
+            if( game.isEmptyFIFOinStack() ) {
                 //XXX MODIFIED
                 //game.updateDataPendingFromFlags( false );
                 System.gc( );
                 GUI.getInstance().toggleHud( true );
-                
-                //XXX MODIFIED
-                if (fromConversation)
+                //XXX MODIFIED by angel; con esta modificacion sobra la variable fromConversation
+               /* if (fromConversation)
                     game.setAndPopState( );
                 else
-                    game.setState( Game.STATE_PLAYING );
-            }
-
+                    game.setState( Game.STATE_PLAYING );*/
+                
+                // Look if there are some stored state, and change to correct one.               
+                game.setAndPopState( );
+                               
+            } 
+            
             boolean stop = false;
             // Execute effects while some of them is not instantaneous
-            while( !stop && !game.getEffectsQueue( ).isEmpty( ) ) {
-                FunctionalEffect currentEffect = game.getEffectsQueue( ).remove( 0 );
+            
+            while( !stop && !game.isEmptyFIFOinStack() ) {
+                FunctionalEffect currentEffect = game.getFirstElementOfTop();
                 currentEffect.triggerEffect( );
                 stop = !currentEffect.isInstantaneous( );
                 if( stop )
                     currentExecutingEffect = currentEffect;
             }
         }
+   
         
         // Special conditions for the play animation effect
         // FIXME Edu: ¿Mover esto de aqui?
