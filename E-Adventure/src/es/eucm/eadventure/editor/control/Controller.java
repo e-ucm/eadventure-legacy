@@ -2761,13 +2761,13 @@ public class Controller {
 	public void setLanguage ( int language ){
 		if (language == LANGUAGE_SPANISH && !ConfigData.getLanguangeFile( ).equals( "es_ES.xml" )){
 			ConfigData.setLanguangeFile( "es_ES.xml", "aboutES.html", "img/Editor2D-Loading-Esp.png" );
-			TextConstants.loadStrings( "es_ES.xml" );
+			TextConstants.loadStrings( LANGUAGE_DIR+"/es_ES.xml" );
 			loadingScreen.setImage( getLoadingImage() );
 			mainWindow.reloadData( );
 		}
 		else if (language == LANGUAGE_ENGLISH && !ConfigData.getLanguangeFile( ).equals( "en_EN.xml" )){
 			ConfigData.setLanguangeFile( "en_EN.xml", "aboutEN.html", "img/Editor2D-Loading-Eng.png" );
-			TextConstants.loadStrings( "en_EN.xml" );
+			TextConstants.loadStrings( LANGUAGE_DIR+"/en_EN.xml" );
 			loadingScreen.setImage( getLoadingImage() );
 			mainWindow.reloadData( );
 		}
