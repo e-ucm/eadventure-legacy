@@ -8,10 +8,16 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import es.eucm.eadventure.engine.core.control.FlagSummary;
 import es.eucm.eadventure.engine.core.control.ItemSummary;
+<<<<<<< .mine
+import es.eucm.eadventure.common.data.chapterdata.Timer;
+import es.eucm.eadventure.common.data.chapterdata.elements.Item;
+=======
 import es.eucm.eadventure.common.data.chapter.elements.Item;
+>>>>>>> .r43
 
 /**
  * This class manages the saved games in eAdventure
@@ -102,6 +108,7 @@ public class SaveGame implements Serializable {
                 if ( !activeFlags[i].trim().equals("") )
                     saveGameData.flags.activateFlag( activeFlags[i] ); 
             }
+            
         } catch( FileNotFoundException e ) {
             loaded=false;
         } catch( IOException e ) {
@@ -289,6 +296,8 @@ public class SaveGame implements Serializable {
         private ItemSummary itemSummary;
 
         private float playerX, playerY;
+        
+        private HashMap<Integer, Timer> timers;
 
      }
 
