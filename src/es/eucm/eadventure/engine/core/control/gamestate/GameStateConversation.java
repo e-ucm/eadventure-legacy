@@ -242,7 +242,16 @@ public class GameStateConversation extends GameState {
                         game.getCharacterCurrentlyTalking( ).stopTalking( );
 
                     FunctionalPlayer player = game.getFunctionalPlayer( );
-                    player.speak( currentNode.getLine( optionSelected ).getText( ) );
+                    
+                    //Add sound to options node
+                    ConversationLine line = currentNode.getLine( optionSelected );
+                    if (line.isValidAudio( ))
+                        player.speak( line.getText(), line.getAudioPath( ) );
+                    else
+                        player.speak( line.getText( ) );
+                 
+
+                    //player.speak( currentNode.getLine( optionSelected ).getText( ) );
                     game.setCharacterCurrentlyTalking( player );
 
                     currentNode = currentNode.getChild( optionSelected );
@@ -266,7 +275,14 @@ public class GameStateConversation extends GameState {
                         game.getCharacterCurrentlyTalking( ).stopTalking( );
 
                     FunctionalPlayer player = game.getFunctionalPlayer( );
-                    player.speak( currentNode.getLine( optionSelected ).getText( ) );
+                    
+                    //Add sound to options node
+                    ConversationLine line = currentNode.getLine( optionSelected );
+                    if (line.isValidAudio( ))
+                        player.speak( line.getText(), line.getAudioPath( ) );
+                    else
+                        player.speak( line.getText( ) );
+                    //player.speak( currentNode.getLine( optionSelected ).getText( ) );
                     game.setCharacterCurrentlyTalking( player );
 
                     currentNode = currentNode.getChild( optionSelected );

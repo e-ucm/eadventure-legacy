@@ -4,21 +4,22 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
-import java.awt.Dialog;
 import java.awt.Dimension;
+import java.awt.DisplayMode;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
@@ -53,6 +54,8 @@ public class GUI implements FocusListener {
      */
     public static final int MAX_WIDTH_IN_TEXT = 300;
     
+    public static final String DEFAULT_CURSOR="default";
+
     /**
      * Antialiasing of the game shapes
      */
@@ -66,8 +69,13 @@ public class GUI implements FocusListener {
     /**
      * The frame/window of the game
      */
-    private Frame gameFrame;
+    private JFrame gameFrame;
     
+    /*
+     * The frame to keep the screen black behind the game
+     */
+    private JDialog bkgFrame;
+ 
     /**
      * Used to display components over the frame when it is required. (BOOKS)
      */
@@ -109,7 +117,10 @@ public class GUI implements FocusListener {
     private ArrayList<Text> textToDraw;
 
     
-    private JDialog backgroundDialog;
+    private static DisplayMode originalDisplayMode;
+    
+    private Component component;
+    
     /**
      * Return the GUI instance. GUI is a singleton class.
      * @return GUI sigleton instance
@@ -129,46 +140,47 @@ public class GUI implements FocusListener {
      * Destroy the singleton instance
      */
     public static void delete(){
-        if (instance!=null){
-            instance.backgroundDialog.setVisible( false );
-            instance.backgroundDialog.dispose();
+        if (instance!=null && instance.bkgFrame != null){
+            instance.bkgFrame.setVisible( false );
+            instance.bkgFrame.dispose();
         }
         instance = null;
+        if (originalDisplayMode != null) {
+	        GraphicsDevice gm;
+	        GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
+	        gm = environment.getDefaultScreenDevice();
+	        gm.setDisplayMode(originalDisplayMode);
+        }
     }
 
     /**
      * Private constructor to create the unique instace of the class
      */
     private GUI( ) {
-        gameFrame = new Frame( "eAdventure" );
-        backgroundDialog = new JDialog(){
-            public void paint (Graphics g){
+        gameFrame = new JFrame( "eAdventure" );
+        
+        // Set a black border to the window, covering all the desktop area
+        /*
+        bkgFrame = new JDialog(){
+			private static final long serialVersionUID = 3648656167576771790L;
+
+			public void paint (Graphics g){
                 g.setColor( Color.BLACK );
                 g.fillRect( 0, 0, getSize( ).width, getSize( ).height );
             }
         };
-        backgroundDialog.setUndecorated( true );
+        bkgFrame.setUndecorated( true );
+        bkgFrame.setSize( Toolkit.getDefaultToolkit( ).getScreenSize( ).width, Toolkit.getDefaultToolkit( ).getScreenSize( ).height );
+        bkgFrame.setModal( false );
+        bkgFrame.setBackground( Color.BLACK );
+        bkgFrame.setForeground( Color.BLACK );
+        bkgFrame.setVisible( true );
+        */
         
-        
-        backgroundDialog.setSize( Toolkit.getDefaultToolkit( ).getScreenSize( ).width, Toolkit.getDefaultToolkit( ).getScreenSize( ).height );
-        backgroundDialog.setModal( false );
-        backgroundDialog.setBackground( Color.BLACK );
-        backgroundDialog.setForeground( Color.BLACK );
-        //backgroundDialog.setVisible( true );
         
         background = null;
         elementsToDraw = new ArrayList<ElementImage>();
         textToDraw = new ArrayList<Text>();
-        
-        /*
-         * Old window closing behaviour. Testing what happens when this is disabled.
-         * 
-        if( !ResourceHandler.getInstance( ).isRestrictedMode( ) ) {
-            //gameFrame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-        } else {
-            gameFrame.addWindowListener( new WindowManager( ) );
-        }
-        */
         
         gameFrame.setLayout( new BorderLayout() );
         gameFrame.setUndecorated( true );
@@ -181,9 +193,20 @@ public class GUI implements FocusListener {
         gameFrame.setSize( new Dimension( WINDOW_WIDTH, WINDOW_HEIGHT ) );
         
         dialog = null;
+        
+        // Set fullscreen... Runs into compatibility issues in non Windows systems
+        /*  
+        DisplayMode dm = new DisplayMode(WINDOW_WIDTH, WINDOW_HEIGHT, 16, DisplayMode.REFRESH_RATE_UNKNOWN);
+        GraphicsDevice gm;
+        GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        gm = environment.getDefaultScreenDevice();
+        originalDisplayMode = gm.getDisplayMode();
+        gm.setFullScreenWindow(gameFrame);   
+        gm.setDisplayMode(dm);
+        */
     }
 
-    public void setFrame( Frame newFrame ){
+    public void setFrame( JFrame newFrame ){
         this.gameFrame = newFrame;
     }
     
@@ -204,7 +227,7 @@ public class GUI implements FocusListener {
         gameFrame.setVisible( true );
         gameFrame.setFocusable( true );
         // Double buffered painting
-        //gameFrame.setAlwaysOnTop( true );
+        gameFrame.setAlwaysOnTop( true );
         gameFrame.createBufferStrategy( 2 );
         gameFrame.validate( );
         
@@ -214,9 +237,9 @@ public class GUI implements FocusListener {
         hud.init( );
         
         // Load the customized default cursor
-        if( Game.getInstance().getGameDescriptor().getCursorPath( DescriptorData.DEFAULT_CURSOR )!=null ){
+        if( Game.getInstance().getGameDescriptor().getCursorPath( DEFAULT_CURSOR )!=null ){
             //System.out.println("PATH CURSOR = "+Game.getInstance( ).getGameDescriptor( ).getCursorPath( DEFAULT_CURSOR ) );
-            defaultCursor = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( Game.getInstance( ).getGameDescriptor( ).getCursorPath( DescriptorData.DEFAULT_CURSOR ), MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "defaultCursor" );
+            defaultCursor = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( Game.getInstance( ).getGameDescriptor( ).getCursorPath( DEFAULT_CURSOR ), MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "defaultCursor" );
         // Load the default default cursor
         }else 
             defaultCursor = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImage( "gui/cursors/default.png", MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "defaultCursor" );
@@ -225,86 +248,37 @@ public class GUI implements FocusListener {
         dialog=null;
     }
     
-    public JFrame showComponent ( Component component ){
-        if (dialog == null){
-
-            //Hide Frame
-            gameFrame.setFocusable( false );
-            gameFrame.setAlwaysOnTop( false );
-            gameFrame.setVisible( false );
-            gameFrame.setExtendedState( Frame.ICONIFIED );
-
-            
-            dialog = new JFrame("eAdventure");
-            //dialog.setModalityType( JDialog.DEFAULT_MODALITY_TYPE );
-            dialog.getContentPane( ).setLayout( new BorderLayout() );
-            dialog.getContentPane( ).add( component, BorderLayout.CENTER );
-            dialog.setUndecorated( true );
-            dialog.setResizable( false );
-            dialog.setSize( GUI.getInstance( ).getFrame( ).getSize( ) );
-            Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
-            dialog.setLocation( ( screenSize.width - GUI.WINDOW_WIDTH ) / 2, ( screenSize.height - GUI.WINDOW_HEIGHT ) / 2);
-            dialog.setEnabled( true );
-            dialog.setVisible( false );
-            dialog.setFocusable( true );
-            dialog.addMouseListener( Game.getInstance( ) );
-
-            dialog.setVisible( true );
-            dialog.requestFocusInWindow( );
-            dialog.setExtendedState( JFrame.NORMAL );
-            dialog.setAlwaysOnTop( true );
-        }
-        
-        else {
-            dialog.getContentPane( ).removeAll( );
-            dialog.getContentPane( ).add( component, BorderLayout.CENTER );
-            //System.out.println("COMPONENT CHANGED");
-            //dialog.repaint( );
-            dialog.getContentPane().invalidate( );
-            dialog.doLayout( );
-            dialog.repaint( );
-            component.repaint( );
-        }
-     
-        if (!dialog.isFocusOwner( )){
-            dialog.requestFocus( );
-            dialog.requestFocusInWindow( );
-        }
-        
-        if (dialog.getExtendedState( ) != Frame.NORMAL ){
-            dialog.setExtendedState( Frame.NORMAL );    
-        }
-        
-        if (!dialog.isVisible( ))
-            dialog.setVisible( true );
-        
-        return dialog;
+    /**
+     * Displays a Swing or AWT component in the game window.<p>
+     * To remove the component, use RestoreFrame method.
+     * 
+     * @param component
+     * @return
+     */
+    public JFrame showComponent ( Component component ){    	
+    	gameFrame.setIgnoreRepaint(false);
+    	if (this.component != null)
+    		gameFrame.remove(this.component);
+    	this.component = component;
+    	gameFrame.add(component, BorderLayout.CENTER);
+    	gameFrame.repaint();
+    	component.repaint();
+    	gameFrame.validate();
+        System.out.println("IS DISPLAYABLE: " + component.isDisplayable() + "\n");
+    	return gameFrame;
     }
     
+    /**
+     * Restores the frame to its original state after displaying a Swing or AWT
+     * component.
+     * 
+     */
     public void restoreFrame (){
-        //Hide Dialog (if not null)
-        if (dialog!=null){
-            dialog.setVisible( false );
-            dialog.dispose( );
-            dialog = null;
-        }
-        gameFrame.setFocusable( true );
-        //gameFrame.setAlwaysOnTop( true );
-        gameFrame.setVisible( true );
-        gameFrame.setExtendedState( Frame.NORMAL );
-        
-        if (!gameFrame.isFocusOwner( )){
-            gameFrame.requestFocus( );
-            gameFrame.requestFocusInWindow( );
-        }
-        
-        if (gameFrame.getExtendedState( ) != Frame.NORMAL ){
-            gameFrame.setExtendedState( Frame.NORMAL );    
-        }
-        
-        if (!gameFrame.isVisible( ))
-            gameFrame.setVisible( true );
-            
+    	if (component != null)
+    		gameFrame.remove(component);
+    	gameFrame.validate();
+    	//gameFrame.repaint();
+    	gameFrame.setIgnoreRepaint(true);
     }
     
     /**
@@ -451,11 +425,20 @@ public class GUI implements FocusListener {
         } else {
             //Check if the text don't go out of the window horizontally
             //and if it do correct it so it's in the window
-            if( realX + width > WINDOW_WIDTH ) {
+            //FIXME nuevo, a ver si funciona
+        	/*if( realX + width > WINDOW_WIDTH ) {
                 realX = (int) ( WINDOW_WIDTH - width );
             } else if( realX < 0 ) {
                 realX = 0;
-            }
+            }*/
+        	if ( realX + width > WINDOW_WIDTH ) {
+        		realX = 0;
+        		//To know the width of one character
+        		double w = fontMetrics.stringWidth(new String("A"));
+        		int position = (int) (WINDOW_WIDTH / w) + 18;
+        		string = string.substring(0,position);
+        		string = string + "...";
+        	}
             //Check if the text don't go out of the window vertically
             //and if it do correct it so it's in the window
             if( realY > WINDOW_HEIGHT ) {
@@ -477,7 +460,9 @@ public class GUI implements FocusListener {
         g.drawString( string, realX, realY );
     }
 
-   
+
+    
+    
     /**
      * Draw the text array with a border, given the lower-middle position of the text
      * @param g Graphics2D where make the painting
