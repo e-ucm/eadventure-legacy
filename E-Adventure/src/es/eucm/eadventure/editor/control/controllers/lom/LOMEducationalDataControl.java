@@ -1,9 +1,9 @@
 package es.eucm.eadventure.editor.control.controllers.lom;
 
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.data.lom.LOMEducational;
 import es.eucm.eadventure.editor.data.lom.LOMGeneral;
 import es.eucm.eadventure.editor.data.lom.LangString;
-import es.eucm.eadventure.editor.gui.TextConstants;
 
 public class LOMEducationalDataControl {
 

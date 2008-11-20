@@ -33,11 +33,11 @@ import sun.swing.FilePane;
 import sun.swing.WindowsPlacesBar;
 import javax.swing.JFileChooser;
 
+import es.eucm.eadventure.common.auxiliar.File;
+import es.eucm.eadventure.common.auxiliar.FileFilter;
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.control.auxiliar.File;
-import es.eucm.eadventure.editor.control.auxiliar.FileFilter;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
-import es.eucm.eadventure.editor.gui.TextConstants;
 
 public abstract class AssetChooser extends JFileChooser {
 

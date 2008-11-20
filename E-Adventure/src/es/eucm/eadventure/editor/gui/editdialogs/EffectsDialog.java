@@ -11,9 +11,9 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JDialog;
 
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
-import es.eucm.eadventure.editor.gui.TextConstants;
 import es.eucm.eadventure.editor.gui.elementpanels.general.EffectsPanel;
 
 /**

@@ -3,11 +3,11 @@ package es.eucm.eadventure.editor.control.controllers.book;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.book.BookParagraph;
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.data.support.FlagSummary;
-import es.eucm.eadventure.editor.gui.TextConstants;
 import es.eucm.eadventure.editor.gui.assetchooser.AssetChooser;
 
 /**

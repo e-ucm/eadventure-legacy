@@ -10,7 +10,7 @@ import de.schlichtherle.io.DefaultArchiveDetector;
 import de.schlichtherle.io.File;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.config.ConfigData;
-import es.eucm.eadventure.engine.core.gui.TextConstantsEngine;
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.engine.gamelauncher.GameLauncher;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 
@@ -47,7 +47,7 @@ public class EAdventureDebug {
         ConfigData.loadFromData( languageFile, "" );
 
         // Init the strings of the application
-        TextConstantsEngine.loadStrings( languageFile );
+        TextConstants.loadStrings( languageFile );
         File.setDefaultArchiveDetector(new DefaultArchiveDetector(
                 ArchiveDetector.NULL, // delegate
                 new String[] {

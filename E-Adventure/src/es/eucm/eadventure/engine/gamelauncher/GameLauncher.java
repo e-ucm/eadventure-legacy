@@ -56,7 +56,7 @@ import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.gamelauncher.gameentry.GameEntry;
 import es.eucm.eadventure.engine.gamelauncher.gameentry.GameEntryHandler;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
-import es.eucm.eadventure.engine.core.gui.TextConstantsEngine;
+import es.eucm.eadventure.common.gui.TextConstants;
 
 /**
  * This window shows the available games with their descriptions.
@@ -164,7 +164,7 @@ public class GameLauncher extends JFrame implements Runnable {
         languageFile = ConfigData.getLanguangeFile( );
 
         // Init the strings of the application
-        TextConstantsEngine.loadStrings( EAdventure.LANGUAGE_DIR+"/"+languageFile );
+        TextConstants.loadStrings( EAdventure.LANGUAGE_DIR+"/"+languageFile );
         
         // Setup the window
         setSize( WINDOW_WIDTH, WINDOW_HEIGHT );
@@ -205,8 +205,8 @@ public class GameLauncher extends JFrame implements Runnable {
         
         // Creation of the object JTabbedPane
         JTabbedPane tabbedPanel = new JTabbedPane();
-        tabbedPanel.insertTab( TextConstantsEngine.getText( "MainWindow.TabOpen" ), null, globalTotal, "", 0 );
-        tabbedPanel.insertTab( TextConstantsEngine.getText( "MainWindow.TabAbout"), null, aboutPanel, "", 1 );
+        tabbedPanel.insertTab( TextConstants.getText( "MainWindow.TabOpen" ), null, globalTotal, "", 0 );
+        tabbedPanel.insertTab( TextConstants.getText( "MainWindow.TabAbout"), null, aboutPanel, "", 1 );
    
        add(tabbedPanel, BorderLayout.CENTER); 
         add (centralPanel, BorderLayout.NORTH);
@@ -240,7 +240,7 @@ public class GameLauncher extends JFrame implements Runnable {
         // We set the editor to use HTML content
         aboutEditor.setContentType("text/html"); 
         try {
-            BufferedReader bf = new BufferedReader(new FileReader( EAdventure.LANGUAGE_DIR+"/"+TextConstantsEngine.getText( "Information.FileAbout" ) ));   
+            BufferedReader bf = new BufferedReader(new FileReader( EAdventure.LANGUAGE_DIR+"/"+TextConstants.getText( "Information.FileAbout" ) ));   
             while ((chainAux = bf.readLine())!=null) 
                 chain = chain + chainAux;
         } catch (IOException e){}
@@ -271,7 +271,7 @@ public class GameLauncher extends JFrame implements Runnable {
     JTextPane listGamesInfo = new JTextPane( );
     listGamesInfo.setEditable( false );
     listGamesInfo.setBackground( getForeground( ) );
-    listGamesInfo.setText( TextConstantsEngine.getText("MainWindow.ListGamesText") );
+    listGamesInfo.setText( TextConstants.getText("MainWindow.ListGamesText") );
     adventuresPanel.add( listGamesInfo, c);
 
     c.insets = new Insets( 0, 10, 10, 10 );
@@ -289,13 +289,13 @@ public class GameLauncher extends JFrame implements Runnable {
             
                     // If the adventure is valid, enable the load button
                 if( ge.isValid( ) ) {
-                    btnLoad.setText( TextConstantsEngine.getText("MainWindow.buttonLoad") );
+                    btnLoad.setText( TextConstants.getText("MainWindow.buttonLoad") );
                     btnLoad.setEnabled( true );
                 }
 
                 // Else, disable it
                 else {
-                    btnLoad.setText( TextConstantsEngine.getText("MainWindow.InvalidAdventure") );
+                    btnLoad.setText( TextConstants.getText("MainWindow.InvalidAdventure") );
                     btnLoad.setEnabled( false );
                 }
             }
@@ -318,7 +318,7 @@ public class GameLauncher extends JFrame implements Runnable {
     JTextPane descriptionGamesInfo = new JTextPane( );
     descriptionGamesInfo.setEditable( false );
     descriptionGamesInfo.setBackground( getForeground( ) );
-    descriptionGamesInfo.setText( TextConstantsEngine.getText("MainWindow.GameDescriptionText") );
+    descriptionGamesInfo.setText( TextConstants.getText("MainWindow.GameDescriptionText") );
     adventuresPanel.add( descriptionGamesInfo, c);
 
     c.insets = new Insets( 0, 10, 10, 10 );
@@ -345,7 +345,7 @@ public class GameLauncher extends JFrame implements Runnable {
         c.insets = new Insets( 4, 10, 2, 10 );
         c.anchor = GridBagConstraints.LINE_START;
         c.gridwidth = 2;
-        currentDirectoryPanel.add( new JLabel( TextConstantsEngine.getText("MainWindow.FolderText") ), c );
+        currentDirectoryPanel.add( new JLabel( TextConstants.getText("MainWindow.FolderText") ), c );
         c.insets = new Insets( 0, 10, 10, 3 );
         c.gridy = 1;
         c.gridwidth = 1;
@@ -361,7 +361,7 @@ public class GameLauncher extends JFrame implements Runnable {
         c.insets = new Insets( 0, 3, 10, 10 );
         c.gridx = 1;
         c.weightx = 0;
-        JButton btnExamine = new JButton( TextConstantsEngine.getText("MainWindow.buttonExamine") );
+        JButton btnExamine = new JButton( TextConstants.getText("MainWindow.buttonExamine") );
         btnExamine.addActionListener( new ActionListener( ) {
             public void actionPerformed( ActionEvent arg0 ) {
                 examine( );
@@ -382,7 +382,7 @@ public class GameLauncher extends JFrame implements Runnable {
         // Buttons to launch and adventure or exit
         JPanel buttonsPanel = new JPanel( );
           buttonsPanel.setLayout( new FlowLayout( ) );
-           btnLoad = new JButton( TextConstantsEngine.getText("MainWindow.buttonLoad") );
+           btnLoad = new JButton( TextConstants.getText("MainWindow.buttonLoad") );
             btnLoad.addActionListener( new ActionListener() {
         public void actionPerformed( ActionEvent arg0 ) {
             load( );
@@ -390,7 +390,7 @@ public class GameLauncher extends JFrame implements Runnable {
    
     });
     buttonsPanel.add( btnLoad );
-    JButton btnCancel = new JButton( TextConstantsEngine.getText("MainWindow.buttonCancel") );
+    JButton btnCancel = new JButton( TextConstants.getText("MainWindow.buttonCancel") );
     btnCancel.addActionListener( new ActionListener() {
         public void actionPerformed( ActionEvent arg0 ) {
             end = true;
@@ -399,7 +399,7 @@ public class GameLauncher extends JFrame implements Runnable {
     buttonsPanel.add( btnCancel );
 
     //Button to refresh the content of the folder
-    btnRefresh = new JButton(TextConstantsEngine.getText("MainWindow.buttonRefresh"));
+    btnRefresh = new JButton(TextConstants.getText("MainWindow.buttonRefresh"));
     btnRefresh.addActionListener ( new ActionListener() {
         public void actionPerformed( ActionEvent arg0 ) {
             refresh( );
@@ -568,7 +568,7 @@ public class GameLauncher extends JFrame implements Runnable {
 
             // Update list of games in the current dir
             mdlGames.removeAllElements( );
-            txtDescription.setText( TextConstantsEngine.getText("MainWindow.SelectGameText") );
+            txtDescription.setText( TextConstants.getText("MainWindow.SelectGameText") );
             txtCurrentDir.setText( file.getCanonicalPath( ) );
             ArrayList<GameEntry> gameEntries = new ArrayList<GameEntry>( );
             for( int i = 0; i < files.length; i++ ) {

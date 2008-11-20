@@ -22,7 +22,7 @@ import es.eucm.eadventure.engine.core.data.SaveGame;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
-import es.eucm.eadventure.engine.core.gui.TextConstantsEngine;
+import es.eucm.eadventure.common.gui.TextConstants;
 
 public class GameStateOptions extends GameState {
     
@@ -241,11 +241,11 @@ public class GameStateOptions extends GameState {
         imgPressedButton = MultimediaManager.getInstance( ).loadImage( "gui/options/PressedButton.png", MultimediaManager.IMAGE_MENU );
 
         imgPanel = new Image[ NUMBER_OF_PANELS ];
-        imgPanel[OPTIONS_PANEL] = MultimediaManager.getInstance( ).loadImage( TextConstantsEngine.getText( "Options.OptionsPanel" ), MultimediaManager.IMAGE_MENU );
-        imgPanel[SAVELOAD_PANEL] = MultimediaManager.getInstance( ).loadImage( TextConstantsEngine.getText( "Options.SaveLoadPanel" ), MultimediaManager.IMAGE_MENU );
-        imgPanel[SAVE_PANEL] = MultimediaManager.getInstance( ).loadImage( TextConstantsEngine.getText( "Options.SavePanel" ), MultimediaManager.IMAGE_MENU );
-        imgPanel[LOAD_PANEL] = MultimediaManager.getInstance( ).loadImage( TextConstantsEngine.getText( "Options.LoadPanel" ), MultimediaManager.IMAGE_MENU );
-        imgPanel[CONFIGURATION_PANEL] = MultimediaManager.getInstance( ).loadImage( TextConstantsEngine.getText( "Options.ConfigurationPanel" ), MultimediaManager.IMAGE_MENU );
+        imgPanel[OPTIONS_PANEL] = MultimediaManager.getInstance( ).loadImage( TextConstants.getText( "Options.OptionsPanel" ), MultimediaManager.IMAGE_MENU );
+        imgPanel[SAVELOAD_PANEL] = MultimediaManager.getInstance( ).loadImage( TextConstants.getText( "Options.SaveLoadPanel" ), MultimediaManager.IMAGE_MENU );
+        imgPanel[SAVE_PANEL] = MultimediaManager.getInstance( ).loadImage( TextConstants.getText( "Options.SavePanel" ), MultimediaManager.IMAGE_MENU );
+        imgPanel[LOAD_PANEL] = MultimediaManager.getInstance( ).loadImage( TextConstants.getText( "Options.LoadPanel" ), MultimediaManager.IMAGE_MENU );
+        imgPanel[CONFIGURATION_PANEL] = MultimediaManager.getInstance( ).loadImage( TextConstants.getText( "Options.ConfigurationPanel" ), MultimediaManager.IMAGE_MENU );
 
         panelPosition = new Point( ( GAME_AREA_WIDTH - imgPanel[currentPanel].getWidth( null ) ) / 2, ( GAME_AREA_HEIGHT - imgPanel[currentPanel].getHeight( null ) ) / 2 );
 

@@ -10,9 +10,9 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.lom.LOMGeneralDataControl;
-import es.eucm.eadventure.editor.gui.TextConstants;
 
 public class LOMGeneralPanel extends JPanel{
 

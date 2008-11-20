@@ -17,12 +17,12 @@ import javax.swing.JPopupMenu;
 
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.config.ConversationConfigData;
 import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
 import es.eucm.eadventure.editor.control.controllers.conversation.GraphConversationDataControl;
 import es.eucm.eadventure.editor.control.controllers.conversation.TreeConversationDataControl;
-import es.eucm.eadventure.editor.gui.TextConstants;
 import es.eucm.eadventure.editor.gui.displaydialogs.ConversationDialog;
 import es.eucm.eadventure.editor.gui.elementpanels.conversation.representation.GraphGraphicRepresentation;
 import es.eucm.eadventure.editor.gui.elementpanels.conversation.representation.GraphicRepresentation;

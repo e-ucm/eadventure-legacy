@@ -13,8 +13,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.gui.TextConstants;
 
 /**
  * Dialog that shows a set of list of data, containing the inconsistencies found in an adventure. This dialog is not

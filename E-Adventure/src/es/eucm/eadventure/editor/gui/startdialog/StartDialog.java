@@ -43,12 +43,13 @@ import java.io.File;
 
 import javax.swing.JFileChooser;
 
+import es.eucm.eadventure.common.auxiliar.filefilters.EADAndFolderFileFilter;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
+import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.loader.Loader;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.control.auxiliar.filefilters.EADAndFolderFileFilter;
 import es.eucm.eadventure.editor.control.config.ConfigData;
-import es.eucm.eadventure.editor.control.loader.Loader;
-import es.eucm.eadventure.editor.gui.TextConstants;
+import es.eucm.eadventure.editor.control.controllers.AssetsController;
 
 public class StartDialog extends JFileChooser {
 
@@ -539,7 +540,7 @@ public class StartDialog extends JFileChooser {
 			if( selectedRow >= 0 ) {
 				recentFile = new File( info[selectedRow][0] );
 				try {
-					descriptorDataPanel.update( Loader.loadDescriptorData( recentFile.getAbsolutePath( ) ), recentFile.getAbsolutePath( ) );
+					descriptorDataPanel.update( Loader.loadDescriptorData( AssetsController.getInputStreamCreator(recentFile.getAbsolutePath( )) ), recentFile.getAbsolutePath( ) );
 				} catch( Exception ex ) {
 
 				}
@@ -562,7 +563,7 @@ public class StartDialog extends JFileChooser {
 				panelIcon.setLayout( new BorderLayout( ) );
 				try {
 					String path = (String) value;
-					DescriptorData d = Loader.loadDescriptorData( path );
+					DescriptorData d = Loader.loadDescriptorData( AssetsController.getInputStreamCreator(path) );
 
 					if( d.getPlayerMode( ) == DescriptorData.MODE_PLAYER_3RDPERSON ) {
 						return new JLabel( new ImageIcon( "img/TransparentAdventure32.png" ) );

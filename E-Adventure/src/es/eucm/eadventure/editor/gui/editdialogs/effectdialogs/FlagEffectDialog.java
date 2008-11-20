@@ -12,10 +12,10 @@ import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.control.controllers.FlagsController;
-import es.eucm.eadventure.editor.gui.TextConstants;
 
 public class FlagEffectDialog extends EffectDialog {
 

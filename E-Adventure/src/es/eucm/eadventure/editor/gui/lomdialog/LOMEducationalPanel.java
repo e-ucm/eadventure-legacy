@@ -14,8 +14,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.lom.LOMEducationalDataControl;
-import es.eucm.eadventure.editor.gui.TextConstants;
 
 public class LOMEducationalPanel extends JPanel{
 

@@ -1,6 +1,5 @@
 package es.eucm.eadventure.editor.control.controllers;
 
-import java.awt.Container;
 import java.awt.Image;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -15,26 +14,26 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.media.MediaLocator;
 import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
 
 import java.io.FileInputStream;
 
+import es.eucm.eadventure.common.auxiliar.File;
+import es.eucm.eadventure.common.auxiliar.FileFilter;
+import es.eucm.eadventure.common.auxiliar.categoryfilters.AnimationFileFilter;
+import es.eucm.eadventure.common.auxiliar.categoryfilters.AudioFileFilter;
+import es.eucm.eadventure.common.auxiliar.categoryfilters.FormattedTextFileFilter;
+import es.eucm.eadventure.common.auxiliar.categoryfilters.ImageFileFilter;
+import es.eucm.eadventure.common.auxiliar.categoryfilters.VideoFileFilter;
+import es.eucm.eadventure.common.auxiliar.filefilters.JPGFileFilter;
+import es.eucm.eadventure.common.auxiliar.filefilters.JPGSlidesFileFilter;
+import es.eucm.eadventure.common.auxiliar.filefilters.MP3FileFilter;
+import es.eucm.eadventure.common.auxiliar.filefilters.PNGAnimationFileFilter;
+import es.eucm.eadventure.common.auxiliar.filefilters.PNGFileFilter;
+import es.eucm.eadventure.common.auxiliar.filefilters.XMLFileFilter;
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.common.loader.incidences.Incidence;
+import es.eucm.eadventure.common.loader.InputStreamCreator;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.control.auxiliar.File;
-import es.eucm.eadventure.editor.control.auxiliar.FileFilter;
-import es.eucm.eadventure.editor.control.auxiliar.categoryfilters.AnimationFileFilter;
-import es.eucm.eadventure.editor.control.auxiliar.categoryfilters.AudioFileFilter;
-import es.eucm.eadventure.editor.control.auxiliar.categoryfilters.FormattedTextFileFilter;
-import es.eucm.eadventure.editor.control.auxiliar.categoryfilters.ImageFileFilter;
-import es.eucm.eadventure.editor.control.auxiliar.categoryfilters.VideoFileFilter;
-import es.eucm.eadventure.editor.control.auxiliar.filefilters.JPGFileFilter;
-import es.eucm.eadventure.editor.control.auxiliar.filefilters.JPGSlidesFileFilter;
-import es.eucm.eadventure.editor.control.auxiliar.filefilters.MP3FileFilter;
-import es.eucm.eadventure.editor.control.auxiliar.filefilters.PNGAnimationFileFilter;
-import es.eucm.eadventure.editor.control.auxiliar.filefilters.PNGFileFilter;
-import es.eucm.eadventure.editor.control.auxiliar.filefilters.XMLFileFilter;
-import es.eucm.eadventure.editor.gui.TextConstants;
 import es.eucm.eadventure.editor.gui.assetchooser.AnimationChooser;
 import es.eucm.eadventure.editor.gui.assetchooser.AssetChooser;
 import es.eucm.eadventure.editor.gui.assetchooser.AudioChooser;
@@ -475,7 +474,7 @@ public class AssetsController {
 
     public static URL getResourceAsURLFromZip( String path ){
         try {
-            return es.eucm.eadventure.editor.control.auxiliar.zipurl.ZipURL.createAssetURL( Controller.getInstance( ).getProjectFolder( ), path );
+            return es.eucm.eadventure.common.auxiliar.zipurl.ZipURL.createAssetURL( Controller.getInstance( ).getProjectFolder( ), path );
         } catch( MalformedURLException e ) {
             return null;
         }
@@ -1314,6 +1313,51 @@ public class AssetsController {
         return toReturn;
     }
 
+    public static class InputStreamCreatorEditor implements InputStreamCreator{
+    
+    	private String absolutePath;
+    	
+    	public InputStreamCreatorEditor (){
+    		absolutePath = null;
+    	}
+    	
+    	public InputStreamCreatorEditor (String absolutePath){
+    		this.absolutePath = absolutePath;
+    	}
+    	
+		@Override
+		public InputStream buildInputStream(String filePath) {
+			if (absolutePath == null)
+				return getInputStream(filePath);
+			else
+				try {
+					return new FileInputStream(absolutePath);
+				} catch (FileNotFoundException e) {
+					return null;
+				}
+		}
+	
+		@Override
+		public String[] listNames(String filePath) {
+			if (absolutePath == null){
+				File dir = new File(Controller.getInstance().getProjectFolder(), filePath);
+				return dir.list();
+			}
+			else {
+				File dir = new File(absolutePath);
+				return dir.list();
+			}
+		}
+	
+    }
+
+    public static InputStreamCreator getInputStreamCreator (){
+    	return new InputStreamCreatorEditor();
+    }
+    
+    public static InputStreamCreator getInputStreamCreator (String absolutePath){
+    	return new InputStreamCreatorEditor(absolutePath);
+    }
 
 
 }

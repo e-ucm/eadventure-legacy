@@ -17,8 +17,8 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
-import es.eucm.eadventure.editor.gui.TextConstants;
 import es.eucm.eadventure.editor.gui.displaydialogs.ImageDialog;
 
 /**

@@ -15,10 +15,10 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 
 import es.eucm.eadventure.common.data.chapter.effects.Effect;
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.control.controllers.SingleEffectController;
-import es.eucm.eadventure.editor.gui.TextConstants;
 
 public abstract class EffectDialog extends JDialog {
 

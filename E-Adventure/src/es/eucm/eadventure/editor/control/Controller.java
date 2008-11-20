@@ -15,15 +15,17 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 
+import es.eucm.eadventure.common.auxiliar.File;
+import es.eucm.eadventure.common.auxiliar.filefilters.EADFileFilter;
+import es.eucm.eadventure.common.auxiliar.filefilters.FolderFileFilter;
+import es.eucm.eadventure.common.auxiliar.filefilters.XMLFileFilter;
 import es.eucm.eadventure.common.data.adventure.AdventureData;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.data.chapter.elements.Player;
+import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.loader.Loader;
 import es.eucm.eadventure.common.loader.incidences.Incidence;
-import es.eucm.eadventure.editor.control.auxiliar.File;
-import es.eucm.eadventure.editor.control.auxiliar.filefilters.EADFileFilter;
-import es.eucm.eadventure.editor.control.auxiliar.filefilters.FolderFileFilter;
-import es.eucm.eadventure.editor.control.auxiliar.filefilters.XMLFileFilter;
 import es.eucm.eadventure.editor.control.config.ConfigData;
 import es.eucm.eadventure.editor.control.config.ProjectConfigData;
 import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
@@ -35,14 +37,12 @@ import es.eucm.eadventure.editor.control.controllers.character.NPCDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ChapterDataControl;
 import es.eucm.eadventure.editor.control.controllers.item.ItemDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
-import es.eucm.eadventure.editor.control.loader.Loader;
 import es.eucm.eadventure.editor.control.writer.Writer;
 import es.eucm.eadventure.editor.data.support.FlagSummary;
 import es.eucm.eadventure.editor.data.support.IdentifierSummary;
 import es.eucm.eadventure.editor.gui.LoadingScreen;
 import es.eucm.eadventure.editor.gui.MainWindow;
 import es.eucm.eadventure.editor.gui.ProjectFolderChooser;
-import es.eucm.eadventure.editor.gui.TextConstants;
 import es.eucm.eadventure.editor.gui.displaydialogs.InvalidReportDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.AdventureDataDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.ExportToLOMDialog;
@@ -56,7 +56,6 @@ import es.eucm.eadventure.editor.gui.editdialogs.assetsdialogs.XMLAssetsDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.customizeguidialog.CustomizeGUIDialog;
 import es.eucm.eadventure.editor.gui.lomdialog.LOMDialog;
 import es.eucm.eadventure.editor.gui.startdialog.StartDialog;
-import es.eucm.eadventure.engine.EAdventure;
 import es.eucm.eadventure.engine.EAdventureDebug;
 
 /**
@@ -1131,7 +1130,7 @@ public class Controller {
 							String absolutePath = xmlChooser.getSelectedFile( ).getAbsolutePath( );
 							// Try to load chapter with it
 							List<Incidence> newChapterIncidences = new ArrayList<Incidence>();
-							Chapter chapter = Loader.loadChapterFromFile( absolutePath, incidences );
+							Chapter chapter = Loader.loadChapterData( AssetsController.getInputStreamCreator(), absolutePath, incidences );
 							// IF no incidences occurred
 							if (chapter!=null && newChapterIncidences.size( ) == 0){
 								// Try comparing names
@@ -1304,7 +1303,9 @@ public class Controller {
 			// Load the data from the file, and update the info
 			List<Incidence> incidences = new ArrayList<Incidence>();
 			//ls.start( );
-			AdventureData loadedAdventureData = Loader.loadData( completeFilePath, incidences );
+			AdventureData loadedAdventureData = Loader.loadAdventureData( AssetsController.getInputStreamCreator(), 
+					AssetsController.getCategoryFolder(AssetsController.CATEGORY_ASSESSMENT),
+					AssetsController.getCategoryFolder(AssetsController.CATEGORY_ADAPTATION),incidences );
 
 			//mainWindow.setNormalState( );
 			

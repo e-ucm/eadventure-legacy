@@ -21,8 +21,9 @@ import javax.swing.JTextPane;
 import javax.swing.UIManager;
 import javax.swing.filechooser.FileFilter;
 
+import es.eucm.eadventure.common.auxiliar.filefilters.FolderFileFilter;
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.control.auxiliar.filefilters.FolderFileFilter;
 
 public class ProjectFolderChooser extends JFileChooser{
 	

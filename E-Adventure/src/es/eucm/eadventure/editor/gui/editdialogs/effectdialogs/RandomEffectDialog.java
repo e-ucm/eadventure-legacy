@@ -23,8 +23,8 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.SingleEffectController;
-import es.eucm.eadventure.editor.gui.TextConstants;
 
 public class RandomEffectDialog extends EffectDialog{
 

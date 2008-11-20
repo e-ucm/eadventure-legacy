@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 
 import javax.swing.JFileChooser;
 
-import es.eucm.eadventure.editor.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TextConstants;
 
 public class TestLargeImages extends JFrame{
 

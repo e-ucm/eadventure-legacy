@@ -1,7 +1,7 @@
 package es.eucm.eadventure.editor.control.controllers.lom;
 
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.gui.TextConstants;
 
 public class LOMDurationDataControl {
 

@@ -6,7 +6,7 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
-import es.eucm.eadventure.editor.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TextConstants;
 
 /**
  * Panel to display preview colored text.
