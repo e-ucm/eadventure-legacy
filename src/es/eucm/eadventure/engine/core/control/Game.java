@@ -34,7 +34,6 @@ import es.eucm.eadventure.common.data.chapter.scenes.GeneralScene;
 import es.eucm.eadventure.common.data.chapter.scenes.Scene;
 import es.eucm.eadventure.engine.adaptation.AdaptationEngine;
 import es.eucm.eadventure.engine.assessment.AssessmentEngine;
-import es.eucm.eadventure.engine.assessment.ReportDialog;
 import es.eucm.eadventure.engine.comm.AsynchronousCommunicationApi;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalItem;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalNPC;
@@ -56,7 +55,8 @@ import es.eucm.eadventure.engine.core.control.gamestate.GameStateVideoscene;
 import es.eucm.eadventure.engine.core.data.GameText;
 import es.eucm.eadventure.engine.core.data.SaveGame;
 import es.eucm.eadventure.engine.core.gui.GUI;
-import es.eucm.eadventure.engine.loader.Loader;
+import es.eucm.eadventure.common.loader.Loader;
+import es.eucm.eadventure.common.loader.incidences.Incidence;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 
@@ -350,7 +350,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         ChapterSummary chapter = gameDescriptor.getChapterSummaries( ).get( currentChapter );
         
         // Load the script data
-        gameData = Loader.loadData( chapter.getName() );
+        gameData = Loader.loadChapterData( ResourceHandler.getInstance(), chapter.getName(), new ArrayList<Incidence>() );
         
         // Create the flags summary and the assessment engine
         flags = new FlagSummary( gameData.getFlags( ) );
@@ -444,7 +444,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             GUI.create();
     
             // Load the game descriptor (it holds the info of the GUI and the player)
-            gameDescriptor = Loader.loadDescriptor( );
+            gameDescriptor = Loader.loadDescriptorData( ResourceHandler.getInstance() );
             
             currentState = new GameStateLoading( );
     
@@ -1046,7 +1046,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
                 currentChapter = saveGame.getChapter();
                 
                 ChapterSummary chapter = gameDescriptor.getChapterSummaries( ).get( currentChapter );
-                gameData = Loader.loadData( chapter.getName( ) );
+                gameData = Loader.loadChapterData( ResourceHandler.getInstance(), chapter.getName( ), new ArrayList<Incidence>() );
                 
                 totalTime = saveGame.getTotalTime();
                 flags = saveGame.getFlags( );

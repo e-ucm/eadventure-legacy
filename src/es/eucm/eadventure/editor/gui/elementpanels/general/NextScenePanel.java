@@ -14,9 +14,9 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.general.NextSceneDataControl;
-import es.eucm.eadventure.editor.gui.TextConstants;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.editdialogs.ConditionsDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.EffectsDialog;

@@ -11,9 +11,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 
-import es.eucm.eadventure.editor.control.auxiliar.File;
+import es.eucm.eadventure.common.auxiliar.File;
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
-import es.eucm.eadventure.editor.gui.TextConstants;
 
 public class FormattedTextPanel extends JPanel{
 

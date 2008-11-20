@@ -1,15 +1,19 @@
 package es.eucm.eadventure.engine.adaptation;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import es.eucm.eadventure.common.data.adaptation.AdaptationProfile;
 import es.eucm.eadventure.common.data.adaptation.AdaptationRule;
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
 import es.eucm.eadventure.engine.core.control.Game;
-import es.eucm.eadventure.engine.loader.Loader;
+import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
+import es.eucm.eadventure.common.loader.Loader;
+import es.eucm.eadventure.common.loader.incidences.Incidence;
 
 /**
  * This class manages the adaptation engine, responsible of initializing the flags in the game
@@ -38,9 +42,9 @@ public class AdaptationEngine {
      */
     @SuppressWarnings("unchecked")
     public void init( String adaptationPath ) {
-        Map<String,Object> output = Loader.loadAdaptationData( adaptationPath );
-        initialAdaptedState = (AdaptedState)output.get( INITIAL_STATE );
-        externalAdaptationRules = (List<AdaptationRule>)output.get( ADAPTATION_RULES );
+        AdaptationProfile profile = Loader.loadAdaptationProfile( ResourceHandler.getInstance(), adaptationPath, new ArrayList<Incidence>() );
+        initialAdaptedState = profile.getInitialState();
+        externalAdaptationRules = profile.getRules();
         
         if(initialAdaptedState!=null) {
             Game.getInstance().setAdaptedStateToExecute(initialAdaptedState);

@@ -10,9 +10,9 @@ import java.awt.event.WindowEvent;
 import javax.swing.JDialog;
 import javax.swing.JTabbedPane;
 
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
-import es.eucm.eadventure.editor.gui.TextConstants;
 
 public class CustomizeGUIDialog extends JDialog{
 

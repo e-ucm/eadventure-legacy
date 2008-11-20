@@ -22,9 +22,9 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextPane;
 
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
-import es.eucm.eadventure.editor.gui.TextConstants;
 
 /**
  * Dialog to let the user choose between the different styles of GUIs for the adventure.

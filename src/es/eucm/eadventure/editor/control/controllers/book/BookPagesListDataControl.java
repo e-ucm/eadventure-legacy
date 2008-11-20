@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.common.data.chapter.book.BookPage;
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.control.auxiliar.File;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.item.ItemDataControl;
-import es.eucm.eadventure.editor.gui.TextConstants;
 import es.eucm.eadventure.editor.gui.assetchooser.AssetChooser;
 import es.eucm.eadventure.editor.gui.otherpanels.FormattedTextPanel;
 

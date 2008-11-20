@@ -35,6 +35,7 @@ import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import javax.swing.filechooser.FileFilter;
 
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfileDataControl;
 import es.eucm.eadventure.editor.gui.treepanel.TreePanel;

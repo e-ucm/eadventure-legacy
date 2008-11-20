@@ -10,7 +10,7 @@ import de.schlichtherle.io.DefaultArchiveDetector;
 import de.schlichtherle.io.File;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.config.ConfigData;
-import es.eucm.eadventure.engine.core.gui.TextConstantsEngine;
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.engine.gamelauncher.GameLauncher;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 
@@ -43,7 +43,7 @@ public class EAdventure {
         String languageFile = ConfigData.getLanguangeFile( );
 
         // Init the strings of the application
-        TextConstantsEngine.loadStrings( LANGUAGE_DIR+"/"+languageFile );
+        TextConstants.loadStrings( LANGUAGE_DIR+"/"+languageFile );
         File.setDefaultArchiveDetector(new DefaultArchiveDetector(
                 ArchiveDetector.NULL, // delegate
                 new String[] {
@@ -78,8 +78,8 @@ public class EAdventure {
             else {
                 
                 JOptionPane.showMessageDialog(null,
-                        TextConstantsEngine.getText("ErrorMessage.Title"),
-                        TextConstantsEngine.getText("ErrorMessage.Content"),
+                        TextConstants.getText("ErrorMessage.Title"),
+                        TextConstants.getText("ErrorMessage.Content"),
                         JOptionPane.ERROR_MESSAGE);
                 
                 gameLauncher.init(new File(""));

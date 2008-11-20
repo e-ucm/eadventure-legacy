@@ -13,7 +13,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
-import es.eucm.eadventure.editor.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TextConstants;
 
 public class DescriptorDataPanel extends JPanel {
 

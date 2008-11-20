@@ -5,12 +5,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfileDataControl;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentRuleDataControl;
 import es.eucm.eadventure.editor.control.controllers.timer.TimerDataControl;
-import es.eucm.eadventure.editor.gui.TextConstants;
 import es.eucm.eadventure.editor.gui.elementpanels.assessment.AssessmentRulePanel;
 import es.eucm.eadventure.editor.gui.elementpanels.timer.TimerPanel;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.TreeNode;

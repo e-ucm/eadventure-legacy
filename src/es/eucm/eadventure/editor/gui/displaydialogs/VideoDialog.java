@@ -9,9 +9,9 @@ import java.awt.event.WindowListener;
 
 import javax.swing.JDialog;
 
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
-import es.eucm.eadventure.editor.gui.TextConstants;
 import es.eucm.eadventure.editor.gui.otherpanels.AudioPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.VideoPanel;
 

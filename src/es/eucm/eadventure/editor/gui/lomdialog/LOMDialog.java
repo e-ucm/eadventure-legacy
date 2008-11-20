@@ -8,9 +8,9 @@ import java.awt.Toolkit;
 import javax.swing.JDialog;
 import javax.swing.JTabbedPane;
 
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.lom.LOMDataControl;
-import es.eucm.eadventure.editor.gui.TextConstants;
 
 public class LOMDialog extends JDialog{
 

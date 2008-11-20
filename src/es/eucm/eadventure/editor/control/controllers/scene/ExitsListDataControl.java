@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.Exit;
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.data.support.FlagSummary;
-import es.eucm.eadventure.editor.gui.TextConstants;
 
 public class ExitsListDataControl extends DataControl {
 

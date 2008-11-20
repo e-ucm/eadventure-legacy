@@ -29,8 +29,8 @@ import javax.swing.event.DocumentListener;
 
 import es.eucm.eadventure.common.data.chapter.book.Book;
 import es.eucm.eadventure.common.data.chapter.book.BookPage;
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.book.BookPagesListDataControl;
-import es.eucm.eadventure.editor.gui.TextConstants;
 
 public class BookPagePanel extends JPanel{
 

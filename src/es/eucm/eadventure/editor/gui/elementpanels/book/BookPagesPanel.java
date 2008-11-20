@@ -29,13 +29,13 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import es.eucm.eadventure.common.data.chapter.book.BookPage;
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.book.BookDataControl;
 import es.eucm.eadventure.editor.control.controllers.book.BookPagesListDataControl;
 import es.eucm.eadventure.editor.control.controllers.book.BookParagraphDataControl;
 import es.eucm.eadventure.editor.control.controllers.book.BookParagraphsListDataControl;
-import es.eucm.eadventure.editor.gui.TextConstants;
 import es.eucm.eadventure.editor.gui.otherpanels.BookPagePreviewPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.imagepanels.BookImagePanel;
 

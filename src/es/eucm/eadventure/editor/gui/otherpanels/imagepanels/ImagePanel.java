@@ -11,8 +11,8 @@ import java.awt.image.ImageObserver;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
-import es.eucm.eadventure.editor.gui.TextConstants;
 
 /**
  * This panel holds an image inside, painted with its own aspect ratio.

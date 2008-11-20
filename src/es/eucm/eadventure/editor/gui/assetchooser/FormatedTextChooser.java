@@ -4,10 +4,10 @@ import java.awt.Container;
 
 import javax.swing.BorderFactory;
 
-import es.eucm.eadventure.editor.control.auxiliar.FileFilter;
-import es.eucm.eadventure.editor.control.auxiliar.categoryfilters.FormattedTextFileFilter;
+import es.eucm.eadventure.common.auxiliar.FileFilter;
+import es.eucm.eadventure.common.auxiliar.categoryfilters.FormattedTextFileFilter;
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
-import es.eucm.eadventure.editor.gui.TextConstants;
 import es.eucm.eadventure.editor.gui.otherpanels.FormattedTextPanel;
 
 public class FormatedTextChooser extends AssetChooser{

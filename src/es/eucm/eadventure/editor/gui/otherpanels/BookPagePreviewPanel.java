@@ -18,8 +18,8 @@ import javax.swing.JScrollPane;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.rtf.RTFEditorKit;
 
+import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.common.data.chapter.book.BookPage;
-import es.eucm.eadventure.editor.control.auxiliar.File;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.gui.displaydialogs.StyledBookDialog;
 

@@ -10,9 +10,9 @@ import javax.swing.JComponent;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.gui.TextConstants;
 import es.eucm.eadventure.editor.gui.treepanel.TreePanel;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.adaptation.AdaptationProfileTreeNode;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.adaptation.AdaptationProfilesTreeNode;

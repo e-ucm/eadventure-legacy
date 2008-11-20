@@ -9,8 +9,8 @@ import javax.swing.JPanel;
 import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
 
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
-import es.eucm.eadventure.editor.gui.TextConstants;
 import es.eucm.eadventure.editor.gui.auxiliar.clock.Clock;
 import es.eucm.eadventure.editor.gui.auxiliar.clock.ClockListener;
 

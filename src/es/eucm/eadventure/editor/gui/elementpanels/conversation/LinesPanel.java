@@ -27,9 +27,9 @@ import javax.swing.table.AbstractTableModel;
 import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
-import es.eucm.eadventure.editor.gui.TextConstants;
 
 /**
  * This class is the panel used to display and edit nodes. It holds node operations, like adding and removing lines,

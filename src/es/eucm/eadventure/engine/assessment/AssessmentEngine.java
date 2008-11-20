@@ -25,13 +25,16 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
 import es.eucm.eadventure.common.data.assessment.AssessmentRule;
 import es.eucm.eadventure.common.data.assessment.TimedAssessmentRule;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.TimerEventListener;
 import es.eucm.eadventure.engine.core.control.TimerManager;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
-import es.eucm.eadventure.engine.loader.Loader;
+import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
+import es.eucm.eadventure.common.loader.Loader;
+import es.eucm.eadventure.common.loader.incidences.Incidence;
 
 /**
  * This engine stores the rules to be processed when the flags change in the game, creating
@@ -67,7 +70,8 @@ public class AssessmentEngine implements TimerEventListener{
      * @param assessmentPath Path of the file containing the assessment data
      */
     public void loadAssessmentRules( String assessmentPath ) {
-        assessmentRules = Loader.loadAssessmentRules( assessmentPath );
+    	AssessmentProfile profile = Loader.loadAssessmentProfile(ResourceHandler.getInstance(), assessmentPath, new ArrayList<Incidence>());
+        assessmentRules = profile.getRules();
         
         // Iterate through the rules: those timed add them to the timer manager 
         for (AssessmentRule assessmentRule: assessmentRules){

@@ -10,7 +10,7 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
 
-import es.eucm.eadventure.editor.control.auxiliar.File;
+import es.eucm.eadventure.common.auxiliar.File;
 
 import sun.security.tools.JarSigner;
 import sun.security.tools.KeyTool;

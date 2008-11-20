@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
+import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.control.auxiliar.File;
 
 public class ProjectConfigData {
 

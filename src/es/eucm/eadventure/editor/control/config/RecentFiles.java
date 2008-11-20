@@ -7,7 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
 
-import es.eucm.eadventure.editor.control.auxiliar.File;
+import es.eucm.eadventure.common.auxiliar.File;
 
 public class RecentFiles {
 

@@ -20,8 +20,8 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
-import es.eucm.eadventure.editor.gui.TextConstants;
 import es.eucm.eadventure.editor.gui.displaydialogs.AnimationDialog;
 import es.eucm.eadventure.editor.gui.otherpanels.positionimagepanels.PointImagePanel;
 import es.eucm.eadventure.editor.gui.otherpanels.positionpanel.PositionPanel;

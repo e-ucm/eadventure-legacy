@@ -1,11 +1,9 @@
 package es.eucm.eadventure.engine.resourcehandler;
 
 import java.awt.Image;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
@@ -15,14 +13,13 @@ import javax.imageio.ImageIO;
 import javax.media.MediaLocator;
 
 import de.schlichtherle.io.File;
-import de.schlichtherle.io.FileInputStream;
+import es.eucm.eadventure.common.loader.InputStreamCreator;
 
-import es.eucm.eadventure.engine.resourcehandler.zipurl.*;
 
 /**
  * Abstract class in charge of loading the resources (files) of the game 
  */
-public abstract class ResourceHandler {
+public abstract class ResourceHandler implements InputStreamCreator{
 
     /**
      * Path of the default background image

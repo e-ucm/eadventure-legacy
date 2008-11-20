@@ -12,8 +12,8 @@ import javax.swing.JTable;
 import javax.swing.JTextPane;
 import javax.swing.table.AbstractTableModel;
 
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.scene.ScenesListDataControl;
-import es.eucm.eadventure.editor.gui.TextConstants;
 
 public class ScenesListPanel extends JPanel {
 

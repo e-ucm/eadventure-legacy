@@ -14,9 +14,9 @@ import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
-import es.eucm.eadventure.editor.gui.TextConstants;
 import es.eucm.eadventure.editor.gui.otherpanels.positionimagepanels.ElementImagePanel;
 import es.eucm.eadventure.editor.gui.otherpanels.positionpanel.PositionPanel;
 

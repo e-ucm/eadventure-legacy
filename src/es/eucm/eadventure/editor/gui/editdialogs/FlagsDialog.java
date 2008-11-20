@@ -20,9 +20,9 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.AbstractTableModel;
 
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.FlagsController;
-import es.eucm.eadventure.editor.gui.TextConstants;
 
 /**
  * This class is the editing dialog of the flags. Here the user can add new flags to use them in the script. Also, the

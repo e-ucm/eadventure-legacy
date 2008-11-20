@@ -9,10 +9,10 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.NPCReferencesListDataControl;
-import es.eucm.eadventure.editor.gui.TextConstants;
 import es.eucm.eadventure.editor.gui.otherpanels.imagepanels.MultipleElementImagePanel;
 
 public class NPCReferencesListPanel extends JPanel {

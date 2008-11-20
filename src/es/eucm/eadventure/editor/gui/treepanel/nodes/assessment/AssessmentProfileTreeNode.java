@@ -6,12 +6,12 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 import java.net.URL;
 
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfileDataControl;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentRuleDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ChapterDataControl;
-import es.eucm.eadventure.editor.gui.TextConstants;
 import es.eucm.eadventure.editor.gui.elementpanels.assessment.AssessmentRulesListPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.general.ChapterPanel;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.TreeNode;

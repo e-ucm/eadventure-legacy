@@ -9,7 +9,7 @@ import de.schlichtherle.io.ArchiveDetector;
 import de.schlichtherle.io.DefaultArchiveDetector;
 import de.schlichtherle.io.File;
 import es.eucm.eadventure.engine.core.control.Game;
-import es.eucm.eadventure.engine.core.gui.TextConstantsEngine;
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 
 /**
@@ -40,7 +40,7 @@ public class EAdventureStandalone {
      * @param args Arguments
      */
     public static void main( String[] args ) {
-        TextConstantsEngine.loadStrings( EAdventureStandalone.class.getResourceAsStream( "/en_EN.xml" ) );
+        TextConstants.loadStrings( EAdventureStandalone.class.getResourceAsStream( "/en_EN.xml" ) );
         startTime = System.currentTimeMillis( ); 
         printElapsedTime ("Starting");
         File.setDefaultArchiveDetector(new DefaultArchiveDetector(

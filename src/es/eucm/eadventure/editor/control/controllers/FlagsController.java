@@ -2,9 +2,9 @@ package es.eucm.eadventure.editor.control.controllers;
 
 import java.util.ArrayList;
 
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.data.support.FlagSummary;
-import es.eucm.eadventure.editor.gui.TextConstants;
 
 /**
  * Controller for the list of flags.

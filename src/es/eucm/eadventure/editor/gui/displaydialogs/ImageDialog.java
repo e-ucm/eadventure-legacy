@@ -2,8 +2,8 @@ package es.eucm.eadventure.editor.gui.displaydialogs;
 
 import java.awt.Image;
 
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
-import es.eucm.eadventure.editor.gui.TextConstants;
 
 /**
  * This class displays an image.

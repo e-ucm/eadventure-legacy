@@ -20,9 +20,9 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import es.eucm.eadventure.common.data.chapter.book.Book;
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.book.BookDataControl;
-import es.eucm.eadventure.editor.gui.TextConstants;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.displaydialogs.StyledBookDialog;
 import es.eucm.eadventure.editor.gui.elementpanels.general.LooksPanel;

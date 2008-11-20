@@ -5,12 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.common.data.adaptation.AdaptationRule;
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
 import es.eucm.eadventure.common.data.assessment.AssessmentRule;
 import es.eucm.eadventure.common.data.chapter.Chapter;
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.control.auxiliar.File;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfileDataControl;
@@ -26,7 +27,6 @@ import es.eucm.eadventure.editor.control.controllers.item.ItemsListDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ScenesListDataControl;
 import es.eucm.eadventure.editor.control.controllers.timer.TimersListDataControl;
 import es.eucm.eadventure.editor.data.support.FlagSummary;
-import es.eucm.eadventure.editor.gui.TextConstants;
 
 /**
  * Controller for the main element of the script.

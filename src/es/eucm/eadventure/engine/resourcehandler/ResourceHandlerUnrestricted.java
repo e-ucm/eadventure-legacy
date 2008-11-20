@@ -8,8 +8,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Enumeration;
-import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 
@@ -151,4 +149,14 @@ class ResourceHandlerUnrestricted extends ResourceHandler {
             return null;
         }
     }
+	@Override
+	public InputStream buildInputStream( String filePath) {
+		return getResourceAsStreamFromZip ( filePath );
+	}
+
+	@Override
+	public String[] listNames( String filePath ) {
+		File dir = new File ( zipPath, filePath );
+		return dir.list();
+	}
 }

@@ -19,10 +19,10 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
-import es.eucm.eadventure.editor.gui.TextConstants;
 
 public abstract class LooksPanel extends JScrollPane {
 

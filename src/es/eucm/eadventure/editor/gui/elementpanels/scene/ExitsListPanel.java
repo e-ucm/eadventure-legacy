@@ -9,10 +9,10 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.scene.ExitDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ExitsListDataControl;
-import es.eucm.eadventure.editor.gui.TextConstants;
 import es.eucm.eadventure.editor.gui.otherpanels.imagepanels.MultipleRectangleImagePanel;
 
 public class ExitsListPanel extends JPanel {

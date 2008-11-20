@@ -6,11 +6,11 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfileDataControl;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfilesDataControl;
-import es.eucm.eadventure.editor.gui.TextConstants;
 import es.eucm.eadventure.editor.gui.elementpanels.assessment.AssessmentProfilesPanel;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.TreeNode;
 

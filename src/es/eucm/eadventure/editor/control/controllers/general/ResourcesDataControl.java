@@ -3,12 +3,12 @@ package es.eucm.eadventure.editor.control.controllers.general;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.data.support.FlagSummary;
-import es.eucm.eadventure.editor.gui.TextConstants;
 import es.eucm.eadventure.editor.gui.assetchooser.AnimationChooser;
 import es.eucm.eadventure.editor.gui.assetchooser.AssetChooser;
 

@@ -11,10 +11,10 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.book.BookParagraphDataControl;
 import es.eucm.eadventure.editor.control.controllers.book.BookParagraphsListDataControl;
-import es.eucm.eadventure.editor.gui.TextConstants;
 
 public class ParagraphsTable extends JTable{
 

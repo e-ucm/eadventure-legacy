@@ -25,9 +25,9 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.character.NPCDataControl;
-import es.eucm.eadventure.editor.gui.TextConstants;
 import es.eucm.eadventure.editor.gui.auxiliar.components.TextPreviewPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.general.LooksPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.imagepanels.ImagePanel;

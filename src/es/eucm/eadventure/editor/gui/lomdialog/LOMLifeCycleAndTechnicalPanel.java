@@ -6,9 +6,9 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.lom.LOMLifeCycleDataControl;
 import es.eucm.eadventure.editor.control.controllers.lom.LOMTechnicalDataControl;
-import es.eucm.eadventure.editor.gui.TextConstants;
 
 public class LOMLifeCycleAndTechnicalPanel extends JPanel{
 

@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
 import es.eucm.eadventure.common.data.assessment.AssessmentRule;
 import es.eucm.eadventure.common.data.assessment.TimedAssessmentRule;
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.control.auxiliar.File;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.data.support.FlagSummary;
-import es.eucm.eadventure.editor.gui.TextConstants;
 
 public class AssessmentProfileDataControl extends DataControl{
 

@@ -9,7 +9,7 @@ import de.schlichtherle.io.DefaultArchiveDetector;
 import de.schlichtherle.io.File;
 import es.eucm.eadventure.engine.comm.AsynchronousCommunicationAppletLD;
 import es.eucm.eadventure.engine.core.control.Game;
-import es.eucm.eadventure.engine.core.gui.TextConstantsEngine;
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 
 /**
@@ -46,7 +46,7 @@ public class EAdventureApplet extends AsynchronousCommunicationAppletLD {
      * @see java.applet.Applet#init()
      */
     public void init( ) {
-        TextConstantsEngine.loadStrings( EAdventureApplet.class.getResourceAsStream( "/en_EN.xml" ) );
+        TextConstants.loadStrings( EAdventureApplet.class.getResourceAsStream( "/en_EN.xml" ) );
         File.setDefaultArchiveDetector(new DefaultArchiveDetector(
                 ArchiveDetector.NULL, // delegate
                 new String[] {

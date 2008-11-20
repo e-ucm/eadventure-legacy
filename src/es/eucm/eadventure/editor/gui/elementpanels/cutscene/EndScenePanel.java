@@ -8,7 +8,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 
-import es.eucm.eadventure.editor.gui.TextConstants;
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 
 public class EndScenePanel extends JPanel{
