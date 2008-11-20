@@ -1,14 +1,9 @@
 package es.eucm.eadventure.engine.core.control.gamestate;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
-import java.util.ArrayList;
 
-import es.eucm.eadventure.common.data.chapterdata.effects.TriggerConversationEffect;
-import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffect;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalPlayAnimationEffect;
-import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalTriggerConversationEffect;
 import es.eucm.eadventure.engine.core.gui.GUI;
 
 /**

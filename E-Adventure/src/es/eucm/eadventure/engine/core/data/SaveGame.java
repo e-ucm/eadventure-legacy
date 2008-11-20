@@ -12,12 +12,8 @@ import java.util.HashMap;
 
 import es.eucm.eadventure.engine.core.control.FlagSummary;
 import es.eucm.eadventure.engine.core.control.ItemSummary;
-<<<<<<< .mine
-import es.eucm.eadventure.common.data.chapterdata.Timer;
-import es.eucm.eadventure.common.data.chapterdata.elements.Item;
-=======
+import es.eucm.eadventure.common.data.chapter.Timer;
 import es.eucm.eadventure.common.data.chapter.elements.Item;
->>>>>>> .r43
 
 /**
  * This class manages the saved games in eAdventure
