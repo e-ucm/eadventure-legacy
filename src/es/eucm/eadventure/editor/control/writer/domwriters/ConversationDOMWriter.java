@@ -155,7 +155,9 @@ public class ConversationDOMWriter {
 		else if( currentNode.getType( ) == ConversationNode.OPTION ) {
 			// Create the "response" element
 			Element response = document.createElement( "response" );
-
+			// Adds a random attribute if "random" is activate in conversation node data
+			if (((OptionConversationNode)currentNode).isRandom())
+				response.setAttribute("random", "yes");
 			// For each line of the node (we suppose the number of line equals the number of links, or children nodes)
 			for( int i = 0; i < currentNode.getLineCount( ); i++ ) {
 				// Create the "option" element
@@ -292,6 +294,9 @@ public class ConversationDOMWriter {
 					// Create the node element and set the nodeindex
 					nodeElement = doc.createElement( "option-node" );
 					nodeElement.setAttribute( "nodeindex", String.valueOf( i ) );
+					// Adds a random attribute if "random" is activate in conversation node data
+					if (((OptionConversationNode)node).isRandom())
+						nodeElement.setAttribute("random", "yes");
 
 					// For each line of the node
 					for( int j = 0; j < node.getLineCount( ); j++ ) {

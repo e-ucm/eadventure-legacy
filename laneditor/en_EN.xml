@@ -1047,6 +1047,7 @@ Please, try it again with other destiny directory.</entry>
 	<entry key="Conversation.StatusBarNormal">Status: Normal</entry>
 	<entry key="Conversation.StatusWaitingToMove">Status: Waiting destination node to move selected node</entry>
 	<entry key="Conversation.StatusWaitingToLink">Status: Waiting destination node to be linked as a child with the selected node</entry>
+	<entry key="Conversation.OptionRandomly">Order options randomly</entry>
 
 	<entry key="LinesPanel.NoNodeSelected">No node selected</entry>
 	<entry key="LinesPanel.DialogueNode">Dialogue node</entry>

@@ -11,6 +11,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
@@ -74,7 +75,8 @@ class RepresentationPanel extends JPanel {
 	 * Link to the principal panel
 	 */
 	private ConversationPanel conversationPanel;
-
+	
+	
 	/**
 	 * Constructor.
 	 * 
@@ -222,7 +224,17 @@ class RepresentationPanel extends JPanel {
 
 					// Add separator
 					nodePopupMenu.addSeparator( );
+					
+					// Add the random option, if current node is option node
+					if (clickedNode.getType()==ConversationNode.OPTION){
+						JCheckBoxMenuItem itShowRandomly = new JCheckBoxMenuItem( TextConstants.getText( "Conversation.OptionRandomly"), conversationDataControl.isRandomActivate(clickedNode) );
+						itShowRandomly.addActionListener( new ChangeOptionRandomActionListener(clickedNode) );
+						nodePopupMenu.add( itShowRandomly );
+					}
 
+					// Add separator
+					nodePopupMenu.addSeparator( );
+					
 					// Add delete element
 					JMenuItem deleteNodeItem = new JMenuItem( TextConstants.getText( "Conversation.OptionDeleteNode" ) );
 					deleteNodeItem.setEnabled( conversationDataControl.canDeleteNode( clickedNode ) );
@@ -436,6 +448,42 @@ class RepresentationPanel extends JPanel {
 		}
 	}
 
+	/**
+	 * Listener for the "Order Options Randomly" option
+	 */
+	private class ChangeOptionRandomActionListener implements ActionListener {
+		
+		
+		/**
+		 * Current selected node.
+		 */
+		private ConversationNodeView clickedNode;
+		
+		/**
+		 * Constructor.
+		 * 
+		 * @param clickedNode
+		 * 					Selected node to change random option.
+		 */
+		
+		public ChangeOptionRandomActionListener(ConversationNodeView clickedNode){
+			this.clickedNode = clickedNode;
+		}
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
+		public void actionPerformed( ActionEvent e ) {
+
+			conversationDataControl.setRandomlyOptions(clickedNode);
+			//( (JCheckBoxMenuItem) e.getSource( ) ).isSelected( )
+			//updateRepresentation();
+			
+		}
+	}
+	
+	
 	/**
 	 * Listener for the "Delete node" option
 	 */

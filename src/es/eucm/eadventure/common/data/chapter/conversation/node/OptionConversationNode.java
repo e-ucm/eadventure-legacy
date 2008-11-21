@@ -2,6 +2,7 @@ package es.eucm.eadventure.common.data.chapter.conversation.node;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine;
 import es.eucm.eadventure.common.data.chapter.effects.Effects;
@@ -27,15 +28,40 @@ public class OptionConversationNode extends ConversationNode {
 	private List<ConversationNode> optionNodes;
 	
     private boolean effectConsumed=false;
-
+    
+    /**
+     * Show the options randomly
+     */
+    private boolean random;
+    
 	/* Methods */
+
+	public boolean isRandom() {
+		return random;
+	}
+
+	public void changeRandomly() {
+		this.random = !this.random;
+		
+	}
 
 	/**
 	 * Constructor
 	 */
-	public OptionConversationNode( ) {
+	public OptionConversationNode(boolean random ) {
 		options = new ArrayList<ConversationLine>( );
 		optionNodes = new ArrayList<ConversationNode>( );
+		this.random = random;
+	}
+	
+	/**
+	 * Constructor
+	 */
+	public OptionConversationNode() {
+		options = new ArrayList<ConversationLine>( );
+		optionNodes = new ArrayList<ConversationNode>( );
+		random = false;
+	
 	}
 
 	/*
@@ -152,4 +178,33 @@ public class OptionConversationNode extends ConversationNode {
         effectConsumed = false;
      }
 
+    /**
+     * Change randomly the position of the options.
+     */
+    public void doRandom(){
+    	// If option of randomly are activated
+    	if (random){
+    		int cont = getLineCount();
+    		Random rnd = new Random();
+    		int pos;
+    		ArrayList<ConversationLine> op = new ArrayList<ConversationLine>();
+    		ArrayList<ConversationNode> opNode = new ArrayList<ConversationNode>();
+    		// Iterate the array and change randomly the position
+    		while (cont>1){
+    			pos = rnd.nextInt(cont);
+    			op.add(options.get(pos));
+    			opNode.add(optionNodes.get(pos));
+    			options.remove(pos);
+    			optionNodes.remove(pos);
+    			cont--;
+    			
+    		}
+    		// It must be out of loop 
+    		op.add(options.get(0));
+			opNode.add(optionNodes.get(0));
+			
+    		options = op;
+    		optionNodes = opNode;
+    	}
+    }
 }

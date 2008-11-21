@@ -41,8 +41,10 @@ import java.io.FileOutputStream;
 
 import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.common.auxiliar.filefilters.XMLFileFilter;
+import es.eucm.eadventure.common.data.adaptation.AdaptationProfile;
 import es.eucm.eadventure.common.data.adaptation.AdaptationRule;
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
+import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
 import es.eucm.eadventure.common.data.assessment.AssessmentRule;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.gui.TextConstants;
@@ -283,7 +285,7 @@ public class Writer {
 		boolean dataSaved=false;
 		if (controller.getPath( )!= null && !controller.getPath( ).equals( "" ) && new File(zipFilename, controller.getPath( )).exists()){
 		
-		List<AssessmentRule> rules = (List<AssessmentRule>)controller.getContent( );
+		List<AssessmentRule> rules = ((AssessmentProfile)controller.getContent( )).getRules();
 		
 		// Create the necessary elements for building the DOM
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance( );
@@ -338,7 +340,7 @@ public class Writer {
 		boolean dataSaved=false;
 		if (controller.getPath( )!= null && !controller.getPath( ).equals( "" )&& new File(zipFilename, controller.getPath( )).exists()){
 		
-		List<AdaptationRule> rules = (List<AdaptationRule>)controller.getContent( );
+		List<AdaptationRule> rules = ((AdaptationProfile)controller.getContent( )).getRules();
 		AdaptedState initialState = controller.getInitialState( );
 		
 		// Create the necessary elements for building the DOM
