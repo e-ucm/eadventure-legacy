@@ -529,9 +529,8 @@ public class GameLauncher extends JFrame implements Runnable {
         fileDialog = new JFileChooser( "." );
         // Select directories and files
         fileDialog.setFileSelectionMode( JFileChooser.FILES_AND_DIRECTORIES );
-        fileDialog.setFileFilter( new FolderFileFilter( ) );
-        fileDialog.setFileFilter( new EADFileFilter( ) );
-
+        fileDialog.setFileFilter( new FolderFolderandEADFileFilter( ) );
+        
 
         // If the user clicks OK button, load the adventures in the selected directory,
         // or loads the selected adventure
@@ -608,31 +607,18 @@ public class GameLauncher extends JFrame implements Runnable {
     /**
      * A filter for the Open Dialog that shows only folders
      */
-    private class FolderFileFilter extends FileFilter {
+    private class FolderFolderandEADFileFilter extends FileFilter {
         @Override
         public boolean accept( File f ) {
-            return f.isDirectory( );
+            return (( f.isDirectory( )) || (f.isFile( ) && (f.toString( ).toLowerCase( ).endsWith( ".ead" ) == true)));
         }
 
         @Override
         public String getDescription( ) {
-            return "Folders";
+            return "Folders and .ead files";
         }
     }
     
-    /**
-     * A filter for the Open Dialog that shows only EAD files
-     */
-    private class EADFileFilter extends FileFilter {
-        @Override
-        public boolean accept( File f ) {
-            return f.isFile( ) && f.toString( ).toLowerCase( ).endsWith( ".ead" ) == true;
-        }
-
-        @Override
-        public String getDescription( ) {
-            return ".ead files";
-        }
-    }
+   
     
 } //End
