@@ -166,6 +166,7 @@
 <!ELEMENT option-node (speak-player, child)+>
 <!ATTLIST option-node
 	nodeindex CDATA #REQUIRED
+	random (yes | no) "no"
 >
 <!ELEMENT child EMPTY>
 <!ATTLIST child
@@ -182,6 +183,9 @@
 >
 <!ELEMENT response (option)+>
 <!ELEMENT option (speak-player, %dialogue;, (%continuation; | go-back))>
+<!ATTLIST response
+	random (yes | no) "no" 
+>
 <!ELEMENT go-back EMPTY>
 
 <!-- TODO: REMOVE EFFECT ONCE ALL SAMPLE GAMES HAD BEEN UPDATED -->
