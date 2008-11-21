@@ -529,17 +529,18 @@ public class GameLauncher extends JFrame implements Runnable {
         fileDialog = new JFileChooser( "." );
         // Select directories and files
         fileDialog.setFileSelectionMode( JFileChooser.FILES_AND_DIRECTORIES );
-        fileDialog.setFileFilter( new FolderFolderandEADFileFilter( ) );
+        fileDialog.setFileFilter( new FolderandEADFileFilter( ) );
         
 
         // If the user clicks OK button, load the adventures in the selected directory,
         // or loads the selected adventure
         
         if( fileDialog.showOpenDialog( this ) == JFileChooser.APPROVE_OPTION )  
-            if ( fileDialog.getFileFilter( ).getDescription( ) == "Folders" ) {
-            loadDir( fileDialog.getSelectedFile( ) );
-        } else if ( fileDialog.getFileFilter( ).getDescription( ) == ".ead files" ) {
-                   loadIndividualFile( fileDialog.getSelectedFile( ) );
+            if (( fileDialog.getFileFilter( ).getDescription( ) == "Folders and .ead files" ) && (fileDialog.getSelectedFile().isFile() )) {
+            
+            loadIndividualFile( fileDialog.getSelectedFile( ) );
+        } else if ( fileDialog.getFileFilter( ).getDescription( ) == ".Folders and .ead files" ) {
+        	loadDir( fileDialog.getSelectedFile( ) );
                  //  btnRefresh.setEnabled( false );
                 load();
                 }
@@ -607,7 +608,7 @@ public class GameLauncher extends JFrame implements Runnable {
     /**
      * A filter for the Open Dialog that shows only folders
      */
-    private class FolderFolderandEADFileFilter extends FileFilter {
+    private class FolderandEADFileFilter extends FileFilter {
         @Override
         public boolean accept( File f ) {
             return (( f.isDirectory( )) || (f.isFile( ) && (f.toString( ).toLowerCase( ).endsWith( ".ead" ) == true)));
