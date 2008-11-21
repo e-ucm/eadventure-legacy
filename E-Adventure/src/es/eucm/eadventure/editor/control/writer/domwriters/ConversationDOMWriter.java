@@ -182,6 +182,15 @@ public class ConversationDOMWriter {
 				// Add the "option" element
 				response.appendChild( optionElement );
 			}
+			// If the terminal node has an effect, include it into the DOM
+			if( currentNode.hasEffects( ) ) {
+				// Extract the root node
+				Node effect = EffectsDOMWriter.buildDOM( EffectsDOMWriter.EFFECTS, currentNode.getEffects( ) );
+
+				// Insert it into the DOM
+				document.adoptNode( effect );
+				response.appendChild( effect );
+			}
 
 			// Add the element
 			rootDOMNode.appendChild( response );
@@ -311,6 +320,15 @@ public class ConversationDOMWriter {
 						// Insert the text line in the option node
 						nodeElement.appendChild( lineElement );
 						nodeElement.appendChild( childElement );
+					}
+					// If node has an effect, include it into the DOM
+					if( node.hasEffects( ) ) {
+						// Extract the root node
+						Node effect = EffectsDOMWriter.buildDOM( EffectsDOMWriter.EFFECTS, node.getEffects( ) );
+
+						// Insert it into the DOM
+						doc.adoptNode( effect );
+						nodeElement.appendChild( effect );
 					}
 				}
 

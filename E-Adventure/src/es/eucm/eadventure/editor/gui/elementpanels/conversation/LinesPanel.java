@@ -284,7 +284,7 @@ class LinesPanel extends JPanel {
 		c.gridheight = 1;
 		add( moveLineUpButton, c );
 
-		c.gridy = 3;
+		c.gridy = 4;
 		add( moveLineDownButton, c );
 
 		// Add the delete option button
@@ -292,8 +292,12 @@ class LinesPanel extends JPanel {
 		add( deleteOptionButton, c );
 		
 		// Add the sound option button
-		c.gridy = 2;
+		c.gridy = 3;
 		add(editAudioButton,c);
+		
+		// Add the effects option button
+		c.gridy = 2;
+		add(editEffectButton,c);
 	}
 
 	/**

@@ -105,6 +105,16 @@ public class GameStateConversation extends GameState {
     private boolean firstTime;
     
     /**
+     * Store the option selected to use it when it come back to the running effects Game State
+     */
+    private int optionSelected;
+    
+    /**
+     * 
+     */
+    private boolean isOptionSelected;
+    
+    /**
      * Creates a new GameStateConversation
      */
     public GameStateConversation( ) {
@@ -120,6 +130,8 @@ public class GameStateConversation extends GameState {
         currentLine = 0;
         firstLineDisplayed = 0;
         optionHighlighted = -1;
+        
+        isOptionSelected = false;
         
         // Push a new element in the Stack of effects
         game.addToTheStack(new ArrayList<FunctionalEffect>());
@@ -179,6 +191,7 @@ public class GameStateConversation extends GameState {
         
         // If it is a node option, display the different options
         else if( currentNode.getType( ) == ConversationNode.OPTION ) {
+        	if (!isOptionSelected){
         	if (firstTime){
         		((OptionConversationNode)currentNode).doRandom();
         		firstTime = false;
@@ -231,6 +244,54 @@ public class GameStateConversation extends GameState {
                         true
                 );
             }
+            
+            
+            //TODO MODIFIED
+            //if( currentNode.isTerminal( ) ) {
+        }else if (isOptionSelected){
+            
+
+            if( game.getCharacterCurrentlyTalking( ) == null || 
+                    ( game.getCharacterCurrentlyTalking( ) != null &&
+                     !game.getCharacterCurrentlyTalking( ).isTalking( ) ) ) {
+            			
+        	
+        	
+        	if( currentNode.hasValidEffect( )&&!currentNode.isEffectConsumed( ) ) {
+                currentNode.consumeEffect( );
+                // Store the state in the stack. Later trigger the effects, 
+                // it must come back to this conversation and continue it
+                game.pushCurrentState(this);
+                
+                FunctionalEffects.storeAllEffects(currentNode.getEffects( ));
+                GUI.getInstance().toggleHud( true );
+                
+            }
+            
+            else if ((!currentNode.hasValidEffect( ) || currentNode.isEffectConsumed( ) ) && currentNode.isTerminal( )){
+                // Reset effects in nodes
+                for (ConversationNode node: game.getConversation( ).getAllNodes( )){
+                    node.resetEffect( );
+                }
+                GUI.getInstance().toggleHud( true );
+                
+                //The conversation has finished, pop its effects queue 
+                game.endConversation();
+                
+                //FIXME esta línea la incluimos en el metodo game.endConversation()
+                //game.setState ( Game.STATE_PLAYING);
+            }
+            
+            //TODO MODIFIED: Antes no estaba el else if (era solo else)
+            else if (!currentNode.isTerminal( )){
+                currentNode = currentNode.getChild( optionSelected );
+                isOptionSelected = false;
+               // firstLineDisplayed = 0;
+               // currentLine = 0;
+            }
+            
+        }
+        }
         }
         
         // Paint the FPS
@@ -244,8 +305,8 @@ public class GameStateConversation extends GameState {
     @Override
     public synchronized void mouseClicked( MouseEvent e ) {
         if( currentNode.getType( ) == ConversationNode.OPTION && RESPONSE_TEXT_Y <= e.getY( ) ) {
-            int optionSelected = ( e.getY( ) - RESPONSE_TEXT_Y ) / RESPONSE_TEXT_HEIGHT;
-            
+            optionSelected = ( e.getY( ) - RESPONSE_TEXT_Y ) / RESPONSE_TEXT_HEIGHT;
+           isOptionSelected = true;
             // If all the lines are in the screen, select normally
             if( currentNode.getLineCount( ) <= RESPONSE_TEXT_NUMBER_LINES ) {
                 if( optionSelected < currentNode.getLineCount( ) ) {
@@ -265,7 +326,7 @@ public class GameStateConversation extends GameState {
                     //player.speak( currentNode.getLine( optionSelected ).getText( ) );
                     game.setCharacterCurrentlyTalking( player );
 
-                    currentNode = currentNode.getChild( optionSelected );
+                    //currentNode = currentNode.getChild( optionSelected );
                 }
             }
             
@@ -296,10 +357,10 @@ public class GameStateConversation extends GameState {
                     //player.speak( currentNode.getLine( optionSelected ).getText( ) );
                     game.setCharacterCurrentlyTalking( player );
 
-                    currentNode = currentNode.getChild( optionSelected );
+                    //currentNode = currentNode.getChild( optionSelected );
                 }
             }
-        }
+       }
         
         // If it is a dialogue node, keep the event
         else if( currentNode.getType( ) == ConversationNode.DIALOGUE ) {
