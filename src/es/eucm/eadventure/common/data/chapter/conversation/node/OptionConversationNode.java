@@ -30,6 +30,11 @@ public class OptionConversationNode extends ConversationNode {
     private boolean effectConsumed=false;
     
     /**
+	 * FunctionalEffect to be triggered when the node has finished 
+	 */
+	private Effects effects;
+    
+    /**
      * Show the options randomly
      */
     private boolean random;
@@ -52,6 +57,7 @@ public class OptionConversationNode extends ConversationNode {
 		options = new ArrayList<ConversationLine>( );
 		optionNodes = new ArrayList<ConversationNode>( );
 		this.random = random;
+		effects = new Effects( );
 	}
 	
 	/**
@@ -139,33 +145,24 @@ public class OptionConversationNode extends ConversationNode {
 	public ConversationLine removeLine( int index ) {
 		return options.remove( index );
 	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see es.eucm.eadventure.engine.engine.data.conversation.node.Node#hasValidEffect()
+	 * @see es.eucm.eadventure.common.data.chapterdata.conversation.node.ConversationNodeView#hasEffects()
 	 */
 	public boolean hasEffects( ) {
-		return false;
+		return !effects.isEmpty( );
 	}
 
 	@Override
 	public void setEffects( Effects effects ) {
-	// Empty, cannot set an effect into a option node, for it cannot be terminal
+		this.effects = effects;
 	}
 
 	@Override
 	public Effects getEffects( ) {
-		return null;
+		return effects;
 	}
-	
-    /*
-     *  (non-Javadoc)
-     * @see es.eucm.eadventure.engine.engine.data.conversation.node.Node#hasValidEffect()
-     */
-    public boolean hasValidEffect( ) {
-        return false;
-    }
 
     public void consumeEffect( ) {
         effectConsumed=true;
@@ -174,9 +171,17 @@ public class OptionConversationNode extends ConversationNode {
     public boolean isEffectConsumed( ) {
         return effectConsumed;
     }
+
     public void resetEffect( ) {
-        effectConsumed = false;
-     }
+       effectConsumed = false;
+    }
+
+	@Override
+	public boolean hasValidEffect() {
+		return effects != null;
+	}
+
+	
 
     /**
      * Change randomly the position of the options.
