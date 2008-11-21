@@ -85,6 +85,11 @@ public class TreeConversationSubParser extends SubParser {
 	 * Path of the audio track for a conversation line
 	 */
 	private String audioPath;
+	
+	/**
+	 * Check if the options in option node may be random
+	 */
+	private boolean random;
 
 	/* Methods */
 
@@ -155,8 +160,20 @@ public class TreeConversationSubParser extends SubParser {
 
 			// If it is a point with a set of possible responses, create a new OptionNode
 			else if( qName.equals( "response" ) ) {
+				
+				
+				for (int i=0; i<attrs.getLength(); i++){
+					//If there is a "random" attribute, store is the options will be random
+					if (attrs.getQName(i).equals("random")){
+						if (attrs.getValue(i).equals("yes"))
+							random = true;
+						else 
+							random = false;
+					}
+				}
+				
 				// Create a new OptionNode, and link it to the current node
-				ConversationNode nuevoNodoOpcion = new OptionConversationNode( );
+				ConversationNode nuevoNodoOpcion = new OptionConversationNode( random );
 				currentNode.addChild( nuevoNodoOpcion );
 
 				// Change the actual node for the option node recently created
@@ -167,6 +184,7 @@ public class TreeConversationSubParser extends SubParser {
 			// option
 			else if( qName.equals( "option" ) ) {
 				state = STATE_WAITING_OPTION;
+		
 			}
 
 			// If it is an effect tag, create new effect, new subparser and switch state

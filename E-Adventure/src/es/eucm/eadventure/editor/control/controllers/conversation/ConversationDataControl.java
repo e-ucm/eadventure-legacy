@@ -511,4 +511,27 @@ public abstract class ConversationDataControl extends DataControl {
 
 		return edited;
 	}
+	
+	
+	 /**
+	  * Change the randomly in the selected node.
+	  * 
+	  * @param selectedNode
+	  * 			The node in which will be the actions
+	  * 
+	  */
+	public void setRandomlyOptions(ConversationNodeView selectedNode){
+		ConversationNode node = (ConversationNode) selectedNode;
+		// Set the data as modified
+		controller.dataModified( );
+		//Change the randomly of showing of options
+			((OptionConversationNode)node).changeRandomly();
+			
+		
+	}
+	
+	public boolean isRandomActivate(ConversationNodeView selectedNode){
+		ConversationNode node = (ConversationNode) selectedNode;
+		return ((OptionConversationNode)node).isRandom();
+	}
 }

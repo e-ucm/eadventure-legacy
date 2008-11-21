@@ -11,6 +11,7 @@ import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.F
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
 import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
+import es.eucm.eadventure.common.data.chapter.conversation.node.OptionConversationNode;
 import es.eucm.eadventure.engine.core.gui.GUI;
 
 /**
@@ -97,7 +98,12 @@ public class GameStateConversation extends GameState {
      * Last mouse button pressed
      */
     private int mouseClickedButton = MOUSE_BUTTON_NONE;
-
+    
+    /**
+     * Variable to control the access to doRandom()
+     */
+    private boolean firstTime;
+    
     /**
      * Creates a new GameStateConversation
      */
@@ -167,11 +173,16 @@ public class GameStateConversation extends GameState {
                 playNextLine( );
                 mouseClickedButton = MOUSE_BUTTON_NONE;
             }
+            // Set the variable to control access to doRandom()
+            firstTime = true;
         }
         
         // If it is a node option, display the different options
         else if( currentNode.getType( ) == ConversationNode.OPTION ) {
-            
+        	if (firstTime){
+        		((OptionConversationNode)currentNode).doRandom();
+        		firstTime = false;
+        	}
             // If we can paint all the lines in screen, do it
             if( currentNode.getLineCount( ) <= RESPONSE_TEXT_NUMBER_LINES ) {
                 for( int i = 0; i < currentNode.getLineCount( ); i++ ) {

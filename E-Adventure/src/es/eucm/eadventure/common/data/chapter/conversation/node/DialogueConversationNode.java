@@ -186,4 +186,6 @@ public class DialogueConversationNode extends ConversationNode {
 		return effects != null;
 	}
 
+	
+
 }

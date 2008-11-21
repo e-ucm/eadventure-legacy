@@ -1056,6 +1056,7 @@ Por favor, inténtelo de nuevo cambiando dicho directorio.</entry>
 	<entry key="Conversation.StatusBarNormal">Estado: Normal</entry>
 	<entry key="Conversation.StatusWaitingToMove">Estado: Esperando nodo de destino para mover el nodo seleccionado</entry>
 	<entry key="Conversation.StatusWaitingToLink">Estado: Esperando nodo de destino para enlazar como hijo al nodo seleccionado</entry>
+	<entry key="Conversation.OptionRandomly">Orden aleatorio de las opciones</entry>
 
 	<entry key="LinesPanel.NoNodeSelected">Ningún nodo seleccionado</entry>
 	<entry key="LinesPanel.DialogueNode">Nodo de diálogo</entry>

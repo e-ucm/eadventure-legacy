@@ -81,6 +81,11 @@ public class GraphConversationSubParser extends SubParser {
 	 */
 	private String audioPath;
 
+	/**
+	 *  Check if the options in option node may be random
+	 */
+	private boolean random;
+	
 	/* Methods */
 
 	/**
@@ -121,9 +126,19 @@ public class GraphConversationSubParser extends SubParser {
 				if( qName.equals( "dialogue-node" ) )
 					currentNode = new DialogueConversationNode( );
 
-				if( qName.equals( "option-node" ) )
-					currentNode = new OptionConversationNode( );
-
+				if( qName.equals( "option-node" ) ){
+					for (int i=0; i<attrs.getLength(); i++){
+						//If there is a "random" attribute, store is the options will be random
+						if (attrs.getQName(i).equals("random")){
+							if (attrs.getValue(i).equals("yes"))
+								random = true;
+							else 
+								random = false;
+						}
+					}
+					
+					currentNode = new OptionConversationNode(random );
+				}
 				// Create a new vector for the links of the current node
 				currentLinks = new ArrayList<Integer>( );
 			}

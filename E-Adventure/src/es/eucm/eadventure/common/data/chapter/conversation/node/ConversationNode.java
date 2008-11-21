@@ -153,5 +153,11 @@ public abstract class ConversationNode implements ConversationNodeView {
     public abstract void resetEffect();
     
     public abstract boolean isEffectConsumed();
+    
+    
+    /**
+     * This method is only used in OptionConversationNode. Make the options to appear randomly
+     */
+    //public abstract void doRandom();
 
 }
