@@ -137,10 +137,19 @@ public class TimerManager {
 
         public static final int STATE_DONE = 2;
 
+        /**
+         * Last time the timer was updated
+         */
         private long lastUpdate;
 
+        /**
+         *	True when timer manager must notify the listener 
+         */
         private boolean notifyUpdates;
 
+        /**
+         * The time gap of a timer cycle
+         */
         private long timeUpdate;
 
         private Conditions initConditions;

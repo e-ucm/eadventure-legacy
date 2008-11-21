@@ -163,7 +163,7 @@
 <!ATTLIST dialogue-node
 	nodeindex CDATA #REQUIRED
 >
-<!ELEMENT option-node (speak-player, child)+>
+<!ELEMENT option-node ((speak-player, child)+,effect?)>
 <!ATTLIST option-node
 	nodeindex CDATA #REQUIRED
 	random (yes | no) "no"
@@ -181,11 +181,12 @@
 <!ATTLIST speak-player
 	uri CDATA #IMPLIED
 >
-<!ELEMENT response (option)+>
-<!ELEMENT option (speak-player, %dialogue;, (%continuation; | go-back))>
+<!ELEMENT response ((option)+, effect?)>
 <!ATTLIST response
 	random (yes | no) "no" 
 >
+<!ELEMENT option (speak-player, %dialogue;, (%continuation; | go-back))>
+
 <!ELEMENT go-back EMPTY>
 
 <!-- TODO: REMOVE EFFECT ONCE ALL SAMPLE GAMES HAD BEEN UPDATED -->
