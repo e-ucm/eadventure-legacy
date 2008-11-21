@@ -536,13 +536,13 @@ public class GameLauncher extends JFrame implements Runnable {
         // or loads the selected adventure
         
         if( fileDialog.showOpenDialog( this ) == JFileChooser.APPROVE_OPTION )  
-            if (( fileDialog.getFileFilter( ).getDescription( ) == "Folders and .ead files" ) && (fileDialog.getSelectedFile().isFile() )) {
-            
+            if (fileDialog.getSelectedFile().isFile() ) {
             loadIndividualFile( fileDialog.getSelectedFile( ) );
-        } else if ( fileDialog.getFileFilter( ).getDescription( ) == ".Folders and .ead files" ) {
+        } else  {
         	loadDir( fileDialog.getSelectedFile( ) );
                  //  btnRefresh.setEnabled( false );
                 load();
+       
                 }
         }
 
