@@ -126,6 +126,23 @@ public class DescriptorHandler extends DefaultHandler {
 	            }
 	        }
 	        
+	        if (qName.equals("graphics")){
+	        	for( int i = 0; i < attrs.getLength(); i++) {
+	        		if (attrs.getQName( i ).equals("mode")) {
+	        			if (attrs.getValue( i ).equals( "windowed")) {
+	        				gameDescriptor.setGraphicConfig(DescriptorData.GRAPHICS_WINDOWED);
+	        			}
+	        			else if (attrs.getValue( i ).equals( "fullscreen" )) {
+	        				gameDescriptor.setGraphicConfig(DescriptorData.GRAPHICS_FULLSCREEN);
+	        			}
+	        			else if (attrs.getValue( i ).equals( "blackbkg") ) {
+	        				gameDescriptor.setGraphicConfig(DescriptorData.GRAPHICS_BLACKBKG);
+	        			}
+	        		}
+	        	}
+	        }
+	        
+	        
 	        // If it is a chapter, create it and store the path
 	        else if( qName.equals( "chapter" ) ) {
 	            currentChapter =  new ChapterSummary( );

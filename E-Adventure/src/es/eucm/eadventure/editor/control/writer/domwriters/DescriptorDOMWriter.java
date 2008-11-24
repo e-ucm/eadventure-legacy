@@ -88,9 +88,19 @@ public class DescriptorDOMWriter {
 				playerModeElement.setAttribute( "playerTransparent", "no" );
 			configurationNode.appendChild( playerModeElement );
 
+			//Graphic config element
+			Element graphicConfigElement = doc.createElement( "graphics" );
+			if (adventureData.getGraphicConfig() == DescriptorData.GRAPHICS_WINDOWED)
+				graphicConfigElement.setAttribute("mode", "windowed");
+			else if (adventureData.getGraphicConfig() == DescriptorData.GRAPHICS_FULLSCREEN)
+				graphicConfigElement.setAttribute("mode", "fullscreen");
+			else if (adventureData.getGraphicConfig() == DescriptorData.GRAPHICS_BLACKBKG)
+				graphicConfigElement.setAttribute("mode", "blackbkg");
+			configurationNode.appendChild( graphicConfigElement);
+			
 			//Append configurationNode
 			descriptorNode.appendChild( configurationNode );
-
+			
 			// Create and add the contents with the chapters
 			Node contentsNode = doc.createElement( "contents" );
 			int chapterIndex = 1;

@@ -163,6 +163,7 @@ public class DescriptorData{
 		description = null;
 		guiType = -1;
 		playerMode = MODE_PLAYER_1STPERSON;
+		graphicConfig = GRAPHICS_BLACKBKG;
     }
 
 	/**

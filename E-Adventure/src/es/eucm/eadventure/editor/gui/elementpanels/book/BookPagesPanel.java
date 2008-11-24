@@ -28,6 +28,7 @@ import javax.swing.JTextPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import es.eucm.eadventure.common.data.chapter.book.Book;
 import es.eucm.eadventure.common.data.chapter.book.BookPage;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
@@ -388,5 +389,9 @@ public class BookPagesPanel extends JPanel{
 			pagesTable.getSelectionModel( ).setSelectionInterval( selectedRow+1, selectedRow+1 );
 			pagesTable.updateUI( );
 		}
+	}
+
+	public BookDataControl getDataControl() {
+		return dataControl;
 	}
 }
