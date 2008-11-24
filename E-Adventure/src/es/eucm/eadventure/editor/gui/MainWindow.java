@@ -182,7 +182,7 @@ public class MainWindow extends JFrame {
 		chaptersMenu.setMnemonic( KeyEvent.VK_H );
 		windowMenu.add( chaptersMenu );
 		JMenu runMenu = new JMenu( TextConstants.getText( "MenuRun.Title" ) );
-		//windowMenu.add( runMenu );
+		windowMenu.add( runMenu );
 		JMenu configurationMenu = new JMenu( TextConstants.getText( "MenuConfiguration.Title" ) );
 		configurationMenu.setMnemonic( KeyEvent.VK_T );
 		windowMenu.add( configurationMenu );

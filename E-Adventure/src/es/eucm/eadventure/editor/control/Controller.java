@@ -8,6 +8,8 @@ import java.awt.Window;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.JDialog;
 import javax.swing.JEditorPane;
@@ -360,7 +362,20 @@ public class Controller {
 	
 	private static final String CONFIG_FILE_PATH = "config_editor.xml";
 	
+	private static final String CONFIG_FILE_PATH_ENGINE = "config_engine.xml";
+	
 	private static final String LANGUAGE_DIR = "laneditor";
+	
+	private static final String LANGUAGE_DIR_ENGINE = "lanengine";
+	
+	private static final String ENGLISH_FILE_ENGINE = "en_EN_engine.xml";
+	
+	private static final String SPANISH_FILE_ENGINE = "es_ES_engine.xml";
+	
+	private static final String ENGLISH_FILE = "en_EN.xml";
+	
+	private static final String SPANISH_FILE = "es_ES.xml";
+	
 	
 	public static final int LANGUAGE_UNKNOWN = -1;
 	public static final int LANGUAGE_SPANISH = 0;
@@ -440,7 +455,7 @@ public class Controller {
 	/**
 	 * Stores the file that contains the GUI strings.
 	 */
-	private String languageFile;
+	private int languageFile;
 	
 	private LoadingScreen loadingScreen;
 	
@@ -452,6 +467,35 @@ public class Controller {
 		return isTempFile;
 	}*/
 
+	/**
+	 * Returns the relative path of a language file for both editor and engine
+	 */
+	public static String getLanguageFilePath ( boolean editor, int language ){
+		String path = Controller.LANGUAGE_DIR+"/";
+		if (editor)
+			path+=((language == LANGUAGE_SPANISH)?Controller.SPANISH_FILE:Controller.ENGLISH_FILE);
+		else
+			path+=((language == LANGUAGE_SPANISH)?Controller.SPANISH_FILE_ENGINE:Controller.ENGLISH_FILE_ENGINE);
+		return path;
+	}
+	
+	/**
+	 * Returns the language ({@link #LANGUAGE_ENGLISH} or {@value #LANGUAGE_SPANISH}) associated to the relative path passed as argument. If no language is
+	 * recognized, returns {@value #LANGUAGE_UNKNOWN}
+	 * @param path
+	 * @return
+	 */
+	public static int getLanguageFromPath ( String path ){
+		if (path.toLowerCase().contains(ENGLISH_FILE.toLowerCase())){
+			return LANGUAGE_ENGLISH;
+		}
+		else if (path.toLowerCase().contains(SPANISH_FILE.toLowerCase())){
+			return LANGUAGE_SPANISH;
+		} else 
+			return LANGUAGE_UNKNOWN;
+
+	}
+	
 	/**
 	 * Void and private constructor.
 	 */
@@ -510,11 +554,15 @@ public class Controller {
 
 		// Load the configuration
 		ConfigData.loadFromXML( CONFIG_FILE_PATH );
-		languageFile = ConfigData.getLanguangeFile( );
+		languageFile = getLanguageFromPath(ConfigData.getLanguangeFile( ));
+		// Default language: english
+		if (languageFile == LANGUAGE_UNKNOWN)
+			languageFile = LANGUAGE_ENGLISH;
 		loadingScreen = new LoadingScreen("PRUEBA",ConfigData.getLoadingImage( ),null);
 
 		// Init the strings of the application
-		TextConstants.loadStrings( LANGUAGE_DIR+"/"+languageFile );
+		TextConstants.loadStrings( Controller.getLanguageFilePath(true, languageFile) );
+		TextConstants.appendStrings( Controller.getLanguageFilePath(false, languageFile) );
 
 		// Create a list for the chapters
 		chapterDataControlList = new ArrayList<ChapterDataControl>( );
@@ -1375,6 +1423,7 @@ public class Controller {
 		if (loadingImage)
 			//ls.close( );
 			loadingScreen.setVisible(false);
+
 		return fileLoaded;
 	}
 
@@ -1896,60 +1945,16 @@ public class Controller {
 	public void run(){
 		// Check adventure consistency
 		if (checkAdventureConsistency( false )){
-			
-			// Create temp file for exportation
-			String tempFileName = "$temp_EAD_";
-			File tempFile = null;
-			for (int i=0; i<10000000; i++){
-				if (!new File("web/temp/"+tempFileName+i+".ead").exists()){
-					tempFile = new File("web/temp/"+tempFileName+i+".ead");
-					break;
-				}
-			}
-			
-			if (tempFile!=null){
-				// Export game
-				if (exportGame( tempFile.getAbsolutePath( ) )){
-					while (!tempFile.exists( ) || tempFile.length( ) <=0){
-						try {
-							Thread.sleep( 250 );
-						} catch( InterruptedException e ) {
-							e.printStackTrace();
-						}
-					}
-					String engineLangaugeFile = "en_EN_engine.xml";
-					if (getLanguage( ) == LANGUAGE_SPANISH){
-						engineLangaugeFile = "es_ES_engine.xml";
-					}
-					String []args =  new String[]{
-						"cd ..",
-						"cd EAdventure2D",
-						"java -jar eAdventure-engine.jar "+tempFile.getAbsolutePath( )
-					};
-					try {
-						Runtime.getRuntime( ).exec(args);
-					} catch( IOException e ) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					//new RunEADThread ( tempFile.getAbsolutePath( ), engineLangaugeFile ).start( );
-				}
-			}
-		}
-	}
-	
-	private class RunEADThread extends Thread {
-		private String file;
-		private String engineLangaugeFile;
-		
-		public RunEADThread (String path, String language){
-			file = path;
-			this.engineLangaugeFile = language;
-		}
-		public void start(){
-			EAdventureDebug.main(new String[]{file, new File(engineLangaugeFile).getAbsolutePath( )});
-		}
 
+			new Timer().schedule(new TimerTask(){
+				
+				@Override
+				public void run() {
+					EAdventureDebug.debug(Controller.getInstance().adventureData.getAdventureData(), AssetsController.getInputStreamCreator());
+				}
+				
+			}, 1000);
+		}
 	}
 	
 	/**
@@ -2748,26 +2753,33 @@ public class Controller {
 		
 	}
 	
+	/**
+	 * Returns an int value representing the current language used to display the editor
+	 * @return
+	 */
 	public int getLanguage(){
-		if (ConfigData.getLanguangeFile( ).equals( "en_EN.xml" )){
-			return Controller.LANGUAGE_ENGLISH;
-		} else if (ConfigData.getLanguangeFile( ).equals( "es_ES.xml" )){
-			return Controller.LANGUAGE_SPANISH;
-		} else
-			return Controller.LANGUAGE_UNKNOWN;
-		
+		return this.languageFile;
 	}
 	
+	/**
+	 * Sets the current language of the editor. Accepted values are {@value #LANGUAGE_ENGLISH} & {@value #LANGUAGE_ENGLISH}.
+	 * This method automatically updates the about, language strings, and loading image parameters.
+	 * @param language
+	 */
 	public void setLanguage ( int language ){
-		if (language == LANGUAGE_SPANISH && !ConfigData.getLanguangeFile( ).equals( "es_ES.xml" )){
+		if (language == LANGUAGE_SPANISH && languageFile!=LANGUAGE_SPANISH){
 			ConfigData.setLanguangeFile( "es_ES.xml", "aboutES.html", "img/Editor2D-Loading-Esp.png" );
-			TextConstants.loadStrings( LANGUAGE_DIR+"/es_ES.xml" );
+			languageFile =LANGUAGE_SPANISH;
+			TextConstants.loadStrings( Controller.getLanguageFilePath(true, language) );
+			TextConstants.appendStrings(Controller.getLanguageFilePath(false, languageFile));
 			loadingScreen.setImage( getLoadingImage() );
 			mainWindow.reloadData( );
 		}
-		else if (language == LANGUAGE_ENGLISH && !ConfigData.getLanguangeFile( ).equals( "en_EN.xml" )){
+		else if (language == LANGUAGE_ENGLISH && languageFile!=LANGUAGE_ENGLISH){
 			ConfigData.setLanguangeFile( "en_EN.xml", "aboutEN.html", "img/Editor2D-Loading-Eng.png" );
-			TextConstants.loadStrings( LANGUAGE_DIR+"/en_EN.xml" );
+			languageFile =LANGUAGE_ENGLISH;
+			TextConstants.loadStrings( Controller.getLanguageFilePath(true, language) );
+			TextConstants.appendStrings(Controller.getLanguageFilePath(false, languageFile));
 			loadingScreen.setImage( getLoadingImage() );
 			mainWindow.reloadData( );
 		}

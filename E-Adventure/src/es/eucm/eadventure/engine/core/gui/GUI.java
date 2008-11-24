@@ -3,6 +3,7 @@ package es.eucm.eadventure.engine.core.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.DisplayMode;
@@ -15,6 +16,7 @@ import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
+import java.awt.LayoutManager2;
 import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
@@ -26,6 +28,8 @@ import java.util.ArrayList;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLayeredPane;
+import javax.swing.JPanel;
 
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.engine.core.control.Game;
@@ -153,12 +157,14 @@ public class GUI implements FocusListener {
         }
     }
 
+    //private JPanel panel;
+    
     /**
      * Private constructor to create the unique instace of the class
      */
     private GUI( ) {
         gameFrame = new JFrame( "eAdventure" );
-        
+        gameFrame.setLayout(new BorderLayout());
         // Set a black border to the window, covering all the desktop area
         /*
         bkgFrame = new JDialog(){
@@ -182,7 +188,7 @@ public class GUI implements FocusListener {
         elementsToDraw = new ArrayList<ElementImage>();
         textToDraw = new ArrayList<Text>();
         
-        gameFrame.setLayout( new BorderLayout() );
+        //gameFrame.setLayout( new BorderLayout() );
         gameFrame.setUndecorated( true );
         gameFrame.setIgnoreRepaint( true );
         gameFrame.setResizable( false );
@@ -191,7 +197,25 @@ public class GUI implements FocusListener {
         gameFrame.setBackground( Color.black );
         gameFrame.setForeground( Color.white );
         gameFrame.setSize( new Dimension( WINDOW_WIDTH, WINDOW_HEIGHT ) );
-        
+        /*int scrWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
+        int scrHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
+        gameFrame.setSize( new Dimension( scrWidth, scrHeight ) );
+        gameFrame.setLocation(0,0);
+        panel = new JPanel(){
+        	public void paint (Graphics g){
+        		
+        	}
+        	public void repaint(){
+        		
+        	}
+        	public void update (Graphics g){
+        		
+        	}
+        };
+       
+        panel.setIgnoreRepaint(true);
+        panel.setLayout(new BorderLayout());
+        gameFrame.add(panel);*/
         dialog = null;
         
         // Set fullscreen... Runs into compatibility issues in non Windows systems
@@ -223,6 +247,7 @@ public class GUI implements FocusListener {
         // Center window on screen
         Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
         gameFrame.setLocation( ( screenSize.width - WINDOW_WIDTH ) / 2, ( screenSize.height - WINDOW_HEIGHT ) / 2);
+        //gameFrame.setLocation(0,0);
         gameFrame.setEnabled( true );
         gameFrame.setVisible( true );
         gameFrame.setFocusable( true );
@@ -327,8 +352,13 @@ public class GUI implements FocusListener {
      * The application must dispose of the graphics object.
      */
     public Graphics2D getGraphics( ) {
-        BufferStrategy strategy = gameFrame.getBufferStrategy( );
+
+    	
+    	
+    	BufferStrategy strategy = gameFrame.getBufferStrategy( );
         Graphics2D g = (Graphics2D) strategy.getDrawGraphics( );
+    	//Graphics2D g = (Graphics2D)panel.getGraphics();
+        
         if( g == null ) {
             //System.out.println( "Error: Graphics2D = null " );
         } else {
@@ -915,4 +945,66 @@ public class GUI implements FocusListener {
         }
     }
  
+    private class Layout implements LayoutManager2 {
+
+    	private Component comp;
+    	
+		@Override
+		public void addLayoutComponent(Component comp, Object constraints) {
+			this.comp = comp;
+		}
+
+		@Override
+		public float getLayoutAlignmentX(Container target) {
+			return 0;
+		}
+
+		@Override
+		public float getLayoutAlignmentY(Container target) {
+			return 0;
+		}
+
+		@Override
+		public void invalidateLayout(Container target) {
+			if (comp!=null){
+				int scrWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
+				int scrHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
+				comp.setBounds((scrWidth-WINDOW_WIDTH)/2, (scrHeight-WINDOW_HEIGHT)/2, WINDOW_WIDTH, 
+						WINDOW_HEIGHT);
+			}
+			
+		}
+
+		@Override
+		public Dimension maximumLayoutSize(Container target) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public void addLayoutComponent(String name, Component comp) {
+			this.comp = comp;			
+		}
+
+		@Override
+		public void layoutContainer(Container parent) {
+			invalidateLayout(null);
+		}
+
+		@Override
+		public Dimension minimumLayoutSize(Container parent) {
+			return null;
+		}
+
+		@Override
+		public Dimension preferredLayoutSize(Container parent) {
+			return null;
+		}
+
+		@Override
+		public void removeLayoutComponent(Component comp) {
+			comp = null;
+		}
+    	
+    }
 }
