@@ -7,7 +7,9 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -30,7 +32,10 @@ import javax.swing.event.DocumentListener;
 import es.eucm.eadventure.common.data.chapter.book.Book;
 import es.eucm.eadventure.common.data.chapter.book.BookPage;
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.book.BookPagesListDataControl;
+import es.eucm.eadventure.editor.gui.editdialogs.HTMLEditDialog;
 
 public class BookPagePanel extends JPanel{
 
@@ -59,6 +64,8 @@ public class BookPagePanel extends JPanel{
 	private JTextField pathTextField;
 	
 	private JButton selectButton;
+	
+	private JButton createButton;
 	
 	private JCheckBox scrollableCheckBox;
 	
@@ -184,6 +191,16 @@ public class BookPagePanel extends JPanel{
 		selectButton.addActionListener( new ExamineButtonListener( ) );
 		selectButton.setEnabled(bookPage!=null && ! pathTextField.isEditable( ) );
 		assetPathPanel.add( selectButton, c2 );
+		
+		
+		c2.gridx = 3;
+		c2.fill = GridBagConstraints.NONE;
+		c2.weightx = 0;
+		createButton = new JButton( TextConstants.getText("Resources.Create"));
+		createButton.addActionListener(new CreateButtonListener());
+		createButton.setEnabled(bookPage != null && !pathTextField.isEditable());
+		assetPathPanel.add( createButton, c2);
+
 		//---------------- Asset path panel -------------------------------------//
 		
 		//---------------- Scrollable & Margin panel ----------------------------//
@@ -384,4 +401,42 @@ public class BookPagePanel extends JPanel{
 			} 
 		}
 	}
+	
+	
+	/**
+	 * Listener for the create/edit button.
+	 */
+	private class CreateButtonListener implements ActionListener {
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
+		public void actionPerformed( ActionEvent e ) {
+			// Ask the user for an image
+			//bookParagraphDataControl.setImageParagraphContent( );
+
+			/*
+			if (bookPage.getUri() == null || bookPage.getUri().compareTo("") == 0) {
+				String newFileName = "folder..." + parent.getDataControl().getId() + "_" + dataControl.getSelectedPage() + ".html";
+			}
+			*/
+			
+			// Create new asset if no asset is selected
+		
+			String filename = null;
+			if (!(bookPage.getUri() == null) && !(bookPage.getUri().compareTo("") == 0)) {
+				filename = Controller.getInstance( ).getProjectFolder( ) + "/" + bookPage.getUri();
+			}
+			HTMLEditDialog bepg = new HTMLEditDialog(filename, null);
+			
+			File temp = new File(bepg.getHtmlEditController().getFilename());
+			String uri = "assets/styledtext/" + temp.getName();
+			dataControl.getSelectedPage().setUri(uri);
+			pathTextField.setText( dataControl.getSelectedPage( ).getUri( ) );
+			
+		}
+	}
+	
 }

@@ -650,6 +650,7 @@ Por favor, inténtelo de nuevo cambiando dicho directorio.</entry>
 	<entry key="Resources.Select">Seleccionar...</entry>
 	<entry key="Resources.New">Nuevo</entry>
 	<entry key="Resources.Edit">Editar</entry>	
+	<entry key="Resources.Create">Crear/Editar</entry>
 	<entry key="Resources.ViewAsset">Ver</entry>
 	<entry key="Resources.PlayAsset">Reproducir</entry>
 	<entry key="Resources.PlayVideoAsset">Reproducir</entry>

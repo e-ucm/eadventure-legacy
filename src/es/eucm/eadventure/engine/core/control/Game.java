@@ -435,11 +435,14 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             long time;
             int fps = 0;
             int oldFps = 0;
-    
-            GUI.create();
-    
+
             // Load the game descriptor (it holds the info of the GUI and the player)
             gameDescriptor = Loader.loadDescriptorData( ResourceHandler.getInstance() );
+  
+            GUI.setGraphicConfig(gameDescriptor.getGraphicConfig());
+            
+            GUI.create();
+    
             
             currentState = new GameStateLoading( );
             

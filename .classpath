@@ -10,5 +10,9 @@
 	<classpathentry kind="lib" path="jars/tools.jar"/>
 	<classpathentry kind="lib" path="jars/tritonus_share.jar"/>
 	<classpathentry kind="lib" path="jars/truezip-6.jar"/>
+	<classpathentry kind="lib" path="jars/gnu-regexp-1.1.4.jar"/>
+	<classpathentry kind="lib" path="jars/kafenio-config.jar"/>
+	<classpathentry kind="lib" path="jars/kafenio-icons.jar"/>
+	<classpathentry kind="lib" path="jars/kafenio.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -118,6 +118,7 @@ public class AdventureDataControl {
 		adventureData.setDescription(description);
 		adventureData.setGUIType( DescriptorData.GUI_TRADITIONAL );
 		adventureData.setChapters( chapters );
+		adventureData.setGraphicConfig( DescriptorData.GRAPHICS_WINDOWED);
 		adventureData.setPlayerMode( DescriptorData.MODE_PLAYER_3RDPERSON );
 		 
 		lomController = new LOMDataControl();

@@ -4,7 +4,7 @@
 <!ELEMENT description ANY>
 <!ELEMENT metadata (#PCDATA)>
 
-<!ELEMENT configuration (gui,mode)>
+<!ELEMENT configuration (gui,mode,graphics?)>
 <!ELEMENT invalid EMPTY>
 <!ELEMENT gui (cursors?)>
 <!ATTLIST gui
@@ -22,6 +22,12 @@
 <!ATTLIST mode
 	playerTransparent (yes | no) "no"
 >
+
+<!ELEMENT graphics EMPTY>
+<!ATTLIST graphics
+	mode (windowed | fullscreen | blackbkg) "windowed"
+>
+
 <!ELEMENT contents (chapter+)>
 <!ELEMENT automatic-commentaries EMPTY>
 <!ELEMENT chapter (title, description, metadata?, adaptation-configuration?, assessment-configuration?)>
