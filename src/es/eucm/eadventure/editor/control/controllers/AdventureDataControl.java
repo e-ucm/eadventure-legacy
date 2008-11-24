@@ -347,4 +347,11 @@ public class AdventureDataControl {
 	public void setGraphicConfig(int graphicConfig) {
 		this.adventureData.setGraphicConfig(graphicConfig);
 	}
+
+	/**
+	 * @return the adventureData
+	 */
+	public AdventureData getAdventureData() {
+		return adventureData;
+	}
 }

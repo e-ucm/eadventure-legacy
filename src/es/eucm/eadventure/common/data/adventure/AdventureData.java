@@ -50,6 +50,7 @@ public class AdventureData extends DescriptorData{
 	 * @param chapter
 	 */
 	public void addChapter ( Chapter chapter ){
+		contents.add(chapter);
 		chapters.add(chapter);
 	}
 	
@@ -95,6 +96,9 @@ public class AdventureData extends DescriptorData{
 	 */
 	public void setChapters(List<Chapter> chapters) {
 		this.chapters = chapters;
+		for (Chapter chapter: chapters){
+			contents.add(chapter);
+		}
 	}
 	
 	

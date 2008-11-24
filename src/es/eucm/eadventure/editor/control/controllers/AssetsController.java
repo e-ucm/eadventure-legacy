@@ -1327,9 +1327,12 @@ public class AssetsController {
     	
 		@Override
 		public InputStream buildInputStream(String filePath) {
-			if (absolutePath == null)
+			if (absolutePath == null){
+				if (filePath.startsWith("/") || filePath.startsWith("\\")){
+					filePath = filePath.substring(1, filePath.length());
+				}
 				return getInputStream(filePath);
-			else
+			}else
 				try {
 					return new FileInputStream(new File(absolutePath, filePath));
 				} catch (FileNotFoundException e) {
@@ -1352,6 +1355,20 @@ public class AssetsController {
 					return dir.list();
 				else
 					return new String[0];
+			}
+		}
+
+		@Override
+		public MediaLocator buildMediaLocator(String file) {
+			return getVideo(file);
+		}
+
+		@Override
+		public URL buildURL(String path) {
+			try {
+				return new File (Controller.getInstance().getProjectFolder(), path).toURI().toURL();
+			} catch (MalformedURLException e) {
+				return null;
 			}
 		}
 	

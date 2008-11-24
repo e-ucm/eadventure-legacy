@@ -72,6 +72,8 @@ public abstract class ResourceHandler implements InputStreamCreator{
      * Stores the zip file containing the needed files for the game
      */
     protected static String zipPath = null;
+    
+    protected static boolean isExternalMode = false;
 
     
     /**
@@ -80,10 +82,12 @@ public abstract class ResourceHandler implements InputStreamCreator{
      */
     public static ResourceHandler getInstance( ) {
         ResourceHandler handler = null;
-        if( isRestrictedMode ) {
+        if( !isExternalMode && isRestrictedMode ) {
             handler = ResourceHandlerRestricted.getInstance( );
-        } else {
+        } else if (!isExternalMode){
             handler = ResourceHandlerUnrestricted.getInstance( );
+        } else {
+        	handler = ResourceHandlerExternalSource.getInstance();
         }
         return handler;
     }
@@ -105,7 +109,11 @@ public abstract class ResourceHandler implements InputStreamCreator{
     public static void setRestrictedMode( boolean isRestrictedMode ) {
         setRestrictedMode(isRestrictedMode, true);
     }
-    
+
+    public static void setExternalMode ( InputStreamCreator isCreator ){
+    	isExternalMode = true;
+    	ResourceHandlerExternalSource.create(isCreator);
+    }
     /**
      * Deletes the resource handler.
      */
@@ -336,5 +344,15 @@ public abstract class ResourceHandler implements InputStreamCreator{
     public boolean isExtraRestriction( ) {
         return ResourceHandler.extraRestriction;
     }
+
+	@Override
+	public MediaLocator buildMediaLocator(String file) {
+		return this.getResourceAsMediaLocator(file);
+	}
+
+	@Override
+	public URL buildURL(String path) {
+		return getResourceAsURLFromZip(path);
+	}
 
 }

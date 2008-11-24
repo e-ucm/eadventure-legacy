@@ -34,6 +34,12 @@ import es.eucm.eadventure.common.loader.parsers.DescriptorHandler;
 public class Loader {
 
 	/**
+	 * AdventureData structure which has been previously read.
+	 * (For Debug execution)
+	 */
+	private static AdventureData adventureData;
+	
+	/**
 	 * Private constructor
 	 */
 	private Loader( ) {}
@@ -86,37 +92,41 @@ public class Loader {
      * @return The descriptor data of the game
      */	
 	public static DescriptorData loadDescriptorData( InputStreamCreator isCreator ) {
-		DescriptorData adventureData = null;
-
-		try {
-			// Set the adventure handler
-			DescriptorHandler descriptorParser = new DescriptorHandler(  );
-
-			// Create a new factory
-			SAXParserFactory factory = SAXParserFactory.newInstance( );
-			factory.setValidating( true );
-			SAXParser saxParser = factory.newSAXParser( );
-
-			// Read and close the inputstrea
-			InputStream descriptorIS = isCreator.buildInputStream("descriptor.xml"); 
-			saxParser.parse( descriptorIS, descriptorParser );
-			descriptorIS.close( );
-
-			// Store the adventure data
-			adventureData = descriptorParser.getGameDescriptor();
-
-		} catch( ParserConfigurationException e ) {
-			//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadData" ) );
-			//e.printStackTrace( );
-		} catch( SAXException e ) {
-			//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadData" ) );
-			//e.printStackTrace( );
-		} catch( IOException e ) {
-			//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadData" ) );
-			//e.printStackTrace( );
+		DescriptorData descriptorData = null;
+		
+		if (Loader.adventureData!=null){
+			descriptorData = Loader.adventureData;
+		} else {
+		
+			try {
+				// Set the adventure handler
+				DescriptorHandler descriptorParser = new DescriptorHandler(  );
+	
+				// Create a new factory
+				SAXParserFactory factory = SAXParserFactory.newInstance( );
+				factory.setValidating( true );
+				SAXParser saxParser = factory.newSAXParser( );
+	
+				// Read and close the inputstrea
+				InputStream descriptorIS = isCreator.buildInputStream("descriptor.xml"); 
+				saxParser.parse( descriptorIS, descriptorParser );
+				descriptorIS.close( );
+	
+				// Store the adventure data
+				descriptorData = descriptorParser.getGameDescriptor();
+	
+			} catch( ParserConfigurationException e ) {
+				//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadData" ) );
+				//e.printStackTrace( );
+			} catch( SAXException e ) {
+				//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadData" ) );
+				//e.printStackTrace( );
+			} catch( IOException e ) {
+				//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadData" ) );
+				//e.printStackTrace( );
+			}
 		}
-
-		return adventureData;
+		return descriptorData;
 
 	}
 	
@@ -128,54 +138,63 @@ public class Loader {
 	public static Chapter loadChapterData (InputStreamCreator isCreator, String fileName,  List<Incidence> incidences ){
 		// Create the chapter
 		Chapter currentChapter = new Chapter( );
-		InputStream chapterIS = null;
-		
-		//if (zipFile!=null){
-			chapterIS = isCreator.buildInputStream(fileName);
-			currentChapter.setName( fileName );
-			
-		//} else{
-			// Then fileName is an absolutePath
-			//String chapterPath = fileName.substring( Math.max (fileName.lastIndexOf( '\\' ), fileName.lastIndexOf( '/' ) ), fileName.length( ));
-			//currentChapter.setName( chapterPath );
-			//try {
-			//	chapterIS = new FileInputStream( fileName );
-			//} catch (FileNotFoundException e) {
-				//e.printStackTrace();
-			//	incidences.add( Incidence.createChapterIncidence( TextConstants.getText( "Error.LoadData.IO" ), fileName ) );
-			//}
-		//}
-
-		// Open the file and load the data
-		try {
-			if (chapterIS!=null){
-				// Set the chapter handler
-				ChapterHandler chapterParser = new ChapterHandler( currentChapter );
-	
-				// Create a new factory
-				SAXParserFactory factory = SAXParserFactory.newInstance( );
-				factory.setValidating( true );
-				SAXParser saxParser = factory.newSAXParser( );
-	
-				// Parse the data and close the data
-				saxParser.parse( chapterIS, chapterParser );
-				chapterIS.close( );
+		if (Loader.adventureData!=null){
+			for (Chapter chapter: adventureData.getChapters()){
+				if (chapter.getName().equals(fileName)){
+					currentChapter = chapter; break;
+				}
 			}
+			
+		} else {
 
-		} catch( ParserConfigurationException e ) {
-			//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadData" ) );
-			//e.printStackTrace( );
-			incidences.add( Incidence.createChapterIncidence( TextConstants.getText( "Error.LoadData.SAX" ), fileName ) );
-		} catch( SAXException e ) {
-			//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadData" ) );
-			//e.printStackTrace( );
-			incidences.add( Incidence.createChapterIncidence( TextConstants.getText( "Error.LoadData.SAX" ), fileName ) );
-		} catch( IOException e ) {
-			//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadData" ) );
-			//e.printStackTrace( );
-			incidences.add( Incidence.createChapterIncidence( TextConstants.getText( "Error.LoadData.IO" ), fileName ) );
+			InputStream chapterIS = null;
+			
+			//if (zipFile!=null){
+				chapterIS = isCreator.buildInputStream(fileName);
+				currentChapter.setName( fileName );
+				
+			//} else{
+				// Then fileName is an absolutePath
+				//String chapterPath = fileName.substring( Math.max (fileName.lastIndexOf( '\\' ), fileName.lastIndexOf( '/' ) ), fileName.length( ));
+				//currentChapter.setName( chapterPath );
+				//try {
+				//	chapterIS = new FileInputStream( fileName );
+				//} catch (FileNotFoundException e) {
+					//e.printStackTrace();
+				//	incidences.add( Incidence.createChapterIncidence( TextConstants.getText( "Error.LoadData.IO" ), fileName ) );
+				//}
+			//}
+		
+			// Open the file and load the data
+			try {
+				if (chapterIS!=null){
+					// Set the chapter handler
+					ChapterHandler chapterParser = new ChapterHandler( currentChapter );
+		
+					// Create a new factory
+					SAXParserFactory factory = SAXParserFactory.newInstance( );
+					factory.setValidating( true );
+					SAXParser saxParser = factory.newSAXParser( );
+		
+					// Parse the data and close the data
+					saxParser.parse( chapterIS, chapterParser );
+					chapterIS.close( );
+				}
+		
+			} catch( ParserConfigurationException e ) {
+				//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadData" ) );
+				//e.printStackTrace( );
+				incidences.add( Incidence.createChapterIncidence( TextConstants.getText( "Error.LoadData.SAX" ), fileName ) );
+			} catch( SAXException e ) {
+				//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadData" ) );
+				//e.printStackTrace( );
+				incidences.add( Incidence.createChapterIncidence( TextConstants.getText( "Error.LoadData.SAX" ), fileName ) );
+			} catch( IOException e ) {
+				//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadData" ) );
+				//e.printStackTrace( );
+				incidences.add( Incidence.createChapterIncidence( TextConstants.getText( "Error.LoadData.IO" ), fileName ) );
+			}
 		}
-
 		return currentChapter;
 	}
 	
@@ -189,42 +208,50 @@ public class Loader {
 	public static AssessmentProfile loadAssessmentProfile ( InputStreamCreator isCreator, String xmlFile, List<Incidence> incidences){
 		
 		AssessmentProfile newProfile = null;
+		if (Loader.adventureData!=null){
+			for (AssessmentProfile profile: adventureData.getAssessmentProfiles()){
+				if (profile.getPath().equals(xmlFile)){
+					newProfile = profile; break;
+				}
+			}
+			
+		} else {
 		
-		// Open the file and load the data
-		try {
-			// Set the chapter handler
-			List<AssessmentRule> rules = new ArrayList<AssessmentRule>();
-			AssessmentHandler assParser = new AssessmentHandler( rules );
-
-			// Create a new factory
-			SAXParserFactory factory = SAXParserFactory.newInstance( );
-			factory.setValidating( true );
-			SAXParser saxParser = factory.newSAXParser( );
-
-			// Parse the data and close the data
-			InputStream assessmentIS = isCreator.buildInputStream(xmlFile);
-			saxParser.parse( assessmentIS, assParser );
-			assessmentIS.close( );
-			
-			// Finally add the new controller to the list
-			// Create the new profile
-			
-			newProfile = new AssessmentProfile(assParser.getAssessmentRules( ), xmlFile );
-
-		} catch( ParserConfigurationException e ) {
-			//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadAssessmentData" ) );
-			//e.printStackTrace( );
-			incidences.add( Incidence.createAssessmentIncidence( false, TextConstants.getText( "Error.LoadAssessmentData.SAX" ), xmlFile ) );
-		} catch( SAXException e ) {
-			//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadAssessmentData" ) );
-			//e.printStackTrace( );
-			incidences.add( Incidence.createAssessmentIncidence( false, TextConstants.getText( "Error.LoadAssessmentData.SAX" ), xmlFile ) );
-		} catch( IOException e ) {
-			//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadAssessmentData" ) );
-			//e.printStackTrace( );
-			incidences.add( Incidence.createAssessmentIncidence( false, TextConstants.getText( "Error.LoadAssessmentData.IO" ), xmlFile ) );
+			// Open the file and load the data
+			try {
+				// Set the chapter handler
+				List<AssessmentRule> rules = new ArrayList<AssessmentRule>();
+				AssessmentHandler assParser = new AssessmentHandler( rules );
+	
+				// Create a new factory
+				SAXParserFactory factory = SAXParserFactory.newInstance( );
+				factory.setValidating( true );
+				SAXParser saxParser = factory.newSAXParser( );
+	
+				// Parse the data and close the data
+				InputStream assessmentIS = isCreator.buildInputStream(xmlFile);
+				saxParser.parse( assessmentIS, assParser );
+				assessmentIS.close( );
+				
+				// Finally add the new controller to the list
+				// Create the new profile
+				
+				newProfile = new AssessmentProfile(assParser.getAssessmentRules( ), xmlFile );
+	
+			} catch( ParserConfigurationException e ) {
+				//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadAssessmentData" ) );
+				//e.printStackTrace( );
+				incidences.add( Incidence.createAssessmentIncidence( false, TextConstants.getText( "Error.LoadAssessmentData.SAX" ), xmlFile ) );
+			} catch( SAXException e ) {
+				//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadAssessmentData" ) );
+				//e.printStackTrace( );
+				incidences.add( Incidence.createAssessmentIncidence( false, TextConstants.getText( "Error.LoadAssessmentData.SAX" ), xmlFile ) );
+			} catch( IOException e ) {
+				//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadAssessmentData" ) );
+				//e.printStackTrace( );
+				incidences.add( Incidence.createAssessmentIncidence( false, TextConstants.getText( "Error.LoadAssessmentData.IO" ), xmlFile ) );
+			}
 		}
-
 		return newProfile;
 	}
 
@@ -238,44 +265,66 @@ public class Loader {
 	public static AdaptationProfile loadAdaptationProfile (InputStreamCreator isCreator,  String xmlFile, List<Incidence> incidences){
 		
 		AdaptationProfile newProfile = null;
+		if (Loader.adventureData!=null){
+			for (AdaptationProfile profile: adventureData.getAdaptationProfiles()){
+				if (profile.getPath().equals(xmlFile)){
+					newProfile = profile; break;
+				}
+			}
+			
+		} else {
 		
-		// Open the file and load the data
-		try {
-			// Set the chapter handler
-			List<AdaptationRule> rules = new ArrayList<AdaptationRule>();
-			AdaptedState initialState = new AdaptedState();
-			AdaptationHandler adpParser = new AdaptationHandler( rules, initialState );
-
-			// Create a new factory
-			SAXParserFactory factory = SAXParserFactory.newInstance( );
-			factory.setValidating( true );
-			SAXParser saxParser = factory.newSAXParser( );
-
-			// Parse the data and close the data
-			InputStream adaptationIS = isCreator.buildInputStream(xmlFile);
-			saxParser.parse( adaptationIS, adpParser );
-			adaptationIS.close( );
-			
-			// Finally add the new controller to the list
-			// Create the new profile
-			
-			newProfile = new AdaptationProfile(adpParser.getAdaptationRules(), adpParser.getInitialState(), xmlFile );
-
-		} catch( ParserConfigurationException e ) {
-			//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadAdaptationData" ) );
-			//e.printStackTrace( );
-			incidences.add( Incidence.createAdaptationIncidence( false, TextConstants.getText( "Error.LoadAdaptationData.SAX" ), xmlFile ) );
-		} catch( SAXException e ) {
-			//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadAdaptationData" ) );
-			//e.printStackTrace( );
-			incidences.add( Incidence.createAdaptationIncidence( false, TextConstants.getText( "Error.LoadAdaptationData.SAX" ), xmlFile ) );
-		} catch( IOException e ) {
-			//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadAdaptationData" ) );
-			//e.printStackTrace( );
-			incidences.add( Incidence.createAdaptationIncidence( false, TextConstants.getText( "Error.LoadAdaptationData.IO" ), xmlFile ) );
+			// Open the file and load the data
+			try {
+				// Set the chapter handler
+				List<AdaptationRule> rules = new ArrayList<AdaptationRule>();
+				AdaptedState initialState = new AdaptedState();
+				AdaptationHandler adpParser = new AdaptationHandler( rules, initialState );
+	
+				// Create a new factory
+				SAXParserFactory factory = SAXParserFactory.newInstance( );
+				factory.setValidating( true );
+				SAXParser saxParser = factory.newSAXParser( );
+	
+				// Parse the data and close the data
+				InputStream adaptationIS = isCreator.buildInputStream(xmlFile);
+				saxParser.parse( adaptationIS, adpParser );
+				adaptationIS.close( );
+				
+				// Finally add the new controller to the list
+				// Create the new profile
+				
+				newProfile = new AdaptationProfile(adpParser.getAdaptationRules(), adpParser.getInitialState(), xmlFile );
+	
+			} catch( ParserConfigurationException e ) {
+				//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadAdaptationData" ) );
+				//e.printStackTrace( );
+				incidences.add( Incidence.createAdaptationIncidence( false, TextConstants.getText( "Error.LoadAdaptationData.SAX" ), xmlFile ) );
+			} catch( SAXException e ) {
+				//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadAdaptationData" ) );
+				//e.printStackTrace( );
+				incidences.add( Incidence.createAdaptationIncidence( false, TextConstants.getText( "Error.LoadAdaptationData.SAX" ), xmlFile ) );
+			} catch( IOException e ) {
+				//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadAdaptationData" ) );
+				//e.printStackTrace( );
+				incidences.add( Incidence.createAdaptationIncidence( false, TextConstants.getText( "Error.LoadAdaptationData.IO" ), xmlFile ) );
+			}
 		}
-
 		return newProfile;
+	}
+
+	/**
+	 * @return the adventureData
+	 */
+	public static AdventureData getAdventureData() {
+		return adventureData;
+	}
+
+	/**
+	 * @param adventureData the adventureData to set
+	 */
+	public static void setAdventureData(AdventureData adventureData) {
+		Loader.adventureData = adventureData;
 	}
 
 	
