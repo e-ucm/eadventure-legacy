@@ -505,7 +505,7 @@ public class GameStateOptions extends GameState {
                 changePanel( CONFIGURATION_PANEL );
                 break;
             case 2:
-                new ReportDialog( GUI.getInstance( ).getFrame( ), game.getAssessmentEngine( ), game.getAdventureName( ) );
+                new ReportDialog( GUI.getInstance( ).getJFrame( ), game.getAssessmentEngine( ), game.getAdventureName( ) );
                 break;
             case 3:
                 game.setGameOver( );

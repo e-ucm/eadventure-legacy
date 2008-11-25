@@ -1,6 +1,6 @@
 package es.eucm.eadventure.engine.core.gui;
 
-import java.awt.BorderLayout;
+import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
@@ -16,7 +16,7 @@ import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
-import java.awt.LayoutManager2;
+import java.awt.LayoutManager;
 import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
@@ -28,10 +28,10 @@ import java.util.ArrayList;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JLayeredPane;
-import javax.swing.JPanel;
+import javax.swing.JOptionPane;
 
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.gui.hud.HUD;
 import es.eucm.eadventure.engine.core.gui.hud.contextualhud.ContextualHUD;
@@ -73,17 +73,12 @@ public class GUI implements FocusListener {
     /**
      * The frame/window of the game
      */
-    private JFrame gameFrame;
+    private Canvas gameFrame;
     
     /*
      * The frame to keep the screen black behind the game
      */
-    private JDialog bkgFrame;
- 
-    /**
-     * Used to display components over the frame when it is required. (BOOKS)
-     */
-    private JFrame dialog;
+    private JFrame bkgFrame;
     
     /**
      * The HUE element
@@ -122,17 +117,18 @@ public class GUI implements FocusListener {
 
     
     private static DisplayMode originalDisplayMode;
-    
-	private static int graphicConfig;
 
+	private static int graphicConfig;
     
-    private Component component;
+    private Component component = null;
     
     /**
      * Return the GUI instance. GUI is a singleton class.
      * @return GUI sigleton instance
      */
     public static GUI getInstance( ) {
+    	if (instance == null)
+    		create();
         return instance;
     }
     
@@ -147,17 +143,19 @@ public class GUI implements FocusListener {
      * Destroy the singleton instance
      */
     public static void delete(){
+        if (originalDisplayMode != null && instance != null && instance.bkgFrame != null) {
+	        GraphicsDevice gm;
+	        GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
+	        gm = environment.getDefaultScreenDevice();
+	        gm.setFullScreenWindow(instance.bkgFrame);
+	        gm.setDisplayMode(originalDisplayMode);
+	        originalDisplayMode = null;
+        }
         if (instance!=null && instance.bkgFrame != null){
             instance.bkgFrame.setVisible( false );
             instance.bkgFrame.dispose();
         }
         instance = null;
-        if (originalDisplayMode != null) {
-	        GraphicsDevice gm;
-	        GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
-	        gm = environment.getDefaultScreenDevice();
-	        gm.setDisplayMode(originalDisplayMode);
-        }
     }
 
     //private JPanel panel;
@@ -166,76 +164,82 @@ public class GUI implements FocusListener {
      * Private constructor to create the unique instace of the class
      */
     private GUI( ) {
-        gameFrame = new JFrame( "eAdventure" );
-        gameFrame.setLayout(new BorderLayout());
+        bkgFrame = new JFrame("eadventure"){
+			private static final long serialVersionUID = 3648656167576771790L;
+
+			public void paint (Graphics g){
+				g.setColor( Color.BLACK );
+                g.fillRect( 0, 0, getSize( ).width, getSize( ).height );
+                if (GUI.this.component != null)
+                	GUI.this.component.repaint();
+            }
+        };
+        bkgFrame.setUndecorated( true );
+        bkgFrame.setIgnoreRepaint(true);
         
+        Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
         if (graphicConfig == DescriptorData.GRAPHICS_BLACKBKG) {
         // Set a black border to the window, covering all the desktop area
-	        bkgFrame = new JDialog(){
-				private static final long serialVersionUID = 3648656167576771790L;
-	
-				public void paint (Graphics g){
-	                g.setColor( Color.BLACK );
-	                g.fillRect( 0, 0, getSize( ).width, getSize( ).height );
-	            }
-	        };
-	        bkgFrame.setUndecorated( true );
-	        bkgFrame.setSize( Toolkit.getDefaultToolkit( ).getScreenSize( ).width, Toolkit.getDefaultToolkit( ).getScreenSize( ).height );
-	        bkgFrame.setModal( false );
-	        bkgFrame.setBackground( Color.BLACK );
-	        bkgFrame.setForeground( Color.BLACK );
-	        bkgFrame.setVisible( true );
+            bkgFrame.setSize( screenSize.width, screenSize.height );
+            bkgFrame.setLocation(0,0);
+        } else {
+        	bkgFrame.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+            bkgFrame.setLocation( ( screenSize.width - WINDOW_WIDTH ) / 2, ( screenSize.height - WINDOW_HEIGHT ) / 2);
         }
-        
+        bkgFrame.setBackground( Color.BLACK );
+        bkgFrame.setForeground( Color.BLACK );
+        bkgFrame.setLayout(new GUILayout());//new BorderLayout());
+    	bkgFrame.setIgnoreRepaint(true);
+
+        gameFrame = new Canvas();
         background = null;
         elementsToDraw = new ArrayList<ElementImage>();
         textToDraw = new ArrayList<Text>();
-        
-        //gameFrame.setLayout( new BorderLayout() );
-        gameFrame.setUndecorated( true );
+ 
         gameFrame.setIgnoreRepaint( true );
-        gameFrame.setResizable( false );
-
         gameFrame.setFont( new Font( "Dialog", Font.PLAIN, 18 ) );
         gameFrame.setBackground( Color.black );
         gameFrame.setForeground( Color.white );
         gameFrame.setSize( new Dimension( WINDOW_WIDTH, WINDOW_HEIGHT ) );
 
-        /*int scrWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
-        int scrHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
-        gameFrame.setSize( new Dimension( scrWidth, scrHeight ) );
-        gameFrame.setLocation(0,0);
-        panel = new JPanel(){
-        	public void paint (Graphics g){
-        		
-        	}
-        	public void repaint(){
-        		
-        	}
-        	public void update (Graphics g){
-        		
-        	}
-        };
-       
-        panel.setIgnoreRepaint(true);
-        panel.setLayout(new BorderLayout());
-        gameFrame.add(panel);*/
-        dialog = null;
+
+        bkgFrame.setVisible( true );
+        bkgFrame.add(gameFrame);//, BorderLayout.CENTER);
+
         
         if (graphicConfig == DescriptorData.GRAPHICS_FULLSCREEN) {
-	        // Set fullscreen... Runs into compatibility issues in non Windows systems
-	        DisplayMode dm = new DisplayMode(WINDOW_WIDTH, WINDOW_HEIGHT, 16, DisplayMode.REFRESH_RATE_UNKNOWN);
-	        GraphicsDevice gm;
-	        GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
-	        gm = environment.getDefaultScreenDevice();
-	        originalDisplayMode = gm.getDisplayMode();
-	        gm.setFullScreenWindow(gameFrame);   
-	        gm.setDisplayMode(dm);
+        	GraphicsEnvironment environment;
+        	GraphicsDevice gm = null;
+        	boolean changed = false;
+        	try {
+        		// Set fullscreen... Runs into compatibility issues in non-Windows systems
+        		environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        		gm = environment.getDefaultScreenDevice();
+        		originalDisplayMode = gm.getDisplayMode();
+        		DisplayMode dm = new DisplayMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32, DisplayMode.REFRESH_RATE_UNKNOWN);
+        		DisplayMode[] dmodes = gm.getDisplayModes();
+        		for (int i = 0; i < dmodes.length; i++) {
+        			if (dmodes[i].getBitDepth() == dm.getBitDepth() && dmodes[i].getHeight() == dm.getHeight() && dmodes[i].getWidth() == dm.getWidth()) {
+        				gm.setFullScreenWindow(bkgFrame);   
+        				gm.setDisplayMode(dm);
+        				changed = true;
+        			}
+        		}
+        	} catch (Exception e) {
+        		if (gm != null && originalDisplayMode != null) {
+        			gm.setDisplayMode(originalDisplayMode);
+        			originalDisplayMode = null;
+        		}
+        	}
+        	if (!changed) {
+        		originalDisplayMode = null;
+        		JOptionPane.showMessageDialog(bkgFrame,
+        				TextConstants.getText("GUI.NoFullscreenTitle"),
+        				TextConstants.getText("GUI.NoFullscreenContent"),
+        				JOptionPane.WARNING_MESSAGE);        }
         }
-    }
+        
 
-    public void setFrame( JFrame newFrame ){
-        this.gameFrame = newFrame;
     }
     
     /**
@@ -250,13 +254,13 @@ public class GUI implements FocusListener {
         
         // Center window on screen
         Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
-        gameFrame.setLocation( ( screenSize.width - WINDOW_WIDTH ) / 2, ( screenSize.height - WINDOW_HEIGHT ) / 2);
+        gameFrame.setLocation( ( screenSize.width - WINDOW_WIDTH ) / 2 - (int) bkgFrame.getLocation().getX(), ( screenSize.height - WINDOW_HEIGHT ) / 2 - (int) bkgFrame.getLocation().getY());
         //gameFrame.setLocation(0,0);
         gameFrame.setEnabled( true );
         gameFrame.setVisible( true );
         gameFrame.setFocusable( true );
         // Double buffered painting
-        //gameFrame.setAlwaysOnTop( true );
+        bkgFrame.setAlwaysOnTop( true );
         gameFrame.createBufferStrategy( 2 );
         gameFrame.validate( );
         
@@ -273,8 +277,6 @@ public class GUI implements FocusListener {
         }else 
             defaultCursor = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImage( "gui/cursors/default.png", MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "defaultCursor" );
         gameFrame.setCursor( defaultCursor );
-        
-        dialog=null;
     }
     
     /**
@@ -285,16 +287,18 @@ public class GUI implements FocusListener {
      * @return
      */
     public JFrame showComponent ( Component component ){    	
-    	gameFrame.setIgnoreRepaint(false);
+    	gameFrame.setVisible(false);
     	if (this.component != null)
-    		gameFrame.remove(this.component);
+    		bkgFrame.remove(this.component);
     	this.component = component;
-    	gameFrame.add(component, BorderLayout.CENTER);
-    	gameFrame.repaint();
-    	component.repaint();
-    	gameFrame.validate();
-        System.out.println("IS DISPLAYABLE: " + component.isDisplayable() + "\n");
-    	return gameFrame;
+    	component.setBackground(Color.BLACK);
+    	component.setForeground(Color.BLACK);
+    	bkgFrame.add(component);
+       	bkgFrame.validate();
+       	component.repaint();
+        //System.out.println("IS DISPLAYABLE: " + component.isDisplayable() + "\n");
+
+    	return bkgFrame;
     }
     
     /**
@@ -303,11 +307,14 @@ public class GUI implements FocusListener {
      * 
      */
     public void restoreFrame (){
-    	if (component != null)
-    		gameFrame.remove(component);
-    	gameFrame.validate();
-    	//gameFrame.repaint();
-    	gameFrame.setIgnoreRepaint(true);
+    	if (component != null) {
+    		bkgFrame.remove(component);
+    	}
+    	component = null;
+    	bkgFrame.setIgnoreRepaint(true);
+    	bkgFrame.repaint();
+    	gameFrame.setVisible(true);
+    	bkgFrame.validate();
     }
     
     /**
@@ -406,7 +413,7 @@ public class GUI implements FocusListener {
      * Returns the frame that is the window
      * @return Frame the main window
      */
-    public Frame getFrame( ) {
+    public Canvas getFrame( ) {
         return gameFrame;
     }
 
@@ -949,71 +956,53 @@ public class GUI implements FocusListener {
         }
     }
  
-    private class Layout implements LayoutManager2 {
-
-    	private Component comp;
-    	
-		@Override
-		public void addLayoutComponent(Component comp, Object constraints) {
-			this.comp = comp;
-		}
-
-		@Override
-		public float getLayoutAlignmentX(Container target) {
-			return 0;
-		}
-
-		@Override
-		public float getLayoutAlignmentY(Container target) {
-			return 0;
-		}
-
-		@Override
-		public void invalidateLayout(Container target) {
-			if (comp!=null){
-				int scrWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
-				int scrHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
-				comp.setBounds((scrWidth-WINDOW_WIDTH)/2, (scrHeight-WINDOW_HEIGHT)/2, WINDOW_WIDTH, 
-						WINDOW_HEIGHT);
-			}
-			
-		}
-
-		@Override
-		public Dimension maximumLayoutSize(Container target) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public void addLayoutComponent(String name, Component comp) {
-			this.comp = comp;			
-		}
-
-		@Override
-		public void layoutContainer(Container parent) {
-			invalidateLayout(null);
-		}
-
-		@Override
-		public Dimension minimumLayoutSize(Container parent) {
-			return null;
-		}
-
-		@Override
-		public Dimension preferredLayoutSize(Container parent) {
-			return null;
-		}
-
-		@Override
-		public void removeLayoutComponent(Component comp) {
-			comp = null;
-		}
-    	
-    }
-    
 	public static void setGraphicConfig(int newGraphicConfig) {
 		graphicConfig = newGraphicConfig;
 	}
 
+	public Frame getJFrame() {
+		return bkgFrame;
+	}
+	
+	private class GUILayout implements LayoutManager {
+
+		@Override
+		public void addLayoutComponent(String arg0, Component arg1) {
+			
+		}
+
+		@Override
+		public void layoutContainer(Container container) {
+			Component[] components = container.getComponents();
+			for (int i = 0; i < components.length; i++) {
+		        Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
+				if (bkgFrame != null) {
+			        int posX = ( screenSize.width - GUI.WINDOW_WIDTH ) / 2 - (int) bkgFrame.getLocation().getX();
+			        int posY = ( screenSize.height - GUI.WINDOW_HEIGHT ) / 2 - (int) bkgFrame.getLocation().getY();
+					//components[i].setLocation(posX, posY);
+					components[i].setBounds(posX, posY, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT);
+				} else {
+					components[i].setLocation(0, 0);
+					components[i].setSize(GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT);
+				}
+			}
+		}
+
+		@Override
+		public Dimension minimumLayoutSize(Container arg0) {
+			return arg0.getSize();
+		}
+
+		@Override
+		public Dimension preferredLayoutSize(Container arg0) {
+			return arg0.getSize();
+		}
+
+		@Override
+		public void removeLayoutComponent(Component arg0) {
+			
+		}
+		
+	}
+	
 }
