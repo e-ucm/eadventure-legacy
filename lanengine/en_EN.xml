@@ -16,6 +16,8 @@
 	<entry key="MainWindow.TabOpen">Open Game</entry>
 	<entry key="MainWindow.TabAbout">About e-Adventure</entry>
 	<entry key="Information.FileAbout">aboutEN.html</entry>
+	<entry key="GUI.NoFullscreenTitle">Problem displaying fullscreen</entry>
+	<entry key="GUI.NoFullscreenContent">There seems to be a problem that doesn't allow the game to be displayed as intented</entry>
 	
 	<entry key="HUD.Traditional.btnExamine">gui/hud/traditional/btnExamineEN.png</entry>
 	<entry key="HUD.Traditional.btnExamineFocus">gui/hud/traditional/btnExamineFocusEN.png</entry>	

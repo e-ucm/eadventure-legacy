@@ -17,6 +17,8 @@
 	<entry key="MainWindow.TabOpen">Abrir juego</entry>
 	<entry key="MainWindow.TabAbout">Sobre e-Adventure</entry>
 	<entry key="Information.FileAbout">aboutES.html</entry>
+	<entry key="GUI.NoFullscreenTitle">Problema entrando a modo pantalla-completa</entry>
+	<entry key="GUI.NoFullscreenContent">Un problema parece impedir que el juego se vea corresponde</entry>
 
 	<entry key="HUD.Traditional.btnExamine">gui/hud/traditional/btnExamineES.png</entry>
 	<entry key="HUD.Traditional.btnExamineFocus">gui/hud/traditional/btnExamineFocusES.png</entry>	
