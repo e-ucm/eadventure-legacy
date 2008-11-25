@@ -123,6 +123,9 @@ public class GUI implements FocusListener {
     
     private static DisplayMode originalDisplayMode;
     
+	private static int graphicConfig;
+
+    
     private Component component;
     
     /**
@@ -165,24 +168,24 @@ public class GUI implements FocusListener {
     private GUI( ) {
         gameFrame = new JFrame( "eAdventure" );
         gameFrame.setLayout(new BorderLayout());
-        // Set a black border to the window, covering all the desktop area
-        /*
-        bkgFrame = new JDialog(){
-			private static final long serialVersionUID = 3648656167576771790L;
-
-			public void paint (Graphics g){
-                g.setColor( Color.BLACK );
-                g.fillRect( 0, 0, getSize( ).width, getSize( ).height );
-            }
-        };
-        bkgFrame.setUndecorated( true );
-        bkgFrame.setSize( Toolkit.getDefaultToolkit( ).getScreenSize( ).width, Toolkit.getDefaultToolkit( ).getScreenSize( ).height );
-        bkgFrame.setModal( false );
-        bkgFrame.setBackground( Color.BLACK );
-        bkgFrame.setForeground( Color.BLACK );
-        bkgFrame.setVisible( true );
-        */
         
+        if (graphicConfig == DescriptorData.GRAPHICS_BLACKBKG) {
+        // Set a black border to the window, covering all the desktop area
+	        bkgFrame = new JDialog(){
+				private static final long serialVersionUID = 3648656167576771790L;
+	
+				public void paint (Graphics g){
+	                g.setColor( Color.BLACK );
+	                g.fillRect( 0, 0, getSize( ).width, getSize( ).height );
+	            }
+	        };
+	        bkgFrame.setUndecorated( true );
+	        bkgFrame.setSize( Toolkit.getDefaultToolkit( ).getScreenSize( ).width, Toolkit.getDefaultToolkit( ).getScreenSize( ).height );
+	        bkgFrame.setModal( false );
+	        bkgFrame.setBackground( Color.BLACK );
+	        bkgFrame.setForeground( Color.BLACK );
+	        bkgFrame.setVisible( true );
+        }
         
         background = null;
         elementsToDraw = new ArrayList<ElementImage>();
@@ -197,6 +200,7 @@ public class GUI implements FocusListener {
         gameFrame.setBackground( Color.black );
         gameFrame.setForeground( Color.white );
         gameFrame.setSize( new Dimension( WINDOW_WIDTH, WINDOW_HEIGHT ) );
+
         /*int scrWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
         int scrHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
         gameFrame.setSize( new Dimension( scrWidth, scrHeight ) );
@@ -218,16 +222,16 @@ public class GUI implements FocusListener {
         gameFrame.add(panel);*/
         dialog = null;
         
-        // Set fullscreen... Runs into compatibility issues in non Windows systems
-        /*  
-        DisplayMode dm = new DisplayMode(WINDOW_WIDTH, WINDOW_HEIGHT, 16, DisplayMode.REFRESH_RATE_UNKNOWN);
-        GraphicsDevice gm;
-        GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        gm = environment.getDefaultScreenDevice();
-        originalDisplayMode = gm.getDisplayMode();
-        gm.setFullScreenWindow(gameFrame);   
-        gm.setDisplayMode(dm);
-        */
+        if (graphicConfig == DescriptorData.GRAPHICS_FULLSCREEN) {
+	        // Set fullscreen... Runs into compatibility issues in non Windows systems
+	        DisplayMode dm = new DisplayMode(WINDOW_WIDTH, WINDOW_HEIGHT, 16, DisplayMode.REFRESH_RATE_UNKNOWN);
+	        GraphicsDevice gm;
+	        GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
+	        gm = environment.getDefaultScreenDevice();
+	        originalDisplayMode = gm.getDisplayMode();
+	        gm.setFullScreenWindow(gameFrame);   
+	        gm.setDisplayMode(dm);
+        }
     }
 
     public void setFrame( JFrame newFrame ){
@@ -1007,4 +1011,9 @@ public class GUI implements FocusListener {
 		}
     	
     }
+    
+	public static void setGraphicConfig(int newGraphicConfig) {
+		graphicConfig = newGraphicConfig;
+	}
+
 }
