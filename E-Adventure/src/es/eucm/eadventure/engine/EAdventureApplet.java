@@ -46,7 +46,7 @@ public class EAdventureApplet extends AsynchronousCommunicationAppletLD {
      * @see java.applet.Applet#init()
      */
     public void init( ) {
-        TextConstants.loadStrings( EAdventureApplet.class.getResourceAsStream( "/en_EN.xml" ) );
+        TextConstants.loadStrings( EAdventureApplet.class.getResourceAsStream( "/lanengine/en_EN.xml" ) );
         File.setDefaultArchiveDetector(new DefaultArchiveDetector(
                 ArchiveDetector.NULL, // delegate
                 new String[] {

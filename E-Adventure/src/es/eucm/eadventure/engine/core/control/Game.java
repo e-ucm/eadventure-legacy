@@ -57,6 +57,7 @@ import es.eucm.eadventure.engine.core.control.gamestate.GameStateSlidescene;
 import es.eucm.eadventure.engine.core.control.gamestate.GameStateVideoscene;
 import es.eucm.eadventure.engine.core.data.GameText;
 import es.eucm.eadventure.engine.core.data.SaveGame;
+import es.eucm.eadventure.engine.core.data.SaveTimer;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.common.loader.Loader;
 import es.eucm.eadventure.common.loader.incidences.Incidence;
@@ -1101,6 +1102,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         saveGame.setItemSummary( itemSummary );
         saveGame.setPlayerX( functionalPlayer.getX( ) );
         saveGame.setPlayerY( functionalPlayer.getY( ) );
+        saveGame.setTimers(timerManager);
         if( !saveGame.saveTxt( saveFile ) )
             System.out.println( "* Error: There has been an error, savegame ''savedgame.egame'' not saved." );        
     }
@@ -1130,13 +1132,40 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
                 for( String item : grabbedItems ) {
                     inventory.storeItem( new FunctionalItem( gameData.getItem( item ) ) );
                
-                 // Add timers to the TimerManager
-                 /*   this.gameTimers = new HashMap<Integer, Timer>();
-                    for (Timer timer: gameData.getTimers( )){
-                        int id = timerManager.addTimer( timer.getInitCond( ), timer.getEndCond( ), this, timer.getTime( ) );
-                        gameTimers.put( new Integer(id), timer );
-                    }    
-                   */ 
+                 
+                SaveTimer st = new SaveTimer(); 
+                String[] timers = saveGame.getLoadTimers();
+                for (int i=0;true;i++){
+                    if (timers.length != 0){
+                	// take the correct values for each timer
+                    	String timer = timers[i];
+                    	String[] aux = timer.split("-");
+                    	st.setState(Integer.valueOf(aux[0]).intValue());
+                    	if (timerManager.isRunningState(Integer.valueOf(aux[0]).intValue())){
+                    		st.setLastUpdate(System.currentTimeMillis( )/1000);
+                    		st.setTimeUpdate(Integer.valueOf(aux[1]).longValue()- Integer.valueOf(aux[2]).longValue());
+                       	} else {
+                       		st.setLastUpdate(0);
+                       		st.setTimeUpdate(Integer.valueOf(aux[1]).longValue());
+                       	}
+                       	// change this values in the current TimerManager
+                    	int check = timerManager.changeValueOfTimer(i, st);
+                    	if (check > 0){
+                    		// Put this changes in gameTimers
+                    		//gameTimers.get(new Integer(i)).
+                    	}   else{
+                    		System.out.println( "* Error: There has been an error, savegame ''savedgame.egame'' not propperly loaded." );
+                    	}
+                    	// If it is assessment timer, set the correct values in assessmentEngine
+                    	if (Integer.valueOf(aux[3]).intValue() == 0){
+                    		// current time - the time in second that has been
+                    		assessmentEngine.getTimedAssessmentRule(new Integer(i)).setStartTime(System.currentTimeMillis()/1000 - Integer.valueOf(aux[2]).longValue());
+                    	}
+                    }
+                    else {
+                    	break;
+                    }
+                 }      
                 //TODO no estoy seguro 
                 lastMouseEvent = null;
                 }

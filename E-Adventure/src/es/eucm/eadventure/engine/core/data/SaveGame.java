@@ -12,6 +12,7 @@ import java.util.HashMap;
 
 import es.eucm.eadventure.engine.core.control.FlagSummary;
 import es.eucm.eadventure.engine.core.control.ItemSummary;
+import es.eucm.eadventure.engine.core.control.TimerManager;
 import es.eucm.eadventure.common.data.chapter.Timer;
 import es.eucm.eadventure.common.data.chapter.elements.Item;
 
@@ -105,6 +106,8 @@ public class SaveGame implements Serializable {
                     saveGameData.flags.activateFlag( activeFlags[i] ); 
             }
             
+            line = file.readLine().trim();
+            saveGameData.loadTimers = line.split(";");    
         } catch( FileNotFoundException e ) {
             loaded=false;
         } catch( IOException e ) {
@@ -146,6 +149,21 @@ public class SaveGame implements Serializable {
             for(String flag : saveGameData.flags.getInactiveFlags() ){
                 file.print( flag + ";" );
             }
+            file.println();
+            long currentTime = System.currentTimeMillis( );
+            for (SaveTimer saveT : saveGameData.timers.getTimers()){
+            	file.print(saveT.getState() + "-");
+            	file.print(saveT.getTimeUpdate() + "-");
+            	// store the time in second that has been 
+            	file.print((( currentTime / 1000) - saveT.getLastUpdate()) + "-");
+            	if (saveT.isAssessmentRule()){
+            		file.print("0;");
+            	}else {
+            		file.print("1;");
+            	}
+            	
+            }
+            
             file.println();
             file.close();
         } catch( FileNotFoundException e ) {
@@ -275,6 +293,14 @@ public class SaveGame implements Serializable {
         saveGameData.chapter = chapter;
     }
     
+    public void setTimers(TimerManager timers){
+    	saveGameData.timers = timers;
+    }
+    
+    public String[] getLoadTimers(){
+    	return saveGameData.loadTimers;
+    }
+    
     private class SaveGameData {
         
         private String title;
@@ -293,7 +319,9 @@ public class SaveGame implements Serializable {
 
         private float playerX, playerY;
         
-        private HashMap<Integer, Timer> timers;
+        private TimerManager timers;
+        
+        private String[] loadTimers;
 
      }
 

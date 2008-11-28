@@ -239,4 +239,8 @@ public class TimedAssessmentRule extends AssessmentRule {
         return time;
     }
 
+	public void setStartTime(long startTime) {
+		this.startTime = startTime;
+	}
+
 }
