@@ -1,9 +1,11 @@
 package es.eucm.eadventure.engine.core.control;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
+import es.eucm.eadventure.engine.core.data.SaveTimer;
 
 public class TimerManager {
 
@@ -37,7 +39,7 @@ public class TimerManager {
     }
 
     public int addTimer( Conditions initConditions, Conditions endConditions, TimerEventListener listener, long timeUpdate ) {
-        FunctionalTimer newTimer = new FunctionalTimer( initConditions, endConditions, listener, timeUpdate );
+        FunctionalTimer newTimer = new FunctionalTimer( initConditions, endConditions, listener, timeUpdate, false );
         timers.put( new Integer( ID ), newTimer );
         ID++;
         return ID - 1;
@@ -72,6 +74,65 @@ public class TimerManager {
         }
         return false;
     }
+    
+    /**
+     * Get the suitable attributes to store in save data
+     * 
+     * @return
+     * 			the array list with suitable attributes to save
+     */
+    public ArrayList<SaveTimer> getTimers(){
+    	ArrayList<SaveTimer> list = new ArrayList<SaveTimer>();
+    	SaveTimer st = new SaveTimer();
+    	FunctionalTimer ft;
+    	for( int i = 0; i < ID; i++ ) {
+    		ft = timers.get(new Integer(i));
+    		st.setLastUpdate(ft.getLastUpdate());
+    		st.setState(ft.getState());
+    		st.setTimeUpdate(ft.getTimeUpdate());
+    		st.setAssessmentRule(ft.isAssessmentTimer());
+    		list.add(st);
+    	}
+    	return list;
+    }
+    
+    /*
+    public FunctionalTimer getTimer(int i){
+    	//TODO ver que pasa en el caso chungo
+    	if (i < ID){
+    		return timers.get(new Integer(i));
+    	} else {
+    		return new FunctionalTimer();
+    	}
+    }
+    */
+    
+    public boolean isRunningState(int state){
+    	return (state == FunctionalTimer.STATE_RUNNING);
+    }
+    
+    /**
+     * Change the state, the timeUpdate and lastUpdate of indexed timer when a game is loaded
+     * @return
+     * 			-1 if the parameter "i" does´t fit with "ID", "i" in other case
+     */
+    public int changeValueOfTimer(int i, SaveTimer st){
+    	if (i>ID){
+    		return -1;
+    	} else {
+    		FunctionalTimer currentTimer = timers.get( new Integer( i ) );
+    		currentTimer.setLastUpdate(st.getLastUpdate());
+    		currentTimer.setState(st.getState());
+    		currentTimer.setTimeUpdate(st.getTimeUpdate());
+    		return i;
+    	}
+    }
+    
+    
+    /**
+     * 
+     * @param notifyCycles
+     */
 
     public void update( boolean notifyCycles ) {
         
@@ -157,14 +218,26 @@ public class TimerManager {
         private Conditions endConditions;
 
         private TimerEventListener listener;
-
+        
+        /**
+         * True if it is an assessment functional timer, false if it isn´t
+         */
+        private boolean isAssessmentTimer;
+        
+        
         private int state;
 
         public FunctionalTimer( Conditions initConditions, Conditions endConditions, TimerEventListener listener ) {
-            this( initConditions, endConditions, listener, NO_UPDATE );
+            this( initConditions, endConditions, listener, NO_UPDATE , true);
         }
+        
+        /*
+        // Empty constructor
+        public FunctionalTimer(){
+        	
+        }*/
 
-        public FunctionalTimer( Conditions initConditions, Conditions endConditions, TimerEventListener listener, long timeUpdate ) {
+        public FunctionalTimer( Conditions initConditions, Conditions endConditions, TimerEventListener listener, long timeUpdate, boolean assessment ) {
             this.initConditions = initConditions;
             this.endConditions = endConditions;
             this.listener = listener;
@@ -172,6 +245,11 @@ public class TimerManager {
             this.timeUpdate = timeUpdate;
             notifyUpdates = ( timeUpdate != NO_UPDATE );
             this.state = STATE_NO_INIT;
+            this.isAssessmentTimer = assessment;
+        }
+        
+        public boolean isAssessmentTimer(){
+        	return isAssessmentTimer;
         }
 
         /**
@@ -277,6 +355,9 @@ public class TimerManager {
          */
         public void setState( int state ) {
             this.state = state;
+         
         }
     }
+    
+    
 }

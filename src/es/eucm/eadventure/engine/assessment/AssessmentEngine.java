@@ -119,6 +119,17 @@ public class AssessmentEngine implements TimerEventListener{
     	return new FunctionalConditions(rule.getConditions()).allConditionsOk( );
     }
     
+    
+    /**
+     * Returns the timed rule indexed by key "i".
+     * 
+     * @param i 	the key in the hash map
+     * @return		the correct TimedAssessmentRule of timedRules
+     */
+    public TimedAssessmentRule getTimedAssessmentRule(int i){
+    	return timedRules.get(new Integer(i));
+    }
+    
     /**
      * Generates a report file, in XML format
      * @param filename File name of the report file
