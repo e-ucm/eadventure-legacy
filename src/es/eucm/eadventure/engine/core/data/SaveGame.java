@@ -9,9 +9,11 @@ import java.io.PrintStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import es.eucm.eadventure.engine.core.control.FlagSummary;
 import es.eucm.eadventure.engine.core.control.ItemSummary;
+import es.eucm.eadventure.engine.core.control.VarSummary;
 import es.eucm.eadventure.engine.core.control.TimerManager;
 import es.eucm.eadventure.common.data.chapter.Timer;
 import es.eucm.eadventure.common.data.chapter.elements.Item;
@@ -107,6 +109,23 @@ public class SaveGame implements Serializable {
             }
             
             line = file.readLine().trim();
+            String[] varNames = line.split(";");
+            List<String> vars = new ArrayList<String>();
+            for (String var: varNames){
+            	vars.add(var);
+            }
+            line = file.readLine().trim();
+            String[] varValuesStrings = line.split(";");
+            int[] varValues = new int[varValuesStrings.length];
+            for (int i=0; i<varValuesStrings.length; i++){
+            	varValues[i] = Integer.parseInt(varValuesStrings[i]);
+            }
+            saveGameData.vars = new VarSummary( vars );
+            for (int i=0; i<varNames.length; i++){
+            	saveGameData.vars.setVarValue(varNames[i], varValues[i]);
+            }
+            
+            line = file.readLine().trim();
             saveGameData.loadTimers = line.split(";");    
         } catch( FileNotFoundException e ) {
             loaded=false;
@@ -150,6 +169,15 @@ public class SaveGame implements Serializable {
                 file.print( flag + ";" );
             }
             file.println();
+
+            for (String var: saveGameData.vars.getVarNames( ) ){
+            	file.print( var+";");
+            }
+            file.println();
+            for (String value: saveGameData.vars.getVarValues( ) ){
+            	file.print( value+";");
+            }
+
             long currentTime = System.currentTimeMillis( );
             for (SaveTimer saveT : saveGameData.timers.getTimers()){
             	file.print(saveT.getState() + "-");
@@ -180,6 +208,14 @@ public class SaveGame implements Serializable {
     public FlagSummary getFlags( ) {
         return saveGameData.flags;
     }
+    
+    /**
+     * Returns the loaded vars
+     * @return the loaded vars
+     */
+    public VarSummary getVars( ) {
+        return saveGameData.vars;
+    }
 
     /**
      * Changes the flags to save
@@ -187,6 +223,14 @@ public class SaveGame implements Serializable {
      */
     public void setFlags( FlagSummary flags ) {
         saveGameData.flags = flags;
+    }
+    
+    /**
+     * Changes the vars to save
+     * @param vars the vars to save
+     */
+    public void setVars( VarSummary vars ) {
+        saveGameData.vars = vars;
     }
 
     /**
@@ -314,6 +358,8 @@ public class SaveGame implements Serializable {
         private String idScene;
 
         private FlagSummary flags;
+        
+        private VarSummary vars;
 
         private ItemSummary itemSummary;
 
