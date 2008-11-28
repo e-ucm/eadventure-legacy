@@ -27,6 +27,16 @@ public class AdaptationProfile {
 	private AdaptedState initialState;
 	
 	/**
+	 * List of referenced flags
+	 */
+	private List<String> flags;
+	
+	/**
+	 * List of referenced vars
+	 */
+	private List<String> vars;
+	
+	/**
 	 * @param path
 	 * @param rules
 	 * @param initialState
@@ -36,6 +46,8 @@ public class AdaptationProfile {
 		this.path = path;
 		this.rules = rules;
 		this.initialState = initialState;
+		flags = new ArrayList<String>();
+		vars = new ArrayList<String>();
 	}
 
 	/**
@@ -103,5 +115,53 @@ public class AdaptationProfile {
 	 */
 	public void setRules(List<AdaptationRule> adpRules) {
 		this.rules = adpRules;
+	}
+	
+	/**
+	 * Adds a new flag
+	 * @param flag
+	 */
+	public void addFlag( String flag ){
+		if (!flags.contains(flag)){
+			flags.add(flag);
+		}
+	}
+	
+	/**
+	 * Adds a new var
+	 * @param var
+	 */
+	public void addVar( String var ){
+		if (!vars.contains(var)){
+			vars.add(var);
+		}
+	}
+
+	/**
+	 * @return the flags
+	 */
+	public List<String> getFlags() {
+		return flags;
+	}
+
+	/**
+	 * @return the vars
+	 */
+	public List<String> getVars() {
+		return vars;
+	}
+
+	/**
+	 * @param flags the flags to set
+	 */
+	public void setFlags(List<String> flags) {
+		this.flags = flags;
+	}
+
+	/**
+	 * @param vars the vars to set
+	 */
+	public void setVars(List<String> vars) {
+		this.vars = vars;
 	}
 }

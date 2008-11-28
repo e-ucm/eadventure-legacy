@@ -6,73 +6,127 @@ package es.eucm.eadventure.common.data.chapter.conditions;
 public class Condition {
 
 	/**
+	 * Constant for state not set.
+	 */
+	public static final int NO_STATE = -1;
+	
+	/**
 	 * Constant for active flag.
 	 */
-	public static final boolean FLAG_ACTIVE = true;
+	public static final int FLAG_ACTIVE = 0;
 
 	/**
 	 * Constant for inactive flag.
 	 */
-	public static final boolean FLAG_INACTIVE = false;
+	public static final int FLAG_INACTIVE = 1;
+	
+	/**
+	 * Constant for greater-than var.
+	 */
+	public static final int VAR_GREATER_THAN = 2;
+	
+	/**
+	 * Constant for greater-than or equals var.
+	 */
+	public static final int VAR_GREATER_EQUALS_THAN = 3;
+
+	/**
+	 * Constant for equals var.
+	 */
+	public static final int VAR_EQUALS = 4;
+	
+	/**
+	 * Constant for less than or equals var.
+	 */
+	public static final int VAR_LESS_EQUALS_THAN = 5;
+
+	/**
+	 * Constant for less-than var.
+	 */
+	public static final int VAR_LESS_THAN = 6;
+
 
 	/**
 	 * Name of the flag to be checked
 	 */
-	private String flag;
+	protected String flagVar;
 
 	/**
 	 * Stores if the flag must be active or inactive
 	 */
-	private boolean state;
+	protected int state;
 
 	/**
 	 * Creates a new condition
 	 * 
-	 * @param flag
-	 *            Flag of the condition
+	 * @param flagVar
+	 *            Flag/Var of the condition
 	 * @param state
-	 *            Determines whether the flag must be activated or deactivated for this condition to be satisfied
+	 *            Determines the state: {@link #FLAG_ACTIVE} {@link #FLAG_INACTIVE} {@link #NO_STATE} {@link #VAR_EQUALS}
+	 * 					 {@link #VAR_GREATER_EQUALS_THAN} {@link #VAR_GREATER_THAN} {@link #VAR_LESS_EQUALS_THAN}
+	 *                   {@link #VAR_LESS_THAN} 
 	 */
-	public Condition( String flag, boolean state ) {
-		this.flag = flag;
+	public Condition( String flagVar, int state ) {
+		this.flagVar = flagVar;
 		this.state = state;
 	}
 
 	/**
-	 * Returns the flag of the condition
+	 * Returns the flag/Var of the condition
 	 * 
-	 * @return The flag of the condition
+	 * @return The flag/Var of the condition
 	 */
-	public String getFlag( ) {
-		return flag;
+	public String getFlagVar( ) {
+		return flagVar;
 	}
 
 	/**
-	 * Returns whether the flag must be activated or deactivated for this condition to be satisfied
+	 * Returns whether the flag/Var must be activated or deactivated for this condition to be satisfied
 	 * 
-	 * @return true if the flag must be activated for this condition to be satisfied, false if it has to be deactivated
+	 * @return the state {@link #FLAG_ACTIVE} {@link #FLAG_INACTIVE} {@link #NO_STATE} {@link #VAR_EQUALS}
+	 * 					 {@link #VAR_GREATER_EQUALS_THAN} {@link #VAR_GREATER_THAN} {@link #VAR_LESS_EQUALS_THAN}
+	 *                   {@link #VAR_LESS_THAN}
 	 */
-	public boolean getState( ) {
+	public int getState( ) {
 		return state;
 	}
 
 	/**
-	 * Sets a new flag for this condition
-	 * 
-	 * @param flag
-	 *            New condition flag
+	 * Returns true if the state is FLAG_ACTIVE
+	 * @return
 	 */
-	public void setFlag( String flag ) {
-		this.flag = flag;
+	public boolean isActiveState ( ){
+		return state == FLAG_ACTIVE;
 	}
 
 	/**
-	 * Sets a new active or inactive state for the flag.
+	 * Returns true if the state is FLAG_INACTIVE
+	 * @return
+	 */
+	public boolean isInactiveState ( ){
+		return state == FLAG_INACTIVE;
+	}
+
+	
+	/**
+	 * Sets a new flag for this condition
+	 * 
+	 * @param flagVar
+	 *            New condition flag/Var
+	 */
+	public void setFlagVar( String flagVar ) {
+		this.flagVar = flagVar;
+	}
+
+	/**
+	 * Sets a new active or inactive state for the flag/Var.
 	 * 
 	 * @param state
-	 *            New state for the flag, must be FLAG_ACTIVE or FLAG_INACTIVE
+	 *            New state {@link #FLAG_ACTIVE} {@link #FLAG_INACTIVE} {@link #NO_STATE} {@link #VAR_EQUALS}
+	 * 					 {@link #VAR_GREATER_EQUALS_THAN} {@link #VAR_GREATER_THAN} {@link #VAR_LESS_EQUALS_THAN}
+	 *                   {@link #VAR_LESS_THAN}
 	 */
-	public void setState( boolean state ) {
+	public void setState( int state ) {
 		this.state = state;
 	}
 }

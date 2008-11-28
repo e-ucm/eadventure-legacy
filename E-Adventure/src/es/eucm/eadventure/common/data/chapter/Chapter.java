@@ -67,6 +67,12 @@ public class Chapter extends ChapterSummary{
      * List of the flags present in the game
      */
     private List<String> flags;
+    
+    /**
+     * List of the vars present in the game
+     */
+    private List<String> vars;
+
 	
 	/**
 	 * Empty constructor. Sets values to null and creates empty lists.
@@ -83,6 +89,7 @@ public class Chapter extends ChapterSummary{
 		conversations = new ArrayList<Conversation>( );
 		timers = new ArrayList<Timer>();
 		flags = new ArrayList<String>( );
+		vars = new ArrayList<String>( );
 	}
 
 	/**
@@ -393,12 +400,29 @@ public class Chapter extends ChapterSummary{
     }
     
     /**
+     * Returns the list of vars in the game
+     * @return the list of vars in the game
+     */
+    public List<String> getVars( ) {
+        return vars;
+    }
+    
+    /**
      * Adds a flag to the list of flags in the game
      * @param flag the flag to add
      */
     public void addFlag( String flag ) {
         if( !flags.contains( flag ) )
             flags.add( flag );
+    }
+    
+    /**
+     * Adds a var to the list of Vars in the game
+     * @param Var the var to add
+     */
+    public void addVar( String var ) {
+        if( !vars.contains( var ) )
+            vars.add( var );
     }
     
     /**

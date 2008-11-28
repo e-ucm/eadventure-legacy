@@ -7,14 +7,17 @@ import es.eucm.eadventure.common.data.chapter.effects.ActivateEffect;
 import es.eucm.eadventure.common.data.chapter.effects.CancelActionEffect;
 import es.eucm.eadventure.common.data.chapter.effects.ConsumeObjectEffect;
 import es.eucm.eadventure.common.data.chapter.effects.DeactivateEffect;
+import es.eucm.eadventure.common.data.chapter.effects.DecrementVarEffect;
 import es.eucm.eadventure.common.data.chapter.effects.Effect;
 import es.eucm.eadventure.common.data.chapter.effects.Effects;
 import es.eucm.eadventure.common.data.chapter.effects.GenerateObjectEffect;
+import es.eucm.eadventure.common.data.chapter.effects.IncrementVarEffect;
 import es.eucm.eadventure.common.data.chapter.effects.MoveNPCEffect;
 import es.eucm.eadventure.common.data.chapter.effects.MovePlayerEffect;
 import es.eucm.eadventure.common.data.chapter.effects.PlayAnimationEffect;
 import es.eucm.eadventure.common.data.chapter.effects.PlaySoundEffect;
 import es.eucm.eadventure.common.data.chapter.effects.RandomEffect;
+import es.eucm.eadventure.common.data.chapter.effects.SetValueEffect;
 import es.eucm.eadventure.common.data.chapter.effects.SpeakCharEffect;
 import es.eucm.eadventure.common.data.chapter.effects.SpeakPlayerEffect;
 import es.eucm.eadventure.common.data.chapter.effects.TriggerBookEffect;
@@ -92,6 +95,57 @@ public class EffectSubParser extends SubParser {
 					newEffect=  new DeactivateEffect( attrs.getValue( i ) ) ;
 					chapter.addFlag( attrs.getValue( i ) );
 				}
+		}
+		
+		// If it is a set-value tag
+		else if( qName.equals( "set-value" ) ) {
+			String var  = null;
+			int value = 0;
+			
+			for( int i = 0; i < attrs.getLength( ); i++ ){
+				
+				if( attrs.getQName( i ).equals( "var" ) ) {
+					var = attrs.getValue( i );
+				} else if( attrs.getQName( i ).equals( "value" ) ) {
+					value = Integer.parseInt( attrs.getValue( i ) );
+				}
+			}
+			newEffect = new SetValueEffect ( var, value );
+			chapter.addVar( var );
+		}
+		
+		// If it is a set-value tag
+		else if( qName.equals( "increment" ) ) {
+			String var  = null;
+			int value = 0;
+			
+			for( int i = 0; i < attrs.getLength( ); i++ ){
+				
+				if( attrs.getQName( i ).equals( "var" ) ) {
+					var = attrs.getValue( i );
+				} else if( attrs.getQName( i ).equals( "value" ) ) {
+					value = Integer.parseInt( attrs.getValue( i ) );
+				}
+			}
+			newEffect = new IncrementVarEffect ( var, value );
+			chapter.addVar( var );
+		}
+		
+		// If it is a decrement tag
+		else if( qName.equals( "decrement" ) ) {
+			String var  = null;
+			int value = 0;
+			
+			for( int i = 0; i < attrs.getLength( ); i++ ){
+				
+				if( attrs.getQName( i ).equals( "var" ) ) {
+					var = attrs.getValue( i );
+				} else if( attrs.getQName( i ).equals( "value" ) ) {
+					value = Integer.parseInt( attrs.getValue( i ) );
+				}
+			}
+			newEffect = new DecrementVarEffect ( var, value );
+			chapter.addVar( var );
 		}
 
 		// If it is a consume-object tag

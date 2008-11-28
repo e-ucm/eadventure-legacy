@@ -90,6 +90,20 @@ public interface Effect {
 	 */
 	public static final int RANDOM_EFFECT = 16;
 
+	/**
+	 * Constant for set-value effect.
+	 */
+	public static final int SET_VALUE = 17;
+	
+	/**
+	 * Constant for increment var effect.
+	 */
+	public static final int INCREMENT_VAR = 18;
+	
+	/**
+	 * Constant for decrement var effect.
+	 */
+	public static final int DECREMENT_VAR = 19;
 
 	/**
 	 * Returns the type of the effect.

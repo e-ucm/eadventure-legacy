@@ -91,7 +91,7 @@ public class AdventureHandler extends DefaultHandler {
 	protected StringBuffer currentString;
 	
 	private InputStreamCreator isCreator;
-
+	
 	private static void getXMLFilePaths (InputStreamCreator isCreator, String assessmentFolderPath, String adaptationFolderPath, List<String> assessmentPaths, List<String> adaptationPaths){
 
 		// Assessment
@@ -131,7 +131,8 @@ public class AdventureHandler extends DefaultHandler {
 		
 		// Load all the assessment files
 		for (String assessmentPath : assessmentPaths){
-			assessmentController.add( Loader.loadAssessmentProfile ( isCreator, assessmentPath, incidences ) );
+
+			assessmentController.add( Loader.loadAssessmentProfile ( isCreator, assessmentPath, incidences) );
 		}
 		
 		// Load all the adaptation files

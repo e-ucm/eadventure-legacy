@@ -191,7 +191,7 @@
 
 <!-- TODO: REMOVE EFFECT ONCE ALL SAMPLE GAMES HAD BEEN UPDATED -->
 <!ELEMENT end-conversation (effect?)>
-<!ENTITY % basic-condition "(active|inactive)?">
+<!ENTITY % basic-condition "(active|inactive|greater-than|greater-equals-than|equals|less-equals-than|less-than)?">
 <!ENTITY % general-condition "(%basic-condition; | either)+">
 <!ELEMENT condition %general-condition;>
 <!ELEMENT init-condition %general-condition;>
@@ -204,9 +204,36 @@
 <!ATTLIST inactive
 	flag NMTOKEN #REQUIRED
 >
+<!ELEMENT greater-than EMPTY>
+<!ATTLIST greater-than
+	var NMTOKEN #REQUIRED
+	value NMTOKEN #REQUIRED
+>
+<!ELEMENT greater-equals-than EMPTY>
+<!ATTLIST greater-equals-than
+	var NMTOKEN #REQUIRED
+	value NMTOKEN #REQUIRED
+>
+<!ELEMENT equals EMPTY>
+<!ATTLIST equals
+	var NMTOKEN #REQUIRED
+	value NMTOKEN #REQUIRED
+>
+<!ELEMENT less-than EMPTY>
+<!ATTLIST less-than
+	var NMTOKEN #REQUIRED
+	value NMTOKEN #REQUIRED
+>
+<!ELEMENT less-equals-than EMPTY>
+<!ATTLIST less-equals-than
+	var NMTOKEN #REQUIRED
+	value NMTOKEN #REQUIRED
+>
+
+
 <!ELEMENT either (%basic-condition;)+>
-<!ENTITY % effects "(activate | deactivate | consume-object | generate-object | cancel-action | speak-player | speak-char | play-sound | play-animation | move-player | move-npc | trigger-book | trigger-conversation | trigger-cutscene | trigger-scene | trigger-last-scene | random-effect )*">
-<!ENTITY % simple-effect "(activate | deactivate | consume-object | generate-object | speak-player | speak-char | play-sound | play-animation | move-player | move-npc | trigger-book | trigger-conversation | trigger-cutscene | trigger-scene | trigger-last-scene )?">
+<!ENTITY % effects "(activate | deactivate | set-value | increment | decrement | consume-object | generate-object | cancel-action | speak-player | speak-char | play-sound | play-animation | move-player | move-npc | trigger-book | trigger-conversation | trigger-cutscene | trigger-scene | trigger-last-scene | random-effect )*">
+<!ENTITY % simple-effect "(activate | deactivate | set-value | increment | decrement | consume-object | generate-object | speak-player | speak-char | play-sound | play-animation | move-player | move-npc | trigger-book | trigger-conversation | trigger-cutscene | trigger-scene | trigger-last-scene )?">
 <!ELEMENT effect (%effects;)>
 <!ELEMENT random-effect (%simple-effect;, %simple-effect;)>
 <!ATTLIST random-effect
@@ -222,6 +249,22 @@
 <!ATTLIST deactivate
 	flag NMTOKEN #REQUIRED
 >
+<!ELEMENT set-value EMPTY>
+<!ATTLIST set-value
+	var NMTOKEN #REQUIRED
+	value NMTOKEN #REQUIRED
+>
+<!ELEMENT increment EMPTY>
+<!ATTLIST increment
+	var NMTOKEN #REQUIRED
+	value NMTOKEN #REQUIRED
+>
+<!ELEMENT decrement EMPTY>
+<!ATTLIST decrement
+	var NMTOKEN #REQUIRED
+	value NMTOKEN #REQUIRED
+>
+
 <!ELEMENT consume-object EMPTY>
 <!ATTLIST consume-object
 	idTarget IDREF #REQUIRED

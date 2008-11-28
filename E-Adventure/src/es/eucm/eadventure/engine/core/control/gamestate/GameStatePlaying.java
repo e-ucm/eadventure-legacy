@@ -85,7 +85,7 @@ public class GameStatePlaying extends GameState {
         }
 
         // Update the data pending from the flags
-        game.updateDataPendingFromFlags( true );
+        game.updateDataPendingFromState( true );
         
         // Ends the draw process
         GUI.getInstance( ).endDraw( );

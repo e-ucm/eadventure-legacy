@@ -10,7 +10,9 @@ import java.util.Set;
 import es.eucm.eadventure.common.data.adaptation.AdaptationProfile;
 import es.eucm.eadventure.common.data.adaptation.AdaptationRule;
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
+import es.eucm.eadventure.engine.core.control.FlagSummary;
 import es.eucm.eadventure.engine.core.control.Game;
+import es.eucm.eadventure.engine.core.control.VarSummary;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 import es.eucm.eadventure.common.loader.Loader;
 import es.eucm.eadventure.common.loader.incidences.Incidence;
@@ -44,6 +46,15 @@ public class AdaptationEngine {
     public void init( String adaptationPath ) {
     	if (adaptationPath!=null && !adaptationPath.equals("")){
 		    AdaptationProfile profile = Loader.loadAdaptationProfile( ResourceHandler.getInstance(), adaptationPath, new ArrayList<Incidence>() );
+		    FlagSummary flags = Game.getInstance().getFlags();
+		    VarSummary vars = Game.getInstance().getVars();
+		    for (String flag: profile.getFlags() ){
+		    	flags.addFlag ( flag );
+		    }
+		    for (String var: profile.getVars() ){
+		    	vars.addVar ( var );
+		    }
+
 		    initialAdaptedState = profile.getInitialState();
 		    externalAdaptationRules = profile.getRules();
     	} else {

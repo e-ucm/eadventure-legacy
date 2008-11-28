@@ -28,9 +28,11 @@ import org.w3c.dom.NodeList;
 import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
 import es.eucm.eadventure.common.data.assessment.AssessmentRule;
 import es.eucm.eadventure.common.data.assessment.TimedAssessmentRule;
+import es.eucm.eadventure.engine.core.control.FlagSummary;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.TimerEventListener;
 import es.eucm.eadventure.engine.core.control.TimerManager;
+import es.eucm.eadventure.engine.core.control.VarSummary;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 import es.eucm.eadventure.common.loader.Loader;
@@ -73,6 +75,15 @@ public class AssessmentEngine implements TimerEventListener{
     	if (assessmentPath!=null && !assessmentPath.equals("")){
 	    	AssessmentProfile profile = Loader.loadAssessmentProfile(ResourceHandler.getInstance(), assessmentPath, new ArrayList<Incidence>());
 	        assessmentRules = profile.getRules();
+		    
+	        FlagSummary flags = Game.getInstance().getFlags();
+		    VarSummary vars = Game.getInstance().getVars();
+		    for (String flag: profile.getFlags() ){
+		    	flags.addFlag ( flag );
+		    }
+		    for (String var: profile.getVars() ){
+		    	vars.addVar ( var );
+		    }
     	} else {
     		assessmentRules = new ArrayList<AssessmentRule>();
     	}

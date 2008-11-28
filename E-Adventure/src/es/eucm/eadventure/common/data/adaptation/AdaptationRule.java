@@ -63,6 +63,10 @@ public class AdaptationRule {
         gameState.addDeactivatedFlag( flag );
         
     }
+    
+    public void addVarValue ( String var,int value ){
+    	gameState.addVarValue(var, value);
+    }
 
     
     public AdaptedState getAdaptedState() {

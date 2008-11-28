@@ -21,7 +21,10 @@ public class ConditionsController {
 	/**
 	 * String values for the states of a condition
 	 */
-	public static final String[] STATE_VALUES = { "Active", "Inactive" };
+	public static final String[] STATE_VALUES = { "Active", "Inactive", 
+		"Greater than", "Greater equals than",
+		"Less than", "Less equals than", "Equals"
+		};
 
 	/**
 	 * Link to the main controller.
@@ -104,10 +107,10 @@ public class ConditionsController {
 		String conditionId;
 
 		if( blockIndex == MAIN_CONDITIONS_BLOCK )
-			conditionId = conditions.getMainConditions( ).get( conditionIndex ).getFlag( );
+			conditionId = conditions.getMainConditions( ).get( conditionIndex ).getFlagVar( );
 
 		else
-			conditionId = conditions.getEitherConditions( blockIndex ).get( conditionIndex ).getFlag( );
+			conditionId = conditions.getEitherConditions( blockIndex ).get( conditionIndex ).getFlagVar( );
 
 		return conditionId;
 	}
@@ -152,7 +155,7 @@ public class ConditionsController {
 	public void deleteEitherConditionsBlock( int index ) {
 		// Delete the flag references
 		for( Condition condition : conditions.getEitherConditions( index ) )
-			flagSummary.deleteReference( condition.getFlag( ) );
+			flagSummary.deleteReference( condition.getFlagVar( ) );
 
 		// Delete the block
 		conditions.deleteEitherCondition( index );
@@ -202,12 +205,12 @@ public class ConditionsController {
 		String conditionId;
 
 		if( blockIndex == MAIN_CONDITIONS_BLOCK ) {
-			conditionId = conditions.getMainConditions( ).get( conditionIndex ).getFlag( );
+			conditionId = conditions.getMainConditions( ).get( conditionIndex ).getFlagVar( );
 			conditions.getMainConditions( ).remove( conditionIndex );
 		}
 
 		else {
-			conditionId = conditions.getEitherConditions( blockIndex ).get( conditionIndex ).getFlag( );
+			conditionId = conditions.getEitherConditions( blockIndex ).get( conditionIndex ).getFlagVar( );
 			conditions.getEitherConditions( blockIndex ).remove( conditionIndex );
 		}
 
@@ -233,13 +236,13 @@ public class ConditionsController {
 		String oldConditionId;
 
 		if( blockIndex == MAIN_CONDITIONS_BLOCK ) {
-			oldConditionId = conditions.getMainConditions( ).get( conditionIndex ).getFlag( );
-			conditions.getMainConditions( ).get( conditionIndex ).setFlag( id );
+			oldConditionId = conditions.getMainConditions( ).get( conditionIndex ).getFlagVar( );
+			conditions.getMainConditions( ).get( conditionIndex ).setFlagVar( id );
 		}
 
 		else {
-			oldConditionId = conditions.getEitherConditions( blockIndex ).get( conditionIndex ).getFlag( );
-			conditions.getEitherConditions( blockIndex ).get( conditionIndex ).setFlag( id );
+			oldConditionId = conditions.getEitherConditions( blockIndex ).get( conditionIndex ).getFlagVar( );
+			conditions.getEitherConditions( blockIndex ).get( conditionIndex ).setFlagVar( id );
 		}
 
 		// Updates the flag references
@@ -271,21 +274,35 @@ public class ConditionsController {
 	}
 
 	/**
-	 * Returns the boolean value of the string state given.
+	 * Returns the int value of the string state given.
 	 * 
 	 * @param stringState
 	 *            Condition state in String form
-	 * @return Boolean value of state
+	 * @return Int value of state
 	 */
-	private boolean getStateFromString( String stringState ) {
-		boolean state = false;
+	private int getStateFromString( String stringState ) {
+		int state = Condition.NO_STATE;
 
 		if( stringState.equals( STATE_VALUES[0] ) )
 			state = Condition.FLAG_ACTIVE;
 
 		else if( stringState.equals( STATE_VALUES[1] ) )
 			state = Condition.FLAG_INACTIVE;
+		
+		else if( stringState.equals( STATE_VALUES[2] ) )
+			state = Condition.VAR_GREATER_THAN;
 
+		else if( stringState.equals( STATE_VALUES[3] ) )
+			state = Condition.VAR_GREATER_EQUALS_THAN;
+		
+		else if( stringState.equals( STATE_VALUES[4] ) )
+			state = Condition.VAR_LESS_THAN;
+		
+		else if( stringState.equals( STATE_VALUES[5] ) )
+			state = Condition.VAR_LESS_EQUALS_THAN;
+		
+		else if( stringState.equals( STATE_VALUES[6] ) )
+			state = Condition.VAR_EQUALS;
 		return state;
 	}
 
@@ -293,10 +310,10 @@ public class ConditionsController {
 	 * Returns the string value of the boolean state given.
 	 * 
 	 * @param state
-	 *            Condition state in boolean form
+	 *            Condition state in int form
 	 * @return String value of state
 	 */
-	private String getStringFromState( boolean state ) {
+	private String getStringFromState( int state ) {
 		String stringState = null;
 
 		if( state == Condition.FLAG_ACTIVE )
@@ -304,6 +321,21 @@ public class ConditionsController {
 
 		else if( state == Condition.FLAG_INACTIVE )
 			stringState = STATE_VALUES[1];
+
+		else if( state == Condition.VAR_GREATER_THAN )
+			stringState = STATE_VALUES[2];
+		
+		else if( state == Condition.VAR_GREATER_EQUALS_THAN )
+			stringState = STATE_VALUES[3];
+
+		else if( state == Condition.VAR_LESS_THAN )
+			stringState = STATE_VALUES[4];
+		
+		else if( state == Condition.VAR_LESS_EQUALS_THAN )
+			stringState = STATE_VALUES[5];
+
+		else if( state == Condition.VAR_EQUALS )
+			stringState = STATE_VALUES[6];
 
 		return stringState;
 	}
@@ -319,11 +351,11 @@ public class ConditionsController {
 	public static void updateFlagSummary( FlagSummary flagSummary, Conditions conditions ) {
 		// First check the main block of conditions
 		for( Condition condition : conditions.getMainConditions( ) )
-			flagSummary.addReference( condition.getFlag( ) );
+			flagSummary.addReference( condition.getFlagVar( ) );
 
 		// Then add the references from the either blocks
 		for( int i = 0; i < conditions.getEitherConditionsBlockCount( ); i++ )
 			for( Condition condition : conditions.getEitherConditions( i ) )
-				flagSummary.addReference( condition.getFlag( ) );
+				flagSummary.addReference( condition.getFlagVar( ) );
 	}
 }

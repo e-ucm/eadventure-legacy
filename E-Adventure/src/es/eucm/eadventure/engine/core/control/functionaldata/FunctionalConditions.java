@@ -1,9 +1,11 @@
 package es.eucm.eadventure.engine.core.control.functionaldata;
 
 import es.eucm.eadventure.common.data.chapter.conditions.Condition;
+import es.eucm.eadventure.common.data.chapter.conditions.VarCondition;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.engine.core.control.FlagSummary;
 import es.eucm.eadventure.engine.core.control.Game;
+import es.eucm.eadventure.engine.core.control.VarSummary;
 
 public class FunctionalConditions{
 
@@ -40,12 +42,44 @@ public class FunctionalConditions{
         boolean evaluation = true;
         
         FlagSummary flags = Game.getInstance( ).getFlags( );
+        VarSummary vars = Game.getInstance( ).getVars( );
         
-        for( Condition condition : conditions.getMainConditions() )
-            if( evaluation )
-                evaluation = condition.getState( ) == flags.isActiveFlag( condition.getFlag( ) );
-        
+        for( Condition condition : conditions.getMainConditions() ){
+            if( evaluation ){
+            	if (condition instanceof Condition){
+            		evaluation = condition.isActiveState() == flags.isActiveFlag( condition.getFlagVar( ) );            		
+            	} else if (condition instanceof VarCondition ){
+            		VarCondition varCondition = (VarCondition)condition;
+            		int actualValue = vars.getValue( varCondition.getFlagVar());
+            		int state = varCondition.getState();
+            		int value = varCondition.getValue();
+            		evaluation = evaluateVarCondition ( state, value, actualValue );
+            	}
+            }
+        }
         return evaluation;
+    }
+
+    /**
+     * Evaluates a var condition according to the state (function to use for evaluation), value of comparison, and the actual value of the var
+     * @param state >, >=, =, < or <=
+     * @param value The value to compare with
+     * @param actualValue The actual value assigned to the var so far
+     * @return True if condition is true; false otherwise
+     */
+    private boolean evaluateVarCondition (int state, int value, int actualValue ){
+    	if (state == VarCondition.VAR_EQUALS ){
+    		return actualValue == value;
+    	} else if (state == VarCondition.VAR_GREATER_EQUALS_THAN ){
+    		return actualValue >= value;
+    	} else if (state == VarCondition.VAR_GREATER_THAN ){
+    		return actualValue > value;
+    	} else if (state == VarCondition.VAR_LESS_EQUALS_THAN ){
+    		return actualValue <= value;
+    	} else if (state == VarCondition.VAR_LESS_THAN ){
+    		return actualValue < value;
+    	} else
+    		return false;
     }
     
     /**
@@ -56,10 +90,21 @@ public class FunctionalConditions{
         boolean evaluation = false;
         
         FlagSummary flags = Game.getInstance( ).getFlags( );
+        VarSummary vars = Game.getInstance( ).getVars( );
         
         for( Condition condition : conditions.getMainConditions() )
-            if( !evaluation )
-                evaluation = condition.getState( ) == flags.isActiveFlag( condition.getFlag( ) );
+            if( !evaluation ){
+            	if ( condition instanceof Condition ){
+            		evaluation = condition.isActiveState() == flags.isActiveFlag( condition.getFlagVar( ) );	
+            	} else if ( condition instanceof VarCondition ){
+            		VarCondition varCondition = (VarCondition)condition;
+            		int actualValue = vars.getValue( varCondition.getFlagVar());
+            		int state = varCondition.getState();
+            		int value = varCondition.getValue();
+            		evaluation = evaluateVarCondition ( state, value, actualValue );
+            	}
+                
+            }
         
         return evaluation;
     }

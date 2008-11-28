@@ -14,7 +14,7 @@
 
 <!ELEMENT concept (#PCDATA)>
 
-<!ENTITY % basic-condition "(active|inactive)">
+<!ENTITY % basic-condition "(active|inactive|greater-than|greater-equals-than|equals|less-equals-than|less-than)?">
 <!ELEMENT condition (%basic-condition; | either)+>
 <!ELEMENT init-condition (%basic-condition; | either)+>
 <!ELEMENT end-condition (%basic-condition; | either)+>
@@ -26,6 +26,32 @@
 <!ATTLIST inactive
 	flag NMTOKEN #REQUIRED
 >
+<!ELEMENT greater-than EMPTY>
+<!ATTLIST greater-than
+	var NMTOKEN #REQUIRED
+	value NMTOKEN #REQUIRED
+>
+<!ELEMENT greater-equals-than EMPTY>
+<!ATTLIST greater-equals-than
+	var NMTOKEN #REQUIRED
+	value NMTOKEN #REQUIRED
+>
+<!ELEMENT equals EMPTY>
+<!ATTLIST equals
+	var NMTOKEN #REQUIRED
+	value NMTOKEN #REQUIRED
+>
+<!ELEMENT less-than EMPTY>
+<!ATTLIST less-than
+	var NMTOKEN #REQUIRED
+	value NMTOKEN #REQUIRED
+>
+<!ELEMENT less-equals-than EMPTY>
+<!ATTLIST less-equals-than
+	var NMTOKEN #REQUIRED
+	value NMTOKEN #REQUIRED
+>
+
 <!ELEMENT either (%basic-condition;)+>
 
 <!ELEMENT effect (set-text?, set-property*)>

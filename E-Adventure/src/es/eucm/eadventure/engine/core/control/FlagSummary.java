@@ -156,5 +156,12 @@ public class FlagSummary implements Serializable {
         boolean isExternal() {
             return external;
         }
-    }    
+    }
+
+	public void addFlag(String name) {
+		if (!flags.containsKey(name)){
+			Flag flag = new Flag(name,false,false);
+	        flags.put( name,flag );
+		}
+	}    
 }

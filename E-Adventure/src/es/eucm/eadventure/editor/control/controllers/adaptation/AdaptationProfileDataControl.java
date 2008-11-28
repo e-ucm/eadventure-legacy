@@ -237,7 +237,7 @@ public class AdaptationProfileDataControl extends DataControl{
 			dataControl.updateFlagSummary( flagSummary );
 		
 		//Update the initial state
-		for (String flag: profile.getInitialState().getFlags( )){
+		for (String flag: profile.getInitialState().getFlagsVars( )){
 			flagSummary.addReference( flag );	
 		}
 		
@@ -289,18 +289,18 @@ public class AdaptationProfileDataControl extends DataControl{
 	}
 
 	public void deleteFlagAction( int selectedRow ) {
-		if (selectedRow >=0 && selectedRow <profile.getInitialState().getFlags( ).size( )){
-			profile.getInitialState().removeFlag( selectedRow );
+		if (selectedRow >=0 && selectedRow <profile.getInitialState().getFlagsVars( ).size( )){
+			profile.getInitialState().removeFlagVar( selectedRow );
 			controller.updateFlagSummary( );
 		}
 	}
 
 	public int getFlagActionCount( ) {
-		return profile.getInitialState().getFlags( ).size( );
+		return profile.getInitialState().getFlagsVars( ).size( );
 	}
 
 	public void changeAction( int rowIndex ) {
-		if (rowIndex >=0 && rowIndex <profile.getInitialState().getFlags( ).size( )){
+		if (rowIndex >=0 && rowIndex <profile.getInitialState().getFlagsVars( ).size( )){
 			profile.getInitialState().changeAction( rowIndex );
 		}
 
@@ -308,7 +308,7 @@ public class AdaptationProfileDataControl extends DataControl{
 	}
 
 	public void setFlag( int rowIndex, String flag ) {
-		if (rowIndex >=0 && rowIndex <profile.getInitialState().getFlags(  ).size( )){
+		if (rowIndex >=0 && rowIndex <profile.getInitialState().getFlagsVars(  ).size( )){
 			profile.getInitialState().changeFlag( rowIndex, flag );
 			controller.updateFlagSummary( );
 		}
@@ -316,7 +316,7 @@ public class AdaptationProfileDataControl extends DataControl{
 	}
 
 	public String getFlag( int rowIndex ) {
-		return profile.getInitialState().getFlag( rowIndex );
+		return profile.getInitialState().getFlagVar( rowIndex );
 	}
 
 	public String getAction( int rowIndex ) {
@@ -333,7 +333,7 @@ public class AdaptationProfileDataControl extends DataControl{
 				info[i][2]="<Not selected>";
 			else
 				info[i][2]=profile.getRules().get( i ).getAdaptedState( ).getInitialScene( );
-			info[i][3]=String.valueOf( profile.getRules().get( i ).getAdaptedState( ).getFlags( ).size( ));
+			info[i][3]=String.valueOf( profile.getRules().get( i ).getAdaptedState( ).getFlagsVars( ).size( ));
 		}
 		return info;
 	}

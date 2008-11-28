@@ -5,6 +5,7 @@ import org.xml.sax.Attributes;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.data.chapter.conditions.Condition;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
+import es.eucm.eadventure.common.data.chapter.conditions.VarCondition;
 
 /**
  * Class to subparse conditions
@@ -67,37 +68,147 @@ public class ConditionSubParser extends SubParser {
 			reading = READING_EITHER;
 		}
 
-		// If it is an active tag
-		else if( qName.equals( "active" ) ) {
-			for( int i = 0; i < attrs.getLength( ); i++ ) {
-				if( attrs.getQName( i ).equals( "flag" ) ) {
+        // If it is an active tag
+        else if( qName.equals( "active" ) ) {
+            for( int i = 0; i < attrs.getLength( ); i++ ) {
+                if( attrs.getQName( i ).equals( "flag" ) ) {
+                    
+                    // Store the active flag in the conditions or either conditions
+                    if( reading == READING_NONE )
+                        conditions.addCondition( new Condition( attrs.getValue( i ), Condition.FLAG_ACTIVE ) );
+                    if( reading == READING_EITHER )
+                        currentEitherCondition.addCondition( new Condition( attrs.getValue( i ), Condition.FLAG_ACTIVE ) );
+                    
+                    chapter.addFlag( attrs.getValue( i ) );
+                }
+            }
+        }
 
-					// Store the active flag in the conditions or either conditions
-					if( reading == READING_NONE )
-						conditions.addCondition( new Condition( attrs.getValue( i ), true ) );
-					if( reading == READING_EITHER )
-						currentEitherCondition.addCondition( new Condition( attrs.getValue( i ), true ) );
-					
-					chapter.addFlag( attrs.getValue( i ) );
-				}
-			}
-		}
+        // If it is an inactive tag
+        else if( qName.equals( "inactive" ) ) {
+            for( int i = 0; i < attrs.getLength( ); i++ ) {
+                if( attrs.getQName( i ).equals( "flag" ) ) {
+                    
+                    // Store the inactive flag in the conditions or either conditions
+                    if( reading == READING_NONE )
+                        conditions.addCondition( new Condition( attrs.getValue( i ), Condition.FLAG_INACTIVE ) );
+                    if( reading == READING_EITHER )
+                        currentEitherCondition.addCondition( new Condition( attrs.getValue( i ), Condition.FLAG_INACTIVE ) );
+                    
+                    chapter.addFlag( attrs.getValue( i ) );
+                }
+            }
+        }
+        
+        // If it is a greater-than tag
+        else if( qName.equals( "greater-than" ) ) {
+        	// The var
+        	String var = null;
+        	// The value
+        	int value = 0;
+        	
+            for( int i = 0; i < attrs.getLength( ); i++ ) {
+                if( attrs.getQName( i ).equals( "var" ) ) {
+                	var = attrs.getValue( i );
+                } else if( attrs.getQName( i ).equals( "value" ) ) {
+                	value = Integer.parseInt( attrs.getValue( i ) );
+                }
+            }
+            // Store the inactive flag in the conditions or either conditions
+            if( reading == READING_NONE )
+                conditions.addCondition( new VarCondition( var, Condition.VAR_GREATER_THAN, value ) );
+            if( reading == READING_EITHER )
+                currentEitherCondition.addCondition( new VarCondition( var, Condition.VAR_GREATER_THAN, value ) );
+            chapter.addVar( var );
+        }
 
-		// If it is an inactive tag
-		else if( qName.equals( "inactive" ) ) {
-			for( int i = 0; i < attrs.getLength( ); i++ ) {
-				if( attrs.getQName( i ).equals( "flag" ) ) {
+        // If it is a greater-equals-than tag
+        else if( qName.equals( "greater-equals-than" ) ) {
+        	// The var
+        	String var = null;
+        	// The value
+        	int value = 0;
+        	
+            for( int i = 0; i < attrs.getLength( ); i++ ) {
+                if( attrs.getQName( i ).equals( "var" ) ) {
+                	var = attrs.getValue( i );
+                } else if( attrs.getQName( i ).equals( "value" ) ) {
+                	value = Integer.parseInt( attrs.getValue( i ) );
+                }
+            }
+            // Store the inactive flag in the conditions or either conditions
+            if( reading == READING_NONE )
+                conditions.addCondition( new VarCondition( var, Condition.VAR_GREATER_EQUALS_THAN, value ) );
+            if( reading == READING_EITHER )
+                currentEitherCondition.addCondition( new VarCondition( var, Condition.VAR_GREATER_EQUALS_THAN, value ) );
+            chapter.addVar( var );
+        }
 
-					// Store the inactive flag in the conditions or either conditions
-					if( reading == READING_NONE )
-						conditions.addCondition( new Condition( attrs.getValue( i ), false ) );
-					if( reading == READING_EITHER )
-						currentEitherCondition.addCondition( new Condition( attrs.getValue( i ), false ) );
-					
-					chapter.addFlag( attrs.getValue( i ) );
-				}
-			}
-		}
+        // If it is a less-than tag
+        else if( qName.equals( "less-than" ) ) {
+        	// The var
+        	String var = null;
+        	// The value
+        	int value = 0;
+        	
+            for( int i = 0; i < attrs.getLength( ); i++ ) {
+                if( attrs.getQName( i ).equals( "var" ) ) {
+                	var = attrs.getValue( i );
+                } else if( attrs.getQName( i ).equals( "value" ) ) {
+                	value = Integer.parseInt( attrs.getValue( i ) );
+                }
+            }
+            // Store the inactive flag in the conditions or either conditions
+            if( reading == READING_NONE )
+                conditions.addCondition( new VarCondition( var, Condition.VAR_LESS_THAN, value ) );
+            if( reading == READING_EITHER )
+                currentEitherCondition.addCondition( new VarCondition( var, Condition.VAR_LESS_THAN, value ) );
+            chapter.addVar( var );
+        }
+
+        // If it is a less-equals-than tag
+        else if( qName.equals( "less-equals-than" ) ) {
+        	// The var
+        	String var = null;
+        	// The value
+        	int value = 0;
+        	
+            for( int i = 0; i < attrs.getLength( ); i++ ) {
+                if( attrs.getQName( i ).equals( "var" ) ) {
+                	var = attrs.getValue( i );
+                } else if( attrs.getQName( i ).equals( "value" ) ) {
+                	value = Integer.parseInt( attrs.getValue( i ) );
+                }
+            }
+            // Store the inactive flag in the conditions or either conditions
+            if( reading == READING_NONE )
+                conditions.addCondition( new VarCondition( var, Condition.VAR_LESS_EQUALS_THAN, value ) );
+            if( reading == READING_EITHER )
+                currentEitherCondition.addCondition( new VarCondition( var, Condition.VAR_LESS_EQUALS_THAN, value ) );
+            chapter.addVar( var );
+        }
+
+        // If it is a equals-than tag
+        else if( qName.equals( "equals" ) ) {
+        	// The var
+        	String var = null;
+        	// The value
+        	int value = 0;
+        	
+            for( int i = 0; i < attrs.getLength( ); i++ ) {
+                if( attrs.getQName( i ).equals( "var" ) ) {
+                	var = attrs.getValue( i );
+                } else if( attrs.getQName( i ).equals( "value" ) ) {
+                	value = Integer.parseInt( attrs.getValue( i ) );
+                }
+            }
+            // Store the inactive flag in the conditions or either conditions
+            if( reading == READING_NONE )
+                conditions.addCondition( new VarCondition( var, Condition.VAR_EQUALS, value ) );
+            if( reading == READING_EITHER )
+                currentEitherCondition.addCondition( new VarCondition( var, Condition.VAR_EQUALS, value ) );
+            chapter.addVar( var );
+        }
 	}
 
 	/*
