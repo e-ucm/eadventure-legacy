@@ -19,22 +19,22 @@ public class AdaptedState {
     public static final String DEACTIVATE = "deactivate";
     
     /**
-     * List of all flags
+     * List of all flags and vars (in order)
      */
-    private List<String> allFlags;
+    private List<String> allFlagsVars;
     
     /**
-     * List of deactivate/activate
+     * List of deactivate/activate for flags (and value for vars)
      */
-    private List<String> actions;
+    private List<String> actionsValues;
     
     /**
      * Constructor
      */
     public AdaptedState( ) {
         initialScene = null;
-        allFlags = new ArrayList<String>( );
-        actions = new ArrayList<String>( );
+        allFlagsVars = new ArrayList<String>( );
+        actionsValues = new ArrayList<String>( );
     }
     
     /**
@@ -46,11 +46,11 @@ public class AdaptedState {
     }
     
     /**
-     * Returns the list of the deactivated flags
+     * Returns the list of flags and vars
      * @return List of the deactivated flags
      */
-    public List<String> getFlags( ) {
-        return allFlags;
+    public List<String> getFlagsVars( ) {
+        return allFlagsVars;
     }
     
     /**
@@ -66,8 +66,8 @@ public class AdaptedState {
      * @param flag Name of the flag
      */
     public void addActivatedFlag( String flag ) {
-        allFlags.add( flag );
-        actions.add( ACTIVATE );
+        allFlagsVars.add( flag );
+        actionsValues.add( ACTIVATE );
     }
     
     /**
@@ -75,57 +75,78 @@ public class AdaptedState {
      * @param flag Name of the flag
      */
     public void addDeactivatedFlag( String flag ) {
-        allFlags.add( flag );
-        actions.add( DEACTIVATE );
+        allFlagsVars.add( flag );
+        actionsValues.add( DEACTIVATE );
+    }
+
+    /**
+     * Adds a new var
+     * @param var
+     * @param value
+     */
+    public void addVarValue ( String var, int value ){
+    	allFlagsVars.add( var );
+    	actionsValues.add( Integer.toString(value) );
     }
     
-    public void removeFlag( int row ){
-    	allFlags.remove( row );
-    	actions.remove( row );
+    public void removeFlagVar( int row ){
+    	allFlagsVars.remove( row );
+    	actionsValues.remove( row );
     }
     
     public void changeFlag (int row, String flag){
-    	int nFlags = actions.size( );
-    	allFlags.remove( row );
+    	int nFlags = actionsValues.size( );
+    	allFlagsVars.remove( row );
 		if (row<nFlags-1)
-			allFlags.add( row, flag );
+			allFlagsVars.add( row, flag );
 		else
-			allFlags.add( flag );
+			allFlagsVars.add( flag );
 
     }
     
     public void changeAction (int row){
-    	int nFlags = actions.size( );
-    	if (actions.get( row ).equals( ACTIVATE )){
-    		actions.remove( row );
+    	int nFlags = actionsValues.size( );
+    	if (actionsValues.get( row ).equals( ACTIVATE )){
+    		actionsValues.remove( row );
     		
     		if (row<nFlags-1)
-    			actions.add( row, DEACTIVATE );
+    			actionsValues.add( row, DEACTIVATE );
     		else
-    			actions.add( DEACTIVATE );
+    			actionsValues.add( DEACTIVATE );
     	}
     	
-    	else if (actions.get( row ).equals( DEACTIVATE )){
-    		actions.remove( row );
+    	else if (actionsValues.get( row ).equals( DEACTIVATE )){
+    		actionsValues.remove( row );
     		
     		if (row<nFlags-1)
-    			actions.add( row, ACTIVATE );
+    			actionsValues.add( row, ACTIVATE );
     		else
-    			actions.add( ACTIVATE );
+    			actionsValues.add( ACTIVATE );
     	}
 
     }
     
-    public String getAction (int i){
-    	return actions.get( i );
+    public void changeValue ( int row, int newValue ){
+    	if ( row>=0 && row<=actionsValues.size() ){
+    		actionsValues.remove( row );
+    		actionsValues.add( row, Integer.toString(newValue) );
+    	}
     }
     
-    public String getFlag (int i){
-    	return allFlags.get( i );
+    public String getAction (int i){
+    	return actionsValues.get( i );
+    }
+    
+    public int getValue (int i){
+    	return Integer.parseInt(actionsValues.get(i));
+    }
+    
+    public String getFlagVar (int i){
+    	return allFlagsVars.get( i );
     }
     
     public boolean isEmpty(){
-    	return allFlags.size( )==0 && (initialScene==null || initialScene.equals( "" ));
+    	return allFlagsVars.size( )==0 && (initialScene==null || initialScene.equals( "" ));
     }
 
     /**
@@ -134,9 +155,9 @@ public class AdaptedState {
      */
     public List<String> getActivatedFlags( ) {
     	List<String> activatedFlags = new ArrayList<String>();
-    	for ( int i=0; i<actions.size(); i++){
-    		if (actions.get(i).equals(ACTIVATE)){
-    			activatedFlags.add(allFlags.get(i));
+    	for ( int i=0; i<actionsValues.size(); i++){
+    		if (actionsValues.get(i).equals(ACTIVATE)){
+    			activatedFlags.add(allFlagsVars.get(i));
     		}
     	}
         return activatedFlags;
@@ -148,12 +169,25 @@ public class AdaptedState {
      */
     public List<String> getDeactivatedFlags( ) {
        	List<String> deactivatedFlags = new ArrayList<String>();
-    	for ( int i=0; i<actions.size(); i++){
-    		if (actions.get(i).equals(DEACTIVATE)){
-    			deactivatedFlags.add(allFlags.get(i));
+    	for ( int i=0; i<actionsValues.size(); i++){
+    		if (actionsValues.get(i).equals(DEACTIVATE)){
+    			deactivatedFlags.add(allFlagsVars.get(i));
     		}
     	}    	
         return deactivatedFlags;
     }
     
-}
+    /**
+     * Fills the argumented structures with the names of the vars and the values they must be set with
+     * @param vars
+     * @param values
+     */
+    public void getVarsValues ( List<String> vars, List<Integer> values){
+    	for ( int i=0; i<actionsValues.size(); i++){
+    		if ( !actionsValues.get(i).equals(ACTIVATE) && !actionsValues.get(i).equals(DEACTIVATE) ){
+    			vars.add(allFlagsVars.get(i));
+    			values.add(new Integer(actionsValues.get(i)));
+    		}
+    	}
+    }
+} 

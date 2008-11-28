@@ -1,5 +1,5 @@
 <!ELEMENT adaptation (initial-state?, adaptation-rule*)>
-<!ELEMENT initial-state (initial-scene?, (activate | deactivate)*)>
+<!ELEMENT initial-state (initial-scene?, (activate | deactivate | set-value)*)>
 <!ELEMENT adaptation-rule (description, uol-state, game-state)>
 <!ELEMENT description (#PCDATA)>
 <!ELEMENT uol-state (property*)>
@@ -8,7 +8,7 @@
 	id NMTOKEN #REQUIRED
 	value NMTOKEN #REQUIRED
 >
-<!ELEMENT game-state (initial-scene?, (activate | deactivate)*)>
+<!ELEMENT game-state (initial-scene?, (activate | deactivate | set-value)*)>
 <!ELEMENT initial-scene EMPTY>
 <!ATTLIST initial-scene
 	idTarget NMTOKEN #REQUIRED
@@ -21,3 +21,9 @@
 <!ATTLIST deactivate
 	flag NMTOKEN #REQUIRED
 >
+<!ELEMENT set-value EMPTY>
+<!ATTLIST set-value
+	var NMTOKEN #REQUIRED
+	value NMTOKEN #REQUIRED
+>
+

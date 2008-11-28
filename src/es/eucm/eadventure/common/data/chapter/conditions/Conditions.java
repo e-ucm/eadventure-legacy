@@ -136,7 +136,7 @@ public class Conditions {
         
         for( Condition condition : conditions )
             if( evaluation )
-                evaluation = condition.getState( ) == flags.isActiveFlag( condition.getFlag() );
+                evaluation = condition.isActiveState() == flags.isActiveFlag( condition.getFlagVar() );
         
         return evaluation;
     }
@@ -152,7 +152,7 @@ public class Conditions {
         
         for( Condition condition : conditions )
             if( !evaluation )
-                evaluation = condition.getState( ) == flags.isActiveFlag( condition.getFlag() );
+                evaluation = condition.isActiveState() == flags.isActiveFlag( condition.getFlagVar() );
         
         return evaluation;
     }

@@ -1,5 +1,6 @@
 package es.eucm.eadventure.common.loader.parsers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.xml.sax.Attributes;
@@ -12,6 +13,7 @@ import es.eucm.eadventure.common.data.assessment.AssessmentRule;
 import es.eucm.eadventure.common.data.assessment.TimedAssessmentRule;
 import es.eucm.eadventure.common.data.chapter.conditions.Condition;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
+import es.eucm.eadventure.common.data.chapter.conditions.VarCondition;
 
 /**
  * This class is the handler to parse the assesment rules file of the adventure
@@ -36,14 +38,23 @@ public class AssessmentHandler extends DefaultHandler {
     private static final int READING_EITHER = 1;
     
     /**
-     * Stores the current element being readed
-     */
+     * Stores the current element being read     */
     private int reading = READING_NONE;
     
     /**
      * Array of assessment rules
      */
     private List<AssessmentRule> assessmentRules;
+    
+    /**
+     * List of flags involved in this assessment script
+     */
+    private List<String> flags;
+    
+    /**
+     * List of vars involved in this assessment script
+     */
+    private List<String> vars;
     
     /**
      * Assessment rule currently being read
@@ -69,6 +80,8 @@ public class AssessmentHandler extends DefaultHandler {
         assessmentRules = assRules;
         currentAssessmentRule = null;
         currentString = new StringBuffer( );
+        vars = new ArrayList<String>();
+        flags = new ArrayList<String>();
     }
     
     /**
@@ -77,6 +90,18 @@ public class AssessmentHandler extends DefaultHandler {
      */
     public List<AssessmentRule> getAssessmentRules( ) {
         return assessmentRules;
+    }
+    
+    private void addFlag ( String flag ){
+    	if (!flags.contains(flag)){
+    		flags.add(flag);
+    	}
+    }
+    
+    private void addVar ( String var ){
+    	if (!vars.contains(var)){
+    		vars.add(var);
+    	}
     }
     
     /*
@@ -138,9 +163,10 @@ public class AssessmentHandler extends DefaultHandler {
                     
                     // Store the active flag in the conditions or either conditions
                     if( reading == READING_NONE )
-                        currentConditions.addCondition( new Condition( attrs.getValue( i ), true ) );
+                        currentConditions.addCondition( new Condition( attrs.getValue( i ), Condition.FLAG_ACTIVE ) );
                     if( reading == READING_EITHER )
-                        currentEitherCondition.addCondition( new Condition( attrs.getValue( i ), true ) );
+                        currentEitherCondition.addCondition( new Condition( attrs.getValue( i ), Condition.FLAG_ACTIVE ) );
+                    addFlag ( attrs.getValue( i ) );
                 }
             }
         }
@@ -152,11 +178,122 @@ public class AssessmentHandler extends DefaultHandler {
                     
                     // Store the inactive flag in the conditions or either conditions
                     if( reading == READING_NONE )
-                        currentConditions.addCondition( new Condition( attrs.getValue( i ), false ) );
+                        currentConditions.addCondition( new Condition( attrs.getValue( i ), Condition.FLAG_INACTIVE ) );
                     if( reading == READING_EITHER )
-                        currentEitherCondition.addCondition( new Condition( attrs.getValue( i ), false ) );
+                        currentEitherCondition.addCondition( new Condition( attrs.getValue( i ), Condition.FLAG_INACTIVE ) );
+                    addFlag ( attrs.getValue( i ) );
                 }
             }
+        }
+        
+        // If it is a greater-than tag
+        else if( qName.equals( "greater-than" ) ) {
+        	// The var
+        	String var = null;
+        	// The value
+        	int value = 0;
+        	
+            for( int i = 0; i < attrs.getLength( ); i++ ) {
+                if( attrs.getQName( i ).equals( "var" ) ) {
+                	var = attrs.getValue( i );
+                } else if( attrs.getQName( i ).equals( "value" ) ) {
+                	value = Integer.parseInt( attrs.getValue( i ) );
+                }
+            }
+            // Store the inactive flag in the conditions or either conditions
+            if( reading == READING_NONE )
+                currentConditions.addCondition( new VarCondition( var, Condition.VAR_GREATER_THAN, value ) );
+            if( reading == READING_EITHER )
+                currentEitherCondition.addCondition( new VarCondition( var, Condition.VAR_GREATER_THAN, value ) );
+            addVar ( var );
+        }
+
+        // If it is a greater-equals-than tag
+        else if( qName.equals( "greater-equals-than" ) ) {
+        	// The var
+        	String var = null;
+        	// The value
+        	int value = 0;
+        	
+            for( int i = 0; i < attrs.getLength( ); i++ ) {
+                if( attrs.getQName( i ).equals( "var" ) ) {
+                	var = attrs.getValue( i );
+                } else if( attrs.getQName( i ).equals( "value" ) ) {
+                	value = Integer.parseInt( attrs.getValue( i ) );
+                }
+            }
+            // Store the inactive flag in the conditions or either conditions
+            if( reading == READING_NONE )
+                currentConditions.addCondition( new VarCondition( var, Condition.VAR_GREATER_EQUALS_THAN, value ) );
+            if( reading == READING_EITHER )
+                currentEitherCondition.addCondition( new VarCondition( var, Condition.VAR_GREATER_EQUALS_THAN, value ) );
+            addVar ( var );
+        }
+
+        // If it is a less-than tag
+        else if( qName.equals( "less-than" ) ) {
+        	// The var
+        	String var = null;
+        	// The value
+        	int value = 0;
+        	
+            for( int i = 0; i < attrs.getLength( ); i++ ) {
+                if( attrs.getQName( i ).equals( "var" ) ) {
+                	var = attrs.getValue( i );
+                } else if( attrs.getQName( i ).equals( "value" ) ) {
+                	value = Integer.parseInt( attrs.getValue( i ) );
+                }
+            }
+            // Store the inactive flag in the conditions or either conditions
+            if( reading == READING_NONE )
+                currentConditions.addCondition( new VarCondition( var, Condition.VAR_LESS_THAN, value ) );
+            if( reading == READING_EITHER )
+                currentEitherCondition.addCondition( new VarCondition( var, Condition.VAR_LESS_THAN, value ) );
+            addVar ( var );
+        }
+
+        // If it is a less-equals-than tag
+        else if( qName.equals( "less-equals-than" ) ) {
+        	// The var
+        	String var = null;
+        	// The value
+        	int value = 0;
+        	
+            for( int i = 0; i < attrs.getLength( ); i++ ) {
+                if( attrs.getQName( i ).equals( "var" ) ) {
+                	var = attrs.getValue( i );
+                } else if( attrs.getQName( i ).equals( "value" ) ) {
+                	value = Integer.parseInt( attrs.getValue( i ) );
+                }
+            }
+            // Store the inactive flag in the conditions or either conditions
+            if( reading == READING_NONE )
+                currentConditions.addCondition( new VarCondition( var, Condition.VAR_LESS_EQUALS_THAN, value ) );
+            if( reading == READING_EITHER )
+                currentEitherCondition.addCondition( new VarCondition( var, Condition.VAR_LESS_EQUALS_THAN, value ) );
+            addVar ( var );
+        }
+
+        // If it is a equals-than tag
+        else if( qName.equals( "equals" ) ) {
+        	// The var
+        	String var = null;
+        	// The value
+        	int value = 0;
+        	
+            for( int i = 0; i < attrs.getLength( ); i++ ) {
+                if( attrs.getQName( i ).equals( "var" ) ) {
+                	var = attrs.getValue( i );
+                } else if( attrs.getQName( i ).equals( "value" ) ) {
+                	value = Integer.parseInt( attrs.getValue( i ) );
+                }
+            }
+            // Store the inactive flag in the conditions or either conditions
+            if( reading == READING_NONE )
+                currentConditions.addCondition( new VarCondition( var, Condition.VAR_EQUALS, value ) );
+            if( reading == READING_EITHER )
+                currentEitherCondition.addCondition( new VarCondition( var, Condition.VAR_EQUALS, value ) );
+            addVar ( var );
         }
         
         else if( qName.equals( "set-property" ) ) {
@@ -254,6 +391,20 @@ public class AssessmentHandler extends DefaultHandler {
         exception.printStackTrace( );
         throw exception;
     }
+
+	/**
+	 * @return the flags
+	 */
+	public List<String> getFlags() {
+		return flags;
+	}
+
+	/**
+	 * @return the vars
+	 */
+	public List<String> getVars() {
+		return vars;
+	}
     
     /*
      *  (non-Javadoc)

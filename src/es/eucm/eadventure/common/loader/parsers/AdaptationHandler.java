@@ -1,5 +1,6 @@
 package es.eucm.eadventure.common.loader.parsers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.xml.sax.Attributes;
@@ -31,6 +32,16 @@ public class AdaptationHandler extends DefaultHandler {
     private AdaptationRule rule_temp;
     
     /**
+     * List of flags involved in this assessment script
+     */
+    private List<String> flags;
+    
+    /**
+     * List of vars involved in this assessment script
+     */
+    private List<String> vars;
+    
+    /**
      * String to store the current string in the XML file
      */
     private StringBuffer currentString;
@@ -42,6 +53,20 @@ public class AdaptationHandler extends DefaultHandler {
         initialState = iState;
         externalRules=rules;
         currentString = new StringBuffer( );
+        vars = new ArrayList<String>();
+        flags = new ArrayList<String>();
+    }
+    
+    private void addFlag ( String flag ){
+    	if (!flags.contains(flag)){
+    		flags.add(flag);
+    	}
+    }
+    
+    private void addVar ( String var ){
+    	if (!vars.contains(var)){
+    		vars.add(var);
+    	}
     }
     
     /**
@@ -99,6 +124,7 @@ public class AdaptationHandler extends DefaultHandler {
                     } else {
                         rule_temp.addActivatedFlag( attrs.getValue( i ) );
                     }
+                    addFlag ( attrs.getValue( i ) );
                 }
             }
         }
@@ -112,10 +138,33 @@ public class AdaptationHandler extends DefaultHandler {
                     } else {
                         rule_temp.addDeactivatedFlag( attrs.getValue( i ) );
                     }
-   
+                    addFlag ( attrs.getValue( i ) );
                 }
             }
         }
+        
+        // If the tag set-value a var
+        else if( qName.equals( "set-value" ) ) {
+        	String var = null;
+        	int value = 0;
+            for( int i = 0; i < attrs.getLength( ); i++ ) {
+                if( attrs.getQName( i ).equals( "var" ) ) {
+                	var = attrs.getValue( i );
+                }
+                else if( attrs.getQName( i ).equals( "value" ) ) {
+                	value = Integer.parseInt( attrs.getValue ( i ) );
+                }
+            }
+                	
+            if (parsing==INITIAL_STATE) {
+                initialState.addVarValue(var, value);
+            } else {
+                rule_temp.addVarValue(var, value);
+            }
+            addVar ( var );
+   
+        }
+
         
         //Property from the UoL
         else if (qName.equals( "property" )) {
@@ -172,6 +221,20 @@ public class AdaptationHandler extends DefaultHandler {
         currentString.append( new String( buf, offset, len ) );
         
     }
+
+	/**
+	 * @return the flags
+	 */
+	public List<String> getFlags() {
+		return flags;
+	}
+
+	/**
+	 * @return the vars
+	 */
+	public List<String> getVars() {
+		return vars;
+	}
 
 
 }

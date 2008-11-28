@@ -23,7 +23,7 @@ public class FunctionalActivateEffect extends FunctionalEffect {
      */
     public void triggerEffect( ) {
         Game.getInstance( ).getFlags( ).activateFlag( ((ActivateEffect)effect).getIdFlag() );
-        Game.getInstance( ).updateDataPendingFromFlags( false );
+        Game.getInstance( ).updateDataPendingFromState( false );
     }
 
     /*

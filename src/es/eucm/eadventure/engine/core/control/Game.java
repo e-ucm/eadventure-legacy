@@ -148,6 +148,12 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      * Flag summary
      */
     private FlagSummary flags;
+    
+    /**
+     * Var summary
+     */
+    private VarSummary vars;
+
 
     /**
      * Assessment engine
@@ -344,8 +350,9 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         // Load the script data
         gameData = Loader.loadChapterData( ResourceHandler.getInstance(), chapter.getName(), new ArrayList<Incidence>() );
         
-        // Create the flags summary and the assessment engine
+        // Create the flags & vars summaries and the assessment engine
         flags = new FlagSummary( gameData.getFlags( ) );
+        vars = new VarSummary( gameData.getVars( ) );
 
         // Init the time manager
         timerManager = TimerManager.getInstance( );
@@ -386,6 +393,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             if( adaptedStateToExecute.getInitialScene( ) != null ) 
                 firstScene = new NextScene( adaptedStateToExecute.getInitialScene( ) );
 
+            // TODO ADAPTATION VARS
             // Set the flags
             for( String flag : adaptedStateToExecute.getActivatedFlags( ) )
                 flags.activateFlag( flag );
@@ -626,6 +634,15 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     public FlagSummary getFlags( ) {
         return flags;
     }
+    
+    /**
+     * Returns the var summary
+     * @return Var summary
+     */
+    public VarSummary getVars( ) {
+        return vars;
+    }
+
     
     /**
      * Returns the assessment engine
@@ -1084,7 +1101,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      * Update the data pending from the flags. This include the resources of the
      * game, and the rules processed. 
      */
-    public synchronized void updateDataPendingFromFlags( boolean notifyTimerCycles ) {
+    public synchronized void updateDataPendingFromState( boolean notifyTimerCycles ) {
         timerManager.update( notifyTimerCycles );
         functionalScene.updateScene( );
         assessmentEngine.processRules( );
@@ -1098,6 +1115,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         saveGame.setSaveTime( calendar.get(Calendar.DAY_OF_MONTH)+"/"+(calendar.get(Calendar.MONTH)+1)+"/"+calendar.get(Calendar.YEAR)+" "+calendar.get(Calendar.HOUR_OF_DAY)+":"+calendar.get(Calendar.MINUTE) );
         saveGame.setTotalTime( totalTime );
         saveGame.setFlags( flags );
+        saveGame.setVars( vars );
         saveGame.setIdScene( functionalScene.getScene( ).getId( ) );
         saveGame.setItemSummary( itemSummary );
         saveGame.setPlayerX( functionalPlayer.getX( ) );
@@ -1119,6 +1137,8 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
                 
                 totalTime = saveGame.getTotalTime();
                 flags = saveGame.getFlags( );
+                vars = saveGame.getVars( );
+                
                 itemSummary = saveGame.getItemSummary( );
                 
                 functionalPlayer.setDestiny( 0, 0 );

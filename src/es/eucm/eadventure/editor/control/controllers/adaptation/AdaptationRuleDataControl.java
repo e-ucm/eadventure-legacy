@@ -111,7 +111,7 @@ public class AdaptationRuleDataControl extends DataControl{
 
 	@Override
 	public void updateFlagSummary( FlagSummary flagSummary ) {
-		for (String flag: adaptationRule.getAdaptedState( ).getFlags( )){
+		for (String flag: adaptationRule.getAdaptedState( ).getFlagsVars( )){
 			flagSummary.addReference( flag );	
 		}
 		
@@ -183,18 +183,18 @@ public class AdaptationRuleDataControl extends DataControl{
 	}
 
 	public void deleteFlagAction( int selectedRow ) {
-		if (selectedRow >=0 && selectedRow <adaptationRule.getAdaptedState( ).getFlags( ).size( )){
-			adaptationRule.getAdaptedState( ).removeFlag( selectedRow );
+		if (selectedRow >=0 && selectedRow <adaptationRule.getAdaptedState( ).getFlagsVars( ).size( )){
+			adaptationRule.getAdaptedState( ).removeFlagVar( selectedRow );
 			controller.updateFlagSummary( );
 		}
 	}
 
 	public int getFlagActionCount( ) {
-		return adaptationRule.getAdaptedState( ).getFlags( ).size( );
+		return adaptationRule.getAdaptedState( ).getFlagsVars( ).size( );
 	}
 
 	public void changeAction( int rowIndex ) {
-		if (rowIndex >=0 && rowIndex <adaptationRule.getAdaptedState( ).getFlags( ).size( )){
+		if (rowIndex >=0 && rowIndex <adaptationRule.getAdaptedState( ).getFlagsVars( ).size( )){
 			adaptationRule.getAdaptedState( ).changeAction( rowIndex );
 		}
 
@@ -202,7 +202,7 @@ public class AdaptationRuleDataControl extends DataControl{
 	}
 
 	public void setFlag( int rowIndex, String flag ) {
-		if (rowIndex >=0 && rowIndex <adaptationRule.getAdaptedState( ).getFlags(  ).size( )){
+		if (rowIndex >=0 && rowIndex <adaptationRule.getAdaptedState( ).getFlagsVars(  ).size( )){
 			adaptationRule.getAdaptedState( ).changeFlag( rowIndex, flag );
 			controller.updateFlagSummary( );
 		}
@@ -210,7 +210,7 @@ public class AdaptationRuleDataControl extends DataControl{
 	}
 
 	public String getFlag( int rowIndex ) {
-		return this.adaptationRule.getAdaptedState( ).getFlag( rowIndex );
+		return this.adaptationRule.getAdaptedState( ).getFlagVar( rowIndex );
 	}
 
 	public String getAction( int rowIndex ) {

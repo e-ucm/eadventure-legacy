@@ -52,9 +52,9 @@ public class AdaptationDOMWriter {
 				}
 				
 				// Append activate / deactivate flags
-				for (int i=0; i<initialState.getFlags( ).size( ); i++){
+				for (int i=0; i<initialState.getFlagsVars( ).size( ); i++){
 					Element actionFlag = doc.createElement( initialState.getAction( i ) );
-					actionFlag.setAttribute( "flag", initialState.getFlag( i ) );
+					actionFlag.setAttribute( "flag", initialState.getFlagVar( i ) );
 					initialStateNode.appendChild( actionFlag );
 				}
 				
@@ -100,9 +100,9 @@ public class AdaptationDOMWriter {
 					}
 					
 					// Append activate / deactivate flags
-					for (int i=0; i<rule.getAdaptedState( ).getFlags( ).size( ); i++){
+					for (int i=0; i<rule.getAdaptedState( ).getFlagsVars( ).size( ); i++){
 						Element actionFlag = doc.createElement( rule.getAdaptedState( ).getAction( i ) );
-						actionFlag.setAttribute( "flag", rule.getAdaptedState( ).getFlag( i ) );
+						actionFlag.setAttribute( "flag", rule.getAdaptedState( ).getFlagVar( i ) );
 						gameStateNode.appendChild( actionFlag );
 					}
 				}

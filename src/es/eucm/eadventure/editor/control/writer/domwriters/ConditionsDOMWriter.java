@@ -98,7 +98,7 @@ public class ConditionsDOMWriter {
 					conditionElement = doc.createElement( "inactive" );
 
 				// Set the target flag and append it
-				conditionElement.setAttribute( "flag", condition.getFlag( ) );
+				conditionElement.setAttribute( "flag", condition.getFlagVar( ) );
 				conditionsListNode.appendChild( conditionElement );
 			}
 

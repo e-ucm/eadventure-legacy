@@ -1,18 +1,20 @@
 package es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects;
 
-import es.eucm.eadventure.common.data.chapter.effects.DeactivateEffect;
+import es.eucm.eadventure.common.data.chapter.effects.DecrementVarEffect;
 import es.eucm.eadventure.engine.core.control.Game;
 
 /**
- * An effect that deactivates a flag.
+ * An effect that activates a flag
  */
-public class FunctionalDeactivateEffect extends FunctionalEffect {
+public class FunctionalDecrementVarEffect extends FunctionalEffect {
+
 
     /**
-     * Creates a new FunctionalDeactivateEffect.
+     * Creates a new Activate effect.
+     * @param the activate effect
      */
-    public FunctionalDeactivateEffect( DeactivateEffect effect ) {
-    	super(effect);
+    public FunctionalDecrementVarEffect( DecrementVarEffect setValueEffect ) {
+    	super(setValueEffect);
     }
 
     /*
@@ -20,7 +22,7 @@ public class FunctionalDeactivateEffect extends FunctionalEffect {
      * @see es.eucm.eadventure.engine.engine.data.effects.Effect#triggerEffect()
      */
     public void triggerEffect( ) {
-        Game.getInstance( ).getFlags( ).deactivateFlag( ((DeactivateEffect)effect).getIdFlag() );
+    	Game.getInstance( ).getVars( ).decrementVar(((DecrementVarEffect)effect).getIdVar(), ((DecrementVarEffect)effect).getDecrement() );
         Game.getInstance( ).updateDataPendingFromState( false );
     }
 
@@ -39,4 +41,5 @@ public class FunctionalDeactivateEffect extends FunctionalEffect {
     public boolean isStillRunning( ) {
         return false;
     }
+
 }

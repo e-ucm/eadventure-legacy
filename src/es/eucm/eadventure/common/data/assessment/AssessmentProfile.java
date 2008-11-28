@@ -22,6 +22,16 @@ public class AssessmentProfile {
 	private List<AssessmentRule> rules;
 	
 	/**
+	 * List of referenced flags
+	 */
+	private List<String> flags;
+	
+	/**
+	 * List of referenced vars
+	 */
+	private List<String> vars;
+	
+	/**
 	 * Empty constructor 
 	 */
 	public AssessmentProfile() {
@@ -39,6 +49,8 @@ public class AssessmentProfile {
 	public AssessmentProfile(List<AssessmentRule> assessmentRules, String path2) {
 		rules = assessmentRules;
 		this.path = path2;
+		flags = new ArrayList<String>();
+		vars = new ArrayList<String>();
 	}
 
 	/**
@@ -75,5 +87,53 @@ public class AssessmentProfile {
 	 */
 	public void setRules(List<AssessmentRule> assessmentRules) {
 		this.rules = assessmentRules;
+	}
+	
+	/**
+	 * Adds a new flag
+	 * @param flag
+	 */
+	public void addFlag( String flag ){
+		if (!flags.contains(flag)){
+			flags.add(flag);
+		}
+	}
+	
+	/**
+	 * Adds a new var
+	 * @param var
+	 */
+	public void addVar( String var ){
+		if (!vars.contains(var)){
+			vars.add(var);
+		}
+	}
+
+	/**
+	 * @return the flags
+	 */
+	public List<String> getFlags() {
+		return flags;
+	}
+
+	/**
+	 * @return the vars
+	 */
+	public List<String> getVars() {
+		return vars;
+	}
+
+	/**
+	 * @param flags the flags to set
+	 */
+	public void setFlags(List<String> flags) {
+		this.flags = flags;
+	}
+
+	/**
+	 * @param vars the vars to set
+	 */
+	public void setVars(List<String> vars) {
+		this.vars = vars;
 	}
 }

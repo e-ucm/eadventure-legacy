@@ -205,7 +205,7 @@ public class Loader {
 	 * @param incidences
 	 * @return
 	 */
-	public static AssessmentProfile loadAssessmentProfile ( InputStreamCreator isCreator, String xmlFile, List<Incidence> incidences){
+	public static AssessmentProfile loadAssessmentProfile ( InputStreamCreator isCreator, String xmlFile, List<Incidence> incidences ){
 		
 		AssessmentProfile newProfile = null;
 		if (Loader.adventureData!=null){
@@ -238,6 +238,10 @@ public class Loader {
 				
 				newProfile = new AssessmentProfile(assParser.getAssessmentRules( ), xmlFile );
 	
+				// Fill flags & vars
+				newProfile.setFlags(assParser.getFlags());
+				newProfile.setVars(assParser.getVars());
+
 			} catch( ParserConfigurationException e ) {
 				//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadAssessmentData" ) );
 				//e.printStackTrace( );
@@ -262,7 +266,7 @@ public class Loader {
 	 * @param incidences
 	 * @return
 	 */
-	public static AdaptationProfile loadAdaptationProfile (InputStreamCreator isCreator,  String xmlFile, List<Incidence> incidences){
+	public static AdaptationProfile loadAdaptationProfile (InputStreamCreator isCreator,  String xmlFile, List<Incidence> incidences ){
 		
 		AdaptationProfile newProfile = null;
 		if (Loader.adventureData!=null){
@@ -295,6 +299,9 @@ public class Loader {
 				// Create the new profile
 				
 				newProfile = new AdaptationProfile(adpParser.getAdaptationRules(), adpParser.getInitialState(), xmlFile );
+				
+				newProfile.setFlags(adpParser.getFlags());
+				newProfile.setVars(adpParser.getVars());
 	
 			} catch( ParserConfigurationException e ) {
 				//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadAdaptationData" ) );
