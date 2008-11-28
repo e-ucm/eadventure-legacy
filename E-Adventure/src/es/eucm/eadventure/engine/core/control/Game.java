@@ -393,12 +393,19 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             if( adaptedStateToExecute.getInitialScene( ) != null ) 
                 firstScene = new NextScene( adaptedStateToExecute.getInitialScene( ) );
 
-            // TODO ADAPTATION VARS
             // Set the flags
             for( String flag : adaptedStateToExecute.getActivatedFlags( ) )
                 flags.activateFlag( flag );
             for( String flag : adaptedStateToExecute.getDeactivatedFlags( ) )
                 flags.deactivateFlag( flag );
+            // Set the vars
+            List<String> adaptedVars = new ArrayList<String>();
+            List<Integer> adaptedValues = new ArrayList<Integer>();
+            adaptedStateToExecute.getVarsValues(adaptedVars, adaptedValues );
+            for ( int i=0; i<adaptedVars.size(); i++ ){
+            	vars.setVarValue(adaptedVars.get(i), adaptedValues.get(i).intValue());
+            }
+            	
         }
         
         // Set the next scene
