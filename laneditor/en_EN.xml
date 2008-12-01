@@ -183,6 +183,7 @@ This could provoke errors when executing the adventure with the game engine.</en
 	<entry key="Error.DTD.NotFound.Title">Important file not found</entry>
 	<entry key="Error.DTD.NotFound.Message">The file "{#0}" was not found.
 This could provoke errors when executing or loading the adventures.</entry>
+	<entry key="Error.ImageTypeNotSupported">The image could not be loaded, possible because the image type is not completly supported.</entry>	
 
 	<entry key="SwapPlayerMode.Title">Change player mode - Confirmation dialog</entry>
 	<entry key="SwapPlayerMode.Message">Are you sure you want to change the current mode? 

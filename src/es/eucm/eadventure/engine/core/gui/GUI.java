@@ -966,12 +966,12 @@ public class GUI implements FocusListener {
 	
 	private class GUILayout implements LayoutManager {
 
-		@Override
 		public void addLayoutComponent(String arg0, Component arg1) {
 			
 		}
 
-		@Override
+
+
 		public void layoutContainer(Container container) {
 			Component[] components = container.getComponents();
 			for (int i = 0; i < components.length; i++) {
@@ -988,17 +988,14 @@ public class GUI implements FocusListener {
 			}
 		}
 
-		@Override
 		public Dimension minimumLayoutSize(Container arg0) {
 			return arg0.getSize();
 		}
 
-		@Override
 		public Dimension preferredLayoutSize(Container arg0) {
 			return arg0.getSize();
 		}
 
-		@Override
 		public void removeLayoutComponent(Component arg0) {
 			
 		}

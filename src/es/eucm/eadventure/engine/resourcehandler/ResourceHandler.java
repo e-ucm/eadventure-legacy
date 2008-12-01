@@ -345,12 +345,10 @@ public abstract class ResourceHandler implements InputStreamCreator{
         return ResourceHandler.extraRestriction;
     }
 
-	@Override
 	public MediaLocator buildMediaLocator(String file) {
 		return this.getResourceAsMediaLocator(file);
 	}
 
-	@Override
 	public URL buildURL(String path) {
 		return getResourceAsURLFromZip(path);
 	}
