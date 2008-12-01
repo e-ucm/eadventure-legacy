@@ -15,12 +15,14 @@ public class ImageFileFilter extends FileFilter {
 	public boolean accept( File file ) {
 		// Accept PNG and JPG files and folders
 		String filename = file.toString( ).toLowerCase( );
-		return filename.endsWith( ".png" ) || filename.endsWith( ".jpg" ) || file.isDirectory( );
+		return filename.endsWith( ".png" ) || filename.endsWith( ".jpg" ) || 
+				filename.endsWith( ".bmp" ) || filename.endsWith( ".wbmp") ||
+				filename.endsWith( ".gif") || file.isDirectory( );
 	}
 
 	@Override
 	public String getDescription( ) {
 		// Description of the filter
-		return "Image files (*.png;*.jpg)";
+		return "Image files (*.png;*.jpg;*.bmp;*.wbmp;*.gif)";
 	}
 }

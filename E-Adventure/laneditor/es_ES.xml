@@ -187,7 +187,7 @@ Esto puede provocar errores al ejectuar los juegos con el motor.</entry>
 	<entry key="Error.DTD.NotFound.Title">Archivo importante no encontrado</entry>
 	<entry key="Error.DTD.NotFound.Message">No se encontró el archivo "{#0}".
 Esto puede provocar errores al cargar las aventuras.</entry>
-	
+	<entry key="Error.ImageTypeNotSupported">La image no se pudo cargar correctamente, posiblemente debido a que el formato no es completamente soportado.</entry>	
 
 	<entry key="SwapPlayerMode.Title">Cambiar tipo de aventura - Confirmación</entry>
 	<entry key="SwapPlayerMode.Message">Seguro que desea cambiar de modalidad? 

@@ -51,12 +51,10 @@ public class ResourceHandlerExternalSource extends ResourceHandler{
 		// Do nothing (isCreator already knows the zip file)
 	}
 
-	@Override
 	public InputStream buildInputStream(String filePath) {
 		return isCreator.buildInputStream(filePath);
 	}
 
-	@Override
 	public String[] listNames(String filePath) {
 		return isCreator.listNames(filePath);
 	}

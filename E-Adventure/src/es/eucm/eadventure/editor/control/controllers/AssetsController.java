@@ -497,10 +497,16 @@ public class AssetsController {
 			// Convert the input stream to an image, and close the stream
 			if( inputStream != null ) {
 				image = ImageIO.read( inputStream );
+				System.out.println("Size : " + image.getWidth(null) + " , " + image.getHeight(null));
+				if (image.getHeight(null) == -1 || image.getWidth(null) == -1) {
+					Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.ImageTypeNotSupported") );
+				}
 				inputStream.close( );
 			}
 		} catch( IOException e ) {
 			e.printStackTrace( );
+		} catch( Exception e) {
+			e.printStackTrace();
 		}
 
 		return image;
@@ -865,9 +871,24 @@ public class AssetsController {
 		String assetFilename = getFilename( assetPath );
 
 		// For images, only background and icon are checked
-		if( assetCategory == CATEGORY_BACKGROUND || assetCategory == CATEGORY_ICON ) {
+		if( assetCategory == CATEGORY_ICON ) {
 			// Take the data from the file
-			Image image = new ImageIcon( assetPath ).getImage( );
+			//Image image = new ImageIcon( assetPath ).getImage( );
+			Image image = getImage(assetPath);
+			int width = image.getWidth( null );
+			int height = image.getHeight( null );
+
+			// Prepare the string array for the error message
+			String[] fileInformation = new String[] { assetFilename, String.valueOf( width ), String.valueOf( height ) };
+
+			// The icon files must have a size of 80x48
+			if(width != 80 || height != 48) {
+				controller.showErrorDialog( TextConstants.getText( "IconAssets.Title" ), TextConstants.getText( "IconAssets.ErrorIconSize", fileInformation ) );
+				assetValid = false;
+			}
+		} else if (assetCategory == CATEGORY_BACKGROUND) {
+			// Take the data from the file
+			Image image = getImage(assetPath);
 			int width = image.getWidth( null );
 			int height = image.getHeight( null );
 
@@ -875,17 +896,13 @@ public class AssetsController {
 			String[] fileInformation = new String[] { assetFilename, String.valueOf( width ), String.valueOf( height ) };
 
 			// The background files must have a size of at least 800x400
-			if( assetCategory == CATEGORY_BACKGROUND && ( width < 800 || height < 400 ) ) {
+			if(width < 800 || height < 400) {
 				controller.showErrorDialog( TextConstants.getText( "BackgroundAssets.Title" ), TextConstants.getText( "BackgroundAssets.ErrorBackgroundSize", fileInformation ) );
 				assetValid = false;
 			}
-
-			// The icon files must have a size of 80x48
-			else if( assetCategory == CATEGORY_ICON && ( width != 80 || height != 48 ) ) {
-				controller.showErrorDialog( TextConstants.getText( "IconAssets.Title" ), TextConstants.getText( "IconAssets.ErrorIconSize", fileInformation ) );
-				assetValid = false;
-			}
 		}
+		
+		
 
 		// Check if the asset is being overwritten, if so prompt the user for action
 		File assetFile = new File( controller.getProjectFolder( ), getCategoryFolder( assetCategory ) + "/" + assetFilename );
@@ -1030,12 +1047,13 @@ public class AssetsController {
 				fileFilter = new XMLFileFilter( );
 				break;
 			case CATEGORY_BACKGROUND:
-				if( filter == FILTER_NONE )
+				// NOTE: In this category, subfilters are now ignored
+				//if( filter == FILTER_NONE )
 					fileFilter = new ImageFileFilter( );
-				if( filter == FILTER_JPG )
-					fileFilter = new JPGFileFilter( );
-				if( filter == FILTER_PNG )
-					fileFilter = new PNGFileFilter( );
+				//if( filter == FILTER_JPG )
+				//	fileFilter = new JPGFileFilter( );
+				//if( filter == FILTER_PNG )
+				//	fileFilter = new PNGFileFilter( );
 				break;
 			case CATEGORY_ANIMATION:
 				if( filter == FILTER_NONE )
@@ -1325,7 +1343,6 @@ public class AssetsController {
     		this.absolutePath = absolutePath;
     	}
     	
-		@Override
 		public InputStream buildInputStream(String filePath) {
 			if (absolutePath == null){
 				if (filePath.startsWith("/") || filePath.startsWith("\\")){
@@ -1340,7 +1357,6 @@ public class AssetsController {
 				}
 		}
 	
-		@Override
 		public String[] listNames(String filePath) {
 			if (absolutePath == null){
 				File dir = new File(Controller.getInstance().getProjectFolder(), filePath);
@@ -1358,12 +1374,10 @@ public class AssetsController {
 			}
 		}
 
-		@Override
 		public MediaLocator buildMediaLocator(String file) {
 			return getVideo(file);
 		}
 
-		@Override
 		public URL buildURL(String path) {
 			try {
 				return new File (Controller.getInstance().getProjectFolder(), path).toURI().toURL();

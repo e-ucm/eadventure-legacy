@@ -165,12 +165,10 @@ class ResourceHandlerRestricted extends ResourceHandler {
         return this.getClass( ).getResource( path );
     }
 
-	@Override
 	public InputStream buildInputStream(String filePath) {
 		return getResourceAsStream ( filePath );
 	}
 
-	@Override
 	public String[] listNames(String filePath) {
 		return new String[0];
 	}
