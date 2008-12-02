@@ -14,12 +14,13 @@ public class PNGAnimationFileFilter extends FileFilter {
 	@Override
 	public boolean accept( File file ) {
 		// Accept PNG files and folders
-		return file.toString( ).toLowerCase( ).endsWith( "_01.png" ) || file.isDirectory( );
+		String filename = file.toString( ).toLowerCase( );
+		return filename.endsWith( "_01.png" ) || filename.endsWith( ".eaa") || file.isDirectory( );
 	}
 
 	@Override
 	public String getDescription( ) {
 		// Description of the filter
-		return "PNG Animations (*_01.png)";
+		return "PNG Animations (*_01.png;*.eaa)";
 	}
 }

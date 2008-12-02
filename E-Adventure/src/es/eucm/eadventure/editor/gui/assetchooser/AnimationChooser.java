@@ -1,27 +1,24 @@
 package es.eucm.eadventure.editor.gui.assetchooser;
 
-import java.awt.BorderLayout;
 import java.awt.Container;
 
 import javax.swing.BorderFactory;
-import javax.swing.UIManager;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
-import es.eucm.eadventure.common.auxiliar.FileFilter;
-import es.eucm.eadventure.common.auxiliar.categoryfilters.AnimationFileFilter;
-import es.eucm.eadventure.common.auxiliar.filefilters.PNGAnimationFileFilter;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.gui.otherpanels.AnimationPanel;
 
 public class AnimationChooser extends AssetChooser {
 
+	/**
+	 * Default generated serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private AnimationPanel animationPanel;
 
 	public AnimationChooser( int filter ) {
 		super( AssetsController.CATEGORY_ANIMATION, filter, AssetChooser.PREVIEW_LOCATION_WEST, TextConstants.getText( "AssetsChooser.Animation" ) );
-
 	}
 
 	@Override
@@ -29,7 +26,6 @@ public class AnimationChooser extends AssetChooser {
 		animationPanel = new AnimationPanel( );
 		animationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AnimationAssets.Preview" ) ) );
 		parent.add( animationPanel );
-
 	}
 
 	@Override

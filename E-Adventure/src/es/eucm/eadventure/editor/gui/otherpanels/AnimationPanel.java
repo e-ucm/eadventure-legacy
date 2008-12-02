@@ -3,12 +3,15 @@ package es.eucm.eadventure.editor.gui.otherpanels;
 import java.awt.Graphics;
 import java.awt.GridBagLayout;
 import java.awt.Image;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
 
+import es.eucm.eadventure.common.data.animation.Animation;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.gui.auxiliar.clock.Clock;
@@ -66,6 +69,10 @@ public class AnimationPanel extends JPanel implements ClockListener {
 	 */
 	private int currentFrameIndex;
 
+	
+	private Animation animation;
+	
+	
 	/**
 	 * Constructor.
 	 */
@@ -74,7 +81,7 @@ public class AnimationPanel extends JPanel implements ClockListener {
 
 		// Add the closing listener
 		addAncestorListener( new ClosingListener( ) );
-
+		this.addMouseListener(new AnimationPanelMouseListener());
 		// Set the image to null and start the clock
 		frames = null;
 		clock = new Clock( this );
@@ -96,6 +103,22 @@ public class AnimationPanel extends JPanel implements ClockListener {
 		this( );
 		loadAnimation( animationPath );
 	}
+	
+	public AnimationPanel( Animation animation) {
+		this();
+		this.animation=animation;
+		
+		// Remove all components, and add a label if the animation is not loaded
+		removeAll( );
+		if( !isAnimationLoaded( ) ) {
+			add( new JLabel( TextConstants.getText( "AnimationPanel.AnimationNotAvalaible" ) ) );
+			revalidate( );
+		}
+
+		// Repaint the panel
+		repaint( );
+
+	}
 
 	/**
 	 * Loads the given animation in the panel.
@@ -104,28 +127,32 @@ public class AnimationPanel extends JPanel implements ClockListener {
 	 *            Path of the animation, including the suffix
 	 */
 	public void loadAnimation( String animationPath ) {
-		// Clear the animation (if there was one)
-		if( frames != null )
-			for( Image frame : frames )
-				frame.flush( );
-
-		// Load the image and calculate the sizes
-		if( animationPath != null ) {
-			// Load the animation
-			frames = AssetsController.getAnimation( animationPath );
-			currentFrameIndex = 0;
-
-			// Set the new time for the frame change
-			if( animationPath.endsWith( "png" ) )
-				imageTime = TIME_PER_FRAME;
-			else if( animationPath.endsWith( "jpg" ) )
-				imageTime = TIME_PER_SLIDE;
+		if (animationPath.endsWith(".eaa")) {
+			this.animation = Animation.loadAnimation(animationPath);
+		} else {
+		
+			// Clear the animation (if there was one)
+			if( frames != null )
+				for( Image frame : frames )
+					frame.flush( );
+	
+			// Load the image and calculate the sizes
+			if( animationPath != null ) {
+				// Load the animation
+				frames = AssetsController.getAnimation( animationPath );
+				currentFrameIndex = 0;
+	
+				// Set the new time for the frame change
+				if( animationPath.endsWith( "png" ) )
+					imageTime = TIME_PER_FRAME;
+				else if( animationPath.endsWith( "jpg" ) )
+					imageTime = TIME_PER_SLIDE;
+			}
+	
+			// If no path is given, delete the frames
+			else
+				frames = null;
 		}
-
-		// If no path is given, delete the frames
-		else
-			frames = null;
-
 		// Remove all components, and add a label if the animation is not loaded
 		removeAll( );
 		if( !isAnimationLoaded( ) ) {
@@ -162,6 +189,12 @@ public class AnimationPanel extends JPanel implements ClockListener {
 	 * @see es.eucm.eadventure.editor.gui.auxiliar.clock.ClockListener#update(long)
 	 */
 	public void update( long elapsedTime ) {
+		if (animation != null) {
+			accumulatedAnimationTime += elapsedTime;
+			repaint();
+		}
+		else {
+		
 		// If the animation is loaded
 		if( isAnimationLoaded( ) ) {
 			// If there is more than one frame
@@ -181,17 +214,22 @@ public class AnimationPanel extends JPanel implements ClockListener {
 				repaint( );
 			}
 		}
+		}
 	}
 
 	@Override
 	public void paint( Graphics g ) {
-		super.paint( g );
-
+		super.paint( g );		
 		// Paint the animation
 		if( isAnimationLoaded( ) ) {
 			// To paint, we compare the ratios of the dialog and the image
 			double dialogRatio = (double) ( getWidth( ) - ( MARGIN * 2 ) ) / (double) ( getHeight( ) - ( MARGIN * 2 ) );
-			double imageRatio = (double) frames[currentFrameIndex].getWidth( null ) / (double) frames[currentFrameIndex].getHeight( null );
+			double imageRatio;
+			if (animation != null) {
+				imageRatio = (double) animation.getImage(accumulatedAnimationTime).getWidth( null ) / (double) animation.getImage(accumulatedAnimationTime).getHeight( null );
+			} else {
+				imageRatio = (double) frames[currentFrameIndex].getWidth( null ) / (double) frames[currentFrameIndex].getHeight( null );			
+			}
 
 			int x, y, width = -MARGIN * 2, height = -MARGIN * 2;
 			if( dialogRatio <= imageRatio ) {
@@ -207,8 +245,11 @@ public class AnimationPanel extends JPanel implements ClockListener {
 				x = (int) ( ( getWidth( ) - width ) / 2 );
 				y = MARGIN;
 			}
-
-			g.drawImage( frames[currentFrameIndex], x, y, width, height, null, null );
+			if (animation != null) {
+				g.drawImage( animation.getImage(accumulatedAnimationTime), x, y, width, height, null, null );			
+			} else {
+				g.drawImage( frames[currentFrameIndex], x, y, width, height, null, null );
+			}
 		}
 	}
 
@@ -217,8 +258,8 @@ public class AnimationPanel extends JPanel implements ClockListener {
 	 * 
 	 * @return True if the animation was loaded, false otherwise
 	 */
-	private boolean isAnimationLoaded( ) {
-		return frames != null && frames.length > 0;
+	private boolean isAnimationLoaded( ) {		
+		return ((frames != null && frames.length > 0) || animation != null);
 	}
 
 	/**
@@ -245,5 +286,40 @@ public class AnimationPanel extends JPanel implements ClockListener {
 		public void ancestorAdded( AncestorEvent event ) {}
 
 		public void ancestorMoved( AncestorEvent event ) {}
+	}
+	
+	private class AnimationPanelMouseListener implements MouseListener {
+
+		@Override
+		public void mouseClicked(MouseEvent arg0) {
+			if (animation != null) {
+				accumulatedAnimationTime = animation.skipFrame(accumulatedAnimationTime);
+			}
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseExited(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mousePressed(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+		
 	}
 }

@@ -9,6 +9,7 @@ import es.eucm.eadventure.common.data.chapter.resources.Asset;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.data.chapter.scenes.Slidescene;
 import es.eucm.eadventure.engine.core.control.Game;
+import es.eucm.eadventure.engine.core.control.animations.Animation;
 import es.eucm.eadventure.engine.core.control.animations.ImageSet;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 import es.eucm.eadventure.common.data.chapter.scenes.Scene;
@@ -24,7 +25,7 @@ public class GameStateSlidescene extends GameState {
     /**
      * Animation of the slidescene
      */
-    private ImageSet slides;
+    private Animation slides;
 
     /**
      * Slidescene being played
@@ -95,6 +96,9 @@ public class GameStateSlidescene extends GameState {
         // Paint the current slide
         Graphics2D g = GUI.getInstance( ).getGraphics( );
         g.clearRect( 0, 0, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT );
+        slides.update(elapsedTime);
+        if (!slides.isPlayingForFirstTime())
+        	finishedSlides();
         g.drawImage( slides.getImage( ), 0, 0, null );
         GUI.getInstance( ).endDraw( );
         g.dispose( );
@@ -108,33 +112,36 @@ public class GameStateSlidescene extends GameState {
         
         // If the slides have ended
         if( endSlides ) {
-
-            // If it is a endscene, go to the next chapter
-            if( !yetSkipped && slidescene.isEndScene( ) ) {
-                yetSkipped = true;
-                game.goToNextChapter( );
-            }
-
-            else {
-                // Search for a next scene structure
-                NextScene nextScene = null;
-                for( NextScene currentNextScene : slidescene.getNextScenes( ) )
-                    if( new FunctionalConditions(currentNextScene.getConditions( )).allConditionsOk( ) )
-                        nextScene = currentNextScene;
-
-                // If it had a next scene, jump to it
-                if( nextScene != null ) {
-                    game.setNextScene( nextScene );
-                    game.setState( Game.STATE_NEXT_SCENE );
-                }
-
-                // If it had not a next scene, keep executing effects
-                else
-                    game.setState( Game.STATE_RUN_EFFECTS );
-            }
+        	finishedSlides();
         }
     }
     
+    private void finishedSlides() {
+        // If it is a endscene, go to the next chapter
+        if( !yetSkipped && slidescene.isEndScene( ) ) {
+            yetSkipped = true;
+            game.goToNextChapter( );
+        }
+
+        else {
+            // Search for a next scene structure
+            NextScene nextScene = null;
+            for( NextScene currentNextScene : slidescene.getNextScenes( ) )
+                if( new FunctionalConditions(currentNextScene.getConditions( )).allConditionsOk( ) )
+                    nextScene = currentNextScene;
+
+            // If it had a next scene, jump to it
+            if( nextScene != null ) {
+                game.setNextScene( nextScene );
+                game.setState( Game.STATE_NEXT_SCENE );
+            }
+
+            // If it had not a next scene, keep executing effects
+            else
+                game.setState( Game.STATE_RUN_EFFECTS );
+        }
+    	
+    }
     /**
      * Creates the current resource block to be used
      */

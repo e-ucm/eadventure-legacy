@@ -1,5 +1,6 @@
 package es.eucm.eadventure.editor.control.controllers.general;
 
+import java.io.File;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
@@ -242,7 +243,8 @@ public class ResourcesDataControl extends DataControl {
 			controller.dataModified( );
 		}
 	}
-
+	
+	
 	//}
 	//}
 
@@ -461,5 +463,23 @@ public class ResourcesDataControl extends DataControl {
 	@Override
 	public boolean canBeDuplicated( ) {
 		return true;
+	}
+
+	public void setAssetPath(String filename, int index) {
+		boolean added = AssetsController.addSingleAsset( assetsInformation[index].category, filename );
+		String selectedAsset = (new File(filename)).getName();
+		// If a file was selected
+		if( selectedAsset != null ) {
+			// Take the index of the selected asset
+			String[] assetFilenames = AssetsController.getAssetFilenames( assetsInformation[index].category, assetsInformation[index].filter );
+			String[] assetPaths = AssetsController.getAssetsList( assetsInformation[index].category, assetsInformation[index].filter );
+			int assetIndex = -1;
+			for( int i = 0; i < assetFilenames.length; i++ )
+				if( assetFilenames[i].equals( selectedAsset ) )
+					assetIndex = i;
+			
+			resources.addAsset( assetsInformation[index].name, assetPaths[assetIndex] );
+			controller.dataModified( );
+		}
 	}
 }

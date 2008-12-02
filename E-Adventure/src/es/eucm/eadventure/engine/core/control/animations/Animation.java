@@ -1,67 +1,44 @@
 package es.eucm.eadventure.engine.core.control.animations;
 
+import java.awt.Image;
+
 
 /**
- * This class implements an Animation, based on an ImageSet.
+ * This is the interface for all kinds of animations in the game.
  */
-public class Animation extends ImageSet {
+public interface Animation {
     
-    /**
-     * Time per animation frame.
-     */
-    private static final int TIME_PER_FRAME = 100;
-    
-    /**
-     * Accumulated played time of the animation.
-     */
-    private long accumulatedAnimationTime;
-    
-    /**
-     * Stores if the animation is has looped or not.
-     */
-    private boolean playingFirstTime;
-
-    public Animation( ) {
-        super( );
-        accumulatedAnimationTime = 0;
-        playingFirstTime = true;
-    }
-
     /**
      * Starts this animation over from the beginning.
+     * Must be implemented synchronized
      */
-    public synchronized void start( ) {
-        super.start( );
-        accumulatedAnimationTime = 0;
-        playingFirstTime = true;
-    }
+    public void start( );    
     
     /**
      * Returns if the animation is being played for first time or not.
      * @return True if the animation reached to and end and started over again, false otherwise
      */
-    public boolean isPlayingForFirstTime( ) {
-        return playingFirstTime;
-    }
+    public boolean isPlayingForFirstTime();
 
     /**
      * Updates this animation's current image (frame) if neccesary.
      */
-    public void update( long elapsedTime ) {
-        if( imageSet.length > 1 ) {
-            // Add the elapsed time to the accumulated
-            accumulatedAnimationTime += elapsedTime;
+    public void update( long elapsedTime );
 
-            // Skip frame for every TIME_PER_FRAME miliseconds
-            while( accumulatedAnimationTime > TIME_PER_FRAME ) {
-                accumulatedAnimationTime -= TIME_PER_FRAME;
-                currentFrameIndex++;
-            }
-            
-            if( currentFrameIndex >= imageSet.length ) {
-                currentFrameIndex %= imageSet.length;
-                playingFirstTime = false;
-            }
-        }
-    }
+    /**
+     * Get the current Image for the animation
+     * 
+     * @return The current Image for the animation
+     */
+    public Image getImage();
+    
+    /**
+     * Moves the animation forward to the next image. Returns true
+     * if the animation has finished.
+     * 
+     * @return True if the animation has finished
+     */
+    public boolean nextImage();
+    
+
 }

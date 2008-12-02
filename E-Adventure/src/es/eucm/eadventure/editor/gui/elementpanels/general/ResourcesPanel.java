@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
@@ -17,9 +18,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
+import es.eucm.eadventure.common.auxiliar.File;
+import es.eucm.eadventure.common.data.animation.Animation;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
+import es.eucm.eadventure.editor.control.writer.AnimationWriter;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.displaydialogs.AnimationDialog;
 import es.eucm.eadventure.editor.gui.displaydialogs.AudioDialog;
@@ -27,6 +31,7 @@ import es.eucm.eadventure.editor.gui.displaydialogs.ImageDialog;
 import es.eucm.eadventure.editor.gui.displaydialogs.SlidesDialog;
 import es.eucm.eadventure.editor.gui.displaydialogs.VideoDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.ConditionsDialog;
+import es.eucm.eadventure.editor.gui.editdialogs.animationeditdialog.AnimationEditDialog;
 import es.eucm.eadventure.editor.gui.elementpanels.PreviewUpdater;
 
 /**
@@ -153,12 +158,20 @@ public class ResourcesPanel extends JPanel {
 			c2.fill = GridBagConstraints.NONE;
 			c2.weightx = 0;
 			assetPanel.add( selectButton, c2 );
-
+			
+			// Create the "Create/Edit" button when necessary
+			if (resourcesDataControl.getAssetCategory(i) == AssetsController.CATEGORY_ANIMATION) {
+				JButton editButton = new JButton( TextConstants.getText("Resources.Create"));
+				editButton.addActionListener( new EditButtonListener(i));
+				c2.gridx++;
+				assetPanel.add(editButton);
+			}
+			
 			// Create the "View" button and insert it
 			viewButtons[i] = new JButton( getPreviewText( i ) );
 			viewButtons[i].setEnabled( dataControl.getAssetPath( i ) != null );
 			viewButtons[i].addActionListener( new ViewButtonListener( i ) );
-			c2.gridx = 3;
+			c2.gridx++;
 			assetPanel.add( viewButtons[i], c2 );
 
 			// Add the panel
@@ -298,6 +311,74 @@ public class ResourcesPanel extends JPanel {
 	}
 
 	/**
+	 * This class is the listener for the "Examine" buttons on the panels.
+	 */
+	private class EditButtonListener implements ActionListener {
+
+		/**
+		 * Index of the asset.
+		 */
+		private int assetIndex;
+
+		/**
+		 * Constructor.
+		 * 
+		 * @param assetIndex
+		 *            Index of the asset
+		 */
+		public EditButtonListener( int assetIndex ) {
+			this.assetIndex = assetIndex;
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
+		public void actionPerformed( ActionEvent e ) {			
+			if (resourcesDataControl.getAssetPath(assetIndex) != null && resourcesDataControl.getAssetPath(assetIndex).toLowerCase().endsWith(".eaa")) {
+				// Ya es una animación
+				new AnimationEditDialog(resourcesDataControl.getAssetPath(assetIndex), null);
+			} else {
+				// Crear la animación como el nuevo recurso
+				String filename;
+				if (resourcesDataControl.getAssetPath(assetIndex) != null) {
+					String[] temp = resourcesDataControl.getAssetPath(assetIndex).split("/");
+					filename = AssetsController.TempFileGenerator.generateTempFileAbsolutePath(temp[temp.length-1], "eaa");				
+				} else {
+					filename = AssetsController.TempFileGenerator.generateTempFileAbsolutePath("eaa");
+				}
+				File file = new File(filename);
+				file.create();
+				AnimationWriter.writeAnimation(filename, new Animation("id"));
+				
+				Animation animation = new Animation("anim" + (new Random()).nextInt(1000));
+				animation.setDocumentation(resourcesDataControl.getAssetDescription(assetIndex));
+				if (resourcesDataControl.getAssetPath(assetIndex) != null) {
+					// Añadir las imagenes de la animación antigua
+					animation.framesFromImages(resourcesDataControl.getAssetPath(assetIndex));
+					AnimationWriter.writeAnimation(filename, animation);
+				}
+				// Poner la nueva animacion en el assetPath
+				//AssetsController.addSingleAsset(AssetsController.CATEGORY_ANIMATION, filename);
+				//String uri = AssetsController.categoryFolders()[AssetsController.CATEGORY_ANIMATION] + "/" + file.getName();
+
+				resourcesDataControl.setAssetPath(filename, assetIndex);
+				
+				new AnimationEditDialog(resourcesDataControl.getAssetPath(assetIndex), animation);
+			}
+			
+			assetFields[assetIndex].setText( resourcesDataControl.getAssetPath( assetIndex ) );
+			viewButtons[assetIndex].setEnabled( resourcesDataControl.getAssetPath( assetIndex ) != null );
+			
+			if( previewUpdater != null ) {
+				previewUpdater.updateResources( );
+			}
+		}
+	}
+
+	
+	/**
 	 * This class is the listener for the "View" buttons on the panels.
 	 */
 	private class ViewButtonListener implements ActionListener {
@@ -334,10 +415,10 @@ public class ResourcesPanel extends JPanel {
 					new ImageDialog( assetPath );
 					break;
 				case AssetsController.CATEGORY_ANIMATION:
-					if( resourcesDataControl.getAssetFilter( assetIndex ) == AssetsController.FILTER_PNG )
-						new AnimationDialog( assetPath );
-					else if( resourcesDataControl.getAssetFilter( assetIndex ) == AssetsController.FILTER_JPG )
+					if( resourcesDataControl.getAssetFilter( assetIndex ) == AssetsController.FILTER_JPG  && !assetPath.endsWith(".eaa"))
 						new SlidesDialog( assetPath );
+					else
+						new AnimationDialog( assetPath );
 					break;
 				case AssetsController.CATEGORY_AUDIO:
 					new AudioDialog( assetPath );

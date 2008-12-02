@@ -22,6 +22,8 @@ public class ResourcesDOMWriter {
 	public static final int RESOURCES_CUTSCENE = 3;
 
 	public static final int RESOURCES_CHARACTER = 4;
+	
+	public static final int RESOURCES_ANIMATION = 5;
 
 	/**
 	 * Private constructor.

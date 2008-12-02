@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import es.eucm.eadventure.engine.core.control.animations.Animation;
+import es.eucm.eadventure.engine.core.control.animations.FrameAnimation;
+import es.eucm.eadventure.engine.core.control.animations.ImageAnimation;
 import es.eucm.eadventure.engine.core.control.animations.ImageSet;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
@@ -413,37 +415,45 @@ public class MultimediaManager {
 
     
     /**
-     * Returns a animation with frames animationPath_xy.jpg, with xy from 01 to the last existing file with that format 
-     * (also the extension can be .png).
-     * <p>For example, loadAnimation( "path" ) will return an animation with frames path_01.jpg, path_02.jpg, path_03.jpg, if path_04.jpg doesn't exists.
+     * Returns a animation from a path.<p>
+     * The animation can be generated from an eaa describing the animation or
+     * with frames animationPath_xy.jpg, with xy from 01 to the last existing file
+     * with that format (the extension can also be .png).
+     * <p>For example, loadAnimation( "path" ) will return an animation with frames 
+     * path_01.jpg, path_02.jpg, path_03.jpg, if path_04.jpg doesn't exists.
      * @param animationPath base path to the animation frames
      * @param mirror whether or not the frames must be mirrored
      * @param category Category of the animation
      * @return an Animation with frames animationPath_xy.jpg
      */
     public Animation loadAnimation( String animationPath, boolean mirror, int category ) {
-        
-        int i = 1;
-        List<Image> frames = new ArrayList<Image>( );
-        Image currentFrame = null;
-        boolean end = false;
-        
-        while( !end ) {
-            if( mirror )
-                currentFrame = loadMirroredImageFromZip( animationPath + "_" + leadingZeros( i ) + ".png", category );
-            else
-                currentFrame = loadImageFromZip( animationPath + "_" + leadingZeros( i ) + ".png", category );
-            
-            if( currentFrame != null ) {
-                frames.add( currentFrame );
-                i++;
-            } else
-                end = true;
-        }
-        
-        Animation animation = new Animation( );
-        animation.setImages( frames.toArray( new Image[] { } ) );
-        return animation;
+    	if (animationPath != null && animationPath.endsWith(".eaa")) {
+    		FrameAnimation animation = new FrameAnimation(es.eucm.eadventure.common.data.animation.Animation.loadAnimation(animationPath));
+    		animation.setMirror(mirror);
+    		return animation;
+    	} else {
+	        int i = 1;
+	        List<Image> frames = new ArrayList<Image>( );
+	        Image currentFrame = null;
+	        boolean end = false;
+	        
+	        while( !end ) {
+	            if( mirror )
+	                currentFrame = loadMirroredImageFromZip( animationPath + "_" + leadingZeros( i ) + ".png", category );
+	            else
+	                currentFrame = loadImageFromZip( animationPath + "_" + leadingZeros( i ) + ".png", category );
+	            
+	            if( currentFrame != null ) {
+	                frames.add( currentFrame );
+	                i++;
+	            } else
+	                end = true;
+	        }
+	        
+	        ImageAnimation animation = new ImageAnimation( );
+	        animation.setImages( frames.toArray( new Image[] { } ) );
+	        return animation;
+    	}
     }
     
     /**
@@ -454,25 +464,32 @@ public class MultimediaManager {
      * @param category Category of the animation
      * @return an Animation with frames animationPath_xy.jpg
      */
-    public ImageSet loadSlides( String slidesPath, int category ) {
+    public Animation loadSlides( String slidesPath, int category ) {
+       	ImageSet imageSet = null;
+       	if (slidesPath.endsWith(".eaa")) {
+    		FrameAnimation animation = new FrameAnimation(es.eucm.eadventure.common.data.animation.Animation.loadAnimation(slidesPath));
+    		animation.setFullscreen(true);
+    		return animation;
+    	} else {
+ 	        int i = 1;
+	        List<Image> slides = new ArrayList<Image>( );
+	        Image currentSlide = null;
+	        boolean end = false;
+	        
+	        while( !end ) {
+	            currentSlide = loadImageFromZip( slidesPath + "_" + leadingZeros( i ) + ".jpg", category );
+	            
+	            if( currentSlide != null ) {
+	                slides.add( getFullscreenImage( currentSlide ) );
+	                i++;
+	            } else
+	                end = true;
+	        }
+	        
+	        imageSet = new ImageSet( );
+	        imageSet.setImages( slides.toArray( new Image[] { } ) );
+    	}
         
-        int i = 1;
-        List<Image> slides = new ArrayList<Image>( );
-        Image currentSlide = null;
-        boolean end = false;
-        
-        while( !end ) {
-            currentSlide = loadImageFromZip( slidesPath + "_" + leadingZeros( i ) + ".jpg", category );
-            
-            if( currentSlide != null ) {
-                slides.add( getFullscreenImage( currentSlide ) );
-                i++;
-            } else
-                end = true;
-        }
-        
-        ImageSet imageSet = new ImageSet( );
-        imageSet.setImages( slides.toArray( new Image[] { } ) );
         return imageSet;
     }
 
