@@ -102,7 +102,10 @@ public class AssetsController {
 	 */
 	public static final int CATEGORY_STYLED_TEXT = 9;
 
-	
+	/**
+	 * Animation Image category
+	 */
+	public static final int CATEGORY_ANIMATION_IMAGE = 10;
 
 	/**
 	 * Void filter.
@@ -497,8 +500,8 @@ public class AssetsController {
 			// Convert the input stream to an image, and close the stream
 			if( inputStream != null ) {
 				image = ImageIO.read( inputStream );
-				System.out.println("Size : " + image.getWidth(null) + " , " + image.getHeight(null));
-				if (image.getHeight(null) == -1 || image.getWidth(null) == -1) {
+				//System.out.println("Size : " + image.getWidth(null) + " , " + image.getHeight(null));
+				if (image == null || image.getHeight(null) == -1 || image.getWidth(null) == -1) {
 					Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.ImageTypeNotSupported") );
 				}
 				inputStream.close( );
@@ -589,7 +592,7 @@ public class AssetsController {
 		if( checkAsset( assetPath, assetsCategory ) ) {
 
 			// If it is an animation asset, add all the images of the animation
-			if( assetsCategory == CATEGORY_ANIMATION ) {
+			if( assetsCategory == CATEGORY_ANIMATION && !assetPath.endsWith(".eaa")) {
 
 				// Prepare the root of the animation path and the extension
 				String extension = getExtension( assetPath );
@@ -936,6 +939,9 @@ public class AssetsController {
 				if (!file.exists( )){
 					file = new File (controller.getProjectFolder( ), assetPath+"_01.jpg");
 				}
+				if (!file.exists()) {
+					file = new File (controller.getProjectFolder(), assetPath);
+				}
 			}
 			assetValid = file.exists( ) && file.isFile( ) && file.length( )>0;
 			if (!assetValid){
@@ -1003,6 +1009,7 @@ public class AssetsController {
 				folder = CATEGORY_BACKGROUND_FOLDER;
 				break;
 			case CATEGORY_ANIMATION:
+			case CATEGORY_ANIMATION_IMAGE:
 				folder = CATEGORY_ANIMATION_FOLDER;
 				break;
 			case CATEGORY_IMAGE:
@@ -1269,13 +1276,17 @@ public class AssetsController {
 
 		private static int MAX_RANDOM = 100000;
 
-		private static final String TEMP_FILE_NAME = "$temp_EAD_";
+		private static final String TEMP_FILE_NAME = "eadventure_";
 		
 		public TempFileGenerator(){
 			random = new Random();
 		}
 
 		public static String generateTempFileAbsolutePath( String extension ) {
+			return generateTempFileAbsolutePath(TEMP_FILE_NAME, extension);
+		}
+		
+		public static String generateTempFileAbsolutePath(String name, String extension) {
 			String tempDirectory = null;
 			if( System.getenv( "TEMP" ) != null && !System.getenv( "TEMP" ).equals( "" ) ) {
 				tempDirectory = System.getenv( "TEMP" );
@@ -1287,14 +1298,13 @@ public class AssetsController {
 				tempDirectory = "";
 			}
 
-			String fileName = TEMP_FILE_NAME + random.nextInt( MAX_RANDOM ) + "." + extension;
+			String fileName = name + random.nextInt( MAX_RANDOM ) + "." + extension;
 			File file = new File( tempDirectory + "\\" + fileName );
 			while( file.exists( ) ) {
-				fileName = TEMP_FILE_NAME + random.nextInt( MAX_RANDOM ) + "." + extension;
+				fileName = name + random.nextInt( MAX_RANDOM ) + "." + extension;
 				file = new File( tempDirectory + "\\" + fileName );
 			}
 			return tempDirectory + "\\" + fileName;
-
 		}
 
 	}

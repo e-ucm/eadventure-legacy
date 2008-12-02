@@ -1424,4 +1424,17 @@ Si no los cambia, el juego empleará los cursores por defecto (ambientación fan
 	<entry key="AdvancedFeatures.Title">Características avanzadas</entry>
 	<entry key="AdvancedFeatures.Information">Esta sección del árbol se emplea para añadir y gestionar características avanzadas del editor.</entry>
 	
+	<entry key="Animation.AnimationIdentifier">Identificador de animación</entry>
+	<entry key="Animation.Documentation" >Documentación</entry>
+	<entry key="Animation.GeneralInfo">Información de la animación</entry>
+	<entry key="Animation.Timeline">Linea del tiempo</entry>
+	<entry key="Animation.Details">Detalles de cuadro/transición</entry>
+	<entry key="Animation.Preview">Previsualizar animación</entry>
+	<entry key="Animation.MoveFrameLeft">Mover el cuadro seleccionado un lugar a la izquierda</entry>
+	<entry key="Animation.MoveFrameRight">Mover el cuadro seleccionado un lugar a la derecha</entry>
+	<entry key="Animation.AddFrame">Añadir nuevo cuadro (después del seleccionado, si lo hay)</entry>
+	<entry key="Animation.DeleteFrame">Quitar el cuadro seleccionado de la animación</entry>
+	<entry key="Animation.WaitForClick">Esperar al usuario (utilizar solo para transparencias)</entry>
+	<entry key="Animation.DialogTitle">Editor de animaciones - {#0}</entry>
+	
 </properties>

@@ -6,7 +6,7 @@ import java.awt.Image;
  * This class implements a set of images, that can be used as a set of
  * slides. 
  */
-public class ImageSet {
+public class ImageSet implements Animation {
     
     /**
      * Set of images.
@@ -41,10 +41,6 @@ public class ImageSet {
         currentFrameIndex = 0;
     }
 
-    /**
-     * Set the next frame as visible.
-     * @return True if the animation has finished, false otherwise
-     */
     public boolean nextImage( ) {
         boolean noMoreFrames = false;
         
@@ -64,4 +60,11 @@ public class ImageSet {
     public Image getImage( ) {
         return imageSet[currentFrameIndex];
     }
+
+	public boolean isPlayingForFirstTime() {
+		return true;
+	}
+
+	public void update(long elapsedTime) {
+	}
 }
