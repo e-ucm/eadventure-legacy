@@ -73,16 +73,17 @@ public class EAdventure {
             gameLauncher.init( new File( "" ) );
         else {
             File file = new File(args[0]);
-            if (file.exists( ))
+            if (file.exists( )){
                 gameLauncher.init( new File(args[0]) );
-            else {
+          
+            } else {
                 
                 JOptionPane.showMessageDialog(null,
                         TextConstants.getText("ErrorMessage.Title"),
                         TextConstants.getText("ErrorMessage.Content"),
                         JOptionPane.ERROR_MESSAGE);
                 
-                
+                gameLauncher.init(new File(""));
             }
         }
         new Thread( gameLauncher ).start( );
