@@ -415,13 +415,14 @@ public class GameLauncher extends JFrame implements Runnable {
      * @see java.lang.Runnable#run()
      */
     public void run( ) {
-
+    	
         while( !end ) {
             try {
               
-                if ( load  ) {
+                if( load     ) {
                     // Launch the selected adventure, if any
                     load = false;
+                    
                     this.setVisible( false );
                     String adventurePath = getAdventurePath( );
                     String adventureName = getAdventureName( );
@@ -437,17 +438,17 @@ public class GameLauncher extends JFrame implements Runnable {
                         ResourceHandler.delete( );
                         this.setVisible( true );
                     }
-                } else {
-	                Thread.sleep( 10 );
-	                this.setEnabled( false );
-	                this.setVisible( false );
-	                this.setFocusable( false );
-	            }
-                System.exit( 0 );
+                    System.exit( 0 );
+                }
+                Thread.sleep( 10 );
             } catch( InterruptedException e ) {
             }
         }
-      
+        this.setEnabled( false );
+        this.setVisible( false );
+        this.setFocusable( false );
+
+        System.exit( 0 );
     }
 
     /**
