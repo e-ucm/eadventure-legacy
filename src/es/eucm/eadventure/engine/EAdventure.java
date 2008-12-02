@@ -82,7 +82,7 @@ public class EAdventure {
                         TextConstants.getText("ErrorMessage.Content"),
                         JOptionPane.ERROR_MESSAGE);
                 
-                gameLauncher.init(new File(""));
+                
             }
         }
         new Thread( gameLauncher ).start( );
