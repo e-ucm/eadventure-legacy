@@ -3,6 +3,7 @@ package es.eucm.eadventure.common.loader.parsers;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
@@ -11,6 +12,7 @@ import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import es.eucm.eadventure.common.data.chapter.Chapter;
+import es.eucm.eadventure.common.loader.InputStreamCreator;
 import es.eucm.eadventure.common.loader.subparsers.BookSubParser;
 import es.eucm.eadventure.common.loader.subparsers.CharacterSubParser;
 import es.eucm.eadventure.common.loader.subparsers.CutsceneSubParser;
@@ -88,6 +90,11 @@ public class ChapterHandler extends DefaultHandler {
 	 * Chapter data
 	 */
 	private Chapter chapter;
+	
+    /**
+     * InputStreamCreator used in resolveEntity to find dtds (only required in Applet mode)
+     */
+    private InputStreamCreator isCreator;
 
 	/* Methods */
 
@@ -97,8 +104,9 @@ public class ChapterHandler extends DefaultHandler {
 	 * @param chapter
 	 *            Chapter in which the data will be stored
 	 */
-	public ChapterHandler( Chapter chapter ) {
+	public ChapterHandler( InputStreamCreator isCreator, Chapter chapter ) {
 		this.chapter = chapter;
+		this.isCreator = isCreator;
 	}
 
 	@Override
@@ -213,7 +221,7 @@ public class ChapterHandler extends DefaultHandler {
 		throw exception;
 	}
 
-	@Override
+/*	@Override
 	public InputSource resolveEntity( String publicId, String systemId ) {
 		// Take the name of the file SAX is looking for
 		int startFilename = systemId.lastIndexOf( "/" ) + 1;
@@ -239,5 +247,20 @@ public class ChapterHandler extends DefaultHandler {
 		}
 
 		return inputSource;
-	}
+	}*/
+	
+    /*
+     *  (non-Javadoc)
+     * @see org.xml.sax.EntityResolver#resolveEntity(java.lang.String, java.lang.String)
+     */
+    public InputSource resolveEntity( String publicId, String systemId ) {
+        // Take the name of the file SAX is looking for
+        int startFilename = systemId.lastIndexOf( "/" ) + 1;
+        String filename = systemId.substring( startFilename, systemId.length( ) );
+        
+        // Build and return a input stream with the file (usually the DTD)
+        InputStream inputStream = isCreator.buildInputStream( filename );   
+        return new InputSource( inputStream );
+    }
+
 }

@@ -1,12 +1,16 @@
 package es.eucm.eadventure.common.loader.parsers;
 
+import java.io.InputStream;
+
 import org.xml.sax.Attributes;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import es.eucm.eadventure.common.data.adventure.ChapterSummary;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
+import es.eucm.eadventure.common.loader.InputStreamCreator;
 
 
 /**
@@ -49,11 +53,17 @@ public class DescriptorHandler extends DefaultHandler {
 	    private ChapterSummary currentChapter;
 	    
 	    /**
+	     * InputStreamCreator used in resolveEntity to find dtds (only required in Applet mode)
+	     */
+	    private InputStreamCreator isCreator;
+	    
+	    /**
 	     * Constructor
 	     */
-	    public DescriptorHandler( ) {
+	    public DescriptorHandler( InputStreamCreator isCreator ) {
 	        currentString = new StringBuffer( );
 	        gameDescriptor = new DescriptorData( );
+	        this.isCreator = isCreator;
 	    }
 	    
 	    /**
@@ -223,6 +233,20 @@ public class DescriptorHandler extends DefaultHandler {
 	        // On validation, propagate exception
 	        exception.printStackTrace( );
 	        throw exception;
+	    }
+	    
+	    /*
+	     *  (non-Javadoc)
+	     * @see org.xml.sax.EntityResolver#resolveEntity(java.lang.String, java.lang.String)
+	     */
+	    public InputSource resolveEntity( String publicId, String systemId ) {
+	        // Take the name of the file SAX is looking for
+	        int startFilename = systemId.lastIndexOf( "/" ) + 1;
+	        String filename = systemId.substring( startFilename, systemId.length( ) );
+	        
+	        // Build and return a input stream with the file (usually the DTD)
+	        InputStream inputStream = isCreator.buildInputStream( filename );   
+	        return new InputSource( inputStream );
 	    }
 	    
 }

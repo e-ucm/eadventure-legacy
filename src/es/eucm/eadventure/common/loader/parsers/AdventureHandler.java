@@ -219,7 +219,7 @@ public class AdventureHandler extends DefaultHandler {
 			// Open the file and load the data
 			try {
 				// Set the chapter handler
-				ChapterHandler chapterParser = new ChapterHandler( currentChapter );
+				ChapterHandler chapterParser = new ChapterHandler( isCreator, currentChapter );
 
 				// Create a new factory
 				SAXParserFactory factory = SAXParserFactory.newInstance( );
@@ -336,7 +336,7 @@ public class AdventureHandler extends DefaultHandler {
 		throw exception;
 	}
 
-	@Override
+/*	@Override
 	public InputSource resolveEntity( String publicId, String systemId ) throws FileNotFoundException {
 		// Take the name of the file SAX is looking for
 		int startFilename = systemId.lastIndexOf( "/" ) + 1;
@@ -360,7 +360,7 @@ public class AdventureHandler extends DefaultHandler {
 		}
 
 		return inputSource;
-	}
+	}*/
 
 	/**
 	 * @return the incidences
@@ -368,4 +368,19 @@ public class AdventureHandler extends DefaultHandler {
 	public List<Incidence> getIncidences( ) {
 		return incidences;
 	}
+	
+    /*
+     *  (non-Javadoc)
+     * @see org.xml.sax.EntityResolver#resolveEntity(java.lang.String, java.lang.String)
+     */
+    public InputSource resolveEntity( String publicId, String systemId ) {
+        // Take the name of the file SAX is looking for
+        int startFilename = systemId.lastIndexOf( "/" ) + 1;
+        String filename = systemId.substring( startFilename, systemId.length( ) );
+        
+        // Build and return a input stream with the file (usually the DTD)
+        InputStream inputStream = isCreator.buildInputStream( filename );   
+        return new InputSource( inputStream );
+    }
+
 }

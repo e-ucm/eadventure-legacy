@@ -1,9 +1,11 @@
 package es.eucm.eadventure.common.loader.parsers;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.xml.sax.Attributes;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -14,6 +16,7 @@ import es.eucm.eadventure.common.data.assessment.TimedAssessmentRule;
 import es.eucm.eadventure.common.data.chapter.conditions.Condition;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.common.data.chapter.conditions.VarCondition;
+import es.eucm.eadventure.common.loader.InputStreamCreator;
 
 /**
  * This class is the handler to parse the assesment rules file of the adventure
@@ -71,17 +74,23 @@ public class AssessmentHandler extends DefaultHandler {
      */
     private Conditions currentEitherCondition;
     
+    /**
+     * InputStreamCreator used in resolveEntity to find dtds (only required in Applet mode)
+     */
+    private InputStreamCreator isCreator;
+    
     /* Methods */
     
     /**
      * Default constructor
      */
-    public AssessmentHandler( List<AssessmentRule> assRules ) {
+    public AssessmentHandler( InputStreamCreator isCreator, List<AssessmentRule> assRules ) {
         assessmentRules = assRules;
         currentAssessmentRule = null;
         currentString = new StringBuffer( );
         vars = new ArrayList<String>();
         flags = new ArrayList<String>();
+        this.isCreator = isCreator;
     }
     
     /**
@@ -410,13 +419,14 @@ public class AssessmentHandler extends DefaultHandler {
      *  (non-Javadoc)
      * @see org.xml.sax.EntityResolver#resolveEntity(java.lang.String, java.lang.String)
      */
-    /*public InputSource resolveEntity( String publicId, String systemId ) {
+    public InputSource resolveEntity( String publicId, String systemId ) {
         // Take the name of the file SAX is looking for
         int startFilename = systemId.lastIndexOf( "/" ) + 1;
         String filename = systemId.substring( startFilename, systemId.length( ) );
         
         // Build and return a input stream with the file (usually the DTD)
-        InputStream inputStream = ResourceHandler.getInstance( ).getResourceAsStream( filename );        
+        InputStream inputStream = isCreator.buildInputStream( filename );   
         return new InputSource( inputStream );
-    } */   
+    }
+
 }

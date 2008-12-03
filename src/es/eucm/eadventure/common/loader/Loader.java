@@ -100,7 +100,7 @@ public class Loader {
 		
 			try {
 				// Set the adventure handler
-				DescriptorHandler descriptorParser = new DescriptorHandler(  );
+				DescriptorHandler descriptorParser = new DescriptorHandler( isCreator );
 	
 				// Create a new factory
 				SAXParserFactory factory = SAXParserFactory.newInstance( );
@@ -108,7 +108,8 @@ public class Loader {
 				SAXParser saxParser = factory.newSAXParser( );
 	
 				// Read and close the inputstrea
-				InputStream descriptorIS = isCreator.buildInputStream("descriptor.xml"); 
+				InputStream descriptorIS = isCreator.buildInputStream("descriptor.xml");
+				System.out.println( "Is inputStream null? "+(descriptorIS == null) );
 				saxParser.parse( descriptorIS, descriptorParser );
 				descriptorIS.close( );
 	
@@ -117,13 +118,13 @@ public class Loader {
 	
 			} catch( ParserConfigurationException e ) {
 				//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadData" ) );
-				//e.printStackTrace( );
+				e.printStackTrace( );
 			} catch( SAXException e ) {
 				//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadData" ) );
-				//e.printStackTrace( );
+				e.printStackTrace( );
 			} catch( IOException e ) {
 				//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadData" ) );
-				//e.printStackTrace( );
+				e.printStackTrace( );
 			}
 		}
 		return descriptorData;
@@ -169,7 +170,7 @@ public class Loader {
 			try {
 				if (chapterIS!=null){
 					// Set the chapter handler
-					ChapterHandler chapterParser = new ChapterHandler( currentChapter );
+					ChapterHandler chapterParser = new ChapterHandler( isCreator, currentChapter );
 		
 					// Create a new factory
 					SAXParserFactory factory = SAXParserFactory.newInstance( );
@@ -221,7 +222,7 @@ public class Loader {
 			try {
 				// Set the chapter handler
 				List<AssessmentRule> rules = new ArrayList<AssessmentRule>();
-				AssessmentHandler assParser = new AssessmentHandler( rules );
+				AssessmentHandler assParser = new AssessmentHandler( isCreator, rules );
 	
 				// Create a new factory
 				SAXParserFactory factory = SAXParserFactory.newInstance( );
@@ -283,7 +284,7 @@ public class Loader {
 				// Set the chapter handler
 				List<AdaptationRule> rules = new ArrayList<AdaptationRule>();
 				AdaptedState initialState = new AdaptedState();
-				AdaptationHandler adpParser = new AdaptationHandler( rules, initialState );
+				AdaptationHandler adpParser = new AdaptationHandler( isCreator, rules, initialState );
 	
 				// Create a new factory
 				SAXParserFactory factory = SAXParserFactory.newInstance( );
