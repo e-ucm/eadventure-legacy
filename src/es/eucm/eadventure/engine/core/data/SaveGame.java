@@ -177,7 +177,7 @@ public class SaveGame implements Serializable {
             for (String value: saveGameData.vars.getVarValues( ) ){
             	file.print( value+";");
             }
-
+            file.println();
             long currentTime = System.currentTimeMillis( );
             for (SaveTimer saveT : saveGameData.timers.getTimers()){
             	file.print(saveT.getState() + "-");

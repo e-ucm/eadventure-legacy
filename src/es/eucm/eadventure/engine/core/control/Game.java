@@ -1159,7 +1159,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
                  
                 SaveTimer st = new SaveTimer(); 
                 String[] timers = saveGame.getLoadTimers();
-                for (int i=0;true;i++){
+                for (int i=0;i<timers.length;i++){
                     if (timers.length != 0){
                 	// take the correct values for each timer
                     	String timer = timers[i];
