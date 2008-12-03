@@ -37,7 +37,7 @@ public class EffectsDialog extends JDialog {
 	public EffectsDialog( EffectsController effectsController ) {
 
 		// Call to the JDialog constructor
-		super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "FunctionalEffects.Title" ), Dialog.ModalityType.APPLICATION_MODAL );
+		super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "Effects.Title" ), Dialog.ModalityType.APPLICATION_MODAL );
 
 		// Push the dialog into the stack, and add the window listener to pop in when closing
 		Controller.getInstance( ).pushWindow( this );
