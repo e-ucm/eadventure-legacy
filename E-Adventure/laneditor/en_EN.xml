@@ -35,7 +35,7 @@
 	<entry key="MenuChapters.Title">Chapters</entry>
 	<entry key="MenuChapters.AddChapter">Add chapter</entry>
 	<entry key="MenuChapters.DeleteChapter">Delete chapter</entry>
-	<entry key="MenuChapters.Flags">Edit chapter flags...</entry>
+	<entry key="MenuChapters.Flags">Edit chapter flags &amp; variables</entry>
 	<entry key="MenuChapters.MoveChapterUp">Move chapter up</entry>
 	<entry key="MenuChapters.MoveChapterDown">Move chapter down</entry>
 
@@ -106,6 +106,7 @@ Please, select what to do: 1) Delete the chapter, 2) Replace it with other file,
 	<entry key="GeneralText.Select">Select</entry>
 	<entry key="GeneralText.Folders">Folders</entry>
 	<entry key="GeneralText.Project">Project</entry>
+	<entry key="GeneralText.New">New</entry>
 	<entry key="ErrorSolving.Chapter.NotReplaced.Title">Chapter not replaced</entry>
 	<entry key="ErrorSolving.Chapter.NotReplaced.Message">An error occurred replacing the chapter.
 The operation was aborted.</entry>
@@ -483,7 +484,18 @@ Please, try it again with other destiny directory.</entry>
 	<entry key="FormattedTextAssets.Preview">Preview of the text</entry>
 	<entry key="FormattedTextAssets.NotAvailable">Not available</entry>
 	
+	<entry key="Ids.Title">Flags &amp; Variables</entry>
+	<entry key="Ids.ErrorIdAlreadyExists">A flag or variable with such name already exists. 
+Please type another name.</entry>
+	<entry key="Ids.AddId">Add variable or flag</entry>
+	<entry key="Ids.ErrorIdWhitespaces">Variable or flag names cannot contain white spaces</entry>
+	
 	<entry key="Flags.Title">Flags</entry>
+	<entry key="Flags.Flag">Flag</entry>
+	<entry key="Flags.FlagTip">This is the list of flags of the chapter.
+Flags can be active or inactive at any moment in the game, as traffic lights can be
+green or red to allow or forbid crossing. In the game you can define conditions
+based on the state of the flags.</entry>
 	<entry key="Flags.AddFlag">Add flag</entry>
 	<entry key="Flags.DeleteFlag">Delete flag</entry>
 	<entry key="Flags.DefaultFlagId">FlagId</entry>
@@ -494,7 +506,31 @@ Please, try it again with other destiny directory.</entry>
 	<entry key="Flags.ErrorFlagAlreadyExists">The input flag specified is already in use</entry>
 	<entry key="Flags.ErrorFlagWhitespaces">The input flag identifier must contain no white spaces</entry>
 
+	<entry key="Vars.Title">Variables</entry>
+	<entry key="Vars.Var">Variable</entry>
+	<entry key="Vars.VarTip">This is the list of variables of the chapter.
+Variables can be given an integer value at any moment in the game. 
+In the game you can define conditions based on the value of the variables.</entry>
+	<entry key="Vars.AddVar">Add var</entry>
+	<entry key="Vars.DeleteVar">Delete var</entry>
+	<entry key="Vars.DefaultVarId">VarId</entry>
+	<entry key="Vars.VarName">Variable name</entry>
+	<entry key="Vars.VarReferences">References</entry>
+	<entry key="Vars.AddVarMessage">Please specify the name of the new variable</entry>
+	<entry key="Vars.ErrorVarWithReferences">To delete a variable, it must have no references</entry>
+	<entry key="Vars.ErrorVarAlreadyExists">The input variable specified is already in use</entry>
+	<entry key="Vars.ErrorVarWhitespaces">The input variable identifier must contain no white spaces</entry>
+	<entry key="Vars.ConfirmNewVar.Title">Create new variable?</entry>
+	<entry key="Vars.ConfirmNewVar.Text">The name you typed is very similar to other(s).
+Do you really want to create it? 
+Otherwise you can select one of those found similar from the list.</entry>
+	<entry key="Flags.ConfirmNewFlag.Title">Create new flag?</entry>
+	<entry key="Flags.ConfirmNewFlag.Text">The name you typed is very similar to other(s).
+Do you really want to create it? 
+Otherwise you can select one of those found similar from the list.</entry>
+
 	<entry key="Conditions.Title">Conditions</entry>
+	<entry key="Conditions.Type">Type</entry>
 	<entry key="Conditions.MainBlockTab">Main block</entry>
 	<entry key="Conditions.MainBlockTitle">Main block of conditions</entry>
 	<entry key="Conditions.EitherBlockTab">Either block #{#0}</entry>
@@ -503,9 +539,31 @@ Please, try it again with other destiny directory.</entry>
 	<entry key="Conditions.EditCondition">Edit condition</entry>
 	<entry key="Conditions.DeleteCondition">Delete condition</entry>
 	<entry key="Conditions.AddEitherBlock">Add either condition block</entry>
-	<entry key="Conditions.EditConditionMessage">Select the values for the state and the flag of the condition</entry>
-	<entry key="Conditions.State">State</entry>
-	<entry key="Conditions.Flag">Flag</entry>
+	<entry key="Conditions.EditConditionMessage">Select the type of condition and then the fields appropriate for such type.</entry>
+	<entry key="Conditions.State">Comparison function</entry>
+	<entry key="Conditions.Flags">Flags</entry>
+	<entry key="Conditions.Flag">Flag/Var</entry>
+	<entry key="Conditions.Var">Variables</entry>
+	<entry key="Conditions.ConditionGroup">Ref. to Global state</entry>
+	<entry key="Conditions.Group.Description">When the same group of conditions are going to be used together more than once
+	it is better to define them as "Global States". Then you can refer to them in any conditions block
+	without introducing all the conditions again.</entry>
+	<entry key="Conditions.Group.Title">Fields of the global state</entry>
+	<entry key="Conditions.Var.Id">Variable name</entry>
+	<entry key="Conditions.Var.State">Comparison</entry>
+	<entry key="Conditions.Var.Value">Value [0,Inf)</entry>
+	<entry key="Conditions.Var.Description">This is the list of variables of the chapter.
+Variables can be given an integer value at any moment in the game. 
+In the game you can define conditions based on the value of the variables.</entry>
+	<entry key="Conditions.Var.Title">Fields of the variable</entry>
+	<entry key="Conditions.Flag.Id">Flag name</entry>
+	<entry key="Conditions.Flag.State">Value (active/inactive)</entry>
+	<entry key="Conditions.Flag.Description">This is the list of flags of the chapter.
+Flags can be active or inactive at any moment in the game, as traffic lights can be
+green or red to allow or forbid crossing. In the game you can define conditions
+based on the state of the flags.</entry>
+	<entry key="Conditions.Flag.Title">Fields of the flag</entry>
+	<entry key="Conditions.Value">Value</entry>
 	<entry key="Conditions.ErrorNoFlags">To add a condition, there must be at least one flag in the chapter</entry>
 
 	<entry key="Effects.Title">Effects</entry>
@@ -519,6 +577,9 @@ Please, try it again with other destiny directory.</entry>
 
 	<entry key="Effect.Activate">Activate</entry>
 	<entry key="Effect.Deactivate">Deactivate</entry>
+	<entry key="Effect.SetValue">Set value</entry>
+	<entry key="Effect.IncrementVar">Increment var</entry>
+	<entry key="Effect.DecrementVar">Decrement var</entry>
 	<entry key="Effect.ConsumeObject">Consume object</entry>
 	<entry key="Effect.GenerateObject">Generate object</entry>
 	<entry key="Effect.CancelAction">Cancel action</entry>
@@ -537,6 +598,9 @@ Please, try it again with other destiny directory.</entry>
 
 	<entry key="Effect.ActivateInfo">Activate flag: {#0}</entry>
 	<entry key="Effect.DeactivateInfo">Deactivate flag: {#0}</entry>
+	<entry key="Effect.SetValueInfo">Set var "{#0}" with value "{#1}"</entry>	
+	<entry key="Effect.IncrementVarInfo">Increment var "{#0}" in "{#1}" units</entry>	
+	<entry key="Effect.DecrementVarInfo">Decrement var "{#0}" in "{#1}" units</entry>
 	<entry key="Effect.ConsumeObjectInfo">Consume object {#0}</entry>
 	<entry key="Effect.GenerateObjectInfo">Generate object {#0}</entry>
 	<entry key="Effect.CancelActionInfo">Cancel default action</entry>
@@ -568,6 +632,15 @@ Please, try it again with other destiny directory.</entry>
 
 	<entry key="DeactivateEffect.Title">Deactivate effect</entry>
 	<entry key="DeactivateEffect.Description">Select the flag to be deactivated</entry>
+	
+	<entry key="SetValueEffect.Title">Set value effect</entry>
+	<entry key="SetValueEffect.Description">Select the variable and the value to be set</entry>
+		
+	<entry key="IncrementVarEffect.Title">Increment variable effect</entry>
+	<entry key="IncrementVarEffect.Description">Select the variable and the increment</entry>
+	
+	<entry key="DecrementVarEffect.Title">Decrement variable effect</entry>
+	<entry key="DecrementVarEffect.Description">Select the variable and the decrement</entry>
 
 	<entry key="ActivateDeactivateEffect.ErrorNoFlags">To add this type of effect, there must be at least one flag in the chapter</entry>
 
@@ -1127,6 +1200,7 @@ Please, try it again with other destiny directory.</entry>
 	<entry key="GeneralText.No">No</entry>
 	<entry key="GeneralText.OK">OK</entry>
 	<entry key="GeneralText.Cancel">Cancel</entry>
+	<entry key="GeneralText.Is">Is</entry>
 	<entry key="GeneralText.New">New</entry>
 	<entry key="GeneralText.Open">Open</entry>
 	<entry key="GeneralText.Close">Close</entry>

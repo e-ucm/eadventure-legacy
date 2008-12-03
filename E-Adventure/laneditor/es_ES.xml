@@ -37,7 +37,7 @@
 	<entry key="MenuChapters.Title">Capítulos</entry>
 	<entry key="MenuChapters.AddChapter">Añadir capítulo</entry>
 	<entry key="MenuChapters.DeleteChapter">Eliminar capítulo</entry>
-	<entry key="MenuChapters.Flags">Editar flags del capítulo...</entry>
+	<entry key="MenuChapters.Flags">Editar flags y variables del capítulo</entry>
 	<entry key="MenuChapters.MoveChapterUp">Mover capítulo arriba</entry>
 	<entry key="MenuChapters.MoveChapterDown">Mover capítulo abajo</entry>
 
@@ -106,6 +106,7 @@ Si no desea crear un nuevo juego, puede abrir un archivo ya existente empleando 
 Por favor, seleccione una de las siguientes opciones:
 1) Borrar el capítulo, 2) Reemplazarlo con otro fichero, 3) Abortar el proceso.</entry>	
 	<entry key="GeneralText.Delete">Borrar</entry>
+	<entry key="GeneralText.Is">Es</entry>
 	<entry key="GeneralText.Replace">Reemplazar</entry>
 	<entry key="GeneralText.Abort">Abortar</entry>
 	<entry key="GeneralText.Select">Seleccionar</entry>
@@ -489,7 +490,18 @@ Por favor, inténtelo de nuevo cambiando dicho directorio.</entry>
 	<entry key="FormattedTextAssets.Preview">Previsualización</entry>
 	<entry key="FormattedTextAssets.NotAvailable">No disponible</entry>
 
+	<entry key="Ids.Title">Flags y variables</entry>
+	<entry key="Ids.ErrorIdAlreadyExists">Un flag o variable con ese nombre ya existe. 
+Por favor escribe otro nombre.</entry>
+	<entry key="Ids.AddId">Añadir variable o flag</entry>
+	<entry key="Ids.ErrorIdWhitespaces">Los nombres de variables o flags no pueden contener espacios en blanco</entry>	
+
 	<entry key="Flags.Title">Flags</entry>
+	<entry key="Flags.Flag">Flag</entry>
+	<entry key="Flags.FlagTip">Esta es la lista de flags del capítulo.
+Los flags pueden estar activos o inactivos en un momento determinado,como una barrera que puede estar
+levantada o bajada bloqueando o desbloqueando el paso. En el juego se pueden establecer condiciones en
+función de estos estados.</entry>
 	<entry key="Flags.AddFlag">Añadir flag</entry>
 	<entry key="Flags.DeleteFlag">Eliminar flag</entry>
 	<entry key="Flags.DefaultFlagId">IdFlag</entry>
@@ -499,8 +511,31 @@ Por favor, inténtelo de nuevo cambiando dicho directorio.</entry>
 	<entry key="Flags.ErrorFlagWithReferences">Para eliminar un flag, no debe tener ninguna referencia</entry>
 	<entry key="Flags.ErrorFlagAlreadyExists">El identificador de flag introducido ya se encuentra en uso</entry>
 	<entry key="Flags.ErrorFlagWhitespaces">El identificador de flag introducido no debe contener espacios en blanco</entry>
+	
+	<entry key="Vars.Title">Variables</entry>
+	<entry key="Vars.Var">Variable</entry>
+	<entry key="Vars.VarTip">Esta es la lista de variables del capítulo. 
+A las variables se les puede asignar un valor entero y establecer condiciones en base a esos valores.</entry>
+	<entry key="Vars.AddVar">Añadir variable</entry>
+	<entry key="Vars.DeleteVar">Eliminar variable</entry>
+	<entry key="Vars.DefaultVarId">IdVar</entry>
+	<entry key="Vars.VarName">Nombre de la variable</entry>
+	<entry key="Vars.VarReferences">Referencias</entry>
+	<entry key="Vars.AddVarMessage">Introduzca el nombre para la nueva variable:</entry>
+	<entry key="Vars.ErrorVarWithReferences">Para eliminar una variable, no debe tener ninguna referencia</entry>
+	<entry key="Vars.ErrorVarAlreadyExists">El identificador de variable introducido ya se encuentra en uso</entry>
+	<entry key="Vars.ErrorVarWhitespaces">El identificador de variable introducido no debe contener espacios en blanco</entry>
+	<entry key="Vars.ConfirmNewVar.Title">¿Crear variable nueva?</entry>
+	<entry key="Vars.ConfirmNewVar.Text">El nombre introducido se parece mucho a otros.
+¿Estás seguro de que quieres crearlo? 
+Si no puedes seleccionar alguno de los que son similares de la lista</entry>
+	<entry key="Flags.ConfirmNewFlag.Title">¿Crear flag nuevo?</entry>
+	<entry key="Flags.ConfirmNewFlag.Text">El nombre introducido se parece mucho a otros.
+¿Estás seguro de que quieres crearlo? 
+Si no puedes seleccionar alguno de los que son similares de la lista</entry>
 
 	<entry key="Conditions.Title">Condiciones</entry>
+	<entry key="Conditions.Type">Tipo</entry>
 	<entry key="Conditions.MainBlockTab">Bloque principal</entry>
 	<entry key="Conditions.MainBlockTitle">Bloque principal de condiciones</entry>
 	<entry key="Conditions.EitherBlockTab">Bloque "o-alternativa" #{#0}</entry>
@@ -509,9 +544,31 @@ Por favor, inténtelo de nuevo cambiando dicho directorio.</entry>
 	<entry key="Conditions.EditCondition">Editar condición</entry>
 	<entry key="Conditions.DeleteCondition">Eliminar condición</entry>
 	<entry key="Conditions.AddEitherBlock">Añadir bloque de condiciones alternativas</entry>
-	<entry key="Conditions.EditConditionMessage">Seleccione los valores para el estado y el flag de la condición:</entry>
-	<entry key="Conditions.State">Estado</entry>
-	<entry key="Conditions.Flag">Flag</entry>
+	<entry key="Conditions.EditConditionMessage">Seleccione el tipo de condición y los campos apropiados para dicho tipo.</entry>
+	<entry key="Conditions.State">Función de comparación</entry>
+	<entry key="Conditions.Flags">Flags</entry>
+	<entry key="Conditions.Flag">Flag/Variable</entry>
+	<entry key="Conditions.Var">Variables</entry>
+<entry key="Conditions.ConditionGroup">Ref. a un Estado Global</entry>
+	<entry key="Conditions.Group.Description">Cuando se va a usar un grupo de condiciones juntas más de una vez
+	es una buena idea definir "Estados Globales". Éstos se pueden referenciar en cualquier bloque de condiciones
+	sin tener que introducirlas una a una otra vez.</entry>
+	<entry key="Conditions.Group.Title">Campos del Estado Global</entry>
+	<entry key="Conditions.Var.Id">Nombre de la variable</entry>
+	<entry key="Conditions.Var.State">Función de comparación</entry>
+	<entry key="Conditions.Var.Value">Valor [0,Inf)</entry>
+	<entry key="Conditions.Var.Description">Esta es la lista de variables del capítulo.
+A las variables se les puede asignar un valor entero en cualquier punto del juego. 
+De esta manera luego se pueden definir condiciones en función del valor de una variable.</entry>
+	<entry key="Conditions.Var.Title">Campos de la variable</entry>
+	<entry key="Conditions.Flag.Id">Nombre del flag</entry>
+	<entry key="Conditions.Flag.State">Valor (active/inactive)</entry>
+	<entry key="Conditions.Flag.Description">Esta es la lista de flags del capítulo.
+Los flags pueden estar activos o inactivos en un momento determinado,como una barrera que puede estar
+levantada o bajada bloqueando o desbloqueando el paso. En el juego se pueden establecer condiciones en
+función de estos estados</entry>
+	<entry key="Conditions.Flag.Title">Campos de la condición basada en flag</entry>
+	<entry key="Conditions.Value">Valor</entry>
 	<entry key="Conditions.ErrorNoFlags">Para añadir una condición, debe haber al menos un flag en el capítulo</entry>
 
 	<entry key="Effects.Title">Efectos</entry>
@@ -525,6 +582,9 @@ Por favor, inténtelo de nuevo cambiando dicho directorio.</entry>
 
 	<entry key="Effect.Activate">Activar</entry>
 	<entry key="Effect.Deactivate">Desactivar</entry>
+	<entry key="Effect.SetValue">Dar valor a variable</entry>
+	<entry key="Effect.IncrementVar">Incrementar variable</entry>
+	<entry key="Effect.DecrementVar">Decrementar variable</entry>	
 	<entry key="Effect.ConsumeObject">Consumir objeto</entry>
 	<entry key="Effect.GenerateObject">Generar objeto</entry>
 	<entry key="Effect.CancelAction">Cancelar acción</entry>
@@ -543,6 +603,9 @@ Por favor, inténtelo de nuevo cambiando dicho directorio.</entry>
 
 	<entry key="Effect.ActivateInfo">Activar flag: {#0}</entry>
 	<entry key="Effect.DeactivateInfo">Desactivar flag: {#0}</entry>
+	<entry key="Effect.SetValueInfo">Dar a la variable "{#0}" el valor "{#1}"</entry>	
+	<entry key="Effect.IncrementVarInfo">Incrementar la variable "{#0}" en "{#1}" unidades</entry>	
+	<entry key="Effect.DecrementVarInfo">Decrementar la variable "{#0}" en "{#1}" unidades</entry>
 	<entry key="Effect.ConsumeObjectInfo">Consumir objeto {#0}</entry>
 	<entry key="Effect.GenerateObjectInfo">Generar objeto {#0}</entry>
 	<entry key="Effect.CancelActionInfo">Cancelar acción por defecto</entry>
@@ -574,6 +637,15 @@ Por favor, inténtelo de nuevo cambiando dicho directorio.</entry>
 
 	<entry key="DeactivateEffect.Title">Efecto desactivar</entry>
 	<entry key="DeactivateEffect.Description">Seleccione el flag que será desactivado:</entry>
+	
+	<entry key="SetValueEffect.Title">Efecto asignar valor a variable</entry>
+	<entry key="SetValueEffect.Description">Seleccione la variable y el valor que se le debe asignar</entry>
+		
+	<entry key="IncrementVarEffect.Title">Efecto incrementar variable</entry>
+	<entry key="IncrementVarEffect.Description">Seleccione la variable y el valor a incrementar</entry>
+	
+	<entry key="DecrementVarEffect.Title">Efecto decrementar variable</entry>
+	<entry key="DecrementVarEffect.Description">Seleccione la variable y el valor a decrementar</entry>
 
 	<entry key="ActivateDeactivateEffect.ErrorNoFlags">Para añadir este tipo de efecto, debe haber al menos un flag en el capítulo</entry>
 
