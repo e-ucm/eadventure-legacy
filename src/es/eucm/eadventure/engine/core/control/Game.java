@@ -1160,7 +1160,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
                 SaveTimer st = new SaveTimer(); 
                 String[] timers = saveGame.getLoadTimers();
                 for (int i=0;i<timers.length;i++){
-                    if (timers.length != 0){
+                    
                 	// take the correct values for each timer
                     	String timer = timers[i];
                     	String[] aux = timer.split("-");
@@ -1174,7 +1174,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
                        	}
                        	// change this values in the current TimerManager
                     	int check = timerManager.changeValueOfTimer(i, st);
-                    	if (check > 0){
+                    	if (check >= 0){
                     		// Put this changes in gameTimers
                     		//gameTimers.get(new Integer(i)).
                     	}   else{
@@ -1185,10 +1185,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
                     		// current time - the time in second that has been
                     		assessmentEngine.getTimedAssessmentRule(new Integer(i)).setStartTime(System.currentTimeMillis()/1000 - Integer.valueOf(aux[2]).longValue());
                     	}
-                    }
-                    else {
-                    	break;
-                    }
+                   
                  }      
                 //TODO no estoy seguro 
                 lastMouseEvent = null;
