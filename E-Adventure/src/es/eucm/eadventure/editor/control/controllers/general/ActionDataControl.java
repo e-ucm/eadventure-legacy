@@ -8,7 +8,7 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
-import es.eucm.eadventure.editor.data.support.FlagSummary;
+import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class ActionDataControl extends DataControl {
 
@@ -223,10 +223,10 @@ public class ActionDataControl extends DataControl {
 	}
 
 	@Override
-	public void updateFlagSummary( FlagSummary flagSummary ) {
+	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
 		// Update the flag summary with the effects of the action
-		EffectsController.updateFlagSummary( flagSummary, action.getEffects( ) );
-		ConditionsController.updateFlagSummary( flagSummary, action.getConditions( ) );
+		EffectsController.updateFlagSummary( varFlagSummary, action.getEffects( ) );
+		ConditionsController.updateFlagSummary( varFlagSummary, action.getConditions( ) );
 	}
 
 	@Override

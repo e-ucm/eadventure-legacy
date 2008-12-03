@@ -9,7 +9,7 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.data.support.FlagSummary;
+import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 import es.eucm.eadventure.editor.gui.assetchooser.AnimationChooser;
 import es.eucm.eadventure.editor.gui.assetchooser.AssetChooser;
 
@@ -318,9 +318,9 @@ public class ResourcesDataControl extends DataControl {
 	}
 
 	@Override
-	public void updateFlagSummary( FlagSummary flagSummary ) {
+	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
 		// Update the flag summary with the conditions
-		ConditionsController.updateFlagSummary( flagSummary, resources.getConditions( ) );
+		ConditionsController.updateFlagSummary( varFlagSummary, resources.getConditions( ) );
 	}
 
 	@Override

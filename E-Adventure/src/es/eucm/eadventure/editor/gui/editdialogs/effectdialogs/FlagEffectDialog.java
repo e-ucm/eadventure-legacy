@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
-import es.eucm.eadventure.editor.control.controllers.FlagsController;
+import es.eucm.eadventure.editor.control.controllers.VarFlagsController;
 
 public class FlagEffectDialog extends EffectDialog {
 
@@ -37,12 +37,12 @@ public class FlagEffectDialog extends EffectDialog {
 	/**
 	 * Texts for the different titles of the dialogs.
 	 */
-	private static final String[] dialogTitles = { "FunctionalActivateEffect.Title", "FunctionalDeactivateEffect.Title" };
+	private static final String[] dialogTitles = { "ActivateEffect.Title", "DeactivateEffect.Title" };
 
 	/**
 	 * Texts for the different descriptions of the dialogs.
 	 */
-	private static final String[] dialogDescriptions = { "FunctionalActivateEffect.Description", "FunctionalDeactivateEffect.Description" };
+	private static final String[] dialogDescriptions = { "ActivateEffect.Description", "DeactivateEffect.Description" };
 
 	/**
 	 * Combo box with the flags.
@@ -63,7 +63,7 @@ public class FlagEffectDialog extends EffectDialog {
 		super( TextConstants.getText( dialogTitles[type] ) );
 
 		// Take the array of flags
-		String[] flagsArray = controller.getFlagSummary( ).getFlags( );
+		String[] flagsArray = controller.getVarFlagSummary( ).getFlags( );
 
 		// If it is not empty
 		//if( flagsArray.length > 0 ) {
@@ -109,16 +109,16 @@ public class FlagEffectDialog extends EffectDialog {
 		// Create a set of properties, and put the selected value
 		properties = new HashMap<Integer, String>( );
 		
-		FlagsController flagsController = new FlagsController(Controller.getInstance().getFlagSummary( ));
+		VarFlagsController varFlagsController = new VarFlagsController(Controller.getInstance().getVarFlagSummary( ));
 		String flag = null;
 		if (flagsComboBox.getSelectedItem( )!=null)
 			flag = flagsComboBox.getSelectedItem( ).toString( );
 		
-		if (flagsController.existsFlag(flag)){
+		if (varFlagsController.existsFlag(flag)){
 			properties.put( EffectsController.EFFECT_PROPERTY_TARGET, flag );			
 		}
 		else{
-			String flagAdded = flagsController.addShortCutFlag( flag );
+			String flagAdded = varFlagsController.addShortCutFlagVar( true, flag );
 			if (flagAdded!=null){
 				properties.put( EffectsController.EFFECT_PROPERTY_TARGET, flagAdded );
 			} else

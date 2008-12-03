@@ -7,7 +7,7 @@ import es.eucm.eadventure.common.data.chapter.Exit;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.data.support.FlagSummary;
+import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class ExitsListDataControl extends DataControl {
 
@@ -176,10 +176,10 @@ public class ExitsListDataControl extends DataControl {
 	}
 
 	@Override
-	public void updateFlagSummary( FlagSummary flagSummary ) {
+	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
 		// Iterate through each exit
 		for( ExitDataControl exitDataControl : exitsDataControlList )
-			exitDataControl.updateFlagSummary( flagSummary );
+			exitDataControl.updateFlagSummary( varFlagSummary );
 	}
 
 	@Override

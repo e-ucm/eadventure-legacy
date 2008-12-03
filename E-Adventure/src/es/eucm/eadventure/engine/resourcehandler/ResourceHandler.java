@@ -84,10 +84,13 @@ public abstract class ResourceHandler implements InputStreamCreator{
         ResourceHandler handler = null;
         if( !isExternalMode && isRestrictedMode ) {
             handler = ResourceHandlerRestricted.getInstance( );
+            System.out.println("Qué si coño, que es modo restringido");
         } else if (!isExternalMode){
             handler = ResourceHandlerUnrestricted.getInstance( );
+            System.out.println("Modo no restringido");
         } else {
         	handler = ResourceHandlerExternalSource.getInstance();
+            System.out.println("Modo externo");
         }
         return handler;
     }

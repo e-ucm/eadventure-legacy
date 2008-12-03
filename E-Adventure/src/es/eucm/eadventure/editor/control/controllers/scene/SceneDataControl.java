@@ -10,7 +10,7 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
-import es.eucm.eadventure.editor.data.support.FlagSummary;
+import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class SceneDataControl extends DataControlWithResources {
 
@@ -436,12 +436,12 @@ public class SceneDataControl extends DataControlWithResources {
 	}
 
 	@Override
-	public void updateFlagSummary( FlagSummary flagSummary ) {
+	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
 		// Update the flag summary with the exits, item and character references
-		exitsListDataControl.updateFlagSummary( flagSummary );
-		itemReferencesListDataControl.updateFlagSummary( flagSummary );
-		npcReferencesListDataControl.updateFlagSummary( flagSummary );
-		this.activeAreasListDataControl.updateFlagSummary( flagSummary );
+		exitsListDataControl.updateFlagSummary( varFlagSummary );
+		itemReferencesListDataControl.updateFlagSummary( varFlagSummary );
+		npcReferencesListDataControl.updateFlagSummary( varFlagSummary );
+		this.activeAreasListDataControl.updateFlagSummary( varFlagSummary );
 	}
 
 	@Override

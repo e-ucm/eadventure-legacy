@@ -7,7 +7,7 @@ import es.eucm.eadventure.common.data.chapter.ElementReference;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.data.support.FlagSummary;
+import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class ItemReferencesListDataControl extends DataControl {
 
@@ -181,10 +181,10 @@ public class ItemReferencesListDataControl extends DataControl {
 	}
 
 	@Override
-	public void updateFlagSummary( FlagSummary flagSummary ) {
+	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
 		// Iterate through each item
 		for( ElementReferenceDataControl elementReferenceDataControl : itemReferencesDataControlList )
-			elementReferenceDataControl.updateFlagSummary( flagSummary );
+			elementReferenceDataControl.updateFlagSummary( varFlagSummary );
 	}
 
 	@Override

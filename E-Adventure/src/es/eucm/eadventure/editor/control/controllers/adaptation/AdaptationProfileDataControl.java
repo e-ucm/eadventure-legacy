@@ -12,7 +12,7 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.data.support.FlagSummary;
+import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class AdaptationProfileDataControl extends DataControl{
 
@@ -232,13 +232,13 @@ public class AdaptationProfileDataControl extends DataControl{
 	}
 
 	@Override
-	public void updateFlagSummary( FlagSummary flagSummary ) {
+	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
 		for (AdaptationRuleDataControl dataControl : dataControls)
-			dataControl.updateFlagSummary( flagSummary );
+			dataControl.updateFlagSummary( varFlagSummary );
 		
 		//Update the initial state
 		for (String flag: profile.getInitialState().getFlagsVars( )){
-			flagSummary.addReference( flag );	
+			varFlagSummary.addFlagReference( flag );	
 		}
 		
 	}
@@ -271,7 +271,7 @@ public class AdaptationProfileDataControl extends DataControl{
 		boolean added=false;
 		//Check there is at least one flag
 
-		String[] flags = Controller.getInstance( ).getFlagSummary( ).getFlags( );
+		String[] flags = Controller.getInstance( ).getVarFlagSummary( ).getFlags( );
 		if (flags!=null && flags.length>0){
 
 			//	By default, the flag is activated. Default flag will be the first one

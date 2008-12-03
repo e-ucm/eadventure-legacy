@@ -7,7 +7,7 @@ import es.eucm.eadventure.common.data.chapter.elements.Barrier;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ActionsListDataControl;
-import es.eucm.eadventure.editor.data.support.FlagSummary;
+import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class BarrierDataControl extends DataControl {
 
@@ -273,8 +273,8 @@ public class BarrierDataControl extends DataControl {
 	}
 
 	@Override
-	public void updateFlagSummary( FlagSummary flagSummary ) {
-		ConditionsController.updateFlagSummary( flagSummary, barrier.getConditions( ) );
+	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
+		ConditionsController.updateFlagSummary( varFlagSummary, barrier.getConditions( ) );
 	}
 
 	@Override

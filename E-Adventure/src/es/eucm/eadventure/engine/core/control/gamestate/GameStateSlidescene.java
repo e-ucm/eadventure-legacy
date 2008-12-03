@@ -4,7 +4,6 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 
 import es.eucm.eadventure.common.data.chapter.NextScene;
-import es.eucm.eadventure.common.data.chapter.book.Book;
 import es.eucm.eadventure.common.data.chapter.resources.Asset;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.data.chapter.scenes.Slidescene;
@@ -56,11 +55,11 @@ public class GameStateSlidescene extends GameState {
            // Take the old and the new music path
             String oldMusicPath = null;
             for( int i = 0; i < game.getFunctionalScene( ).getScene( ).getResources( ).size( ) && oldMusicPath == null; i++ )
-                if( game.getFunctionalScene( ).getScene( ).getResources( ).get( i ).getConditions( ).allConditionsOk( ) )
+                if( new FunctionalConditions ( game.getFunctionalScene( ).getScene( ).getResources( ).get( i ).getConditions( ) ).allConditionsOk( ) )
                     oldMusicPath = game.getFunctionalScene( ).getScene( ).getResources( ).get( i ).getAssetPath( Scene.RESOURCE_TYPE_MUSIC );
             String newMusicPath = null;
             for( int i = 0; i < slidescene.getResources( ).size( ) && newMusicPath == null; i++ )
-                if( slidescene.getResources( ).get( i ).getConditions( ).allConditionsOk( ) )
+                if( new FunctionalConditions ( slidescene.getResources( ).get( i ).getConditions( ) ).allConditionsOk( ) )
                     newMusicPath = slidescene.getResources( ).get( i ).getAssetPath( Scene.RESOURCE_TYPE_MUSIC );
             
             // If the music paths are the same, take the music identifier

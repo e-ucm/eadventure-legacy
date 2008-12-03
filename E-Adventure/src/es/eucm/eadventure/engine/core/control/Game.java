@@ -12,11 +12,9 @@ import java.awt.event.MouseMotionListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 import java.util.Stack;
 
 import javax.swing.JButton;
@@ -33,7 +31,6 @@ import es.eucm.eadventure.common.data.chapter.NextScene;
 import es.eucm.eadventure.common.data.chapter.Timer;
 import es.eucm.eadventure.common.data.chapter.book.Book;
 import es.eucm.eadventure.common.data.chapter.conversation.Conversation;
-import es.eucm.eadventure.common.data.chapter.scenes.GeneralScene;
 import es.eucm.eadventure.common.data.chapter.scenes.Scene;
 import es.eucm.eadventure.engine.adaptation.AdaptationEngine;
 import es.eucm.eadventure.engine.assessment.AssessmentEngine;
@@ -383,7 +380,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         new GameStateOptions( );
 
         // By default, set the initial scene taking it from the XML script
-        GeneralScene initialScene = gameData.getInitialGeneralScene( );
+        //GeneralScene initialScene = gameData.getInitialGeneralScene( );
         NextScene firstScene = new NextScene( gameData.getInitialGeneralScene( ).getId( ) );
         
         // If there is an adapted state to be executed

@@ -10,7 +10,7 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ExitLookDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.NextSceneDataControl;
-import es.eucm.eadventure.editor.data.support.FlagSummary;
+import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class ExitDataControl extends DataControl {
 
@@ -278,10 +278,10 @@ public class ExitDataControl extends DataControl {
 	}
 
 	@Override
-	public void updateFlagSummary( FlagSummary flagSummary ) {
+	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
 		// Iterate through each next scene
 		for( NextSceneDataControl nextSceneDataControl : nextScenesDataControlList )
-			nextSceneDataControl.updateFlagSummary( flagSummary );
+			nextSceneDataControl.updateFlagSummary( varFlagSummary );
 	}
 
 	@Override

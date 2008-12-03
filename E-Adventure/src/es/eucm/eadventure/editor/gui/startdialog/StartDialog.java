@@ -565,10 +565,10 @@ public class StartDialog extends JFileChooser {
 					String path = (String) value;
 					DescriptorData d = Loader.loadDescriptorData( AssetsController.getInputStreamCreator(path) );
 
-					if( d.getPlayerMode( ) == DescriptorData.MODE_PLAYER_3RDPERSON ) {
+					if( d.getPlayerMode( ) == DescriptorData.MODE_PLAYER_1STPERSON ) {
 						return new JLabel( new ImageIcon( "img/TransparentAdventure32.png" ) );
 						//return panelIcon;
-					} else if( d.getPlayerMode( ) == DescriptorData.MODE_PLAYER_1STPERSON ) {
+					} else if( d.getPlayerMode( ) == DescriptorData.MODE_PLAYER_3RDPERSON ) {
 						return new JLabel( new ImageIcon( "img/NormalAdventure32.png" ) );
 						//return panelIcon;
 					} else {

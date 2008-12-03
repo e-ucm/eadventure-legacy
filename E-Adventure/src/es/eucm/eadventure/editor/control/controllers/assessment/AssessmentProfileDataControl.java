@@ -12,7 +12,7 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.data.support.FlagSummary;
+import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class AssessmentProfileDataControl extends DataControl{
 
@@ -229,9 +229,9 @@ public class AssessmentProfileDataControl extends DataControl{
 	}
 
 	@Override
-	public void updateFlagSummary( FlagSummary flagSummary ) {
+	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
 		for (AssessmentRuleDataControl dataControl : dataControls)
-			dataControl.updateFlagSummary( flagSummary );
+			dataControl.updateFlagSummary( varFlagSummary );
 		
 	}
 

@@ -26,7 +26,7 @@ import es.eucm.eadventure.editor.control.controllers.cutscene.CutscenesListDataC
 import es.eucm.eadventure.editor.control.controllers.item.ItemsListDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ScenesListDataControl;
 import es.eucm.eadventure.editor.control.controllers.timer.TimersListDataControl;
-import es.eucm.eadventure.editor.data.support.FlagSummary;
+import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 /**
  * Controller for the main element of the script.
@@ -405,19 +405,19 @@ public class ChapterDataControl extends DataControl {
 	}
 
 	@Override
-	public void updateFlagSummary( FlagSummary flagSummary ) {
+	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
 		// First of all, clear the summary
-		flagSummary.clear( );
+		varFlagSummary.clear( );
 
 		// Update the summary with the elements
-		scenesListDataControl.updateFlagSummary( flagSummary );
-		cutscenesListDataControl.updateFlagSummary( flagSummary );
-		itemsListDataControl.updateFlagSummary( flagSummary );
-		npcsListDataControl.updateFlagSummary( flagSummary );
-		conversationsListDataControl.updateFlagSummary( flagSummary );
+		scenesListDataControl.updateFlagSummary( varFlagSummary );
+		cutscenesListDataControl.updateFlagSummary( varFlagSummary );
+		itemsListDataControl.updateFlagSummary( varFlagSummary );
+		npcsListDataControl.updateFlagSummary( varFlagSummary );
+		conversationsListDataControl.updateFlagSummary( varFlagSummary );
 		//assessmentProfilesDataControl.updateFlagSummary( flagSummary );
 		//adaptationProfilesDataControl.updateFlagSummary( flagSummary );
-		timersListDataControl.updateFlagSummary( flagSummary );
+		timersListDataControl.updateFlagSummary( varFlagSummary );
 	}
 
 	@Override

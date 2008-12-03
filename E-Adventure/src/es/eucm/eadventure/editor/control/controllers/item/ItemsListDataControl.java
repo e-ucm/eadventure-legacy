@@ -8,7 +8,7 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.cutscene.CutsceneDataControl;
-import es.eucm.eadventure.editor.data.support.FlagSummary;
+import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class ItemsListDataControl extends DataControl {
 
@@ -188,10 +188,10 @@ public class ItemsListDataControl extends DataControl {
 	}
 
 	@Override
-	public void updateFlagSummary( FlagSummary flagSummary ) {
+	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
 		// Iterate through each item
 		for( ItemDataControl itemDataControl : itemsDataControlList )
-			itemDataControl.updateFlagSummary( flagSummary );
+			itemDataControl.updateFlagSummary( varFlagSummary );
 	}
 
 	@Override

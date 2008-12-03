@@ -11,14 +11,17 @@ import org.w3c.dom.Node;
 import es.eucm.eadventure.common.data.chapter.effects.ActivateEffect;
 import es.eucm.eadventure.common.data.chapter.effects.ConsumeObjectEffect;
 import es.eucm.eadventure.common.data.chapter.effects.DeactivateEffect;
+import es.eucm.eadventure.common.data.chapter.effects.DecrementVarEffect;
 import es.eucm.eadventure.common.data.chapter.effects.Effect;
 import es.eucm.eadventure.common.data.chapter.effects.Effects;
 import es.eucm.eadventure.common.data.chapter.effects.GenerateObjectEffect;
+import es.eucm.eadventure.common.data.chapter.effects.IncrementVarEffect;
 import es.eucm.eadventure.common.data.chapter.effects.MoveNPCEffect;
 import es.eucm.eadventure.common.data.chapter.effects.MovePlayerEffect;
 import es.eucm.eadventure.common.data.chapter.effects.PlayAnimationEffect;
 import es.eucm.eadventure.common.data.chapter.effects.PlaySoundEffect;
 import es.eucm.eadventure.common.data.chapter.effects.RandomEffect;
+import es.eucm.eadventure.common.data.chapter.effects.SetValueEffect;
 import es.eucm.eadventure.common.data.chapter.effects.SpeakCharEffect;
 import es.eucm.eadventure.common.data.chapter.effects.SpeakPlayerEffect;
 import es.eucm.eadventure.common.data.chapter.effects.TriggerBookEffect;
@@ -106,6 +109,24 @@ public class EffectsDOMWriter {
 				DeactivateEffect deactivateEffect = (DeactivateEffect) effect;
 				effectElement = doc.createElement( "deactivate" );
 				effectElement.setAttribute( "flag", deactivateEffect.getIdFlag( ) );
+				break;
+			case Effect.SET_VALUE:
+				SetValueEffect setValueEffect = (SetValueEffect) effect;
+				effectElement = doc.createElement( "set-value" );
+				effectElement.setAttribute("var", setValueEffect.getIdVar());
+				effectElement.setAttribute("value", Integer.toString( setValueEffect.getValue() ) );
+				break;
+			case Effect.INCREMENT_VAR:
+				IncrementVarEffect incrementVarEffect = (IncrementVarEffect) effect;
+				effectElement = doc.createElement( "increment" );
+				effectElement.setAttribute("var", incrementVarEffect.getIdVar());
+				effectElement.setAttribute("value", Integer.toString( incrementVarEffect.getIncrement() ) );
+				break;
+			case Effect.DECREMENT_VAR:
+				DecrementVarEffect decrementVarEffect = (DecrementVarEffect) effect;
+				effectElement = doc.createElement( "decrement" );
+				effectElement.setAttribute("var", decrementVarEffect.getIdVar());
+				effectElement.setAttribute("value", Integer.toString( decrementVarEffect.getDecrement() ) );
 				break;
 			case Effect.CONSUME_OBJECT:
 				ConsumeObjectEffect consumeObjectEffect = (ConsumeObjectEffect) effect;

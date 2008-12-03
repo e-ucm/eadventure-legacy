@@ -8,7 +8,7 @@ import es.eucm.eadventure.common.data.chapter.elements.Barrier;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.data.support.FlagSummary;
+import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class BarriersListDataControl extends DataControl {
 
@@ -179,10 +179,10 @@ public class BarriersListDataControl extends DataControl {
 	}
 
 	@Override
-	public void updateFlagSummary( FlagSummary flagSummary ) {
+	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
 		// Iterate through each activeArea
 		for( BarrierDataControl barrierDataControl : barriersDataControlList )
-			barrierDataControl.updateFlagSummary( flagSummary );
+			barrierDataControl.updateFlagSummary( varFlagSummary );
 	}
 
 	@Override

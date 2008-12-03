@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
-import es.eucm.eadventure.editor.data.support.FlagSummary;
+import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class HTMLEditController extends DataControlWithResources {
 
@@ -161,7 +161,7 @@ public class HTMLEditController extends DataControlWithResources {
 	}
 
 	@Override
-	public void updateFlagSummary(FlagSummary flagSummary) {
+	public void updateFlagSummary(VarFlagSummary varFlagSummary) {
 		// TODO Auto-generated method stub
 
 	}
