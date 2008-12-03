@@ -145,6 +145,10 @@ public class GameLauncher extends JFrame implements Runnable {
      * Flag to close the window in the next iteration of the thread
      */
     private boolean end;
+    /**
+     * Flag to indicate if we are loading a game from the command line
+     */
+    private boolean initGameLoad;
 
     /**
      * Creates a new GameLaucher. This constructor does actually nothing,
@@ -159,6 +163,7 @@ public class GameLauncher extends JFrame implements Runnable {
      */
     public void init( File file ) {
 
+    	initGameLoad = false;
         // Load the configuration
         ConfigData.loadFromXML( EAdventure.CONFIG_FILE );
         languageFile = ConfigData.getLanguangeFile( );
@@ -228,6 +233,7 @@ public class GameLauncher extends JFrame implements Runnable {
             else if ( file.exists( ) ){
                 lstGames.setSelectedIndex( 1 );
                 lstGames.setSelectedValue( file, false );
+                initGameLoad = true;
                 loadIndividualFile( file );
             } 
        } catch (IOException e) {} 
@@ -438,7 +444,8 @@ public class GameLauncher extends JFrame implements Runnable {
                         ResourceHandler.delete( );
                         this.setVisible( true );
                     }
-                    System.exit( 0 );
+                    if ( initGameLoad)
+                    	System.exit( 0 );
                 }
                 Thread.sleep( 10 );
             } catch( InterruptedException e ) {
@@ -447,8 +454,9 @@ public class GameLauncher extends JFrame implements Runnable {
         this.setEnabled( false );
         this.setVisible( false );
         this.setFocusable( false );
-
-        System.exit( 0 );
+        
+        if ( !initGameLoad)
+        	System.exit( 0 );
     }
 
     /**
