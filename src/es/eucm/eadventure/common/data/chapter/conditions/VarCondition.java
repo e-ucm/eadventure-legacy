@@ -8,6 +8,16 @@ package es.eucm.eadventure.common.data.chapter.conditions;
 public class VarCondition extends Condition{
 
 	/**
+	 * MIN VALUE
+	 */
+	public static final int MIN_VALUE = 0;
+	
+	/**
+	 * MAX VALUE
+	 */
+	public static final int MAX_VALUE = Integer.MAX_VALUE;
+	
+	/**
 	 * The value of the var-condition
 	 */
 	private int value;
@@ -21,6 +31,7 @@ public class VarCondition extends Condition{
 	public VarCondition(String flagVar, int state, int value) {
 		super(flagVar, state);
 		this.value = value;
+		this.type = VAR_CONDITION;
 	}
 
 	/**

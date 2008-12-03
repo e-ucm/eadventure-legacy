@@ -45,6 +45,21 @@ public class Condition {
 	 */
 	public static final int VAR_LESS_THAN = 6;
 
+	/**
+	 * Condition based on var
+	 */
+	public static final int VAR_CONDITION = 0;
+	
+	/**
+	 * Condition based on flag
+	 */
+	public static final int FLAG_CONDITION = 1;
+	
+	/**
+	 * Condition based on condition group
+	 */
+	public static final int GROUP_CONDITION = 2;
+
 
 	/**
 	 * Name of the flag to be checked
@@ -57,6 +72,11 @@ public class Condition {
 	protected int state;
 
 	/**
+	 * Type of the condition ({@link #VAR_CONDITION}, {@link #FLAG_CONDITION} or {@link #GROUP_CONDITION}
+	 */
+	protected int type;
+
+	/**
 	 * Creates a new condition
 	 * 
 	 * @param flagVar
@@ -67,6 +87,7 @@ public class Condition {
 	 *                   {@link #VAR_LESS_THAN} 
 	 */
 	public Condition( String flagVar, int state ) {
+		this.type = FLAG_CONDITION;
 		this.flagVar = flagVar;
 		this.state = state;
 	}
@@ -128,5 +149,12 @@ public class Condition {
 	 */
 	public void setState( int state ) {
 		this.state = state;
+	}
+
+	/**
+	 * @return the type
+	 */
+	public int getType() {
+		return type;
 	}
 }

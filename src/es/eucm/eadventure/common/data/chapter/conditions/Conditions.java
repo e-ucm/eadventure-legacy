@@ -3,8 +3,6 @@ package es.eucm.eadventure.common.data.chapter.conditions;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.eucm.eadventure.engine.core.control.FlagSummary;
-import es.eucm.eadventure.engine.core.control.Game;
 
 /**
  * This class holds a list of conditions
@@ -108,52 +106,4 @@ public class Conditions {
 		return eitherConditions.get( index );
 	}
 
-    /**
-     * Returns whether all the conditions are ok
-     * @return true if all the conditions are ok, false otherwise
-     */
-    public boolean allConditionsOk( ) {
-        boolean conditionsOK = true;
-
-        conditionsOK = evaluateSimpleConditionsWithAND( );
-        
-        for( Conditions eitherCondition : eitherConditions )
-            if( conditionsOK )
-                conditionsOK = eitherCondition.evaluateSimpleConditionsWithOR( );
-            
-
-        return conditionsOK;
-    }
-    
-    /**
-     * Returns whether all the conditions are satisfied
-     * @return true if all the conditions are satisfied, false otherwise
-     */
-    private boolean evaluateSimpleConditionsWithAND( ) {
-        boolean evaluation = true;
-        
-        FlagSummary flags = Game.getInstance( ).getFlags( );
-        
-        for( Condition condition : conditions )
-            if( evaluation )
-                evaluation = condition.isActiveState() == flags.isActiveFlag( condition.getFlagVar() );
-        
-        return evaluation;
-    }
-    
-    /**
-     * Returns whether at least one condition is satisfied
-     * @return true if at least one condition is satisfied, false otherwise
-     */
-    private boolean evaluateSimpleConditionsWithOR( ) {
-        boolean evaluation = false;
-        
-        FlagSummary flags = Game.getInstance( ).getFlags( );
-        
-        for( Condition condition : conditions )
-            if( !evaluation )
-                evaluation = condition.isActiveState() == flags.isActiveFlag( condition.getFlagVar() );
-        
-        return evaluation;
-    }
 }
