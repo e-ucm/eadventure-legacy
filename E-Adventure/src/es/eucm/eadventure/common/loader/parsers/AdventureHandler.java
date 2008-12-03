@@ -1,6 +1,5 @@
 package es.eucm.eadventure.common.loader.parsers;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -15,8 +14,6 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
-
-import java.io.FileInputStream;
 
 import es.eucm.eadventure.common.data.adaptation.AdaptationProfile;
 import es.eucm.eadventure.common.data.adventure.AdventureData;
@@ -49,11 +46,6 @@ public class AdventureHandler extends DefaultHandler {
 	 * Stores the current element being read.
 	 */
 	private int reading = READING_NONE;
-
-	/**
-	 * Stores the zip path in which the chapters must be searched.
-	 */
-	private String zipFile;
 
 	/**
 	 * Adventure data being read.
