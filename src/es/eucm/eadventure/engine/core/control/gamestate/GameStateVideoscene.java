@@ -118,7 +118,7 @@ public class GameStateVideoscene extends GameState  implements ControllerListene
             NextScene nextScene = null;
 
             for( NextScene currentNextScene : videoscene.getNextScenes( ) )
-                if( currentNextScene.getConditions( ).allConditionsOk( ) )
+                if( new FunctionalConditions ( currentNextScene.getConditions( ) ).allConditionsOk( ) )
                     nextScene = currentNextScene;
 
             if( nextScene != null ) {

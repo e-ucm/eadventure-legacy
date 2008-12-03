@@ -10,7 +10,7 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
-import es.eucm.eadventure.editor.data.support.FlagSummary;
+import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class TreeConversationDataControl extends ConversationDataControl {
 
@@ -460,28 +460,28 @@ public class TreeConversationDataControl extends ConversationDataControl {
 	}
 
 	@Override
-	public void updateFlagSummary( FlagSummary flagSummary ) {
-		updateFlagSummaryInNode( flagSummary, treeConversation.getRootNode( ) );
+	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
+		updateFlagSummaryInNode( varFlagSummary, treeConversation.getRootNode( ) );
 	}
 
 	/**
 	 * Updates the given flag summary, adding the flag references contained in the given node. This method works
 	 * recursively.
 	 * 
-	 * @param flagSummary
+	 * @param varFlagSummary
 	 *            Flag summary to update
 	 * @param conversationNode
 	 *            Node in which the identifier must be searched
 	 */
-	public void updateFlagSummaryInNode( FlagSummary flagSummary, ConversationNode conversationNode ) {
+	public void updateFlagSummaryInNode( VarFlagSummary varFlagSummary, ConversationNode conversationNode ) {
 		// Update the summary with the effects
 		if( conversationNode.hasEffects( ) )
-			EffectsController.updateFlagSummary( flagSummary, conversationNode.getEffects( ) );
+			EffectsController.updateFlagSummary( varFlagSummary, conversationNode.getEffects( ) );
 
 		// Spread the call to the children (if the node hasn't got a go-back tag)
 		if( !TreeConversation.thereIsGoBackTag( conversationNode ) )
 			for( int i = 0; i < conversationNode.getChildCount( ); i++ )
-				updateFlagSummaryInNode( flagSummary, conversationNode.getChild( i ) );
+				updateFlagSummaryInNode( varFlagSummary, conversationNode.getChild( i ) );
 	}
 
 	@Override

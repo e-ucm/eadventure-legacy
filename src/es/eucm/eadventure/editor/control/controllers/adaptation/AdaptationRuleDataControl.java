@@ -10,7 +10,7 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.data.support.FlagSummary;
+import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 import java.util.regex.Pattern;
 
@@ -110,9 +110,9 @@ public class AdaptationRuleDataControl extends DataControl{
 	}
 
 	@Override
-	public void updateFlagSummary( FlagSummary flagSummary ) {
+	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
 		for (String flag: adaptationRule.getAdaptedState( ).getFlagsVars( )){
-			flagSummary.addReference( flag );	
+			varFlagSummary.addFlagReference( flag );	
 		}
 		
 	}
@@ -165,7 +165,7 @@ public class AdaptationRuleDataControl extends DataControl{
 		boolean added=false;
 		//Check there is at least one flag
 
-		String[] flags = Controller.getInstance( ).getFlagSummary( ).getFlags( );
+		String[] flags = Controller.getInstance( ).getVarFlagSummary( ).getFlags( );
 		if (flags!=null && flags.length>0){
 
 			//	By default, the flag is activated. Default flag will be the first one

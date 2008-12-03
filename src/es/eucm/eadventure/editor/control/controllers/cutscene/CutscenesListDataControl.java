@@ -11,7 +11,7 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
-import es.eucm.eadventure.editor.data.support.FlagSummary;
+import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class CutscenesListDataControl extends DataControl {
 
@@ -232,10 +232,10 @@ public class CutscenesListDataControl extends DataControl {
 	}
 
 	@Override
-	public void updateFlagSummary( FlagSummary flagSummary ) {
+	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
 		// Iterate through each cutscene
 		for( CutsceneDataControl cutsceneDataControl : cutscenesDataControlList )
-			cutsceneDataControl.updateFlagSummary( flagSummary );
+			cutsceneDataControl.updateFlagSummary( varFlagSummary );
 	}
 
 	@Override

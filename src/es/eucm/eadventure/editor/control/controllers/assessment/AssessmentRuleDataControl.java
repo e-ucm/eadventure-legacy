@@ -9,7 +9,7 @@ import es.eucm.eadventure.common.data.assessment.TimedAssessmentRule;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.data.support.FlagSummary;
+import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 import java.util.regex.Pattern;
 
@@ -138,13 +138,13 @@ public class AssessmentRuleDataControl extends DataControl{
 	}
 
 	@Override
-	public void updateFlagSummary( FlagSummary flagSummary ) {
+	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
 		if (this.isTimedRule( )){
 			TimedAssessmentRule tRule = (TimedAssessmentRule)assessmentRule;
-			ConditionsController.updateFlagSummary( flagSummary, tRule.getInitConditions( ) );
-			ConditionsController.updateFlagSummary( flagSummary, tRule.getEndConditions( ) );
+			ConditionsController.updateFlagSummary( varFlagSummary, tRule.getInitConditions( ) );
+			ConditionsController.updateFlagSummary( varFlagSummary, tRule.getEndConditions( ) );
 		}else
-		ConditionsController.updateFlagSummary( flagSummary, assessmentRule.getConditions( ) );
+		ConditionsController.updateFlagSummary( varFlagSummary, assessmentRule.getConditions( ) );
 		
 	}
 

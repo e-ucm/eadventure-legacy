@@ -8,7 +8,7 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
-import es.eucm.eadventure.editor.data.support.FlagSummary;
+import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class TimerDataControl extends DataControl {
 
@@ -148,12 +148,12 @@ public class TimerDataControl extends DataControl {
 	}
 
 	@Override
-	public void updateFlagSummary( FlagSummary flagSummary ) {
+	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
 		// Update the summary with conditions and both blocks of effects
-		ConditionsController.updateFlagSummary( flagSummary, timer.getInitCond( ) );
-		ConditionsController.updateFlagSummary( flagSummary, timer.getEndCond( ) );
-		EffectsController.updateFlagSummary( flagSummary, timer.getEffects( ) );
-		EffectsController.updateFlagSummary( flagSummary, timer.getPostEffects( ) );
+		ConditionsController.updateFlagSummary( varFlagSummary, timer.getInitCond( ) );
+		ConditionsController.updateFlagSummary( varFlagSummary, timer.getEndCond( ) );
+		EffectsController.updateFlagSummary( varFlagSummary, timer.getEffects( ) );
+		EffectsController.updateFlagSummary( varFlagSummary, timer.getPostEffects( ) );
 	}
 
 	@Override

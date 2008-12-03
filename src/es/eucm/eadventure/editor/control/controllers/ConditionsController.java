@@ -2,8 +2,9 @@ package es.eucm.eadventure.editor.control.controllers;
 
 import es.eucm.eadventure.common.data.chapter.conditions.Condition;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
+import es.eucm.eadventure.common.data.chapter.conditions.VarCondition;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.data.support.FlagSummary;
+import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 /**
  * Controller for the conditions. This class operates on the conditions blocks to add new single conditions, and either
@@ -13,6 +14,9 @@ import es.eucm.eadventure.editor.data.support.FlagSummary;
  */
 public class ConditionsController {
 
+	public static final int VAR_CONDITION = Condition.VAR_CONDITION;
+	public static final int FLAG_CONDITION = Condition.FLAG_CONDITION;
+	
 	/**
 	 * Constant for the index of the main conditions block.
 	 */
@@ -22,9 +26,18 @@ public class ConditionsController {
 	 * String values for the states of a condition
 	 */
 	public static final String[] STATE_VALUES = { "Active", "Inactive", 
-		"Greater than", "Greater equals than",
-		"Less than", "Less equals than", "Equals"
-		};
+		">", ">=","<", "<=", "="
+	};
+	
+	/**
+	 * String values for the states of a flag condition
+	 */
+	public static final String[] STATE_VALUES_FLAGS = { "Active", "Inactive" };
+	
+	/**
+	 * String values for the states of a varcondition
+	 */
+	public static final String[] STATE_VALUES_VARS = { ">", ">=","<", "<=", "=" };
 
 	/**
 	 * Link to the main controller.
@@ -34,12 +47,14 @@ public class ConditionsController {
 	/**
 	 * Link to the flags summary.
 	 */
-	private FlagSummary flagSummary;
+	private VarFlagSummary varFlagSummary;
 
 	/**
 	 * Conditions data.
 	 */
 	private Conditions conditions;
+	
+	
 
 	/**
 	 * Constructor.
@@ -50,7 +65,7 @@ public class ConditionsController {
 	public ConditionsController( Conditions conditions ) {
 		this.conditions = conditions;
 		controller = Controller.getInstance( );
-		flagSummary = controller.getFlagSummary( );
+		varFlagSummary = controller.getVarFlagSummary( );
 	}
 
 	/**
@@ -59,7 +74,8 @@ public class ConditionsController {
 	 * @return True if the controller can add conditions, false otherwise
 	 */
 	public boolean canAddConditions( ) {
-		return controller.getFlagSummary( ).getFlagCount( ) > 0;
+		return controller.getVarFlagSummary( ).getFlagCount( ) > 0 || 
+		controller.getVarFlagSummary( ).getVarCount( ) > 0;
 	}
 
 	/**
@@ -114,6 +130,74 @@ public class ConditionsController {
 
 		return conditionId;
 	}
+	
+	/**
+	 * Returns the id of the condition in the given position of the given block.
+	 * 
+	 * @param blockIndex
+	 *            The index of the conditions block. Use MAIN_CONDITIONS_BLOCK (-1) to select the main block of
+	 *            conditions, and values from 0 to getEitherConditionsBlockCount( ) to access the either blocks of
+	 *            conditions
+	 * @param conditionIndex
+	 *            Index of the condition
+	 * @return Id of the condition
+	 */
+	public int getConditionType( int blockIndex, int conditionIndex ) {
+		int conditionType;
+
+		if( blockIndex == MAIN_CONDITIONS_BLOCK )
+			conditionType = conditions.getMainConditions( ).get( conditionIndex ).getType();
+
+		else
+			conditionType = conditions.getEitherConditions( blockIndex ).get( conditionIndex ).getType();
+
+		return conditionType;
+	}
+	
+	
+	/**
+	 * Checks if the selected condition is a var or a flag condition
+	 * 
+	 * @param blockIndex
+	 *            The index of the conditions block. Use MAIN_CONDITIONS_BLOCK (-1) to select the main block of
+	 *            conditions, and values from 0 to getEitherConditionsBlockCount( ) to access the either blocks of
+	 *            conditions
+	 * @param conditionIndex
+	 *            Index of the condition
+	 * @return Id of the condition
+	 */
+	public boolean isFlagCondtion( int blockIndex, int conditionIndex ) {
+		boolean isFlag = false;
+
+		if( blockIndex == MAIN_CONDITIONS_BLOCK )
+			isFlag = conditions.getMainConditions( ).get( conditionIndex ).getType() == Condition.FLAG_CONDITION;
+		else
+			isFlag = conditions.getEitherConditions( blockIndex ).get( conditionIndex ).getType() == Condition.FLAG_CONDITION;
+
+		return isFlag;
+	}
+	
+	/**
+	 * Checks if the selected condition is a var or a flag condition
+	 * 
+	 * @param blockIndex
+	 *            The index of the conditions block. Use MAIN_CONDITIONS_BLOCK (-1) to select the main block of
+	 *            conditions, and values from 0 to getEitherConditionsBlockCount( ) to access the either blocks of
+	 *            conditions
+	 * @param conditionIndex
+	 *            Index of the condition
+	 * @return Id of the condition
+	 */
+	public boolean isVarCondtion( int blockIndex, int conditionIndex ) {
+		boolean isFlag = false;
+
+		if( blockIndex == MAIN_CONDITIONS_BLOCK )
+			isFlag = conditions.getMainConditions( ).get( conditionIndex ).getType() == Condition.VAR_CONDITION;
+		else
+			isFlag = conditions.getEitherConditions( blockIndex ).get( conditionIndex ).getType() == Condition.VAR_CONDITION;
+
+		return isFlag;
+	}
 
 	/**
 	 * Returns the state of the condition in the index position of the given block.
@@ -155,7 +239,7 @@ public class ConditionsController {
 	public void deleteEitherConditionsBlock( int index ) {
 		// Delete the flag references
 		for( Condition condition : conditions.getEitherConditions( index ) )
-			flagSummary.deleteReference( condition.getFlagVar( ) );
+			varFlagSummary.deleteFlagReference( condition.getFlagVar( ) );
 
 		// Delete the block
 		conditions.deleteEitherCondition( index );
@@ -174,19 +258,31 @@ public class ConditionsController {
 	 * @param conditionState
 	 *            State of the condition
 	 */
-	public void addCondition( int blockIndex, String conditionId, String conditionState ) {
+	public void addCondition( int blockIndex, String conditionId, String conditionState, String value ) {
 
 		
-		if (Controller.getInstance( ).getFlagSummary( ).existsFlag( conditionId )){
-		if( blockIndex == MAIN_CONDITIONS_BLOCK )
-			conditions.getMainConditions( ).add( new Condition( conditionId, getStateFromString( conditionState ) ) );
-
-		else
-			conditions.getEitherConditions( blockIndex ).add( new Condition( conditionId, getStateFromString( conditionState ) ) );
-
-		// Add the flag reference
-		flagSummary.addReference( conditionId );
-		controller.dataModified( );
+		if (Controller.getInstance( ).getVarFlagSummary( ).existsId( conditionId )){
+			if( blockIndex == MAIN_CONDITIONS_BLOCK ){
+				if ( isFlagState ( getStateFromString( conditionState ) ) ){
+					conditions.getMainConditions( ).add( new Condition( conditionId, getStateFromString( conditionState ) ) );
+					varFlagSummary.addFlagReference( conditionId );
+				}else if ( isVarState ( getStateFromString( conditionState ) ) ){
+					conditions.getMainConditions( ).add( new VarCondition( conditionId, getStateFromString( conditionState ), Integer.parseInt(value) ) );
+					varFlagSummary.addVarReference( conditionId );
+				}
+	
+			}else{
+				if ( isFlagState ( getStateFromString( conditionState ) ) ){
+					conditions.getEitherConditions( blockIndex ).add( new Condition( conditionId, getStateFromString( conditionState ) ) );
+					varFlagSummary.addFlagReference( conditionId );
+				}else if ( isVarState ( getStateFromString( conditionState ) ) ){
+					conditions.getEitherConditions( blockIndex ).add( new VarCondition( conditionId, getStateFromString( conditionState ), Integer.parseInt(value) ) ) ;
+					varFlagSummary.addVarReference( conditionId );
+				}
+			}
+	
+			// Add the flag reference
+			controller.dataModified( );
 		}
 	}
 
@@ -215,7 +311,7 @@ public class ConditionsController {
 		}
 
 		// Delete the flag reference
-		flagSummary.deleteReference( conditionId );
+		varFlagSummary.deleteReference( conditionId );
 		controller.dataModified( );
 	}
 
@@ -232,23 +328,31 @@ public class ConditionsController {
 	 *            New id of the condition
 	 */
 	public void setConditionId( int blockIndex, int conditionIndex, String id ) {
-		// Stores the old flag
-		String oldConditionId;
-
-		if( blockIndex == MAIN_CONDITIONS_BLOCK ) {
-			oldConditionId = conditions.getMainConditions( ).get( conditionIndex ).getFlagVar( );
-			conditions.getMainConditions( ).get( conditionIndex ).setFlagVar( id );
+		if ( id!=null ){
+			// Stores the old flag
+			String oldConditionId;
+			int type;
+	
+			if( blockIndex == MAIN_CONDITIONS_BLOCK ) {
+				oldConditionId = conditions.getMainConditions( ).get( conditionIndex ).getFlagVar( );
+				type = conditions.getMainConditions( ).get( conditionIndex ).getType();
+				conditions.getMainConditions( ).get( conditionIndex ).setFlagVar( id );
+			}
+	
+			else {
+				oldConditionId = conditions.getEitherConditions( blockIndex ).get( conditionIndex ).getFlagVar( );
+				type = conditions.getEitherConditions( blockIndex ).get( conditionIndex ).getType();
+				conditions.getEitherConditions( blockIndex ).get( conditionIndex ).setFlagVar( id );
+			}
+	
+			// Updates the flag references
+			varFlagSummary.deleteReference( oldConditionId );
+			if ( type == Condition.FLAG_CONDITION )
+				varFlagSummary.addFlagReference( id );
+			else if ( type == Condition.VAR_CONDITION )
+				varFlagSummary.addVarReference( id );
+			controller.dataModified( );
 		}
-
-		else {
-			oldConditionId = conditions.getEitherConditions( blockIndex ).get( conditionIndex ).getFlagVar( );
-			conditions.getEitherConditions( blockIndex ).get( conditionIndex ).setFlagVar( id );
-		}
-
-		// Updates the flag references
-		flagSummary.deleteReference( oldConditionId );
-		flagSummary.addReference( id );
-		controller.dataModified( );
 	}
 
 	/**
@@ -264,15 +368,137 @@ public class ConditionsController {
 	 *            New state of the condition
 	 */
 	public void setConditionState( int blockIndex, int conditionIndex, String state ) {
-		if( blockIndex == MAIN_CONDITIONS_BLOCK )
-			conditions.getMainConditions( ).get( conditionIndex ).setState( getStateFromString( state ) );
-
-		else
-			conditions.getEitherConditions( blockIndex ).get( conditionIndex ).setState( getStateFromString( state ) );
-
+		if ( state!=null ){
+			if( blockIndex == MAIN_CONDITIONS_BLOCK )
+				conditions.getMainConditions( ).get( conditionIndex ).setState( getStateFromString( state ) );
+	
+			else
+				conditions.getEitherConditions( blockIndex ).get( conditionIndex ).setState( getStateFromString( state ) );
+		}
 		controller.dataModified( );
 	}
+	
+	/**
+	 * Sets the new state of the given condition of the given block.
+	 * 
+	 * @param blockIndex
+	 *            The index of the conditions block. Use MAIN_CONDITIONS_BLOCK (-1) to select the main block of
+	 *            conditions, and values from 0 to getEitherConditionsBlockCount( ) to access the either blocks of
+	 *            conditions
+	 * @param conditionIndex
+	 *            Index of the condition
+	 * @param value
+	 *            New state of the condition
+	 */
+	public void setConditionValue( int blockIndex, int conditionIndex, String value ) {
+		if ( value!=null ){
+			if( blockIndex == MAIN_CONDITIONS_BLOCK ){
+				if ( conditions.getMainConditions( ).get( conditionIndex ).getType() == Condition.VAR_CONDITION ){
+					VarCondition varCond = ((VarCondition)(conditions.getMainConditions( ).get( conditionIndex )));
+					varCond.setValue( Integer.parseInt( value ) );
+				}
+			}
+	
+			else {
+				if ( conditions.getEitherConditions( blockIndex ).get( conditionIndex ).getType() == Condition.VAR_CONDITION ){
+					VarCondition varCond = ((VarCondition)(conditions.getEitherConditions( blockIndex ).get( conditionIndex )));
+					varCond.setValue( Integer.parseInt( value ) );
+				}
+			}
+	
+			controller.dataModified( );
+		}
+	}
+	
+	/**
+	 * Sets the new state of the given condition of the given block.
+	 * 
+	 * @param blockIndex
+	 *            The index of the conditions block. Use MAIN_CONDITIONS_BLOCK (-1) to select the main block of
+	 *            conditions, and values from 0 to getEitherConditionsBlockCount( ) to access the either blocks of
+	 *            conditions
+	 * @param conditionIndex
+	 *            Index of the condition
+	 * @param value
+	 *            New state of the condition
+	 */
+	public void setConditionType( int blockIndex, int conditionIndex, int type ) {
+		
+		Condition newCondition = null;
+		
+			if( blockIndex == MAIN_CONDITIONS_BLOCK ){
+				Condition oldCondition = conditions.getMainConditions( ).get( conditionIndex ); 
+				if ( oldCondition.getType() != type ){
+					if ( type == ConditionsController.FLAG_CONDITION ){
+						newCondition = new Condition ( oldCondition.getFlagVar(), Condition.FLAG_ACTIVE ) ;
+						conditions.getMainConditions().remove( conditionIndex );
+						conditions.getMainConditions().add( conditionIndex, newCondition);
+					} else if ( type == ConditionsController.VAR_CONDITION ){
+						newCondition = new VarCondition ( oldCondition.getFlagVar(), Condition.VAR_EQUALS, 1 ) ;
+						conditions.getMainConditions().remove( conditionIndex );
+						conditions.getMainConditions().add( conditionIndex, newCondition);
+					}
+				}
+			}
+	
+			else {
+				Condition oldCondition = conditions.getEitherConditions( blockIndex ).get( conditionIndex );
+				if ( oldCondition.getType() != type ){
+					if ( type == ConditionsController.FLAG_CONDITION ){
+						newCondition = new Condition ( oldCondition.getFlagVar(), Condition.FLAG_ACTIVE ) ;
+						conditions.getEitherConditions( blockIndex ).remove( conditionIndex );
+						conditions.getEitherConditions( blockIndex ).add( conditionIndex, newCondition);
+					} else if ( type == ConditionsController.VAR_CONDITION ){
+						newCondition = new VarCondition ( oldCondition.getFlagVar(), Condition.VAR_EQUALS, 1 ) ;
+						conditions.getEitherConditions( blockIndex ).remove( conditionIndex );
+						conditions.getEitherConditions( blockIndex ).add( conditionIndex, newCondition);
+					}
+				}
+			}
+	
+			if ( newCondition!= null ){
+				controller.dataModified( );	
+			}
+			
+	}
 
+
+	/**
+	 * Sets the new value (only vars) of the given condition of the given block.
+	 * 
+	 * @param blockIndex
+	 *            The index of the conditions block. Use MAIN_CONDITIONS_BLOCK (-1) to select the main block of
+	 *            conditions, and values from 0 to getEitherConditionsBlockCount( ) to access the either blocks of
+	 *            conditions
+	 * @param conditionIndex
+	 *            Index of the condition
+	 * @param value
+	 *            New value of the var condition
+	 */
+
+	public String getConditionValue(int blockIndex, int conditionIndex) {
+		// Stores the old flag
+		String value = null;
+
+		if( blockIndex == MAIN_CONDITIONS_BLOCK ) {
+			if ( conditions.getMainConditions( ).get( conditionIndex ) instanceof VarCondition ){
+				value = Integer.toString( ((VarCondition)(conditions.getMainConditions( ).get( conditionIndex ))).getValue( ) );	
+			}
+			
+		}
+
+		else {
+			if ( conditions.getEitherConditions( blockIndex ).get( conditionIndex ) instanceof VarCondition ){
+				value = Integer.toString( ((VarCondition)(conditions.getEitherConditions( blockIndex ).get( conditionIndex ))).getValue( ) );
+			}
+		}
+
+		// Updates the flag references
+		controller.dataModified( );
+
+		return value;
+	}
+	
 	/**
 	 * Returns the int value of the string state given.
 	 * 
@@ -341,21 +567,50 @@ public class ConditionsController {
 	}
 
 	/**
+	 * Checks if the given state is valid for a flag
+	 * @param state
+	 * @return
+	 */
+	private boolean isFlagState ( int state ){
+		return state == Condition.FLAG_ACTIVE || state == Condition.FLAG_INACTIVE;
+	}
+	
+	/**
+	 * Checks if the given state is valid for a var
+	 * @param state
+	 * @return
+	 */
+	private boolean isVarState ( int state ){
+		return !isFlagState ( state );
+	}
+
+	
+	/**
 	 * Updates the given flag summary, adding the flag references contained in the given conditions.
 	 * 
-	 * @param flagSummary
+	 * @param varFlagSummary
 	 *            Flag summary to update
 	 * @param conditions
 	 *            Set of conditions to search in
 	 */
-	public static void updateFlagSummary( FlagSummary flagSummary, Conditions conditions ) {
+	public static void updateFlagSummary( VarFlagSummary varFlagSummary, Conditions conditions ) {
 		// First check the main block of conditions
-		for( Condition condition : conditions.getMainConditions( ) )
-			flagSummary.addReference( condition.getFlagVar( ) );
+		for( Condition condition : conditions.getMainConditions( ) ){
+			if ( condition.getType() == Condition.FLAG_CONDITION )
+				varFlagSummary.addFlagReference( condition.getFlagVar( ) );
+			else if ( condition.getType() == Condition.VAR_CONDITION )
+				varFlagSummary.addVarReference( condition.getFlagVar( ) );
+		}
 
 		// Then add the references from the either blocks
 		for( int i = 0; i < conditions.getEitherConditionsBlockCount( ); i++ )
-			for( Condition condition : conditions.getEitherConditions( i ) )
-				flagSummary.addReference( condition.getFlagVar( ) );
+			for( Condition condition : conditions.getEitherConditions( i ) ){
+				if ( condition.getType() == Condition.FLAG_CONDITION )
+					varFlagSummary.addFlagReference( condition.getFlagVar( ) );
+				else if ( condition.getType() == Condition.VAR_CONDITION )
+					varFlagSummary.addVarReference( condition.getFlagVar( ) );
+			}
 	}
+
+
 }

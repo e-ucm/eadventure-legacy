@@ -12,7 +12,7 @@ import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.general.ActionsListDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
-import es.eucm.eadventure.editor.data.support.FlagSummary;
+import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class ItemDataControl extends DataControlWithResources {
 
@@ -365,8 +365,8 @@ public class ItemDataControl extends DataControlWithResources {
 	}
 
 	@Override
-	public void updateFlagSummary( FlagSummary flagSummary ) {
-		actionsListDataControl.updateFlagSummary( flagSummary );
+	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
+		actionsListDataControl.updateFlagSummary( varFlagSummary );
 	}
 
 	@Override

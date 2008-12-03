@@ -3,7 +3,7 @@ package es.eucm.eadventure.editor.control.controllers;
 import java.util.List;
 
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.data.support.FlagSummary;
+import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 /**
  * This abstract class checks the operations that can be performed onto the data elements of the script. Each class must
@@ -150,11 +150,11 @@ public abstract class DataControl {
 	 * Updates the given flag summary, adding the flag references contained in the elements. This method works
 	 * recursively.
 	 * 
-	 * @param flagSummary
+	 * @param varFlagSummary
 	 *            Flag summary to update. It is important to point that the main element must clear the flag summary
 	 *            first, in order to provide clean data
 	 */
-	public abstract void updateFlagSummary( FlagSummary flagSummary );
+	public abstract void updateFlagSummary( VarFlagSummary varFlagSummary );
 
 	/**
 	 * Returns if the data structure pending from the element is valid or not. This method works recursively.

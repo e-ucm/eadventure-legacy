@@ -11,7 +11,7 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
-import es.eucm.eadventure.editor.data.support.FlagSummary;
+import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class PlayerDataControl extends DataControlWithResources {
 
@@ -389,7 +389,7 @@ public class PlayerDataControl extends DataControlWithResources {
 	}
 
 	@Override
-	public void updateFlagSummary( FlagSummary flagSummary ) {
+	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
 	// Do nothing
 	}
 

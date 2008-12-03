@@ -5,7 +5,7 @@ import java.util.List;
 import es.eucm.eadventure.common.data.chapter.ConversationReference;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.data.support.FlagSummary;
+import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class ConversationReferenceDataControl extends DataControl {
 
@@ -146,9 +146,9 @@ public class ConversationReferenceDataControl extends DataControl {
 	}
 
 	@Override
-	public void updateFlagSummary( FlagSummary flagSummary ) {
+	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
 		// Update the flag summary with the conditions
-		ConditionsController.updateFlagSummary( flagSummary, conversationReference.getConditions( ) );
+		ConditionsController.updateFlagSummary( varFlagSummary, conversationReference.getConditions( ) );
 	}
 
 	@Override

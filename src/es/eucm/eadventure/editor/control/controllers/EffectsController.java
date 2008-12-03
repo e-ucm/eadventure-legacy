@@ -8,14 +8,17 @@ import es.eucm.eadventure.common.data.chapter.effects.ActivateEffect;
 import es.eucm.eadventure.common.data.chapter.effects.CancelActionEffect;
 import es.eucm.eadventure.common.data.chapter.effects.ConsumeObjectEffect;
 import es.eucm.eadventure.common.data.chapter.effects.DeactivateEffect;
+import es.eucm.eadventure.common.data.chapter.effects.DecrementVarEffect;
 import es.eucm.eadventure.common.data.chapter.effects.Effect;
 import es.eucm.eadventure.common.data.chapter.effects.Effects;
 import es.eucm.eadventure.common.data.chapter.effects.GenerateObjectEffect;
+import es.eucm.eadventure.common.data.chapter.effects.IncrementVarEffect;
 import es.eucm.eadventure.common.data.chapter.effects.MoveNPCEffect;
 import es.eucm.eadventure.common.data.chapter.effects.MovePlayerEffect;
 import es.eucm.eadventure.common.data.chapter.effects.PlayAnimationEffect;
 import es.eucm.eadventure.common.data.chapter.effects.PlaySoundEffect;
 import es.eucm.eadventure.common.data.chapter.effects.RandomEffect;
+import es.eucm.eadventure.common.data.chapter.effects.SetValueEffect;
 import es.eucm.eadventure.common.data.chapter.effects.SpeakCharEffect;
 import es.eucm.eadventure.common.data.chapter.effects.SpeakPlayerEffect;
 import es.eucm.eadventure.common.data.chapter.effects.TriggerBookEffect;
@@ -25,7 +28,7 @@ import es.eucm.eadventure.common.data.chapter.effects.TriggerLastSceneEffect;
 import es.eucm.eadventure.common.data.chapter.effects.TriggerSceneEffect;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.data.support.FlagSummary;
+import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 import es.eucm.eadventure.editor.gui.assetchooser.AssetChooser;
 import es.eucm.eadventure.editor.gui.editdialogs.effectdialogs.EffectDialog;
 
@@ -70,6 +73,11 @@ public class EffectsController {
 	 * Constant for effect property. Refers to "Play in background" flag.
 	 */
 	public static final int EFFECT_PROPERTY_PROBABILITY = 6;
+	
+	/**
+	 * Constant for effect property. Refers to "Value" flag.
+	 */
+	public static final int EFFECT_PROPERTY_VALUE = 7;
 
 	/**
 	 * Constant to filter the selection of an asset. Used for animations.
@@ -137,6 +145,18 @@ public class EffectsController {
 				DeactivateEffect deactivateEffect = (DeactivateEffect) effect;
 				effectInfo = TextConstants.getText( "Effect.DeactivateInfo", deactivateEffect.getIdFlag( ) );
 				break;
+			case Effect.SET_VALUE:
+				SetValueEffect setValueEffect = (SetValueEffect) effect;
+				effectInfo = TextConstants.getText( "Effect.SetValueInfo", new String[]{setValueEffect.getIdVar( ), Integer.toString( setValueEffect.getValue() )} );
+				break;				
+			case Effect.INCREMENT_VAR:
+				IncrementVarEffect incrementEffect = (IncrementVarEffect) effect;
+				effectInfo = TextConstants.getText( "Effect.IncrementVarInfo", new String[]{incrementEffect.getIdVar( ), Integer.toString( incrementEffect.getIncrement() )} );
+				break;
+			case Effect.DECREMENT_VAR:
+				DecrementVarEffect decrementEffect = (DecrementVarEffect) effect;
+				effectInfo = TextConstants.getText( "Effect.DecrementVarInfo", new String[]{decrementEffect.getIdVar( ), Integer.toString( decrementEffect.getDecrement() )} );
+				break;				
 			case Effect.CONSUME_OBJECT:
 				ConsumeObjectEffect consumeObjectEffect = (ConsumeObjectEffect) effect;
 				effectInfo = TextConstants.getText( "Effect.ConsumeObjectInfo", consumeObjectEffect.getIdTarget( ) );
@@ -213,10 +233,12 @@ public class EffectsController {
 		boolean effectAdded = false;
 
 		// Create a list with the names of the effects (in the same order as the next)
-		final String[] effectNames = { TextConstants.getText( "Effect.Activate" ), TextConstants.getText( "Effect.Deactivate" ), TextConstants.getText( "Effect.ConsumeObject" ), TextConstants.getText( "Effect.GenerateObject" ), TextConstants.getText( "Effect.CancelAction" ), TextConstants.getText( "Effect.SpeakPlayer" ), TextConstants.getText( "Effect.SpeakCharacter" ), TextConstants.getText( "Effect.TriggerBook" ), TextConstants.getText( "Effect.PlaySound" ), TextConstants.getText( "Effect.PlayAnimation" ), TextConstants.getText( "Effect.MovePlayer" ), TextConstants.getText( "Effect.MoveCharacter" ), TextConstants.getText( "Effect.TriggerConversation" ), TextConstants.getText( "Effect.TriggerCutscene" ), TextConstants.getText( "Effect.TriggerScene" ), TextConstants.getText( "Effect.TriggerLastScene" ) , TextConstants.getText( "Effect.RandomEffect" )};
+		final String[] effectNames = { TextConstants.getText( "Effect.Activate" ), TextConstants.getText( "Effect.Deactivate" ), TextConstants.getText( "Effect.SetValue" ), TextConstants.getText( "Effect.IncrementVar" ), TextConstants.getText( "Effect.DecrementVar" ),  
+				TextConstants.getText( "Effect.ConsumeObject" ), TextConstants.getText( "Effect.GenerateObject" ), TextConstants.getText( "Effect.CancelAction" ), TextConstants.getText( "Effect.SpeakPlayer" ), TextConstants.getText( "Effect.SpeakCharacter" ), TextConstants.getText( "Effect.TriggerBook" ), TextConstants.getText( "Effect.PlaySound" ), TextConstants.getText( "Effect.PlayAnimation" ), TextConstants.getText( "Effect.MovePlayer" ), TextConstants.getText( "Effect.MoveCharacter" ), TextConstants.getText( "Effect.TriggerConversation" ), TextConstants.getText( "Effect.TriggerCutscene" ), TextConstants.getText( "Effect.TriggerScene" ), TextConstants.getText( "Effect.TriggerLastScene" ) , TextConstants.getText( "Effect.RandomEffect" )};
 
 		// Create a list with the types of the effects (in the same order as the previous)
-		final int[] effectTypes = { Effect.ACTIVATE, Effect.DEACTIVATE, Effect.CONSUME_OBJECT, Effect.GENERATE_OBJECT, Effect.CANCEL_ACTION, Effect.SPEAK_PLAYER, Effect.SPEAK_CHAR, Effect.TRIGGER_BOOK, Effect.PLAY_SOUND, Effect.PLAY_ANIMATION, Effect.MOVE_PLAYER, Effect.MOVE_NPC, Effect.TRIGGER_CONVERSATION, Effect.TRIGGER_CUTSCENE, Effect.TRIGGER_SCENE, Effect.TRIGGER_LAST_SCENE, Effect.RANDOM_EFFECT };
+		final int[] effectTypes = { Effect.ACTIVATE, Effect.DEACTIVATE, Effect.SET_VALUE, Effect.INCREMENT_VAR, Effect.DECREMENT_VAR, 
+				Effect.CONSUME_OBJECT, Effect.GENERATE_OBJECT, Effect.CANCEL_ACTION, Effect.SPEAK_PLAYER, Effect.SPEAK_CHAR, Effect.TRIGGER_BOOK, Effect.PLAY_SOUND, Effect.PLAY_ANIMATION, Effect.MOVE_PLAYER, Effect.MOVE_NPC, Effect.TRIGGER_CONVERSATION, Effect.TRIGGER_CUTSCENE, Effect.TRIGGER_SCENE, Effect.TRIGGER_LAST_SCENE, Effect.RANDOM_EFFECT };
 
 		// Show a dialog to select the type of the effect
 		String selectedValue = controller.showInputDialog( TextConstants.getText( "Effects.OperationAddEffect" ), TextConstants.getText( "Effects.SelectEffectType" ), effectNames );
@@ -245,6 +267,7 @@ public class EffectsController {
 				String target = effectProperties.get( EFFECT_PROPERTY_TARGET );
 				String path = effectProperties.get( EFFECT_PROPERTY_PATH );
 				String text = effectProperties.get( EFFECT_PROPERTY_TEXT );
+				String value = effectProperties.get( EFFECT_PROPERTY_VALUE );
 
 				int x = 0;
 				if( effectProperties.containsKey( EFFECT_PROPERTY_X ) )
@@ -261,11 +284,23 @@ public class EffectsController {
 				switch( selectedType ) {
 					case Effect.ACTIVATE:
 						newEffect = new ActivateEffect( target );
-						controller.getFlagSummary( ).addReference( target );
+						controller.getVarFlagSummary( ).addFlagReference( target );
 						break;
 					case Effect.DEACTIVATE:
 						newEffect = new DeactivateEffect( target );
-						controller.getFlagSummary( ).addReference( target );
+						controller.getVarFlagSummary( ).addFlagReference( target );
+						break;
+					case Effect.SET_VALUE:
+						newEffect = new SetValueEffect( target, Integer.parseInt( value ) );
+						controller.getVarFlagSummary( ).addFlagReference( target );
+						break;
+					case Effect.INCREMENT_VAR:
+						newEffect = new IncrementVarEffect( target, Integer.parseInt( value ) );
+						controller.getVarFlagSummary( ).addFlagReference( target );
+						break;
+					case Effect.DECREMENT_VAR:
+						newEffect = new DecrementVarEffect( target, Integer.parseInt( value ) );
+						controller.getVarFlagSummary( ).addFlagReference( target );
 						break;
 					case Effect.CONSUME_OBJECT:
 						newEffect = new ConsumeObjectEffect( target );
@@ -320,18 +355,20 @@ public class EffectsController {
 			SingleEffectController posController = new SingleEffectController();
 			SingleEffectController negController = new SingleEffectController();
 			HashMap<Integer, String> effectProperties = EffectDialog.showEditRandomEffectDialog( 50, posController, negController );
-			if (effectProperties.containsKey( EffectsController.EFFECT_PROPERTY_PROBABILITY )){
-				randomEffect.setProbability( Integer.parseInt( effectProperties.get( EFFECT_PROPERTY_PROBABILITY ) ) );
+			if (effectProperties != null ){
+				if (effectProperties.containsKey( EffectsController.EFFECT_PROPERTY_PROBABILITY )){
+					randomEffect.setProbability( Integer.parseInt( effectProperties.get( EFFECT_PROPERTY_PROBABILITY ) ) );
+				}
+				if (posController.getEffect( )!=null)
+					randomEffect.setPositiveEffect( posController.getEffect( ) );
+				
+				if (negController.getEffect( )!=null)
+					randomEffect.setNegativeEffect( negController.getEffect( ) );
+				
+				effects.add( randomEffect );
+				controller.dataModified( );
+				effectAdded = true;
 			}
-			if (posController.getEffect( )!=null)
-				randomEffect.setPositiveEffect( posController.getEffect( ) );
-			
-			if (negController.getEffect( )!=null)
-				randomEffect.setNegativeEffect( negController.getEffect( ) );
-			
-			effects.add( randomEffect );
-			controller.dataModified( );
-			effectAdded = true;
 		}
 
 		return effectAdded;
@@ -349,12 +386,27 @@ public class EffectsController {
 
 		if( deletedEffect.getType( ) == Effect.ACTIVATE ) {
 			ActivateEffect activateEffect = (ActivateEffect) deletedEffect;
-			controller.getFlagSummary( ).deleteReference( activateEffect.getIdFlag( ) );
+			controller.getVarFlagSummary( ).deleteFlagReference( activateEffect.getIdFlag( ) );
 		}
 
 		else if( deletedEffect.getType( ) == Effect.DEACTIVATE ) {
 			DeactivateEffect deactivateEffect = (DeactivateEffect) deletedEffect;
-			controller.getFlagSummary( ).deleteReference( deactivateEffect.getIdFlag( ) );
+			controller.getVarFlagSummary( ).deleteFlagReference( deactivateEffect.getIdFlag( ) );
+		}
+		
+		else if( deletedEffect.getType( ) == Effect.SET_VALUE ) {
+			SetValueEffect setValueEffect = (SetValueEffect) deletedEffect;
+			controller.getVarFlagSummary( ).deleteFlagReference( setValueEffect.getIdVar( ) );
+		}
+		
+		else if( deletedEffect.getType( ) == Effect.INCREMENT_VAR ) {
+			IncrementVarEffect setValueEffect = (IncrementVarEffect) deletedEffect;
+			controller.getVarFlagSummary( ).deleteFlagReference( setValueEffect.getIdVar( ) );
+		}
+		
+		else if( deletedEffect.getType( ) == Effect.DECREMENT_VAR ) {
+			DecrementVarEffect setValueEffect = (DecrementVarEffect) deletedEffect;
+			controller.getVarFlagSummary( ).deleteFlagReference( setValueEffect.getIdVar( ) );
 		}
 		
 		else if( deletedEffect.getType( ) == Effect.RANDOM_EFFECT ) {
@@ -362,20 +414,20 @@ public class EffectsController {
 			if (randomEffect.getNegativeEffect( )!=null){
 				if ( randomEffect.getNegativeEffect( ).getType( ) == Effect.ACTIVATE ){
 					ActivateEffect activateEffect = (ActivateEffect) randomEffect.getNegativeEffect( );
-					controller.getFlagSummary( ).deleteReference( activateEffect.getIdFlag( ) );
+					controller.getVarFlagSummary( ).deleteFlagReference( activateEffect.getIdFlag( ) );
 				} else if ( randomEffect.getNegativeEffect( ).getType( ) == Effect.DEACTIVATE ){
 					DeactivateEffect deactivateEffect = (DeactivateEffect) randomEffect.getNegativeEffect( );
-					controller.getFlagSummary( ).deleteReference( deactivateEffect.getIdFlag( ) );
+					controller.getVarFlagSummary( ).deleteFlagReference( deactivateEffect.getIdFlag( ) );
 				}
 			}
 			
 			if (randomEffect.getPositiveEffect( )!=null){
 				if ( randomEffect.getPositiveEffect( ).getType( ) == Effect.ACTIVATE ){
 					ActivateEffect activateEffect = (ActivateEffect) randomEffect.getPositiveEffect( );
-					controller.getFlagSummary( ).deleteReference( activateEffect.getIdFlag( ) );
+					controller.getVarFlagSummary( ).deleteFlagReference( activateEffect.getIdFlag( ) );
 				} else if ( randomEffect.getPositiveEffect( ).getType( ) == Effect.DEACTIVATE ){
 					DeactivateEffect deactivateEffect = (DeactivateEffect) randomEffect.getPositiveEffect( );
-					controller.getFlagSummary( ).deleteReference( deactivateEffect.getIdFlag( ) );
+					controller.getVarFlagSummary( ).deleteFlagReference( deactivateEffect.getIdFlag( ) );
 				}
 			}
 
@@ -445,6 +497,21 @@ public class EffectsController {
 			case Effect.DEACTIVATE:
 				DeactivateEffect deactivateEffect = (DeactivateEffect) effect;
 				currentValues.put( EFFECT_PROPERTY_TARGET, deactivateEffect.getIdFlag( ) );
+				break;
+			case Effect.SET_VALUE:
+				SetValueEffect setValueEffect = (SetValueEffect) effect;
+				currentValues.put( EFFECT_PROPERTY_TARGET, setValueEffect.getIdVar( ) );
+				currentValues.put( EFFECT_PROPERTY_VALUE, Integer.toString( setValueEffect.getValue() ) );
+				break;
+			case Effect.INCREMENT_VAR:
+				IncrementVarEffect incrementVarEffect = (IncrementVarEffect) effect;
+				currentValues.put( EFFECT_PROPERTY_TARGET, incrementVarEffect.getIdVar( ) );
+				currentValues.put( EFFECT_PROPERTY_VALUE, Integer.toString( incrementVarEffect.getIncrement() ) );
+				break;
+			case Effect.DECREMENT_VAR:
+				DecrementVarEffect decrementVarEffect = (DecrementVarEffect) effect;
+				currentValues.put( EFFECT_PROPERTY_TARGET, decrementVarEffect.getIdVar( ) );
+				currentValues.put( EFFECT_PROPERTY_VALUE, Integer.toString( decrementVarEffect.getDecrement() ) );
 				break;
 			case Effect.CONSUME_OBJECT:
 				ConsumeObjectEffect consumeObjectEffect = (ConsumeObjectEffect) effect;
@@ -536,6 +603,24 @@ public class EffectsController {
 				case Effect.DEACTIVATE:
 					DeactivateEffect deactivateEffect = (DeactivateEffect) effect;
 					deactivateEffect.setIdFlag( newProperties.get( EFFECT_PROPERTY_TARGET ) );
+					Controller.getInstance( ).updateFlagSummary( );
+					break;
+				case Effect.SET_VALUE:
+					SetValueEffect setValueEffect = (SetValueEffect) effect;
+					setValueEffect.setIdVar( newProperties.get( EFFECT_PROPERTY_TARGET ) );
+					setValueEffect.setValue( Integer.parseInt( newProperties.get( EFFECT_PROPERTY_VALUE ) ) );
+					Controller.getInstance( ).updateFlagSummary( );
+					break;
+				case Effect.INCREMENT_VAR:
+					IncrementVarEffect incrementVarEffect = (IncrementVarEffect) effect;
+					incrementVarEffect.setIdVar( newProperties.get( EFFECT_PROPERTY_TARGET ) );
+					incrementVarEffect.setIncrement( Integer.parseInt( newProperties.get( EFFECT_PROPERTY_VALUE ) ) );
+					Controller.getInstance( ).updateFlagSummary( );
+					break;
+				case Effect.DECREMENT_VAR:
+					DecrementVarEffect decrementVarEffect = (DecrementVarEffect) effect;
+					decrementVarEffect.setIdVar( newProperties.get( EFFECT_PROPERTY_TARGET ) );
+					decrementVarEffect.setDecrement( Integer.parseInt( newProperties.get( EFFECT_PROPERTY_VALUE ) ) );
 					Controller.getInstance( ).updateFlagSummary( );
 					break;
 				case Effect.CONSUME_OBJECT:
@@ -661,46 +746,53 @@ public class EffectsController {
 	/**
 	 * Updates the given flag summary, adding the flag references contained in the given effects.
 	 * 
-	 * @param flagSummary
+	 * @param varFlagSummary
 	 *            Flag summary to update
 	 * @param effects
 	 *            Set of effects to search in
 	 */
-	public static void updateFlagSummary( FlagSummary flagSummary, Effects effects ) {
+	public static void updateFlagSummary( VarFlagSummary varFlagSummary, Effects effects ) {
 		// Search every effect
 		for( Effect effect : effects.getEffects( ) ) {
-			int type = effect.getType( );
-
-			// If the effect is an activate or deactivate effect, add the reference
-			if( type == Effect.ACTIVATE )
-				flagSummary.addReference( ( (ActivateEffect) effect ).getIdFlag( ) );
-			else if( type == Effect.DEACTIVATE )
-				flagSummary.addReference( ( (DeactivateEffect) effect ).getIdFlag( ) );
 			
-			else if( type == Effect.RANDOM_EFFECT ) {
+			updateFlagSummary ( varFlagSummary, effect );
+			
+			if( effect.getType() == Effect.RANDOM_EFFECT ) {
 				RandomEffect randomEffect = (RandomEffect) effect;
 				if (randomEffect.getNegativeEffect( )!=null){
-					if ( randomEffect.getNegativeEffect( ).getType( ) == Effect.ACTIVATE ){
-						ActivateEffect activateEffect = (ActivateEffect) randomEffect.getNegativeEffect( );
-						flagSummary.addReference( activateEffect.getIdFlag( ) );
-					} else if ( randomEffect.getNegativeEffect( ).getType( ) == Effect.DEACTIVATE ){
-						DeactivateEffect deactivateEffect = (DeactivateEffect) randomEffect.getNegativeEffect( );
-						flagSummary.addReference( deactivateEffect.getIdFlag( ) );
-					}
+					updateFlagSummary ( varFlagSummary, randomEffect.getNegativeEffect() );
 				}
 				
 				if (randomEffect.getPositiveEffect( )!=null){
-					if ( randomEffect.getPositiveEffect( ).getType( ) == Effect.ACTIVATE ){
-						ActivateEffect activateEffect = (ActivateEffect) randomEffect.getPositiveEffect( );
-						flagSummary.addReference( activateEffect.getIdFlag( ) );
-					} else if ( randomEffect.getPositiveEffect( ).getType( ) == Effect.DEACTIVATE ){
-						DeactivateEffect deactivateEffect = (DeactivateEffect) randomEffect.getPositiveEffect( );
-						flagSummary.addReference( deactivateEffect.getIdFlag( ) );
-					}
+					updateFlagSummary ( varFlagSummary, randomEffect.getPositiveEffect() );
 				}
 
 			}
 
+		}
+	}
+	
+	/**
+	 * Udaptes a flag summary according to a single Effect
+	 * @param varFlagSummary
+	 * @param effect
+	 */
+	private static void updateFlagSummary ( VarFlagSummary varFlagSummary, Effect effect ){
+		if ( effect.getType() == Effect.ACTIVATE ){
+			ActivateEffect activateEffect = (ActivateEffect)effect;
+			varFlagSummary.addFlagReference( activateEffect.getIdFlag( ) );
+		} else if ( effect.getType() == Effect.DEACTIVATE ){
+			DeactivateEffect deactivateEffect = (DeactivateEffect)effect;
+			varFlagSummary.addFlagReference( deactivateEffect.getIdFlag( ) );
+		} else if ( effect.getType() == Effect.SET_VALUE ){
+			SetValueEffect setValueEffect = (SetValueEffect)effect;
+			varFlagSummary.addFlagReference( setValueEffect.getIdVar() );
+		} else if ( effect.getType() == Effect.INCREMENT_VAR ){
+			IncrementVarEffect incrementEffect = (IncrementVarEffect)effect;
+			varFlagSummary.addFlagReference( incrementEffect.getIdVar() );
+		} else if ( effect.getType() == Effect.DECREMENT_VAR ){
+			DecrementVarEffect decrementEffect = (DecrementVarEffect)effect;
+			varFlagSummary.addFlagReference( decrementEffect.getIdVar() );
 		}
 	}
 

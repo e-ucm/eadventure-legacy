@@ -150,6 +150,15 @@ public abstract class EffectDialog extends JDialog {
 			case Effect.DEACTIVATE:
 				effectProperties = new FlagEffectDialog( FlagEffectDialog.DEACTIVATE, currentProperties ).getEffectProperties( );
 				break;
+			case Effect.SET_VALUE:
+				effectProperties = new VarEffectDialog( VarEffectDialog.SET_VALUE, currentProperties ).getEffectProperties( );
+				break;
+			case Effect.INCREMENT_VAR:
+				effectProperties = new VarEffectDialog( VarEffectDialog.INCREMENT_VAR, currentProperties ).getEffectProperties( );
+				break;
+			case Effect.DECREMENT_VAR:
+				effectProperties = new VarEffectDialog( VarEffectDialog.DECREMENT_VAR, currentProperties ).getEffectProperties( );
+				break;
 			case Effect.CONSUME_OBJECT:
 				effectProperties = new ObjectEffectDialog( ObjectEffectDialog.CONSUME, currentProperties ).getEffectProperties( );
 				break;

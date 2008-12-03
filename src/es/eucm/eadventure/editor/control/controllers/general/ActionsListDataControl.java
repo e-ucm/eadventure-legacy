@@ -8,7 +8,7 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
-import es.eucm.eadventure.editor.data.support.FlagSummary;
+import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class ActionsListDataControl extends DataControl {
 
@@ -237,10 +237,10 @@ public class ActionsListDataControl extends DataControl {
 	}
 
 	@Override
-	public void updateFlagSummary( FlagSummary flagSummary ) {
+	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
 		// Iterate through each action
 		for( ActionDataControl actionDataControl : actionsDataControlList )
-			actionDataControl.updateFlagSummary( flagSummary );
+			actionDataControl.updateFlagSummary( varFlagSummary );
 	}
 
 	@Override

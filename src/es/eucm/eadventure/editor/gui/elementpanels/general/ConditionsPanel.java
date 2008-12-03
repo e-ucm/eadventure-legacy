@@ -1,6 +1,8 @@
 package es.eucm.eadventure.editor.gui.elementpanels.general;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -12,6 +14,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
@@ -23,7 +26,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
@@ -60,6 +66,29 @@ public class ConditionsPanel extends JPanel {
 	 * List of either conditions tables.
 	 */
 	private List<JTable> eitherConditionsTables;
+	
+	/**
+	 * Constant for table rendering only. 
+	 */
+	private static final String TYPE_ID="ID";
+	
+	/**
+	 * Constant for table rendering only. 
+	 */
+	private static final String TYPE_OTHER="OTHER";
+	
+	/**
+	 * Constant for table rendering only. 
+	 */
+	private static final String COND_FLAG="FLAG";
+	
+	/**
+	 * Constant for table rendering only. 
+	 */
+	private static final String COND_VAR="VAR";
+
+	public static final Color FLAG_COLOR = new Color(1f, 0.05f, 0.05f, 0.1f); 
+	public static final Color VAR_COLOR = new Color(0.05f, 0.1f, 1f, 0.1f);
 
 	/**
 	 * Constructor.
@@ -96,8 +125,13 @@ public class ConditionsPanel extends JPanel {
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1;
 		c.weighty = 1;
-		mainConditionsTable = new JTable( new ConditionsTableModel( ConditionsController.MAIN_CONDITIONS_BLOCK ) );
-		mainConditionsTable.getColumnModel( ).getColumn( 0 ).setMaxWidth( 60 );
+		mainConditionsTable = new JTable( new ConditionsTableModelRenderer( ConditionsController.MAIN_CONDITIONS_BLOCK ) );
+		//mainConditionsTable.getColumnModel( ).getColumn( 0 ).setMaxWidth( 60 );
+		for (int i=0; i<mainConditionsTable.getColumnModel().getColumnCount(); i++ ){
+			TableColumn column=mainConditionsTable.getColumnModel().getColumn( i );
+			column.setCellRenderer( new ConditionsTableModelRenderer( ConditionsController.MAIN_CONDITIONS_BLOCK ) );
+		}
+		
 		mainConditionsTable.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
 		mainConditionsTable.addMouseListener( new ConditionsTableMouseListener( ) );
 		JScrollPane tableScrollPane = new JScrollPane( mainConditionsTable, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER );
@@ -161,8 +195,13 @@ public class ConditionsPanel extends JPanel {
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1;
 		c.weighty = 1;
-		JTable conditionsTable = new JTable( new ConditionsTableModel( eitherBlockIndex ) );
-		conditionsTable.getColumnModel( ).getColumn( 0 ).setMaxWidth( 60 );
+		JTable conditionsTable = new JTable( new ConditionsTableModelRenderer( eitherBlockIndex ) );
+		conditionsTable.addMouseListener( new ConditionsTableMouseListener( ) );
+		//conditionsTable.getColumnModel( ).getColumn( 0 ).setMaxWidth( 60 );
+		for (int i=0; i<conditionsTable.getColumnModel().getColumnCount(); i++ ){
+			TableColumn column=conditionsTable.getColumnModel().getColumn( i );
+			column.setCellRenderer( new ConditionsTableModelRenderer( eitherBlockIndex ) );
+		}
 		conditionsTable.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
 		JScrollPane tableScrollPane = new JScrollPane( conditionsTable, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER );
 		tableScrollPane.setPreferredSize( new Dimension( 0, 140 ) );
@@ -260,7 +299,7 @@ public class ConditionsPanel extends JPanel {
 			// If the data was approved
 			if( conditionDialog.wasPressedOKButton( ) ) {
 				// Set the new values and update the table
-				conditionsController.addCondition( blockIndex, conditionDialog.getFlag( ), conditionDialog.getState( ) );
+				conditionsController.addCondition( blockIndex, conditionDialog.getSelectedId( ), conditionDialog.getSelectedState( ), conditionDialog.getSelectedValue( ) );
 				conditionsTable.updateUI( );
 			}
 		}
@@ -377,14 +416,32 @@ public class ConditionsPanel extends JPanel {
 				// Pick the source JTable and the selected row
 				JTable conditionsTable = (JTable) e.getComponent( );
 				int selectedCondition = conditionsTable.getSelectedRow( );
-
+				int selectedTable = -1;
+				if ( conditionsTable == mainConditionsTable ){
+					selectedTable = ConditionsController.MAIN_CONDITIONS_BLOCK;
+				} else {
+					selectedTable = eitherConditionsTables.indexOf( conditionsTable );
+				}
+				
 				// If there was an element selected
 				if( selectedCondition >= 0 ) {
 
 					// Take the actual values of the condition, and display the editing dialog
-					String stateValue = conditionsTable.getValueAt( selectedCondition, 0 ).toString( );
-					String flagValue = conditionsTable.getValueAt( selectedCondition, 1 ).toString( );
-					ConditionDialog conditionDialog = new ConditionDialog( TextConstants.getText( "Conditions.EditCondition" ), stateValue, flagValue );
+					//String stateValue = conditionsTable.getValueAt( selectedCondition, 0 ).toString( );
+					//String flagValue = conditionsTable.getValueAt( selectedCondition, 1 ).toString( );
+					int defaultMode = conditionsController.getConditionType ( selectedTable, selectedCondition );
+					String defaultFlag = null;
+					String defaultState = conditionsController.getConditionState ( selectedTable, selectedCondition );;
+					String defaultVar = null;
+					String defaultValue = null;
+					if ( defaultMode == ConditionsController.VAR_CONDITION ){
+						defaultVar = conditionsController.getConditionId ( selectedTable, selectedCondition );;
+						defaultValue = conditionsController.getConditionValue ( selectedTable, selectedCondition );;
+					} else if ( defaultMode == ConditionsController.FLAG_CONDITION ){
+						defaultFlag = conditionsController.getConditionId ( selectedTable, selectedCondition );;
+					}
+
+					ConditionDialog conditionDialog = new ConditionDialog( new Integer( defaultMode ), TextConstants.getText( "Conditions.EditCondition" ), defaultState, defaultFlag, defaultVar, defaultValue );
 
 					// If the data was approved
 					if( conditionDialog.wasPressedOKButton( ) ) {
@@ -395,9 +452,11 @@ public class ConditionsPanel extends JPanel {
 							tableIndex = ConditionsController.MAIN_CONDITIONS_BLOCK;
 
 						// Set the new values
-						conditionsController.setConditionState( tableIndex, selectedCondition, conditionDialog.getState( ) );
-						conditionsController.setConditionId( tableIndex, selectedCondition, conditionDialog.getFlag( ) );
-
+						conditionsController.setConditionType( tableIndex, selectedCondition, conditionDialog.getSelectedType( ) );
+						conditionsController.setConditionState( tableIndex, selectedCondition, conditionDialog.getSelectedState( ) );
+						conditionsController.setConditionId( tableIndex, selectedCondition, conditionDialog.getSelectedId( ) );
+						conditionsController.setConditionValue( tableIndex, selectedCondition, conditionDialog.getSelectedValue( ) );
+						
 						// Update the table
 						conditionsTable.updateUI( );
 					}
@@ -409,7 +468,7 @@ public class ConditionsPanel extends JPanel {
 	/**
 	 * Table model to display conditions blocks.
 	 */
-	private class ConditionsTableModel extends AbstractTableModel {
+	private class ConditionsTableModelRenderer extends AbstractTableModel implements TableCellRenderer {
 
 		/**
 		 * Required.
@@ -427,7 +486,7 @@ public class ConditionsPanel extends JPanel {
 		 * @param blockIndex
 		 *            Index of the either conditions block
 		 */
-		public ConditionsTableModel( int blockIndex ) {
+		public ConditionsTableModelRenderer( int blockIndex ) {
 			this.blockIndex = blockIndex;
 		}
 
@@ -437,8 +496,8 @@ public class ConditionsPanel extends JPanel {
 		 * @see javax.swing.table.TableModel#getColumnCount()
 		 */
 		public int getColumnCount( ) {
-			// Two columns, always
-			return 2;
+			// Three columns, always
+			return 3;
 		}
 
 		/*
@@ -456,11 +515,16 @@ public class ConditionsPanel extends JPanel {
 
 			// The first column is the name
 			if( columnIndex == 0 )
-				columnName = TextConstants.getText( "Conditions.State" );
+				columnName = TextConstants.getText( "Conditions.Flag" );				
 
 			// The second one the references number
 			else if( columnIndex == 1 )
-				columnName = TextConstants.getText( "Conditions.Flag" );
+				columnName = TextConstants.getText( "Conditions.State" );
+			
+			// The second one the references number
+			else if( columnIndex == 2 )
+				columnName = TextConstants.getText( "Conditions.Value" );
+
 
 			return columnName;
 		}
@@ -471,15 +535,88 @@ public class ConditionsPanel extends JPanel {
 		 * @see javax.swing.table.TableModel#getValueAt(int, int)
 		 */
 		public Object getValueAt( int rowIndex, int columnIndex ) {
-			Object value = null;
+			String value = null;
+			String type = null;
+			String conditionType = null;
 
-			if( columnIndex == 0 )
-				value = conditionsController.getConditionState( blockIndex, rowIndex );
-
-			else if( columnIndex == 1 )
+			if ( conditionsController.isFlagCondtion(blockIndex, rowIndex) ){
+				conditionType = COND_FLAG;
+			}else if ( conditionsController.isVarCondtion(blockIndex, rowIndex) ){
+				conditionType = COND_VAR;
+			}
+			
+			if( columnIndex == 0 ) {
 				value = conditionsController.getConditionId( blockIndex, rowIndex );
+				type = TYPE_ID;
+			} else if( columnIndex == 1 ){
+				if ( conditionsController.isFlagCondtion(blockIndex, rowIndex) ){
+					value = TextConstants.getText("GeneralText.Is");
+				} else {
+					value = conditionsController.getConditionState(blockIndex, rowIndex);
+				}
+				type = TYPE_OTHER;
+			}else if( columnIndex == 2 ) {
+				if ( conditionsController.isFlagCondtion(blockIndex, rowIndex) ){
+					value = conditionsController.getConditionState( blockIndex, rowIndex );
+				} else {
+					value = conditionsController.getConditionValue( blockIndex, rowIndex );	
+				}
+				type = TYPE_OTHER;
+			}
+			return type+"."+conditionType+"."+value;
+		}
 
-			return value;
+		@Override
+		public Component getTableCellRendererComponent(JTable table,
+				Object value, boolean isSelected, boolean hasFocus, int row,
+				int column) {
+
+			if (value instanceof String){
+				StringTokenizer tokenizer = new StringTokenizer(((String)value), "." );
+				String type = tokenizer.nextToken( );
+				String conditionType =tokenizer.nextToken( );
+				String text = tokenizer.nextToken( );
+				
+				JPanel panel = new JPanel();
+				panel.setLayout(new BorderLayout());
+				if ( conditionType.equals( COND_FLAG )){
+					panel.setBackground( FLAG_COLOR );
+				} else if ( conditionType.equals( COND_VAR )){
+					panel.setBackground( VAR_COLOR );
+				}
+				
+				if (type.equals( TYPE_ID )){
+					panel.add( new JLabel ( getIconForType(conditionType)), BorderLayout.WEST );
+					JLabel label = new JLabel ( text );
+					label.setHorizontalTextPosition( SwingConstants.CENTER );
+					label.setAlignmentX( 0.5f );
+					label.setHorizontalAlignment( SwingConstants.CENTER );
+					panel.add( label , BorderLayout.CENTER );
+				} else if (type.equals( TYPE_OTHER )){
+					JLabel label = new JLabel ( text );
+					label.setHorizontalTextPosition( SwingConstants.CENTER );
+					label.setAlignmentX( 0.5f );
+					label.setHorizontalAlignment( SwingConstants.CENTER );
+					panel.add( label, BorderLayout.CENTER );
+				}
+				
+				if ( isSelected ){
+					panel.setBorder( BorderFactory.createLineBorder( Color.black, 2) );
+				}
+				
+				return panel;
+			} else
+				return null;
+		}
+		
+		private Icon getIconForType ( String type ){
+			Icon icon = null;
+			if ( type.equals( COND_FLAG ) ){
+				icon = new ImageIcon ( "img/icons/flag16.png");
+			} else if ( type.equals( COND_VAR ) ){
+				icon = new ImageIcon ( "img/icons/var16.png");
+			}
+			return icon;
 		}
 	}
 }

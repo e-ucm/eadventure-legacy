@@ -6,7 +6,7 @@ import es.eucm.eadventure.common.data.chapter.elements.ActiveArea;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ActionsListDataControl;
-import es.eucm.eadventure.editor.data.support.FlagSummary;
+import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class ActiveAreaDataControl extends DataControl {
 
@@ -287,9 +287,9 @@ public class ActiveAreaDataControl extends DataControl {
 	}
 
 	@Override
-	public void updateFlagSummary( FlagSummary flagSummary ) {
-		actionsListDataControl.updateFlagSummary( flagSummary );
-		ConditionsController.updateFlagSummary( flagSummary, activeArea.getConditions( ) );
+	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
+		actionsListDataControl.updateFlagSummary( varFlagSummary );
+		ConditionsController.updateFlagSummary( varFlagSummary, activeArea.getConditions( ) );
 	}
 
 	@Override

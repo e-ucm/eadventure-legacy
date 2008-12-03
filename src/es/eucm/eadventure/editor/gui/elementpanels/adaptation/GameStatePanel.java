@@ -129,7 +129,7 @@ class GameStatePanel extends JPanel {
 		actionFlagsTable.getColumnModel( ).getColumn( 0 ).setCellEditor( new DefaultCellEditor( actionValuesCB ) );
 		
 		//Edition of column 1: combo box (flags list)
-		String [] flags = Controller.getInstance( ).getFlagSummary( ).getFlags( );
+		String [] flags = Controller.getInstance( ).getVarFlagSummary( ).getFlags( );
 		JComboBox flagsCB = new JComboBox (flags);
 		actionFlagsTable.getColumnModel( ).getColumn( 1 ).setCellEditor( new DefaultCellEditor( flagsCB ) );
 		// Misc properties

@@ -13,7 +13,7 @@ import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.control.controllers.general.NextSceneDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
-import es.eucm.eadventure.editor.data.support.FlagSummary;
+import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class GraphConversationDataControl extends ConversationDataControl {
 
@@ -309,13 +309,13 @@ public class GraphConversationDataControl extends ConversationDataControl {
 	}
 
 	@Override
-	public void updateFlagSummary( FlagSummary flagSummary ) {
+	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
 		// Check every node on the conversation
 		List<ConversationNode> conversationNodes = graphConversation.getAllNodes( );
 		for( ConversationNode conversationNode : conversationNodes )
 			// Update the summary with the effects, if avalaible
 			if( conversationNode.hasEffects( ) )
-				EffectsController.updateFlagSummary( flagSummary, conversationNode.getEffects( ) );
+				EffectsController.updateFlagSummary( varFlagSummary, conversationNode.getEffects( ) );
 	}
 
 	@Override

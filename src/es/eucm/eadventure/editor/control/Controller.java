@@ -32,7 +32,7 @@ import es.eucm.eadventure.editor.control.config.ConfigData;
 import es.eucm.eadventure.editor.control.config.ProjectConfigData;
 import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
-import es.eucm.eadventure.editor.control.controllers.FlagsController;
+import es.eucm.eadventure.editor.control.controllers.VarFlagsController;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfilesDataControl;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfilesDataControl;
 import es.eucm.eadventure.editor.control.controllers.character.NPCDataControl;
@@ -40,7 +40,7 @@ import es.eucm.eadventure.editor.control.controllers.general.ChapterDataControl;
 import es.eucm.eadventure.editor.control.controllers.item.ItemDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
 import es.eucm.eadventure.editor.control.writer.Writer;
-import es.eucm.eadventure.editor.data.support.FlagSummary;
+import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 import es.eucm.eadventure.editor.data.support.IdentifierSummary;
 import es.eucm.eadventure.editor.gui.LoadingScreen;
 import es.eucm.eadventure.editor.gui.MainWindow;
@@ -48,7 +48,7 @@ import es.eucm.eadventure.editor.gui.ProjectFolderChooser;
 import es.eucm.eadventure.editor.gui.displaydialogs.InvalidReportDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.AdventureDataDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.ExportToLOMDialog;
-import es.eucm.eadventure.editor.gui.editdialogs.FlagsDialog;
+import es.eucm.eadventure.editor.gui.editdialogs.VarsFlagsDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.GUIStylesDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.GraphicConfigDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.assetsdialogs.AnimationAssetsDialog;
@@ -445,7 +445,7 @@ public class Controller {
 	/**
 	 * Summary of flags.
 	 */
-	private FlagSummary flagSummary;
+	private VarFlagSummary varFlagSummary;
 
 	/**
 	 * Stores if the data has been modified since the last save.
@@ -575,7 +575,7 @@ public class Controller {
 		selectedChapter = 0;
 		chapterDataControlList.add( new ChapterDataControl( getSelectedChapterData( ) ) );
 		identifierSummary = new IdentifierSummary( getSelectedChapterData( ) );
-		flagSummary = new FlagSummary( );
+		varFlagSummary = new VarFlagSummary( );
 		dataModified = false;
 
 		mainWindow = new MainWindow( );
@@ -746,12 +746,12 @@ public class Controller {
 	}
 
 	/**
-	 * Returns the flag summary.
+	 * Returns the varFlag summary.
 	 * 
-	 * @return The flag summary
+	 * @return The varFlag summary
 	 */
-	public FlagSummary getFlagSummary( ) {
-		return flagSummary;
+	public VarFlagSummary getVarFlagSummary( ) {
+		return varFlagSummary;
 	}
 
 	/**
@@ -993,7 +993,7 @@ public class Controller {
 			chapterDataControlList.clear( );
 			chapterDataControlList.add( new ChapterDataControl( getSelectedChapterData( ) ) );
 			identifierSummary.loadIdentifiers( getSelectedChapterData( ) );
-			flagSummary.clear( );
+			varFlagSummary.clear( );
 
 			// Init project properties (empty)
 			ProjectConfigData.init();
@@ -1375,7 +1375,7 @@ public class Controller {
 				for( Chapter chapter : adventureData.getChapters( ) )
 					chapterDataControlList.add( new ChapterDataControl( chapter ) );
 				identifierSummary.loadIdentifiers( getSelectedChapterData( ) );
-				getSelectedChapterDataControl( ).updateFlagSummary( flagSummary );
+				getSelectedChapterDataControl( ).updateFlagSummary( varFlagSummary );
 				
 				// Check asset files
 				AssetsController.checkAssetFilesConsistency( incidences );
@@ -2167,7 +2167,7 @@ public class Controller {
 	 * Shows the flags dialog.
 	 */
 	public void showEditFlagDialog( ) {
-		new FlagsDialog( new FlagsController( flagSummary ) );
+		new VarsFlagsDialog( new VarFlagsController( varFlagSummary ) );
 	}
 
 	/**
@@ -2181,14 +2181,14 @@ public class Controller {
 
 		// Update the identifier and flag summary
 		identifierSummary.loadIdentifiers( getSelectedChapterData( ) );
-		getSelectedChapterDataControl( ).updateFlagSummary( flagSummary );
+		getSelectedChapterDataControl( ).updateFlagSummary( varFlagSummary );
 
 		// Reload the main window
 		mainWindow.reloadData(  );
 	}
 
 	public void updateFlagSummary( ) {
-		getSelectedChapterDataControl( ).updateFlagSummary( flagSummary );
+		getSelectedChapterDataControl( ).updateFlagSummary( varFlagSummary );
 	}
 
 	/**
@@ -2209,7 +2209,7 @@ public class Controller {
 			// Select the new chapter, and add the new data the data
 			selectedChapter = adventureData.getChapters( ).size( ) - 1;
 			identifierSummary.loadIdentifiers( getSelectedChapterData( ) );
-			getSelectedChapterDataControl( ).updateFlagSummary( flagSummary );
+			getSelectedChapterDataControl( ).updateFlagSummary( varFlagSummary );
 
 			// Update the main window
 			dataModified( );
@@ -2236,7 +2236,7 @@ public class Controller {
 
 				// Update the data
 				identifierSummary.loadIdentifiers( getSelectedChapterData( ) );
-				getSelectedChapterDataControl( ).updateFlagSummary( flagSummary );
+				getSelectedChapterDataControl( ).updateFlagSummary( varFlagSummary );
 
 				// Update the main window
 				dataModified( );
@@ -2262,7 +2262,7 @@ public class Controller {
 
 			// Update the data
 			identifierSummary.loadIdentifiers( getSelectedChapterData( ) );
-			getSelectedChapterDataControl( ).updateFlagSummary( flagSummary );
+			getSelectedChapterDataControl( ).updateFlagSummary( varFlagSummary );
 
 			// Update the main window
 			dataModified( );
@@ -2284,7 +2284,7 @@ public class Controller {
 
 			// Update the data
 			identifierSummary.loadIdentifiers( getSelectedChapterData( ) );
-			getSelectedChapterDataControl( ).updateFlagSummary( flagSummary );
+			getSelectedChapterDataControl( ).updateFlagSummary( varFlagSummary );
 
 			// Update the main window
 			dataModified( );

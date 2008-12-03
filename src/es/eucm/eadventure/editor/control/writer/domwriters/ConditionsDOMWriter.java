@@ -12,6 +12,7 @@ import org.w3c.dom.Node;
 
 import es.eucm.eadventure.common.data.chapter.conditions.Condition;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
+import es.eucm.eadventure.common.data.chapter.conditions.VarCondition;
 
 public class ConditionsDOMWriter {
 
@@ -91,14 +92,33 @@ public class ConditionsDOMWriter {
 			for( Condition condition : conditions ) {
 				Element conditionElement = null;
 
-				// Create the tag
-				if( condition.getState( ) == Condition.FLAG_ACTIVE )
-					conditionElement = doc.createElement( "active" );
-				else if( condition.getState( ) == Condition.FLAG_INACTIVE )
-					conditionElement = doc.createElement( "inactive" );
-
-				// Set the target flag and append it
-				conditionElement.setAttribute( "flag", condition.getFlagVar( ) );
+				if ( condition.getType() == Condition.FLAG_CONDITION ){
+					// Create the tag
+					if( condition.getState( ) == Condition.FLAG_ACTIVE )
+						conditionElement = doc.createElement( "active" );
+					else if( condition.getState( ) == Condition.FLAG_INACTIVE )
+						conditionElement = doc.createElement( "inactive" );
+	
+					// Set the target flag and append it
+					conditionElement.setAttribute( "flag", condition.getFlagVar( ) );
+				} else if ( condition.getType() == Condition.VAR_CONDITION ){
+					VarCondition varCondition = (VarCondition) condition;
+					// Create the tag
+					if( varCondition.getState( ) == VarCondition.VAR_EQUALS )
+						conditionElement = doc.createElement( "equals" );
+					else if( condition.getState( ) == VarCondition.VAR_GREATER_EQUALS_THAN )
+						conditionElement = doc.createElement( "greater-equals-than" );
+					else if( condition.getState( ) == VarCondition.VAR_GREATER_THAN )
+						conditionElement = doc.createElement( "greater-than" );
+					else if( condition.getState( ) == VarCondition.VAR_LESS_EQUALS_THAN )
+						conditionElement = doc.createElement( "less-equals-than" );
+					else if( condition.getState( ) == VarCondition.VAR_LESS_THAN )
+						conditionElement = doc.createElement( "less-than" );
+	
+					// Set the target flag and append it
+					conditionElement.setAttribute( "var", varCondition.getFlagVar( ) );
+					conditionElement.setAttribute( "value", Integer.toString( varCondition.getValue() ) );
+				}
 				conditionsListNode.appendChild( conditionElement );
 			}
 

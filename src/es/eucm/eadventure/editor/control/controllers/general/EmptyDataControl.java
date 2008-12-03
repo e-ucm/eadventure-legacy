@@ -3,7 +3,7 @@ package es.eucm.eadventure.editor.control.controllers.general;
 import java.util.List;
 
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.data.support.FlagSummary;
+import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class EmptyDataControl extends DataControl{
 
@@ -102,7 +102,7 @@ public class EmptyDataControl extends DataControl{
 	}
 
 	@Override
-	public void updateFlagSummary( FlagSummary flagSummary ) {
+	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
 		
 	}
 

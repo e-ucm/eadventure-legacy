@@ -7,7 +7,7 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
-import es.eucm.eadventure.editor.data.support.FlagSummary;
+import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class NextSceneDataControl extends DataControl {
 
@@ -216,11 +216,11 @@ public class NextSceneDataControl extends DataControl {
 	}
 
 	@Override
-	public void updateFlagSummary( FlagSummary flagSummary ) {
+	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
 		// Update the summary with conditions and both blocks of effects
-		ConditionsController.updateFlagSummary( flagSummary, nextScene.getConditions( ) );
-		EffectsController.updateFlagSummary( flagSummary, nextScene.getEffects( ) );
-		EffectsController.updateFlagSummary( flagSummary, nextScene.getPostEffects( ) );
+		ConditionsController.updateFlagSummary( varFlagSummary, nextScene.getConditions( ) );
+		EffectsController.updateFlagSummary( varFlagSummary, nextScene.getEffects( ) );
+		EffectsController.updateFlagSummary( varFlagSummary, nextScene.getPostEffects( ) );
 	}
 
 	@Override

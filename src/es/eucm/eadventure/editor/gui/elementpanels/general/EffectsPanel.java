@@ -52,7 +52,7 @@ public class EffectsPanel extends JPanel {
 		this.effectsController = effectsController;
 
 		// Set properties of the panel
-		setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "FunctionalEffects.Title" ) ) );
+		setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Effects.Title" ) ) );
 
 		// Set the panel
 		setLayout( new GridBagLayout( ) );
@@ -62,7 +62,7 @@ public class EffectsPanel extends JPanel {
 		// Add the description of the panel
 		c.anchor = GridBagConstraints.LINE_START;
 		c.gridwidth = 4;
-		add( new JLabel( TextConstants.getText( "FunctionalEffects.Description" ) ), c );
+		add( new JLabel( TextConstants.getText( "Effects.Description" ) ), c );
 
 		// Add the table with the data
 		c.anchor = GridBagConstraints.CENTER;
@@ -91,13 +91,13 @@ public class EffectsPanel extends JPanel {
 		c.gridx = 1;
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 1;
-		JButton addConditionButton = new JButton( TextConstants.getText( "FunctionalEffects.AddEffectButton" ) );
+		JButton addConditionButton = new JButton( TextConstants.getText( "Effects.AddEffectButton" ) );
 		addConditionButton.addActionListener( new AddEffectListener( ) );
 		add( addConditionButton, c );
 
 		// Add the delete effect button
 		c.gridx = 2;
-		JButton deleteConditionButton = new JButton( TextConstants.getText( "FunctionalEffects.DeleteEffectButton" ) );
+		JButton deleteConditionButton = new JButton( TextConstants.getText( "Effects.DeleteEffectButton" ) );
 		deleteConditionButton.addActionListener( new DeleteEffectListener( ) );
 		add( deleteConditionButton, c );
 
@@ -244,11 +244,11 @@ public class EffectsPanel extends JPanel {
 
 			// The first column is the effect number
 			if( columnIndex == 0 )
-				columnName = TextConstants.getText( "FunctionalEffects.EffectNumberColumnTitle" );
+				columnName = TextConstants.getText( "Effects.EffectNumberColumnTitle" );
 
 			// The second one the effect information
 			else if( columnIndex == 1 )
-				columnName = TextConstants.getText( "FunctionalEffects.EffectDescriptionColumnTitle" );
+				columnName = TextConstants.getText( "Effects.EffectDescriptionColumnTitle" );
 
 			return columnName;
 		}

@@ -9,7 +9,7 @@ import es.eucm.eadventure.common.data.chapter.conversation.TreeConversation;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.data.support.FlagSummary;
+import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class ConversationsListDataControl extends DataControl {
 
@@ -205,10 +205,10 @@ public class ConversationsListDataControl extends DataControl {
 	}
 
 	@Override
-	public void updateFlagSummary( FlagSummary flagSummary ) {
+	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
 		// Iterate through each conversation
 		for( ConversationDataControl conversationDataControl : conversationsDataControlList )
-			conversationDataControl.updateFlagSummary( flagSummary );
+			conversationDataControl.updateFlagSummary( varFlagSummary );
 	}
 
 	@Override
