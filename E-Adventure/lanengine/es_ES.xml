@@ -16,6 +16,7 @@
 	<entry key="MainWindow.InvalidAdventure">Aventura inválida</entry>
 	<entry key="MainWindow.TabOpen">Abrir juego</entry>
 	<entry key="MainWindow.TabAbout">Sobre e-Adventure</entry>
+	<entry key="MainWindow.Title">eAdventure Game Launcher</entry>
 	<entry key="Information.FileAbout">aboutES.html</entry>
 	<entry key="GUI.NoFullscreenTitle">Problema entrando a modo pantalla-completa</entry>
 	<entry key="GUI.NoFullscreenContent">Un problema parece impedir que el juego se vea corresponde</entry>
