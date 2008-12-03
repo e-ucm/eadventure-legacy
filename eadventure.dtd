@@ -93,6 +93,9 @@
 	uri CDATA #REQUIRED
 	type (url | resource) "url"
 	margin CDATA #IMPLIED
+	marginEnd CDATA #IMPLIED
+	marginTop CDATA #IMPLIED
+	marginBottom CDATA #IMPLIED
 	scrollable (yes | no) "no" 
 > 
 <!ELEMENT text (#PCDATA | title | bullet | img)*>

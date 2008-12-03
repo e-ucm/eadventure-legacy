@@ -1,8 +1,12 @@
 package es.eucm.eadventure.editor.gui.assetchooser;
 
+import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import es.eucm.eadventure.common.auxiliar.FileFilter;
 import es.eucm.eadventure.common.auxiliar.categoryfilters.FormattedTextFileFilter;
@@ -19,6 +23,8 @@ public class FormatedTextChooser extends AssetChooser{
 	
 	private FormattedTextPanel previewPanel;
 	
+	private JScrollPane scrollPane;
+	
 	public FormatedTextChooser( ) {
 		super( AssetsController.CATEGORY_STYLED_TEXT, AssetsController.FILTER_NONE, AssetChooser.PREVIEW_LOCATION_SOUTH, TextConstants.getText( "AssetsChooser.FormattedText" ) );
 	}
@@ -27,8 +33,13 @@ public class FormatedTextChooser extends AssetChooser{
 	@Override
 	protected void createPreviewPanel( Container parent ) {
 		previewPanel = new FormattedTextPanel();
-		previewPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "FormattedTextAssets.Preview" ) ) );
-		parent.add( previewPanel );
+		JPanel previewPanelContainer = new JPanel();
+		previewPanelContainer.setLayout(new BorderLayout());
+		scrollPane = new JScrollPane(previewPanel);
+		previewPanelContainer.add(scrollPane, BorderLayout.CENTER);
+		//previewPanelContainer.setMaximumSize(new Dimension(200,200));
+		previewPanelContainer.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "FormattedTextAssets.Preview" ) ) );
+		parent.add( previewPanelContainer );
 	}
 
 
@@ -44,6 +55,7 @@ public class FormatedTextChooser extends AssetChooser{
 					assetIndex = i;
 
 			previewPanel.loadFile( assetPaths[assetIndex] );
+
 			//previewPanel.setPage( getSelectedAsset )
 		} else if( getSelectedFile( ) != null ) {
 			previewPanel.loadFile( getSelectedFile().getAbsolutePath( ) );

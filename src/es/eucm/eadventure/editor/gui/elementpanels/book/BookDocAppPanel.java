@@ -209,8 +209,7 @@ public class BookDocAppPanel extends JPanel {
 			previewButton = new JButton ("Preview");
 			previewButton.addActionListener( new ActionListener(){
 				public void actionPerformed( ActionEvent e ) {
-					if (dialog==null)
-						dialog = new StyledBookDialog(bookDataControl);
+					dialog = new StyledBookDialog(bookDataControl);
 					dialog.setVisible( true );
 					dialog.updatePreview( );
 				}

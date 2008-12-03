@@ -32,6 +32,13 @@ public class BookPage {
      */
     private int margin;
     
+    private int marginEnd;
+    
+    private int marginTop;
+    
+    private int marginBottom;
+    
+    
     /**
      * Determines whether the page must be in a scroll pane (Scroll bars shown)
      */
@@ -72,6 +79,16 @@ public class BookPage {
         this.scrollable = scrollable;
     }
     
+    public BookPage( String uri, int type, int margin, int marginEnd, int marginTop, int marginBottom, boolean scrollable ) {
+        this.uri = uri;
+        this.type = type;
+        this.margin = margin;
+        this.marginEnd = marginEnd;
+        this.marginTop = marginTop;
+        this.marginBottom = marginBottom;
+        this.scrollable = scrollable;
+    }
+
     /**
      * @param uri
      * @param type
@@ -83,6 +100,7 @@ public class BookPage {
     public BookPage( String uri, int type) {
         this (uri,type,0);
     }
+  
     /**
      * @return the margin
      */
@@ -96,8 +114,64 @@ public class BookPage {
     public void setMargin( int margin ) {
         this.margin = margin;
     }
-    
-    public boolean getScrollable(){
+
+    /**
+     * @return the margin
+     */
+    public int getMarginStart( ) {
+        return margin;
+    }
+
+    /**
+     * @param margin the margin to set
+     */
+    public void setMarginStart( int margin ) {
+        this.margin = margin;
+    }
+
+    /**
+	 * @return the marginEnd
+	 */
+	public int getMarginEnd() {
+		return marginEnd;
+	}
+
+	/**
+	 * @param marginEnd the marginEnd to set
+	 */
+	public void setMarginEnd(int marginEnd) {
+		this.marginEnd = marginEnd;
+	}
+
+	/**
+	 * @return the marginTop
+	 */
+	public int getMarginTop() {
+		return marginTop;
+	}
+
+	/**
+	 * @param marginTop the marginTop to set
+	 */
+	public void setMarginTop(int marginTop) {
+		this.marginTop = marginTop;
+	}
+
+	/**
+	 * @return the marginBottom
+	 */
+	public int getMarginBottom() {
+		return marginBottom;
+	}
+
+	/**
+	 * @param marginBottom the marginBottom to set
+	 */
+	public void setMarginBottom(int marginBottom) {
+		this.marginBottom = marginBottom;
+	}
+
+	public boolean getScrollable(){
         return scrollable;
     }
     

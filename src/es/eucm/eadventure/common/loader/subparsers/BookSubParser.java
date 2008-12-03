@@ -130,6 +130,9 @@ public class BookSubParser extends SubParser {
                 String uri = "";
                 int type = BookPage.TYPE_URL;
                 int margin =0;
+                int marginEnd = 0;
+                int marginTop = 0;
+                int marginBottom = 0;
                 boolean scrollable =false;
 
                 for( int i = 0; i < attrs.getLength( ); i++ ) {
@@ -144,13 +147,33 @@ public class BookSubParser extends SubParser {
                         if ( attrs.getValue( i ).equals( "yes" ))
                             scrollable = true;
                     
-                    if( attrs.getQName( i ).equals( "margin" ) )
+                    if( attrs.getQName( i ).equals( "margin" ) ) {
                         try{
                             margin = Integer.parseInt( attrs.getValue( i ) );
                         }catch(Exception e){ }
+                    }
+
+                    if( attrs.getQName( i ).equals( "marginEnd" ) ) {
+                        try{
+                            marginEnd = Integer.parseInt( attrs.getValue( i ) );
+                        }catch(Exception e){ }
+                    }
+                    
+                    if( attrs.getQName( i ).equals( "marginTop" ) ) {
+                        try{
+                            marginTop = Integer.parseInt( attrs.getValue( i ) );
+                        }catch(Exception e){ }
+                    }
+
+                    if( attrs.getQName( i ).equals( "marginBottom" ) ) {
+                        try{
+                            marginBottom = Integer.parseInt( attrs.getValue( i ) );
+                        }catch(Exception e){ }
+                    }
+
                         
                 }
-                book.addPage( uri, type, margin, scrollable );
+                book.addPage( uri, type, margin, marginEnd, marginTop, marginBottom, scrollable );
                 
             }
 

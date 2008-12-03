@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,6 +36,7 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.book.BookPagesListDataControl;
+import es.eucm.eadventure.editor.gui.editdialogs.ChangePageMarginsDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.HTMLEditDialog;
 
 public class BookPagePanel extends JPanel{
@@ -67,9 +69,7 @@ public class BookPagePanel extends JPanel{
 	
 	private JButton createButton;
 	
-	private JCheckBox scrollableCheckBox;
-	
-	private JSlider marginSlider;
+	private JButton changeMargins;
 	
 	private BookPagesPanel parent;
 	
@@ -204,36 +204,24 @@ public class BookPagePanel extends JPanel{
 		//---------------- Asset path panel -------------------------------------//
 		
 		//---------------- Scrollable & Margin panel ----------------------------//
+		
 		JPanel otherOptions = new JPanel ();
-		scrollableCheckBox = new JCheckBox(TextConstants.getText( "BookPage.ScrollableTitle" ));
-		scrollableCheckBox.setSelected( bookPage!=null && bookPage.getScrollable( ) );
-		scrollableCheckBox.setEnabled( bookPage!=null );
-		scrollableCheckBox.addChangeListener( new ChangeListener(){
-			public void stateChanged( ChangeEvent e ) {
-				dataControl.setScrollable( scrollableCheckBox.isSelected( ) );
-				parent.updatePreview( );
+		changeMargins = new JButton(TextConstants.getText("BookPage.Margin"));
+		changeMargins.addActionListener( new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				String backgroundPath =  parent.getDataControl().getPreviewImage();
+		        Image background;
+		        if (backgroundPath!=null && backgroundPath.length( )>0)
+		        	background = AssetsController.getImage( backgroundPath );
+		        else
+		        	background = null;
+				new ChangePageMarginsDialog(bookPage, background);
+				parent.updatePreview( );				
 			}
 		});
-		scrollableCheckBox.setToolTipText( TextConstants.getText( "BookPage.ScrollableToolTip" ) );
-
-		marginSlider = new JSlider(JSlider.HORIZONTAL, 0, 150, (bookPage!=null)?bookPage.getMargin( ):0);
-		marginSlider.setMajorTickSpacing( 15 );
-		marginSlider.setMinorTickSpacing( 5 );
-		marginSlider.setPaintTicks( true );
-		marginSlider.setPaintLabels( false );
-		marginSlider.setEnabled( bookPage!=null );
-		marginSlider.addChangeListener( new ChangeListener(){
-			public void stateChanged( ChangeEvent e ) {
-				if(!marginSlider.getValueIsAdjusting( )){
-					dataControl.setMargin( marginSlider.getValue( ) );
-					parent.updatePreview( );
-				}
-			}
-		});
-		marginSlider.setToolTipText( TextConstants.getText( "BookPage.MarginToolTip" ) );
-		otherOptions.add( scrollableCheckBox);
-		otherOptions.add( new JLabel(TextConstants.getText( "BookPage.Margin" )) );
-		otherOptions.add( marginSlider );
+		changeMargins.setEnabled(bookPage!=null && ! pathTextField.isEditable( ) );
+		otherOptions.add(changeMargins);
 		
 		// Add the panels to the principal panel
 		this.setLayout( new GridBagLayout() );
@@ -371,11 +359,13 @@ public class BookPagePanel extends JPanel{
 				pathTextField.setText( dataControl.getSelectedPage( ).getUri( ) );
 				pathTextField.setEditable( false );
 				selectButton.setEnabled( true );
+				createButton.setEnabled( true );
 			}else if( e.getSource( ).equals( urlRadioButton ) ){
 				dataControl.setType(BookPage.TYPE_URL);
 				pathTextField.setText( dataControl.getSelectedPage( ).getUri( ) );
 				pathTextField.setEditable( true );
 				selectButton.setEnabled( false );
+				createButton.setEnabled( false );
 			}
 		}
 	}
@@ -435,6 +425,7 @@ public class BookPagePanel extends JPanel{
 			String uri = "assets/styledtext/" + temp.getName();
 			dataControl.getSelectedPage().setUri(uri);
 			pathTextField.setText( dataControl.getSelectedPage( ).getUri( ) );
+			parent.updatePreview( );
 			
 		}
 	}

@@ -119,7 +119,16 @@ public class Book {
     public void addPage( String uri, int type, int margin, boolean scrollable ){
         pages.add( new BookPage(uri,type,margin,scrollable) );
     }
-    
+
+    /**
+     * Adds a page to the book with margin
+     * @param page New page (url) to be added
+     */
+
+    public void addPage( String uri, int type, int margin, int marginEnd, int marginTop, int marginBottom, boolean scrollable ){
+        pages.add( new BookPage(uri,type,margin,marginEnd,marginTop,marginBottom,scrollable) );
+    }
+
     /**
      * Adds a page to the book
      * @param page New page (url) to be added

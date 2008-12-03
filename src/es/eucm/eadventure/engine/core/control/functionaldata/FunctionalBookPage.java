@@ -52,6 +52,7 @@ public class FunctionalBookPage extends JPanel{
         isValid=true;
         this.bookPage = bookPage;
         this.background = background;
+        this.addMouseListener(new FunctionalBookMouseListener());
         URL url = null;
         if (bookPage.getType( ) == BookPage.TYPE_URL){
             try {
@@ -149,12 +150,13 @@ public class FunctionalBookPage extends JPanel{
         
         this.setOpaque( false );
         
-        this.setLayout( new BoxLayout(this, BoxLayout.LINE_AXIS) );
-        if (bookPage.getMargin( )>0){
-            Component margin = Box.createRigidArea( new Dimension(bookPage.getMargin( ), GUI.WINDOW_HEIGHT) );
-            margin.addMouseListener( new FunctionalBookMouseListener() );
-            this.add( margin );
-        }
+        this.setLayout(null );
+        //if (bookPage.getMargin( )>0){
+        //    Component margin = Box.createRigidArea( new Dimension(bookPage.getMargin( ), GUI.WINDOW_HEIGHT) );
+            //margin.addMouseListener( new FunctionalBookMouseListener() );
+        //    this.add( margin );
+        //}
+    	editorPane.setBounds(bookPage.getMargin(), bookPage.getMarginTop(), GUI.WINDOW_WIDTH - bookPage.getMargin() - bookPage.getMarginEnd(), GUI.WINDOW_HEIGHT - bookPage.getMarginTop() - bookPage.getMarginBottom());
         if ( bookPage.getScrollable( ) )
             this.add( new JScrollPane(editorPane, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED) );
         else
@@ -166,12 +168,15 @@ public class FunctionalBookPage extends JPanel{
         
         public void mouseClicked(MouseEvent evt){
             int x = evt.getX( );
+            int y = evt.getY( );
             if (evt.getSource( ) == editorPane){
                 //Spread the call gauging the positions so the margin is taken into account
                 x+=bookPage.getMargin( );
-            } 
+                y+=bookPage.getMarginTop();
+            }
+
             MouseEvent nEvt = new MouseEvent((Component)evt.getSource( ), evt.getID( ), evt.getWhen( ), evt.getModifiers( ),
-                    x , evt.getY( ), 
+                    x , y, 
                    evt.getClickCount( ), evt.isPopupTrigger( ), evt.getButton( ));
            Game.getInstance( ).mouseClicked( nEvt );
         }

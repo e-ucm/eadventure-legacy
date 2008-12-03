@@ -1,11 +1,13 @@
 package es.eucm.eadventure.editor.gui.otherpanels;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -22,6 +24,7 @@ import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.common.data.chapter.book.BookPage;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.gui.displaydialogs.StyledBookDialog;
+import es.eucm.eadventure.engine.core.gui.GUI;
 
 public class BookPagePreviewPanel extends JPanel{
 	
@@ -47,6 +50,7 @@ public class BookPagePreviewPanel extends JPanel{
         isValid=true;
         this.bookPage = bookPage;
         this.background = backgroundImage;
+        this.addMouseListener(new BookPageMouseListener() );
         URL url = null;
         if (bookPage.getType( ) == BookPage.TYPE_URL){
             try {
@@ -138,14 +142,12 @@ public class BookPagePreviewPanel extends JPanel{
         
         this.setOpaque( false );
         
-        this.setLayout( new BoxLayout(this, BoxLayout.LINE_AXIS) );
+        //this.setLayout( new BoxLayout(this, BoxLayout.LINE_AXIS) );
+        this.setLayout(null);
         if ( !bookPage.getScrollable( ) ){
-	        if (bookPage.getMargin( )>0){
-	            Component margin = Box.createRigidArea( new Dimension(bookPage.getMargin( ) , getHeight()) );
-	            margin.addMouseListener( new BookPageMouseListener() );
-	            this.add( margin );
-	        }
-	        this.add( editorPane );
+	    	editorPane.setBounds(bookPage.getMargin(), bookPage.getMarginTop(), GUI.WINDOW_WIDTH - bookPage.getMargin() - bookPage.getMarginEnd(), GUI.WINDOW_HEIGHT - bookPage.getMarginTop() - bookPage.getMarginBottom());
+	    	
+	    	this.add( editorPane/* , BorderLayout.CENTER*/ );
         }
 	    else{
 	    	JPanel viewPort = new JPanel(){
@@ -155,14 +157,13 @@ public class BookPagePreviewPanel extends JPanel{
 	    	        super.paint( g );
 	    	    }
 	    	};
-	    	viewPort.setLayout( new BoxLayout(viewPort, BoxLayout.LINE_AXIS) );
+//	    	viewPort.setLayout( new BoxLayout(viewPort, BoxLayout.LINE_AXIS) );
+	    	viewPort.setLayout(new BorderLayout());
 	    	viewPort.setOpaque( false );
-	        if (bookPage.getMargin( )>0){
-	            Component margin = Box.createRigidArea( new Dimension(bookPage.getMargin( ) , getHeight()) );
-	            margin.addMouseListener( new BookPageMouseListener() );
-	            viewPort.add( margin );
-	        }
-	        viewPort.add( editorPane );
+	    	
+	    	editorPane.setBounds(bookPage.getMargin(), bookPage.getMarginTop(), GUI.WINDOW_WIDTH - bookPage.getMargin() - bookPage.getMarginEnd(), GUI.WINDOW_HEIGHT - bookPage.getMarginTop() - bookPage.getMarginBottom());
+
+	    	viewPort.add( editorPane , BorderLayout.CENTER);
         	JScrollPane scroll = new JScrollPane(viewPort, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         	scroll.getViewport( ).setOpaque( false );
         	scroll.getViewport( ).setBorder( null );
@@ -311,19 +312,36 @@ public class BookPagePreviewPanel extends JPanel{
     public void paint (Graphics g){
     	if (background!=null && !bookPage.getScrollable( ))
     		g.drawImage( background, 0, 0, background.getWidth(null), background.getHeight(null), null );
-        super.paint( g );
+        super.paint(g);
+    }
+    
+    /**
+     * Paints the preview of the book to an image
+     * 
+     * @return The image with the contents of the preview
+     */
+    public Image paintToImage () {
+    	Image image = new BufferedImage(GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT, BufferedImage.TYPE_3BYTE_BGR);
+    	Graphics g = image.getGraphics();
+    	if (background!=null && !bookPage.getScrollable( ))
+    		g.drawImage( background, 0, 0, background.getWidth(null), background.getHeight(null), null );
+    	if (editorPane != null)
+    		editorPane.paint(g.create(bookPage.getMargin(), bookPage.getMarginTop(), GUI.WINDOW_WIDTH - bookPage.getMargin() - bookPage.getMarginEnd(), GUI.WINDOW_HEIGHT - bookPage.getMarginTop() - bookPage.getMarginBottom()));
+    	return image;
     }
 
     private class BookPageMouseListener extends MouseAdapter {
         
         public void mouseClicked(MouseEvent evt){
             if (parent!=null){
-	        	int x = evt.getX( );
-	            if (evt.getSource( ) == editorPane){
-	                //Spread the call gauging the positions so the margin is taken into account
-	                x+=bookPage.getMargin( );
-	            } 
-	           parent.mouseClicked( x, evt.getY( ) );
+                int x = evt.getX( );
+                int y = evt.getY( );
+                if (evt.getSource( ) == editorPane){
+                    //Spread the call gauging the positions so the margin is taken into account
+                    x+=bookPage.getMargin( );
+                    y+=bookPage.getMarginTop();
+                }
+	            parent.mouseClicked( x, y );
             }
         }
         

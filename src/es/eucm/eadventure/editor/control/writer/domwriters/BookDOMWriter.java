@@ -94,6 +94,12 @@ public class BookDOMWriter {
 					//Attributes: uri, type, margin, scrollable
 					pageElement.setAttribute( "scrollable", ( page.getScrollable( )?"yes":"no"));
 					pageElement.setAttribute( "margin", Integer.toString( page.getMargin( ) ) );
+					if (page.getMarginEnd() != 0)
+						pageElement.setAttribute("marginEnd", Integer.toString(page.getMarginEnd()));
+					if (page.getMarginTop() != 0)
+						pageElement.setAttribute("marginTop", Integer.toString(page.getMarginTop()));
+					if (page.getMarginBottom() != 0)
+						pageElement.setAttribute("marginBottom", Integer.toString(page.getMarginBottom()));
 					pageElement.setAttribute( "uri", page.getUri( ) );
 					pageElement.setAttribute( "type", ( page.getType( ) == BookPage.TYPE_RESOURCE)?"resource":"url" );
 					
