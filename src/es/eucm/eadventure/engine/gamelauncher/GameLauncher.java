@@ -175,6 +175,7 @@ public class GameLauncher extends JFrame implements Runnable {
         setSize( WINDOW_WIDTH, WINDOW_HEIGHT );
         Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
         setLocation( ( screenSize.width - WINDOW_WIDTH ) / 2, ( screenSize.height - WINDOW_HEIGHT ) / 2);
+        // TODO TextConstants
         setTitle("eAdventure GameLauncher");
         setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
         
@@ -442,7 +443,7 @@ public class GameLauncher extends JFrame implements Runnable {
                         Game.delete( );
                         ResourceHandler.getInstance( ).closeZipFile( );
                         ResourceHandler.delete( );
-                        this.setVisible( true );
+                        this.setVisible( !initGameLoad );
                     }
                     if ( initGameLoad)
                     	System.exit( 0 );
