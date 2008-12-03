@@ -175,8 +175,8 @@ public class GameLauncher extends JFrame implements Runnable {
         setSize( WINDOW_WIDTH, WINDOW_HEIGHT );
         Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
         setLocation( ( screenSize.width - WINDOW_WIDTH ) / 2, ( screenSize.height - WINDOW_HEIGHT ) / 2);
-        // TODO TextConstants
-        setTitle("eAdventure GameLauncher");
+
+        setTitle(TextConstants.getText( "MainWindow.Title" ));
         setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
         
         // Creation of the three panels
