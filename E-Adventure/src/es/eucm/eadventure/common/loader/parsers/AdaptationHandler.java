@@ -1,9 +1,11 @@
 package es.eucm.eadventure.common.loader.parsers;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.xml.sax.Attributes;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -11,6 +13,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import es.eucm.eadventure.common.data.adaptation.AdaptationRule;
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
 import es.eucm.eadventure.common.data.adaptation.UOLProperty;
+import es.eucm.eadventure.common.loader.InputStreamCreator;
 
 /**
  * This handler reads the initial values for the adaptation engine
@@ -47,14 +50,20 @@ public class AdaptationHandler extends DefaultHandler {
     private StringBuffer currentString;
     
     /**
+     * InputStreamCreator used in resolveEntity to find dtds (only required in Applet mode)
+     */
+    private InputStreamCreator isCreator;
+    
+    /**
      * Default constructor
      */
-    public AdaptationHandler( List<AdaptationRule> rules, AdaptedState iState ) {
+    public AdaptationHandler( InputStreamCreator isCreator, List<AdaptationRule> rules, AdaptedState iState ) {
         initialState = iState;
         externalRules=rules;
         currentString = new StringBuffer( );
         vars = new ArrayList<String>();
         flags = new ArrayList<String>();
+        this.isCreator = isCreator;
     }
     
     private void addFlag ( String flag ){
@@ -236,5 +245,18 @@ public class AdaptationHandler extends DefaultHandler {
 		return vars;
 	}
 
+    /*
+     *  (non-Javadoc)
+     * @see org.xml.sax.EntityResolver#resolveEntity(java.lang.String, java.lang.String)
+     */
+    public InputSource resolveEntity( String publicId, String systemId ) {
+        // Take the name of the file SAX is looking for
+        int startFilename = systemId.lastIndexOf( "/" ) + 1;
+        String filename = systemId.substring( startFilename, systemId.length( ) );
+        
+        // Build and return a input stream with the file (usually the DTD)
+        InputStream inputStream = isCreator.buildInputStream( filename );   
+        return new InputSource( inputStream );
+    }
 
 }
