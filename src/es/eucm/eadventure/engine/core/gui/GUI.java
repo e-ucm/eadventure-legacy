@@ -175,7 +175,6 @@ public class GUI implements FocusListener {
             }
         };
         bkgFrame.setUndecorated( true );
-        bkgFrame.setIgnoreRepaint(true);
         
         Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
         if (graphicConfig == DescriptorData.GRAPHICS_BLACKBKG) {
@@ -189,7 +188,6 @@ public class GUI implements FocusListener {
         bkgFrame.setBackground( Color.BLACK );
         bkgFrame.setForeground( Color.BLACK );
         bkgFrame.setLayout(new GUILayout());//new BorderLayout());
-    	bkgFrame.setIgnoreRepaint(true);
 
         gameFrame = new Canvas();
         background = null;
@@ -204,7 +202,10 @@ public class GUI implements FocusListener {
 
 
         bkgFrame.setVisible( true );
-        bkgFrame.add(gameFrame);//, BorderLayout.CENTER);
+    	
+        bkgFrame.setIgnoreRepaint(true);
+        
+    	bkgFrame.add(gameFrame);//, BorderLayout.CENTER);
 
         
         if (graphicConfig == DescriptorData.GRAPHICS_FULLSCREEN) {
