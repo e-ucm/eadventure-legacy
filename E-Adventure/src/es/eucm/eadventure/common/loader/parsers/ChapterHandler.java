@@ -1,8 +1,5 @@
 package es.eucm.eadventure.common.loader.parsers;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 
 import org.xml.sax.Attributes;
