@@ -460,7 +460,7 @@ public class TreeConversationDataControl extends ConversationDataControl {
 	}
 
 	@Override
-	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
+	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
 		updateFlagSummaryInNode( varFlagSummary, treeConversation.getRootNode( ) );
 	}
 
@@ -476,7 +476,7 @@ public class TreeConversationDataControl extends ConversationDataControl {
 	public void updateFlagSummaryInNode( VarFlagSummary varFlagSummary, ConversationNode conversationNode ) {
 		// Update the summary with the effects
 		if( conversationNode.hasEffects( ) )
-			EffectsController.updateFlagSummary( varFlagSummary, conversationNode.getEffects( ) );
+			EffectsController.updateVarFlagSummary( varFlagSummary, conversationNode.getEffects( ) );
 
 		// Spread the call to the children (if the node hasn't got a go-back tag)
 		if( !TreeConversation.thereIsGoBackTag( conversationNode ) )

@@ -229,9 +229,9 @@ public class AssessmentProfileDataControl extends DataControl{
 	}
 
 	@Override
-	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
+	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
 		for (AssessmentRuleDataControl dataControl : dataControls)
-			dataControl.updateFlagSummary( varFlagSummary );
+			dataControl.updateVarFlagSummary( varFlagSummary );
 		
 	}
 

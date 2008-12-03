@@ -192,10 +192,10 @@ public class ConversationReferencesListDataControl extends DataControl {
 	}
 
 	@Override
-	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
+	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
 		// Iterate through the conversation references
 		for( ConversationReferenceDataControl conversationReferenceDataControl : conversationReferencesDataControlList )
-			conversationReferenceDataControl.updateFlagSummary( varFlagSummary );
+			conversationReferenceDataControl.updateVarFlagSummary( varFlagSummary );
 	}
 
 	@Override

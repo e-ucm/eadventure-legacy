@@ -110,7 +110,7 @@ public class AdaptationRuleDataControl extends DataControl{
 	}
 
 	@Override
-	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
+	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
 		for (String flag: adaptationRule.getAdaptedState( ).getFlagsVars( )){
 			varFlagSummary.addFlagReference( flag );	
 		}

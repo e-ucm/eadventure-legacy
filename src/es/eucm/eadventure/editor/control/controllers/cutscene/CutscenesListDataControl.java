@@ -232,10 +232,10 @@ public class CutscenesListDataControl extends DataControl {
 	}
 
 	@Override
-	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
+	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
 		// Iterate through each cutscene
 		for( CutsceneDataControl cutsceneDataControl : cutscenesDataControlList )
-			cutsceneDataControl.updateFlagSummary( varFlagSummary );
+			cutsceneDataControl.updateVarFlagSummary( varFlagSummary );
 	}
 
 	@Override

@@ -148,12 +148,12 @@ public class TimerDataControl extends DataControl {
 	}
 
 	@Override
-	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
+	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
 		// Update the summary with conditions and both blocks of effects
-		ConditionsController.updateFlagSummary( varFlagSummary, timer.getInitCond( ) );
-		ConditionsController.updateFlagSummary( varFlagSummary, timer.getEndCond( ) );
-		EffectsController.updateFlagSummary( varFlagSummary, timer.getEffects( ) );
-		EffectsController.updateFlagSummary( varFlagSummary, timer.getPostEffects( ) );
+		ConditionsController.updateVarFlagSummary( varFlagSummary, timer.getInitCond( ) );
+		ConditionsController.updateVarFlagSummary( varFlagSummary, timer.getEndCond( ) );
+		EffectsController.updateVarFlagSummary( varFlagSummary, timer.getEffects( ) );
+		EffectsController.updateVarFlagSummary( varFlagSummary, timer.getPostEffects( ) );
 	}
 
 	@Override

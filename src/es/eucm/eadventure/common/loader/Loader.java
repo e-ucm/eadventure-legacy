@@ -109,7 +109,6 @@ public class Loader {
 	
 				// Read and close the inputstrea
 				InputStream descriptorIS = isCreator.buildInputStream("descriptor.xml");
-				System.out.println( "Is inputStream null? "+(descriptorIS == null) );
 				saxParser.parse( descriptorIS, descriptorParser );
 				descriptorIS.close( );
 	

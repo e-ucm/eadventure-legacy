@@ -318,9 +318,9 @@ public class ResourcesDataControl extends DataControl {
 	}
 
 	@Override
-	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
+	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
 		// Update the flag summary with the conditions
-		ConditionsController.updateFlagSummary( varFlagSummary, resources.getConditions( ) );
+		ConditionsController.updateVarFlagSummary( varFlagSummary, resources.getConditions( ) );
 	}
 
 	@Override

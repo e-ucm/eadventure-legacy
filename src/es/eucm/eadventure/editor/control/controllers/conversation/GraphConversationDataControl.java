@@ -309,13 +309,13 @@ public class GraphConversationDataControl extends ConversationDataControl {
 	}
 
 	@Override
-	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
+	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
 		// Check every node on the conversation
 		List<ConversationNode> conversationNodes = graphConversation.getAllNodes( );
 		for( ConversationNode conversationNode : conversationNodes )
 			// Update the summary with the effects, if avalaible
 			if( conversationNode.hasEffects( ) )
-				EffectsController.updateFlagSummary( varFlagSummary, conversationNode.getEffects( ) );
+				EffectsController.updateVarFlagSummary( varFlagSummary, conversationNode.getEffects( ) );
 	}
 
 	@Override

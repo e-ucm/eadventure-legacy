@@ -136,9 +136,9 @@ public class VarFlagsController {
 			if (similarFlags.length==0){
 				//Controller.getInstance( ).getFlagSummary( ).addFlag( flag );
 				if ( flag )
-					Controller.getInstance( ).getVarFlagSummary( ).addFlag( id );
+					Controller.getInstance( ).getVarFlagSummary( ).addFlagReference( id );
 				else
-					Controller.getInstance( ).getVarFlagSummary( ).addVar( id );
+					Controller.getInstance( ).getVarFlagSummary( ).addVarReference( id );
 				flagVarAdded = id;
 			}else {
 				String[] options = new String[similarFlags.length+1];

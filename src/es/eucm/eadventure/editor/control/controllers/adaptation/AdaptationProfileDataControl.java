@@ -232,9 +232,9 @@ public class AdaptationProfileDataControl extends DataControl{
 	}
 
 	@Override
-	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
+	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
 		for (AdaptationRuleDataControl dataControl : dataControls)
-			dataControl.updateFlagSummary( varFlagSummary );
+			dataControl.updateVarFlagSummary( varFlagSummary );
 		
 		//Update the initial state
 		for (String flag: profile.getInitialState().getFlagsVars( )){

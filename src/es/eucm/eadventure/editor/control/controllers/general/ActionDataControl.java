@@ -223,10 +223,10 @@ public class ActionDataControl extends DataControl {
 	}
 
 	@Override
-	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
+	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
 		// Update the flag summary with the effects of the action
-		EffectsController.updateFlagSummary( varFlagSummary, action.getEffects( ) );
-		ConditionsController.updateFlagSummary( varFlagSummary, action.getConditions( ) );
+		EffectsController.updateVarFlagSummary( varFlagSummary, action.getEffects( ) );
+		ConditionsController.updateVarFlagSummary( varFlagSummary, action.getConditions( ) );
 	}
 
 	@Override

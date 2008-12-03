@@ -467,10 +467,10 @@ public class CutsceneDataControl extends DataControlWithResources {
 	}
 
 	@Override
-	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
+	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
 		// Iterate through each next scene
 		for( NextSceneDataControl nextSceneDataControl : nextScenesDataControlList )
-			nextSceneDataControl.updateFlagSummary( varFlagSummary );
+			nextSceneDataControl.updateVarFlagSummary( varFlagSummary );
 	}
 
 	@Override

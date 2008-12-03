@@ -593,7 +593,7 @@ public class ConditionsController {
 	 * @param conditions
 	 *            Set of conditions to search in
 	 */
-	public static void updateFlagSummary( VarFlagSummary varFlagSummary, Conditions conditions ) {
+	public static void updateVarFlagSummary( VarFlagSummary varFlagSummary, Conditions conditions ) {
 		// First check the main block of conditions
 		for( Condition condition : conditions.getMainConditions( ) ){
 			if ( condition.getType() == Condition.FLAG_CONDITION )

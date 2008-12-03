@@ -430,8 +430,8 @@ public class NPCDataControl extends DataControlWithResources {
 	}
 
 	@Override
-	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
-		conversationReferencesListDataControl.updateFlagSummary( varFlagSummary );
+	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
+		conversationReferencesListDataControl.updateVarFlagSummary( varFlagSummary );
 	}
 
 	@Override

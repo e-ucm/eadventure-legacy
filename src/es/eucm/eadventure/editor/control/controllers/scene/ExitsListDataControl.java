@@ -176,10 +176,10 @@ public class ExitsListDataControl extends DataControl {
 	}
 
 	@Override
-	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
+	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
 		// Iterate through each exit
 		for( ExitDataControl exitDataControl : exitsDataControlList )
-			exitDataControl.updateFlagSummary( varFlagSummary );
+			exitDataControl.updateVarFlagSummary( varFlagSummary );
 	}
 
 	@Override

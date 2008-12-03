@@ -201,10 +201,10 @@ public class ScenesListDataControl extends DataControl {
 	}
 
 	@Override
-	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
+	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
 		// Iterate through each scene
 		for( SceneDataControl sceneDataControl : scenesDataControlList )
-			sceneDataControl.updateFlagSummary( varFlagSummary );
+			sceneDataControl.updateVarFlagSummary( varFlagSummary );
 	}
 
 	@Override

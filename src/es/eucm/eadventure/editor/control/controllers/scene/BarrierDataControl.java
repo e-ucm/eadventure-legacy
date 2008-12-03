@@ -273,8 +273,8 @@ public class BarrierDataControl extends DataControl {
 	}
 
 	@Override
-	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
-		ConditionsController.updateFlagSummary( varFlagSummary, barrier.getConditions( ) );
+	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
+		ConditionsController.updateVarFlagSummary( varFlagSummary, barrier.getConditions( ) );
 	}
 
 	@Override

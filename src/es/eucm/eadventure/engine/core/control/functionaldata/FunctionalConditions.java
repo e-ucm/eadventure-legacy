@@ -46,9 +46,9 @@ public class FunctionalConditions{
         
         for( Condition condition : conditions.getMainConditions() ){
             if( evaluation ){
-            	if (condition instanceof Condition){
+            	if (condition.getType() == Condition.FLAG_CONDITION){
             		evaluation = condition.isActiveState() == flags.isActiveFlag( condition.getFlagVar( ) );            		
-            	} else if (condition instanceof VarCondition ){
+            	} else if (condition.getType() == Condition.VAR_CONDITION ){
             		VarCondition varCondition = (VarCondition)condition;
             		int actualValue = vars.getValue( varCondition.getFlagVar());
             		int state = varCondition.getState();
@@ -94,9 +94,9 @@ public class FunctionalConditions{
         
         for( Condition condition : conditions.getMainConditions() )
             if( !evaluation ){
-            	if ( condition instanceof Condition ){
+            	if ( condition.getType() == Condition.FLAG_CONDITION ){
             		evaluation = condition.isActiveState() == flags.isActiveFlag( condition.getFlagVar( ) );	
-            	} else if ( condition instanceof VarCondition ){
+            	} else if ( condition.getType() == Condition.VAR_CONDITION ){
             		VarCondition varCondition = (VarCondition)condition;
             		int actualValue = vars.getValue( varCondition.getFlagVar());
             		int state = varCondition.getState();

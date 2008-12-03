@@ -179,10 +179,10 @@ public class BarriersListDataControl extends DataControl {
 	}
 
 	@Override
-	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
+	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
 		// Iterate through each activeArea
 		for( BarrierDataControl barrierDataControl : barriersDataControlList )
-			barrierDataControl.updateFlagSummary( varFlagSummary );
+			barrierDataControl.updateVarFlagSummary( varFlagSummary );
 	}
 
 	@Override

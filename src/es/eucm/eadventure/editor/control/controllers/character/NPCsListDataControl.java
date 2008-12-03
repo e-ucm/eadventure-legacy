@@ -188,10 +188,10 @@ public class NPCsListDataControl extends DataControl {
 	}
 
 	@Override
-	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
+	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
 		// Iterate through each character
 		for( NPCDataControl npcDataControl : npcsDataControlList )
-			npcDataControl.updateFlagSummary( varFlagSummary );
+			npcDataControl.updateVarFlagSummary( varFlagSummary );
 	}
 
 	@Override

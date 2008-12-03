@@ -188,10 +188,10 @@ public class ItemsListDataControl extends DataControl {
 	}
 
 	@Override
-	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
+	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
 		// Iterate through each item
 		for( ItemDataControl itemDataControl : itemsDataControlList )
-			itemDataControl.updateFlagSummary( varFlagSummary );
+			itemDataControl.updateVarFlagSummary( varFlagSummary );
 	}
 
 	@Override

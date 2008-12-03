@@ -123,40 +123,6 @@ public class FlagEffectDialog extends EffectDialog {
 				properties.put( EffectsController.EFFECT_PROPERTY_TARGET, flagAdded );
 			} else
 				properties = null;
-			
-/*			if (flag.contains( " " )){
-				controller.showErrorDialog( TextConstants.getText( "Flags.AddFlag" ), TextConstants.getText( "Flags.ErrorFlagWhitespaces" ) );
-				properties=null;
-			}
-			
-			else {
-			String[] similarFlags = flagsController.getSimilarFlags( flag );
-			if (similarFlags.length==0){
-				//Controller.getInstance( ).getFlagSummary( ).addFlag( flag );
-				Controller.getInstance( ).getFlagSummary( ).addReference( flag );
-				properties.put( EffectsController.EFFECT_PROPERTY_TARGET, flag );
-			}else {
-				String[] options = new String[similarFlags.length+1];
-				options[0]= flag+" (NEW)";
-				for (int i=1; i<options.length; i++){
-					options[i]=similarFlags[i-1];
-				}
-				
-				//TODO TextConstants
-				String option = Controller.getInstance( ).showInputDialog( "Confirm new flag", "You are about to create a new flag that is similar to others.\nIs this correct?\nPlease confirm you want to create that flag or select an existing one.", options );
-				if (option != null){
-					
-					// If it contain white spaces, show an error
-					if (option.equals( flag+" (NEW)" )){
-						properties.put( EffectsController.EFFECT_PROPERTY_TARGET, flag );
-					}else {
-						properties.put( EffectsController.EFFECT_PROPERTY_TARGET, option );
-					}
-											
-				} else {
-					properties = null;
-				}
-			}}*/
 		}
 		
 			
