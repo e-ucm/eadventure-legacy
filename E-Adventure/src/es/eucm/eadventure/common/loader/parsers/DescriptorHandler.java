@@ -31,7 +31,6 @@ public class DescriptorHandler extends DefaultHandler {
 	     */
 	    private static final int READING_CHAPTER = 1;
 	    
-	    
 	    /**
 	     * String to store the current string in the XML file
 	     */

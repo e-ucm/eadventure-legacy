@@ -297,6 +297,9 @@ public class ConditionDialog extends JDialog {
 			c.gridx = 1;
 			c.weightx = 0.2;
 			stateComboBox = new JComboBox( ConditionsController.STATE_VALUES_FLAGS );
+			if ( defaultState!=null ){
+				stateComboBox.setSelectedItem( defaultState );
+			}
 			featuresPanel.add( stateComboBox, c );
 			
 			featuresPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder(), TextConstants.getText("Conditions.Flag.Title")));

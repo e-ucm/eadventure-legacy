@@ -315,7 +315,7 @@ public class BookDataControl extends DataControlWithResources {
 	}
 
 	@Override
-	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
+	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
 	// Do nothing
 	}
 

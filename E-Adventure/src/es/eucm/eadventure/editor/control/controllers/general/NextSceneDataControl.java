@@ -216,11 +216,11 @@ public class NextSceneDataControl extends DataControl {
 	}
 
 	@Override
-	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
+	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
 		// Update the summary with conditions and both blocks of effects
-		ConditionsController.updateFlagSummary( varFlagSummary, nextScene.getConditions( ) );
-		EffectsController.updateFlagSummary( varFlagSummary, nextScene.getEffects( ) );
-		EffectsController.updateFlagSummary( varFlagSummary, nextScene.getPostEffects( ) );
+		ConditionsController.updateVarFlagSummary( varFlagSummary, nextScene.getConditions( ) );
+		EffectsController.updateVarFlagSummary( varFlagSummary, nextScene.getEffects( ) );
+		EffectsController.updateVarFlagSummary( varFlagSummary, nextScene.getPostEffects( ) );
 	}
 
 	@Override

@@ -3,7 +3,6 @@ package es.eucm.eadventure.editor.control.controllers;
 import java.util.HashMap;
 import java.util.List;
 
-import es.eucm.eadventure.common.auxiliar.categoryfilters.AnimationFileFilter;
 import es.eucm.eadventure.common.data.chapter.effects.ActivateEffect;
 import es.eucm.eadventure.common.data.chapter.effects.CancelActionEffect;
 import es.eucm.eadventure.common.data.chapter.effects.ConsumeObjectEffect;
@@ -751,20 +750,20 @@ public class EffectsController {
 	 * @param effects
 	 *            Set of effects to search in
 	 */
-	public static void updateFlagSummary( VarFlagSummary varFlagSummary, Effects effects ) {
+	public static void updateVarFlagSummary( VarFlagSummary varFlagSummary, Effects effects ) {
 		// Search every effect
 		for( Effect effect : effects.getEffects( ) ) {
 			
-			updateFlagSummary ( varFlagSummary, effect );
+			updateVarFlagSummary ( varFlagSummary, effect );
 			
 			if( effect.getType() == Effect.RANDOM_EFFECT ) {
 				RandomEffect randomEffect = (RandomEffect) effect;
 				if (randomEffect.getNegativeEffect( )!=null){
-					updateFlagSummary ( varFlagSummary, randomEffect.getNegativeEffect() );
+					updateVarFlagSummary ( varFlagSummary, randomEffect.getNegativeEffect() );
 				}
 				
 				if (randomEffect.getPositiveEffect( )!=null){
-					updateFlagSummary ( varFlagSummary, randomEffect.getPositiveEffect() );
+					updateVarFlagSummary ( varFlagSummary, randomEffect.getPositiveEffect() );
 				}
 
 			}
@@ -777,7 +776,7 @@ public class EffectsController {
 	 * @param varFlagSummary
 	 * @param effect
 	 */
-	private static void updateFlagSummary ( VarFlagSummary varFlagSummary, Effect effect ){
+	private static void updateVarFlagSummary ( VarFlagSummary varFlagSummary, Effect effect ){
 		if ( effect.getType() == Effect.ACTIVATE ){
 			ActivateEffect activateEffect = (ActivateEffect)effect;
 			varFlagSummary.addFlagReference( activateEffect.getIdFlag( ) );

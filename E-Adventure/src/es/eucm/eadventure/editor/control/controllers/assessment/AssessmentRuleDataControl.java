@@ -138,13 +138,13 @@ public class AssessmentRuleDataControl extends DataControl{
 	}
 
 	@Override
-	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
+	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
 		if (this.isTimedRule( )){
 			TimedAssessmentRule tRule = (TimedAssessmentRule)assessmentRule;
-			ConditionsController.updateFlagSummary( varFlagSummary, tRule.getInitConditions( ) );
-			ConditionsController.updateFlagSummary( varFlagSummary, tRule.getEndConditions( ) );
+			ConditionsController.updateVarFlagSummary( varFlagSummary, tRule.getInitConditions( ) );
+			ConditionsController.updateVarFlagSummary( varFlagSummary, tRule.getEndConditions( ) );
 		}else
-		ConditionsController.updateFlagSummary( varFlagSummary, assessmentRule.getConditions( ) );
+		ConditionsController.updateVarFlagSummary( varFlagSummary, assessmentRule.getConditions( ) );
 		
 	}
 

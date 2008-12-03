@@ -181,10 +181,10 @@ public class ItemReferencesListDataControl extends DataControl {
 	}
 
 	@Override
-	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
+	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
 		// Iterate through each item
 		for( ElementReferenceDataControl elementReferenceDataControl : itemReferencesDataControlList )
-			elementReferenceDataControl.updateFlagSummary( varFlagSummary );
+			elementReferenceDataControl.updateVarFlagSummary( varFlagSummary );
 	}
 
 	@Override

@@ -146,9 +146,9 @@ public class ConversationReferenceDataControl extends DataControl {
 	}
 
 	@Override
-	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
+	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
 		// Update the flag summary with the conditions
-		ConditionsController.updateFlagSummary( varFlagSummary, conversationReference.getConditions( ) );
+		ConditionsController.updateVarFlagSummary( varFlagSummary, conversationReference.getConditions( ) );
 	}
 
 	@Override

@@ -237,10 +237,10 @@ public class ActionsListDataControl extends DataControl {
 	}
 
 	@Override
-	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
+	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
 		// Iterate through each action
 		for( ActionDataControl actionDataControl : actionsDataControlList )
-			actionDataControl.updateFlagSummary( varFlagSummary );
+			actionDataControl.updateVarFlagSummary( varFlagSummary );
 	}
 
 	@Override

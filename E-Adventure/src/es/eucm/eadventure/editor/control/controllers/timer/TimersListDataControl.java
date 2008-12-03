@@ -231,10 +231,10 @@ public class TimersListDataControl extends DataControl {
 	}
 
 	@Override
-	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
+	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
 		// Iterate through each timer
 		for( TimerDataControl timerDataControl : timersDataControlList )
-			timerDataControl.updateFlagSummary( varFlagSummary );
+			timerDataControl.updateVarFlagSummary( varFlagSummary );
 	}
 
 	@Override

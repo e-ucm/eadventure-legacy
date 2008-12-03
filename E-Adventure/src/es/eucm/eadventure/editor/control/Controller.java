@@ -1375,7 +1375,7 @@ public class Controller {
 				for( Chapter chapter : adventureData.getChapters( ) )
 					chapterDataControlList.add( new ChapterDataControl( chapter ) );
 				identifierSummary.loadIdentifiers( getSelectedChapterData( ) );
-				getSelectedChapterDataControl( ).updateFlagSummary( varFlagSummary );
+				getSelectedChapterDataControl( ).updateVarFlagSummary( varFlagSummary );
 				
 				// Check asset files
 				AssetsController.checkAssetFilesConsistency( incidences );
@@ -2181,14 +2181,14 @@ public class Controller {
 
 		// Update the identifier and flag summary
 		identifierSummary.loadIdentifiers( getSelectedChapterData( ) );
-		getSelectedChapterDataControl( ).updateFlagSummary( varFlagSummary );
+		getSelectedChapterDataControl( ).updateVarFlagSummary( varFlagSummary );
 
 		// Reload the main window
 		mainWindow.reloadData(  );
 	}
 
 	public void updateFlagSummary( ) {
-		getSelectedChapterDataControl( ).updateFlagSummary( varFlagSummary );
+		getSelectedChapterDataControl( ).updateVarFlagSummary( varFlagSummary );
 	}
 
 	/**
@@ -2209,7 +2209,7 @@ public class Controller {
 			// Select the new chapter, and add the new data the data
 			selectedChapter = adventureData.getChapters( ).size( ) - 1;
 			identifierSummary.loadIdentifiers( getSelectedChapterData( ) );
-			getSelectedChapterDataControl( ).updateFlagSummary( varFlagSummary );
+			getSelectedChapterDataControl( ).updateVarFlagSummary( varFlagSummary );
 
 			// Update the main window
 			dataModified( );
@@ -2236,7 +2236,7 @@ public class Controller {
 
 				// Update the data
 				identifierSummary.loadIdentifiers( getSelectedChapterData( ) );
-				getSelectedChapterDataControl( ).updateFlagSummary( varFlagSummary );
+				getSelectedChapterDataControl( ).updateVarFlagSummary( varFlagSummary );
 
 				// Update the main window
 				dataModified( );
@@ -2262,7 +2262,7 @@ public class Controller {
 
 			// Update the data
 			identifierSummary.loadIdentifiers( getSelectedChapterData( ) );
-			getSelectedChapterDataControl( ).updateFlagSummary( varFlagSummary );
+			getSelectedChapterDataControl( ).updateVarFlagSummary( varFlagSummary );
 
 			// Update the main window
 			dataModified( );
@@ -2284,7 +2284,7 @@ public class Controller {
 
 			// Update the data
 			identifierSummary.loadIdentifiers( getSelectedChapterData( ) );
-			getSelectedChapterDataControl( ).updateFlagSummary( varFlagSummary );
+			getSelectedChapterDataControl( ).updateVarFlagSummary( varFlagSummary );
 
 			// Update the main window
 			dataModified( );

@@ -94,20 +94,20 @@ public class VarEffectDialog extends EffectDialog {
 			varsComboBox = new JComboBox( varsArray );
 			varsComboBox.setEditable( true );
 			// Set the defualt values (if present)
-			String defaultValueString = currentProperties.get( EffectsController.EFFECT_PROPERTY_VALUE );
 			int defaultValue = 1;
-			if (defaultValueString!=null)
-				defaultValue = Integer.parseInt(defaultValueString);
 			if( currentProperties != null ) {
-				if( currentProperties.containsKey( EffectsController.EFFECT_PROPERTY_TARGET ) )
-					varsComboBox.setSelectedItem( currentProperties.get( EffectsController.EFFECT_PROPERTY_TARGET ) );
+				String defaultValueString = currentProperties.get( EffectsController.EFFECT_PROPERTY_VALUE );
+				if (defaultValueString!=null)
+					defaultValue = Integer.parseInt(defaultValueString);
+					if( currentProperties.containsKey( EffectsController.EFFECT_PROPERTY_TARGET ) )
+						varsComboBox.setSelectedItem( currentProperties.get( EffectsController.EFFECT_PROPERTY_TARGET ) );
 			}
 
 			
 			// Create the spinner for the value/increment
 			valuesSpinner = new JSpinner ( new SpinnerNumberModel(defaultValue, VarCondition.MIN_VALUE, VarCondition.MAX_VALUE, 1 ) );
 			mainPanel.add( varsComboBox, c );
-			c.gridx++;
+			c.gridy++;
 			mainPanel.add( valuesSpinner, c );
 			
 			// Add the panel to the center

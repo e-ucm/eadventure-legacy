@@ -212,9 +212,9 @@ public class ElementReferenceDataControl extends DataControl {
 	}
 
 	@Override
-	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
+	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
 		// Update the flag summary with the conditions
-		ConditionsController.updateFlagSummary( varFlagSummary, elementReference.getConditions( ) );
+		ConditionsController.updateVarFlagSummary( varFlagSummary, elementReference.getConditions( ) );
 	}
 
 	@Override

@@ -181,10 +181,10 @@ public class NPCReferencesListDataControl extends DataControl {
 	}
 
 	@Override
-	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
+	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
 		// Iterate through each character
 		for( ElementReferenceDataControl elementReferenceDataControl : npcReferencesDataControlList )
-			elementReferenceDataControl.updateFlagSummary( varFlagSummary );
+			elementReferenceDataControl.updateVarFlagSummary( varFlagSummary );
 	}
 
 	@Override

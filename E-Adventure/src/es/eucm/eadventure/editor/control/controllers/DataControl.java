@@ -154,7 +154,7 @@ public abstract class DataControl {
 	 *            Flag summary to update. It is important to point that the main element must clear the flag summary
 	 *            first, in order to provide clean data
 	 */
-	public abstract void updateFlagSummary( VarFlagSummary varFlagSummary );
+	public abstract void updateVarFlagSummary( VarFlagSummary varFlagSummary );
 
 	/**
 	 * Returns if the data structure pending from the element is valid or not. This method works recursively.

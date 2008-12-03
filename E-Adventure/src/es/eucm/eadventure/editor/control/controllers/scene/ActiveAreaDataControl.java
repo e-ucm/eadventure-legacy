@@ -287,9 +287,9 @@ public class ActiveAreaDataControl extends DataControl {
 	}
 
 	@Override
-	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
-		actionsListDataControl.updateFlagSummary( varFlagSummary );
-		ConditionsController.updateFlagSummary( varFlagSummary, activeArea.getConditions( ) );
+	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
+		actionsListDataControl.updateVarFlagSummary( varFlagSummary );
+		ConditionsController.updateVarFlagSummary( varFlagSummary, activeArea.getConditions( ) );
 	}
 
 	@Override

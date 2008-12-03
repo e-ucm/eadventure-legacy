@@ -405,19 +405,19 @@ public class ChapterDataControl extends DataControl {
 	}
 
 	@Override
-	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
+	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
 		// First of all, clear the summary
 		varFlagSummary.clear( );
 
 		// Update the summary with the elements
-		scenesListDataControl.updateFlagSummary( varFlagSummary );
-		cutscenesListDataControl.updateFlagSummary( varFlagSummary );
-		itemsListDataControl.updateFlagSummary( varFlagSummary );
-		npcsListDataControl.updateFlagSummary( varFlagSummary );
-		conversationsListDataControl.updateFlagSummary( varFlagSummary );
+		scenesListDataControl.updateVarFlagSummary( varFlagSummary );
+		cutscenesListDataControl.updateVarFlagSummary( varFlagSummary );
+		itemsListDataControl.updateVarFlagSummary( varFlagSummary );
+		npcsListDataControl.updateVarFlagSummary( varFlagSummary );
+		conversationsListDataControl.updateVarFlagSummary( varFlagSummary );
 		//assessmentProfilesDataControl.updateFlagSummary( flagSummary );
 		//adaptationProfilesDataControl.updateFlagSummary( flagSummary );
-		timersListDataControl.updateFlagSummary( varFlagSummary );
+		timersListDataControl.updateVarFlagSummary( varFlagSummary );
 	}
 
 	@Override

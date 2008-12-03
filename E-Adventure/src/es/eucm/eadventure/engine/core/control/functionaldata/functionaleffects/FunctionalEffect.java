@@ -3,13 +3,16 @@ package es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects;
 import es.eucm.eadventure.common.data.chapter.effects.ActivateEffect;
 import es.eucm.eadventure.common.data.chapter.effects.ConsumeObjectEffect;
 import es.eucm.eadventure.common.data.chapter.effects.DeactivateEffect;
+import es.eucm.eadventure.common.data.chapter.effects.DecrementVarEffect;
 import es.eucm.eadventure.common.data.chapter.effects.Effect;
 import es.eucm.eadventure.common.data.chapter.effects.GenerateObjectEffect;
+import es.eucm.eadventure.common.data.chapter.effects.IncrementVarEffect;
 import es.eucm.eadventure.common.data.chapter.effects.MoveNPCEffect;
 import es.eucm.eadventure.common.data.chapter.effects.MovePlayerEffect;
 import es.eucm.eadventure.common.data.chapter.effects.PlayAnimationEffect;
 import es.eucm.eadventure.common.data.chapter.effects.PlaySoundEffect;
 import es.eucm.eadventure.common.data.chapter.effects.RandomEffect;
+import es.eucm.eadventure.common.data.chapter.effects.SetValueEffect;
 import es.eucm.eadventure.common.data.chapter.effects.SpeakCharEffect;
 import es.eucm.eadventure.common.data.chapter.effects.SpeakPlayerEffect;
 import es.eucm.eadventure.common.data.chapter.effects.TriggerBookEffect;
@@ -64,6 +67,15 @@ public abstract class FunctionalEffect {
     			break;
     		case Effect.DEACTIVATE:
     			fe = new FunctionalDeactivateEffect ( (DeactivateEffect)effect );
+    			break;
+    		case Effect.SET_VALUE:
+    			fe = new FunctionalSetValueEffect ( (SetValueEffect)effect );
+    			break;
+    		case Effect.INCREMENT_VAR:
+    			fe = new FunctionalIncrementVarEffect ( (IncrementVarEffect)effect );
+    			break;
+    		case Effect.DECREMENT_VAR:
+    			fe = new FunctionalDecrementVarEffect ( (DecrementVarEffect)effect );
     			break;
     		case Effect.CANCEL_ACTION:
     			break;

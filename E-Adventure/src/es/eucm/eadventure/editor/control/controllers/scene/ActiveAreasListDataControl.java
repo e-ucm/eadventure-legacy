@@ -178,10 +178,10 @@ public class ActiveAreasListDataControl extends DataControl {
 	}
 
 	@Override
-	public void updateFlagSummary( VarFlagSummary varFlagSummary ) {
+	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
 		// Iterate through each activeArea
 		for( ActiveAreaDataControl activeAreaDataControl : activeAreasDataControlList )
-			activeAreaDataControl.updateFlagSummary( varFlagSummary );
+			activeAreaDataControl.updateVarFlagSummary( varFlagSummary );
 	}
 
 	@Override
