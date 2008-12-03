@@ -33,6 +33,7 @@ public class HTMLEditDialog extends JDialog implements WindowListener {
 	public HTMLEditDialog(String filename, JFrame frame) {
 		super(frame, true);
 		
+		
 		//this.bookPage = bookPage;
 		htmlEditController = new HTMLEditController();
 		
@@ -62,9 +63,11 @@ public class HTMLEditDialog extends JDialog implements WindowListener {
 		addWindowListener(this);
 		setSize(800, 600);
 		setResizable(true);
-		setVisible(true);
 		//setAlwaysOnTop(true);
-		//setModal(true);
+		setModalityType(ModalityType.APPLICATION_MODAL);
+		setModal(true);
+		setVisible(true);
+		
 		Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
 		setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
 	}

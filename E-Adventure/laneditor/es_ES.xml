@@ -924,7 +924,7 @@ función de estos estados</entry>
 	<entry key="BookPagesList.Title">Lista de páginas</entry>
 	<entry key="BookPages.Preview">Previsualización del libro</entry>
 	<entry key="BookPages.PreviewDescription">Para ver una previsualización detallada del libro (como se verá dentro del juego), pulse el botón inferior</entry>
-	<entry key="BookPages.PreviewDescription2">Esta es una previsualización sencilla de la página seleccionada. Úsela para ajustar los márgenes del libro.</entry>
+	<entry key="BookPages.PreviewDescription2">Esta es una previsualización sencilla de la página seleccionada.</entry>
 	<entry key="BookPages.List">Lista de páginas</entry>
 	<entry key="BookPages.ListDescription">Número de páginas: {#0}</entry>
 	
@@ -941,7 +941,8 @@ función de estos estados</entry>
 	<entry key="BookPage.ScrollableTitle">Usar barras de scroll</entry>
 	<entry key="BookPage.ScrollableToolTip">Cuando se selecciona esta opción, se emplearán barras de scroll siempre que la página no quepa en la pantalla</entry>
 	<entry key="BookPage.NotScrollable">No</entry>
-	<entry key="BookPage.Margin"> Margen </entry>
+	<entry key="BookPage.Margin">Editar Márgenes</entry>
+	<entry key="BookPage.MarginDialog">Editor de márgenes</entry>
 	<entry key="BookPage.MarginToolTip">Use esta barra para ajustar el espacio entre la página y el borde de la imagen de fondo</entry>
 	<entry key="BookPage.URL">Escriba aquí la URL</entry>
 	<entry key="BookPage.AssetPath">Ubicación del recurso seleccionado</entry>

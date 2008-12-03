@@ -918,7 +918,7 @@ based on the state of the flags.</entry>
 	<entry key="BookPagesList.Title">List of pages</entry>
 	<entry key="BookPages.Preview">Preview of the book</entry>
 	<entry key="BookPages.PreviewDescription">To see a full-screen preview of the book (as it will be rendered in the game), press the button below</entry>
-	<entry key="BookPages.PreviewDescription2">This is a basic preview of the selected page. Use it to adjust the margin</entry>
+	<entry key="BookPages.PreviewDescription2">This is a basic preview of the selected page.</entry>
 	<entry key="BookPages.List">List of the available pages</entry>
 	<entry key="BookPages.ListDescription">Current number of pages: {#0}</entry>
 	
@@ -935,7 +935,8 @@ based on the state of the flags.</entry>
 	<entry key="BookPage.ScrollableTitle">Use scroll bars</entry>
 	<entry key="BookPage.ScrollableToolTip">When this option is selected, scroll bars will be used if the page provide does not fit in the screen</entry>
 	<entry key="BookPage.NotScrollable">No</entry>
-	<entry key="BookPage.Margin"> Margin </entry>
+	<entry key="BookPage.Margin">Edit margins</entry>
+	<entry key="BookPage.MarginDialog">Magins editor</entry>
 	<entry key="BookPage.MarginToolTip">Use this slider to adjust the space between the page and the border of the background image</entry>
 	<entry key="BookPage.URL">Type here the URL</entry>
 	<entry key="BookPage.AssetPath">Path of the Selected asset</entry>
