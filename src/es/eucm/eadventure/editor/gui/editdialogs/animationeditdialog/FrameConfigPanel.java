@@ -129,7 +129,6 @@ public class FrameConfigPanel extends JPanel {
 	protected void selectImage() {
 		String temp = aed.getAnimationDataControl().editAssetPath(aed);
 		if (temp != null) {
-			temp = AssetsController.getCategoryFolder(AssetsController.CATEGORY_ANIMATION_IMAGE) + "/" + temp;
 			frame.setUri(temp);
 			list.updateUI();
 			textField.setText(temp);

@@ -43,6 +43,7 @@ public class AnimationDataControl {
 		//In case the asset was selected from the zip file
 		if( option == AssetChooser.ASSET_FROM_ZIP ) {
 			selectedAsset = chooser.getSelectedAsset( );
+			selectedAsset = AssetsController.getCategoryFolder(AssetsController.CATEGORY_IMAGE) + "/" + selectedAsset;
 		}
 
 		//In case the asset was not in the zip file: first add it
@@ -51,6 +52,7 @@ public class AnimationDataControl {
 			
 			if( added ) {
 				selectedAsset = chooser.getSelectedFile( ).getName( );
+				selectedAsset = AssetsController.getCategoryFolder(AssetsController.CATEGORY_ANIMATION_IMAGE) + "/" + selectedAsset;
 			}
 		}
 		
