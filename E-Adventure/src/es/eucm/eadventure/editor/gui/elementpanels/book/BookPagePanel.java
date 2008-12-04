@@ -39,6 +39,7 @@ import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.book.BookPagesListDataControl;
 import es.eucm.eadventure.editor.gui.editdialogs.ChangePageMarginsDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.HTMLEditDialog;
+import es.eucm.eadventure.engine.core.gui.GUI;
 
 public class BookPagePanel extends JPanel{
 
@@ -474,9 +475,12 @@ public class BookPagePanel extends JPanel{
 			if (!(bookPage.getUri() == null) && !(bookPage.getUri().compareTo("") == 0)) {
 				filename = Controller.getInstance( ).getProjectFolder( ) + "/" + bookPage.getUri();
 			}
+			
+			
 			HTMLEditDialog bepg = new HTMLEditDialog(filename, null);
 			
 			File temp = new File(bepg.getHtmlEditController().getFilename());
+			
 			String uri = "assets/styledtext/" + temp.getName();
 			dataControl.getSelectedPage().setUri(uri);
 			pathTextField.setText( dataControl.getSelectedPage( ).getUri( ) );

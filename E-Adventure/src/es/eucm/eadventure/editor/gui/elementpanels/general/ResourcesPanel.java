@@ -14,7 +14,6 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
@@ -24,7 +23,6 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
 import es.eucm.eadventure.editor.control.writer.AnimationWriter;
-import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.displaydialogs.AnimationDialog;
 import es.eucm.eadventure.editor.gui.displaydialogs.AudioDialog;
 import es.eucm.eadventure.editor.gui.displaydialogs.ImageDialog;
@@ -32,7 +30,6 @@ import es.eucm.eadventure.editor.gui.displaydialogs.SlidesDialog;
 import es.eucm.eadventure.editor.gui.displaydialogs.VideoDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.ConditionsDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.animationeditdialog.AnimationEditDialog;
-import es.eucm.eadventure.editor.gui.elementpanels.PreviewUpdater;
 
 /**
  * This class is the panel which represents the information held in a resources structure. It can edit the data, and
@@ -311,7 +308,7 @@ public class ResourcesPanel extends JPanel {
 	}
 
 	/**
-	 * This class is the listener for the "Examine" buttons on the panels.
+	 * This class is the listener for the "Edit" buttons on the panels.
 	 */
 	private class EditButtonListener implements ActionListener {
 
@@ -366,6 +363,7 @@ public class ResourcesPanel extends JPanel {
 				resourcesDataControl.setAssetPath(filename, assetIndex);
 				
 				new AnimationEditDialog(resourcesDataControl.getAssetPath(assetIndex), animation);
+				
 			}
 			
 			assetFields[assetIndex].setText( resourcesDataControl.getAssetPath( assetIndex ) );
