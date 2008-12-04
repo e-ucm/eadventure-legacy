@@ -1519,4 +1519,9 @@ Si no los cambia, el juego empleará los cursores por defecto (ambientación fan
 	<entry key="Animation.WaitForClick">Esperar al usuario (utilizar solo para transparencias)</entry>
 	<entry key="Animation.DialogTitle">Editor de animaciones - {#0}</entry>
 	
+	<entry key="HTMLEditor.QuitMessage">Save changes?</entry>
+	<entry key="HTMLEditor.QuitMessageTitle">Leaving editor</entry>
+	<entry key="HTMLEditor.Title">HTML Editor - {#0}</entry>
+	
+	
 </properties>
