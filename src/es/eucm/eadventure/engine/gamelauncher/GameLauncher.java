@@ -23,6 +23,7 @@ import java.net.URL;
 import java.net.MalformedURLException;
 import java.io.*;
 
+import javax.swing.JComboBox;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.Icon;
@@ -132,9 +133,25 @@ public class GameLauncher extends JFrame implements Runnable {
     private JButton btnLoad;
     
     /**
+     * Combo Box
+     */
+    private JComboBox combo;
+    /**
      * Refresh button
      */
     private JButton btnRefresh;
+    
+    // Creation of the three panels
+    JPanel currentDirectoryPanel;
+    JEditorPane aboutPanel ;
+    JPanel buttonsPanel ;
+    JPanel adventuresPanel; 
+    JPanel centralPanel ;
+    JTabbedPane tabbedPanel;
+    JPanel global;
+    JPanel globalTotal;
+    JEditorPane aboutEditor;
+
 
     /**
      * Flag to load the selected adventure in the next iteration of the thread
@@ -161,12 +178,16 @@ public class GameLauncher extends JFrame implements Runnable {
     /**
      * Initializes the frame and loads the games in the current directory
      */
-    public void init( File file ) {
+    public void init( File file, String language ) {
 
     	initGameLoad = false;
         // Load the configuration
         ConfigData.loadFromXML( EAdventure.CONFIG_FILE );
-        languageFile = ConfigData.getLanguangeFile( );
+    	if (language == "")
+    		languageFile = ConfigData.getLanguangeFile( );
+    	else 
+    		languageFile = language;
+
 
         // Init the strings of the application
         TextConstants.loadStrings( EAdventure.LANGUAGE_DIR+"/"+languageFile );
@@ -180,15 +201,15 @@ public class GameLauncher extends JFrame implements Runnable {
         setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
         
         // Creation of the three panels
-        JPanel currentDirectoryPanel = createCurrentDirectoryPanel( file );
-        JEditorPane aboutPanel = createAboutPanel();
-        JPanel buttonsPanel = createButtonsPanel();
-        JPanel adventuresPanel = createAdventuresPanel();
+        currentDirectoryPanel = createCurrentDirectoryPanel( file );
+        aboutPanel = createAboutPanel();
+        buttonsPanel = createButtonsPanel();
+        adventuresPanel = createAdventuresPanel();
         
         //Creation of the panel for the logo
         Icon logo = new ImageIcon( "img/logo.png" );
         JLabel label = new JLabel( logo );
-        JPanel centralPanel = new JPanel( );
+        centralPanel = new JPanel( );
         centralPanel.setLayout( new GridBagLayout( ) );
         GridBagConstraints c = new GridBagConstraints( );
         c.weighty = 0;
@@ -198,13 +219,13 @@ public class GameLauncher extends JFrame implements Runnable {
 
         // Embed the the button and the currentDirectory in the global Panel, and this last one
         // together with the adventure Panel in the globalTotal
-        JPanel global = new JPanel();
+        global = new JPanel();
         global.setLayout( new BorderLayout( ) );
         
         global.add( currentDirectoryPanel, BorderLayout.CENTER );
         global.add( buttonsPanel, BorderLayout.SOUTH );
         
-        JPanel globalTotal = new JPanel();
+        globalTotal = new JPanel();
         globalTotal.setLayout( new BorderLayout( ) );
         globalTotal.add( adventuresPanel, BorderLayout.CENTER );
         globalTotal.add( global, BorderLayout.SOUTH );
@@ -214,10 +235,10 @@ public class GameLauncher extends JFrame implements Runnable {
         tabbedPanel.insertTab( TextConstants.getText( "MainWindow.TabOpen" ), null, globalTotal, "", 0 );
         tabbedPanel.insertTab( TextConstants.getText( "MainWindow.TabAbout"), null, aboutPanel, "", 1 );
    
-       add(tabbedPanel, BorderLayout.CENTER); 
+        add(tabbedPanel, BorderLayout.CENTER); 
         add (centralPanel, BorderLayout.NORTH);
      
-       btnLoad.getRootPane( ).setDefaultButton( btnLoad );
+        btnLoad.getRootPane( ).setDefaultButton( btnLoad );
         end = false;
     
         // Load adventures in the current directory
@@ -241,7 +262,7 @@ public class GameLauncher extends JFrame implements Runnable {
     }
     
     private JEditorPane createAboutPanel() {
-        JEditorPane aboutEditor = new JEditorPane();
+        aboutEditor = new JEditorPane();
         
         String chain = "", chainAux = "";
         // We set the editor to use HTML content
@@ -387,7 +408,7 @@ public class GameLauncher extends JFrame implements Runnable {
         c.gridy = 3;
         c.weighty = 1;
         // Buttons to launch and adventure or exit
-        JPanel buttonsPanel = new JPanel( );
+        buttonsPanel = new JPanel( );
           buttonsPanel.setLayout( new FlowLayout( ) );
            btnLoad = new JButton( TextConstants.getText("MainWindow.buttonLoad") );
             btnLoad.addActionListener( new ActionListener() {
@@ -413,6 +434,31 @@ public class GameLauncher extends JFrame implements Runnable {
         }
     });
     buttonsPanel.add(btnRefresh, c);
+    
+    //Combo panel to switch the language
+    combo = new JComboBox ( new String[]{TextConstants.getText("MainWindow.SelectLanguage"), TextConstants.getText("MainWindow.English"),TextConstants.getText("MainWindow.Spanish")});
+    combo.addActionListener(  new ActionListener() {
+    	@Override
+        public void actionPerformed( ActionEvent arg0 ) {
+    		String args[] = new String[2];
+    		args[0] = "";
+    		
+    		if ( combo.getSelectedItem().toString() == TextConstants.getText("MainWindow.Spanish") ) {
+    			args[1] = "es_ES.xml";
+    		} else  
+        		args[1] = "en_EN.xml";
+
+    		EAdventure.main(args);
+        	
+    		setVisible ( false );
+         }
+    }
+    
+    
+    );
+
+    c.gridy++;
+    buttonsPanel.add(combo, c);
     return buttonsPanel;
 }
 
