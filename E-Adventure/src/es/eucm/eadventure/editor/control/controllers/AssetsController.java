@@ -995,6 +995,17 @@ public class AssetsController {
 	 *            Category for the folder
 	 * @return Folder for the given category, null if the category was not recognized
 	 */
+	public static String getCategoryAbsoluteFolder( int assetsCategory ) {
+		return new File(Controller.getInstance().getProjectFolder(), getCategoryFolder(assetsCategory)).getAbsolutePath();
+	}
+	
+	/**
+	 * Returns the folder associated with the given category.
+	 * 
+	 * @param assetsCategory
+	 *            Category for the folder
+	 * @return Folder for the given category, null if the category was not recognized
+	 */
 	public static String getCategoryFolder( int assetsCategory ) {
 		String folder = null;
 
