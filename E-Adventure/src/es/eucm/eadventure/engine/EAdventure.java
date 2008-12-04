@@ -70,22 +70,28 @@ public class EAdventure {
         GameLauncher gameLauncher = new GameLauncher( );
         
         if (args.length == 0) 
-            gameLauncher.init( new File( "" ) );
+            gameLauncher.init( new File( "" ), "" );
         else {
-            File file = new File(args[0]);
-            if (file.exists( )){
-                gameLauncher.init( new File(args[0]) );
+        	if ( args[0] != "") {
+        		
+        		File file = new File(args[0]);
+        	 
+        		if (file.exists( )){
+        			gameLauncher.init( new File(args[0]),args[1] );
           
-            } else {
+        		} else {
                 
-                JOptionPane.showMessageDialog(null,
+        			JOptionPane.showMessageDialog(null,
                         TextConstants.getText("ErrorMessage.Title"),
                         TextConstants.getText("ErrorMessage.Content"),
                         JOptionPane.ERROR_MESSAGE);
                 
-                gameLauncher.init(new File(""));
+                gameLauncher.init(new File(""), "");
             }
-        }
+        	}
+        	else 
+        		gameLauncher.init( new File( "" ), args[1] );
+        	}
         new Thread( gameLauncher ).start( );
 
     }
