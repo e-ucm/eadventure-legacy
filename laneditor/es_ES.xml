@@ -729,7 +729,7 @@ función de estos estados</entry>
 	<entry key="Resources.Select">Seleccionar...</entry>
 	<entry key="Resources.New">Nuevo</entry>
 	<entry key="Resources.Edit">Editar</entry>	
-	<entry key="Resources.Create">Crear/Editar</entry>
+	<entry key="Resources.Create">Crear</entry>
 	<entry key="Resources.ViewAsset">Ver</entry>
 	<entry key="Resources.PlayAsset">Reproducir</entry>
 	<entry key="Resources.PlayVideoAsset">Reproducir</entry>
@@ -1519,9 +1519,9 @@ Si no los cambia, el juego empleará los cursores por defecto (ambientación fan
 	<entry key="Animation.WaitForClick">Esperar al usuario (utilizar solo para transparencias)</entry>
 	<entry key="Animation.DialogTitle">Editor de animaciones - {#0}</entry>
 	
-	<entry key="HTMLEditor.QuitMessage">Save changes?</entry>
-	<entry key="HTMLEditor.QuitMessageTitle">Leaving editor</entry>
-	<entry key="HTMLEditor.Title">HTML Editor - {#0}</entry>
+	<entry key="HTMLEditor.QuitMessage">¿Guardar cambios?</entry>
+	<entry key="HTMLEditor.QuitMessageTitle">Saliendo del editor</entry>
+	<entry key="HTMLEditor.Title">Editor HTML - {#0}</entry>
 	
 	
 </properties>
