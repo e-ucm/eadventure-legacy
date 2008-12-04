@@ -1510,6 +1510,8 @@ When not customized, default cursors will be used in the game.</entry>
 	<entry key="Animation.DeleteFrame">Remove selected frame from the animation</entry>
 	<entry key="Animation.WaitForClick">Wait for click (use only for slides)</entry>
 	<entry key="Animation.DialogTitle">Animation editor - {#0}</entry>
+	<entry key="Animation.AskFilename">Please write a filename for the animation (without extention)</entry>
+	<entry key="Animation.AskFilenameTitle">New animation</entry>
 
 	<entry key="HTMLEditor.QuitMessage">Save changes?</entry>
 	<entry key="HTMLEditor.QuitMessageTitle">Leaving editor</entry>

@@ -13,6 +13,7 @@ import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
@@ -20,6 +21,7 @@ import javax.swing.JTextPane;
 import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.common.data.animation.Animation;
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
 import es.eucm.eadventure.editor.control.writer.AnimationWriter;
@@ -158,7 +160,7 @@ public class ResourcesPanel extends JPanel {
 			
 			// Create the "Create/Edit" button when necessary
 			if (resourcesDataControl.getAssetCategory(i) == AssetsController.CATEGORY_ANIMATION) {
-				JButton editButton = new JButton( TextConstants.getText("Resources.Create"));
+				JButton editButton = new JButton( TextConstants.getText("Resources.Create") + "/" + TextConstants.getText("Resources.Edit"));
 				editButton.addActionListener( new EditButtonListener(i));
 				c2.gridx++;
 				assetPanel.add(editButton);
@@ -334,22 +336,29 @@ public class ResourcesPanel extends JPanel {
 		 */
 		public void actionPerformed( ActionEvent e ) {			
 			if (resourcesDataControl.getAssetPath(assetIndex) != null && resourcesDataControl.getAssetPath(assetIndex).toLowerCase().endsWith(".eaa")) {
-				// Ya es una animación
+				// Already an "new" animation
 				new AnimationEditDialog(resourcesDataControl.getAssetPath(assetIndex), null);
 			} else {
-				// Crear la animación como el nuevo recurso
+				// Create a "new" animation (use the old one if present)
 				String filename;
+				String animationName = "anim" + (new Random()).nextInt(1000);
 				if (resourcesDataControl.getAssetPath(assetIndex) != null) {
 					String[] temp = resourcesDataControl.getAssetPath(assetIndex).split("/");
-					filename = AssetsController.TempFileGenerator.generateTempFileAbsolutePath(temp[temp.length-1], "eaa");				
+					animationName = temp[temp.length-1];
+					filename = AssetsController.TempFileGenerator.generateTempFileOverwriteExisting(animationName, "eaa");				
 				} else {
-					filename = AssetsController.TempFileGenerator.generateTempFileAbsolutePath("eaa");
+					animationName = JOptionPane.showInputDialog(null, TextConstants.getText("Animation.AskFilename"), TextConstants.getText("Animation.AskFilenameTitle"), JOptionPane.QUESTION_MESSAGE);
+					if (animationName.length() > 0) {
+						filename = AssetsController.TempFileGenerator.generateTempFileOverwriteExisting(animationName, "eaa");
+					} else {
+						filename = AssetsController.TempFileGenerator.generateTempFileAbsolutePath(animationName, "eaa");
+					}
 				}
 				File file = new File(filename);
 				file.create();
-				AnimationWriter.writeAnimation(filename, new Animation("id"));
+				AnimationWriter.writeAnimation(filename, new Animation(animationName));
 				
-				Animation animation = new Animation("anim" + (new Random()).nextInt(1000));
+				Animation animation = new Animation(animationName);
 				animation.setDocumentation(resourcesDataControl.getAssetDescription(assetIndex));
 				if (resourcesDataControl.getAssetPath(assetIndex) != null) {
 					// Añadir las imagenes de la animación antigua

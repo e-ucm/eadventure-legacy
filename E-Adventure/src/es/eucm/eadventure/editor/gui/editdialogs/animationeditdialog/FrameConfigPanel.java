@@ -71,21 +71,11 @@ public class FrameConfigPanel extends JPanel {
 		c2.weightx = 0;
 		c2.weighty = 0;
 
-		// Create the delete content button
-		JButton deleteContentButton = new JButton( new ImageIcon( "img/icons/deleteContent.png" ) );
-		deleteContentButton.addActionListener( new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				deleteImage();
-			}} );
-		deleteContentButton.setPreferredSize( new Dimension( 20, 20 ) );
-		deleteContentButton.setToolTipText( TextConstants.getText( "Resources.DeleteAsset" ) );
-		assetPanel.add( deleteContentButton, c2 );
-
 		// Create the text field and insert it
 		textField = new JTextField(40);
 		textField.setText(frame.getUri());
 		textField.setEditable( false );
-		c2.gridx = 1;
+		c2.gridx = 0;
 		c2.fill = GridBagConstraints.HORIZONTAL;
 		c2.weightx = 1;
 		assetPanel.add( textField, c2 );
@@ -96,7 +86,7 @@ public class FrameConfigPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				selectImage();
 			}} );
-		c2.gridx = 2;
+		c2.gridx = 1;
 		c2.fill = GridBagConstraints.NONE;
 		c2.weightx = 0;
 		assetPanel.add( selectButton, c2 );
@@ -134,10 +124,6 @@ public class FrameConfigPanel extends JPanel {
 			textField.setText(temp);
 			list.updateUI();
 		}
-	}
-
-	protected void deleteImage() {
-		// TODO Auto-generated method stub			
 	}
 
 	protected void modifyFrame() {
