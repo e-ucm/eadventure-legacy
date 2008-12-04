@@ -41,7 +41,6 @@ public class TransitionConfigPanel extends JPanel {
 	    SpinnerModel sm = new SpinnerNumberModel(transition.getTime(), 0, 10000, 100);
 	    spinner = new JSpinner(sm);
 	    spinner.addChangeListener(new ChangeListener() {
-			@Override
 			public void stateChanged(ChangeEvent arg0) {
 				modifyTransitionTime();					
 			}});
@@ -73,7 +72,6 @@ public class TransitionConfigPanel extends JPanel {
 
 		comboBox.addActionListener(new ActionListener() {
 
-			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				modifyTransition();
 			}});

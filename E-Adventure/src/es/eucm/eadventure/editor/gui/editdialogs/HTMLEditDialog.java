@@ -11,10 +11,12 @@ import java.util.Random;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import de.xeinfach.kafenio.Kafenio;
 import de.xeinfach.kafenio.interfaces.KafenioPanelConfigurationInterface;
 
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.HTMLEditController;
 
@@ -22,6 +24,10 @@ public class HTMLEditDialog extends JDialog implements WindowListener {
 
 	//private BookPage bookPage;
 		
+	/**
+	 * Default generated serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
 	private HTMLEditController htmlEditController;
 	
 	public HTMLEditController getHtmlEditController() {
@@ -32,7 +38,7 @@ public class HTMLEditDialog extends JDialog implements WindowListener {
 	
 	public HTMLEditDialog(String filename, JFrame frame) {
 		super(frame, true);
-		
+		this.setTitle(TextConstants.getText("HTMLEditor.Title", filename));
 		
 		//this.bookPage = bookPage;
 		htmlEditController = new HTMLEditController();
@@ -82,7 +88,11 @@ public class HTMLEditDialog extends JDialog implements WindowListener {
 	}
 
 	public void windowClosing(WindowEvent arg0) {
-		kafenio.saveAll();		
+		int option = JOptionPane.showConfirmDialog(this, TextConstants.getText("HTMLEditor.QuitMessage"), TextConstants.getText("HTMLEditor.QuitMessageTitle"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+		if (option == 0) {
+			kafenio.saveAll();
+		}
+		//kafenio.saveAll();
 	}
 
 	public void windowDeactivated(WindowEvent arg0) {

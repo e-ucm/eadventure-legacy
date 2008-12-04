@@ -207,8 +207,8 @@ public class GUI implements FocusListener {
         
     	bkgFrame.add(gameFrame);//, BorderLayout.CENTER);
 
-        
-        if (graphicConfig == DescriptorData.GRAPHICS_FULLSCREEN) {
+    	String os = System.getProperty("os.name");
+        if (os.contains("Windows") && graphicConfig == DescriptorData.GRAPHICS_FULLSCREEN) {
         	GraphicsEnvironment environment;
         	GraphicsDevice gm = null;
         	boolean changed = false;
@@ -219,7 +219,7 @@ public class GUI implements FocusListener {
         		originalDisplayMode = gm.getDisplayMode();
         		DisplayMode dm = new DisplayMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32, DisplayMode.REFRESH_RATE_UNKNOWN);
         		DisplayMode[] dmodes = gm.getDisplayModes();
-        		for (int i = 0; i < dmodes.length; i++) {
+        		for (int i = 0; i < dmodes.length && !changed; i++) {
         			if (dmodes[i].getBitDepth() == dm.getBitDepth() && dmodes[i].getHeight() == dm.getHeight() && dmodes[i].getWidth() == dm.getWidth()) {
         				gm.setFullScreenWindow(bkgFrame);   
         				gm.setDisplayMode(dm);
@@ -238,7 +238,13 @@ public class GUI implements FocusListener {
         				TextConstants.getText("GUI.NoFullscreenTitle"),
         				TextConstants.getText("GUI.NoFullscreenContent"),
         				JOptionPane.WARNING_MESSAGE);        }
+        } else if (!os.contains("Windows") && graphicConfig == DescriptorData.GRAPHICS_FULLSCREEN) {
+    		JOptionPane.showMessageDialog(bkgFrame,
+    				TextConstants.getText("GUI.NoFullscreenTitle"),
+    				TextConstants.getText("GUI.NoFullscreenContent"),
+    				JOptionPane.WARNING_MESSAGE);
         }
+
         
 
     }

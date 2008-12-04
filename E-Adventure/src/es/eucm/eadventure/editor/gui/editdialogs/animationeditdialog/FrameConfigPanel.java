@@ -56,7 +56,6 @@ public class FrameConfigPanel extends JPanel {
 	    SpinnerModel sm = new SpinnerNumberModel(frame.getTime(), 0, 10000, 100);
 	    spinner = new JSpinner(sm);
 	    spinner.addChangeListener(new ChangeListener() {
-			@Override
 			public void stateChanged(ChangeEvent arg0) {
 				modifyFrame();					
 			}});
@@ -75,7 +74,6 @@ public class FrameConfigPanel extends JPanel {
 		// Create the delete content button
 		JButton deleteContentButton = new JButton( new ImageIcon( "img/icons/deleteContent.png" ) );
 		deleteContentButton.addActionListener( new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				deleteImage();
 			}} );
@@ -95,7 +93,6 @@ public class FrameConfigPanel extends JPanel {
 		// Create the "Select" button and insert it
 		JButton selectButton = new JButton( TextConstants.getText( "Resources.Select" ) );
 		selectButton.addActionListener( new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				selectImage();
 			}} );
@@ -113,8 +110,6 @@ public class FrameConfigPanel extends JPanel {
 		} else
 			checkbox.setSelected(false);
 		checkbox.addChangeListener(new ChangeListener() {
-
-			@Override
 			public void stateChanged(ChangeEvent arg0) {
 				changeWaitForClick();
 			}
