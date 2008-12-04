@@ -7,6 +7,9 @@ import java.awt.Dimension;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
@@ -315,10 +318,9 @@ public abstract class AssetChooser extends JFileChooser {
 		buttonsPanel = new JPanel( );
 		buttonsPanel.setLayout( new BoxLayout( buttonsPanel, BoxLayout.LINE_AXIS ) );
 
-		//TODO TextConstants
-		approveButton = new JButton( "OK" );
+		approveButton = new JButton( TextConstants.getText("GeneralText.OK") );
 		approveButton.addActionListener( new ButtonsListener( ) );
-		cancelButton = new JButton( "Cancel" );
+		cancelButton = new JButton( TextConstants.getText("GeneralText.Cancel") );
 		cancelButton.addActionListener( new ButtonsListener( ) );
 		buttonsPanel.add( approveButton );
 		buttonsPanel.add( Box.createHorizontalStrut( 1 ) );
@@ -470,6 +472,15 @@ public abstract class AssetChooser extends JFileChooser {
 			this.customizeDefaultChooser( container );
 			dialog.pack( );
 		}
+		dialog.addWindowListener( new WindowAdapter (){
+			@Override
+			public void windowClosed(WindowEvent e) {
+				Controller.getInstance().popWindow();
+				
+			}
+			
+		});
+		Controller.getInstance().pushWindow(dialog);
 		return dialog;
 			
 	}
@@ -478,12 +489,19 @@ public abstract class AssetChooser extends JFileChooser {
 	public int showAssetChooser( Component parent ) {
 		int value = showDialog( parent, title );
 		if( value == JFileChooser.APPROVE_OPTION ) {
-			if( selectedAsset == null && getSelectedFile( ) != null )
-				return ASSET_FROM_OUTSIDE;
-			else if( selectedAsset != null && getSelectedFile( ) == null )
-				return ASSET_FROM_ZIP;
-			else
-				return JFileChooser.CANCEL_OPTION;
+			if( selectedAsset == null && getSelectedFile( ) != null ){
+				// Check that selectedFile is not exactly in project folder
+				if ( getSelectedFile( ).getAbsolutePath().startsWith( AssetsController.getCategoryAbsoluteFolder( assetCategory ) )) {
+					selectedAsset = getSelectedFile( ).getName();
+					return ASSET_FROM_ZIP;
+				}else
+					return ASSET_FROM_OUTSIDE;
+			} else {
+				if( selectedAsset != null && getSelectedFile( ) == null )
+					return ASSET_FROM_ZIP;
+				else
+					return JFileChooser.CANCEL_OPTION;
+			}
 		} else {
 			return value;
 		}
