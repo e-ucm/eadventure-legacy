@@ -267,11 +267,6 @@ public class AnimationPanel extends JPanel implements ClockListener {
 	 */
 	private class ClosingListener implements AncestorListener {
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.event.AncestorListener#ancestorRemoved(javax.swing.event.AncestorEvent)
-		 */
 		public void ancestorRemoved( AncestorEvent event ) {
 			// Stop the clock
 			try {
@@ -297,23 +292,15 @@ public class AnimationPanel extends JPanel implements ClockListener {
 		}
 
 		public void mouseEntered(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-			
 		}
 
 		public void mouseExited(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-			
 		}
 
 		public void mousePressed(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-			
 		}
 
 		public void mouseReleased(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-			
 		}
 		
 	}

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javax.swing.ImageIcon;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -283,6 +284,14 @@ public class Animation {
 			elapsedTime -= transitions.get(i+1).getTime();
 		}
 		return null;
+	}
+	
+	private Image noImage() {
+    	ImageIcon icon = new ImageIcon("img/icons/noImageFrame.png"); 
+    	if (icon != null)
+    		return icon.getImage();
+    	else
+    		return new BufferedImage(100,120,BufferedImage.TYPE_3BYTE_BGR);
 	}
 	
 	

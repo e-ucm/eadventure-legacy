@@ -8,6 +8,8 @@ import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.AbstractListModel;
 import javax.swing.BorderFactory;
@@ -27,6 +29,7 @@ import javax.swing.event.ListSelectionListener;
 import es.eucm.eadventure.common.data.animation.Animation;
 import es.eucm.eadventure.common.data.animation.Frame;
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.animation.AnimationDataControl;
 import es.eucm.eadventure.editor.control.writer.AnimationWriter;
 import es.eucm.eadventure.editor.gui.displaydialogs.AnimationDialog;
@@ -126,6 +129,16 @@ public class AnimationEditDialog extends JDialog {
 			animationDataControl = new AnimationDataControl(animation);
 		}
 		animationDataControl.setFilename(filename);
+
+		// Push the dialog into the stack, and add the window listener to pop in when closing
+		Controller.getInstance( ).pushWindow( this );
+		addWindowListener( new WindowAdapter( ) {
+			public void windowClosing( WindowEvent e ) {
+				Controller.getInstance( ).popWindow( );
+			}
+		} );
+
+		
 		buildInterface();
 	}
 
@@ -214,15 +227,14 @@ public class AnimationEditDialog extends JDialog {
 		gbc.weighty = 0.3;
 		this.add(acceptCancelPanel, gbc);
 		
-		this.setSize(600, 650);
+		this.setSize(600, 650);		
 
 		Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
 		setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
+		setVisible(true);
 
-		this.setVisible(true);
-		
 	}
-	
+		
 	/**
 	 * Creates the description panel, where all the elements that describe
 	 * the animation are placed
