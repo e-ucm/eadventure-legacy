@@ -9,6 +9,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -68,7 +69,9 @@ public class BookPagePanel extends JPanel{
 	private JButton selectButton;
 	
 	private JButton createButton;
-	
+
+	private JButton editButton;
+
 	private JButton changeMargins;
 	
 	private BookPagesPanel parent;
@@ -200,6 +203,15 @@ public class BookPagePanel extends JPanel{
 		createButton.addActionListener(new CreateButtonListener());
 		createButton.setEnabled(bookPage != null && !pathTextField.isEditable());
 		assetPathPanel.add( createButton, c2);
+
+		
+		c2.gridx = 4;
+		c2.fill = GridBagConstraints.NONE;
+		c2.weightx = 0;
+		editButton = new JButton( TextConstants.getText("Resources.Edit"));
+		editButton.addActionListener(new EditButtonListener());
+		editButton.setEnabled(bookPage != null && !pathTextField.isEditable() && pathTextField.getText().length() > 0);
+		assetPathPanel.add( editButton, c2);
 
 		//---------------- Asset path panel -------------------------------------//
 		
@@ -359,12 +371,14 @@ public class BookPagePanel extends JPanel{
 				pathTextField.setEditable( false );
 				selectButton.setEnabled( true );
 				createButton.setEnabled( true );
+				editButton.setEnabled( false );
 			}else if( e.getSource( ).equals( urlRadioButton ) ){
 				dataControl.setType(BookPage.TYPE_URL);
 				pathTextField.setText( dataControl.getSelectedPage( ).getUri( ) );
 				pathTextField.setEditable( true );
 				selectButton.setEnabled( false );
 				createButton.setEnabled( false );
+				editButton.setEnabled( false );
 			}
 		}
 	}
@@ -385,6 +399,7 @@ public class BookPagePanel extends JPanel{
 			if (dataControl.getSelectedPage( ).getType( ) == BookPage.TYPE_RESOURCE){
 				if (dataControl.editAssetPath( )){
 					pathTextField.setText( dataControl.getSelectedPage( ).getUri( ) );
+					editButton.setEnabled(true);
 					validateContentSource(); 
 				}
 			} 
@@ -396,6 +411,47 @@ public class BookPagePanel extends JPanel{
 	 * Listener for the create/edit button.
 	 */
 	private class CreateButtonListener implements ActionListener {
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
+		public void actionPerformed( ActionEvent e ) {
+			// Ask the user for an image
+			//bookParagraphDataControl.setImageParagraphContent( );
+
+			/*
+			if (bookPage.getUri() == null || bookPage.getUri().compareTo("") == 0) {
+				String newFileName = "folder..." + parent.getDataControl().getId() + "_" + dataControl.getSelectedPage() + ".html";
+			}
+			*/
+			
+			// Create new asset if no asset is selected
+		
+			String filename = null;
+			
+			filename = AssetsController.TempFileGenerator.generateTempFileAbsolutePath("html");
+			File file = new File(filename);
+			try {
+				file.createNewFile();
+				AssetsController.addSingleAsset(AssetsController.CATEGORY_STYLED_TEXT, file.getAbsolutePath());
+				String uri = "assets/styledtext/" + file.getName();
+				dataControl.getSelectedPage().setUri(uri);
+				pathTextField.setText( dataControl.getSelectedPage( ).getUri( ) );
+				parent.updatePreview( );
+				editButton.setEnabled(true);
+			} catch (IOException exc) {
+				exc.printStackTrace();
+			}
+		}
+	}
+
+	
+	/**
+	 * Listener for the create/edit button.
+	 */
+	private class EditButtonListener implements ActionListener {
 
 		/*
 		 * (non-Javadoc)
@@ -428,5 +484,5 @@ public class BookPagePanel extends JPanel{
 			
 		}
 	}
-	
+
 }

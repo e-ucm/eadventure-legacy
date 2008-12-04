@@ -722,7 +722,7 @@ based on the state of the flags.</entry>
 	<entry key="Resources.EditAssetMessage">Select an asset from the list</entry>
 	<entry key="Resources.DeleteAsset">Clear asset</entry>
 	<entry key="Resources.Select">Select...</entry>
-	<entry key="Resources.Create">Create/Edit</entry>
+	<entry key="Resources.Create">Create</entry>
 	<entry key="Resources.New">New</entry>
 	<entry key="Resources.Edit">Edit</entry>
 	<entry key="Resources.ViewAsset">View</entry>
