@@ -161,7 +161,7 @@ public class GUIStylesDialog extends JDialog {
 		} );
 
 		// Set size and position and show the dialog
-		setSize( 380, 280 );
+		setSize( 400, 320 );
 		Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
 		setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
 		setResizable( false );

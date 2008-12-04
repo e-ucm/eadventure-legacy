@@ -130,7 +130,7 @@ public class ExportToLOMDialog extends JDialog{
 			}
 		} );
 		
-		this.setSize( new Dimension(400,400) );
+		this.setSize( new Dimension(400,450) );
 		Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
 		setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
 		setResizable( false );
