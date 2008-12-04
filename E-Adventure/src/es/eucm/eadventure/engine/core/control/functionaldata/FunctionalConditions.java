@@ -60,9 +60,7 @@ public class FunctionalConditions{
             		GlobalState gs = Game.getInstance( ).getCurrentChapterData( ).getGlobalState( globalStateId );
             		evaluation = new FunctionalConditions ( gs ).allConditionsOk();
             	}
-            } else {
-            	break;
-            }
+            } 
         }
         return evaluation;
     }
@@ -114,9 +112,7 @@ public class FunctionalConditions{
             		GlobalState gs = Game.getInstance( ).getCurrentChapterData( ).getGlobalState( globalStateId );
             		evaluation = new FunctionalConditions ( gs ).allConditionsOk();
             	}
-            } else {
-            	break;
-            }
+            } 
         
         return evaluation;
     }

@@ -18,6 +18,7 @@ import es.eucm.eadventure.common.data.chapter.effects.SpeakPlayerEffect;
 import es.eucm.eadventure.common.data.chapter.effects.TriggerBookEffect;
 import es.eucm.eadventure.common.data.chapter.effects.TriggerConversationEffect;
 import es.eucm.eadventure.common.data.chapter.effects.TriggerCutsceneEffect;
+import es.eucm.eadventure.common.data.chapter.effects.TriggerSceneEffect;
 
 /**
  * This abstract class defines how a certain effect must be triggered
@@ -119,6 +120,7 @@ public abstract class FunctionalEffect {
     			fe = new FunctionalTriggerLastSceneEffect ( );
     			break;
     		case Effect.TRIGGER_SCENE:
+    			fe = new FunctionalTriggerSceneEffect ( (TriggerSceneEffect)effect );
     			break;
     	}
     	return fe;

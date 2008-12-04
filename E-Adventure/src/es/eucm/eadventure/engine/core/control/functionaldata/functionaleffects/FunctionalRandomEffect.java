@@ -32,6 +32,8 @@ public class FunctionalRandomEffect extends FunctionalEffect{
     
     public FunctionalRandomEffect (RandomEffect effect){
     	super(effect);
+    	this.positiveEffect = FunctionalEffect.buildFunctionalEffect( effect.getPositiveEffect() );
+    	this.negativeEffect = FunctionalEffect.buildFunctionalEffect( effect.getNegativeEffect() );
     }
     
     private FunctionalEffect getEffectToBeTriggered(){
@@ -65,20 +67,6 @@ public class FunctionalRandomEffect extends FunctionalEffect{
         if (effectTriggered!=null){
             effectTriggered.triggerEffect( );
         }
-    }
-
-    /**
-     * @param positiveEffect the positiveEffect to set
-     */
-    public void setPositiveEffect( Effect positiveEffect ) {
-        this.positiveEffect = FunctionalEffect.buildFunctionalEffect(positiveEffect);
-    }
-
-    /**
-     * @param negativeEffect the negativeEffect to set
-     */
-    public void setNegativeEffect( Effect negativeEffect ) {
-        this.negativeEffect = FunctionalEffect.buildFunctionalEffect(negativeEffect);
     }
 
 }
