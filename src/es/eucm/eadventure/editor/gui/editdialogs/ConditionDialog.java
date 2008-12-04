@@ -204,10 +204,10 @@ public class ConditionDialog extends JDialog {
 		button3.setToolTipText( TextConstants.getText( "Conditions.Group.Description" ) );
 		button1.addActionListener( new ConditionModeButtonListener( Condition.FLAG_CONDITION ) );
 		button2.addActionListener( new ConditionModeButtonListener( Condition.VAR_CONDITION ) );
-		button3.addActionListener( new ConditionModeButtonListener( Condition.GROUP_CONDITION ) );
+		button3.addActionListener( new ConditionModeButtonListener( Condition.GLOBAL_STATE_CONDITION ) );
 		panel.add( button1 );
 		panel.add( button2 );
-		panel.add( button3 );
+		//panel.add( button3 );
 		group.add( button1 );
 		group.add( button2 );
 		group.add( button3 );
@@ -352,7 +352,7 @@ public class ConditionDialog extends JDialog {
 			
 		} 
 		
-		else if ( selectedMode == Condition.GROUP_CONDITION ){
+		else if ( selectedMode == Condition.GLOBAL_STATE_CONDITION ){
 			
 			featuresPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder(), TextConstants.getText("Conditions.Group.Title")));
 		}

@@ -29,7 +29,7 @@ public class GameStateNextScene extends GameState {
         
         // Pick the next scene, and the scene related to it
         NextScene nextScene = game.getNextScene( );
-        GeneralScene generalScene = game.getGameData( ).getGeneralScene( nextScene.getNextSceneId( ) );
+        GeneralScene generalScene = game.getCurrentChapterData( ).getGeneralScene( nextScene.getNextSceneId( ) );
 
         // Depending on the type of the scene
         switch( generalScene.getType( ) ) {

@@ -627,7 +627,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      * Returns the game data
      * @return Game data
      */
-    public Chapter getGameData( ) {
+    public Chapter getCurrentChapterData( ) {
         return gameData;
     }
 

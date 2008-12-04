@@ -5,6 +5,7 @@ import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.data.chapter.book.Book;
+import es.eucm.eadventure.common.data.chapter.conditions.GlobalState;
 import es.eucm.eadventure.common.data.chapter.conversation.Conversation;
 import es.eucm.eadventure.common.data.chapter.elements.Item;
 import es.eucm.eadventure.common.data.chapter.elements.NPC;
@@ -66,7 +67,10 @@ public class IdentifierSummary {
 	 */
 	private List<String> adaptationRuleIdentifiers;
 
-	
+	/**
+	 * List of all global states identifiers in the script.
+	 */
+	private List<String> globalStateIdentifiers;
 
 	/**
 	 * Constructor.
@@ -87,6 +91,7 @@ public class IdentifierSummary {
 		conversationIdentifiers = new ArrayList<String>( );
 		assessmentRuleIdentifiers = new ArrayList<String>( );
 		adaptationRuleIdentifiers = new ArrayList<String>( );
+		globalStateIdentifiers = new ArrayList<String>( );
 
 		// Fill all the lists
 		loadIdentifiers( chapter );
@@ -109,6 +114,7 @@ public class IdentifierSummary {
 		itemIdentifiers.clear( );
 		npcIdentifiers.clear( );
 		conversationIdentifiers.clear( );
+		globalStateIdentifiers.clear( );
 
 		// Add scene IDs
 		for( Scene scene : chapter.getScenes( ) )
@@ -133,6 +139,11 @@ public class IdentifierSummary {
 		// Add conversation IDs
 		for( Conversation conversation : chapter.getConversations( ) )
 			addConversationId( conversation.getId( ) );
+		
+		// Add global state IDs
+		for( GlobalState globalState : chapter.getGlobalStates( ) )
+			addGlobalStateId( globalState.getId( ) );
+
 	}
 
 	/**
@@ -231,6 +242,16 @@ public class IdentifierSummary {
 	public String[] getConversationsIds( ) {
 		return conversationIdentifiers.toArray( new String[] {} );
 	}
+	
+	/**
+	 * Returns an array of global state identifiers.
+	 * 
+	 * @return Array of global state identifiers
+	 */
+	public String[] getGlobalStatesIds( ) {
+		return globalStateIdentifiers.toArray( new String[] {} );
+	}
+
 
 	/**
 	 * Adds a new scene id.
@@ -298,6 +319,17 @@ public class IdentifierSummary {
 	public void addConversationId( String conversationId ) {
 		globalIdentifiers.add( conversationId );
 		conversationIdentifiers.add( conversationId );
+	}
+	
+	/**
+	 * Adds a new global state id.
+	 * 
+	 * @param globalStateId
+	 *            New conversation id
+	 */
+	public void addGlobalStateId( String globalStateId ) {
+		globalIdentifiers.add( globalStateId );
+		globalStateIdentifiers.add( globalStateId );
 	}
 	
 	public void addAssessmentRuleId( String assRuleId ) {
@@ -377,6 +409,17 @@ public class IdentifierSummary {
 	public void deleteConversationId( String conversationId ) {
 		globalIdentifiers.remove( conversationId );
 		conversationIdentifiers.remove( conversationId );
+	}
+	
+	/**
+	 * Deletes a new conversation id.
+	 * 
+	 * @param globalStateId
+	 *            Conversation id to be deleted
+	 */
+	public void deleteGlobalStateId( String globalStateId ) {
+		globalIdentifiers.remove( globalStateId );
+		globalStateIdentifiers.remove( globalStateId );
 	}
 
 	public void deleteAssessmentRuleId( String id ) {

@@ -123,10 +123,10 @@ public class ConditionsController {
 		String conditionId;
 
 		if( blockIndex == MAIN_CONDITIONS_BLOCK )
-			conditionId = conditions.getMainConditions( ).get( conditionIndex ).getFlagVar( );
+			conditionId = conditions.getMainConditions( ).get( conditionIndex ).getId( );
 
 		else
-			conditionId = conditions.getEitherConditions( blockIndex ).get( conditionIndex ).getFlagVar( );
+			conditionId = conditions.getEitherConditions( blockIndex ).get( conditionIndex ).getId( );
 
 		return conditionId;
 	}
@@ -239,7 +239,7 @@ public class ConditionsController {
 	public void deleteEitherConditionsBlock( int index ) {
 		// Delete the flag references
 		for( Condition condition : conditions.getEitherConditions( index ) )
-			varFlagSummary.deleteFlagReference( condition.getFlagVar( ) );
+			varFlagSummary.deleteFlagReference( condition.getId( ) );
 
 		// Delete the block
 		conditions.deleteEitherCondition( index );
@@ -301,12 +301,12 @@ public class ConditionsController {
 		String conditionId;
 
 		if( blockIndex == MAIN_CONDITIONS_BLOCK ) {
-			conditionId = conditions.getMainConditions( ).get( conditionIndex ).getFlagVar( );
+			conditionId = conditions.getMainConditions( ).get( conditionIndex ).getId( );
 			conditions.getMainConditions( ).remove( conditionIndex );
 		}
 
 		else {
-			conditionId = conditions.getEitherConditions( blockIndex ).get( conditionIndex ).getFlagVar( );
+			conditionId = conditions.getEitherConditions( blockIndex ).get( conditionIndex ).getId( );
 			conditions.getEitherConditions( blockIndex ).remove( conditionIndex );
 		}
 
@@ -334,15 +334,15 @@ public class ConditionsController {
 			int type;
 	
 			if( blockIndex == MAIN_CONDITIONS_BLOCK ) {
-				oldConditionId = conditions.getMainConditions( ).get( conditionIndex ).getFlagVar( );
+				oldConditionId = conditions.getMainConditions( ).get( conditionIndex ).getId( );
 				type = conditions.getMainConditions( ).get( conditionIndex ).getType();
-				conditions.getMainConditions( ).get( conditionIndex ).setFlagVar( id );
+				conditions.getMainConditions( ).get( conditionIndex ).setId( id );
 			}
 	
 			else {
-				oldConditionId = conditions.getEitherConditions( blockIndex ).get( conditionIndex ).getFlagVar( );
+				oldConditionId = conditions.getEitherConditions( blockIndex ).get( conditionIndex ).getId( );
 				type = conditions.getEitherConditions( blockIndex ).get( conditionIndex ).getType();
-				conditions.getEitherConditions( blockIndex ).get( conditionIndex ).setFlagVar( id );
+				conditions.getEitherConditions( blockIndex ).get( conditionIndex ).setId( id );
 			}
 	
 			// Updates the flag references
@@ -430,11 +430,11 @@ public class ConditionsController {
 				Condition oldCondition = conditions.getMainConditions( ).get( conditionIndex ); 
 				if ( oldCondition.getType() != type ){
 					if ( type == ConditionsController.FLAG_CONDITION ){
-						newCondition = new Condition ( oldCondition.getFlagVar(), Condition.FLAG_ACTIVE ) ;
+						newCondition = new Condition ( oldCondition.getId(), Condition.FLAG_ACTIVE ) ;
 						conditions.getMainConditions().remove( conditionIndex );
 						conditions.getMainConditions().add( conditionIndex, newCondition);
 					} else if ( type == ConditionsController.VAR_CONDITION ){
-						newCondition = new VarCondition ( oldCondition.getFlagVar(), Condition.VAR_EQUALS, 1 ) ;
+						newCondition = new VarCondition ( oldCondition.getId(), Condition.VAR_EQUALS, 1 ) ;
 						conditions.getMainConditions().remove( conditionIndex );
 						conditions.getMainConditions().add( conditionIndex, newCondition);
 					}
@@ -445,11 +445,11 @@ public class ConditionsController {
 				Condition oldCondition = conditions.getEitherConditions( blockIndex ).get( conditionIndex );
 				if ( oldCondition.getType() != type ){
 					if ( type == ConditionsController.FLAG_CONDITION ){
-						newCondition = new Condition ( oldCondition.getFlagVar(), Condition.FLAG_ACTIVE ) ;
+						newCondition = new Condition ( oldCondition.getId(), Condition.FLAG_ACTIVE ) ;
 						conditions.getEitherConditions( blockIndex ).remove( conditionIndex );
 						conditions.getEitherConditions( blockIndex ).add( conditionIndex, newCondition);
 					} else if ( type == ConditionsController.VAR_CONDITION ){
-						newCondition = new VarCondition ( oldCondition.getFlagVar(), Condition.VAR_EQUALS, 1 ) ;
+						newCondition = new VarCondition ( oldCondition.getId(), Condition.VAR_EQUALS, 1 ) ;
 						conditions.getEitherConditions( blockIndex ).remove( conditionIndex );
 						conditions.getEitherConditions( blockIndex ).add( conditionIndex, newCondition);
 					}
@@ -597,18 +597,18 @@ public class ConditionsController {
 		// First check the main block of conditions
 		for( Condition condition : conditions.getMainConditions( ) ){
 			if ( condition.getType() == Condition.FLAG_CONDITION )
-				varFlagSummary.addFlagReference( condition.getFlagVar( ) );
+				varFlagSummary.addFlagReference( condition.getId( ) );
 			else if ( condition.getType() == Condition.VAR_CONDITION )
-				varFlagSummary.addVarReference( condition.getFlagVar( ) );
+				varFlagSummary.addVarReference( condition.getId( ) );
 		}
 
 		// Then add the references from the either blocks
 		for( int i = 0; i < conditions.getEitherConditionsBlockCount( ); i++ )
 			for( Condition condition : conditions.getEitherConditions( i ) ){
 				if ( condition.getType() == Condition.FLAG_CONDITION )
-					varFlagSummary.addFlagReference( condition.getFlagVar( ) );
+					varFlagSummary.addFlagReference( condition.getId( ) );
 				else if ( condition.getType() == Condition.VAR_CONDITION )
-					varFlagSummary.addVarReference( condition.getFlagVar( ) );
+					varFlagSummary.addVarReference( condition.getId( ) );
 			}
 	}
 

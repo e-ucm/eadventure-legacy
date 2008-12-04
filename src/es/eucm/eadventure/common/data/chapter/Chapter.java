@@ -5,6 +5,7 @@ import java.util.List;
 
 import es.eucm.eadventure.common.data.adventure.ChapterSummary;
 import es.eucm.eadventure.common.data.chapter.book.Book;
+import es.eucm.eadventure.common.data.chapter.conditions.GlobalState;
 import es.eucm.eadventure.common.data.chapter.conversation.Conversation;
 import es.eucm.eadventure.common.data.chapter.elements.Item;
 import es.eucm.eadventure.common.data.chapter.elements.NPC;
@@ -72,6 +73,11 @@ public class Chapter extends ChapterSummary{
      * List of the vars present in the game
      */
     private List<String> vars;
+    
+    /**
+     * List of global states
+     */
+    private List<GlobalState> globalStates;
 
 	
 	/**
@@ -90,6 +96,7 @@ public class Chapter extends ChapterSummary{
 		timers = new ArrayList<Timer>();
 		flags = new ArrayList<String>( );
 		vars = new ArrayList<String>( );
+		globalStates = new ArrayList<GlobalState>( );
 	}
 
 	/**
@@ -115,6 +122,7 @@ public class Chapter extends ChapterSummary{
 		timers = new ArrayList<Timer>();
 		// Add the scene
 		scenes.add( new Scene( sceneId ) );
+		globalStates = new ArrayList<GlobalState>( );
 	}
 
 
@@ -264,6 +272,16 @@ public class Chapter extends ChapterSummary{
 	public void addItem( Item item ) {
 		items.add( item );
 	}
+	
+	/**
+	 * Adds a global state to the list of global states in the game
+	 * 
+	 * @param globalState
+	 *            the global state to add
+	 */
+	public void addGlobalState(GlobalState globalState ) {
+		globalStates.add( globalState );
+	}
 
 	/**
 	 * Changes the player in the game
@@ -372,6 +390,23 @@ public class Chapter extends ChapterSummary{
 				selectedNPC = npc;
 
 		return selectedNPC;
+	}
+	
+	/**
+	 * Returns a global state with the given id.
+	 * 
+	 * @param globalStateId
+	 *            Global State id
+	 * @return GlobalState requested, null if it was not found
+	 */
+	public GlobalState getGlobalState( String globalStateId ) {
+		GlobalState selectedGlobalState = null;
+
+		for( GlobalState gs : globalStates )
+			if( gs.getId( ).equals( globalStateId ) )
+				selectedGlobalState = gs;
+
+		return selectedGlobalState;
 	}
 
 	/**
@@ -492,5 +527,19 @@ public class Chapter extends ChapterSummary{
 	 */
 	public boolean isCutscene ( String id ){
 		return getCutscene(id)!=null;
+	}
+
+	/**
+	 * @return the globalStates
+	 */
+	public List<GlobalState> getGlobalStates() {
+		return globalStates;
+	}
+
+	/**
+	 * @param globalStates the globalStates to set
+	 */
+	public void setGlobalStates(List<GlobalState> globalStates) {
+		this.globalStates = globalStates;
 	}
 }

@@ -53,7 +53,7 @@ public class GameStateVideoscene extends GameState  implements ControllerListene
      */
     public GameStateVideoscene( ) {
         super( );
-        videoscene = (Videoscene) game.getGameData( ).getGeneralScene( game.getNextScene( ).getNextSceneId( ) );
+        videoscene = (Videoscene) game.getCurrentChapterData( ).getGeneralScene( game.getNextScene( ).getNextSceneId( ) );
 
         stop = true;
         this.prefetched=false;

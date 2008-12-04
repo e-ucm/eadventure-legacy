@@ -11,7 +11,6 @@ import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.general.ActionsListDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
-import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class ItemDataControl extends DataControlWithResources {

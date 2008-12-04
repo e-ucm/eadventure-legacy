@@ -1,7 +1,7 @@
 <!ENTITY % conversation "tree-conversation | graph-conversation">
 <!ENTITY % cutscene "videoscene | slidescene">
 
-<!ELEMENT eAdventure ((scene | %cutscene;)+, book*, object*, player, character*, (%conversation;)*, timer*)>
+<!ELEMENT eAdventure ((scene | %cutscene;)+, book*, object*, player, character*, (%conversation;)*, timer*, global-state*)>
 <!ELEMENT scene (documentation?, resources+, name, default-initial-position?, exits?, objects?, characters?, active-areas?, barriers?)>
 <!ATTLIST scene
 	id ID #REQUIRED
@@ -46,6 +46,7 @@
 <!ATTLIST timer 
 	time NMTOKEN #REQUIRED
 >
+
 <!ELEMENT objects (object-ref+)>
 <!ELEMENT object-ref (documentation?, condition?)>
 <!ATTLIST object-ref
@@ -194,11 +195,17 @@
 
 <!-- TODO: REMOVE EFFECT ONCE ALL SAMPLE GAMES HAD BEEN UPDATED -->
 <!ELEMENT end-conversation (effect?)>
-<!ENTITY % basic-condition "(active|inactive|greater-than|greater-equals-than|equals|less-equals-than|less-than)?">
+<!ENTITY % basic-condition "(active|inactive| 
+							greater-than| greater-equals-than | equals| less-equals-than | less-than |
+							global-state-ref )?">
 <!ENTITY % general-condition "(%basic-condition; | either)+">
 <!ELEMENT condition %general-condition;>
 <!ELEMENT init-condition %general-condition;>
 <!ELEMENT end-condition %general-condition;>
+<!ELEMENT global-state (documentation?,%general-condition;)>
+<!ATTLIST global-state
+	id ID #REQUIRED
+>
 <!ELEMENT active EMPTY>
 <!ATTLIST active
 	flag NMTOKEN #REQUIRED
@@ -233,6 +240,10 @@
 	value NMTOKEN #REQUIRED
 >
 
+<!ELEMENT global-state-ref EMPTY>
+<!ATTLIST global-state-ref
+	id IDREF #REQUIRED
+>
 
 <!ELEMENT either (%basic-condition;)+>
 <!ENTITY % effects "(activate | deactivate | set-value | increment | decrement | consume-object | generate-object | cancel-action | speak-player | speak-char | play-sound | play-animation | move-player | move-npc | trigger-book | trigger-conversation | trigger-cutscene | trigger-scene | trigger-last-scene | random-effect )*">

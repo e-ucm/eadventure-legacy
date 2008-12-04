@@ -100,7 +100,7 @@ public class ConditionsDOMWriter {
 						conditionElement = doc.createElement( "inactive" );
 	
 					// Set the target flag and append it
-					conditionElement.setAttribute( "flag", condition.getFlagVar( ) );
+					conditionElement.setAttribute( "flag", condition.getId( ) );
 				} else if ( condition.getType() == Condition.VAR_CONDITION ){
 					VarCondition varCondition = (VarCondition) condition;
 					// Create the tag
@@ -116,7 +116,7 @@ public class ConditionsDOMWriter {
 						conditionElement = doc.createElement( "less-than" );
 	
 					// Set the target flag and append it
-					conditionElement.setAttribute( "var", varCondition.getFlagVar( ) );
+					conditionElement.setAttribute( "var", varCondition.getId( ) );
 					conditionElement.setAttribute( "value", Integer.toString( varCondition.getValue() ) );
 				}
 				conditionsListNode.appendChild( conditionElement );

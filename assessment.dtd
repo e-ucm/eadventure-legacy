@@ -13,8 +13,10 @@
 
 
 <!ELEMENT concept (#PCDATA)>
+<!ENTITY % basic-condition "(active|inactive| 
+							greater-than| greater-equals-than | equals| less-equals-than | less-than |
+							global-state-ref )?">
 
-<!ENTITY % basic-condition "(active|inactive|greater-than|greater-equals-than|equals|less-equals-than|less-than)?">
 <!ELEMENT condition (%basic-condition; | either)+>
 <!ELEMENT init-condition (%basic-condition; | either)+>
 <!ELEMENT end-condition (%basic-condition; | either)+>
@@ -50,6 +52,10 @@
 <!ATTLIST less-equals-than
 	var NMTOKEN #REQUIRED
 	value NMTOKEN #REQUIRED
+>
+<!ELEMENT global-state-ref EMPTY>
+<!ATTLIST global-state-ref
+	id NMTOKEN #REQUIRED
 >
 
 <!ELEMENT either (%basic-condition;)+>

@@ -286,6 +286,10 @@ donde XX es un múmero cualquiera.</entry>
 	<entry key="Operation.AddItemTitle">Añadir nuevo objeto</entry>
 	<entry key="Operation.AddItemMessage">Introduzca un identificador para el nuevo objeto:</entry>
 	<entry key="Operation.AddItemDefaultValue">IdObjeto</entry>
+	
+	<entry key="Operation.AddGlobalStateTitle">Añadir nuevo estado global</entry>
+	<entry key="Operation.AddGlobalStateMessage">Introduzca un identificador para el nuevo estado global:</entry>
+	<entry key="Operation.AddGlobalStateDefaultValue">IdEstadoGlobal</entry>
 
 	<entry key="Operation.AddNPCTitle">Añadir nuevo personaje</entry>
 	<entry key="Operation.AddNPCMessage">Introduzca un identificador para el nuevo personaje</entry>
@@ -336,6 +340,9 @@ donde XX es un múmero cualquiera.</entry>
 
 	<entry key="Operation.RenameItemTitle">Renombrar objeto</entry>
 	<entry key="Operation.RenameItemMessage">Introduzca un nuevo identificador con el que renombrar el objeto:</entry>
+	
+	<entry key="Operation.RenameGlobalStateTitle">Renombrar estado global</entry>
+	<entry key="Operation.RenameGlobalStateMessage">Introduzca un nuevo identificador con el que renombrar el estado global:</entry>
 
 	<entry key="Operation.RenameNPCTitle">Renombrar personaje</entry>
 	<entry key="Operation.RenameNPCMessage">Introduzca un nuevo identificador con el que renombrar el personaje:</entry>
@@ -1278,6 +1285,8 @@ función de estos estados</entry>
 	<entry key="Element.Name51">Zona activa</entry>
 	<entry key="Element.Name52">Barreras</entry>
 	<entry key="Element.Name53">Barrera</entry>
+	<entry key="Element.Name54">Estado global</entry>
+	<entry key="Element.Name55">Estados globales</entry>
 		
 	<entry key="Element.Ref">Ref: {#0}</entry>
 	<entry key="Element.BookParagraph">Párrafo de libro</entry>

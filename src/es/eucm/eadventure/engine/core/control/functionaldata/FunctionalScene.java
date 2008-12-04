@@ -115,7 +115,7 @@ public class FunctionalScene implements Renderable {
         barriers = new ArrayList<FunctionalBarrier>( );
 
         // Pick the item summary
-        Chapter gameData = Game.getInstance( ).getGameData( );
+        Chapter gameData = Game.getInstance( ).getCurrentChapterData( );
         ItemSummary itemSummary = Game.getInstance( ).getItemSummary( );
         
         // Select the resources
@@ -205,7 +205,7 @@ public class FunctionalScene implements Renderable {
         player.updateResources( );
         
         // Pick the game data
-        Chapter gameData = Game.getInstance( ).getGameData( );
+        Chapter gameData = Game.getInstance( ).getCurrentChapterData( );
             
         // Check the item references of the scene
         for( ElementReference itemReference : scene.getItemReferences( ) ) {

@@ -9,9 +9,11 @@ import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import es.eucm.eadventure.common.data.chapter.Chapter;
+import es.eucm.eadventure.common.data.chapter.conditions.GlobalState;
 import es.eucm.eadventure.common.loader.InputStreamCreator;
 import es.eucm.eadventure.common.loader.subparsers.BookSubParser;
 import es.eucm.eadventure.common.loader.subparsers.CharacterSubParser;
+import es.eucm.eadventure.common.loader.subparsers.ConditionSubParser;
 import es.eucm.eadventure.common.loader.subparsers.CutsceneSubParser;
 import es.eucm.eadventure.common.loader.subparsers.GraphConversationSubParser;
 import es.eucm.eadventure.common.loader.subparsers.ItemSubParser;
@@ -72,6 +74,11 @@ public class ChapterHandler extends DefaultHandler {
 	 * Constant for subparsing timer tag
 	 */
 	private static final int TIMER = 8;
+	
+	/**
+	 * Constant for subparsing global-state tag
+	 */
+	private static final int GLOBAL_STATE = 9;
 
 	/**
 	 * Stores the current element being parsed
@@ -93,6 +100,16 @@ public class ChapterHandler extends DefaultHandler {
      */
     private InputStreamCreator isCreator;
 
+    /**
+     * Current global state being subparsed
+     */
+	private GlobalState currentGlobalState;
+	
+	/**
+	 * Buffer for globalstate docs
+	 */
+	private StringBuffer currentString;
+
 	/* Methods */
 
 	/**
@@ -104,6 +121,7 @@ public class ChapterHandler extends DefaultHandler {
 	public ChapterHandler( InputStreamCreator isCreator, Chapter chapter ) {
 		this.chapter = chapter;
 		this.isCreator = isCreator;
+		currentString = new StringBuffer( );
 	}
 
 	@Override
@@ -165,6 +183,20 @@ public class ChapterHandler extends DefaultHandler {
 				subParser = new TimerSubParser( chapter );
 				subParsing = TIMER;
 			}
+			
+			// Subparse global-state
+			else if( qName.equals( "global-state" ) ) {
+				String id = null;
+				for ( int i=0; i<attrs.getLength(); i++){
+					if ( attrs.getQName(i).equals("id"))
+						id = attrs.getValue(i);
+				}
+				currentGlobalState = new GlobalState ( id );
+				chapter.addGlobalState( currentGlobalState );
+				subParser = new ConditionSubParser( currentGlobalState, chapter );
+				subParsing = GLOBAL_STATE;
+			}
+
 		}
 
 		// If an element is being subparsed, spread the call
@@ -175,6 +207,11 @@ public class ChapterHandler extends DefaultHandler {
 	@Override
 	public void endElement( String namespaceURI, String sName, String qName ) throws SAXException {
 
+		if ( qName.equals("documentation") && subParsing == GLOBAL_STATE ){
+			currentGlobalState.setDocumentation( currentString.toString( ).trim( ) );
+		}
+		currentString = new StringBuffer( );
+		
 		// If an element is being subparsed
 		if( subParsing != NONE ) {
 
@@ -182,7 +219,7 @@ public class ChapterHandler extends DefaultHandler {
 			subParser.endElement( namespaceURI, sName, qName );
 
 			// If the element is not being subparsed anymore, return to normal state
-			if( qName.equals( "scene" ) && subParsing == SCENE || ( qName.equals( "slidescene" ) || qName.equals( "videoscene" ) ) && subParsing == CUTSCENE || qName.equals( "book" ) && subParsing == BOOK || qName.equals( "object" ) && subParsing == OBJECT || qName.equals( "player" ) && subParsing == PLAYER || qName.equals( "character" ) && subParsing == CHARACTER || qName.equals( "tree-conversation" ) && subParsing == CONVERSATION || qName.equals( "graph-conversation" ) && subParsing == CONVERSATION || qName.equals( "timer" ) && subParsing == TIMER ) {
+			if( qName.equals( "scene" ) && subParsing == SCENE || ( qName.equals( "slidescene" ) || qName.equals( "videoscene" ) ) && subParsing == CUTSCENE || qName.equals( "book" ) && subParsing == BOOK || qName.equals( "object" ) && subParsing == OBJECT || qName.equals( "player" ) && subParsing == PLAYER || qName.equals( "character" ) && subParsing == CHARACTER || qName.equals( "tree-conversation" ) && subParsing == CONVERSATION || qName.equals( "graph-conversation" ) && subParsing == CONVERSATION || qName.equals( "timer" ) && subParsing == TIMER || qName.equals( "global-state" ) && subParsing == GLOBAL_STATE) {
 				subParsing = NONE;
 			}
 
@@ -206,6 +243,7 @@ public class ChapterHandler extends DefaultHandler {
 	@Override
 	public void characters( char[] buf, int offset, int len ) throws SAXException {
 		// If the SAX handler is reading an element, just spread the call to the parser
+		currentString.append( new String( buf, offset, len ) );
 		if( subParsing != NONE ) {
 			subParser.characters( buf, offset, len );
 		}
