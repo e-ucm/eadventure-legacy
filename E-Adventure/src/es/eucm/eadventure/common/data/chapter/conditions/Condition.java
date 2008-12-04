@@ -58,13 +58,13 @@ public class Condition {
 	/**
 	 * Condition based on condition group
 	 */
-	public static final int GROUP_CONDITION = 2;
+	public static final int GLOBAL_STATE_CONDITION = 2;
 
 
 	/**
 	 * Name of the flag to be checked
 	 */
-	protected String flagVar;
+	protected String id;
 
 	/**
 	 * Stores if the flag must be active or inactive
@@ -72,7 +72,7 @@ public class Condition {
 	protected int state;
 
 	/**
-	 * Type of the condition ({@link #VAR_CONDITION}, {@link #FLAG_CONDITION} or {@link #GROUP_CONDITION}
+	 * Type of the condition ({@link #VAR_CONDITION}, {@link #FLAG_CONDITION} or {@link #GLOBAL_STATE_CONDITION}
 	 */
 	protected int type;
 
@@ -88,7 +88,7 @@ public class Condition {
 	 */
 	public Condition( String flagVar, int state ) {
 		this.type = FLAG_CONDITION;
-		this.flagVar = flagVar;
+		this.id = flagVar;
 		this.state = state;
 	}
 
@@ -97,8 +97,8 @@ public class Condition {
 	 * 
 	 * @return The flag/Var of the condition
 	 */
-	public String getFlagVar( ) {
-		return flagVar;
+	public String getId( ) {
+		return id;
 	}
 
 	/**
@@ -135,8 +135,8 @@ public class Condition {
 	 * @param flagVar
 	 *            New condition flag/Var
 	 */
-	public void setFlagVar( String flagVar ) {
-		this.flagVar = flagVar;
+	public void setId( String flagVar ) {
+		this.id = flagVar;
 	}
 
 	/**

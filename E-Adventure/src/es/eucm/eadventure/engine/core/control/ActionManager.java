@@ -224,7 +224,7 @@ public class ActionManager {
             // Pick the FIRST valid next-scene structure
             for( int i = 0; i < exit.getNextScenes( ).size( ) && nextScene == null; i++ )
                 if( new FunctionalConditions( exit.getNextScenes( ).get( i ).getConditions( ) ).allConditionsOk( ) )
-                    nextScene = game.getGameData( ).getGeneralScene( exit.getNextScenes( ).get( i ).getNextSceneId( ) );
+                    nextScene = game.getCurrentChapterData( ).getGeneralScene( exit.getNextScenes( ).get( i ).getNextSceneId( ) );
 
             //Check the text (customized or not)
             if (getExitText( exit )!=null ){

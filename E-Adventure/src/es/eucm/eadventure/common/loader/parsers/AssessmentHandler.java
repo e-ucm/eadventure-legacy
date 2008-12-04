@@ -15,6 +15,7 @@ import es.eucm.eadventure.common.data.assessment.AssessmentRule;
 import es.eucm.eadventure.common.data.assessment.TimedAssessmentRule;
 import es.eucm.eadventure.common.data.chapter.conditions.Condition;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
+import es.eucm.eadventure.common.data.chapter.conditions.GlobalStateReference;
 import es.eucm.eadventure.common.data.chapter.conditions.VarCondition;
 import es.eucm.eadventure.common.loader.InputStreamCreator;
 
@@ -303,6 +304,22 @@ public class AssessmentHandler extends DefaultHandler {
             if( reading == READING_EITHER )
                 currentEitherCondition.addCondition( new VarCondition( var, Condition.VAR_EQUALS, value ) );
             addVar ( var );
+        }
+        
+        // If it is a global-state-reference tag
+        else if( qName.equals( "global-state-ref" ) ) {
+        	// Id
+        	String id = null;
+            for( int i = 0; i < attrs.getLength( ); i++ ) {
+                if( attrs.getQName( i ).equals( "id" ) ) {
+                	id = attrs.getValue( i );
+                } 
+            }
+            // Store the inactive flag in the conditions or either conditions
+            if( reading == READING_NONE )
+                currentConditions.addCondition( new GlobalStateReference( id ) );
+            if( reading == READING_EITHER )
+                currentEitherCondition.addCondition( new GlobalStateReference( id ) );
         }
         
         else if( qName.equals( "set-property" ) ) {

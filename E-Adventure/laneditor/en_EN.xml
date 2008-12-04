@@ -280,6 +280,10 @@ named 'descriptor.xml' or 'chapterXX.xml' where XX is a number.</entry>
 	<entry key="Operation.AddItemTitle">Add item</entry>
 	<entry key="Operation.AddItemMessage">Type an identifier for the new item</entry>
 	<entry key="Operation.AddItemDefaultValue">ItemId</entry>
+	
+	<entry key="Operation.AddGlobalStateTitle">Add global state</entry>
+	<entry key="Operation.AddGlobalStateMessage">Type an identifier for the new global state</entry>
+	<entry key="Operation.AddGlobalStateDefaultValue">GlobalStateId</entry>
 
 	<entry key="Operation.AddNPCTitle">Add character</entry>
 	<entry key="Operation.AddNPCMessage">Type an identifier for the new character</entry>
@@ -330,6 +334,9 @@ named 'descriptor.xml' or 'chapterXX.xml' where XX is a number.</entry>
 
 	<entry key="Operation.RenameItemTitle">Rename item</entry>
 	<entry key="Operation.RenameItemMessage">Type a new identifier to rename the item</entry>
+	
+	<entry key="Operation.RenameGlobalStateTitle">Rename global state</entry>
+	<entry key="Operation.RenameGlobalStateMessage">Type a new identifier to rename the global state</entry>
 
 	<entry key="Operation.RenameNPCTitle">Rename character</entry>
 	<entry key="Operation.RenameNPCMessage">Type a new identifier to rename the character</entry>
@@ -1271,6 +1278,8 @@ based on the state of the flags.</entry>
 	<entry key="Element.Name51">Active area</entry>
 	<entry key="Element.Name52">Barriers</entry>
 	<entry key="Element.Name53">Barrier</entry>
+	<entry key="Element.Name54">Global state</entry>
+	<entry key="Element.Name55">Global states</entry>
 	<entry key="Element.Ref">Ref: {#0}</entry>
 	<entry key="Element.BookParagraph">Book paragraph</entry>
 	<entry key="Element.BookPage">Book page</entry>

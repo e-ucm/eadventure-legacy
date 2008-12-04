@@ -186,6 +186,23 @@ public class AdventureHandler extends DefaultHandler {
 					else if( attrs.getValue( i ).equals( "no" ) )
 						adventureData.setPlayerMode( DescriptorData.MODE_PLAYER_3RDPERSON );
 		}
+		
+        if (qName.equals("graphics")){
+        	for( int i = 0; i < attrs.getLength(); i++) {
+        		if (attrs.getQName( i ).equals("mode")) {
+        			if (attrs.getValue( i ).equals( "windowed")) {
+        				adventureData.setGraphicConfig(DescriptorData.GRAPHICS_WINDOWED);
+        			}
+        			else if (attrs.getValue( i ).equals( "fullscreen" )) {
+        				adventureData.setGraphicConfig(DescriptorData.GRAPHICS_FULLSCREEN);
+        			}
+        			else if (attrs.getValue( i ).equals( "blackbkg") ) {
+        				adventureData.setGraphicConfig(DescriptorData.GRAPHICS_BLACKBKG);
+        			}
+        		}
+        	}
+        }
+
 
 		// If reading the contents tag, switch to the chapters mode
 		else if( qName.equals( "contents" ) ) {

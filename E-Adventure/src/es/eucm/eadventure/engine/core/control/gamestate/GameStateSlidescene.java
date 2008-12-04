@@ -42,7 +42,7 @@ public class GameStateSlidescene extends GameState {
     public GameStateSlidescene( ) {
         super( );
 
-        slidescene = (Slidescene) game.getGameData( ).getGeneralScene( game.getNextScene( ).getNextSceneId( ) );
+        slidescene = (Slidescene) game.getCurrentChapterData( ).getGeneralScene( game.getNextScene( ).getNextSceneId( ) );
         
         // Select the resources
         Resources resources = createResourcesBlock( );

@@ -1,6 +1,7 @@
 package es.eucm.eadventure.engine.core.control.functionaldata;
 
 import es.eucm.eadventure.common.data.chapter.conditions.Condition;
+import es.eucm.eadventure.common.data.chapter.conditions.GlobalState;
 import es.eucm.eadventure.common.data.chapter.conditions.VarCondition;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.engine.core.control.FlagSummary;
@@ -47,14 +48,20 @@ public class FunctionalConditions{
         for( Condition condition : conditions.getMainConditions() ){
             if( evaluation ){
             	if (condition.getType() == Condition.FLAG_CONDITION){
-            		evaluation = condition.isActiveState() == flags.isActiveFlag( condition.getFlagVar( ) );            		
+            		evaluation = condition.isActiveState() == flags.isActiveFlag( condition.getId( ) );            		
             	} else if (condition.getType() == Condition.VAR_CONDITION ){
             		VarCondition varCondition = (VarCondition)condition;
-            		int actualValue = vars.getValue( varCondition.getFlagVar());
+            		int actualValue = vars.getValue( varCondition.getId());
             		int state = varCondition.getState();
             		int value = varCondition.getValue();
             		evaluation = evaluateVarCondition ( state, value, actualValue );
+            	} else if (condition.getType() == Condition.GLOBAL_STATE_CONDITION ){
+            		String globalStateId = condition.getId( );
+            		GlobalState gs = Game.getInstance( ).getCurrentChapterData( ).getGlobalState( globalStateId );
+            		evaluation = new FunctionalConditions ( gs ).allConditionsOk();
             	}
+            } else {
+            	break;
             }
         }
         return evaluation;
@@ -95,15 +102,20 @@ public class FunctionalConditions{
         for( Condition condition : conditions.getMainConditions() )
             if( !evaluation ){
             	if ( condition.getType() == Condition.FLAG_CONDITION ){
-            		evaluation = condition.isActiveState() == flags.isActiveFlag( condition.getFlagVar( ) );	
+            		evaluation = condition.isActiveState() == flags.isActiveFlag( condition.getId( ) );	
             	} else if ( condition.getType() == Condition.VAR_CONDITION ){
             		VarCondition varCondition = (VarCondition)condition;
-            		int actualValue = vars.getValue( varCondition.getFlagVar());
+            		int actualValue = vars.getValue( varCondition.getId());
             		int state = varCondition.getState();
             		int value = varCondition.getValue();
             		evaluation = evaluateVarCondition ( state, value, actualValue );
+            	} else if (condition.getType() == Condition.GLOBAL_STATE_CONDITION ){
+            		String globalStateId = condition.getId( );
+            		GlobalState gs = Game.getInstance( ).getCurrentChapterData( ).getGlobalState( globalStateId );
+            		evaluation = new FunctionalConditions ( gs ).allConditionsOk();
             	}
-                
+            } else {
+            	break;
             }
         
         return evaluation;

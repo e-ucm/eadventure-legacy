@@ -339,6 +339,17 @@ public class Controller {
 	 * Id for barrier
 	 */
 	public static final int BARRIER = 53;
+	
+	/**
+	 * Id for global state
+	 */
+	public static final int GLOBAL_STATE = 54;
+	
+	/**
+	 * Id for global state list
+	 */
+	public static final int GLOBAL_STATE_LIST = 55;
+
 
 
 	//TYPES OF EAD FILES
