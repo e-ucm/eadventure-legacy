@@ -1322,11 +1322,31 @@ public class AssetsController {
 				tempDirectory = "";
 			}
 
-			String fileName = name + random.nextInt( MAX_RANDOM ) + "." + extension;
+			String fileName = name + "." + extension;
 			File file = new File( tempDirectory + "/" + fileName );
 			while( file.exists( ) ) {
 				fileName = name + random.nextInt( MAX_RANDOM ) + "." + extension;
 				file = new File( tempDirectory + "/" + fileName );
+			}
+			return tempDirectory + "/" + fileName;
+		}
+		
+		public static String generateTempFileOverwriteExisting(String name, String extension) {
+			String tempDirectory = null;
+			if( System.getenv( "TEMP" ) != null && !System.getenv( "TEMP" ).equals( "" ) ) {
+				tempDirectory = System.getenv( "TEMP" );
+			} else if( System.getenv( "HOME" ) != null && !System.getenv( "HOME" ).equals( "" ) ) {
+				tempDirectory = System.getenv( "HOME" );
+			} else if( System.getenv( "ROOT" ) != null && !System.getenv( "ROOT" ).equals( "" ) ) {
+				tempDirectory = System.getenv( "ROOT" );
+			} else {
+				tempDirectory = "";
+			}
+
+			String fileName = name + "." + extension;
+			File file = new File( tempDirectory + "/" + fileName );
+			if( file.exists( ) ) {
+				file.delete();
 			}
 			return tempDirectory + "/" + fileName;
 		}

@@ -249,13 +249,13 @@ public class AnimationEditDialog extends JDialog {
 		gbc.gridy = 0;
 		gbc.weightx = 0.1;
 		
-		descriptionPanel.add(new JLabel(TextConstants.getText( "Animation.AnimationIdentifier" )), gbc);
+//		descriptionPanel.add(new JLabel(TextConstants.getText( "Animation.AnimationIdentifier" )), gbc);
 
 		gbc.gridx = 1;
 		gbc.weightx = 1;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		idTextField = new JTextField(animationDataControl.getAnimation().getId());
-		descriptionPanel.add(idTextField, gbc);
+//		descriptionPanel.add(idTextField, gbc);
 		
 		gbc.fill = GridBagConstraints.NONE;
 		gbc.weightx = 0.1;
@@ -337,6 +337,7 @@ public class AnimationEditDialog extends JDialog {
 	 */
 	protected void saveAndClose() {
 		if (animationDataControl.getFilename() != null) {
+			animationDataControl.getAnimation().setDocumentation(documentationTextField.getText());
 			AnimationWriter.writeAnimation(animationDataControl.getFilename(), animationDataControl.getAnimation());
 		}
 		this.setVisible(false);
