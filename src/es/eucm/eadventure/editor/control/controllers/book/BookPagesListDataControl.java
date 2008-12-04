@@ -10,7 +10,6 @@ import es.eucm.eadventure.common.data.chapter.book.BookPage;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
-import es.eucm.eadventure.editor.control.controllers.item.ItemDataControl;
 import es.eucm.eadventure.editor.gui.assetchooser.AssetChooser;
 import es.eucm.eadventure.editor.gui.otherpanels.FormattedTextPanel;
 
@@ -139,7 +138,7 @@ public class BookPagesListDataControl{
 
 		// Spread the call to the pages
 		for( BookPage bookPage : bookPagesList )
-			if (bookPage.getUri( ).equals( assetPath ))
+			if (bookPage.getUri( ).equals( assetPath ) && bookPage.getType() == BookPage.TYPE_RESOURCE)
 				count++;
 
 		return count;
@@ -150,7 +149,7 @@ public class BookPagesListDataControl{
 		for( BookPage bookPage : bookPagesList ){
 			
 			String uri = bookPage.getUri( );
-			if (uri!=null && !uri.equals( "" )){
+			if (uri!=null && !uri.equals( "" ) && bookPage.getType() == BookPage.TYPE_RESOURCE){
 				// Search assetPaths
 				boolean add = true;
 				for (String asset: assetPaths){
@@ -173,11 +172,8 @@ public class BookPagesListDataControl{
 		
 		//Spread the call to the paragraphs
 		for( BookPage bookPage : bookPagesList )
-			if (bookPage.getUri( ).equals( assetPath ))
-				if (bookPage.getType( ) == BookPage.TYPE_URL)
-					bookPage.setUri( "" );
-				else
-					toRemove.add( bookPage );
+			if (bookPage.getUri( ).equals( assetPath ) && bookPage.getType( ) == BookPage.TYPE_RESOURCE)
+				toRemove.add( bookPage );
 		
 		for (BookPage bookPage: toRemove)
 			bookPagesList.remove( bookPage );
