@@ -631,7 +631,7 @@ public class AssetsController {
 			else {
 				// Open source file, and create destiny file in the ZIP
 				File sourceFile = new File( assetPath );
-				File destinyFile = new File( categoryFolder, sourceFile.getName( ) );
+				File destinyFile = new File( categoryFolder, sourceFile.getName ( ) );
 
 				// Check those are not the same file
 				if ( !sourceFile.getAbsolutePath().toLowerCase().equals(destinyFile.getAbsolutePath().toLowerCase()) ){
