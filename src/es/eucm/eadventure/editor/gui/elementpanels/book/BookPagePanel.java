@@ -208,7 +208,6 @@ public class BookPagePanel extends JPanel{
 		JPanel otherOptions = new JPanel ();
 		changeMargins = new JButton(TextConstants.getText("BookPage.Margin"));
 		changeMargins.addActionListener( new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				String backgroundPath =  parent.getDataControl().getPreviewImage();
 		        Image background;

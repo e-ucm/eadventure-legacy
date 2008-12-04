@@ -438,7 +438,6 @@ public class GameLauncher extends JFrame implements Runnable {
     //Combo panel to switch the language
     combo = new JComboBox ( new String[]{TextConstants.getText("MainWindow.SelectLanguage"), TextConstants.getText("MainWindow.English"),TextConstants.getText("MainWindow.Spanish")});
     combo.addActionListener(  new ActionListener() {
-    	@Override
         public void actionPerformed( ActionEvent arg0 ) {
     		String args[] = new String[2];
     		args[0] = "";

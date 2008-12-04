@@ -1299,12 +1299,12 @@ public class AssetsController {
 			}
 
 			String fileName = name + random.nextInt( MAX_RANDOM ) + "." + extension;
-			File file = new File( tempDirectory + "\\" + fileName );
+			File file = new File( tempDirectory + "/" + fileName );
 			while( file.exists( ) ) {
 				fileName = name + random.nextInt( MAX_RANDOM ) + "." + extension;
-				file = new File( tempDirectory + "\\" + fileName );
+				file = new File( tempDirectory + "/" + fileName );
 			}
-			return tempDirectory + "\\" + fileName;
+			return tempDirectory + "/" + fileName;
 		}
 
 	}

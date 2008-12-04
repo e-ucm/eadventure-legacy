@@ -187,7 +187,6 @@ public class AnimationEditDialog extends JDialog {
 		
 		JButton preview = new JButton(TextConstants.getText( "Animation.Preview" ));
 		preview.addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				new AnimationDialog(animationDataControl.getAnimation());
 			}
@@ -395,7 +394,6 @@ public class AnimationEditDialog extends JDialog {
 			this.animation = animation;
 		}
 				
-		@Override
 		public Object getElementAt(int index) {
 			if (index % 2 == 0) {
 				return animation.getFrame(index / 2);
@@ -404,7 +402,6 @@ public class AnimationEditDialog extends JDialog {
 			}
 		}
 
-		@Override
 		public int getSize() {
 			return (animation.getFrames().size() * 2) - 1;
 		}
@@ -425,7 +422,6 @@ public class AnimationEditDialog extends JDialog {
 			this.aed = aed;
 		}
 		
-		@Override
 		public void valueChanged(ListSelectionEvent e) {
 	        ListSelectionModel lsm = (ListSelectionModel)e.getSource();
 

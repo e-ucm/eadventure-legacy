@@ -31,7 +31,6 @@ public class AnimationListRenderer implements ListCellRenderer {
 		super();
 	}
 
-	@Override
 	public Component getListCellRendererComponent(JList list,
             Object value,
             int index,

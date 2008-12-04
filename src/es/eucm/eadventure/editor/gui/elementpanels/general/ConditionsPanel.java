@@ -566,7 +566,6 @@ public class ConditionsPanel extends JPanel {
 			return type+"."+conditionType+"."+value;
 		}
 
-		@Override
 		public Component getTableCellRendererComponent(JTable table,
 				Object value, boolean isSelected, boolean hasFocus, int row,
 				int column) {

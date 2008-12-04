@@ -35,10 +35,14 @@ public class HTMLEditPanel extends KafenioPanel {
 
 		newConfig.setImageDir("file://");
 		
-		newConfig.setCustomMenuItems("edit view font format table search tools help");
+		
+		// NOTE: remove support for tables because of bad support in the editor library
+		newConfig.setCustomMenuItems("edit view font format search tools help");
 		newConfig.setCustomToolBar1("SAVE,SEPARATOR,CUT,COPY,PASTE,SEPARATOR,BOLD"
 									+ ",ITALIC,UNDERLINE,SEPARATOR,LEFT,CENTER,RIGHT,JUSTIFY");
-
+		newConfig.setCustomToolBar2("ulist,olist,spearator,deindent,indent,separator,image,separator,viewsource," +
+									"separator,strike,superscript,subscript,insertcharacter,separator,find,color");
+		
 		File file = null;
 		if (tempfile != null)
 			file = new File(tempfile.getAbsoluteFile());

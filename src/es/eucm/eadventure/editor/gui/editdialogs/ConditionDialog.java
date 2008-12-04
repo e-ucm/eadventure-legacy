@@ -377,7 +377,6 @@ public class ConditionDialog extends JDialog {
 			this.mode = mode;
 		}
 		
-		@Override
 		public void actionPerformed(ActionEvent e) {
 			// Change current mode
 			selectedMode = mode;
@@ -388,9 +387,6 @@ public class ConditionDialog extends JDialog {
 	
 	private class OKButtonListener implements ActionListener {
 
-	
-
-		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (idsComboBox !=null ){
 				VarFlagsController varFlagsController = new VarFlagsController(Controller.getInstance().getVarFlagSummary( ));
