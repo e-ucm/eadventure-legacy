@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.common.data.animation.Animation;
 import es.eucm.eadventure.common.data.chapter.elements.NPC;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.gui.TextConstants;
@@ -118,9 +119,12 @@ public class NPCDataControl extends DataControlWithResources {
 		String previewImagePath = resourcesDataControlList.get( selectedResources ).getAssetPath( "standdown" );
 
 		// Add the extension of the frame
-		if( previewImagePath != null )
+		if( previewImagePath != null && !previewImagePath.toLowerCase().endsWith(".eaa"))
 			previewImagePath += "_01.png";
-
+		else if (previewImagePath != null) {
+			return Animation.loadAnimation(previewImagePath).getFrame(0).getUri();
+		}
+		
 		return previewImagePath;
 	}
 
