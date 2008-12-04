@@ -608,11 +608,17 @@ public class AssetsController {
 					if( sourceFile.exists( ) ) {
 						File destinyFile = new File( categoryFolder, sourceFile.getName( ) );
 						
-						//If is directory, copy all contents
-						if (sourceFile.isDirectory( ))
-							assetsAdded = sourceFile.copyAllTo( destinyFile );
-						else
-							assetsAdded = sourceFile.copyTo( destinyFile );
+						// Check those are not the same file
+						if ( !sourceFile.getAbsolutePath().toLowerCase().equals(destinyFile.getAbsolutePath().toLowerCase()) ){
+						
+							//If is directory, copy all contents
+							if (sourceFile.isDirectory( ))
+								assetsAdded = sourceFile.copyAllTo( destinyFile );
+							else
+								assetsAdded = sourceFile.copyTo( destinyFile );
+						} else {
+							assetsAdded = false; end = true;
+						}
 					}
 
 					// If it doesn't exist, stop loading data
@@ -627,12 +633,24 @@ public class AssetsController {
 				File sourceFile = new File( assetPath );
 				File destinyFile = new File( categoryFolder, sourceFile.getName( ) );
 
-				// Copy the data
-				//If is directory, copy all contents
-				if (sourceFile.isDirectory( ))
-					assetsAdded = sourceFile.copyAllTo( destinyFile );
-				else
-					assetsAdded = sourceFile.copyTo( destinyFile );
+				// Check those are not the same file
+				if ( !sourceFile.getAbsolutePath().toLowerCase().equals(destinyFile.getAbsolutePath().toLowerCase()) ){
+					
+					// Check if the asset is being overwritten, if so prompt the user for action
+					if( destinyFile.exists( ) && !Controller.getInstance().showStrictConfirmDialog( TextConstants.getText( "Assets.AddAsset" ), TextConstants.getText( "Assets.WarningAssetFound", sourceFile.getName() ) ) ) {
+						// If the user accepts to overwrite the asset, delete it first
+						deleteAsset( assetPath, false );
+					}
+
+					// Copy the data
+					//If is directory, copy all contents
+					if (sourceFile.isDirectory( ))
+						assetsAdded = sourceFile.copyAllTo( destinyFile );
+					else
+						assetsAdded = sourceFile.copyTo( destinyFile );
+				} else {
+					assetsAdded = true;
+				}
 
 
 				//If it is a video, cache it 
@@ -753,11 +771,15 @@ public class AssetsController {
 						// Create the destiny file and copy it
 						File destinyAssetFile = new File( destinyCategoryPath, sourceAssetFile.getName( ) );
 						
-						//If it is a directory, copy its contents (for HTML resources)
-						if (sourceAssetFile.isDirectory( ))
-							sourceAssetFile.copyAllTo( destinyAssetFile );
-						else
-							sourceAssetFile.copyTo( destinyAssetFile );
+						// Check those are not the same file
+						if ( !sourceAssetFile.getAbsolutePath().toLowerCase().equals(destinyAssetFile.getAbsolutePath().toLowerCase()) ){
+						
+							//If it is a directory, copy its contents (for HTML resources)
+							if (sourceAssetFile.isDirectory( ))
+								sourceAssetFile.copyAllTo( destinyAssetFile );
+							else
+								sourceAssetFile.copyTo( destinyAssetFile );
+						}
 					}
 				}
 			}
@@ -905,15 +927,6 @@ public class AssetsController {
 			}
 		}
 		
-		
-
-		// Check if the asset is being overwritten, if so prompt the user for action
-		File assetFile = new File( controller.getProjectFolder( ), getCategoryFolder( assetCategory ) + "/" + assetFilename );
-		if( assetValid && assetFile.exists( ) && !controller.showStrictConfirmDialog( TextConstants.getText( "Assets.AddAsset" ), TextConstants.getText( "Assets.WarningAssetFound", assetFilename ) ) ) {
-			// If the user accepts to overwrite the asset, delete it first
-			deleteAsset( assetPath, false );
-			assetValid = false;
-		}
 
 		return assetValid;
 	}
