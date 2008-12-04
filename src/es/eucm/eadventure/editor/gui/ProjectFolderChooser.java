@@ -17,9 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRootPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextPane;
 import javax.swing.UIManager;
-import javax.swing.filechooser.FileFilter;
 
 import es.eucm.eadventure.common.auxiliar.filefilters.FolderFileFilter;
 import es.eucm.eadventure.common.gui.TextConstants;

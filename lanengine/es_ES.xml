@@ -16,7 +16,7 @@
 	<entry key="MainWindow.InvalidAdventure">Aventura inválida</entry>
 	<entry key="MainWindow.TabOpen">Abrir juego</entry>
 	<entry key="MainWindow.TabAbout">Sobre e-Adventure</entry>
-	<entry key="MainWindow.Title">eAdventure Game Launcher</entry>
+	<entry key="MainWindow.GameLauncherTitle">eAdventure Game Launcher</entry>
 	<entry key="MainWindow.English">Inglés</entry>
 	<entry key="MainWindow.Spanish">Castellano</entry>	
 	<entry key="MainWindow.SelectLanguage">Selecciona idioma</entry>
