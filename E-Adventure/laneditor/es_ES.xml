@@ -26,6 +26,7 @@
 
 	<entry key="About">Acerca de</entry>
 	<entry key="Menu.About">Acerca de</entry>
+	<entry key="Menu.AboutEAD">Acerca de &lt;e-Adventure&gt;</entry>
 	
 	<entry key="MenuRun.Title">Ejecutar</entry>
 	<entry key="MenuRun.Normal">Normal</entry>	
