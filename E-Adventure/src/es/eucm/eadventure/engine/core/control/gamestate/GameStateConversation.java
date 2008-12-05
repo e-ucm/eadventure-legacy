@@ -115,6 +115,13 @@ public class GameStateConversation extends GameState {
     private boolean isOptionSelected;
     
     /**
+     * TODO modificar este comentario
+     * utilizamos una variable booleana que se activa cuando pinchamos fuera del espacio que esta destinado a las opciones
+     * para indicar que no se debe seleccionar dicha opcion, y que se repinten las opciones en pantalla
+     */
+    private boolean selectOut;
+    
+    /**
      * Creates a new GameStateConversation
      */
     public GameStateConversation( ) {
@@ -132,7 +139,7 @@ public class GameStateConversation extends GameState {
         optionHighlighted = -1;
         
         isOptionSelected = false;
-        
+        selectOut=false;
         // Push a new element in the Stack of effects
         game.addToTheStack(new ArrayList<FunctionalEffect>());
        
@@ -191,7 +198,7 @@ public class GameStateConversation extends GameState {
         
         // If it is a node option, display the different options
         else if( currentNode.getType( ) == ConversationNode.OPTION ) {
-        	if (!isOptionSelected){
+        	if (!isOptionSelected/*||selectOut*/){
         	if (firstTime){
         		((OptionConversationNode)currentNode).doRandom();
         		firstTime = false;
@@ -249,7 +256,7 @@ public class GameStateConversation extends GameState {
             //TODO MODIFIED
             //if( currentNode.isTerminal( ) ) {
         }else if (isOptionSelected){
-            
+        	
 
             if( game.getCharacterCurrentlyTalking( ) == null || 
                     ( game.getCharacterCurrentlyTalking( ) != null &&
@@ -284,13 +291,18 @@ public class GameStateConversation extends GameState {
             
             //TODO MODIFIED: Antes no estaba el else if (era solo else)
             else if (!currentNode.isTerminal( )){
-                currentNode = currentNode.getChild( optionSelected );
+            	//TODO
+            	
+            	currentNode = currentNode.getChild( optionSelected );
                 isOptionSelected = false;
+                
+            	
                // firstLineDisplayed = 0;
                // currentLine = 0;
             }
             
         }
+     
         }
         }
         
@@ -304,7 +316,7 @@ public class GameStateConversation extends GameState {
 
     @Override
     public synchronized void mouseClicked( MouseEvent e ) {
-        if( currentNode.getType( ) == ConversationNode.OPTION && RESPONSE_TEXT_Y <= e.getY( ) ) {
+        if( currentNode.getType( ) == ConversationNode.OPTION && RESPONSE_TEXT_Y <= e.getY( ) && RESPONSE_TEXT_Y + currentNode.getLineCount() * RESPONSE_TEXT_HEIGHT + RESPONSE_TEXT_ASCENT >= e.getY()) {
             optionSelected = ( e.getY( ) - RESPONSE_TEXT_Y ) / RESPONSE_TEXT_HEIGHT;
            isOptionSelected = true;
             // If all the lines are in the screen, select normally
@@ -319,13 +331,17 @@ public class GameStateConversation extends GameState {
                     ConversationLine line = currentNode.getLine( optionSelected );
                     if (line.isValidAudio( ))
                         player.speak( line.getText(), line.getAudioPath( ) );
-                    else
+                    else //TODO aki tenemos que comprobar si hay que leer con TTS!!!!!!!
+                    	/*
+                    	 * 
+                    	 */
                         player.speak( line.getText( ) );
                  
 
                     //player.speak( currentNode.getLine( optionSelected ).getText( ) );
                     game.setCharacterCurrentlyTalking( player );
-
+                    
+                 
                     //currentNode = currentNode.getChild( optionSelected );
                 }
             }
@@ -352,7 +368,10 @@ public class GameStateConversation extends GameState {
                     ConversationLine line = currentNode.getLine( optionSelected );
                     if (line.isValidAudio( ))
                         player.speak( line.getText(), line.getAudioPath( ) );
-                    else
+                    else//TODO aki hay que ver si lee de TTS
+                    	/*
+                    	 * 
+                    	 */
                         player.speak( line.getText( ) );
                     //player.speak( currentNode.getLine( optionSelected ).getText( ) );
                     game.setCharacterCurrentlyTalking( player );
@@ -396,7 +415,7 @@ public class GameStateConversation extends GameState {
                 FunctionalPlayer player = game.getFunctionalPlayer( );
                 if (line.isValidAudio( ))
                     player.speak( line.getText(), line.getAudioPath( ) );
-                else
+                else //TODO meter speakTTS
                     player.speak( line.getText( ) );
                 game.setCharacterCurrentlyTalking( player );
             } else {
@@ -410,7 +429,7 @@ public class GameStateConversation extends GameState {
                 if( npc != null ) {
                     if (line.isValidAudio( )){
                         npc.speak( line.getText( ), line.getAudioPath( ) );
-                    }else
+                    }else //TODO meter speakTTS
                         npc.speak( line.getText( ) );
                     game.setCharacterCurrentlyTalking( npc );
                 }

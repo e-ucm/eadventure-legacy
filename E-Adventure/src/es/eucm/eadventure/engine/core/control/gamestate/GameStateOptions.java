@@ -392,6 +392,8 @@ public class GameStateOptions extends GameState {
                 // If the slot exists, draw the data
                 if( existsSaveGame[i] ) {
                     String[] title = {saveGames[i].getTitle( ), saveGames[i].getSaveTime() };
+                    //TODO kkkkkkkkkk mirar que no se salga del boton!!!!!111111
+                
                     GUI.drawString( g, title, GUI.WINDOW_WIDTH / 2, panelPosition.y + FIRST_BUTTON_OFFSET_Y + BUTTON_HEIGHT / 2 + BUTTON_HEIGHT * i );
                 }
                 
