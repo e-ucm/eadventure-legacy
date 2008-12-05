@@ -113,7 +113,7 @@ public class SaveGame implements Serializable {
             	if (!line.isEmpty()){
     			
     			String[] spliter = line.split("#");
-    			analiceString(spliter);
+    			analyzeString(spliter);
     		    } else {
     		    	end = true;
     		    }
@@ -137,7 +137,7 @@ public class SaveGame implements Serializable {
     	}
     }
     
-    private void analiceString(String[] str){
+    private void analyzeString(String[] str){
     	String mark = str[0];
     	mark +=  "#";
     	// if there aren´t anything after the mark
@@ -178,7 +178,7 @@ public class SaveGame implements Serializable {
     		analiceVars(str[1]);
     		check[6] = true;
     	}else if (mark.equals(ITEMSMARK)){
-    		analiceItems(str[1]);
+    		analyzeItems(str[1]);
     		check[7] = true;
     	}else if (mark.equals(PLAYERPOSMARK)){
     		
@@ -244,7 +244,7 @@ public class SaveGame implements Serializable {
     	 }
     }
     
-    private void analiceItems(String line){
+    private void analyzeItems(String line){
     	
     	String[] items = line.split("&");
     	
