@@ -38,7 +38,7 @@ public class ProjectFolderChooser extends JFileChooser{
 		super(getProjectsFolder());
 		super.setDialogTitle( TextConstants.getText( "Operation.NewProjectTitle" ) );
 		super.setMultiSelectionEnabled( false );
-		//super.setFileSelectionMode( JFileChooser.DIRECTORIES_ONLY );
+		super.setFileSelectionMode( JFileChooser.DIRECTORIES_ONLY );
 		super.setFileFilter( new FolderFileFilter(checkName, checkDescriptor) );
 		super.setSelectedFile( new File ( Controller.projectsFolder(),  TextConstants.getText("GeneralText.NewProjectFolder") ) );
 	}

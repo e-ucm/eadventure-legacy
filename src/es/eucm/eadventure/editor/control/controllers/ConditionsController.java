@@ -2,6 +2,7 @@ package es.eucm.eadventure.editor.control.controllers;
 
 import es.eucm.eadventure.common.data.chapter.conditions.Condition;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
+import es.eucm.eadventure.common.data.chapter.conditions.GlobalStateReference;
 import es.eucm.eadventure.common.data.chapter.conditions.VarCondition;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
@@ -16,6 +17,7 @@ public class ConditionsController {
 
 	public static final int VAR_CONDITION = Condition.VAR_CONDITION;
 	public static final int FLAG_CONDITION = Condition.FLAG_CONDITION;
+	public static final int GLOBAL_STATE_CONDITION = Condition.GLOBAL_STATE_CONDITION;
 	
 	/**
 	 * Constant for the index of the main conditions block.
@@ -75,7 +77,7 @@ public class ConditionsController {
 	 */
 	public boolean canAddConditions( ) {
 		return controller.getVarFlagSummary( ).getFlagCount( ) > 0 || 
-		controller.getVarFlagSummary( ).getVarCount( ) > 0;
+		controller.getVarFlagSummary( ).getVarCount( ) > 0; 
 	}
 
 	/**
@@ -198,6 +200,29 @@ public class ConditionsController {
 
 		return isFlag;
 	}
+	
+	/**
+	 * Checks if the selected condition is a var or a flag condition
+	 * 
+	 * @param blockIndex
+	 *            The index of the conditions block. Use MAIN_CONDITIONS_BLOCK (-1) to select the main block of
+	 *            conditions, and values from 0 to getEitherConditionsBlockCount( ) to access the either blocks of
+	 *            conditions
+	 * @param conditionIndex
+	 *            Index of the condition
+	 * @return Id of the condition
+	 */
+	public boolean isGlobalStateCondtion( int blockIndex, int conditionIndex ) {
+		boolean isFlag = false;
+
+		if( blockIndex == MAIN_CONDITIONS_BLOCK )
+			isFlag = conditions.getMainConditions( ).get( conditionIndex ).getType() == Condition.GLOBAL_STATE_CONDITION;
+		else
+			isFlag = conditions.getEitherConditions( blockIndex ).get( conditionIndex ).getType() == Condition.GLOBAL_STATE_CONDITION;
+
+		return isFlag;
+	}
+
 
 	/**
 	 * Returns the state of the condition in the index position of the given block.
@@ -258,26 +283,31 @@ public class ConditionsController {
 	 * @param conditionState
 	 *            State of the condition
 	 */
-	public void addCondition( int blockIndex, String conditionId, String conditionState, String value ) {
+	public void addCondition( int blockIndex, int type, String conditionId, String conditionState, String value ) {
 
 		
-		if (Controller.getInstance( ).getVarFlagSummary( ).existsId( conditionId )){
+		if (Controller.getInstance( ).getVarFlagSummary( ).existsId( conditionId ) || 
+				Controller.getInstance().getIdentifierSummary().isGlobalStateId(conditionId)){
 			if( blockIndex == MAIN_CONDITIONS_BLOCK ){
-				if ( isFlagState ( getStateFromString( conditionState ) ) ){
+				if ( type == FLAG_CONDITION ){
 					conditions.getMainConditions( ).add( new Condition( conditionId, getStateFromString( conditionState ) ) );
 					varFlagSummary.addFlagReference( conditionId );
-				}else if ( isVarState ( getStateFromString( conditionState ) ) ){
+				}else if ( type == VAR_CONDITION ){
 					conditions.getMainConditions( ).add( new VarCondition( conditionId, getStateFromString( conditionState ), Integer.parseInt(value) ) );
 					varFlagSummary.addVarReference( conditionId );
+				} else if (type == GLOBAL_STATE_CONDITION ){
+					conditions.getMainConditions( ).add( new GlobalStateReference( conditionId ) );
 				}
 	
 			}else{
-				if ( isFlagState ( getStateFromString( conditionState ) ) ){
+				if ( type == FLAG_CONDITION ){
 					conditions.getEitherConditions( blockIndex ).add( new Condition( conditionId, getStateFromString( conditionState ) ) );
 					varFlagSummary.addFlagReference( conditionId );
-				}else if ( isVarState ( getStateFromString( conditionState ) ) ){
+				}else if ( type == VAR_CONDITION ){
 					conditions.getEitherConditions( blockIndex ).add( new VarCondition( conditionId, getStateFromString( conditionState ), Integer.parseInt(value) ) ) ;
 					varFlagSummary.addVarReference( conditionId );
+				}else if (type == GLOBAL_STATE_CONDITION ){
+					conditions.getEitherConditions( blockIndex ).add( new GlobalStateReference( conditionId ) );
 				}
 			}
 	
@@ -299,19 +329,23 @@ public class ConditionsController {
 	public void deleteCondition( int blockIndex, int conditionIndex ) {
 		// Stores the flag reference
 		String conditionId;
+		int type;
 
 		if( blockIndex == MAIN_CONDITIONS_BLOCK ) {
 			conditionId = conditions.getMainConditions( ).get( conditionIndex ).getId( );
+			type = conditions.getMainConditions().get(conditionIndex).getType();
 			conditions.getMainConditions( ).remove( conditionIndex );
 		}
 
 		else {
 			conditionId = conditions.getEitherConditions( blockIndex ).get( conditionIndex ).getId( );
+			type = conditions.getEitherConditions( blockIndex ).get(conditionIndex).getType();
 			conditions.getEitherConditions( blockIndex ).remove( conditionIndex );
 		}
 
 		// Delete the flag reference
-		varFlagSummary.deleteReference( conditionId );
+		if ( type == FLAG_CONDITION || type == VAR_CONDITION )
+			varFlagSummary.deleteReference( conditionId );
 		controller.dataModified( );
 	}
 
@@ -346,11 +380,13 @@ public class ConditionsController {
 			}
 	
 			// Updates the flag references
-			varFlagSummary.deleteReference( oldConditionId );
-			if ( type == Condition.FLAG_CONDITION )
+			if ( type == Condition.FLAG_CONDITION ){
+				varFlagSummary.deleteReference( oldConditionId );
 				varFlagSummary.addFlagReference( id );
-			else if ( type == Condition.VAR_CONDITION )
+			}else if ( type == Condition.VAR_CONDITION ){
+				varFlagSummary.deleteReference( oldConditionId );
 				varFlagSummary.addVarReference( id );
+			}
 			controller.dataModified( );
 		}
 	}
@@ -437,6 +473,10 @@ public class ConditionsController {
 						newCondition = new VarCondition ( oldCondition.getId(), Condition.VAR_EQUALS, 1 ) ;
 						conditions.getMainConditions().remove( conditionIndex );
 						conditions.getMainConditions().add( conditionIndex, newCondition);
+					} else if ( type == ConditionsController.GLOBAL_STATE_CONDITION ){
+						newCondition = new GlobalStateReference ( oldCondition.getId() ) ;
+						conditions.getMainConditions().remove( conditionIndex );
+						conditions.getMainConditions().add( conditionIndex, newCondition);
 					}
 				}
 			}
@@ -452,6 +492,10 @@ public class ConditionsController {
 						newCondition = new VarCondition ( oldCondition.getId(), Condition.VAR_EQUALS, 1 ) ;
 						conditions.getEitherConditions( blockIndex ).remove( conditionIndex );
 						conditions.getEitherConditions( blockIndex ).add( conditionIndex, newCondition);
+					 }else if ( type == ConditionsController.GLOBAL_STATE_CONDITION ){
+						newCondition = new GlobalStateReference ( oldCondition.getId() ) ;
+						conditions.getMainConditions().remove( conditionIndex );
+						conditions.getMainConditions().add( conditionIndex, newCondition);
 					}
 				}
 			}

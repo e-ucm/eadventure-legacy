@@ -432,5 +432,9 @@ public class IdentifierSummary {
 		adaptationRuleIdentifiers.remove( id );
 		
 	}
+	
+	public boolean isGlobalStateId ( String id ){
+		return globalStateIdentifiers.contains(id);
+	}
 
 }
