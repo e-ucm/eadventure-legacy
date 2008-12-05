@@ -1,28 +1,18 @@
 package es.eucm.eadventure.editor.control.controllers.general;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
-
-import es.eucm.eadventure.common.auxiliar.File;
-import es.eucm.eadventure.common.data.adaptation.AdaptationRule;
-import es.eucm.eadventure.common.data.adaptation.AdaptedState;
-import es.eucm.eadventure.common.data.assessment.AssessmentRule;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfileDataControl;
-import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfilesDataControl;
-import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfileDataControl;
-import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfilesDataControl;
 import es.eucm.eadventure.editor.control.controllers.book.BooksListDataControl;
 import es.eucm.eadventure.editor.control.controllers.character.NPCsListDataControl;
 import es.eucm.eadventure.editor.control.controllers.character.PlayerDataControl;
 import es.eucm.eadventure.editor.control.controllers.conversation.ConversationsListDataControl;
 import es.eucm.eadventure.editor.control.controllers.cutscene.CutscenesListDataControl;
+import es.eucm.eadventure.editor.control.controllers.globalstate.GlobalStateListDataControl;
 import es.eucm.eadventure.editor.control.controllers.item.ItemsListDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ScenesListDataControl;
 import es.eucm.eadventure.editor.control.controllers.timer.TimersListDataControl;
@@ -81,6 +71,11 @@ public class ChapterDataControl extends DataControl {
 	private TimersListDataControl timersListDataControl;
 	
 	/**
+	 * List of Global States
+	 */
+	private GlobalStateListDataControl globalStatesListDataControl;
+	
+	/**
 	 * Constructor.
 	 * 
 	 * @param chapter
@@ -98,6 +93,7 @@ public class ChapterDataControl extends DataControl {
 		npcsListDataControl = new NPCsListDataControl( chapter.getCharacters( ) );
 		conversationsListDataControl = new ConversationsListDataControl( chapter.getConversations( ) );
 		timersListDataControl = new TimersListDataControl( chapter.getTimers( ) );
+		globalStatesListDataControl = new GlobalStateListDataControl( chapter.getGlobalStates() );
 	}
 
 	/**
@@ -415,9 +411,10 @@ public class ChapterDataControl extends DataControl {
 		itemsListDataControl.updateVarFlagSummary( varFlagSummary );
 		npcsListDataControl.updateVarFlagSummary( varFlagSummary );
 		conversationsListDataControl.updateVarFlagSummary( varFlagSummary );
-		//assessmentProfilesDataControl.updateFlagSummary( flagSummary );
+		//assessmentProfilesDataControl.updateVarFlagSummary( varFlagSummary );
 		//adaptationProfilesDataControl.updateFlagSummary( flagSummary );
 		timersListDataControl.updateVarFlagSummary( varFlagSummary );
+		globalStatesListDataControl.updateVarFlagSummary( varFlagSummary );
 	}
 
 	@Override
@@ -437,6 +434,7 @@ public class ChapterDataControl extends DataControl {
 		valid &= npcsListDataControl.isValid( currentPath, incidences );
 		valid &= conversationsListDataControl.isValid( currentPath, incidences );
 		valid &= timersListDataControl.isValid( currentPath, incidences );
+		valid &= globalStatesListDataControl.isValid( currentPath, incidences );
 
 		return valid;
 	}
@@ -460,6 +458,7 @@ public class ChapterDataControl extends DataControl {
 		count += npcsListDataControl.countAssetReferences( assetPath );
 		count += conversationsListDataControl.countAssetReferences( assetPath );
 		count += timersListDataControl.countAssetReferences( assetPath );
+		count += globalStatesListDataControl.countAssetReferences( assetPath );
 
 		return count;
 	}
@@ -505,6 +504,7 @@ public class ChapterDataControl extends DataControl {
 		npcsListDataControl.getAssetReferences( assetPaths, assetTypes );
 		conversationsListDataControl.getAssetReferences( assetPaths, assetTypes );
 		timersListDataControl.getAssetReferences( assetPaths, assetTypes );
+		globalStatesListDataControl.getAssetReferences( assetPaths, assetTypes );
 	}
 	
 	@Override
@@ -524,6 +524,7 @@ public class ChapterDataControl extends DataControl {
 		npcsListDataControl.deleteAssetReferences( assetPath );
 		conversationsListDataControl.deleteAssetReferences( assetPath );
 		timersListDataControl.deleteAssetReferences( assetPath );
+		globalStatesListDataControl.deleteAssetReferences( assetPath );
 		//assessmentProfilesDataControl.deleteAssetReferences( assetPath );
 		//adaptationProfilesDataControl.deleteAssetReferences( assetPath );
 	}
@@ -543,6 +544,7 @@ public class ChapterDataControl extends DataControl {
 		count += npcsListDataControl.countIdentifierReferences( id );
 		count += conversationsListDataControl.countIdentifierReferences( id );
 		count += timersListDataControl.countIdentifierReferences( id );
+		count += globalStatesListDataControl.countIdentifierReferences( id );
 
 		return count;
 	}
@@ -560,6 +562,7 @@ public class ChapterDataControl extends DataControl {
 		npcsListDataControl.replaceIdentifierReferences( oldId, newId );
 		conversationsListDataControl.replaceIdentifierReferences( oldId, newId );
 		timersListDataControl.replaceIdentifierReferences( oldId, newId );
+		globalStatesListDataControl.replaceIdentifierReferences( oldId, newId );
 	}
 
 	@Override
@@ -575,11 +578,19 @@ public class ChapterDataControl extends DataControl {
 		npcsListDataControl.deleteIdentifierReferences( id );
 		conversationsListDataControl.deleteIdentifierReferences( id );
 		timersListDataControl.deleteIdentifierReferences( id );
+		globalStatesListDataControl.deleteIdentifierReferences( id );
 	}
 
 	@Override
 	public boolean canBeDuplicated( ) {
 		return true;
+	}
+
+	/**
+	 * @return the globalStatesListDataControl
+	 */
+	public GlobalStateListDataControl getGlobalStatesListDataControl() {
+		return globalStatesListDataControl;
 	}
 
 }

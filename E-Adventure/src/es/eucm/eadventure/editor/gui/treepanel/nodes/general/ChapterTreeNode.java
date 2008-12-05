@@ -62,7 +62,7 @@ public class ChapterTreeNode extends TreeNode {
 		children.add( new PlayerTreeNode( this, dataControl.getPlayer( ) ) );
 		children.add( new NPCsListTreeNode( this, dataControl.getNPCsList( ) ) );
 		children.add( new ConversationsListTreeNode( this, dataControl.getConversationsList( ) ) );
-		children.add( new AdvancedFeaturesTreeNode( this, dataControl.getTimersList( ), adaptationDataControl, assessmentDataControl ) );
+		children.add( new AdvancedFeaturesTreeNode( this, dataControl.getGlobalStatesListDataControl(), dataControl.getTimersList( ), adaptationDataControl, assessmentDataControl ) );
 	}
 
 	@Override

@@ -192,6 +192,7 @@ public class ChapterHandler extends DefaultHandler {
 						id = attrs.getValue(i);
 				}
 				currentGlobalState = new GlobalState ( id );
+				currentString = new StringBuffer();
 				chapter.addGlobalState( currentGlobalState );
 				subParser = new ConditionSubParser( currentGlobalState, chapter );
 				subParsing = GLOBAL_STATE;

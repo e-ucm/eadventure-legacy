@@ -561,6 +561,7 @@ Si no puedes seleccionar alguno de los que son similares de la lista</entry>
 	es una buena idea definir "Estados Globales". Éstos se pueden referenciar en cualquier bloque de condiciones
 	sin tener que introducirlas una a una otra vez.</entry>
 	<entry key="Conditions.Group.Title">Campos del Estado Global</entry>
+	<entry key="Conditions.Group.Id">Id. del estado global</entry>
 	<entry key="Conditions.Var.Id">Nombre de la variable</entry>
 	<entry key="Conditions.Var.State">Función de comparación</entry>
 	<entry key="Conditions.Var.Value">Valor [0,Inf)</entry>
@@ -1210,13 +1211,15 @@ función de estos estados</entry>
 	<entry key="TreeNode.AddElement51">Añadir zona activa</entry>
 	<entry key="TreeNode.AddElement52">Añadir barreras</entry>
 	<entry key="TreeNode.AddElement53">Añadir barrera</entry>
-	
+	<entry key="TreeNode.AddElement54">Añadir estado global</entry>
+	<entry key="TreeNode.AddElement55">Añadir estados globales</entry>
 	
 	<entry key="GeneralText.Yes">Sí</entry>
 	<entry key="GeneralText.No">No</entry>
 	<entry key="GeneralText.OK">Aceptar</entry>
 	<entry key="GeneralText.Cancel">Cancelar</entry>
 	<entry key="GeneralText.New">Nuevo</entry>
+	<entry key="GeneralText.NewProjectFolder">NuevoProyecto</entry>
 	<entry key="GeneralText.Open">Abrir</entry>
 	<entry key="GeneralText.Close">Cerrar</entry>
 	<entry key="GeneralText.Information">Información</entry>
@@ -1525,5 +1528,14 @@ Si no los cambia, el juego empleará los cursores por defecto (ambientación fan
 	<entry key="HTMLEditor.QuitMessageTitle">Saliendo del editor</entry>
 	<entry key="HTMLEditor.Title">Editor HTML - {#0}</entry>
 	
+	<entry key="GlobalStatesList.Title">Lista de estados globales</entry>
+	<entry key="GlobalStatesList.Information">Esta es la lista de estados globales definidos hasta el momento en el capítulo, junto al número de veces que fue referenciado cada uno.
+Los "Estados globales" son simplemente grupos de condiciones que pueden usarse para definir "estados" del juego.
+Son especialmente útiles cuando se pretende hacer referencia al mismo grupo de condiciones desde puntos distintos, ya que de esta manera se evita reescribir dichas condiciones continuamente.</entry>
+	<entry key="GlobalStatesList.ColumnHeader0">Identificador</entry>
+	<entry key="GlobalStatesList.ColumnHeader1">Referencias</entry>
+	<entry key="GlobalStatesList.ListTitle">Lista completa de referencias a los estados globales</entry>
 	
+	<entry key="GlobalState.Documentation">Descripción (no se usa en el motor)</entry>
+	<entry key="GlobalState.Conditions">Lista de conciciones del estado global</entry>
 </properties>

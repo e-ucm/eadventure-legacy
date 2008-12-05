@@ -107,6 +107,7 @@ Please, select what to do: 1) Delete the chapter, 2) Replace it with other file,
 	<entry key="GeneralText.Folders">Folders</entry>
 	<entry key="GeneralText.Project">Project</entry>
 	<entry key="GeneralText.New">New</entry>
+	<entry key="GeneralText.NewProjectFolder">NewProject</entry>
 	<entry key="ErrorSolving.Chapter.NotReplaced.Title">Chapter not replaced</entry>
 	<entry key="ErrorSolving.Chapter.NotReplaced.Message">An error occurred replacing the chapter.
 The operation was aborted.</entry>
@@ -556,6 +557,7 @@ Otherwise you can select one of those found similar from the list.</entry>
 	it is better to define them as "Global States". Then you can refer to them in any conditions block
 	without introducing all the conditions again.</entry>
 	<entry key="Conditions.Group.Title">Fields of the global state</entry>
+	<entry key="Conditions.Group.Id">Global State Id</entry>
 	<entry key="Conditions.Var.Id">Variable name</entry>
 	<entry key="Conditions.Var.State">Comparison</entry>
 	<entry key="Conditions.Var.Value">Value [0,Inf)</entry>
@@ -1203,6 +1205,9 @@ based on the state of the flags.</entry>
 	<entry key="TreeNode.AddElement51">Add active area</entry>
 	<entry key="TreeNode.AddElement52">Add barriers</entry>
 	<entry key="TreeNode.AddElement53">Add barrier</entry>
+	<entry key="TreeNode.AddElement54">Add global state</entry>
+	<entry key="TreeNode.AddElement55">Add global states list</entry>
+	
 
 	<entry key="GeneralText.Yes">Yes</entry>
 	<entry key="GeneralText.No">No</entry>
@@ -1518,5 +1523,18 @@ When not customized, default cursors will be used in the game.</entry>
 	<entry key="HTMLEditor.Title">HTML Editor - {#0}</entry>
 	
 	<entry key="DefaultValue.ChapterTitle">Chapter Title</entry>
+	
+	<entry key="GlobalStatesList.Title">List of global states</entry>
+	<entry key="GlobalStatesList.Information">This is the list of global states defined in the chapter so far, along with the times each has been referenced.
+Global states are just groups of conditions, which can represent important "states" of the adventure games.
+They are specially useful when the same group of conditions is to be referenced more than once, as it
+avoids retyping.</entry>
+	<entry key="GlobalStatesList.ColumnHeader0">Global state id</entry>
+	<entry key="GlobalStatesList.ColumnHeader1">References</entry>
+	<entry key="GlobalStatesList.ListTitle">The whole list of global states and global state references</entry>
+	
+	<entry key="GlobalState.Documentation">Documentation (not used in game engine)</entry>
+	<entry key="GlobalState.Conditions">List of conditions of the global state</entry>
+	
 	
 </properties>

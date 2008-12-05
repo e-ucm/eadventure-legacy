@@ -5,11 +5,13 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.data.chapter.Timer;
 import es.eucm.eadventure.common.data.chapter.book.Book;
+import es.eucm.eadventure.common.data.chapter.conditions.GlobalState;
 import es.eucm.eadventure.common.data.chapter.conversation.Conversation;
 import es.eucm.eadventure.common.data.chapter.elements.Item;
 import es.eucm.eadventure.common.data.chapter.elements.NPC;
@@ -97,6 +99,14 @@ public class ChapterDOMWriter {
 				doc.adoptNode( timerNode );
 				chapterNode.appendChild( timerNode );
 			}
+			
+			// Append global states
+			for( GlobalState globalState: chapter.getGlobalStates() ) {
+				Element globalStateElement = ConditionsDOMWriter.buildDOM( globalState );
+				doc.adoptNode( globalStateElement );
+				chapterNode.appendChild( globalStateElement );
+			}
+
 
 		} catch( ParserConfigurationException e ) {
 			e.printStackTrace( );

@@ -86,9 +86,16 @@ public class ConditionsPanel extends JPanel {
 	 * Constant for table rendering only. 
 	 */
 	private static final String COND_VAR="VAR";
+	
+	/**
+	 * Constant for table rendering only. 
+	 */
+	private static final String COND_GLOBAL_STATE="GS";
+
 
 	public static final Color FLAG_COLOR = new Color(1f, 0.05f, 0.05f, 0.1f); 
 	public static final Color VAR_COLOR = new Color(0.05f, 0.1f, 1f, 0.1f);
+	public static final Color GLOBAL_STATE_COLOR = new Color(1f, 0.05f, 1f, 0.1f);
 
 	/**
 	 * Constructor.
@@ -299,7 +306,7 @@ public class ConditionsPanel extends JPanel {
 			// If the data was approved
 			if( conditionDialog.wasPressedOKButton( ) ) {
 				// Set the new values and update the table
-				conditionsController.addCondition( blockIndex, conditionDialog.getSelectedId( ), conditionDialog.getSelectedState( ), conditionDialog.getSelectedValue( ) );
+				conditionsController.addCondition( blockIndex, conditionDialog.getSelectedType(), conditionDialog.getSelectedId( ), conditionDialog.getSelectedState( ), conditionDialog.getSelectedValue( ) );
 				conditionsTable.updateUI( );
 			}
 		}
@@ -434,14 +441,18 @@ public class ConditionsPanel extends JPanel {
 					String defaultState = conditionsController.getConditionState ( selectedTable, selectedCondition );;
 					String defaultVar = null;
 					String defaultValue = null;
+					String defaultId = null;
 					if ( defaultMode == ConditionsController.VAR_CONDITION ){
 						defaultVar = conditionsController.getConditionId ( selectedTable, selectedCondition );;
 						defaultValue = conditionsController.getConditionValue ( selectedTable, selectedCondition );;
 					} else if ( defaultMode == ConditionsController.FLAG_CONDITION ){
 						defaultFlag = conditionsController.getConditionId ( selectedTable, selectedCondition );;
+					} else if ( defaultMode == ConditionsController.GLOBAL_STATE_CONDITION ){
+						defaultId = conditionsController.getConditionId ( selectedTable, selectedCondition );;
 					}
 
-					ConditionDialog conditionDialog = new ConditionDialog( new Integer( defaultMode ), TextConstants.getText( "Conditions.EditCondition" ), defaultState, defaultFlag, defaultVar, defaultValue );
+
+					ConditionDialog conditionDialog = new ConditionDialog( new Integer( defaultMode ), TextConstants.getText( "Conditions.EditCondition" ), defaultState, defaultFlag, defaultVar, defaultId, defaultValue );
 
 					// If the data was approved
 					if( conditionDialog.wasPressedOKButton( ) ) {
@@ -539,27 +550,35 @@ public class ConditionsPanel extends JPanel {
 			String type = null;
 			String conditionType = null;
 
+			// Get the type of condition
 			if ( conditionsController.isFlagCondtion(blockIndex, rowIndex) ){
 				conditionType = COND_FLAG;
 			}else if ( conditionsController.isVarCondtion(blockIndex, rowIndex) ){
 				conditionType = COND_VAR;
+			} else {
+				conditionType = COND_GLOBAL_STATE;
 			}
 			
+			// Get the value to render
 			if( columnIndex == 0 ) {
 				value = conditionsController.getConditionId( blockIndex, rowIndex );
 				type = TYPE_ID;
 			} else if( columnIndex == 1 ){
 				if ( conditionsController.isFlagCondtion(blockIndex, rowIndex) ){
 					value = TextConstants.getText("GeneralText.Is");
-				} else {
+				} else if ( conditionsController.isVarCondtion(blockIndex, rowIndex) ){
 					value = conditionsController.getConditionState(blockIndex, rowIndex);
+				} else {
+					value = "-";
 				}
 				type = TYPE_OTHER;
 			}else if( columnIndex == 2 ) {
 				if ( conditionsController.isFlagCondtion(blockIndex, rowIndex) ){
 					value = conditionsController.getConditionState( blockIndex, rowIndex );
-				} else {
+				} else if ( conditionsController.isVarCondtion(blockIndex, rowIndex) ){
 					value = conditionsController.getConditionValue( blockIndex, rowIndex );	
+				} else {
+					value = "-";
 				}
 				type = TYPE_OTHER;
 			}
@@ -582,6 +601,8 @@ public class ConditionsPanel extends JPanel {
 					panel.setBackground( FLAG_COLOR );
 				} else if ( conditionType.equals( COND_VAR )){
 					panel.setBackground( VAR_COLOR );
+				} else if ( conditionType.equals( COND_GLOBAL_STATE )){
+					panel.setBackground( GLOBAL_STATE_COLOR );
 				}
 				
 				if (type.equals( TYPE_ID )){
@@ -614,6 +635,8 @@ public class ConditionsPanel extends JPanel {
 				icon = new ImageIcon ( "img/icons/flag16.png");
 			} else if ( type.equals( COND_VAR ) ){
 				icon = new ImageIcon ( "img/icons/var16.png");
+			} else if ( type.equals( COND_GLOBAL_STATE ) ){
+				icon = new ImageIcon ( "img/icons/group16.png");
 			}
 			return icon;
 		}

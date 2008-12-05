@@ -30,6 +30,7 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.VarFlagsController;
+import es.eucm.eadventure.editor.data.support.IdentifierSummary;
 
 /**
  * This class is the dialog that allows adding and editing the single conditions.
@@ -90,6 +91,11 @@ public class ConditionDialog extends JDialog {
 	private String defaultFlag;
 	
 	/**
+	 * Default id
+	 */
+	private String defaultId;
+	
+	/**
 	 * Default var
 	 */
 	private String defaultVar;
@@ -112,7 +118,7 @@ public class ConditionDialog extends JDialog {
 	 *            Title of the dialog
 	 */
 	public ConditionDialog( String title ) {
-		this( new Integer ( Condition.FLAG_CONDITION), title, null, null, null, null );
+		this( new Integer ( Condition.FLAG_CONDITION), title, null, null, null, null, null );
 	}
 
 	/**
@@ -125,11 +131,12 @@ public class ConditionDialog extends JDialog {
 	 * @param defaultFlag
 	 *            The default flag value, null if none
 	 */
-	public ConditionDialog( Integer defaultMode, String title, String defaultState, String defaultFlag, String defaultVar, String defaultValue ) {
+	public ConditionDialog( Integer defaultMode, String title, String defaultState, String defaultFlag, String defaultVar, String defaultId, String defaultValue ) {
 		super( Controller.getInstance( ).peekWindow( ), title, Dialog.ModalityType.APPLICATION_MODAL );
 
 		this.defaultFlag = defaultFlag;
 		this.defaultVar = defaultVar;
+		this.defaultId = defaultId;
 		this.defaultState = defaultState;
 		if (defaultValue!=null)
 			this.defaultValue = Integer.parseInt( defaultValue );
@@ -207,7 +214,7 @@ public class ConditionDialog extends JDialog {
 		button3.addActionListener( new ConditionModeButtonListener( Condition.GLOBAL_STATE_CONDITION ) );
 		panel.add( button1 );
 		panel.add( button2 );
-		//panel.add( button3 );
+		panel.add( button3 );
 		group.add( button1 );
 		group.add( button2 );
 		group.add( button3 );
@@ -353,7 +360,25 @@ public class ConditionDialog extends JDialog {
 		} 
 		
 		else if ( selectedMode == Condition.GLOBAL_STATE_CONDITION ){
+			featuresPanel.setLayout( new GridBagLayout() );
+			String[] globalStatesArray = Controller.getInstance( ).getIdentifierSummary().getGlobalStatesIds();
 			
+			GridBagConstraints c = new GridBagConstraints( );
+			c.insets = new Insets( 4, 4, 2, 4 );
+			c.gridy = 0;
+			c.gridwidth = 1;
+			c.weightx = 1;
+			featuresPanel.add( new JLabel( TextConstants.getText( "Conditions.Group.Id" ) ), c );
+
+			c.gridx = 0;
+			c.gridy = 1;
+			c.weightx = 1;
+			idsComboBox = new JComboBox( globalStatesArray );
+			idsComboBox.setEditable( false );
+			if( defaultId != null )
+				idsComboBox.setSelectedItem( defaultId );
+			featuresPanel.add( idsComboBox, c );
+
 			featuresPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder(), TextConstants.getText("Conditions.Group.Title")));
 		}
 		featuresPanel.doLayout();
@@ -390,14 +415,15 @@ public class ConditionDialog extends JDialog {
 		public void actionPerformed(ActionEvent e) {
 			if (idsComboBox !=null ){
 				VarFlagsController varFlagsController = new VarFlagsController(Controller.getInstance().getVarFlagSummary( ));
+				IdentifierSummary idSummary = Controller.getInstance().getIdentifierSummary();
 				String id = null;
 				if (idsComboBox.getSelectedItem( )!=null)
 					id = idsComboBox.getSelectedItem( ).toString( );
 				
-				if (varFlagsController.existsId( id )){
+				if (varFlagsController.existsId( id ) || idSummary.isGlobalStateId(id)){
 					idsComboBox.setSelectedItem( id  );
 					selectedId = id;
-				}
+				} 
 				else if (id!=null){
 					String idAdded = varFlagsController.addShortCutFlagVar( selectedMode == Condition.FLAG_CONDITION, id );
 					

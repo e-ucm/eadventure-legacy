@@ -49,6 +49,8 @@ import es.eucm.eadventure.editor.gui.treepanel.nodes.general.GrabActionTreeNode;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.general.NextSceneTreeNode;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.general.UseActionTreeNode;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.general.UseWithActionTreeNode;
+import es.eucm.eadventure.editor.gui.treepanel.nodes.globalstate.GlobalStateTreeNode;
+import es.eucm.eadventure.editor.gui.treepanel.nodes.globalstate.GlobalStatesListTreeNode;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.item.ItemTreeNode;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.item.ItemsListTreeNode;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.scene.ActiveAreaTreeNode;
@@ -165,6 +167,8 @@ public abstract class TreeNode {
 		BarrierTreeNode.loadIcon();
 		BarriersListTreeNode.loadIcon();
 		EmptyTreeNode.loadIcon();
+		GlobalStateTreeNode.loadIcon();
+		GlobalStatesListTreeNode.loadIcon();
 	}
 
 	/**
