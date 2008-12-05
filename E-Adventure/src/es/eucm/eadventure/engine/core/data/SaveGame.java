@@ -137,7 +137,9 @@ public class SaveGame implements Serializable {
     	}
     }
     
-    private void analyzeString(String[] str){
+
+    private void analyzeString(String[] str) throws SaveGameException{
+
     	String mark = str[0];
     	mark +=  "#";
     	// if there aren´t anything after the mark
@@ -202,10 +204,12 @@ public class SaveGame implements Serializable {
     }
     
     private void analiceFlags(String line){
-    	 
+    	String[] inactiveFlags = new String[1];
+    	inactiveFlags[0]="";
     	 String[] allFlags = line.split("&");
     	 String[] activeFlags = allFlags[0].split(";");
-         String[] inactiveFlags = allFlags[1].split(";");
+    	 if (allFlags.length >1)
+    		 inactiveFlags = allFlags[1].split(";");
          ArrayList<String> flags = new ArrayList<String>();
          for(int i=0; i<activeFlags.length; i++){
              if ( !activeFlags[i].trim().equals("") )
@@ -222,8 +226,9 @@ public class SaveGame implements Serializable {
          }
     }
     
-    private void analiceVars(String line){
+    private void analiceVars(String line) throws SaveGameException{
     	 
+    	
     	 String[] allVars = line.split("&");
     	 if (allVars.length!=0){
     	 String[] varNames = allVars[0].split(";");
@@ -231,28 +236,51 @@ public class SaveGame implements Serializable {
          for (String var: varNames){
          	vars.add(var);
          }
-         
+         //Corrupted load file
+         if (allVars.length>1){ 
          String[] varValuesStrings = allVars[1].split(";");
          int[] varValues = new int[varValuesStrings.length];
          for (int i=0; i<varValuesStrings.length; i++){
          	varValues[i] = Integer.parseInt(varValuesStrings[i]);
          }
          saveGameData.vars = new VarSummary( vars );
+         if (varValuesStrings.length == varNames.length){
          for (int i=0; i<varNames.length; i++){
+        	 
          	saveGameData.vars.setVarValue(varNames[i], varValues[i]);
          }
+         }else {
+        	 throw new SaveGameException("Corrupted load file");
+         }
+         
+    	 } else {
+    		 throw new SaveGameException("Corrupted load file");
+    	 }
     	 }
     }
     
     private void analyzeItems(String line){
     	
+    	String[] placedItems = new String[1];
+    	String[] consumedItems = new String[1];
+    	String[] grabbedItems = new String[1];
+    	placedItems[0]= "";
+    	grabbedItems[0]= "";
+    	consumedItems[0]= "";
     	String[] items = line.split("&");
+    	if (items.length>=1){
+    		placedItems = items[0].split(";");
+    	}
     	
-    	String[] placedItems = items[0].split(";");
-       
-        String[] consumedItems = items[1].split(";");
+    	if (items.length>=2){
+    		consumedItems = items[1].split(";");
+    	}
+
+		if (items.length>=3){
+			 grabbedItems = items[2].split(";");
+		}
+
         
-        String[] grabbedItems = items[2].split(";");
         ArrayList<Item> finalItems = new ArrayList<Item>();
         for(int i=0; i<placedItems.length; i++){
             if ( !placedItems[i].trim().equals("") )
