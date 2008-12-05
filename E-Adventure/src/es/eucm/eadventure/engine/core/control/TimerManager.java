@@ -83,9 +83,10 @@ public class TimerManager {
      */
     public ArrayList<SaveTimer> getTimers(){
     	ArrayList<SaveTimer> list = new ArrayList<SaveTimer>();
-    	SaveTimer st = new SaveTimer();
+    	
     	FunctionalTimer ft;
     	for( int i = 0; i < ID; i++ ) {
+    		SaveTimer st = new SaveTimer();
     		ft = timers.get(new Integer(i));
     		st.setLastUpdate(ft.getLastUpdate());
     		st.setState(ft.getState());

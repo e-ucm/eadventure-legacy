@@ -14,11 +14,14 @@ import java.awt.image.ColorConvertOp;
 import java.io.IOException;
 import java.io.InputStream;
 
+import javax.swing.JOptionPane;
+
 import es.eucm.eadventure.engine.assessment.ReportDialog;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.Options;
 import es.eucm.eadventure.engine.core.data.GameText;
 import es.eucm.eadventure.engine.core.data.SaveGame;
+import es.eucm.eadventure.engine.core.data.SaveGameException;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
@@ -253,7 +256,9 @@ public class GameStateOptions extends GameState {
         existsSaveGame = new boolean[ MAX_NUM_SAVEGAME_SLOTS ];
         for( int i = 0; i < MAX_NUM_SAVEGAME_SLOTS; i++ ) {
             saveGames[i] = new SaveGame( );
-            existsSaveGame[i] = saveGames[i].loadTxt( game.getAdventureName( ) + "_" + i + ".txt" );
+            
+				existsSaveGame[i] = saveGames[i].existSaveFile( game.getAdventureName( ) + "_" + i + ".txt" );
+			
         }
     }
     
@@ -273,7 +278,10 @@ public class GameStateOptions extends GameState {
      */
     private void saveGame(int gameSlot){
         game.save( game.getAdventureName( ) + "_" + gameSlot + ".txt" );
-        existsSaveGame[gameSlot] = saveGames[gameSlot].loadTxt( game.getAdventureName( ) + "_" + gameSlot + ".txt" );
+        
+			//existsSaveGame[gameSlot] = saveGames[gameSlot].loadTxt( game.getAdventureName( ) + "_" + gameSlot + ".txt" );
+        	existsSaveGame[gameSlot] = saveGames[gameSlot].existSaveFile( game.getAdventureName( ) + "_" + gameSlot + ".txt" );
+        
     }
     
     /**

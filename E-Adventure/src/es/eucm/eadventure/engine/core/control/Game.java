@@ -54,6 +54,7 @@ import es.eucm.eadventure.engine.core.control.gamestate.GameStateSlidescene;
 import es.eucm.eadventure.engine.core.control.gamestate.GameStateVideoscene;
 import es.eucm.eadventure.engine.core.data.GameText;
 import es.eucm.eadventure.engine.core.data.SaveGame;
+import es.eucm.eadventure.engine.core.data.SaveGameException;
 import es.eucm.eadventure.engine.core.data.SaveTimer;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.common.loader.Loader;
@@ -481,7 +482,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             currentChapter = 0;
             
             while( !gameOver ) {
-                
+            	
                 errorWhileLoading = true;
                 loadCurrentChapter( g );
                 errorWhileLoading = false;
@@ -1131,10 +1132,13 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     
     public void load(String saveFile) {
         SaveGame saveGame = new SaveGame( );
+        try{
         if( saveGame.loadTxt( saveFile ) ) {
             setState( STATE_LOADING );
+          
             if ( gameDescriptor.getTitle( ).equals( saveGame.getTitle() ) ){
-                currentChapter = saveGame.getChapter();
+            	 
+            	currentChapter = saveGame.getChapter();
                 
                 ChapterSummary chapter = gameDescriptor.getChapterSummaries( ).get( currentChapter );
                 gameData = Loader.loadChapterData( ResourceHandler.getInstance(), chapter.getName( ), new ArrayList<Incidence>() );
@@ -1190,11 +1194,21 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
                 //TODO no estoy seguro 
                 lastMouseEvent = null;
                 }
-            }
+            
             setState( STATE_PLAYING );
         } else {
             System.out.println( "* Error: There has been an error, savegame ''savedgame.egame'' not loaded." );
         }
+        }
+        }catch (SaveGameException e){
+        	JOptionPane.showMessageDialog( null, "There was an error while loading the selected adventure.\nPlease check that no configuration file is missing or incorrect", "Error loading adventure", JOptionPane.ERROR_MESSAGE );
+        	JOptionPane.showMessageDialog( null, "The first chapter will be reloaded", "Error loading adventure", JOptionPane.ERROR_MESSAGE );
+        	Graphics2D g = GUI.getInstance( ).getGraphics( );
+        	currentChapter = 0;
+        	loadCurrentChapter( g );
+        }
+        
+        
     }
     
     /* Keyboard and mouse inputs */

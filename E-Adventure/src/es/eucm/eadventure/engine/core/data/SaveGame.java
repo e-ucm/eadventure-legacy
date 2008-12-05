@@ -27,21 +27,257 @@ public class SaveGame implements Serializable {
      * Required by serializable
      */
     private static final long serialVersionUID = 1L;
-
+    
+    private static final int NUMBEROFMARKS = 10;
+ 
+    private static final String TITLEMARK = "TITLE#";
+    
+    private static final String CHAPTERMARK = "CHAPTER#";
+    
+    private static final String TOTALTIMEMARK = "TOTALTIME#";
+    
+    private static final String SAVETIMEMARK = "SAVETIME#";
+    
+    private static final String IDSCENEMARK = "IDSCENE#";
+    
+    private static final String FLAGSMARK = "ACTIVEFLAGS#";
+    
+    private static final String VARMARK = "VAR#";
+        
+    private static final String ITEMSMARK = "ITEMS#";
+        
+    private static final String PLAYERPOSMARK = "PLAYERPOS#";
+    
+    private static final String TIMERSMARK = "TIMER#";
+       
+    
+    
     private SaveGameData saveGameData;
 
+    private boolean[] check;
     /**
      * Creates a new SaveGame
      */
     public SaveGame( ) {
         saveGameData = new SaveGameData( );
+        check = new boolean[10];
+     
     }
    
+    
+    public boolean existSaveFile(String name){
+    	
+    	try {
+			BufferedReader  file = new BufferedReader ( new FileReader( name ) );
+			saveGameData = new SaveGameData( );
+            String line;
+            line = file.readLine().trim().split("#")[1].split("&")[0];; 
+            
+            saveGameData.title = line;
+            line = file.readLine().trim();
+            line = file.readLine().trim().split("#")[1].split("&")[0];;
+            saveGameData.saveTime = line;
+            
+			return true;
+		} catch (FileNotFoundException e) {
+				return false;
+		}catch (IOException e) {
+			return false;
+		}
+    }
+
+    
+    private void initializeCheck(){
+    	for (int i=0; i<NUMBEROFMARKS; i++){
+    		check[i]=false;
+    	}
+    }
+    
     /**
      * Loads a game from the given file.
      * @param filename the file to load
      * @return true if the load was succesful, false otherwise
+     * @throws SaveGameException 
      */
+    public boolean loadTxt(String filename) throws SaveGameException{
+    	boolean loaded = true;
+    	boolean end = false;
+    	try{
+    		BufferedReader  file = new BufferedReader ( new FileReader( filename ) );
+            saveGameData = new SaveGameData( );
+    		String line;
+            initializeCheck();
+    		while (!end){
+            	line = file.readLine().trim();
+            	
+            	if (!line.isEmpty()){
+    			
+    			String[] spliter = line.split("#");
+    			analiceString(spliter);
+    		    } else {
+    		    	end = true;
+    		    }
+            }	
+    	} catch( FileNotFoundException e ) {
+            loaded=false;
+        } catch( IOException e ) {
+            loaded=false;
+        } catch(NullPointerException e){
+        	// the file is empty
+        	check();
+        }
+        return loaded;
+    }
+    
+    private void check() throws SaveGameException{
+    	for (int i=0;i<NUMBEROFMARKS;i++){
+    		if (!check[i])
+    			throw new SaveGameException("Error loading");
+    		
+    	}
+    }
+    
+    private void analiceString(String[] str){
+    	String mark = str[0];
+    	mark +=  "#";
+    	// if there aren´t anything after the mark
+    	if (str.length==2){
+    		if (str[1].contains("&")){
+    	if (mark.equals(TITLEMARK)){
+    		
+    		saveGameData.title = str[1].split("&")[0];
+    		check[0] = true;
+    		
+    	}else if (mark.equals(CHAPTERMARK)){
+    		
+    		saveGameData.chapter = Integer.parseInt( str[1].split("&")[0] );
+    		check[1] = true;
+    		
+    	}else if (mark.equals(TOTALTIMEMARK)){
+    		
+    		
+    		saveGameData.totalTime = Long.parseLong(str[1].split("&")[0]);
+    		check[2] = true;
+    		
+    	}else if (mark.equals(SAVETIMEMARK)){
+    		
+    		saveGameData.saveTime = str[1].split("&")[0];
+    		check[3] = true;
+    		
+    	}else if (mark.equals(IDSCENEMARK)){
+    		
+        		
+    		saveGameData.idScene = str[1].split("&")[0];
+    		check[4] = true;
+    		
+    		
+    	}else if (mark.equals(FLAGSMARK)){
+    		analiceFlags(str[1]);
+    		check[5] = true;
+    	}else if (mark.equals(VARMARK)){
+    		analiceVars(str[1]);
+    		check[6] = true;
+    	}else if (mark.equals(ITEMSMARK)){
+    		analiceItems(str[1]);
+    		check[7] = true;
+    	}else if (mark.equals(PLAYERPOSMARK)){
+    		
+        		
+    		saveGameData.playerX = Float.parseFloat( str[1].split(";")[0] );
+    		 saveGameData.playerY = Float.parseFloat( str[1].split(";")[1].split("&")[0] );
+    		 check[8] = true;
+    		
+    		
+    	}else if (mark.equals(TIMERSMARK)){
+    		
+    		str[1] = str[1].split("&")[0];
+    		saveGameData.loadTimers = str[1].split(";");
+    		check[9] = true;
+    		
+    		
+    	}
+    		}
+    	}
+    	
+    }
+    
+    private void analiceFlags(String line){
+    	 
+    	 String[] allFlags = line.split("&");
+    	 String[] activeFlags = allFlags[0].split(";");
+         String[] inactiveFlags = allFlags[1].split(";");
+         ArrayList<String> flags = new ArrayList<String>();
+         for(int i=0; i<activeFlags.length; i++){
+             if ( !activeFlags[i].trim().equals("") )
+                 flags.add( activeFlags[i] );
+         }
+         for(int i=0; i<inactiveFlags.length; i++){
+             if ( !inactiveFlags[i].trim().equals("") )
+                 flags.add( inactiveFlags[i] );
+         }
+         saveGameData.flags = new FlagSummary( flags );
+         for(int i=0; i<activeFlags.length; i++){
+             if ( !activeFlags[i].trim().equals("") )
+                 saveGameData.flags.activateFlag( activeFlags[i] ); 
+         }
+    }
+    
+    private void analiceVars(String line){
+    	 
+    	 String[] allVars = line.split("&");
+    	 if (allVars.length!=0){
+    	 String[] varNames = allVars[0].split(";");
+         List<String> vars = new ArrayList<String>();
+         for (String var: varNames){
+         	vars.add(var);
+         }
+         
+         String[] varValuesStrings = allVars[1].split(";");
+         int[] varValues = new int[varValuesStrings.length];
+         for (int i=0; i<varValuesStrings.length; i++){
+         	varValues[i] = Integer.parseInt(varValuesStrings[i]);
+         }
+         saveGameData.vars = new VarSummary( vars );
+         for (int i=0; i<varNames.length; i++){
+         	saveGameData.vars.setVarValue(varNames[i], varValues[i]);
+         }
+    	 }
+    }
+    
+    private void analiceItems(String line){
+    	
+    	String[] items = line.split("&");
+    	
+    	String[] placedItems = items[0].split(";");
+       
+        String[] consumedItems = items[1].split(";");
+        
+        String[] grabbedItems = items[2].split(";");
+        ArrayList<Item> finalItems = new ArrayList<Item>();
+        for(int i=0; i<placedItems.length; i++){
+            if ( !placedItems[i].trim().equals("") )
+                finalItems.add( new Item( placedItems[i] ) ); 
+        }
+        for(int i=0; i<consumedItems.length; i++){
+            if ( !consumedItems[i].trim().equals("") )
+                finalItems.add( new Item( consumedItems[i] ) ); 
+        }
+        for(int i=0; i<grabbedItems.length; i++){
+            if ( !grabbedItems[i].trim().equals("") )
+                finalItems.add( new Item( grabbedItems[i] ) ); 
+        }
+        saveGameData.itemSummary = new ItemSummary( finalItems );
+        for(int i=0; i<consumedItems.length; i++){
+            if ( !consumedItems[i].trim().equals("") )
+                saveGameData.itemSummary.consumeItem( consumedItems[i] ); 
+        }
+        for(int i=0; i<grabbedItems.length; i++){
+            if ( !grabbedItems[i].trim().equals("") )
+                saveGameData.itemSummary.grabItem( grabbedItems[i] ); 
+        }
+    }
+    
+ /*
     public boolean loadTxt( String filename ) {
         boolean loaded = true;
         try {
@@ -134,6 +370,8 @@ public class SaveGame implements Serializable {
         }
         return loaded;
     }
+    */
+    
     /**
      * Saves a game to the given file.
      * @param filename the file to save to
@@ -143,41 +381,61 @@ public class SaveGame implements Serializable {
         boolean saved = true;
         try {
             PrintStream file = new PrintStream(new FileOutputStream( filename ));
-            file.println( saveGameData.title );
-            file.println( saveGameData.chapter );
-            file.println( saveGameData.saveTime );
-            file.println( saveGameData.totalTime );
-            file.println( saveGameData.idScene );
-            file.println( saveGameData.playerX + ";" + saveGameData.playerY );
+            file.println( TITLEMARK + saveGameData.title + "&");
+            file.println( CHAPTERMARK + saveGameData.chapter + "&");
+            file.println( SAVETIMEMARK + saveGameData.saveTime + "&");
+            file.println( TOTALTIMEMARK + saveGameData.totalTime + "&");
+            file.println( IDSCENEMARK + saveGameData.idScene + "&");
+            file.println( PLAYERPOSMARK + saveGameData.playerX + ";" + saveGameData.playerY + "&");
+            
+            file.print(ITEMSMARK);
             for(String item : saveGameData.itemSummary.getNormalItems() ){
                 file.print( item + ";" );
             }
-            file.println();
+           // file.println();
+
+            //file.print(CONSUMEDITEMMARK);
+            file.print("&");
             for(String item : saveGameData.itemSummary.getConsumedItems() ){
                 file.print( item + ";" );
             }
-            file.println();
+            //file.println();
+            
+            //file.print(GRABBEDITEMMARK);
+            file.print("&");
             for(String item : saveGameData.itemSummary.getGrabbedItems() ){
                 file.print( item + ";" );
             }
             file.println();
+            
+            file.print(FLAGSMARK);
+            
             for(String flag : saveGameData.flags.getActiveFlags()){
                 file.print( flag + ";" );
             }
-            file.println();
+            //file.println();
+            
+            //file.print(FLAGSMARK);
+            file.print("&");
             for(String flag : saveGameData.flags.getInactiveFlags() ){
                 file.print( flag + ";" );
             }
             file.println();
 
+            file.print(VARMARK);
             for (String var: saveGameData.vars.getVarNames( ) ){
             	file.print( var+";");
             }
-            file.println();
+            //file.println();
+            
+            //file.print(VARVALUEMARK);
+            file.print("&");
             for (String value: saveGameData.vars.getVarValues( ) ){
             	file.print( value+";");
             }
             file.println();
+            
+            file.print(TIMERSMARK);
             long currentTime = System.currentTimeMillis( );
             for (SaveTimer saveT : saveGameData.timers.getTimers()){
             	file.print(saveT.getState() + "-");
@@ -191,7 +449,7 @@ public class SaveGame implements Serializable {
             	}
             	
             }
-            
+            file.print("&");
             file.println();
             file.close();
         } catch( FileNotFoundException e ) {
