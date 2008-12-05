@@ -447,7 +447,7 @@ public class TreePanel extends JPanel {
 		public void mousePressed( MouseEvent e ) {
 			// By default the JTree only selects the nodes with the left click of the mouse
 			// With this code, we spread a new call everytime the right mouse button is pressed
-			if( e.getButton( ) == MouseEvent.BUTTON3 ) {
+			if( e.getButton( ) != MouseEvent.BUTTON1 ) {
 				// Create new event (with the left mouse button)
 				MouseEvent newEvent = new MouseEvent( e.getComponent( ), e.getID( ), e.getWhen( ), MouseEvent.BUTTON1_MASK, e.getX( ), e.getY( ), e.getClickCount( ), e.isPopupTrigger( ) );
 
@@ -459,7 +459,7 @@ public class TreePanel extends JPanel {
 
 		@Override
 		public void mouseReleased( MouseEvent e ) {
-			if( e.isPopupTrigger( ) ) {
+			if( e.getButton() == MouseEvent.BUTTON3 ) {
 				TreeNode node = (TreeNode) dataTree.getSelectionPath( ).getLastPathComponent( );
 				JPopupMenu menu = node.getCompletePopupMenu( );
 				menu.show( dataTree, e.getX( ), e.getY( ) );
