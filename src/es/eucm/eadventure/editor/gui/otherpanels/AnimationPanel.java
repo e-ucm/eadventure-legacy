@@ -107,7 +107,7 @@ public class AnimationPanel extends JPanel implements ClockListener {
 	public AnimationPanel( Animation animation) {
 		this();
 		this.animation=animation;
-		
+		animation.restart();
 		// Remove all components, and add a label if the animation is not loaded
 		removeAll( );
 		if( !isAnimationLoaded( ) ) {
@@ -190,11 +190,12 @@ public class AnimationPanel extends JPanel implements ClockListener {
 	 */
 	public void update( long elapsedTime ) {
 		if (animation != null) {
-			accumulatedAnimationTime += elapsedTime;
-			repaint();
+			if (!animation.isSlides() || !animation.finishedFirstTime(accumulatedAnimationTime)) {
+				accumulatedAnimationTime += elapsedTime;
+				repaint();
+			}
 		}
 		else {
-		
 		// If the animation is loaded
 		if( isAnimationLoaded( ) ) {
 			// If there is more than one frame
@@ -226,7 +227,9 @@ public class AnimationPanel extends JPanel implements ClockListener {
 			double dialogRatio = (double) ( getWidth( ) - ( MARGIN * 2 ) ) / (double) ( getHeight( ) - ( MARGIN * 2 ) );
 			double imageRatio;
 			if (animation != null) {
-				imageRatio = (double) animation.getImage(accumulatedAnimationTime).getWidth( null ) / (double) animation.getImage(accumulatedAnimationTime).getHeight( null );
+				Image temp = animation.getImage(accumulatedAnimationTime);
+		
+				imageRatio = (double) temp.getWidth( null ) / (double) temp.getHeight( null );
 			} else {
 				imageRatio = (double) frames[currentFrameIndex].getWidth( null ) / (double) frames[currentFrameIndex].getHeight( null );			
 			}

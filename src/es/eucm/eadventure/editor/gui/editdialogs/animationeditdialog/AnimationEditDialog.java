@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -15,6 +16,8 @@ import javax.swing.AbstractListModel;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -23,6 +26,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -89,9 +94,14 @@ public class AnimationEditDialog extends JDialog {
 	private JButton addButton;
 	
 	/**
-	 * The text field that displays the id of the animation
+	 * JCheckBox to set the useTransitions property of the animation
 	 */
-	private JTextField idTextField;
+	private JCheckBox useTransitions;
+	
+	/**
+	 * JCheckBox to set the slides property of the animation
+	 */
+	private JCheckBox slides;
 	
 	/**
 	 * The text field that displays the documentation of the animation
@@ -241,36 +251,79 @@ public class AnimationEditDialog extends JDialog {
 	 */
 	private void createDescriptionPanel() {
 		descriptionPanel = new JPanel();
-		descriptionPanel.setLayout(new GridBagLayout());
+		descriptionPanel.setLayout(new GridLayout(2,1));
+		
+				
+		JPanel temp = new JPanel();
+		temp.setLayout(new GridBagLayout());
+		
 		
 		GridBagConstraints gbc = new GridBagConstraints();
-		
-		gbc.gridx = 0;
-		gbc.gridy = 0;
-		gbc.weightx = 0.1;
-		
-//		descriptionPanel.add(new JLabel(TextConstants.getText( "Animation.AnimationIdentifier" )), gbc);
-
-		gbc.gridx = 1;
-		gbc.weightx = 1;
-		gbc.fill = GridBagConstraints.HORIZONTAL;
-		idTextField = new JTextField(animationDataControl.getAnimation().getId());
-//		descriptionPanel.add(idTextField, gbc);
 		
 		gbc.fill = GridBagConstraints.NONE;
 		gbc.weightx = 0.1;
 		gbc.gridx = 0;
-		gbc.gridy = 1;
-		descriptionPanel.add(new JLabel(TextConstants.getText( "Animation.Documentation" )), gbc);
+		gbc.gridy = 0;
+		temp.add(new JLabel(TextConstants.getText( "Animation.Documentation" )), gbc);
 	
 		gbc.gridx = 1;
 		gbc.weightx = 1;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		documentationTextField = new JTextField(animationDataControl.getAnimation().getDocumentation());
-		descriptionPanel.add(documentationTextField, gbc);
+		temp.add(documentationTextField, gbc);
+
+		descriptionPanel.add(temp);
+
+		temp = new JPanel();
+		temp.setLayout(new GridBagLayout());
+		
+		gbc = new GridBagConstraints();
+
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		gbc.weightx = 1;
+		gbc.fill = GridBagConstraints.NONE;
+		useTransitions = new JCheckBox(TextConstants.getText("Animation.UseTransitions"));
+		if (animationDataControl.getAnimation().isUseTransitions())
+			useTransitions.setSelected(true);
+		else
+			useTransitions.setSelected(false);
+		useTransitions.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				changeUseTransitions();
+			}
+		});
+		temp.add(useTransitions, gbc);
+		
+		gbc.gridx = 1;
+		gbc.weightx = 1;
+		gbc.fill = GridBagConstraints.NONE;
+		slides = new JCheckBox(TextConstants.getText("Animation.Slides"));
+		if (animationDataControl.getAnimation().isSlides())
+			slides.setSelected(true);
+		else
+			slides.setSelected(false);
+		slides.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				changeSlides();
+			}
+		});		
+		temp.add(slides, gbc);
+		
+		
+		descriptionPanel.add(temp);
 		descriptionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Animation.GeneralInfo" ) ) );
 		descriptionPanel.setMinimumSize(new Dimension(600, 100));
 
+	}
+
+	protected void changeSlides() {
+		animationDataControl.getAnimation().setSlides(slides.isSelected());
+	}
+
+	protected void changeUseTransitions() {
+		animationDataControl.getAnimation().setUseTransitions(useTransitions.isSelected());
+		frameList.updateUI();
 	}
 
 	/**
@@ -369,10 +422,17 @@ public class AnimationEditDialog extends JDialog {
 	 * Move the selected frame in the list to the left
 	 */
 	protected void moveFrameLeft() {
-		int index = frameList.getSelectedIndex() / 2;
+	/*	int index = frameList.getSelectedIndex() / 2;
 		Frame temp = animationDataControl.getAnimation().getFrame(index);
 		animationDataControl.getAnimation().getFrames().remove(index);
 		animationDataControl.getAnimation().getFrames().add(index - 1, temp);
+		frameList.setSelectedValue(temp, true);
+	*/
+		Frame temp = (Frame) frameList.getSelectedValue();
+		int index = animationDataControl.getAnimation().getFrames().indexOf(temp);
+		animationDataControl.getAnimation().getFrames().remove(temp);
+		animationDataControl.getAnimation().getFrames().add(index - 1, temp);
+		frameList.setSelectedValue(temp, true);
 		frameList.updateUI();
 	}
 
@@ -380,10 +440,12 @@ public class AnimationEditDialog extends JDialog {
 	 * Move the selected frame in the list to the right
 	 */
 	protected void moveFrameRight() {
-		int index = frameList.getSelectedIndex() / 2;
+		Frame temp2 = (Frame) frameList.getSelectedValue();
+		int index = animationDataControl.getAnimation().getFrames().indexOf(temp2);
 		Frame temp = animationDataControl.getAnimation().getFrame(index + 1);
 		animationDataControl.getAnimation().getFrames().remove(index + 1);
 		animationDataControl.getAnimation().getFrames().add(index, temp);
+		frameList.setSelectedValue(temp2, true);
 		frameList.updateUI();
 	}
 
@@ -397,6 +459,7 @@ public class AnimationEditDialog extends JDialog {
 
 		/**
 		 * 
+		 * 
 		 */
 		private static final long serialVersionUID = -2832912217451105062L;
 
@@ -408,15 +471,22 @@ public class AnimationEditDialog extends JDialog {
 		}
 				
 		public Object getElementAt(int index) {
-			if (index % 2 == 0) {
-				return animation.getFrame(index / 2);
+			if (animation.isUseTransitions()) {
+				if (index % 2 == 0) {
+					return animation.getFrame(index / 2);
+				} else {
+					return animation.getTransitions().get((index - 1) / 2 + 1);
+				}
 			} else {
-				return animation.getTransitions().get((index - 1) / 2 + 1);
+				return animation.getFrame(index);
 			}
 		}
 
 		public int getSize() {
-			return (animation.getFrames().size() * 2) - 1;
+			if (animation.isUseTransitions())
+				return (animation.getFrames().size() * 2) - 1;
+			else
+				return animation.getFrames().size();
 		}
 		
 		
@@ -437,7 +507,6 @@ public class AnimationEditDialog extends JDialog {
 		
 		public void valueChanged(ListSelectionEvent e) {
 	        ListSelectionModel lsm = (ListSelectionModel)e.getSource();
-
 	        if (lsm.isSelectionEmpty()) {
 	        } else {
 	            int index = lsm.getMinSelectionIndex();
@@ -453,16 +522,24 @@ public class AnimationEditDialog extends JDialog {
 	 * @param index the index of the selection
 	 */
 	public void selectionChanged(int index) {
-        if (index < 0 || index >= (animationDataControl.getAnimation().getFrames().size() * 2) + 1) {
-        	selectedNothing();
-        	return;
-        }
-        if (index % 2 == 0) {
-        	selectedFrame(index / 2);
-        }
-        else {
-        	selectedTransition((index - 1) / 2 + 1);
-        }
+		if (animationDataControl.getAnimation().isUseTransitions()) {
+	        if (index < 0 || index >= (animationDataControl.getAnimation().getFrames().size() * 2) + 1) {
+	        	selectedNothing();
+	        	return;
+	        }
+	        if (index % 2 == 0) {
+	        	selectedFrame(index / 2);
+	        }
+	        else {
+	        	selectedTransition((index - 1) / 2 + 1);
+	        }
+		} else {
+	        if (index < 0 || index >= animationDataControl.getAnimation().getFrames().size()) {
+	        	selectedNothing();
+	        	return;
+	        }
+	        selectedFrame(index);
+		}
     }
 
 	/**

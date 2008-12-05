@@ -4,7 +4,10 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Transparency;
 import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 import java.util.List;
+
+import javax.swing.ImageIcon;
 
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
@@ -214,7 +217,7 @@ public class Frame {
 			return image;
 		if (uri != null && uri.length() > 0) {
 			try {
-			image = ResourceHandler.getInstance( ).getResourceAsImageFromZip(uri);
+				image = ResourceHandler.getInstance( ).getResourceAsImageFromZip(uri);
 			} catch (Exception e){
 				image = AssetsController.getImage(uri);				
 			}
@@ -225,6 +228,14 @@ public class Frame {
 			image = getScaledImage(image, -1, 1);
 		if (fullscreen)
 			image = getFullscreenImage(image);
+		if (image == null) {
+		    ImageIcon icon = new ImageIcon("img/icons/noImageFrame.png"); 
+		    if (icon != null && icon.getImage() != null)
+		    	return icon.getImage();
+		    else
+		    	return new BufferedImage(100,120,BufferedImage.TYPE_3BYTE_BGR);
+		}
+
 		return image;
 	}
 

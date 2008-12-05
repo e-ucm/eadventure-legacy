@@ -5,6 +5,8 @@
 <!ELEMENT animation (documentation?, resources?, transition, (frame, transition)*, frame, transition )>
 <!ATTLIST animation
 	id ID #REQUIRED
+	slides (yes | no) "no"
+	usetransitions (yes | no) "yes"
 >
 
 <!ELEMENT frame (resources?)>

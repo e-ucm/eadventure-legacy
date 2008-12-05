@@ -1,15 +1,12 @@
 package es.eucm.eadventure.editor.gui.editdialogs.animationeditdialog;
 
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -24,7 +21,6 @@ import javax.swing.event.ChangeListener;
 
 import es.eucm.eadventure.common.data.animation.Frame;
 import es.eucm.eadventure.common.gui.TextConstants;
-import es.eucm.eadventure.editor.control.controllers.AssetsController;
 
 public class FrameConfigPanel extends JPanel {
 	
@@ -49,10 +45,16 @@ public class FrameConfigPanel extends JPanel {
 		this.frame = frame;
 		this.list = list;
 		this.aed = aed;
-		this.setLayout(new GridLayout(3,1));
+		this.setLayout(new GridBagLayout());
+		
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.NONE;
+		c.weightx = 0.1;
+		c.gridx = 0;
+		c.gridy = 0;
 		
 		JPanel temp = new JPanel();
-		temp.add(new JLabel("Duration" + ": "));
+		temp.add(new JLabel(TextConstants.getText("Animation.Duration") + ": "));
 	    SpinnerModel sm = new SpinnerNumberModel(frame.getTime(), 0, 10000, 100);
 	    spinner = new JSpinner(sm);
 	    spinner.addChangeListener(new ChangeListener() {
@@ -60,8 +62,30 @@ public class FrameConfigPanel extends JPanel {
 				modifyFrame();					
 			}});
 	    temp.add(spinner);
-	    this.add(temp);
 	    
+
+	    if (aed.getAnimationDataControl().getAnimation().isSlides()) {
+			checkbox = new JCheckBox(TextConstants.getText("Animation.WaitForClick"));
+			if (frame.isWaitforclick()) {
+				checkbox.setSelected(true);
+				spinner.setEnabled(false);
+			} else
+				checkbox.setSelected(false);
+			checkbox.addChangeListener(new ChangeListener() {
+				public void stateChanged(ChangeEvent arg0) {
+					changeWaitForClick();
+				}
+			
+			});
+			temp.add(checkbox);
+	    }
+
+	    this.add(temp, c);
+	    
+	    c.fill = GridBagConstraints.BOTH;
+	    c.gridy = 1;
+	    c.gridx = 0;
+	    c.weightx = 1;
 		JPanel assetPanel = new JPanel( );
 		assetPanel.setLayout( new GridBagLayout( ) );
 		assetPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), "Imagen" ) );
@@ -91,21 +115,7 @@ public class FrameConfigPanel extends JPanel {
 		c2.weightx = 0;
 		assetPanel.add( selectButton, c2 );
 		
-		this.add(assetPanel);
-		
-		checkbox = new JCheckBox(TextConstants.getText("Animation.WaitForClick"));
-		if (frame.isWaitforclick()) {
-			checkbox.setSelected(true);
-			spinner.setEnabled(false);
-		} else
-			checkbox.setSelected(false);
-		checkbox.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent arg0) {
-				changeWaitForClick();
-			}
-		
-		});
-		this.add(checkbox);
+		this.add(assetPanel, c);
 	}
 
 	protected void changeWaitForClick() {

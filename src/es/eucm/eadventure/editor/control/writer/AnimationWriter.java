@@ -22,7 +22,6 @@ import es.eucm.eadventure.common.data.animation.Frame;
 import es.eucm.eadventure.common.data.animation.Transition;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.writer.domwriters.ResourcesDOMWriter;
 
 public class AnimationWriter {
@@ -44,6 +43,8 @@ public class AnimationWriter {
 			Element mainNode = doc.createElement("animation");
 			//mainNode.appendChild(doc.createAttribute("id").setNodeValue(animation.getId()));
 			mainNode.setAttribute("id", animation.getId());
+			mainNode.setAttribute("usetransitions", animation.isUseTransitions()?"yes":"no");
+			mainNode.setAttribute("slides", animation.isSlides()?"yes":"no");
 			Element documentation = doc.createElement("documentation");
 			if (animation.getDocumentation() != null && animation.getDocumentation().length() > 0)
 				documentation.setTextContent(animation.getDocumentation());
