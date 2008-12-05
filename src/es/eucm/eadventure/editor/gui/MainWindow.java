@@ -3,7 +3,7 @@ package es.eucm.eadventure.editor.gui;
 import java.awt.BorderLayout;
 import java.awt.Dialog;
 import java.awt.Dimension;
-import java.awt.Graphics;
+import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
@@ -17,9 +17,7 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.Stack;
 
-import javax.management.timer.Timer;
 import javax.swing.ButtonGroup;
-import javax.swing.ImageIcon;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -37,12 +35,10 @@ import javax.swing.filechooser.FileFilter;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfileDataControl;
+import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.treepanel.TreePanel;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.EmptyTreeNode;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.TreeNode;
-import es.eucm.eadventure.editor.gui.treepanel.nodes.adaptation.AdaptationProfileTreeNode;
-import es.eucm.eadventure.editor.gui.treepanel.nodes.assessment.AssessmentProfileTreeNode;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.general.ChapterTreeNode;
 
 /**
@@ -168,6 +164,8 @@ public class MainWindow extends JFrame {
 	
 	private JMenuBar createMenuBarAdventureMode (){
 		JMenuBar windowMenu = new JMenuBar( );
+		//windowMenu.setLayout( new BoxLayout(windowMenu, BoxLayout.LINE_AXIS));
+		windowMenu.setLayout( new FlowLayout(FlowLayout.LEFT));
 
 		// Create the menus
 		JMenu fileMenu = new JMenu( TextConstants.getText( "MenuFile.Title" ) );
@@ -187,10 +185,12 @@ public class MainWindow extends JFrame {
 		configurationMenu.setMnemonic( KeyEvent.VK_T );
 		windowMenu.add( configurationMenu );
 		JMenu about = new JMenu( TextConstants.getText( "Menu.About" ) );
-		about.setArmed( false );
-		about.addMouseListener( new MouseAdapter(){
+		JMenuItem aboutEadventure = new JMenuItem ( TextConstants.getText( "Menu.AboutEAD" ) );
+		about.add(aboutEadventure);
+		aboutEadventure.setArmed( false );
+		aboutEadventure.addActionListener( new ActionListener(){
 
-			public void mouseClicked( MouseEvent arg0 ) {
+			public void actionPerformed( ActionEvent arg0 ) {
 				controller.showAboutDialog();
 			}
 			
