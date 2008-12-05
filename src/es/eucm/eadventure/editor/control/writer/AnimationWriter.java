@@ -48,6 +48,7 @@ public class AnimationWriter {
 			Element documentation = doc.createElement("documentation");
 			if (animation.getDocumentation() != null && animation.getDocumentation().length() > 0)
 				documentation.setTextContent(animation.getDocumentation());
+			mainNode.appendChild(documentation);
 			
 			for( Resources resources : animation.getResources( ) ) {
 				Node resourcesNode = ResourcesDOMWriter.buildDOM( resources, ResourcesDOMWriter.RESOURCES_ANIMATION );

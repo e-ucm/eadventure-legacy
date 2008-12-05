@@ -318,12 +318,24 @@ public class AnimationEditDialog extends JDialog {
 	}
 
 	protected void changeSlides() {
-		animationDataControl.getAnimation().setSlides(slides.isSelected());
+		if (slides.isSelected() != animationDataControl.getAnimation().isSlides()) {
+			animationDataControl.getAnimation().setSlides(slides.isSelected());
+			frameList.getSelectionModel().clearSelection();
+			configurationPanel.removeAll();
+			this.validate();
+			this.repaint();
+		}
 	}
 
 	protected void changeUseTransitions() {
-		animationDataControl.getAnimation().setUseTransitions(useTransitions.isSelected());
-		frameList.updateUI();
+		if (useTransitions.isSelected() != animationDataControl.getAnimation().isUseTransitions()) {
+			animationDataControl.getAnimation().setUseTransitions(useTransitions.isSelected());
+			frameList.getSelectionModel().clearSelection();
+			frameList.updateUI();
+			configurationPanel.removeAll();
+			this.validate();
+			this.repaint();
+		}
 	}
 
 	/**
@@ -411,10 +423,13 @@ public class AnimationEditDialog extends JDialog {
 	 */
 	protected void deleteFrame() {
 		if (frameList.getSelectedValue() instanceof Frame) {
-			int index = frameList.getSelectedIndex() / 2;
+			int index = animationDataControl.getAnimation().getFrames().indexOf(frameList.getSelectedValue());
 			animationDataControl.getAnimation().removeFrame(index);
 			frameList.getSelectionModel().clearSelection();
-			frameList.updateUI();
+			configurationPanel.removeAll();
+			this.validate();
+			this.repaint();
+//			frameList.updateUI();
 		}
 	}
 
@@ -571,7 +586,11 @@ public class AnimationEditDialog extends JDialog {
 	public void selectedNothing() {
 		moveRightButton.setEnabled(false);
 		moveLeftButton.setEnabled(false);
-		deleteButton.setEnabled(false);		
+		deleteButton.setEnabled(false);	
+		configurationPanel.removeAll();
+		this.validate();
+		this.repaint();
+		
 	}
 
 	/**
