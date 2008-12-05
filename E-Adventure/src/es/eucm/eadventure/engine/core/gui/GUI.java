@@ -267,7 +267,8 @@ public class GUI implements FocusListener {
         gameFrame.setVisible( true );
         gameFrame.setFocusable( true );
         // Double buffered painting
-        bkgFrame.setAlwaysOnTop( true );
+        // Set always on top only in full-screen mode
+        bkgFrame.setAlwaysOnTop( graphicConfig != DescriptorData.GRAPHICS_WINDOWED );
         gameFrame.createBufferStrategy( 2 );
         gameFrame.validate( );
         
