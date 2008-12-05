@@ -69,6 +69,20 @@ public class AnimationHandler extends DefaultHandler {
 						animation.getFrames().clear();
 						animation.getTransitions().clear();
 					}
+					
+					if (attrs.getQName(i).equals("slides")) {
+						if (attrs.getValue(i).equals("yes"))
+							animation.setSlides(true);
+						else
+							animation.setSlides(false);
+					}
+					
+					if (attrs.getQName(i).equals("usetransitions")) {
+						if (attrs.getValue(i).equals("yes"))
+							animation.setUseTransitions(true);
+						else
+							animation.setUseTransitions(false);
+					}
 				}
 			}
 			

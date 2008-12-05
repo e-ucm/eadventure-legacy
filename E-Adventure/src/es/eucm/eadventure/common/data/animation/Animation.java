@@ -62,6 +62,17 @@ public class Animation {
 	 */
 	private String id;
 	
+	/**
+	 * Boolean that indicates that the animation will be used as slides
+	 */
+	private boolean slides;
+	
+	/**
+	 * Boolean that indicates that the animation will use transitions. If true,
+	 * transitions will be ignored
+	 */
+	private boolean useTransitions;
+	
 	private int skippedFrames;
 	
 	private boolean mirror;
@@ -86,6 +97,8 @@ public class Animation {
 		transitions.add(new Transition());
 		transitions.add(new Transition());
 		skippedFrames = 0;
+		useTransitions = true;
+		slides = false;
 	}
 	
 	/**
@@ -250,6 +263,36 @@ public class Animation {
 		return resources;
 	}
 	
+	
+	
+	/**
+	 * @return the slides
+	 */
+	public boolean isSlides() {
+		return slides;
+	}
+
+	/**
+	 * @param slides the slides to set
+	 */
+	public void setSlides(boolean slides) {
+		this.slides = slides;
+	}
+
+	/**
+	 * @return the useTransitions
+	 */
+	public boolean isUseTransitions() {
+		return useTransitions;
+	}
+
+	/**
+	 * @param useTransitions the useTransitions to set
+	 */
+	public void setUseTransitions(boolean useTransitions) {
+		this.useTransitions = useTransitions;
+	}
+
 	/**
 	 * Returns the image in a given moment, or null if the
 	 * animation has finished.
@@ -261,70 +304,100 @@ public class Animation {
 	 */
 	public Image getImage(long elapsedTime) {
 		int temp = skippedFrames;
+
+		// check to see if the all the waiting frames have been
+		// skipped
 		int temp2 = 0;
 		for (int i = 0; i < frames.size(); i++) {
 			if (frames.get(i).isWaitforclick())
 				temp2++;
 		}
-		if (temp2 <= skippedFrames)
-			elapsedTime = elapsedTime % getTotalTime();
+		if (!slides || temp2 <= skippedFrames)
+				elapsedTime = elapsedTime % getTotalTime();
 		
 		for (int i = 0; i < frames.size(); i++) {
 			if (frames.get(i).isWaitforclick())
 				temp--;
-			if (frames.get(i).getTime() > elapsedTime || (frames.get(i).isWaitforclick() && temp < 0)) {
+			if (frames.get(i).getTime() > elapsedTime || (frames.get(i).isWaitforclick() && temp < 0 && slides)) {
 				return frames.get(i).getImage(mirror, fullscreen);
 			}
 			if (i == frames.size() - 1)
-				return null;
+				return noImage();
 			elapsedTime -= frames.get(i).getTime();
-			if (transitions.get(i+1).getTime() > elapsedTime) {
+			if (transitions.get(i+1).getTime() > elapsedTime && useTransitions) {
 				return combinedFrames(i, elapsedTime);
 			}
-			elapsedTime -= transitions.get(i+1).getTime();
+			if (useTransitions)
+				elapsedTime -= transitions.get(i+1).getTime();
 		}
-		return null;
+		return noImage();
 	}
 	
+	/**
+	 * Method to generate an image with no content.
+	 * 
+	 * @return A null o empty image.
+	 */
 	private Image noImage() {
     	ImageIcon icon = new ImageIcon("img/icons/noImageFrame.png"); 
-    	if (icon != null)
+    	if (icon != null && icon.getImage() != null)
     		return icon.getImage();
     	else
     		return new BufferedImage(100,120,BufferedImage.TYPE_3BYTE_BGR);
 	}
 	
 	
+	/**
+	 * Returns true if the animation has already played once.
+	 * 
+	 * @param elapsedTime The time passed for the animation
+	 * @return True if the animation has already played once.
+	 */
 	public boolean finishedFirstTime(long elapsedTime) {
 		int temp = skippedFrames;		
 		for (int i = 0; i < frames.size(); i++) {
 			if (frames.get(i).isWaitforclick())
 				temp--;
-			if (frames.get(i).getTime() > elapsedTime || (frames.get(i).isWaitforclick() && temp < 0)) {
+			if (frames.get(i).getTime() > elapsedTime || (frames.get(i).isWaitforclick() && temp < 0 && slides)) {
 				return false;
 			}
 			if (i == frames.size() - 1)
 				return true;
 			elapsedTime -= frames.get(i).getTime();
-			if (transitions.get(i+1).getTime() > elapsedTime) {
+			if (transitions.get(i+1).getTime() > elapsedTime && useTransitions) {
 				return false;
 			}
-			elapsedTime -= transitions.get(i+1).getTime();
+			if (useTransitions)
+				elapsedTime -= transitions.get(i+1).getTime();
 		}
 		return true;
 		
 	}
 	
+	/**
+	 * Returns the total time of the animation (the "waitforclick" property
+	 * of the frames is ignored)
+	 * 
+	 * @return Total time of the animation
+	 */
 	public long getTotalTime() {
 		long temp = 0;
 		for (int i = 0; i < frames.size(); i++) {
 			temp += frames.get(i).getTime();
-			if (i < frames.size() - 1)
+			if (i < frames.size() - 1 && useTransitions)
 				temp += transitions.get(i+1).getTime();
 		}
 		return temp;
 	}
 
+	/**
+	 * Returns the combinations of frames i and i+1 that represents the
+	 * transition after the elapsed time
+	 * 
+	 * @param i The index of the first frame
+	 * @param elapsedTime The time elapsed in the transition
+	 * @return An image with the combination of the two frames
+	 */
 	private Image combinedFrames(int i, long elapsedTime) {
 		Image start = frames.get(i).getImage(mirror, fullscreen);
 		Image end = frames.get(i+1).getImage(mirror, fullscreen);
@@ -371,6 +444,12 @@ public class Animation {
 		}
 	}
 
+	/**
+	 * This method creates the frames of the animation from the images
+	 * belonging to the previous animation format.
+	 * 
+	 * @param assetPath The path to the previous animation
+	 */
 	public void framesFromImages(String assetPath) {
 		frames.clear();
 		transitions.clear();
@@ -471,6 +550,9 @@ public class Animation {
 	 */
 	public long skipFrame(long elapsedTime) {
 		//elapsedTime = elapsedTime % getTotalTime();
+		if (!slides)
+			return elapsedTime;
+		
 		long tempTime = 0;
 		int temp = ++skippedFrames;
 		for (int i = 0; i < frames.size(); i++) {
@@ -490,11 +572,16 @@ public class Animation {
 			tempTime += transitions.get(i+1).getTime();
 			elapsedTime -= transitions.get(i+1).getTime();
 		}
+		skippedFrames = 0;
 		return 0;
 	}
 
 	public void setFullscreen(boolean b) {
 		this.fullscreen = b;
+	}
+
+	public void restart() {
+		skippedFrames = 0;
 	}
 
 
