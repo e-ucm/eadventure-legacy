@@ -291,6 +291,11 @@ donde XX es un múmero cualquiera.</entry>
 	<entry key="Operation.AddGlobalStateTitle">Añadir nuevo estado global</entry>
 	<entry key="Operation.AddGlobalStateMessage">Introduzca un identificador para el nuevo estado global:</entry>
 	<entry key="Operation.AddGlobalStateDefaultValue">IdEstadoGlobal</entry>
+	
+	<entry key="Operation.AddMacroTitle">Añadir macro</entry>
+	<entry key="Operation.AddMacroMessage">Introduzca un identificador para la nueva macro</entry>
+	<entry key="Operation.AddMacroDefaultValue">IdMacro</entry>
+	
 
 	<entry key="Operation.AddNPCTitle">Añadir nuevo personaje</entry>
 	<entry key="Operation.AddNPCMessage">Introduzca un identificador para el nuevo personaje</entry>
@@ -609,6 +614,7 @@ función de estos estados</entry>
 	<entry key="Effect.TriggerLastScene">Lanzar última escena</entry>
 	<entry key="Effect.TriggerScene">Lanzar escena</entry>
 	<entry key="Effect.RandomEffect">Efecto con probabilidad</entry>
+	<entry key="Effect.MacroReference">Lanzar una macro</entry>
 
 	<entry key="Effect.ActivateInfo">Activar flag: {#0}</entry>
 	<entry key="Effect.DeactivateInfo">Desactivar flag: {#0}</entry>
@@ -616,6 +622,7 @@ función de estos estados</entry>
 	<entry key="Effect.IncrementVarInfo">Incrementar la variable "{#0}" en "{#1}" unidades</entry>	
 	<entry key="Effect.DecrementVarInfo">Decrementar la variable "{#0}" en "{#1}" unidades</entry>
 	<entry key="Effect.ConsumeObjectInfo">Consumir objeto {#0}</entry>
+	<entry key="Effect.MacroRefInfo">Lanzar macro {#0}</entry>
 	<entry key="Effect.GenerateObjectInfo">Generar objeto {#0}</entry>
 	<entry key="Effect.CancelActionInfo">Cancelar acción por defecto</entry>
 	<entry key="Effect.SpeakPlayerInfo">Protagonista dice "{#0}"</entry>
@@ -655,6 +662,11 @@ función de estos estados</entry>
 	
 	<entry key="DecrementVarEffect.Title">Efecto decrementar variable</entry>
 	<entry key="DecrementVarEffect.Description">Seleccione la variable y el valor a decrementar</entry>
+
+	<entry key="MacroReferenceEffect.Title">Lanzar macro</entry>
+	<entry key="MacroReferenceEffect.Description">seleccione la macro que quiere lanzar en este punto del juego</entry>
+	<entry key="MacroReferenceEffect.ErrorNoMacros">Lo sentimos, pero no hay macros válidas para lanzar. 
+Recuerde que no puede hacer referencia a una macro en la propia definición del mismo.</entry>
 
 	<entry key="ActivateDeactivateEffect.ErrorNoFlags">Para añadir este tipo de efecto, debe haber al menos un flag en el capítulo</entry>
 
@@ -1214,6 +1226,9 @@ función de estos estados</entry>
 	<entry key="TreeNode.AddElement53">Añadir barrera</entry>
 	<entry key="TreeNode.AddElement54">Añadir estado global</entry>
 	<entry key="TreeNode.AddElement55">Añadir estados globales</entry>
+	<entry key="TreeNode.AddElement56">Añadir macro</entry>
+	<entry key="TreeNode.AddElement57">Añadir lista de macros</entry>
+	
 	
 	<entry key="GeneralText.Yes">Sí</entry>
 	<entry key="GeneralText.No">No</entry>
@@ -1291,6 +1306,9 @@ función de estos estados</entry>
 	<entry key="Element.Name53">Barrera</entry>
 	<entry key="Element.Name54">Estado global</entry>
 	<entry key="Element.Name55">Estados globales</entry>
+	<entry key="Element.Name56">Macro</entry>
+	<entry key="Element.Name57">Macros</entry>
+	
 		
 	<entry key="Element.Ref">Ref: {#0}</entry>
 	<entry key="Element.BookParagraph">Párrafo de libro</entry>
@@ -1542,4 +1560,17 @@ Son especialmente útiles cuando se pretende hacer referencia al mismo grupo de 
 	
 	<entry key="GlobalState.Documentation">Descripción (no se usa en el motor)</entry>
 	<entry key="GlobalState.Conditions">Lista de conciciones del estado global</entry>
+	
+	<entry key="MacrosList.Title">Lista de macros</entry>
+	<entry key="MacrosList.Information">Esta es la lista de macros definidas en el capítulo, junto con las veces que han sido referenciados.
+Las macros son simplemente grupos de efectos a los que se puede referenciar en distintos puntos del juego. 
+Son especialmente útiles cuando se van a usar los mismos efectos en distintos momentos, 
+ya que de esta manera se evita reescribirlos varias veces.</entry>
+	<entry key="MacrosList.ColumnHeader0">Identificador</entry>
+	<entry key="MacrosList.ColumnHeader1">Referencias</entry>
+	<entry key="MacrosList.ListTitle">Lista completa de macros y referencias</entry>
+	
+	<entry key="Macro.Documentation">Descripción (no se usa en el motor)</entry>
+	<entry key="Macro.Effects">Lista de efectos de la macro</entry>
+	
 </properties>

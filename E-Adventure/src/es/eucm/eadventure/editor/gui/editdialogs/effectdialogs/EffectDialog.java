@@ -159,6 +159,9 @@ public abstract class EffectDialog extends JDialog {
 			case Effect.DECREMENT_VAR:
 				effectProperties = new VarEffectDialog( VarEffectDialog.DECREMENT_VAR, currentProperties ).getEffectProperties( );
 				break;
+			case Effect.MACRO_REF:
+				effectProperties = new MacroReferenceEffectDialog( currentProperties ).getEffectProperties( );
+				break;
 			case Effect.CONSUME_OBJECT:
 				effectProperties = new ObjectEffectDialog( ObjectEffectDialog.CONSUME, currentProperties ).getEffectProperties( );
 				break;

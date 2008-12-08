@@ -53,7 +53,7 @@ public class MovePlayerEffectDialog extends EffectDialog {
 	public MovePlayerEffectDialog( HashMap<Integer, String> currentProperties ) {
 
 		// Call the super method
-		super( TextConstants.getText( "FunctionalMovePlayerEffect.Title" ) );
+		super( TextConstants.getText( "MovePlayerEffect.Title" ) );
 
 		// Load the path to the image of the player
 		String playerPath = controller.getPlayerImagePath( );
@@ -72,7 +72,7 @@ public class MovePlayerEffectDialog extends EffectDialog {
 		GridBagConstraints c = new GridBagConstraints( );
 
 		// Set the border of the panel with the description
-		mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "FunctionalMovePlayerEffect.Description" ) ) ) );
+		mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "MovePlayerEffect.Description" ) ) ) );
 
 		// Create and add the list of scenes
 		c.insets = new Insets( 2, 4, 4, 4 );

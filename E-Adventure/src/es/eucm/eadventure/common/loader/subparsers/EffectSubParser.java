@@ -12,6 +12,7 @@ import es.eucm.eadventure.common.data.chapter.effects.Effect;
 import es.eucm.eadventure.common.data.chapter.effects.Effects;
 import es.eucm.eadventure.common.data.chapter.effects.GenerateObjectEffect;
 import es.eucm.eadventure.common.data.chapter.effects.IncrementVarEffect;
+import es.eucm.eadventure.common.data.chapter.effects.MacroReferenceEffect;
 import es.eucm.eadventure.common.data.chapter.effects.MoveNPCEffect;
 import es.eucm.eadventure.common.data.chapter.effects.MovePlayerEffect;
 import es.eucm.eadventure.common.data.chapter.effects.PlayAnimationEffect;
@@ -147,6 +148,20 @@ public class EffectSubParser extends SubParser {
 			newEffect = new DecrementVarEffect ( var, value );
 			chapter.addVar( var );
 		}
+		
+        // If it is a macro-reference tag
+        else if( qName.equals( "macro-ref" ) ) {
+        	// Id
+        	String id = null;
+            for( int i = 0; i < attrs.getLength( ); i++ ) {
+                if( attrs.getQName( i ).equals( "id" ) ) {
+                	id = attrs.getValue( i );
+                } 
+            }
+            // Store the inactive flag in the conditions or either conditions
+            newEffect = new MacroReferenceEffect ( id );
+        }
+
 
 		// If it is a consume-object tag
 		else if( qName.equals( "consume-object" ) ) {

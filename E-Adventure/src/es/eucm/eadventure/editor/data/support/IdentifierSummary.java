@@ -7,6 +7,7 @@ import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.data.chapter.book.Book;
 import es.eucm.eadventure.common.data.chapter.conditions.GlobalState;
 import es.eucm.eadventure.common.data.chapter.conversation.Conversation;
+import es.eucm.eadventure.common.data.chapter.effects.Macro;
 import es.eucm.eadventure.common.data.chapter.elements.Item;
 import es.eucm.eadventure.common.data.chapter.elements.NPC;
 import es.eucm.eadventure.common.data.chapter.scenes.Cutscene;
@@ -21,7 +22,7 @@ public class IdentifierSummary {
 	 * List of all identifiers in the script.
 	 */
 	private List<String> globalIdentifiers;
-
+	
 	/**
 	 * List of all scene identifiers in the chapter (including playable scenes and cutscenes).
 	 */
@@ -71,6 +72,12 @@ public class IdentifierSummary {
 	 * List of all global states identifiers in the script.
 	 */
 	private List<String> globalStateIdentifiers;
+	
+	/**
+	 * List of all macro identifiers in the script.
+	 */
+	private List<String> macroIdentifiers;
+
 
 	/**
 	 * Constructor.
@@ -92,6 +99,7 @@ public class IdentifierSummary {
 		assessmentRuleIdentifiers = new ArrayList<String>( );
 		adaptationRuleIdentifiers = new ArrayList<String>( );
 		globalStateIdentifiers = new ArrayList<String>( );
+		macroIdentifiers = new ArrayList<String>( );
 
 		// Fill all the lists
 		loadIdentifiers( chapter );
@@ -115,6 +123,7 @@ public class IdentifierSummary {
 		npcIdentifiers.clear( );
 		conversationIdentifiers.clear( );
 		globalStateIdentifiers.clear( );
+		macroIdentifiers.clear( );
 
 		// Add scene IDs
 		for( Scene scene : chapter.getScenes( ) )
@@ -143,6 +152,11 @@ public class IdentifierSummary {
 		// Add global state IDs
 		for( GlobalState globalState : chapter.getGlobalStates( ) )
 			addGlobalStateId( globalState.getId( ) );
+		
+		// Add macro IDs
+		for( Macro macro : chapter.getMacros( ) )
+			addMacroId( macro.getId( ) );
+
 
 	}
 
@@ -251,7 +265,43 @@ public class IdentifierSummary {
 	public String[] getGlobalStatesIds( ) {
 		return globalStateIdentifiers.toArray( new String[] {} );
 	}
+	
+	/**
+	 * Returns an array of macro identifiers.
+	 * 
+	 * @return Array of macro identifiers
+	 */
+	public String[] getMacroIds( ) {
+		return macroIdentifiers.toArray( new String[] {} );
+	}
 
+	/**
+	 * Returns an array of global state identifiers.
+	 * 
+	 * @return Array of global state identifiers
+	 */
+	public String[] getGlobalStatesIds( String exception ) {
+		List<String> globalStateIds = new ArrayList<String>();
+		for (String id: this.globalStateIdentifiers){
+			if (!id.equals(exception))
+				globalStateIds.add(id);
+		}
+		return globalStateIds.toArray( new String[] {} );
+	}
+	
+	/**
+	 * Returns an array of macro identifiers.
+	 * 
+	 * @return Array of macro identifiers
+	 */
+	public String[] getMacroIds( String exception ) {
+		List<String> macroIds = new ArrayList<String>();
+		for (String id: this.macroIdentifiers){
+			if (!id.equals(exception))
+				macroIds.add(id);
+		}
+		return macroIds.toArray( new String[] {} );
+	}
 
 	/**
 	 * Adds a new scene id.
@@ -330,6 +380,17 @@ public class IdentifierSummary {
 	public void addGlobalStateId( String globalStateId ) {
 		globalIdentifiers.add( globalStateId );
 		globalStateIdentifiers.add( globalStateId );
+	}
+
+	/**
+	 * Adds a new macro id.
+	 * 
+	 * @param macroId
+	 *            New macro id
+	 */
+	public void addMacroId( String macroId ) {
+		globalIdentifiers.add( macroId );
+		macroIdentifiers.add( macroId );
 	}
 	
 	public void addAssessmentRuleId( String assRuleId ) {
@@ -421,6 +482,18 @@ public class IdentifierSummary {
 		globalIdentifiers.remove( globalStateId );
 		globalStateIdentifiers.remove( globalStateId );
 	}
+	
+	/**
+	 * Deletes a macro id.
+	 * 
+	 * @param macroId
+	 *            Macro id to be deleted
+	 */
+	public void deleteMacroId( String macroId ) {
+		globalIdentifiers.remove( macroId );
+		macroIdentifiers.remove( macroId );
+	}
+
 
 	public void deleteAssessmentRuleId( String id ) {
 		globalIdentifiers.remove( id );
@@ -435,6 +508,10 @@ public class IdentifierSummary {
 	
 	public boolean isGlobalStateId ( String id ){
 		return globalStateIdentifiers.contains(id);
+	}
+
+	public boolean isMacroId ( String id ){
+		return macroIdentifiers.contains(id);
 	}
 
 }

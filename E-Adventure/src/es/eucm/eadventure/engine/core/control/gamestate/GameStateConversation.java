@@ -114,7 +114,7 @@ public class GameStateConversation extends GameState {
      */
     private boolean isOptionSelected;
     
-    /**
+    /*
      * TODO modificar este comentario
      * utilizamos una variable booleana que se activa cuando pinchamos fuera del espacio que esta destinado a las opciones
      * para indicar que no se debe seleccionar dicha opcion, y que se repinten las opciones en pantalla

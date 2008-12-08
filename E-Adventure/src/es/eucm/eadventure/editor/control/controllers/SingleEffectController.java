@@ -1,20 +1,21 @@
 package es.eucm.eadventure.editor.control.controllers;
 
 import java.util.HashMap;
-import java.util.List;
 
-import es.eucm.eadventure.common.auxiliar.categoryfilters.AnimationFileFilter;
 import es.eucm.eadventure.common.data.chapter.effects.ActivateEffect;
-import es.eucm.eadventure.common.data.chapter.effects.CancelActionEffect;
 import es.eucm.eadventure.common.data.chapter.effects.ConsumeObjectEffect;
 import es.eucm.eadventure.common.data.chapter.effects.DeactivateEffect;
+import es.eucm.eadventure.common.data.chapter.effects.DecrementVarEffect;
 import es.eucm.eadventure.common.data.chapter.effects.Effect;
 import es.eucm.eadventure.common.data.chapter.effects.Effects;
 import es.eucm.eadventure.common.data.chapter.effects.GenerateObjectEffect;
+import es.eucm.eadventure.common.data.chapter.effects.IncrementVarEffect;
+import es.eucm.eadventure.common.data.chapter.effects.MacroReferenceEffect;
 import es.eucm.eadventure.common.data.chapter.effects.MoveNPCEffect;
 import es.eucm.eadventure.common.data.chapter.effects.MovePlayerEffect;
 import es.eucm.eadventure.common.data.chapter.effects.PlayAnimationEffect;
 import es.eucm.eadventure.common.data.chapter.effects.PlaySoundEffect;
+import es.eucm.eadventure.common.data.chapter.effects.SetValueEffect;
 import es.eucm.eadventure.common.data.chapter.effects.SpeakCharEffect;
 import es.eucm.eadventure.common.data.chapter.effects.SpeakPlayerEffect;
 import es.eucm.eadventure.common.data.chapter.effects.TriggerBookEffect;
@@ -24,8 +25,6 @@ import es.eucm.eadventure.common.data.chapter.effects.TriggerLastSceneEffect;
 import es.eucm.eadventure.common.data.chapter.effects.TriggerSceneEffect;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.data.support.VarFlagSummary;
-import es.eucm.eadventure.editor.gui.assetchooser.AssetChooser;
 import es.eucm.eadventure.editor.gui.editdialogs.effectdialogs.EffectDialog;
 
 /**
@@ -110,6 +109,10 @@ public class SingleEffectController extends EffectsController{
 
 				// Take all the values from the set
 				String target = effectProperties.get( EFFECT_PROPERTY_TARGET );
+				int value = 0;
+				if (effectProperties.containsKey( EFFECT_PROPERTY_VALUE))
+					value =	Integer.parseInt( effectProperties.get( EFFECT_PROPERTY_VALUE) );
+				
 				String path = effectProperties.get( EFFECT_PROPERTY_PATH );
 				String text = effectProperties.get( EFFECT_PROPERTY_TEXT );
 
@@ -134,6 +137,22 @@ public class SingleEffectController extends EffectsController{
 						newEffect = new DeactivateEffect( target );
 						controller.getVarFlagSummary( ).addFlagReference( target );
 						break;
+					case Effect.SET_VALUE:
+						newEffect = new SetValueEffect( target, value );
+						controller.getVarFlagSummary( ).addVarReference( target );
+						break;
+					case Effect.INCREMENT_VAR:
+						newEffect = new IncrementVarEffect( target, value );
+						controller.getVarFlagSummary( ).addVarReference( target );
+						break;
+					case Effect.DECREMENT_VAR:
+						newEffect = new DecrementVarEffect( target, value );
+						controller.getVarFlagSummary( ).addVarReference( target );
+						break;
+					case Effect.MACRO_REF:
+						newEffect = new MacroReferenceEffect( target );
+						break;
+
 					case Effect.CONSUME_OBJECT:
 						newEffect = new ConsumeObjectEffect( target );
 						break;

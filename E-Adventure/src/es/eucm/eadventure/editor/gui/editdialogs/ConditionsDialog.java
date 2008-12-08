@@ -55,6 +55,7 @@ public class ConditionsDialog extends JDialog {
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1;
 		c.weighty = 1;
+		ConditionDialog.ID=null;
 		add( new ConditionsPanel( conditionsController ), c );
 
 		// Set the size, position and properties of the dialog

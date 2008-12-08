@@ -7,6 +7,7 @@ import es.eucm.eadventure.common.data.adventure.ChapterSummary;
 import es.eucm.eadventure.common.data.chapter.book.Book;
 import es.eucm.eadventure.common.data.chapter.conditions.GlobalState;
 import es.eucm.eadventure.common.data.chapter.conversation.Conversation;
+import es.eucm.eadventure.common.data.chapter.effects.Macro;
 import es.eucm.eadventure.common.data.chapter.elements.Item;
 import es.eucm.eadventure.common.data.chapter.elements.NPC;
 import es.eucm.eadventure.common.data.chapter.elements.Player;
@@ -78,6 +79,12 @@ public class Chapter extends ChapterSummary{
      * List of global states
      */
     private List<GlobalState> globalStates;
+    
+    /**
+     * List of macros
+     */
+    private List<Macro> macros;
+
 
 	
 	/**
@@ -97,6 +104,7 @@ public class Chapter extends ChapterSummary{
 		flags = new ArrayList<String>( );
 		vars = new ArrayList<String>( );
 		globalStates = new ArrayList<GlobalState>( );
+		macros = new ArrayList<Macro>( );
 	}
 
 	/**
@@ -123,6 +131,7 @@ public class Chapter extends ChapterSummary{
 		// Add the scene
 		scenes.add( new Scene( sceneId ) );
 		globalStates = new ArrayList<GlobalState>( );
+		macros = new ArrayList<Macro>( );
 	}
 
 
@@ -282,6 +291,16 @@ public class Chapter extends ChapterSummary{
 	public void addGlobalState(GlobalState globalState ) {
 		globalStates.add( globalState );
 	}
+	
+	/**
+	 * Adds a macro to the list of macros in the game
+	 * 
+	 * @param macro
+	 *            the macro to add
+	 */
+	public void addMacro( Macro macro ) {
+		macros.add( macro );
+	}
 
 	/**
 	 * Changes the player in the game
@@ -408,6 +427,24 @@ public class Chapter extends ChapterSummary{
 
 		return selectedGlobalState;
 	}
+	
+	/**
+	 * Returns a macro with the given id.
+	 * 
+	 * @param macroId
+	 *            Macro id
+	 * @return Macro requested, null if it was not found
+	 */
+	public Macro getMacro( String macroId ) {
+		Macro selectedMacro = null;
+
+		for( Macro m : macros )
+			if( m.getId( ).equals( macroId ) )
+				selectedMacro = m;
+
+		return selectedMacro;
+	}
+
 
 	/**
 	 * Returns the list of timers (blocks of effects ruled by conditions which will get executed each TIME seconds
@@ -541,5 +578,19 @@ public class Chapter extends ChapterSummary{
 	 */
 	public void setGlobalStates(List<GlobalState> globalStates) {
 		this.globalStates = globalStates;
+	}
+
+	/**
+	 * @return the macros
+	 */
+	public List<Macro> getMacros() {
+		return macros;
+	}
+
+	/**
+	 * @param macros the macros to set
+	 */
+	public void setMacros(List<Macro> macros) {
+		this.macros = macros;
 	}
 }

@@ -12,6 +12,7 @@ import es.eucm.eadventure.common.data.chapter.effects.Effect;
 import es.eucm.eadventure.common.data.chapter.effects.Effects;
 import es.eucm.eadventure.common.data.chapter.effects.GenerateObjectEffect;
 import es.eucm.eadventure.common.data.chapter.effects.IncrementVarEffect;
+import es.eucm.eadventure.common.data.chapter.effects.MacroReferenceEffect;
 import es.eucm.eadventure.common.data.chapter.effects.MoveNPCEffect;
 import es.eucm.eadventure.common.data.chapter.effects.MovePlayerEffect;
 import es.eucm.eadventure.common.data.chapter.effects.PlayAnimationEffect;
@@ -155,6 +156,10 @@ public class EffectsController {
 			case Effect.DECREMENT_VAR:
 				DecrementVarEffect decrementEffect = (DecrementVarEffect) effect;
 				effectInfo = TextConstants.getText( "Effect.DecrementVarInfo", new String[]{decrementEffect.getIdVar( ), Integer.toString( decrementEffect.getDecrement() )} );
+				break;
+			case Effect.MACRO_REF:
+				MacroReferenceEffect macroReferenceEffect = (MacroReferenceEffect) effect;
+				effectInfo = TextConstants.getText( "Effect.MacroRefInfo", macroReferenceEffect.getMacroId( ) );
 				break;				
 			case Effect.CONSUME_OBJECT:
 				ConsumeObjectEffect consumeObjectEffect = (ConsumeObjectEffect) effect;
@@ -232,12 +237,21 @@ public class EffectsController {
 		boolean effectAdded = false;
 
 		// Create a list with the names of the effects (in the same order as the next)
-		final String[] effectNames = { TextConstants.getText( "Effect.Activate" ), TextConstants.getText( "Effect.Deactivate" ), TextConstants.getText( "Effect.SetValue" ), TextConstants.getText( "Effect.IncrementVar" ), TextConstants.getText( "Effect.DecrementVar" ),  
-				TextConstants.getText( "Effect.ConsumeObject" ), TextConstants.getText( "Effect.GenerateObject" ), TextConstants.getText( "Effect.CancelAction" ), TextConstants.getText( "Effect.SpeakPlayer" ), TextConstants.getText( "Effect.SpeakCharacter" ), TextConstants.getText( "Effect.TriggerBook" ), TextConstants.getText( "Effect.PlaySound" ), TextConstants.getText( "Effect.PlayAnimation" ), TextConstants.getText( "Effect.MovePlayer" ), TextConstants.getText( "Effect.MoveCharacter" ), TextConstants.getText( "Effect.TriggerConversation" ), TextConstants.getText( "Effect.TriggerCutscene" ), TextConstants.getText( "Effect.TriggerScene" ), TextConstants.getText( "Effect.TriggerLastScene" ) , TextConstants.getText( "Effect.RandomEffect" )};
+		final String[] effectNames = { TextConstants.getText( "Effect.Activate" ), TextConstants.getText( "Effect.Deactivate" ),
+				TextConstants.getText( "Effect.SetValue" ), TextConstants.getText( "Effect.IncrementVar" ), TextConstants.getText( "Effect.DecrementVar" ),
+				TextConstants.getText( "Effect.MacroReference" ),
+				TextConstants.getText( "Effect.ConsumeObject" ), TextConstants.getText( "Effect.GenerateObject" ), 
+				TextConstants.getText( "Effect.CancelAction" ), TextConstants.getText( "Effect.SpeakPlayer" ), 
+				TextConstants.getText( "Effect.SpeakCharacter" ), TextConstants.getText( "Effect.TriggerBook" ), 
+				TextConstants.getText( "Effect.PlaySound" ), TextConstants.getText( "Effect.PlayAnimation" ), 
+				TextConstants.getText( "Effect.MovePlayer" ), TextConstants.getText( "Effect.MoveCharacter" ), 
+				TextConstants.getText( "Effect.TriggerConversation" ), TextConstants.getText( "Effect.TriggerCutscene" ), 
+				TextConstants.getText( "Effect.TriggerScene" ), TextConstants.getText( "Effect.TriggerLastScene" ) , 
+				TextConstants.getText( "Effect.RandomEffect" )};
 
 		// Create a list with the types of the effects (in the same order as the previous)
 		final int[] effectTypes = { Effect.ACTIVATE, Effect.DEACTIVATE, Effect.SET_VALUE, Effect.INCREMENT_VAR, Effect.DECREMENT_VAR, 
-				Effect.CONSUME_OBJECT, Effect.GENERATE_OBJECT, Effect.CANCEL_ACTION, Effect.SPEAK_PLAYER, Effect.SPEAK_CHAR, Effect.TRIGGER_BOOK, Effect.PLAY_SOUND, Effect.PLAY_ANIMATION, Effect.MOVE_PLAYER, Effect.MOVE_NPC, Effect.TRIGGER_CONVERSATION, Effect.TRIGGER_CUTSCENE, Effect.TRIGGER_SCENE, Effect.TRIGGER_LAST_SCENE, Effect.RANDOM_EFFECT };
+				Effect.MACRO_REF, Effect.CONSUME_OBJECT, Effect.GENERATE_OBJECT, Effect.CANCEL_ACTION, Effect.SPEAK_PLAYER, Effect.SPEAK_CHAR, Effect.TRIGGER_BOOK, Effect.PLAY_SOUND, Effect.PLAY_ANIMATION, Effect.MOVE_PLAYER, Effect.MOVE_NPC, Effect.TRIGGER_CONVERSATION, Effect.TRIGGER_CUTSCENE, Effect.TRIGGER_SCENE, Effect.TRIGGER_LAST_SCENE, Effect.RANDOM_EFFECT };
 
 		// Show a dialog to select the type of the effect
 		String selectedValue = controller.showInputDialog( TextConstants.getText( "Effects.OperationAddEffect" ), TextConstants.getText( "Effects.SelectEffectType" ), effectNames );
@@ -291,15 +305,18 @@ public class EffectsController {
 						break;
 					case Effect.SET_VALUE:
 						newEffect = new SetValueEffect( target, Integer.parseInt( value ) );
-						controller.getVarFlagSummary( ).addFlagReference( target );
+						controller.getVarFlagSummary( ).addVarReference( target );
 						break;
 					case Effect.INCREMENT_VAR:
 						newEffect = new IncrementVarEffect( target, Integer.parseInt( value ) );
-						controller.getVarFlagSummary( ).addFlagReference( target );
+						controller.getVarFlagSummary( ).addVarReference( target );
 						break;
 					case Effect.DECREMENT_VAR:
 						newEffect = new DecrementVarEffect( target, Integer.parseInt( value ) );
-						controller.getVarFlagSummary( ).addFlagReference( target );
+						controller.getVarFlagSummary( ).addVarReference( target );
+						break;
+					case Effect.MACRO_REF:
+						newEffect = new MacroReferenceEffect( target );
 						break;
 					case Effect.CONSUME_OBJECT:
 						newEffect = new ConsumeObjectEffect( target );
@@ -512,6 +529,10 @@ public class EffectsController {
 				currentValues.put( EFFECT_PROPERTY_TARGET, decrementVarEffect.getIdVar( ) );
 				currentValues.put( EFFECT_PROPERTY_VALUE, Integer.toString( decrementVarEffect.getDecrement() ) );
 				break;
+			case Effect.MACRO_REF:
+				MacroReferenceEffect macroRefEffect = (MacroReferenceEffect) effect;
+				currentValues.put( EFFECT_PROPERTY_TARGET, macroRefEffect.getMacroId() );
+				break;
 			case Effect.CONSUME_OBJECT:
 				ConsumeObjectEffect consumeObjectEffect = (ConsumeObjectEffect) effect;
 				currentValues.put( EFFECT_PROPERTY_TARGET, consumeObjectEffect.getIdTarget( ) );
@@ -621,6 +642,10 @@ public class EffectsController {
 					decrementVarEffect.setIdVar( newProperties.get( EFFECT_PROPERTY_TARGET ) );
 					decrementVarEffect.setDecrement( Integer.parseInt( newProperties.get( EFFECT_PROPERTY_VALUE ) ) );
 					Controller.getInstance( ).updateFlagSummary( );
+					break;
+				case Effect.MACRO_REF:
+					MacroReferenceEffect macroEffect = (MacroReferenceEffect) effect;
+					macroEffect.setMacroId( newProperties.get( EFFECT_PROPERTY_TARGET ) );
 					break;
 				case Effect.CONSUME_OBJECT:
 					ConsumeObjectEffect consumeObjectEffect = (ConsumeObjectEffect) effect;
