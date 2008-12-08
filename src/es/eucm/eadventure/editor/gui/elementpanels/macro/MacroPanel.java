@@ -1,4 +1,4 @@
-package es.eucm.eadventure.editor.gui.elementpanels.globalstate;
+package es.eucm.eadventure.editor.gui.elementpanels.macro;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -13,16 +13,16 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import es.eucm.eadventure.common.gui.TextConstants;
-import es.eucm.eadventure.editor.control.controllers.globalstate.GlobalStateDataControl;
-import es.eucm.eadventure.editor.gui.editdialogs.ConditionDialog;
-import es.eucm.eadventure.editor.gui.elementpanels.general.ConditionsPanel;
+import es.eucm.eadventure.editor.control.controllers.macro.MacroDataControl;
+import es.eucm.eadventure.editor.gui.editdialogs.effectdialogs.MacroReferenceEffectDialog;
+import es.eucm.eadventure.editor.gui.elementpanels.general.EffectsPanel;
 
 /**
- * Panel for Global State
+ * Panel for a Macro
  * @author Javier
  *
  */
-public class GlobalStatePanel extends JPanel{
+public class MacroPanel extends JPanel{
 
 	/**
 	 * Required
@@ -32,12 +32,12 @@ public class GlobalStatePanel extends JPanel{
 	/**
 	 * Controller
 	 */
-	private GlobalStateDataControl dataControl;
+	private MacroDataControl dataControl;
 	
 	/**
-	 * Conditions panel
+	 * Effects panel
 	 */
-	private ConditionsPanel conditionsPanel;
+	private EffectsPanel effectsPanel;
 	
 	
 	private JTextArea documentationTextArea;
@@ -45,7 +45,7 @@ public class GlobalStatePanel extends JPanel{
 	 * Constructor
 	 * @param dataControl
 	 */
-	public GlobalStatePanel ( GlobalStateDataControl dataControl ){
+	public MacroPanel ( MacroDataControl dataControl ){
 		this.dataControl = dataControl;
 		
 		GridBagConstraints c = new GridBagConstraints( );
@@ -64,16 +64,17 @@ public class GlobalStatePanel extends JPanel{
 		documentationTextArea.setWrapStyleWord( true );
 		documentationTextArea.getDocument( ).addDocumentListener( new DocumentationTextAreaChangesListener( ) );
 		documentationPanel.add( new JScrollPane( documentationTextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER ) );
-		documentationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "GlobalState.Documentation" ) ) );
+		documentationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Macro.Documentation" ) ) );
 		
 		add ( documentationPanel, c );
 		
 		c.weighty = 0.7;
 		c.gridy = 1;
-		ConditionDialog.ID=dataControl.getId();
-		conditionsPanel = new ConditionsPanel ( dataControl.getController( ) );
-		conditionsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "GlobalState.Conditions" ) ) );
-		add ( conditionsPanel, c );
+		
+		MacroReferenceEffectDialog.ID = dataControl.getId();
+		effectsPanel = new EffectsPanel ( dataControl.getController( ) );
+		effectsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Macro.Effects" ) ) );
+		add ( effectsPanel, c );
 	}
 
 	/**

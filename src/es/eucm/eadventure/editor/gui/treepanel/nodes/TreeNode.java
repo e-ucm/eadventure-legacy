@@ -53,6 +53,8 @@ import es.eucm.eadventure.editor.gui.treepanel.nodes.globalstate.GlobalStateTree
 import es.eucm.eadventure.editor.gui.treepanel.nodes.globalstate.GlobalStatesListTreeNode;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.item.ItemTreeNode;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.item.ItemsListTreeNode;
+import es.eucm.eadventure.editor.gui.treepanel.nodes.macro.MacroTreeNode;
+import es.eucm.eadventure.editor.gui.treepanel.nodes.macro.MacrosListTreeNode;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.scene.ActiveAreaTreeNode;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.scene.ActiveAreasListTreeNode;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.scene.BarrierTreeNode;
@@ -169,6 +171,9 @@ public abstract class TreeNode {
 		EmptyTreeNode.loadIcon();
 		GlobalStateTreeNode.loadIcon();
 		GlobalStatesListTreeNode.loadIcon();
+		MacroTreeNode.loadIcon();
+		MacrosListTreeNode.loadIcon();
+
 	}
 
 	/**

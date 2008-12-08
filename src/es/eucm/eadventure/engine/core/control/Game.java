@@ -214,7 +214,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     /**
      * LIFO of Queues of effects to be performed
      */
-    private Stack<ArrayList<FunctionalEffect>> effectsQueue;
+    private Stack< List<FunctionalEffect> > effectsQueue;
 
     /**
      * Stores the character currently talking
@@ -366,7 +366,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         inventory = new Inventory( );
        
         // Initialize the stack of queue of effects
-        effectsQueue = new Stack<ArrayList<FunctionalEffect>>( );        
+        effectsQueue = new Stack< List<FunctionalEffect> >( );        
         effectsQueue.push(new ArrayList<FunctionalEffect>());
        
         // Initialize the stack of states (used to keep the conversations and can throw its effects)
@@ -961,7 +961,11 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     	}else
     		return effectsQueue.peek().remove(0);*/
     	//Solo avanzamos en la cola
-    	return effectsQueue.peek().remove(0);
+    	FunctionalEffect toReturn= effectsQueue.peek().remove(0);
+    	if (effectsQueue.size()>1 && effectsQueue.peek().isEmpty())
+    		effectsQueue.pop();
+    	
+    	return toReturn;
     }
     
     /**
@@ -983,7 +987,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     
     
     public void endConversation(){
-    	this.popEffectsStack();
+    	//this.popEffectsStack();
     	if (!isEmptyFIFOinStack())
     		setState(STATE_RUN_EFFECTS);
         else 
@@ -991,9 +995,9 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     }
     
     /**
-     * Adds a element to Stack
+     * Adds a element to effect Stack
      */
-    public void addToTheStack(ArrayList<FunctionalEffect> el){
+    public void addToTheStack( List<FunctionalEffect> el ){
     	effectsQueue.push(el);
     }
     

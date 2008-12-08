@@ -68,8 +68,4 @@ public class Effects {
 		return hasCancelAction;
 	}
 	
-	/*public void storeAllEffects(){
-		
-	}*/
-	
 }

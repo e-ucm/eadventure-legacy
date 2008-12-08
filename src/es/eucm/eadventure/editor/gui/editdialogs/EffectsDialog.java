@@ -14,6 +14,7 @@ import javax.swing.JDialog;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
+import es.eucm.eadventure.editor.gui.editdialogs.effectdialogs.MacroReferenceEffectDialog;
 import es.eucm.eadventure.editor.gui.elementpanels.general.EffectsPanel;
 
 /**
@@ -54,6 +55,7 @@ public class EffectsDialog extends JDialog {
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1;
 		c.weighty = 1;
+		MacroReferenceEffectDialog.ID = null;
 		add( new EffectsPanel( effectsController ), c );
 
 		// Set the size, position and properties of the dialog

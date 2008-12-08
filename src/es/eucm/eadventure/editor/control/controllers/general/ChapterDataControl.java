@@ -14,6 +14,7 @@ import es.eucm.eadventure.editor.control.controllers.conversation.ConversationsL
 import es.eucm.eadventure.editor.control.controllers.cutscene.CutscenesListDataControl;
 import es.eucm.eadventure.editor.control.controllers.globalstate.GlobalStateListDataControl;
 import es.eucm.eadventure.editor.control.controllers.item.ItemsListDataControl;
+import es.eucm.eadventure.editor.control.controllers.macro.MacroListDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ScenesListDataControl;
 import es.eucm.eadventure.editor.control.controllers.timer.TimersListDataControl;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
@@ -76,6 +77,12 @@ public class ChapterDataControl extends DataControl {
 	private GlobalStateListDataControl globalStatesListDataControl;
 	
 	/**
+	 * List of macro
+	 */
+	private MacroListDataControl macrosListDataControl;
+
+	
+	/**
 	 * Constructor.
 	 * 
 	 * @param chapter
@@ -94,6 +101,7 @@ public class ChapterDataControl extends DataControl {
 		conversationsListDataControl = new ConversationsListDataControl( chapter.getConversations( ) );
 		timersListDataControl = new TimersListDataControl( chapter.getTimers( ) );
 		globalStatesListDataControl = new GlobalStateListDataControl( chapter.getGlobalStates() );
+		macrosListDataControl = new MacroListDataControl ( chapter.getMacros( ) );
 	}
 
 	/**
@@ -415,6 +423,7 @@ public class ChapterDataControl extends DataControl {
 		//adaptationProfilesDataControl.updateFlagSummary( flagSummary );
 		timersListDataControl.updateVarFlagSummary( varFlagSummary );
 		globalStatesListDataControl.updateVarFlagSummary( varFlagSummary );
+		macrosListDataControl.updateVarFlagSummary( varFlagSummary );
 	}
 
 	@Override
@@ -435,6 +444,7 @@ public class ChapterDataControl extends DataControl {
 		valid &= conversationsListDataControl.isValid( currentPath, incidences );
 		valid &= timersListDataControl.isValid( currentPath, incidences );
 		valid &= globalStatesListDataControl.isValid( currentPath, incidences );
+		valid &= macrosListDataControl.isValid( currentPath, incidences );
 
 		return valid;
 	}
@@ -459,6 +469,7 @@ public class ChapterDataControl extends DataControl {
 		count += conversationsListDataControl.countAssetReferences( assetPath );
 		count += timersListDataControl.countAssetReferences( assetPath );
 		count += globalStatesListDataControl.countAssetReferences( assetPath );
+		count += macrosListDataControl.countAssetReferences( assetPath );
 
 		return count;
 	}
@@ -505,6 +516,7 @@ public class ChapterDataControl extends DataControl {
 		conversationsListDataControl.getAssetReferences( assetPaths, assetTypes );
 		timersListDataControl.getAssetReferences( assetPaths, assetTypes );
 		globalStatesListDataControl.getAssetReferences( assetPaths, assetTypes );
+		macrosListDataControl.getAssetReferences( assetPaths, assetTypes );
 	}
 	
 	@Override
@@ -525,6 +537,7 @@ public class ChapterDataControl extends DataControl {
 		conversationsListDataControl.deleteAssetReferences( assetPath );
 		timersListDataControl.deleteAssetReferences( assetPath );
 		globalStatesListDataControl.deleteAssetReferences( assetPath );
+		macrosListDataControl.deleteAssetReferences( assetPath );
 		//assessmentProfilesDataControl.deleteAssetReferences( assetPath );
 		//adaptationProfilesDataControl.deleteAssetReferences( assetPath );
 	}
@@ -545,6 +558,7 @@ public class ChapterDataControl extends DataControl {
 		count += conversationsListDataControl.countIdentifierReferences( id );
 		count += timersListDataControl.countIdentifierReferences( id );
 		count += globalStatesListDataControl.countIdentifierReferences( id );
+		count += macrosListDataControl.countIdentifierReferences( id );
 
 		return count;
 	}
@@ -563,6 +577,7 @@ public class ChapterDataControl extends DataControl {
 		conversationsListDataControl.replaceIdentifierReferences( oldId, newId );
 		timersListDataControl.replaceIdentifierReferences( oldId, newId );
 		globalStatesListDataControl.replaceIdentifierReferences( oldId, newId );
+		macrosListDataControl.replaceIdentifierReferences( oldId, newId );
 	}
 
 	@Override
@@ -579,6 +594,7 @@ public class ChapterDataControl extends DataControl {
 		conversationsListDataControl.deleteIdentifierReferences( id );
 		timersListDataControl.deleteIdentifierReferences( id );
 		globalStatesListDataControl.deleteIdentifierReferences( id );
+		macrosListDataControl.deleteIdentifierReferences( id );
 	}
 
 	@Override
@@ -591,6 +607,13 @@ public class ChapterDataControl extends DataControl {
 	 */
 	public GlobalStateListDataControl getGlobalStatesListDataControl() {
 		return globalStatesListDataControl;
+	}
+
+	/**
+	 * @return the globalStatesListDataControl
+	 */
+	public MacroListDataControl getMacrosListDataControl() {
+		return macrosListDataControl;
 	}
 
 }

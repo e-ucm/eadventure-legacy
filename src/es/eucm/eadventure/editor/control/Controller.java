@@ -350,6 +350,15 @@ public class Controller {
 	 */
 	public static final int GLOBAL_STATE_LIST = 55;
 
+	/**
+	 * Id for macro
+	 */
+	public static final int MACRO = 56;
+	
+	/**
+	 * Id for macro list
+	 */
+	public static final int MACRO_LIST = 57;
 
 
 	//TYPES OF EAD FILES

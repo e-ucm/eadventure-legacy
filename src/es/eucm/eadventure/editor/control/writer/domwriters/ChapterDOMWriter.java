@@ -13,6 +13,7 @@ import es.eucm.eadventure.common.data.chapter.Timer;
 import es.eucm.eadventure.common.data.chapter.book.Book;
 import es.eucm.eadventure.common.data.chapter.conditions.GlobalState;
 import es.eucm.eadventure.common.data.chapter.conversation.Conversation;
+import es.eucm.eadventure.common.data.chapter.effects.Macro;
 import es.eucm.eadventure.common.data.chapter.elements.Item;
 import es.eucm.eadventure.common.data.chapter.elements.NPC;
 import es.eucm.eadventure.common.data.chapter.scenes.Cutscene;
@@ -105,6 +106,13 @@ public class ChapterDOMWriter {
 				Element globalStateElement = ConditionsDOMWriter.buildDOM( globalState );
 				doc.adoptNode( globalStateElement );
 				chapterNode.appendChild( globalStateElement );
+			}
+			
+			// Append macros
+			for ( Macro macro: chapter.getMacros( ) ){
+				Element macroElement = EffectsDOMWriter.buildDOM( macro );
+				doc.adoptNode( macroElement );
+				chapterNode.appendChild( macroElement );
 			}
 
 

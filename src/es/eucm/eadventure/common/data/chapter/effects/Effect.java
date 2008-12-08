@@ -104,6 +104,12 @@ public interface Effect {
 	 * Constant for decrement var effect.
 	 */
 	public static final int DECREMENT_VAR = 19;
+	
+	/**
+	 * Constant for macro-ref effect.
+	 */
+	public static final int MACRO_REF = 20;
+
 
 	/**
 	 * Returns the type of the effect.

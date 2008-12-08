@@ -9,22 +9,15 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfilesDataControl;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfilesDataControl;
-import es.eucm.eadventure.editor.control.controllers.general.ChapterDataControl;
 import es.eucm.eadventure.editor.control.controllers.globalstate.GlobalStateListDataControl;
+import es.eucm.eadventure.editor.control.controllers.macro.MacroListDataControl;
 import es.eucm.eadventure.editor.control.controllers.timer.TimersListDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.general.AdvancedFeaturesPanel;
-import es.eucm.eadventure.editor.gui.elementpanels.general.ChapterPanel;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.TreeNode;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.adaptation.AdaptationProfilesTreeNode;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.assessment.AssessmentProfilesTreeNode;
-import es.eucm.eadventure.editor.gui.treepanel.nodes.book.BooksListTreeNode;
-import es.eucm.eadventure.editor.gui.treepanel.nodes.character.NPCsListTreeNode;
-import es.eucm.eadventure.editor.gui.treepanel.nodes.character.PlayerTreeNode;
-import es.eucm.eadventure.editor.gui.treepanel.nodes.conversation.ConversationsListTreeNode;
-import es.eucm.eadventure.editor.gui.treepanel.nodes.cutscene.CutscenesListTreeNode;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.globalstate.GlobalStatesListTreeNode;
-import es.eucm.eadventure.editor.gui.treepanel.nodes.item.ItemsListTreeNode;
-import es.eucm.eadventure.editor.gui.treepanel.nodes.scene.ScenesListTreeNode;
+import es.eucm.eadventure.editor.gui.treepanel.nodes.macro.MacrosListTreeNode;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.timer.TimersListTreeNode;
 
 /**
@@ -54,7 +47,8 @@ public class AdvancedFeaturesTreeNode extends TreeNode {
 	 * @param dataControl
 	 *            Contained game data
 	 */
-	public AdvancedFeaturesTreeNode( TreeNode parent, GlobalStateListDataControl globalStatesListDataControl,  
+	public AdvancedFeaturesTreeNode( TreeNode parent, GlobalStateListDataControl globalStatesListDataControl,
+			MacroListDataControl macrosListDataControl,
 			TimersListDataControl timersDataControl, AdaptationProfilesDataControl adaptationProfiles, AssessmentProfilesDataControl assessmentProfiles ) {
 		super( parent );
 
@@ -62,6 +56,7 @@ public class AdvancedFeaturesTreeNode extends TreeNode {
 		children.add( new AdaptationProfilesTreeNode( this, adaptationProfiles ) );
 		children.add( new AssessmentProfilesTreeNode( this, assessmentProfiles ) );
 		children.add( new GlobalStatesListTreeNode( this, globalStatesListDataControl ) );
+		children.add( new MacrosListTreeNode( this, macrosListDataControl ) );
 	}
 
 	@Override

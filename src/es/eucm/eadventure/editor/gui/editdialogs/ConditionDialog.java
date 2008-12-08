@@ -110,6 +110,12 @@ public class ConditionDialog extends JDialog {
 	 */
 	private int defaultValue;
 
+	/**
+	 * Dirty fix: ID is used as a class field to indicate that these conditionDialog 
+	 * owns to a global state. In such case it must be forbidden to refer to 
+	 * this own global state within its conditions.
+	 */
+	public static String ID;
 
 	/**
 	 * Constructor with no default selection data.
@@ -361,7 +367,11 @@ public class ConditionDialog extends JDialog {
 		
 		else if ( selectedMode == Condition.GLOBAL_STATE_CONDITION ){
 			featuresPanel.setLayout( new GridBagLayout() );
-			String[] globalStatesArray = Controller.getInstance( ).getIdentifierSummary().getGlobalStatesIds();
+			String[] globalStatesArray = null;
+			if (ID!=null)
+				globalStatesArray = Controller.getInstance( ).getIdentifierSummary().getGlobalStatesIds(ID);
+			else
+				globalStatesArray = Controller.getInstance( ).getIdentifierSummary().getGlobalStatesIds();
 			
 			GridBagConstraints c = new GridBagConstraints( );
 			c.insets = new Insets( 4, 4, 2, 4 );

@@ -10,11 +10,13 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.data.chapter.conditions.GlobalState;
+import es.eucm.eadventure.common.data.chapter.effects.Macro;
 import es.eucm.eadventure.common.loader.InputStreamCreator;
 import es.eucm.eadventure.common.loader.subparsers.BookSubParser;
 import es.eucm.eadventure.common.loader.subparsers.CharacterSubParser;
 import es.eucm.eadventure.common.loader.subparsers.ConditionSubParser;
 import es.eucm.eadventure.common.loader.subparsers.CutsceneSubParser;
+import es.eucm.eadventure.common.loader.subparsers.EffectSubParser;
 import es.eucm.eadventure.common.loader.subparsers.GraphConversationSubParser;
 import es.eucm.eadventure.common.loader.subparsers.ItemSubParser;
 import es.eucm.eadventure.common.loader.subparsers.PlayerSubParser;
@@ -79,6 +81,12 @@ public class ChapterHandler extends DefaultHandler {
 	 * Constant for subparsing global-state tag
 	 */
 	private static final int GLOBAL_STATE = 9;
+	
+	/**
+	 * Constant for subparsing macro tag
+	 */
+	private static final int MACRO = 10;
+
 
 	/**
 	 * Stores the current element being parsed
@@ -104,6 +112,12 @@ public class ChapterHandler extends DefaultHandler {
      * Current global state being subparsed
      */
 	private GlobalState currentGlobalState;
+	
+    /**
+     * Current macro being subparsed
+     */
+	private Macro currentMacro;
+
 	
 	/**
 	 * Buffer for globalstate docs
@@ -197,6 +211,21 @@ public class ChapterHandler extends DefaultHandler {
 				subParser = new ConditionSubParser( currentGlobalState, chapter );
 				subParsing = GLOBAL_STATE;
 			}
+			
+			// Subparse macro
+			else if( qName.equals( "macro" ) ) {
+				String id = null;
+				for ( int i=0; i<attrs.getLength(); i++){
+					if ( attrs.getQName(i).equals("id"))
+						id = attrs.getValue(i);
+				}
+				currentMacro = new Macro ( id );
+				currentString = new StringBuffer();
+				chapter.addMacro( currentMacro );
+				subParser = new EffectSubParser( currentMacro, chapter );
+				subParsing = MACRO;
+			}
+
 
 		}
 
@@ -211,6 +240,10 @@ public class ChapterHandler extends DefaultHandler {
 		if ( qName.equals("documentation") && subParsing == GLOBAL_STATE ){
 			currentGlobalState.setDocumentation( currentString.toString( ).trim( ) );
 		}
+		else if ( qName.equals("documentation") && subParsing == MACRO ){
+			currentMacro.setDocumentation( currentString.toString( ).trim( ) );
+		}
+
 		currentString = new StringBuffer( );
 		
 		// If an element is being subparsed
@@ -220,7 +253,9 @@ public class ChapterHandler extends DefaultHandler {
 			subParser.endElement( namespaceURI, sName, qName );
 
 			// If the element is not being subparsed anymore, return to normal state
-			if( qName.equals( "scene" ) && subParsing == SCENE || ( qName.equals( "slidescene" ) || qName.equals( "videoscene" ) ) && subParsing == CUTSCENE || qName.equals( "book" ) && subParsing == BOOK || qName.equals( "object" ) && subParsing == OBJECT || qName.equals( "player" ) && subParsing == PLAYER || qName.equals( "character" ) && subParsing == CHARACTER || qName.equals( "tree-conversation" ) && subParsing == CONVERSATION || qName.equals( "graph-conversation" ) && subParsing == CONVERSATION || qName.equals( "timer" ) && subParsing == TIMER || qName.equals( "global-state" ) && subParsing == GLOBAL_STATE) {
+			if( qName.equals( "scene" ) && subParsing == SCENE || ( qName.equals( "slidescene" ) || qName.equals( "videoscene" ) ) && subParsing == CUTSCENE || qName.equals( "book" ) && subParsing == BOOK || qName.equals( "object" ) && subParsing == OBJECT || qName.equals( "player" ) && subParsing == PLAYER || qName.equals( "character" ) && subParsing == CHARACTER || qName.equals( "tree-conversation" ) && subParsing == CONVERSATION || qName.equals( "graph-conversation" ) && subParsing == CONVERSATION || 
+					qName.equals( "timer" ) && subParsing == TIMER || qName.equals( "global-state" ) && subParsing == GLOBAL_STATE
+					|| qName.equals( "macro" ) && subParsing == MACRO) {
 				subParsing = NONE;
 			}
 

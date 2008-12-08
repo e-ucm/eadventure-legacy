@@ -1,7 +1,7 @@
 <!ENTITY % conversation "tree-conversation | graph-conversation">
 <!ENTITY % cutscene "videoscene | slidescene">
 
-<!ELEMENT eAdventure ((scene | %cutscene;)+, book*, object*, player, character*, (%conversation;)*, timer*, global-state*)>
+<!ELEMENT eAdventure ((scene | %cutscene;)+, book*, object*, player, character*, (%conversation;)*, timer*, global-state*, macro*)>
 <!ELEMENT scene (documentation?, resources+, name, default-initial-position?, exits?, objects?, characters?, active-areas?, barriers?)>
 <!ATTLIST scene
 	id ID #REQUIRED
@@ -40,11 +40,6 @@
 	idTarget IDREF #REQUIRED
 	x NMTOKEN #IMPLIED
 	y NMTOKEN #IMPLIED
->
-
-<!ELEMENT timer (documentation?, init-condition?, end-condition?, effect?, post-effect?)>
-<!ATTLIST timer 
-	time NMTOKEN #REQUIRED
 >
 
 <!ELEMENT objects (object-ref+)>
@@ -193,6 +188,12 @@
 
 <!ELEMENT go-back EMPTY>
 
+
+<!ELEMENT timer (documentation?, init-condition?, end-condition?, effect?, post-effect?)>
+<!ATTLIST timer 
+	time NMTOKEN #REQUIRED
+>
+
 <!-- TODO: REMOVE EFFECT ONCE ALL SAMPLE GAMES HAD BEEN UPDATED -->
 <!ELEMENT end-conversation (effect?)>
 <!ENTITY % basic-condition "(active|inactive| 
@@ -202,10 +203,7 @@
 <!ELEMENT condition %general-condition;>
 <!ELEMENT init-condition %general-condition;>
 <!ELEMENT end-condition %general-condition;>
-<!ELEMENT global-state (documentation?,%general-condition;)>
-<!ATTLIST global-state
-	id ID #REQUIRED
->
+
 <!ELEMENT active EMPTY>
 <!ATTLIST active
 	flag NMTOKEN #REQUIRED
@@ -244,10 +242,14 @@
 <!ATTLIST global-state-ref
 	id IDREF #REQUIRED
 >
+<!ELEMENT global-state (documentation?,%general-condition;)>
+<!ATTLIST global-state
+	id ID #REQUIRED
+>
 
 <!ELEMENT either (%basic-condition;)+>
-<!ENTITY % effects "(activate | deactivate | set-value | increment | decrement | consume-object | generate-object | cancel-action | speak-player | speak-char | play-sound | play-animation | move-player | move-npc | trigger-book | trigger-conversation | trigger-cutscene | trigger-scene | trigger-last-scene | random-effect )*">
-<!ENTITY % simple-effect "(activate | deactivate | set-value | increment | decrement | consume-object | generate-object | speak-player | speak-char | play-sound | play-animation | move-player | move-npc | trigger-book | trigger-conversation | trigger-cutscene | trigger-scene | trigger-last-scene )?">
+<!ENTITY % effects "(activate | deactivate | set-value | increment | decrement | macro-ref | consume-object | generate-object | cancel-action | speak-player | speak-char | play-sound | play-animation | move-player | move-npc | trigger-book | trigger-conversation | trigger-cutscene | trigger-scene | trigger-last-scene | random-effect )*">
+<!ENTITY % simple-effect "(activate | deactivate | set-value | increment | decrement | macro-ref | consume-object | generate-object | speak-player | speak-char | play-sound | play-animation | move-player | move-npc | trigger-book | trigger-conversation | trigger-cutscene | trigger-scene | trigger-last-scene )?">
 <!ELEMENT effect (%effects;)>
 <!ELEMENT random-effect (%simple-effect;, %simple-effect;)>
 <!ATTLIST random-effect
@@ -277,6 +279,15 @@
 <!ATTLIST decrement
 	var NMTOKEN #REQUIRED
 	value NMTOKEN #REQUIRED
+>
+<!ELEMENT macro (documentation?,%effects;)>
+<!ATTLIST macro
+	id ID #REQUIRED
+>
+
+<!ELEMENT macro-ref EMPTY>
+<!ATTLIST macro-ref
+	id IDREF #REQUIRED
 >
 
 <!ELEMENT consume-object EMPTY>

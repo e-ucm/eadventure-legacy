@@ -7,6 +7,7 @@ import es.eucm.eadventure.common.data.chapter.effects.DecrementVarEffect;
 import es.eucm.eadventure.common.data.chapter.effects.Effect;
 import es.eucm.eadventure.common.data.chapter.effects.GenerateObjectEffect;
 import es.eucm.eadventure.common.data.chapter.effects.IncrementVarEffect;
+import es.eucm.eadventure.common.data.chapter.effects.MacroReferenceEffect;
 import es.eucm.eadventure.common.data.chapter.effects.MoveNPCEffect;
 import es.eucm.eadventure.common.data.chapter.effects.MovePlayerEffect;
 import es.eucm.eadventure.common.data.chapter.effects.PlayAnimationEffect;
@@ -77,6 +78,9 @@ public abstract class FunctionalEffect {
     			break;
     		case Effect.DECREMENT_VAR:
     			fe = new FunctionalDecrementVarEffect ( (DecrementVarEffect)effect );
+    			break;
+    		case Effect.MACRO_REF:
+    			fe = new FunctionalMacroReferenceEffect ( (MacroReferenceEffect)effect );
     			break;
     		case Effect.CANCEL_ACTION:
     			break;

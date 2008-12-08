@@ -16,6 +16,8 @@ import es.eucm.eadventure.common.data.chapter.effects.Effect;
 import es.eucm.eadventure.common.data.chapter.effects.Effects;
 import es.eucm.eadventure.common.data.chapter.effects.GenerateObjectEffect;
 import es.eucm.eadventure.common.data.chapter.effects.IncrementVarEffect;
+import es.eucm.eadventure.common.data.chapter.effects.Macro;
+import es.eucm.eadventure.common.data.chapter.effects.MacroReferenceEffect;
 import es.eucm.eadventure.common.data.chapter.effects.MoveNPCEffect;
 import es.eucm.eadventure.common.data.chapter.effects.MovePlayerEffect;
 import es.eucm.eadventure.common.data.chapter.effects.PlayAnimationEffect;
@@ -40,6 +42,12 @@ public class EffectsDOMWriter {
 	 * Constant for the post effect block.
 	 */
 	public static final String POST_EFFECTS = "post-effect";
+	
+	/**
+	 * Constant for the macro block.
+	 */
+	public static final String MACRO = "macro";
+
 
 	/**
 	 * Private constructor.
@@ -57,43 +65,73 @@ public class EffectsDOMWriter {
 
 			// Create the root node
 			effectsNode = doc.createElement( type );
-
-			// Add every effect
-			for( Effect effect : effects.getEffects( ) ) {
-				
-				Element effectElement = null;
-				
-				if ( effect.getType( ) != Effect.RANDOM_EFFECT)
-					effectElement = buildEffectNode( effect, doc );
-				else{
-					RandomEffect randomEffect = (RandomEffect)effect;
-					effectElement = doc.createElement( "random-effect" );
-					effectElement.setAttribute( "probability", Integer.toString( randomEffect.getProbability( ) ) );
-					
-					Element posEfElement = null;
-					Element negEfElement = null;
-					
-					if (randomEffect.getPositiveEffect( )!=null){
-						posEfElement = buildEffectNode (randomEffect.getPositiveEffect( ), doc);
-						effectElement.appendChild( posEfElement );
-						if (randomEffect.getNegativeEffect( )!=null){
-							negEfElement = buildEffectNode (randomEffect.getNegativeEffect( ), doc);
-							effectElement.appendChild( negEfElement );
-						}
-					}
-
-					
-				}
-
-				// Add the effect
-				effectsNode.appendChild( effectElement );
-			}
-
+			appendEffects ( doc, effectsNode, effects );
+			
 		} catch( ParserConfigurationException e ) {
 			e.printStackTrace( );
 		}
-
 		return effectsNode;
+
+	}
+	
+	public static Element buildDOM( Macro macro ) {
+		Element effectsNode = null;
+
+		try {
+			// Create the necessary elements to create the DOM
+			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance( );
+			DocumentBuilder db = dbf.newDocumentBuilder( );
+			Document doc = db.newDocument( );
+
+			// Create the root node
+			effectsNode = doc.createElement( MACRO );
+			effectsNode.setAttribute("id", macro.getId());
+			Node documentationNode = doc.createElement("documentation");
+			documentationNode.appendChild(doc.createTextNode(macro.getDocumentation()));
+			effectsNode.appendChild(documentationNode);
+			appendEffects ( doc, effectsNode, macro );
+			
+		} catch( ParserConfigurationException e ) {
+			e.printStackTrace( );
+		}
+		return effectsNode;
+
+	}
+
+	
+	public static void appendEffects ( Document doc, Node effectsNode, Effects effects ){
+
+		// Add every effect
+		for( Effect effect : effects.getEffects( ) ) {
+			
+			Element effectElement = null;
+			
+			if ( effect.getType( ) != Effect.RANDOM_EFFECT)
+				effectElement = buildEffectNode( effect, doc );
+			else{
+				RandomEffect randomEffect = (RandomEffect)effect;
+				effectElement = doc.createElement( "random-effect" );
+				effectElement.setAttribute( "probability", Integer.toString( randomEffect.getProbability( ) ) );
+				
+				Element posEfElement = null;
+				Element negEfElement = null;
+				
+				if (randomEffect.getPositiveEffect( )!=null){
+					posEfElement = buildEffectNode (randomEffect.getPositiveEffect( ), doc);
+					effectElement.appendChild( posEfElement );
+					if (randomEffect.getNegativeEffect( )!=null){
+						negEfElement = buildEffectNode (randomEffect.getNegativeEffect( ), doc);
+						effectElement.appendChild( negEfElement );
+					}
+				}
+
+				
+			}
+
+			// Add the effect
+			effectsNode.appendChild( effectElement );
+		}
+
 	}
 	
 	private static Element buildEffectNode (Effect effect, Document doc){
@@ -127,6 +165,11 @@ public class EffectsDOMWriter {
 				effectElement = doc.createElement( "decrement" );
 				effectElement.setAttribute("var", decrementVarEffect.getIdVar());
 				effectElement.setAttribute("value", Integer.toString( decrementVarEffect.getDecrement() ) );
+				break;
+			case Effect.MACRO_REF:
+				MacroReferenceEffect macroRefEffect = (MacroReferenceEffect) effect;
+				effectElement = doc.createElement( "macro-ref" );
+				effectElement.setAttribute( "id", macroRefEffect.getMacroId( ) );
 				break;
 			case Effect.CONSUME_OBJECT:
 				ConsumeObjectEffect consumeObjectEffect = (ConsumeObjectEffect) effect;

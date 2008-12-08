@@ -286,6 +286,10 @@ named 'descriptor.xml' or 'chapterXX.xml' where XX is a number.</entry>
 	<entry key="Operation.AddGlobalStateTitle">Add global state</entry>
 	<entry key="Operation.AddGlobalStateMessage">Type an identifier for the new global state</entry>
 	<entry key="Operation.AddGlobalStateDefaultValue">GlobalStateId</entry>
+	
+	<entry key="Operation.AddMacroTitle">Add macro</entry>
+	<entry key="Operation.AddMacroMessage">Type an identifier for the new macro</entry>
+	<entry key="Operation.AddMacroDefaultValue">MacroId</entry>
 
 	<entry key="Operation.AddNPCTitle">Add character</entry>
 	<entry key="Operation.AddNPCMessage">Type an identifier for the new character</entry>
@@ -339,6 +343,10 @@ named 'descriptor.xml' or 'chapterXX.xml' where XX is a number.</entry>
 	
 	<entry key="Operation.RenameGlobalStateTitle">Rename global state</entry>
 	<entry key="Operation.RenameGlobalStateMessage">Type a new identifier to rename the global state</entry>
+	
+	<entry key="Operation.RenameMacroTitle">Rename macro</entry>
+	<entry key="Operation.RenameMacroMessage">Type a new identifier to rename the macro</entry>
+	
 
 	<entry key="Operation.RenameNPCTitle">Rename character</entry>
 	<entry key="Operation.RenameNPCMessage">Type a new identifier to rename the character</entry>
@@ -605,6 +613,7 @@ based on the state of the flags.</entry>
 	<entry key="Effect.TriggerLastScene">Trigger last scene</entry>
 	<entry key="Effect.TriggerScene">Trigger scene</entry>
 	<entry key="Effect.RandomEffect">Effect with probability</entry>
+	<entry key="Effect.MacroReference">Launch a macro</entry>
 
 	<entry key="Effect.ActivateInfo">Activate flag: {#0}</entry>
 	<entry key="Effect.DeactivateInfo">Deactivate flag: {#0}</entry>
@@ -612,6 +621,7 @@ based on the state of the flags.</entry>
 	<entry key="Effect.IncrementVarInfo">Increment var "{#0}" in "{#1}" units</entry>	
 	<entry key="Effect.DecrementVarInfo">Decrement var "{#0}" in "{#1}" units</entry>
 	<entry key="Effect.ConsumeObjectInfo">Consume object {#0}</entry>
+	<entry key="Effect.MacroRefInfo">Launch Macro {#0}</entry>
 	<entry key="Effect.GenerateObjectInfo">Generate object {#0}</entry>
 	<entry key="Effect.CancelActionInfo">Cancel default action</entry>
 	<entry key="Effect.SpeakPlayerInfo">Player speaks "{#0}"</entry>
@@ -651,6 +661,11 @@ based on the state of the flags.</entry>
 	
 	<entry key="DecrementVarEffect.Title">Decrement variable effect</entry>
 	<entry key="DecrementVarEffect.Description">Select the variable and the decrement</entry>
+	
+	<entry key="MacroReferenceEffect.Title">Launch macro</entry>
+	<entry key="MacroReferenceEffect.Description">Select the macro to launch at this point</entry>
+	<entry key="MacroReferenceEffect.ErrorNoMacros">Sorry, but there are no available macros to select. 
+Please remember that you cannot make any reference to a macro in its definition</entry>
 
 	<entry key="ActivateDeactivateEffect.ErrorNoFlags">To add this type of effect, there must be at least one flag in the chapter</entry>
 
@@ -1208,6 +1223,8 @@ based on the state of the flags.</entry>
 	<entry key="TreeNode.AddElement53">Add barrier</entry>
 	<entry key="TreeNode.AddElement54">Add global state</entry>
 	<entry key="TreeNode.AddElement55">Add global states list</entry>
+	<entry key="TreeNode.AddElement56">Add macro</entry>
+	<entry key="TreeNode.AddElement57">Add macros list</entry>
 	
 
 	<entry key="GeneralText.Yes">Yes</entry>
@@ -1286,6 +1303,8 @@ based on the state of the flags.</entry>
 	<entry key="Element.Name53">Barrier</entry>
 	<entry key="Element.Name54">Global state</entry>
 	<entry key="Element.Name55">Global states</entry>
+	<entry key="Element.Name56">Macro</entry>
+	<entry key="Element.Name57">Macros</entry>
 	<entry key="Element.Ref">Ref: {#0}</entry>
 	<entry key="Element.BookParagraph">Book paragraph</entry>
 	<entry key="Element.BookPage">Book page</entry>
@@ -1542,5 +1561,16 @@ avoids retyping.</entry>
 	<entry key="GlobalState.Documentation">Documentation (not used in game engine)</entry>
 	<entry key="GlobalState.Conditions">List of conditions of the global state</entry>
 	
+	<entry key="MacrosList.Title">List of macros</entry>
+	<entry key="MacrosList.Information">This is the list of macros defined in the chapter so far, along with the times each has been referenced.
+Macros are just groups of effects, which can represent important functions to be executed in the adventure games.
+They are specially useful when the same group of effects is to be referenced more than once, as it
+avoids retyping.</entry>
+	<entry key="MacrosList.ColumnHeader0">Macro id</entry>
+	<entry key="MacrosList.ColumnHeader1">References</entry>
+	<entry key="MacrosList.ListTitle">The whole list of macros and macro references</entry>
+	
+	<entry key="Macro.Documentation">Documentation (not used in game engine)</entry>
+	<entry key="Macro.Effects">List of effects of the macro</entry>
 	
 </properties>

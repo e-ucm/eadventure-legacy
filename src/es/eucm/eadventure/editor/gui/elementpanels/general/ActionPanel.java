@@ -20,6 +20,7 @@ import javax.swing.event.DocumentListener;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.general.ActionDataControl;
 import es.eucm.eadventure.editor.gui.editdialogs.ConditionsDialog;
+import es.eucm.eadventure.editor.gui.editdialogs.effectdialogs.MacroReferenceEffectDialog;
 
 public class ActionPanel extends JPanel {
 
@@ -104,6 +105,7 @@ public class ActionPanel extends JPanel {
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1;
 		c.weighty = 1;
+		MacroReferenceEffectDialog.ID = null;
 		add( new EffectsPanel( actionDataControl.getEffects( ) ), c );
 	}
 
