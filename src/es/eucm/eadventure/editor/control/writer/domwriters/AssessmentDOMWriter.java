@@ -10,6 +10,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
 import es.eucm.eadventure.common.data.assessment.AssessmentProperty;
 import es.eucm.eadventure.common.data.assessment.AssessmentRule;
 import es.eucm.eadventure.common.data.assessment.TimedAssessmentEffect;
@@ -29,8 +30,10 @@ public class AssessmentDOMWriter {
 	 *            Chapter data to be written
 	 * @return DOM element with the chapter data
 	 */
-	public static Node buildDOM( List<AssessmentRule> rules ) {
-		Node assessmentNode = null;
+	public static Node buildDOM( AssessmentProfile profile ) {
+		List<AssessmentRule> rules = profile.getRules();
+		
+		Element assessmentNode = null;
 
 		try {
 			// Create the necessary elements to create the DOM
@@ -40,6 +43,11 @@ public class AssessmentDOMWriter {
 
 			// Create the root node
 			assessmentNode = doc.createElement( "assessment-rules" );
+			if ( profile.isShowReportAtEnd() ){
+				assessmentNode.setAttribute("show-report-at-end", "yes");
+			} else {
+				assessmentNode.setAttribute("show-report-at-end", "no");
+			}
 
 			// Append the assessment rules
 			for( AssessmentRule rule : rules ) {

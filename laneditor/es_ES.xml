@@ -1395,6 +1395,10 @@ Si no los cambia, el juego empleará los cursores por defecto (ambientación fan
 	<entry key="AssessmentRulesList.Title">Resumen de reglas de evaluación</entry>
 	<entry key="AssessmentRulesList.Information">Estas son las reglas de evaluación definidas en este perfil. Para añadir nuevas reglas o editar las existentes, use el botón derecho en el perfil de evaluación en el árbol de la izquierda y seleccione la opción correspondiente.</entry>
 
+	<entry key="AssessmentProfile.Feedback.Title">Configuración de "feedback" al alumno</entry>
+	<entry key="AssessmentProfile.Feedback.Description">Aquí puede encontrar diversas opciones para configurar el "feedback" que recibe el alumno. Por el momento sólo puede seleccionar que el informe de evaluación se muestre de forma automática al final del capítulo.</entry>
+	<entry key="AssessmentProfile.Feedback.ShowReportAtEnd">Mostrar informe de evaluación al final del capítulo</entry>
+
 	<entry key="AssessmentProfiles.Title">Perfiles de evaluación</entry>
 	<entry key="AssessmentProfiles.Information">Esta sección del árbol permite la creación y modificación de los perfiles de evaluación. Para activar uno de los perfiles, emplee el selector en la pantalla de edición de las propiedades generales del capítulo.</entry>
 	

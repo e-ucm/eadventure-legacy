@@ -14,7 +14,7 @@ import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentRuleDa
 import es.eucm.eadventure.editor.control.controllers.general.ChapterDataControl;
 import es.eucm.eadventure.editor.control.controllers.timer.TimerDataControl;
 import es.eucm.eadventure.editor.control.controllers.timer.TimersListDataControl;
-import es.eucm.eadventure.editor.gui.elementpanels.assessment.AssessmentRulesListPanel;
+import es.eucm.eadventure.editor.gui.elementpanels.assessment.AssessmentProfilePanel;
 import es.eucm.eadventure.editor.gui.elementpanels.general.ChapterPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.timer.TimersListPanel;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.TreeNode;

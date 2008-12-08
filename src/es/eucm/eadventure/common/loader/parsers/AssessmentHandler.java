@@ -10,6 +10,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
 import es.eucm.eadventure.common.data.assessment.AssessmentProperty;
 import es.eucm.eadventure.common.data.assessment.AssessmentRule;
 import es.eucm.eadventure.common.data.assessment.TimedAssessmentRule;
@@ -80,26 +81,26 @@ public class AssessmentHandler extends DefaultHandler {
      */
     private InputStreamCreator isCreator;
     
+    /**
+     * The assessment profile
+     */
+    private AssessmentProfile profile;
+    
     /* Methods */
     
     /**
      * Default constructor
      */
-    public AssessmentHandler( InputStreamCreator isCreator, List<AssessmentRule> assRules ) {
-        assessmentRules = assRules;
+    public AssessmentHandler( InputStreamCreator isCreator, AssessmentProfile profile ) {
+    	this.profile = profile; 
+        assessmentRules = profile.getRules();
         currentAssessmentRule = null;
         currentString = new StringBuffer( );
         vars = new ArrayList<String>();
         flags = new ArrayList<String>();
+        profile.setFlags(flags);
+        profile.setVars(vars);
         this.isCreator = isCreator;
-    }
-    
-    /**
-     * Return the list of the assessment rules
-     * @return List of assessment rules, empty list if no parsing were performed
-     */
-    public List<AssessmentRule> getAssessmentRules( ) {
-        return assessmentRules;
     }
     
     private void addFlag ( String flag ){
@@ -119,8 +120,18 @@ public class AssessmentHandler extends DefaultHandler {
      * @see org.xml.sax.ContentHandler#startElement(java.lang.String, java.lang.String, java.lang.String, org.xml.sax.Attributes)
      */
     public void startElement( String namespaceURI, String sName, String qName, Attributes attrs ) throws SAXException {
-        
-        if( qName.equals( "assessment-rule" ) ) {
+
+    	if( qName.equals( "assessment-rules" ) ) {
+            
+            for( int i = 0; i < attrs.getLength( ); i++ ) {
+                if( attrs.getQName( i ).equals( "show-report-at-end" ) ){
+                	profile.setShowReportAtEnd( attrs.getValue( i ).equals("yes") );
+                }            
+            }
+            
+        }
+    	
+    	else if( qName.equals( "assessment-rule" ) ) {
             
             String id = null;
             int importance = 0;
@@ -418,20 +429,6 @@ public class AssessmentHandler extends DefaultHandler {
         throw exception;
     }
 
-	/**
-	 * @return the flags
-	 */
-	public List<String> getFlags() {
-		return flags;
-	}
-
-	/**
-	 * @return the vars
-	 */
-	public List<String> getVars() {
-		return vars;
-	}
-    
     /*
      *  (non-Javadoc)
      * @see org.xml.sax.EntityResolver#resolveEntity(java.lang.String, java.lang.String)

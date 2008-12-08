@@ -3,6 +3,8 @@ package es.eucm.eadventure.common.data.assessment;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.editor.control.Controller;
+
 /**
  * Stores an assessment profile. Each profile contains the path of the xml file where it is stored (relative to the zip file), along with the
  * list of assessment rules defined in the profile
@@ -30,6 +32,12 @@ public class AssessmentProfile {
 	 * List of referenced vars
 	 */
 	private List<String> vars;
+	
+	////////FEEDBACK
+	/**
+	 * If true, the assessment report is shown to the student at the end of the chapter
+	 */
+	private boolean showReportAtEnd;
 	
 	/**
 	 * Empty constructor 
@@ -135,5 +143,20 @@ public class AssessmentProfile {
 	 */
 	public void setVars(List<String> vars) {
 		this.vars = vars;
+	}
+
+	/**
+	 * @return the showReportAtEnd
+	 */
+	public boolean isShowReportAtEnd() {
+		return showReportAtEnd;
+	}
+
+	/**
+	 * @param showReportAtEnd the showReportAtEnd to set
+	 */
+	public void setShowReportAtEnd(boolean showReportAtEnd) {
+		this.showReportAtEnd = showReportAtEnd;
+		Controller.getInstance().dataModified();
 	}
 }

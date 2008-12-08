@@ -1,4 +1,8 @@
 <!ELEMENT assessment-rules ((assessment-rule | timed-assessment-rule)*)>
+<!ATTLIST assessment-rules
+	show-report-at-end ( yes | no ) "no"
+>
+
 <!ELEMENT assessment-rule (concept?, condition?, effect?)>
 <!ATTLIST assessment-rule
 	id ID #REQUIRED

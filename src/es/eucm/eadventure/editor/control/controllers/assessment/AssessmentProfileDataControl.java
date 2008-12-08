@@ -252,7 +252,7 @@ public class AssessmentProfileDataControl extends DataControl{
 		for (int i=0; i<profile.getRules().size( ); i++){
 			info[i][0] = profile.getRules().get( i ).getId( );
 			info[i][1] = IMPORTANCE_VALUES_PRINT[profile.getRules().get( i ).getImportance( )];
-			info[i][2] = (profile.getRules().get( i ).getConditions( ).isEmpty( ))?"No":"Yes";
+			info[i][2] = (profile.getRules().get( i ).getConditions( ).isEmpty( ))?TextConstants.getText("GeneralText.No"):TextConstants.getText("GeneralText.Yes");
 		}
 		return info;
 	}
@@ -274,6 +274,20 @@ public class AssessmentProfileDataControl extends DataControl{
 	@Override
 	public boolean canBeDuplicated( ) {
 		return true;
+	}
+	
+	/**
+	 * @return the showReportAtEnd
+	 */
+	public boolean isShowReportAtEnd() {
+		return profile.isShowReportAtEnd();
+	}
+
+	/**
+	 * @param showReportAtEnd the showReportAtEnd to set
+	 */
+	public void setShowReportAtEnd(boolean showReportAtEnd) {
+		profile.setShowReportAtEnd(showReportAtEnd);
 	}
 
 }
