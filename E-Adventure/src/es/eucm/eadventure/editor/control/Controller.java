@@ -1970,7 +1970,9 @@ public class Controller {
 				
 				@Override
 				public void run() {
+					mainWindow.setNormalRunAvailable( false );
 					EAdventureDebug.debug(Controller.getInstance().adventureData.getAdventureData(), AssetsController.getInputStreamCreator());
+					mainWindow.setNormalRunAvailable( true );
 				}
 				
 			}, 1000);

@@ -1,15 +1,24 @@
 package es.eucm.eadventure.engine.assessment;
 
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintStream;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.swing.JButton;
+import javax.swing.JEditorPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -34,6 +43,7 @@ import es.eucm.eadventure.engine.core.control.TimerEventListener;
 import es.eucm.eadventure.engine.core.control.TimerManager;
 import es.eucm.eadventure.engine.core.control.VarSummary;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
+import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 import es.eucm.eadventure.common.loader.Loader;
 import es.eucm.eadventure.common.loader.incidences.Incidence;
@@ -44,6 +54,19 @@ import es.eucm.eadventure.common.loader.incidences.Incidence;
  */
 public class AssessmentEngine implements TimerEventListener{
 
+	public static String REPORTS_FOLDER = "../Reports";
+	
+	public static int STATE_STARTED = 1;
+	
+	public static int STATE_NONE = 0;
+	
+	public static int STATE_DONE = 2;
+	
+	/**
+	 * Current assessment profile
+	 */
+	private AssessmentProfile assessmentProfile;
+	
     /**
      * List of rules to be checked
      */
@@ -59,12 +82,15 @@ public class AssessmentEngine implements TimerEventListener{
      */
     private HashMap<Integer, TimedAssessmentRule> timedRules;
     
+    private int state;
+    
     /**
      * Constructor
      */
     public AssessmentEngine( ) {
         processedRules = new ArrayList<ProcessedRule>( );
         timedRules = new HashMap<Integer, TimedAssessmentRule>();
+        state = STATE_NONE;
     }
 
     /**
@@ -73,15 +99,15 @@ public class AssessmentEngine implements TimerEventListener{
      */
     public void loadAssessmentRules( String assessmentPath ) {
     	if (assessmentPath!=null && !assessmentPath.equals("")){
-	    	AssessmentProfile profile = Loader.loadAssessmentProfile(ResourceHandler.getInstance(), assessmentPath, new ArrayList<Incidence>());
-	        assessmentRules = profile.getRules();
+	    	assessmentProfile = Loader.loadAssessmentProfile(ResourceHandler.getInstance(), assessmentPath, new ArrayList<Incidence>());
+	        assessmentRules = assessmentProfile.getRules();
 		    
 	        FlagSummary flags = Game.getInstance().getFlags();
 		    VarSummary vars = Game.getInstance().getVars();
-		    for (String flag: profile.getFlags() ){
+		    for (String flag: assessmentProfile.getFlags() ){
 		    	flags.addFlag ( flag );
 		    }
-		    for (String var: profile.getVars() ){
+		    for (String var: assessmentProfile.getVars() ){
 		    	vars.addVar ( var );
 		    }
     	} else {
@@ -325,4 +351,68 @@ public class AssessmentEngine implements TimerEventListener{
         TimerManager.getInstance( ).deleteTimer( timerId );
         //System.out.println( "[TIMER DONE] " + timerId + " - time: "+currentTime );
     }
+    
+    public boolean isEndOfChapterFeedbackDone (){
+        //if(gameDescriptor.getChapterSummaries().get(currentChapter-1).hasAssessmentProfile( )) {
+    	if ( state == STATE_NONE && assessmentProfile.isShowReportAtEnd() ){
+    		try {
+    			state = STATE_STARTED;
+	            int i=0;
+	            File reportFile = null;
+	            String fileName = null;
+	            do{
+	                i++;
+	                fileName = "Report_"+i+".html";
+	                reportFile = new File(REPORTS_FOLDER, fileName);
+	            } while (reportFile.exists( ));
+	            if ( !new File ( REPORTS_FOLDER).exists() ){
+	            	new File ( REPORTS_FOLDER).mkdirs();
+	            }
+	            reportFile.createNewFile();
+	            generateHTMLReport( reportFile.getAbsolutePath( ), -5 );
+	            
+	            JEditorPane reportPanel= new JEditorPane();
+	            reportPanel.setContentType( "text/html" );
+          
+				reportPanel.setPage( reportFile.toURI( ).toURL( ) );
+	            reportPanel.setEditable( false );
+	            
+	            JScrollPane contentPanel = new JScrollPane (reportPanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+	            JPanel panel = new JPanel();
+	            panel.setLayout( new BorderLayout() );
+	            panel.add( contentPanel, BorderLayout.CENTER );
+	            
+	            JPanel buttonPanel = new JPanel();
+	            JButton ok = new JButton("OK");
+	            ok.addActionListener( new ActionListener(){
+	
+	                public void actionPerformed( ActionEvent e ) {
+	                    GUI.getInstance( ).restoreFrame( );
+	                    state = STATE_DONE;
+	                }
+	                
+	            });
+	            buttonPanel.add( ok );
+	            
+	            panel.add( buttonPanel, BorderLayout.SOUTH );
+	            
+	            GUI.getInstance( ).showComponent( panel );
+	            
+	            //new ReportDialog( GUI.getInstance( ).getFrame( ), assessmentEngine, adventureName );
+			} catch (MalformedURLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			return false;
+        } else if ( state == STATE_STARTED ){
+        	return false;
+        } else if ( state == STATE_DONE ){
+        	return true;
+        } else
+        	return true;
+    }
+    	
 }

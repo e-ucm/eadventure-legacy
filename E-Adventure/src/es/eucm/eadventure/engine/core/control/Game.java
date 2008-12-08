@@ -515,51 +515,10 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
                 }
                 
                 //If there is an assessment profile, show the "Save Report" dialog
-                //FIXME: Quick dirty fix
-                if(currentChapter>0) {
-                    if(gameDescriptor.getChapterSummaries().get(currentChapter-1).hasAssessmentProfile( )) {
-                        
-                        int i=0;
-                        File reportFile = null;
-                        do{
-                            i++;
-                            reportFile = new File("Report_"+i+".html");
-                        } while (reportFile.exists( ));
-                        this.assessmentEngine.generateHTMLReport( reportFile.getAbsolutePath( ), -5 );
-                        
-                        JEditorPane reportPanel= new JEditorPane();
-                        reportPanel.setContentType( "text/html" );
-                        reportPanel.setPage( reportFile.toURI( ).toURL( ) );
-                        reportPanel.setEditable( false );
-                        
-                        JScrollPane contentPanel = new JScrollPane (reportPanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-                        JPanel panel = new JPanel();
-                        panel.setLayout( new BorderLayout() );
-                        panel.add( contentPanel, BorderLayout.CENTER );
-                        
-                        JPanel buttonPanel = new JPanel();
-                        JButton ok = new JButton("OK");
-                        ok.addActionListener( new ActionListener(){
-
-                            public void actionPerformed( ActionEvent e ) {
-                                GUI.getInstance( ).restoreFrame( );
-                                FINISH = true;
-                            }
-                            
-                        });
-                        buttonPanel.add( ok );
-                        
-                        panel.add( buttonPanel, BorderLayout.SOUTH );
-                        
-                        GUI.getInstance( ).showComponent( panel );
-                        
-                        while (!FINISH){
-                            Thread.sleep( 10 );
-                        }
-                        //new ReportDialog( GUI.getInstance( ).getFrame( ), assessmentEngine, adventureName );
-                    }
+                while ( !assessmentEngine.isEndOfChapterFeedbackDone() ){
+                	Thread.sleep(100);
                 }
-                
+
                 if( currentChapter == gameDescriptor.getChapterSummaries().size() )
                     gameOver = true;
             

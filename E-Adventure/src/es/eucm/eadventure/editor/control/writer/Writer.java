@@ -33,7 +33,6 @@ import es.eucm.eadventure.common.data.adaptation.AdaptationProfile;
 import es.eucm.eadventure.common.data.adaptation.AdaptationRule;
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
 import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
-import es.eucm.eadventure.common.data.assessment.AssessmentRule;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
@@ -273,8 +272,6 @@ public class Writer {
 		boolean dataSaved=false;
 		if (controller.getPath( )!= null && !controller.getPath( ).equals( "" ) && new File(zipFilename, controller.getPath( )).exists()){
 		
-		List<AssessmentRule> rules = ((AssessmentProfile)controller.getContent( )).getRules();
-		
 		// Create the necessary elements for building the DOM
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance( );
 		TransformerFactory tFactory = TransformerFactory.newInstance( );
@@ -288,7 +285,7 @@ public class Writer {
 			db = dbf.newDocumentBuilder( );
 		
 			// Pick the main node of the chapter
-			Node assNode = AssessmentDOMWriter.buildDOM( rules );
+			Node assNode = AssessmentDOMWriter.buildDOM( (AssessmentProfile)controller.getContent( ) );
 			indentDOM( assNode, 0 );
 			
 			doc = db.newDocument( );

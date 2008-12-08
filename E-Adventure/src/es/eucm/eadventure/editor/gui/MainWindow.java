@@ -88,6 +88,8 @@ public class MainWindow extends JFrame {
 	 */
 	private Stack<Window> windowsStack;
 	
+	private JMenuItem normalRun;
+	
 	/**
 	 * Constructor. Creates the general layout.
 	 */
@@ -467,7 +469,7 @@ public class MainWindow extends JFrame {
 		updateChapterMenu( );
 
 		// Create "run" elements
-		JMenuItem normalRun = new JMenuItem( TextConstants.getText( "MenuRun.Normal" ) );
+		normalRun = new JMenuItem( TextConstants.getText( "MenuRun.Normal" ) );
 		normalRun.setAccelerator( KeyStroke.getKeyStroke( 'R', InputEvent.CTRL_MASK ) );
 		normalRun.addActionListener( new ActionListener(){
 
@@ -570,6 +572,10 @@ public class MainWindow extends JFrame {
 
 		return windowMenu;
 	}*/
+
+	public void setNormalRunAvailable ( boolean available ){
+		this.normalRun.setEnabled ( available );
+	}
 	
 	/**
 	 * This method reloads the data of the window. It picks the new tree, along with the file name.

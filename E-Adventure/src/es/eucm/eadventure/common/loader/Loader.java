@@ -18,7 +18,6 @@ import es.eucm.eadventure.common.data.adaptation.AdaptedState;
 import es.eucm.eadventure.common.data.adventure.AdventureData;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
-import es.eucm.eadventure.common.data.assessment.AssessmentRule;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.common.loader.incidences.Incidence;
@@ -220,8 +219,9 @@ public class Loader {
 			// Open the file and load the data
 			try {
 				// Set the chapter handler
-				List<AssessmentRule> rules = new ArrayList<AssessmentRule>();
-				AssessmentHandler assParser = new AssessmentHandler( isCreator, rules );
+				AssessmentProfile profile = new AssessmentProfile();
+				profile.setPath(xmlFile);
+				AssessmentHandler assParser = new AssessmentHandler( isCreator, profile );
 	
 				// Create a new factory
 				SAXParserFactory factory = SAXParserFactory.newInstance( );
@@ -236,11 +236,8 @@ public class Loader {
 				// Finally add the new controller to the list
 				// Create the new profile
 				
-				newProfile = new AssessmentProfile(assParser.getAssessmentRules( ), xmlFile );
-	
 				// Fill flags & vars
-				newProfile.setFlags(assParser.getFlags());
-				newProfile.setVars(assParser.getVars());
+				newProfile = profile;
 
 			} catch( ParserConfigurationException e ) {
 				//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadAssessmentData" ) );
