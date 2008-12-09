@@ -156,6 +156,21 @@ public abstract class ConversationNode implements ConversationNodeView {
     
     
     /**
+     * Set the voice for synthesize the specified line
+     * 
+     */
+    public void setSynthesizerVoice(String voice, int line){
+    	getLine(line).setSynthesizerVoice(voice);
+    }
+    
+    /**
+     * Get the voice for the specified line
+     */
+    public String getSynthesizerVoice(int line){
+    	return getLine(line).getSynthesizerVoice();
+    }
+    
+    /**
      * This method is only used in OptionConversationNode. Make the options to appear randomly
      */
     //public abstract void doRandom();

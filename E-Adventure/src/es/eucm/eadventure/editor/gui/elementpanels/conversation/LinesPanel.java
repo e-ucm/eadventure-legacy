@@ -106,7 +106,12 @@ class LinesPanel extends JPanel {
 	 * "Delete option" button
 	 */
 	private JButton deleteOptionButton;
-
+	
+	/**
+	 * "Edit Synthesizer" button
+	 */
+	private JButton editSynthesizeButton;
+	
 	/* Methods */
 
 	/**
@@ -185,6 +190,8 @@ class LinesPanel extends JPanel {
 		editEffectButton.addActionListener( new ListenerButtonEditEffect( ) );
 		deleteLinkButton = new JButton( TextConstants.getText( "Conversations.DeleteLink" ) );
 		deleteLinkButton.addActionListener( new ListenerButtonDeleteLink( ) );
+		editSynthesizeButton = new JButton( TextConstants.getText( "Conversations.EditSynthesize" ) );
+		editSynthesizeButton.addActionListener( new ListenerButtonEditSynthesizer( ) );
 		/* End of dialogue panel elements */
 
 		/* Option panel elements */
@@ -205,6 +212,7 @@ class LinesPanel extends JPanel {
 		moveLineDownButton.setEnabled( false );
 		deleteLineButton.setEnabled( false );
 		editAudioButton.setEnabled( false );
+		editSynthesizeButton.setEnabled(false);
 
 		// Create constraints
 		GridBagConstraints c = new GridBagConstraints( );
@@ -248,6 +256,9 @@ class LinesPanel extends JPanel {
 
 		c.gridy = 4;
 		add( deleteLinkButton, c );
+		
+		c.gridy = 5;
+		add( editSynthesizeButton, c );
 	}
 
 	/**
@@ -262,6 +273,7 @@ class LinesPanel extends JPanel {
 		moveLineDownButton.setEnabled( false );
 		deleteOptionButton.setEnabled( false );
 		editAudioButton.setEnabled(false);
+		editSynthesizeButton.setEnabled(false);
 		 
 		// Create constraints
 		GridBagConstraints c = new GridBagConstraints( );
@@ -298,6 +310,10 @@ class LinesPanel extends JPanel {
 		// Add the effects option button
 		c.gridy = 2;
 		add(editEffectButton,c);
+		
+		// Add the edit synthesizer button 
+		c.gridy = 5;
+		add( editSynthesizeButton, c );
 	}
 
 	/**
@@ -595,6 +611,20 @@ class LinesPanel extends JPanel {
 			}
 		}
 	}
+	
+	private class ListenerButtonEditSynthesizer implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+			// Take the selected row, and the selected node
+			int selectedRow = lineTable.getSelectedRow( );
+			ConversationNodeView selectedNode = conversationPanel.getSelectedNode( );
+			conversationDataControl.editSynthesize(selectedRow, selectedNode);
+			
+		}
+		
+	}
 
 	/**
 	 * Private class managing the selection listener of the table
@@ -618,6 +648,7 @@ class LinesPanel extends JPanel {
 				deleteOptionButton.setEnabled( false );
 				deleteLineButton.setEnabled( false );
 				editAudioButton.setEnabled( false );
+				editSynthesizeButton.setEnabled(false);
 			}
 
 			// If there is a line selected
@@ -628,7 +659,7 @@ class LinesPanel extends JPanel {
 				deleteOptionButton.setEnabled( true );
 				deleteLineButton.setEnabled( true );
 				editAudioButton.setEnabled( true );
-				
+				editSynthesizeButton.setEnabled(true);
 
 				// If the node is an option node
 				if( conversationPanel.getSelectedNode( ).getType( ) == ConversationNodeView.OPTION ) {

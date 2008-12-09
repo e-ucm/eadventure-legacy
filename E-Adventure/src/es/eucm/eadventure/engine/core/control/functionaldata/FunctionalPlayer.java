@@ -2,6 +2,9 @@ package es.eucm.eadventure.engine.core.control.functionaldata;
 
 import java.awt.Color;
 
+import com.sun.speech.freetts.Voice;
+import com.sun.speech.freetts.VoiceManager;
+
 import es.eucm.eadventure.common.data.chapter.Exit;
 import es.eucm.eadventure.common.data.chapter.elements.Element;
 import es.eucm.eadventure.common.data.chapter.elements.Player;
@@ -273,7 +276,13 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
     
     
     private boolean isTransparent=false;
-
+    
+    /**
+     * This is an Voice object of FreeTTS, that is used to synthesize the sound of a 
+     * conversation line.
+     */
+    private Voice voice;
+    
     /**
      * @return the isTransparent
      */
@@ -326,6 +335,9 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
         
         speedX = 0;
         speedY = 0;
+        
+        
+       
     }
 
     /**
@@ -548,7 +560,23 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
         talkingAnimation.setText( text );
         setState( TALK );
     }
-
+    
+    /**
+     * TODO poner bien docu!!!
+     * Funcion que va a leer del TTS!!!!!!
+     */
+    public void speakWithFreeTTS(String text, String voice){
+    	// Start the voice
+        VoiceManager voiceManager = VoiceManager.getInstance();
+        
+        // TODO ver que la voz exista!!!
+        this.voice = voiceManager.getVoice(voice);
+        this.voice.allocate();
+        this.voice.speak(text);
+        talkingAnimation.setText( text );
+        setState( TALK );
+        
+    }
     
     /*
      *  (non-Javadoc)

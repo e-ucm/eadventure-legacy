@@ -175,10 +175,12 @@
 <!ATTLIST speak-char
 	idTarget IDREF #IMPLIED
 	uri CDATA #IMPLIED
+	synthesize CDATA #IMPLIED
 >
 <!ELEMENT speak-player (#PCDATA)>
 <!ATTLIST speak-player
 	uri CDATA #IMPLIED
+	synthesize CDATA #IMPLIED
 >
 <!ELEMENT response ((option)+, effect?)>
 <!ATTLIST response

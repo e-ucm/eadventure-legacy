@@ -26,6 +26,11 @@ public class ConversationLine {
 	 * Path for the audio track where the line is recorded. Its use is optional.
 	 */
 	private String audioPath;
+	
+	/**
+	 * Tell if the line has to be read by synthesizer, and with which voice
+	 */
+	private String synthesizerVoice;
 
 	/**
 	 * Constructor.
@@ -38,6 +43,7 @@ public class ConversationLine {
 	public ConversationLine( String name, String text ) {
 		this.name = name;
 		this.text = text;
+		this.synthesizerVoice = new String("");
 	}
 
 	/**
@@ -107,4 +113,28 @@ public class ConversationLine {
 	public boolean isValidAudio(){
 		return audioPath!=null && !audioPath.equals( "" );
 	}
+
+	/**
+	 * Returns the voice that has to be read by synthesizer
+	 * 
+	 * @return
+	 * 		if this line has to be read by synthesizer
+	 */
+	public String getSynthesizerVoice() {
+		return synthesizerVoice;
+	}
+
+	/**
+	 * Set the voice to be read by synthesizer
+	 * 
+	 * @param synthesizerVoice
+	 * 				true for to be read by synthesizer
+	 */
+	public void setSynthesizerVoice(String synthesizerVoice) {
+		this.synthesizerVoice = synthesizerVoice;
+	}
+
+	
+
+	
 }

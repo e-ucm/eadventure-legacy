@@ -1111,6 +1111,7 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="Conversations.EditEffect">Edit effect</entry>
 	<entry key="Conversations.DeleteLink">Delete link</entry>
 	<entry key="Conversations.DeleteOption">Delete option</entry>
+	<entry key="Conversations.EditSynthesize">Synthesize option</entry>
 
 	<entry key="Conversation.OptionPreviewConversation">Preview conversation</entry>
 	<entry key="Conversation.OptionPreviewPartialConversation">Preview conversation from this node</entry>
@@ -1577,4 +1578,8 @@ avoids retyping.</entry>
 	<entry key="Macro.Documentation">Documentation (not used in game engine)</entry>
 	<entry key="Macro.Effects">List of effects of the macro</entry>
 	
+	<entry key="Synthesizer.Title">Edit synthetizer voices</entry>
+	<entry key="Synthesizer.Empty">No voice</entry>
+	<entry key="Synthesizer.BorderVoices">Current voice</entry>
+	<entry key="Synthesizer.ButtonPlay">Play sample</entry>
 </properties>
