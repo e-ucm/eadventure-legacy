@@ -1,5 +1,7 @@
 package es.eucm.eadventure.common.loader.parsers;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import org.xml.sax.Attributes;
@@ -329,8 +331,21 @@ public class ChapterHandler extends DefaultHandler {
         int startFilename = systemId.lastIndexOf( "/" ) + 1;
         String filename = systemId.substring( startFilename, systemId.length( ) );
         
-        // Build and return a input stream with the file (usually the DTD)
-        InputStream inputStream = isCreator.buildInputStream( filename );   
+        // Build and return a input stream with the file (usually the DTD): 
+        // 1) First try looking at main folder
+        InputStream inputStream = AdaptationHandler.class.getResourceAsStream( filename );
+        if ( inputStream==null ){
+        	try {
+				inputStream = new FileInputStream ( filename );
+			} catch (FileNotFoundException e) {
+				inputStream = null;
+			}
+        }
+        
+        // 2) Secondly use the inputStreamCreator
+        if ( inputStream == null)
+        	inputStream = isCreator.buildInputStream( filename );
+        
         return new InputSource( inputStream );
     }
 

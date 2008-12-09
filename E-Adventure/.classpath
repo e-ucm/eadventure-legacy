@@ -14,5 +14,12 @@
 	<classpathentry kind="lib" path="jars/kafenio-config.jar"/>
 	<classpathentry kind="lib" path="jars/kafenio-icons.jar"/>
 	<classpathentry kind="lib" path="jars/kafenio.jar"/>
+	<classpathentry kind="lib" path="jars/cmu_time_awb.jar"/>
+	<classpathentry kind="lib" path="jars/cmu_us_kal.jar"/>
+	<classpathentry kind="lib" path="jars/cmudict04.jar"/>
+	<classpathentry kind="lib" path="jars/cmulex.jar"/>
+	<classpathentry kind="lib" path="jars/cmutimelex.jar"/>
+	<classpathentry kind="lib" path="jars/en_us.jar"/>
+	<classpathentry kind="lib" path="jars/freetts.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
