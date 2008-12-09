@@ -1,12 +1,18 @@
 package es.eucm.eadventure.common.loader.parsers;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+
 import org.xml.sax.Attributes;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import es.eucm.eadventure.common.data.animation.Animation;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
+import es.eucm.eadventure.common.loader.InputStreamCreator;
 import es.eucm.eadventure.common.loader.subparsers.FrameSubParser;
 import es.eucm.eadventure.common.loader.subparsers.TransitionSubParser;
 
@@ -54,8 +60,14 @@ public class AnimationHandler extends DefaultHandler {
 	 */
 	private Animation animation;
 
+    /**
+     * InputStreamCreator used in resolveEntity to find dtds (only required in Applet mode)
+     */
+    //private InputStreamCreator isCreator;
+
 	
-	public AnimationHandler() {
+	public AnimationHandler( /*InputStreamCreator isCreator*/ ) {
+		//this.isCreator = isCreator;
 	}
 	
 	@Override
@@ -164,4 +176,31 @@ public class AnimationHandler extends DefaultHandler {
 	public Animation getAnimation() {
 		return animation;
 	}
+	
+    /*
+     *  (non-Javadoc)
+     * @see org.xml.sax.EntityResolver#resolveEntity(java.lang.String, java.lang.String)
+     */
+    public InputSource resolveEntity( String publicId, String systemId ) {
+        // Take the name of the file SAX is looking for
+        int startFilename = systemId.lastIndexOf( "/" ) + 1;
+        String filename = systemId.substring( startFilename, systemId.length( ) );
+        
+        // Build and return a input stream with the file (usually the DTD): 
+        // 1) First try looking at main folder
+        InputStream inputStream = AdaptationHandler.class.getResourceAsStream( filename );
+        if ( inputStream==null ){
+        	try {
+				inputStream = new FileInputStream ( filename );
+			} catch (FileNotFoundException e) {
+				inputStream = null;
+			}
+        }
+        
+        // 2) Secondly use the inputStreamCreator
+        //if ( inputStream == null)
+        	//inputStream = isCreator.buildInputStream( filename );
+        
+        return new InputSource( inputStream );
+    }
 }
