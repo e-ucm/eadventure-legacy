@@ -11,6 +11,7 @@ import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.gui.assetchooser.AssetChooser;
 import es.eucm.eadventure.editor.gui.editdialogs.EffectsDialog;
+import es.eucm.eadventure.editor.gui.editdialogs.SynthesizerDialog;
 
 public abstract class ConversationDataControl extends DataControl {
 
@@ -530,8 +531,24 @@ public abstract class ConversationDataControl extends DataControl {
 		
 	}
 	
+	/**
+	 * Check if in selectedNode is active the random option
+	 * 
+	 * @param selectedNode
+	 * 				The node in which will it ask
+	 * @return
+	 */
 	public boolean isRandomActivate(ConversationNodeView selectedNode){
 		ConversationNode node = (ConversationNode) selectedNode;
 		return ((OptionConversationNode)node).isRandom();
+	}
+	
+	/**
+	 * 
+	 */
+	public void editSynthesize(int selectedRow, ConversationNodeView selectedNode){
+		ConversationNode node = (ConversationNode) selectedNode;
+		
+		new SynthesizerDialog(selectedRow, node);
 	}
 }

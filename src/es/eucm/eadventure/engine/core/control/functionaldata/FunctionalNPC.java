@@ -3,6 +3,9 @@ package es.eucm.eadventure.engine.core.control.functionaldata;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
+import com.sun.speech.freetts.Voice;
+import com.sun.speech.freetts.VoiceManager;
+
 import es.eucm.eadventure.common.data.chapter.elements.Element;
 import es.eucm.eadventure.common.data.chapter.elements.Item;
 import es.eucm.eadventure.common.data.chapter.elements.NPC;
@@ -104,6 +107,12 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
      * Last player's direction set
      */
     //private int lastDirection = -1;
+    
+    /**
+     * This is an Voice object of FreeTTS, that is used to synthesize the sound of a 
+     * conversation line.
+     */
+    private Voice voice;
     
     /**
      * Creates a new FunctionalNCP
@@ -300,6 +309,22 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
         talkingAnimation.setText( text );
         setState( TALK );
 
+    }
+    
+    /**
+     * TODO poner bien docu!!!
+     * Funcion que va a leer del TTS!!!!!!
+     */
+    public void speakWithFreeTTS(String text, String voice){
+    	// Start the voice
+        VoiceManager voiceManager = VoiceManager.getInstance();
+        
+        // TODO ver que la voz exista!!!
+        this.voice = voiceManager.getVoice(voice);
+        this.voice.allocate();
+        this.voice.speak(text);
+        talkingAnimation.setText( text );
+        setState( TALK );
     }
     
     /*

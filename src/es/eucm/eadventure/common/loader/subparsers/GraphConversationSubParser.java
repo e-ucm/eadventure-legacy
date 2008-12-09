@@ -86,6 +86,11 @@ public class GraphConversationSubParser extends SubParser {
 	 */
 	private boolean random;
 	
+	/**
+	 * The voice for the synthesizer for a conversation line
+	 */
+	private String synthesizerVoice;
+	
 	/* Methods */
 
 	/**
@@ -148,6 +153,7 @@ public class GraphConversationSubParser extends SubParser {
 				// Set default name to "NPC"
 				characterName = "NPC";
 				audioPath="";
+				synthesizerVoice = "";
 
 				for (int i=0 ; i<attrs.getLength( ); i++){
 					// If there is a "idTarget" attribute, store it
@@ -157,6 +163,9 @@ public class GraphConversationSubParser extends SubParser {
 					// If there is a "uri" attribute, store it as audio path
 					if( attrs.getQName( i ).equals( "uri" ) )
 						audioPath = attrs.getValue( i );
+					// If there is a "synthesize" attribute, store it as voice name
+					if (attrs.getQName(i).equals("synthesize"))
+						synthesizerVoice = attrs.getValue(i);
 				}
 			}
 			
@@ -169,6 +178,9 @@ public class GraphConversationSubParser extends SubParser {
 					// If there is a "uri" attribute, store it as audio path
 					if( attrs.getQName( i ).equals( "uri" ) )
 						audioPath = attrs.getValue( i );
+					// If there is a "synthesize" attribute, store it as voice name
+					if (attrs.getQName(i).equals("synthesize"))
+						synthesizerVoice = attrs.getValue(i);
 				}
 			}
 			
@@ -232,6 +244,8 @@ public class GraphConversationSubParser extends SubParser {
 				if (audioPath!=null && !this.audioPath.equals( "" )){
 					line.setAudioPath( audioPath );
 				}
+				if (synthesizerVoice!=null && !synthesizerVoice.equals(""))
+					line.setSynthesizerVoice(synthesizerVoice);
 				
 				currentNode.addLine( line );
 			}
@@ -245,6 +259,8 @@ public class GraphConversationSubParser extends SubParser {
 				if (audioPath!=null && !this.audioPath.equals( "" )){
 					line.setAudioPath( audioPath );
 				}
+				if (synthesizerVoice!=null && !synthesizerVoice.equals(""))
+					line.setSynthesizerVoice(synthesizerVoice);
 				currentNode.addLine( line );
 			}
 

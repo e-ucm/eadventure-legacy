@@ -1113,7 +1113,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="Conversations.EditEffect">Editar efectos</entry>
 	<entry key="Conversations.DeleteLink">Borrar enlace</entry>
 	<entry key="Conversations.DeleteOption">Borrar opción</entry>
-
+	<entry key="Conversations.EditSynthesize">Opción de sintetizar</entry>
 
 	<entry key="Conversation.OptionPreviewConversation">Previsualizar conversación</entry>
 	<entry key="Conversation.OptionPreviewPartialConversation">Previsualizar conversación desde este nodo</entry>
@@ -1577,4 +1577,8 @@ ya que de esta manera se evita reescribirlos varias veces.</entry>
 	<entry key="Macro.Documentation">Descripción (no se usa en el motor)</entry>
 	<entry key="Macro.Effects">Lista de efectos de la macro</entry>
 	
+	<entry key="Synthesizer.Title">Editar voces para el sintetizador</entry>
+	<entry key="Synthesizer.Empty">Sin voz</entry>
+	<entry key="Synthesizer.BorderVoices">Voz actual</entry>
+	<entry key="Synthesizer.ButtonPlay">Probar ejemplo</entry>
 </properties>

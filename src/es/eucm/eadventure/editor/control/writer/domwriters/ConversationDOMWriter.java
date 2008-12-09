@@ -97,13 +97,18 @@ public class ConversationDOMWriter {
 					if( !line.getName( ).equals( "NPC" ) )
 						phrase.setAttribute( "idTarget", line.getName( ) );
 				}
+				
 				// Add the line text into the element
 				phrase.setTextContent( line.getText( ) );
 				
 				//If there is audio track, store it as attribute
 				if( line.isValidAudio( ) )
 					phrase.setAttribute( "uri", line.getAudioPath( ) );
-
+				//If there is a synthesizer valid voice, store it as attribute
+				if (!line.getSynthesizerVoice().equals(""))
+					phrase.setAttribute( "synthesize", line.getSynthesizerVoice());
+				
+				
 				// Add the element to the DOM root
 				rootDOMNode.appendChild( phrase );
 			}
@@ -170,7 +175,10 @@ public class ConversationDOMWriter {
 				//If there is audio track, store it as attribute
 				if( line.isValidAudio( ) )
 					lineElement.setAttribute( "uri", line.getAudioPath( ) );
-
+				//If there is a synthesizer valid voice, store it as attribute
+				if (!line.getSynthesizerVoice().equals(""))
+					lineElement.setAttribute( "synthesize", line.getSynthesizerVoice());
+				
 				
 				// Insert the text line in the option node
 				optionElement.appendChild( lineElement );
@@ -248,6 +256,9 @@ public class ConversationDOMWriter {
 						//If there is audio track, store it as attribute
 						if( line.isValidAudio( ) )
 							phrase.setAttribute( "uri", line.getAudioPath( ) );
+						//If there is a synthesizer valid voice, store it as attribute
+						if (!line.getSynthesizerVoice().equals(""))
+							phrase.setAttribute( "synthesize", line.getSynthesizerVoice());
 						
 						// Add the line text into the element
 						phrase.setTextContent( line.getText( ) );
@@ -309,9 +320,19 @@ public class ConversationDOMWriter {
 
 					// For each line of the node
 					for( int j = 0; j < node.getLineCount( ); j++ ) {
+						// Take the current conversation line
+						ConversationLine line = node.getLine( j );
+						
 						// Create the actual option (a "speak-player" element) and add its respective text
 						Element lineElement = doc.createElement( "speak-player" );
 						lineElement.setTextContent( node.getLine( j ).getText( ) );
+						
+						//If there is audio track, store it as attribute
+						if( line.isValidAudio( ) )
+							lineElement.setAttribute( "uri", line.getAudioPath( ) );
+						//If there is a synthesizer valid voice, store it as attribute
+						if (!line.getSynthesizerVoice().equals(""))
+							lineElement.setAttribute( "synthesize", line.getSynthesizerVoice());
 
 						// Create a child tag, and set it the index of the child
 						Element childElement = doc.createElement( "child" );
