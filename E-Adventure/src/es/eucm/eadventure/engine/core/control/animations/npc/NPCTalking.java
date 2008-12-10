@@ -1,6 +1,12 @@
 package es.eucm.eadventure.engine.core.control.animations.npc;
 
 
+import java.util.Timer;
+import java.util.TimerTask;
+
+import com.sun.speech.freetts.Voice;
+import com.sun.speech.freetts.VoiceManager;
+
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.Options;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalNPC;
@@ -31,6 +37,12 @@ public class NPCTalking extends NPCState {
      * The time the character will be talking
      */
     private int timeTalking;
+    
+    /**
+     * This is an Voice object of FreeTTS, that is used to synthesize the sound of a 
+     * conversation line.
+     */
+    private Voice voice;
 
     /**
      * Creates a new NPCTalking
@@ -93,6 +105,19 @@ public class NPCTalking extends NPCState {
                 }
             } 
     }
+    
+    public void setSpeakFreeTTS(String text, String voice){
+    	TimerTask task = new TTask(voice, text);
+    	Timer timer = new Timer () ;
+    	timer.schedule(task, 0);
+    	
+	   	 /*VoiceManager voiceManager = VoiceManager.getInstance();
+	     // TODO ver que la voz exista!!!
+	     this.voice = voiceManager.getVoice(voice);
+	     this.voice.allocate();
+	     this.voice.speak(text);*/
+
+    }
 
     @Override
     public void update( long elapsedTime ) {
@@ -133,5 +158,25 @@ public class NPCTalking extends NPCState {
         animations[WEST] = multimedia.loadAnimation( resources.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_RIGHT ), true, MultimediaManager.IMAGE_SCENE );
         animations[NORTH] = multimedia.loadAnimation( resources.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_UP ), false, MultimediaManager.IMAGE_SCENE );
         animations[SOUTH] = multimedia.loadAnimation( resources.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_DOWN ), false, MultimediaManager.IMAGE_SCENE );
+    }
+    
+    public class TTask extends TimerTask{
+
+    	private String voiceText;
+    	private String text;
+    	
+    	public TTask ( String voiceText, String text ){
+    		this.voiceText = voiceText;
+    		this.text = text;
+    	}
+    	
+			@Override
+			public void run() {
+		    	 VoiceManager voiceManager = VoiceManager.getInstance();
+		         // TODO ver que la voz exista!!!
+		         voice = voiceManager.getVoice(voiceText);
+		         voice.allocate();
+		         voice.speak(text);
+			}
     }
 }

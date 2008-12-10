@@ -566,15 +566,10 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
      * Funcion que va a leer del TTS!!!!!!
      */
     public void speakWithFreeTTS(String text, String voice){
-    	// Start the voice
-        VoiceManager voiceManager = VoiceManager.getInstance();
-        
-        // TODO ver que la voz exista!!!
-        this.voice = voiceManager.getVoice(voice);
-        this.voice.allocate();
-        this.voice.speak(text);
-        talkingAnimation.setText( text );
-        setState( TALK );
+    	speak(text);
+    	draw();
+    	talkingAnimation.setSpeakFreeTTS(text, voice);
+    	
         
     }
     

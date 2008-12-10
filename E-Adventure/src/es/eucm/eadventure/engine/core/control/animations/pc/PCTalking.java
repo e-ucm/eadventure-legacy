@@ -1,6 +1,9 @@
 package es.eucm.eadventure.engine.core.control.animations.pc;
 
 
+import com.sun.speech.freetts.Voice;
+import com.sun.speech.freetts.VoiceManager;
+
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.Options;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
@@ -31,6 +34,12 @@ public class PCTalking extends PCState {
      */
     private int timeTalking;
 
+    /**
+     * This is an Voice object of FreeTTS, that is used to synthesize the sound of a 
+     * conversation line.
+     */
+    private Voice voice;
+    
     /**
      * Creates a new PCTalking
      * @param player the reference to the player
@@ -96,6 +105,14 @@ public class PCTalking extends PCState {
             }}
         }
     }
+
+    public void setSpeakFreeTTS(String text, String voice){
+   	 VoiceManager voiceManager = VoiceManager.getInstance();
+        // TODO ver que la voz exista!!!
+        this.voice = voiceManager.getVoice(voice);
+        this.voice.allocate();
+        this.voice.speak(text);
+   }
 
 
     @Override
