@@ -1,11 +1,15 @@
 package es.eucm.eadventure.engine.core.control.animations.pc;
 
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;
 
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.Options;
+import es.eucm.eadventure.engine.core.control.animations.npc.NPCTalking.TTask;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
 import es.eucm.eadventure.common.data.chapter.elements.Player;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
@@ -39,6 +43,11 @@ public class PCTalking extends PCState {
      * conversation line.
      */
     private Voice voice;
+    
+    /**
+     * The speech must be launched in another thread
+     */
+    private TTask task;
     
     /**
      * Creates a new PCTalking
@@ -107,12 +116,27 @@ public class PCTalking extends PCState {
     }
 
     public void setSpeakFreeTTS(String text, String voice){
-   	 VoiceManager voiceManager = VoiceManager.getInstance();
-        // TODO ver que la voz exista!!!
-        this.voice = voiceManager.getVoice(voice);
-        this.voice.allocate();
-        this.voice.speak(text);
+   	 
+    	task = new TTask(voice, text);
+    	Timer timer = new Timer () ;
+    	timer.schedule(task, 0);
+    	while (task.getDuration()==0){
+        	try {
+    			Thread.sleep( 1 );
+    		} catch (InterruptedException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+        	}
+    	int wordsPerSecond = (int)task.getDuration()/60;
+    	String[] words= text.split(" ");
+    	timeTalking = (words.length/wordsPerSecond) *1000;
+    	
    }
+    
+    public void stopTTSTalking(){
+    	task.deallocate();
+    }
 
 
     @Override
@@ -146,6 +170,37 @@ public class PCTalking extends PCState {
         animations[WEST] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_SPEAK_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
         animations[NORTH] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_SPEAK_UP ), false, MultimediaManager.IMAGE_PLAYER );
         animations[SOUTH] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_SPEAK_DOWN ), false, MultimediaManager.IMAGE_PLAYER );
+    }
+    
+    public class TTask extends TimerTask{
+
+    	private String voiceText;
+    	private String text;
+    	private float duration;
+    	
+    	public TTask ( String voiceText, String text ){
+    		this.voiceText = voiceText;
+    		this.text = text;
+    	}
+    	
+			@Override
+			public void run() {
+		    	 VoiceManager voiceManager = VoiceManager.getInstance();
+		         // TODO ver que la voz exista!!!
+		         voice = voiceManager.getVoice(voiceText);
+		         voice.allocate();
+		         duration =voice.getRate();
+		         voice.speak(text);
+		         
+			}
+		
+			public void deallocate(){
+				voice.deallocate();
+			}
+			
+			public float getDuration(){
+				return duration;
+			}
     }
 
 }
