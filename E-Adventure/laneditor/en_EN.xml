@@ -446,6 +446,9 @@ Please, try it again with other destiny directory.</entry>
 	<entry key="Operation.ExportToLOM.OrganizationName">Organization</entry>
 	<entry key="Operation.ExportToLOM.OK">OK</entry>
 
+	<entry key="Operation.ExportToLOM.LOMAppletProperties">Applet properties</entry>
+	<entry key="Operation.ExportToLOM.LOMAppletRunInsideBrowser">The applet runs inside the browser</entry>
+	
 	<entry key="GUIStyles.Title">GUI style for the adventure</entry>
 	<entry key="GUIStyles.Traditional">Traditional GUI</entry>
 	<entry key="GUIStyles.TraditionalDescription">This type of GUI is much like the earlier adventures of LucasArts. The user has a set of buttons to perform actions, and an inventory in the lower part of the screen</entry>

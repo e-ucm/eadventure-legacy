@@ -9,6 +9,8 @@ import de.schlichtherle.io.DefaultArchiveDetector;
 import de.schlichtherle.io.File;
 import es.eucm.eadventure.engine.comm.AsynchronousCommunicationAppletLD;
 import es.eucm.eadventure.engine.core.control.Game;
+import es.eucm.eadventure.engine.core.gui.GUI;
+import es.eucm.eadventure.engine.core.gui.GUIApplet;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 
@@ -65,15 +67,40 @@ public class EAdventureApplet extends AsynchronousCommunicationAppletLD {
         }
 
         //FIXME: Harcoded
-        String adventureName = "integration";
+        final String adventureName = "integration";
         this.readParameters();
 
         ResourceHandler.setRestrictedMode( true );
         ResourceHandler.getInstance( ).setZipFile( adventureName + ".zip" );
+        
+        if (!windowed) {
+	        GUI.setGUIType(GUI.GUI_APPLET);
+	        GUIApplet.setApplet(this);
+        }
+        
         Game.create( );
         eAdventure = Game.getInstance( );
-        eAdventure.setAdventureName( adventureName );
-        eAdventure.setComm(this);
+        eAdventure.setAdventureName(adventureName );
+
+        eAdventure.setComm(EAdventureApplet.this);
+
+ // Para probar en eclipse (comentar el la parte anterior)
+ /*
+        ResourceHandler.setRestrictedMode( false );
+        ResourceHandler.getInstance( ).setZipFile( "C:/Users/e-ucm/Documents/hematocrito_2margins.ead" );
+        
+        if (!windowed) {
+        GUI.setGUIType(GUI.GUI_APPLET);
+        GUIApplet.setApplet(this);
+        }
+        
+        Game.create( );
+        eAdventure = Game.getInstance( );
+        eAdventure.setAdventureName("hematocrito_2margins");
+        eAdventure.setAdventurePath("C:/Users/e-ucm/Documents");
+        eAdventure.setComm(EAdventureApplet.this);
+*/
+        
         //System.out.println("Init finished succesfully");
         //System.out.println( " CODE BASE="+this.getCodeBase( ).toString( ));
         

@@ -462,10 +462,12 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             
             GUI.getInstance( ).initGUI( gameDescriptor.getGUIType( ), gameDescriptor.isGUICustomized( ) );
     
-            GUI.getInstance( ).getFrame( ).addKeyListener( this );
-            GUI.getInstance( ).getFrame( ).addMouseListener( this );
-            GUI.getInstance( ).getFrame( ).addMouseMotionListener( this );
-    
+            if (GUI.getInstance().getFrame() != null) {
+	            GUI.getInstance( ).getFrame( ).addKeyListener( this );
+	            GUI.getInstance( ).getFrame( ).addMouseListener( this );
+	            GUI.getInstance( ).getFrame( ).addMouseMotionListener( this );
+            }
+            
             Graphics2D g = GUI.getInstance( ).getGraphics( );
             GUI.drawString( g, GameText.TEXT_PLEASE_WAIT, 400, 280 );
             GUI.drawString( g, GameText.TEXT_LOADING_XML, 400, 300 );
@@ -564,7 +566,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             MultimediaManager.getInstance().deleteSounds();
         
         //Hide the GUI
-        if( GUI.getInstance() != null ) {
+        if( GUI.getInstance() != null && GUI.getInstance().getFrame() != null ) {
             // Hide the GUI
             GUI.getInstance().getFrame().setEnabled( false );
             GUI.getInstance().getFrame().setVisible( false );

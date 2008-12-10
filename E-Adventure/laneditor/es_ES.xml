@@ -448,6 +448,10 @@ Por favor, inténtelo de nuevo cambiando dicho directorio.</entry>
 	<entry key="Operation.ExportToLOM.OrganizationName">Organización</entry>
 	<entry key="Operation.ExportToLOM.OK">Aceptar</entry>
 	
+	<entry key="Operation.ExportToLOM.LOMAppletProperties">Propiedades del applet</entry>
+	<entry key="Operation.ExportToLOM.LOMAppletRunInsideBrowser">El applet se ejecuta dentro del explorador</entry>
+	
+	
 	<entry key="GUIStyles.Title">Estilo de GUI de la aventura</entry>
 	<entry key="GUIStyles.Traditional">GUI Tradicional</entry>
 	<entry key="GUIStyles.TraditionalDescription">Este tipo de interfaz presenta un gran parecido con las primeras aventuras gráficas de LucasArts. El usuario dispone de una serie de botones para efectuar acciones y un inventario en la parte inferior de la pantalla</entry>

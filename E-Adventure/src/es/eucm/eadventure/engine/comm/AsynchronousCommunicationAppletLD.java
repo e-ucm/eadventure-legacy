@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.swing.JApplet;
+
 import es.eucm.eadventure.common.data.assessment.AssessmentProperty;
 import es.eucm.eadventure.engine.adaptation.AdaptationEngine;
 
@@ -24,12 +26,14 @@ import netscape.javascript.JSObject;
  * @author Pablo Moreno Ger
  *
  */
-public abstract class AsynchronousCommunicationAppletLD extends Applet implements AsynchronousCommunicationApi {
+public abstract class AsynchronousCommunicationAppletLD extends JApplet implements AsynchronousCommunicationApi {
 
     private boolean commWorking = false;
 
     private String userId = "";
     private String runId = "";
+    protected boolean windowed = false;
+    
     
     private String propertyNames = null;
 
@@ -48,6 +52,10 @@ public abstract class AsynchronousCommunicationAppletLD extends Applet implement
             runId = "";
             System.out.println("No RunId param available");
         }
+        
+        String temp = getParameter("WINDOWED");
+        if(temp != null && temp.equalsIgnoreCase("yes"))
+        		windowed = true;
         
     }
 

@@ -1878,6 +1878,7 @@ public class Controller {
 			String loName = dialog.getLomName( );
 			String authorName = dialog.getAuthorName( );
 			String organization = dialog.getOrganizationName( );
+			boolean windowed = dialog.getWindowed();
 			
 			boolean validated = dialog.isValidated( );
 			
@@ -1925,7 +1926,7 @@ public class Controller {
 										loadingScreen.setMessage( TextConstants.getText( "Operation.ExportProject.AsLO" ) );
 										loadingScreen.setVisible( true );
 										this.updateLOMLanguage( );
-										if (Writer.exportAsLearningObject( completeFilePath, loName, authorName, organization, this.currentZipFile, adventureData )){
+										if (Writer.exportAsLearningObject( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, adventureData )){
 											mainWindow.showInformationDialog( TextConstants.getText( "Operation.ExportT.Success.Title" ), 
 													TextConstants.getText( "Operation.ExportT.Success.Message" ) );
 										} else {
