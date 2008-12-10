@@ -420,7 +420,7 @@ public class Writer {
 	}
 	
 	
-	private static boolean writeWebPage( String loName ){
+	private static boolean writeWebPage( String loName , boolean windowed){
 		boolean dataSaved=true;
 		try {
 			String webPage = 
@@ -431,9 +431,10 @@ public class Writer {
 			//"\t\t<script type='text/javascript' src='egame.js'></script>\n"+
 			"\t</head>\n"+
 			"\t<body>\n"+
-			"\t\t<applet code=\"es.eucm.eadventure.engine.EAdventureApplet\" archive=\"./"+loName+".jar\" name=\"eadventure\" id=\"eadventure\" width=\"260\" height=\"100\" MAYSCRIPT>\n"+
+			"\t\t<applet code=\"es.eucm.eadventure.engine.EAdventureApplet\" archive=\"./"+loName+".jar\" name=\"eadventure\" id=\"eadventure\" " + (windowed?"width=\"260\" height=\"100\"":"width=\"800\" height=\"600\"") + " MAYSCRIPT>\n"+
 			"\t\t<param name=\"USER_ID\" value=\"567\"/>\n"+
 			"\t\t<param name=\"RUN_ID\" value=\"5540\"/>\n"+
+			"\t\t<param name=\"WINDOWED\" value=\""+ (windowed?"yes":"no") +"\"/>\n"+
 			"\t\t</applet>\n"+
 			"<p><b>The game is initating.. please be patient while the digital sign is verified</b></p>\n"+
 			"\t</body>\n"+
@@ -571,7 +572,7 @@ public class Writer {
 	}
 
 	
-	public static boolean exportAsLearningObject( String zipFilename, String loName, String authorName, String organization, String gameFilename, AdventureDataControl adventureData ) {
+	public static boolean exportAsLearningObject( String zipFilename, String loName, String authorName, String organization, boolean windowed, String gameFilename, AdventureDataControl adventureData ) {
 		boolean dataSaved = true;
 
 		try {
@@ -606,7 +607,7 @@ public class Writer {
 			}
 
 			// Copy the web to the zip
-			dataSaved &=writeWebPage( loName );
+			dataSaved &=writeWebPage( loName , windowed);
 			
 			// Merge project & e-Adventure jar into file eAdventure_temp.jar
 			// Destiny file

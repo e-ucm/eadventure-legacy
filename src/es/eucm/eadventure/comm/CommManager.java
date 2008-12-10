@@ -3,17 +3,43 @@ package es.eucm.eadventure.comm;
 import java.applet.Applet;
 import java.util.HashMap;
 
+import javax.swing.JApplet;
+
 import netscape.javascript.JSObject;
 
 
-public class CommManager extends Applet implements CommManagerApi{
+public class CommManager extends JApplet implements CommManagerApi{
 
+	protected String userId;
+	protected String runId;
+	protected boolean windowed;
+	
 	@Override
 
 	public void addListener(CommListenerApi commListener) {
 		// TODO Auto-generated method stub
 		
 	}
+
+    public void readParameters() {
+
+        userId = getParameter("USER_ID");
+        if(userId == null) {
+            userId = "";
+            System.out.println("No UserId param available");
+        }
+        
+        runId = getParameter("RUN_ID");
+        if(runId == null) {
+            runId = "";
+            System.out.println("No RunId param available");
+        }
+        
+        String temp = getParameter("WINDOWED");
+        if(temp != null && temp.equalsIgnoreCase("yes"))
+        		windowed = true;
+        
+    }
 
 	public boolean connect(HashMap<String, String> info) throws CommException {
 		  JSObject win = null;

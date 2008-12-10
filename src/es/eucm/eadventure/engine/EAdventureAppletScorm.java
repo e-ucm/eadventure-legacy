@@ -14,6 +14,8 @@ import es.eucm.eadventure.comm.CommException;
 import es.eucm.eadventure.comm.CommManager;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.engine.core.control.Game;
+import es.eucm.eadventure.engine.core.gui.GUI;
+import es.eucm.eadventure.engine.core.gui.GUIApplet;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 
 public class EAdventureAppletScorm extends CommManager{
@@ -63,8 +65,13 @@ public class EAdventureAppletScorm extends CommManager{
 
         //FIXME: Harcoded
         String adventureName = "integration";
-        //this.readParameters();
+        this.readParameters();
 
+        if (!windowed) {
+	        GUI.setGUIType(GUI.GUI_APPLET);
+	        GUIApplet.setApplet(this);
+        }
+        
         ResourceHandler.setRestrictedMode( true );
         ResourceHandler.getInstance( ).setZipFile( adventureName + ".zip" );
         Game.create( );

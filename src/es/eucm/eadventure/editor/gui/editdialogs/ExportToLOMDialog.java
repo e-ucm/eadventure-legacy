@@ -13,10 +13,13 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -38,6 +41,10 @@ public class ExportToLOMDialog extends JDialog{
 	private JTextField authorNameTextField;
 	
 	private JTextField organizationTextField;
+	
+	private JCheckBox windowedCheckBox;
+	
+	private boolean windowed = false;
 	
 	public ExportToLOMDialog(String defaultLomName){
 		// Set the values
@@ -102,6 +109,23 @@ public class ExportToLOMDialog extends JDialog{
 		c2.gridy=2;
 		credentialsPanel.add( organizationNamePanel,c2 );
 		
+
+		//Applet properties panel
+		JPanel lomAppletPanel = new JPanel();
+		lomAppletPanel.setLayout( new GridBagLayout() );
+		lomAppletPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Operation.ExportToLOM.LOMAppletProperties" ) ) );
+		//lomNameTextField = new JTextField(defaultLomName);
+		windowedCheckBox = new JCheckBox(TextConstants.getText("Operation.ExportToLOM.LOMAppletRunInsideBrowser"));
+		windowedCheckBox.setSelected(true);
+		windowedCheckBox.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				changeWindowedMode();
+			}});
+		c2 = new GridBagConstraints();
+		c2.insets = new Insets(5,5,5,5);c.gridy=0;c2.gridy = 0;
+		c2.fill = GridBagConstraints.BOTH;c2.weightx=1;
+		lomAppletPanel.add( windowedCheckBox, c2 );
+		
 		//Button panel
 		JPanel buttonPanel = new JPanel();
 		JButton okButton = new JButton(TextConstants.getText( "Operation.ExportToLOM.OK" ));
@@ -114,11 +138,13 @@ public class ExportToLOMDialog extends JDialog{
 		});
 		buttonPanel.add( okButton );
 		
-		//Add both panels
+		//Add all panels
 		this.getContentPane( ).add( lomNamePanel, c );
 		c.gridy=1;
 		this.getContentPane( ).add( credentialsPanel, c );
-		c.gridy=2;c.anchor = GridBagConstraints.CENTER;
+		c.gridy=2;
+		this.getContentPane( ).add( lomAppletPanel, c);
+		c.gridy=3;c.anchor = GridBagConstraints.CENTER;
 		this.getContentPane( ).add( buttonPanel, c );
 		
 		// Add window listener
@@ -137,6 +163,10 @@ public class ExportToLOMDialog extends JDialog{
 		setVisible( true );
 	}
 	
+	protected void changeWindowedMode() {
+		windowed = !windowedCheckBox.isSelected();
+	}
+
 	private class TextFieldListener implements DocumentListener {
 
 		private JTextField textField;
@@ -199,5 +229,9 @@ public class ExportToLOMDialog extends JDialog{
 	 */
 	public void setValidated( boolean validated ) {
 		this.validated = validated;
+	}
+
+	public boolean getWindowed() {
+		return windowed;
 	}
 }
