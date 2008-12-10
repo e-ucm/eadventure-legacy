@@ -157,6 +157,5 @@ public class AssessmentProfile {
 	 */
 	public void setShowReportAtEnd(boolean showReportAtEnd) {
 		this.showReportAtEnd = showReportAtEnd;
-		Controller.getInstance().dataModified();
 	}
 }

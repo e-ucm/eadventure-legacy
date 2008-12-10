@@ -288,6 +288,7 @@ public class AssessmentProfileDataControl extends DataControl{
 	 */
 	public void setShowReportAtEnd(boolean showReportAtEnd) {
 		profile.setShowReportAtEnd(showReportAtEnd);
+		Controller.getInstance().dataModified();
 	}
 
 }
