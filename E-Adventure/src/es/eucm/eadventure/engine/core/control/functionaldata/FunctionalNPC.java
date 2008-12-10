@@ -327,6 +327,7 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
      */
     public void stopTalking( ) {
         talkingAnimation.setAudio( null );
+        talkingAnimation.stopTTSTalking();
         setState( IDLE );
     }
 

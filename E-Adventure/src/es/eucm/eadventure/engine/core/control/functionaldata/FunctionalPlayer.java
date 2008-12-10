@@ -579,6 +579,7 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
      */
     public void stopTalking( ) {
         talkingAnimation.setAudio( null );
+        talkingAnimation.stopTTSTalking();
         setState( IDLE );
     }
 

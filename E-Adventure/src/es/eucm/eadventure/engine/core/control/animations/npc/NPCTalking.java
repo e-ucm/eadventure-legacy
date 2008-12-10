@@ -9,6 +9,7 @@ import com.sun.speech.freetts.VoiceManager;
 
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.Options;
+import es.eucm.eadventure.engine.core.control.animations.pc.PCTalking.TTask;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalNPC;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.data.chapter.elements.NPC;
@@ -44,6 +45,11 @@ public class NPCTalking extends NPCState {
      */
     private Voice voice;
 
+    /**
+     * The speech must be launched in another thread
+     */
+    private TTask task;
+    
     /**
      * Creates a new NPCTalking
      * @param npc the reference to the npc
@@ -107,16 +113,26 @@ public class NPCTalking extends NPCState {
     }
     
     public void setSpeakFreeTTS(String text, String voice){
-    	TimerTask task = new TTask(voice, text);
+    	task = new TTask(voice, text);
     	Timer timer = new Timer () ;
     	timer.schedule(task, 0);
-    	
-	   	 /*VoiceManager voiceManager = VoiceManager.getInstance();
-	     // TODO ver que la voz exista!!!
-	     this.voice = voiceManager.getVoice(voice);
-	     this.voice.allocate();
-	     this.voice.speak(text);*/
+    	while (task.getDuration()==0){
+    	try {
+			Thread.sleep( 1 );
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	}
+    	int wordsPerSecond = (int)task.getDuration()/60;
+    	String[] words= text.split(" ");
+    	timeTalking = (words.length/wordsPerSecond) * 1000;
+	  
 
+    }
+    
+    public void stopTTSTalking(){
+    	task.deallocate();
     }
 
     @Override
@@ -164,6 +180,7 @@ public class NPCTalking extends NPCState {
 
     	private String voiceText;
     	private String text;
+    	private float duration;
     	
     	public TTask ( String voiceText, String text ){
     		this.voiceText = voiceText;
@@ -176,7 +193,17 @@ public class NPCTalking extends NPCState {
 		         // TODO ver que la voz exista!!!
 		         voice = voiceManager.getVoice(voiceText);
 		         voice.allocate();
+		         duration = voice.getRate();
 		         voice.speak(text);
+		         
+			}
+			
+			public void deallocate(){
+				voice.deallocate();
+			}
+			
+			public float getDuration(){
+				return duration;
 			}
     }
 }
