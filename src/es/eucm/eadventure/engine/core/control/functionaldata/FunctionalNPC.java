@@ -108,11 +108,7 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
      */
     //private int lastDirection = -1;
     
-    /**
-     * This is an Voice object of FreeTTS, that is used to synthesize the sound of a 
-     * conversation line.
-     */
-    private Voice voice;
+    
     
     /**
      * Creates a new FunctionalNCP
@@ -317,14 +313,12 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
      */
     public void speakWithFreeTTS(String text, String voice){
     	// Start the voice
-        VoiceManager voiceManager = VoiceManager.getInstance();
+    	speak(text);
+    	draw();
+    	talkingAnimation.setSpeakFreeTTS(text,voice);
         
-        // TODO ver que la voz exista!!!
-        this.voice = voiceManager.getVoice(voice);
-        this.voice.allocate();
-        this.voice.speak(text);
-        talkingAnimation.setText( text );
-        setState( TALK );
+       
+        
     }
     
     /*
