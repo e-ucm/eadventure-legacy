@@ -264,8 +264,18 @@ public class ContextualHUD extends HUD {
         boolean inHud = false;
         ActionManager actionManager = game.getActionManager( );
         
+        if (e.getButton() != MouseEvent.BUTTON1 && e.getButton() != MouseEvent.BUTTON3)
+        	return false;
+        
+        boolean button = false;
+        if (showActionButtons) {
+        	actionButtons.mouseClicked(e);
+        	if (actionButtons.getButtonPressed() != -1)
+        		button = true;
+        }
+        
         //Right mouse button click
-        if( e.getButton( ) == MouseEvent.BUTTON3 ) {
+        if(!button && e.getButton( ) == MouseEvent.BUTTON3) {
             //Reset current element as cursor
             elementInCursor = null;
             //put the default cursor
