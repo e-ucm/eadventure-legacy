@@ -351,7 +351,6 @@ public class StartDialog extends JFileChooser {
 		todayTable.getColumnModel( ).getColumn( 0 ).setMinWidth( 32 );
 		todayTable.getColumnModel( ).getColumn( 0 ).setCellRenderer( new TableRenderer( ) );
 		todayTable.setRowHeight( 32 );
-		todayTable.setRowHeight( 25 );
 		todayTable.addMouseListener( todayModel );
 		todayPanel.setViewportView( todayTable );
 		todayPanel.setBorder( todayBorder );
