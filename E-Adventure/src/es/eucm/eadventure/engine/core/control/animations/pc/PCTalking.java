@@ -191,6 +191,7 @@ public class PCTalking extends PCState {
 		         voice.allocate();
 		         duration =voice.getRate();
 		         voice.speak(text);
+		         voice.deallocate();
 		         
 			}
 		
