@@ -112,6 +112,10 @@ class LinesPanel extends JPanel {
 	 */
 	private JButton editSynthesizeButton;
 	
+	/**
+	 * Select the player or any exists character to speak selected conversation line
+	 */
+	//private JComboBox charactersComboBox; 
 	/* Methods */
 
 	/**
@@ -622,6 +626,9 @@ class LinesPanel extends JPanel {
 			ConversationNodeView selectedNode = conversationPanel.getSelectedNode( );
 			conversationDataControl.editSynthesize(selectedRow, selectedNode);
 			
+			
+			
+		
 		}
 		
 	}

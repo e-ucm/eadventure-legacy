@@ -147,6 +147,26 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
     public NPC getNPC( ) {
         return npc;
     }
+    
+    
+    /**
+     * Check if all character conversation lines must be read by synthesizer
+     * @return
+     * 		true, if all player conversation lines must be read by synthesizer
+     */
+    public boolean isAlwaysSynthesizer(){
+    	return npc.isAlwaysSynthesizer();
+    }
+    
+    /**
+     * Takes the character voice for synthesizer
+     * 
+     * @return
+     * 		A string representing associates voice
+     */
+    public String getPlayerVoice(){
+    	return npc.getVoice();
+    }
 
     /**
      * Returns the front color of the character's text
@@ -315,10 +335,11 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
     	// Start the voice
     	speak(text);
     	draw();
-    	talkingAnimation.setSpeakFreeTTS(text,voice);
-        
-       
-        
+    	talkingAnimation.setSpeakFreeTTS(text,voice);   
+    }
+    
+    public void dealocateTTS(){
+    	talkingAnimation.stopTTSTalking();
     }
     
     /*

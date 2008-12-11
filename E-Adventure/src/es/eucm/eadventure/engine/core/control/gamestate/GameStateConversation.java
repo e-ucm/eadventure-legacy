@@ -114,7 +114,10 @@ public class GameStateConversation extends GameState {
      */
     private boolean isOptionSelected;
     
-    
+    /**
+     * Use to free java heap when a conversation line was readed by freeTTs
+     */
+    //private boolean lastTTS;
     
     /**
      * Creates a new GameStateConversation
@@ -134,6 +137,7 @@ public class GameStateConversation extends GameState {
         optionHighlighted = -1;
         
         isOptionSelected = false;
+       // lastTTS=false;
         // Push a new element in the Stack of effects
         game.addToTheStack(new ArrayList<FunctionalEffect>());
        
@@ -323,13 +327,19 @@ public class GameStateConversation extends GameState {
                     
                     //Add sound to options node
                     ConversationLine line = currentNode.getLine( optionSelected );
-                    if (line.isValidAudio( ))
+                   /* if (lastTTS)
+                    	player.dealocateTTS();*/
+                    
+                    if (line.isValidAudio( )){
                         player.speak( line.getText(), line.getAudioPath( ) );
-                    else if (!line.getSynthesizerVoice().equals(""))
-                    		player.speakWithFreeTTS(line.getText(), line.getSynthesizerVoice());
-                    else	
+                      //  lastTTS=false;
+                    }else if (line.getSynthesizerVoice()||player.isAlwaysSynthesizer()){
+                    		player.speakWithFreeTTS(line.getText(), player.getPlayerVoice());
+                    	//	lastTTS=true;
+                    }else{	
                         player.speak( line.getText( ) );
-                 
+                        //lastTTS=false;
+                    }
 
                     //player.speak( currentNode.getLine( optionSelected ).getText( ) );
                     game.setCharacterCurrentlyTalking( player );
@@ -359,12 +369,18 @@ public class GameStateConversation extends GameState {
                     
                     //Add sound to options node
                     ConversationLine line = currentNode.getLine( optionSelected );
-                    if (line.isValidAudio( ))
+                    /*if (lastTTS)
+                    	player.dealocateTTS();*/
+                    if (line.isValidAudio( )){
                         player.speak( line.getText(), line.getAudioPath( ) );
-                    else if (!line.getSynthesizerVoice().equals(""))
-                    		player.speakWithFreeTTS(line.getText(), line.getSynthesizerVoice());
-                    else   
+                        //lastTTS=false;
+                    }else if (line.getSynthesizerVoice() || player.isAlwaysSynthesizer()){
+                    		player.speakWithFreeTTS(line.getText(), player.getPlayerVoice());
+                    		//lastTTS=true;
+                    } else   {
                     	player.speak( line.getText( ) );
+                    	//lastTTS=false;
+                    }
                     //player.speak( currentNode.getLine( optionSelected ).getText( ) );
                     game.setCharacterCurrentlyTalking( player );
 
@@ -405,12 +421,19 @@ public class GameStateConversation extends GameState {
             ConversationLine line = currentNode.getLine( currentLine );
             if( line.isPlayerLine( ) ) {
                 FunctionalPlayer player = game.getFunctionalPlayer( );
-                if (line.isValidAudio( ))
+              /*  if (lastTTS)
+                	player.dealocateTTS();*/
+                if (line.isValidAudio( )){
                     player.speak( line.getText(), line.getAudioPath( ) );
-                else if (!line.getSynthesizerVoice().equals(""))
-            		player.speakWithFreeTTS(line.getText(), line.getSynthesizerVoice());
-                else
+                    //lastTTS=false;
+                }else if (line.getSynthesizerVoice() || player.isAlwaysSynthesizer()){
+            		player.speakWithFreeTTS(line.getText(), player.getPlayerVoice());
+            		//lastTTS=true;
+                }
+                else{
                     player.speak( line.getText( ) );
+                    ///lastTTS=false;
+                }
                 game.setCharacterCurrentlyTalking( player );
             } else {
                 FunctionalNPC npc = null;
@@ -421,12 +444,19 @@ public class GameStateConversation extends GameState {
                     npc = game.getFunctionalScene( ).getNPC( line.getName( ) );
                 
                 if( npc != null ) {
+                   /* if (lastTTS)
+                    	npc.dealocateTTS();*/
+                    
                     if (line.isValidAudio( )){
                         npc.speak( line.getText( ), line.getAudioPath( ) );
-                    }else if (!line.getSynthesizerVoice().equals(""))
-                		npc.speakWithFreeTTS(line.getText(), line.getSynthesizerVoice());
-                    else
+                        //lastTTS=false;
+                    }else if (line.getSynthesizerVoice() || npc.isAlwaysSynthesizer()){
+                		npc.speakWithFreeTTS(line.getText(), npc.getPlayerVoice());
+                		//lastTTS=true;
+                    }else{
                         npc.speak( line.getText( ) );
+                        //lastTTS=false;
+                    }
                     game.setCharacterCurrentlyTalking( npc );
                 }
             }

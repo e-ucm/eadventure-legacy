@@ -111,6 +111,19 @@ public class CharacterDOMWriter {
 				// Append the list of conversations
 				characterElement.appendChild( conversationsNode );
 			}
+			
+			// Create the voice tag
+			Element voiceNode = doc.createElement("voice");
+			// Create and append the voice name and if is alwaysSynthesizer
+			voiceNode.setAttribute("name", character.getVoice());
+			if (character.isAlwaysSynthesizer())
+				voiceNode.setAttribute("synthesizeAlways", "yes");
+			else 
+				voiceNode.setAttribute("synthesizeAlways", "no");
+			
+			// Append the voice tag
+			
+			characterElement.appendChild(voiceNode);
 
 		} catch( ParserConfigurationException e ) {
 			e.printStackTrace( );

@@ -125,8 +125,16 @@
 <!ATTLIST give-to
 	idTarget IDREF #REQUIRED
 >
-<!ELEMENT player (documentation?, resources+, textcolor?, description)>
-<!ELEMENT character (documentation?, resources+, textcolor?, description, conversations?)>
+
+<!ELEMENT voice EMPTY>
+<!ATTLIST voice
+	name CDATA #REQUIRED
+	synthesizeAlways (yes | no) "no"
+>
+
+<!ELEMENT player (documentation?, resources+, textcolor?, description, voice?)>
+
+<!ELEMENT character (documentation?, resources+, textcolor?, description, conversations?, voice?)>
 <!ATTLIST character
 	id ID #IMPLIED
 >
@@ -175,12 +183,12 @@
 <!ATTLIST speak-char
 	idTarget IDREF #IMPLIED
 	uri CDATA #IMPLIED
-	synthesize CDATA #IMPLIED
+	synthesize (yes | no) "no"
 >
 <!ELEMENT speak-player (#PCDATA)>
 <!ATTLIST speak-player
 	uri CDATA #IMPLIED
-	synthesize CDATA #IMPLIED
+	synthesize (yes | no) "no"
 >
 <!ELEMENT response ((option)+, effect?)>
 <!ATTLIST response

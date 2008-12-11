@@ -277,6 +277,38 @@ public class PlayerDataControl extends DataControlWithResources {
 			controller.dataModified( );
 		}
 	}
+	
+	/**
+	 * Set the possibility to all conversation lines to be read by synthesizer
+	 * 
+	 * @param always
+	 * 			Boolean value
+	 */
+	public void setAlwaysSynthesizer(boolean always){
+		player.setAlwaysSynthesizer(always);
+	}
+	
+	
+	/**
+	 * Sets the new voice for the player
+	 * 
+	 * @param voice
+	 * 			a string with the valid voice
+	 */
+	public void setPlayerVoice(String voice){
+		player.setVoice(voice);
+	}
+	
+	
+	/**
+	 * Gets the voice associated to player
+	 * 
+	 * @return
+	 * 		string representing player voice
+	 */
+	public String getPlayerVoice(){
+		return player.getVoice();
+	}
 
 	@Override
 	public Object getContent( ) {

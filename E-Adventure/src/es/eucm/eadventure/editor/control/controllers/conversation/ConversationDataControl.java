@@ -8,7 +8,9 @@ import es.eucm.eadventure.common.data.chapter.conversation.node.OptionConversati
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
+import es.eucm.eadventure.editor.control.controllers.character.NPCDataControl;
 import es.eucm.eadventure.editor.gui.assetchooser.AssetChooser;
 import es.eucm.eadventure.editor.gui.editdialogs.EffectsDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.SynthesizerDialog;
@@ -548,7 +550,25 @@ public abstract class ConversationDataControl extends DataControl {
 	 */
 	public void editSynthesize(int selectedRow, ConversationNodeView selectedNode){
 		ConversationNode node = (ConversationNode) selectedNode;
-		
-		new SynthesizerDialog(selectedRow, node);
+		DataControlWithResources control = null;
+		boolean player = false;
+		String name = node.getLine(selectedRow).getName();
+		if (!name.equals("")){
+		if (name.equals("Player")){
+			control = controller.getSelectedChapterDataControl().getPlayer();
+			player = true;
+		}
+		else{
+			for (NPCDataControl npc : controller.getSelectedChapterDataControl().getNPCsList().getNPCs())
+				if (name.equals(npc.getId())){
+					control = npc;
+					break;
+				}
+					
+					
+				
+		}
+		} 
+		new SynthesizerDialog(selectedRow, node, control,player);
 	}
 }

@@ -159,14 +159,14 @@ public abstract class ConversationNode implements ConversationNodeView {
      * Set the voice for synthesize the specified line
      * 
      */
-    public void setSynthesizerVoice(String voice, int line){
-    	getLine(line).setSynthesizerVoice(voice);
+    public void setSynthesizerVoice(boolean synthesize, int line){
+    	getLine(line).setSynthesizerVoice(synthesize);
     }
     
     /**
      * Get the voice for the specified line
      */
-    public String getSynthesizerVoice(int line){
+    public boolean getSynthesizerVoice(int line){
     	return getLine(line).getSynthesizerVoice();
     }
     

@@ -70,7 +70,17 @@ public class NPC extends Element {
 	 * The border color of the text of the character
 	 */
 	protected String textBorderColor;
-
+	
+	/**
+	 * The voice which the synthesizer uses to read text of the character
+	 */
+	protected String voice;
+	
+	/**
+	 * Tells if it must be read by synthesizer all conversation lines 
+	 */
+	protected boolean alwaysSynthesizer;
+	
 	/**
 	 * List of conversation references of the player
 	 */
@@ -162,5 +172,46 @@ public class NPC extends Element {
 			sb.append( conversationReference.toString( ) );
 
 		return sb.toString( );
+	}
+
+	/**
+	 * Gets the voice of the character
+	 * 
+	 * @return
+	 *		String with the voice
+	 */
+	public String getVoice() {
+		return voice;
+	}
+
+	/**
+	 * Sets the voice of the character
+	 * 
+	 * @param voice
+	 *            String with the voice
+	 */
+	public void setVoice(String voice) {
+		this.voice = voice;
+	}
+
+	
+	/**
+	 * Get if the conversation lines must be read by synthesizer
+	 * 
+	 * @return
+	 * 		True, if always read by synthesizer, false, otherwise
+	 */
+	public boolean isAlwaysSynthesizer() {
+		return alwaysSynthesizer;
+	}
+
+	/**
+	 * Change the possibility of read all conversation lines with the synthesizer
+	 * 
+	 * @param alwaysSynthesizer
+	 * 				the new value
+	 */
+	public void setAlwaysSynthesizer(boolean alwaysSynthesizer) {
+		this.alwaysSynthesizer = alwaysSynthesizer;
 	}
 }
