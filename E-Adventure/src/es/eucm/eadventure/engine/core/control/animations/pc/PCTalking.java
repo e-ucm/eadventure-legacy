@@ -135,6 +135,7 @@ public class PCTalking extends PCState {
    }
     
     public void stopTTSTalking(){
+    	if (task!=null)
     	task.deallocate();
     }
 
