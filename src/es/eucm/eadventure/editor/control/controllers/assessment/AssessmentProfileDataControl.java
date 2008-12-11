@@ -290,5 +290,23 @@ public class AssessmentProfileDataControl extends DataControl{
 		profile.setShowReportAtEnd(showReportAtEnd);
 		Controller.getInstance().dataModified();
 	}
+	
+	public boolean isSendByEmail() {
+		return profile.isSendByEmail();
+	}
+	
+	public void setSendByEmail(boolean sendByEmail) {
+		profile.setSendByEmail(sendByEmail);
+		Controller.getInstance().dataModified();
+	}
+	
+	public String getEmail() {
+		return profile.getEmail();
+	}
+	
+	public void setEmail(String email) {
+		profile.setEmail(email);
+		Controller.getInstance().dataModified();
+	}
 
 }

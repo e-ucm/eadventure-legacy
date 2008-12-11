@@ -34,9 +34,11 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import es.eucm.eadventure.common.auxiliar.SendMail;
 import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
 import es.eucm.eadventure.common.data.assessment.AssessmentRule;
 import es.eucm.eadventure.common.data.assessment.TimedAssessmentRule;
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.engine.core.control.FlagSummary;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.TimerEventListener;
@@ -82,6 +84,8 @@ public class AssessmentEngine implements TimerEventListener{
      */
     private HashMap<Integer, TimedAssessmentRule> timedRules;
     
+    private String playerName;
+    
     private int state;
     
     /**
@@ -123,6 +127,14 @@ public class AssessmentEngine implements TimerEventListener{
             }
         }
         processRules( );
+    }
+    
+    public static AssessmentProfile loadAssessmentProfile(String assessmentPath) {
+    	if (assessmentPath!=null && !assessmentPath.equals("")){
+	    	AssessmentProfile assessmentProfile = Loader.loadAssessmentProfile(ResourceHandler.getInstance(), assessmentPath, new ArrayList<Incidence>());
+	    	return assessmentProfile;
+    	}
+    	return null;
     }
     
     /**
@@ -369,6 +381,7 @@ public class AssessmentEngine implements TimerEventListener{
 	            	new File ( REPORTS_FOLDER).mkdirs();
 	            }
 	            reportFile.createNewFile();
+	            final String reportAbsoluteFile = reportFile.getAbsolutePath() + "/" + reportFile.getName();
 	            generateHTMLReport( reportFile.getAbsolutePath( ), -5 );
 	            
 	            JEditorPane reportPanel= new JEditorPane();
@@ -383,16 +396,42 @@ public class AssessmentEngine implements TimerEventListener{
 	            panel.add( contentPanel, BorderLayout.CENTER );
 	            
 	            JPanel buttonPanel = new JPanel();
-	            JButton ok = new JButton("OK");
-	            ok.addActionListener( new ActionListener(){
-	
-	                public void actionPerformed( ActionEvent e ) {
-	                    GUI.getInstance( ).restoreFrame( );
-	                    state = STATE_DONE;
-	                }
-	                
-	            });
-	            buttonPanel.add( ok );
+	            if (!assessmentProfile.isSendByEmail()) {
+		            JButton ok = new JButton("OK");
+		            ok.addActionListener( new ActionListener(){
+		
+		                public void actionPerformed( ActionEvent e ) {
+		                    GUI.getInstance( ).restoreFrame( );
+		                    state = STATE_DONE;
+		                }
+		                
+		            });
+		            buttonPanel.add( ok );
+	            } else {
+	            	JButton ok_send = new JButton(TextConstants.getText("Report.OKSend"));
+	            	ok_send.addActionListener( new ActionListener() {
+	            		public void actionPerformed( ActionEvent e) {
+	            			String[] to = new String[1];
+	            			to[0] = assessmentProfile.getEmail();
+	            			String subject = "Report eAdventure";
+	            			String message = "Report from: " + playerName;
+	            			SendMail sm = new SendMail();
+	            			sm.postMailAttachements(to, subject, message , null, reportAbsoluteFile);
+	            			GUI.getInstance().restoreFrame();
+	            			state = STATE_DONE;
+	            		}
+	            	});
+	            	buttonPanel.add(ok_send);
+	            	JButton ok_dont_send = new JButton(TextConstants.getText("Report.OKDontSend"));
+	            	ok_dont_send.addActionListener( new ActionListener() {
+	            		public void actionPerformed( ActionEvent e) {
+	            			GUI.getInstance().restoreFrame();
+	            			state = STATE_DONE;
+	            		}
+	            	});
+	            	buttonPanel.add(ok_dont_send);
+	            	//buttonPanel.getRootPane().setDefaultButton(ok_send);
+	            }
 	            
 	            panel.add( buttonPanel, BorderLayout.SOUTH );
 	            
@@ -414,5 +453,17 @@ public class AssessmentEngine implements TimerEventListener{
         } else
         	return true;
     }
-    	
+    
+    public AssessmentProfile getAssessmentProfile() {
+    	return assessmentProfile;
+    }
+
+	/**
+	 * @param playerName the playerName to set
+	 */
+	public void setPlayerName(String playerName) {
+		this.playerName = playerName;
+	}
+    
+    
 }

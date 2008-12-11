@@ -128,7 +128,16 @@ public class AssessmentHandler extends DefaultHandler {
             for( int i = 0; i < attrs.getLength( ); i++ ) {
                 if( attrs.getQName( i ).equals( "show-report-at-end" ) ){
                 	profile.setShowReportAtEnd( attrs.getValue( i ).equals("yes") );
-                }            
+                }
+                if( attrs.getQName( i ).equals( "send-to-email")) {
+                	if (attrs.getValue(i) == null || attrs.getValue(i).length() < 1) {
+                		profile.setEmail("");
+                		profile.setSendByEmail(false);
+                	} else {
+                		profile.setEmail(attrs.getValue(i));
+                		profile.setSendByEmail(true);
+                	}
+                }
             }
             
         }

@@ -40,6 +40,16 @@ public class AssessmentProfile {
 	private boolean showReportAtEnd;
 	
 	/**
+	 * If true, the student will be asked to send an email with the report
+	 */
+	private boolean sendByEmail;
+	
+	/**
+	 * The email where the student's report must be sent
+	 */
+	private String email;
+	
+	/**
 	 * Empty constructor 
 	 */
 	public AssessmentProfile() {
@@ -59,6 +69,8 @@ public class AssessmentProfile {
 		this.path = path2;
 		flags = new ArrayList<String>();
 		vars = new ArrayList<String>();
+		sendByEmail = false;
+		email = "";
 	}
 
 	/**
@@ -158,4 +170,34 @@ public class AssessmentProfile {
 	public void setShowReportAtEnd(boolean showReportAtEnd) {
 		this.showReportAtEnd = showReportAtEnd;
 	}
+
+	/**
+	 * @return the sendByEmail
+	 */
+	public boolean isSendByEmail() {
+		return sendByEmail;
+	}
+
+	/**
+	 * @param sendByEmail the sendByEmail to set
+	 */
+	public void setSendByEmail(boolean sendByEmail) {
+		this.sendByEmail = sendByEmail;
+	}
+
+	/**
+	 * @return the email
+	 */
+	public String getEmail() {
+		return email;
+	}
+
+	/**
+	 * @param email the email to set
+	 */
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	
 }

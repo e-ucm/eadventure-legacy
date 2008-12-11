@@ -1,6 +1,7 @@
 <!ELEMENT assessment-rules ((assessment-rule | timed-assessment-rule)*)>
 <!ATTLIST assessment-rules
 	show-report-at-end ( yes | no ) "no"
+	send-to-email CDATA #IMPLIED
 >
 
 <!ELEMENT assessment-rule (concept?, condition?, effect?)>

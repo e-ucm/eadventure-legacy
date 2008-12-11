@@ -111,4 +111,11 @@
 	<entry key="Report.Importance.Normal">Normal</entry>
 	<entry key="Report.Importance.High">High</entry>
 	<entry key="Report.Importance.VeryHigh">Very High</entry>
+	<entry key="Report.OKSend">OK - Send report</entry>
+	<entry key="Report.OKDontSend">OK - Don't send report</entry>
+	<entry key="Reports.InputReportName">Input the name that will appear in the report</entry>
+	<entry key="Reports.NameInput">Name input</entry>
+	
+	<entry key="SendMail.UnableToSendEmail">The system was unable to send the e-mail</entry>
+	<entry key="SendMail.ErrorSendingEmail">Error sending e-mail</entry>
 </properties>
