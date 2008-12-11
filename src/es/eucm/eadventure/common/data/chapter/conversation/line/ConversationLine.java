@@ -28,9 +28,9 @@ public class ConversationLine {
 	private String audioPath;
 	
 	/**
-	 * Tell if the line has to be read by synthesizer, and with which voice
+	 * Tell if the line has to be read by synthesizer
 	 */
-	private String synthesizerVoice;
+	private boolean synthesizerVoice;
 
 	/**
 	 * Constructor.
@@ -43,7 +43,7 @@ public class ConversationLine {
 	public ConversationLine( String name, String text ) {
 		this.name = name;
 		this.text = text;
-		this.synthesizerVoice = new String("");
+		this.synthesizerVoice = false;
 	}
 
 	/**
@@ -115,22 +115,22 @@ public class ConversationLine {
 	}
 
 	/**
-	 * Returns the voice that has to be read by synthesizer
+	 * Returns if the line has to be read by synthesizer
 	 * 
 	 * @return
 	 * 		if this line has to be read by synthesizer
 	 */
-	public String getSynthesizerVoice() {
+	public boolean getSynthesizerVoice() {
 		return synthesizerVoice;
 	}
 
 	/**
-	 * Set the voice to be read by synthesizer
+	 * Set if the line to be read by synthesizer
 	 * 
 	 * @param synthesizerVoice
 	 * 				true for to be read by synthesizer
 	 */
-	public void setSynthesizerVoice(String synthesizerVoice) {
+	public void setSynthesizerVoice(boolean synthesizerVoice) {
 		this.synthesizerVoice = synthesizerVoice;
 	}
 

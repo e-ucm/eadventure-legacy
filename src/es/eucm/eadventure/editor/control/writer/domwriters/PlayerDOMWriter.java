@@ -79,6 +79,19 @@ public class PlayerDOMWriter {
 			// Append the description
 			playerNode.appendChild( descriptionNode );
 
+			// Create the voice tag
+			Element voiceNode = doc.createElement("voice");
+			// Create and append the voice name and if is alwaysSynthesizer
+			voiceNode.setAttribute("name", player.getVoice());
+			if (player.isAlwaysSynthesizer())
+				voiceNode.setAttribute("synthesizeAlways", "yes");
+			else 
+				voiceNode.setAttribute("synthesizeAlways", "no");
+			
+			// Append the voice tag
+			
+			playerNode.appendChild(voiceNode);
+			
 		} catch( ParserConfigurationException e ) {
 			e.printStackTrace( );
 		}

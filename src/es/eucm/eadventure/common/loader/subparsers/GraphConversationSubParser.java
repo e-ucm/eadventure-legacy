@@ -87,9 +87,9 @@ public class GraphConversationSubParser extends SubParser {
 	private boolean random;
 	
 	/**
-	 * The voice for the synthesizer for a conversation line
+	 * Check if a conversation line must be synthesize
 	 */
-	private String synthesizerVoice;
+	private Boolean synthesizerVoice;
 	
 	/* Methods */
 
@@ -153,7 +153,7 @@ public class GraphConversationSubParser extends SubParser {
 				// Set default name to "NPC"
 				characterName = "NPC";
 				audioPath="";
-				synthesizerVoice = "";
+				
 
 				for (int i=0 ; i<attrs.getLength( ); i++){
 					// If there is a "idTarget" attribute, store it
@@ -163,9 +163,14 @@ public class GraphConversationSubParser extends SubParser {
 					// If there is a "uri" attribute, store it as audio path
 					if( attrs.getQName( i ).equals( "uri" ) )
 						audioPath = attrs.getValue( i );
-					// If there is a "synthesize" attribute, store it as voice name
-					if (attrs.getQName(i).equals("synthesize"))
-						synthesizerVoice = attrs.getValue(i);
+					// If there is a "synthesize" attribute, store its value
+					if (attrs.getQName(i).equals("synthesize")){
+						String response = attrs.getValue(i);
+					    if (response.equals("yes"))
+							synthesizerVoice = true;
+						else 
+							synthesizerVoice = false;
+					}
 				}
 			}
 			
@@ -178,9 +183,14 @@ public class GraphConversationSubParser extends SubParser {
 					// If there is a "uri" attribute, store it as audio path
 					if( attrs.getQName( i ).equals( "uri" ) )
 						audioPath = attrs.getValue( i );
-					// If there is a "synthesize" attribute, store it as voice name
-					if (attrs.getQName(i).equals("synthesize"))
-						synthesizerVoice = attrs.getValue(i);
+					// If there is a "synthesize" attribute, store its value
+					if (attrs.getQName(i).equals("synthesize")){
+						String response = attrs.getValue(i);
+					    if (response.equals("yes"))
+							synthesizerVoice = true;
+						else 
+							synthesizerVoice = false;
+					}
 				}
 			}
 			
@@ -244,7 +254,7 @@ public class GraphConversationSubParser extends SubParser {
 				if (audioPath!=null && !this.audioPath.equals( "" )){
 					line.setAudioPath( audioPath );
 				}
-				if (synthesizerVoice!=null && !synthesizerVoice.equals(""))
+				if (synthesizerVoice!=null)
 					line.setSynthesizerVoice(synthesizerVoice);
 				
 				currentNode.addLine( line );
@@ -259,7 +269,7 @@ public class GraphConversationSubParser extends SubParser {
 				if (audioPath!=null && !this.audioPath.equals( "" )){
 					line.setAudioPath( audioPath );
 				}
-				if (synthesizerVoice!=null && !synthesizerVoice.equals(""))
+				if (synthesizerVoice!=null)
 					line.setSynthesizerVoice(synthesizerVoice);
 				currentNode.addLine( line );
 			}

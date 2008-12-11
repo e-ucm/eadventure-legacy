@@ -105,8 +105,8 @@ public class ConversationDOMWriter {
 				if( line.isValidAudio( ) )
 					phrase.setAttribute( "uri", line.getAudioPath( ) );
 				//If there is a synthesizer valid voice, store it as attribute
-				if (!line.getSynthesizerVoice().equals(""))
-					phrase.setAttribute( "synthesize", line.getSynthesizerVoice());
+				if (line.getSynthesizerVoice())
+					phrase.setAttribute( "synthesize", "yes");
 				
 				
 				// Add the element to the DOM root
@@ -176,8 +176,8 @@ public class ConversationDOMWriter {
 				if( line.isValidAudio( ) )
 					lineElement.setAttribute( "uri", line.getAudioPath( ) );
 				//If there is a synthesizer valid voice, store it as attribute
-				if (!line.getSynthesizerVoice().equals(""))
-					lineElement.setAttribute( "synthesize", line.getSynthesizerVoice());
+				if (line.getSynthesizerVoice())
+					lineElement.setAttribute( "synthesize", "yes");
 				
 				
 				// Insert the text line in the option node
@@ -257,8 +257,8 @@ public class ConversationDOMWriter {
 						if( line.isValidAudio( ) )
 							phrase.setAttribute( "uri", line.getAudioPath( ) );
 						//If there is a synthesizer valid voice, store it as attribute
-						if (!line.getSynthesizerVoice().equals(""))
-							phrase.setAttribute( "synthesize", line.getSynthesizerVoice());
+						if (line.getSynthesizerVoice())
+							phrase.setAttribute( "synthesize", "yes");
 						
 						// Add the line text into the element
 						phrase.setTextContent( line.getText( ) );
@@ -331,8 +331,8 @@ public class ConversationDOMWriter {
 						if( line.isValidAudio( ) )
 							lineElement.setAttribute( "uri", line.getAudioPath( ) );
 						//If there is a synthesizer valid voice, store it as attribute
-						if (!line.getSynthesizerVoice().equals(""))
-							lineElement.setAttribute( "synthesize", line.getSynthesizerVoice());
+						if (line.getSynthesizerVoice())
+							lineElement.setAttribute( "synthesize", "yes");
 
 						// Create a child tag, and set it the index of the child
 						Element childElement = doc.createElement( "child" );

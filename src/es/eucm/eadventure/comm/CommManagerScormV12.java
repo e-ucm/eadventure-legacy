@@ -8,7 +8,7 @@ import javax.swing.JApplet;
 import netscape.javascript.JSObject;
 
 
-public class CommManager extends JApplet implements CommManagerApi{
+public class CommManagerScormV12 extends JApplet implements CommManagerApi{
 
 	protected String userId;
 	protected String runId;

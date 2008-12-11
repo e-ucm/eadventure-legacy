@@ -10,9 +10,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -21,10 +24,15 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+
+import com.sun.speech.freetts.Voice;
+import com.sun.speech.freetts.VoiceManager;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
@@ -70,7 +78,22 @@ public class PlayerPanel extends JPanel {
 	 * Text field for the detailed description.
 	 */
 	private JTextField detailedDescriptionTextField;
-
+	
+	/**
+	 * Combo box to select between the existent voices
+	 */
+	private JComboBox voicesComboBox;
+	
+	/**
+	 * Text field to get the text to try the current voice in the synthesizer
+	 */
+	private JTextField trySynthesizer;
+	
+	/**
+	 * Check box to set that the conversation lines of the player must be read by synthesizer
+	 */
+	private JCheckBox alwaysSynthesizer;
+	
 	private JTabbedPane tabPanel;
 
 	private JPanel docPanel;
@@ -158,6 +181,37 @@ public class PlayerPanel extends JPanel {
 		detailedDescriptionPanel.add( detailedDescriptionTextField );
 		detailedDescriptionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Player.DetailedDescription" ) ) );
 		docPanel.add( detailedDescriptionPanel, cDoc );
+		
+		// Create the field for voice selection
+		cDoc.gridy = 5;
+		JPanel voiceSelection = new JPanel();
+		voiceSelection.setLayout(new GridLayout(2,2));
+				// Create ComboBox for select the voices
+		String[] voices = availableVoices();
+		voicesComboBox = new JComboBox(voices);
+		voicesComboBox.addItemListener(new VoiceComboBoxListener());
+		if (playerDataControl.getPlayerVoice() != null){
+			for (int i =1; i<voices.length;i++)
+				if (voices[i].equals(playerDataControl.getPlayerVoice()))
+					voicesComboBox.setSelectedIndex(i);
+		}
+		voiceSelection.add(voicesComboBox);
+				// Create CheckBox for select if always synthesizer voices
+		alwaysSynthesizer = new JCheckBox(TextConstants.getText("Synthesizer.CheckAlways"));
+		alwaysSynthesizer.addItemListener(new VoiceCheckVoxListener());
+		voiceSelection.add(alwaysSynthesizer);
+				// Create a TextField to introduce text to try it in the synthesizer
+		trySynthesizer = new JTextField();
+		voiceSelection.add(trySynthesizer);
+				// Create a Button to take the text and try it in the synthesizer
+		JButton playText = new JButton(TextConstants.getText("Synthesizer.ButtonPlay"));
+		playText.addActionListener(new VoiceButtonListener());
+		voiceSelection.add(playText);
+		
+		TitledBorder border = BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( EtchedBorder.LOWERED ), TextConstants.getText( "Synthesizer.BorderVoices" ), TitledBorder.LEFT, TitledBorder.TOP );
+		voiceSelection.setBorder(border);
+		docPanel.add(voiceSelection,cDoc);
+		
 
 		// Add the tabs
 		//Finally, add lookPanel to its scrollPane container, and insert it as a tab along with docPanel
@@ -175,7 +229,22 @@ public class PlayerPanel extends JPanel {
 		}
 
 	}
-
+	
+	/**
+	 * Return a string array with names of the available voices for synthesizer text
+	 * @return
+	 * 			string array with names of the available voices for synthesizer text
+	 */
+	private String[] availableVoices(){
+		VoiceManager voiceManager = VoiceManager.getInstance();
+		Voice[] availableVoices = voiceManager.getVoices();
+		String[] voiceName = new String[availableVoices.length+1];
+		voiceName[0] = TextConstants.getText( "Synthesizer.Empty" );
+		for (int i=0; i<availableVoices.length;i++)
+			voiceName[i+1] = availableVoices[i].getName();
+		return voiceName;
+	}
+	
 	/**
 	 * Called when a text field has changed, so that we can set the new values.
 	 * 
@@ -195,7 +264,61 @@ public class PlayerPanel extends JPanel {
 		else if( source == detailedDescriptionTextField )
 			playerDataControl.setDetailedDescription( detailedDescriptionTextField.getText( ) );
 	}
+	
+	
+	/**
+	 * Called when the demo synthesizer button has been pressed
+	 */
+	private class VoiceButtonListener implements ActionListener{
 
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			if (voicesComboBox.getSelectedIndex()!=0 && trySynthesizer.getText()!=null){
+				VoiceManager voiceManager = VoiceManager.getInstance();
+				Voice voice = voiceManager.getVoice((String)voicesComboBox.getSelectedItem());
+				voice.allocate();
+				voice.speak(trySynthesizer.getText());
+				}
+		}
+		
+	}
+	
+	
+	/**
+	 * Called when change the state of checkbox
+	 */
+
+	private class VoiceCheckVoxListener implements ItemListener{
+
+		@Override
+		public void itemStateChanged(ItemEvent arg0) {
+			
+			
+			playerDataControl.setAlwaysSynthesizer(alwaysSynthesizer.isSelected());
+			
+		}
+		
+	}
+	
+	/**
+	 * 
+	 * Called when select a field in combo box voiceComboBox
+	 *
+	 */
+	private class VoiceComboBoxListener implements ItemListener{
+
+		@Override
+		public void itemStateChanged(ItemEvent arg0) {
+			int selection = voicesComboBox.getSelectedIndex();
+			if (selection != 0){
+				playerDataControl.setPlayerVoice((String)voicesComboBox.getSelectedItem());
+			} else 
+				playerDataControl.setPlayerVoice(new String(""));
+		}
+		
+	}
+	
+	
 	/**
 	 * Listener for the text area. It checks the value of the area and updates the documentation.
 	 */

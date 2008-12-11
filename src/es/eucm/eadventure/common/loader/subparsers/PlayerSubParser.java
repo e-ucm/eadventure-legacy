@@ -115,11 +115,34 @@ public class PlayerSubParser extends SubParser {
 					if( attrs.getQName( i ).equals( "color" ) )
 						color = attrs.getValue( i );
 
-				// Set the color in the npc
+				// Set the color in the player
 				if( qName.equals( "frontcolor" ) )
 					player.setTextFrontColor( color );
 				if( qName.equals( "bordercolor" ) )
 					player.setTextBorderColor( color );
+			} 
+			// If it is a voice tag, take the voice and the always synthesizer option
+			else if (qName.equals( "voice" )){
+				String voice = new String("");
+				String response;
+				boolean alwaysSynthesizer = false;
+				
+				// Pick the voice and synthesizer option
+				for( int i = 0; i < attrs.getLength( ); i++ ){
+					if( attrs.getQName( i ).equals( "name" ) )
+						voice = attrs.getValue( i );
+					if( attrs.getQName( i ).equals( "synthesizeAlways" ) ){
+						response = attrs.getValue( i );
+						if (response.equals("yes"))
+							alwaysSynthesizer = true;
+					}
+						
+				}
+				player.setAlwaysSynthesizer(alwaysSynthesizer);
+				player.setVoice(voice);
+				
+				
+				
 			}
 		}
 

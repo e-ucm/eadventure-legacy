@@ -1582,8 +1582,10 @@ ya que de esta manera se evita reescribirlos varias veces.</entry>
 	<entry key="Macro.Documentation">Descripción (no se usa en el motor)</entry>
 	<entry key="Macro.Effects">Lista de efectos de la macro</entry>
 	
-	<entry key="Synthesizer.Title">Editar voces para el sintetizador</entry>
+	<entry key="Synthesizer.Title">Selecionar sintetizar linea de conversacion</entry>
 	<entry key="Synthesizer.Empty">Sin voz</entry>
 	<entry key="Synthesizer.BorderVoices">Voz actual</entry>
 	<entry key="Synthesizer.ButtonPlay">Probar ejemplo</entry>
+	<entry key="Synthesizer.CheckAlways">Sintetizar todas las conversaciones</entry>
+	<entry key="Synthesizer.CheckLine">Sintetizar la linea seleccionada</entry>
 </properties>

@@ -166,6 +166,29 @@ public class CharacterSubParser extends SubParser {
 				conditionSubParser = new ConditionSubParser( currentConditions, chapter );
 				subParsing = SUBPARSING_CONDITION;
 			}
+			// If it is a voice tag, take the voice and the always synthesizer option
+			else if (qName.equals( "voice" )){
+				String voice = new String("");
+				String response;
+				boolean alwaysSynthesizer = false;
+				
+				// Pick the voice and synthesizer option
+				for( int i = 0; i < attrs.getLength( ); i++ ){
+					if( attrs.getQName( i ).equals( "name" ) )
+						voice = attrs.getValue( i );
+					if( attrs.getQName( i ).equals( "synthesizeAlways" ) ){
+						response = attrs.getValue( i );
+						if (response.equals("yes"))
+							alwaysSynthesizer = true;
+					}
+						
+				}
+				npc.setAlwaysSynthesizer(alwaysSynthesizer);
+				npc.setVoice(voice);
+				
+				
+				
+			}
 		}
 
 		// If a condition is being subparsed, spread the call

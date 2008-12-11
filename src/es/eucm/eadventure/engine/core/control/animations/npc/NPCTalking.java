@@ -181,6 +181,7 @@ public class NPCTalking extends NPCState {
     	private String voiceText;
     	private String text;
     	private float duration;
+
     	
     	public TTask ( String voiceText, String text ){
     		this.voiceText = voiceText;
@@ -195,6 +196,7 @@ public class NPCTalking extends NPCState {
 		         voice.allocate();
 		         duration = voice.getRate();
 		         voice.speak(text);
+		         voice.deallocate();
 		         
 			}
 			

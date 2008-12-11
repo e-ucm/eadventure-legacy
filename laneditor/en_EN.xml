@@ -1582,8 +1582,10 @@ avoids retyping.</entry>
 	<entry key="Macro.Documentation">Documentation (not used in game engine)</entry>
 	<entry key="Macro.Effects">List of effects of the macro</entry>
 	
-	<entry key="Synthesizer.Title">Edit synthetizer voices</entry>
+	<entry key="Synthesizer.Title">Select synthetize conversation line</entry>
 	<entry key="Synthesizer.Empty">No voice</entry>
 	<entry key="Synthesizer.BorderVoices">Current voice</entry>
 	<entry key="Synthesizer.ButtonPlay">Play sample</entry>
+	<entry key="Synthesizer.CheckAlways">Synthesizer all conversations</entry>
+	<entry key="Synthesizer.CheckLine">Synthesize current line</entry>
 </properties>

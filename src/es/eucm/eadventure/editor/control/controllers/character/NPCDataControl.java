@@ -303,6 +303,36 @@ public class NPCDataControl extends DataControlWithResources {
 		}
 	}
 
+	/**
+	 * Set the possibility to all conversation lines to be read by synthesizer
+	 * 
+	 * @param always
+	 * 			Boolean value
+	 */
+	public void setAlwaysSynthesizer(boolean always){
+		npc.setAlwaysSynthesizer(always);
+	}
+	
+	/**
+	 * Sets the new voice for the character
+	 * 
+	 * @param voice
+	 * 			a string with the valid voice
+	 */
+	public void setNPCVoice(String voice){
+		npc.setVoice(voice);
+	}
+	
+	/**
+	 * Gets the voice associated to character
+	 * 
+	 * @return
+	 * 		string representing character voice
+	 */
+	public String getNPCVoice(){
+		return npc.getVoice();
+	}
+	
 	@Override
 	public Object getContent( ) {
 		return npc;
