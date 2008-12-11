@@ -4,37 +4,28 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
-import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.DisplayMode;
 import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Frame;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.LayoutManager;
 import java.awt.Point;
-import java.awt.RenderingHints;
 import java.awt.Toolkit;
-import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.awt.event.MouseEvent;
-import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.gui.TextConstants;
-import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.engine.core.control.Game;
-import es.eucm.eadventure.engine.core.gui.hud.HUD;
 import es.eucm.eadventure.engine.core.gui.hud.contextualhud.ContextualHUD;
 import es.eucm.eadventure.engine.core.gui.hud.traditionalhud.TraditionalHUD;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
@@ -99,10 +90,10 @@ public class GUIFrame extends GUI implements FocusListener {
 		// Create the list of icons of the window
 		List<Image> icons = new ArrayList<Image>();
 		
-		icons.add( AssetsController.getImage("gui/Icono-Motor-16x16.png") );
-		icons.add( AssetsController.getImage("gui/Icono-Motor-32x32.png") );
-		icons.add( AssetsController.getImage("gui/Icono-Motor-64x64.png") );
-		icons.add( AssetsController.getImage("gui/Icono-Motor-128x128.png") );
+		icons.add( new ImageIcon("gui/Icono-Motor-16x16.png").getImage() );
+		icons.add( new ImageIcon("gui/Icono-Motor-32x32.png").getImage() );
+		icons.add( new ImageIcon("gui/Icono-Motor-64x64.png").getImage() );
+		icons.add( new ImageIcon("gui/Icono-Motor-128x128.png").getImage() );
 		bkgFrame.setIconImages(icons);
         
         bkgFrame.setUndecorated( true );
