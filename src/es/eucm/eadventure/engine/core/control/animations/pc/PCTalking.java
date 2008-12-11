@@ -177,10 +177,12 @@ public class PCTalking extends PCState {
     	private String voiceText;
     	private String text;
     	private float duration;
+    	private boolean dealocate;
     	
     	public TTask ( String voiceText, String text ){
     		this.voiceText = voiceText;
     		this.text = text;
+    		this.dealocate=false;
     	}
     	
 			@Override
@@ -191,12 +193,16 @@ public class PCTalking extends PCState {
 		         voice.allocate();
 		         duration =voice.getRate();
 		         voice.speak(text);
-		         voice.deallocate();
+		         deallocate();
 		         
 			}
 		
 			public void deallocate(){
-				voice.deallocate();
+				if (!dealocate){
+					voice.deallocate();
+					dealocate=true;
+				}
+				
 			}
 			
 			public float getDuration(){

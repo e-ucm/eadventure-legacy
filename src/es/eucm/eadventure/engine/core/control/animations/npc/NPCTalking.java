@@ -181,11 +181,12 @@ public class NPCTalking extends NPCState {
     	private String voiceText;
     	private String text;
     	private float duration;
-
+    	private boolean dealocate;
     	
     	public TTask ( String voiceText, String text ){
     		this.voiceText = voiceText;
     		this.text = text;
+    		this.dealocate=false;
     	}
     	
 			@Override
@@ -194,14 +195,18 @@ public class NPCTalking extends NPCState {
 		         // TODO ver que la voz exista!!!
 		         voice = voiceManager.getVoice(voiceText);
 		         voice.allocate();
-		         duration = voice.getRate();
+		         duration =voice.getRate();
 		         voice.speak(text);
-		         voice.deallocate();
+		         deallocate();
 		         
 			}
-			
+		
 			public void deallocate(){
-				voice.deallocate();
+				if (!dealocate){
+					voice.deallocate();
+					dealocate=true;
+				}
+				
 			}
 			
 			public float getDuration(){
