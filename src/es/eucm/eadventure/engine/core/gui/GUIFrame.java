@@ -25,12 +25,14 @@ import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.gui.hud.HUD;
 import es.eucm.eadventure.engine.core.gui.hud.contextualhud.ContextualHUD;
@@ -93,6 +95,16 @@ public class GUIFrame extends GUI implements FocusListener {
                 	GUIFrame.this.component.repaint();
             }
         };
+        
+		// Create the list of icons of the window
+		List<Image> icons = new ArrayList<Image>();
+		
+		icons.add( AssetsController.getImage("gui/Icono-Motor-16x16.png") );
+		icons.add( AssetsController.getImage("gui/Icono-Motor-32x32.png") );
+		icons.add( AssetsController.getImage("gui/Icono-Motor-64x64.png") );
+		icons.add( AssetsController.getImage("gui/Icono-Motor-128x128.png") );
+		bkgFrame.setIconImages(icons);
+        
         bkgFrame.setUndecorated( true );
         
         Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );

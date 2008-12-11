@@ -53,6 +53,11 @@ import es.eucm.eadventure.editor.control.controllers.AssetsController;
 
 public class StartDialog extends JFileChooser {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -544319646379939561L;
+
 	private int option;
 
 	public static final int NO_CUSTOM_OPTION = -2;
@@ -99,10 +104,12 @@ public class StartDialog extends JFileChooser {
 
 	public StartDialog( ) {
 		super( );
+		JDialog dialog = new JDialog();
 		this.setFileFilter( new EADAndFolderFileFilter( ) );
 		this.setCurrentDirectory( Controller.projectsFolder( ) );
 		this.setMultiSelectionEnabled( false );
 		this.setFileSelectionMode( JFileChooser.FILES_AND_DIRECTORIES );
+		
 		option = NO_CUSTOM_OPTION;
 		recentFile = null;
 		fileType = -2;
@@ -469,6 +476,11 @@ public class StartDialog extends JFileChooser {
 	}
 
 	private class RecentFilesTableModel extends AbstractTableModel implements MouseListener {
+
+		/**
+		 * Required
+		 */
+		private static final long serialVersionUID = -4878543735587447453L;
 
 		private String[][] info;
 
