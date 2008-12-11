@@ -132,6 +132,7 @@ public class NPCTalking extends NPCState {
     }
     
     public void stopTTSTalking(){
+    	if (task!=null)
     	task.deallocate();
     }
 
