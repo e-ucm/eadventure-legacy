@@ -1,14 +1,12 @@
 package es.eucm.eadventure.engine.gamelauncher;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
-import java.awt.LayoutManager;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,12 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
-import java.net.URL;
-import java.net.MalformedURLException;
 import java.io.*;
 
 import javax.swing.JComboBox;
-import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -42,8 +37,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileFilter;
@@ -53,7 +46,6 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.SAXException;
 
-import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.engine.EAdventure;
 import es.eucm.eadventure.engine.core.control.config.ConfigData;
 import es.eucm.eadventure.engine.core.control.Game;
@@ -186,10 +178,10 @@ public class GameLauncher extends JFrame implements Runnable {
 		// Create the list of icons of the window
 		List<Image> icons = new ArrayList<Image>();
 		
-		icons.add( AssetsController.getImage("gui/Icono-Motor-16x16.png") );
-		icons.add( AssetsController.getImage("gui/Icono-Motor-32x32.png") );
-		icons.add( AssetsController.getImage("gui/Icono-Motor-64x64.png") );
-		icons.add( AssetsController.getImage("gui/Icono-Motor-128x128.png") );
+		icons.add( new ImageIcon("gui/Icono-Motor-16x16.png").getImage() );
+		icons.add( new ImageIcon("gui/Icono-Motor-32x32.png").getImage() );
+		icons.add( new ImageIcon("gui/Icono-Motor-64x64.png").getImage() );
+		icons.add( new ImageIcon("gui/Icono-Motor-128x128.png").getImage() );
 		this.setIconImages(icons);
     	
     	initGameLoad = false;
