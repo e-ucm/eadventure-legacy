@@ -10,6 +10,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.io.File;
+import java.io.PrintStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -23,15 +26,20 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import es.eucm.eadventure.common.auxiliar.SendMail;
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
 import es.eucm.eadventure.common.data.adventure.ChapterSummary;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
+import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.data.chapter.NextScene;
 import es.eucm.eadventure.common.data.chapter.Timer;
 import es.eucm.eadventure.common.data.chapter.book.Book;
 import es.eucm.eadventure.common.data.chapter.conversation.Conversation;
 import es.eucm.eadventure.common.data.chapter.scenes.Scene;
+import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfileDataControl;
 import es.eucm.eadventure.engine.adaptation.AdaptationEngine;
 import es.eucm.eadventure.engine.assessment.AssessmentEngine;
 import es.eucm.eadventure.engine.comm.AsynchronousCommunicationApi;
@@ -480,8 +488,23 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             // Init the assessment and adaptation engines
             adaptationEngine = new AdaptationEngine( );
             assessmentEngine = new AssessmentEngine( );
-              
+             
             currentChapter = 0;
+            
+            
+            boolean needsName = false;
+
+            for (ChapterSummary chapter : gameDescriptor.getChapterSummaries( )) {
+            	AssessmentProfile ap = AssessmentEngine.loadAssessmentProfile( chapter.getAssessmentPath( ) );
+            	if (!needsName && ap != null && ap.isSendByEmail())
+            		needsName = true;
+            }
+	            
+            if (needsName) {
+            	String name = JOptionPane.showInputDialog(null, TextConstants.getText("Reports.InputReportName"), TextConstants.getText("Reports.NameInput"), JOptionPane.QUESTION_MESSAGE);
+            	gameDescriptor.setPlayerName(name);
+            	assessmentEngine.setPlayerName(name);
+            }
             
             while( !gameOver ) {
             	
@@ -538,6 +561,20 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             System.out.println( "describing what were you doing when the error occurred");
             e.printStackTrace( );
             System.out.println( "Exiting now..." );
+            
+            int sendReport = JOptionPane.showConfirmDialog(null, "This should not happen.\nSend error report?", "FATAL ERROR", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+            if (sendReport == 0) {
+            	String description = JOptionPane.showInputDialog(null, "Please describe breefly what you where doing when the error occurred", "Error report", JOptionPane.QUESTION_MESSAGE);
+            	String mail = "User description: " + description + "\n\n\n";
+            	StringWriter sw = new StringWriter();
+                PrintWriter pw = new PrintWriter(sw, true);
+                e.printStackTrace(pw);
+                pw.flush();
+                sw.flush();
+                mail += "Stack trace: \n" + sw.toString();
+                SendMail sm = new SendMail();
+                sm.postErrorReport(mail);
+            }
             
             stop( );
         }

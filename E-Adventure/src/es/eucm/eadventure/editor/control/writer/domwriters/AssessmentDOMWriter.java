@@ -48,6 +48,14 @@ public class AssessmentDOMWriter {
 			} else {
 				assessmentNode.setAttribute("show-report-at-end", "no");
 			}
+			if ( !profile.isShowReportAtEnd() || !profile.isSendByEmail() )
+				assessmentNode.setAttribute("send-to-email", "");
+			else {
+				if (profile.getEmail() == null || !profile.getEmail().contains("@"))
+					assessmentNode.setAttribute("send-to-email", "");
+				else
+					assessmentNode.setAttribute("send-to-email", profile.getEmail());
+			}
 
 			// Append the assessment rules
 			for( AssessmentRule rule : rules ) {

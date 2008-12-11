@@ -125,4 +125,12 @@
 	<entry key="Report.Importance.Normal">Normal</entry>
 	<entry key="Report.Importance.High">Alto</entry>
 	<entry key="Report.Importance.VeryHigh">Muy alto</entry>
+	<entry key="Report.OKSend">Aceptar y enviar informe</entry>
+	<entry key="Report.OKDontSend">Aceptar pero no enviar informe</entry>
+	<entry key="Reports.InputReportName">Escriba el nombre que aparecerá en el informe</entry>
+	<entry key="Reports.NameInput">Nombre del jugador</entry>
+	
+	<entry key="SendMail.UnableToSendEmail">El sistema no puedo enviar el e-mail</entry>
+	<entry key="SendMail.ErrorSendingEmail">Error enviando e-mail</entry>
+	
 </properties>

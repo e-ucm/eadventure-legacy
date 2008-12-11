@@ -154,6 +154,11 @@ public class DescriptorData{
     protected boolean commentaries = false;
 
     /**
+     * The name of the player, only used when reports are send by e-mail.
+     */
+    protected String playerName = "";
+    
+    /**
      * Constructor
      */
     public DescriptorData( ) {
@@ -308,5 +313,20 @@ public class DescriptorData{
 	public void setGraphicConfig(int graphicConfig) {
 		this.graphicConfig = graphicConfig;
 	}
-    
+
+	/**
+	 * @return the playerName
+	 */
+	public String getPlayerName() {
+		return playerName;
+	}
+
+	/**
+	 * @param playerName the playerName to set
+	 */
+	public void setPlayerName(String playerName) {
+		this.playerName = playerName;
+	}
+
+	
 }
