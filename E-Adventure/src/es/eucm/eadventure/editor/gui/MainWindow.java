@@ -4,17 +4,18 @@ import java.awt.BorderLayout;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 import javax.swing.ButtonGroup;
@@ -35,7 +36,7 @@ import javax.swing.filechooser.FileFilter;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
+import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.gui.treepanel.TreePanel;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.EmptyTreeNode;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.TreeNode;
@@ -109,6 +110,15 @@ public class MainWindow extends JFrame {
 		// Load the icons and graphic resources
 		TreeNode.loadIcons( );
 		TreePanel.loadIcons( );
+		
+		// Create the list of icons of the window
+		List<Image> icons = new ArrayList<Image>();
+		
+		icons.add( AssetsController.getImage("img/Icono-Editor-16x16.png") );
+		icons.add( AssetsController.getImage("img/Icono-Editor-32x32.png") );
+		icons.add( AssetsController.getImage("img/Icono-Editor-64x64.png") );
+		icons.add( AssetsController.getImage("img/Icono-Editor-128x128.png") );
+		this.setIconImages(icons);
 
 		// First of all, create the bar
 		setJMenuBar( createMenuBar() );

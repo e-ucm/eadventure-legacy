@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.LayoutManager;
 import java.awt.Toolkit;
@@ -17,6 +18,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 import java.net.URL;
@@ -51,6 +53,7 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.SAXException;
 
+import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.engine.EAdventure;
 import es.eucm.eadventure.engine.core.control.config.ConfigData;
 import es.eucm.eadventure.engine.core.control.Game;
@@ -180,6 +183,15 @@ public class GameLauncher extends JFrame implements Runnable {
      */
     public void init( File file, String language ) {
 
+		// Create the list of icons of the window
+		List<Image> icons = new ArrayList<Image>();
+		
+		icons.add( AssetsController.getImage("gui/Icono-Motor-16x16.png") );
+		icons.add( AssetsController.getImage("gui/Icono-Motor-32x32.png") );
+		icons.add( AssetsController.getImage("gui/Icono-Motor-64x64.png") );
+		icons.add( AssetsController.getImage("gui/Icono-Motor-128x128.png") );
+		this.setIconImages(icons);
+    	
     	initGameLoad = false;
         // Load the configuration
         ConfigData.loadFromXML( EAdventure.CONFIG_FILE );
