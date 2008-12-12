@@ -73,6 +73,11 @@ public class GameLauncher extends JFrame implements Runnable {
 
     
     /**
+	 * Required
+	 */
+	private static final long serialVersionUID = 95641854718010553L;
+
+	/**
      * Stores the file that contains the GUI strings.
      */
     private String languageFile;
@@ -454,6 +459,7 @@ public class GameLauncher extends JFrame implements Runnable {
     		EAdventure.main(args);
         	
     		setVisible ( false );
+    		dispose();
          }
     }
     
