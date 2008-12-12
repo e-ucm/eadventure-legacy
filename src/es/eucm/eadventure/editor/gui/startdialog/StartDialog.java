@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.HeadlessException;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
@@ -21,6 +22,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -40,6 +42,8 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.JTextArea;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFileChooser;
 
@@ -626,7 +630,17 @@ public class StartDialog extends JFileChooser {
 
 	protected JDialog createDialog( Component parent ) throws HeadlessException {
 		JDialog dialog = super.createDialog( parent );
+
+		List<Image> icons = new ArrayList<Image>();
+		
+		icons.add( AssetsController.getImage("img/Icono-Editor-16x16.png") );
+		icons.add( AssetsController.getImage("img/Icono-Editor-32x32.png") );
+		icons.add( AssetsController.getImage("img/Icono-Editor-64x64.png") );
+		icons.add( AssetsController.getImage("img/Icono-Editor-128x128.png") );
+		dialog.setIconImages(icons);
+		
 		dialog.setTitle( TextConstants.getText( "StartDialog.Title" ) );
+		
 		return dialog;
 	}
 
