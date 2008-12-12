@@ -43,7 +43,6 @@ public class AdventureEditor {
 			Controller controller = Controller.getInstance( );
 			controller.init( );
 		}catch( Exception e){
-			
 		}
 	}
 }
