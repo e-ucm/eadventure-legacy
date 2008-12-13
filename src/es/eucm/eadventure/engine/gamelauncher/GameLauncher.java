@@ -216,7 +216,7 @@ public class GameLauncher extends JFrame implements Runnable {
         adventuresPanel = createAdventuresPanel();
         
         //Creation of the panel for the logo
-        Icon logo = new ImageIcon( "img/logo.png" );
+        Icon logo = new ImageIcon( "img/logo-engine.png" );
         JLabel label = new JLabel( logo );
         centralPanel = new JPanel( );
         centralPanel.setLayout( new GridBagLayout( ) );

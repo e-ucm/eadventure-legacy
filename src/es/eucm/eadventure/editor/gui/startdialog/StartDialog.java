@@ -22,7 +22,6 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -108,7 +107,6 @@ public class StartDialog extends JFileChooser {
 
 	public StartDialog( ) {
 		super( );
-		JDialog dialog = new JDialog();
 		this.setFileFilter( new EADAndFolderFileFilter( ) );
 		this.setCurrentDirectory( Controller.projectsFolder( ) );
 		this.setMultiSelectionEnabled( false );
@@ -118,7 +116,7 @@ public class StartDialog extends JFileChooser {
 		recentFile = null;
 		fileType = -2;
 		//Load the logo
-		Icon logo = new ImageIcon( "img/logo.png" );
+		Icon logo = new ImageIcon( "img/logo-editor.png" );
 		JLabel label = new JLabel( logo );
 
 		JPanel centralPanel = new JPanel( );
