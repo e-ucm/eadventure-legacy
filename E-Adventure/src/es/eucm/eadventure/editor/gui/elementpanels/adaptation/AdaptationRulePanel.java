@@ -5,26 +5,17 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
-import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import es.eucm.eadventure.common.gui.TextConstants;
-import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationRuleDataControl;
-import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentRuleDataControl;
-import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
-import es.eucm.eadventure.editor.gui.editdialogs.ConditionsDialog;
 
 public class AdaptationRulePanel extends JPanel {
 
@@ -44,10 +35,6 @@ public class AdaptationRulePanel extends JPanel {
 	private JTextArea descriptionTextArea;
 
 	/**
-	 * Combo box for the initial scene
-	 */
-	private JComboBox initialSceneComboBox;	
-	/**
 	 * Constructor.
 	 * 
 	 * @param adpRuleDataControl
@@ -56,7 +43,6 @@ public class AdaptationRulePanel extends JPanel {
 	public AdaptationRulePanel( AdaptationRuleDataControl adpRuleDataControl ) {
 
 		// Set the controller
-		Controller controller = Controller.getInstance( );
 		this.adaptationRuleDataControl = adpRuleDataControl;
 
 		// Set the layout
