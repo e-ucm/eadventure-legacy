@@ -55,16 +55,6 @@ public class BarrierSubParser extends SubParser {
 	private SubParser subParser;
 
 	/**
-	 * Stores the action documentation;
-	 */
-	private String currentDocumentation;
-
-	/**
-	 * Stores an idTarget.
-	 */
-	private String currentIdTarget;
-	
-	/**
 	 * Stores the scene where the area should be attached
 	 */
 	private Scene scene;
@@ -129,7 +119,6 @@ public class BarrierSubParser extends SubParser {
 
 		// If it is reading an effect or a condition, spread the call
 		if( subParsing != SUBPARSING_NONE ) {
-			String id = this.barrier.getId( );
 			subParser.startElement( namespaceURI, sName, qName, attrs );
 		}
 	}
