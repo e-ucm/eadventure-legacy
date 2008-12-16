@@ -187,6 +187,9 @@ This could provoke errors when executing the adventure with the game engine.</en
 	<entry key="Error.DTD.NotFound.Message">The file "{#0}" was not found.
 This could provoke errors when executing or loading the adventures.</entry>
 	<entry key="Error.ImageTypeNotSupported">The image could not be loaded, possible because the image type is not completly supported.</entry>	
+	<entry key="Error.BadAudioFormat.Title">Unsupported audio format. </entry>
+	<entry key="Error.BadAudioFormat.Message">This video has a unsupported format. Please, try to convert this video file to one of next codecs: MPEG 1 video, DivX 5 (or lower), MS-MPEG 4 V2 or XVID. </entry>
+	
 
 	<entry key="SwapPlayerMode.Title">Change player mode - Confirmation dialog</entry>
 	<entry key="SwapPlayerMode.Message">Are you sure you want to change the current mode? 
@@ -1588,4 +1591,6 @@ avoids retyping.</entry>
 	<entry key="Synthesizer.ButtonPlay">Play sample</entry>
 	<entry key="Synthesizer.CheckAlways">Synthesizer all conversations</entry>
 	<entry key="Synthesizer.CheckLine">Synthesize current line</entry>
+	
+	
 </properties>

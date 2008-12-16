@@ -8,6 +8,8 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
 import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
@@ -23,6 +25,7 @@ import es.eucm.eadventure.editor.gui.otherpanels.VideoPanel;
 public class VideoDialog extends JDialog {
 
 	private VideoPanel videoPanel;
+	
 	
 	/**
 	 * Required.
@@ -40,8 +43,15 @@ public class VideoDialog extends JDialog {
 
 		// Add a video panel
 		 videoPanel = new VideoPanel( videoPath );
-		add( videoPanel );
-
+		if (!videoPanel.isError())
+			add( videoPanel );
+		else{
+			JPanel errorPanel = new JPanel();
+			JLabel error = new JLabel(TextConstants.getText("Error.BadAudioFormat.Title"));
+			errorPanel.add(error);
+			add(errorPanel);
+		}
+			
 		// Set the dialog properties
 		setResizable( false );
 		pack( );

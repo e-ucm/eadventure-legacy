@@ -1,12 +1,14 @@
 package es.eucm.eadventure.engine.adaptation;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import es.eucm.eadventure.comm.manager.commManager.CommManagerApi;
 import es.eucm.eadventure.common.data.adaptation.AdaptationProfile;
 import es.eucm.eadventure.common.data.adaptation.AdaptationRule;
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
@@ -68,9 +70,9 @@ public class AdaptationEngine {
 	 
 	    //If we are an applet...
 	    if(Game.getInstance( ).isAppletMode( )) {
-	        
-	    	//TODO aqui tenemos que ver que pasa (por ahora solo esta echo para el applet de pablo)
-	        //Game.getInstance( ).getComm( ).setAdaptationEngine(this);
+	        if (Game.getInstance().getComm().getCommType() == CommManagerApi.LD_ENVIROMENT_TYPE){
+	  
+	        	Game.getInstance( ).getComm( ).setAdaptationEngine(this);
 	        
 	        //Create a Set with all the properties that should be requested from the server
 	        externalPropertyNames = new HashSet<String>();
@@ -80,11 +82,22 @@ public class AdaptationEngine {
 	            }
 	        }
 	        
-	        //Request an initial state and set the clock to ask again later
-	        //TODO ver que pasa para el applet nuevo
-	        //requestNewState( );
+	        //Request an initial state and set the clock to ask again late
+	        requestNewState( );
 	        adaptationClock = new AdaptationClock( this );
 	        adaptationClock.start( );
+	        }
+	        else if ((Game.getInstance().getComm().getCommType() == CommManagerApi.SCORMV12_TYPE ) ||
+	        		Game.getInstance().getComm().getCommType() == CommManagerApi.SCORMV2004_TYPE){
+	        	HashMap<String,Integer> lmsInitialStates = Game.getInstance().getComm().getInitialStates();
+	        	for(AdaptationRule rule : externalAdaptationRules) {
+	        		Integer response = lmsInitialStates.get(rule.getId());
+	        		if (response!=null){
+	        			initialAdaptedState.merge(rule.getAdaptedState());
+	        		}
+	        	}
+	        }
+	        
 	    }
     }
     

@@ -190,4 +190,30 @@ public class AdaptedState {
     		}
     	}
     }
+    
+    /**
+     *	Joins two Adapted States. The new resulting adapted state has a merge of active/inactive flags of both states, 
+     * 	and the initial scene will be set as the initial scene of the parameter state. With the vars, its do the same action.
+     *  The new flags/vars will be add at the end of the data structure;
+     * 
+     * 	@param AdaptedState mergeState
+     * 					The state which will be merged with the current object
+     * 
+     */
+    public void merge(AdaptedState mergeState){
+    	
+    	if (mergeState.initialScene != null)
+    		this.initialScene = mergeState.initialScene;
+    	if (this.allFlagsVars.size()==0){
+    		this.allFlagsVars = mergeState.allFlagsVars;
+    		this.actionsValues = mergeState.actionsValues;
+    	}
+    	else {
+    	for (int i=0; i<mergeState.allFlagsVars.size();i++){
+    		this.allFlagsVars.add(mergeState.allFlagsVars.get(i));
+    		this.actionsValues.add(mergeState.allFlagsVars.get(i));
+    	}
+    	}
+    }
+    
 } 

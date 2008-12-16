@@ -190,6 +190,10 @@ Esto puede provocar errores al ejectuar los juegos con el motor.</entry>
 	<entry key="Error.DTD.NotFound.Message">No se encontró el archivo "{#0}".
 Esto puede provocar errores al cargar las aventuras.</entry>
 	<entry key="Error.ImageTypeNotSupported">La image no se pudo cargar correctamente, posiblemente debido a que el formato no es completamente soportado.</entry>	
+	<entry key="Error.BadAudioFormat.Title">Formato de video no soportado. </entry>
+	<entry key="Error.BadAudioFormat.Message">Este video tiene un formato no soportado. Por facor, intente convertir este fichero de video a alguno de los siguiente codecs: MPEG 1 video, DivX 5 (o inferior), MS-MPEG 4 V2 o XVID. </entry>
+
+
 
 	<entry key="SwapPlayerMode.Title">Cambiar tipo de aventura - Confirmación</entry>
 	<entry key="SwapPlayerMode.Message">Seguro que desea cambiar de modalidad? 
