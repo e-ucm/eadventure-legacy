@@ -11,6 +11,7 @@ import es.eucm.eadventure.engine.comm.AsynchronousCommunicationAppletLD;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.core.gui.GUIApplet;
+import es.eucm.eadventure.comm.manager.commManager.CommManagerLD;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 
@@ -22,7 +23,7 @@ import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
  * - Support for .ead files. Therefore <e-Adventure> files are no longer .zip but .ead
  */
 
-public class EAdventureApplet extends AsynchronousCommunicationAppletLD {
+public class EAdventureApplet extends CommManagerLD {
 
 	private static final String CONFIG_FILE = "config_engine.xml";
 	
@@ -111,7 +112,7 @@ public class EAdventureApplet extends AsynchronousCommunicationAppletLD {
      * @see java.applet.Applet#start()
      */
     public void start( ) {
-        this.startCommunication("");
+        this.connect(null);
         gameThread = new Thread(eAdventure);
         gameThread.start();
     }

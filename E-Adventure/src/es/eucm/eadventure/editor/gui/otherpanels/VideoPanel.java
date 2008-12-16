@@ -6,9 +6,11 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.MissingResourceException;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.media.ControllerErrorEvent;
 import javax.media.ControllerEvent;
 import javax.media.ControllerListener;
 import javax.media.EndOfMediaEvent;
@@ -23,6 +25,7 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 
+
 public class VideoPanel extends JPanel implements ControllerListener {
 
 	/**
@@ -33,6 +36,8 @@ public class VideoPanel extends JPanel implements ControllerListener {
 	private boolean realized = false;
 
 	private boolean stoped = false;
+	
+	private boolean error = false;
 
 	private Player player;
 
@@ -55,10 +60,17 @@ public class VideoPanel extends JPanel implements ControllerListener {
 	}
 
 	public synchronized void blockingRealize( ) {
+		
+		//TODO excepcion cuando no soporta el formato
 		player.realize( );
 		while( !realized ) {
 			try {
 				wait( );
+				if (error){
+					Controller.getInstance().showErrorDialog( TextConstants.getText( "Error.VideoGeneralError"), TextConstants.getText( "Error.BadAudioFormat.Message") );
+					//error=false;
+					break;
+				}
 			} catch( InterruptedException e ) {
 				System.out.println( "Interrupted while waiting on realize...exiting." );
 				System.exit( 1 );
@@ -67,15 +79,18 @@ public class VideoPanel extends JPanel implements ControllerListener {
 	}
 
 	public synchronized void blockingStop( ) {
+		
 		player.stop( );
 		while( !stoped ) {
 			try {
 				wait( );
+				
 			} catch( InterruptedException e ) {
 				System.out.println( "Interrupted while waiting on realize...exiting." );
 				System.exit( 1 );
 			}
 		}
+		
 	}
 
 	public synchronized void blockingPrefetch( ) {
@@ -83,6 +98,8 @@ public class VideoPanel extends JPanel implements ControllerListener {
 		while( !prefetched ) {
 			try {
 				wait( );
+				
+					
 			} catch( InterruptedException e ) {
 				System.out.println( "Interrupted while waiting on realize...exiting." );
 				System.exit( 1 );
@@ -102,6 +119,11 @@ public class VideoPanel extends JPanel implements ControllerListener {
 		} else if( event instanceof PrefetchCompleteEvent ) {
 			prefetched = true;
 			notify( );
+		} else if (event instanceof ControllerErrorEvent) {
+			error = true;
+			
+			notify();
+			
 		}
 		//(else if (event instanceof )
 	}
@@ -112,11 +134,17 @@ public class VideoPanel extends JPanel implements ControllerListener {
 			if( player != null )
 				blockingStop( );
 			this.removeAll( );
-
+			
 			player = Manager.createPlayer( AssetsController.getVideo( videoPath ) );
+			
+			
+			if (player != null){
 			player.addControllerListener( this );
+			
 			this.blockingRealize( );
+			if (!error){
 			this.blockingPrefetch( );
+			
 			this.setLayout( new BorderLayout( ) );
 			Component visual = player.getVisualComponent( ); 
 			if (visual!=null)
@@ -129,19 +157,25 @@ public class VideoPanel extends JPanel implements ControllerListener {
 
 			//this.add( 
 			//player.getControlPanelComponent( ));
-
+			}
+			} else {
+				Controller.getInstance().showErrorDialog( TextConstants.getText( "Error.VideoGeneralError"), TextConstants.getText( "Error.BadAudioFormat.Message") );
+			}
+			
 		} catch( NoPlayerException e ) {
 			Controller.getInstance().showErrorDialog( TextConstants.getText( "Error.NoVideoFormat"), TextConstants.getText( "Error.NoVideoFormat.Message") );
 		} catch( MalformedURLException e ) {
 			Controller.getInstance().showErrorDialog( TextConstants.getText( "Error.VideoGeneralError"), TextConstants.getText( "Error.VideoGeneralError.Message") );
 		} catch( IOException e ) {
 			Controller.getInstance().showErrorDialog( TextConstants.getText( "Error.VideoGeneralError"), TextConstants.getText( "Error.VideoGeneralError.Message") );
+		}catch(MissingResourceException e){
+			Controller.getInstance().showErrorDialog( TextConstants.getText( "Error.VideoGeneralError"), TextConstants.getText( "Error.BadAudioFormat.Message") );
 		}
 
 	}
 
 	public void removeVideo( ) {
-		if (player!=null){
+		if (player!=null && !error){
 			blockingStop( );
 			this.removeAll( );
 			this.setLayout( new GridBagLayout() );
@@ -159,6 +193,10 @@ public class VideoPanel extends JPanel implements ControllerListener {
 	public void stopVideo( ) {
 		if (player!=null)
 			blockingStop( );
+	}
+
+	public boolean isError() {
+		return error;
 	}
 
 }

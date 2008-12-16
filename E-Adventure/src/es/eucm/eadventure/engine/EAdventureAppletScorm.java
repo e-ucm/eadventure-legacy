@@ -11,7 +11,7 @@ import de.schlichtherle.io.ArchiveDetector;
 import de.schlichtherle.io.DefaultArchiveDetector;
 import de.schlichtherle.io.File;
 import es.eucm.eadventure.comm.CommException;
-import es.eucm.eadventure.comm.CommManagerScormV12;
+import es.eucm.eadventure.comm.manager.commManager.CommManagerScormV12;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.gui.GUI;
@@ -85,7 +85,7 @@ public class EAdventureAppletScorm extends CommManagerScormV12{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}*/
-        //eAdventure.setComm(this);
+        eAdventure.setComm(this);
         //System.out.println("Init finished succesfully");
         //System.out.println( " CODE BASE="+this.getCodeBase( ).toString( ));
         
@@ -96,14 +96,14 @@ public class EAdventureAppletScorm extends CommManagerScormV12{
      * @see java.applet.Applet#start()
      */
     public void start( ) {
-        try {
+      //  try {
 			this.connect(new HashMap<String, String>());
-			 this.getMessage("cmi.core.student_id");
-			 this.sendMessage("cmi.comments","Este es mi comentario: jajjajaja");
-		} catch (CommException e) {
+			// this.getMessage("cmi.core.student_id");
+			// this.sendMessage("cmi.comments","Este es mi comentario: jajjajaja");
+		/*} catch (CommException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
         gameThread = new Thread(eAdventure);
         gameThread.start();
     }
@@ -115,12 +115,12 @@ public class EAdventureAppletScorm extends CommManagerScormV12{
     public void stop() {
         System.out.println("Closing...");
         eAdventure.setGameOver();
-        try {
+   //     try {
 			this.disconnect(new HashMap<String,String>());
-		} catch (CommException e1) {
+	//	} catch (CommException e1) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		//	e1.printStackTrace();
+	//	}
         try {
             System.out.println("Trying to join...");
             gameThread.join();

@@ -26,6 +26,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import es.eucm.eadventure.comm.AdventureApplet;
 import es.eucm.eadventure.common.auxiliar.SendMail;
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
 import es.eucm.eadventure.common.data.adventure.ChapterSummary;
@@ -266,7 +267,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     /**
      * Asynchronous communication api
      */
-    private AsynchronousCommunicationApi comm;
+    private AdventureApplet comm;
 
     /**
      * Instance of Game (Singleton)
@@ -1012,7 +1013,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      * Sets the asynchronous communication api
      * @param comm New asynchronous communication api
      */
-    public void setComm( AsynchronousCommunicationApi comm ) {
+    public void setComm( AdventureApplet comm ) {
         this.comm = comm;
     }
     
@@ -1300,7 +1301,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         return lastMouseEvent;
     }
 
-    public AsynchronousCommunicationApi getComm( ) {
+    public AdventureApplet getComm( ) {
         return comm;
     }
 
