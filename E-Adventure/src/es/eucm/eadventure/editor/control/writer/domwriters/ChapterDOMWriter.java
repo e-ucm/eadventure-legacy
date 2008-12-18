@@ -14,6 +14,7 @@ import es.eucm.eadventure.common.data.chapter.book.Book;
 import es.eucm.eadventure.common.data.chapter.conditions.GlobalState;
 import es.eucm.eadventure.common.data.chapter.conversation.Conversation;
 import es.eucm.eadventure.common.data.chapter.effects.Macro;
+import es.eucm.eadventure.common.data.chapter.elements.Atrezzo;
 import es.eucm.eadventure.common.data.chapter.elements.Item;
 import es.eucm.eadventure.common.data.chapter.elements.NPC;
 import es.eucm.eadventure.common.data.chapter.scenes.Cutscene;
@@ -114,6 +115,14 @@ public class ChapterDOMWriter {
 				doc.adoptNode( macroElement );
 				chapterNode.appendChild( macroElement );
 			}
+			
+			// Append the atrezzo item elements
+			for( Atrezzo atrezzo : chapter.getAtrezzo( ) ) {
+				Node atrezzoNode = AtrezzoDOMWriter.buildDOM( atrezzo);
+				doc.adoptNode( atrezzoNode );
+				chapterNode.appendChild( atrezzoNode );
+			}
+
 
 
 		} catch( ParserConfigurationException e ) {

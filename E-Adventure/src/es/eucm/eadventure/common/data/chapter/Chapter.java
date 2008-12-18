@@ -8,6 +8,7 @@ import es.eucm.eadventure.common.data.chapter.book.Book;
 import es.eucm.eadventure.common.data.chapter.conditions.GlobalState;
 import es.eucm.eadventure.common.data.chapter.conversation.Conversation;
 import es.eucm.eadventure.common.data.chapter.effects.Macro;
+import es.eucm.eadventure.common.data.chapter.elements.Atrezzo;
 import es.eucm.eadventure.common.data.chapter.elements.Item;
 import es.eucm.eadventure.common.data.chapter.elements.NPC;
 import es.eucm.eadventure.common.data.chapter.elements.Player;
@@ -44,6 +45,11 @@ public class Chapter extends ChapterSummary{
 	 * List of items (objects).
 	 */
 	private List<Item> items;
+	
+	/**
+	 * List of atrezzo items (non interactive objects)
+	 */
+	private List<Atrezzo> atrezzo;
 
 	/**
 	 * The player.
@@ -97,6 +103,7 @@ public class Chapter extends ChapterSummary{
 		cutscenes = new ArrayList<Cutscene>( );
 		books = new ArrayList<Book>( );
 		items = new ArrayList<Item>( );
+		atrezzo = new ArrayList<Atrezzo>();
 		player = new Player( );
 		characters = new ArrayList<NPC>( );
 		conversations = new ArrayList<Conversation>( );
@@ -124,6 +131,7 @@ public class Chapter extends ChapterSummary{
 		cutscenes = new ArrayList<Cutscene>( );
 		books = new ArrayList<Book>( );
 		items = new ArrayList<Item>( );
+		atrezzo = new ArrayList<Atrezzo>();
 		player = new Player( );
 		characters = new ArrayList<NPC>( );
 		conversations = new ArrayList<Conversation>( );
@@ -203,6 +211,15 @@ public class Chapter extends ChapterSummary{
 	public List<Item> getItems( ) {
 		return items;
 	}
+	
+	/**
+	 * Returns the list of atrezzo items in the game
+	 * 
+	 * @return the list of atrezzo items in the game
+	 */
+	public List<Atrezzo> getAtrezzo() {
+		return atrezzo;
+	}
 
 	/**
 	 * Returns the player of the game
@@ -280,6 +297,16 @@ public class Chapter extends ChapterSummary{
 	 */
 	public void addItem( Item item ) {
 		items.add( item );
+	}
+	
+	/**
+	 * Adds an atrezzo item to the list of atrezzo items in the game
+	 * 
+	 * @param atrezzo
+	 *            the atrezzo item to add
+	 */
+	public void addAtrezzo( Atrezzo atrezzo ) {
+		this.atrezzo.add( atrezzo );
 	}
 	
 	/**
@@ -392,6 +419,23 @@ public class Chapter extends ChapterSummary{
 				selectedItem = item;
 
 		return selectedItem;
+	}
+	
+	/**
+	 * Returns an atrezzo item with the given id.
+	 * 
+	 * @param atrezzoId
+	 *            Atrezzo id
+	 * @return Atrezzo item requested, null if it was not found
+	 */
+	public Atrezzo getAtrezzo( String atrezzoId ) {
+		Atrezzo selectedAtrezzo = null;
+
+		for( Atrezzo at : atrezzo )
+			if( at.getId( ).equals( atrezzoId ) )
+				selectedAtrezzo = at;
+
+		return selectedAtrezzo;
 	}
 
 	/**
@@ -593,4 +637,6 @@ public class Chapter extends ChapterSummary{
 	public void setMacros(List<Macro> macros) {
 		this.macros = macros;
 	}
+
+	
 }

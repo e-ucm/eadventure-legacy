@@ -254,7 +254,7 @@ public class SceneSubParser extends SubParser {
 			}
 
 			// If it is a object-ref or character-ref, create the new element reference
-			else if( qName.equals( "object-ref" ) || qName.equals( "character-ref" ) ) {
+			else if( qName.equals( "object-ref" ) || qName.equals( "character-ref" ) || qName.equals("atrezzo-ref")) {
 				String idTarget = "";
 				int x = 0, y = 0;
 
@@ -381,6 +381,11 @@ public class SceneSubParser extends SubParser {
 			// If it is a character-ref tag, store the reference in the scene
 			else if( qName.equals( "character-ref" ) ) {
 				scene.addCharacterReference( currentElementReference );
+				reading = READING_NONE;
+			}
+			// If it is a atrezzo-ref tag, store the reference in the scene
+			else if( qName.equals( "atrezzo-ref" ) ) {
+				scene.addAtrezzoReference( currentElementReference );
 				reading = READING_NONE;
 			}
 

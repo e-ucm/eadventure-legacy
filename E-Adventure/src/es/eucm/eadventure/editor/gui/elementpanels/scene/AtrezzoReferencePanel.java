@@ -26,8 +26,8 @@ import es.eucm.eadventure.editor.gui.otherpanels.positionimagepanels.CategoryEle
 import es.eucm.eadventure.editor.gui.otherpanels.positionpanel.PositionPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.positionpanel.PositionPanelListener;
 
-public class ItemReferencePanel extends JPanel implements PositionPanelListener {
-
+public class AtrezzoReferencePanel extends JPanel implements PositionPanelListener {
+	
 	/**
 	 * Required.
 	 */
@@ -39,9 +39,9 @@ public class ItemReferencePanel extends JPanel implements PositionPanelListener 
 	private ElementReferenceDataControl elementReferenceDataControl;
 
 	/**
-	 * Combo box for the items in the script.
+	 * Combo box for the atrezzo items in the script.
 	 */
-	private JComboBox itemsComboBox;
+	private JComboBox atrezzoComboBox;
 
 	/**
 	 * Text area for the documentation.
@@ -74,7 +74,7 @@ public class ItemReferencePanel extends JPanel implements PositionPanelListener 
 	 * @param elementReferenceDataControl
 	 *            Controller of the element reference
 	 */
-	public ItemReferencePanel( ElementReferenceDataControl elementReferenceDataControl ) {
+	public AtrezzoReferencePanel( ElementReferenceDataControl elementReferenceDataControl ) {
 
 		// Set the controller
 		Controller controller = Controller.getInstance( );
@@ -86,21 +86,21 @@ public class ItemReferencePanel extends JPanel implements PositionPanelListener 
 
 		// Set the layout
 		setLayout( new GridBagLayout( ) );
-		setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ItemReference.Title" ) ) );
+		setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AtrezzoReference.Title" ) ) );
 		GridBagConstraints c = new GridBagConstraints( );
 		c.insets = new Insets( 5, 5, 5, 5 );
 
 		// Create the combo box of items
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 1;
-		JPanel itemIdPanel = new JPanel( );
-		itemIdPanel.setLayout( new GridLayout( ) );
-		itemsComboBox = new JComboBox( controller.getIdentifierSummary( ).getItemIds( ) );
-		itemsComboBox.setSelectedItem( elementReferenceDataControl.getElementId( ) );
-		itemsComboBox.addActionListener( new ItemComboBoxListener( ) );
-		itemIdPanel.add( itemsComboBox );
-		itemIdPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ItemReference.ItemId" ) ) );
-		add( itemIdPanel, c );
+		JPanel atrezzoIdPanel = new JPanel( );
+		atrezzoIdPanel.setLayout( new GridLayout( ) );
+		atrezzoComboBox = new JComboBox( controller.getIdentifierSummary( ).getItemIds( ) );
+		atrezzoComboBox.setSelectedItem( elementReferenceDataControl.getElementId( ) );
+		atrezzoComboBox.addActionListener( new ItemComboBoxListener( ) );
+		atrezzoIdPanel.add( atrezzoComboBox );
+		atrezzoIdPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AtrezzoReference.AtrezzoId" ) ) );
+		add( atrezzoIdPanel, c );
 
 		// Create the text area for the documentation
 		c.gridy = 1;
@@ -111,7 +111,7 @@ public class ItemReferencePanel extends JPanel implements PositionPanelListener 
 		documentationTextArea.setWrapStyleWord( true );
 		documentationTextArea.getDocument( ).addDocumentListener( new DocumentationTextAreaChangesListener( ) );
 		documentationPanel.add( new JScrollPane( documentationTextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER ) );
-		documentationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ItemReference.Documentation" ) ) );
+		documentationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AtrezzoReference.Documentation" ) ) );
 		add( documentationPanel, c );
 
 		// Create the button for the conditions
@@ -121,7 +121,7 @@ public class ItemReferencePanel extends JPanel implements PositionPanelListener 
 		JButton conditionsButton = new JButton( TextConstants.getText( "GeneralText.EditConditions" ) );
 		conditionsButton.addActionListener( new ConditionsButtonListener( ) );
 		conditionsPanel.add( conditionsButton );
-		conditionsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ItemReference.Conditions" ) ) );
+		conditionsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AtrezzoReference.Conditions" ) ) );
 		add( conditionsPanel, c );
 
 		// Create image panel
@@ -178,7 +178,7 @@ public class ItemReferencePanel extends JPanel implements PositionPanelListener 
 		c.fill = GridBagConstraints.BOTH;
 		c.weighty = 1;
 		JPanel completePositionPanel = new JPanel( );
-		completePositionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ItemReference.Position" ) ) );
+		completePositionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AtrezzoReference.Position" ) ) );
 		completePositionPanel.setLayout( new BorderLayout( ) );
 		completePositionPanel.add( checkBoxesPanel, BorderLayout.NORTH );
 		completePositionPanel.add( elementPositionPanel, BorderLayout.CENTER );
@@ -273,7 +273,7 @@ public class ItemReferencePanel extends JPanel implements PositionPanelListener 
 		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 		 */
 		public void actionPerformed( ActionEvent e ) {
-			elementReferenceDataControl.setElementId( itemsComboBox.getSelectedItem( ).toString( ) );
+			elementReferenceDataControl.setElementId( atrezzoComboBox.getSelectedItem( ).toString( ) );
 
 			// Get the new element, update it and paint the panel
 			String elementPath = Controller.getInstance( ).getElementImagePath( elementReferenceDataControl.getElementId( ) );
@@ -296,4 +296,6 @@ public class ItemReferencePanel extends JPanel implements PositionPanelListener 
 			new ConditionsDialog( elementReferenceDataControl.getConditions( ) );
 		}
 	}
+
+
 }

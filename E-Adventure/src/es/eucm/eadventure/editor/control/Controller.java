@@ -359,8 +359,27 @@ public class Controller {
 	 * Id for macro list
 	 */
 	public static final int MACRO_LIST = 57;
+	
+	/**
+	 * Id for atrezzo item element
+	 */
+	public static final int ATREZZO = 58;
 
-
+	/**
+	 * Id for atrezzo list element
+	 */
+	public static final int ATREZZO_LIST = 59;
+	
+	/**
+	 * Id for atrezzo reference
+	 */
+	public static final int ATREZZO_REFERENCE = 60;
+	
+	/**
+	 * Id for atrezzo references list
+	 */
+	public static final int ATREZZO_REFERENCES_LIST = 61;
+	
 	//TYPES OF EAD FILES
 	public static final int FILE_ADVENTURE_1STPERSON_PLAYER = 0;
 
@@ -811,6 +830,25 @@ public class Controller {
 	 */
 	public void setShowItemReferences( boolean showItemReferences ) {
 		ConfigData.setShowItemReferences( showItemReferences );
+	}
+	
+	/**
+	 * Returns whether the atrezzo item references must be displayed by default.
+	 * 
+	 * @return True if the atrezzo item references must be displayed, false otherwise
+	 */
+	public boolean getShowAtrezzoReferences( ) {
+		return ConfigData.showAtrezzoReferences( );
+	}
+
+	/**
+	 * Sets whether the atrezzo item references must be displayed by default.
+	 * 
+	 * @param showAtrezzoReferences
+	 *            True if the atrezzo item references must be displayed, false otherwise
+	 */
+	public void setShowAtrezzoReferences( boolean showAtrezzoReferences ) {
+		ConfigData.setShowAtrezzoReferences( showAtrezzoReferences );
 	}
 
 	/**

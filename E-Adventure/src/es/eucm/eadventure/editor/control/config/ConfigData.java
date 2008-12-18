@@ -36,6 +36,11 @@ public class ConfigData {
 	 * Stores whether the item references must be displayed by default.
 	 */
 	private boolean showItemReferences;
+	
+	/**
+	 * Stores whether the atrezzo item references must be displayed by default.
+	 */
+	private boolean showAtrezzoReferences;
 
 	/**
 	 * Stores whether the character references must be displayed by default.
@@ -48,6 +53,10 @@ public class ConfigData {
 
 	public static boolean showItemReferences( ) {
 		return instance.showItemReferences;
+	}
+	
+	public static boolean showAtrezzoReferences( ) {
+		return instance.showAtrezzoReferences;
 	}
 
 	public static String getLanguangeFile( ) {
@@ -72,6 +81,10 @@ public class ConfigData {
 
 	public static void setShowItemReferences( boolean b ) {
 		instance.showItemReferences = b;
+	}
+	
+	public static void setShowAtrezzoReferences( boolean b ) {
+		instance.showAtrezzoReferences = b;
 	}
 
 	public static void setLanguangeFile( String language, String about, String loadingImage ) {

@@ -8,6 +8,7 @@ import es.eucm.eadventure.common.data.chapter.book.Book;
 import es.eucm.eadventure.common.data.chapter.conditions.GlobalState;
 import es.eucm.eadventure.common.data.chapter.conversation.Conversation;
 import es.eucm.eadventure.common.data.chapter.effects.Macro;
+import es.eucm.eadventure.common.data.chapter.elements.Atrezzo;
 import es.eucm.eadventure.common.data.chapter.elements.Item;
 import es.eucm.eadventure.common.data.chapter.elements.NPC;
 import es.eucm.eadventure.common.data.chapter.scenes.Cutscene;
@@ -48,6 +49,11 @@ public class IdentifierSummary {
 	 */
 	private List<String> itemIdentifiers;
 
+	/**
+	 * List of all atrezzo item identifiers in the script.
+	 */
+	private List<String> atrezzoIdentifiers;
+	
 	/**
 	 * List of all NPC identifiers in the script.
 	 */
@@ -94,6 +100,7 @@ public class IdentifierSummary {
 		cutsceneIdentifiers = new ArrayList<String>( );
 		bookIdentifiers = new ArrayList<String>( );
 		itemIdentifiers = new ArrayList<String>( );
+		atrezzoIdentifiers = new ArrayList<String>();
 		npcIdentifiers = new ArrayList<String>( );
 		conversationIdentifiers = new ArrayList<String>( );
 		assessmentRuleIdentifiers = new ArrayList<String>( );
@@ -120,6 +127,7 @@ public class IdentifierSummary {
 		cutsceneIdentifiers.clear( );
 		bookIdentifiers.clear( );
 		itemIdentifiers.clear( );
+		atrezzoIdentifiers.clear();
 		npcIdentifiers.clear( );
 		conversationIdentifiers.clear( );
 		globalStateIdentifiers.clear( );
@@ -140,6 +148,10 @@ public class IdentifierSummary {
 		// Add item IDs
 		for( Item item : chapter.getItems( ) )
 			addItemId( item.getId( ) );
+		
+		// Add atrezzo items IDs
+		for (Atrezzo atrezzo : chapter.getAtrezzo())
+			addAtrezzoId(atrezzo.getId());
 
 		// Add NPC IDs
 		for( NPC npc : chapter.getCharacters( ) )
@@ -237,6 +249,15 @@ public class IdentifierSummary {
 	 */
 	public String[] getItemIds( ) {
 		return itemIdentifiers.toArray( new String[] {} );
+	}
+	
+	/**
+	 * Returns an array of atrezzo item identifiers.
+	 * 
+	 * @return Array of atrezzo item identifiers
+	 */
+	public String[] getAtrezzoIds( ) {
+		return atrezzoIdentifiers.toArray( new String[] {} );
 	}
 
 	/**
@@ -348,6 +369,18 @@ public class IdentifierSummary {
 		globalIdentifiers.add( itemId );
 		itemIdentifiers.add( itemId );
 	}
+	
+	/**
+	 * Adds a new atrezzo item id.
+	 * 
+	 * @param atrezzoId
+	 *            New atrezzo item id
+	 */
+	public void addAtrezzoId( String atrezzoId ) {
+		globalIdentifiers.add( atrezzoId );
+		atrezzoIdentifiers.add( atrezzoId );
+	}
+	
 
 	/**
 	 * Adds a new NPC id.
@@ -448,6 +481,17 @@ public class IdentifierSummary {
 	public void deleteItemId( String itemId ) {
 		globalIdentifiers.remove( itemId );
 		itemIdentifiers.remove( itemId );
+	}
+	
+	/**
+	 * Deletes a new atrezzo item id.
+	 * 
+	 * @param atrezzoId
+	 *            atrezzo item id to be deleted
+	 */
+	public void deleteAtrezzoId( String atrezzoId ) {
+		globalIdentifiers.remove( atrezzoId );
+		atrezzoIdentifiers.remove( atrezzoId );
 	}
 
 	/**

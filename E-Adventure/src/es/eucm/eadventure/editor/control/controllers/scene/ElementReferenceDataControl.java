@@ -75,6 +75,15 @@ public class ElementReferenceDataControl extends DataControl {
 	public List<ElementReferenceDataControl> getParentSceneNPCReferences( ) {
 		return sceneDataControl.getNPCReferencesList( ).getNPCReferences( );
 	}
+	
+	/**
+	 * Returns the data controllers of the atrezzo items references of the scene that contains this element reference.
+	 * 
+	 * @return List of atrezzo references (including the one being edited)
+	 */
+	public List<ElementReferenceDataControl> getParentSceneAtrezzoReferences( ) {
+		return sceneDataControl.getAtrezzoReferencesList( ).getAtrezzoReferences( );
+	}
 
 	/**
 	 * Returns the id of the referenced element.

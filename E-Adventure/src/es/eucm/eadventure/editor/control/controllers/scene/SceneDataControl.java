@@ -38,6 +38,11 @@ public class SceneDataControl extends DataControlWithResources {
 	 * Item references list controller.
 	 */
 	private ItemReferencesListDataControl itemReferencesListDataControl;
+	
+	/**
+	 * Atrezzo items references list controller
+	 */
+	private AtrezzoReferencesListDataControl atrezzoReferencesListDataControl;
 
 	/**
 	 * NPC references list controller.
@@ -82,6 +87,7 @@ public class SceneDataControl extends DataControlWithResources {
 
 		exitsListDataControl = new ExitsListDataControl( this, scene.getExits( ) );
 		itemReferencesListDataControl = new ItemReferencesListDataControl( this, scene.getItemReferences( ) );
+		atrezzoReferencesListDataControl = new AtrezzoReferencesListDataControl(this, scene.getAtrezzoReferences( ) );
 		npcReferencesListDataControl = new NPCReferencesListDataControl( this, scene.getCharacterReferences( ) );
 		activeAreasListDataControl = new ActiveAreasListDataControl( this, scene.getActiveAreas( ));
 		barriersListDataControl = new BarriersListDataControl( this, scene.getBarriers( ));
@@ -150,6 +156,16 @@ public class SceneDataControl extends DataControlWithResources {
 		return itemReferencesListDataControl;
 	}
 
+	/**
+	 * Returns the atrezzo item references list controller.
+	 * 
+	 * @return Atrezzo references list controller
+	 */
+	public AtrezzoReferencesListDataControl getAtrezzoReferencesList( ) {
+		return atrezzoReferencesListDataControl;
+	}
+
+	
 	/**
 	 * Returns the NPC references list controller.
 	 * 

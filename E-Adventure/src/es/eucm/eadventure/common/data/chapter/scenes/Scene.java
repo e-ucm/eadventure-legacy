@@ -52,6 +52,11 @@ public class Scene extends GeneralScene {
 	 * List of item references
 	 */
 	private List<ElementReference> itemReferences;
+	
+	/**
+	 * List of atrezzo references
+	 */
+	private List<ElementReference> atrezzoReferences;
 
 	/**
 	 * List of character references
@@ -81,6 +86,7 @@ public class Scene extends GeneralScene {
 		defaultY = Integer.MIN_VALUE;
 		exits = new ArrayList<Exit>( );
 		itemReferences = new ArrayList<ElementReference>( );
+		atrezzoReferences = new ArrayList<ElementReference>( );
 		characterReferences = new ArrayList<ElementReference>( );
 		activeAreas = new ArrayList<ActiveArea>();
 		barriers = new ArrayList<Barrier>();
@@ -130,6 +136,15 @@ public class Scene extends GeneralScene {
 	public List<ElementReference> getItemReferences( ) {
 		return itemReferences;
 	}
+	
+	/**
+	 * Returns the list of atrezzo item references
+	 * 
+	 * @return the list of atrezzo item references
+	 */
+	public List<ElementReference> getAtrezzoReferences( ) {
+		return atrezzoReferences;
+	}
 
 	/**
 	 * Returns the list of character references
@@ -171,6 +186,16 @@ public class Scene extends GeneralScene {
 	 */
 	public void addItemReference( ElementReference itemReference ) {
 		itemReferences.add( itemReference );
+	}
+	
+	/**
+	 * Adds an atrezzo item reference to the list of atrezzo item references
+	 * 
+	 * @param atrezzoReference
+	 *            the atrezzo item reference to add
+	 */
+	public void addAtrezzoReference( ElementReference itemReference ) {
+		atrezzoReferences.add( itemReference );
 	}
 
 	/**
