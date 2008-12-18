@@ -105,6 +105,8 @@
 	<entry key="GameText.TextUseNPC2">Ehhh... NO?</entry>
 	<entry key="GameText.TextUseCannot1">I don't think this is going to work</entry>
 	<entry key="GameText.TextUseCannot2">Ok... NO</entry>
+	<entry key="GameText.TextCustomCannot1">I don't think this is going to work</entry>
+	<entry key="GameText.TextCustomCannot2">Can't do such a thing</entry>
 	
 	<entry key="Report.Importance.VeryLow">Very Low</entry>
 	<entry key="Report.Importance.Low">Low</entry>

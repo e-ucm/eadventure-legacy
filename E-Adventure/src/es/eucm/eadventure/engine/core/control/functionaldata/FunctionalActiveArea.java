@@ -68,6 +68,10 @@ public class FunctionalActiveArea extends FunctionalItem{
         return activeArea.getHeight( );
     }
     
+    public ActiveArea getActiveArea() {
+    	return activeArea;
+    }
+    
     @Override
     public boolean isPointInside( float x, float y ) {
         boolean isInside = false;

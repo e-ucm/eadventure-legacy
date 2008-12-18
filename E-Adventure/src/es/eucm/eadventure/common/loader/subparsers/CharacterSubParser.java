@@ -39,6 +39,12 @@ public class CharacterSubParser extends SubParser {
 	 * Constant for subparsing condition tag
 	 */
 	private static final int SUBPARSING_CONDITION = 1;
+	
+	/**
+	 * Constant for subparsing the actions tag
+	 */
+	private static final int SUBPARSING_ACTIONS = 2;
+	
 
 	/**
 	 * Stores the current element being parsed
@@ -73,7 +79,7 @@ public class CharacterSubParser extends SubParser {
 	/**
 	 * Subparser for the conditions
 	 */
-	private SubParser conditionSubParser;
+	private SubParser subParser;
 
 	/* Methods */
 
@@ -163,7 +169,7 @@ public class CharacterSubParser extends SubParser {
 			// If it is a condition tag, create a new subparser
 			else if( qName.equals( "condition" ) ) {
 				currentConditions = new Conditions( );
-				conditionSubParser = new ConditionSubParser( currentConditions, chapter );
+				subParser = new ConditionSubParser( currentConditions, chapter );
 				subParsing = SUBPARSING_CONDITION;
 			}
 			// If it is a voice tag, take the voice and the always synthesizer option
@@ -185,15 +191,17 @@ public class CharacterSubParser extends SubParser {
 				}
 				npc.setAlwaysSynthesizer(alwaysSynthesizer);
 				npc.setVoice(voice);
-				
-				
-				
+			}
+			
+			else if (qName.equals("actions")) {
+				subParser = new ActionsSubParser(chapter, npc);
+				subParsing = SUBPARSING_ACTIONS;
 			}
 		}
 
-		// If a condition is being subparsed, spread the call
-		if( subParsing == SUBPARSING_CONDITION ) {
-			conditionSubParser.startElement( namespaceURI, sName, qName, attrs );
+		// If a condition or action is being subparsed, spread the call
+		if( subParsing != SUBPARSING_NONE ) {
+			subParser.startElement( namespaceURI, sName, qName, attrs );
 		}
 	}
 
@@ -256,7 +264,7 @@ public class CharacterSubParser extends SubParser {
 		else if( subParsing == SUBPARSING_CONDITION ) {
 
 			// Spread the end element call
-			conditionSubParser.endElement( namespaceURI, sName, qName );
+			subParser.endElement( namespaceURI, sName, qName );
 
 			// If the condition is being closed
 			if( qName.equals( "condition" ) ) {
@@ -269,6 +277,12 @@ public class CharacterSubParser extends SubParser {
 					conversationReference.setConditions( currentConditions );
 
 				// Stop subparsing
+				subParsing = SUBPARSING_NONE;
+			}
+		}
+		else if (subParsing == SUBPARSING_ACTIONS) {
+			subParser.endElement(namespaceURI, sName, qName);
+			if (qName.equals("actions")) {
 				subParsing = SUBPARSING_NONE;
 			}
 		}
@@ -286,6 +300,6 @@ public class CharacterSubParser extends SubParser {
 
 		// If a condition is being subparsed, spread the call
 		else if( subParsing == SUBPARSING_CONDITION )
-			conditionSubParser.characters( buf, offset, len );
+			subParser.characters( buf, offset, len );
 	}
 }

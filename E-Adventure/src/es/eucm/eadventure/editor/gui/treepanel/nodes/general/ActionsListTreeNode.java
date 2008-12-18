@@ -53,11 +53,17 @@ public class ActionsListTreeNode extends TreeNode {
 				case Controller.ACTION_USE:
 					children.add( new UseActionTreeNode( this, actionDataControl ) );
 					break;
+				case Controller.ACTION_CUSTOM:
+					children.add( new CustomActionTreeNode (this ,actionDataControl));
+					break;
 				case Controller.ACTION_USE_WITH:
 					children.add( new UseWithActionTreeNode( this, actionDataControl ) );
 					break;
 				case Controller.ACTION_GIVE_TO:
 					children.add( new GiveToActionTreeNode( this, actionDataControl ) );
+					break;
+				case Controller.ACTION_CUSTOM_INTERACT:
+					children.add( new CustomInteractActionTreeNode( this, actionDataControl));
 					break;
 			}
 		}
@@ -83,6 +89,10 @@ public class ActionsListTreeNode extends TreeNode {
 				addedTreeNode = new UseActionTreeNode( this, lastActionDataControl );
 				children.add( addedTreeNode );
 				break;
+			case Controller.ACTION_CUSTOM:
+				addedTreeNode = new CustomActionTreeNode (this, lastActionDataControl);
+				children.add( addedTreeNode);
+				break;
 			case Controller.ACTION_USE_WITH:
 				addedTreeNode = new UseWithActionTreeNode( this, lastActionDataControl );
 				children.add( addedTreeNode );
@@ -90,6 +100,10 @@ public class ActionsListTreeNode extends TreeNode {
 			case Controller.ACTION_GIVE_TO:
 				addedTreeNode = new GiveToActionTreeNode( this, lastActionDataControl );
 				children.add( addedTreeNode );
+				break;
+			case Controller.ACTION_CUSTOM_INTERACT:
+				addedTreeNode = new CustomInteractActionTreeNode( this, lastActionDataControl);
+				children.add(addedTreeNode);
 				break;
 		}
 

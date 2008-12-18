@@ -4,6 +4,7 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 import es.eucm.eadventure.common.data.chapter.Action;
+import es.eucm.eadventure.common.data.chapter.CustomAction;
 import es.eucm.eadventure.common.data.chapter.elements.Atrezzo;
 import es.eucm.eadventure.common.data.chapter.elements.Element;
 import es.eucm.eadventure.common.data.chapter.elements.Item;
@@ -15,8 +16,6 @@ import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.F
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
-
-
 
 /**
  * An atrezzo object in the game
@@ -201,6 +200,11 @@ public class FunctionalAtrezzo extends FunctionalElement {
 	@Override
 	public boolean canPerform(int action) {
 		return false;
+	}
+
+	@Override
+	public CustomAction getFirstValidCustomAction(String actionName) {
+		return null;
 	}
 }
 

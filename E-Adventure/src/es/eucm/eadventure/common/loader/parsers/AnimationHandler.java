@@ -12,7 +12,6 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import es.eucm.eadventure.common.data.animation.Animation;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
-import es.eucm.eadventure.common.loader.InputStreamCreator;
 import es.eucm.eadventure.common.loader.subparsers.FrameSubParser;
 import es.eucm.eadventure.common.loader.subparsers.TransitionSubParser;
 

@@ -124,7 +124,11 @@ public class CharacterDOMWriter {
 			// Append the voice tag
 			
 			characterElement.appendChild(voiceNode);
-
+			if (character.getActionsCount() > 0) {
+				Node actionsNode = ActionsDOMWriter.buildDOM(character.getActions());
+				doc.adoptNode(actionsNode);
+				characterElement.appendChild(actionsNode);
+			}
 		} catch( ParserConfigurationException e ) {
 			e.printStackTrace( );
 		}

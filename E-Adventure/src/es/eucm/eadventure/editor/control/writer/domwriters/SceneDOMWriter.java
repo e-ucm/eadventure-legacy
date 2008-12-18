@@ -9,6 +9,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import es.eucm.eadventure.common.data.chapter.Action;
+import es.eucm.eadventure.common.data.chapter.CustomAction;
 import es.eucm.eadventure.common.data.chapter.ElementReference;
 import es.eucm.eadventure.common.data.chapter.Exit;
 import es.eucm.eadventure.common.data.chapter.ExitLook;
@@ -233,6 +234,8 @@ public class SceneDOMWriter {
 				for( ActiveArea activeArea : scene.getActiveAreas( ) ) {
 					// Create the active area element
 					Element aaElement = doc.createElement( "active-area" );
+					if (activeArea.getId() != null)
+						aaElement.setAttribute( "id", activeArea.getId());
 					aaElement.setAttribute( "x", String.valueOf( activeArea.getX( ) ) );
 					aaElement.setAttribute( "y", String.valueOf( activeArea.getY( ) ) );
 					aaElement.setAttribute( "width", String.valueOf( activeArea.getWidth( ) ) );
@@ -300,6 +303,30 @@ public class SceneDOMWriter {
 									actionElement = doc.createElement( "give-to" );
 									actionElement.setAttribute( "idTarget", action.getIdTarget( ) );
 									break;
+								case Action.CUSTOM:
+									actionElement = doc.createElement( "custom" );
+									actionElement.setAttribute("name", ((CustomAction) action).getName());
+									if (((CustomAction) action).isNeedsGoTo())
+										actionElement.setAttribute("needsGoTo", "yes");
+									else
+										actionElement.setAttribute("needsGoTo", "no");
+									actionElement.setAttribute("keepDistance", "" + ((CustomAction) action).getKeepDistance());
+									for (Resources resources : ((CustomAction) action).getResources())
+										actionElement.appendChild(ResourcesDOMWriter.buildDOM(resources, ResourcesDOMWriter.RESOURCES_CUSTOM_ACTION));
+									break;
+								case Action.CUSTOM_INTERACT:
+									actionElement = doc.createElement( "custom-interact" );
+									actionElement.setAttribute("idTarget", action.getIdTarget());
+									actionElement.setAttribute("name", ((CustomAction) action).getName());
+									if (((CustomAction) action).isNeedsGoTo())
+										actionElement.setAttribute("needsGoTo", "yes");
+									else
+										actionElement.setAttribute("needsGoTo", "no");
+									actionElement.setAttribute("keepDistance", "" + ((CustomAction) action).getKeepDistance());
+									for (Resources resources : ((CustomAction) action).getResources())
+										actionElement.appendChild(ResourcesDOMWriter.buildDOM(resources, ResourcesDOMWriter.RESOURCES_CUSTOM_ACTION));
+									break;							
+
 							}
 
 							// Append the documentation (if avalaible)

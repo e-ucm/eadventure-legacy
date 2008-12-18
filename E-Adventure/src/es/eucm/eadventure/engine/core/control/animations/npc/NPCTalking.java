@@ -9,7 +9,6 @@ import com.sun.speech.freetts.VoiceManager;
 
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.Options;
-import es.eucm.eadventure.engine.core.control.animations.pc.PCTalking.TTask;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalNPC;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.data.chapter.elements.NPC;

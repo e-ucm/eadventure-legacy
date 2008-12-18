@@ -10,7 +10,6 @@ import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
-import es.eucm.eadventure.editor.gui.assetchooser.AnimationChooser;
 import es.eucm.eadventure.editor.gui.assetchooser.AssetChooser;
 
 /**
@@ -52,32 +51,29 @@ public class ResourcesDataControl extends DataControl {
 		// Initialize the assetsInformation, depending on the assets type
 		switch( resourcesType ) {
 			case Controller.SCENE:
-				// Scene assets
 				assetsInformation = new AssetInformation[] { new AssetInformation( TextConstants.getText( "Resources.DescriptionSceneBackground" ), "background", true, AssetsController.CATEGORY_BACKGROUND, AssetsController.FILTER_JPG ), new AssetInformation( TextConstants.getText( "Resources.DescriptionSceneForeground" ), "foreground", false, AssetsController.CATEGORY_BACKGROUND, AssetsController.FILTER_PNG ), /*new AssetInformation( TextConstants.getText( "Resources.DescriptionSceneHardMap" ), "hardmap", false, AssetsController.CATEGORY_BACKGROUND, AssetsController.FILTER_PNG ), */new AssetInformation( TextConstants.getText( "Resources.DescriptionSceneMusic" ), "bgmusic", false, AssetsController.CATEGORY_AUDIO, AssetsController.FILTER_NONE ) };
 				break;
-
 			case Controller.CUTSCENE_SLIDES:
-				// Slidescene assets
 				assetsInformation = new AssetInformation[] { new AssetInformation( TextConstants.getText( "Resources.DescriptionSlidesceneSlides" ), "slides", true, AssetsController.CATEGORY_ANIMATION, AssetsController.FILTER_JPG ), new AssetInformation( TextConstants.getText( "Resources.DescriptionSceneMusic" ), "bgmusic", false, AssetsController.CATEGORY_AUDIO, AssetsController.FILTER_NONE ) };
 				break;
-
+			case Controller.ACTION_CUSTOM:
+			case Controller.ACTION_CUSTOM_INTERACT:
+				assetsInformation = new AssetInformation[] {new AssetInformation( TextConstants.getText( "Resources.DescriptionButtonNormal"), "buttonNormal", true, AssetsController.CATEGORY_IMAGE, AssetsController.FILTER_PNG),
+						new AssetInformation(TextConstants.getText("Resources.DescriptionButtonOver"), "buttonOver", true, AssetsController.CATEGORY_IMAGE, AssetsController.FILTER_PNG),
+						new AssetInformation(TextConstants.getText("Resources.DescriptionButtonPressed"), "buttonPressed", true, AssetsController.CATEGORY_IMAGE, AssetsController.FILTER_PNG),
+						new AssetInformation(TextConstants.getText("Resources.DescriptionActionAnimation"), "actionAnimation", false, AssetsController.CATEGORY_ANIMATION, AssetsController.FILTER_NONE)};
+				 break;
 			case Controller.CUTSCENE_VIDEO:
-				// Videoscene assets
 				assetsInformation = new AssetInformation[] { new AssetInformation( TextConstants.getText( "Resources.DescriptionVideoscenes" ), "video", true, AssetsController.CATEGORY_VIDEO, AssetsController.FILTER_NONE ) };
 				break;
 			case Controller.BOOK:
-				// Book assets
 				assetsInformation = new AssetInformation[] { new AssetInformation( TextConstants.getText( "Resources.DescriptionBookBackground" ), "background", true, AssetsController.CATEGORY_BACKGROUND, AssetsController.FILTER_JPG ) };
 				break;
-
 			case Controller.ITEM:
-				// Item assets
 				assetsInformation = new AssetInformation[] { new AssetInformation( TextConstants.getText( "Resources.DescriptionItemImage" ), "image", false, AssetsController.CATEGORY_IMAGE, AssetsController.FILTER_NONE ), new AssetInformation( TextConstants.getText( "Resources.DescriptionItemIcon" ), "icon", false, AssetsController.CATEGORY_ICON, AssetsController.FILTER_NONE ) };
 				break;
-
 			case Controller.PLAYER:
 			case Controller.NPC:
-				// Player or NPC assets
 				assetsInformation = new AssetInformation[] { new AssetInformation( TextConstants.getText( "Resources.DescriptionCharacterAnimationStandUp" ), "standup", false, AssetsController.CATEGORY_ANIMATION, AssetsController.FILTER_PNG ), new AssetInformation( TextConstants.getText( "Resources.DescriptionCharacterAnimationStandDown" ), "standdown", false, AssetsController.CATEGORY_ANIMATION, AssetsController.FILTER_PNG ), new AssetInformation( TextConstants.getText( "Resources.DescriptionCharacterAnimationStandRight" ), "standright", false, AssetsController.CATEGORY_ANIMATION, AssetsController.FILTER_PNG ), new AssetInformation( TextConstants.getText( "Resources.DescriptionCharacterAnimationSpeakUp" ), "speakup", false, AssetsController.CATEGORY_ANIMATION, AssetsController.FILTER_PNG ), new AssetInformation( TextConstants.getText( "Resources.DescriptionCharacterAnimationSpeakDown" ), "speakdown", false, AssetsController.CATEGORY_ANIMATION, AssetsController.FILTER_PNG ), new AssetInformation( TextConstants.getText( "Resources.DescriptionCharacterAnimationSpeakRight" ), "speakright", false, AssetsController.CATEGORY_ANIMATION, AssetsController.FILTER_PNG ), new AssetInformation( TextConstants.getText( "Resources.DescriptionCharacterAnimationUseRight" ), "useright", false, AssetsController.CATEGORY_ANIMATION, AssetsController.FILTER_PNG ), new AssetInformation( TextConstants.getText( "Resources.DescriptionCharacterAnimationWalkUp" ), "walkup", false, AssetsController.CATEGORY_ANIMATION, AssetsController.FILTER_PNG ), new AssetInformation( TextConstants.getText( "Resources.DescriptionCharacterAnimationWalkDown" ), "walkdown", false, AssetsController.CATEGORY_ANIMATION, AssetsController.FILTER_PNG ), new AssetInformation( TextConstants.getText( "Resources.DescriptionCharacterAnimationWalkRight" ), "walkright", false, AssetsController.CATEGORY_ANIMATION, AssetsController.FILTER_PNG ) };
 				break;
 		}
@@ -466,7 +462,7 @@ public class ResourcesDataControl extends DataControl {
 	}
 
 	public void setAssetPath(String filename, int index) {
-		boolean added = AssetsController.addSingleAsset( assetsInformation[index].category, filename );
+		AssetsController.addSingleAsset( assetsInformation[index].category, filename );
 		String selectedAsset = (new File(filename)).getName();
 		// If a file was selected
 		if( selectedAsset != null ) {

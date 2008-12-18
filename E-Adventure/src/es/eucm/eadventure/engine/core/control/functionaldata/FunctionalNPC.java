@@ -6,6 +6,8 @@ import java.awt.image.BufferedImage;
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;
 
+import es.eucm.eadventure.common.data.chapter.Action;
+import es.eucm.eadventure.common.data.chapter.CustomAction;
 import es.eucm.eadventure.common.data.chapter.elements.Element;
 import es.eucm.eadventure.common.data.chapter.elements.Item;
 import es.eucm.eadventure.common.data.chapter.elements.NPC;
@@ -16,6 +18,7 @@ import es.eucm.eadventure.engine.core.control.animations.npc.NPCIdle;
 import es.eucm.eadventure.engine.core.control.animations.npc.NPCState;
 import es.eucm.eadventure.engine.core.control.animations.npc.NPCTalking;
 import es.eucm.eadventure.engine.core.control.animations.npc.NPCWalking;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 
 /**
@@ -26,6 +29,7 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
     /**
      * npc's idle state
      */
+	
     public static final int IDLE = 0;
 
     /**
@@ -470,4 +474,36 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
         }
         return newResources;
     }
+    
+	@Override
+	public CustomAction getFirstValidCustomAction(String actionName) {
+        for( Action action : npc.getActions() ) {
+            if( action.getType( ) == Action.CUSTOM && ((CustomAction) action).getName().equals(actionName) ) {
+                if( new FunctionalConditions(action.getConditions( ) ).allConditionsOk( ) ) {
+                	return (CustomAction) action;
+                } 
+            }
+        }
+        return null;
+        
+	}
+	
+    public boolean custom(String actionName) {
+        boolean custom = false;
+        
+        // Only take the FIRST valid action
+        for( int i = 0; i < npc.getActions( ).size( ) && !custom; i++ ) {
+            Action action = npc.getAction( i );
+            if( action.getType( ) == Action.CUSTOM && ((CustomAction) action).getName().equals(actionName) ) {
+                if( new FunctionalConditions( action.getConditions( ) ).allConditionsOk( ) ) {
+                    // Store the effects
+                	FunctionalEffects.storeAllEffects(action.getEffects( ));
+                    custom = true;
+                } 
+            }
+        }
+        
+        return custom;
+    }
+
 }

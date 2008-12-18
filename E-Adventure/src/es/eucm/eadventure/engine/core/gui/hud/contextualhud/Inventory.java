@@ -185,6 +185,16 @@ public class Inventory {
     private boolean upperInventory;
 
     /**
+     * Indicates whether the left arrow is drawn
+     */
+    private boolean drawLeft;
+    
+    /**
+     * Indicates whether the right arrow is drawn
+     */
+    private boolean drawRight;
+    
+    /**
      * Constructor
      */
     public Inventory( ) {
@@ -258,16 +268,31 @@ public class Inventory {
         
         int indexLastItemDisplayed;
 
-        //If the first item displayed + the number of items that can be displayed in the
-        //inventory at once are lest than the total items in the inventory, the last item to be displayed
-        //is the last item of the inventory
-        if( indexFirstItemDisplayed + INVENTORY_LINES * INVENTORY_ITEMS_PER_LINE > Game.getInstance( ).getInventory( ).getItemCount( ) )
-            indexLastItemDisplayed = Game.getInstance( ).getInventory( ).getItemCount( );
-        else
-            //the last item to be displayed is the first item displayed + the number of 
-            //items that can be displayed in the inventory at once
-            indexLastItemDisplayed = indexFirstItemDisplayed + INVENTORY_LINES * INVENTORY_ITEMS_PER_LINE;
-
+        
+        if (Game.getInstance().getInventory().getItemCount() < INVENTORY_LINES * INVENTORY_ITEMS_PER_LINE) {
+        	indexFirstItemDisplayed = 0;
+        	drawLeft = false;
+        	drawRight = false;
+        	indexLastItemDisplayed = Game.getInstance().getInventory().getItemCount() - 1;
+        } else {
+        	if (indexFirstItemDisplayed > 0) {
+        		drawLeft = true;
+        	} else
+        		drawLeft = false;
+        	if (Game.getInstance().getInventory().getItemCount() - indexFirstItemDisplayed >  INVENTORY_LINES * INVENTORY_ITEMS_PER_LINE) {
+        		drawRight = true;
+        		indexLastItemDisplayed = indexFirstItemDisplayed + INVENTORY_LINES * INVENTORY_ITEMS_PER_LINE;
+        	} else {
+        		indexLastItemDisplayed = Game.getInstance().getInventory().getItemCount() - 1;
+        		drawRight = false;
+        	}
+        }
+        if (dx < 0 && indexFirstItemDisplayed == 0) {
+        	drawLeft = true;
+        }
+        if (dx > 0 && (indexLastItemDisplayed - indexFirstItemDisplayed) + 2> INVENTORY_LINES * INVENTORY_ITEMS_PER_LINE )
+        	drawRight = true;
+        
         int x = FIRST_ITEM_X + (int)dx;
         int y = BOTTOM_FIRST_ITEM_Y + (int)dy;
         if( upperInventory )y = UPPER_FIRST_ITEM_Y - (int)dy;
@@ -283,11 +308,15 @@ public class Inventory {
         }
         
         if( upperInventory ){
-            g.drawImage( left, SCROLL_LEFT_X, UPPER_SCROLL_LEFT_Y - (int)dy, null );
-            g.drawImage( right, SCROLL_RIGHT_X, UPPER_SCROLL_RIGHT_Y - (int)dy, null );
+        	if (drawLeft)
+        		g.drawImage( left, SCROLL_LEFT_X, UPPER_SCROLL_LEFT_Y - (int)dy, null );
+            if (drawRight)
+            	g.drawImage( right, SCROLL_RIGHT_X, UPPER_SCROLL_RIGHT_Y - (int)dy, null );
         }else{
-            g.drawImage( left, SCROLL_LEFT_X, BOTTOM_SCROLL_LEFT_Y + (int)dy, null );
-            g.drawImage( right, SCROLL_RIGHT_X, BOTTOM_SCROLL_RIGHT_Y + (int)dy, null );
+        	if (drawLeft)
+        		g.drawImage( left, SCROLL_LEFT_X, BOTTOM_SCROLL_LEFT_Y + (int)dy, null );
+            if (drawRight)
+            	g.drawImage( right, SCROLL_RIGHT_X, BOTTOM_SCROLL_RIGHT_Y + (int)dy, null );
         }
     }
     

@@ -2,7 +2,6 @@ package es.eucm.eadventure.common.loader.subparsers;
 
 import org.xml.sax.Attributes;
 
-import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.common.data.chapter.effects.Effects;
@@ -25,12 +24,7 @@ public class ItemSubParser extends SubParser {
 	 * Constant for reading resources tag.
 	 */
 	private static final int READING_RESOURCES = 1;
-
-	/**
-	 * Constant for reading actin tag.
-	 */
-	private static final int READING_ACTION = 2;
-
+	
 	/**
 	 * Constant for subparsing nothing.
 	 */
@@ -45,6 +39,8 @@ public class ItemSubParser extends SubParser {
 	 * Constant for subparsing effect tag.
 	 */
 	private static final int SUBPARSING_EFFECT = 2;
+	
+	private static final int SUBPARSING_ACTIONS = 3;
 
 	/**
 	 * Store the current element being parsed.
@@ -80,17 +76,7 @@ public class ItemSubParser extends SubParser {
 	 * Subparser for effects and conditions.
 	 */
 	private SubParser subParser;
-
-	/**
-	 * Stores the action documentation;
-	 */
-	private String currentDocumentation;
-
-	/**
-	 * Stores an idTarget.
-	 */
-	private String currentIdTarget;
-
+	
 	/* Methods */
 
 	/**
@@ -146,25 +132,10 @@ public class ItemSubParser extends SubParser {
 //				if( !AssetsController.isAssetSpecial( path ) )
 					currentResources.addAsset( type, path );
 			}
-
-			// If it is an examine, use or grab tag, create new conditions and effects
-			else if( qName.equals( "examine" ) || qName.equals( "grab" ) || qName.equals( "use" ) ) {
-				currentConditions = new Conditions( );
-				currentEffects = new Effects( );
-				currentDocumentation = null;
-				reading = READING_ACTION;
-			}
-
-			// If it is an use-with or give-to tag, create new conditions and effects, and store the idTarget
-			else if( qName.equals( "use-with" ) || qName.equals( "give-to" ) ) {
-				for( int i = 0; i < attrs.getLength( ); i++ )
-					if( attrs.getQName( i ).equals( "idTarget" ) )
-						currentIdTarget = attrs.getValue( i );
-
-				currentConditions = new Conditions( );
-				currentEffects = new Effects( );
-				currentDocumentation = null;
-				reading = READING_ACTION;
+			
+			else if ( qName.equals("actions")) {
+				subParser = new ActionsSubParser(chapter, object);
+				subParsing = SUBPARSING_ACTIONS;
 			}
 
 			// If it is a condition tag, create new conditions and switch the state
@@ -183,7 +154,6 @@ public class ItemSubParser extends SubParser {
 
 		// If it is reading an effect or a condition, spread the call
 		if( subParsing != SUBPARSING_NONE ) {
-			//String id = this.object.getId( );
 			subParser.startElement( namespaceURI, sName, qName, attrs );
 		}
 	}
@@ -219,8 +189,6 @@ public class ItemSubParser extends SubParser {
 			else if( qName.equals( "documentation" ) ) {
 				if( reading == READING_NONE )
 					object.setDocumentation( currentString.toString( ).trim( ) );
-				else if( reading == READING_ACTION )
-					currentDocumentation = currentString.toString( ).trim( );
 			}
 
 			// If it is a brief tag, store the brief description in the object
@@ -231,46 +199,6 @@ public class ItemSubParser extends SubParser {
 			// If it is a detailed tag, store the detailed description in the object
 			else if( qName.equals( "detailed" ) ) {
 				object.setDetailedDescription( currentString.toString( ).trim( ) );
-			}
-
-			// If it is an examine tag, store the new action in the object
-			else if( qName.equals( "examine" ) ) {
-				Action examineAction = new Action( Action.EXAMINE, currentConditions, currentEffects );
-				examineAction.setDocumentation( currentDocumentation );
-				object.addAction( examineAction );
-				reading = READING_NONE;
-			}
-
-			// If it is a grab tag, store the new action in the object
-			else if( qName.equals( "grab" ) ) {
-				Action grabAction = new Action( Action.GRAB, currentConditions, currentEffects );
-				grabAction.setDocumentation( currentDocumentation );
-				object.addAction( grabAction );
-				reading = READING_NONE;
-			}
-
-			// If it is an use tag, store the new action in the object
-			else if( qName.equals( "use" ) ) {
-				Action useAction = new Action( Action.USE, currentConditions, currentEffects );
-				useAction.setDocumentation( currentDocumentation );
-				object.addAction( useAction );
-				reading = READING_NONE;
-			}
-
-			// If it is an use-with tag, store the new action in the object
-			else if( qName.equals( "use-with" ) ) {
-				Action useWithAction = new Action( Action.USE_WITH, currentIdTarget, currentConditions, currentEffects );
-				useWithAction.setDocumentation( currentDocumentation );
-				object.addAction( useWithAction );
-				reading = READING_NONE;
-			}
-
-			// If it is a give-to tag, store the new action in the object
-			else if( qName.equals( "give-to" ) ) {
-				Action giveToAction = new Action( Action.GIVE_TO, currentIdTarget, currentConditions, currentEffects );
-				giveToAction.setDocumentation( currentDocumentation );
-				object.addAction( giveToAction );
-				reading = READING_NONE;
 			}
 
 			// Reset the current string
@@ -303,6 +231,14 @@ public class ItemSubParser extends SubParser {
 				subParsing = SUBPARSING_NONE;
 			}
 		}
+		
+		else if (subParsing == SUBPARSING_ACTIONS) {
+			subParser.endElement(namespaceURI, sName, qName);
+			if (qName.equals("actions")) {
+				subParsing = SUBPARSING_NONE;
+			}
+		}
+
 	}
 
 	/*

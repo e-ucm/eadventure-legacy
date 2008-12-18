@@ -1152,8 +1152,13 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
                 
                 itemSummary = saveGame.getItemSummary( );
                 
-                functionalPlayer.setDestiny( 0, 0 );
-                functionalPlayer.setState( FunctionalPlayer.IDLE );
+                //functionalPlayer.setDestiny( 0, 0 );
+                
+                // TODO check that the following line isn't necessary
+                //functionalPlayer.setState( FunctionalPlayer.IDLE );
+                functionalPlayer.cancelActions();
+                functionalPlayer.cancelAnimations();
+                
                 functionalScene = new FunctionalScene( (Scene) gameData.getGeneralScene( saveGame.getIdScene( ) ), functionalPlayer );
                 functionalPlayer.setX( saveGame.getPlayerX( ) );
                 functionalPlayer.setY( saveGame.getPlayerY( ) );

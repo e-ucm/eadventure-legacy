@@ -9,6 +9,7 @@ import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
+import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.engine.core.control.ActionManager;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
@@ -211,7 +212,7 @@ public class ContextualHUD extends HUD {
         //Propagate the event to the action buttons only if are shown
         if( showActionButtons ){
             actionButtons.mouseMoved( e );
-            inHud = actionButtons.getButtonOver( )!=-1;
+            inHud = actionButtons.getButtonOver( )!=null;
         //else if the inventory is shown
         }else if( showInventory ){
             //If the inventory is the upper window one
@@ -270,140 +271,23 @@ public class ContextualHUD extends HUD {
         boolean button = false;
         if (showActionButtons) {
         	actionButtons.mouseClicked(e);
-        	if (actionButtons.getButtonPressed() != -1)
+        	if (actionButtons.getButtonPressed() != null)
         		button = true;
         }
         
-        //Right mouse button click
         if(!button && e.getButton( ) == MouseEvent.BUTTON3) {
-            //Reset current element as cursor
-            elementInCursor = null;
-            //put the default cursor
-            gui.setDefaultCursor( );
-            //If the mouse is over an element
-            if( actionManager.getElementOver( ) != null ){
-                //Select that element to do the action on it
-                elementAction = actionManager.getElementOver( );
-                //Set the click coordinate as the center for the action buttons
-                actionButtons.setCenterX( e.getX( ) );
-                actionButtons.setCenterY( e.getY( ) );
-                //Show the action  buttons
-                showActionButtons = true;
-                //Reset the pressed action button
-                actionButtons.setButtonPressed(-1);
-                inHud = true;
-            //else the mouse is not over an element
-            }else{
-                //Reset the element to do the action on it
-                elementAction = null;
-                //Hide the action buttons
-                showActionButtons = false;
-                inHud = false;
-            }
-        //other mouse button click
+        	inHud = processRightClickNoButton(actionManager, e);
         }else{
-            //If the action buttons are shown
             if( showActionButtons ) {
-                //Propagate the click
                 actionButtons.mouseClicked( e );
-                //If there is a action button pressed
-                if( actionButtons.getButtonPressed()!=-1 ){
-                    inHud = true;
-                    switch(actionButtons.getButtonPressed()){
-                        //Hand action button pressed
-                        case ActionButtons.ACTIONBUTTON_HAND:
-                            elementInCursor = null;
-                            gui.setDefaultCursor( );
-                            
-                            // If the element can be used alone, perform the action
-                            if( elementAction.canBeUsedAlone( ) ) {
-                                actionManager.setActionSelected( ActionManager.ACTION_USE );
-                                game.getFunctionalScene( ).performActionInElement( elementAction );
-                            }
-                            
-                            // If not, grab the item or pick it up to use or give it
-                            else {
-                                if( !elementAction.isInInventory( ) ){
-                                    actionManager.setActionSelected( ActionManager.ACTION_GRAB );
-                                    game.getFunctionalScene( ).performActionInElement( elementAction );
-                                }else{
-                                    elementInCursor = elementAction;
-                                    gui.setCursor( Toolkit.getDefaultToolkit( ).createCustomCursor( ((FunctionalItem)elementInCursor).getIconImage(), new Point( 5, 5 ), "elementInCursor" ) );
-                                }
-                            }
-                            break;
-                        //Eye action button pressed
-                        case ActionButtons.ACTIONBUTTON_EYE:
-                            actionManager.setActionSelected( ActionManager.ACTION_EXAMINE );
-                            game.getFunctionalScene().performActionInElement( elementAction );
-                            break;
-                        //Mouth action button pressed
-                        case ActionButtons.ACTIONBUTTON_MOUTH:
-                            actionManager.setActionSelected( ActionManager.ACTION_TALK );
-                            game.getFunctionalScene().performActionInElement( elementAction );
-                            break;
-                    }
-                    actionManager.setActionSelected( ActionManager.ACTION_GOTO );
+                if( actionButtons.getButtonPressed()!=null ){
+                	inHud = processButtonPressed(actionManager, e);
                 }
-            //else if the inventory is shown and the click is in it
             }else if( showInventory && ( e.getY( ) > Inventory.BOTTOM_INVENTORY_PANEL_Y || e.getY( ) < Inventory.UPPER_INVENTORY_PANEL_Y + Inventory.INVENTORY_PANEL_HEIGHT ) ) {
-                inHud = true;
-                //Get the element of the inventory where there has been the click
-                FunctionalElement element = inventory.mouseClicked( e );
-                //If we have an element in the cursor to be used to
-                if( elementInCursor!= null ){
-                    //and there is an element in the inventory where there has been the click
-                    if( element != null ){
-                       //put the element in the cursor as the optional element for the player
-                       game.getFunctionalPlayer( ).setOptionalElement( elementInCursor );
-                       //select the action use_with
-                       actionManager.setActionSelected( ActionManager.ACTION_USE_WITH );
-                       //perform the action in the element of the inventory (will use the optional element
-                       //of the player as second element)
-                       game.getFunctionalScene().performActionInElement( element );
-                       //deselect the element of the cursor
-                       elementInCursor = null;
-                       //put the default cursor
-                       gui.setDefaultCursor( );
-                    }
-                } 
-                //else there is no element in the cursor and there is an element in the inventory where the click
-                else if( element != null ) {
-                    //select the look element
-                    actionManager.setActionSelected( ActionManager.ACTION_LOOK );
-                    //perform the action in the inventory element
-                    game.getFunctionalScene( ).performActionInElement( element );
-                }
-            //else if the click is in an element
+            	inHud = processInventoryClick(actionManager, e);
             }else if( actionManager.getElementOver( ) != null ){
-                inHud = true;
-                //If there is an element selected
-                if( elementInCursor!= null ){
-                    //if the cursor is over an element that can perfrom the action give_to
-                    if( actionManager.getElementOver( ).canPerform( ActionManager.ACTION_GIVE_TO ) )
-                        //select that action
-                        actionManager.setActionSelected( ActionManager.ACTION_GIVE_TO );
-                    else
-                        //select the action use with
-                        actionManager.setActionSelected( ActionManager.ACTION_USE_WITH );
-                    //Set the optional element the element selected
-                    game.getFunctionalPlayer( ).setOptionalElement( elementInCursor );
-                    //perform the action on the element the mouse is over
-                    game.getFunctionalScene().performActionInElement( actionManager.getElementOver( ) );
-                    //deselect the element of the cursor
-                    elementInCursor = null;
-                    //put the default cursor
-                    gui.setDefaultCursor( );
-                }
-                //else there is no element selected
-                else{
-                    //select the action look
-                    actionManager.setActionSelected( ActionManager.ACTION_LOOK );
-                    //perform it on the element the mouse is over
-                    game.getFunctionalScene().performActionInElement( actionManager.getElementOver( ) );
-                }
+                inHud = processElementClick(actionManager, e);
             }
-            // Hide the action buttons
             showActionButtons = false;
             elementAction = null;  
         }
@@ -411,7 +295,146 @@ public class ContextualHUD extends HUD {
         return inHud;
     }
 
+    
     /**
+     * Method called when an element is clicked
+     * 
+     * @param actionManager The actionManager of the Game
+     * @param e The MouseEvent of the click
+     * @return Value of inHud
+     */
+    private boolean processElementClick(ActionManager actionManager,
+			MouseEvent e) {
+        if( elementInCursor!= null ){
+        	if (game.getFunctionalPlayer().getCurrentAction().getType() == Action.CUSTOM_INTERACT) {
+        		actionManager.setActionSelected(ActionManager.ACTION_CUSTOM_INTERACT);
+        	} else {
+	            if( actionManager.getElementOver( ).canPerform( ActionManager.ACTION_GIVE_TO ) ) {
+	                actionManager.setActionSelected( ActionManager.ACTION_GIVE);
+	                game.getFunctionalPlayer().performActionInElement( elementInCursor );
+	                actionManager.setActionSelected( ActionManager.ACTION_GIVE_TO );
+	            }
+	            else {
+	                actionManager.setActionSelected( ActionManager.ACTION_USE);
+	                game.getFunctionalPlayer().performActionInElement( elementInCursor );
+	                actionManager.setActionSelected( ActionManager.ACTION_USE_WITH );
+	            }
+        	}
+            game.getFunctionalPlayer().performActionInElement( actionManager.getElementOver( ) );
+            elementInCursor = null;
+            gui.setDefaultCursor( );
+        }
+        else{
+            actionManager.setActionSelected( ActionManager.ACTION_LOOK );
+            game.getFunctionalPlayer().performActionInElement( actionManager.getElementOver( ) );
+        }
+        return true;
+	}
+
+    /**
+     * Method called when the click is inside the inventory
+     * 
+     * @param actionManager The actionManager of the Game
+     * @param e The MouseEvent of the click
+     * @return Value of inHud
+     */
+	private boolean processInventoryClick(ActionManager actionManager,
+			MouseEvent e) {
+        FunctionalElement element = inventory.mouseClicked( e );
+        if( elementInCursor!= null ){
+            if( element != null ){
+               actionManager.setActionSelected( ActionManager.ACTION_USE_WITH );
+               game.getFunctionalPlayer().performActionInElement( element );
+               elementInCursor = null;
+               gui.setDefaultCursor( );
+            }
+        } 
+        else if( element != null ) {
+            actionManager.setActionSelected( ActionManager.ACTION_LOOK );
+            game.getFunctionalPlayer().performActionInElement( element );
+        }
+        return true;
+	}
+
+    /**
+     * Method called when an action button is clicked
+     * 
+     * @param actionManager The actionManager of the Game
+     * @param e The MouseEvent of the click
+     * @return Value of inHud
+     */
+	private boolean processButtonPressed(ActionManager actionManager,
+			MouseEvent e) {
+        switch(actionButtons.getButtonPressed().getType()){
+            case ActionButtons.ACTIONBUTTON_HAND:
+                elementInCursor = null;
+                gui.setDefaultCursor( );
+                if( elementAction.canBeUsedAlone( ) ) {
+                    actionManager.setActionSelected( ActionManager.ACTION_USE );
+                    game.getFunctionalPlayer().performActionInElement( elementAction );
+                }
+                else {
+                    if( !elementAction.isInInventory( ) ){
+                        actionManager.setActionSelected( ActionManager.ACTION_GRAB );
+                        game.getFunctionalPlayer().performActionInElement( elementAction );
+                    }else{
+                        elementInCursor = elementAction;
+                        gui.setCursor( Toolkit.getDefaultToolkit( ).createCustomCursor( ((FunctionalItem)elementInCursor).getIconImage(), new Point( 5, 5 ), "elementInCursor" ) );
+                    }
+                }
+                break;
+            case ActionButtons.ACTIONBUTTON_EYE:
+                actionManager.setActionSelected( ActionManager.ACTION_EXAMINE );
+                game.getFunctionalPlayer().performActionInElement( elementAction );
+                break;
+            case ActionButtons.ACTIONBUTTON_MOUTH:
+                actionManager.setActionSelected( ActionManager.ACTION_TALK );
+                game.getFunctionalPlayer().performActionInElement( elementAction );
+                break;
+            case ActionButtons.ACTIONBUTTON_CUSTOM:
+            	if (actionButtons.getButtonPressed().getCustomAction().getType() == Action.CUSTOM) {
+	            	actionManager.setActionSelected( ActionManager.ACTION_CUSTOM);
+	            	actionManager.setCustomActionName( actionButtons.getButtonPressed().getName());
+	            	game.getFunctionalPlayer().performActionInElement( elementAction );
+	            	break;
+            	} else {
+                    elementInCursor = elementAction;
+                    gui.setCursor( Toolkit.getDefaultToolkit( ).createCustomCursor( ((FunctionalItem)elementInCursor).getIconImage(), new Point( 5, 5 ), "elementInCursor" ) );
+                    actionManager.setActionSelected( ActionManager.ACTION_CUSTOM_INTERACT);
+                    actionManager.setCustomActionName( actionButtons.getButtonPressed().getName());
+                    game.getFunctionalPlayer().performActionInElement( elementAction);
+                    break;
+            	}            	
+        }
+        actionManager.setActionSelected( ActionManager.ACTION_GOTO );
+        return true;
+	}
+
+    /**
+     * Method called when there is a right click that is in no action button
+     * 
+     * @param actionManager The actionManager of the Game
+     * @param e The MouseEvent of the click
+     * @return Value of inHud
+     */
+	private boolean processRightClickNoButton(ActionManager actionManager,
+			MouseEvent e) {
+        elementInCursor = null;
+        gui.setDefaultCursor( );
+        if( actionManager.getElementOver( ) != null ){
+            elementAction = actionManager.getElementOver( );
+            actionButtons.recreate(e.getX(), e.getY(), elementAction);
+            showActionButtons = true;
+            return true;
+        }else{
+            elementAction = null;
+            showActionButtons = false;
+            return false;
+        }
+
+	}
+
+	/**
      * Draw the HUD with the action button, action and element selected
      * @param g Graphics2D where will be drawn
      */
@@ -458,7 +481,7 @@ public class ContextualHUD extends HUD {
             //else (the mouse is over and action button or nothing
             else{
                 //If the action buttons are shown and the mouse is over one of them
-                if( showActionButtons && actionButtons.getButtonOver( ) != -1)
+                if( showActionButtons && actionButtons.getButtonOver( ) != null)
                     //change the cursor for the action button cursor one
                     gui.setCursor( cursorAction );
                 //else, the mouse is over nothing 

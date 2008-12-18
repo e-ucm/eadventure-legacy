@@ -24,6 +24,8 @@ public class ResourcesDOMWriter {
 	public static final int RESOURCES_CHARACTER = 4;
 	
 	public static final int RESOURCES_ANIMATION = 5;
+	
+	public static final int RESOURCES_CUSTOM_ACTION = 6;
 
 	/**
 	 * Private constructor.
@@ -113,6 +115,20 @@ public class ResourcesDOMWriter {
 						Element assetElement = doc.createElement( "asset" );
 						assetElement.setAttribute( "type", asset );
 						assetElement.setAttribute( "uri", AssetsController.ASSET_EMPTY_ANIMATION );
+						resourcesNode.appendChild( assetElement );
+					}
+				}
+			}
+
+			// If the owner is a character
+			else if( resourcesType == RESOURCES_CHARACTER ) {
+				// For each asset, if it has not been declared attach the empty animation
+				String[] assets = new String[] { "buttonNormal", "buttonOver", "buttonPressed" };
+				for( String asset : assets ) {
+					if( resources.getAssetPath( asset ) == null ) {
+						Element assetElement = doc.createElement( "asset" );
+						assetElement.setAttribute( "type", asset );
+						assetElement.setAttribute( "uri", AssetsController.ASSET_EMPTY_ICON );
 						resourcesNode.appendChild( assetElement );
 					}
 				}

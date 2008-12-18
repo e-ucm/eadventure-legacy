@@ -128,7 +128,12 @@ public class GameText {
 	        TextConstants.getText( "GameText.TextUseCannot1"),
 	        TextConstants.getText( "GameText.TextUseCannot2")
 	    };
-		
+
+	    TEXT_CUSTOM_CANNOT = new String[]{
+	    	TextConstants.getText( "GameText.TextCustomCannot1"),
+	    	TextConstants.getText( "GameText.TextCustomCannot2")
+	    };
+
 	}
 	
     /**
@@ -378,6 +383,11 @@ public class GameText {
         TextConstants.getText( "GameText.TextUseCannot2")
     };
     
+    private static String[] TEXT_CUSTOM_CANNOT = {
+    	TextConstants.getText( "GameText.TextCustomCannot1"),
+    	TextConstants.getText( "GameText.TextCustomCannot2")
+    };
+    
     //********************************************************************************//
     
     /**
@@ -493,5 +503,12 @@ public class GameText {
             return TEXT_USE_CANNOT[ (int)( TEXT_USE_CANNOT.length * Math.random( ) ) ];
         else
             return null;
+    }
+    
+    public static String getTextCustomCannot() {
+    	if (showCommentaries())
+    		return TEXT_CUSTOM_CANNOT[ (int) (TEXT_USE_CANNOT.length * Math.random())];
+    	else
+    		return null;
     }
 }

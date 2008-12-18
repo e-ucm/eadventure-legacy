@@ -65,6 +65,10 @@ public class ActionManager {
      * Constant for giving to action
      */
     public static final int ACTION_GIVE_TO = 8;
+    
+    public static final int ACTION_CUSTOM = 9;
+    
+    public static final int ACTION_CUSTOM_INTERACT = 10;
 
     /**
      * Functional element in which the cursor is placed.
@@ -75,6 +79,11 @@ public class ActionManager {
      * Current action selected.
      */
     private int actionSelected;
+    
+    /**
+     * The original action.
+     */
+    private String customActionName;
     
     /**
      * Name of the current string being selected.
@@ -260,11 +269,18 @@ public class ActionManager {
                 cursorPath=nextScene.getCursorPath( );
             }
         }
-        
         if (cursorPath==null && exit.getDefaultExitLook()!=null)
             cursorPath=exit.getDefaultExitLook().getCursorPath( );
-        
         return cursorPath;
    }
+
+
+	public void setCustomActionName(String name) {
+		customActionName = name;
+	}
+	
+	public String getCustomActionName() {
+		return customActionName;
+	}
 
 }

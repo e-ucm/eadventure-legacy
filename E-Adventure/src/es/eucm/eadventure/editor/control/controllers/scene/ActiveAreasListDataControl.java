@@ -114,16 +114,20 @@ public class ActiveAreasListDataControl extends DataControl {
 		boolean elementAdded = false;
 
 		if( type == Controller.ACTIVE_AREA ) {
-			// Creamos una salida y su controlador
-			ActiveArea newActiveArea = new ActiveArea( Integer.toString( id ), 0, 0, 20, 20 );
-			id++;
-			ActiveAreaDataControl newActiveAreaDataControl = new ActiveAreaDataControl( sceneDataControl, newActiveArea );
+			
+			// Show a dialog asking for the item id
+			String itemId = controller.showInputDialog( TextConstants.getText( "Operation.AddItemTitle" ), TextConstants.getText( "Operation.AddItemMessage" ), TextConstants.getText( "Operation.AddItemDefaultValue" ) );
 
+			// If some value was typed and the identifier is valid
+			if( itemId != null && controller.isElementIdValid( itemId ) ) {
+				ActiveArea newActiveArea = new ActiveArea( itemId, 0, 0, 20, 20 );
 				activeAreasList.add( newActiveArea );
+				ActiveAreaDataControl newActiveAreaDataControl = new ActiveAreaDataControl( sceneDataControl, newActiveArea );
 				activeAreasDataControlList.add( newActiveAreaDataControl );
+				controller.getIdentifierSummary( ).addActiveAreaId( itemId );
 				controller.dataModified( );
 				elementAdded = true;
-
+			}
 		}
 
 		return elementAdded;
@@ -135,6 +139,7 @@ public class ActiveAreasListDataControl extends DataControl {
 
 		if( activeAreasList.remove( dataControl.getContent( ) ) ) {
 			activeAreasDataControlList.remove( dataControl );
+			controller.getIdentifierSummary().deleteActiveAreaId(((ActiveArea) dataControl.getContent()).getId());
 			controller.dataModified( );
 			elementDeleted = true;
 		}

@@ -1,0 +1,84 @@
+package es.eucm.eadventure.engine.core.control.functionaldata.functionalactions;
+
+import es.eucm.eadventure.common.data.chapter.Action;
+import es.eucm.eadventure.common.data.chapter.elements.Player;
+import es.eucm.eadventure.common.data.chapter.resources.Resources;
+import es.eucm.eadventure.engine.core.control.ActionManager;
+import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
+import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalItem;
+import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalNPC;
+import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
+import es.eucm.eadventure.engine.core.data.GameText;
+import es.eucm.eadventure.engine.multimedia.MultimediaManager;
+
+public class FunctionalGive extends FunctionalAction {
+
+	private FunctionalElement element;
+	
+	private FunctionalElement anotherElement;
+	
+	private long totalTime;
+	
+	public FunctionalGive(Action action, FunctionalElement element) {
+		super(action);
+		this.element = element;
+		this.type = ActionManager.ACTION_GIVE;
+		requiersAnotherElement = true;
+	}
+
+	@Override
+	public void drawAditionalElements() {
+	}
+
+	@Override
+	public void setAnotherElement(FunctionalElement element) {
+		requiersAnotherElement = false;
+		anotherElement = element;
+	}
+
+	@Override
+	public void start(FunctionalPlayer functionalPlayer) {
+		this.functionalPlayer = functionalPlayer;
+
+		Resources resources = functionalPlayer.getResources( );
+
+		MultimediaManager multimedia = MultimediaManager.getInstance( );
+		if (anotherElement.getX() > functionalPlayer.getX()) {
+			functionalPlayer.setAnimation(multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_USE_RIGHT ), false, MultimediaManager.IMAGE_PLAYER ), -1);
+		} else {
+			functionalPlayer.setAnimation(multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_USE_RIGHT ), true, MultimediaManager.IMAGE_PLAYER ), -1);
+		}
+
+	}
+
+	@Override
+	public void stop() {
+		if (functionalPlayer != null && !finished) {
+			functionalPlayer.popAnimation();
+		}
+		finished = true;
+	}
+
+	@Override
+	public void update(long elapsedTime) {
+		if (anotherElement != null) {
+	        totalTime += elapsedTime;
+	        if( totalTime > 1000 ) {
+	            FunctionalItem item = (FunctionalItem) element;
+	            FunctionalNPC npc = (FunctionalNPC) anotherElement;
+	    
+	            if( !item.giveTo( npc ) )
+	                functionalPlayer.speak( GameText.getTextGiveCannot( ) );
+	            finished = true;
+	            functionalPlayer.popAnimation();
+	        }
+        }
+		
+	}
+	
+	public FunctionalElement getAnotherElement() {
+		return anotherElement;
+	}
+
+
+}

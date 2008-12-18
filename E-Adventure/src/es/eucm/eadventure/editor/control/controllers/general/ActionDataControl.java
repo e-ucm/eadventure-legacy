@@ -7,10 +7,11 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
-public class ActionDataControl extends DataControl {
+public class ActionDataControl extends DataControlWithResources {
 
 	/**
 	 * Contained action structure.
@@ -52,11 +53,17 @@ public class ActionDataControl extends DataControl {
 			case Action.USE:
 				actionType = Controller.ACTION_USE;
 				break;
+			case Action.CUSTOM:
+				actionType = Controller.ACTION_CUSTOM;
+				break;
 			case Action.USE_WITH:
 				actionType = Controller.ACTION_USE_WITH;
 				break;
 			case Action.GIVE_TO:
 				actionType = Controller.ACTION_GIVE_TO;
+				break;
+			case Action.CUSTOM_INTERACT:
+				actionType = Controller.ACTION_CUSTOM_INTERACT;
 				break;
 		}
 
@@ -99,7 +106,7 @@ public class ActionDataControl extends DataControl {
 	 */
 	public boolean hasIdTarget( ) {
 		// The use-with and give-to actions accept id target
-		return action.getType( ) == Action.USE_WITH || action.getType( ) == Action.GIVE_TO;
+		return action.getType( ) == Action.USE_WITH || action.getType( ) == Action.GIVE_TO || action.getType() == Action.CUSTOM_INTERACT;
 	}
 
 	/**
@@ -110,11 +117,22 @@ public class ActionDataControl extends DataControl {
 	public String[] getElementsList( ) {
 		String[] elements = null;
 
-		if( action.getType( ) == Action.USE_WITH )
-			elements = controller.getIdentifierSummary( ).getItemIds( );
+		if( action.getType( ) == Action.USE_WITH)
+			elements = controller.getIdentifierSummary( ).getItemAndActiveAreaIds();
 		else if( action.getType( ) == Action.GIVE_TO )
 			elements = controller.getIdentifierSummary( ).getNPCIds( );
-
+		else if( action.getType() == Action.CUSTOM_INTERACT) {
+			String[] temp1 = controller.getIdentifierSummary().getNPCIds();
+			String[] temp2 = controller.getIdentifierSummary().getItemAndActiveAreaIds();
+			elements = new String[temp1.length + temp2.length];
+			for (int i = 0; i < elements.length; i++) {
+				if (i < temp1.length)
+					elements[i] = temp1[i];
+				else
+					elements[i] = temp2[i - temp1.length];
+			}
+		}
+		
 		return elements;
 	}
 
@@ -251,7 +269,7 @@ public class ActionDataControl extends DataControl {
 		int count = 0;
 
 		// If the action references to the given identifier, increase the counter
-		if( ( action.getType( ) == Action.GIVE_TO || action.getType( ) == Action.USE_WITH ) && action.getIdTarget( ).equals( id ) )
+		if( ( action.getType( ) == Action.GIVE_TO || action.getType( ) == Action.USE_WITH || action.getType() == Action.CUSTOM_INTERACT) && action.getIdTarget( ).equals( id ) )
 			count++;
 
 		// Add to the counter the references in the effects block
@@ -263,7 +281,7 @@ public class ActionDataControl extends DataControl {
 	@Override
 	public void replaceIdentifierReferences( String oldId, String newId ) {
 		// Only the "Give to" and "Use with" have item references
-		if( ( action.getType( ) == Action.GIVE_TO || action.getType( ) == Action.USE_WITH ) && action.getIdTarget( ).equals( oldId ) )
+		if( ( action.getType( ) == Action.GIVE_TO || action.getType( ) == Action.USE_WITH || action.getType() == Action.CUSTOM_INTERACT) && action.getIdTarget( ).equals( oldId ) )
 			action.setIdTarget( newId );
 
 		EffectsController.replaceIdentifierReferences( oldId, newId, action.getEffects( ) );
@@ -282,5 +300,29 @@ public class ActionDataControl extends DataControl {
 	@Override
 	public boolean canBeDuplicated( ) {
 		return true;
+	}
+
+	@Override
+	public ResourcesDataControl getLastResources() {
+		return null;
+	}
+
+	@Override
+	public List<ResourcesDataControl> getResources() {
+		return null;
+	}
+
+	@Override
+	public int getResourcesCount() {
+		return 0;
+	}
+
+	@Override
+	public int getSelectedResources() {
+		return 0;
+	}
+
+	@Override
+	public void setSelectedResources(int selectedResources) {
 	}
 }

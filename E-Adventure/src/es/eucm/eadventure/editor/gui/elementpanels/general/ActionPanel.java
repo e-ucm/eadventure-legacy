@@ -107,6 +107,8 @@ public class ActionPanel extends JPanel {
 		c.weighty = 1;
 		MacroReferenceEffectDialog.ID = null;
 		add( new EffectsPanel( actionDataControl.getEffects( ) ), c );
+		
+		
 	}
 
 	/**
@@ -173,4 +175,7 @@ public class ActionPanel extends JPanel {
 			new ConditionsDialog( actionDataControl.getConditions( ) );
 		}
 	}
+	
+
+
 }

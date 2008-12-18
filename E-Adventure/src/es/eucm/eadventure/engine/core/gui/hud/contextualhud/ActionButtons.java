@@ -1,27 +1,21 @@
 package es.eucm.eadventure.engine.core.gui.hud.contextualhud;
 
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 
-import es.eucm.eadventure.engine.core.control.Game;
+import es.eucm.eadventure.common.data.chapter.Action;
+import es.eucm.eadventure.common.data.chapter.CustomAction;
+import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
+import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalItem;
+import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalNPC;
 import es.eucm.eadventure.engine.core.gui.GUI;
-import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 
 /**
  * This class contains all the graphical information about the action buttons
  */
 public class ActionButtons {
-
-    /**
-     * Width of an action button
-     */
-    public static final int ACTIONBUTTON_WIDTH = 40;
-
-    /**
-     * Height of an action button
-     */
-    public static final int ACTIONBUTTON_HEIGHT = 40;
 
     /**
      * Hand index action button
@@ -38,21 +32,18 @@ public class ActionButtons {
      */
     public static final int ACTIONBUTTON_MOUTH = 2;
 
-    /**
-     * Number of action buttons
-     */
-    private static final int ACTIONBUTTON_COUNT = 3;
+	public static final int ACTIONBUTTON_CUSTOM = 3;
 
-    /**
-     * X coordinates of the action buttons
-     */
-    private static final int[] ACTIONBUTTON_X = { 50, -50, 0 };
-
-    /**
-     * Y coordinate of the action buttons
-     */
-    private static final int[] ACTIONBUTTON_Y = { 0, 0, 0 };
-
+	public static final int MAX_BUTTON_WIDTH = 50;
+	
+	public static final int MAX_BUTTON_HEIGHT = 50;
+	
+	public static final int MIN_BUTTON_WIDTH = 35;
+	
+	public static final int MIN_BUTTON_HEIGHT = 35;
+	
+	private double radius = 50;
+    
     /**
      * X coordinate of the center of the action buttons
      */
@@ -66,89 +57,202 @@ public class ActionButtons {
     /**
      * Index of the overed action button
      */
-    private int index_button_over;
+    private ActionButton buttonOver;
 
     /**
      * Index of the pressed action button
      */
-    private int index_button_pressed;
+    private ActionButton buttonPressed;
 
-    /**
-     * Normal images of the action buttons
+    private List<ActionButton> buttons;
+    
+    /*
+     * Default action buttons, so they don't have to be generated each time
      */
-    private Image[] button_normal;
-
-    /**
-     * Overed images of the action buttons
-     */
-    private Image[] button_over;
-
-    /**
-     * Pressed images of the action buttons
-     */
-    private Image[] button_pressed;
-
+    private ActionButton handButton;
+    private ActionButton mouthButton;
+    private ActionButton eyeButton;
+    
     /**
      * Constructor of the class.
      * Requires that the MultimediaManager class is loaded.
      * @param customized True if the graphics of the HUD are customized, false otherwise
      */
     public ActionButtons( boolean customized ) {
-
+    	buttons = new ArrayList<ActionButton>();
+    	
         //No action button is overed or pressed
-        index_button_over = -1;
-        index_button_pressed = -1;
-
-        button_normal = new Image[ ACTIONBUTTON_COUNT ];
-        //Load the customized normal images of the action buttons
-        if( customized ) {
-            button_normal[ACTIONBUTTON_HAND] = MultimediaManager.getInstance( ).loadImageFromZip( "gui/hud/contextual/btnHand.png", MultimediaManager.IMAGE_MENU );
-            button_normal[ACTIONBUTTON_EYE] = MultimediaManager.getInstance( ).loadImageFromZip( "gui/hud/contextual/btnEye.png", MultimediaManager.IMAGE_MENU );
-            button_normal[ACTIONBUTTON_MOUTH] = MultimediaManager.getInstance( ).loadImageFromZip( "gui/hud/contextual/btnMouth.png", MultimediaManager.IMAGE_MENU );
-            // Load the default normal images of the action buttons
-        } else {
-            button_normal[ACTIONBUTTON_HAND] = MultimediaManager.getInstance( ).loadImage( "gui/hud/contextual/btnHand.png", MultimediaManager.IMAGE_MENU );
-            button_normal[ACTIONBUTTON_EYE] = MultimediaManager.getInstance( ).loadImage( "gui/hud/contextual/btnEye.png", MultimediaManager.IMAGE_MENU );
-            button_normal[ACTIONBUTTON_MOUTH] = MultimediaManager.getInstance( ).loadImage( "gui/hud/contextual/btnMouth.png", MultimediaManager.IMAGE_MENU );
-        }
-
-        button_over = new Image[ ACTIONBUTTON_COUNT ];
-        //Load the customized overed images of the action buttons
-        if( customized ) {
-            button_over[ACTIONBUTTON_HAND] = MultimediaManager.getInstance( ).loadImageFromZip( "gui/hud/contextual/btnHandHighlighted.png", MultimediaManager.IMAGE_MENU );
-            button_over[ACTIONBUTTON_EYE] = MultimediaManager.getInstance( ).loadImageFromZip( "gui/hud/contextual/btnEyeHighlighted.png", MultimediaManager.IMAGE_MENU );
-            button_over[ACTIONBUTTON_MOUTH] = MultimediaManager.getInstance( ).loadImageFromZip( "gui/hud/contextual/btnMouthHighlighted.png", MultimediaManager.IMAGE_MENU );
-            //Load the default overed images of the action buttons
-        } else {
-            button_over[ACTIONBUTTON_HAND] = MultimediaManager.getInstance( ).loadImage( "gui/hud/contextual/btnHandHighlighted.png", MultimediaManager.IMAGE_MENU );
-            button_over[ACTIONBUTTON_EYE] = MultimediaManager.getInstance( ).loadImage( "gui/hud/contextual/btnEyeHighlighted.png", MultimediaManager.IMAGE_MENU );
-            button_over[ACTIONBUTTON_MOUTH] = MultimediaManager.getInstance( ).loadImage( "gui/hud/contextual/btnMouthHighlighted.png", MultimediaManager.IMAGE_MENU );
-        }
-
-        button_pressed = new Image[ ACTIONBUTTON_COUNT ];
-        //Load the customized pressed images of the action buttons
-        if( customized ) {
-            button_pressed[ACTIONBUTTON_HAND] = MultimediaManager.getInstance( ).loadImageFromZip( "gui/hud/contextual/btnHandPressed.png", MultimediaManager.IMAGE_MENU );
-            button_pressed[ACTIONBUTTON_EYE] = MultimediaManager.getInstance( ).loadImageFromZip( "gui/hud/contextual/btnEyePressed.png", MultimediaManager.IMAGE_MENU );
-            button_pressed[ACTIONBUTTON_MOUTH] = MultimediaManager.getInstance( ).loadImageFromZip( "gui/hud/contextual/btnMouthPressed.png", MultimediaManager.IMAGE_MENU );
-            // Load the default pressed images of the action buttons
-        } else {
-            button_pressed[ACTIONBUTTON_HAND] = MultimediaManager.getInstance( ).loadImage( "gui/hud/contextual/btnHandPressed.png", MultimediaManager.IMAGE_MENU );
-            button_pressed[ACTIONBUTTON_EYE] = MultimediaManager.getInstance( ).loadImage( "gui/hud/contextual/btnEyePressed.png", MultimediaManager.IMAGE_MENU );
-            button_pressed[ACTIONBUTTON_MOUTH] = MultimediaManager.getInstance( ).loadImage( "gui/hud/contextual/btnMouthPressed.png", MultimediaManager.IMAGE_MENU );
-        }
+        buttonOver = null;
+        buttonPressed = null;
+        
+        handButton = new ActionButton(ActionButton.HAND_BUTTON);
+        mouthButton = new ActionButton(ActionButton.MOUTH_BUTTON);
+        eyeButton = new ActionButton(ActionButton.EYE_BUTTON);
     }
 
+    
+	/**
+	 * Recreates the list of action buttons, depending of the type
+	 * of the element.
+	 * 
+	 * @param functionalElement
+	 */
+	public void recreate(int posX, int posY, FunctionalElement functionalElement) {
+    	centerX = posX;
+    	centerY = posY;
+		buttons.clear();
+		if (functionalElement instanceof FunctionalItem) {
+			addDefaultObjectButtons();
+			addCustomActionButtons(((FunctionalItem) functionalElement).getItem().getActions(), functionalElement);
+		}
+		if (functionalElement instanceof FunctionalNPC) {
+			addDefaultCharacterButtons();
+			addCustomActionButtons(((FunctionalNPC) functionalElement).getNPC().getActions(), functionalElement);
+		}
+		recalculateButtonsPositions();
+		clearButtons();
+	}
+	
+	/**
+	 * Method that adds the necessary custom action buttons to the list
+	 * of buttons
+	 * 
+	 * @param actions the actions of the element
+	 * @param functionalElement the functional element with the actions
+	 */
+	private void addCustomActionButtons(List<Action> actions, FunctionalElement functionalElement) {
+		List<CustomAction> added = new ArrayList<CustomAction>();
+		for (Action action : actions) {
+			if (action.getType() == Action.CUSTOM) {
+				boolean add = true;
+				for (CustomAction customAction: added) {
+					if (customAction.getName().equals(((CustomAction) action).getName()))
+						add = false;
+				}
+				if (add) {
+					buttons.add(new ActionButton((CustomAction) action));
+					added.add((CustomAction) action);
+				}
+			} if (action.getType() == Action.CUSTOM_INTERACT && functionalElement.isInInventory()) {
+				boolean add = true;
+				for (CustomAction customAction: added) {
+					if (customAction.getName().equals(((CustomAction) action).getName()))
+						add = false;
+				}
+				if (add) {
+					buttons.add(new ActionButton((CustomAction) action));
+					added.add((CustomAction) action);
+			}
+			}
+		} 
+	}
+
+
+	/**
+	 * Clear buttons of any pressed or over information
+	 */
+	private void clearButtons() {
+		for (ActionButton ab : buttons) {
+			ab.setPressed(false);
+			ab.setOver(false);
+		}
+		buttonOver = null;
+		buttonPressed = null;	
+	}
+
     /**
+     * Recalculate the buttons positions, acording to their size and place on
+     * the screen
+     */
+    private void recalculateButtonsPositions() {
+    	double degreeIncrement = Math.PI / (buttons.size() - 1);
+    	double angle = Math.PI;
+    	int newCenterY = centerY;
+    	int newCenterX = centerX;
+    	// TODO check the radius recalculation to get an appropiate distribution
+    	radius = 20 * buttons.size();
+    	if (centerY > GUI.WINDOW_HEIGHT / 2) {
+    		if (centerY > GUI.WINDOW_HEIGHT - MAX_BUTTON_HEIGHT / 2)
+    			newCenterY = GUI.WINDOW_HEIGHT - MAX_BUTTON_HEIGHT / 2;
+    		degreeIncrement = - degreeIncrement;
+    	} else {
+    		if (centerY < MAX_BUTTON_HEIGHT / 2)
+    			newCenterY = MAX_BUTTON_HEIGHT / 2;
+    	}
+        	
+    	if (centerX > GUI.WINDOW_WIDTH - MAX_BUTTON_WIDTH / 2)
+    		newCenterX = GUI.WINDOW_WIDTH - MAX_BUTTON_WIDTH / 2;
+    	if (centerX < MAX_BUTTON_WIDTH)
+    		newCenterX = MAX_BUTTON_WIDTH;
+    	
+    	if (newCenterX < (radius + MAX_BUTTON_WIDTH / 2)) {
+    		if (newCenterY - radius < MAX_BUTTON_HEIGHT) {
+        		angle = angle / 2;
+    			degreeIncrement = degreeIncrement / 2;
+    			radius = radius * 1.5;
+    		} else if (newCenterY + radius > GUI.WINDOW_HEIGHT - MAX_BUTTON_HEIGHT / 2) {
+    			angle = angle + angle / 2;
+	    		degreeIncrement = degreeIncrement / 2;
+	    		radius = radius * 1.5;
+    		} else {
+    			angle = angle / 2;
+    		}
+    	}
+    	
+    	if (newCenterX > (GUI.WINDOW_WIDTH - radius - MAX_BUTTON_WIDTH / 2)) {
+    		if (newCenterY - radius < MAX_BUTTON_HEIGHT) {
+        		angle = angle / 2;
+    			degreeIncrement = - degreeIncrement / 2;
+    			radius = radius * 1.5;
+    		} else if (newCenterY + radius > GUI.WINDOW_HEIGHT - MAX_BUTTON_HEIGHT / 2) {
+    			angle = angle + angle / 2;
+	    		degreeIncrement = - degreeIncrement / 2;
+	    		radius = radius * 1.5;
+    		} else {
+    			angle = - angle / 2;
+    		}
+    	}
+
+    	
+		for (ActionButton ab : buttons) {
+			ab.setPosX((int) (Math.cos(angle) * radius + newCenterX));
+			ab.setPosY((int) (Math.sin(angle) * radius + newCenterY));
+			angle -= degreeIncrement;
+		}
+	
+	}
+
+
+	/**
+	 * Adds the default buttons for a character element
+	 */
+	private void addDefaultCharacterButtons() {
+		buttons.add(eyeButton);
+		buttons.add(mouthButton);
+	}
+
+	/**
+	 * Adds the default buttons for non-character elements
+	 */
+	private void addDefaultObjectButtons() {
+		buttons.add(eyeButton);
+		buttons.add(handButton);
+	}    
+
+	/**
      * There has been a mouse moved over the action buttons
      * @param x int coordinate
      * @param y int coordinate
      */
     public void mouseMoved( MouseEvent e ) {
-        index_button_over = -1;
-        //If it's not a NULL event check if it's in a button
-        if( e != null )
-            index_button_over = inWhatButton( e.getX( ), e.getY( ) );
+		clearButtons();
+		if( e != null ) {
+            ActionButton ab  = getButton( e.getX( ), e.getY( ) );
+            if (ab != null) {
+	            ab.setOver(true);
+	            buttonOver = ab;
+            }
+        }
     }
 
     /**
@@ -157,10 +261,14 @@ public class ActionButtons {
      * @param y int coordinate
      */
     public void mouseClicked( MouseEvent e ) {
-        index_button_pressed = -1;
-        //If it's not a NULL event check if it's in a button
-        if( e != null )
-            index_button_pressed = inWhatButton( e.getX( ), e.getY( ) );
+		clearButtons();
+		if( e != null ) {
+            ActionButton ab  = getButton( e.getX( ), e.getY( ) );
+            if (ab != null) {
+            	ab.setPressed(true);
+                buttonPressed = ab;
+            }
+        }
     }
 
     /**
@@ -169,102 +277,41 @@ public class ActionButtons {
      */
     public void draw( Graphics2D g ) {
         //For each action button
-        for( int i = 0; i < ACTIONBUTTON_COUNT; i++ ) {
-            //If this action button is the pressed one draw its pressed image
-            if( index_button_pressed == i ) {
-                g.drawImage( button_pressed[i], centerX + ACTIONBUTTON_X[i] - ACTIONBUTTON_WIDTH / 2 - Game.getInstance( ).getFunctionalScene( ).getOffsetX( ), centerY + ACTIONBUTTON_Y[i] - ACTIONBUTTON_HEIGHT / 2, null );
-                //else if this action button is the overed one draw its overed image
-            } else if( index_button_over == i ) {
-                g.drawImage( button_over[i], centerX + ACTIONBUTTON_X[i] - ACTIONBUTTON_WIDTH / 2 - Game.getInstance( ).getFunctionalScene( ).getOffsetX( ), centerY + ACTIONBUTTON_Y[i] - ACTIONBUTTON_HEIGHT / 2, null );
-                //else that the normal action button image 
-            } else {
-                g.drawImage( button_normal[i], centerX + ACTIONBUTTON_X[i] - ACTIONBUTTON_WIDTH / 2 - Game.getInstance( ).getFunctionalScene( ).getOffsetX( ), centerY + ACTIONBUTTON_Y[i] - ACTIONBUTTON_HEIGHT / 2, null );
-            }
-        }
-    }
-
-    /**
-     * Forces a button to be pressed
-     * @param button int corresponding the button to be pressed
-     */
-    public void setButtonPressed( int button ) {
-        index_button_pressed = button;
+    	for (ActionButton ab : buttons) {
+    		ab.draw(g);
+    	}
     }
 
     /**
      * Get the current button pressed
      * @return button pressed
      */
-    public int getButtonPressed( ) {
-        return index_button_pressed;
+    public ActionButton getButtonPressed( ) {
+        return buttonPressed;
     }
 
     /**
      * Get the current button pressed
      * @return button pressed
      */
-    public int getButtonOver( ) {
-        return index_button_over;
+    public ActionButton getButtonOver( ) {
+        return buttonOver;
     }
-
+ 
     /**
-     * Set the X center coordinate of the action buttons and modify it to get all 
-     * the action buttons in the window
-     * @param positionX Center X coordinate
+     * Returns the button at the given coordinates
+     * @param x the x-axis value
+     * @param y the y-axis value
+     * @return the button in that place
      */
-    public void setCenterX( int positionX ) {
-        //If the buttons get out of the window from the right, correct the position
-        if( positionX + 2 * ACTIONBUTTON_WIDTH > GUI.WINDOW_WIDTH )
-            this.centerX = GUI.WINDOW_WIDTH - 2 * ACTIONBUTTON_WIDTH;
-        //else if the buttons get out of the window from the left, correct the position
-        else if( positionX - 2 * ACTIONBUTTON_WIDTH < 0 )
-            this.centerX = 2 * ACTIONBUTTON_WIDTH;
-        //else use that position
-        else
-            this.centerX = positionX;
-
-        //modify the center given the current offset of the scene
-        this.centerX += Game.getInstance( ).getFunctionalScene( ).getOffsetX( );
-    }
-
-    /**
-     * Set the Y center coordinate of the action buttons and modify it to get all 
-     * the action buttons in the window
-     * @param positionX Center Y coordinate
-     */
-    public void setCenterY( int positionY ) {
-        //If the buttons get out of the window from the bottom, correct the position
-        if( positionY + 2 * ACTIONBUTTON_HEIGHT > GUI.WINDOW_HEIGHT )
-            this.centerY = GUI.WINDOW_HEIGHT - 2 * ACTIONBUTTON_HEIGHT;
-        //else if the buttons get out of the window from the top, correct the position
-        else if( positionY - 2 * ACTIONBUTTON_HEIGHT < 0 )
-            this.centerY = 2 * ACTIONBUTTON_HEIGHT;
-        //else use that position
-        else
-            this.centerY = positionY;
-    }
-
-    /**
-     * Given a coordinate get the action button that has it in it
-     * @param x Coodinate X
-     * @param y Coordinate Y
-     * @return The button that has the coordinate in it or -1 if no button has it
-     */
-    private int inWhatButton( int x, int y ) {
-        int button = -1;
-        int i = 0;
-        //Loop through each button while noone has the coordinate
-        while( i < ACTIONBUTTON_COUNT && button == -1 ) {
-            //Check if the coordinate is in the actual action button
-            //In the X coordinate take into account the current scene offset
-            if( x > ( centerX + ACTIONBUTTON_X[i] - ACTIONBUTTON_WIDTH / 2 - Game.getInstance( ).getFunctionalScene( ).getOffsetX( ) ) 
-                    && x < ( centerX + ACTIONBUTTON_X[i] + ACTIONBUTTON_WIDTH / 2 - Game.getInstance( ).getFunctionalScene( ).getOffsetX( ) ) 
-                    && y > ( centerY + ACTIONBUTTON_Y[i] - ACTIONBUTTON_HEIGHT / 2 ) 
-                    && y < ( centerY + ACTIONBUTTON_Y[i] + ACTIONBUTTON_HEIGHT / 2 ) )
-                button = i;
-            i++;
+    public ActionButton getButton( int x, int y ) {
+        for (ActionButton ab : buttons) {
+        	if (ab.isInside(x,y)) {
+        		return ab;
+        	}
         }
-        return button;
+        return null;
     }
+
 
 }

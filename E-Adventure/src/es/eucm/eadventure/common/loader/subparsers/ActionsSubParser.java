@@ -1,0 +1,371 @@
+package es.eucm.eadventure.common.loader.subparsers;
+
+import org.xml.sax.Attributes;
+
+import es.eucm.eadventure.common.data.chapter.Action;
+import es.eucm.eadventure.common.data.chapter.Chapter;
+import es.eucm.eadventure.common.data.chapter.CustomAction;
+import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
+import es.eucm.eadventure.common.data.chapter.effects.Effects;
+import es.eucm.eadventure.common.data.chapter.elements.Element;
+import es.eucm.eadventure.common.data.chapter.resources.Resources;
+
+/**
+ * Class to subparse actions
+ * 
+ * @author Eugenio Marchiori
+ *
+ */
+public class ActionsSubParser extends SubParser {
+	
+	/**
+	 * Indicates the current element being subparsed
+	 */
+	private int subParsing;
+	
+	/**
+	 * Indicates the current element being read
+	 */
+	private int reading;
+
+	/**
+	 * Stores the current conditions being read
+	 */
+	private Conditions currentConditions;
+
+	/**
+	 * Stores the current effects being read
+	 */
+	private Effects currentEffects;
+
+	/**
+	 * Stores the current documentation being read
+	 */
+	private String currentDocumentation;
+
+	/**
+	 * Stores the current IdTarget being read
+	 */
+	private String currentIdTarget;
+
+	/**
+	 * Stores the current Name being read
+	 */
+	private String currentName;
+
+	/**
+	 * Stores the current needsGoTo being read
+	 */
+	private boolean currentNeedsGoTo;
+
+	/**
+	 * Stores the current keepDinstance being read
+	 */
+	private int currentKeepDistance;
+
+	/**
+	 * Stores the current customAction being read
+	 */
+	private CustomAction currentCustomAction;
+
+	/**
+	 * Stores the current Resources being read
+	 */
+	private Resources currentResources;
+
+	/**
+	 * The current subparser being used
+	 */
+	private SubParser subParser;
+	
+	/**
+	 * Constant for no subparsing
+	 */
+	private static final int SUBPARSING_NONE = 0;
+	
+	/**
+	 * Constant for reading nothing
+	 */
+	private static final int READING_NONE = 0;
+	
+	/**
+	 * Constant for reading an action
+	 */
+	private static final int READING_ACTION = 1;
+
+	/**
+	 * Constant for reading resources
+	 */
+	private static final int READING_RESOURCES = 2;
+
+	/**
+	 * Constant for subparsing conditions
+	 */
+	private static final int SUBPARSING_CONDITION = 1;
+
+	/**
+	 * Constant for subparsing effects
+	 */
+	private static final int SUBPARSING_EFFECT = 2;
+	
+	/**
+	 * The element into which the actions are written
+	 */
+	private Element element;
+	
+	/**
+	 * Default constructor
+	 * 
+	 * @param chapter The chapter that is being parsed
+	 * @param element The element where to add the actions
+	 */
+	public ActionsSubParser(Chapter chapter, Element element) {
+		super(chapter);
+		this.element = element;
+		subParsing = SUBPARSING_NONE;
+		reading = READING_NONE;
+	}
+	
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.eucm.eadventure.engine.cargador.subparsers.SubParser#startElement(java.lang.String, java.lang.String,
+	 *      java.lang.String, org.xml.sax.Attributes)
+	 */
+	public void startElement( String namespaceURI, String sName, String qName, Attributes attrs ) {
+
+		// If no element is being subparsed
+		if( subParsing == SUBPARSING_NONE ) {
+
+			// If it is an examine, use or grab tag, create new conditions and effects
+			if( qName.equals( "examine" ) || qName.equals( "grab" ) || qName.equals( "use" ) ) {
+				currentConditions = new Conditions( );
+				currentEffects = new Effects( );
+				currentDocumentation = null;
+				reading = READING_ACTION;
+			}
+
+			// If it is an use-with or give-to tag, create new conditions and effects, and store the idTarget
+			else if( qName.equals( "use-with" ) || qName.equals( "give-to" )) {
+				for( int i = 0; i < attrs.getLength( ); i++ )
+					if( attrs.getQName( i ).equals( "idTarget" ) )
+						currentIdTarget = attrs.getValue( i );
+
+				currentConditions = new Conditions( );
+				currentEffects = new Effects( );
+				currentDocumentation = null;
+				reading = READING_ACTION;
+			}
+			
+			else if (qName.equals("custom") || qName.equals("custom-interact")) {
+				for ( int i = 0; i < attrs.getLength(); i++) {
+					if (attrs.getQName(i).equals("idTarget"))
+						currentIdTarget = attrs.getValue(i);
+					if (attrs.getQName(i).equals("name"))
+						currentName = attrs.getValue(i);
+					if (attrs.getQName(i).equals("needsGoTo")) {
+						if (attrs.getValue(i).equals("no"))
+							currentNeedsGoTo = false;
+						else
+							currentNeedsGoTo = true;
+					}
+					if (attrs.getQName(i).equals("keepDistance"))
+						currentKeepDistance = Integer.parseInt(attrs.getValue(i));
+
+				}
+
+				currentConditions = new Conditions( );
+				currentEffects = new Effects( );
+				currentDocumentation = null;
+				if (qName.equals("custom"))
+					currentCustomAction = new CustomAction(Action.CUSTOM);
+				else
+					currentCustomAction = new CustomAction(Action.CUSTOM_INTERACT);
+				reading = READING_ACTION;
+			}
+
+			// If it is a resources tag, create the new resources and switch the state
+			else if( qName.equals( "resources" ) ) {
+				currentResources = new Resources( );
+				reading = READING_RESOURCES;
+			}
+
+			// If it is an asset tag, read it and add it to the current resources
+			else if( qName.equals( "asset" ) ) {
+				String type = "";
+				String path = "";
+
+				for( int i = 0; i < attrs.getLength( ); i++ ) {
+					if( attrs.getQName( i ).equals( "type" ) )
+						type = attrs.getValue( i );
+					if( attrs.getQName( i ).equals( "uri" ) )
+						path = attrs.getValue( i );
+				}
+
+				// If the asset is not an special one
+//				if( !AssetsController.isAssetSpecial( path ) )
+					currentResources.addAsset( type, path );
+			}
+
+
+			// If it is a condition tag, create new conditions and switch the state
+			else if( qName.equals( "condition" ) ) {
+				currentConditions = new Conditions( );
+				subParser = new ConditionSubParser( currentConditions, chapter );
+				subParsing = SUBPARSING_CONDITION;
+			}
+
+			// If it is a effect tag, create new effects and switch the state
+			else if( qName.equals( "effect" ) ) {
+				subParser = new EffectSubParser( currentEffects, chapter );
+				subParsing = SUBPARSING_EFFECT;
+			}
+		}
+
+		// If it is reading an effect or a condition, spread the call
+		if( subParsing != SUBPARSING_NONE ) {
+			subParser.startElement( namespaceURI, sName, qName, attrs );
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.eucm.eadventure.engine.cargador.subparsers.SubParser#endElement(java.lang.String, java.lang.String,
+	 *      java.lang.String)
+	 */
+	public void endElement( String namespaceURI, String sName, String qName ) {
+
+		// If no element is being subparsed
+		if( subParsing == SUBPARSING_NONE ) {
+
+			// If it is a resources tag, add it to the object
+			if( qName.equals( "resources" ) ) {
+				if (reading == READING_RESOURCES) {
+					currentCustomAction.addResources( currentResources);
+					reading = READING_NONE;
+				}
+			}
+
+			// If it is a documentation tag, hold the documentation in the current element
+			else if( qName.equals( "documentation" ) ) {
+				currentDocumentation = currentString.toString( ).trim( );
+			}
+			
+			// If it is a examine tag, store the new action in the object
+			else if ( qName.equals("examine")) {
+				Action examineAction = new Action( Action.EXAMINE, currentConditions, currentEffects);
+				examineAction.setDocumentation( currentDocumentation );
+				element.addAction(examineAction);
+				reading = READING_NONE;
+			}
+
+			// If it is a grab tag, store the new action in the object
+			else if( qName.equals( "grab" ) ) {
+				Action grabAction = new Action( Action.GRAB, currentConditions, currentEffects );
+				grabAction.setDocumentation( currentDocumentation );
+				element.addAction( grabAction );
+				reading = READING_NONE;
+			}
+
+			// If it is an use tag, store the new action in the object
+			else if( qName.equals( "use" ) ) {
+				Action useAction = new Action( Action.USE, currentConditions, currentEffects );
+				useAction.setDocumentation( currentDocumentation );
+				element.addAction( useAction );
+				reading = READING_NONE;
+			}
+
+			// If it is an use-with tag, store the new action in the object
+			else if( qName.equals( "use-with" ) ) {
+				Action useWithAction = new Action( Action.USE_WITH, currentIdTarget, currentConditions, currentEffects );
+				useWithAction.setDocumentation( currentDocumentation );
+				element.addAction( useWithAction );
+				reading = READING_NONE;
+			}
+
+			// If it is a give-to tag, store the new action in the object
+			else if( qName.equals( "give-to" ) ) {
+				Action giveToAction = new Action( Action.GIVE_TO, currentIdTarget, currentConditions, currentEffects );
+				giveToAction.setDocumentation( currentDocumentation );
+				element.addAction( giveToAction );
+				reading = READING_NONE;
+			}
+			
+			// If it is a custom tag, store the new custom action in the object
+			else if ( qName.equals("custom")) {
+				currentCustomAction.setName(currentName);
+				currentCustomAction.setConditions(currentConditions);
+				currentCustomAction.setEffects(currentEffects);
+				currentCustomAction.setDocumentation(currentDocumentation);
+				currentCustomAction.setKeepDistance(currentKeepDistance);
+				currentCustomAction.setNeedsGoTo(currentNeedsGoTo);
+//				customAction.addResources(currentResources);
+				element.addAction(currentCustomAction);
+				currentCustomAction = null;
+				reading = READING_NONE;
+			}
+
+			// If it is a custom-interact tag, store the new custom interact action in the object
+			else if (qName.equals("custom-interact")) {
+				currentCustomAction.setConditions(currentConditions);
+				currentCustomAction.setEffects(currentEffects);
+				currentCustomAction.setName(currentName);
+				currentCustomAction.setDocumentation(currentDocumentation);
+				currentCustomAction.setKeepDistance(currentKeepDistance);
+				currentCustomAction.setNeedsGoTo(currentNeedsGoTo);
+//				customAction.addResources(currentResources);
+				element.addAction(currentCustomAction);
+				currentCustomAction = null;
+				reading = READING_NONE;
+			}
+
+			// Reset the current string
+			currentString = new StringBuffer( );
+		}
+
+		// If a condition is being subparsed
+		else if( subParsing == SUBPARSING_CONDITION ) {
+			// Spread the call
+			subParser.endElement( namespaceURI, sName, qName );
+
+			// If the condition tag is being closed
+			if( qName.equals( "condition" ) ) {
+				// Store the conditions in the resources
+				if( reading == READING_RESOURCES )
+					currentResources.setConditions( currentConditions );
+
+				// Switch state
+				subParsing = SUBPARSING_NONE;
+			}
+		}
+
+		// If an effect is being subparsed
+		else if( subParsing == SUBPARSING_EFFECT ) {
+			// Spread the call
+			subParser.endElement( namespaceURI, sName, qName );
+
+			// If the effect tag is being closed, switch the state
+			if( qName.equals( "effect" ) ) {
+				subParsing = SUBPARSING_NONE;
+			}
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.eucm.eadventure.engine.loader.subparsers.SubParser#characters(char[], int, int)
+	 */
+	public void characters( char[] buf, int offset, int len ) {
+		// If no element is being subparsed
+		if( subParsing == SUBPARSING_NONE )
+			super.characters( buf, offset, len );
+
+		// If it is reading an effect or a condition, spread the call
+		else
+			subParser.characters( buf, offset, len );
+	}
+
+}

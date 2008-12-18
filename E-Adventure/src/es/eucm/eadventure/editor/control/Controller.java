@@ -196,6 +196,11 @@ public class Controller {
 	public static final int ACTION_USE = 23;
 
 	/**
+	 * Id for the "Custom" action element.
+	 */
+	public static final int ACTION_CUSTOM = 230;
+
+	/**
 	 * Id for the "Use with" action element.
 	 */
 	public static final int ACTION_USE_WITH = 24;
@@ -204,7 +209,13 @@ public class Controller {
 	 * Id for the "Give to" action element.
 	 */
 	public static final int ACTION_GIVE_TO = 25;
-
+	
+	/**
+	 * Id for the "Custom interact" action element.
+	 */
+	public static final int ACTION_CUSTOM_INTERACT = 250;
+	
+	
 	/**
 	 * Id for the player element.
 	 */
@@ -419,6 +430,7 @@ public class Controller {
 	public static final int LANGUAGE_UNKNOWN = -1;
 	public static final int LANGUAGE_SPANISH = 0;
 	public static final int LANGUAGE_ENGLISH = 1;
+
 	
 	public static final File projectsFolder(){
 		return new File(PROJECTS_FOLDER);
