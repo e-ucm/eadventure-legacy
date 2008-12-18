@@ -536,6 +536,11 @@ public class FunctionalScene implements Renderable {
         // Update the player
         player.update( elapsedTime );
         
+     // Update the atrezzo items
+       /* for( FunctionalAtrezzo atr: atrezzo )
+            atr.update( elapsedTime );*/
+        
+        
         // Update the offset
         if( updateOffset( ) && Game.getInstance( ).getLastMouseEvent( )!=null  )
             Game.getInstance( ).mouseMoved( Game.getInstance( ).getLastMouseEvent( ) );

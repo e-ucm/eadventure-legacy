@@ -392,7 +392,7 @@ public class GameStateConversation extends GameState {
             }
             //player.speak( currentNode.getLine( optionSelected ).getText( ) );
             game.setCharacterCurrentlyTalking( player );
-
+            isOptionSelected = true;
             //currentNode = currentNode.getChild( optionSelected );
         }
     }
@@ -400,10 +400,11 @@ public class GameStateConversation extends GameState {
     public synchronized void mouseClicked( MouseEvent e ) {
         if( currentNode.getType( ) == ConversationNode.OPTION && RESPONSE_TEXT_Y <= e.getY( ) && RESPONSE_TEXT_Y + currentNode.getLineCount() * RESPONSE_TEXT_HEIGHT + RESPONSE_TEXT_ASCENT >= e.getY()) {
             optionSelected = ( e.getY( ) - RESPONSE_TEXT_Y ) / RESPONSE_TEXT_HEIGHT;
-           isOptionSelected = true;
+           
             // If all the lines are in the screen, select normally
             if( currentNode.getLineCount( ) <= RESPONSE_TEXT_NUMBER_LINES ) {
                 selectDisplayedOption();
+                isOptionSelected = true;
             }
             
             // If there are more lines
