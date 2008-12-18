@@ -28,7 +28,7 @@ public class AtrezzoTreeNode extends TreeNode {
 	 * Loads the icon of the node class.
 	 */
 	public static void loadIcon( ) {
-		icon = new ImageIcon( "img/icons/item.png" );;
+		icon = new ImageIcon( "img/icons/Atrezzo-1.png" );;
 	}
 
 	/**
