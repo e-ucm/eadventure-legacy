@@ -18,6 +18,7 @@ import es.eucm.eadventure.common.data.chapter.resources.Asset;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.data.chapter.scenes.Scene;
 import es.eucm.eadventure.engine.core.control.ActionManager;
+import es.eucm.eadventure.engine.core.control.AtrezzoSummary;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.ItemSummary;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionalactions.FunctionalAction;
@@ -129,6 +130,7 @@ public class FunctionalScene implements Renderable {
         // Pick the item summary
         Chapter gameData = Game.getInstance( ).getCurrentChapterData( );
         ItemSummary itemSummary = Game.getInstance( ).getItemSummary( );
+        AtrezzoSummary atrezzoSummary = Game.getInstance( ).getAtrezzoItemSummary( );
         
         // Select the resources
         resources = createResourcesBlock( );
@@ -191,7 +193,6 @@ public class FunctionalScene implements Renderable {
      // Add the functional atrezzo items
         for( ElementReference atrezzoReference : scene.getAtrezzoReferences( ) )
             if( new FunctionalConditions(atrezzoReference.getConditions( )).allConditionsOk( ) )
-                if( itemSummary.isItemNormal( atrezzoReference.getIdTarget( ) ) )
                     for( Atrezzo currentAtrezzo : gameData.getAtrezzo() )
                         if( atrezzoReference.getIdTarget( ).equals( currentAtrezzo.getId( ) ) )
                             atrezzo.add( new FunctionalAtrezzo( currentAtrezzo, atrezzoReference.getX( ), atrezzoReference.getY( ) ) );
@@ -587,6 +588,8 @@ public class FunctionalScene implements Renderable {
             item.draw( );
         for( FunctionalNPC npc : npcs ) 
             npc.draw( );
+        for ( FunctionalAtrezzo at : atrezzo )
+        	at.draw();
         player.draw( );
 
         if(foreground != null)

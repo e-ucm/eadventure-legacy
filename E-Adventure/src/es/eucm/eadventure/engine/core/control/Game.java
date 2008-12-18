@@ -182,6 +182,11 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      * Item summary
      */
     private ItemSummary itemSummary;
+    
+    /**
+     * Atrezzo item summary
+     */
+    private AtrezzoSummary atrezzoSummary;
 
     /**
      * Inventory
@@ -372,6 +377,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         // Initialize the required elements of the game
         actionManager = new ActionManager( );
         itemSummary = new ItemSummary( gameData.getItems( ) );
+        atrezzoSummary = new AtrezzoSummary( gameData.getAtrezzo() );
         inventory = new Inventory( );
        
         // Initialize the stack of queue of effects
@@ -662,6 +668,14 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      */
     public ItemSummary getItemSummary( ) {
         return itemSummary;
+    }
+    
+    /**
+     * Returns the atrezzo item summary
+     * @return Atrezzo item summary
+     */
+    public AtrezzoSummary getAtrezzoItemSummary( ) {
+        return atrezzoSummary;
     }
     
     /**
