@@ -38,6 +38,7 @@ import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfil
 import es.eucm.eadventure.editor.control.controllers.character.NPCDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ChapterDataControl;
 import es.eucm.eadventure.editor.control.controllers.item.ItemDataControl;
+import es.eucm.eadventure.editor.control.controllers.atrezzo.AtrezzoDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
 import es.eucm.eadventure.editor.control.writer.Writer;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
@@ -2544,7 +2545,12 @@ public class Controller {
 		for( NPCDataControl npc : getSelectedChapterDataControl( ).getNPCsList( ).getNPCs( ) )
 			if( elementId.equals( npc.getId( ) ) )
 				elementImage = npc.getPreviewImage( );
+		// Search for the image in the items, comparing the identifiers
+		for( AtrezzoDataControl atrezzo : getSelectedChapterDataControl( ).getAtrezzoList( ).getAtrezzoList() )
+			if( elementId.equals( atrezzo.getId( ) ) )
+				elementImage = atrezzo.getPreviewImage( );
 
+		
 		return elementImage;
 	}
 
