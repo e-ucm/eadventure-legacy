@@ -1,8 +1,8 @@
 <!ENTITY % conversation "tree-conversation | graph-conversation">
 <!ENTITY % cutscene "videoscene | slidescene">
 
-<!ELEMENT eAdventure ((scene | %cutscene;)+, book*, object*, player, character*, (%conversation;)*, timer*, global-state*, macro*)>
-<!ELEMENT scene (documentation?, resources+, name, default-initial-position?, exits?, objects?, characters?, active-areas?, barriers?)>
+<!ELEMENT eAdventure ((scene | %cutscene;)+, book*, object*, player, character*, (%conversation;)*, timer*, global-state*, macro*,atrezzoobject*)>
+<!ELEMENT scene (documentation?, resources+, name, default-initial-position?, exits?, objects?, characters?, active-areas?, barriers?, atrezzo?)>
 <!ATTLIST scene
 	id ID #REQUIRED
 	start (yes | no) "no"
@@ -48,6 +48,13 @@
 	idTarget IDREF #REQUIRED
 	%position; 
 >
+<!ELEMENT atrezzo (atrezzo-ref+)>
+<!ELEMENT atrezzo-ref (documentation?, condition?)>
+<!ATTLIST atrezzo-ref
+	idTarget IDREF #REQUIRED
+	%position; 
+>
+
 <!ELEMENT characters (character-ref+)>
 <!ELEMENT character-ref (documentation?, condition?)>
 <!ATTLIST character-ref
@@ -101,6 +108,12 @@
 <!ATTLIST img
 	src CDATA #REQUIRED
 >
+<!ELEMENT atrezzoobject (documentation?, instance*, resources+, description	)>
+<!ATTLIST atrezzoobject
+	id ID #IMPLIED
+>
+
+
 <!ELEMENT object (documentation?, instance*, resources+, description, actions?)>
 <!ATTLIST object
 	id ID #IMPLIED
