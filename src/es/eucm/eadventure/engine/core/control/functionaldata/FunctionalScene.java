@@ -122,6 +122,7 @@ public class FunctionalScene implements Renderable {
         // Create lists for the characters, items and active areas
         npcs = new ArrayList<FunctionalNPC>( );
         items = new ArrayList<FunctionalItem>( );
+        atrezzo = new ArrayList<FunctionalAtrezzo>( );
         areas = new ArrayList<FunctionalActiveArea>( );
         barriers = new ArrayList<FunctionalBarrier>( );
 
@@ -308,9 +309,9 @@ public class FunctionalScene implements Renderable {
                 boolean found = false;
                 
                 // If the functional atrezzo item is present, update its resources
-                for( FunctionalAtrezzo currentItem : atrezzo ) {
-                    if( atrezzoReference.getIdTarget( ).equals( currentItem.getAtrezzo( ).getId( ) ) ) {
-                        currentItem.updateResources( );
+                for( FunctionalAtrezzo currentAtrezzo : atrezzo ) {
+                    if( atrezzoReference.getIdTarget( ).equals( currentAtrezzo.getAtrezzo( ).getId( ) ) ) {
+                        currentAtrezzo.updateResources( );
                         found = true;
                     }
                 }

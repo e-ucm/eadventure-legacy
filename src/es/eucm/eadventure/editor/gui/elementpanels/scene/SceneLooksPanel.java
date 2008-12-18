@@ -54,6 +54,12 @@ public class SceneLooksPanel extends LooksPanel {
 			String itemPath = Controller.getInstance( ).getElementImagePath( elementReference.getElementId( ) );
 			multipleImagePanel.addElement( itemPath, elementReference.getElementX( ), elementReference.getElementY( ) );
 		}
+		
+		// Add the atrezzo item references first
+		for( ElementReferenceDataControl elementReference : sceneDataControl.getAtrezzoReferencesList( ).getAtrezzoReferences( ) ) {
+			String atrezzoPath = Controller.getInstance( ).getElementImagePath( elementReference.getElementId( ) );
+			multipleImagePanel.addElement( atrezzoPath, elementReference.getElementX( ), elementReference.getElementY( ) );
+		}
 
 		lookPanel.add( multipleImagePanel, cLook );
 		//resourcesPanel.setPreviewUpdater( this );

@@ -249,9 +249,9 @@ public class AtrezzoPanel extends JPanel{
 		protected void createPreview( ) {
 			atrezzoDataControl = (AtrezzoDataControl) this.dataControl;
 			// Take the path to the current image of the atrezzo item
-			String itemImagePath = atrezzoDataControl.getPreviewImage( );
+			String atrezzoImagePath = atrezzoDataControl.getPreviewImage( );
 
-			imagePanel = new ImagePanel( itemImagePath );
+			imagePanel = new ImagePanel( atrezzoImagePath );
 			imagePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Atrezzo.Preview" ) ) );
 			lookPanel.add( imagePanel, cLook );
 			// TODO Parche, arreglar
