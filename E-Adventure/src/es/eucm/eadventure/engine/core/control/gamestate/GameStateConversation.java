@@ -121,6 +121,11 @@ public class GameStateConversation extends GameState {
      */
     //private boolean lastTTS;
     
+    
+    /**
+     * 
+     */
+    private boolean keyPressed;
     /**
      * Number of options that has been displayed in the screen
      */
@@ -351,7 +356,7 @@ public class GameStateConversation extends GameState {
             //player.speak( currentNode.getLine( optionSelected ).getText( ) );
             game.setCharacterCurrentlyTalking( player );
             
-         
+            isOptionSelected = true;
             //currentNode = currentNode.getChild( optionSelected );
         }
     }
@@ -360,6 +365,7 @@ public class GameStateConversation extends GameState {
      * Select an option when all options do not fit in the screen
      */
     private void selectNoAllDisplayedOption(){
+    	if (!keyPressed)
         optionSelected += firstLineDisplayed;
         
         int indexLastLine = Math.min( firstLineDisplayed + RESPONSE_TEXT_NUMBER_LINES - 1, currentNode.getLineCount( ) );
@@ -393,6 +399,7 @@ public class GameStateConversation extends GameState {
             //player.speak( currentNode.getLine( optionSelected ).getText( ) );
             game.setCharacterCurrentlyTalking( player );
             isOptionSelected = true;
+            keyPressed = false;
             //currentNode = currentNode.getChild( optionSelected );
         }
     }
@@ -404,7 +411,7 @@ public class GameStateConversation extends GameState {
             // If all the lines are in the screen, select normally
             if( currentNode.getLineCount( ) <= RESPONSE_TEXT_NUMBER_LINES ) {
                 selectDisplayedOption();
-                isOptionSelected = true;
+                
             }
             
             // If there are more lines
@@ -427,39 +434,44 @@ public class GameStateConversation extends GameState {
 
     public void keyPressed( KeyEvent e ) {
     	if (currentNode.getType( ) == ConversationNode.OPTION){
-        
+       
     	//TODO comprobar hasta que numero puede llegar
     	if (e.getKeyCode()==KeyEvent.VK_1){
     		optionSelected = 0;
-    		isOptionSelected = true;
+    		//isOptionSelected = true;
     	} else if (e.getKeyCode()==KeyEvent.VK_2){
     		optionSelected = 1;
-    		isOptionSelected = true;
+    		//isOptionSelected = true;
     	} else if (e.getKeyCode()==KeyEvent.VK_3){
     		optionSelected = 2;
-    		isOptionSelected = true;
+    		//isOptionSelected = true;
     	} else if (e.getKeyCode()==KeyEvent.VK_4){
     		optionSelected = 3;
-    		isOptionSelected = true;
+    		//isOptionSelected = true;
     	} else if (e.getKeyCode()==KeyEvent.VK_5){
     		optionSelected = 4;
-    		isOptionSelected = true;
+    		//isOptionSelected = true;
     	} else if (e.getKeyCode()==KeyEvent.VK_6){
     		optionSelected = 5;
-    		isOptionSelected = true;
+    		//isOptionSelected = true;
     	} else if (e.getKeyCode()==KeyEvent.VK_7){
     		optionSelected = 6;
-    		isOptionSelected = true;
+    		//isOptionSelected = true;
     	} else if (e.getKeyCode()==KeyEvent.VK_8){
     		optionSelected = 7;
-    		isOptionSelected = true;
+    		//isOptionSelected = true;
     	} else if (e.getKeyCode()==KeyEvent.VK_9){
     		optionSelected = 8;
-    		isOptionSelected = true;
+    		//isOptionSelected = true;
     	}
-    	if (isOptionSelected && optionSelected<numberDisplayedOptions)
+    	keyPressed=true;
+    	if( currentNode.getLineCount( ) <= RESPONSE_TEXT_NUMBER_LINES ) {
     		selectDisplayedOption();
+    	}else if (optionSelected <= numberDisplayedOptions + firstLineDisplayed){
+    		
+    		selectNoAllDisplayedOption();
     	}
+    }
     }
     
     @Override
