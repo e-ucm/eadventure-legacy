@@ -21,6 +21,8 @@ import es.eucm.eadventure.editor.gui.treepanel.nodes.assessment.AssessmentProfil
 import es.eucm.eadventure.editor.gui.treepanel.nodes.assessment.AssessmentProfilesTreeNode;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.assessment.AssessmentRuleTreeNode;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.assessment.TimedAssessmentRuleTreeNode;
+import es.eucm.eadventure.editor.gui.treepanel.nodes.atrezzo.AtrezzoListTreeNode;
+import es.eucm.eadventure.editor.gui.treepanel.nodes.atrezzo.AtrezzoTreeNode;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.book.BookParagraphsListTreeNode;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.book.BookTreeNode;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.book.BooksListTreeNode;
@@ -59,6 +61,8 @@ import es.eucm.eadventure.editor.gui.treepanel.nodes.macro.MacroTreeNode;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.macro.MacrosListTreeNode;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.scene.ActiveAreaTreeNode;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.scene.ActiveAreasListTreeNode;
+import es.eucm.eadventure.editor.gui.treepanel.nodes.scene.AtrezzoReferenceTreeNode;
+import es.eucm.eadventure.editor.gui.treepanel.nodes.scene.AtrezzoReferencesListTreeNode;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.scene.BarrierTreeNode;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.scene.BarriersListTreeNode;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.scene.ExitTreeNode;
@@ -111,6 +115,8 @@ public abstract class TreeNode {
 		ItemReferenceTreeNode.loadIcon( );
 		NPCReferencesListTreeNode.loadIcon( );
 		NPCReferenceTreeNode.loadIcon( );
+		AtrezzoReferencesListTreeNode.loadIcon( );
+		AtrezzoReferenceTreeNode.loadIcon( );
 		ScenesListTreeNode.loadIcon( );
 		SceneTreeNode.loadIcon( );
 
@@ -142,8 +148,8 @@ public abstract class TreeNode {
 		UseWithActionTreeNode.loadIcon( );
 		
 		// Atrezzo items node
-		
-		//TODO !!!!!
+		AtrezzoTreeNode.loadIcon();
+		AtrezzoListTreeNode.loadIcon();
 
 		// Character nodes
 		ConversationReferencesListTreeNode.loadIcon( );

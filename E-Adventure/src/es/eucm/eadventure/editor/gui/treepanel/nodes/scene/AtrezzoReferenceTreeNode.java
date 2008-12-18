@@ -9,7 +9,6 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.scene.AtrezzoReferencePanel;
-import es.eucm.eadventure.editor.gui.elementpanels.scene.ItemReferencePanel;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.TreeNode;
 
 public class AtrezzoReferenceTreeNode extends TreeNode {
@@ -28,7 +27,7 @@ public class AtrezzoReferenceTreeNode extends TreeNode {
 	 * Loads the icon of the node class.
 	 */
 	public static void loadIcon( ) {
-		icon = new ImageIcon( "img/icons/itemReference.png" );
+		icon = new ImageIcon( "img/icons/Atrezzo-Refs-1.png" );
 	}
 
 	/**
