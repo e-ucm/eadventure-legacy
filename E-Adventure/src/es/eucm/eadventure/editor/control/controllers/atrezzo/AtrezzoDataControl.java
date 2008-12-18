@@ -55,7 +55,7 @@ public class AtrezzoDataControl extends DataControlWithResources {
 		// Create the subcontrollers
 		resourcesDataControlList = new ArrayList<ResourcesDataControl>( );
 		for( Resources resources : resourcesList )
-			resourcesDataControlList.add( new ResourcesDataControl( resources, Controller.ITEM ) );
+			resourcesDataControlList.add( new ResourcesDataControl( resources, Controller.ATREZZO ) );
 
 		
 	}
@@ -64,7 +64,7 @@ public class AtrezzoDataControl extends DataControlWithResources {
 	/**
 	 * Returns the list of resources controllers.
 	 * 
-	 * @return Resources controllers
+	 * @return Resources controllers	
 	 */
 	public List<ResourcesDataControl> getResources( ) {
 		return resourcesDataControlList;
@@ -261,7 +261,7 @@ public class AtrezzoDataControl extends DataControlWithResources {
 		if( type == Controller.RESOURCES ) {
 			Resources newResources = new Resources( );
 			resourcesList.add( newResources );
-			resourcesDataControlList.add( new ResourcesDataControl( newResources, Controller.ITEM ) );
+			resourcesDataControlList.add( new ResourcesDataControl( newResources, Controller.ATREZZO ) );
 			controller.dataModified( );
 			elementAdded = true;
 		}

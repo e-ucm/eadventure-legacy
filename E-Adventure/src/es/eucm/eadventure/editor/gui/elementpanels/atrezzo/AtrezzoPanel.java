@@ -54,12 +54,12 @@ public class AtrezzoPanel extends JPanel{
 	/**
 	 * Text field for the description.
 	 */
-	private JTextField descriptionTextField;
+	//private JTextField descriptionTextField;
 
 	/**
 	 * Text field for the detailed description.
 	 */
-	private JTextField detailedDescriptionTextField;
+	//private JTextField detailedDescriptionTextField;
 
 	private JTabbedPane tabPanel;
 
@@ -118,6 +118,7 @@ public class AtrezzoPanel extends JPanel{
 		docPanel.add( namePanel, cDoc );
 
 		// Create the field for the brief description
+		/*
 		cDoc.gridy = 2;
 		JPanel descriptionPanel = new JPanel( );
 		descriptionPanel.setLayout( new GridLayout( ) );
@@ -126,10 +127,10 @@ public class AtrezzoPanel extends JPanel{
 		descriptionTextField.addFocusListener( new TextFieldChangesListener( ) );
 		descriptionPanel.add( descriptionTextField );
 		descriptionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Atrezzo.Description" ) ) );
-		docPanel.add( descriptionPanel, cDoc );
+		docPanel.add( descriptionPanel, cDoc );*/
 
 		// Create the field for the detailed description
-		cDoc.gridy = 3;
+		/*cDoc.gridy = 3;
 		JPanel detailedDescriptionPanel = new JPanel( );
 		detailedDescriptionPanel.setLayout( new GridLayout( ) );
 		detailedDescriptionTextField = new JTextField( atrezzoDataControl.getDetailedDescription( ) );
@@ -137,9 +138,9 @@ public class AtrezzoPanel extends JPanel{
 		detailedDescriptionTextField.addFocusListener( new TextFieldChangesListener( ) );
 		detailedDescriptionPanel.add( detailedDescriptionTextField );
 		detailedDescriptionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Atrezzo.DetailedDescription" ) ) );
-		docPanel.add( detailedDescriptionPanel, cDoc );
+		docPanel.add( detailedDescriptionPanel, cDoc );*/
 		
-		cDoc.gridy = 4;
+		cDoc.gridy = 2;
 		cDoc.fill = GridBagConstraints.BOTH;
 		cDoc.weightx = 1;
 		cDoc.weighty = 0.5;
@@ -167,12 +168,12 @@ public class AtrezzoPanel extends JPanel{
 			atrezzoDataControl.setName( nameTextField.getText( ) );
 
 		// Check the brief description field
-		else if( source == descriptionTextField )
+		/*else if( source == descriptionTextField )
 			atrezzoDataControl.setBriefDescription( descriptionTextField.getText( ) );
 
 		// Check the detailed description field
 		else if( source == detailedDescriptionTextField )
-			atrezzoDataControl.setDetailedDescription( detailedDescriptionTextField.getText( ) );
+			atrezzoDataControl.setDetailedDescription( detailedDescriptionTextField.getText( ) );*/
 	}
 
 	/**
