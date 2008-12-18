@@ -1,4 +1,4 @@
-package es.eucm.eadventure.editor.gui.treepanel.nodes.scene;
+package es.eucm.eadventure.editor.gui.treepanel.nodes.atrezzo;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -6,19 +6,18 @@ import javax.swing.JComponent;
 
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
-import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
-import es.eucm.eadventure.editor.gui.elementpanels.scene.ScenePanel;
+import es.eucm.eadventure.editor.control.controllers.atrezzo.AtrezzoDataControl;
+import es.eucm.eadventure.editor.gui.elementpanels.atrezzo.AtrezzoPanel;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.TreeNode;
 
-//import es.eucm.eadventure.editor.gui.treepanel.nodes.general.ResourcesTreeNode;
 
-public class SceneTreeNode extends TreeNode {
+public class AtrezzoTreeNode extends TreeNode {
+
 
 	/**
 	 * Contained micro-controller.
 	 */
-	private SceneDataControl dataControl;
+	private AtrezzoDataControl dataControl;
 
 	/**
 	 * The icon for this node class.
@@ -29,7 +28,7 @@ public class SceneTreeNode extends TreeNode {
 	 * Loads the icon of the node class.
 	 */
 	public static void loadIcon( ) {
-		icon = new ImageIcon( "img/icons/scene.png" );
+		icon = new ImageIcon( "img/icons/item.png" );;
 	}
 
 	/**
@@ -38,25 +37,19 @@ public class SceneTreeNode extends TreeNode {
 	 * @param parent
 	 *            Parent node
 	 * @param dataControl
-	 *            Scene to be contained
+	 *            Item to be contained
 	 */
-	public SceneTreeNode( TreeNode parent, SceneDataControl dataControl ) {
+	public AtrezzoTreeNode( TreeNode parent, AtrezzoDataControl dataControl ) {
 		super( parent );
 		this.dataControl = dataControl;
 
 		//for( ResourcesDataControl resourcesDataControl : dataControl.getResources( ) )
 		//	children.add( new ResourcesTreeNode( this, resourcesDataControl ) );
 
-		children.add( new ExitsListTreeNode( this, dataControl.getExitsList( ) ) );
-		children.add( new ActiveAreasListTreeNode( this, dataControl.getActiveAreasList( ) ) );
-		if (!Controller.getInstance( ).isPlayTransparent( ))
-			children.add( new BarriersListTreeNode( this, dataControl.getBarriersList( ) ) );	
-		children.add( new ItemReferencesListTreeNode( this, dataControl.getItemReferencesList( ) ) );
-		children.add(new AtrezzoReferencesListTreeNode( this, dataControl.getAtrezzoReferencesList()));
-		children.add( new NPCReferencesListTreeNode( this, dataControl.getNPCReferencesList( ) ) );
+		
 	}
 
-	@Override	
+	@Override
 	public TreeNode checkForNewChild( int type ) {
 		TreeNode addedTreeNode = null;
 
@@ -79,11 +72,12 @@ public class SceneTreeNode extends TreeNode {
 		// Spread the call to the children
 		for( TreeNode treeNode : children )
 			treeNode.checkForDeletedReferences( );
+		
 	}
 
 	@Override
 	protected int getNodeType( ) {
-		return Controller.SCENE;
+		return Controller.ATREZZO;
 	}
 
 	@Override
@@ -103,11 +97,12 @@ public class SceneTreeNode extends TreeNode {
 
 	@Override
 	public JComponent getEditPanel( ) {
-		return new ScenePanel( dataControl );
+		return new AtrezzoPanel( dataControl );
 	}
 
 	@Override
 	public String toString( ) {
 		return dataControl.getId( );
 	}
+	
 }

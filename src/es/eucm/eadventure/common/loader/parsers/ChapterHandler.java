@@ -14,6 +14,7 @@ import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.data.chapter.conditions.GlobalState;
 import es.eucm.eadventure.common.data.chapter.effects.Macro;
 import es.eucm.eadventure.common.loader.InputStreamCreator;
+import es.eucm.eadventure.common.loader.subparsers.AtrezzoSubParser;
 import es.eucm.eadventure.common.loader.subparsers.BookSubParser;
 import es.eucm.eadventure.common.loader.subparsers.CharacterSubParser;
 import es.eucm.eadventure.common.loader.subparsers.ConditionSubParser;
@@ -89,6 +90,11 @@ public class ChapterHandler extends DefaultHandler {
 	 */
 	private static final int MACRO = 10;
 
+	/**
+	 * Constant for subparsing atrezzo object tag
+	 */
+	private static final int ATREZZO = 11;
+	
 
 	/**
 	 * Stores the current element being parsed
@@ -227,6 +233,11 @@ public class ChapterHandler extends DefaultHandler {
 				subParser = new EffectSubParser( currentMacro, chapter );
 				subParsing = MACRO;
 			}
+			// Subparse atrezzo object
+			else if( qName.equals( "atrezzoobject" ) ) {
+				subParser = new AtrezzoSubParser( chapter );
+				subParsing = ATREZZO;
+			}
 
 
 		}
@@ -257,7 +268,7 @@ public class ChapterHandler extends DefaultHandler {
 			// If the element is not being subparsed anymore, return to normal state
 			if( qName.equals( "scene" ) && subParsing == SCENE || ( qName.equals( "slidescene" ) || qName.equals( "videoscene" ) ) && subParsing == CUTSCENE || qName.equals( "book" ) && subParsing == BOOK || qName.equals( "object" ) && subParsing == OBJECT || qName.equals( "player" ) && subParsing == PLAYER || qName.equals( "character" ) && subParsing == CHARACTER || qName.equals( "tree-conversation" ) && subParsing == CONVERSATION || qName.equals( "graph-conversation" ) && subParsing == CONVERSATION || 
 					qName.equals( "timer" ) && subParsing == TIMER || qName.equals( "global-state" ) && subParsing == GLOBAL_STATE
-					|| qName.equals( "macro" ) && subParsing == MACRO) {
+					|| qName.equals( "macro" ) && subParsing == MACRO || qName.equals( "atrezzoobject" ) && subParsing == ATREZZO) {
 				subParsing = NONE;
 			}
 

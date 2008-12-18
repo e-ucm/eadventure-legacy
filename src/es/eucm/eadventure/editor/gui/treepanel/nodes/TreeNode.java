@@ -136,6 +136,10 @@ public abstract class TreeNode {
 		ItemTreeNode.loadIcon( );
 		UseActionTreeNode.loadIcon( );
 		UseWithActionTreeNode.loadIcon( );
+		
+		// Atrezzo items node
+		
+		//TODO !!!!!
 
 		// Character nodes
 		ConversationReferencesListTreeNode.loadIcon( );

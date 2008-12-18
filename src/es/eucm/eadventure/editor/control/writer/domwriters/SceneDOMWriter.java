@@ -391,6 +391,39 @@ public class SceneDOMWriter {
 				// Append the list of exits
 				sceneElement.appendChild( barriersElement );
 			}
+			
+			// Add the atrezzo item references (if there is at least one)
+			if( !scene.getAtrezzoReferences( ).isEmpty( ) ) {
+				Node atrezzoNode = doc.createElement( "atrezzo" );
+
+				// Append every single item reference
+				for( ElementReference atrezzoReference : scene.getAtrezzoReferences( ) ) {
+					// Create the item reference element
+					Element atrezzoReferenceElement = doc.createElement( "atrezzo-ref" );
+					atrezzoReferenceElement.setAttribute( "idTarget", atrezzoReference.getIdTarget( ) );
+					atrezzoReferenceElement.setAttribute( "x", String.valueOf( atrezzoReference.getX( ) ) );
+					atrezzoReferenceElement.setAttribute( "y", String.valueOf( atrezzoReference.getY( ) ) );
+
+					// Append the documentation (if avalaible)
+					if( atrezzoReference.getDocumentation( ) != null ) {
+						Node itemDocumentationNode = doc.createElement( "documentation" );
+						itemDocumentationNode.appendChild( doc.createTextNode( atrezzoReference.getDocumentation( ) ) );
+						atrezzoReferenceElement.appendChild( itemDocumentationNode );
+					}
+
+					// Append the conditions (if avalaible)
+					if( !atrezzoReference.getConditions( ).isEmpty( ) ) {
+						Node conditionsNode = ConditionsDOMWriter.buildDOM( atrezzoReference.getConditions( ) );
+						doc.adoptNode( conditionsNode );
+						atrezzoReferenceElement.appendChild( conditionsNode );
+					}
+
+					// Append the exit
+					atrezzoNode.appendChild( atrezzoReferenceElement );
+				}
+				// Append the list of exits
+				sceneElement.appendChild( atrezzoNode );
+			}
 
 
 		} catch( ParserConfigurationException e ) {

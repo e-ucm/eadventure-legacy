@@ -67,6 +67,7 @@
 	<entry key="MenuConfiguration.Title">Configuración</entry>
 	<entry key="MenuConfiguration.ShowItemReferences">Mostrar por defecto referencias a objeto</entry>
 	<entry key="MenuConfiguration.ShowNPCReferences">Mostrar por defecto referencias a personajes</entry>
+	<entry key="MenuConfiguration.ShowAtrezzoReferences">Mostrar por defecto referencias a objeto de atrezzo</entry>
 	<entry key="MenuConfiguration.ShowStartDialog">Mostrar asistente de inicio al comenzar</entry>
 	<entry key="MenuConfiguration.Language">Cambiar idioma</entry>
 	<entry key="MenuConfiguration.Language.English">Inglés</entry>
@@ -292,6 +293,10 @@ donde XX es un múmero cualquiera.</entry>
 	<entry key="Operation.AddItemMessage">Introduzca un identificador para el nuevo objeto:</entry>
 	<entry key="Operation.AddItemDefaultValue">IdObjeto</entry>
 	
+	<entry key="Operation.AddAtrezzoTitle">Añadir nuevo objeto de atrezzo</entry>
+	<entry key="Operation.AddAtrezzoMessage">Introduzca un identificador para el nuevo objeto de atrezzo:</entry>
+	<entry key="Operation.AddAtrezzoDefaultValue">IdAtrezzo</entry>
+	
 	<entry key="Operation.AddGlobalStateTitle">Añadir nuevo estado global</entry>
 	<entry key="Operation.AddGlobalStateMessage">Introduzca un identificador para el nuevo estado global:</entry>
 	<entry key="Operation.AddGlobalStateDefaultValue">IdEstadoGlobal</entry>
@@ -319,6 +324,10 @@ donde XX es un múmero cualquiera.</entry>
 	<entry key="Operation.AddItemReferenceTitle">Añadir referencia a objeto</entry>
 	<entry key="Operation.AddItemReferenceMessage">Seleccione el objeto que quiere añadir a la escena:</entry>
 	<entry key="Operation.AddItemReferenceErrorNoItems">Debe haber al menos un objeto en el capítulo para añadir una referencia</entry>
+	
+	<entry key="Operation.AddAtrezzoReferenceTitle">Añadir referencia a objeto de atrezzo</entry>
+	<entry key="Operation.AddAtrezzoReferenceMessage">Seleccione el objeto de atrezzo que quiere añadir a la escena:</entry>
+	<entry key="Operation.AddAtrezzoReferenceErrorNoAtrezzo">Debe haber al menos un objeto de atrezzo en el capítulo para añadir una referencia</entry>
 
 	<entry key="Operation.AddNPCReferenceTitle">Añadir referencia a personaje</entry>
 	<entry key="Operation.AddNPCReferenceMessage">Seleccione el personaje que quiere añadir a la escena:</entry>
@@ -350,6 +359,9 @@ donde XX es un múmero cualquiera.</entry>
 
 	<entry key="Operation.RenameItemTitle">Renombrar objeto</entry>
 	<entry key="Operation.RenameItemMessage">Introduzca un nuevo identificador con el que renombrar el objeto:</entry>
+	
+	<entry key="Operation.RenameAtrezzoTitle">Renombrar objeto de atrezzo</entry>
+	<entry key="Operation.RenameAtrezzoMessage">Introduzca un nuevo identificador con el que renombrar el objeto de atrezzo:</entry>
 	
 	<entry key="Operation.RenameGlobalStateTitle">Renombrar estado global</entry>
 	<entry key="Operation.RenameGlobalStateMessage">Introduzca un nuevo identificador con el que renombrar el estado global:</entry>
@@ -882,6 +894,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 
 	<entry key="ElementReference.ItemReferences">Mostrar referencias a objetos</entry>
 	<entry key="ElementReference.NPCReferences">Mostrar referencias a personajes</entry>
+	<entry key="ElementReference.AtrezzoReferences">Mostrar referenceias a objetos de atrezzo</entry>	
 
 	<entry key="ItemReferencesList.Title">Referencias a objetos</entry>
 	<entry key="ItemReferencesList.PreviewTitle">Previsualización de la posición de los objetos</entry>
@@ -892,7 +905,18 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="ItemReference.ItemId">Identificador del objeto referenciado</entry>
 	<entry key="ItemReference.Conditions">Condiciones de la referencia a objeto</entry>
 	<entry key="ItemReference.Position">Posición de la referencia a objeto</entry>
+	
+	<entry key="AtrezzoReference.Title">Referencia a objeto de atrezzo</entry>
+	<entry key="AtrezzoReference.Documentation">Documentación de la referencia a objeto de atrezzo</entry>
+	<entry key="AtrezzoReference.AtrezzoId">Identificador del objeto de atrezzo referenciado</entry>
+	<entry key="AtrezzoReference.Conditions">Condiciones de la referencia a objeto de atrezzo</entry>
+	<entry key="AtrezzoReference.Position">Posición de la referencia a objeto de atrezzo</entry>
 
+	<entry key="AtrezzoReferencesList.Title">Referencias a objetos de atrezzo</entry>
+	<entry key="AtrezzoReferencesList.PreviewTitle">Previsualización de la posición de los objetos de atrezzo</entry>
+	<entry key="AtrezzoReferencesList.Information">Las referencias a objeto de atrezzo son los objetos de atrezzo que se pueden encontrar en la escena. Cada objeto se define de forma independiente, pero se puede asociar a múltiples escenas. Para cada referencia, se debe seleccionar donde colocar el objeto, y bajo que circunstancias se quiere que éste se muestre por pantalla.</entry>
+	
+	
 	<entry key="NPCReferencesList.Title">Referencias a personajes</entry>
 	<entry key="NPCReferencesList.PreviewTitle">Previsualización de la posición de los personajes</entry>
 	<entry key="NPCReferencesList.Information">Las referencias a personaje son los personajes que se pueden encontrar en la escena. Cada personaje se define de forma independiente, pero se puede asociar a múltiples escenas. Para cada referencia, se debe seleccionar donde colocar el personaje, y bajo que circunstancias se quiere que éste se muestre por pantalla.</entry>
@@ -1036,6 +1060,23 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="Item.LookPanelTip">Panel para la edición de las distintas apariencias del objeto</entry>
 	<entry key="Item.DocPanelTitle">Información</entry>
 	<entry key="Item.DocPanelTip">Panel para editar la información del objeto</entry>
+
+	<entry key="AtrezzoList.Title">Objetos de atrezzo</entry>
+	<entry key="AtrezzoList.ListTitle">Lista de objetos de atrezzo</entry>
+	<entry key="AtrezzoList.Information">Los objetos de atrezzo son elementos con los que el protagonista no puede interactuar. Son meramente decorativos, y solo pueden ser colocados en las escenas con ese fin. </entry>
+	<entry key="AtrezzoList.ColumnHeader">Identificador del objeto de atrezzo</entry>
+	
+	<entry key="Atrezzo.Title">Objeto de atrezzo</entry>
+	<entry key="Atrezzo.Documentation">Documentación del objeto de atrezzo (no se usa en el motor)</entry>
+	<entry key="Atrezzo.Name">Nombre del objeto de atrezzo</entry>
+	<entry key="Atrezzo.Description">Descripción breve del objeto de atrezzo (se muestra al mirar el objeto)</entry>
+	<entry key="Atrezzo.DetailedDescription">Descripción detallada del objeto de atrezzo (se muestra al examinar el objeto)</entry>
+	<entry key="Atrezzo.Preview">Previsualización del objeto de atrezzo</entry>
+	<entry key="Atrezzo.LookPanelTitle">Apariencias</entry>
+	<entry key="Atrezzo.LookPanelTip">Panel para la edición de las distintas apariencias del objeto de atrezzo</entry>
+	<entry key="Atrezzo.DocPanelTitle">Información</entry>
+	<entry key="Atrezzo.DocPanelTip">Panel para editar la información del objeto de atrezzo</entry>
+
 
 
 	<entry key="ActionsList.Title">Acciones</entry>
@@ -1236,7 +1277,9 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="TreeNode.AddElement55">Añadir estados globales</entry>
 	<entry key="TreeNode.AddElement56">Añadir macro</entry>
 	<entry key="TreeNode.AddElement57">Añadir lista de macros</entry>
-	
+	<entry key="TreeNode.AddElement58">Añadir objeto de atrezzo</entry>
+	<entry key="TreeNode.AddElement59">Añadir lista de objetos de atrezzo</entry>
+	<entry key="TreeNode.AddElement60">Añadir referencia a objeto de atrezzo</entry>
 	
 	<entry key="GeneralText.Yes">Sí</entry>
 	<entry key="GeneralText.No">No</entry>
@@ -1316,6 +1359,10 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="Element.Name55">Estados globales</entry>
 	<entry key="Element.Name56">Macro</entry>
 	<entry key="Element.Name57">Macros</entry>
+	<entry key="Element.Name58">Objetos de atrezzo</entry>
+	<entry key="Element.Name59">Lista de objetos de atrezzo</entry>
+	<entry key="Element.Name60">Referencias a objetos de atrezzo</entry>
+	<entry key="Element.Name61">Lista de referencias a objetos de atrezzo</entry>
 	
 		
 	<entry key="Element.Ref">Ref: {#0}</entry>

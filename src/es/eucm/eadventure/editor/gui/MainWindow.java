@@ -505,6 +505,13 @@ public class MainWindow extends JFrame {
 			}
 		} );
 		configurationMenu.add( itShowNPCReferences );
+		JCheckBoxMenuItem itShowAtrezzoReferences = new JCheckBoxMenuItem( TextConstants.getText( "MenuConfiguration.ShowAtrezzoReferences" ), controller.getShowAtrezzoReferences( ) );
+		itShowNPCReferences.addActionListener( new ActionListener( ) {
+			public void actionPerformed( ActionEvent e ) {
+				controller.setShowAtrezzoReferences( ( (JCheckBoxMenuItem) e.getSource( ) ).isSelected( ) );
+			}
+		} );
+		configurationMenu.add( itShowAtrezzoReferences );
 		itShowStartDialog = new JCheckBoxMenuItem( TextConstants.getText( "MenuConfiguration.ShowStartDialog" ), controller.getShowStartDialog( ) );
 		itShowStartDialog.addActionListener( new ActionListener( ) {
 			public void actionPerformed( ActionEvent e ) {

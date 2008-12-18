@@ -6,13 +6,16 @@ import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.common.data.chapter.effects.Effects;
+import es.eucm.eadventure.common.data.chapter.elements.Atrezzo;
 import es.eucm.eadventure.common.data.chapter.elements.Item;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 
 /**
- * Class to subparse items.
+ * 
+ * Class to subperse atrezzo items
+ *
  */
-public class ItemSubParser extends SubParser {
+public class AtrezzoSubParser extends SubParser{
 
 	/* Attributes */
 
@@ -25,11 +28,6 @@ public class ItemSubParser extends SubParser {
 	 * Constant for reading resources tag.
 	 */
 	private static final int READING_RESOURCES = 1;
-
-	/**
-	 * Constant for reading actin tag.
-	 */
-	private static final int READING_ACTION = 2;
 
 	/**
 	 * Constant for subparsing nothing.
@@ -57,9 +55,9 @@ public class ItemSubParser extends SubParser {
 	private int subParsing = SUBPARSING_NONE;
 
 	/**
-	 * Object being parsed.
+	 * Atrezzo object being parsed.
 	 */
-	private Item object;
+	private Atrezzo atrezzo;
 
 	/**
 	 * Current resources being parsed.
@@ -99,7 +97,7 @@ public class ItemSubParser extends SubParser {
 	 * @param chapter
 	 *            Chapter data to store the read data
 	 */
-	public ItemSubParser( Chapter chapter ) {
+	public AtrezzoSubParser( Chapter chapter ) {
 		super( chapter );
 	}
 
@@ -114,14 +112,14 @@ public class ItemSubParser extends SubParser {
 		// If no element is being subparsed
 		if( subParsing == SUBPARSING_NONE ) {
 			// If it is a object tag, create the new object (with its id)
-			if( qName.equals( "object" ) ) {
-				String objectId = "";
+			if( qName.equals( "atrezzoobject" ) ) {
+				String atrezzoId = "";
 
 				for( int i = 0; i < attrs.getLength( ); i++ )
 					if( attrs.getQName( i ).equals( "id" ) )
-						objectId = attrs.getValue( i );
+						atrezzoId = attrs.getValue( i );
 
-				object = new Item( objectId );
+				atrezzo = new Atrezzo( atrezzoId );
 			}
 
 			// If it is a resources tag, create the new resources and switch the state
@@ -147,26 +145,6 @@ public class ItemSubParser extends SubParser {
 					currentResources.addAsset( type, path );
 			}
 
-			// If it is an examine, use or grab tag, create new conditions and effects
-			else if( qName.equals( "examine" ) || qName.equals( "grab" ) || qName.equals( "use" ) ) {
-				currentConditions = new Conditions( );
-				currentEffects = new Effects( );
-				currentDocumentation = null;
-				reading = READING_ACTION;
-			}
-
-			// If it is an use-with or give-to tag, create new conditions and effects, and store the idTarget
-			else if( qName.equals( "use-with" ) || qName.equals( "give-to" ) ) {
-				for( int i = 0; i < attrs.getLength( ); i++ )
-					if( attrs.getQName( i ).equals( "idTarget" ) )
-						currentIdTarget = attrs.getValue( i );
-
-				currentConditions = new Conditions( );
-				currentEffects = new Effects( );
-				currentDocumentation = null;
-				reading = READING_ACTION;
-			}
-
 			// If it is a condition tag, create new conditions and switch the state
 			else if( qName.equals( "condition" ) ) {
 				currentConditions = new Conditions( );
@@ -183,7 +161,7 @@ public class ItemSubParser extends SubParser {
 
 		// If it is reading an effect or a condition, spread the call
 		if( subParsing != SUBPARSING_NONE ) {
-			//String id = this.object.getId( );
+			//String id = this.atrezzo.getId( );
 			subParser.startElement( namespaceURI, sName, qName, attrs );
 		}
 	}
@@ -200,77 +178,36 @@ public class ItemSubParser extends SubParser {
 		if( subParsing == SUBPARSING_NONE ) {
 
 			// If it is an object tag, store the object in the game data
-			if( qName.equals( "object" ) ) {
-				chapter.addItem( object );
+			if( qName.equals( "atrezzoobject" ) ) {
+				chapter.addAtrezzo( atrezzo );
 			}
 
 			// If it is a resources tag, add it to the object
 			else if( qName.equals( "resources" ) ) {
-				object.addResources( currentResources );
+				atrezzo.addResources( currentResources );
 				reading = READING_NONE;
 			}
 
 			// If it is a name tag, store the name in the object
 			else if( qName.equals( "name" ) ) {
-				object.setName( currentString.toString( ).trim( ) );
+				atrezzo.setName( currentString.toString( ).trim( ) );
 			}
 
 			// If it is a documentation tag, hold the documentation in the current element
 			else if( qName.equals( "documentation" ) ) {
 				if( reading == READING_NONE )
-					object.setDocumentation( currentString.toString( ).trim( ) );
-				else if( reading == READING_ACTION )
-					currentDocumentation = currentString.toString( ).trim( );
+					atrezzo.setDocumentation( currentString.toString( ).trim( ) );
+				
 			}
 
 			// If it is a brief tag, store the brief description in the object
 			else if( qName.equals( "brief" ) ) {
-				object.setDescription( currentString.toString( ).trim( ) );
+				atrezzo.setDescription( currentString.toString( ).trim( ) );
 			}
 
 			// If it is a detailed tag, store the detailed description in the object
 			else if( qName.equals( "detailed" ) ) {
-				object.setDetailedDescription( currentString.toString( ).trim( ) );
-			}
-
-			// If it is an examine tag, store the new action in the object
-			else if( qName.equals( "examine" ) ) {
-				Action examineAction = new Action( Action.EXAMINE, currentConditions, currentEffects );
-				examineAction.setDocumentation( currentDocumentation );
-				object.addAction( examineAction );
-				reading = READING_NONE;
-			}
-
-			// If it is a grab tag, store the new action in the object
-			else if( qName.equals( "grab" ) ) {
-				Action grabAction = new Action( Action.GRAB, currentConditions, currentEffects );
-				grabAction.setDocumentation( currentDocumentation );
-				object.addAction( grabAction );
-				reading = READING_NONE;
-			}
-
-			// If it is an use tag, store the new action in the object
-			else if( qName.equals( "use" ) ) {
-				Action useAction = new Action( Action.USE, currentConditions, currentEffects );
-				useAction.setDocumentation( currentDocumentation );
-				object.addAction( useAction );
-				reading = READING_NONE;
-			}
-
-			// If it is an use-with tag, store the new action in the object
-			else if( qName.equals( "use-with" ) ) {
-				Action useWithAction = new Action( Action.USE_WITH, currentIdTarget, currentConditions, currentEffects );
-				useWithAction.setDocumentation( currentDocumentation );
-				object.addAction( useWithAction );
-				reading = READING_NONE;
-			}
-
-			// If it is a give-to tag, store the new action in the object
-			else if( qName.equals( "give-to" ) ) {
-				Action giveToAction = new Action( Action.GIVE_TO, currentIdTarget, currentConditions, currentEffects );
-				giveToAction.setDocumentation( currentDocumentation );
-				object.addAction( giveToAction );
-				reading = READING_NONE;
+				atrezzo.setDetailedDescription( currentString.toString( ).trim( ) );
 			}
 
 			// Reset the current string
@@ -319,4 +256,5 @@ public class ItemSubParser extends SubParser {
 		else
 			subParser.characters( buf, offset, len );
 	}
+	
 }

@@ -12,6 +12,7 @@ import es.eucm.eadventure.common.data.chapter.Exit;
 import es.eucm.eadventure.common.data.chapter.elements.ActiveArea;
 import es.eucm.eadventure.common.data.chapter.elements.Barrier;
 import es.eucm.eadventure.common.data.chapter.elements.Item;
+import es.eucm.eadventure.common.data.chapter.elements.Atrezzo;
 import es.eucm.eadventure.common.data.chapter.elements.NPC;
 import es.eucm.eadventure.common.data.chapter.resources.Asset;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
@@ -83,6 +84,11 @@ public class FunctionalScene implements Renderable {
      * Functional barriers present in the scene;
      */
     private ArrayList<FunctionalBarrier> barriers;
+    
+    /**
+     * Functional atrezzo items present in the scene
+     */
+    private ArrayList<FunctionalAtrezzo> atrezzo;
 
     /**
      * Offset of the scroll.
@@ -176,7 +182,13 @@ public class FunctionalScene implements Renderable {
             if( new FunctionalConditions(barrier.getConditions( )).allConditionsOk( ) )
                 this.barriers.add( new FunctionalBarrier( barrier ) );
 
-
+     // Add the functional atrezzo items
+        for( ElementReference atrezzoReference : scene.getAtrezzoReferences( ) )
+            if( new FunctionalConditions(atrezzoReference.getConditions( )).allConditionsOk( ) )
+                if( itemSummary.isItemNormal( atrezzoReference.getIdTarget( ) ) )
+                    for( Atrezzo currentAtrezzo : gameData.getAtrezzo() )
+                        if( atrezzoReference.getIdTarget( ).equals( currentAtrezzo.getId( ) ) )
+                            atrezzo.add( new FunctionalAtrezzo( currentAtrezzo, atrezzoReference.getX( ), atrezzoReference.getY( ) ) );
 
         updateOffset( );
     }
@@ -282,6 +294,34 @@ public class FunctionalScene implements Renderable {
                 }
             }
         }
+        
+        // Check the atrezzo item references of the scene
+        for( ElementReference atrezzoReference : scene.getAtrezzoReferences( ) ) {
+            
+            // For every atrezzo item that should be there
+            if( new FunctionalConditions(atrezzoReference.getConditions( )).allConditionsOk( ) ) {
+                boolean found = false;
+                
+                // If the functional atrezzo item is present, update its resources
+                for( FunctionalAtrezzo currentItem : atrezzo ) {
+                    if( atrezzoReference.getIdTarget( ).equals( currentItem.getAtrezzo( ).getId( ) ) ) {
+                        currentItem.updateResources( );
+                        found = true;
+                    }
+                }
+                
+                // If it was not found, search for it and add it
+                if( !found ) {
+                    if( Game.getInstance( ).getItemSummary( ).isItemNormal( atrezzoReference.getIdTarget( ) ) ) {
+                        for( Atrezzo currentAtrezzo : gameData.getAtrezzo( ) ) {
+                            if( atrezzoReference.getIdTarget( ).equals( currentAtrezzo.getId( ) ) ) {
+                                atrezzo.add( new FunctionalAtrezzo( currentAtrezzo, atrezzoReference.getX( ), atrezzoReference.getY( ) ) );
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         
         // Create a list with the items to remove
@@ -350,6 +390,29 @@ public class FunctionalScene implements Renderable {
         // Remove the elements
         for( FunctionalActiveArea areaToRemove : activeAreasToRemove )
             areas.remove( areaToRemove );
+        
+        // Create a list with the atrezzo items to remove
+        ArrayList<FunctionalAtrezzo> atrezzoToRemove = new ArrayList<FunctionalAtrezzo>( );
+        for( FunctionalAtrezzo currentAtrezzo : atrezzo ) {
+            boolean keepAtrezzo = false;
+            
+            // For every present item, check if it must be kept
+            for( ElementReference atrezzoReference : scene.getAtrezzoReferences( ) ) {
+                if( atrezzoReference.getIdTarget( ).equals( currentAtrezzo.getAtrezzo( ).getId( ) ) &&
+                		new FunctionalConditions(atrezzoReference.getConditions( )).allConditionsOk( ) ) {
+                    keepAtrezzo = true;
+                }
+            }
+            
+            // If it must not be kept, add it to the remove list
+            if( !keepAtrezzo )
+                atrezzoToRemove.add( currentAtrezzo );
+        }
+        
+        // Remove the elements
+        for( FunctionalAtrezzo atrToRemove : atrezzoToRemove )
+            atrezzo.remove( atrToRemove );
+        
 
     }
     

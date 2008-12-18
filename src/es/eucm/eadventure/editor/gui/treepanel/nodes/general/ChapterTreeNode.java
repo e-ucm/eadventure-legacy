@@ -11,6 +11,7 @@ import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfil
 import es.eucm.eadventure.editor.control.controllers.general.ChapterDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.general.ChapterPanel;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.TreeNode;
+import es.eucm.eadventure.editor.gui.treepanel.nodes.atrezzo.AtrezzoListTreeNode;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.book.BooksListTreeNode;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.character.NPCsListTreeNode;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.character.PlayerTreeNode;
@@ -59,6 +60,7 @@ public class ChapterTreeNode extends TreeNode {
 		children.add( new CutscenesListTreeNode( this, dataControl.getCutscenesList( ) ) );
 		children.add( new BooksListTreeNode( this, dataControl.getBooksList( ) ) );
 		children.add( new ItemsListTreeNode( this, dataControl.getItemsList( ) ) );
+		children.add( new AtrezzoListTreeNode( this, dataControl.getAtrezzoList( ) ) );
 		children.add( new PlayerTreeNode( this, dataControl.getPlayer( ) ) );
 		children.add( new NPCsListTreeNode( this, dataControl.getNPCsList( ) ) );
 		children.add( new ConversationsListTreeNode( this, dataControl.getConversationsList( ) ) );

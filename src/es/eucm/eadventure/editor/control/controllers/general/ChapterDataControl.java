@@ -7,6 +7,7 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.atrezzo.AtrezzoListDataControl;
 import es.eucm.eadventure.editor.control.controllers.book.BooksListDataControl;
 import es.eucm.eadventure.editor.control.controllers.character.NPCsListDataControl;
 import es.eucm.eadventure.editor.control.controllers.character.PlayerDataControl;
@@ -50,7 +51,12 @@ public class ChapterDataControl extends DataControl {
 	 * Items list data controller.
 	 */
 	private ItemsListDataControl itemsListDataControl;
-
+	
+	/**
+	 * Atrezzo items list data controller.
+	 */
+	private AtrezzoListDataControl atrezzoListDataControl;	
+	
 	/**
 	 * Player data controller.
 	 */
@@ -96,6 +102,7 @@ public class ChapterDataControl extends DataControl {
 		cutscenesListDataControl = new CutscenesListDataControl( chapter.getCutscenes( ) );
 		booksListDataControl = new BooksListDataControl( chapter.getBooks( ) );
 		itemsListDataControl = new ItemsListDataControl( chapter.getItems( ) );
+		atrezzoListDataControl = new AtrezzoListDataControl(chapter.getAtrezzo());
 		playerDataControl = new PlayerDataControl( chapter.getPlayer( ) );
 		npcsListDataControl = new NPCsListDataControl( chapter.getCharacters( ) );
 		conversationsListDataControl = new ConversationsListDataControl( chapter.getConversations( ) );
@@ -183,6 +190,15 @@ public class ChapterDataControl extends DataControl {
 	 */
 	public ItemsListDataControl getItemsList( ) {
 		return itemsListDataControl;
+	}
+	
+	/**
+	 * Returns the atrezzo items list controller.
+	 * 
+	 * @return Atrezzo list controller
+	 */
+	public AtrezzoListDataControl getAtrezzoList( ) {
+		return atrezzoListDataControl;
 	}
 
 	/**
@@ -439,6 +455,7 @@ public class ChapterDataControl extends DataControl {
 		valid &= cutscenesListDataControl.isValid( currentPath, incidences );
 		valid &= booksListDataControl.isValid( currentPath, incidences );
 		valid &= itemsListDataControl.isValid( currentPath, incidences );
+		valid &= atrezzoListDataControl.isValid(currentPath, incidences);
 		valid &= playerDataControl.isValid( playerPath, incidences );
 		valid &= npcsListDataControl.isValid( currentPath, incidences );
 		valid &= conversationsListDataControl.isValid( currentPath, incidences );
@@ -464,6 +481,7 @@ public class ChapterDataControl extends DataControl {
 		count += cutscenesListDataControl.countAssetReferences( assetPath );
 		count += booksListDataControl.countAssetReferences( assetPath );
 		count += itemsListDataControl.countAssetReferences( assetPath );
+		count += atrezzoListDataControl.countAssetReferences(assetPath);
 		count += playerDataControl.countAssetReferences( assetPath );
 		count += npcsListDataControl.countAssetReferences( assetPath );
 		count += conversationsListDataControl.countAssetReferences( assetPath );
@@ -511,6 +529,7 @@ public class ChapterDataControl extends DataControl {
 		cutscenesListDataControl.getAssetReferences( assetPaths, assetTypes );
 		booksListDataControl.getAssetReferences( assetPaths, assetTypes );
 		itemsListDataControl.getAssetReferences( assetPaths, assetTypes );
+		atrezzoListDataControl.getAssetReferences(assetPaths, assetTypes);
 		playerDataControl.getAssetReferences( assetPaths, assetTypes );
 		npcsListDataControl.getAssetReferences( assetPaths, assetTypes );
 		conversationsListDataControl.getAssetReferences( assetPaths, assetTypes );
@@ -532,6 +551,7 @@ public class ChapterDataControl extends DataControl {
 		cutscenesListDataControl.deleteAssetReferences( assetPath );
 		booksListDataControl.deleteAssetReferences( assetPath );
 		itemsListDataControl.deleteAssetReferences( assetPath );
+		atrezzoListDataControl.deleteAssetReferences(assetPath);
 		playerDataControl.deleteAssetReferences( assetPath );
 		npcsListDataControl.deleteAssetReferences( assetPath );
 		conversationsListDataControl.deleteAssetReferences( assetPath );
@@ -554,6 +574,7 @@ public class ChapterDataControl extends DataControl {
 		count += scenesListDataControl.countIdentifierReferences( id );
 		count += cutscenesListDataControl.countIdentifierReferences( id );
 		count += itemsListDataControl.countIdentifierReferences( id );
+		// the atrezzo items haven´t identifier
 		count += npcsListDataControl.countIdentifierReferences( id );
 		count += conversationsListDataControl.countIdentifierReferences( id );
 		count += timersListDataControl.countIdentifierReferences( id );
@@ -573,6 +594,7 @@ public class ChapterDataControl extends DataControl {
 		scenesListDataControl.replaceIdentifierReferences( oldId, newId );
 		cutscenesListDataControl.replaceIdentifierReferences( oldId, newId );
 		itemsListDataControl.replaceIdentifierReferences( oldId, newId );
+		// the atrezzo items haven´t identifier
 		npcsListDataControl.replaceIdentifierReferences( oldId, newId );
 		conversationsListDataControl.replaceIdentifierReferences( oldId, newId );
 		timersListDataControl.replaceIdentifierReferences( oldId, newId );
@@ -590,6 +612,7 @@ public class ChapterDataControl extends DataControl {
 		scenesListDataControl.deleteIdentifierReferences( id );
 		cutscenesListDataControl.deleteIdentifierReferences( id );
 		itemsListDataControl.deleteIdentifierReferences( id );
+		// the atrezzo items haven´t identifier
 		npcsListDataControl.deleteIdentifierReferences( id );
 		conversationsListDataControl.deleteIdentifierReferences( id );
 		timersListDataControl.deleteIdentifierReferences( id );

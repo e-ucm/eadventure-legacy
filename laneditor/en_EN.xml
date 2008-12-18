@@ -65,6 +65,7 @@
 	<entry key="MenuConfiguration.Title">Configuration</entry>
 	<entry key="MenuConfiguration.ShowItemReferences">Show item references by default</entry>
 	<entry key="MenuConfiguration.ShowNPCReferences">Show character references by default</entry>
+	<entry key="MenuConfiguration.ShowAtrezzoReferences">Show atrezzo items references by default</entry>
 	<entry key="MenuConfiguration.ShowStartDialog">Show start dialog the next time</entry>
 	<entry key="MenuConfiguration.Language">Set Language</entry>
 	<entry key="MenuConfiguration.Language.English">English</entry>
@@ -286,6 +287,10 @@ named 'descriptor.xml' or 'chapterXX.xml' where XX is a number.</entry>
 	<entry key="Operation.AddItemMessage">Type an identifier for the new item</entry>
 	<entry key="Operation.AddItemDefaultValue">ItemId</entry>
 	
+	<entry key="Operation.AddAtrezzoTitle">Add atrezzo item</entry>
+	<entry key="Operation.AddAtrezzoMessage">Type an identifier for the new atrezzo item</entry>
+	<entry key="Operation.AddAtrezzoDefaultValue">AtrezzoId</entry>
+	
 	<entry key="Operation.AddGlobalStateTitle">Add global state</entry>
 	<entry key="Operation.AddGlobalStateMessage">Type an identifier for the new global state</entry>
 	<entry key="Operation.AddGlobalStateDefaultValue">GlobalStateId</entry>
@@ -312,6 +317,10 @@ named 'descriptor.xml' or 'chapterXX.xml' where XX is a number.</entry>
 	<entry key="Operation.AddItemReferenceTitle">Add item reference</entry>
 	<entry key="Operation.AddItemReferenceMessage">Select the item you want to add to the scene</entry>
 	<entry key="Operation.AddItemReferenceErrorNoItems">There must be at least one item in the chapter to place a reference</entry>
+	
+	<entry key="Operation.AddAtrezzoReferenceTitle">Add atrezzo item reference</entry>
+	<entry key="Operation.AddAtrezzoReferenceMessage">Select the atrezzo item you want to add to the scene</entry>
+	<entry key="Operation.AddAtrezzoReferenceErrorNoAtrezzo">There must be at least one atrezzo item in the chapter to place a reference</entry>
 
 	<entry key="Operation.AddNPCReferenceTitle">Add character reference</entry>
 	<entry key="Operation.AddNPCReferenceMessage">Select the character you want to add to the scene</entry>
@@ -343,6 +352,9 @@ named 'descriptor.xml' or 'chapterXX.xml' where XX is a number.</entry>
 
 	<entry key="Operation.RenameItemTitle">Rename item</entry>
 	<entry key="Operation.RenameItemMessage">Type a new identifier to rename the item</entry>
+	
+	<entry key="Operation.RenameAtrezzoTitle">Rename atrezzo item</entry>
+	<entry key="Operation.RenameAtrezzoMessage">Type a new identifier to rename the atrezzo item:</entry>
 	
 	<entry key="Operation.RenameGlobalStateTitle">Rename global state</entry>
 	<entry key="Operation.RenameGlobalStateMessage">Type a new identifier to rename the global state</entry>
@@ -879,6 +891,7 @@ Please remember that you cannot make any reference to a macro in its definition<
 
 	<entry key="ElementReference.ItemReferences">Show item references</entry>
 	<entry key="ElementReference.NPCReferences">Show character references</entry>
+	<entry key="ElementReference.AtrezzoReferences">Show atrezzo item references</entry>
 
 	<entry key="ItemReferencesList.Title">Item references</entry>
 	<entry key="ItemReferencesList.PreviewTitle">Preview of the items location</entry>
@@ -889,6 +902,16 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="ItemReference.ItemId">Id of the referenced item</entry>
 	<entry key="ItemReference.Conditions">Conditions of the item reference</entry>
 	<entry key="ItemReference.Position">Position of the item reference</entry>
+	
+	<entry key="AtrezzoReferencesList.Title">Atrezzo item references</entry>
+	<entry key="AtrezzoReferencesList.PreviewTitle">Preview of the atrezzo items location</entry>
+	<entry key="AtrezzoReferencesList.Information">The atrezzo item references are the atrezzo items that can be found in the scene. Each atrezzo item is defined out of the scene, but can be added to a lot of scenes. For each reference, you can select where do you want to place the atrezzo items, and in which circumstances you want it to appear in the scene.</entry>
+	
+	<entry key="AtrezzoReference.Title">Atrezzo item reference</entry>
+	<entry key="AtrezzoReference.Documentation">Full description of the referenced atrezzo item</entry>
+	<entry key="AtrezzoReference.AtrezzoId">Id of the referenced atrezzo item</entry>
+	<entry key="AtrezzoReference.Conditions">Conditions of the atrezzo item reference</entry>
+	<entry key="AtrezzoReference.Position">Position of the atrezzo item reference</entry>
 
 	<entry key="NPCReferencesList.Title">Character references</entry>
 	<entry key="NPCReferencesList.PreviewTitle">Preview of the characters location</entry>
@@ -1033,6 +1056,22 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="Item.DocPanelTitle">Documentation</entry>
 	<entry key="Item.DocPanelTip">Panel for the edition of the documentation of the item</entry>
 
+	<entry key="AtrezzoList.Title">Atrezzo items</entry>
+	<entry key="AtrezzoList.ListTitle">List of atrezzo items</entry>
+	<entry key="AtrezzoList.Information">The atrezzo items are elements that the player can´t interact with. They are merely decoratives items, and only they can be placed in scenes with this purpose.</entry>
+	<entry key="AtrezzoList.ColumnHeader">Atrezzo item identifier</entry>
+	
+
+	<entry key="Atrezzo.Title">Atrezzo</entry>
+	<entry key="Atrezzo.Documentation">Full description of the atrezzo item</entry>
+	<entry key="Atrezzo.Name">Name of the atrezzo item</entry>
+	<entry key="Atrezzo.Description">Brief description of the atrezzo item</entry>
+	<entry key="Atrezzo.DetailedDescription">Detailed description of the atrezzo item</entry>
+	<entry key="Atrezzo.Preview">Graphical preview of the atrezzo item</entry>
+	<entry key="Atrezzo.LookPanelTitle">Appearance</entry>
+	<entry key="Atrezzo.LookPanelTip">Panel for the edition of the different looks of the atrezzo item </entry>
+	<entry key="Atrezzo.DocPanelTitle">Documentation</entry>
+	<entry key="Atrezzo.DocPanelTip">Panel for the edition of the documentation of the atrezzo item</entry>
 
 	<entry key="ActionsList.Title">Actions</entry>
 	<entry key="ActionsList.ListTitle">List of actions</entry>
@@ -1232,7 +1271,9 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="TreeNode.AddElement55">Add global states list</entry>
 	<entry key="TreeNode.AddElement56">Add macro</entry>
 	<entry key="TreeNode.AddElement57">Add macros list</entry>
-	
+	<entry key="TreeNode.AddElement58">Add atrezzo item</entry>
+	<entry key="TreeNode.AddElement59">Add atrezzo item list</entry>
+	<entry key="TreeNode.AddElement60">Add atrezzo item reference</entry>
 
 	<entry key="GeneralText.Yes">Yes</entry>
 	<entry key="GeneralText.No">No</entry>
@@ -1312,6 +1353,12 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="Element.Name55">Global states</entry>
 	<entry key="Element.Name56">Macro</entry>
 	<entry key="Element.Name57">Macros</entry>
+	<entry key="Element.Name58">Atrezzo items</entry>
+	<entry key="Element.Name59">Atrezzo item list</entry>
+	<entry key="Element.Name60">Atrezzo references</entry>
+	<entry key="Element.Name61">Atrezzo references list</entry>
+	
+		
 	<entry key="Element.Ref">Ref: {#0}</entry>
 	<entry key="Element.BookParagraph">Book paragraph</entry>
 	<entry key="Element.BookPage">Book page</entry>

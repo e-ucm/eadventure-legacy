@@ -59,6 +59,11 @@ public class NPCReferencePanel extends JPanel implements PositionPanelListener {
 	private JCheckBox npcReferencesCheckBox;
 
 	/**
+	 * Check box for the atrezzo references.
+	 */
+	private JCheckBox atrezzoReferencesCheckBox;
+	
+	/**
 	 * Panel with the editable element painted in it, along with the rest of the elements in the scene.
 	 */
 	private CategoryElementImagePanel categoryElementImagePanel;
@@ -120,7 +125,7 @@ public class NPCReferencePanel extends JPanel implements PositionPanelListener {
 		add( conditionsPanel, c );
 
 		// Create image panel
-		categoryElementImagePanel = new CategoryElementImagePanel( 2, scenePath, elementPath );
+		categoryElementImagePanel = new CategoryElementImagePanel( 3, scenePath, elementPath );
 		PositionPanel elementPositionPanel = new PositionPanel( this, categoryElementImagePanel );
 		elementPositionPanel.setPosition( elementReferenceDataControl.getElementX( ), elementReferenceDataControl.getElementY( ) );
 
@@ -149,12 +154,24 @@ public class NPCReferencePanel extends JPanel implements PositionPanelListener {
 			}
 		} );
 		checkBoxesPanel.add( npcReferencesCheckBox, c2 );
+		c2.gridx = 2;
+		atrezzoReferencesCheckBox = new JCheckBox( TextConstants.getText( "ElementReference.AtrezzoReferences" ) );
+		atrezzoReferencesCheckBox.addActionListener( new ActionListener( ) {
+			public void actionPerformed( ActionEvent e ) {
+				// Set the items visible or invisible
+				categoryElementImagePanel.setCategoryVisible( 2, atrezzoReferencesCheckBox.isSelected( ) );
+				categoryElementImagePanel.repaint( );
+			}
+		} );
+		checkBoxesPanel.add( atrezzoReferencesCheckBox, c2 );
 
 		// Set the values for the categories and checkboxes
 		categoryElementImagePanel.setCategoryVisible( 0, controller.getShowItemReferences( ) );
 		categoryElementImagePanel.setCategoryVisible( 1, controller.getShowNPCReferences( ) );
+		categoryElementImagePanel.setCategoryVisible( 2, controller.getShowAtrezzoReferences( ) );
 		itemReferencesCheckBox.setSelected( controller.getShowItemReferences( ) );
 		npcReferencesCheckBox.setSelected( controller.getShowNPCReferences( ) );
+		atrezzoReferencesCheckBox.setSelected(controller.getShowAtrezzoReferences());
 
 		// Create and add the resulting panel
 		c.gridy = 3;
@@ -182,6 +199,15 @@ public class NPCReferencePanel extends JPanel implements PositionPanelListener {
 				if( !elementReferenceDataControl.getElementId( ).equals( elementReference.getElementId( ) ) ) {
 					String itemPath = controller.getElementImagePath( elementReference.getElementId( ) );
 					categoryElementImagePanel.addCategoryElement( 1, itemPath, elementReference.getElementX( ), elementReference.getElementY( ) );
+				}
+			}
+			
+			//Add atrezzo references
+			for( ElementReferenceDataControl elementReference : elementReferenceDataControl.getParentSceneAtrezzoReferences( ) ) {
+				// Check that the atrezzo item is not added in the "Characters" category
+				if( !elementReferenceDataControl.getElementId( ).equals( elementReference.getElementId( ) ) ) {
+					String atrezzoPath = controller.getElementImagePath( elementReference.getElementId( ) );
+					categoryElementImagePanel.addCategoryElement( 2, atrezzoPath, elementReference.getElementX( ), elementReference.getElementY( ) );
 				}
 			}
 		}
