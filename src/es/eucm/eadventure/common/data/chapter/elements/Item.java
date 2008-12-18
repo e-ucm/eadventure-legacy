@@ -1,8 +1,5 @@
 package es.eucm.eadventure.common.data.chapter.elements;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import es.eucm.eadventure.common.data.chapter.Action;
 
 /**
@@ -21,11 +18,6 @@ public class Item extends Element {
     public static final String RESOURCE_TYPE_ICON = "icon";
 
 	/**
-	 * List of actions associated with the item
-	 */
-	private List<Action> actions;
-
-	/**
 	 * Creates a new Item
 	 * 
 	 * @param id
@@ -33,7 +25,6 @@ public class Item extends Element {
 	 */
 	public Item( String id ) {
 		super( id );
-		actions = new ArrayList<Action>( );
 	}
 	
 	/**
@@ -46,54 +37,6 @@ public class Item extends Element {
 		this.detailedDescription = detailedDescription;
 	}
 
-	/**
-	 * Adds an action to this item
-	 * 
-	 * @param action
-	 *            the action to add
-	 */
-	public void addAction( Action action ) {
-		actions.add( action );
-	}
-
-	/**
-	 * Returns the list of actions of the item
-	 * 
-	 * @return the list of actions of the item
-	 */
-	public List<Action> getActions( ) {
-		return actions;
-	}
-
-	/**
-	 * Returns the size of the list of actions
-	 * @return Size (int) of the list of actions
-	 */
-	public int getActionsCount(){
-		if (actions == null)
-			return 0;
-		else
-			return actions.size();
-	}
-	
-	/**
-	 * Returns Action object at place i
-	 * @param i
-	 * @return
-	 */
-	public Action getAction (int i){
-		return actions.get(i);
-	}
-	
-	/**
-	 * Changes the list of actions of the item
-	 * 
-	 * @param actions
-	 *            the new list of actions
-	 */
-	public void setActions( ArrayList<Action> actions ) {
-		this.actions = actions;
-	}
 	
     /*
      *  (non-Javadoc)

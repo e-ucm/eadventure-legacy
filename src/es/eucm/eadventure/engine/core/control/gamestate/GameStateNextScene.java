@@ -84,7 +84,8 @@ public class GameStateNextScene extends GameState {
                 }
 
                 // Set the state of the player and the action manager
-                game.getFunctionalPlayer( ).setState( FunctionalPlayer.IDLE );
+                game.getFunctionalPlayer( ).cancelActions();
+                game.getFunctionalPlayer().cancelAnimations();
                 game.getActionManager( ).setActionSelected( ActionManager.ACTION_GOTO );
                 
                 // Play the post effects only if we arrive to a playable scene

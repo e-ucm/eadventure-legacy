@@ -43,6 +43,8 @@ import es.eucm.eadventure.editor.gui.treepanel.nodes.cutscene.VideosceneTreeNode
 import es.eucm.eadventure.editor.gui.treepanel.nodes.general.ActionsListTreeNode;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.general.AdvancedFeaturesTreeNode;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.general.ChapterTreeNode;
+import es.eucm.eadventure.editor.gui.treepanel.nodes.general.CustomActionTreeNode;
+import es.eucm.eadventure.editor.gui.treepanel.nodes.general.CustomInteractActionTreeNode;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.general.ExamineActionTreeNode;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.general.GiveToActionTreeNode;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.general.GrabActionTreeNode;
@@ -132,6 +134,8 @@ public abstract class TreeNode {
 		ExamineActionTreeNode.loadIcon( );
 		GiveToActionTreeNode.loadIcon( );
 		GrabActionTreeNode.loadIcon( );
+		CustomActionTreeNode.loadIcon();
+		CustomInteractActionTreeNode.loadIcon();
 		ItemsListTreeNode.loadIcon( );
 		ItemTreeNode.loadIcon( );
 		UseActionTreeNode.loadIcon( );

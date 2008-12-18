@@ -20,6 +20,11 @@ import es.eucm.eadventure.common.data.chapter.scenes.Scene;
 import es.eucm.eadventure.engine.core.control.ActionManager;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.ItemSummary;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionalactions.FunctionalAction;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionalactions.FunctionalExit;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionalactions.FunctionalGoTo;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionalactions.FunctionalLook;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionalactions.FunctionalNullAction;
 import es.eucm.eadventure.engine.core.data.GameText;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
@@ -652,39 +657,22 @@ public class FunctionalScene implements Renderable {
         // FIXME Francis: Aclarar el uso del offset, ya que se añade en sitios que no deberia y viceversa
         FunctionalElement element = getElementInside( x + offsetX, y );
         if( Game.getInstance( ).getActionManager( ).getActionSelected( ) == ActionManager.ACTION_GOTO || element == null ) {
-    
             // Check barriers (only 3rd person mode)
             int destX = x+offsetX;
             int destY = y;
-            int[] finalPos = checkPlayerAgainstBarriers( destX, destY );
-            /*if (!player.isTransparent( )){
-                List<Barrier> barriers = Game.getInstance( ).getFunctionalScene( ).getScene( ).getBarriers( );
-                for (Barrier barrier: barriers){
-                    if (barrier.getConditions( ).allConditionsOk( )){
-                        float intersectionX= playerIntersectsBarrier (barrier, destX, destY);
-                        // Intersection
-                        if (intersectionX!=Integer.MIN_VALUE){
-                            //System.out.println("INTERSECTION X:"+intersectionX );
-                            if (intersectionX<destX)
-                                destX = (int)(intersectionX-player.getWidth( )/2.0);
-                            else if (intersectionX>destX)
-                                destX = (int)(intersectionX+player.getWidth( )/2.0);
-                        }
-                    }
-                }
-            }*/
-            //player.setDestiny( destX, destY );
-            player.setDestiny( finalPos[0], finalPos[1] );
-            Exit exit = Game.getInstance( ).getFunctionalScene( ).getExitInside( x, y );
+            FunctionalGoTo functionalGoTo = new FunctionalGoTo(null, destX, destY);
+            int finalX = functionalGoTo.getPosX();
+            int finalY = functionalGoTo.getPosY();
+            Exit exit = Game.getInstance( ).getFunctionalScene( ).getExitInside( finalX, finalY );
             if( exit == null )
-                player.setState( FunctionalPlayer.WALK );
+                player.addAction(functionalGoTo);
             else {
-                player.setTargetExit( exit );
-                player.setState( FunctionalPlayer.WALKING_EXIT );
+            	player.addAction(new FunctionalExit(exit));
+            	player.addAction(functionalGoTo);
             }
             Game.getInstance( ).getActionManager( ).setActionSelected( ActionManager.ACTION_GOTO );
         } else {
-            performActionInElement( element );
+            Game.getInstance().getFunctionalPlayer().performActionInElement( element );
         }
     }
 
@@ -700,171 +688,6 @@ public class FunctionalScene implements Renderable {
             finalPos[1] = newDest[1];
         }
         return finalPos;
-    }
-    
-    /*private float playerIntersectsBarrier (Barrier barrier, int targetX, int targetY){
-        float returnValue = Integer.MIN_VALUE;
-        float secGap = SEC_GAP;
-        
-        // Player data
-        float px = player.getX( );
-        float py = player.getY( );
-        float w = player.getWidth( );
-        float h = player.getHeight( );
-        
-        //secGap = (float)(w/2.0);
-        
-        // Barrier data
-        float bx1 = barrier.getX( );
-        float bx2 = barrier.getX( ) + barrier.getWidth( );
-        float byh = barrier.getY( );
-        float byl = barrier.getY( ) + barrier.getHeight( );
-        
-        // Direction vector
-        float dx = targetX - px;
-        float dy = 0;
-        
-        // Determine closer side of the barrier
-        float bx = Integer.MIN_VALUE;
-        if (dx>0){
-            bx = Math.min( bx1, bx2 );
-        } else if (dx<0){
-            bx = Math.max( bx1, bx2 );
-        }
-        //Up corner:
-        float ucx1 = 0;
-        float ucx2 = 0;
-        if (dx>=0){
-            ucx1 = (float)(px + w/2.0);
-            ucx2 = (float)(px - w/2.0);
-        }else{
-            ucx1 = (float)(px - w/2.0);
-            ucx2 = (float)(px + w/2.0);
-        }
-        float ucy = py+h;
-        float dcy = py;
-        
-        // Test up corner:
-        boolean intersectsUp = false;
-        boolean intersectsDown = false;
-        float tx = (bx-ucx1)/dx;
-        if (tx>=0 && tx<=1){
-            // Check y
-            if (ucy>=byh && ucy<=byl){
-                intersectsUp = true;
-                if (dx>=0)
-                    returnValue=(float)(bx-secGap);
-                else
-                    returnValue=(float)(bx+secGap);
-            } else {
-                if (dcy>=byh && dcy<=byl){
-                    intersectsDown = true;
-                    if (dx>=0)
-                        returnValue=(float)(bx-secGap);
-                    else
-                        returnValue=(float)(bx+secGap);                }
-            }
-        }
-        
-        if (!intersectsUp && !intersectsDown){
-            tx = (bx-ucx2)/dx;
-            if (tx>=0 && tx<=1){
-                // Check y
-                if (ucy>=byh && ucy<=byl){
-                    intersectsUp = true;
-                    if (dx>=0)
-                        returnValue=(float)(bx-secGap);
-                    else
-                        returnValue=(float)(bx+secGap);                
-                } else {
-                    if (dcy>=byh && dcy<=byl)
-                        intersectsDown = true;
-                    if (dx>=0)
-                        returnValue=(float)(bx-secGap);
-                    else
-                        returnValue=(float)(bx+secGap);
-
-                }
-            }
-        }
-        return returnValue;
-    }*/
-    
-    /**
-     * Performs the given action with the given element
-     * @param clickedElement the element that will receive the action
-     * @param actionSelected the action to be performed
-     */
-    public void performActionInElement( FunctionalElement clickedElement ) {
-        Game game = Game.getInstance( );
-        int actionSelected = Game.getInstance( ).getActionManager( ).getActionSelected( );
-        switch( actionSelected ) {
-            case ActionManager.ACTION_LOOK:
-                player.setFinalElement( clickedElement );
-                player.setState( FunctionalPlayer.LOOK );
-                break;
-            case ActionManager.ACTION_EXAMINE:
-                player.setFinalElement( clickedElement );
-                player.setState( FunctionalPlayer.WALKING_EXAMINE );
-                break;
-            case ActionManager.ACTION_GIVE:
-                if( clickedElement.canPerform( actionSelected ) ) {
-                    if( clickedElement.isInInventory( ) ) {
-                        player.setOptionalElement( clickedElement );
-                        game.getActionManager( ).setActionSelected( ActionManager.ACTION_GIVE_TO );
-                    } else
-                        player.speak( GameText.getTextGiveObjectNotInventory( ) );
-                } else
-                    player.speak( GameText.getTextGiveNPC( ) );
-                break;
-            case ActionManager.ACTION_GIVE_TO:
-                if( clickedElement.canPerform( actionSelected ) ) {
-                    player.setFinalElement( clickedElement );
-                    player.setState( FunctionalPlayer.WALKING_GIVE );
-                } else
-                    player.speak( GameText.getTextGiveCannot( ) );
-                break;
-            case ActionManager.ACTION_GRAB:
-                if( clickedElement.canPerform( actionSelected ) ) {
-                    if( !clickedElement.isInInventory( ) ) {
-                        player.setFinalElement( clickedElement );
-                        player.setState( FunctionalPlayer.WALKING_GRAB );
-                    } else
-                        player.speak( GameText.getTextGrabObjectInventory( ) );
-                } else
-                    player.speak( GameText.getTextGrabNPC( ) );
-                break;
-            case ActionManager.ACTION_TALK:
-                if( clickedElement.canPerform( actionSelected ) ) {
-                    player.setFinalElement( clickedElement );
-                    player.setState( FunctionalPlayer.WALKING_TALK );
-                } else
-                    player.speak( GameText.getTextTalkObject( ) );
-                break;
-            case ActionManager.ACTION_USE:
-                if( clickedElement.canPerform( actionSelected ) ) {
-                    // If the item can be used alone, use it
-                    if( clickedElement.canBeUsedAlone( ) ) {
-                        player.setFinalElement( clickedElement );
-                        player.setState( FunctionalPlayer.WALKING_USE_SINGLE );
-                    }
-                    
-                    // If the element must be used with another one, switch to a new state
-                    else {
-                        player.setOptionalElement( clickedElement );
-                        game.getActionManager( ).setActionSelected( ActionManager.ACTION_USE_WITH );
-                    }
-                } else
-                    player.speak( GameText.getTextUseNPC( ) );
-                break;
-            case ActionManager.ACTION_USE_WITH:
-                if( clickedElement.canPerform( actionSelected ) ) {
-                    player.setFinalElement( clickedElement );
-                    player.setState( FunctionalPlayer.WALKING_USE );
-                } else
-                    player.speak( GameText.getTextUseNPC( ) );
-                break;
-        }
     }
     
     /**

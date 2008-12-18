@@ -8,7 +8,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.common.data.chapter.elements.Item;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 
@@ -68,58 +67,8 @@ public class ItemDOMWriter {
 			// Append the actions (if there is at least one)
 			if( !item.getActions( ).isEmpty( ) ) {
 				// Create the actions node
-				Node actionsNode = doc.createElement( "actions" );
-
-				// For every action
-				for( Action action : item.getActions( ) ) {
-					Element actionElement = null;
-
-					// Create the element
-					switch( action.getType( ) ) {
-						case Action.EXAMINE:
-							actionElement = doc.createElement( "examine" );
-							break;
-						case Action.GRAB:
-							actionElement = doc.createElement( "grab" );
-							break;
-						case Action.USE:
-							actionElement = doc.createElement( "use" );
-							break;
-						case Action.USE_WITH:
-							actionElement = doc.createElement( "use-with" );
-							actionElement.setAttribute( "idTarget", action.getIdTarget( ) );
-							break;
-						case Action.GIVE_TO:
-							actionElement = doc.createElement( "give-to" );
-							actionElement.setAttribute( "idTarget", action.getIdTarget( ) );
-							break;
-					}
-
-					// Append the documentation (if avalaible)
-					if( action.getDocumentation( ) != null ) {
-						Node actionDocumentationNode = doc.createElement( "documentation" );
-						actionDocumentationNode.appendChild( doc.createTextNode( action.getDocumentation( ) ) );
-						actionElement.appendChild( actionDocumentationNode );
-					}
-
-					// Append the conditions (if avalaible)
-					if( !action.getConditions( ).isEmpty( ) ) {
-						Node conditionsNode = ConditionsDOMWriter.buildDOM( action.getConditions( ) );
-						doc.adoptNode( conditionsNode );
-						actionElement.appendChild( conditionsNode );
-					}
-
-					// Append the effects (if avalaible)
-					if( !action.getEffects( ).isEmpty( ) ) {
-						Node effectsNode = EffectsDOMWriter.buildDOM( EffectsDOMWriter.EFFECTS, action.getEffects( ) );
-						doc.adoptNode( effectsNode );
-						actionElement.appendChild( effectsNode );
-					}
-
-					// Append the action element
-					actionsNode.appendChild( actionElement );
-				}
-
+				Node actionsNode = ActionsDOMWriter.buildDOM(item.getActions());
+				doc.adoptNode(actionsNode);
 				// Append the actions node
 				itemElement.appendChild( actionsNode );
 			}

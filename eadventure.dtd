@@ -65,6 +65,7 @@
 <!ELEMENT active-areas (active-area+)>
 <!ELEMENT active-area (documentation?, condition?, description, actions?)>
 <!ATTLIST active-area 
+	id ID #IMPLIED
 	%rectangle;  
 >
 
@@ -126,7 +127,7 @@
 <!ELEMENT name (#PCDATA)>
 <!ELEMENT brief (#PCDATA)>
 <!ELEMENT detailed (#PCDATA)>
-<!ELEMENT actions (examine | grab | use | use-with | give-to )+>
+<!ELEMENT actions (examine | grab | use | use-with | give-to | custom | custom-interact )+>
 <!ELEMENT examine (documentation?, condition?, effect?)>
 <!ELEMENT grab (documentation?, condition?, effect?)>
 <!ELEMENT use (documentation?, condition?, effect?)>
@@ -138,6 +139,19 @@
 <!ATTLIST give-to
 	idTarget IDREF #REQUIRED
 >
+<!ELEMENT custom (resources+, documentation?, condition?, effect?)>
+<!ATTLIST custom
+	name CDATA #REQUIRED
+	needsGoTo (yes | no) "no"
+	keepDistance CDATA "0"
+>
+<!ELEMENT custom-interact (resources+, documentation?, condition?, effect?)>
+<!ATTLIST custom-interact
+	idTarget IDREF #REQUIRED
+	name CDATA #REQUIRED
+	needsGoTo (yes | no) "no"
+	keepDistance CDATA "0"
+>
 
 <!ELEMENT voice EMPTY>
 <!ATTLIST voice
@@ -146,8 +160,7 @@
 >
 
 <!ELEMENT player (documentation?, resources+, textcolor?, description, voice?)>
-
-<!ELEMENT character (documentation?, resources+, textcolor?, description, conversations?, voice?)>
+<!ELEMENT character (documentation?, resources+, textcolor?, description, conversations?, voice?, actions?)>
 <!ATTLIST character
 	id ID #IMPLIED
 >

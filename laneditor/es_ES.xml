@@ -789,6 +789,10 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="Resources.DescriptionCharacterAnimationWalkDown">Animación del personaje andando hacia abajo</entry>
 	<entry key="Resources.DescriptionCharacterAnimationWalkRight">Animación del personaje andando hacia la derecha</entry>
 	<entry key="Resources.DescriptionVideoscenes">Video para la escena intermedia</entry>
+	<entry key="Resources.DescriptionButtonNormal">Imagen para el estado normal del botón</entry>
+	<entry key="Resources.DescriptionButtonOver">Imagen para el botón cuando tiene el ratón encima</entry>
+	<entry key="Resources.DescriptionButtonPressed">Imagen para el botón cuando se pulsa</entry>
+	<entry key="Resources.DescriptionActionAnimation">Animación para cuando realiza la acción</entry>
 
 	<entry key="Adventure.Title">Datos de la aventura</entry>
 	<entry key="Adventure.AdventureTitle">Título de la aventura</entry>
@@ -1087,8 +1091,10 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="ActionsList.ColumnHeader2">Tiene efectos</entry>
 	<entry key="ActionsList.ExamineAction">Examinar</entry>
 	<entry key="ActionsList.GrabAction">Coger</entry>
+	<entry key="ActionsList.CustomAction">Personalizada: {#0}</entry>
 	<entry key="ActionsList.GiveToAction">Entregar a {#0}</entry>
 	<entry key="ActionsList.UseWithAction">Usar con {#0}</entry>
+	<entry key="ActoinsList.CustomIteractAction">Interacción personalizada con {#0}</entry>
 	<entry key="ActionsList.UseAction">Usar</entry>
 
 	<entry key="Action.Title">Acción</entry>
@@ -1102,6 +1108,22 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="Action.Documentation">Documentación de la acción</entry>
 	<entry key="Action.IdTarget">Elemento de destino para la acción</entry>
 	<entry key="Action.Conditions">Condición de la acción</entry>
+
+	<entry key="CustomAction.Appearance">Apariencia</entry>
+	<entry key="CustomAction.PersonalizationTitle">Personalización</entry>
+	<entry key="CustomAction.PersonalizationTip">Panel para la personalización de la acción y el botón</entry>
+	<entry key="CustomAction.ConfigurationTitle">Configuración</entry>
+	<entry key="CustomAction.ConfigurationTip">Panel para la configuración de condiciones y efectos de la acción</entry>
+	<entry key="CustomAction.Name">Nombre de la acción</entry>
+	<entry key="CustomAction.GetNameMessage">Escriba el nombre de la accióin personalizada</entry>
+	<entry key="CustomAction.GetNameTitle">Nombre de la acción</entry>
+	<entry key="CustomAction.SelectTypeTitle">Elija el tipo de la acción personalizada</entry>
+	<entry key="CustomAction.SelectTypeMessage">Elija si la acción se realiza sobre el objeto o necesita la interacción con otro</entry>
+	<entry key="CustomAction.MessageSelectInteraction">Seleccione con que o quien interactúa</entry>
+	<entry key="CustomAction.NeedsGoTo">Necesita alcanzar el objeto</entry>
+	<entry key="CustomAction.OtherConfiguration">Otra configuración de la acción</entry>
+	<entry key="CustomAction.DistanceToObjective">Distancia a mantener entre el objeto y jugador</entry>
+	<entry key="CustomAction.OtherConfigurationDetails">Indique si es necesario para el personaje del jugador deplazarse hasta el objectivo para realizar la acción</entry>
 
 	<entry key="Player.Title">Protagonista</entry>
 	<entry key="Player.Documentation">Información del protagonista</entry>
@@ -1246,8 +1268,10 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="TreeNode.AddElement21">Añadir acción "Examinar"</entry>
 	<entry key="TreeNode.AddElement22">Añadir acción "Coger"</entry>
 	<entry key="TreeNode.AddElement23">Añadir acción "Usar"</entry>
+	<entry key="TreeNode.AddElement230">Añadir acción "Personalizable"</entry>
 	<entry key="TreeNode.AddElement24">Añadir acción "Usar con"</entry>
 	<entry key="TreeNode.AddElement25">Añadir acción "Entregar a"</entry>
+	<entry key="TreeNode.AddElement250">Añadir acción "Intracción personalizable"</entry>
 	<entry key="TreeNode.AddElement26">Añadir protagonista</entry>
 	<entry key="TreeNode.AddElement27">Añadir lista de personajes</entry>
 	<entry key="TreeNode.AddElement28">Añadir personaje</entry>
@@ -1325,8 +1349,10 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="Element.Name21">Examinar</entry>
 	<entry key="Element.Name22">Coger</entry>
 	<entry key="Element.Name23">Usar</entry>
+	<entry key="Element.Name230">Personalizada</entry>
 	<entry key="Element.Name24">Usar con</entry>
 	<entry key="Element.Name25">Entregar a</entry>
+	<entry key="Element.Name250">Interacción personalizada</entry>
 	<entry key="Element.Name26">Jugador</entry>
 	<entry key="Element.Name27">Personajes</entry>
 	<entry key="Element.Name28">Personaje</entry>

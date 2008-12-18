@@ -3,11 +3,13 @@ package es.eucm.eadventure.editor.control.controllers.general;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import es.eucm.eadventure.common.data.chapter.Action;
+import es.eucm.eadventure.common.data.chapter.CustomAction;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class ActionsListDataControl extends DataControl {
@@ -33,8 +35,12 @@ public class ActionsListDataControl extends DataControl {
 
 		// Create subcontrollers
 		actionsDataControlList = new ArrayList<ActionDataControl>( );
-		for( Action action : actionsList )
-			actionsDataControlList.add( new ActionDataControl( action ) );
+		for( Action action : actionsList ) {
+			if (action.getType() == Action.CUSTOM || action.getType() == Action.CUSTOM_INTERACT) {
+				actionsDataControlList.add( new CustomActionDataControl((CustomAction) action));
+			} else
+				actionsDataControlList.add( new ActionDataControl( action ) );
+		}
 	}
 
 	/**
@@ -75,10 +81,14 @@ public class ActionsListDataControl extends DataControl {
 				actionsInfo[i][0] = TextConstants.getText( "ActionsList.ExamineAction" );
 			else if( action.getType( ) == Action.GRAB )
 				actionsInfo[i][0] = TextConstants.getText( "ActionsList.GrabAction" );
+			else if( action.getType() == Action.CUSTOM)
+				actionsInfo[i][0] = TextConstants.getText( "ActionsList.CustomAction", ((CustomAction) action).getName());
 			else if( action.getType( ) == Action.GIVE_TO )
 				actionsInfo[i][0] = TextConstants.getText( "ActionsList.GiveToAction", action.getIdTarget( ) );
 			else if( action.getType( ) == Action.USE_WITH )
 				actionsInfo[i][0] = TextConstants.getText( "ActionsList.UseWithAction", action.getIdTarget( ) );
+			else if( action.getType() == Action.CUSTOM_INTERACT)
+				actionsInfo[i][0] = TextConstants.getText( "ActionsList.CustomInteractAction", action.getIdTarget() );
 			else if( action.getType( ) == Action.USE )
 				actionsInfo[i][0] = TextConstants.getText( "ActionsList.UseAction" );
 
@@ -103,13 +113,13 @@ public class ActionsListDataControl extends DataControl {
 
 	@Override
 	public int[] getAddableElements( ) {
-		return new int[] { Controller.ACTION_EXAMINE, Controller.ACTION_GRAB, Controller.ACTION_USE, Controller.ACTION_USE_WITH, Controller.ACTION_GIVE_TO };
+		return new int[] { Controller.ACTION_EXAMINE, Controller.ACTION_GRAB, Controller.ACTION_USE, Controller.ACTION_CUSTOM, Controller.ACTION_USE_WITH, Controller.ACTION_GIVE_TO};
 	}
 
 	@Override
 	public boolean canAddElement( int type ) {
 		// It can always add new scenes
-		return type == Controller.ACTION_EXAMINE || type == Controller.ACTION_GRAB || type == Controller.ACTION_USE || type == Controller.ACTION_USE_WITH || type == Controller.ACTION_GIVE_TO;
+		return type == Controller.ACTION_EXAMINE || type == Controller.ACTION_GRAB || type == Controller.ACTION_USE || type == Controller.ACTION_CUSTOM || type == Controller.ACTION_USE_WITH || type == Controller.ACTION_GIVE_TO || type == Controller.ACTION_CUSTOM_INTERACT;
 	}
 
 	@Override
@@ -139,11 +149,48 @@ public class ActionsListDataControl extends DataControl {
 
 		else if( type == Controller.ACTION_USE )
 			newAction = new Action( Action.USE );
+		
+		else if( type == Controller.ACTION_CUSTOM) {
+			String name = JOptionPane.showInputDialog(null, TextConstants.getText("CustomAction.GetNameMessage"), TextConstants.getText("CustomAction.GetNameTitle"), JOptionPane.QUESTION_MESSAGE);
+			Object[] options = {"Action", "Interaction"};
+			int option = JOptionPane.showOptionDialog(null, TextConstants.getText("CustomAction.SelectTypeMessage"), TextConstants.getText("CustomAction.SelectTypeTitle"), JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, 0);
+			if (option == 0) {
+				newAction = new CustomAction( Action.CUSTOM );
+				((CustomAction) newAction).setName(name);
+			} else {
+				String[] items = controller.getIdentifierSummary( ).getItemAndActiveAreaIds( );
+				String[] npcs = controller.getIdentifierSummary( ).getNPCIds( );
+				String[] elements = new String[items.length + npcs.length];
+				for (int i = 0; i < elements.length; i++) {
+					if (i < items.length) {
+						elements[i] = items[i];
+					} else {
+						elements[i] = npcs[i - items.length];
+					}
+				}
+				
+				// If the list has elements, show the dialog with the options
+				if( elements.length > 0 ) {
+					String selectedElement = controller.showInputDialog( TextConstants.getText( "Action.OperationAddAction" ), TextConstants.getText( "CustomAction.MessageSelectInteraction" ), elements );
+
+					// If some value was selected
+					if( selectedElement != null ) {
+						newAction = new CustomAction( Action.CUSTOM_INTERACT, selectedElement );
+						((CustomAction) newAction).setName(name);
+					}
+				}
+
+				// If the list had no elements, show an error dialog
+				else
+					controller.showErrorDialog( TextConstants.getText( "Action.OperationAddAction" ), TextConstants.getText( "Action.ErrorNoItems" ) );
+				
+			}
+		} 
 
 		// If the type of action is use-with, we must ask for a second item
 		else if( type == Controller.ACTION_USE_WITH ) {
 			// Take the list of the items
-			String[] items = controller.getIdentifierSummary( ).getItemIds( );
+			String[] items = controller.getIdentifierSummary( ).getItemAndActiveAreaIds();
 
 			// If the list has elements, show the dialog with the options
 			if( items.length > 0 ) {
@@ -177,11 +224,15 @@ public class ActionsListDataControl extends DataControl {
 			else
 				controller.showErrorDialog( TextConstants.getText( "Action.OperationAddAction" ), TextConstants.getText( "Action.ErrorNoNPCs" ) );
 		}
+		
 
 		// If an action was added, create a controller and store it
 		if( newAction != null ) {
 			actionsList.add( newAction );
-			actionsDataControlList.add( new ActionDataControl( newAction ) );
+			if (newAction.getType() == Action.CUSTOM || newAction.getType() == Action.CUSTOM_INTERACT)
+				actionsDataControlList.add( new CustomActionDataControl( (CustomAction) newAction));
+			else 
+				actionsDataControlList.add( new ActionDataControl( newAction ) );
 			controller.dataModified( );
 		}
 

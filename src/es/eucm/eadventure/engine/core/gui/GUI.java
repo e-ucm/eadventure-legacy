@@ -3,21 +3,12 @@ package es.eucm.eadventure.engine.core.gui;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Container;
 import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.DisplayMode;
-import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Frame;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
 import java.awt.Image;
-import java.awt.LayoutManager;
-import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.awt.event.FocusEvent;
@@ -26,17 +17,9 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 
-import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
-import es.eucm.eadventure.common.data.adventure.DescriptorData;
-import es.eucm.eadventure.common.gui.TextConstants;
-import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.gui.hud.HUD;
-import es.eucm.eadventure.engine.core.gui.hud.contextualhud.ContextualHUD;
-import es.eucm.eadventure.engine.core.gui.hud.traditionalhud.TraditionalHUD;
-import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 
 /**
  * This is the main class related with the graphics in eAdventure, including the window
@@ -119,9 +102,6 @@ public abstract class GUI implements FocusListener {
      */
     protected ArrayList<Text> textToDraw;
     
-
-    
-    private Component component = null;
     
     /**
      * Return the GUI instance. GUI is a singleton class.

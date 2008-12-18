@@ -1,5 +1,4 @@
-package es.eucm.eadventure.engine.core.control.animations.pc;
-
+package es.eucm.eadventure.engine.core.control.functionaldata.functionalactions;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -7,26 +6,36 @@ import java.util.TimerTask;
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;
 
-import es.eucm.eadventure.engine.core.control.Game;
-import es.eucm.eadventure.engine.core.control.Options;
-import es.eucm.eadventure.engine.core.control.animations.npc.NPCTalking.TTask;
-import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
+import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.common.data.chapter.elements.Player;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
+import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.engine.core.control.ActionManager;
+import es.eucm.eadventure.engine.core.control.Game;
+import es.eucm.eadventure.engine.core.control.Options;
+import es.eucm.eadventure.engine.core.control.animations.Animation;
+import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
+import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 
-/**
- * The talking animation for the player
- */
-public class PCTalking extends PCState {
+public class FunctionalSpeak extends FunctionalAction {
 
-    /**
-     * The text the player will speak
-     */
-    private String[] text;
-    
+	private String[] text;
+
     private long audioId=-1;
+    
+    /**
+     * This is an Voice object of FreeTTS, that is used to synthesize the sound of a 
+     * conversation line.
+     */
+    private Voice voice;
+    
+    /**
+     * The speech must be launched in another thread
+     */
+    private TTask task;
+
 
     /**
      * Time spent in this state
@@ -38,24 +47,46 @@ public class PCTalking extends PCState {
      */
     private int timeTalking;
 
-    /**
-     * This is an Voice object of FreeTTS, that is used to synthesize the sound of a 
-     * conversation line.
-     */
-    private Voice voice;
-    
-    /**
-     * The speech must be launched in another thread
-     */
-    private TTask task;
-    
-    /**
-     * Creates a new PCTalking
-     * @param player the reference to the player
-     */
-    public PCTalking( FunctionalPlayer player ) {
-        super( player );
-    }
+	public FunctionalSpeak(Action action, String text) {
+		super(action);
+		type = ActionManager.ACTION_TALK;
+		setText(text);
+	}
+
+	public FunctionalSpeak(Action action, String text, String audioPath) {
+		super(action);
+		type = ActionManager.ACTION_TALK;
+		setText(text);
+		setAudio(audioPath);
+	}
+
+	@Override
+	public void start(FunctionalPlayer functionalPlayer) {
+		this.functionalPlayer = functionalPlayer;
+		totalTime = 0;
+		
+		// TODO the correct animation should be used, or the custom one if it is set
+		// TODO the animation should be determined from the direction the player is facing
+        Resources resources = functionalPlayer.getResources( );
+        MultimediaManager multimedia = MultimediaManager.getInstance( );
+        Animation animation = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_SPEAK_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
+        functionalPlayer.setAnimation(animation, -1);
+        
+        //animations[EAST] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_SPEAK_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
+        //animations[WEST] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_SPEAK_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
+        //animations[NORTH] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_SPEAK_UP ), false, MultimediaManager.IMAGE_PLAYER );
+        //animations[SOUTH] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_SPEAK_DOWN ), false, MultimediaManager.IMAGE_PLAYER );
+	}
+
+	@Override
+	public void update(long elapsedTime) {
+		totalTime += elapsedTime;
+		
+        if( totalTime > timeTalking &&(audioId==-1 || !MultimediaManager.getInstance( ).isPlaying( audioId ))) {
+        	finished = true;
+        	functionalPlayer.popAnimation();
+        }
+	}
 
     /**
      * Set the text to be displayed. This is what the player is saying
@@ -135,55 +166,21 @@ public class PCTalking extends PCState {
    }
     
     public void stopTTSTalking(){
-    	if (task!=null)
-    	task.deallocate();
+    	if (task != null)
+    		task.deallocate();
     }
 
-
-    @Override
-    public void update( long elapsedTime ) {
-        totalTime += elapsedTime;
-        
-        if( totalTime > timeTalking &&(audioId==-1 || !MultimediaManager.getInstance( ).isPlaying( audioId )))
-            player.setState( FunctionalPlayer.IDLE );
-    }
-
-    @Override
-    public void draw( int x, int y ) {
-        super.draw( x, y );
-
-        // If there is a line to speak, draw it
-        if( !text.equals( "" ) )
-            GUI.getInstance().addTextToDraw( text, x - Game.getInstance( ).getFunctionalScene( ).getOffsetX( ), y - player.getHeight( ), player.getTextFrontColor( ), player.getTextBorderColor( ) );
-    }
-
-    @Override
-    public void initialize( ) {
-        totalTime = 0;
-    }
-    
-    @Override
-    public void loadResources() {
-        Resources resources = player.getResources( );
-        
-        MultimediaManager multimedia = MultimediaManager.getInstance( );
-        animations[EAST] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_SPEAK_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
-        animations[WEST] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_SPEAK_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
-        animations[NORTH] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_SPEAK_UP ), false, MultimediaManager.IMAGE_PLAYER );
-        animations[SOUTH] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_SPEAK_DOWN ), false, MultimediaManager.IMAGE_PLAYER );
-    }
-    
     public class TTask extends TimerTask{
 
     	private String voiceText;
     	private String text;
     	private float duration;
-    	private boolean dealocate;
+    	private boolean deallocate;
     	
     	public TTask ( String voiceText, String text ){
     		this.voiceText = voiceText;
     		this.text = text;
-    		this.dealocate=false;
+    		this.deallocate = false;
     	}
     	
 			@Override
@@ -199,16 +196,41 @@ public class PCTalking extends PCState {
 			}
 		
 			public void deallocate(){
-				if (!dealocate){
+				if (!deallocate) {
 					voice.deallocate();
-					dealocate=true;
+					deallocate = true;
 				}
-				
 			}
 			
 			public float getDuration(){
 				return duration;
 			}
     }
+
+	@Override
+	public void drawAditionalElements() {
+        if( !text.equals( "" ) ) {
+        	int posX;
+        	int posY;
+        	if (functionalPlayer != null && !functionalPlayer.isTransparent()) {
+	        	posX = (int) functionalPlayer.getX() - Game.getInstance( ).getFunctionalScene( ).getOffsetX( );
+	            posY = (int) functionalPlayer.getY() - functionalPlayer.getHeight( );
+        	} else {
+        		posX = Math.round( GUI.WINDOW_WIDTH/2.0f+Game.getInstance().getFunctionalScene().getOffsetX( ) );
+        		posY = Math.round( GUI.WINDOW_HEIGHT*1.0f/6.0f+ (functionalPlayer!=null?functionalPlayer.getHeight():0) );
+        	}
+        	GUI.getInstance().addTextToDraw( text, posX , posY, functionalPlayer.getTextFrontColor( ), functionalPlayer.getTextBorderColor( ) );
+        }
+	}
+
+	@Override
+	public void stop() {
+		if (this.isStarted())
+			stopTTSTalking();
+	}
+
+	@Override
+	public void setAnotherElement(FunctionalElement element) {
+	}
 
 }

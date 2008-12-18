@@ -8,6 +8,7 @@ import es.eucm.eadventure.common.data.chapter.book.Book;
 import es.eucm.eadventure.common.data.chapter.conditions.GlobalState;
 import es.eucm.eadventure.common.data.chapter.conversation.Conversation;
 import es.eucm.eadventure.common.data.chapter.effects.Macro;
+import es.eucm.eadventure.common.data.chapter.elements.ActiveArea;
 import es.eucm.eadventure.common.data.chapter.elements.Atrezzo;
 import es.eucm.eadventure.common.data.chapter.elements.Item;
 import es.eucm.eadventure.common.data.chapter.elements.NPC;
@@ -84,6 +85,8 @@ public class IdentifierSummary {
 	 */
 	private List<String> macroIdentifiers;
 
+	
+	private List<String> activeAreaIdentifiers;
 
 	/**
 	 * Constructor.
@@ -107,6 +110,7 @@ public class IdentifierSummary {
 		adaptationRuleIdentifiers = new ArrayList<String>( );
 		globalStateIdentifiers = new ArrayList<String>( );
 		macroIdentifiers = new ArrayList<String>( );
+		activeAreaIdentifiers = new ArrayList<String>();
 
 		// Fill all the lists
 		loadIdentifiers( chapter );
@@ -132,10 +136,16 @@ public class IdentifierSummary {
 		conversationIdentifiers.clear( );
 		globalStateIdentifiers.clear( );
 		macroIdentifiers.clear( );
+		activeAreaIdentifiers.clear();
 
 		// Add scene IDs
-		for( Scene scene : chapter.getScenes( ) )
+		for( Scene scene : chapter.getScenes( ) ) {
 			addSceneId( scene.getId( ) );
+			for ( ActiveArea activeArea : scene.getActiveAreas()) {
+				if (activeArea.getId() != null && !activeArea.getId().equals(""))
+					addActiveAreaId( activeArea.getId());
+			}
+		}
 
 		// Add cutscene IDs
 		for( Cutscene cutscene : chapter.getCutscenes( ) )
@@ -556,6 +566,28 @@ public class IdentifierSummary {
 
 	public boolean isMacroId ( String id ){
 		return macroIdentifiers.contains(id);
+	}
+
+	public void addActiveAreaId(String id) {
+		globalIdentifiers.add(id);
+		activeAreaIdentifiers.add(id);
+	}
+	
+	public void deleteActiveAreaId(String id) {
+		if (activeAreaIdentifiers.contains(id)) {
+			globalIdentifiers.remove(id);
+			activeAreaIdentifiers.remove(id);
+		}
+	}
+	
+	/**
+	 * Get a list of all ids of the items and active areas
+	 * @return ids of the items and activeAreas
+	 */
+	public String[] getItemAndActiveAreaIds() {
+		List<String> set = new ArrayList<String>(itemIdentifiers);
+		set.addAll(activeAreaIdentifiers);
+		return set.toArray( new String[] {} );
 	}
 
 }

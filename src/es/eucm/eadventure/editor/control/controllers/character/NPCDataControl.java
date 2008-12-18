@@ -11,6 +11,7 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
+import es.eucm.eadventure.editor.control.controllers.general.ActionsListDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
@@ -35,6 +36,11 @@ public class NPCDataControl extends DataControlWithResources {
 	 * Conversation references list controller.
 	 */
 	private ConversationReferencesListDataControl conversationReferencesListDataControl;
+
+	/**
+	 * Actions list controller.
+	 */
+	private ActionsListDataControl actionsListDataControl;
 
 	/**
 	 * The resources that must be used in the previews.
@@ -63,6 +69,7 @@ public class NPCDataControl extends DataControlWithResources {
 			resourcesDataControlList.add( new ResourcesDataControl( resources, Controller.NPC ) );
 
 		conversationReferencesListDataControl = new ConversationReferencesListDataControl( npc.getConversationReferences( ) );
+		actionsListDataControl = new ActionsListDataControl( npc.getActions( ) );
 	}
 
 	/**
@@ -108,6 +115,15 @@ public class NPCDataControl extends DataControlWithResources {
 	 */
 	public int getSelectedResources( ) {
 		return selectedResources;
+	}
+
+	/**
+	 * Returns the actions list controller.
+	 * 
+	 * @return Actions list controller
+	 */
+	public ActionsListDataControl getActionsList( ) {
+		return actionsListDataControl;
 	}
 
 	/**
@@ -466,6 +482,7 @@ public class NPCDataControl extends DataControlWithResources {
 	@Override
 	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
 		conversationReferencesListDataControl.updateVarFlagSummary( varFlagSummary );
+		actionsListDataControl.updateVarFlagSummary( varFlagSummary );
 	}
 
 	@Override
@@ -478,6 +495,9 @@ public class NPCDataControl extends DataControlWithResources {
 			valid &= resourcesDataControlList.get( i ).isValid( resourcesPath, incidences );
 		}
 
+		// Spread the call to the actions
+		valid &= actionsListDataControl.isValid( currentPath, incidences );
+
 		return valid;
 	}
 
@@ -489,6 +509,9 @@ public class NPCDataControl extends DataControlWithResources {
 		for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
 			count += resourcesDataControl.countAssetReferences( assetPath );
 
+		// Add the references in the actions
+		count += actionsListDataControl.countAssetReferences( assetPath );
+
 		return count;
 	}
 	
@@ -497,6 +520,9 @@ public class NPCDataControl extends DataControlWithResources {
 		// Iterate through the resources
 		for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
 			resourcesDataControl.getAssetReferences( assetPaths, assetTypes );
+
+		// Add the references in the actions
+		actionsListDataControl.getAssetReferences( assetPaths, assetTypes );
 	}
 
 	@Override
@@ -504,21 +530,26 @@ public class NPCDataControl extends DataControlWithResources {
 		// Iterate through the resources
 		for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
 			resourcesDataControl.deleteAssetReferences( assetPath );
+
+		// Delete the references from the actions
+		actionsListDataControl.deleteAssetReferences( assetPath );
 	}
 
 	@Override
 	public int countIdentifierReferences( String id ) {
-		return conversationReferencesListDataControl.countIdentifierReferences( id );
+		return actionsListDataControl.countIdentifierReferences( id ) + conversationReferencesListDataControl.countIdentifierReferences( id );
 	}
 
 	@Override
 	public void replaceIdentifierReferences( String oldId, String newId ) {
 		conversationReferencesListDataControl.replaceIdentifierReferences( oldId, newId );
+		actionsListDataControl.replaceIdentifierReferences( oldId, newId );
 	}
 
 	@Override
 	public void deleteIdentifierReferences( String id ) {
 		conversationReferencesListDataControl.deleteIdentifierReferences( id );
+		actionsListDataControl.deleteIdentifierReferences( id );
 	}
 
 	public boolean buildResourcesTab( ) {

@@ -2,7 +2,10 @@ package es.eucm.eadventure.engine.core.control.functionaldata;
 
 import java.awt.Color;
 
+import es.eucm.eadventure.common.data.chapter.Action;
+import es.eucm.eadventure.common.data.chapter.CustomAction;
 import es.eucm.eadventure.common.data.chapter.elements.Element;
+import es.eucm.eadventure.engine.core.control.ActionManager;
 
 /**
  * This class defines the common behaviour from the characters and
@@ -125,4 +128,8 @@ public abstract class FunctionalElement implements Renderable {
     protected Color generateColor( String colorText ) {
         return new Color( Integer.valueOf( colorText.substring( 1 ), 16 ).intValue( ) );
     }
+    
+    
+    public abstract CustomAction getFirstValidCustomAction(String actionName);
+
 }

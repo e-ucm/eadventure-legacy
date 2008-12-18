@@ -96,7 +96,7 @@ public class Inventory {
             }
         
             if( element != null )
-                Game.getInstance( ).getFunctionalScene( ).performActionInElement( element );
+                Game.getInstance( ).getFunctionalPlayer().performActionInElement( element );
         }else{
             if( e.getY( ) > TraditionalHUD.SCROLL_DOWN_Y && e.getY( ) < TraditionalHUD.SCROLL_DOWN_Y + TraditionalHUD.SCROLL_HEIGHT && e.getX( ) > TraditionalHUD.SCROLL_DOWN_X && e.getX( ) < TraditionalHUD.SCROLL_DOWN_X + TraditionalHUD.SCROLL_WIDTH )
                 scrollInventoryDown();

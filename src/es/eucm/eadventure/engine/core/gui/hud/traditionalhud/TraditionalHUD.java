@@ -491,7 +491,8 @@ public class TraditionalHUD extends HUD {
             }
             //The click is in the scene
             else{
-                game.getFunctionalPlayer( ).setState( FunctionalPlayer.IDLE );
+            	// TODO it might be needed to clear the actionPool of the player
+                //game.getFunctionalPlayer( ).setState( FunctionalPlayer.IDLE );
                 actionManager.setActionSelected( ActionManager.ACTION_GOTO );
                 res = false;
             }
@@ -533,6 +534,10 @@ public class TraditionalHUD extends HUD {
 
     /**
      * Draw the HUD with the action button, action and element selected
+     * 
+     * NOTE: Important changes where made so that it works with the new "FunctionlAction" classes, it is possible for
+     * some more errors to appear
+     *  
      * @param g Graphics2D where will be drawn
      */
     public void draw( Graphics2D g ) {
@@ -566,39 +571,39 @@ public class TraditionalHUD extends HUD {
                 break;
             case ActionManager.ACTION_EXAMINE:
                 textAction = GameText.TEXT_EXAMINE;
-                if( game.getFunctionalPlayer( ).getFinalElement( ) != null )
-                   textAction += " " + game.getFunctionalPlayer( ).getFinalElement( ).getElement( ).getName( );
-                else
+                //if( game.getFunctionalPlayer( ).getFinalElement( ) != null )
+                //   textAction += " " + game.getFunctionalPlayer( ).getFinalElement( ).getElement( ).getName( );
+                //else
                     if( actionManager.getElementOver( ) != null )
                         textAction += " " + actionManager.getElementOver( ).getElement( ).getName( );
                 break;
             case ActionManager.ACTION_GRAB:
                 textAction = GameText.TEXT_GRAB;
-                if( game.getFunctionalPlayer( ).getFinalElement( ) != null )
-                   textAction += " " + game.getFunctionalPlayer( ).getFinalElement( ).getElement( ).getName( );
-                else
+                //if( game.getFunctionalPlayer( ).getFinalElement( ) != null )
+                //   textAction += " " + game.getFunctionalPlayer( ).getFinalElement( ).getElement( ).getName( );
+                //else
                     if( actionManager.getElementOver( ) != null )
                         textAction += " " + actionManager.getElementOver( ).getElement( ).getName( );
                 break;
             case ActionManager.ACTION_TALK:
                 textAction = GameText.TEXT_TALK;
-                if( game.getFunctionalPlayer( ).getFinalElement( ) != null )
-                   textAction += " " + GameText.TEXT_TO + " " + game.getFunctionalPlayer( ).getFinalElement( ).getElement( ).getName( );
-                else
+                //if( game.getFunctionalPlayer( ).getFinalElement( ) != null )
+                //   textAction += " " + GameText.TEXT_TO + " " + game.getFunctionalPlayer( ).getFinalElement( ).getElement( ).getName( );
+                //else
                     if( actionManager.getElementOver( ) != null )
                         textAction += " " + GameText.TEXT_TO + " " + actionManager.getElementOver( ).getElement( ).getName( );
                 break;
             case ActionManager.ACTION_GIVE:
                 textAction = GameText.TEXT_GIVE;
-                if( game.getFunctionalPlayer( ).getOptionalElement( ) != null )
-                   textAction += " " + game.getFunctionalPlayer( ).getOptionalElement( ).getElement( ).getName( );
-                else
+                //if( game.getFunctionalPlayer( ).getOptionalElement( ) != null )
+                //   textAction += " " + game.getFunctionalPlayer( ).getOptionalElement( ).getElement( ).getName( );
+                //else
                     if( actionManager.getElementOver( ) != null )
                         textAction += " " + actionManager.getElementOver( ).getElement( ).getName( );
                 break;
             case ActionManager.ACTION_GIVE_TO:
                 textAction = GameText.TEXT_GIVE;
-                if( game.getFunctionalPlayer( ).getOptionalElement( ) != null ){
+/*                if( game.getFunctionalPlayer( ).getOptionalElement( ) != null ){
                     textAction += " " + game.getFunctionalPlayer( ).getOptionalElement( ).getElement( ).getName( );
                     if( game.getFunctionalPlayer( ).getFinalElement( ) != null )
                        textAction += " " + GameText.TEXT_TO + " " + game.getFunctionalPlayer( ).getFinalElement( ).getElement( ).getName( );
@@ -606,18 +611,25 @@ public class TraditionalHUD extends HUD {
                         if( actionManager.getElementOver( ) != null )
                             textAction += " " + GameText.TEXT_TO + " " + actionManager.getElementOver( ).getElement( ).getName( );
                 }
+                
+*/ 
+                if (game.getFunctionalPlayer().getCurrentAction().getAnotherElement() != null) {
+				    textAction += " " + game.getFunctionalPlayer().getCurrentAction().getAnotherElement().getElement().getName( );
+			        if( actionManager.getElementOver( ) != null )
+			            textAction += " " + GameText.TEXT_TO + " " + actionManager.getElementOver( ).getElement( ).getName( );	
+				}
                 break;
             case ActionManager.ACTION_USE:
                 textAction = GameText.TEXT_USE;
-                if( game.getFunctionalPlayer( ).getOptionalElement( ) != null )
-                   textAction += " " + game.getFunctionalPlayer( ).getOptionalElement( ).getElement( ).getName( );
-                else
+                //if( game.getFunctionalPlayer( ).getOptionalElement( ) != null )
+                //   textAction += " " + game.getFunctionalPlayer( ).getOptionalElement( ).getElement( ).getName( );
+                //else
                     if( actionManager.getElementOver( ) != null )
                         textAction += " " + actionManager.getElementOver( ).getElement( ).getName( );
-                break;
+                //break;
             case ActionManager.ACTION_USE_WITH:
                 textAction = GameText.TEXT_USE;
-                if( game.getFunctionalPlayer( ).getOptionalElement( ) != null ){
+/*                if( game.getFunctionalPlayer( ).getOptionalElement( ) != null ){
                     textAction += " " + game.getFunctionalPlayer( ).getOptionalElement( ).getElement( ).getName( );
                     if( game.getFunctionalPlayer( ).getFinalElement( ) != null )
                        textAction += " " + GameText.TEXT_WITH + " " + game.getFunctionalPlayer( ).getFinalElement( ).getElement( ).getName( );
@@ -625,12 +637,18 @@ public class TraditionalHUD extends HUD {
                         if( actionManager.getElementOver( ) != null )
                             textAction += " " + GameText.TEXT_WITH + " " + actionManager.getElementOver( ).getElement( ).getName( );
                 }
+ */
+                if (game.getFunctionalPlayer().getCurrentAction().getAnotherElement() != null) {
+				    textAction += " " + game.getFunctionalPlayer().getCurrentAction().getAnotherElement().getElement().getName( );
+			        if( actionManager.getElementOver( ) != null )
+			            textAction += " " + GameText.TEXT_WITH + " " + actionManager.getElementOver( ).getElement( ).getName( );	
+				}
                 break;
             case ActionManager.ACTION_LOOK:
                 textAction = GameText.TEXT_LOOK;
-                if( game.getFunctionalPlayer( ).getFinalElement( ) != null )
-                   textAction += " " + GameText.TEXT_AT + " " + game.getFunctionalPlayer( ).getFinalElement( ).getElement( ).getName( );
-                else
+                //if( game.getFunctionalPlayer( ).getFinalElement( ) != null )
+                //   textAction += " " + GameText.TEXT_AT + " " + game.getFunctionalPlayer( ).getFinalElement( ).getElement( ).getName( );
+                //else
                     if( actionManager.getElementOver( ) != null )
                         textAction += " " + GameText.TEXT_AT + " " + actionManager.getElementOver( ).getElement( ).getName( );
                 break;

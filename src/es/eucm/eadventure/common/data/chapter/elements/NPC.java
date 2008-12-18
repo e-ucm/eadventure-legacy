@@ -86,6 +86,7 @@ public class NPC extends Element {
 	 */
 	private List<ConversationReference> conversationReferences;
 
+
 	/**
 	 * Creates a new NPC
 	 * 

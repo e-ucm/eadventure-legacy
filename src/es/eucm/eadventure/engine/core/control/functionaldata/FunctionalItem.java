@@ -4,6 +4,7 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 import es.eucm.eadventure.common.data.chapter.Action;
+import es.eucm.eadventure.common.data.chapter.CustomAction;
 import es.eucm.eadventure.common.data.chapter.elements.Element;
 import es.eucm.eadventure.common.data.chapter.elements.Item;
 import es.eucm.eadventure.common.data.chapter.resources.Asset;
@@ -167,6 +168,8 @@ public class FunctionalItem extends FunctionalElement {
             case ActionManager.ACTION_GIVE:
             case ActionManager.ACTION_GOTO:
             case ActionManager.ACTION_USE_WITH:
+            case ActionManager.ACTION_CUSTOM:
+            case ActionManager.ACTION_CUSTOM_INTERACT:
                 canPerform = true;
                 break;
 
@@ -183,7 +186,7 @@ public class FunctionalItem extends FunctionalElement {
     public boolean isInInventory( ) {
         return Game.getInstance( ).getItemSummary( ).isItemGrabbed( item.getId( ) );
     }
-
+   
     @Override
     public boolean examine( ) {
         boolean examined = false;
@@ -220,8 +223,28 @@ public class FunctionalItem extends FunctionalElement {
         return canBeUsedAlone;
     }
     
-    /* Own methods */
-
+    public Action getFirstValidAction(int actionType) {
+        for( Action action : item.getActions() ) {
+            if( action.getType( ) == actionType ) {
+                if( new FunctionalConditions(action.getConditions( ) ).allConditionsOk( ) ) {
+                	return action;
+                } 
+            }
+        }
+        return null;
+    }
+    
+    public CustomAction getFirstValidCustomAction(String actionName) {
+        for( Action action : item.getActions() ) {
+            if( action.getType( ) == Action.CUSTOM && ((CustomAction) action).getName().equals(actionName) ) {
+                if( new FunctionalConditions(action.getConditions( ) ).allConditionsOk( ) ) {
+                	return (CustomAction) action;
+                } 
+            }
+        }
+        return null;
+    }
+    
     /**
      * Triggers the grabbing action associated with the item
      * @return True if the item was grabbed, false otherwise
@@ -270,6 +293,25 @@ public class FunctionalItem extends FunctionalElement {
         return used;
     }
 
+    public boolean custom(String actionName) {
+        boolean custom = false;
+        
+        // Only take the FIRST valid action
+        for( int i = 0; i < item.getActions( ).size( ) && !custom; i++ ) {
+            Action action = item.getAction( i );
+            if( action.getType( ) == Action.CUSTOM && ((CustomAction) action).getName().equals(actionName) ) {
+                if( new FunctionalConditions( action.getConditions( ) ).allConditionsOk( ) ) {
+                    // Store the effects
+                	FunctionalEffects.storeAllEffects(action.getEffects( ));
+                    custom = true;
+                } 
+            }
+        }
+        
+        return custom;
+    }
+
+    
     /**
      * Triggers the using with action associated with the item
      * @param anotherItem The second item necessary for the use with action
@@ -291,6 +333,26 @@ public class FunctionalItem extends FunctionalElement {
         }
         
         return usedWith;
+    }
+
+    public boolean customInteract(String actionName, FunctionalItem anotherItem ) {
+        boolean customInteract = false;
+        
+        // Only take the FIRST valid action
+        for( int i = 0; i < item.getActions( ).size( ) && !customInteract; i++ ) {
+            Action action = item.getAction( i );
+            if( action.getType( ) == Action.USE_WITH 
+            		&& action.getIdTarget( ).equals( anotherItem.getItem( ).getId( ) ) 
+            		&& ((CustomAction) action).getName().equals(actionName)) {
+                if( new FunctionalConditions( action.getConditions( ) ).allConditionsOk( ) ) {
+                    // Store the effects
+                	FunctionalEffects.storeAllEffects(action.getEffects( ));
+                	customInteract = true;
+                }
+            }
+        }
+        
+        return customInteract;
     }
 
     /**

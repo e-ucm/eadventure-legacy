@@ -7,7 +7,6 @@ import javax.swing.JComponent;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.character.PlayerDataControl;
-import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.character.PlayerPanel;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.TreeNode;
 

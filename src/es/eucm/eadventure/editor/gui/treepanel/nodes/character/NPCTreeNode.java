@@ -7,9 +7,9 @@ import javax.swing.JComponent;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.character.NPCDataControl;
-import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.character.NPCPanel;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.TreeNode;
+import es.eucm.eadventure.editor.gui.treepanel.nodes.general.ActionsListTreeNode;
 
 //import es.eucm.eadventure.editor.gui.treepanel.nodes.general.ResourcesTreeNode;
 
@@ -48,6 +48,7 @@ public class NPCTreeNode extends TreeNode {
 		//	children.add( new ResourcesTreeNode( this, resourcesDataControl ) );
 
 		children.add( new ConversationReferencesListTreeNode( this, dataControl.getConversationReferencesList( ) ) );
+		children.add( new ActionsListTreeNode(this, dataControl.getActionsList()));
 	}
 
 	@Override

@@ -32,7 +32,17 @@ public class Action {
 	 * An action of type use
 	 */
 	public static final int USE = 4;
-
+	
+	/**
+	 * A custom action
+	 */
+	public static final int CUSTOM = 5;
+	
+	/**
+	 * A custom interaction action
+	 */
+	public static final int CUSTOM_INTERACT = 6;
+	
 	/**
 	 * Stores the action type
 	 */

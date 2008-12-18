@@ -786,6 +786,10 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="Resources.DescriptionCharacterAnimationWalkDown">Character's animation walking down</entry>
 	<entry key="Resources.DescriptionCharacterAnimationWalkRight">Character's animation walking right</entry>
 	<entry key="Resources.DescriptionVideoscenes">Video of the videoscene</entry>
+	<entry key="Resources.DescriptionButtonNormal">Image for the normal button state</entry>
+	<entry key="Resources.DescriptionButtonOver">Image for the button when the mouse is over it</entry>
+	<entry key="Resources.DescriptionButtonPressed">Image for the button when it is pressed</entry>
+	<entry key="Resources.DescriptionActionAnimation">Animation used when the action is executed</entry>
 
 	<entry key="Adventure.Title">Adventure data</entry>
 	<entry key="Adventure.AdventureTitle">Title of the adventure</entry>
@@ -1081,8 +1085,10 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="ActionsList.ColumnHeader2">Has effects</entry>
 	<entry key="ActionsList.ExamineAction">Examine</entry>
 	<entry key="ActionsList.GrabAction">Grab</entry>
+	<entry key="ActionsList.CustomAction">Custom: {#0}</entry>
 	<entry key="ActionsList.GiveToAction">Give to {#0}</entry>
 	<entry key="ActionsList.UseWithAction">Use with {#0}</entry>
+	<entry key="ActionsList.CustomInteractAction">Custom interaction with {#0}</entry>
 	<entry key="ActionsList.UseAction">Use</entry>
 
 	<entry key="Action.Title">Action</entry>
@@ -1096,6 +1102,22 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="Action.Documentation">Full description of the action</entry>
 	<entry key="Action.IdTarget">Target element of this action</entry>
 	<entry key="Action.Conditions">Conditions of the action</entry>
+
+	<entry key="CustomAction.Appearance">Appearance</entry>
+	<entry key="CustomAction.PersonalizationTitle">Personalization</entry>
+	<entry key="CustomAction.PersonalizationTip">Panel for the personalization of the button</entry>
+	<entry key="CustomAction.ConfigurationTitle">Configuration</entry>
+	<entry key="CustomAction.ConfigurationTip">Panel for the configuration of conditions and effects of the button</entry>
+	<entry key="CustomAction.Name">Name of the action</entry>
+	<entry key="CustomAction.GetNameMessage">Type the name of the custom action</entry>
+	<entry key="CustomAction.GetNameTitle">Name of the action</entry>
+	<entry key="CustomAction.SelectTypeTitle">Select the type of the custom action</entry>
+	<entry key="CustomAction.SelectTypeMessage">Select whether the action is on the object or if it interacts with another</entry>
+	<entry key="CustomAction.MessageSelectInteraction">Select with what of whom the object interacts</entry>
+	<entry key="CustomAction.NeedsGoTo">Needs to get to the object</entry>
+	<entry key="CustomAction.OtherConfiguration">Other configuration of the action</entry>
+	<entry key="CustomAction.DistanceToObjective">Distance to keep between player and objective</entry>
+	<entry key="CustomAction.OtherConfigurationDetails">Set whether the player's character must move upto the object to perform the action</entry>
 
 	<entry key="Player.Title">Player</entry>
 	<entry key="Player.Documentation">Full description of the player</entry>
@@ -1240,8 +1262,10 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="TreeNode.AddElement21">Add "Examine" action</entry>
 	<entry key="TreeNode.AddElement22">Add "Grab" action</entry>
 	<entry key="TreeNode.AddElement23">Add "Use" action</entry>
+	<entry key="TreeNode.AddElement230">Add "Custom" action</entry>
 	<entry key="TreeNode.AddElement24">Add "Use with" action</entry>
 	<entry key="TreeNode.AddElement25">Add "Give to" action</entry>
+	<entry key="TreeNode.AddElement250">Add "Custom interact" action</entry>
 	<entry key="TreeNode.AddElement26">Add player</entry>
 	<entry key="TreeNode.AddElement27">Add NPCs list</entry>
 	<entry key="TreeNode.AddElement28">Add NPC</entry>
@@ -1319,8 +1343,10 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="Element.Name21">Examine</entry>
 	<entry key="Element.Name22">Grab</entry>
 	<entry key="Element.Name23">Use</entry>
+	<entry key="Element.Name230">Custom</entry>
 	<entry key="Element.Name24">Use with</entry>
 	<entry key="Element.Name25">Give to</entry>
+	<entry key="Element.Name250">CustomInteract</entry>
 	<entry key="Element.Name26">Player</entry>
 	<entry key="Element.Name27">Characters</entry>
 	<entry key="Element.Name28">Character</entry>

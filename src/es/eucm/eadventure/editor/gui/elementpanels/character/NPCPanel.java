@@ -484,6 +484,11 @@ public class NPCPanel extends JPanel {
 	private class NPCLooksPanel extends LooksPanel {
 
 		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		
+		/**
 		 * Preview image panel.
 		 */
 		private ImagePanel imagePanel;

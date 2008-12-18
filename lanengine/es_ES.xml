@@ -106,6 +106,8 @@
 	<entry key="GameText.TextUseNPC2">Ehhh... ¿NO?</entry>
 	<entry key="GameText.TextUseCannot1">No creo que esto vaya a funcionar</entry>
 	<entry key="GameText.TextUseCannot2">Ok... NO</entry>
+	<entry key="GameText.TextCustomCannot1">No creo que esto vaya a funcionar</entry>
+	<entry key="GameText.TextCustomCannot2">No puedo hacer eso</entry>
 	
 	<entry key="Report.Title">Generación de Informe</entry>
 	<entry key="Report.SelectFolder">Selecciona el directorio donde quieres que se guarde el informe</entry>
