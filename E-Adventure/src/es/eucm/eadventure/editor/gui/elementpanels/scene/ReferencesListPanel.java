@@ -12,10 +12,10 @@ import javax.swing.JTextPane;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
-import es.eucm.eadventure.editor.control.controllers.scene.ItemReferencesListDataControl;
-import es.eucm.eadventure.editor.gui.otherpanels.imagepanels.MultipleElementImagePanel;
+import es.eucm.eadventure.editor.control.controllers.scene.ReferencesListDataControl;
+import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 
-public class ItemReferencesListPanel extends JPanel {
+public class ReferencesListPanel extends JPanel {
 
 	/**
 	 * Required.
@@ -28,10 +28,10 @@ public class ItemReferencesListPanel extends JPanel {
 	 * @param itemReferencesListDataControl
 	 *            Item references list controller
 	 */
-	public ItemReferencesListPanel( ItemReferencesListDataControl itemReferencesListDataControl ) {
+	public ReferencesListPanel( ReferencesListDataControl referencesListDataControl ) {
 
 		// Take the path of the background
-		String scenePath = Controller.getInstance( ).getSceneImagePath( itemReferencesListDataControl.getParentSceneId( ) );
+		String scenePath = Controller.getInstance( ).getSceneImagePath( referencesListDataControl.getParentSceneId( ) );
 
 		// Set the layout
 		setLayout( new GridBagLayout( ) );
@@ -57,16 +57,25 @@ public class ItemReferencesListPanel extends JPanel {
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1;
 		c.weighty = 1;
-		MultipleElementImagePanel multipleImagePanel = new MultipleElementImagePanel( scenePath );
-		multipleImagePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ItemReferencesList.PreviewTitle" ) ) );
-		add( multipleImagePanel, c );
+		//MultipleElementImagePanel multipleImagePanel = new MultipleElementImagePanel( scenePath );
+		//multipleImagePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ItemReferencesList.PreviewTitle" ) ) );
+		//add( multipleImagePanel, c );
+
+		ScenePreviewEditionPanel spep = new ScenePreviewEditionPanel(scenePath);
+		spep.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ItemReferencesList.PreviewTitle" ) ) );
+		add( spep, c );
 
 		// Add the item references if an image was loaded
 		if( scenePath != null ) {
 			// Add the item references
-			for( ElementReferenceDataControl elementReference : itemReferencesListDataControl.getItemReferences( ) ) {
-				String itemPath = Controller.getInstance( ).getElementImagePath( elementReference.getElementId( ) );
-				multipleImagePanel.addElement( itemPath, elementReference.getElementX( ), elementReference.getElementY( ) );
+			for( ElementReferenceDataControl elementReference : referencesListDataControl.getItemReferences( ) ) {
+				spep.addElement(ScenePreviewEditionPanel.CATEGORY_NONE, elementReference);
+			}
+			for( ElementReferenceDataControl elementReference : referencesListDataControl.getAtrezzoReferences( ) ) {
+				spep.addElement(ScenePreviewEditionPanel.CATEGORY_NONE, elementReference);
+			}
+			for( ElementReferenceDataControl elementReference : referencesListDataControl.getNPCReferences( ) ) {
+				spep.addElement(ScenePreviewEditionPanel.CATEGORY_NONE, elementReference);
 			}
 		}
 	}

@@ -22,11 +22,9 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
 import es.eucm.eadventure.editor.gui.editdialogs.ConditionsDialog;
-import es.eucm.eadventure.editor.gui.otherpanels.positionimagepanels.CategoryElementImagePanel;
-import es.eucm.eadventure.editor.gui.otherpanels.positionpanel.PositionPanel;
-import es.eucm.eadventure.editor.gui.otherpanels.positionpanel.PositionPanelListener;
+import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 
-public class AtrezzoReferencePanel extends JPanel implements PositionPanelListener {
+public class AtrezzoReferencePanel extends JPanel {
 	
 	/**
 	 * Required.
@@ -66,7 +64,7 @@ public class AtrezzoReferencePanel extends JPanel implements PositionPanelListen
 	/**
 	 * Panel with the editable element painted in it, along with the rest of the elements in the scene.
 	 */
-	private CategoryElementImagePanel categoryElementImagePanel;
+	private ScenePreviewEditionPanel scenePreviewEditionPanel;
 
 	/**
 	 * Constructor.
@@ -82,7 +80,6 @@ public class AtrezzoReferencePanel extends JPanel implements PositionPanelListen
 
 		// Take the scene path and the element path
 		String scenePath = controller.getSceneImagePath( elementReferenceDataControl.getParentSceneId( ) );
-		String elementPath = controller.getElementImagePath( elementReferenceDataControl.getElementId( ) );
 
 		// Set the layout
 		setLayout( new GridBagLayout( ) );
@@ -125,9 +122,7 @@ public class AtrezzoReferencePanel extends JPanel implements PositionPanelListen
 		add( conditionsPanel, c );
 
 		// Create image panel
-		categoryElementImagePanel = new CategoryElementImagePanel( 3, scenePath, elementPath );
-		PositionPanel elementPositionPanel = new PositionPanel( this, categoryElementImagePanel );
-		elementPositionPanel.setPosition( elementReferenceDataControl.getElementX( ), elementReferenceDataControl.getElementY( ) );
+		scenePreviewEditionPanel = new ScenePreviewEditionPanel(scenePath );
 
 		// Create the checkboxes
 		JPanel checkBoxesPanel = new JPanel( );
@@ -138,9 +133,7 @@ public class AtrezzoReferencePanel extends JPanel implements PositionPanelListen
 		itemReferencesCheckBox = new JCheckBox( TextConstants.getText( "ElementReference.ItemReferences" ) );
 		itemReferencesCheckBox.addActionListener( new ActionListener( ) {
 			public void actionPerformed( ActionEvent e ) {
-				// Set the items visible or invisible
-				categoryElementImagePanel.setCategoryVisible( 0, itemReferencesCheckBox.isSelected( ) );
-				categoryElementImagePanel.repaint( );
+				scenePreviewEditionPanel.setDisplayCategory(ScenePreviewEditionPanel.CATEGORY_OBJECT, itemReferencesCheckBox.isSelected( ));
 			}
 		} );
 		checkBoxesPanel.add( itemReferencesCheckBox, c2 );
@@ -148,9 +141,7 @@ public class AtrezzoReferencePanel extends JPanel implements PositionPanelListen
 		npcReferencesCheckBox = new JCheckBox( TextConstants.getText( "ElementReference.NPCReferences" ) );
 		npcReferencesCheckBox.addActionListener( new ActionListener( ) {
 			public void actionPerformed( ActionEvent e ) {
-				// Set the items visible or invisible
-				categoryElementImagePanel.setCategoryVisible( 1, npcReferencesCheckBox.isSelected( ) );
-				categoryElementImagePanel.repaint( );
+				scenePreviewEditionPanel.setDisplayCategory(ScenePreviewEditionPanel.CATEGORY_CHARACTER, npcReferencesCheckBox.isSelected( ));
 			}
 		} );
 		checkBoxesPanel.add( npcReferencesCheckBox, c2 );
@@ -158,17 +149,15 @@ public class AtrezzoReferencePanel extends JPanel implements PositionPanelListen
 		atrezzoReferencesCheckBox = new JCheckBox( TextConstants.getText( "ElementReference.AtrezzoReferences" ) );
 		atrezzoReferencesCheckBox.addActionListener( new ActionListener( ) {
 			public void actionPerformed( ActionEvent e ) {
-				// Set the items visible or invisible
-				categoryElementImagePanel.setCategoryVisible( 2, atrezzoReferencesCheckBox.isSelected( ) );
-				categoryElementImagePanel.repaint( );
+				scenePreviewEditionPanel.setDisplayCategory(ScenePreviewEditionPanel.CATEGORY_ATREZZO, atrezzoReferencesCheckBox.isSelected( ));
 			}
 		} );
 		checkBoxesPanel.add( atrezzoReferencesCheckBox, c2 );
 
 		// Set the values for the categories and checkboxes
-		categoryElementImagePanel.setCategoryVisible( 0, controller.getShowItemReferences( ) );
-		categoryElementImagePanel.setCategoryVisible( 1, controller.getShowNPCReferences( ) );
-		categoryElementImagePanel.setCategoryVisible( 2, controller.getShowAtrezzoReferences( ) );
+		scenePreviewEditionPanel.setDisplayCategory(ScenePreviewEditionPanel.CATEGORY_OBJECT, controller.getShowItemReferences( ));
+		scenePreviewEditionPanel.setDisplayCategory(ScenePreviewEditionPanel.CATEGORY_CHARACTER, controller.getShowNPCReferences( ));
+		scenePreviewEditionPanel.setDisplayCategory(ScenePreviewEditionPanel.CATEGORY_ATREZZO, controller.getShowAtrezzoReferences( ));
 		itemReferencesCheckBox.setSelected( controller.getShowItemReferences( ) );
 		npcReferencesCheckBox.setSelected( controller.getShowNPCReferences( ) );
 		atrezzoReferencesCheckBox.setSelected(controller.getShowAtrezzoReferences());
@@ -181,7 +170,7 @@ public class AtrezzoReferencePanel extends JPanel implements PositionPanelListen
 		completePositionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AtrezzoReference.Position" ) ) );
 		completePositionPanel.setLayout( new BorderLayout( ) );
 		completePositionPanel.add( checkBoxesPanel, BorderLayout.NORTH );
-		completePositionPanel.add( elementPositionPanel, BorderLayout.CENTER );
+		completePositionPanel.add( scenePreviewEditionPanel, BorderLayout.CENTER );
 		add( completePositionPanel, c );
 
 		// Add the other elements of the scene if a background image was loaded
@@ -189,43 +178,23 @@ public class AtrezzoReferencePanel extends JPanel implements PositionPanelListen
 
 			// Add the item references first
 			for( ElementReferenceDataControl elementReference : elementReferenceDataControl.getParentSceneItemReferences( ) ) {
-				// Check that the item is not added in the "Items" category
-				if( !elementReferenceDataControl.getElementId( ).equals( elementReference.getElementId( ) ) ) {
-					String itemPath = controller.getElementImagePath( elementReference.getElementId( ) );
-					categoryElementImagePanel.addCategoryElement( 0, itemPath, elementReference.getElementX( ), elementReference.getElementY( ) );
-				}
+				scenePreviewEditionPanel.addElement(ScenePreviewEditionPanel.CATEGORY_OBJECT, elementReference);
 			}
 
 			// Add then the character references
 			for( ElementReferenceDataControl elementReference : elementReferenceDataControl.getParentSceneNPCReferences( ) ) {
-				String itemPath = controller.getElementImagePath( elementReference.getElementId( ) );
-				categoryElementImagePanel.addCategoryElement( 1, itemPath, elementReference.getElementX( ), elementReference.getElementY( ) );
+				scenePreviewEditionPanel.addElement(ScenePreviewEditionPanel.CATEGORY_CHARACTER, elementReference);
 			}
 			
 			//Add atrezzo references
 			for( ElementReferenceDataControl elementReference : elementReferenceDataControl.getParentSceneAtrezzoReferences( ) ) {
-				// Check that the atrezzo item is not added in the "Characters" category
-				if( !elementReferenceDataControl.getElementId( ).equals( elementReference.getElementId( ) ) ) {
-					String atrezzoPath = controller.getElementImagePath( elementReference.getElementId( ) );
-					categoryElementImagePanel.addCategoryElement( 2, atrezzoPath, elementReference.getElementX( ), elementReference.getElementY( ) );
-				}
+				scenePreviewEditionPanel.addElement(ScenePreviewEditionPanel.CATEGORY_ATREZZO, elementReference);
 			}
 		}
 
-		// Repaint the panel
-		elementPositionPanel.repaint( );
+		scenePreviewEditionPanel.setMovableElement(elementReferenceDataControl);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see es.eucm.eadventure.editor.gui.editpanels.positionpanels.PositionPanelListener#updatePositionValues(int,
-	 *      int)
-	 */
-	public void updatePositionValues( int x, int y ) {
-		// Set the new data when changed
-		elementReferenceDataControl.setElementPosition( x, y );
-	}
 
 	/**
 	 * Listener for the text area. It checks the value of the area and updates the documentation.
@@ -275,10 +244,7 @@ public class AtrezzoReferencePanel extends JPanel implements PositionPanelListen
 		public void actionPerformed( ActionEvent e ) {
 			elementReferenceDataControl.setElementId( atrezzoComboBox.getSelectedItem( ).toString( ) );
 
-			// Get the new element, update it and paint the panel
-			String elementPath = Controller.getInstance( ).getElementImagePath( elementReferenceDataControl.getElementId( ) );
-			categoryElementImagePanel.loadElement( elementPath );
-			categoryElementImagePanel.repaint( );
+			scenePreviewEditionPanel.recreateElement(elementReferenceDataControl);
 		}
 	}
 
