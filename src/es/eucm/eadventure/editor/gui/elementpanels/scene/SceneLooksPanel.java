@@ -5,21 +5,19 @@ import java.awt.Dimension;
 import javax.swing.BorderFactory;
 
 import es.eucm.eadventure.common.gui.TextConstants;
-import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.general.LooksPanel;
-import es.eucm.eadventure.editor.gui.otherpanels.imagepanels.MultipleElementImagePanel;
+import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 
 public class SceneLooksPanel extends LooksPanel {
 
 	private SceneDataControl sceneDataControl;
 
 	/**
-	 * Image panel for the preview.
+	 * Panel for the preview.
 	 */
-	private MultipleElementImagePanel multipleImagePanel;
+	private ScenePreviewEditionPanel scenePreviewEditionPanel;
 
 	public SceneLooksPanel( SceneDataControl control ) {
 		super( control );
@@ -40,36 +38,33 @@ public class SceneLooksPanel extends LooksPanel {
 		// Take the path of the background
 		String scenePath = sceneDataControl.getPreviewBackground( );
 
-		multipleImagePanel = new MultipleElementImagePanel( scenePath );
-		multipleImagePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Scene.Preview" ) ) );
+		scenePreviewEditionPanel = new ScenePreviewEditionPanel( scenePath );
+		scenePreviewEditionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Scene.Preview" ) ) );
 
 		// Add the item references first
-		for( ElementReferenceDataControl elementReference : sceneDataControl.getItemReferencesList( ).getItemReferences( ) ) {
-			String itemPath = Controller.getInstance( ).getElementImagePath( elementReference.getElementId( ) );
-			multipleImagePanel.addElement( itemPath, elementReference.getElementX( ), elementReference.getElementY( ) );
+		for( ElementReferenceDataControl elementReference : sceneDataControl.getReferencesList( ).getItemReferences( ) ) {
+			scenePreviewEditionPanel.addElement(ScenePreviewEditionPanel.CATEGORY_NONE, elementReference);
 		}
 
 		// Add then the character references
-		for( ElementReferenceDataControl elementReference : sceneDataControl.getNPCReferencesList( ).getNPCReferences( ) ) {
-			String itemPath = Controller.getInstance( ).getElementImagePath( elementReference.getElementId( ) );
-			multipleImagePanel.addElement( itemPath, elementReference.getElementX( ), elementReference.getElementY( ) );
+		for( ElementReferenceDataControl elementReference : sceneDataControl.getReferencesList( ).getNPCReferences( ) ) {
+			scenePreviewEditionPanel.addElement(ScenePreviewEditionPanel.CATEGORY_NONE, elementReference);
 		}
 		
 		// Add the atrezzo item references first
-		for( ElementReferenceDataControl elementReference : sceneDataControl.getAtrezzoReferencesList( ).getAtrezzoReferences( ) ) {
-			String atrezzoPath = Controller.getInstance( ).getElementImagePath( elementReference.getElementId( ) );
-			multipleImagePanel.addElement( atrezzoPath, elementReference.getElementX( ), elementReference.getElementY( ) );
+		for( ElementReferenceDataControl elementReference : sceneDataControl.getReferencesList( ).getAtrezzoReferences( ) ) {
+			scenePreviewEditionPanel.addElement(ScenePreviewEditionPanel.CATEGORY_NONE, elementReference);
 		}
 
-		lookPanel.add( multipleImagePanel, cLook );
+		scenePreviewEditionPanel.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_NONE, false);
+		lookPanel.add( scenePreviewEditionPanel, cLook );
 		//resourcesPanel.setPreviewUpdater( this );
 
 	}
 
 	@Override
 	public void updatePreview( ) {
-		multipleImagePanel.loadImage( sceneDataControl.getPreviewBackground( ) );
-		multipleImagePanel.repaint( );
+		scenePreviewEditionPanel.loadBackground(sceneDataControl.getPreviewBackground( ) );
 		getParent( ).getParent( ).repaint( );
 	}
 

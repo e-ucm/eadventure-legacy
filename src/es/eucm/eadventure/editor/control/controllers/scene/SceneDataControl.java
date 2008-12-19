@@ -37,18 +37,8 @@ public class SceneDataControl extends DataControlWithResources {
 	/**
 	 * Item references list controller.
 	 */
-	private ItemReferencesListDataControl itemReferencesListDataControl;
-	
-	/**
-	 * Atrezzo items references list controller
-	 */
-	private AtrezzoReferencesListDataControl atrezzoReferencesListDataControl;
-
-	/**
-	 * NPC references list controller.
-	 */
-	private NPCReferencesListDataControl npcReferencesListDataControl;
-	
+	private ReferencesListDataControl referencesListDataControl;
+		
 	/**
 	 * Active areas list controller
 	 */
@@ -86,9 +76,7 @@ public class SceneDataControl extends DataControlWithResources {
 			resourcesDataControlList.add( new ResourcesDataControl( resources, Controller.SCENE ) );
 
 		exitsListDataControl = new ExitsListDataControl( this, scene.getExits( ) );
-		itemReferencesListDataControl = new ItemReferencesListDataControl( this, scene.getItemReferences( ) );
-		atrezzoReferencesListDataControl = new AtrezzoReferencesListDataControl(this, scene.getAtrezzoReferences( ) );
-		npcReferencesListDataControl = new NPCReferencesListDataControl( this, scene.getCharacterReferences( ) );
+		referencesListDataControl = new ReferencesListDataControl( this, scene.getItemReferences( ), scene.getAtrezzoReferences(), scene.getCharacterReferences() );
 		activeAreasListDataControl = new ActiveAreasListDataControl( this, scene.getActiveAreas( ));
 		barriersListDataControl = new BarriersListDataControl( this, scene.getBarriers( ));
 	}
@@ -152,28 +140,10 @@ public class SceneDataControl extends DataControlWithResources {
 	 * 
 	 * @return Item references list controller
 	 */
-	public ItemReferencesListDataControl getItemReferencesList( ) {
-		return itemReferencesListDataControl;
+	public ReferencesListDataControl getReferencesList( ) {
+		return referencesListDataControl;
 	}
 
-	/**
-	 * Returns the atrezzo item references list controller.
-	 * 
-	 * @return Atrezzo references list controller
-	 */
-	public AtrezzoReferencesListDataControl getAtrezzoReferencesList( ) {
-		return atrezzoReferencesListDataControl;
-	}
-
-	
-	/**
-	 * Returns the NPC references list controller.
-	 * 
-	 * @return NPC references list controller
-	 */
-	public NPCReferencesListDataControl getNPCReferencesList( ) {
-		return npcReferencesListDataControl;
-	}
 
 	/**
 	 * Returns the selected resources block of the list.
@@ -455,8 +425,7 @@ public class SceneDataControl extends DataControlWithResources {
 	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
 		// Update the flag summary with the exits, item and character references
 		exitsListDataControl.updateVarFlagSummary( varFlagSummary );
-		itemReferencesListDataControl.updateVarFlagSummary( varFlagSummary );
-		npcReferencesListDataControl.updateVarFlagSummary( varFlagSummary );
+		referencesListDataControl.updateVarFlagSummary( varFlagSummary );
 		this.activeAreasListDataControl.updateVarFlagSummary( varFlagSummary );
 	}
 
@@ -517,9 +486,7 @@ public class SceneDataControl extends DataControlWithResources {
 
 		// Increase the counter for the exits, items and characters
 		count += exitsListDataControl.countIdentifierReferences( id );
-		count += itemReferencesListDataControl.countIdentifierReferences( id );
-		count += npcReferencesListDataControl.countIdentifierReferences( id );
-		count += atrezzoReferencesListDataControl.countIdentifierReferences(id);
+		count += referencesListDataControl.countIdentifierReferences( id );
 		count += activeAreasListDataControl.countIdentifierReferences( id );
 		count += barriersListDataControl.countIdentifierReferences( id );
 
@@ -529,9 +496,7 @@ public class SceneDataControl extends DataControlWithResources {
 	@Override
 	public void replaceIdentifierReferences( String oldId, String newId ) {
 		exitsListDataControl.replaceIdentifierReferences( oldId, newId );
-		itemReferencesListDataControl.replaceIdentifierReferences( oldId, newId );
-		atrezzoReferencesListDataControl.replaceIdentifierReferences(oldId, newId);
-		npcReferencesListDataControl.replaceIdentifierReferences( oldId, newId );
+		referencesListDataControl.replaceIdentifierReferences( oldId, newId );
 		activeAreasListDataControl.replaceIdentifierReferences( oldId, newId );
 		barriersListDataControl.replaceIdentifierReferences( oldId, newId );
 	}
@@ -539,9 +504,7 @@ public class SceneDataControl extends DataControlWithResources {
 	@Override
 	public void deleteIdentifierReferences( String id ) {
 		exitsListDataControl.deleteIdentifierReferences( id );
-		itemReferencesListDataControl.deleteIdentifierReferences( id );
-		atrezzoReferencesListDataControl.deleteIdentifierReferences(id);
-		npcReferencesListDataControl.deleteIdentifierReferences( id );
+		referencesListDataControl.deleteIdentifierReferences( id );
 		activeAreasListDataControl.deleteIdentifierReferences( id );
 		barriersListDataControl.deleteIdentifierReferences( id );
 	}

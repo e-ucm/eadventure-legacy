@@ -51,9 +51,7 @@ public class SceneTreeNode extends TreeNode {
 		children.add( new ActiveAreasListTreeNode( this, dataControl.getActiveAreasList( ) ) );
 		if (!Controller.getInstance( ).isPlayTransparent( ))
 			children.add( new BarriersListTreeNode( this, dataControl.getBarriersList( ) ) );	
-		children.add( new ItemReferencesListTreeNode( this, dataControl.getItemReferencesList( ) ) );
-		children.add(new AtrezzoReferencesListTreeNode( this, dataControl.getAtrezzoReferencesList()));
-		children.add( new NPCReferencesListTreeNode( this, dataControl.getNPCReferencesList( ) ) );
+		children.add( new ReferencesListTreeNode( this, dataControl.getReferencesList( ) ) );
 	}
 
 	@Override	

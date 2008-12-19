@@ -64,7 +64,7 @@ public class ElementReferenceDataControl extends DataControl {
 	 * @return List of item references (including the one being edited)
 	 */
 	public List<ElementReferenceDataControl> getParentSceneItemReferences( ) {
-		return sceneDataControl.getItemReferencesList( ).getItemReferences( );
+		return sceneDataControl.getReferencesList( ).getItemReferences( );
 	}
 
 	/**
@@ -73,7 +73,7 @@ public class ElementReferenceDataControl extends DataControl {
 	 * @return List of character references (including the one being edited)
 	 */
 	public List<ElementReferenceDataControl> getParentSceneNPCReferences( ) {
-		return sceneDataControl.getNPCReferencesList( ).getNPCReferences( );
+		return sceneDataControl.getReferencesList( ).getNPCReferences( );
 	}
 	
 	/**
@@ -82,7 +82,7 @@ public class ElementReferenceDataControl extends DataControl {
 	 * @return List of atrezzo references (including the one being edited)
 	 */
 	public List<ElementReferenceDataControl> getParentSceneAtrezzoReferences( ) {
-		return sceneDataControl.getAtrezzoReferencesList( ).getAtrezzoReferences( );
+		return sceneDataControl.getReferencesList( ).getAtrezzoReferences( );
 	}
 
 	/**
