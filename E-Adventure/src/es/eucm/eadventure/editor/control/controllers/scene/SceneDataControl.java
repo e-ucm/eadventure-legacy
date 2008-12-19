@@ -519,6 +519,7 @@ public class SceneDataControl extends DataControlWithResources {
 		count += exitsListDataControl.countIdentifierReferences( id );
 		count += itemReferencesListDataControl.countIdentifierReferences( id );
 		count += npcReferencesListDataControl.countIdentifierReferences( id );
+		count += atrezzoReferencesListDataControl.countIdentifierReferences(id);
 		count += activeAreasListDataControl.countIdentifierReferences( id );
 		count += barriersListDataControl.countIdentifierReferences( id );
 
@@ -529,6 +530,7 @@ public class SceneDataControl extends DataControlWithResources {
 	public void replaceIdentifierReferences( String oldId, String newId ) {
 		exitsListDataControl.replaceIdentifierReferences( oldId, newId );
 		itemReferencesListDataControl.replaceIdentifierReferences( oldId, newId );
+		atrezzoReferencesListDataControl.replaceIdentifierReferences(oldId, newId);
 		npcReferencesListDataControl.replaceIdentifierReferences( oldId, newId );
 		activeAreasListDataControl.replaceIdentifierReferences( oldId, newId );
 		barriersListDataControl.replaceIdentifierReferences( oldId, newId );
@@ -538,6 +540,7 @@ public class SceneDataControl extends DataControlWithResources {
 	public void deleteIdentifierReferences( String id ) {
 		exitsListDataControl.deleteIdentifierReferences( id );
 		itemReferencesListDataControl.deleteIdentifierReferences( id );
+		atrezzoReferencesListDataControl.deleteIdentifierReferences(id);
 		npcReferencesListDataControl.deleteIdentifierReferences( id );
 		activeAreasListDataControl.deleteIdentifierReferences( id );
 		barriersListDataControl.deleteIdentifierReferences( id );

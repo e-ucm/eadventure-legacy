@@ -574,7 +574,7 @@ public class ChapterDataControl extends DataControl {
 		count += scenesListDataControl.countIdentifierReferences( id );
 		count += cutscenesListDataControl.countIdentifierReferences( id );
 		count += itemsListDataControl.countIdentifierReferences( id );
-		// the atrezzo items haven´t identifier
+		count += atrezzoListDataControl.countIdentifierReferences(id);
 		count += npcsListDataControl.countIdentifierReferences( id );
 		count += conversationsListDataControl.countIdentifierReferences( id );
 		count += timersListDataControl.countIdentifierReferences( id );
@@ -594,7 +594,7 @@ public class ChapterDataControl extends DataControl {
 		scenesListDataControl.replaceIdentifierReferences( oldId, newId );
 		cutscenesListDataControl.replaceIdentifierReferences( oldId, newId );
 		itemsListDataControl.replaceIdentifierReferences( oldId, newId );
-		// the atrezzo items haven´t identifier
+		atrezzoListDataControl.replaceIdentifierReferences(oldId, newId);
 		npcsListDataControl.replaceIdentifierReferences( oldId, newId );
 		conversationsListDataControl.replaceIdentifierReferences( oldId, newId );
 		timersListDataControl.replaceIdentifierReferences( oldId, newId );
@@ -612,7 +612,7 @@ public class ChapterDataControl extends DataControl {
 		scenesListDataControl.deleteIdentifierReferences( id );
 		cutscenesListDataControl.deleteIdentifierReferences( id );
 		itemsListDataControl.deleteIdentifierReferences( id );
-		// the atrezzo items haven´t identifier
+		atrezzoListDataControl.deleteIdentifierReferences(id);
 		npcsListDataControl.deleteIdentifierReferences( id );
 		conversationsListDataControl.deleteIdentifierReferences( id );
 		timersListDataControl.deleteIdentifierReferences( id );

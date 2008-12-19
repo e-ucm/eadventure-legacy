@@ -145,7 +145,14 @@ public class AtrezzoListDataControl extends DataControl {
 
 	@Override
 	public int countIdentifierReferences(String id) {
-		return 0;
+		int count = 0;
+
+		// Iterate through each atrezzo item
+		for( AtrezzoDataControl atrezzoDataControl : atrezzoDataControlList )
+			count += atrezzoDataControl.countIdentifierReferences( id );
+
+		return count;
+		
 	}
 
 	@Override
@@ -254,9 +261,13 @@ public class AtrezzoListDataControl extends DataControl {
 
 	@Override
 	public void replaceIdentifierReferences(String oldId, String newId) {
-		// This method is empty
-		
+		// Iterate through each item
+		for( AtrezzoDataControl atrezzoDataControl : atrezzoDataControlList )
+			atrezzoDataControl.replaceIdentifierReferences( oldId, newId );
 	}
+		
+		
+	
 
 	@Override
 	public void updateVarFlagSummary(VarFlagSummary varFlagSummary) {
