@@ -21,7 +21,6 @@ public class MacroReferenceEffect implements Effect{
 		macroId = id;
 	}
 
-	@Override
 	public int getType() {
 		return Effect.MACRO_REF;
 	}

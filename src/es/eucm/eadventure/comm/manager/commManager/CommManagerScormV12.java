@@ -140,15 +140,11 @@ public class CommManagerScormV12 extends AdventureApplet{
 		
 	}
 	
-
-
-	@Override
 	public int getCommType() {
 		
 		return CommManagerApi.SCORMV12_TYPE;
 	}
 
-	@Override
 	public void connectionEstablished(String serverComment) {
 		
 		connected = true;
@@ -156,15 +152,10 @@ public class CommManagerScormV12 extends AdventureApplet{
 		
 	}
 
-	@Override
 	public void connectionFailed(String serverComment) {
-		
-		
-		System.out.println(serverComment);
-		
+		System.out.println(serverComment);		
 	}
 
-	@Override
 	public void dataReceived(String key, String value) {
 		
 		System.out.println("Esto es lo que nos ha devuelto el LMS: "+ value);
@@ -174,14 +165,12 @@ public class CommManagerScormV12 extends AdventureApplet{
 		
 	}
 
-	@Override
 	public void dataSendingFailed(String serverComment) {
 		
 		System.out.println(serverComment);
 		
 	}
 
-	@Override
 	public void dataSendingOK(String serverComment) {
 		
 		System.out.println(serverComment);
@@ -195,11 +184,6 @@ public class CommManagerScormV12 extends AdventureApplet{
         this.sendJavaScript(command);
 	}
 
-
-	
-
-
-	@Override
 	public void notifyRelevantState( List<AssessmentProperty> list) {
 		
 		getFromLMS(SEND_DIR+"._count");
@@ -218,32 +202,24 @@ public class CommManagerScormV12 extends AdventureApplet{
 			} else {
 				//TODO situacion de error
 			}
-		}
-	        
-	        	
-		
+		}		
 	}
 
-	@Override
 	public boolean isConnected() {
 		
 		return connected;
 	}
 
 
-	@Override
 	public HashMap<String,Integer> getInitialStates() {
 		getAllObjetives();
 		return adaptedStates;
 	}
 
-
-	@Override
 	public void getAdaptedState(Set<String> properties) {
 		// Do nothing
 		
 	}
-
 
 	public void setAdaptationEngine(AdaptationEngine adaptationEngine) {
 		this.adaptationEngine = adaptationEngine;
