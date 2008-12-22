@@ -19,34 +19,33 @@ public class CommManagerLD extends AdventureApplet{
 	private AdaptationEngine adaptationEngine;
 	private String propertyNames = null;
 	
-	@Override
 	public void connectionEstablished(String serverComment) {
 		 System.out.println( "OK Notification received: " + serverComment);
 	        this.commWorking = true;
 		
 	}
-	@Override
+
 	public void connectionFailed(String serverComment) {
 		System.out.println( "No communication link available: " + serverComment );
         this.commWorking = false;
 		
 	}
-	@Override
+
 	public void dataReceived(String key, String value) {
 		// TODO Auto-generated method stub
 		
 	}
-	@Override
+
 	public void dataSendingFailed(String serverComment) {
 		// TODO Auto-generated method stub
 		
 	}
-	@Override
+
 	public void dataSendingOK(String serverComment) {
 		// TODO Auto-generated method stub
 		
 	}
-	@Override
+
 	public void getAdaptedState(Set<String> properties) {
 		 //Generate the encoded string and maintain it cached
         if(propertyNames==null) {
@@ -76,12 +75,12 @@ public class CommManagerLD extends AdventureApplet{
         }
 		
 	}
-	@Override
+
 	public HashMap<String,Integer> getInitialStates() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
+
 	public void notifyRelevantState(List<AssessmentProperty> list) {
 		 //Generate the encoded string
         StringBuffer sb = new StringBuffer("");
@@ -112,24 +111,24 @@ public class CommManagerLD extends AdventureApplet{
         }   
 		
 	}
-	@Override
+
 	public boolean connect(HashMap<String, String> info){
 		
 		String command = "javascript:startCommunication(\"user_id:" + userId + ";run_id" + runId + "\");";
 		this.sendJavaScript(command);
 		return false;
 	}
-	@Override
+
 	public boolean disconnect(HashMap<String, String> info){
 		// TODO Auto-generated method stub
 		return false;
 	}
-	@Override
+
 	public int getCommType() {
 		
 		return LD_ENVIROMENT_TYPE;
 	}
-	@Override
+
 	public boolean isConnected() {
 		
 		return commWorking;

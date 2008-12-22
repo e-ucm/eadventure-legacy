@@ -119,7 +119,6 @@ public class SynthesizerDialog extends JDialog implements ItemListener{
 		return this.node.getLineText(selectedConversationLine);
 	}
 
-	@Override
 	public void itemStateChanged(ItemEvent e) {
 		this.node.getLine(selectedConversationLine).setSynthesizerVoice(readSynthesizer.isSelected());
 		

@@ -618,7 +618,6 @@ class LinesPanel extends JPanel {
 	
 	private class ListenerButtonEditSynthesizer implements ActionListener{
 
-		@Override
 		public void actionPerformed(ActionEvent e) {
 			
 			// Take the selected row, and the selected node

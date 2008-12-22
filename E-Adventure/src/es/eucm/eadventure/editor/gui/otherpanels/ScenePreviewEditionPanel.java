@@ -71,6 +71,14 @@ public class ScenePreviewEditionPanel extends JPanel implements MouseListener, M
 	
 	private int originalY;
 	
+	private int marginX;
+	
+	private int marginY;
+	
+	private int backgroundWidth;
+	
+	private int backgroundHeight;
+	
 	/**
 	 * Image to be used as a backbuffer
 	 */
@@ -191,7 +199,7 @@ public class ScenePreviewEditionPanel extends JPanel implements MouseListener, M
 	 * Flip the backbuffer
 	 */
 	private void flip() {
-		this.getGraphics().drawImage(backBuffer, 0, 0, null);
+		this.getGraphics().drawImage(backBuffer, marginX, marginY, marginX + backgroundWidth, marginY + backgroundHeight, marginX, marginY, marginX + backgroundWidth, marginY + backgroundHeight, null);
 	}
 	
 	/**
@@ -227,13 +235,17 @@ public class ScenePreviewEditionPanel extends JPanel implements MouseListener, M
 	private void paintBorders(Graphics g, ImageElement element,
 			int border_type) {
 		
-		int x = (int) ((element.getX() - element.getImage().getWidth(null) / 2)* sizeRatio) + MARGIN;
-		int y = (int) ((element.getY() - element.getImage().getHeight(null)) * sizeRatio) + MARGIN;
+		int x = (int) ((element.getX() - element.getImage().getWidth(null) / 2)* sizeRatio) + marginX;
+		int y = (int) ((element.getY() - element.getImage().getHeight(null)) * sizeRatio) + marginY;
 		int width = (int) (element.getImage().getWidth(null) * sizeRatio);
 		int height = (int) (element.getImage().getHeight(null) * sizeRatio);
 		
 		if (border_type == LIGHT_BORDER) {
+			Color color = g.getColor();
+			g.setColor(Color.RED);
 			g.drawRect(x, y, width, height);
+			g.setColor(color);
+			g.drawImage(element.getImage(), x, y, width, height, null);
 		} else if (border_type == HARD_BORDER) {
 			Color color = g.getColor();
 			g.setColor(Color.RED);
@@ -241,8 +253,8 @@ public class ScenePreviewEditionPanel extends JPanel implements MouseListener, M
 			g.fillRect(x - 4, y - 4, 4, height + 4);
 			g.fillRect(x + width, y, 4, height + 4);
 			g.fillRect(x - 4, y + height, width + 4, 4);
-			g.drawImage(element.getImage(), x, y, width, height, null);
 			g.setColor(color);
+			g.drawImage(element.getImage(), x, y, width, height, null);
 		}
 		
 	}
@@ -267,17 +279,26 @@ public class ScenePreviewEditionPanel extends JPanel implements MouseListener, M
 		if( background != null && getWidth( ) > 0 && getHeight( ) > 0 ) {
 			double panelRatio = (double) getWidth( ) / (double) getHeight( );
 			double imageRatio = (double) background.getWidth( null ) / (double) background.getHeight( null );
-			int width;
+			int width, height;
+			marginX = MARGIN;
+			marginY = MARGIN;
 			
 			if( panelRatio <= imageRatio ) {
 				int panelWidth = getWidth( ) - MARGIN * 2;
 				width = panelWidth;
+				height = (int) (panelWidth / imageRatio);
 			}
 
 			else {
 				int panelHeight = getHeight( ) - MARGIN * 2;
 				width = (int) ( panelHeight * imageRatio );
+				height = panelHeight;
 			}
+			
+			marginX = (getWidth() - width) / 2;
+			marginY = (getHeight() - height) / 2;
+			backgroundWidth = width;
+			backgroundHeight = height;
 
 			sizeRatio = (double) width / (double) background.getWidth( null );
 		}
@@ -302,8 +323,8 @@ public class ScenePreviewEditionPanel extends JPanel implements MouseListener, M
 
 			int posX = (int) (x * sizeRatio) - width / 2;
 			int posY = (int) (y * sizeRatio) - height;
-			posX += MARGIN;
-			posY += MARGIN;
+			posX += marginX;
+			posY += marginY;
 
 			g.drawImage( image, posX, posY, width, height, null );
 		}
@@ -429,30 +450,26 @@ public class ScenePreviewEditionPanel extends JPanel implements MouseListener, M
 	
 	/* Mouse Listeners methods */
 
-	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (movableElement != null) {
-			int x = (int) ((e.getX() - MARGIN) / sizeRatio);
-			int y = (int) ((e.getY() - MARGIN) / sizeRatio);
+			int x = (int) ((e.getX() - marginX) / sizeRatio);
+			int y = (int) ((e.getY() - marginY) / sizeRatio);
 			movableElement.getElementReferenceDataControl().setElementPosition(x, y);
 			paintBackBuffer();
 			flip();
 		}
 	}
 
-	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
 
@@ -465,13 +482,11 @@ public class ScenePreviewEditionPanel extends JPanel implements MouseListener, M
 		
 	}
 
-	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void mouseDragged(MouseEvent e) {
 		if (underMouse != null) {
 			int changeX = (int) ((e.getX() - startDragX) / sizeRatio);
@@ -484,10 +499,9 @@ public class ScenePreviewEditionPanel extends JPanel implements MouseListener, M
 		}
 	}
 
-	@Override
 	public void mouseMoved(MouseEvent e) {
-		int x = (int) ((e.getX() - MARGIN) / sizeRatio);
-		int y = (int) ((e.getY() - MARGIN) / sizeRatio);
+		int x = (int) ((e.getX() - marginX) / sizeRatio);
+		int y = (int) ((e.getY() - marginY) / sizeRatio);
 		ImageElement imageElement = getMovableElement(x, y);
 		if (imageElement != underMouse) {
 			underMouse = imageElement;

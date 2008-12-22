@@ -269,7 +269,6 @@ public class NPCPanel extends JPanel {
 	 */
 	private class VoiceButtonListener implements ActionListener{
 
-		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			if (voicesComboBox.getSelectedIndex()!=0 && trySynthesizer.getText()!=null){
 				VoiceManager voiceManager = VoiceManager.getInstance();
@@ -288,7 +287,6 @@ public class NPCPanel extends JPanel {
 
 	private class VoiceCheckVoxListener implements ItemListener{
 
-		@Override
 		public void itemStateChanged(ItemEvent arg0) {
 			npcDataControl.setAlwaysSynthesizer(alwaysSynthesizer.isSelected());
 			
@@ -303,7 +301,6 @@ public class NPCPanel extends JPanel {
 	 */
 	private class VoiceComboBoxListener implements ItemListener{
 
-		@Override
 		public void itemStateChanged(ItemEvent arg0) {
 			int selection = voicesComboBox.getSelectedIndex();
 			if (selection != 0){

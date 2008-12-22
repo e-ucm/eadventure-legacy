@@ -195,7 +195,6 @@ public class CustomActionPanel extends JPanel {
 	 * Listener for the changes in the needsGoTo checkbox
 	 */
 	private class NeedsGoToCheckListener implements ChangeListener {
-		@Override
 		public void stateChanged(ChangeEvent arg0) {
 			customActionDataControl.setNeedsGoTo(needsGoToCheck.isSelected());
 			keepDistanceSpinner.setEnabled(needsGoToCheck.isSelected());
@@ -206,7 +205,6 @@ public class CustomActionPanel extends JPanel {
 	 * Listener for the changes in the keepDistances spinner
 	 */
 	private class KeepDistanceSpinnerListener implements ChangeListener {
-		@Override
 		public void stateChanged(ChangeEvent arg0) {
 			customActionDataControl.setKeepDistance(((Integer) keepDistanceSpinner.getModel().getValue()).intValue());
 		}
