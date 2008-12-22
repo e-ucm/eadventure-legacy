@@ -35,7 +35,7 @@ public class FunctionalAtrezzo extends FunctionalElement {
     /**
      * Image of the atrezzo item, to display on the inventory
      */
-    private Image icon;
+   // private Image icon;
 
     /**
      * Atrezzo item containing the data
@@ -53,7 +53,7 @@ public class FunctionalAtrezzo extends FunctionalElement {
         this.atrezzo = atrezzo;
 
         image = null;
-        icon = null;
+        //icon = null;
         
         resources = createResourcesBlock();
         
@@ -61,8 +61,8 @@ public class FunctionalAtrezzo extends FunctionalElement {
         MultimediaManager multimediaManager = MultimediaManager.getInstance( );
         if( resources.existAsset( Item.RESOURCE_TYPE_IMAGE ) )
             image = multimediaManager.loadImageFromZip( resources.getAssetPath( Item.RESOURCE_TYPE_IMAGE ), MultimediaManager.IMAGE_SCENE );
-        if( resources.existAsset( Item.RESOURCE_TYPE_ICON ) )
-            icon = multimediaManager.loadImageFromZip( resources.getAssetPath( Item.RESOURCE_TYPE_ICON ), MultimediaManager.IMAGE_SCENE );
+        //if( resources.existAsset( Item.RESOURCE_TYPE_ICON ) )
+           // icon = multimediaManager.loadImageFromZip( resources.getAssetPath( Item.RESOURCE_TYPE_ICON ), MultimediaManager.IMAGE_SCENE );
     }
 
     /**
@@ -88,8 +88,8 @@ public class FunctionalAtrezzo extends FunctionalElement {
             MultimediaManager multimediaManager = MultimediaManager.getInstance( );
             if( resources.existAsset( Item.RESOURCE_TYPE_IMAGE ) )
                 image = multimediaManager.loadImageFromZip( resources.getAssetPath( Item.RESOURCE_TYPE_IMAGE ), MultimediaManager.IMAGE_SCENE );
-            if( resources.existAsset( Item.RESOURCE_TYPE_ICON ) )
-                icon = multimediaManager.loadImageFromZip( resources.getAssetPath( Item.RESOURCE_TYPE_ICON ), MultimediaManager.IMAGE_SCENE );
+           // if( resources.existAsset( Item.RESOURCE_TYPE_ICON ) )
+             //   icon = multimediaManager.loadImageFromZip( resources.getAssetPath( Item.RESOURCE_TYPE_ICON ), MultimediaManager.IMAGE_SCENE );
         }
     }
 
@@ -105,9 +105,9 @@ public class FunctionalAtrezzo extends FunctionalElement {
      * Returns this atrezzo's icon image
      * @return this atrezzo's icon image
      */
-    public Image getIconImage( ) {
-        return icon;
-    }
+   // public Image getIconImage( ) {
+     //   return icon;
+    //}
 
     @Override
     public Element getElement( ) {
@@ -160,7 +160,7 @@ public class FunctionalAtrezzo extends FunctionalElement {
     //TODO creo k hay que quitarlo
     @Override
     public boolean isInInventory( ) {
-        return Game.getInstance( ).getItemSummary( ).isItemGrabbed( atrezzo.getId( ) );
+        return false;//Game.getInstance( ).getItemSummary( ).isItemGrabbed( atrezzo.getId( ) );
     }
 
     @Override
@@ -191,7 +191,7 @@ public class FunctionalAtrezzo extends FunctionalElement {
         // If no resource block is available, create a default one 
         if (newResources == null){
             newResources = new Resources();
-            newResources.addAsset( new Asset( Item.RESOURCE_TYPE_ICON, ResourceHandler.DEFAULT_ICON ) );
+          //  newResources.addAsset( new Asset( Item.RESOURCE_TYPE_ICON, ResourceHandler.DEFAULT_ICON ) );
             newResources.addAsset( new Asset( Item.RESOURCE_TYPE_IMAGE, ResourceHandler.DEFAULT_IMAGE ) );
         }
         return newResources;

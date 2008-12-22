@@ -669,6 +669,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     public ItemSummary getItemSummary( ) {
         return itemSummary;
     }
+   
     
     /**
      * Returns the atrezzo item summary

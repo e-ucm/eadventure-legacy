@@ -319,13 +319,13 @@ public class FunctionalScene implements Renderable {
                 
                 // If it was not found, search for it and add it
                 if( !found ) {
-                    if( Game.getInstance( ).getItemSummary( ).isItemNormal( atrezzoReference.getIdTarget( ) ) ) {
+                    //if( Game.getInstance( ).getAtrezzoItemSummary( ).isFlagsNormal( atrezzoReference.getIdTarget( ) ) ) {
                         for( Atrezzo currentAtrezzo : gameData.getAtrezzo( ) ) {
                             if( atrezzoReference.getIdTarget( ).equals( currentAtrezzo.getId( ) ) ) {
                                 atrezzo.add( new FunctionalAtrezzo( currentAtrezzo, atrezzoReference.getX( ), atrezzoReference.getY( ) ) );
                             }
                         }
-                    }
+                    //}
                 }
             }
         }
@@ -522,6 +522,7 @@ public class FunctionalScene implements Renderable {
         playBackgroundMusic();
               
         // Update the items
+        //TODO esto se pude quitar,, item.update() no hace nada
         for( FunctionalItem item : items )
             item.update( elapsedTime );
         
