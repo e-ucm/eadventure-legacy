@@ -234,7 +234,7 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
      * @see es.eucm.eadventure.engine.core.control.functionaldata.Renderable#draw(java.awt.Graphics2D)
      */
     public void draw( ) {
-        currentState.draw( Math.round( x ), Math.round( y ) );
+        currentState.draw( Math.round( x ), Math.round( y ), scale);  
     }
 
     /*
@@ -252,12 +252,12 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
 //        return ( this.x - getWidth( ) / 2 < x ) && ( x < this.x + getWidth( ) / 2 ) && ( this.y - getHeight( ) < y ) && ( y < this.y );
         boolean isInside = false;
         
-        int mousex = (int)( x - ( this.x - getWidth( ) / 2 ) );
-        int mousey = (int)( y - ( this.y - getHeight( ) ) );
+        int mousex = (int)( x - ( this.x - getWidth( ) * scale / 2 ) );
+        int mousey = (int)( y - ( this.y - getHeight( ) *scale) );
         
-        if( ( mousex >= 0 ) && ( mousex < getWidth() ) && ( mousey >= 0 ) && ( mousey < getHeight() ) ) {
+        if( ( mousex >= 0 ) && ( mousex < getWidth() *scale) && ( mousey >= 0 ) && ( mousey < getHeight() * scale) ) {
             BufferedImage bufferedImage = (BufferedImage) currentState.getImage();
-            int alpha = bufferedImage.getRGB( mousex, mousey ) >>> 24;
+            int alpha = bufferedImage.getRGB( (int) (mousex / scale), (int) (mousey / scale) ) >>> 24;
             isInside = alpha > 128;
         }
         

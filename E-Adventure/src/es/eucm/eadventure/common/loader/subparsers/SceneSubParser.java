@@ -257,6 +257,7 @@ public class SceneSubParser extends SubParser {
 			else if( qName.equals( "object-ref" ) || qName.equals( "character-ref" ) || qName.equals("atrezzo-ref")) {
 				String idTarget = "";
 				int x = 0, y = 0;
+				float scale = 0;
 
 				for( int i = 0; i < attrs.getLength( ); i++ ) {
 					if( attrs.getQName( i ).equals( "idTarget" ) )
@@ -265,9 +266,13 @@ public class SceneSubParser extends SubParser {
 						x = Integer.parseInt( attrs.getValue( i ) );
 					if( attrs.getQName( i ).equals( "y" ) )
 						y = Integer.parseInt( attrs.getValue( i ) );
+					if( attrs.getQName( i ).equals( "scale" ))
+						scale = Float.parseFloat( attrs.getValue( i ));
 				}
 
 				currentElementReference = new ElementReference( idTarget, x, y );
+				if (scale > 0.001 || scale < -0.001)
+					currentElementReference.setScale(scale);
 				reading = READING_ELEMENT_REFERENCE;
 			}
 

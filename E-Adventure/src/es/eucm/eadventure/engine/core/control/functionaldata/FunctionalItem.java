@@ -136,19 +136,25 @@ public class FunctionalItem extends FunctionalElement {
      * @see es.eucm.eadventure.engine.core.control.functionaldata.Renderable#draw(java.awt.Graphics2D)
      */
     public void draw( ) {
-        GUI.getInstance( ).addElementToDraw( image, Math.round( x - ( getWidth( ) / 2 ) ) - Game.getInstance( ).getFunctionalScene( ).getOffsetX( ), Math.round( y - getHeight( ) ), Math.round( y ) );
+    	int x_image = Math.round( x - ( getWidth( ) * scale / 2 ) ) - Game.getInstance( ).getFunctionalScene( ).getOffsetX( );
+    	int y_image = Math.round( y - getHeight( ) * scale);
+    	if (scale != 1) {
+    		Image temp = image.getScaledInstance(Math.round(image.getWidth(null) * scale), Math.round(image.getHeight(null) * scale), Image.SCALE_SMOOTH);
+    		GUI.getInstance().addElementToDraw(temp, x_image, y_image, Math.round(y));
+    	} else 
+    		GUI.getInstance( ).addElementToDraw( image, x_image, y_image, Math.round( y ) );
     }
     
     @Override
     public boolean isPointInside( float x, float y ) {
         boolean isInside = false;
         
-        int mousex = (int)( x - ( this.x - getWidth( ) / 2 ) );
-        int mousey = (int)( y - ( this.y - getHeight( ) ) );
+        int mousex = (int)( x - ( this.x - getWidth( ) *scale/ 2 ) );
+        int mousey = (int)( y - ( this.y - getHeight( ) *scale) );
         
-        if( ( mousex >= 0 ) && ( mousex < getWidth() ) && ( mousey >= 0 ) && ( mousey < getHeight() ) ) {
+        if( ( mousex >= 0 ) && ( mousex < getWidth() *scale) && ( mousey >= 0 ) && ( mousey < getHeight() * scale) ) {
             BufferedImage bufferedImage = (BufferedImage) image;
-            int alpha = bufferedImage.getRGB( mousex, mousey ) >>> 24;
+            int alpha = bufferedImage.getRGB( (int) (mousex / scale), (int) (mousey / scale)) >>> 24;
             isInside = alpha > 128;
         }
         

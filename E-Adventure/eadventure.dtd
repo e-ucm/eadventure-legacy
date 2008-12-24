@@ -2,7 +2,7 @@
 <!ENTITY % cutscene "videoscene | slidescene">
 
 <!ELEMENT eAdventure ((scene | %cutscene;)+, book*, object*, player, character*, (%conversation;)*, timer*, global-state*, macro*,atrezzoobject*)>
-<!ELEMENT scene (documentation?, resources+, name, default-initial-position?, exits?, objects?, characters?, active-areas?, barriers?, atrezzo?)>
+<!ELEMENT scene (documentation?, resources+, name, default-initial-position?, exits?, objects?, characters?, active-areas?, barriers?, atrezzo?, trajectory?)>
 <!ATTLIST scene
 	id ID #REQUIRED
 	start (yes | no) "no"
@@ -41,25 +41,41 @@
 	x NMTOKEN #IMPLIED
 	y NMTOKEN #IMPLIED
 >
+<!ELEMENT trajectory (node*, side*)>
+<!ELEMENT node (scale?)>
+<!ATTLIST node
+	id ID #REQUIRED
+	x NMTOKEN #REQUIRED
+	y NMTOKEN #REQUIRED
+>
+<!ELEMENT side EMPTY>
+<!ATTLIST side
+   idStart IDREF #REQUIRED
+   idEnd IDREF #REQUIRED
+>
+
 
 <!ELEMENT objects (object-ref+)>
 <!ELEMENT object-ref (documentation?, condition?)>
 <!ATTLIST object-ref
 	idTarget IDREF #REQUIRED
-	%position; 
+	%position;
+	scale CDATA #IMPLIED
 >
 <!ELEMENT atrezzo (atrezzo-ref+)>
 <!ELEMENT atrezzo-ref (documentation?, condition?)>
 <!ATTLIST atrezzo-ref
 	idTarget IDREF #REQUIRED
-	%position; 
+	%position;
+	scale CDATA #IMPLIED
 >
 
 <!ELEMENT characters (character-ref+)>
 <!ELEMENT character-ref (documentation?, condition?)>
 <!ATTLIST character-ref
 	idTarget IDREF #REQUIRED
-	%position; 
+	%position;
+	scale CDATA #IMPLIED
 >
 
 <!ELEMENT active-areas (active-area+)>

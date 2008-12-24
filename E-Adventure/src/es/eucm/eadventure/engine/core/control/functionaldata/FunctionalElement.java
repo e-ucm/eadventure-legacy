@@ -22,6 +22,8 @@ public abstract class FunctionalElement implements Renderable {
      * Vertical position of the element
      */
     protected float y;
+    
+    protected float scale;
 
     /**
      * Creates a new FunctionalElement
@@ -31,6 +33,7 @@ public abstract class FunctionalElement implements Renderable {
     public FunctionalElement( int x, int y ) {
         this.x = x;
         this.y = y;
+        this.scale = 1;
     }
 
     /**
@@ -55,6 +58,10 @@ public abstract class FunctionalElement implements Renderable {
         return y;
     }
 
+    public float getScale() {
+    	return scale;
+    }
+    
     /**
      * Gets this Sprite's width, based on the size of the current image.
      */
@@ -81,6 +88,9 @@ public abstract class FunctionalElement implements Renderable {
         this.y = y;
     }
 
+    public void setScale(float scale) {
+    	this.scale = scale;
+    }
     /**
      * Returns wheter the given point is inside this element
      * @param x the horizontal position of the point

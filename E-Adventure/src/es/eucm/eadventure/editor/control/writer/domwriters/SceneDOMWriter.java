@@ -171,6 +171,7 @@ public class SceneDOMWriter {
 					itemReferenceElement.setAttribute( "idTarget", itemReference.getIdTarget( ) );
 					itemReferenceElement.setAttribute( "x", String.valueOf( itemReference.getX( ) ) );
 					itemReferenceElement.setAttribute( "y", String.valueOf( itemReference.getY( ) ) );
+					itemReferenceElement.setAttribute( "scale", String.valueOf( itemReference.getScale()));
 
 					// Append the documentation (if avalaible)
 					if( itemReference.getDocumentation( ) != null ) {
@@ -204,6 +205,7 @@ public class SceneDOMWriter {
 					itemReferenceElement.setAttribute( "idTarget", characterReference.getIdTarget( ) );
 					itemReferenceElement.setAttribute( "x", String.valueOf( characterReference.getX( ) ) );
 					itemReferenceElement.setAttribute( "y", String.valueOf( characterReference.getY( ) ) );
+					itemReferenceElement.setAttribute( "scale", String.valueOf( characterReference.getScale()));
 
 					// Append the documentation (if avalaible)
 					if( characterReference.getDocumentation( ) != null ) {
@@ -430,6 +432,7 @@ public class SceneDOMWriter {
 					atrezzoReferenceElement.setAttribute( "idTarget", atrezzoReference.getIdTarget( ) );
 					atrezzoReferenceElement.setAttribute( "x", String.valueOf( atrezzoReference.getX( ) ) );
 					atrezzoReferenceElement.setAttribute( "y", String.valueOf( atrezzoReference.getY( ) ) );
+					atrezzoReferenceElement.setAttribute( "scale", String.valueOf( atrezzoReference.getScale()));
 
 					// Append the documentation (if avalaible)
 					if( atrezzoReference.getDocumentation( ) != null ) {

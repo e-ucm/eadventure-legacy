@@ -104,11 +104,13 @@ public abstract class AnimationState {
      * Draws the current frame of the animation
      * @param x the horizontal position where paint the frame
      * @param y the vertical position where paint the frame
+     * @param scale 
      */
-    public void draw( int x, int y ) {
-        int realX = x - ( getImage( ).getWidth( null ) / 2 ) - Game.getInstance( ).getFunctionalScene( ).getOffsetX( );
-        int realY = y - ( getImage( ).getHeight( null ) ); 
-        GUI.getInstance( ).addElementToDraw( getImage( ), realX, realY, y );
+    public void draw( int x, int y, float scale ) {
+        int realX = x - (int) ( getImage( ).getWidth( null ) * scale / 2 ) - Game.getInstance( ).getFunctionalScene( ).getOffsetX( );
+        int realY = y - (int) ( getImage( ).getHeight( null ) * scale ); 
+        Image tempImage = getImage().getScaledInstance(Math.round(getImage().getWidth(null)*scale), Math.round(getImage().getHeight(null)*scale), Image.SCALE_SMOOTH);
+        GUI.getInstance( ).addElementToDraw( tempImage, realX, realY, y );
     }
     
     /**
