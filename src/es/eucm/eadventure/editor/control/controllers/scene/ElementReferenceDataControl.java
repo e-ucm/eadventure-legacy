@@ -164,6 +164,24 @@ public class ElementReferenceDataControl extends DataControl {
 			controller.dataModified( );
 		}
 	}
+	
+	/**
+	 * Get the scale for the element reference
+	 * 
+	 * @return the scale for the element reference
+	 */
+	public float getElementScale( ) {
+		return elementReference.getScale();
+	}
+	
+	/**
+	 * Set the scale for the element reference
+	 * 
+	 * @param scale the scale for the element reference
+	 */
+	public void setElementScale(float scale) {
+		elementReference.setScale(scale);
+	}
 
 	@Override
 	public Object getContent( ) {

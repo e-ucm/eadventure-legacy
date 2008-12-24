@@ -144,13 +144,12 @@ public class NPCTalking extends NPCState {
     }
 
     @Override
-    public void draw( int x, int y ) {
-        super.draw( x, y );
+    public void draw( int x, int y , float scale) {
+        super.draw( x, y , scale);
 
 		// If there is a line to speak, draw it
         if( !text.equals( "" ) )
-            GUI.getInstance( ).addTextToDraw( text, x - Game.getInstance( ).getFunctionalScene( ).getOffsetX( ), y - npc.getHeight( ), npc.getTextFrontColor( ), npc.getTextBorderColor( ) );
-    
+            GUI.getInstance( ).addTextToDraw( text, x - Game.getInstance( ).getFunctionalScene( ).getOffsetX( ), y - Math.round(npc.getHeight( ) * scale), npc.getTextFrontColor( ), npc.getTextBorderColor( ) );
     }
 
     @Override

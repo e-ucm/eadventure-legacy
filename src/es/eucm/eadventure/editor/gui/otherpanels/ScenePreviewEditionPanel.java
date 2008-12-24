@@ -51,6 +51,8 @@ public class ScenePreviewEditionPanel extends JPanel implements MouseListener, M
 
 	private static final int HARD_BORDER = 2;
 	
+	private static final int RESIZE_BORDER = 3;
+	
 	private HashMap<Integer, List<ImageElement>> elements;
 	
 	private HashMap<Integer, Boolean> displayCategory;
@@ -70,6 +72,8 @@ public class ScenePreviewEditionPanel extends JPanel implements MouseListener, M
 	private int originalX;
 	
 	private int originalY;
+
+	private float originalScale;
 	
 	private int marginX;
 	
@@ -78,6 +82,8 @@ public class ScenePreviewEditionPanel extends JPanel implements MouseListener, M
 	private int backgroundWidth;
 	
 	private int backgroundHeight;
+	
+	private boolean resize;
 	
 	/**
 	 * Image to be used as a backbuffer
@@ -207,12 +213,12 @@ public class ScenePreviewEditionPanel extends JPanel implements MouseListener, M
 	 */
 	private void paintBackBuffer() {
 		Graphics g = backBuffer.getGraphics();
-		paintRelativeImage( g, background, background.getWidth(null)/2, background.getHeight(null));
+		paintRelativeImage( g, background, background.getWidth(null)/2, background.getHeight(null), 1);
 		
 		for (Integer key : displayCategory.keySet()) {
 			if (displayCategory.get(key)) {
 				for (ImageElement imageElement : elements.get(key)) {
-					paintRelativeImage( g, imageElement.getImage(), imageElement.getX(), imageElement.getY());
+					paintRelativeImage( g, imageElement.getImage(), imageElement.getX(), imageElement.getY(), imageElement.getScale());
 				}
 			}
 		}
@@ -222,6 +228,7 @@ public class ScenePreviewEditionPanel extends JPanel implements MouseListener, M
 		}
 		if (movableElement != null) {
 			paintBorders(g, movableElement, HARD_BORDER);
+			paintBorders(g, movableElement, RESIZE_BORDER);
 		}
 	}
 
@@ -235,10 +242,10 @@ public class ScenePreviewEditionPanel extends JPanel implements MouseListener, M
 	private void paintBorders(Graphics g, ImageElement element,
 			int border_type) {
 		
-		int x = (int) ((element.getX() - element.getImage().getWidth(null) / 2)* sizeRatio) + marginX;
-		int y = (int) ((element.getY() - element.getImage().getHeight(null)) * sizeRatio) + marginY;
-		int width = (int) (element.getImage().getWidth(null) * sizeRatio);
-		int height = (int) (element.getImage().getHeight(null) * sizeRatio);
+		int x = (int) ((element.getX() - element.getImage().getWidth(null) *element.getScale() / 2)* sizeRatio) + marginX;
+		int y = (int) ((element.getY() - element.getImage().getHeight(null) * element.getScale()) * sizeRatio) + marginY;
+		int width = (int) (element.getImage().getWidth(null) * element.getScale() * sizeRatio);
+		int height = (int) (element.getImage().getHeight(null) * element.getScale() * sizeRatio);
 		
 		if (border_type == LIGHT_BORDER) {
 			Color color = g.getColor();
@@ -255,6 +262,11 @@ public class ScenePreviewEditionPanel extends JPanel implements MouseListener, M
 			g.fillRect(x - 4, y + height, width + 4, 4);
 			g.setColor(color);
 			g.drawImage(element.getImage(), x, y, width, height, null);
+		} else if (border_type == RESIZE_BORDER) {
+			Color color = g.getColor();
+			g.setColor(Color.GREEN);
+			g.drawRect(x + width - 8, y - 8, 16, 16);
+			g.setColor(color);
 		}
 		
 	}
@@ -316,17 +328,17 @@ public class ScenePreviewEditionPanel extends JPanel implements MouseListener, M
 	 * @param y
 	 *            Absolute Y position of the bottom of the image
 	 */
-	protected void paintRelativeImage( Graphics g, Image image, int x, int y) {
+	protected void paintRelativeImage( Graphics g, Image image, int x, int y, double scale) {
 		if( image != null ) {
 			int width = (int) ( image.getWidth( null ) * sizeRatio );
 			int height = (int) ( image.getHeight( null ) * sizeRatio );
 
-			int posX = (int) (x * sizeRatio) - width / 2;
-			int posY = (int) (y * sizeRatio) - height;
+			int posX = (int) (x * sizeRatio - width  * scale / 2);
+			int posY = (int) (y * sizeRatio - height * scale);
 			posX += marginX;
 			posY += marginY;
 
-			g.drawImage( image, posX, posY, width, height, null );
+			g.drawImage( image, posX, posY, (int) (width * scale), (int) (height * scale), null );
 		}
 	}
 
@@ -348,6 +360,10 @@ public class ScenePreviewEditionPanel extends JPanel implements MouseListener, M
 				image = (new ImageIcon("img/assets/EmptyImage.png")).getImage();
 		}
 		
+		public float getScale() {
+			return elementReferenceDataControl.getElementScale();
+		}
+
 		public ElementReferenceDataControl getElementReferenceDataControl() {
 			return elementReferenceDataControl;
 		}
@@ -423,10 +439,11 @@ public class ScenePreviewEditionPanel extends JPanel implements MouseListener, M
 	 */
 	private ImageElement getMovableElement(int x, int y) {
 		if (movableElement != null) {
-			int minX = movableElement.getX() - movableElement.getImage().getWidth(null) / 2;
-			int minY = movableElement.getY() - movableElement.getImage().getHeight(null);
-			int maxX = minX + movableElement.getImage().getWidth(null);
-			int maxY = minY + movableElement.getImage().getHeight(null);
+			double scale = movableElement.getScale();
+			int minX = (int) (movableElement.getX() - movableElement.getImage().getWidth(null) * scale / 2);
+			int minY = (int) (movableElement.getY() - movableElement.getImage().getHeight(null) * scale);
+			int maxX = (int) (minX + movableElement.getImage().getWidth(null) * scale);
+			int maxY = (int) (minY + movableElement.getImage().getHeight(null) * scale);
 			if (x > minX && x < maxX && y > minY && y < maxY)
 				return movableElement;
 			else
@@ -435,10 +452,11 @@ public class ScenePreviewEditionPanel extends JPanel implements MouseListener, M
 		for (Integer key : movableCategory.keySet()) {
 			if (movableCategory.get(key)) {
 				for (ImageElement imageElement : elements.get(key)) {
-					int minX = imageElement.getX() - imageElement.getImage().getWidth(null) / 2;
-					int minY = imageElement.getY() - imageElement.getImage().getHeight(null);
-					int maxX = minX + imageElement.getImage().getWidth(null);
-					int maxY = minY + imageElement.getImage().getHeight(null);
+					double scale = imageElement.getScale();
+					int minX = (int) (imageElement.getX() - imageElement.getImage().getWidth(null) * scale / 2);
+					int minY = (int) (imageElement.getY() - imageElement.getImage().getHeight(null) * scale);
+					int maxX = (int) (minX + imageElement.getImage().getWidth(null) * scale);
+					int maxY = (int) (minY + imageElement.getImage().getHeight(null) * scale);
 					if (x > minX && x < maxX && y > minY && y < maxY)
 						return imageElement;
 				}
@@ -478,6 +496,7 @@ public class ScenePreviewEditionPanel extends JPanel implements MouseListener, M
 			startDragY = e.getY();
 			originalX = underMouse.getX();
 			originalY = underMouse.getY();
+			originalScale = underMouse.getScale();
 		}
 		
 	}
@@ -488,12 +507,28 @@ public class ScenePreviewEditionPanel extends JPanel implements MouseListener, M
 	}
 
 	public void mouseDragged(MouseEvent e) {
-		if (underMouse != null) {
+		if (underMouse != null && !resize) {
 			int changeX = (int) ((e.getX() - startDragX) / sizeRatio);
 			int changeY = (int) ((e.getY() - startDragY) / sizeRatio);
 			int x = originalX + changeX;
 			int y = originalY + changeY;
 			underMouse.getElementReferenceDataControl().setElementPosition(x, y);			
+			paintBackBuffer();
+			flip();
+		} else if (underMouse != null && resize) {
+			double changeX = (e.getX() - startDragX);
+			double changeY = - (e.getY() - startDragY);
+			double width = underMouse.getImage().getWidth(null);
+			double heigth = underMouse.getImage().getHeight(null);
+			
+			double temp = changeX / width;
+			double temp2 = changeY / heigth;
+			
+			float scale = originalScale;
+			if (temp*temp > temp2*temp2)
+				scale += temp;
+			
+			underMouse.getElementReferenceDataControl().setElementScale(scale);
 			paintBackBuffer();
 			flip();
 		}
@@ -503,11 +538,38 @@ public class ScenePreviewEditionPanel extends JPanel implements MouseListener, M
 		int x = (int) ((e.getX() - marginX) / sizeRatio);
 		int y = (int) ((e.getY() - marginY) / sizeRatio);
 		ImageElement imageElement = getMovableElement(x, y);
-		if (imageElement != underMouse) {
+		ImageElement resizeElement = getResizeElement(x, y);
+		if (resizeElement == null && imageElement != underMouse) {
 			underMouse = imageElement;
+			resize = false;
 			paintBackBuffer();
 			flip();
+		} else if (resizeElement != null && (!resize || imageElement != underMouse)) {
+			underMouse = resizeElement;
+			resize = true;
+			paintBackBuffer();
+			flip();
+		} else if (resizeElement == null) {
+			underMouse = null;
+			resize = false;
 		}
+	}
+
+	private ImageElement getResizeElement(int x, int y) {
+		if (movableElement == null)
+			return null;
+		int x_image = (int) ((movableElement.getX() - movableElement.getImage().getWidth(null) *movableElement.getScale() / 2));
+		int y_image = (int) ((movableElement.getY() - movableElement.getImage().getHeight(null) * movableElement.getScale()));
+		int width = (int) (movableElement.getImage().getWidth(null)*movableElement.getScale());
+
+		if (x > x_image + width - 8 &&
+				x < x_image + width + 8 &&
+				y > y_image - 8 &&
+				y < y_image + 8) {
+			return movableElement;
+		}
+
+		return null;
 	}
 
 

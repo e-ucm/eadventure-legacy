@@ -170,16 +170,20 @@ public class FunctionalScene implements Renderable {
             if( new FunctionalConditions(itemReference.getConditions( )).allConditionsOk( ) )
                 if( itemSummary.isItemNormal( itemReference.getIdTarget( ) ) )
                     for( Item currentItem : gameData.getItems( ) )
-                        if( itemReference.getIdTarget( ).equals( currentItem.getId( ) ) )
-                            items.add( new FunctionalItem( currentItem, itemReference.getX( ), itemReference.getY( ) ) );
-
+                        if( itemReference.getIdTarget( ).equals( currentItem.getId( ) ) ) {
+                            FunctionalItem fitem = new FunctionalItem( currentItem, itemReference.getX( ), itemReference.getY( ) );
+                        	fitem.setScale(itemReference.getScale());
+                            items.add( fitem );
+                        }
         // Add the functional characters
         for( ElementReference npcReference : scene.getCharacterReferences( ) )
             if( new FunctionalConditions(npcReference.getConditions( )).allConditionsOk( ) )
                 for( NPC currentNPC : gameData.getCharacters( ) )
-                    if( npcReference.getIdTarget( ).equals( currentNPC.getId( ) ) )
-                        npcs.add( new FunctionalNPC( currentNPC, npcReference.getX( ), npcReference.getY( ) ) );
-        
+                    if( npcReference.getIdTarget( ).equals( currentNPC.getId( ) ) ) {
+                        FunctionalNPC fnpc = new FunctionalNPC( currentNPC, npcReference.getX( ), npcReference.getY( ) );
+                    	fnpc.setScale(npcReference.getScale());
+                        npcs.add( fnpc );
+                    }
         // Add the functional active areas
         for( ActiveArea activeArea : scene.getActiveAreas( ) )
             if( new FunctionalConditions(activeArea.getConditions( )).allConditionsOk( ) )
@@ -194,8 +198,11 @@ public class FunctionalScene implements Renderable {
         for( ElementReference atrezzoReference : scene.getAtrezzoReferences( ) )
             if( new FunctionalConditions(atrezzoReference.getConditions( )).allConditionsOk( ) )
                     for( Atrezzo currentAtrezzo : gameData.getAtrezzo() )
-                        if( atrezzoReference.getIdTarget( ).equals( currentAtrezzo.getId( ) ) )
-                            atrezzo.add( new FunctionalAtrezzo( currentAtrezzo, atrezzoReference.getX( ), atrezzoReference.getY( ) ) );
+                        if( atrezzoReference.getIdTarget( ).equals( currentAtrezzo.getId( ) ) ) {
+                            FunctionalAtrezzo fatrezzo = new FunctionalAtrezzo( currentAtrezzo, atrezzoReference.getX( ), atrezzoReference.getY( ));
+                        	fatrezzo.setScale(atrezzoReference.getScale());
+                            atrezzo.add( fatrezzo );
+                        }
 
         updateOffset( );
     }

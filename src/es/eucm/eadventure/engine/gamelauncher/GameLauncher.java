@@ -69,9 +69,7 @@ import es.eucm.eadventure.common.gui.TextConstants;
  */
 
 public class GameLauncher extends JFrame implements Runnable {
-    
-
-    
+	
     /**
 	 * Required
 	 */

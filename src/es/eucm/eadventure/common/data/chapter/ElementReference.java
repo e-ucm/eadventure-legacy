@@ -21,6 +21,11 @@ public class ElementReference {
 	 * Y position of the referenced element
 	 */
 	private int y;
+	
+	/**
+	 * Scale of the referenced element
+	 */
+	private float scale;
 
 	/**
 	 * Documentation of the element reference.
@@ -46,6 +51,7 @@ public class ElementReference {
 		this.idTarget = idTarget;
 		this.x = x;
 		this.y = y;
+		this.scale = 1;
 
 		documentation = null;
 		conditions = new Conditions( );
@@ -94,6 +100,24 @@ public class ElementReference {
 	 */
 	public Conditions getConditions( ) {
 		return this.conditions;
+	}
+	
+	/**
+	 * Returns the scale for this element
+	 * 
+	 * @return the scale for this element
+	 */
+	public float getScale( ) {
+		return this.scale;
+	}
+	
+	/**
+	 * Set the scale of the element
+	 * 
+	 * @param scale the scale of the element
+	 */
+	public void setScale(float scale) {
+		this.scale = scale;
 	}
 
 	/**
