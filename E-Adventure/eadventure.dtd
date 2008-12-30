@@ -212,7 +212,7 @@
 <!ATTLIST dialogue-node
 	nodeindex CDATA #REQUIRED
 >
-<!ELEMENT option-node ((speak-player, child)+,effect?)>
+<!ELEMENT option-node ((speak-player, child)*,effect?)>
 <!ATTLIST option-node
 	nodeindex CDATA #REQUIRED
 	random (yes | no) "no"
@@ -232,7 +232,7 @@
 	uri CDATA #IMPLIED
 	synthesize (yes | no) "no"
 >
-<!ELEMENT response ((option)+, effect?)>
+<!ELEMENT response ((option)*, effect?)>
 <!ATTLIST response
 	random (yes | no) "no" 
 >

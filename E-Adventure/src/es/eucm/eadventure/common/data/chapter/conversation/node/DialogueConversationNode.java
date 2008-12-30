@@ -156,7 +156,7 @@ public class DialogueConversationNode extends ConversationNode {
 	 * @see es.eucm.eadventure.common.data.chapterdata.conversation.node.ConversationNodeView#hasEffects()
 	 */
 	public boolean hasEffects( ) {
-		return !effects.isEmpty( );
+		return hasValidEffect()&&!effects.isEmpty( );
 	}
 
 	@Override

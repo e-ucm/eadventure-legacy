@@ -266,6 +266,7 @@ donde XX es un múmero cualquiera.</entry>
 	<entry key="Operation.AdventureConsistencyErrorBookPage">La página del libro no tiene ningún archivo de origen asociado</entry>
 	<entry key="Operation.AdventureConsistencyErrorPlayAnimation">El efecto "Reproducir animación" no tiene ninguna animación asociada</entry>
 	<entry key="Operation.AdventureConsistencyErrorPlaySound">El efecto "Reproducir sonido" no tiene ningún archivo sonido asociado</entry>
+	<entry key="Operation.AdventureConsistencyErrorEmptyOptionsNode">La conversación tiene un nodo de opciones sin ninguna opción</entry>
 
 	<entry key="Operation.AddChapterTitle">Añadir nuevo capítulo</entry>
 	<entry key="Operation.AddChapterMessage">Introduzca el título para el nuevo capítulo:</entry>
