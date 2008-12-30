@@ -64,10 +64,7 @@ public class OptionConversationNode extends ConversationNode {
 	 * Constructor
 	 */
 	public OptionConversationNode() {
-		options = new ArrayList<ConversationLine>( );
-		optionNodes = new ArrayList<ConversationNode>( );
-		random = false;
-	
+		this ( false );
 	}
 
 	/*
