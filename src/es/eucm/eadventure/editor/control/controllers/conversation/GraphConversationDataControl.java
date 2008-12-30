@@ -11,8 +11,6 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
-import es.eucm.eadventure.editor.control.controllers.general.NextSceneDataControl;
-import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class GraphConversationDataControl extends ConversationDataControl {
@@ -320,7 +318,7 @@ public class GraphConversationDataControl extends ConversationDataControl {
 
 	@Override
 	public boolean isValid( String currentPath, List<String> incidences ) {
-		return true;
+		return isValidNode ( graphConversation.getRootNode(), currentPath, incidences, new ArrayList<ConversationNode>() );
 	}
 
 	@Override

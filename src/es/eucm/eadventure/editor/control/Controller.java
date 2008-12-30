@@ -2110,7 +2110,7 @@ public class Controller {
 	 * Checks if the adventure is valid or not. It shows information to the user, whether the data is valid or not.
 	 */
 	public boolean checkAdventureConsistency(  ) {
-		return checkAdventureConsistency( false );
+		return checkAdventureConsistency( true );
 	}
 	
 	public boolean checkAdventureConsistency( boolean showSuccessFeedback ) {

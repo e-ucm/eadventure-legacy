@@ -1,5 +1,6 @@
 package es.eucm.eadventure.editor.control.controllers.conversation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.conversation.TreeConversation;
@@ -486,8 +487,9 @@ public class TreeConversationDataControl extends ConversationDataControl {
 
 	@Override
 	public boolean isValid( String currentPath, List<String> incidences ) {
-		return true;
+		return isValidNode ( treeConversation.getRootNode(), currentPath, incidences, new ArrayList<ConversationNode>() );
 	}
+	
 
 	@Override
 	public int countAssetReferences( String assetPath ) {

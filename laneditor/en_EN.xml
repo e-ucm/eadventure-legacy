@@ -260,6 +260,7 @@ named 'descriptor.xml' or 'chapterXX.xml' where XX is a number.</entry>
 	<entry key="Operation.AdventureConsistencyErrorBookPage">The page has no source text file attached</entry>
 	<entry key="Operation.AdventureConsistencyErrorPlayAnimation">The "Play animation" effect has no animation attached</entry>
 	<entry key="Operation.AdventureConsistencyErrorPlaySound">The "Play sound" effect has no sound clip attached</entry>
+	<entry key="Operation.AdventureConsistencyErrorEmptyOptionsNode">The conversation has an options node with no options</entry>
 
 	<entry key="Operation.AddChapterTitle">Add chapter</entry>
 	<entry key="Operation.AddChapterMessage">Input the title for the new chapter</entry>

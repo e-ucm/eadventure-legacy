@@ -1136,37 +1136,26 @@ public class EffectsController {
 		// For earch effect
 		while( i < effects.getEffects( ).size( ) ) {
 			// Get the effect and the type
-			boolean deleteEffect = false;
 			Effect effect = effects.getEffects( ).get( i );
 			int type = effect.getType( );
-
-			// Check if the effect must be deleted
-			if( type == Effect.CONSUME_OBJECT )
-				deleteEffect = ( (ConsumeObjectEffect) effect ).getIdTarget( ).equals( id );
-			else if( type == Effect.GENERATE_OBJECT )
-				deleteEffect = ( (GenerateObjectEffect) effect ).getIdTarget( ).equals( id );
-			else if( type == Effect.SPEAK_CHAR )
-				deleteEffect = ( (SpeakCharEffect) effect ).getIdTarget( ).equals( id );
-			else if( type == Effect.TRIGGER_BOOK )
-				deleteEffect = ( (TriggerBookEffect) effect ).getTargetBookId( ).equals( id );
-			else if( type == Effect.MOVE_NPC )
-				deleteEffect = ( (MoveNPCEffect) effect ).getIdTarget( ).equals( id );
-			else if( type == Effect.TRIGGER_CONVERSATION )
-				deleteEffect = ( (TriggerConversationEffect) effect ).getTargetConversationId( ).equals( id );
-			else if( type == Effect.TRIGGER_SCENE )
-				deleteEffect = ( (TriggerSceneEffect) effect ).getTargetSceneId( ).equals( id );
-			else if( type == Effect.TRIGGER_CUTSCENE )
-				deleteEffect = ( (TriggerCutsceneEffect) effect ).getTargetCutsceneId( ).equals( id );
+			boolean deleteEffect = false;
 			// If random effect
-			else if ( type == Effect.RANDOM_EFFECT){
-
+			if ( type == Effect.RANDOM_EFFECT){
 				RandomEffect randomEffect = (RandomEffect) effect;
-				Effects e = new Effects(); 				
-				if (randomEffect.getPositiveEffect( )!=null)
-					e.add( randomEffect.getPositiveEffect( ) );
-				if (randomEffect.getNegativeEffect( )!=null)
-					e.add( randomEffect.getNegativeEffect( ) );
-				EffectsController.deleteIdentifierReferences( id, e );
+				if (randomEffect.getPositiveEffect( )!=null){
+					if (deleteSingleEffect(id, randomEffect.getPositiveEffect())){
+						randomEffect.setPositiveEffect(null);
+						deleteEffect = true;
+					}
+				}
+				if (randomEffect.getNegativeEffect( )!=null){
+					if (deleteSingleEffect(id, randomEffect.getNegativeEffect())){
+						randomEffect.setNegativeEffect(null);
+					}
+				}
+
+			} else {
+				deleteEffect = deleteSingleEffect ( id, effect );
 			}
 
 
@@ -1176,5 +1165,29 @@ public class EffectsController {
 			else
 				i++;
 		}
+	}
+	
+	private static boolean deleteSingleEffect (String id, Effect effect ){
+		boolean deleteEffect = false;
+		int type = effect.getType( );
+
+		// Check if the effect must be deleted
+		if( type == Effect.CONSUME_OBJECT )
+			deleteEffect = ( (ConsumeObjectEffect) effect ).getIdTarget( ).equals( id );
+		else if( type == Effect.GENERATE_OBJECT )
+			deleteEffect = ( (GenerateObjectEffect) effect ).getIdTarget( ).equals( id );
+		else if( type == Effect.SPEAK_CHAR )
+			deleteEffect = ( (SpeakCharEffect) effect ).getIdTarget( ).equals( id );
+		else if( type == Effect.TRIGGER_BOOK )
+			deleteEffect = ( (TriggerBookEffect) effect ).getTargetBookId( ).equals( id );
+		else if( type == Effect.MOVE_NPC )
+			deleteEffect = ( (MoveNPCEffect) effect ).getIdTarget( ).equals( id );
+		else if( type == Effect.TRIGGER_CONVERSATION )
+			deleteEffect = ( (TriggerConversationEffect) effect ).getTargetConversationId( ).equals( id );
+		else if( type == Effect.TRIGGER_SCENE )
+			deleteEffect = ( (TriggerSceneEffect) effect ).getTargetSceneId( ).equals( id );
+		else if( type == Effect.TRIGGER_CUTSCENE )
+			deleteEffect = ( (TriggerCutsceneEffect) effect ).getTargetCutsceneId( ).equals( id );
+		return deleteEffect;
 	}
 }

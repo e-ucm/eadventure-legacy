@@ -63,7 +63,7 @@ public class OptionConversationNode extends ConversationNode {
 	/**
 	 * Constructor
 	 */
-	public OptionConversationNode() {
+	public OptionConversationNode( ) {
 		this ( false );
 	}
 
@@ -148,7 +148,7 @@ public class OptionConversationNode extends ConversationNode {
 	 * @see es.eucm.eadventure.common.data.chapterdata.conversation.node.ConversationNodeView#hasEffects()
 	 */
 	public boolean hasEffects( ) {
-		return !effects.isEmpty( );
+		return hasValidEffect()&&!effects.isEmpty( );
 	}
 
 	@Override
@@ -185,7 +185,7 @@ public class OptionConversationNode extends ConversationNode {
      */
     public void doRandom(){
     	// If option of randomly are activated
-    	if (random){
+    	if (random && getLineCount()>0 ){
     		int cont = getLineCount();
     		Random rnd = new Random();
     		int pos;

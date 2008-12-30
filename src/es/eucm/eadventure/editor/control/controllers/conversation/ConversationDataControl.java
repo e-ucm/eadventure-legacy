@@ -1,5 +1,8 @@
 package es.eucm.eadventure.editor.control.controllers.conversation;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
@@ -570,5 +573,37 @@ public abstract class ConversationDataControl extends DataControl {
 		}
 		} 
 		new SynthesizerDialog(selectedRow, node, control,player);
+	}
+	
+	
+	/**
+	 * An options node cannot be empty
+	 * @param node
+	 * @param currentPath
+	 * @param incidences
+	 * @return
+	 */
+	protected static boolean isValidNode ( ConversationNode node, String currentPath, List<String> incidences, List<ConversationNode> visitedNodes){
+		
+		boolean valid = true;
+		
+		if ( visitedNodes == null )
+			visitedNodes = new ArrayList<ConversationNode>( );
+		
+		if ( !visitedNodes.contains(node) ){
+			visitedNodes.add(node);
+			if (node.getType() == ConversationNode.OPTION && node.getLineCount() == 0){
+				if (incidences!=null && currentPath!=null)
+					incidences.add( currentPath + " >> "+ TextConstants.getText("Operation.AdventureConsistencyErrorEmptyOptionsNode") );
+				valid = false;
+			} else {
+				for ( int i=0; i< node.getChildCount(); i++ ){
+					valid &= isValidNode ( node.getChild(i), currentPath, incidences, visitedNodes );
+					if (!valid)
+						break;
+				}
+			}
+		}
+		return valid;
 	}
 }
