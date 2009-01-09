@@ -5,7 +5,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
-import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel.ImageElement;
+import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElement;
 
 public class ScenePreviewEditionController implements MouseListener, MouseMotionListener {
 
@@ -81,7 +81,7 @@ public class ScenePreviewEditionController implements MouseListener, MouseMotion
 			int changeY = (int) ((e.getY() - startDragY) / spep.getSizeRatio());
 			int x = originalX + changeX;
 			int y = originalY + changeY;
-			underMouse.getElementReferenceDataControl().setElementPosition(x, y);			
+			underMouse.changePosition(x, y);
 			spep.paintBackBuffer();
 			spep.flip();
 		} else if (underMouse != null && resize) {
