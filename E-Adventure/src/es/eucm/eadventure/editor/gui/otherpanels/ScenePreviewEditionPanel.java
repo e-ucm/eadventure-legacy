@@ -210,8 +210,9 @@ public class ScenePreviewEditionPanel extends JPanel implements MouseListener, M
 	
 	public void paint(Graphics g) {
 		super.paint(g);
-		if (backBuffer != null)
-			g.drawImage(backBuffer, 0, 0, null);
+		if (backBuffer != null) {
+			g.drawImage(backBuffer, marginX, marginY, marginX + backgroundWidth, marginY + backgroundHeight, marginX, marginY, marginX + backgroundWidth, marginY + backgroundHeight, null);
+		}
 	}
 		
 	/**
