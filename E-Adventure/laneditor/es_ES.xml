@@ -843,9 +843,10 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="ActiveAreasList.PreviewTitle">Previsualización de las zonas activas</entry>
 	<entry key="ActiveAreasList.Information">Las zonas activas son regiones rectangulares de la escena con las que se puede interactuar.</entry>
 
-	<entry key="BarriersList.Title">Barreras</entry>
-	<entry key="BarriersList.PreviewTitle">Previsualización de las barreras</entry>
-	<entry key="BarriersList.Information">Las barreras son zonas rectangulares de la escena que bloquean el paso del protagonista.</entry>
+	<entry key="BarriersList.Title">Barreras y trajectoria</entry>
+	<entry key="BarriersList.PreviewTitle">Previsualización de las barreras y edición de la trajectoria</entry>
+	<entry key="BarriersList.Information">Las barreras son zonas rectangulares de la escena que bloquean el paso del protagonista.
+										La trajectoria es un conjunto de nodos unidos por aristas que inidican los caminos por los que se puede desplazar el protagonista.</entry>
 
 	<entry key="Exit.Title">Salida</entry>
 	<entry key="Exit.Documentation">Documentación de la salida</entry>
@@ -1388,7 +1389,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="Element.Name49">Regla temporizada</entry>
 	<entry key="Element.Name50">Zonas activas</entry>
 	<entry key="Element.Name51">Zona activa</entry>
-	<entry key="Element.Name52">Barreras</entry>
+	<entry key="Element.Name52">Barreras y trajectoria</entry>
 	<entry key="Element.Name53">Barrera</entry>
 	<entry key="Element.Name54">Estado global</entry>
 	<entry key="Element.Name55">Estados globales</entry>

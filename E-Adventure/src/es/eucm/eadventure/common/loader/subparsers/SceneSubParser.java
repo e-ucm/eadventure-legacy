@@ -69,7 +69,10 @@ public class SceneSubParser extends SubParser {
 	 */
 	private static final int SUBPARSING_BARRIER = 4;
 
-
+	private static final int SUBPARSING_TRAJECTORY = 5;
+	
+	
+	
 	/**
 	 * Stores the current element being parsed
 	 */
@@ -308,6 +311,11 @@ public class SceneSubParser extends SubParser {
 				subParsing = SUBPARSING_BARRIER;
 				subParser = new BarrierSubParser( chapter, scene,scene.getBarriers( ).size( ) );
 			}
+			
+			else if( qName.equals( "trajectory") ) {
+				subParsing = SUBPARSING_TRAJECTORY;
+				subParser = new TrajectorySubParser( chapter, scene);
+			}
 
 		}
 
@@ -459,6 +467,13 @@ public class SceneSubParser extends SubParser {
 			subParser.endElement( namespaceURI, sName, qName );
 			
 			if ( qName.equals( "barrier" )){
+				subParsing = SUBPARSING_NONE;
+			}
+		}
+		
+		else if (subParsing == SUBPARSING_TRAJECTORY) {
+			subParser.endElement( namespaceURI, sName, qName);
+			if (qName.equals("trajectory")) {
 				subParsing = SUBPARSING_NONE;
 			}
 		}

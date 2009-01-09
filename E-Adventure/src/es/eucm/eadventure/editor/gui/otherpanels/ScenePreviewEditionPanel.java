@@ -9,6 +9,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,8 +18,8 @@ import javax.swing.JPanel;
 
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
+import es.eucm.eadventure.editor.control.controllers.ScenePreviewEditionController;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
-import es.eucm.eadventure.editor.control.controllers.scene.ReferencesListDataControl;
 
 /**
  * This panel show the scene in different configurations, allowing objects
@@ -27,7 +28,7 @@ import es.eucm.eadventure.editor.control.controllers.scene.ReferencesListDataCon
  * @author Eugenio Marchiori
  *
  */
-public class ScenePreviewEditionPanel extends JPanel implements MouseListener, MouseMotionListener {
+public class ScenePreviewEditionPanel extends JPanel {
 
 	/**
 	 * 
@@ -63,19 +64,7 @@ public class ScenePreviewEditionPanel extends JPanel implements MouseListener, M
 	private Image background;
 	
 	private double sizeRatio;
-
-	private ImageElement underMouse;
 		
-	private int startDragX;
-	
-	private int startDragY;
-	
-	private int originalX;
-	
-	private int originalY;
-
-	private float originalScale;
-	
 	private int marginX;
 	
 	private int marginY;
@@ -84,9 +73,9 @@ public class ScenePreviewEditionPanel extends JPanel implements MouseListener, M
 	
 	private int backgroundHeight;
 	
-	private boolean resize;
-	
 	private ElementReferenceSelectionListener elementReferenceSelectionListener;
+	
+	private ScenePreviewEditionController spec;
 	
 	/**
 	 * Image to be used as a backbuffer
@@ -94,9 +83,9 @@ public class ScenePreviewEditionPanel extends JPanel implements MouseListener, M
 	private BufferedImage backBuffer;
 	
 	/**
-	 * The movable element, for one there is just one
+	 * The selected element in the panel
 	 */
-	private ImageElement movableElement;
+	private ImageElement selectedElement;
 	
 	/**
 	 * Default constructor
@@ -107,8 +96,9 @@ public class ScenePreviewEditionPanel extends JPanel implements MouseListener, M
 		displayCategory = new HashMap<Integer, Boolean>();
 		movableCategory = new HashMap<Integer, Boolean>();
 		setLayout(new BorderLayout());
-		this.addMouseListener(this);
-		this.addMouseMotionListener(this);
+		spec = new ScenePreviewEditionController(this);
+		this.addMouseListener(spec);
+		this.addMouseMotionListener(spec);
 	}
 	
 	/**
@@ -190,7 +180,7 @@ public class ScenePreviewEditionPanel extends JPanel implements MouseListener, M
 	 * @param element The movable element
 	 */
 	public void setMovableElement(ElementReferenceDataControl element) {
-		movableElement = new ImageElement(element);
+		selectedElement = new ImageElement(element);
 		for (Integer key : movableCategory.keySet()) {
 			movableCategory.put(key, new Boolean(false));
 		}
@@ -226,31 +216,40 @@ public class ScenePreviewEditionPanel extends JPanel implements MouseListener, M
 	/**
 	 * Flip the backbuffer
 	 */
-	private void flip() {
+	public void flip() {
 		this.getGraphics().drawImage(backBuffer, marginX, marginY, marginX + backgroundWidth, marginY + backgroundHeight, marginX, marginY, marginX + backgroundWidth, marginY + backgroundHeight, null);
 	}
 	
 	/**
 	 * Paint the components to the backbuffer
 	 */
-	private void paintBackBuffer() {
+	public void paintBackBuffer() {
 		Graphics g = backBuffer.getGraphics();
 		paintRelativeImage( g, background, background.getWidth(null)/2, background.getHeight(null), 1);
+		
+		
+		List<ImageElement> elementsToDraw = new ArrayList<ImageElement>();
 		
 		for (Integer key : displayCategory.keySet()) {
 			if (displayCategory.get(key)) {
 				for (ImageElement imageElement : elements.get(key)) {
-					paintRelativeImage( g, imageElement.getImage(), imageElement.getX(), imageElement.getY(), imageElement.getScale());
+					elementsToDraw.add(imageElement);
 				}
 			}
 		}
 		
-		if (underMouse != null) {
-			paintBorders(g, underMouse, LIGHT_BORDER);
+		Collections.sort(elementsToDraw);
+		
+		for (ImageElement imageElement : elementsToDraw) {
+			paintRelativeImage( g, imageElement.getImage(), imageElement.getX(), imageElement.getY(), imageElement.getScale());
 		}
-		if (movableElement != null) {
-			paintBorders(g, movableElement, HARD_BORDER);
-			paintBorders(g, movableElement, RESIZE_BORDER);
+		
+		if (spec.getUnderMouse() != null) {
+			paintBorders(g, spec.getUnderMouse(), LIGHT_BORDER);
+		}
+		if (selectedElement != null) {
+			paintBorders(g, selectedElement, HARD_BORDER);
+			paintBorders(g, selectedElement, RESIZE_BORDER);
 		}
 	}
 
@@ -367,7 +366,7 @@ public class ScenePreviewEditionPanel extends JPanel implements MouseListener, M
 	/**
 	 * Class that represents an ElementReferenceDataControl and its image
 	 */
-	private class ImageElement {
+	public class ImageElement implements Comparable<Object> {
 		
 		private Image image;
 		
@@ -420,6 +419,19 @@ public class ScenePreviewEditionPanel extends JPanel implements MouseListener, M
 				return true;
 			return false;
 		}
+
+		@Override
+		public int compareTo(Object arg0) {
+			if (arg0 == null || !(arg0 instanceof ImageElement)) {
+				return 1;
+			}
+			ImageElement temp = (ImageElement) arg0;
+			
+			int tempLayer = temp.getElementReferenceDataControl().getElementReference().getLayer();
+			int thisLayer = this.getElementReferenceDataControl().getElementReference().getLayer();
+
+			return tempLayer - thisLayer;
+		}
 			
 	}
 
@@ -459,8 +471,8 @@ public class ScenePreviewEditionPanel extends JPanel implements MouseListener, M
 					}
 				}
 		}
-		if (movableElement != null && movableElement.getElementReferenceDataControl() == element) {
-			movableElement.recreateImage();
+		if (selectedElement != null && selectedElement.getElementReferenceDataControl() == element) {
+			selectedElement.recreateImage();
 		}
 	}
 
@@ -471,7 +483,8 @@ public class ScenePreviewEditionPanel extends JPanel implements MouseListener, M
 	 * @param y the y-axis value
 	 * @return The movable ImageElement at (x,y)
 	 */
-	private ImageElement getMovableElement(int x, int y) {
+	public ImageElement getMovableElement(int x, int y) {
+		/*
 		if (movableElement != null) {
 			double scale = movableElement.getScale();
 			int minX = (int) (movableElement.getX() - movableElement.getImage().getWidth(null) * scale / 2);
@@ -483,6 +496,7 @@ public class ScenePreviewEditionPanel extends JPanel implements MouseListener, M
 			else
 				return null;
 		}
+		*/
 		for (Integer key : movableCategory.keySet()) {
 			if (movableCategory.get(key)) {
 				for (ImageElement imageElement : elements.get(key)) {
@@ -502,121 +516,42 @@ public class ScenePreviewEditionPanel extends JPanel implements MouseListener, M
 	
 	/* Mouse Listeners methods */
 
-	public void mouseClicked(MouseEvent e) {
-		if (movableElement != null) {
-			int x = (int) ((e.getX() - marginX) / sizeRatio);
-			int y = (int) ((e.getY() - marginY) / sizeRatio);
-			movableElement.getElementReferenceDataControl().setElementPosition(x, y);
-			paintBackBuffer();
-			flip();
-		}
-	}
 
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-		if (underMouse != null) {
-			startDragX = e.getX();
-			startDragY = e.getY();
-			originalX = underMouse.getX();
-			originalY = underMouse.getY();
-			originalScale = underMouse.getScale();
-			if (elementReferenceSelectionListener != null){
-				elementReferenceSelectionListener.elementReferenceSelected(underMouse.getElementReferenceDataControl());
-			}
-		}
-		
-	}
-
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void mouseDragged(MouseEvent e) {
-		if (underMouse != null && !resize) {
-			int changeX = (int) ((e.getX() - startDragX) / sizeRatio);
-			int changeY = (int) ((e.getY() - startDragY) / sizeRatio);
-			int x = originalX + changeX;
-			int y = originalY + changeY;
-			underMouse.getElementReferenceDataControl().setElementPosition(x, y);			
-			paintBackBuffer();
-			flip();
-		} else if (underMouse != null && resize) {
-			double changeX = (e.getX() - startDragX);
-			double changeY = - (e.getY() - startDragY);
-			double width = underMouse.getImage().getWidth(null);
-			double heigth = underMouse.getImage().getHeight(null);
-			
-			double temp = changeX / width;
-			double temp2 = changeY / heigth;
-			
-			float scale = originalScale;
-			if (temp*temp > temp2*temp2)
-				scale += temp;
-			
-			underMouse.getElementReferenceDataControl().setElementScale(scale);
-			paintBackBuffer();
-			flip();
-		}
-	}
-
-	public void mouseMoved(MouseEvent e) {
-		int x = (int) ((e.getX() - marginX) / sizeRatio);
-		int y = (int) ((e.getY() - marginY) / sizeRatio);
-		ImageElement imageElement = getMovableElement(x, y);
-		ImageElement resizeElement = getResizeElement(x, y);
-		if (resizeElement == null && imageElement != underMouse) {
-			underMouse = imageElement;
-			resize = false;
-			paintBackBuffer();
-			flip();
-		} else if (resizeElement != null && (!resize || imageElement != underMouse)) {
-			underMouse = resizeElement;
-			resize = true;
-			paintBackBuffer();
-			flip();
-		} else if (resizeElement == null) {
-			underMouse = null;
-			resize = false;
-		}
-	}
-
-	private ImageElement getResizeElement(int x, int y) {
-		if (movableElement == null)
+	public ImageElement getResizeElement(int x, int y) {
+		if (selectedElement == null)
 			return null;
-		int x_image = (int) ((movableElement.getX() - movableElement.getImage().getWidth(null) *movableElement.getScale() / 2));
-		int y_image = (int) ((movableElement.getY() - movableElement.getImage().getHeight(null) * movableElement.getScale()));
-		int width = (int) (movableElement.getImage().getWidth(null)*movableElement.getScale());
+		int x_image = (int) ((selectedElement.getX() - selectedElement.getImage().getWidth(null) *selectedElement.getScale() / 2));
+		int y_image = (int) ((selectedElement.getY() - selectedElement.getImage().getHeight(null) * selectedElement.getScale()));
+		int width = (int) (selectedElement.getImage().getWidth(null)*selectedElement.getScale());
 
 		if (x > x_image + width - 8 &&
 				x < x_image + width + 8 &&
 				y > y_image - 8 &&
 				y < y_image + 8) {
-			return movableElement;
+			return selectedElement;
 		}
 
 		return null;
 	}
 	
 	/**
-	 * Changes the current underMouse attribute created from a ElementReferenceDataControl.
+	 * Changes the current selectedElement created from a ElementReferenceDataControl.
 	 * 
 	 * @param erdc
-	 * 				The new ElementReferenceDataControl that will be created to underMouse attribute
+	 * 				The new ElementReferenceDataControl
 	 */
-	public void setUnderMouse(ElementReferenceDataControl erdc){
-		this.underMouse = new ImageElement(erdc);
+	public void setSelectedElement(ElementReferenceDataControl erdc){
+		this.selectedElement = new ImageElement(erdc);
+	}
+	
+	public void setSelectedElement(ImageElement imageElement) {
+		this.selectedElement = imageElement;
+		if (elementReferenceSelectionListener != null){
+			if (selectedElement != null)
+				elementReferenceSelectionListener.elementReferenceSelected(selectedElement.getElementReferenceDataControl());
+			else
+				elementReferenceSelectionListener.elementReferenceSelected(null);
+		}
 	}
 
 	/**
@@ -629,6 +564,20 @@ public class ScenePreviewEditionPanel extends JPanel implements MouseListener, M
 			ElementReferenceSelectionListener elementReferenceSelectionListener) {
 		this.elementReferenceSelectionListener = elementReferenceSelectionListener;
 	}
+	
+	public double getSizeRatio() {
+		return sizeRatio;
+	}
 
-
+	public int getMarginX() {
+		return marginX;
+	}
+	
+	public int getMarginY() {
+		return marginY;
+	}
+	
+	public ImageElement getSelectedElement() {
+		return selectedElement;
+	}
 }

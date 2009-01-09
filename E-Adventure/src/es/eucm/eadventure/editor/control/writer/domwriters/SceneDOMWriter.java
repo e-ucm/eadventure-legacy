@@ -455,6 +455,12 @@ public class SceneDOMWriter {
 				sceneElement.appendChild( atrezzoNode );
 			}
 
+			if( scene.getTrajectory() != null ) {
+				Node trajectoryNode = TrajectoryDOMWriter.buildDOM(scene.getTrajectory());
+				doc.adoptNode( trajectoryNode );
+				sceneElement.appendChild( trajectoryNode );
+			}
+
 
 		} catch( ParserConfigurationException e ) {
 			e.printStackTrace( );

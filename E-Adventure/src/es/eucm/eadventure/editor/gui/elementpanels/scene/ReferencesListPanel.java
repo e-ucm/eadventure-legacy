@@ -225,7 +225,8 @@ public class ReferencesListPanel extends JPanel {
 			informationTextPane.setEditable( false );
 			informationTextPane.setBackground( getBackground( ) );
 			informationTextPane.setText( TextConstants.getText( "ElementList.Empty" ));
-			infoPanel.add( informationTextPane,BorderLayout.CENTER);
+			infoPanel.setLayout(new BorderLayout());
+			infoPanel.add( informationTextPane, BorderLayout.CENTER);
 			
 			//Disable delete button
 			deleteButton.setEnabled( false );
@@ -239,7 +240,7 @@ public class ReferencesListPanel extends JPanel {
 			int selectedReference = table.getSelectedRow( );
 			ElementReferenceDataControl elementReferenceDataControl = referencesListDataControl.getAllReferencesDataControl().get( selectedReference);
 			referencesListDataControl.setLastElementReferenceDataControl(elementReferenceDataControl);
-			spep.setUnderMouse(elementReferenceDataControl);
+			spep.setSelectedElement(elementReferenceDataControl);
 
 			prepareInformationPanel();
 			

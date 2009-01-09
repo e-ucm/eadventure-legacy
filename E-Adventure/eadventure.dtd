@@ -42,11 +42,12 @@
 	y NMTOKEN #IMPLIED
 >
 <!ELEMENT trajectory (node*, side*)>
-<!ELEMENT node (scale?)>
+<!ELEMENT node EMPTY>
 <!ATTLIST node
 	id ID #REQUIRED
 	x NMTOKEN #REQUIRED
 	y NMTOKEN #REQUIRED
+	scale CDATA #IMPLIED
 >
 <!ELEMENT side EMPTY>
 <!ATTLIST side
