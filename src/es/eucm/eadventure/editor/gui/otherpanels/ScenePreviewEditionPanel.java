@@ -20,6 +20,7 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.ScenePreviewEditionController;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
+import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
 
 /**
  * This panel show the scene in different configurations, allowing objects
@@ -46,6 +47,8 @@ public class ScenePreviewEditionPanel extends JPanel {
 	public static final int CATEGORY_BARRIER = 4;
 	
 	public static final int CATEGORY_ACTIVEAREA = 5;
+	
+	public static final int CATEGORY_PLAYER = 6;
 
 	private static final int MARGIN = 20;
 
@@ -131,7 +134,10 @@ public class ScenePreviewEditionPanel extends JPanel {
 		list.add(new ImageElement(element));
 	}
 	
-	
+	public void addPlayer(SceneDataControl scene, Image image){
+		//TODO 
+	}
+		
 	/**
 	 * Remove an element from a given category
 	 * 
