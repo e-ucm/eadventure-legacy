@@ -6,11 +6,8 @@ import javax.swing.JComponent;
 
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.control.controllers.scene.ActiveAreaDataControl;
-import es.eucm.eadventure.editor.control.controllers.scene.ActiveAreasListDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.BarrierDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.BarriersListDataControl;
-import es.eucm.eadventure.editor.gui.elementpanels.scene.ActiveAreasListPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.scene.BarriersListPanel;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.TreeNode;
 

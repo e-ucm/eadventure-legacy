@@ -5,6 +5,7 @@ import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.ElementReference;
 import es.eucm.eadventure.common.data.chapter.Exit;
+import es.eucm.eadventure.common.data.chapter.Trajectory;
 import es.eucm.eadventure.common.data.chapter.elements.ActiveArea;
 import es.eucm.eadventure.common.data.chapter.elements.Barrier;
 
@@ -73,6 +74,8 @@ public class Scene extends GeneralScene {
      */
     private List<Barrier> barriers;
 
+    private Trajectory trajectory;
+    
 	/**
 	 * Creates a new Scene
 	 * 
@@ -90,6 +93,20 @@ public class Scene extends GeneralScene {
 		characterReferences = new ArrayList<ElementReference>( );
 		activeAreas = new ArrayList<ActiveArea>();
 		barriers = new ArrayList<Barrier>();
+	}
+
+	/**
+	 * @return the trajectory
+	 */
+	public Trajectory getTrajectory() {
+		return trajectory;
+	}
+
+	/**
+	 * @param trajectory the trajectory to set
+	 */
+	public void setTrajectory(Trajectory trajectory) {
+		this.trajectory = trajectory;
 	}
 
 	/**
