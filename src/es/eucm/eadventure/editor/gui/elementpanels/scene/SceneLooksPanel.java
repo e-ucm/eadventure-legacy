@@ -43,17 +43,17 @@ public class SceneLooksPanel extends LooksPanel {
 
 		// Add the item references first
 		for( ElementReferenceDataControl elementReference : sceneDataControl.getReferencesList( ).getItemReferences( ) ) {
-			scenePreviewEditionPanel.addElement(ScenePreviewEditionPanel.CATEGORY_NONE, elementReference);
+			scenePreviewEditionPanel.addElement(ScenePreviewEditionPanel.CATEGORY_OBJECT, elementReference);
 		}
 
 		// Add then the character references
 		for( ElementReferenceDataControl elementReference : sceneDataControl.getReferencesList( ).getNPCReferences( ) ) {
-			scenePreviewEditionPanel.addElement(ScenePreviewEditionPanel.CATEGORY_NONE, elementReference);
+			scenePreviewEditionPanel.addElement(ScenePreviewEditionPanel.CATEGORY_CHARACTER, elementReference);
 		}
 		
 		// Add the atrezzo item references first
 		for( ElementReferenceDataControl elementReference : sceneDataControl.getReferencesList( ).getAtrezzoReferences( ) ) {
-			scenePreviewEditionPanel.addElement(ScenePreviewEditionPanel.CATEGORY_NONE, elementReference);
+			scenePreviewEditionPanel.addElement(ScenePreviewEditionPanel.CATEGORY_ATREZZO, elementReference);
 		}
 
 		scenePreviewEditionPanel.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_NONE, false);

@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
+import es.eucm.eadventure.editor.control.controllers.scene.ReferencesListDataControl;
 
 /**
  * This panel show the scene in different configurations, allowing objects
@@ -85,6 +86,8 @@ public class ScenePreviewEditionPanel extends JPanel implements MouseListener, M
 	
 	private boolean resize;
 	
+	private ElementReferenceSelectionListener elementReferenceSelectionListener;
+	
 	/**
 	 * Image to be used as a backbuffer
 	 */
@@ -118,6 +121,8 @@ public class ScenePreviewEditionPanel extends JPanel implements MouseListener, M
 		loadBackground(imagePath);
 	}
 	
+	
+	
 	/**
 	 * Add new element to the panel, in a given category
 	 * 
@@ -136,8 +141,9 @@ public class ScenePreviewEditionPanel extends JPanel implements MouseListener, M
 		list.add(new ImageElement(element));
 	}
 	
+	
 	/**
-	 * Remove an elmenet from a given category
+	 * Remove an element from a given category
 	 * 
 	 * @param category the category of the element
 	 * @param element the element to remove
@@ -145,7 +151,9 @@ public class ScenePreviewEditionPanel extends JPanel implements MouseListener, M
 	public void removeElement(int category, ElementReferenceDataControl element) {
 		Integer key = new Integer(category);
 		List<ImageElement> list = elements.get(key);
-		list.remove(new ImageElement(element));
+		if (list!= null){
+			list.remove(new ImageElement(element));
+		}
 		repaint();
 	}
 	
@@ -523,6 +531,9 @@ public class ScenePreviewEditionPanel extends JPanel implements MouseListener, M
 			originalX = underMouse.getX();
 			originalY = underMouse.getY();
 			originalScale = underMouse.getScale();
+			if (elementReferenceSelectionListener != null){
+				elementReferenceSelectionListener.elementReferenceSelected(underMouse.getElementReferenceDataControl());
+			}
 		}
 		
 	}
@@ -596,6 +607,27 @@ public class ScenePreviewEditionPanel extends JPanel implements MouseListener, M
 		}
 
 		return null;
+	}
+	
+	/**
+	 * Changes the current underMouse attribute created from a ElementReferenceDataControl.
+	 * 
+	 * @param erdc
+	 * 				The new ElementReferenceDataControl that will be created to underMouse attribute
+	 */
+	public void setUnderMouse(ElementReferenceDataControl erdc){
+		this.underMouse = new ImageElement(erdc);
+	}
+
+	/**
+	 * Changes the element selection listener that captures the event
+	 * 
+	 * @param elementReferenceSelectionListener
+	 * 				the new element reference selection listener
+	 */
+	public void setElementReferenceSelectionListener(
+			ElementReferenceSelectionListener elementReferenceSelectionListener) {
+		this.elementReferenceSelectionListener = elementReferenceSelectionListener;
 	}
 
 

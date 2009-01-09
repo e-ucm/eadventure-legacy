@@ -114,6 +114,7 @@ public class ConfigData {
 		Properties configuration = new Properties( );
 		configuration.setProperty( "ShowItemReferences", String.valueOf( instance.showItemReferences ) );
 		configuration.setProperty( "ShowNPCReferences", String.valueOf( instance.showNPCReferences ) );
+		configuration.setProperty( "ShowAtrezzoReferences", String.valueOf( instance.showAtrezzoReferences ) );
 		configuration.setProperty( "ShowStartDialog", String.valueOf( instance.showStartDialog ) );
 		configuration.setProperty( "LanguageFile", instance.languageFile );
 		configuration.setProperty( "AboutFile", instance.aboutFile );

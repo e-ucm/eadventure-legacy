@@ -908,6 +908,12 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="ItemReference.Conditions">Conditions of the item reference</entry>
 	<entry key="ItemReference.Position">Position of the item reference</entry>
 	
+	<entry key="ItemReferenceTable.TableBorder">References list</entry>
+	<entry key="ItemReferenceTable.ListDescription">Current number of references: {#0}</entry>
+	<entry key="ItemReferenceTable.AddParagraph">Create a new element reference (Atrezzo, item or npc references are allowed)</entry>
+	
+	
+	
 	<entry key="AtrezzoReferencesList.Title">Atrezzo item references</entry>
 	<entry key="AtrezzoReferencesList.PreviewTitle">Preview of the atrezzo items location</entry>
 	<entry key="AtrezzoReferencesList.Information">The atrezzo item references are the atrezzo items that can be found in the scene. Each atrezzo item is defined out of the scene, but can be added to a lot of scenes. For each reference, you can select where do you want to place the atrezzo items, and in which circumstances you want it to appear in the scene.</entry>
@@ -1077,6 +1083,12 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="Atrezzo.LookPanelTip">Panel for the edition of the different looks of the atrezzo item </entry>
 	<entry key="Atrezzo.DocPanelTitle">Documentation</entry>
 	<entry key="Atrezzo.DocPanelTip">Panel for the edition of the documentation of the atrezzo item</entry>
+
+	<entry key="ElementList.Title">Scene references elements</entry>
+	<entry key="ElementList.Layer">Layer</entry>
+	<entry key="ElementList.Empty">No element reference has been selected</entry>
+	<entry key="ElementList.Info">Conditions and information </entry>
+
 
 	<entry key="ActionsList.Title">Actions</entry>
 	<entry key="ActionsList.ListTitle">List of actions</entry>

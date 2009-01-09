@@ -61,6 +61,7 @@
 	idTarget IDREF #REQUIRED
 	%position;
 	scale CDATA #IMPLIED
+	layer CDATA "-1"
 >
 <!ELEMENT atrezzo (atrezzo-ref+)>
 <!ELEMENT atrezzo-ref (documentation?, condition?)>
@@ -68,6 +69,7 @@
 	idTarget IDREF #REQUIRED
 	%position;
 	scale CDATA #IMPLIED
+	layer CDATA "-1"
 >
 
 <!ELEMENT characters (character-ref+)>
@@ -76,6 +78,7 @@
 	idTarget IDREF #REQUIRED
 	%position;
 	scale CDATA #IMPLIED
+	layer CDATA "-1"
 >
 
 <!ELEMENT active-areas (active-area+)>

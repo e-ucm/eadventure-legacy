@@ -28,6 +28,11 @@ public class ElementReference {
 	private float scale;
 
 	/**
+	 * The order in which will be drown this element
+	 */
+	private int layer;
+	
+	/**
 	 * Documentation of the element reference.
 	 */
 	private String documentation;
@@ -52,7 +57,7 @@ public class ElementReference {
 		this.x = x;
 		this.y = y;
 		this.scale = 1;
-
+		this.layer = -1;
 		documentation = null;
 		conditions = new Conditions( );
 	}
@@ -161,5 +166,25 @@ public class ElementReference {
 	 */
 	public void setConditions( Conditions conditions ) {
 		this.conditions = conditions;
+	}
+
+	/**
+	 *  Get the layer for this element
+	 * 
+	 * @return 
+	 * 		layer
+	 */
+	public int getLayer() {
+		return layer;
+	}
+
+	/**
+	 *  Changes the layer for this element
+	 * 
+	 * @param layer
+	 * 				The new layer 
+	 */
+	public void setLayer(int layer) {
+		this.layer = layer;
 	}
 }
