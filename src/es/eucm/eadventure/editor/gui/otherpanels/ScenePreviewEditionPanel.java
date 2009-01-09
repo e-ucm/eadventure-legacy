@@ -137,6 +137,19 @@ public class ScenePreviewEditionPanel extends JPanel implements MouseListener, M
 	}
 	
 	/**
+	 * Remove an elmenet from a given category
+	 * 
+	 * @param category the category of the element
+	 * @param element the element to remove
+	 */
+	public void removeElement(int category, ElementReferenceDataControl element) {
+		Integer key = new Integer(category);
+		List<ImageElement> list = elements.get(key);
+		list.remove(new ImageElement(element));
+		repaint();
+	}
+	
+	/**
 	 * Set a category to be display or hidden
 	 * 
 	 * @param category the category
@@ -387,6 +400,18 @@ public class ScenePreviewEditionPanel extends JPanel implements MouseListener, M
 			else
 				image = (new ImageIcon("img/assets/EmptyImage.png")).getImage();
 		}
+		
+		public boolean equals(Object o) {
+			if (o == null)
+				return false;
+			if (!(o instanceof ImageElement))
+				return false;
+			ImageElement temp = (ImageElement) o;
+			if (temp.getElementReferenceDataControl().getElementId().equals(this.getElementReferenceDataControl().getElementId()))
+				return true;
+			return false;
+		}
+			
 	}
 
 	/**
