@@ -23,6 +23,11 @@ public class ElementReferenceDataControl extends DataControl {
 	 * Conditions controller.
 	 */
 	private ConditionsController conditionsController;
+	
+	/**
+	 * The type of the element reference (item, npc or atrezzo)
+	 */
+	private int type;
 
 	/**
 	 * Contructor.
@@ -32,10 +37,10 @@ public class ElementReferenceDataControl extends DataControl {
 	 * @param elementReference
 	 *            Element reference of the data control structure
 	 */
-	public ElementReferenceDataControl( SceneDataControl sceneDataControl, ElementReference elementReference ) {
+	public ElementReferenceDataControl( SceneDataControl sceneDataControl, ElementReference elementReference, int type ) {
 		this.sceneDataControl = sceneDataControl;
 		this.elementReference = elementReference;
-
+		this.type = type;
 		// Create subcontrollers
 		conditionsController = new ConditionsController( elementReference.getConditions( ) );
 	}
@@ -284,6 +289,25 @@ public class ElementReferenceDataControl extends DataControl {
 	public boolean canBeDuplicated( ) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	/**
+	 * Return the element reference
+	 * 
+	 * @return
+	 * 		the element reference
+	 */
+	public ElementReference getElementReference() {
+		return elementReference;
+	}
+
+	/**
+	 * 
+	 * @return
+	 * 		The type of the current element reference
+	 */
+	public int getType() {
+		return type;
 	}
 
 }

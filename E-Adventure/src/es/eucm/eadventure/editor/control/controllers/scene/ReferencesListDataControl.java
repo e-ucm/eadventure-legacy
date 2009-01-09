@@ -21,8 +21,14 @@ public class ReferencesListDataControl extends DataControl {
 	 */
 	private List<ElementReference> itemReferencesList;
 	
+	/**
+	 * List of atrezzo references.
+	 */
 	private List<ElementReference> atrezzoReferencesList;
 	
+	/**
+	 * List of non-player character references.
+	 */
 	private List<ElementReference> npcReferencesList;
 
 	/**
@@ -30,10 +36,30 @@ public class ReferencesListDataControl extends DataControl {
 	 */
 	private List<ElementReferenceDataControl> itemReferencesDataControlList;
 
+	/**
+	 * List of atrezzo reference controllers.
+	 */
 	private List<ElementReferenceDataControl> atrezzoReferencesDataControlList;
 	
+	/**
+	 * List of non-player character reference controllers.
+	 */
 	private List<ElementReferenceDataControl> npcReferencesDataControlList;
 	
+	/**
+	 * List of all elements order by number of layer (or y position when they have the same layer "-1")
+	 */
+	private List<ElementReference> allReferences;
+	
+	/**
+	 * List of all elements order by number of layer (or y position when they have the same layer "-1")
+	 */
+	private List<ElementReferenceDataControl> allReferencesDataControl;
+	
+	/**
+	 * The last introduced element referenced 
+	 */
+	private ElementReferenceDataControl lastElementReferenceDataControl;
 	
 	/**
 	 * Constructor.
@@ -49,21 +75,193 @@ public class ReferencesListDataControl extends DataControl {
 		this.itemReferencesList = itemReferencesList;
 		this.atrezzoReferencesList = atrezzoReferencesList;
 		this.npcReferencesList = npcReferencesList;
-
+		this.allReferences = new ArrayList<ElementReference>();
+		this.allReferencesDataControl = new ArrayList<ElementReferenceDataControl>();
+		this.lastElementReferenceDataControl = null;
+		// Check if one of references has layer -1: if it is true, it means that element references has not layer. 
 		// Create subcontrollers
 		itemReferencesDataControlList = new ArrayList<ElementReferenceDataControl>( );
-		for( ElementReference itemReference : itemReferencesList )
-			itemReferencesDataControlList.add( new ElementReferenceDataControl( sceneDataControl, itemReference ) );
+		boolean hasLayer = hasLayer();
+		for( ElementReference itemReference : itemReferencesList ){
+			ElementReferenceDataControl erdc = new ElementReferenceDataControl( sceneDataControl, itemReference, Controller.ITEM_REFERENCE) ;
+			itemReferencesDataControlList.add(erdc );
+			insertInOrder(erdc,hasLayer);
+			insertInOrder(itemReference,hasLayer);
+		}
 		
 		atrezzoReferencesDataControlList = new ArrayList<ElementReferenceDataControl>();
-		for (ElementReference atrezzoReference : atrezzoReferencesList)
-			atrezzoReferencesDataControlList.add( new ElementReferenceDataControl(sceneDataControl, atrezzoReference));
-		
+		for (ElementReference atrezzoReference : atrezzoReferencesList){
+			ElementReferenceDataControl erdc = new ElementReferenceDataControl(sceneDataControl, atrezzoReference, Controller.ATREZZO_REFERENCE);
+			atrezzoReferencesDataControlList.add(erdc );
+			insertInOrder(erdc,hasLayer);
+			insertInOrder(atrezzoReference, hasLayer);
+		}
 		npcReferencesDataControlList = new ArrayList<ElementReferenceDataControl>();
-		for (ElementReference npcReference : npcReferencesList)
-			npcReferencesDataControlList.add( new ElementReferenceDataControl(sceneDataControl, npcReference));
+		for (ElementReference npcReference : npcReferencesList){
+			ElementReferenceDataControl erdc  =  new ElementReferenceDataControl(sceneDataControl, npcReference, Controller.NPC_REFERENCE);
+			npcReferencesDataControlList.add(erdc);
+			insertInOrder(erdc,hasLayer);
+			insertInOrder(npcReference,hasLayer());
+		}
 	}
-
+	
+	/**
+	 * This method analyze the references finding if references has layer. It is easy, we must only inspect one reference.
+	 * If this reference has the value "-1" in it "layer" attribute, it means that neither of elements has layer.  
+	 * 
+	 * @return
+	 * 			true, if there are not one references with -1
+	 */
+	private boolean hasLayer(){
+	 
+		
+		if (!itemReferencesList.isEmpty()){
+			if (itemReferencesList.get(0).getLayer() == -1)
+				return false;
+			else 
+				return true;
+		}else if (!atrezzoReferencesList.isEmpty()){
+				if (atrezzoReferencesList.get(0).getLayer() == -1)
+					return false;
+				else 
+					return true;
+		}if (!npcReferencesList.isEmpty()){
+			if (npcReferencesList.get(0).getLayer() == -1)
+				return false;
+			else 
+				return true;
+		}
+		return false;
+	}
+	
+	
+	/**
+	 * Insert in order in allReferences attribute
+	 * 
+	 * @param element
+	 * 				The element reference to be added
+	 * @param	hasLayer
+	 * 				Take either layer or depth value to order value
+	 **/
+	public void insertInOrder(ElementReference element, boolean hasLayer){
+		boolean added = false;
+        int i = 0;
+        boolean empty = allReferences.size()==0 ;
+        // While the element has not been added, and
+        // we haven't checked every previous element
+        while( !added && (i < allReferences.size( ) || empty) )  {
+            
+            // Insert the element in the correct position
+        	if (hasLayer){
+        		if (!empty){
+        			if( element.getLayer() <= allReferences.get( i ).getLayer() ) {
+        			allReferences.add( i,  element);
+        			reassignLayerAllReferences(i);
+        			added = true;
+        			}
+        		}else {
+        			allReferences.add( i,  element);
+        			reassignLayerAllReferences(i);
+        			added = true;
+        		}
+        		i++;
+        	}else {
+        		if (!empty){
+        		if( Math.round(element.getY()) <= Math.round(allReferences.get( i ).getY()) ) {
+        			element.setLayer(i);
+        			allReferences.add( i,  element);
+        			reassignLayerAllReferences(i);
+        			added = true;
+        		}
+        		}else {
+        			element.setLayer(i);
+        			allReferences.add( i,  element);
+        			reassignLayerAllReferences(i);
+        			added = true;
+        		}
+        		i++;
+        	}
+        	
+        }
+        
+        // If the element wasn't added, add it in the last position
+        if( !added ){
+            element.setLayer(i);
+        	allReferences.add( element );
+        	reassignLayerAllReferences(i);
+        }
+	}
+	
+	/**
+	 * Insert in order in allReferencesDataControl attribute
+	 * 
+	 * @param element
+	 * 				The element reference to be added
+	 * @param	hasLayer
+	 * 				Take either layer or depth value to order value
+	 **/
+	public void insertInOrder(ElementReferenceDataControl element, boolean hasLayer){
+		boolean added = false;
+        int i = 0;
+        boolean empty = allReferencesDataControl.size()==0 ;
+        // While the element has not been added, and
+        // we haven't checked every previous element
+        while( !added && (i < allReferencesDataControl.size( ) || empty) ) {
+            
+            // Insert the element in the correct position
+        	if (hasLayer){
+        		if (!empty){
+        			if( element.getElementReference().getLayer() <= allReferencesDataControl.get( i ).getElementReference().getLayer() ) {
+        				allReferencesDataControl.add( i,  element);
+        				reassignLayerAllReferencesDataControl(i);
+        				added = true;
+        			}
+        		}else {
+        			allReferencesDataControl.add( i,  element);
+        			reassignLayerAllReferencesDataControl(i);
+        			added = true;
+        		}
+        		i++;
+        	}else {
+        		if (!empty){
+        		if( Math.round(element.getElementReference().getY()) <= Math.round(allReferencesDataControl.get( i ).getElementReference().getY()) ) {
+        			element.getElementReference().setLayer(i);
+        			allReferencesDataControl.add( i,  element);
+        			reassignLayerAllReferencesDataControl(i);
+        			added = true;
+        		}
+        		}else {
+        			element.getElementReference().setLayer(i);
+        			allReferencesDataControl.add( i,  element);
+        			reassignLayerAllReferencesDataControl(i);
+        			added = true;
+        		}
+        		i++;
+        	}
+        	
+        }
+        
+        // If the element wasn't added, add it in the last position
+        if( !added ){
+        	element.getElementReference().setLayer(i);
+        	allReferencesDataControl.add( element );
+        	reassignLayerAllReferencesDataControl(i);
+        	
+        }
+            
+	}
+	
+	/**
+	 * Merge all references in one list
+	 * 
+	 * @return 
+	 * 		The list that contains all references data control;
+	 */
+	public List<ElementReferenceDataControl> getAllReferencesDataControl(){
+		return allReferencesDataControl;
+		
+	}
+	
 	/**
 	 * Returns the list of item reference controllers.
 	 * 
@@ -127,6 +325,7 @@ public class ReferencesListDataControl extends DataControl {
 		return sceneDataControl.getId( );
 	}
 
+	//TODO ver si se puede devolver allReferences
 	@Override
 	public Object getContent( ) {
 		return itemReferencesList;
@@ -157,6 +356,10 @@ public class ReferencesListDataControl extends DataControl {
 	public boolean canBeRenamed( ) {
 		return false;
 	}
+	
+	
+	
+
 
 	@Override
 	public boolean addElement( int type ) {
@@ -172,9 +375,13 @@ public class ReferencesListDataControl extends DataControl {
 
 				// If some value was selected
 				if( selectedItem != null ) {
-					ElementReference newElementReference = new ElementReference( selectedItem, 0, 0 );
+					ElementReference newElementReference = new ElementReference( selectedItem, 50, 50 );
+					ElementReferenceDataControl erdc = new ElementReferenceDataControl( sceneDataControl, newElementReference,type );
+					lastElementReferenceDataControl = erdc;
 					itemReferencesList.add( newElementReference );
-					itemReferencesDataControlList.add( new ElementReferenceDataControl( sceneDataControl, newElementReference ) );
+					itemReferencesDataControlList.add( erdc );
+					insertInOrder(newElementReference,false);
+					insertInOrder(erdc,false);
 					controller.dataModified( );
 					elementAdded = true;
 				}
@@ -196,9 +403,13 @@ public class ReferencesListDataControl extends DataControl {
 
 				// If some value was selected
 				if( selectedItem != null ) {
-					ElementReference newElementReference = new ElementReference( selectedItem, 0, 0 );
+					ElementReference newElementReference = new ElementReference( selectedItem, 50, 50 );
+					ElementReferenceDataControl erdc = new ElementReferenceDataControl( sceneDataControl, newElementReference, type );
+					lastElementReferenceDataControl = erdc;
 					atrezzoReferencesList.add( newElementReference );
-					atrezzoReferencesDataControlList.add( new ElementReferenceDataControl( sceneDataControl, newElementReference ) );
+					atrezzoReferencesDataControlList.add( erdc );
+					insertInOrder(newElementReference,false);
+					insertInOrder(erdc,false);
 					controller.dataModified( );
 					elementAdded = true;
 				}
@@ -219,9 +430,13 @@ public class ReferencesListDataControl extends DataControl {
 
 				// If some value was selected
 				if( selectedItem != null ) {
-					ElementReference newElementReference = new ElementReference( selectedItem, 0, 0 );
+					ElementReference newElementReference = new ElementReference( selectedItem, 50, 50 );
+					ElementReferenceDataControl erdc = new ElementReferenceDataControl( sceneDataControl, newElementReference, type );
+					lastElementReferenceDataControl = erdc;
 					npcReferencesList.add( newElementReference );
-					npcReferencesDataControlList.add( new ElementReferenceDataControl( sceneDataControl, newElementReference ) );
+					npcReferencesDataControlList.add( erdc );
+					insertInOrder(newElementReference,false);
+					insertInOrder(erdc,false);
 					controller.dataModified( );
 					elementAdded = true;
 				}
@@ -234,30 +449,79 @@ public class ReferencesListDataControl extends DataControl {
 
 		return elementAdded;
 	}
+	
+	
+	private void reassignLayerAllReferences(int index){
 
+		for (int i = index; i<allReferences.size();i++){
+			allReferences.get(i).setLayer(i);
+		}
+		
+	}
+	
+	private void reassignLayerAllReferencesDataControl(int index){
+
+		for (int i = index; i<allReferences.size();i++){
+			allReferencesDataControl.get(i).getElementReference().setLayer(i);
+		}
+		
+	}
+
+	/**
+	 * Delete in allReferences updating the layer, and also deletes in allReferencesDataControl
+	 * 
+	 * @param	
+	 * 		dataControl the issue to delete
+	 */
+	private void delete(DataControl dataControl){
+		int index = allReferencesDataControl.indexOf(dataControl);
+		allReferences.remove(dataControl.getContent());
+		allReferencesDataControl.remove(dataControl);
+		reassignLayerAllReferences(index);
+		reassignLayerAllReferencesDataControl(index);
+		
+	}
+	
 	@Override
 	public boolean deleteElement( DataControl dataControl ) {
 		boolean elementDeleted = false;
-
+		
 		if( itemReferencesList.remove( dataControl.getContent( ) ) ) {
 			itemReferencesDataControlList.remove( dataControl );
+			delete(dataControl);
 			controller.dataModified( );
 			elementDeleted = true;
 		}
 
 		if( atrezzoReferencesList.remove( dataControl.getContent( ) ) ) {
 			atrezzoReferencesDataControlList.remove( dataControl );
+			delete(dataControl);
 			controller.dataModified( );
 			elementDeleted = true;
 		}
 
 		if( npcReferencesList.remove( dataControl.getContent( ) ) ) {
 			npcReferencesDataControlList.remove( dataControl );
+			delete(dataControl);
 			controller.dataModified( );
 			elementDeleted = true;
 		}
 
 		return elementDeleted;
+	}
+	
+	private void moveUp(DataControl dataControl){
+		int index = allReferences.indexOf(dataControl.getContent());
+		if (index>0){
+			//change the elements
+			allReferences.add(index-1, allReferences.remove(index));
+			//update element layer
+			allReferences.get(index).setLayer(index);
+			allReferences.get(index-1).setLayer(index-1);
+			//change in data control container
+			allReferencesDataControl.add(index-1,allReferencesDataControl.remove(index));
+			
+		}
 	}
 
 	@Override
@@ -266,25 +530,42 @@ public class ReferencesListDataControl extends DataControl {
 		int itemElementIndex = itemReferencesList.indexOf( dataControl.getContent( ) );
 		int atrezzoElementIndex = atrezzoReferencesList.indexOf( dataControl.getContent( ) );
 		int npcElementIndex = npcReferencesList.indexOf( dataControl.getContent( ) );
-		
-		if( itemElementIndex > 0 ) {
-			itemReferencesList.add( itemElementIndex - 1, itemReferencesList.remove( itemElementIndex ) );
-			itemReferencesDataControlList.add( itemElementIndex - 1, itemReferencesDataControlList.remove( itemElementIndex ) );
+		// check if element is item, atrezzo or npc
+		if( itemElementIndex >= 0 ) {
+			//itemReferencesList.add( itemElementIndex - 1, itemReferencesList.remove( itemElementIndex ) );
+			//itemReferencesDataControlList.add( itemElementIndex - 1, itemReferencesDataControlList.remove( itemElementIndex ) );
+			moveUp(dataControl);
 			controller.dataModified( );
 			elementMoved = true;
-		} else if (atrezzoElementIndex > 0) {
-			atrezzoReferencesList.add( atrezzoElementIndex - 1, atrezzoReferencesList.remove( atrezzoElementIndex ) );
-			atrezzoReferencesDataControlList.add( atrezzoElementIndex - 1, atrezzoReferencesDataControlList.remove( atrezzoElementIndex ) );
+		} else if (atrezzoElementIndex >= 0) {
+			//atrezzoReferencesList.add( atrezzoElementIndex - 1, atrezzoReferencesList.remove( atrezzoElementIndex ) );
+			//atrezzoReferencesDataControlList.add( atrezzoElementIndex - 1, atrezzoReferencesDataControlList.remove( atrezzoElementIndex ) );
+			moveUp(dataControl);
 			controller.dataModified( );
 			elementMoved = true;
-		} else if (npcElementIndex > 0) {
-			npcReferencesList.add( npcElementIndex - 1, npcReferencesList.remove( npcElementIndex ) );
-			npcReferencesDataControlList.add( npcElementIndex - 1, npcReferencesDataControlList.remove( npcElementIndex ) );
+		} else if (npcElementIndex >= 0) {
+			//npcReferencesList.add( npcElementIndex - 1, npcReferencesList.remove( npcElementIndex ) );
+			//npcReferencesDataControlList.add( npcElementIndex - 1, npcReferencesDataControlList.remove( npcElementIndex ) );
+			moveUp(dataControl);
 			controller.dataModified( );
 			elementMoved = true;
 		}
 
 		return elementMoved;
+	}
+	
+	
+	private void moveDown(DataControl dataControl){
+		int index = allReferences.indexOf(dataControl.getContent());
+		if (index >=0 && index<allReferences.size()-1){
+			//change the elements
+			allReferences.add(index+1,allReferences.remove(index));
+			//update element layer
+			allReferences.get(index).setLayer(index);
+			allReferences.get(index+1).setLayer(index+1);
+			//change in data control container
+			allReferencesDataControl.add(index+1,allReferencesDataControl.remove(index));
+		}
 	}
 
 	@Override
@@ -295,18 +576,21 @@ public class ReferencesListDataControl extends DataControl {
 		int npcElementIndex = npcReferencesList.indexOf( dataControl.getContent());
 		
 		if( itemElementIndex >= 0 && itemElementIndex < itemReferencesList.size( ) - 1 ) {
-			itemReferencesList.add( itemElementIndex + 1, itemReferencesList.remove( itemElementIndex ) );
-			itemReferencesDataControlList.add( itemElementIndex + 1, itemReferencesDataControlList.remove( itemElementIndex ) );
+			//itemReferencesList.add( itemElementIndex + 1, itemReferencesList.remove( itemElementIndex ) );
+			//itemReferencesDataControlList.add( itemElementIndex + 1, itemReferencesDataControlList.remove( itemElementIndex ) );
+			moveDown(dataControl);
 			controller.dataModified( );
 			elementMoved = true;
 		} else if( atrezzoElementIndex >= 0 && atrezzoElementIndex < atrezzoReferencesList.size( ) - 1 ) {
-			atrezzoReferencesList.add( atrezzoElementIndex + 1, atrezzoReferencesList.remove( atrezzoElementIndex ) );
-			atrezzoReferencesDataControlList.add( atrezzoElementIndex + 1, atrezzoReferencesDataControlList.remove( atrezzoElementIndex ) );
+			//atrezzoReferencesList.add( atrezzoElementIndex + 1, atrezzoReferencesList.remove( atrezzoElementIndex ) );
+			//atrezzoReferencesDataControlList.add( atrezzoElementIndex + 1, atrezzoReferencesDataControlList.remove( atrezzoElementIndex ) );
+			moveDown(dataControl);
 			controller.dataModified( );
 			elementMoved = true;
 		} else if( npcElementIndex >= 0 && npcElementIndex < npcReferencesList.size( ) - 1 ) {
-			npcReferencesList.add( npcElementIndex + 1, npcReferencesList.remove( npcElementIndex ) );
-			npcReferencesDataControlList.add( npcElementIndex + 1, npcReferencesDataControlList.remove( npcElementIndex ) );
+			//npcReferencesList.add( npcElementIndex + 1, npcReferencesList.remove( npcElementIndex ) );
+			//npcReferencesDataControlList.add( npcElementIndex + 1, npcReferencesDataControlList.remove( npcElementIndex ) );
+			moveDown(dataControl);
 			controller.dataModified( );
 			elementMoved = true;
 		}
@@ -424,4 +708,25 @@ public class ReferencesListDataControl extends DataControl {
 			return true;
 		return false;
 	}
+
+	/**
+	 * Give the last introduced element reference data control
+	 * @return
+	 * 		The last introduced reference
+	 */
+	public ElementReferenceDataControl getLastElementReferenceDataControl() {
+		return lastElementReferenceDataControl;
+	}
+
+	/**
+	 * Change the last element reference data control
+	 * 
+	 * @param lastElementReferenceDataControl
+	 */
+	public void setLastElementReferenceDataControl(
+			ElementReferenceDataControl lastElementReferenceDataControl) {
+		this.lastElementReferenceDataControl = lastElementReferenceDataControl;
+	}
+	
+	
 }
