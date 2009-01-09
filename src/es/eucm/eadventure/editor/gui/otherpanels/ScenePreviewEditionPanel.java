@@ -4,23 +4,21 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.ScenePreviewEditionController;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
+import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElement;
+import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElementPlayer;
+import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElementReference;
 
 /**
  * This panel show the scene in different configurations, allowing objects
@@ -131,11 +129,19 @@ public class ScenePreviewEditionPanel extends JPanel {
 		if (!movableCategory.containsKey(key))
 			movableCategory.put(key, new Boolean(true));
 		List<ImageElement> list = elements.get(key);
-		list.add(new ImageElement(element));
+		list.add(new ImageElementReference(element));
 	}
 	
 	public void addPlayer(SceneDataControl scene, Image image){
-		//TODO 
+		Integer key = new Integer(CATEGORY_PLAYER);
+		if (!elements.containsKey(key))
+			elements.put(key, new ArrayList<ImageElement>());
+		if (!displayCategory.containsKey(key))
+			displayCategory.put(key, new Boolean(true));
+		if (!movableCategory.containsKey(key))
+			movableCategory.put(key, new Boolean(false));
+		List<ImageElement> list = elements.get(key);
+		list.add(new ImageElementPlayer(image, scene));
 	}
 		
 	/**
@@ -148,7 +154,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 		Integer key = new Integer(category);
 		List<ImageElement> list = elements.get(key);
 		if (list!= null){
-			list.remove(new ImageElement(element));
+			list.remove(new ImageElementReference(element));
 		}
 		repaint();
 	}
@@ -186,7 +192,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 	 * @param element The movable element
 	 */
 	public void setMovableElement(ElementReferenceDataControl element) {
-		selectedElement = new ImageElement(element);
+		selectedElement = new ImageElementReference(element);
 		for (Integer key : movableCategory.keySet()) {
 			movableCategory.put(key, new Boolean(false));
 		}
@@ -370,78 +376,6 @@ public class ScenePreviewEditionPanel extends JPanel {
 	}
 
 	/**
-	 * Class that represents an ElementReferenceDataControl and its image
-	 */
-	public class ImageElement implements Comparable<Object> {
-		
-		private Image image;
-		
-		private ElementReferenceDataControl elementReferenceDataControl;
-		
-		public ImageElement(ElementReferenceDataControl elementReferenceDataControl) {
-			this.elementReferenceDataControl = elementReferenceDataControl;
-			String imagePath = Controller.getInstance( ).getElementImagePath( elementReferenceDataControl.getElementId( ) );
-			if (imagePath != null)
-				image = AssetsController.getImage( imagePath );
-			else
-				image = (new ImageIcon("img/assets/EmptyImage.png")).getImage();
-		}
-		
-		public float getScale() {
-			return elementReferenceDataControl.getElementScale();
-		}
-
-		public ElementReferenceDataControl getElementReferenceDataControl() {
-			return elementReferenceDataControl;
-		}
-		
-		public Image getImage() {
-			return image;
-		}
-		
-		public int getX() {
-			return elementReferenceDataControl.getElementX();
-		}
-		
-		public int getY() {
-			return elementReferenceDataControl.getElementY();
-		}
-
-		public void recreateImage() {
-			String imagePath = Controller.getInstance( ).getElementImagePath( elementReferenceDataControl.getElementId( ) );
-			if (imagePath != null)
-				image = AssetsController.getImage( imagePath );
-			else
-				image = (new ImageIcon("img/assets/EmptyImage.png")).getImage();
-		}
-		
-		public boolean equals(Object o) {
-			if (o == null)
-				return false;
-			if (!(o instanceof ImageElement))
-				return false;
-			ImageElement temp = (ImageElement) o;
-			if (temp.getElementReferenceDataControl().getElementId().equals(this.getElementReferenceDataControl().getElementId()))
-				return true;
-			return false;
-		}
-
-		@Override
-		public int compareTo(Object arg0) {
-			if (arg0 == null || !(arg0 instanceof ImageElement)) {
-				return 1;
-			}
-			ImageElement temp = (ImageElement) arg0;
-			
-			int tempLayer = temp.getElementReferenceDataControl().getElementReference().getLayer();
-			int thisLayer = this.getElementReferenceDataControl().getElementReference().getLayer();
-
-			return tempLayer - thisLayer;
-		}
-			
-	}
-
-	/**
 	 * Get the visible element at position (x,y)
 	 * 
 	 * @param x the x-axis value
@@ -471,13 +405,15 @@ public class ScenePreviewEditionPanel extends JPanel {
 	 */
 	public void recreateElement(ElementReferenceDataControl element) {
 		for (Integer key : elements.keySet()) {
-				for (ImageElement imageElement : elements.get(key)) {
-					if (imageElement.getElementReferenceDataControl() == element) {
+				for (ImageElement imageElement : elements.get(key)) {	
+					if (imageElement.getElementReferenceDataControl() != null &&
+							imageElement.getElementReferenceDataControl() == element) {
 						imageElement.recreateImage();
 					}
 				}
 		}
-		if (selectedElement != null && selectedElement.getElementReferenceDataControl() == element) {
+		if (selectedElement != null && selectedElement.getElementReferenceDataControl() != null &&
+				selectedElement.getElementReferenceDataControl() == element) {
 			selectedElement.recreateImage();
 		}
 	}
@@ -547,7 +483,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 	 * 				The new ElementReferenceDataControl
 	 */
 	public void setSelectedElement(ElementReferenceDataControl erdc){
-		this.selectedElement = new ImageElement(erdc);
+		this.selectedElement = new ImageElementReference(erdc);
 	}
 	
 	public void setSelectedElement(ImageElement imageElement) {
