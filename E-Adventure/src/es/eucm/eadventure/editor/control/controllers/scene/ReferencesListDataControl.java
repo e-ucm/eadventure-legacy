@@ -490,23 +490,27 @@ public class ReferencesListDataControl extends DataControl {
 	
 	private void moveUp(DataControl dataControl){
 		
+		boolean player;
 		int index=0;
-		if (dataControl == null)
+		if (dataControl != null){
+			player = false;
 			for (index=0; index < allReferencesDataControl.size();index++)
+			if (!allReferencesDataControl.get(index).isPlayer())	
 				if (allReferencesDataControl.get(index).getErdc().equals(dataControl))
 					break;
-		else 
+		}
+		else {
 			index = playerPosition;
-		
+			player = true;
+		}
 		if (index>0){
 			//change the elements
 			allReferencesDataControl.add(index-1, allReferencesDataControl.remove(index));
 			//update element layer
 			allReferencesDataControl.get(index).setLayer(index);
 			allReferencesDataControl.get(index-1).setLayer(index-1);
-			//change in data control container
-			//allReferencesDataControl.add(index-1,allReferencesDataControl.remove(index));
-			
+			if (player)
+				setPlayerPosition(index-1);
 		}
 	}
 
@@ -549,21 +553,27 @@ public class ReferencesListDataControl extends DataControl {
 	
 	
 	private void moveDown(DataControl dataControl){
-		ElementContainer ec ;
 		
-		if (dataControl == null)
-				ec = new ElementContainer(null,sceneDataControl.getScene().getPlayerLayer(),AssetsController.getImage( this.playerImagePath ));
-		else 
-				ec = new ElementContainer((ElementReferenceDataControl)dataControl,-1,null);
-		int index = allReferencesDataControl.indexOf(ec);
+		boolean player;
+		int index=0;
+		if (dataControl != null){
+			player=false;
+			for (index=0; index < allReferencesDataControl.size();index++)
+				if (!allReferencesDataControl.get(index).isPlayer())
+					if (allReferencesDataControl.get(index).getErdc().equals(dataControl))
+						break;
+		}else {
+			index = playerPosition;
+			player=true;
+		}
 		if (index >=0 && index<allReferencesDataControl.size()-1){
 			//change the elements
 			allReferencesDataControl.add(index+1,allReferencesDataControl.remove(index));
 			//update element layer
 			allReferencesDataControl.get(index).setLayer(index);
 			allReferencesDataControl.get(index+1).setLayer(index+1);
-			//change in data control container
-			//allReferencesDataControl.add(index+1,allReferencesDataControl.remove(index));
+			if (player)
+				setPlayerPosition(index+1);
 		}
 	}
 
@@ -576,19 +586,19 @@ public class ReferencesListDataControl extends DataControl {
 		int atrezzoElementIndex = atrezzoReferencesList.indexOf( dataControl.getContent());
 		int npcElementIndex = npcReferencesList.indexOf( dataControl.getContent());
 		
-		if( itemElementIndex >= 0 && itemElementIndex < itemReferencesList.size( ) - 1 ) {
+		if( itemElementIndex >= 0 && itemElementIndex <= itemReferencesList.size( ) - 1 ) {
 			//itemReferencesList.add( itemElementIndex + 1, itemReferencesList.remove( itemElementIndex ) );
 			//itemReferencesDataControlList.add( itemElementIndex + 1, itemReferencesDataControlList.remove( itemElementIndex ) );
 			moveDown(dataControl);
 			controller.dataModified( );
 			elementMoved = true;
-		} else if( atrezzoElementIndex >= 0 && atrezzoElementIndex < atrezzoReferencesList.size( ) - 1 ) {
+		} else if( atrezzoElementIndex >= 0 && atrezzoElementIndex <= atrezzoReferencesList.size( ) - 1 ) {
 			//atrezzoReferencesList.add( atrezzoElementIndex + 1, atrezzoReferencesList.remove( atrezzoElementIndex ) );
 			//atrezzoReferencesDataControlList.add( atrezzoElementIndex + 1, atrezzoReferencesDataControlList.remove( atrezzoElementIndex ) );
 			moveDown(dataControl);
 			controller.dataModified( );
 			elementMoved = true;
-		} else if( npcElementIndex >= 0 && npcElementIndex < npcReferencesList.size( ) - 1 ) {
+		} else if( npcElementIndex >= 0 && npcElementIndex <= npcReferencesList.size( ) - 1 ) {
 			//npcReferencesList.add( npcElementIndex + 1, npcReferencesList.remove( npcElementIndex ) );
 			//npcReferencesDataControlList.add( npcElementIndex + 1, npcReferencesDataControlList.remove( npcElementIndex ) );
 			moveDown(dataControl);
@@ -761,6 +771,7 @@ public class ReferencesListDataControl extends DataControl {
 
 	public void setPlayerPosition(int playerPosition) {
 		this.playerPosition = playerPosition;
+		this.sceneDataControl.getScene().setPlayerLayer(playerPosition);
 	}
 	
 	

@@ -42,6 +42,8 @@ public class SceneDOMWriter {
 				sceneElement.setAttribute( "start", "yes" );
 			else
 				sceneElement.setAttribute( "start", "no" );
+			
+			sceneElement.setAttribute("playerLayer", Integer.toString(scene.getPlayerLayer()));
 
 			// Append the documentation (if avalaible)
 			if( scene.getDocumentation( ) != null ) {
