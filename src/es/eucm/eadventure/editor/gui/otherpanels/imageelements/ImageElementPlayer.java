@@ -33,11 +33,15 @@ public class ImageElementPlayer extends ImageElement {
 
 	@Override
 	public int getX() {
+		if (sceneDataControl.getDefaultInitialPositionX() < 0)
+			return 400;
 		return sceneDataControl.getDefaultInitialPositionX();
 	}
 
 	@Override
 	public int getY() {
+		if (sceneDataControl.getDefaultInitialPositionY() < 0)
+			return 300 + image.getHeight(null);
 		return sceneDataControl.getDefaultInitialPositionY();
 	}
 
@@ -49,6 +53,34 @@ public class ImageElementPlayer extends ImageElement {
 	@Override
 	public void changePosition(int x, int y) {
 		sceneDataControl.setDefaultInitialPosition(x, y);
+	}
+
+	@Override
+	public void setScale(float scale) {
+	}
+
+	@Override
+	public boolean canRescale() {
+		return false;
+	}
+
+	@Override
+	public boolean canResize() {
+		return false;
+	}
+
+	@Override
+	public void changeSize(int width, int height) {
+	}
+
+	@Override
+	public int getHeight() {
+		return image.getHeight(null);
+	}
+
+	@Override
+	public int getWidth() {
+		return image.getWidth(null);
 	}
 
 }

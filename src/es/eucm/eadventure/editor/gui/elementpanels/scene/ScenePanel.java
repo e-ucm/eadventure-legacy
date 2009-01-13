@@ -1,7 +1,6 @@
 package es.eucm.eadventure.editor.gui.elementpanels.scene;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -14,7 +13,6 @@ import java.awt.event.FocusEvent;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -25,13 +23,9 @@ import javax.swing.event.DocumentListener;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.editdialogs.PlayerPositionDialog;
-import es.eucm.eadventure.editor.gui.elementpanels.PreviewUpdater;
-import es.eucm.eadventure.editor.gui.elementpanels.general.ResourcesPanel;
-import es.eucm.eadventure.editor.gui.otherpanels.imagepanels.MultipleElementImagePanel;
 
 public class ScenePanel extends JPanel {
 
@@ -117,8 +111,20 @@ public class ScenePanel extends JPanel {
 		namePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Scene.Name" ) ) );
 		docPanel.add( namePanel, cDoc );
 
-		// Create the button for the initial point
-		cDoc.gridy = 2;
+		if (!Controller.getInstance( ).isPlayTransparent( )){
+			cDoc.gridy++;
+			JPanel useTrajectoryPanel = new JPanel();
+			useTrajectoryPanel.setLayout( new GridLayout(0,1));
+			JCheckBox useTrajectoryCheckBox = new JCheckBox(TextConstants.getText("Scene.UseTrajectory"), sceneDataControl.getTrajectory().hasTrajectory());
+			useTrajectoryCheckBox.addActionListener( new TrajectoryCheckBoxListener() );
+			
+			useTrajectoryPanel.add(useTrajectoryCheckBox);
+			useTrajectoryPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Scene.UseTrajectoryPanel" ) ) );
+
+			docPanel.add( useTrajectoryPanel, cDoc );
+		}
+		
+		cDoc.gridy++;
 		JPanel initialPositionPanel = new JPanel( );
 		initialPositionPanel.setLayout( new GridLayout( 0, 1 ) );
 		JCheckBox initialPositionCheckBox = new JCheckBox( TextConstants.getText( "Scene.UseInitialPosition" ), sceneDataControl.hasDefaultInitialPosition( ) );
@@ -136,7 +142,7 @@ public class ScenePanel extends JPanel {
 		
 		docPanel.add( initialPositionPanel, cDoc );
 		
-		cDoc.gridy = 3;
+		cDoc.gridy++;
 		cDoc.weightx = 1;
 		cDoc.weighty = 0.5;
 		docPanel.add( new JFiller( ), cDoc );
@@ -238,6 +244,18 @@ public class ScenePanel extends JPanel {
 		}
 
 	}
+	
+	
+	private class TrajectoryCheckBoxListener implements ActionListener {
+		public void actionPerformed( ActionEvent e ) {
+			if (sceneDataControl.getTrajectory().hasTrajectory()) {
+				sceneDataControl.getTrajectory().setHasTrajectory(false);
+			} else {
+				sceneDataControl.getTrajectory().setHasTrajectory(true);
+			}
+		}
+	}
+	
 
 	/**
 	 * Listener for the "Set default initial position" button

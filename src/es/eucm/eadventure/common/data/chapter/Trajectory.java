@@ -9,9 +9,12 @@ public class Trajectory {
 	
 	List<Side> sides;
 	
+	Node initial;
+	
 	public Trajectory() {
 		nodes = new ArrayList<Node>();
 		sides = new ArrayList<Side>();
+		initial = null;
 	}
 	
 	public Node addNode(int x, int y, float scale) {
@@ -25,7 +28,10 @@ public class Trajectory {
 		} else {
 			nodes.add(node);
 		}
-		return node;			
+		if (nodes.size() == 1) {
+			initial = nodes.get(0);
+		}
+		return node;		 	
 	}
 	
 	public Side addSide(String idStart, String idEnd) {
@@ -33,7 +39,7 @@ public class Trajectory {
 			return null;
 		Side side = new Side(idStart, idEnd);
 		if (sides.contains(side)) {
-			side = sides.get(sides.indexOf(side));
+			return null;
 		} else {
 			sides.add(side);
 		}
@@ -114,6 +120,12 @@ public class Trajectory {
 			}
 			return false;
 		}
+
+		public void setValues(int x, int y, float scale) {
+			this.x = x;
+			this.y = y;
+			this.scale = scale;
+		}
 	}
 	
 	public class Side {
@@ -144,5 +156,21 @@ public class Trajectory {
 			}
 			return false;
 		}
+	}
+
+	public Node getNodeForId(String id) {
+		for (Node node : nodes) {
+			if (id.equals(node.id))
+				return node;
+		}
+		return null;
+	}
+	
+	public void setInitial(String id) {
+		initial = getNodeForId(id);
+	}
+	
+	public Node getInitial() {
+		return initial;
 	}
 }

@@ -42,7 +42,7 @@
 	x NMTOKEN #IMPLIED
 	y NMTOKEN #IMPLIED
 >
-<!ELEMENT trajectory (node*, side*)>
+<!ELEMENT trajectory (node*, initialnode?, side*)>
 <!ELEMENT node EMPTY>
 <!ATTLIST node
 	id ID #REQUIRED
@@ -54,6 +54,10 @@
 <!ATTLIST side
    idStart IDREF #REQUIRED
    idEnd IDREF #REQUIRED
+>
+<!ELEMENT initialnode EMPTY>
+<!ATTLIST initialnode
+	id IDREF #REQUIRED
 >
 
 

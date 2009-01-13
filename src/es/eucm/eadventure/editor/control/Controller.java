@@ -391,7 +391,14 @@ public class Controller {
 	 * Id for atrezzo references list
 	 */
 	public static final int ATREZZO_REFERENCES_LIST = 61;
+
 	
+	public static final int NODE = 62;
+	
+	public static final int SIDE = 63;
+
+	public static final int TRAJECTORY = 64;
+
 	//TYPES OF EAD FILES
 	public static final int FILE_ADVENTURE_1STPERSON_PLAYER = 0;
 
@@ -431,6 +438,7 @@ public class Controller {
 	public static final int LANGUAGE_UNKNOWN = -1;
 	public static final int LANGUAGE_SPANISH = 0;
 	public static final int LANGUAGE_ENGLISH = 1;
+
 
 	
 	public static final File projectsFolder(){

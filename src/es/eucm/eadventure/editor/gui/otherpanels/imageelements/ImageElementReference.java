@@ -61,4 +61,33 @@ public class ImageElementReference extends ImageElement {
 	public void changePosition(int x, int y) {
 		elementReferenceDataControl.setElementPosition(x, y);			
 	}
+
+	@Override
+	public void setScale(float scale) {
+		elementReferenceDataControl.setElementScale(scale);
+	}
+
+	@Override
+	public boolean canRescale() {
+		return true;
+	}
+
+	@Override
+	public boolean canResize() {
+		return false;
+	}
+
+	@Override
+	public void changeSize(int width, int height) {
+	}
+
+	@Override
+	public int getHeight() {
+		return image.getHeight(null);
+	}
+
+	@Override
+	public int getWidth() {
+		return image.getWidth(null);
+	}
 }
