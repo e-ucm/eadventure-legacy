@@ -1,7 +1,6 @@
 package es.eucm.eadventure.editor.gui.elementpanels.scene;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -14,7 +13,8 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.scene.BarrierDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.BarriersListDataControl;
-import es.eucm.eadventure.editor.gui.otherpanels.imagepanels.MultipleRectangleImagePanel;
+import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
+import es.eucm.eadventure.editor.gui.otherpanels.TrajectoryEditionPanel;
 
 public class BarriersListPanel extends JPanel {
 
@@ -58,15 +58,23 @@ public class BarriersListPanel extends JPanel {
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1;
 		c.weighty = 1;
-		MultipleRectangleImagePanel multipleRectanglePanel = new MultipleRectangleImagePanel( scenePath, Color.YELLOW );
-		multipleRectanglePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "BarriersList.PreviewTitle" ) ) );
-		add( multipleRectanglePanel, c );
+		
+		ScenePreviewEditionPanel spep;
+		if (barriersListDataControl.getTrajectoryDataControl().hasTrajectory()) {
+			TrajectoryEditionPanel tep = new TrajectoryEditionPanel(scenePath, barriersListDataControl.getTrajectoryDataControl());
+			spep = tep.getScenePreviewEditionPanel();
+			add( tep, c );
+		} else {
+			spep = new ScenePreviewEditionPanel(scenePath);
+			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_BARRIER, true);
+			add( spep, c );
+		}
 
 		// Add the item references if an image was loaded
 		if( scenePath != null ) {
 			// Add the activeAreas
 			for( BarrierDataControl barrier : barriersListDataControl.getBarriers( ) ) {
-				multipleRectanglePanel.addRectangle( barrier.getX( ), barrier.getY( ), barrier.getWidth( ), barrier.getHeight( ) );
+				spep.addBarrier(barrier);
 			}
 		}
 	}

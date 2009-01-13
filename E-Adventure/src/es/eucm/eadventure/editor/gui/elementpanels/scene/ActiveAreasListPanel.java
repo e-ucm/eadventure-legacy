@@ -1,7 +1,6 @@
 package es.eucm.eadventure.editor.gui.elementpanels.scene;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -14,7 +13,7 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.scene.ActiveAreaDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ActiveAreasListDataControl;
-import es.eucm.eadventure.editor.gui.otherpanels.imagepanels.MultipleRectangleImagePanel;
+import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 
 public class ActiveAreasListPanel extends JPanel {
 
@@ -58,15 +57,14 @@ public class ActiveAreasListPanel extends JPanel {
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1;
 		c.weighty = 1;
-		MultipleRectangleImagePanel multipleRectanglePanel = new MultipleRectangleImagePanel( scenePath, Color.GREEN );
-		multipleRectanglePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ActiveAreasList.PreviewTitle" ) ) );
-		add( multipleRectanglePanel, c );
+		ScenePreviewEditionPanel spep = new ScenePreviewEditionPanel(scenePath);
+		add( spep, c );
 
 		// Add the item references if an image was loaded
 		if( scenePath != null ) {
 			// Add the activeAreas
 			for( ActiveAreaDataControl activeArea : activeAreasListDataControl.getActiveAreas( ) ) {
-				multipleRectanglePanel.addRectangle( activeArea.getX( ), activeArea.getY( ), activeArea.getWidth( ), activeArea.getHeight( ) );
+				spep.addActiveArea(activeArea);
 			}
 		}
 	}

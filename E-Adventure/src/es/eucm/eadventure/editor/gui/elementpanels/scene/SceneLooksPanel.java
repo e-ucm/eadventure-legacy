@@ -56,7 +56,9 @@ public class SceneLooksPanel extends LooksPanel {
 			scenePreviewEditionPanel.addElement(ScenePreviewEditionPanel.CATEGORY_ATREZZO, elementReference);
 		}
 
-		scenePreviewEditionPanel.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_NONE, false);
+		scenePreviewEditionPanel.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_OBJECT, false);
+		scenePreviewEditionPanel.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_CHARACTER, false);
+		scenePreviewEditionPanel.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_ATREZZO, false);
 		lookPanel.add( scenePreviewEditionPanel, cLook );
 		//resourcesPanel.setPreviewUpdater( this );
 

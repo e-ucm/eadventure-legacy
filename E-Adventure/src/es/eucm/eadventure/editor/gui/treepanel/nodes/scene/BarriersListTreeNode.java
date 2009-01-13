@@ -8,6 +8,7 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.BarrierDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.BarriersListDataControl;
+import es.eucm.eadventure.editor.control.controllers.scene.TrajectoryDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.scene.BarriersListPanel;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.TreeNode;
 
@@ -17,7 +18,7 @@ public class BarriersListTreeNode extends TreeNode {
 	 * Contained micro-controller.
 	 */
 	private BarriersListDataControl dataControl;
-
+	
 	/**
 	 * The icon for this node class.
 	 */
@@ -37,10 +38,12 @@ public class BarriersListTreeNode extends TreeNode {
 	 *            Parent node
 	 * @param dataControl
 	 *            List of activeAreas
+	 * @param trajectoryDataControl 
 	 */
-	public BarriersListTreeNode( TreeNode parent, BarriersListDataControl dataControl ) {
+	public BarriersListTreeNode( TreeNode parent, BarriersListDataControl dataControl, TrajectoryDataControl trajectoryDataControl ) {
 		super( parent );
 		this.dataControl = dataControl;
+		dataControl.setTrajectoryDataControl(trajectoryDataControl);
 
 		for( BarrierDataControl activeAreaDataControl : dataControl.getBarriers( ) )
 			children.add( new BarrierTreeNode( this, activeAreaDataControl ) );
@@ -88,7 +91,7 @@ public class BarriersListTreeNode extends TreeNode {
 	public DataControl getDataControl( ) {
 		return dataControl;
 	}
-
+	
 	@Override
 	public Icon getIcon( ) {
 		return icon;

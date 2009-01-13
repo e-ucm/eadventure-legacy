@@ -10,14 +10,27 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+import es.eucm.eadventure.common.data.chapter.Trajectory;
+import es.eucm.eadventure.common.data.chapter.Trajectory.Node;
+import es.eucm.eadventure.common.data.chapter.Trajectory.Side;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
+import es.eucm.eadventure.editor.control.controllers.NormalScenePreviewEditionController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.ScenePreviewEditionController;
+import es.eucm.eadventure.editor.control.controllers.scene.ActiveAreaDataControl;
+import es.eucm.eadventure.editor.control.controllers.scene.BarrierDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
+import es.eucm.eadventure.editor.control.controllers.scene.ExitDataControl;
+import es.eucm.eadventure.editor.control.controllers.scene.NodeDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
 import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElement;
+import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElementActiveArea;
+import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElementBarrier;
+import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElementExit;
+import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElementNode;
 import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElementPlayer;
 import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElementReference;
 
@@ -31,37 +44,80 @@ import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElementRefer
 public class ScenePreviewEditionPanel extends JPanel {
 
 	/**
-	 * 
+	 * Default serialVersionUID
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Key for a general unidentified category
+	 */
 	public static final int CATEGORY_NONE = 0;
 	
+	/**
+	 * Key for the object reference category
+	 */
 	public static final int CATEGORY_OBJECT = 1;
 	
+	/**
+	 * Key for the character reference category
+	 */
 	public static final int CATEGORY_CHARACTER = 2;
 	
+	/**
+	 * Key for the atrezzo object category
+	 */
 	public static final int CATEGORY_ATREZZO = 3;
 	
+	/**
+	 * Key for the barrier category
+	 */
 	public static final int CATEGORY_BARRIER = 4;
 	
+	/**
+	 * Key for the active area category
+	 */
 	public static final int CATEGORY_ACTIVEAREA = 5;
 	
+	/**
+	 * Key for the player reference category
+	 */
 	public static final int CATEGORY_PLAYER = 6;
+	
+	/**
+	 * Key for the exit category
+	 */
+	public static final int CATEGORY_EXIT = 7;
+	
+	/**
+	 * Key for the node category
+	 */
+	public static final int CATEGORY_NODE = 8;
 
+	/**
+	 * Default margin value 
+	 */
 	private static final int MARGIN = 20;
+
 
 	private static final int LIGHT_BORDER = 1;
 
 	private static final int HARD_BORDER = 2;
 	
-	private static final int RESIZE_BORDER = 3;
-	
+	private static final int RESCALE_BORDER = 3;
+
+	private static final int RESCALE_BORDER_ACTIVE = 4;
+
+	private static final int RESIZE_BORDER = 5;
+
+	private static final int RESIZE_BORDER_ACTIVE = 6;
+
 	private HashMap<Integer, List<ImageElement>> elements;
 	
 	private HashMap<Integer, Boolean> displayCategory;
 	
 	private HashMap<Integer, Boolean> movableCategory;
+	
+	private Trajectory trajectory;
 	
 	private Image background;
 	
@@ -75,6 +131,12 @@ public class ScenePreviewEditionPanel extends JPanel {
 	
 	private int backgroundHeight;
 	
+	private boolean rescale;
+
+	private boolean resize;
+	
+	private ImageElement firstElement;
+
 	private ElementReferenceSelectionListener elementReferenceSelectionListener;
 	
 	private ScenePreviewEditionController spec;
@@ -98,7 +160,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 		displayCategory = new HashMap<Integer, Boolean>();
 		movableCategory = new HashMap<Integer, Boolean>();
 		setLayout(new BorderLayout());
-		spec = new ScenePreviewEditionController(this);
+		spec = new NormalScenePreviewEditionController(this);
 		this.addMouseListener(spec);
 		this.addMouseMotionListener(spec);
 	}
@@ -113,8 +175,6 @@ public class ScenePreviewEditionPanel extends JPanel {
 		loadBackground(imagePath);
 	}
 	
-	
-	
 	/**
 	 * Add new element to the panel, in a given category
 	 * 
@@ -123,28 +183,93 @@ public class ScenePreviewEditionPanel extends JPanel {
 	 */
 	public void addElement(int category, ElementReferenceDataControl element) {
 		Integer key = new Integer(category);
-		if (!elements.containsKey(key))
-			elements.put(key, new ArrayList<ImageElement>());
-		if (!displayCategory.containsKey(key))
-			displayCategory.put(key, new Boolean(true));
-		if (!movableCategory.containsKey(key))
-			movableCategory.put(key, new Boolean(true));
+		addCategory(category, true, true);
 		List<ImageElement> list = elements.get(key);
 		list.add(new ImageElementReference(element));
 	}
 	
+	/**
+	 * Add the player to the panel
+	 * 
+	 * @param scene the scene's data control
+	 * @param image the image of the player
+	 */
 	public void addPlayer(SceneDataControl scene, Image image){
 		Integer key = new Integer(CATEGORY_PLAYER);
-		if (!elements.containsKey(key))
-			elements.put(key, new ArrayList<ImageElement>());
-		if (!displayCategory.containsKey(key))
-			displayCategory.put(key, new Boolean(true));
-		if (!movableCategory.containsKey(key))
-			movableCategory.put(key, new Boolean(false));
+		addCategory(key, true, false);
 		List<ImageElement> list = elements.get(key);
 		list.add(new ImageElementPlayer(image, scene));
 	}
-		
+	
+	/**
+	 * Add a barrier to the panel
+	 * 
+	 * @param barrierDataControl the barrier's data control
+	 */
+	public void addBarrier(BarrierDataControl barrierDataControl) {
+		Integer key = new Integer(CATEGORY_BARRIER);
+		addCategory(key, true, false);
+		List<ImageElement> list = elements.get(key);
+		list.add(new ImageElementBarrier(barrierDataControl));
+	}
+
+	/**
+	 * Add an active area to the panel
+	 * 
+	 * @param activeAreaDataControl The active area's data control
+	 */
+	public void addActiveArea(ActiveAreaDataControl activeAreaDataControl) {
+		Integer key = new Integer(CATEGORY_ACTIVEAREA);
+		addCategory(key, true, true);
+		List<ImageElement> list = elements.get(key);
+		list.add(new ImageElementActiveArea(activeAreaDataControl));
+	}
+	
+	/**
+	 * Add an exit to the panel
+	 * 
+	 * @param exitDataControl the exit's data control
+	 */
+	public void addExit(ExitDataControl exitDataControl) {
+		Integer key = new Integer(CATEGORY_EXIT);
+		addCategory(key, true, true);
+		List<ImageElement> list = elements.get(key);
+		list.add(new ImageElementExit(exitDataControl));
+	}
+
+	/**
+	 * Add a node for a trajectory to the panel
+	 * 
+	 * @param nodeDataControl the node's data control
+	 */
+	public void addNode(NodeDataControl nodeDataControl) {
+		Integer key = new Integer(CATEGORY_NODE);
+		addCategory(key, true, false);
+		List<ImageElement> list = elements.get(key);
+		list.add(new ImageElementNode(nodeDataControl));
+	}
+
+	/**
+	 * Add a category to all the hashmaps
+	 * 
+	 * @param key The key of the category
+	 * @param display Boolean indicating if it should be displayed
+	 * @param movable Boolean indicating if the elmenets are movable
+	 */
+	private void addCategory(Integer key, boolean display, boolean movable) {
+		if (!elements.containsKey(key))
+			elements.put(key, new ArrayList<ImageElement>());
+		if (!displayCategory.containsKey(key))
+			displayCategory.put(key, new Boolean(display));
+		if (!movableCategory.containsKey(key))
+			movableCategory.put(key, new Boolean(movable));		
+	}
+
+
+	public void setTrajectory(Trajectory trajectory) {
+		this.trajectory = trajectory;
+	}
+	
 	/**
 	 * Remove an element from a given category
 	 * 
@@ -239,8 +364,18 @@ public class ScenePreviewEditionPanel extends JPanel {
 	 */
 	public void paintBackBuffer() {
 		Graphics g = backBuffer.getGraphics();
-		paintRelativeImage( g, background, background.getWidth(null)/2, background.getHeight(null), 1);
 		
+		if (background != null) {
+			paintRelativeImage( g, background, background.getWidth(null)/2, background.getHeight(null), 1);
+		} else {
+	    	ImageIcon icon = new ImageIcon("img/icons/noImageFrame.png"); 
+	    	Image image;
+	    	if (icon != null && icon.getImage() != null)
+	    		image = icon.getImage();
+	    	else
+	    		image = new BufferedImage(100,120,BufferedImage.TYPE_3BYTE_BGR);
+			paintRelativeImage( g, image, image.getWidth(null)/2, image.getHeight(null), 1);
+		}
 		
 		List<ImageElement> elementsToDraw = new ArrayList<ImageElement>();
 		
@@ -263,8 +398,20 @@ public class ScenePreviewEditionPanel extends JPanel {
 		}
 		if (selectedElement != null) {
 			paintBorders(g, selectedElement, HARD_BORDER);
-			paintBorders(g, selectedElement, RESIZE_BORDER);
+			if (selectedElement.canRescale()) {
+				if (rescale)
+					paintBorders(g, selectedElement, RESCALE_BORDER_ACTIVE);
+				else
+					paintBorders(g, selectedElement, RESCALE_BORDER);
+			}
+			if (selectedElement.canResize()) {
+				if (resize)
+					paintBorders(g, selectedElement, RESIZE_BORDER_ACTIVE);
+				else
+					paintBorders(g, selectedElement, RESIZE_BORDER);
+			}
 		}
+		paintTrajectory(g);
 	}
 
 	/**
@@ -297,10 +444,27 @@ public class ScenePreviewEditionPanel extends JPanel {
 			g.fillRect(x - 4, y + height, width + 4, 4);
 			g.setColor(color);
 			g.drawImage(element.getImage(), x, y, width, height, null);
-		} else if (border_type == RESIZE_BORDER) {
+		} else if (border_type == RESCALE_BORDER) {
 			Color color = g.getColor();
 			g.setColor(Color.GREEN);
 			g.drawRect(x + width - 8, y - 8, 16, 16);
+			g.setColor(color);
+		} else if (border_type == RESCALE_BORDER_ACTIVE) {
+			Color color = g.getColor();
+			g.setColor(Color.BLUE);
+			g.drawRect(x + width - 8, y - 8, 16, 16);
+			g.drawRect(x + width - 7, y - 7, 14, 14);
+			g.setColor(color);
+		} else if (border_type == RESIZE_BORDER) {
+			Color color = g.getColor();
+			g.setColor(Color.GREEN);
+			g.drawRect(x + width -8, y + height - 8, 16, 16);
+			g.setColor(color);
+		} else if (border_type == RESIZE_BORDER_ACTIVE) {
+			Color color = g.getColor();
+			g.setColor(Color.BLUE);
+			g.drawRect(x + width - 8, y + height - 8, 16, 16);
+			g.drawRect(x + width - 7, y + height - 7, 14, 14);
 			g.setColor(color);
 		}
 		
@@ -323,9 +487,17 @@ public class ScenePreviewEditionPanel extends JPanel {
 	 * panel and the size of the background image
 	 */
 	private synchronized void calculateSize() {
+
+		int backgroundWidth2 = 800;
+		int backgroundHeight2 = 600;
+		if (background != null) {
+			backgroundWidth2 = background.getWidth(null);
+			backgroundHeight2 = background.getHeight(null);
+		}
+		
 		if( background != null && getWidth( ) > 0 && getHeight( ) > 0 ) {
 			double panelRatio = (double) getWidth( ) / (double) getHeight( );
-			double imageRatio = (double) background.getWidth( null ) / (double) background.getHeight( null );
+			double imageRatio = (double) backgroundWidth2 / (double) backgroundHeight2;
 			int width, height;
 			marginX = MARGIN;
 			marginY = MARGIN;
@@ -347,7 +519,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 			backgroundWidth = width;
 			backgroundHeight = height;
 
-			sizeRatio = (double) width / (double) background.getWidth( null );
+			sizeRatio = (double) width / (double) backgroundWidth2;
 		}
 	}
 
@@ -368,38 +540,55 @@ public class ScenePreviewEditionPanel extends JPanel {
 			int width = (int) ( image.getWidth( null ) * sizeRatio );
 			int height = (int) ( image.getHeight( null ) * sizeRatio );
 
-			int posX = (int) (x * sizeRatio - width  * scale / 2);
-			int posY = (int) (y * sizeRatio - height * scale);
-			posX += marginX;
-			posY += marginY;
+			int posX = marginX + (int) (x * sizeRatio - width  * scale / 2);
+			int posY = marginY + (int) (y * sizeRatio - height * scale);
 
 			g.drawImage( image, posX, posY, (int) (width * scale), (int) (height * scale), null );
 		}
 	}
 
+	
 	/**
-	 * Get the visible element at position (x,y)
+	 * Paints a rescaled line form and to the given points
 	 * 
-	 * @param x the x-axis value
-	 * @param y the y-axis value
-	 * @return The visible ImageElement at (x,y)
+	 * @param g The graphics where the line is drawn
+	 * @param x1 The absolute x of the start point
+	 * @param y1 The absolute y of the start point
+	 * @param x2 The absolute x of the end point
+	 * @param y2 The absolute y of the end point
 	 */
-	private ImageElement getVisibleElement(int x, int y) {
-		for (Integer key : displayCategory.keySet()) {
-			if (displayCategory.get(key)) {
-				for (ImageElement imageElement : elements.get(key)) {
-					int minX = imageElement.getX() - imageElement.getImage().getWidth(null) / 2;
-					int minY = imageElement.getY() - imageElement.getImage().getHeight(null);
-					int maxX = minX + imageElement.getImage().getWidth(null);
-					int maxY = minY + imageElement.getImage().getHeight(null);
-					if (x > minX && x < maxX && y > minY && y < maxY)
-						return imageElement;
-				}
-			}
-		}
-		return null;
+	protected void drawRelativeLine( Graphics g, int x1, int y1, int x2, int y2) {
+		int posX1 = marginX + (int) (x1 * sizeRatio);
+		int posY1 = marginY + (int) (y1 * sizeRatio);
+		int posX2 = marginX + (int) (x2 * sizeRatio);
+		int posY2 = marginY + (int) (y2 * sizeRatio);
+		g.drawLine(posX1, posY1, posX2, posY2);
 	}
 
+	/**
+	 * Draw the sides of the trajectory in the graphics component
+	 * 
+	 * @param g the graphics component where to draw
+	 */
+	private void paintTrajectory(Graphics g) {
+		if (trajectory == null)
+			return;
+		
+		for (Side side : trajectory.getSides()) {
+			Node start = trajectory.getNodeForId(side.getIDStart());
+			Node end = trajectory.getNodeForId(side.getIDEnd());
+			drawRelativeLine(g, start.getX(), start.getY(), end.getX(), end.getY());
+		}
+		
+		if (firstElement != null) {
+			int mouseX = (int) getMousePosition().getX();
+			int mouseY = (int) getMousePosition().getY();
+			int x = (int) ((mouseX - marginX) / sizeRatio);
+			int y = (int) ((mouseY - marginY) / sizeRatio);
+			drawRelativeLine(g, firstElement.getX(), firstElement.getY() - 10, x, y);
+		}
+	}
+	
 	/**
 	 * Recreate the image of an element
 	 * 
@@ -407,12 +596,12 @@ public class ScenePreviewEditionPanel extends JPanel {
 	 */
 	public void recreateElement(ElementReferenceDataControl element) {
 		for (Integer key : elements.keySet()) {
-				for (ImageElement imageElement : elements.get(key)) {	
-					if (imageElement.getElementReferenceDataControl() != null &&
-							imageElement.getElementReferenceDataControl() == element) {
-						imageElement.recreateImage();
-					}
+			for (ImageElement imageElement : elements.get(key)) {	
+				if (imageElement.getElementReferenceDataControl() != null &&
+						imageElement.getElementReferenceDataControl() == element) {
+					imageElement.recreateImage();
 				}
+			}
 		}
 		if (selectedElement != null && selectedElement.getElementReferenceDataControl() != null &&
 				selectedElement.getElementReferenceDataControl() == element) {
@@ -428,19 +617,6 @@ public class ScenePreviewEditionPanel extends JPanel {
 	 * @return The movable ImageElement at (x,y)
 	 */
 	public ImageElement getMovableElement(int x, int y) {
-		/*
-		if (movableElement != null) {
-			double scale = movableElement.getScale();
-			int minX = (int) (movableElement.getX() - movableElement.getImage().getWidth(null) * scale / 2);
-			int minY = (int) (movableElement.getY() - movableElement.getImage().getHeight(null) * scale);
-			int maxX = (int) (minX + movableElement.getImage().getWidth(null) * scale);
-			int maxY = (int) (minY + movableElement.getImage().getHeight(null) * scale);
-			if (x > minX && x < maxX && y > minY && y < maxY)
-				return movableElement;
-			else
-				return null;
-		}
-		*/
 		for (Integer key : movableCategory.keySet()) {
 			if (movableCategory.get(key)) {
 				for (ImageElement imageElement : elements.get(key)) {
@@ -457,25 +633,61 @@ public class ScenePreviewEditionPanel extends JPanel {
 		return null;
 	}
 
-	
-	/* Mouse Listeners methods */
-
-
-	public ImageElement getResizeElement(int x, int y) {
-		if (selectedElement == null)
+	/**
+	 * Return the rescaleable element in the position x,y
+	 * 
+	 * @param x Position along the x-axis
+	 * @param y Position along the y-axis
+	 * @return The imageElement found or null
+	 */
+	public ImageElement getRescaleElement(int x, int y) {
+		if (selectedElement == null || !selectedElement.canRescale())
 			return null;
-		int x_image = (int) ((selectedElement.getX() - selectedElement.getImage().getWidth(null) *selectedElement.getScale() / 2));
+		int x_image = (int) ((selectedElement.getX() + selectedElement.getImage().getWidth(null) * selectedElement.getScale() / 2));
 		int y_image = (int) ((selectedElement.getY() - selectedElement.getImage().getHeight(null) * selectedElement.getScale()));
-		int width = (int) (selectedElement.getImage().getWidth(null)*selectedElement.getScale());
 
-		if (x > x_image + width - 8 &&
-				x < x_image + width + 8 &&
-				y > y_image - 8 &&
-				y < y_image + 8) {
+		int margin = (int) (8.0f / getSizeRatio());
+		if (x > x_image - margin &&
+				x < x_image + margin &&
+				y > y_image - margin &&
+				y < y_image + margin) {
 			return selectedElement;
 		}
-
 		return null;
+	}
+
+	/**
+	 * Return the resizable element in the position x,y
+	 * 
+	 * @param x Position along the x-axis
+	 * @param y Position along the y-axis
+	 * @return The imageElement found or null
+	 */
+	public ImageElement getResizeElement(int x, int y) {
+		if (selectedElement == null || !selectedElement.canResize())
+			return null;
+		int x_image = (int) ((selectedElement.getX() + selectedElement.getImage().getWidth(null) * selectedElement.getScale() / 2));
+		int y_image = (int) ((selectedElement.getY() - selectedElement.getImage().getHeight(null) * selectedElement.getScale()));
+		int height = (int) ((selectedElement.getImage().getHeight(null)* selectedElement.getScale()));
+		
+		int margin = (int) (8.0f / getSizeRatio());
+		if (x > x_image - margin &&
+				x < x_image + margin &&
+				y > y_image + height - margin &&
+				y < y_image + height + margin) {
+			return selectedElement;
+		}
+		return null;
+	}
+
+	/**
+	 * Changes the current selectedElement created from a ElementReferenceDataControl.
+	 * 
+	 * @param erdc
+	 * 				The new ElementReferenceDataControl
+	 */
+	public void setSelectedElement(ElementReferenceDataControl erdc){
+		this.selectedElement = new ImageElementReference(erdc);
 	}
 	
 	/**
@@ -512,6 +724,13 @@ public class ScenePreviewEditionPanel extends JPanel {
 		this.elementReferenceSelectionListener = elementReferenceSelectionListener;
 	}
 	
+	public void recreateElements(int category) {
+		Integer key = new Integer(category);
+		for (ImageElement imageElement : elements.get(key)) {
+			imageElement.recreateImage();
+		}		
+	}
+
 	public double getSizeRatio() {
 		return sizeRatio;
 	}
@@ -526,5 +745,54 @@ public class ScenePreviewEditionPanel extends JPanel {
 	
 	public ImageElement getSelectedElement() {
 		return selectedElement;
+	}
+	
+	public boolean isRescale() {
+		return rescale;
+	}
+	
+	public void setRescale(boolean rescale) {
+		this.rescale = rescale;
+	}
+	
+	/**
+	 * Set a new mouse controller for the ScenePreviewEditiorPanel
+	 * 
+	 * @param controller the new controller
+	 */
+	public void changeController(ScenePreviewEditionController controller) {
+		this.removeMouseListener(spec);
+		this.removeMouseMotionListener(spec);
+		spec = controller;
+		this.addMouseListener(controller);
+		this.addMouseMotionListener(controller);
+	}
+
+	/**
+	 * Remove a element form the hashmaps
+	 * 
+	 * @param category The category of the element
+	 * @param imageElement The element to be removed
+	 */
+	public void removeElement(int category, ImageElement imageElement) {
+		Integer key = new Integer(category);
+		List<ImageElement> list = elements.get(key);
+		list.remove(imageElement);
+	}
+	
+	public void setFirstElement(ImageElement firstElement) {
+		this.firstElement = firstElement;
+	}
+	
+	public ImageElement getFirstElement() {
+		return firstElement;
+	}
+
+	public boolean isResize() {
+		return resize;
+	}
+	
+	public void setResize(boolean resize) {
+		this.resize = resize;
 	}
 }

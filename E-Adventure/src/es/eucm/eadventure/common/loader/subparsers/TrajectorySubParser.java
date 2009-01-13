@@ -113,6 +113,17 @@ public class TrajectorySubParser extends SubParser {
 				
 				trajectory.addSide(idStart, idEnd);
 			}
+			
+			else if ( qName.equals( "initialnode")) {
+				String id = "";
+				
+				for (int i = 0; i < attrs.getLength(); i++) {
+					if (attrs.getQName(i).equals("id"))
+						id = attrs.getValue(i);
+				}
+				
+				trajectory.setInitial(id);
+			}
 
 		}
 

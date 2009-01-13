@@ -3,6 +3,7 @@ package es.eucm.eadventure.editor.control.controllers.scene;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.common.data.chapter.Trajectory;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.data.chapter.scenes.Scene;
 import es.eucm.eadventure.common.gui.TextConstants;
@@ -49,6 +50,8 @@ public class SceneDataControl extends DataControlWithResources {
 	 */
 	private BarriersListDataControl barriersListDataControl;
 
+	private TrajectoryDataControl trajectoryDataControl;
+	
 	/**
 	 * The resources that must be used in the previews.
 	 */
@@ -79,6 +82,7 @@ public class SceneDataControl extends DataControlWithResources {
 		referencesListDataControl = new ReferencesListDataControl(playerImagePath, this, scene.getItemReferences( ), scene.getAtrezzoReferences(), scene.getCharacterReferences() );
 		activeAreasListDataControl = new ActiveAreasListDataControl( this, scene.getActiveAreas( ));
 		barriersListDataControl = new BarriersListDataControl( this, scene.getBarriers( ));
+		trajectoryDataControl = new TrajectoryDataControl( this, scene.getTrajectory());
 	}
 
 	/**
@@ -441,7 +445,8 @@ public class SceneDataControl extends DataControlWithResources {
 
 		// Spread the call to the exits
 		valid &= exitsListDataControl.isValid( currentPath, incidences );
-
+		valid &= trajectoryDataControl.isValid(currentPath, incidences);
+		
 		return valid;
 	}
 
@@ -489,6 +494,7 @@ public class SceneDataControl extends DataControlWithResources {
 		count += referencesListDataControl.countIdentifierReferences( id );
 		count += activeAreasListDataControl.countIdentifierReferences( id );
 		count += barriersListDataControl.countIdentifierReferences( id );
+		count += trajectoryDataControl.countIdentifierReferences(id);
 
 		return count;
 	}
@@ -499,6 +505,7 @@ public class SceneDataControl extends DataControlWithResources {
 		referencesListDataControl.replaceIdentifierReferences( oldId, newId );
 		activeAreasListDataControl.replaceIdentifierReferences( oldId, newId );
 		barriersListDataControl.replaceIdentifierReferences( oldId, newId );
+		trajectoryDataControl.replaceIdentifierReferences(oldId, newId);
 	}
 
 	@Override
@@ -507,6 +514,7 @@ public class SceneDataControl extends DataControlWithResources {
 		referencesListDataControl.deleteIdentifierReferences( id );
 		activeAreasListDataControl.deleteIdentifierReferences( id );
 		barriersListDataControl.deleteIdentifierReferences( id );
+		trajectoryDataControl.deleteIdentifierReferences(id);
 	}
 
 	@Override
@@ -514,7 +522,16 @@ public class SceneDataControl extends DataControlWithResources {
 		return true;
 	}
 
-	/**
+	public TrajectoryDataControl getTrajectory() {
+		return trajectoryDataControl;
+	}
+
+	public void setTrajectory(Trajectory trajectory) {
+		scene.setTrajectory(trajectory);
+		controller.dataModified();
+	}
+	
+		/**
 	 *  Returns the scene
 	 *  
 	 * @return
@@ -523,5 +540,4 @@ public class SceneDataControl extends DataControlWithResources {
 	public Scene getScene() {
 		return scene;
 	}
-
 }

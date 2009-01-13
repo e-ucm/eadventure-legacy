@@ -40,6 +40,12 @@ public class TrajectoryDOMWriter {
 				itemElement.appendChild(nodeElement);
 			}
 			
+			if (trajectory.getInitial() != null) {
+				Element initialNodeElement = doc.createElement("initialnode");
+				initialNodeElement.setAttribute("id", trajectory.getInitial().getID());
+				itemElement.appendChild(initialNodeElement);
+			}
+			
 			for (es.eucm.eadventure.common.data.chapter.Trajectory.Side side : trajectory.getSides()) {
 				Element sideElement = doc.createElement( "side" );
 				sideElement.setAttribute("idStart", side.getIDStart());

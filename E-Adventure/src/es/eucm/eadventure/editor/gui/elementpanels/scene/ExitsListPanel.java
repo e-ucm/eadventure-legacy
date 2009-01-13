@@ -13,7 +13,7 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.scene.ExitDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ExitsListDataControl;
-import es.eucm.eadventure.editor.gui.otherpanels.imagepanels.MultipleRectangleImagePanel;
+import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 
 public class ExitsListPanel extends JPanel {
 
@@ -57,15 +57,14 @@ public class ExitsListPanel extends JPanel {
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1;
 		c.weighty = 1;
-		MultipleRectangleImagePanel multipleRectanglePanel = new MultipleRectangleImagePanel( scenePath );
-		multipleRectanglePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ExitsList.PreviewTitle" ) ) );
-		add( multipleRectanglePanel, c );
+		ScenePreviewEditionPanel spep = new ScenePreviewEditionPanel(scenePath);
+		add( spep, c );
 
 		// Add the item references if an image was loaded
 		if( scenePath != null ) {
 			// Add the exits
 			for( ExitDataControl exit : exitsListDataControl.getExits( ) ) {
-				multipleRectanglePanel.addRectangle( exit.getX( ), exit.getY( ), exit.getWidth( ), exit.getHeight( ) );
+				spep.addExit(exit);
 			}
 		}
 	}

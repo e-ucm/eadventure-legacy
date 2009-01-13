@@ -834,6 +834,8 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="Scene.LookPanelTip">Panel para la edición de apariencias alternativas para la escena</entry>
 	<entry key="Scene.DocPanelTitle">Información</entry>
 	<entry key="Scene.DocPanelTip">Panel para la edición de información adicional</entry>
+	<entry key="Scene.UseTrajectory">Usar trayectoria</entry>
+	<entry key="Scene.UseTrajectoryPanel">Usar trayectoria</entry>
 	
 	<entry key="ExitsList.Title">Salidas</entry>
 	<entry key="ExitsList.PreviewTitle">Previsualización de la posición de las salidas</entry>
@@ -843,10 +845,14 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="ActiveAreasList.PreviewTitle">Previsualización de las zonas activas</entry>
 	<entry key="ActiveAreasList.Information">Las zonas activas son regiones rectangulares de la escena con las que se puede interactuar.</entry>
 
-	<entry key="BarriersList.Title">Barreras y trajectoria</entry>
-	<entry key="BarriersList.PreviewTitle">Previsualización de las barreras y edición de la trajectoria</entry>
-	<entry key="BarriersList.Information">Las barreras son zonas rectangulares de la escena que bloquean el paso del protagonista.
-										La trajectoria es un conjunto de nodos unidos por aristas que inidican los caminos por los que se puede desplazar el protagonista.</entry>
+	<entry key="BarriersList.Title">Barreras y trayectoria</entry>
+	<entry key="BarriersList.PreviewTitle">Previsualización de las barreras y edición de la trayectoria</entry>
+	<entry key="BarriersList.Information">Las barreras son zonas rectangulares de la escena que bloquean el paso del protagonista. La trayectoria es un conjunto de nodos unidos por aristas que inidican los caminos por los que se puede desplazar el protagonista.</entry>
+	<entry key="BarriersList.EditNodes">Editar nodos</entry>
+	<entry key="BarriersList.EditSides">Editar lados</entry>
+	<entry key="BarriersList.SelectInitialNode">Seleccionar nodo inicial</entry>
+	<entry key="BarriersList.DeleteTool">Herramienta borrado</entry>
+	<entry key="BarriersList.EditBarriers">Editar barreras</entry>
 
 	<entry key="Exit.Title">Salida</entry>
 	<entry key="Exit.Documentation">Documentación de la salida</entry>
@@ -1401,6 +1407,9 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="Element.Name59">Lista de objetos de atrezzo</entry>
 	<entry key="Element.Name60">Referencias a objetos de atrezzo</entry>
 	<entry key="Element.Name61">Lista de referencias a objetos de atrezzo</entry>
+	<entry key="Element.Name62">Nodo</entry>
+	<entry key="Element.Name63">Lado</entry>
+	<entry key="Element.Name64">Trayectoria</entry>
 	
 		
 	<entry key="Element.Ref">Ref: {#0}</entry>
