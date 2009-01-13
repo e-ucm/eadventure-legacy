@@ -28,13 +28,13 @@ public class ScenesListDataControl extends DataControl {
 	 * @param scenesList
 	 *            List of scenes
 	 */
-	public ScenesListDataControl( List<Scene> scenesList ) {
+	public ScenesListDataControl( List<Scene> scenesList, String playerImagePath) {
 		this.scenesList = scenesList;
 
 		// Create subcontrollers
 		scenesDataControlList = new ArrayList<SceneDataControl>( );
 		for( Scene scene : scenesList )
-			scenesDataControlList.add( new SceneDataControl( scene ) );
+			scenesDataControlList.add( new SceneDataControl( scene, playerImagePath) );
 	}
 
 	/**
@@ -124,7 +124,7 @@ public class ScenesListDataControl extends DataControl {
 				// Add thew new scene
 				Scene newScene = new Scene( sceneId );
 				scenesList.add( newScene );
-				scenesDataControlList.add( new SceneDataControl( newScene ) );
+				scenesDataControlList.add( new SceneDataControl( newScene, controller.getPlayerImagePath()) );
 				controller.getIdentifierSummary( ).addSceneId( sceneId );
 				controller.dataModified( );
 				elementAdded = true;

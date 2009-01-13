@@ -24,6 +24,11 @@ public abstract class FunctionalElement implements Renderable {
     protected float y;
     
     protected float scale;
+    
+    /**
+     * The position in which will be painted this element
+     */
+    protected int layer;
 
     /**
      * Creates a new FunctionalElement
@@ -34,6 +39,7 @@ public abstract class FunctionalElement implements Renderable {
         this.x = x;
         this.y = y;
         this.scale = 1;
+        this.layer = -1;
     }
 
     /**
@@ -141,5 +147,13 @@ public abstract class FunctionalElement implements Renderable {
     
     
     public abstract CustomAction getFirstValidCustomAction(String actionName);
+
+	public int getLayer() {
+		return layer;
+	}
+
+	public void setLayer(int layer) {
+		this.layer = layer;
+	}
 
 }

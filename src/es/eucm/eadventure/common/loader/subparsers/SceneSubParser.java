@@ -156,15 +156,19 @@ public class SceneSubParser extends SubParser {
 			if( qName.equals( "scene" ) ) {
 				String sceneId = "";
 				boolean initialScene = false;
+				int playerLayer=-1;
 
 				for( int i = 0; i < attrs.getLength( ); i++ ) {
 					if( attrs.getQName( i ).equals( "id" ) )
 						sceneId = attrs.getValue( i );
 					if( attrs.getQName( i ).equals( "start" ) )
 						initialScene = attrs.getValue( i ).equals( "yes" );
+					if( attrs.getQName( i ).equals( "playerLayer" ) )
+						playerLayer = Integer.parseInt( attrs.getValue( i ) );
 				}
 
 				scene = new Scene( sceneId );
+				scene.setPlayerLayer(playerLayer);
 				if( initialScene )
 					chapter.setInitialScene( sceneId );
 			}
@@ -261,6 +265,7 @@ public class SceneSubParser extends SubParser {
 				String idTarget = "";
 				int x = 0, y = 0;
 				float scale = 0;
+				int layer = -1;
 
 				for( int i = 0; i < attrs.getLength( ); i++ ) {
 					if( attrs.getQName( i ).equals( "idTarget" ) )
@@ -271,9 +276,11 @@ public class SceneSubParser extends SubParser {
 						y = Integer.parseInt( attrs.getValue( i ) );
 					if( attrs.getQName( i ).equals( "scale" ))
 						scale = Float.parseFloat( attrs.getValue( i ));
+					if ( attrs.getQName( i ).equals( "scale" ))
+						layer = Integer.parseInt( attrs.getValue( i ));
 				}
 
-				currentElementReference = new ElementReference( idTarget, x, y );
+				currentElementReference = new ElementReference( idTarget, x, y , layer);
 				if (scale > 0.001 || scale < -0.001)
 					currentElementReference.setScale(scale);
 				reading = READING_ELEMENT_REFERENCE;

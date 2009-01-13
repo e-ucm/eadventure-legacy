@@ -11,6 +11,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.controllers.scene.ElementContainer;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ReferencesListDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.book.IconTextPanel;
@@ -53,8 +54,8 @@ public class ElementReferencesTable extends JTable implements ElementReferenceSe
 
 		public Object getValueAt( int rowIndex, int columnIndex ) {
 			if (columnIndex ==1 ){
-				List<ElementReferenceDataControl> paragraphs = dataControl.getAllReferencesDataControl();
-				return paragraphs.get( rowIndex );
+				List<ElementContainer> references = dataControl.getAllReferencesDataControl();
+				return references.get( rowIndex );
 			} else {
 				return Integer.toString( rowIndex );
 			}
@@ -83,18 +84,24 @@ public class ElementReferencesTable extends JTable implements ElementReferenceSe
 				Object value, boolean isSelected, boolean hasFocus, int row,
 				int column) {
 			
-			if (value instanceof ElementReferenceDataControl){
+			if (value instanceof ElementContainer){
 				
-				
-				String elementName = ((ElementReferenceDataControl)value).getElementId();
-				if (((ElementReferenceDataControl)value).getType( ) == Controller.ITEM_REFERENCE){
-					return new IconTextPanel("img/icons/item.png", elementName, isSelected);				
-				} else if (((ElementReferenceDataControl)value).getType( ) == Controller.ATREZZO_REFERENCE){
-					return new IconTextPanel("img/icons/Atrezzo-1.png", elementName,isSelected);
-				} else if (((ElementReferenceDataControl)value).getType( ) == Controller.NPC_REFERENCE){
+				String elementName;
+				if (((ElementContainer)value).isPlayer()){
+					elementName = "player";
 					return new IconTextPanel("img/icons/npc.png", elementName,isSelected);
-				} else 
+				}
+				else {
+					elementName = ((ElementContainer)value).getErdc().getElementId();
+					if (((ElementContainer)value).getErdc().getType( ) == Controller.ITEM_REFERENCE){
+						return new IconTextPanel("img/icons/item.png", elementName, isSelected);				
+					} else if (((ElementContainer)value).getErdc().getType( )  == Controller.ATREZZO_REFERENCE){
+						return new IconTextPanel("img/icons/Atrezzo-1.png", elementName,isSelected);
+					} else if (((ElementContainer)value).getErdc().getType( )  == Controller.NPC_REFERENCE){
+						return new IconTextPanel("img/icons/npc.png", elementName,isSelected);
+					} else 
 					return null;
+				}
 			} else {
 				return new JLabel(value.toString( ));
 			}

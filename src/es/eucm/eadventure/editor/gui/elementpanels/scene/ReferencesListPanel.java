@@ -32,6 +32,7 @@ import javax.swing.event.ListSelectionListener;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.book.BookParagraphDataControl;
+import es.eucm.eadventure.editor.control.controllers.scene.ElementContainer;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ReferencesListDataControl;
 import es.eucm.eadventure.editor.gui.editdialogs.ConditionsDialog;
@@ -116,6 +117,7 @@ public class ReferencesListPanel extends JPanel {
 			for( ElementReferenceDataControl elementReference : referencesListDataControl.getNPCReferences( ) ) {
 				spep.addElement(ScenePreviewEditionPanel.CATEGORY_CHARACTER, elementReference);
 			}
+			spep.addPlayer(referencesListDataControl.getSceneDataControl(), referencesListDataControl.getPlayerImage());
 		}
 		//Create a split pane with the two panels: info panel and preview panel
 		infoWithSpep = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
@@ -182,8 +184,11 @@ public class ReferencesListPanel extends JPanel {
 		c.weightx = 1;
 		JPanel itemIdPanel = new JPanel( );
 		itemIdPanel.setLayout( new GridLayout( ) );
-		itemsComboBox = new JComboBox( controller.getIdentifierSummary( ).getItemIds( ) );
-		itemsComboBox.setSelectedItem( referencesListDataControl.getLastElementReferenceDataControl().getElementId( ) );
+		itemsComboBox = new JComboBox( referencesListDataControl.getAllReferencesId() );
+		if (referencesListDataControl.getLastElementContainer().isPlayer())
+			itemsComboBox.setSelectedItem( TextConstants.getText("ElementList.Player") );
+		else 
+			itemsComboBox.setSelectedItem( referencesListDataControl.getLastElementContainer().getErdc().getElementId( ) );
 		itemsComboBox.addActionListener( new ItemComboBoxListener( ) );
 		itemIdPanel.add( itemsComboBox );
 		itemIdPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ItemReference.ItemId" ) ) );
@@ -193,7 +198,10 @@ public class ReferencesListPanel extends JPanel {
 		c.gridy = 1;
 		JPanel documentationPanel = new JPanel( );
 		documentationPanel.setLayout( new GridLayout( ) );
-		documentationTextArea = new JTextArea( referencesListDataControl.getLastElementReferenceDataControl().getDocumentation( ), 4, 0 );
+		if (referencesListDataControl.getLastElementContainer().isPlayer())
+			documentationTextArea = new JTextArea(TextConstants.getText("ElementList.PlayerDoc"),4,0);
+		else
+			documentationTextArea = new JTextArea( referencesListDataControl.getLastElementContainer().getErdc().getDocumentation( ), 4, 0 );
 		documentationTextArea.setLineWrap( true );
 		documentationTextArea.setWrapStyleWord( true );
 		documentationTextArea.getDocument( ).addDocumentListener( new DocumentationTextAreaChangesListener( ) );
@@ -227,7 +235,7 @@ public class ReferencesListPanel extends JPanel {
 			informationTextPane.setText( TextConstants.getText( "ElementList.Empty" ));
 			infoPanel.setLayout(new BorderLayout());
 			infoPanel.add( informationTextPane, BorderLayout.CENTER);
-			
+			itemsComboBox.setSelectedIndex(table.getSelectedRow());
 			//Disable delete button
 			deleteButton.setEnabled( false );
 			//Disable moveUp and moveDown buttons
@@ -238,9 +246,9 @@ public class ReferencesListPanel extends JPanel {
 		//When a element has been selected
 		else {
 			int selectedReference = table.getSelectedRow( );
-			ElementReferenceDataControl elementReferenceDataControl = referencesListDataControl.getAllReferencesDataControl().get( selectedReference);
-			referencesListDataControl.setLastElementReferenceDataControl(elementReferenceDataControl);
-			spep.setSelectedElement(elementReferenceDataControl);
+			ElementContainer elementContainer = referencesListDataControl.getAllReferencesDataControl().get( selectedReference);
+			referencesListDataControl.setLastElementContainer(elementContainer);
+			spep.setSelectedElement(elementContainer.getErdc(),elementContainer.getImage(),referencesListDataControl.getSceneDataControl());
 
 			prepareInformationPanel();
 			
@@ -355,18 +363,20 @@ public class ReferencesListPanel extends JPanel {
 	}
 	
 	private void delete( ) {
-		ElementReferenceDataControl element = referencesListDataControl.getAllReferencesDataControl().get( table.getSelectedRow( ) );
-		if (referencesListDataControl.deleteElement( element )){
-			spep.removeElement(transformType(element.getType()), element);
-			table.clearSelection( );
-			table.updateUI( );
+		ElementContainer element = referencesListDataControl.getAllReferencesDataControl().get( table.getSelectedRow( ) );
+		if (referencesListDataControl.deleteElement( element.getErdc() )){
+			if (element.isPlayer()){
+				spep.removeElement(transformType(element.getErdc().getType()), element.getErdc());
+				table.clearSelection( );
+				table.updateUI( );
+			}
 		}
 	}
 	
 	private void moveUp(){
 		int selectedRow = table.getSelectedRow( );
-		ElementReferenceDataControl element = referencesListDataControl.getAllReferencesDataControl().get( selectedRow );
-		if (referencesListDataControl.moveElementUp( element )){
+		ElementContainer element = referencesListDataControl.getAllReferencesDataControl().get( selectedRow );
+		if (referencesListDataControl.moveElementUp( element.getErdc() )){
 			table.getSelectionModel( ).setSelectionInterval( selectedRow-1, selectedRow-1 );
 			table.updateUI( );
 		}
@@ -374,8 +384,8 @@ public class ReferencesListPanel extends JPanel {
 	
 	private void moveDown(){
 		int selectedRow = table.getSelectedRow( );
-		ElementReferenceDataControl element = referencesListDataControl.getAllReferencesDataControl().get( selectedRow );
-		if (referencesListDataControl.moveElementDown( element )){
+		ElementContainer element = referencesListDataControl.getAllReferencesDataControl().get( selectedRow );
+		if (referencesListDataControl.moveElementDown( element.getErdc() )){
 			table.getSelectionModel( ).setSelectionInterval( selectedRow+1, selectedRow+1 );
 			table.updateUI( );
 		}
@@ -472,6 +482,8 @@ public class ReferencesListPanel extends JPanel {
 			 category = ScenePreviewEditionPanel.CATEGORY_ATREZZO;
 		else if( type == Controller.NPC_REFERENCE )
 			 category = ScenePreviewEditionPanel.CATEGORY_CHARACTER;
+		else if (type == -1)
+			category = ScenePreviewEditionPanel.CATEGORY_PLAYER;
 		return category;
 	}
 	
@@ -523,8 +535,9 @@ public class ReferencesListPanel extends JPanel {
 					table.clearSelection( );
 					table.getSelectionModel( ).setSelectionInterval( selectedRow+1, selectedRow+1 );
 				}*/ 
-				if (category!=0&&referencesListDataControl.getLastElementReferenceDataControl()!=null){
-				spep.addElement(category, referencesListDataControl.getLastElementReferenceDataControl());
+				if (category!=0&&referencesListDataControl.getLastElementContainer()!=null){
+				// it is not necessary to check if it is an player element container because never a player will be added
+				spep.addElement(category, referencesListDataControl.getLastElementContainer().getErdc());
 				table.updateUI( );
 				}
 			}
@@ -553,7 +566,7 @@ public class ReferencesListPanel extends JPanel {
 		 */
 		public void insertUpdate( DocumentEvent arg0 ) {
 			// Set the new content
-			referencesListDataControl.getLastElementReferenceDataControl().setDocumentation( documentationTextArea.getText( ) );
+			referencesListDataControl.getLastElementContainer().getErdc().setDocumentation( documentationTextArea.getText( ) );
 		}
 
 		/*
@@ -563,7 +576,7 @@ public class ReferencesListPanel extends JPanel {
 		 */
 		public void removeUpdate( DocumentEvent arg0 ) {
 			// Set the new content
-			referencesListDataControl.getLastElementReferenceDataControl().setDocumentation( documentationTextArea.getText( ) );
+			referencesListDataControl.getLastElementContainer().getErdc().setDocumentation( documentationTextArea.getText( ) );
 		}
 	}
 
@@ -578,13 +591,14 @@ public class ReferencesListPanel extends JPanel {
 		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 		 */
 		public void actionPerformed( ActionEvent e ) {
-			referencesListDataControl.getLastElementReferenceDataControl().setElementId( itemsComboBox.getSelectedItem( ).toString( ) );
+			//TODO check player compatibility
+			referencesListDataControl.getLastElementContainer().getErdc().setElementId( itemsComboBox.getSelectedItem( ).toString( ) );
 
 			// Get the new element, update it and paint the panel
 			//String elementPath = Controller.getInstance( ).getElementImagePath( elementReferenceDataControl.getElementId( ) );
 			//categoryElementImagePanel.loadElement( elementPath );
 			//categoryElementImagePanel.repaint( );
-			spep.recreateElement(referencesListDataControl.getLastElementReferenceDataControl());
+			spep.recreateElement(referencesListDataControl.getLastElementContainer().getErdc());
 			spep.repaint();
 		}
 	}
@@ -600,7 +614,8 @@ public class ReferencesListPanel extends JPanel {
 		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 		 */
 		public void actionPerformed( ActionEvent e ) {
-			new ConditionsDialog( referencesListDataControl.getLastElementReferenceDataControl().getConditions( ) );
+			//TODO check player compatibility
+			new ConditionsDialog( referencesListDataControl.getLastElementContainer().getErdc().getConditions( ) );
 		}
 	}
 

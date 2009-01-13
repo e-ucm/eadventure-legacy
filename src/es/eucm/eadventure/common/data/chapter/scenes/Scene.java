@@ -43,6 +43,11 @@ public class Scene extends GeneralScene {
 	 * Default Y position for the player
 	 */
 	private int defaultY;
+	
+	/**
+	 * The position in which will be drown the player
+	 */
+	private int playerLayer;
 
 	/**
 	 * List of exits
@@ -93,6 +98,7 @@ public class Scene extends GeneralScene {
 		characterReferences = new ArrayList<ElementReference>( );
 		activeAreas = new ArrayList<ActiveArea>();
 		barriers = new ArrayList<Barrier>();
+		playerLayer = -1;
 	}
 
 	/**
@@ -258,5 +264,13 @@ public class Scene extends GeneralScene {
     public List<Barrier> getBarriers( ) {
         return barriers;
     }
+
+	public int getPlayerLayer() {
+		return playerLayer;
+	}
+
+	public void setPlayerLayer(int playerLayer) {
+		this.playerLayer = playerLayer;
+	}
 
 }

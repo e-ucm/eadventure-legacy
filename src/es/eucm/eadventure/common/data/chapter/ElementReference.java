@@ -61,6 +61,29 @@ public class ElementReference {
 		documentation = null;
 		conditions = new Conditions( );
 	}
+	
+
+	/**
+	 Creates a new ElementReference
+	 * 
+	 * @param idTarget
+	 *            the id of the element that is referenced
+	 * @param x
+	 *            the horizontal position of the element
+	 * @param y
+	 *            the vertical position of the element
+	 * @param layer
+	 * 			  the position where this element reference will be paint
+	 */
+	public ElementReference( String idTarget, int x, int y , int layer) {
+		this.idTarget = idTarget;
+		this.x = x;
+		this.y = y;
+		this.scale = 1;
+		this.layer = layer;
+		documentation = null;
+		conditions = new Conditions( );
+	}
 
 	/**
 	 * Returns the id of the element that is referenced

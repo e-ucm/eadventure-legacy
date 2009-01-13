@@ -141,9 +141,15 @@ public class FunctionalAtrezzo extends FunctionalElement {
     	int y_image = Math.round( y - getHeight( ) );
     	if (scale != 1) {
     		Image temp = image.getScaledInstance(Math.round(image.getWidth(null) * scale), Math.round(image.getHeight(null) * scale), Image.SCALE_SMOOTH);
-    		GUI.getInstance().addElementToDraw(temp, x_image, y_image, Math.round(y));
+    		if (layer==-1)
+    			GUI.getInstance().addElementToDraw(temp, x_image, y_image, Math.round(y));
+    		else 
+    			GUI.getInstance().addElementToDraw(temp, x_image, y_image, layer);
     	} else 
-    		GUI.getInstance( ).addElementToDraw( image, x_image, y_image, Math.round( y ) );
+    		if (layer==-1)
+    			GUI.getInstance( ).addElementToDraw( image, x_image, y_image, Math.round( y ) );
+    		else 
+    			GUI.getInstance( ).addElementToDraw( image, x_image, y_image, layer );
     }
     
     @Override

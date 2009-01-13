@@ -140,7 +140,7 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
         this.player = player;
         speedX = 0;
         speedY = 0;
-        
+        layer = -1;
         // Select the resources block
         resources = createResourcesBlock( );
 
@@ -406,7 +406,10 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
         	Image image = getCurrentAnimation().getImage();
             int realX = (int) (x - ( image.getWidth( null ) / 2 ) - Game.getInstance( ).getFunctionalScene( ).getOffsetX( ));
             int realY = (int) (y - ( image.getHeight( null ) )); 
-            GUI.getInstance( ).addElementToDraw( image, realX, realY, (int) y );
+            if (layer==-1)
+            	GUI.getInstance( ).addElementToDraw( image, realX, realY, (int) y );
+            else 
+            	GUI.getInstance( ).addElementToDraw( image, realX, realY, layer );
         }
         if (getCurrentAction().isStarted() && !getCurrentAction().isFinished())
         	getCurrentAction().drawAditionalElements();

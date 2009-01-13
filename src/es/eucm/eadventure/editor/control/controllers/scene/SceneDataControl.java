@@ -35,7 +35,7 @@ public class SceneDataControl extends DataControlWithResources {
 	private ExitsListDataControl exitsListDataControl;
 
 	/**
-	 * Item references list controller.
+	 * Element references list controller.
 	 */
 	private ReferencesListDataControl referencesListDataControl;
 		
@@ -60,7 +60,7 @@ public class SceneDataControl extends DataControlWithResources {
 	 * @param scene
 	 *            Contained scene data
 	 */
-	public SceneDataControl( Scene scene ) {
+	public SceneDataControl( Scene scene , String playerImagePath) {
 		this.scene = scene;
 		this.resourcesList = scene.getResources( );
 
@@ -76,7 +76,7 @@ public class SceneDataControl extends DataControlWithResources {
 			resourcesDataControlList.add( new ResourcesDataControl( resources, Controller.SCENE ) );
 
 		exitsListDataControl = new ExitsListDataControl( this, scene.getExits( ) );
-		referencesListDataControl = new ReferencesListDataControl( this, scene.getItemReferences( ), scene.getAtrezzoReferences(), scene.getCharacterReferences() );
+		referencesListDataControl = new ReferencesListDataControl(playerImagePath, this, scene.getItemReferences( ), scene.getAtrezzoReferences(), scene.getCharacterReferences() );
 		activeAreasListDataControl = new ActiveAreasListDataControl( this, scene.getActiveAreas( ));
 		barriersListDataControl = new BarriersListDataControl( this, scene.getBarriers( ));
 	}
@@ -512,6 +512,16 @@ public class SceneDataControl extends DataControlWithResources {
 	@Override
 	public boolean canBeDuplicated( ) {
 		return true;
+	}
+
+	/**
+	 *  Returns the scene
+	 *  
+	 * @return
+	 * 		the scene.
+	 */
+	public Scene getScene() {
+		return scene;
 	}
 
 }
