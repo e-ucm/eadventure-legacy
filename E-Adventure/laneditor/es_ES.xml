@@ -1091,6 +1091,8 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="ElementList.Layer">Capa</entry>
 	<entry key="ElementList.Empty">No se ha seleccionado ninguna referencia a elemento</entry>
 	<entry key="ElementList.Info">Información y condiciones </entry>
+	<entry key="ElementList.PlayerDoc">Este es el jugador principal del juego. Para mas información, ver el nodo específico del mismo</entry>
+	<entry key="ElementList.Player">Jugador</entry>
 
 
 	<entry key="ActionsList.Title">Acciones</entry>

@@ -172,6 +172,8 @@ public class SceneDOMWriter {
 					itemReferenceElement.setAttribute( "x", String.valueOf( itemReference.getX( ) ) );
 					itemReferenceElement.setAttribute( "y", String.valueOf( itemReference.getY( ) ) );
 					itemReferenceElement.setAttribute( "scale", String.valueOf( itemReference.getScale()));
+					if (itemReference.getLayer()!=-1)
+						itemReferenceElement.setAttribute( "layer", String.valueOf( itemReference.getLayer()));
 
 					// Append the documentation (if avalaible)
 					if( itemReference.getDocumentation( ) != null ) {
@@ -201,28 +203,31 @@ public class SceneDOMWriter {
 				// Append every single character reference
 				for( ElementReference characterReference : scene.getCharacterReferences( ) ) {
 					// Create the character reference element
-					Element itemReferenceElement = doc.createElement( "character-ref" );
-					itemReferenceElement.setAttribute( "idTarget", characterReference.getIdTarget( ) );
-					itemReferenceElement.setAttribute( "x", String.valueOf( characterReference.getX( ) ) );
-					itemReferenceElement.setAttribute( "y", String.valueOf( characterReference.getY( ) ) );
-					itemReferenceElement.setAttribute( "scale", String.valueOf( characterReference.getScale()));
+					Element npcReferenceElement = doc.createElement( "character-ref" );
+					npcReferenceElement.setAttribute( "idTarget", characterReference.getIdTarget( ) );
+					npcReferenceElement.setAttribute( "x", String.valueOf( characterReference.getX( ) ) );
+					npcReferenceElement.setAttribute( "y", String.valueOf( characterReference.getY( ) ) );
+					npcReferenceElement.setAttribute( "scale", String.valueOf( characterReference.getScale()));
+					if (characterReference.getLayer()!=-1)
+						npcReferenceElement.setAttribute( "layer", String.valueOf( characterReference.getLayer()));
+
 
 					// Append the documentation (if avalaible)
 					if( characterReference.getDocumentation( ) != null ) {
 						Node itemDocumentationNode = doc.createElement( "documentation" );
 						itemDocumentationNode.appendChild( doc.createTextNode( characterReference.getDocumentation( ) ) );
-						itemReferenceElement.appendChild( itemDocumentationNode );
+						npcReferenceElement.appendChild( itemDocumentationNode );
 					}
 
 					// Append the conditions (if avalaible)
 					if( !characterReference.getConditions( ).isEmpty( ) ) {
 						Node conditionsNode = ConditionsDOMWriter.buildDOM( characterReference.getConditions( ) );
 						doc.adoptNode( conditionsNode );
-						itemReferenceElement.appendChild( conditionsNode );
+						npcReferenceElement.appendChild( conditionsNode );
 					}
 
 					// Append the exit
-					charactersNode.appendChild( itemReferenceElement );
+					charactersNode.appendChild( npcReferenceElement );
 				}
 				// Append the list of exits
 				sceneElement.appendChild( charactersNode );
@@ -425,14 +430,16 @@ public class SceneDOMWriter {
 			if( !scene.getAtrezzoReferences( ).isEmpty( ) ) {
 				Node atrezzoNode = doc.createElement( "atrezzo" );
 
-				// Append every single item reference
+				// Append every single atrezzo reference
 				for( ElementReference atrezzoReference : scene.getAtrezzoReferences( ) ) {
-					// Create the item reference element
+					// Create the atrezzo reference element
 					Element atrezzoReferenceElement = doc.createElement( "atrezzo-ref" );
 					atrezzoReferenceElement.setAttribute( "idTarget", atrezzoReference.getIdTarget( ) );
 					atrezzoReferenceElement.setAttribute( "x", String.valueOf( atrezzoReference.getX( ) ) );
 					atrezzoReferenceElement.setAttribute( "y", String.valueOf( atrezzoReference.getY( ) ) );
 					atrezzoReferenceElement.setAttribute( "scale", String.valueOf( atrezzoReference.getScale()));
+					if (atrezzoReference.getLayer()!=-1)
+						atrezzoReferenceElement.setAttribute( "layer", String.valueOf( atrezzoReference.getLayer()));
 
 					// Append the documentation (if avalaible)
 					if( atrezzoReference.getDocumentation( ) != null ) {
@@ -448,10 +455,10 @@ public class SceneDOMWriter {
 						atrezzoReferenceElement.appendChild( conditionsNode );
 					}
 
-					// Append the exit
+					// Append the atrezzo reference
 					atrezzoNode.appendChild( atrezzoReferenceElement );
 				}
-				// Append the list of exits
+				// Append the list of atrezzo references
 				sceneElement.appendChild( atrezzoNode );
 			}
 

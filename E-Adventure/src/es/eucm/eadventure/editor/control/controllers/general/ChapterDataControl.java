@@ -98,12 +98,12 @@ public class ChapterDataControl extends DataControl {
 		this.chapter = chapter;
 
 		// Create the subcontrollers
-		scenesListDataControl = new ScenesListDataControl( chapter.getScenes( ) );
+		playerDataControl = new PlayerDataControl( chapter.getPlayer( ) );
+		scenesListDataControl = new ScenesListDataControl( chapter.getScenes( ), this.getPlayer().getPreviewImage());
 		cutscenesListDataControl = new CutscenesListDataControl( chapter.getCutscenes( ) );
 		booksListDataControl = new BooksListDataControl( chapter.getBooks( ) );
 		itemsListDataControl = new ItemsListDataControl( chapter.getItems( ) );
 		atrezzoListDataControl = new AtrezzoListDataControl(chapter.getAtrezzo());
-		playerDataControl = new PlayerDataControl( chapter.getPlayer( ) );
 		npcsListDataControl = new NPCsListDataControl( chapter.getCharacters( ) );
 		conversationsListDataControl = new ConversationsListDataControl( chapter.getConversations( ) );
 		timersListDataControl = new TimersListDataControl( chapter.getTimers( ) );

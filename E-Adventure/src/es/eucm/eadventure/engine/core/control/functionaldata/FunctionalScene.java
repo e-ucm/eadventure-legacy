@@ -173,6 +173,7 @@ public class FunctionalScene implements Renderable {
                         if( itemReference.getIdTarget( ).equals( currentItem.getId( ) ) ) {
                             FunctionalItem fitem = new FunctionalItem( currentItem, itemReference.getX( ), itemReference.getY( ) );
                         	fitem.setScale(itemReference.getScale());
+                        	fitem.setLayer(itemReference.getLayer());
                             items.add( fitem );
                         }
         // Add the functional characters
@@ -182,6 +183,7 @@ public class FunctionalScene implements Renderable {
                     if( npcReference.getIdTarget( ).equals( currentNPC.getId( ) ) ) {
                         FunctionalNPC fnpc = new FunctionalNPC( currentNPC, npcReference.getX( ), npcReference.getY( ) );
                     	fnpc.setScale(npcReference.getScale());
+                    	fnpc.setLayer(npcReference.getLayer());
                         npcs.add( fnpc );
                     }
         // Add the functional active areas
@@ -201,7 +203,8 @@ public class FunctionalScene implements Renderable {
                         if( atrezzoReference.getIdTarget( ).equals( currentAtrezzo.getId( ) ) ) {
                             FunctionalAtrezzo fatrezzo = new FunctionalAtrezzo( currentAtrezzo, atrezzoReference.getX( ), atrezzoReference.getY( ));
                         	fatrezzo.setScale(atrezzoReference.getScale());
-                            atrezzo.add( fatrezzo );
+                            fatrezzo.setLayer(atrezzoReference.getLayer());
+                        	atrezzo.add( fatrezzo );
                         }
 
         updateOffset( );

@@ -427,7 +427,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         // Create the functional player
         functionalPlayer = new FunctionalPlayer( gameData.getPlayer( ) );
         functionalPlayer.setTransparent( gameDescriptor.getPlayerMode( )==DescriptorData.MODE_PLAYER_1STPERSON );
-
+       
         // Add timers to the TimerManager
         this.gameTimers = new HashMap<Integer, Timer>();
         for (Timer timer: gameData.getTimers( )){
@@ -444,6 +444,11 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         nextChapter = false;
     }
 
+    
+    public void setPlayerLayer(int layer){
+    	 functionalPlayer.setLayer(layer);
+    	 
+    }
     
     public static boolean FINISH = false;
     /*

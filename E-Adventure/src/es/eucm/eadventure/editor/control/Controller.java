@@ -785,7 +785,10 @@ public class Controller {
 	 * @return The selected chapter data controller
 	 */
 	public ChapterDataControl getSelectedChapterDataControl( ) {
-		return chapterDataControlList.get( selectedChapter );
+		if (chapterDataControlList.size()!=0)
+			return chapterDataControlList.get( selectedChapter );
+		else 
+			return null;
 	}
 
 	/**
@@ -2523,7 +2526,10 @@ public class Controller {
 	 * @return Default image of the player
 	 */
 	public String getPlayerImagePath( ) {
-		return getSelectedChapterDataControl( ).getPlayer( ).getPreviewImage( );
+		if (getSelectedChapterDataControl( )!= null)
+			return getSelectedChapterDataControl( ).getPlayer( ).getPreviewImage( );
+		else 
+			return null;
 	}
 
 	/**

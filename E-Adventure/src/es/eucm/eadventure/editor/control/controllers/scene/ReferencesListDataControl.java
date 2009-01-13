@@ -1,16 +1,24 @@
 package es.eucm.eadventure.editor.control.controllers.scene;
 
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.ElementReference;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.character.PlayerDataControl;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class ReferencesListDataControl extends DataControl {
 
+	
+	/**
+	 * Player image path
+	 */
+	private String playerImagePath;
 	/**
 	 * Scene controller that contains this element reference.
 	 */
@@ -49,17 +57,22 @@ public class ReferencesListDataControl extends DataControl {
 	/**
 	 * List of all elements order by number of layer (or y position when they have the same layer "-1")
 	 */
-	private List<ElementReference> allReferences;
+	//private List<ElementContainer> allReferences;
 	
 	/**
 	 * List of all elements order by number of layer (or y position when they have the same layer "-1")
 	 */
-	private List<ElementReferenceDataControl> allReferencesDataControl;
+	private List<ElementContainer> allReferencesDataControl;
 	
 	/**
-	 * The last introduced element referenced 
+	 * The last introduced element referenced or player (in a ElementContainer object)
 	 */
-	private ElementReferenceDataControl lastElementReferenceDataControl;
+	private ElementContainer lastElementContainer;
+	
+	/**
+	 * The player position in allReferencesDataControl
+	 */
+	private int playerPosition;
 	
 	/**
 	 * Constructor.
@@ -69,15 +82,15 @@ public class ReferencesListDataControl extends DataControl {
 	 * @param itemReferencesList
 	 *            List of item references
 	 */
-	public ReferencesListDataControl( SceneDataControl sceneDataControl, List<ElementReference> itemReferencesList
+	public ReferencesListDataControl( String playerImagePath,SceneDataControl sceneDataControl, List<ElementReference> itemReferencesList
 										, List<ElementReference> atrezzoReferencesList, List<ElementReference> npcReferencesList) {
+		this.playerImagePath = playerImagePath;
 		this.sceneDataControl = sceneDataControl;
 		this.itemReferencesList = itemReferencesList;
 		this.atrezzoReferencesList = atrezzoReferencesList;
 		this.npcReferencesList = npcReferencesList;
-		this.allReferences = new ArrayList<ElementReference>();
-		this.allReferencesDataControl = new ArrayList<ElementReferenceDataControl>();
-		this.lastElementReferenceDataControl = null;
+		this.allReferencesDataControl = new ArrayList<ElementContainer>();
+		this.lastElementContainer = null;
 		// Check if one of references has layer -1: if it is true, it means that element references has not layer. 
 		// Create subcontrollers
 		itemReferencesDataControlList = new ArrayList<ElementReferenceDataControl>( );
@@ -85,24 +98,25 @@ public class ReferencesListDataControl extends DataControl {
 		for( ElementReference itemReference : itemReferencesList ){
 			ElementReferenceDataControl erdc = new ElementReferenceDataControl( sceneDataControl, itemReference, Controller.ITEM_REFERENCE) ;
 			itemReferencesDataControlList.add(erdc );
-			insertInOrder(erdc,hasLayer);
-			insertInOrder(itemReference,hasLayer);
+			insertInOrder(new ElementContainer(erdc,-1,null),hasLayer);
 		}
 		
 		atrezzoReferencesDataControlList = new ArrayList<ElementReferenceDataControl>();
 		for (ElementReference atrezzoReference : atrezzoReferencesList){
 			ElementReferenceDataControl erdc = new ElementReferenceDataControl(sceneDataControl, atrezzoReference, Controller.ATREZZO_REFERENCE);
 			atrezzoReferencesDataControlList.add(erdc );
-			insertInOrder(erdc,hasLayer);
-			insertInOrder(atrezzoReference, hasLayer);
+			insertInOrder(new ElementContainer(erdc,-1,null),hasLayer);
 		}
 		npcReferencesDataControlList = new ArrayList<ElementReferenceDataControl>();
 		for (ElementReference npcReference : npcReferencesList){
 			ElementReferenceDataControl erdc  =  new ElementReferenceDataControl(sceneDataControl, npcReference, Controller.NPC_REFERENCE);
 			npcReferencesDataControlList.add(erdc);
-			insertInOrder(erdc,hasLayer);
-			insertInOrder(npcReference,hasLayer());
+			insertInOrder(new ElementContainer(erdc,-1,null),hasLayer);
 		}
+		
+		// insert player
+		if (playerImagePath!=null)
+			insertInOrder(new ElementContainer(null,sceneDataControl.getScene().getPlayerLayer(),AssetsController.getImage( this.playerImagePath )),hasLayer);
 	}
 	
 	/**
@@ -135,72 +149,22 @@ public class ReferencesListDataControl extends DataControl {
 	}
 	
 	
-	/**
-	 * Insert in order in allReferences attribute
-	 * 
-	 * @param element
-	 * 				The element reference to be added
-	 * @param	hasLayer
-	 * 				Take either layer or depth value to order value
-	 **/
-	public void insertInOrder(ElementReference element, boolean hasLayer){
-		boolean added = false;
-        int i = 0;
-        boolean empty = allReferences.size()==0 ;
-        // While the element has not been added, and
-        // we haven't checked every previous element
-        while( !added && (i < allReferences.size( ) || empty) )  {
-            
-            // Insert the element in the correct position
-        	if (hasLayer){
-        		if (!empty){
-        			if( element.getLayer() <= allReferences.get( i ).getLayer() ) {
-        			allReferences.add( i,  element);
-        			reassignLayerAllReferences(i);
-        			added = true;
-        			}
-        		}else {
-        			allReferences.add( i,  element);
-        			reassignLayerAllReferences(i);
-        			added = true;
-        		}
-        		i++;
-        	}else {
-        		if (!empty){
-        		if( Math.round(element.getY()) <= Math.round(allReferences.get( i ).getY()) ) {
-        			element.setLayer(i);
-        			allReferences.add( i,  element);
-        			reassignLayerAllReferences(i);
-        			added = true;
-        		}
-        		}else {
-        			element.setLayer(i);
-        			allReferences.add( i,  element);
-        			reassignLayerAllReferences(i);
-        			added = true;
-        		}
-        		i++;
-        	}
-        	
-        }
-        
-        // If the element wasn't added, add it in the last position
-        if( !added ){
-            element.setLayer(i);
-        	allReferences.add( element );
-        	reassignLayerAllReferences(i);
-        }
+	public Image getPlayerImage(){
+		return allReferencesDataControl.get(playerPosition).getImage();
 	}
+	
 	
 	/**
 	 * Insert in order in allReferencesDataControl attribute
 	 * 
 	 * @param element
-	 * 				The element reference to be added
+	 * 				The element container to be added
 	 * @param	hasLayer
 	 * 				Take either layer or depth value to order value
+	 * @param playerLayer
+	 * 				Take the layer if player has it, or the y position if the player has not layer.
 	 **/
-	public void insertInOrder(ElementReferenceDataControl element, boolean hasLayer){
+	public void  insertInOrder(ElementContainer element, boolean hasLayer){
 		boolean added = false;
         int i = 0;
         boolean empty = allReferencesDataControl.size()==0 ;
@@ -209,46 +173,43 @@ public class ReferencesListDataControl extends DataControl {
         while( !added && (i < allReferencesDataControl.size( ) || empty) ) {
             
             // Insert the element in the correct position
-        	if (hasLayer){
-        		if (!empty){
-        			if( element.getElementReference().getLayer() <= allReferencesDataControl.get( i ).getElementReference().getLayer() ) {
+        	if (!empty){
+        		if (hasLayer){
+            			//check the layer
+        			if( element.getLayer() <= allReferencesDataControl.get( i ).getLayer() ) {
         				allReferencesDataControl.add( i,  element);
         				reassignLayerAllReferencesDataControl(i);
         				added = true;
         			}
         		}else {
-        			allReferencesDataControl.add( i,  element);
-        			reassignLayerAllReferencesDataControl(i);
-        			added = true;
+        			//check the y position
+        			if( element.getY() <= Math.round(allReferencesDataControl.get( i ).getY()) ) {
+            			//element.getElementReference().setLayer(i);
+            		    
+        				//element.setLayer(i);
+        				allReferencesDataControl.add( i,  element);
+            			reassignLayerAllReferencesDataControl(i);
+            			added = true;
+            		}
         		}
         		i++;
         	}else {
-        		if (!empty){
-        		if( Math.round(element.getElementReference().getY()) <= Math.round(allReferencesDataControl.get( i ).getElementReference().getY()) ) {
-        			element.getElementReference().setLayer(i);
-        			allReferencesDataControl.add( i,  element);
-        			reassignLayerAllReferencesDataControl(i);
-        			added = true;
-        		}
-        		}else {
-        			element.getElementReference().setLayer(i);
-        			allReferencesDataControl.add( i,  element);
-        			reassignLayerAllReferencesDataControl(i);
-        			added = true;
-        		}
-        		i++;
+        		allReferencesDataControl.add( i,  element);
+    			reassignLayerAllReferencesDataControl(i);
+    			added = true;
+    			i++;
         	}
         	
         }
         
         // If the element wasn't added, add it in the last position
         if( !added ){
-        	element.getElementReference().setLayer(i);
+        	//element.setLayer(i);
         	allReferencesDataControl.add( element );
         	reassignLayerAllReferencesDataControl(i);
         	
         }
-            
+          //return element;  
 	}
 	
 	/**
@@ -257,7 +218,7 @@ public class ReferencesListDataControl extends DataControl {
 	 * @return 
 	 * 		The list that contains all references data control;
 	 */
-	public List<ElementReferenceDataControl> getAllReferencesDataControl(){
+	public List<ElementContainer> getAllReferencesDataControl(){
 		return allReferencesDataControl;
 		
 	}
@@ -377,11 +338,13 @@ public class ReferencesListDataControl extends DataControl {
 				if( selectedItem != null ) {
 					ElementReference newElementReference = new ElementReference( selectedItem, 50, 50 );
 					ElementReferenceDataControl erdc = new ElementReferenceDataControl( sceneDataControl, newElementReference,type );
-					lastElementReferenceDataControl = erdc;
 					itemReferencesList.add( newElementReference );
 					itemReferencesDataControlList.add( erdc );
-					insertInOrder(newElementReference,false);
-					insertInOrder(erdc,false);
+					//TODO
+					//insertInOrder(newElementReference,false);
+					ElementContainer ec = new ElementContainer(erdc,-1,null);
+					lastElementContainer = ec;
+					insertInOrder(ec,false);
 					controller.dataModified( );
 					elementAdded = true;
 				}
@@ -405,11 +368,13 @@ public class ReferencesListDataControl extends DataControl {
 				if( selectedItem != null ) {
 					ElementReference newElementReference = new ElementReference( selectedItem, 50, 50 );
 					ElementReferenceDataControl erdc = new ElementReferenceDataControl( sceneDataControl, newElementReference, type );
-					lastElementReferenceDataControl = erdc;
 					atrezzoReferencesList.add( newElementReference );
 					atrezzoReferencesDataControlList.add( erdc );
-					insertInOrder(newElementReference,false);
-					insertInOrder(erdc,false);
+					//TODO
+					//insertInOrder(newElementReference,false,-1);
+					ElementContainer ec = new ElementContainer(erdc,-1,null);
+					lastElementContainer = ec;
+					insertInOrder(ec,false);
 					controller.dataModified( );
 					elementAdded = true;
 				}
@@ -432,11 +397,14 @@ public class ReferencesListDataControl extends DataControl {
 				if( selectedItem != null ) {
 					ElementReference newElementReference = new ElementReference( selectedItem, 50, 50 );
 					ElementReferenceDataControl erdc = new ElementReferenceDataControl( sceneDataControl, newElementReference, type );
-					lastElementReferenceDataControl = erdc;
+					
 					npcReferencesList.add( newElementReference );
 					npcReferencesDataControlList.add( erdc );
-					insertInOrder(newElementReference,false);
-					insertInOrder(erdc,false);
+					//TODO
+					//insertInOrder(newElementReference,false);
+					ElementContainer ec = new ElementContainer(erdc,-1,null);
+					lastElementContainer = ec;
+					insertInOrder(ec,false);
 					controller.dataModified( );
 					elementAdded = true;
 				}
@@ -450,19 +418,21 @@ public class ReferencesListDataControl extends DataControl {
 		return elementAdded;
 	}
 	
-	
-	private void reassignLayerAllReferences(int index){
+	//TODO
+	/*private void reassignLayerAllReferences(int index){
 
 		for (int i = index; i<allReferences.size();i++){
 			allReferences.get(i).setLayer(i);
 		}
 		
-	}
+	}*/
 	
 	private void reassignLayerAllReferencesDataControl(int index){
 
-		for (int i = index; i<allReferences.size();i++){
-			allReferencesDataControl.get(i).getElementReference().setLayer(i);
+		for (int i = index; i<allReferencesDataControl.size();i++){
+			allReferencesDataControl.get(i).setLayer(i);
+			if (allReferencesDataControl.get(i).isPlayer())
+				playerPosition=i;
 		}
 		
 	}
@@ -474,18 +444,22 @@ public class ReferencesListDataControl extends DataControl {
 	 * 		dataControl the issue to delete
 	 */
 	private void delete(DataControl dataControl){
-		int index = allReferencesDataControl.indexOf(dataControl);
-		allReferences.remove(dataControl.getContent());
-		allReferencesDataControl.remove(dataControl);
-		reassignLayerAllReferences(index);
-		reassignLayerAllReferencesDataControl(index);
-		
+		ElementContainer ec ;
+		if (dataControl != null){
+			ec = new ElementContainer((ElementReferenceDataControl)dataControl.getContent(),-1,null);
+			int index = allReferencesDataControl.indexOf(ec);
+			//TODO
+			//	allReferences.remove(dataControl.getContent());
+			//reassignLayerAllReferences(index);
+			allReferencesDataControl.remove(ec);
+			reassignLayerAllReferencesDataControl(index);
+		}
 	}
 	
 	@Override
 	public boolean deleteElement( DataControl dataControl ) {
 		boolean elementDeleted = false;
-		
+		if (dataControl != null){
 		if( itemReferencesList.remove( dataControl.getContent( ) ) ) {
 			itemReferencesDataControlList.remove( dataControl );
 			delete(dataControl);
@@ -506,20 +480,29 @@ public class ReferencesListDataControl extends DataControl {
 			controller.dataModified( );
 			elementDeleted = true;
 		}
+		}
+		//if it is a player, we don´t allow to delete it
+		 
+			
 
 		return elementDeleted;
 	}
 	
 	private void moveUp(DataControl dataControl){
-		int index = allReferences.indexOf(dataControl.getContent());
+		ElementContainer ec;
+		if (dataControl == null)
+				ec = new ElementContainer(null,sceneDataControl.getScene().getPlayerLayer(),AssetsController.getImage( this.playerImagePath ));
+		else 
+				ec = new ElementContainer((ElementReferenceDataControl)dataControl.getContent(),-1,null);
+		int index = allReferencesDataControl.indexOf(ec);
 		if (index>0){
 			//change the elements
-			allReferences.add(index-1, allReferences.remove(index));
+			allReferencesDataControl.add(index-1, allReferencesDataControl.remove(index));
 			//update element layer
-			allReferences.get(index).setLayer(index);
-			allReferences.get(index-1).setLayer(index-1);
+			allReferencesDataControl.get(index).setLayer(index);
+			allReferencesDataControl.get(index-1).setLayer(index-1);
 			//change in data control container
-			allReferencesDataControl.add(index-1,allReferencesDataControl.remove(index));
+			//allReferencesDataControl.add(index-1,allReferencesDataControl.remove(index));
 			
 		}
 	}
@@ -527,6 +510,7 @@ public class ReferencesListDataControl extends DataControl {
 	@Override
 	public boolean moveElementUp( DataControl dataControl ) {
 		boolean elementMoved = false;
+		if (dataControl!=null){
 		int itemElementIndex = itemReferencesList.indexOf( dataControl.getContent( ) );
 		int atrezzoElementIndex = atrezzoReferencesList.indexOf( dataControl.getContent( ) );
 		int npcElementIndex = npcReferencesList.indexOf( dataControl.getContent( ) );
@@ -550,27 +534,41 @@ public class ReferencesListDataControl extends DataControl {
 			controller.dataModified( );
 			elementMoved = true;
 		}
+		}// if it is a player
+		else {
+			moveUp(dataControl);
+			controller.dataModified();
+			elementMoved = true;
+		}
 
 		return elementMoved;
 	}
 	
 	
 	private void moveDown(DataControl dataControl){
-		int index = allReferences.indexOf(dataControl.getContent());
-		if (index >=0 && index<allReferences.size()-1){
+		ElementContainer ec ;
+		
+		if (dataControl == null)
+				ec = new ElementContainer(null,sceneDataControl.getScene().getPlayerLayer(),AssetsController.getImage( this.playerImagePath ));
+		else 
+				ec = new ElementContainer((ElementReferenceDataControl)dataControl.getContent(),-1,null);
+		int index = allReferencesDataControl.indexOf(ec);
+		if (index >=0 && index<allReferencesDataControl.size()-1){
 			//change the elements
-			allReferences.add(index+1,allReferences.remove(index));
-			//update element layer
-			allReferences.get(index).setLayer(index);
-			allReferences.get(index+1).setLayer(index+1);
-			//change in data control container
 			allReferencesDataControl.add(index+1,allReferencesDataControl.remove(index));
+			//update element layer
+			allReferencesDataControl.get(index).setLayer(index);
+			allReferencesDataControl.get(index+1).setLayer(index+1);
+			//change in data control container
+			//allReferencesDataControl.add(index+1,allReferencesDataControl.remove(index));
 		}
 	}
 
 	@Override
 	public boolean moveElementDown( DataControl dataControl ) {
 		boolean elementMoved = false;
+		
+		if (dataControl != null){
 		int itemElementIndex = itemReferencesList.indexOf( dataControl.getContent( ) );
 		int atrezzoElementIndex = atrezzoReferencesList.indexOf( dataControl.getContent());
 		int npcElementIndex = npcReferencesList.indexOf( dataControl.getContent());
@@ -592,6 +590,11 @@ public class ReferencesListDataControl extends DataControl {
 			//npcReferencesDataControlList.add( npcElementIndex + 1, npcReferencesDataControlList.remove( npcElementIndex ) );
 			moveDown(dataControl);
 			controller.dataModified( );
+			elementMoved = true;
+		}
+		} else {
+			moveDown(dataControl);
+			controller.dataModified();
 			elementMoved = true;
 		}
 
@@ -710,22 +713,51 @@ public class ReferencesListDataControl extends DataControl {
 	}
 
 	/**
-	 * Give the last introduced element reference data control
+	 * Give the last introduced element container
 	 * @return
 	 * 		The last introduced reference
 	 */
-	public ElementReferenceDataControl getLastElementReferenceDataControl() {
-		return lastElementReferenceDataControl;
+	public ElementContainer getLastElementContainer() {
+		return lastElementContainer;
 	}
 
 	/**
-	 * Change the last element reference data control
+	 * Change the last element container
 	 * 
-	 * @param lastElementReferenceDataControl
+	 * @param lastElementContainer
+	 * 			the new element container
 	 */
-	public void setLastElementReferenceDataControl(
-			ElementReferenceDataControl lastElementReferenceDataControl) {
-		this.lastElementReferenceDataControl = lastElementReferenceDataControl;
+	public void setLastElementContainer(
+			ElementContainer lastElementContainer) {
+		this.lastElementContainer = lastElementContainer;
+	}
+
+	public SceneDataControl getSceneDataControl() {
+		return sceneDataControl;
+	}
+	
+	/**
+	 * 	Put all id of the references in a string array
+	 * 
+	 * @return String[]
+	 * 			Array of strings with the name of each element reference
+	 */
+	public String[] getAllReferencesId(){
+		String[] cont = new String[allReferencesDataControl.size()];
+		for (int i=0; i<cont.length;i++)
+			if (allReferencesDataControl.get(i).isPlayer())
+				cont[i] = "Player";
+			else
+				cont[i] = allReferencesDataControl.get(i).getErdc().getElementId();
+		return cont;
+	}
+
+	public int getPlayerPosition() {
+		return playerPosition;
+	}
+
+	public void setPlayerPosition(int playerPosition) {
+		this.playerPosition = playerPosition;
 	}
 	
 	

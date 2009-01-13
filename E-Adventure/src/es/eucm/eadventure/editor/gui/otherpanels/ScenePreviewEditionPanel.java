@@ -13,6 +13,7 @@ import java.util.List;
 import javax.swing.JPanel;
 
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
+import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.ScenePreviewEditionController;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
@@ -154,8 +155,9 @@ public class ScenePreviewEditionPanel extends JPanel {
 		Integer key = new Integer(category);
 		List<ImageElement> list = elements.get(key);
 		if (list!= null){
-			list.remove(new ImageElementReference(element));
+				list.remove(new ImageElementReference(element));
 		}
+		
 		repaint();
 	}
 	
@@ -482,8 +484,11 @@ public class ScenePreviewEditionPanel extends JPanel {
 	 * @param erdc
 	 * 				The new ElementReferenceDataControl
 	 */
-	public void setSelectedElement(ElementReferenceDataControl erdc){
-		this.selectedElement = new ImageElementReference(erdc);
+	public void setSelectedElement(DataControl erdc,Image image, SceneDataControl sceneDataControl){
+		if (erdc!=null)
+			this.selectedElement = new ImageElementReference((ElementReferenceDataControl)erdc);
+		else 
+			this.selectedElement = new ImageElementPlayer(image,sceneDataControl);
 	}
 	
 	public void setSelectedElement(ImageElement imageElement) {
