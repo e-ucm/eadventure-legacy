@@ -489,12 +489,15 @@ public class ReferencesListDataControl extends DataControl {
 	}
 	
 	private void moveUp(DataControl dataControl){
-		ElementContainer ec;
+		
+		int index=0;
 		if (dataControl == null)
-				ec = new ElementContainer(null,sceneDataControl.getScene().getPlayerLayer(),AssetsController.getImage( this.playerImagePath ));
+			for (index=0; index < allReferencesDataControl.size();index++)
+				if (allReferencesDataControl.get(index).getErdc().equals(dataControl))
+					break;
 		else 
-				ec = new ElementContainer((ElementReferenceDataControl)dataControl.getContent(),-1,null);
-		int index = allReferencesDataControl.indexOf(ec);
+			index = playerPosition;
+		
 		if (index>0){
 			//change the elements
 			allReferencesDataControl.add(index-1, allReferencesDataControl.remove(index));
@@ -551,7 +554,7 @@ public class ReferencesListDataControl extends DataControl {
 		if (dataControl == null)
 				ec = new ElementContainer(null,sceneDataControl.getScene().getPlayerLayer(),AssetsController.getImage( this.playerImagePath ));
 		else 
-				ec = new ElementContainer((ElementReferenceDataControl)dataControl.getContent(),-1,null);
+				ec = new ElementContainer((ElementReferenceDataControl)dataControl,-1,null);
 		int index = allReferencesDataControl.indexOf(ec);
 		if (index >=0 && index<allReferencesDataControl.size()-1){
 			//change the elements

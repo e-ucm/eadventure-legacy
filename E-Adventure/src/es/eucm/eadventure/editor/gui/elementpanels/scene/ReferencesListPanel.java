@@ -235,7 +235,7 @@ public class ReferencesListPanel extends JPanel {
 			informationTextPane.setText( TextConstants.getText( "ElementList.Empty" ));
 			infoPanel.setLayout(new BorderLayout());
 			infoPanel.add( informationTextPane, BorderLayout.CENTER);
-			itemsComboBox.setSelectedIndex(table.getSelectedRow());
+			
 			//Disable delete button
 			deleteButton.setEnabled( false );
 			//Disable moveUp and moveDown buttons
@@ -251,7 +251,7 @@ public class ReferencesListPanel extends JPanel {
 			spep.setSelectedElement(elementContainer.getErdc(),elementContainer.getImage(),referencesListDataControl.getSceneDataControl());
 
 			prepareInformationPanel();
-			
+			itemsComboBox.setSelectedIndex(selectedReference);			
 			// Enable delete button
 			deleteButton.setEnabled( true );
 			//Enable moveUp and moveDown buttons when there is more than one element
@@ -592,12 +592,12 @@ public class ReferencesListPanel extends JPanel {
 		 */
 		public void actionPerformed( ActionEvent e ) {
 			//TODO check player compatibility
-			referencesListDataControl.getLastElementContainer().getErdc().setElementId( itemsComboBox.getSelectedItem( ).toString( ) );
+			
+			//It is not allow to change the player name here
+			if (!referencesListDataControl.getLastElementContainer().isPlayer())
+					referencesListDataControl.getLastElementContainer().getErdc().setElementId( itemsComboBox.getSelectedItem( ).toString( ) );
 
 			// Get the new element, update it and paint the panel
-			//String elementPath = Controller.getInstance( ).getElementImagePath( elementReferenceDataControl.getElementId( ) );
-			//categoryElementImagePanel.loadElement( elementPath );
-			//categoryElementImagePanel.repaint( );
 			spep.recreateElement(referencesListDataControl.getLastElementContainer().getErdc());
 			spep.repaint();
 		}

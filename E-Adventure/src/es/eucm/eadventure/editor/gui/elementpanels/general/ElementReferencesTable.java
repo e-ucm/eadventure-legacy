@@ -49,7 +49,7 @@ public class ElementReferencesTable extends JTable implements ElementReferenceSe
 		}
 
 		public int getRowCount( ) {
-			return dataControl.getAtrezzoReferences().size( )+ dataControl.getItemReferences().size() + dataControl.getNPCReferences().size();
+			return dataControl.getAllReferencesDataControl().size();
 		}
 
 		public Object getValueAt( int rowIndex, int columnIndex ) {

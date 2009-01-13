@@ -276,7 +276,7 @@ public class SceneSubParser extends SubParser {
 						y = Integer.parseInt( attrs.getValue( i ) );
 					if( attrs.getQName( i ).equals( "scale" ))
 						scale = Float.parseFloat( attrs.getValue( i ));
-					if ( attrs.getQName( i ).equals( "scale" ))
+					if ( attrs.getQName( i ).equals( "layer" ))
 						layer = Integer.parseInt( attrs.getValue( i ));
 				}
 
