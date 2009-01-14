@@ -63,6 +63,30 @@ public class FunctionalItem extends FunctionalElement {
         if( resources.existAsset( Item.RESOURCE_TYPE_ICON ) )
             icon = multimediaManager.loadImageFromZip( resources.getAssetPath( Item.RESOURCE_TYPE_ICON ), MultimediaManager.IMAGE_SCENE );
     }
+    
+    /**
+     * Creates a new FunctionalItem
+     * @param item the item's data
+     * @param x the item's horizontal position
+     * @param y the item's vertical position
+     * @param layer the item´s layer, it means, it will be painted in that position
+     */
+    public FunctionalItem( Item item, int x, int y, int layer ) {
+        super( x, y );
+        this.item = item;
+        this.layer = layer;
+        image = null;
+        icon = null;
+        
+        resources = createResourcesBlock();
+        
+        // Load the resources
+        MultimediaManager multimediaManager = MultimediaManager.getInstance( );
+        if( resources.existAsset( Item.RESOURCE_TYPE_IMAGE ) )
+            image = multimediaManager.loadImageFromZip( resources.getAssetPath( Item.RESOURCE_TYPE_IMAGE ), MultimediaManager.IMAGE_SCENE );
+        if( resources.existAsset( Item.RESOURCE_TYPE_ICON ) )
+            icon = multimediaManager.loadImageFromZip( resources.getAssetPath( Item.RESOURCE_TYPE_ICON ), MultimediaManager.IMAGE_SCENE );
+    }
 
     /**
      * Creates a new FunctionalItem at position (0, 0)

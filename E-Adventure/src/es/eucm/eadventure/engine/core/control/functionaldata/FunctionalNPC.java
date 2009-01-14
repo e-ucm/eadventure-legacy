@@ -143,6 +143,37 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
         speedX = 0;
         speedY = 0;
     }
+    
+    /**
+     * Creates a new FunctionalNCP
+     * @param npc the npc's data
+     * @param x the npc's horizontal position
+     * @param y the npc's vertical position
+     * @param layer the npc´s layer, it means, it will be painted in that position
+     */
+    public FunctionalNPC( NPC npc, int x, int y, int layer ) {
+        super( x, y );
+        this.npc = npc;
+        this.layer = layer;
+        textFrontColor = generateColor( npc.getTextFrontColor( ) );
+        textBorderColor = generateColor( npc.getTextBorderColor( ) );
+
+        // Select the resources
+        resources = createResourcesBlock( );
+        
+        // Create the states of the character
+        idleAnimation = new NPCIdle( this );
+        talkingAnimation = new NPCTalking( this );
+        walkingAnimation = new NPCWalking( this );
+        
+        destX = 0;
+        destY = 0;
+
+        currentState = idleAnimation;
+        
+        speedX = 0;
+        speedY = 0;
+    }
 
     /**
      * Returns this npc's data
@@ -235,9 +266,9 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
      */
     public void draw( ) {
        if (layer==-1)
-    	currentState.draw( Math.round( x ), Math.round( y ), scale);  
+    	currentState.draw( Math.round( x ), Math.round( y ), scale, -1);  
        else 
-    	   currentState.draw( Math.round( x ), layer, scale);
+    	   currentState.draw( Math.round( x ), Math.round( y ), scale, layer);
     	   
     }
 
