@@ -283,7 +283,7 @@ public class FunctionalScene implements Renderable {
                 if( !found ) {
                     for( NPC currentNPC : gameData.getCharacters( ) ) {
                         if( npcReference.getIdTarget( ).equals( currentNPC.getId( ) ) ) {
-                            npcs.add( new FunctionalNPC( currentNPC, npcReference.getX( ), npcReference.getY( ) ) );
+                            npcs.add( new FunctionalNPC( currentNPC, npcReference.getX( ), npcReference.getY( ), npcReference.getLayer() ) );
                         }
                     }
                 }
@@ -332,7 +332,7 @@ public class FunctionalScene implements Renderable {
                     //if( Game.getInstance( ).getAtrezzoItemSummary( ).isFlagsNormal( atrezzoReference.getIdTarget( ) ) ) {
                         for( Atrezzo currentAtrezzo : gameData.getAtrezzo( ) ) {
                             if( atrezzoReference.getIdTarget( ).equals( currentAtrezzo.getId( ) ) ) {
-                                atrezzo.add( new FunctionalAtrezzo( currentAtrezzo, atrezzoReference.getX( ), atrezzoReference.getY( ) ) );
+                                atrezzo.add( new FunctionalAtrezzo( currentAtrezzo, atrezzoReference.getX( ), atrezzoReference.getY( ), atrezzoReference.getLayer()) );
                             }
                         }
                     //}

@@ -61,11 +61,12 @@ public class GameStateNextScene extends GameState {
                     else
                         game.getFunctionalScene( ).stopBackgroundMusic( );
                 }
-
-                // Create the new functional scene
-                game.setFunctionalScene( new FunctionalScene( scene, game.getFunctionalPlayer( ), backgroundMusicId ) );
                 // set the player layer for this scene
                 game.setPlayerLayer(scene.getPlayerLayer());
+                // Create the new functional scene
+                game.setFunctionalScene( new FunctionalScene( scene, game.getFunctionalPlayer( ), backgroundMusicId ) );
+                
+               
                 // Set the player position
                 if( nextScene.hasPlayerPosition( ) ) {
                     game.getFunctionalPlayer( ).setX( nextScene.getDestinyX( ) );
