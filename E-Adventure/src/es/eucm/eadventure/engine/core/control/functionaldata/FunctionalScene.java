@@ -256,7 +256,7 @@ public class FunctionalScene implements Renderable {
                     if( Game.getInstance( ).getItemSummary( ).isItemNormal( itemReference.getIdTarget( ) ) ) {
                         for( Item currentItem : gameData.getItems( ) ) {
                             if( itemReference.getIdTarget( ).equals( currentItem.getId( ) ) ) {
-                                items.add( new FunctionalItem( currentItem, itemReference.getX( ), itemReference.getY( ) ) );
+                                items.add( new FunctionalItem( currentItem, itemReference.getX( ), itemReference.getY( ), itemReference.getLayer() ) );
                             }
                         }
                     }
