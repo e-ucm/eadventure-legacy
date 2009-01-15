@@ -195,10 +195,13 @@ public class ScenePreviewEditionPanel extends JPanel {
 	 * @param image the image of the player
 	 */
 	public void addPlayer(SceneDataControl scene, Image image){
-		Integer key = new Integer(CATEGORY_PLAYER);
-		addCategory(key, true, false);
-		List<ImageElement> list = elements.get(key);
-		list.add(new ImageElementPlayer(image, scene));
+	
+		//if(scene.getPlayerLayer()!=-1){
+			Integer key = new Integer(CATEGORY_PLAYER);
+			addCategory(key, true, false);
+			List<ImageElement> list = elements.get(key);
+			list.add(new ImageElementPlayer(image, scene));
+		//}
 	}
 	
 	/**
@@ -390,7 +393,13 @@ public class ScenePreviewEditionPanel extends JPanel {
 		Collections.sort(elementsToDraw);
 		
 		for (ImageElement imageElement : elementsToDraw) {
-			paintRelativeImage( g, imageElement.getImage(), imageElement.getX(), imageElement.getY(), imageElement.getScale());
+			if (imageElement instanceof ImageElementPlayer){
+				// player must be painted or not, depending on autor´s selection
+				if (imageElement.getImage()!=null)
+					paintRelativeImage( g, imageElement.getImage(), imageElement.getX(), imageElement.getY(), imageElement.getScale());
+			}else{
+				paintRelativeImage( g, imageElement.getImage(), imageElement.getX(), imageElement.getY(), imageElement.getScale());
+			}
 		}
 		
 		if (spec.getUnderMouse() != null) {

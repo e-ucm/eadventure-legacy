@@ -836,6 +836,9 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="Scene.DocPanelTip">Panel para la edición de información adicional</entry>
 	<entry key="Scene.UseTrajectory">Usar trayectoria</entry>
 	<entry key="Scene.UseTrajectoryPanel">Usar trayectoria</entry>
+	<entry key="Scene.AllowPlayer">Permitir la elección de la capa de pintado del jugador</entry>
+	<entry key="Scene.AllowPlayerBorder">El jugador tiene capa de pintado</entry>
+	
 	
 	<entry key="ExitsList.Title">Salidas</entry>
 	<entry key="ExitsList.PreviewTitle">Previsualización de la posición de las salidas</entry>

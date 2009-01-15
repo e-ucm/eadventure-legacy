@@ -531,13 +531,24 @@ public class SceneDataControl extends DataControlWithResources {
 		controller.dataModified();
 	}
 	
-		/**
-	 *  Returns the scene
-	 *  
-	 * @return
-	 * 		the scene.
-	 */
-	public Scene getScene() {
-		return scene;
+	public void setPlayerLayer(int layer){
+		scene.setPlayerLayer(layer);
 	}
+	
+	public int getPlayerLayer(){
+		return scene.getPlayerLayer();
+	}
+	
+	public void setAllowPlayerLayer(boolean allow){
+		scene.setAllowPlayerLayer(allow);
+	}
+	
+	public void deletePlayerInReferenceList(){
+		referencesListDataControl.deletePlayer();
+	}
+	public void addPlayerInReferenceList(){
+		referencesListDataControl.addPlayer();
+		
+	}
+	
 }

@@ -59,6 +59,8 @@ public class ScenePanel extends JPanel {
 	private SceneLooksPanel looksPanel;
 
 	private JTabbedPane tabPanel;
+	
+	private JCheckBox isAllowPlayerLayer;
 
 	/**
 	 * Constructor.
@@ -141,6 +143,15 @@ public class ScenePanel extends JPanel {
 		}
 		
 		docPanel.add( initialPositionPanel, cDoc );
+		
+		cDoc.gridy++;
+		JPanel allowPlayerLayer = new JPanel();
+		allowPlayerLayer.setLayout(new GridLayout( 0, 1 ) );
+		isAllowPlayerLayer = new JCheckBox(TextConstants.getText("Scene.AllowPlayer"),sceneDataControl.getPlayerLayer()==-1?false:true);
+		isAllowPlayerLayer.addActionListener(new PlayerLayerCheckBoxListener());
+		allowPlayerLayer.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Scene.AllowPlayerBorder" ) ) );
+		allowPlayerLayer.add(isAllowPlayerLayer);
+		docPanel.add(allowPlayerLayer, cDoc);
 		
 		cDoc.gridy++;
 		cDoc.weightx = 1;
@@ -245,6 +256,29 @@ public class ScenePanel extends JPanel {
 
 	}
 	
+	
+
+	/**
+	 * Listener for the "Use initial position in this scene" check box.
+	 */
+	private class PlayerLayerCheckBoxListener implements ActionListener {
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
+		public void actionPerformed( ActionEvent e ) {
+			sceneDataControl.setAllowPlayerLayer(isAllowPlayerLayer.isSelected());
+			//if it is not allow that the player has layer, delete it in all references container
+			if (isAllowPlayerLayer.isSelected())
+				sceneDataControl.addPlayerInReferenceList();
+			else	
+				sceneDataControl.deletePlayerInReferenceList();
+			
+		}
+
+	}
 	
 	private class TrajectoryCheckBoxListener implements ActionListener {
 		public void actionPerformed( ActionEvent e ) {
