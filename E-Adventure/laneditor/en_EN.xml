@@ -1099,7 +1099,7 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="ElementList.Layer">Layer</entry>
 	<entry key="ElementList.Empty">No element reference has been selected</entry>
 	<entry key="ElementList.Info">Conditions and information </entry>
-	<entry key="ElementList.PlayerDoc">This is the player. For more information, please go to specific node.</entry>
+	<entry key="ElementList.PlayerDoc">This is the player. For more information, please go to specific node. The initial position will be ignored if trayectories are used, or if in previous scene it was specified destination position.</entry>
 	<entry key="ElementList.Player">Player</entry>
 
 	<entry key="ActionsList.Title">Actions</entry>

@@ -4,7 +4,9 @@ import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
 
+import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.general.LooksPanel;
@@ -55,6 +57,8 @@ public class SceneLooksPanel extends LooksPanel {
 		for( ElementReferenceDataControl elementReference : sceneDataControl.getReferencesList( ).getAtrezzoReferences( ) ) {
 			scenePreviewEditionPanel.addElement(ScenePreviewEditionPanel.CATEGORY_ATREZZO, elementReference);
 		}
+		if (Controller.getInstance().playerMode()==DescriptorData.MODE_PLAYER_3RDPERSON)
+			scenePreviewEditionPanel.addPlayer(sceneDataControl, sceneDataControl.getReferencesList().getPlayerImage());
 
 		scenePreviewEditionPanel.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_OBJECT, false);
 		scenePreviewEditionPanel.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_CHARACTER, false);

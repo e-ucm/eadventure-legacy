@@ -11,7 +11,7 @@ import es.eucm.eadventure.editor.control.controllers.scene.ReferencesListDataCon
 import es.eucm.eadventure.editor.gui.elementpanels.scene.ReferencesListPanel;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.TreeNode;
 
-public class ReferencesListTreeNode extends TreeNode {
+public class ReferencesListTreeNode extends TreeNode implements AddNewReferenceListener{
 
 	/**
 	 * Contained micro-controller.
@@ -41,7 +41,7 @@ public class ReferencesListTreeNode extends TreeNode {
 	public ReferencesListTreeNode( TreeNode parent, ReferencesListDataControl referencesDataControl) {
 		super( parent );
 		this.referencesDataControl = referencesDataControl;
-
+		this.referencesDataControl.setAddNewReferenceListener(this);
 		for( ElementReferenceDataControl itemReferenceDataControl : referencesDataControl.getItemReferences( ) )
 			children.add( new ItemReferenceTreeNode( this, itemReferenceDataControl ) );
 		for( ElementReferenceDataControl atrezzoReferenceDataControl : referencesDataControl.getAtrezzoReferences() )
@@ -58,7 +58,7 @@ public class ReferencesListTreeNode extends TreeNode {
 		// If an item reference was added
 		if( type == Controller.ITEM_REFERENCE ) {
 			// Add the last item reference of the list
-			addedTreeNode = new ItemReferenceTreeNode( this, referencesDataControl.getLastItemReference( ) );
+			addedTreeNode = new ItemReferenceTreeNode( this, referencesDataControl.getLastElementContainer().getErdc());
 			children.add( addedTreeNode );
 
 			// Spread the owner panel to the children
@@ -67,7 +67,7 @@ public class ReferencesListTreeNode extends TreeNode {
 
 		if( type == Controller.ATREZZO_REFERENCE ) {
 			// Add the last item reference of the list
-			addedTreeNode = new AtrezzoReferenceTreeNode( this, referencesDataControl.getLastAtrezzoReference() );
+			addedTreeNode = new AtrezzoReferenceTreeNode( this, referencesDataControl.getLastElementContainer().getErdc());
 			children.add( addedTreeNode );
 
 			// Spread the owner panel to the children
@@ -76,7 +76,7 @@ public class ReferencesListTreeNode extends TreeNode {
 
 		if( type == Controller.NPC_REFERENCE ) {
 			// Add the last item reference of the list
-			addedTreeNode = new NPCReferenceTreeNode( this, referencesDataControl.getLastNPCReference() );
+			addedTreeNode = new NPCReferenceTreeNode( this, referencesDataControl.getLastElementContainer().getErdc() );
 			children.add( addedTreeNode );
 
 			// Spread the owner panel to the children
@@ -124,5 +124,10 @@ public class ReferencesListTreeNode extends TreeNode {
 	@Override
 	public JComponent getEditPanel( ) {
 		return new ReferencesListPanel( referencesDataControl );
+	}
+
+	@Override
+	public void addNewNodeElement(int type) {
+		checkForNewChild(type);
 	}
 }
