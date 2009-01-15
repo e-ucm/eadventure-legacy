@@ -38,6 +38,14 @@ public class Trajectory {
 		if  (idStart.equals(idEnd))
 			return null;
 		Side side = new Side(idStart, idEnd);
+		Node a = getNodeForId(idStart);
+		Node b = getNodeForId(idEnd);
+		if (a != null && b != null) {
+			int x = a.getX() - b.getX();
+			int y = a.getY() - b.getY();
+			side.setLenght((int) Math.sqrt(x*x + y*y));
+		}
+		
 		if (sides.contains(side)) {
 			return null;
 		} else {
@@ -133,6 +141,8 @@ public class Trajectory {
 		
 		private String idEnd;
 		
+		private int length = 1;
+		
 		public Side(String idStart, String idEnd) {
 			this.idStart = idStart;
 			this.idEnd = idEnd;
@@ -146,6 +156,10 @@ public class Trajectory {
 			return idEnd;
 		}
 		
+		public void setLenght(int length) {
+			this.length = length;
+		}
+		
 		public boolean equals(Object o) {
 			if (o == null)
 				return false;
@@ -155,6 +169,10 @@ public class Trajectory {
 					return true;
 			}
 			return false;
+		}
+
+		public int getLength() {
+			return length;
 		}
 	}
 

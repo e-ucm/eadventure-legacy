@@ -1,6 +1,7 @@
 package es.eucm.eadventure.editor.gui.otherpanels.imageelements;
 
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 
 import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
@@ -22,8 +23,7 @@ public class ImageElementPlayer extends ImageElement {
 
 	@Override
 	public int getLayer() {
-		// TODO Auto-generated method stub
-		return 0;
+		return sceneDataControl.getPlayerLayer();
 	}
 
 	@Override
@@ -81,6 +81,16 @@ public class ImageElementPlayer extends ImageElement {
 	@Override
 	public int getWidth() {
 		return image.getWidth(null);
+	}
+
+	@Override
+	public boolean transparentPoint(int x, int y) {
+		if (image == null)
+			return false;
+		else {
+            int alpha = ((BufferedImage) this.image).getRGB( (int) (x / this.getScale()), (int) (y / this.getScale())) >>> 24;
+            return !(alpha > 128);
+		}
 	}
 
 }

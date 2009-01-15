@@ -20,8 +20,12 @@ import javax.swing.event.DocumentListener;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.controllers.scene.ActiveAreaDataControl;
+import es.eucm.eadventure.editor.control.controllers.scene.BarrierDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
+import es.eucm.eadventure.editor.control.controllers.scene.ExitDataControl;
 import es.eucm.eadventure.editor.gui.editdialogs.ConditionsDialog;
+import es.eucm.eadventure.editor.gui.otherpanels.PreviewPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 
 public class AtrezzoReferencePanel extends JPanel {
@@ -45,21 +49,6 @@ public class AtrezzoReferencePanel extends JPanel {
 	 * Text area for the documentation.
 	 */
 	private JTextArea documentationTextArea;
-
-	/**
-	 * Check box for the item references.
-	 */
-	private JCheckBox itemReferencesCheckBox;
-
-	/**
-	 * Check box for the NPC references.
-	 */
-	private JCheckBox npcReferencesCheckBox;
-
-	/**
-	 * Check box for the atrezzo references
-	 */
-	private JCheckBox atrezzoReferencesCheckBox;
 	
 	/**
 	 * Panel with the editable element painted in it, along with the rest of the elements in the scene.
@@ -122,45 +111,14 @@ public class AtrezzoReferencePanel extends JPanel {
 		add( conditionsPanel, c );
 
 		// Create image panel
-		scenePreviewEditionPanel = new ScenePreviewEditionPanel(scenePath );
-
-		// Create the checkboxes
-		JPanel checkBoxesPanel = new JPanel( );
-		checkBoxesPanel.setLayout( new GridBagLayout( ) );
-		GridBagConstraints c2 = new GridBagConstraints( );
-		c2.anchor = GridBagConstraints.CENTER;
-		c2.weightx = 1;
-		itemReferencesCheckBox = new JCheckBox( TextConstants.getText( "ElementReference.ItemReferences" ) );
-		itemReferencesCheckBox.addActionListener( new ActionListener( ) {
-			public void actionPerformed( ActionEvent e ) {
-				scenePreviewEditionPanel.setDisplayCategory(ScenePreviewEditionPanel.CATEGORY_OBJECT, itemReferencesCheckBox.isSelected( ));
-			}
-		} );
-		checkBoxesPanel.add( itemReferencesCheckBox, c2 );
-		c2.gridx = 1;
-		npcReferencesCheckBox = new JCheckBox( TextConstants.getText( "ElementReference.NPCReferences" ) );
-		npcReferencesCheckBox.addActionListener( new ActionListener( ) {
-			public void actionPerformed( ActionEvent e ) {
-				scenePreviewEditionPanel.setDisplayCategory(ScenePreviewEditionPanel.CATEGORY_CHARACTER, npcReferencesCheckBox.isSelected( ));
-			}
-		} );
-		checkBoxesPanel.add( npcReferencesCheckBox, c2 );
-		c2.gridx = 2;
-		atrezzoReferencesCheckBox = new JCheckBox( TextConstants.getText( "ElementReference.AtrezzoReferences" ) );
-		atrezzoReferencesCheckBox.addActionListener( new ActionListener( ) {
-			public void actionPerformed( ActionEvent e ) {
-				scenePreviewEditionPanel.setDisplayCategory(ScenePreviewEditionPanel.CATEGORY_ATREZZO, atrezzoReferencesCheckBox.isSelected( ));
-			}
-		} );
-		checkBoxesPanel.add( atrezzoReferencesCheckBox, c2 );
+		PreviewPanel previewPanel = new PreviewPanel(scenePath);
+		scenePreviewEditionPanel = previewPanel.getScenePreviewEditionPanel();
+		scenePreviewEditionPanel.setFixedSelectedElement(true);
 
 		// Set the values for the categories and checkboxes
 		scenePreviewEditionPanel.setDisplayCategory(ScenePreviewEditionPanel.CATEGORY_OBJECT, controller.getShowItemReferences( ));
 		scenePreviewEditionPanel.setDisplayCategory(ScenePreviewEditionPanel.CATEGORY_CHARACTER, controller.getShowNPCReferences( ));
 		scenePreviewEditionPanel.setDisplayCategory(ScenePreviewEditionPanel.CATEGORY_ATREZZO, controller.getShowAtrezzoReferences( ));
-		itemReferencesCheckBox.setSelected( controller.getShowItemReferences( ) );
-		npcReferencesCheckBox.setSelected( controller.getShowNPCReferences( ) );
-		atrezzoReferencesCheckBox.setSelected(controller.getShowAtrezzoReferences());
 
 		// Create and add the resulting panel
 		c.gridy = 3;
@@ -169,8 +127,7 @@ public class AtrezzoReferencePanel extends JPanel {
 		JPanel completePositionPanel = new JPanel( );
 		completePositionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AtrezzoReference.Position" ) ) );
 		completePositionPanel.setLayout( new BorderLayout( ) );
-		completePositionPanel.add( checkBoxesPanel, BorderLayout.NORTH );
-		completePositionPanel.add( scenePreviewEditionPanel, BorderLayout.CENTER );
+		completePositionPanel.add( previewPanel, BorderLayout.CENTER );
 		add( completePositionPanel, c );
 
 		// Add the other elements of the scene if a background image was loaded
@@ -190,8 +147,25 @@ public class AtrezzoReferencePanel extends JPanel {
 			for( ElementReferenceDataControl elementReference : elementReferenceDataControl.getParentSceneAtrezzoReferences( ) ) {
 				scenePreviewEditionPanel.addElement(ScenePreviewEditionPanel.CATEGORY_ATREZZO, elementReference);
 			}
+			
+			for ( ActiveAreaDataControl activeArea : elementReferenceDataControl.getParentSceneActiveAreaList()) {
+				scenePreviewEditionPanel.addActiveArea(activeArea);
+			}
+			scenePreviewEditionPanel.setDisplayCategory(ScenePreviewEditionPanel.CATEGORY_ACTIVEAREA, false);
+
+			for ( BarrierDataControl barrier : elementReferenceDataControl.getParentSceneBarrierList()) {
+				scenePreviewEditionPanel.addBarrier(barrier);
+			}
+			scenePreviewEditionPanel.setDisplayCategory(ScenePreviewEditionPanel.CATEGORY_BARRIER, false);
+
+			for ( ExitDataControl exit : elementReferenceDataControl.getParentSceneExitList()) {
+				scenePreviewEditionPanel.addExit(exit);
+			}
+			scenePreviewEditionPanel.setDisplayCategory(ScenePreviewEditionPanel.CATEGORY_EXIT, false);
+
 		}
 
+		previewPanel.recreateCheckBoxPanel();
 		scenePreviewEditionPanel.setMovableElement(elementReferenceDataControl);
 	}
 

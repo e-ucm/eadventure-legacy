@@ -97,4 +97,9 @@ public class ImageElementBarrier extends ImageElement {
 		return barrierDataControl.getWidth();
 	}
 
+	@Override
+	public boolean transparentPoint(int x, int y) {
+		return false;
+	}
+
 }

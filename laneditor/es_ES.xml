@@ -1689,4 +1689,17 @@ ya que de esta manera se evita reescribirlos varias veces.</entry>
 	<entry key="Synthesizer.ButtonPlay">Probar ejemplo</entry>
 	<entry key="Synthesizer.CheckAlways">Sintetizar todas las conversaciones</entry>
 	<entry key="Synthesizer.CheckLine">Sintetizar la linea seleccionada</entry>
+
+
+	<entry key="SPEP.ShowActiveAreas">Mostrar Areas activas</entry>
+	<entry key="SPEP.ShowAtrezzo">Mostrar references a atrezzo</entry>
+	<entry key="SPEP.ShowBarriers">Mostrar barreras</entry>
+	<entry key="SPEP.ShowCharacterReferences">Mostrar referencas a personajes</entry>
+	<entry key="SPEP.ShowExits">Mostrar salidas</entry>
+	<entry key="SPEP.ShowUncategorized">Mostrar elementos sin categoria</entry>
+	<entry key="SPEP.ShowObjectReferences">Mostrar referencias a objectos</entry>
+	<entry key="SPEP.ShowPlayer">Mostrar personaje</entry>
+	<entry key="SPEP.ShowTrajectory">Show Trajectory</entry>
+	
+
 </properties>

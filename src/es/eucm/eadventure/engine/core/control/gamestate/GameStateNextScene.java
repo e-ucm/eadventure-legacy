@@ -68,19 +68,20 @@ public class GameStateNextScene extends GameState {
                 
                
                 // Set the player position
-                if( nextScene.hasPlayerPosition( ) ) {
+
+                if (scene.getTrajectory() != null) {
+                	game.getFunctionalPlayer().setX(scene.getTrajectory().getInitial().getX());
+                	game.getFunctionalPlayer().setY(scene.getTrajectory().getInitial().getY());
+                	game.getFunctionalPlayer().setScale(scene.getTrajectory().getInitial().getScale());
+                } else if( nextScene.hasPlayerPosition( ) ) {
                     game.getFunctionalPlayer( ).setX( nextScene.getDestinyX( ) );
                     game.getFunctionalPlayer( ).setY( nextScene.getDestinyY( ) );
-                }
-                
-                // If no next scene position was defined, use the scene default
-                else if( scene.hasDefaultPosition( ) ) {
+                } else if( scene.hasDefaultPosition( ) ) {
+                    // If no next scene position was defined, use the scene default
                     game.getFunctionalPlayer( ).setX( scene.getDefaultX( ) );
                     game.getFunctionalPlayer( ).setY( scene.getDefaultY( ) );
-                }
-                
-                // If no position was defined at all, place the player in the middle
-                else {
+                } else {
+                    // If no position was defined at all, place the player in the middle
                     game.getFunctionalPlayer( ).setX( GUI.getInstance( ).getGameAreaWidth( ) / 2 );
                     game.getFunctionalPlayer( ).setY( GUI.getInstance( ).getGameAreaHeight( ) / 2 );
                 }

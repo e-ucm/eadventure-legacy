@@ -1,5 +1,7 @@
 package es.eucm.eadventure.editor.gui.otherpanels.imageelements;
 
+import java.awt.image.BufferedImage;
+
 import javax.swing.ImageIcon;
 
 import es.eucm.eadventure.editor.control.Controller;
@@ -64,6 +66,9 @@ public class ImageElementReference extends ImageElement {
 
 	@Override
 	public void setScale(float scale) {
+		int incrementX = (int) (image.getWidth(null) * scale - image.getWidth(null) * this.getScale());
+		int incrementY = (int) (image.getHeight(null) * scale - image.getHeight(null) * this.getScale());
+		elementReferenceDataControl.getInfluenceArea().referenceScaleChanged(incrementX, incrementY);
 		elementReferenceDataControl.setElementScale(scale);
 	}
 
@@ -89,5 +94,15 @@ public class ImageElementReference extends ImageElement {
 	@Override
 	public int getWidth() {
 		return image.getWidth(null);
+	}
+
+	@Override
+	public boolean transparentPoint(int x, int y) {
+		if (image == null)
+			return false;
+		else {
+            int alpha = ((BufferedImage) this.image).getRGB( (int) (x / this.getScale()), (int) (y / this.getScale())) >>> 24;
+            return !(alpha > 128);
+		}
 	}
 }

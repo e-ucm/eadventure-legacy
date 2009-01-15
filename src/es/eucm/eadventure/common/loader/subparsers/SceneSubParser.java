@@ -6,6 +6,7 @@ import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.data.chapter.ElementReference;
 import es.eucm.eadventure.common.data.chapter.Exit;
 import es.eucm.eadventure.common.data.chapter.ExitLook;
+import es.eucm.eadventure.common.data.chapter.InfluenceArea;
 import es.eucm.eadventure.common.data.chapter.NextScene;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.common.data.chapter.effects.Effects;
@@ -266,7 +267,9 @@ public class SceneSubParser extends SubParser {
 				int x = 0, y = 0;
 				float scale = 0;
 				int layer = -1;
-
+				int influenceX = 0, influenceY = 0, influenceWidth = 0, influenceHeight = 0;
+				boolean hasInfluence = false;
+				
 				for( int i = 0; i < attrs.getLength( ); i++ ) {
 					if( attrs.getQName( i ).equals( "idTarget" ) )
 						idTarget = attrs.getValue( i );
@@ -278,9 +281,23 @@ public class SceneSubParser extends SubParser {
 						scale = Float.parseFloat( attrs.getValue( i ));
 					if ( attrs.getQName( i ).equals( "layer" ))
 						layer = Integer.parseInt( attrs.getValue( i ));
+					if ( attrs.getQName( i ).equals( "hasInfluenceArea"))
+						hasInfluence = (attrs.getQName(i).equals("yes")? true : false);
+					if ( attrs.getQName( i ).equals( "influenceX"))
+						influenceX = Integer.parseInt(attrs.getValue(i));
+					if ( attrs.getQName( i ).equals( "influenceY"))
+						influenceY = Integer.parseInt(attrs.getValue(i));
+					if ( attrs.getQName( i ).equals( "influenceWidth"))
+						influenceWidth = Integer.parseInt(attrs.getValue(i));
+					if ( attrs.getQName( i ).equals( "influenceHeight"))
+						influenceHeight = Integer.parseInt(attrs.getValue(i));
 				}
 
 				currentElementReference = new ElementReference( idTarget, x, y , layer);
+				if (hasInfluence) {
+					InfluenceArea influenceArea = new InfluenceArea(influenceX, influenceY, influenceWidth, influenceHeight);
+					currentElementReference.setInfluenceArea(influenceArea);
+				}
 				if (scale > 0.001 || scale < -0.001)
 					currentElementReference.setScale(scale);
 				reading = READING_ELEMENT_REFERENCE;

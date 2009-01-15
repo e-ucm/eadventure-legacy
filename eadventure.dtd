@@ -22,6 +22,7 @@
 >
 <!ENTITY % position "x NMTOKEN #REQUIRED y NMTOKEN #REQUIRED">
 <!ENTITY % rectangle "%position; width NMTOKEN #REQUIRED height NMTOKEN #REQUIRED">
+<!ENTITY % influence_area "infulenceX NMTOKEN #IMPLIED influenceY NMTOKEN #IMPLIED influenceWidth NMTOKEN #IMPLIED influenceHeight NMTOKEN #IMPLIED">
 <!ELEMENT default-initial-position EMPTY>
 <!ATTLIST default-initial-position
 	%position;
@@ -68,7 +69,10 @@
 	%position;
 	scale CDATA #IMPLIED
 	layer CDATA "-1"
+	hasInfluenceArea (yes | no) "no" 
+	%influence_area;
 >
+
 <!ELEMENT atrezzo (atrezzo-ref+)>
 <!ELEMENT atrezzo-ref (documentation?, condition?)>
 <!ATTLIST atrezzo-ref
@@ -85,6 +89,8 @@
 	%position;
 	scale CDATA #IMPLIED
 	layer CDATA "-1"
+	hasInfluenceArea (yes | no) "no" 
+	%influence_area;
 >
 
 <!ELEMENT active-areas (active-area+)>
