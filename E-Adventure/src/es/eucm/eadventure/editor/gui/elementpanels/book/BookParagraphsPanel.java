@@ -21,6 +21,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.JTextPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -54,6 +55,10 @@ public class BookParagraphsPanel extends JPanel{
 	
 	private JButton moveDownButton;
 	
+	private JSplitPane infoAndPreview;
+	
+	private JSplitPane splitAndTable;
+	
 	public BookParagraphsPanel (BookDataControl dControl){
 		this.dataControl = dControl;
 		
@@ -82,22 +87,27 @@ public class BookParagraphsPanel extends JPanel{
 		
 		updateSelectedParagraph();
 		
-		this.setLayout( new BoxLayout(this, BoxLayout.LINE_AXIS) );
-		
-		JPanel leftPanel = new JPanel();
-		leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.PAGE_AXIS));
-		paragraphEditionPanelContainer.setPreferredSize( new Dimension(350,250) );
-		previewPanelContainer.setPreferredSize( new Dimension(350,250) );
-		paragraphsPanel.setPreferredSize( new Dimension (150,0) );
-		//paragraphEditionPanelContainer.setMaximumSize( new Dimension(400,250) );
-		leftPanel.add( paragraphEditionPanelContainer );
-		leftPanel.add( Box.createVerticalStrut(3) );
-		leftPanel.add( previewPanelContainer );
-		
-		this.add( leftPanel );
-		this.add( Box.createHorizontalStrut(3) );
-		this.add( paragraphsPanel );
+		//Create a split pane with the two panels: info panel and preview panel
+		infoAndPreview = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
+				paragraphEditionPanelContainer, previewPanelContainer);	
+		infoAndPreview.setOneTouchExpandable(true);
+		infoAndPreview.setResizeWeight(0.5);
+		infoAndPreview.setContinuousLayout(true);
+		infoAndPreview.setDividerLocation(280);
 
+		paragraphEditionPanelContainer.setMinimumSize( new Dimension(100,250) );
+		previewPanelContainer.setMinimumSize( new Dimension(100,250) );
+		paragraphsPanel.setMinimumSize( new Dimension (150,0) );
+		// create split pane with two panels: infoAndPreview panel and table
+		splitAndTable = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
+				infoAndPreview, paragraphsPanel);
+		splitAndTable.setOneTouchExpandable(true);
+		splitAndTable.setDividerLocation(490);
+		splitAndTable.setResizeWeight(0.5);
+		
+		setLayout( new BorderLayout( ) );
+		add(splitAndTable,BorderLayout.CENTER);
+		
 	}
 	
 	private void updateSelectedParagraph(){
