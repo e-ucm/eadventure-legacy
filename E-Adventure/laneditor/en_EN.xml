@@ -833,6 +833,8 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="Scene.DocPanelTip">Panel for the edition of the documentation of the scene</entry>
 	<entry key="Scene.UseTrajectory">Use trajectory</entry>
 	<entry key="Scene.UseTrajectoryPanel">Use trajectory</entry>
+	<entry key="Scene.AllowPlayer">Allow to choose the player´s layer</entry>
+	<entry key="Scene.AllowPlayerBorder">The player has painting layer </entry>
 	
 	<entry key="ExitsList.Title">Exits</entry>
 	<entry key="ExitsList.PreviewTitle">Preview of the exits location</entry>
@@ -842,7 +844,8 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="ActiveAreasList.PreviewTitle">Preview of the active areas location</entry>
 	<entry key="ActiveAreasList.Information">The active areas are transparent, rectangular objects defined in the scenes. Those can be used to define portions of the scene which are interactuable. In this manner, when the mouse is over an active area the user could get some interaction from it</entry>
 	
-	<entry key="BarriersList.Title">Barriers &amp; trajectory</entry>
+
+	<entry key="BarriersList.Title">Barriers and trajectory</entry>
 	<entry key="BarriersList.PreviewTitle">Preview of the barriers location and edition of the trajectory</entry>
 	<entry key="BarriersList.Information">The barriers are transparent, rectangular objects defined in the scenes. Those rectangles block the movement of the player when the conditions are validated as true. The trajectory is a set of nodes and sides that limit where the player can be and how he can get form one point to the other.</entry>
 	<entry key="BarriersList.EditNodes">Edit nodes</entry>
@@ -1689,6 +1692,5 @@ avoids retyping.</entry>
 	<entry key="Synthesizer.ButtonPlay">Play sample</entry>
 	<entry key="Synthesizer.CheckAlways">Synthesizer all conversations</entry>
 	<entry key="Synthesizer.CheckLine">Synthesize current line</entry>
-	
 	
 </properties>
