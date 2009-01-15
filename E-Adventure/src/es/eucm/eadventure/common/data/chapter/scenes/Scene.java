@@ -48,6 +48,11 @@ public class Scene extends GeneralScene {
 	 * The position in which will be drown the player
 	 */
 	private int playerLayer;
+	
+	/**
+	 * Set if it is allow to use the player layer or not. Its default value it is true.
+	 */
+	private boolean allowPlayerLayer;
 
 	/**
 	 * List of exits
@@ -99,6 +104,7 @@ public class Scene extends GeneralScene {
 		activeAreas = new ArrayList<ActiveArea>();
 		barriers = new ArrayList<Barrier>();
 		playerLayer = -1;
+		allowPlayerLayer = true;
 	}
 
 	/**
@@ -264,13 +270,46 @@ public class Scene extends GeneralScene {
     public List<Barrier> getBarriers( ) {
         return barriers;
     }
+    
+    
 
+	public boolean isAllowPlayerLayer() {
+		return allowPlayerLayer;
+	}
+
+	/**
+	 * Change if player layer can be used. If it can not, change the player layer value to -1
+	 * 
+	 * @param allowPlayerLayer
+	 * 					
+	 */
+	public void setAllowPlayerLayer(boolean allowPlayerLayer) {
+		this.allowPlayerLayer = allowPlayerLayer;
+		if (!allowPlayerLayer)
+			playerLayer = -1;
+	}
+
+	/**
+	 * Returns the player layer
+	 * 
+	 * @return
+	 * 			current player layer
+	 */
 	public int getPlayerLayer() {
 		return playerLayer;
 	}
-
+	
+	/**
+	 * Return the current player layer if it is allow to do that.
+	 * 
+	 * @param playerLayer
+	 * 				the current player layer
+	 */
 	public void setPlayerLayer(int playerLayer) {
-		this.playerLayer = playerLayer;
+		if (allowPlayerLayer)
+			this.playerLayer = playerLayer;
+		
 	}
+	
 
 }

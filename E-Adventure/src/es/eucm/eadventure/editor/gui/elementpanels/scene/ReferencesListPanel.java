@@ -253,7 +253,10 @@ public class ReferencesListPanel extends JPanel {
 			prepareInformationPanel();
 			itemsComboBox.setSelectedIndex(selectedReference);			
 			// Enable delete button
-			deleteButton.setEnabled( true );
+			if (elementContainer.isPlayer())
+				deleteButton.setEnabled( false );
+			else 
+				deleteButton.setEnabled( true );
 			//Enable moveUp and moveDown buttons when there is more than one element
 			moveUpButton.setEnabled( referencesListDataControl.getAllReferencesDataControl().size( )>1 && selectedReference>0);
 			moveDownButton.setEnabled( referencesListDataControl.getAllReferencesDataControl().size( )>1 && selectedReference<table.getRowCount( )-1 );
@@ -365,9 +368,10 @@ public class ReferencesListPanel extends JPanel {
 	private void delete( ) {
 		ElementContainer element = referencesListDataControl.getAllReferencesDataControl().get( table.getSelectedRow( ) );
 		if (referencesListDataControl.deleteElement( element.getErdc() )){
-			if (element.isPlayer()){
+			if (!element.isPlayer()){
 				spep.removeElement(transformType(element.getErdc().getType()), element.getErdc());
 				table.clearSelection( );
+				table.changeSelection(0, 1, false, false);
 				table.updateUI( );
 			}
 		}

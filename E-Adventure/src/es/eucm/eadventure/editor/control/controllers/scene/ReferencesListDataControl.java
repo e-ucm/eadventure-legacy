@@ -74,6 +74,7 @@ public class ReferencesListDataControl extends DataControl {
 	 */
 	private int playerPosition;
 	
+	
 	/**
 	 * Constructor.
 	 * 
@@ -116,7 +117,7 @@ public class ReferencesListDataControl extends DataControl {
 		
 		// insert player
 		if (playerImagePath!=null)
-			insertInOrder(new ElementContainer(null,sceneDataControl.getScene().getPlayerLayer(),AssetsController.getImage( this.playerImagePath )),hasLayer);
+			insertInOrder(new ElementContainer(null,sceneDataControl.getPlayerLayer(),AssetsController.getImage( this.playerImagePath )),hasLayer);
 	}
 	
 	/**
@@ -150,7 +151,10 @@ public class ReferencesListDataControl extends DataControl {
 	
 	
 	public Image getPlayerImage(){
-		return allReferencesDataControl.get(playerPosition).getImage();
+		if (playerPosition==-1)
+			return null;
+		else
+			return allReferencesDataControl.get(playerPosition).getImage();
 	}
 	
 	
@@ -444,15 +448,26 @@ public class ReferencesListDataControl extends DataControl {
 	 * 		dataControl the issue to delete
 	 */
 	private void delete(DataControl dataControl){
-		ElementContainer ec ;
 		if (dataControl != null){
-			ec = new ElementContainer((ElementReferenceDataControl)dataControl.getContent(),-1,null);
-			int index = allReferencesDataControl.indexOf(ec);
+			int index=0;
+			if (dataControl != null){
+				
+				for (index=0; index < allReferencesDataControl.size();index++)
+				if (!allReferencesDataControl.get(index).isPlayer())	
+					if (allReferencesDataControl.get(index).getErdc().equals(dataControl))
+						break;
+			}
+			else {
+				index = playerPosition;
+				
+			}
+			if (index>0){
 			//TODO
 			//	allReferences.remove(dataControl.getContent());
 			//reassignLayerAllReferences(index);
-			allReferencesDataControl.remove(ec);
+			allReferencesDataControl.remove(index);
 			reassignLayerAllReferencesDataControl(index);
+			}
 		}
 	}
 	
@@ -771,8 +786,18 @@ public class ReferencesListDataControl extends DataControl {
 
 	public void setPlayerPosition(int playerPosition) {
 		this.playerPosition = playerPosition;
-		this.sceneDataControl.getScene().setPlayerLayer(playerPosition);
+		this.sceneDataControl.setPlayerLayer(playerPosition);
 	}
 	
+	public void deletePlayer(){
+		allReferencesDataControl.remove(playerPosition);
+		reassignLayerAllReferencesDataControl(playerPosition);
+		playerPosition  = -1;
+	}
 	
+	public void addPlayer(){
+		ElementContainer ec = new ElementContainer(null,0,AssetsController.getImage( this.playerImagePath ));
+		insertInOrder(ec,true);
+	
+	}
 }
