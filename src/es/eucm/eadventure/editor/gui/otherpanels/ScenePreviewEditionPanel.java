@@ -2,6 +2,7 @@ package es.eucm.eadventure.editor.gui.otherpanels;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.GridLayout;
@@ -890,6 +891,11 @@ public class ScenePreviewEditionPanel extends JPanel {
 	 * @param rescale the new value of rescale
 	 */
 	public void setRescale(boolean rescale) {
+		if (rescale) {
+			this.setCursor(Cursor.getPredefinedCursor(Cursor.NE_RESIZE_CURSOR));
+		} else if (!resize){
+			this.setCursor(Cursor.getDefaultCursor());
+		}
 		this.rescale = rescale;
 	}
 	
@@ -948,6 +954,11 @@ public class ScenePreviewEditionPanel extends JPanel {
 	 * @param resize the new value of resize
 	 */
 	public void setResize(boolean resize) {
+		if (resize) {
+			this.setCursor(Cursor.getPredefinedCursor(Cursor.SE_RESIZE_CURSOR));
+		} else if (!rescale){
+			this.setCursor(Cursor.getDefaultCursor());
+		}
 		this.resize = resize;
 	}
 	
