@@ -592,6 +592,10 @@ public class Controller {
 		return controllerInstance;
 	}
 
+	public int playerMode(){
+		return adventureData.getPlayerMode();
+	}
+	
 	/**
 	 * Initializing function.
 	 */

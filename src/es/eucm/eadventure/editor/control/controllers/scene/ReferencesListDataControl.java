@@ -4,6 +4,7 @@ import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.data.chapter.ElementReference;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
@@ -11,6 +12,7 @@ import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.character.PlayerDataControl;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
+import es.eucm.eadventure.editor.gui.treepanel.nodes.scene.AddNewReferenceListener;
 
 public class ReferencesListDataControl extends DataControl {
 
@@ -74,6 +76,10 @@ public class ReferencesListDataControl extends DataControl {
 	 */
 	private int playerPosition;
 	
+	/**
+	 * Listener to inform of new element creation (and create new tree node)
+	 */
+	private AddNewReferenceListener addNewReferenceListener;
 	
 	/**
 	 * Constructor.
@@ -92,6 +98,7 @@ public class ReferencesListDataControl extends DataControl {
 		this.npcReferencesList = npcReferencesList;
 		this.allReferencesDataControl = new ArrayList<ElementContainer>();
 		this.lastElementContainer = null;
+		this.addNewReferenceListener = null;
 		// Check if one of references has layer -1: if it is true, it means that element references has not layer. 
 		// Create subcontrollers
 		itemReferencesDataControlList = new ArrayList<ElementReferenceDataControl>( );
@@ -116,7 +123,7 @@ public class ReferencesListDataControl extends DataControl {
 		}
 		
 		// insert player
-		if (playerImagePath!=null)
+		if (playerImagePath!=null && (Controller.getInstance().playerMode()==DescriptorData.MODE_PLAYER_3RDPERSON))
 			insertInOrder(new ElementContainer(null,sceneDataControl.getPlayerLayer(),AssetsController.getImage( this.playerImagePath )),hasLayer);
 	}
 	
@@ -351,6 +358,7 @@ public class ReferencesListDataControl extends DataControl {
 					insertInOrder(ec,false);
 					controller.dataModified( );
 					elementAdded = true;
+					addNewReferenceListener.addNewNodeElement(type);
 				}
 			}
 
@@ -381,6 +389,7 @@ public class ReferencesListDataControl extends DataControl {
 					insertInOrder(ec,false);
 					controller.dataModified( );
 					elementAdded = true;
+					addNewReferenceListener.addNewNodeElement(type);
 				}
 			}
 
@@ -411,6 +420,7 @@ public class ReferencesListDataControl extends DataControl {
 					insertInOrder(ec,false);
 					controller.dataModified( );
 					elementAdded = true;
+					addNewReferenceListener.addNewNodeElement(type);
 				}
 			}
 
@@ -799,5 +809,15 @@ public class ReferencesListDataControl extends DataControl {
 		ElementContainer ec = new ElementContainer(null,0,AssetsController.getImage( this.playerImagePath ));
 		insertInOrder(ec,true);
 	
+	}
+	
+	/**
+	 * Changes the listener
+	 * 
+	 * @param anrl
+	 * 			the new AddNewReferenceListener
+	 */
+	public void setAddNewReferenceListener(AddNewReferenceListener anrl) {
+		this.addNewReferenceListener = anrl;
 	}
 }

@@ -23,12 +23,14 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.book.BookParagraphDataControl;
@@ -117,7 +119,8 @@ public class ReferencesListPanel extends JPanel {
 			for( ElementReferenceDataControl elementReference : referencesListDataControl.getNPCReferences( ) ) {
 				spep.addElement(ScenePreviewEditionPanel.CATEGORY_CHARACTER, elementReference);
 			}
-			spep.addPlayer(referencesListDataControl.getSceneDataControl(), referencesListDataControl.getPlayerImage());
+			if (Controller.getInstance().playerMode()==DescriptorData.MODE_PLAYER_3RDPERSON)
+				spep.addPlayer(referencesListDataControl.getSceneDataControl(), referencesListDataControl.getPlayerImage());
 		}
 		//Create a split pane with the two panels: info panel and preview panel
 		infoWithSpep = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
@@ -172,6 +175,10 @@ public class ReferencesListPanel extends JPanel {
 		// Set the controller
 		Controller controller = Controller.getInstance( );
 		
+		//Check if the information is abouth the player
+		
+		boolean player = referencesListDataControl.getLastElementContainer().isPlayer();
+		
 		infoPanel.removeAll();
 		// Set the layout
 		infoPanel.setLayout( new GridBagLayout( ) );
@@ -185,12 +192,19 @@ public class ReferencesListPanel extends JPanel {
 		JPanel itemIdPanel = new JPanel( );
 		itemIdPanel.setLayout( new GridLayout( ) );
 		itemsComboBox = new JComboBox( referencesListDataControl.getAllReferencesId() );
-		if (referencesListDataControl.getLastElementContainer().isPlayer())
-			itemsComboBox.setSelectedItem( TextConstants.getText("ElementList.Player") );
+		JLabel playerLabel = null;
+		if (player)
+			//itemsComboBox.setSelectedItem( TextConstants.getText("ElementList.Player") );
+			playerLabel = new JLabel(TextConstants.getText("ElementList.Player"));
 		else 
 			itemsComboBox.setSelectedItem( referencesListDataControl.getLastElementContainer().getErdc().getElementId( ) );
+		
 		itemsComboBox.addActionListener( new ItemComboBoxListener( ) );
-		itemIdPanel.add( itemsComboBox );
+		if (player)
+			itemIdPanel.add(playerLabel);
+		else
+			itemIdPanel.add( itemsComboBox );
+		
 		itemIdPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ItemReference.ItemId" ) ) );
 		infoPanel.add( itemIdPanel, c );
 
@@ -198,28 +212,39 @@ public class ReferencesListPanel extends JPanel {
 		c.gridy = 1;
 		JPanel documentationPanel = new JPanel( );
 		documentationPanel.setLayout( new GridLayout( ) );
-		if (referencesListDataControl.getLastElementContainer().isPlayer())
-			documentationTextArea = new JTextArea(TextConstants.getText("ElementList.PlayerDoc"),4,0);
-		else
+		JTextPane playerDoc = null;
+		if (player){
+			playerDoc = new JTextPane( );
+			playerDoc.setEditable(false);
+			playerDoc.setBackground( getBackground( ) );
+			playerDoc.setText(TextConstants.getText( "ElementList.PlayerDoc" ));
+			playerDoc.setMinimumSize(new Dimension(0,75));
+		}
+		else{
 			documentationTextArea = new JTextArea( referencesListDataControl.getLastElementContainer().getErdc().getDocumentation( ), 4, 0 );
-		documentationTextArea.setLineWrap( true );
-		documentationTextArea.setWrapStyleWord( true );
-		documentationTextArea.getDocument( ).addDocumentListener( new DocumentationTextAreaChangesListener( ) );
-		documentationTextArea.setMinimumSize(new Dimension(0,100));
-		documentationPanel.add( new JScrollPane( documentationTextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER ) );
+			documentationTextArea.setLineWrap( true );
+			documentationTextArea.setWrapStyleWord( true );
+			documentationTextArea.getDocument( ).addDocumentListener( new DocumentationTextAreaChangesListener( ) );
+			documentationTextArea.setMinimumSize(new Dimension(0,100));
+		}
+		if (player)
+			documentationPanel.add(playerDoc);
+		else
+			documentationPanel.add( new JScrollPane( documentationTextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER ) );
 		documentationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ItemReference.Documentation" ) ) );
 		infoPanel.add( documentationPanel, c );
 
 		// Create the button for the conditions
-		c.gridy = 2;
-		JPanel conditionsPanel = new JPanel( );
-		conditionsPanel.setLayout( new GridLayout( ) );
-		JButton conditionsButton = new JButton( TextConstants.getText( "GeneralText.EditConditions" ) );
-		conditionsButton.addActionListener( new ConditionsButtonListener( ) );
-		conditionsPanel.add( conditionsButton );
-		conditionsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ItemReference.Conditions" ) ) );
-		infoPanel.add( conditionsPanel, c );
-
+		if (!player){
+			c.gridy = 2;
+			JPanel conditionsPanel = new JPanel( );
+			conditionsPanel.setLayout( new GridLayout( ) );
+			JButton conditionsButton = new JButton( TextConstants.getText( "GeneralText.EditConditions" ) );
+			conditionsButton.addActionListener( new ConditionsButtonListener( ) );
+			conditionsPanel.add( conditionsButton );
+			conditionsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ItemReference.Conditions" ) ) );
+			infoPanel.add( conditionsPanel, c );
+		}
 		
 	}
 	
@@ -542,6 +567,7 @@ public class ReferencesListPanel extends JPanel {
 				if (category!=0&&referencesListDataControl.getLastElementContainer()!=null){
 				// it is not necessary to check if it is an player element container because never a player will be added
 				spep.addElement(category, referencesListDataControl.getLastElementContainer().getErdc());
+				spep.repaint();
 				table.updateUI( );
 				}
 			}

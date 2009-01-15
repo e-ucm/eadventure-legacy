@@ -12,6 +12,7 @@ import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
+import es.eucm.eadventure.editor.gui.treepanel.nodes.scene.AddNewReferenceListener;
 
 public class SceneDataControl extends DataControlWithResources {
 
@@ -56,7 +57,7 @@ public class SceneDataControl extends DataControlWithResources {
 	 * The resources that must be used in the previews.
 	 */
 	private int selectedResources;
-
+	
 	/**
 	 * Constructor.
 	 * 
