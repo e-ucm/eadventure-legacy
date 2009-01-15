@@ -128,6 +128,6 @@ public class ReferencesListTreeNode extends TreeNode implements AddNewReferenceL
 
 	@Override
 	public void addNewNodeElement(int type) {
-		checkForNewChild(type);
+		addChildOnlyInTree(type);
 	}
 }

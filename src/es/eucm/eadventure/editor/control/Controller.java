@@ -918,8 +918,12 @@ public class Controller {
 		if( swap ) {
 			if( adventureData.getPlayerMode( ) == DescriptorData.MODE_PLAYER_1STPERSON ) {
 				adventureData.setPlayerMode( DescriptorData.MODE_PLAYER_3RDPERSON );
+				// adds player reference
+				chapterDataControlList.get(selectedChapter).getScenesList().addPlayerToAllScenes();
 			} else if( adventureData.getPlayerMode( ) == DescriptorData.MODE_PLAYER_3RDPERSON ) {
 				adventureData.setPlayerMode( DescriptorData.MODE_PLAYER_1STPERSON );
+				// delete player reference
+				chapterDataControlList.get(selectedChapter).getScenesList().deletePlayerToAllScenes();
 			}
 			dataModified( );
 		}

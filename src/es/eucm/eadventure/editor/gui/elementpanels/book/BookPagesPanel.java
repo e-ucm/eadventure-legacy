@@ -28,6 +28,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.JTextPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -72,6 +73,10 @@ public class BookPagesPanel extends JPanel{
 	private JButton moveDownButton;
 	
 	private JLabel previewLabel;
+
+	private JSplitPane infoAndPreview;
+	
+	private JSplitPane splitAndTable;
 	
 	private JPanel createPageNotLoadedPanel (){
 		JPanel panel=new JPanel();
@@ -93,7 +98,6 @@ public class BookPagesPanel extends JPanel{
 		previewPanelContainer = new JPanel();
 		previewPanelContainer.setLayout( new BorderLayout() );
 		previewPanelContainer.setBorder( BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), TextConstants.getText("BookPages.Preview")) );
-		//previewPanel = new BookImagePanel(dControl.getPreviewImage( ), dControl.getBookParagraphsList( ));
 		
 		// Create the info panel
 		JTextPane informationTextPane = new JTextPane( );
@@ -110,21 +114,27 @@ public class BookPagesPanel extends JPanel{
 		
 		updateSelectedPage();
 		
-		this.setLayout( new BoxLayout(this, BoxLayout.LINE_AXIS) );
+		infoAndPreview = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
+				pageEditionPanelContainer, previewPanelContainer);	
+		infoAndPreview.setOneTouchExpandable(true);
+		infoAndPreview.setResizeWeight(0.5);
+		infoAndPreview.setContinuousLayout(true);
+		infoAndPreview.setDividerLocation(280);
 		
-		JPanel leftPanel = new JPanel();
-		leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.PAGE_AXIS));
-		pageEditionPanelContainer.setPreferredSize( new Dimension(350,250) );
-		previewPanelContainer.setPreferredSize( new Dimension(350,250) );
-		pagesPanel.setPreferredSize( new Dimension (150,0) );
-		//paragraphEditionPanelContainer.setMaximumSize( new Dimension(400,250) );
-		leftPanel.add( pageEditionPanelContainer );
-		leftPanel.add( Box.createVerticalStrut(3) );
-		leftPanel.add( previewPanelContainer );
+		//JPanel leftPanel = new JPanel();
+		//leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.PAGE_AXIS));
+		pageEditionPanelContainer.setMinimumSize( new Dimension(100,250) );
+		previewPanelContainer.setMinimumSize( new Dimension(100,250) );
+		pagesPanel.setMinimumSize( new Dimension (150,0) );
+		// create split pane with two panels: infoAndPreview panel and table
+		splitAndTable = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
+				infoAndPreview, pagesPanel);
+		splitAndTable.setOneTouchExpandable(true);
+		splitAndTable.setDividerLocation(490);
+		splitAndTable.setResizeWeight(0.5);
 		
-		this.add( leftPanel );
-		this.add( Box.createHorizontalStrut(3) );
-		this.add( pagesPanel );
+		setLayout( new BorderLayout( ) );
+		add(splitAndTable,BorderLayout.CENTER);
 	}
 	
 	public void updatePreview(){

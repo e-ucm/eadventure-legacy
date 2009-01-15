@@ -53,11 +53,12 @@ public class SceneLooksPanel extends LooksPanel {
 			scenePreviewEditionPanel.addElement(ScenePreviewEditionPanel.CATEGORY_CHARACTER, elementReference);
 		}
 		
+		
 		// Add the atrezzo item references first
 		for( ElementReferenceDataControl elementReference : sceneDataControl.getReferencesList( ).getAtrezzoReferences( ) ) {
 			scenePreviewEditionPanel.addElement(ScenePreviewEditionPanel.CATEGORY_ATREZZO, elementReference);
 		}
-		if (Controller.getInstance().playerMode()==DescriptorData.MODE_PLAYER_3RDPERSON)
+		if (!Controller.getInstance().isPlayTransparent())
 			scenePreviewEditionPanel.addPlayer(sceneDataControl, sceneDataControl.getReferencesList().getPlayerImage());
 
 		scenePreviewEditionPanel.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_OBJECT, false);

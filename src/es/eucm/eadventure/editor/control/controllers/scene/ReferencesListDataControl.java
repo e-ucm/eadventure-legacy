@@ -123,7 +123,7 @@ public class ReferencesListDataControl extends DataControl {
 		}
 		
 		// insert player
-		if (playerImagePath!=null && (Controller.getInstance().playerMode()==DescriptorData.MODE_PLAYER_3RDPERSON))
+		if (playerImagePath!=null && (!Controller.getInstance().isPlayTransparent()))
 			insertInOrder(new ElementContainer(null,sceneDataControl.getPlayerLayer(),AssetsController.getImage( this.playerImagePath )),hasLayer);
 	}
 	

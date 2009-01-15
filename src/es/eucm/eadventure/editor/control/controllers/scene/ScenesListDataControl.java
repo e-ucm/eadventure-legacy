@@ -277,5 +277,22 @@ public class ScenesListDataControl extends DataControl {
 	public boolean canBeDuplicated( ) {
 		return false;
 	}
+	
+	/**
+	 * Adds a player reference in all scenes
+	 */
+	public void addPlayerToAllScenes(){
+		for ( SceneDataControl sceneDataControl : scenesDataControlList)
+			sceneDataControl.addPlayerInReferenceList();
+	}
+	
+	/**
+	 * Delete player reference in all scenes
+	 */
+	public void deletePlayerToAllScenes(){
+		for ( SceneDataControl sceneDataControl : scenesDataControlList)
+			sceneDataControl.deletePlayerInReferenceList();
+	}
+	
 
 }
