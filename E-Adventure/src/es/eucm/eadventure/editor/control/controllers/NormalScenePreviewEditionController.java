@@ -31,13 +31,18 @@ public class NormalScenePreviewEditionController implements ScenePreviewEditionC
 	
 	public void mouseClicked(MouseEvent e) {
 		setMouseUnder(e.getX(), e.getY());
-		if (underMouse != null) {
+		if (underMouse != null && !spep.getFixedSelectedElement()) {
 			spep.setSelectedElement(underMouse);
 			spep.paintBackBuffer();
 			spep.flip();
-		}
-		if (underMouse == null) {
+		} else if (underMouse == null && !spep.getFixedSelectedElement()) {
 			spep.setSelectedElement((ImageElement) null);
+			spep.paintBackBuffer();
+			spep.flip();
+		} else if (spep.getFixedSelectedElement()) {
+			int x = (int) ((e.getX() - spep.getMarginX()) / spep.getSizeRatio());
+			int y = (int) ((e.getY() - spep.getMarginY()) / spep.getSizeRatio());
+			spep.getSelectedElement().changePosition(x, y);
 			spep.paintBackBuffer();
 			spep.flip();
 		}
@@ -55,7 +60,7 @@ public class NormalScenePreviewEditionController implements ScenePreviewEditionC
 
 	public void mousePressed(MouseEvent e) {
 		setMouseUnder(e.getX(), e.getY());
-		if (underMouse != null && underMouse == spep.getSelectedElement()) {
+		if (underMouse != null && (underMouse == spep.getSelectedElement() || underMouse == spep.getInfluenceArea())) {
 			startDragX = e.getX();
 			startDragY = e.getY();
 			originalX = underMouse.getX();
@@ -63,8 +68,7 @@ public class NormalScenePreviewEditionController implements ScenePreviewEditionC
 			originalWidth = underMouse.getWidth();
 			originalHeight = underMouse.getHeight();
 			originalScale = underMouse.getScale();
-		}
-		else if (underMouse != null) {
+		} else if (underMouse != null && !spep.getFixedSelectedElement()) {
 			spep.setSelectedElement(underMouse);
 			spep.paintBackBuffer();
 			spep.flip();
@@ -139,7 +143,7 @@ public class NormalScenePreviewEditionController implements ScenePreviewEditionC
 			spep.setRescale(false);
 			spep.paintBackBuffer();
 			spep.flip();
-		} else if (imageElement != underMouse) {
+		} else if (imageElement != underMouse || (imageElement != null && (spep.isRescale() || spep.isResize()))) {
 			underMouse = imageElement;
 			spep.setRescale(false);
 			spep.setResize(false);

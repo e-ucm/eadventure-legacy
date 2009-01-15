@@ -12,6 +12,11 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
+/**
+ * Data Control for the trajectory
+ * 
+ * @author Eugenio Marchiori
+ */
 public class TrajectoryDataControl extends DataControl {
 
 	/**
@@ -19,6 +24,9 @@ public class TrajectoryDataControl extends DataControl {
 	 */
 	private SceneDataControl sceneDataControl;
 
+	/**
+	 * The trajectory
+	 */
 	private Trajectory trajectory;
 
 	/**
@@ -26,8 +34,14 @@ public class TrajectoryDataControl extends DataControl {
 	 */
 	private List<NodeDataControl> nodeDataControlList;
 	
+	/**
+	 * List of side controllers.
+	 */
 	private List<SideDataControl> sideDataControlList;
 	
+	/**
+	 * Initial node controller
+	 */
 	private NodeDataControl initialNode;
 	
 	/**
@@ -57,20 +71,40 @@ public class TrajectoryDataControl extends DataControl {
 		}
 	}
 
+	/**
+	 * Returns the list of node data controllers
+	 * 
+	 * @return the list of node data controllers
+	 */
 	public List<NodeDataControl> getNodes() {
 		return nodeDataControlList;
 	}
 	
+	/**
+	 * Returns the list of side data controllers
+	 * 
+	 * @return the list of side data controllers
+	 */
 	public List<SideDataControl> getSides() {
 		return sideDataControlList;
 	}
 	
 	
+	/**
+	 * Returns the last node data control in the list
+	 * 
+	 * @return the last node data control
+	 */
 	public NodeDataControl getLastNode() {
 		return nodeDataControlList.get(nodeDataControlList.size() - 1);
 	}
 	
 	
+	/**
+	 * Returns the last side data control in the list
+	 * 
+	 * @return the last side data control in the list
+	 */
 	public SideDataControl getLastSide() {
 		return sideDataControlList.get(sideDataControlList.size() - 1);
 	}
@@ -115,6 +149,13 @@ public class TrajectoryDataControl extends DataControl {
 		return false;
 	}
 
+	/**
+	 * Add a new node to the trajectory
+	 * 
+	 * @param x The position along the x-axis of the node
+	 * @param y The position along the y-axis of the node
+	 * @return Boolean indicating if the node was added
+	 */
 	public boolean addNode(int x, int y) {
 		if (trajectory == null) {
 			return false;
@@ -131,6 +172,13 @@ public class TrajectoryDataControl extends DataControl {
 		return true;
 	}
 	
+	/**
+	 * Delete the node at the position x, y
+	 * 
+	 * @param x the position along the x-axis of the node
+	 * @param y the position along the y-axis of the node
+	 * @return Boolean indicating if the node was deleted
+	 */
 	public boolean deleteNode(int x, int y) {
 		NodeDataControl dataControl = null;
 		for (NodeDataControl nodeDC : nodeDataControlList) {
@@ -138,7 +186,16 @@ public class TrajectoryDataControl extends DataControl {
 				dataControl = nodeDC;
 		}
 		if (dataControl != null) {
-			trajectory.removeNode(x, y);
+			trajectory.removeNode(dataControl.getX(), dataControl.getY());
+			int i = 0;
+			while( i < sideDataControlList.size()) {
+				SideDataControl sideDC = sideDataControlList.get(i);
+				if (sideDC.getStart() == dataControl || sideDC.getEnd() == dataControl) {
+					sideDataControlList.remove(sideDC);
+				} else {
+					i++;
+				}
+			}
 			nodeDataControlList.remove(dataControl);
 			controller.dataModified();
 			return true;
@@ -146,6 +203,13 @@ public class TrajectoryDataControl extends DataControl {
 		return false;
 	}
 	
+	/**
+	 * Add a new side to the trajectory
+	 * 
+	 * @param startNode the start node data control of the side
+	 * @param endNode the end node data control of the side
+	 * @return Boolean indicating if the side was added
+	 */
 	public boolean addSide(NodeDataControl startNode, NodeDataControl endNode) {
 		if (startNode == endNode)
 			return false;
@@ -293,10 +357,21 @@ public class TrajectoryDataControl extends DataControl {
 		return false;
 	}
 	
+	/**
+	 * Boolean indicating if there is a trajectory
+	 * 
+	 * @return True if it has a trajectory
+	 */
 	public boolean hasTrajectory() {
 		return trajectory != null;
 	}
 
+	/**
+	 * Sets the value of the hasTrajectory property and creates or eliminates
+	 * the trajectory as necessary
+	 * 
+	 * @param hasTrajectory new value for hasTrajectory
+	 */
 	public void setHasTrajectory(boolean hasTrajectory) {
 		if (hasTrajectory) {
 			if (trajectory == null) {
@@ -311,6 +386,11 @@ public class TrajectoryDataControl extends DataControl {
 		}
 	}
 
+	/**
+	 * Set the initial node of the trajectory to the given one
+	 * 
+	 * @param nodeDataControl The new initial node data control
+	 */
 	public void setInitialNode(NodeDataControl nodeDataControl) {
 		trajectory.setInitial(nodeDataControl.getID());
 		if (initialNode != null) {
@@ -321,6 +401,11 @@ public class TrajectoryDataControl extends DataControl {
 		controller.dataModified();
 	}
 
+	/**
+	 * Returns the initial node data control
+	 * 
+	 * @return the initial node data control
+	 */
 	public NodeDataControl getInitialNode() {
 		return initialNode;
 	}

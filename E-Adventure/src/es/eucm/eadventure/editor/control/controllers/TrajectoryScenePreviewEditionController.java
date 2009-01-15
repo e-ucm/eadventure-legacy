@@ -51,6 +51,10 @@ public class TrajectoryScenePreviewEditionController extends NormalScenePreviewE
 	private int originalX;
 	
 	private int originalY;
+	
+	private int originalWidth;
+	
+	private int originalHeight;
 
 	private float originalScale;
 
@@ -167,6 +171,8 @@ public class TrajectoryScenePreviewEditionController extends NormalScenePreviewE
 				startDragY = e.getY();
 				originalX = underMouse.getX();
 				originalY = underMouse.getY();
+				originalWidth = underMouse.getImage().getWidth(null);
+				originalHeight = underMouse.getImage().getHeight(null);
 				originalScale = underMouse.getScale();
 			}
 			else if (underMouse != null) {
@@ -197,8 +203,8 @@ public class TrajectoryScenePreviewEditionController extends NormalScenePreviewE
 			} else if (underMouse != null && spep.isRescale()) {
 				double changeX = (e.getX() - startDragX);
 				double changeY = - (e.getY() - startDragY);
-				double width = underMouse.getImage().getWidth(null);
-				double height = underMouse.getImage().getHeight(null);
+				double width = originalWidth / originalScale;
+				double height = (originalHeight - 10) / originalScale;
 				
 				double tempX = changeX / width;
 				double tempY = changeY / height;

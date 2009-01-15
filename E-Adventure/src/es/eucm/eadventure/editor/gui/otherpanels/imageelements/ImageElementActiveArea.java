@@ -1,7 +1,9 @@
 package es.eucm.eadventure.editor.gui.otherpanels.imageelements;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import es.eucm.eadventure.editor.control.controllers.scene.ActiveAreaDataControl;
@@ -18,7 +20,9 @@ public class ImageElementActiveArea extends ImageElement {
 	}
 	
 	private void fillImage() {
-		Graphics g = image.getGraphics();
+		Graphics2D g = (Graphics2D) image.getGraphics();
+		AlphaComposite alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f);
+		g.setComposite(alphaComposite);
 		g.setColor(Color.GREEN);
 		g.fillRect(0, 0, image.getWidth(null), image.getHeight(null));
 		g.setColor(Color.BLACK);
@@ -92,6 +96,11 @@ public class ImageElementActiveArea extends ImageElement {
 	@Override
 	public int getWidth() {
 		return activeAreaDataControl.getWidth();
+	}
+
+	@Override
+	public boolean transparentPoint(int x, int y) {
+		return false;
 	}
 
 }

@@ -404,12 +404,21 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
     public void draw( ) {
         if (!isTransparent) {
         	Image image = getCurrentAnimation().getImage();
-            int realX = (int) (x - ( image.getWidth( null ) / 2 ) - Game.getInstance( ).getFunctionalScene( ).getOffsetX( ));
-            int realY = (int) (y - ( image.getHeight( null ) )); 
-            if (layer==-1)
-            	GUI.getInstance( ).addElementToDraw( image, realX, realY, (int) y );
-            else 
-            	GUI.getInstance( ).addElementToDraw( image, realX, realY, layer );
+            int realX = (int) (x - ( image.getWidth( null ) * scale / 2 ) - Game.getInstance( ).getFunctionalScene( ).getOffsetX( ));
+            int realY = (int) (y - ( image.getHeight( null ) * scale )); 
+            if (scale != 1) {
+        		Image temp = image.getScaledInstance(Math.round(image.getWidth(null) * scale), Math.round(image.getHeight(null) * scale), Image.SCALE_SMOOTH);
+        		if (layer==-1)
+        			GUI.getInstance().addElementToDraw(temp, realX, realY, Math.round(y));
+        		else 
+        			GUI.getInstance().addElementToDraw(temp, realX, realY, layer);
+
+            } else {
+	            if (layer==-1)
+	            	GUI.getInstance( ).addElementToDraw( image, realX, realY, (int) y );
+	            else 
+	            	GUI.getInstance( ).addElementToDraw( image, realX, realY, layer );
+            }
         }
         if (getCurrentAction().isStarted() && !getCurrentAction().isFinished())
         	getCurrentAction().drawAditionalElements();

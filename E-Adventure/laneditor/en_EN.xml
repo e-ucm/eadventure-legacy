@@ -1692,5 +1692,16 @@ avoids retyping.</entry>
 	<entry key="Synthesizer.ButtonPlay">Play sample</entry>
 	<entry key="Synthesizer.CheckAlways">Synthesizer all conversations</entry>
 	<entry key="Synthesizer.CheckLine">Synthesize current line</entry>
+
+	<entry key="SPEP.ShowActiveAreas">Show Active Areas</entry>
+	<entry key="SPEP.ShowAtrezzo">Show Atrezzo references</entry>
+	<entry key="SPEP.ShowBarriers">Show Barriers</entry>
+	<entry key="SPEP.ShowCharacterReferences">Show Character references</entry>
+	<entry key="SPEP.ShowExits">Show Exits</entry>
+	<entry key="SPEP.ShowUncategorized">Show Uncategorized elements</entry>
+	<entry key="SPEP.ShowObjectReferences">Show Object references</entry>
+	<entry key="SPEP.ShowPlayer">Show Player</entry>
+	<entry key="SPEP.ShowTrajectory">Show Trajectory</entry>
+	
 	
 </properties>

@@ -13,6 +13,7 @@ import es.eucm.eadventure.common.data.chapter.CustomAction;
 import es.eucm.eadventure.common.data.chapter.ElementReference;
 import es.eucm.eadventure.common.data.chapter.Exit;
 import es.eucm.eadventure.common.data.chapter.ExitLook;
+import es.eucm.eadventure.common.data.chapter.InfluenceArea;
 import es.eucm.eadventure.common.data.chapter.NextScene;
 import es.eucm.eadventure.common.data.chapter.elements.ActiveArea;
 import es.eucm.eadventure.common.data.chapter.elements.Barrier;
@@ -176,6 +177,16 @@ public class SceneDOMWriter {
 					itemReferenceElement.setAttribute( "scale", String.valueOf( itemReference.getScale()));
 					if (itemReference.getLayer()!=-1)
 						itemReferenceElement.setAttribute( "layer", String.valueOf( itemReference.getLayer()));
+					if (itemReference.getInfluenceArea().isExists()) {
+						itemReferenceElement.setAttribute( "hasInfluenceArea", "yes");
+						InfluenceArea ia = itemReference.getInfluenceArea();
+						itemReferenceElement.setAttribute( "influenceX", String.valueOf(ia.getX() ));
+						itemReferenceElement.setAttribute( "influenceY", String.valueOf(ia.getY() ));
+						itemReferenceElement.setAttribute( "influenceWidth", String.valueOf(ia.getWidth() ));
+						itemReferenceElement.setAttribute( "influenceHeight", String.valueOf(ia.getHeight() ));
+					} else {
+						itemReferenceElement.setAttribute( "hasInfluenceArea", "no");
+					}
 
 					// Append the documentation (if avalaible)
 					if( itemReference.getDocumentation( ) != null ) {
@@ -212,6 +223,16 @@ public class SceneDOMWriter {
 					npcReferenceElement.setAttribute( "scale", String.valueOf( characterReference.getScale()));
 					if (characterReference.getLayer()!=-1)
 						npcReferenceElement.setAttribute( "layer", String.valueOf( characterReference.getLayer()));
+					if (characterReference.getInfluenceArea().isExists()) {
+						npcReferenceElement.setAttribute( "hasInfluenceArea", "yes");
+						InfluenceArea ia = characterReference.getInfluenceArea();
+						npcReferenceElement.setAttribute( "influenceX", String.valueOf(ia.getX() ));
+						npcReferenceElement.setAttribute( "influenceY", String.valueOf(ia.getY() ));
+						npcReferenceElement.setAttribute( "influenceWidth", String.valueOf(ia.getWidth() ));
+						npcReferenceElement.setAttribute( "influenceHeight", String.valueOf(ia.getHeight() ));
+					} else {
+						npcReferenceElement.setAttribute( "hasInfluenceArea", "no");
+					}
 
 
 					// Append the documentation (if avalaible)

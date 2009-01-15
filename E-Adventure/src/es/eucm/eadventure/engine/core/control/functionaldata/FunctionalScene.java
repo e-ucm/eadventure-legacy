@@ -18,15 +18,10 @@ import es.eucm.eadventure.common.data.chapter.resources.Asset;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.data.chapter.scenes.Scene;
 import es.eucm.eadventure.engine.core.control.ActionManager;
-import es.eucm.eadventure.engine.core.control.AtrezzoSummary;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.ItemSummary;
-import es.eucm.eadventure.engine.core.control.functionaldata.functionalactions.FunctionalAction;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionalactions.FunctionalExit;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionalactions.FunctionalGoTo;
-import es.eucm.eadventure.engine.core.control.functionaldata.functionalactions.FunctionalLook;
-import es.eucm.eadventure.engine.core.control.functionaldata.functionalactions.FunctionalNullAction;
-import es.eucm.eadventure.engine.core.data.GameText;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
@@ -95,6 +90,8 @@ public class FunctionalScene implements Renderable {
      * Functional atrezzo items present in the scene
      */
     private ArrayList<FunctionalAtrezzo> atrezzo;
+    
+    private FunctionalTrajectory trajectory;
 
     /**
      * Offset of the scroll.
@@ -126,11 +123,11 @@ public class FunctionalScene implements Renderable {
         atrezzo = new ArrayList<FunctionalAtrezzo>( );
         areas = new ArrayList<FunctionalActiveArea>( );
         barriers = new ArrayList<FunctionalBarrier>( );
-
+        trajectory = new FunctionalTrajectory(scene.getTrajectory());        	
+        
         // Pick the item summary
         Chapter gameData = Game.getInstance( ).getCurrentChapterData( );
         ItemSummary itemSummary = Game.getInstance( ).getItemSummary( );
-        AtrezzoSummary atrezzoSummary = Game.getInstance( ).getAtrezzoItemSummary( );
         
         // Select the resources
         resources = createResourcesBlock( );
@@ -645,6 +642,10 @@ public class FunctionalScene implements Renderable {
         }
 
         return element;
+    }
+    
+    public FunctionalTrajectory getTrajectory() {
+    	return trajectory;
     }
 
     /**

@@ -110,9 +110,9 @@ public class ElementReferencesTable extends JTable implements ElementReferenceSe
 	}
 
 	@Override
-	public void elementReferenceSelected(ElementReferenceDataControl erdc) {
-		if (erdc != null)
-			this.changeSelection(erdc.getElementReference().getLayer(), 1, false, false);
+	public void elementReferenceSelected(int layer) {
+		if (layer != -1)
+			this.changeSelection(layer, 1, false, false);
 		else
 			this.clearSelection();
 	}

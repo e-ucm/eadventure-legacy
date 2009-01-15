@@ -41,6 +41,11 @@ public class ElementReference {
 	 * Conditions for the element to be placed
 	 */
 	private Conditions conditions;
+	
+	/**
+	 * The influenceArea of the object, used with trajectories
+	 */
+	private InfluenceArea influenceArea;
 
 	/**
 	 * Creates a new ElementReference
@@ -60,6 +65,7 @@ public class ElementReference {
 		this.layer = -1;
 		documentation = null;
 		conditions = new Conditions( );
+		influenceArea = new InfluenceArea();
 	}
 	
 
@@ -83,6 +89,7 @@ public class ElementReference {
 		this.layer = layer;
 		documentation = null;
 		conditions = new Conditions( );
+		influenceArea = new InfluenceArea();
 	}
 
 	/**
@@ -209,5 +216,21 @@ public class ElementReference {
 	 */
 	public void setLayer(int layer) {
 		this.layer = layer;
+	}
+
+
+	/**
+	 * @return the influenceArea
+	 */
+	public InfluenceArea getInfluenceArea() {
+		return influenceArea;
+	}
+
+
+	/**
+	 * @param influenceArea the influenceArea to set
+	 */
+	public void setInfluenceArea(InfluenceArea influenceArea) {
+		this.influenceArea = influenceArea;
 	}
 }

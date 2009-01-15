@@ -133,4 +133,9 @@ public class ImageElementNode extends ImageElement {
 		return 0;
 	}
 
+	@Override
+	public boolean transparentPoint(int x, int y) {
+		return false;
+	}
+
 }

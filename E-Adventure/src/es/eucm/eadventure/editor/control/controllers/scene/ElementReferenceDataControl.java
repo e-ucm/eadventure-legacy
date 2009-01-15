@@ -19,6 +19,8 @@ public class ElementReferenceDataControl extends DataControl {
 	 */
 	private ElementReference elementReference;
 
+	private InfluenceAreaDataControl influenceAreaDataControl;
+	
 	/**
 	 * Conditions controller.
 	 */
@@ -40,6 +42,7 @@ public class ElementReferenceDataControl extends DataControl {
 	public ElementReferenceDataControl( SceneDataControl sceneDataControl, ElementReference elementReference, int type ) {
 		this.sceneDataControl = sceneDataControl;
 		this.elementReference = elementReference;
+		this.influenceAreaDataControl = new InfluenceAreaDataControl(sceneDataControl, elementReference.getInfluenceArea(), this);
 		this.type = type;
 		// Create subcontrollers
 		conditionsController = new ConditionsController( elementReference.getConditions( ) );
@@ -89,7 +92,19 @@ public class ElementReferenceDataControl extends DataControl {
 	public List<ElementReferenceDataControl> getParentSceneAtrezzoReferences( ) {
 		return sceneDataControl.getReferencesList( ).getAtrezzoReferences( );
 	}
-
+	
+	public List<ExitDataControl> getParentSceneExitList() {
+		return sceneDataControl.getExitsList().getExits();
+	}
+	
+	public List<ActiveAreaDataControl> getParentSceneActiveAreaList() {
+		return sceneDataControl.getActiveAreasList().getActiveAreas();
+	}
+	
+	public List<BarrierDataControl> getParentSceneBarrierList() {
+		return sceneDataControl.getBarriersList().getBarriers();
+	}
+ 
 	/**
 	 * Returns the id of the referenced element.
 	 * 
@@ -308,6 +323,14 @@ public class ElementReferenceDataControl extends DataControl {
 	 */
 	public int getType() {
 		return type;
+	}
+
+	public SceneDataControl getSceneDataControl() {
+		return sceneDataControl;
+	}
+
+	public InfluenceAreaDataControl getInfluenceArea() {
+		return influenceAreaDataControl;
 	}
 
 }
