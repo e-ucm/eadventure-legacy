@@ -60,10 +60,11 @@ public class SceneLooksPanel extends LooksPanel {
 		}
 		if (!Controller.getInstance().isPlayTransparent())
 			scenePreviewEditionPanel.addPlayer(sceneDataControl, sceneDataControl.getReferencesList().getPlayerImage());
-
+		
 		scenePreviewEditionPanel.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_OBJECT, false);
 		scenePreviewEditionPanel.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_CHARACTER, false);
 		scenePreviewEditionPanel.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_ATREZZO, false);
+		scenePreviewEditionPanel.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_PLAYER, false);
 		lookPanel.add( scenePreviewEditionPanel, cLook );
 		//resourcesPanel.setPreviewUpdater( this );
 

@@ -261,4 +261,40 @@ public class ExitsListDataControl extends DataControl {
 	public boolean canBeDuplicated( ) {
 		return false;
 	}
+	
+	/**
+	 * Returns the data controllers of the item references of the scene that contains this element reference.
+	 * 
+	 * @return List of item references (including the one being edited)
+	 */
+	public List<ElementReferenceDataControl> getParentSceneItemReferences( ) {
+		return sceneDataControl.getReferencesList( ).getItemReferences( );
+	}
+
+	/**
+	 * Returns the data controllers of the character references of the scene that contains this element reference.
+	 * 
+	 * @return List of character references (including the one being edited)
+	 */
+	public List<ElementReferenceDataControl> getParentSceneNPCReferences( ) {
+		return sceneDataControl.getReferencesList( ).getNPCReferences( );
+	}
+	
+	/**
+	 * Returns the data controllers of the atrezzo items references of the scene that contains this element reference.
+	 * 
+	 * @return List of atrezzo references (including the one being edited)
+	 */
+	public List<ElementReferenceDataControl> getParentSceneAtrezzoReferences( ) {
+		return sceneDataControl.getReferencesList( ).getAtrezzoReferences( );
+	}
+
+	public List<BarrierDataControl> getParentSceneBarriers() {
+		return sceneDataControl.getBarriersList().getBarriers();
+	}
+
+	public List<ActiveAreaDataControl> getParentSceneActiveAreas() {
+		return sceneDataControl.getActiveAreasList().getActiveAreas();
+	}
+
 }

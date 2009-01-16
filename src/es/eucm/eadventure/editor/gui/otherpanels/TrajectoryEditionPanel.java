@@ -3,15 +3,11 @@ package es.eucm.eadventure.editor.gui.otherpanels;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JToggleButton;
 
 import es.eucm.eadventure.common.data.chapter.Trajectory;
@@ -21,7 +17,7 @@ import es.eucm.eadventure.editor.control.controllers.scene.TrajectoryDataControl
 import es.eucm.eadventure.common.gui.TextConstants;
 
 /**
- * A Panel for the edition of trajectorys and barriers, including the necessary
+ * A Panel for the edition of the trajectory and barriers, including the necessary
  * buttons.
  * 
  * @author Eugenio Marchiori

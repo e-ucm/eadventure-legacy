@@ -13,6 +13,9 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.scene.ActiveAreaDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ActiveAreasListDataControl;
+import es.eucm.eadventure.editor.control.controllers.scene.BarrierDataControl;
+import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
+import es.eucm.eadventure.editor.control.controllers.scene.ExitDataControl;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 
 public class ActiveAreasListPanel extends JPanel {
@@ -60,9 +63,28 @@ public class ActiveAreasListPanel extends JPanel {
 		ScenePreviewEditionPanel spep = new ScenePreviewEditionPanel(scenePath);
 		add( spep, c );
 
-		// Add the item references if an image was loaded
 		if( scenePath != null ) {
-			// Add the activeAreas
+			for( ElementReferenceDataControl elementReference : activeAreasListDataControl.getParentSceneItemReferences( ) ) {
+				spep.addElement(ScenePreviewEditionPanel.CATEGORY_OBJECT, elementReference);
+			}
+			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_OBJECT, false);
+			for( ElementReferenceDataControl elementReference : activeAreasListDataControl.getParentSceneNPCReferences( ) ) {
+				spep.addElement(ScenePreviewEditionPanel.CATEGORY_CHARACTER, elementReference);
+			}
+			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_CHARACTER, false);
+			for( ElementReferenceDataControl elementReference : activeAreasListDataControl.getParentSceneAtrezzoReferences( ) ) {
+				spep.addElement(ScenePreviewEditionPanel.CATEGORY_ATREZZO, elementReference);
+			}
+			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_ATREZZO, false);
+			for( ExitDataControl exit : activeAreasListDataControl.getParentSceneExits( ) ) {
+				spep.addExit(exit);
+			}
+			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_EXIT, false);
+			for( BarrierDataControl barrier : activeAreasListDataControl.getParentSceneBarriers( ) ) {
+				spep.addBarrier(barrier);
+			}
+			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_BARRIER, false);
+
 			for( ActiveAreaDataControl activeArea : activeAreasListDataControl.getActiveAreas( ) ) {
 				spep.addActiveArea(activeArea);
 			}
