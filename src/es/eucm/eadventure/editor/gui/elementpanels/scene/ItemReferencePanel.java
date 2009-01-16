@@ -10,7 +10,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -27,7 +26,6 @@ import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataC
 import es.eucm.eadventure.editor.control.controllers.scene.ExitDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.NodeDataControl;
 import es.eucm.eadventure.editor.gui.editdialogs.ConditionsDialog;
-import es.eucm.eadventure.editor.gui.otherpanels.PreviewPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 
 public class ItemReferencePanel extends JPanel {
@@ -113,8 +111,7 @@ public class ItemReferencePanel extends JPanel {
 		add( conditionsPanel, c );
 
 		// Create image panel
-		PreviewPanel previewPanel = new PreviewPanel(scenePath);
-		scenePreviewEditionPanel = previewPanel.getScenePreviewEditionPanel();
+		scenePreviewEditionPanel = new ScenePreviewEditionPanel(scenePath);
 		scenePreviewEditionPanel.setFixedSelectedElement(true);
 
 		scenePreviewEditionPanel.setDisplayCategory(ScenePreviewEditionPanel.CATEGORY_OBJECT, controller.getShowItemReferences( ) );
@@ -128,7 +125,7 @@ public class ItemReferencePanel extends JPanel {
 		JPanel completePositionPanel = new JPanel( );
 		completePositionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ItemReference.Position" ) ) );
 		completePositionPanel.setLayout( new BorderLayout( ) );
-		completePositionPanel.add( previewPanel, BorderLayout.CENTER );
+		completePositionPanel.add( scenePreviewEditionPanel, BorderLayout.CENTER );
 		add( completePositionPanel, c );
 
 		// Add the other elements of the scene if a background image was loaded
@@ -175,7 +172,6 @@ public class ItemReferencePanel extends JPanel {
 			}
 		}
 
-		previewPanel.recreateCheckBoxPanel();
 		// Repaint the panel
 		scenePreviewEditionPanel.repaint( );
 	}

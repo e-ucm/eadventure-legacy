@@ -3,7 +3,6 @@ package es.eucm.eadventure.editor.gui.otherpanels;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -107,7 +106,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 	/**
 	 * Default margin value 
 	 */
-	private static final int MARGIN = 20;
+	private static final int MARGIN = 0;
 
 
 	private static final int LIGHT_BORDER = 1;
@@ -210,6 +209,12 @@ public class ScenePreviewEditionPanel extends JPanel {
 	
 	private boolean fixedSelectedElement;
 	
+	private DrawPanel drawPanel;
+
+	private JPanel checkBoxPanel;
+	
+	private boolean showCheckBoxes = true;
+	
 	/**
 	 * Default constructor
 	 */
@@ -218,10 +223,50 @@ public class ScenePreviewEditionPanel extends JPanel {
 		elements = new HashMap<Integer, List<ImageElement>>();
 		displayCategory = new HashMap<Integer, Boolean>();
 		movableCategory = new HashMap<Integer, Boolean>();
-		setLayout(new BorderLayout());		
+		BorderLayout bl = new BorderLayout();
+		bl.setHgap(10);
+		bl.setVgap(10);
+		setLayout(bl);
+		drawPanel = new DrawPanel();
+		add(drawPanel, BorderLayout.CENTER);
+		recreateCheckBoxPanel();
 		spec = new NormalScenePreviewEditionController(this);
-		this.addMouseListener(spec);
-		this.addMouseMotionListener(spec);
+		changeController(spec);
+	}
+	
+	private void recreateCheckBoxPanel() {
+		if (checkBoxPanel != null)
+			remove(checkBoxPanel);
+		if (showCheckBoxes) {
+			checkBoxPanel = createCheckBoxPanel();
+			add(checkBoxPanel, BorderLayout.SOUTH);
+		}
+	}
+	
+	private class DrawPanel extends JPanel {
+		public void repaint() {
+			super.repaint();
+			if (getSize().width > 0 && getSize().height > 0) {
+				calculateSize();
+				backBuffer = new BufferedImage(getSize().width, getSize().height, BufferedImage.TYPE_4BYTE_ABGR);
+				paintBackBuffer();
+				flip();
+			}
+		}
+		
+		public void paint(Graphics g) {
+			super.paint(g);
+			if (backBuffer != null) {
+				g.drawImage(backBuffer, marginX, marginY, marginX + backgroundWidth, marginY + backgroundHeight, marginX, marginY, marginX + backgroundWidth, marginY + backgroundHeight, null);
+			}
+		}
+			
+		/**
+		 * Flip the backbuffer
+		 */
+		public void flip() {
+			this.getGraphics().drawImage(backBuffer, marginX, marginY, marginX + backgroundWidth, marginY + backgroundHeight, marginX, marginY, marginX + backgroundWidth, marginY + backgroundHeight, null);
+		}
 	}
 	
 
@@ -246,6 +291,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 		addCategory(category, true, true);
 		List<ImageElement> list = elements.get(key);
 		list.add(new ImageElementReference(element));
+		recreateCheckBoxPanel();
 	}
 	
 	/**
@@ -259,6 +305,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 		addCategory(key, true, true);
 		List<ImageElement> list = elements.get(key);
 		list.add(new ImageElementPlayer(image, scene));
+		recreateCheckBoxPanel();
 	}
 	
 	/**
@@ -271,6 +318,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 		addCategory(key, true, false);
 		List<ImageElement> list = elements.get(key);
 		list.add(new ImageElementBarrier(barrierDataControl));
+		recreateCheckBoxPanel();
 	}
 
 	/**
@@ -283,6 +331,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 		addCategory(key, true, true);
 		List<ImageElement> list = elements.get(key);
 		list.add(new ImageElementActiveArea(activeAreaDataControl));
+		recreateCheckBoxPanel();
 	}
 	
 	/**
@@ -295,6 +344,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 		addCategory(key, true, true);
 		List<ImageElement> list = elements.get(key);
 		list.add(new ImageElementExit(exitDataControl));
+		recreateCheckBoxPanel();
 	}
 
 	/**
@@ -307,6 +357,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 		addCategory(key, true, false);
 		List<ImageElement> list = elements.get(key);
 		list.add(new ImageElementNode(nodeDataControl));
+		recreateCheckBoxPanel();
 	}
 
 	
@@ -420,26 +471,17 @@ public class ScenePreviewEditionPanel extends JPanel {
 	
 	public void repaint() {
 		super.repaint();
-		if (getSize().width > 0 && getSize().height > 0) {
-			calculateSize();
-			backBuffer = new BufferedImage(getSize().width, getSize().height, BufferedImage.TYPE_4BYTE_ABGR);
-			paintBackBuffer();
-			flip();
-		}
 	}
 	
 	public void paint(Graphics g) {
 		super.paint(g);
-		if (backBuffer != null) {
-			g.drawImage(backBuffer, marginX, marginY, marginX + backgroundWidth, marginY + backgroundHeight, marginX, marginY, marginX + backgroundWidth, marginY + backgroundHeight, null);
-		}
 	}
 		
 	/**
 	 * Flip the backbuffer
 	 */
 	public void flip() {
-		this.getGraphics().drawImage(backBuffer, marginX, marginY, marginX + backgroundWidth, marginY + backgroundHeight, marginX, marginY, marginX + backgroundWidth, marginY + backgroundHeight, null);
+		drawPanel.flip();
 	}
 	
 	/**
@@ -584,27 +626,27 @@ public class ScenePreviewEditionPanel extends JPanel {
 			backgroundHeight2 = background.getHeight(null);
 		}
 		
-		if( background != null && getWidth( ) > 0 && getHeight( ) > 0 ) {
-			double panelRatio = (double) getWidth( ) / (double) getHeight( );
+		if( background != null && drawPanel.getWidth( ) > 0 && drawPanel.getHeight( ) > 0 ) {
+			double panelRatio = (double) drawPanel.getWidth( ) / (double) drawPanel.getHeight( );
 			double imageRatio = (double) backgroundWidth2 / (double) backgroundHeight2;
 			int width, height;
 			marginX = MARGIN;
 			marginY = MARGIN;
 			
 			if( panelRatio <= imageRatio ) {
-				int panelWidth = getWidth( ) - MARGIN * 2;
+				int panelWidth = drawPanel.getWidth( ) - MARGIN * 2;
 				width = panelWidth;
 				height = (int) (panelWidth / imageRatio);
 			}
 
 			else {
-				int panelHeight = getHeight( ) - MARGIN * 2;
+				int panelHeight = drawPanel.getHeight( ) - MARGIN * 2;
 				width = (int) ( panelHeight * imageRatio );
 				height = panelHeight;
 			}
 			
-			marginX = (getWidth() - width) / 2;
-			marginY = (getHeight() - height) / 2;
+			marginX = (drawPanel.getWidth() - width) / 2;
+			marginY = (drawPanel.getHeight() - height) / 2;
 			backgroundWidth = width;
 			backgroundHeight = height;
 
@@ -905,11 +947,13 @@ public class ScenePreviewEditionPanel extends JPanel {
 	 * @param controller the new controller
 	 */
 	public void changeController(ScenePreviewEditionController controller) {
-		this.removeMouseListener(spec);
-		this.removeMouseMotionListener(spec);
+		if (spec != null) {
+			drawPanel.removeMouseListener(spec);
+			drawPanel.removeMouseMotionListener(spec);
+		}
 		spec = controller;
-		this.addMouseListener(controller);
-		this.addMouseMotionListener(controller);
+		drawPanel.addMouseListener(controller);
+		drawPanel.addMouseMotionListener(controller);
 	}
 
 	/**
@@ -1044,5 +1088,10 @@ public class ScenePreviewEditionPanel extends JPanel {
 
 	public ImageElement getInfluenceArea() {
 		return influenceArea;
+	}
+	
+	public void setShowCheckBoxes(boolean showCheckBoxes) {
+		this.showCheckBoxes = showCheckBoxes;
+		recreateCheckBoxPanel();
 	}
 }
