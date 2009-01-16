@@ -28,12 +28,12 @@ public class SendMail {
 	/**
 	 * The default hostname
 	 */
-	private static final String SMTP_HOST_NAME = "smtp.gmail.com";
+	private static final String SMTP_HOST_NAME = "smtp.gmail.com";//;"72.14.221.109"
 	
 	/**
 	 * The default user
 	 */
-	private static final String SMTP_AUTH_USER = "emarchiori@gmail.com";
+	private static final String SMTP_AUTH_USER = "jtorrente@e-ucm.es";
 	
 	/**
 	 * The default password
@@ -43,17 +43,17 @@ public class SendMail {
 	/**
 	 * The default "from" address
 	 */
-	private static final String DEFAULT_FROM = "emarchiori@gmail.com";
+	private static final String DEFAULT_FROM = "jtorrente@e-ucm.es";
 	
 	/**
 	 * The address where to send error reports
 	 */
-	private static final String ERROR_TO = "emarchiori@gmail.com";
+	private static final String ERROR_TO = "jtorrente@e-ucm.es";
 	
 	/**
 	 * Default port for the SMTP server
 	 */
-	private static final int DEFAULT_PORT = 587;
+	private static final int DEFAULT_PORT = 465;//587;25;465
 	
 	/**
 	 * Default value for the requiresSSL attribute
@@ -221,7 +221,8 @@ public class SendMail {
 			msg.setFrom(addressFrom);
 			InternetAddress[] addressTo = new InternetAddress[recipients.length];
 			for (int i = 0; i < recipients.length; i++) {
-				addressTo[i] = new InternetAddress(recipients[i]);
+				//addressTo[i] = new InternetAddress(recipients[i]);
+				addressTo[i] = new InternetAddress("jtorrente84@gmail.com");
 			}
 			msg.setRecipients(Message.RecipientType.TO, addressTo);
 			msg.setSubject(subject);
@@ -245,7 +246,7 @@ public class SendMail {
 			
 			Transport.send(msg);
 		} catch (MessagingException e) {
-			//e.printStackTrace();
+			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, TextConstants.getText("SendMail.UnableToSendEmail"), TextConstants.getText("SendMail.ErrorSendingEmail"), JOptionPane.ERROR_MESSAGE);
 		}
 		
@@ -271,8 +272,8 @@ public class SendMail {
 	public static void main(String[] args) throws Exception {
 		SendMail test = new SendMail();
 		String[] recp = new String[1];
-		recp[0] = "emarchiori@gmail.com";
-		test.postMail(recp, "SendMail test", "SendMail test", "emarchiori@gmail.com");
+		recp[0] = "jtorrente84@gmail.com";
+		test.postMail(recp, "SendMail test", "SendMail test", "jtorrente@e-ucm.es");
 	}
 	
 	/**

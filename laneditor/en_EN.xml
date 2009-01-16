@@ -153,7 +153,9 @@ All the references to the profile were deleted.</entry>
 	<entry key="Error.DeletingFolderContents">An unexpected error occurred when deleting the contents of the folder.</entry>
 	<entry key="Error.Import.FileNotFound.Title">File not found</entry>
 	<entry key="Error.Import.FileNotFound.Message">Importation failed: File "{#0}" not found.</entry>
-	<entry key="Error.ProjectFolderName">The name of the folder is not correct.</entry>
+	<entry key="Error.ProjectFolderName">  The name of the folder is not correct.
+ Remember you can only use characters from the list below:
+ {#0}.</entry>
 	
 	<entry key="Error.LoadAborted.Title">Load Aborted!</entry>
 	<entry key="Error.LoadAborted.Message">A critical error occurred loading the files.
@@ -239,6 +241,9 @@ named 'descriptor.xml' or 'chapterXX.xml' where XX is a number.</entry>
 
 	<entry key="Operation.FileNotLoadedTitle">Project not loaded!</entry>
 	<entry key="Operation.FileNotLoadedMessage">The project was not successfully loaded</entry>
+	
+	<entry key="Operation.FileNotSavedTitle">Project not saved!</entry>
+	<entry key="Operation.FileNotSavedMessage">An error occurred and the project was not successfully saved</entry>
 	
 	<entry key="Operation.SaveFileTitle">Save file</entry>
 	<entry key="Operation.SaveChangesTitle">Save changes?</entry>

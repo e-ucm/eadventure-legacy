@@ -22,7 +22,7 @@ public class NextSceneDataControl extends DataControl {
 	private ConditionsController conditionsController;
 
 	/**
-	 * FunctionalEffects controller
+	 * Effects controller
 	 */
 	private EffectsController effectsController;
 
@@ -62,7 +62,7 @@ public class NextSceneDataControl extends DataControl {
 	/**
 	 * Returns the effects of the next scene.
 	 * 
-	 * @return FunctionalEffects of the next scene
+	 * @return Effects of the next scene
 	 */
 	public EffectsController getEffects( ) {
 		return effectsController;

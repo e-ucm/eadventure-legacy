@@ -10,6 +10,7 @@ import de.schlichtherle.io.DefaultArchiveDetector;
 import de.schlichtherle.io.File;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.config.ConfigData;
+import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.engine.gamelauncher.GameLauncher;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
@@ -28,10 +29,6 @@ import javax.swing.*;
  */
 public class EAdventure {
     
-	public static final String CONFIG_FILE = "config_engine.xml";
-	
-	public static final String LANGUAGE_DIR = "lanengine";
-	
 	/**
      * Launchs a new e-Adventure game
      * @param args Arguments
@@ -39,11 +36,11 @@ public class EAdventure {
     public static void main( String[] args ) {
 
         // Load the configuration
-        ConfigData.loadFromXML( CONFIG_FILE );
+        ConfigData.loadFromXML( ReleaseFolders.configFileEngineRelativePath() );
         String languageFile = ConfigData.getLanguangeFile( );
 
         // Init the strings of the application
-        TextConstants.loadStrings( LANGUAGE_DIR+"/"+languageFile );
+        TextConstants.loadStrings( ReleaseFolders.LANGUAGE_DIR_ENGINE+"/"+languageFile );
         File.setDefaultArchiveDetector(new DefaultArchiveDetector(
                 ArchiveDetector.NULL, // delegate
                 new String[] {

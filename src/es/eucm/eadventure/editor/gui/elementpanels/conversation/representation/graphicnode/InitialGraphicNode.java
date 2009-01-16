@@ -7,6 +7,7 @@ import java.awt.Point;
 import java.awt.SystemColor;
 
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
+import es.eucm.eadventure.common.gui.TextConstants;
 
 /**
  * Graphic representation of a initial dialogue node (the first node of the conversation)
@@ -38,7 +39,7 @@ public class InitialGraphicNode extends GraphicNode {
 		if( node.hasEffects( ) ) {
 			g.setColor( Color.BLACK );
 			g.setFont( new Font( "Monospaced", Font.PLAIN, 10 ) );
-			g.drawString( "FunctionalEffect", (int) position.getX( ) + NODE_RADIUS, (int) position.getY( ) + NODE_RADIUS );
+			g.drawString( TextConstants.getText("Effects.Title"), (int) position.getX( ) + NODE_RADIUS, (int) position.getY( ) + NODE_RADIUS );
 		}
 	}
 

@@ -256,8 +256,10 @@ public class AdventureDataControl {
     			position= i;break;
     		}
     	}
-    	if (position>=0)
+    	if (position>=0){
     		adventureData.getCursors().remove( position );
+    		Controller.getInstance().dataModified();
+    	}
     }
 
     public void editCursorPath(int t){

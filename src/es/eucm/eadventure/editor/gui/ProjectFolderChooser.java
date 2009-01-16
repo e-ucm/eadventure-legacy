@@ -19,16 +19,26 @@ import javax.swing.JRootPane;
 import javax.swing.JTextArea;
 import javax.swing.UIManager;
 
+import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
 import es.eucm.eadventure.common.auxiliar.filefilters.FolderFileFilter;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 
 public class ProjectFolderChooser extends JFileChooser{
 	
-	private static final String PROJECTS_FOLDER = "Projects";
+	private static File getDefaultSelectedFile () {
+		String defaultName = TextConstants.getText("Operation.NewFileTitle");
+		File parentDir = getProjectsFolder();
+		int i=0;
+		while (new File(parentDir, defaultName).exists()){
+			i++;
+			defaultName = TextConstants.getText("Operation.NewFileTitle")+ " ("+i+")";
+		}
+		return new File (defaultName);
+	}
 
 	private static File getProjectsFolder(){
-		File parentDir = new File( PROJECTS_FOLDER );
+		File parentDir = ReleaseFolders.projectsFolder() ;
 		if (!parentDir.exists( ))
 			parentDir.mkdirs( );
 		return parentDir;
@@ -38,9 +48,11 @@ public class ProjectFolderChooser extends JFileChooser{
 		super(getProjectsFolder());
 		super.setDialogTitle( TextConstants.getText( "Operation.NewProjectTitle" ) );
 		super.setMultiSelectionEnabled( false );
-		super.setFileSelectionMode( JFileChooser.DIRECTORIES_ONLY );
+		super.setFileSelectionMode( JFileChooser.FILES_AND_DIRECTORIES );
 		super.setFileFilter( new FolderFileFilter(checkName, checkDescriptor) );
-		super.setSelectedFile( new File ( Controller.projectsFolder(),  TextConstants.getText("GeneralText.NewProjectFolder") ) );
+		//super.setSelectedFile( new File ( Controller.projectsFolder(),  TextConstants.getText("GeneralText.NewProjectFolder") ) );
+		super.setSelectedFile(getDefaultSelectedFile());
+		super.setAcceptAllFileFilterUsed(false);
 	}
 	
     protected JDialog createDialog(Component parent) throws HeadlessException {
