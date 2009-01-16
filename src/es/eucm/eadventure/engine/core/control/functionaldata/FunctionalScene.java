@@ -123,7 +123,7 @@ public class FunctionalScene implements Renderable {
         atrezzo = new ArrayList<FunctionalAtrezzo>( );
         areas = new ArrayList<FunctionalActiveArea>( );
         barriers = new ArrayList<FunctionalBarrier>( );
-        trajectory = new FunctionalTrajectory(scene.getTrajectory());        	
+        trajectory = new FunctionalTrajectory(scene.getTrajectory(), barriers);
         
         // Pick the item summary
         Chapter gameData = Game.getInstance( ).getCurrentChapterData( );

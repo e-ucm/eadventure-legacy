@@ -28,8 +28,10 @@ public class FunctionalGoTo extends FunctionalAction {
 	private FunctionalTrajectory trajectory;
 	
 	private Resources resources;
+	
     private MultimediaManager multimedia;
 
+    private FunctionalElement destinationElement;
 	
 	public FunctionalGoTo(Action action, int posX, int posY) {
 		super(action);
@@ -37,6 +39,7 @@ public class FunctionalGoTo extends FunctionalAction {
 		this.originalPosY = posY;
         int[] finalDest = Game.getInstance( ).getFunctionalScene( ).checkPlayerAgainstBarriers( posX, posY );
         this.trajectory = Game.getInstance().getFunctionalScene().getTrajectory();
+        this.trajectory.setDestinationElement(null);
         this.posX = finalDest[0];
         this.posY = finalDest[1];
 		type = ActionManager.ACTION_GOTO;
@@ -46,6 +49,11 @@ public class FunctionalGoTo extends FunctionalAction {
 	public FunctionalGoTo(Action action, int posX, int posY, int keepDistance) {
 		this(action, posX, posY);
 		this.keepDistance = keepDistance;
+	}
+
+	public FunctionalGoTo(Action action, int x, int y, FunctionalElement element) {
+		this(action, x, y);
+        this.trajectory.setDestinationElement(element);
 	}
 
 	@Override
@@ -68,8 +76,7 @@ public class FunctionalGoTo extends FunctionalAction {
 	            speedX = -FunctionalPlayer.DEFAULT_SPEED;
 	        }
         } else {
-        	// TODO when there is a trajectory...
-        	trajectory.setCurrentPath(trajectory.getPathToNearestPoint(functionalPlayer.getX(), functionalPlayer.getY(), posX, posY));
+        	trajectory.updatePathToNearestPoint(functionalPlayer.getX(), functionalPlayer.getY(), posX, posY);
         }
     }
 

@@ -382,7 +382,7 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
     	
 
     	if (nextAction.isNeedsGoTo()) {
-    		FunctionalGoTo functionalGoTo = new FunctionalGoTo(null, (int)element.getX(), (int)element.getY());
+    		FunctionalGoTo functionalGoTo = new FunctionalGoTo(null, (int)element.getX(), (int)element.getY(), element);
     		if (functionalGoTo.canGetTo()) {
     			addAction(nextAction);
     			functionalGoTo.setKeepDistance(nextAction.getKeepDistance());
