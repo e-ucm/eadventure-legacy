@@ -282,7 +282,7 @@ public class SceneSubParser extends SubParser {
 					if ( attrs.getQName( i ).equals( "layer" ))
 						layer = Integer.parseInt( attrs.getValue( i ));
 					if ( attrs.getQName( i ).equals( "hasInfluenceArea"))
-						hasInfluence = (attrs.getQName(i).equals("yes")? true : false);
+						hasInfluence = attrs.getValue( i ).equals( "yes" );
 					if ( attrs.getQName( i ).equals( "influenceX"))
 						influenceX = Integer.parseInt(attrs.getValue(i));
 					if ( attrs.getQName( i ).equals( "influenceY"))
