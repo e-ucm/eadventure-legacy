@@ -59,14 +59,29 @@ public class FunctionalTrajectory {
 	 * The scale the player must take in the current position
 	 */
 	private float scale = 1.0f;
-		
+	
+	private List<FunctionalBarrier> barriers;
+	
+	private List<FunctionalSide> sides;
+	
+	private FunctionalElement destinationElement;
+	
+	
+	
 	/**
 	 * Create a new FunctionalTrajectory form a Trajectory
 	 * 
 	 * @param trajectory the trajectory
+	 * @param barriers 
 	 */
-	public FunctionalTrajectory(Trajectory trajectory) {
+	public FunctionalTrajectory(Trajectory trajectory, ArrayList<FunctionalBarrier> barriers) {
 		this.trajectory = trajectory;
+		sides = new ArrayList<FunctionalSide>();
+		for (Side side : trajectory.getSides()) {
+			sides.add(new FunctionalSide(side, trajectory, false));
+			sides.add(new FunctionalSide(side, trajectory, true));
+		}
+		this.barriers = barriers;
 		if (trajectory != null) {
 			currentSide = null;
 			currentNode = trajectory.getInitial();
@@ -101,18 +116,94 @@ public class FunctionalTrajectory {
 	}
 	
 	/**
-	 * Returns the path to the point nearest to the one given
 	 *  
 	 * @param fromX The present position along the x-axis of the player
 	 * @param fromY The present position along the y-axis of the player
 	 * @param toX The desired position along the x-axis for the player
 	 * @param toY The desired position along the y-axis for the player
-	 * @return A path as a list of sides
 	 */
-	public List<Side> getPathToNearestPoint(float fromX, float fromY, int toX, int toY) {
+	public void updatePathToNearestPoint(float fromX, float fromY, int toX, int toY) {
 		Side side = getSideWithShortestDistance(toX, toY);
-		return getPathToSide(fromX, fromY, side);
+		this.currentPath = getPathToSide(fromX, fromY, side);
 	}
+	
+	
+	private List<Side> pathToNearestPoint(float fromX, float fromY, int toX, int toY) {
+		Path currentBestPath = null;
+		
+		List<FunctionalSide> currentSides = getCurrentValidSides();
+		
+		List<FunctionalPath> fullPathList = new ArrayList<FunctionalPath>();
+
+		while(!currentSides.isEmpty()) {
+			FunctionalSide currentSide = currentSides.get(0);
+			currentSides.remove(0);
+			
+			List<FunctionalSide> tempSides = new ArrayList<FunctionalSide>();
+			tempSides.add(currentSide);
+			double xsq = Math.pow(fromX - currentSide.getEndNode().getX(), 2);
+			double ysq = Math.pow(fromY - currentSide.getEndNode().getY(), 2);
+			float dist = (float) Math.sqrt(xsq + ysq);
+			FunctionalPath newPath = new FunctionalPath(dist, tempSides);
+
+			fullPathList.add(newPath);
+			
+			List<FunctionalPath> tempPathList = getOneStepPaths(newPath);
+			
+			while(!tempPathList.isEmpty()) {
+				FunctionalPath temp = tempPathList.get(0);
+				tempPathList.remove(0);
+				fullPathList.add(temp);
+				tempPathList.addAll(getOneStepPaths(temp));
+			}
+			
+		}
+		
+		// TODO test that the list with all possible paths (before barriers) is correctly generated
+		
+		
+		
+
+		
+		
+		return currentBestPath.getSides();
+	}
+	
+	
+	private List<FunctionalPath> getOneStepPaths(FunctionalPath originalPath) {
+		List<FunctionalPath> tempList = new ArrayList<FunctionalPath>();
+		
+		FunctionalSide lastSide = originalPath.getSides().get(originalPath.getSides().size() - 1);
+		
+		for (FunctionalSide side : sides) {
+			if (side.getStartNode() == lastSide.getEndNode()) {
+				FunctionalPath temp = originalPath.newFunctionalPath(side.getLenght(), side);
+				if (temp != null)
+					tempList.add(temp);
+			}
+		}
+
+		return tempList;
+	}
+	
+	
+	private List<FunctionalSide> getCurrentValidSides() {
+		List<FunctionalSide> tempList = new ArrayList<FunctionalSide>();
+		if (currentNode != null) {
+			for (FunctionalSide side : sides) {
+				if (side.getStartNode() == currentNode)
+					tempList.add(side);
+			}
+		} else {
+			for (FunctionalSide side : sides) {
+				if (side.getSide() == currentSide)
+					tempList.add(side);
+			}
+		}
+		return tempList;
+	}
+	
+	
 	
 	/**
 	 * Updates the value of speedX, speedY and scale for the player to move
@@ -241,6 +332,8 @@ public class FunctionalTrajectory {
 			return trajectory.getNodeForId(temp);
 		return null;
 	}
+
+	
 	
 	/**
 	 * Get a path to a destiny position from a given side
@@ -334,11 +427,11 @@ public class FunctionalTrajectory {
 	 */
 	private class Path implements Comparable<Path> {
 
-		private int length;
+		private float length;
 		
 		private List<Side> sides;
 		
-		public Path(int length, List<Side> sides) {
+		public Path(float length, List<Side> sides) {
 			this.length = length;
 			this.sides = new ArrayList<Side>(sides);
 		}
@@ -347,13 +440,55 @@ public class FunctionalTrajectory {
 			return sides;
 		}
 		
-		public int getLength() {
+		public float getLength() {
 			return length;
 		}
 
 		@Override
 		public int compareTo(Path arg0) {
-			return arg0.length - length;
+			return (int) (arg0.length - length);
+		}		
+	}
+
+	private class FunctionalPath implements Comparable<Path> {
+
+		private float length;
+		
+		private List<FunctionalSide> sides;
+		
+		public FunctionalPath(float length, List<FunctionalSide> sides) {
+			this.length = length;
+			this.sides = new ArrayList<FunctionalSide>(sides);
+		}
+
+		public List<FunctionalSide> getSides() {
+			return sides;
+		}
+		
+		public float getLength() {
+			return length;
+		}
+		
+		private void addSide(float lenght, FunctionalSide side) {
+			sides.add(side);
+			this.length += lenght;
+		}
+
+		public FunctionalPath newFunctionalPath(float length, FunctionalSide side) {
+			if (sides.contains(side))
+				return null;
+			for (FunctionalSide tempSide : sides)
+				if (tempSide.getSide() == side.getSide())
+					return null;
+			
+			FunctionalPath temp = new FunctionalPath(this.length, this.sides);
+			temp.addSide(length, side);
+			return temp;
+		}
+
+		@Override
+		public int compareTo(Path arg0) {
+			return (int) (arg0.length - length);
 		}		
 	}
 
@@ -435,15 +570,6 @@ public class FunctionalTrajectory {
 	}
 	
 	/**
-	 * Set the value of the current path
-	 * 
-	 * @param path the new path as a list of sides
-	 */
-	public void setCurrentPath(List<Side> path) {
-		this.currentPath = path;
-	}
-
-	/**
 	 * Returns the value of speedX
 	 * @return the value of speedX
 	 */
@@ -485,5 +611,9 @@ public class FunctionalTrajectory {
 	 */
 	public float getScale() {
 		return scale;
+	}
+
+	public void setDestinationElement(FunctionalElement element) {
+		this.destinationElement = destinationElement;
 	}
 }

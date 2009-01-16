@@ -43,7 +43,7 @@ public class Trajectory {
 		if (a != null && b != null) {
 			int x = a.getX() - b.getX();
 			int y = a.getY() - b.getY();
-			side.setLenght((int) Math.sqrt(x*x + y*y));
+			side.setLenght((float) Math.sqrt(x*x + y*y));
 		}
 		
 		if (sides.contains(side)) {
@@ -141,7 +141,7 @@ public class Trajectory {
 		
 		private String idEnd;
 		
-		private int length = 1;
+		private float length = 1;
 		
 		public Side(String idStart, String idEnd) {
 			this.idStart = idStart;
@@ -156,7 +156,7 @@ public class Trajectory {
 			return idEnd;
 		}
 		
-		public void setLenght(int length) {
+		public void setLenght(float length) {
 			this.length = length;
 		}
 		
@@ -171,7 +171,7 @@ public class Trajectory {
 			return false;
 		}
 
-		public int getLength() {
+		public float getLength() {
 			return length;
 		}
 	}
