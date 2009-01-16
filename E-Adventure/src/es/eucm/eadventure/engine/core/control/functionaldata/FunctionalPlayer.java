@@ -408,16 +408,16 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
             int realY = (int) (y - ( image.getHeight( null ) * scale )); 
             if (scale != 1) {
         		Image temp = image.getScaledInstance(Math.round(image.getWidth(null) * scale), Math.round(image.getHeight(null) * scale), Image.SCALE_SMOOTH);
-        		if (layer==-1)
-        			GUI.getInstance().addElementToDraw(temp, realX, realY, Math.round(y));
+        		if (layer==-1||layer==-2)
+        			GUI.getInstance().addPlayerToDraw(temp, realX, realY, Math.round(y),Math.round(y));
         		else 
-        			GUI.getInstance().addElementToDraw(temp, realX, realY, layer);
+        			GUI.getInstance().addElementToDraw(temp, realX, realY, layer, Math.round(y));
 
             } else {
-	            if (layer==-1)
-	            	GUI.getInstance( ).addElementToDraw( image, realX, realY, (int) y );
+	            if (layer==-1||layer==-2)
+	            	GUI.getInstance( ).addPlayerToDraw( image, realX, realY, Math.round( y ), Math.round(y));
 	            else 
-	            	GUI.getInstance( ).addElementToDraw( image, realX, realY, layer );
+	            	GUI.getInstance( ).addElementToDraw( image, realX, realY, layer, Math.round(y) );
             }
         }
         if (getCurrentAction().isStarted() && !getCurrentAction().isFinished())

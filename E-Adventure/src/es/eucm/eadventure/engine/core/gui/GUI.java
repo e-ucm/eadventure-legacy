@@ -591,18 +591,18 @@ public abstract class GUI implements FocusListener {
     }
     
     /**
-     * Adds the image to the array image buffer sorted by its Y coordinate
+     * Adds the image to the array image buffer sorted by its Y coordinate, or its layer, depending on the element has layer or not.
      * @param image Image
      * @param x X coordinate
      * @param y Y coordinate
-     * @param z Depth of the image
+     * @param depth Depth of the image
      */
-    public void addElementToDraw( Image image, int x, int y, int depth ){
+    public void addElementToDraw( Image image, int x, int y, int depth, int originalY ){
         boolean added = false;
         int i = 0;
         
         // Create the image to store it 
-        ElementImage element = new ElementImage( image, x, y, depth );
+        ElementImage element = new ElementImage( image, x, y, depth, originalY );
         
         // While the element has not been added, and
         // we haven't checked every previous element
@@ -619,6 +619,44 @@ public abstract class GUI implements FocusListener {
         // If the element wasn't added, add it in the last position
         if( !added )
             elementsToDraw.add( element );
+    }
+    
+    /**
+     * Adds the image to the array image buffer sorted by its Y coordinate, or its layer, depending on the element has layer or not.
+     * This method compare the depth parameter with all elements in elementsToDraw y position. This method is use to insert player
+     * without layer in a scene where the rest has layer or not. 
+     * 
+     * @param image Image
+     * @param x X coordinate
+     * @param y Y coordinate
+     * @param depth Depth of the image
+     */
+    public void addPlayerToDraw(Image image, int x, int y, int depth , int originalY){
+    	 boolean added = false;
+         int i = 0;
+         
+         // Create the image to store it 
+         ElementImage element = new ElementImage( image, x, y, depth, originalY );
+         
+         // While the element has not been added, and
+         // we haven't checked every previous element
+         while( !added && i < elementsToDraw.size( ) ) {
+             
+             // Insert the element in the correct position
+             if( depth <= elementsToDraw.get( i ).getOriginalY()) {
+            	 element.setDepth(i);
+                 elementsToDraw.add( i, element );
+                 added = true;
+             }
+             i++;
+         }
+         
+         // If the element wasn't added, add it in the last position
+         if( !added ){
+        	 element.setDepth(elementsToDraw.size()-1);
+             elementsToDraw.add( element );
+             
+         }
     }
     
     /**
@@ -697,6 +735,11 @@ public abstract class GUI implements FocusListener {
         private int y;
         
         /**
+         * Original y, without pertinent transformations to fir the original image to scene reference image.
+         */
+        private int originalY;
+        
+        /**
          * Depth of the image (to be painted).
          */
         private int depth;
@@ -708,11 +751,12 @@ public abstract class GUI implements FocusListener {
          * @param y Y coordinate
          * @param depth Depth to draw the image
          */
-        public ElementImage( Image image, int x, int y, int depth ) {
+        public ElementImage( Image image, int x, int y, int depth, int originalY) {
             this.image = image;
             this.x = x;
             this.y = y;
             this.depth = depth;
+            this.originalY = originalY;
         }
         
         /**
@@ -730,6 +774,30 @@ public abstract class GUI implements FocusListener {
         public int getDepth( ) {
             return depth;
         }
+
+        /**
+         * Returns the y of the element
+         * @return The y element´s position
+         */
+		public int getY() {
+			return y;
+		}
+
+		/**
+		 * Changes the element´s depth 
+		 * @param depth
+		 */
+		public void setDepth(int depth) {
+			this.depth = depth;
+		}
+
+		/**
+		 * Returns original Y position, without transformations.
+		 * @return
+		 */
+		public int getOriginalY() {
+			return originalY;
+		}
     }
     
     /**

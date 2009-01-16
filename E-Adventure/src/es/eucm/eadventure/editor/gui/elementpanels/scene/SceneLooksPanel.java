@@ -58,7 +58,7 @@ public class SceneLooksPanel extends LooksPanel {
 		for( ElementReferenceDataControl elementReference : sceneDataControl.getReferencesList( ).getAtrezzoReferences( ) ) {
 			scenePreviewEditionPanel.addElement(ScenePreviewEditionPanel.CATEGORY_ATREZZO, elementReference);
 		}
-		if (!Controller.getInstance().isPlayTransparent())
+		if (!Controller.getInstance().isPlayTransparent() && sceneDataControl.isAllowPlayer())
 			scenePreviewEditionPanel.addPlayer(sceneDataControl, sceneDataControl.getReferencesList().getPlayerImage());
 		
 		scenePreviewEditionPanel.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_OBJECT, false);
@@ -68,6 +68,13 @@ public class SceneLooksPanel extends LooksPanel {
 		lookPanel.add( scenePreviewEditionPanel, cLook );
 		//resourcesPanel.setPreviewUpdater( this );
 
+	}
+	
+	protected void addPlayer(){
+		if (!Controller.getInstance().isPlayTransparent() && sceneDataControl.isAllowPlayer())
+			scenePreviewEditionPanel.addPlayer(sceneDataControl, sceneDataControl.getReferencesList().getPlayerImage());
+		scenePreviewEditionPanel.paintBackBuffer();
+		scenePreviewEditionPanel.repaint();
 	}
 
 	@Override
@@ -79,5 +86,9 @@ public class SceneLooksPanel extends LooksPanel {
 	public void updateResources( ) {
 		super.updateResources( );
 		getParent( ).getParent( ).repaint( );
+	}
+
+	public SceneDataControl getSceneDataControl() {
+		return sceneDataControl;
 	}
 }

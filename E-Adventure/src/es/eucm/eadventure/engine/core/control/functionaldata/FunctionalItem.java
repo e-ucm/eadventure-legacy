@@ -165,14 +165,14 @@ public class FunctionalItem extends FunctionalElement {
     	if (scale != 1) {
     		Image temp = image.getScaledInstance(Math.round(image.getWidth(null) * scale), Math.round(image.getHeight(null) * scale), Image.SCALE_SMOOTH);
     		if (layer==-1)
-    			GUI.getInstance().addElementToDraw(temp, x_image, y_image, Math.round(y));
+    			GUI.getInstance().addElementToDraw(temp, x_image, y_image, Math.round(y), Math.round(y));
     		else 
-    			GUI.getInstance().addElementToDraw(temp, x_image, y_image, layer);
+    			GUI.getInstance().addElementToDraw(temp, x_image, y_image, layer, Math.round(y));
     	} else 
     		if (layer==-1)
-    			GUI.getInstance( ).addElementToDraw( image, x_image, y_image, Math.round( y ) );
+    			GUI.getInstance( ).addElementToDraw( image, x_image, y_image, Math.round( y ), Math.round(y) );
     		else
-    			GUI.getInstance( ).addElementToDraw( image, x_image, y_image, layer );
+    			GUI.getInstance( ).addElementToDraw( image, x_image, y_image, layer, Math.round(y));
     }
     
     @Override

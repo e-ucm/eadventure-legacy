@@ -286,7 +286,7 @@ public class Scene extends GeneralScene {
 	public void setAllowPlayerLayer(boolean allowPlayerLayer) {
 		this.allowPlayerLayer = allowPlayerLayer;
 		if (!allowPlayerLayer)
-			playerLayer = -1;
+			playerLayer = -2;
 	}
 
 	/**
@@ -300,14 +300,17 @@ public class Scene extends GeneralScene {
 	}
 	
 	/**
-	 * Return the current player layer if it is allow to do that.
+	 * Change the current player layer if it is allow to do that.
 	 * 
 	 * @param playerLayer
 	 * 				the current player layer
 	 */
 	public void setPlayerLayer(int playerLayer) {
-		if (allowPlayerLayer)
-			this.playerLayer = playerLayer;
+		
+		this.playerLayer = playerLayer;
+		if (playerLayer == -2)
+			allowPlayerLayer = false;
+		
 		
 	}
 	
