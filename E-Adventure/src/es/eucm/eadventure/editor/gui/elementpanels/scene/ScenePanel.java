@@ -147,7 +147,7 @@ public class ScenePanel extends JPanel {
 		cDoc.gridy++;
 		JPanel allowPlayerLayer = new JPanel();
 		allowPlayerLayer.setLayout(new GridLayout( 0, 1 ) );
-		isAllowPlayerLayer = new JCheckBox(TextConstants.getText("Scene.AllowPlayer"),sceneDataControl.getPlayerLayer()==-1?false:true);
+		isAllowPlayerLayer = new JCheckBox(TextConstants.getText("Scene.AllowPlayer"),sceneDataControl.isAllowPlayer());
 		isAllowPlayerLayer.addActionListener(new PlayerLayerCheckBoxListener());
 		allowPlayerLayer.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Scene.AllowPlayerBorder" ) ) );
 		allowPlayerLayer.add(isAllowPlayerLayer);

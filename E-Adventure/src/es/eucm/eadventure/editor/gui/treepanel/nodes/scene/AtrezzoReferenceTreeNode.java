@@ -9,6 +9,7 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.scene.AtrezzoReferencePanel;
+import es.eucm.eadventure.editor.gui.elementpanels.scene.ElementReferencePanel;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.TreeNode;
 
 public class AtrezzoReferenceTreeNode extends TreeNode {
@@ -76,7 +77,7 @@ public class AtrezzoReferenceTreeNode extends TreeNode {
 
 	@Override
 	public JComponent getEditPanel( ) {
-		return new AtrezzoReferencePanel( dataControl );
+		return new ElementReferencePanel( dataControl );
 	}
 
 	@Override

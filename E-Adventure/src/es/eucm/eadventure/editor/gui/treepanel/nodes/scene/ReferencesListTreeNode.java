@@ -11,7 +11,7 @@ import es.eucm.eadventure.editor.control.controllers.scene.ReferencesListDataCon
 import es.eucm.eadventure.editor.gui.elementpanels.scene.ReferencesListPanel;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.TreeNode;
 
-public class ReferencesListTreeNode extends TreeNode implements AddNewReferenceListener{
+public class ReferencesListTreeNode extends TreeNode implements ReferenceListener{
 
 	/**
 	 * Contained micro-controller.
@@ -129,5 +129,11 @@ public class ReferencesListTreeNode extends TreeNode implements AddNewReferenceL
 	@Override
 	public void addNewNodeElement(int type) {
 		addChildOnlyInTree(type);
+	}
+
+	@Override
+	public void deleteNodeElement() {
+		deleteChildOnlyInTree();
+		
 	}
 }

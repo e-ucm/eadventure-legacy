@@ -12,7 +12,7 @@ import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
-import es.eucm.eadventure.editor.gui.treepanel.nodes.scene.AddNewReferenceListener;
+import es.eucm.eadventure.editor.gui.treepanel.nodes.scene.ReferenceListener;
 
 public class SceneDataControl extends DataControlWithResources {
 
@@ -542,6 +542,10 @@ public class SceneDataControl extends DataControlWithResources {
 	
 	public void setAllowPlayerLayer(boolean allow){
 		scene.setAllowPlayerLayer(allow);
+	}
+	
+	public boolean isAllowPlayer(){
+		return scene.isAllowPlayerLayer();
 	}
 	
 	public void deletePlayerInReferenceList(){

@@ -84,8 +84,7 @@ public class ReferencesListPanel extends JPanel {
 		// Take the path of the background
 		String scenePath = Controller.getInstance( ).getSceneImagePath( referencesListDataControl.getParentSceneId( ) );
 
-		// Set the layout
-		setLayout( new GridBagLayout( ) );
+		
 		
 		//Create the infoPanel
 		
@@ -161,7 +160,7 @@ public class ReferencesListPanel extends JPanel {
 
 		// Create the text area for the documentation
 		c.fill = GridBagConstraints.BOTH;
-		
+		// Set the layout
 		setLayout( new BorderLayout( ) );
 		add(tableWithSplit,BorderLayout.CENTER);
 	}
