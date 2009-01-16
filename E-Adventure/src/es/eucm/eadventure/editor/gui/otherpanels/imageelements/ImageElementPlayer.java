@@ -13,6 +13,8 @@ public class ImageElementPlayer extends ImageElement {
 	public ImageElementPlayer(Image image, 
 			SceneDataControl sceneDataControl) {
 		this.image = image;
+		if (image == null)
+			image = new BufferedImage(10,10,BufferedImage.TYPE_4BYTE_ABGR);
 		this.sceneDataControl = sceneDataControl;
 	}
 
@@ -40,7 +42,7 @@ public class ImageElementPlayer extends ImageElement {
 
 	@Override
 	public int getY() {
-		if (sceneDataControl.getDefaultInitialPositionY() < 0)
+		if (sceneDataControl.getDefaultInitialPositionY() < 0 && image != null)
 			return 300 + image.getHeight(null);
 		return sceneDataControl.getDefaultInitialPositionY();
 	}
@@ -75,12 +77,18 @@ public class ImageElementPlayer extends ImageElement {
 
 	@Override
 	public int getHeight() {
-		return image.getHeight(null);
+		if (image != null)
+			return image.getHeight(null);
+		else
+			return 0;
 	}
 
 	@Override
 	public int getWidth() {
-		return image.getWidth(null);
+		if (image != null)
+			return image.getWidth(null);
+		else
+			return 0;
 	}
 
 	@Override
