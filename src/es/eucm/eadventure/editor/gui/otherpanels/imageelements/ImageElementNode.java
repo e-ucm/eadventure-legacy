@@ -125,12 +125,12 @@ public class ImageElementNode extends ImageElement {
 
 	@Override
 	public int getHeight() {
-		return 0;
+		return image.getHeight(null);
 	}
 
 	@Override
 	public int getWidth() {
-		return 0;
+		return image.getWidth(null);
 	}
 
 	@Override
