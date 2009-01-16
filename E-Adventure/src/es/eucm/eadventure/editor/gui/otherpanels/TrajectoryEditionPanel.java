@@ -3,10 +3,16 @@ package es.eucm.eadventure.editor.gui.otherpanels;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 
+import javax.swing.AbstractButton;
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JToggleButton;
 
 import es.eucm.eadventure.common.data.chapter.Trajectory;
 import es.eucm.eadventure.editor.control.controllers.TrajectoryScenePreviewEditionController;
@@ -48,9 +54,9 @@ public class TrajectoryEditionPanel extends JPanel {
 		spep = new ScenePreviewEditionPanel(scenePath);
 		tspec = new TrajectoryScenePreviewEditionController(spep, trajectoryDataControl);
 		spep.changeController(tspec);
-		spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_NODE, true);
 		for (NodeDataControl nodeDataControl: trajectoryDataControl.getNodes())
 			spep.addNode(nodeDataControl);
+		spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_NODE, true);
 		spep.setTrajectory((Trajectory) trajectoryDataControl.getContent());
 		
 		add(createButtonPanel(), BorderLayout.NORTH);
@@ -65,11 +71,12 @@ public class TrajectoryEditionPanel extends JPanel {
 	 */
 	private JPanel createButtonPanel() {
 		JPanel buttonPanel = new JPanel();
-		buttonPanel.add(createToolButton("BarriersList.EditNodes", TrajectoryScenePreviewEditionController.NODE_EDIT));
-		buttonPanel.add(createToolButton("BarriersList.EditSides", TrajectoryScenePreviewEditionController.SIDE_EDIT));
-		buttonPanel.add(createToolButton("BarriersList.SelectInitialNode", TrajectoryScenePreviewEditionController.SELECT_INITIAL));
-		buttonPanel.add(createToolButton("BarriersList.DeleteTool", TrajectoryScenePreviewEditionController.DELETE_TOOL));
-		buttonPanel.add(createToolButton("BarriersList.EditBarriers", TrajectoryScenePreviewEditionController.EDIT_BARRIERS));
+		ButtonGroup group = new ButtonGroup();
+	    buttonPanel.add(createToolButton("BarriersList.EditNodes", TrajectoryScenePreviewEditionController.NODE_EDIT, "img/icons/nodeEdit.png", group));
+		buttonPanel.add(createToolButton("BarriersList.EditSides", TrajectoryScenePreviewEditionController.SIDE_EDIT, "img/icons/sideEdit.png", group));
+		buttonPanel.add(createToolButton("BarriersList.SelectInitialNode", TrajectoryScenePreviewEditionController.SELECT_INITIAL, "img/icons/selectStartNode.png", group));
+		buttonPanel.add(createToolButton("BarriersList.DeleteTool", TrajectoryScenePreviewEditionController.DELETE_TOOL, "img/icons/deleteTool.png", group));
+		buttonPanel.add(createToolButton("BarriersList.EditBarriers", TrajectoryScenePreviewEditionController.EDIT_BARRIERS, "img/icons/barrierEdit.png", group));
 		return buttonPanel;
 	}
 	
@@ -78,17 +85,20 @@ public class TrajectoryEditionPanel extends JPanel {
 	 * 
 	 * @param text The text of the button
 	 * @param tool The tool asosiated with the button
+	 * @param group 
 	 * @return The new button
 	 */
-	private JButton createToolButton(String text, final int tool) {
+	private AbstractButton createToolButton(String text, final int tool, String iconPath, ButtonGroup group) {
 		
-		JButton button;
-		if (tool == TrajectoryScenePreviewEditionController.NODE_EDIT) {
-			ImageIcon icon = new ImageIcon("img/icons/nodeEdit.png");
-			button = new JButton(icon);
-		}else 
-			button = new JButton(TextConstants.getText(text));
+		AbstractButton button;
+		ImageIcon icon = new ImageIcon(iconPath);
+		button = new JToggleButton(icon);
+		group.add(button);
+		button.setToolTipText(TextConstants.getText(text));
 
+		if (tool == TrajectoryScenePreviewEditionController.NODE_EDIT) {
+			button.setSelected(true);
+		}
 		
 		button.addActionListener(new ActionListener() {
 			@Override
