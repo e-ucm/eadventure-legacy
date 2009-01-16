@@ -10,7 +10,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -27,7 +26,6 @@ import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataC
 import es.eucm.eadventure.editor.control.controllers.scene.ExitDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.NodeDataControl;
 import es.eucm.eadventure.editor.gui.editdialogs.ConditionsDialog;
-import es.eucm.eadventure.editor.gui.otherpanels.PreviewPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 
 public class NPCReferencePanel extends JPanel {
@@ -113,8 +111,7 @@ public class NPCReferencePanel extends JPanel {
 		add( conditionsPanel, c );
 
 		// Create image panel
-		PreviewPanel previewPanel = new PreviewPanel(scenePath);
-		scenePreviewEditionPanel = previewPanel.getScenePreviewEditionPanel();
+		scenePreviewEditionPanel = new ScenePreviewEditionPanel(scenePath);
 		scenePreviewEditionPanel.setFixedSelectedElement(true);
 
 
@@ -130,7 +127,7 @@ public class NPCReferencePanel extends JPanel {
 		JPanel completePositionPanel = new JPanel( );
 		completePositionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "NPCReference.Position" ) ) );
 		completePositionPanel.setLayout( new BorderLayout( ) );
-		completePositionPanel.add( previewPanel, BorderLayout.CENTER );
+		completePositionPanel.add( scenePreviewEditionPanel, BorderLayout.CENTER );
 		add( completePositionPanel, c );
 
 		// Add the other elements of the scene if a background image was loaded
@@ -179,7 +176,6 @@ public class NPCReferencePanel extends JPanel {
 		
 		}
 		
-		previewPanel.recreateCheckBoxPanel();
 	}
 
 	/**

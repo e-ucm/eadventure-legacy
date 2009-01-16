@@ -24,7 +24,7 @@ public class NormalScenePreviewEditionController implements ScenePreviewEditionC
 	private int originalHeight;
 	
 	private float originalScale;
-
+	
 	public NormalScenePreviewEditionController(ScenePreviewEditionPanel spep) {
 		this.spep = spep;
 	}

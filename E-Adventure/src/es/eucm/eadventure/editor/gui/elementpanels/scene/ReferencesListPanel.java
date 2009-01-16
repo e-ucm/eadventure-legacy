@@ -23,7 +23,6 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -33,16 +32,11 @@ import javax.swing.event.ListSelectionListener;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.control.controllers.book.BookParagraphDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementContainer;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ReferencesListDataControl;
 import es.eucm.eadventure.editor.gui.editdialogs.ConditionsDialog;
-import es.eucm.eadventure.editor.gui.elementpanels.book.ImageBookParagraphPanel;
-import es.eucm.eadventure.editor.gui.elementpanels.book.ParagraphsTable;
-import es.eucm.eadventure.editor.gui.elementpanels.book.TextBookParagraphPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.general.ElementReferencesTable;
-import es.eucm.eadventure.editor.gui.otherpanels.PreviewPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 
 public class ReferencesListPanel extends JPanel {
@@ -105,8 +99,7 @@ public class ReferencesListPanel extends JPanel {
 		infoPanel.add( informationTextPane,BorderLayout.CENTER);
 		
 		// Create the scene preview edition panel
-		PreviewPanel previewPanel = new PreviewPanel(scenePath);
-		spep = previewPanel.getScenePreviewEditionPanel();
+		spep = new ScenePreviewEditionPanel(scenePath);
 		spep.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ItemReferencesList.PreviewTitle" ) ) );
 
 		// Add the item references if an image was loaded
@@ -125,9 +118,8 @@ public class ReferencesListPanel extends JPanel {
 				spep.addPlayer(referencesListDataControl.getSceneDataControl(), referencesListDataControl.getPlayerImage());
 		}
 		//Create a split pane with the two panels: info panel and preview panel
-		previewPanel.recreateCheckBoxPanel();
 		infoWithSpep = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
-                infoPanel, previewPanel);
+                infoPanel, spep);
 		infoWithSpep.setOneTouchExpandable(true);
 		infoWithSpep.setResizeWeight(0.5);
 		infoWithSpep.setContinuousLayout(true);

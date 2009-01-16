@@ -25,7 +25,6 @@ import es.eucm.eadventure.editor.control.controllers.scene.BarrierDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ExitDataControl;
 import es.eucm.eadventure.editor.gui.editdialogs.ConditionsDialog;
-import es.eucm.eadventure.editor.gui.otherpanels.PreviewPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 
 public class AtrezzoReferencePanel extends JPanel {
@@ -111,8 +110,7 @@ public class AtrezzoReferencePanel extends JPanel {
 		add( conditionsPanel, c );
 
 		// Create image panel
-		PreviewPanel previewPanel = new PreviewPanel(scenePath);
-		scenePreviewEditionPanel = previewPanel.getScenePreviewEditionPanel();
+		scenePreviewEditionPanel = new ScenePreviewEditionPanel(scenePath);
 		scenePreviewEditionPanel.setFixedSelectedElement(true);
 
 		// Set the values for the categories and checkboxes
@@ -127,7 +125,7 @@ public class AtrezzoReferencePanel extends JPanel {
 		JPanel completePositionPanel = new JPanel( );
 		completePositionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AtrezzoReference.Position" ) ) );
 		completePositionPanel.setLayout( new BorderLayout( ) );
-		completePositionPanel.add( previewPanel, BorderLayout.CENTER );
+		completePositionPanel.add( scenePreviewEditionPanel, BorderLayout.CENTER );
 		add( completePositionPanel, c );
 
 		// Add the other elements of the scene if a background image was loaded
@@ -165,7 +163,6 @@ public class AtrezzoReferencePanel extends JPanel {
 
 		}
 
-		previewPanel.recreateCheckBoxPanel();
 		scenePreviewEditionPanel.setMovableElement(elementReferenceDataControl);
 	}
 
