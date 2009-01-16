@@ -357,7 +357,7 @@ public abstract class TreeNode {
 	
 	/**
 	 * Adds new child of the given type. This method is called when we add element not from tree,
-	 * to only add in the tree.
+	 * to only reflects the changes in the tree.
 	 * 
 	 * @param type
 	 */
@@ -367,6 +367,18 @@ public abstract class TreeNode {
 			checkForNewChild( type );
 			ownerPanel.updateTreePanel( );
 		}
+	}
+	
+	/**
+	 * Delete a child. This method is called when we delete element not from tree,
+	 * to only reflects the changes in the tree.
+	 */
+	public void deleteChildOnlyInTree(){
+		// Update the tree panel and select new row
+			ownerPanel.checkForDeletedReferences( );
+			ownerPanel.updateTreePanel( );
+			Controller.getInstance( ).updateFlagSummary( );
+		
 	}
 
 	/**

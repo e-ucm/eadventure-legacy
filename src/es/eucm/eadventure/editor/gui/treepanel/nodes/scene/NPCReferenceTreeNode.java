@@ -8,6 +8,7 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
+import es.eucm.eadventure.editor.gui.elementpanels.scene.ElementReferencePanel;
 import es.eucm.eadventure.editor.gui.elementpanels.scene.NPCReferencePanel;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.TreeNode;
 
@@ -76,7 +77,7 @@ public class NPCReferenceTreeNode extends TreeNode {
 
 	@Override
 	public JComponent getEditPanel( ) {
-		return new NPCReferencePanel( dataControl );
+		return new ElementReferencePanel( dataControl );
 	}
 
 	@Override

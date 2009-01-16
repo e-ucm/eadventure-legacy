@@ -12,7 +12,7 @@ import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.character.PlayerDataControl;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
-import es.eucm.eadventure.editor.gui.treepanel.nodes.scene.AddNewReferenceListener;
+import es.eucm.eadventure.editor.gui.treepanel.nodes.scene.ReferenceListener;
 
 public class ReferencesListDataControl extends DataControl {
 
@@ -79,7 +79,7 @@ public class ReferencesListDataControl extends DataControl {
 	/**
 	 * Listener to inform of new element creation (and create new tree node)
 	 */
-	private AddNewReferenceListener addNewReferenceListener;
+	private ReferenceListener addNewReferenceListener;
 	
 	/**
 	 * Constructor.
@@ -487,24 +487,21 @@ public class ReferencesListDataControl extends DataControl {
 		if (dataControl != null){
 		if( itemReferencesList.remove( dataControl.getContent( ) ) ) {
 			itemReferencesDataControlList.remove( dataControl );
-			delete(dataControl);
-			controller.dataModified( );
-			elementDeleted = true;
 		}
 
 		if( atrezzoReferencesList.remove( dataControl.getContent( ) ) ) {
 			atrezzoReferencesDataControlList.remove( dataControl );
-			delete(dataControl);
-			controller.dataModified( );
-			elementDeleted = true;
 		}
 
 		if( npcReferencesList.remove( dataControl.getContent( ) ) ) {
 			npcReferencesDataControlList.remove( dataControl );
-			delete(dataControl);
-			controller.dataModified( );
-			elementDeleted = true;
 		}
+		// delete in allReferencesDataControl
+		delete(dataControl);
+		controller.dataModified( );
+		elementDeleted = true;
+		addNewReferenceListener.deleteNodeElement();
+		
 		}
 		//if it is a player, we don´t allow to delete it
 		 
@@ -817,7 +814,7 @@ public class ReferencesListDataControl extends DataControl {
 	 * @param anrl
 	 * 			the new AddNewReferenceListener
 	 */
-	public void setAddNewReferenceListener(AddNewReferenceListener anrl) {
+	public void setAddNewReferenceListener(ReferenceListener anrl) {
 		this.addNewReferenceListener = anrl;
 	}
 }
