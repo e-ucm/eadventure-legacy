@@ -11,6 +11,9 @@ import javax.swing.JTextPane;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.controllers.scene.ActiveAreaDataControl;
+import es.eucm.eadventure.editor.control.controllers.scene.BarrierDataControl;
+import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ExitDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ExitsListDataControl;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
@@ -60,9 +63,28 @@ public class ExitsListPanel extends JPanel {
 		ScenePreviewEditionPanel spep = new ScenePreviewEditionPanel(scenePath);
 		add( spep, c );
 
-		// Add the item references if an image was loaded
 		if( scenePath != null ) {
-			// Add the exits
+			for( ElementReferenceDataControl elementReference : exitsListDataControl.getParentSceneItemReferences( ) ) {
+				spep.addElement(ScenePreviewEditionPanel.CATEGORY_OBJECT, elementReference);
+			}
+			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_OBJECT, false);
+			for( ElementReferenceDataControl elementReference : exitsListDataControl.getParentSceneNPCReferences( ) ) {
+				spep.addElement(ScenePreviewEditionPanel.CATEGORY_CHARACTER, elementReference);
+			}
+			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_CHARACTER, false);
+			for( ElementReferenceDataControl elementReference : exitsListDataControl.getParentSceneAtrezzoReferences( ) ) {
+				spep.addElement(ScenePreviewEditionPanel.CATEGORY_ATREZZO, elementReference);
+			}
+			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_ATREZZO, false);
+			for( BarrierDataControl barrier : exitsListDataControl.getParentSceneBarriers( ) ) {
+				spep.addBarrier(barrier);
+			}
+			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_BARRIER, false);
+			for( ActiveAreaDataControl activeArea : exitsListDataControl.getParentSceneActiveAreas( ) ) {
+				spep.addActiveArea(activeArea);
+			}
+			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_ACTIVEAREA, false);
+
 			for( ExitDataControl exit : exitsListDataControl.getExits( ) ) {
 				spep.addExit(exit);
 			}

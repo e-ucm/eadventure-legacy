@@ -3,7 +3,6 @@ package es.eucm.eadventure.editor.control.controllers.scene;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.eucm.eadventure.common.data.chapter.elements.ActiveArea;
 import es.eucm.eadventure.common.data.chapter.elements.Barrier;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
@@ -265,4 +264,44 @@ public class BarriersListDataControl extends DataControl {
 	public TrajectoryDataControl getTrajectoryDataControl() {
 		return trajectoryDataControl;
 	}
+	
+	/**
+	 * Returns the data controllers of the item references of the scene that contains this element reference.
+	 * 
+	 * @return List of item references (including the one being edited)
+	 */
+	public List<ElementReferenceDataControl> getParentSceneItemReferences( ) {
+		return sceneDataControl.getReferencesList( ).getItemReferences( );
+	}
+
+	/**
+	 * Returns the data controllers of the character references of the scene that contains this element reference.
+	 * 
+	 * @return List of character references (including the one being edited)
+	 */
+	public List<ElementReferenceDataControl> getParentSceneNPCReferences( ) {
+		return sceneDataControl.getReferencesList( ).getNPCReferences( );
+	}
+	
+	/**
+	 * Returns the data controllers of the atrezzo items references of the scene that contains this element reference.
+	 * 
+	 * @return List of atrezzo references (including the one being edited)
+	 */
+	public List<ElementReferenceDataControl> getParentSceneAtrezzoReferences( ) {
+		return sceneDataControl.getReferencesList( ).getAtrezzoReferences( );
+	}
+
+	public List<ExitDataControl> getParentSceneExits() {
+		return sceneDataControl.getExitsList().getExits();
+	}
+
+	public List<ActiveAreaDataControl> getParentSceneActiveAreas() {
+		return sceneDataControl.getActiveAreasList().getActiveAreas();
+	}
+	
+	
+	
+	
+
 }

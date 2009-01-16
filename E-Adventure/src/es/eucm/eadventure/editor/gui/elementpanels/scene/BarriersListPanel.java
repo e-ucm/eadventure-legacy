@@ -11,8 +11,11 @@ import javax.swing.JTextPane;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.controllers.scene.ActiveAreaDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.BarrierDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.BarriersListDataControl;
+import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
+import es.eucm.eadventure.editor.control.controllers.scene.ExitDataControl;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.TrajectoryEditionPanel;
 
@@ -69,10 +72,29 @@ public class BarriersListPanel extends JPanel {
 			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_BARRIER, true);
 			add( spep, c );
 		}
+		
 
-		// Add the item references if an image was loaded
 		if( scenePath != null ) {
-			// Add the activeAreas
+			for( ElementReferenceDataControl elementReference : barriersListDataControl.getParentSceneItemReferences( ) ) {
+				spep.addElement(ScenePreviewEditionPanel.CATEGORY_OBJECT, elementReference);
+			}
+			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_OBJECT, false);
+			for( ElementReferenceDataControl elementReference : barriersListDataControl.getParentSceneNPCReferences( ) ) {
+				spep.addElement(ScenePreviewEditionPanel.CATEGORY_CHARACTER, elementReference);
+			}
+			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_CHARACTER, false);
+			for( ElementReferenceDataControl elementReference : barriersListDataControl.getParentSceneAtrezzoReferences( ) ) {
+				spep.addElement(ScenePreviewEditionPanel.CATEGORY_ATREZZO, elementReference);
+			}
+			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_ATREZZO, false);
+			for( ExitDataControl exit : barriersListDataControl.getParentSceneExits( ) ) {
+				spep.addExit(exit);
+			}
+			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_EXIT, false);
+			for( ActiveAreaDataControl activeArea : barriersListDataControl.getParentSceneActiveAreas( ) ) {
+				spep.addActiveArea(activeArea);
+			}
+			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_ACTIVEAREA, false);
 			for( BarrierDataControl barrier : barriersListDataControl.getBarriers( ) ) {
 				spep.addBarrier(barrier);
 			}
