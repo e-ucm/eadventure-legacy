@@ -112,9 +112,9 @@ public abstract class AnimationState {
         int realY = y - (int) ( getImage( ).getHeight( null ) * scale ); 
         Image tempImage = getImage().getScaledInstance(Math.round(getImage().getWidth(null)*scale), Math.round(getImage().getHeight(null)*scale), Image.SCALE_SMOOTH);
         if (depth == -1)
-        	GUI.getInstance( ).addElementToDraw( tempImage, realX, realY, y );
+        	GUI.getInstance( ).addElementToDraw( tempImage, realX, realY, Math.round(y) , Math.round(y));
         else 	
-        	GUI.getInstance( ).addElementToDraw( tempImage, realX, realY, depth );
+        	GUI.getInstance( ).addElementToDraw( tempImage, realX, realY, depth, Math.round(y) );
         
     }
     

@@ -271,11 +271,18 @@ public class ScenePanel extends JPanel {
 		public void actionPerformed( ActionEvent e ) {
 			sceneDataControl.setAllowPlayerLayer(isAllowPlayerLayer.isSelected());
 			//if it is not allow that the player has layer, delete it in all references container
-			if (isAllowPlayerLayer.isSelected())
+			if (isAllowPlayerLayer.isSelected()){
 				sceneDataControl.addPlayerInReferenceList();
-			else	
+			}
+			else{	
 				sceneDataControl.deletePlayerInReferenceList();
-			
+			}
+			looksPanel.addPlayer();
+			Controller.getInstance().dataModified();
+			/*looksPanel = new SceneLooksPanel(looksPanel.getSceneDataControl());
+			tabPanel.remove(0);
+			tabPanel.insertTab( TextConstants.getText( "Scene.LookPanelTitle" ), null, looksPanel, TextConstants.getText( "Scene.LookPanelTip" ), 0 );
+			*/
 		}
 
 	}

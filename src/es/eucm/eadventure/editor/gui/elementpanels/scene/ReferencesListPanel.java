@@ -113,7 +113,7 @@ public class ReferencesListPanel extends JPanel {
 			for( ElementReferenceDataControl elementReference : referencesListDataControl.getNPCReferences( ) ) {
 				spep.addElement(ScenePreviewEditionPanel.CATEGORY_CHARACTER, elementReference);
 			}
-			if (Controller.getInstance().playerMode()==DescriptorData.MODE_PLAYER_3RDPERSON)
+			if (!Controller.getInstance().isPlayTransparent()&& referencesListDataControl.getSceneDataControl().isAllowPlayer())
 				spep.addPlayer(referencesListDataControl.getSceneDataControl(), referencesListDataControl.getPlayerImage());
 		}
 		//Create a split pane with the two panels: info panel and preview panel
@@ -268,7 +268,8 @@ public class ReferencesListPanel extends JPanel {
 			ElementContainer elementContainer = referencesListDataControl.getAllReferencesDataControl().get( selectedReference);
 			referencesListDataControl.setLastElementContainer(elementContainer);
 			spep.setSelectedElement(elementContainer.getErdc(),elementContainer.getImage(),referencesListDataControl.getSceneDataControl());
-
+			spep.paintBackBuffer();
+			spep.repaint();
 			prepareInformationPanel();
 			itemsComboBox.setSelectedIndex(selectedReference);			
 			// Enable delete button
@@ -543,21 +544,7 @@ public class ReferencesListPanel extends JPanel {
 			if (referencesListDataControl.addElement( type )){
 				
 				category = transformType(type);
-				
-				/*int selectedRow = table.getSelectedRow( ); 
-				//If a row is selected, move the new element up until it is under the selected one
-				if (selectedRow>=0 && selectedRow<table.getRowCount( )){
-					
-					//We need size-2-selectedRow movements
-					ElementReferenceDataControl element = referencesListDataControl.getAllReferencesDataControl().get(referencesListDataControl.getAllReferencesDataControl().size()-1);
-					for (int i=0; i<table.getRowCount( )-2-table.getSelectedRow( ); i++){
-						referencesListDataControl.moveElementUp( element );
-					}
-					
-					//Set the new element reference selected
-					table.clearSelection( );
-					table.getSelectionModel( ).setSelectionInterval( selectedRow+1, selectedRow+1 );
-				}*/ 
+	
 				if (category!=0&&referencesListDataControl.getLastElementContainer()!=null){
 				// it is not necessary to check if it is an player element container because never a player will be added
 				spep.addElement(category, referencesListDataControl.getLastElementContainer().getErdc());

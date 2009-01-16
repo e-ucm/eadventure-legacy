@@ -123,8 +123,15 @@ public class ReferencesListDataControl extends DataControl {
 		}
 		
 		// insert player
-		if (playerImagePath!=null && (!Controller.getInstance().isPlayTransparent()))
-			insertInOrder(new ElementContainer(null,sceneDataControl.getPlayerLayer(),AssetsController.getImage( this.playerImagePath )),hasLayer);
+		// by default, if player don´t have layer, we give it to him.
+		if (playerImagePath!=null && (!Controller.getInstance().isPlayTransparent()) && sceneDataControl.isAllowPlayer()){
+			int layer;
+			if (sceneDataControl.getPlayerLayer()==-1)
+				layer = 0;
+			else 
+				layer = sceneDataControl.getPlayerLayer();
+			reassignLayerAllReferencesDataControl(insertInOrder(new ElementContainer(null,layer,AssetsController.getImage( this.playerImagePath )),true));
+		}
 	}
 	
 	/**
@@ -174,8 +181,11 @@ public class ReferencesListDataControl extends DataControl {
 	 * 				Take either layer or depth value to order value
 	 * @param playerLayer
 	 * 				Take the layer if player has it, or the y position if the player has not layer.
+	 * 
+	 * @return i
+	 * 		returns the position where the element has been inserted. It will be use to reassign layer
 	 **/
-	public void  insertInOrder(ElementContainer element, boolean hasLayer){
+	public int  insertInOrder(ElementContainer element, boolean hasLayer){
 		boolean added = false;
         int i = 0;
         boolean empty = allReferencesDataControl.size()==0 ;
@@ -189,15 +199,12 @@ public class ReferencesListDataControl extends DataControl {
             			//check the layer
         			if( element.getLayer() <= allReferencesDataControl.get( i ).getLayer() ) {
         				allReferencesDataControl.add( i,  element);
-        				reassignLayerAllReferencesDataControl(i);
+        				//reassignLayerAllReferencesDataControl(i);
         				added = true;
         			}
         		}else {
         			//check the y position
         			if( element.getY() <= Math.round(allReferencesDataControl.get( i ).getY()) ) {
-            			//element.getElementReference().setLayer(i);
-            		    
-        				//element.setLayer(i);
         				allReferencesDataControl.add( i,  element);
             			reassignLayerAllReferencesDataControl(i);
             			added = true;
@@ -206,7 +213,8 @@ public class ReferencesListDataControl extends DataControl {
         		i++;
         	}else {
         		allReferencesDataControl.add( i,  element);
-    			reassignLayerAllReferencesDataControl(i);
+    			if (!hasLayer)
+    				reassignLayerAllReferencesDataControl(i);
     			added = true;
     			i++;
         	}
@@ -217,10 +225,11 @@ public class ReferencesListDataControl extends DataControl {
         if( !added ){
         	//element.setLayer(i);
         	allReferencesDataControl.add( element );
-        	reassignLayerAllReferencesDataControl(i);
+        	if (!hasLayer)
+        		reassignLayerAllReferencesDataControl(i-1);
         	
         }
-          //return element;  
+          return i-1;  
 	}
 	
 	/**
@@ -355,7 +364,7 @@ public class ReferencesListDataControl extends DataControl {
 					//insertInOrder(newElementReference,false);
 					ElementContainer ec = new ElementContainer(erdc,-1,null);
 					lastElementContainer = ec;
-					insertInOrder(ec,false);
+					reassignLayerAllReferencesDataControl(insertInOrder(ec,false));
 					controller.dataModified( );
 					elementAdded = true;
 					addNewReferenceListener.addNewNodeElement(type);
@@ -386,7 +395,7 @@ public class ReferencesListDataControl extends DataControl {
 					//insertInOrder(newElementReference,false,-1);
 					ElementContainer ec = new ElementContainer(erdc,-1,null);
 					lastElementContainer = ec;
-					insertInOrder(ec,false);
+					reassignLayerAllReferencesDataControl(insertInOrder(ec,false));
 					controller.dataModified( );
 					elementAdded = true;
 					addNewReferenceListener.addNewNodeElement(type);
@@ -417,7 +426,7 @@ public class ReferencesListDataControl extends DataControl {
 					//insertInOrder(newElementReference,false);
 					ElementContainer ec = new ElementContainer(erdc,-1,null);
 					lastElementContainer = ec;
-					insertInOrder(ec,false);
+					reassignLayerAllReferencesDataControl(insertInOrder(ec,false));
 					controller.dataModified( );
 					elementAdded = true;
 					addNewReferenceListener.addNewNodeElement(type);
@@ -432,15 +441,6 @@ public class ReferencesListDataControl extends DataControl {
 		return elementAdded;
 	}
 	
-	//TODO
-	/*private void reassignLayerAllReferences(int index){
-
-		for (int i = index; i<allReferences.size();i++){
-			allReferences.get(i).setLayer(i);
-		}
-		
-	}*/
-	
 	private void reassignLayerAllReferencesDataControl(int index){
 
 		for (int i = index; i<allReferencesDataControl.size();i++){
@@ -452,7 +452,7 @@ public class ReferencesListDataControl extends DataControl {
 	}
 
 	/**
-	 * Delete in allReferences updating the layer, and also deletes in allReferencesDataControl
+	 * Delete in allReferencesDataControl updating the layer.
 	 * 
 	 * @param	
 	 * 		dataControl the issue to delete
@@ -466,17 +466,15 @@ public class ReferencesListDataControl extends DataControl {
 				if (!allReferencesDataControl.get(index).isPlayer())	
 					if (allReferencesDataControl.get(index).getErdc().equals(dataControl))
 						break;
-			}
+			/*}
 			else {
 				index = playerPosition;
 				
-			}
+			}*/
 			if (index>0){
-			//TODO
-			//	allReferences.remove(dataControl.getContent());
-			//reassignLayerAllReferences(index);
 			allReferencesDataControl.remove(index);
 			reassignLayerAllReferencesDataControl(index);
+			}
 			}
 		}
 	}
@@ -800,11 +798,16 @@ public class ReferencesListDataControl extends DataControl {
 		allReferencesDataControl.remove(playerPosition);
 		reassignLayerAllReferencesDataControl(playerPosition);
 		playerPosition  = -1;
+		// -2 indica que no queremos que tenga layer, frente a -1 que solo indica que no tiene layer
+		// documentarlo mejor y poner constantes
+		sceneDataControl.setPlayerLayer(-2);
 	}
 	
 	public void addPlayer(){
 		ElementContainer ec = new ElementContainer(null,0,AssetsController.getImage( this.playerImagePath ));
-		insertInOrder(ec,true);
+		int layer = insertInOrder(ec,true);
+		reassignLayerAllReferencesDataControl(layer);
+		sceneDataControl.setPlayerLayer(layer);
 	
 	}
 	
