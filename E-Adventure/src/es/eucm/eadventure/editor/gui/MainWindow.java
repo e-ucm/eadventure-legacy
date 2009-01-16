@@ -34,6 +34,7 @@ import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import javax.swing.filechooser.FileFilter;
 
+import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
@@ -519,16 +520,16 @@ public class MainWindow extends JFrame {
 			}
 		} );
 		configurationMenu.add( itShowStartDialog );
-		JCheckBoxMenuItem itEnglish = new JCheckBoxMenuItem(TextConstants.getText( "MenuConfiguration.Language.English" ), controller.getLanguage( ) == Controller.LANGUAGE_ENGLISH);
+		JCheckBoxMenuItem itEnglish = new JCheckBoxMenuItem(TextConstants.getText( "MenuConfiguration.Language.English" ), controller.getLanguage( ) == ReleaseFolders.LANGUAGE_ENGLISH);
 		itEnglish.addActionListener( new ActionListener(){
 			public void actionPerformed( ActionEvent e ) {
-				controller.setLanguage( Controller.LANGUAGE_ENGLISH );
+				controller.setLanguage( ReleaseFolders.LANGUAGE_ENGLISH );
 			}
 		});
-		JCheckBoxMenuItem itSpanish = new JCheckBoxMenuItem(TextConstants.getText( "MenuConfiguration.Language.Spanish" ), controller.getLanguage( ) == Controller.LANGUAGE_SPANISH);
+		JCheckBoxMenuItem itSpanish = new JCheckBoxMenuItem(TextConstants.getText( "MenuConfiguration.Language.Spanish" ), controller.getLanguage( ) == ReleaseFolders.LANGUAGE_SPANISH);
 		itSpanish.addActionListener( new ActionListener(){
 			public void actionPerformed( ActionEvent e ) {
-				controller.setLanguage( Controller.LANGUAGE_SPANISH );
+				controller.setLanguage( ReleaseFolders.LANGUAGE_SPANISH );
 			}
 		});
 		JMenu languageMenu = new JMenu(TextConstants.getText( "MenuConfiguration.Language") );

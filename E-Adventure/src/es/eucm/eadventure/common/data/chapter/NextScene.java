@@ -30,7 +30,7 @@ public class NextScene {
 	private Conditions conditions;
 
 	/**
-	 * FunctionalEffects triggered before exiting the current scene
+	 * Effects triggered before exiting the current scene
 	 */
 	private Effects effects;
 

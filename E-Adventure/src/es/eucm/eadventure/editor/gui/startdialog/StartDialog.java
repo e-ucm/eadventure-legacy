@@ -46,6 +46,7 @@ import java.util.List;
 
 import javax.swing.JFileChooser;
 
+import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
 import es.eucm.eadventure.common.auxiliar.filefilters.EADAndFolderFileFilter;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.gui.TextConstants;
@@ -108,7 +109,7 @@ public class StartDialog extends JFileChooser {
 	public StartDialog( ) {
 		super( );
 		this.setFileFilter( new EADAndFolderFileFilter( ) );
-		this.setCurrentDirectory( Controller.projectsFolder( ) );
+		this.setCurrentDirectory( ReleaseFolders.projectsFolder( ) );
 		this.setMultiSelectionEnabled( false );
 		this.setFileSelectionMode( JFileChooser.FILES_AND_DIRECTORIES );
 		

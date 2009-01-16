@@ -52,6 +52,7 @@ import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.gamelauncher.gameentry.GameEntry;
 import es.eucm.eadventure.engine.gamelauncher.gameentry.GameEntryHandler;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
+import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
 import es.eucm.eadventure.common.gui.TextConstants;
 
 /**
@@ -189,7 +190,7 @@ public class GameLauncher extends JFrame implements Runnable {
     	
     	initGameLoad = false;
         // Load the configuration
-        ConfigData.loadFromXML( EAdventure.CONFIG_FILE );
+        ConfigData.loadFromXML( ReleaseFolders.configFileEngineRelativePath() );
     	if (language == "")
     		languageFile = ConfigData.getLanguangeFile( );
     	else 
@@ -197,7 +198,7 @@ public class GameLauncher extends JFrame implements Runnable {
 
 
         // Init the strings of the application
-        TextConstants.loadStrings( EAdventure.LANGUAGE_DIR+"/"+languageFile );
+        TextConstants.loadStrings( ReleaseFolders.LANGUAGE_DIR_ENGINE+"/"+languageFile );
         
         // Setup the window
         setSize( WINDOW_WIDTH, WINDOW_HEIGHT );
@@ -250,7 +251,15 @@ public class GameLauncher extends JFrame implements Runnable {
     
         // Load adventures in the current directory
         adventureName = "";
-        loadDir( new File( "." ) );
+        boolean existsExportsFolder = false;
+        if (!ReleaseFolders.exportsFolder().exists())
+        	existsExportsFolder=ReleaseFolders.exportsFolder().mkdirs();
+        else
+        	existsExportsFolder = true;
+        if (existsExportsFolder)
+        	loadDir( ReleaseFolders.exportsFolder() );
+        else
+        	loadDir( new File(".") );
         
         // Bring up the windows
         setVisible( true );
@@ -275,7 +284,7 @@ public class GameLauncher extends JFrame implements Runnable {
         // We set the editor to use HTML content
         aboutEditor.setContentType("text/html"); 
         try {
-            BufferedReader bf = new BufferedReader(new FileReader( EAdventure.LANGUAGE_DIR+"/"+TextConstants.getText( "Information.FileAbout" ) ));   
+            BufferedReader bf = new BufferedReader(new FileReader( ReleaseFolders.LANGUAGE_DIR_ENGINE+"/"+TextConstants.getText( "Information.FileAbout" ) ));   
             while ((chainAux = bf.readLine())!=null) 
                 chain = chain + chainAux;
         } catch (IOException e){}
@@ -590,7 +599,11 @@ public class GameLauncher extends JFrame implements Runnable {
      */
     private void examine( ) {
         // Initialize the dialog
-        fileDialog = new JFileChooser( "." );
+    	
+    	if (!ReleaseFolders.exportsFolder().exists())
+    		fileDialog = new JFileChooser( "." );
+    	else
+    		fileDialog = new JFileChooser( ReleaseFolders.exportsFolder() );
         // Select directories and files
         fileDialog.setFileSelectionMode( JFileChooser.FILES_AND_DIRECTORIES );
         fileDialog.setFileFilter( new FolderandEADFileFilter( ) );

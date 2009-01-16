@@ -30,7 +30,7 @@ public class OptionConversationNode extends ConversationNode {
     private boolean effectConsumed=false;
     
     /**
-	 * FunctionalEffect to be triggered when the node has finished 
+	 * Effect to be triggered when the node has finished 
 	 */
 	private Effects effects;
     

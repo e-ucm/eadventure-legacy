@@ -29,7 +29,7 @@ public class ActionDataControl extends DataControlWithResources {
 	private ConditionsController conditionsController;
 
 	/**
-	 * FunctionalEffects controller
+	 * Effects controller
 	 */
 	private EffectsController effectsController;
 
@@ -84,7 +84,7 @@ public class ActionDataControl extends DataControlWithResources {
 	/**
 	 * Returns the effects of the action.
 	 * 
-	 * @return FunctionalEffects of the action
+	 * @return Effects of the action
 	 */
 	public EffectsController getEffects( ) {
 		return effectsController;

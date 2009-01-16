@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 
 import es.eucm.eadventure.common.auxiliar.File;
+import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
 import es.eucm.eadventure.common.auxiliar.filefilters.EADFileFilter;
 import es.eucm.eadventure.common.auxiliar.filefilters.FolderFileFilter;
 import es.eucm.eadventure.common.auxiliar.filefilters.XMLFileFilter;
@@ -410,53 +411,6 @@ public class Controller {
 
 	private static final String TEMP_NAME = "_$temp";
 	
-	private static final String PROJECTS_FOLDER = "../Projects";
-	
-	private static final String EXPORTS_FOLDER = "../Exports";
-	
-	private static final String WEB_FOLDER = "web";
-	
-	private static final String WEB_TEMP_FOLDER="web/temp";
-	
-	private static final String CONFIG_FILE_PATH = "config_editor.xml";
-	
-	private static final String CONFIG_FILE_PATH_ENGINE = "config_engine.xml";
-	
-	private static final String LANGUAGE_DIR = "laneditor";
-	
-	private static final String LANGUAGE_DIR_ENGINE = "lanengine";
-	
-	private static final String ENGLISH_FILE_ENGINE = "en_EN_engine.xml";
-	
-	private static final String SPANISH_FILE_ENGINE = "es_ES_engine.xml";
-	
-	private static final String ENGLISH_FILE = "en_EN.xml";
-	
-	private static final String SPANISH_FILE = "es_ES.xml";
-	
-	
-	public static final int LANGUAGE_UNKNOWN = -1;
-	public static final int LANGUAGE_SPANISH = 0;
-	public static final int LANGUAGE_ENGLISH = 1;
-
-
-	
-	public static final File projectsFolder(){
-		return new File(PROJECTS_FOLDER);
-	}
-	
-	public static final File exportsFolder(){
-		return new File(EXPORTS_FOLDER);
-	}
-
-	public static final File webFolder(){
-		return new File(WEB_FOLDER);
-	}
-
-	public static final File webTempFolder(){
-		return new File(WEB_TEMP_FOLDER);
-	}
-	
 	/**
 	 * Singleton instance.
 	 */
@@ -527,34 +481,9 @@ public class Controller {
 		return isTempFile;
 	}*/
 
-	/**
-	 * Returns the relative path of a language file for both editor and engine
-	 */
-	public static String getLanguageFilePath ( boolean editor, int language ){
-		String path = Controller.LANGUAGE_DIR+"/";
-		if (editor)
-			path+=((language == LANGUAGE_SPANISH)?Controller.SPANISH_FILE:Controller.ENGLISH_FILE);
-		else
-			path+=((language == LANGUAGE_SPANISH)?Controller.SPANISH_FILE_ENGINE:Controller.ENGLISH_FILE_ENGINE);
-		return path;
-	}
-	
-	/**
-	 * Returns the language ({@link #LANGUAGE_ENGLISH} or {@value #LANGUAGE_SPANISH}) associated to the relative path passed as argument. If no language is
-	 * recognized, returns {@value #LANGUAGE_UNKNOWN}
-	 * @param path
-	 * @return
-	 */
-	public static int getLanguageFromPath ( String path ){
-		if (path.toLowerCase().contains(ENGLISH_FILE.toLowerCase())){
-			return LANGUAGE_ENGLISH;
-		}
-		else if (path.toLowerCase().contains(SPANISH_FILE.toLowerCase())){
-			return LANGUAGE_SPANISH;
-		} else 
-			return LANGUAGE_UNKNOWN;
 
-	}
+	
+
 	
 	/**
 	 * Void and private constructor.
@@ -562,11 +491,11 @@ public class Controller {
 	private Controller( ) {}
 	
 	private String getCurrentExportSaveFolder(){
-		return exportsFolder().getAbsolutePath( );
+		return ReleaseFolders.exportsFolder().getAbsolutePath( );
 	}
 	
 	private String getCurrentLoadFolder(){
-		return projectsFolder( ).getAbsolutePath( );
+		return ReleaseFolders.projectsFolder( ).getAbsolutePath( );
 	}
 	
 	public void setLastDirectory (String directory){
@@ -577,7 +506,7 @@ public class Controller {
 		if (lastDialogDirectory!=null){
 			return lastDialogDirectory;
 		} else 
-			return projectsFolder().getAbsolutePath( );
+			return ReleaseFolders.projectsFolder().getAbsolutePath( );
 	}
 
 	/**
@@ -601,15 +530,15 @@ public class Controller {
 	 */
 	public void init( ) {
 		// Create necessary folders if no created befor
-		File projectsFolder = projectsFolder( );
+		File projectsFolder = ReleaseFolders.projectsFolder( );
 		if (!projectsFolder.exists( )){
 			projectsFolder.mkdirs( );
 		}
-		File tempFolder = webTempFolder();
+		File tempFolder = ReleaseFolders.webTempFolder();
 		if (!tempFolder.exists( )){
 			projectsFolder.mkdirs( );
 		}
-		File exportsFolder = exportsFolder();
+		File exportsFolder = ReleaseFolders.exportsFolder();
 		if (!exportsFolder.exists( )){
 			exportsFolder.mkdirs( );
 		}
@@ -617,16 +546,16 @@ public class Controller {
 		// Set default values for the item and NPC references
 
 		// Load the configuration
-		ConfigData.loadFromXML( CONFIG_FILE_PATH );
-		languageFile = getLanguageFromPath(ConfigData.getLanguangeFile( ));
+		ConfigData.loadFromXML( ReleaseFolders.configFileEditorRelativePath() );
+		languageFile = ReleaseFolders.getLanguageFromPath(ConfigData.getLanguangeFile( ));
 		// Default language: english
-		if (languageFile == LANGUAGE_UNKNOWN)
-			languageFile = LANGUAGE_ENGLISH;
+		if (languageFile == ReleaseFolders.LANGUAGE_UNKNOWN)
+			languageFile = ReleaseFolders.LANGUAGE_ENGLISH;
 		loadingScreen = new LoadingScreen("PRUEBA",ConfigData.getLoadingImage( ),null);
 
 		// Init the strings of the application
-		TextConstants.loadStrings( Controller.getLanguageFilePath(true, languageFile) );
-		TextConstants.appendStrings( Controller.getLanguageFilePath(false, languageFile) );
+		TextConstants.loadStrings( ReleaseFolders.getLanguageFilePath4Editor(true, languageFile) );
+		TextConstants.appendStrings( ReleaseFolders.getLanguageFilePath4Editor(false, languageFile) );
 
 		// Create a list for the chapters
 		chapterDataControlList = new ArrayList<ChapterDataControl>( );
@@ -1047,7 +976,7 @@ public class Controller {
 				}else{
 					// Display error message
 					this.showErrorDialog( TextConstants.getText( "Error.Title" ), 
-							TextConstants.getText( "Error.ProjectFolderName" ) );
+							TextConstants.getText( "Error.ProjectFolderName", FolderFileFilter.getAllowedChars() ) );
 				}
 			} else{
 				// Show error: The target dir cannot be contained 
@@ -1131,7 +1060,7 @@ public class Controller {
 		
 		return fileCreated;
  
-	}
+		}
 		/*// If the file exists, append a random number
 		File file = new File( completeFilePath + ".ead" );
 		Random random = new Random( );
@@ -1372,148 +1301,159 @@ public class Controller {
 	}
 
 	private boolean loadFile( String completeFilePath, boolean loadingImage ) {
+		
 		boolean fileLoaded = false;
-		boolean loadFile = true;
-		// If the data was not saved, ask for an action (save, discard changes...)
-		if( dataModified ) {
-			int option = mainWindow.showConfirmDialog( TextConstants.getText( "Operation.LoadFileTitle" ), TextConstants.getText( "Operation.LoadFileMessage" ) );
-			String oldZipFile = currentZipFile;
-
-			// If the data must be saved, load the new file only if the save was succesful
-			if( option == JOptionPane.YES_OPTION )
-				loadFile = saveFile( false );
-
-			// If the data must not be saved, load the new data directly
-			else if( option == JOptionPane.NO_OPTION )
-				loadFile = true;
-
-			// Cancel the action if selected
-			else if( option == JOptionPane.CANCEL_OPTION )
-				loadFile = false;
-
-		}
-
-		if( loadFile && completeFilePath == null ) {
-			// Show dialog
-			ProjectFolderChooser projectChooser = new ProjectFolderChooser(false, false);
-			if ( projectChooser.showOpenDialog( mainWindow ) == JFileChooser.APPROVE_OPTION ){
-				completeFilePath = projectChooser.getSelectedFile( ).getAbsolutePath( );
-				String folderName = projectChooser.getSelectedFile( ).getName( );
-				// Check the parent folder is not forbidden
-				if ( isValidTargetProject( projectChooser.getSelectedFile() ) ){
-					// Check characters are ok. Otherwise, show error
-					if ( !FolderFileFilter.checkCharacters( folderName )){
-						// Display error message
-						this.showErrorDialog( TextConstants.getText( "Error.Title" ), 
-								TextConstants.getText( "Error.ProjectFolderName" ) );
+		try{
+			
+			boolean loadFile = true;
+			// If the data was not saved, ask for an action (save, discard changes...)
+			if( dataModified ) {
+				int option = mainWindow.showConfirmDialog( TextConstants.getText( "Operation.LoadFileTitle" ), TextConstants.getText( "Operation.LoadFileMessage" ) );
+				String oldZipFile = currentZipFile;
+	
+				// If the data must be saved, load the new file only if the save was succesful
+				if( option == JOptionPane.YES_OPTION )
+					loadFile = saveFile( false );
+	
+				// If the data must not be saved, load the new data directly
+				else if( option == JOptionPane.NO_OPTION )
+					loadFile = true;
+	
+				// Cancel the action if selected
+				else if( option == JOptionPane.CANCEL_OPTION )
+					loadFile = false;
+	
+			}
+	
+			if( loadFile && completeFilePath == null ) {
+				// Show dialog
+				ProjectFolderChooser projectChooser = new ProjectFolderChooser(false, false);
+				if ( projectChooser.showOpenDialog( mainWindow ) == JFileChooser.APPROVE_OPTION ){
+					completeFilePath = projectChooser.getSelectedFile( ).getAbsolutePath( );
+					String folderName = projectChooser.getSelectedFile( ).getName( );
+					// Check the parent folder is not forbidden
+					if ( isValidTargetProject( projectChooser.getSelectedFile() ) ){
+						// Check characters are ok. Otherwise, show error
+						if ( !FolderFileFilter.checkCharacters( folderName )){
+							// Display error message
+							this.showErrorDialog( TextConstants.getText( "Error.Title" ), 
+									TextConstants.getText( "Error.ProjectFolderName", FolderFileFilter.getAllowedChars() ) );
+							completeFilePath = null;
+						}
+					}
+					else{
+						// Show error: The target dir cannot be contained 
+						mainWindow.showErrorDialog( TextConstants.getText( "Operation.NewProject.ForbiddenParent.Title" ), 
+								TextConstants.getText( "Operation.NewProject.ForbiddenParent.Message" ) );
 						completeFilePath = null;
 					}
+					
 				}
-				else{
-					// Show error: The target dir cannot be contained 
-					mainWindow.showErrorDialog( TextConstants.getText( "Operation.NewProject.ForbiddenParent.Title" ), 
-							TextConstants.getText( "Operation.NewProject.ForbiddenParent.Message" ) );
-					completeFilePath = null;
-				}
-				
+				//completeFilePath = mainWindow.showSingleSelectionLoadDialog( System.getenv( "HOME" ), new ProjectFileFilter( ) );
+	
 			}
-			//completeFilePath = mainWindow.showSingleSelectionLoadDialog( System.getenv( "HOME" ), new ProjectFileFilter( ) );
-
-		}
-
-		//LoadingScreen loadingScreen = new LoadingScreen(TextConstants.getText( "Operation.LoadProject" ), getLoadingImage( ), mainWindow);
-		// If some file was selected
-		if( completeFilePath != null ) {
-			if (loadingImage){
-				//ls = new LoadingScreen2(TextConstants.getText( "Operation.LoadProject" ), getLoadingImage( ), mainWindow);
-				loadingScreen.setMessage( TextConstants.getText( "Operation.LoadProject" ) );
-				this.loadingScreen.setVisible( true );
-				
-								//loadingScreen.close( );
-				//loadingScreen = new LoadingScreen(TextConstants.getText( "Operation.LoadProject" ), getLoadingImage( ), mainWindow);
-				//loadingScreen.setVisible( true );
-				//loadingScreen.repaint( );
-				//loadingScreen.setVisible( true );
-				
-			}
-			// Create a file to extract the name and path
-			File newFile = new File( completeFilePath );
-
-			// Load the data from the file, and update the info
-			List<Incidence> incidences = new ArrayList<Incidence>();
-			//ls.start( );
-			AdventureData loadedAdventureData = Loader.loadAdventureData( AssetsController.getInputStreamCreator(completeFilePath), 
-					AssetsController.getCategoryFolder(AssetsController.CATEGORY_ASSESSMENT),
-					AssetsController.getCategoryFolder(AssetsController.CATEGORY_ADAPTATION),incidences );
-
-			//mainWindow.setNormalState( );
-			
-			
-			// If the adventure was loaded without problems, update the data
-			if( loadedAdventureData != null ) {
-				// Update the values of the controller
-				currentZipFile = newFile.getAbsolutePath( );
-				currentZipPath = newFile.getParent( );
-				currentZipName = newFile.getName( );
-				adventureData = new AdventureDataControl(loadedAdventureData);
-				
-				// Select the first chapter
-				selectedChapter = 0;
-
-				// Clear the list and load the chapters
-				chapterDataControlList.clear( );
-				for( Chapter chapter : adventureData.getChapters( ) )
-					chapterDataControlList.add( new ChapterDataControl( chapter ) );
-				identifierSummary.loadIdentifiers( getSelectedChapterData( ) );
-				getSelectedChapterDataControl( ).updateVarFlagSummary( varFlagSummary );
-				
-				// Check asset files
-				AssetsController.checkAssetFilesConsistency( incidences );
-				Incidence.sortIncidences( incidences );
-				// If there is any incidence
-				if (incidences.size( )>0){
-					boolean abort = fixIncidences( incidences );
-					if (abort)
-						mainWindow.showInformationDialog( TextConstants.getText( "Error.LoadAborted.Title" ), TextConstants.getText( "Error.LoadAborted.Message" ) );
+	
+			//LoadingScreen loadingScreen = new LoadingScreen(TextConstants.getText( "Operation.LoadProject" ), getLoadingImage( ), mainWindow);
+			// If some file was selected
+			if( completeFilePath != null ) {
+				if (loadingImage){
+					//ls = new LoadingScreen2(TextConstants.getText( "Operation.LoadProject" ), getLoadingImage( ), mainWindow);
+					loadingScreen.setMessage( TextConstants.getText( "Operation.LoadProject" ) );
+					this.loadingScreen.setVisible( true );
+					loadingImage = true;
+					
+									//loadingScreen.close( );
+					//loadingScreen = new LoadingScreen(TextConstants.getText( "Operation.LoadProject" ), getLoadingImage( ), mainWindow);
+					//loadingScreen.setVisible( true );
+					//loadingScreen.repaint( );
+					//loadingScreen.setVisible( true );
+					
 				}
-
+				// Create a file to extract the name and path
+				File newFile = new File( completeFilePath );
+	
+				// Load the data from the file, and update the info
+				List<Incidence> incidences = new ArrayList<Incidence>();
+				//ls.start( );
+				AdventureData loadedAdventureData = Loader.loadAdventureData( AssetsController.getInputStreamCreator(completeFilePath), 
+						AssetsController.getCategoryFolder(AssetsController.CATEGORY_ASSESSMENT),
+						AssetsController.getCategoryFolder(AssetsController.CATEGORY_ADAPTATION),incidences );
+	
+				//mainWindow.setNormalState( );
+				
+				
+				// If the adventure was loaded without problems, update the data
+				if( loadedAdventureData != null ) {
+					// Update the values of the controller
+					currentZipFile = newFile.getAbsolutePath( );
+					currentZipPath = newFile.getParent( );
+					currentZipName = newFile.getName( );
+					adventureData = new AdventureDataControl(loadedAdventureData);
+					
+					// Select the first chapter
+					selectedChapter = 0;
+	
+					// Clear the list and load the chapters
+					chapterDataControlList.clear( );
+					for( Chapter chapter : adventureData.getChapters( ) )
+						chapterDataControlList.add( new ChapterDataControl( chapter ) );
+					identifierSummary.loadIdentifiers( getSelectedChapterData( ) );
+					getSelectedChapterDataControl( ).updateVarFlagSummary( varFlagSummary );
+					
+					// Check asset files
+					AssetsController.checkAssetFilesConsistency( incidences );
+					Incidence.sortIncidences( incidences );
+					// If there is any incidence
+					if (incidences.size( )>0){
+						boolean abort = fixIncidences( incidences );
+						if (abort)
+							mainWindow.showInformationDialog( TextConstants.getText( "Error.LoadAborted.Title" ), TextConstants.getText( "Error.LoadAborted.Message" ) );
+					}
+	
+					ProjectConfigData.loadFromXML( );
+					AssetsController.createFolderStructure();
+					
+					dataModified = false;
+	
+					// The file was loaded
+					fileLoaded = true;
+	
+					// Reloads the view of the window
+					mainWindow.reloadData(  );
+				}
+			}
+	
+			//if the file was loaded, update the RecentFiles list:
+			if( fileLoaded ) {
+				ConfigData.fileLoaded( currentZipFile );
+				AssetsController.resetCache( );
+				// Load project config file
 				ProjectConfigData.loadFromXML( );
-				AssetsController.createFolderStructure();
 				
-				dataModified = false;
-
-				// The file was loaded
-				fileLoaded = true;
-
-				// Reloads the view of the window
-				mainWindow.reloadData(  );
+				// Feedback
+				//loadingScreen.close( );
+				mainWindow.showInformationDialog( 
+						TextConstants.getText( "Operation.FileLoadedTitle" ), 
+						TextConstants.getText( "Operation.FileLoadedMessage" ) );
+			} else {
+				// Feedback
+				//loadingScreen.close( );
+				mainWindow.showInformationDialog( 
+						TextConstants.getText( "Operation.FileNotLoadedTitle" ), 
+						TextConstants.getText( "Operation.FileNotLoadedMessage" ) );
 			}
-		}
-
-		//if the file was loaded, update the RecentFiles list:
-		if( fileLoaded ) {
-			ConfigData.fileLoaded( currentZipFile );
-			AssetsController.resetCache( );
-			// Load project config file
-			ProjectConfigData.loadFromXML( );
-			
-			// Feedback
-			//loadingScreen.close( );
-			mainWindow.showInformationDialog( 
-					TextConstants.getText( "Operation.FileLoadedTitle" ), 
-					TextConstants.getText( "Operation.FileLoadedMessage" ) );
-		} else {
-			// Feedback
-			//loadingScreen.close( );
+	
+			if (loadingImage)
+				//ls.close( );
+				loadingScreen.setVisible(false);
+		} catch (Exception e){
+			fileLoaded = false;
+			if (loadingImage)
+				loadingScreen.setVisible(false);
 			mainWindow.showInformationDialog( 
 					TextConstants.getText( "Operation.FileNotLoadedTitle" ), 
 					TextConstants.getText( "Operation.FileNotLoadedMessage" ) );
 		}
-
-		if (loadingImage)
-			//ls.close( );
-			loadingScreen.setVisible(false);
-
 		return fileLoaded;
 	}
 
@@ -1526,112 +1466,120 @@ public class Controller {
 	 */
 	public boolean saveFile( boolean saveAs ) {
 		boolean fileSaved = false;
-		boolean saveFile = true;
-		String oldZipFile = this.currentZipFile;
-
-		// Select a new file if it is a "Save as" action
-		if( saveAs ) {
-			//loadingScreen = new LoadingScreen(TextConstants.getText( "Operation.SaveProjectAs" ), getLoadingImage( ), mainWindow);
-			//loadingScreen.setVisible( true );
-			String completeFilePath = null;
-			completeFilePath = mainWindow.showSaveDialog( getCurrentLoadFolder(), new FolderFileFilter( false, false) );
-
-			// If some file was selected set the new file
-			if( completeFilePath != null ) {
-				// Create a file to extract the name and path
-				File newFile = new File( completeFilePath );
-					// Check the selectedFolder is not inside a forbidden one
-					if ( isValidTargetProject( newFile ) ){
-						if (FolderFileFilter.checkCharacters( newFile.getName( ) )){
-		
-						// Add the ".ead" if it is not present in the name
-						//if( !completeFilePath.toLowerCase( ).endsWith( ".ead" ) )
-						//	completeFilePath += ".ead";
-		
-						// If the file doesn't exist, or if the user confirms the writing in the file
-						if( !newFile.exists( ) || newFile.list( ).length == 0 || mainWindow.showStrictConfirmDialog( TextConstants.getText( "Operation.SaveFileTitle" ), TextConstants.getText( "Operation.FolderNotEmpty", newFile.getName( ) ) ) ) {
-							// If the file exists, delete it so it's clean in the first save
-							//if( newFile.exists( ) )
-							//	newFile.delete( );
-		
-							// If this is a "Save as" operation, copy the assets from the old file to the new one
-							if( saveAs ){
-								loadingScreen.setMessage( TextConstants.getText( "Operation.SaveProjectAs" ) );
-								loadingScreen.setVisible( true );
-								
-								AssetsController.copyAssets( currentZipFile, newFile.getAbsolutePath( ) );
+		try {
+			boolean saveFile = true;
+			String oldZipFile = this.currentZipFile;
+	
+			// Select a new file if it is a "Save as" action
+			if( saveAs ) {
+				//loadingScreen = new LoadingScreen(TextConstants.getText( "Operation.SaveProjectAs" ), getLoadingImage( ), mainWindow);
+				//loadingScreen.setVisible( true );
+				String completeFilePath = null;
+				completeFilePath = mainWindow.showSaveDialog( getCurrentLoadFolder(), new FolderFileFilter( false, false) );
+	
+				// If some file was selected set the new file
+				if( completeFilePath != null ) {
+					// Create a file to extract the name and path
+					File newFile = new File( completeFilePath );
+						// Check the selectedFolder is not inside a forbidden one
+						if ( isValidTargetProject( newFile ) ){
+							if (FolderFileFilter.checkCharacters( newFile.getName( ) )){
+			
+							// Add the ".ead" if it is not present in the name
+							//if( !completeFilePath.toLowerCase( ).endsWith( ".ead" ) )
+							//	completeFilePath += ".ead";
+			
+							// If the file doesn't exist, or if the user confirms the writing in the file
+							if( !newFile.exists( ) || newFile.list( ).length == 0 || mainWindow.showStrictConfirmDialog( TextConstants.getText( "Operation.SaveFileTitle" ), TextConstants.getText( "Operation.FolderNotEmpty", newFile.getName( ) ) ) ) {
+								// If the file exists, delete it so it's clean in the first save
+								//if( newFile.exists( ) )
+								//	newFile.delete( );
+			
+								// If this is a "Save as" operation, copy the assets from the old file to the new one
+								if( saveAs ){
+									loadingScreen.setMessage( TextConstants.getText( "Operation.SaveProjectAs" ) );
+									loadingScreen.setVisible( true );
+									
+									AssetsController.copyAssets( currentZipFile, newFile.getAbsolutePath( ) );
+								}
+			
+								// Set the new file and path
+								currentZipFile = newFile.getAbsolutePath( );
+								currentZipPath = newFile.getParent( );
+								currentZipName = newFile.getName( );
 							}
-		
-							// Set the new file and path
-							currentZipFile = newFile.getAbsolutePath( );
-							currentZipPath = newFile.getParent( );
-							currentZipName = newFile.getName( );
-						}
-		
-						// If the file was not overwritten, don't save the data
-						else
+			
+							// If the file was not overwritten, don't save the data
+							else
+								saveFile = false;
+						} else {
+							this.showErrorDialog( TextConstants.getText( "Error.Title" ), 
+									TextConstants.getText( "Error.ProjectFolderName", FolderFileFilter.getAllowedChars() ) );
 							saveFile = false;
+						}
 					} else {
-						this.showErrorDialog( TextConstants.getText( "Error.Title" ), 
-								TextConstants.getText( "Error.ProjectFolderName" ) );
+						// Show error: The target dir cannot be contained 
+						mainWindow.showErrorDialog( TextConstants.getText( "Operation.NewProject.ForbiddenParent.Title" ), 
+								TextConstants.getText( "Operation.NewProject.ForbiddenParent.Message" ) );
 						saveFile = false;
 					}
-				} else {
-					// Show error: The target dir cannot be contained 
-					mainWindow.showErrorDialog( TextConstants.getText( "Operation.NewProject.ForbiddenParent.Title" ), 
-							TextConstants.getText( "Operation.NewProject.ForbiddenParent.Message" ) );
+				}
+	
+				// If no file was selected, don't save the data
+				else
 					saveFile = false;
+			} else {
+				//loadingScreen = new LoadingScreen(TextConstants.getText( "Operation.SaveProject" ), getLoadingImage( ), mainWindow);
+			
+				//loadingScreen.setVisible( true );
+				loadingScreen.setMessage( TextConstants.getText( "Operation.SaveProject" ) );
+				loadingScreen.setVisible( true );
+			}
+	
+			// If the data must be saved
+			if( saveFile ) {
+				// If the zip was temp file, delete it
+				//if( isTempFile( ) ) {
+				//	File file = new File( oldZipFile );
+				//	file.deleteOnExit( );
+				//	isTempFile = false;
+				//}
+	
+				// Check the consistency of the chapters
+				boolean valid = true;
+				for( ChapterDataControl chapterDataControl : chapterDataControlList )
+					valid &= chapterDataControl.isValid( null, null );
+	
+				// If the data is not valid, show an error message
+				if( !valid )
+					mainWindow.showWarningDialog( TextConstants.getText( "Operation.AdventureConsistencyTitle" ), TextConstants.getText( "Operation.AdventurInconsistentWarning" ) );
+	
+				// Save the data
+				if( Writer.writeData( currentZipFile, adventureData, valid ) ) {
+					// Set modified to false and update the window title
+					dataModified = false;
+					mainWindow.updateTitle( );
+	
+					// The file was saved
+					fileSaved = true;
 				}
 			}
-
-			// If no file was selected, don't save the data
-			else
-				saveFile = false;
-		} else {
-			//loadingScreen = new LoadingScreen(TextConstants.getText( "Operation.SaveProject" ), getLoadingImage( ), mainWindow);
-		
-			//loadingScreen.setVisible( true );
-			loadingScreen.setMessage( TextConstants.getText( "Operation.SaveProject" ) );
-			loadingScreen.setVisible( true );
-		}
-
-		// If the data must be saved
-		if( saveFile ) {
-			// If the zip was temp file, delete it
-			//if( isTempFile( ) ) {
-			//	File file = new File( oldZipFile );
-			//	file.deleteOnExit( );
-			//	isTempFile = false;
-			//}
-
-			// Check the consistency of the chapters
-			boolean valid = true;
-			for( ChapterDataControl chapterDataControl : chapterDataControlList )
-				valid &= chapterDataControl.isValid( null, null );
-
-			// If the data is not valid, show an error message
-			if( !valid )
-				mainWindow.showWarningDialog( TextConstants.getText( "Operation.AdventureConsistencyTitle" ), TextConstants.getText( "Operation.AdventurInconsistentWarning" ) );
-
-			// Save the data
-			if( Writer.writeData( currentZipFile, adventureData, valid ) ) {
-				// Set modified to false and update the window title
-				dataModified = false;
-				mainWindow.updateTitle( );
-
-				// The file was saved
-				fileSaved = true;
+	
+			//If the file was saved, update the recent files list:
+			if( fileSaved ) {
+				ConfigData.fileLoaded( currentZipFile );
+				ProjectConfigData.storeToXML( );
+				AssetsController.resetCache( );
 			}
-		}
+		} catch (Exception e){
+			fileSaved = false;
+			mainWindow.showInformationDialog( 
+					TextConstants.getText( "Operation.FileNotSavedTitle" ), 
+					TextConstants.getText( "Operation.FileNotSavedMessage" ) );
 
-		//If the file was saved, update the recent files list:
-		if( fileSaved ) {
-			ConfigData.fileLoaded( currentZipFile );
-			ProjectConfigData.storeToXML( );
-			AssetsController.resetCache( );
 		}
-		//loadingScreen.close( );
-		loadingScreen.setVisible( false );
+			//loadingScreen.close( );
+			loadingScreen.setVisible( false );
 
 		return fileSaved;
 	}
@@ -1646,119 +1594,125 @@ public class Controller {
 	
 	public void importGame(String eadPath){
 		boolean importGame = true;
-
-		if (dataModified){
-			int option = mainWindow.showConfirmDialog( TextConstants.getText( "Operation.SaveChangesTitle" ), TextConstants.getText( "Operation.SaveChangesMessage" ) );
-			// If the data must be saved, load the new file only if the save was succesful
-			if( option == JOptionPane.YES_OPTION )
-				importGame = saveFile( false );
-
-			// If the data must not be saved, load the new data directly
-			else if( option == JOptionPane.NO_OPTION )
-				importGame = true;
-
-			// Cancel the action if selected
-			else if( option == JOptionPane.CANCEL_OPTION )
-				importGame = false;
-
-		}
-		
-		if (importGame){
-			// Ask origin file
-			JFileChooser chooser = new JFileChooser();
-			chooser.setFileFilter( new EADFileFilter() );
-			chooser.setMultiSelectionEnabled( false );
-			chooser.setCurrentDirectory( new File(getCurrentExportSaveFolder()) );
-			int option = JFileChooser.APPROVE_OPTION;
-			if (eadPath==null)
-				option = chooser.showOpenDialog( mainWindow );
-			if (option == JFileChooser.APPROVE_OPTION ){
-				java.io.File originFile = null;
+		try{
+			if (dataModified){
+				int option = mainWindow.showConfirmDialog( TextConstants.getText( "Operation.SaveChangesTitle" ), TextConstants.getText( "Operation.SaveChangesMessage" ) );
+				// If the data must be saved, load the new file only if the save was succesful
+				if( option == JOptionPane.YES_OPTION )
+					importGame = saveFile( false );
+	
+				// If the data must not be saved, load the new data directly
+				else if( option == JOptionPane.NO_OPTION )
+					importGame = true;
+	
+				// Cancel the action if selected
+				else if( option == JOptionPane.CANCEL_OPTION )
+					importGame = false;
+	
+			}
+			
+			if (importGame){
+				// Ask origin file
+				JFileChooser chooser = new JFileChooser();
+				chooser.setFileFilter( new EADFileFilter() );
+				chooser.setMultiSelectionEnabled( false );
+				chooser.setCurrentDirectory( new File(getCurrentExportSaveFolder()) );
+				int option = JFileChooser.APPROVE_OPTION;
 				if (eadPath==null)
-					originFile = chooser.getSelectedFile( );
-				else
-					originFile = new File(eadPath);
-				
-				if (!originFile.getAbsolutePath( ).endsWith( ".ead" ))
-					originFile = new java.io.File (originFile.getAbsolutePath( )+".ead");
-					// If the file not exists display error
-				if ( !originFile.exists( ) )
-					mainWindow.showErrorDialog( TextConstants.getText( "Error.Import.FileNotFound.Title" ), TextConstants.getText( "Error.Import.FileNotFound.Title", originFile.getName( ) ) );
-				// Otherwise ask folder for the new project
-				else {
-					boolean create = false;
-					java.io.File selectedDir = null;
-					// Prompt main folder of the project
-					ProjectFolderChooser folderSelector = new ProjectFolderChooser(false, false);
-					// If some folder is selected, check all characters are correct  
-					if ( folderSelector.showOpenDialog( mainWindow ) == JFileChooser.APPROVE_OPTION ){
-						java.io.File selectedFolder = folderSelector.getSelectedFile( );
-						selectedDir = selectedFolder;
-						
-						// Check the selectedFolder is not inside a forbidden one
-						if ( isValidTargetProject( selectedFolder ) ){
-							if (FolderFileFilter.checkCharacters( selectedFolder.getName( ) )){
-								// Folder can be created/used
-								// Does the folder exist?
-								if (selectedFolder.exists( )){
-									//Is the folder empty?
-									if (selectedFolder.list( ).length > 0){
-										// Delete content?
-										if ( this.showStrictConfirmDialog( TextConstants.getText( "Operation.NewProject.FolderNotEmptyTitle" ), TextConstants.getText( "Operation.NewProject.FolderNotEmptyMessage" ) )){
-											File directory = new File (selectedFolder.getAbsolutePath( ));
-											if( directory.deleteAll( ) ){
-												create = true;	
-											} else {
-												this.showStrictConfirmDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.DeletingFolderContents" ));
-											}
-										}
-									}else{
-										create = true;
-									}
-								} else {
-									// Create new folder?
-									File directory = new File (selectedFolder.getAbsolutePath( ));
-									if( directory.mkdirs( ) ){
-										create = true;	
-									} else {
-										this.showStrictConfirmDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.CreatingFolder" ));
-									}
-								}
-							}else{
-								// Display error message
-								this.showErrorDialog( TextConstants.getText( "Error.Title" ), 
-										TextConstants.getText( "Error.ProjectFolderName" ) );
-							}
-						} else {
-							// Show error: The target dir cannot be contained 
-							mainWindow.showErrorDialog( TextConstants.getText( "Operation.NewProject.ForbiddenParent.Title" ), 
-									TextConstants.getText( "Operation.NewProject.ForbiddenParent.Message" ) );
-							create = false;
-						}
-					}
+					option = chooser.showOpenDialog( mainWindow );
+				if (option == JFileChooser.APPROVE_OPTION ){
+					java.io.File originFile = null;
+					if (eadPath==null)
+						originFile = chooser.getSelectedFile( );
+					else
+						originFile = new File(eadPath);
 					
-					// Create the new project?
-					if (create){
-						//LoadingScreen loadingScreen = new LoadingScreen(TextConstants.getText( "Operation.ImportProject" ), getLoadingImage( ), mainWindow);
-						loadingScreen.setMessage( TextConstants.getText( "Operation.ImportProject" ) );
-						loadingScreen.setVisible(true);
-						//AssetsController.createFolderStructure();
-						if (!selectedDir.exists( ))
-							selectedDir.mkdirs( );
+					if (!originFile.getAbsolutePath( ).endsWith( ".ead" ))
+						originFile = new java.io.File (originFile.getAbsolutePath( )+".ead");
+						// If the file not exists display error
+					if ( !originFile.exists( ) )
+						mainWindow.showErrorDialog( TextConstants.getText( "Error.Import.FileNotFound.Title" ), TextConstants.getText( "Error.Import.FileNotFound.Title", originFile.getName( ) ) );
+					// Otherwise ask folder for the new project
+					else {
+						boolean create = false;
+						java.io.File selectedDir = null;
+						// Prompt main folder of the project
+						ProjectFolderChooser folderSelector = new ProjectFolderChooser(false, false);
+						// If some folder is selected, check all characters are correct  
+						if ( folderSelector.showOpenDialog( mainWindow ) == JFileChooser.APPROVE_OPTION ){
+							java.io.File selectedFolder = folderSelector.getSelectedFile( );
+							selectedDir = selectedFolder;
+							
+							// Check the selectedFolder is not inside a forbidden one
+							if ( isValidTargetProject( selectedFolder ) ){
+								if (FolderFileFilter.checkCharacters( selectedFolder.getName( ) )){
+									// Folder can be created/used
+									// Does the folder exist?
+									if (selectedFolder.exists( )){
+										//Is the folder empty?
+										if (selectedFolder.list( ).length > 0){
+											// Delete content?
+											if ( this.showStrictConfirmDialog( TextConstants.getText( "Operation.NewProject.FolderNotEmptyTitle" ), TextConstants.getText( "Operation.NewProject.FolderNotEmptyMessage" ) )){
+												File directory = new File (selectedFolder.getAbsolutePath( ));
+												if( directory.deleteAll( ) ){
+													create = true;	
+												} else {
+													this.showStrictConfirmDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.DeletingFolderContents" ));
+												}
+											}
+										}else{
+											create = true;
+										}
+									} else {
+										// Create new folder?
+										File directory = new File (selectedFolder.getAbsolutePath( ));
+										if( directory.mkdirs( ) ){
+											create = true;	
+										} else {
+											this.showStrictConfirmDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.CreatingFolder" ));
+										}
+									}
+								}else{
+									// Display error message
+									this.showErrorDialog( TextConstants.getText( "Error.Title" ), 
+											TextConstants.getText( "Error.ProjectFolderName", FolderFileFilter.getAllowedChars() ) );
+								}
+							} else {
+								// Show error: The target dir cannot be contained 
+								mainWindow.showErrorDialog( TextConstants.getText( "Operation.NewProject.ForbiddenParent.Title" ), 
+										TextConstants.getText( "Operation.NewProject.ForbiddenParent.Message" ) );
+								create = false;
+							}
+						}
 						
-						// Unzip directory
-						File.unzipDir( originFile.getAbsolutePath( ), selectedDir.getAbsolutePath( ) );
-						
-						//ProjectConfigData.loadFromXML( );
-						
-						// Load new project
-						loadFile( selectedDir.getAbsolutePath( ), false );
-						//loadingScreen.close( );
-						loadingScreen.setVisible( false );
+						// Create the new project?
+						if (create){
+							//LoadingScreen loadingScreen = new LoadingScreen(TextConstants.getText( "Operation.ImportProject" ), getLoadingImage( ), mainWindow);
+							loadingScreen.setMessage( TextConstants.getText( "Operation.ImportProject" ) );
+							loadingScreen.setVisible(true);
+							//AssetsController.createFolderStructure();
+							if (!selectedDir.exists( ))
+								selectedDir.mkdirs( );
+							
+							// Unzip directory
+							File.unzipDir( originFile.getAbsolutePath( ), selectedDir.getAbsolutePath( ) );
+							
+							//ProjectConfigData.loadFromXML( );
+							
+							// Load new project
+							loadFile( selectedDir.getAbsolutePath( ), false );
+							//loadingScreen.close( );
+							loadingScreen.setVisible( false );
+						}
+							
 					}
-						
 				}
 			}
+		}catch (Exception e){
+			loadingScreen.setVisible(false);
+			mainWindow.showErrorDialog( "Operation.FileNotLoadedTitle",
+										"Operation.FileNotLoadedMessage" );
+
 		}
 	}
 	
@@ -1769,155 +1723,167 @@ public class Controller {
 	public boolean exportGame( String targetFilePath ){
 		boolean exportGame = true;
 		boolean exported = false;
-		if (dataModified){
+		try{
+			if (dataModified){
+				
+				int option = mainWindow.showConfirmDialog( TextConstants.getText( "Operation.SaveChangesTitle" ), TextConstants.getText( "Operation.SaveChangesMessage" ) );
+				// If the data must be saved, load the new file only if the save was succesful
+				if( option == JOptionPane.YES_OPTION )
+					exportGame = saveFile( false );
+	
+				// If the data must not be saved, load the new data directly
+				else if( option == JOptionPane.NO_OPTION )
+					exportGame = true;
+	
+				// Cancel the action if selected
+				else if( option == JOptionPane.CANCEL_OPTION )
+					exportGame = false;
+			}
 			
-			int option = mainWindow.showConfirmDialog( TextConstants.getText( "Operation.SaveChangesTitle" ), TextConstants.getText( "Operation.SaveChangesMessage" ) );
-			// If the data must be saved, load the new file only if the save was succesful
-			if( option == JOptionPane.YES_OPTION )
-				exportGame = saveFile( false );
-
-			// If the data must not be saved, load the new data directly
-			else if( option == JOptionPane.NO_OPTION )
-				exportGame = true;
-
-			// Cancel the action if selected
-			else if( option == JOptionPane.CANCEL_OPTION )
-				exportGame = false;
-		}
-		
-		if (exportGame){
-			// Ask destiny file
-			/*JFileChooser chooser = new JFileChooser();
-			chooser.setFileFilter( new EADFileFilter() );
-			chooser.setMultiSelectionEnabled( false );
-			int option = chooser.showSaveDialog( mainWindow );
-			if (option == JFileChooser.APPROVE_OPTION){
-				java.io.File destinyFile = chooser.getSelectedFile( );
-				if (!destinyFile.getAbsolutePath( ).toLowerCase( ).endsWith( ".ead" )){
-					destinyFile = new java.io.File (destinyFile.getAbsolutePath( )+".ead");*/
-			
-			String selectedPath = targetFilePath; 
-			if (selectedPath==null)
-				selectedPath = mainWindow.showSaveDialog( getCurrentExportSaveFolder(), new EADFileFilter() );
-			
-			if (selectedPath != null){
-				if (!selectedPath.toLowerCase( ).endsWith( ".ead" ))
-					selectedPath = selectedPath + ".ead";
-
-					java.io.File destinyFile = new File (selectedPath);
-
-					// Check the destinyFile is not in the project folder
-					if ( targetFilePath !=null || isValidTargetFile( destinyFile ) ){
-						
-						// If the file exists, ask to overwrite
-						if ( !destinyFile.exists( ) || targetFilePath!=null ||  
-							  mainWindow.showStrictConfirmDialog( TextConstants.getText( "Operation.SaveFileTitle" ), TextConstants.getText( "Operation.OverwriteExistingFile", destinyFile.getName( ) ) ) ){
-							destinyFile.delete( );
+			if (exportGame){
+				// Ask destiny file
+				/*JFileChooser chooser = new JFileChooser();
+				chooser.setFileFilter( new EADFileFilter() );
+				chooser.setMultiSelectionEnabled( false );
+				int option = chooser.showSaveDialog( mainWindow );
+				if (option == JFileChooser.APPROVE_OPTION){
+					java.io.File destinyFile = chooser.getSelectedFile( );
+					if (!destinyFile.getAbsolutePath( ).toLowerCase( ).endsWith( ".ead" )){
+						destinyFile = new java.io.File (destinyFile.getAbsolutePath( )+".ead");*/
+				
+				String selectedPath = targetFilePath; 
+				if (selectedPath==null)
+					selectedPath = mainWindow.showSaveDialog( getCurrentExportSaveFolder(), new EADFileFilter() );
+				
+				if (selectedPath != null){
+					if (!selectedPath.toLowerCase( ).endsWith( ".ead" ))
+						selectedPath = selectedPath + ".ead";
+	
+						java.io.File destinyFile = new File (selectedPath);
+	
+						// Check the destinyFile is not in the project folder
+						if ( targetFilePath !=null || isValidTargetFile( destinyFile ) ){
 							
-							// Finally, export it
-							//LoadingScreen loadingScreen = new LoadingScreen(TextConstants.getText( "Operation.ExportProject.AsEAD" ), getLoadingImage( ), mainWindow);
-							if (targetFilePath == null){
-								loadingScreen.setMessage( TextConstants.getText( "Operation.ExportProject.AsEAD" ) );
-								loadingScreen.setVisible( true );
-							}
-							if (Writer.export( getProjectFolder(), destinyFile.getAbsolutePath( ) )){
-								exported = true;
+							// If the file exists, ask to overwrite
+							if ( !destinyFile.exists( ) || targetFilePath!=null ||  
+								  mainWindow.showStrictConfirmDialog( TextConstants.getText( "Operation.SaveFileTitle" ), TextConstants.getText( "Operation.OverwriteExistingFile", destinyFile.getName( ) ) ) ){
+								destinyFile.delete( );
+								
+								// Finally, export it
+								//LoadingScreen loadingScreen = new LoadingScreen(TextConstants.getText( "Operation.ExportProject.AsEAD" ), getLoadingImage( ), mainWindow);
+								if (targetFilePath == null){
+									loadingScreen.setMessage( TextConstants.getText( "Operation.ExportProject.AsEAD" ) );
+									loadingScreen.setVisible( true );
+								}
+								if (Writer.export( getProjectFolder(), destinyFile.getAbsolutePath( ) )){
+									exported = true;
+									if (targetFilePath == null)
+										mainWindow.showInformationDialog( TextConstants.getText( "Operation.ExportT.Success.Title" ), 
+												TextConstants.getText( "Operation.ExportT.Success.Message" ) );
+								} else {
+									mainWindow.showInformationDialog( TextConstants.getText( "Operation.ExportT.NotSuccess.Title" ), 
+											TextConstants.getText( "Operation.ExportT.NotSuccess.Message" ) );
+								}
+								//loadingScreen.close( );
 								if (targetFilePath == null)
-									mainWindow.showInformationDialog( TextConstants.getText( "Operation.ExportT.Success.Title" ), 
-											TextConstants.getText( "Operation.ExportT.Success.Message" ) );
-							} else {
-								mainWindow.showInformationDialog( TextConstants.getText( "Operation.ExportT.NotSuccess.Title" ), 
-										TextConstants.getText( "Operation.ExportT.NotSuccess.Message" ) );
+									loadingScreen.setVisible( false );
 							}
-							//loadingScreen.close( );
-							if (targetFilePath == null)
-								loadingScreen.setVisible( false );
+						} else {
+							// Show error: The target dir cannot be contained 
+							mainWindow.showErrorDialog( TextConstants.getText( "Operation.ExportT.TargetInProjectDir.Title" ), 
+									TextConstants.getText( "Operation.ExportT.TargetInProjectDir.Message" ) );
 						}
-					} else {
-						// Show error: The target dir cannot be contained 
-						mainWindow.showErrorDialog( TextConstants.getText( "Operation.ExportT.TargetInProjectDir.Title" ), 
-								TextConstants.getText( "Operation.ExportT.TargetInProjectDir.Message" ) );
 					}
 				}
-			}
+		} catch ( Exception e ){
+			loadingScreen.setVisible( false );
+			mainWindow.showErrorDialog( "Operation.FileNotSavedTitle",
+			"Operation.FileNotSavedMessage" );
+			exported = false;
+		}
 		return exported;
 	}
 
 	public void exportStandaloneGame(){
 		boolean exportGame = true;
-
-		if (dataModified){
-			int option = mainWindow.showConfirmDialog( TextConstants.getText( "Operation.SaveChangesTitle" ), TextConstants.getText( "Operation.SaveChangesMessage" ) );
-			// If the data must be saved, load the new file only if the save was succesful
-			if( option == JOptionPane.YES_OPTION )
-				exportGame = saveFile( false );
-
-			// If the data must not be saved, load the new data directly
-			else if( option == JOptionPane.NO_OPTION )
-				exportGame = true;
-
-			// Cancel the action if selected
-			else if( option == JOptionPane.CANCEL_OPTION )
-				exportGame = false;
-
-		}
-		
-		if (exportGame){
-			// Ask destiny file
-			//JFileChooser chooser = new JFileChooser();
-			//chooser.setFileFilter( new JARFileFilter() );
-			//chooser.setMultiSelectionEnabled( false );
-			String completeFilePath = null;
-			completeFilePath = mainWindow.showSaveDialog( getCurrentExportSaveFolder(), new FileFilter(){
-
-					@Override
-					public boolean accept( java.io.File arg0 ) {
-						return arg0.getAbsolutePath().toLowerCase().endsWith( ".jar" ) || arg0.isDirectory( );
-					}
-
-					@Override
-					public String getDescription( ) {
-						return "Java ARchive files (*.jar)";
-					}
-				});
+		try{
+			if (dataModified){
+				int option = mainWindow.showConfirmDialog( TextConstants.getText( "Operation.SaveChangesTitle" ), TextConstants.getText( "Operation.SaveChangesMessage" ) );
+				// If the data must be saved, load the new file only if the save was succesful
+				if( option == JOptionPane.YES_OPTION )
+					exportGame = saveFile( false );
+	
+				// If the data must not be saved, load the new data directly
+				else if( option == JOptionPane.NO_OPTION )
+					exportGame = true;
+	
+				// Cancel the action if selected
+				else if( option == JOptionPane.CANCEL_OPTION )
+					exportGame = false;
+	
+			}
 			
-			//int option = chooser.showSaveDialog( mainWindow );
-			//if (option == JFileChooser.APPROVE_OPTION){
-			if (completeFilePath != null){
-				//java.io.File destinyFile = chooser.getSelectedFile( );
-				//if (!destinyFile.getAbsolutePath( ).toLowerCase( ).endsWith( ".jar" )){
-				//	destinyFile = new java.io.File (destinyFile.getAbsolutePath( )+".jar");
-				if (!completeFilePath.toLowerCase( ).endsWith( ".jar" ))
-					completeFilePath = completeFilePath + ".jar";
-					// If the file exists, ask to overwrite
-					java.io.File destinyFile = new File (completeFilePath);
-					
-					// Check the destinyFile is not in the project folder
-					if ( isValidTargetFile( destinyFile ) ){
-					
-						if ( !destinyFile.exists( ) || 
-							  mainWindow.showStrictConfirmDialog( TextConstants.getText( "Operation.SaveFileTitle" ), TextConstants.getText( "Operation.OverwriteExistingFile", destinyFile.getName( ) ) ) ){
-							destinyFile.delete( );
-							
-							// Finally, export it
-							loadingScreen.setMessage( TextConstants.getText( "Operation.ExportProject.AsJAR" ) );
-							loadingScreen.setVisible( true );
-							if (Writer.exportStandalone( getProjectFolder(), destinyFile.getAbsolutePath( ) )){
-								mainWindow.showInformationDialog( TextConstants.getText( "Operation.ExportT.Success.Title" ), 
-										TextConstants.getText( "Operation.ExportT.Success.Message" ) );
-							} else {
-								mainWindow.showInformationDialog( TextConstants.getText( "Operation.ExportT.NotSuccess.Title" ), 
-										TextConstants.getText( "Operation.ExportT.NotSuccess.Message" ) );
-							}
-							loadingScreen.setVisible( false );
-							
+			if (exportGame){
+				// Ask destiny file
+				//JFileChooser chooser = new JFileChooser();
+				//chooser.setFileFilter( new JARFileFilter() );
+				//chooser.setMultiSelectionEnabled( false );
+				String completeFilePath = null;
+				completeFilePath = mainWindow.showSaveDialog( getCurrentExportSaveFolder(), new FileFilter(){
+	
+						@Override
+						public boolean accept( java.io.File arg0 ) {
+							return arg0.getAbsolutePath().toLowerCase().endsWith( ".jar" ) || arg0.isDirectory( );
 						}
-					} else {
-						// Show error: The target dir cannot be contained 
-						mainWindow.showErrorDialog( TextConstants.getText( "Operation.ExportT.TargetInProjectDir.Title" ), 
-								TextConstants.getText( "Operation.ExportT.TargetInProjectDir.Message" ) );
+	
+						@Override
+						public String getDescription( ) {
+							return "Java ARchive files (*.jar)";
+						}
+					});
+				
+				//int option = chooser.showSaveDialog( mainWindow );
+				//if (option == JFileChooser.APPROVE_OPTION){
+				if (completeFilePath != null){
+					//java.io.File destinyFile = chooser.getSelectedFile( );
+					//if (!destinyFile.getAbsolutePath( ).toLowerCase( ).endsWith( ".jar" )){
+					//	destinyFile = new java.io.File (destinyFile.getAbsolutePath( )+".jar");
+					if (!completeFilePath.toLowerCase( ).endsWith( ".jar" ))
+						completeFilePath = completeFilePath + ".jar";
+						// If the file exists, ask to overwrite
+						java.io.File destinyFile = new File (completeFilePath);
+						
+						// Check the destinyFile is not in the project folder
+						if ( isValidTargetFile( destinyFile ) ){
+						
+							if ( !destinyFile.exists( ) || 
+								  mainWindow.showStrictConfirmDialog( TextConstants.getText( "Operation.SaveFileTitle" ), TextConstants.getText( "Operation.OverwriteExistingFile", destinyFile.getName( ) ) ) ){
+								destinyFile.delete( );
+								
+								// Finally, export it
+								loadingScreen.setMessage( TextConstants.getText( "Operation.ExportProject.AsJAR" ) );
+								loadingScreen.setVisible( true );
+								if (Writer.exportStandalone( getProjectFolder(), destinyFile.getAbsolutePath( ) )){
+									mainWindow.showInformationDialog( TextConstants.getText( "Operation.ExportT.Success.Title" ), 
+											TextConstants.getText( "Operation.ExportT.Success.Message" ) );
+								} else {
+									mainWindow.showInformationDialog( TextConstants.getText( "Operation.ExportT.NotSuccess.Title" ), 
+											TextConstants.getText( "Operation.ExportT.NotSuccess.Message" ) );
+								}
+								loadingScreen.setVisible( false );
+								
+							}
+						} else {
+							// Show error: The target dir cannot be contained 
+							mainWindow.showErrorDialog( TextConstants.getText( "Operation.ExportT.TargetInProjectDir.Title" ), 
+									TextConstants.getText( "Operation.ExportT.TargetInProjectDir.Message" ) );
+						}
 					}
-				}
+			}
+		} catch ( Exception e ){
+			loadingScreen.setVisible( false );
+			mainWindow.showErrorDialog( "Operation.FileNotSavedTitle",
+			"Operation.FileNotSavedMessage" );
 		}
 
 	}
@@ -1926,107 +1892,114 @@ public class Controller {
 	public void exportToLOM( ) {
 	
 		boolean exportFile = true;
-		if (dataModified){
-			int option = mainWindow.showConfirmDialog( TextConstants.getText( "Operation.SaveChangesTitle" ), TextConstants.getText( "Operation.SaveChangesMessage" ) );
-			// If the data must be saved, load the new file only if the save was succesful
-			if( option == JOptionPane.YES_OPTION )
-				exportFile = saveFile( false );
-
-			// If the data must not be saved, load the new data directly
-			else if( option == JOptionPane.NO_OPTION )
-				exportFile = true;
-
-			// Cancel the action if selected
-			else if( option == JOptionPane.CANCEL_OPTION )
-				exportFile = false;
-
-		}
-		
-		if (exportFile){
-			// Ask the data of the Learning Object:
-			ExportToLOMDialog dialog = new ExportToLOMDialog(TextConstants.getText( "Operation.ExportToLOM.DefaultValue" ));
-			String loName = dialog.getLomName( );
-			String authorName = dialog.getAuthorName( );
-			String organization = dialog.getOrganizationName( );
-			boolean windowed = dialog.getWindowed();
+		try{
+			if (dataModified){
+				int option = mainWindow.showConfirmDialog( TextConstants.getText( "Operation.SaveChangesTitle" ), TextConstants.getText( "Operation.SaveChangesMessage" ) );
+				// If the data must be saved, load the new file only if the save was succesful
+				if( option == JOptionPane.YES_OPTION )
+					exportFile = saveFile( false );
+	
+				// If the data must not be saved, load the new data directly
+				else if( option == JOptionPane.NO_OPTION )
+					exportFile = true;
+	
+				// Cancel the action if selected
+				else if( option == JOptionPane.CANCEL_OPTION )
+					exportFile = false;
+	
+			}
 			
-			boolean validated = dialog.isValidated( );
-			
-			if (validated){
-				//String loName = this.showInputDialog( TextConstants.getText( "Operation.ExportToLOM.Title" ), TextConstants.getText( "Operation.ExportToLOM.Message" ), TextConstants.getText( "Operation.ExportToLOM.DefaultValue" ));
-				if (loName!=null && !loName.equals( "" ) && !loName.contains( " " )){
-					//Check authorName & organization
-					if (authorName!=null && authorName.length( )>5 && organization!=null && organization.length( )>5){
-					
-						//Ask for the name of the zip
-						String completeFilePath = null;
-						completeFilePath = mainWindow.showSaveDialog( getCurrentExportSaveFolder(), new FileFilter(){
-		
-								@Override
-								public boolean accept( java.io.File arg0 ) {
-									return arg0.getAbsolutePath().toLowerCase().endsWith( ".zip" ) || arg0.isDirectory( );
-								}
-		
-								@Override
-								public String getDescription( ) {
-									return "Zip files (*.zip)";
-								}
-							});
-		
-						// If some file was selected set the new file
-						if( completeFilePath != null ) {
-							// Add the ".zip" if it is not present in the name
-							if( !completeFilePath.toLowerCase( ).endsWith( ".zip" ) )
-								completeFilePath += ".zip";
-		
-							// Create a file to extract the name and path
-							File newFile = new File( completeFilePath );
-							
-							// Check the selected file is contained in a valid folder
-							if ( isValidTargetFile( newFile ) ){
-		
-								// If the file doesn't exist, or if the user confirms the writing in the file
-								if( !newFile.exists( ) || mainWindow.showStrictConfirmDialog( TextConstants.getText( "Operation.SaveFileTitle" ), TextConstants.getText( "Operation.OverwriteExistingFile", newFile.getName( ) ) ) ) {
-									// If the file exists, delete it so it's clean in the first save
-									
-									try {						
-										if (newFile.exists( ))
-											newFile.delete( );
-										//LoadingScreen loadingScreen = new LoadingScreen(TextConstants.getText( "Operation.ExportProject.AsJAR" ), getLoadingImage( ), mainWindow);
-										loadingScreen.setMessage( TextConstants.getText( "Operation.ExportProject.AsLO" ) );
-										loadingScreen.setVisible( true );
-										this.updateLOMLanguage( );
-										if (Writer.exportAsLearningObject( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, adventureData )){
-											mainWindow.showInformationDialog( TextConstants.getText( "Operation.ExportT.Success.Title" ), 
-													TextConstants.getText( "Operation.ExportT.Success.Message" ) );
-										} else {
-											mainWindow.showInformationDialog( TextConstants.getText( "Operation.ExportT.NotSuccess.Title" ), 
-													TextConstants.getText( "Operation.ExportT.NotSuccess.Message" ) );
-										}
-										//loadingScreen.close( );
-										loadingScreen.setVisible( false );
-			
-									} catch( Exception e ) {
-										this.showErrorDialog( TextConstants.getText( "Operation.ExportToLOM.LONameNotValid.Title" ), TextConstants.getText( "Operation.ExportToLOM.LONameNotValid.Title" ) );
-										e.printStackTrace();
-									}
-									
-								} 
-							} else {
-								// Show error: The target dir cannot be contained 
-								mainWindow.showErrorDialog( TextConstants.getText( "Operation.ExportT.TargetInProjectDir.Title" ), 
-										TextConstants.getText( "Operation.ExportT.TargetInProjectDir.Message" ) );
-							}
+			if (exportFile){
+				// Ask the data of the Learning Object:
+				ExportToLOMDialog dialog = new ExportToLOMDialog(TextConstants.getText( "Operation.ExportToLOM.DefaultValue" ));
+				String loName = dialog.getLomName( );
+				String authorName = dialog.getAuthorName( );
+				String organization = dialog.getOrganizationName( );
+				boolean windowed = dialog.getWindowed();
+				
+				boolean validated = dialog.isValidated( );
+				
+				if (validated){
+					//String loName = this.showInputDialog( TextConstants.getText( "Operation.ExportToLOM.Title" ), TextConstants.getText( "Operation.ExportToLOM.Message" ), TextConstants.getText( "Operation.ExportToLOM.DefaultValue" ));
+					if (loName!=null && !loName.equals( "" ) && !loName.contains( " " )){
+						//Check authorName & organization
+						if (authorName!=null && authorName.length( )>5 && organization!=null && organization.length( )>5){
 						
+							//Ask for the name of the zip
+							String completeFilePath = null;
+							completeFilePath = mainWindow.showSaveDialog( getCurrentExportSaveFolder(), new FileFilter(){
+			
+									@Override
+									public boolean accept( java.io.File arg0 ) {
+										return arg0.getAbsolutePath().toLowerCase().endsWith( ".zip" ) || arg0.isDirectory( );
+									}
+			
+									@Override
+									public String getDescription( ) {
+										return "Zip files (*.zip)";
+									}
+								});
+			
+							// If some file was selected set the new file
+							if( completeFilePath != null ) {
+								// Add the ".zip" if it is not present in the name
+								if( !completeFilePath.toLowerCase( ).endsWith( ".zip" ) )
+									completeFilePath += ".zip";
+			
+								// Create a file to extract the name and path
+								File newFile = new File( completeFilePath );
+								
+								// Check the selected file is contained in a valid folder
+								if ( isValidTargetFile( newFile ) ){
+			
+									// If the file doesn't exist, or if the user confirms the writing in the file
+									if( !newFile.exists( ) || mainWindow.showStrictConfirmDialog( TextConstants.getText( "Operation.SaveFileTitle" ), TextConstants.getText( "Operation.OverwriteExistingFile", newFile.getName( ) ) ) ) {
+										// If the file exists, delete it so it's clean in the first save
+										
+										try {						
+											if (newFile.exists( ))
+												newFile.delete( );
+											//LoadingScreen loadingScreen = new LoadingScreen(TextConstants.getText( "Operation.ExportProject.AsJAR" ), getLoadingImage( ), mainWindow);
+											loadingScreen.setMessage( TextConstants.getText( "Operation.ExportProject.AsLO" ) );
+											loadingScreen.setVisible( true );
+											this.updateLOMLanguage( );
+											if (Writer.exportAsLearningObject( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, adventureData )){
+												mainWindow.showInformationDialog( TextConstants.getText( "Operation.ExportT.Success.Title" ), 
+														TextConstants.getText( "Operation.ExportT.Success.Message" ) );
+											} else {
+												mainWindow.showInformationDialog( TextConstants.getText( "Operation.ExportT.NotSuccess.Title" ), 
+														TextConstants.getText( "Operation.ExportT.NotSuccess.Message" ) );
+											}
+											//loadingScreen.close( );
+											loadingScreen.setVisible( false );
+				
+										} catch( Exception e ) {
+											this.showErrorDialog( TextConstants.getText( "Operation.ExportToLOM.LONameNotValid.Title" ), TextConstants.getText( "Operation.ExportToLOM.LONameNotValid.Title" ) );
+											e.printStackTrace();
+										}
+										
+									} 
+								} else {
+									// Show error: The target dir cannot be contained 
+									mainWindow.showErrorDialog( TextConstants.getText( "Operation.ExportT.TargetInProjectDir.Title" ), 
+											TextConstants.getText( "Operation.ExportT.TargetInProjectDir.Message" ) );
+								}
+							
+							}
+						} else {
+							this.showErrorDialog( TextConstants.getText( "Operation.ExportToLOM.AuthorNameOrganizationNotValid.Title" ), TextConstants.getText( "Operation.ExportToLOM.AuthorNameOrganizationNotValid.Message" ) );
 						}
-					} else {
-						this.showErrorDialog( TextConstants.getText( "Operation.ExportToLOM.AuthorNameOrganizationNotValid.Title" ), TextConstants.getText( "Operation.ExportToLOM.AuthorNameOrganizationNotValid.Message" ) );
+					}else{
+						this.showErrorDialog( TextConstants.getText( "Operation.ExportToLOM.LONameNotValid.Title" ), TextConstants.getText( "Operation.ExportToLOM.LONameNotValid.Message" ) );
 					}
-				}else{
-					this.showErrorDialog( TextConstants.getText( "Operation.ExportToLOM.LONameNotValid.Title" ), TextConstants.getText( "Operation.ExportToLOM.LONameNotValid.Message" ) );
 				}
 			}
+		} catch ( Exception e ){
+			loadingScreen.setVisible( false );
+			mainWindow.showErrorDialog( "Operation.FileNotSavedTitle",
+			"Operation.FileNotSavedMessage" );
 		}
+
 	}
 
 	/**
@@ -2058,7 +2031,7 @@ public class Controller {
 	 * @return
 	 */
 	private boolean isValidTargetFile ( java.io.File targetFile ){
-		java.io.File[] forbiddenParents = new java.io.File[]{new java.io.File(WEB_FOLDER), new java.io.File(WEB_TEMP_FOLDER), getProjectFolderFile()};
+		java.io.File[] forbiddenParents = new java.io.File[]{ReleaseFolders.webFolder(), ReleaseFolders.webTempFolder(), getProjectFolderFile()};
 		boolean isValid = true;
 		for (java.io.File forbiddenParent: forbiddenParents){
 			if (targetFile.getAbsolutePath( ).toLowerCase( ).startsWith( forbiddenParent.getAbsolutePath( ).toLowerCase( ) )){
@@ -2075,7 +2048,7 @@ public class Controller {
 	 * @return
 	 */
 	private boolean isValidTargetProject ( java.io.File targetFile ){
-		java.io.File[] forbiddenParents = new java.io.File[]{new java.io.File(WEB_FOLDER), new java.io.File(WEB_TEMP_FOLDER)};
+		java.io.File[] forbiddenParents = new java.io.File[]{ReleaseFolders.webFolder(), ReleaseFolders.webTempFolder()};
 		boolean isValid = true;
 		for (java.io.File forbiddenParent: forbiddenParents){
 			if (targetFile.getAbsolutePath( ).toLowerCase( ).startsWith( forbiddenParent.getAbsolutePath( ).toLowerCase( ) )){
@@ -2817,7 +2790,7 @@ public class Controller {
 		try {
 			JDialog dialog = new JDialog(Controller.getInstance( ).peekWindow( ), TextConstants.getText( "About" ), Dialog.ModalityType.APPLICATION_MODAL);
 			dialog.getContentPane( ).setLayout( new BorderLayout() );
-			File file = new File(LANGUAGE_DIR+"/"+ConfigData.getAboutFile( ));
+			File file = new File(ReleaseFolders.LANGUAGE_DIR_EDITOR+"/"+ConfigData.getAboutFile( ));
 			if (file.exists( )){
 				JEditorPane pane =new JEditorPane();
 				pane.setPage( file.toURI().toURL( ) );
@@ -2868,19 +2841,19 @@ public class Controller {
 	 * @param language
 	 */
 	public void setLanguage ( int language ){
-		if (language == LANGUAGE_SPANISH && languageFile!=LANGUAGE_SPANISH){
+		if (language == ReleaseFolders.LANGUAGE_SPANISH && languageFile!=ReleaseFolders.LANGUAGE_SPANISH){
 			ConfigData.setLanguangeFile( "es_ES.xml", "aboutES.html", "img/Editor2D-Loading-Esp.png" );
-			languageFile =LANGUAGE_SPANISH;
-			TextConstants.loadStrings( Controller.getLanguageFilePath(true, language) );
-			TextConstants.appendStrings(Controller.getLanguageFilePath(false, languageFile));
+			languageFile =ReleaseFolders.LANGUAGE_SPANISH;
+			TextConstants.loadStrings( ReleaseFolders.getLanguageFilePath4Editor(true, language) );
+			TextConstants.appendStrings(ReleaseFolders.getLanguageFilePath4Editor(false, languageFile));
 			loadingScreen.setImage( getLoadingImage() );
 			mainWindow.reloadData( );
 		}
-		else if (language == LANGUAGE_ENGLISH && languageFile!=LANGUAGE_ENGLISH){
+		else if (language == ReleaseFolders.LANGUAGE_ENGLISH && languageFile!=ReleaseFolders.LANGUAGE_ENGLISH){
 			ConfigData.setLanguangeFile( "en_EN.xml", "aboutEN.html", "img/Editor2D-Loading-Eng.png" );
-			languageFile =LANGUAGE_ENGLISH;
-			TextConstants.loadStrings( Controller.getLanguageFilePath(true, language) );
-			TextConstants.appendStrings(Controller.getLanguageFilePath(false, languageFile));
+			languageFile =ReleaseFolders.LANGUAGE_ENGLISH;
+			TextConstants.loadStrings( ReleaseFolders.getLanguageFilePath4Editor(true, language) );
+			TextConstants.appendStrings(ReleaseFolders.getLanguageFilePath4Editor(false, languageFile));
 			loadingScreen.setImage( getLoadingImage() );
 			mainWindow.reloadData( );
 		}

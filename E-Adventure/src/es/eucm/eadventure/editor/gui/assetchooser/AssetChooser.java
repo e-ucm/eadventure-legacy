@@ -9,7 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
@@ -21,7 +20,6 @@ import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -275,14 +273,14 @@ public abstract class AssetChooser extends JFileChooser {
 		Dimension min = ( (JPanel) filePanel.getComponent( 0 ) ).getMinimumSize( );
 
 		assetsList = new JList( );
-		assetsList.setLayoutOrientation( JList.HORIZONTAL_WRAP );
+		assetsList.setLayoutOrientation( JList.VERTICAL_WRAP );
 		String[] assets = AssetsController.getAssetFilenames( assetCategory, filter );
 		assetsList.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
 		assetsList.setListData( assets );
 		assetsList.addListSelectionListener( new ResourcesListListener( ) );
-		assetsList.setMinimumSize( new Dimension( filePanel.getMinimumSize( ).width + min.width, filePanel.getMinimumSize( ).height + min.height ) );
-		assetsList.setPreferredSize( new Dimension( filePanel.getPreferredSize( ).width + pref.width + 1, filePanel.getPreferredSize( ).height + pref.height + 1 ) );
-		this.zipContentsPanel = new JScrollPane( JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED );
+		//assetsList.setMinimumSize( new Dimension( filePanel.getMinimumSize( ).width + min.width, filePanel.getMinimumSize( ).height + min.height ) );
+		//assetsList.setPreferredSize( new Dimension( filePanel.getPreferredSize( ).width + pref.width + 1, filePanel.getPreferredSize( ).height + pref.height + 1 ) );
+		this.zipContentsPanel = new JScrollPane( JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS );
 		zipContentsPanel.setViewportView( assetsList );
 
 	}
@@ -291,14 +289,14 @@ public abstract class AssetChooser extends JFileChooser {
 
 		assetsList = new JList( );
 		if (previewLocation == PREVIEW_LOCATION_WEST)
-			assetsList.setLayoutOrientation( JList.HORIZONTAL_WRAP );
+			assetsList.setLayoutOrientation( JList.VERTICAL_WRAP );
 		else if (previewLocation == PREVIEW_LOCATION_SOUTH)
 			assetsList.setLayoutOrientation( JList.VERTICAL_WRAP );
 		String[] assets = AssetsController.getAssetFilenames( assetCategory );
 		assetsList.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
 		assetsList.setListData( assets );
 		assetsList.addListSelectionListener( new ResourcesListListener( ) );
-		this.zipContentsPanel = new JScrollPane( JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED );
+		this.zipContentsPanel = new JScrollPane( JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS );
 		zipContentsPanel.setViewportView( assetsList );
 
 	}

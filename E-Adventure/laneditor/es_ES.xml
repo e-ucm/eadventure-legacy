@@ -157,7 +157,9 @@ Se han borrado las referencias a dicho perfil.</entry>
 	<entry key="Error.DeletingFolderContents">Un error inesperado ocurrió al borrar los contenidos de la carpeta.</entry>
 	<entry key="Error.Import.FileNotFound.Title">No se encontró el fichero</entry>
 	<entry key="Error.Import.FileNotFound.Message">No se pudo completar el proceso de importación: No se encontró el archivo "{#0}".</entry>
-	<entry key="Error.ProjectFolderName">El nombre seleccionado para la carpeta no es correcto.</entry>
+	<entry key="Error.ProjectFolderName">  El nombre seleccionado para la carpeta no es correcto.
+ Recuerde que sólo puede usar caracteres de la siguiente lista:
+ {#0}.</entry>
 	
 	<entry key="Error.LoadAborted.Title">¡Se canceló el proceso de carga!</entry>
 	<entry key="Error.LoadAborted.Message">Hubo un error crítico al cargar los ficheros del proyecto.
@@ -244,6 +246,9 @@ donde XX es un múmero cualquiera.</entry>
 
 	<entry key="Operation.FileNotLoadedTitle">¡No se pudo cargar el proecto!</entry>
 	<entry key="Operation.FileNotLoadedMessage">El proyecto no pudo cargarse.</entry>
+	
+	<entry key="Operation.FileNotSavedTitle">¡No se salvó el proyecto!</entry>
+	<entry key="Operation.FileNotSavedMessage">Ocurrió un error y el proyecto no pudo guardarse correctamente</entry>
 	
 	
 	<entry key="Operation.SaveFileTitle">Guardar archivo</entry>
