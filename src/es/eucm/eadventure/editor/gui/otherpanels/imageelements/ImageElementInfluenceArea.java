@@ -46,10 +46,23 @@ public class ImageElementInfluenceArea extends ImageElement {
 			int height = (int) (imageElementReference.getImage().getHeight(null) * imageElementReference.getScale() + 40);
 			influenceAreaDataControl.setInfluenceArea(- 20, - 20, width, height);
 		}
+		
 		int width = influenceAreaDataControl.getWidth();
 		int height = influenceAreaDataControl.getHeight();
-		int tempX = x - imageElementReference.getX();
-		int tempY = y - imageElementReference.getY();
+		int imageWidth = (int) (imageElementReference.getWidth() * imageElementReference.getScale());
+		int imageHeight = (int) (imageElementReference.getWidth() * imageElementReference.getScale());
+		int imageX = imageElementReference.getX();
+		int imageY = imageElementReference.getY();
+		
+		
+		int imageTempX = imageX - imageWidth / 2;
+		int imageTempY = imageY - imageHeight;
+		int tempX = x - width / 2;
+		int tempY = y - height;
+
+		tempX = tempX - imageTempX;
+		tempY = tempY - imageTempY;
+		
 		if (tempX > 0)
 			tempX = 0;
 		if (tempY > 0)

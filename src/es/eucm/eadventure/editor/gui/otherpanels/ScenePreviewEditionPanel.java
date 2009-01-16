@@ -209,10 +209,19 @@ public class ScenePreviewEditionPanel extends JPanel {
 	
 	private boolean fixedSelectedElement;
 	
+	/**
+	 * Panel where the elements are drawn
+	 */
 	private DrawPanel drawPanel;
 
+	/**
+	 * Panel where the checkboxes are shown
+	 */
 	private JPanel checkBoxPanel;
 	
+	/**
+	 * Boolean indicating if the checkboxes should be shown
+	 */
 	private boolean showCheckBoxes = true;
 	
 	/**
@@ -243,6 +252,10 @@ public class ScenePreviewEditionPanel extends JPanel {
 		}
 	}
 	
+	/**
+	 * Private class with the logic for the panel where the
+	 * elements are drawn
+	 */
 	private class DrawPanel extends JPanel {
 		public void repaint() {
 			super.repaint();
@@ -501,6 +514,9 @@ public class ScenePreviewEditionPanel extends JPanel {
 	    		image = new BufferedImage(100,120,BufferedImage.TYPE_3BYTE_BGR);
 			paintRelativeImage( g, image, image.getWidth(null)/2, image.getHeight(null), 1);
 		}
+		
+		if (influenceArea != null)
+			influenceArea.recreateImage();
 		
 		List<ImageElement> elementsToDraw = new ArrayList<ImageElement>();
 				
@@ -763,10 +779,12 @@ public class ScenePreviewEditionPanel extends JPanel {
 			if (movableCategory.get(key) && (displayCategory.get(key) != null ? displayCategory.get(key) : false)) {
 				for (ImageElement imageElement : elements.get(key)) {
 					double scale = imageElement.getScale();
-					int minX = (int) (imageElement.getX() - imageElement.getImage().getWidth(null) * scale / 2);
-					int minY = (int) (imageElement.getY() - imageElement.getImage().getHeight(null) * scale);
-					int maxX = (int) (minX + imageElement.getImage().getWidth(null) * scale);
-					int maxY = (int) (minY + imageElement.getImage().getHeight(null) * scale);
+					double width = imageElement.getWidth();
+					double height = imageElement.getHeight();
+					int minX = (int) (imageElement.getX() - width * scale / 2);
+					int minY = (int) (imageElement.getY() - height * scale);
+					int maxX = (int) (minX + width * scale);
+					int maxY = (int) (minY + height * scale);
 					if (x > minX && x < maxX && y > minY && y < maxY && !imageElement.transparentPoint(x - minX, y - minY)) {
 						return imageElement;
 					}

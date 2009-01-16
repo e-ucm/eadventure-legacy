@@ -22,7 +22,7 @@
 >
 <!ENTITY % position "x NMTOKEN #REQUIRED y NMTOKEN #REQUIRED">
 <!ENTITY % rectangle "%position; width NMTOKEN #REQUIRED height NMTOKEN #REQUIRED">
-<!ENTITY % influence_area "infulenceX NMTOKEN #IMPLIED influenceY NMTOKEN #IMPLIED influenceWidth NMTOKEN #IMPLIED influenceHeight NMTOKEN #IMPLIED">
+<!ENTITY % influence_area "influenceX NMTOKEN #IMPLIED influenceY NMTOKEN #IMPLIED influenceWidth NMTOKEN #IMPLIED influenceHeight NMTOKEN #IMPLIED">
 <!ELEMENT default-initial-position EMPTY>
 <!ATTLIST default-initial-position
 	%position;
