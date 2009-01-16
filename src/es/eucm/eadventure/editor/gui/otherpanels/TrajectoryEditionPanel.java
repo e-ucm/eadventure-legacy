@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -80,7 +81,15 @@ public class TrajectoryEditionPanel extends JPanel {
 	 * @return The new button
 	 */
 	private JButton createToolButton(String text, final int tool) {
-		JButton button = new JButton(TextConstants.getText(text));
+		
+		JButton button;
+		if (tool == TrajectoryScenePreviewEditionController.NODE_EDIT) {
+			ImageIcon icon = new ImageIcon("img/icons/nodeEdit.png");
+			button = new JButton(icon);
+		}else 
+			button = new JButton(TextConstants.getText(text));
+
+		
 		button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {

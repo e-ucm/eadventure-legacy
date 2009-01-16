@@ -3,6 +3,7 @@ package es.eucm.eadventure.editor.control.controllers.scene;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.ElementReference;
+import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
@@ -39,11 +40,12 @@ public class ElementReferenceDataControl extends DataControl {
 	 * @param elementReference
 	 *            Element reference of the data control structure
 	 */
-	public ElementReferenceDataControl( SceneDataControl sceneDataControl, ElementReference elementReference, int type ) {
+	public ElementReferenceDataControl( SceneDataControl sceneDataControl, ElementReference elementReference, int type) {
 		this.sceneDataControl = sceneDataControl;
 		this.elementReference = elementReference;
-		this.influenceAreaDataControl = new InfluenceAreaDataControl(sceneDataControl, elementReference.getInfluenceArea(), this);
 		this.type = type;
+		if (type == Controller.ITEM_REFERENCE || type == Controller.NPC_REFERENCE)
+			this.influenceAreaDataControl = new InfluenceAreaDataControl(sceneDataControl, elementReference.getInfluenceArea(), this);
 		// Create subcontrollers
 		conditionsController = new ConditionsController( elementReference.getConditions( ) );
 	}

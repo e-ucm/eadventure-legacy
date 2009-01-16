@@ -50,7 +50,7 @@ public class ImageElementInfluenceArea extends ImageElement {
 		int width = influenceAreaDataControl.getWidth();
 		int height = influenceAreaDataControl.getHeight();
 		int imageWidth = (int) (imageElementReference.getWidth() * imageElementReference.getScale());
-		int imageHeight = (int) (imageElementReference.getWidth() * imageElementReference.getScale());
+		int imageHeight = (int) (imageElementReference.getHeight() * imageElementReference.getScale());
 		int imageX = imageElementReference.getX();
 		int imageY = imageElementReference.getY();
 		
@@ -138,6 +138,15 @@ public class ImageElementInfluenceArea extends ImageElement {
 	public void changeSize(int width, int height) {
 		int x = influenceAreaDataControl.getX();
 		int y = influenceAreaDataControl.getY();
+				
+		int imageWidth = (int) (imageElementReference.getWidth() * imageElementReference.getScale());
+		int imageHeight = (int) (imageElementReference.getHeight() * imageElementReference.getScale());		
+		
+		if (width + x < imageWidth)
+			width = imageWidth - x;
+		if (height + y < imageHeight)
+			height = imageHeight - y;
+		
 		influenceAreaDataControl.setInfluenceArea(x ,y , width, height);
 	}
 

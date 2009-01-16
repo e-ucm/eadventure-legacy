@@ -110,7 +110,7 @@ public class AssessmentProfilePanel extends JPanel {
 		});
 		sendByEmailPanel.add(sendByEmailCheck);
 		
-		sendByEmailText = new JTextField(30);
+		sendByEmailText = new JTextField(40);
 		sendByEmailText.setEnabled(dataControl.isShowReportAtEnd() && dataControl.isSendByEmail());
 		if (dataControl.isSendByEmail() && dataControl.isShowReportAtEnd())
 			sendByEmailText.setText(dataControl.getEmail());
@@ -118,10 +118,9 @@ public class AssessmentProfilePanel extends JPanel {
 			public void keyPressed(KeyEvent arg0) {
 			}
 			public void keyReleased(KeyEvent arg0) {
-			}
-
-			public void keyTyped(KeyEvent arg0) {
 				dataControl.setEmail(sendByEmailText.getText());
+			}
+			public void keyTyped(KeyEvent arg0) {
 			}
 		});
 		sendByEmailPanel.add(sendByEmailText);

@@ -9,7 +9,6 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.scene.ElementReferencePanel;
-import es.eucm.eadventure.editor.gui.elementpanels.scene.ItemReferencePanel;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.TreeNode;
 
 public class ItemReferenceTreeNode extends TreeNode {
