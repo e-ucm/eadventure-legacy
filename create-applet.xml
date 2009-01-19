@@ -21,7 +21,7 @@
 				<include name="assessment.dtd" />-->
 				
 				<include name="gui/**" />
-				<include name="en_EN.xml" />
+				<include name="lanengine/en_EN.xml" />
 				<include name="java.policy.applet" />
 			</fileset>
 			<fileset dir="bin">
