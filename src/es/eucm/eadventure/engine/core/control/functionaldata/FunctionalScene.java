@@ -309,6 +309,16 @@ public class FunctionalScene implements Renderable {
             }
         }
         
+        // Check the barriers of the scene
+        barriers.clear();
+        for( Barrier barrier : scene.getBarriers( ) ) {
+            
+            // For every barrier that should be there
+            if( new FunctionalConditions(barrier.getConditions( )).allConditionsOk( ) ) {
+                    barriers.add( new FunctionalBarrier (barrier) );
+            }
+        }
+        
         // Check the atrezzo item references of the scene
         for( ElementReference atrezzoReference : scene.getAtrezzoReferences( ) ) {
             
