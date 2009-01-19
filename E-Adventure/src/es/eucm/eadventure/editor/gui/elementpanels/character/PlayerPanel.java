@@ -511,6 +511,7 @@ public class PlayerPanel extends JPanel {
 		@Override
 		public void updatePreview( ) {
 			imagePanel.loadImage( playerDataControl.getPreviewImage( ) );
+			playerDataControl.playerImageChange();
 			imagePanel.repaint( );
 			getParent( ).getParent( ).repaint( );
 
@@ -520,6 +521,7 @@ public class PlayerPanel extends JPanel {
 			super.updateResources( );
 			getParent( ).getParent( ).repaint( );
 		}
+
 
 	}
 }

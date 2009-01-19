@@ -245,6 +245,10 @@ public class SceneDataControl extends DataControlWithResources {
 			controller.dataModified( );
 		}
 	}
+	
+	public void imageChangeNotify(String imagePath){
+		this.referencesListDataControl.changeImagePlayerPath(imagePath);
+	}
 
 	/**
 	 * Sets the new documentation of the scene.
