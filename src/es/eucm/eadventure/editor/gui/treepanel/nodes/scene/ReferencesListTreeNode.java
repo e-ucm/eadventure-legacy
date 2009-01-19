@@ -22,6 +22,8 @@ public class ReferencesListTreeNode extends TreeNode implements ReferenceListene
 	 * The icon for this node class.
 	 */
 	private static Icon icon;
+	
+	private TreeNode lastNode;
 
 	/**
 	 * Loads the icon of the node class.
@@ -40,6 +42,7 @@ public class ReferencesListTreeNode extends TreeNode implements ReferenceListene
 	 */
 	public ReferencesListTreeNode( TreeNode parent, ReferencesListDataControl referencesDataControl) {
 		super( parent );
+		lastNode = null;
 		this.referencesDataControl = referencesDataControl;
 		this.referencesDataControl.setAddNewReferenceListener(this);
 		for( ElementReferenceDataControl itemReferenceDataControl : referencesDataControl.getItemReferences( ) )
@@ -51,6 +54,15 @@ public class ReferencesListTreeNode extends TreeNode implements ReferenceListene
 
 	}
 
+	public void addChild( int type ) {
+		// If the element can be added, and the addition was successful
+		if( getDataControl( ).canAddElement( type ) && getDataControl( ).addElement( type ) ) {
+			if (lastNode != null)
+				this.setSelectedChild(lastNode);
+				
+		}
+	}
+	
 	@Override
 	public TreeNode checkForNewChild( int type ) {
 		TreeNode addedTreeNode = null;
@@ -128,7 +140,7 @@ public class ReferencesListTreeNode extends TreeNode implements ReferenceListene
 
 	@Override
 	public void addNewNodeElement(int type) {
-		addChildOnlyInTree(type);
+		lastNode = addChildOnlyInTree(type);
 	}
 
 	@Override

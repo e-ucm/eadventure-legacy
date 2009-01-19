@@ -101,7 +101,7 @@ public abstract class ImageElement implements Comparable<Object> {
 		int tempLayer = temp.getLayer();
 		int thisLayer = this.getLayer();
 
-		return tempLayer - thisLayer;
+		return thisLayer - tempLayer;
 	}
 
 	public abstract boolean transparentPoint(int x, int y);

@@ -356,17 +356,29 @@ public abstract class TreeNode {
 	}
 	
 	/**
+	 * Selects one tree´s node
+	 * 
+	 * @param node
+	 * 		the node to select
+	 */
+	protected void setSelectedChild(TreeNode node){
+		ownerPanel.selectChildOfSelectedElement( node );
+	}
+	
+	/**
 	 * Adds new child of the given type. This method is called when we add element not from tree,
 	 * to only reflects the changes in the tree.
 	 * 
 	 * @param type
 	 */
-	public void addChildOnlyInTree(int type){
+	public TreeNode addChildOnlyInTree(int type){
+		TreeNode node = null;
 		if( getDataControl( ).canAddElement( type )){
 			// Add the new child and update the tree
-			checkForNewChild( type );
+			node = checkForNewChild( type );
 			ownerPanel.updateTreePanel( );
 		}
+		return node;
 	}
 	
 	/**
