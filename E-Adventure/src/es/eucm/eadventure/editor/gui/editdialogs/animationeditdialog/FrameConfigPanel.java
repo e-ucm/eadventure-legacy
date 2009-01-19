@@ -126,7 +126,7 @@ public class FrameConfigPanel extends JPanel {
 			spinner.setEnabled(true);
 	}
 
-	protected void selectImage() {
+	public void selectImage() {
 		String temp = aed.getAnimationDataControl().editAssetPath(aed);
 		if (temp != null) {
 			frame.setUri(temp);

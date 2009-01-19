@@ -17,7 +17,6 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -112,6 +111,11 @@ public class AnimationEditDialog extends JDialog {
 	 * The data control for the animation
 	 */
 	private AnimationDataControl animationDataControl;
+
+	/**
+	 * FrameConfigPanel for the selected frame
+	 */
+	private FrameConfigPanel frameConfigPanel;
 	
 	/**
 	 * Empty constructor. Creates a new animation.
@@ -413,9 +417,14 @@ public class AnimationEditDialog extends JDialog {
 	 * right after it.
 	 */
 	protected void addFrame() {
-		animationDataControl.getAnimation().addFrame(frameList.getSelectedIndex() / 2, new Frame());
+		Frame newFrame = new Frame();
+		animationDataControl.getAnimation().addFrame(frameList.getSelectedIndex() / 2, newFrame);
 		frameList.updateUI();
-		frameList.setSelectedIndex(-1);
+		//frameList.setSelectedIndex(-1);
+		int newFrameIndex = animationDataControl.getAnimation().getFrames().indexOf(newFrame);
+		frameList.setSelectedIndex(newFrameIndex);
+		if (frameConfigPanel!=null)
+			frameConfigPanel.selectImage();
 	}
 
 	/**
@@ -575,7 +584,8 @@ public class AnimationEditDialog extends JDialog {
 		deleteButton.setEnabled(true);
 		
 		configurationPanel.removeAll();
-		configurationPanel.add(new FrameConfigPanel(animationDataControl.getAnimation().getFrame(i), frameList, this));
+		frameConfigPanel = new FrameConfigPanel(animationDataControl.getAnimation().getFrame(i), frameList, this);
+		configurationPanel.add(frameConfigPanel);
 		this.validate();
 		this.repaint();
 	}
