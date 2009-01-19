@@ -360,8 +360,6 @@ public class ReferencesListDataControl extends DataControl {
 					ElementReferenceDataControl erdc = new ElementReferenceDataControl( sceneDataControl, newElementReference,type );
 					itemReferencesList.add( newElementReference );
 					itemReferencesDataControlList.add( erdc );
-					//TODO
-					//insertInOrder(newElementReference,false);
 					ElementContainer ec = new ElementContainer(erdc,-1,null);
 					lastElementContainer = ec;
 					reassignLayerAllReferencesDataControl(insertInOrder(ec,false));
@@ -391,8 +389,6 @@ public class ReferencesListDataControl extends DataControl {
 					ElementReferenceDataControl erdc = new ElementReferenceDataControl( sceneDataControl, newElementReference, type );
 					atrezzoReferencesList.add( newElementReference );
 					atrezzoReferencesDataControlList.add( erdc );
-					//TODO
-					//insertInOrder(newElementReference,false,-1);
 					ElementContainer ec = new ElementContainer(erdc,-1,null);
 					lastElementContainer = ec;
 					reassignLayerAllReferencesDataControl(insertInOrder(ec,false));
@@ -422,8 +418,6 @@ public class ReferencesListDataControl extends DataControl {
 					
 					npcReferencesList.add( newElementReference );
 					npcReferencesDataControlList.add( erdc );
-					//TODO
-					//insertInOrder(newElementReference,false);
 					ElementContainer ec = new ElementContainer(erdc,-1,null);
 					lastElementContainer = ec;
 					reassignLayerAllReferencesDataControl(insertInOrder(ec,false));
