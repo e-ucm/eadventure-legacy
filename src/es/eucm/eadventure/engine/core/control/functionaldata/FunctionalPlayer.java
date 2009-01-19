@@ -12,6 +12,7 @@ import java.util.List;
 import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.common.data.chapter.CustomAction;
 import es.eucm.eadventure.common.data.chapter.Exit;
+import es.eucm.eadventure.common.data.chapter.InfluenceArea;
 import es.eucm.eadventure.common.data.chapter.elements.Element;
 import es.eucm.eadventure.common.data.chapter.elements.Player;
 import es.eucm.eadventure.common.data.chapter.resources.Asset;
@@ -382,7 +383,7 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
     	
 
     	if (nextAction.isNeedsGoTo()) {
-    		FunctionalGoTo functionalGoTo = new FunctionalGoTo(null, (int)element.getX(), (int)element.getY(), element);
+    		FunctionalGoTo functionalGoTo = new FunctionalGoTo(null, (int)element.getX(), (int)element.getY(), this, element);
     		if (functionalGoTo.canGetTo()) {
     			addAction(nextAction);
     			functionalGoTo.setKeepDistance(nextAction.getKeepDistance());
@@ -685,5 +686,10 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
         } */
         return null;
         
+	}
+
+	@Override
+	public InfluenceArea getInfluenceArea() {
+		return null;
 	}
 }

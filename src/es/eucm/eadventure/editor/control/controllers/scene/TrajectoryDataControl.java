@@ -234,8 +234,17 @@ public class TrajectoryDataControl extends DataControl {
 		boolean elementDeleted = false;
 
 		if (nodeDataControlList.contains(dataControl)) {
-			trajectory.getNodes().remove((Node) dataControl.getContent());
+			Node temp = (Node) dataControl.getContent();
+			trajectory.removeNode(temp.getX(), temp.getY());
 			nodeDataControlList.remove(dataControl);
+			int i = 0;
+			while (i < sideDataControlList.size()) {
+				SideDataControl side = sideDataControlList.get(i);
+				if (!trajectory.getSides().contains(side.getContent()))
+					sideDataControlList.remove(i);
+				else
+					i++;
+			}
 			controller.dataModified();
 			return true;
 		}
@@ -245,7 +254,6 @@ public class TrajectoryDataControl extends DataControl {
 			controller.dataModified();
 			return true;
 		}
-		
 		
 		return elementDeleted;
 	}

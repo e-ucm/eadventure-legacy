@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.common.data.chapter.CustomAction;
+import es.eucm.eadventure.common.data.chapter.InfluenceArea;
 import es.eucm.eadventure.common.data.chapter.elements.Element;
 import es.eucm.eadventure.engine.core.control.ActionManager;
 
@@ -155,5 +156,8 @@ public abstract class FunctionalElement implements Renderable {
 	public void setLayer(int layer) {
 		this.layer = layer;
 	}
+
+	public abstract InfluenceArea getInfluenceArea();
+
 
 }

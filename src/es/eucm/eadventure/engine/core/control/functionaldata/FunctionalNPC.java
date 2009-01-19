@@ -8,6 +8,7 @@ import com.sun.speech.freetts.VoiceManager;
 
 import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.common.data.chapter.CustomAction;
+import es.eucm.eadventure.common.data.chapter.InfluenceArea;
 import es.eucm.eadventure.common.data.chapter.elements.Element;
 import es.eucm.eadventure.common.data.chapter.elements.Item;
 import es.eucm.eadventure.common.data.chapter.elements.NPC;
@@ -112,6 +113,7 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
      */
     //private int lastDirection = -1;
     
+    private InfluenceArea influenceArea;
     
     
     /**
@@ -120,9 +122,10 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
      * @param x the npc's horizontal position
      * @param y the npc's vertical position
      */
-    public FunctionalNPC( NPC npc, int x, int y ) {
+    public FunctionalNPC( NPC npc, InfluenceArea influenceArea, int x, int y ) {
         super( x, y );
         this.npc = npc;
+        this.influenceArea = influenceArea;
         
         textFrontColor = generateColor( npc.getTextFrontColor( ) );
         textBorderColor = generateColor( npc.getTextBorderColor( ) );
@@ -151,10 +154,12 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
      * @param y the npc's vertical position
      * @param layer the npc´s layer, it means, it will be painted in that position
      */
-    public FunctionalNPC( NPC npc, int x, int y, int layer ) {
+    public FunctionalNPC( NPC npc, InfluenceArea influenceArea, int x, int y, int layer ) {
         super( x, y );
         this.npc = npc;
         this.layer = layer;
+        this.influenceArea = influenceArea;
+        
         textFrontColor = generateColor( npc.getTextFrontColor( ) );
         textBorderColor = generateColor( npc.getTextBorderColor( ) );
 
@@ -540,5 +545,10 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
         
         return custom;
     }
+
+	@Override
+	public InfluenceArea getInfluenceArea() {
+		return influenceArea;
+	}
 
 }

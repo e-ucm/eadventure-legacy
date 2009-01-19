@@ -15,6 +15,7 @@ public class FunctionalSide {
 	private Node endNode;
 	
 	public FunctionalSide(Side side, Trajectory trajectory, boolean inverted) {
+		this.side = side;
 		length = side.getLength();
 		if (!inverted) {
 			startNode = trajectory.getNodeForId(side.getIDStart());

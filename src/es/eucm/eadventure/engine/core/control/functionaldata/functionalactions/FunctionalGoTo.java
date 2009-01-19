@@ -51,9 +51,10 @@ public class FunctionalGoTo extends FunctionalAction {
 		this.keepDistance = keepDistance;
 	}
 
-	public FunctionalGoTo(Action action, int x, int y, FunctionalElement element) {
+	public FunctionalGoTo(Action action, int x, int y, FunctionalPlayer functionalPlayer, FunctionalElement element) {
 		this(action, x, y);
         this.trajectory.setDestinationElement(element);
+    	trajectory.updatePathToNearestPoint(functionalPlayer.getX(), functionalPlayer.getY(), posX, posY);
 	}
 
 	@Override
@@ -179,7 +180,7 @@ public class FunctionalGoTo extends FunctionalAction {
 		if (!trajectory.hasTrajectory())
 			return posX == originalPosX && posY == originalPosY;
 		else {
-			return true;
+			return trajectory.canGetTo();
 		}
 	}
 

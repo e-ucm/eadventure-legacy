@@ -30,6 +30,30 @@ public class FunctionalBarrier{
         int[] destinyPos = new int[]{finalDestX, finalDestY};
         return destinyPos;
     }
+    
+    public boolean isInside(float x, float y) {
+        if (new FunctionalConditions( barrier.getConditions( ) ).allConditionsOk( )){
+            float bx1 = barrier.getX( );
+            float bx2 = barrier.getX( ) + barrier.getWidth( );
+            float by1 = barrier.getY( );
+            float by2 = barrier.getY( ) + barrier.getHeight( );
+
+            if (bx1 > bx2) {
+            	float temp = bx1;
+            	bx1 = bx2;
+            	bx2 = temp;
+            }
+            if (by1 > by2) {
+            	float temp = by1;
+            	by1 = by2;
+            	by2 = temp;
+            }
+            
+            if (x > bx1 && x < bx2 && y > by1 && y < by2)
+            	return true;
+        }
+        return false;
+    }
 
     private static final float SEC_GAP = 5;
     
