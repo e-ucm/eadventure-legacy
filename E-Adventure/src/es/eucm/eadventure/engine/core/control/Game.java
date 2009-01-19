@@ -744,11 +744,11 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      */
     public void generateItem( String itemId ) {
         if( itemSummary.isItemNormal( itemId ) ) {
-            inventory.storeItem( new FunctionalItem( gameData.getItem( itemId ) ) );
+            inventory.storeItem( new FunctionalItem( gameData.getItem( itemId ), null ) );
             itemSummary.grabItem( itemId );
         } else if ( itemSummary.isItemConsumed( itemId )){
             itemSummary.regenerateItem( itemId );
-            inventory.storeItem( new FunctionalItem( gameData.getItem( itemId ) ) );
+            inventory.storeItem( new FunctionalItem( gameData.getItem( itemId ), null ) );
             itemSummary.grabItem( itemId );
         }
     }
@@ -1186,7 +1186,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
                 inventory = new Inventory( );
                 ArrayList<String> grabbedItems = itemSummary.getGrabbedItems( );
                 for( String item : grabbedItems ) {
-                    inventory.storeItem( new FunctionalItem( gameData.getItem( item ) ) );
+                    inventory.storeItem( new FunctionalItem( gameData.getItem( item ), null ) );
                
                  
                 SaveTimer st = new SaveTimer(); 

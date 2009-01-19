@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 
 import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.common.data.chapter.CustomAction;
+import es.eucm.eadventure.common.data.chapter.InfluenceArea;
 import es.eucm.eadventure.common.data.chapter.elements.Element;
 import es.eucm.eadventure.common.data.chapter.elements.Item;
 import es.eucm.eadventure.common.data.chapter.resources.Asset;
@@ -40,6 +41,8 @@ public class FunctionalItem extends FunctionalElement {
      * Item containing the data
      */
     protected Item item;
+    
+    protected InfluenceArea influenceArea;
 
     /**
      * Creates a new FunctionalItem
@@ -47,10 +50,11 @@ public class FunctionalItem extends FunctionalElement {
      * @param x the item's horizontal position
      * @param y the item's vertical position
      */
-    public FunctionalItem( Item item, int x, int y ) {
+    public FunctionalItem( Item item, InfluenceArea influenceArea, int x, int y ) {
         super( x, y );
         this.item = item;
-
+        this.influenceArea = influenceArea;
+        
         image = null;
         icon = null;
         
@@ -92,8 +96,8 @@ public class FunctionalItem extends FunctionalElement {
      * Creates a new FunctionalItem at position (0, 0)
      * @param item the item's data
      */
-    public FunctionalItem( Item item ) {
-        this( item, 0, 0 );
+    public FunctionalItem( Item item, InfluenceArea influenceArea) {
+        this( item, influenceArea, 0, 0 );
     }
     
     /**
@@ -437,4 +441,9 @@ public class FunctionalItem extends FunctionalElement {
         }
         return newResources;
     }
+
+	@Override
+	public InfluenceArea getInfluenceArea() {
+		return influenceArea;
+	}
 }

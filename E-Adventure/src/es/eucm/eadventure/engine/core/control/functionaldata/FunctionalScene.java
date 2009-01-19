@@ -168,7 +168,7 @@ public class FunctionalScene implements Renderable {
                 if( itemSummary.isItemNormal( itemReference.getIdTarget( ) ) )
                     for( Item currentItem : gameData.getItems( ) )
                         if( itemReference.getIdTarget( ).equals( currentItem.getId( ) ) ) {
-                            FunctionalItem fitem = new FunctionalItem( currentItem, itemReference.getX( ), itemReference.getY( ) );
+                            FunctionalItem fitem = new FunctionalItem( currentItem, itemReference.getInfluenceArea(), itemReference.getX( ), itemReference.getY( ) );
                         	fitem.setScale(itemReference.getScale());
                         	fitem.setLayer(itemReference.getLayer());
                             items.add( fitem );
@@ -178,7 +178,7 @@ public class FunctionalScene implements Renderable {
             if( new FunctionalConditions(npcReference.getConditions( )).allConditionsOk( ) )
                 for( NPC currentNPC : gameData.getCharacters( ) )
                     if( npcReference.getIdTarget( ).equals( currentNPC.getId( ) ) ) {
-                        FunctionalNPC fnpc = new FunctionalNPC( currentNPC, npcReference.getX( ), npcReference.getY( ) );
+                        FunctionalNPC fnpc = new FunctionalNPC( currentNPC, npcReference.getInfluenceArea(), npcReference.getX( ), npcReference.getY( ) );
                     	fnpc.setScale(npcReference.getScale());
                     	fnpc.setLayer(npcReference.getLayer());
                         npcs.add( fnpc );
@@ -280,7 +280,7 @@ public class FunctionalScene implements Renderable {
                 if( !found ) {
                     for( NPC currentNPC : gameData.getCharacters( ) ) {
                         if( npcReference.getIdTarget( ).equals( currentNPC.getId( ) ) ) {
-                            npcs.add( new FunctionalNPC( currentNPC, npcReference.getX( ), npcReference.getY( ), npcReference.getLayer() ) );
+                            npcs.add( new FunctionalNPC( currentNPC, npcReference.getInfluenceArea(), npcReference.getX( ), npcReference.getY( ), npcReference.getLayer() ) );
                         }
                     }
                 }

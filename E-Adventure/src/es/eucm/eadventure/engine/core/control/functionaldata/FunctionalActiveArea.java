@@ -35,7 +35,7 @@ public class FunctionalActiveArea extends FunctionalItem{
     
     
     public FunctionalActiveArea ( ActiveArea activeArea ){
-        super ( buildItem(activeArea), calculateX(activeArea), calculateY(activeArea) );
+        super ( buildItem(activeArea), null, calculateX(activeArea), calculateY(activeArea) );
         
         this.activeArea = activeArea;
         
