@@ -623,7 +623,9 @@ public class Writer {
 			File.mergeZipAndDirToJar( "web/eAdventure_temp.jar", gameFilename, os );
 			
 			// Create and copy the manifest into the output stream
-			String manifestText = Writer.defaultManifestFile( "es.eucm.eadventure.engine.EAdventureApplet" );
+			//TODO hay que hacerlo pa seleccionar
+			//meter el .js
+			String manifestText = Writer.defaultManifestFile( "es.eucm.eadventure.comm.manager.commManager.CommManagerScormV12" );
 			ZipEntry manifestEntry = new ZipEntry("META-INF/MANIFEST.MF");
 			os.putNextEntry( manifestEntry );
 			os.write( manifestText.getBytes( ) );
