@@ -38,7 +38,16 @@ public class ElementContainer {
 			this.image = image;
 		}
 	}
-	
+	/**
+	 * Change the image
+	 * 
+	 * @param image
+	 * 			the new image
+	 */
+	public void setImage(Image image) {
+		this.image = image;
+	}
+
 	/**
 	 * Return the layer, checking if it is a player or not.
 	 * 

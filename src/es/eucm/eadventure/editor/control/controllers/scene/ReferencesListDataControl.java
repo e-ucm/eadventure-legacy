@@ -14,7 +14,7 @@ import es.eucm.eadventure.editor.control.controllers.character.PlayerDataControl
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.scene.ReferenceListener;
 
-public class ReferencesListDataControl extends DataControl {
+public class ReferencesListDataControl extends DataControl{
 
 	
 	/**
@@ -82,6 +82,11 @@ public class ReferencesListDataControl extends DataControl {
 	private ReferenceListener addNewReferenceListener;
 	
 	/**
+	 * Tell us if the player image path has been changed
+	 */
+	private boolean imagePathHasChanged;
+	
+	/**
 	 * Constructor.
 	 * 
 	 * @param sceneDataControl
@@ -99,6 +104,7 @@ public class ReferencesListDataControl extends DataControl {
 		this.allReferencesDataControl = new ArrayList<ElementContainer>();
 		this.lastElementContainer = null;
 		this.addNewReferenceListener = null;
+		this.imagePathHasChanged = false;
 		// Check if one of references has layer -1: if it is true, it means that element references has not layer. 
 		// Create subcontrollers
 		itemReferencesDataControlList = new ArrayList<ElementReferenceDataControl>( );
@@ -167,8 +173,14 @@ public class ReferencesListDataControl extends DataControl {
 	public Image getPlayerImage(){
 		if (playerPosition==-1)
 			return null;
-		else
+		else{
+			if (imagePathHasChanged){
+				allReferencesDataControl.get(playerPosition).setImage(AssetsController.getImage( this.playerImagePath ));
+				imagePathHasChanged = false;
+			}
 			return allReferencesDataControl.get(playerPosition).getImage();
+		}
+			
 	}
 	
 	
@@ -813,5 +825,12 @@ public class ReferencesListDataControl extends DataControl {
 	 */
 	public void setAddNewReferenceListener(ReferenceListener anrl) {
 		this.addNewReferenceListener = anrl;
+	}
+
+	
+	public void changeImagePlayerPath(String imagePath) {
+		this.playerImagePath = imagePath;
+		this.imagePathHasChanged = true;
+		
 	}
 }

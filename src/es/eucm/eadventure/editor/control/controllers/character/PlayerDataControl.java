@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
 import es.eucm.eadventure.common.data.animation.Animation;
 import es.eucm.eadventure.common.data.chapter.elements.Player;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
@@ -14,7 +15,7 @@ import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
-public class PlayerDataControl extends DataControlWithResources {
+public class PlayerDataControl extends DataControlWithResources{
 
 	/**
 	 * Contained player data.
@@ -299,6 +300,15 @@ public class PlayerDataControl extends DataControlWithResources {
 		player.setVoice(voice);
 	}
 	
+	/**
+	 * Notify to all scenes that the player image has been changed
+	 */
+	public void playerImageChange(){
+		for (SceneDataControl scene : Controller.getInstance().getSelectedChapterDataControl().getScenesList().getScenes()){
+			scene.imageChangeNotify(getPreviewImage());
+		}
+		
+	}
 	
 	/**
 	 * Gets the voice associated to player
