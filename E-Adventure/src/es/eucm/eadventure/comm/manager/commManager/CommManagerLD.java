@@ -76,7 +76,7 @@ public class CommManagerLD extends AdventureApplet{
 		
 	}
 
-	public HashMap<String,Integer> getInitialStates() {
+	public HashMap<String,String> getInitialStates() {
 		// TODO Auto-generated method stub
 		return null;
 	}

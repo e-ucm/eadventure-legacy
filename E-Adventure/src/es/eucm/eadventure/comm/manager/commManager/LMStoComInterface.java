@@ -22,6 +22,6 @@ public interface LMStoComInterface {
 	
 	public void getAdaptedState( Set<String> properties );
 	
-	public HashMap<String,Integer> getInitialStates();
+	public HashMap<String,String> getInitialStates();
 
 }

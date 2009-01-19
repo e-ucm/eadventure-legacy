@@ -1,6 +1,7 @@
 package es.eucm.eadventure.comm.manager.commManager;
 
 import java.applet.Applet;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -26,7 +27,7 @@ public class CommManagerScormV12 extends AdventureApplet{
 	private boolean lock;
 
 	
-	private HashMap<String,Integer> adaptedStates;
+	private HashMap<String,String> adaptedStates;
 	private int index;
 	
 	private AdaptationEngine adaptationEngine;
@@ -40,7 +41,7 @@ public class CommManagerScormV12 extends AdventureApplet{
 	public CommManagerScormV12(){
 		valuesFromLMS = new HashMap<String,String>();
 		connected = false;
-		adaptedStates = new HashMap<String,Integer>();
+		adaptedStates = new HashMap<String,String>();
 		index=0;
 		lock = false;
 	}
@@ -69,7 +70,7 @@ public class CommManagerScormV12 extends AdventureApplet{
 	 */
 	public boolean disconnect(HashMap<String, String> info){
 		
-        String command = "javascript:disconect(\" \");";
+        String command = "javascript:disconnect(\" \");";
         
         this.sendJavaScript(command);
         
@@ -77,6 +78,11 @@ public class CommManagerScormV12 extends AdventureApplet{
         //TODO no se xk hay que devolver algo aki, ver si se cambia!!!
 		return false;
 	}
+	
+	public void disconnectOK(){
+		this.connected = false;
+	}
+	
 	
 	private void waitResponse(){
 	    int milis = 0;
@@ -100,7 +106,7 @@ public class CommManagerScormV12 extends AdventureApplet{
 		lock = true;
         this.sendJavaScript(command);
 		
-        adaptedStates = new HashMap<String,Integer>();
+        adaptedStates = new HashMap<String,String>();
         
         waitResponse();
         
@@ -130,7 +136,7 @@ public class CommManagerScormV12 extends AdventureApplet{
         for (int i=0; i<count;i++){
         	String aux = valuesFromLMS.get("cmi.objetives"+String.valueOf(i)+".id");
         	if (aux!=null)
-        	adaptedStates.put(aux,1);
+        	adaptedStates.put(aux,"1");
         }
         
         }
@@ -161,7 +167,7 @@ public class CommManagerScormV12 extends AdventureApplet{
 		System.out.println("Esto es lo que nos ha devuelto el LMS: "+ value);
 		//return data;
 		valuesFromLMS.put(key, value);
-		lock=false;
+		//lock=false;
 		
 	}
 
@@ -211,14 +217,20 @@ public class CommManagerScormV12 extends AdventureApplet{
 	}
 
 
-	public HashMap<String,Integer> getInitialStates() {
-		getAllObjetives();
-		return adaptedStates;
+	public HashMap<String,String> getInitialStates() {
+		//getAllObjetives();
+		waitResponse();
+		
+		return valuesFromLMS;
 	}
+	
 
 	public void getAdaptedState(Set<String> properties) {
-		// Do nothing
-		
+		lock = true;
+		for (String rule:properties){
+			getFromLMS(rule);
+		}
+		lock = false;
 	}
 
 	public void setAdaptationEngine(AdaptationEngine adaptationEngine) {

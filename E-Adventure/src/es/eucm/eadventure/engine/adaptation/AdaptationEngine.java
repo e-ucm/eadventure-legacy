@@ -1,5 +1,6 @@
 package es.eucm.eadventure.engine.adaptation;
 
+import java.util.AbstractSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -89,13 +90,37 @@ public class AdaptationEngine {
 	        }
 	        else if ((Game.getInstance().getComm().getCommType() == CommManagerApi.SCORMV12_TYPE ) ||
 	        		Game.getInstance().getComm().getCommType() == CommManagerApi.SCORMV2004_TYPE){
-	        	HashMap<String,Integer> lmsInitialStates = Game.getInstance().getComm().getInitialStates();
+	        	//HashMap<String,Integer> lmsInitialStates = Game.getInstance().getComm().getInitialStates();
+	        	Set<String> properties = new HashSet<String>();
 	        	for(AdaptationRule rule : externalAdaptationRules) {
-	        		Integer response = lmsInitialStates.get(rule.getId());
+	        		/*Integer response = lmsInitialStates.get(rule.getId());
 	        		if (response!=null){
 	        			initialAdaptedState.merge(rule.getAdaptedState());
-	        		}
-	        	}
+	        		}*/
+	        		// get all property names, to search in LMS
+	        		Set<String> propertyNames = rule.getPropertyNames();	
+	        		for (String propertyName : propertyNames)
+	        			properties.add(propertyName);
+	        		//Search in LMS to get associated values
+	        		Game.getInstance().getComm().getAdaptedState(properties);
+		        	// Get the values
+	        		HashMap<String,String> lmsInitialStates = Game.getInstance().getComm().getInitialStates();
+		        	Set<String> keys = lmsInitialStates.keySet();
+		        	// Comprobar que todas las propiedades se cumplen
+		        	boolean runRule = true;
+		        	Iterator<String> it=propertyNames.iterator();
+		        	while(runRule && it.hasNext()){
+		        		String propertyName = it.next();
+		        		if (keys.contains(propertyName)){
+		        			if (!lmsInitialStates.get(propertyName).equals(rule.getPropertyValue(propertyName))){
+		        				runRule=false;
+		        			}
+		        		}
+		        			
+		        	}
+		        	if (runRule)
+		        		Game.getInstance( ).setAdaptedStateToExecute( rule.getAdaptedState( ) );
+		        	}
 	        }
 	        
 	    }
