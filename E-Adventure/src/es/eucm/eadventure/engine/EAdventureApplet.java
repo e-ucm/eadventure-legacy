@@ -7,7 +7,6 @@ import javax.media.format.VideoFormat;
 import de.schlichtherle.io.ArchiveDetector;
 import de.schlichtherle.io.DefaultArchiveDetector;
 import de.schlichtherle.io.File;
-import es.eucm.eadventure.engine.comm.AsynchronousCommunicationAppletLD;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.core.gui.GUIApplet;
@@ -25,9 +24,6 @@ import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 
 public class EAdventureApplet extends CommManagerLD {
 
-	private static final String CONFIG_FILE = "config_engine.xml";
-	
-	private static final String LANGUAGE_DIR = "lanengine";
 
     /**
      * Required by AsynchronousCommunicationAppletLD
