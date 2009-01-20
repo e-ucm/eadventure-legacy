@@ -8,14 +8,18 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -145,6 +149,7 @@ public class ElementReferencePanel extends JPanel {
 
 		// Create image panel
 		scenePreviewEditionPanel = new ScenePreviewEditionPanel(scenePath);
+		scenePreviewEditionPanel.setShowTextEdition(true);
 
 
 		// Set the values for the categories and checkboxes
@@ -161,7 +166,7 @@ public class ElementReferencePanel extends JPanel {
 		completePositionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ItemReference.Position" ) ) );
 		completePositionPanel.setLayout( new BorderLayout( ) );
 		completePositionPanel.add( scenePreviewEditionPanel, BorderLayout.CENTER );
-		//add( completePositionPanel, c );
+		
 		infoWithPreview = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
                 infoPanel, completePositionPanel);
 		infoWithPreview.setOneTouchExpandable(true);

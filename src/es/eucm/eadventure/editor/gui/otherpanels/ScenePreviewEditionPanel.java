@@ -6,6 +6,8 @@ import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,7 +16,9 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -33,6 +37,7 @@ import es.eucm.eadventure.editor.control.controllers.scene.ExitDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.InfluenceAreaDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.NodeDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
+import es.eucm.eadventure.editor.gui.elementpanels.scene.ElementReferencePanel;
 import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElement;
 import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElementActiveArea;
 import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElementBarrier;
@@ -223,6 +228,20 @@ public class ScenePreviewEditionPanel extends JPanel {
 	 * Boolean indicating if the checkboxes should be shown
 	 */
 	private boolean showCheckBoxes = true;
+		
+	private JPanel textEditionPanel;
+	
+	private JTextField posXTextField;
+	
+	private JTextField posYTextField;
+	
+	private JTextField scaleTextField;
+	
+	private JTextField widthTextField;
+	
+	private JTextField heightTextField;
+	
+	private boolean showTextEdition = false;
 	
 	/**
 	 * Default constructor
@@ -239,8 +258,18 @@ public class ScenePreviewEditionPanel extends JPanel {
 		drawPanel = new DrawPanel();
 		add(drawPanel, BorderLayout.CENTER);
 		recreateCheckBoxPanel();
+		recreateTextEditionPanel();
 		spec = new NormalScenePreviewEditionController(this);
 		changeController(spec);
+	}
+	
+	private void recreateTextEditionPanel() {
+		if (textEditionPanel != null)
+			remove(textEditionPanel);
+		if (showTextEdition && selectedElement != null) {
+			textEditionPanel = createTextEditionPanel();
+			add(textEditionPanel, BorderLayout.NORTH);
+		}
 	}
 	
 	private void recreateCheckBoxPanel() {
@@ -470,6 +499,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 		for (Integer key : movableCategory.keySet()) {
 			movableCategory.put(key, new Boolean(false));
 		}
+		recreateTextEditionPanel();
 	}
 	
 	/**
@@ -877,6 +907,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 			else
 				elementReferenceSelectionListener.elementReferenceSelected(-1);
 		}
+		recreateTextEditionPanel();
 	}
 
 	/**
@@ -1094,6 +1125,160 @@ public class ScenePreviewEditionPanel extends JPanel {
 		});
 		return temp;
 	}
+	
+	public void updateTextEditionPanel() {
+		if (textEditionPanel != null) {
+			if (posXTextField != null)
+				posXTextField.setText("" + selectedElement.getX());
+			if (posYTextField != null)
+				posYTextField.setText("" + selectedElement.getY());
+			if (scaleTextField != null)
+				scaleTextField.setText("" + selectedElement.getScale());
+			if (widthTextField != null)
+				widthTextField.setText("" + selectedElement.getWidth());
+			if (heightTextField != null)
+				heightTextField.setText("" + selectedElement.getHeight());
+		}
+	}
+	
+	public JPanel createTextEditionPanel() {
+		JPanel textInputPanel = new JPanel();
+		textInputPanel.add(new JLabel("X"));
+		posXTextField = new JTextField(4);
+		posXTextField.setText("" + selectedElement.getX());
+		posXTextField.addKeyListener(new KeyListener() {
+			public void keyPressed(KeyEvent arg0) {
+			}
+			
+			public void keyReleased(KeyEvent arg0) {
+				int value;
+				try {
+					value = Integer.parseInt(posXTextField.getText());
+				} catch (Exception e) {
+					value = 0;
+				}
+				int y = selectedElement.getY();
+				selectedElement.changePosition(value, y);
+				ScenePreviewEditionPanel.this.paintBackBuffer();
+				ScenePreviewEditionPanel.this.flip();
+			}
+			
+			public void keyTyped(KeyEvent arg0) {
+			}
+		});
+		textInputPanel.add(posXTextField);
+
+		textInputPanel.add(new JLabel("   Y"));
+		posYTextField = new JTextField(4);
+		posYTextField.setText("" + selectedElement.getY());
+		posYTextField.addKeyListener(new KeyListener() {
+			public void keyPressed(KeyEvent arg0) {
+			}
+			
+			public void keyReleased(KeyEvent arg0) {
+				int value;
+				try {
+					value = Integer.parseInt(posYTextField.getText());
+				} catch (Exception e) {
+					value = 0;
+				}
+				int x = selectedElement.getX();
+				selectedElement.changePosition(x, value);
+				ScenePreviewEditionPanel.this.paintBackBuffer();
+				ScenePreviewEditionPanel.this.flip();
+			}
+			
+			public void keyTyped(KeyEvent arg0) {
+			}
+		});
+		textInputPanel.add(posYTextField);
+		
+		
+		if (selectedElement.canRescale()) {
+			textInputPanel.add(new JLabel("   scale"));
+			scaleTextField = new JTextField(8);
+			scaleTextField.setText("" + selectedElement.getScale());
+			scaleTextField.addKeyListener(new KeyListener() {
+				public void keyPressed(KeyEvent arg0) {
+				}
+				
+				public void keyReleased(KeyEvent arg0) {
+					float value;
+					try {
+						value = Float.parseFloat(scaleTextField.getText());
+					} catch (Exception e) {
+						value = 1.0f;
+					}
+					selectedElement.setScale(value);
+					ScenePreviewEditionPanel.this.paintBackBuffer();
+					ScenePreviewEditionPanel.this.flip();
+				}
+				
+				public void keyTyped(KeyEvent arg0) {
+				}
+			});
+			textInputPanel.add(scaleTextField);
+		} else {
+			scaleTextField = null;
+		}
+
+		if (selectedElement.canResize()) {
+			textInputPanel.add(new JLabel("   width"));
+			widthTextField = new JTextField(4);
+			widthTextField.setText("" + selectedElement.getWidth());
+			widthTextField.addKeyListener(new KeyListener() {
+				public void keyPressed(KeyEvent arg0) {
+				}
+				
+				public void keyReleased(KeyEvent arg0) {
+					int value;
+					try {
+						value = Integer.parseInt(widthTextField.getText());
+					} catch (Exception e) {
+						value = 20;
+					}
+					int height = selectedElement.getHeight();
+					selectedElement.changeSize(value, height);
+					ScenePreviewEditionPanel.this.paintBackBuffer();
+					ScenePreviewEditionPanel.this.flip();
+				}
+				
+				public void keyTyped(KeyEvent arg0) {
+				}
+			});
+			textInputPanel.add(widthTextField);
+
+			textInputPanel.add(new JLabel("   height"));
+			heightTextField = new JTextField(4);
+			heightTextField.setText("" + selectedElement.getHeight());
+			heightTextField.addKeyListener(new KeyListener() {
+				public void keyPressed(KeyEvent arg0) {
+				}
+				
+				public void keyReleased(KeyEvent arg0) {
+					int value;
+					try {
+						value = Integer.parseInt(heightTextField.getText());
+					} catch (Exception e) {
+						value = 20;
+					}
+					int width = selectedElement.getWidth();
+					selectedElement.changeSize(width, value);
+					ScenePreviewEditionPanel.this.paintBackBuffer();
+					ScenePreviewEditionPanel.this.flip();
+				}
+				
+				public void keyTyped(KeyEvent arg0) {
+				}
+			});
+			textInputPanel.add(heightTextField);
+		} else {
+			widthTextField = null;
+			heightTextField = null;
+		}
+
+		return textInputPanel;
+	}
 
 	public void setFixedSelectedElement(boolean fixedSelectedElement) {
 		this.fixedSelectedElement = fixedSelectedElement;
@@ -1111,5 +1296,9 @@ public class ScenePreviewEditionPanel extends JPanel {
 	public void setShowCheckBoxes(boolean showCheckBoxes) {
 		this.showCheckBoxes = showCheckBoxes;
 		recreateCheckBoxPanel();
+	}
+	
+	public void setShowTextEdition(boolean textEdition) {
+		this.showTextEdition = textEdition;
 	}
 }

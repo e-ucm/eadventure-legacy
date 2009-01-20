@@ -66,9 +66,11 @@ public class ImageElementReference extends ImageElement {
 
 	@Override
 	public void setScale(float scale) {
-		int incrementX = (int) (image.getWidth(null) * scale - image.getWidth(null) * this.getScale());
-		int incrementY = (int) (image.getHeight(null) * scale - image.getHeight(null) * this.getScale());
-		elementReferenceDataControl.getInfluenceArea().referenceScaleChanged(incrementX, incrementY);
+		if (elementReferenceDataControl.getInfluenceArea() != null) {
+			int incrementX = (int) (image.getWidth(null) * scale - image.getWidth(null) * this.getScale());
+			int incrementY = (int) (image.getHeight(null) * scale - image.getHeight(null) * this.getScale());
+			elementReferenceDataControl.getInfluenceArea().referenceScaleChanged(incrementX, incrementY);
+		}
 		elementReferenceDataControl.setElementScale(scale);
 	}
 
