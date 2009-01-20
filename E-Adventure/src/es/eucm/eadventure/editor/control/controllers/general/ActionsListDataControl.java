@@ -2,6 +2,7 @@ package es.eucm.eadventure.editor.control.controllers.general;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.swing.JOptionPane;
 
@@ -152,6 +153,10 @@ public class ActionsListDataControl extends DataControl {
 		
 		else if( type == Controller.ACTION_CUSTOM) {
 			String name = JOptionPane.showInputDialog(null, TextConstants.getText("CustomAction.GetNameMessage"), TextConstants.getText("CustomAction.GetNameTitle"), JOptionPane.QUESTION_MESSAGE);
+			if (name.equals("")) {
+				name = "NONAME_" + (new Random()).nextInt(1000);
+			}
+
 			Object[] options = {"Action", "Interaction"};
 			int option = JOptionPane.showOptionDialog(null, TextConstants.getText("CustomAction.SelectTypeMessage"), TextConstants.getText("CustomAction.SelectTypeTitle"), JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, 0);
 			if (option == 0) {

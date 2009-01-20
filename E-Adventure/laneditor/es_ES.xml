@@ -1141,7 +1141,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="CustomAction.ConfigurationTitle">Configuración</entry>
 	<entry key="CustomAction.ConfigurationTip">Panel para la configuración de condiciones y efectos de la acción</entry>
 	<entry key="CustomAction.Name">Nombre de la acción</entry>
-	<entry key="CustomAction.GetNameMessage">Escriba el nombre de la accióin personalizada</entry>
+	<entry key="CustomAction.GetNameMessage">Escriba el nombre de la acción personalizada</entry>
 	<entry key="CustomAction.GetNameTitle">Nombre de la acción</entry>
 	<entry key="CustomAction.SelectTypeTitle">Elija el tipo de la acción personalizada</entry>
 	<entry key="CustomAction.SelectTypeMessage">Elija si la acción se realiza sobre el objeto o necesita la interacción con otro</entry>
@@ -1149,7 +1149,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="CustomAction.NeedsGoTo">Necesita alcanzar el objeto</entry>
 	<entry key="CustomAction.OtherConfiguration">Otra configuración de la acción</entry>
 	<entry key="CustomAction.DistanceToObjective">Distancia a mantener entre el objeto y jugador</entry>
-	<entry key="CustomAction.OtherConfigurationDetails">Indique si es necesario para el personaje del jugador deplazarse hasta el objectivo para realizar la acción</entry>
+	<entry key="CustomAction.OtherConfigurationDetails">Indique si es necesario para el personaje del jugador deplazarse hasta el objetivo para realizar la acción</entry>
 
 	<entry key="Player.Title">Protagonista</entry>
 	<entry key="Player.Documentation">Información del protagonista</entry>

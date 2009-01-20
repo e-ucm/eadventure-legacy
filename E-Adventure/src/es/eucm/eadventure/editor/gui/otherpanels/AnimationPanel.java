@@ -127,14 +127,16 @@ public class AnimationPanel extends JPanel implements ClockListener {
 	 *            Path of the animation, including the suffix
 	 */
 	public void loadAnimation( String animationPath ) {
+		// Clear the animation (if there was one)
+		if( frames != null )
+			for( Image frame : frames )
+				frame.flush( );
+
+		this.animation = null;
+		
 		if (animationPath.endsWith(".eaa")) {
 			this.animation = Animation.loadAnimation(animationPath);
 		} else {
-		
-			// Clear the animation (if there was one)
-			if( frames != null )
-				for( Image frame : frames )
-					frame.flush( );
 	
 			// Load the image and calculate the sizes
 			if( animationPath != null ) {

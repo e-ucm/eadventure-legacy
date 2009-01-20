@@ -127,10 +127,11 @@ public class CustomActionPanel extends JPanel {
 		namePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "CustomAction.Name" ) ) );
 		personalizationPanel.add(namePanel, c);
 		
+		
 		c.gridy++;
 		JPanel otherPanel = new JPanel();
 		otherPanel.setLayout( new GridLayout(3,1));
-		otherPanel.add(new JLabel("CustomAction.OtherConfigurationDetails"));
+		otherPanel.add(new JLabel(TextConstants.getText("CustomAction.OtherConfigurationDetails")));
 		
 		needsGoToCheck = new JCheckBox(TextConstants.getText("CustomAction.NeedsGoTo"));
 		needsGoToCheck.setSelected(customActionDataControl.getNeedsGoTo());
@@ -150,6 +151,7 @@ public class CustomActionPanel extends JPanel {
 		otherPanel.setBorder(BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder(), TextConstants.getText("CustomAction.OtherConfiguration")));
 		personalizationPanel.add(otherPanel, c);
 		
+		c.weighty = 0.3;
 		c.gridy++;
 		c.weighty = 1.0;
 		looksPanel = new CustomActionLooksPanel( customActionDataControl );

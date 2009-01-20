@@ -42,7 +42,6 @@ public class AnimationChooser extends AssetChooser {
 			animationPanel.loadAnimation( assetPaths[assetIndex] );
 		} else if( getSelectedFile( ) != null ) {
 			animationPanel.loadAnimation( getSelectedFile( ).getAbsolutePath( ) );
-
 			// Else, delete the preview image
 		} else {
 			animationPanel.removeAnimation( );

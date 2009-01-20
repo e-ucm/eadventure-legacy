@@ -418,9 +418,17 @@ public class AnimationEditDialog extends JDialog {
 	 */
 	protected void addFrame() {
 		Frame newFrame = new Frame();
-		animationDataControl.getAnimation().addFrame(frameList.getSelectedIndex() / 2, newFrame);
+
+		int index = frameList.getSelectedIndex() / 2;
+		if (!animationDataControl.getAnimation().isUseTransitions()) {
+			index = frameList.getSelectedIndex();
+		}
+		if (frameList.getSelectedIndex() == -1)
+			index = animationDataControl.getAnimation().getFrames().size() - 1;
+		
+		
+		animationDataControl.getAnimation().addFrame(index, newFrame);
 		frameList.updateUI();
-		//frameList.setSelectedIndex(-1);
 		int newFrameIndex = animationDataControl.getAnimation().getFrames().indexOf(newFrame);
 		frameList.setSelectedIndex(newFrameIndex);
 		if (frameConfigPanel!=null)
