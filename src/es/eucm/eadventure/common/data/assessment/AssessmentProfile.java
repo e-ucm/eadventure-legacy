@@ -3,8 +3,6 @@ package es.eucm.eadventure.common.data.assessment;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.eucm.eadventure.editor.control.Controller;
-
 /**
  * Stores an assessment profile. Each profile contains the path of the xml file where it is stored (relative to the zip file), along with the
  * list of assessment rules defined in the profile
@@ -48,6 +46,16 @@ public class AssessmentProfile {
 	 * The email where the student's report must be sent
 	 */
 	private String email;
+	
+	private boolean smtpSSL;
+	
+	private String smtpServer;
+	
+	private String smtpPort;
+	
+	private String smtpUser;
+	
+	private String smtpPwd;
 	
 	/**
 	 * Empty constructor 
@@ -198,6 +206,57 @@ public class AssessmentProfile {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
+	public void setSmtpSSL(boolean equals) {
+		smtpSSL = equals;
+	}
+
+	public void setSmtpPort(String value) {
+		smtpPort = value;
+	}
+
+	public void setSmtpUser(String value) {
+		smtpUser = value;
+	}
+
+	public void setSmtpPwd(String value) {
+		smtpPwd = value;
+	}
+
+	/**
+	 * @return the smtpSSL
+	 */
+	public boolean isSmtpSSL() {
+		return smtpSSL;
+	}
+
+	/**
+	 * @return the smtpPort
+	 */
+	public String getSmtpPort() {
+		return smtpPort;
+	}
+
+	/**
+	 * @return the smtpUser
+	 */
+	public String getSmtpUser() {
+		return smtpUser;
+	}
+
+	/**
+	 * @return the smtpPwd
+	 */
+	public String getSmtpPwd() {
+		return smtpPwd;
+	}
+
+	public void setSmtpServer(String value) {
+		this.smtpServer = value;
+	}
+
+	public String getSmtpServer() {
+		return smtpServer;
+	}
 	
 }

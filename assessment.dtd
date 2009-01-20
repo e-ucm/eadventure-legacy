@@ -1,7 +1,16 @@
-<!ELEMENT assessment-rules ((assessment-rule | timed-assessment-rule)*)>
+<!ELEMENT assessment-rules (smtp-config?, (assessment-rule | timed-assessment-rule)*)>
 <!ATTLIST assessment-rules
 	show-report-at-end ( yes | no ) "no"
 	send-to-email CDATA #IMPLIED
+>
+
+<!ELEMENT smtp-config EMPTY>
+<!ATTLIST smtp-config
+	smtp-ssl (yes | no) "no"
+	smtp-server CDATA #IMPLIED
+	smtp-port CDATA #IMPLIED
+	smtp-user CDATA #IMPLIED
+	smtp-pwd CDATA #IMPLIED
 >
 
 <!ELEMENT assessment-rule (concept?, condition?, effect?)>

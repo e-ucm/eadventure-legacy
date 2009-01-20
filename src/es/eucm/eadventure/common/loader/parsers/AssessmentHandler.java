@@ -141,6 +141,20 @@ public class AssessmentHandler extends DefaultHandler {
             }
             
         }
+    	else if (qName.equals("smtp-config")) {
+    		for (int i = 0; i < attrs.getLength(); i++) {
+                if (attrs.getQName( i ).equals( "smtp-ssl"))
+                	profile.setSmtpSSL(attrs.getValue(i).equals("yes"));
+                if (attrs.getQName( i ).equals( "smtp-server"))
+                	profile.setSmtpServer(attrs.getValue(i));
+                if (attrs.getQName(i).equals("smtp-port"))
+                	profile.setSmtpPort(attrs.getValue(i));
+                if (attrs.getQName(i).equals("smtp-user"))
+                	profile.setSmtpUser(attrs.getValue(i));
+                if (attrs.getQName(i).equals("smtp-pwd"))
+                	profile.setSmtpPwd(attrs.getValue(i));
+    		}
+    	}
     	
     	else if( qName.equals( "assessment-rule" ) ) {
             
