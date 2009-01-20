@@ -456,7 +456,7 @@ public class AssessmentEngine implements TimerEventListener {
 							to[0] = assessmentProfile.getEmail();
 							String subject = "Report eAdventure";
 							String message = "Report from: " + playerName;
-							SendMail sm = new SendMail(assessmentProfile.getSmtpServer(), assessmentProfile.getSmtpUser(), assessmentProfile.getSmtpUser());
+							SendMail sm = new SendMail(assessmentProfile.getSmtpServer(), assessmentProfile.getSmtpUser(), assessmentProfile.getSmtpPwd());
 							sm.setPort(Integer.parseInt(assessmentProfile.getSmtpPort()));
 							sm.setRequiersSSL(assessmentProfile.isSmtpSSL());
 							sm.postMailAttachements(to, subject, message, null,reportAbsoluteFile);
