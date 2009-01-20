@@ -1707,6 +1707,10 @@ avoids retyping.</entry>
 	<entry key="SPEP.ShowObjectReferences">Show Object references</entry>
 	<entry key="SPEP.ShowPlayer">Show Player</entry>
 	<entry key="SPEP.ShowTrajectory">Show Trajectory</entry>
-	
+	<entry key="SPEP.XCoordinate">X coordinate</entry>
+	<entry key="SPEP.YCoordinate">Y coordinate</entry>
+	<entry key="SPEP.Scale">Scale</entry>
+	<entry key="SPEP.Width">Width</entry>
+	<entry key="SPEP.Height">Height</entry>
 	
 </properties>

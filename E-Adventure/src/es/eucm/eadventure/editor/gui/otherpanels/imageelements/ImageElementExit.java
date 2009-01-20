@@ -2,7 +2,6 @@ package es.eucm.eadventure.editor.gui.otherpanels.imageelements;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
@@ -85,6 +84,10 @@ public class ImageElementExit extends ImageElement {
 	public void changeSize(int width, int height) {
 		int x = exitDataControl.getX();
 		int y = exitDataControl.getY();
+		if (width < 1)
+			width = 1;
+		if (height < 1)
+			height = 1;
 		exitDataControl.setExit(x, y, width, height);
 	}
 
