@@ -1,5 +1,6 @@
 package es.eucm.eadventure.editor.control.controllers;
 
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
@@ -43,6 +44,7 @@ public class NormalScenePreviewEditionController implements ScenePreviewEditionC
 			int x = (int) ((e.getX() - spep.getMarginX()) / spep.getSizeRatio());
 			int y = (int) ((e.getY() - spep.getMarginY()) / spep.getSizeRatio());
 			spep.getSelectedElement().changePosition(x, y);
+			spep.updateTextEditionPanel();
 			spep.paintBackBuffer();
 			spep.flip();
 		}
@@ -87,6 +89,7 @@ public class NormalScenePreviewEditionController implements ScenePreviewEditionC
 			int x = originalX + changeX;
 			int y = originalY + changeY;
 			underMouse.changePosition(x, y);
+			spep.updateTextEditionPanel();
 			spep.paintBackBuffer();
 			spep.flip();
 		} else if (underMouse != null && spep.isRescale() && !spep.isResize()) {
@@ -108,6 +111,7 @@ public class NormalScenePreviewEditionController implements ScenePreviewEditionC
 				scale = 0.01f;
 			
 			underMouse.setScale(scale);
+			spep.updateTextEditionPanel();
 			spep.paintBackBuffer();
 			spep.flip();
 		} else if (underMouse != null && !spep.isRescale() && spep.isResize()) {
@@ -115,6 +119,7 @@ public class NormalScenePreviewEditionController implements ScenePreviewEditionC
 			int changeY = (int) ((e.getY() - startDragY) / spep.getSizeRatio());
 			underMouse.changeSize(originalWidth + changeX, originalHeight + changeY);
 			underMouse.recreateImage();
+			spep.updateTextEditionPanel();
 			spep.paintBackBuffer();
 			spep.flip();
 		}

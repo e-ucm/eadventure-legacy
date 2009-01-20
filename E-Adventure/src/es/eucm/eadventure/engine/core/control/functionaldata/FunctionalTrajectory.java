@@ -213,15 +213,21 @@ public class FunctionalTrajectory {
 			return false;
 		else {
 			InfluenceArea area = destinationElement.getInfluenceArea();
-
-			if (area == null)
-				area = new InfluenceArea(-20, -20, destinationElement.getWidth() + 40, destinationElement.getHeight() + 40);
 			int x1 = (int) (destinationElement.getX() - destinationElement.getWidth() * destinationElement.getScale() / 2);
 			int y1 = (int) (destinationElement.getY() - destinationElement.getHeight() * destinationElement.getScale());
-			x1 = x1 + area.getX();
-			y1 = y1 + area.getY();
-			int x2 = x1 + area.getWidth();
-			int y2 = y1 + area.getHeight();
+			int x2 = 0;
+			int y2 = 0;
+			if (!area.isExists()) {
+				x1 = x1 - 20;
+				y1 = y1 - 20;
+				x2 = (int) (x1 + destinationElement.getWidth() * destinationElement.getScale() + 40);
+				y2 = (int) (y1 + destinationElement.getHeight() * destinationElement.getScale() + 40);
+			} else {
+				x1 = x1 + area.getX();
+				y1 = y1 + area.getY();
+				x2 = x1 + area.getWidth();
+				y2 = y1 + area.getHeight();
+			}
 			
 			if (posX > x1 && posX < x2 && posY > y1 && posY < y2)
 				return true;
