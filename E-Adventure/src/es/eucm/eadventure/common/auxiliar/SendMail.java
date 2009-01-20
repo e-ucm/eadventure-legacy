@@ -20,6 +20,10 @@ import java.util.Properties;
  * This class allows the sending of messages with a smtp server. It is
  * prepared for authentication, SSL stacks, different ports, etc.
  * 
+ * If problem (javax.mail.AuthenticationFailedException) connecting to gmail visit
+ * http://mail.google.com/support/bin/answer.py?answer=14257
+ * 
+ * 
  * @author Eugenio Marchiori
  *
  */
@@ -33,7 +37,7 @@ public class SendMail {
 	/**
 	 * The default user
 	 */
-	private static final String SMTP_AUTH_USER = "jtorrente@e-ucm.es";
+	private static final String SMTP_AUTH_USER = "emarchiori@gmail.com";
 	
 	/**
 	 * The default password
@@ -43,12 +47,12 @@ public class SendMail {
 	/**
 	 * The default "from" address
 	 */
-	private static final String DEFAULT_FROM = "jtorrente@e-ucm.es";
+	private static final String DEFAULT_FROM = "emarchiori@gmail.com";
 	
 	/**
 	 * The address where to send error reports
 	 */
-	private static final String ERROR_TO = "jtorrente@e-ucm.es";
+	private static final String ERROR_TO = "emarchiori@gmail.com";
 	
 	/**
 	 * Default port for the SMTP server
@@ -85,6 +89,8 @@ public class SendMail {
 	 */
 	private int port;
 
+	private boolean debug = false;
+	
 	/**
 	 * Default constructor, uses the default configuration
 	 */
@@ -130,12 +136,14 @@ public class SendMail {
 	 */
 	private Session getSession() {
 		Session session;
-		Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
 
 		// Set the host smtp address
 		Properties props = new Properties();
 		props.setProperty("mail.transport.protocol", "smtp");
-		props.setProperty("mail.host", smtpHostName);
+		props.setProperty("mail.smtp.host", smtpHostName);
+		
+		if (debug)
+			props.setProperty("mail.debug", "true");
 
 		if (port != 0)
 			props.put("mail.smtp.port", "" + port);
@@ -145,6 +153,7 @@ public class SendMail {
 			props.put("mail.smtp.auth", "true");
 
 			if (requiersSSL) {
+				Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
 				if (port != 0)
 					props.put("mail.smtp.socketFactory.port", "" + port);
 				props.put("mail.smtp.socketFactory.class",
@@ -221,8 +230,8 @@ public class SendMail {
 			msg.setFrom(addressFrom);
 			InternetAddress[] addressTo = new InternetAddress[recipients.length];
 			for (int i = 0; i < recipients.length; i++) {
-				//addressTo[i] = new InternetAddress(recipients[i]);
-				addressTo[i] = new InternetAddress("jtorrente84@gmail.com");
+				addressTo[i] = new InternetAddress(recipients[i]);
+				//addressTo[i] = new InternetAddress("jtorrente84@gmail.com");
 			}
 			msg.setRecipients(Message.RecipientType.TO, addressTo);
 			msg.setSubject(subject);
@@ -271,9 +280,10 @@ public class SendMail {
 	 */
 	public static void main(String[] args) throws Exception {
 		SendMail test = new SendMail();
+		test.setDebug(true);
 		String[] recp = new String[1];
-		recp[0] = "jtorrente84@gmail.com";
-		test.postMail(recp, "SendMail test", "SendMail test", "jtorrente@e-ucm.es");
+		recp[0] = SendMail.DEFAULT_FROM;
+		test.postMail(recp, "SendMail test", "SendMail test", DEFAULT_FROM);
 	}
 	
 	/**
@@ -303,4 +313,7 @@ public class SendMail {
 		postMail(recp, "Error Report", mail, DEFAULT_FROM);
 	}
 
+	public void setDebug(boolean debug) {
+		this.debug = debug;
+	}
 }
