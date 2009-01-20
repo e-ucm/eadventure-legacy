@@ -53,10 +53,20 @@ public class AssessmentDOMWriter {
 			else {
 				if (profile.getEmail() == null || !profile.getEmail().contains("@"))
 					assessmentNode.setAttribute("send-to-email", "");
-				else
+				else {
 					assessmentNode.setAttribute("send-to-email", profile.getEmail());
+				}
 			}
+			
+			Element smtpConfigNode = doc.createElement("smtp-config");
+			smtpConfigNode.setAttribute("smtp-ssl", (profile.isSmtpSSL() ? "yes" : "no"));
+			smtpConfigNode.setAttribute("smtp-server", profile.getSmtpServer());
+			smtpConfigNode.setAttribute("smtp-port", profile.getSmtpPort());
+			smtpConfigNode.setAttribute("smtp-user", profile.getSmtpUser());
+			smtpConfigNode.setAttribute("smtp-pwd", profile.getSmtpPwd());
 
+			assessmentNode.appendChild(smtpConfigNode);
+			
 			// Append the assessment rules
 			for( AssessmentRule rule : rules ) {
 				

@@ -309,4 +309,43 @@ public class AssessmentProfileDataControl extends DataControl{
 		Controller.getInstance().dataModified();
 	}
 
+	public String getSmtpServer() {
+		return profile.getSmtpServer();
+	}
+
+	public boolean isSmtpSSL() {
+		return profile.isSmtpSSL();
+	}
+
+	public String getSmtpPort() {
+		return profile.getSmtpPort();
+	}
+
+	public String getSmtpUser() {
+		return profile.getSmtpUser();
+	}
+
+	public String getSmtpPwd() {
+		return profile.getSmtpPwd();
+	}
+
+	public void setSmtpServer(String smtpServer) {
+		profile.setSmtpServer(smtpServer);
+	}
+	
+	public void setSmtpSSL(boolean smtpSSL) {
+		profile.setSmtpSSL(smtpSSL);
+	}
+	
+	public void setSmtpPort(String smtpPort) {
+		profile.setSmtpPort(smtpPort);
+	}
+	
+	public void setSmtpUser(String smtpUser) {
+		profile.setSmtpUser(smtpUser);
+	}
+	
+	public void setSmtpPwd(String smtpPwd) {
+		profile.setSmtpPwd(smtpPwd);
+	}
 }
