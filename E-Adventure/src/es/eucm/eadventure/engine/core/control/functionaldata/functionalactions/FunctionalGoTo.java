@@ -33,6 +33,8 @@ public class FunctionalGoTo extends FunctionalAction {
 
     private FunctionalElement destinationElement;
 	
+    private boolean trajectoryUpdated;
+    
 	public FunctionalGoTo(Action action, int posX, int posY) {
 		super(action);
 		this.originalPosX = posX;
@@ -43,6 +45,7 @@ public class FunctionalGoTo extends FunctionalAction {
         this.posX = finalDest[0];
         this.posY = finalDest[1];
 		type = ActionManager.ACTION_GOTO;
+		trajectoryUpdated = false;
 		// TODO more initializations?
 	}
 	
@@ -53,8 +56,11 @@ public class FunctionalGoTo extends FunctionalAction {
 
 	public FunctionalGoTo(Action action, int x, int y, FunctionalPlayer functionalPlayer, FunctionalElement element) {
 		this(action, x, y);
-        this.trajectory.setDestinationElement(element);
-    	trajectory.updatePathToNearestPoint(functionalPlayer.getX(), functionalPlayer.getY(), posX, posY);
+		if (trajectory.hasTrajectory()) {
+	        trajectory.setDestinationElement(element);
+	    	trajectory.updatePathToNearestPoint(functionalPlayer.getX(), functionalPlayer.getY(), posX, posY);
+	    	trajectoryUpdated = true;
+		}
 	}
 
 	@Override
@@ -76,7 +82,7 @@ public class FunctionalGoTo extends FunctionalAction {
 	            functionalPlayer.setAnimation(animation, -1);
 	            speedX = -FunctionalPlayer.DEFAULT_SPEED;
 	        }
-        } else {
+        } else if (!trajectoryUpdated){
         	trajectory.updatePathToNearestPoint(functionalPlayer.getX(), functionalPlayer.getY(), posX, posY);
         }
     }
