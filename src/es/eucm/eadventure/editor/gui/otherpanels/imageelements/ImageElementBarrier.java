@@ -84,6 +84,10 @@ public class ImageElementBarrier extends ImageElement {
 	public void changeSize(int width, int height) {
 		int x = barrierDataControl.getX();
 		int y = barrierDataControl.getY();
+		if (width < 1)
+			width = 1;
+		if (height < 1)
+			height = 1;
 		barrierDataControl.setBarrier(x, y, width, height);
 	}
 

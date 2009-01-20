@@ -1705,6 +1705,11 @@ ya que de esta manera se evita reescribirlos varias veces.</entry>
 	<entry key="SPEP.ShowObjectReferences">Mostrar referencias a objectos</entry>
 	<entry key="SPEP.ShowPlayer">Mostrar personaje</entry>
 	<entry key="SPEP.ShowTrajectory">Show Trajectory</entry>
+	<entry key="SPEP.XCoordinate">Coordenada X</entry>
+	<entry key="SPEP.YCoordinate">Coordenada Y</entry>
+	<entry key="SPEP.Scale">Escala</entry>
+	<entry key="SPEP.Width">Ancho</entry>
+	<entry key="SPEP.Height">Alto</entry>
 	
 
 </properties>

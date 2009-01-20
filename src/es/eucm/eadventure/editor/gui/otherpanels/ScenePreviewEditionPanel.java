@@ -37,7 +37,6 @@ import es.eucm.eadventure.editor.control.controllers.scene.ExitDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.InfluenceAreaDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.NodeDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
-import es.eucm.eadventure.editor.gui.elementpanels.scene.ElementReferencePanel;
 import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElement;
 import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElementActiveArea;
 import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElementBarrier;
@@ -286,6 +285,11 @@ public class ScenePreviewEditionPanel extends JPanel {
 	 * elements are drawn
 	 */
 	private class DrawPanel extends JPanel {
+		/**
+		 * Default serialVersionUID
+		 */
+		private static final long serialVersionUID = 1L;
+
 		public void repaint() {
 			super.repaint();
 			if (getSize().width > 0 && getSize().height > 0) {
@@ -909,7 +913,19 @@ public class ScenePreviewEditionPanel extends JPanel {
 		}
 		recreateTextEditionPanel();
 	}
+	
+	public void setSelectedElement(ActiveAreaDataControl activeAreaDataControl) {
+		this.setSelectedElement(new ImageElementActiveArea(activeAreaDataControl));
+	}
 
+	public void setSelectedElement(ExitDataControl exitDataControl) {
+		this.setSelectedElement(new ImageElementExit(exitDataControl));
+	}
+	
+	public void setSelectedElement(BarrierDataControl barrierDataControl) {
+		this.setSelectedElement(new ImageElementBarrier(barrierDataControl));
+	}
+	
 	/**
 	 * Changes the element selection listener that captures the event
 	 * 
@@ -1143,7 +1159,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 	
 	public JPanel createTextEditionPanel() {
 		JPanel textInputPanel = new JPanel();
-		textInputPanel.add(new JLabel("X"));
+		textInputPanel.add(new JLabel(TextConstants.getText("SPEP.XCoordinate")));
 		posXTextField = new JTextField(4);
 		posXTextField.setText("" + selectedElement.getX());
 		posXTextField.addKeyListener(new KeyListener() {
@@ -1168,7 +1184,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 		});
 		textInputPanel.add(posXTextField);
 
-		textInputPanel.add(new JLabel("   Y"));
+		textInputPanel.add(new JLabel("   " + TextConstants.getText("SPEP.YCoordinate")));
 		posYTextField = new JTextField(4);
 		posYTextField.setText("" + selectedElement.getY());
 		posYTextField.addKeyListener(new KeyListener() {
@@ -1195,7 +1211,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 		
 		
 		if (selectedElement.canRescale()) {
-			textInputPanel.add(new JLabel("   scale"));
+			textInputPanel.add(new JLabel("   " + TextConstants.getText("SPEP.Scale")));
 			scaleTextField = new JTextField(8);
 			scaleTextField.setText("" + selectedElement.getScale());
 			scaleTextField.addKeyListener(new KeyListener() {
@@ -1223,7 +1239,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 		}
 
 		if (selectedElement.canResize()) {
-			textInputPanel.add(new JLabel("   width"));
+			textInputPanel.add(new JLabel("   " + TextConstants.getText("SPEP.Width")));
 			widthTextField = new JTextField(4);
 			widthTextField.setText("" + selectedElement.getWidth());
 			widthTextField.addKeyListener(new KeyListener() {
@@ -1248,7 +1264,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 			});
 			textInputPanel.add(widthTextField);
 
-			textInputPanel.add(new JLabel("   height"));
+			textInputPanel.add(new JLabel("   " + TextConstants.getText("SPEP.Height")));
 			heightTextField = new JTextField(4);
 			heightTextField.setText("" + selectedElement.getHeight());
 			heightTextField.addKeyListener(new KeyListener() {
@@ -1301,4 +1317,5 @@ public class ScenePreviewEditionPanel extends JPanel {
 	public void setShowTextEdition(boolean textEdition) {
 		this.showTextEdition = textEdition;
 	}
+
 }
