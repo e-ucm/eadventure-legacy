@@ -58,7 +58,7 @@ public class SceneLooksPanel extends LooksPanel {
 		for( ElementReferenceDataControl elementReference : sceneDataControl.getReferencesList( ).getAtrezzoReferences( ) ) {
 			scenePreviewEditionPanel.addElement(ScenePreviewEditionPanel.CATEGORY_ATREZZO, elementReference);
 		}
-		if (!Controller.getInstance().isPlayTransparent() && sceneDataControl.isAllowPlayer())
+		if (!Controller.getInstance().isPlayTransparent() && sceneDataControl.isAllowPlayer() )
 			scenePreviewEditionPanel.addPlayer(sceneDataControl, sceneDataControl.getReferencesList().getPlayerImage());
 		
 		scenePreviewEditionPanel.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_OBJECT, false);

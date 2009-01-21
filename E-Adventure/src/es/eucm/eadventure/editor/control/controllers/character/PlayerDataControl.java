@@ -304,8 +304,11 @@ public class PlayerDataControl extends DataControlWithResources{
 	 * Notify to all scenes that the player image has been changed
 	 */
 	public void playerImageChange(){
+		String preview = getPreviewImage();
+		if (preview!=null){
 		for (SceneDataControl scene : Controller.getInstance().getSelectedChapterDataControl().getScenesList().getScenes()){
-			scene.imageChangeNotify(getPreviewImage());
+			scene.imageChangeNotify(preview);
+		}
 		}
 		
 	}

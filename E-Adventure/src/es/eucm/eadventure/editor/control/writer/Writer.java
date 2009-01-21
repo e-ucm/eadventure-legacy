@@ -472,6 +472,22 @@ public class Writer {
 	}
 	
 	/**
+	 * Returns the text of a simple manifest file with the main class as specified by argument
+	 * @param destinyFile
+	 * @param mainClass
+	 */
+	public static String defaultScormManifestFile (String mainClass){
+
+		//TODO el manifiesto correcto, este no es...
+		String manifest = 	"Manifest-Version: 1.0\n"+
+							"Ant-Version: Apache Ant 1.7.0\n"+
+							"Created-By: 1.6.0_02-b06 (Sun Microsystems Inc.)\n"+
+							"Main-Class: "+mainClass+"\n";
+		
+		return manifest;
+	}
+	
+	/**
 	 * Exports the game as a .ead file
 	 * @param projectDirectory
 	 * @param destinyEADPath
@@ -625,7 +641,7 @@ public class Writer {
 			// Create and copy the manifest into the output stream
 			//TODO hay que hacerlo pa seleccionar
 			//meter el .js
-			String manifestText = Writer.defaultManifestFile( "es.eucm.eadventure.comm.manager.commManager.CommManagerScormV12" );
+			String manifestText = Writer.defaultScormManifestFile( "es.eucm.eadventure.engine.EAdventureAppletScorm" );
 			ZipEntry manifestEntry = new ZipEntry("META-INF/MANIFEST.MF");
 			os.putNextEntry( manifestEntry );
 			os.write( manifestText.getBytes( ) );

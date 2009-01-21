@@ -103,6 +103,7 @@ public class ReferencesListDataControl extends DataControl{
 		this.npcReferencesList = npcReferencesList;
 		this.allReferencesDataControl = new ArrayList<ElementContainer>();
 		this.lastElementContainer = null;
+		this.playerPosition = -1;
 		this.addNewReferenceListener = null;
 		this.imagePathHasChanged = false;
 		// Check if one of references has layer -1: if it is true, it means that element references has not layer. 
@@ -178,7 +179,8 @@ public class ReferencesListDataControl extends DataControl{
 				allReferencesDataControl.get(playerPosition).setImage(AssetsController.getImage( this.playerImagePath ));
 				imagePathHasChanged = false;
 			}
-			return allReferencesDataControl.get(playerPosition).getImage();
+		//	if (allReferences!=null)
+				return allReferencesDataControl.get(playerPosition).getImage();
 		}
 			
 	}
@@ -831,6 +833,11 @@ public class ReferencesListDataControl extends DataControl{
 	public void changeImagePlayerPath(String imagePath) {
 		this.playerImagePath = imagePath;
 		this.imagePathHasChanged = true;
+		if (allReferencesDataControl.size()==0) {
+			playerPosition=0;
+			reassignLayerAllReferencesDataControl(insertInOrder(new ElementContainer(null,0,AssetsController.getImage( this.playerImagePath )),true));
+		}
+			
 		
 	}
 }

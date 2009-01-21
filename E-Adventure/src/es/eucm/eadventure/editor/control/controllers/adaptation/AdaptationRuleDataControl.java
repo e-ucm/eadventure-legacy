@@ -239,7 +239,8 @@ public class AdaptationRuleDataControl extends DataControl{
 	public void setUOLPropertyValue( int rowIndex, String string ) {
 		if (rowIndex >=0 && rowIndex <adaptationRule.getUOLProperties( ).size( )){
 			//Check only integers are set
-			if (controller.isPropertyIdValid( string ))
+			// TODO the only integer are allowed temporality
+			//	if (controller.isPropertyIdValid( string ))
 				adaptationRule.getUOLProperties( ).get( rowIndex ).setValue( string );
 			
 		}

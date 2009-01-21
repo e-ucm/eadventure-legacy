@@ -129,5 +129,10 @@ public class EAdventureAppletScorm extends CommManagerScormV12{
         }
         this.destroy();
     }
+    
+    public void dataReceived(String key, String value){
+    	super.dataReceived(key, value);
+    	System.out.println("Recivimos el dato "+ key + " " + value);
+    }
 	
 }

@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -65,6 +66,8 @@ import es.eucm.eadventure.engine.core.data.GameText;
 import es.eucm.eadventure.engine.core.data.SaveGame;
 import es.eucm.eadventure.engine.core.data.SaveGameException;
 import es.eucm.eadventure.engine.core.data.SaveTimer;
+import es.eucm.eadventure.engine.core.data.userinteraction.highlevel.HighLevelInteraction;
+import es.eucm.eadventure.engine.core.data.userinteraction.lowlevel.LowLevelInteraction;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.common.loader.Loader;
 import es.eucm.eadventure.common.loader.incidences.Incidence;
@@ -305,6 +308,16 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     private Stack<GameState> stackOfState;
 
     /**
+     * FIFO which store high level interaction
+     */
+   // ArrayDeque<HighLevelInteraction> highLevelInteraction;
+    
+    /**
+     * FIFO which store low level interaction
+     */
+   // private ArrayDeque<LowLevelInteraction> lowLevelInteraction;
+    
+    /**
      * Returns the instance of Game
      * @return Instance of Game
      */
@@ -371,9 +384,11 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         timerManager.reset( );
         
         // Load the assessment rules and adaptation data
+        System.out.println("Arrancamos Adaptation Engine");
         adaptationEngine.init( chapter.getAdaptationPath( ) );
-        assessmentEngine.loadAssessmentRules( chapter.getAssessmentPath( ) );
         
+        assessmentEngine.loadAssessmentRules( chapter.getAssessmentPath( ) );
+        System.out.println("Este deberia ser el ultimo comentario");
         // Initialize the required elements of the game
         actionManager = new ActionManager( );
         itemSummary = new ItemSummary( gameData.getItems( ) );
@@ -500,7 +515,11 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             // Init the assessment and adaptation engines
             adaptationEngine = new AdaptationEngine( );
             assessmentEngine = new AssessmentEngine( );
-             
+            
+            // Init interaction queues
+            //this.highLevelInteraction = new ArrayDeque<HighLevelInteraction>();
+            //this.lowLevelInteraction = new ArrayDeque<LowLevelInteraction>();
+            
             currentChapter = 0;
             
             

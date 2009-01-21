@@ -66,8 +66,6 @@ public class ReferencesListPanel extends JPanel {
 	
 	private ReferencesListDataControl referencesListDataControl;
 	
-	private JComboBox itemsComboBox;
-	
 	private JTextArea documentationTextArea;
 	
 	
@@ -185,19 +183,15 @@ public class ReferencesListPanel extends JPanel {
 		c.weightx = 1;
 		JPanel itemIdPanel = new JPanel( );
 		itemIdPanel.setLayout( new GridLayout( ) );
-		itemsComboBox = new JComboBox( referencesListDataControl.getAllReferencesId() );
-		JLabel playerLabel = null;
+		//itemsComboBox = new JComboBox( referencesListDataControl.getAllReferencesId() );
+		JLabel nameElementLabel = null;
 		if (player)
-			//itemsComboBox.setSelectedItem( TextConstants.getText("ElementList.Player") );
-			playerLabel = new JLabel(TextConstants.getText("ElementList.Player"));
+			
+			nameElementLabel = new JLabel(TextConstants.getText("ElementList.Player"));
 		else 
-			itemsComboBox.setSelectedItem( referencesListDataControl.getLastElementContainer().getErdc().getElementId( ) );
-		
-		itemsComboBox.addActionListener( new ItemComboBoxListener( ) );
-		if (player)
-			itemIdPanel.add(playerLabel);
-		else
-			itemIdPanel.add( itemsComboBox );
+			nameElementLabel = new JLabel(referencesListDataControl.getLastElementContainer().getErdc().getElementId( ));
+					
+			itemIdPanel.add(nameElementLabel);
 		
 		itemIdPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ItemReference.ItemId" ) ) );
 		infoPanel.add( itemIdPanel, c );
@@ -271,7 +265,6 @@ public class ReferencesListPanel extends JPanel {
 			spep.paintBackBuffer();
 			spep.repaint();
 			prepareInformationPanel();
-			itemsComboBox.setSelectedIndex(selectedReference);			
 			// Enable delete button
 			if (elementContainer.isPlayer())
 				deleteButton.setEnabled( false );
@@ -590,30 +583,7 @@ public class ReferencesListPanel extends JPanel {
 			referencesListDataControl.getLastElementContainer().getErdc().setDocumentation( documentationTextArea.getText( ) );
 		}
 	}
-
-	/**
-	 * Listener for the items combo box.
-	 */
-	private class ItemComboBoxListener implements ActionListener {
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-		 */
-		public void actionPerformed( ActionEvent e ) {
-			//TODO check player compatibility
-			
-			//It is not allow to change the player name here
-			if (!referencesListDataControl.getLastElementContainer().isPlayer())
-					referencesListDataControl.getLastElementContainer().getErdc().setElementId( itemsComboBox.getSelectedItem( ).toString( ) );
-
-			// Get the new element, update it and paint the panel
-			spep.recreateElement(referencesListDataControl.getLastElementContainer().getErdc());
-			spep.repaint();
-		}
-	}
-
+	
 	/**
 	 * Listener for the edit conditions button.
 	 */
