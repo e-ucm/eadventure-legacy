@@ -167,10 +167,12 @@ public class AssessmentEngine implements TimerEventListener {
 				ProcessedRule rule = new ProcessedRule(oldRule, Game
 						.getInstance().getTime());
 
+				System.out.println("Comprueba si estamos conocetados assessmentEngine");
 				// Signal the LMS about the change
 				if (Game.getInstance().isConnected()) {
 					Game.getInstance().getComm().notifyRelevantState(
 							oldRule.getAssessmentProperties());
+					System.out.println("Mandamos regla de adaptacion");
 				}
 				processedRules.add(rule);
 			}
@@ -404,6 +406,7 @@ public class AssessmentEngine implements TimerEventListener {
 	public boolean isEndOfChapterFeedbackDone() {
 		// if(gameDescriptor.getChapterSummaries().get(currentChapter-1).hasAssessmentProfile(
 		// )) {
+		if (assessmentProfile!=null){
 		if (state == STATE_NONE && assessmentProfile.isShowReportAtEnd()) {
 			try {
 				state = STATE_STARTED;
@@ -482,7 +485,7 @@ public class AssessmentEngine implements TimerEventListener {
 				GUI.getInstance().showComponent(panel);
 
 				// new ReportDialog( GUI.getInstance( ).getFrame( ),
-				// assessmentEngine, adventureName );
+					// assessmentEngine, adventureName );
 			} catch (MalformedURLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -497,6 +500,8 @@ public class AssessmentEngine implements TimerEventListener {
 			return true;
 		} else
 			return true;
+		}
+		return false;
 	}
 
 	public AssessmentProfile getAssessmentProfile() {
