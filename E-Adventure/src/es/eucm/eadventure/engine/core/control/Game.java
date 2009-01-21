@@ -66,6 +66,8 @@ import es.eucm.eadventure.engine.core.data.GameText;
 import es.eucm.eadventure.engine.core.data.SaveGame;
 import es.eucm.eadventure.engine.core.data.SaveGameException;
 import es.eucm.eadventure.engine.core.data.SaveTimer;
+//import es.eucm.eadventure.engine.core.data.userinteraction.highlevel.HighLevelInteraction;
+//import es.eucm.eadventure.engine.core.data.userinteraction.lowlevel.LowLevelInteraction;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.common.loader.Loader;
 import es.eucm.eadventure.common.loader.incidences.Incidence;
