@@ -1491,6 +1491,8 @@ Si no los cambia, el juego empleará los cursores por defecto (ambientación fan
 	<entry key="AssessmentRule.Effect.Text">Texto a incluir en el informe de evaluación</entry>
 	<entry key="AssessmentRule.Effect.Title">Efecto</entry>
 	<entry key="AssessmentRule.Effect.PropertiesTitle">Modificación de propiedades</entry>
+	<entry key="AssessmentRule.InvalidPropertyID">Valor no válido</entry>
+	<entry key="AssessmentRule.InvalidPropertyID.Message">Este valor debe ser numérico</entry>
 	
 	<entry key="TimedAssessmentRule.Information">En esta sección podrá editar una nueva regla de evaluación temporizada. Estas reglas son similares a las reglas de evaluación genéricas que miden el intervalo de tiempo transcurrido entre dos eventos, definidos como conjuntos de condiciones (inicial y final). En lugar de tener un único efecto, las reglas temporizadas pueden tener distintos bloques de efectos en función del tiempo transcurrido. Empleando los controles de este panel, podrá introducir las condiciones y los distintos bloques de efectos. </entry>	
 	<entry key="TimedAssessmentRule.Effects">Selector de efectos</entry>
