@@ -1485,12 +1485,14 @@ When not customized, default cursors will be used in the game.</entry>
 	<entry key="AssessmentRule.Information"> Use this section to edit a new assessment rule. In &lt;e-Adventure&gt; assessment rules are defined by the specification of a set of conditions (flags) that, when satisfied, make the game to set values to some properties. Therefore you can edit that conditions, as well as declare the properties to be set and its values. Moreover, you are allowed to type a brief concept for each rule, as well as a piece of text to be printed in the assessment report</entry>	
 	<entry key="AssessmentRule.Conditions">Conditions</entry>
 	<entry key="AssessmentRule.Importance.Title">Importance</entry>
+	<entry key="AssessmentRule.InvalidPropertyID">Invalid value</entry>
+	<entry key="AssessmentRule.InvalidPropertyID.Message">The value must be numeric</entry>
 	
 	<entry key="AssessmentRule.Effect.Text">Text to be printed</entry>
 	<entry key="AssessmentRule.Effect.Title">Effect</entry>
 	<entry key="AssessmentRule.Effect.PropertiesTitle">List of properties</entry>
 	
-	<entry key="TimedAssessmentRule.Information">--Description unavailable--</entry>	
+	<entry key="TimedAssessmentRule.Information">In this section you will be able to edit a temporized assessment rule. These are similar to assessment rules, but they count the time between two events, defined by the sets of initial and end conditions. These rules support various effect blocks, so depending on the time range where the elapsed time fits the effect block will be different</entry>	
 	<entry key="TimedAssessmentRule.Effects">Effects browser</entry>
 	<entry key="TimedAssessmentRule.MinTime">Min time:  </entry>
 	<entry key="TimedAssessmentRule.MaxTime">Max time:  </entry>
