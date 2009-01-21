@@ -14,6 +14,11 @@ public class ElementReferenceDataControl extends DataControl {
 	 * Scene controller that contains this element reference (used to extract the id of the scene).
 	 */
 	private SceneDataControl sceneDataControl;
+	
+	/**
+	 * Identifies this element reference between other references of same element
+	 */
+	private int referenceNumber;
 
 	/**
 	 * Contained element reference.
@@ -40,16 +45,19 @@ public class ElementReferenceDataControl extends DataControl {
 	 * @param elementReference
 	 *            Element reference of the data control structure
 	 */
-	public ElementReferenceDataControl( SceneDataControl sceneDataControl, ElementReference elementReference, int type) {
+	public ElementReferenceDataControl( SceneDataControl sceneDataControl, ElementReference elementReference, int type, int referenceNumber) {
 		this.sceneDataControl = sceneDataControl;
 		this.elementReference = elementReference;
 		this.type = type;
+		this.referenceNumber = referenceNumber;
 		if (type == Controller.ITEM_REFERENCE || type == Controller.NPC_REFERENCE)
 			this.influenceAreaDataControl = new InfluenceAreaDataControl(sceneDataControl, elementReference.getInfluenceArea(), this);
 		// Create subcontrollers
 		conditionsController = new ConditionsController( elementReference.getConditions( ) );
 	}
 
+	
+	
 	/**
 	 * Returns the conditions of the element reference.
 	 * 
