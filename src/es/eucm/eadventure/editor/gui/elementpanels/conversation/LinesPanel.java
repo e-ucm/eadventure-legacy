@@ -228,7 +228,7 @@ class LinesPanel extends JPanel {
 		c.weighty = 1;
 		c.gridx = 0;
 		c.gridy = 0;
-		c.gridheight = 4;
+		c.gridheight = 6;
 		add( tableScrollPanel, c );
 
 		// Add the up and down buttons
@@ -289,7 +289,7 @@ class LinesPanel extends JPanel {
 		c.weighty = 1;
 		c.gridx = 0;
 		c.gridy = 0;
-		c.gridheight = 3;
+		c.gridheight = 6;
 		add( tableScrollPanel, c );
 
 		// Add the up and down buttons
@@ -300,7 +300,8 @@ class LinesPanel extends JPanel {
 		c.gridheight = 1;
 		add( moveLineUpButton, c );
 
-		c.gridy = 4;
+		c.gridy = 5;
+		c.fill = GridBagConstraints.BOTH;
 		add( moveLineDownButton, c );
 
 		// Add the delete option button
@@ -316,7 +317,7 @@ class LinesPanel extends JPanel {
 		add(editEffectButton,c);
 		
 		// Add the edit synthesizer button 
-		c.gridy = 5;
+		c.gridy = 4;
 		add( editSynthesizeButton, c );
 	}
 
