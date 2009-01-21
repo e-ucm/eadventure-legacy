@@ -122,7 +122,7 @@
 <!ATTLIST book
 	id ID #REQUIRED
 >
-<!ELEMENT pages (page)+>
+<!ELEMENT pages (page)*>
 <!ELEMENT page EMPTY>
 <!ATTLIST page
 	uri CDATA #REQUIRED
