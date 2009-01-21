@@ -29,7 +29,7 @@ public class ReferencesListTreeNode extends TreeNode implements ReferenceListene
 	 * Loads the icon of the node class.
 	 */
 	public static void loadIcon( ) {
-		icon = new ImageIcon( "img/icons/itemReferences.png" );
+		icon = new ImageIcon( "img/icons/references.png" );
 	}
 
 	/**
