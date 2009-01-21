@@ -340,7 +340,7 @@ public class ResourcesPanel extends JPanel {
 				new AnimationEditDialog(resourcesDataControl.getAssetPath(assetIndex), null);
 			} else {
 				// Create a "new" animation (use the old one if present)
-				String filename;
+				String filename= null;
 				String animationName = "anim" + (new Random()).nextInt(1000);
 				if (resourcesDataControl.getAssetPath(assetIndex) != null) {
 					String[] temp = resourcesDataControl.getAssetPath(assetIndex).split("/");
@@ -348,12 +348,15 @@ public class ResourcesPanel extends JPanel {
 					filename = AssetsController.TempFileGenerator.generateTempFileOverwriteExisting(animationName, "eaa");				
 				} else {
 					animationName = JOptionPane.showInputDialog(null, TextConstants.getText("Animation.AskFilename"), TextConstants.getText("Animation.AskFilenameTitle"), JOptionPane.QUESTION_MESSAGE);
+					if (animationName!=null){
 					if (animationName.length() > 0) {
 						filename = AssetsController.TempFileGenerator.generateTempFileOverwriteExisting(animationName, "eaa");
 					} else {
 						filename = AssetsController.TempFileGenerator.generateTempFileAbsolutePath(animationName, "eaa");
 					}
+					}
 				}
+				if (filename!=null){
 				File file = new File(filename);
 				file.create();
 				AnimationWriter.writeAnimation(filename, new Animation(animationName));
@@ -372,6 +375,7 @@ public class ResourcesPanel extends JPanel {
 				resourcesDataControl.setAssetPath(filename, assetIndex);
 				
 				new AnimationEditDialog(resourcesDataControl.getAssetPath(assetIndex), animation);
+				}
 				
 			}
 			

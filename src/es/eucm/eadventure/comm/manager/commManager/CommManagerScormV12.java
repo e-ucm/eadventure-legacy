@@ -3,6 +3,7 @@ package es.eucm.eadventure.comm.manager.commManager;
 import java.applet.Applet;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -192,7 +193,7 @@ public class CommManagerScormV12 extends AdventureApplet{
 
 	public void notifyRelevantState( List<AssessmentProperty> list) {
 		
-		getFromLMS(SEND_DIR+"._count");
+		/*getFromLMS(SEND_DIR+"._count");
 		
 		String value = valuesFromLMS.get(SEND_DIR+"._count");
 		int count = Integer.valueOf(value);
@@ -208,7 +209,20 @@ public class CommManagerScormV12 extends AdventureApplet{
 			} else {
 				//TODO situacion de error
 			}
-		}		
+		}*/
+		System.out.println("Entramos en notify relevant state");
+		Iterator<AssessmentProperty> it = list.iterator();
+		while (it.hasNext()){
+			AssessmentProperty assessProp = it.next();
+			String attribute = assessProp.getId();
+			String value = String.valueOf(assessProp.getValue());
+			String command = "javascript:setLMSData(\""+ attribute + "\", \"" + value + "\");";
+			this.sendJavaScript(command);
+			String command2 = "javascript:commit(\"\");";
+			this.sendJavaScript(command2);
+		}
+		
+		
 	}
 
 	public boolean isConnected() {
