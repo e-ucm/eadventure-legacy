@@ -2,6 +2,7 @@ package es.eucm.eadventure.editor.control.controllers.scene;
 
 import java.awt.Image;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
@@ -111,20 +112,23 @@ public class ReferencesListDataControl extends DataControl{
 		itemReferencesDataControlList = new ArrayList<ElementReferenceDataControl>( );
 		boolean hasLayer = hasLayer();
 		for( ElementReference itemReference : itemReferencesList ){
-			ElementReferenceDataControl erdc = new ElementReferenceDataControl( sceneDataControl, itemReference, Controller.ITEM_REFERENCE) ;
+			int counter = count(itemReference);
+			ElementReferenceDataControl erdc = new ElementReferenceDataControl( sceneDataControl, itemReference, Controller.ITEM_REFERENCE,counter) ;
 			itemReferencesDataControlList.add(erdc );
 			insertInOrder(new ElementContainer(erdc,-1,null),hasLayer);
 		}
 		
 		atrezzoReferencesDataControlList = new ArrayList<ElementReferenceDataControl>();
 		for (ElementReference atrezzoReference : atrezzoReferencesList){
-			ElementReferenceDataControl erdc = new ElementReferenceDataControl(sceneDataControl, atrezzoReference, Controller.ATREZZO_REFERENCE);
+			int counter = count(atrezzoReference);
+			ElementReferenceDataControl erdc = new ElementReferenceDataControl(sceneDataControl, atrezzoReference, Controller.ATREZZO_REFERENCE,counter);
 			atrezzoReferencesDataControlList.add(erdc );
 			insertInOrder(new ElementContainer(erdc,-1,null),hasLayer);
 		}
 		npcReferencesDataControlList = new ArrayList<ElementReferenceDataControl>();
 		for (ElementReference npcReference : npcReferencesList){
-			ElementReferenceDataControl erdc  =  new ElementReferenceDataControl(sceneDataControl, npcReference, Controller.NPC_REFERENCE);
+			int counter = count(npcReference);
+			ElementReferenceDataControl erdc  =  new ElementReferenceDataControl(sceneDataControl, npcReference, Controller.NPC_REFERENCE,counter);
 			npcReferencesDataControlList.add(erdc);
 			insertInOrder(new ElementContainer(erdc,-1,null),hasLayer);
 		}
@@ -139,6 +143,19 @@ public class ReferencesListDataControl extends DataControl{
 				layer = sceneDataControl.getPlayerLayer();
 			reassignLayerAllReferencesDataControl(insertInOrder(new ElementContainer(null,layer,AssetsController.getImage( this.playerImagePath )),true));
 		}
+	}
+
+	private int count(ElementReference er){
+		Iterator<ElementContainer> it = allReferencesDataControl.iterator();
+		int count = 0;
+		while (it.hasNext()){
+			ElementContainer element = it.next();
+			if (!element.isPlayer()){
+			if (element.getErdc().getElementId().equals(er.getIdTarget()))
+				count++;
+			}
+		}
+		return count;
 	}
 	
 	/**
@@ -371,7 +388,8 @@ public class ReferencesListDataControl extends DataControl{
 				// If some value was selected
 				if( selectedItem != null ) {
 					ElementReference newElementReference = new ElementReference( selectedItem, 50, 50 );
-					ElementReferenceDataControl erdc = new ElementReferenceDataControl( sceneDataControl, newElementReference,type );
+					int counter = count(newElementReference);
+					ElementReferenceDataControl erdc = new ElementReferenceDataControl( sceneDataControl, newElementReference,type,counter );
 					itemReferencesList.add( newElementReference );
 					itemReferencesDataControlList.add( erdc );
 					ElementContainer ec = new ElementContainer(erdc,-1,null);
@@ -400,7 +418,8 @@ public class ReferencesListDataControl extends DataControl{
 				// If some value was selected
 				if( selectedItem != null ) {
 					ElementReference newElementReference = new ElementReference( selectedItem, 50, 50 );
-					ElementReferenceDataControl erdc = new ElementReferenceDataControl( sceneDataControl, newElementReference, type );
+					int counter = count(newElementReference);
+					ElementReferenceDataControl erdc = new ElementReferenceDataControl( sceneDataControl, newElementReference,type,counter );
 					atrezzoReferencesList.add( newElementReference );
 					atrezzoReferencesDataControlList.add( erdc );
 					ElementContainer ec = new ElementContainer(erdc,-1,null);
@@ -428,8 +447,8 @@ public class ReferencesListDataControl extends DataControl{
 				// If some value was selected
 				if( selectedItem != null ) {
 					ElementReference newElementReference = new ElementReference( selectedItem, 50, 50 );
-					ElementReferenceDataControl erdc = new ElementReferenceDataControl( sceneDataControl, newElementReference, type );
-					
+					int counter = count(newElementReference);
+					ElementReferenceDataControl erdc = new ElementReferenceDataControl( sceneDataControl, newElementReference,type,counter );
 					npcReferencesList.add( newElementReference );
 					npcReferencesDataControlList.add( erdc );
 					ElementContainer ec = new ElementContainer(erdc,-1,null);
@@ -468,22 +487,17 @@ public class ReferencesListDataControl extends DataControl{
 	private void delete(DataControl dataControl){
 		if (dataControl != null){
 			int index=0;
-			if (dataControl != null){
+			
 				
 				for (index=0; index < allReferencesDataControl.size();index++)
 				if (!allReferencesDataControl.get(index).isPlayer())	
 					if (allReferencesDataControl.get(index).getErdc().equals(dataControl))
 						break;
-			/*}
-			else {
-				index = playerPosition;
-				
-			}*/
-			if (index>0){
+			if (index>=0){
 			allReferencesDataControl.remove(index);
 			reassignLayerAllReferencesDataControl(index);
 			}
-			}
+			
 		}
 	}
 	

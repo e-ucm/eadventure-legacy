@@ -459,8 +459,15 @@ public class ScenePreviewEditionPanel extends JPanel {
 	public void removeElement(int category, ElementReferenceDataControl element) {
 		Integer key = new Integer(category);
 		List<ImageElement> list = elements.get(key);
+		int index;
 		if (list!= null){
-				list.remove(new ImageElementReference(element));
+			for ( index=0; index < list.size();index++)	
+					if (list.get(index).getElementReferenceDataControl().equals(element))
+						break;
+			if (index>=0){
+			list.remove(index);
+				
+		}
 		}
 		
 		repaint();
