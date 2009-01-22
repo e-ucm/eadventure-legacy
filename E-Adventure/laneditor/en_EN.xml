@@ -277,6 +277,8 @@ named 'descriptor.xml' or 'chapterXX.xml' where XX is a number.</entry>
 	<entry key="Operation.DeleteChapterErrorLastChapter">You can't delete the last chapter
 		Every adventure must have at least one chapter</entry>
 
+	<entry key="Operation.AddReferenceErrorNoAtrezzo">There are no set items in the adventure</entry>
+	
 	<entry key="Operation.AddSceneTitle">Add scene</entry>
 	<entry key="Operation.AddSceneMessage">Type an identifier for the new scene</entry>
 	<entry key="Operation.AddSceneDefaultValue">SceneId</entry>
@@ -1701,7 +1703,7 @@ avoids retyping.</entry>
 	<entry key="Synthesizer.CheckLine">Synthesize current line</entry>
 
 	<entry key="SPEP.ShowActiveAreas">Show Active Areas</entry>
-	<entry key="SPEP.ShowAtrezzo">Show set references</entry>
+	<entry key="SPEP.ShowAtrezzo">Show set item references</entry>
 	<entry key="SPEP.ShowBarriers">Show Barriers</entry>
 	<entry key="SPEP.ShowCharacterReferences">Show Character references</entry>
 	<entry key="SPEP.ShowExits">Show Exits</entry>
