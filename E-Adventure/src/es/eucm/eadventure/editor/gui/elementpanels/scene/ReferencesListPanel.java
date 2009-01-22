@@ -603,9 +603,9 @@ public class ReferencesListPanel extends JPanel{
 				if (category!=0&&referencesListDataControl.getLastElementContainer()!=null){
 				// it is not necessary to check if it is an player element container because never a player will be added
 				spep.addElement(category, referencesListDataControl.getLastElementContainer().getErdc());
+				spep.setSelectedElement(referencesListDataControl.getLastElementContainer().getErdc());
 				spep.paintBackBuffer();
 				spep.repaint();
-				spep.setSelectedElement(referencesListDataControl.getLastElementContainer().getErdc());
 				int layer = referencesListDataControl.getLastElementContainer().getErdc().getElementReference().getLayer();
 				table.getSelectionModel().setSelectionInterval(layer, layer);
 				table.updateUI( );
