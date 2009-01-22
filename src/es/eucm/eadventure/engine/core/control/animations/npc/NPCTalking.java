@@ -145,7 +145,8 @@ public class NPCTalking extends NPCState {
 
     @Override
     public void draw( int x, int y , float scale, int depth) {
-        super.draw( x, y , scale,-1);
+        
+    	super.draw( x, y , scale,depth);
 
 		// If there is a line to speak, draw it
         if( !text.equals( "" ) )
