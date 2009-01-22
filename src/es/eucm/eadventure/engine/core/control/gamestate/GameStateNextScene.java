@@ -3,10 +3,10 @@ package es.eucm.eadventure.engine.core.control.gamestate;
 import es.eucm.eadventure.engine.core.control.ActionManager;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
-import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalScene;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
 import es.eucm.eadventure.common.data.chapter.NextScene;
+import es.eucm.eadventure.common.data.chapter.Trajectory.Node;
 import es.eucm.eadventure.common.data.chapter.scenes.GeneralScene;
 import es.eucm.eadventure.common.data.chapter.scenes.Scene;
 import es.eucm.eadventure.engine.core.gui.GUI;
@@ -69,13 +69,20 @@ public class GameStateNextScene extends GameState {
                
                 // Set the player position
 
-                if (scene.getTrajectory() != null) {
+                if( nextScene.hasPlayerPosition( ) ) {
+                    if (scene.getTrajectory() == null) {
+                    	game.getFunctionalPlayer( ).setX( nextScene.getDestinyX( ) );
+                    	game.getFunctionalPlayer( ).setY( nextScene.getDestinyY( ) );
+                    } else {
+                    	Node node = game.getFunctionalScene().getTrajectory().changeInitialNode(nextScene.getDestinyX(), nextScene.getDestinyY());
+                    	game.getFunctionalPlayer().setX(node.getX());
+                    	game.getFunctionalPlayer().setY(node.getY());
+                    	game.getFunctionalPlayer().setScale(node.getScale());
+                    }
+                } else if (scene.getTrajectory() != null) {
                 	game.getFunctionalPlayer().setX(scene.getTrajectory().getInitial().getX());
                 	game.getFunctionalPlayer().setY(scene.getTrajectory().getInitial().getY());
                 	game.getFunctionalPlayer().setScale(scene.getTrajectory().getInitial().getScale());
-                } else if( nextScene.hasPlayerPosition( ) ) {
-                    game.getFunctionalPlayer( ).setX( nextScene.getDestinyX( ) );
-                    game.getFunctionalPlayer( ).setY( nextScene.getDestinyY( ) );
                 } else if( scene.hasDefaultPosition( ) ) {
                     // If no next scene position was defined, use the scene default
                     game.getFunctionalPlayer( ).setX( scene.getDefaultX( ) );
