@@ -528,4 +528,19 @@ public class FunctionalTrajectory {
 	public boolean canGetTo() {
 		return getsTo;
 	}
+
+	public Node changeInitialNode(int destinyX, int destinyY) {
+		currentSide = null;
+		float minDist = Float.MAX_VALUE;
+		for (Node node : trajectory.getNodes()) {
+			float dx = (float) Math.pow(node.getX() - destinyX, 2);
+			float dy = (float) Math.pow(node.getY() - destinyY, 2);
+			float dist = (float) Math.sqrt(dx + dy);
+			if (dist < minDist) {
+				currentNode = node;
+				minDist = dist;
+			}
+		}
+		return currentNode;
+	}
 }
