@@ -345,7 +345,7 @@ public class GameStateConversation extends GameState {
             	player.dealocateTTS();*/
             
             if (line.isValidAudio( )){
-                player.speak( line.getText(), line.getAudioPath( ) );
+                player.speak( line.getText(), line.getAudioPath( ));
               //  lastTTS=false;
             }else if (line.getSynthesizerVoice()||player.isAlwaysSynthesizer()){
             		player.speakWithFreeTTS(line.getText(), player.getPlayerVoice());
@@ -389,13 +389,13 @@ public class GameStateConversation extends GameState {
             /*if (lastTTS)
             	player.dealocateTTS();*/
             if (line.isValidAudio( )){
-                player.speak( line.getText(), line.getAudioPath( ) );
+                player.speak( line.getText(), line.getAudioPath( ));
                 //lastTTS=false;
             }else if (line.getSynthesizerVoice() || player.isAlwaysSynthesizer()){
             		player.speakWithFreeTTS(line.getText(), player.getPlayerVoice());
             		//lastTTS=true;
             } else   {
-            	player.speak( line.getText( ) );
+            	player.speak( line.getText( ));
             	//lastTTS=false;
             }
             //player.speak( currentNode.getLine( optionSelected ).getText( ) );
@@ -405,6 +405,7 @@ public class GameStateConversation extends GameState {
             //currentNode = currentNode.getChild( optionSelected );
         }
     }
+    
     @Override
     public synchronized void mouseClicked( MouseEvent e ) {
         if( currentNode.getType( ) == ConversationNode.OPTION && RESPONSE_TEXT_Y <= e.getY( ) && RESPONSE_TEXT_Y + currentNode.getLineCount() * RESPONSE_TEXT_HEIGHT + RESPONSE_TEXT_ASCENT >= e.getY()) {
@@ -494,29 +495,31 @@ public class GameStateConversation extends GameState {
         
         if( currentLine < currentNode.getLineCount( ) ) {
             ConversationLine line = currentNode.getLine( currentLine );
+
+            FunctionalNPC npc = null;
+            // TODO Revisar, la notacion del NPC no es buena
+            if( line.getName().equals("NPC") )
+                npc = game.getCurrentNPC( );
+            else
+                npc = game.getFunctionalScene( ).getNPC( line.getName( ) );
+
             if( line.isPlayerLine( ) ) {
                 FunctionalPlayer player = game.getFunctionalPlayer( );
               /*  if (lastTTS)
                 	player.dealocateTTS();*/
                 if (line.isValidAudio( )){
-                    player.speak( line.getText(), line.getAudioPath( ) );
+                    player.speak( line.getText(), line.getAudioPath( ));
                     //lastTTS=false;
                 }else if (line.getSynthesizerVoice() || player.isAlwaysSynthesizer()){
             		player.speakWithFreeTTS(line.getText(), player.getPlayerVoice());
             		//lastTTS=true;
                 }
                 else{
-                    player.speak( line.getText( ) );
+                    player.speak( line.getText( ));
                     ///lastTTS=false;
                 }
                 game.setCharacterCurrentlyTalking( player );
             } else {
-                FunctionalNPC npc = null;
-                // TODO Revisar, la notacion del NPC no es buena
-                if( line.getName().equals("NPC") )
-                    npc = game.getCurrentNPC( );
-                else
-                    npc = game.getFunctionalScene( ).getNPC( line.getName( ) );
                 
                 if( npc != null ) {
                    /* if (lastTTS)

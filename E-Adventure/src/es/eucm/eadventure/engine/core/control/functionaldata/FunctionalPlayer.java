@@ -23,6 +23,7 @@ import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 import es.eucm.eadventure.engine.core.control.animations.Animation;
+import es.eucm.eadventure.engine.core.control.animations.AnimationState;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionalactions.FunctionalAction;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionalactions.FunctionalCustom;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionalactions.FunctionalCustomInteract;
@@ -107,7 +108,7 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
     
     public List<FunctionalAction> actionPool;
     
-    public List<Animation> animationPool;
+    public List<Animation[]> animationPool;
     
     
     private boolean isTransparent=false;
@@ -142,14 +143,23 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
         speedX = 0;
         speedY = 0;
         layer = -1;
+        currentDirection = AnimationState.EAST;
         // Select the resources block
         resources = createResourcesBlock( );
 
         actionPool = new ArrayList<FunctionalAction>();
-        animationPool = new ArrayList<Animation>();
+        animationPool = new ArrayList<Animation[]>();
 
         MultimediaManager multimedia = MultimediaManager.getInstance( );
-        animationPool.add(multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_STAND_RIGHT ), false, MultimediaManager.IMAGE_PLAYER ));
+
+
+        Animation[] animations = new Animation[4];
+        animations[AnimationState.EAST] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_STAND_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
+        animations[AnimationState.WEST] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_STAND_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
+        animations[AnimationState.NORTH] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_STAND_UP ), false, MultimediaManager.IMAGE_PLAYER );
+        animations[AnimationState.SOUTH] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_STAND_DOWN ), false, MultimediaManager.IMAGE_PLAYER );
+        
+        animationPool.add(animations);
 
         // TODO the default animation should change with the orientation...
         
@@ -256,14 +266,14 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
      * @param animation
      * @param repeat
      */
-    public void setAnimation(Animation animation, int repeat) {
+    public void setAnimation(Animation[] animations, int repeat) {
     	//TODO check behavior
     	if (repeat != -1) {
-    		animationPool.add(animation);
+    		animationPool.add(animations);
     	} else {
     		if (animationPool.size() > 1)
     			animationPool.remove(animationPool.size() - 1);
-    		animationPool.add(animation);
+    		animationPool.add(animations);
     	}
     }
     
@@ -278,12 +288,15 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
     }
     
     public Animation getCurrentAnimation() {
-    	return animationPool.get(animationPool.size() - 1);
+    	if (currentDirection >= 0 && currentDirection < 4)
+    		return animationPool.get(animationPool.size() - 1)[currentDirection];
+    	else
+    		return animationPool.get(animationPool.size() - 1)[0];
     }
 
     public void cancelAnimations() {
     	if (animationPool.size() > 0) {
-	    	Animation temp = animationPool.get(0);
+	    	Animation[] temp = animationPool.get(0);
 	    	animationPool.clear();
 	    	animationPool.add(temp);
     	}
@@ -479,14 +492,14 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
      */
     public void speak( String text ) {
         if (text!=null){
-        	FunctionalSpeak functionalTalk = new FunctionalSpeak(null, text);
-        	addAction(functionalTalk);
+        	FunctionalSpeak functionalSpeak = new FunctionalSpeak(null, text);
+        	addAction(functionalSpeak);
         }
     }
     
-    public void speak( String text, String audioPath ) {
-        FunctionalSpeak functionalTalk = new FunctionalSpeak(null, text, audioPath);
-        addAction(functionalTalk);
+    public void speak( String text, String audioPath) {
+        FunctionalSpeak functionalSpeak = new FunctionalSpeak(null, text, audioPath);
+        addAction(functionalSpeak);
     }
     
     /**
@@ -495,9 +508,9 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
      */
     public void speakWithFreeTTS(String text, String voice){
         if (text!=null){
-        	FunctionalSpeak functionalTalk = new FunctionalSpeak(null, text);
-        	functionalTalk.setSpeakFreeTTS(text, voice);
-        	addAction(functionalTalk);
+        	FunctionalSpeak functionalSpeak = new FunctionalSpeak(null, text);
+        	functionalSpeak.setSpeakFreeTTS(text, voice);
+        	addAction(functionalSpeak);
         }
         //TODO old code, left because of the "draw()" call, maybe the new code
         //   causes problems
@@ -692,4 +705,5 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
 	public InfluenceArea getInfluenceArea() {
 		return null;
 	}
+
 }
