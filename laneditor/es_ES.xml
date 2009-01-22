@@ -283,6 +283,8 @@ donde XX es un múmero cualquiera.</entry>
 	<entry key="Operation.DeleteChapterErrorLastChapter">No se puede borrar el último capítulo de la aventura.
 		Toda aventura debe de tener por lo menos un capítulo.</entry>
 
+	<entry key="Operation.AddReferenceErrorNoAtrezzo">No hay ningún objeto de atrezo definido en la aventura</entry>
+
 	<entry key="Operation.AddSceneTitle">Añadir nueva escena</entry>
 	<entry key="Operation.AddSceneMessage">Introduzca un identificador para la nueva escena:</entry>
 	<entry key="Operation.AddSceneDefaultValue">IdEscena</entry>
@@ -1406,7 +1408,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="Element.Name49">Regla temporizada</entry>
 	<entry key="Element.Name50">Zonas activas</entry>
 	<entry key="Element.Name51">Zona activa</entry>
-	<entry key="Element.Name52">Barreras y trajectoria</entry>
+	<entry key="Element.Name52">Barreras y trayectoria</entry>
 	<entry key="Element.Name53">Barrera</entry>
 	<entry key="Element.Name54">Estado global</entry>
 	<entry key="Element.Name55">Estados globales</entry>
@@ -1700,14 +1702,14 @@ ya que de esta manera se evita reescribirlos varias veces.</entry>
 
 
 	<entry key="SPEP.ShowActiveAreas">Mostrar Areas activas</entry>
-	<entry key="SPEP.ShowAtrezzo">Mostrar references a atrezo</entry>
+	<entry key="SPEP.ShowAtrezzo">Mostrar referencias a objetos de atrezo</entry>
 	<entry key="SPEP.ShowBarriers">Mostrar barreras</entry>
-	<entry key="SPEP.ShowCharacterReferences">Mostrar referencas a personajes</entry>
+	<entry key="SPEP.ShowCharacterReferences">Mostrar referencias a personajes</entry>
 	<entry key="SPEP.ShowExits">Mostrar salidas</entry>
 	<entry key="SPEP.ShowUncategorized">Mostrar elementos sin categoria</entry>
 	<entry key="SPEP.ShowObjectReferences">Mostrar referencias a objecos</entry>
-	<entry key="SPEP.ShowPlayer">Mostrar personaje</entry>
-	<entry key="SPEP.ShowTrajectory">Show Trajectory</entry>
+	<entry key="SPEP.ShowPlayer">Mostrar jugador</entry>
+	<entry key="SPEP.ShowTrajectory">Mostrar trayectoria</entry>
 	<entry key="SPEP.XCoordinate">Coordenada X</entry>
 	<entry key="SPEP.YCoordinate">Coordenada Y</entry>
 	<entry key="SPEP.Scale">Escala</entry>
