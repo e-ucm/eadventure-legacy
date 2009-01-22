@@ -1138,7 +1138,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 		JCheckBox temp = new JCheckBox(title);
 		temp.setSelected(displayCategory.get(category));
 		temp.addChangeListener(new ChangeListener() {
-			@Override
+
 			public void stateChanged(ChangeEvent arg0) {
 				boolean isSelected = ((JCheckBox) arg0.getSource()).isSelected();
 				displayCategory.put(category, new Boolean(isSelected));

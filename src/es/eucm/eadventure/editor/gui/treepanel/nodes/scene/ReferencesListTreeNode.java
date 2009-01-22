@@ -138,12 +138,12 @@ public class ReferencesListTreeNode extends TreeNode implements ReferenceListene
 		return new ReferencesListPanel( referencesDataControl );
 	}
 
-	@Override
+
 	public void addNewNodeElement(int type) {
 		lastNode = addChildOnlyInTree(type);
 	}
 
-	@Override
+
 	public void deleteNodeElement() {
 		deleteChildOnlyInTree();
 		

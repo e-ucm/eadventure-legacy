@@ -453,7 +453,7 @@ public class FunctionalTrajectory {
 			return temp;
 		}
 
-		@Override
+
 		public int compareTo(FunctionalPath arg0) {
 			if (this.getsTo && !arg0.getsTo) {
 				return 1;

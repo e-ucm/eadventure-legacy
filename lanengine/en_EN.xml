@@ -108,6 +108,19 @@
 	<entry key="GameText.TextCustomCannot1">I don't think this is going to work</entry>
 	<entry key="GameText.TextCustomCannot2">Can't do such a thing</entry>
 	
+	<entry key="Report.Title">Report Generation</entry>
+	<entry key="Report.SelectFolder">Select the directory where you want to save the report</entry>
+	<entry key="Report.BtnExamine">Examine...</entry>
+	<entry key="Report.XMLReport">XML Report</entry>
+	<entry key="Report.GenerateXML">Generate XML Report</entry>
+	<entry key="Report.TextXMLReport">The XML Report contains information which can be processed in other applications</entry>
+	<entry key="Report.HTMLReport">HTML Report</entry>
+	<entry key="Report.GenerateHTML">Generate report</entry>
+	<entry key="Report.Importance">Importance</entry>
+	<entry key="Report.TextHTMLReport">The HTML report contain game information in an easy read and printing format</entry>
+	<entry key="Report.GenerateHTMLReport">Generate HTML Report</entry>
+	<entry key="Report.Cancel">Cancel</entry>
+	
 	<entry key="Report.Importance.VeryLow">Very Low</entry>
 	<entry key="Report.Importance.Low">Low</entry>
 	<entry key="Report.Importance.Normal">Normal</entry>
