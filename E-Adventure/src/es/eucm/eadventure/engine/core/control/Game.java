@@ -54,8 +54,6 @@ import es.eucm.eadventure.engine.core.data.GameText;
 import es.eucm.eadventure.engine.core.data.SaveGame;
 import es.eucm.eadventure.engine.core.data.SaveGameException;
 import es.eucm.eadventure.engine.core.data.SaveTimer;
-import es.eucm.eadventure.engine.core.data.userinteraction.highlevel.HighLevelInteraction;
-import es.eucm.eadventure.engine.core.data.userinteraction.lowlevel.LowLevelInteraction;
 //import es.eucm.eadventure.engine.core.data.userinteraction.highlevel.HighLevelInteraction;
 //import es.eucm.eadventure.engine.core.data.userinteraction.lowlevel.LowLevelInteraction;
 import es.eucm.eadventure.engine.core.gui.GUI;
@@ -300,12 +298,10 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     /**
      * FIFO which store high level interaction
      */
-   private ArrayDeque<HighLevelInteraction> highLevelInteraction;
     
     /**
      * FIFO which store low level interaction
      */
-   private ArrayDeque<LowLevelInteraction> lowLevelInteraction;
     
     /**
      * Returns the instance of Game
@@ -393,8 +389,8 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         stackOfState = new Stack<GameState>();
         
         // Initialize the FIFO of interactions
-        highLevelInteraction = new ArrayDeque<HighLevelInteraction>();
-        lowLevelInteraction = new ArrayDeque<LowLevelInteraction>();
+        //highLevelInteraction = new ArrayDeque<HighLevelInteraction>();
+        //lowLevelInteraction = new ArrayDeque<LowLevelInteraction>();
 
         g.clearRect( 0, 0, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT );
         GUI.drawString( g, GameText.TEXT_PLEASE_WAIT, 400, 280 );
@@ -1072,12 +1068,12 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         return false;
     }
     
-    public void addInteracction(HighLevelInteraction interaction){
+    /*public void addInteracction(HighLevelInteraction interaction){
     	if (currentState instanceof GameStateConversation){
     		//LowLevelInteraction lowlevelint = new LowLevelInteraction();
     		//lowLevelInteraction.add(e)
     	}
-    }
+    }*/
 
     /**
      * Returns the book
