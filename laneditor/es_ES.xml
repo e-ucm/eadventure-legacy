@@ -931,6 +931,9 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="ItemReferenceTable.TableBorder">Lista de referencias</entry>
 	<entry key="ItemReferenceTable.ListDescription">Numero de referencias: {#0}</entry>
 	<entry key="ItemReferenceTable.AddParagraph">Crear nueva referencia a elemento (referencias a atrezo, objeto o personaje estan permitidas)</entry>
+	<entry key="ItemReferenceTable.MoveUp">Subir la referencia en la tabla cambiando la capa (se aumenta la profundidad)</entry>
+	<entry key="ItemReferenceTable.MoveDown">Bajar la referencia en la table cambiando la capa (se disminuye la profundidad)</entry>
+	<entry key="ItemReferenceTable.Delete">Borrar la referencia</entry>
 	<entry key="ItemReferenceTable.LayerExplanation">El elemento con capa "0" es el que se encuentra a mayor profundidad </entry>
 	
 	<entry key="AtrezzoReference.Title">Referencia a objeto de atrezo</entry>
