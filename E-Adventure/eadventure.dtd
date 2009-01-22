@@ -170,13 +170,13 @@
 <!ATTLIST give-to
 	idTarget IDREF #REQUIRED
 >
-<!ELEMENT custom (resources+, documentation?, condition?, effect?)>
+<!ELEMENT custom (resources*, documentation?, condition?, effect?)>
 <!ATTLIST custom
 	name CDATA #REQUIRED
 	needsGoTo (yes | no) "no"
 	keepDistance CDATA "0"
 >
-<!ELEMENT custom-interact (resources+, documentation?, condition?, effect?)>
+<!ELEMENT custom-interact (resources*, documentation?, condition?, effect?)>
 <!ATTLIST custom-interact
 	idTarget IDREF #REQUIRED
 	name CDATA #REQUIRED

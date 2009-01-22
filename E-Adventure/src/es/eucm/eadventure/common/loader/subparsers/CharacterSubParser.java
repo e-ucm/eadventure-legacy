@@ -301,5 +301,8 @@ public class CharacterSubParser extends SubParser {
 		// If a condition is being subparsed, spread the call
 		else if( subParsing == SUBPARSING_CONDITION )
 			subParser.characters( buf, offset, len );
+		
+		else if (subParsing == SUBPARSING_ACTIONS)
+			subParser.characters(buf, offset, len);
 	}
 }
