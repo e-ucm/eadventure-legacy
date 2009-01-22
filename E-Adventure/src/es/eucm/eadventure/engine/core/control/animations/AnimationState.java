@@ -108,13 +108,32 @@ public abstract class AnimationState {
      * @param depth Position where will be drawn 
    	*/
     public void draw( int x, int y, float scale , int depth) {
-        int realX = x - (int) ( getImage( ).getWidth( null ) * scale / 2 ) - Game.getInstance( ).getFunctionalScene( ).getOffsetX( );
+       /* int realX = x - (int) ( getImage( ).getWidth( null ) * scale / 2 ) - Game.getInstance( ).getFunctionalScene( ).getOffsetX( );
         int realY = y - (int) ( getImage( ).getHeight( null ) * scale ); 
         Image tempImage = getImage().getScaledInstance(Math.round(getImage().getWidth(null)*scale), Math.round(getImage().getHeight(null)*scale), Image.SCALE_SMOOTH);
         if (depth == -1)
         	GUI.getInstance( ).addElementToDraw( tempImage, realX, realY, Math.round(y) , Math.round(y));
         else 	
         	GUI.getInstance( ).addElementToDraw( tempImage, realX, realY, depth, Math.round(y) );
+        */
+        
+        Image image = getCurrentAnimation().getImage();
+        int realX = (int) (x - ( image.getWidth( null ) * scale / 2 ) - Game.getInstance( ).getFunctionalScene( ).getOffsetX( ));
+        int realY = (int) (y - ( image.getHeight( null ) * scale )); 
+        if (scale != 1) {
+    		Image temp = image.getScaledInstance(Math.round(image.getWidth(null) * scale), Math.round(image.getHeight(null) * scale), Image.SCALE_SMOOTH);
+    		if (depth==-1||depth==-2)
+    			GUI.getInstance().addPlayerToDraw(temp, realX, realY, Math.round(y),Math.round(y));
+    		else 
+    			GUI.getInstance().addElementToDraw(temp, realX, realY, depth, Math.round(y));
+
+        } else {
+            if (depth==-1||depth==-2)
+            	GUI.getInstance( ).addPlayerToDraw( image, realX, realY, Math.round( y ), Math.round(y));
+            else 
+            	GUI.getInstance( ).addElementToDraw( image, realX, realY, depth, Math.round(y) );
+        }
+        
         
     }
     
