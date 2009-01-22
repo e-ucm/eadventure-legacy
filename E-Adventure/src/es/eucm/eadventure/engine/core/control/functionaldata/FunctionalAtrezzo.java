@@ -3,7 +3,6 @@ package es.eucm.eadventure.engine.core.control.functionaldata;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 
-import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.common.data.chapter.CustomAction;
 import es.eucm.eadventure.common.data.chapter.InfluenceArea;
 import es.eucm.eadventure.common.data.chapter.elements.Atrezzo;
@@ -11,9 +10,7 @@ import es.eucm.eadventure.common.data.chapter.elements.Element;
 import es.eucm.eadventure.common.data.chapter.elements.Item;
 import es.eucm.eadventure.common.data.chapter.resources.Asset;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
-import es.eucm.eadventure.engine.core.control.ActionManager;
 import es.eucm.eadventure.engine.core.control.Game;
-import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
@@ -160,8 +157,8 @@ public class FunctionalAtrezzo extends FunctionalElement {
      * @see es.eucm.eadventure.engine.core.control.functionaldata.Renderable#draw(java.awt.Graphics2D)
      */
     public void draw( ) {
-    	int x_image = Math.round( x - ( getWidth( ) / 2 ) ) - Game.getInstance( ).getFunctionalScene( ).getOffsetX( );
-    	int y_image = Math.round( y - getHeight( ) );
+    	int x_image = Math.round( x - ( getWidth( ) * scale / 2 ) ) - Game.getInstance( ).getFunctionalScene( ).getOffsetX( );
+    	int y_image = Math.round( y - getHeight( ) * scale);
     	if (scale != 1) {
     		Image temp = image.getScaledInstance(Math.round(image.getWidth(null) * scale), Math.round(image.getHeight(null) * scale), Image.SCALE_SMOOTH);
     		if (layer==-1)

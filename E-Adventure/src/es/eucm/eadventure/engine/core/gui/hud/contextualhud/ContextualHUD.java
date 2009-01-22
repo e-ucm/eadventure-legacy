@@ -135,7 +135,7 @@ public class ContextualHUD extends HUD {
             cursorExit = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( descriptor.getCursorPath( DescriptorData.EXIT_CURSOR ), MultimediaManager.IMAGE_MENU ), new Point( 5, 5 ), "cursorExit" );
         }
         
-        if (descriptor.getCursorPath( DescriptorData.EXIT_CURSOR )==null){
+        if (descriptor.getCursorPath( DescriptorData.CURSOR_ACTION )==null){
             cursorAction = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImage( "gui/cursors/action.png", MultimediaManager.IMAGE_MENU ), new Point( 5, 5 ), "cursorAction" );            
         }
         else{
@@ -225,7 +225,7 @@ public class ContextualHUD extends HUD {
                 //else if the mouse is not in the inventory or its offset, hide it
                 }else if( e.getY( ) > Inventory.UPPER_INVENTORY_PANEL_Y+Inventory.INVENTORY_PANEL_HEIGHT + INVENTORY_ON_OFFSET ){
                     showInventory = false;
-                }       
+                }
             //else the inventory is the bottom window one
             }else{
                 //The mouse event is in the inventory

@@ -120,7 +120,7 @@ public class FunctionalTrajectory {
 			double xsq = Math.pow(fromX - currentSide.getEndNode().getX(), 2);
 			double ysq = Math.pow(fromY - currentSide.getEndNode().getY(), 2);
 			float dist = (float) Math.sqrt(xsq + ysq);
-			FunctionalPath newPath = new FunctionalPath(dist, tempSides);
+			FunctionalPath newPath = new FunctionalPath(dist, Float.MAX_VALUE, tempSides);
 			tempPaths.add(newPath);
 		}
 		
@@ -149,8 +149,11 @@ public class FunctionalTrajectory {
 		List<FunctionalPath> validPaths = new ArrayList<FunctionalPath>();
 		
 		for (FunctionalPath tempPath : fullPathList) {
-			FunctionalPath newPath = new FunctionalPath(Float.MAX_VALUE, new ArrayList<FunctionalSide>());
-			newPath.addSide(0, tempPath.getSides().get(0));
+			double xsq = Math.pow(fromX - tempPath.getSides().get(0).getEndNode().getX(), 2);
+			double ysq = Math.pow(fromY - tempPath.getSides().get(0).getEndNode().getY(), 2);
+			float length = (float) Math.sqrt(xsq + ysq);
+			FunctionalPath newPath = new FunctionalPath(length, Float.MAX_VALUE, new ArrayList<FunctionalSide>());
+			newPath.addSide(0, Float.MAX_VALUE, tempPath.getSides().get(0));
 			
 			float posX = fromX;
 			float posY = fromY;			
@@ -188,8 +191,7 @@ public class FunctionalTrajectory {
 				
 				validPaths.add(newPath);
 				if (sideNr < tempPath.getSides().size()) {
-					newPath = newPath.newFunctionalPath(Float.MAX_VALUE, tempPath.getSides().get(sideNr));
-					newPath.setLength(Float.MAX_VALUE);
+					newPath = newPath.newFunctionalPath(tempPath.getSides().get(sideNr).getLenght(), Float.MAX_VALUE, tempPath.getSides().get(sideNr));
 					posX = tempPath.getSides().get(sideNr).getStartNode().getX();
 					posY = tempPath.getSides().get(sideNr).getStartNode().getY();
 				}
@@ -247,7 +249,7 @@ public class FunctionalTrajectory {
 			boolean continues = false;
 			for (FunctionalSide side : sides) {
 				if (side.getSide() != lastSide.getSide() && side.getStartNode().getID().equals(lastSide.getEndNode().getID())) {
-					FunctionalPath temp = originalPath.newFunctionalPath(side.getLenght(), side);
+					FunctionalPath temp = originalPath.newFunctionalPath(side.getLenght(), 0, side);
 					if (temp != null) {
 						tempPaths.add(temp);
 						continues = true;
@@ -389,9 +391,12 @@ public class FunctionalTrajectory {
 		
 		private boolean getsTo;
 		
-		public FunctionalPath(float length, List<FunctionalSide> sides) {
+		private float distance;
+		
+		public FunctionalPath(float length, float distance, List<FunctionalSide> sides) {
 			this.length = length;
 			this.sides = new ArrayList<FunctionalSide>(sides);
+			this.distance = distance;
 			getsTo = false;
 		}
 
@@ -408,10 +413,10 @@ public class FunctionalTrajectory {
 		}
 		
 		public void updateUpTo(float dist, float posX, float posY) {
-			if (dist < length) {
+			if (dist < distance) {
 				destX = posX;
 				destY = posY;
-				length = dist;
+				distance = dist;
 			}
 		}
 
@@ -430,26 +435,37 @@ public class FunctionalTrajectory {
 			return length;
 		}
 		
-		private void addSide(float lenght, FunctionalSide side) {
+		private void addSide(float lenght, float distance, FunctionalSide side) {
 			sides.add(side);
 			this.length += lenght;
+			this.distance = distance;
 		}
 
-		public FunctionalPath newFunctionalPath(float length, FunctionalSide side) {
+		public FunctionalPath newFunctionalPath(float length, float distance, FunctionalSide side) {
 			if (sides.contains(side))
 				return null;
 			for (FunctionalSide tempSide : sides)
 				if (tempSide.getSide() == side.getSide())
 					return null;
 			
-			FunctionalPath temp = new FunctionalPath(this.length, this.sides);
-			temp.addSide(length, side);
+			FunctionalPath temp = new FunctionalPath(this.length, this.distance, this.sides);
+			temp.addSide(length, distance, side);
 			return temp;
 		}
 
 		@Override
 		public int compareTo(FunctionalPath arg0) {
-			return (int) (arg0.length - length);
+			if (this.getsTo && !arg0.getsTo) {
+				return 1;
+			} else if (!this.getsTo && arg0.getsTo) {
+				return -1;
+			}
+			int distDif = (int) (arg0.distance - distance);
+			if (Math.abs(distDif) < 10) {
+				return (int) (length - arg0.length);
+			} else {
+				return  distDif;
+			}
 		}		
 		
 		public float getDestX() {

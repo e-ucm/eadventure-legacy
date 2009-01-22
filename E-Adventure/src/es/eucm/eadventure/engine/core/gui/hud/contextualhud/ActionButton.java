@@ -128,15 +128,48 @@ public class ActionButton {
             if( new FunctionalConditions(action.getResources( ).get( i ).getConditions( )).allConditionsOk( ) )
             	resources = action.getResources( ).get( i );
 
-        buttonNormal = ResourceHandler.getInstance().getResourceAsImageFromZip(resources.getAssetPath("buttonNormal"));
-		buttonOver = ResourceHandler.getInstance().getResourceAsImageFromZip(resources.getAssetPath("buttonOver"));
-		buttonPressed = ResourceHandler.getInstance().getResourceAsImageFromZip(resources.getAssetPath("buttonPressed"));
+        if (resources.getAssetPath("buttonNormal") != null)
+        	buttonNormal = ResourceHandler.getInstance().getResourceAsImageFromZip(resources.getAssetPath("buttonNormal"));
+        if (resources.getAssetPath("buttonOver") != null)
+        	buttonOver = ResourceHandler.getInstance().getResourceAsImageFromZip(resources.getAssetPath("buttonOver"));
+        if (resources.getAssetPath("buttonPressed") != null)
+        	buttonPressed = ResourceHandler.getInstance().getResourceAsImageFromZip(resources.getAssetPath("buttonPressed"));
+		
+		
+		if (buttonPressed == null || buttonOver == null || buttonNormal == null)
+			fixButtons();
 		
 		buttonNormal = scaleButton(buttonNormal);
 		buttonOver = scaleButton(buttonOver);
 		buttonPressed = scaleButton(buttonPressed);
 		
 		this.type = ActionButtons.ACTIONBUTTON_CUSTOM;
+	}
+	
+	private void fixButtons() {
+		if (buttonNormal == null && buttonOver == null && buttonPressed == null) {
+            buttonNormal = MultimediaManager.getInstance( ).loadImage( "gui/hud/contextual/btnHand.png", MultimediaManager.IMAGE_MENU );
+            buttonOver = MultimediaManager.getInstance( ).loadImage( "gui/hud/contextual/btnHandHighlighted.png", MultimediaManager.IMAGE_MENU );
+            buttonPressed = MultimediaManager.getInstance( ).loadImage( "gui/hud/contextual/btnHandPressed.png", MultimediaManager.IMAGE_MENU );
+		} 
+		if (buttonNormal == null) {
+			if (buttonOver != null)
+				buttonNormal = buttonOver;
+			else if (buttonPressed != null)
+				buttonNormal = buttonPressed;
+		}
+		if (buttonOver == null) {
+			if (buttonPressed != null)
+				buttonOver = buttonPressed;
+			else if (buttonNormal != null)
+				buttonOver = buttonNormal;
+		}
+		if (buttonPressed == null) {
+			if (buttonOver != null)
+				buttonPressed = buttonOver;
+			if (buttonNormal != null)
+				buttonPressed = buttonNormal;
+		}
 	}
 
 	/**
