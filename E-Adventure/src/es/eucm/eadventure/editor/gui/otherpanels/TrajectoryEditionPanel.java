@@ -97,7 +97,7 @@ public class TrajectoryEditionPanel extends JPanel {
 		}
 		
 		button.addActionListener(new ActionListener() {
-			@Override
+
 			public void actionPerformed(ActionEvent arg0) {
 				tspec.setSelectedTool(tool);
 			}

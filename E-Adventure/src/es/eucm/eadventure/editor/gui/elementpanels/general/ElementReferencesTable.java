@@ -109,7 +109,7 @@ public class ElementReferencesTable extends JTable implements ElementReferenceSe
 
 	}
 
-	@Override
+
 	public void elementReferenceSelected(int layer) {
 		if (layer != -1)
 			this.changeSelection(layer, 1, false, false);
