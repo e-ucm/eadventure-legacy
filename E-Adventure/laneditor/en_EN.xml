@@ -927,7 +927,7 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="ItemReferenceTable.TableBorder">References list</entry>
 	<entry key="ItemReferenceTable.ListDescription">Current number of references: {#0}</entry>
 	<entry key="ItemReferenceTable.AddParagraph">Create a new element reference (set, item or npc references are allowed)</entry>
-	
+	<entry key="ItemReferenceTable.LayerExplanation">The element with layer "0" is the deepest element</entry>
 	
 	
 	<entry key="AtrezzoReferencesList.Title">Set item references</entry>

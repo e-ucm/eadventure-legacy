@@ -94,6 +94,7 @@ public class BookParagraphsPanel extends JPanel{
 		infoAndPreview.setResizeWeight(0.5);
 		infoAndPreview.setContinuousLayout(true);
 		infoAndPreview.setDividerLocation(280);
+		infoAndPreview.setDividerSize(10);
 
 		paragraphEditionPanelContainer.setMinimumSize( new Dimension(100,250) );
 		previewPanelContainer.setMinimumSize( new Dimension(100,250) );
@@ -104,7 +105,7 @@ public class BookParagraphsPanel extends JPanel{
 		splitAndTable.setOneTouchExpandable(true);
 		splitAndTable.setDividerLocation(490);
 		splitAndTable.setResizeWeight(0.5);
-		
+		splitAndTable.setDividerSize(10);
 		setLayout( new BorderLayout( ) );
 		add(splitAndTable,BorderLayout.CENTER);
 		

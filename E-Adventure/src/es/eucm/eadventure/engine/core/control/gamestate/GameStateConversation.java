@@ -283,6 +283,8 @@ public class GameStateConversation extends GameState {
                 // it must come back to this conversation and continue it
                 game.pushCurrentState(this);
                 
+                //TODO ver que pasa con has valid effects, xk entramos aki cuando hay un effects vacio tb, cosa
+                // que no tiene mucho sentido
                 FunctionalEffects.storeAllEffects(currentNode.getEffects( ));
                 GUI.getInstance().toggleHud( true );
                 

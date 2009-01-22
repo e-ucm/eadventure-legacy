@@ -33,7 +33,7 @@ public class ElementReferencesTable extends JTable implements ElementReferenceSe
 		this.getColumnModel( ).setColumnSelectionAllowed( false );
 		this.setDragEnabled( false );
 		this.getColumnModel().getColumn(0).setMaxWidth( 55 );
-		this.getColumnModel().getColumn(0).setPreferredWidth(5);
+		this.getColumnModel().getColumn(0).setPreferredWidth(50);
 		this.getColumnModel().getColumn(1).setCellRenderer(
 				new ElementsReferencesTableCellRenderer());
 		this.getSelectionModel( ).setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
