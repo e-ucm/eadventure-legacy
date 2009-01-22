@@ -929,6 +929,9 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="ItemReferenceTable.TableBorder">References list</entry>
 	<entry key="ItemReferenceTable.ListDescription">Current number of references: {#0}</entry>
 	<entry key="ItemReferenceTable.AddParagraph">Create a new element reference (set, item or npc references are allowed)</entry>
+	<entry key="ItemReferenceTable.MoveUp">Move up current reference changing its layer (making deeper)</entry>
+	<entry key="ItemReferenceTable.MoveDown">Move down current reference changing its layer (making less deeper)</entry>
+	<entry key="ItemReferenceTable.Delete">Delete current element reference</entry>
 	<entry key="ItemReferenceTable.LayerExplanation">The element with layer "0" is the deepest element</entry>
 	
 	

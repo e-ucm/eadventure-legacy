@@ -8,6 +8,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -53,6 +54,8 @@ import es.eucm.eadventure.engine.core.data.GameText;
 import es.eucm.eadventure.engine.core.data.SaveGame;
 import es.eucm.eadventure.engine.core.data.SaveGameException;
 import es.eucm.eadventure.engine.core.data.SaveTimer;
+import es.eucm.eadventure.engine.core.data.userinteraction.highlevel.HighLevelInteraction;
+import es.eucm.eadventure.engine.core.data.userinteraction.lowlevel.LowLevelInteraction;
 //import es.eucm.eadventure.engine.core.data.userinteraction.highlevel.HighLevelInteraction;
 //import es.eucm.eadventure.engine.core.data.userinteraction.lowlevel.LowLevelInteraction;
 import es.eucm.eadventure.engine.core.gui.GUI;
@@ -297,12 +300,12 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     /**
      * FIFO which store high level interaction
      */
-   // ArrayDeque<HighLevelInteraction> highLevelInteraction;
+   private ArrayDeque<HighLevelInteraction> highLevelInteraction;
     
     /**
      * FIFO which store low level interaction
      */
-   // private ArrayDeque<LowLevelInteraction> lowLevelInteraction;
+   private ArrayDeque<LowLevelInteraction> lowLevelInteraction;
     
     /**
      * Returns the instance of Game
@@ -388,6 +391,10 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
        
         // Initialize the stack of states (used to keep the conversations and can throw its effects)
         stackOfState = new Stack<GameState>();
+        
+        // Initialize the FIFO of interactions
+        highLevelInteraction = new ArrayDeque<HighLevelInteraction>();
+        lowLevelInteraction = new ArrayDeque<LowLevelInteraction>();
 
         g.clearRect( 0, 0, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT );
         GUI.drawString( g, GameText.TEXT_PLEASE_WAIT, 400, 280 );
@@ -1063,6 +1070,13 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             return comm.isConnected( );
         } 
         return false;
+    }
+    
+    public void addInteracction(HighLevelInteraction interaction){
+    	if (currentState instanceof GameStateConversation){
+    		//LowLevelInteraction lowlevelint = new LowLevelInteraction();
+    		//lowLevelInteraction.add(e)
+    	}
     }
 
     /**

@@ -43,6 +43,7 @@ import es.eucm.eadventure.editor.control.controllers.scene.ReferencesListDataCon
 import es.eucm.eadventure.editor.gui.editdialogs.ConditionsDialog;
 import es.eucm.eadventure.editor.gui.elementpanels.general.ElementReferencesTable;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
+import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElement;
 
 public class ReferencesListPanel extends JPanel{
 
@@ -399,7 +400,7 @@ public class ReferencesListPanel extends JPanel{
 		deleteButton = new JButton(new ImageIcon("img/icons/deleteNode.png"));
 		deleteButton.setContentAreaFilled( false );
 		deleteButton.setMargin( new Insets(0,0,0,0) );
-		deleteButton.setToolTipText( TextConstants.getText( "BookParagraphs.DeleteParagraph" ) );
+		deleteButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.Delete" ) );
 		deleteButton.addActionListener(new ActionListener(){
 			public void actionPerformed( ActionEvent e ) {
 				delete();
@@ -409,7 +410,7 @@ public class ReferencesListPanel extends JPanel{
 		moveUpButton = new JButton(new ImageIcon("img/icons/moveNodeUp.png"));
 		moveUpButton.setContentAreaFilled( false );
 		moveUpButton.setMargin( new Insets(0,0,0,0) );
-		moveUpButton.setToolTipText( TextConstants.getText( "BookParagraphs.MoveParagraphUp" ) );
+		moveUpButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.MoveUp" ) );
 		moveUpButton.addActionListener( new ActionListener(){
 			public void actionPerformed( ActionEvent e ) {
 				moveUp();
@@ -419,7 +420,7 @@ public class ReferencesListPanel extends JPanel{
 		moveDownButton = new JButton(new ImageIcon("img/icons/moveNodeDown.png"));
 		moveDownButton.setContentAreaFilled( false );
 		moveDownButton.setMargin( new Insets(0,0,0,0) );
-		moveDownButton.setToolTipText( TextConstants.getText( "BookParagraphs.MoveParagraphDown" ) );
+		moveDownButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.MoveDown" ) );
 		moveDownButton.addActionListener( new ActionListener(){
 			public void actionPerformed( ActionEvent e ) {
 				moveDown();
@@ -602,7 +603,11 @@ public class ReferencesListPanel extends JPanel{
 				if (category!=0&&referencesListDataControl.getLastElementContainer()!=null){
 				// it is not necessary to check if it is an player element container because never a player will be added
 				spep.addElement(category, referencesListDataControl.getLastElementContainer().getErdc());
+				spep.paintBackBuffer();
 				spep.repaint();
+				spep.setSelectedElement(referencesListDataControl.getLastElementContainer().getErdc());
+				int layer = referencesListDataControl.getLastElementContainer().getErdc().getElementReference().getLayer();
+				table.getSelectionModel().setSelectionInterval(layer, layer);
 				table.updateUI( );
 				}
 			}
