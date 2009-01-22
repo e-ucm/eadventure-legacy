@@ -118,6 +118,7 @@ public class BookPagesPanel extends JPanel{
 				pageEditionPanelContainer, previewPanelContainer);	
 		infoAndPreview.setOneTouchExpandable(true);
 		infoAndPreview.setResizeWeight(0.5);
+		infoAndPreview.setDividerSize(10);
 		infoAndPreview.setContinuousLayout(true);
 		infoAndPreview.setDividerLocation(280);
 		
@@ -131,6 +132,7 @@ public class BookPagesPanel extends JPanel{
 				infoAndPreview, pagesPanel);
 		splitAndTable.setOneTouchExpandable(true);
 		splitAndTable.setDividerLocation(490);
+		splitAndTable.setDividerSize(10);
 		splitAndTable.setResizeWeight(0.5);
 		
 		setLayout( new BorderLayout( ) );
