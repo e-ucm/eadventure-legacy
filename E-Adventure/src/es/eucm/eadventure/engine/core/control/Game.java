@@ -273,7 +273,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     private FunctionalNPC currentNPC;
 
     /**
-     * Asynchronous communication api
+     * Communication api
      */
     private AdventureApplet comm;
 
