@@ -121,7 +121,7 @@ public class ResourcesDOMWriter {
 			}
 
 			// If the owner is a character
-			else if( resourcesType == RESOURCES_CHARACTER ) {
+			else if( resourcesType == RESOURCES_CUSTOM_ACTION ) {
 				// For each asset, if it has not been declared attach the empty animation
 				String[] assets = new String[] { "buttonNormal", "buttonOver", "buttonPressed" };
 				for( String asset : assets ) {
