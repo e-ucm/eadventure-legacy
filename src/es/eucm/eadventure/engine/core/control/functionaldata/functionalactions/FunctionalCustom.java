@@ -3,6 +3,7 @@ package es.eucm.eadventure.engine.core.control.functionaldata.functionalactions;
 import es.eucm.eadventure.common.data.chapter.CustomAction;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.engine.core.control.animations.Animation;
+import es.eucm.eadventure.engine.core.control.animations.AnimationState;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalItem;
@@ -50,14 +51,19 @@ public class FunctionalCustom extends FunctionalAction {
             	resources = customAction.getResources( ).get( i );
 
 		MultimediaManager multimedia = MultimediaManager.getInstance( );
-		Animation animation = null;
+		Animation[] animation = new Animation[4];
 
 		if (resources.getAssetPath("actionAnimation") != null && !resources.getAssetPath("actionAnimation").equals("")) {
 			if (element.getX() > functionalPlayer.getX()) {
-				animation = multimedia.loadAnimation( resources.getAssetPath( "actionAnimation" ), false, MultimediaManager.IMAGE_PLAYER );
+				functionalPlayer.setDirection(AnimationState.EAST);
 			} else {
-				animation = multimedia.loadAnimation( resources.getAssetPath( "actionAnimation" ), true, MultimediaManager.IMAGE_PLAYER );
+				functionalPlayer.setDirection(AnimationState.WEST);
 			}
+			animation[AnimationState.EAST] = multimedia.loadAnimation( resources.getAssetPath( "actionAnimation" ), false, MultimediaManager.IMAGE_PLAYER );
+			animation[AnimationState.WEST] = multimedia.loadAnimation( resources.getAssetPath( "actionAnimation" ), true, MultimediaManager.IMAGE_PLAYER );
+			animation[AnimationState.NORTH] = multimedia.loadAnimation( resources.getAssetPath( "actionAnimation" ), false, MultimediaManager.IMAGE_PLAYER );
+			animation[AnimationState.SOUTH] = multimedia.loadAnimation( resources.getAssetPath( "actionAnimation" ), true, MultimediaManager.IMAGE_PLAYER );
+			
 			functionalPlayer.setAnimation(animation, -1);
 			hasAnimation = true;
 		} 

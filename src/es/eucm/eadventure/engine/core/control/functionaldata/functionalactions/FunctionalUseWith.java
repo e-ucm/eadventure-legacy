@@ -4,6 +4,8 @@ import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.common.data.chapter.elements.Player;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.engine.core.control.ActionManager;
+import es.eucm.eadventure.engine.core.control.animations.Animation;
+import es.eucm.eadventure.engine.core.control.animations.AnimationState;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalItem;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
@@ -45,11 +47,18 @@ public class FunctionalUseWith extends FunctionalAction {
         Resources resources = functionalPlayer.getResources( );
         MultimediaManager multimedia = MultimediaManager.getInstance( );
 
-        if (functionalPlayer.getX() > element.getX())
-        	functionalPlayer.setAnimation(multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_USE_RIGHT ), false, MultimediaManager.IMAGE_PLAYER ), -1);
-        else 
-        	functionalPlayer.setAnimation(multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_USE_RIGHT ), true, MultimediaManager.IMAGE_PLAYER ), -1);
+        Animation[] animations = new Animation[4];
+        animations[AnimationState.EAST] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_USE_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
+        animations[AnimationState.WEST] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_USE_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
+        animations[AnimationState.NORTH] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_USE_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
+        animations[AnimationState.SOUTH] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_USE_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
 
+        if (functionalPlayer.getX() > element.getX())
+        	functionalPlayer.setDirection(AnimationState.EAST);
+        else 
+        	functionalPlayer.setDirection(AnimationState.WEST);
+
+        functionalPlayer.setAnimation(animations, -1);
 	}
 
 	@Override

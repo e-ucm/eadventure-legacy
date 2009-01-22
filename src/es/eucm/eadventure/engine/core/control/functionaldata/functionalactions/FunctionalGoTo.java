@@ -6,6 +6,7 @@ import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.engine.core.control.ActionManager;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.animations.Animation;
+import es.eucm.eadventure.engine.core.control.animations.AnimationState;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalTrajectory;
@@ -74,14 +75,19 @@ public class FunctionalGoTo extends FunctionalAction {
         multimedia = MultimediaManager.getInstance( );
         if (!trajectory.hasTrajectory()) {
 	        if( functionalPlayer.getX( ) < posX ) {
-	            Animation animation = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_WALK_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
-	            functionalPlayer.setAnimation(animation, -1);
+	        	functionalPlayer.setDirection(AnimationState.EAST);
 	            speedX = FunctionalPlayer.DEFAULT_SPEED;
 	        } else {
-	            Animation animation = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_WALK_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
-	            functionalPlayer.setAnimation(animation, -1);
+	        	functionalPlayer.setDirection(AnimationState.WEST);
 	            speedX = -FunctionalPlayer.DEFAULT_SPEED;
 	        }
+            Animation[] animations = new Animation[4];
+	        animations[AnimationState.EAST] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_WALK_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
+            animations[AnimationState.WEST] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_WALK_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
+	        animations[AnimationState.NORTH] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_WALK_UP ), false, MultimediaManager.IMAGE_PLAYER );
+            animations[AnimationState.SOUTH] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_WALK_DOWN ), false, MultimediaManager.IMAGE_PLAYER );
+            functionalPlayer.setAnimation(animations, -1);
+
         } else if (!trajectoryUpdated){
         	trajectory.updatePathToNearestPoint(functionalPlayer.getX(), functionalPlayer.getY(), posX, posY);
         }
@@ -124,55 +130,54 @@ public class FunctionalGoTo extends FunctionalAction {
 	}
 	
 	private void setAnimation(float oldSpeedX, float oldSpeedY, float newSpeedX, float newSpeedY) {
+        Animation[] animations = new Animation[4];
+        animations[AnimationState.EAST] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_WALK_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
+        animations[AnimationState.WEST] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_WALK_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
+        animations[AnimationState.NORTH] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_WALK_UP ), false, MultimediaManager.IMAGE_PLAYER );
+        animations[AnimationState.SOUTH] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_WALK_DOWN ), false, MultimediaManager.IMAGE_PLAYER );
+
 		if (!hasAnimation) {
 			hasAnimation = true;
 			if (muchGreater(newSpeedY, newSpeedX)) {
 				if (newSpeedY > 0) {
-		            Animation animation = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_WALK_DOWN ), false, MultimediaManager.IMAGE_PLAYER );
-		            functionalPlayer.setAnimation(animation, -1);
+					functionalPlayer.setDirection(AnimationState.SOUTH);
 				} else {
-		            Animation animation = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_WALK_UP ), false, MultimediaManager.IMAGE_PLAYER );
-		            functionalPlayer.setAnimation(animation, -1);
+					functionalPlayer.setDirection(AnimationState.NORTH);
 				}
 			} else {
 				if (newSpeedX > 0) {
-		            Animation animation = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_WALK_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
-		            functionalPlayer.setAnimation(animation, -1);
+					functionalPlayer.setDirection(AnimationState.EAST);
 				} else {
-		            Animation animation = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_WALK_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
-		            functionalPlayer.setAnimation(animation, -1);
+					functionalPlayer.setDirection(AnimationState.WEST);
 				}
 			}
+            functionalPlayer.setAnimation(animations, -1);
 		} else {
 			if (muchGreater(newSpeedY, newSpeedX) && !muchGreater(oldSpeedY, oldSpeedX)) {
 				functionalPlayer.popAnimation();
 				if (newSpeedY > 0) {
-		            Animation animation = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_WALK_DOWN ), false, MultimediaManager.IMAGE_PLAYER );
-		            functionalPlayer.setAnimation(animation, -1);
+		            functionalPlayer.setDirection(AnimationState.SOUTH);
 				} else {
-		            Animation animation = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_WALK_UP ), false, MultimediaManager.IMAGE_PLAYER );
-		            functionalPlayer.setAnimation(animation, -1);
+		            functionalPlayer.setDirection(AnimationState.NORTH);
 				}
-				
+	            functionalPlayer.setAnimation(animations, -1);
 			} else if (!muchGreater(newSpeedY, newSpeedX) && muchGreater(oldSpeedY, oldSpeedX)) {
 				functionalPlayer.popAnimation();
 				if (newSpeedX > 0) {
-		            Animation animation = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_WALK_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
-		            functionalPlayer.setAnimation(animation, -1);
+		            functionalPlayer.setDirection(AnimationState.EAST);
 				} else {
-		            Animation animation = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_WALK_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
-		            functionalPlayer.setAnimation(animation, -1);
+		            functionalPlayer.setDirection(AnimationState.WEST);
 				}
-				
+	            functionalPlayer.setAnimation(animations, -1);
 			} else {
 				if (oldSpeedX > 0 && newSpeedX < 0) {
-		            Animation animation = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_WALK_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
+		            functionalPlayer.setDirection(AnimationState.WEST);
 		            functionalPlayer.popAnimation();
-		            functionalPlayer.setAnimation(animation, -1);
+		            functionalPlayer.setAnimation(animations, -1);
 				} else if (oldSpeedX < 0 && newSpeedX > 0) {
-		            Animation animation = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_WALK_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
+		            functionalPlayer.setDirection(AnimationState.EAST);
 		            functionalPlayer.popAnimation();
-		            functionalPlayer.setAnimation(animation, -1);
+		            functionalPlayer.setAnimation(animations, -1);
 				}
 			}
 		}

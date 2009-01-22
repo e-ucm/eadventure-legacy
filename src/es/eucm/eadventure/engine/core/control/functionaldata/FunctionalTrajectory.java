@@ -138,10 +138,10 @@ public class FunctionalTrajectory {
 		this.currentNode = null;
 		this.currentSide = bestPath.getSides().get(0).getSide();
 		this.getsTo = bestPath.isGetsTo();
-		for (FunctionalSide fs : bestPath.getSides()) {
-			System.out.print(fs.getSide() + "--->");
-		}
-		System.out.println();
+//		for (FunctionalSide fs : bestPath.getSides()) {
+//			System.out.print(fs.getSide() + "--->");
+//		}
+//		System.out.println();
 		return bestPath.getSides();
 	}
 

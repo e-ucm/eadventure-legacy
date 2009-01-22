@@ -6,6 +6,7 @@ import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.common.data.chapter.ConversationReference;
 import es.eucm.eadventure.engine.core.control.ActionManager;
 import es.eucm.eadventure.engine.core.control.Game;
+import es.eucm.eadventure.engine.core.control.animations.AnimationState;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalNPC;
@@ -54,6 +55,12 @@ public class FunctionalTalk extends FunctionalAction {
 		this.functionalPlayer = functionalPlayer;
         
         if( anyConversation ) {
+        	if (npc != null) {
+        		if (npc.getX() > functionalPlayer.getX())
+        			functionalPlayer.setDirection(AnimationState.EAST);
+        		else
+        			functionalPlayer.setDirection(AnimationState.WEST);
+        	}
             finished = false;
         } else {
             functionalPlayer.speak( GameText.getTextTalkCannot( ) );
