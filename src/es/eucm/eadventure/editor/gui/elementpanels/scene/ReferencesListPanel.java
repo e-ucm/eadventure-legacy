@@ -6,6 +6,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -28,6 +29,10 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.plaf.basic.BasicSplitPaneDivider;
+import javax.swing.plaf.basic.BasicSplitPaneUI;
+
+import com.sun.java.swing.plaf.windows.WindowsSplitPaneDivider;
 
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.gui.TextConstants;
@@ -39,7 +44,7 @@ import es.eucm.eadventure.editor.gui.editdialogs.ConditionsDialog;
 import es.eucm.eadventure.editor.gui.elementpanels.general.ElementReferencesTable;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 
-public class ReferencesListPanel extends JPanel {
+public class ReferencesListPanel extends JPanel{
 
 	/**
 	 * Required.
@@ -63,6 +68,10 @@ public class ReferencesListPanel extends JPanel {
 	private JSplitPane infoWithSpep;
 	
 	private JPanel infoPanel;
+	
+	BasicSplitPaneDivider horizontalDivider;
+	
+	BasicSplitPaneDivider verticalDivider;
 	
 	private ReferencesListDataControl referencesListDataControl;
 	
@@ -114,20 +123,22 @@ public class ReferencesListPanel extends JPanel {
 			if (!Controller.getInstance().isPlayTransparent()&& referencesListDataControl.getSceneDataControl().isAllowPlayer())
 				spep.addPlayer(referencesListDataControl.getSceneDataControl(), referencesListDataControl.getPlayerImage());
 		}
+		//Provide minimum sizes for the two components in the split pane
+		Dimension minimumSize = new Dimension(300, 280);
+		//infoPanel.setMinimumSize(minimumSize);
+		//infoPanel.setPreferredSize(minimumSize);
+		//spep.setMinimumSize(minimumSize);
 		//Create a split pane with the two panels: info panel and preview panel
 		infoWithSpep = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
                 infoPanel, spep);
 		infoWithSpep.setOneTouchExpandable(true);
 		infoWithSpep.setResizeWeight(0.5);
 		infoWithSpep.setContinuousLayout(true);
-		infoWithSpep.setDividerLocation(280);
+		infoWithSpep.setDividerLocation(referencesListDataControl.getHorizontalSplitPosition());
+		infoWithSpep.setDividerSize(10);
 
 
-		//Provide minimum sizes for the two components in the split pane
-		Dimension minimumSize = new Dimension(300, 280);
-		//infoPanel.setMinimumSize(minimumSize);
-		infoPanel.setPreferredSize(minimumSize);
-		spep.setMinimumSize(minimumSize);
+		
 		
 	
 		// Add the table which contains the elements in the scene (items, atrezzo and npc) with its layer position
@@ -136,17 +147,16 @@ public class ReferencesListPanel extends JPanel {
 		// set the listener to get the events in the preview panel that implies changes in the table
 		spep.setElementReferenceSelectionListener(table);
 		
+		//infoWithSpep.setMinimumSize(new Dimension(150,0));
+		//table.setMinimumSize(new Dimension(0,150));
 		//Create a split pane with the two scroll panes in it
 		tableWithSplit = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
                 infoWithSpep, tablePanel);
 		tableWithSplit.setOneTouchExpandable(true);
-		tableWithSplit.setDividerLocation(535);
-		//tableWithSplit.setContinuousLayout(true);
-
-		//Provide minimum sizes for the two components in the split pane
-		minimumSize = new Dimension(200, 100);
-	
+		tableWithSplit.setDividerLocation(referencesListDataControl.getVerticalSplitPosition());
+		tableWithSplit.setContinuousLayout(true);
 		tableWithSplit.setResizeWeight(0.5);
+		tableWithSplit.setDividerSize(10);
 	
 		
 		setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ItemReferencesList.Title" ) ) );
@@ -161,12 +171,47 @@ public class ReferencesListPanel extends JPanel {
 		// Set the layout
 		setLayout( new BorderLayout( ) );
 		add(tableWithSplit,BorderLayout.CENTER);
+		
+		horizontalDivider = ((BasicSplitPaneUI)this.infoWithSpep.getUI()).getDivider();
+		
+		verticalDivider = ((BasicSplitPaneUI)this.tableWithSplit.getUI()).getDivider();
+		
+		verticalDivider.addMouseListener(new MouseListener(){
+			public void mouseClicked(MouseEvent e) {}
+			public void mousePressed(MouseEvent e) {}
+			public void mouseReleased(MouseEvent e) {
+				storeDividerPos(e,true);
+				
+
+			}
+			public void mouseEntered(MouseEvent e) {}
+			public void mouseExited(MouseEvent e) {}
+			});
+		
+		horizontalDivider.addMouseListener(new MouseListener(){
+			public void mouseClicked(MouseEvent e) {}
+			public void mousePressed(MouseEvent e) {}
+			public void mouseReleased(MouseEvent e) {
+				storeDividerPos(e,false);
+				
+
+			}
+			public void mouseEntered(MouseEvent e) {}
+			public void mouseExited(MouseEvent e) {}
+			});
+	}
+	
+	public void storeDividerPos(MouseEvent e, boolean choice){
+		Point p = e.getLocationOnScreen();
+		if (!choice)
+				referencesListDataControl.setHorizontalSplitPosition((int)p.getY());
+		else 
+			referencesListDataControl.setVerticalSplitPosition((int)p.getX());
+		
 	}
 	
 	private void prepareInformationPanel(){
-		// Set the controller
-		Controller controller = Controller.getInstance( );
-		
+				
 		//Check if the information is abouth the player
 		
 		boolean player = referencesListDataControl.getLastElementContainer().isPlayer();
@@ -178,12 +223,11 @@ public class ReferencesListPanel extends JPanel {
 		GridBagConstraints c = new GridBagConstraints( );
 		c.insets = new Insets( 5, 5, 5, 5 );
 
-		// Create the combo box of items
+		
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 1;
 		JPanel itemIdPanel = new JPanel( );
 		itemIdPanel.setLayout( new GridLayout( ) );
-		//itemsComboBox = new JComboBox( referencesListDataControl.getAllReferencesId() );
 		JLabel nameElementLabel = null;
 		if (player)
 			
@@ -282,14 +326,30 @@ public class ReferencesListPanel extends JPanel {
 	
 	private void createReferencesTablePanel(){
 		// Create the main panel
-		tablePanel = new JPanel( new BorderLayout());
+		tablePanel = new JPanel(new BorderLayout());
+		JPanel infPanel = new JPanel(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints( );
+		c.insets = new Insets( 5, 5, 5, 5 );
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.weightx = 1;
 		
+		
+		JTextPane layerTextPane = new JTextPane( );
+		layerTextPane.setEditable( false );
+		layerTextPane.setBackground( getBackground( ) );
+		layerTextPane.setText( TextConstants.getText( "ItemReferenceTable.LayerExplanation" ));
+		
+		infPanel.add(layerTextPane,c);
 		// Create the info panel (NORTH)
 		JTextPane informationTextPane = new JTextPane( );
 		informationTextPane.setEditable( false );
 		informationTextPane.setBackground( getBackground( ) );
 		informationTextPane.setText( TextConstants.getText( "ItemReferenceTable.ListDescription" , Integer.toString( referencesListDataControl.getAllReferencesDataControl().size()) ));
-		tablePanel.add( informationTextPane, BorderLayout.NORTH );
+		
+		c.gridy = 1;
+		infPanel.add( informationTextPane,c);
+		
+		tablePanel.add(infPanel,BorderLayout.NORTH);
 		
 		// Create the table (CENTER)
 		table = new ElementReferencesTable(referencesListDataControl);
@@ -315,7 +375,9 @@ public class ReferencesListPanel extends JPanel {
 				}
 			}
 		});
-		tablePanel.add( new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS), BorderLayout.CENTER );
+		
+
+		tablePanel.add( new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS) ,BorderLayout.CENTER);
 		
 		table.getSelectionModel( ).addListSelectionListener( new ListSelectionListener(){
 			public void valueChanged( ListSelectionEvent e ) {
@@ -371,8 +433,8 @@ public class ReferencesListPanel extends JPanel {
 		buttonsPanel.add( moveUpButton );
 		buttonsPanel.add( moveDownButton );
 		
-		//tablePanel.add(table, BorderLayout.NORTH);
-		tablePanel.add( buttonsPanel, BorderLayout.SOUTH );
+		
+		tablePanel.add( buttonsPanel,BorderLayout.SOUTH);
 		tablePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ItemReferenceTable.TableBorder" ) ) );
 	
 	
@@ -599,6 +661,8 @@ public class ReferencesListPanel extends JPanel {
 			new ConditionsDialog( referencesListDataControl.getLastElementContainer().getErdc().getConditions( ) );
 		}
 	}
+
+	
 
 
 

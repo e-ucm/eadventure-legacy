@@ -19,6 +19,16 @@ public class ReferencesListDataControl extends DataControl{
 
 	
 	/**
+	 * Vertical's split panel initial divider location
+	 */
+	public static final int VERTICAL_INITIAL_POSITION = 515;
+	
+	/**
+	 * Horizontal`s split panel initial divider location
+	 */
+	public static final int HORIZONTAL_INITIAL_POSITION = 280;
+	
+	/**
 	 * Player image path
 	 */
 	private String playerImagePath;
@@ -88,6 +98,16 @@ public class ReferencesListDataControl extends DataControl{
 	private boolean imagePathHasChanged;
 	
 	/**
+	 * Vertical's split panel divider location
+	 */
+	private int verticalSplitPosition;
+	
+	/**
+	 * Horizontal's split panel divider location
+	 */
+	private int horizontalSplitPosition;
+	
+	/**
 	 * Constructor.
 	 * 
 	 * @param sceneDataControl
@@ -107,6 +127,8 @@ public class ReferencesListDataControl extends DataControl{
 		this.playerPosition = -1;
 		this.addNewReferenceListener = null;
 		this.imagePathHasChanged = false;
+		this.horizontalSplitPosition = this.HORIZONTAL_INITIAL_POSITION;
+		this.verticalSplitPosition = this.VERTICAL_INITIAL_POSITION;
 		// Check if one of references has layer -1: if it is true, it means that element references has not layer. 
 		// Create subcontrollers
 		itemReferencesDataControlList = new ArrayList<ElementReferenceDataControl>( );
@@ -853,5 +875,21 @@ public class ReferencesListDataControl extends DataControl{
 		}
 			
 		
+	}
+
+	public int getVerticalSplitPosition() {
+		return verticalSplitPosition;
+	}
+
+	public void setVerticalSplitPosition(int verticalSplitPosition) {
+		this.verticalSplitPosition = verticalSplitPosition;
+	}
+
+	public int getHorizontalSplitPosition() {
+		return horizontalSplitPosition;
+	}
+
+	public void setHorizontalSplitPosition(int horizontalSplitPosition) {
+		this.horizontalSplitPosition = horizontalSplitPosition;
 	}
 }
