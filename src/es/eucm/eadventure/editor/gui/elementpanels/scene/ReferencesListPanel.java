@@ -77,7 +77,6 @@ public class ReferencesListPanel extends JPanel{
 	
 	private JTextArea documentationTextArea;
 	
-	
 	/**
 	 * Constructor.
 	 * 

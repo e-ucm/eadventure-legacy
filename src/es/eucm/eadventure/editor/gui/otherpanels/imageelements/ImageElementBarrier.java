@@ -14,6 +14,20 @@ public class ImageElementBarrier extends ImageElement {
 	
 	public ImageElementBarrier(BarrierDataControl barrierDataControl) {
 		this.barrierDataControl = barrierDataControl;
+		int x = barrierDataControl.getX();
+		int y = barrierDataControl.getY();
+		int width = barrierDataControl.getWidth();
+		int height = barrierDataControl.getHeight();
+		
+		if (width <= 0) {
+			width = 1;
+			barrierDataControl.setBarrier(x, y, width, height);
+		}
+		if (height <= 0) {
+			height = 1;
+			barrierDataControl.setBarrier(x, y, width, height);
+		}
+		
 		image = new BufferedImage(barrierDataControl.getWidth(), barrierDataControl.getHeight(), BufferedImage.TYPE_4BYTE_ABGR);
 		fillImage();
 	}

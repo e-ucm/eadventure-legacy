@@ -382,7 +382,7 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
     	}
     	
 
-    	if (nextAction.isNeedsGoTo()) {
+    	if (nextAction.isNeedsGoTo() &&  !this.isTransparent) {
     		FunctionalGoTo functionalGoTo = new FunctionalGoTo(null, (int)element.getX(), (int)element.getY(), this, element);
     		if (functionalGoTo.canGetTo()) {
     			addAction(nextAction);
@@ -392,8 +392,8 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
     			addAction(functionalGoTo);
     		}
     		return;
-    	}
-    	addAction(nextAction);
+    	} else
+    		addAction(nextAction);
     	return;
 
     }

@@ -699,7 +699,8 @@ public class FunctionalScene implements Renderable {
                 player.addAction(functionalGoTo);
             else {
             	player.addAction(new FunctionalExit(exit));
-            	player.addAction(functionalGoTo);
+            	if (!player.isTransparent())
+            		player.addAction(functionalGoTo);
             }
             Game.getInstance( ).getActionManager( ).setActionSelected( ActionManager.ACTION_GOTO );
         } else {
