@@ -13,7 +13,10 @@ public class FunctionalExamine extends FunctionalAction {
 		super(action);
 		type = ActionManager.ACTION_EXAMINE;
 		this.element = element;
-		this.needsGoTo = true;
+		if (element.isInInventory()) {
+			this.needsGoTo = false;
+		} else
+			this.needsGoTo = true;
 	}
 
 	@Override
