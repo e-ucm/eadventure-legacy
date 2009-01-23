@@ -79,9 +79,9 @@ public class Trajectory {
 				else
 					i++;
 			}
-			
+			nodes.remove(node);
 		}
-		nodes.remove(node);
+		
 	}
 	
 	public List<Node> getNodes() {
