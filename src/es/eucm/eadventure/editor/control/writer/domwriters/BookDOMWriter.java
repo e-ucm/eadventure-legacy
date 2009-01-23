@@ -89,6 +89,7 @@ public class BookDOMWriter {
 			else if (book.getType( ) == Book.TYPE_PAGES){
 				textPagesElement = doc.createElement( "pages" );
 				for (BookPage page: book.getPageURLs( )){
+					if (!page.getUri().isEmpty()){
 					// Create the node for the page
 					Element pageElement = doc.createElement( "page" );
 					
@@ -106,6 +107,7 @@ public class BookDOMWriter {
 					
 					
 					textPagesElement.appendChild( pageElement );
+					}
 				}
 			}
 			// Append the text element
