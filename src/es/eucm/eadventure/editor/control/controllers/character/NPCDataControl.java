@@ -216,6 +216,16 @@ public class NPCDataControl extends DataControlWithResources {
 	public void setSelectedResources( int selectedResources ) {
 		this.selectedResources = selectedResources;
 	}
+	
+	/**
+	 * Check if the engine must synthesizer all current npc conversation lines
+	 * 
+	 * @return
+	 * 		if npc must synthesizer all his lines
+	 */
+	public boolean isAlwaysSynthesizer(){
+		return npc.isAlwaysSynthesizer();
+	}
 
 	/**
 	 * Sets the new documentation of the NPC.

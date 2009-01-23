@@ -221,6 +221,7 @@ public class NPCPanel extends JPanel {
 				// Create CheckBox for select if always synthesizer voices
 		alwaysSynthesizer = new JCheckBox(TextConstants.getText("Synthesizer.CheckAlways"));
 		alwaysSynthesizer.addItemListener(new VoiceCheckVoxListener());
+		alwaysSynthesizer.setSelected(npcDataControl.isAlwaysSynthesizer());
 		voiceSelection.add(alwaysSynthesizer);
 				// Create a TextField to introduce text to try it in the synthesizer
 		trySynthesizer = new JTextField();

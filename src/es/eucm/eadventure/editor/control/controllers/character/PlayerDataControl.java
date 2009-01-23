@@ -314,6 +314,16 @@ public class PlayerDataControl extends DataControlWithResources{
 	}
 	
 	/**
+	 * Check if the engine must synthesizer all player conversation lines
+	 * 
+	 * @return
+	 * 		if player must synthesizer all his lines
+	 */
+	public boolean isAlwaysSynthesizer(){
+		return player.isAlwaysSynthesizer();
+	}
+	
+	/**
 	 * Gets the voice associated to player
 	 * 
 	 * @return
