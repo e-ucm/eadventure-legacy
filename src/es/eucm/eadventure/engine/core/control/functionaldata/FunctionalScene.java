@@ -688,13 +688,12 @@ public class FunctionalScene implements Renderable {
         // FIXME Francis: Aclarar el uso del offset, ya que se añade en sitios que no deberia y viceversa
         FunctionalElement element = getElementInside( x + offsetX, y );
         if( Game.getInstance( ).getActionManager( ).getActionSelected( ) == ActionManager.ACTION_GOTO || element == null ) {
-            // Check barriers (only 3rd person mode)
             int destX = x+offsetX;
             int destY = y;
             FunctionalGoTo functionalGoTo = new FunctionalGoTo(null, destX, destY);
             int finalX = functionalGoTo.getPosX();
             int finalY = functionalGoTo.getPosY();
-            Exit exit = Game.getInstance( ).getFunctionalScene( ).getExitInside( finalX, finalY );
+            Exit exit = Game.getInstance( ).getFunctionalScene( ).getExitInside( finalX - offsetX, finalY );
             if( exit == null )
                 player.addAction(functionalGoTo);
             else {
