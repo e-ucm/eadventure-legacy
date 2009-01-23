@@ -464,11 +464,15 @@ public class SaveGame implements Serializable {
             file.print(TIMERSMARK);
             long currentTime = System.currentTimeMillis( );
             for (SaveTimer saveT : saveGameData.timers.getTimers()){
+            	boolean isAssessment = saveT.isAssessmentRule();
             	file.print(saveT.getState() + "-");
-            	file.print(saveT.getTimeUpdate() + "-");
+            	if (isAssessment)
+            		file.print("assess" + "-");
+            	else
+            		file.print(saveT.getTimeUpdate() + "-");
             	// store the time in second that has been 
             	file.print((( currentTime / 1000) - saveT.getLastUpdate()) + "-");
-            	if (saveT.isAssessmentRule()){
+            	if (isAssessment){
             		file.print("0;");
             	}else {
             		file.print("1;");
