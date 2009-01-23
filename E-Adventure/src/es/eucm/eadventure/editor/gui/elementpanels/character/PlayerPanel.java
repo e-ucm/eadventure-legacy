@@ -215,7 +215,7 @@ public class PlayerPanel extends JPanel {
 		voicesComboBox.addItemListener(new VoiceComboBoxListener());
 		
 		if (playerDataControl.getPlayerVoice() != null){
-			for (int i =1; i<voices.length;i++)
+			for (int i =1; i<checkVoices.length;i++)
 				if (checkVoices[i].equals(playerDataControl.getPlayerVoice()))
 					voicesComboBox.setSelectedIndex(i);
 		}
@@ -223,6 +223,7 @@ public class PlayerPanel extends JPanel {
 				// Create CheckBox for select if always synthesizer voices
 		alwaysSynthesizer = new JCheckBox(TextConstants.getText("Synthesizer.CheckAlways"));
 		alwaysSynthesizer.addItemListener(new VoiceCheckVoxListener());
+		alwaysSynthesizer.setSelected(playerDataControl.isAlwaysSynthesizer());
 		voiceSelection.add(alwaysSynthesizer);
 				// Create a TextField to introduce text to try it in the synthesizer
 		trySynthesizer = new JTextField();

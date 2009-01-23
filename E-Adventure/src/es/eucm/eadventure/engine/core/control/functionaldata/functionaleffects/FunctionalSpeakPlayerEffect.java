@@ -24,7 +24,7 @@ public class FunctionalSpeakPlayerEffect extends FunctionalEffect {
     public void triggerEffect( ) {
         FunctionalPlayer player = Game.getInstance( ).getFunctionalPlayer( );
         if (player.isAlwaysSynthesizer())
-        	player.speak( ((SpeakPlayerEffect)effect).getLine(), player.getPlayerVoice() );
+        	player.speakWithFreeTTS( ((SpeakPlayerEffect)effect).getLine(), player.getPlayerVoice() );
         else
         	player.speak( ((SpeakPlayerEffect)effect).getLine() );
         Game.getInstance( ).setCharacterCurrentlyTalking( player );
