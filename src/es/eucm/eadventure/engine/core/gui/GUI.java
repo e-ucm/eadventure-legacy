@@ -15,6 +15,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -643,7 +644,9 @@ public abstract class GUI implements FocusListener {
          while( !added && i < elementsToDraw.size( ) ) {
              
              // Insert the element in the correct position
+        	 // TODO: Hey guys, watch this carefully!! I've changed this line
              if( depth <= elementsToDraw.get( i ).getOriginalY()) {
+        	 //if( depth <= getRealMinY(elementsToDraw.get( i ), x)+elementsToDraw.get( i ).y) {
             	 element.setDepth(i);
                  elementsToDraw.add( i, element );
                  added = true;
@@ -657,6 +660,38 @@ public abstract class GUI implements FocusListener {
              elementsToDraw.add( element );
              
          }
+    }
+
+    /**
+     * Returns the highest Y value of the ElementImage given as argument which is not transparent
+     * in the column x. Useful to determine if the player must be painted before the element
+     * @param element
+     * @param x
+     * @return
+     */
+    public int getRealMinY( ElementImage element, int x) {
+        boolean isInside = false;
+        
+        //int mousex = (int)( x - ( this.x - getWidth( ) *scale/ 2 ) );
+        //int mousey = (int)( y - ( this.y - getHeight( ) *scale) );
+        int width = element.image.getWidth(null );
+        int transformedX = (int)( x - element.x );
+        int minY = element.originalY;
+        if (transformedX>=0 && transformedX<width){
+        	minY = element.image.getHeight(null)-1;
+	        try {
+		        BufferedImage bufferedImage = (BufferedImage) element.image;
+		        do{
+		        	int alpha = bufferedImage.getRGB( transformedX, minY) >>> 24;
+		         	minY--;
+		         	isInside = alpha > 128;
+		        }while (!isInside && minY>0);
+	        } catch (Exception e){
+	        	
+	        }
+        }
+        
+        return minY;
     }
     
     /**
