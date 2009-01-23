@@ -10,6 +10,7 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
 
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.auxiliar.File;
 
 import sun.security.tools.JarSigner;
@@ -47,7 +48,7 @@ public class JARSigner {
 					created = true;
 					initRandom();
 				} catch( Exception e1 ) {
-					e1.printStackTrace();
+		        	ReportDialog.GenerateErrorReport(e1, true, "UNKNOWERROR");
 				}
 			}
 		return created;	
@@ -145,7 +146,7 @@ public class JARSigner {
 				
 				created = true;
 			} catch( Exception e ) {
-				e.printStackTrace();
+	        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
 				created = false;
 			}
 			

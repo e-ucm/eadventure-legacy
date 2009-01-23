@@ -9,7 +9,6 @@ import es.eucm.eadventure.engine.core.control.animations.AnimationState;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalItem;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
-import es.eucm.eadventure.engine.core.data.GameText;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 
 public class FunctionalUseWith extends FunctionalAction {
@@ -19,6 +18,8 @@ public class FunctionalUseWith extends FunctionalAction {
 	private FunctionalElement anotherElement;
 	
 	private long totalTime;
+	
+	private boolean canUseWith = false;
 	
 	public FunctionalUseWith(Action action, FunctionalElement element) {
 		super(action);
@@ -70,12 +71,17 @@ public class FunctionalUseWith extends FunctionalAction {
 	public void update(long elapsedTime) {
         if (anotherElement != null) {
 			totalTime += elapsedTime;
-	        if( totalTime > 1000 ) {
-	            FunctionalItem item1 = (FunctionalItem) element;
-	            FunctionalItem item2 = (FunctionalItem) anotherElement;
-	    
-	            if( !item1.useWith( item2 ) && !item2.useWith( item1 ) )
-	                functionalPlayer.speak( GameText.getTextUseCannot( ) );
+            FunctionalItem item1 = (FunctionalItem) element;
+            FunctionalItem item2 = (FunctionalItem) anotherElement;
+
+            if (!finished && !canUseWith) {
+				canUseWith = item1.useWith( item2 ) || item2.useWith( item1 );
+				if (!canUseWith) {
+					finished = true;
+					functionalPlayer.popAnimation();
+				}
+			} else if(!finished && totalTime > 1000 ) {
+	        	functionalPlayer.popAnimation();
 	            finished = true;
 	        }
         }

@@ -14,6 +14,7 @@ import de.schlichtherle.io.File;
 import de.xeinfach.kafenio.KafenioPanel;
 import de.xeinfach.kafenio.component.MutableFilter;
 import de.xeinfach.kafenio.interfaces.KafenioPanelConfigurationInterface;
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.HTMLEditController;
 
@@ -57,13 +58,10 @@ public class HTMLEditPanel extends KafenioPanel {
 			try {
 				this.loadDocument(file, null);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+	        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
 			} catch (BadLocationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+	        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
 			}
-		// TODO Auto-generated constructor stub
 	}
 	
 	protected void insertLocalImage(java.io.File whatImage) throws IOException, BadLocationException, RuntimeException {
@@ -113,11 +111,9 @@ public class HTMLEditPanel extends KafenioPanel {
 				AssetsController.addSingleAsset(AssetsController.CATEGORY_STYLED_TEXT, temp.getAbsolutePath());
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
 		} catch (BadLocationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
 		}
 	}
 	

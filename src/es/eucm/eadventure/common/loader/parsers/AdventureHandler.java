@@ -245,16 +245,10 @@ public class AdventureHandler extends DefaultHandler {
 				chapterIS.close( );
 
 			} catch( ParserConfigurationException e ) {
-				//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadData" ) );
-				//e.printStackTrace( );
 				incidences.add( Incidence.createChapterIncidence( TextConstants.getText( "Error.LoadData.SAX" ), chapterPath ) );
 			} catch( SAXException e ) {
-				//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadData" ) );
-				//e.printStackTrace( );
 				incidences.add( Incidence.createChapterIncidence( TextConstants.getText( "Error.LoadData.SAX" ), chapterPath ) );
 			} catch( IOException e ) {
-				//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadData" ) );
-				//e.printStackTrace( );
 				incidences.add( Incidence.createChapterIncidence( TextConstants.getText( "Error.LoadData.IO" ), chapterPath ) );
 			}
 
@@ -342,8 +336,6 @@ public class AdventureHandler extends DefaultHandler {
 
 	@Override
 	public void error( SAXParseException exception ) throws SAXParseException {
-		// On validation, propagate exception
-		exception.printStackTrace( );
 		throw exception;
 	}
 

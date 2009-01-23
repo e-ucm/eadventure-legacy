@@ -218,8 +218,6 @@ public class AdaptationHandler extends DefaultHandler {
      * @see org.xml.sax.ErrorHandler#error(org.xml.sax.SAXParseException)
      */
     public void error( SAXParseException exception ) throws SAXParseException {
-        // On validation, propagate exception
-        exception.printStackTrace( );
         throw exception;
     }
 

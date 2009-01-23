@@ -8,6 +8,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.editor.data.lom.LOMEducational;
 import es.eucm.eadventure.editor.data.lom.LOMGeneral;
 
@@ -98,7 +99,7 @@ public class LOMEducationalDOMWriter extends LOMSimpleDataWriter{
 			}
 
 		} catch( ParserConfigurationException e ) {
-			e.printStackTrace( );
+        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
 		}
 
 		return educationalElement;

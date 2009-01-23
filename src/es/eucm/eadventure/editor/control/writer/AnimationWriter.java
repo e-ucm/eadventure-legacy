@@ -17,6 +17,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.animation.Animation;
 import es.eucm.eadventure.common.data.animation.Frame;
 import es.eucm.eadventure.common.data.animation.Transition;
@@ -81,7 +82,7 @@ public class AnimationWriter {
 			
 			dataSaved = true;	
 		} catch (Exception e) {
-			e.printStackTrace();
+        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
 		}
 		
 		return dataSaved;

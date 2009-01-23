@@ -17,6 +17,7 @@ import javax.swing.ImageIcon;
 
 import java.io.FileInputStream;
 
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.common.auxiliar.FileFilter;
 import es.eucm.eadventure.common.auxiliar.categoryfilters.AnimationFileFilter;
@@ -439,7 +440,7 @@ public class AssetsController {
 				inputStream = new FileInputStream( Controller.getInstance( ).getProjectFolder( ) + "/" + assetPath );
 			
 		} catch( FileNotFoundException e ) {
-			e.printStackTrace( );
+        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
 		}
 
 		return inputStream;
@@ -469,7 +470,7 @@ public class AssetsController {
 		try {
 			return new MediaLocator( destinyFile.toURI( ).toURL( ) );
 		} catch( MalformedURLException e ) {
-			e.printStackTrace( );
+        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
 			return null;
 		}
 
@@ -507,9 +508,9 @@ public class AssetsController {
 				inputStream.close( );
 			}
 		} catch( IOException e ) {
-			e.printStackTrace( );
+        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
 		} catch( Exception e) {
-			e.printStackTrace();
+        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
 		}
 
 		return image;

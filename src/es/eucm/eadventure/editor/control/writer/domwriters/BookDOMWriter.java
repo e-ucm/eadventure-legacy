@@ -8,6 +8,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.book.Book;
 import es.eucm.eadventure.common.data.chapter.book.BookPage;
 import es.eucm.eadventure.common.data.chapter.book.BookParagraph;
@@ -111,7 +112,7 @@ public class BookDOMWriter {
 			bookElement.appendChild( textPagesElement );
 
 		} catch( ParserConfigurationException e ) {
-			e.printStackTrace( );
+        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
 		}
 
 		return bookElement;

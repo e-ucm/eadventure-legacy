@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
 
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.animation.Animation;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
@@ -279,7 +280,7 @@ public class AnimationPanel extends JPanel implements ClockListener {
 				clock.join( );
 				clock = null;
 			} catch( InterruptedException e ) {
-				e.printStackTrace( );
+	        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
 			}
 		}
 

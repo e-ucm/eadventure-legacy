@@ -1,5 +1,7 @@
 package es.eucm.eadventure.editor.gui.auxiliar.clock;
 
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
+
 /**
  * Clock for the animations.
  */
@@ -45,7 +47,7 @@ public class Clock extends Thread {
 				clockListener.update( TICK_TIME );
 				sleep( TICK_TIME );
 			} catch( InterruptedException e ) {
-				e.printStackTrace( );
+	        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
 			}
 		}
 	}

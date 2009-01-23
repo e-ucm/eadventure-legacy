@@ -8,6 +8,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.ConversationReference;
 import es.eucm.eadventure.common.data.chapter.elements.NPC;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
@@ -130,7 +131,7 @@ public class CharacterDOMWriter {
 				characterElement.appendChild(actionsNode);
 			}
 		} catch( ParserConfigurationException e ) {
-			e.printStackTrace( );
+        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
 		}
 
 		return characterElement;

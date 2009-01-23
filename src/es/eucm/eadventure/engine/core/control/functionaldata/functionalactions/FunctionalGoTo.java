@@ -70,7 +70,6 @@ public class FunctionalGoTo extends FunctionalAction {
 		finished = false;
 		this.needsGoTo = false;
 		
-		// TODO always loads the default animation and walks with the defualt speed
 		resources = functionalPlayer.getResources( );
         multimedia = MultimediaManager.getInstance( );
         if (!trajectory.hasTrajectory()) {
@@ -95,7 +94,7 @@ public class FunctionalGoTo extends FunctionalAction {
 
 	@Override
 	public void update(long elapsedTime) {
-		if (!trajectory.hasTrajectory()) {
+		if (!trajectory.hasTrajectory() && !finished) {
 	       if( ( speedX > 0 
 	    		   && functionalPlayer.getX( ) < posX - keepDistance) 
 	    		   || ( speedX <= 0 
@@ -107,8 +106,7 @@ public class FunctionalGoTo extends FunctionalAction {
 	    	   finished = true;
 	    	   functionalPlayer.popAnimation();
 	       }
-		} else {
-			// TODO 
+		} else if (!finished){
 			float oldSpeedX = trajectory.getSpeedX();
 			float oldSpeedY = trajectory.getSpeedY();
 			trajectory.updateSpeeds(elapsedTime, functionalPlayer.getX(), functionalPlayer.getY(), FunctionalPlayer.DEFAULT_SPEED);

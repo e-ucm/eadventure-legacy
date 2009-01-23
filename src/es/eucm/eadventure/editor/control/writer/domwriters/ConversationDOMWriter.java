@@ -10,6 +10,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.conversation.Conversation;
 import es.eucm.eadventure.common.data.chapter.conversation.GraphConversation;
 import es.eucm.eadventure.common.data.chapter.conversation.TreeConversation;
@@ -56,7 +57,7 @@ public class ConversationDOMWriter {
 			writeNodeInDOM( treeConversation.getRootNode( ), rootNode );
 
 		} catch( ParserConfigurationException e ) {
-			e.printStackTrace( );
+        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
 		}
 
 		return rootNode;
@@ -357,7 +358,7 @@ public class ConversationDOMWriter {
 				conversationElement.appendChild( nodeElement );
 			}
 		} catch( ParserConfigurationException e ) {
-			e.printStackTrace( );
+        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
 		}
 
 		return conversationElement;

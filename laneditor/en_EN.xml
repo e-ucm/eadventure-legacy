@@ -26,6 +26,7 @@
 	<entry key="About">About</entry>
 	<entry key="Menu.About">About</entry>
 	<entry key="Menu.AboutEAD">About &lt;e-Adventure&gt;</entry>
+	<entry key="Menu.SendComments">Send comments or suggestions</entry>
 	
 	<entry key="MenuRun.Title">Run</entry>
 	<entry key="MenuRun.Normal">Normal</entry>	
@@ -1719,5 +1720,15 @@ avoids retyping.</entry>
 	<entry key="SPEP.Scale">Scale</entry>
 	<entry key="SPEP.Width">Width</entry>
 	<entry key="SPEP.Height">Height</entry>
+	
+	<entry key="ErrorReport.Send">Send</entry>
+	<entry key="ErrorReport.Cancel">Cancel</entry>
+	<entry key="ErrorReport.Title">Error report</entry>
+	<entry key="ErrorReport.ShortDescription">Please write a short description of what you where doing</entry>
+	<entry key="ErrorReport.FoundException">Found exception:</entry>
+	<entry key="ErrorReport.Name">Name (optional):</entry>
+	<entry key="ErrorReport.Email">E-mail (optional):</entry>
+	<entry key="ErrorReport.TitleComments">Send comments and suggestions</entry>
+	<entry key="ErrorReport.Comments">Please use the following space to write your comments or suggestions</entry>
 	
 </properties>

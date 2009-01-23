@@ -48,7 +48,6 @@ public abstract class AdventureApplet extends JApplet implements LMStoComInterfa
             win = (JSObject) JSObject.getWindow( this );
             win.eval( command );
         } catch( Exception e ) {
-            //e.printStackTrace();
         }
 	}
 }

@@ -17,6 +17,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
 import es.eucm.eadventure.common.auxiliar.filefilters.EADFileFilter;
@@ -1031,7 +1032,7 @@ public class Controller {
 				try {
 					Thread.sleep( 1 );
 				} catch( InterruptedException e ) {
-					e.printStackTrace( );
+		        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWNERROR");
 				}
 
 				
@@ -1975,7 +1976,7 @@ public class Controller {
 				
 										} catch( Exception e ) {
 											this.showErrorDialog( TextConstants.getText( "Operation.ExportToLOM.LONameNotValid.Title" ), TextConstants.getText( "Operation.ExportToLOM.LONameNotValid.Title" ) );
-											e.printStackTrace();
+								        	ReportDialog.GenerateErrorReport(e, true, TextConstants.getText( "Operation.ExportToLOM.LONameNotValid.Title" ));
 										}
 										
 									} 
@@ -2805,8 +2806,7 @@ public class Controller {
 			}
 			
 		} catch( IOException e ) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
 		}
 	}
 

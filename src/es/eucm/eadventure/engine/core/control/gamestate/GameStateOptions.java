@@ -235,9 +235,9 @@ public class GameStateOptions extends GameState {
             // Close the input stream
             is.close( );
         } catch( FontFormatException e ) {
-            e.printStackTrace( );
+        	es.eucm.eadventure.common.auxiliar.ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
         } catch( IOException e ) {
-            e.printStackTrace( );
+        	es.eucm.eadventure.common.auxiliar.ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
         }
         
         imgButton = MultimediaManager.getInstance( ).loadImage( "gui/options/Button.png", MultimediaManager.IMAGE_MENU );

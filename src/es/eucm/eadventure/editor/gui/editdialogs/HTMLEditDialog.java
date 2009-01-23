@@ -12,6 +12,7 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
@@ -50,7 +51,7 @@ public class HTMLEditDialog extends JDialog implements WindowListener {
 			try {
 				file.createNewFile();
 			} catch (IOException e) {
-				e.printStackTrace();
+	        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
 			}
 			newFile = true;
 		} 

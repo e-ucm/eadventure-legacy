@@ -6,6 +6,7 @@ import java.util.TimerTask;
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;
 
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.common.data.chapter.elements.Player;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
@@ -115,7 +116,6 @@ public class FunctionalSpeak extends FunctionalAction {
                 try {
                     Thread.sleep( 1 );
                 } catch( InterruptedException e ) {
-                    e.printStackTrace();
                 }}
                 audioId = -1;
             }
@@ -127,7 +127,6 @@ public class FunctionalSpeak extends FunctionalAction {
             try {
                 Thread.sleep( 1 );
             } catch( InterruptedException e ) {
-                e.printStackTrace();
             }}
         }
         
@@ -135,7 +134,6 @@ public class FunctionalSpeak extends FunctionalAction {
         try {
             Thread.sleep( 500 );
         } catch( InterruptedException e ) {
-            e.printStackTrace();
         }
 
         
@@ -145,7 +143,6 @@ public class FunctionalSpeak extends FunctionalAction {
             try {
                 Thread.sleep( 1 );
             } catch( InterruptedException e ) {
-                e.printStackTrace();
             }}
         }
     }
@@ -159,8 +156,6 @@ public class FunctionalSpeak extends FunctionalAction {
         	try {
     			Thread.sleep( 1 );
     		} catch (InterruptedException e) {
-    			// TODO Auto-generated catch block
-    			e.printStackTrace();
     		}
         	}
     	int wordsPerSecond = (int)task.getDuration()/60;

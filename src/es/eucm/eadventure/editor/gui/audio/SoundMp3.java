@@ -11,6 +11,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.SourceDataLine;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 
 /**
@@ -136,8 +137,7 @@ public class SoundMp3 extends Sound {
 			try {
 				audioInputStream.close( );
 			} catch( IOException e ) {
-				System.out.println( "WARNING - could not close \"" + filename + "\" - sound will be disabled" );
-				e.printStackTrace( );
+	        	ReportDialog.GenerateErrorReport(e, false, "WARNING - could not close \"" + filename + "\" - sound will be disabled");
 			}
 		}
 	}

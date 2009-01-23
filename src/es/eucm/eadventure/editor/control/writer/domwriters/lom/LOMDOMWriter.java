@@ -8,6 +8,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.editor.control.controllers.lom.LOMDataControl;
 import es.eucm.eadventure.editor.data.lom.LOMGeneral;
 
@@ -32,7 +33,7 @@ public class LOMDOMWriter {
 			
 
 		} catch( ParserConfigurationException e ) {
-			e.printStackTrace( );
+        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
 		}
 
 		return manifest;
@@ -68,7 +69,7 @@ public class LOMDOMWriter {
 			lomElement.appendChild( educationalNode );
 			
 		} catch( ParserConfigurationException e ) {
-			e.printStackTrace( );
+        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
 		}
 
 		return lomElement;

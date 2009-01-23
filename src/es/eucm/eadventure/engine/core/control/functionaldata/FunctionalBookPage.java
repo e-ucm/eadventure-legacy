@@ -26,6 +26,7 @@ import javax.swing.text.rtf.RTFEditorKit;
 import de.schlichtherle.io.File;
 
 import es.eucm.eadventure.engine.core.control.Game;
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.book.BookPage;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
@@ -200,8 +201,8 @@ public class FunctionalBookPage extends JPanel{
                 } else {
                     try {
                         pane.setPage(e.getURL());
-                    } catch (Throwable t) {
-                        t.printStackTrace();
+                    } catch (Exception t) {
+                    	ReportDialog.GenerateErrorReport(t, true, "UNKNOWERROR");
                     }
                 }
             }
@@ -345,7 +346,7 @@ public class FunctionalBookPage extends JPanel{
             }
             reference = "";
             }catch (Exception e){
-                e.printStackTrace( );
+            	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
             }
         }
     }
