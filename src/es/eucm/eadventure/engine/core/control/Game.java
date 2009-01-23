@@ -1237,13 +1237,16 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
                 	// take the correct values for each timer
                     	String timer = timers[i];
                     	String[] aux = timer.split("-");
+                    	boolean isAssessment = Integer.valueOf(aux[3]).intValue() == 0;
                     	st.setState(Integer.valueOf(aux[0]).intValue());
                     	if (timerManager.isRunningState(Integer.valueOf(aux[0]).intValue())){
                     		st.setLastUpdate(System.currentTimeMillis( )/1000);
-                    		st.setTimeUpdate(Integer.valueOf(aux[1]).longValue()- Integer.valueOf(aux[2]).longValue());
+                    		if (!isAssessment)
+                    			st.setTimeUpdate(Integer.valueOf(aux[1]).longValue()- Integer.valueOf(aux[2]).longValue());
                        	} else {
                        		st.setLastUpdate(0);
-                       		st.setTimeUpdate(Integer.valueOf(aux[1]).longValue());
+                       		if (!isAssessment)
+                       			st.setTimeUpdate(Integer.valueOf(aux[1]).longValue());
                        	}
                        	// change this values in the current TimerManager
                     	int check = timerManager.changeValueOfTimer(i, st);
@@ -1254,7 +1257,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
                     		System.out.println( "* Error: There has been an error, savegame ''savedgame.egame'' not propperly loaded." );
                     	}
                     	// If it is assessment timer, set the correct values in assessmentEngine
-                    	if (Integer.valueOf(aux[3]).intValue() == 0){
+                    	if (isAssessment){
                     		// current time - the time in second that has been
                     		assessmentEngine.getTimedAssessmentRule(new Integer(i)).setStartTime(System.currentTimeMillis()/1000 - Integer.valueOf(aux[2]).longValue());
                     	}

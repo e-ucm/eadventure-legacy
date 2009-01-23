@@ -501,7 +501,7 @@ public class AssessmentEngine implements TimerEventListener {
 		} else
 			return true;
 		}
-		return false;
+		return true;
 	}
 
 	public AssessmentProfile getAssessmentProfile() {
