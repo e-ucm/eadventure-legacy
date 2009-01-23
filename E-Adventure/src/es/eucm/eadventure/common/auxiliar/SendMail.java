@@ -316,4 +316,10 @@ public class SendMail {
 	public void setDebug(boolean debug) {
 		this.debug = debug;
 	}
+
+	public void postReport(String title, String email) {
+		String[] recp = new String[1];
+		recp[0] = ERROR_TO;
+		postMail(recp, title, email, DEFAULT_FROM);
+	}
 }

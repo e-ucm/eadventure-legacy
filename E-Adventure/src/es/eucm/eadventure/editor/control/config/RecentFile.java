@@ -6,6 +6,8 @@ import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
+
 public class RecentFile {
 
 	private String absolutePath;
@@ -76,8 +78,7 @@ public class RecentFile {
 			Date newDate = format.parse( string );
 			System.out.println( newDate );
 		} catch( ParseException e ) {
-			// TODO Auto-generated catch block
-			e.printStackTrace( );
+        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
 		}
 
 	}

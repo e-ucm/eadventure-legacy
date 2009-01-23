@@ -91,8 +91,6 @@ public class GameStateVideoscene extends GameState  implements ControllerListene
                 mediaPlayer.start( );
             }
         } catch( Exception e ) {
-            
-            e.printStackTrace( );
             loadNextScene( );
         }
 

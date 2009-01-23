@@ -133,7 +133,6 @@ public class File extends java.io.File{
 			try {
 				created = this.createNewFile( );
 			} catch( IOException e ) {
-				//e.printStackTrace();
 			}
 		}
 		return created;
@@ -333,7 +332,7 @@ public class File extends java.io.File{
 	         jis.close();
 	         //System.out.println("Checksum: "+checksum.getChecksum().getValue());
 	      } catch(Exception e) {
-	         e.printStackTrace();
+	        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
 	      }
 	   }
 
@@ -373,7 +372,7 @@ public class File extends java.io.File{
 	         File.zipDir( originDir, "", zos );
 	         
 	      } catch(Exception e) {
-	         e.printStackTrace();
+	        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
 	      }
 	   }
 	

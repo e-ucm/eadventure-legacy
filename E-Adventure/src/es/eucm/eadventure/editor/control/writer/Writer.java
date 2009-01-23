@@ -27,6 +27,7 @@ import org.w3c.dom.NodeList;
 
 import java.io.FileOutputStream; 
 
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.common.auxiliar.filefilters.XMLFileFilter;
 import es.eucm.eadventure.common.data.adaptation.AdaptationProfile;
@@ -136,16 +137,16 @@ public class Writer {
 
 		} catch( IOException exception ) {
 			Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.WriteData" ) );
-			exception.printStackTrace( );
+        	ReportDialog.GenerateErrorReport(exception, true, TextConstants.getText( "Error.WriteData" ));
 		} catch( ParserConfigurationException exception ) {
 			Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.WriteData" ) );
-			exception.printStackTrace( );
+        	ReportDialog.GenerateErrorReport(exception, true, TextConstants.getText( "Error.WriteData" ));
 		} catch( TransformerConfigurationException exception ) {
 			Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.WriteData" ) );
-			exception.printStackTrace( );
+        	ReportDialog.GenerateErrorReport(exception, true, TextConstants.getText( "Error.WriteData" ));
 		} catch( TransformerException exception ) {
 			Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.WriteData" ) );
-			exception.printStackTrace( );
+        	ReportDialog.GenerateErrorReport(exception, true, TextConstants.getText( "Error.WriteData" ));
 		}
 
 		return dataSaved;
@@ -252,16 +253,16 @@ public class Writer {
 
 		} catch( IOException exception ) {
 			Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.WriteData" ) );
-			exception.printStackTrace( );
+        	ReportDialog.GenerateErrorReport(exception, true, TextConstants.getText( "Error.WriteData" ));
 		} catch( ParserConfigurationException exception ) {
 			Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.WriteData" ) );
-			exception.printStackTrace( );
+        	ReportDialog.GenerateErrorReport(exception, true, TextConstants.getText( "Error.WriteData" ));
 		} catch( TransformerConfigurationException exception ) {
 			Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.WriteData" ) );
-			exception.printStackTrace( );
+        	ReportDialog.GenerateErrorReport(exception, true, TextConstants.getText( "Error.WriteData" ));
 		} catch( TransformerException exception ) {
 			Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.WriteData" ) );
-			exception.printStackTrace( );
+        	ReportDialog.GenerateErrorReport(exception, true, TextConstants.getText( "Error.WriteData" ));
 		}
 
 		return dataSaved;
@@ -304,17 +305,17 @@ public class Writer {
 			fout.close( );
 			dataSaved=true;
 		} catch( ParserConfigurationException e ) {
-			e.printStackTrace();
+        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWNERROR");
 		} catch( TransformerConfigurationException e ) {
-			e.printStackTrace();
+        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWNERROR");
 		} catch( UnsupportedEncodingException e ) {
-			e.printStackTrace();
+        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWNERROR");
 		} catch( TransformerException e ) {
-			e.printStackTrace();
+        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWNERROR");
 		} catch( FileNotFoundException e ) {
-			e.printStackTrace();
+        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWNERROR");
 		} catch( IOException e ) {
-			e.printStackTrace();
+        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWNERROR");
 		}
 		}
 		return dataSaved;
@@ -360,17 +361,17 @@ public class Writer {
 			fout.close( );
 			dataSaved=true;
 		} catch( ParserConfigurationException e ) {
-			e.printStackTrace();
+        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWNERROR");
 		} catch( TransformerConfigurationException e ) {
-			e.printStackTrace();
+        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWNERROR");
 		} catch( UnsupportedEncodingException e ) {
-			e.printStackTrace();
+        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWNERROR");
 		} catch( TransformerException e ) {
-			e.printStackTrace();
+        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWNERROR");
 		} catch( FileNotFoundException e ) {
-			e.printStackTrace();
+        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWNERROR");
 		} catch( IOException e ) {
-			e.printStackTrace();
+        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWNERROR");
 		}
 		}
 		return dataSaved;
@@ -450,9 +451,11 @@ public class Writer {
 			dataSaved=true;
 			
 		} catch( FileNotFoundException e ) {
-			e.printStackTrace();dataSaved=false;
+        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWNERROR");
+			dataSaved=false;
 		} catch( IOException e ) {
-			e.printStackTrace();dataSaved=false;
+        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWNERROR");
+			dataSaved=false;
 		} 
 		return dataSaved;
 	}
@@ -546,10 +549,10 @@ public class Writer {
 			os.close( );
 		} catch( FileNotFoundException e ) {
 			exported = false;
-			e.printStackTrace();
+        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWNERROR");
 		} catch( IOException e ) {
 			exported = false;
-			e.printStackTrace();
+        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWNERROR");
 		}
 		
 		return exported;
@@ -831,19 +834,19 @@ public class Writer {
 
 		} catch( IOException exception ) {
 			Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.WriteData" ) );
-			exception.printStackTrace( );
+        	ReportDialog.GenerateErrorReport(exception, true, TextConstants.getText( "Error.WriteData" ));
 			dataSaved = false;
 		} catch( ParserConfigurationException exception ) {
 			Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.WriteData" ) );
-			exception.printStackTrace( );
+        	ReportDialog.GenerateErrorReport(exception, true, TextConstants.getText( "Error.WriteData" ));
 			dataSaved = false;
 		} catch( TransformerConfigurationException exception ) {
 			Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.WriteData" ) );
-			exception.printStackTrace( );
+        	ReportDialog.GenerateErrorReport(exception, true, TextConstants.getText( "Error.WriteData" ));
 			dataSaved = false;
 		} catch( TransformerException exception ) {
 			Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.WriteData" ) );
-			exception.printStackTrace( );
+        	ReportDialog.GenerateErrorReport(exception, true, TextConstants.getText( "Error.WriteData" ));
 			dataSaved = false;
 		}
 

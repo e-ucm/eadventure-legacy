@@ -8,6 +8,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.editor.data.lom.LOMGeneral;
 import es.eucm.eadventure.editor.data.lom.LOMLifeCycle;
 
@@ -39,7 +40,7 @@ public class LOMLifeCycleDOMWriter extends LOMSimpleDataWriter{
 			}
 			
 		} catch( ParserConfigurationException e ) {
-			e.printStackTrace( );
+        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
 		}
 
 		return lifeCycleElement;

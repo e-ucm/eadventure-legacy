@@ -12,6 +12,7 @@ import org.xml.sax.SAXException;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.adaptation.AdaptationProfile;
 import es.eucm.eadventure.common.data.adaptation.AdaptationRule;
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
@@ -70,16 +71,10 @@ public class Loader {
 			adventureData = adventureParser.getAdventureData( );
 
 		} catch( ParserConfigurationException e ) {
-			//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadData" ) );
-			//e.printStackTrace( );
 			incidences.add( Incidence.createDescriptorIncidence( TextConstants.getText( "Error.LoadDescriptor.SAX" ) ) );
 		} catch( SAXException e ) {
-			//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadData" ) );
-			//e.printStackTrace( );
 			incidences.add( Incidence.createDescriptorIncidence( TextConstants.getText( "Error.LoadDescriptor.SAX" ) ) );
 		} catch( IOException e ) {
-			//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadData" ) );
-			//e.printStackTrace( );
 			incidences.add( Incidence.createDescriptorIncidence( TextConstants.getText( "Error.LoadDescriptor.IO" ) ) );
 		}
 
@@ -115,14 +110,11 @@ public class Loader {
 				descriptorData = descriptorParser.getGameDescriptor();
 	
 			} catch( ParserConfigurationException e ) {
-				//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadData" ) );
-				e.printStackTrace( );
+	        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
 			} catch( SAXException e ) {
-				//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadData" ) );
-				e.printStackTrace( );
+	        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
 			} catch( IOException e ) {
-				//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadData" ) );
-				e.printStackTrace( );
+	        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
 			}
 		}
 		return descriptorData;
@@ -181,16 +173,10 @@ public class Loader {
 				}
 		
 			} catch( ParserConfigurationException e ) {
-				//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadData" ) );
-				//e.printStackTrace( );
 				incidences.add( Incidence.createChapterIncidence( TextConstants.getText( "Error.LoadData.SAX" ), fileName ) );
 			} catch( SAXException e ) {
-				//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadData" ) );
-				//e.printStackTrace( );
 				incidences.add( Incidence.createChapterIncidence( TextConstants.getText( "Error.LoadData.SAX" ), fileName ) );
 			} catch( IOException e ) {
-				//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadData" ) );
-				//e.printStackTrace( );
 				incidences.add( Incidence.createChapterIncidence( TextConstants.getText( "Error.LoadData.IO" ), fileName ) );
 			}
 		}
@@ -240,16 +226,10 @@ public class Loader {
 				newProfile = profile;
 
 			} catch( ParserConfigurationException e ) {
-				//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadAssessmentData" ) );
-				//e.printStackTrace( );
 				incidences.add( Incidence.createAssessmentIncidence( false, TextConstants.getText( "Error.LoadAssessmentData.SAX" ), xmlFile ) );
 			} catch( SAXException e ) {
-				//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadAssessmentData" ) );
-				//e.printStackTrace( );
 				incidences.add( Incidence.createAssessmentIncidence( false, TextConstants.getText( "Error.LoadAssessmentData.SAX" ), xmlFile ) );
 			} catch( IOException e ) {
-				//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadAssessmentData" ) );
-				//e.printStackTrace( );
 				incidences.add( Incidence.createAssessmentIncidence( false, TextConstants.getText( "Error.LoadAssessmentData.IO" ), xmlFile ) );
 			}
 		}
@@ -301,16 +281,10 @@ public class Loader {
 				newProfile.setVars(adpParser.getVars());
 	
 			} catch( ParserConfigurationException e ) {
-				//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadAdaptationData" ) );
-				//e.printStackTrace( );
 				incidences.add( Incidence.createAdaptationIncidence( false, TextConstants.getText( "Error.LoadAdaptationData.SAX" ), xmlFile ) );
 			} catch( SAXException e ) {
-				//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadAdaptationData" ) );
-				//e.printStackTrace( );
 				incidences.add( Incidence.createAdaptationIncidence( false, TextConstants.getText( "Error.LoadAdaptationData.SAX" ), xmlFile ) );
 			} catch( IOException e ) {
-				//Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.LoadAdaptationData" ) );
-				//e.printStackTrace( );
 				incidences.add( Incidence.createAdaptationIncidence( false, TextConstants.getText( "Error.LoadAdaptationData.IO" ), xmlFile ) );
 			}
 		}

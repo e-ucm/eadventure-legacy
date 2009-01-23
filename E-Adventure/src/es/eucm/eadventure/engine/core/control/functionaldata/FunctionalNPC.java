@@ -361,11 +361,6 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
     
     public void speak ( String text, String audioPath ){
         talkingAnimation.setAudio(audioPath);
-        /*try {
-            Thread.sleep( 500 );
-        } catch( InterruptedException e ) {
-            e.printStackTrace();
-        }*/
         talkingAnimation.setText( text );
         setState( TALK );
 

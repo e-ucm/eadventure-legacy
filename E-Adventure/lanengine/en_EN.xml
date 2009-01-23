@@ -133,4 +133,16 @@
 	
 	<entry key="SendMail.UnableToSendEmail">The system was unable to send the e-mail</entry>
 	<entry key="SendMail.ErrorSendingEmail">Error sending e-mail</entry>
+
+	<entry key="ErrorReport.Send">Enviar</entry>
+	<entry key="ErrorReport.Cancel">Cancelar</entry>
+	<entry key="ErrorReport.Title">Informe de error</entry>
+	<entry key="ErrorReport.ShortDescription">Por favor escriba una breve descripición de lo que estaba haciendo</entry>
+	<entry key="ErrorReport.FoundException">Excepción encontrada:</entry>
+	<entry key="ErrorReport.Name">Nombre (opcional):</entry>
+	<entry key="ErrorReport.Email">E-mail (opcional):</entry>
+	<entry key="ErrorReport.TitleComments">Enviar comentarios y sugerencias</entry>
+	<entry key="ErrorReport.Comments">Por favor, utilice este espacio para escribir sus comentarios y sugerencias</entry>
+
+
 </properties>

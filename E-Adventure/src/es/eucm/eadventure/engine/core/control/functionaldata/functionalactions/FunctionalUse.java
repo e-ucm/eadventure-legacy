@@ -1,6 +1,5 @@
 package es.eucm.eadventure.engine.core.control.functionaldata.functionalactions;
 
-import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.common.data.chapter.elements.Player;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.engine.core.control.ActionManager;
@@ -17,6 +16,8 @@ public class FunctionalUse extends FunctionalAction {
 	private FunctionalElement element;
 	
 	private long totalTime;
+	
+	private boolean canUse = false;
 	
 	public FunctionalUse(FunctionalElement element) {
 		super(null);
@@ -69,13 +70,17 @@ public class FunctionalUse extends FunctionalAction {
 	@Override
 	public void update(long elapsedTime) {
         totalTime += elapsedTime;
-        if( totalTime > 1000 ) {
-            FunctionalItem item = (FunctionalItem) element;
-    
+        FunctionalItem item = (FunctionalItem) element;
+        if (!finished && !canUse) {
+        	canUse = item.use();
+        	if (!canUse) {
+                functionalPlayer.speak( GameText.getTextUseCannot( ) );
+                functionalPlayer.popAnimation();
+                finished = true;       		
+        	}
+        } else if(!finished && totalTime > 1000 ) {
             finished = true;
             functionalPlayer.popAnimation();
-            if( !item.use( ) )
-                functionalPlayer.speak( GameText.getTextUseCannot( ) );
         }
 	}
 

@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
 
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.auxiliar.File;
 
 public class RecentFiles {
@@ -44,8 +45,7 @@ public class RecentFiles {
 					RecentFile recentFile = new RecentFile( path, date );
 					recentFiles[i] = recentFile;
 				} catch( ParseException e ) {
-					// TODO Auto-generated catch block
-					e.printStackTrace( );
+		        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
 				}
 			} else {
 				recentFiles[i] = null;

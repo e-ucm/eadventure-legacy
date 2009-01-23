@@ -3,9 +3,6 @@ package es.eucm.eadventure.engine.core.control.functionaldata;
 import java.awt.Color;
 import java.awt.Image;
 
-import com.sun.speech.freetts.Voice;
-import com.sun.speech.freetts.VoiceManager;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,16 +77,6 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
      * Resources being used by the character
      */
     private Resources resources;
-
-    /**
-     * Element the player will use to perform the action
-     */
-    private FunctionalElement finalElement;
-
-    /**
-     * Optional element the player will use to perform the action
-     */
-    private FunctionalElement optionalElement;
     
     /**
      * The exit where the player is heading
@@ -112,13 +99,7 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
     
     
     private boolean isTransparent=false;
-    
-    /**
-     * This is an Voice object of FreeTTS, that is used to synthesize the sound of a 
-     * conversation line.
-     */
-    private Voice voice;
-    
+        
     /**
      * @return the isTransparent
      */
@@ -201,9 +182,16 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
             
             // Flush the past resources from the images cache
             MultimediaManager.getInstance( ).flushImagePool( MultimediaManager.IMAGE_PLAYER );
+
+            MultimediaManager multimedia = MultimediaManager.getInstance();
+            Animation[] animations = new Animation[4];
+            animations[AnimationState.EAST] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_STAND_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
+            animations[AnimationState.WEST] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_STAND_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
+            animations[AnimationState.NORTH] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_STAND_UP ), false, MultimediaManager.IMAGE_PLAYER );
+            animations[AnimationState.SOUTH] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_STAND_DOWN ), false, MultimediaManager.IMAGE_PLAYER );
             
-            
-            // TODO update animations...
+            this.animationPool.clear();
+            this.animationPool.add(animations);
         }
     }
 
@@ -231,8 +219,6 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
      * @param element The element on with the action is performed
      */
     public void addAction(FunctionalAction action) {
-    	//TODO
-    	// TODO is another id necessary? Maybe for the use-with type actions
     	actionPool.add(action);
     }
 
@@ -240,7 +226,6 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
      * Cancel all actions currently being performed
      */
     public void cancelActions() {
-    	//TODO check
     	getCurrentAction().stop();
     	actionPool.clear();
     	cancelAnimations();
@@ -317,11 +302,13 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
     	FunctionalAction nextAction = new FunctionalNullAction(null);
     	switch( actionSelected ) {
     	case ActionManager.ACTION_EXAMINE:
+        	cancelActions();
     		nextAction = new FunctionalExamine(null, element);
     		break;
     	case ActionManager.ACTION_GIVE:
     		if( element.canPerform( actionSelected ) ) {
     			if( element.isInInventory( ) ) {
+    		    	cancelActions();
     				nextAction = new FunctionalGive(null, element);
     				game.getActionManager( ).setActionSelected( ActionManager.ACTION_GIVE_TO );
     			} else
@@ -337,9 +324,11 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
     				((FunctionalGive) nextAction).setAnotherElement(element);
     			}
     		} else
+				popAction();
     			speak( GameText.getTextGiveCannot( ) );
     		break;
     	case ActionManager.ACTION_GRAB:
+        	cancelActions();
     		if( element.canPerform( actionSelected ) ) {
     			if( !element.isInInventory( ) ) {
     				nextAction = new FunctionalGrab(null, element);
@@ -349,6 +338,7 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
     			speak( GameText.getTextGrabNPC( ) );
     		break;
     	case ActionManager.ACTION_TALK:
+        	cancelActions();
     		if( element.canPerform( actionSelected ) ) {
     			nextAction = new FunctionalTalk(null, element);
     		} else
@@ -357,9 +347,11 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
     	case ActionManager.ACTION_USE:
     		if( element.canPerform( actionSelected ) ) {
     			if( element.canBeUsedAlone( ) ) {
+    	        	cancelActions();
     				nextAction = new FunctionalUse(element);
     			}
     			else {
+    	        	cancelActions();
     				nextAction = new FunctionalUseWith(null, element);
     				game.getActionManager( ).setActionSelected( ActionManager.ACTION_USE_WITH );
     			}

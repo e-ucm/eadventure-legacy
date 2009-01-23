@@ -35,6 +35,7 @@ import javax.swing.UIManager;
 import javax.swing.filechooser.FileFilter;
 
 import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
@@ -105,7 +106,7 @@ public class MainWindow extends JFrame {
 			//UIManager.setLookAndFeel( UIManager.getCrossPlatformLookAndFeelClassName( ) );
 			UIManager.setLookAndFeel( UIManager.getSystemLookAndFeelClassName( ) );
 		} catch( Exception e ) {
-			e.printStackTrace( );
+        	//ErrorReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
 		}
 
 		// Load the icons and graphic resources
@@ -208,8 +209,18 @@ public class MainWindow extends JFrame {
 			}
 			
 		});
+		JMenuItem sendComments = new JMenuItem ( TextConstants.getText( "Menu.SendComments" ) );
+		about.add(sendComments);
+		sendComments.setArmed( false );
+		sendComments.addActionListener( new ActionListener(){
+
+			public void actionPerformed( ActionEvent arg0 ) {
+				ReportDialog.GenerateCommentsReport();
+			}
+			
+		});
 		windowMenu.add( about );
-		
+
 		// Create the "File" elements
 		JMenu itFileNew = new JMenu( TextConstants.getText( "MenuFile.New" ) );
 		JMenuItem itNewAdventurePlayerVisible = new JMenuItem( TextConstants.getText( "MenuFile.NewAdventurePlayerVisible" ) );

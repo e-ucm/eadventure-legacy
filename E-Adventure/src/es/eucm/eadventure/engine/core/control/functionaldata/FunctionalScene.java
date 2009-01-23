@@ -694,8 +694,10 @@ public class FunctionalScene implements Renderable {
             int finalX = functionalGoTo.getPosX();
             int finalY = functionalGoTo.getPosY();
             Exit exit = Game.getInstance( ).getFunctionalScene( ).getExitInside( finalX - offsetX, finalY );
-            if( exit == null )
+            player.cancelActions();
+            if( exit == null ) {
                 player.addAction(functionalGoTo);
+            }
             else {
             	player.addAction(new FunctionalExit(exit));
             	if (!player.isTransparent())

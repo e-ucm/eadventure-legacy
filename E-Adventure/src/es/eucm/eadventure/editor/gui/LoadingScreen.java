@@ -12,6 +12,7 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.editor.control.Controller;
 
 public class LoadingScreen extends JDialog{
@@ -110,7 +111,7 @@ public class LoadingScreen extends JDialog{
 					//status = (status+1)%5;
 					
 				} catch( InterruptedException e ) {
-					e.printStackTrace();
+		        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
 				}
 			}
 		}

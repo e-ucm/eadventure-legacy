@@ -21,6 +21,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
 import es.eucm.eadventure.common.gui.TextConstants;
@@ -515,7 +516,7 @@ public class ConversationDialog extends JDialog implements ClockListener {
 				animationClock.join( );
 				animationClock = null;
 			} catch( InterruptedException e1 ) {
-				e1.printStackTrace( );
+	        	ReportDialog.GenerateErrorReport(e1, true, "UNKNOWERROR");
 			}
 		}
 	}

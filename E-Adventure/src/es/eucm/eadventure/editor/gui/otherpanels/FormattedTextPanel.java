@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
@@ -226,7 +227,7 @@ public class FormattedTextPanel extends JPanel{
             	}
 	            reference = "";
             }catch (Exception e){
-                e.printStackTrace( );
+	        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
             }
         }
     }

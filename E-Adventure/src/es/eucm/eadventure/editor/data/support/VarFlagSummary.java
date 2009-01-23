@@ -3,6 +3,8 @@ package es.eucm.eadventure.editor.data.support;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
+
 /**
  * This class holds the name of all the active flags in the script.
  * 
@@ -388,7 +390,7 @@ public class VarFlagSummary {
 			}
 		}}
 		catch(NullPointerException e){
-			e.printStackTrace( );
+        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
 		}
 	}
 }

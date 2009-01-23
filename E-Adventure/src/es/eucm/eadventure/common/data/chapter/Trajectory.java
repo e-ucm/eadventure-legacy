@@ -54,6 +54,20 @@ public class Trajectory {
 		return side;
 	}
 	
+	public void removeNode(Node node) {
+		if (nodes.contains(node)) {
+			node = nodes.get(nodes.indexOf(node));
+			for (int i = 0; i < sides.size();) {
+				Side side = sides.get(i);
+				if (side.getIDEnd().equals(node.getID()) || side.getIDStart().equals(node.getID()))
+					sides.remove(i);
+				else
+					i++;
+			}
+		}
+		nodes.remove(node);
+	}
+	
 	public void removeNode(int x, int y) {
 		Node node = new Node("id", x, y, 1.0f);
 		if (nodes.contains(node)) {
@@ -65,7 +79,9 @@ public class Trajectory {
 				else
 					i++;
 			}
+			
 		}
+		nodes.remove(node);
 	}
 	
 	public List<Node> getNodes() {

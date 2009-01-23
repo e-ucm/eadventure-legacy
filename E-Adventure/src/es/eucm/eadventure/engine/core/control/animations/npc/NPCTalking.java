@@ -80,7 +80,6 @@ public class NPCTalking extends NPCState {
                 try {
                     Thread.sleep( 1 );
                 } catch( InterruptedException e ) {
-                    e.printStackTrace();
                 }}
                 audioId = -1;
             }
@@ -93,7 +92,6 @@ public class NPCTalking extends NPCState {
                     try {
                         Thread.sleep( 1 );
                     } catch( InterruptedException e ) {
-                        e.printStackTrace();
                     }
                 }
             }
@@ -105,7 +103,6 @@ public class NPCTalking extends NPCState {
                     try {
                         Thread.sleep( 1 );
                     } catch( InterruptedException e ) {
-                        e.printStackTrace();
                     }
                 }
             } 
@@ -119,8 +116,6 @@ public class NPCTalking extends NPCState {
     	try {
 			Thread.sleep( 1 );
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
     	}
     	int wordsPerSecond = (int)task.getDuration()/60;

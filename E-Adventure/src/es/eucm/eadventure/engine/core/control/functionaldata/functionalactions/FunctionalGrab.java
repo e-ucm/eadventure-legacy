@@ -18,6 +18,8 @@ public class FunctionalGrab extends FunctionalAction {
 	
     private long totalTime;
 
+    private boolean canGrab = false;
+    
 	public FunctionalGrab(Action action, FunctionalElement element) {
 		super(action);
 		this.element = element;
@@ -62,14 +64,17 @@ public class FunctionalGrab extends FunctionalAction {
 	@Override
 	public void update(long elapsedTime) {
         totalTime += elapsedTime;
-        if( totalTime > 1000 ) {
-            FunctionalItem item = (FunctionalItem) element;
-
+        FunctionalItem item = (FunctionalItem) element;
+        if (!finished && !canGrab) {
+        	canGrab = item.grab();
+        	if (!canGrab) {
+                finished = true;
+                functionalPlayer.popAnimation();
+        		functionalPlayer.speak( GameText.getTextGrabCannot( ) );
+        	}
+        } else if( !finished && totalTime > 1000 ) {
             finished = true;
             functionalPlayer.popAnimation();
-            
-            if( !item.grab( ) )
-                functionalPlayer.speak( GameText.getTextGrabCannot( ) );
         }
     }
 

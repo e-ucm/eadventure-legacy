@@ -27,6 +27,8 @@
 	<entry key="About">Acerca de</entry>
 	<entry key="Menu.About">Acerca de</entry>
 	<entry key="Menu.AboutEAD">Acerca de &lt;e-Adventure&gt;</entry>
+	<entry key="Menu.SendComments">Enviar comentarios o sugerencias</entry>
+	
 	
 	<entry key="MenuRun.Title">Ejecutar</entry>
 	<entry key="MenuRun.Normal">Normal</entry>	
@@ -1719,5 +1721,14 @@ ya que de esta manera se evita reescribirlos varias veces.</entry>
 	<entry key="SPEP.Width">Ancho</entry>
 	<entry key="SPEP.Height">Alto</entry>
 	
+	<entry key="ErrorReport.Send">Enviar</entry>
+	<entry key="ErrorReport.Cancel">Cancelar</entry>
+	<entry key="ErrorReport.Title">Informe de error</entry>
+	<entry key="ErrorReport.ShortDescription">Por favor escriba una breve descripición de lo que estaba haciendo</entry>
+	<entry key="ErrorReport.FoundException">Excepción encontrada:</entry>
+	<entry key="ErrorReport.Name">Nombre (opcional):</entry>
+	<entry key="ErrorReport.Email">E-mail (opcional):</entry>
+	<entry key="ErrorReport.TitleComments">Enviar comentarios y sugerencias</entry>
+	<entry key="ErrorReport.Comments">Por favor, utilice este espacio para escribir sus comentarios y sugerencias</entry>
 
 </properties>

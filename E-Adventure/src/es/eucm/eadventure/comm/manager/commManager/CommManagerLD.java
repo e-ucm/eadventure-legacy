@@ -70,7 +70,6 @@ public class CommManagerLD extends AdventureApplet{
                 win = (JSObject) JSObject.getWindow( this );
                 win.eval( command );
             } catch( Exception e ) {
-                //e.printStackTrace( );
             }
         }
 		
@@ -106,7 +105,6 @@ public class CommManagerLD extends AdventureApplet{
                 win = (JSObject) JSObject.getWindow( this );
                 win.eval( command );
             } catch( Exception e ) {
-                //e.printStackTrace( );
             }
         }   
 		

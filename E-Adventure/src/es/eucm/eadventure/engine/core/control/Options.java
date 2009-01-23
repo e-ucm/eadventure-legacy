@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Properties;
 
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.engine.core.data.GameText;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 
@@ -71,7 +72,7 @@ public class Options {
                 options.loadFromXML( is );
                 is.close( );
             } catch( IOException e ) {
-                e.printStackTrace( );
+            	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
             }
         }
     }
@@ -87,7 +88,7 @@ public class Options {
             try {
                 options.storeToXML( os, "eAdventure game options", "ISO-8859-1" );
             } catch( IOException e ) {
-                e.printStackTrace( );
+            	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
             }
         }
     }

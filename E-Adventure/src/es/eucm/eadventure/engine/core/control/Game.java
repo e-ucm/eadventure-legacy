@@ -19,6 +19,7 @@ import java.util.Stack;
 import javax.swing.JOptionPane;
 
 import es.eucm.eadventure.comm.AdventureApplet;
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.auxiliar.SendMail;
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
 import es.eucm.eadventure.common.data.adventure.ChapterSummary;
@@ -589,7 +590,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             stop( );
             
         } catch( Exception e ) {
-            
+/*            
             if( errorWhileLoading )
                 JOptionPane.showMessageDialog( null, "There was an error while loading the selected adventure.\nPlease check that no configuration file is missing or incorrect", "Error loading adventure", JOptionPane.ERROR_MESSAGE );
             
@@ -598,8 +599,11 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             System.out.println( "describing what were you doing when the error occurred");
             e.printStackTrace( );
             System.out.println( "Exiting now..." );
-            
-            int sendReport = JOptionPane.showConfirmDialog(null, "This should not happen.\nSend error report?", "FATAL ERROR", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+  */
+        	
+        	ReportDialog.GenerateErrorReport(e, false, "FATAL ERROR. This should not happen.");
+/*
+        	int sendReport = JOptionPane.showConfirmDialog(null, "This should not happen.\nSend error report?", "FATAL ERROR", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
             if (sendReport == 0) {
             	String description = JOptionPane.showInputDialog(null, "Please describe breefly what you where doing when the error occurred", "Error report", JOptionPane.QUESTION_MESSAGE);
             	String mail = "User description: " + description + "\n\n\n";
@@ -612,8 +616,9 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
                 SendMail sm = new SendMail();
                 sm.postErrorReport(mail);
             }
-            
+            */
             stop( );
+            
         }
     }
     

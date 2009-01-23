@@ -20,6 +20,7 @@ import javax.swing.JScrollPane;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.rtf.RTFEditorKit;
 
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.common.data.chapter.book.BookPage;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
@@ -117,14 +118,6 @@ public class BookPagePreviewPanel extends JPanel{
                 isValid=true;
                 
             }
-            /*try {
-                File file = new File ("C:\\Datos\\workspace\\EAdventure2D\\ChocolateRevisited\\assets\\styledtext\\index.htm");
-                url = file.toURI( ).toURL( );
-            } catch( MalformedURLException e ) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }*/
-            
         }
         
         if (url==null){
@@ -304,7 +297,7 @@ public class BookPagePreviewPanel extends JPanel{
             }
             reference = "";
             }catch (Exception e){
-                e.printStackTrace( );
+	        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
             }
         }
     }
