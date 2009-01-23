@@ -409,7 +409,13 @@ public class BookPagesPanel extends JPanel{
 			int selectedRow = pagesTable.getSelectedRow( ); 
 			//Set the new page selected (below the last selected page)
 			pagesTable.clearSelection( );
+			if (selectedRow != -1){
 			pagesTable.getSelectionModel( ).setSelectionInterval( selectedRow+1, selectedRow+1 );
+			
+			}else {
+				int selection = dataControl.getBookPagesList( ).getBookPages().size();
+				pagesTable.getSelectionModel( ).setSelectionInterval(selection , selection);
+			}
 			pagesTable.updateUI( );
 		}
 		

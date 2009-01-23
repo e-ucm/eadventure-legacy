@@ -188,7 +188,26 @@ public class NPCPanel extends JPanel {
 		voiceSelection.setLayout(new GridLayout(2,2));
 				// Create ComboBox for select the voices
 		String[] voices = availableVoices();
-		voicesComboBox = new JComboBox(voices);
+		// alan voice doesn't work
+		String[] usefullVoices = new String[voices.length-1]; 
+		int j=0;
+		boolean hasAlan=false;
+		for (int k =0; k<voices.length;k++){
+			if (k<=usefullVoices.length){
+				if (!voices[k].equals("alan")){
+					usefullVoices[j] = voices[k];
+					j++;
+				} else {
+					hasAlan = true;
+				}
+			}
+		}
+		if (!hasAlan)
+			voicesComboBox = new JComboBox(voices);
+		else 
+			voicesComboBox = new JComboBox(usefullVoices);
+		
+		
 		voicesComboBox.addItemListener(new VoiceComboBoxListener());
 		if (npcDataControl.getNPCVoice() != null){
 			for (int i =1; i<voices.length;i++)

@@ -308,7 +308,8 @@ public class BookPagesListDataControl{
 			boolean isPageValid = true;
 			if (bookPagesList.get( i ).getType( ) == BookPage.TYPE_RESOURCE && bookPagesList.get( i ).getUri( ).length( ) == 0){
 				isPageValid = false;
-				incidences.add(bookParagraphPath + " >> " + TextConstants.getText( "Operation.AdventureConsistencyErrorBookPage" ) );
+				if (incidences!=null)
+					incidences.add(bookParagraphPath + " >> " + TextConstants.getText( "Operation.AdventureConsistencyErrorBookPage" ) );
 			}
 			valid &= isPageValid;
 			
