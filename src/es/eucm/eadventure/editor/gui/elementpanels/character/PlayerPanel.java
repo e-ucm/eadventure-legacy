@@ -203,14 +203,20 @@ public class PlayerPanel extends JPanel {
 				}
 			}
 		}
-		if (!hasAlan)
+		String[] checkVoices; 
+		if (!hasAlan){
 			voicesComboBox = new JComboBox(voices);
-		else 
+			checkVoices = voices;
+		}
+		else{ 
 			voicesComboBox = new JComboBox(usefullVoices);
+			checkVoices = usefullVoices;
+		}
 		voicesComboBox.addItemListener(new VoiceComboBoxListener());
+		
 		if (playerDataControl.getPlayerVoice() != null){
 			for (int i =1; i<voices.length;i++)
-				if (voices[i].equals(playerDataControl.getPlayerVoice()))
+				if (checkVoices[i].equals(playerDataControl.getPlayerVoice()))
 					voicesComboBox.setSelectedIndex(i);
 		}
 		voiceSelection.add(voicesComboBox);

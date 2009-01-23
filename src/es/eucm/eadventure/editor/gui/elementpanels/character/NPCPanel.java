@@ -202,16 +202,19 @@ public class NPCPanel extends JPanel {
 				}
 			}
 		}
-		if (!hasAlan)
+		String[] checkVoices; 
+		if (!hasAlan){
 			voicesComboBox = new JComboBox(voices);
-		else 
+			checkVoices = voices;
+		}
+		else{ 
 			voicesComboBox = new JComboBox(usefullVoices);
-		
-		
+			checkVoices = usefullVoices;
+		}
 		voicesComboBox.addItemListener(new VoiceComboBoxListener());
 		if (npcDataControl.getNPCVoice() != null){
-			for (int i =1; i<voices.length;i++)
-				if (voices[i].equals(npcDataControl.getNPCVoice()))
+			for (int i =1; i<checkVoices.length;i++)
+				if (checkVoices[i].equals(npcDataControl.getNPCVoice()))
 					voicesComboBox.setSelectedIndex(i);
 		}			
 		voiceSelection.add(voicesComboBox);
