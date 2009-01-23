@@ -25,7 +25,10 @@ public class FunctionalSpeakCharEffect extends FunctionalEffect {
     public void triggerEffect( ) {
         FunctionalNPC npc = Game.getInstance( ).getFunctionalScene( ).getNPC( ((SpeakCharEffect)effect).getIdTarget() );
         if( npc != null ) {
-            npc.speak( ((SpeakCharEffect)effect).getLine() );
+        	if (npc.isAlwaysSynthesizer())
+        		npc.speak( ((SpeakCharEffect)effect).getLine(), npc.getPlayerVoice() );
+        	else 
+        		npc.speak( ((SpeakCharEffect)effect).getLine());
             Game.getInstance( ).setCharacterCurrentlyTalking( npc );
         }
     }
