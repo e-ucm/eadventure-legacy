@@ -37,22 +37,22 @@ public class SendMail {
 	/**
 	 * The default user
 	 */
-	private static final String SMTP_AUTH_USER = "emarchiori@gmail.com";
+	private static final String SMTP_AUTH_USER = "eAdventure.online.support@gmail.com";
 	
 	/**
 	 * The default password
 	 */
-	private static final String SMTP_AUTH_PWD = "pwd";
+	private static final byte[] SMTP_AUTH_PWD = {85 , 100 , 67 , 95 , 99 , 97 , 55 , 54 , 54 , 33 , 75 , 80 , 51 , 70 , 35 , 109 , 88 , 113 , 54};
 	
 	/**
 	 * The default "from" address
 	 */
-	private static final String DEFAULT_FROM = "emarchiori@gmail.com";
+	private static final String DEFAULT_FROM = "eAdventure.online.support@gmail.com";
 	
 	/**
 	 * The address where to send error reports
 	 */
-	private static final String ERROR_TO = "emarchiori@gmail.com";
+	private static final String ERROR_TO = "eAdventure.online.support@gmail.com";
 	
 	/**
 	 * Default port for the SMTP server
@@ -97,7 +97,7 @@ public class SendMail {
 	public SendMail() {
 		smtpHostName = SMTP_HOST_NAME;
 		smtpAuthUser = SMTP_AUTH_USER;
-		smtpAuthPwd = SMTP_AUTH_PWD;
+		smtpAuthPwd = new String(SMTP_AUTH_PWD);
 		requiersSSL = DEFAULT_SSL;
 		port = DEFAULT_PORT;
 	}
