@@ -306,14 +306,9 @@ public class GameStateConversation extends GameState {
             
             //TODO MODIFIED: Antes no estaba el else if (era solo else)
             else if (!currentNode.isTerminal( )){
-            	//TODO
-            	
             	currentNode = currentNode.getChild( optionSelected );
                 isOptionSelected = false;
-                
-            	
-               // firstLineDisplayed = 0;
-               // currentLine = 0;
+               
             }
             
         }
