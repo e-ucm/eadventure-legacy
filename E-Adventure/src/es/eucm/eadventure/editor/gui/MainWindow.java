@@ -93,6 +93,8 @@ public class MainWindow extends JFrame {
 	
 	private JMenuItem normalRun;
 	
+	private JMenuItem debugRun;
+	
 	/**
 	 * Constructor. Creates the general layout.
 	 */
@@ -494,13 +496,24 @@ public class MainWindow extends JFrame {
 		normalRun = new JMenuItem( TextConstants.getText( "MenuRun.Normal" ) );
 		normalRun.setAccelerator( KeyStroke.getKeyStroke( 'R', InputEvent.CTRL_MASK ) );
 		normalRun.addActionListener( new ActionListener(){
-
 			public void actionPerformed( ActionEvent e ) {
 				controller.run( );
 			}
 			
 		});
 		runMenu.add( normalRun );
+		
+		// Create "run" elements
+		debugRun = new JMenuItem( TextConstants.getText( "MenuRun.Debug" ) );
+		debugRun.setAccelerator( KeyStroke.getKeyStroke( 'D', InputEvent.CTRL_MASK ) );
+		debugRun.addActionListener( new ActionListener(){
+			public void actionPerformed( ActionEvent e ) {
+				controller.debugRun( );
+			}
+			
+		});
+		runMenu.add( debugRun );
+		
 		
 		// Create the "Configuration" elements
 		JCheckBoxMenuItem itShowItemReferences = new JCheckBoxMenuItem( TextConstants.getText( "MenuConfiguration.ShowItemReferences" ), controller.getShowItemReferences( ) );
@@ -604,6 +617,7 @@ public class MainWindow extends JFrame {
 
 	public void setNormalRunAvailable ( boolean available ){
 		this.normalRun.setEnabled ( available );
+		this.debugRun.setEnabled(available);
 	}
 	
 	/**

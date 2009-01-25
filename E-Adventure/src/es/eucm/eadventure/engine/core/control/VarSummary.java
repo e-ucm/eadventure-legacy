@@ -1,6 +1,7 @@
 package es.eucm.eadventure.engine.core.control;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,13 +26,19 @@ public class VarSummary implements Serializable {
      */
     private static final int DEFAULT_VALUE = 0;
     
+    private boolean debug;
+    
+    private List<String> changes;
+    
     /**
      * Default constructor
      * @param varNames Arraylist containing the name of the vars on the game
      */
-    public VarSummary( List<String> varNames ) {
+    public VarSummary( List<String> varNames, boolean debug ) {
         vars = new HashMap<String,Var>( );
-        
+        if (debug)
+        	changes = new ArrayList<String>();
+        this.debug = debug;
         for( String name : varNames ) {
             Var var = new Var(name,DEFAULT_VALUE,false);
             vars.put( name,var );
@@ -54,6 +61,8 @@ public class VarSummary implements Serializable {
     public void incrementVar( String varName, int increment ) {
         Var var = vars.get( varName );
         var.increment(increment);
+        if (debug)
+        	changes.add(varName);
     }
 
     /**
@@ -63,6 +72,8 @@ public class VarSummary implements Serializable {
     public void decrementVar( String varName, int decrement ) {
         Var var = vars.get( varName );
         var.decrement(decrement);
+        if (debug)
+        	changes.add(varName);
     }
     
     /**
@@ -165,6 +176,15 @@ public class VarSummary implements Serializable {
             return external;
         }
     }
+    
+    public Map<String, Var> getVars() {
+    	return this.vars;
+    }
+    
+    public int getVarValue(String name) {
+    	Var var = vars.get(name);
+    	return var.getValue();
+    }
 
 	public void addVar(String name ) {
 		if (!vars.containsKey(name)){
@@ -173,5 +193,13 @@ public class VarSummary implements Serializable {
 		}
 	}    
 
+	public List<String> getChanges() {
+		if (debug) {
+			List<String> temp = new ArrayList<String>(changes);
+			changes.clear();
+			return temp;
+		}
+		return null;
+	}
  
 }

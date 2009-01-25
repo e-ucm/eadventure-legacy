@@ -2016,6 +2016,27 @@ public class Controller {
 				@Override
 				public void run() {
 					mainWindow.setNormalRunAvailable( false );
+					EAdventureDebug.normalRun(Controller.getInstance().adventureData.getAdventureData(), AssetsController.getInputStreamCreator());
+					mainWindow.setNormalRunAvailable( true );
+				}
+				
+			}, 1000);
+		}
+	}
+
+	/**
+	 * Executes the current project. Firstly, it checks that the game does not present any consistency errors. 
+	 * Then exports the project to the web dir as a temp .ead file and gets it running
+	 */
+	public void debugRun(){
+		// Check adventure consistency
+		if (checkAdventureConsistency( false )){
+
+			new Timer().schedule(new TimerTask(){
+				
+				@Override
+				public void run() {
+					mainWindow.setNormalRunAvailable( false );
 					EAdventureDebug.debug(Controller.getInstance().adventureData.getAdventureData(), AssetsController.getInputStreamCreator());
 					mainWindow.setNormalRunAvailable( true );
 				}
@@ -2023,6 +2044,7 @@ public class Controller {
 			}, 1000);
 		}
 	}
+
 	
 	/**
 	 * Determines if the target file of an exportation process is valid.
