@@ -22,12 +22,19 @@ public class FlagSummary implements Serializable {
      */
     private Map<String,Flag> flags;
     
+    private boolean debug;
+    
+    private List<String> changes;
+    
     /**
      * Default constructor
      * @param flagNames Arraylist containing the name of the flags on the game
      */
-    public FlagSummary( List<String> flagNames ) {
+    public FlagSummary( List<String> flagNames, boolean debug ) {
         flags = new HashMap<String,Flag>( );
+        if (debug)
+        	changes = new ArrayList<String>();
+        this.debug = debug;
         
         for( String name : flagNames ) {
             Flag flag = new Flag(name,false,false);
@@ -42,6 +49,7 @@ public class FlagSummary implements Serializable {
     public void deactivateFlag( String flagName ) {
         Flag flag = flags.get( flagName );
         flag.deactivate();
+        changes.add(flagName);
     }
 
     /**
@@ -51,6 +59,7 @@ public class FlagSummary implements Serializable {
     public void activateFlag( String flagName ) {
         Flag flag = flags.get( flagName );
         flag.activate();
+        changes.add(flagName);
     }
 
     /**
@@ -157,11 +166,30 @@ public class FlagSummary implements Serializable {
             return external;
         }
     }
+    
+    public Map<String, Flag> getFlags() {
+    	return flags;
+    }
 
+    public boolean getFlagValue(String name) {
+    	Flag flag = (Flag) flags.get(name);
+    	return flag.active;
+    }
+    
 	public void addFlag(String name) {
 		if (!flags.containsKey(name)){
 			Flag flag = new Flag(name,false,false);
 	        flags.put( name,flag );
 		}
-	}    
+	}
+	
+	public List<String> getChanges() {
+		if (debug) {
+			List<String> temp = new ArrayList<String>(changes);
+			changes.clear();
+			return temp;
+		}
+		return null;
+	}
+
 }

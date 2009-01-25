@@ -64,7 +64,7 @@ public class GameStateBook extends GameState {
             ((FunctionalTextBook)book).draw( g );
         
             g.setColor( Color.WHITE );
-            g.drawString(Integer.toString( fps ), 780, 14);
+            //g.drawString(Integer.toString( fps ), 780, 14);
         
 
             GUI.getInstance( ).endDraw( );

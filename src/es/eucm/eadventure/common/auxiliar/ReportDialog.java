@@ -296,7 +296,6 @@ public class ReportDialog extends JDialog {
 		JPanel buttonPanel = new JPanel();
 		sendButton = new JButton(TextConstants.getText("ErrorReport.Send"));
 		sendButton.addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				ReportDialog.this.sendReport(error);
 				ReportDialog.this.setVisible(false);
@@ -306,7 +305,6 @@ public class ReportDialog extends JDialog {
 		
 		dontSendButton = new JButton(TextConstants.getText("ErrorReport.Cancel"));
 		dontSendButton.addActionListener(new ActionListener() {
-			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				ReportDialog.this.setVisible(false);
 			}

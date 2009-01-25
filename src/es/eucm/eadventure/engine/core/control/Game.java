@@ -61,6 +61,7 @@ import es.eucm.eadventure.engine.core.data.SaveTimer;
 
 //import es.eucm.eadventure.engine.core.data.userinteraction.highlevel.HighLevelInteraction;
 //import es.eucm.eadventure.engine.core.data.userinteraction.lowlevel.LowLevelInteraction;
+import es.eucm.eadventure.engine.core.gui.DebugFrame;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.common.loader.Loader;
 import es.eucm.eadventure.common.loader.incidences.Incidence;
@@ -299,6 +300,10 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      * Stack to store each conversation nested 
      */
     private Stack<GameState> stackOfState;
+    
+    private boolean debug = false;
+    
+    private DebugFrame debugFrame;;
 
     /**
      * FIFO which store high level interaction
@@ -327,6 +332,8 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     
     public static void delete(){
         staticStop();
+        if (instance.debugFrame != null)
+        	instance.debugFrame.close();
         instance = null;
     }
 
@@ -372,8 +379,8 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         gameData = Loader.loadChapterData( ResourceHandler.getInstance(), chapter.getName(), new ArrayList<Incidence>() );
         
         // Create the flags & vars summaries and the assessment engine
-        flags = new FlagSummary( gameData.getFlags( ) );
-        vars = new VarSummary( gameData.getVars( ) );
+        flags = new FlagSummary( gameData.getFlags( ), debug );
+        vars = new VarSummary( gameData.getVars( ), debug );
 
         // Init the time manager
         timerManager = TimerManager.getInstance( );
@@ -544,14 +551,19 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             	assessmentEngine.setPlayerName(name);
             }
             
+            
             while( !gameOver ) {
             	
                 errorWhileLoading = true;
                 loadCurrentChapter( g );
                 errorWhileLoading = false;
+
+                if (debug) {
+                	debugFrame = new DebugFrame(flags, vars);
+                }
             
                 while( !nextChapter && !gameOver ) {
-        
+                	debugFrame.updateValues();
                     time = System.currentTimeMillis( );
                     elapsedTime = time - oldTime;
                     oldTime = time;
@@ -1391,4 +1403,12 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         FunctionalEffects.storeAllEffects(timer.getPostEffects( ));
         //timerManager.deleteTimer( timerId );
     }
+
+	public void setDebugMode(boolean b) {
+		debug = b;
+	}
+
+	public boolean isDebug() {
+		return debug;
+	}
 }

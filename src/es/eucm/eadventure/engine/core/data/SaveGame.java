@@ -217,7 +217,7 @@ public class SaveGame implements Serializable {
              if ( !inactiveFlags[i].trim().equals("") )
                  flags.add( inactiveFlags[i] );
          }
-         saveGameData.flags = new FlagSummary( flags );
+         saveGameData.flags = new FlagSummary( flags , false);
          for(int i=0; i<activeFlags.length; i++){
              if ( !activeFlags[i].trim().equals("") )
                  saveGameData.flags.activateFlag( activeFlags[i] ); 
@@ -241,7 +241,7 @@ public class SaveGame implements Serializable {
          for (int i=0; i<varValuesStrings.length; i++){
          	varValues[i] = Integer.parseInt(varValuesStrings[i]);
          }
-         saveGameData.vars = new VarSummary( vars );
+         saveGameData.vars = new VarSummary( vars , false);
          if (varValuesStrings.length == varNames.length){
          for (int i=0; i<varNames.length; i++){
         	 

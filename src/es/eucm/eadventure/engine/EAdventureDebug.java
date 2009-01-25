@@ -2,6 +2,7 @@ package es.eucm.eadventure.engine;
 
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.data.GameText;
+import es.eucm.eadventure.engine.core.gui.DebugFrame;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 import es.eucm.eadventure.common.data.adventure.AdventureData;
 import es.eucm.eadventure.common.loader.InputStreamCreator;
@@ -24,7 +25,18 @@ public class EAdventureDebug {
      * @param args Arguments
      */
     public static void debug( AdventureData data, InputStreamCreator isCreator ) {
-        
+        Loader.setAdventureData (data);
+        ResourceHandler.setExternalMode( isCreator );
+        GameText.reloadStrings();
+        Game.create( );
+        Game.getInstance( ).setAdventureName( data.getTitle() );
+        Game.getInstance( ).setDebugMode(true);
+        Game.getInstance( ).run( );
+        Game.delete( );
+        Loader.setAdventureData (null);
+    }
+    
+    public static void normalRun(AdventureData data, InputStreamCreator isCreator ) {
         Loader.setAdventureData (data);
         ResourceHandler.setExternalMode( isCreator );
         GameText.reloadStrings();
