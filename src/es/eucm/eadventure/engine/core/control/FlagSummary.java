@@ -49,7 +49,8 @@ public class FlagSummary implements Serializable {
     public void deactivateFlag( String flagName ) {
         Flag flag = flags.get( flagName );
         flag.deactivate();
-        changes.add(flagName);
+        if (debug)
+        	changes.add(flagName);
     }
 
     /**
@@ -59,7 +60,8 @@ public class FlagSummary implements Serializable {
     public void activateFlag( String flagName ) {
         Flag flag = flags.get( flagName );
         flag.activate();
-        changes.add(flagName);
+        if (debug)
+        	changes.add(flagName);
     }
 
     /**

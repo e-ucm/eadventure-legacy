@@ -18,6 +18,15 @@ public class DescriptorData{
     public static final String EXIT_CURSOR="exit";
     public static final String CURSOR_OVER="over";
     public static final String CURSOR_ACTION="action";
+    
+    public static final String TALK_BUTTON="talk";
+    public static final String USE_GRAB_BUTTON="use-grab";
+    public static final String EXAMINE_BUTTON="examine";
+    
+    public static final String HIGHLIGHTED_BUTTON="highlighted";
+    public static final String NORMAL_BUTTON="normal";
+    public static final String PRESSED_BUTTON="pressed";
+
 	
     public static String getCursorTypeString (int index){
     	switch(index){
@@ -147,6 +156,11 @@ public class DescriptorData{
      * List of custom cursors
      */
     protected List<CustomCursor> cursors;
+    
+    /**
+     * List of custom buttons
+     */
+    protected List<CustomButton> buttons;
 
     /**
      * This flag tells if the adventure should show automatic commentaries.
@@ -164,6 +178,7 @@ public class DescriptorData{
     public DescriptorData( ) {
         contents = new ArrayList<ChapterSummary>( );
         cursors = new ArrayList<CustomCursor>();
+        buttons = new ArrayList<CustomButton>();
 		title = null;
 		description = null;
 		guiType = -1;
@@ -297,6 +312,29 @@ public class DescriptorData{
         }
         return null;
     }
+    
+    public void addButton(CustomButton button){
+        buttons.add( button );
+        this.guiCustomized=true;
+    }
+    
+    public List<CustomButton> getButtons(){
+        return buttons;
+    }
+    
+    public void addButton(String action, String type, String path){
+        addButton(new CustomButton(action, type,path));
+    }
+    
+    public String getButtonPath(String action,String type){
+        for (CustomButton button: buttons){
+            if (button.getType( ).equals( type ) && button.getAction().equals(action)){
+                return button.getPath( );
+            }
+        }
+        return null;
+    }
+    
     
     public boolean isCommentaries() {
         return commentaries;

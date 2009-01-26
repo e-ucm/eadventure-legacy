@@ -179,6 +179,21 @@ public class AdventureHandler extends DefaultHandler {
             adventureData.addCursor( type, uri );
         }		
 
+        //Button
+        if (qName.equals( "button" )){
+            String type="";String uri=""; String action ="";
+            for( int i = 0; i < attrs.getLength( ); i++ ) {
+                if (attrs.getQName( i ).equals( "type" )){
+                    type=attrs.getValue( i );
+                }else if (attrs.getQName( i ).equals( "uri" )){
+                    uri=attrs.getValue( i );
+                }else if (attrs.getQName( i ).equals( "action" )){
+                    action=attrs.getValue( i );
+                }
+            }
+            adventureData.addButton( action, type, uri );
+        }
+        
 		// If reading the mode tag:
 		if( qName.equals( "mode" ) ) {
 			for( int i = 0; i < attrs.getLength( ); i++ )

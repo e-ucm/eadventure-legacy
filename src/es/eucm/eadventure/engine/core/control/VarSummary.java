@@ -52,6 +52,8 @@ public class VarSummary implements Serializable {
     public void setVarValue( String varName, int value ) {
         Var var = vars.get( varName );
         var.setValue(value);
+        if (debug)
+        	changes.add(varName);
     }
 
     /**

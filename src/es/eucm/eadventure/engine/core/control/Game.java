@@ -559,7 +559,8 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
                 }
             
                 while( !nextChapter && !gameOver ) {
-                	debugFrame.updateValues();
+                	if (debug)
+                		debugFrame.updateValues();
                     time = System.currentTimeMillis( );
                     elapsedTime = time - oldTime;
                     oldTime = time;
