@@ -40,14 +40,16 @@ public class GameStateRunEffects extends GameState {
         GUI.getInstance( ).toggleHud( false );
         GUI.getInstance( ).setDefaultCursor( );
         
-        game.getFunctionalScene( ).update( elapsedTime );
+        if (game.getFunctionalScene()!=null)
+        	game.getFunctionalScene( ).update( elapsedTime );
         GUI.getInstance( ).update( elapsedTime );
 
         Graphics2D g = GUI.getInstance( ).getGraphics( );
         g.clearRect( 0, 0, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT );
 
         // Draw the scene
-        game.getFunctionalScene( ).draw( );
+        if (game.getFunctionalScene()!=null)
+        	game.getFunctionalScene( ).draw( );
         GUI.getInstance( ).drawScene( g );
         GUI.getInstance( ).drawHUD( g );
         

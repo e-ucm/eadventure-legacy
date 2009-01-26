@@ -3,8 +3,10 @@ package es.eucm.eadventure.engine.core.gui.hud.contextualhud;
 import java.awt.Graphics2D;
 import java.awt.Image;
 
+import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.data.chapter.CustomAction;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
+import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
@@ -93,21 +95,76 @@ public class ActionButton {
 	 * @param type the type of the button
 	 */
 	public ActionButton(int type) {
+		
+		DescriptorData descriptor = Game.getInstance().getGameDescriptor();
+		
+		String customNormalPath = null; 
+		String customHighlightedPath = null;
+		String customPressedPath = null;
+		
+		
 		switch(type) {
 		case HAND_BUTTON:
-            buttonNormal = MultimediaManager.getInstance( ).loadImage( "gui/hud/contextual/btnHand.png", MultimediaManager.IMAGE_MENU );
-            buttonOver = MultimediaManager.getInstance( ).loadImage( "gui/hud/contextual/btnHandHighlighted.png", MultimediaManager.IMAGE_MENU );
-            buttonPressed = MultimediaManager.getInstance( ).loadImage( "gui/hud/contextual/btnHandPressed.png", MultimediaManager.IMAGE_MENU );
+			customNormalPath = descriptor.getButtonPath(DescriptorData.USE_GRAB_BUTTON, DescriptorData.NORMAL_BUTTON); 
+			customHighlightedPath = descriptor.getButtonPath(DescriptorData.USE_GRAB_BUTTON, DescriptorData.HIGHLIGHTED_BUTTON);
+			customPressedPath = descriptor.getButtonPath(DescriptorData.USE_GRAB_BUTTON, DescriptorData.PRESSED_BUTTON);
+			
+			if (customNormalPath==null)
+				buttonNormal = MultimediaManager.getInstance( ).loadImage( "gui/hud/contextual/btnHand.png", MultimediaManager.IMAGE_MENU );
+			else
+				buttonNormal = MultimediaManager.getInstance( ).loadImageFromZip( customNormalPath, MultimediaManager.IMAGE_MENU );
+			
+			if (customHighlightedPath==null)
+				buttonOver = MultimediaManager.getInstance( ).loadImage( "gui/hud/contextual/btnHandHighlighted.png", MultimediaManager.IMAGE_MENU );
+			else
+				buttonOver = MultimediaManager.getInstance( ).loadImageFromZip( customHighlightedPath, MultimediaManager.IMAGE_MENU );
+			
+			if (customPressedPath==null)
+				buttonPressed = MultimediaManager.getInstance( ).loadImage( "gui/hud/contextual/btnHandPressed.png", MultimediaManager.IMAGE_MENU );
+			else
+				buttonPressed = MultimediaManager.getInstance( ).loadImageFromZip( customPressedPath, MultimediaManager.IMAGE_MENU );
+			
             break;
 		case EYE_BUTTON:
-			buttonNormal = MultimediaManager.getInstance( ).loadImage( "gui/hud/contextual/btnEye.png", MultimediaManager.IMAGE_MENU );
-            buttonOver = MultimediaManager.getInstance( ).loadImage( "gui/hud/contextual/btnEyeHighlighted.png", MultimediaManager.IMAGE_MENU );
-            buttonPressed = MultimediaManager.getInstance( ).loadImage( "gui/hud/contextual/btnEyePressed.png", MultimediaManager.IMAGE_MENU );
+			customNormalPath = descriptor.getButtonPath(DescriptorData.EXAMINE_BUTTON, DescriptorData.NORMAL_BUTTON); 
+			customHighlightedPath = descriptor.getButtonPath(DescriptorData.EXAMINE_BUTTON, DescriptorData.HIGHLIGHTED_BUTTON);
+			customPressedPath = descriptor.getButtonPath(DescriptorData.EXAMINE_BUTTON, DescriptorData.PRESSED_BUTTON);
+			
+			if (customNormalPath==null)
+				buttonNormal = MultimediaManager.getInstance( ).loadImage( "gui/hud/contextual/btnEye.png", MultimediaManager.IMAGE_MENU );
+			else
+				buttonNormal = MultimediaManager.getInstance( ).loadImageFromZip( customNormalPath, MultimediaManager.IMAGE_MENU );
+			
+			if (customHighlightedPath==null)
+				buttonOver = MultimediaManager.getInstance( ).loadImage( "gui/hud/contextual/btnEyeHighlighted.png", MultimediaManager.IMAGE_MENU );
+			else
+				buttonOver = MultimediaManager.getInstance( ).loadImageFromZip( customHighlightedPath, MultimediaManager.IMAGE_MENU );
+			
+			if (customPressedPath==null)
+				buttonPressed = MultimediaManager.getInstance( ).loadImage( "gui/hud/contextual/btnEyePressed.png", MultimediaManager.IMAGE_MENU );
+			else
+				buttonPressed = MultimediaManager.getInstance( ).loadImageFromZip( customPressedPath, MultimediaManager.IMAGE_MENU );
+			
 			break;
 		case MOUTH_BUTTON:
-			buttonNormal = MultimediaManager.getInstance( ).loadImage( "gui/hud/contextual/btnMouth.png", MultimediaManager.IMAGE_MENU );
-            buttonOver = MultimediaManager.getInstance( ).loadImage( "gui/hud/contextual/btnMouthHighlighted.png", MultimediaManager.IMAGE_MENU );
-            buttonPressed = MultimediaManager.getInstance( ).loadImage( "gui/hud/contextual/btnMouthPressed.png", MultimediaManager.IMAGE_MENU );
+			customNormalPath = descriptor.getButtonPath(DescriptorData.TALK_BUTTON, DescriptorData.NORMAL_BUTTON); 
+			customHighlightedPath = descriptor.getButtonPath(DescriptorData.TALK_BUTTON, DescriptorData.HIGHLIGHTED_BUTTON);
+			customPressedPath = descriptor.getButtonPath(DescriptorData.TALK_BUTTON, DescriptorData.PRESSED_BUTTON);
+			if (customNormalPath==null)
+				buttonNormal = MultimediaManager.getInstance( ).loadImage( "gui/hud/contextual/btnMouth.png", MultimediaManager.IMAGE_MENU );
+			else
+				buttonNormal = MultimediaManager.getInstance( ).loadImageFromZip( customNormalPath, MultimediaManager.IMAGE_MENU );
+			
+			if (customHighlightedPath==null)
+				buttonOver = MultimediaManager.getInstance( ).loadImage( "gui/hud/contextual/btnMouthHighlighted.png", MultimediaManager.IMAGE_MENU );
+			else
+				buttonOver = MultimediaManager.getInstance( ).loadImageFromZip( customHighlightedPath, MultimediaManager.IMAGE_MENU );
+			
+			if (customPressedPath==null)
+				buttonPressed = MultimediaManager.getInstance( ).loadImage( "gui/hud/contextual/btnMouthPressed.png", MultimediaManager.IMAGE_MENU );
+			else
+				buttonPressed = MultimediaManager.getInstance( ).loadImageFromZip( customPressedPath, MultimediaManager.IMAGE_MENU );
+			
 			break;
 		}
 		actionName = "";
