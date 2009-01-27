@@ -123,11 +123,7 @@ public class ReferencesListPanel extends JPanel{
 			if (!Controller.getInstance().isPlayTransparent()&& referencesListDataControl.getSceneDataControl().isAllowPlayer())
 				spep.addPlayer(referencesListDataControl.getSceneDataControl(), referencesListDataControl.getPlayerImage());
 		}
-		//Provide minimum sizes for the two components in the split pane
-		Dimension minimumSize = new Dimension(300, 280);
-		//infoPanel.setMinimumSize(minimumSize);
-		//infoPanel.setPreferredSize(minimumSize);
-		//spep.setMinimumSize(minimumSize);
+		
 		//Create a split pane with the two panels: info panel and preview panel
 		infoWithSpep = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
                 infoPanel, spep);
@@ -147,9 +143,6 @@ public class ReferencesListPanel extends JPanel{
 		// set the listener to get the events in the preview panel that implies changes in the table
 		spep.setElementReferenceSelectionListener(table);
 		
-		//infoWithSpep.setMinimumSize(new Dimension(150,0));
-		//table.setMinimumSize(new Dimension(0,150));
-		//Create a split pane with the two scroll panes in it
 		tableWithSplit = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
                 infoWithSpep, tablePanel);
 		tableWithSplit.setOneTouchExpandable(true);
