@@ -214,25 +214,36 @@ public class FunctionalTrajectory {
 		if (destinationElement == null)
 			return false;
 		else {
-			InfluenceArea area = destinationElement.getInfluenceArea();
-			int x1 = (int) (destinationElement.getX() - destinationElement.getWidth() * destinationElement.getScale() / 2);
-			int y1 = (int) (destinationElement.getY() - destinationElement.getHeight() * destinationElement.getScale());
-			int x2 = 0;
-			int y2 = 0;
-			if (!area.isExists()) {
-				x1 = x1 - 20;
-				y1 = y1 - 20;
-				x2 = (int) (x1 + destinationElement.getWidth() * destinationElement.getScale() + 40);
-				y2 = (int) (y1 + destinationElement.getHeight() * destinationElement.getScale() + 40);
+			if (!(destinationElement instanceof FunctionalActiveArea)) {
+				InfluenceArea area = destinationElement.getInfluenceArea();
+				int x1 = (int) (destinationElement.getX() - destinationElement.getWidth() * destinationElement.getScale() / 2);
+				int y1 = (int) (destinationElement.getY() - destinationElement.getHeight() * destinationElement.getScale());
+				int x2 = 0;
+				int y2 = 0;
+				if (!area.isExists()) {
+					x1 = x1 - 20;
+					y1 = y1 - 20;
+					x2 = (int) (x1 + destinationElement.getWidth() * destinationElement.getScale() + 40);
+					y2 = (int) (y1 + destinationElement.getHeight() * destinationElement.getScale() + 40);
+				} else {
+					x1 = x1 + area.getX();
+					y1 = y1 + area.getY();
+					x2 = x1 + area.getWidth();
+					y2 = y1 + area.getHeight();
+				}
+				
+				if (posX > x1 && posX < x2 && posY > y1 && posY < y2)
+					return true;
 			} else {
-				x1 = x1 + area.getX();
-				y1 = y1 + area.getY();
-				x2 = x1 + area.getWidth();
-				y2 = y1 + area.getHeight();
+				FunctionalActiveArea area = (FunctionalActiveArea) destinationElement;
+				int x1 = (int) area.getX();
+				int y1 = (int) area.getY();
+				int x2 = (int) (area.getWidth() + area.getX());
+				int y2 = (int) (area.getHeight() + area.getY());
+				
+				if (posX > x1 && posX < x2 && posY > y1 && posY < y2)
+					return true;
 			}
-			
-			if (posX > x1 && posX < x2 && posY > y1 && posY < y2)
-				return true;
 		}
 		return false;
 	}
