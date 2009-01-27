@@ -10,6 +10,7 @@ import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfil
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfilesDataControl;
 import es.eucm.eadventure.editor.control.controllers.lom.LOMDataControl;
 import es.eucm.eadventure.common.data.adventure.AdventureData;
+import es.eucm.eadventure.common.data.adventure.CustomButton;
 import es.eucm.eadventure.common.data.adventure.CustomCursor;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
@@ -230,6 +231,11 @@ public class AdventureDataControl {
     public List<CustomCursor> getCursors(){
         return adventureData.getCursors();
     }
+    
+    public List<CustomButton> getButtons(){
+        return adventureData.getButtons();
+    }
+
     
     public void addCursor(String type, String path){
         addCursor(new CustomCursor(type,path));
