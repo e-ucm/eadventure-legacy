@@ -554,9 +554,9 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
                 loadCurrentChapter( g );
                 errorWhileLoading = false;
 
-                if (debug) {
+                if (debug)
                 	debugFrame = new DebugFrame(flags, vars);
-                }
+                
             
                 while( !nextChapter && !gameOver ) {
                 	if (debug)

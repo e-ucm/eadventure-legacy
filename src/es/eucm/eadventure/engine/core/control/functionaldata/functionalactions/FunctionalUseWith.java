@@ -35,8 +35,9 @@ public class FunctionalUseWith extends FunctionalAction {
 
 	@Override
 	public void setAnotherElement(FunctionalElement element) {
-		this.needsGoTo = true;
 		anotherElement = element;
+		if (!anotherElement.isInInventory())
+			this.needsGoTo = true;
 	}
 
 	@Override
@@ -71,19 +72,23 @@ public class FunctionalUseWith extends FunctionalAction {
 	public void update(long elapsedTime) {
         if (anotherElement != null) {
 			totalTime += elapsedTime;
-            FunctionalItem item1 = (FunctionalItem) element;
-            FunctionalItem item2 = (FunctionalItem) anotherElement;
-
-            if (!finished && !canUseWith) {
-				canUseWith = item1.useWith( item2 ) || item2.useWith( item1 );
-				if (!canUseWith) {
-					finished = true;
-					functionalPlayer.popAnimation();
-				}
-			} else if(!finished && totalTime > 1000 ) {
-	        	functionalPlayer.popAnimation();
-	            finished = true;
-	        }
+			if (element instanceof FunctionalItem && anotherElement instanceof FunctionalItem) {
+			
+	            FunctionalItem item1 = (FunctionalItem) element;
+	            FunctionalItem item2 = (FunctionalItem) anotherElement;
+	
+	            if (!finished && !canUseWith) {
+					canUseWith = item1.useWith( item2 ) || item2.useWith( item1 );
+					if (!canUseWith) {
+						finished = true;
+						functionalPlayer.popAnimation();
+					}
+				} else if(!finished && totalTime > 1000 ) {
+		        	functionalPlayer.popAnimation();
+		            finished = true;
+		        }
+			} else
+				finished = true;
         }
 	}
 

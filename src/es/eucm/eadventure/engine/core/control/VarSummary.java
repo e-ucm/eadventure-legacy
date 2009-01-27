@@ -201,7 +201,7 @@ public class VarSummary implements Serializable {
 			changes.clear();
 			return temp;
 		}
-		return null;
+		return new ArrayList<String>();
 	}
  
 }

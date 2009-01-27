@@ -7,6 +7,7 @@ import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.common.data.chapter.CustomAction;
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalItem;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalNPC;
@@ -102,7 +103,8 @@ public class ActionButtons {
     	centerY = posY;
 		buttons.clear();
 		if (functionalElement instanceof FunctionalItem) {
-			addDefaultObjectButtons();
+			FunctionalItem item = (FunctionalItem) functionalElement;
+			addDefaultObjectButtons(item);
 			addCustomActionButtons(((FunctionalItem) functionalElement).getItem().getActions(), functionalElement);
 		}
 		if (functionalElement instanceof FunctionalNPC) {
@@ -234,8 +236,22 @@ public class ActionButtons {
 	/**
 	 * Adds the default buttons for non-character elements
 	 */
-	private void addDefaultObjectButtons() {
+	private void addDefaultObjectButtons(FunctionalItem item) {
 		buttons.add(eyeButton);
+		if (!item.isInInventory())
+			handButton.setName(TextConstants.getText("ActionButton.Grab"));
+		else if (item.canBeUsedAlone())
+			handButton.setName(TextConstants.getText("ActionButton.Use"));
+		else if (item.isInInventory()) {
+			if (item.canPerform(Action.GIVE_TO) && item.canPerform(Action.USE_WITH)) {
+				handButton.setName(TextConstants.getText("ActionButton.UseGive"));
+			} else if (item.canPerform(Action.GIVE_TO))
+				handButton.setName(TextConstants.getText("ActionButton.GiveTo"));
+			else if  (item.canPerform(Action.USE_WITH))
+				handButton.setName(TextConstants.getText("ActionButton.UseWith"));
+		}
+		else
+			handButton.setName(TextConstants.getText("ActionButton.GrabGiveUse"));
 		buttons.add(handButton);
 	}    
 

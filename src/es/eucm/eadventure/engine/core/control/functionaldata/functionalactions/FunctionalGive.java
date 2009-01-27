@@ -74,20 +74,23 @@ public class FunctionalGive extends FunctionalAction {
 	public void update(long elapsedTime) {
 		if (anotherElement != null) {
 	        totalTime += elapsedTime;
-            FunctionalItem item = (FunctionalItem) element;
-            FunctionalNPC npc = (FunctionalNPC) anotherElement;
-	        
-            if (!finished && !canGive) {
-            	canGive = item.giveTo(npc);
-            	if (!canGive) {
-	                functionalPlayer.speak( GameText.getTextGiveCannot( ) );
-	                functionalPlayer.popAnimation();
-	                finished = true;
-            	}
-            } else if ( !finished && totalTime > 1000 ) {
-	            finished = true;
-	            functionalPlayer.popAnimation();
-	        }
+	        if (element instanceof FunctionalItem && anotherElement instanceof FunctionalNPC) {
+	            FunctionalItem item = (FunctionalItem) element;
+	            FunctionalNPC npc = (FunctionalNPC) anotherElement;
+		        
+	            if (!finished && !canGive) {
+	            	canGive = item.giveTo(npc);
+	            	if (!canGive) {
+		                functionalPlayer.speak( GameText.getTextGiveCannot( ) );
+		                functionalPlayer.popAnimation();
+		                finished = true;
+	            	}
+	            } else if ( !finished && totalTime > 1000 ) {
+		            finished = true;
+		            functionalPlayer.popAnimation();
+		        }
+	        } else
+	        	finished = true;
         }
 		
 	}
