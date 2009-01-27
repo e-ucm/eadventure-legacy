@@ -253,7 +253,10 @@ public class FunctionalScene implements Renderable {
                     if( Game.getInstance( ).getItemSummary( ).isItemNormal( itemReference.getIdTarget( ) ) ) {
                         for( Item currentItem : gameData.getItems( ) ) {
                             if( itemReference.getIdTarget( ).equals( currentItem.getId( ) ) ) {
-                                items.add( new FunctionalItem( currentItem, itemReference.getX( ), itemReference.getY( ), itemReference.getLayer() ) );
+                            	FunctionalItem fItem =new FunctionalItem( currentItem, itemReference.getX( ), itemReference.getY( ), itemReference.getLayer() );
+                            	fItem.setScale(itemReference.getScale());
+                            	fItem.setLayer(itemReference.getLayer());
+                                items.add( fItem );
                             }
                         }
                     }
@@ -280,7 +283,10 @@ public class FunctionalScene implements Renderable {
                 if( !found ) {
                     for( NPC currentNPC : gameData.getCharacters( ) ) {
                         if( npcReference.getIdTarget( ).equals( currentNPC.getId( ) ) ) {
-                            npcs.add( new FunctionalNPC( currentNPC, npcReference.getInfluenceArea(), npcReference.getX( ), npcReference.getY( ), npcReference.getLayer() ) );
+                        	FunctionalNPC fNPC = new FunctionalNPC( currentNPC, npcReference.getInfluenceArea(), npcReference.getX( ), npcReference.getY( ), npcReference.getLayer() );
+                        	fNPC.setScale(npcReference.getScale());
+                        	fNPC.setLayer(npcReference.getLayer());
+                        	npcs.add( fNPC );
                         }
                     }
                 }
@@ -339,7 +345,10 @@ public class FunctionalScene implements Renderable {
                     //if( Game.getInstance( ).getAtrezzoItemSummary( ).isFlagsNormal( atrezzoReference.getIdTarget( ) ) ) {
                         for( Atrezzo currentAtrezzo : gameData.getAtrezzo( ) ) {
                             if( atrezzoReference.getIdTarget( ).equals( currentAtrezzo.getId( ) ) ) {
-                                atrezzo.add( new FunctionalAtrezzo( currentAtrezzo, atrezzoReference.getX( ), atrezzoReference.getY( ), atrezzoReference.getLayer()) );
+                                FunctionalAtrezzo fAtrezzo = new FunctionalAtrezzo( currentAtrezzo, atrezzoReference.getX( ), atrezzoReference.getY( ), atrezzoReference.getLayer());
+                            	fAtrezzo.setScale(atrezzoReference.getScale());
+                            	fAtrezzo.setLayer(atrezzoReference.getLayer());
+                            	atrezzo.add( fAtrezzo );
                             }
                         }
                     //}

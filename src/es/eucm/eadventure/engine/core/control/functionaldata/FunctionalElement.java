@@ -99,7 +99,7 @@ public abstract class FunctionalElement implements Renderable {
     	this.scale = scale;
     }
     /**
-     * Returns wheter the given point is inside this element
+     * Returns whether the given point is inside this element
      * @param x the horizontal position of the point
      * @param y the vertical position of the point
      * @return true if the given point is inside this element, false otherwise
