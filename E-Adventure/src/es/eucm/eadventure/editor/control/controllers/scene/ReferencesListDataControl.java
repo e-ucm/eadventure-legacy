@@ -575,6 +575,8 @@ public class ReferencesListDataControl extends DataControl{
 			allReferencesDataControl.get(index-1).setLayer(index-1);
 			if (player)
 				setPlayerPosition(index-1);
+			if (allReferencesDataControl.get(index).isPlayer())
+				setPlayerPosition(index);
 		}
 	}
 
@@ -638,6 +640,8 @@ public class ReferencesListDataControl extends DataControl{
 			allReferencesDataControl.get(index+1).setLayer(index+1);
 			if (player)
 				setPlayerPosition(index+1);
+			if (allReferencesDataControl.get(index).isPlayer())
+				setPlayerPosition(index);
 		}
 	}
 
