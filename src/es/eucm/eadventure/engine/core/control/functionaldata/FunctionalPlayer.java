@@ -367,7 +367,9 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
     		if (getCurrentAction().getType() == Action.CUSTOM_INTERACT) {
     			nextAction = getCurrentAction();
     			popAction();
-    			((FunctionalCustomInteract) nextAction).setAnotherElement(element);
+    			if (getCurrentAction() != null && element != null && getCurrentAction() instanceof FunctionalCustomInteract) {
+    				((FunctionalCustomInteract) nextAction).setAnotherElement(element);
+    			}
     		} else {
     			nextAction = new FunctionalCustomInteract(element, Game.getInstance().getActionManager().getCustomActionName());
     		}
