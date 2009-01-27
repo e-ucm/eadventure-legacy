@@ -6,7 +6,7 @@
 
 <!ELEMENT configuration (gui,mode,graphics?)>
 <!ELEMENT invalid EMPTY>
-<!ELEMENT gui (cursors?)>
+<!ELEMENT gui (cursors?, buttons?)>
 <!ATTLIST gui
 	type (traditional | contextual) "traditional"
 	customized (yes | no) "no"
@@ -15,6 +15,14 @@
 <!ELEMENT cursor EMPTY>
 <!ATTLIST cursor
 	type (default | over | exit | action | use | look | examine | talk | grab | give) "default"
+	uri CDATA #REQUIRED
+>
+
+<!ELEMENT buttons (button+)>
+<!ELEMENT button EMPTY>
+<!ATTLIST button
+	action (talk | use-grab | examine ) "use-grab"
+	type (highlighted | normal | pressed ) "normal"
 	uri CDATA #REQUIRED
 >
 

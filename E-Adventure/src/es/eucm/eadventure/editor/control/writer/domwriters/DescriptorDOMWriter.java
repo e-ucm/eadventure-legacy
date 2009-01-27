@@ -11,6 +11,7 @@ import org.w3c.dom.Node;
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
+import es.eucm.eadventure.common.data.adventure.CustomButton;
 import es.eucm.eadventure.common.data.adventure.CustomCursor;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 
@@ -79,6 +80,19 @@ public class DescriptorDOMWriter {
 				}
 				guiElement.appendChild( cursorsNode );
 			}
+			
+			if (adventureData.getButtons( ).size( )>0){
+				Node buttonsNode = doc.createElement( "buttons" );
+				for (CustomButton button: adventureData.getButtons( )){
+					Element currentButton = doc.createElement( "button" );
+					currentButton.setAttribute( "action", button.getAction( ) );
+					currentButton.setAttribute( "type", button.getType( ) );
+					currentButton.setAttribute( "uri", button.getPath( ) );
+					buttonsNode.appendChild( currentButton );
+				}
+				guiElement.appendChild( buttonsNode );
+			}
+
 			configurationNode.appendChild( guiElement );
 
 			//Player mode element
