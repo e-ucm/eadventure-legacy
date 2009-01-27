@@ -30,6 +30,7 @@
 	
 	<entry key="MenuRun.Title">Run</entry>
 	<entry key="MenuRun.Normal">Normal</entry>	
+	<entry key="MenuRun.Debug">Debug</entry>
 	
 	<entry key="MenuReturnMode.Option">Return to Adventure Mode</entry>
 	<entry key="MenuReturnMode">Edition Mode</entry>

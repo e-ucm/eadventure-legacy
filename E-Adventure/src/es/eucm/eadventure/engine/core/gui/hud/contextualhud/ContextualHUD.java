@@ -343,6 +343,8 @@ public class ContextualHUD extends HUD {
         FunctionalElement element = inventory.mouseClicked( e );
         if( elementInCursor!= null ){
             if( element != null ){
+            	actionManager.setActionSelected( ActionManager.ACTION_USE);
+            	game.getFunctionalPlayer().performActionInElement(elementInCursor);
                actionManager.setActionSelected( ActionManager.ACTION_USE_WITH );
                game.getFunctionalPlayer().performActionInElement( element );
                elementInCursor = null;

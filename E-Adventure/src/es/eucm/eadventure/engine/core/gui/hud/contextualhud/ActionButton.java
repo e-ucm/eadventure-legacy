@@ -1,13 +1,16 @@
 package es.eucm.eadventure.engine.core.gui.hud.contextualhud;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.data.chapter.CustomAction;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
+import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 
@@ -123,7 +126,8 @@ public class ActionButton {
 				buttonPressed = MultimediaManager.getInstance( ).loadImage( "gui/hud/contextual/btnHandPressed.png", MultimediaManager.IMAGE_MENU );
 			else
 				buttonPressed = MultimediaManager.getInstance( ).loadImageFromZip( customPressedPath, MultimediaManager.IMAGE_MENU );
-			
+
+			actionName = TextConstants.getText("ActionButton.GrabGiveUse");
             break;
 		case EYE_BUTTON:
 			customNormalPath = descriptor.getButtonPath(DescriptorData.EXAMINE_BUTTON, DescriptorData.NORMAL_BUTTON); 
@@ -144,7 +148,7 @@ public class ActionButton {
 				buttonPressed = MultimediaManager.getInstance( ).loadImage( "gui/hud/contextual/btnEyePressed.png", MultimediaManager.IMAGE_MENU );
 			else
 				buttonPressed = MultimediaManager.getInstance( ).loadImageFromZip( customPressedPath, MultimediaManager.IMAGE_MENU );
-			
+            actionName = TextConstants.getText("ActionButton.Examine");
 			break;
 		case MOUTH_BUTTON:
 			customNormalPath = descriptor.getButtonPath(DescriptorData.TALK_BUTTON, DescriptorData.NORMAL_BUTTON); 
@@ -164,10 +168,9 @@ public class ActionButton {
 				buttonPressed = MultimediaManager.getInstance( ).loadImage( "gui/hud/contextual/btnMouthPressed.png", MultimediaManager.IMAGE_MENU );
 			else
 				buttonPressed = MultimediaManager.getInstance( ).loadImageFromZip( customPressedPath, MultimediaManager.IMAGE_MENU );
-			
+            actionName = TextConstants.getText("ActionButton.Talk");
 			break;
 		}
-		actionName = "";
 		this.type = type;
 	}
 
@@ -287,9 +290,12 @@ public class ActionButton {
 		int y = posY - ACTIONBUTTON_HEIGHT / 2;
 		if (pressed)
 			g.drawImage(buttonNormal,x ,y , null );
-		else if (over)
+		else if (over) {
 			g.drawImage(buttonOver, x, y, null);
-		else
+			String[] text = new String[1];
+			text[0] = actionName;
+            GUI.drawStringOnto(g, text, posX, y, Color.BLACK, Color.WHITE);
+		} else
 			g.drawImage(buttonNormal, x, y, null);
 	}
 	
@@ -328,4 +334,9 @@ public class ActionButton {
 	public CustomAction getCustomAction() {
 		return customAction;
 	}
+	
+	public void setName(String string) {
+		actionName = string;
+	}
+
 }

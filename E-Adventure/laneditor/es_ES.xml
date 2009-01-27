@@ -32,6 +32,7 @@
 	
 	<entry key="MenuRun.Title">Ejecutar</entry>
 	<entry key="MenuRun.Normal">Normal</entry>	
+	<entry key="MenuRun.Debug">Depurar</entry>
 	
 	
 	<entry key="MenuReturnMode.Option">Volver al modo de Edición de Aventura</entry>

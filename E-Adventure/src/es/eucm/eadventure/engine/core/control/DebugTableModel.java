@@ -3,6 +3,7 @@ package es.eucm.eadventure.engine.core.control;
 import java.awt.Color;
 import java.awt.Component;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JTable;
@@ -13,6 +14,11 @@ import javax.swing.table.TableCellRenderer;
 
 public class DebugTableModel extends AbstractTableModel implements TableCellRenderer {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private FlagSummary flagSummary;
 	
 	private VarSummary varSummary;
@@ -21,24 +27,25 @@ public class DebugTableModel extends AbstractTableModel implements TableCellRend
 	
 	private List<String> changes;
 	
-	private int flags;
-	
-	private int vars;
+	private boolean onlyChanges;
 	
 	public DebugTableModel(FlagSummary flagSummary, VarSummary varSummary) {
 		this.flagSummary = flagSummary;
 		this.varSummary = varSummary;
 		ids = new ArrayList<String>();
-
-		flags = flagSummary.getFlags().size();
-		vars = varSummary.getVars().size();
-		
 		for (String id : flagSummary.getFlags().keySet()) {
 			ids.add(id);
 		}
 		for (String id : varSummary.getVars().keySet()) {
 			ids.add(id);
 		}
+		Collections.sort(ids);
+		this.onlyChanges = false;
+	}
+	
+	public DebugTableModel(FlagSummary flagSummary, VarSummary varSummary, boolean onlyChanges) {
+		this(flagSummary, varSummary);
+		this.onlyChanges = onlyChanges;
 	}
 	
     public String getColumnName(int col) {
@@ -50,7 +57,12 @@ public class DebugTableModel extends AbstractTableModel implements TableCellRend
     }
     
     public int getRowCount() {
-    	return (ids.size());
+    	if (!onlyChanges)
+    		return (ids.size());
+    	else if (changes != null)
+    		return changes.size();
+    	else
+    		return 0;
     }
     
     public int getColumnCount() {
@@ -58,18 +70,26 @@ public class DebugTableModel extends AbstractTableModel implements TableCellRend
     }
     
     public String getValueAt(int row, int col) {
+    	String id = "";
+    	
+		if (!onlyChanges)
+			id = ids.get(row);
+		else if (changes != null)
+			id = changes.get(row);
+    	
     	if (col == 0) {
-    		return ids.get(row);
+    		return id;
     	} else {
-    		if (col < flags) {
-    			if (flagSummary.getFlagValue(ids.get(row)))
+    		if (flagSummary.getFlags().containsKey(id)) {
+    			if (flagSummary.getFlagValue(id))
     				return "true";
     			else
     				return "false";
-    		} else {
-    			return "" + varSummary.getValue(ids.get(row));
+    		} else if (varSummary.getVars().containsKey(id)) {
+    			return "" + varSummary.getValue(id);
     		}
     	}
+    	return "";
     }
 
     public boolean isCellEditable(int row, int col) {
@@ -91,7 +111,7 @@ public class DebugTableModel extends AbstractTableModel implements TableCellRend
 			label.setForeground(Color.GREEN);
 		}
 		
-		if (changes != null && changes.contains(ids.get(row))) {
+		if (!onlyChanges && changes != null && changes.contains(ids.get(row))) {
 			label.setBackground(Color.YELLOW);
 		}
 		

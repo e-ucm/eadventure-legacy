@@ -191,7 +191,7 @@ public class FlagSummary implements Serializable {
 			changes.clear();
 			return temp;
 		}
-		return null;
+		return new ArrayList<String>();
 	}
 
 }
