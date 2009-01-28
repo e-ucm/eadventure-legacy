@@ -383,11 +383,10 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         timerManager.reset( );
         
         // Load the assessment rules and adaptation data
-        System.out.println("Arrancamos Adaptation Engine");
         adaptationEngine.init( chapter.getAdaptationPath( ) );
         
         assessmentEngine.loadAssessmentRules( chapter.getAssessmentPath( ) );
-        System.out.println("Este deberia ser el ultimo comentario");
+        
         // Initialize the required elements of the game
         actionManager = new ActionManager( );
         itemSummary = new ItemSummary( gameData.getItems( ) );
