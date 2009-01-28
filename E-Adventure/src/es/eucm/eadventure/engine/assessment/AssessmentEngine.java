@@ -167,7 +167,7 @@ public class AssessmentEngine implements TimerEventListener {
 				ProcessedRule rule = new ProcessedRule(oldRule, Game
 						.getInstance().getTime());
 
-				System.out.println("Comprueba si estamos conocetados assessmentEngine");
+				// System.out.println("Comprueba si estamos conocetados assessmentEngine");
 				// Signal the LMS about the change
 				if (Game.getInstance().isConnected()) {
 					Game.getInstance().getComm().notifyRelevantState(

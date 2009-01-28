@@ -91,7 +91,7 @@ public class AdaptationEngine {
 	        else if ((Game.getInstance().getComm().getCommType() == CommManagerApi.SCORMV12_TYPE ) ||
 	        		Game.getInstance().getComm().getCommType() == CommManagerApi.SCORMV2004_TYPE){
 	        	//HashMap<String,Integer> lmsInitialStates = Game.getInstance().getComm().getInitialStates();
-	        	System.out.println("Entramos en el sitio correcto en AssesmentEngine.init()");
+	        	//System.out.println("Entramos en el sitio correcto en AssesmentEngine.init()");
 	        	Set<String> properties = new HashSet<String>();
 	        	for(AdaptationRule rule : externalAdaptationRules) {
 	        		/*Integer response = lmsInitialStates.get(rule.getId());
@@ -111,7 +111,7 @@ public class AdaptationEngine {
 		        	boolean runRule = true;
 		        	Iterator<String> it=propertyNames.iterator();
 		        	while(runRule && it.hasNext()){
-		        		System.out.println("entramos en el bucle");
+		        		//System.out.println("entramos en el bucle");
 		        		String propertyName = it.next();
 		        		if (keys.contains(propertyName)){
 		        			if (!lmsInitialStates.get(propertyName).equals(rule.getPropertyValue(propertyName))){
@@ -122,7 +122,7 @@ public class AdaptationEngine {
 		        	}
 		        	if (runRule){
 		        		Game.getInstance( ).setAdaptedStateToExecute( rule.getAdaptedState( ) );
-		        		System.out.println("Se tendria que ejecutar la regla");
+		        	//	System.out.println("Se tendria que ejecutar la regla");
 		        	}
 		        	}
 	        }
