@@ -98,6 +98,8 @@ public abstract class GUI implements FocusListener {
      */
     protected ArrayList<ElementImage> elementsToDraw;
     
+    private ArrayList<ElementImage> virtualElementsToDraw;
+    
     /**
      * List of texts to be painted.
      */
@@ -638,7 +640,7 @@ public abstract class GUI implements FocusListener {
          
          // Create the image to store it 
          ElementImage element = new ElementImage( image, x, y, depth, originalY );
-         
+         //prepareVirtualElemetsToDraw();
          // While the element has not been added, and
          // we haven't checked every previous element
          while( !added && i < elementsToDraw.size( ) ) {
@@ -661,6 +663,32 @@ public abstract class GUI implements FocusListener {
              
          }
     }
+    
+    /**
+     * When player don't have layer, and rest element in the scene has, we must compare with real Y position.
+     * virtualElementsToDraw store the elements ordering by real Y position, not for layer. 
+     */
+  /*  public void prepareVirtualElemetsToDraw(){
+    	virtualElementsToDraw = new ArrayList<ElementImage>();
+    	// iterate elemetsToDraw
+    	for (int i=0;i<elementsToDraw.size();i++)
+    		if (virtualElementsToDraw.size()==0)
+    			virtualElementsToDraw.add(elementsToDraw.get(i));
+    		else {
+    			boolean added=false;
+    			//iterate virtualElementsToDraw, to inserts the next element to iterate in elementsToDraw in the correct position
+    			int j=0;
+    			while(!added &&j<virtualElementsToDraw.size()){
+    				if (elementsToDraw.get(i).getOriginalY()<=virtualElementsToDraw.get(j).getOriginalY()){
+    					virtualElementsToDraw.add(j,elementsToDraw.get(i));
+    					added=true;
+    				}
+    				j++;
+    			}
+    			if (!added)
+    				virtualElementsToDraw.add(elementsToDraw.get(i));
+    		}
+    }*/
 
     /**
      * Returns the highest Y value of the ElementImage given as argument which is not transparent
