@@ -323,9 +323,10 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
     				popAction();
     				((FunctionalGive) nextAction).setAnotherElement(element);
     			}
-    		} else
+    		} else {
 				popAction();
     			speak( GameText.getTextGiveCannot( ) );
+    		}
     		break;
     	case ActionManager.ACTION_GRAB:
         	cancelActions();
