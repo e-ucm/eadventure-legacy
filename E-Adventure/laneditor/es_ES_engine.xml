@@ -17,8 +17,13 @@
 	<entry key="MainWindow.TabOpen">Abrir juego</entry>
 	<entry key="MainWindow.TabAbout">Sobre e-Adventure</entry>
 	<entry key="MainWindow.GameLauncherTitle">eAdventure Game Launcher</entry>
-	
+	<entry key="MainWindow.English">Inglés</entry>
+	<entry key="MainWindow.Spanish">Castellano</entry>	
+	<entry key="MainWindow.SelectLanguage">Selecciona idioma</entry>
+		
 	<entry key="Information.FileAbout">aboutES.html</entry>
+	<entry key="GUI.NoFullscreenTitle">Problema entrando a modo pantalla-completa</entry>
+	<entry key="GUI.NoFullscreenContent">Un problema parece impedir que el juego se vea corresponde</entry>
 
 	<entry key="HUD.Traditional.btnExamine">gui/hud/traditional/btnExamineES.png</entry>
 	<entry key="HUD.Traditional.btnExamineFocus">gui/hud/traditional/btnExamineFocusES.png</entry>	
@@ -101,6 +106,8 @@
 	<entry key="GameText.TextUseNPC2">Ehhh... ¿NO?</entry>
 	<entry key="GameText.TextUseCannot1">No creo que esto vaya a funcionar</entry>
 	<entry key="GameText.TextUseCannot2">Ok... NO</entry>
+	<entry key="GameText.TextCustomCannot1">No creo que esto vaya a funcionar</entry>
+	<entry key="GameText.TextCustomCannot2">No puedo hacer eso</entry>
 	
 	<entry key="Report.Title">Generación de Informe</entry>
 	<entry key="Report.SelectFolder">Selecciona el directorio donde quieres que se guarde el informe</entry>
@@ -120,4 +127,31 @@
 	<entry key="Report.Importance.Normal">Normal</entry>
 	<entry key="Report.Importance.High">Alto</entry>
 	<entry key="Report.Importance.VeryHigh">Muy alto</entry>
+	<entry key="Report.OKSend">Aceptar y enviar informe</entry>
+	<entry key="Report.OKDontSend">Aceptar pero no enviar informe</entry>
+	<entry key="Reports.InputReportName">Escriba el nombre que aparecerá en el informe</entry>
+	<entry key="Reports.NameInput">Nombre del jugador</entry>
+	
+	<entry key="SendMail.UnableToSendEmail">El sistema no puedo enviar el e-mail</entry>
+	<entry key="SendMail.ErrorSendingEmail">Error enviando e-mail</entry>
+	
+	<entry key="ErrorReport.Send">Enviar</entry>
+	<entry key="ErrorReport.Cancel">Cancelar</entry>
+	<entry key="ErrorReport.Title">Informe de error</entry>
+	<entry key="ErrorReport.ShortDescription">Por favor escriba una breve descripición de lo que estaba haciendo</entry>
+	<entry key="ErrorReport.FoundException">Excepción encontrada:</entry>
+	<entry key="ErrorReport.Name">Nombre (opcional):</entry>
+	<entry key="ErrorReport.Email">E-mail (opcional):</entry>
+	<entry key="ErrorReport.TitleComments">Enviar comentarios y sugerencias</entry>
+	<entry key="ErrorReport.Comments">Por favor, utilice este espacio para escribir sus comentarios y sugerencias</entry>
+	
+	<entry key="ActionButton.Talk">Hablar</entry>
+	<entry key="ActionButton.Examine">Examinar</entry>
+	<entry key="ActionButton.GrabGiveUse">Coger/Dar/Usar</entry>
+	<entry key="ActionButton.Grab">Coger</entry>
+	<entry key="ActionButton.Use">Usar</entry>
+	<entry key="ActionButton.UseGive">Usar con/Dar a</entry>
+	<entry key="ActionButton.GiveTo">Dar a</entry>
+	<entry key="ActionButton.UseWith">Usar con</entry>
+	
 </properties>
