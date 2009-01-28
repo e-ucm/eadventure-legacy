@@ -332,12 +332,12 @@ public abstract class ResourceHandler implements InputStreamCreator{
         }
         
         String fileName = TEMP_FILE_NAME+random.nextInt( MAX_RANDOM )+"."+extension;
-        File file = new File(tempDirectory+"\\"+fileName);
+        File file = new File(tempDirectory+File.separatorChar+fileName);
         while (file.exists( )){
             fileName=TEMP_FILE_NAME+random.nextInt( MAX_RANDOM )+"."+extension;
-            file = new File(tempDirectory+"\\"+fileName);
+            file = new File(tempDirectory+File.separatorChar+fileName);
         }
-        return tempDirectory+"\\"+fileName;
+        return tempDirectory+File.separatorChar+fileName;
         
     }
 
