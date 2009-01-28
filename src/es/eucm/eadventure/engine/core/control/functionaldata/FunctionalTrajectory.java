@@ -215,7 +215,11 @@ public class FunctionalTrajectory {
 			return false;
 		else {
 			if (!(destinationElement instanceof FunctionalActiveArea)) {
-				InfluenceArea area = destinationElement.getInfluenceArea();
+				InfluenceArea area;
+				if (destinationElement.getInfluenceArea() != null)
+					area = destinationElement.getInfluenceArea();
+				else
+					area = new InfluenceArea(-20, -20, destinationElement.getWidth() + 40, destinationElement.getHeight() + 40);
 				int x1 = (int) (destinationElement.getX() - destinationElement.getWidth() * destinationElement.getScale() / 2);
 				int y1 = (int) (destinationElement.getY() - destinationElement.getHeight() * destinationElement.getScale());
 				int x2 = 0;
