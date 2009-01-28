@@ -92,6 +92,8 @@ public class StartDialog extends JFileChooser {
 
 	private JButton buttonNew;
 
+	private JButton openRecentsButton;
+
 	/**
 	 * @return the fileType
 	 */
@@ -402,8 +404,9 @@ public class StartDialog extends JFileChooser {
 		//-------------------------------- BUTTONS PANEL------------------------//
 		JPanel buttonsPanel = new JPanel( );
 		buttonsPanel.setLayout( new BoxLayout( buttonsPanel, BoxLayout.LINE_AXIS ) );
-		JButton openButton = new JButton( TextConstants.getText( "GeneralText.Open" ) );
-		openButton.addActionListener( new ActionListener( ) {
+		openRecentsButton = new JButton( TextConstants.getText( "GeneralText.Open" ) );
+		openRecentsButton.setEnabled(false);
+		openRecentsButton.addActionListener( new ActionListener( ) {
 
 			public void actionPerformed( ActionEvent e ) {
 				option = StartDialog.RECENT_FILE_OPTION;
@@ -420,7 +423,7 @@ public class StartDialog extends JFileChooser {
 			}
 
 		} );
-		buttonsPanel.add( openButton );
+		buttonsPanel.add( openRecentsButton );
 		buttonsPanel.add( Box.createHorizontalStrut( 1 ) );
 		buttonsPanel.add( cancelButton );
 		//-----------------MAIN PANEL-----------------------------------------//
@@ -552,6 +555,7 @@ public class StartDialog extends JFileChooser {
 		public void mousePressed( MouseEvent e ) {
 			int selectedRow = table.getSelectedRow( );
 			if( selectedRow >= 0 ) {
+				openRecentsButton.setEnabled(true);
 				recentFile = new File( info[selectedRow][0] );
 				try {
 					descriptorDataPanel.update( Loader.loadDescriptorData( AssetsController.getInputStreamCreator(recentFile.getAbsolutePath( )) ), recentFile.getAbsolutePath( ) );
@@ -561,7 +565,8 @@ public class StartDialog extends JFileChooser {
 				for( JTable otherTable : otherTables ) {
 					otherTable.clearSelection( );
 				}
-			}
+			} else
+				openRecentsButton.setEnabled(false);
 		}
 
 		public void mouseReleased( MouseEvent e ) {
