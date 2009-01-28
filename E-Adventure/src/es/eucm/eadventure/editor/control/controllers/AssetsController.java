@@ -303,6 +303,20 @@ public class AssetsController {
 					TextConstants.getText("Error.DTD.NotFound.Message", "adaptation.dtd") );
 			
 		}
+		
+		// animation.dtd
+		File animationDTD = new File("animation.dtd");
+		if (animationDTD.exists( )){
+			if (!animationDTD.copyTo( new File(projectDir, "animation.dtd") )){
+				Controller.getInstance( ).showErrorDialog( TextConstants.getText("Error.DTD.NotCopied.Title"), 
+						TextConstants.getText("Error.DTD.NotCopied.Message", "animation.dtd") );
+			}
+		}else{
+			Controller.getInstance( ).showErrorDialog( TextConstants.getText("Error.DTD.NotFound.Title"), 
+					TextConstants.getText("Error.DTD.NotFound.Message", "animation.dtd") );
+			
+		}
+
 
 	}
 	/**
