@@ -226,6 +226,7 @@ public class GUIFrame extends GUI implements FocusListener {
      */
     public JFrame showComponent ( Component component ){    	
     	gameFrame.setVisible(false);
+    	bkgFrame.setIgnoreRepaint(true);
     	if (this.component != null)
     		bkgFrame.remove(this.component);
     	this.component = component;
