@@ -510,7 +510,7 @@ public class Animation {
 			//File file = new File(filename);
 			InputStream descriptorIS = null;
 			try {
-				descriptorIS = ResourceHandler.getInstance( ).getResourceAsStreamFromZip(filename);
+				descriptorIS = ResourceHandler.getInstance( ).buildInputStream(filename);
 				//descriptorIS = new InputStream(ResourceHandler.getInstance().getResourceAsURLFromZip(filename));
 			} catch (Exception e) {}
 			if (descriptorIS == null) {
