@@ -40,7 +40,7 @@ public class EAdventureStandalone {
      * @param args Arguments
      */
     public static void main( String[] args ) {
-        TextConstants.loadStrings( EAdventureStandalone.class.getResourceAsStream( "/en_EN.xml" ) );
+    	TextConstants.loadStrings( EAdventureApplet.class.getResourceAsStream( "/lanengine/en_EN.xml" ) );
         startTime = System.currentTimeMillis( ); 
         printElapsedTime ("Starting");
         File.setDefaultArchiveDetector(new DefaultArchiveDetector(

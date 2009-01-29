@@ -69,4 +69,9 @@ public class ResourceHandlerExternalSource extends ResourceHandler{
 		return isCreator.buildURL(path);
 	}
 
+	@Override
+	public URL getResourceAsURL(String path) {
+		return buildURL (path);
+	}
+
 }

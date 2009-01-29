@@ -136,7 +136,7 @@ public class AnimationPanel extends JPanel implements ClockListener {
 		this.animation = null;
 		
 		if (animationPath.endsWith(".eaa")) {
-			this.animation = Animation.loadAnimation(animationPath);
+			this.animation = Animation.loadAnimation(AssetsController.getInputStreamCreator(), animationPath);
 		} else {
 	
 			// Load the image and calculate the sizes

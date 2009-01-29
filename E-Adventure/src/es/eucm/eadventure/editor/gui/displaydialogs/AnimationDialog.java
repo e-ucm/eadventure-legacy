@@ -36,7 +36,7 @@ public class AnimationDialog extends JDialog {
 
 		
 		if (animationPath.endsWith(".eaa")) {
-			add(new AnimationPanel(Animation.loadAnimation(animationPath)));
+			add(new AnimationPanel(Animation.loadAnimation(AssetsController.getInputStreamCreator(), animationPath)));
 		} else {
 			// Create and add the animation panel (a PNG suffix is attached to the path)
 			add( new AnimationPanel( animationPath + "_01.png" ) );
