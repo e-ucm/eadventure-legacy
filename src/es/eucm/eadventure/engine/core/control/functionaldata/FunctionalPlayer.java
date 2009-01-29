@@ -433,9 +433,11 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
             
             
         }
+        }
         if (getCurrentAction().isStarted() && !getCurrentAction().isFinished())
         	getCurrentAction().drawAditionalElements();
-        }
+        
+        
     }
     /*
      *  (non-Javadoc)
