@@ -189,8 +189,9 @@ public class SaveGame implements Serializable {
     		
     		
     	}else if (mark.equals(TIMERSMARK)){
-    		
-    		str[1] = str[1].split("&")[0];
+    		String[] aux = str[1].split("&");
+    		if (aux.length!=0)
+    			str[1] = aux[0];
     		saveGameData.loadTimers = str[1].split(";");
     		check[9] = true;
     		

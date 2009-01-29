@@ -259,7 +259,7 @@ public class ScenePanel extends JPanel {
 	
 
 	/**
-	 * Listener for the "Use initial position in this scene" check box.
+	 * Listener for the "Allow player layer" check box.
 	 */
 	private class PlayerLayerCheckBoxListener implements ActionListener {
 
