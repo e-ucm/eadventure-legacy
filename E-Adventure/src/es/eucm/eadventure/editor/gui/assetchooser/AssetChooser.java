@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -215,7 +217,7 @@ public abstract class AssetChooser extends JFileChooser {
 
 		
 		JPanel assetsPanel = new JPanel();
-		assetsPanel.setLayout( new BorderLayout() );
+		assetsPanel.setLayout(new BorderLayout());
 		JPanel approveAssetButton = new JPanel();
 		JButton app = new JButton("Select Asset");
 		app.addActionListener( new ActionListener(){
@@ -229,8 +231,8 @@ public abstract class AssetChooser extends JFileChooser {
 			
 		});
 		approveAssetButton.add( app );
-		assetsPanel.add( approveAssetButton, BorderLayout.SOUTH );
-		
+		//assetsPanel.add( approveAssetButton, BorderLayout.SOUTH );
+		assetsPanel.add(approveAssetButton, BorderLayout.SOUTH);
 		assetsPanel.add( zipContentsPanel, BorderLayout.CENTER );
 		
 
@@ -265,7 +267,7 @@ public abstract class AssetChooser extends JFileChooser {
 			}
 			
 		});
-		
+		setSize(600,600);
 	}
 	
 	private void createAssetsList( ) {
@@ -288,15 +290,19 @@ public abstract class AssetChooser extends JFileChooser {
 	private void createDefaultAssetsList( ) {
 
 		assetsList = new JList( );
-		if (previewLocation == PREVIEW_LOCATION_WEST)
-			assetsList.setLayoutOrientation( JList.VERTICAL_WRAP );
-		else if (previewLocation == PREVIEW_LOCATION_SOUTH)
-			assetsList.setLayoutOrientation( JList.VERTICAL_WRAP );
+		if (previewLocation == PREVIEW_LOCATION_WEST){
+			assetsList.setLayoutOrientation( JList.VERTICAL );
+			
+			this.zipContentsPanel = new JScrollPane( JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER );	
+		}
+		else if (previewLocation == PREVIEW_LOCATION_SOUTH){
+			assetsList.setLayoutOrientation( JList.VERTICAL );
+			this.zipContentsPanel = new JScrollPane( JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER );
+		}
 		String[] assets = AssetsController.getAssetFilenames( assetCategory );
 		assetsList.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
 		assetsList.setListData( assets );
 		assetsList.addListSelectionListener( new ResourcesListListener( ) );
-		this.zipContentsPanel = new JScrollPane( JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS );
 		zipContentsPanel.setViewportView( assetsList );
 
 	}
@@ -468,7 +474,7 @@ public abstract class AssetChooser extends JFileChooser {
 		if ( type == DEFAULT_ASSET_CHOOSER){
 			Container container = dialog.getContentPane( );
 			this.customizeDefaultChooser( container );
-			dialog.pack( );
+			dialog.setSize(800,800 );
 		}
 		dialog.addWindowListener( new WindowAdapter (){
 			@Override

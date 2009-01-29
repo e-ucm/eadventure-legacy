@@ -8,9 +8,12 @@ import java.awt.Font;
 import java.awt.Frame;
 import java.awt.HeadlessException;
 import java.awt.Window;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 
 import javax.accessibility.AccessibleContext;
+import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -34,7 +37,9 @@ public class ProjectFolderChooser extends JFileChooser{
 			i++;
 			defaultName = TextConstants.getText("Operation.NewFileTitle")+ " ("+i+")";
 		}
+		
 		return new File (defaultName);
+		
 	}
 
 	private static File getProjectsFolder(){
@@ -79,6 +84,24 @@ public class ProjectFolderChooser extends JFileChooser{
             info.setBackground( infoPanel.getBackground( ) );
             info.setText( TextConstants.getText( "Operation.NewProjectMessage", FolderFileFilter.getAllowedChars() ) );
             infoPanel.add( info );
+            String os = System.getProperty("os.name");
+            if (os.contains("MAC") || os.contains("mac") || os.contains("Mac")){
+            	JButton newFolderBt = new JButton(TextConstants.getText("GeneralText.New")+ " "+TextConstants.getText("GeneralText.Folders"));
+            	newFolderBt.addActionListener(new ActionListener(){
+
+					public void actionPerformed(ActionEvent e) {
+						String name=Controller.getInstance().showInputDialog("New folder", "Name of the folder", "New folder");
+						if (!name.contains(".")){
+							new File(getCurrentDirectory(),name).mkdirs();
+							updateUI();
+						}
+						
+					}
+            		
+            	});
+            	infoPanel.add(newFolderBt);
+            } else
+            	System.out.println("NOMAC");
             
             Container contentPane = dialog.getContentPane();
             contentPane.setLayout(new BorderLayout());
