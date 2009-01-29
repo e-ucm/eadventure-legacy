@@ -38,7 +38,7 @@ class ResourceHandlerUnrestricted extends ResourceHandler {
     }
     public static void delete(){
         if (instance!=null && instance.tempFiles!=null){
-            for (File file: instance.tempFiles){
+            for (TempFile file: instance.tempFiles){
                 file.delete( );
             }
         }
@@ -131,7 +131,9 @@ class ResourceHandlerUnrestricted extends ResourceHandler {
             try {
                 
                 MediaLocator mediaLocator= new MediaLocator(destinyFile.toURI( ).toURL( ));
-                tempFiles.add( destinyFile );
+                TempFile tempFile = new TempFile(destinyFile.getAbsolutePath());
+                tempFile.setOriginalAssetPath(path);
+                tempFiles.add( tempFile );
                 return mediaLocator;
             } catch( MalformedURLException e ) {
                 // TODO Auto-generated catch block
@@ -174,7 +176,9 @@ class ResourceHandlerUnrestricted extends ResourceHandler {
             File destinyFile = new File(filePath);
             if (sourceFile.copyTo( destinyFile )){
                 toReturn = destinyFile.toURI().toURL();
-                tempFiles.add( destinyFile );
+                TempFile tempFile = new TempFile(destinyFile.getAbsolutePath());
+                tempFile.setOriginalAssetPath(assetPath);
+                tempFiles.add( tempFile );
             }
             else
                 toReturn = null;

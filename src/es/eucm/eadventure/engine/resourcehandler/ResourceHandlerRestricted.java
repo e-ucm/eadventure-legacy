@@ -118,13 +118,25 @@ class ResourceHandlerRestricted extends ResourceHandler {
         de.schlichtherle.io.File osFile = new de.schlichtherle.io.File(path.substring( path.lastIndexOf( "/" )+1 ));
 
         boolean copy = true;
-        for (File file:tempFiles){
-            if(file.getName( ).equals( osFile.getName( ) )){
+        for (TempFile file:tempFiles){
+            if(file.getOriginalAssetPath().equals( path )){
                 copy = false; break;
             }
         }
         
-        tempFiles.add( (de.schlichtherle.io.File) osFile );
+        if (copy){
+        	// Search the file name. If exists, change name
+        	int i=0;
+        	while (osFile.exists()){
+        		i++;
+        		osFile = new de.schlichtherle.io.File (i+"_"+path.substring( path.lastIndexOf( "/" )+1 ));
+        	}
+            TempFile tempFile = new TempFile (((de.schlichtherle.io.File) osFile).getAbsolutePath());
+            tempFile.setOriginalAssetPath(path);
+            tempFiles.add( tempFile );
+        }
+        
+
         FileOutputStream os;
         try {
             if (copy){
