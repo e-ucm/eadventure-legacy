@@ -31,10 +31,15 @@ class ResourceHandlerRestricted extends ResourceHandler {
     public static void create(){
         instance = new ResourceHandlerRestricted( );
     }
+    
     public static void delete(){
+    	SecurityManager sm = System.getSecurityManager();
         if (instance!=null && instance.tempFiles!=null){
             for (File file: instance.tempFiles){
-                file.delete( );
+            	try  {
+	            	sm.checkDelete(file.getPath());
+	                file.delete( );
+            	} catch (Exception e) {}
             }
         }
         instance = null;

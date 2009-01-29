@@ -595,38 +595,15 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             
             }
             
-            stop( );
             
         } catch( Exception e ) {
-/*            
-            if( errorWhileLoading )
-                JOptionPane.showMessageDialog( null, "There was an error while loading the selected adventure.\nPlease check that no configuration file is missing or incorrect", "Error loading adventure", JOptionPane.ERROR_MESSAGE );
-            
-            System.out.println( "FATAL ERROR. This should not happen." );
-            System.out.println( "Please, report bug including information below, and" );
-            System.out.println( "describing what were you doing when the error occurred");
-            e.printStackTrace( );
-            System.out.println( "Exiting now..." );
-  */
-        	
         	ReportDialog.GenerateErrorReport(e, false, "FATAL ERROR. This should not happen.");
-/*
-        	int sendReport = JOptionPane.showConfirmDialog(null, "This should not happen.\nSend error report?", "FATAL ERROR", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
-            if (sendReport == 0) {
-            	String description = JOptionPane.showInputDialog(null, "Please describe breefly what you where doing when the error occurred", "Error report", JOptionPane.QUESTION_MESSAGE);
-            	String mail = "User description: " + description + "\n\n\n";
-            	StringWriter sw = new StringWriter();
-                PrintWriter pw = new PrintWriter(sw, true);
-                e.printStackTrace(pw);
-                pw.flush();
-                sw.flush();
-                mail += "Stack trace: \n" + sw.toString();
-                SendMail sm = new SendMail();
-                sm.postErrorReport(mail);
-            }
-            */
-            stop( );
-            
+        }
+        
+        try {
+        	stop( );
+        } catch (Exception e) {
+        	
         }
     }
     
