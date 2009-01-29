@@ -337,7 +337,7 @@ public class FunctionalBookPage extends JPanel{
             try{
             int lastSlash = Math.max( bookPage.getUri( ).lastIndexOf( "/" ), bookPage.getUri( ).lastIndexOf( "\\" ));
             String assetPath = bookPage.getUri( ).substring( 0, lastSlash )+"/"+reference;
-            String destinyPath = ResourceHandler.getInstance( ).extractResource( assetPath );
+            String destinyPath = ResourceHandler.getInstance( ).getResourceAsURL( assetPath ).getFile();
             if (destinyPath!=null){
                 String leftSide = html.substring( 0, index );
                 String rightSide = html.substring( index+length, html.length( ) );

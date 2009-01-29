@@ -34,6 +34,7 @@ import es.eucm.eadventure.common.data.animation.Animation;
 import es.eucm.eadventure.common.data.animation.Frame;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.animation.AnimationDataControl;
 import es.eucm.eadventure.editor.control.writer.AnimationWriter;
 import es.eucm.eadventure.editor.gui.displaydialogs.AnimationDialog;
@@ -138,7 +139,7 @@ public class AnimationEditDialog extends JDialog {
 	public AnimationEditDialog(String filename, Animation animation) {
 		super();
 		if (animation == null) {
-			animationDataControl = new AnimationDataControl(Animation.loadAnimation(filename));
+			animationDataControl = new AnimationDataControl(Animation.loadAnimation(AssetsController.getInputStreamCreator(), filename));
 		} else {
 			animationDataControl = new AnimationDataControl(animation);
 		}

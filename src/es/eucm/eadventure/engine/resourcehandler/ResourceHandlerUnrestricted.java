@@ -158,4 +158,30 @@ class ResourceHandlerUnrestricted extends ResourceHandler {
 		File dir = new File ( zipPath, filePath );
 		return dir.list();
 	}
+	
+    /**
+     * Extracts the resource and get it copied to a file in the local system. 
+     * Required when an asset cannot be loaded directly from zip
+     * @param assetPath
+     * @return
+     *      The absolute path of the destiny file where the asset was copied
+     */
+    public URL getResourceAsURL (String assetPath){
+        URL toReturn =null;
+        try{
+            String filePath = generateTempFileAbsolutePath (getExtension(assetPath));
+            File sourceFile = new File(zipPath, assetPath);
+            File destinyFile = new File(filePath);
+            if (sourceFile.copyTo( destinyFile )){
+                toReturn = destinyFile.toURI().toURL();
+                tempFiles.add( destinyFile );
+            }
+            else
+                toReturn = null;
+        } catch (Exception e){
+            toReturn = null;
+        }
+            
+        return toReturn;
+    }
 }

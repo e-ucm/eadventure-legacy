@@ -19,6 +19,7 @@ import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.SAXException;
 
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
+import es.eucm.eadventure.common.loader.InputStreamCreator;
 import es.eucm.eadventure.common.loader.parsers.AnimationHandler;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
@@ -496,8 +497,8 @@ public class Animation {
 	 * 			The xml descriptor for the animation
 	 * @return the loaded Animation
 	 */
-	public static Animation loadAnimation(String filename) {
-		AnimationHandler animationHandler = new AnimationHandler(  );
+	public static Animation loadAnimation(InputStreamCreator isCreator, String filename) {
+		AnimationHandler animationHandler = new AnimationHandler( isCreator );
 
 		// Create a new factory
 		SAXParserFactory factory = SAXParserFactory.newInstance( );
@@ -509,13 +510,19 @@ public class Animation {
 			// Read and close the input stream
 			//File file = new File(filename);
 			InputStream descriptorIS = null;
-			try {
+			/*try {
+				System.out.println("FILENAME="+filename);
 				descriptorIS = ResourceHandler.getInstance( ).buildInputStream(filename);
+				System.out.println("descriptorIS==null?"+(descriptorIS==null));
+				
 				//descriptorIS = new InputStream(ResourceHandler.getInstance().getResourceAsURLFromZip(filename));
-			} catch (Exception e) {}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			if (descriptorIS == null) {
 				descriptorIS = AssetsController.getInputStream(filename);
-			}
+			}*/
+			descriptorIS = isCreator.buildInputStream(filename);
 			
 			saxParser.parse( descriptorIS, animationHandler );
 			descriptorIS.close( );

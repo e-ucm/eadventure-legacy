@@ -109,46 +109,54 @@ class ResourceHandlerRestricted extends ResourceHandler {
         return is;
     }
 
+
+    public URL getResourceAsURL( String path ){
+        if (!path.startsWith( "/" ))
+            path = "/"+path;
+        InputStream is = this.getClass().getResourceAsStream(path);
+        byte[] data = new byte[1024];
+        de.schlichtherle.io.File osFile = new de.schlichtherle.io.File(path.substring( path.lastIndexOf( "/" )+1 ));
+
+        boolean copy = true;
+        for (File file:tempFiles){
+            if(file.getName( ).equals( osFile.getName( ) )){
+                copy = false; break;
+            }
+        }
+        
+        tempFiles.add( (de.schlichtherle.io.File) osFile );
+        FileOutputStream os;
+        try {
+            if (copy){
+                os = new FileOutputStream(new File(osFile.getAbsolutePath( )));
+                int length = 0;
+                while ((length = is.read( data ))!=-1){
+                    os.write( data, 0, length );
+                }
+                os.close( );
+                is.close( );
+            }
+            return osFile.toURI( ).toURL( );
+        } catch( FileNotFoundException e ) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return null;
+        } catch( IOException e ) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return null;
+        }
+    	
+    }
+    
     @Override
     public MediaLocator getResourceAsMediaLocator( String path ) {
-
-            if (!path.startsWith( "/" ))
-                path = "/"+path;
-            InputStream is = this.getClass().getResourceAsStream(path);
-            byte[] data = new byte[1024];
-            de.schlichtherle.io.File osFile = new de.schlichtherle.io.File(path.substring( path.lastIndexOf( "/" )+1 ));
-
-            boolean copy = true;
-            for (File file:tempFiles){
-                if(file.getName( ).equals( osFile.getName( ) )){
-                    copy = false; break;
-                }
-            }
-            
-            tempFiles.add( (de.schlichtherle.io.File) osFile );
-            FileOutputStream os;
-            try {
-                if (copy){
-                    os = new FileOutputStream(new File(osFile.getAbsolutePath( )));
-                    int length = 0;
-                    while ((length = is.read( data ))!=-1){
-                        os.write( data, 0, length );
-                    }
-                    os.close( );
-                    is.close( );
-                }
-                MediaLocator mediaLocator= new MediaLocator(osFile.toURI( ).toURL( ));
-                return mediaLocator;
-            } catch( FileNotFoundException e ) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-                return null;
-            } catch( IOException e ) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-                return null;
-            }
-     
+    	MediaLocator mediaLocator = null;
+    	URL url = getResourceAsURL(path);
+    	if (url!=null)
+    		mediaLocator = new MediaLocator ( url );
+    	return mediaLocator;
+                 
     }
 
     public URL getResourceAsURLFromZip( String path ){
