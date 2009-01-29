@@ -601,6 +601,7 @@ public class GameStateOptions extends GameState {
             for( int i = 0; i < NUMBER_OPTIONS_OF_PANEL[currentPanel]; i++ ) {
                 if( panelPosition.y + FIRST_BUTTON_OFFSET_Y + BUTTON_HEIGHT * i < e.getY( ) && e.getY( ) < panelPosition.y + FIRST_BUTTON_OFFSET_Y + BUTTON_HEIGHT * ( i + 1 ) ) {
                      highlightedOption = i;
+                     validateOption();
                 }
             }
         }
@@ -613,8 +614,10 @@ public class GameStateOptions extends GameState {
         if( panelPosition.x + FIRST_BUTTON_OFFSET_X < e.getX( ) && e.getX( ) < panelPosition.x + FIRST_BUTTON_OFFSET_X + BUTTON_WIDTH ) {
             for( int i = 0; i < NUMBER_OPTIONS_OF_PANEL[currentPanel]; i++ ) {
                 if( panelPosition.y + FIRST_BUTTON_OFFSET_Y + BUTTON_HEIGHT * i < e.getY( ) && e.getY( ) < panelPosition.y + FIRST_BUTTON_OFFSET_Y + BUTTON_HEIGHT * ( i + 1 ) ) {
-                    if( pressedOption != -1  && pressedOption==i)
+                    if( pressedOption != -1  && pressedOption==i){
                         highlightedOption = i;
+                        validateOption();
+                    }
                 }
             }
         }
@@ -632,5 +635,39 @@ public class GameStateOptions extends GameState {
             else
                 changePanel( OPTIONS_PANEL );
         }
+    }
+    
+    /**
+     * This method analyze the current panel and selected option, and check if are good combine 
+     */
+    private void validateOption(){
+    	switch(currentPanel){
+    	case OPTIONS_PANEL:
+    		if (highlightedOption>NUMBER_OPTIONS_OF_PANEL[OPTIONS_PANEL]){
+    			highlightedOption = -1;
+    		}
+    		break;
+    	case SAVELOAD_PANEL:
+    		if ( highlightedOption>NUMBER_OPTIONS_OF_PANEL[SAVELOAD_PANEL]){
+    			highlightedOption = -1;
+    		}
+    		break;
+    	case SAVE_PANEL:
+    		if ( highlightedOption>NUMBER_OPTIONS_OF_PANEL[SAVE_PANEL]){
+    			highlightedOption = -1;
+    		}
+    		break;
+    	case LOAD_PANEL:
+    		if ( highlightedOption>NUMBER_OPTIONS_OF_PANEL[LOAD_PANEL]){
+    			highlightedOption = -1;
+    		}
+    		break;
+    	case CONFIGURATION_PANEL:
+    		if ( highlightedOption>NUMBER_OPTIONS_OF_PANEL[CONFIGURATION_PANEL]){
+    			highlightedOption = -1;
+    		}
+    		break; 		
+    	}
+   
     }
 }
