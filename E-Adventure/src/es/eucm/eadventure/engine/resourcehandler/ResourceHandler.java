@@ -284,7 +284,7 @@ public abstract class ResourceHandler implements InputStreamCreator{
     private static Random random=new Random();
     private static int MAX_RANDOM=100000;
     
-    protected ArrayList<File> tempFiles=new ArrayList<File>();
+    protected ArrayList<TempFile> tempFiles=new ArrayList<TempFile>();
     
     private static final String TEMP_FILE_NAME="$temp_ead_";
     
@@ -328,4 +328,33 @@ public abstract class ResourceHandler implements InputStreamCreator{
 		return getResourceAsURLFromZip(path);
 	}
 
+	
+	public class TempFile extends java.io.File {
+
+		private String originalAssetPath;
+		
+		/**
+		 * @return the originalAssetPath
+		 */
+		public String getOriginalAssetPath() {
+			return originalAssetPath;
+		}
+
+		/**
+		 * @param originalAssetPath the originalAssetPath to set
+		 */
+		public void setOriginalAssetPath(String originalAssetPath) {
+			this.originalAssetPath = originalAssetPath;
+		}
+
+		public TempFile(String pathname) {
+			super(pathname);
+		}
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 896282044492374745L;
+		
+	}
 }
