@@ -14,6 +14,7 @@ import es.eucm.eadventure.common.data.chapter.elements.Element;
 import es.eucm.eadventure.common.data.chapter.elements.Player;
 import es.eucm.eadventure.common.data.chapter.resources.Asset;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
+import es.eucm.eadventure.common.data.chapter.scenes.Scene;
 import es.eucm.eadventure.engine.core.control.ActionManager;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.gui.GUI;
@@ -417,20 +418,24 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
             int realY = (int) (y - ( image.getHeight( null ) * scale )); 
             if (scale != 1) {
         		Image temp = image.getScaledInstance(Math.round(image.getWidth(null) * scale), Math.round(image.getHeight(null) * scale), Image.SCALE_SMOOTH);
-        		if (layer==-1||layer==-2)
+        		
+        		if (layer==Scene.PLAYER_WITHOUT_LAYER||layer==Scene.PLAYER_NO_ALLOWED)
         			GUI.getInstance().addPlayerToDraw(temp, realX, realY, Math.round(y),Math.round(y));
         		else 
         			GUI.getInstance().addElementToDraw(temp, realX, realY, layer, Math.round(y));
-
+        		
             } else {
-	            if (layer==-1||layer==-2)
+            	
+	            if (layer==Scene.PLAYER_WITHOUT_LAYER||layer==Scene.PLAYER_NO_ALLOWED)
 	            	GUI.getInstance( ).addPlayerToDraw( image, realX, realY, Math.round( y ), Math.round(y));
 	            else 
 	            	GUI.getInstance( ).addElementToDraw( image, realX, realY, layer, Math.round(y) );
-            }
+            
+            
         }
         if (getCurrentAction().isStarted() && !getCurrentAction().isFinished())
         	getCurrentAction().drawAditionalElements();
+        }
     }
     /*
      *  (non-Javadoc)

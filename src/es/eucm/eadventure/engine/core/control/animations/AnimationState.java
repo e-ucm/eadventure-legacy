@@ -2,6 +2,7 @@ package es.eucm.eadventure.engine.core.control.animations;
 
 import java.awt.Image;
 
+import es.eucm.eadventure.common.data.chapter.scenes.Scene;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.gui.GUI;
 
@@ -122,16 +123,19 @@ public abstract class AnimationState {
         int realY = (int) (y - ( image.getHeight( null ) * scale )); 
         if (scale != 1) {
     		Image temp = image.getScaledInstance(Math.round(image.getWidth(null) * scale), Math.round(image.getHeight(null) * scale), Image.SCALE_SMOOTH);
-    		if (depth==-1||depth==-2)
+    		
+    		if (depth==Scene.PLAYER_WITHOUT_LAYER||depth==Scene.PLAYER_NO_ALLOWED)
     			GUI.getInstance().addPlayerToDraw(temp, realX, realY, Math.round(y),Math.round(y));
     		else 
     			GUI.getInstance().addElementToDraw(temp, realX, realY, depth, Math.round(y));
-
+    		
         } else {
-            if (depth==-1||depth==-2)
+        	
+            if (depth==Scene.PLAYER_WITHOUT_LAYER||depth==Scene.PLAYER_NO_ALLOWED)
             	GUI.getInstance( ).addPlayerToDraw( image, realX, realY, Math.round( y ), Math.round(y));
             else 
             	GUI.getInstance( ).addElementToDraw( image, realX, realY, depth, Math.round(y) );
+        
         }
         
         

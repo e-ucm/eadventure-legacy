@@ -14,6 +14,17 @@ import es.eucm.eadventure.common.data.chapter.elements.Barrier;
  */
 public class Scene extends GeneralScene {
 	
+	
+	/**
+	 * The value of player layer when hasn't layer. This  may 
+	 */
+	public static final int PLAYER_WITHOUT_LAYER = -1;
+	
+	/**
+	 * The value of player layer in 1º person adventures
+	 */
+	public static final int PLAYER_NO_ALLOWED = -2;	
+	
     /**
      * The tag for the background image
      */
@@ -103,7 +114,7 @@ public class Scene extends GeneralScene {
 		characterReferences = new ArrayList<ElementReference>( );
 		activeAreas = new ArrayList<ActiveArea>();
 		barriers = new ArrayList<Barrier>();
-		playerLayer = -1;
+		playerLayer = PLAYER_WITHOUT_LAYER;
 		allowPlayerLayer = true;
 	}
 
@@ -286,7 +297,7 @@ public class Scene extends GeneralScene {
 	public void setAllowPlayerLayer(boolean allowPlayerLayer) {
 		this.allowPlayerLayer = allowPlayerLayer;
 		if (!allowPlayerLayer)
-			playerLayer = -2;
+			playerLayer = PLAYER_NO_ALLOWED;
 	}
 
 	/**
@@ -308,7 +319,7 @@ public class Scene extends GeneralScene {
 	public void setPlayerLayer(int playerLayer) {
 		
 		this.playerLayer = playerLayer;
-		if (playerLayer == -2)
+		if (playerLayer == PLAYER_NO_ALLOWED)
 			allowPlayerLayer = false;
 		
 		

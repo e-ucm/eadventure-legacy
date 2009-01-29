@@ -7,6 +7,7 @@ import java.util.List;
 
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.data.chapter.ElementReference;
+import es.eucm.eadventure.common.data.chapter.scenes.Scene;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
@@ -85,7 +86,12 @@ public class ReferencesListDataControl extends DataControl{
 	/**
 	 * The player position in allReferencesDataControl
 	 */
-	private int playerPosition;
+	private int playerPositionInAllReferences;
+	
+	/**
+	 * The player isn't in all references
+	 */
+	public static final int NO_PLAYER=-1; 
 	
 	/**
 	 * Listener to inform of new element creation (and create new tree node)
@@ -124,11 +130,11 @@ public class ReferencesListDataControl extends DataControl{
 		this.npcReferencesList = npcReferencesList;
 		this.allReferencesDataControl = new ArrayList<ElementContainer>();
 		this.lastElementContainer = null;
-		this.playerPosition = -1;
+		this.playerPositionInAllReferences = NO_PLAYER;
 		this.addNewReferenceListener = null;
 		this.imagePathHasChanged = false;
-		this.horizontalSplitPosition = this.HORIZONTAL_INITIAL_POSITION;
-		this.verticalSplitPosition = this.VERTICAL_INITIAL_POSITION;
+		this.horizontalSplitPosition = HORIZONTAL_INITIAL_POSITION;
+		this.verticalSplitPosition = VERTICAL_INITIAL_POSITION;
 		// Check if one of references has layer -1: if it is true, it means that element references has not layer. 
 		// Create subcontrollers
 		itemReferencesDataControlList = new ArrayList<ElementReferenceDataControl>( );
@@ -159,7 +165,7 @@ public class ReferencesListDataControl extends DataControl{
 		// by default, if player don´t have layer, we give it to him.
 		if (playerImagePath!=null && (!Controller.getInstance().isPlayTransparent()) && sceneDataControl.isAllowPlayer()){
 			int layer;
-			if (sceneDataControl.getPlayerLayer()==-1)
+			if (sceneDataControl.getPlayerLayer()==Scene.PLAYER_WITHOUT_LAYER)
 				layer = 0;
 			else 
 				layer = sceneDataControl.getPlayerLayer();
@@ -191,17 +197,17 @@ public class ReferencesListDataControl extends DataControl{
 	 
 		
 		if (!itemReferencesList.isEmpty()){
-			if (itemReferencesList.get(0).getLayer() == -1)
+			if (itemReferencesList.get(0).getLayer() == Scene.PLAYER_WITHOUT_LAYER)
 				return false;
 			else 
 				return true;
 		}else if (!atrezzoReferencesList.isEmpty()){
-				if (atrezzoReferencesList.get(0).getLayer() == -1)
+				if (atrezzoReferencesList.get(0).getLayer() == Scene.PLAYER_WITHOUT_LAYER)
 					return false;
 				else 
 					return true;
 		}if (!npcReferencesList.isEmpty()){
-			if (npcReferencesList.get(0).getLayer() == -1)
+			if (npcReferencesList.get(0).getLayer() ==Scene.PLAYER_WITHOUT_LAYER)
 				return false;
 			else 
 				return true;
@@ -211,15 +217,15 @@ public class ReferencesListDataControl extends DataControl{
 	
 	
 	public Image getPlayerImage(){
-		if (playerPosition==-1)
+		if (playerPositionInAllReferences==NO_PLAYER)
 			return null;
 		else{
 			if (imagePathHasChanged){
-				allReferencesDataControl.get(playerPosition).setImage(AssetsController.getImage( this.playerImagePath ));
+				allReferencesDataControl.get(playerPositionInAllReferences).setImage(AssetsController.getImage( this.playerImagePath ));
 				imagePathHasChanged = false;
 			}
 		//	if (allReferences!=null)
-				return allReferencesDataControl.get(playerPosition).getImage();
+				return allReferencesDataControl.get(playerPositionInAllReferences).getImage();
 		}
 			
 	}
@@ -495,7 +501,7 @@ public class ReferencesListDataControl extends DataControl{
 		for (int i = index; i<allReferencesDataControl.size();i++){
 			allReferencesDataControl.get(i).setLayer(i);
 			if (allReferencesDataControl.get(i).isPlayer())
-				playerPosition=i;
+				playerPositionInAllReferences=i;
 		}
 		
 	}
@@ -564,7 +570,7 @@ public class ReferencesListDataControl extends DataControl{
 					break;
 		}
 		else {
-			index = playerPosition;
+			index = playerPositionInAllReferences;
 			player = true;
 		}
 		if (index>0){
@@ -629,7 +635,7 @@ public class ReferencesListDataControl extends DataControl{
 					if (allReferencesDataControl.get(index).getErdc().equals(dataControl))
 						break;
 		}else {
-			index = playerPosition;
+			index = playerPositionInAllReferences;
 			player=true;
 		}
 		if (index >=0 && index<allReferencesDataControl.size()-1){
@@ -834,28 +840,31 @@ public class ReferencesListDataControl extends DataControl{
 	}
 
 	public int getPlayerPosition() {
-		return playerPosition;
+		return playerPositionInAllReferences;
 	}
 
 	public void setPlayerPosition(int playerPosition) {
-		this.playerPosition = playerPosition;
+		this.playerPositionInAllReferences = playerPosition;
 		this.sceneDataControl.setPlayerLayer(playerPosition);
 	}
 	
 	public void deletePlayer(){
-		allReferencesDataControl.remove(playerPosition);
-		reassignLayerAllReferencesDataControl(playerPosition);
-		playerPosition  = -1;
-		// -2 indica que no queremos que tenga layer, frente a -1 que solo indica que no tiene layer
-		// documentarlo mejor y poner constantes
-		sceneDataControl.setPlayerLayer(-2);
+		if (playerPositionInAllReferences!=NO_PLAYER){
+			allReferencesDataControl.remove(playerPositionInAllReferences);
+			reassignLayerAllReferencesDataControl(playerPositionInAllReferences);
+			playerPositionInAllReferences  = NO_PLAYER;
+			}
+		//sets player layer to allowed
+		sceneDataControl.setPlayerLayer(Scene.PLAYER_NO_ALLOWED);
 	}
 	
 	public void addPlayer(){
-		ElementContainer ec = new ElementContainer(null,0,AssetsController.getImage( this.playerImagePath ));
-		int layer = insertInOrder(ec,true);
-		reassignLayerAllReferencesDataControl(layer);
-		sceneDataControl.setPlayerLayer(layer);
+		if (sceneDataControl.isAllowPlayer()){
+			ElementContainer ec = new ElementContainer(null,0,AssetsController.getImage( this.playerImagePath ));
+			int layer = insertInOrder(ec,true);
+			reassignLayerAllReferencesDataControl(layer);
+			sceneDataControl.setPlayerLayer(layer);
+		}
 	
 	}
 	
@@ -874,7 +883,7 @@ public class ReferencesListDataControl extends DataControl{
 		this.playerImagePath = imagePath;
 		this.imagePathHasChanged = true;
 		if (allReferencesDataControl.size()==0) {
-			playerPosition=0;
+			playerPositionInAllReferences=0;
 			reassignLayerAllReferencesDataControl(insertInOrder(new ElementContainer(null,0,AssetsController.getImage( this.playerImagePath )),true));
 		}
 			
