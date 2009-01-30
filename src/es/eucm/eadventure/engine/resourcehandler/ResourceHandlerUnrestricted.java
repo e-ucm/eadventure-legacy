@@ -136,7 +136,6 @@ class ResourceHandlerUnrestricted extends ResourceHandler {
                 tempFiles.add( tempFile );
                 return mediaLocator;
             } catch( MalformedURLException e ) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
                 return null;
             }
