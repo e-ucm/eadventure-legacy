@@ -200,6 +200,9 @@ This could provoke errors when executing or loading the adventures.</entry>
 	<entry key="SwapPlayerMode.Message">Are you sure you want to change the current mode? 
 	However, you can revert to the old mode by performing the same operation, and no data will be lost.</entry>
 
+
+	<entry key="Operation.NewFolder.Message">Type the name of the new folder</entry>
+	<entry key="Operation.NewFolder.Title">Name of the folder</entry>
 	<entry key="Operation.CreateProject">Operation: Creating new project</entry>
 	<entry key="Operation.LoadProject">Operation: Loading project</entry>
 	<entry key="Operation.SaveProject">Operation: Saving project</entry>
@@ -1351,6 +1354,7 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="GeneralText.EditEndConditions">Edit end conditions</entry>
 	<entry key="GeneralText.EditEffects">Edit effects</entry>
 	<entry key="GeneralText.EditPostEffects">Edit post effects</entry>
+	<entry key="GeneralText.NewFolder">New Folder</entry>
 
 	<entry key="DefaultValue.AdventureTitle">Adventure title</entry>
 	<entry key="DefaultValue.ChapterTitle">Chapter title</entry>

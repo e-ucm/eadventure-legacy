@@ -86,11 +86,11 @@ public class ProjectFolderChooser extends JFileChooser{
             infoPanel.add( info );
             String os = System.getProperty("os.name");
             if (os.contains("MAC") || os.contains("mac") || os.contains("Mac")){
-            	JButton newFolderBt = new JButton(TextConstants.getText("GeneralText.New")+ " "+TextConstants.getText("GeneralText.Folders"));
+            	JButton newFolderBt = new JButton(TextConstants.getText("GeneralText.NewFolder"));
             	newFolderBt.addActionListener(new ActionListener(){
 
 					public void actionPerformed(ActionEvent e) {
-						String name=Controller.getInstance().showInputDialog("New folder", "Name of the folder", "New folder");
+						String name=Controller.getInstance().showInputDialog(TextConstants.getText("Operation.NewFolder.Title"), TextConstants.getText("Operation.NewFolder.Message"), TextConstants.getText("Operation.NewFileTitle"));
 						if (!name.contains(".")){
 							new File(getCurrentDirectory(),name).mkdirs();
 							updateUI();
@@ -100,8 +100,7 @@ public class ProjectFolderChooser extends JFileChooser{
             		
             	});
             	infoPanel.add(newFolderBt);
-            } else
-            	System.out.println("NOMAC");
+            } 
             
             Container contentPane = dialog.getContentPane();
             contentPane.setLayout(new BorderLayout());
