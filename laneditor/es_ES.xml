@@ -117,6 +117,7 @@ Por favor, seleccione una de las siguientes opciones:
 	<entry key="GeneralText.Select">Seleccionar</entry>
 	<entry key="GeneralText.Folders">Carpetas</entry>
 	<entry key="GeneralText.Project">Proyecto</entry>
+	<entry key="GeneralText.NewFolder">Nueva carpeta</entry>
 	<entry key="ErrorSolving.Chapter.NotReplaced.Title">Error al reemplazar el capítulo.</entry>
 	<entry key="ErrorSolving.Chapter.NotReplaced.Message">Ocurrió un error al reemplazar el capítulo. 
 Dicha operación no se completó.</entry>
@@ -205,6 +206,8 @@ Esto puede provocar errores al cargar las aventuras.</entry>
 	<entry key="SwapPlayerMode.Message">Seguro que desea cambiar de modalidad? 
 	En cualquier caso, es posible volver a la modalidad anterior sin perder datos.</entry>
 
+	<entry key="Operation.NewFolder.Message">Escriba el nombre de la carpeta</entry>
+	<entry key="Operation.NewFolder.Title">Nombre de la carpeta</entry>
 	<entry key="Operation.CreateProject">Operación: Creando proyecto nuevo</entry>
 	<entry key="Operation.LoadProject">Operación: Cargando proyecto</entry>
 	<entry key="Operation.SaveProject">Operación: Guardando proyecto</entry>
