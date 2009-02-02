@@ -8,7 +8,11 @@
 	<target name="cleanup">
 		<delete file="web/eAdventure_S.jar" />
 		<delete file="web/eAdventure.jar" />
-		<delete file="web/temp/**"/>
+		<delete>
+			<fileset dir="web">
+				<include name="temp/**/*.*"/>
+			</fileset>
+		</delete>
 	</target>
 
 	<target name="jar" description="generate the eadventure applet">
