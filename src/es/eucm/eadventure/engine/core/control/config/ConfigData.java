@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
+import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
+
 /**
  * This class is the one developed by Bruno, used in the Editor, modified to allow the use in 
  * the Engine
@@ -19,6 +21,10 @@ public class ConfigData {
     private static ConfigData instance;
 
     private String configFile;
+    
+    private String exportsPath;
+    
+    private String reportsPath;
 
     /**
      * Stores the file that contains the GUI strings.
@@ -110,6 +116,8 @@ public class ConfigData {
             Properties configuration = new Properties( );
             configuration.setProperty( "LanguageFile", instance.languageFile );
             configuration.setProperty( "AboutFile", instance.aboutFile );
+    		configuration.setProperty( "ExportsDirectory", instance.exportsPath );
+    		configuration.setProperty( "ReportsDirectory", instance.reportsPath );
             // Store the configuration into a file
             try {
                 configuration.storeToXML( new FileOutputStream( instance.configFile ), "<e-Adventure> engine configuration" );
@@ -124,6 +132,12 @@ public class ConfigData {
             configuration.loadFromXML( new FileInputStream( configFile ) );
             languageFile = configuration.getProperty( "LanguageFile" );
             aboutFile = configuration.getProperty( "AboutFile" );
+            exportsPath = configuration.getProperty("ExportsDirectory");
+            if (exportsPath!=null)
+            	ReleaseFolders.setExportsPath(exportsPath);
+            reportsPath = configuration.getProperty("ReportsDirectory");
+            if (reportsPath!=null)
+            	ReleaseFolders.setReportsPath(reportsPath);
         } catch( InvalidPropertiesFormatException e ) {} catch( FileNotFoundException e ) {} catch( IOException e ) {}
 
     }

@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
+import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
+
 public class ConfigData {
 
 	private boolean showStartDialog;
@@ -46,6 +48,12 @@ public class ConfigData {
 	 * Stores whether the character references must be displayed by default.
 	 */
 	private boolean showNPCReferences;
+
+	private String exportsPath;
+
+	private String reportsPath;
+
+	private String projectsPath;
 
 	public static boolean showNPCReferences( ) {
 		return instance.showNPCReferences;
@@ -119,6 +127,9 @@ public class ConfigData {
 		configuration.setProperty( "LanguageFile", instance.languageFile );
 		configuration.setProperty( "AboutFile", instance.aboutFile );
 		configuration.setProperty( "LoadingImage", instance.loadingImage );
+		configuration.setProperty( "ExportsDirectory", instance.exportsPath );
+		configuration.setProperty( "ReportsDirectory", instance.reportsPath );
+		configuration.setProperty( "ProjectsDirectory", instance.projectsPath );
 		instance.recentFiles.fillProperties( configuration );
 
 		// Store the configuration into a file
@@ -139,6 +150,17 @@ public class ConfigData {
 			showItemReferences = Boolean.parseBoolean( configuration.getProperty( "ShowItemReferences" ) );
 			showNPCReferences = Boolean.parseBoolean( configuration.getProperty( "ShowNPCReferences" ) );
 			showStartDialog = Boolean.parseBoolean( configuration.getProperty( "ShowStartDialog" ) );
+			
+            exportsPath = configuration.getProperty("ExportsDirectory");
+            if (exportsPath!=null)
+            	ReleaseFolders.setExportsPath(exportsPath);
+            reportsPath = configuration.getProperty("ReportsDirectory");
+            if (reportsPath!=null)
+            	ReleaseFolders.setReportsPath(reportsPath);
+            projectsPath = configuration.getProperty("ProjectsDirectory");
+            if (projectsPath!=null)
+            	ReleaseFolders.setProjectsPath(projectsPath);
+			
 			recentFiles = new RecentFiles( configuration );
 		} catch( InvalidPropertiesFormatException e ) {} catch( FileNotFoundException e ) {} catch( IOException e ) {}
 

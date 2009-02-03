@@ -66,10 +66,27 @@ public class EAdventure {
        
         GameLauncher gameLauncher = new GameLauncher( );
         
-        if (args.length == 0) 
+        File file = new File("");
+        if (args.length >= 1){
+        	file = new File(args[0]);
+        	if (!file.exists()){
+        		JOptionPane.showMessageDialog(null,
+                        TextConstants.getText("ErrorMessage.Title"),
+                        TextConstants.getText("ErrorMessage.Content"),
+                        JOptionPane.ERROR_MESSAGE);
+        		file = new File("");
+        	}
+        } 
+        if (args.length >= 2){
+        	languageFile = args[1];
+        } else
+        	languageFile = "";
+        
+        gameLauncher.init(file, languageFile);
+        /*if (args.length == 0) 
             gameLauncher.init( new File( "" ), "" );
         else {
-        	if ( args[0] != "") {
+        	if ( !args[0].equals("")) {
         		
         		File file = new File(args[0]);
         	 
@@ -88,7 +105,7 @@ public class EAdventure {
         	}
         	else 
         		gameLauncher.init( new File( "" ), args[1] );
-        	}
+        	}*/
         new Thread( gameLauncher ).start( );
 
     }

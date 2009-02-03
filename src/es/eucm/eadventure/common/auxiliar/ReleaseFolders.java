@@ -8,11 +8,11 @@ package es.eucm.eadventure.common.auxiliar;
  */
 public class ReleaseFolders {
 	
-	private static final String PROJECTS_FOLDER = "../Projects";
+	private static String PROJECTS_FOLDER = "../Projects";
 	
-	private static final String EXPORTS_FOLDER = "../Exports";
+	private static String EXPORTS_FOLDER = "../Exports";
 	
-	private static final String REPORTS_FOLDER = "../Reports";
+	private static String REPORTS_FOLDER = "../Reports";
 	
 	private static final String WEB_FOLDER = "web";
 	
@@ -120,5 +120,26 @@ public class ReleaseFolders {
 		} else 
 			return LANGUAGE_UNKNOWN;
 
+	}
+
+	/**
+	 * @param projects_folder the pROJECTS_FOLDER to set
+	 */
+	public static void setProjectsPath(String projects_folder) {
+		PROJECTS_FOLDER = projects_folder;
+	}
+
+	/**
+	 * @param exports_folder the eXPORTS_FOLDER to set
+	 */
+	public static void setExportsPath(String exports_folder) {
+		EXPORTS_FOLDER = exports_folder;
+	}
+
+	/**
+	 * @param reports_folder the rEPORTS_FOLDER to set
+	 */
+	public static void setReportsPath(String reports_folder) {
+		REPORTS_FOLDER = reports_folder;
 	}
 }
