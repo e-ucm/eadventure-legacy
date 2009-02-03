@@ -530,6 +530,9 @@ public class Controller {
 	 * Initializing function.
 	 */
 	public void init( ) {
+		// Load the configuration
+		ConfigData.loadFromXML( ReleaseFolders.configFileEditorRelativePath() );
+		
 		// Create necessary folders if no created befor
 		File projectsFolder = ReleaseFolders.projectsFolder( );
 		if (!projectsFolder.exists( )){
@@ -546,8 +549,6 @@ public class Controller {
 		
 		// Set default values for the item and NPC references
 
-		// Load the configuration
-		ConfigData.loadFromXML( ReleaseFolders.configFileEditorRelativePath() );
 		languageFile = ReleaseFolders.getLanguageFromPath(ConfigData.getLanguangeFile( ));
 		// Default language: english
 		if (languageFile == ReleaseFolders.LANGUAGE_UNKNOWN)
