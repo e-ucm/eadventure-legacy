@@ -3,7 +3,6 @@ package es.eucm.eadventure.engine.core.control.gamestate;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
@@ -306,9 +305,10 @@ public class GameStateConversation extends GameState {
             
             //TODO MODIFIED: Antes no estaba el else if (era solo else)
             else if (!currentNode.isTerminal( )){
-            	currentNode = currentNode.getChild( optionSelected );
-                isOptionSelected = false;
-               
+            	if (optionSelected>=0 && optionSelected<currentNode.getChildCount()){
+	            	currentNode = currentNode.getChild( optionSelected );
+	                isOptionSelected = false;
+            	}
             }
             
         }
