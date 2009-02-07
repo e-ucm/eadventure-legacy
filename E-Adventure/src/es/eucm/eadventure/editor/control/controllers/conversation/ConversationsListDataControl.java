@@ -6,6 +6,7 @@ import java.util.List;
 import es.eucm.eadventure.common.data.chapter.conversation.Conversation;
 import es.eucm.eadventure.common.data.chapter.conversation.GraphConversation;
 import es.eucm.eadventure.common.data.chapter.conversation.TreeConversation;
+import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
@@ -280,5 +281,19 @@ public class ConversationsListDataControl extends DataControl {
 	@Override
 	public boolean canBeDuplicated( ) {
 		return false;
+	}
+	
+	/**
+	 * Sets all the effects of all the conversations to notConsumed. This is indispensable for the RUN option to work
+	 * properly. If this is not invoked before debugRun() effects might not get executed
+	 */
+	public void resetAllConversationNodes(){
+		
+		for (Conversation convData: conversationsList){
+			for (ConversationNode node: convData.getAllNodes()){
+				node.resetEffect();
+			}
+			
+		}
 	}
 }

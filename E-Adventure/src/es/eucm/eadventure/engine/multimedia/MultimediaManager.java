@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
+import es.eucm.eadventure.common.loader.Loader;
 import es.eucm.eadventure.engine.core.control.animations.Animation;
 import es.eucm.eadventure.engine.core.control.animations.FrameAnimation;
 import es.eucm.eadventure.engine.core.control.animations.ImageAnimation;
@@ -428,7 +429,7 @@ public class MultimediaManager {
      */
     public Animation loadAnimation( String animationPath, boolean mirror, int category ) {
     	if (animationPath != null && animationPath.endsWith(".eaa")) {
-    		FrameAnimation animation = new FrameAnimation(es.eucm.eadventure.common.data.animation.Animation.loadAnimation(ResourceHandler.getInstance(), animationPath));
+    		FrameAnimation animation = new FrameAnimation(Loader.loadAnimation(ResourceHandler.getInstance(), animationPath));
     		animation.setMirror(mirror);
     		return animation;
     	} else {
@@ -467,7 +468,7 @@ public class MultimediaManager {
     public Animation loadSlides( String slidesPath, int category ) {
        	ImageSet imageSet = null;
        	if (slidesPath.endsWith(".eaa")) {
-    		FrameAnimation animation = new FrameAnimation(es.eucm.eadventure.common.data.animation.Animation.loadAnimation(ResourceHandler.getInstance(), slidesPath));
+    		FrameAnimation animation = new FrameAnimation(Loader.loadAnimation(ResourceHandler.getInstance(), slidesPath));
     		animation.setFullscreen(true);
     		return animation;
     	} else {

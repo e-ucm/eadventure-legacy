@@ -2011,7 +2011,7 @@ public class Controller {
 	public void run(){
 		// Check adventure consistency
 		if (checkAdventureConsistency( false )){
-
+			this.getSelectedChapterDataControl().getConversationsList().resetAllConversationNodes();
 			new Timer().schedule(new TimerTask(){
 				
 				@Override
@@ -2032,7 +2032,7 @@ public class Controller {
 	public void debugRun(){
 		// Check adventure consistency
 		if (checkAdventureConsistency( false )){
-
+			this.getSelectedChapterDataControl().getConversationsList().resetAllConversationNodes();
 			new Timer().schedule(new TimerTask(){
 				
 				@Override
