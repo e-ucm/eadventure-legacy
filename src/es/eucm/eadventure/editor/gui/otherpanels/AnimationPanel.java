@@ -14,6 +14,7 @@ import javax.swing.event.AncestorListener;
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.animation.Animation;
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.loader.Loader;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.gui.auxiliar.clock.Clock;
 import es.eucm.eadventure.editor.gui.auxiliar.clock.ClockListener;
@@ -136,7 +137,7 @@ public class AnimationPanel extends JPanel implements ClockListener {
 		this.animation = null;
 		
 		if (animationPath.endsWith(".eaa")) {
-			this.animation = Animation.loadAnimation(AssetsController.getInputStreamCreator(), animationPath);
+			this.animation = Loader.loadAnimation(AssetsController.getInputStreamCreator(), animationPath);
 		} else {
 	
 			// Load the image and calculate the sizes

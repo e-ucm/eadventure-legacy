@@ -4,25 +4,14 @@ import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import javax.swing.ImageIcon;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 
-import org.xml.sax.SAXException;
 
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
-import es.eucm.eadventure.common.loader.InputStreamCreator;
-import es.eucm.eadventure.common.loader.parsers.AnimationHandler;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
-import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 
 /**
  * This class holds an "animation" data.
@@ -463,6 +452,7 @@ public class Animation {
         
         while( !end ) {
             String file = assetPath + "_" + leadingZeros( i ) + ".jpg";
+            //TODO: Estas referencias al editor desde common hay que quitarlas
         	currentSlide = AssetsController.getImage(file);
         	if (currentSlide == null) {
                 file = assetPath + "_" + leadingZeros( i ) + ".png";
@@ -490,58 +480,7 @@ public class Animation {
         return s;
     }
     
-	/**
-	 * Loads an animation from a filename
-	 * 
-	 * @param filename
-	 * 			The xml descriptor for the animation
-	 * @return the loaded Animation
-	 */
-	public static Animation loadAnimation(InputStreamCreator isCreator, String filename) {
-		AnimationHandler animationHandler = new AnimationHandler( isCreator );
 
-		// Create a new factory
-		SAXParserFactory factory = SAXParserFactory.newInstance( );
-		factory.setValidating( true );
-		SAXParser saxParser;
-		try {
-			saxParser = factory.newSAXParser( );
-
-			// Read and close the input stream
-			//File file = new File(filename);
-			InputStream descriptorIS = null;
-			/*try {
-				System.out.println("FILENAME="+filename);
-				descriptorIS = ResourceHandler.getInstance( ).buildInputStream(filename);
-				System.out.println("descriptorIS==null?"+(descriptorIS==null));
-				
-				//descriptorIS = new InputStream(ResourceHandler.getInstance().getResourceAsURLFromZip(filename));
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			if (descriptorIS == null) {
-				descriptorIS = AssetsController.getInputStream(filename);
-			}*/
-			descriptorIS = isCreator.buildInputStream(filename);
-			
-			saxParser.parse( descriptorIS, animationHandler );
-			descriptorIS.close( );
-		
-		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
-		} catch (SAXException e) {
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		if (animationHandler.getAnimation() != null)
-			return animationHandler.getAnimation();
-		else
-			return new Animation("anim" + (new Random()).nextInt(1000));
-	}
 
 	public void setMirror(boolean mirror) {
 		this.mirror = mirror;

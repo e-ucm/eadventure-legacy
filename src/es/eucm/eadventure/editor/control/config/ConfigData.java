@@ -127,9 +127,12 @@ public class ConfigData {
 		configuration.setProperty( "LanguageFile", instance.languageFile );
 		configuration.setProperty( "AboutFile", instance.aboutFile );
 		configuration.setProperty( "LoadingImage", instance.loadingImage );
-		configuration.setProperty( "ExportsDirectory", instance.exportsPath );
-		configuration.setProperty( "ReportsDirectory", instance.reportsPath );
-		configuration.setProperty( "ProjectsDirectory", instance.projectsPath );
+		if (instance.exportsPath!=null)
+			configuration.setProperty( "ExportsDirectory", instance.exportsPath );
+		if (instance.reportsPath!=null)
+			configuration.setProperty( "ReportsDirectory", instance.reportsPath );
+		if (instance.projectsPath!=null)
+			configuration.setProperty( "ProjectsDirectory", instance.projectsPath );
 		instance.recentFiles.fillProperties( configuration );
 
 		// Store the configuration into a file

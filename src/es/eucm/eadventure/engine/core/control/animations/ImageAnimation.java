@@ -1,5 +1,10 @@
 package es.eucm.eadventure.engine.core.control.animations;
 
+import java.awt.Image;
+
+import es.eucm.eadventure.engine.multimedia.MultimediaManager;
+import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
+
 /**
  * This class implements an Animation, based on an ImageSet.
  */
@@ -63,4 +68,10 @@ public class ImageAnimation extends ImageSet {
             }
         }
     }
+    
+	protected Image[] getNoAnimationAvailableImageSet (){
+		Image[] array = new Image[1];
+		array[0] = MultimediaManager.getInstance().loadImage(ResourceHandler.DEFAULT_ANIMATION, MultimediaManager.IMAGE_SCENE);
+		return array;
+	}
 }

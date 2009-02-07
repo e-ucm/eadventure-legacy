@@ -2,6 +2,9 @@ package es.eucm.eadventure.engine.core.control.animations;
 
 import java.awt.Image;
 
+import es.eucm.eadventure.engine.multimedia.MultimediaManager;
+import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
+
 /**
  * This class implements a set of images, that can be used as a set of
  * slides. 
@@ -32,6 +35,8 @@ public class ImageSet implements Animation {
      */
     public void setImages( Image[] imageSet ) {
         this.imageSet = imageSet;
+        if (imageSet.length == 0)
+        	this.imageSet = getNoAnimationAvailableImageSet ();
     }
 
     /**
@@ -66,5 +71,15 @@ public class ImageSet implements Animation {
 	}
 
 	public void update(long elapsedTime) {
+	}
+	
+	/**
+	 * Dirty fix: Needed for avoiding null pointer exception when no available resources block
+	 * @return
+	 */
+	protected Image[] getNoAnimationAvailableImageSet (){
+		Image[] array = new Image[1];
+		array[0] = MultimediaManager.getInstance().loadImage(ResourceHandler.DEFAULT_SLIDES, MultimediaManager.IMAGE_SCENE);
+		return array;
 	}
 }

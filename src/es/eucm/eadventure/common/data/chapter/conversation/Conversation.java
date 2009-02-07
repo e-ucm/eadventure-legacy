@@ -99,10 +99,16 @@ public abstract class Conversation {
     }
     
     private void getAllNodes(ConversationNode firstNode, List<ConversationNode> nodes){
-        for (int i=0; i<firstNode.getChildCount( ); i++){
-        	ConversationNode child = firstNode.getChild( i );
+    	
+    	
+    	for (int i=-1; i<firstNode.getChildCount( ); i++){
+        	ConversationNode child = null;
+        	if (i==-1)
+        		child=firstNode;
+        	else
+        		child=firstNode.getChild( i );
             // Check the child is not in the list yet
-            boolean isInList = false; 
+        	boolean isInList = false;     
             for (ConversationNode aNode: nodes){
                 if (aNode == child){
                     isInList = true;break;

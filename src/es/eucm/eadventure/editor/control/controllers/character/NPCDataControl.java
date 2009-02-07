@@ -8,6 +8,7 @@ import es.eucm.eadventure.common.data.animation.Animation;
 import es.eucm.eadventure.common.data.chapter.elements.NPC;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.loader.Loader;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
@@ -139,7 +140,7 @@ public class NPCDataControl extends DataControlWithResources {
 		if( previewImagePath != null && !previewImagePath.toLowerCase().endsWith(".eaa"))
 			previewImagePath += "_01.png";
 		else if (previewImagePath != null) {
-			return Animation.loadAnimation(AssetsController.getInputStreamCreator(), previewImagePath).getFrame(0).getUri();
+			return Loader.loadAnimation(AssetsController.getInputStreamCreator(), previewImagePath).getFrame(0).getUri();
 		}
 		
 		return previewImagePath;
