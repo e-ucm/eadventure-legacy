@@ -7,6 +7,7 @@
 	id ID #REQUIRED
 	start (yes | no) "no"
 	playerLayer CDATA "-1"
+	playerScale CDATA "1"
 >
 <!ELEMENT documentation ANY>
 <!ELEMENT resources (condition?, asset+)>

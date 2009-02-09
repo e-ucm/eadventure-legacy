@@ -97,6 +97,8 @@ public class Scene extends GeneralScene {
 
     private Trajectory trajectory;
     
+    private float playerScale;
+    
 	/**
 	 * Creates a new Scene
 	 * 
@@ -324,6 +326,13 @@ public class Scene extends GeneralScene {
 		
 		
 	}
+
+	public void setPlayerScale(float scale) {
+		this.playerScale = scale;
+	}
 	
+	public float getPlayerScale() {
+		return playerScale;
+	}
 
 }

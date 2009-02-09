@@ -558,5 +558,13 @@ public class SceneDataControl extends DataControlWithResources {
 		referencesListDataControl.addPlayer();
 		
 	}
+
+	public void setPlayerScale(float scale) {
+		scene.setPlayerScale(scale);
+	}
+	
+	public float getPlayerScale() {
+		return scene.getPlayerScale();
+	}
 	
 }
