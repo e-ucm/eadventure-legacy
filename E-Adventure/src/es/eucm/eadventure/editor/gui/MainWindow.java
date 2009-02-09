@@ -503,8 +503,6 @@ public class MainWindow extends JFrame {
 		});
 		runMenu.add( normalRun );
 		
-		// Create "run" elements
-		/*
 		debugRun = new JMenuItem( TextConstants.getText( "MenuRun.Debug" ) );
 		debugRun.setAccelerator( KeyStroke.getKeyStroke( 'D', InputEvent.CTRL_MASK ) );
 		debugRun.addActionListener( new ActionListener(){
@@ -514,7 +512,6 @@ public class MainWindow extends JFrame {
 			
 		});
 		runMenu.add( debugRun );
-		*/
 		
 		// Create the "Configuration" elements
 		JCheckBoxMenuItem itShowItemReferences = new JCheckBoxMenuItem( TextConstants.getText( "MenuConfiguration.ShowItemReferences" ), controller.getShowItemReferences( ) );
@@ -618,7 +615,7 @@ public class MainWindow extends JFrame {
 
 	public void setNormalRunAvailable ( boolean available ){
 		this.normalRun.setEnabled ( available );
-		//this.debugRun.setEnabled(available);
+		this.debugRun.setEnabled(available);
 	}
 	
 	/**

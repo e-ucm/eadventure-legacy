@@ -152,4 +152,11 @@
 	<entry key="ActionButton.UseGive">Use With/Give To</entry>
 	<entry key="ActionButton.GiveTo">Give To</entry>
 	<entry key="ActionButton.UseWith">Use With</entry>
+
+	<entry key="DebugFrame.Title">Debug info</entry>
+	<entry key="DebugFrame.AllFlagsAndVars">All flags and vars</entry>
+	<entry key="DebugFrame.Changes">Changes</entry>
+	<entry key="DebugFrame.AllFlagsAndVarsTip">This table shows all the flags and vars in the game with their values</entry>
+	<entry key="DebugFrame.ChangesTip">This table shows only the flags and vars that where last changed</entry>
+
 </properties>

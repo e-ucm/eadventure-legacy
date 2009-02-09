@@ -61,12 +61,24 @@ public class FunctionalTrajectory {
 	 */
 	private float scale = 1.0f;
 	
+	/**
+	 * Indicates if there is a trajectory that gets to the influece area of the element
+	 */
 	private boolean getsTo;
 	
+	/**
+	 * List of the barriers in the scene
+	 */
 	private List<FunctionalBarrier> barriers;
 	
+	/**
+	 * List of the functional sides of the trajectory
+	 */
 	private List<FunctionalSide> sides;
 	
+	/**
+	 * The element the player wants to get to (can be null if a point is given)
+	 */
 	private FunctionalElement destinationElement;
 	
 	/**
@@ -99,6 +111,8 @@ public class FunctionalTrajectory {
 	}
 		
 	/**
+	 * Change the current path the trajectory must follow to the one that gets
+	 * to the point nearest to the given one
 	 *  
 	 * @param fromX The present position along the x-axis of the player
 	 * @param fromY The present position along the y-axis of the player
@@ -109,6 +123,16 @@ public class FunctionalTrajectory {
 		this.currentPath = pathToNearestPoint(fromX, fromY, toX, toY);
 	}
 	
+	/**
+	 * Returns a path (list of FunctionalSides) from the a point to another. If there is
+	 * a destinationElement the destination point is ignored.
+	 * 
+	 * @param fromX The current position along the x-axis
+	 * @param fromY The current position along the y-axis
+	 * @param toX The current position along the x-axis
+	 * @param toY The current position along the y-axis
+	 * @return The path to the destination
+	 */
 	private List<FunctionalSide> pathToNearestPoint(float fromX, float fromY, int toX, int toY) {		
 		List<FunctionalSide> currentSides = getCurrentValidSides();
 		
@@ -117,9 +141,7 @@ public class FunctionalTrajectory {
 		for (FunctionalSide currentSide : currentSides) {
 			List<FunctionalSide> tempSides = new ArrayList<FunctionalSide>();
 			tempSides.add(currentSide);
-			double xsq = Math.pow(fromX - currentSide.getEndNode().getX(), 2);
-			double ysq = Math.pow(fromY - currentSide.getEndNode().getY(), 2);
-			float dist = (float) Math.sqrt(xsq + ysq);
+			float dist = getDistance(fromX, fromY, currentSide.getEndNode().getX(), currentSide.getEndNode().getY());
 			FunctionalPath newPath = new FunctionalPath(dist, Float.MAX_VALUE, tempSides);
 			tempPaths.add(newPath);
 		}
@@ -132,28 +154,61 @@ public class FunctionalTrajectory {
 			
 		Collections.sort(validPaths);
 
+		/*
+		for (FunctionalPath bestPath : validPaths) {
+			for (FunctionalSide fs : bestPath.getSides()) {
+				System.out.print(bestPath.getLength() + "::" + bestPath.getDistance() + "::" + fs.getSide() + "--->");
+			}
+			System.out.println();
+		}
+		 */
+		
 		FunctionalPath bestPath = validPaths.get(validPaths.size() - 1);
 		this.nearestX = (int) bestPath.getDestX();
 		this.nearestY = (int) bestPath.getDestY();
 		this.currentNode = null;
 		this.currentSide = bestPath.getSides().get(0).getSide();
 		this.getsTo = bestPath.isGetsTo();
-//		for (FunctionalSide fs : bestPath.getSides()) {
-//			System.out.print(fs.getSide() + "--->");
-//		}
-//		System.out.println();
+
+		System.out.println();
+
 		return bestPath.getSides();
 	}
 
+	/**
+	 * Get the distance from one point to another.
+	 * 
+	 * @param x1 The position along the x-axis of the first point
+	 * @param y1 The position along the y-axis of the first point
+	 * @param x2 The position along the x-axis of the second point
+	 * @param y2 The position along the y-axis of the second point
+	 * @return The distance between to given points
+	 */
+	private float getDistance(float x1, float y1, float x2, float y2) {
+		double xsq = Math.pow(x1 - x2, 2);
+		double ysq = Math.pow(y1 - y2, 2);
+		return (float) Math.sqrt(xsq + ysq);	
+	}
+	
+	/**
+	 * Returns a list of the valid paths (paths that get to the desired destination) from a list of all
+	 * the possible paths form the starting position. If an element is set as the destination, the valid
+	 * paths will be those that get to the influence area of said element.
+	 * 
+	 * @param fullPathList A list of the paths from the current position
+	 * @param fromX The current position along the x-axis
+	 * @param fromY The current position along the y-axis
+	 * @param toX The destination position along the x-axis
+	 * @param toY The destination position along the y-axis
+	 * @return A list with all the paths that get to the destination.
+	 */
 	private List<FunctionalPath> getValidPaths(List<FunctionalPath> fullPathList, float fromX, float fromY, int toX, int toY) {
 		List<FunctionalPath> validPaths = new ArrayList<FunctionalPath>();
 		
 		for (FunctionalPath tempPath : fullPathList) {
-			double xsq = Math.pow(fromX - tempPath.getSides().get(0).getEndNode().getX(), 2);
-			double ysq = Math.pow(fromY - tempPath.getSides().get(0).getEndNode().getY(), 2);
-			float length = (float) Math.sqrt(xsq + ysq);
-			FunctionalPath newPath = new FunctionalPath(length, Float.MAX_VALUE, new ArrayList<FunctionalSide>());
-			newPath.addSide(0, Float.MAX_VALUE, tempPath.getSides().get(0));
+			FunctionalPath newPath = new FunctionalPath(0, Float.MAX_VALUE, new ArrayList<FunctionalSide>());
+			float length = getDistance(fromX, fromY, tempPath.getSides().get(0).getEndNode().getX(), tempPath.getSides().get(0).getEndNode().getY());
+			newPath.addSide(length, Float.MAX_VALUE, tempPath.getSides().get(0));
 			
 			float posX = fromX;
 			float posY = fromY;			
@@ -169,22 +224,16 @@ public class FunctionalTrajectory {
 				int delta = (int) (Math.abs(deltaX) > Math.abs(deltaY) ? Math.abs(deltaX) : Math.abs(deltaY));
 				
 				for (int i = 0; i < delta && !end; i++) {
-					if (Math.abs(deltaX) > Math.abs(deltaY)) {
-						posX = posX + deltaX / Math.abs(deltaX);
-						posY = posY + deltaY / Math.abs(deltaX);
-					} else {
-						posY = posY + deltaY / Math.abs(deltaY);
-						posX = posX + deltaX / Math.abs(deltaY);
-					}
+					posY = posY + deltaY / delta;
+					posX = posX + deltaX / delta;
 					if (inBarrier(posX, posY))
 						end = true;
-					
-					if (destinationElement != null && inInfluenceArea(posX, posY)) {
-						float dist = (float) Math.sqrt(Math.pow(posX - destinationElement.getX(), 2) + Math.pow(posY - destinationElement.getY(), 2));
+					else if (destinationElement != null && inInfluenceArea(posX, posY)) {
+						float dist = getDistance(posX, posY, destinationElement.getX(), destinationElement.getY());
 						newPath.updateUpTo(dist, posX, posY);
 						newPath.setGetsTo(true);
 					} else if (destinationElement == null){
-						float dist = (float) Math.sqrt(Math.pow(posX - toX, 2) + Math.pow(posY - toY, 2));
+						float dist = getDistance(posX, posY, toX, toY);
 						newPath.updateUpTo(dist, posX, posY);
 					}
 				}
@@ -202,6 +251,13 @@ public class FunctionalTrajectory {
 		return validPaths;
 	}
 	
+	/**
+	 * Returns true if the point is inside a barrier.
+	 * 
+	 * @param posX the position along the x-axis
+	 * @param posY the position along the y-axis
+	 * @return True if the point is inside a barrier
+	 */
 	private boolean inBarrier(float posX, float posY) {
 		boolean temp = false;
 		for (FunctionalBarrier barrier : barriers) {
@@ -210,6 +266,14 @@ public class FunctionalTrajectory {
 		return temp;
 	}
 	
+	/**
+	 * Returns true if the given point is inside the influence area of the destination element,
+	 * false in another case.
+	 * 
+	 * @param posX The position along the x-axis
+	 * @param posY The position along the y-axis
+	 * @return True if the point is inside the destination elements influence area.
+	 */
 	private boolean inInfluenceArea(float posX, float posY) {
 		if (destinationElement == null)
 			return false;
@@ -220,6 +284,7 @@ public class FunctionalTrajectory {
 					area = destinationElement.getInfluenceArea();
 				else
 					area = new InfluenceArea(-20, -20, destinationElement.getWidth() + 40, destinationElement.getHeight() + 40);
+
 				int x1 = (int) (destinationElement.getX() - destinationElement.getWidth() * destinationElement.getScale() / 2);
 				int y1 = (int) (destinationElement.getY() - destinationElement.getHeight() * destinationElement.getScale());
 				int x2 = 0;
@@ -252,6 +317,12 @@ public class FunctionalTrajectory {
 		return false;
 	}
 		
+	/**
+	 * Get all the possible paths from the list of full paths.
+	 * 
+	 * @param tempPaths A list of the full paths
+	 * @return A list of all the possible paths for the givven full paths
+	 */
 	private List<FunctionalPath> getFullPathList(List<FunctionalPath> tempPaths) {
 		List<FunctionalPath> fullPathList = new ArrayList<FunctionalPath>();
 		
@@ -294,8 +365,6 @@ public class FunctionalTrajectory {
 		return tempList;
 	}
 	
-	
-	
 	/**
 	 * Updates the value of speedX, speedY and scale for the player to move
 	 * 
@@ -326,13 +395,11 @@ public class FunctionalTrajectory {
 	 */
 	private void moveInDirectionToTheNode(long elapsedTime, float x, float y,
 			float speed, Node nextNode) {
+		double dist = getDistance(nextNode.getX(), nextNode.getY(), x, y);
 		float distX = nextNode.getX() - x;
-		float distY = nextNode.getY() - y;
-		double dist = Math.sqrt(distX * distX + distY * distY);
+		float distY = nextNode.getY() - y;		
 		double rectDist = Math.abs(distX) + Math.abs(distY);
-		float distX2 = nearestX - x;
-		float distY2 = nearestY - y;
-		double dist2 = Math.sqrt(distX2 * distX2 + distY2 * distY2);
+		double dist2 = getDistance(nearestX, nearestY, x, y);
 		if (dist2 <= 10) {
 			speedX = 0;
 			speedY = 0;
@@ -393,104 +460,6 @@ public class FunctionalTrajectory {
 			return null;
 		return currentFunctionalSide.getEndNode();
 	}
-
-	private class FunctionalPath implements Comparable<FunctionalPath> {
-
-		private float length;
-		
-		private List<FunctionalSide> sides;
-		
-		private float destX;
-		
-		private float destY;
-		
-		private boolean getsTo;
-		
-		private float distance;
-		
-		public FunctionalPath(float length, float distance, List<FunctionalSide> sides) {
-			this.length = length;
-			this.sides = new ArrayList<FunctionalSide>(sides);
-			this.distance = distance;
-			getsTo = false;
-		}
-
-		public void setLength(float length) {
-			this.length = length;
-		}
-
-		public void setGetsTo(boolean b) {
-			getsTo = true;
-		}
-
-		public boolean isGetsTo() {
-			return getsTo;
-		}
-		
-		public void updateUpTo(float dist, float posX, float posY) {
-			if (dist < distance) {
-				destX = posX;
-				destY = posY;
-				distance = dist;
-			}
-		}
-
-		public List<FunctionalSide> getSides() {
-			return sides;
-		}
-		
-		public List<Side> getNormalSides() {
-			List<Side> temp = new ArrayList<Side>();
-			for (FunctionalSide side : sides)
-				temp.add(side.getSide());
-			return temp;
-		}
-		
-		public float getLength() {
-			return length;
-		}
-		
-		private void addSide(float lenght, float distance, FunctionalSide side) {
-			sides.add(side);
-			this.length += lenght;
-			this.distance = distance;
-		}
-
-		public FunctionalPath newFunctionalPath(float length, float distance, FunctionalSide side) {
-			if (sides.contains(side))
-				return null;
-			for (FunctionalSide tempSide : sides)
-				if (tempSide.getSide() == side.getSide())
-					return null;
-			
-			FunctionalPath temp = new FunctionalPath(this.length, this.distance, this.sides);
-			temp.addSide(length, distance, side);
-			return temp;
-		}
-
-
-		public int compareTo(FunctionalPath arg0) {
-			if (this.getsTo && !arg0.getsTo) {
-				return 1;
-			} else if (!this.getsTo && arg0.getsTo) {
-				return -1;
-			}
-			int distDif = (int) (arg0.distance - distance);
-			if (Math.abs(distDif) < 10) {
-				return (int) (length - arg0.length);
-			} else {
-				return  distDif;
-			}
-		}		
-		
-		public float getDestX() {
-			return destX;
-		}
-		
-		public float getDestY() {
-			return destY;
-		}
-	}
 	
 	/**
 	 * Returns the value of speedX
@@ -544,13 +513,19 @@ public class FunctionalTrajectory {
 		return getsTo;
 	}
 
+	/**
+	 * Gets the node nearest to the given point and sets it as the
+	 * current node in the trajectory.
+	 * 
+	 * @param destinyX The position along the x-axis
+	 * @param destinyY The postiion along the y-axis
+	 * @return
+	 */
 	public Node changeInitialNode(int destinyX, int destinyY) {
 		currentSide = null;
 		float minDist = Float.MAX_VALUE;
 		for (Node node : trajectory.getNodes()) {
-			float dx = (float) Math.pow(node.getX() - destinyX, 2);
-			float dy = (float) Math.pow(node.getY() - destinyY, 2);
-			float dist = (float) Math.sqrt(dx + dy);
+			float dist = getDistance(node.getX(), node.getY(), destinyX, destinyY);
 			if (dist < minDist) {
 				currentNode = node;
 				minDist = dist;

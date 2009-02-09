@@ -32,7 +32,6 @@ import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 
 public class GUIFrame extends GUI implements FocusListener {
     
-    
     /*
      * The frame to keep the screen black behind the game
      */

@@ -31,8 +31,6 @@ public class FunctionalGoTo extends FunctionalAction {
 	private Resources resources;
 	
     private MultimediaManager multimedia;
-
-    private FunctionalElement destinationElement;
 	
     private boolean trajectoryUpdated;
     
@@ -47,7 +45,7 @@ public class FunctionalGoTo extends FunctionalAction {
         this.posY = finalDest[1];
 		type = ActionManager.ACTION_GOTO;
 		trajectoryUpdated = false;
-		// TODO more initializations?
+		keepDistance = 0;
 	}
 	
 	public FunctionalGoTo(Action action, int posX, int posY, int keepDistance) {
@@ -59,7 +57,7 @@ public class FunctionalGoTo extends FunctionalAction {
 		this(action, x, y);
 		if (trajectory.hasTrajectory()) {
 	        trajectory.setDestinationElement(element);
-	    	trajectory.updatePathToNearestPoint(functionalPlayer.getX(), functionalPlayer.getY(), posX, posY);
+	    	trajectory.updatePathToNearestPoint(functionalPlayer.getX(), functionalPlayer.getY(), originalPosX, originalPosY);
 	    	trajectoryUpdated = true;
 		}
 	}
@@ -219,6 +217,4 @@ public class FunctionalGoTo extends FunctionalAction {
 	public int getPosY() {
 		return posY;
 	}
-	
-	
 }
