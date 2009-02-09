@@ -1918,6 +1918,7 @@ public class Controller {
 				String authorName = dialog.getAuthorName( );
 				String organization = dialog.getOrganizationName( );
 				boolean windowed = dialog.getWindowed();
+				int type = dialog.getType();
 				
 				boolean validated = dialog.isValidated( );
 				
@@ -1965,13 +1966,18 @@ public class Controller {
 											loadingScreen.setMessage( TextConstants.getText( "Operation.ExportProject.AsLO" ) );
 											loadingScreen.setVisible( true );
 											this.updateLOMLanguage( );
-											if (Writer.exportAsLearningObject( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, adventureData )){
+											
+											if (type == 0 && Writer.exportAsLearningObject( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, adventureData )){
+												mainWindow.showInformationDialog( TextConstants.getText( "Operation.ExportT.Success.Title" ), 
+														TextConstants.getText( "Operation.ExportT.Success.Message" ) );
+											} else if (type == 1 && Writer.exportAsWebCTObject( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, adventureData )) { 
 												mainWindow.showInformationDialog( TextConstants.getText( "Operation.ExportT.Success.Title" ), 
 														TextConstants.getText( "Operation.ExportT.Success.Message" ) );
 											} else {
 												mainWindow.showInformationDialog( TextConstants.getText( "Operation.ExportT.NotSuccess.Title" ), 
 														TextConstants.getText( "Operation.ExportT.NotSuccess.Message" ) );
 											}
+											
 											//loadingScreen.close( );
 											loadingScreen.setVisible( false );
 				

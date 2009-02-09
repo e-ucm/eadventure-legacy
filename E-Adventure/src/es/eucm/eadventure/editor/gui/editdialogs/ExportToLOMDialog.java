@@ -14,6 +14,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -44,6 +45,8 @@ public class ExportToLOMDialog extends JDialog{
 	
 	private JCheckBox windowedCheckBox;
 	
+	private JComboBox typeComboBox;
+	
 	private boolean windowed = false;
 	
 	public ExportToLOMDialog(String defaultLomName){
@@ -54,6 +57,14 @@ public class ExportToLOMDialog extends JDialog{
 		
 		this.getContentPane( ).setLayout( new GridBagLayout() );
 		GridBagConstraints c = new GridBagConstraints(); c.insets = new Insets(5,5,5,5);c.fill = GridBagConstraints.BOTH;c.weightx=1;
+		
+		
+		JPanel typePanel = new JPanel();
+		String[] options = {"IMS CP", "WebCT 4 CP"};
+		typeComboBox = new JComboBox(options);
+		typePanel.add(typeComboBox);
+		typePanel.setBorder(BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder(), TextConstants.getText( "Operation.ExportToLOM.LOMType")));
+		
 		
 		//LOM NAME PANEL
 		JPanel lomNamePanel = new JPanel();
@@ -139,12 +150,14 @@ public class ExportToLOMDialog extends JDialog{
 		buttonPanel.add( okButton );
 		
 		//Add all panels
+		this.getContentPane().add(typePanel, c);
+		c.gridy++;
 		this.getContentPane( ).add( lomNamePanel, c );
-		c.gridy=1;
+		c.gridy++;
 		this.getContentPane( ).add( credentialsPanel, c );
-		c.gridy=2;
+		c.gridy++;
 		this.getContentPane( ).add( lomAppletPanel, c);
-		c.gridy=3;c.anchor = GridBagConstraints.CENTER;
+		c.gridy++;c.anchor = GridBagConstraints.CENTER;
 		this.getContentPane( ).add( buttonPanel, c );
 		
 		// Add window listener
@@ -217,6 +230,10 @@ public class ExportToLOMDialog extends JDialog{
 		return organizationName;
 	}
 
+	public int getType() {
+		return typeComboBox.getSelectedIndex();
+	}
+	
 	/**
 	 * @return the validated
 	 */
