@@ -46,6 +46,7 @@ public class SceneDOMWriter {
 				sceneElement.setAttribute( "start", "no" );
 			
 			sceneElement.setAttribute("playerLayer", Integer.toString(scene.getPlayerLayer()));
+			sceneElement.setAttribute("playerScale", Float.toString(scene.getPlayerScale()));
 
 			// Append the documentation (if avalaible)
 			if( scene.getDocumentation( ) != null ) {

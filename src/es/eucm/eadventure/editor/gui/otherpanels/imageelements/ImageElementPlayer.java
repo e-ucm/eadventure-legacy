@@ -30,7 +30,10 @@ public class ImageElementPlayer extends ImageElement {
 
 	@Override
 	public float getScale() {
-		return 1.0f;
+		if (sceneDataControl.getTrajectory() != null && sceneDataControl.getTrajectory().hasTrajectory())
+			return 1.0f;
+		else
+			return sceneDataControl.getPlayerScale();
 	}
 
 	@Override
@@ -59,11 +62,15 @@ public class ImageElementPlayer extends ImageElement {
 
 	@Override
 	public void setScale(float scale) {
+		sceneDataControl.setPlayerScale(scale);
 	}
 
 	@Override
 	public boolean canRescale() {
-		return false;
+		if (sceneDataControl.getTrajectory() != null && sceneDataControl.getTrajectory().hasTrajectory())
+			return false;
+		else
+			return true;
 	}
 
 	@Override

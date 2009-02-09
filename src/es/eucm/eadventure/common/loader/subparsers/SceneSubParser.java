@@ -158,7 +158,8 @@ public class SceneSubParser extends SubParser {
 				String sceneId = "";
 				boolean initialScene = false;
 				int playerLayer=-1;
-
+				float playerScale = 1.0f;
+				
 				for( int i = 0; i < attrs.getLength( ); i++ ) {
 					if( attrs.getQName( i ).equals( "id" ) )
 						sceneId = attrs.getValue( i );
@@ -166,10 +167,13 @@ public class SceneSubParser extends SubParser {
 						initialScene = attrs.getValue( i ).equals( "yes" );
 					if( attrs.getQName( i ).equals( "playerLayer" ) )
 						playerLayer = Integer.parseInt( attrs.getValue( i ) );
+					if (attrs.getQName( i ).equals( "playerScale" ) )
+						playerScale = Float.parseFloat( attrs.getValue( i ));
 				}
 
 				scene = new Scene( sceneId );
 				scene.setPlayerLayer(playerLayer);
+				scene.setPlayerScale(playerScale);
 				if( initialScene )
 					chapter.setInitialScene( sceneId );
 			}
