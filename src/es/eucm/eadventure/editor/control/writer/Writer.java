@@ -603,18 +603,6 @@ public class Writer {
 			Transformer transformer = null;
 			OutputStream fout = null;
 			OutputStreamWriter writeFile = null;
-
-			// Delete the previous content of the zip
-			/*File zipFile = new File( zipFilename );
-
-			if( zipFile.exists( ) ) {
-				//File[] allFiles = zipFile.listFiles( zipFile.getArchiveDetector( ) );
-				File[] allFiles = zipFile.listFiles(  );
-				if (allFiles!=null)
-					for( File file : allFiles )
-						if( file.isFile( ) )
-							file.delete( );
-			}*/
 			
 			//Clean temp directory
 			File tempDir = new File("web/temp");
@@ -656,79 +644,9 @@ public class Writer {
 			
 			// Integrate game and jar into a new jar File
 			
-			// Copy jar files to temp dir
-			/*File jarFolder = new File("web/JAR");
-			File jarTempFolder = new File("web/temp/JAR");
-			if (jarTempFolder.exists( )){
-				jarTempFolder.deleteAll( );
-			}else{
-				jarTempFolder.create( );
-			}
-			dataSaved &= jarFolder.copyAllTo( jarTempFolder );*/
-			
-			// NO: Compress game project to web/temp/JAR
-			//File.zipDirectory( gameFilename, new File(jarTempFolder,"integration.zip").getAbsolutePath( ) );
-			//File projectDir = new File(gameFilename);
-			//projectDir.copyAllTo( jarTempFolder );
-			
-			// Compress jar temp folder
-			
-			//File.zipDirectory( jarTempFolder.getAbsolutePath( ), jarUnsigned.getAbsolutePath( ) );
-			//dataSaved &= jarUnsigned.renameTo( new File("web/temp/"+loName+"_unsigned.jar") );
-			
-			// Delete temp jar dir
-			//jarTempFolder.deleteAll( );
-			//jarTempFolder.delete( );
-			
-			//dataSaved &= File.putFilesInJar( "web/eAdventure.jar", new String[]{gameFilename}, "web/temp/"+loName+"_unsigned.jar", new String[]{"integration.zip"} );
-			
-			// Copy the jar file to the zip
-			//File sourceFile = new File("web/eAdventure.jar");
-			//File destinyFile = new File("web/temp/"+loName+"_unsigned.jar");
-			//dataSaved &= sourceFile.copyAllTo( destinyFile );
-			//dataSaved &= sourceFile.copyTo( destinyFile );
-			
-			// Copy the game to the jar (in the zip)
-			//File sourceFile2 = new File (gameFilename);
-			
-			//File destinyFile2 = new File(destinyFile,"integration.zip");
-			//File destinyFile2 = new File("web/temp/integration.zip");
-			//if(sourceFile2.copyAllTo( destinyFile2 ))
-			//	dataSaved&=true;
-			//else if (sourceFile2.copyTo( destinyFile2 ))
-			//	dataSaved&=true;
-			//else
-				//dataSaved = false;
+			dataSaved = JARSigner.signJar( authorName, organization, "web/temp/"+loName+"_unsigned.jar", "web/temp/"+loName+".jar" );
 
-			//File.umount( destinyFile, true );
-			//File.umount( sourceFile2, true );
-			//Once the file has been saved, sign the jar
-			
-			//if (dataSaved)
-				dataSaved = JARSigner.signJar( authorName, organization, "web/temp/"+loName+"_unsigned.jar", "web/temp/"+loName+".jar" );
-
-			//if (dataSaved){
-				//Delete unsigned jar
-				new File("web/temp/"+loName+"_unsigned.jar").delete( );
-				//destinyFile.delete();
-				
-				/*File destinyFileInZip = new File(zipFile, loName+".jar");
-				sourceFile = new File("web/temp/"+loName+".jar");
-				dataSaved &= sourceFile.copyAllTo( destinyFileInZip );*/
-				
-				/*File loFile = new File(zipFile);
-				ZipFile signedJar = new ZipFile("web/temp/"+loName+".jar");
-				ZipOutputStream fos = new ZipOutputStream(new FileOutputStream(loFile));
-				ZipInputStream fis = new ZipInputStream(new FileInputStream("web/temp/"+loName+".jar"));
-				int b;
-				while ((b=fis.read( ))!=-1){
-					fos.write( b );
-				}
-				fos.close( );
-				fis.close( );
-				signedJar.close( );*/
-			//}
-			
+			new File("web/temp/"+loName+"_unsigned.jar").delete( );
 			
 			/** ******* START WRITING THE MANIFEST ********* */
 			// Create the necessary elements for building the DOM
@@ -865,5 +783,51 @@ public class Writer {
 		for( int i = 0; i < tabulations; i++ )
 			tab += "\t";
 		return tab;
+	}
+
+	public static boolean exportAsWebCTObject(String zipFilename,
+			String loName, String authorName, String organization,
+			boolean windowed, String gameFilename,
+			AdventureDataControl adventureData) {
+		File tempDir = new File("web/temp");
+		for(File tempFile:tempDir.listFiles( )){
+			if (tempFile.isDirectory( ))
+				tempFile.deleteAll( );
+			tempFile.delete( );
+		}
+		
+		try {
+			File jarUnsigned = new File("web/temp/eAdventure.zip");
+			FileOutputStream mergedFile = new FileOutputStream(jarUnsigned);
+			ZipOutputStream os = new ZipOutputStream(mergedFile);
+			
+			File.mergeZipAndDirToJar( "web/eAdventure_temp.jar", gameFilename, os );
+			
+			String manifestText = Writer.defaultScormManifestFile( "es.eucm.eadventure.engine.EAdventureAppletScorm" );
+			ZipEntry manifestEntry = new ZipEntry("META-INF/MANIFEST.MF");
+			os.putNextEntry( manifestEntry );
+			os.write( manifestText.getBytes( ) );
+			os.closeEntry( );
+			os.flush( );
+			os.close( );
+			
+			String fixedLoName = "learningObject";
+			
+			jarUnsigned.renameTo( new File("web/temp/"+loName+"_unsigned.jar") );
+			File.unzipDir("web/webct_temp.zip", "web/temp/");
+			JARSigner.signJar( authorName, organization, "web/temp/"+loName+"_unsigned.jar", "web/temp/CMD_6988980_M/my_files/"+loName+".jar" );
+			new File("web/temp/"+loName+"_unsigned.jar").delete( );
+			writeWebPage( loName , windowed);
+			
+			File webpage = new File("web/temp/" + loName + ".html");
+			webpage.copyTo(new File("web/temp/CMD_6988980_M/my_files/" + fixedLoName + ".html"));
+			webpage.delete();
+			
+			File.zipDirectory("web/temp/", zipFilename);
+		} catch (Exception e){
+			return false;
+		}
+		
+		return true;
 	}
 }
