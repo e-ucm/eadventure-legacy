@@ -60,6 +60,7 @@ public abstract class AnimationState {
      */
     public void updateAnimation( ) {
         int tempDirection = -1;
+
         if( getCurrentDirection() == -1 ) setCurrentDirection( SOUTH );
         //Si es el eje Norte-Sur
         if( Math.abs( getVelocityY( ) ) > Math.abs( getVelocityX( ) ) ) {
@@ -81,7 +82,7 @@ public abstract class AnimationState {
             }
         }
 
-        if( tempDirection != -1 && tempDirection != getCurrentDirection() ) {
+        if( Math.abs(getVelocityX()) != 0 && Math.abs(getVelocityY()) != 0 && tempDirection != -1 && tempDirection != getCurrentDirection() ) {
             setCurrentDirection( tempDirection );
             animations[getCurrentDirection()].start( );
         }
@@ -91,7 +92,7 @@ public abstract class AnimationState {
      * Returns the current frame of the animation
      */
     public Image getImage( ) {
-        return animations[getCurrentDirection()].getImage( );
+        return getCurrentAnimation().getImage( );
     }
 
     /**

@@ -20,12 +20,7 @@ public class FrameAnimation implements Animation {
 	 * The time accumulated in the playing of the animation
 	 */
 	private long accumulatedTime;
-	
-	/**
-	 * Indicates whether the images should be showed as they are or vertically mirrored
-	 */
-	private boolean mirror;
-	
+		
 	/**
 	 * Create a new instance using an animation.
 	 * 
@@ -73,7 +68,6 @@ public class FrameAnimation implements Animation {
 	}
 
 	public void setMirror(boolean mirror) {
-		this.mirror = mirror;
 		animation.setMirror(mirror);
 	}
 
