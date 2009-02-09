@@ -459,8 +459,11 @@ public class GameStateConversation extends GameState {
     	} else if (e.getKeyCode()==KeyEvent.VK_9){
     		optionSelected = 8;
     		//isOptionSelected = true;
+    	}else {
+    		optionSelected = -1;
     	}
     	keyPressed=true;
+    	
     	if( currentNode.getLineCount( ) <= RESPONSE_TEXT_NUMBER_LINES ) {
     		selectDisplayedOption();
     	}else if (optionSelected <= numberDisplayedOptions + firstLineDisplayed){
