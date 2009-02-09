@@ -16,9 +16,7 @@ public class FunctionalBarrier{
         if (!player.isTransparent( )){
             if (new FunctionalConditions( barrier.getConditions( ) ).allConditionsOk( )){
                 float intersectionX= playerIntersectsBarrier (player, barrier, finalDestX, finalDestY);
-                // Intersection
                 if (intersectionX!=Integer.MIN_VALUE){
-                    //System.out.println("INTERSECTION X:"+intersectionX );
                     if (intersectionX<destX)
                         finalDestX = (int)(intersectionX-player.getWidth( )/2.0);
                     else if (intersectionX>destX)
@@ -49,7 +47,7 @@ public class FunctionalBarrier{
             	by2 = temp;
             }
             
-            if (x > bx1 && x < bx2 && y > by1 && y < by2)
+            if (x >= bx1 && x <= bx2 && y >= by1 && y <= by2)
             	return true;
         }
         return false;
