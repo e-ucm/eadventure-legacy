@@ -24,7 +24,8 @@ public class NPCIdle extends NPCState {
 
     @Override
     public void initialize( ) {
-        setCurrentDirection( SOUTH );
+        if (getCurrentDirection() == -1)
+        	setCurrentDirection( SOUTH );
         npc.setSpeedX( 0.0f );
         npc.setSpeedY( 0.0f );
     }

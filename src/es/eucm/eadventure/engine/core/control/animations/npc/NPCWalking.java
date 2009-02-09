@@ -22,7 +22,8 @@ public class NPCWalking extends NPCState{
             npc.setX( npc.getX( ) + npc.getSpeedX( )*elapsedTime/1000 );
          } else {
              npc.setState( FunctionalNPC.IDLE );
-             npc.setDirection( AnimationState.SOUTH );
+             if (npc.getDirection() == -1)
+            	 npc.setDirection( AnimationState.SOUTH );
          }
     }
 

@@ -35,6 +35,6 @@ public abstract class NPCState extends AnimationState {
     }
     
     protected void setCurrentDirection( int direction ) {
-        npc.setDirection( direction );
+    	npc.setDirection( direction );
     }
 }

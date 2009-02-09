@@ -140,9 +140,7 @@ public class NPCTalking extends NPCState {
 
     @Override
     public void draw( int x, int y , float scale, int depth) {
-        
     	super.draw( x, y , scale,depth);
-
 		// If there is a line to speak, draw it
         if( !text.equals( "" ) )
             GUI.getInstance( ).addTextToDraw( text, x - Game.getInstance( ).getFunctionalScene( ).getOffsetX( ), y - Math.round(npc.getHeight( ) * scale), npc.getTextFrontColor( ), npc.getTextBorderColor( ) );
@@ -156,14 +154,12 @@ public class NPCTalking extends NPCState {
                 || Game.getInstance( ).getFunctionalPlayer( ).getX( ) >= npc.getX( )){
             setCurrentDirection( EAST );
         } else 
-            setCurrentDirection( WEST );
-            
+            setCurrentDirection( WEST );       
     }
     
     @Override
     public void loadResources() {
         Resources resources = npc.getResources( );
-
         MultimediaManager multimedia = MultimediaManager.getInstance( );
         animations[EAST] = multimedia.loadAnimation( resources.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_RIGHT ), false, MultimediaManager.IMAGE_SCENE );
         animations[WEST] = multimedia.loadAnimation( resources.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_RIGHT ), true, MultimediaManager.IMAGE_SCENE );

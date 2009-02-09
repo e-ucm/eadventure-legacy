@@ -266,11 +266,10 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
      * @see es.eucm.eadventure.engine.core.control.functionaldata.Renderable#draw(java.awt.Graphics2D)
      */
     public void draw( ) {
-       if (layer==-1)
-    	currentState.draw( Math.round( x ), Math.round( y ), scale, -1);  
-       else 
+    	if (layer==-1)
+    	   currentState.draw( Math.round( x ), Math.round( y ), scale, -1);  
+    	else 
     	   currentState.draw( Math.round( x ), Math.round( y ), scale, layer);
-    	   
     }
 
     /*

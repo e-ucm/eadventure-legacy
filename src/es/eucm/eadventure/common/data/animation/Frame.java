@@ -185,26 +185,6 @@ public class Frame {
 	}
 	
 	/**
-	 * Returns the image for the frame. It assumes mirror and fullscreen to be null.
-	 * 
-	 * @return Returns the image for the frame.
-	 */
-	public Image getImage() {
-		if (image != null)
-			return image;
-		if (uri != null && uri.length() > 0) {
-			try {
-			image = ResourceHandler.getInstance( ).getResourceAsImageFromZip(uri);
-			} catch (Exception e){
-				image = AssetsController.getImage(uri);				
-			}
-			if (image == null)
-				image = AssetsController.getImage(uri);				
-		}
-		return image;
-	}
-
-	/**
 	 * Returns the image for the frame. The image can be vertically inverted or
 	 * scaled to fullscreen
 	 * 
@@ -224,9 +204,9 @@ public class Frame {
 			if (image == null)
 				image = AssetsController.getImage(uri);				
 		}
-		if (mirror)
+		if (image != null && mirror)
 			image = getScaledImage(image, -1, 1);
-		if (fullscreen)
+		if (image != null && fullscreen)
 			image = getFullscreenImage(image);
 		if (image == null) {
 		    ImageIcon icon = new ImageIcon("img/icons/noImageFrame.png"); 
