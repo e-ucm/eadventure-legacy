@@ -18,7 +18,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -45,6 +47,7 @@ import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElementInflu
 import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElementNode;
 import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElementPlayer;
 import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElementReference;
+import es.eucm.eadventure.engine.core.gui.GUI;
 
 /**
  * This panel show the scene in different configurations, allowing objects
@@ -228,18 +231,39 @@ public class ScenePreviewEditionPanel extends JPanel {
 	 */
 	private boolean showCheckBoxes = true;
 		
-	private JPanel textEditionPanel;
+	/**
+	 * Panel with the spinners for the precise edition
+	 */
+	private JPanel preciseEditionPanel;
 	
-	private JTextField posXTextField;
+	/**
+	 * Spinner to edit the x position of the selected element
+	 */
+	private JSpinner posXSpinner;
 	
-	private JTextField posYTextField;
+	/**
+	 * Spinner to edit the y position of the selected element
+	 */
+	private JSpinner posYSpinner;
 	
-	private JTextField scaleTextField;
+	/**
+	 * Spinner to edit the scale of the selected element
+	 */
+	private JSpinner scaleSpinner;
 	
-	private JTextField widthTextField;
+	/**
+	 * Spinner to edit the width of the selected element
+	 */
+	private JSpinner widthSpinner;
 	
-	private JTextField heightTextField;
+	/**
+	 * Spinner to edit the height of the selected element
+	 */
+	private JSpinner heightSpinner;
 	
+	/**
+	 * Boolean that determines if the precise edition is enabled
+	 */
 	private boolean showTextEdition = false;
 	
 	/**
@@ -263,11 +287,11 @@ public class ScenePreviewEditionPanel extends JPanel {
 	}
 	
 	private void recreateTextEditionPanel() {
-		if (textEditionPanel != null)
-			remove(textEditionPanel);
+		if (preciseEditionPanel != null)
+			remove(preciseEditionPanel);
 		if (showTextEdition && selectedElement != null) {
-			textEditionPanel = createTextEditionPanel();
-			add(textEditionPanel, BorderLayout.NORTH);
+			preciseEditionPanel = createTextEditionPanel();
+			add(preciseEditionPanel, BorderLayout.NORTH);
 		}
 	}
 	
@@ -1150,154 +1174,96 @@ public class ScenePreviewEditionPanel extends JPanel {
 	}
 	
 	public void updateTextEditionPanel() {
-		if (textEditionPanel != null) {
-			if (posXTextField != null)
-				posXTextField.setText("" + selectedElement.getX());
-			if (posYTextField != null)
-				posYTextField.setText("" + selectedElement.getY());
-			if (scaleTextField != null)
-				scaleTextField.setText("" + selectedElement.getScale());
-			if (widthTextField != null)
-				widthTextField.setText("" + selectedElement.getWidth());
-			if (heightTextField != null)
-				heightTextField.setText("" + selectedElement.getHeight());
+		if (preciseEditionPanel != null) {
+			if (posXSpinner != null)
+				posXSpinner.setValue(new Integer(selectedElement.getX()));
+			if (posYSpinner != null)
+				posYSpinner.setValue(selectedElement.getY());
+			if (scaleSpinner != null)
+				scaleSpinner.setValue(selectedElement.getScale());
+			if (widthSpinner != null)
+				widthSpinner.setValue(selectedElement.getWidth());
+			if (heightSpinner != null)
+				heightSpinner.setValue(selectedElement.getHeight());
 		}
 	}
 	
 	public JPanel createTextEditionPanel() {
 		JPanel textInputPanel = new JPanel();
 		textInputPanel.add(new JLabel(TextConstants.getText("SPEP.XCoordinate")));
-		posXTextField = new JTextField(4);
-		posXTextField.setText("" + selectedElement.getX());
-		posXTextField.addKeyListener(new KeyListener() {
-			public void keyPressed(KeyEvent arg0) {
-			}
-			
-			public void keyReleased(KeyEvent arg0) {
-				int value;
-				try {
-					value = Integer.parseInt(posXTextField.getText());
-				} catch (Exception e) {
-					value = 0;
-				}
+		SpinnerNumberModel spinnerModel = new SpinnerNumberModel(selectedElement.getX(), -200, GUI.WINDOW_WIDTH + 200, 5);
+		posXSpinner = new JSpinner(spinnerModel);
+		posXSpinner.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
 				int y = selectedElement.getY();
-				selectedElement.changePosition(value, y);
+				selectedElement.changePosition(((Integer) posXSpinner.getValue()).intValue(), y);
 				ScenePreviewEditionPanel.this.paintBackBuffer();
 				ScenePreviewEditionPanel.this.flip();
 			}
-			
-			public void keyTyped(KeyEvent arg0) {
-			}
 		});
-		textInputPanel.add(posXTextField);
+		textInputPanel.add(posXSpinner);
 
 		textInputPanel.add(new JLabel("   " + TextConstants.getText("SPEP.YCoordinate")));
-		posYTextField = new JTextField(4);
-		posYTextField.setText("" + selectedElement.getY());
-		posYTextField.addKeyListener(new KeyListener() {
-			public void keyPressed(KeyEvent arg0) {
-			}
-			
-			public void keyReleased(KeyEvent arg0) {
-				int value;
-				try {
-					value = Integer.parseInt(posYTextField.getText());
-				} catch (Exception e) {
-					value = 0;
-				}
+		spinnerModel = new SpinnerNumberModel(selectedElement.getY(), -200, GUI.WINDOW_WIDTH + 200, 5);
+		posYSpinner = new JSpinner(spinnerModel);
+		posYSpinner.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
 				int x = selectedElement.getX();
-				selectedElement.changePosition(x, value);
+				selectedElement.changePosition(x, (Integer) posYSpinner.getValue());
 				ScenePreviewEditionPanel.this.paintBackBuffer();
 				ScenePreviewEditionPanel.this.flip();
 			}
-			
-			public void keyTyped(KeyEvent arg0) {
-			}
 		});
-		textInputPanel.add(posYTextField);
+		textInputPanel.add(posYSpinner);
 		
 		
 		if (selectedElement.canRescale()) {
 			textInputPanel.add(new JLabel("   " + TextConstants.getText("SPEP.Scale")));
-			scaleTextField = new JTextField(8);
-			scaleTextField.setText("" + selectedElement.getScale());
-			scaleTextField.addKeyListener(new KeyListener() {
-				public void keyPressed(KeyEvent arg0) {
-				}
-				
-				public void keyReleased(KeyEvent arg0) {
-					float value;
-					try {
-						value = Float.parseFloat(scaleTextField.getText());
-					} catch (Exception e) {
-						value = 1.0f;
-					}
-					selectedElement.setScale(value);
+			spinnerModel = new SpinnerNumberModel(selectedElement.getScale(), 0.02, 15.00, 0.02);
+			scaleSpinner = new JSpinner(spinnerModel);
+			scaleSpinner.addChangeListener(new ChangeListener() {
+				public void stateChanged(ChangeEvent arg0) {
+					selectedElement.setScale(((Double) scaleSpinner.getValue()).floatValue());
 					ScenePreviewEditionPanel.this.paintBackBuffer();
 					ScenePreviewEditionPanel.this.flip();
 				}
-				
-				public void keyTyped(KeyEvent arg0) {
-				}
 			});
-			textInputPanel.add(scaleTextField);
+			textInputPanel.add(scaleSpinner);
 		} else {
-			scaleTextField = null;
+			scaleSpinner = null;
 		}
 
 		if (selectedElement.canResize()) {
 			textInputPanel.add(new JLabel("   " + TextConstants.getText("SPEP.Width")));
-			widthTextField = new JTextField(4);
-			widthTextField.setText("" + selectedElement.getWidth());
-			widthTextField.addKeyListener(new KeyListener() {
-				public void keyPressed(KeyEvent arg0) {
-				}
-				
-				public void keyReleased(KeyEvent arg0) {
-					int value;
-					try {
-						value = Integer.parseInt(widthTextField.getText());
-					} catch (Exception e) {
-						value = 20;
-					}
+			spinnerModel = new SpinnerNumberModel(selectedElement.getWidth(), 1, GUI.WINDOW_WIDTH + 200, 5);
+			widthSpinner = new JSpinner(spinnerModel);
+			widthSpinner.addChangeListener(new ChangeListener() {
+				public void stateChanged(ChangeEvent e) {
 					int height = selectedElement.getHeight();
-					selectedElement.changeSize(value, height);
+					selectedElement.changeSize((Integer) widthSpinner.getValue(), height);
+					selectedElement.recreateImage();
 					ScenePreviewEditionPanel.this.paintBackBuffer();
 					ScenePreviewEditionPanel.this.flip();
 				}
-				
-				public void keyTyped(KeyEvent arg0) {
-				}
 			});
-			textInputPanel.add(widthTextField);
+			textInputPanel.add(widthSpinner);
 
 			textInputPanel.add(new JLabel("   " + TextConstants.getText("SPEP.Height")));
-			heightTextField = new JTextField(4);
-			heightTextField.setText("" + selectedElement.getHeight());
-			heightTextField.addKeyListener(new KeyListener() {
-				public void keyPressed(KeyEvent arg0) {
-				}
-				
-				public void keyReleased(KeyEvent arg0) {
-					int value;
-					try {
-						value = Integer.parseInt(heightTextField.getText());
-					} catch (Exception e) {
-						value = 20;
-					}
+			spinnerModel = new SpinnerNumberModel(selectedElement.getHeight(), 1, GUI.WINDOW_HEIGHT + 200, 5);
+			heightSpinner = new JSpinner(spinnerModel);
+			heightSpinner.addChangeListener(new ChangeListener() {
+				public void stateChanged(ChangeEvent e) {
 					int width = selectedElement.getWidth();
-					selectedElement.changeSize(width, value);
+					selectedElement.changeSize(width, (Integer) heightSpinner.getValue());
+					selectedElement.recreateImage();
 					ScenePreviewEditionPanel.this.paintBackBuffer();
 					ScenePreviewEditionPanel.this.flip();
 				}
-				
-				public void keyTyped(KeyEvent arg0) {
-				}
 			});
-			textInputPanel.add(heightTextField);
+			textInputPanel.add(heightSpinner);
 		} else {
-			widthTextField = null;
-			heightTextField = null;
+			widthSpinner = null;
+			heightSpinner = null;
 		}
 
 		return textInputPanel;
