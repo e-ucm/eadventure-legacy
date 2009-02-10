@@ -4,6 +4,7 @@ import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.common.data.chapter.elements.Player;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.engine.core.control.ActionManager;
+import es.eucm.eadventure.engine.core.control.DebugLog;
 import es.eucm.eadventure.engine.core.control.animations.Animation;
 import es.eucm.eadventure.engine.core.control.animations.AnimationState;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
@@ -81,16 +82,20 @@ public class FunctionalGive extends FunctionalAction {
 	            if (!finished && !canGive) {
 	            	canGive = item.giveTo(npc);
 	            	if (!canGive) {
+	            		DebugLog.player("Can't give: " + item.getItem().getId() + " to " + npc.getNPC().getId());
 		                functionalPlayer.speak( GameText.getTextGiveCannot( ) );
 		                functionalPlayer.popAnimation();
 		                finished = true;
 	            	}
 	            } else if ( !finished && totalTime > 1000 ) {
+	            	DebugLog.player("Gave: " + item.getItem().getId() + " to " + npc.getNPC().getId());
 		            finished = true;
 		            functionalPlayer.popAnimation();
 		        }
-	        } else
+	        } else {
+	        	DebugLog.player("Invalid give...");
 	        	finished = true;
+	        }
         }
 		
 	}

@@ -11,6 +11,7 @@ import java.awt.event.MouseEvent;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.engine.core.control.ActionManager;
+import es.eucm.eadventure.engine.core.control.DebugLog;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalItem;
@@ -109,6 +110,7 @@ public class ContextualHUD extends HUD {
      */
     public void init( ) {
         super.init( );
+        DebugLog.general("Using contextual HUD");
         
         actionButtons = new ActionButtons( false );
         inventory = new Inventory( );
@@ -277,15 +279,19 @@ public class ContextualHUD extends HUD {
         
         if(!button && e.getButton( ) == MouseEvent.BUTTON3) {
         	inHud = processRightClickNoButton(actionManager, e);
+        	DebugLog.user("Mouse click, no action button. " + e.getX() + " , " + e.getY());
         }else{
             if( showActionButtons ) {
                 actionButtons.mouseClicked( e );
                 if( actionButtons.getButtonPressed()!=null ){
+                	DebugLog.user("Mouse click, inside action button: " + actionButtons.getButtonPressed().getName());
                 	inHud = processButtonPressed(actionManager, e);
                 }
             }else if( showInventory && ( e.getY( ) > Inventory.BOTTOM_INVENTORY_PANEL_Y || e.getY( ) < Inventory.UPPER_INVENTORY_PANEL_Y + Inventory.INVENTORY_PANEL_HEIGHT ) ) {
+            	DebugLog.user("Mouse click in inventory");
             	inHud = processInventoryClick(actionManager, e);
             }else if( actionManager.getElementOver( ) != null ){
+            	DebugLog.user("Mouse click over element at " + e.getX() + " , " + e.getY());
                 inHud = processElementClick(actionManager, e);
             }
             showActionButtons = false;

@@ -3,6 +3,7 @@ package es.eucm.eadventure.engine.core.control.functionaldata.functionalactions;
 import es.eucm.eadventure.common.data.chapter.elements.Player;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.engine.core.control.ActionManager;
+import es.eucm.eadventure.engine.core.control.DebugLog;
 import es.eucm.eadventure.engine.core.control.animations.Animation;
 import es.eucm.eadventure.engine.core.control.animations.AnimationState;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
@@ -42,7 +43,6 @@ public class FunctionalUse extends FunctionalAction {
 		this.finished = false;
 		totalTime = 0;
 		
-		// TODO always loads the default animation and walks with the defualt speed
         Resources resources = functionalPlayer.getResources( );
         MultimediaManager multimedia = MultimediaManager.getInstance( );
         
@@ -60,6 +60,7 @@ public class FunctionalUse extends FunctionalAction {
         }
         functionalPlayer.setAnimation(animations, -1);
 
+        
 	}
 
 	@Override
@@ -74,11 +75,13 @@ public class FunctionalUse extends FunctionalAction {
         if (!finished && !canUse) {
         	canUse = item.use();
         	if (!canUse) {
+        		DebugLog.player("Can't use " + item.getElement().getId());
                 functionalPlayer.speak( GameText.getTextUseCannot( ) );
                 functionalPlayer.popAnimation();
                 finished = true;       		
         	}
         } else if(!finished && totalTime > 1000 ) {
+        	DebugLog.player("Used " + item.getElement().getId());
             finished = true;
             functionalPlayer.popAnimation();
         }

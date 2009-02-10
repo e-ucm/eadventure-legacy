@@ -5,6 +5,7 @@ import java.util.List;
 import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.common.data.chapter.ConversationReference;
 import es.eucm.eadventure.engine.core.control.ActionManager;
+import es.eucm.eadventure.engine.core.control.DebugLog;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.animations.AnimationState;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
@@ -39,7 +40,6 @@ public class FunctionalTalk extends FunctionalAction {
             needsGoTo = false;
         }
 
-	
 	}
 
 	@Override
@@ -66,6 +66,8 @@ public class FunctionalTalk extends FunctionalAction {
             functionalPlayer.speak( GameText.getTextTalkCannot( ) );
             finished = true;
         }
+        
+        DebugLog.player("Start talk : " + npc.getNPC().getId());
 	}
 
 	@Override

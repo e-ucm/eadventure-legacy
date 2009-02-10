@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
+import es.eucm.eadventure.engine.core.control.DebugLog;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalNPC;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffect;
@@ -191,13 +192,15 @@ public class GameStateConversation extends GameState {
             
             // If a left click was made, jump the line
             else if( mouseClickedButton == MOUSE_BUTTON_LEFT ) {
+            	DebugLog.user("Skipped line in conversation");
                 playNextLine( );
                 mouseClickedButton = MOUSE_BUTTON_NONE;
             }
             
             // If a right click was made, jump to the last line
             else if( mouseClickedButton == MOUSE_BUTTON_RIGHT ) {
-                currentLine = currentNode.getLineCount( );
+                DebugLog.user("Skipped conversation");
+            	currentLine = currentNode.getLineCount( );
                 playNextLine( );
                 mouseClickedButton = MOUSE_BUTTON_NONE;
             }

@@ -2,6 +2,7 @@ package es.eucm.eadventure.engine.core.control.functionaldata.functionalactions;
 
 import es.eucm.eadventure.common.data.chapter.CustomAction;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
+import es.eucm.eadventure.engine.core.control.DebugLog;
 import es.eucm.eadventure.engine.core.control.animations.Animation;
 import es.eucm.eadventure.engine.core.control.animations.AnimationState;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
@@ -69,6 +70,8 @@ public class FunctionalCustom extends FunctionalAction {
 		} 
 		totalTime = 0;
 		finished = false;
+		
+		DebugLog.player("Started custom action: " + customAction.getName() + " " + customAction.getIdTarget());
 	}
 
 	@Override

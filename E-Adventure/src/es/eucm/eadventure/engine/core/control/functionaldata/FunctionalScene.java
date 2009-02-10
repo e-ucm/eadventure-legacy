@@ -229,7 +229,7 @@ public class FunctionalScene implements Renderable {
         // Update the resources and the player's resources
         updateResources( );
         player.updateResources( );
-        
+                
         // Pick the game data
         Chapter gameData = Game.getInstance( ).getCurrentChapterData( );
             

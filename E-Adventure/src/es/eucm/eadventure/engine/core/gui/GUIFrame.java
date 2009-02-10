@@ -41,7 +41,6 @@ public class GUIFrame extends GUI implements FocusListener {
     
     private Component component = null;
     
-    
     /**
      * Create the singleton instance
      */
@@ -98,7 +97,6 @@ public class GUIFrame extends GUI implements FocusListener {
         
         Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
         if (graphicConfig == DescriptorData.GRAPHICS_BLACKBKG && !Game.getInstance().isDebug()) {
-        // Set a black border to the window, covering all the desktop area
             bkgFrame.setSize( screenSize.width, screenSize.height );
             bkgFrame.setLocation(0,0);
         } else {
@@ -106,9 +104,9 @@ public class GUIFrame extends GUI implements FocusListener {
         	if (!Game.getInstance().isDebug())
             	bkgFrame.setLocation( ( screenSize.width - WINDOW_WIDTH ) / 2, ( screenSize.height - WINDOW_HEIGHT ) / 2);
             else
-            	bkgFrame.setLocation( ( screenSize.width - WINDOW_WIDTH ) , ( screenSize.height - WINDOW_HEIGHT ) / 2);
-            	
+            	bkgFrame.setLocation( ( screenSize.width - WINDOW_WIDTH ) , 0);
         }
+
         bkgFrame.setBackground( Color.BLACK );
         bkgFrame.setForeground( Color.BLACK );
         bkgFrame.setLayout(new GUILayout());//new BorderLayout());
@@ -123,7 +121,10 @@ public class GUIFrame extends GUI implements FocusListener {
         gameFrame.setBackground( Color.black );
         gameFrame.setForeground( Color.white );
         gameFrame.setSize( new Dimension( WINDOW_WIDTH, WINDOW_HEIGHT ) );
-
+    	if (!Game.getInstance().isDebug())
+    		gameFrame.setLocation( ( screenSize.width - WINDOW_WIDTH ) / 2 - (int) bkgFrame.getLocation().getX(), ( screenSize.height - WINDOW_HEIGHT ) / 2 - (int) bkgFrame.getLocation().getY());
+    	else
+    		gameFrame.setLocation( (int) bkgFrame.getLocation().getX(), (int) bkgFrame.getLocation().getY());
 
         bkgFrame.setVisible( true );
     	
@@ -183,15 +184,7 @@ public class GUIFrame extends GUI implements FocusListener {
         else if( guiType == DescriptorData.GUI_CONTEXTUAL )
             hud = new ContextualHUD( );
         
-        // Center window on screen
-        Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
-        
-    	if (!Game.getInstance().isDebug())
-    		gameFrame.setLocation( ( screenSize.width - WINDOW_WIDTH ) / 2 - (int) bkgFrame.getLocation().getX(), ( screenSize.height - WINDOW_HEIGHT ) / 2 - (int) bkgFrame.getLocation().getY());
-    	else
-    		gameFrame.setLocation( ( screenSize.width - WINDOW_WIDTH ) - (int) bkgFrame.getLocation().getX(), ( screenSize.height - WINDOW_HEIGHT ) / 2 - (int) bkgFrame.getLocation().getY());
     		
-        //gameFrame.setLocation(0,0);
         gameFrame.setEnabled( true );
         gameFrame.setVisible( true );
         gameFrame.setFocusable( true );
@@ -265,8 +258,6 @@ public class GUIFrame extends GUI implements FocusListener {
 			
 		}
 
-
-
 		public void layoutContainer(Container container) {
 			Component[] components = container.getComponents();
 			for (int i = 0; i < components.length; i++) {
@@ -276,6 +267,7 @@ public class GUIFrame extends GUI implements FocusListener {
 			        int posY = ( screenSize.height - GUI.WINDOW_HEIGHT ) / 2 - (int) bkgFrame.getLocation().getY();
 			    	if (Game.getInstance().isDebug()) {
 				        posX = ( screenSize.width - GUI.WINDOW_WIDTH )  - (int) bkgFrame.getLocation().getX();
+				        posY = 0;
 			    	}
 					components[i].setBounds(posX, posY, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT);
 				} else {
@@ -295,7 +287,6 @@ public class GUIFrame extends GUI implements FocusListener {
 
 		public void removeLayoutComponent(Component arg0) {
 			
-		}
-		
+		}		
 	}
 }

@@ -2,6 +2,7 @@ package es.eucm.eadventure.engine.core.control.functionaldata.functionalactions;
 
 import es.eucm.eadventure.common.data.chapter.Exit;
 import es.eucm.eadventure.common.data.chapter.NextScene;
+import es.eucm.eadventure.engine.core.control.DebugLog;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
@@ -29,8 +30,8 @@ public class FunctionalExit extends FunctionalAction {
 	@Override
 	public void start(FunctionalPlayer functionalPlayer) {
         this.functionalPlayer = functionalPlayer;
+        NextScene nextScene = null;
 		if( exit != null ) {
-            NextScene nextScene = null;
 
             // Pick the FIRST valid next-scene structure
             for( int i = 0; i < exit.getNextScenes( ).size( ) && nextScene == null; i++ )
@@ -43,6 +44,8 @@ public class FunctionalExit extends FunctionalAction {
             }
         }
 		finished = true;
+		
+		DebugLog.player("Exit scene to: " + (nextScene != null ? nextScene.getNextSceneId() : "none") );
 	}
 
 	@Override

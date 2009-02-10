@@ -2,6 +2,7 @@ package es.eucm.eadventure.engine.core.control.functionaldata.functionalactions;
 
 import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.engine.core.control.ActionManager;
+import es.eucm.eadventure.engine.core.control.DebugLog;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
 
@@ -33,6 +34,8 @@ public class FunctionalExamine extends FunctionalAction {
 		if( !element.examine( ) ) 
 			functionalPlayer.speak( element.getElement( ).getDetailedDescription( ) );
 		finished = true;
+		
+		DebugLog.player("Started Examine: " + element.getElement().getId());
 	}
 
 	@Override

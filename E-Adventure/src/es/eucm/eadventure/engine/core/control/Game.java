@@ -57,7 +57,8 @@ import es.eucm.eadventure.engine.core.data.SaveTimer;
 
 //import es.eucm.eadventure.engine.core.data.userinteraction.highlevel.HighLevelInteraction;
 //import es.eucm.eadventure.engine.core.data.userinteraction.lowlevel.LowLevelInteraction;
-import es.eucm.eadventure.engine.core.gui.DebugFrame;
+import es.eucm.eadventure.engine.core.gui.DebugValuesFrame;
+import es.eucm.eadventure.engine.core.gui.DebugLogFrame;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.common.loader.Loader;
 import es.eucm.eadventure.common.loader.incidences.Incidence;
@@ -299,7 +300,9 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     
     private boolean debug = false;
     
-    private DebugFrame debugFrame;;
+    private DebugValuesFrame debugFrameChanges;
+    
+    private DebugLogFrame debugFrameLog;
 
     /**
      * FIFO which store high level interaction
@@ -326,10 +329,17 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         instance = new Game( );
     }
     
+    public static void create(boolean debug) {
+    	instance = new Game();
+    	instance.debug = debug;
+    }
+    
     public static void delete(){
         staticStop();
-        if (instance.debugFrame != null)
-        	instance.debugFrame.close();
+        if (instance.debugFrameChanges != null)
+        	instance.debugFrameChanges.close();
+        if (instance.debugFrameLog != null)
+        	instance.debugFrameLog.close();
         instance = null;
     }
 
@@ -362,6 +372,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      * Init the game parameters
      */
     private void loadCurrentChapter( Graphics2D g ) {
+    	DebugLog.general("Loading chapter");
         
         // Reset the image cache
         MultimediaManager.getInstance( ).flushImagePool( MultimediaManager.IMAGE_SCENE );
@@ -466,6 +477,9 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         currentState = new GameStateNextScene( );
         
         nextChapter = false;
+        
+    	DebugLog.general("Chapter loaded");
+
     }
 
     
@@ -483,6 +497,11 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
 
         FINISH = false;
         boolean errorWhileLoading = false;
+        
+        if (debug) {
+        	debugFrameLog = new DebugLogFrame();
+        }
+    	DebugLog.general("Log started...");
         
         try {
             this.timerManager = TimerManager.getInstance( );
@@ -541,6 +560,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             }
 	            
             if (needsName) {
+            	DebugLog.general("Asks for player name");
             	String name = JOptionPane.showInputDialog(null, TextConstants.getText("Reports.InputReportName"), TextConstants.getText("Reports.NameInput"), JOptionPane.QUESTION_MESSAGE);
             	gameDescriptor.setPlayerName(name);
             	assessmentEngine.setPlayerName(name);
@@ -553,13 +573,13 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
                 loadCurrentChapter( g );
                 errorWhileLoading = false;
 
-                if (debug)
-                	debugFrame = new DebugFrame(flags, vars);
-                
+                if (debug) {
+                	debugFrameChanges = new DebugValuesFrame(flags, vars, this.getCurrentChapterData().getGlobalStates());
+                }
             
                 while( !nextChapter && !gameOver ) {
                 	if (debug)
-                		debugFrame.updateValues();
+                		debugFrameChanges.updateValues();
                     time = System.currentTimeMillis( );
                     elapsedTime = time - oldTime;
                     oldTime = time;
@@ -592,10 +612,8 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
 
                 if( currentChapter == gameDescriptor.getChapterSummaries().size() )
                     gameOver = true;
-            
             }
-            
-            
+
         } catch( Exception e ) {
         	ReportDialog.GenerateErrorReport(e, false, "FATAL ERROR. This should not happen.");
         }
