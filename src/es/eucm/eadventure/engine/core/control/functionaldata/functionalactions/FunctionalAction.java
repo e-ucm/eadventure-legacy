@@ -21,7 +21,6 @@ public abstract class FunctionalAction {
 	protected int keepDistance = 0;
 	
 	public FunctionalAction(Action action) {
-		// TODO more initialization needed?
 		originalAction = action;
 	}
 	

@@ -159,5 +159,21 @@
 	<entry key="DebugFrame.Changes">Cambios</entry>
 	<entry key="DebugFrame.AllFlagsAndVarsTip">Esta tabla muestra todos los flags y variables del juego con sus respectivos valores</entry>
 	<entry key="DebugFrame.ChangesTip">Esta tabla muestra solo los valores de flags y variables que fueron recientemente cambiados</entry>
+	<entry key="DebugFrame.id">id</entry>
+	<entry key="DebugFrame.value">valor</entry>
+	<entry key="DebugFrame.GlobalStates">Estados globales</entry>
+	<entry key="DebugFrame.GlobalStatesTip">Esta tabla muestra todos los estados globales del juego con sus respectivos valores</entry>
+
+	<entry key="DebugFrameLog.Title">Log</entry>
+	<entry key="DebugFrameLog.Time">Tiempo</entry>
+	<entry key="DebugFrameLog.Entry">Entrada</entry>
+	<entry key="DebugFrameLog.User">Usuario</entry>
+	<entry key="DebugFrameLog.UserTip">Muestra el log de interaccion de usuario</entry>
+	<entry key="DebugFrameLog.Player">Jugador</entry>
+	<entry key="DebugFrameLog.PlayerTip">Muestra el log de acciones de jugador y npc</entry>
+	<entry key="DebugFrameLog.General">General</entry>
+	<entry key="DebugFrameLog.GeneralTip">Muestra el log general del juego</entry>
+	<entry key="DebugFrameLog.All">Todo</entry>
+	<entry key="DebugFrameLog.AllTip">Muestra todos los logs</entry>
 	
 </properties>

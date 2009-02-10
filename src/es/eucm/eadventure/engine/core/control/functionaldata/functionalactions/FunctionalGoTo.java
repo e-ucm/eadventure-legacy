@@ -4,6 +4,7 @@ import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.common.data.chapter.elements.Player;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.engine.core.control.ActionManager;
+import es.eucm.eadventure.engine.core.control.DebugLog;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.animations.Animation;
 import es.eucm.eadventure.engine.core.control.animations.AnimationState;
@@ -88,6 +89,8 @@ public class FunctionalGoTo extends FunctionalAction {
         } else if (!trajectoryUpdated){
         	trajectory.updatePathToNearestPoint(functionalPlayer.getX(), functionalPlayer.getY(), posX, posY);
         }
+        
+        DebugLog.player("Player moves: hasTrajectory=" + trajectory.hasTrajectory() + " destination=" + posX + "," + posY);
     }
 
 	@Override

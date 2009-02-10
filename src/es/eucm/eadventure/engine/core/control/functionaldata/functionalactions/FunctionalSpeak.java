@@ -6,11 +6,9 @@ import java.util.TimerTask;
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;
 
-import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.common.data.chapter.elements.Player;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
-import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.engine.core.control.ActionManager;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.Options;
@@ -67,18 +65,14 @@ public class FunctionalSpeak extends FunctionalAction {
 		this.functionalPlayer = functionalPlayer;
 		totalTime = 0;
 		
-		// TODO the correct animation should be used, or the custom one if it is set
-		// TODO the animation should be determined from the direction the player is facing
         Resources resources = functionalPlayer.getResources( );
         MultimediaManager multimedia = MultimediaManager.getInstance( );
         Animation[] animations = new Animation[4];
-
         
         animations[AnimationState.EAST] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_SPEAK_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
         animations[AnimationState.WEST] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_SPEAK_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
         animations[AnimationState.NORTH] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_SPEAK_UP ), false, MultimediaManager.IMAGE_PLAYER );
         animations[AnimationState.SOUTH] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_SPEAK_DOWN ), false, MultimediaManager.IMAGE_PLAYER );
-        
         
         functionalPlayer.setAnimation(animations, -1);
    	}

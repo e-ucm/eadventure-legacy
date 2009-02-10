@@ -8,9 +8,12 @@ import java.util.List;
 
 import javax.swing.JTable;
 import javax.swing.JTextArea;
-import javax.swing.border.LineBorder;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
+
+import es.eucm.eadventure.common.data.chapter.conditions.GlobalState;
+import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 
 public class DebugTableModel extends AbstractTableModel implements TableCellRenderer {
 
@@ -26,6 +29,8 @@ public class DebugTableModel extends AbstractTableModel implements TableCellRend
 	private List<String> ids;
 	
 	private List<String> changes;
+	
+	private List<GlobalState> globalStates;
 	
 	private boolean onlyChanges;
 	
@@ -48,11 +53,17 @@ public class DebugTableModel extends AbstractTableModel implements TableCellRend
 		this.onlyChanges = onlyChanges;
 	}
 	
+	public void addGlobalStates(List<GlobalState> globalStates) {
+		this.globalStates = globalStates;
+		for (GlobalState gb : globalStates)
+			ids.add(gb.getId());
+	}
+	
     public String getColumnName(int col) {
         if (col == 0)
-        	return "id";
+        	return TextConstants.getText("DebugFrame.id");
         if (col == 1)
-        	return "value";
+        	return TextConstants.getText("DebugFrame.value");
     	return "";
     }
     
@@ -87,6 +98,16 @@ public class DebugTableModel extends AbstractTableModel implements TableCellRend
     				return "false";
     		} else if (varSummary.getVars().containsKey(id)) {
     			return "" + varSummary.getValue(id);
+    		} else {
+    			for (GlobalState gb : globalStates) {
+    				if (gb.getId().equals(id)) {
+    					FunctionalConditions fc = new FunctionalConditions(gb);
+    					if (fc.allConditionsOk())
+    						return "true";
+    					else
+    						return "false";
+    				}
+    			}
     		}
     	}
     	return "";
@@ -103,7 +124,6 @@ public class DebugTableModel extends AbstractTableModel implements TableCellRend
 			boolean isSelected, boolean hasFocus, int row, int column) {
 		String string = (String) value;
 		JTextArea label = new JTextArea((String) value);
-		label.setBorder(new LineBorder(Color.BLACK, 1));
 		
 		if (string.equals("false")) {
 			label.setForeground(Color.RED);

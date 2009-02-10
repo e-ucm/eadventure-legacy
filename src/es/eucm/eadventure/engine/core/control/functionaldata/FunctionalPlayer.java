@@ -16,6 +16,7 @@ import es.eucm.eadventure.common.data.chapter.resources.Asset;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.data.chapter.scenes.Scene;
 import es.eucm.eadventure.engine.core.control.ActionManager;
+import es.eucm.eadventure.engine.core.control.DebugLog;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
@@ -494,12 +495,14 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
      */
     public void speak( String text ) {
         if (text!=null){
+        	DebugLog.player("Player says " + text);
         	FunctionalSpeak functionalSpeak = new FunctionalSpeak(null, text);
         	addAction(functionalSpeak);
         }
     }
     
     public void speak( String text, String audioPath) {
+    	DebugLog.player("Player says " + text + " with audio");
         FunctionalSpeak functionalSpeak = new FunctionalSpeak(null, text, audioPath);
         addAction(functionalSpeak);
     }
@@ -510,6 +513,7 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
      */
     public void speakWithFreeTTS(String text, String voice){
         if (text!=null){
+        	DebugLog.player("Player speaks with text-to-speach");
         	FunctionalSpeak functionalSpeak = new FunctionalSpeak(null, text);
         	functionalSpeak.setSpeakFreeTTS(text, voice);
         	addAction(functionalSpeak);

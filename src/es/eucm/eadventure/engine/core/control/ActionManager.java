@@ -192,6 +192,7 @@ public class ActionManager {
     public void mouseClicked( MouseEvent e ) {
         Game game = Game.getInstance();
         if( e.getButton( ) == MouseEvent.BUTTON1 ) {
+        	DebugLog.user("Mouse clicked in scene: " + e.getX() + " , " + e.getY());
             game.getFunctionalScene( ).mouseClicked( e.getX( ), e.getY( ) );
         }
     }

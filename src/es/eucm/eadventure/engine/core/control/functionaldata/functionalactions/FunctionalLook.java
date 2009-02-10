@@ -1,6 +1,7 @@
 package es.eucm.eadventure.engine.core.control.functionaldata.functionalactions;
 
 import es.eucm.eadventure.engine.core.control.ActionManager;
+import es.eucm.eadventure.engine.core.control.DebugLog;
 import es.eucm.eadventure.engine.core.control.animations.AnimationState;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
@@ -32,6 +33,8 @@ public class FunctionalLook extends FunctionalAction {
         }
 		finished = true;
         functionalPlayer.speak(element.getElement( ).getDescription( ));
+        
+        DebugLog.player("Look: " + element.getElement().getId() + " desc: " + element.getElement().getDescription());
 	}
 
 	@Override
