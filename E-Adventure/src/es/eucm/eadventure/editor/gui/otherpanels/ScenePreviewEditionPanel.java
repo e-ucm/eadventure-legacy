@@ -6,8 +6,6 @@ import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,7 +17,6 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
-import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -108,6 +105,9 @@ public class ScenePreviewEditionPanel extends JPanel {
 	 */
 	public static final int CATEGORY_NODE = 8;
 
+	/**
+	 * Key for the influence area category
+	 */
 	public static final int CATEGORY_INFLUENCEAREA = 9;
 
 	/**
@@ -431,6 +431,11 @@ public class ScenePreviewEditionPanel extends JPanel {
 	}
 
 	
+	/**
+	 * Add an influenceArea for an element to the panel
+	 * 
+	 * @param influenceArea the elements influence area
+	 */
 	public void addInfluenceArea(InfluenceAreaDataControl influenceArea) {
 		Integer key = new Integer(CATEGORY_INFLUENCEAREA);
 		addCategory(key, true, true);
@@ -1102,6 +1107,12 @@ public class ScenePreviewEditionPanel extends JPanel {
 		this.resize = resize;
 	}
 	
+	/**
+	 * Creates the checkbox panel where the user can select
+	 * which elements to show
+	 * 
+	 * @return The created panel
+	 */
 	public JPanel createCheckBoxPanel() {
 		JPanel checkBoxPanel = new JPanel();
 		
@@ -1124,45 +1135,38 @@ public class ScenePreviewEditionPanel extends JPanel {
 		return checkBoxPanel;
 	}
 	
+	/**
+	 * Create the checkbox for a given category
+	 * 
+	 * @param category The category of the checkbox
+	 * @return the created checkbox
+	 */
 	private JCheckBox createCheckBox(final Integer category) {
 		String title = null;
-		switch (category.intValue()) {
-		case CATEGORY_ACTIVEAREA:
+		if (category.intValue() == CATEGORY_ACTIVEAREA)
 			title = TextConstants.getText("SPEP.ShowActiveAreas");
-			break;
-		case CATEGORY_ATREZZO:
+		else if (category.intValue() == CATEGORY_ATREZZO)
 			title = TextConstants.getText("SPEP.ShowAtrezzo");
-			break;
-		case CATEGORY_BARRIER:
+		else if (category.intValue() == CATEGORY_BARRIER)
 			title = TextConstants.getText("SPEP.ShowBarriers");
-			break;
-		case CATEGORY_CHARACTER:
+		else if (category.intValue() == CATEGORY_CHARACTER)
 			title = TextConstants.getText("SPEP.ShowCharacterReferences");
-			break;
-		case CATEGORY_EXIT:
+		else if (category.intValue() == CATEGORY_EXIT)
 			title = TextConstants.getText("SPEP.ShowExits");
-			break;
-		case CATEGORY_NONE:
+		else if (category.intValue() == CATEGORY_NONE)
 			title = TextConstants.getText("SPEP.ShowUncategorized");
-			break;
-		case CATEGORY_OBJECT:
+		else if (category.intValue() == CATEGORY_OBJECT)
 			title = TextConstants.getText("SPEP.ShowObjectReferences");
-			break;
-		case CATEGORY_PLAYER:
+		else if (category.intValue() == CATEGORY_PLAYER)
 			title = TextConstants.getText("SPEP.ShowPlayer");
-			break;
-		case CATEGORY_NODE:
+		else if (category.intValue() == CATEGORY_NODE)
 			title = TextConstants.getText("SPEP.ShowTrajectory");
-			break;
-		default:
-		}
 		if (title == null)
 			return null;
 		
 		JCheckBox temp = new JCheckBox(title);
 		temp.setSelected(displayCategory.get(category));
 		temp.addChangeListener(new ChangeListener() {
-
 			public void stateChanged(ChangeEvent arg0) {
 				boolean isSelected = ((JCheckBox) arg0.getSource()).isSelected();
 				displayCategory.put(category, new Boolean(isSelected));
