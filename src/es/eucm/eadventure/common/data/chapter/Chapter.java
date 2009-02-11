@@ -140,6 +140,8 @@ public class Chapter extends ChapterSummary{
 		scenes.add( new Scene( sceneId ) );
 		globalStates = new ArrayList<GlobalState>( );
 		macros = new ArrayList<Macro>( );
+		flags = new ArrayList<String>( );
+		vars = new ArrayList<String>( );
 	}
 
 

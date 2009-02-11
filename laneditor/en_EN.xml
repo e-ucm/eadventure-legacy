@@ -453,6 +453,7 @@ Please, try it again with other destiny directory.</entry>
 	<entry key="Operation.ExportT.NotSuccess.Title">Export failed!</entry>
 	<entry key="Operation.ExportT.NotSuccess.Message">An error occurred when exporting the project and the file was not created.</entry>
 	
+	<entry key="Operation.ExportToLOM.LOMType">Learning Object type</entry>
 	<entry key="Operation.ExportToLOM.Title">Select the name of the learning object</entry>
 	<entry key="Operation.ExportToLOM.Message">Please, select a name for the learning object.
 	Do not confuse it with the name of the file: the name of the learning object will be used only by the LMS</entry>

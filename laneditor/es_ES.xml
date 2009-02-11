@@ -457,6 +457,7 @@ Por favor, inténtelo de nuevo cambiando dicho directorio.</entry>
 	<entry key="Operation.ExportT.NotSuccess.Title">¡Fallo en la exportación!</entry>
 	<entry key="Operation.ExportT.NotSuccess.Message">Ocurrió un error al exportar el proyecto. Se canceló el proceso.</entry>
 	
+	<entry key="Operation.ExportToLOM.LOMType">Tipo de Objeto de Aprendizaje</entry>
 	<entry key="Operation.ExportToLOM.Title">Seleccione el nombre del Objeto de Aprendizaje</entry>
 	<entry key="Operation.ExportToLOM.Message">Por favor, seleccione el nombre del Objeto de Aprendizaje.
 	No tiene por qué ser igual que el nombre del archivo: Este nombre será empleado por el LMS para identificar la aventura</entry>

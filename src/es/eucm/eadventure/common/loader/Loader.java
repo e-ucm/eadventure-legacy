@@ -133,14 +133,21 @@ public class Loader {
 	public static Chapter loadChapterData (InputStreamCreator isCreator, String fileName,  List<Incidence> incidences ){
 		// Create the chapter
 		Chapter currentChapter = new Chapter( );
+		boolean chapterFound = false;
 		if (Loader.adventureData!=null){
 			for (Chapter chapter: adventureData.getChapters()){
-				if (chapter.getName().equals(fileName)){
-					currentChapter = chapter; break;
+				if (chapter!=null && chapter.getName()!=null && chapter.getName().equals(fileName)){
+					currentChapter = chapter;chapterFound = true; break;
+					
+				} else if (chapter!=null && chapter.getName() == null){
+					
+					currentChapter = chapter; chapterFound = true; currentChapter.setName("chapter1.xml");break;
+					
 				}
 			}
 			
-		} else {
+		} 
+		if (!chapterFound){
 
 			InputStream chapterIS = null;
 			
