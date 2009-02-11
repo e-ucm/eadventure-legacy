@@ -90,4 +90,10 @@ public class GlobalStateTreeNode extends TreeNode {
 		return TextConstants.getElementName(Controller.GLOBAL_STATE)+":"+dataControl.getId( );
 	}
 	
+	@Override
+	public TreeNode isObjectTreeNode(Object object) {
+		if (dataControl == object)
+			return this;
+		return null;
+	}
 }

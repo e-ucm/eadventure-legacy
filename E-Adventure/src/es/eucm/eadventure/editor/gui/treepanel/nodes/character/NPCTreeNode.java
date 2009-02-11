@@ -105,4 +105,11 @@ public class NPCTreeNode extends TreeNode {
 	public String toString( ) {
 		return dataControl.getId( );
 	}
+	
+	@Override
+	public TreeNode isObjectTreeNode(Object object) {
+		if (dataControl == object)
+			return this;
+		return null;
+	}
 }

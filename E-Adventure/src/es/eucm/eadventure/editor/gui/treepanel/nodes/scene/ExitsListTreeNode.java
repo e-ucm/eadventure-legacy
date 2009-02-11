@@ -103,4 +103,11 @@ public class ExitsListTreeNode extends TreeNode {
 	public JComponent getEditPanel( ) {
 		return new ExitsListPanel( dataControl );
 	}
+	
+	@Override
+	public TreeNode isObjectTreeNode(Object object) {
+		if (dataControl == object)
+			return this;
+		return null;
+	}
 }

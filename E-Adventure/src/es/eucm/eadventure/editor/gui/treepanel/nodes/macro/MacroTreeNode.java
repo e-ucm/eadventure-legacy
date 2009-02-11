@@ -89,5 +89,11 @@ public class MacroTreeNode extends TreeNode {
 	public String toString( ) {
 		return TextConstants.getElementName(Controller.MACRO)+":"+dataControl.getId( );
 	}
-	
+
+	@Override
+	public TreeNode isObjectTreeNode(Object object) {
+		if (dataControl == object)
+			return this;
+		return null;
+	}
 }

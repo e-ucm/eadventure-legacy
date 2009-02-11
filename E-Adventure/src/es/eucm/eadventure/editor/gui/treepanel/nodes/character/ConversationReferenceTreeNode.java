@@ -83,4 +83,12 @@ public class ConversationReferenceTreeNode extends TreeNode {
 	public String toString( ) {
 		return TextConstants.getText( "Element.Ref", dataControl.getIdTarget( ) );
 	}
+	
+	@Override
+	public TreeNode isObjectTreeNode(Object object) {
+		if (dataControl == object)
+			return this;
+		return null;
+	}
 }
+

@@ -99,4 +99,11 @@ public class ConversationReferencesListTreeNode extends TreeNode {
 	public JComponent getEditPanel( ) {
 		return new ConversationReferencesListPanel( dataControl );
 	}
+	
+	@Override
+	public TreeNode isObjectTreeNode(Object object) {
+		if (dataControl == object)
+			return this;
+		return null;
+	}
 }

@@ -93,5 +93,10 @@ public class TimerTreeNode extends TreeNode{
 		return TextConstants.getElementName( Controller.TIMER )+":#"+index;
 	}
 
-	
+	@Override
+	public TreeNode isObjectTreeNode(Object object) {
+		if (dataControl == object)
+			return this;
+		return null;
+	}
 }

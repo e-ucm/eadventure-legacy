@@ -98,4 +98,11 @@ public class BooksListTreeNode extends TreeNode {
 	public JComponent getEditPanel( ) {
 		return new BooksListPanel( dataControl );
 	}
+	
+	@Override
+	public TreeNode isObjectTreeNode(Object object) {
+		if (dataControl == object)
+			return this;
+		return null;
+	}
 }

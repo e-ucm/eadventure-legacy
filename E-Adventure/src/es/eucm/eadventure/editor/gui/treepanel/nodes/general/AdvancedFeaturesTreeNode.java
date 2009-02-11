@@ -101,4 +101,9 @@ public class AdvancedFeaturesTreeNode extends TreeNode {
 	public String toString( ) {
 		return TextConstants.getElementName(Controller.ADVANCED_FEATURES);
 	}
+	
+	@Override
+	public TreeNode isObjectTreeNode(Object object) {
+		return null;
+	}
 }

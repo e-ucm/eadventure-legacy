@@ -39,6 +39,7 @@ import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
+import es.eucm.eadventure.editor.gui.treepanel.TreeNodeControl;
 import es.eucm.eadventure.editor.gui.treepanel.TreePanel;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.EmptyTreeNode;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.TreeNode;
@@ -134,6 +135,8 @@ public class MainWindow extends JFrame {
 					controller.getAssessmentController( ), controller.getAdaptationController( ));
 		else
 			root = new EmptyTreeNode(null);
+		
+		TreeNodeControl.getInstance().setRoot(root);
 
 		// Create the two panels
 		JPanel editorContainer = new JPanel( );

@@ -106,4 +106,11 @@ public class BarriersListTreeNode extends TreeNode {
 	public JComponent getEditPanel( ) {
 		return new BarriersListPanel( dataControl );
 	}
+	
+	@Override
+	public TreeNode isObjectTreeNode(Object object) {
+		if (dataControl == object)
+			return this;
+		return null;
+	}
 }

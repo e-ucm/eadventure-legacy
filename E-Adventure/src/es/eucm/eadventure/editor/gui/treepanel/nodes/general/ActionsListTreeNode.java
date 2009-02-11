@@ -149,4 +149,11 @@ public class ActionsListTreeNode extends TreeNode {
 	public JComponent getEditPanel( ) {
 		return new ActionsListPanel( dataControl );
 	}
+
+	@Override
+	public TreeNode isObjectTreeNode(Object object) {
+		if (dataControl == object)
+			return this;
+		return null;
+	}
 }

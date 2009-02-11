@@ -1,10 +1,10 @@
 package es.eucm.eadventure.editor.control.controllers;
 
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElement;
+import es.eucm.eadventure.editor.gui.treepanel.TreeNodeControl;
 
 public class NormalScenePreviewEditionController implements ScenePreviewEditionController {
 
@@ -33,9 +33,13 @@ public class NormalScenePreviewEditionController implements ScenePreviewEditionC
 	public void mouseClicked(MouseEvent e) {
 		setMouseUnder(e.getX(), e.getY());
 		if (underMouse != null && !spep.getFixedSelectedElement()) {
-			spep.setSelectedElement(underMouse);
-			spep.paintBackBuffer();
-			spep.flip();
+			if (e.getClickCount() == 1) {
+				spep.setSelectedElement(underMouse);
+				spep.paintBackBuffer();
+				spep.flip();
+			} else {
+				TreeNodeControl.getInstance().changeTreeNode(underMouse.getElementReferenceDataControl());
+			}
 		} else if (underMouse == null && !spep.getFixedSelectedElement()) {
 			spep.setSelectedElement((ImageElement) null);
 			spep.paintBackBuffer();

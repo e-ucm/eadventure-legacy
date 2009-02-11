@@ -107,4 +107,10 @@ public class GlobalStatesListTreeNode extends TreeNode {
 		return TextConstants.getElementName(Controller.GLOBAL_STATE_LIST);
 	}
 
+	@Override
+	public TreeNode isObjectTreeNode(Object object) {
+		if (dataControl == object)
+			return this;
+		return null;
+	}
 }

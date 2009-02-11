@@ -78,4 +78,11 @@ public class ImageBookParagraphTreeNode extends TreeNode {
 	public JComponent getEditPanel( ) {
 		return new JPanel();//new ImageBookParagraphPanel( dataControl );
 	}
+	
+	@Override
+	public TreeNode isObjectTreeNode(Object object) {
+		if (dataControl == object)
+			return this;
+		return null;
+	}
 }

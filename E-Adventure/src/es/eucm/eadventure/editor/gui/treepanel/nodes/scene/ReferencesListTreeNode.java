@@ -51,7 +51,6 @@ public class ReferencesListTreeNode extends TreeNode implements ReferenceListene
 			children.add( new AtrezzoReferenceTreeNode( this, atrezzoReferenceDataControl ) );
 		for( ElementReferenceDataControl npcReferenceDataControl : referencesDataControl.getNPCReferences( ) )
 			children.add( new NPCReferenceTreeNode( this, npcReferenceDataControl ) );
-
 	}
 
 	public void addChild( int type ) {
@@ -147,5 +146,12 @@ public class ReferencesListTreeNode extends TreeNode implements ReferenceListene
 	public void deleteNodeElement() {
 		deleteChildOnlyInTree();
 		
+	}
+	
+	@Override
+	public TreeNode isObjectTreeNode(Object object) {
+		if (referencesDataControl == object)
+			return this;
+		return null;
 	}
 }

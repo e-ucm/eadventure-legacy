@@ -91,5 +91,10 @@ public class TimedAssessmentRuleTreeNode extends TreeNode{
 		return TextConstants.getElementName(Controller.TIMED_ASSESSMENT_RULE)+":"+dataControl.getId();
 	}
 
-	
+	@Override
+	public TreeNode isObjectTreeNode(Object object) {
+		if (dataControl == object)
+			return this;
+		return null;
+	}	
 }

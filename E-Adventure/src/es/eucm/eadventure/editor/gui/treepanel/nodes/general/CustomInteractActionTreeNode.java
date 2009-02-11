@@ -83,4 +83,11 @@ public class CustomInteractActionTreeNode extends TreeNode {
 	public String toString( ) {
 		return super.toString( ) + ": " + dataControl.getIdTarget( );
 	}
+	
+	@Override
+	public TreeNode isObjectTreeNode(Object object) {
+		if (dataControl == object)
+			return this;
+		return null;
+	}
 }

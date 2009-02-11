@@ -263,6 +263,7 @@ public class TreePanel extends JPanel {
 	public void reloadTree( TreeNode newRoot ) {
 		// Set the new root, select the first row and update the panel
 		this.rootNode = newRoot;
+		TreeNodeControl.getInstance().setRoot(newRoot);
 		newRoot.setOwnerPanel( this );
 		dataTree.setModel( new DataTreeModel( newRoot ) );
 		dataTree.setSelectionRow( 0 );
@@ -327,6 +328,14 @@ public class TreePanel extends JPanel {
 		dataTree.scrollPathToVisible( newPath );
 	}
 
+	public void changePath (TreePath path) {
+		dataTree.setSelectionPath(path);
+		dataTree.scrollPathToVisible(path);
+		updateSelectedRow();
+		reselectSelectedRow();
+		dataTree.scrollRowToVisible(rowSelected);
+	}
+	
 	/**
 	 * Listener for the upper buttons of the panel.
 	 */

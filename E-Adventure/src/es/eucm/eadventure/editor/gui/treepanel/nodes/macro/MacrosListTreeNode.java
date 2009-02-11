@@ -107,4 +107,10 @@ public class MacrosListTreeNode extends TreeNode {
 		return TextConstants.getElementName(Controller.MACRO_LIST);
 	}
 
+	@Override
+	public TreeNode isObjectTreeNode(Object object) {
+		if (dataControl == object)
+			return this;
+		return null;
+	}
 }

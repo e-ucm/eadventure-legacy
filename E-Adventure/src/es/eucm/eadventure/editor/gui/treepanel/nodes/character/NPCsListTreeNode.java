@@ -95,4 +95,11 @@ public class NPCsListTreeNode extends TreeNode {
 	public JComponent getEditPanel( ) {
 		return new NPCsListPanel( dataControl );
 	}
+	
+	@Override
+	public TreeNode isObjectTreeNode(Object object) {
+		if (dataControl == object)
+			return this;
+		return null;
+	}
 }

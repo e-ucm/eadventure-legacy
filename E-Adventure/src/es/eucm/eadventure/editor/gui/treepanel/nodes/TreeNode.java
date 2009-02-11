@@ -9,6 +9,7 @@ import javax.swing.Icon;
 import javax.swing.JComponent;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
+import javax.swing.tree.TreePath;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
@@ -595,4 +596,49 @@ public abstract class TreeNode {
 	public String toString( ) {
 		return TextConstants.getElementName( getNodeType( ) );
 	}
+	
+	public boolean changeTreeNodeForObject(Object object) {
+		TreeNode tempParent = parent;
+		TreeNode tempNode = this;
+		while (parent != null && parent != tempNode) {
+			tempNode = tempParent;
+			tempParent = tempParent.parent;
+		}
+		TreePath temp = getTreeNodeForObject(null, object);
+		if (temp != null) {
+			ownerPanel.changePath(temp);
+			ownerPanel.updateSelectedRow();
+			ownerPanel.reselectSelectedRow();
+			ownerPanel.updateUI();
+			return true;
+		}
+		return false;
+	}
+	
+	private TreePath getTreeNodeForObject(TreePath treePath, Object object) {
+		TreeNode temp = this.isObjectTreeNode(object);
+		if (treePath == null && temp != null) {
+			return new TreePath(this);
+		} 
+		if (temp != null && treePath != null) {
+			return treePath.pathByAddingChild(this);
+		}
+		
+		TreePath tempPath;
+		if (children != null) {
+			for (TreeNode child : children) {
+				if (treePath != null) {
+					tempPath = child.getTreeNodeForObject(treePath.pathByAddingChild(this), object);
+				} else {
+					tempPath = child.getTreeNodeForObject(new TreePath(this), object);
+				}
+				if (tempPath != null)
+					return tempPath;
+		
+			}
+		}
+		return null;
+	}
+	
+	public abstract TreeNode isObjectTreeNode(Object object);
 }

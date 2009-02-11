@@ -84,4 +84,11 @@ public class CustomActionTreeNode extends TreeNode {
 	public String toString( ) {
 		return super.toString( ) + ": " + ((CustomActionDataControl) dataControl).getName();
 	}
+
+	@Override
+	public TreeNode isObjectTreeNode(Object object) {
+		if (dataControl == object)
+			return this;
+		return null;
+	}
 }
