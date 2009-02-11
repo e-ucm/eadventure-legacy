@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -13,7 +15,9 @@ import javax.swing.JTextPane;
 import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.book.BooksListDataControl;
+import es.eucm.eadventure.editor.gui.treepanel.TreeNodeControl;
 
 public class BooksListPanel extends JPanel {
 
@@ -22,6 +26,9 @@ public class BooksListPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	
+	private BooksListDataControl booksListDataControl;
+	
 	/**
 	 * Constructor.
 	 * 
@@ -29,6 +36,7 @@ public class BooksListPanel extends JPanel {
 	 *            Books list controller
 	 */
 	public BooksListPanel( BooksListDataControl booksListDataControl ) {
+		this.booksListDataControl = booksListDataControl;
 		// Set the layout and the border
 		setLayout( new GridBagLayout( ) );
 		setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "BooksList.Title" ) ) );
@@ -55,6 +63,16 @@ public class BooksListPanel extends JPanel {
 		c.weighty = 1;
 		JTable informationTable = new JTable( new BooksInfoTableModel( booksListDataControl.getBooksInfo( ) ) );
 		informationTable.removeEditor( );
+		informationTable.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() == 2) {
+					JTable table = (JTable) e.getSource();
+					DataControl dataControl = BooksListPanel.this.booksListDataControl.getBooks().get(table.getSelectedRow());
+					TreeNodeControl.getInstance().changeTreeNode(dataControl);
+				}
+			}
+		});
 		JPanel listPanel = new JPanel( );
 		listPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "BooksList.ListTitle" ) ) );
 		listPanel.setLayout( new BorderLayout( ) );

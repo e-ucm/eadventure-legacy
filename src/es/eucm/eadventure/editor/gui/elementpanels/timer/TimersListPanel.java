@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -13,7 +15,9 @@ import javax.swing.JTextPane;
 import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.timer.TimersListDataControl;
+import es.eucm.eadventure.editor.gui.treepanel.TreeNodeControl;
 
 public class TimersListPanel extends JPanel {
 
@@ -22,6 +26,8 @@ public class TimersListPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private TimersListDataControl timersListDataControl;
+	
 	/**
 	 * Constructor.
 	 * 
@@ -29,6 +35,7 @@ public class TimersListPanel extends JPanel {
 	 *            timers list controller
 	 */
 	public TimersListPanel( TimersListDataControl timersListDataControl ) {
+		this.timersListDataControl = timersListDataControl;
 		// Set the layout and the border
 		setLayout( new GridBagLayout( ) );
 		setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "TimersList.Title" ) ) );
@@ -55,6 +62,16 @@ public class TimersListPanel extends JPanel {
 		c.weighty = 1;
 		JTable informationTable = new JTable( new TimersInfoTableModel( timersListDataControl.getTimersInfo( ) ) );
 		informationTable.removeEditor( );
+		informationTable.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() == 2) {
+					JTable table = (JTable) e.getSource();
+					DataControl dataControl = TimersListPanel.this.timersListDataControl.getTimers().get(table.getSelectedRow());
+					TreeNodeControl.getInstance().changeTreeNode(dataControl);
+				}
+			}
+		});
 		JPanel listPanel = new JPanel( );
 		listPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "TimersList.ListTitle" ) ) );
 		listPanel.setLayout( new BorderLayout( ) );

@@ -86,6 +86,7 @@ public class ConversationReferencePanel extends JPanel {
 		Icon goToIcon = new ImageIcon( "img/icons/moveNodeRight.png" );
 		JButton goToButton = new JButton (goToIcon);
 		goToButton.setPreferredSize(new Dimension(20,20));
+		goToButton.setToolTipText(TextConstants.getText("ConversationReference.GoToReferencedConversation"));
 		goToButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ConversationsListDataControl cldc = Controller.getInstance().getSelectedChapterDataControl().getConversationsList();

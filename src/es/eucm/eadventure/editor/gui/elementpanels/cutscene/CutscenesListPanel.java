@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -13,7 +15,10 @@ import javax.swing.JTextPane;
 import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.cutscene.CutscenesListDataControl;
+import es.eucm.eadventure.editor.gui.elementpanels.scene.ScenesListPanel;
+import es.eucm.eadventure.editor.gui.treepanel.TreeNodeControl;
 
 public class CutscenesListPanel extends JPanel {
 
@@ -22,6 +27,8 @@ public class CutscenesListPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private CutscenesListDataControl cutscenesListDataControl;
+	
 	/**
 	 * Constructor.
 	 * 
@@ -29,6 +36,7 @@ public class CutscenesListPanel extends JPanel {
 	 *            Cutscenes list controller
 	 */
 	public CutscenesListPanel( CutscenesListDataControl cutscenesListDataControl ) {
+		this.cutscenesListDataControl = cutscenesListDataControl;
 		// Set the layout and the border
 		setLayout( new GridBagLayout( ) );
 		setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "CutscenesList.Title" ) ) );
@@ -55,6 +63,16 @@ public class CutscenesListPanel extends JPanel {
 		c.weighty = 1;
 		JTable informationTable = new JTable( new CutscenesInfoTableModel( cutscenesListDataControl.getCutscenesInfo( ) ) );
 		informationTable.removeEditor( );
+		informationTable.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() == 2) {
+					JTable table = (JTable) e.getSource();
+					DataControl dataControl = CutscenesListPanel.this.cutscenesListDataControl.getCutscenes().get(table.getSelectedRow());
+					TreeNodeControl.getInstance().changeTreeNode(dataControl);
+				}
+			}
+		});
 		JPanel listPanel = new JPanel( );
 		listPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "CutscenesList.ListTitle" ) ) );
 		listPanel.setLayout( new BorderLayout( ) );

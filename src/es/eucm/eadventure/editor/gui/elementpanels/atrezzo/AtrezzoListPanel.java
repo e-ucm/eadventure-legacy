@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -13,8 +15,9 @@ import javax.swing.JTextPane;
 import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.atrezzo.AtrezzoListDataControl;
-import es.eucm.eadventure.editor.control.controllers.item.ItemsListDataControl;
+import es.eucm.eadventure.editor.gui.treepanel.TreeNodeControl;
 
 
 public class AtrezzoListPanel extends JPanel{
@@ -24,6 +27,8 @@ public class AtrezzoListPanel extends JPanel{
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private AtrezzoListDataControl atrezzoListDataControl;
+	
 	/**
 	 * Constructor.
 	 * 
@@ -31,6 +36,7 @@ public class AtrezzoListPanel extends JPanel{
 	 *            Items list controller
 	 */
 	public AtrezzoListPanel( AtrezzoListDataControl atrezzoListDataControl ) {
+		this.atrezzoListDataControl = atrezzoListDataControl;
 		// Set the layout and the border
 		setLayout( new GridBagLayout( ) );
 		setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AtrezzoList.Title" ) ) );
@@ -57,6 +63,16 @@ public class AtrezzoListPanel extends JPanel{
 		c.weighty = 1;
 		JTable informationTable = new JTable( new AtrezzoInfoTableModel( atrezzoListDataControl.getItemsInfo( ) ) );
 		informationTable.removeEditor( );
+		informationTable.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() == 2) {
+					JTable table = (JTable) e.getSource();
+					DataControl dataControl = AtrezzoListPanel.this.atrezzoListDataControl.getAtrezzoList().get(table.getSelectedRow());
+					TreeNodeControl.getInstance().changeTreeNode(dataControl);
+				}
+			}
+		});
 		JPanel listPanel = new JPanel( );
 		listPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AtrezzoList.ListTitle" ) ) );
 		listPanel.setLayout( new BorderLayout( ) );

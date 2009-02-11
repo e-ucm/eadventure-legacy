@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -13,7 +15,9 @@ import javax.swing.JTextPane;
 import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.globalstate.GlobalStateListDataControl;
+import es.eucm.eadventure.editor.gui.treepanel.TreeNodeControl;
 
 public class GlobalStatesListPanel extends JPanel {
 
@@ -21,6 +25,8 @@ public class GlobalStatesListPanel extends JPanel {
 	 * Required.
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private GlobalStateListDataControl globalStateListDataControl;
 
 	/**
 	 * Constructor.
@@ -29,6 +35,7 @@ public class GlobalStatesListPanel extends JPanel {
 	 *            Scenes list controller
 	 */
 	public GlobalStatesListPanel( GlobalStateListDataControl gloabalStatesListDataControl ) {
+		this.globalStateListDataControl = gloabalStatesListDataControl;
 		// Set the layout and the border
 		setLayout( new GridBagLayout( ) );
 		setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "GlobalStatesList.Title" ) ) );
@@ -55,6 +62,16 @@ public class GlobalStatesListPanel extends JPanel {
 		c.weighty = 1;
 		JTable informationTable = new JTable( new GlobalStatesInfoTableModel( gloabalStatesListDataControl.getGlobalStatesInfo() ) );
 		informationTable.removeEditor( );
+		informationTable.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() == 2) {
+					JTable table = (JTable) e.getSource();
+					DataControl dataControl = GlobalStatesListPanel.this.globalStateListDataControl.getGlobalStates().get(table.getSelectedRow());
+					TreeNodeControl.getInstance().changeTreeNode(dataControl);
+				}
+			}
+		});
 		JPanel listPanel = new JPanel( );
 		listPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "GlobalStatesList.ListTitle" ) ) );
 		listPanel.setLayout( new BorderLayout( ) );
