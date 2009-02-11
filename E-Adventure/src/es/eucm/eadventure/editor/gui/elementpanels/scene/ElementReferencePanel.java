@@ -129,33 +129,7 @@ public class ElementReferencePanel extends JPanel {
 		goToButton.setPreferredSize(new Dimension(20,20));
 		goToButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				switch (ElementReferencePanel.this.elementReferenceDataControl.getType()) {
-				case Controller.ATREZZO_REFERENCE:
-					AtrezzoListDataControl aldc = Controller.getInstance().getSelectedChapterDataControl().getAtrezzoList();
-					for (AtrezzoDataControl adc : aldc.getAtrezzoList()) {
-						if (adc.getId().equals(ElementReferencePanel.this.elementReferenceDataControl.getElementId())) {
-							TreeNodeControl.getInstance().changeTreeNode(adc);
-						}
-					}
-					break;
-				case Controller.NPC_REFERENCE:
-					NPCsListDataControl nldc = Controller.getInstance().getSelectedChapterDataControl().getNPCsList();
-					for (NPCDataControl ndc : nldc.getNPCs()) {
-						if (ndc.getId().equals(ElementReferencePanel.this.elementReferenceDataControl.getElementId())) {
-							TreeNodeControl.getInstance().changeTreeNode(ndc);
-						}
-					}
-					break;
-				case Controller.ITEM_REFERENCE:
-					ItemsListDataControl ildc = Controller.getInstance().getSelectedChapterDataControl().getItemsList();
-					for (ItemDataControl idc : ildc.getItems()) {
-						if (idc.getId().equals(ElementReferencePanel.this.elementReferenceDataControl.getElementId())) {
-							TreeNodeControl.getInstance().changeTreeNode(idc);
-						}
-					}
-					break;
-				default:	
-				}
+				TreeNodeControl.getInstance().changeTreeNode(ElementReferencePanel.this.elementReferenceDataControl.getReferencedElementDataControl());
 			}
 		});
 		c2.gridx = 1;

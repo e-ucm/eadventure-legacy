@@ -6,7 +6,15 @@ import es.eucm.eadventure.common.data.chapter.ElementReference;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.atrezzo.AtrezzoDataControl;
+import es.eucm.eadventure.editor.control.controllers.atrezzo.AtrezzoListDataControl;
+import es.eucm.eadventure.editor.control.controllers.character.NPCDataControl;
+import es.eucm.eadventure.editor.control.controllers.character.NPCsListDataControl;
+import es.eucm.eadventure.editor.control.controllers.item.ItemDataControl;
+import es.eucm.eadventure.editor.control.controllers.item.ItemsListDataControl;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
+import es.eucm.eadventure.editor.gui.elementpanels.scene.ElementReferencePanel;
+import es.eucm.eadventure.editor.gui.treepanel.TreeNodeControl;
 
 public class ElementReferenceDataControl extends DataControl {
 
@@ -343,4 +351,36 @@ public class ElementReferenceDataControl extends DataControl {
 		return influenceAreaDataControl;
 	}
 
+	public DataControl getReferencedElementDataControl() {
+		switch (type) {
+		case Controller.ATREZZO_REFERENCE:
+			AtrezzoListDataControl aldc = Controller.getInstance().getSelectedChapterDataControl().getAtrezzoList();
+			for (AtrezzoDataControl adc : aldc.getAtrezzoList()) {
+				if (adc.getId().equals(this.getElementId())) {
+					return adc;
+				}
+			}
+			break;
+		case Controller.NPC_REFERENCE:
+			NPCsListDataControl nldc = Controller.getInstance().getSelectedChapterDataControl().getNPCsList();
+			for (NPCDataControl ndc : nldc.getNPCs()) {
+				if (ndc.getId().equals(this.getElementId())) {
+					return ndc;
+				}
+			}
+			break;
+		case Controller.ITEM_REFERENCE:
+			ItemsListDataControl ildc = Controller.getInstance().getSelectedChapterDataControl().getItemsList();
+			for (ItemDataControl idc : ildc.getItems()) {
+				if (idc.getId().equals(this.getElementId())) {
+					return idc;
+				}
+			}
+			break;
+		default:	
+		}
+		return null;
+		
+	}
+	
 }

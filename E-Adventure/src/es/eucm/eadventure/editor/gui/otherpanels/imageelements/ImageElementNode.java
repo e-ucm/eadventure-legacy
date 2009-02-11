@@ -7,6 +7,7 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
+import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.NodeDataControl;
 
@@ -65,7 +66,7 @@ public class ImageElementNode extends ImageElement {
 	}
 
 	@Override
-	public ElementReferenceDataControl getElementReferenceDataControl() {
+	public DataControl getDataControl() {
 		return null;
 	}
 
@@ -136,6 +137,11 @@ public class ImageElementNode extends ImageElement {
 	@Override
 	public boolean transparentPoint(int x, int y) {
 		return false;
+	}
+
+	@Override
+	public DataControl getReferencedDataControl() {
+		return null;
 	}
 
 }

@@ -2,6 +2,7 @@ package es.eucm.eadventure.editor.gui.otherpanels.imageelements;
 
 import java.awt.Image;
 
+import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
 
 /**
@@ -25,12 +26,16 @@ public abstract class ImageElement implements Comparable<Object> {
 	public abstract float getScale();
 
 	/**
-	 * Returns the ElementReferenceDataControl asociated with the ImageElement
+	 * Returns the DataControl asociated with the ImageElement
 	 * in case it exits
 	 * 
-	 * @return the ElementReferenceDataControl
+	 * @return the DataControl
 	 */
-	public abstract ElementReferenceDataControl getElementReferenceDataControl();
+	public abstract DataControl getDataControl();
+	
+	
+	public abstract DataControl getReferencedDataControl();
+	
 	
 	/**
 	 * Get the image of the element

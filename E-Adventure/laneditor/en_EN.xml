@@ -1726,6 +1726,8 @@ avoids retyping.</entry>
 	<entry key="SPEP.Scale">Scale</entry>
 	<entry key="SPEP.Width">Width</entry>
 	<entry key="SPEP.Height">Height</entry>
+	<entry key="SPEP.GoToReferencedElement">Go to element</entry>
+	<entry key="SPEP.GoToElementReference">Go to element reference</entry>
 	
 	<entry key="ErrorReport.Send">Send</entry>
 	<entry key="ErrorReport.Cancel">Cancel</entry>
