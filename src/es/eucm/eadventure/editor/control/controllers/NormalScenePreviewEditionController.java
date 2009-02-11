@@ -1,7 +1,13 @@
 package es.eucm.eadventure.editor.control.controllers;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
+
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElement;
 import es.eucm.eadventure.editor.gui.treepanel.TreeNodeControl;
@@ -33,12 +39,35 @@ public class NormalScenePreviewEditionController implements ScenePreviewEditionC
 	public void mouseClicked(MouseEvent e) {
 		setMouseUnder(e.getX(), e.getY());
 		if (underMouse != null && !spep.getFixedSelectedElement()) {
-			if (e.getClickCount() == 1) {
-				spep.setSelectedElement(underMouse);
-				spep.paintBackBuffer();
-				spep.flip();
-			} else {
-				TreeNodeControl.getInstance().changeTreeNode(underMouse.getElementReferenceDataControl());
+			if (e.getButton() == MouseEvent.BUTTON1) {
+				if (e.getClickCount() == 1) {
+					spep.setSelectedElement(underMouse);
+					spep.paintBackBuffer();
+					spep.flip();
+				} else {
+					TreeNodeControl.getInstance().changeTreeNode(underMouse.getDataControl());
+				}
+			} else if (e.getButton() == MouseEvent.BUTTON3) {
+				if (underMouse.getDataControl() != null && underMouse.getReferencedDataControl() != null) {
+					JPopupMenu menu = new JPopupMenu();
+					JMenuItem item = new JMenuItem(TextConstants.getText("SPEP.GoToElementReference"));
+					item.addActionListener(new ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent arg0) {
+							TreeNodeControl.getInstance().changeTreeNode(underMouse.getDataControl());
+						}
+					});
+					menu.add(item);
+					JMenuItem item2 = new JMenuItem(TextConstants.getText("SPEP.GoToReferencedElement"));
+					item2.addActionListener(new ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							TreeNodeControl.getInstance().changeTreeNode(underMouse.getReferencedDataControl());
+						}
+					});
+					menu.add(item2);
+					menu.show(spep, e.getX(), e.getY());
+				}
 			}
 		} else if (underMouse == null && !spep.getFixedSelectedElement()) {
 			spep.setSelectedElement((ImageElement) null);

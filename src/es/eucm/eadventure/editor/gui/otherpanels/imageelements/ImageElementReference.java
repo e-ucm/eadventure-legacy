@@ -6,6 +6,7 @@ import javax.swing.ImageIcon;
 
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
+import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
 
 public class ImageElementReference extends ImageElement {
@@ -33,7 +34,7 @@ public class ImageElementReference extends ImageElement {
 		return elementReferenceDataControl.getElementScale();
 	}
 
-	public ElementReferenceDataControl getElementReferenceDataControl() {
+	public DataControl getDataControl() {
 		return elementReferenceDataControl;
 	}
 
@@ -106,5 +107,10 @@ public class ImageElementReference extends ImageElement {
             int alpha = ((BufferedImage) this.image).getRGB( (int) (x / this.getScale()), (int) (y / this.getScale())) >>> 24;
             return !(alpha > 128);
 		}
+	}
+
+	@Override
+	public DataControl getReferencedDataControl() {
+		return elementReferenceDataControl.getReferencedElementDataControl();
 	}
 }

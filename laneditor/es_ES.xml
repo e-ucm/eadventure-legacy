@@ -1725,6 +1725,8 @@ ya que de esta manera se evita reescribirlos varias veces.</entry>
 	<entry key="SPEP.Scale">Escala</entry>
 	<entry key="SPEP.Width">Ancho</entry>
 	<entry key="SPEP.Height">Alto</entry>
+	<entry key="SPEP.GoToReferencedElement">Ir al elemento</entry>
+	<entry key="SPEP.GoToElementReference">Ir a la referencia al elemento</entry>
 	
 	<entry key="ErrorReport.Send">Enviar</entry>
 	<entry key="ErrorReport.Cancel">Cancelar</entry>

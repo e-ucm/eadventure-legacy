@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ActiveAreaDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
 
@@ -36,8 +37,8 @@ public class ImageElementActiveArea extends ImageElement {
 	}
 
 	@Override
-	public ElementReferenceDataControl getElementReferenceDataControl() {
-		return null;
+	public DataControl getDataControl() {
+		return activeAreaDataControl;
 	}
 
 	@Override
@@ -104,6 +105,11 @@ public class ImageElementActiveArea extends ImageElement {
 	@Override
 	public boolean transparentPoint(int x, int y) {
 		return false;
+	}
+
+	@Override
+	public DataControl getReferencedDataControl() {
+		return null;
 	}
 
 }

@@ -3,6 +3,7 @@ package es.eucm.eadventure.editor.gui.otherpanels.imageelements;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 
+import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
 
@@ -19,7 +20,7 @@ public class ImageElementPlayer extends ImageElement {
 	}
 
 	@Override
-	public ElementReferenceDataControl getElementReferenceDataControl() {
+	public DataControl getDataControl() {
 		return null;
 	}
 
@@ -106,6 +107,11 @@ public class ImageElementPlayer extends ImageElement {
             int alpha = ((BufferedImage) this.image).getRGB( (int) (x / this.getScale()), (int) (y / this.getScale())) >>> 24;
             return !(alpha > 128);
 		}
+	}
+
+	@Override
+	public DataControl getReferencedDataControl() {
+		return null;
 	}
 
 }

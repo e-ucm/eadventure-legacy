@@ -444,8 +444,8 @@ public class ScenePreviewEditionPanel extends JPanel {
 		ImageElement temp = null;
 		for (Integer key2 : elements.keySet()) {
 			for (ImageElement imageElement : elements.get(key2)) {	
-				if (imageElement.getElementReferenceDataControl() != null &&
-						imageElement.getElementReferenceDataControl() == influenceArea.getElementReferenceDataControl()) {
+				if (imageElement.getDataControl() != null &&
+						imageElement.getDataControl() == influenceArea.getElementReferenceDataControl()) {
 					temp = imageElement;
 				}
 			}
@@ -491,7 +491,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 		int index;
 		if (list!= null){
 			for ( index=0; index < list.size();index++)	
-					if (list.get(index).getElementReferenceDataControl().equals(element))
+					if (list.get(index).getDataControl().equals(element))
 						break;
 			if (index>=0){
 			list.remove(index);
@@ -815,14 +815,14 @@ public class ScenePreviewEditionPanel extends JPanel {
 	public void recreateElement(ElementReferenceDataControl element) {
 		for (Integer key : elements.keySet()) {
 			for (ImageElement imageElement : elements.get(key)) {	
-				if (imageElement.getElementReferenceDataControl() != null &&
-						imageElement.getElementReferenceDataControl() == element) {
+				if (imageElement.getDataControl() != null &&
+						imageElement.getDataControl() == element) {
 					imageElement.recreateImage();
 				}
 			}
 		}
-		if (selectedElement != null && selectedElement.getElementReferenceDataControl() != null &&
-				selectedElement.getElementReferenceDataControl() == element) {
+		if (selectedElement != null && selectedElement.getDataControl() != null &&
+				selectedElement.getDataControl() == element) {
 			selectedElement.recreateImage();
 		}
 	}
@@ -1223,11 +1223,11 @@ public class ScenePreviewEditionPanel extends JPanel {
 		
 		if (selectedElement.canRescale()) {
 			textInputPanel.add(new JLabel("   " + TextConstants.getText("SPEP.Scale")));
-			spinnerModel = new SpinnerNumberModel(selectedElement.getScale(), 0.02, 15.00, 0.02);
+			spinnerModel = new SpinnerNumberModel(new Float(selectedElement.getScale()), new Float(0.02), new Float(15.00f), new Float(0.02f));
 			scaleSpinner = new JSpinner(spinnerModel);
 			scaleSpinner.addChangeListener(new ChangeListener() {
 				public void stateChanged(ChangeEvent arg0) {
-					selectedElement.setScale(((Double) scaleSpinner.getValue()).floatValue());
+					selectedElement.setScale(((Float) scaleSpinner.getValue()).floatValue());
 					ScenePreviewEditionPanel.this.paintBackBuffer();
 					ScenePreviewEditionPanel.this.flip();
 				}
