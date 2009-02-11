@@ -62,4 +62,9 @@ public class EmptyTreeNode extends TreeNode{
 	public static void loadIcon( ) {
 		icon = new ImageIcon( "img/icons/gameData.png" );
 	}
+
+	@Override
+	public TreeNode isObjectTreeNode(Object object) {
+		return null;
+	}
 }

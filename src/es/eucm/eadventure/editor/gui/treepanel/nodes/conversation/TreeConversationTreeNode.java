@@ -82,4 +82,11 @@ public class TreeConversationTreeNode extends TreeNode {
 	public String toString( ) {
 		return super.toString( ) + ": " + dataControl.getId( );
 	}
+	
+	@Override
+	public TreeNode isObjectTreeNode(Object object) {
+		if (dataControl == object)
+			return this;
+		return null;
+	}
 }

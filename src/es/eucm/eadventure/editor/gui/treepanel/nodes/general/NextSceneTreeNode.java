@@ -82,4 +82,11 @@ public class NextSceneTreeNode extends TreeNode {
 	public String toString( ) {
 		return super.toString( ) + ": " + dataControl.getNextSceneId( );
 	}
+	
+	@Override
+	public TreeNode isObjectTreeNode(Object object) {
+		if (dataControl == object)
+			return this;
+		return null;
+	}
 }

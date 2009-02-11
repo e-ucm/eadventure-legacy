@@ -116,4 +116,11 @@ public class BookParagraphsListTreeNode extends TreeNode {
 	public JComponent getEditPanel( ) {
 		return new BookParagraphsListPanel( dataControl );
 	}
+	
+	@Override
+	public TreeNode isObjectTreeNode(Object object) {
+		if (dataControl == object)
+			return this;
+		return null;
+	}
 }

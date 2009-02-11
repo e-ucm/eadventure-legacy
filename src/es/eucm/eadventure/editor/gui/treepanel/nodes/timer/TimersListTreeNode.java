@@ -122,4 +122,11 @@ public class TimersListTreeNode extends TreeNode{
 	public String toString( ) {
 		return TextConstants.getElementName(Controller.TIMERS_LIST);
 	}
+	
+	@Override
+	public TreeNode isObjectTreeNode(Object object) {
+		if (dataControl == object)
+			return this;
+		return null;
+	}
 }

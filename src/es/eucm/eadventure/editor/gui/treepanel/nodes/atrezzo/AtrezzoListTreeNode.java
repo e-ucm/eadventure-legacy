@@ -98,4 +98,10 @@ public class AtrezzoListTreeNode extends TreeNode {
 		return new AtrezzoListPanel( dataControl );
 	}
 
+	@Override
+	public TreeNode isObjectTreeNode(Object object) {
+		if (dataControl == object)
+			return this;
+		return null;
+	}
 }

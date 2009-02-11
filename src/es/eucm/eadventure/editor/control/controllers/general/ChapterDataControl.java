@@ -602,6 +602,8 @@ public class ChapterDataControl extends DataControl {
 		macrosListDataControl.replaceIdentifierReferences( oldId, newId );
 	}
 
+	
+	
 	@Override
 	public void deleteIdentifierReferences( String id ) {
 		// If the initial scene has been deleted, change the value to the first one in the scenes list

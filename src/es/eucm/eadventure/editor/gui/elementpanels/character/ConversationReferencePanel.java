@@ -19,8 +19,11 @@ import javax.swing.event.DocumentListener;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.character.ConversationReferenceDataControl;
+import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
+import es.eucm.eadventure.editor.control.controllers.conversation.ConversationsListDataControl;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.editdialogs.ConditionsDialog;
+import es.eucm.eadventure.editor.gui.treepanel.TreeNodeControl;
 
 public class ConversationReferencePanel extends JPanel {
 
@@ -65,11 +68,25 @@ public class ConversationReferencePanel extends JPanel {
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 1;
 		JPanel namePanel = new JPanel( );
-		namePanel.setLayout( new GridLayout( ) );
+		namePanel.setLayout( new GridLayout(0,1) );
 		conversationsComboBox = new JComboBox( Controller.getInstance( ).getIdentifierSummary( ).getConversationsIds( ) );
 		conversationsComboBox.setSelectedItem( conversationReferenceDataControl.getIdTarget( ) );
 		conversationsComboBox.addActionListener( new ConversationComboBoxListener( ) );
 		namePanel.add( conversationsComboBox );
+		
+		JButton goToConversationButton = new JButton ("Go To Conversation");
+		goToConversationButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ConversationsListDataControl cldc = Controller.getInstance().getSelectedChapterDataControl().getConversationsList();
+				for (ConversationDataControl cdc : cldc.getConversations()) {
+					if (cdc.getId().equals(ConversationReferencePanel.this.conversationReferenceDataControl.getIdTarget())) {
+						TreeNodeControl.getInstance().changeTreeNode(cdc);
+					}
+				}
+			}
+		});
+		namePanel.add( goToConversationButton);
+		
 		namePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ConversationReference.ConversationId" ) ) );
 		add( namePanel, c );
 

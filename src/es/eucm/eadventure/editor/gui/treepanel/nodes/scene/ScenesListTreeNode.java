@@ -100,4 +100,11 @@ public class ScenesListTreeNode extends TreeNode {
 	public JComponent getEditPanel( ) {
 		return new ScenesListPanel( dataControl );
 	}
+	
+	@Override
+	public TreeNode isObjectTreeNode(Object object) {
+		if (dataControl == object)
+			return this;
+		return null;
+	}
 }

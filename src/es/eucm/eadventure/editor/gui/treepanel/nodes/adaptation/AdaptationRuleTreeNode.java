@@ -91,5 +91,10 @@ public class AdaptationRuleTreeNode extends TreeNode{
 		return TextConstants.getElementName(Controller.ADAPTATION_RULE)+":"+dataControl.getId();
 	}
 
-	
+	@Override
+	public TreeNode isObjectTreeNode(Object object) {
+		if (dataControl == object)
+			return this;
+		return null;
+	}	
 }

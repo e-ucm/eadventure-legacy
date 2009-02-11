@@ -83,5 +83,12 @@ public class AtrezzoReferenceTreeNode extends TreeNode {
 	public String toString( ) {
 		return TextConstants.getText( "Element.Ref", dataControl.getElementId( ) );
 	}
+	
+	@Override
+	public TreeNode isObjectTreeNode(Object object) {
+		if (dataControl == object)
+			return this;
+		return null;
+	}
 }
 

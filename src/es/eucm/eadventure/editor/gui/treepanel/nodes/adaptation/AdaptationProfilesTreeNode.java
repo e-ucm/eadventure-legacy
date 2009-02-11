@@ -107,4 +107,11 @@ public class AdaptationProfilesTreeNode extends TreeNode {
 	public String toString( ) {
 		return TextConstants.getElementName(Controller.ADAPTATION_PROFILES);
 	}
+
+	@Override
+	public TreeNode isObjectTreeNode(Object object) {
+		if (dataControl == object)
+			return this;
+		return null;
+	}
 }

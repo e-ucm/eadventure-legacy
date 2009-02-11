@@ -77,4 +77,11 @@ public class GrabActionTreeNode extends TreeNode {
 	public JComponent getEditPanel( ) {
 		return new ActionPanel( dataControl );
 	}
+	
+	@Override
+	public TreeNode isObjectTreeNode(Object object) {
+		if (dataControl == object)
+			return this;
+		return null;
+	}
 }

@@ -109,4 +109,11 @@ public class ChapterTreeNode extends TreeNode {
 	public String toString( ) {
 		return dataControl.getTitle( );
 	}
+	
+	@Override
+	public TreeNode isObjectTreeNode(Object object) {
+		if (dataControl == object)
+			return this;
+		return null;
+	}
 }

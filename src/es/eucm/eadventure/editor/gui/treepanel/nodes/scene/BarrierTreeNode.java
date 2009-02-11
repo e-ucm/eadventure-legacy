@@ -93,4 +93,11 @@ public class BarrierTreeNode extends TreeNode {
 		}
 		return name;
 	}
+	
+	@Override
+	public TreeNode isObjectTreeNode(Object object) {
+		if (dataControl == object)
+			return this;
+		return null;
+	}
 }

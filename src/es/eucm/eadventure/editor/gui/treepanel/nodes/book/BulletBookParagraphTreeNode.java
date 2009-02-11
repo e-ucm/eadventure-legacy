@@ -79,4 +79,11 @@ public class BulletBookParagraphTreeNode extends TreeNode {
 		//return new TextBookParagraphPanel( dataControl );
 		return new JPanel();
 	}
+	
+	@Override
+	public TreeNode isObjectTreeNode(Object object) {
+		if (dataControl == object)
+			return this;
+		return null;
+	}
 }

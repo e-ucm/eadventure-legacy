@@ -132,4 +132,11 @@ public class AssessmentProfileTreeNode extends TreeNode{
 	public String toString( ) {
 		return TextConstants.getElementName(Controller.ASSESSMENT_PROFILE)+"("+dataControl.getFileName( )+")";
 	}
+	
+	@Override
+	public TreeNode isObjectTreeNode(Object object) {
+		if (dataControl == object)
+			return this;
+		return null;
+	}
 }

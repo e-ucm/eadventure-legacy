@@ -93,5 +93,10 @@ public class AssessmentRuleTreeNode extends TreeNode{
 		return TextConstants.getElementName(Controller.ASSESSMENT_RULE)+":"+dataControl.getId();
 	}
 
-	
+	@Override
+	public TreeNode isObjectTreeNode(Object object) {
+		if (dataControl == object)
+			return this;
+		return null;
+	}	
 }

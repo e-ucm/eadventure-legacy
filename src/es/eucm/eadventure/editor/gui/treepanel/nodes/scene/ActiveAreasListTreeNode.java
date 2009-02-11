@@ -103,4 +103,11 @@ public class ActiveAreasListTreeNode extends TreeNode {
 	public JComponent getEditPanel( ) {
 		return new ActiveAreasListPanel( dataControl );
 	}
+	
+	@Override
+	public TreeNode isObjectTreeNode(Object object) {
+		if (dataControl == object)
+			return this;
+		return null;
+	}
 }

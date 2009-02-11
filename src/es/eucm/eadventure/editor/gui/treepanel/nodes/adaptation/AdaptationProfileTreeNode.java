@@ -118,4 +118,11 @@ public class AdaptationProfileTreeNode extends TreeNode{
 	public String toString( ) {
 		return TextConstants.getElementName(Controller.ADAPTATION_PROFILE)+"("+dataControl.getFileName( )+")";
 	}
+	
+	@Override
+	public TreeNode isObjectTreeNode(Object object) {
+		if (dataControl == object)
+			return this;
+		return null;
+	}
 }
