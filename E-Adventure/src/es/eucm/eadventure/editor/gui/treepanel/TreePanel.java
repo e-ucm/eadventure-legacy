@@ -326,6 +326,7 @@ public class TreePanel extends JPanel {
 		TreePath newPath = dataTree.getSelectionPath( ).pathByAddingChild( child );
 		dataTree.setSelectionPath( newPath );
 		dataTree.scrollPathToVisible( newPath );
+		TreeNodeControl.getInstance().visitPath(newPath);
 	}
 
 	public void changePath (TreePath path) {
@@ -406,6 +407,7 @@ public class TreePanel extends JPanel {
 		 */
 		public void valueChanged( TreeSelectionEvent e ) {
 			rowSelected = dataTree.getRowForPath( e.getPath( ) );
+			TreeNodeControl.getInstance().visitPath(e.getPath());
 			TreeNode node = (TreeNode) e.getPath( ).getLastPathComponent( );
 
 			// Enable or disable the buttons

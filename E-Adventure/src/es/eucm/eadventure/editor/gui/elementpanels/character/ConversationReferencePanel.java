@@ -1,5 +1,6 @@
 package es.eucm.eadventure.editor.gui.elementpanels.character;
 
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -8,6 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
@@ -68,14 +71,22 @@ public class ConversationReferencePanel extends JPanel {
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 1;
 		JPanel namePanel = new JPanel( );
-		namePanel.setLayout( new GridLayout(0,1) );
+		namePanel.setLayout( new GridBagLayout() );
+		
+		GridBagConstraints c2 = new GridBagConstraints();
+		c2.fill = GridBagConstraints.HORIZONTAL;
+		c2.gridx = 0;
+		c2.gridy = 0;
+		c2.weightx = 1.0;
 		conversationsComboBox = new JComboBox( Controller.getInstance( ).getIdentifierSummary( ).getConversationsIds( ) );
 		conversationsComboBox.setSelectedItem( conversationReferenceDataControl.getIdTarget( ) );
 		conversationsComboBox.addActionListener( new ConversationComboBoxListener( ) );
-		namePanel.add( conversationsComboBox );
+		namePanel.add( conversationsComboBox , c2);
 		
-		JButton goToConversationButton = new JButton ("Go To Conversation");
-		goToConversationButton.addActionListener(new ActionListener() {
+		Icon goToIcon = new ImageIcon( "img/icons/moveNodeRight.png" );
+		JButton goToButton = new JButton (goToIcon);
+		goToButton.setPreferredSize(new Dimension(20,20));
+		goToButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ConversationsListDataControl cldc = Controller.getInstance().getSelectedChapterDataControl().getConversationsList();
 				for (ConversationDataControl cdc : cldc.getConversations()) {
@@ -85,7 +96,9 @@ public class ConversationReferencePanel extends JPanel {
 				}
 			}
 		});
-		namePanel.add( goToConversationButton);
+		c2.gridx = 1;
+		c2.weightx = 0.1;
+		namePanel.add( goToButton, c2);
 		
 		namePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ConversationReference.ConversationId" ) ) );
 		add( namePanel, c );

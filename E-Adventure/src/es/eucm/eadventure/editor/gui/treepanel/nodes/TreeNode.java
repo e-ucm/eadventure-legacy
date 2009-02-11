@@ -14,6 +14,7 @@ import javax.swing.tree.TreePath;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.gui.treepanel.TreeNodeControl;
 import es.eucm.eadventure.editor.gui.treepanel.TreePanel;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.adaptation.AdaptationProfileTreeNode;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.adaptation.AdaptationProfilesTreeNode;
@@ -400,6 +401,7 @@ public abstract class TreeNode {
 	public void delete( ) {
 		if( getDataControl( ).canBeDeleted( ) && parent.getDataControl( ).deleteElement( getDataControl( ) ) ) {
 			// Delete the node from the parents structure
+			TreeNodeControl.getInstance().dataControlRemoved(getDataControl());
 			parent.children.remove( this );
 
 			// Update the tree panel and select new row
@@ -607,10 +609,40 @@ public abstract class TreeNode {
 		TreePath temp = getTreeNodeForObject(null, object);
 		if (temp != null) {
 			ownerPanel.changePath(temp);
+			TreeNodeControl.getInstance().visitPath(temp);
 			ownerPanel.updateSelectedRow();
 			ownerPanel.reselectSelectedRow();
 			ownerPanel.updateUI();
 			return true;
+		}
+		return false;
+	}
+	
+	public TreePath getTreePathForObject(Object object) {
+		TreeNode tempParent = parent;
+		TreeNode tempNode = this;
+		while (parent != null && parent != tempNode) {
+			tempNode = tempParent;
+			tempParent = tempParent.parent;
+		}
+		TreePath temp = getTreeNodeForObject(null, object);
+		if (temp != null) {
+			return temp;
+		}
+		return null;
+	}
+	
+	public boolean changeTreeNodeForPath(TreePath path) {
+		try {
+			if (path != null) {
+				ownerPanel.changePath(path);
+				ownerPanel.updateSelectedRow();
+				ownerPanel.reselectSelectedRow();
+				ownerPanel.updateUI();
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return false;
 	}
