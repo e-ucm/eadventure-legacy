@@ -1,5 +1,6 @@
 package es.eucm.eadventure.editor.gui.elementpanels.general;
 
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -8,6 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -17,10 +20,13 @@ import javax.swing.JTabbedPane;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.general.NextSceneDataControl;
+import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
+import es.eucm.eadventure.editor.control.controllers.scene.ScenesListDataControl;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.editdialogs.ConditionsDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.EffectsDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.PlayerPositionDialog;
+import es.eucm.eadventure.editor.gui.treepanel.TreeNodeControl;
 
 public class NextScenePanel extends JTabbedPane {
 
@@ -72,11 +78,36 @@ public class NextScenePanel extends JTabbedPane {
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 1;
 		JPanel nextSceneIdPanel = new JPanel( );
-		nextSceneIdPanel.setLayout( new GridLayout( ) );
+		nextSceneIdPanel.setLayout( new GridBagLayout( ) );
+		GridBagConstraints c2 = new GridBagConstraints();
+		c2.fill = GridBagConstraints.HORIZONTAL;
+		c2.gridx = 0;
+		c2.gridy = 0;
+		c2.weightx = 1.0;		
+		
 		scenesComboBox = new JComboBox( Controller.getInstance( ).getIdentifierSummary( ).getGeneralSceneIds( ) );
 		scenesComboBox.setSelectedItem( nextSceneDataControl.getNextSceneId( ) );
 		scenesComboBox.addActionListener( new NextSceneComboBoxListener( ) );
-		nextSceneIdPanel.add( scenesComboBox );
+		nextSceneIdPanel.add( scenesComboBox , c2);
+
+		Icon goToIcon = new ImageIcon( "img/icons/moveNodeRight.png" );
+		JButton goToButton = new JButton (goToIcon);
+		goToButton.setPreferredSize(new Dimension(20,20));
+		goToButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ScenesListDataControl cldc = Controller.getInstance().getSelectedChapterDataControl().getScenesList();
+				for (SceneDataControl cdc : cldc.getScenes()) {
+					if (cdc.getId().equals(NextScenePanel.this.nextSceneDataControl.getNextSceneId())) {
+						TreeNodeControl.getInstance().changeTreeNode(cdc);
+					}
+				}
+			}
+		});
+		c2.gridx = 1;
+		c2.weightx = 0.1;
+		nextSceneIdPanel.add( goToButton, c2);		
+		
+		
 		nextSceneIdPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "NextScene.NextSceneId" ) ) );
 		mainPanel.add( nextSceneIdPanel, c );
 

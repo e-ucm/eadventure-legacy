@@ -8,28 +8,33 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import es.eucm.eadventure.common.data.chapter.Trajectory;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.controllers.atrezzo.AtrezzoDataControl;
+import es.eucm.eadventure.editor.control.controllers.atrezzo.AtrezzoListDataControl;
+import es.eucm.eadventure.editor.control.controllers.character.NPCDataControl;
+import es.eucm.eadventure.editor.control.controllers.character.NPCsListDataControl;
+import es.eucm.eadventure.editor.control.controllers.item.ItemDataControl;
+import es.eucm.eadventure.editor.control.controllers.item.ItemsListDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.NodeDataControl;
 import es.eucm.eadventure.editor.gui.editdialogs.ConditionsDialog;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
+import es.eucm.eadventure.editor.gui.treepanel.TreeNodeControl;
 
 public class ElementReferencePanel extends JPanel {
 
@@ -95,8 +100,16 @@ public class ElementReferencePanel extends JPanel {
 		// Create the combo box of elements
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 1;
+
+		
 		JPanel elementIdPanel = new JPanel( );
-		elementIdPanel.setLayout( new GridLayout( ) );
+		elementIdPanel.setLayout( new GridBagLayout( ) );
+		GridBagConstraints c2 = new GridBagConstraints();
+		c2.fill = GridBagConstraints.HORIZONTAL;
+		c2.gridx = 0;
+		c2.gridy = 0;
+		c2.weightx = 1.0;
+
 		if (elementReferenceDataControl.getType() == Controller.ITEM_REFERENCE){
 			elementsComboBox = new JComboBox( controller.getIdentifierSummary( ).getItemIds( ) );
 			elementIdPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ItemReference.ItemId" ) ) );
@@ -109,7 +122,47 @@ public class ElementReferencePanel extends JPanel {
 		}
 		elementsComboBox.setSelectedItem( elementReferenceDataControl.getElementId( ) );
 		elementsComboBox.addActionListener( new ElementsComboBoxListener( ) );
-		elementIdPanel.add( elementsComboBox );
+		elementIdPanel.add( elementsComboBox, c2 );
+		
+		Icon goToIcon = new ImageIcon( "img/icons/moveNodeRight.png" );
+		JButton goToButton = new JButton (goToIcon);
+		goToButton.setPreferredSize(new Dimension(20,20));
+		goToButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				switch (ElementReferencePanel.this.elementReferenceDataControl.getType()) {
+				case Controller.ATREZZO_REFERENCE:
+					AtrezzoListDataControl aldc = Controller.getInstance().getSelectedChapterDataControl().getAtrezzoList();
+					for (AtrezzoDataControl adc : aldc.getAtrezzoList()) {
+						if (adc.getId().equals(ElementReferencePanel.this.elementReferenceDataControl.getElementId())) {
+							TreeNodeControl.getInstance().changeTreeNode(adc);
+						}
+					}
+					break;
+				case Controller.NPC_REFERENCE:
+					NPCsListDataControl nldc = Controller.getInstance().getSelectedChapterDataControl().getNPCsList();
+					for (NPCDataControl ndc : nldc.getNPCs()) {
+						if (ndc.getId().equals(ElementReferencePanel.this.elementReferenceDataControl.getElementId())) {
+							TreeNodeControl.getInstance().changeTreeNode(ndc);
+						}
+					}
+					break;
+				case Controller.ITEM_REFERENCE:
+					ItemsListDataControl ildc = Controller.getInstance().getSelectedChapterDataControl().getItemsList();
+					for (ItemDataControl idc : ildc.getItems()) {
+						if (idc.getId().equals(ElementReferencePanel.this.elementReferenceDataControl.getElementId())) {
+							TreeNodeControl.getInstance().changeTreeNode(idc);
+						}
+					}
+					break;
+				default:	
+				}
+			}
+		});
+		c2.gridx = 1;
+		c2.weightx = 0.1;
+		elementIdPanel.add( goToButton, c2);
+
+		
 		
 		JPanel infoPanel = new JPanel();
 		infoPanel.setLayout(new GridBagLayout());

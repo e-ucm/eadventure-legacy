@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.Stack;
 
 import javax.swing.ButtonGroup;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -561,6 +563,25 @@ public class MainWindow extends JFrame {
 		languageMenu.add( itEnglish );
 		languageMenu.add( itSpanish );
 		configurationMenu.add( languageMenu );
+		
+		Icon back = new ImageIcon( "img/icons/moveNodeLeft.png" );
+		JMenuItem itBack = new JMenuItem(back);
+		itBack.addActionListener( new ActionListener() {
+			public void actionPerformed ( ActionEvent e ) {
+				TreeNodeControl.getInstance().goBack();
+			}
+		});
+		windowMenu.add(itBack);
+		
+		Icon forward = new ImageIcon( "img/icons/moveNodeRight.png" );
+		JMenuItem itForward = new JMenuItem(forward);
+		itForward.addActionListener( new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				TreeNodeControl.getInstance().goForward();
+			}
+		});
+		windowMenu.add(itForward);
+		
 		return windowMenu;
 	}
 	
