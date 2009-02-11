@@ -7,19 +7,18 @@ import java.awt.image.BufferedImage;
 
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.BarrierDataControl;
-import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
 
 public class ImageElementBarrier extends ImageElement {
 
 	private BarrierDataControl barrierDataControl;
-	
+
 	public ImageElementBarrier(BarrierDataControl barrierDataControl) {
 		this.barrierDataControl = barrierDataControl;
 		int x = barrierDataControl.getX();
 		int y = barrierDataControl.getY();
 		int width = barrierDataControl.getWidth();
 		int height = barrierDataControl.getHeight();
-		
+
 		if (width <= 0) {
 			width = 1;
 			barrierDataControl.setBarrier(x, y, width, height);
@@ -28,21 +27,23 @@ public class ImageElementBarrier extends ImageElement {
 			height = 1;
 			barrierDataControl.setBarrier(x, y, width, height);
 		}
-		
-		image = new BufferedImage(barrierDataControl.getWidth(), barrierDataControl.getHeight(), BufferedImage.TYPE_4BYTE_ABGR);
+
+		image = new BufferedImage(barrierDataControl.getWidth(),
+				barrierDataControl.getHeight(), BufferedImage.TYPE_4BYTE_ABGR);
 		fillImage();
 	}
-	
+
 	private void fillImage() {
 		Graphics2D g = (Graphics2D) image.getGraphics();
-		AlphaComposite alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f);
+		AlphaComposite alphaComposite = AlphaComposite.getInstance(
+				AlphaComposite.SRC_OVER, 0.3f);
 		g.setComposite(alphaComposite);
 		g.setColor(Color.YELLOW);
 		g.fillRect(0, 0, image.getWidth(null), image.getHeight(null));
 		g.setColor(Color.BLACK);
 		g.drawRect(0, 0, image.getWidth(null) - 1, image.getHeight(null) - 1);
 	}
-	
+
 	@Override
 	public void changePosition(int x, int y) {
 		int width = barrierDataControl.getWidth();
@@ -77,7 +78,8 @@ public class ImageElementBarrier extends ImageElement {
 
 	@Override
 	public void recreateImage() {
-		image = new BufferedImage(barrierDataControl.getWidth(), barrierDataControl.getHeight(), BufferedImage.TYPE_4BYTE_ABGR);
+		image = new BufferedImage(barrierDataControl.getWidth(),
+				barrierDataControl.getHeight(), BufferedImage.TYPE_4BYTE_ABGR);
 		fillImage();
 	}
 

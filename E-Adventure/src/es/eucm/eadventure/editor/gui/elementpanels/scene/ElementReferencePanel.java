@@ -24,12 +24,6 @@ import javax.swing.event.DocumentListener;
 import es.eucm.eadventure.common.data.chapter.Trajectory;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.control.controllers.atrezzo.AtrezzoDataControl;
-import es.eucm.eadventure.editor.control.controllers.atrezzo.AtrezzoListDataControl;
-import es.eucm.eadventure.editor.control.controllers.character.NPCDataControl;
-import es.eucm.eadventure.editor.control.controllers.character.NPCsListDataControl;
-import es.eucm.eadventure.editor.control.controllers.item.ItemDataControl;
-import es.eucm.eadventure.editor.control.controllers.item.ItemsListDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.NodeDataControl;
 import es.eucm.eadventure.editor.gui.editdialogs.ConditionsDialog;
@@ -127,6 +121,7 @@ public class ElementReferencePanel extends JPanel {
 		Icon goToIcon = new ImageIcon( "img/icons/moveNodeRight.png" );
 		JButton goToButton = new JButton (goToIcon);
 		goToButton.setPreferredSize(new Dimension(20,20));
+		goToButton.setToolTipText(TextConstants.getText("ElementReference.GoToReferencedElement"));
 		goToButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				TreeNodeControl.getInstance().changeTreeNode(ElementReferencePanel.this.elementReferenceDataControl.getReferencedElementDataControl());

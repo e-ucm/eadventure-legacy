@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -13,7 +15,9 @@ import javax.swing.JTextPane;
 import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.character.NPCsListDataControl;
+import es.eucm.eadventure.editor.gui.treepanel.TreeNodeControl;
 
 public class NPCsListPanel extends JPanel {
 
@@ -22,6 +26,8 @@ public class NPCsListPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private NPCsListDataControl npcsListDataControl;
+	
 	/**
 	 * Constructor.
 	 * 
@@ -29,6 +35,7 @@ public class NPCsListPanel extends JPanel {
 	 *            Characters list controller
 	 */
 	public NPCsListPanel( NPCsListDataControl npcsListDataControl ) {
+		this.npcsListDataControl = npcsListDataControl;
 		// Set the layout and the border
 		setLayout( new GridBagLayout( ) );
 		setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "NPCsList.Title" ) ) );
@@ -55,6 +62,17 @@ public class NPCsListPanel extends JPanel {
 		c.weighty = 1;
 		JTable informationTable = new JTable( new NPCsInfoTableModel( npcsListDataControl.getNPCsInfo( ) ) );
 		informationTable.removeEditor( );
+		informationTable.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() == 2) {
+					JTable table = (JTable) e.getSource();
+					DataControl dataControl = NPCsListPanel.this.npcsListDataControl.getNPCs().get(table.getSelectedRow());
+					TreeNodeControl.getInstance().changeTreeNode(dataControl);
+				}
+			}
+		});
+
 		JPanel listPanel = new JPanel( );
 		listPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "NPCsList.ListTitle" ) ) );
 		listPanel.setLayout( new BorderLayout( ) );

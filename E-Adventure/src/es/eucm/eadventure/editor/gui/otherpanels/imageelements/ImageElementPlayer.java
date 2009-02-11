@@ -4,18 +4,16 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
 
 public class ImageElementPlayer extends ImageElement {
 
 	private SceneDataControl sceneDataControl;
-	
-	public ImageElementPlayer(Image image, 
-			SceneDataControl sceneDataControl) {
+
+	public ImageElementPlayer(Image image, SceneDataControl sceneDataControl) {
 		this.image = image;
 		if (image == null)
-			image = new BufferedImage(10,10,BufferedImage.TYPE_4BYTE_ABGR);
+			image = new BufferedImage(10, 10, BufferedImage.TYPE_4BYTE_ABGR);
 		this.sceneDataControl = sceneDataControl;
 	}
 
@@ -31,7 +29,8 @@ public class ImageElementPlayer extends ImageElement {
 
 	@Override
 	public float getScale() {
-		if (sceneDataControl.getTrajectory() != null && sceneDataControl.getTrajectory().hasTrajectory())
+		if (sceneDataControl.getTrajectory() != null
+				&& sceneDataControl.getTrajectory().hasTrajectory())
 			return 1.0f;
 		else
 			return sceneDataControl.getPlayerScale();
@@ -53,7 +52,7 @@ public class ImageElementPlayer extends ImageElement {
 
 	@Override
 	public void recreateImage() {
-		// TODO Auto-generated method stub	
+		// TODO Auto-generated method stub
 	}
 
 	@Override
@@ -68,7 +67,8 @@ public class ImageElementPlayer extends ImageElement {
 
 	@Override
 	public boolean canRescale() {
-		if (sceneDataControl.getTrajectory() != null && sceneDataControl.getTrajectory().hasTrajectory())
+		if (sceneDataControl.getTrajectory() != null
+				&& sceneDataControl.getTrajectory().hasTrajectory())
 			return false;
 		else
 			return true;
@@ -104,8 +104,9 @@ public class ImageElementPlayer extends ImageElement {
 		if (image == null)
 			return false;
 		else {
-            int alpha = ((BufferedImage) this.image).getRGB( (int) (x / this.getScale()), (int) (y / this.getScale())) >>> 24;
-            return !(alpha > 128);
+			int alpha = ((BufferedImage) this.image).getRGB((int) (x / this
+					.getScale()), (int) (y / this.getScale())) >>> 24;
+			return !(alpha > 128);
 		}
 	}
 

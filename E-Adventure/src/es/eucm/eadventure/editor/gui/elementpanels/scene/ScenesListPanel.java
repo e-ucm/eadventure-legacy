@@ -1,9 +1,12 @@
+
 package es.eucm.eadventure.editor.gui.elementpanels.scene;
 
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -13,7 +16,9 @@ import javax.swing.JTextPane;
 import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ScenesListDataControl;
+import es.eucm.eadventure.editor.gui.treepanel.TreeNodeControl;
 
 public class ScenesListPanel extends JPanel {
 
@@ -21,6 +26,8 @@ public class ScenesListPanel extends JPanel {
 	 * Required.
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private ScenesListDataControl scenesListDataControl; 
 
 	/**
 	 * Constructor.
@@ -30,6 +37,7 @@ public class ScenesListPanel extends JPanel {
 	 */
 	public ScenesListPanel( ScenesListDataControl scenesListDataControl ) {
 		// Set the layout and the border
+		this.scenesListDataControl = scenesListDataControl;
 		setLayout( new GridBagLayout( ) );
 		setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ScenesList.Title" ) ) );
 		GridBagConstraints c = new GridBagConstraints( );
@@ -55,6 +63,16 @@ public class ScenesListPanel extends JPanel {
 		c.weighty = 1;
 		JTable informationTable = new JTable( new ScenesInfoTableModel( scenesListDataControl.getScenesInfo( ) ) );
 		informationTable.removeEditor( );
+		informationTable.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() == 2) {
+					JTable table = (JTable) e.getSource();
+					DataControl dataControl = ScenesListPanel.this.scenesListDataControl.getScenes().get(table.getSelectedRow());
+					TreeNodeControl.getInstance().changeTreeNode(dataControl);
+				}
+			}
+		});
 		JPanel listPanel = new JPanel( );
 		listPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ScenesList.ListTitle" ) ) );
 		listPanel.setLayout( new BorderLayout( ) );

@@ -7,33 +7,35 @@ import java.awt.image.BufferedImage;
 
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ActiveAreaDataControl;
-import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
 
 public class ImageElementActiveArea extends ImageElement {
 
 	private ActiveAreaDataControl activeAreaDataControl;
-	
+
 	public ImageElementActiveArea(ActiveAreaDataControl barrierDataControl) {
 		this.activeAreaDataControl = barrierDataControl;
-		image = new BufferedImage(barrierDataControl.getWidth(), barrierDataControl.getHeight(), BufferedImage.TYPE_4BYTE_ABGR);
+		image = new BufferedImage(barrierDataControl.getWidth(),
+				barrierDataControl.getHeight(), BufferedImage.TYPE_4BYTE_ABGR);
 		fillImage();
 	}
-	
+
 	private void fillImage() {
 		Graphics2D g = (Graphics2D) image.getGraphics();
-		AlphaComposite alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f);
+		AlphaComposite alphaComposite = AlphaComposite.getInstance(
+				AlphaComposite.SRC_OVER, 0.3f);
 		g.setComposite(alphaComposite);
 		g.setColor(Color.GREEN);
 		g.fillRect(0, 0, image.getWidth(null), image.getHeight(null));
 		g.setColor(Color.BLACK);
 		g.drawRect(0, 0, image.getWidth(null) - 1, image.getHeight(null) - 1);
 	}
-	
+
 	@Override
 	public void changePosition(int x, int y) {
 		int width = activeAreaDataControl.getWidth();
 		int height = activeAreaDataControl.getHeight();
-		activeAreaDataControl.setActiveArea(x - width / 2, y - height, width, height);
+		activeAreaDataControl.setActiveArea(x - width / 2, y - height, width,
+				height);
 	}
 
 	@Override
@@ -53,7 +55,8 @@ public class ImageElementActiveArea extends ImageElement {
 
 	@Override
 	public int getX() {
-		return activeAreaDataControl.getX() + activeAreaDataControl.getWidth() / 2;
+		return activeAreaDataControl.getX() + activeAreaDataControl.getWidth()
+				/ 2;
 	}
 
 	@Override
@@ -63,7 +66,9 @@ public class ImageElementActiveArea extends ImageElement {
 
 	@Override
 	public void recreateImage() {
-		image = new BufferedImage(activeAreaDataControl.getWidth(), activeAreaDataControl.getHeight(), BufferedImage.TYPE_4BYTE_ABGR);
+		image = new BufferedImage(activeAreaDataControl.getWidth(),
+				activeAreaDataControl.getHeight(),
+				BufferedImage.TYPE_4BYTE_ABGR);
 		fillImage();
 	}
 
@@ -89,7 +94,7 @@ public class ImageElementActiveArea extends ImageElement {
 			width = 1;
 		if (height < 1)
 			height = 1;
-		activeAreaDataControl.setActiveArea(x ,y , width, height);
+		activeAreaDataControl.setActiveArea(x, y, width, height);
 	}
 
 	@Override
