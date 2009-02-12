@@ -68,11 +68,6 @@ public class ActionsDOMWriter {
 						case Action.CUSTOM:
 							actionElement = doc.createElement( "custom" );
 							actionElement.setAttribute("name", ((CustomAction) action).getName());
-							if (((CustomAction) action).isNeedsGoTo())
-								actionElement.setAttribute("needsGoTo", "yes");
-							else
-								actionElement.setAttribute("needsGoTo", "no");
-							actionElement.setAttribute("keepDistance", "" + ((CustomAction) action).getKeepDistance());
 							for (Resources resources : ((CustomAction) action).getResources()) {
 								Node resourcesNode = ResourcesDOMWriter.buildDOM(resources, ResourcesDOMWriter.RESOURCES_CUSTOM_ACTION);
 								doc.adoptNode( resourcesNode );
@@ -83,11 +78,6 @@ public class ActionsDOMWriter {
 							actionElement = doc.createElement( "custom-interact" );
 							actionElement.setAttribute("idTarget", action.getIdTarget());
 							actionElement.setAttribute("name", ((CustomAction) action).getName());
-							if (((CustomAction) action).isNeedsGoTo())
-								actionElement.setAttribute("needsGoTo", "yes");
-							else
-								actionElement.setAttribute("needsGoTo", "no");
-							actionElement.setAttribute("keepDistance", "" + ((CustomAction) action).getKeepDistance());
 							for (Resources resources : ((CustomAction) action).getResources()){
 								Node resourcesNode = ResourcesDOMWriter.buildDOM(resources, ResourcesDOMWriter.RESOURCES_CUSTOM_ACTION);
 								doc.adoptNode( resourcesNode );
@@ -95,6 +85,8 @@ public class ActionsDOMWriter {
 							}
 							break;							
 					}
+					actionElement.setAttribute("needsGoTo", (action.isNeedsGoTo() ? "yes" : "no"));
+					actionElement.setAttribute("keepDistance", "" + action.getKeepDistance());
 
 					// Append the documentation (if avalaible)
 					if( action.getDocumentation( ) != null ) {

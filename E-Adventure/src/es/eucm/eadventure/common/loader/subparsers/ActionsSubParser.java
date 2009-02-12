@@ -140,6 +140,12 @@ public class ActionsSubParser extends SubParser {
 
 			// If it is an examine, use or grab tag, create new conditions and effects
 			if( qName.equals( "examine" ) || qName.equals( "grab" ) || qName.equals( "use" ) ) {
+				for( int i = 0; i < attrs.getLength( ); i++ ) {
+					if (attrs.getQName(i).equals("needsGoTo"))
+						currentNeedsGoTo = attrs.getValue(i).equals("yes");
+					if (attrs.getQName(i).equals("keepDistance"))
+						currentKeepDistance = Integer.parseInt(attrs.getValue(i));
+				}
 				currentConditions = new Conditions( );
 				currentEffects = new Effects( );
 				currentDocumentation = null;
@@ -148,10 +154,14 @@ public class ActionsSubParser extends SubParser {
 
 			// If it is an use-with or give-to tag, create new conditions and effects, and store the idTarget
 			else if( qName.equals( "use-with" ) || qName.equals( "give-to" )) {
-				for( int i = 0; i < attrs.getLength( ); i++ )
+				for( int i = 0; i < attrs.getLength( ); i++ ) {
 					if( attrs.getQName( i ).equals( "idTarget" ) )
 						currentIdTarget = attrs.getValue( i );
-
+					if (attrs.getQName(i).equals("needsGoTo"))
+						currentNeedsGoTo = attrs.getValue(i).equals("yes");
+					if (attrs.getQName(i).equals("keepDistance"))
+						currentKeepDistance = Integer.parseInt(attrs.getValue(i));
+				}
 				currentConditions = new Conditions( );
 				currentEffects = new Effects( );
 				currentDocumentation = null;
@@ -164,15 +174,10 @@ public class ActionsSubParser extends SubParser {
 						currentIdTarget = attrs.getValue(i);
 					if (attrs.getQName(i).equals("name"))
 						currentName = attrs.getValue(i);
-					if (attrs.getQName(i).equals("needsGoTo")) {
-						if (attrs.getValue(i).equals("no"))
-							currentNeedsGoTo = false;
-						else
-							currentNeedsGoTo = true;
-					}
+					if (attrs.getQName(i).equals("needsGoTo"))
+						currentNeedsGoTo = attrs.getValue(i).equals("yes");
 					if (attrs.getQName(i).equals("keepDistance"))
 						currentKeepDistance = Integer.parseInt(attrs.getValue(i));
-
 				}
 
 				currentConditions = new Conditions( );
@@ -257,6 +262,8 @@ public class ActionsSubParser extends SubParser {
 			else if ( qName.equals("examine")) {
 				Action examineAction = new Action( Action.EXAMINE, currentConditions, currentEffects);
 				examineAction.setDocumentation( currentDocumentation );
+				examineAction.setKeepDistance(currentKeepDistance);
+				examineAction.setNeedsGoTo(currentNeedsGoTo);
 				element.addAction(examineAction);
 				reading = READING_NONE;
 			}
@@ -265,6 +272,8 @@ public class ActionsSubParser extends SubParser {
 			else if( qName.equals( "grab" ) ) {
 				Action grabAction = new Action( Action.GRAB, currentConditions, currentEffects );
 				grabAction.setDocumentation( currentDocumentation );
+				grabAction.setKeepDistance(currentKeepDistance);
+				grabAction.setNeedsGoTo(currentNeedsGoTo);
 				element.addAction( grabAction );
 				reading = READING_NONE;
 			}
@@ -273,6 +282,8 @@ public class ActionsSubParser extends SubParser {
 			else if( qName.equals( "use" ) ) {
 				Action useAction = new Action( Action.USE, currentConditions, currentEffects );
 				useAction.setDocumentation( currentDocumentation );
+				useAction.setNeedsGoTo(currentNeedsGoTo);
+				useAction.setKeepDistance(currentKeepDistance);
 				element.addAction( useAction );
 				reading = READING_NONE;
 			}
@@ -281,6 +292,8 @@ public class ActionsSubParser extends SubParser {
 			else if( qName.equals( "use-with" ) ) {
 				Action useWithAction = new Action( Action.USE_WITH, currentIdTarget, currentConditions, currentEffects );
 				useWithAction.setDocumentation( currentDocumentation );
+				useWithAction.setKeepDistance(currentKeepDistance);
+				useWithAction.setNeedsGoTo(currentNeedsGoTo);
 				element.addAction( useWithAction );
 				reading = READING_NONE;
 			}
@@ -289,6 +302,8 @@ public class ActionsSubParser extends SubParser {
 			else if( qName.equals( "give-to" ) ) {
 				Action giveToAction = new Action( Action.GIVE_TO, currentIdTarget, currentConditions, currentEffects );
 				giveToAction.setDocumentation( currentDocumentation );
+				giveToAction.setKeepDistance(currentKeepDistance);
+				giveToAction.setNeedsGoTo(currentNeedsGoTo);
 				element.addAction( giveToAction );
 				reading = READING_NONE;
 			}
@@ -312,6 +327,7 @@ public class ActionsSubParser extends SubParser {
 				currentCustomAction.setConditions(currentConditions);
 				currentCustomAction.setEffects(currentEffects);
 				currentCustomAction.setName(currentName);
+				currentCustomAction.setIdTarget(currentIdTarget);
 				currentCustomAction.setDocumentation(currentDocumentation);
 				currentCustomAction.setKeepDistance(currentKeepDistance);
 				currentCustomAction.setNeedsGoTo(currentNeedsGoTo);

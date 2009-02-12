@@ -25,6 +25,7 @@ public class FunctionalUseWith extends FunctionalAction {
 		super(action);
 		this.element = element;
 		this.type = ActionManager.ACTION_USE_WITH;
+		this.originalAction = element.getFirstValidAction(Action.USE_WITH);
 		this.requiersAnotherElement = true;
 		this.needsGoTo = false;
 	}
@@ -36,8 +37,10 @@ public class FunctionalUseWith extends FunctionalAction {
 	@Override
 	public void setAnotherElement(FunctionalElement element) {
 		anotherElement = element;
-		if (!anotherElement.isInInventory())
-			this.needsGoTo = true;
+		if (!anotherElement.isInInventory()) {
+			this.needsGoTo = originalAction.isNeedsGoTo();
+			this.keepDistance = originalAction.getKeepDistance();
+		}
 	}
 
 	@Override

@@ -370,7 +370,7 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
     		if (getCurrentAction().getType() == Action.CUSTOM_INTERACT) {
     			nextAction = getCurrentAction();
     			popAction();
-    			if (getCurrentAction() != null && element != null && getCurrentAction() instanceof FunctionalCustomInteract) {
+    			if (nextAction != null && element != null && nextAction instanceof FunctionalCustomInteract) {
     				((FunctionalCustomInteract) nextAction).setAnotherElement(element);
     			}
     		} else {
@@ -692,19 +692,18 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
         return newResources;
     }
 
+    
+    public Action getFirstValidAction(int actionType) {
+        return null;
+    }
+
 	@Override
 	public CustomAction getFirstValidCustomAction(String actionName) {
-		//TODO Player should be modified to support custom actions
-		/*
-        for( Action action : player.getActions() ) {
-            if( action.getType( ) == Action.CUSTOM && ((CustomAction) action).getID() == actionID ) {
-                if( new FunctionalConditions(action.getConditions( ) ).allConditionsOk( ) ) {
-                	return (CustomAction) action;
-                } 
-            }
-        } */
         return null;
-        
+	}
+	
+	public CustomAction getFirstValidCustomInteraction(String actionName) {
+		return null;
 	}
 
 	@Override

@@ -66,15 +66,6 @@ public class CustomActionPanel extends JPanel {
 	 */
 	private JTextField nameTextField;
 	
-	/**
-	 * The checkbox with the value of needsGoTo
-	 */
-	private JCheckBox needsGoToCheck;
-	
-	/**
-	 * The spinner to set the value of keepDistance
-	 */
-	private JSpinner keepDistanceSpinner;
 	
 	/**
 	 * Defaul constructor
@@ -127,30 +118,6 @@ public class CustomActionPanel extends JPanel {
 		namePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "CustomAction.Name" ) ) );
 		personalizationPanel.add(namePanel, c);
 		
-		
-		c.gridy++;
-		JPanel otherPanel = new JPanel();
-		otherPanel.setLayout( new GridLayout(3,1));
-		otherPanel.add(new JLabel(TextConstants.getText("CustomAction.OtherConfigurationDetails")));
-		
-		needsGoToCheck = new JCheckBox(TextConstants.getText("CustomAction.NeedsGoTo"));
-		needsGoToCheck.setSelected(customActionDataControl.getNeedsGoTo());
-		needsGoToCheck.addChangeListener( new NeedsGoToCheckListener());
-		otherPanel.add( needsGoToCheck);
-		
-	    JPanel temp = new JPanel();
-		SpinnerModel sm = new SpinnerNumberModel(customActionDataControl.getKeepDistance(), 0, 100, 5);
-		keepDistanceSpinner = new JSpinner(sm);
-		keepDistanceSpinner.setEnabled(customActionDataControl.getNeedsGoTo());
-		keepDistanceSpinner.addChangeListener(new KeepDistanceSpinnerListener());
-		temp.setLayout(new BorderLayout());
-		temp.add(new JLabel(TextConstants.getText("CustomAction.DistanceToObjective")), BorderLayout.CENTER);
-		temp.add(keepDistanceSpinner, BorderLayout.WEST);
-		otherPanel.add( temp);
-		
-		otherPanel.setBorder(BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder(), TextConstants.getText("CustomAction.OtherConfiguration")));
-		personalizationPanel.add(otherPanel, c);
-		
 		c.weighty = 0.3;
 		c.gridy++;
 		c.weighty = 1.0;
@@ -193,24 +160,6 @@ public class CustomActionPanel extends JPanel {
 
 	}
 	
-	/**
-	 * Listener for the changes in the needsGoTo checkbox
-	 */
-	private class NeedsGoToCheckListener implements ChangeListener {
-		public void stateChanged(ChangeEvent arg0) {
-			customActionDataControl.setNeedsGoTo(needsGoToCheck.isSelected());
-			keepDistanceSpinner.setEnabled(needsGoToCheck.isSelected());
-		}
-	}
-	
-	/**
-	 * Listener for the changes in the keepDistances spinner
-	 */
-	private class KeepDistanceSpinnerListener implements ChangeListener {
-		public void stateChanged(ChangeEvent arg0) {
-			customActionDataControl.setKeepDistance(((Integer) keepDistanceSpinner.getModel().getValue()).intValue());
-		}
-	}
 	
 	/**
 	 * Listener for the text fields. It checks the values from the fields and updates the data.

@@ -921,6 +921,8 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="ElementReference.ItemReferences">Show item references</entry>
 	<entry key="ElementReference.NPCReferences">Show character references</entry>
 	<entry key="ElementReference.AtrezzoReferences">Show set item references</entry>
+	<entry key="ElementReference.GoToReferencedElement">Go to referenced element</entry>
+	
 
 	<entry key="ItemReferencesList.Title">Element references</entry>
 	<entry key="ItemReferencesList.PreviewTitle">Preview of the element location</entry>
@@ -1205,6 +1207,7 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="ConversationReference.Documentation">Full description of the conversation reference</entry>
 	<entry key="ConversationReference.ConversationId">Id of the referenced conversation</entry>
 	<entry key="ConversationReference.Conditions">Conditions of the conversation reference</entry>
+	<entry key="ConversationReference.GoToReferencedConversation">Go to the referenced conversation</entry>
 
 	<entry key="ConversationsList.Title">Conversations</entry>
 	<entry key="ConversationsList.ListTitle">List of conversations</entry>

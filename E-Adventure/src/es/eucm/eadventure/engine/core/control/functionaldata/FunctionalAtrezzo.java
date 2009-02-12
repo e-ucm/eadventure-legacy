@@ -3,6 +3,7 @@ package es.eucm.eadventure.engine.core.control.functionaldata;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 
+import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.common.data.chapter.CustomAction;
 import es.eucm.eadventure.common.data.chapter.InfluenceArea;
 import es.eucm.eadventure.common.data.chapter.elements.Atrezzo;
@@ -233,12 +234,22 @@ public class FunctionalAtrezzo extends FunctionalElement {
 	public boolean canPerform(int action) {
 		return false;
 	}
+	
+    public Action getFirstValidAction(int actionType) {
+        return null;
+    }
+
 
 	@Override
 	public CustomAction getFirstValidCustomAction(String actionName) {
 		return null;
 	}
-	
+
+	@Override
+	public CustomAction getFirstValidCustomInteraction(String actionName) {
+		return null;
+	}
+
 	@Override
 	public InfluenceArea getInfluenceArea() {
 		return null;

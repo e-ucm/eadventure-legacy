@@ -924,6 +924,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="ElementReference.ItemReferences">Mostrar referencias a objetos</entry>
 	<entry key="ElementReference.NPCReferences">Mostrar referencias a personajes</entry>
 	<entry key="ElementReference.AtrezzoReferences">Mostrar referenceias a objetos de atrezo</entry>	
+	<entry key="ElementReference.GoToReferencedElement">Ir al elemento</entry>
 
 	<entry key="ItemReferencesList.Title">Referencias a elementos</entry>
 	<entry key="ItemReferencesList.PreviewTitle">Previsualización de la posición de las referencias</entry>
@@ -1209,6 +1210,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="ConversationReference.Documentation">Documentación de la referencia a conversación</entry>
 	<entry key="ConversationReference.ConversationId">Identificador de la conversación referenciada</entry>
 	<entry key="ConversationReference.Conditions">Condiciones de la referencia a conversación</entry>
+	<entry key="ConversationReference.GoToReferencedConversation">Ir a la conversacion</entry>
 
 	<entry key="ConversationsList.Title">Conversaciones</entry>
 	<entry key="ConversationsList.ListTitle">Lista de conversaciones</entry>

@@ -325,4 +325,39 @@ public class ActionDataControl extends DataControlWithResources {
 	@Override
 	public void setSelectedResources(int selectedResources) {
 	}
+	
+	/**
+	 * @return the value of needsGoTo
+	 */
+	public boolean getNeedsGoTo() {
+		return action.isNeedsGoTo();
+	}
+	
+	/**
+	 * @param needsGoTo the needsGoTo to set
+	 */
+	public void setNeedsGoTo(boolean needsGoTo) {
+		if (needsGoTo != action.isNeedsGoTo()) {
+			action.setNeedsGoTo(needsGoTo);
+			controller.dataModified();
+		}
+	}
+
+	/**
+	 * @return the value of keepDistance
+	 */
+	public int getKeepDistance() {
+		return action.getKeepDistance();
+	}
+	
+	/**
+	 * @param keepDistance the keepDistance to set
+	 */
+	public void setKeepDistance(int keepDistance) {
+		if (keepDistance != action.getKeepDistance()) {
+			action.setKeepDistance(keepDistance);
+			controller.dataModified();
+		}
+	}
+
 }

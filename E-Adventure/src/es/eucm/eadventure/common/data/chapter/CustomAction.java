@@ -25,16 +25,6 @@ public class CustomAction extends Action {
 	 */
 	private List<Resources> resources;
 	
-	/**
-	 * Indicates whether the character needs to go up to the object
-	 */
-	private boolean needsGoTo;
-	
-	/**
-	 * Indicates the minimum distance the character should leave
-	 * between the object and himself
-	 */
-	private int keepDistance;
 	
 	/**
 	 * Default constructor for actions that only need one object
@@ -122,31 +112,4 @@ public class CustomAction extends Action {
 		return resources;
 	}
 
-	/**
-	 * @return the needsGoTo
-	 */
-	public boolean isNeedsGoTo() {
-		return needsGoTo;
-	}
-
-	/**
-	 * @param needsGoTo the needsGoTo to set
-	 */
-	public void setNeedsGoTo(boolean needsGoTo) {
-		this.needsGoTo = needsGoTo;
-	}
-
-	/**
-	 * @return the keepDistance
-	 */
-	public int getKeepDistance() {
-		return keepDistance;
-	}
-
-	/**
-	 * @param keepDistance the keepDistance to set
-	 */
-	public void setKeepDistance(int keepDistance) {
-		this.keepDistance = keepDistance;
-	}
 }

@@ -26,6 +26,12 @@ public class FunctionalUse extends FunctionalAction {
 		this.element = element;
         FunctionalItem item = (FunctionalItem) element;
         originalAction = item.getFirstValidAction(ActionManager.ACTION_USE);
+		if (element.isInInventory()) {
+			this.needsGoTo = false;
+		} else {
+			this.needsGoTo = originalAction.isNeedsGoTo();
+			this.keepDistance = originalAction.getKeepDistance();
+		}
 	}
 
 	@Override

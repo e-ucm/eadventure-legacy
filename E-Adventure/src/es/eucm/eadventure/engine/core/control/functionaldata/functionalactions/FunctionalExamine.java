@@ -14,10 +14,13 @@ public class FunctionalExamine extends FunctionalAction {
 		super(action);
 		type = ActionManager.ACTION_EXAMINE;
 		this.element = element;
+		originalAction = element.getFirstValidAction(Action.EXAMINE);
 		if (element.isInInventory()) {
 			this.needsGoTo = false;
-		} else
-			this.needsGoTo = true;
+		} else {
+			this.needsGoTo = originalAction.isNeedsGoTo();
+			this.keepDistance = originalAction.getKeepDistance();
+		}
 	}
 
 	@Override

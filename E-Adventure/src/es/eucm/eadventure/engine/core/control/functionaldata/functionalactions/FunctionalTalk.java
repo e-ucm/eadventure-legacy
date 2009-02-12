@@ -26,7 +26,11 @@ public class FunctionalTalk extends FunctionalAction {
 		super(action);
 		this.npc = (FunctionalNPC) npc;
 		this.type = ActionManager.ACTION_TALK;
-		keepDistance = DEFAULT_DISTANCE_TO_KEEP;
+		if (functionalPlayer != null)
+			keepDistance = this.functionalPlayer.getWidth() / 2;
+		else
+			keepDistance = DEFAULT_DISTANCE_TO_KEEP;
+		keepDistance += npc.getWidth() / 2;
 
         List<ConversationReference> conversationReferences = this.npc.getNPC( ).getConversationReferences( );     
         anyConversation = false;

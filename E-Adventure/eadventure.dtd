@@ -161,15 +161,31 @@
 <!ELEMENT detailed (#PCDATA)>
 <!ELEMENT actions (examine | grab | use | use-with | give-to | custom | custom-interact )+>
 <!ELEMENT examine (documentation?, condition?, effect?)>
+<!ATTLIST examine
+	needsGoTo (yes | no) "yes"
+	keepDistance CDATA "10"
+>
 <!ELEMENT grab (documentation?, condition?, effect?)>
+<!ATTLIST grab
+	needsGoTo (yes | no) "yes"
+	keepDistance CDATA "10"
+>
 <!ELEMENT use (documentation?, condition?, effect?)>
+<!ATTLIST use
+	needsGoTo (yes | no) "yes"
+	keepDistance CDATA "10"
+>
 <!ELEMENT use-with (documentation?, condition?, effect?)>
 <!ATTLIST use-with
 	idTarget IDREF #REQUIRED
+	needsGoTo (yes | no) "yes"
+	keepDistance CDATA "10"
 >
 <!ELEMENT give-to (documentation?, condition?, effect?)>
 <!ATTLIST give-to
 	idTarget IDREF #REQUIRED
+	needsGoTo (yes | no) "yes"
+	keepDistance CDATA "35"
 >
 <!ELEMENT custom (resources*, documentation?, condition?, effect?)>
 <!ATTLIST custom
