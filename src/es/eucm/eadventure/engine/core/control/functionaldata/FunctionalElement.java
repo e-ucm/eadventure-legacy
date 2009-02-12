@@ -146,8 +146,11 @@ public abstract class FunctionalElement implements Renderable {
         return new Color( Integer.valueOf( colorText.substring( 1 ), 16 ).intValue( ) );
     }
     
+    public abstract Action getFirstValidAction(int actionType);
     
     public abstract CustomAction getFirstValidCustomAction(String actionName);
+
+    public abstract CustomAction getFirstValidCustomInteraction(String actionName);
 
 	public int getLayer() {
 		return layer;
@@ -158,6 +161,5 @@ public abstract class FunctionalElement implements Renderable {
 	}
 
 	public abstract InfluenceArea getInfluenceArea();
-
-
 }
+

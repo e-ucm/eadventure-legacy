@@ -28,6 +28,7 @@ public class FunctionalGive extends FunctionalAction {
 		super(action);
 		this.element = element;
 		this.type = ActionManager.ACTION_GIVE;
+		originalAction = element.getFirstValidAction(Action.GIVE_TO);
 		requiersAnotherElement = true;
 	}
 
@@ -38,7 +39,8 @@ public class FunctionalGive extends FunctionalAction {
 	@Override
 	public void setAnotherElement(FunctionalElement element) {
 		requiersAnotherElement = false;
-		needsGoTo = true;
+		needsGoTo = originalAction.isNeedsGoTo();
+		keepDistance = originalAction.getKeepDistance();
 		anotherElement = element;
 	}
 

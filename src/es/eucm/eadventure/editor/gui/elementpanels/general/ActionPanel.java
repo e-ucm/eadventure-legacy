@@ -1,5 +1,6 @@
 package es.eucm.eadventure.editor.gui.elementpanels.general;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -10,10 +11,17 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
 import javax.swing.JTextArea;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -45,6 +53,16 @@ public class ActionPanel extends JPanel {
 	private JComboBox elementsComboBox;
 
 	/**
+	 * The checkbox with the value of needsGoTo
+	 */
+	private JCheckBox needsGoToCheck;
+	
+	/**
+	 * The spinner to set the value of keepDistance
+	 */
+	private JSpinner keepDistanceSpinner;
+
+	/**
 	 * Constructor.
 	 * 
 	 * @param actionDataControl
@@ -74,7 +92,6 @@ public class ActionPanel extends JPanel {
 			destinyElementPanel.add( elementsComboBox );
 			destinyElementPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Action.IdTarget" ) ) );
 			add( destinyElementPanel, c );
-
 			c.gridy++;
 		}
 		// Create the text area for the documentation
@@ -89,6 +106,29 @@ public class ActionPanel extends JPanel {
 		documentationPanel.setMinimumSize( new Dimension( 0, 108 ) );
 		documentationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Action.Documentation" ) ) );
 		add( documentationPanel, c );
+
+		c.gridy++;
+		JPanel otherPanel = new JPanel();
+		otherPanel.setLayout( new GridLayout(3,1));
+		otherPanel.add(new JLabel(TextConstants.getText("CustomAction.OtherConfigurationDetails")));
+		
+		needsGoToCheck = new JCheckBox(TextConstants.getText("CustomAction.NeedsGoTo"));
+		needsGoToCheck.setSelected(actionDataControl.getNeedsGoTo());
+		needsGoToCheck.addChangeListener( new NeedsGoToCheckListener());
+		otherPanel.add( needsGoToCheck);
+		
+	    JPanel temp = new JPanel();
+		SpinnerModel sm = new SpinnerNumberModel(actionDataControl.getKeepDistance(), 0, 100, 5);
+		keepDistanceSpinner = new JSpinner(sm);
+		keepDistanceSpinner.setEnabled(actionDataControl.getNeedsGoTo());
+		keepDistanceSpinner.addChangeListener(new KeepDistanceSpinnerListener());
+		temp.setLayout(new BorderLayout());
+		temp.add(new JLabel(TextConstants.getText("CustomAction.DistanceToObjective")), BorderLayout.CENTER);
+		temp.add(keepDistanceSpinner, BorderLayout.WEST);
+		otherPanel.add( temp);
+		
+		otherPanel.setBorder(BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder(), TextConstants.getText("CustomAction.OtherConfiguration")));
+		add(otherPanel, c);
 
 		// Create the button for the conditions
 		c.gridy++;
@@ -176,6 +216,24 @@ public class ActionPanel extends JPanel {
 		}
 	}
 	
+	/**
+	 * Listener for the changes in the needsGoTo checkbox
+	 */
+	private class NeedsGoToCheckListener implements ChangeListener {
+		public void stateChanged(ChangeEvent arg0) {
+			actionDataControl.setNeedsGoTo(needsGoToCheck.isSelected());
+			keepDistanceSpinner.setEnabled(needsGoToCheck.isSelected());
+		}
+	}
+	
+	/**
+	 * Listener for the changes in the keepDistances spinner
+	 */
+	private class KeepDistanceSpinnerListener implements ChangeListener {
+		public void stateChanged(ChangeEvent arg0) {
+			actionDataControl.setKeepDistance(((Integer) keepDistanceSpinner.getModel().getValue()).intValue());
+		}
+	}
 
 
 }

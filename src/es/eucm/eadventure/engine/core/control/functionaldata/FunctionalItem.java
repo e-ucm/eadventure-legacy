@@ -285,6 +285,19 @@ public class FunctionalItem extends FunctionalElement {
         return null;
     }
     
+    public CustomAction getFirstValidCustomInteraction(String actionName) {
+    	for (Action action : item.getActions()) {
+    		if (action.getType() == Action.CUSTOM_INTERACT && ((CustomAction) action).getName().endsWith(actionName)) {
+    			if ( new FunctionalConditions(action.getConditions()).allConditionsOk()) {
+    				return (CustomAction) action;
+    			}
+    		}
+    	}
+    	return null;
+    }
+    
+    
+    
     /**
      * Triggers the grabbing action associated with the item
      * @return True if the item was grabbed, false otherwise
@@ -381,8 +394,29 @@ public class FunctionalItem extends FunctionalElement {
         // Only take the FIRST valid action
         for( int i = 0; i < item.getActions( ).size( ) && !customInteract; i++ ) {
             Action action = item.getAction( i );
-            if( action.getType( ) == Action.USE_WITH 
+            if( action.getType( ) == Action.CUSTOM
             		&& action.getIdTarget( ).equals( anotherItem.getItem( ).getId( ) ) 
+            		&& ((CustomAction) action).getName().equals(actionName)) {
+                if( new FunctionalConditions( action.getConditions( ) ).allConditionsOk( ) ) {
+                    // Store the effects
+                	FunctionalEffects.storeAllEffects(action.getEffects( ));
+                	customInteract = true;
+                }
+            }
+        }
+        
+        return customInteract;
+    }
+
+    
+    public boolean customInteract(String actionName, FunctionalNPC npc ) {
+        boolean customInteract = false;
+        
+        // Only take the FIRST valid action
+        for( int i = 0; i < item.getActions( ).size( ) && !customInteract; i++ ) {
+            Action action = item.getAction( i );
+            if( action.getType( ) == Action.CUSTOM_INTERACT 
+            		&& action.getIdTarget( ).equals( npc.getNPC().getId( ) ) 
             		&& ((CustomAction) action).getName().equals(actionName)) {
                 if( new FunctionalConditions( action.getConditions( ) ).allConditionsOk( ) ) {
                     // Store the effects

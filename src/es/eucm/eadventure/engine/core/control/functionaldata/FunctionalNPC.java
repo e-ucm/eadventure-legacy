@@ -508,6 +508,18 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
         return newResources;
     }
     
+    
+    public Action getFirstValidAction(int actionType) {
+        for( Action action : npc.getActions() ) {
+            if( action.getType( ) == actionType ) {
+                if( new FunctionalConditions(action.getConditions( ) ).allConditionsOk( ) ) {
+                	return action;
+                } 
+            }
+        }
+        return null;
+    }
+    
 	@Override
 	public CustomAction getFirstValidCustomAction(String actionName) {
         for( Action action : npc.getActions() ) {
@@ -520,7 +532,19 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
         return null;
         
 	}
-	
+
+	public CustomAction getFirstValidCustomInteraction(String actionName) {
+        for( Action action : npc.getActions() ) {
+            if( action.getType( ) == Action.CUSTOM_INTERACT && ((CustomAction) action).getName().equals(actionName) ) {
+                if( new FunctionalConditions(action.getConditions( ) ).allConditionsOk( ) ) {
+                	return (CustomAction) action;
+                } 
+            }
+        }
+        return null;
+        
+	}
+
     public boolean custom(String actionName) {
         boolean custom = false;
         

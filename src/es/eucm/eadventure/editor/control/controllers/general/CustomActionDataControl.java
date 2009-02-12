@@ -92,39 +92,6 @@ public class CustomActionDataControl extends ActionDataControl {
 		return customAction.getName();
 	}
 
-	/**
-	 * @return the value of needsGoTo
-	 */
-	public boolean getNeedsGoTo() {
-		return customAction.isNeedsGoTo();
-	}
-	
-	/**
-	 * @param needsGoTo the needsGoTo to set
-	 */
-	public void setNeedsGoTo(boolean needsGoTo) {
-		if (needsGoTo != customAction.isNeedsGoTo()) {
-			customAction.setNeedsGoTo(needsGoTo);
-			controller.dataModified();
-		}
-	}
-
-	/**
-	 * @return the value of keepDistance
-	 */
-	public int getKeepDistance() {
-		return customAction.getKeepDistance();
-	}
-	
-	/**
-	 * @param keepDistance the keepDistance to set
-	 */
-	public void setKeepDistance(int keepDistance) {
-		if (keepDistance != customAction.getKeepDistance()) {
-			customAction.setKeepDistance(keepDistance);
-			controller.dataModified();
-		}
-	}
 
 
 }

@@ -72,10 +72,8 @@ public class ActionsListTreeNode extends TreeNode {
 	@Override
 	public TreeNode checkForNewChild( int type ) {
 		TreeNode addedTreeNode = null;
-
 		// Add the last scene of the list
 		ActionDataControl lastActionDataControl = dataControl.getLastAction( );
-
 		switch( lastActionDataControl.getType( ) ) {
 			case Controller.ACTION_EXAMINE:
 				addedTreeNode = new ExamineActionTreeNode( this, lastActionDataControl );

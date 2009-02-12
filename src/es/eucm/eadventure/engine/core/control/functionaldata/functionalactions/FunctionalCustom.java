@@ -28,8 +28,8 @@ public class FunctionalCustom extends FunctionalAction {
 		this.element = element;
 		this.actionName = actionName;
 		originalAction = element.getFirstValidCustomAction(actionName);
-		this.needsGoTo = ((CustomAction) originalAction).isNeedsGoTo();
-		this.keepDistance = ((CustomAction) originalAction).getKeepDistance();
+		needsGoTo = originalAction.isNeedsGoTo();
+		keepDistance = originalAction.getKeepDistance();
 		this.hasAnimation = false;
 	}
 

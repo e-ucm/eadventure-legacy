@@ -1,9 +1,9 @@
 package es.eucm.eadventure.engine.core.control.functionaldata.functionalactions;
 
 import es.eucm.eadventure.common.data.chapter.Action;
-import es.eucm.eadventure.common.data.chapter.CustomAction;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalItem;
+import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalNPC;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
 import es.eucm.eadventure.engine.core.data.GameText;
 
@@ -22,6 +22,7 @@ public class FunctionalCustomInteract extends FunctionalAction {
 		super(null);
 		this.type = Action.CUSTOM_INTERACT;
 		this.customActionName = customActionName;
+		originalAction = element.getFirstValidCustomInteraction(customActionName);
 		this.element = element;
 		this.requiersAnotherElement = true;
 		this.needsGoTo = false;
@@ -36,8 +37,8 @@ public class FunctionalCustomInteract extends FunctionalAction {
 	public void setAnotherElement(FunctionalElement element) {
 		this.anotherElement = element;
 		this.requiersAnotherElement = false;
-		this.needsGoTo = ((CustomAction) originalAction).isNeedsGoTo();
-		this.keepDistance = ((CustomAction) originalAction).getKeepDistance();
+		this.needsGoTo = originalAction.isNeedsGoTo();
+		this.keepDistance = originalAction.getKeepDistance();
 	}
 
 	@Override
@@ -59,9 +60,16 @@ public class FunctionalCustomInteract extends FunctionalAction {
 			totalTime += elapsedTime;
 	        if( totalTime > 1000 ) {
 	            FunctionalItem item1 = (FunctionalItem) element;
-	            FunctionalItem item2 = (FunctionalItem) anotherElement;
-	            if( !item1.customInteract(customActionName, item2) && !item2.customInteract(customActionName, item1) )
-	                functionalPlayer.speak( GameText.getTextCustomCannot() );
+	            if (anotherElement instanceof FunctionalItem) {
+		            FunctionalItem item2 = (FunctionalItem) anotherElement;
+		            if( !item1.customInteract(customActionName, item2) && !item2.customInteract(customActionName, item1) )
+		                functionalPlayer.speak( GameText.getTextCustomCannot() );
+	            }
+	            if (anotherElement instanceof FunctionalNPC) {
+	            	FunctionalNPC npc = (FunctionalNPC) anotherElement;
+	            	if (!item1.customInteract(customActionName, npc))
+	            		functionalPlayer.speak( GameText.getTextCustomCannot() );
+	            }
 	            finished = true;
 	        }
         }
