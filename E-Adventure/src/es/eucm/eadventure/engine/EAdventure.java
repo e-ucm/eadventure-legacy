@@ -8,12 +8,10 @@ import javax.media.format.VideoFormat;
 import de.schlichtherle.io.ArchiveDetector;
 import de.schlichtherle.io.DefaultArchiveDetector;
 import de.schlichtherle.io.File;
-import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.config.ConfigData;
 import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.engine.gamelauncher.GameLauncher;
-import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 
 import javax.swing.*;
 
@@ -69,7 +67,7 @@ public class EAdventure {
         File file = new File("");
         if (args.length >= 1){
         	file = new File(args[0]);
-        	if (!file.exists()){
+        	if (!args[0].equals("") && !file.exists()){
         		JOptionPane.showMessageDialog(null,
                         TextConstants.getText("ErrorMessage.Title"),
                         TextConstants.getText("ErrorMessage.Content"),
