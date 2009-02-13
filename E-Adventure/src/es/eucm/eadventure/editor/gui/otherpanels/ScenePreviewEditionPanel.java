@@ -6,13 +6,11 @@ import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -110,12 +108,6 @@ public class ScenePreviewEditionPanel extends JPanel {
 	 */
 	public static final int CATEGORY_INFLUENCEAREA = 9;
 
-	/**
-	 * Default margin value 
-	 */
-	private static final int MARGIN = 0;
-
-
 	private static final int LIGHT_BORDER = 1;
 
 	private static final int HARD_BORDER = 2;
@@ -150,37 +142,6 @@ public class ScenePreviewEditionPanel extends JPanel {
 	private Trajectory trajectory;
 	
 	/**
-	 * The background image of the scene
-	 */
-	private Image background;
-	
-	/**
-	 * The size ratio of the panel and backgroud image, used to
-	 * fit the full background in the panel
-	 */
-	private double sizeRatio;
-		
-	/**
-	 * The margin left along the x-axis
-	 */
-	private int marginX;
-	
-	/**
-	 * The margin left along the y-axis
-	 */
-	private int marginY;
-	
-	/**
-	 * The width of the background image
-	 */
-	private int backgroundWidth;
-	
-	/**
-	 * The height of the backgound image
-	 */
-	private int backgroundHeight;
-	
-	/**
 	 * Boolean indicating if the user is rescaling
 	 */
 	private boolean rescale;
@@ -201,12 +162,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 	 * The ScenePreviewEditionController being currently used
 	 */
 	private ScenePreviewEditionController spec;
-	
-	/**
-	 * Image to be used as a backbuffer
-	 */
-	private BufferedImage backBuffer;
-	
+		
 	/**
 	 * The selected element in the panel
 	 */
@@ -278,7 +234,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 		bl.setHgap(10);
 		bl.setVgap(10);
 		setLayout(bl);
-		drawPanel = new DrawPanel();
+		drawPanel = new DrawPanel(false);
 		add(drawPanel, BorderLayout.CENTER);
 		recreateCheckBoxPanel();
 		recreateTextEditionPanel();
@@ -303,43 +259,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 			add(checkBoxPanel, BorderLayout.SOUTH);
 		}
 	}
-	
-	/**
-	 * Private class with the logic for the panel where the
-	 * elements are drawn
-	 */
-	private class DrawPanel extends JPanel {
-		/**
-		 * Default serialVersionUID
-		 */
-		private static final long serialVersionUID = 1L;
-
-		public void repaint() {
-			super.repaint();
-			if (getSize().width > 0 && getSize().height > 0) {
-				calculateSize();
-				backBuffer = new BufferedImage(getSize().width, getSize().height, BufferedImage.TYPE_4BYTE_ABGR);
-				paintBackBuffer();
-				flip();
-			}
-		}
 		
-		public void paint(Graphics g) {
-			super.paint(g);
-			if (backBuffer != null) {
-				g.drawImage(backBuffer, marginX, marginY, marginX + backgroundWidth, marginY + backgroundHeight, marginX, marginY, marginX + backgroundWidth, marginY + backgroundHeight, null);
-			}
-		}
-			
-		/**
-		 * Flip the backbuffer
-		 */
-		public void flip() {
-			this.getGraphics().drawImage(backBuffer, marginX, marginY, marginX + backgroundWidth, marginY + backgroundHeight, marginX, marginY, marginX + backgroundWidth, marginY + backgroundHeight, null);
-		}
-	}
-	
-
 	/**
 	 * Constructor with the path to the background image
 	 * 
@@ -548,7 +468,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 	 * @param background the background image
 	 */
 	public void setBackground(Image background) {
-		this.background = background;
+		drawPanel.setBackground(background);
 		repaint();
 	}
 	
@@ -557,33 +477,17 @@ public class ScenePreviewEditionPanel extends JPanel {
 	}
 	
 	public void paint(Graphics g) {
+		paintBackBuffer();
 		super.paint(g);
 	}
-		
-	/**
-	 * Flip the backbuffer
-	 */
-	public void flip() {
-		drawPanel.flip();
-	}
-	
+			
 	/**
 	 * Paint the components to the backbuffer
 	 */
-	public void paintBackBuffer() {
-		Graphics g = backBuffer.getGraphics();
+	private void paintBackBuffer() {
+		Graphics g = drawPanel.getGraphics();
 		
-		if (background != null) {
-			paintRelativeImage( g, background, background.getWidth(null)/2, background.getHeight(null), 1);
-		} else {
-	    	ImageIcon icon = new ImageIcon("img/icons/noImageFrame.png"); 
-	    	Image image;
-	    	if (icon != null && icon.getImage() != null)
-	    		image = icon.getImage();
-	    	else
-	    		image = new BufferedImage(100,120,BufferedImage.TYPE_3BYTE_BGR);
-			paintRelativeImage( g, image, image.getWidth(null)/2, image.getHeight(null), 1);
-		}
+		drawPanel.paintBackground();
 		
 		if (influenceArea != null)
 			influenceArea.recreateImage();
@@ -601,7 +505,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 		Collections.sort(elementsToDraw);
 		
 		for (ImageElement imageElement : elementsToDraw) {
-			paintRelativeImage( g, imageElement.getImage(), imageElement.getX(), imageElement.getY(), imageElement.getScale());
+			drawPanel.paintRelativeImage(imageElement.getImage(), imageElement.getX(), imageElement.getY(), imageElement.getScale());
 		}
 		
 		if (spec.getUnderMouse() != null) {
@@ -641,10 +545,12 @@ public class ScenePreviewEditionPanel extends JPanel {
 	private void paintBorders(Graphics g, ImageElement element,
 			int border_type) {
 		
-		int x = (int) ((element.getX() - element.getImage().getWidth(null) *element.getScale() / 2)* sizeRatio) + marginX;
-		int y = (int) ((element.getY() - element.getImage().getHeight(null) * element.getScale()) * sizeRatio) + marginY;
-		int width = (int) (element.getImage().getWidth(null) * element.getScale() * sizeRatio);
-		int height = (int) (element.getImage().getHeight(null) * element.getScale() * sizeRatio);
+		int x = (int) (element.getX() - element.getImage().getWidth(null) *element.getScale() / 2);
+		x = drawPanel.getRelativeX(x);
+		int y = (int) (element.getY() - element.getImage().getHeight(null) * element.getScale());
+		y = drawPanel.getRelativeY(y);
+		int width = drawPanel.getRelativeWidth((int) (element.getImage().getWidth(null) * element.getScale()));
+		int height = drawPanel.getRelativeHeight((int) (element.getImage().getHeight(null) * element.getScale()));
 		
 		if (border_type == LIGHT_BORDER) {
 			Color color = g.getColor();
@@ -694,93 +600,13 @@ public class ScenePreviewEditionPanel extends JPanel {
 	 */
 	public void loadBackground( String imagePath ) {
 		if( imagePath != null && imagePath.length( ) > 0 )
-			background = AssetsController.getImage( imagePath );
-		calculateSize();
+			drawPanel.setBackground(AssetsController.getImage( imagePath ));
 		repaint();
 	}
 
-	/**
-	 * Calculate the size of the images, depending on the size of the
-	 * panel and the size of the background image
-	 */
-	private synchronized void calculateSize() {
 
-		int backgroundWidth2 = 800;
-		int backgroundHeight2 = 600;
-		if (background != null) {
-			backgroundWidth2 = background.getWidth(null);
-			backgroundHeight2 = background.getHeight(null);
-		}
-		
-		if( background != null && drawPanel.getWidth( ) > 0 && drawPanel.getHeight( ) > 0 ) {
-			double panelRatio = (double) drawPanel.getWidth( ) / (double) drawPanel.getHeight( );
-			double imageRatio = (double) backgroundWidth2 / (double) backgroundHeight2;
-			int width, height;
-			marginX = MARGIN;
-			marginY = MARGIN;
-			
-			if( panelRatio <= imageRatio ) {
-				int panelWidth = drawPanel.getWidth( ) - MARGIN * 2;
-				width = panelWidth;
-				height = (int) (panelWidth / imageRatio);
-			}
-
-			else {
-				int panelHeight = drawPanel.getHeight( ) - MARGIN * 2;
-				width = (int) ( panelHeight * imageRatio );
-				height = panelHeight;
-			}
-			
-			marginX = (drawPanel.getWidth() - width) / 2;
-			marginY = (drawPanel.getHeight() - height) / 2;
-			backgroundWidth = width;
-			backgroundHeight = height;
-
-			sizeRatio = (double) width / (double) backgroundWidth2;
-		}
-	}
-
-	/**
-	 * Paints an rescaled image in the given graphics.
-	 * 
-	 * @param g
-	 *            Graphics to paint
-	 * @param image
-	 *            Image to be painted
-	 * @param x
-	 *            Absolute X position of the center of the image
-	 * @param y
-	 *            Absolute Y position of the bottom of the image
-	 */
-	protected void paintRelativeImage( Graphics g, Image image, int x, int y, double scale) {
-		if( image != null ) {
-			int width = (int) ( image.getWidth( null ) * sizeRatio );
-			int height = (int) ( image.getHeight( null ) * sizeRatio );
-
-			int posX = marginX + (int) (x * sizeRatio - width  * scale / 2);
-			int posY = marginY + (int) (y * sizeRatio - height * scale);
-
-			g.drawImage( image, posX, posY, (int) (width * scale), (int) (height * scale), null );
-		}
-	}
 
 	
-	/**
-	 * Paints a rescaled line form and to the given points
-	 * 
-	 * @param g The graphics where the line is drawn
-	 * @param x1 The absolute x of the start point
-	 * @param y1 The absolute y of the start point
-	 * @param x2 The absolute x of the end point
-	 * @param y2 The absolute y of the end point
-	 */
-	protected void drawRelativeLine( Graphics g, int x1, int y1, int x2, int y2) {
-		int posX1 = marginX + (int) (x1 * sizeRatio);
-		int posY1 = marginY + (int) (y1 * sizeRatio);
-		int posX2 = marginX + (int) (x2 * sizeRatio);
-		int posY2 = marginY + (int) (y2 * sizeRatio);
-		g.drawLine(posX1, posY1, posX2, posY2);
-	}
 
 	/**
 	 * Draw the sides of the trajectory in the graphics component
@@ -795,15 +621,15 @@ public class ScenePreviewEditionPanel extends JPanel {
 		for (Side side : trajectory.getSides()) {
 			Node start = trajectory.getNodeForId(side.getIDStart());
 			Node end = trajectory.getNodeForId(side.getIDEnd());
-			drawRelativeLine(g, start.getX(), start.getY(), end.getX(), end.getY());
+			drawPanel.drawRelativeLine(start.getX(), start.getY(), end.getX(), end.getY());
 		}
 		
 		if (firstElement != null) {
 			int mouseX = (int) getMousePosition().getX();
 			int mouseY = (int) getMousePosition().getY();
-			int x = (int) ((mouseX - marginX) / sizeRatio);
-			int y = (int) ((mouseY - marginY) / sizeRatio);
-			drawRelativeLine(g, firstElement.getX(), firstElement.getY() - 10, x, y);
+			int x = drawPanel.getRealX(mouseX);
+			int y = drawPanel.getRealY(mouseY);
+			drawPanel.drawRelativeLine(firstElement.getX(), firstElement.getY() - 10, x, y);
 		}
 	}
 	
@@ -877,7 +703,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 		int x_image = (int) ((selectedElement.getX() + selectedElement.getImage().getWidth(null) * selectedElement.getScale() / 2));
 		int y_image = (int) ((selectedElement.getY() - selectedElement.getImage().getHeight(null) * selectedElement.getScale()));
 
-		int margin = (int) (8.0f / getSizeRatio());
+		int margin = drawPanel.getRealHeight(8);
 		if (x > x_image - margin &&
 				x < x_image + margin &&
 				y > y_image - margin &&
@@ -906,7 +732,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 		int y_image = (int) ((tempElement.getY() - tempElement.getImage().getHeight(null) * tempElement.getScale()));
 		int height = (int) ((tempElement.getImage().getHeight(null)* tempElement.getScale()));
 		
-		int margin = (int) (8.0f / getSizeRatio());
+		int margin = drawPanel.getRealWidth(8);
 		if (x > x_image - margin &&
 				x < x_image + margin &&
 				y > y_image + height - margin &&
@@ -983,33 +809,6 @@ public class ScenePreviewEditionPanel extends JPanel {
 		for (ImageElement imageElement : elements.get(key)) {
 			imageElement.recreateImage();
 		}		
-	}
-
-	/**
-	 * Returns the value of sizeRatio
-	 * 
-	 * @return the value of sizeRatio
-	 */
-	public double getSizeRatio() {
-		return sizeRatio;
-	}
-
-	/**
-	 * Returns the value of marginX
-	 * 
-	 * @return the value of marginX
-	 */
-	public int getMarginX() {
-		return marginX;
-	}
-	
-	/**
-	 * Returns the value of marginY
-	 * 
-	 * @return the value of marginY
-	 */
-	public int getMarginY() {
-		return marginY;
 	}
 	
 	/**
@@ -1170,8 +969,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 			public void stateChanged(ChangeEvent arg0) {
 				boolean isSelected = ((JCheckBox) arg0.getSource()).isSelected();
 				displayCategory.put(category, new Boolean(isSelected));
-				ScenePreviewEditionPanel.this.paintBackBuffer();
-				ScenePreviewEditionPanel.this.flip();
+				ScenePreviewEditionPanel.this.repaint();
 			}
 		});
 		return temp;
@@ -1201,8 +999,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 			public void stateChanged(ChangeEvent arg0) {
 				int y = selectedElement.getY();
 				selectedElement.changePosition(((Integer) posXSpinner.getValue()).intValue(), y);
-				ScenePreviewEditionPanel.this.paintBackBuffer();
-				ScenePreviewEditionPanel.this.flip();
+				ScenePreviewEditionPanel.this.repaint();
 			}
 		});
 		textInputPanel.add(posXSpinner);
@@ -1214,8 +1011,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 			public void stateChanged(ChangeEvent arg0) {
 				int x = selectedElement.getX();
 				selectedElement.changePosition(x, (Integer) posYSpinner.getValue());
-				ScenePreviewEditionPanel.this.paintBackBuffer();
-				ScenePreviewEditionPanel.this.flip();
+				ScenePreviewEditionPanel.this.repaint();
 			}
 		});
 		textInputPanel.add(posYSpinner);
@@ -1228,8 +1024,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 			scaleSpinner.addChangeListener(new ChangeListener() {
 				public void stateChanged(ChangeEvent arg0) {
 					selectedElement.setScale(((Float) scaleSpinner.getValue()).floatValue());
-					ScenePreviewEditionPanel.this.paintBackBuffer();
-					ScenePreviewEditionPanel.this.flip();
+					ScenePreviewEditionPanel.this.repaint();
 				}
 			});
 			textInputPanel.add(scaleSpinner);
@@ -1246,8 +1041,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 					int height = selectedElement.getHeight();
 					selectedElement.changeSize((Integer) widthSpinner.getValue(), height);
 					selectedElement.recreateImage();
-					ScenePreviewEditionPanel.this.paintBackBuffer();
-					ScenePreviewEditionPanel.this.flip();
+					ScenePreviewEditionPanel.this.repaint();
 				}
 			});
 			textInputPanel.add(widthSpinner);
@@ -1260,8 +1054,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 					int width = selectedElement.getWidth();
 					selectedElement.changeSize(width, (Integer) heightSpinner.getValue());
 					selectedElement.recreateImage();
-					ScenePreviewEditionPanel.this.paintBackBuffer();
-					ScenePreviewEditionPanel.this.flip();
+					ScenePreviewEditionPanel.this.repaint();
 				}
 			});
 			textInputPanel.add(heightSpinner);
@@ -1293,6 +1086,22 @@ public class ScenePreviewEditionPanel extends JPanel {
 	
 	public void setShowTextEdition(boolean textEdition) {
 		this.showTextEdition = textEdition;
+	}
+
+	public int getRealWidth(int i) {
+		return drawPanel.getRealWidth(i);
+	}
+	
+	public int getRealHeight(int i) {
+		return drawPanel.getRealHeight(i);
+	}
+
+	public int getRealX(int mouseX) {
+		return drawPanel.getRealX(mouseX);
+	}
+	
+	public int getRealY(int mouseY) {
+		return drawPanel.getRealY(mouseY);
 	}
 
 }

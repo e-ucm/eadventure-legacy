@@ -4,7 +4,6 @@ import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
 
-import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
@@ -73,7 +72,6 @@ public class SceneLooksPanel extends LooksPanel {
 	protected void addPlayer(){
 		if (!Controller.getInstance().isPlayTransparent() && sceneDataControl.isAllowPlayer())
 			scenePreviewEditionPanel.addPlayer(sceneDataControl, sceneDataControl.getReferencesList().getPlayerImage());
-		scenePreviewEditionPanel.paintBackBuffer();
 		scenePreviewEditionPanel.repaint();
 	}
 
