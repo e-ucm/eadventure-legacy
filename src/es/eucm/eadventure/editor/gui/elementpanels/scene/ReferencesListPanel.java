@@ -16,7 +16,6 @@ import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
@@ -32,9 +31,6 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.plaf.basic.BasicSplitPaneDivider;
 import javax.swing.plaf.basic.BasicSplitPaneUI;
 
-import com.sun.java.swing.plaf.windows.WindowsSplitPaneDivider;
-
-import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementContainer;
@@ -43,7 +39,6 @@ import es.eucm.eadventure.editor.control.controllers.scene.ReferencesListDataCon
 import es.eucm.eadventure.editor.gui.editdialogs.ConditionsDialog;
 import es.eucm.eadventure.editor.gui.elementpanels.general.ElementReferencesTable;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
-import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElement;
 
 public class ReferencesListPanel extends JPanel{
 
@@ -299,7 +294,6 @@ public class ReferencesListPanel extends JPanel{
 			ElementContainer elementContainer = referencesListDataControl.getAllReferencesDataControl().get( selectedReference);
 			referencesListDataControl.setLastElementContainer(elementContainer);
 			spep.setSelectedElement(elementContainer.getErdc(),elementContainer.getImage(),referencesListDataControl.getSceneDataControl());
-			spep.paintBackBuffer();
 			spep.repaint();
 			prepareInformationPanel();
 			// Enable delete button
@@ -597,7 +591,6 @@ public class ReferencesListPanel extends JPanel{
 				// it is not necessary to check if it is an player element container because never a player will be added
 				spep.addElement(category, referencesListDataControl.getLastElementContainer().getErdc());
 				spep.setSelectedElement(referencesListDataControl.getLastElementContainer().getErdc());
-				spep.paintBackBuffer();
 				spep.repaint();
 				int layer = referencesListDataControl.getLastElementContainer().getErdc().getElementReference().getLayer();
 				table.getSelectionModel().setSelectionInterval(layer, layer);

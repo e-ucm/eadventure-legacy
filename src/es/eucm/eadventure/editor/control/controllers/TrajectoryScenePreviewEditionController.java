@@ -67,10 +67,8 @@ public class TrajectoryScenePreviewEditionController extends NormalScenePreviewE
 	}
 	
 	public void mouseClicked(MouseEvent e) {
-		int mouseX = e.getX();
-		int mouseY = e.getY();
-		int x = (int) ((mouseX - spep.getMarginX()) / spep.getSizeRatio());
-		int y = (int) ((mouseY - spep.getMarginY()) / spep.getSizeRatio());
+		int x = spep.getRealX(e.getX());
+		int y = spep.getRealY(e.getY());
 		setMouseUnder(e.getX(), e.getY());
 	
 		if (selectedTool == NODE_EDIT) {
@@ -79,8 +77,7 @@ public class TrajectoryScenePreviewEditionController extends NormalScenePreviewE
 				tdc.addNode(x, y);
 				spep.addNode(tdc.getLastNode());
 				spep.setTrajectory((Trajectory) tdc.getContent());
-				spep.paintBackBuffer();
-				spep.flip();
+				spep.repaint();
 			} 
 		} else if (selectedTool == DELETE_TOOL){
 			if (underMouse != null) {
@@ -90,8 +87,7 @@ public class TrajectoryScenePreviewEditionController extends NormalScenePreviewE
 				underMouse = null;
 				spep.setSelectedElement((ImageElement) null); 
 				spep.setTrajectory((Trajectory) tdc.getContent());
-				spep.paintBackBuffer();
-				spep.flip();
+				spep.repaint();
 			} else {
 				findAndDeleteSide(x, y);
 			}
@@ -102,8 +98,7 @@ public class TrajectoryScenePreviewEditionController extends NormalScenePreviewE
 				} else {
 					tdc.addSide( ((ImageElementNode) spep.getFirstElement()).getNodeDataControl(), ((ImageElementNode) underMouse).getNodeDataControl()); 
 					spep.setFirstElement(null);
-					spep.paintBackBuffer();
-					spep.flip();					
+					spep.repaint();					
 				}
 			}
 		} else if (selectedTool == EDIT_BARRIERS) {
@@ -112,8 +107,7 @@ public class TrajectoryScenePreviewEditionController extends NormalScenePreviewE
 			if (underMouse != null) {
 				tdc.setInitialNode( ((ImageElementNode) underMouse).getNodeDataControl());
 				spep.recreateElements(ScenePreviewEditionPanel.CATEGORY_NODE);
-				spep.paintBackBuffer();
-				spep.flip();
+				spep.repaint();
 			}
 		}
 	}
@@ -147,8 +141,7 @@ public class TrajectoryScenePreviewEditionController extends NormalScenePreviewE
 		if (sdc != null) {
 			tdc.deleteElement(sdc);
 			spep.setTrajectory((Trajectory) tdc.getContent());
-			spep.paintBackBuffer();
-			spep.flip();			
+			spep.repaint();
 		}
 	}
 
@@ -177,8 +170,7 @@ public class TrajectoryScenePreviewEditionController extends NormalScenePreviewE
 			}
 			else if (underMouse != null) {
 				spep.setSelectedElement(underMouse);
-				spep.paintBackBuffer();
-				spep.flip();
+				spep.repaint();
 			}
 		} else if (selectedTool == EDIT_BARRIERS) {
 			super.mousePressed(e);
@@ -193,13 +185,12 @@ public class TrajectoryScenePreviewEditionController extends NormalScenePreviewE
 	public void mouseDragged(MouseEvent e) {
 		if (selectedTool == NODE_EDIT) {
 			if (underMouse != null && !spep.isRescale()) {
-				int changeX = (int) ((e.getX() - startDragX) / spep.getSizeRatio());
-				int changeY = (int) ((e.getY() - startDragY) / spep.getSizeRatio());
+				int changeX = spep.getRealWidth(e.getX() - startDragX);
+				int changeY = spep.getRealHeight(e.getY() - startDragY);
 				int x = originalX + changeX;
 				int y = originalY + changeY;
 				underMouse.changePosition(x, y);
-				spep.paintBackBuffer();
-				spep.flip();
+				spep.repaint();
 			} else if (underMouse != null && spep.isRescale()) {
 				double changeX = (e.getX() - startDragX);
 				double changeY = - (e.getY() - startDragY);
@@ -211,17 +202,16 @@ public class TrajectoryScenePreviewEditionController extends NormalScenePreviewE
 				
 				float scale = originalScale;
 				if (tempX*tempX > tempY*tempY)
-					scale = (float) (((width * originalScale) + (changeX / spep.getSizeRatio())) / width);
+					scale = (float) (((width * originalScale) + spep.getRealWidth((int) changeX)) / width);
 				else
-					scale = (float) (((height * originalScale) + (changeY / spep.getSizeRatio())) / height);
+					scale = (float) (((height * originalScale) + spep.getRealHeight((int) changeY)) / height);
 				
 				if (scale <= 0)
 					scale = 0.01f;
 				
 				underMouse.setScale(scale);
 				underMouse.recreateImage();
-				spep.paintBackBuffer();
-				spep.flip();
+				spep.repaint();
 			}
 		}  else if (selectedTool == EDIT_BARRIERS) {
 			super.mouseDragged(e);
@@ -231,8 +221,7 @@ public class TrajectoryScenePreviewEditionController extends NormalScenePreviewE
 	public void mouseMoved(MouseEvent e) {
 		setMouseUnder(e.getX(), e.getY());
 		if (spep.getFirstElement() != null) {
-			spep.paintBackBuffer();
-			spep.flip();
+			spep.repaint();
 		}	
 	}
 		

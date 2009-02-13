@@ -11,6 +11,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextPane;
 import javax.swing.table.AbstractTableModel;
@@ -18,6 +19,7 @@ import javax.swing.table.AbstractTableModel;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ScenesListDataControl;
+import es.eucm.eadventure.editor.gui.otherpanels.SceneLinksPanel;
 import es.eucm.eadventure.editor.gui.treepanel.TreeNodeControl;
 
 public class ScenesListPanel extends JPanel {
@@ -56,6 +58,9 @@ public class ScenesListPanel extends JPanel {
 		informationPanel.add( informationTextPane, BorderLayout.CENTER );
 		add( informationPanel, c );
 
+		JTabbedPane pane = new JTabbedPane();
+		
+		
 		// Create the table with the data
 		c.gridy = 2;
 		c.fill = GridBagConstraints.BOTH;
@@ -77,7 +82,20 @@ public class ScenesListPanel extends JPanel {
 		listPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ScenesList.ListTitle" ) ) );
 		listPanel.setLayout( new BorderLayout( ) );
 		listPanel.add( new JScrollPane( informationTable, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER ), BorderLayout.CENTER );
-		add( listPanel, c );
+		//add( listPanel, c );
+		
+		
+		// Create the table with the data
+		/*c.gridy = 3;
+		c.fill = GridBagConstraints.BOTH;
+		c.weightx = 1;
+		c.weighty = 1;*/
+		SceneLinksPanel sceneLinksPanel = new SceneLinksPanel(scenesListDataControl);
+		//add( sceneLinksPanel, c );
+
+		pane.addTab("Graph", sceneLinksPanel);
+		pane.addTab("List", listPanel);
+		add(pane, c);
 	}
 
 	/**

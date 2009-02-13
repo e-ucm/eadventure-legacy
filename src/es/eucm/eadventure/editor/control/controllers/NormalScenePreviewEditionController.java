@@ -42,8 +42,7 @@ public class NormalScenePreviewEditionController implements ScenePreviewEditionC
 			if (e.getButton() == MouseEvent.BUTTON1) {
 				if (e.getClickCount() == 1) {
 					spep.setSelectedElement(underMouse);
-					spep.paintBackBuffer();
-					spep.flip();
+					spep.repaint();
 				} else {
 					TreeNodeControl.getInstance().changeTreeNode(underMouse.getDataControl());
 				}
@@ -71,15 +70,13 @@ public class NormalScenePreviewEditionController implements ScenePreviewEditionC
 			}
 		} else if (underMouse == null && !spep.getFixedSelectedElement()) {
 			spep.setSelectedElement((ImageElement) null);
-			spep.paintBackBuffer();
-			spep.flip();
+			spep.repaint();
 		} else if (spep.getFixedSelectedElement()) {
-			int x = (int) ((e.getX() - spep.getMarginX()) / spep.getSizeRatio());
-			int y = (int) ((e.getY() - spep.getMarginY()) / spep.getSizeRatio());
+			int x = spep.getRealX(e.getX());
+			int y = spep.getRealY(e.getY());
 			spep.getSelectedElement().changePosition(x, y);
 			spep.updateTextEditionPanel();
-			spep.paintBackBuffer();
-			spep.flip();
+			spep.repaint();
 		}
 	}
 
@@ -105,8 +102,7 @@ public class NormalScenePreviewEditionController implements ScenePreviewEditionC
 			originalScale = underMouse.getScale();
 		} else if (underMouse != null && !spep.getFixedSelectedElement()) {
 			spep.setSelectedElement(underMouse);
-			spep.paintBackBuffer();
-			spep.flip();
+			spep.repaint();
 		}
 	}
 
@@ -117,14 +113,13 @@ public class NormalScenePreviewEditionController implements ScenePreviewEditionC
 
 	public void mouseDragged(MouseEvent e) {
 		if (underMouse != null && !spep.isRescale() && !spep.isResize()) {
-			int changeX = (int) ((e.getX() - startDragX) / spep.getSizeRatio());
-			int changeY = (int) ((e.getY() - startDragY) / spep.getSizeRatio());
+			int changeX = spep.getRealWidth(e.getX() - startDragX);
+			int changeY = spep.getRealHeight(e.getY() - startDragY);
 			int x = originalX + changeX;
 			int y = originalY + changeY;
 			underMouse.changePosition(x, y);
 			spep.updateTextEditionPanel();
-			spep.paintBackBuffer();
-			spep.flip();
+			spep.repaint();
 		} else if (underMouse != null && spep.isRescale() && !spep.isResize()) {
 			double changeX = (e.getX() - startDragX);
 			double changeY = - (e.getY() - startDragY);
@@ -136,25 +131,23 @@ public class NormalScenePreviewEditionController implements ScenePreviewEditionC
 			
 			float scale = originalScale;
 			if (tempX*tempX > tempY*tempY)
-				scale = (float) (((width * originalScale) + (changeX / spep.getSizeRatio())) / width);
+				scale = (float) (((width * originalScale) + spep.getRealWidth((int) changeX)) / width);
 			else
-				scale = (float) (((height * originalScale) + (changeY / spep.getSizeRatio())) / height);
+				scale = (float) (((height * originalScale) + spep.getRealHeight((int) changeY)) / height);
 			
 			if (scale <= 0)
 				scale = 0.01f;
 			
 			underMouse.setScale(scale);
 			spep.updateTextEditionPanel();
-			spep.paintBackBuffer();
-			spep.flip();
+			spep.repaint();
 		} else if (underMouse != null && !spep.isRescale() && spep.isResize()) {
-			int changeX = (int) ((e.getX() - startDragX) / spep.getSizeRatio());
-			int changeY = (int) ((e.getY() - startDragY) / spep.getSizeRatio());
+			int changeX = spep.getRealWidth(e.getX() - startDragX);
+			int changeY = spep.getRealHeight(e.getY() - startDragY);
 			underMouse.changeSize(originalWidth + changeX, originalHeight + changeY);
 			underMouse.recreateImage();
 			spep.updateTextEditionPanel();
-			spep.paintBackBuffer();
-			spep.flip();
+			spep.repaint();
 		}
 	}
 
@@ -163,8 +156,8 @@ public class NormalScenePreviewEditionController implements ScenePreviewEditionC
 	}
 	
 	protected void setMouseUnder(int mouseX, int mouseY) {
-		int x = (int) ((mouseX - spep.getMarginX()) / spep.getSizeRatio());
-		int y = (int) ((mouseY - spep.getMarginY()) / spep.getSizeRatio());
+		int x = spep.getRealX(mouseX);
+		int y = spep.getRealY(mouseY);
 		ImageElement imageElement = spep.getMovableElement(x, y);
 		ImageElement rescaleElement = spep.getRescaleElement(x, y);
 		ImageElement resizeElement = spep.getResizeElement(x, y);
@@ -173,20 +166,17 @@ public class NormalScenePreviewEditionController implements ScenePreviewEditionC
 			underMouse = rescaleElement;
 			spep.setRescale(true);
 			spep.setResize(false);
-			spep.paintBackBuffer();
-			spep.flip();
+			spep.repaint();
 		} else if (resizeElement != null) {
 			underMouse = resizeElement;
 			spep.setResize(true);
 			spep.setRescale(false);
-			spep.paintBackBuffer();
-			spep.flip();
+			spep.repaint();
 		} else if (imageElement != underMouse || (imageElement != null && (spep.isRescale() || spep.isResize()))) {
 			underMouse = imageElement;
 			spep.setRescale(false);
 			spep.setResize(false);
-			spep.paintBackBuffer();
-			spep.flip();
+			spep.repaint();
 		} else if (imageElement == null){
 			underMouse = null;
 			spep.setRescale(false);
