@@ -3,6 +3,7 @@ package es.eucm.eadventure.engine.gamelauncher;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -458,7 +459,7 @@ public class GameLauncher extends JFrame implements Runnable {
     		String args[] = new String[2];
     		args[0] = "";
     		
-    		if ( combo.getSelectedItem().toString() == TextConstants.getText("MainWindow.Spanish") ) {
+    		if ( combo.getSelectedItem().toString().equals(TextConstants.getText("MainWindow.Spanish")) ) {
     			args[1] = "es_ES.xml";
     		} else  
         		args[1] = "en_EN.xml";
