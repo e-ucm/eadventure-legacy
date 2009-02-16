@@ -244,10 +244,19 @@ public class GUIFrame extends GUI implements FocusListener {
     		bkgFrame.remove(component);
     	}
     	component = null;
-    	bkgFrame.setIgnoreRepaint(true);
-    	bkgFrame.repaint();
-    	gameFrame.setVisible(true);    	
-    	bkgFrame.validate();
+
+    	if (Game.getInstance().isDebug()) {
+        	//bkgFrame.setIgnoreRepaint(false);
+        	//bkgFrame.repaint();
+        	gameFrame.setVisible(true);    	
+        	bkgFrame.validate();
+    		Game.getInstance().repaintDebug();
+    	} else {
+	    	bkgFrame.setIgnoreRepaint(true);
+	    	bkgFrame.repaint();
+	    	gameFrame.setVisible(true);    	
+	    	bkgFrame.validate();
+    	}
     }
 
 	public Frame getJFrame() {

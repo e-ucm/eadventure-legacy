@@ -302,7 +302,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     
     private DebugValuesPanel debugChangesPanel;
     
-    private DebugLogPanel debugLogFrame;
+    private DebugLogPanel debugLogPanel;
 
     /**
      * FIFO which store high level interaction
@@ -338,8 +338,8 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         staticStop();
         if (instance.debugChangesPanel != null)
         	instance.debugChangesPanel.close();
-        if (instance.debugLogFrame != null)
-        	instance.debugLogFrame.close();
+        if (instance.debugLogPanel != null)
+        	instance.debugLogPanel.close();
         instance = null;
     }
 
@@ -482,6 +482,12 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
 
     }
 
+    public void repaintDebug() {
+    	if (debug) {
+    		debugChangesPanel.repaint();
+    		debugLogPanel.repaint();
+    	}
+    }
     
     public void setPlayerLayer(int layer){
     	 functionalPlayer.setLayer(layer);
@@ -498,7 +504,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         FINISH = false;
         
         if (debug) {
-        	debugLogFrame = new DebugLogPanel();
+        	debugLogPanel = new DebugLogPanel();
         }
     	DebugLog.general("Log started...");
         
@@ -565,7 +571,6 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             	assessmentEngine.setPlayerName(name);
             }
             
-            
             while( !gameOver ) {
                 loadCurrentChapter( g );
 
@@ -574,7 +579,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
                 		GUI.getInstance().getJFrame().remove(debugChangesPanel);
                 	debugChangesPanel = new DebugValuesPanel(flags, vars, this.getCurrentChapterData().getGlobalStates());
                 	GUI.getInstance().getJFrame().add(debugChangesPanel);
-                	GUI.getInstance().getJFrame().add(debugLogFrame);
+                	GUI.getInstance().getJFrame().add(debugLogPanel);
                 	GUI.getInstance().getJFrame().setAlwaysOnTop(false);
                 	GUI.getInstance().getJFrame().validate();
                 }
