@@ -39,8 +39,13 @@ public class FunctionalGive extends FunctionalAction {
 	@Override
 	public void setAnotherElement(FunctionalElement element) {
 		requiersAnotherElement = false;
-		needsGoTo = originalAction.isNeedsGoTo();
-		keepDistance = originalAction.getKeepDistance();
+		if (originalAction != null) {
+			needsGoTo = originalAction.isNeedsGoTo();
+			keepDistance = originalAction.getKeepDistance();
+		} else {
+			needsGoTo = true;
+			keepDistance = 35;
+		}
 		anotherElement = element;
 	}
 

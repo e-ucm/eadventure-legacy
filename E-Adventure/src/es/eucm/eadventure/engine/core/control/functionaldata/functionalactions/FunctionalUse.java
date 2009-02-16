@@ -26,7 +26,7 @@ public class FunctionalUse extends FunctionalAction {
 		this.element = element;
         FunctionalItem item = (FunctionalItem) element;
         originalAction = item.getFirstValidAction(ActionManager.ACTION_USE);
-		if (element.isInInventory()) {
+		if (element.isInInventory() || originalAction == null) {
 			this.needsGoTo = false;
 		} else {
 			this.needsGoTo = originalAction.isNeedsGoTo();

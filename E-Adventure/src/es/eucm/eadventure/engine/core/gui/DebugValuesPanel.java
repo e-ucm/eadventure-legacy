@@ -6,7 +6,7 @@ import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
@@ -19,7 +19,7 @@ import es.eucm.eadventure.engine.core.control.FlagSummary;
 import es.eucm.eadventure.engine.core.control.VarSummary;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 
-public class DebugValuesFrame extends JFrame {
+public class DebugValuesPanel extends JPanel {
 	
 	/**
 	 * Default serial version UID
@@ -69,13 +69,10 @@ public class DebugValuesFrame extends JFrame {
 	 * @param varSummary The vars of the chapter
 	 * @param list 
 	 */
-	public DebugValuesFrame(FlagSummary flagSummary, VarSummary varSummary, List<GlobalState> globalStates) {
-		super(TextConstants.getText("DebugFrame.Title"));
+	public DebugValuesPanel(FlagSummary flagSummary, VarSummary varSummary, List<GlobalState> globalStates) {
         Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
 		this.setSize(screenSize.width - GUIFrame.WINDOW_WIDTH, GUIFrame.WINDOW_HEIGHT);
 		this.setLocation(0, 0);
-		this.setResizable(false);
-		this.setUndecorated(true);
 		this.setLayout(new BorderLayout());
 		
 		this.flagSummary = flagSummary;
