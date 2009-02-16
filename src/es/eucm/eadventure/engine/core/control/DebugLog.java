@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import es.eucm.eadventure.engine.core.gui.DebugLogFrame;
+import es.eucm.eadventure.engine.core.gui.DebugLogPanel;
 
 public class DebugLog {
 
@@ -21,7 +21,7 @@ public class DebugLog {
 	
 	private List<String> text;
 	
-	private DebugLogFrame debugFrameLog;
+	private DebugLogPanel debugFrameLog;
 	
 	public DebugLog() {
 		text = new ArrayList<String>();
@@ -56,7 +56,7 @@ public class DebugLog {
 	    return sdf.format(Calendar.getInstance().getTime());
 	}
     
-	public void setDebugFrameLog(DebugLogFrame debugFrameLog) {
+	public void setDebugFrameLog(DebugLogPanel debugFrameLog) {
 		this.debugFrameLog = debugFrameLog;
 	}
 

@@ -15,7 +15,7 @@ public class FunctionalExamine extends FunctionalAction {
 		type = ActionManager.ACTION_EXAMINE;
 		this.element = element;
 		originalAction = element.getFirstValidAction(Action.EXAMINE);
-		if (element.isInInventory()) {
+		if (element.isInInventory() || originalAction == null) {
 			this.needsGoTo = false;
 		} else {
 			this.needsGoTo = originalAction.isNeedsGoTo();

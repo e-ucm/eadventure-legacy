@@ -37,7 +37,7 @@ public class FunctionalUseWith extends FunctionalAction {
 	@Override
 	public void setAnotherElement(FunctionalElement element) {
 		anotherElement = element;
-		if (!anotherElement.isInInventory()) {
+		if (!anotherElement.isInInventory() && originalAction != null) {
 			this.needsGoTo = originalAction.isNeedsGoTo();
 			this.keepDistance = originalAction.getKeepDistance();
 		}

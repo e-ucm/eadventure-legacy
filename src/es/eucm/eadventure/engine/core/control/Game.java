@@ -57,8 +57,8 @@ import es.eucm.eadventure.engine.core.data.SaveTimer;
 
 //import es.eucm.eadventure.engine.core.data.userinteraction.highlevel.HighLevelInteraction;
 //import es.eucm.eadventure.engine.core.data.userinteraction.lowlevel.LowLevelInteraction;
-import es.eucm.eadventure.engine.core.gui.DebugValuesFrame;
-import es.eucm.eadventure.engine.core.gui.DebugLogFrame;
+import es.eucm.eadventure.engine.core.gui.DebugValuesPanel;
+import es.eucm.eadventure.engine.core.gui.DebugLogPanel;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.common.loader.Loader;
 import es.eucm.eadventure.common.loader.incidences.Incidence;
@@ -300,9 +300,9 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     
     private boolean debug = false;
     
-    private DebugValuesFrame debugFrameChanges;
+    private DebugValuesPanel debugChangesPanel;
     
-    private DebugLogFrame debugFrameLog;
+    private DebugLogPanel debugLogFrame;
 
     /**
      * FIFO which store high level interaction
@@ -336,10 +336,10 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     
     public static void delete(){
         staticStop();
-        if (instance.debugFrameChanges != null)
-        	instance.debugFrameChanges.close();
-        if (instance.debugFrameLog != null)
-        	instance.debugFrameLog.close();
+        if (instance.debugChangesPanel != null)
+        	instance.debugChangesPanel.close();
+        if (instance.debugLogFrame != null)
+        	instance.debugLogFrame.close();
         instance = null;
     }
 
@@ -496,10 +496,9 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     public void run( ) {
 
         FINISH = false;
-        boolean errorWhileLoading = false;
         
         if (debug) {
-        	debugFrameLog = new DebugLogFrame();
+        	debugLogFrame = new DebugLogPanel();
         }
     	DebugLog.general("Log started...");
         
@@ -568,18 +567,21 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             
             
             while( !gameOver ) {
-            	
-                errorWhileLoading = true;
                 loadCurrentChapter( g );
-                errorWhileLoading = false;
 
                 if (debug) {
-                	debugFrameChanges = new DebugValuesFrame(flags, vars, this.getCurrentChapterData().getGlobalStates());
+                	if (debugChangesPanel != null)
+                		GUI.getInstance().getJFrame().remove(debugChangesPanel);
+                	debugChangesPanel = new DebugValuesPanel(flags, vars, this.getCurrentChapterData().getGlobalStates());
+                	GUI.getInstance().getJFrame().add(debugChangesPanel);
+                	GUI.getInstance().getJFrame().add(debugLogFrame);
+                	GUI.getInstance().getJFrame().setAlwaysOnTop(false);
+                	GUI.getInstance().getJFrame().validate();
                 }
             
                 while( !nextChapter && !gameOver ) {
                 	if (debug)
-                		debugFrameChanges.updateValues();
+                		debugChangesPanel.updateValues();
                     time = System.currentTimeMillis( );
                     elapsedTime = time - oldTime;
                     oldTime = time;

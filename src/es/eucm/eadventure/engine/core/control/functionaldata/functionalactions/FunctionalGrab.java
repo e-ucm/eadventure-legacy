@@ -26,8 +26,13 @@ public class FunctionalGrab extends FunctionalAction {
 		this.element = element;
 		this.type = ActionManager.ACTION_GRAB;
 		originalAction = element.getFirstValidAction(Action.GRAB);
-		this.needsGoTo = originalAction.isNeedsGoTo();
-		this.keepDistance = originalAction.getKeepDistance();
+		if (originalAction != null) {
+			this.needsGoTo = originalAction.isNeedsGoTo();
+			this.keepDistance = originalAction.getKeepDistance();
+		} else {
+			this.needsGoTo = true;
+			this.keepDistance = 35;
+		}
 	}
 
 	@Override

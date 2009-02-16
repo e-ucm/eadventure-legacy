@@ -4,9 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
-import java.awt.Dialog.ModalExclusionType;
 
-import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
@@ -15,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.engine.core.control.DebugLog;
 
-public class DebugLogFrame extends JFrame {
+public class DebugLogPanel extends JPanel {
 
 	/**
 	 * Default serial version UID
@@ -30,16 +29,11 @@ public class DebugLogFrame extends JFrame {
 	
 	private DebugTable player;
 	
-	public DebugLogFrame() {
-		super(TextConstants.getText("DebugFrameLog.Title"));
+	public DebugLogPanel() {
         Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
 		this.setSize(screenSize.width, screenSize.height - GUIFrame.WINDOW_HEIGHT - 25);
 		this.setLocation(0, GUIFrame.WINDOW_HEIGHT);
-		this.setLayout(new BorderLayout());
-		this.setResizable(false);
-		this.setUndecorated(true);
-		this.setModalExclusionType(ModalExclusionType.TOOLKIT_EXCLUDE);
-		
+		this.setLayout(new BorderLayout());		
 		
 		JTabbedPane pane = new JTabbedPane();
 		
@@ -53,6 +47,7 @@ public class DebugLogFrame extends JFrame {
 		pane.addTab(TextConstants.getText("DebugFrameLog.Player"), null, player.getScrollPane(), TextConstants.getText("DebugFrameLog.PlayerTip"));
 		
 		general = new DebugTable();
+
 		pane.addTab(TextConstants.getText("DebugFrameLog.General"), null, general.getScrollPane(), TextConstants.getText("DebugFrameLog.General"));
 		
 		this.add(pane, BorderLayout.CENTER);

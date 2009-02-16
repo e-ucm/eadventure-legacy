@@ -100,11 +100,13 @@ public class GUIFrame extends GUI implements FocusListener {
             bkgFrame.setSize( screenSize.width, screenSize.height );
             bkgFrame.setLocation(0,0);
         } else {
-        	bkgFrame.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-        	if (!Game.getInstance().isDebug())
+        	if (!Game.getInstance().isDebug()) {
+            	bkgFrame.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
             	bkgFrame.setLocation( ( screenSize.width - WINDOW_WIDTH ) / 2, ( screenSize.height - WINDOW_HEIGHT ) / 2);
-            else
-            	bkgFrame.setLocation( ( screenSize.width - WINDOW_WIDTH ) , 0);
+        	} else {
+            	bkgFrame.setSize(screenSize.width, screenSize.height);
+            	bkgFrame.setLocation( 0 , 0);
+        	}
         }
 
         bkgFrame.setBackground( Color.BLACK );
@@ -266,10 +268,16 @@ public class GUIFrame extends GUI implements FocusListener {
 			        int posX = ( screenSize.width - GUI.WINDOW_WIDTH ) / 2 - (int) bkgFrame.getLocation().getX();
 			        int posY = ( screenSize.height - GUI.WINDOW_HEIGHT ) / 2 - (int) bkgFrame.getLocation().getY();
 			    	if (Game.getInstance().isDebug()) {
-				        posX = ( screenSize.width - GUI.WINDOW_WIDTH )  - (int) bkgFrame.getLocation().getX();
+				        posX = ( screenSize.width - GUI.WINDOW_WIDTH );
 				        posY = 0;
 			    	}
-					components[i].setBounds(posX, posY, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT);
+					
+			    	if (components[i] instanceof DebugLogPanel) {
+			    		components[i].setBounds(0,GUI.WINDOW_HEIGHT, screenSize.width, screenSize.height - GUI.WINDOW_HEIGHT);
+			    	} else if (components[i] instanceof DebugValuesPanel) {
+			    		components[i].setBounds(0, 0, screenSize.width - GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT);
+			    	} else
+			    		components[i].setBounds(posX, posY, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT);
 				} else {
 					components[i].setLocation(0, 0);
 					components[i].setSize(GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT);
