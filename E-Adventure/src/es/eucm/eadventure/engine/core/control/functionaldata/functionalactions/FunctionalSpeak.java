@@ -84,6 +84,7 @@ public class FunctionalSpeak extends FunctionalAction {
         if( totalTime > timeTalking &&(audioId==-1 || !MultimediaManager.getInstance( ).isPlaying( audioId ))) {
         	finished = true;
         	functionalPlayer.popAnimation();
+        	stopTTSTalking();
         }
 	}
 
