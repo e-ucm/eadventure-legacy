@@ -135,6 +135,7 @@ public class NPCTalking extends NPCState {
         totalTime += elapsedTime;
         if( totalTime > timeTalking && (audioId==-1 || !MultimediaManager.getInstance( ).isPlaying( audioId ))) {
             npc.setState( FunctionalNPC.IDLE );
+            stopTTSTalking();
         }
     }
 
