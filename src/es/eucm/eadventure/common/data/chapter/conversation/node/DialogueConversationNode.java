@@ -186,6 +186,18 @@ public class DialogueConversationNode extends ConversationNode {
 		return effects != null;
 	}
 
-	
+	public Object clone() throws CloneNotSupportedException {
+		DialogueConversationNode dcn = (DialogueConversationNode) super.clone();
+		if (dialogue != null) {
+			dcn.dialogue = new ArrayList<ConversationLine>();
+			for (ConversationLine cl : dialogue)
+				dcn.dialogue.add((ConversationLine) cl.clone());
+		}
+		dcn.effectConsumed = effectConsumed;
+		dcn.effects = (effects != null ? (Effects) effects.clone() : null);
+		dcn.nextNode = (nextNode != null ? (ConversationNode) nextNode.clone() : null);
+		dcn.terminal = terminal;
+		return dcn;
+	}
 
 }

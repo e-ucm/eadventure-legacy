@@ -4,14 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.elements.Atrezzo;
-import es.eucm.eadventure.common.data.chapter.elements.Item;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
-import es.eucm.eadventure.editor.control.controllers.general.ActionsListDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
+import es.eucm.eadventure.editor.control.tools.general.ChangeDescriptionTool;
+import es.eucm.eadventure.editor.control.tools.general.ChangeDocumentationTool;
+import es.eucm.eadventure.editor.control.tools.general.ChangeNameTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class AtrezzoDataControl extends DataControlWithResources {
@@ -169,12 +170,7 @@ public class AtrezzoDataControl extends DataControlWithResources {
 	 *            Documentation of the atrezzo item
 	 */
 	public void setDocumentation( String documentation ) {
-		// If the value is different
-		if( !documentation.equals( atrezzo.getDocumentation( ) ) ) {
-			// Set the new documentation and modify the data
-			atrezzo.setDocumentation( documentation );
-			controller.dataModified( );
-		}
+		controller.addTool(new ChangeDocumentationTool(atrezzo, documentation));
 	}
 
 	/**
@@ -184,12 +180,7 @@ public class AtrezzoDataControl extends DataControlWithResources {
 	 *            Name of the atrezzo item
 	 */
 	public void setName( String name ) {
-		// If the value is different
-		if( !name.equals( atrezzo.getName( ) ) ) {
-			// Set the new name and modify the data
-			atrezzo.setName( name );
-			controller.dataModified( );
-		}
+		controller.addTool(new ChangeNameTool(atrezzo, name));
 	}
 
 	/**
@@ -199,12 +190,7 @@ public class AtrezzoDataControl extends DataControlWithResources {
 	 *            Description of the atrezzo item
 	 */
 	public void setBriefDescription( String description ) {
-		// If the value is different
-		if( !description.equals( atrezzo.getDescription( ) ) ) {
-			// Set the new description and modify the data
-			atrezzo.setDescription( description );
-			controller.dataModified( );
-		}
+		controller.addTool(new ChangeDescriptionTool(atrezzo, description));
 	}
 
 	/**
@@ -270,7 +256,7 @@ public class AtrezzoDataControl extends DataControlWithResources {
 	}
 
 	@Override
-	public boolean deleteElement( DataControl dataControl ) {
+	public boolean deleteElement( DataControl dataControl , boolean askConfirmation) {
 		boolean elementDeleted = false;
 
 		// Delete the block only if it is not the last one
@@ -326,16 +312,18 @@ public class AtrezzoDataControl extends DataControlWithResources {
 	}
 
 	@Override
-	public boolean renameElement( ) {
+	public String renameElement( String name ) {
 		boolean elementRenamed = false;
 		String oldAtrezzoId = atrezzo.getId( );
 		String references = String.valueOf( controller.countIdentifierReferences( oldAtrezzoId ) );
 
 		// Ask for confirmation 
-		if( controller.showStrictConfirmDialog( TextConstants.getText( "Operation.RenameAtrezzoTitle" ), TextConstants.getText( "Operation.RenameElementWarning", new String[] { oldAtrezzoId, references } ) ) ) {
+		if(name != null || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.RenameAtrezzoTitle" ), TextConstants.getText( "Operation.RenameElementWarning", new String[] { oldAtrezzoId, references } ) ) ) {
 
 			// Show a dialog asking for the new atrezzo item id
-			String newAtrezzoId = controller.showInputDialog( TextConstants.getText( "Operation.RenameAtrezzoTitle" ), TextConstants.getText( "Operation.RenameAtrezzoMessage" ), oldAtrezzoId );
+			String newAtrezzoId = name;
+			if (name == null)
+				newAtrezzoId = controller.showInputDialog( TextConstants.getText( "Operation.RenameAtrezzoTitle" ), TextConstants.getText( "Operation.RenameAtrezzoMessage" ), oldAtrezzoId );
 
 			// If some value was typed and the identifiers are different
 			if( newAtrezzoId != null && !newAtrezzoId.equals( oldAtrezzoId ) && controller.isElementIdValid( newAtrezzoId ) ) {
@@ -348,7 +336,10 @@ public class AtrezzoDataControl extends DataControlWithResources {
 			}
 		}
 
-		return elementRenamed;
+		if (elementRenamed)
+			return oldAtrezzoId;
+		else
+			return null;
 	}
 
 	@Override

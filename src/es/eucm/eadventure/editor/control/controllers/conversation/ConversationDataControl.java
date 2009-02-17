@@ -467,7 +467,7 @@ public abstract class ConversationDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean deleteElement( DataControl dataControl ) {
+	public boolean deleteElement( DataControl dataControl, boolean askConfirmation ) {
 		return false;
 	}
 

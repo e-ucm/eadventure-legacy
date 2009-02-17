@@ -51,4 +51,9 @@ public class TreeConversation extends Conversation {
 
 		return goBackTag;
 	}
+	
+	public Object clone() throws CloneNotSupportedException {
+		TreeConversation tc = (TreeConversation) super.clone();
+		return tc;
+	}
 }

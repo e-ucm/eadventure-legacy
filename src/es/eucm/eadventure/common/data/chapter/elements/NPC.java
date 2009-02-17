@@ -215,4 +215,18 @@ public class NPC extends Element {
 	public void setAlwaysSynthesizer(boolean alwaysSynthesizer) {
 		this.alwaysSynthesizer = alwaysSynthesizer;
 	}
+	
+	public Object clone() throws CloneNotSupportedException {
+		NPC n = (NPC) super.clone();
+		if (conversationReferences != null) {
+			n.conversationReferences = new ArrayList<ConversationReference>();
+			for (ConversationReference cr : conversationReferences)
+				n.conversationReferences.add((ConversationReference) cr.clone());
+		}
+		n.alwaysSynthesizer = alwaysSynthesizer;
+		n.textBorderColor = (textBorderColor != null ? new String(textBorderColor) : null);
+		n.textFrontColor = (textFrontColor != null ? new String(textFrontColor) : null);
+		n.voice = (voice != null ? new String(voice) : null);
+		return n;
+	}
 }

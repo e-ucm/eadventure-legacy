@@ -42,4 +42,10 @@ public class DeactivateEffect implements Effect {
 	public void setIdFlag( String idFlag ) {
 		this.idFlag = idFlag;
 	}
+	
+	public Object clone() throws CloneNotSupportedException {
+		DeactivateEffect de = (DeactivateEffect) super.clone();
+		de.idFlag = (idFlag != null ? new String(idFlag) : null);
+		return de;
+	}
 }

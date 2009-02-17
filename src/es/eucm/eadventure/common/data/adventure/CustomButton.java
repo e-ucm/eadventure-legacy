@@ -1,6 +1,6 @@
 package es.eucm.eadventure.common.data.adventure;
 
-public class CustomButton {
+public class CustomButton implements Cloneable {
 
     private String type;
     
@@ -59,5 +59,14 @@ public class CustomButton {
     	this.type = type;
         this.path = path;
     }
+ 
     
+	public Object clone() throws CloneNotSupportedException {
+		CustomButton cb = (CustomButton) super.clone();
+		cb.action = (action != null ? new String(action) : null);
+		cb.path = (path != null ? new String(path) : null);
+		cb.type = (type != null ? new String(type) : null);
+		
+		return cb;
+	}
 }

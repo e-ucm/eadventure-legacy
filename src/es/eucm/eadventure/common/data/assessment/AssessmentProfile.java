@@ -9,7 +9,7 @@ import java.util.List;
  * @author Javier
  *
  */
-public class AssessmentProfile {
+public class AssessmentProfile implements Cloneable {
 
 	/**
 	 * Relative path of the file containing the asssessment rules
@@ -259,4 +259,34 @@ public class AssessmentProfile {
 		return smtpServer;
 	}
 	
+	
+	public Object clone() throws CloneNotSupportedException {
+		AssessmentProfile ap = (AssessmentProfile) super.clone();
+		ap.email = (email != null ? new String(email) : null);
+		if (flags != null) {
+			ap.flags = new ArrayList<String>();
+			for (String s : flags)
+				ap.flags.add((s != null ? new String(s) : null));
+		}
+		ap.path = (path != null ? new String(path) : null);
+		if (rules != null) {
+			ap.rules = new ArrayList<AssessmentRule>();
+			for (AssessmentRule ar : rules)
+				ap.rules.add((AssessmentRule) ar.clone());
+		}
+		ap.sendByEmail = sendByEmail;
+		ap.showReportAtEnd = showReportAtEnd;
+		ap.smtpPort = (smtpPort != null ? new String(smtpPort) : null);
+		ap.smtpPwd = (smtpPwd != null ? new String(smtpPwd) : null);
+		ap.smtpServer = (smtpServer != null ? new String(smtpServer) : null);
+		ap.smtpSSL = smtpSSL;
+		ap.smtpUser = (smtpUser != null ? new String(smtpUser) : null);
+		if (vars != null) {
+			ap.vars = new ArrayList<String>();
+			for (String s : vars) {
+				ap.vars.add((s != null ? new String(s) : null));
+			}
+		}
+		return ap;
+	}
 }

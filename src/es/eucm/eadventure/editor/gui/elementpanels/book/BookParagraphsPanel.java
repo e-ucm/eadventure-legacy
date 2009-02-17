@@ -330,7 +330,7 @@ public class BookParagraphsPanel extends JPanel{
 	
 	private void delete( ) {
 		BookParagraphDataControl paragraph = dataControl.getBookParagraphsList( ).getBookParagraphs( ).get( paragraphsTable.getSelectedRow( ) );
-		if (dataControl.getBookParagraphsList( ).deleteElement( paragraph )){
+		if (dataControl.getBookParagraphsList( ).deleteElement( paragraph, true )){
 			paragraphsTable.clearSelection( );
 			paragraphsTable.updateUI( );
 		}

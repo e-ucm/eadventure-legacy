@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Assessment property, stores an id and a value
  */
-public class UOLProperty implements Serializable {
+public class UOLProperty implements Serializable, Cloneable {
 
     /**
      * Required
@@ -54,5 +54,12 @@ public class UOLProperty implements Serializable {
 
 	public void setValue( String value ) {
 		this.value = value;
+	}
+	
+	public Object clone() throws CloneNotSupportedException {
+		UOLProperty uolp = (UOLProperty) super.clone();
+		uolp.id = (id != null ? new String(id) : null);
+		uolp.value = (value != null ? new String(value) : null);
+		return uolp;
 	}
 }

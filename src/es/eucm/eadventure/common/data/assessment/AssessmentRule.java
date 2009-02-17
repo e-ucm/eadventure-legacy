@@ -7,7 +7,7 @@ import es.eucm.eadventure.common.data.chapter.conditions.*;
 /**
  * Rule for the assesment engine
  */
-public class AssessmentRule {
+public class AssessmentRule implements Cloneable {
     
     /**
      * Number of different importance values
@@ -175,5 +175,17 @@ public class AssessmentRule {
 
 	public void setId( String assRuleId ) {
 		this.id = assRuleId;
+	}
+	
+	public Object clone() throws CloneNotSupportedException {
+		AssessmentRule ar = (AssessmentRule) super.clone();
+		ar.concept = (concept != null ? new String(concept) : null);
+		if (conditions != null)
+			ar.conditions = (Conditions) conditions.clone();
+		if (effect != null)
+			ar.effect = (AssessmentEffect) effect.clone();
+		ar.id = (id != null ? new String(id) : null);
+		ar.importance = importance;
+		return ar;
 	}
 }

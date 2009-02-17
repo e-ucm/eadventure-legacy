@@ -18,6 +18,8 @@ import es.eucm.eadventure.editor.control.controllers.item.ItemsListDataControl;
 import es.eucm.eadventure.editor.control.controllers.macro.MacroListDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ScenesListDataControl;
 import es.eucm.eadventure.editor.control.controllers.timer.TimersListDataControl;
+import es.eucm.eadventure.editor.control.tools.general.ChangeDescriptionTool;
+import es.eucm.eadventure.editor.control.tools.general.ChangeTitleTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 /**
@@ -243,14 +245,8 @@ public class ChapterDataControl extends DataControl {
 	 *            Title of the chapter
 	 */
 	public void setTitle( String title ) {
-		// If the value is different
-		if( !title.equals( chapter.getTitle( ) ) ) {
-			// Set the new title and modify the data
-			chapter.setTitle( title );
-			controller.updateTree( );
-			controller.updateChapterMenu( );
-			controller.dataModified( );
-		}
+		ChangeTitleTool tool = new ChangeTitleTool(chapter, title);
+		controller.addTool(tool);
 	}
 
 	/**
@@ -260,12 +256,8 @@ public class ChapterDataControl extends DataControl {
 	 *            Description of the chapter
 	 */
 	public void setDescription( String description ) {
-		// If the value is different
-		if( !description.equals( chapter.getDescription( ) ) ) {
-			// Set the new description and modify the data
-			chapter.setDescription( description );
-			controller.dataModified( );
-		}
+		ChangeDescriptionTool tool = new ChangeDescriptionTool(chapter, description);
+		controller.addTool(tool);
 	}
 
 	/**
@@ -405,7 +397,7 @@ public class ChapterDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean deleteElement( DataControl dataControl ) {
+	public boolean deleteElement( DataControl dataControl , boolean askConfirmation) {
 		return false;
 	}
 
@@ -420,8 +412,8 @@ public class ChapterDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean renameElement( ) {
-		return false;
+	public String renameElement( String name ) {
+		return null;
 	}
 
 	@Override
@@ -640,5 +632,4 @@ public class ChapterDataControl extends DataControl {
 	public MacroListDataControl getMacrosListDataControl() {
 		return macrosListDataControl;
 	}
-
 }

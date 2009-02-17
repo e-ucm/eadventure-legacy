@@ -9,7 +9,7 @@ import java.util.List;
  * @author Javier
  *
  */
-public class AdaptationProfile {
+public class AdaptationProfile  implements Cloneable{
 
 	/**
 	 * Relative path of the file containing the adaptation rules
@@ -163,5 +163,21 @@ public class AdaptationProfile {
 	 */
 	public void setVars(List<String> vars) {
 		this.vars = vars;
+	}
+	
+	public Object clone() throws CloneNotSupportedException {
+		AdaptationProfile ap = (AdaptationProfile) super.clone();
+		ap.flags = new ArrayList<String>();
+		for (String s : flags)
+			ap.flags.add((s != null ? new String(s) : null));
+		ap.initialState = (AdaptedState) initialState.clone();
+		ap.path = (path != null ? new String(path) : null);
+		ap.rules = new ArrayList<AdaptationRule>();
+		for (AdaptationRule ar : rules)
+			ap.rules.add((AdaptationRule) ar.clone());
+		ap.vars = new ArrayList<String>();
+		for (String s : vars)
+			ap.vars.add((s != null ? new String(s) : null));
+		return ap; 
 	}
 }

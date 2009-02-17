@@ -13,7 +13,6 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.media.MediaLocator;
-import javax.swing.ImageIcon;
 
 import java.io.FileInputStream;
 
@@ -25,11 +24,9 @@ import es.eucm.eadventure.common.auxiliar.categoryfilters.AudioFileFilter;
 import es.eucm.eadventure.common.auxiliar.categoryfilters.FormattedTextFileFilter;
 import es.eucm.eadventure.common.auxiliar.categoryfilters.ImageFileFilter;
 import es.eucm.eadventure.common.auxiliar.categoryfilters.VideoFileFilter;
-import es.eucm.eadventure.common.auxiliar.filefilters.JPGFileFilter;
 import es.eucm.eadventure.common.auxiliar.filefilters.JPGSlidesFileFilter;
 import es.eucm.eadventure.common.auxiliar.filefilters.MP3FileFilter;
 import es.eucm.eadventure.common.auxiliar.filefilters.PNGAnimationFileFilter;
-import es.eucm.eadventure.common.auxiliar.filefilters.PNGFileFilter;
 import es.eucm.eadventure.common.auxiliar.filefilters.XMLFileFilter;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.common.loader.incidences.Incidence;

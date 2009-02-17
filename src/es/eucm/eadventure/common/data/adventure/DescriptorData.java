@@ -3,10 +3,13 @@ package es.eucm.eadventure.common.data.adventure;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.common.data.Described;
+import es.eucm.eadventure.common.data.Titled;
+
 /**
  * Stores the description of the eAdventure file
  */
-public class DescriptorData{
+public class DescriptorData implements Cloneable, Described, Titled {
 	
 	public static final String DEFAULT_CURSOR="default";
     public static final String USE_CURSOR="use";
@@ -366,5 +369,31 @@ public class DescriptorData{
 		this.playerName = playerName;
 	}
 
-	
+	public Object clone() throws CloneNotSupportedException {
+		DescriptorData dd = (DescriptorData) super.clone();
+		if (buttons != null) {
+			dd.buttons = new ArrayList<CustomButton>();
+			for (CustomButton cb : buttons)
+				dd.buttons.add((CustomButton) cb.clone());
+		}
+		dd.commentaries = commentaries;
+		if (contents != null) {
+			dd.contents = new ArrayList<ChapterSummary>();
+			for (ChapterSummary cs : contents)
+				dd.contents.add((ChapterSummary) cs.clone());
+		}
+		if (cursors != null) {
+			dd.cursors = new ArrayList<CustomCursor>();
+			for (CustomCursor cc : cursors)
+				dd.cursors.add((CustomCursor) cc.clone());
+		}
+		dd.description = (description != null ? new String(description) : null);
+		dd.graphicConfig = graphicConfig;
+		dd.guiCustomized = guiCustomized;
+		dd.guiType = guiType;
+		dd.playerMode = playerMode;
+		dd.playerName = (playerName != null ? new String(playerName) : null);
+		dd.title = (title != null ? new String(title) : null);
+		return dd;
+	}
 }

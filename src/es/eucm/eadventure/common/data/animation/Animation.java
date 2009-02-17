@@ -20,7 +20,7 @@ import es.eucm.eadventure.editor.control.controllers.AssetsController;
  * 
  * @author Eugenio Marchiori
  */
-public class Animation {
+public class Animation implements Cloneable {
 
 	/**
 	 * The xml tag for the background music of the animation
@@ -530,5 +530,31 @@ public class Animation {
 		skippedFrames = 0;
 	}
 
+	public Object clone() throws CloneNotSupportedException {
+		Animation a = (Animation) super.clone();
+		a.documentation = (documentation != null ? new String(documentation) : null);
+		if (frames != null) {
+			a.frames = new ArrayList<Frame>();
+			for (Frame f : frames)
+				a.frames.add((Frame) f.clone());
+		}
+		a.fullscreen = fullscreen;
+		a.id = (id != null ? new String(id) : null);
+		a.mirror = mirror;
+		if (resources != null) {
+			a.resources = new ArrayList<Resources>();
+			for (Resources r : resources)
+				a.resources.add((Resources) r.clone());
+		}
+		a.skippedFrames = skippedFrames;
+		a.slides = slides;
+		if (transitions != null) {
+			a.transitions = new ArrayList<Transition>();
+			for (Transition t : transitions)
+				a.transitions.add((Transition) t.clone());
+		}
+		a.useTransitions = useTransitions;
+		return a;
+	}
 
 }

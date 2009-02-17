@@ -42,4 +42,10 @@ public class TriggerBookEffect implements Effect {
 	public void setTargetBookId( String targetBookId ) {
 		this.targetBookId = targetBookId;
 	}
+	
+	public Object clone() throws CloneNotSupportedException {
+		TriggerBookEffect tbe = (TriggerBookEffect) super.clone();
+		tbe.targetBookId = (targetBookId != null ? new String(targetBookId) : null);
+		return tbe;
+	}
 }

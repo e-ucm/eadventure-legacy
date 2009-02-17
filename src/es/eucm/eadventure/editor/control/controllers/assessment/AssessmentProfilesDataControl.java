@@ -141,13 +141,13 @@ public class AssessmentProfilesDataControl extends DataControl{
 	}
 
 	@Override
-	public boolean deleteElement( DataControl dataControl ) {
+	public boolean deleteElement( DataControl dataControl, boolean askConfirmation ) {
 		boolean deleted = false;
 		for (AssessmentProfileDataControl profile:profiles){
 			if (dataControl == profile){
 				String path = profile.getPath( );
 				int references = Controller.getInstance( ).countAssetReferences( path );
-				if( controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { 
+				if(!askConfirmation || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { 
 						TextConstants.getElementName( Controller.ASSESSMENT_PROFILE ), Integer.toString( references ) } ) ) ) {
 					deleted = this.profiles.remove( dataControl );
 					if (deleted){
@@ -229,9 +229,11 @@ public class AssessmentProfilesDataControl extends DataControl{
 	}
 
 	@Override
-	public boolean renameElement( ) {
-		return false;
+	public String renameElement( String name ) {
+		return null;
 	}
+	
+
 
 	@Override
 	public void replaceIdentifierReferences( String oldId, String newId ) {

@@ -1,9 +1,10 @@
 package es.eucm.eadventure.common.data.chapter;
 
+import es.eucm.eadventure.common.data.Documented;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.common.data.chapter.effects.Effects;
 
-public class Timer {
+public class Timer implements Cloneable, Documented {
 	
 	public static final long DEFAULT_SECONDS = 60L;
 
@@ -119,4 +120,15 @@ public class Timer {
 		this.documentation = documentation;
 	}
 	
+	
+	public Object clone() throws CloneNotSupportedException {
+		Timer t = (Timer) super.clone();
+		t.documentation = (documentation != null ? new String(documentation) : null);
+		t.effect = (effect != null ? (Effects) effect.clone() : null);
+		t.endCond = (endCond != null ? (Conditions) endCond.clone() : null);
+		t.initCond = (initCond !=  null ? (Conditions) initCond.clone() : null);
+		t.postEffect = (postEffect != null ? (Effects) postEffect.clone() : null);
+		t.seconds = seconds;
+		return t;
+	}
 }

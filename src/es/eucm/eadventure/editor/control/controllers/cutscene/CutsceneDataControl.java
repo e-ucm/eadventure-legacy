@@ -12,6 +12,8 @@ import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.general.NextSceneDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
+import es.eucm.eadventure.editor.control.tools.general.ChangeDocumentationTool;
+import es.eucm.eadventure.editor.control.tools.general.ChangeNameTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class CutsceneDataControl extends DataControlWithResources {
@@ -210,12 +212,7 @@ public class CutsceneDataControl extends DataControlWithResources {
 	 *            Documentation of the cutscene
 	 */
 	public void setDocumentation( String documentation ) {
-		// If the value is different
-		if( !documentation.equals( cutscene.getDocumentation( ) ) ) {
-			// Set the new documentation and modify the data
-			cutscene.setDocumentation( documentation );
-			controller.dataModified( );
-		}
+		controller.addTool(new ChangeDocumentationTool(cutscene, documentation));
 	}
 
 	/**
@@ -225,12 +222,7 @@ public class CutsceneDataControl extends DataControlWithResources {
 	 *            Name of the cutscene
 	 */
 	public void setName( String name ) {
-		// If the value is different
-		if( !name.equals( cutscene.getName( ) ) ) {
-			// Set the new name and modify the data
-			cutscene.setName( name );
-			controller.dataModified( );
-		}
+		controller.addTool(new ChangeNameTool(cutscene, name));
 	}
 
 	/**
@@ -333,7 +325,7 @@ public class CutsceneDataControl extends DataControlWithResources {
 	}
 
 	@Override
-	public boolean deleteElement( DataControl dataControl ) {
+	public boolean deleteElement( DataControl dataControl , boolean askConfirmation) {
 		boolean elementDeleted = false;
 
 		// If the element is a resources block
@@ -441,16 +433,18 @@ public class CutsceneDataControl extends DataControlWithResources {
 	}
 
 	@Override
-	public boolean renameElement( ) {
+	public String renameElement( String name ) {
 		boolean elementRenamed = false;
 		String oldCutsceneId = cutscene.getId( );
 		String references = String.valueOf( controller.countIdentifierReferences( oldCutsceneId ) );
 
 		// Ask for confirmation
-		if( controller.showStrictConfirmDialog( TextConstants.getText( "Operation.RenameCutsceneTitle" ), TextConstants.getText( "Operation.RenameElementWarning", new String[] { oldCutsceneId, references } ) ) ) {
+		if(name != null || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.RenameCutsceneTitle" ), TextConstants.getText( "Operation.RenameElementWarning", new String[] { oldCutsceneId, references } ) ) ) {
 
 			// Show a dialog asking for the new cutscnee id
-			String newCutsceneId = controller.showInputDialog( TextConstants.getText( "Operation.RenameCutsceneTitle" ), TextConstants.getText( "Operation.RenameCutsceneMessage" ), oldCutsceneId );
+			String newCutsceneId = name;
+			if (name == null)
+				newCutsceneId = controller.showInputDialog( TextConstants.getText( "Operation.RenameCutsceneTitle" ), TextConstants.getText( "Operation.RenameCutsceneMessage" ), oldCutsceneId );
 
 			// If some value was typed and the identifiers are different
 			if( newCutsceneId != null && !newCutsceneId.equals( oldCutsceneId ) && controller.isElementIdValid( newCutsceneId ) ) {
@@ -463,7 +457,10 @@ public class CutsceneDataControl extends DataControlWithResources {
 			}
 		}
 
-		return elementRenamed;
+		if (elementRenamed)
+			return oldCutsceneId;
+		else
+			return null;
 	}
 
 	@Override

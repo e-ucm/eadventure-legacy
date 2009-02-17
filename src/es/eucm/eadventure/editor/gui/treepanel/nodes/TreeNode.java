@@ -14,6 +14,11 @@ import javax.swing.tree.TreePath;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.tools.treepanel.AddChildTool;
+import es.eucm.eadventure.editor.control.tools.treepanel.DeleteNodeTool;
+import es.eucm.eadventure.editor.control.tools.treepanel.MoveTreeNodeDownTool;
+import es.eucm.eadventure.editor.control.tools.treepanel.MoveTreeNodeUpTool;
+import es.eucm.eadventure.editor.control.tools.treepanel.RenameElementTool;
 import es.eucm.eadventure.editor.gui.treepanel.TreeNodeControl;
 import es.eucm.eadventure.editor.gui.treepanel.TreePanel;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.adaptation.AdaptationProfileTreeNode;
@@ -349,14 +354,10 @@ public abstract class TreeNode {
 	 */
 	public void addChild( int type ) {
 		// If the element can be added, and the addition was successful
-		if( getDataControl( ).canAddElement( type ) && getDataControl( ).addElement( type ) ) {
-			// Add the new child and update the tree
-			TreeNode addedTreeNode = checkForNewChild( type );
-			ownerPanel.updateTreePanel( );
-			ownerPanel.selectChildOfSelectedElement( addedTreeNode );
-		}
+		AddChildTool addChildTool = new AddChildTool(this, type, ownerPanel);
+		Controller.getInstance().addTool(addChildTool);
 	}
-	
+		 
 	/**
 	 * Selects one tree´s node
 	 * 
@@ -395,11 +396,16 @@ public abstract class TreeNode {
 		
 	}
 
+	public void delete() {
+		DeleteNodeTool deleteNodeTool = new DeleteNodeTool(this);
+		Controller.getInstance().addTool(deleteNodeTool);
+	}
+	
 	/**
 	 * Deletes the node.
 	 */
-	public void delete( ) {
-		if( getDataControl( ).canBeDeleted( ) && parent.getDataControl( ).deleteElement( getDataControl( ) ) ) {
+	public boolean delete( boolean askConfirmation ) {
+		if( getDataControl( ).canBeDeleted( ) && parent.getDataControl( ).deleteElement( getDataControl( ), askConfirmation ) ) {
 			// Delete the node from the parents structure
 			TreeNodeControl.getInstance().dataControlRemoved(getDataControl());
 			parent.children.remove( this );
@@ -409,47 +415,33 @@ public abstract class TreeNode {
 			ownerPanel.updateTreePanel( );
 			ownerPanel.reselectSelectedRow( );
 			Controller.getInstance( ).updateFlagSummary( );
+			return true;
 		}
+		return false;
 	}
 
 	/**
 	 * Moves the node to the previous position in the list.
 	 */
 	public void moveUp( ) {
-		if( getDataControl( ).canBeMoved( ) && parent.getDataControl( ).moveElementUp( getDataControl( ) ) ) {
-			// If the element was moved, move the child node as well
-			int index = parent.children.indexOf( this );
-			parent.children.add( index - 1, parent.children.remove( index ) );
-
-			// Update the tree panel and the row selected
-			ownerPanel.updateTreePanel( );
-			ownerPanel.updateSelectedRow( );
-		}
+		MoveTreeNodeUpTool mtnup = new MoveTreeNodeUpTool(this, getDataControl(), parent, ownerPanel);
+		Controller.getInstance().addTool(mtnup);
 	}
 
 	/**
 	 * Moves the node to the next position.
 	 */
 	public void moveDown( ) {
-		if( getDataControl( ).canBeMoved( ) && parent.getDataControl( ).moveElementDown( getDataControl( ) ) ) {
-			// If the element was moved, move the child node as well
-			int index = parent.children.indexOf( this );
-			parent.children.add( index + 1, parent.children.remove( index ) );
-
-			// Update the tree panel and the row selected
-			ownerPanel.updateTreePanel( );
-			ownerPanel.updateSelectedRow( );
-		}
+		MoveTreeNodeDownTool tool = new MoveTreeNodeDownTool(this, getDataControl(), parent, ownerPanel);
+		Controller.getInstance().addTool(tool);
 	}
 
 	/**
 	 * Asks the user for a new ID for the element.
 	 */
 	public void rename( ) {
-		if( getDataControl( ).canBeRenamed( ) && getDataControl( ).renameElement( ) ) {
-			// Update the tree panel
-			ownerPanel.updateTreePanel( );
-		}
+		RenameElementTool tool = new RenameElementTool(getDataControl(), ownerPanel);
+		Controller.getInstance().addTool(tool);
 	}
 
 	/**
@@ -618,6 +610,25 @@ public abstract class TreeNode {
 		return false;
 	}
 	
+	public boolean changeTreeNodeForObjectContent(Object object) {
+		TreeNode tempParent = parent;
+		TreeNode tempNode = this;
+		while (parent != null && parent != tempNode) {
+			tempNode = tempParent;
+			tempParent = tempParent.parent;
+		}
+		TreePath temp = getTreeNodeForObjectContent(null, object);
+		if (temp != null) {
+			ownerPanel.changePath(temp);
+			TreeNodeControl.getInstance().visitPath(temp);
+			ownerPanel.updateSelectedRow();
+			ownerPanel.reselectSelectedRow();
+			ownerPanel.updateUI();
+			return true;
+		}
+		return false;
+	}
+	
 	public TreePath getTreePathForObject(Object object) {
 		TreeNode tempParent = parent;
 		TreeNode tempNode = this;
@@ -631,7 +642,21 @@ public abstract class TreeNode {
 		}
 		return null;
 	}
-	
+
+	public TreePath getTreePathForObjectContent(Object object) {
+		TreeNode tempParent = parent;
+		TreeNode tempNode = this;
+		while (parent != null && parent != tempNode) {
+			tempNode = tempParent;
+			tempParent = tempParent.parent;
+		}
+		TreePath temp = getTreeNodeForObjectContent(null, object);
+		if (temp != null) {
+			return temp;
+		}
+		return null;
+	}
+
 	public boolean changeTreeNodeForPath(TreePath path) {
 		try {
 			if (path != null) {
@@ -671,6 +696,37 @@ public abstract class TreeNode {
 		}
 		return null;
 	}
-	
+
+	private TreePath getTreeNodeForObjectContent(TreePath treePath, Object object) {
+		TreeNode temp = this.isObjectContentTreeNode(object);
+		if (treePath == null && temp != null) {
+			return new TreePath(this);
+		} 
+		if (temp != null && treePath != null) {
+			return treePath.pathByAddingChild(this);
+		}
+		
+		TreePath tempPath;
+		if (children != null) {
+			for (TreeNode child : children) {
+				if (treePath != null) {
+					tempPath = child.getTreeNodeForObjectContent(treePath.pathByAddingChild(this), object);
+				} else {
+					tempPath = child.getTreeNodeForObjectContent(new TreePath(this), object);
+				}
+				if (tempPath != null)
+					return tempPath;
+		
+			}
+		}
+		return null;
+	}
+
+	public abstract TreeNode isObjectContentTreeNode(Object object);
+
 	public abstract TreeNode isObjectTreeNode(Object object);
+
+	public List<TreeNode> getChildren() {
+		return children;
+	}
 }

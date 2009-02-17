@@ -3,13 +3,16 @@ package es.eucm.eadventure.common.data.chapter.elements;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.common.data.Described;
+import es.eucm.eadventure.common.data.Documented;
+import es.eucm.eadventure.common.data.Named;
 import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 
 /**
  * This class holds the common data for any element in eAdventure. Here, element means item or character
  */
-public abstract class Element {
+public abstract class Element implements Cloneable, Named, Documented, Described {
 
 	/**
 	 * The element's id
@@ -246,4 +249,27 @@ public abstract class Element {
 
 		return sb.toString( );
 	}
+	
+	public Object clone() throws CloneNotSupportedException {
+		Element e = (Element) super.clone();
+		if (actions != null) {
+			e.actions = new ArrayList<Action>();
+			for (Action action : actions) {
+				e.actions.add((Action) action.clone());
+			}
+		}
+		e.description = (description != null ? new String(description) : null);
+		e.detailedDescription = (detailedDescription != null ? new String(detailedDescription) : null);
+		e.documentation = (documentation != null ? new String(documentation) : null);
+		e.id = (id != null ? new String(id) : null);
+		e.name = (name != null ? new String(name) : null);
+		if (resources != null) {
+			e.resources = new ArrayList<Resources>();
+			for (Resources r : resources) {
+				e.resources.add((Resources) r.clone());
+			}
+		}
+		return e;
+	}
+
 }

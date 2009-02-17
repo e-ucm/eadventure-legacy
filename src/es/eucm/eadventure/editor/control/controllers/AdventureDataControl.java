@@ -9,6 +9,8 @@ import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfil
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfileDataControl;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfilesDataControl;
 import es.eucm.eadventure.editor.control.controllers.lom.LOMDataControl;
+import es.eucm.eadventure.editor.control.tools.general.ChangeDescriptionTool;
+import es.eucm.eadventure.editor.control.tools.general.ChangeTitleTool;
 import es.eucm.eadventure.common.data.adventure.AdventureData;
 import es.eucm.eadventure.common.data.adventure.CustomButton;
 import es.eucm.eadventure.common.data.adventure.CustomCursor;
@@ -177,7 +179,7 @@ public class AdventureDataControl {
 	 *            New title for the adventure
 	 */
 	public void setTitle( String title ) {
-		this.adventureData.setTitle(title);
+		Controller.getInstance().addTool(new ChangeTitleTool(adventureData, title));
 	}
 
 	/**
@@ -187,7 +189,7 @@ public class AdventureDataControl {
 	 *            New description for the adventure
 	 */
 	public void setDescription( String description ) {
-		adventureData.setDescription(description);
+		Controller.getInstance().addTool(new ChangeDescriptionTool(adventureData, description));
 	}
 
 	/**

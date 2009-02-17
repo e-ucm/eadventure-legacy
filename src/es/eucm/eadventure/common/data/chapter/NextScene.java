@@ -7,7 +7,7 @@ import es.eucm.eadventure.common.data.chapter.effects.Effects;
 /**
  * This class holds the data of a next scene in eAdventure
  */
-public class NextScene {
+public class NextScene implements Cloneable {
 
 	/**
 	 * Id of the target scene
@@ -230,5 +230,17 @@ public class NextScene {
     public void setExitLook(ExitLook exitLook){
         look= exitLook ;
     }
+    
+	public Object clone() throws CloneNotSupportedException {
+		NextScene ns = (NextScene) super.clone();
+		ns.conditions = (conditions != null ? (Conditions) conditions.clone() : null);
+		ns.destinyX = destinyX;
+		ns.destinyY = destinyY;
+		ns.effects = (effects != null ? (Effects) effects.clone() : null);
+		ns.look = (look != null ? (ExitLook) look.clone() : null);
+		ns.nextSceneId = (nextSceneId != null ? new String(nextSceneId) : null);
+		ns.postEffects = (postEffects != null ? (Effects) postEffects.clone() : null);
+		return ns;
+	}
 
 }

@@ -3,12 +3,13 @@ package es.eucm.eadventure.common.data.chapter.book;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.common.data.Documented;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 
 /**
  * This class holds a "bookscene" data
  */
-public class Book {
+public class Book implements Cloneable, Documented {
 
     /**
      * The xml tag for the background image of the bookscene
@@ -187,5 +188,28 @@ public class Book {
 	 */
 	public void addParagraph( BookParagraph paragraph ) {
 		paragraphs.add( paragraph );
+	}
+
+	public Object clone() throws CloneNotSupportedException {
+		Book b = (Book) super.clone();
+		b.documentation = (documentation != null ? new String(documentation) : null);
+		b.id = (id != null ? new String(id) : null);
+		if (pages != null) {
+			b.pages = new ArrayList<BookPage>();
+			for (BookPage bp : pages)
+				b.pages.add((BookPage) bp.clone());
+		}
+		if (paragraphs != null) {
+			b.paragraphs = new ArrayList<BookParagraph>();
+			for (BookParagraph bp : paragraphs)
+				b.paragraphs.add((BookParagraph) bp.clone());			
+		}
+		if (resources != null) {
+			b.resources = new ArrayList<Resources>();
+			for (Resources r : resources)
+				b.resources.add((Resources) r.clone());
+		}
+		b.type = type;
+		return b;
 	}
 }

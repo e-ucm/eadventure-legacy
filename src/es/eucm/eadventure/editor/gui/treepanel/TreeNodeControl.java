@@ -6,6 +6,7 @@ import java.util.List;
 import javax.swing.tree.TreePath;
 
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.scene.ScenesListDataControl;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.TreeNode;
 
 public class TreeNodeControl {
@@ -31,6 +32,10 @@ public class TreeNodeControl {
 	
 	public void changeTreeNode(Object object) {
 		root.changeTreeNodeForObject(object);
+	}
+	
+	public void changeTreeNodeDataControlContent(Object object) {
+		root.changeTreeNodeForObjectContent(object);
 	}
 	
 	public void setRoot(TreeNode root) {
@@ -78,6 +83,14 @@ public class TreeNodeControl {
 			while(backList.remove(path)){};
 			while(forwardList.remove(path)){};
 		}
+	}
+
+	public TreeNode getTreeNode(DataControl dataControl) {
+		TreePath path = root.getTreePathForObject(dataControl);
+		if (path != null)
+			return (TreeNode) path.getLastPathComponent();
+		else
+			return null;
 	}
 }
 

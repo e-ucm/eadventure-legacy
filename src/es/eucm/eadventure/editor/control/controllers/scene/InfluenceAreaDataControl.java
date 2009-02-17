@@ -2,12 +2,8 @@ package es.eucm.eadventure.editor.control.controllers.scene;
 
 import java.util.List;
 
-import es.eucm.eadventure.common.data.chapter.ElementReference;
 import es.eucm.eadventure.common.data.chapter.InfluenceArea;
-import es.eucm.eadventure.common.data.chapter.elements.ActiveArea;
-import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.control.controllers.general.ActionsListDataControl;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class InfluenceAreaDataControl extends DataControl {
@@ -140,7 +136,7 @@ public class InfluenceAreaDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean deleteElement( DataControl dataControl ) {
+	public boolean deleteElement( DataControl dataControl, boolean askConfirmation ) {
 		boolean elementDeleted = false;
 		return elementDeleted;
 	}
@@ -158,8 +154,8 @@ public class InfluenceAreaDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean renameElement( ) {
-		return false;
+	public String renameElement(String name ) {
+		return null;
 	}
 
 	@Override

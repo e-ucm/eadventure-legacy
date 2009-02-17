@@ -1,6 +1,6 @@
 package es.eucm.eadventure.common.data.chapter;
 
-public class ExitLook{
+public class ExitLook implements Cloneable {
     private String exitText;
     
     private String cursorPath;
@@ -37,4 +37,11 @@ public class ExitLook{
     public void setCursorPath( String cursorPath ) {
         this.cursorPath = cursorPath;
     }
+    
+	public Object clone() throws CloneNotSupportedException {
+		ExitLook el = (ExitLook) super.clone();
+		el.cursorPath = (cursorPath != null ? new String(cursorPath) : null);
+		el.exitText = (exitText != null ? new String(exitText) : null);
+		return el;
+	}
 }

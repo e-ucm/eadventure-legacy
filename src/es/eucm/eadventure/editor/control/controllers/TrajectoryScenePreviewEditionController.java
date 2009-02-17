@@ -82,7 +82,7 @@ public class TrajectoryScenePreviewEditionController extends NormalScenePreviewE
 		} else if (selectedTool == DELETE_TOOL){
 			if (underMouse != null) {
 				NodeDataControl nodeDataControl = ((ImageElementNode) underMouse).getNodeDataControl();
-				tdc.deleteElement(nodeDataControl);
+				tdc.deleteElement(nodeDataControl, true);
 				spep.removeElement(ScenePreviewEditionPanel.CATEGORY_NODE, underMouse);
 				underMouse = null;
 				spep.setSelectedElement((ImageElement) null); 
@@ -139,7 +139,7 @@ public class TrajectoryScenePreviewEditionController extends NormalScenePreviewE
 			}
 		}
 		if (sdc != null) {
-			tdc.deleteElement(sdc);
+			tdc.deleteElement(sdc, true);
 			spep.setTrajectory((Trajectory) tdc.getContent());
 			spep.repaint();
 		}

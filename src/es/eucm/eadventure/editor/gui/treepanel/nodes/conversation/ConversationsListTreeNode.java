@@ -108,4 +108,12 @@ public class ConversationsListTreeNode extends TreeNode {
 			return this;
 		return null;
 	}
+	
+	@Override
+	public TreeNode isObjectContentTreeNode(Object object) {
+		if (dataControl.getContent() == object)
+			return this;
+		return null;
+	}
+
 }

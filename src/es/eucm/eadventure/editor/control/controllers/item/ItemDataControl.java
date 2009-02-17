@@ -11,6 +11,9 @@ import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.general.ActionsListDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
+import es.eucm.eadventure.editor.control.tools.general.ChangeDescriptionTool;
+import es.eucm.eadventure.editor.control.tools.general.ChangeDocumentationTool;
+import es.eucm.eadventure.editor.control.tools.general.ChangeNameTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class ItemDataControl extends DataControlWithResources {
@@ -180,12 +183,7 @@ public class ItemDataControl extends DataControlWithResources {
 	 *            Documentation of the item
 	 */
 	public void setDocumentation( String documentation ) {
-		// If the value is different
-		if( !documentation.equals( item.getDocumentation( ) ) ) {
-			// Set the new documentation and modify the data
-			item.setDocumentation( documentation );
-			controller.dataModified( );
-		}
+		controller.addTool(new ChangeDocumentationTool(item, documentation));
 	}
 
 	/**
@@ -195,12 +193,7 @@ public class ItemDataControl extends DataControlWithResources {
 	 *            Name of the item
 	 */
 	public void setName( String name ) {
-		// If the value is different
-		if( !name.equals( item.getName( ) ) ) {
-			// Set the new name and modify the data
-			item.setName( name );
-			controller.dataModified( );
-		}
+		controller.addTool(new ChangeNameTool(item, name));
 	}
 
 	/**
@@ -210,12 +203,7 @@ public class ItemDataControl extends DataControlWithResources {
 	 *            Description of the item
 	 */
 	public void setBriefDescription( String description ) {
-		// If the value is different
-		if( !description.equals( item.getDescription( ) ) ) {
-			// Set the new description and modify the data
-			item.setDescription( description );
-			controller.dataModified( );
-		}
+		controller.addTool(new ChangeDescriptionTool(item, description));
 	}
 
 	/**
@@ -282,7 +270,7 @@ public class ItemDataControl extends DataControlWithResources {
 	}
 
 	@Override
-	public boolean deleteElement( DataControl dataControl ) {
+	public boolean deleteElement( DataControl dataControl, boolean askConfirmation ) {
 		boolean elementDeleted = false;
 
 		// Delete the block only if it is not the last one
@@ -338,16 +326,18 @@ public class ItemDataControl extends DataControlWithResources {
 	}
 
 	@Override
-	public boolean renameElement( ) {
+	public String renameElement(String name ) {
 		boolean elementRenamed = false;
 		String oldItemId = item.getId( );
 		String references = String.valueOf( controller.countIdentifierReferences( oldItemId ) );
 
 		// Ask for confirmation
-		if( controller.showStrictConfirmDialog( TextConstants.getText( "Operation.RenameItemTitle" ), TextConstants.getText( "Operation.RenameElementWarning", new String[] { oldItemId, references } ) ) ) {
+		if(name != null || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.RenameItemTitle" ), TextConstants.getText( "Operation.RenameElementWarning", new String[] { oldItemId, references } ) ) ) {
 
 			// Show a dialog asking for the new item id
-			String newItemId = controller.showInputDialog( TextConstants.getText( "Operation.RenameItemTitle" ), TextConstants.getText( "Operation.RenameItemMessage" ), oldItemId );
+			String newItemId = name;
+			if (name == null)
+				newItemId = controller.showInputDialog( TextConstants.getText( "Operation.RenameItemTitle" ), TextConstants.getText( "Operation.RenameItemMessage" ), oldItemId );
 
 			// If some value was typed and the identifiers are different
 			if( newItemId != null && !newItemId.equals( oldItemId ) && controller.isElementIdValid( newItemId ) ) {
@@ -360,7 +350,9 @@ public class ItemDataControl extends DataControlWithResources {
 			}
 		}
 
-		return elementRenamed;
+		if (elementRenamed)
+			return oldItemId;
+		return null;
 	}
 
 	@Override

@@ -9,4 +9,8 @@ public class CancelActionEffect implements Effect {
 		return CANCEL_ACTION;
 	}
 
+	public Object clone() throws CloneNotSupportedException {
+		CancelActionEffect cae = (CancelActionEffect) super.clone();
+		return cae;
+	}
 }

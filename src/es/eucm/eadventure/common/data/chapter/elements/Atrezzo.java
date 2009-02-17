@@ -1,16 +1,11 @@
 package es.eucm.eadventure.common.data.chapter.elements;
 
-import java.util.ArrayList;
-
-import es.eucm.eadventure.common.data.chapter.Action;
-
 
 /**
  * This class holds the data of an item in eAdventure
  */
 public class Atrezzo extends Element{
 
-	
 	/**
      * The tag of the item's image
      */
@@ -36,5 +31,9 @@ public class Atrezzo extends Element{
 		this.description = description;
 		this.detailedDescription = detailedDescription;
 	}
-	
+
+	public Object clone() throws CloneNotSupportedException {
+		Atrezzo a = (Atrezzo) super.clone();
+		return a;
+	}
 }

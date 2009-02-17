@@ -4,14 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.Timer;
-import es.eucm.eadventure.common.data.chapter.scenes.Cutscene;
-import es.eucm.eadventure.common.data.chapter.scenes.Scene;
-import es.eucm.eadventure.common.data.chapter.scenes.Slidescene;
-import es.eucm.eadventure.common.data.chapter.scenes.Videoscene;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class TimersListDataControl extends DataControl {
@@ -155,14 +150,6 @@ public class TimersListDataControl extends DataControl {
 
 		return elementAdded;
 	}
-
-	private TimerDataControl findDataControl(DataControl dataControl){
-		int index = findDataControlIndex(dataControl);
-		TimerDataControl theTimer = null;
-		if (index != -1)
-			theTimer = timersDataControlList.get( index );
-		return theTimer;
-	}
 	
 	private int findDataControlIndex( DataControl dataControl ){
 		int index = -1;
@@ -177,13 +164,13 @@ public class TimersListDataControl extends DataControl {
 	}
 	
 	@Override
-	public boolean deleteElement( DataControl dataControl ) {
+	public boolean deleteElement( DataControl dataControl, boolean askConfirmation ) {
 		boolean elementDeleted = false;
 		
 			int index = findDataControlIndex(dataControl);
 
 			// Ask for confirmation
-			if( controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { 
+			if(!askConfirmation || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { 
 					TextConstants.getElementName( Controller.TIMER )+" #"+Integer.toString( index ), "0" } ) ) ) {
 				if( timersList.remove( dataControl.getContent( ) ) ) {
 					timersDataControlList.remove( dataControl );
@@ -226,8 +213,8 @@ public class TimersListDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean renameElement( ) {
-		return false;
+	public String renameElement( String name ) {
+		return null;
 	}
 
 	@Override

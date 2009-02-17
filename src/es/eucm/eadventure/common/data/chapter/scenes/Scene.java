@@ -334,5 +334,46 @@ public class Scene extends GeneralScene {
 	public float getPlayerScale() {
 		return playerScale;
 	}
+	
+	public Object clone() throws CloneNotSupportedException {
+		Scene s = (Scene) super.clone();
+		if (activeAreas != null) {
+			s.activeAreas = new ArrayList<ActiveArea>();
+			for (ActiveArea aa : activeAreas)
+				s.activeAreas.add((ActiveArea) aa.clone());
+		}
+		s.allowPlayerLayer = allowPlayerLayer;
+		if (atrezzoReferences != null) {
+			s.atrezzoReferences = new ArrayList<ElementReference>();
+			for (ElementReference er : atrezzoReferences)
+				s.atrezzoReferences.add((ElementReference) er.clone());
+		}
+		if (barriers != null) {
+			s.barriers = new ArrayList<Barrier>();
+			for (Barrier b : barriers)
+				s.barriers.add((Barrier) b.clone());
+		}
+		if (characterReferences != null) {
+			s.characterReferences = new ArrayList<ElementReference>();
+			for (ElementReference er : characterReferences)
+				s.characterReferences.add((ElementReference) er.clone());
+		}
+		s.defaultX = defaultX;
+		s.defaultY = defaultY;
+		if (exits != null) {
+			s.exits = new ArrayList<Exit>();
+			for (Exit e : exits)
+				s.exits.add((Exit) e.clone());
+		}
+		if (itemReferences != null) {
+			s.itemReferences = new ArrayList<ElementReference>();
+			for (ElementReference er : itemReferences)
+				s.itemReferences.add((ElementReference) er.clone());
+		}
+		s.playerLayer = playerLayer;
+		s.playerScale = playerScale;
+		s.trajectory = (trajectory != null ? (Trajectory) trajectory.clone() : null);
+		return s;
+	}
 
 }

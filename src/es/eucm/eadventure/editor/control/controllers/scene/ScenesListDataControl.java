@@ -7,7 +7,6 @@ import es.eucm.eadventure.common.data.chapter.scenes.Scene;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class ScenesListDataControl extends DataControl {
@@ -135,7 +134,7 @@ public class ScenesListDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean deleteElement( DataControl dataControl ) {
+	public boolean deleteElement( DataControl dataControl , boolean askConfirmation) {
 		boolean elementDeleted = false;
 
 		// Take the number of general scenes in the chapter
@@ -147,7 +146,7 @@ public class ScenesListDataControl extends DataControl {
 			String references = String.valueOf( controller.countIdentifierReferences( sceneId ) );
 
 			// Ask for confirmation
-			if( controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { sceneId, references } ) ) ) {
+			if(!askConfirmation || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { sceneId, references } ) ) ) {
 				if( scenesList.remove( dataControl.getContent( ) ) ) {
 					scenesDataControlList.remove( dataControl );
 					controller.deleteIdentifierReferences( sceneId );
@@ -196,8 +195,8 @@ public class ScenesListDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean renameElement( ) {
-		return false;
+	public String renameElement( String name ) {
+		return null;
 	}
 
 	@Override

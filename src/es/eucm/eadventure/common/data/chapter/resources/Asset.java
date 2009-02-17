@@ -4,7 +4,7 @@ package es.eucm.eadventure.common.data.chapter.resources;
  * Defines an asset of any type (background, slides, image, icon, [...],
  * or the animatinos of the characters.
  */
-public class Asset {
+public class Asset implements Cloneable {
     
     /**
      * String with the type of the asset
@@ -41,4 +41,11 @@ public class Asset {
     public String getPath( ) {
         return path;
     }
+    
+	public Object clone() throws CloneNotSupportedException {
+		Asset a = (Asset) super.clone();
+		a.path = (path != null ? new String(path) : null);
+		a.type = (type != null ? new String(type) : null);
+		return a;
+	}
 }

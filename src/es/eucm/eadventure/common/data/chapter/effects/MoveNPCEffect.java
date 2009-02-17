@@ -87,4 +87,11 @@ public class MoveNPCEffect implements Effect {
 		this.y = y;
 	}
 
+	public Object clone() throws CloneNotSupportedException {
+		MoveNPCEffect npe = (MoveNPCEffect) super.clone();
+		npe.idTarget = (idTarget != null ? new String(idTarget) : null);
+		npe.x = x;
+		npe.y = y;
+		return npe;
+	}
 }

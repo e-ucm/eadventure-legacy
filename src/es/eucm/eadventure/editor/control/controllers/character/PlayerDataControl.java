@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
-import es.eucm.eadventure.common.data.animation.Animation;
 import es.eucm.eadventure.common.data.chapter.elements.Player;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.gui.TextConstants;
@@ -15,6 +14,9 @@ import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
+import es.eucm.eadventure.editor.control.tools.general.ChangeDescriptionTool;
+import es.eucm.eadventure.editor.control.tools.general.ChangeDocumentationTool;
+import es.eucm.eadventure.editor.control.tools.general.ChangeNameTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class PlayerDataControl extends DataControlWithResources{
@@ -186,12 +188,7 @@ public class PlayerDataControl extends DataControlWithResources{
 	 *            Documentation of the player
 	 */
 	public void setDocumentation( String documentation ) {
-		// If the value is different
-		if( !documentation.equals( player.getDocumentation( ) ) ) {
-			// Set the new documentation and modify the data
-			player.setDocumentation( documentation );
-			controller.dataModified( );
-		}
+		controller.addTool(new ChangeDocumentationTool(player, documentation));
 	}
 
 	/**
@@ -243,12 +240,7 @@ public class PlayerDataControl extends DataControlWithResources{
 	 *            Name of the player
 	 */
 	public void setName( String name ) {
-		// If the value is different
-		if( !name.equals( player.getName( ) ) ) {
-			// Set the new name and modify the data
-			player.setName( name );
-			controller.dataModified( );
-		}
+		controller.addTool(new ChangeNameTool(player, name));
 	}
 
 	/**
@@ -258,12 +250,7 @@ public class PlayerDataControl extends DataControlWithResources{
 	 *            Description of the player
 	 */
 	public void setBriefDescription( String description ) {
-		// If the value is different
-		if( !description.equals( player.getDescription( ) ) ) {
-			// Set the new description and modify the data
-			player.setDescription( description );
-			controller.dataModified( );
-		}
+		controller.addTool(new ChangeDescriptionTool(player, description));
 	}
 
 	/**
@@ -389,7 +376,7 @@ public class PlayerDataControl extends DataControlWithResources{
 	}
 
 	@Override
-	public boolean deleteElement( DataControl dataControl ) {
+	public boolean deleteElement( DataControl dataControl, boolean askConfirmation ) {
 		boolean elementDeleted = false;
 
 		// Delete the block only if it is not the last one
@@ -445,8 +432,8 @@ public class PlayerDataControl extends DataControlWithResources{
 	}
 
 	@Override
-	public boolean renameElement( ) {
-		return false;
+	public String renameElement( String name ) {
+		return null;
 	}
 
 	@Override

@@ -73,6 +73,10 @@
 	<entry key="MenuConfiguration.Language.English">English</entry>
 	<entry key="MenuConfiguration.Language.Spanish">Spanish</entry>
 	
+	<entry key="MenuEdit.Title">Edit</entry>
+	<entry key="MenuEdit.Undo">Undo</entry>
+	<entry key="MenuEdit.Redo">Redo</entry>
+	
 	<entry key="StartDialog.Title">Welcome to the &lt;e-Adventure&gt; editor</entry>
 	<entry key="StartDialog.Message">To start using the &lt;e-Adventure&gt; editor, you must choose between creating a new adventure, or opening an existing one to edit it.</entry>
 	<entry key="StartDialog.Option0">New adventure</entry>

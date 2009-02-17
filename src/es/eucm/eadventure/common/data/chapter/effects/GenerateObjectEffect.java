@@ -42,4 +42,10 @@ public class GenerateObjectEffect implements Effect {
 	public void setIdTarget( String idTarget ) {
 		this.idTarget = idTarget;
 	}
+	
+	public Object clone() throws CloneNotSupportedException {
+		GenerateObjectEffect goe = (GenerateObjectEffect) super.clone();
+		goe.idTarget = (idTarget != null ? new String(idTarget) : null);
+		return goe;
+	}
 }

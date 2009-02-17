@@ -26,5 +26,10 @@ public class AdaptationObjetive extends AdaptedState{
 		this.objetiveId = objetiveId;
 	}
 	
+	public Object clone() throws CloneNotSupportedException {
+		AdaptationObjetive ao = (AdaptationObjetive) super.clone();
+		ao.objetiveId = (objetiveId != null ? new String(objetiveId) : null);
+		return ao;
+	}
 	
 }

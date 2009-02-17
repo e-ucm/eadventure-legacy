@@ -76,6 +76,9 @@
 	<entry key="MenuConfiguration.Language.English">Inglés</entry>
 	<entry key="MenuConfiguration.Language.Spanish">Castellano</entry>
 	
+	<entry key="MenuEdit.Title">Edición</entry>
+	<entry key="MenuEdit.Undo">Deshacer</entry>
+	<entry key="MenuEdit.Redo">Rehacer</entry>
 		
 	<entry key="StartDialog.Title">Editor de aventuras</entry>
 	<entry key="StartDialog.Message">Para comenzar a usar el editor de &lt;e-Adventure&gt;, debe escoger entre crear un nuevo archivo para almacenar la nueva aventura, o seleccionar una aventura ya creada para editarla.</entry>

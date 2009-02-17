@@ -5,6 +5,7 @@ import java.awt.Image;
 import java.awt.Transparency;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -20,7 +21,7 @@ import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
  * @author Eugenio Marchiori
  *
  */
-public class Frame {
+public class Frame implements Cloneable {
 	
 	/**
 	 * The xml tag for the sound of the frame
@@ -291,5 +292,18 @@ public class Frame {
 		this.waitforclick = waitforclick;
 	}
 
-    
+	public Object clone() throws CloneNotSupportedException {
+		Frame f = (Frame) super.clone();
+		f.image = image;
+		if (resources != null) {
+			f.resources = new ArrayList<Resources>();
+			for (Resources r : resources)
+				f.resources.add((Resources) r.clone());
+		}
+		f.time = time;
+		f.type = type;
+		f.uri = (uri != null ? new String(uri) : null);
+		f.waitforclick = waitforclick;
+		return f;
+	}
 }

@@ -5,7 +5,7 @@ import es.eucm.eadventure.common.data.chapter.elements.Player;
 /**
  * This class stores a single conversation line, along with the name of the speaker character.
  */
-public class ConversationLine {
+public class ConversationLine implements Cloneable {
 
 	/**
 	 * Constant for the player identifier for the lines.
@@ -134,7 +134,14 @@ public class ConversationLine {
 		this.synthesizerVoice = synthesizerVoice;
 	}
 
-	
+	public Object clone() throws CloneNotSupportedException {
+		ConversationLine cl = (ConversationLine) super.clone();
+		cl.audioPath = (audioPath != null ? new String(audioPath) : null);
+		cl.name = (name != null ? new String(name) : null);
+		cl.synthesizerVoice = synthesizerVoice;
+		cl.text = (text != null ? new String(text) : null);
+		return cl;
+	}	
 
 	
 }

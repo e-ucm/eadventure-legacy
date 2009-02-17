@@ -6,6 +6,7 @@ import java.util.List;
 import es.eucm.eadventure.common.data.chapter.CustomAction;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.tools.general.ChangeNameTool;
 
 public class CustomActionDataControl extends ActionDataControl {
 
@@ -53,11 +54,7 @@ public class CustomActionDataControl extends ActionDataControl {
 	 * @param name the name to set
 	 */
 	public void setName(String name) {
-		if (!name.equals(customAction.getName())) {
-			customAction.setName(name);
-			controller.updateTree();
-			controller.dataModified();
-		}
+		controller.addTool(new ChangeNameTool(customAction, name));
 	}
 
 	@Override

@@ -128,7 +128,7 @@ public class ExitsListDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean deleteElement( DataControl dataControl ) {
+	public boolean deleteElement( DataControl dataControl, boolean askConfirmation ) {
 		boolean elementDeleted = false;
 
 		if( exitsList.remove( dataControl.getContent( ) ) ) {
@@ -171,8 +171,8 @@ public class ExitsListDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean renameElement( ) {
-		return false;
+	public String renameElement( String name) {
+		return null;
 	}
 
 	@Override

@@ -42,4 +42,10 @@ public class SpeakPlayerEffect implements Effect {
 	public void setLine( String line ) {
 		this.line = line;
 	}
+	
+	public Object clone() throws CloneNotSupportedException {
+		SpeakPlayerEffect spe = (SpeakPlayerEffect) super.clone();
+		spe.line = (line != null ? new String(line) : null);
+		return spe;
+	}
 }

@@ -1,6 +1,6 @@
 package es.eucm.eadventure.common.data.adventure;
 
-public class CustomCursor {
+public class CustomCursor implements Cloneable {
 
     private String type;
     
@@ -42,5 +42,12 @@ public class CustomCursor {
         this.type = type;
         this.path = path;
     }
+    
+	public Object clone() throws CloneNotSupportedException {
+		CustomCursor cc = (CustomCursor) super.clone();
+		cc.path = (path != null ? new String(path) : null);
+		cc.type = (type != null ? new String(type) : null);
+		return cc;
+	}
     
 }

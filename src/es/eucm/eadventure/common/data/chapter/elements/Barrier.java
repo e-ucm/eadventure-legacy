@@ -121,4 +121,14 @@ public class Barrier extends Element{
 	public void setConditions( Conditions conditions ) {
 		this.conditions = conditions;
 	}
+	
+	public Object clone() throws CloneNotSupportedException {
+		Barrier b = (Barrier) super.clone();
+		b.conditions = (conditions != null ? (Conditions) conditions.clone() : null);
+		b.height = height;
+		b.width = width;
+		b.x = x;
+		b.y = y;
+		return b;
+	}
 }

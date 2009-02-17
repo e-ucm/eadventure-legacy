@@ -42,4 +42,10 @@ public class TriggerConversationEffect implements Effect {
 	public void setTargetConversationId( String targetConversationId ) {
 		this.targetConversationId = targetConversationId;
 	}
+	
+	public Object clone() throws CloneNotSupportedException {
+		TriggerConversationEffect tce = (TriggerConversationEffect) super.clone();
+		tce.targetConversationId = (targetConversationId != null ? new String(targetConversationId) : null);
+		return tce;
+	}
 }

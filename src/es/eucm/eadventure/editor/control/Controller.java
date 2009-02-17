@@ -42,6 +42,7 @@ import es.eucm.eadventure.editor.control.controllers.general.ChapterDataControl;
 import es.eucm.eadventure.editor.control.controllers.item.ItemDataControl;
 import es.eucm.eadventure.editor.control.controllers.atrezzo.AtrezzoDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
+import es.eucm.eadventure.editor.control.tools.Tool;
 import es.eucm.eadventure.editor.control.writer.Writer;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 import es.eucm.eadventure.editor.data.support.IdentifierSummary;
@@ -481,15 +482,20 @@ public class Controller {
 	public boolean isTempFile( ) {
 		return isTempFile;
 	}*/
+	
+	private List<Tool> undoList;
 
-
+	private List<Tool> redoList;
 	
 
 	
 	/**
 	 * Void and private constructor.
 	 */
-	private Controller( ) {}
+	private Controller( ) {
+		undoList = new ArrayList<Tool>();
+		redoList = new ArrayList<Tool>();
+	}
 	
 	private String getCurrentExportSaveFolder(){
 		return ReleaseFolders.exportsFolder().getAbsolutePath( );
@@ -770,6 +776,52 @@ public class Controller {
 			dataModified = true;
 			mainWindow.updateTitle( );
 		}
+	}
+	
+	public boolean addTool(Tool tool) {
+		boolean done = tool.doTool();
+		if (done) {
+			undoList.add(tool);
+			redoList.clear();
+			dataModified( );
+			if (!tool.canUndo()) {
+				undoList.clear();
+			}
+		}
+		return done;
+	}
+	
+	public boolean undoTool() {
+		if (undoList.size() > 0) {
+			Tool temp = undoList.get(undoList.size() - 1);
+			undoList.remove(temp);
+			boolean undone = temp.undoTool();
+			if (undone) {
+				if (temp.canRedo())
+					redoList.add(temp);
+				else
+					redoList.clear();
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean redoTool() {
+		if (redoList.size() > 0) {
+			Tool temp = redoList.get(redoList.size() - 1);
+			redoList.remove(temp);
+			boolean done = temp.redoTool();
+			if (done) {
+				undoList.add(temp);
+				dataModified( );
+				if (!temp.canUndo()) {
+					undoList.clear();
+				}
+			}
+			return done;
+		}
+		return false;
 	}
 
 	/**
@@ -1302,6 +1354,21 @@ public class Controller {
 		return loadFile( null, true );
 	}
 
+	public boolean replaceSelectedChapter(Chapter newChapter) {
+		int chapter = this.getSelectedChapter();
+		adventureData.getChapters( ).get( selectedChapter );
+		adventureData.getChapters().set(selectedChapter, newChapter);
+		this.chapterDataControlList.remove( chapter );
+		chapterDataControlList.add( chapter, new ChapterDataControl(newChapter) );
+		
+		identifierSummary = new IdentifierSummary(newChapter);
+		identifierSummary.loadIdentifiers( getSelectedChapterData( ) );
+
+		mainWindow.reloadData( );
+		
+		return true;
+	}
+	
 	private boolean loadFile( String completeFilePath, boolean loadingImage ) {
 		
 		boolean fileLoaded = false;

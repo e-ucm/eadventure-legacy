@@ -7,6 +7,7 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
+import es.eucm.eadventure.editor.control.tools.general.ChangeDocumentationTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class MacroDataControl extends DataControl{
@@ -21,8 +22,7 @@ public class MacroDataControl extends DataControl{
 	}
 	
 	public void setDocumentation ( String doc ){
-		macro.setDocumentation( doc );
-		Controller.getInstance().dataModified();
+		Controller.getInstance().addTool(new ChangeDocumentationTool(macro, doc));
 	}
 	
 	public String getDocumentation ( ){
@@ -92,7 +92,7 @@ public class MacroDataControl extends DataControl{
 	}
 
 	@Override
-	public boolean deleteElement(DataControl dataControl) {
+	public boolean deleteElement(DataControl dataControl, boolean askConfirmation) {
 		return false;
 	}
 
@@ -133,16 +133,18 @@ public class MacroDataControl extends DataControl{
 	}
 
 	@Override
-	public boolean renameElement() {
+	public String renameElement( String name ) {
 		boolean elementRenamed = false;
 		String oldItemId = getId( );
 		String references = String.valueOf( Controller.getInstance().countIdentifierReferences( oldItemId ) );
 
 		// Ask for confirmation
-		if( Controller.getInstance().showStrictConfirmDialog( TextConstants.getText( "Operation.RenameMacroTitle" ), TextConstants.getText( "Operation.RenameElementWarning", new String[] { oldItemId, references } ) ) ) {
+		if(name != null || Controller.getInstance().showStrictConfirmDialog( TextConstants.getText( "Operation.RenameMacroTitle" ), TextConstants.getText( "Operation.RenameElementWarning", new String[] { oldItemId, references } ) ) ) {
 
 			// Show a dialog asking for the new item id
-			String newItemId = Controller.getInstance().showInputDialog( TextConstants.getText( "Operation.RenameMacroTitle" ), TextConstants.getText( "Operation.RenameMacroMessage" ), oldItemId );
+			String newItemId = name;
+			if (name == null)
+				newItemId = Controller.getInstance().showInputDialog( TextConstants.getText( "Operation.RenameMacroTitle" ), TextConstants.getText( "Operation.RenameMacroMessage" ), oldItemId );
 
 			// If some value was typed and the identifiers are different
 			if( newItemId != null && !newItemId.equals( oldItemId ) && Controller.getInstance().isElementIdValid( newItemId ) ) {
@@ -155,7 +157,9 @@ public class MacroDataControl extends DataControl{
 			}
 		}
 
-		return elementRenamed;
+		if (elementRenamed)
+			return oldItemId;
+		return null;
 	}
 
 	@Override

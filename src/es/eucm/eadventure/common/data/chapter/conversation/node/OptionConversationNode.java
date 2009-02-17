@@ -209,4 +209,22 @@ public class OptionConversationNode extends ConversationNode {
     		optionNodes = opNode;
     	}
     }
+    
+	public Object clone() throws CloneNotSupportedException {
+		OptionConversationNode ocn = (OptionConversationNode) super.clone();
+		ocn.effectConsumed = effectConsumed;
+		ocn.effects = (effects != null ? (Effects) effects.clone() : null);
+		if (optionNodes != null) {
+			ocn.optionNodes = new ArrayList<ConversationNode>();
+			for (ConversationNode cn : optionNodes)
+				ocn.optionNodes.add((ConversationNode) cn.clone());
+		}
+		if (options != null) {
+			ocn.options = new ArrayList<ConversationLine>();
+			for (ConversationLine cl : options)
+				ocn.options.add((ConversationLine) cl.clone());
+		}
+		ocn.random = random;
+		return ocn;
+	}
 }

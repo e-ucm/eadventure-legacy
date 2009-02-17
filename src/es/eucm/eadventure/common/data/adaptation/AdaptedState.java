@@ -7,7 +7,7 @@ import java.util.List;
  * Stores the adaptation data, which includes the flag activation and deactivation values,
  * along with the inital scene of the game 
  */
-public class AdaptedState {
+public class AdaptedState implements Cloneable {
 
     /**
      * Id of the initial scene
@@ -215,5 +215,16 @@ public class AdaptedState {
     	}
     	}
     }
-    
+
+	public Object clone() throws CloneNotSupportedException {
+		AdaptedState as = (AdaptedState) super.clone();
+		as.actionsValues = new ArrayList<String>();
+		for (String s : actionsValues)
+			as.actionsValues.add((s != null ? new String(s) : null));
+		as.allFlagsVars = new ArrayList<String>();
+		for (String s : allFlagsVars)
+			as.allFlagsVars.add((s != null ? new String(s) : null));
+		as.initialScene = (initialScene != null ? new String(initialScene) : null);
+		return as; 
+	}
 } 

@@ -116,14 +116,14 @@ public class AssessmentProfileDataControl extends DataControl{
 	}
 
 	@Override
-	public boolean deleteElement( DataControl dataControl ) {
+	public boolean deleteElement( DataControl dataControl , boolean askConfirmation) {
 		boolean deleted = false;
 		
 		String assRuleId = ( (AssessmentRuleDataControl) dataControl ).getId( );
 		String references = String.valueOf( controller.countIdentifierReferences( assRuleId ) );
 
 		// Ask for confirmation
-		if( controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { assRuleId, references } ) ) ) {
+		if(!askConfirmation || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { assRuleId, references } ) ) ) {
 			if( this.profile.getRules().remove( dataControl.getContent( ) ) ) {
 				dataControls.remove( dataControl );
 				controller.deleteIdentifierReferences( assRuleId );
@@ -190,18 +190,26 @@ public class AssessmentProfileDataControl extends DataControl{
 	}
 
 	@Override
-	public boolean renameElement( ) {
+	public String renameElement( String name ) {
 		boolean renamed = false;
+		String oldName = null;
+		if (this.profile.getPath() != null) {
+			String[] temp = this.profile.getPath().split("/");
+			oldName = temp[temp.length - 1]; 
+		}
+
 		
 		// Show confirmation dialog.
-		if (controller.showStrictConfirmDialog( TextConstants.getText( "Operation.RenameAssessmentFile" ), TextConstants.getText( "Operation.RenameAssessmentFile.Message" ) )){
+		if (name != null || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.RenameAssessmentFile" ), TextConstants.getText( "Operation.RenameAssessmentFile.Message" ) )){
 			
 			//Prompt for file name:
-			String fileName = controller.showInputDialog( TextConstants.getText( "Operation.RenameAssessmentFile.FileName" ), TextConstants.getText( "Operation.RenameAssessmentFile.FileName.Message" ), getFileName() );
+			String fileName = name;
+			if (name == null)
+				fileName = controller.showInputDialog( TextConstants.getText( "Operation.RenameAssessmentFile.FileName" ), TextConstants.getText( "Operation.RenameAssessmentFile.FileName.Message" ), getFileName() );
 			if (fileName!=null && !fileName.equals( profile.getPath().substring( profile.getPath().lastIndexOf( "/" ) + 1 ) )){
 				if (fileName.contains( "/") || fileName.contains( "\\" )){
 					controller.showErrorDialog( TextConstants.getText( "Operation.RenameXMLFile.ErrorSlash" ), TextConstants.getText( "Operation.RenameXMLFile.ErrorSlash.Message" ) );
-					return false;
+					return null;
 				}
 
 				if (!fileName.toLowerCase().endsWith( ".xml" )){
@@ -221,7 +229,10 @@ public class AssessmentProfileDataControl extends DataControl{
 			
 		}
 		
-		return renamed;
+		if (renamed)
+			return oldName;
+		else
+			return null;
 	}
 
 	@Override

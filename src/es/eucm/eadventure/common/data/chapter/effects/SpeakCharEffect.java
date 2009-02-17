@@ -69,4 +69,11 @@ public class SpeakCharEffect implements Effect {
 	public void setLine( String line ) {
 		this.line = line;
 	}
+	
+	public Object clone() throws CloneNotSupportedException {
+		SpeakCharEffect sce = (SpeakCharEffect) super.clone();
+		sce.idTarget = (idTarget != null ? new String(idTarget) : null);
+		sce.line = (line != null ? new String(line) : null);
+		return sce;
+	}
 }

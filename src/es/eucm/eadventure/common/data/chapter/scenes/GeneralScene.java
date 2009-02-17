@@ -3,12 +3,14 @@ package es.eucm.eadventure.common.data.chapter.scenes;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.common.data.Documented;
+import es.eucm.eadventure.common.data.Named;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 
 /**
  * This class holds the data of a scene of any type in eAdventure.
  */
-public abstract class GeneralScene {
+public abstract class GeneralScene implements Cloneable, Documented, Named {
 
 	/**
 	 * A regular eAdventure scene.
@@ -172,4 +174,18 @@ public abstract class GeneralScene {
         this.initialScene = initialScene;
     }
 
+	public Object clone() throws CloneNotSupportedException {
+		GeneralScene gs = (GeneralScene) super.clone();
+		gs.documentation = (documentation != null ? new String(documentation) : null);
+		gs.id = (id != null ? new String(id) : null);
+		gs.initialScene = initialScene;
+		gs.name = (name != null ? new String(name) : null);
+		if (resources != null) {
+			gs.resources = new ArrayList<Resources>();
+			for (Resources r : resources)
+				gs.resources.add((Resources) r.clone());
+		}
+		gs.type = type;
+		return gs;
+	}
 }

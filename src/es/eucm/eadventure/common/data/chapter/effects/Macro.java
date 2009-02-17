@@ -1,12 +1,14 @@
 package es.eucm.eadventure.common.data.chapter.effects;
 
+import es.eucm.eadventure.common.data.Documented;
+
 /**
  * Group of effects named with an Id, so it can be refered to
  * in diverse points of the chapter
  * @author Javier
  *
  */
-public class Macro extends Effects{
+public class Macro extends Effects implements Documented{
 
 	/**
 	 * Id of the Effects group
@@ -53,5 +55,12 @@ public class Macro extends Effects{
 	 */
 	public void setDocumentation(String documentation) {
 		this.documentation = documentation;
+	}
+	
+	public Object clone() throws CloneNotSupportedException {
+		Macro m = (Macro) super.clone();
+		m.documentation = (documentation != null ? new String(documentation) : null);
+		m.id = (id != null ? new String(id) : null);
+		return m;
 	}
 }

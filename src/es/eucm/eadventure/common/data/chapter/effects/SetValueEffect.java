@@ -62,4 +62,11 @@ public class SetValueEffect implements Effect {
 	public void setValue(int value) {
 		this.value = value;
 	}
+	
+	public Object clone() throws CloneNotSupportedException {
+		SetValueEffect sve = (SetValueEffect) super.clone();
+		sve.idVar = (idVar != null ? new String(idVar) : null);
+		sve.value = value;
+		return sve;
+	}
 }

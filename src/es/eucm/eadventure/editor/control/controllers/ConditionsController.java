@@ -611,25 +611,6 @@ public class ConditionsController {
 	}
 
 	/**
-	 * Checks if the given state is valid for a flag
-	 * @param state
-	 * @return
-	 */
-	private boolean isFlagState ( int state ){
-		return state == Condition.FLAG_ACTIVE || state == Condition.FLAG_INACTIVE;
-	}
-	
-	/**
-	 * Checks if the given state is valid for a var
-	 * @param state
-	 * @return
-	 */
-	private boolean isVarState ( int state ){
-		return !isFlagState ( state );
-	}
-
-	
-	/**
 	 * Updates the given flag summary, adding the flag references contained in the given conditions.
 	 * 
 	 * @param varFlagSummary

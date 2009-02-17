@@ -98,5 +98,13 @@ public class AssessmentRuleTreeNode extends TreeNode{
 		if (dataControl == object)
 			return this;
 		return null;
-	}	
+	}
+	
+	@Override
+	public TreeNode isObjectContentTreeNode(Object object) {
+		if (dataControl.getContent() == object)
+			return this;
+		return null;
+	}
+
 }

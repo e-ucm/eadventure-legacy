@@ -5,7 +5,7 @@ package es.eucm.eadventure.common.data.chapter.book;
  * @author Javier Torrente
  *
  */
-public class BookPage {
+public class BookPage implements Cloneable {
 
     /**
      * The page takes the document from a url, which can be on the internet
@@ -178,5 +178,16 @@ public class BookPage {
     public void setScrollable(boolean scrollable){
         this.scrollable = scrollable;
     }
-    
+
+	public Object clone() throws CloneNotSupportedException {
+		BookPage bp = (BookPage) super.clone();
+		bp.margin = margin;
+		bp.marginBottom = marginBottom;
+		bp.marginEnd = marginEnd;
+		bp.marginTop = marginTop;
+		bp.scrollable = scrollable;
+		bp.type = type;
+		bp.uri = (uri != null ? new String(uri) : null);
+		return bp;
+	}
 }

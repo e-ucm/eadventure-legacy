@@ -7,7 +7,6 @@ import es.eucm.eadventure.common.data.chapter.ExitLook;
 import es.eucm.eadventure.common.data.chapter.NextScene;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
-import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.gui.assetchooser.AssetChooser;
 
 public class ExitLookDataControl {

@@ -2,12 +2,12 @@ package es.eucm.eadventure.editor.control.controllers.timer;
 
 import java.util.List;
 
-import es.eucm.eadventure.common.data.chapter.NextScene;
 import es.eucm.eadventure.common.data.chapter.Timer;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
+import es.eucm.eadventure.editor.control.tools.general.ChangeDocumentationTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class TimerDataControl extends DataControl {
@@ -128,7 +128,7 @@ public class TimerDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean deleteElement( DataControl dataControl ) {
+	public boolean deleteElement( DataControl dataControl , boolean askConfirmation) {
 		return false;
 	}
 
@@ -143,8 +143,8 @@ public class TimerDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean renameElement( ) {
-		return false;
+	public String renameElement( String name ) {
+		return null;
 	}
 
 	@Override
@@ -253,8 +253,7 @@ public class TimerDataControl extends DataControl {
 	}
 	
 	public void setDocumentation(String newDoc){
-		timer.setDocumentation( newDoc );
-		controller.dataModified( );
+		controller.addTool(new ChangeDocumentationTool(timer, newDoc));
 	}
 	
 	public void setTime( long newTime ){

@@ -5,7 +5,7 @@ import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 /**
  * This class holds the data of a conversation reference in eAdventure
  */
-public class ConversationReference {
+public class ConversationReference implements Cloneable {
 
 	/**
 	 * Id of the target conversation
@@ -90,5 +90,13 @@ public class ConversationReference {
 	 */
 	public void setConditions( Conditions conditions ) {
 		this.conditions = conditions;
+	}
+	
+	public Object clone() throws CloneNotSupportedException {
+		ConversationReference cr = (ConversationReference) super.clone();
+		cr.conditions = (conditions != null ? (Conditions) conditions.clone() : null);
+		cr.documentation = (documentation != null ? new String(documentation) : null);
+		cr.idTarget = (idTarget != null ? new String(idTarget) : null);
+		return cr;
 	}
 }

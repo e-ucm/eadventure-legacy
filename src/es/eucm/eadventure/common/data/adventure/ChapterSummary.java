@@ -1,5 +1,8 @@
 package es.eucm.eadventure.common.data.adventure;
 
+import es.eucm.eadventure.common.data.Described;
+import es.eucm.eadventure.common.data.Titled;
+
 /**
  * Basically this class represents a chapter entry in the descriptor file.
  * It may contain the following data:
@@ -7,7 +10,7 @@ package es.eucm.eadventure.common.data.adventure;
  * @author Javier
  *
  */
-public class ChapterSummary {
+public class ChapterSummary implements Cloneable, Titled, Described {
 	
 	/**
 	 * Chapter's title.
@@ -159,5 +162,16 @@ public class ChapterSummary {
 	 */
 	public boolean hasAdaptationProfile() {
 		return this.adaptationPath!=null && !this.adaptationPath.equals("");
+	}
+	
+	public Object clone() throws CloneNotSupportedException {
+		ChapterSummary cs = (ChapterSummary) super.clone();
+		cs.adaptationPath = (adaptationPath != null ? new String(adaptationPath) : null);
+		cs.assessmentPath = (assessmentPath != null ? new String(assessmentPath) : null);
+		cs.description = (description != null ? new String(description) : null);
+		cs.name = (name != null ? new String(name) : null);
+		cs.title = (title != null ? new String(title) : null);
+		
+		return cs;
 	}
 }

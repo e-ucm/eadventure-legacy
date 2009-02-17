@@ -8,7 +8,7 @@ import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode
 /**
  * Implements Tree and Graph conversations
  */
-public abstract class Conversation {
+public abstract class Conversation implements Cloneable {
 
 	/**
 	 * Constant for tree conversations.
@@ -121,4 +121,12 @@ public abstract class Conversation {
             }
         }
     }
+    
+	public Object clone() throws CloneNotSupportedException {
+		Conversation c = (Conversation) super.clone();
+		c.conversationId = (conversationId != null ? new String(conversationId) : null);
+		c.conversationType = conversationType;
+		c.root = (root != null ? (ConversationNode) root.clone() : null);
+		return c;
+	}
 }

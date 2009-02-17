@@ -1,6 +1,6 @@
 package es.eucm.eadventure.common.data.chapter.conversation.node;
 
-public interface ConversationNodeView {
+public interface ConversationNodeView extends Cloneable {
 
 	/**
 	 * Constant for dialogue node.

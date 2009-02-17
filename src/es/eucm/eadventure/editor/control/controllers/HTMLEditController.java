@@ -100,7 +100,7 @@ public class HTMLEditController extends DataControlWithResources {
 	}
 
 	@Override
-	public boolean deleteElement(DataControl dataControl) {
+	public boolean deleteElement(DataControl dataControl, boolean askConfirmation) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -149,9 +149,8 @@ public class HTMLEditController extends DataControlWithResources {
 	}
 
 	@Override
-	public boolean renameElement() {
-		// TODO Auto-generated method stub
-		return false;
+	public String renameElement(String name) {
+		return null;
 	}
 
 	@Override

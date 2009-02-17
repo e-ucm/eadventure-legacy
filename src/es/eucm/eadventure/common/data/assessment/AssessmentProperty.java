@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Assessment property, stores an id and a value
  */
-public class AssessmentProperty implements Serializable {
+public class AssessmentProperty implements Serializable, Cloneable {
 
     /**
      * Required
@@ -54,5 +54,12 @@ public class AssessmentProperty implements Serializable {
 
 	public void setValue( int value ) {
 		this.value = value;
+	}
+	
+	public Object clone() throws CloneNotSupportedException {
+		AssessmentProperty ap = (AssessmentProperty) super.clone();
+		ap.id = (id != null ? new String(id) : null);
+		ap.value = value;
+		return ap;
 	}
 }

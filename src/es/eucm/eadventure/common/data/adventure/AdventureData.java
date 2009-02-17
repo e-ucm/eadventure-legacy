@@ -16,7 +16,7 @@ import es.eucm.eadventure.common.data.chapter.Chapter;
  * @author Javier
  *
  */
-public class AdventureData extends DescriptorData{
+public class AdventureData extends DescriptorData {
 
 	/**
 	 * List of chapters. Contains the main data of the adventures.
@@ -101,6 +101,34 @@ public class AdventureData extends DescriptorData{
 		}
 	}
 	
-	
+	public Object clone() throws CloneNotSupportedException {
+		AdventureData ad = (AdventureData) super.clone();
+		ad.adaptationProfiles = new ArrayList<AdaptationProfile>();
+		for (AdaptationProfile ap : adaptationProfiles)
+			ad.adaptationProfiles.add((AdaptationProfile) ap.clone());
+		ad.assessmentProfiles = new ArrayList<AssessmentProfile>();
+		for (AssessmentProfile ap : assessmentProfiles)
+			ad.assessmentProfiles.add((AssessmentProfile) ap.clone());
+		ad.buttons = new ArrayList<CustomButton>();
+		for (CustomButton cb : buttons)
+			ad.buttons.add((CustomButton) cb.clone());
+		ad.chapters = new ArrayList<Chapter>();
+		for (Chapter c : chapters)
+			ad.chapters.add((Chapter) c.clone());
+		ad.commentaries = commentaries;
+		ad.contents = new ArrayList<ChapterSummary>();
+		for (ChapterSummary cs : contents)
+			ad.contents.add((ChapterSummary) cs.clone());
+		ad.cursors = new ArrayList<CustomCursor>();
+		for (CustomCursor cc : cursors)
+			ad.cursors.add((CustomCursor) cc.clone());
+		ad.description = new String(description);
+		ad.guiCustomized = guiCustomized;
+		ad.guiType = guiType;
+		ad.playerMode = playerMode;
+		ad.playerName = (playerName != null ? new String(playerName) : null);
+		ad.title = (title != null ? new String(title) : null);
+		return ad;
+	}
 
 }

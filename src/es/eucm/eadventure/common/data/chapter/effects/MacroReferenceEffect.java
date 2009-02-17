@@ -39,4 +39,9 @@ public class MacroReferenceEffect implements Effect{
 		this.macroId = macroId;
 	}
 
+	public Object clone() throws CloneNotSupportedException {
+		MacroReferenceEffect mre = (MacroReferenceEffect) super.clone();
+		mre.macroId = (macroId != null ? new String(macroId) : null);
+		return mre;
+	}
 }
