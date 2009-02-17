@@ -47,5 +47,14 @@ public class VarCondition extends Condition{
 	public void setValue(int value) {
 		this.value = value;
 	}
+	
+	public Object clone() throws CloneNotSupportedException {
+		VarCondition vc = (VarCondition) super.clone();
+		vc.id = (id != null ? new String(id) : null);
+		vc.state = state;
+		vc.type = type;
+		vc.value = value;
+		return vc;
+	}
 
 }

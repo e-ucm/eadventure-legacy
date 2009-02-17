@@ -7,13 +7,10 @@ import es.eucm.eadventure.common.data.chapter.book.Book;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.control.controllers.item.ItemDataControl;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 import es.eucm.eadventure.editor.gui.editdialogs.BookTypesDialog;
-import es.eucm.eadventure.editor.gui.editdialogs.GUIStylesDialog;
 
 public class BooksListDataControl extends DataControl {
 
@@ -160,13 +157,13 @@ public class BooksListDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean deleteElement( DataControl dataControl ) {
+	public boolean deleteElement( DataControl dataControl, boolean askConfirmation ) {
 		boolean elementDeleted = false;
 		String bookId = ( (BookDataControl) dataControl ).getId( );
 		String references = String.valueOf( controller.countIdentifierReferences( bookId ) );
 
 		// Ask for confirmation
-		if( controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { bookId, references } ) ) ) {
+		if(!askConfirmation || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { bookId, references } ) ) ) {
 			if( booksList.remove( dataControl.getContent( ) ) ) {
 				booksDataControlList.remove( dataControl );
 				controller.deleteIdentifierReferences( bookId );
@@ -210,8 +207,8 @@ public class BooksListDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean renameElement( ) {
-		return false;
+	public String renameElement( String name ) {
+		return null;
 	}
 
 	@Override

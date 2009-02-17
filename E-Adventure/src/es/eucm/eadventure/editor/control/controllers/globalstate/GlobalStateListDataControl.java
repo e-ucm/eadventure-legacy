@@ -132,13 +132,13 @@ public class GlobalStateListDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean deleteElement( DataControl dataControl ) {
+	public boolean deleteElement( DataControl dataControl , boolean askConfirmation) {
 		boolean elementDeleted = false;
 		String globalStateId = ( (GlobalStateDataControl) dataControl ).getId( );
 		String references = String.valueOf( controller.countIdentifierReferences( globalStateId ) );
 
 		// Ask for confirmation
-		if( controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { globalStateId, references } ) ) ) {
+		if(!askConfirmation || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { globalStateId, references } ) ) ) {
 			if( globalStatesList.remove( dataControl.getContent( ) ) ) {
 				globalStatesDataControlList.remove( dataControl );
 				controller.deleteIdentifierReferences( globalStateId );
@@ -182,8 +182,8 @@ public class GlobalStateListDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean renameElement( ) {
-		return false;
+	public String renameElement( String name ) {
+		return null;
 	}
 
 	@Override

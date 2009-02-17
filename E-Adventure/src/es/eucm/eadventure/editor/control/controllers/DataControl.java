@@ -11,7 +11,7 @@ import es.eucm.eadventure.editor.data.support.VarFlagSummary;
  * 
  * @author Bruno Torijano Bueno
  */
-public abstract class DataControl {
+public abstract class DataControl implements Cloneable {
 
 	/**
 	 * Link to the main controller.
@@ -109,7 +109,7 @@ public abstract class DataControl {
 	 *            Data controller which contains the element
 	 * @return True if the element was deleted, false otherwise
 	 */
-	public abstract boolean deleteElement( DataControl dataControl );
+	public abstract boolean deleteElement( DataControl dataControl , boolean askConfirmation);
 
 	/**
 	 * Duplicates a given element from the current element.
@@ -140,12 +140,14 @@ public abstract class DataControl {
 	public abstract boolean moveElementDown( DataControl dataControl );
 
 	/**
-	 * Asks the user for a new ID for the element.
+	 * Asks the user for a new ID for the element if newName is null
+	 * or user it otherwise.
 	 * 
-	 * @return True if the element was renamed, false otherwise
+	 * @param newName
+	 * @return The old name if the element was renamed, null otherwise
 	 */
-	public abstract boolean renameElement( );
-
+	public abstract String renameElement( String newName );
+	
 	/**
 	 * Updates the given flag summary, adding the flag references contained in the elements. This method works
 	 * recursively.
@@ -221,5 +223,5 @@ public abstract class DataControl {
 	 *            Identifier to be deleted
 	 */
 	public abstract void deleteIdentifierReferences( String id );
-
+	
 }

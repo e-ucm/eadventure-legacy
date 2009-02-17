@@ -7,7 +7,7 @@ import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 /**
  * The list of resources of an element in the game under certain conditions.
  */
-public class Resources {
+public class Resources implements Cloneable {
 
 	/**
 	 * Conditions of the resource
@@ -128,5 +128,19 @@ public class Resources {
         
         return existAsset;
     }
+    
+	public Object clone() throws CloneNotSupportedException {
+		Resources r = (Resources) super.clone();
+		if (assets != null) {
+			r.assets = new HashMap<String, String>();
+			for (String s : assets.keySet()) {
+				String s2 = (assets.get(s) != null ? new String(assets.get(s)) : null);
+				r.assets.put(new String(s), s2);
+			}
+		}
+		r.conditions = (conditions != null ? (Conditions) conditions.clone() : null);
+		return r;
+	}
+	
 
 }

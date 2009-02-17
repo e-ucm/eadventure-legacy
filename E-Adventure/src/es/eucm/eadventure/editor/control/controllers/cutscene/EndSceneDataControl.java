@@ -4,8 +4,6 @@ import java.util.List;
 
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.control.controllers.general.NextSceneDataControl;
-import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class EndSceneDataControl extends DataControl {
@@ -46,7 +44,7 @@ public class EndSceneDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean deleteElement( DataControl dataControl ) {
+	public boolean deleteElement( DataControl dataControl, boolean askConfirmation ) {
 		return false;
 	}
 
@@ -61,8 +59,8 @@ public class EndSceneDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean renameElement( ) {
-		return false;
+	public String renameElement( String name ) {
+		return null;
 	}
 
 	@Override

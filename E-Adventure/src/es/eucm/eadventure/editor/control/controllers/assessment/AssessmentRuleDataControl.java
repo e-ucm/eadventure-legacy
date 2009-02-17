@@ -11,8 +11,6 @@ import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
-import java.util.regex.Pattern;
-
 public class AssessmentRuleDataControl extends DataControl{
 
 	private AssessmentRule assessmentRule;
@@ -82,7 +80,7 @@ public class AssessmentRuleDataControl extends DataControl{
 	}
 
 	@Override
-	public boolean deleteElement( DataControl dataControl ) {
+	public boolean deleteElement( DataControl dataControl , boolean askConfirmation) {
 		return false;
 	}
 
@@ -117,20 +115,24 @@ public class AssessmentRuleDataControl extends DataControl{
 	}
 
 	@Override
-	public boolean renameElement( ) {
-		boolean renamed = false;
+	public String renameElement( String name ) {
+		String oldName = assessmentRule.getId();
 		
 		// Show a dialog asking for the ass rule id
-		String assRuleId = controller.showInputDialog( TextConstants.getText( "Operation.RenameAssessmentRuleTitle" ), TextConstants.getText( "Operation.RenameAssessmentRuleMessage" ), TextConstants.getText( "Operation.AddAssessmentRuleDefaultValue" ) );
+		String assRuleId = name;
+		if (name == null)
+			assRuleId = controller.showInputDialog( TextConstants.getText( "Operation.RenameAssessmentRuleTitle" ), TextConstants.getText( "Operation.RenameAssessmentRuleMessage" ), TextConstants.getText( "Operation.AddAssessmentRuleDefaultValue" ) );
 
 		// If some value was typed and the identifier is valid
 		if( assRuleId != null && controller.isElementIdValid( assRuleId ) ) {
 			controller.deleteIdentifierReferences( assessmentRule.getId( ) );
 			assessmentRule.setId( assRuleId );
-			renamed = true;
+			return oldName;
 		}
-		return renamed;
+		return null;
 	}
+	
+
 
 	@Override
 	public void replaceIdentifierReferences( String oldId, String newId ) {

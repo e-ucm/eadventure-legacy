@@ -103,7 +103,7 @@ public abstract class LooksPanel extends JScrollPane {
 					dataControl.setSelectedResources( resourcesComboBox.getSelectedIndex( ) );
 					int selectedBlock = dataControl.getSelectedResources( );
 					DataControl resourcesToDelete = dataControl.getResources( ).get( selectedBlock );
-					if( dataControl.deleteElement( resourcesToDelete ) ) {
+					if( dataControl.deleteElement( resourcesToDelete , true ) ) {
 						resourcesComboBox.setModel( new DefaultComboBoxModel(getResourceNames()));
 						//resourcesComboBox.removeItemAt( selectedBlock );
 						dataControl.setSelectedResources( 0 );

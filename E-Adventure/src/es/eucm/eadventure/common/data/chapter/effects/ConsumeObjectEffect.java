@@ -42,4 +42,10 @@ public class ConsumeObjectEffect implements Effect {
 	public void setIdTarget( String idTarget ) {
 		this.idTarget = idTarget;
 	}
+	
+	public Object clone() throws CloneNotSupportedException {
+		ConsumeObjectEffect coe = (ConsumeObjectEffect) super.clone();
+		coe.idTarget = (idTarget != null ? new String(idTarget) : null);
+		return coe;
+	}
 }

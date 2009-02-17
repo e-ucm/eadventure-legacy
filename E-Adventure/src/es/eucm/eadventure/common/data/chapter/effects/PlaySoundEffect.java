@@ -70,4 +70,10 @@ public class PlaySoundEffect implements Effect {
 		this.path = path;
 	}
 
+	public Object clone() throws CloneNotSupportedException {
+		PlaySoundEffect pse = (PlaySoundEffect) super.clone();
+		pse.background = background;
+		pse.path = (path != null ? new String(path) : null);
+		return pse;
+	}
 }

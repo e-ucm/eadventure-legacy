@@ -429,7 +429,7 @@ public class ReferencesListPanel extends JPanel{
 	
 	private void delete( ) {
 		ElementContainer element = referencesListDataControl.getAllReferencesDataControl().get( table.getSelectedRow( ) );
-		if (referencesListDataControl.deleteElement( element.getErdc() )){
+		if (referencesListDataControl.deleteElement( element.getErdc(), true )){
 			if (!element.isPlayer()){
 				spep.removeElement(transformType(element.getErdc().getType()), element.getErdc());
 				table.clearSelection( );

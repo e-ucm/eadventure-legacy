@@ -16,5 +16,11 @@ public class GlobalStateReference extends Condition{
 		super(id, Condition.NO_STATE);
 		type = Condition.GLOBAL_STATE_CONDITION;
 	}
+	
+	public Object clone() throws CloneNotSupportedException {
+		GlobalStateReference gsr = (GlobalStateReference) super.clone();
+		type = Condition.GLOBAL_STATE_CONDITION;
+		return gsr;
+	}
 
 }

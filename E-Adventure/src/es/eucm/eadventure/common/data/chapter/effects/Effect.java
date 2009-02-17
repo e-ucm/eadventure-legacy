@@ -3,7 +3,7 @@ package es.eucm.eadventure.common.data.chapter.effects;
 /**
  * This interface defines any individual effect that can be triggered by a player's action during the game.
  */
-public interface Effect {
+public interface Effect extends Cloneable {
 
 	/**
 	 * Constant for activate effect.
@@ -117,4 +117,7 @@ public interface Effect {
 	 * @return Type of the effect
 	 */
 	public int getType( );
+
+	public Object clone() throws CloneNotSupportedException;
+
 }

@@ -5,14 +5,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.data.chapter.ElementReference;
 import es.eucm.eadventure.common.data.chapter.scenes.Scene;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.control.controllers.character.PlayerDataControl;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.scene.ReferenceListener;
 
@@ -530,7 +528,7 @@ public class ReferencesListDataControl extends DataControl{
 	}
 	
 	@Override
-	public boolean deleteElement( DataControl dataControl ) {
+	public boolean deleteElement( DataControl dataControl, boolean askConfirmation ) {
 		boolean elementDeleted = false;
 		if (dataControl != null){
 		if( itemReferencesList.remove( dataControl.getContent( ) ) ) {
@@ -690,8 +688,8 @@ public class ReferencesListDataControl extends DataControl{
 	}
 
 	@Override
-	public boolean renameElement( ) {
-		return false;
+	public String renameElement( String name ) {
+		return null;
 	}
 
 	@Override

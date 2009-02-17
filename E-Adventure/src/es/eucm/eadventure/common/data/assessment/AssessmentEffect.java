@@ -3,7 +3,7 @@ package es.eucm.eadventure.common.data.assessment;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AssessmentEffect {
+public class AssessmentEffect implements Cloneable {
 
 	/**
      * Text of the effect of the rule, if present (null if not)
@@ -48,5 +48,17 @@ public class AssessmentEffect {
     public List<AssessmentProperty> getAssessmentProperties( ) {
         return properties;
     }
+    
+	public Object clone() throws CloneNotSupportedException {
+		AssessmentEffect ae = (AssessmentEffect) super.clone();
+		if (properties != null) {
+			ae.properties = new ArrayList<AssessmentProperty>();
+			for (AssessmentProperty ap : properties)
+				ae.properties.add((AssessmentProperty) ap.clone());
+		}
+		ae.text = (text != null ? new String(text) : null);
+		return ae;
+	
+	}
     
 }

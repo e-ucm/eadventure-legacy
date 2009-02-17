@@ -7,7 +7,6 @@ import es.eucm.eadventure.common.data.chapter.elements.NPC;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.control.controllers.item.ItemDataControl;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class NPCsListDataControl extends DataControl {
@@ -133,13 +132,13 @@ public class NPCsListDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean deleteElement( DataControl dataControl ) {
+	public boolean deleteElement( DataControl dataControl , boolean askConfirmation) {
 		boolean elementDeleted = false;
 		String npcId = ( (NPCDataControl) dataControl ).getId( );
 		String references = String.valueOf( controller.countIdentifierReferences( npcId ) );
 
 		// Ask for confirmation
-		if( controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { npcId, references } ) ) ) {
+		if(!askConfirmation || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { npcId, references } ) ) ) {
 			if( npcsList.remove( dataControl.getContent( ) ) ) {
 				npcsDataControlList.remove( dataControl );
 				controller.deleteIdentifierReferences( npcId );
@@ -183,8 +182,8 @@ public class NPCsListDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean renameElement( ) {
-		return false;
+	public String renameElement( String name ) {
+		return null;
 	}
 
 	@Override

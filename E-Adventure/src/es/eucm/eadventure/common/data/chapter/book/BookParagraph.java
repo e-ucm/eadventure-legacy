@@ -3,7 +3,7 @@ package es.eucm.eadventure.common.data.chapter.book;
 /**
  * Main class of the paragraphs of one book
  */
-public class BookParagraph {
+public class BookParagraph implements Cloneable {
 
 	/**
 	 * Type for bullet paragraph.
@@ -88,4 +88,10 @@ public class BookParagraph {
 		return content;
 	}
 
+	public Object clone() throws CloneNotSupportedException {
+		BookParagraph bp = (BookParagraph) super.clone();
+		bp.content = (content != null ? new String(content) : null);
+		bp.type = type;
+		return bp;
+	}
 }

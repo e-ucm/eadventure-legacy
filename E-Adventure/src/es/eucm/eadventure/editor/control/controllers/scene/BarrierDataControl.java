@@ -2,11 +2,12 @@ package es.eucm.eadventure.editor.control.controllers.scene;
 
 import java.util.List;
 
-import es.eucm.eadventure.common.data.chapter.elements.ActiveArea;
 import es.eucm.eadventure.common.data.chapter.elements.Barrier;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.control.controllers.general.ActionsListDataControl;
+import es.eucm.eadventure.editor.control.tools.general.ChangeDescriptionTool;
+import es.eucm.eadventure.editor.control.tools.general.ChangeDocumentationTool;
+import es.eucm.eadventure.editor.control.tools.general.ChangeNameTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class BarrierDataControl extends DataControl {
@@ -106,12 +107,7 @@ public class BarrierDataControl extends DataControl {
 	 *            Documentation of the item
 	 */
 	public void setDocumentation( String documentation ) {
-		// If the value is different
-		if( !documentation.equals( barrier.getDocumentation( ) ) ) {
-			// Set the new documentation and modify the data
-			barrier.setDocumentation( documentation );
-			controller.dataModified( );
-		}
+		controller.addTool(new ChangeDocumentationTool(barrier, documentation));
 	}
 
 	/**
@@ -121,13 +117,7 @@ public class BarrierDataControl extends DataControl {
 	 *            Name of the activeArea
 	 */
 	public void setName( String name ) {
-		// If the value is different
-		if( !name.equals( barrier.getName( ) ) ) {
-			// Set the new name and modify the data
-			barrier.setName( name );
-			controller.dataModified( );
-			controller.reloadData( );
-		}
+		controller.addTool(new ChangeNameTool(barrier, name));
 	}
 
 	/**
@@ -137,12 +127,7 @@ public class BarrierDataControl extends DataControl {
 	 *            Description of the activeArea
 	 */
 	public void setBriefDescription( String description ) {
-		// If the value is different
-		if( !description.equals( barrier.getDescription( ) ) ) {
-			// Set the new description and modify the data
-			barrier.setDescription( description );
-			controller.dataModified( );
-		}
+		controller.addTool(new ChangeDescriptionTool(barrier, description));
 	}
 
 	/**
@@ -250,7 +235,7 @@ public class BarrierDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean deleteElement( DataControl dataControl ) {
+	public boolean deleteElement( DataControl dataControl , boolean askConfirmation) {
 		boolean elementDeleted = false;
 		return elementDeleted;
 	}
@@ -268,8 +253,8 @@ public class BarrierDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean renameElement( ) {
-		return false;
+	public String renameElement( String name ) {
+		return null;
 	}
 
 	@Override

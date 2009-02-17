@@ -98,6 +98,11 @@ public class MainWindow extends JFrame {
 	
 	private JMenuItem debugRun;
 	
+	private JMenuItem undo;
+	
+	private JMenuItem redo;
+	
+	
 	/**
 	 * Constructor. Creates the general layout.
 	 */
@@ -192,6 +197,8 @@ public class MainWindow extends JFrame {
 		JMenu fileMenu = new JMenu( TextConstants.getText( "MenuFile.Title" ) );
 		fileMenu.setMnemonic( KeyEvent.VK_F );
 		windowMenu.add( fileMenu );
+		JMenu editMenu = new JMenu(TextConstants.getText("MenuEdit.Title"));
+		windowMenu.add(editMenu);
 		JMenu adventureMenu = new JMenu( TextConstants.getText( "MenuAdventure.Title" ) );
 		adventureMenu.setEnabled( Controller.getInstance( ).isFloderLoaded( ) );
 		adventureMenu.setMnemonic( KeyEvent.VK_A );
@@ -339,6 +346,27 @@ public class MainWindow extends JFrame {
 		} );
 		fileMenu.add( itFileExit );
 
+		
+		undo = new JMenuItem(TextConstants.getText("MenuEdit.Undo"));
+		undo.addActionListener( new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.undoTool();
+			}
+		});
+		undo.setAccelerator( KeyStroke.getKeyStroke( 'Z', InputEvent.CTRL_MASK ) );
+
+		redo = new JMenuItem(TextConstants.getText("MenuEdit.Redo"));
+		redo.addActionListener( new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.redoTool();
+			}
+		});
+		redo.setAccelerator( KeyStroke.getKeyStroke( 'Y', InputEvent.CTRL_MASK ) );
+
+		editMenu.add(undo);
+		editMenu.add(redo);
+		
+		
 		// Create the "Adventure" elements
 		JMenuItem itCheckConsistency = new JMenuItem( TextConstants.getText( "MenuAdventure.CheckConsistency" ) );
 		itCheckConsistency.addActionListener( new ActionListener( ) {

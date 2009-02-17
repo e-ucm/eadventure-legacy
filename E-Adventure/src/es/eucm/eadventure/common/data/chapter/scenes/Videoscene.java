@@ -19,4 +19,9 @@ public class Videoscene extends Cutscene {
 	public Videoscene( String id ) {
 		super( GeneralScene.VIDEOSCENE, id );
 	}
+	
+	public Object clone() throws CloneNotSupportedException {
+		Videoscene v = (Videoscene) super.clone();
+		return v;
+	}
 }

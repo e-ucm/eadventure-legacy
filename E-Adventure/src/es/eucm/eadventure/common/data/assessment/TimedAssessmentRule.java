@@ -242,5 +242,20 @@ public class TimedAssessmentRule extends AssessmentRule {
 	public void setStartTime(long startTime) {
 		this.startTime = startTime;
 	}
+	
+	public Object clone() throws CloneNotSupportedException {
+		TimedAssessmentRule tar = (TimedAssessmentRule) super.clone();
+		tar.effectIndex = effectIndex;
+		if (effects != null) {
+			tar.effects = new ArrayList<TimedAssessmentEffect>();
+			for (TimedAssessmentEffect tae : effects)
+				tar.effects.add((TimedAssessmentEffect) tae.clone());
+		}
+		tar.elapsedTime = elapsedTime;
+		tar.endConditions = (endConditions != null ? (Conditions) endConditions.clone() : null);
+		tar.isDone = isDone;
+		return tar;
+	}
+		
 
 }

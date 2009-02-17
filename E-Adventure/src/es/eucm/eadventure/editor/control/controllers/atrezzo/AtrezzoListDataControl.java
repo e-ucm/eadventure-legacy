@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.elements.Atrezzo;
-import es.eucm.eadventure.common.data.chapter.elements.Item;
 import es.eucm.eadventure.common.gui.TextConstants;
 
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.control.controllers.item.ItemDataControl;
 
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
@@ -164,13 +162,13 @@ public class AtrezzoListDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean deleteElement(DataControl dataControl) {
+	public boolean deleteElement(DataControl dataControl, boolean askConfirmation) {
 		boolean elementDeleted = false;
 		String atrezzoId = ( (AtrezzoDataControl) dataControl ).getId( );
 		String references = String.valueOf( controller.countIdentifierReferences( atrezzoId ) );
 
 		// Ask for confirmation
-		if( controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { atrezzoId, references } ) ) ) {
+		if(!askConfirmation || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { atrezzoId, references } ) ) ) {
 			if( atrezzoList.remove( dataControl.getContent( ) ) ) {
 				atrezzoDataControlList.remove( dataControl );
 				controller.deleteIdentifierReferences( atrezzoId );
@@ -255,8 +253,8 @@ public class AtrezzoListDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean renameElement() {
-		return false;
+	public String renameElement( String name ) {
+		return null;
 	}
 
 	@Override
@@ -274,5 +272,5 @@ public class AtrezzoListDataControl extends DataControl {
 		//This method is empty because the atrezzo items there aren´t interactive, and its haven´t associated flags/vars 
 		
 	}
-
+	
 }

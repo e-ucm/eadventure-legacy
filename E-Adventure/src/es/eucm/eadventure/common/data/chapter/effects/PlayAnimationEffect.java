@@ -90,4 +90,11 @@ public class PlayAnimationEffect implements Effect {
 		this.y = y;
 	}
 
+	public Object clone() throws CloneNotSupportedException {
+		PlayAnimationEffect pae = (PlayAnimationEffect) super.clone();
+		pae.path = (path != null ? new String(path) : null);
+		pae.x = x;
+		pae.y = y;
+		return pae;
+	}
 }

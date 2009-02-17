@@ -62,4 +62,11 @@ public class IncrementVarEffect implements Effect {
 	public void setIncrement(int value) {
 		this.value = value;
 	}
+	
+	public Object clone() throws CloneNotSupportedException {
+		IncrementVarEffect ive = (IncrementVarEffect) super.clone();
+		ive.idVar = (idVar != null ? new String(idVar) : null);
+		ive.value = value;
+		return ive;
+	}
 }

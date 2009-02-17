@@ -85,5 +85,11 @@ public class RandomEffect implements Effect{
 		return negativeEffect;
 	}
 
-    
+	public Object clone() throws CloneNotSupportedException {
+		RandomEffect re = (RandomEffect) super.clone();
+		re.negativeEffect = (negativeEffect != null ? (Effect) negativeEffect.clone() : null);
+		re.positiveEffect = (positiveEffect != null ? (Effect) positiveEffect.clone() : null);
+		re.probability = probability;
+		return re;
+	}
 }

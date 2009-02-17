@@ -6,7 +6,7 @@ package es.eucm.eadventure.common.data.animation;
  * @author Eugenio Marchiori
  *
  */
-public class Transition {
+public class Transition implements Cloneable {
 	
 	/**
 	 * The transition does nothing
@@ -82,6 +82,13 @@ public class Transition {
 	 */
 	public void setType(int type) {
 		this.type = type;
+	}
+	
+	public Object clone() throws CloneNotSupportedException {
+		Transition t = (Transition) super.clone();
+		t.time = time;
+		t.type = type;
+		return t;
 	}
 
 }

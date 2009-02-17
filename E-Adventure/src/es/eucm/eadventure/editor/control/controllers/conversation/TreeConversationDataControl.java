@@ -435,16 +435,18 @@ public class TreeConversationDataControl extends ConversationDataControl {
 	}
 
 	@Override
-	public boolean renameElement( ) {
+	public String renameElement( String name ) {
 		boolean elementRenamed = false;
 		String oldConversationId = treeConversation.getId( );
 		String references = String.valueOf( controller.countIdentifierReferences( oldConversationId ) );
 
 		// Ask for confirmation
-		if( controller.showStrictConfirmDialog( TextConstants.getText( "Operation.RenameConversationTitle" ), TextConstants.getText( "Operation.RenameElementWarning", new String[] { oldConversationId, references } ) ) ) {
+		if(name != null || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.RenameConversationTitle" ), TextConstants.getText( "Operation.RenameElementWarning", new String[] { oldConversationId, references } ) ) ) {
 
 			// Show a dialog asking for the new conversation id
-			String newConversationId = controller.showInputDialog( TextConstants.getText( "Operation.RenameConversationTitle" ), TextConstants.getText( "Operation.RenameConversationMessage" ), oldConversationId );
+			String newConversationId = name;
+			if (name == null)
+				newConversationId = controller.showInputDialog( TextConstants.getText( "Operation.RenameConversationTitle" ), TextConstants.getText( "Operation.RenameConversationMessage" ), oldConversationId );
 
 			// If some value was typed and the identifiers are different
 			if( newConversationId != null && !newConversationId.equals( oldConversationId ) && controller.isElementIdValid( newConversationId ) ) {
@@ -457,7 +459,10 @@ public class TreeConversationDataControl extends ConversationDataControl {
 			}
 		}
 
-		return elementRenamed;
+		if (elementRenamed)
+			return oldConversationId;
+		else
+			return null;
 	}
 
 	@Override

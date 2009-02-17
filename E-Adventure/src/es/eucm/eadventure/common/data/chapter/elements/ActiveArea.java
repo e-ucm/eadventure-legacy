@@ -121,4 +121,14 @@ public class ActiveArea extends Item{
 	public void setConditions( Conditions conditions ) {
 		this.conditions = conditions;
 	}
+	
+	public Object clone() throws CloneNotSupportedException {
+		ActiveArea aa = (ActiveArea) super.clone();
+		aa.conditions = (conditions != null ? (Conditions) conditions.clone() : null);
+		aa.height = height;
+		aa.width = width;
+		aa.x = x;
+		aa.y = y;
+		return aa;
+	}
 }

@@ -10,6 +10,7 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ExitLookDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.NextSceneDataControl;
+import es.eucm.eadventure.editor.control.tools.general.ChangeDocumentationTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class ExitDataControl extends DataControl {
@@ -153,12 +154,7 @@ public class ExitDataControl extends DataControl {
 	 *            Documentation of the exit
 	 */
 	public void setDocumentation( String documentation ) {
-		// If the value is different
-		if( !documentation.equals( exit.getDocumentation( ) ) ) {
-			// Set the new documentation and modify the data
-			exit.setDocumentation( documentation );
-			controller.dataModified( );
-		}
+		controller.addTool(new ChangeDocumentationTool(exit, documentation));
 	}
 
 	@Override
@@ -223,7 +219,7 @@ public class ExitDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean deleteElement( DataControl dataControl ) {
+	public boolean deleteElement( DataControl dataControl, boolean askConfirmation ) {
 		boolean elementDeleted = false;
 
 		// Delete the next scene only if it is not the last one
@@ -273,8 +269,8 @@ public class ExitDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean renameElement( ) {
-		return false;
+	public String renameElement(String name ) {
+		return null;
 	}
 
 	@Override

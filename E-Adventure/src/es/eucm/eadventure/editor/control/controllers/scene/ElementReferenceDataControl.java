@@ -12,9 +12,8 @@ import es.eucm.eadventure.editor.control.controllers.character.NPCDataControl;
 import es.eucm.eadventure.editor.control.controllers.character.NPCsListDataControl;
 import es.eucm.eadventure.editor.control.controllers.item.ItemDataControl;
 import es.eucm.eadventure.editor.control.controllers.item.ItemsListDataControl;
+import es.eucm.eadventure.editor.control.tools.general.ChangeDocumentationTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
-import es.eucm.eadventure.editor.gui.elementpanels.scene.ElementReferencePanel;
-import es.eucm.eadventure.editor.gui.treepanel.TreeNodeControl;
 
 public class ElementReferenceDataControl extends DataControl {
 
@@ -23,10 +22,6 @@ public class ElementReferenceDataControl extends DataControl {
 	 */
 	private SceneDataControl sceneDataControl;
 	
-	/**
-	 * Identifies this element reference between other references of same element
-	 */
-	private int referenceNumber;
 
 	/**
 	 * Contained element reference.
@@ -57,7 +52,6 @@ public class ElementReferenceDataControl extends DataControl {
 		this.sceneDataControl = sceneDataControl;
 		this.elementReference = elementReference;
 		this.type = type;
-		this.referenceNumber = referenceNumber;
 		if (type == Controller.ITEM_REFERENCE || type == Controller.NPC_REFERENCE)
 			this.influenceAreaDataControl = new InfluenceAreaDataControl(sceneDataControl, elementReference.getInfluenceArea(), this);
 		// Create subcontrollers
@@ -195,12 +189,7 @@ public class ElementReferenceDataControl extends DataControl {
 	 *            Documentation of the element reference
 	 */
 	public void setDocumentation( String documentation ) {
-		// If the value is different
-		if( !documentation.equals( elementReference.getDocumentation( ) ) ) {
-			// Set the new documentation and modify the data
-			elementReference.setDocumentation( documentation );
-			controller.dataModified( );
-		}
+		controller.addTool(new ChangeDocumentationTool(elementReference, documentation));
 	}
 	
 	/**
@@ -257,7 +246,7 @@ public class ElementReferenceDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean deleteElement( DataControl dataControl ) {
+	public boolean deleteElement( DataControl dataControl , boolean askConfirmation) {
 		return false;
 	}
 
@@ -272,8 +261,8 @@ public class ElementReferenceDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean renameElement( ) {
-		return false;
+	public String renameElement( String name) {
+		return null;
 	}
 
 	@Override

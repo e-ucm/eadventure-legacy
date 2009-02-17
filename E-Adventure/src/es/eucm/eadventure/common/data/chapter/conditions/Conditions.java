@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * This class holds a list of conditions
  */
-public class Conditions {
+public class Conditions implements Cloneable {
 
 	/**
 	 * List of simple conditions to be checked
@@ -106,4 +106,18 @@ public class Conditions {
 		return eitherConditions.get( index );
 	}
 
+	public Object clone() throws CloneNotSupportedException {
+		Conditions c = (Conditions) super.clone();
+		if (conditions != null) {
+			c.conditions = new ArrayList<Condition>();
+			for (Condition cs : conditions)
+				c.conditions.add((Condition) cs.clone());
+		}
+		if (eitherConditions != null) {
+			c.eitherConditions = new ArrayList<Conditions>();
+			for (Conditions cs : eitherConditions)
+				c.eitherConditions.add((Conditions) cs.clone());
+		}		
+		return c;
+	}
 }

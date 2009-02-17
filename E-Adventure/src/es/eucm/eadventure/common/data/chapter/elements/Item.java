@@ -55,4 +55,8 @@ public class Item extends Element {
         return sb.toString( );
     }
 
+	public Object clone() throws CloneNotSupportedException {
+		Item i = (Item) super.clone();
+		return i;
+	}
 }

@@ -1,11 +1,12 @@
 package es.eucm.eadventure.common.data.chapter;
 
+import es.eucm.eadventure.common.data.Documented;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 
 /**
  * This class holds the data for a element reference in eAdventure
  */
-public class ElementReference {
+public class ElementReference implements Cloneable, Documented {
 
 	/**
 	 * Id of the element referenced
@@ -232,5 +233,19 @@ public class ElementReference {
 	 */
 	public void setInfluenceArea(InfluenceArea influenceArea) {
 		this.influenceArea = influenceArea;
+	}
+	
+	
+	public Object clone() throws CloneNotSupportedException {
+		ElementReference er = (ElementReference) super.clone();
+		er.conditions = (conditions != null ? (Conditions) conditions.clone() : null);
+		er.documentation = (documentation != null ? new String(documentation) : null);
+		er.idTarget = (idTarget != null ? new String(idTarget) : null);
+		er.influenceArea = (influenceArea != null ? (InfluenceArea) influenceArea.clone() : null);
+		er.layer = layer;
+		er.scale = scale;
+		er.x = x;
+		er.y = y;
+		return er;
 	}
 }

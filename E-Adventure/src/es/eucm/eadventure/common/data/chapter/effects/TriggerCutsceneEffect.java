@@ -42,4 +42,10 @@ public class TriggerCutsceneEffect implements Effect {
 	public void setTargetCutsceneId( String targetCutsceneId ) {
 		this.targetCutsceneId = targetCutsceneId;
 	}
+	
+	public Object clone() throws CloneNotSupportedException {
+		TriggerCutsceneEffect tce = (TriggerCutsceneEffect) super.clone();
+		tce.targetCutsceneId = (targetCutsceneId != null ? new String(targetCutsceneId) : null);
+		return tce;
+	}
 }

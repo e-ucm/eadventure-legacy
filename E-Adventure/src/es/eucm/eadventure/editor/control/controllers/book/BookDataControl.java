@@ -10,6 +10,7 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
+import es.eucm.eadventure.editor.control.tools.general.ChangeDocumentationTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 /**
@@ -176,12 +177,7 @@ public class BookDataControl extends DataControlWithResources {
 	 *            Documentation of the book
 	 */
 	public void setDocumentation( String documentation ) {
-		// If the value is different
-		if( !documentation.equals( book.getDocumentation( ) ) ) {
-			// Set the new documentation and modify the data
-			book.setDocumentation( documentation );
-			controller.dataModified( );
-		}
+		controller.addTool(new ChangeDocumentationTool(book, documentation));
 	}
 
 	@Override
@@ -233,7 +229,7 @@ public class BookDataControl extends DataControlWithResources {
 	}
 
 	@Override
-	public boolean deleteElement( DataControl dataControl ) {
+	public boolean deleteElement( DataControl dataControl, boolean askConfirmation ) {
 		boolean elementDeleted = false;
 
 		// Delete the block only if it is not the last one
@@ -289,16 +285,18 @@ public class BookDataControl extends DataControlWithResources {
 	}
 
 	@Override
-	public boolean renameElement( ) {
+	public String renameElement( String name ) {
 		boolean elementRenamed = false;
 		String oldBookId = book.getId( );
 		String references = String.valueOf( controller.countIdentifierReferences( oldBookId ) );
 
 		// Ask for confirmation
-		if( controller.showStrictConfirmDialog( TextConstants.getText( "Operation.RenameBookTitle" ), TextConstants.getText( "Operation.RenameElementWarning", new String[] { oldBookId, references } ) ) ) {
+		if(name != null || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.RenameBookTitle" ), TextConstants.getText( "Operation.RenameElementWarning", new String[] { oldBookId, references } ) ) ) {
 
 			// Show a dialog asking for the new book id
-			String newBookId = controller.showInputDialog( TextConstants.getText( "Operation.RenameBookTitle" ), TextConstants.getText( "Operation.RenameBookMessage" ), oldBookId );
+			String newBookId = name;
+			if (name == null)
+				newBookId = controller.showInputDialog( TextConstants.getText( "Operation.RenameBookTitle" ), TextConstants.getText( "Operation.RenameBookMessage" ), oldBookId );
 
 			// If some value was typed and the identifiers are different
 			if( newBookId != null && !newBookId.equals( oldBookId ) && controller.isElementIdValid( newBookId ) ) {
@@ -311,7 +309,10 @@ public class BookDataControl extends DataControlWithResources {
 			}
 		}
 
-		return elementRenamed;
+		if (elementRenamed)
+			return oldBookId;
+		else
+			return null;
 	}
 
 	@Override

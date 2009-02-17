@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * A list of effects that can be triggered by an unique player's action during the game.
  */
-public class Effects {
+public class Effects implements Cloneable {
 
 	/**
 	 * List of effects to be triggered
@@ -66,6 +66,16 @@ public class Effects {
 			}
 		}
 		return hasCancelAction;
+	}
+	
+	public Object clone() throws CloneNotSupportedException {
+		Effects e = (Effects) super.clone();
+		if (effects != null) {
+			e.effects = new ArrayList<Effect>();
+			for (Effect ef : effects)
+				e.effects.add((Effect) ef.clone());
+		}
+		return e; 
 	}
 	
 }

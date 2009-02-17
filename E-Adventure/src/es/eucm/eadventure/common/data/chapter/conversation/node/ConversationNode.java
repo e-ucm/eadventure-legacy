@@ -174,5 +174,11 @@ public abstract class ConversationNode implements ConversationNodeView {
      * This method is only used in OptionConversationNode. Make the options to appear randomly
      */
     //public abstract void doRandom();
+    
+	public Object clone() throws CloneNotSupportedException {
+		ConversationNode cn = (ConversationNode) super.clone();
+	
+		return cn;
+	}
 
 }

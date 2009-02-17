@@ -69,4 +69,15 @@ public abstract class Cutscene extends GeneralScene {
 	public void setEndScene( boolean endScene ) {
 		this.endScene = endScene;
 	}
+	
+	public Object clone() throws CloneNotSupportedException {
+		Cutscene c = (Cutscene) super.clone();
+		c.endScene = endScene;
+		if (nextScenes != null) {
+			c.nextScenes = new ArrayList<NextScene>();
+			for (NextScene ns : nextScenes)
+				c.nextScenes.add((NextScene) ns.clone());
+		}
+		return c;
+	}
 }

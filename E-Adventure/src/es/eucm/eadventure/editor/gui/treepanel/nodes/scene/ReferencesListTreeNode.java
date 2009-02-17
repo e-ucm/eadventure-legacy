@@ -58,7 +58,6 @@ public class ReferencesListTreeNode extends TreeNode implements ReferenceListene
 		if( getDataControl( ).canAddElement( type ) && getDataControl( ).addElement( type ) ) {
 			if (lastNode != null)
 				this.setSelectedChild(lastNode);
-				
 		}
 	}
 	
@@ -154,4 +153,12 @@ public class ReferencesListTreeNode extends TreeNode implements ReferenceListene
 			return this;
 		return null;
 	}
+	
+	@Override
+	public TreeNode isObjectContentTreeNode(Object object) {
+		if (referencesDataControl.getContent() == object)
+			return this;
+		return null;
+	}
+
 }

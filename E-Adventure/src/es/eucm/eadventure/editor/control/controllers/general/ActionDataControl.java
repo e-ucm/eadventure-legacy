@@ -9,6 +9,7 @@ import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
+import es.eucm.eadventure.editor.control.tools.general.ChangeDocumentationTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class ActionDataControl extends DataControlWithResources {
@@ -161,12 +162,7 @@ public class ActionDataControl extends DataControlWithResources {
 	 *            Documentation of the action
 	 */
 	public void setDocumentation( String documentation ) {
-		// If the value is different
-		if( !documentation.equals( action.getDocumentation( ) ) ) {
-			// Set the new documentation and modify the data
-			action.setDocumentation( documentation );
-			controller.dataModified( );
-		}
+		controller.addTool(new ChangeDocumentationTool(action, documentation));
 	}
 
 	/**
@@ -221,7 +217,7 @@ public class ActionDataControl extends DataControlWithResources {
 	}
 
 	@Override
-	public boolean deleteElement( DataControl dataControl ) {
+	public boolean deleteElement( DataControl dataControl , boolean askConfirmation) {
 		return false;
 	}
 
@@ -236,8 +232,8 @@ public class ActionDataControl extends DataControlWithResources {
 	}
 
 	@Override
-	public boolean renameElement( ) {
-		return false;
+	public String renameElement( String name ) {
+		return null;
 	}
 
 	@Override

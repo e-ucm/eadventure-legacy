@@ -16,4 +16,9 @@ public class Player extends NPC {
 	public Player( ) {
 		super( IDENTIFIER );
 	}
+	
+	public Object clone() throws CloneNotSupportedException {
+		Player p = (Player) super.clone();
+		return p;
+	}
 }

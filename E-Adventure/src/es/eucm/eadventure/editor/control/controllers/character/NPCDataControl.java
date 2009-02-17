@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.eucm.eadventure.common.data.animation.Animation;
 import es.eucm.eadventure.common.data.chapter.elements.NPC;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.gui.TextConstants;
@@ -410,7 +409,7 @@ public class NPCDataControl extends DataControlWithResources {
 	}
 
 	@Override
-	public boolean deleteElement( DataControl dataControl ) {
+	public boolean deleteElement( DataControl dataControl, boolean askConfirmation ) {
 		boolean elementDeleted = false;
 
 		// Delete the block only if it is not the last one
@@ -466,16 +465,18 @@ public class NPCDataControl extends DataControlWithResources {
 	}
 
 	@Override
-	public boolean renameElement( ) {
+	public String renameElement(String name ) {
 		boolean elementRenamed = false;
 		String oldNPCId = npc.getId( );
 		String references = String.valueOf( controller.countIdentifierReferences( oldNPCId ) );
 
 		// Ask for confirmation
-		if( controller.showStrictConfirmDialog( TextConstants.getText( "Operation.RenameNPCTitle" ), TextConstants.getText( "Operation.RenameElementWarning", new String[] { oldNPCId, references } ) ) ) {
+		if(name != null || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.RenameNPCTitle" ), TextConstants.getText( "Operation.RenameElementWarning", new String[] { oldNPCId, references } ) ) ) {
 
 			// Show a dialog asking for the new npc id
-			String newNPCId = controller.showInputDialog( TextConstants.getText( "Operation.RenameNPCTitle" ), TextConstants.getText( "Operation.RenameNPCMessage" ), oldNPCId );
+			String newNPCId = name;
+			if (name == null)
+				newNPCId = controller.showInputDialog( TextConstants.getText( "Operation.RenameNPCTitle" ), TextConstants.getText( "Operation.RenameNPCMessage" ), oldNPCId );
 
 			// If some value was typed and the identifiers are different
 			if( newNPCId != null && !newNPCId.equals( oldNPCId ) && controller.isElementIdValid( newNPCId ) ) {
@@ -488,7 +489,10 @@ public class NPCDataControl extends DataControlWithResources {
 			}
 		}
 
-		return elementRenamed;
+		if (elementRenamed)
+			return oldNPCId;
+		else
+			return null;
 	}
 
 	@Override

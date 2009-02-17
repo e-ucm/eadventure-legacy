@@ -3,12 +3,13 @@ package es.eucm.eadventure.common.data.chapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.common.data.Documented;
 import es.eucm.eadventure.common.data.chapter.ExitLook;
 
 /**
  * This class holds the data of an exit in eAdventure
  */
-public class Exit {
+public class Exit implements Cloneable, Documented {
 
 	/**
 	 * X position of the upper left corner of the exit
@@ -215,4 +216,20 @@ public class Exit {
     public int getY1( ) {
         return getY()+getHeight();
     }
+    
+	public Object clone() throws CloneNotSupportedException {
+		Exit e = (Exit) super.clone();
+		e.defaultExitLook = (defaultExitLook != null ? (ExitLook) defaultExitLook.clone() : null);
+		e.documentation = (documentation != null ? new String(documentation) : null);
+		e.height = height;
+		if (nextScenes != null) {
+			e.nextScenes = new ArrayList<NextScene>();
+			for (NextScene ns : nextScenes)
+				e.nextScenes.add((NextScene) ns.clone());
+		}
+		e.width = width;
+		e.x = x;
+		e.y = y;
+		return e;
+	}
 }

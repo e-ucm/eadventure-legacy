@@ -1,6 +1,6 @@
 package es.eucm.eadventure.common.data.chapter;
 
-public class InfluenceArea {
+public class InfluenceArea implements Cloneable {
 
 	private boolean exists = false;
 	
@@ -101,4 +101,14 @@ public class InfluenceArea {
 		this.width = width;
 		this.height = height;
 	}	
+	
+	public Object clone() throws CloneNotSupportedException {
+		InfluenceArea ia = (InfluenceArea) super.clone();
+		ia.exists = exists;
+		ia.height = height;
+		ia.width = width;
+		ia.x = x;
+		ia.y = y;
+		return ia;
+	}
 }

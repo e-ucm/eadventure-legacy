@@ -89,5 +89,13 @@ public class TriggerSceneEffect implements Effect {
 		this.x = x;
 		this.y = y;
 	}
+	
+	public Object clone() throws CloneNotSupportedException {
+		TriggerSceneEffect tse = (TriggerSceneEffect) super.clone();
+		tse.targetSceneId = (targetSceneId != null ? new String(targetSceneId) : null);
+		tse.x = x;
+		tse.y = y;
+		return tse;
+	}
 
 }

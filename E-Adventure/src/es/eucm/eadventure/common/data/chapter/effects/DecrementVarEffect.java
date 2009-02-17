@@ -62,4 +62,11 @@ public class DecrementVarEffect implements Effect {
 	public void setDecrement(int value) {
 		this.value = value;
 	}
+	
+	public Object clone() throws CloneNotSupportedException {
+		DecrementVarEffect dve = (DecrementVarEffect) super.clone();
+		dve.idVar = (idVar != null ? new String(idVar) : null);
+		dve.value = value;
+		return dve;
+	}
 }

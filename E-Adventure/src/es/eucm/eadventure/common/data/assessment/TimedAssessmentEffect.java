@@ -1,7 +1,7 @@
 package es.eucm.eadventure.common.data.assessment;
 
 
-public class TimedAssessmentEffect extends AssessmentEffect{
+public class TimedAssessmentEffect extends AssessmentEffect {
 
 	protected int minTime;
 	
@@ -48,4 +48,11 @@ public class TimedAssessmentEffect extends AssessmentEffect{
 	public boolean isMaxTimeSet (){
 		return this.maxTime != Integer.MAX_VALUE;
 	}
+	
+	public Object clone() throws CloneNotSupportedException {
+		TimedAssessmentEffect tae = (TimedAssessmentEffect) super.clone();
+		tae.maxTime = maxTime;
+		tae.minTime = minTime;
+		return tae;
+	} 
 }

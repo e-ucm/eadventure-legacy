@@ -74,5 +74,16 @@ public class Slidescene extends Cutscene {
     public void setEndScene( boolean endScene ) {
         this.endScene = endScene;
     }
+    
+	public Object clone() throws CloneNotSupportedException {
+		Slidescene s = (Slidescene) super.clone();
+		s.endScene = endScene;
+		if (nextScenes != null) {
+			s.nextScenes = new ArrayList<NextScene>();
+			for (NextScene ns : nextScenes)
+				s.nextScenes.add((NextScene) ns.clone());
+		}
+		return s;
+	}
 
 }

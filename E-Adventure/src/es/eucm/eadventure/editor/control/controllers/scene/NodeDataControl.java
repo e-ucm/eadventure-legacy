@@ -114,7 +114,7 @@ public class NodeDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean deleteElement( DataControl dataControl ) {
+	public boolean deleteElement( DataControl dataControl , boolean askConfirmation) {
 		boolean elementDeleted = false;
 		return elementDeleted;
 	}
@@ -132,8 +132,8 @@ public class NodeDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean renameElement( ) {
-		return false;
+	public String renameElement( String name) {
+		return null;
 	}
 
 	@Override

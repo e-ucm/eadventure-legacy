@@ -7,4 +7,8 @@ public class TriggerLastSceneEffect implements Effect{
 		return Effect.TRIGGER_LAST_SCENE;
 	}
 	
+	public Object clone() throws CloneNotSupportedException {
+		TriggerLastSceneEffect tlse = (TriggerLastSceneEffect) super.clone();
+		return tlse;
+	}
 }

@@ -3,7 +3,7 @@ package es.eucm.eadventure.common.data.chapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Trajectory {
+public class Trajectory implements Cloneable {
 	
 	List<Node> nodes;
 	
@@ -96,7 +96,7 @@ public class Trajectory {
 		return "";
 	}
 	
-	public class Node {
+	public class Node implements Cloneable {
 		private String id;
 		
 		private int x;
@@ -150,9 +150,18 @@ public class Trajectory {
 			this.y = y;
 			this.scale = scale;
 		}
+		
+		public Object clone() throws CloneNotSupportedException {
+			Node n = (Node) super.clone();
+			n.id = (id != null ? new String(id) : null);
+			n.scale = scale;
+			n.x = x;
+			n.y = y;
+			return n;
+		}
 	}
 	
-	public class Side {
+	public class Side implements Cloneable {
 		private String idStart;
 		
 		private String idEnd;
@@ -190,6 +199,14 @@ public class Trajectory {
 		public float getLength() {
 			return length;
 		}
+		
+		public Object clone() throws CloneNotSupportedException {
+			Side s = (Side) super.clone();
+			s.idEnd = (idEnd != null ? new String(idEnd) : null);
+			s.idStart = (idStart != null ? new String(idStart) : null);
+			s.length = length;
+			return s;
+		}
 	}
 
 	public Node getNodeForId(String id) {
@@ -206,5 +223,25 @@ public class Trajectory {
 	
 	public Node getInitial() {
 		return initial;
+	}
+	
+	public Object clone() throws CloneNotSupportedException {
+		Trajectory t = (Trajectory) super.clone();
+		t.initial = (initial != null ? (Node) initial.clone() : null);
+		if (nodes != null) {
+			t.nodes = new ArrayList<Node>();
+			for (Node n : nodes) {
+				if (n.equals(initial))
+					t.nodes.add(t.initial);
+				else
+					t.nodes.add((Node) n.clone());
+			}
+		}
+		if (sides != null) {
+			t.sides = new ArrayList<Side>();
+			for (Side s : sides)
+				t.sides.add((Side) s.clone());
+		}
+		return t;
 	}
 }

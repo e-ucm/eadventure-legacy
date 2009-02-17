@@ -67,4 +67,10 @@ public class EmptyTreeNode extends TreeNode{
 	public TreeNode isObjectTreeNode(Object object) {
 		return null;
 	}
+	
+	@Override
+	public TreeNode isObjectContentTreeNode(Object object) {
+		return null;
+	}
+
 }

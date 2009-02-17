@@ -5,11 +5,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import es.eucm.eadventure.common.data.Described;
+
 
 /**
  * 
  */
-public class AdaptationRule {
+public class AdaptationRule implements Cloneable, Described {
 
 	//ID
 	private String id;
@@ -113,5 +115,16 @@ public class AdaptationRule {
     	return null;
     	
     }
-
+    
+	public Object clone() throws CloneNotSupportedException {
+		AdaptationRule ar = (AdaptationRule) super.clone();
+		ar.description = (description != null ? new String(description) : null);
+		ar.gameState = (AdaptedState) gameState.clone();
+		ar.id = (id != null ? new String(id) : null);
+		ar.uolState = new ArrayList<UOLProperty>();
+		for (UOLProperty uolp : uolState) {
+			ar.uolState.add((UOLProperty) uolp.clone());
+		}
+		return ar;
+	}
 }

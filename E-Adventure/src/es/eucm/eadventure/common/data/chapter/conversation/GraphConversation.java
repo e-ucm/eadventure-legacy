@@ -60,4 +60,10 @@ public class GraphConversation extends Conversation {
 		// Return the visited vector
 		return visited;
 	}
+	
+	public Object clone() throws CloneNotSupportedException {
+		GraphConversation gc = (GraphConversation) super.clone();
+	
+		return gc;
+	}
 }

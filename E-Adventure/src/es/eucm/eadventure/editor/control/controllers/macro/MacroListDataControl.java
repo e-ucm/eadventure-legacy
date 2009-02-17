@@ -132,13 +132,13 @@ public class MacroListDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean deleteElement( DataControl dataControl ) {
+	public boolean deleteElement( DataControl dataControl , boolean askConfirmation) {
 		boolean elementDeleted = false;
 		String macroId = ( (MacroDataControl) dataControl ).getId( );
 		String references = String.valueOf( controller.countIdentifierReferences( macroId ) );
 
 		// Ask for confirmation
-		if( controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { macroId, references } ) ) ) {
+		if(!askConfirmation || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { macroId, references } ) ) ) {
 			if( macrosList.remove( dataControl.getContent( ) ) ) {
 				macrosDataControlList.remove( dataControl );
 				controller.deleteIdentifierReferences( macroId );
@@ -182,8 +182,8 @@ public class MacroListDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean renameElement( ) {
-		return false;
+	public String renameElement( String name ) {
+		return null;
 	}
 
 	@Override

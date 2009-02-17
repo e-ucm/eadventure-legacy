@@ -42,4 +42,10 @@ public class ActivateEffect implements Effect {
 	public void setIdFlag( String idFlag ) {
 		this.idFlag = idFlag;
 	}
+	
+	public Object clone() throws CloneNotSupportedException {
+		ActivateEffect ae = (ActivateEffect) super.clone();
+		ae.idFlag = (idFlag != null ? new String(idFlag) : null);
+		return ae;
+	}
 }

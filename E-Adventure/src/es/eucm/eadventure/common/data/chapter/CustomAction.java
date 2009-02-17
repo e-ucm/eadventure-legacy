@@ -3,6 +3,7 @@ package es.eucm.eadventure.common.data.chapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.common.data.Named;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.common.data.chapter.effects.Effects;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
@@ -13,7 +14,7 @@ import es.eucm.eadventure.common.data.chapter.resources.Resources;
  * @author Eugenio Marchiori
  *
  */
-public class CustomAction extends Action {
+public class CustomAction extends Action implements Named {
 	
 	/**
 	 * Name of the action
@@ -110,6 +111,17 @@ public class CustomAction extends Action {
 	 */
 	public List<Resources> getResources() {
 		return resources;
+	}
+	
+	public Object clone() throws CloneNotSupportedException {
+		CustomAction ca = (CustomAction) super.clone();
+		ca.name = (name != null ? new String(name) : null);
+		if (resources != null) {
+			ca.resources = new ArrayList<Resources>();
+			for (Resources r : resources)
+				ca.resources.add((Resources) r.clone());
+		}
+		return ca;
 	}
 
 }

@@ -60,4 +60,10 @@ public class MovePlayerEffect implements Effect {
 		this.y = y;
 	}
 
+	public Object clone() throws CloneNotSupportedException {
+		MovePlayerEffect mpe = (MovePlayerEffect) super.clone();
+		mpe.x = x;
+		mpe.y = y;
+		return mpe;
+	}
 }

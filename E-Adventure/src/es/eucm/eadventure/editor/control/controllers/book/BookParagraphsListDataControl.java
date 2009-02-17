@@ -7,7 +7,6 @@ import es.eucm.eadventure.common.data.chapter.book.BookParagraph;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.control.controllers.item.ItemDataControl;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class BookParagraphsListDataControl extends DataControl {
@@ -147,7 +146,7 @@ public class BookParagraphsListDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean deleteElement( DataControl dataControl ) {
+	public boolean deleteElement( DataControl dataControl, boolean askConfirmation ) {
 		boolean elementDeleted = false;
 
 		if( bookParagraphsList.remove( dataControl.getContent( ) ) ) {
@@ -190,8 +189,8 @@ public class BookParagraphsListDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean renameElement( ) {
-		return false;
+	public String renameElement(String name ) {
+		return null;
 	}
 
 	@Override

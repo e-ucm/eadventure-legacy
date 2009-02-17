@@ -19,7 +19,7 @@ import es.eucm.eadventure.common.data.chapter.scenes.Scene;
 /**
  * This class hold the data of a chapter in eAdventure.
  */
-public class Chapter extends ChapterSummary{
+public class Chapter extends ChapterSummary {
 
 	/**
 	 * Identifier of the initial scene.
@@ -640,5 +640,70 @@ public class Chapter extends ChapterSummary{
 		this.macros = macros;
 	}
 
-	
+	public Object clone() throws CloneNotSupportedException {
+		Chapter c = (Chapter) super.clone();
+		if (atrezzo != null) {
+			c.atrezzo = new ArrayList<Atrezzo>();
+			for (Atrezzo a : atrezzo)
+				c.atrezzo.add((Atrezzo) a.clone());
+		}
+		if (books != null) {
+			c.books = new ArrayList<Book>();
+			for (Book b : books)
+				c.books.add((Book) b.clone());
+		}
+		if (characters != null) {
+			c.characters = new ArrayList<NPC>();
+			for (NPC n : characters)
+				c.characters.add((NPC) n.clone());
+		}
+		if (conversations != null) {
+			c.conversations = new ArrayList<Conversation>();
+			for (Conversation cc : conversations)
+				c.conversations.add((Conversation) cc.clone());
+		}
+		if (cutscenes != null) {
+			c.cutscenes = new ArrayList<Cutscene>();
+			for (Cutscene cs : cutscenes)
+				c.cutscenes.add((Cutscene) cs.clone());
+		}
+		if (flags != null) {
+			c.flags = new ArrayList<String>();
+			for (String s : flags)
+				c.flags.add(new String(s));
+		}
+		if (globalStates != null) {
+			c.globalStates = new ArrayList<GlobalState>();
+			for (GlobalState gs : globalStates)
+				c.globalStates.add((GlobalState) gs.clone());
+		}
+		c.initialScene = (initialScene != null ? new String(initialScene) : null);
+		if (items != null) {
+			c.items = new ArrayList<Item>();
+			for (Item i : items)
+				c.items.add((Item) i.clone());
+		}
+		if (macros != null) {
+			c.macros = new ArrayList<Macro>();
+			for (Macro m : macros)
+				c.macros.add((Macro) m.clone());
+		}
+		c.player = (player != null ? (Player) player.clone() : null);
+		if (scenes != null) {
+			c.scenes = new ArrayList<Scene>();
+			for (Scene s : scenes)
+				c.scenes.add((Scene) s.clone());
+		}
+		if (timers != null) {
+			c.timers = new ArrayList<Timer>();
+			for (Timer t : timers)
+				c.timers.add((Timer) t.clone());
+		}
+		if (vars != null) {
+			c.vars = new ArrayList<String>();
+			for (String s : vars)
+				c.vars.add(new String(s));
+		}
+		return c;
+	}	
 }

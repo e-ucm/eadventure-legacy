@@ -7,7 +7,6 @@ import es.eucm.eadventure.common.data.chapter.elements.Item;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.control.controllers.cutscene.CutsceneDataControl;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class ItemsListDataControl extends DataControl {
@@ -133,13 +132,13 @@ public class ItemsListDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean deleteElement( DataControl dataControl ) {
+	public boolean deleteElement( DataControl dataControl , boolean askConfirmation) {
 		boolean elementDeleted = false;
 		String itemId = ( (ItemDataControl) dataControl ).getId( );
 		String references = String.valueOf( controller.countIdentifierReferences( itemId ) );
 
 		// Ask for confirmation
-		if( controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { itemId, references } ) ) ) {
+		if(!askConfirmation || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { itemId, references } ) ) ) {
 			if( itemsList.remove( dataControl.getContent( ) ) ) {
 				itemsDataControlList.remove( dataControl );
 				controller.deleteIdentifierReferences( itemId );
@@ -183,8 +182,8 @@ public class ItemsListDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean renameElement( ) {
-		return false;
+	public String renameElement( String name ) {
+		return null;
 	}
 
 	@Override

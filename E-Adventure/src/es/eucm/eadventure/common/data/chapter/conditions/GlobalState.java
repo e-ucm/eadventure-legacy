@@ -1,12 +1,14 @@
 package es.eucm.eadventure.common.data.chapter.conditions;
 
+import es.eucm.eadventure.common.data.Documented;
+
 /**
  * Group of conditions named with an Id, so it can be refered to
  * in diverse points of the chapter
  * @author Javier
  *
  */
-public class GlobalState extends Conditions{
+public class GlobalState extends Conditions implements Documented{
 
 	/**
 	 * Id of the Conditions group
@@ -53,5 +55,12 @@ public class GlobalState extends Conditions{
 	 */
 	public void setDocumentation(String documentation) {
 		this.documentation = documentation;
+	}
+	
+	public Object clone() throws CloneNotSupportedException {
+		GlobalState gs = (GlobalState) super.clone();
+		gs.documentation = (documentation != null ? new String(documentation) : null);
+		gs.id = (id != null ? new String(id) : null);
+		return gs;
 	}
 }

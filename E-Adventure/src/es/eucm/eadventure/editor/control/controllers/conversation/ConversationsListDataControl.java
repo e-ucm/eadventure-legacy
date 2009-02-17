@@ -151,13 +151,13 @@ public class ConversationsListDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean deleteElement( DataControl dataControl ) {
+	public boolean deleteElement( DataControl dataControl, boolean askConfirmation ) {
 		boolean elementDeleted = false;
 		String conversationId = ( (ConversationDataControl) dataControl ).getId( );
 		String references = String.valueOf( controller.countIdentifierReferences( conversationId ) );
 
 		// Ask for confirmation
-		if( controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { conversationId, references } ) ) ) {
+		if(!askConfirmation || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { conversationId, references } ) ) ) {
 			if( conversationsList.remove( dataControl.getContent( ) ) ) {
 				conversationsDataControlList.remove( dataControl );
 				controller.deleteIdentifierReferences( conversationId );
@@ -201,8 +201,8 @@ public class ConversationsListDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean renameElement( ) {
-		return false;
+	public String renameElement( String name ) {
+		return null;
 	}
 
 	@Override

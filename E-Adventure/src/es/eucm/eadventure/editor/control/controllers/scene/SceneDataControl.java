@@ -11,6 +11,8 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
+import es.eucm.eadventure.editor.control.tools.general.ChangeDocumentationTool;
+import es.eucm.eadventure.editor.control.tools.general.ChangeNameTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class SceneDataControl extends DataControlWithResources {
@@ -238,12 +240,8 @@ public class SceneDataControl extends DataControlWithResources {
 	 *            Name of the scene
 	 */
 	public void setName( String name ) {
-		// If the value is different
-		if( !name.equals( scene.getName( ) ) ) {
-			// Set the new name and modify the data
-			scene.setName( name );
-			controller.dataModified( );
-		}
+		ChangeNameTool tool = new ChangeNameTool(scene, name);
+		controller.addTool(tool);
 	}
 	
 	public void imageChangeNotify(String imagePath){
@@ -257,12 +255,8 @@ public class SceneDataControl extends DataControlWithResources {
 	 *            Documentation of the scene
 	 */
 	public void setDocumentation( String documentation ) {
-		// If the value is different
-		if( !documentation.equals( scene.getDocumentation( ) ) ) {
-			// Set the new documentation and modify the data
-			scene.setDocumentation( documentation );
-			controller.dataModified( );
-		}
+		ChangeDocumentationTool tool = new ChangeDocumentationTool(scene, documentation);
+		controller.addTool(tool);
 	}
 
 	/**
@@ -344,7 +338,7 @@ public class SceneDataControl extends DataControlWithResources {
 	}
 
 	@Override
-	public boolean deleteElement( DataControl dataControl ) {
+	public boolean deleteElement( DataControl dataControl, boolean askConfirmation ) {
 		boolean elementDeleted = false;
 
 		// Delete the block only if it is not the last one
@@ -404,16 +398,18 @@ public class SceneDataControl extends DataControlWithResources {
 	}
 
 	@Override
-	public boolean renameElement( ) {
+	public String renameElement( String name ) {
 		boolean elementRenamed = false;
 		String oldSceneId = scene.getId( );
 		String references = String.valueOf( controller.countIdentifierReferences( oldSceneId ) );
 
 		// Ask for confirmation
-		if( controller.showStrictConfirmDialog( TextConstants.getText( "Operation.RenameSceneTitle" ), TextConstants.getText( "Operation.RenameElementWarning", new String[] { oldSceneId, references } ) ) ) {
+		if( name != null || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.RenameSceneTitle" ), TextConstants.getText( "Operation.RenameElementWarning", new String[] { oldSceneId, references } ) ) ) {
 
 			// Show a dialog asking for the new scene id
-			String newSceneId = controller.showInputDialog( TextConstants.getText( "Operation.RenameSceneTitle" ), TextConstants.getText( "Operation.RenameSceneMessage" ), oldSceneId );
+			String newSceneId = name;
+			if (name == null)
+				newSceneId = controller.showInputDialog( TextConstants.getText( "Operation.RenameSceneTitle" ), TextConstants.getText( "Operation.RenameSceneMessage" ), oldSceneId );
 
 			// If some value was typed and the identifiers are different
 			if( newSceneId != null && !newSceneId.equals( oldSceneId ) && controller.isElementIdValid( newSceneId ) ) {
@@ -426,7 +422,9 @@ public class SceneDataControl extends DataControlWithResources {
 			}
 		}
 
-		return elementRenamed;
+		if (elementRenamed)
+			return oldSceneId;
+		return null;
 	}
 
 	@Override

@@ -4,15 +4,11 @@ import java.util.List;
 
 import es.eucm.eadventure.common.data.adaptation.AdaptationRule;
 import es.eucm.eadventure.common.data.adaptation.UOLProperty;
-import es.eucm.eadventure.common.data.assessment.AssessmentProperty;
-import es.eucm.eadventure.common.data.assessment.AssessmentRule;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.tools.general.ChangeDescriptionTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
-
-import java.util.regex.Pattern;
 
 public class AdaptationRuleDataControl extends DataControl{
 
@@ -64,7 +60,7 @@ public class AdaptationRuleDataControl extends DataControl{
 	}
 
 	@Override
-	public boolean deleteElement( DataControl dataControl ) {
+	public boolean deleteElement( DataControl dataControl , boolean askConfirmation) {
 		return false;
 	}
 
@@ -99,9 +95,8 @@ public class AdaptationRuleDataControl extends DataControl{
 	}
 
 	@Override
-	public boolean renameElement( ) {
-		boolean renamed = false;
-		return renamed;
+	public String renameElement( String name ) {
+		return null;
 	}
 
 	@Override
@@ -123,8 +118,8 @@ public class AdaptationRuleDataControl extends DataControl{
 
 
 	public void setDescription( String text ) {
-		adaptationRule.setDescription( text );
-		
+		ChangeDescriptionTool tool = new ChangeDescriptionTool(adaptationRule, text);
+		controller.addTool(tool);
 	}
 
 	public void setInitialScene( String initScene ) {

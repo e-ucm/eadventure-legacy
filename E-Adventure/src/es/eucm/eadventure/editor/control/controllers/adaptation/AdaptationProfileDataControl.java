@@ -115,14 +115,14 @@ public class AdaptationProfileDataControl extends DataControl{
 	}
 
 	@Override
-	public boolean deleteElement( DataControl dataControl ) {
+	public boolean deleteElement( DataControl dataControl , boolean askConfirmation) {
 		boolean deleted = false;
 		
 		String adpRuleId = ( (AdaptationRuleDataControl) dataControl ).getId( );
 		String references = String.valueOf( controller.countIdentifierReferences( adpRuleId ) );
 
 		// Ask for confirmation
-		if( controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { adpRuleId, references } ) ) ) {
+		if(!askConfirmation || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { adpRuleId, references } ) ) ) {
 			if( profile.getRules().remove( dataControl.getContent( ) ) ) {
 				dataControls.remove( dataControl );
 				controller.deleteIdentifierReferences( adpRuleId );
@@ -193,18 +193,25 @@ public class AdaptationProfileDataControl extends DataControl{
 	}
 	
 	@Override
-	public boolean renameElement( ) {
+	public String renameElement( String name ) {
+		String oldName = null;
 		boolean renamed = false;
+		if (this.profile.getPath() != null) {
+			String[] temp = this.profile.getPath().split("/");
+			oldName = temp[temp.length - 1];
+		}
 		
 		// Show confirmation dialog.
-		if (controller.showStrictConfirmDialog( TextConstants.getText( "Operation.RenameAdaptationFile" ), TextConstants.getText( "Operation.RenameAdaptationFile.Message" ) )){
+		if (name != null || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.RenameAdaptationFile" ), TextConstants.getText( "Operation.RenameAdaptationFile.Message" ) )){
 			
-			//Prompt for file name:
-			String fileName = controller.showInputDialog( TextConstants.getText( "Operation.RenameAdaptationFile.FileName" ), TextConstants.getText( "Operation.RenameAdaptationFile.FileName.Message" ), getFileName() );
+			String fileName = name;
+			if (name == null)
+				//Prompt for file name:
+				fileName = controller.showInputDialog( TextConstants.getText( "Operation.RenameAdaptationFile.FileName" ), TextConstants.getText( "Operation.RenameAdaptationFile.FileName.Message" ), getFileName() );
 			if (fileName!=null && !fileName.equals( profile.getPath().substring( profile.getPath().lastIndexOf( "/" ) + 1 ) )){
 				if (fileName.contains( "/") || fileName.contains( "\\" )){
 					controller.showErrorDialog( TextConstants.getText( "Operation.RenameXMLFile.ErrorSlash" ), TextConstants.getText( "Operation.RenameXMLFile.ErrorSlash.Message" ) );
-					return false;
+					return null;
 				}
 				if (!fileName.toLowerCase().endsWith( ".xml" )){
 					if (fileName.endsWith( "." )){
@@ -223,9 +230,12 @@ public class AdaptationProfileDataControl extends DataControl{
 			
 		}
 		
-		return renamed;
+		if (renamed)
+			return oldName;
+		else
+			return null;
 	}
-
+	
 	@Override
 	public void replaceIdentifierReferences( String oldId, String newId ) {
 		

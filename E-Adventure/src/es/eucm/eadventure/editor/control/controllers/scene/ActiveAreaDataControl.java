@@ -6,6 +6,9 @@ import es.eucm.eadventure.common.data.chapter.elements.ActiveArea;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ActionsListDataControl;
+import es.eucm.eadventure.editor.control.tools.general.ChangeDescriptionTool;
+import es.eucm.eadventure.editor.control.tools.general.ChangeDocumentationTool;
+import es.eucm.eadventure.editor.control.tools.general.ChangeNameTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class ActiveAreaDataControl extends DataControl {
@@ -120,12 +123,7 @@ public class ActiveAreaDataControl extends DataControl {
 	 *            Documentation of the item
 	 */
 	public void setDocumentation( String documentation ) {
-		// If the value is different
-		if( !documentation.equals( activeArea.getDocumentation( ) ) ) {
-			// Set the new documentation and modify the data
-			activeArea.setDocumentation( documentation );
-			controller.dataModified( );
-		}
+		controller.addTool(new ChangeDocumentationTool(activeArea, documentation));
 	}
 
 	/**
@@ -135,13 +133,7 @@ public class ActiveAreaDataControl extends DataControl {
 	 *            Name of the activeArea
 	 */
 	public void setName( String name ) {
-		// If the value is different
-		if( !name.equals( activeArea.getName( ) ) ) {
-			// Set the new name and modify the data
-			activeArea.setName( name );
-			controller.dataModified( );
-			controller.reloadData();
-		}
+		controller.addTool(new ChangeNameTool(activeArea, name));
 	}
 
 	/**
@@ -151,12 +143,7 @@ public class ActiveAreaDataControl extends DataControl {
 	 *            Description of the activeArea
 	 */
 	public void setBriefDescription( String description ) {
-		// If the value is different
-		if( !description.equals( activeArea.getDescription( ) ) ) {
-			// Set the new description and modify the data
-			activeArea.setDescription( description );
-			controller.dataModified( );
-		}
+		controller.addTool(new ChangeDescriptionTool(activeArea, description));
 	}
 
 	/**
@@ -264,7 +251,7 @@ public class ActiveAreaDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean deleteElement( DataControl dataControl ) {
+	public boolean deleteElement( DataControl dataControl , boolean askConfirmation) {
 		boolean elementDeleted = false;
 		return elementDeleted;
 	}
@@ -282,8 +269,8 @@ public class ActiveAreaDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean renameElement( ) {
-		return false;
+	public String renameElement( String name ) {
+		return name;
 	}
 
 	@Override

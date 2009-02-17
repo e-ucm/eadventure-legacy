@@ -1,12 +1,13 @@
 package es.eucm.eadventure.common.data.chapter;
 
+import es.eucm.eadventure.common.data.Documented;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.common.data.chapter.effects.Effects;
 
 /**
  * An action that can be done during the game.
  */
-public class Action {
+public class Action implements Cloneable, Documented {
 
 	/**
 	 * An action of type examine.
@@ -246,6 +247,18 @@ public class Action {
 	 */
 	public void setKeepDistance(int keepDistance) {
 		this.keepDistance = keepDistance;
+	}
+	
+	public Object clone() throws CloneNotSupportedException {
+		Action a = (Action) super.clone();
+		a.conditions = (conditions != null ? (Conditions) conditions.clone() : null);
+		a.documentation = (documentation != null ? new String(documentation) : null);
+		a.effects = (effects != null ? (Effects) effects.clone() : null);
+		a.idTarget = (idTarget != null ? new String(idTarget) : null);
+		a.keepDistance = keepDistance;
+		a.needsGoTo = needsGoTo;
+		a.type = type;
+		return a;
 	}
 
 }

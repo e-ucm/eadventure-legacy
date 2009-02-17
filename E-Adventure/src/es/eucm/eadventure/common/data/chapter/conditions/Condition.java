@@ -3,7 +3,7 @@ package es.eucm.eadventure.common.data.chapter.conditions;
 /**
  * This class manages a condition in eAdventure
  */
-public class Condition {
+public class Condition implements Cloneable {
 
 	/**
 	 * Constant for state not set.
@@ -156,5 +156,13 @@ public class Condition {
 	 */
 	public int getType() {
 		return type;
+	}
+	
+	public Object clone() throws CloneNotSupportedException {
+		Condition c = (Condition) super.clone();
+		c.id = (id != null ? new String(id) : null);
+		c.state = state;
+		c.type = type;
+		return c;
 	}
 }
