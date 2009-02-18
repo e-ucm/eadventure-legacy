@@ -7,11 +7,13 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.book.BookDataControl;
 
 public class BookPanel extends JTabbedPane{
-
-	private BookDataControl dataControl;
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public BookPanel (BookDataControl dataControl){
-		this.dataControl = dataControl;
 		if (dataControl.getType( ) == Book.TYPE_PARAGRAPHS)
 			this.insertTab( TextConstants.getText("Book.Contents"), null, new BookParagraphsPanel(dataControl), TextConstants.getText("Book.Contents.Tip"), 0 );
 		else

@@ -59,4 +59,9 @@ public class ChangeDescriptionTool implements Tool {
 		return true;
 	}
 
+	@Override
+	public boolean combine(Tool other) {
+		return false;
+	}
+
 }

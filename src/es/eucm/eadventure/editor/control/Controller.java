@@ -417,7 +417,7 @@ public class Controller {
 	 * Singleton instance.
 	 */
 	private static Controller controllerInstance = null;
-
+	
 	/**
 	 * The main window of the application.
 	 */
@@ -487,6 +487,7 @@ public class Controller {
 
 	private List<Tool> redoList;
 	
+	private Tool lastUndo = null;
 
 	
 	/**
@@ -781,7 +782,8 @@ public class Controller {
 	public boolean addTool(Tool tool) {
 		boolean done = tool.doTool();
 		if (done) {
-			undoList.add(tool);
+			if (undoList.size() == 0 || !undoList.get(undoList.size() - 1).combine(tool))
+				undoList.add(tool);
 			redoList.clear();
 			dataModified( );
 			if (!tool.canUndo()) {
@@ -797,6 +799,7 @@ public class Controller {
 			undoList.remove(temp);
 			boolean undone = temp.undoTool();
 			if (undone) {
+				lastUndo = temp;
 				if (temp.canRedo())
 					redoList.add(temp);
 				else
@@ -814,7 +817,6 @@ public class Controller {
 			boolean done = temp.redoTool();
 			if (done) {
 				undoList.add(temp);
-				dataModified( );
 				if (!temp.canUndo()) {
 					undoList.clear();
 				}

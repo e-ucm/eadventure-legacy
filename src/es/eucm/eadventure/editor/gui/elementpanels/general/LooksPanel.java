@@ -1,6 +1,5 @@
 package es.eucm.eadventure.editor.gui.elementpanels.general;
 
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -25,6 +24,11 @@ import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 
 public abstract class LooksPanel extends JScrollPane {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	protected DataControlWithResources dataControl;
 

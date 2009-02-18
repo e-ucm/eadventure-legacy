@@ -8,11 +8,8 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -29,16 +26,21 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;
 
+import es.eucm.eadventure.common.data.Described;
+import es.eucm.eadventure.common.data.Detailed;
+import es.eucm.eadventure.common.data.Documented;
+import es.eucm.eadventure.common.data.Named;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.character.PlayerDataControl;
-import es.eucm.eadventure.editor.control.controllers.item.ItemDataControl;
+import es.eucm.eadventure.editor.control.tools.listeners.DescriptionChangeListener;
+import es.eucm.eadventure.editor.control.tools.listeners.DetailedDescriptionChangeListener;
+import es.eucm.eadventure.editor.control.tools.listeners.DocumentationChangeListener;
+import es.eucm.eadventure.editor.control.tools.listeners.NameChangeListener;
 import es.eucm.eadventure.editor.gui.auxiliar.components.TextPreviewPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.general.LooksPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.imagepanels.ImagePanel;
@@ -130,7 +132,7 @@ public class PlayerPanel extends JPanel {
 		documentationTextArea = new JTextArea( playerDataControl.getDocumentation( ), 4, 0 );
 		documentationTextArea.setLineWrap( true );
 		documentationTextArea.setWrapStyleWord( true );
-		documentationTextArea.getDocument( ).addDocumentListener( new DocumentationTextAreaChangesListener( ) );
+		documentationTextArea.getDocument( ).addDocumentListener( new DocumentationChangeListener( documentationTextArea, (Documented) playerDataControl.getContent()) );
 		documentationPanel.add( new JScrollPane( documentationTextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER ) );
 		documentationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Player.Documentation" ) ) );
 		docPanel.add( documentationPanel, cDoc );
@@ -155,8 +157,7 @@ public class PlayerPanel extends JPanel {
 		JPanel namePanel = new JPanel( );
 		namePanel.setLayout( new GridLayout( ) );
 		nameTextField = new JTextField( playerDataControl.getName( ) );
-		nameTextField.addActionListener( new TextFieldChangesListener( ) );
-		nameTextField.addFocusListener( new TextFieldChangesListener( ) );
+		nameTextField.getDocument().addDocumentListener(new NameChangeListener(nameTextField, (Named) playerDataControl.getContent()));
 		namePanel.add( nameTextField );
 		namePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Player.Name" ) ) );
 		docPanel.add( namePanel, cDoc );
@@ -166,8 +167,7 @@ public class PlayerPanel extends JPanel {
 		JPanel descriptionPanel = new JPanel( );
 		descriptionPanel.setLayout( new GridLayout( ) );
 		descriptionTextField = new JTextField( playerDataControl.getBriefDescription( ) );
-		descriptionTextField.addActionListener( new TextFieldChangesListener( ) );
-		descriptionTextField.addFocusListener( new TextFieldChangesListener( ) );
+		descriptionTextField.getDocument().addDocumentListener(new DescriptionChangeListener(descriptionTextField, (Described) playerDataControl.getContent()));
 		descriptionPanel.add( descriptionTextField );
 		descriptionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Player.Description" ) ) );
 		docPanel.add( descriptionPanel, cDoc );
@@ -177,8 +177,7 @@ public class PlayerPanel extends JPanel {
 		JPanel detailedDescriptionPanel = new JPanel( );
 		detailedDescriptionPanel.setLayout( new GridLayout( ) );
 		detailedDescriptionTextField = new JTextField( playerDataControl.getDetailedDescription( ) );
-		detailedDescriptionTextField.addActionListener( new TextFieldChangesListener( ) );
-		detailedDescriptionTextField.addFocusListener( new TextFieldChangesListener( ) );
+		detailedDescriptionTextField.getDocument().addDocumentListener(new DetailedDescriptionChangeListener(detailedDescriptionTextField, (Detailed) playerDataControl.getContent()));
 		detailedDescriptionPanel.add( detailedDescriptionTextField );
 		detailedDescriptionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Player.DetailedDescription" ) ) );
 		docPanel.add( detailedDescriptionPanel, cDoc );
@@ -271,27 +270,6 @@ public class PlayerPanel extends JPanel {
 	}
 	
 	/**
-	 * Called when a text field has changed, so that we can set the new values.
-	 * 
-	 * @param source
-	 *            Source of the event
-	 */
-	private void valueChanged( Object source ) {
-		// Check the name field
-		if( source == nameTextField )
-			playerDataControl.setName( nameTextField.getText( ) );
-
-		// Check the brief description field
-		else if( source == descriptionTextField )
-			playerDataControl.setBriefDescription( descriptionTextField.getText( ) );
-
-		// Check the detailed description field
-		else if( source == detailedDescriptionTextField )
-			playerDataControl.setDetailedDescription( detailedDescriptionTextField.getText( ) );
-	}
-	
-	
-	/**
 	 * Called when the demo synthesizer button has been pressed
 	 */
 	private class VoiceButtonListener implements ActionListener{
@@ -340,66 +318,6 @@ public class PlayerPanel extends JPanel {
 		
 	}
 	
-	
-	/**
-	 * Listener for the text area. It checks the value of the area and updates the documentation.
-	 */
-	private class DocumentationTextAreaChangesListener implements DocumentListener {
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.event.DocumentListener#changedUpdate(javax.swing.event.DocumentEvent)
-		 */
-		public void changedUpdate( DocumentEvent arg0 ) {
-		// Do nothing
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.event.DocumentListener#insertUpdate(javax.swing.event.DocumentEvent)
-		 */
-		public void insertUpdate( DocumentEvent arg0 ) {
-			// Set the new content
-			playerDataControl.setDocumentation( documentationTextArea.getText( ) );
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.event.DocumentListener#removeUpdate(javax.swing.event.DocumentEvent)
-		 */
-		public void removeUpdate( DocumentEvent arg0 ) {
-			// Set the new content
-			playerDataControl.setDocumentation( documentationTextArea.getText( ) );
-		}
-	}
-
-	/**
-	 * Listener for the text fields. It checks the values from the fields and updates the data.
-	 */
-	private class TextFieldChangesListener extends FocusAdapter implements ActionListener {
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.FocusAdapter#focusLost(java.awt.event.FocusEvent)
-		 */
-		public void focusLost( FocusEvent e ) {
-			valueChanged( e.getSource( ) );
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-		 */
-		public void actionPerformed( ActionEvent e ) {
-			valueChanged( e.getSource( ) );
-		}
-	}
-
 	/**
 	 * Listener for the change color buttons.
 	 */
@@ -510,6 +428,10 @@ public class PlayerPanel extends JPanel {
 
 	private class PlayerLooksPanel extends LooksPanel {
 
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 		/**
 		 * Preview image panel.
 		 */

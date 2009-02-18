@@ -21,7 +21,6 @@ import javax.swing.JTextPane;
 import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.common.data.animation.Animation;
 import es.eucm.eadventure.common.gui.TextConstants;
-import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
 import es.eucm.eadventure.editor.control.writer.AnimationWriter;

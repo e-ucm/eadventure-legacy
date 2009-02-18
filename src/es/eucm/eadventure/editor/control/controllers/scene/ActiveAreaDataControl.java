@@ -7,6 +7,7 @@ import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ActionsListDataControl;
 import es.eucm.eadventure.editor.control.tools.general.ChangeDescriptionTool;
+import es.eucm.eadventure.editor.control.tools.general.ChangeDetailedDescriptionTool;
 import es.eucm.eadventure.editor.control.tools.general.ChangeDocumentationTool;
 import es.eucm.eadventure.editor.control.tools.general.ChangeNameTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
@@ -153,12 +154,7 @@ public class ActiveAreaDataControl extends DataControl {
 	 *            Detailed description of the activeArea
 	 */
 	public void setDetailedDescription( String detailedDescription ) {
-		// If the value is different
-		if( !detailedDescription.equals( activeArea.getDetailedDescription( ) ) ) {
-			// Set the new detailed description and modify the data
-			activeArea.setDetailedDescription( detailedDescription );
-			controller.dataModified( );
-		}
+		controller.addTool(new ChangeDetailedDescriptionTool(activeArea, detailedDescription));
 	}
 	
 	/**

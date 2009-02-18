@@ -8,8 +8,6 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
@@ -28,15 +26,21 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;
 
+import es.eucm.eadventure.common.data.Described;
+import es.eucm.eadventure.common.data.Detailed;
+import es.eucm.eadventure.common.data.Documented;
+import es.eucm.eadventure.common.data.Named;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.character.NPCDataControl;
+import es.eucm.eadventure.editor.control.tools.listeners.DescriptionChangeListener;
+import es.eucm.eadventure.editor.control.tools.listeners.DetailedDescriptionChangeListener;
+import es.eucm.eadventure.editor.control.tools.listeners.DocumentationChangeListener;
+import es.eucm.eadventure.editor.control.tools.listeners.NameChangeListener;
 import es.eucm.eadventure.editor.gui.auxiliar.components.TextPreviewPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.general.LooksPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.imagepanels.ImagePanel;
@@ -129,7 +133,7 @@ public class NPCPanel extends JPanel {
 		documentationTextArea = new JTextArea( npcDataControl.getDocumentation( ), 4, 0 );
 		documentationTextArea.setLineWrap( true );
 		documentationTextArea.setWrapStyleWord( true );
-		documentationTextArea.getDocument( ).addDocumentListener( new DocumentationTextAreaChangesListener( ) );
+		documentationTextArea.getDocument( ).addDocumentListener( new DocumentationChangeListener( documentationTextArea, (Documented) npcDataControl.getContent()) );
 		documentationPanel.add( new JScrollPane( documentationTextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER ) );
 		documentationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "NPC.Documentation" ) ) );
 		docPanel.add( documentationPanel, cDoc );
@@ -154,8 +158,7 @@ public class NPCPanel extends JPanel {
 		JPanel namePanel = new JPanel( );
 		namePanel.setLayout( new GridLayout( ) );
 		nameTextField = new JTextField( npcDataControl.getName( ) );
-		nameTextField.addActionListener( new TextFieldChangesListener( ) );
-		nameTextField.addFocusListener( new TextFieldChangesListener( ) );
+		nameTextField.getDocument().addDocumentListener( new NameChangeListener(nameTextField, (Named) npcDataControl.getContent()));
 		namePanel.add( nameTextField );
 		namePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "NPC.Name" ) ) );
 		docPanel.add( namePanel, cDoc );
@@ -165,8 +168,7 @@ public class NPCPanel extends JPanel {
 		JPanel descriptionPanel = new JPanel( );
 		descriptionPanel.setLayout( new GridLayout( ) );
 		descriptionTextField = new JTextField( npcDataControl.getBriefDescription( ) );
-		descriptionTextField.addActionListener( new TextFieldChangesListener( ) );
-		descriptionTextField.addFocusListener( new TextFieldChangesListener( ) );
+		descriptionTextField.getDocument().addDocumentListener(new DescriptionChangeListener(descriptionTextField, (Described) npcDataControl.getContent()));
 		descriptionPanel.add( descriptionTextField );
 		descriptionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "NPC.Description" ) ) );
 		docPanel.add( descriptionPanel, cDoc );
@@ -176,8 +178,7 @@ public class NPCPanel extends JPanel {
 		JPanel detailedDescriptionPanel = new JPanel( );
 		detailedDescriptionPanel.setLayout( new GridLayout( ) );
 		detailedDescriptionTextField = new JTextField( npcDataControl.getDetailedDescription( ) );
-		detailedDescriptionTextField.addActionListener( new TextFieldChangesListener( ) );
-		detailedDescriptionTextField.addFocusListener( new TextFieldChangesListener( ) );
+		detailedDescriptionTextField.getDocument().addDocumentListener(new DetailedDescriptionChangeListener(detailedDescriptionTextField, (Detailed) npcDataControl.getContent()));
 		detailedDescriptionPanel.add( detailedDescriptionTextField );
 		detailedDescriptionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "NPC.DetailedDescription" ) ) );
 		docPanel.add( detailedDescriptionPanel, cDoc );
@@ -266,26 +267,6 @@ public class NPCPanel extends JPanel {
 			voiceName[i+1] = availableVoices[i].getName();
 		return voiceName;
 	}
-
-	/**
-	 * Called when a text field has changed, so that we can set the new values.
-	 * 
-	 * @param source
-	 *            Source of the event
-	 */
-	private void valueChanged( Object source ) {
-		// Check the name field
-		if( source == nameTextField )
-			npcDataControl.setName( nameTextField.getText( ) );
-
-		// Check the brief description field
-		else if( source == descriptionTextField )
-			npcDataControl.setBriefDescription( descriptionTextField.getText( ) );
-
-		// Check the detailed description field
-		else if( source == detailedDescriptionTextField )
-			npcDataControl.setDetailedDescription( detailedDescriptionTextField.getText( ) );
-	}
 	
 	/**
 	 * Called when the demo synthesizer button has been pressed
@@ -334,64 +315,6 @@ public class NPCPanel extends JPanel {
 		
 	}
 
-	/**
-	 * Listener for the text area. It checks the value of the area and updates the documentation.
-	 */
-	private class DocumentationTextAreaChangesListener implements DocumentListener {
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.event.DocumentListener#changedUpdate(javax.swing.event.DocumentEvent)
-		 */
-		public void changedUpdate( DocumentEvent arg0 ) {
-		// Do nothing
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.event.DocumentListener#insertUpdate(javax.swing.event.DocumentEvent)
-		 */
-		public void insertUpdate( DocumentEvent arg0 ) {
-			// Set the new content
-			npcDataControl.setDocumentation( documentationTextArea.getText( ) );
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.event.DocumentListener#removeUpdate(javax.swing.event.DocumentEvent)
-		 */
-		public void removeUpdate( DocumentEvent arg0 ) {
-			// Set the new content
-			npcDataControl.setDocumentation( documentationTextArea.getText( ) );
-		}
-	}
-
-	/**
-	 * Listener for the text fields. It checks the values from the fields and updates the data.
-	 */
-	private class TextFieldChangesListener extends FocusAdapter implements ActionListener {
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.FocusAdapter#focusLost(java.awt.event.FocusEvent)
-		 */
-		public void focusLost( FocusEvent e ) {
-			valueChanged( e.getSource( ) );
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-		 */
-		public void actionPerformed( ActionEvent e ) {
-			valueChanged( e.getSource( ) );
-		}
-	}
 
 	/**
 	 * Listener for the change color buttons.
