@@ -298,7 +298,7 @@ public class ResourcesPanel extends JPanel {
 		 * 
 		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 		 */
-		public void actionPerformed( ActionEvent e ) {
+		public void actionPerformed( ActionEvent e )  {
 			resourcesDataControl.editAssetPath( assetIndex );
 			assetFields[assetIndex].setText( resourcesDataControl.getAssetPath( assetIndex ) );
 			viewButtons[assetIndex].setEnabled( resourcesDataControl.getAssetPath( assetIndex ) != null );

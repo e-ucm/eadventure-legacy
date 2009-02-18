@@ -142,5 +142,12 @@ public class Resources implements Cloneable {
 		return r;
 	}
 	
+	/**
+	 * Deletes all the resources in the structure. Needed for undo tool
+	 * @return
+	 */
+	public void clearAssets(){
+		assets.clear();
+	}
 
 }

@@ -1,6 +1,5 @@
 package es.eucm.eadventure.editor.control.controllers.general;
 
-import java.io.File;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
@@ -9,8 +8,11 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.tools.general.resources.DeleteResourceTool;
+import es.eucm.eadventure.editor.control.tools.general.resources.EditResourceTool;
+import es.eucm.eadventure.editor.control.tools.general.resources.SelectResourceTool;
+import es.eucm.eadventure.editor.data.AssetInformation;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
-import es.eucm.eadventure.editor.gui.assetchooser.AssetChooser;
 
 /**
  * Microcontroller for the resources data.
@@ -163,90 +165,17 @@ public class ResourcesDataControl extends DataControl {
 	 * 
 	 * @param index
 	 *            Index of the asset
+	 * @throws CloneNotSupportedException 
 	 */
-	public void editAssetPath( int index ) {
-		// Get the list of assets from the ZIP file
-		//String[] assetFilenames = AssetsController.getAssetFilenames( assetsInformation[index].category, assetsInformation[index].filter );
-		//String[] assetPaths = AssetsController.getAssetsList( assetsInformation[index].category, assetsInformation[index].filter );
-
-		// If the list of assets is empty, show an error message
-		//if( assetFilenames.length == 0 )
-		//	controller.showErrorDialog( TextConstants.getText( "Resources.EditAsset" ), TextConstants.getText( "Resources.ErrorNoAssets" ) );
-
-		// If not empty, select one of them
-		//else {
-		//TODO MODIFIED
-		//if (assetsInformation[index].category==AssetsController.CATEGORY_ANIMATION){
-		//	AnimationChooser chooser = new AnimationChooser();
-		//	chooser.showOpenDialog( controller.peekWindow( ) );
-
-		//}
-		//else{
-		// Let the user choose between the assets
-		//String selectedAsset = controller.showInputDialog( TextConstants.getText( "Resources.EditAsset" ), TextConstants.getText( "Resources.EditAssetMessage" ), assetFilenames );
-		String selectedAsset = null;
-		AssetChooser chooser = AssetsController.getAssetChooser( assetsInformation[index].category, assetsInformation[index].filter );
-		int option = chooser.showAssetChooser( controller.peekWindow( ) );
-		//In case the asset was selected from the zip file
-		if( option == AssetChooser.ASSET_FROM_ZIP ) {
-			selectedAsset = chooser.getSelectedAsset( );
+	public void editAssetPath( int index )  {
+		try {
+			controller.addTool(new SelectResourceTool(resources, assetsInformation, conditionsController, resourcesType,index));
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
 		}
 
-		//In case the asset was not in the zip file: first add it
-		else if( option == AssetChooser.ASSET_FROM_OUTSIDE ) {
-			boolean added = AssetsController.addSingleAsset( assetsInformation[index].category, chooser.getSelectedFile( ).getAbsolutePath( ) );
-			if( added ) {
-				selectedAsset = chooser.getSelectedFile( ).getName( );
-			}
-		}
-
-		// If a file was selected
-		if( selectedAsset != null ) {
-			// Take the index of the selected asset
-			String[] assetFilenames = AssetsController.getAssetFilenames( assetsInformation[index].category, assetsInformation[index].filter );
-			String[] assetPaths = AssetsController.getAssetsList( assetsInformation[index].category, assetsInformation[index].filter );
-			int assetIndex = -1;
-			for( int i = 0; i < assetFilenames.length; i++ )
-				if( assetFilenames[i].equals( selectedAsset ) )
-					assetIndex = i;
-
-			// Store the data in the resources block (removing the suffix if necessary)
-			if( assetsInformation[index].category == AssetsController.CATEGORY_ANIMATION ){
-				resources.addAsset( assetsInformation[index].name, AssetsController.removeSuffix( assetPaths[assetIndex] ) );
-				
-				// For player and character resources block, check if the other animations are set. When any are set, ask the user to set them automatically
-				if (resourcesType == Controller.PLAYER || resourcesType == Controller.NPC){
-					boolean someAnimationSet = false;
-					for (int i=0; i<assetsInformation.length; i++){
-						if (i!=index && resources.getAssetPath( assetsInformation[i].name )!= null &&
-								!resources.getAssetPath( assetsInformation[i].name ).equals( "" )){
-							someAnimationSet = true;
-							break;
-						}
-					}
-					
-					if (!someAnimationSet &&
-							controller.showStrictConfirmDialog( TextConstants.getText( "Operation.SetAllAnimations.Title" ), 
-									TextConstants.getText( "Operation.SetAllAnimations.Message" ) )){
-						for (int i=0; i<assetsInformation.length; i++){
-							if (i!=index){
-								resources.addAsset( assetsInformation[i].name, AssetsController.removeSuffix( assetPaths[assetIndex] ) );
-							}
-						}
-						
-					}
-				}
-			}
-			else
-				resources.addAsset( assetsInformation[index].name, assetPaths[assetIndex] );
-			controller.dataModified( );
-		}
 	}
 	
-	
-	//}
-	//}
-
 	/**
 	 * Deletes the path of the given asset.
 	 * 
@@ -254,10 +183,10 @@ public class ResourcesDataControl extends DataControl {
 	 *            Index of the asset
 	 */
 	public void deleteAssetPath( int index ) {
-		// If the given asset is not empty, delete it
-		if( resources.getAssetPath( assetsInformation[index].name ) != null ) {
-			resources.deleteAsset( assetsInformation[index].name );
-			controller.dataModified( );
+		try {
+			controller.addTool(new DeleteResourceTool(resources, assetsInformation, conditionsController, resourcesType, index));
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -405,80 +334,22 @@ public class ResourcesDataControl extends DataControl {
 	// Do nothing
 	}
 
-	/**
-	 * This class holds the information about an asset. It stores the description of the asset, the identifier (name) of
-	 * the asset, and its type.
-	 */
-	private class AssetInformation {
-
-		/**
-		 * Textual description of the asset.
-		 */
-		public String description;
-
-		/**
-		 * Name of the asset.
-		 */
-		public String name;
-
-		/**
-		 * True if the asset is necessary for the resources block to be valid.
-		 */
-		public boolean assetNecessary;
-
-		/**
-		 * Category of the asset.
-		 */
-		public int category;
-
-		/**
-		 * Specific filter for the category
-		 */
-		public int filter;
-
-		/**
-		 * Constructor.
-		 * 
-		 * @param description
-		 *            Description of the asset
-		 * @param name
-		 *            Name of the asset
-		 * @param assetNecessary
-		 *            True if the asset is necessary for the resources to be valid
-		 * @param category
-		 *            Category of the asset
-		 * @param filter
-		 *            Specific filter for the category
-		 */
-		public AssetInformation( String description, String name, boolean assetNecessary, int category, int filter ) {
-			this.description = description;
-			this.name = name;
-			this.assetNecessary = assetNecessary;
-			this.category = category;
-			this.filter = filter;
-		}
-	}
 
 	@Override
 	public boolean canBeDuplicated( ) {
 		return true;
 	}
 
+	/**
+	 * Method that is invoked only by the "Edit" button
+	 * @param filename
+	 * @param index
+	 */
 	public void setAssetPath(String filename, int index) {
-		AssetsController.addSingleAsset( assetsInformation[index].category, filename );
-		String selectedAsset = (new File(filename)).getName();
-		// If a file was selected
-		if( selectedAsset != null ) {
-			// Take the index of the selected asset
-			String[] assetFilenames = AssetsController.getAssetFilenames( assetsInformation[index].category, assetsInformation[index].filter );
-			String[] assetPaths = AssetsController.getAssetsList( assetsInformation[index].category, assetsInformation[index].filter );
-			int assetIndex = -1;
-			for( int i = 0; i < assetFilenames.length; i++ )
-				if( assetFilenames[i].equals( selectedAsset ) )
-					assetIndex = i;
-			
-			resources.addAsset( assetsInformation[index].name, assetPaths[assetIndex] );
-			controller.dataModified( );
+		try {
+			controller.addTool(new EditResourceTool(resources, assetsInformation, conditionsController, resourcesType, index, filename));
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
 		}
 	}
 }

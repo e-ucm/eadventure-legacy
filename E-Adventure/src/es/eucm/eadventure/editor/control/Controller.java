@@ -800,8 +800,7 @@ public class Controller {
 	
 	public boolean undoTool() {
 		if (undoList.size() > 0) {
-			Tool temp = undoList.get(undoList.size() - 1);
-			undoList.remove(temp);
+			Tool temp = undoList.remove(undoList.size() - 1);
 			boolean undone = temp.undoTool();
 			if (undone) {
 				lastUndo = temp;
