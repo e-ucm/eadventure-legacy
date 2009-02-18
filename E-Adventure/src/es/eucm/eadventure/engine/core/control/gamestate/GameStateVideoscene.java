@@ -107,6 +107,9 @@ public class GameStateVideoscene extends GameState  implements ControllerListene
             GUI.getInstance( ).restoreFrame( );
 
             mediaPlayer.deallocate( );
+            mediaPlayer.close();
+            mediaPlayer = null;
+            System.gc();
         }
 
         if( videoscene.isEndScene( ) )
