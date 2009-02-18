@@ -1,5 +1,7 @@
 package es.eucm.eadventure.editor.control.tools;
 
+import es.eucm.eadventure.common.gui.TextConstants;
+
 public abstract class Tool {
 	
 	protected long timeStamp = System.currentTimeMillis();
@@ -12,7 +14,9 @@ public abstract class Tool {
 	 * Returns the tool name
 	 * @return the tool name
 	 */
-	public abstract String getToolName();
+	public String getToolName(){
+		return TextConstants.getEditionToolName(getClass());
+	}
 	
 	/**
 	 * Do the actual work. Returns true if it could be
@@ -50,6 +54,11 @@ public abstract class Tool {
 	 */
 	public abstract boolean redoTool();
 	
+	/**
+	 * Combines this tool with other similar tool (if possible). Useful for combining simple changes as characters typed in the same field
+	 * @param other
+	 * @return
+	 */
 	public abstract boolean combine(Tool other);
 	
 }
