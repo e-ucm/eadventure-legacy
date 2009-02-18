@@ -5,6 +5,7 @@ import java.util.List;
 import es.eucm.eadventure.common.data.chapter.elements.Barrier;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.tools.ChangeRectangleValueTool;
 import es.eucm.eadventure.editor.control.tools.general.ChangeDescriptionTool;
 import es.eucm.eadventure.editor.control.tools.general.ChangeDetailedDescriptionTool;
 import es.eucm.eadventure.editor.control.tools.general.ChangeDocumentationTool;
@@ -190,8 +191,7 @@ public class BarrierDataControl extends DataControl {
 	 *            Height of the exit area
 	 */
 	public void setBarrier( int x, int y, int width, int height ) {
-		barrier.setValues( x, y, width, height );
-		controller.dataModified( );
+		controller.addTool(new ChangeRectangleValueTool(barrier, x, y, width, height));
 	}
 
 	@Override

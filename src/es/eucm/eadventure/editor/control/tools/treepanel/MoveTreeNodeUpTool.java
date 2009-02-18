@@ -5,7 +5,7 @@ import es.eucm.eadventure.editor.control.tools.Tool;
 import es.eucm.eadventure.editor.gui.treepanel.TreePanel;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.TreeNode;
 
-public class MoveTreeNodeUpTool implements Tool {
+public class MoveTreeNodeUpTool extends Tool {
 
 
 	private DataControl dataControl;

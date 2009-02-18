@@ -4,7 +4,7 @@ import es.eucm.eadventure.common.data.Named;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.tools.Tool;
 
-public class ChangeNameTool implements Tool {
+public class ChangeNameTool extends Tool {
 
 	private Named named;
 	
@@ -65,6 +65,7 @@ public class ChangeNameTool implements Tool {
 			ChangeNameTool cnt = (ChangeNameTool) other;
 			if (cnt.named == named && cnt.oldName == name) {
 				name = cnt.name;
+				timeStamp = cnt.timeStamp;
 				return true;
 			}
 		}

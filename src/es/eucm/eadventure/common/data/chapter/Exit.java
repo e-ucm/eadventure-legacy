@@ -9,7 +9,7 @@ import es.eucm.eadventure.common.data.chapter.ExitLook;
 /**
  * This class holds the data of an exit in eAdventure
  */
-public class Exit implements Cloneable, Documented {
+public class Exit implements Cloneable, Documented, Rectangle {
 
 	/**
 	 * X position of the upper left corner of the exit

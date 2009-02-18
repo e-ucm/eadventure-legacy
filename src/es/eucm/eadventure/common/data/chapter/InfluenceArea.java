@@ -1,6 +1,6 @@
 package es.eucm.eadventure.common.data.chapter;
 
-public class InfluenceArea implements Cloneable {
+public class InfluenceArea implements Cloneable, Rectangle {
 
 	private boolean exists = false;
 	

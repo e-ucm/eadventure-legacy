@@ -782,8 +782,13 @@ public class Controller {
 	public boolean addTool(Tool tool) {
 		boolean done = tool.doTool();
 		if (done) {
-			if (undoList.size() == 0 || !undoList.get(undoList.size() - 1).combine(tool))
+			if (undoList.size() == 0)
 				undoList.add(tool);
+			else {
+				Tool last = undoList.get(undoList.size() - 1);
+				if (last.getTimeStamp() < tool.getTimeStamp() - 1500 || !last.combine(tool)) 
+					undoList.add(tool);
+			}
 			redoList.clear();
 			dataModified( );
 			if (!tool.canUndo()) {

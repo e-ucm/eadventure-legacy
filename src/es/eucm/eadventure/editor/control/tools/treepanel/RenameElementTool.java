@@ -4,7 +4,7 @@ import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.tools.Tool;
 import es.eucm.eadventure.editor.gui.treepanel.TreePanel;
 
-public class RenameElementTool implements Tool {
+public class RenameElementTool extends Tool {
 
 	private DataControl dataControl;
 	

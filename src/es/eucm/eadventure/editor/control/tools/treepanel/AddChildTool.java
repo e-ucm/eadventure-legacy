@@ -4,7 +4,7 @@ import es.eucm.eadventure.editor.control.tools.Tool;
 import es.eucm.eadventure.editor.gui.treepanel.TreePanel;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.TreeNode;
 
-public class AddChildTool implements Tool {
+public class AddChildTool extends Tool {
 
 	private TreeNode treeNode;
 	

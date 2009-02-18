@@ -12,6 +12,7 @@ import es.eucm.eadventure.editor.control.controllers.character.NPCDataControl;
 import es.eucm.eadventure.editor.control.controllers.character.NPCsListDataControl;
 import es.eucm.eadventure.editor.control.controllers.item.ItemDataControl;
 import es.eucm.eadventure.editor.control.controllers.item.ItemsListDataControl;
+import es.eucm.eadventure.editor.control.tools.ChangeElementReferenceTool;
 import es.eucm.eadventure.editor.control.tools.general.ChangeDocumentationTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
@@ -178,8 +179,7 @@ public class ElementReferenceDataControl extends DataControl {
 	 *            Y coordinate for the element reference
 	 */
 	public void setElementPosition( int x, int y ) {
-		elementReference.setPosition( x, y );
-		controller.dataModified( );
+		controller.addTool(new ChangeElementReferenceTool(elementReference, x, y));
 	}
 
 	/**
@@ -207,7 +207,7 @@ public class ElementReferenceDataControl extends DataControl {
 	 * @param scale the scale for the element reference
 	 */
 	public void setElementScale(float scale) {
-		elementReference.setScale(scale);
+		controller.addTool(new ChangeElementReferenceTool(elementReference, scale));
 	}
 
 	@Override

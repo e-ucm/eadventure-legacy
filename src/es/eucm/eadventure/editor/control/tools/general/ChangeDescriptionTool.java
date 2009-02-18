@@ -4,7 +4,7 @@ import es.eucm.eadventure.common.data.Described;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.tools.Tool;
 
-public class ChangeDescriptionTool implements Tool {
+public class ChangeDescriptionTool extends Tool {
 
 	private Described described;
 	
@@ -61,6 +61,14 @@ public class ChangeDescriptionTool implements Tool {
 
 	@Override
 	public boolean combine(Tool other) {
+		if (other instanceof ChangeDescriptionTool) {
+			ChangeDescriptionTool cnt = (ChangeDescriptionTool) other;
+			if (cnt.described == described && cnt.oldDescription == description) {
+				description = cnt.description;
+				timeStamp = cnt.timeStamp;
+				return true;
+			}
+		}
 		return false;
 	}
 
