@@ -1,12 +1,10 @@
 package es.eucm.eadventure.editor.control.tools.general.resources;
 
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
-import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.tools.Tool;
 import es.eucm.eadventure.editor.data.AssetInformation;
-import es.eucm.eadventure.editor.gui.treepanel.TreeNodeControl;
 
 /**
  * Abstract class for Resources modification. It contains the common data that tools EditResourceTool,
@@ -14,7 +12,7 @@ import es.eucm.eadventure.editor.gui.treepanel.TreeNodeControl;
  * @author Javier
  *
  */
-public abstract class ResourcesTool implements Tool{
+public abstract class ResourcesTool extends Tool{
 	/**
 	 * Controller
 	 */
@@ -94,10 +92,6 @@ public abstract class ResourcesTool implements Tool{
 		return undoTool();
 	}
 	
-	@Override
-	public String getToolName() {
-		return TextConstants.getEditionToolName(getClass());
-	}
 	@Override
 	public boolean canRedo() {
 		return true;
