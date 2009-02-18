@@ -4,7 +4,7 @@ import es.eucm.eadventure.common.data.Documented;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.tools.Tool;
 
-public class ChangeDocumentationTool implements Tool {
+public class ChangeDocumentationTool extends Tool {
 
 	private Documented documented;
 	
@@ -61,6 +61,14 @@ public class ChangeDocumentationTool implements Tool {
 	
 	@Override
 	public boolean combine(Tool other) {
+		if (other instanceof ChangeDocumentationTool) {
+			ChangeDocumentationTool cnt = (ChangeDocumentationTool) other;
+			if (cnt.documented == documented && cnt.oldDocumentation == documentation) {
+				documentation = cnt.documentation;
+				timeStamp = cnt.timeStamp;
+				return true;
+			}
+		}
 		return false;
 	}
 

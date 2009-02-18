@@ -6,6 +6,7 @@ import es.eucm.eadventure.common.data.chapter.elements.ActiveArea;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ActionsListDataControl;
+import es.eucm.eadventure.editor.control.tools.ChangeRectangleValueTool;
 import es.eucm.eadventure.editor.control.tools.general.ChangeDescriptionTool;
 import es.eucm.eadventure.editor.control.tools.general.ChangeDetailedDescriptionTool;
 import es.eucm.eadventure.editor.control.tools.general.ChangeDocumentationTool;
@@ -206,8 +207,7 @@ public class ActiveAreaDataControl extends DataControl {
 	 *            Height of the exit area
 	 */
 	public void setActiveArea( int x, int y, int width, int height ) {
-		activeArea.setValues( x, y, width, height );
-		controller.dataModified( );
+		controller.addTool(new ChangeRectangleValueTool(activeArea, x, y, width, height));
 	}
 
 	@Override

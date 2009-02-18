@@ -4,9 +4,9 @@ import es.eucm.eadventure.common.data.Detailed;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.tools.Tool;
 
-public class ChangeDetailedDescriptionTool implements Tool {
+public class ChangeDetailedDescriptionTool extends Tool {
 
-	private Detailed described;
+	private Detailed detailed;
 	
 	private String description;
 	
@@ -15,7 +15,7 @@ public class ChangeDetailedDescriptionTool implements Tool {
 	private Controller controller;
 	
 	public ChangeDetailedDescriptionTool(Detailed described, String description) {
-		this.described = described;
+		this.detailed = described;
 		this.description = description;
 		this.controller = Controller.getInstance();
 	}
@@ -32,9 +32,9 @@ public class ChangeDetailedDescriptionTool implements Tool {
 
 	@Override
 	public boolean doTool() {
-		if( !description.equals( described.getDetailedDescription( ) ) ) {
-			oldDescription = described.getDetailedDescription();
-			described.setDetailedDescription( description );
+		if( !description.equals( detailed.getDetailedDescription( ) ) ) {
+			oldDescription = detailed.getDetailedDescription();
+			detailed.setDetailedDescription( description );
 			return true;
 		}
 		return false;
@@ -47,20 +47,28 @@ public class ChangeDetailedDescriptionTool implements Tool {
 
 	@Override
 	public boolean redoTool() {
-		described.setDetailedDescription( description );
+		detailed.setDetailedDescription( description );
 		controller.reloadPanel();
 		return true;
 	}
 
 	@Override
 	public boolean undoTool() {
-		described.setDetailedDescription( oldDescription );
+		detailed.setDetailedDescription( oldDescription );
 		controller.reloadPanel();
 		return true;
 	}
 
 	@Override
 	public boolean combine(Tool other) {
+		if (other instanceof ChangeDetailedDescriptionTool) {
+			ChangeDetailedDescriptionTool cnt = (ChangeDetailedDescriptionTool) other;
+			if (cnt.detailed == detailed && cnt.oldDescription == description) {
+				description = cnt.description;
+				timeStamp = cnt.timeStamp;
+				return true;
+			}
+		}
 		return false;
 	}
 

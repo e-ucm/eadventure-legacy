@@ -6,7 +6,7 @@ import es.eucm.eadventure.editor.control.controllers.general.ChapterDataControl;
 import es.eucm.eadventure.editor.control.tools.Tool;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.TreeNode;
 
-public class DeleteNodeTool implements Tool {
+public class DeleteNodeTool extends Tool {
 
 	private TreeNode treeNode;
 		

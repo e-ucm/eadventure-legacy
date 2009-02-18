@@ -1,11 +1,12 @@
 package es.eucm.eadventure.common.data.chapter.elements;
 
+import es.eucm.eadventure.common.data.chapter.Rectangle;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 
 /**
  * This class holds the data of an exit in eAdventure
  */
-public class Barrier extends Element{
+public class Barrier extends Element implements Rectangle {
 
 	/**
 	 * X position of the upper left corner of the exit

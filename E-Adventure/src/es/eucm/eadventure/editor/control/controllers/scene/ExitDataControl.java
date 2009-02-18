@@ -10,6 +10,7 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ExitLookDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.NextSceneDataControl;
+import es.eucm.eadventure.editor.control.tools.ChangeRectangleValueTool;
 import es.eucm.eadventure.editor.control.tools.general.ChangeDocumentationTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
@@ -143,8 +144,7 @@ public class ExitDataControl extends DataControl {
 	 *            Height of the exit area
 	 */
 	public void setExit( int x, int y, int width, int height ) {
-		exit.setValues( x, y, width, height );
-		controller.dataModified( );
+		controller.addTool(new ChangeRectangleValueTool(exit, x, y, width, height));
 	}
 
 	/**

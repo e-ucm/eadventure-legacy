@@ -4,7 +4,7 @@ import es.eucm.eadventure.common.data.Titled;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.tools.Tool;
 
-public class ChangeTitleTool implements Tool {
+public class ChangeTitleTool extends Tool {
 
 	private Titled titled;
 	
@@ -71,6 +71,7 @@ public class ChangeTitleTool implements Tool {
 			ChangeTitleTool ctt = (ChangeTitleTool) other;
 			if (ctt.titled == titled && ctt.oldTitle == title) {
 				title = ctt.title;
+				timeStamp = ctt.timeStamp;
 				return true;
 			}
 		}
