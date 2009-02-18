@@ -6,7 +6,6 @@ import java.util.List;
 import javax.swing.tree.TreePath;
 
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.control.controllers.scene.ScenesListDataControl;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.TreeNode;
 
 public class TreeNodeControl {

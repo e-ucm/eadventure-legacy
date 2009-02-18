@@ -224,4 +224,13 @@ public class TextConstants {
 
 		return text;
 	}
+	
+	/**
+	 * Returns the default name of the edition tool given its class
+	 * @param c The class of the tool
+	 * @return The the text if any, "Error" if not found
+	 */
+	public static String getEditionToolName ( Class c ){
+		return getText ("Edition.UndoRedo.Name."+c.getSimpleName());
+	}
 }
