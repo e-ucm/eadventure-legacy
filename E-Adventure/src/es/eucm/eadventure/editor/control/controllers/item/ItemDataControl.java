@@ -12,6 +12,7 @@ import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.general.ActionsListDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
 import es.eucm.eadventure.editor.control.tools.general.ChangeDescriptionTool;
+import es.eucm.eadventure.editor.control.tools.general.ChangeDetailedDescriptionTool;
 import es.eucm.eadventure.editor.control.tools.general.ChangeDocumentationTool;
 import es.eucm.eadventure.editor.control.tools.general.ChangeNameTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
@@ -213,12 +214,7 @@ public class ItemDataControl extends DataControlWithResources {
 	 *            Detailed description of the item
 	 */
 	public void setDetailedDescription( String detailedDescription ) {
-		// If the value is different
-		if( !detailedDescription.equals( item.getDetailedDescription( ) ) ) {
-			// Set the new detailed description and modify the data
-			item.setDetailedDescription( detailedDescription );
-			controller.dataModified( );
-		}
+		controller.addTool(new ChangeDetailedDescriptionTool(item, detailedDescription));
 	}
 
 	@Override

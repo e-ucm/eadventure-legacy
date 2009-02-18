@@ -12,11 +12,9 @@ import javax.swing.table.DefaultTableCellRenderer;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementContainer;
-import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ReferencesListDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.book.IconTextPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.ElementReferenceSelectionListener;
-
 
 public class ElementReferencesTable extends JTable implements ElementReferenceSelectionListener{
 
@@ -43,6 +41,11 @@ public class ElementReferencesTable extends JTable implements ElementReferenceSe
 	
 	
 	private class ElementsTableModel extends AbstractTableModel{
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 
 		public int getColumnCount( ) {
 			return 2;
@@ -72,6 +75,11 @@ public class ElementReferencesTable extends JTable implements ElementReferenceSe
 	}
 	
 	private class ElementsReferencesTableCellRenderer extends DefaultTableCellRenderer {
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 
 		/*
 		 * (non-Javadoc)

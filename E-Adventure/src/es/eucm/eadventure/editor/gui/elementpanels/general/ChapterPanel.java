@@ -7,8 +7,6 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
@@ -19,12 +17,14 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 
+import es.eucm.eadventure.common.data.Described;
+import es.eucm.eadventure.common.data.Titled;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.general.ChapterDataControl;
+import es.eucm.eadventure.editor.control.tools.listeners.DescriptionChangeListener;
+import es.eucm.eadventure.editor.control.tools.listeners.TitleChangeListener;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 
 public class ChapterPanel extends JPanel {
@@ -115,8 +115,7 @@ public class ChapterPanel extends JPanel {
 		JPanel titlePanel = new JPanel( );
 		titlePanel.setLayout( new GridLayout( ) );
 		titleTextField = new JTextField( chapterDataControl.getTitle( ) );
-		titleTextField.addActionListener( new TitleTextFieldChangesListener( ) );
-		titleTextField.addFocusListener( new TitleTextFieldChangesListener( ) );
+		titleTextField.getDocument().addDocumentListener( new TitleChangeListener(titleTextField, (Titled) chapterDataControl.getContent()));
 		titlePanel.add( titleTextField );
 		titlePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Chapter.ChapterTitle" ) ) );
 		add( titlePanel, c );
@@ -128,7 +127,7 @@ public class ChapterPanel extends JPanel {
 		descriptionTextArea = new JTextArea( chapterDataControl.getDescription( ), 4, 0 );
 		descriptionTextArea.setLineWrap( true );
 		descriptionTextArea.setWrapStyleWord( true );
-		descriptionTextArea.getDocument( ).addDocumentListener( new DescriptionTextAreaChangesListener( ) );
+		descriptionTextArea.getDocument( ).addDocumentListener( new DescriptionChangeListener( descriptionTextArea, (Described) chapterDataControl.getContent()) );
 		descriptionPanel.add( new JScrollPane( descriptionTextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER ) );
 		descriptionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Chapter.Description" ) ) );
 		add( descriptionPanel, c );
@@ -226,65 +225,6 @@ public class ChapterPanel extends JPanel {
 		c.weightx = 1;
 		c.weighty = 1;
 		add( new JFiller( ), c );
-	}
-
-	/**
-	 * Listener for the title text fields It checks the values from the fields and updates the data.
-	 */
-	private class TitleTextFieldChangesListener extends FocusAdapter implements ActionListener {
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.FocusAdapter#focusLost(java.awt.event.FocusEvent)
-		 */
-		public void focusLost( FocusEvent e ) {
-			chapterDataControl.setTitle( titleTextField.getText( ) );
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-		 */
-		public void actionPerformed( ActionEvent e ) {
-			chapterDataControl.setTitle( titleTextField.getText( ) );
-		}
-	}
-
-	/**
-	 * Listener for the description text area. It checks the value of the area and updates the description.
-	 */
-	private class DescriptionTextAreaChangesListener implements DocumentListener {
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.event.DocumentListener#changedUpdate(javax.swing.event.DocumentEvent)
-		 */
-		public void changedUpdate( DocumentEvent arg0 ) {
-		// Do nothing
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.event.DocumentListener#insertUpdate(javax.swing.event.DocumentEvent)
-		 */
-		public void insertUpdate( DocumentEvent arg0 ) {
-			// Set the new content
-			chapterDataControl.setDescription( descriptionTextArea.getText( ) );
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.event.DocumentListener#removeUpdate(javax.swing.event.DocumentEvent)
-		 */
-		public void removeUpdate( DocumentEvent arg0 ) {
-			// Set the new content
-			chapterDataControl.setDescription( descriptionTextArea.getText( ) );
-		}
 	}
 
 	/**

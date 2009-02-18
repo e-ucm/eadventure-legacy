@@ -10,12 +10,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 
+import es.eucm.eadventure.common.data.Documented;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.scene.ExitDataControl;
+import es.eucm.eadventure.editor.control.tools.listeners.DocumentationChangeListener;
 import es.eucm.eadventure.editor.gui.elementpanels.general.ExitLookPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 
@@ -75,7 +75,7 @@ public class ExitPanel extends JTabbedPane {
 		documentationTextArea = new JTextArea( exitDataControl.getDocumentation( ), 4, 0 );
 		documentationTextArea.setLineWrap( true );
 		documentationTextArea.setWrapStyleWord( true );
-		documentationTextArea.getDocument( ).addDocumentListener( new DocumentationTextAreaChangesListener( ) );
+		documentationTextArea.getDocument( ).addDocumentListener( new DocumentationChangeListener( documentationTextArea, (Documented) exitDataControl.getContent() ) );
 		documentationPanel.add( new JScrollPane( documentationTextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER ) );
 		documentationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Exit.Documentation" ) ) );
 		mainPanel.add( documentationPanel, c );
@@ -90,40 +90,4 @@ public class ExitPanel extends JTabbedPane {
 		this.insertTab(  TextConstants.getText( "Exit.Title" ), null, mainPanel,  TextConstants.getText( "Exit.Title" ), 0 );
 		this.insertTab( TextConstants.getText( "Exit.AdvancedOptions" ), null, new ExitLookPanel(this.exitDataControl.getExitLookDataControl( )), TextConstants.getText( "Exit.AdvancedOptions" ), 1 );
 	}
-
-	/**
-	 * Listener for the text area. It checks the value of the area and updates the documentation.
-	 */
-	private class DocumentationTextAreaChangesListener implements DocumentListener {
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.event.DocumentListener#changedUpdate(javax.swing.event.DocumentEvent)
-		 */
-		public void changedUpdate( DocumentEvent arg0 ) {
-		// Do nothing
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.event.DocumentListener#insertUpdate(javax.swing.event.DocumentEvent)
-		 */
-		public void insertUpdate( DocumentEvent arg0 ) {
-			// Set the new content
-			exitDataControl.setDocumentation( documentationTextArea.getText( ) );
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.event.DocumentListener#removeUpdate(javax.swing.event.DocumentEvent)
-		 */
-		public void removeUpdate( DocumentEvent arg0 ) {
-			// Set the new content
-			exitDataControl.setDocumentation( documentationTextArea.getText( ) );
-		}
-	}
-
 }

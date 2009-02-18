@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.Described;
+import es.eucm.eadventure.common.data.Detailed;
 import es.eucm.eadventure.common.data.Documented;
 import es.eucm.eadventure.common.data.Named;
 import es.eucm.eadventure.common.data.chapter.Action;
@@ -12,7 +13,7 @@ import es.eucm.eadventure.common.data.chapter.resources.Resources;
 /**
  * This class holds the common data for any element in eAdventure. Here, element means item or character
  */
-public abstract class Element implements Cloneable, Named, Documented, Described {
+public abstract class Element implements Cloneable, Named, Documented, Described, Detailed {
 
 	/**
 	 * The element's id

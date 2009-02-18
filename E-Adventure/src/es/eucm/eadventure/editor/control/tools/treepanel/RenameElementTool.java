@@ -64,5 +64,11 @@ public class RenameElementTool implements Tool {
 		}		
 		return false;
 	}
+	
+	@Override
+	public boolean combine(Tool other) {
+		return false;
+	}
+
 
 }

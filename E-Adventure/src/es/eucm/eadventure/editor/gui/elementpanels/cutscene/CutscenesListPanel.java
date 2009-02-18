@@ -17,7 +17,6 @@ import javax.swing.table.AbstractTableModel;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.cutscene.CutscenesListDataControl;
-import es.eucm.eadventure.editor.gui.elementpanels.scene.ScenesListPanel;
 import es.eucm.eadventure.editor.gui.treepanel.TreeNodeControl;
 
 public class CutscenesListPanel extends JPanel {

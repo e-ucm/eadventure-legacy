@@ -1,6 +1,5 @@
 package es.eucm.eadventure.editor.gui.elementpanels.book;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -10,29 +9,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Random;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JSlider;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
-import es.eucm.eadventure.common.data.chapter.book.Book;
 import es.eucm.eadventure.common.data.chapter.book.BookPage;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
@@ -40,9 +31,13 @@ import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.book.BookPagesListDataControl;
 import es.eucm.eadventure.editor.gui.editdialogs.ChangePageMarginsDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.HTMLEditDialog;
-import es.eucm.eadventure.engine.core.gui.GUI;
 
 public class BookPagePanel extends JPanel{
+
+	/**
+	 * Default serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private BookPagesListDataControl dataControl;
 	

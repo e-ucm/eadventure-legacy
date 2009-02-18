@@ -55,5 +55,11 @@ public class DeleteNodeTool implements Tool {
 //		TreeNodeControl.getInstance().changeTreeNodeDataControlContent(treeNode.getDataControl().getContent());
 		return true;
 	}
+	
+	@Override
+	public boolean combine(Tool other) {
+		return false;
+	}
+
 
 }

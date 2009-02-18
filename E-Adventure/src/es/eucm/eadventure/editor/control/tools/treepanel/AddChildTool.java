@@ -55,5 +55,11 @@ public class AddChildTool implements Tool {
 	public boolean redoTool() {
 		return false;
 	}
+	
+	@Override
+	public boolean combine(Tool other) {
+		return false;
+	}
+
 
 }

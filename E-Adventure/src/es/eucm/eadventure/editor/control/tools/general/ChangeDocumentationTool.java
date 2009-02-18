@@ -58,5 +58,11 @@ public class ChangeDocumentationTool implements Tool {
 		controller.reloadPanel();
 		return true;
 	}
+	
+	@Override
+	public boolean combine(Tool other) {
+		return false;
+	}
+
 
 }

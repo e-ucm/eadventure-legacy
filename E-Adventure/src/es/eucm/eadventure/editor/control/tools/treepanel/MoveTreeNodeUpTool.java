@@ -78,5 +78,11 @@ public class MoveTreeNodeUpTool implements Tool {
 		}
 		return false;
 	}
+	
+	@Override
+	public boolean combine(Tool other) {
+		return false;
+	}
+
 
 }

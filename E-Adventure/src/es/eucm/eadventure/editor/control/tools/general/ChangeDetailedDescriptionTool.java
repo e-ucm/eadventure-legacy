@@ -1,22 +1,22 @@
 package es.eucm.eadventure.editor.control.tools.general;
 
-import es.eucm.eadventure.common.data.Named;
+import es.eucm.eadventure.common.data.Detailed;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.tools.Tool;
 
-public class ChangeNameTool implements Tool {
+public class ChangeDetailedDescriptionTool implements Tool {
 
-	private Named named;
+	private Detailed described;
 	
-	private String name;
+	private String description;
 	
-	private String oldName;
+	private String oldDescription;
 	
 	private Controller controller;
 	
-	public ChangeNameTool(Named scene, String name) {
-		this.named = scene;
-		this.name = name;
+	public ChangeDetailedDescriptionTool(Detailed described, String description) {
+		this.described = described;
+		this.description = description;
 		this.controller = Controller.getInstance();
 	}
 
@@ -32,9 +32,9 @@ public class ChangeNameTool implements Tool {
 
 	@Override
 	public boolean doTool() {
-		if( !name.equals( named.getName( ) ) ) {
-			oldName = named.getName();
-			named.setName( name );
+		if( !description.equals( described.getDetailedDescription( ) ) ) {
+			oldDescription = described.getDetailedDescription();
+			described.setDetailedDescription( description );
 			return true;
 		}
 		return false;
@@ -42,32 +42,26 @@ public class ChangeNameTool implements Tool {
 
 	@Override
 	public String getToolName() {
-		return "Change name";
+		return "Change description";
 	}
 
 	@Override
 	public boolean redoTool() {
-		named.setName( name );
+		described.setDetailedDescription( description );
 		controller.reloadPanel();
 		return true;
 	}
 
 	@Override
 	public boolean undoTool() {
-		named.setName( oldName );
+		described.setDetailedDescription( oldDescription );
 		controller.reloadPanel();
 		return true;
 	}
-	
+
 	@Override
 	public boolean combine(Tool other) {
-		if (other instanceof ChangeNameTool) {
-			ChangeNameTool cnt = (ChangeNameTool) other;
-			if (cnt.named == named && cnt.oldName == name) {
-				name = cnt.name;
-				return true;
-			}
-		}
 		return false;
 	}
+
 }

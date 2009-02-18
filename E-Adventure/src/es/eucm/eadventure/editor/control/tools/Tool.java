@@ -44,4 +44,6 @@ public interface Tool {
 	 */
 	public boolean redoTool();
 	
+	public boolean combine(Tool other);
+	
 }

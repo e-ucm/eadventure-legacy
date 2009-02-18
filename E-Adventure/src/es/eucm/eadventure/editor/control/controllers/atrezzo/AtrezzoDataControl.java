@@ -11,6 +11,7 @@ import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
 import es.eucm.eadventure.editor.control.tools.general.ChangeDescriptionTool;
+import es.eucm.eadventure.editor.control.tools.general.ChangeDetailedDescriptionTool;
 import es.eucm.eadventure.editor.control.tools.general.ChangeDocumentationTool;
 import es.eucm.eadventure.editor.control.tools.general.ChangeNameTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
@@ -200,12 +201,7 @@ public class AtrezzoDataControl extends DataControlWithResources {
 	 *            Detailed description of the atrezzo item
 	 */
 	public void setDetailedDescription( String detailedDescription ) {
-		// If the value is different
-		if( !detailedDescription.equals( atrezzo.getDetailedDescription( ) ) ) {
-			// Set the new detailed description and modify the data
-			atrezzo.setDetailedDescription( detailedDescription );
-			controller.dataModified( );
-		}
+		controller.addTool(new ChangeDetailedDescriptionTool(atrezzo, detailedDescription));
 	}
 
 	@Override

@@ -64,5 +64,18 @@ public class ChangeTitleTool implements Tool {
 		controller.reloadPanel();
 		return true;
 	}
+	
+	@Override
+	public boolean combine(Tool other) {
+		if (other instanceof ChangeTitleTool) {
+			ChangeTitleTool ctt = (ChangeTitleTool) other;
+			if (ctt.titled == titled && ctt.oldTitle == title) {
+				title = ctt.title;
+				return true;
+			}
+		}
+		return false;
+	}
+
 
 }

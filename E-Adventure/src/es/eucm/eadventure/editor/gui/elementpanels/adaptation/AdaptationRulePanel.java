@@ -11,11 +11,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 
+import es.eucm.eadventure.common.data.Documented;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationRuleDataControl;
+import es.eucm.eadventure.editor.control.tools.listeners.DocumentationChangeListener;
 
 public class AdaptationRulePanel extends JPanel {
 
@@ -74,7 +74,7 @@ public class AdaptationRulePanel extends JPanel {
 		descriptionTextArea = new JTextArea( adpRuleDataControl.getDescription( ), 4, 0 );
 		descriptionTextArea.setLineWrap( true );
 		descriptionTextArea.setWrapStyleWord( true );
-		descriptionTextArea.getDocument( ).addDocumentListener( new DocumentationTextAreaChangesListener( ) );
+		descriptionTextArea.getDocument( ).addDocumentListener( new DocumentationChangeListener( descriptionTextArea, (Documented) adaptationRuleDataControl.getContent() ) );
 		conceptPanel.add( new JScrollPane( descriptionTextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER ) );
 		conceptPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AdaptationRule.Description" ) ) );
 		add( conceptPanel, c );
@@ -99,50 +99,5 @@ public class AdaptationRulePanel extends JPanel {
 		c.fill = GridBagConstraints.BOTH;
 		c.weighty = 1;
 		add( gsPanel, c );
-
 	}
-
-
-	/**
-	 * Listener for the text area. It checks the value of the area and updates the documentation.
-	 */
-	private class DocumentationTextAreaChangesListener implements DocumentListener {
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.event.DocumentListener#changedUpdate(javax.swing.event.DocumentEvent)
-		 */
-		public void changedUpdate( DocumentEvent arg0 ) {
-		// Do nothing
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.event.DocumentListener#insertUpdate(javax.swing.event.DocumentEvent)
-		 */
-		public void insertUpdate( DocumentEvent arg0 ) {
-			// Set the new content
-			if (arg0.getDocument( ) == descriptionTextArea.getDocument( )){
-				adaptationRuleDataControl.setDescription( descriptionTextArea.getText( ) );	
-			}
-			
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.event.DocumentListener#removeUpdate(javax.swing.event.DocumentEvent)
-		 */
-		public void removeUpdate( DocumentEvent arg0 ) {
-			// Set the new content
-			
-			if (arg0.getDocument( ) == descriptionTextArea.getDocument( )){
-				adaptationRuleDataControl.setDescription( descriptionTextArea.getText( ) );
-			}
-			
-		}
-	}
-
 }

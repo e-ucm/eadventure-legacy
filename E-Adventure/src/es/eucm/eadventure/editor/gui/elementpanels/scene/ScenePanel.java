@@ -7,8 +7,6 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -18,12 +16,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 
+import es.eucm.eadventure.common.data.Documented;
+import es.eucm.eadventure.common.data.Named;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
+import es.eucm.eadventure.editor.control.tools.listeners.DocumentationChangeListener;
+import es.eucm.eadventure.editor.control.tools.listeners.NameChangeListener;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.editdialogs.PlayerPositionDialog;
 
@@ -95,7 +95,7 @@ public class ScenePanel extends JPanel {
 		documentationTextArea = new JTextArea( sceneDataControl.getDocumentation( ), 4, 0 );
 		documentationTextArea.setLineWrap( true );
 		documentationTextArea.setWrapStyleWord( true );
-		documentationTextArea.getDocument( ).addDocumentListener( new DocumentationTextAreaChangesListener( ) );
+		documentationTextArea.getDocument( ).addDocumentListener( new DocumentationChangeListener( documentationTextArea, (Documented) sceneDataControl.getContent()) );
 		documentationPanel.add( new JScrollPane( documentationTextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER ) );
 		documentationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Scene.Documentation" ) ) );
 		docPanel.add( documentationPanel, cDoc );
@@ -107,8 +107,7 @@ public class ScenePanel extends JPanel {
 		JPanel namePanel = new JPanel( );
 		namePanel.setLayout( new GridLayout( ) );
 		nameTextField = new JTextField( sceneDataControl.getName( ) );
-		nameTextField.addActionListener( new TextFieldChangesListener( ) );
-		nameTextField.addFocusListener( new TextFieldChangesListener( ) );
+		nameTextField.getDocument().addDocumentListener( new NameChangeListener(nameTextField, (Named) sceneDataControl.getContent()));
 		namePanel.add( nameTextField );
 		namePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Scene.Name" ) ) );
 		docPanel.add( namePanel, cDoc );
@@ -165,78 +164,6 @@ public class ScenePanel extends JPanel {
 		setLayout( new BorderLayout( ) );
 		add( tabPanel, BorderLayout.CENTER );
 
-	}
-
-	/**
-	 * Called when a text field has changed, so that we can set the new values.
-	 * 
-	 * @param source
-	 *            Source of the event
-	 */
-	private void valueChanged( Object source ) {
-		// Check the name field
-		if( source == nameTextField ) {
-			sceneDataControl.setName( nameTextField.getText( ) );
-		}
-	}
-
-	/**
-	 * Listener for the text area. It checks the value of the area and updates the documentation.
-	 */
-	private class DocumentationTextAreaChangesListener implements DocumentListener {
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.event.DocumentListener#changedUpdate(javax.swing.event.DocumentEvent)
-		 */
-		public void changedUpdate( DocumentEvent arg0 ) {
-		// Do nothing
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.event.DocumentListener#insertUpdate(javax.swing.event.DocumentEvent)
-		 */
-		public void insertUpdate( DocumentEvent arg0 ) {
-			// Set the new content
-			sceneDataControl.setDocumentation( documentationTextArea.getText( ) );
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.event.DocumentListener#removeUpdate(javax.swing.event.DocumentEvent)
-		 */
-		public void removeUpdate( DocumentEvent arg0 ) {
-			// Set the new content
-			sceneDataControl.setDocumentation( documentationTextArea.getText( ) );
-		}
-	}
-
-	/**
-	 * Listener for the text fields. It checks the values from the fields and updates the data.
-	 */
-	private class TextFieldChangesListener extends FocusAdapter implements ActionListener {
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.FocusAdapter#focusLost(java.awt.event.FocusEvent)
-		 */
-		public void focusLost( FocusEvent e ) {
-			valueChanged( e.getSource( ) );
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-		 */
-		public void actionPerformed( ActionEvent e ) {
-			valueChanged( e.getSource( ) );
-		}
 	}
 
 	/**

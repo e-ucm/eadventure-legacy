@@ -12,8 +12,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -30,11 +28,15 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.book.BookDataControl;
 import es.eucm.eadventure.editor.control.controllers.book.BookParagraphDataControl;
-import es.eucm.eadventure.editor.control.controllers.book.BookParagraphsListDataControl;
 import es.eucm.eadventure.editor.gui.otherpanels.imagepanels.BookImagePanel;
 
 public class BookParagraphsPanel extends JPanel{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private BookDataControl dataControl;
 	
 	private JPanel paragraphsPanel;

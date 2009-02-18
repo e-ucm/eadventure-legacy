@@ -12,6 +12,11 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 
 public class EndScenePanel extends JPanel{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public EndScenePanel(){
 		this.setBorder( BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(),TextConstants.getText("EndScene.Title")) );
 		this.setLayout(new GridBagLayout());

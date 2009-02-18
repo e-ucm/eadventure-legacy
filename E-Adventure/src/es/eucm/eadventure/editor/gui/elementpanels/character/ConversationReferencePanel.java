@@ -16,14 +16,14 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 
+import es.eucm.eadventure.common.data.Documented;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.character.ConversationReferenceDataControl;
 import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
 import es.eucm.eadventure.editor.control.controllers.conversation.ConversationsListDataControl;
+import es.eucm.eadventure.editor.control.tools.listeners.DocumentationChangeListener;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.editdialogs.ConditionsDialog;
 import es.eucm.eadventure.editor.gui.treepanel.TreeNodeControl;
@@ -111,7 +111,7 @@ public class ConversationReferencePanel extends JPanel {
 		documentationTextArea = new JTextArea( conversationReferenceDataControl.getDocumentation( ), 4, 0 );
 		documentationTextArea.setLineWrap( true );
 		documentationTextArea.setWrapStyleWord( true );
-		documentationTextArea.getDocument( ).addDocumentListener( new DocumentationTextAreaChangesListener( ) );
+		documentationTextArea.getDocument( ).addDocumentListener( new DocumentationChangeListener( documentationTextArea, (Documented) conversationReferenceDataControl.getContent() ) );
 		descriptionPanel.add( new JScrollPane( documentationTextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER ) );
 		descriptionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ConversationReference.Documentation" ) ) );
 		add( descriptionPanel, c );
@@ -146,41 +146,6 @@ public class ConversationReferencePanel extends JPanel {
 		 */
 		public void actionPerformed( ActionEvent e ) {
 			conversationReferenceDataControl.setIdTarget( conversationsComboBox.getSelectedItem( ).toString( ) );
-		}
-	}
-
-	/**
-	 * Listener for the text area. It checks the value of the area and updates the documentation.
-	 */
-	private class DocumentationTextAreaChangesListener implements DocumentListener {
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.event.DocumentListener#changedUpdate(javax.swing.event.DocumentEvent)
-		 */
-		public void changedUpdate( DocumentEvent arg0 ) {
-		// Do nothing
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.event.DocumentListener#insertUpdate(javax.swing.event.DocumentEvent)
-		 */
-		public void insertUpdate( DocumentEvent arg0 ) {
-			// Set the new content
-			conversationReferenceDataControl.setDocumentation( documentationTextArea.getText( ) );
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.event.DocumentListener#removeUpdate(javax.swing.event.DocumentEvent)
-		 */
-		public void removeUpdate( DocumentEvent arg0 ) {
-			// Set the new content
-			conversationReferenceDataControl.setDocumentation( documentationTextArea.getText( ) );
 		}
 	}
 

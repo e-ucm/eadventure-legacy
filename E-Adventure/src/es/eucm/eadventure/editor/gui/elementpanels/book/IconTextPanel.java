@@ -11,10 +11,13 @@ import javax.swing.JPanel;
 
 public class IconTextPanel extends JPanel{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private ImageIcon icon;
-	
-	private String text;
-	
+		
 	public IconTextPanel (String iconPath, String text, boolean selected){
 		icon = new ImageIcon (iconPath);
 		JLabel labelText = new JLabel (text);

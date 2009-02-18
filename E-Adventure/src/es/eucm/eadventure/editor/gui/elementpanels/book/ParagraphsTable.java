@@ -1,10 +1,8 @@
 package es.eucm.eadventure.editor.gui.elementpanels.book;
 
 import java.awt.Component;
-import java.awt.dnd.DropTarget;
 import java.util.List;
 
-import javax.swing.DropMode;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -18,6 +16,11 @@ import es.eucm.eadventure.editor.control.controllers.book.BookParagraphsListData
 
 public class ParagraphsTable extends JTable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private BookParagraphsListDataControl dataControl;
 	
 	public ParagraphsTable (BookParagraphsListDataControl dControl){
@@ -34,6 +37,11 @@ public class ParagraphsTable extends JTable{
 	
 	
 	private class ParagraphsTableModel extends AbstractTableModel{
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 
 		public int getColumnCount( ) {
 			return 2;
@@ -63,6 +71,11 @@ public class ParagraphsTable extends JTable{
 	}
 	
 	private class ParagraphsTableCellRenderer extends DefaultTableCellRenderer {
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 
 		/*
 		 * (non-Javadoc)

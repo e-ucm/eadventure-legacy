@@ -6,26 +6,17 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 
 import javax.swing.BorderFactory;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
-import javax.swing.SpinnerModel;
-import javax.swing.SpinnerNumberModel;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
+import es.eucm.eadventure.common.data.Named;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.general.CustomActionDataControl;
+import es.eucm.eadventure.editor.control.tools.listeners.NameChangeListener;
 
 /**
  * The panel for the edition of a custom action
@@ -112,8 +103,7 @@ public class CustomActionPanel extends JPanel {
 		JPanel namePanel = new JPanel( );
 		namePanel.setLayout( new GridLayout( ) );
 		nameTextField = new JTextField( customActionDataControl.getName( ) );
-		nameTextField.addActionListener( new TextFieldChangesListener( ) );
-		nameTextField.addFocusListener( new TextFieldChangesListener( ) );
+		nameTextField.getDocument().addDocumentListener( new NameChangeListener( nameTextField, (Named) customActionDataControl.getContent()));
 		namePanel.add( nameTextField );
 		namePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "CustomAction.Name" ) ) );
 		personalizationPanel.add(namePanel, c);
@@ -160,41 +150,4 @@ public class CustomActionPanel extends JPanel {
 
 	}
 	
-	
-	/**
-	 * Listener for the text fields. It checks the values from the fields and updates the data.
-	 */
-	private class TextFieldChangesListener extends FocusAdapter implements ActionListener {
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.FocusAdapter#focusLost(java.awt.event.FocusEvent)
-		 */
-		public void focusLost( FocusEvent e ) {
-			valueChanged( e.getSource( ) );
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-		 */
-		public void actionPerformed( ActionEvent e ) {
-			valueChanged( e.getSource( ) );
-		}
-	}
-
-	/**
-	 * Called when a text field has changed, so that we can set the new values.
-	 * 
-	 * @param source
-	 *            Source of the event
-	 */
-	private void valueChanged( Object source ) {
-		// Check the name field
-		if( source == nameTextField )
-			customActionDataControl.setName( nameTextField.getText( ) );
-	}
-
 }

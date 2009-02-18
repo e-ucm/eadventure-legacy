@@ -18,14 +18,14 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 
+import es.eucm.eadventure.common.data.Documented;
 import es.eucm.eadventure.common.data.chapter.Trajectory;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.NodeDataControl;
+import es.eucm.eadventure.editor.control.tools.listeners.DocumentationChangeListener;
 import es.eucm.eadventure.editor.gui.editdialogs.ConditionsDialog;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 import es.eucm.eadventure.editor.gui.treepanel.TreeNodeControl;
@@ -144,7 +144,7 @@ public class ElementReferencePanel extends JPanel {
 		documentationTextArea = new JTextArea( elementReferenceDataControl.getDocumentation( ), 4, 0 );
 		documentationTextArea.setLineWrap( true );
 		documentationTextArea.setWrapStyleWord( true );
-		documentationTextArea.getDocument( ).addDocumentListener( new DocumentationTextAreaChangesListener( ) );
+		documentationTextArea.getDocument( ).addDocumentListener( new DocumentationChangeListener( documentationTextArea, (Documented) elementReferenceDataControl.getContent()) );
 		documentationPanel.add( new JScrollPane( documentationTextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER ) );
 		if (elementReferenceDataControl.getType() == Controller.ITEM_REFERENCE)
 			documentationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ItemReference.Documentation" ) ) );
@@ -237,41 +237,6 @@ public class ElementReferencePanel extends JPanel {
 		scenePreviewEditionPanel.repaint( );
 		
 
-	}
-
-	/**
-	 * Listener for the text area. It checks the value of the area and updates the documentation.
-	 */
-	private class DocumentationTextAreaChangesListener implements DocumentListener {
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.event.DocumentListener#changedUpdate(javax.swing.event.DocumentEvent)
-		 */
-		public void changedUpdate( DocumentEvent arg0 ) {
-		// Do nothing
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.event.DocumentListener#insertUpdate(javax.swing.event.DocumentEvent)
-		 */
-		public void insertUpdate( DocumentEvent arg0 ) {
-			// Set the new content
-			elementReferenceDataControl.setDocumentation( documentationTextArea.getText( ) );
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.event.DocumentListener#removeUpdate(javax.swing.event.DocumentEvent)
-		 */
-		public void removeUpdate( DocumentEvent arg0 ) {
-			// Set the new content
-			elementReferenceDataControl.setDocumentation( documentationTextArea.getText( ) );
-		}
 	}
 
 	/**
