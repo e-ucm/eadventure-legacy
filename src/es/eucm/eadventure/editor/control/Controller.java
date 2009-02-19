@@ -2973,7 +2973,8 @@ public class Controller {
 		if (!localToolManagers.isEmpty()){
 			localToolManagers.pop();
 			//System.out.println("[ToolManager] Local Tool Manager POPED: Total local tool managers = "+localToolManagers.size());
-		} else
+		} else{
 			//System.out.println("[ToolManager] Local Tool Manager Could NOT be POPED: Total local tool managers = "+localToolManagers.size());
+		}
 	}
 }
