@@ -331,7 +331,8 @@ public class GameStateConversation extends GameState {
      * Select an option when all options are shown in the screen
      */
     private void selectDisplayedOption(){
-    	if( optionSelected < currentNode.getLineCount( ) ) {
+    	if(optionSelected < currentNode.getLineCount( ) ) {
+    		
             if( game.getCharacterCurrentlyTalking( ) != null && game.getCharacterCurrentlyTalking( ).isTalking( ) )
                 game.getCharacterCurrentlyTalking( ).stopTalking( );
 
@@ -404,9 +405,9 @@ public class GameStateConversation extends GameState {
     
     @Override
     public synchronized void mouseClicked( MouseEvent e ) {
-        if( currentNode.getType( ) == ConversationNode.OPTION && RESPONSE_TEXT_Y <= e.getY( ) && RESPONSE_TEXT_Y + currentNode.getLineCount() * RESPONSE_TEXT_HEIGHT + RESPONSE_TEXT_ASCENT >= e.getY()) {
+        if( currentNode.getType( ) == ConversationNode.OPTION && RESPONSE_TEXT_Y <= e.getY( ) && RESPONSE_TEXT_Y + currentNode.getLineCount() * RESPONSE_TEXT_HEIGHT + RESPONSE_TEXT_ASCENT >= e.getY() && !isOptionSelected) {
             optionSelected = ( e.getY( ) - RESPONSE_TEXT_Y ) / RESPONSE_TEXT_HEIGHT;
-           
+            
             // If all the lines are in the screen, select normally
             if( currentNode.getLineCount( ) <= RESPONSE_TEXT_NUMBER_LINES ) {
                 selectDisplayedOption();
@@ -432,8 +433,8 @@ public class GameStateConversation extends GameState {
     }
 
     public void keyPressed( KeyEvent e ) {
-    	if (currentNode.getType( ) == ConversationNode.OPTION){
-       
+    	if (currentNode.getType( ) == ConversationNode.OPTION && !isOptionSelected){
+    		
     	//TODO comprobar hasta que numero puede llegar
     	if (e.getKeyCode()==KeyEvent.VK_1){
     		optionSelected = 0;
