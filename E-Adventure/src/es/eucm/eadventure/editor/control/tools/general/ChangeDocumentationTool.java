@@ -48,14 +48,14 @@ public class ChangeDocumentationTool extends Tool {
 	@Override
 	public boolean redoTool() {
 		documented.setDocumentation( documentation );
-		controller.reloadPanel();
+		controller.updatePanel();
 		return true;
 	}
 
 	@Override
 	public boolean undoTool() {
 		documented.setDocumentation( oldDocumentation );
-		controller.reloadPanel();
+		controller.updatePanel();
 		return true;
 	}
 	
