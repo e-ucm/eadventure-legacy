@@ -22,7 +22,7 @@ public class FunctionalActivateEffect extends FunctionalEffect {
      * @see es.eucm.eadventure.engine.engine.data.effects.Effect#triggerEffect()
      */
     public void triggerEffect( ) {
-        Game.getInstance( ).getFlags( ).activateFlag( ((ActivateEffect)effect).getIdFlag() );
+        Game.getInstance( ).getFlags( ).activateFlag( ((ActivateEffect)effect).getTargetId() );
         Game.getInstance( ).updateDataPendingFromState( false );
     }
 

@@ -2,7 +2,6 @@ package es.eucm.eadventure.editor.control.tools.general.resources;
 
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.tools.Tool;
 import es.eucm.eadventure.editor.data.AssetInformation;
 
@@ -34,11 +33,6 @@ public abstract class ResourcesTool extends Tool{
 	protected AssetInformation[] assetsInformation;
 
 	/**
-	 * Conditions controller.
-	 */
-	protected ConditionsController conditionsController;
-	
-	/**
 	 * indicates if the resource block belongs to a NPC, the player or other element
 	 */
 	protected int resourcesType;
@@ -52,10 +46,9 @@ public abstract class ResourcesTool extends Tool{
 	 * Default constructor
 	 * @throws CloneNotSupportedException 
 	 */
-	public ResourcesTool (Resources resources, AssetInformation[] assetsInformation, ConditionsController conditionsController, int resourcesType, int index) throws CloneNotSupportedException{
+	public ResourcesTool (Resources resources, AssetInformation[] assetsInformation,int resourcesType, int index) throws CloneNotSupportedException{
 		this.resources = resources;
 		this.assetsInformation = assetsInformation;
-		this.conditionsController = conditionsController;
 		this.resourcesType = resourcesType;
 		this.controller = Controller.getInstance();
 		this.index = index;

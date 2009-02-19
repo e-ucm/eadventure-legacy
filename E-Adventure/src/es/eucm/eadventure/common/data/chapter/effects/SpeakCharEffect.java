@@ -1,9 +1,11 @@
 package es.eucm.eadventure.common.data.chapter.effects;
 
+import es.eucm.eadventure.common.data.HasTargetId;
+
 /**
  * An effect that makes a character to speak a line of text.
  */
-public class SpeakCharEffect implements Effect {
+public class SpeakCharEffect implements Effect , HasTargetId{
 
 	/**
 	 * Id of the character who will talk
@@ -37,7 +39,7 @@ public class SpeakCharEffect implements Effect {
 	 * 
 	 * @return String containing the idTarget
 	 */
-	public String getIdTarget( ) {
+	public String getTargetId( ) {
 		return idTarget;
 	}
 
@@ -47,7 +49,7 @@ public class SpeakCharEffect implements Effect {
 	 * @param idTarget
 	 *            New idTarget
 	 */
-	public void setIdTarget( String idTarget ) {
+	public void setTargetId( String idTarget ) {
 		this.idTarget = idTarget;
 	}
 

@@ -1,9 +1,11 @@
 package es.eucm.eadventure.common.data.chapter.effects;
 
+import es.eucm.eadventure.common.data.HasTargetId;
+
 /**
  * An effect that deactivates a flag.
  */
-public class DeactivateEffect implements Effect {
+public class DeactivateEffect implements Effect, HasTargetId {
 
 	/**
 	 * Name of the flag to be activated
@@ -29,7 +31,7 @@ public class DeactivateEffect implements Effect {
 	 * 
 	 * @return String containing the idFlag
 	 */
-	public String getIdFlag( ) {
+	public String getTargetId( ) {
 		return idFlag;
 	}
 
@@ -39,7 +41,7 @@ public class DeactivateEffect implements Effect {
 	 * @param idFlag
 	 *            New idFlag
 	 */
-	public void setIdFlag( String idFlag ) {
+	public void setTargetId( String idFlag ) {
 		this.idFlag = idFlag;
 	}
 	

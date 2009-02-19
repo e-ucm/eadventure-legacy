@@ -66,7 +66,7 @@ public class ExitLookDataControl {
 		return text;
 	}
 
-	
+	//XXX
 	public void setExitText(String text){
 		if (text!=null){
 			exitLook.setExitText( text );
@@ -78,7 +78,7 @@ public class ExitLookDataControl {
 		}
 		Controller.getInstance( ).dataModified( );
 	}
-	
+	//XXX
 	public void editCursorPath( ){
 		String selectedAsset = null;
 		String cursorPath = null;

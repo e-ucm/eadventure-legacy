@@ -1,9 +1,11 @@
 package es.eucm.eadventure.common.data.chapter.effects;
 
+import es.eucm.eadventure.common.data.HasTargetId;
+
 /**
  * An effect that sets a var with a given value
  */
-public class SetValueEffect implements Effect {
+public class SetValueEffect implements Effect, HasTargetId {
 
 	/**
 	 * Name of the var to be activated
@@ -35,7 +37,7 @@ public class SetValueEffect implements Effect {
 	 * 
 	 * @return String containing the idVar
 	 */
-	public String getIdVar( ) {
+	public String getTargetId( ) {
 		return idVar;
 	}
 
@@ -45,7 +47,7 @@ public class SetValueEffect implements Effect {
 	 * @param idVar
 	 *            New idVar
 	 */
-	public void setIdVar( String idVar ) {
+	public void setTargetId( String idVar ) {
 		this.idVar = idVar;
 	}
 

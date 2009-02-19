@@ -1,4 +1,4 @@
-package es.eucm.eadventure.editor.control.controllers.general;
+	package es.eucm.eadventure.editor.control.controllers.general;
 
 import java.util.List;
 
@@ -7,6 +7,8 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
+import es.eucm.eadventure.editor.control.tools.general.ChangeNSDestinyPositionTool;
+import es.eucm.eadventure.editor.control.tools.general.ChangeTargetIdTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class NextSceneDataControl extends DataControl {
@@ -83,7 +85,7 @@ public class NextSceneDataControl extends DataControl {
 	 * @return Target scene id
 	 */
 	public String getNextSceneId( ) {
-		return nextScene.getNextSceneId( );
+		return nextScene.getTargetId( );
 	}
 
 	/**
@@ -101,7 +103,7 @@ public class NextSceneDataControl extends DataControl {
 	 * @return X coordinate of the destiny position
 	 */
 	public int getDestinyPositionX( ) {
-		return nextScene.getDestinyX( );
+		return nextScene.getPositionX( );
 	}
 
 	/**
@@ -110,7 +112,7 @@ public class NextSceneDataControl extends DataControl {
 	 * @return Y coordinate of the destiny position
 	 */
 	public int getDestinyPositionY( ) {
-		return nextScene.getDestinyY( );
+		return nextScene.getPositionY( );
 	}
 
 	/**
@@ -120,13 +122,7 @@ public class NextSceneDataControl extends DataControl {
 	 *            New next scene id
 	 */
 	public void setNextSceneId( String nextSceneId ) {
-		// If the value is different
-		if( !nextSceneId.equals( nextScene.getNextSceneId( ) ) ) {
-			// Set the new scene id, update the tree and modify the data
-			nextScene.setNextSceneId( nextSceneId );
-			controller.updateTree( );
-			controller.dataModified( );
-		}
+		controller.addTool(new ChangeTargetIdTool(nextScene, nextSceneId, true, true));
 	}
 
 	/**
@@ -135,12 +131,10 @@ public class NextSceneDataControl extends DataControl {
 	 */
 	public void toggleDestinyPosition( ) {
 		if( nextScene.hasPlayerPosition( ) )
-			nextScene.setDestinyPosition( Integer.MIN_VALUE, Integer.MIN_VALUE );
+			controller.addTool(new ChangeNSDestinyPositionTool(nextScene, Integer.MIN_VALUE, Integer.MIN_VALUE));
 		else
-			nextScene.setDestinyPosition( 0, 0 );
+			controller.addTool(new ChangeNSDestinyPositionTool(nextScene, 0,0));
 
-		// The data has been modified
-		controller.dataModified( );
 	}
 
 	/**
@@ -152,12 +146,7 @@ public class NextSceneDataControl extends DataControl {
 	 *            Y coordinate of the destiny position
 	 */
 	public void setDestinyPosition( int positionX, int positionY ) {
-		// If the values are different
-		if( positionX != nextScene.getDestinyX( ) || positionY != nextScene.getDestinyY( ) ) {
-			// Set the new destiny position and modify the data
-			nextScene.setDestinyPosition( positionX, positionY );
-			controller.dataModified( );
-		}
+		controller.addTool(new ChangeNSDestinyPositionTool(nextScene, positionX, positionY));
 	}
 
 	@Override
@@ -256,7 +245,7 @@ public class NextSceneDataControl extends DataControl {
 		int count = 0;
 
 		// If the next scene references to the identifier, increase the counter
-		if( nextScene.getNextSceneId( ).equals( id ) )
+		if( nextScene.getTargetId( ).equals( id ) )
 			count++;
 
 		// Add to the counter the values of the effects and posteffects
@@ -268,8 +257,8 @@ public class NextSceneDataControl extends DataControl {
 
 	@Override
 	public void replaceIdentifierReferences( String oldId, String newId ) {
-		if( nextScene.getNextSceneId( ).equals( oldId ) )
-			nextScene.setNextSceneId( newId );
+		if( nextScene.getTargetId( ).equals( oldId ) )
+			nextScene.setTargetId( newId );
 
 		EffectsController.replaceIdentifierReferences( oldId, newId, nextScene.getEffects( ) );
 		EffectsController.replaceIdentifierReferences( oldId, newId, nextScene.getPostEffects( ) );

@@ -25,7 +25,7 @@ public class FunctionalMoveNPCEffect extends FunctionalEffect {
      * @see es.eucm.eadventure.engine.engine.data.effects.Effect#triggerEffect()
      */
     public void triggerEffect( ) {
-        FunctionalNPC npc = Game.getInstance( ).getFunctionalScene( ).getNPC( ((MoveNPCEffect)effect).getIdTarget() );
+        FunctionalNPC npc = Game.getInstance( ).getFunctionalScene( ).getNPC( ((MoveNPCEffect)effect).getTargetId() );
         if( npc != null ) {
             npc.setDestiny( ((MoveNPCEffect)effect).getX(), ((MoveNPCEffect)effect).getY());
             npc.setState( FunctionalNPC.WALK );
@@ -47,7 +47,7 @@ public class FunctionalMoveNPCEffect extends FunctionalEffect {
     public boolean isStillRunning( ) {
         boolean stillRunning = false;
         
-        FunctionalNPC npc = Game.getInstance( ).getFunctionalScene( ).getNPC( ((MoveNPCEffect)effect).getIdTarget() );
+        FunctionalNPC npc = Game.getInstance( ).getFunctionalScene( ).getNPC( ((MoveNPCEffect)effect).getTargetId() );
         if( npc != null ) {
             stillRunning = npc.isWalking();
         }

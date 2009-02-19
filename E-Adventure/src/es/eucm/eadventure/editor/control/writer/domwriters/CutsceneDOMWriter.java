@@ -72,12 +72,12 @@ public class CutsceneDOMWriter {
 				for( NextScene nextScene : cutscene.getNextScenes( ) ) {
 					// Create the next-scene element
 					Element nextSceneElement = doc.createElement( "next-scene" );
-					nextSceneElement.setAttribute( "idTarget", nextScene.getNextSceneId( ) );
+					nextSceneElement.setAttribute( "idTarget", nextScene.getTargetId( ) );
 
 					// Append the destination position (if avalaible)
 					if( nextScene.hasPlayerPosition( ) ) {
-						nextSceneElement.setAttribute( "x", String.valueOf( nextScene.getDestinyX( ) ) );
-						nextSceneElement.setAttribute( "y", String.valueOf( nextScene.getDestinyY( ) ) );
+						nextSceneElement.setAttribute( "x", String.valueOf( nextScene.getPositionX( ) ) );
+						nextSceneElement.setAttribute( "y", String.valueOf( nextScene.getPositionY( ) ) );
 					}
 
 					// Append the conditions (if avalaible)

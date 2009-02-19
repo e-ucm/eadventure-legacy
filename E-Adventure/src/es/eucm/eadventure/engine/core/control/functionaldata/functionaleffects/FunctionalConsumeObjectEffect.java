@@ -21,7 +21,7 @@ public class FunctionalConsumeObjectEffect extends FunctionalEffect {
      * @see es.eucm.eadventure.engine.engine.data.effects.Effect#triggerEffect()
      */
     public void triggerEffect( ) {
-        Game.getInstance( ).consumeItem( ((ConsumeObjectEffect)effect).getIdTarget() );
+        Game.getInstance( ).consumeItem( ((ConsumeObjectEffect)effect).getTargetId() );
     }
 
     /*

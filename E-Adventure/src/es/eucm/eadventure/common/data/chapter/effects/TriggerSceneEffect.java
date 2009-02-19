@@ -1,9 +1,11 @@
 package es.eucm.eadventure.common.data.chapter.effects;
 
+import es.eucm.eadventure.common.data.HasTargetId;
+
 /**
- * An effect that triggers a cutscene
+ * An effect that triggers a scene
  */
-public class TriggerSceneEffect implements Effect {
+public class TriggerSceneEffect implements Effect, HasTargetId {
 
 	/**
 	 * Id of the cutscene to be played
@@ -45,7 +47,7 @@ public class TriggerSceneEffect implements Effect {
 	 * 
 	 * @return String containing the targetSceneId
 	 */
-	public String getTargetSceneId( ) {
+	public String getTargetId( ) {
 		return targetSceneId;
 	}
 
@@ -55,7 +57,7 @@ public class TriggerSceneEffect implements Effect {
 	 * @param targetSceneId
 	 *            New targetSceneId
 	 */
-	public void setTargetSceneId( String targetSceneId ) {
+	public void setTargetId( String targetSceneId ) {
 		this.targetSceneId = targetSceneId;
 	}
 

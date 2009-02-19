@@ -22,7 +22,7 @@ public class FunctionalIncrementVarEffect extends FunctionalEffect {
      * @see es.eucm.eadventure.engine.engine.data.effects.Effect#triggerEffect()
      */
     public void triggerEffect( ) {
-    	Game.getInstance( ).getVars( ).incrementVar(((IncrementVarEffect)effect).getIdVar(), ((IncrementVarEffect)effect).getIncrement() );
+    	Game.getInstance( ).getVars( ).incrementVar(((IncrementVarEffect)effect).getTargetId(), ((IncrementVarEffect)effect).getIncrement() );
         Game.getInstance( ).updateDataPendingFromState( false );
     }
 

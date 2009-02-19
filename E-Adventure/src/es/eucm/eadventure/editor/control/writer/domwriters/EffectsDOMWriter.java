@@ -142,45 +142,45 @@ public class EffectsDOMWriter {
 			case Effect.ACTIVATE:
 				ActivateEffect activateEffect = (ActivateEffect) effect;
 				effectElement = doc.createElement( "activate" );
-				effectElement.setAttribute( "flag", activateEffect.getIdFlag( ) );
+				effectElement.setAttribute( "flag", activateEffect.getTargetId( ) );
 				break;
 			case Effect.DEACTIVATE:
 				DeactivateEffect deactivateEffect = (DeactivateEffect) effect;
 				effectElement = doc.createElement( "deactivate" );
-				effectElement.setAttribute( "flag", deactivateEffect.getIdFlag( ) );
+				effectElement.setAttribute( "flag", deactivateEffect.getTargetId( ) );
 				break;
 			case Effect.SET_VALUE:
 				SetValueEffect setValueEffect = (SetValueEffect) effect;
 				effectElement = doc.createElement( "set-value" );
-				effectElement.setAttribute("var", setValueEffect.getIdVar());
+				effectElement.setAttribute("var", setValueEffect.getTargetId());
 				effectElement.setAttribute("value", Integer.toString( setValueEffect.getValue() ) );
 				break;
 			case Effect.INCREMENT_VAR:
 				IncrementVarEffect incrementVarEffect = (IncrementVarEffect) effect;
 				effectElement = doc.createElement( "increment" );
-				effectElement.setAttribute("var", incrementVarEffect.getIdVar());
+				effectElement.setAttribute("var", incrementVarEffect.getTargetId());
 				effectElement.setAttribute("value", Integer.toString( incrementVarEffect.getIncrement() ) );
 				break;
 			case Effect.DECREMENT_VAR:
 				DecrementVarEffect decrementVarEffect = (DecrementVarEffect) effect;
 				effectElement = doc.createElement( "decrement" );
-				effectElement.setAttribute("var", decrementVarEffect.getIdVar());
+				effectElement.setAttribute("var", decrementVarEffect.getTargetId());
 				effectElement.setAttribute("value", Integer.toString( decrementVarEffect.getDecrement() ) );
 				break;
 			case Effect.MACRO_REF:
 				MacroReferenceEffect macroRefEffect = (MacroReferenceEffect) effect;
 				effectElement = doc.createElement( "macro-ref" );
-				effectElement.setAttribute( "id", macroRefEffect.getMacroId( ) );
+				effectElement.setAttribute( "id", macroRefEffect.getTargetId( ) );
 				break;
 			case Effect.CONSUME_OBJECT:
 				ConsumeObjectEffect consumeObjectEffect = (ConsumeObjectEffect) effect;
 				effectElement = doc.createElement( "consume-object" );
-				effectElement.setAttribute( "idTarget", consumeObjectEffect.getIdTarget( ) );
+				effectElement.setAttribute( "idTarget", consumeObjectEffect.getTargetId( ) );
 				break;
 			case Effect.GENERATE_OBJECT:
 				GenerateObjectEffect generateObjectEffect = (GenerateObjectEffect) effect;
 				effectElement = doc.createElement( "generate-object" );
-				effectElement.setAttribute( "idTarget", generateObjectEffect.getIdTarget( ) );
+				effectElement.setAttribute( "idTarget", generateObjectEffect.getTargetId( ) );
 				break;
 			case Effect.CANCEL_ACTION:
 				effectElement = doc.createElement( "cancel-action" );
@@ -193,13 +193,13 @@ public class EffectsDOMWriter {
 			case Effect.SPEAK_CHAR:
 				SpeakCharEffect speakCharEffect = (SpeakCharEffect) effect;
 				effectElement = doc.createElement( "speak-char" );
-				effectElement.setAttribute( "idTarget", speakCharEffect.getIdTarget( ) );
+				effectElement.setAttribute( "idTarget", speakCharEffect.getTargetId( ) );
 				effectElement.appendChild( doc.createTextNode( speakCharEffect.getLine( ) ) );
 				break;
 			case Effect.TRIGGER_BOOK:
 				TriggerBookEffect triggerBookEffect = (TriggerBookEffect) effect;
 				effectElement = doc.createElement( "trigger-book" );
-				effectElement.setAttribute( "idTarget", triggerBookEffect.getTargetBookId( ) );
+				effectElement.setAttribute( "idTarget", triggerBookEffect.getTargetId( ) );
 				break;
 			case Effect.PLAY_SOUND:
 				PlaySoundEffect playSoundEffect = (PlaySoundEffect) effect;
@@ -224,19 +224,19 @@ public class EffectsDOMWriter {
 			case Effect.MOVE_NPC:
 				MoveNPCEffect moveNPCEffect = (MoveNPCEffect) effect;
 				effectElement = doc.createElement( "move-npc" );
-				effectElement.setAttribute( "idTarget", moveNPCEffect.getIdTarget( ) );
+				effectElement.setAttribute( "idTarget", moveNPCEffect.getTargetId( ) );
 				effectElement.setAttribute( "x", String.valueOf( moveNPCEffect.getX( ) ) );
 				effectElement.setAttribute( "y", String.valueOf( moveNPCEffect.getY( ) ) );
 				break;
 			case Effect.TRIGGER_CONVERSATION:
 				TriggerConversationEffect triggerConversationEffect = (TriggerConversationEffect) effect;
 				effectElement = doc.createElement( "trigger-conversation" );
-				effectElement.setAttribute( "idTarget", triggerConversationEffect.getTargetConversationId( ) );
+				effectElement.setAttribute( "idTarget", triggerConversationEffect.getTargetId( ) );
 				break;
 			case Effect.TRIGGER_CUTSCENE:
 				TriggerCutsceneEffect triggerCutsceneEffect = (TriggerCutsceneEffect) effect;
 				effectElement = doc.createElement( "trigger-cutscene" );
-				effectElement.setAttribute( "idTarget", triggerCutsceneEffect.getTargetCutsceneId( ) );
+				effectElement.setAttribute( "idTarget", triggerCutsceneEffect.getTargetId( ) );
 				break;
 			case Effect.TRIGGER_LAST_SCENE:
 				effectElement = doc.createElement( "trigger-last-scene" );
@@ -244,7 +244,7 @@ public class EffectsDOMWriter {
 			case Effect.TRIGGER_SCENE:
 				TriggerSceneEffect triggerSceneEffect = (TriggerSceneEffect) effect;
 				effectElement = doc.createElement( "trigger-scene" );
-				effectElement.setAttribute( "idTarget", triggerSceneEffect.getTargetSceneId( ) );
+				effectElement.setAttribute( "idTarget", triggerSceneEffect.getTargetId( ) );
 				effectElement.setAttribute( "x", String.valueOf( triggerSceneEffect.getX( ) ) );
 				effectElement.setAttribute( "y", String.valueOf( triggerSceneEffect.getY( ) ) );
 				break;

@@ -1,9 +1,11 @@
 package es.eucm.eadventure.common.data.chapter.effects;
 
+import es.eucm.eadventure.common.data.HasTargetId;
+
 /**
  * An effect that consumes an object in the inventory
  */
-public class ConsumeObjectEffect implements Effect {
+public class ConsumeObjectEffect implements Effect, HasTargetId {
 
 	/**
 	 * Id of the item to be consumed
@@ -29,7 +31,7 @@ public class ConsumeObjectEffect implements Effect {
 	 * 
 	 * @return String containing the idTarget
 	 */
-	public String getIdTarget( ) {
+	public String getTargetId( ) {
 		return idTarget;
 	}
 
@@ -39,7 +41,7 @@ public class ConsumeObjectEffect implements Effect {
 	 * @param idTarget
 	 *            New idTarget
 	 */
-	public void setIdTarget( String idTarget ) {
+	public void setTargetId( String idTarget ) {
 		this.idTarget = idTarget;
 	}
 	

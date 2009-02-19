@@ -8,6 +8,7 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.tools.general.resources.DeleteAssetReferencesInResources;
 import es.eucm.eadventure.editor.control.tools.general.resources.DeleteResourceTool;
 import es.eucm.eadventure.editor.control.tools.general.resources.EditResourceTool;
 import es.eucm.eadventure.editor.control.tools.general.resources.SelectResourceTool;
@@ -169,7 +170,7 @@ public class ResourcesDataControl extends DataControl {
 	 */
 	public void editAssetPath( int index )  {
 		try {
-			controller.addTool(new SelectResourceTool(resources, assetsInformation, conditionsController, resourcesType,index));
+			controller.addTool(new SelectResourceTool(resources, assetsInformation, resourcesType,index));
 		} catch (CloneNotSupportedException e) {
 			e.printStackTrace();
 		}
@@ -184,7 +185,7 @@ public class ResourcesDataControl extends DataControl {
 	 */
 	public void deleteAssetPath( int index ) {
 		try {
-			controller.addTool(new DeleteResourceTool(resources, assetsInformation, conditionsController, resourcesType, index));
+			controller.addTool(new DeleteResourceTool(resources, assetsInformation, index));
 		} catch (CloneNotSupportedException e) {
 			e.printStackTrace();
 		}
@@ -310,12 +311,10 @@ public class ResourcesDataControl extends DataControl {
 
 	@Override
 	public void deleteAssetReferences( String assetPath ) {
-		// Search in the types of the resources
-		for( String type : resources.getAssetTypes( ) ) {
-			if( resources.getAssetPath( type ).equals( assetPath ) ) {
-				resources.deleteAsset( type );
-				controller.dataModified( );
-			}
+		try {
+			controller.addTool(new DeleteAssetReferencesInResources(resources, assetPath));
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -347,7 +346,7 @@ public class ResourcesDataControl extends DataControl {
 	 */
 	public void setAssetPath(String filename, int index) {
 		try {
-			controller.addTool(new EditResourceTool(resources, assetsInformation, conditionsController, resourcesType, index, filename));
+			controller.addTool(new EditResourceTool(resources, assetsInformation, index, filename));
 		} catch (CloneNotSupportedException e) {
 			e.printStackTrace();
 		}

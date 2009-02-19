@@ -21,7 +21,7 @@ public class FunctionalTriggerBookEffect extends FunctionalEffect {
      * @see es.eucm.eadventure.engine.engine.data.effects.Effect#triggerEffect()
      */
     public void triggerEffect( ) {
-        Game.getInstance( ).setBook( ((TriggerBookEffect)effect).getTargetBookId() );
+        Game.getInstance( ).setBook( ((TriggerBookEffect)effect).getTargetId() );
         Game.getInstance( ).setState( Game.STATE_BOOK );
     }
 

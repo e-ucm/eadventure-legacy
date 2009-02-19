@@ -8,6 +8,7 @@ import java.awt.Window;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -34,6 +35,7 @@ import es.eucm.eadventure.editor.control.config.ConfigData;
 import es.eucm.eadventure.editor.control.config.ProjectConfigData;
 import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
+import es.eucm.eadventure.editor.control.controllers.ToolManager;
 import es.eucm.eadventure.editor.control.controllers.VarFlagsController;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfilesDataControl;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfilesDataControl;
@@ -483,19 +485,22 @@ public class Controller {
 		return isTempFile;
 	}*/
 	
-	private List<Tool> undoList;
-
-	private List<Tool> redoList;
+	/**
+	 * Global tool manager. For undo/redo in main window (real changes in the data structure)
+	 */
+	private ToolManager globalToolManager;
 	
-	private Tool lastUndo = null;
-
+	/**
+	 * Local tool managers. For undo/redo in dialogs (This will only reflect temporal changes, not real changes in data)
+	 */
+	private Stack<ToolManager> localToolManagers;
 	
 	/**
 	 * Void and private constructor.
 	 */
 	private Controller( ) {
-		undoList = new ArrayList<Tool>();
-		redoList = new ArrayList<Tool>();
+		globalToolManager = new ToolManager(true);
+		localToolManagers = new Stack<ToolManager>();
 	}
 	
 	private String getCurrentExportSaveFolder(){
@@ -779,56 +784,7 @@ public class Controller {
 		}
 	}
 	
-	public boolean addTool(Tool tool) {
-		boolean done = tool.doTool();
-		if (done) {
-			if (undoList.size() == 0)
-				undoList.add(tool);
-			else {
-				Tool last = undoList.get(undoList.size() - 1);
-				if (last.getTimeStamp() < tool.getTimeStamp() - 1500 || !last.combine(tool)) 
-					undoList.add(tool);
-			}
-			redoList.clear();
-			dataModified( );
-			if (!tool.canUndo()) {
-				undoList.clear();
-			}
-		}
-		return done;
-	}
-	
-	public boolean undoTool() {
-		if (undoList.size() > 0) {
-			Tool temp = undoList.remove(undoList.size() - 1);
-			boolean undone = temp.undoTool();
-			if (undone) {
-				lastUndo = temp;
-				if (temp.canRedo())
-					redoList.add(temp);
-				else
-					redoList.clear();
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	public boolean redoTool() {
-		if (redoList.size() > 0) {
-			Tool temp = redoList.get(redoList.size() - 1);
-			redoList.remove(temp);
-			boolean done = temp.redoTool();
-			if (done) {
-				undoList.add(temp);
-				if (!temp.canUndo()) {
-					undoList.clear();
-				}
-			}
-			return done;
-		}
-		return false;
-	}
+
 
 	/**
 	 * Returns whether the item references must be displayed by default.
@@ -2974,5 +2930,50 @@ public class Controller {
 		if( optionSelected != -1 && this.adventureData.getGraphicConfig( ) != optionSelected ) {
 			adventureData.setGraphicConfig(optionSelected);
 		}
+	}
+
+	// METHODS TO MANAGE UNDO/REDO
+	
+	public void addTool(Tool tool) {
+		if (localToolManagers.isEmpty()){
+			globalToolManager.addTool(tool);
+			 //System.out.println("[ToolManager] Global Tool Manager: Tool ADDED");
+		}else{
+			localToolManagers.peek().addTool(tool);
+			//System.out.println("[ToolManager] Local Tool Manager: Tool ADDED");
+		}
+	}
+
+	public void undoTool() {
+		if (localToolManagers.isEmpty()){
+			globalToolManager.undoTool();
+			//System.out.println("[ToolManager] Global Tool Manager: Undo Performed");
+		}else {
+			localToolManagers.peek().undoTool();
+			//System.out.println("[ToolManager] Local Tool Manager: Undo Performed");
+		}
+	}
+
+	public void redoTool() {
+		if (localToolManagers.isEmpty()){
+			globalToolManager.redoTool();
+			//System.out.println("[ToolManager] Global Tool Manager: Redo Performed");
+		}else{
+			localToolManagers.peek().redoTool();
+			//System.out.println("[ToolManager] Local Tool Manager: Redo Performed");
+		}
+	}
+	
+	public void pushLocalToolManager(){
+		localToolManagers.push(new ToolManager(false));
+		//System.out.println("[ToolManager] Local Tool Manager PUSHED: Total local tool managers = "+localToolManagers.size());
+	}
+	
+	public void popLocalToolManager(){
+		if (!localToolManagers.isEmpty()){
+			localToolManagers.pop();
+			//System.out.println("[ToolManager] Local Tool Manager POPED: Total local tool managers = "+localToolManagers.size());
+		} else
+			//System.out.println("[ToolManager] Local Tool Manager Could NOT be POPED: Total local tool managers = "+localToolManagers.size());
 	}
 }

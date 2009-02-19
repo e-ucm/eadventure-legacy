@@ -1,9 +1,11 @@
 package es.eucm.eadventure.common.data.chapter.effects;
 
+import es.eucm.eadventure.common.data.HasTargetId;
+
 /**
  * An effect that makes a character to walk to a given position.
  */
-public class MoveNPCEffect implements Effect {
+public class MoveNPCEffect implements Effect, HasTargetId {
 
 	/**
 	 * Id of the npc who will walk
@@ -42,7 +44,7 @@ public class MoveNPCEffect implements Effect {
 	 * 
 	 * @return Id target
 	 */
-	public String getIdTarget( ) {
+	public String getTargetId( ) {
 		return idTarget;
 	}
 
@@ -52,7 +54,7 @@ public class MoveNPCEffect implements Effect {
 	 * @param idTarget
 	 *            New id target
 	 */
-	public void setIdTarget( String idTarget ) {
+	public void setTargetId( String idTarget ) {
 		this.idTarget = idTarget;
 	}
 

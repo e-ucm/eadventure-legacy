@@ -1,7 +1,6 @@
 package es.eucm.eadventure.editor.control.tools.general.resources;
 
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
-import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.data.AssetInformation;
 
 /**
@@ -13,8 +12,8 @@ public class DeleteResourceTool extends ResourcesTool{
 
 	public DeleteResourceTool(Resources resources,
 			AssetInformation[] assetsInformation,
-			ConditionsController conditionsController, int resourcesType, int index) throws CloneNotSupportedException {
-		super(resources, assetsInformation, conditionsController, resourcesType, index);
+			int index) throws CloneNotSupportedException {
+		super(resources, assetsInformation,  -1, index);
 	}
 
 	@Override

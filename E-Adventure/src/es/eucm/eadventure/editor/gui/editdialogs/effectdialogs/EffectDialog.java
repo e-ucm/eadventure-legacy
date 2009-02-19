@@ -1,7 +1,6 @@
 package es.eucm.eadventure.editor.gui.editdialogs.effectdialogs;
 
 import java.awt.BorderLayout;
-import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,7 +10,6 @@ import java.util.HashMap;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JPanel;
 
 import es.eucm.eadventure.common.data.chapter.effects.Effect;
@@ -19,8 +17,9 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.control.controllers.SingleEffectController;
+import es.eucm.eadventure.editor.gui.editdialogs.ToolManagableDialog;
 
-public abstract class EffectDialog extends JDialog {
+public abstract class EffectDialog extends ToolManagableDialog {
 
 	/**
 	 * Required.
@@ -46,7 +45,7 @@ public abstract class EffectDialog extends JDialog {
 	public EffectDialog( String title ) {
 
 		// Call the super method
-		super( Controller.getInstance( ).peekWindow( ), title, Dialog.ModalityType.APPLICATION_MODAL );
+		super( Controller.getInstance( ).peekWindow( ), title );//, Dialog.ModalityType.APPLICATION_MODAL );
 
 		// Set the controller and the properties
 		controller = Controller.getInstance( );

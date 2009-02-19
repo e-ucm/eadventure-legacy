@@ -1,13 +1,11 @@
 package es.eucm.eadventure.editor.gui.editdialogs;
 
-import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Toolkit;
 
 import javax.swing.BorderFactory;
-import javax.swing.JDialog;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
@@ -20,7 +18,7 @@ import es.eucm.eadventure.editor.gui.otherpanels.positionpanel.PositionPanel;
  * 
  * @author Bruno Torijano Bueno
  */
-public class PlayerPositionDialog extends JDialog {
+public class PlayerPositionDialog extends ToolManagableDialog {
 
 	/**
 	 * Required.
@@ -45,7 +43,7 @@ public class PlayerPositionDialog extends JDialog {
 	public PlayerPositionDialog( String sceneId, int positionX, int positionY ) {
 
 		// Call the super method
-		super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "PlayerPosition.Title" ), Dialog.ModalityType.APPLICATION_MODAL );
+		super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "PlayerPosition.Title" ));//, Dialog.ModalityType.APPLICATION_MODAL );
 
 		// Get the path to the scene image and the player
 		String scenePath = Controller.getInstance( ).getSceneImagePath( sceneId );
@@ -59,9 +57,9 @@ public class PlayerPositionDialog extends JDialog {
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1;
 		c.weighty = 1;
-		playerPositionPanel = new PositionPanel( new ElementImagePanel( scenePath, playerPath ) );
+		playerPositionPanel = new PositionPanel(new ElementImagePanel( scenePath, playerPath ),positionX, positionY );
 		playerPositionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "PlayerPosition.PositionPanel" ) ) );
-		playerPositionPanel.setPosition( positionX, positionY );
+		//playerPositionPanel.setPosition( positionX, positionY );
 		add( playerPositionPanel, c );
 
 		// Set the dialog
@@ -89,4 +87,5 @@ public class PlayerPositionDialog extends JDialog {
 	public int getPositionY( ) {
 		return playerPositionPanel.getPositionY( );
 	}
+
 }

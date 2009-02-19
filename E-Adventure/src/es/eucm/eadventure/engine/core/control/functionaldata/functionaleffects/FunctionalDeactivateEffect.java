@@ -20,7 +20,7 @@ public class FunctionalDeactivateEffect extends FunctionalEffect {
      * @see es.eucm.eadventure.engine.engine.data.effects.Effect#triggerEffect()
      */
     public void triggerEffect( ) {
-        Game.getInstance( ).getFlags( ).deactivateFlag( ((DeactivateEffect)effect).getIdFlag() );
+        Game.getInstance( ).getFlags( ).deactivateFlag( ((DeactivateEffect)effect).getTargetId() );
         Game.getInstance( ).updateDataPendingFromState( false );
     }
 

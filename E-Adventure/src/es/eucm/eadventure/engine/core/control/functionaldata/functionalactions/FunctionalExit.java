@@ -45,7 +45,7 @@ public class FunctionalExit extends FunctionalAction {
         }
 		finished = true;
 		
-		DebugLog.player("Exit scene to: " + (nextScene != null ? nextScene.getNextSceneId() : "none") );
+		DebugLog.player("Exit scene to: " + (nextScene != null ? nextScene.getTargetId() : "none") );
 	}
 
 	@Override

@@ -139,35 +139,35 @@ public class EffectsController {
 		switch( effect.getType( ) ) {
 			case Effect.ACTIVATE:
 				ActivateEffect activateEffect = (ActivateEffect) effect;
-				effectInfo = TextConstants.getText( "Effect.ActivateInfo", activateEffect.getIdFlag( ) );
+				effectInfo = TextConstants.getText( "Effect.ActivateInfo", activateEffect.getTargetId( ) );
 				break;
 			case Effect.DEACTIVATE:
 				DeactivateEffect deactivateEffect = (DeactivateEffect) effect;
-				effectInfo = TextConstants.getText( "Effect.DeactivateInfo", deactivateEffect.getIdFlag( ) );
+				effectInfo = TextConstants.getText( "Effect.DeactivateInfo", deactivateEffect.getTargetId( ) );
 				break;
 			case Effect.SET_VALUE:
 				SetValueEffect setValueEffect = (SetValueEffect) effect;
-				effectInfo = TextConstants.getText( "Effect.SetValueInfo", new String[]{setValueEffect.getIdVar( ), Integer.toString( setValueEffect.getValue() )} );
+				effectInfo = TextConstants.getText( "Effect.SetValueInfo", new String[]{setValueEffect.getTargetId( ), Integer.toString( setValueEffect.getValue() )} );
 				break;				
 			case Effect.INCREMENT_VAR:
 				IncrementVarEffect incrementEffect = (IncrementVarEffect) effect;
-				effectInfo = TextConstants.getText( "Effect.IncrementVarInfo", new String[]{incrementEffect.getIdVar( ), Integer.toString( incrementEffect.getIncrement() )} );
+				effectInfo = TextConstants.getText( "Effect.IncrementVarInfo", new String[]{incrementEffect.getTargetId( ), Integer.toString( incrementEffect.getIncrement() )} );
 				break;
 			case Effect.DECREMENT_VAR:
 				DecrementVarEffect decrementEffect = (DecrementVarEffect) effect;
-				effectInfo = TextConstants.getText( "Effect.DecrementVarInfo", new String[]{decrementEffect.getIdVar( ), Integer.toString( decrementEffect.getDecrement() )} );
+				effectInfo = TextConstants.getText( "Effect.DecrementVarInfo", new String[]{decrementEffect.getTargetId( ), Integer.toString( decrementEffect.getDecrement() )} );
 				break;
 			case Effect.MACRO_REF:
 				MacroReferenceEffect macroReferenceEffect = (MacroReferenceEffect) effect;
-				effectInfo = TextConstants.getText( "Effect.MacroRefInfo", macroReferenceEffect.getMacroId( ) );
+				effectInfo = TextConstants.getText( "Effect.MacroRefInfo", macroReferenceEffect.getTargetId( ) );
 				break;				
 			case Effect.CONSUME_OBJECT:
 				ConsumeObjectEffect consumeObjectEffect = (ConsumeObjectEffect) effect;
-				effectInfo = TextConstants.getText( "Effect.ConsumeObjectInfo", consumeObjectEffect.getIdTarget( ) );
+				effectInfo = TextConstants.getText( "Effect.ConsumeObjectInfo", consumeObjectEffect.getTargetId( ) );
 				break;
 			case Effect.GENERATE_OBJECT:
 				GenerateObjectEffect generateObjectEffect = (GenerateObjectEffect) effect;
-				effectInfo = TextConstants.getText( "Effect.GenerateObjectInfo", generateObjectEffect.getIdTarget( ) );
+				effectInfo = TextConstants.getText( "Effect.GenerateObjectInfo", generateObjectEffect.getTargetId( ) );
 				break;
 			case Effect.CANCEL_ACTION:
 				effectInfo = TextConstants.getText( "Effect.CancelActionInfo" );
@@ -178,11 +178,11 @@ public class EffectsController {
 				break;
 			case Effect.SPEAK_CHAR:
 				SpeakCharEffect speakCharEffect = (SpeakCharEffect) effect;
-				effectInfo = TextConstants.getText( "Effect.SpeakCharacterInfo", new String[] { speakCharEffect.getIdTarget( ), speakCharEffect.getLine( ) } );
+				effectInfo = TextConstants.getText( "Effect.SpeakCharacterInfo", new String[] { speakCharEffect.getTargetId( ), speakCharEffect.getLine( ) } );
 				break;
 			case Effect.TRIGGER_BOOK:
 				TriggerBookEffect triggerBookEffect = (TriggerBookEffect) effect;
-				effectInfo = TextConstants.getText( "Effect.TriggerBookInfo", triggerBookEffect.getTargetBookId( ) );
+				effectInfo = TextConstants.getText( "Effect.TriggerBookInfo", triggerBookEffect.getTargetId( ) );
 				break;
 			case Effect.PLAY_SOUND:
 				PlaySoundEffect playSoundEffect = (PlaySoundEffect) effect;
@@ -198,19 +198,19 @@ public class EffectsController {
 				break;
 			case Effect.MOVE_NPC:
 				MoveNPCEffect moveNPCEffect = (MoveNPCEffect) effect;
-				effectInfo = TextConstants.getText( "Effect.MoveCharacterInfo", new String[] { moveNPCEffect.getIdTarget( ), String.valueOf( moveNPCEffect.getX( ) ), String.valueOf( moveNPCEffect.getY( ) ) } );
+				effectInfo = TextConstants.getText( "Effect.MoveCharacterInfo", new String[] { moveNPCEffect.getTargetId( ), String.valueOf( moveNPCEffect.getX( ) ), String.valueOf( moveNPCEffect.getY( ) ) } );
 				break;
 			case Effect.TRIGGER_CONVERSATION:
 				TriggerConversationEffect triggerConversationEffect = (TriggerConversationEffect) effect;
-				effectInfo = TextConstants.getText( "Effect.TriggerConversationInfo", triggerConversationEffect.getTargetConversationId( ) );
+				effectInfo = TextConstants.getText( "Effect.TriggerConversationInfo", triggerConversationEffect.getTargetId( ) );
 				break;
 			case Effect.TRIGGER_CUTSCENE:
 				TriggerCutsceneEffect triggerCutsceneEffect = (TriggerCutsceneEffect) effect;
-				effectInfo = TextConstants.getText( "Effect.TriggerCutsceneInfo", triggerCutsceneEffect.getTargetCutsceneId( ) );
+				effectInfo = TextConstants.getText( "Effect.TriggerCutsceneInfo", triggerCutsceneEffect.getTargetId( ) );
 				break;
 			case Effect.TRIGGER_SCENE:
 				TriggerSceneEffect triggerSceneEffect = (TriggerSceneEffect) effect;
-				effectInfo = TextConstants.getText( "Effect.TriggerSceneInfo", triggerSceneEffect.getTargetSceneId( ) );
+				effectInfo = TextConstants.getText( "Effect.TriggerSceneInfo", triggerSceneEffect.getTargetId( ) );
 				break;
 			case Effect.TRIGGER_LAST_SCENE:
 				effectInfo = TextConstants.getText( "Effect.TriggerLastSceneInfo");
@@ -402,27 +402,27 @@ public class EffectsController {
 
 		if( deletedEffect.getType( ) == Effect.ACTIVATE ) {
 			ActivateEffect activateEffect = (ActivateEffect) deletedEffect;
-			controller.getVarFlagSummary( ).deleteFlagReference( activateEffect.getIdFlag( ) );
+			controller.getVarFlagSummary( ).deleteFlagReference( activateEffect.getTargetId( ) );
 		}
 
 		else if( deletedEffect.getType( ) == Effect.DEACTIVATE ) {
 			DeactivateEffect deactivateEffect = (DeactivateEffect) deletedEffect;
-			controller.getVarFlagSummary( ).deleteFlagReference( deactivateEffect.getIdFlag( ) );
+			controller.getVarFlagSummary( ).deleteFlagReference( deactivateEffect.getTargetId( ) );
 		}
 		
 		else if( deletedEffect.getType( ) == Effect.SET_VALUE ) {
 			SetValueEffect setValueEffect = (SetValueEffect) deletedEffect;
-			controller.getVarFlagSummary( ).deleteFlagReference( setValueEffect.getIdVar( ) );
+			controller.getVarFlagSummary( ).deleteFlagReference( setValueEffect.getTargetId( ) );
 		}
 		
 		else if( deletedEffect.getType( ) == Effect.INCREMENT_VAR ) {
 			IncrementVarEffect setValueEffect = (IncrementVarEffect) deletedEffect;
-			controller.getVarFlagSummary( ).deleteFlagReference( setValueEffect.getIdVar( ) );
+			controller.getVarFlagSummary( ).deleteFlagReference( setValueEffect.getTargetId( ) );
 		}
 		
 		else if( deletedEffect.getType( ) == Effect.DECREMENT_VAR ) {
 			DecrementVarEffect setValueEffect = (DecrementVarEffect) deletedEffect;
-			controller.getVarFlagSummary( ).deleteFlagReference( setValueEffect.getIdVar( ) );
+			controller.getVarFlagSummary( ).deleteFlagReference( setValueEffect.getTargetId( ) );
 		}
 		
 		else if( deletedEffect.getType( ) == Effect.RANDOM_EFFECT ) {
@@ -430,20 +430,20 @@ public class EffectsController {
 			if (randomEffect.getNegativeEffect( )!=null){
 				if ( randomEffect.getNegativeEffect( ).getType( ) == Effect.ACTIVATE ){
 					ActivateEffect activateEffect = (ActivateEffect) randomEffect.getNegativeEffect( );
-					controller.getVarFlagSummary( ).deleteFlagReference( activateEffect.getIdFlag( ) );
+					controller.getVarFlagSummary( ).deleteFlagReference( activateEffect.getTargetId( ) );
 				} else if ( randomEffect.getNegativeEffect( ).getType( ) == Effect.DEACTIVATE ){
 					DeactivateEffect deactivateEffect = (DeactivateEffect) randomEffect.getNegativeEffect( );
-					controller.getVarFlagSummary( ).deleteFlagReference( deactivateEffect.getIdFlag( ) );
+					controller.getVarFlagSummary( ).deleteFlagReference( deactivateEffect.getTargetId( ) );
 				}
 			}
 			
 			if (randomEffect.getPositiveEffect( )!=null){
 				if ( randomEffect.getPositiveEffect( ).getType( ) == Effect.ACTIVATE ){
 					ActivateEffect activateEffect = (ActivateEffect) randomEffect.getPositiveEffect( );
-					controller.getVarFlagSummary( ).deleteFlagReference( activateEffect.getIdFlag( ) );
+					controller.getVarFlagSummary( ).deleteFlagReference( activateEffect.getTargetId( ) );
 				} else if ( randomEffect.getPositiveEffect( ).getType( ) == Effect.DEACTIVATE ){
 					DeactivateEffect deactivateEffect = (DeactivateEffect) randomEffect.getPositiveEffect( );
-					controller.getVarFlagSummary( ).deleteFlagReference( deactivateEffect.getIdFlag( ) );
+					controller.getVarFlagSummary( ).deleteFlagReference( deactivateEffect.getTargetId( ) );
 				}
 			}
 
@@ -508,38 +508,38 @@ public class EffectsController {
 		switch( effectType ) {
 			case Effect.ACTIVATE:
 				ActivateEffect activateEffect = (ActivateEffect) effect;
-				currentValues.put( EFFECT_PROPERTY_TARGET, activateEffect.getIdFlag( ) );
+				currentValues.put( EFFECT_PROPERTY_TARGET, activateEffect.getTargetId( ) );
 				break;
 			case Effect.DEACTIVATE:
 				DeactivateEffect deactivateEffect = (DeactivateEffect) effect;
-				currentValues.put( EFFECT_PROPERTY_TARGET, deactivateEffect.getIdFlag( ) );
+				currentValues.put( EFFECT_PROPERTY_TARGET, deactivateEffect.getTargetId( ) );
 				break;
 			case Effect.SET_VALUE:
 				SetValueEffect setValueEffect = (SetValueEffect) effect;
-				currentValues.put( EFFECT_PROPERTY_TARGET, setValueEffect.getIdVar( ) );
+				currentValues.put( EFFECT_PROPERTY_TARGET, setValueEffect.getTargetId( ) );
 				currentValues.put( EFFECT_PROPERTY_VALUE, Integer.toString( setValueEffect.getValue() ) );
 				break;
 			case Effect.INCREMENT_VAR:
 				IncrementVarEffect incrementVarEffect = (IncrementVarEffect) effect;
-				currentValues.put( EFFECT_PROPERTY_TARGET, incrementVarEffect.getIdVar( ) );
+				currentValues.put( EFFECT_PROPERTY_TARGET, incrementVarEffect.getTargetId( ) );
 				currentValues.put( EFFECT_PROPERTY_VALUE, Integer.toString( incrementVarEffect.getIncrement() ) );
 				break;
 			case Effect.DECREMENT_VAR:
 				DecrementVarEffect decrementVarEffect = (DecrementVarEffect) effect;
-				currentValues.put( EFFECT_PROPERTY_TARGET, decrementVarEffect.getIdVar( ) );
+				currentValues.put( EFFECT_PROPERTY_TARGET, decrementVarEffect.getTargetId( ) );
 				currentValues.put( EFFECT_PROPERTY_VALUE, Integer.toString( decrementVarEffect.getDecrement() ) );
 				break;
 			case Effect.MACRO_REF:
 				MacroReferenceEffect macroRefEffect = (MacroReferenceEffect) effect;
-				currentValues.put( EFFECT_PROPERTY_TARGET, macroRefEffect.getMacroId() );
+				currentValues.put( EFFECT_PROPERTY_TARGET, macroRefEffect.getTargetId() );
 				break;
 			case Effect.CONSUME_OBJECT:
 				ConsumeObjectEffect consumeObjectEffect = (ConsumeObjectEffect) effect;
-				currentValues.put( EFFECT_PROPERTY_TARGET, consumeObjectEffect.getIdTarget( ) );
+				currentValues.put( EFFECT_PROPERTY_TARGET, consumeObjectEffect.getTargetId( ) );
 				break;
 			case Effect.GENERATE_OBJECT:
 				GenerateObjectEffect generateObjectEffect = (GenerateObjectEffect) effect;
-				currentValues.put( EFFECT_PROPERTY_TARGET, generateObjectEffect.getIdTarget( ) );
+				currentValues.put( EFFECT_PROPERTY_TARGET, generateObjectEffect.getTargetId( ) );
 				break;
 			case Effect.SPEAK_PLAYER:
 				SpeakPlayerEffect speakPlayerEffect = (SpeakPlayerEffect) effect;
@@ -547,12 +547,12 @@ public class EffectsController {
 				break;
 			case Effect.SPEAK_CHAR:
 				SpeakCharEffect speakCharEffect = (SpeakCharEffect) effect;
-				currentValues.put( EFFECT_PROPERTY_TARGET, speakCharEffect.getIdTarget( ) );
+				currentValues.put( EFFECT_PROPERTY_TARGET, speakCharEffect.getTargetId( ) );
 				currentValues.put( EFFECT_PROPERTY_TEXT, speakCharEffect.getLine( ) );
 				break;
 			case Effect.TRIGGER_BOOK:
 				TriggerBookEffect triggerBookEffect = (TriggerBookEffect) effect;
-				currentValues.put( EFFECT_PROPERTY_TARGET, triggerBookEffect.getTargetBookId( ) );
+				currentValues.put( EFFECT_PROPERTY_TARGET, triggerBookEffect.getTargetId( ) );
 				break;
 			case Effect.PLAY_SOUND:
 				PlaySoundEffect playSoundEffect = (PlaySoundEffect) effect;
@@ -572,21 +572,21 @@ public class EffectsController {
 				break;
 			case Effect.MOVE_NPC:
 				MoveNPCEffect moveNPCEffect = (MoveNPCEffect) effect;
-				currentValues.put( EFFECT_PROPERTY_TARGET, moveNPCEffect.getIdTarget( ) );
+				currentValues.put( EFFECT_PROPERTY_TARGET, moveNPCEffect.getTargetId( ) );
 				currentValues.put( EFFECT_PROPERTY_X, String.valueOf( moveNPCEffect.getX( ) ) );
 				currentValues.put( EFFECT_PROPERTY_Y, String.valueOf( moveNPCEffect.getY( ) ) );
 				break;
 			case Effect.TRIGGER_CONVERSATION:
 				TriggerConversationEffect triggerConversationEffect = (TriggerConversationEffect) effect;
-				currentValues.put( EFFECT_PROPERTY_TARGET, triggerConversationEffect.getTargetConversationId( ) );
+				currentValues.put( EFFECT_PROPERTY_TARGET, triggerConversationEffect.getTargetId( ) );
 				break;
 			case Effect.TRIGGER_CUTSCENE:
 				TriggerCutsceneEffect triggerCutsceneEffect = (TriggerCutsceneEffect) effect;
-				currentValues.put( EFFECT_PROPERTY_TARGET, triggerCutsceneEffect.getTargetCutsceneId( ) );
+				currentValues.put( EFFECT_PROPERTY_TARGET, triggerCutsceneEffect.getTargetId( ) );
 				break;
 			case Effect.TRIGGER_SCENE:
 				TriggerSceneEffect triggerSceneEffect = (TriggerSceneEffect) effect;
-				currentValues.put( EFFECT_PROPERTY_TARGET, triggerSceneEffect.getTargetSceneId( ) );
+				currentValues.put( EFFECT_PROPERTY_TARGET, triggerSceneEffect.getTargetId( ) );
 				currentValues.put( EFFECT_PROPERTY_X, String.valueOf( triggerSceneEffect.getX( ) ) );
 				currentValues.put( EFFECT_PROPERTY_Y, String.valueOf( triggerSceneEffect.getY( ) ) );
 				break;
@@ -617,43 +617,43 @@ public class EffectsController {
 			switch( effectType ) {
 				case Effect.ACTIVATE:
 					ActivateEffect activateEffect = (ActivateEffect) effect;
-					activateEffect.setIdFlag( newProperties.get( EFFECT_PROPERTY_TARGET ) );
+					activateEffect.setTargetId( newProperties.get( EFFECT_PROPERTY_TARGET ) );
 					Controller.getInstance( ).updateFlagSummary( );
 					break;
 				case Effect.DEACTIVATE:
 					DeactivateEffect deactivateEffect = (DeactivateEffect) effect;
-					deactivateEffect.setIdFlag( newProperties.get( EFFECT_PROPERTY_TARGET ) );
+					deactivateEffect.setTargetId( newProperties.get( EFFECT_PROPERTY_TARGET ) );
 					Controller.getInstance( ).updateFlagSummary( );
 					break;
 				case Effect.SET_VALUE:
 					SetValueEffect setValueEffect = (SetValueEffect) effect;
-					setValueEffect.setIdVar( newProperties.get( EFFECT_PROPERTY_TARGET ) );
+					setValueEffect.setTargetId( newProperties.get( EFFECT_PROPERTY_TARGET ) );
 					setValueEffect.setValue( Integer.parseInt( newProperties.get( EFFECT_PROPERTY_VALUE ) ) );
 					Controller.getInstance( ).updateFlagSummary( );
 					break;
 				case Effect.INCREMENT_VAR:
 					IncrementVarEffect incrementVarEffect = (IncrementVarEffect) effect;
-					incrementVarEffect.setIdVar( newProperties.get( EFFECT_PROPERTY_TARGET ) );
+					incrementVarEffect.setTargetId( newProperties.get( EFFECT_PROPERTY_TARGET ) );
 					incrementVarEffect.setIncrement( Integer.parseInt( newProperties.get( EFFECT_PROPERTY_VALUE ) ) );
 					Controller.getInstance( ).updateFlagSummary( );
 					break;
 				case Effect.DECREMENT_VAR:
 					DecrementVarEffect decrementVarEffect = (DecrementVarEffect) effect;
-					decrementVarEffect.setIdVar( newProperties.get( EFFECT_PROPERTY_TARGET ) );
+					decrementVarEffect.setTargetId( newProperties.get( EFFECT_PROPERTY_TARGET ) );
 					decrementVarEffect.setDecrement( Integer.parseInt( newProperties.get( EFFECT_PROPERTY_VALUE ) ) );
 					Controller.getInstance( ).updateFlagSummary( );
 					break;
 				case Effect.MACRO_REF:
 					MacroReferenceEffect macroEffect = (MacroReferenceEffect) effect;
-					macroEffect.setMacroId( newProperties.get( EFFECT_PROPERTY_TARGET ) );
+					macroEffect.setTargetId( newProperties.get( EFFECT_PROPERTY_TARGET ) );
 					break;
 				case Effect.CONSUME_OBJECT:
 					ConsumeObjectEffect consumeObjectEffect = (ConsumeObjectEffect) effect;
-					consumeObjectEffect.setIdTarget( newProperties.get( EFFECT_PROPERTY_TARGET ) );
+					consumeObjectEffect.setTargetId( newProperties.get( EFFECT_PROPERTY_TARGET ) );
 					break;
 				case Effect.GENERATE_OBJECT:
 					GenerateObjectEffect generateObjectEffect = (GenerateObjectEffect) effect;
-					generateObjectEffect.setIdTarget( newProperties.get( EFFECT_PROPERTY_TARGET ) );
+					generateObjectEffect.setTargetId( newProperties.get( EFFECT_PROPERTY_TARGET ) );
 					break;
 				case Effect.SPEAK_PLAYER:
 					SpeakPlayerEffect speakPlayerEffect = (SpeakPlayerEffect) effect;
@@ -661,12 +661,12 @@ public class EffectsController {
 					break;
 				case Effect.SPEAK_CHAR:
 					SpeakCharEffect speakCharEffect = (SpeakCharEffect) effect;
-					speakCharEffect.setIdTarget( newProperties.get( EFFECT_PROPERTY_TARGET ) );
+					speakCharEffect.setTargetId( newProperties.get( EFFECT_PROPERTY_TARGET ) );
 					speakCharEffect.setLine( newProperties.get( EFFECT_PROPERTY_TEXT ) );
 					break;
 				case Effect.TRIGGER_BOOK:
 					TriggerBookEffect triggerBookEffect = (TriggerBookEffect) effect;
-					triggerBookEffect.setTargetBookId( newProperties.get( EFFECT_PROPERTY_TARGET ) );
+					triggerBookEffect.setTargetId( newProperties.get( EFFECT_PROPERTY_TARGET ) );
 					break;
 				case Effect.PLAY_SOUND:
 					PlaySoundEffect playSoundEffect = (PlaySoundEffect) effect;
@@ -684,20 +684,20 @@ public class EffectsController {
 					break;
 				case Effect.MOVE_NPC:
 					MoveNPCEffect moveNPCEffect = (MoveNPCEffect) effect;
-					moveNPCEffect.setIdTarget( newProperties.get( EFFECT_PROPERTY_TARGET ) );
+					moveNPCEffect.setTargetId( newProperties.get( EFFECT_PROPERTY_TARGET ) );
 					moveNPCEffect.setDestiny( Integer.parseInt( newProperties.get( EFFECT_PROPERTY_X ) ), Integer.parseInt( newProperties.get( EFFECT_PROPERTY_Y ) ) );
 					break;
 				case Effect.TRIGGER_CONVERSATION:
 					TriggerConversationEffect triggerConversationEffect = (TriggerConversationEffect) effect;
-					triggerConversationEffect.setTargetConversationId( newProperties.get( EFFECT_PROPERTY_TARGET ) );
+					triggerConversationEffect.setTargetId( newProperties.get( EFFECT_PROPERTY_TARGET ) );
 					break;
 				case Effect.TRIGGER_CUTSCENE:
 					TriggerCutsceneEffect triggerCutsceneEffect = (TriggerCutsceneEffect) effect;
-					triggerCutsceneEffect.setTargetCutsceneId( newProperties.get( EFFECT_PROPERTY_TARGET ) );
+					triggerCutsceneEffect.setTargetId( newProperties.get( EFFECT_PROPERTY_TARGET ) );
 					break;
 				case Effect.TRIGGER_SCENE:
 					TriggerSceneEffect triggerSceneEffect = (TriggerSceneEffect) effect;
-					triggerSceneEffect.setTargetSceneId( newProperties.get( EFFECT_PROPERTY_TARGET ) );
+					triggerSceneEffect.setTargetId( newProperties.get( EFFECT_PROPERTY_TARGET ) );
 					triggerSceneEffect.setPosition( Integer.parseInt( newProperties.get( EFFECT_PROPERTY_X ) ), Integer.parseInt( newProperties.get( EFFECT_PROPERTY_Y ) ) );
 					break;
 				case Effect.RANDOM_EFFECT:
@@ -804,19 +804,19 @@ public class EffectsController {
 	private static void updateVarFlagSummary ( VarFlagSummary varFlagSummary, Effect effect ){
 		if ( effect.getType() == Effect.ACTIVATE ){
 			ActivateEffect activateEffect = (ActivateEffect)effect;
-			varFlagSummary.addFlagReference( activateEffect.getIdFlag( ) );
+			varFlagSummary.addFlagReference( activateEffect.getTargetId( ) );
 		} else if ( effect.getType() == Effect.DEACTIVATE ){
 			DeactivateEffect deactivateEffect = (DeactivateEffect)effect;
-			varFlagSummary.addFlagReference( deactivateEffect.getIdFlag( ) );
+			varFlagSummary.addFlagReference( deactivateEffect.getTargetId( ) );
 		} else if ( effect.getType() == Effect.SET_VALUE ){
 			SetValueEffect setValueEffect = (SetValueEffect)effect;
-			varFlagSummary.addFlagReference( setValueEffect.getIdVar() );
+			varFlagSummary.addFlagReference( setValueEffect.getTargetId() );
 		} else if ( effect.getType() == Effect.INCREMENT_VAR ){
 			IncrementVarEffect incrementEffect = (IncrementVarEffect)effect;
-			varFlagSummary.addFlagReference( incrementEffect.getIdVar() );
+			varFlagSummary.addFlagReference( incrementEffect.getTargetId() );
 		} else if ( effect.getType() == Effect.DECREMENT_VAR ){
 			DecrementVarEffect decrementEffect = (DecrementVarEffect)effect;
-			varFlagSummary.addFlagReference( decrementEffect.getIdVar() );
+			varFlagSummary.addFlagReference( decrementEffect.getTargetId() );
 		}
 	}
 
@@ -1035,7 +1035,7 @@ public class EffectsController {
 			int type = effect.getType( );
 
 			// If the identifier appears in some effect with references, increase the counter
-			if( ( type == Effect.CONSUME_OBJECT && ( (ConsumeObjectEffect) effect ).getIdTarget( ).equals( id ) ) || ( type == Effect.GENERATE_OBJECT && ( (GenerateObjectEffect) effect ).getIdTarget( ).equals( id ) ) || ( type == Effect.SPEAK_CHAR && ( (SpeakCharEffect) effect ).getIdTarget( ).equals( id ) ) || ( type == Effect.TRIGGER_BOOK && ( (TriggerBookEffect) effect ).getTargetBookId( ).equals( id ) ) || ( type == Effect.MOVE_NPC && ( (MoveNPCEffect) effect ).getIdTarget( ).equals( id ) ) || ( type == Effect.TRIGGER_CONVERSATION && ( (TriggerConversationEffect) effect ).getTargetConversationId( ).equals( id ) ) || ( type == Effect.TRIGGER_SCENE && ( (TriggerSceneEffect) effect ).getTargetSceneId( ).equals( id ) ) || ( type == Effect.TRIGGER_CUTSCENE && ( (TriggerCutsceneEffect) effect ).getTargetCutsceneId( ).equals( id ) ) )
+			if( ( type == Effect.CONSUME_OBJECT && ( (ConsumeObjectEffect) effect ).getTargetId( ).equals( id ) ) || ( type == Effect.GENERATE_OBJECT && ( (GenerateObjectEffect) effect ).getTargetId( ).equals( id ) ) || ( type == Effect.SPEAK_CHAR && ( (SpeakCharEffect) effect ).getTargetId( ).equals( id ) ) || ( type == Effect.TRIGGER_BOOK && ( (TriggerBookEffect) effect ).getTargetId( ).equals( id ) ) || ( type == Effect.MOVE_NPC && ( (MoveNPCEffect) effect ).getTargetId( ).equals( id ) ) || ( type == Effect.TRIGGER_CONVERSATION && ( (TriggerConversationEffect) effect ).getTargetId( ).equals( id ) ) || ( type == Effect.TRIGGER_SCENE && ( (TriggerSceneEffect) effect ).getTargetId( ).equals( id ) ) || ( type == Effect.TRIGGER_CUTSCENE && ( (TriggerCutsceneEffect) effect ).getTargetId( ).equals( id ) ) )
 				count++;
 			
 			// If random effect
@@ -1075,36 +1075,36 @@ public class EffectsController {
 			// Check the type and the identifier reference, if the identifier matches replace it with the new one
 			if( type == Effect.CONSUME_OBJECT ) {
 				ConsumeObjectEffect consumeObjectEffect = (ConsumeObjectEffect) effect;
-				if( consumeObjectEffect.getIdTarget( ).equals( oldId ) )
-					consumeObjectEffect.setIdTarget( newId );
+				if( consumeObjectEffect.getTargetId( ).equals( oldId ) )
+					consumeObjectEffect.setTargetId( newId );
 			} else if( type == Effect.GENERATE_OBJECT ) {
 				GenerateObjectEffect generateObjectEffect = (GenerateObjectEffect) effect;
-				if( generateObjectEffect.getIdTarget( ).equals( oldId ) )
-					generateObjectEffect.setIdTarget( newId );
+				if( generateObjectEffect.getTargetId( ).equals( oldId ) )
+					generateObjectEffect.setTargetId( newId );
 			} else if( type == Effect.SPEAK_CHAR ) {
 				SpeakCharEffect speakCharEffect = (SpeakCharEffect) effect;
-				if( speakCharEffect.getIdTarget( ).equals( oldId ) )
-					speakCharEffect.setIdTarget( newId );
+				if( speakCharEffect.getTargetId( ).equals( oldId ) )
+					speakCharEffect.setTargetId( newId );
 			} else if( type == Effect.TRIGGER_BOOK ) {
 				TriggerBookEffect triggerBookEffect = (TriggerBookEffect) effect;
-				if( triggerBookEffect.getTargetBookId( ).equals( oldId ) )
-					triggerBookEffect.setTargetBookId( newId );
+				if( triggerBookEffect.getTargetId( ).equals( oldId ) )
+					triggerBookEffect.setTargetId( newId );
 			} else if( type == Effect.MOVE_NPC ) {
 				MoveNPCEffect moveNPCEffect = (MoveNPCEffect) effect;
-				if( moveNPCEffect.getIdTarget( ).equals( oldId ) )
-					moveNPCEffect.setIdTarget( newId );
+				if( moveNPCEffect.getTargetId( ).equals( oldId ) )
+					moveNPCEffect.setTargetId( newId );
 			} else if( type == Effect.TRIGGER_CONVERSATION ) {
 				TriggerConversationEffect trigerConversationEffect = (TriggerConversationEffect) effect;
-				if( trigerConversationEffect.getTargetConversationId( ).equals( oldId ) )
-					trigerConversationEffect.setTargetConversationId( newId );
+				if( trigerConversationEffect.getTargetId( ).equals( oldId ) )
+					trigerConversationEffect.setTargetId( newId );
 			} else if( type == Effect.TRIGGER_SCENE ) {
 				TriggerSceneEffect triggerSceneEffect = (TriggerSceneEffect) effect;
-				if( triggerSceneEffect.getTargetSceneId( ).equals( oldId ) )
-					triggerSceneEffect.setTargetSceneId( newId );
+				if( triggerSceneEffect.getTargetId( ).equals( oldId ) )
+					triggerSceneEffect.setTargetId( newId );
 			} else if( type == Effect.TRIGGER_CUTSCENE ) {
 				TriggerCutsceneEffect triggerCutsceneEffect = (TriggerCutsceneEffect) effect;
-				if( triggerCutsceneEffect.getTargetCutsceneId( ).equals( oldId ) )
-					triggerCutsceneEffect.setTargetCutsceneId( newId );
+				if( triggerCutsceneEffect.getTargetId( ).equals( oldId ) )
+					triggerCutsceneEffect.setTargetId( newId );
 			} 			// If random effect
 			else if ( type == Effect.RANDOM_EFFECT){
 
@@ -1173,21 +1173,21 @@ public class EffectsController {
 
 		// Check if the effect must be deleted
 		if( type == Effect.CONSUME_OBJECT )
-			deleteEffect = ( (ConsumeObjectEffect) effect ).getIdTarget( ).equals( id );
+			deleteEffect = ( (ConsumeObjectEffect) effect ).getTargetId( ).equals( id );
 		else if( type == Effect.GENERATE_OBJECT )
-			deleteEffect = ( (GenerateObjectEffect) effect ).getIdTarget( ).equals( id );
+			deleteEffect = ( (GenerateObjectEffect) effect ).getTargetId( ).equals( id );
 		else if( type == Effect.SPEAK_CHAR )
-			deleteEffect = ( (SpeakCharEffect) effect ).getIdTarget( ).equals( id );
+			deleteEffect = ( (SpeakCharEffect) effect ).getTargetId( ).equals( id );
 		else if( type == Effect.TRIGGER_BOOK )
-			deleteEffect = ( (TriggerBookEffect) effect ).getTargetBookId( ).equals( id );
+			deleteEffect = ( (TriggerBookEffect) effect ).getTargetId( ).equals( id );
 		else if( type == Effect.MOVE_NPC )
-			deleteEffect = ( (MoveNPCEffect) effect ).getIdTarget( ).equals( id );
+			deleteEffect = ( (MoveNPCEffect) effect ).getTargetId( ).equals( id );
 		else if( type == Effect.TRIGGER_CONVERSATION )
-			deleteEffect = ( (TriggerConversationEffect) effect ).getTargetConversationId( ).equals( id );
+			deleteEffect = ( (TriggerConversationEffect) effect ).getTargetId( ).equals( id );
 		else if( type == Effect.TRIGGER_SCENE )
-			deleteEffect = ( (TriggerSceneEffect) effect ).getTargetSceneId( ).equals( id );
+			deleteEffect = ( (TriggerSceneEffect) effect ).getTargetId( ).equals( id );
 		else if( type == Effect.TRIGGER_CUTSCENE )
-			deleteEffect = ( (TriggerCutsceneEffect) effect ).getTargetCutsceneId( ).equals( id );
+			deleteEffect = ( (TriggerCutsceneEffect) effect ).getTargetId( ).equals( id );
 		return deleteEffect;
 	}
 }
