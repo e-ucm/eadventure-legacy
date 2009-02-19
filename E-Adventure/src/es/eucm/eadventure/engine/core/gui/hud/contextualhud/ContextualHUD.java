@@ -1,6 +1,8 @@
 package es.eucm.eadventure.engine.core.gui.hud.contextualhud;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
+import java.awt.Composite;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -105,6 +107,16 @@ public class ContextualHUD extends HUD {
      */
     private MouseEvent lastMouseMoved;
 
+    private long pressedTime = Long.MAX_VALUE;
+    
+    private int pressedX;
+    
+    private int pressedY;
+    
+    private FunctionalElement pressedElement;
+    
+    private boolean mouseReleased = false;
+    
     /**
      * Function that initializa the HUD class
      */
@@ -265,6 +277,13 @@ public class ContextualHUD extends HUD {
      */
     public boolean mouseClicked( MouseEvent e ) {
         boolean inHud = false;
+        
+		if (mouseReleased) {
+			mouseReleased = false;
+			return true;
+		}
+		pressedTime = Long.MAX_VALUE;
+        
         ActionManager actionManager = game.getActionManager( );
         
         if (e.getButton() != MouseEvent.BUTTON1 && e.getButton() != MouseEvent.BUTTON3)
@@ -278,7 +297,7 @@ public class ContextualHUD extends HUD {
         }
         
         if(!button && e.getButton( ) == MouseEvent.BUTTON3) {
-        	inHud = processRightClickNoButton(actionManager, e);
+        	inHud = processRightClickNoButton(actionManager.getElementOver(), e);
         	DebugLog.user("Mouse click, no action button. " + e.getX() + " , " + e.getY());
         }else{
             if( showActionButtons ) {
@@ -301,6 +320,46 @@ public class ContextualHUD extends HUD {
         return inHud;
     }
 
+	@Override
+	public boolean mousePressed(MouseEvent e) {
+        ActionManager actionManager = game.getActionManager( );
+
+        pressedTime = System.currentTimeMillis();
+		pressedX = e.getX();
+		pressedY = e.getY();
+		pressedElement = actionManager.getElementOver();
+
+		DebugLog.user("Mouse pressed at " + e.getX() + " , " + e.getY());
+		
+		return true;
+	}
+
+	@Override
+	public boolean mouseReleased(MouseEvent e) {
+		mouseReleased = false;
+		if (pressedElement == null) {
+			pressedTime = Long.MAX_VALUE;
+			return false;
+		}
+				
+		pressedTime = System.currentTimeMillis() - pressedTime;
+
+		DebugLog.user("Mouse released after " + pressedTime );
+
+		if (pressedTime > 800 && pressedTime < 60000) {
+			if (Math.abs(pressedX - e.getX()) < 20 &&
+					Math.abs(pressedY - e.getY()) < 20) {
+				processRightClickNoButton(pressedElement, e);
+				mouseReleased = true;
+				pressedTime = Long.MAX_VALUE;
+				return true;
+			}
+		}
+		
+		pressedTime = Long.MAX_VALUE;
+		
+		return false;
+	}
     
     /**
      * Method called when an element is clicked
@@ -425,12 +484,12 @@ public class ContextualHUD extends HUD {
      * @param e The MouseEvent of the click
      * @return Value of inHud
      */
-	private boolean processRightClickNoButton(ActionManager actionManager,
+	private boolean processRightClickNoButton(FunctionalElement elementOver,
 			MouseEvent e) {
         elementInCursor = null;
         gui.setDefaultCursor( );
-        if( actionManager.getElementOver( ) != null ){
-            elementAction = actionManager.getElementOver( );
+        if( elementOver != null ){
+            elementAction = elementOver;
             actionButtons.recreate(e.getX(), e.getY(), elementAction);
             showActionButtons = true;
             return true;
@@ -458,10 +517,31 @@ public class ContextualHUD extends HUD {
         if( showActionButtons )
             //draw them
             actionButtons.draw( g );
+
+        g.setColor(Color.BLUE);
+        
+        if (System.currentTimeMillis() - pressedTime > 100) {
+        	long time = System.currentTimeMillis() - pressedTime;
+        	if (time > 800)
+        		time = 800;
+			Composite alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f);
+			g.setComposite(alphaComposite);
+			
+			if (time < 800) {
+				int size = 6 + (int) (8.0f * (float) time / 800.0f);
+				g.fillArc(pressedX - size, pressedY - size, size*2, size*2, 0, - (int) ( 360.0 / 800.0 * (double) time));
+			} else {
+        		g.fillOval(pressedX - 16, pressedY - 16, 32, 32);
+			}
+			
+        	g.setComposite(AlphaComposite.DstAtop);
+        }
+
         
         //set the font and color for the text (tooltip)
         g.setFont( new Font( null, Font.BOLD, 16 ) );
         g.setColor( Color.WHITE );
+        
         
         //If there is no element selected
         if( elementInCursor == null ) {
@@ -536,4 +616,5 @@ public class ContextualHUD extends HUD {
     }
     
     private static int NUPDATES = 0;
+
 }

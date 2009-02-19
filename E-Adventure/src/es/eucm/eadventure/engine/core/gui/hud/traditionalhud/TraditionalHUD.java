@@ -671,4 +671,14 @@ public class TraditionalHUD extends HUD {
     public void update( long elapsedTime ) {
         
     }
+
+	@Override
+	public boolean mousePressed(MouseEvent e) {
+		return false;
+	}
+
+	@Override
+	public boolean mouseReleased(MouseEvent e) {
+		return false;
+	}
 }

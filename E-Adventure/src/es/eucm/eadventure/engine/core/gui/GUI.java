@@ -933,6 +933,13 @@ public abstract class GUI implements FocusListener {
 	public static void setGUIType(int type) {
 		GUI.GUIType = type;
 	}
+
+	public boolean mouseReleasedinHud(MouseEvent e) {
+		return hud.mouseReleased(e);
+	}
 	
+	public boolean mousePressedinHud(MouseEvent e) {
+		return hud.mousePressed(e);
+	}
 	
 }
