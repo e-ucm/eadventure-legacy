@@ -284,8 +284,6 @@ public class PositionPanel extends JPanel implements Positioned{
 	
 	public class ChangeValueListener implements ChangeListener {
 		
-		
-			@Override
 			public void stateChanged(ChangeEvent e) {
 				if (e.getSource()==positionXTextField)
 					positionX = (Integer)positionXTextField.getValue( );

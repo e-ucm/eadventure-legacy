@@ -20,18 +20,15 @@ public class DescriptionChangeListener implements DocumentListener {
 		this.described = described;
 	}
 	
-	@Override
 	public void changedUpdate(DocumentEvent e) {
 		// DO NOTHING
 	}
 
-	@Override
 	public void insertUpdate(DocumentEvent e) {
 		Tool tool = new ChangeDescriptionTool(described, textComponent.getText());
 		Controller.getInstance().addTool(tool);
 	}
 
-	@Override
 	public void removeUpdate(DocumentEvent e) {
 		Tool tool = new ChangeDescriptionTool(described, textComponent.getText());
 		Controller.getInstance().addTool(tool);

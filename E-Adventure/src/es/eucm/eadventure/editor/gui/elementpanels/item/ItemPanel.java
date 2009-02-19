@@ -196,7 +196,6 @@ public class ItemPanel extends JPanel implements Updateable {
 
 	}
 
-	@Override
 	public boolean updateFields() {
 		this.descriptionTextField.setText(this.itemDataControl.getBriefDescription());
 		this.detailedDescriptionTextField.setText(this.itemDataControl.getDetailedDescription());

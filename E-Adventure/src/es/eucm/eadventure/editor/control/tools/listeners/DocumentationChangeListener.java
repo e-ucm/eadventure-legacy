@@ -20,18 +20,15 @@ public class DocumentationChangeListener implements DocumentListener {
 		this.documented = documented;
 	}
 	
-	@Override
 	public void changedUpdate(DocumentEvent e) {
 		// DO NOTHING
 	}
 
-	@Override
 	public void insertUpdate(DocumentEvent e) {
 		Tool tool = new ChangeDocumentationTool(documented, textComponent.getText());
 		Controller.getInstance().addTool(tool);
 	}
 
-	@Override
 	public void removeUpdate(DocumentEvent e) {
 		Tool tool = new ChangeDocumentationTool(documented, textComponent.getText());
 		Controller.getInstance().addTool(tool);

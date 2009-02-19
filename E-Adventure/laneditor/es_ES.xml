@@ -233,6 +233,8 @@ Esto puede provocar errores al cargar las aventuras.</entry>
 	<entry key="Operation.NewProjectMessage">  Seleccione la carpeta del proyecto. Puede seleccionar una de las existentes o crear una nueva.
 En cualquier caso el nombre de la carpeta sólo puede contener los siguientes caracteres: {#0}.
 Carpetas con nombres que contengan otro tipo de caracteres o tildes no serán válidos.</entry>
+	<entry key="Operation.NewProjectName">Nombre del nuevo proyecto: </entry>
+	<entry key="Operation.CreateNewProject">Crear</entry>
 
 	<entry key="Operation.NewProject.ForbiddenParent.Title">Error: Carpeta de proyecto no válida</entry>
 	<entry key="Operation.NewProject.ForbiddenParent.Message">Lo sentimos, pero ninguna carpeta de proyecto puede estar contenida en el directorio restringido "web".</entry>

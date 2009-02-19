@@ -120,7 +120,6 @@ public class DrawPanel  extends JPanel {
 		final JSlider slider = new JSlider(10, 30);
 		slider.setValue(10);
 		slider.addChangeListener(new ChangeListener() {
-			@Override
 			public void stateChanged(ChangeEvent arg0) {
 				double zoom = (double) slider.getValue() / 10.0;
 				DrawPanel.this.setZoom(zoom);

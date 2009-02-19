@@ -442,8 +442,10 @@ public class AssetsController {
 	public static InputStream getInputStream( String assetPath ) {
 		InputStream inputStream = null;
 
-		try {
+		if (assetPath == null)
+			return inputStream;
 		
+		try {
 			// Load the input stream from the file (if it exists)
 			if( new File( assetPath ).exists( ) )
 				inputStream = new FileInputStream( assetPath );

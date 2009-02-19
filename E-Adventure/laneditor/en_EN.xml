@@ -229,6 +229,8 @@ Do you want to set them with this animation asset as well?</entry>
 	<entry key="Operation.NewProjectMessage">  Select the folder project. You can select one of the existing or create a new one.
 Nonetheless the name of the folder can only contain the next characters: {#0}.
 Folders with names containing other characters will not be valid.</entry>
+	<entry key="Operation.NewProjectName">New project name: </entry>
+	<entry key="Operation.CreateNewProject">Create</entry>
 	
 	<entry key="Operation.NewProject.FolderNotEmptyTitle">The folder is not empty</entry>
 	<entry key="Operation.NewProject.FolderNotEmptyMessage">The selected directory is not empty.

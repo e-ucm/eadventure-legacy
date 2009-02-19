@@ -20,18 +20,15 @@ public class NameChangeListener implements DocumentListener {
 		this.named = named;
 	}
 	
-	@Override
 	public void changedUpdate(DocumentEvent e) {
 		// DO NOTHING
 	}
 
-	@Override
 	public void insertUpdate(DocumentEvent e) {
 		Tool tool = new ChangeNameTool(named, textComponent.getText());
 		Controller.getInstance().addTool(tool);
 	}
 
-	@Override
 	public void removeUpdate(DocumentEvent e) {
 		Tool tool = new ChangeNameTool(named, textComponent.getText());
 		Controller.getInstance().addTool(tool);

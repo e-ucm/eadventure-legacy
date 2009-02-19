@@ -28,7 +28,6 @@ public class SceneLinksController implements MouseListener, MouseMotionListener 
 		this.slp = sceneLinksPanel;
 	}
 	
-	@Override
 	public void mouseClicked(MouseEvent e) {
 		setUnderMouse(e.getX(), e.getY());
 		if (under != null && e.getClickCount() == 2) {
@@ -36,19 +35,16 @@ public class SceneLinksController implements MouseListener, MouseMotionListener 
 		}
 	}
 
-	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void mousePressed(MouseEvent e) {
 		setUnderMouse(e.getX(), e.getY());
 		if (under != null) {
@@ -59,13 +55,11 @@ public class SceneLinksController implements MouseListener, MouseMotionListener 
 		}
 	}
 
-	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void mouseDragged(MouseEvent e) {
 		if (under != null) {
 			int changeX = slp.getRealWidth(e.getX() - startDragX);
@@ -77,7 +71,6 @@ public class SceneLinksController implements MouseListener, MouseMotionListener 
 		}
 	}
 
-	@Override
 	public void mouseMoved(MouseEvent e) {
 		SceneElement temp = slp.getSceneElement(e.getX(), e.getY());
 		if (temp != showName) {

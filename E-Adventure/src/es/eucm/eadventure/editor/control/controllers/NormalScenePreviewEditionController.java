@@ -51,7 +51,6 @@ public class NormalScenePreviewEditionController implements ScenePreviewEditionC
 					JPopupMenu menu = new JPopupMenu();
 					JMenuItem item = new JMenuItem(TextConstants.getText("SPEP.GoToElementReference"));
 					item.addActionListener(new ActionListener() {
-						@Override
 						public void actionPerformed(ActionEvent arg0) {
 							TreeNodeControl.getInstance().changeTreeNode(underMouse.getDataControl());
 						}
@@ -59,7 +58,6 @@ public class NormalScenePreviewEditionController implements ScenePreviewEditionC
 					menu.add(item);
 					JMenuItem item2 = new JMenuItem(TextConstants.getText("SPEP.GoToReferencedElement"));
 					item2.addActionListener(new ActionListener() {
-						@Override
 						public void actionPerformed(ActionEvent e) {
 							TreeNodeControl.getInstance().changeTreeNode(underMouse.getReferencedDataControl());
 						}

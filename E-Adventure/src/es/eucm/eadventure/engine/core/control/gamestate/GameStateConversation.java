@@ -331,7 +331,7 @@ public class GameStateConversation extends GameState {
      * Select an option when all options are shown in the screen
      */
     private void selectDisplayedOption(){
-    	if(optionSelected < currentNode.getLineCount( ) ) {
+    	if(optionSelected >= 0 && optionSelected < currentNode.getLineCount( ) ) {
     		
             if( game.getCharacterCurrentlyTalking( ) != null && game.getCharacterCurrentlyTalking( ).isTalking( ) )
                 game.getCharacterCurrentlyTalking( ).stopTalking( );

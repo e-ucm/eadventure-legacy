@@ -35,8 +35,6 @@ public class NoEditableNumberSpinner extends JSpinner{
 		editor = new JLabel(value.toString());
 		this.setEditor(editor);
 		this.addChangeListener(new ChangeListener(){
-
-			@Override
 			public void stateChanged(ChangeEvent e) {
 				editor.setText(getValue().toString());
 			}
