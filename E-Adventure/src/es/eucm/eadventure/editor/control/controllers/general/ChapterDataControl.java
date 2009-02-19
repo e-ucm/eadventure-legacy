@@ -19,7 +19,10 @@ import es.eucm.eadventure.editor.control.controllers.macro.MacroListDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ScenesListDataControl;
 import es.eucm.eadventure.editor.control.controllers.timer.TimersListDataControl;
 import es.eucm.eadventure.editor.control.tools.general.ChangeDescriptionTool;
+import es.eucm.eadventure.editor.control.tools.general.ChangeSelectedProfileTool;
+import es.eucm.eadventure.editor.control.tools.general.ChangeTargetIdTool;
 import es.eucm.eadventure.editor.control.tools.general.ChangeTitleTool;
+import es.eucm.eadventure.editor.control.tools.general.SetNoSelectedProfileTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 /**
@@ -155,7 +158,7 @@ public class ChapterDataControl extends DataControl {
 	 * @return Initial scene identifier
 	 */
 	public String getInitialScene( ) {
-		return chapter.getInitialScene( );
+		return chapter.getTargetId( );
 	}
 
 	/**
@@ -264,64 +267,14 @@ public class ChapterDataControl extends DataControl {
 	 * Sets the new assessment file for the chapter, showing a dialog to the user.
 	 */
 	public void setAssessmentPath( ) {
-		// Get the list of assets from the ZIP file
-		String[] assetFilenames = AssetsController.getAssetFilenames( AssetsController.CATEGORY_ASSESSMENT );
-		String[] assetPaths = AssetsController.getAssetsList( AssetsController.CATEGORY_ASSESSMENT );
-
-		// If the list of assets is empty, show an error message
-		if( assetFilenames.length == 0 )
-			controller.showErrorDialog( TextConstants.getText( "Resources.EditAsset" ), TextConstants.getText( "Resources.ErrorNoAssets" ) );
-
-		// If not empty, select one of them
-		else {
-			// Let the user choose between the assets
-			String selectedAsset = controller.showInputDialog( TextConstants.getText( "Resources.EditAsset" ), TextConstants.getText( "Resources.EditAssetMessage" ), assetFilenames );
-
-			// If a file was selected
-			if( selectedAsset != null ) {
-				// Take the index of the selected asset
-				int assetIndex = -1;
-				for( int i = 0; i < assetFilenames.length; i++ )
-					if( assetFilenames[i].equals( selectedAsset ) )
-						assetIndex = i;
-
-				// Store the data
-				chapter.setAssessmentPath( assetPaths[assetIndex]);
-				controller.dataModified( );
-			}
-		}
+		Controller.getInstance().addTool(new ChangeSelectedProfileTool(chapter, ChangeSelectedProfileTool.MODE_ASSESSMENT));
 	}
 
 	/**
 	 * Sets the new adaptation file for the chapter, showing a dialog to the user.
 	 */
 	public void setAdaptationPath( ) {
-		// Get the list of assets from the ZIP file
-		String[] assetFilenames = AssetsController.getAssetFilenames( AssetsController.CATEGORY_ADAPTATION );
-		String[] assetPaths = AssetsController.getAssetsList( AssetsController.CATEGORY_ADAPTATION );
-
-		// If the list of assets is empty, show an error message
-		if( assetFilenames.length == 0 )
-			controller.showErrorDialog( TextConstants.getText( "Resources.EditAsset" ), TextConstants.getText( "Resources.ErrorNoAssets" ) );
-
-		// If not empty, select one of them
-		else {
-			// Let the user choose between the assets
-			String selectedAsset = controller.showInputDialog( TextConstants.getText( "Resources.EditAsset" ), TextConstants.getText( "Resources.EditAssetMessage" ), assetFilenames );
-
-			// If a file was selected
-			if( selectedAsset != null ) {
-				// Take the index of the selected asset
-				int assetIndex = -1;
-				for( int i = 0; i < assetFilenames.length; i++ )
-					if( assetFilenames[i].equals( selectedAsset ) )
-						assetIndex = i;
-
-				// Store the data
-				chapter.setAdaptationPath( assetPaths[assetIndex] );
-				controller.dataModified( );
-			}
-		}
+		Controller.getInstance().addTool(new ChangeSelectedProfileTool(chapter, ChangeSelectedProfileTool.MODE_ADAPTATION));
 	}
 
 	/**
@@ -331,34 +284,21 @@ public class ChapterDataControl extends DataControl {
 	 *            Initial scene identifier
 	 */
 	public void setInitialScene( String initialScene ) {
-		// If the value is different
-		if( !initialScene.equals( chapter.getInitialScene( ) ) ) {
-			// Set the new initial scene and modify the data
-			chapter.setInitialScene( initialScene );
-			controller.dataModified( );
-		}
+		Controller.getInstance().addTool(new ChangeTargetIdTool(chapter, initialScene));
 	}
 
 	/**
 	 * Deletes the assessment file reference of the chapter.
 	 */
 	public void deleteAssessmentPath( ) {
-		// Set the assessment to an empty path
-		if( !getAssessmentPath( ).equals( "" ) ) {
-			chapter.setAssessmentPath("");
-			controller.dataModified( );
-		}
+		Controller.getInstance().addTool(new SetNoSelectedProfileTool(chapter, SetNoSelectedProfileTool.MODE_ASSESSMENT ));
 	}
 
 	/**
 	 * Deletes the adaptation file reference of the chapter.
 	 */
 	public void deleteAdaptationPath( ) {
-		// Set the adaptation to an empty path
-		if( !getAdaptationPath( ).equals( "" ) ) {
-			chapter.setAdaptationPath("");
-			controller.dataModified( );
-		}
+		Controller.getInstance().addTool(new SetNoSelectedProfileTool(chapter, SetNoSelectedProfileTool.MODE_ADAPTATION ));
 	}
 
 	@Override
@@ -559,7 +499,7 @@ public class ChapterDataControl extends DataControl {
 		int count = 0;
 
 		// Count the initial scene
-		if( chapter.getInitialScene( ).equals( id ) )
+		if( chapter.getTargetId( ).equals( id ) )
 			count++;
 
 		// Spread the call to the rest of the elements
@@ -579,8 +519,8 @@ public class ChapterDataControl extends DataControl {
 	@Override
 	public void replaceIdentifierReferences( String oldId, String newId ) {
 		// If the initial scene identifier has changed, update it
-		if( chapter.getInitialScene( ).equals( oldId ) )
-			chapter.setInitialScene( newId );
+		if( chapter.getTargetId( ).equals( oldId ) )
+			chapter.setTargetId( newId );
 
 		// Spread the call to the rest of the elements
 		scenesListDataControl.replaceIdentifierReferences( oldId, newId );
@@ -599,8 +539,8 @@ public class ChapterDataControl extends DataControl {
 	@Override
 	public void deleteIdentifierReferences( String id ) {
 		// If the initial scene has been deleted, change the value to the first one in the scenes list
-		if( chapter.getInitialScene( ).equals( id ) )
-			chapter.setInitialScene( controller.getIdentifierSummary( ).getGeneralSceneIds( )[0] );
+		if( chapter.getTargetId( ).equals( id ) )
+			chapter.setTargetId( controller.getIdentifierSummary( ).getGeneralSceneIds( )[0] );
 
 		// Spread the call to the rest of the elements
 		scenesListDataControl.deleteIdentifierReferences( id );

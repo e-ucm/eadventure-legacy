@@ -175,7 +175,7 @@ public class SceneSubParser extends SubParser {
 				scene.setPlayerLayer(playerLayer);
 				scene.setPlayerScale(playerScale);
 				if( initialScene )
-					chapter.setInitialScene( sceneId );
+					chapter.setTargetId( sceneId );
 			}
 
 			// If it is a resources tag, create the new resources

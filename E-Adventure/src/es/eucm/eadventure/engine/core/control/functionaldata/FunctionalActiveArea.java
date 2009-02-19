@@ -97,7 +97,7 @@ public class FunctionalActiveArea extends FunctionalItem{
         // Only take the FIRST valid action
         for( int i = 0; i < item.getActions( ).size( ) && !givenTo; i++ ) {
             Action action = item.getAction( i );
-            if( action.getType( ) == Action.GIVE_TO && action.getIdTarget( ).equals( npc.getElement( ).getId( ) ) ) {
+            if( action.getType( ) == Action.GIVE_TO && action.getTargetId( ).equals( npc.getElement( ).getId( ) ) ) {
                 if( new FunctionalConditions( action.getConditions( ) ).allConditionsOk( ) ) {
                     // Store the effects
                 	FunctionalEffects.storeAllEffects(action.getEffects( ));

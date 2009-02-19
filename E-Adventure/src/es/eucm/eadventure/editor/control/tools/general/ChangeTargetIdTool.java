@@ -47,7 +47,7 @@ public class ChangeTargetIdTool extends Tool{
 	 * @param newId
 	 */
 	public ChangeTargetIdTool (HasTargetId elementWithTargetId, String newId){
-		this (elementWithTargetId, newId, false, false);
+		this (elementWithTargetId, newId, false,true);
 	}
 	
 	public ChangeTargetIdTool (HasTargetId elementWithTargetId, String newId, boolean updateTree, boolean reloadPanel){
@@ -83,7 +83,7 @@ public class ChangeTargetIdTool extends Tool{
 			if (updateTree)
 				controller.updateTree();
 			if (reloadPanel)
-				controller.reloadPanel();
+				controller.updatePanel();
 		}
 		return done;
 	}
@@ -102,7 +102,7 @@ public class ChangeTargetIdTool extends Tool{
 		if (updateTree)
 			controller.updateTree();
 		if (reloadPanel)
-			controller.reloadPanel();
+			controller.updatePanel();
 		
 		return true;
 	}

@@ -10,6 +10,9 @@ import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.control.tools.general.ChangeDocumentationTool;
+import es.eucm.eadventure.editor.control.tools.general.ChangeTargetIdTool;
+import es.eucm.eadventure.editor.control.tools.generic.ChangeBooleanValueTool;
+import es.eucm.eadventure.editor.control.tools.generic.ChangeIntegerValueTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class ActionDataControl extends DataControlWithResources {
@@ -143,7 +146,7 @@ public class ActionDataControl extends DataControlWithResources {
 	 * @return Target id of the contained effect
 	 */
 	public String getIdTarget( ) {
-		return action.getIdTarget( );
+		return action.getTargetId( );
 	}
 
 	/**
@@ -172,13 +175,7 @@ public class ActionDataControl extends DataControlWithResources {
 	 *            Id target of the action
 	 */
 	public void setIdTarget( String idTarget ) {
-		// If the value is different
-		if( !idTarget.equals( action.getIdTarget( ) ) ) {
-			// Set the new documentation and modify the data
-			action.setIdTarget( idTarget );
-			controller.updateTree( );
-			controller.dataModified( );
-		}
+		controller.addTool(new ChangeTargetIdTool(action, idTarget,true,false));
 	}
 
 	@Override
@@ -233,6 +230,7 @@ public class ActionDataControl extends DataControlWithResources {
 
 	@Override
 	public String renameElement( String name ) {
+		//TODO: IS this right?
 		return null;
 	}
 
@@ -265,7 +263,7 @@ public class ActionDataControl extends DataControlWithResources {
 		int count = 0;
 
 		// If the action references to the given identifier, increase the counter
-		if( ( action.getType( ) == Action.GIVE_TO || action.getType( ) == Action.USE_WITH || action.getType() == Action.CUSTOM_INTERACT) && action.getIdTarget( ).equals( id ) )
+		if( ( action.getType( ) == Action.GIVE_TO || action.getType( ) == Action.USE_WITH || action.getType() == Action.CUSTOM_INTERACT) && action.getTargetId( ).equals( id ) )
 			count++;
 
 		// Add to the counter the references in the effects block
@@ -277,8 +275,8 @@ public class ActionDataControl extends DataControlWithResources {
 	@Override
 	public void replaceIdentifierReferences( String oldId, String newId ) {
 		// Only the "Give to" and "Use with" have item references
-		if( ( action.getType( ) == Action.GIVE_TO || action.getType( ) == Action.USE_WITH || action.getType() == Action.CUSTOM_INTERACT) && action.getIdTarget( ).equals( oldId ) )
-			action.setIdTarget( newId );
+		if( ( action.getType( ) == Action.GIVE_TO || action.getType( ) == Action.USE_WITH || action.getType() == Action.CUSTOM_INTERACT) && action.getTargetId( ).equals( oldId ) )
+			action.setTargetId( newId );
 
 		EffectsController.replaceIdentifierReferences( oldId, newId, action.getEffects( ) );
 	}
@@ -333,10 +331,12 @@ public class ActionDataControl extends DataControlWithResources {
 	 * @param needsGoTo the needsGoTo to set
 	 */
 	public void setNeedsGoTo(boolean needsGoTo) {
-		if (needsGoTo != action.isNeedsGoTo()) {
+		controller.addTool(new ChangeBooleanValueTool(action, needsGoTo, "isNeedsGoTo","setNeedsGoTo"));
+		
+		/*if (needsGoTo != action.isNeedsGoTo()) {
 			action.setNeedsGoTo(needsGoTo);
 			controller.dataModified();
-		}
+		}*/
 	}
 
 	/**
@@ -350,10 +350,11 @@ public class ActionDataControl extends DataControlWithResources {
 	 * @param keepDistance the keepDistance to set
 	 */
 	public void setKeepDistance(int keepDistance) {
-		if (keepDistance != action.getKeepDistance()) {
+		/*if (keepDistance != action.getKeepDistance()) {
 			action.setKeepDistance(keepDistance);
 			controller.dataModified();
-		}
+		}*/
+		controller.addTool(new ChangeIntegerValueTool(action, keepDistance, "getKeepDistance","setKeepDistance"));
 	}
 
 }
