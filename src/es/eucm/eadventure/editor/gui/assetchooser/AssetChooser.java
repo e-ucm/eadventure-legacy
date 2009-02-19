@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.HeadlessException;
+import java.awt.Dialog.ModalityType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -471,6 +472,8 @@ public abstract class AssetChooser extends JFileChooser {
 
 	protected JDialog createDialog(Component parent) throws HeadlessException {
 		JDialog dialog = super.createDialog( parent );
+		dialog.setModalityType(ModalityType.TOOLKIT_MODAL);
+		Controller.getInstance().pushWindow(dialog);
 		if ( type == DEFAULT_ASSET_CHOOSER){
 			Container container = dialog.getContentPane( );
 			this.customizeDefaultChooser( container );

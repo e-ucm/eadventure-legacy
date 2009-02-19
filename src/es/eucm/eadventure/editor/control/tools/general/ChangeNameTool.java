@@ -40,10 +40,6 @@ public class ChangeNameTool extends Tool {
 		return false;
 	}
 
-	@Override
-	public String getToolName() {
-		return "Change name";
-	}
 
 	@Override
 	public boolean redoTool() {

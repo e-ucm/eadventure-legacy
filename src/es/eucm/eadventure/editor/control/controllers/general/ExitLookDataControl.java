@@ -7,23 +7,25 @@ import es.eucm.eadventure.common.data.chapter.ExitLook;
 import es.eucm.eadventure.common.data.chapter.NextScene;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
-import es.eucm.eadventure.editor.gui.assetchooser.AssetChooser;
+import es.eucm.eadventure.editor.control.tools.general.ChangeExitCustomTextTool;
+import es.eucm.eadventure.editor.control.tools.general.InvalidExitCursorTool;
+import es.eucm.eadventure.editor.control.tools.general.SelectExitCursorPathTool;
 
 public class ExitLookDataControl {
 
 	private ExitLook exitLook;
 	
-	private boolean isTextCustomized;
+	//private boolean isTextCustomized;
 	
-	private boolean isCursorCustomized;
+	//private boolean isCursorCustomized;
 	
 	public ExitLookDataControl (NextScene nextScene){
 		if (nextScene.getExitLook( )==null)
 			nextScene.setExitLook( new ExitLook() );
 		this.exitLook=nextScene.getExitLook( );
 		
-		isTextCustomized = (exitLook.getExitText( )!=null);
-		isCursorCustomized = (exitLook.getCursorPath( )!=null);
+		//isTextCustomized = (exitLook.getExitText( )!=null);
+		//isCursorCustomized = (exitLook.getCursorPath( )!=null);
 
 	}
 	
@@ -32,8 +34,8 @@ public class ExitLookDataControl {
 			exit.setDefaultExitLook( new ExitLook() );
 		this.exitLook=exit.getDefaultExitLook( );
 		
-		isTextCustomized = (exitLook.getExitText( )!=null);
-		isCursorCustomized = (exitLook.getCursorPath( )!=null);
+		//isTextCustomized = (exitLook.getExitText( )!=null);
+		//isCursorCustomized = (exitLook.getCursorPath( )!=null);
 
 	}
 
@@ -42,7 +44,7 @@ public class ExitLookDataControl {
 	 * @return the isTextCustomized
 	 */
 	public boolean isTextCustomized( ) {
-		return isTextCustomized;
+		return exitLook.getExitText( )!=null;
 	}
 	
 	public String getCustomizedText( ) {
@@ -56,7 +58,7 @@ public class ExitLookDataControl {
 	 * @return the isCursorCustomized
 	 */
 	public boolean isCursorCustomized( ) {
-		return isCursorCustomized;
+		return exitLook.getCursorPath( )!=null;
 	}
 	
 	public String getCustomizedCursor( ) {
@@ -66,21 +68,17 @@ public class ExitLookDataControl {
 		return text;
 	}
 
-	//XXX
 	public void setExitText(String text){
-		if (text!=null){
-			exitLook.setExitText( text );
-			this.isTextCustomized = true;
-		}
-		else{
-			isTextCustomized = false;
-			exitLook.setExitText( null );
-		}
-		Controller.getInstance( ).dataModified( );
+		Controller.getInstance().addTool(new ChangeExitCustomTextTool (exitLook, text));
 	}
-	//XXX
+
 	public void editCursorPath( ){
-		String selectedAsset = null;
+		try {
+			Controller.getInstance().addTool(new SelectExitCursorPathTool(exitLook));
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		/*String selectedAsset = null;
 		String cursorPath = null;
 		AssetChooser chooser = AssetsController.getAssetChooser( AssetsController.CATEGORY_CURSOR, AssetsController.FILTER_NONE );
 		int option = chooser.showAssetChooser( Controller.getInstance( ).peekWindow( ) );
@@ -116,17 +114,19 @@ public class ExitLookDataControl {
 		
 		if (cursorPath!=null){
 			exitLook.setCursorPath( cursorPath );
-			this.isCursorCustomized = true;
+			//this.isCursorCustomized = true;
 			Controller.getInstance().dataModified( );
 		}
 
-		
+		*/
 	}
 	
 	public void invalidCursor(){
-		exitLook.setCursorPath( null );
-		isCursorCustomized=false;
-		Controller.getInstance().dataModified( );
+		//exitLook.setCursorPath( null );
+		//isCursorCustomized=false;
+		//Controller.getInstance().dataModified( );
+		Controller.getInstance().addTool(new InvalidExitCursorTool(exitLook));
+		
 	}
 	
 	public void getAssetReferences( List<String> assetPaths, List<Integer> assetTypes ) {

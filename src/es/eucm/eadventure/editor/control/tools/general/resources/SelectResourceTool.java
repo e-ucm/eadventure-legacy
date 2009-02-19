@@ -54,8 +54,7 @@ public class SelectResourceTool extends ResourcesTool{
 
 			// Store the data in the resources block (removing the suffix if necessary)
 			if( assetsInformation[index].category == AssetsController.CATEGORY_ANIMATION ){
-				resources.addAsset( assetsInformation[index].name, AssetsController.removeSuffix( assetPaths[assetIndex] ) );
-				done = true;
+				done =resources.addAsset( assetsInformation[index].name, AssetsController.removeSuffix( assetPaths[assetIndex] ) );
 				
 				// For player and character resources block, check if the other animations are set. When any are set, ask the user to set them automatically
 				if (resourcesType == Controller.PLAYER || resourcesType == Controller.NPC){
@@ -73,17 +72,14 @@ public class SelectResourceTool extends ResourcesTool{
 									TextConstants.getText( "Operation.SetAllAnimations.Message" ) )){
 						for (int i=0; i<assetsInformation.length; i++){
 							if (i!=index){
-								resources.addAsset( assetsInformation[i].name, AssetsController.removeSuffix( assetPaths[assetIndex] ) );
+								done |= resources.addAsset( assetsInformation[i].name, AssetsController.removeSuffix( assetPaths[assetIndex] ) );
 							}
 						}
-						done = true;
-						
 					}
 				}
 			}
 			else{
-				resources.addAsset( assetsInformation[index].name, assetPaths[assetIndex] );
-				done = true;
+				done = resources.addAsset( assetsInformation[index].name, assetPaths[assetIndex] );
 			}
 		}
 		return done;
