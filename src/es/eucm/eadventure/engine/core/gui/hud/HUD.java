@@ -104,4 +104,9 @@ public abstract class HUD {
     public void toggleHud(boolean show){
         showHud = show;
     }
+
+	public abstract boolean mouseReleased(MouseEvent e);
+	
+	public abstract boolean mousePressed(MouseEvent e);
+
 }

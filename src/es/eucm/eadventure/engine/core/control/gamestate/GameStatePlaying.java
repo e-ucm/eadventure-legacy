@@ -43,6 +43,12 @@ public class GameStatePlaying extends GameState {
             // If it is a mouse moved, trigger it
             else if( vMouse.get( 0 ).getID( ) == MouseEvent.MOUSE_MOVED )
                 mouseMovedEvent( vMouse.get( 0 ) );
+            
+            else if ( vMouse.get( 0 ).getID() == MouseEvent.MOUSE_PRESSED)
+            	mousePressedEvent( vMouse.get(0) );
+            
+            else if ( vMouse.get(0).getID() == MouseEvent.MOUSE_RELEASED)
+            	mouseReleasedEvent( vMouse.get(0));
                 
             // Delete the event
             vMouse.remove( 0 );
@@ -92,7 +98,8 @@ public class GameStatePlaying extends GameState {
         g.dispose( );
     }
 
-    @Override
+
+	@Override
     public synchronized void mouseClicked( MouseEvent e ) {
         vMouse.add( e );
     }
@@ -102,6 +109,16 @@ public class GameStatePlaying extends GameState {
         vMouse.add( e );
     }
     
+    @Override
+    public synchronized void mousePressed( MouseEvent e) {
+    	vMouse.add( e );
+    }
+
+    @Override
+    public synchronized void mouseReleased( MouseEvent e) {
+    	vMouse.add( e );
+    }
+
     /**
      * Triggers the given mouse event.
      * @param e Mouse event
@@ -110,6 +127,7 @@ public class GameStatePlaying extends GameState {
         if( !GUI.getInstance( ).mouseClickedInHud( e ) )
             game.getActionManager( ).mouseClicked( e );
     }
+    
 
     /**
      * Triggers the given mouse event.
@@ -121,6 +139,15 @@ public class GameStatePlaying extends GameState {
         if( !GUI.getInstance( ).mouseMovedinHud( e ) )
             game.getActionManager( ).mouseMoved( e );
     }
+
+    private void mouseReleasedEvent(MouseEvent e) {
+        GUI.getInstance( ).mouseReleasedinHud( e );
+	}
+
+	private void mousePressedEvent(MouseEvent e) {
+		GUI.getInstance().mousePressedinHud( e );
+	}
+
 
     @Override
     public void keyPressed( KeyEvent e ) {
