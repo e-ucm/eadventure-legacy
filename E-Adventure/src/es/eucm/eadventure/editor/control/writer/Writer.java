@@ -436,6 +436,7 @@ public class Writer {
 			"\t\t<param name=\"USER_ID\" value=\"567\"/>\n"+
 			"\t\t<param name=\"RUN_ID\" value=\"5540\"/>\n"+
 			"\t\t<param name=\"WINDOWED\" value=\""+ (windowed?"yes":"no") +"\"/>\n"+
+			"\t\t<PARAM name=\"java_arguments\" value=\"-Xms512m -Xmx512m\">\n"+
 			"\t\t</applet>\n"+
 			"<p><b>The game is initating.. please be patient while the digital sign is verified</b></p>\n"+
 			"\t</body>\n"+

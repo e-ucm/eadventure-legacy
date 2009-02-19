@@ -72,6 +72,8 @@ public class MultimediaManager {
      */
     private static MultimediaManager instance = new MultimediaManager( );
 
+    private HashMap<String, Animation> animationCache;
+    
     /**
      * Returns the MultimediaManager instance. Notice MultimediaManager
      * is a singleton class.
@@ -94,6 +96,8 @@ public class MultimediaManager {
             mirrorImageCache[i] = new HashMap<String, Image>();
         
         soundCache = new HashMap<Long, Sound>();
+        
+        animationCache = new HashMap<String, Animation>();
         
         musicSoundId = -1;
     }
@@ -428,9 +432,14 @@ public class MultimediaManager {
      * @return an Animation with frames animationPath_xy.jpg
      */
     public Animation loadAnimation( String animationPath, boolean mirror, int category ) {
+    	Animation temp = animationCache.get(animationPath + (mirror ? "t" : "f"));
+    	if (temp != null)
+    		return temp;
+    	
     	if (animationPath != null && animationPath.endsWith(".eaa")) {
     		FrameAnimation animation = new FrameAnimation(Loader.loadAnimation(ResourceHandler.getInstance(), animationPath));
     		animation.setMirror(mirror);
+    		animationCache.put(animationPath + (mirror ? "t" : "f"), animation);
     		return animation;
     	} else {
 	        int i = 1;
@@ -453,6 +462,7 @@ public class MultimediaManager {
 	        
 	        ImageAnimation animation = new ImageAnimation( );
 	        animation.setImages( frames.toArray( new Image[] { } ) );
+    		animationCache.put(animationPath + (mirror ? "t" : "f"), animation);
 	        return animation;
     	}
     }
@@ -507,6 +517,10 @@ public class MultimediaManager {
         s = s + n;
         return s;
     }
+
+	public void flushAnimationPool() {
+		animationCache.clear();
+	}
    
     
 }

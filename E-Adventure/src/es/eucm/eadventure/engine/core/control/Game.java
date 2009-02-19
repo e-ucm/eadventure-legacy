@@ -26,10 +26,14 @@ import es.eucm.eadventure.common.data.chapter.NextScene;
 import es.eucm.eadventure.common.data.chapter.Timer;
 import es.eucm.eadventure.common.data.chapter.book.Book;
 import es.eucm.eadventure.common.data.chapter.conversation.Conversation;
+import es.eucm.eadventure.common.data.chapter.elements.NPC;
+import es.eucm.eadventure.common.data.chapter.elements.Player;
+import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.data.chapter.scenes.Scene;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.engine.adaptation.AdaptationEngine;
 import es.eucm.eadventure.engine.assessment.AssessmentEngine;
+import es.eucm.eadventure.engine.core.control.animations.AnimationState;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalItem;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalNPC;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
@@ -377,6 +381,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         // Reset the image cache
         MultimediaManager.getInstance( ).flushImagePool( MultimediaManager.IMAGE_SCENE );
         MultimediaManager.getInstance( ).flushImagePool( MultimediaManager.IMAGE_PLAYER );
+        MultimediaManager.getInstance().flushAnimationPool();
         System.gc( );
 
         // Extract the chapter
@@ -384,7 +389,9 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         
         // Load the script data
         gameData = Loader.loadChapterData( ResourceHandler.getInstance(), chapter.getName(), new ArrayList<Incidence>() );
-        
+
+        preLoadAnimations();
+
         // Create the flags & vars summaries and the assessment engine
         flags = new FlagSummary( gameData.getFlags( ), debug );
         vars = new VarSummary( gameData.getVars( ), debug );
@@ -492,6 +499,51 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     public void setPlayerLayer(int layer){
     	 functionalPlayer.setLayer(layer);
     	 
+    }
+    
+    private void preLoadAnimations() {
+        MultimediaManager multimedia = MultimediaManager.getInstance( );
+    	for (Resources r : gameData.getPlayer().getResources()) {
+            multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_STAND_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
+            multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_STAND_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
+            multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_STAND_UP ), false, MultimediaManager.IMAGE_PLAYER );
+            multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_STAND_DOWN ), false, MultimediaManager.IMAGE_PLAYER );
+            
+            multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_SPEAK_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
+            multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_SPEAK_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
+            multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_SPEAK_UP ), false, MultimediaManager.IMAGE_PLAYER );
+            multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_SPEAK_DOWN ), false, MultimediaManager.IMAGE_PLAYER );
+
+            multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_USE_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
+            multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_USE_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
+
+            multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_WALK_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
+            multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_WALK_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
+            multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_WALK_UP ), false, MultimediaManager.IMAGE_PLAYER );
+            multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_WALK_DOWN ), false, MultimediaManager.IMAGE_PLAYER );
+    	}
+    	for (NPC npc : gameData.getCharacters()) {
+    		for (Resources r : npc.getResources()) {
+                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
+                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
+                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_UP ), false, MultimediaManager.IMAGE_PLAYER );
+                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_DOWN ), false, MultimediaManager.IMAGE_PLAYER );
+                
+                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
+                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
+                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_UP ), false, MultimediaManager.IMAGE_PLAYER );
+                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_DOWN ), false, MultimediaManager.IMAGE_PLAYER );
+
+                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_USE_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
+                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_USE_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
+
+                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
+                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
+                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_UP ), false, MultimediaManager.IMAGE_PLAYER );
+                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_DOWN ), false, MultimediaManager.IMAGE_PLAYER );
+    		}
+    	}
+
     }
     
     public static boolean FINISH = false;
