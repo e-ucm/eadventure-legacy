@@ -38,6 +38,7 @@ import javax.swing.filechooser.FileFilter;
 
 import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
+import es.eucm.eadventure.common.auxiliar.filefilters.FolderFileFilter;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
@@ -889,6 +890,9 @@ public class MainWindow extends JFrame {
 
 		// Create the file chooser dialog
 		JFileChooser fileDialog = new JFileChooser( path );
+		if (filter instanceof FolderFileFilter) {
+			((FolderFileFilter) filter).setFileChooser(fileDialog);
+		}
 		fileDialog.setFileFilter( filter );
 
 		// If a file has really been choosen and opened, load it

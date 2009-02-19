@@ -605,7 +605,10 @@ public class Controller {
 					newFile( start.getFileType( ) );
 				} else if( op == StartDialog.OPEN_FILE_OPTION ) {
 					java.io.File selectedFile = start.getSelectedFile( );
-					if (selectedFile.isDirectory( ) && selectedFile.exists( ))
+					if (selectedFile.getAbsolutePath().toLowerCase().endsWith(".eap")) {
+						String absolutePath = selectedFile.getPath();
+						loadFile(absolutePath.substring(0, absolutePath.length() - 4), true);
+					} else if (selectedFile.isDirectory( ) && selectedFile.exists( ))
 						loadFile( start.getSelectedFile( ).getAbsolutePath( ), true );
 					else {
 						this.importGame( selectedFile.getAbsolutePath( ) );
@@ -950,11 +953,19 @@ public class Controller {
 
 		boolean create = false;
 		java.io.File selectedDir = null;
+		java.io.File selectedFile = null;
 		// Prompt main folder of the project
 		ProjectFolderChooser folderSelector = new ProjectFolderChooser(false, false);
 		// If some folder is selected, check all characters are correct  
 		if ( folderSelector.showOpenDialog( mainWindow ) == JFileChooser.APPROVE_OPTION ){
 			java.io.File selectedFolder = folderSelector.getSelectedFile( );
+			selectedFile = selectedFolder;
+			if (selectedFile.getAbsolutePath().endsWith(".eap")) {
+				String absolutePath = selectedFolder.getAbsolutePath();
+				selectedFolder = new File(absolutePath.substring(0, absolutePath.length() - 4));
+			} else {
+				selectedFile = new File(selectedFile.getAbsolutePath() + ".eap");
+			}
 			selectedDir = selectedFolder;
 
 			// Check the parent folder is not forbidden
@@ -1050,6 +1061,10 @@ public class Controller {
 		        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWNERROR");
 				}
 
+				try {
+					if (selectedFile != null && !selectedFile.exists())
+						selectedFile.createNewFile();
+				} catch (IOException e) {}
 				
 				mainWindow.reloadData( );
 
@@ -1362,6 +1377,12 @@ public class Controller {
 				if ( projectChooser.showOpenDialog( mainWindow ) == JFileChooser.APPROVE_OPTION ){
 					completeFilePath = projectChooser.getSelectedFile( ).getAbsolutePath( );
 					String folderName = projectChooser.getSelectedFile( ).getName( );
+
+					if (projectChooser.getSelectedFile().getAbsolutePath().endsWith(".eap")) {
+						completeFilePath = completeFilePath.substring(0, completeFilePath.length() - 4);
+						folderName = folderName.substring(0, folderName.length() - 4);
+					}
+					
 					// Check the parent folder is not forbidden
 					if ( isValidTargetProject( projectChooser.getSelectedFile() ) ){
 						// Check characters are ok. Otherwise, show error
@@ -1506,38 +1527,45 @@ public class Controller {
 				//loadingScreen = new LoadingScreen(TextConstants.getText( "Operation.SaveProjectAs" ), getLoadingImage( ), mainWindow);
 				//loadingScreen.setVisible( true );
 				String completeFilePath = null;
-				completeFilePath = mainWindow.showSaveDialog( getCurrentLoadFolder(), new FolderFileFilter( false, false) );
+				completeFilePath = mainWindow.showSaveDialog( getCurrentLoadFolder(), new FolderFileFilter( false, false, null) );
 	
 				// If some file was selected set the new file
 				if( completeFilePath != null ) {
 					// Create a file to extract the name and path
-					File newFile = new File( completeFilePath );
+					File newFolder;
+					File newFile;
+					if (completeFilePath.endsWith(".eap")) {
+						newFile = new File( completeFilePath );
+						newFolder = new File( completeFilePath.substring(0, completeFilePath.length() - 4));
+					} else {
+						newFile = new File( completeFilePath + ".eap");
+						newFolder = new File( completeFilePath );
+					}
 						// Check the selectedFolder is not inside a forbidden one
 						if ( isValidTargetProject( newFile ) ){
-							if (FolderFileFilter.checkCharacters( newFile.getName( ) )){
-			
-							// Add the ".ead" if it is not present in the name
-							//if( !completeFilePath.toLowerCase( ).endsWith( ".ead" ) )
-							//	completeFilePath += ".ead";
-			
+							if (FolderFileFilter.checkCharacters( newFolder.getName( ) )){
+						
 							// If the file doesn't exist, or if the user confirms the writing in the file
-							if( !newFile.exists( ) || newFile.list( ).length == 0 || mainWindow.showStrictConfirmDialog( TextConstants.getText( "Operation.SaveFileTitle" ), TextConstants.getText( "Operation.FolderNotEmpty", newFile.getName( ) ) ) ) {
+							if( (!newFile.exists() && !newFolder.exists( )) || !newFolder.exists() || newFolder.list( ).length == 0 || mainWindow.showStrictConfirmDialog( TextConstants.getText( "Operation.SaveFileTitle" ), TextConstants.getText( "Operation.FolderNotEmpty", newFolder.getName( ) ) ) ) {
 								// If the file exists, delete it so it's clean in the first save
 								//if( newFile.exists( ) )
 								//	newFile.delete( );
-			
+								
+								if (!newFile.exists())
+									newFile.create();
+								
 								// If this is a "Save as" operation, copy the assets from the old file to the new one
 								if( saveAs ){
 									loadingScreen.setMessage( TextConstants.getText( "Operation.SaveProjectAs" ) );
 									loadingScreen.setVisible( true );
 									
-									AssetsController.copyAssets( currentZipFile, newFile.getAbsolutePath( ) );
+									AssetsController.copyAssets( currentZipFile, newFolder.getAbsolutePath( ) );
 								}
 			
 								// Set the new file and path
-								currentZipFile = newFile.getAbsolutePath( );
-								currentZipPath = newFile.getParent( );
-								currentZipName = newFile.getName( );
+								currentZipFile = newFolder.getAbsolutePath( );
+								currentZipPath = newFolder.getParent( );
+								currentZipName = newFolder.getName( );
 							}
 			
 							// If the file was not overwritten, don't save the data
@@ -1587,6 +1615,10 @@ public class Controller {
 	
 				// Save the data
 				if( Writer.writeData( currentZipFile, adventureData, valid ) ) {
+					File eapFile = new File(currentZipFile + ".eap");
+					if (!eapFile.exists())
+						eapFile.create();
+					
 					// Set modified to false and update the window title
 					dataModified = false;
 					mainWindow.updateTitle( );
@@ -1625,6 +1657,7 @@ public class Controller {
 	
 	public void importGame(String eadPath){
 		boolean importGame = true;
+		java.io.File selectedFile = null;
 		try{
 			if (dataModified){
 				int option = mainWindow.showConfirmDialog( TextConstants.getText( "Operation.SaveChangesTitle" ), TextConstants.getText( "Operation.SaveChangesMessage" ) );
@@ -1672,6 +1705,14 @@ public class Controller {
 						// If some folder is selected, check all characters are correct  
 						if ( folderSelector.showOpenDialog( mainWindow ) == JFileChooser.APPROVE_OPTION ){
 							java.io.File selectedFolder = folderSelector.getSelectedFile( );
+							selectedFile = selectedFolder;
+							if (selectedFolder.getAbsolutePath().endsWith(".eap")) {
+								String absolutePath = selectedFolder.getAbsolutePath();
+								selectedFolder = new java.io.File(absolutePath.substring(0, absolutePath.length() - 4));
+							} else {
+								selectedFile = new java.io.File(selectedFolder.getAbsolutePath() + ".eap");
+							}
+							
 							selectedDir = selectedFolder;
 							
 							// Check the selectedFolder is not inside a forbidden one
@@ -1724,6 +1765,9 @@ public class Controller {
 							//AssetsController.createFolderStructure();
 							if (!selectedDir.exists( ))
 								selectedDir.mkdirs( );
+							
+							if (selectedFile != null && !selectedFile.exists())
+								selectedFile.createNewFile();
 							
 							// Unzip directory
 							File.unzipDir( originFile.getAbsolutePath( ), selectedDir.getAbsolutePath( ) );
