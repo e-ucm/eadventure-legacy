@@ -135,7 +135,6 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
 
         MultimediaManager multimedia = MultimediaManager.getInstance( );
 
-
         Animation[] animations = new Animation[4];
         animations[AnimationState.EAST] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_STAND_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
         animations[AnimationState.WEST] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_STAND_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
@@ -144,11 +143,8 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
         
         animationPool.add(animations);
 
-        // TODO the default animation should change with the orientation...
-        
         textFrontColor = generateColor( player.getTextFrontColor( ) );
         textBorderColor = generateColor( player.getTextBorderColor( ) );
-        
     }
 
     
