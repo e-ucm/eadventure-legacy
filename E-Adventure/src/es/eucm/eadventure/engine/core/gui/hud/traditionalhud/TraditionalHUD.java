@@ -681,4 +681,9 @@ public class TraditionalHUD extends HUD {
 	public boolean mouseReleased(MouseEvent e) {
 		return false;
 	}
+	
+	@Override
+	public boolean mouseDragged(MouseEvent e) {
+		return false;
+	}
 }
