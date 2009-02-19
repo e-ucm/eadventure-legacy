@@ -76,6 +76,7 @@ public class TriggerSceneEffectDialog extends EffectDialog {
 			c.fill = GridBagConstraints.HORIZONTAL;
 			c.weightx = 1;
 			scenesComboBox = new JComboBox( scenesArray );
+			scenesComboBox.addKeyListener(createListener());
 			scenesComboBox.addActionListener( new ScenesComboBoxActionListener( ) );
 			mainPanel.add( scenesComboBox, c );
 
@@ -85,16 +86,6 @@ public class TriggerSceneEffectDialog extends EffectDialog {
 			c.gridy = 1;
 			c.weightx = 1;
 			c.weighty = 1;
-			playerPositionPanel = new PositionPanel( new ElementImagePanel( null, playerPath ) );
-			if (!Controller.getInstance( ).isPlayTransparent( ))
-				mainPanel.add( playerPositionPanel, c );
-
-			// Add the panel to the center
-			add( mainPanel, BorderLayout.CENTER );
-
-			// Select the first element
-			scenesComboBox.setSelectedIndex( 0 );
-
 			// Set the defualt values (if present)
 			if( currentProperties != null ) {
 				int x = 0;
@@ -109,8 +100,22 @@ public class TriggerSceneEffectDialog extends EffectDialog {
 				if( currentProperties.containsKey( EffectsController.EFFECT_PROPERTY_Y ) )
 					y = Integer.parseInt( currentProperties.get( EffectsController.EFFECT_PROPERTY_Y ) );
 
-				playerPositionPanel.setPosition( x, y );
+				playerPositionPanel = new PositionPanel( new ElementImagePanel( null, playerPath ),x,y );
+				//playerPositionPanel.setPosition( x, y );
+			} else {
+				playerPositionPanel = new PositionPanel( new ElementImagePanel( null, playerPath ),400,500 );
 			}
+			
+			if (!Controller.getInstance( ).isPlayTransparent( ))
+				mainPanel.add( playerPositionPanel, c );
+
+			// Add the panel to the center
+			add( mainPanel, BorderLayout.CENTER );
+
+			// Select the first element
+			scenesComboBox.setSelectedIndex( 0 );
+
+
 
 			// Set the dialog
 			setResizable( false );

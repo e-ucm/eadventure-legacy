@@ -236,6 +236,7 @@ public class NextScenePanel extends JTabbedPane {
 
 			// Set the new data
 			nextSceneDataControl.setDestinyPosition( destinyPositionDialog.getPositionX( ), destinyPositionDialog.getPositionY( ) );
+			System.out.println("POSITION SET");
 		}
 	}
 

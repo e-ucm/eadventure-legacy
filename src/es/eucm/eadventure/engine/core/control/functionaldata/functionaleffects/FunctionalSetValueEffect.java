@@ -22,7 +22,7 @@ public class FunctionalSetValueEffect extends FunctionalEffect {
      * @see es.eucm.eadventure.engine.engine.data.effects.Effect#triggerEffect()
      */
     public void triggerEffect( ) {
-    	Game.getInstance( ).getVars( ).setVarValue(((SetValueEffect)effect).getIdVar(), ((SetValueEffect)effect).getValue() );
+    	Game.getInstance( ).getVars( ).setVarValue(((SetValueEffect)effect).getTargetId(), ((SetValueEffect)effect).getValue() );
         Game.getInstance( ).updateDataPendingFromState( false );
     }
 

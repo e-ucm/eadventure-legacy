@@ -22,8 +22,8 @@ public class FunctionalTriggerCutsceneEffect extends FunctionalEffect {
      * @see es.eucm.eadventure.engine.engine.data.effects.Effect#triggerEffect()
      */
     public void triggerEffect( ) {
-        if( Game.getInstance( ).getCurrentChapterData( ).isCutscene( ((TriggerCutsceneEffect)effect).getTargetCutsceneId() ) ) {
-            Game.getInstance( ).setNextScene( new NextScene( ((TriggerCutsceneEffect)effect).getTargetCutsceneId() ) );
+        if( Game.getInstance( ).getCurrentChapterData( ).isCutscene( ((TriggerCutsceneEffect)effect).getTargetId() ) ) {
+            Game.getInstance( ).setNextScene( new NextScene( ((TriggerCutsceneEffect)effect).getTargetId() ) );
             Game.getInstance( ).setState( Game.STATE_NEXT_SCENE );
         }
     }

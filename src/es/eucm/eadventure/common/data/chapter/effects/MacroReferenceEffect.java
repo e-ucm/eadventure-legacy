@@ -1,11 +1,13 @@
 package es.eucm.eadventure.common.data.chapter.effects;
 
+import es.eucm.eadventure.common.data.HasTargetId;
+
 /**
  * An based on a reference to a macro
  * @author Javier
  *
  */
-public class MacroReferenceEffect implements Effect{
+public class MacroReferenceEffect implements Effect, HasTargetId{
 
 	/**
 	 * The id
@@ -28,14 +30,14 @@ public class MacroReferenceEffect implements Effect{
 	/**
 	 * @return the macroId
 	 */
-	public String getMacroId() {
+	public String getTargetId() {
 		return macroId;
 	}
 
 	/**
 	 * @param macroId the macroId to set
 	 */
-	public void setMacroId(String macroId) {
+	public void setTargetId(String macroId) {
 		this.macroId = macroId;
 	}
 
@@ -44,4 +46,5 @@ public class MacroReferenceEffect implements Effect{
 		mre.macroId = (macroId != null ? new String(macroId) : null);
 		return mre;
 	}
+
 }

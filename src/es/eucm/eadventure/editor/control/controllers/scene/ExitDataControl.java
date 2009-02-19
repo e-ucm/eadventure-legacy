@@ -338,7 +338,7 @@ public class ExitDataControl extends DataControl {
 			// Update nextscene
 			nextScenesDataControlList.get( i ).deleteIdentifierReferences( id );
 			
-			if( nextScenesList.get( i ).getNextSceneId( ).equals( id ) ) {
+			if( nextScenesList.get( i ).getTargetId( ).equals( id ) ) {
 				nextScenesList.remove( i );
 				nextScenesDataControlList.remove( i );
 				

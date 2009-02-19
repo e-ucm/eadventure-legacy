@@ -4,21 +4,22 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
+import es.eucm.eadventure.common.data.Positioned;
+import es.eucm.eadventure.common.gui.NoEditableNumberSpinner;
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.tools.general.ChangePositionTool;
 import es.eucm.eadventure.editor.gui.otherpanels.positionimagepanels.PositionImagePanel;
 
-public class PositionPanel extends JPanel {
+public class PositionPanel extends JPanel implements Positioned{
 
 	/**
 	 * Required.
@@ -33,12 +34,12 @@ public class PositionPanel extends JPanel {
 	/**
 	 * Text field containing the X position.
 	 */
-	private JTextField positionXTextField;
+	private NoEditableNumberSpinner positionXTextField;
 
 	/**
 	 * Text field containing the Y position.
 	 */
-	private JTextField positionYTextField;
+	private NoEditableNumberSpinner positionYTextField;
 
 	/**
 	 * Panel with the image.
@@ -61,8 +62,8 @@ public class PositionPanel extends JPanel {
 	 * @param positionImagePanel
 	 *            Position image panel
 	 */
-	public PositionPanel( PositionImagePanel positionImagePanel ) {
-		this( null, positionImagePanel );
+	public PositionPanel( PositionImagePanel positionImagePanel, int initialX, int initialY  ) {
+		this( null, positionImagePanel, initialX, initialY );
 	}
 
 	/**
@@ -73,15 +74,13 @@ public class PositionPanel extends JPanel {
 	 * @param positionImagePanel
 	 *            Position image panel
 	 */
-	public PositionPanel( PositionPanelListener positionPanelListener, PositionImagePanel positionImagePanel ) {
+	public PositionPanel( PositionPanelListener positionPanelListener, PositionImagePanel positionImagePanel, int initialX, int initialY ) {
 
 		// Set the panel
 		this.positionPanelListener = positionPanelListener;
 		this.positionImagePanel = positionImagePanel;
-
-		// Set the default values
-		positionX = 0;
-		positionY = 0;
+		this.positionX = initialX;
+		this.positionY = initialY;
 
 		// Set the layout
 		setLayout( new GridBagLayout( ) );
@@ -95,9 +94,10 @@ public class PositionPanel extends JPanel {
 		xCoordinatePanel.add( new JLabel( TextConstants.getText( "SceneLocation.XCoordinate" ) ) );
 
 		// Create and add the x position text field
-		positionXTextField = new JTextField( String.valueOf( positionX ), 5 );
-		positionXTextField.addActionListener( new TextFieldChangesListener( ) );
-		positionXTextField.addFocusListener( new TextFieldChangesListener( ) );
+		positionXTextField = new NoEditableNumberSpinner( positionX, 0, 1000000,1 );
+		positionXTextField.addChangeListener(new ChangeValueListener());
+		//positionXTextField.addActionListener( new TextFieldChangesListener( ) );
+		//positionXTextField.addFocusListener( new TextFieldChangesListener( ) );
 		xCoordinatePanel.add( positionXTextField, c );
 
 		// Add the X coordinate panel
@@ -115,9 +115,13 @@ public class PositionPanel extends JPanel {
 		yCoordinatePanel.add( new JLabel( TextConstants.getText( "SceneLocation.YCoordinate" ) ), c );
 
 		// Create and add the y position text field
-		positionYTextField = new JTextField( String.valueOf( positionY ), 5 );
-		positionYTextField.addActionListener( new TextFieldChangesListener( ) );
-		positionYTextField.addFocusListener( new TextFieldChangesListener( ) );
+		positionYTextField = new NoEditableNumberSpinner( positionY, 0, 1000000,1 );
+		//positionYTextField.setEnabled(false);
+		positionYTextField.addChangeListener(new ChangeValueListener());
+		
+		//positionYTextField = new JTextField( String.valueOf( positionY ), 5 );
+		//positionYTextField.addActionListener( new TextFieldChangesListener( ) );
+		//positionYTextField.addFocusListener( new TextFieldChangesListener( ) );
 		yCoordinatePanel.add( positionYTextField, c );
 
 		// Add the Y coordinate panel
@@ -184,37 +188,51 @@ public class PositionPanel extends JPanel {
 	 */
 	public void setPosition( int x, int y ) {
 		// Set the new values
-		positionX = x;
-		positionY = y;
+		//positionX = x;
+		//positionY = y;
 
 		// Set the values on the fields
-		positionXTextField.setText( String.valueOf( positionX ) );
-		positionYTextField.setText( String.valueOf( positionY ) );
+		//positionXTextField.setValue( positionX );
+		//positionYTextField.setValue( positionY );
+		//positionXTextField.setText( String.valueOf( positionX ) );
+		//positionYTextField.setText( String.valueOf( positionY ) );
 
 		// Set the point in the panel and repaint it
-		positionImagePanel.setSelectedPoint( positionX, positionY );
-		positionImagePanel.repaint( );
+		//positionImagePanel.setSelectedPoint( positionX, positionY );
+		//positionImagePanel.repaint( );
+		Controller.getInstance().addTool(new ChangePositionTool(this,x,y));
 	}
+	
+	public void setPositionX( int x ){
+		positionX = x;
+		positionXTextField.setValue( positionX );
+	}
+	
+	public void setPositionY( int y ){
+		positionY = y;
+		positionYTextField.setValue( positionY );
+	}
+
 
 	/**
 	 * Updates the values of the position, extracting them from the text fields.
 	 */
-	private void checkPositionValues( ) {
+	/*private void checkPositionValues( ) {
 
 		try {
 			// Try to parse the value from the text field
-			positionX = Integer.parseInt( positionXTextField.getText( ) );
+			//positionX = Integer.parseInt( positionXTextField.getText( ) );
 		} catch( NumberFormatException e ) {
 			// If it failed, set the last valid value
-			positionXTextField.setText( String.valueOf( positionX ) );
+			//positionXTextField.setText( String.valueOf( positionX ) );
 		}
 
 		try {
 			// Try to parse the value from the text field
-			positionY = Integer.parseInt( positionYTextField.getText( ) );
+			//positionY = Integer.parseInt( positionYTextField.getText( ) );
 		} catch( NumberFormatException e ) {
 			// If it failed, set the last valid value
-			positionYTextField.setText( String.valueOf( positionY ) );
+			//positionYTextField.setText( String.valueOf( positionY ) );
 		}
 
 		// Call the listener
@@ -224,31 +242,23 @@ public class PositionPanel extends JPanel {
 		// Set the values on the panel and repaint it
 		positionImagePanel.setSelectedPoint( positionX, positionY );
 		positionImagePanel.repaint( );
-	}
+	}*/
 
 	/**
 	 * Listener for the text fields. It checks the values from the fields and updates the panel.
 	 */
-	private class TextFieldChangesListener extends FocusAdapter implements ActionListener {
+	/*private class TextFieldChangesListener extends FocusAdapter implements ActionListener {
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.FocusAdapter#focusLost(java.awt.event.FocusEvent)
-		 */
+	
 		public void focusLost( FocusEvent e ) {
 			checkPositionValues( );
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-		 */
+	
 		public void actionPerformed( ActionEvent e ) {
 			checkPositionValues( );
 		}
-	}
+	}*/
 
 	/**
 	 * Listener for the image panel.
@@ -269,6 +279,20 @@ public class PositionPanel extends JPanel {
 				if( positionPanelListener != null )
 					positionPanelListener.updatePositionValues( positionX, positionY );
 			}
+		}
+	}
+	
+	public class ChangeValueListener implements ChangeListener {
+		
+		
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				if (e.getSource()==positionXTextField)
+					positionX = (Integer)positionXTextField.getValue( );
+				if (e.getSource()==positionYTextField)
+					positionY = (Integer)positionYTextField.getValue( );
+				positionImagePanel.setSelectedPoint( positionX, positionY );
+				positionImagePanel.repaint( );
 		}
 	}
 }

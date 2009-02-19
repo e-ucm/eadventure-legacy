@@ -1,5 +1,7 @@
 package es.eucm.eadventure.common.data.chapter;
 
+import es.eucm.eadventure.common.data.HasTargetId;
+import es.eucm.eadventure.common.data.Positioned;
 import es.eucm.eadventure.common.data.chapter.ExitLook;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.common.data.chapter.effects.Effects;
@@ -7,7 +9,7 @@ import es.eucm.eadventure.common.data.chapter.effects.Effects;
 /**
  * This class holds the data of a next scene in eAdventure
  */
-public class NextScene implements Cloneable {
+public class NextScene implements Cloneable, HasTargetId, Positioned{
 
 	/**
 	 * Id of the target scene
@@ -85,7 +87,7 @@ public class NextScene implements Cloneable {
 	 * 
 	 * @return the id of the next scene
 	 */
-	public String getNextSceneId( ) {
+	public String getTargetId( ) {
 		return nextSceneId;
 	}
 
@@ -103,7 +105,7 @@ public class NextScene implements Cloneable {
 	 * 
 	 * @return the horizontal position of the player when he/she gets into this scene
 	 */
-	public int getDestinyX( ) {
+	public int getPositionX( ) {
 		return destinyX;
 	}
 
@@ -112,7 +114,7 @@ public class NextScene implements Cloneable {
 	 * 
 	 * @return the verticalal position of the player when he/she gets into this scene
 	 */
-	public int getDestinyY( ) {
+	public int getPositionY( ) {
 		return destinyY;
 	}
 
@@ -149,7 +151,7 @@ public class NextScene implements Cloneable {
 	 * @param nextSceneId
 	 *            New next scene id
 	 */
-	public void setNextSceneId( String nextSceneId ) {
+	public void setTargetId( String nextSceneId ) {
 		this.nextSceneId = nextSceneId;
 	}
 
@@ -162,7 +164,27 @@ public class NextScene implements Cloneable {
 	 *            Y coordinate of the destiny position
 	 */
 	public void setDestinyPosition( int positionX, int positionY ) {
+		setPositionX( positionX);
+		setPositionY (positionY);
+	}
+	
+	/**
+	 * Sets the new destiny position X for the next scene.
+	 * 
+	 * @param positionX
+	 *            X coordinate of the destiny position
+	 */
+	public void setPositionX( int positionX) {
 		this.destinyX = positionX;
+	}
+	
+	/**
+	 * Sets the new destiny position Y for the next scene.
+	 * 
+	 * @param positionY
+	 *            Y coordinate of the destiny position
+	 */
+	public void setPositionY( int positionY) {
 		this.destinyY = positionY;
 	}
 

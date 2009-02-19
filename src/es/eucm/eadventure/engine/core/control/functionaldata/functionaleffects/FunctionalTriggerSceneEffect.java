@@ -22,8 +22,8 @@ public class FunctionalTriggerSceneEffect extends FunctionalEffect {
      * @see es.eucm.eadventure.engine.engine.data.effects.Effect#triggerEffect()
      */
     public void triggerEffect( ) {
-        if( ((TriggerSceneEffect)effect).getTargetSceneId()!=null && !Game.getInstance( ).getCurrentChapterData( ).isCutscene( ((TriggerSceneEffect)effect).getTargetSceneId() ) ) {
-            Game.getInstance( ).setNextScene( new NextScene( ((TriggerSceneEffect)effect).getTargetSceneId()
+        if( ((TriggerSceneEffect)effect).getTargetId()!=null && !Game.getInstance( ).getCurrentChapterData( ).isCutscene( ((TriggerSceneEffect)effect).getTargetId() ) ) {
+            Game.getInstance( ).setNextScene( new NextScene( ((TriggerSceneEffect)effect).getTargetId()
             		, ((TriggerSceneEffect)effect).getX(), ((TriggerSceneEffect)effect).getY() ) );
             Game.getInstance( ).setState( Game.STATE_NEXT_SCENE );
         }

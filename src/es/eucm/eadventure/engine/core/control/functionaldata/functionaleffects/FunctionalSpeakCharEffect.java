@@ -23,7 +23,7 @@ public class FunctionalSpeakCharEffect extends FunctionalEffect {
      * @see es.eucm.eadventure.engine.engine.data.effects.Effect#triggerEffect()
      */
     public void triggerEffect( ) {
-        FunctionalNPC npc = Game.getInstance( ).getFunctionalScene( ).getNPC( ((SpeakCharEffect)effect).getIdTarget() );
+        FunctionalNPC npc = Game.getInstance( ).getFunctionalScene( ).getNPC( ((SpeakCharEffect)effect).getTargetId() );
         if( npc != null ) {
         	if (npc.isAlwaysSynthesizer())
         		npc.speakWithFreeTTS( ((SpeakCharEffect)effect).getLine(), npc.getPlayerVoice() );

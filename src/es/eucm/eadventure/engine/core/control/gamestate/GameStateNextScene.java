@@ -29,7 +29,7 @@ public class GameStateNextScene extends GameState {
         
         // Pick the next scene, and the scene related to it
         NextScene nextScene = game.getNextScene( );
-        GeneralScene generalScene = game.getCurrentChapterData( ).getGeneralScene( nextScene.getNextSceneId( ) );
+        GeneralScene generalScene = game.getCurrentChapterData( ).getGeneralScene( nextScene.getTargetId( ) );
 
         // Depending on the type of the scene
         switch( generalScene.getType( ) ) {
@@ -71,11 +71,11 @@ public class GameStateNextScene extends GameState {
 
                 if( nextScene.hasPlayerPosition( ) ) {
                     if (scene.getTrajectory() == null) {
-                    	game.getFunctionalPlayer( ).setX( nextScene.getDestinyX( ) );
-                    	game.getFunctionalPlayer( ).setY( nextScene.getDestinyY( ) );
+                    	game.getFunctionalPlayer( ).setX( nextScene.getPositionX( ) );
+                    	game.getFunctionalPlayer( ).setY( nextScene.getPositionY( ) );
                     	game.getFunctionalPlayer().setScale( scene.getPlayerScale());
                     } else {
-                    	Node node = game.getFunctionalScene().getTrajectory().changeInitialNode(nextScene.getDestinyX(), nextScene.getDestinyY());
+                    	Node node = game.getFunctionalScene().getTrajectory().changeInitialNode(nextScene.getPositionX(), nextScene.getPositionY());
                     	game.getFunctionalPlayer().setX(node.getX());
                     	game.getFunctionalPlayer().setY(node.getY());
                     	game.getFunctionalPlayer().setScale(node.getScale());

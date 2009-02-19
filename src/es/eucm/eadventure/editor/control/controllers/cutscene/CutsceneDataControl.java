@@ -549,7 +549,7 @@ public class CutsceneDataControl extends DataControlWithResources {
 
 		// Check every next scene structure
 		while( i < nextScenesList.size( ) ) {
-			if( nextScenesList.get( i ).getNextSceneId( ).equals( id ) ) {
+			if( nextScenesList.get( i ).getTargetId( ).equals( id ) ) {
 				nextScenesList.remove( i );
 				nextScenesDataControlList.remove( i );
 			}

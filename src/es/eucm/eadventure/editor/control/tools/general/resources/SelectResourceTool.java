@@ -4,7 +4,6 @@ import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
-import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.data.AssetInformation;
 import es.eucm.eadventure.editor.gui.assetchooser.AssetChooser;
 
@@ -18,9 +17,9 @@ public class SelectResourceTool extends ResourcesTool{
 	
 	public SelectResourceTool(Resources resources,
 			AssetInformation[] assetsInformation,
-			ConditionsController conditionsController, int resourcesType,
+			int resourcesType,
 			int index) throws CloneNotSupportedException {
-		super(resources, assetsInformation, conditionsController, resourcesType, index);
+		super(resources, assetsInformation, resourcesType, index);
 	}
 
 	@Override

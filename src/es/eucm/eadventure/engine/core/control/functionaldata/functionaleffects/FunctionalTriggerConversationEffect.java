@@ -21,7 +21,7 @@ public class FunctionalTriggerConversationEffect extends FunctionalEffect {
      * @see es.eucm.eadventure.engine.engine.data.effects.Effect#triggerEffect()
      */
     public void triggerEffect( ) {
-        Game.getInstance( ).setConversation( ((TriggerConversationEffect)effect).getTargetConversationId() );
+        Game.getInstance( ).setConversation( ((TriggerConversationEffect)effect).getTargetId() );
         Game.getInstance( ).setState( Game.STATE_CONVERSATION ); 
     }
 

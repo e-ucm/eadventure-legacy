@@ -1,9 +1,11 @@
 package es.eucm.eadventure.common.data.chapter.effects;
 
+import es.eucm.eadventure.common.data.HasTargetId;
+
 /**
  * An effect that triggers a conversation.
  */
-public class TriggerConversationEffect implements Effect {
+public class TriggerConversationEffect implements Effect, HasTargetId {
 
 	/**
 	 * Id of the conversation to be played
@@ -29,7 +31,7 @@ public class TriggerConversationEffect implements Effect {
 	 * 
 	 * @return String containing the targetConversationId
 	 */
-	public String getTargetConversationId( ) {
+	public String getTargetId( ) {
 		return targetConversationId;
 	}
 
@@ -39,7 +41,7 @@ public class TriggerConversationEffect implements Effect {
 	 * @param targetConversationId
 	 *            New targetConversationId
 	 */
-	public void setTargetConversationId( String targetConversationId ) {
+	public void setTargetId( String targetConversationId ) {
 		this.targetConversationId = targetConversationId;
 	}
 	

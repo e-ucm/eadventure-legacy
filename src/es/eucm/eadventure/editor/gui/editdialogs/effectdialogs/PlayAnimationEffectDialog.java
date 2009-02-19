@@ -95,6 +95,7 @@ public class PlayAnimationEffectDialog extends EffectDialog {
 
 		// Create the delete content button
 		JButton deleteContentButton = new JButton( deleteContentIcon );
+		deleteContentButton.addKeyListener(createListener());
 		deleteContentButton.addActionListener( new DeleteContentButtonActionListener( ) );
 		deleteContentButton.setPreferredSize( new Dimension( 20, 20 ) );
 		deleteContentButton.setToolTipText( TextConstants.getText( "Resources.DeleteAsset" ) );
@@ -102,6 +103,7 @@ public class PlayAnimationEffectDialog extends EffectDialog {
 
 		// Create the text field and insert it
 		pathTextField = new JTextField( );
+		pathTextField.addKeyListener(createListener());
 		pathTextField.setEditable( false );
 		c.gridx = 1;
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -110,6 +112,7 @@ public class PlayAnimationEffectDialog extends EffectDialog {
 
 		// Create the "Select" button and insert it
 		JButton selectButton = new JButton( TextConstants.getText( "Resources.Select" ) );
+		selectButton.addKeyListener(createListener());
 		selectButton.addActionListener( new ExamineButtonActionListener( ) );
 		c.gridx = 2;
 		c.fill = GridBagConstraints.NONE;
@@ -118,6 +121,7 @@ public class PlayAnimationEffectDialog extends EffectDialog {
 
 		// Create the "View" button and insert it
 		viewButton = new JButton( TextConstants.getText( "Resources.ViewAsset" ) );
+		viewButton.addKeyListener(createListener());
 		viewButton.setEnabled( false );
 		viewButton.addActionListener( new ViewButtonActionListener( ) );
 		c.gridx = 3;
@@ -140,6 +144,7 @@ public class PlayAnimationEffectDialog extends EffectDialog {
 		// Create and add the list of scenes
 		c.gridy = 1;
 		scenesComboBox = new JComboBox( scenesArray );
+		scenesComboBox.addKeyListener(createListener());
 		scenesComboBox.addActionListener( new ScenesComboBoxActionListener( ) );
 		mainPanel.add( scenesComboBox, c );
 
@@ -149,12 +154,6 @@ public class PlayAnimationEffectDialog extends EffectDialog {
 		c.gridy = 2;
 		c.weightx = 1;
 		c.weighty = 1;
-		pointPositionPanel = new PositionPanel( new PointImagePanel( ) );
-		mainPanel.add( pointPositionPanel, c );
-
-		// Add the panel to the center
-		add( mainPanel, BorderLayout.CENTER );
-
 		// Set the defualt values (if present)
 		if( currentProperties != null ) {
 			int x = 0;
@@ -171,8 +170,18 @@ public class PlayAnimationEffectDialog extends EffectDialog {
 			if( currentProperties.containsKey( EffectsController.EFFECT_PROPERTY_Y ) )
 				y = Integer.parseInt( currentProperties.get( EffectsController.EFFECT_PROPERTY_Y ) );
 
-			pointPositionPanel.setPosition( x, y );
+			pointPositionPanel = new PositionPanel( new PointImagePanel( ),x,y );
+			//pointPositionPanel.setPosition( x, y );
+		} else {
+			pointPositionPanel = new PositionPanel( new PointImagePanel( ),400,500 );
 		}
+		//pointPositionPanel = new PositionPanel( new PointImagePanel( ) );
+		mainPanel.add( pointPositionPanel, c );
+
+		// Add the panel to the center
+		add( mainPanel, BorderLayout.CENTER );
+
+
 
 		// Set the dialog
 		setResizable( false );

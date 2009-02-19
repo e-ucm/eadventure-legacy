@@ -4,7 +4,6 @@ import java.io.File;
 
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
-import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.data.AssetInformation;
 
 /**
@@ -20,9 +19,8 @@ public class EditResourceTool extends ResourcesTool{
 	protected String filename;
 	
 	public EditResourceTool(Resources resources,
-			AssetInformation[] assetsInformation,
-			ConditionsController conditionsController, int resourcesType, int index, String filename) throws CloneNotSupportedException {
-		super(resources, assetsInformation, conditionsController, resourcesType, index);
+			AssetInformation[] assetsInformation,int index, String filename) throws CloneNotSupportedException {
+		super(resources, assetsInformation, -1, index);
 		this.filename = filename;
 	}
 

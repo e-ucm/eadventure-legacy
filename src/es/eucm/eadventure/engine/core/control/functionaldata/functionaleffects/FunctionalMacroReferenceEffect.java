@@ -30,7 +30,7 @@ public class FunctionalMacroReferenceEffect extends FunctionalEffect{
 	@Override
 	public void triggerEffect() {
 		// Get the macro
-		Macro macro = Game.getInstance().getCurrentChapterData().getMacro( macroRefEffect.getMacroId() );
+		Macro macro = Game.getInstance().getCurrentChapterData().getMacro( macroRefEffect.getTargetId() );
 		
 		// Build list of functional effects
 		List<FunctionalEffect> fEffects = new ArrayList<FunctionalEffect>( );

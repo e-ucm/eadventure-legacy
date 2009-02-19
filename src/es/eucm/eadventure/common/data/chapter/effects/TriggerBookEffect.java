@@ -1,9 +1,11 @@
 package es.eucm.eadventure.common.data.chapter.effects;
 
+import es.eucm.eadventure.common.data.HasTargetId;
+
 /**
  * An effect that raises a "bookscene".
  */
-public class TriggerBookEffect implements Effect {
+public class TriggerBookEffect implements Effect, HasTargetId {
 
 	/**
 	 * Id of the book to be shown
@@ -29,7 +31,7 @@ public class TriggerBookEffect implements Effect {
 	 * 
 	 * @return String containing the targetBookId
 	 */
-	public String getTargetBookId( ) {
+	public String getTargetId( ) {
 		return targetBookId;
 	}
 
@@ -39,7 +41,7 @@ public class TriggerBookEffect implements Effect {
 	 * @param targetBookId
 	 *            New targetBookId
 	 */
-	public void setTargetBookId( String targetBookId ) {
+	public void setTargetId( String targetBookId ) {
 		this.targetBookId = targetBookId;
 	}
 	

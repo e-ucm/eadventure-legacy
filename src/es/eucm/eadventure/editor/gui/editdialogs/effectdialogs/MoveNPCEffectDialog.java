@@ -93,6 +93,7 @@ public class MoveNPCEffectDialog extends EffectDialog {
 			c.fill = GridBagConstraints.HORIZONTAL;
 			c.weightx = 1;
 			charactersComboBox = new JComboBox( charactersArray );
+			charactersComboBox.addKeyListener(createListener());
 			charactersComboBox.addActionListener( new CharactersComboBoxListener( ) );
 			mainPanel.add( charactersComboBox, c );
 
@@ -103,6 +104,7 @@ public class MoveNPCEffectDialog extends EffectDialog {
 			// Create and add the list of scenes
 			c.gridy = 2;
 			scenesComboBox = new JComboBox( scenesArray );
+			scenesComboBox.addKeyListener(createListener());
 			scenesComboBox.addActionListener( new ScenesComboBoxListener( ) );
 			mainPanel.add( scenesComboBox, c );
 
@@ -115,12 +117,7 @@ public class MoveNPCEffectDialog extends EffectDialog {
 			c.gridy = 3;
 			c.weightx = 1;
 			c.weighty = 1;
-			npcPositionPanel = new PositionPanel( elementPositionImagePanel );
-			mainPanel.add( npcPositionPanel, c );
-
-			// Add the panel to the center
-			add( mainPanel, BorderLayout.CENTER );
-
+			
 			// Set the defualt values (if present)
 			if( currentProperties != null ) {
 				int x = 0;
@@ -135,8 +132,20 @@ public class MoveNPCEffectDialog extends EffectDialog {
 				if( currentProperties.containsKey( EffectsController.EFFECT_PROPERTY_Y ) )
 					y = Integer.parseInt( currentProperties.get( EffectsController.EFFECT_PROPERTY_Y ) );
 
-				npcPositionPanel.setPosition( x, y );
+				npcPositionPanel= new PositionPanel( elementPositionImagePanel,x,y );
+				//npcPositionPanel.setPosition( x, y );
+			} else{
+				npcPositionPanel= new PositionPanel( elementPositionImagePanel,400,500 );
 			}
+			
+			
+			//npcPositionPanel = new PositionPanel( elementPositionImagePanel );
+			mainPanel.add( npcPositionPanel, c );
+
+			// Add the panel to the center
+			add( mainPanel, BorderLayout.CENTER );
+
+
 
 			// Set the character image in the element position image panel
 			String npcPath = controller.getElementImagePath( charactersComboBox.getSelectedItem( ).toString( ) );
