@@ -48,7 +48,10 @@ public class GameStatePlaying extends GameState {
             	mousePressedEvent( vMouse.get(0) );
             
             else if ( vMouse.get(0).getID() == MouseEvent.MOUSE_RELEASED)
-            	mouseReleasedEvent( vMouse.get(0));
+            	mouseReleasedEvent( vMouse.get(0) );
+            
+            else if ( vMouse.get(0).getID() == MouseEvent.MOUSE_DRAGGED)
+            	mouseDraggedEvent( vMouse.get(0) );
                 
             // Delete the event
             vMouse.remove( 0 );
@@ -118,6 +121,11 @@ public class GameStatePlaying extends GameState {
     public synchronized void mouseReleased( MouseEvent e) {
     	vMouse.add( e );
     }
+    
+    @Override
+    public synchronized void mouseDragged( MouseEvent e) {
+    	vMouse.add( e );
+    }
 
     /**
      * Triggers the given mouse event.
@@ -146,6 +154,10 @@ public class GameStatePlaying extends GameState {
 
 	private void mousePressedEvent(MouseEvent e) {
 		GUI.getInstance().mousePressedinHud( e );
+	}
+	
+	private void mouseDraggedEvent(MouseEvent e) {
+		GUI.getInstance().mouseDraggedinHud( e );
 	}
 
 

@@ -219,7 +219,7 @@ public class ContextualHUD extends HUD {
      */
     public boolean mouseMoved( MouseEvent e ) {
         boolean inHud = false;
-               
+        
         //Reset the action overed button
         actionButtons.mouseMoved( null );
         
@@ -346,7 +346,7 @@ public class ContextualHUD extends HUD {
 
 		DebugLog.user("Mouse released after " + pressedTime );
 
-		if (pressedTime > 800 && pressedTime < 60000) {
+		if (pressedTime >= 800 && pressedTime < 60000) {
 			if (Math.abs(pressedX - e.getX()) < 20 &&
 					Math.abs(pressedY - e.getY()) < 20) {
 				processRightClickNoButton(pressedElement, e);
@@ -359,6 +359,19 @@ public class ContextualHUD extends HUD {
 		pressedTime = Long.MAX_VALUE;
 		
 		return false;
+	}
+	
+	@Override
+	public boolean mouseDragged(MouseEvent e) {
+        if (System.currentTimeMillis() - pressedTime >= 0 && System.currentTimeMillis() - pressedTime <= 800) {
+			if (Math.abs(pressedX - e.getX()) < 20 &&
+					Math.abs(pressedY - e.getY()) < 20) {
+	        	return true;
+			} else {
+				pressedTime = Long.MAX_VALUE;
+			}
+        }
+        return false;
 	}
     
     /**

@@ -942,4 +942,7 @@ public abstract class GUI implements FocusListener {
 		return hud.mousePressed(e);
 	}
 	
+	public boolean mouseDraggedinHud(MouseEvent e) {
+		return hud.mouseDragged(e);
+	}
 }

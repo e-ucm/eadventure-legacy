@@ -108,5 +108,7 @@ public abstract class HUD {
 	public abstract boolean mouseReleased(MouseEvent e);
 	
 	public abstract boolean mousePressed(MouseEvent e);
+	
+	public abstract boolean mouseDragged(MouseEvent e);
 
 }
