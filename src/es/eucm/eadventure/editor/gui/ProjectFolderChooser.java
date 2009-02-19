@@ -8,26 +8,31 @@ import java.awt.Font;
 import java.awt.Frame;
 import java.awt.HeadlessException;
 import java.awt.Window;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 
 import javax.accessibility.AccessibleContext;
-import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRootPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.UIManager;
 
 import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
 import es.eucm.eadventure.common.auxiliar.filefilters.FolderFileFilter;
 import es.eucm.eadventure.common.gui.TextConstants;
-import es.eucm.eadventure.editor.control.Controller;
 
 public class ProjectFolderChooser extends JFileChooser{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private JTextField projectName = null;
 	
 	private static File getDefaultSelectedFile () {
 		String defaultName = TextConstants.getText("Operation.NewFileTitle");
@@ -42,6 +47,17 @@ public class ProjectFolderChooser extends JFileChooser{
 		
 	}
 
+	@Override
+	public File getSelectedFile() {
+		File temp = super.getSelectedFile();
+		
+		if (projectName != null) {
+			temp = new File(temp.getParent() + File.separatorChar + projectName.getText());
+		}
+		
+		return temp;
+	}
+	
 	private static File getProjectsFolder(){
 		File parentDir = ReleaseFolders.projectsFolder() ;
 		if (!parentDir.exists( ))
@@ -76,6 +92,7 @@ public class ProjectFolderChooser extends JFileChooser{
             dialog.setComponentOrientation(this.getComponentOrientation());
 
             JPanel infoPanel = new JPanel();
+            infoPanel.setLayout(new BorderLayout());
             JTextArea info = new JTextArea();
             info.setColumns( 10 );
             info.setWrapStyleWord( true );
@@ -83,29 +100,26 @@ public class ProjectFolderChooser extends JFileChooser{
             info.setEditable( false );
             info.setBackground( infoPanel.getBackground( ) );
             info.setText( TextConstants.getText( "Operation.NewProjectMessage", FolderFileFilter.getAllowedChars() ) );
-            infoPanel.add( info );
+            infoPanel.add( info , BorderLayout.NORTH);
+
+
+
             String os = System.getProperty("os.name");
             if (os.contains("MAC") || os.contains("mac") || os.contains("Mac")){
-            	JButton newFolderBt = new JButton(TextConstants.getText("GeneralText.NewFolder"));
-            	newFolderBt.addActionListener(new ActionListener(){
-
-					public void actionPerformed(ActionEvent e) {
-						String name=Controller.getInstance().showInputDialog(TextConstants.getText("Operation.NewFolder.Title"), TextConstants.getText("Operation.NewFolder.Message"), TextConstants.getText("Operation.NewFileTitle"));
-						if (!name.contains(".")){
-							new File(getCurrentDirectory(),name).mkdirs();
-							updateUI();
-						}
-						
-					}
-            		
-            	});
-            	infoPanel.add(newFolderBt);
+            	projectName = new JTextField(50);
+            	projectName.setText(ProjectFolderChooser.getDefaultSelectedFile().getName());
+            	JPanel tempName = new JPanel();
+            	tempName.add(new JLabel("Project Name: "));
+            	tempName.add(projectName);
+            	infoPanel.add(tempName, BorderLayout.SOUTH);
             } 
             
             Container contentPane = dialog.getContentPane();
             contentPane.setLayout(new BorderLayout());
             contentPane.add(this, BorderLayout.CENTER);
             contentPane.add( infoPanel, BorderLayout.NORTH );
+            
+            
      
             if (JDialog.isDefaultLookAndFeelDecorated()) {
                 boolean supportsWindowDecorations = 

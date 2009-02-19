@@ -228,8 +228,6 @@ public class StartDialog extends JFileChooser {
 					buttonNew.setEnabled( false );
 				}
 
-				
-
 				updateHelpText( );
 			}
 
@@ -544,6 +542,10 @@ public class StartDialog extends JFileChooser {
 		}
 
 		public void mouseClicked( MouseEvent e ) {
+			if (e.getClickCount() == 2) {
+				option = StartDialog.RECENT_FILE_OPTION;
+				approveSelection( );
+			}
 		}
 
 		public void mouseEntered( MouseEvent e ) {
