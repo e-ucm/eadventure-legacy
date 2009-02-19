@@ -3,6 +3,8 @@ package es.eucm.eadventure.common.auxiliar.filefilters;
 import java.io.File;
 import java.util.ArrayList;
 
+import javax.swing.JFileChooser;
+
 import es.eucm.eadventure.common.auxiliar.FileFilter;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.loader.Loader;
@@ -25,7 +27,10 @@ public class FolderFileFilter extends FileFilter {
 	
 	private boolean checkDescriptor;
 	
-	public FolderFileFilter ( boolean checkName, boolean checkDescriptor ){
+	private JFileChooser fileChooser;
+	
+	public FolderFileFilter ( boolean checkName, boolean checkDescriptor, JFileChooser fileChooser ){
+		this.fileChooser = fileChooser;
 		this.checkName = checkName;
 		this.checkDescriptor = checkDescriptor;
 	}
@@ -86,9 +91,23 @@ public class FolderFileFilter extends FileFilter {
 	@Override
 	public boolean accept( File file ) {
 		// Accept folders
-		boolean accepted = file.isDirectory( );
+		
+		File[] files = fileChooser.getCurrentDirectory().listFiles();
+		for (int i = 0; i < files.length; i++) {
+			if (file.isDirectory() && (file.getAbsolutePath().toLowerCase() + ".eap").equals(files[i].getAbsolutePath().toLowerCase()))
+				return false;
+		}
+		
+		boolean accepted = file.getName().toLowerCase().endsWith(".eap") || file.isDirectory();
+
+		if (!accepted)
+			return false;
+		
+		String name = file.getName();
+		if (name.endsWith(".eap"))
+			name = name.substring(0, file.getName().length() - 4);
 		if (accepted && checkName)
-			accepted &= checkCharacters( file.getName( ) );
+			accepted &= checkCharacters( name );
 		if (accepted && checkDescriptor){
 			boolean containsDescriptor = false;
 			boolean descriptorValid = false;
@@ -111,5 +130,9 @@ public class FolderFileFilter extends FileFilter {
 	public String getDescription( ) {
 		// Description of the filter
 		return "Folders";
+	}
+
+	public void setFileChooser(JFileChooser fileDialog) {
+		fileChooser = fileDialog;
 	}
 }

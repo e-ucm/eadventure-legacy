@@ -20,9 +20,6 @@ public class AdventureEditor {
 	 */
 
 	public static void main( String[] args ) {
-		
-		
-		
 		de.schlichtherle.io.File.setDefaultArchiveDetector( new DefaultArchiveDetector( ArchiveDetector.NULL, // delegate
 		new String[] {
 		"jar", "de.schlichtherle.io.archive.zip.JarDriver",

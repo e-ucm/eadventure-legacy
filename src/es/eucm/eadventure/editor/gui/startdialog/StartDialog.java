@@ -110,7 +110,7 @@ public class StartDialog extends JFileChooser {
 
 	public StartDialog( ) {
 		super( );
-		this.setFileFilter( new EADAndFolderFileFilter( ) );
+		this.setFileFilter( new EADAndFolderFileFilter( this ) );
 		this.setCurrentDirectory( ReleaseFolders.projectsFolder( ) );
 		this.setMultiSelectionEnabled( false );
 		this.setFileSelectionMode( JFileChooser.FILES_AND_DIRECTORIES );
