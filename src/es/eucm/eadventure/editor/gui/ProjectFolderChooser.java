@@ -8,9 +8,12 @@ import java.awt.Font;
 import java.awt.Frame;
 import java.awt.HeadlessException;
 import java.awt.Window;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 
 import javax.accessibility.AccessibleContext;
+import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -21,6 +24,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 
+import es.eucm.eadventure.common.auxiliar.FileFilter;
 import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
 import es.eucm.eadventure.common.auxiliar.filefilters.FolderFileFilter;
 import es.eucm.eadventure.common.gui.TextConstants;
@@ -47,17 +51,17 @@ public class ProjectFolderChooser extends JFileChooser{
 		
 	}
 
-	@Override
+/*	@Override
 	public File getSelectedFile() {
 		File temp = super.getSelectedFile();
 		
 		if (projectName != null) {
-			temp = new File(temp.getParent() + File.separatorChar + projectName.getText());
+			temp = new File(this.getCurrentDirectory().getAbsolutePath() + File.separatorChar + projectName.getText());
 		}
 		
 		return temp;
 	}
-	
+*/	
 	private static File getProjectsFolder(){
 		File parentDir = ReleaseFolders.projectsFolder() ;
 		if (!parentDir.exists( ))
@@ -70,7 +74,13 @@ public class ProjectFolderChooser extends JFileChooser{
 		super.setDialogTitle( TextConstants.getText( "Operation.NewProjectTitle" ) );
 		super.setMultiSelectionEnabled( false );
 		super.setFileSelectionMode( JFileChooser.FILES_AND_DIRECTORIES );
-		super.setFileFilter( new FolderFileFilter(checkName, checkDescriptor, this) );
+		for (javax.swing.filechooser.FileFilter filter : super.getChoosableFileFilters()) {
+			super.removeChoosableFileFilter(filter);
+		}
+		FolderFileFilter filter = new FolderFileFilter(checkName, checkDescriptor, this);
+		super.addChoosableFileFilter(filter);
+		super.setFileFilter(filter);
+		super.setFileHidingEnabled(true);
 		//super.setSelectedFile( new File ( Controller.projectsFolder(),  TextConstants.getText("GeneralText.NewProjectFolder") ) );
 		super.setSelectedFile(getDefaultSelectedFile());
 		super.setAcceptAllFileFilterUsed(false);
@@ -109,10 +119,31 @@ public class ProjectFolderChooser extends JFileChooser{
             	projectName = new JTextField(50);
             	projectName.setText(ProjectFolderChooser.getDefaultSelectedFile().getName());
             	JPanel tempName = new JPanel();
-            	tempName.add(new JLabel("Project Name: "));
+            	tempName.add(new JLabel(TextConstants.getText("Operation.NewProjectName")));
             	tempName.add(projectName);
+            	JButton create = new JButton(TextConstants.getText("Operation.CreateNewProject"));
+            	create.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						if (projectName.getText() != null) {
+							String name = projectName.getText();
+							if (!name.endsWith(".eap"))
+								name = name + ".eap";
+							File file = new File(ProjectFolderChooser.this.getCurrentDirectory().getAbsolutePath() + File.separatorChar + name);
+							if (!file.exists()) {
+								try {
+									file.createNewFile();
+									ProjectFolderChooser.this.updateUI();
+									ProjectFolderChooser.this.setSelectedFile(file);
+									ProjectFolderChooser.this.approveSelection();
+								} catch( Exception e) {}
+							}
+						}
+					}
+            	});
+            	tempName.add(create);
             	infoPanel.add(tempName, BorderLayout.SOUTH);
-            } 
+            }
+            
             
             Container contentPane = dialog.getContentPane();
             contentPane.setLayout(new BorderLayout());

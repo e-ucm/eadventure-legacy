@@ -20,18 +20,15 @@ public class DetailedDescriptionChangeListener implements DocumentListener {
 		this.detailed = detailed;
 	}
 	
-	@Override
 	public void changedUpdate(DocumentEvent e) {
 		// DO NOTHING
 	}
 
-	@Override
 	public void insertUpdate(DocumentEvent e) {
 		Tool tool = new ChangeDetailedDescriptionTool(detailed, textComponent.getText());
 		Controller.getInstance().addTool(tool);
 	}
 
-	@Override
 	public void removeUpdate(DocumentEvent e) {
 		Tool tool = new ChangeDetailedDescriptionTool(detailed, textComponent.getText());
 		Controller.getInstance().addTool(tool);

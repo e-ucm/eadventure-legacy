@@ -259,7 +259,7 @@ public class StartDialog extends JFileChooser {
 
 		//The panel with the buttons
 		buttonNew = new JButton( TextConstants.getText( "StartDialog.CreateNew" ) );
-		buttonNew.setPreferredSize( new Dimension( 80, 30 ) );
+		//buttonNew.setPreferredSize( new Dimension( 80, 30 ) );
 		buttonNew.addActionListener( new ActionListener( ) {
 
 			public void actionPerformed( ActionEvent e ) {
@@ -272,7 +272,7 @@ public class StartDialog extends JFileChooser {
 
 		} );
 		buttonCancel = new JButton( TextConstants.getText( "GeneralText.Cancel" ) );
-		buttonCancel.setPreferredSize( new Dimension( 80, 30 ) );
+		//buttonCancel.setPreferredSize( new Dimension( 80, 30 ) );
 		buttonCancel.addActionListener( new ActionListener( ) {
 
 			public void actionPerformed( ActionEvent e ) {

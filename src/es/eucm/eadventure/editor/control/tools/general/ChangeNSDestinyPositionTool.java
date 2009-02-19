@@ -14,8 +14,6 @@ public class ChangeNSDestinyPositionTool extends ChangePositionTool{
 	public ChangeNSDestinyPositionTool(NextScene nextScene, int newX, int newY){
 		super (nextScene, newX, newY);
 		this.addListener(new ChangePositionToolListener(){
-
-			@Override
 			public void positionUpdated(int newX, int newY) {
 				Controller.getInstance().reloadPanel();
 			}

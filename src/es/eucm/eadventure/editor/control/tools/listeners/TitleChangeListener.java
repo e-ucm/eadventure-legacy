@@ -20,18 +20,15 @@ public class TitleChangeListener implements DocumentListener {
 		this.titled = titled;
 	}
 	
-	@Override
 	public void changedUpdate(DocumentEvent e) {
 		// DO NOTHING
 	}
 
-	@Override
 	public void insertUpdate(DocumentEvent e) {
 		Tool tool = new ChangeTitleTool(titled, textComponent.getText());
 		Controller.getInstance().addTool(tool);
 	}
 
-	@Override
 	public void removeUpdate(DocumentEvent e) {
 		Tool tool = new ChangeTitleTool(titled, textComponent.getText());
 		Controller.getInstance().addTool(tool);
