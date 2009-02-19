@@ -771,6 +771,10 @@ public class MainWindow extends JFrame {
 		treePanel.loadPanel( );
 	}
 
+	public void updatePanel() {
+		treePanel.updatePanel();
+	}
+	
 	/**
 	 * Returns the last window opened by the application.
 	 * 

@@ -2708,6 +2708,10 @@ public class Controller {
 		mainWindow.reloadPanel( );
 	}
 	
+	public void updatePanel() {
+		mainWindow.updatePanel();
+	}
+	
 	/**
 	 * Reloads the panel of the main window currently being used.
 	 */

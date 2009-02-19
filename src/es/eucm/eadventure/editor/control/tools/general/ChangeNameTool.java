@@ -48,14 +48,14 @@ public class ChangeNameTool extends Tool {
 	@Override
 	public boolean redoTool() {
 		named.setName( name );
-		controller.reloadPanel();
+		controller.updatePanel();
 		return true;
 	}
 
 	@Override
 	public boolean undoTool() {
 		named.setName( oldName );
-		controller.reloadPanel();
+		controller.updatePanel();
 		return true;
 	}
 	

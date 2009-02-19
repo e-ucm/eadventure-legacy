@@ -52,7 +52,7 @@ public class ChangeTitleTool extends Tool {
 		titled.setTitle( title );
 		controller.updateTree( );
 		controller.updateChapterMenu( );
-		controller.reloadPanel();
+		controller.updatePanel();
 		return true;
 	}
 
@@ -61,7 +61,7 @@ public class ChangeTitleTool extends Tool {
 		titled.setTitle( oldTitle );
 		controller.updateTree( );
 		controller.updateChapterMenu( );
-		controller.reloadPanel();
+		controller.updatePanel();
 		return true;
 	}
 	

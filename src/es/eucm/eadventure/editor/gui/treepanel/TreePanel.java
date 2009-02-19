@@ -1,6 +1,7 @@
 package es.eucm.eadventure.editor.gui.treepanel;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -27,6 +28,7 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
+import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.TreeNode;
 
 /**
@@ -282,6 +284,18 @@ public class TreePanel extends JPanel {
 		editorContainer.add( node.getEditPanel( ) );
 		editorContainer.validate( );
 		editorContainer.repaint( );
+	}
+	
+	public void updatePanel() {
+		if (editorContainer.getComponentCount() > 0) {
+			Component c = editorContainer.getComponent(0);
+			if (c instanceof Updateable) {
+				if (((Updateable) c).updateFields())
+					return;
+			}
+		}
+		
+		loadPanel();
 	}
 
 	/**

@@ -21,11 +21,12 @@ import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.atrezzo.AtrezzoDataControl;
 import es.eucm.eadventure.editor.control.tools.listeners.DocumentationChangeListener;
 import es.eucm.eadventure.editor.control.tools.listeners.NameChangeListener;
+import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.elementpanels.general.LooksPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.imagepanels.ImagePanel;
 
-public class AtrezzoPanel extends JPanel{
+public class AtrezzoPanel extends JPanel implements Updateable {
 
 	/**
 	 * Requiered
@@ -170,6 +171,14 @@ public class AtrezzoPanel extends JPanel{
 			getParent( ).repaint( );
 		}
 
+	}
+
+	@Override
+	public boolean updateFields() {
+		this.documentationTextArea.setText(this.atrezzoDataControl.getDocumentation());
+		this.nameTextField.setText(this.atrezzoDataControl.getName());
+		this.looksPanel.updatePreview();
+		return true;
 	}
 	
 }

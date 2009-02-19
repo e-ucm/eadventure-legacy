@@ -25,11 +25,12 @@ import es.eucm.eadventure.editor.control.tools.listeners.DescriptionChangeListen
 import es.eucm.eadventure.editor.control.tools.listeners.DetailedDescriptionChangeListener;
 import es.eucm.eadventure.editor.control.tools.listeners.DocumentationChangeListener;
 import es.eucm.eadventure.editor.control.tools.listeners.NameChangeListener;
+import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.elementpanels.general.LooksPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.imagepanels.ImagePanel;
 
-public class ItemPanel extends JPanel {
+public class ItemPanel extends JPanel implements Updateable {
 
 	/**
 	 * Required.
@@ -193,6 +194,15 @@ public class ItemPanel extends JPanel {
 			getParent( ).repaint( );
 		}
 
+	}
+
+	@Override
+	public boolean updateFields() {
+		this.descriptionTextField.setText(this.itemDataControl.getBriefDescription());
+		this.detailedDescriptionTextField.setText(this.itemDataControl.getDetailedDescription());
+		this.documentationTextArea.setText(this.itemDataControl.getDocumentation());
+		this.looksPanel.updatePreview();
+		return true;
 	}
 
 }

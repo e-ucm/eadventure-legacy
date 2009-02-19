@@ -48,14 +48,14 @@ public class ChangeDescriptionTool extends Tool {
 	@Override
 	public boolean redoTool() {
 		described.setDescription( description );
-		controller.reloadPanel();
+		controller.updatePanel();
 		return true;
 	}
 
 	@Override
 	public boolean undoTool() {
 		described.setDescription( oldDescription );
-		controller.reloadPanel();
+		controller.updatePanel();
 		return true;
 	}
 
