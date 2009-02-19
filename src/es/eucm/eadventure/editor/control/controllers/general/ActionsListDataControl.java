@@ -85,11 +85,11 @@ public class ActionsListDataControl extends DataControl {
 			else if( action.getType() == Action.CUSTOM)
 				actionsInfo[i][0] = TextConstants.getText( "ActionsList.CustomAction", ((CustomAction) action).getName());
 			else if( action.getType( ) == Action.GIVE_TO )
-				actionsInfo[i][0] = TextConstants.getText( "ActionsList.GiveToAction", action.getIdTarget( ) );
+				actionsInfo[i][0] = TextConstants.getText( "ActionsList.GiveToAction", action.getTargetId( ) );
 			else if( action.getType( ) == Action.USE_WITH )
-				actionsInfo[i][0] = TextConstants.getText( "ActionsList.UseWithAction", action.getIdTarget( ) );
+				actionsInfo[i][0] = TextConstants.getText( "ActionsList.UseWithAction", action.getTargetId( ) );
 			else if( action.getType() == Action.CUSTOM_INTERACT)
-				actionsInfo[i][0] = TextConstants.getText( "ActionsList.CustomInteractAction", action.getIdTarget() );
+				actionsInfo[i][0] = TextConstants.getText( "ActionsList.CustomInteractAction", action.getTargetId() );
 			else if( action.getType( ) == Action.USE )
 				actionsInfo[i][0] = TextConstants.getText( "ActionsList.UseAction" );
 
@@ -238,7 +238,7 @@ public class ActionsListDataControl extends DataControl {
 				actionsDataControlList.add( new CustomActionDataControl( (CustomAction) newAction));
 			else 
 				actionsDataControlList.add( new ActionDataControl( newAction ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 		}
 
 		return newAction != null;
@@ -250,7 +250,7 @@ public class ActionsListDataControl extends DataControl {
 
 		if( actionsList.remove( dataControl.getContent( ) ) ) {
 			actionsDataControlList.remove( dataControl );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementDeleted = true;
 		}
 
@@ -265,7 +265,7 @@ public class ActionsListDataControl extends DataControl {
 		if( elementIndex > 0 ) {
 			actionsList.add( elementIndex - 1, actionsList.remove( elementIndex ) );
 			actionsDataControlList.add( elementIndex - 1, actionsDataControlList.remove( elementIndex ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 
@@ -280,7 +280,7 @@ public class ActionsListDataControl extends DataControl {
 		if( elementIndex < actionsList.size( ) - 1 ) {
 			actionsList.add( elementIndex + 1, actionsList.remove( elementIndex ) );
 			actionsDataControlList.add( elementIndex + 1, actionsDataControlList.remove( elementIndex ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 
@@ -364,7 +364,7 @@ public class ActionsListDataControl extends DataControl {
 			Action action = actionsList.get( i );
 
 			// If the action has a reference to the identifier, delete it
-			if( ( action.getType( ) == Action.GIVE_TO || action.getType( ) == Action.USE_WITH ) && action.getIdTarget( ).equals( id ) ) {
+			if( ( action.getType( ) == Action.GIVE_TO || action.getType( ) == Action.USE_WITH ) && action.getTargetId( ).equals( id ) ) {
 				actionsList.remove( i );
 				actionsDataControlList.remove( i );
 			}

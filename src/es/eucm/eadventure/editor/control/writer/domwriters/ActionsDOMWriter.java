@@ -59,11 +59,11 @@ public class ActionsDOMWriter {
 							break;
 						case Action.USE_WITH:
 							actionElement = doc.createElement( "use-with" );
-							actionElement.setAttribute( "idTarget", action.getIdTarget( ) );
+							actionElement.setAttribute( "idTarget", action.getTargetId( ) );
 							break;
 						case Action.GIVE_TO:
 							actionElement = doc.createElement( "give-to" );
-							actionElement.setAttribute( "idTarget", action.getIdTarget( ) );
+							actionElement.setAttribute( "idTarget", action.getTargetId( ) );
 							break;
 						case Action.CUSTOM:
 							actionElement = doc.createElement( "custom" );
@@ -76,7 +76,7 @@ public class ActionsDOMWriter {
 							break;
 						case Action.CUSTOM_INTERACT:
 							actionElement = doc.createElement( "custom-interact" );
-							actionElement.setAttribute("idTarget", action.getIdTarget());
+							actionElement.setAttribute("idTarget", action.getTargetId());
 							actionElement.setAttribute("name", ((CustomAction) action).getName());
 							for (Resources resources : ((CustomAction) action).getResources()){
 								Node resourcesNode = ResourcesDOMWriter.buildDOM(resources, ResourcesDOMWriter.RESOURCES_CUSTOM_ACTION);

@@ -327,7 +327,7 @@ public class ActionsSubParser extends SubParser {
 				currentCustomAction.setConditions(currentConditions);
 				currentCustomAction.setEffects(currentEffects);
 				currentCustomAction.setName(currentName);
-				currentCustomAction.setIdTarget(currentIdTarget);
+				currentCustomAction.setTargetId(currentIdTarget);
 				currentCustomAction.setDocumentation(currentDocumentation);
 				currentCustomAction.setKeepDistance(currentKeepDistance);
 				currentCustomAction.setNeedsGoTo(currentNeedsGoTo);

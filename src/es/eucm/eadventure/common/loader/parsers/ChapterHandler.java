@@ -278,14 +278,14 @@ public class ChapterHandler extends DefaultHandler {
 	@Override
 	public void endDocument( ) {
 		// In the end of the document, if the chapter has no initial scene
-		if( chapter.getInitialScene( ) == null ) {
+		if( chapter.getTargetId( ) == null ) {
 			// Set it to the first scene
 			if( chapter.getScenes( ).size( ) > 0 )
-				chapter.setInitialScene( chapter.getScenes( ).get( 0 ).getId( ) );
+				chapter.setTargetId( chapter.getScenes( ).get( 0 ).getId( ) );
 
 			// Or to the first cutscene
 			else if( chapter.getCutscenes( ).size( ) > 0 )
-				chapter.setInitialScene( chapter.getCutscenes( ).get( 0 ).getId( ) );
+				chapter.setTargetId( chapter.getCutscenes( ).get( 0 ).getId( ) );
 		}
 	}
 

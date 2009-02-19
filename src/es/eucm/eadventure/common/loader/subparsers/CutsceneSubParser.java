@@ -125,7 +125,7 @@ public class CutsceneSubParser extends SubParser {
 
 				cutscene = new Slidescene( slidesceneId );
 				if( initialScene )
-					chapter.setInitialScene( slidesceneId );
+					chapter.setTargetId( slidesceneId );
 			}
 
 			else if( qName.equals( "videoscene" ) ) {
@@ -141,7 +141,7 @@ public class CutsceneSubParser extends SubParser {
 
 				cutscene = new Videoscene( slidesceneId );
 				if( initialScene )
-					chapter.setInitialScene( slidesceneId );
+					chapter.setTargetId( slidesceneId );
 			}
 
 			// If it is a resources tag, create new resources

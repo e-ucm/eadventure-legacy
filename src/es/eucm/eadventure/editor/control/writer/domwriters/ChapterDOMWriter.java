@@ -49,7 +49,7 @@ public class ChapterDOMWriter {
 
 			// Append the scene elements
 			for( Scene scene : chapter.getScenes( ) ) {
-				boolean initialScene = chapter.getInitialScene( ).equals( scene.getId( ) );
+				boolean initialScene = chapter.getTargetId( ).equals( scene.getId( ) );
 				Node sceneNode = SceneDOMWriter.buildDOM( scene, initialScene );
 				doc.adoptNode( sceneNode );
 				chapterNode.appendChild( sceneNode );
@@ -57,7 +57,7 @@ public class ChapterDOMWriter {
 
 			// Append the cutscene elements
 			for( Cutscene cutscene : chapter.getCutscenes( ) ) {
-				boolean initialScene = chapter.getInitialScene( ).equals( cutscene.getId( ) );
+				boolean initialScene = chapter.getTargetId( ).equals( cutscene.getId( ) );
 				Node cutsceneNode = CutsceneDOMWriter.buildDOM( cutscene, initialScene );
 				doc.adoptNode( cutsceneNode );
 				chapterNode.appendChild( cutsceneNode );

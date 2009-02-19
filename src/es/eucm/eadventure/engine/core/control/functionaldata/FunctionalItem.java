@@ -376,7 +376,7 @@ public class FunctionalItem extends FunctionalElement {
         // Only take the FIRST valid action
         for( int i = 0; i < item.getActions( ).size( ) && !usedWith; i++ ) {
             Action action = item.getAction( i );
-            if( action.getType( ) == Action.USE_WITH && action.getIdTarget( ).equals( anotherItem.getItem( ).getId( ) ) ) {
+            if( action.getType( ) == Action.USE_WITH && action.getTargetId( ).equals( anotherItem.getItem( ).getId( ) ) ) {
                 if( new FunctionalConditions( action.getConditions( ) ).allConditionsOk( ) ) {
                     // Store the effects
                 	FunctionalEffects.storeAllEffects(action.getEffects( ));
@@ -395,7 +395,7 @@ public class FunctionalItem extends FunctionalElement {
         for( int i = 0; i < item.getActions( ).size( ) && !customInteract; i++ ) {
             Action action = item.getAction( i );
             if( action.getType( ) == Action.CUSTOM
-            		&& action.getIdTarget( ).equals( anotherItem.getItem( ).getId( ) ) 
+            		&& action.getTargetId( ).equals( anotherItem.getItem( ).getId( ) ) 
             		&& ((CustomAction) action).getName().equals(actionName)) {
                 if( new FunctionalConditions( action.getConditions( ) ).allConditionsOk( ) ) {
                     // Store the effects
@@ -416,7 +416,7 @@ public class FunctionalItem extends FunctionalElement {
         for( int i = 0; i < item.getActions( ).size( ) && !customInteract; i++ ) {
             Action action = item.getAction( i );
             if( action.getType( ) == Action.CUSTOM_INTERACT 
-            		&& action.getIdTarget( ).equals( npc.getNPC().getId( ) ) 
+            		&& action.getTargetId( ).equals( npc.getNPC().getId( ) ) 
             		&& ((CustomAction) action).getName().equals(actionName)) {
                 if( new FunctionalConditions( action.getConditions( ) ).allConditionsOk( ) ) {
                     // Store the effects
@@ -440,7 +440,7 @@ public class FunctionalItem extends FunctionalElement {
         // Only take the FIRST valid action
         for( int i = 0; i < item.getActions( ).size( ) && !givenTo; i++ ) {
             Action action = item.getAction( i );
-            if( action.getType( ) == Action.GIVE_TO && action.getIdTarget( ).equals( npc.getElement( ).getId( ) ) ) {
+            if( action.getType( ) == Action.GIVE_TO && action.getTargetId( ).equals( npc.getElement( ).getId( ) ) ) {
                 if( new FunctionalConditions( action.getConditions( ) ).allConditionsOk( ) ) {
                     // If the item has not a cancel action, consume the item
                     if( !action.getEffects( ).hasCancelAction( ) )

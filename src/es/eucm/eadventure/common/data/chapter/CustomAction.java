@@ -81,7 +81,7 @@ public class CustomAction extends Action implements Named {
 	 * @param action a normal action
 	 */
 	public CustomAction(Action action) {
-		super(action.getType(), action.getIdTarget(), action.getConditions(), action.getEffects());
+		super(action.getType(), action.getTargetId(), action.getConditions(), action.getEffects());
 		resources = new ArrayList<Resources>();
 	}
 	

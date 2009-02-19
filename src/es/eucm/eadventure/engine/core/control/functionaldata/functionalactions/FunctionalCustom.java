@@ -71,7 +71,7 @@ public class FunctionalCustom extends FunctionalAction {
 		totalTime = 0;
 		finished = false;
 		
-		DebugLog.player("Started custom action: " + customAction.getName() + " " + customAction.getIdTarget());
+		DebugLog.player("Started custom action: " + customAction.getName() + " " + customAction.getTargetId());
 	}
 
 	@Override

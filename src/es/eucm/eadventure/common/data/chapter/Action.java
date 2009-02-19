@@ -1,13 +1,14 @@
 package es.eucm.eadventure.common.data.chapter;
 
 import es.eucm.eadventure.common.data.Documented;
+import es.eucm.eadventure.common.data.HasTargetId;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.common.data.chapter.effects.Effects;
 
 /**
  * An action that can be done during the game.
  */
-public class Action implements Cloneable, Documented {
+public class Action implements Cloneable, Documented, HasTargetId {
 
 	/**
 	 * An action of type examine.
@@ -159,7 +160,7 @@ public class Action implements Cloneable, Documented {
 	 * 
 	 * @return the target of the action
 	 */
-	public String getIdTarget( ) {
+	public String getTargetId( ) {
 		return idTarget;
 	}
 
@@ -197,7 +198,7 @@ public class Action implements Cloneable, Documented {
 	 * @param idTarget
 	 *            The new id target
 	 */
-	public void setIdTarget( String idTarget ) {
+	public void setTargetId( String idTarget ) {
 		this.idTarget = idTarget;
 	}
 
@@ -224,28 +225,28 @@ public class Action implements Cloneable, Documented {
 	/**
 	 * @return the needsGoTo
 	 */
-	public boolean isNeedsGoTo() {
+	public Boolean isNeedsGoTo() {
 		return needsGoTo;
 	}
 
 	/**
 	 * @param needsGoTo the needsGoTo to set
 	 */
-	public void setNeedsGoTo(boolean needsGoTo) {
+	public void setNeedsGoTo(Boolean needsGoTo) {
 		this.needsGoTo = needsGoTo;
 	}
 
 	/**
 	 * @return the keepDistance
 	 */
-	public int getKeepDistance() {
+	public Integer getKeepDistance() {
 		return keepDistance;
 	}
 
 	/**
 	 * @param keepDistance the keepDistance to set
 	 */
-	public void setKeepDistance(int keepDistance) {
+	public void setKeepDistance(Integer keepDistance) {
 		this.keepDistance = keepDistance;
 	}
 	

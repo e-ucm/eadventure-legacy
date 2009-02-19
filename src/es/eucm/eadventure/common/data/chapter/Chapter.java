@@ -3,6 +3,7 @@ package es.eucm.eadventure.common.data.chapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.common.data.HasTargetId;
 import es.eucm.eadventure.common.data.adventure.ChapterSummary;
 import es.eucm.eadventure.common.data.chapter.book.Book;
 import es.eucm.eadventure.common.data.chapter.conditions.GlobalState;
@@ -19,7 +20,7 @@ import es.eucm.eadventure.common.data.chapter.scenes.Scene;
 /**
  * This class hold the data of a chapter in eAdventure.
  */
-public class Chapter extends ChapterSummary {
+public class Chapter extends ChapterSummary implements HasTargetId {
 
 	/**
 	 * Identifier of the initial scene.
@@ -151,7 +152,7 @@ public class Chapter extends ChapterSummary {
 	 * 
 	 * @return Initial scene identifier
 	 */
-	public String getInitialScene( ) {
+	public String getTargetId( ) {
 		return initialScene;
 	}
 	
@@ -257,7 +258,7 @@ public class Chapter extends ChapterSummary {
 	 * @param initialScene
 	 *            New initial scene identifier
 	 */
-	public void setInitialScene( String initialScene ) {
+	public void setTargetId( String initialScene ) {
 		this.initialScene = initialScene;
 	}
 
