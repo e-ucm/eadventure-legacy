@@ -21,8 +21,7 @@ public class RenameElementTool extends Tool {
 
 	@Override
 	public boolean canRedo() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
@@ -43,13 +42,14 @@ public class RenameElementTool extends Tool {
 	}
 
 	@Override
-	public String getToolName() {
-		return "Rename element";
-	}
-
-	@Override
 	public boolean redoTool() {
-		// TODO Auto-generated method stub
+		if( dataControl.canBeRenamed( )) {
+			oldName = dataControl.renameElement( newName );
+			if (oldName != null) {
+				ownerPanel.updateTreePanel( );
+				return true;
+			}
+		}		
 		return false;
 	}
 

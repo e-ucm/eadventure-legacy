@@ -35,18 +35,20 @@ public class Resources implements Cloneable {
 	 * @param path
 	 *            Path of the asset
 	 */
-	public void addAsset( String type, String path ) {
+	public boolean addAsset( String type, String path ) {
+		boolean alreadyExists = existAsset(type) && getAssetPath(type).equals(path);
 		// Remove the asset (if it was present), and insert the new one
 		deleteAsset( type );
 		assets.put( type, path );
+		return !alreadyExists;
 	}
 	
     /**
      * Adds an asset to the resources.
      * @param asset the asset to be added
      */
-    public void addAsset( Asset asset ) {
-    	addAsset ( asset.getType(), asset.getPath() );
+    public boolean addAsset( Asset asset ) {
+    	return addAsset ( asset.getType(), asset.getPath() );
     }
 
 	/**

@@ -1,6 +1,6 @@
 package es.eucm.eadventure.common.data.chapter;
 
-public class ExitLook implements Cloneable {
+public class ExitLook implements Cloneable{
     private String exitText;
     
     private String cursorPath;
@@ -44,4 +44,5 @@ public class ExitLook implements Cloneable {
 		el.exitText = (exitText != null ? new String(exitText) : null);
 		return el;
 	}
+
 }
