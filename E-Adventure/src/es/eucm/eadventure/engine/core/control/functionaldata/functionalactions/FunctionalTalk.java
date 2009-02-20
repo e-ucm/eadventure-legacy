@@ -87,7 +87,7 @@ public class FunctionalTalk extends FunctionalAction {
 		for( int i = 0; i < conversationReferences.size( ) && !triggeredConversation; i++ ) {
 			if( new FunctionalConditions( conversationReferences.get( i ).getConditions( ) ).allConditionsOk( ) ) {
 				Game.getInstance( ).setCurrentNPC( npc );
-				Game.getInstance( ).setConversation( conversationReferences.get( i ).getIdTarget( ) );
+				Game.getInstance( ).setConversation( conversationReferences.get( i ).getTargetId( ) );
 				Game.getInstance( ).setState( Game.STATE_CONVERSATION );
 				triggeredConversation = true;
 			}

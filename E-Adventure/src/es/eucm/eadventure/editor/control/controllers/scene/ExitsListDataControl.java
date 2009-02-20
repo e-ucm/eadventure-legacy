@@ -115,7 +115,7 @@ public class ExitsListDataControl extends DataControl {
 			if( newExitDataControl.addElement( Controller.NEXT_SCENE ) ) {
 				exitsList.add( newExit );
 				exitsDataControlList.add( newExitDataControl );
-				controller.dataModified( );
+				//controller.dataModified( );
 				elementAdded = true;
 			}
 
@@ -133,7 +133,7 @@ public class ExitsListDataControl extends DataControl {
 
 		if( exitsList.remove( dataControl.getContent( ) ) ) {
 			exitsDataControlList.remove( dataControl );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementDeleted = true;
 		}
 
@@ -148,7 +148,7 @@ public class ExitsListDataControl extends DataControl {
 		if( elementIndex > 0 ) {
 			exitsList.add( elementIndex - 1, exitsList.remove( elementIndex ) );
 			exitsDataControlList.add( elementIndex - 1, exitsDataControlList.remove( elementIndex ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 
@@ -163,7 +163,7 @@ public class ExitsListDataControl extends DataControl {
 		if( elementIndex < exitsList.size( ) - 1 ) {
 			exitsList.add( elementIndex + 1, exitsList.remove( elementIndex ) );
 			exitsDataControlList.add( elementIndex + 1, exitsDataControlList.remove( elementIndex ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 

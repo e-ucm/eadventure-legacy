@@ -229,21 +229,6 @@ public class NPCDataControl extends DataControlWithResources {
 	}
 
 	/**
-	 * Sets the new documentation of the NPC.
-	 * 
-	 * @param documentation
-	 *            Documentation of the NPC
-	 */
-	public void setDocumentation( String documentation ) {
-		// If the value is different
-		if( !documentation.equals( npc.getDocumentation( ) ) ) {
-			// Set the new documentation and modify the data
-			npc.setDocumentation( documentation );
-			controller.dataModified( );
-		}
-	}
-
-	/**
 	 * Sets the text front color for the player strings.
 	 * 
 	 * @param textFrontColor
@@ -262,6 +247,7 @@ public class NPCDataControl extends DataControlWithResources {
 			blue = "0" + blue;
 
 		npc.setTextFrontColor( "#" + red + green + blue );
+		controller.dataModified();
 	}
 
 	/**
@@ -283,51 +269,7 @@ public class NPCDataControl extends DataControlWithResources {
 			blue = "0" + blue;
 
 		npc.setTextBorderColor( "#" + red + green + blue );
-	}
-
-	/**
-	 * Sets the new name of the character.
-	 * 
-	 * @param name
-	 *            Name of the character
-	 */
-	public void setName( String name ) {
-		// If the value is different
-		if( !name.equals( npc.getName( ) ) ) {
-			// Set the new name and modify the data
-			npc.setName( name );
-			controller.dataModified( );
-		}
-	}
-
-	/**
-	 * Sets the new brief description of the character.
-	 * 
-	 * @param description
-	 *            Description of the character
-	 */
-	public void setBriefDescription( String description ) {
-		// If the value is different
-		if( !description.equals( npc.getDescription( ) ) ) {
-			// Set the new description and modify the data
-			npc.setDescription( description );
-			controller.dataModified( );
-		}
-	}
-
-	/**
-	 * Sets the new detailed description of the character.
-	 * 
-	 * @param detailedDescription
-	 *            Detailed description of the character
-	 */
-	public void setDetailedDescription( String detailedDescription ) {
-		// If the value is different
-		if( !detailedDescription.equals( npc.getDetailedDescription( ) ) ) {
-			// Set the new detailed description and modify the data
-			npc.setDetailedDescription( detailedDescription );
-			controller.dataModified( );
-		}
+		controller.dataModified();
 	}
 
 	/**
@@ -338,6 +280,7 @@ public class NPCDataControl extends DataControlWithResources {
 	 */
 	public void setAlwaysSynthesizer(boolean always){
 		npc.setAlwaysSynthesizer(always);
+		controller.dataModified();
 	}
 	
 	/**
@@ -348,6 +291,7 @@ public class NPCDataControl extends DataControlWithResources {
 	 */
 	public void setNPCVoice(String voice){
 		npc.setVoice(voice);
+		controller.dataModified();
 	}
 	
 	/**
@@ -401,7 +345,7 @@ public class NPCDataControl extends DataControlWithResources {
 			Resources newResources = new Resources( );
 			resourcesList.add( newResources );
 			resourcesDataControlList.add( new ResourcesDataControl( newResources, Controller.NPC ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementAdded = true;
 		}
 
@@ -422,7 +366,7 @@ public class NPCDataControl extends DataControlWithResources {
 				if( selectedResources > 0 && selectedResources >= resourcesIndex )
 					selectedResources--;
 
-				controller.dataModified( );
+				//controller.dataModified( );
 				elementDeleted = true;
 			}
 		}
@@ -442,7 +386,7 @@ public class NPCDataControl extends DataControlWithResources {
 		if( elementIndex > 0 ) {
 			resourcesList.add( elementIndex - 1, resourcesList.remove( elementIndex ) );
 			resourcesDataControlList.add( elementIndex - 1, resourcesDataControlList.remove( elementIndex ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 
@@ -457,7 +401,7 @@ public class NPCDataControl extends DataControlWithResources {
 		if( elementIndex < resourcesList.size( ) - 1 ) {
 			resourcesList.add( elementIndex + 1, resourcesList.remove( elementIndex ) );
 			resourcesDataControlList.add( elementIndex + 1, resourcesDataControlList.remove( elementIndex ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 
@@ -484,7 +428,7 @@ public class NPCDataControl extends DataControlWithResources {
 				controller.replaceIdentifierReferences( oldNPCId, newNPCId );
 				controller.getIdentifierSummary( ).deleteNPCId( oldNPCId );
 				controller.getIdentifierSummary( ).addNPCId( newNPCId );
-				controller.dataModified( );
+				//controller.dataModified( );
 				elementRenamed = true;
 			}
 		}

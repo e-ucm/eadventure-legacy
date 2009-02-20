@@ -165,9 +165,9 @@ public class FunctionalScene implements Renderable {
         // Add the functional items
         for( ElementReference itemReference : scene.getItemReferences( ) )
             if( new FunctionalConditions(itemReference.getConditions( )).allConditionsOk( ) )
-                if( itemSummary.isItemNormal( itemReference.getIdTarget( ) ) )
+                if( itemSummary.isItemNormal( itemReference.getTargetId( ) ) )
                     for( Item currentItem : gameData.getItems( ) )
-                        if( itemReference.getIdTarget( ).equals( currentItem.getId( ) ) ) {
+                        if( itemReference.getTargetId( ).equals( currentItem.getId( ) ) ) {
                             FunctionalItem fitem = new FunctionalItem( currentItem, itemReference.getInfluenceArea(), itemReference.getX( ), itemReference.getY( ) );
                         	fitem.setScale(itemReference.getScale());
                         	fitem.setLayer(itemReference.getLayer());
@@ -177,7 +177,7 @@ public class FunctionalScene implements Renderable {
         for( ElementReference npcReference : scene.getCharacterReferences( ) )
             if( new FunctionalConditions(npcReference.getConditions( )).allConditionsOk( ) )
                 for( NPC currentNPC : gameData.getCharacters( ) )
-                    if( npcReference.getIdTarget( ).equals( currentNPC.getId( ) ) ) {
+                    if( npcReference.getTargetId( ).equals( currentNPC.getId( ) ) ) {
                         FunctionalNPC fnpc = new FunctionalNPC( currentNPC, npcReference.getInfluenceArea(), npcReference.getX( ), npcReference.getY( ) );
                     	fnpc.setScale(npcReference.getScale());
                     	fnpc.setLayer(npcReference.getLayer());
@@ -197,7 +197,7 @@ public class FunctionalScene implements Renderable {
         for( ElementReference atrezzoReference : scene.getAtrezzoReferences( ) )
             if( new FunctionalConditions(atrezzoReference.getConditions( )).allConditionsOk( ) )
                     for( Atrezzo currentAtrezzo : gameData.getAtrezzo() )
-                        if( atrezzoReference.getIdTarget( ).equals( currentAtrezzo.getId( ) ) ) {
+                        if( atrezzoReference.getTargetId( ).equals( currentAtrezzo.getId( ) ) ) {
                             FunctionalAtrezzo fatrezzo = new FunctionalAtrezzo( currentAtrezzo, atrezzoReference.getX( ), atrezzoReference.getY( ));
                         	fatrezzo.setScale(atrezzoReference.getScale());
                             fatrezzo.setLayer(atrezzoReference.getLayer());
@@ -242,7 +242,7 @@ public class FunctionalScene implements Renderable {
                 
                 // If the functional item is present, update its resources
                 for( FunctionalItem currentItem : items ) {
-                    if( itemReference.getIdTarget( ).equals( currentItem.getItem( ).getId( ) ) ) {
+                    if( itemReference.getTargetId( ).equals( currentItem.getItem( ).getId( ) ) ) {
                         currentItem.updateResources( );
                         found = true;
                     }
@@ -250,9 +250,9 @@ public class FunctionalScene implements Renderable {
                 
                 // If it was not found, search for it and add it
                 if( !found ) {
-                    if( Game.getInstance( ).getItemSummary( ).isItemNormal( itemReference.getIdTarget( ) ) ) {
+                    if( Game.getInstance( ).getItemSummary( ).isItemNormal( itemReference.getTargetId( ) ) ) {
                         for( Item currentItem : gameData.getItems( ) ) {
-                            if( itemReference.getIdTarget( ).equals( currentItem.getId( ) ) ) {
+                            if( itemReference.getTargetId( ).equals( currentItem.getId( ) ) ) {
                             	FunctionalItem fItem =new FunctionalItem( currentItem, itemReference.getInfluenceArea(), itemReference.getX( ), itemReference.getY( ) );
                             	fItem.setScale(itemReference.getScale());
                             	fItem.setLayer(itemReference.getLayer());
@@ -273,7 +273,7 @@ public class FunctionalScene implements Renderable {
                 
                 // If the functional character is present, update its resources
                 for( FunctionalNPC currentNPC : npcs ) {
-                    if( npcReference.getIdTarget( ).equals( currentNPC.getNPC( ).getId( ) ) ) {
+                    if( npcReference.getTargetId( ).equals( currentNPC.getNPC( ).getId( ) ) ) {
                         currentNPC.updateResources( );
                         found = true;
                     }
@@ -282,7 +282,7 @@ public class FunctionalScene implements Renderable {
                 // If it was not found, search for it and add it
                 if( !found ) {
                     for( NPC currentNPC : gameData.getCharacters( ) ) {
-                        if( npcReference.getIdTarget( ).equals( currentNPC.getId( ) ) ) {
+                        if( npcReference.getTargetId( ).equals( currentNPC.getId( ) ) ) {
                         	FunctionalNPC fNPC = new FunctionalNPC( currentNPC, npcReference.getInfluenceArea(), npcReference.getX( ), npcReference.getY( ), npcReference.getLayer() );
                         	fNPC.setScale(npcReference.getScale());
                         	fNPC.setLayer(npcReference.getLayer());
@@ -334,7 +334,7 @@ public class FunctionalScene implements Renderable {
                 
                 // If the functional atrezzo item is present, update its resources
                 for( FunctionalAtrezzo currentAtrezzo : atrezzo ) {
-                    if( atrezzoReference.getIdTarget( ).equals( currentAtrezzo.getAtrezzo( ).getId( ) ) ) {
+                    if( atrezzoReference.getTargetId( ).equals( currentAtrezzo.getAtrezzo( ).getId( ) ) ) {
                         currentAtrezzo.updateResources( );
                         found = true;
                     }
@@ -344,7 +344,7 @@ public class FunctionalScene implements Renderable {
                 if( !found ) {
                     //if( Game.getInstance( ).getAtrezzoItemSummary( ).isFlagsNormal( atrezzoReference.getIdTarget( ) ) ) {
                         for( Atrezzo currentAtrezzo : gameData.getAtrezzo( ) ) {
-                            if( atrezzoReference.getIdTarget( ).equals( currentAtrezzo.getId( ) ) ) {
+                            if( atrezzoReference.getTargetId( ).equals( currentAtrezzo.getId( ) ) ) {
                                 FunctionalAtrezzo fAtrezzo = new FunctionalAtrezzo( currentAtrezzo, atrezzoReference.getX( ), atrezzoReference.getY( ), atrezzoReference.getLayer());
                             	fAtrezzo.setScale(atrezzoReference.getScale());
                             	fAtrezzo.setLayer(atrezzoReference.getLayer());
@@ -364,7 +364,7 @@ public class FunctionalScene implements Renderable {
             
             // For every present item, check if it must be kept
             for( ElementReference itemReference : scene.getItemReferences( ) ) {
-                if( itemReference.getIdTarget( ).equals( currentItem.getItem( ).getId( ) ) &&
+                if( itemReference.getTargetId( ).equals( currentItem.getItem( ).getId( ) ) &&
                 		new FunctionalConditions(itemReference.getConditions( )).allConditionsOk( ) ) {
                     keepItem = true;
                 }
@@ -387,7 +387,7 @@ public class FunctionalScene implements Renderable {
             
             // For every present character, check if it must be kept
             for( ElementReference npcReference : scene.getCharacterReferences( ) ) {
-                if( npcReference.getIdTarget( ).equals( currentNPC.getNPC( ).getId( ) ) &&
+                if( npcReference.getTargetId( ).equals( currentNPC.getNPC( ).getId( ) ) &&
                 		new FunctionalConditions(npcReference.getConditions( )).allConditionsOk( ) ) {
                     keepNPC = true;
                 }
@@ -431,7 +431,7 @@ public class FunctionalScene implements Renderable {
             
             // For every present item, check if it must be kept
             for( ElementReference atrezzoReference : scene.getAtrezzoReferences( ) ) {
-                if( atrezzoReference.getIdTarget( ).equals( currentAtrezzo.getAtrezzo( ).getId( ) ) &&
+                if( atrezzoReference.getTargetId( ).equals( currentAtrezzo.getAtrezzo( ).getId( ) ) &&
                 		new FunctionalConditions(atrezzoReference.getConditions( )).allConditionsOk( ) ) {
                     keepAtrezzo = true;
                 }

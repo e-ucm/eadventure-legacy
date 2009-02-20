@@ -123,7 +123,7 @@ public class NPCsListDataControl extends DataControl {
 				npcsList.add( newNPC );
 				npcsDataControlList.add( new NPCDataControl( newNPC ) );
 				controller.getIdentifierSummary( ).addNPCId( npcId );
-				controller.dataModified( );
+				//controller.dataModified( );
 				elementAdded = true;
 			}
 		}
@@ -143,7 +143,7 @@ public class NPCsListDataControl extends DataControl {
 				npcsDataControlList.remove( dataControl );
 				controller.deleteIdentifierReferences( npcId );
 				controller.getIdentifierSummary( ).deleteNPCId( npcId );
-				controller.dataModified( );
+				//controller.dataModified( );
 				elementDeleted = true;
 			}
 		}
@@ -159,7 +159,7 @@ public class NPCsListDataControl extends DataControl {
 		if( elementIndex > 0 ) {
 			npcsList.add( elementIndex - 1, npcsList.remove( elementIndex ) );
 			npcsDataControlList.add( elementIndex - 1, npcsDataControlList.remove( elementIndex ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 
@@ -174,7 +174,7 @@ public class NPCsListDataControl extends DataControl {
 		if( elementIndex < npcsList.size( ) - 1 ) {
 			npcsList.add( elementIndex + 1, npcsList.remove( elementIndex ) );
 			npcsDataControlList.add( elementIndex + 1, npcsDataControlList.remove( elementIndex ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 

@@ -90,7 +90,7 @@ public class CharacterDOMWriter {
 				for( ConversationReference conversationReference : character.getConversationReferences( ) ) {
 					// Create the item reference element
 					Element conversationReferenceElement = doc.createElement( "conversation-ref" );
-					conversationReferenceElement.setAttribute( "idTarget", conversationReference.getIdTarget( ) );
+					conversationReferenceElement.setAttribute( "idTarget", conversationReference.getTargetId( ) );
 
 					// Append the documentation (if avalaible)
 					if( conversationReference.getDocumentation( ) != null ) {

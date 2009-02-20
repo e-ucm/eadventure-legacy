@@ -142,7 +142,7 @@ public class ConversationsListDataControl extends DataControl {
 				conversationsList.add( newConversation );
 				conversationsDataControlList.add( newConversationDataControl );
 				controller.getIdentifierSummary( ).addConversationId( conversationId );
-				controller.dataModified( );
+				//controller.dataModified( );
 				elementAdded = true;
 			}
 		}
@@ -162,7 +162,7 @@ public class ConversationsListDataControl extends DataControl {
 				conversationsDataControlList.remove( dataControl );
 				controller.deleteIdentifierReferences( conversationId );
 				controller.getIdentifierSummary( ).deleteConversationId( conversationId );
-				controller.dataModified( );
+				//controller.dataModified( );
 				elementDeleted = true;
 			}
 		}
@@ -178,7 +178,7 @@ public class ConversationsListDataControl extends DataControl {
 		if( elementIndex > 0 ) {
 			conversationsList.add( elementIndex - 1, conversationsList.remove( elementIndex ) );
 			conversationsDataControlList.add( elementIndex - 1, conversationsDataControlList.remove( elementIndex ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 
@@ -193,7 +193,7 @@ public class ConversationsListDataControl extends DataControl {
 		if( elementIndex < conversationsList.size( ) - 1 ) {
 			conversationsList.add( elementIndex + 1, conversationsList.remove( elementIndex ) );
 			conversationsDataControlList.add( elementIndex + 1, conversationsDataControlList.remove( elementIndex ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 

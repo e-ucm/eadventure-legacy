@@ -123,7 +123,7 @@ public class MacroListDataControl extends DataControl {
 				macrosList.add( newMacro );
 				macrosDataControlList.add( new MacroDataControl( newMacro ) );
 				controller.getIdentifierSummary( ).addMacroId( macroId );
-				controller.dataModified( );
+				//controller.dataModified( );
 				elementAdded = true;
 			}
 		}
@@ -143,7 +143,7 @@ public class MacroListDataControl extends DataControl {
 				macrosDataControlList.remove( dataControl );
 				controller.deleteIdentifierReferences( macroId );
 				controller.getIdentifierSummary( ).deleteMacroId( macroId );
-				controller.dataModified( );
+				//controller.dataModified( );
 				elementDeleted = true;
 			}
 		}
@@ -159,7 +159,7 @@ public class MacroListDataControl extends DataControl {
 		if( elementIndex > 0 ) {
 			macrosList.add( elementIndex - 1, macrosList.remove( elementIndex ) );
 			macrosDataControlList.add( elementIndex - 1, macrosDataControlList.remove( elementIndex ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 
@@ -174,7 +174,7 @@ public class MacroListDataControl extends DataControl {
 		if( elementIndex < macrosList.size( ) - 1 ) {
 			macrosList.add( elementIndex + 1, macrosList.remove( elementIndex ) );
 			macrosDataControlList.add( elementIndex + 1, macrosDataControlList.remove( elementIndex ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 

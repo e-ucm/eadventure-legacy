@@ -123,7 +123,7 @@ public class GlobalStateListDataControl extends DataControl {
 				globalStatesList.add( newGlobalState );
 				globalStatesDataControlList.add( new GlobalStateDataControl( newGlobalState ) );
 				controller.getIdentifierSummary( ).addGlobalStateId( globalStateId );
-				controller.dataModified( );
+				//controller.dataModified( );
 				elementAdded = true;
 			}
 		}
@@ -143,7 +143,7 @@ public class GlobalStateListDataControl extends DataControl {
 				globalStatesDataControlList.remove( dataControl );
 				controller.deleteIdentifierReferences( globalStateId );
 				controller.getIdentifierSummary( ).deleteGlobalStateId( globalStateId );
-				controller.dataModified( );
+				//controller.dataModified( );
 				elementDeleted = true;
 			}
 		}
@@ -159,7 +159,7 @@ public class GlobalStateListDataControl extends DataControl {
 		if( elementIndex > 0 ) {
 			globalStatesList.add( elementIndex - 1, globalStatesList.remove( elementIndex ) );
 			globalStatesDataControlList.add( elementIndex - 1, globalStatesDataControlList.remove( elementIndex ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 
@@ -174,7 +174,7 @@ public class GlobalStateListDataControl extends DataControl {
 		if( elementIndex < globalStatesList.size( ) - 1 ) {
 			globalStatesList.add( elementIndex + 1, globalStatesList.remove( elementIndex ) );
 			globalStatesDataControlList.add( elementIndex + 1, globalStatesDataControlList.remove( elementIndex ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 

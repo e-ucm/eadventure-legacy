@@ -72,7 +72,7 @@ public class AssessmentProfilesDataControl extends DataControl{
 						File newAssFile = new File (Controller.getInstance( ).getProjectFolder( ),AssetsController.getCategoryFolder( AssetsController.CATEGORY_ASSESSMENT )+"/"+fileName );
 						newAssFile.createNewFile( );
 						this.profiles.add( new AssessmentProfileDataControl ( new ArrayList<AssessmentRule>(), AssetsController.getCategoryFolder( AssetsController.CATEGORY_ASSESSMENT )+"/"+fileName) );
-						controller.dataModified( );
+						//controller.dataModified( );
 						added = true;
 					} catch( IOException e ) {
 						Controller.getInstance( ).showErrorDialog( "Error.CreateAssessmentFile.Title", "Error.CreateAssessmentFile.Message" );
@@ -157,7 +157,7 @@ public class AssessmentProfilesDataControl extends DataControl{
 						if (deletedFile.exists( ))
 							deleted =deletedFile.delete( );
 
-						controller.dataModified( );
+						//controller.dataModified( );
 						break;
 					}
 				}
@@ -207,7 +207,7 @@ public class AssessmentProfilesDataControl extends DataControl{
 
 		if( elementIndex < profiles.size( ) - 1 ) {
 			profiles.add( elementIndex + 1, profiles.remove( elementIndex ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 
@@ -221,7 +221,7 @@ public class AssessmentProfilesDataControl extends DataControl{
 
 		if( elementIndex > 0 ) {
 			profiles.add( elementIndex - 1, profiles.remove( elementIndex ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 

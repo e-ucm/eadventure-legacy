@@ -139,7 +139,7 @@ public class BookParagraphsListDataControl extends DataControl {
 		if( newBookParagraph != null ) {
 			bookParagraphsList.add( newBookParagraph );
 			bookParagraphsDataControlList.add( new BookParagraphDataControl( newBookParagraph ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 		}
 
 		return newBookParagraph != null;
@@ -151,7 +151,7 @@ public class BookParagraphsListDataControl extends DataControl {
 
 		if( bookParagraphsList.remove( dataControl.getContent( ) ) ) {
 			bookParagraphsDataControlList.remove( dataControl );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementDeleted = true;
 		}
 
@@ -166,7 +166,7 @@ public class BookParagraphsListDataControl extends DataControl {
 		if( elementIndex > 0 ) {
 			bookParagraphsList.add( elementIndex - 1, bookParagraphsList.remove( elementIndex ) );
 			bookParagraphsDataControlList.add( elementIndex - 1, bookParagraphsDataControlList.remove( elementIndex ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 
@@ -181,7 +181,7 @@ public class BookParagraphsListDataControl extends DataControl {
 		if( elementIndex < bookParagraphsList.size( ) - 1 ) {
 			bookParagraphsList.add( elementIndex + 1, bookParagraphsList.remove( elementIndex ) );
 			bookParagraphsDataControlList.add( elementIndex + 1, bookParagraphsDataControlList.remove( elementIndex ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 

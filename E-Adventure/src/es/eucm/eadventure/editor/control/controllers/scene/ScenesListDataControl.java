@@ -125,7 +125,7 @@ public class ScenesListDataControl extends DataControl {
 				scenesList.add( newScene );
 				scenesDataControlList.add( new SceneDataControl( newScene, controller.getPlayerImagePath()) );
 				controller.getIdentifierSummary( ).addSceneId( sceneId );
-				controller.dataModified( );
+				//controller.dataModified( );
 				elementAdded = true;
 			}
 		}
@@ -151,7 +151,7 @@ public class ScenesListDataControl extends DataControl {
 					scenesDataControlList.remove( dataControl );
 					controller.deleteIdentifierReferences( sceneId );
 					controller.getIdentifierSummary( ).deleteSceneId( sceneId );
-					controller.dataModified( );
+					//controller.dataModified( );
 					elementDeleted = true;
 				}
 			}
@@ -172,7 +172,7 @@ public class ScenesListDataControl extends DataControl {
 		if( elementIndex > 0 ) {
 			scenesList.add( elementIndex - 1, scenesList.remove( elementIndex ) );
 			scenesDataControlList.add( elementIndex - 1, scenesDataControlList.remove( elementIndex ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 
@@ -187,7 +187,7 @@ public class ScenesListDataControl extends DataControl {
 		if( elementIndex < scenesList.size( ) - 1 ) {
 			scenesList.add( elementIndex + 1, scenesList.remove( elementIndex ) );
 			scenesDataControlList.add( elementIndex + 1, scenesDataControlList.remove( elementIndex ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 

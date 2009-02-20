@@ -454,7 +454,7 @@ public class TreeConversationDataControl extends ConversationDataControl {
 				controller.replaceIdentifierReferences( oldConversationId, newConversationId );
 				controller.getIdentifierSummary( ).deleteConversationId( oldConversationId );
 				controller.getIdentifierSummary( ).addConversationId( newConversationId );
-				controller.dataModified( );
+				//controller.dataModified( );
 				elementRenamed = true;
 			}
 		}

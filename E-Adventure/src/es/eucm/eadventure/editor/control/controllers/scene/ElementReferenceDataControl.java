@@ -14,6 +14,7 @@ import es.eucm.eadventure.editor.control.controllers.item.ItemDataControl;
 import es.eucm.eadventure.editor.control.controllers.item.ItemsListDataControl;
 import es.eucm.eadventure.editor.control.tools.ChangeElementReferenceTool;
 import es.eucm.eadventure.editor.control.tools.general.ChangeDocumentationTool;
+import es.eucm.eadventure.editor.control.tools.general.ChangeTargetIdTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class ElementReferenceDataControl extends DataControl {
@@ -124,7 +125,7 @@ public class ElementReferenceDataControl extends DataControl {
 	 * @return Id of the referenced element
 	 */
 	public String getElementId( ) {
-		return elementReference.getIdTarget( );
+		return elementReference.getTargetId( );
 	}
 
 	/**
@@ -162,12 +163,13 @@ public class ElementReferenceDataControl extends DataControl {
 	 */
 	public void setElementId( String elementId ) {
 		// If the value is different
-		if( !elementId.equals( elementReference.getIdTarget( ) ) ) {
+		controller.addTool(new ChangeTargetIdTool(elementReference, elementId));
+		//if( !elementId.equals( elementReference.getTargetId( ) ) ) {
 			// Set the new element id, update the tree and modify the data
-			elementReference.setIdTarget( elementId );
-			controller.updateTree( );
-			controller.dataModified( );
-		}
+		//	elementReference.setTargetId( elementId );
+		//	controller.updateTree( );
+		//	controller.dataModified( );
+		//}
 	}
 
 	/**
@@ -288,13 +290,13 @@ public class ElementReferenceDataControl extends DataControl {
 
 	@Override
 	public int countIdentifierReferences( String id ) {
-		return elementReference.getIdTarget( ).equals( id ) ? 1 : 0;
+		return elementReference.getTargetId( ).equals( id ) ? 1 : 0;
 	}
 
 	@Override
 	public void replaceIdentifierReferences( String oldId, String newId ) {
-		if( elementReference.getIdTarget( ).equals( oldId ) )
-			elementReference.setIdTarget( newId );
+		if( elementReference.getTargetId( ).equals( oldId ) )
+			elementReference.setTargetId( newId );
 	}
 
 	@Override

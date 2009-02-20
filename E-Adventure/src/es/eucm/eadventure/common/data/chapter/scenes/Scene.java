@@ -3,6 +3,7 @@ package es.eucm.eadventure.common.data.chapter.scenes;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.common.data.Positioned;
 import es.eucm.eadventure.common.data.chapter.ElementReference;
 import es.eucm.eadventure.common.data.chapter.Exit;
 import es.eucm.eadventure.common.data.chapter.Trajectory;
@@ -12,7 +13,7 @@ import es.eucm.eadventure.common.data.chapter.elements.Barrier;
 /**
  * This class holds the data for a scene in eAdventure
  */
-public class Scene extends GeneralScene {
+public class Scene extends GeneralScene implements Positioned{
 	
 	
 	/**
@@ -148,7 +149,7 @@ public class Scene extends GeneralScene {
 	 * 
 	 * @return the horizontal coordinate of the default position for the player
 	 */
-	public int getDefaultX( ) {
+	public int getPositionX( ) {
 		return defaultX;
 	}
 
@@ -157,7 +158,7 @@ public class Scene extends GeneralScene {
 	 * 
 	 * @return the vertical coordinate of the default position for the player
 	 */
-	public int getDefaultY( ) {
+	public int getPositionY( ) {
 		return defaultY;
 	}
 
@@ -374,6 +375,16 @@ public class Scene extends GeneralScene {
 		s.playerScale = playerScale;
 		s.trajectory = (trajectory != null ? (Trajectory) trajectory.clone() : null);
 		return s;
+	}
+
+	@Override
+	public void setPositionX(int newX) {
+		this.defaultX = newX;
+	}
+
+	@Override
+	public void setPositionY(int newY) {
+		this.defaultX = newY;
 	}
 
 }

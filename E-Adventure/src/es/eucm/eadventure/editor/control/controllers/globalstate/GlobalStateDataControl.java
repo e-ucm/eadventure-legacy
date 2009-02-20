@@ -149,7 +149,7 @@ public class GlobalStateDataControl extends DataControl{
 				Controller.getInstance().replaceIdentifierReferences( oldItemId, newItemId );
 				Controller.getInstance().getIdentifierSummary( ).deleteGlobalStateId( oldItemId );
 				Controller.getInstance().getIdentifierSummary( ).addGlobalStateId( newItemId );
-				Controller.getInstance().dataModified( );
+				//Controller.getInstance().dataModified( );
 				elementRenamed = true;
 			}
 		}

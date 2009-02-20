@@ -152,7 +152,7 @@ public class MacroDataControl extends DataControl{
 				Controller.getInstance().replaceIdentifierReferences( oldItemId, newItemId );
 				Controller.getInstance().getIdentifierSummary( ).deleteMacroId( oldItemId );
 				Controller.getInstance().getIdentifierSummary( ).addMacroId( newItemId );
-				Controller.getInstance().dataModified( );
+				//Controller.getInstance().dataModified( );
 				elementRenamed = true;
 			}
 		}

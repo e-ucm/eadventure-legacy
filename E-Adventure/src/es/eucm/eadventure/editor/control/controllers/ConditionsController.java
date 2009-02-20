@@ -7,12 +7,9 @@ import es.eucm.eadventure.common.data.chapter.conditions.VarCondition;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.tools.general.conditions.AddConditionTool;
 import es.eucm.eadventure.editor.control.tools.general.conditions.AddEitherBlockTool;
-import es.eucm.eadventure.editor.control.tools.general.conditions.ChangeConditionIdTool;
-import es.eucm.eadventure.editor.control.tools.general.conditions.ChangeConditionType;
 import es.eucm.eadventure.editor.control.tools.general.conditions.DeleteConditionTool;
 import es.eucm.eadventure.editor.control.tools.general.conditions.DeleteEitherBlockTool;
 import es.eucm.eadventure.editor.control.tools.general.conditions.ReplaceConditionTool;
-import es.eucm.eadventure.editor.control.tools.generic.ChangeIntegerValueTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 /**

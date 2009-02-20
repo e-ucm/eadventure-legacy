@@ -1,11 +1,13 @@
 package es.eucm.eadventure.common.data.chapter;
 
+import es.eucm.eadventure.common.data.Documented;
+import es.eucm.eadventure.common.data.HasTargetId;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 
 /**
  * This class holds the data of a conversation reference in eAdventure
  */
-public class ConversationReference implements Cloneable {
+public class ConversationReference implements Cloneable, Documented, HasTargetId{
 
 	/**
 	 * Id of the target conversation
@@ -40,7 +42,7 @@ public class ConversationReference implements Cloneable {
 	 * 
 	 * @return the id of the conversation that is referenced
 	 */
-	public String getIdTarget( ) {
+	public String getTargetId( ) {
 		return idTarget;
 	}
 
@@ -68,7 +70,7 @@ public class ConversationReference implements Cloneable {
 	 * @param idTarget
 	 *            Id of the referenced conversation
 	 */
-	public void setIdTarget( String idTarget ) {
+	public void setTargetId( String idTarget ) {
 		this.idTarget = idTarget;
 	}
 

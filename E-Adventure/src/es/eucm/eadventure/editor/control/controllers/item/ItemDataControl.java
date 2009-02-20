@@ -258,7 +258,7 @@ public class ItemDataControl extends DataControlWithResources {
 			Resources newResources = new Resources( );
 			resourcesList.add( newResources );
 			resourcesDataControlList.add( new ResourcesDataControl( newResources, Controller.ITEM ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementAdded = true;
 		}
 
@@ -279,7 +279,7 @@ public class ItemDataControl extends DataControlWithResources {
 				if( selectedResources > 0 && selectedResources >= resourcesIndex )
 					selectedResources--;
 
-				controller.dataModified( );
+				//controller.dataModified( );
 				elementDeleted = true;
 			}
 		}
@@ -299,7 +299,7 @@ public class ItemDataControl extends DataControlWithResources {
 		if( elementIndex > 0 ) {
 			resourcesList.add( elementIndex - 1, resourcesList.remove( elementIndex ) );
 			resourcesDataControlList.add( elementIndex - 1, resourcesDataControlList.remove( elementIndex ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 
@@ -314,7 +314,7 @@ public class ItemDataControl extends DataControlWithResources {
 		if( elementIndex < resourcesList.size( ) - 1 ) {
 			resourcesList.add( elementIndex + 1, resourcesList.remove( elementIndex ) );
 			resourcesDataControlList.add( elementIndex + 1, resourcesDataControlList.remove( elementIndex ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 
@@ -341,7 +341,7 @@ public class ItemDataControl extends DataControlWithResources {
 				controller.replaceIdentifierReferences( oldItemId, newItemId );
 				controller.getIdentifierSummary( ).deleteItemId( oldItemId );
 				controller.getIdentifierSummary( ).addItemId( newItemId );
-				controller.dataModified( );
+				//controller.dataModified( );
 				elementRenamed = true;
 			}
 		}
