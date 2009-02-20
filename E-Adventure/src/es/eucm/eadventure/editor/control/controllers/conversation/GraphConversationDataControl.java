@@ -476,4 +476,15 @@ public class GraphConversationDataControl extends ConversationDataControl {
 	public boolean canBeDuplicated( ) {
 		return true;
 	}
+
+	@Override
+	public void recursiveSearch() {
+		check(this.getId(), "ID");
+		for (ConversationNodeView cnv : this.getAllNodes()) {
+			for (int i = 0; i < cnv.getLineCount(); i++) {
+				check(cnv.getLineName(i) , "Line name");
+				check(cnv.getLineText(i), "Line text");
+			}
+		}
+	}
 }

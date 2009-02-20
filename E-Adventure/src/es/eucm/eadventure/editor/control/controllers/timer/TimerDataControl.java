@@ -272,4 +272,17 @@ public class TimerDataControl extends DataControl {
 		return true;
 	}
 
+	@Override
+	public void recursiveSearch() {
+		check(this.getDocumentation(), "Docuementation");
+		check(this.getEndConditions(), "End conditions");
+		check(this.getInitConditions(), "Init conditions");
+		for (int i = 0; i < this.getEffects().getEffectCount(); i++) {
+			check(this.getEffects().getEffectInfo(i), "Effect");
+		}
+		for (int i = 0; i < this.getPostEffects().getEffectCount(); i++) {
+			check(this.getPostEffects().getEffectInfo(i), "Post Effect");
+		}
+	}
+
 }

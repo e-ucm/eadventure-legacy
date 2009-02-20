@@ -1,8 +1,12 @@
 package es.eucm.eadventure.editor.control.controllers;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.controllers.character.ConversationReferenceDataControl;
+import es.eucm.eadventure.editor.control.controllers.character.ConversationReferencesListDataControl;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 /**
@@ -13,6 +17,14 @@ import es.eucm.eadventure.editor.data.support.VarFlagSummary;
  */
 public abstract class DataControl implements Cloneable {
 
+	protected static HashMap<DataControl, List<String>> resultSet = new HashMap<DataControl, List<String>>();
+	
+	protected static String searchedText;
+
+	private static boolean caseSensitive;
+
+	private static boolean fullMatch;
+	
 	/**
 	 * Link to the main controller.
 	 */
@@ -223,5 +235,64 @@ public abstract class DataControl implements Cloneable {
 	 *            Identifier to be deleted
 	 */
 	public abstract void deleteIdentifierReferences( String id );
+	
+	public HashMap<DataControl, List<String>> search(String text, boolean caseSensitive, boolean fullMatch) {
+		resultSet.clear();
+		if (caseSensitive)
+			DataControl.searchedText = text;
+		else
+			DataControl.searchedText = text.toLowerCase();
+		DataControl.caseSensitive = caseSensitive;
+		DataControl.fullMatch = fullMatch;
+		this.recursiveSearch();
+		return DataControl.resultSet;
+	}
+	
+	public abstract void recursiveSearch (  );
+	
+	protected void addResult (String where) {
+		List<String> places = resultSet.get(this);
+		if (places == null) {
+			places = new ArrayList<String>();
+			resultSet.put(this, places);
+		}
+		places.add(where);
+	}
+	
+	protected void check(String value, String desc) {
+		if (value != null) {
+			if (!fullMatch) {
+				if (!caseSensitive && value.toLowerCase().contains(searchedText))
+					addResult(desc);
+				else if (caseSensitive && value.contains(searchedText))
+					addResult(desc);
+			} else {
+				if (!caseSensitive && value.toLowerCase().equals(searchedText))
+					addResult(desc);
+				else if (caseSensitive && value.equals(searchedText));
+			}
+		}
+	}
+	
+	protected void check(ConditionsController conditions, String desc) {
+		for (int i = 0; i < conditions.getEitherConditionsBlockCount(); i++) {
+			for (int j = 0; j < conditions.getConditionCount(i); j++) {
+				check(conditions.getConditionId(i, j), desc + " (id)");
+				check(conditions.getConditionState(i, j), desc + " (state)");
+				check(conditions.getConditionValue(i, j), desc + " (value)");
+			}
+		}
+	}
+	
+	protected void check(
+			ConversationReferencesListDataControl conversations,
+			String desc) {
+		for (ConversationReferenceDataControl conv : conversations.getConversationReferences()) {
+			check(conv.getConditions(), desc + " (conditions) ");
+			check(conv.getDocumentation(), desc + " (documentation)");
+			check(conv.getIdTarget(), desc + " (ID Target)");
+		}
+	}
+
 	
 }

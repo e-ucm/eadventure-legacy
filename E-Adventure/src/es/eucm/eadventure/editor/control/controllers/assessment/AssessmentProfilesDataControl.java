@@ -271,4 +271,10 @@ public class AssessmentProfilesDataControl extends DataControl{
 	public boolean canBeDuplicated( ) {
 		return false;
 	}
+
+	@Override
+	public void recursiveSearch() {
+		for (DataControl dc : this.profiles)
+			dc.recursiveSearch();
+	}
 }

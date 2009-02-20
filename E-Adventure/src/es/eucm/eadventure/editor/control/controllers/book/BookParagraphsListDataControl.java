@@ -254,7 +254,12 @@ public class BookParagraphsListDataControl extends DataControl {
 
 	@Override
 	public boolean canBeDuplicated( ) {
-		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public void recursiveSearch() {
+		for (DataControl dc : bookParagraphsDataControlList)
+			dc.recursiveSearch();
 	}
 }

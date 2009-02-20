@@ -277,4 +277,10 @@ public class BooksListDataControl extends DataControl {
 	public boolean canBeDuplicated( ) {
 		return false;
 	}
+
+	@Override
+	public void recursiveSearch() {
+		for (DataControl dc : this.booksDataControlList)
+			dc.recursiveSearch();
+	}
 }

@@ -496,4 +496,13 @@ public class PlayerDataControl extends DataControlWithResources{
 		return true;
 		// It is duplicated as a character
 	}
+
+	@Override
+	public void recursiveSearch() {
+		check(this.getDocumentation(), "Documentation");
+		check(this.getBriefDescription(), "Brief Description");
+		check(this.getDetailedDescription(), "Detailed Description");
+		check(this.getName(), "Name");
+		check(this.getPlayerVoice(), "Player Voice");
+	}
 }

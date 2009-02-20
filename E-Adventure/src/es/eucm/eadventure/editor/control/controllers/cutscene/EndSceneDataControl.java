@@ -108,4 +108,9 @@ public class EndSceneDataControl extends DataControl {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	public void recursiveSearch() {
+
+	}
 }

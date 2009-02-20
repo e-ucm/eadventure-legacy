@@ -364,8 +364,16 @@ public class MainWindow extends JFrame {
 		});
 		redo.setAccelerator( KeyStroke.getKeyStroke( 'Y', InputEvent.CTRL_MASK ) );
 
+		JMenuItem search = new JMenuItem(TextConstants.getText("Search.Title"));
+		search.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.search();
+			}
+		});
+		
 		editMenu.add(undo);
 		editMenu.add(redo);
+		editMenu.add(search);
 		
 		
 		// Create the "Adventure" elements

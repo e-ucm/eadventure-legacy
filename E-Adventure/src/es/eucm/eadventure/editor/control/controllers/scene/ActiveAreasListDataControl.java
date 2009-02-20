@@ -286,4 +286,10 @@ public class ActiveAreasListDataControl extends DataControl {
 		return sceneDataControl.getBarriersList().getBarriers();
 	}
 
+	@Override
+	public void recursiveSearch() {
+		for (DataControl dc : this.activeAreasDataControlList)
+			dc.recursiveSearch();
+	}
+
 }

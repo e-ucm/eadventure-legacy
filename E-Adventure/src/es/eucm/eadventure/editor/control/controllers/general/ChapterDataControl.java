@@ -572,4 +572,24 @@ public class ChapterDataControl extends DataControl {
 	public MacroListDataControl getMacrosListDataControl() {
 		return macrosListDataControl;
 	}
+
+	@Override
+	public void recursiveSearch() {
+		check(this.getAdaptationPath(), "Adaptation Path");
+		check(this.getAssessmentPath(), "Assessment Path");
+		check(this.getDescription(), "Descritpion");
+		check(this.getInitialScene(), "Initial scene");
+		check(this.getTitle(), "Title");
+		this.getAtrezzoList().recursiveSearch();
+		this.getBooksList().recursiveSearch();
+		this.getConversationsList().recursiveSearch();
+		this.getCutscenesList().recursiveSearch();
+		this.getGlobalStatesListDataControl().recursiveSearch();
+		this.getItemsList().recursiveSearch();
+		this.getMacrosListDataControl().recursiveSearch();
+		this.getNPCsList().recursiveSearch();
+		this.getPlayer().recursiveSearch();
+		this.getScenesList().recursiveSearch();
+		this.getTimersList().recursiveSearch();
+	}
 }

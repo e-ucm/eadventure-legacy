@@ -262,7 +262,12 @@ public class MacroListDataControl extends DataControl {
 
 	@Override
 	public boolean canBeDuplicated( ) {
-		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public void recursiveSearch() {
+		for (DataControl dc : this.macrosDataControlList)
+			dc.recursiveSearch();
 	}
 }

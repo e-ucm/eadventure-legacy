@@ -292,6 +292,12 @@ public class ScenesListDataControl extends DataControl {
 		for ( SceneDataControl sceneDataControl : scenesDataControlList)
 			sceneDataControl.deletePlayerInReferenceList();
 	}
+
+	@Override
+	public void recursiveSearch() {
+		for (DataControl dc : this.scenesDataControlList)
+			dc.recursiveSearch();
+	}
 	
 
 }

@@ -425,4 +425,15 @@ public class ItemDataControl extends DataControlWithResources {
 	public boolean canBeDuplicated( ) {
 		return true;
 	}
+
+	@Override
+	public void recursiveSearch() {
+		check(this.getBriefDescription(), "Brief Description");
+		check(this.getDetailedDescription(), "Detailed Description");
+		check(this.getDocumentation(), "Documentation");
+		check(this.getId(), "ID");
+		check(this.getName(), "Name");
+		check(this.getPreviewImage(), "Preview Image");
+		this.getActionsList().recursiveSearch();
+	}
 }

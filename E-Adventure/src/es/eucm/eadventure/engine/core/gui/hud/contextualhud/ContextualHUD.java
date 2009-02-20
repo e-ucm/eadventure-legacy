@@ -535,15 +535,15 @@ public class ContextualHUD extends HUD {
         
         if (System.currentTimeMillis() - pressedTime > 100) {
         	long time = System.currentTimeMillis() - pressedTime;
-        	if (time > 800)
-        		time = 800;
-			Composite alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f);
-			g.setComposite(alphaComposite);
 			
 			if (time < 800) {
+				Composite alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f);
+				g.setComposite(alphaComposite);
 				int size = 6 + (int) (8.0f * (float) time / 800.0f);
 				g.fillArc(pressedX - size, pressedY - size, size*2, size*2, 0, - (int) ( 360.0 / 800.0 * (double) time));
 			} else {
+				Composite alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f + 0.5f * (float) Math.pow(1.0f - (time % 600) / 300.0f , 2));
+				g.setComposite(alphaComposite);
         		g.fillOval(pressedX - 16, pressedY - 16, 32, 32);
 			}
 			

@@ -41,6 +41,7 @@ public class AtrezzoListDataControl extends DataControl {
 	/**
 	 * Returns the list of atrezzo item controllers.
 	 * 
+	 * 
 	 * @return Atrezzo controllers
 	 */
 	public List<AtrezzoDataControl> getAtrezzoList( ) {
@@ -271,6 +272,12 @@ public class AtrezzoListDataControl extends DataControl {
 	public void updateVarFlagSummary(VarFlagSummary varFlagSummary) {
 		//This method is empty because the atrezzo items there aren´t interactive, and its haven´t associated flags/vars 
 		
+	}
+
+	@Override
+	public void recursiveSearch() {
+		for (DataControl dc : this.atrezzoDataControlList)
+			dc.recursiveSearch();
 	}
 	
 }

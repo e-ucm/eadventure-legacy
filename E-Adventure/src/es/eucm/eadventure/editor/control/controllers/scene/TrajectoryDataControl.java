@@ -417,6 +417,12 @@ public class TrajectoryDataControl extends DataControl {
 	public NodeDataControl getInitialNode() {
 		return initialNode;
 	}
+
+	@Override
+	public void recursiveSearch() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 }

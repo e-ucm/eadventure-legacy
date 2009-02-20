@@ -373,5 +373,14 @@ public class ElementReferenceDataControl extends DataControl {
 		return null;
 		
 	}
+
+
+
+	@Override
+	public void recursiveSearch() {
+		check(this.conditionsController, "Condtions");
+		check(this.getDocumentation(), "Documentation");
+		check(this.getElementId(), "Element ID");
+	}
 	
 }

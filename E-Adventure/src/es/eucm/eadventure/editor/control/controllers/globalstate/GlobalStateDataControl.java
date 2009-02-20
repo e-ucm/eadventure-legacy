@@ -170,4 +170,10 @@ public class GlobalStateDataControl extends DataControl{
 		ConditionsController.updateVarFlagSummary(varFlagSummary, globalState);
 	}
 
+	@Override
+	public void recursiveSearch() {
+		check(this.controller, "Conditions");
+		check(this.getDocumentation(), "Documentation");
+		check(this.getId(), "ID");
+	}
 }

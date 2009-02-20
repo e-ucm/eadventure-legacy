@@ -256,4 +256,10 @@ public class ConversationReferencesListDataControl extends DataControl {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	public void recursiveSearch() {
+		for (DataControl dc : this.conversationReferencesDataControlList)
+			dc.recursiveSearch();
+	}
 }

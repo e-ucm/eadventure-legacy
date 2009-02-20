@@ -89,6 +89,11 @@ public class CustomActionDataControl extends ActionDataControl {
 		return customAction.getName();
 	}
 
+	@Override
+	public void recursiveSearch() {
+		super.recursiveSearch();
+		check(this.getName(), "Name");
+	}
 
 
 }

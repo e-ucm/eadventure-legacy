@@ -217,4 +217,8 @@ public class InfluenceAreaDataControl extends DataControl {
 		}
 	}
 
+	@Override
+	public void recursiveSearch() {
+	}
+
 }

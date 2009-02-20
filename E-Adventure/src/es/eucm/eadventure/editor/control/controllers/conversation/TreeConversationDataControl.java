@@ -716,4 +716,21 @@ public class TreeConversationDataControl extends ConversationDataControl {
 	public boolean canBeDuplicated( ) {
 		return true;
 	}
+
+	@Override
+	public void recursiveSearch() {
+		check(this.getId(), "ID");
+		List<ConversationNodeView> list = new ArrayList<ConversationNodeView>();
+		list.add(this.getRootNode());
+		while(!list.isEmpty()) {
+			ConversationNodeView temp = list.get(0);
+			list.remove(0);
+			for (int i = 0; i < temp.getChildCount(); i++)
+				list.add(temp.getChildView(i));
+			for (int i = 0; i < temp.getLineCount(); i ++) {
+				check(temp.getLineName(i), "Node line name");
+				check(temp.getLineText(i), "Node line text");
+			}
+		}
+	}
 }

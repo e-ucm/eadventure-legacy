@@ -180,4 +180,11 @@ public class ConversationReferenceDataControl extends DataControl {
 		return false;
 	}
 
+	@Override
+	public void recursiveSearch() {
+		check(this.getDocumentation(), "Documentation");
+		check(this.getConditions(), "Conditions");
+		check(this.getIdTarget(), "ID Target");
+	}
+
 }

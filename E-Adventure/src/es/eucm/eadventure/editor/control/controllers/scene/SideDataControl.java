@@ -165,4 +165,8 @@ public class SideDataControl extends DataControl {
 		return null;
 	}
 
+	@Override
+	public void recursiveSearch() {
+	}
+
 }
