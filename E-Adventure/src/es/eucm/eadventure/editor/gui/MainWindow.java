@@ -773,6 +773,11 @@ public class MainWindow extends JFrame {
 	}
 
 	public void updatePanel() {
+		for (Window window: windowsStack){
+			if (window instanceof Updateable){
+				((Updateable)window).updateFields();
+			}
+		}
 		treePanel.updatePanel();
 	}
 	

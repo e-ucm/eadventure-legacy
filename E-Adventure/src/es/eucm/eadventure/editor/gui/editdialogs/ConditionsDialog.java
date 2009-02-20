@@ -14,6 +14,7 @@ import javax.swing.JDialog;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
+import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.elementpanels.general.ConditionsPanel;
 
 /**
@@ -22,12 +23,14 @@ import es.eucm.eadventure.editor.gui.elementpanels.general.ConditionsPanel;
  * 
  * @author Bruno Torijano Bueno
  */
-public class ConditionsDialog extends JDialog {
+public class ConditionsDialog extends ToolManagableDialog{
 
 	/**
 	 * Required.
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private ConditionsPanel conditionsPanel;
 
 	/**
 	 * Constructor.
@@ -38,7 +41,7 @@ public class ConditionsDialog extends JDialog {
 	public ConditionsDialog( ConditionsController conditionsController ) {
 
 		// Call to the JDialog constructor
-		super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "Conditions.Title" ), Dialog.ModalityType.APPLICATION_MODAL );
+		super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "Conditions.Title" ), false );
 
 		// Push the dialog into the stack, and add the window listener to pop in when closing
 		Controller.getInstance( ).pushWindow( this );
@@ -56,7 +59,8 @@ public class ConditionsDialog extends JDialog {
 		c.weightx = 1;
 		c.weighty = 1;
 		ConditionDialog.ID=null;
-		add( new ConditionsPanel( conditionsController ), c );
+		conditionsPanel = new ConditionsPanel( conditionsController);
+		add( conditionsPanel, c );
 
 		// Set the size, position and properties of the dialog
 		setResizable( false );
@@ -64,5 +68,11 @@ public class ConditionsDialog extends JDialog {
 		Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
 		setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
 		setVisible( true );
+	}
+
+	@Override
+	public boolean updateFields() {
+		//this.removeAll();
+		return conditionsPanel.updateFields();
 	}
 }

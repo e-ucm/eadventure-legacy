@@ -37,14 +37,14 @@ public class VarCondition extends Condition{
 	/**
 	 * @return the value
 	 */
-	public int getValue() {
+	public Integer getValue() {
 		return value;
 	}
 
 	/**
 	 * @param value the value to set
 	 */
-	public void setValue(int value) {
+	public void setValue(Integer value) {
 		this.value = value;
 	}
 	

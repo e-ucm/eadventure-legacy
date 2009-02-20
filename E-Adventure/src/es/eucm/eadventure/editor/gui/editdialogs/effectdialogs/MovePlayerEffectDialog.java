@@ -79,7 +79,6 @@ public class MovePlayerEffectDialog extends EffectDialog {
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 1;
 		scenesComboBox = new JComboBox( scenesArray );
-		scenesComboBox.addKeyListener(createListener());
 		scenesComboBox.addActionListener( new ScenesComboBoxActionListener( ) );
 		mainPanel.add( scenesComboBox, c );
 

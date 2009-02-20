@@ -7,9 +7,10 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 /**
- * Controller for the list of flags.
+ * Controller for the list of flags and vars.
  * 
  * @author Bruno Torijano Bueno
+ * @author Javier Torrente
  */
 public class VarFlagsController {
 
@@ -136,9 +137,9 @@ public class VarFlagsController {
 			if (similarFlags.length==0){
 				//Controller.getInstance( ).getFlagSummary( ).addFlag( flag );
 				if ( flag )
-					Controller.getInstance( ).getVarFlagSummary( ).addFlagReference( id );
+					Controller.getInstance( ).getVarFlagSummary( ).addFlag( id );
 				else
-					Controller.getInstance( ).getVarFlagSummary( ).addVarReference( id );
+					Controller.getInstance( ).getVarFlagSummary( ).addVar( id );
 				flagVarAdded = id;
 			}else {
 				String[] options = new String[similarFlags.length+1];
