@@ -2985,12 +2985,12 @@ public class Controller {
 
 	// METHODS TO MANAGE UNDO/REDO
 	
-	public void addTool(Tool tool) {
+	public boolean addTool(Tool tool) {
 		if (localToolManagers.isEmpty()){
-			globalToolManager.addTool(tool);
+			return globalToolManager.addTool(tool);
 			 //System.out.println("[ToolManager] Global Tool Manager: Tool ADDED");
 		}else{
-			localToolManagers.peek().addTool(tool);
+			return localToolManagers.peek().addTool(tool);
 			//System.out.println("[ToolManager] Local Tool Manager: Tool ADDED");
 		}
 	}
