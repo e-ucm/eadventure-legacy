@@ -147,6 +147,21 @@ public class VarFlagSummary {
 	}
 	
 	/**
+	 * Adds a new reference (if the id provided is a flag addFlagReference is invoked, if the id provided is a var addVarReference is called).
+	 * 
+	 * @param id
+	 *            New ref id
+	 */
+	public void addReference( String id ) {
+
+		if ( flags.contains( id ) ){
+			addFlagReference ( id );
+		} else if ( vars.contains( id ) ){
+			addVarReference ( id );
+		}
+	}
+	
+	/**
 	 * Adds a new flag reference (creates the flag with one reference, or updates the references).
 	 * 
 	 * @param flag

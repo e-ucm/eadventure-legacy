@@ -93,7 +93,6 @@ public class MoveNPCEffectDialog extends EffectDialog {
 			c.fill = GridBagConstraints.HORIZONTAL;
 			c.weightx = 1;
 			charactersComboBox = new JComboBox( charactersArray );
-			charactersComboBox.addKeyListener(createListener());
 			charactersComboBox.addActionListener( new CharactersComboBoxListener( ) );
 			mainPanel.add( charactersComboBox, c );
 
@@ -104,7 +103,6 @@ public class MoveNPCEffectDialog extends EffectDialog {
 			// Create and add the list of scenes
 			c.gridy = 2;
 			scenesComboBox = new JComboBox( scenesArray );
-			scenesComboBox.addKeyListener(createListener());
 			scenesComboBox.addActionListener( new ScenesComboBoxListener( ) );
 			mainPanel.add( scenesComboBox, c );
 

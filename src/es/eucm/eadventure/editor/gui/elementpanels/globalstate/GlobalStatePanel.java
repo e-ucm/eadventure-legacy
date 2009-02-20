@@ -4,6 +4,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.event.KeyAdapter;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -65,7 +66,7 @@ public class GlobalStatePanel extends JPanel{
 		c.weighty = 0.7;
 		c.gridy = 1;
 		ConditionDialog.ID=dataControl.getId();
-		conditionsPanel = new ConditionsPanel ( dataControl.getController( ) );
+		conditionsPanel = new ConditionsPanel ( dataControl.getController( ));
 		conditionsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "GlobalState.Conditions" ) ) );
 		add ( conditionsPanel, c );
 	}

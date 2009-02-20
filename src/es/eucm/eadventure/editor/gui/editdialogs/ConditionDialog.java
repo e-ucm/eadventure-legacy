@@ -1,7 +1,6 @@
 package es.eucm.eadventure.editor.gui.editdialogs;
 
 import java.awt.BorderLayout;
-import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -17,7 +16,6 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
@@ -37,7 +35,7 @@ import es.eucm.eadventure.editor.data.support.IdentifierSummary;
  * 
  * @author Bruno Torijano Bueno
  */
-public class ConditionDialog extends JDialog {
+public class ConditionDialog extends ToolManagableDialog {
 
 	/**
 	 * Required.
@@ -138,7 +136,7 @@ public class ConditionDialog extends JDialog {
 	 *            The default flag value, null if none
 	 */
 	public ConditionDialog( Integer defaultMode, String title, String defaultState, String defaultFlag, String defaultVar, String defaultId, String defaultValue ) {
-		super( Controller.getInstance( ).peekWindow( ), title, Dialog.ModalityType.APPLICATION_MODAL );
+		super( Controller.getInstance( ).peekWindow( ), title,false);//, Dialog.ModalityType.APPLICATION_MODAL );
 
 		this.defaultFlag = defaultFlag;
 		this.defaultVar = defaultVar;
@@ -461,5 +459,10 @@ public class ConditionDialog extends JDialog {
 		}
 
 		
+	}
+	
+	public boolean updateFields(){
+		updateDialog();
+		return true;
 	}
 }

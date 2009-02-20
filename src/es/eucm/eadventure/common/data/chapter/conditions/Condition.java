@@ -1,9 +1,11 @@
 package es.eucm.eadventure.common.data.chapter.conditions;
 
+import es.eucm.eadventure.common.data.HasId;
+
 /**
  * This class manages a condition in eAdventure
  */
-public class Condition implements Cloneable {
+public class Condition implements Cloneable, HasId {
 
 	/**
 	 * Constant for state not set.
@@ -108,7 +110,7 @@ public class Condition implements Cloneable {
 	 * 					 {@link #VAR_GREATER_EQUALS_THAN} {@link #VAR_GREATER_THAN} {@link #VAR_LESS_EQUALS_THAN}
 	 *                   {@link #VAR_LESS_THAN}
 	 */
-	public int getState( ) {
+	public Integer getState( ) {
 		return state;
 	}
 
@@ -147,7 +149,7 @@ public class Condition implements Cloneable {
 	 * 					 {@link #VAR_GREATER_EQUALS_THAN} {@link #VAR_GREATER_THAN} {@link #VAR_LESS_EQUALS_THAN}
 	 *                   {@link #VAR_LESS_THAN}
 	 */
-	public void setState( int state ) {
+	public void setState(Integer state ) {
 		this.state = state;
 	}
 

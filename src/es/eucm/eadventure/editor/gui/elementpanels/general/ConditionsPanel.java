@@ -10,6 +10,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -33,9 +34,10 @@ import javax.swing.table.TableColumn;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
+import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.editdialogs.ConditionDialog;
 
-public class ConditionsPanel extends JPanel {
+public class ConditionsPanel extends JPanel implements Updateable{
 
 	/**
 	 * Required.
@@ -102,83 +104,14 @@ public class ConditionsPanel extends JPanel {
 	 * 
 	 * @param conditionController
 	 *            Controller for the conditions
+	 * @param keyListener 
 	 */
 	public ConditionsPanel( ConditionsController conditionController ) {
 		// Parent constructor
 		super( );
-
 		// Set the conditions controller and the icon
 		this.conditionsController = conditionController;
-		deleteIcon = new ImageIcon( "img/icons/deleteContent.png" );
-		eitherConditionsTables = new ArrayList<JTable>( );
-
-		// Set properties of the panel
-		setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Conditions.Title" ) ) );
-		setLayout( new BorderLayout( ) );
-
-		// Create the tabbed panel
-		conditionsTabbedPanel = new JTabbedPane( JTabbedPane.TOP, JTabbedPane.SCROLL_TAB_LAYOUT );
-
-		// Create the first panel for the tabbed panel
-		JPanel mainConditions = new JPanel( );
-		mainConditions.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Conditions.MainBlockTitle" ) ) );
-		mainConditions.setLayout( new GridBagLayout( ) );
-		GridBagConstraints c = new GridBagConstraints( );
-		c.insets = new Insets( 5, 0, 5, 0 );
-
-		// Add the table with the data
-		c.anchor = GridBagConstraints.CENTER;
-		c.gridwidth = 2;
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 1;
-		c.weighty = 1;
-		mainConditionsTable = new JTable( new ConditionsTableModelRenderer( ConditionsController.MAIN_CONDITIONS_BLOCK ) );
-		//mainConditionsTable.getColumnModel( ).getColumn( 0 ).setMaxWidth( 60 );
-		for (int i=0; i<mainConditionsTable.getColumnModel().getColumnCount(); i++ ){
-			TableColumn column=mainConditionsTable.getColumnModel().getColumn( i );
-			column.setCellRenderer( new ConditionsTableModelRenderer( ConditionsController.MAIN_CONDITIONS_BLOCK ) );
-		}
-		
-		mainConditionsTable.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
-		mainConditionsTable.addMouseListener( new ConditionsTableMouseListener( ) );
-		JScrollPane tableScrollPane = new JScrollPane( mainConditionsTable, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER );
-		mainConditions.add( tableScrollPane, c );
-
-		// Add the add condition button
-		c.insets = new Insets( 5, 0, 5, 5 );
-		c.gridy = 1;
-		c.gridwidth = 1;
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weighty = 0;
-		JButton addConditionButton = new JButton( TextConstants.getText( "Conditions.AddCondition" ) );
-		addConditionButton.addActionListener( new AddConditionListener( ConditionsController.MAIN_CONDITIONS_BLOCK ) );
-		mainConditions.add( addConditionButton, c );
-
-		// Add the delete condition button
-		c.insets = new Insets( 5, 5, 5, 0 );
-		c.gridx = 1;
-		JButton deleteConditionButton = new JButton( TextConstants.getText( "Conditions.DeleteCondition" ) );
-		deleteConditionButton.addActionListener( new DeleteConditionListener( ConditionsController.MAIN_CONDITIONS_BLOCK ) );
-		mainConditions.add( deleteConditionButton, c );
-
-		// Add the "Add either block" button
-		c.insets = new Insets( 5, 0, 5, 0 );
-		c.gridx = 0;
-		c.gridy = 2;
-		c.gridwidth = 2;
-		JButton addEitherBlockButton = new JButton( TextConstants.getText( "Conditions.AddEitherBlock" ) );
-		addEitherBlockButton.addActionListener( new AddEitherConditionsBlockListener( ) );
-		mainConditions.add( addEitherBlockButton, c );
-
-		// Add the main conditions panel as the first tab
-		conditionsTabbedPanel.addTab( TextConstants.getText( "Conditions.MainBlockTab" ), mainConditions );
-
-		// Add the tabbed panel
-		add( conditionsTabbedPanel, BorderLayout.CENTER );
-
-		// Add as much panel as either blocks are
-		for( int i = 0; i < conditionsController.getEitherConditionsBlockCount( ); i++ )
-			addEitherConditionsBlockPanel( );
+		this.updateFields();
 	}
 
 	/**
@@ -463,10 +396,12 @@ public class ConditionsPanel extends JPanel {
 							tableIndex = ConditionsController.MAIN_CONDITIONS_BLOCK;
 
 						// Set the new values
-						conditionsController.setConditionType( tableIndex, selectedCondition, conditionDialog.getSelectedType( ) );
+						/*conditionsController.setConditionType( tableIndex, selectedCondition, conditionDialog.getSelectedType( ) );
 						conditionsController.setConditionState( tableIndex, selectedCondition, conditionDialog.getSelectedState( ) );
 						conditionsController.setConditionId( tableIndex, selectedCondition, conditionDialog.getSelectedId( ) );
-						conditionsController.setConditionValue( tableIndex, selectedCondition, conditionDialog.getSelectedValue( ) );
+						conditionsController.setConditionValue( tableIndex, selectedCondition, conditionDialog.getSelectedValue( ) );*/
+						conditionsController.setCondition(tableIndex, selectedCondition, conditionDialog.getSelectedType( )
+								, conditionDialog.getSelectedId( ), conditionDialog.getSelectedState( ), conditionDialog.getSelectedValue( ));
 						
 						// Update the table
 						conditionsTable.updateUI( );
@@ -640,5 +575,86 @@ public class ConditionsPanel extends JPanel {
 			}
 			return icon;
 		}
+	}
+
+	@Override
+	public boolean updateFields() {
+		int n= getComponentCount();
+		for (int i=0; i<n; i++){
+			this.remove(i);
+			n--;
+		}
+		deleteIcon = new ImageIcon( "img/icons/deleteContent.png" );
+		eitherConditionsTables = new ArrayList<JTable>( );
+
+		// Set properties of the panel
+		setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Conditions.Title" ) ) );
+		setLayout( new BorderLayout( ) );
+
+		// Create the tabbed panel
+		conditionsTabbedPanel = new JTabbedPane( JTabbedPane.TOP, JTabbedPane.SCROLL_TAB_LAYOUT );
+
+		// Create the first panel for the tabbed panel
+		JPanel mainConditions = new JPanel( );
+		mainConditions.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Conditions.MainBlockTitle" ) ) );
+		mainConditions.setLayout( new GridBagLayout( ) );
+		GridBagConstraints c = new GridBagConstraints( );
+		c.insets = new Insets( 5, 0, 5, 0 );
+
+		// Add the table with the data
+		c.anchor = GridBagConstraints.CENTER;
+		c.gridwidth = 2;
+		c.fill = GridBagConstraints.BOTH;
+		c.weightx = 1;
+		c.weighty = 1;
+		mainConditionsTable = new JTable( new ConditionsTableModelRenderer( ConditionsController.MAIN_CONDITIONS_BLOCK ) );
+		//mainConditionsTable.getColumnModel( ).getColumn( 0 ).setMaxWidth( 60 );
+		for (int i=0; i<mainConditionsTable.getColumnModel().getColumnCount(); i++ ){
+			TableColumn column=mainConditionsTable.getColumnModel().getColumn( i );
+			column.setCellRenderer( new ConditionsTableModelRenderer( ConditionsController.MAIN_CONDITIONS_BLOCK ) );
+		}
+		
+		mainConditionsTable.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
+		mainConditionsTable.addMouseListener( new ConditionsTableMouseListener( ) );
+		JScrollPane tableScrollPane = new JScrollPane( mainConditionsTable, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER );
+		mainConditions.add( tableScrollPane, c );
+
+		// Add the add condition button
+		c.insets = new Insets( 5, 0, 5, 5 );
+		c.gridy = 1;
+		c.gridwidth = 1;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.weighty = 0;
+		JButton addConditionButton = new JButton( TextConstants.getText( "Conditions.AddCondition" ) );
+		addConditionButton.addActionListener( new AddConditionListener( ConditionsController.MAIN_CONDITIONS_BLOCK ) );
+		mainConditions.add( addConditionButton, c );
+
+		// Add the delete condition button
+		c.insets = new Insets( 5, 5, 5, 0 );
+		c.gridx = 1;
+		JButton deleteConditionButton = new JButton( TextConstants.getText( "Conditions.DeleteCondition" ) );
+		deleteConditionButton.addActionListener( new DeleteConditionListener( ConditionsController.MAIN_CONDITIONS_BLOCK ) );
+		mainConditions.add( deleteConditionButton, c );
+
+		// Add the "Add either block" button
+		c.insets = new Insets( 5, 0, 5, 0 );
+		c.gridx = 0;
+		c.gridy = 2;
+		c.gridwidth = 2;
+		JButton addEitherBlockButton = new JButton( TextConstants.getText( "Conditions.AddEitherBlock" ) );
+		addEitherBlockButton.addActionListener( new AddEitherConditionsBlockListener( ) );
+		mainConditions.add( addEitherBlockButton, c );
+
+		// Add the main conditions panel as the first tab
+		conditionsTabbedPanel.addTab( TextConstants.getText( "Conditions.MainBlockTab" ), mainConditions );
+
+		// Add the tabbed panel
+		add( conditionsTabbedPanel, BorderLayout.CENTER );
+
+		// Add as much panel as either blocks are
+		for( int i = 0; i < conditionsController.getEitherConditionsBlockCount( ); i++ )
+			addEitherConditionsBlockPanel( );
+
+		return true;
 	}
 }

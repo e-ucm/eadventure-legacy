@@ -46,6 +46,18 @@ public class Conditions implements Cloneable {
 	public void addEitherCondition( Conditions conditions ) {
 		eitherConditions.add( conditions );
 	}
+	
+	/**
+	 * Inserts a list of conditions in the given position
+	 * 
+	 * @param conditions
+	 *            the conditions to add
+	 * @param index
+	 *            the index where conditions must be inserted
+	 */
+	public void addEitherCondition( int index, Conditions conditions ) {
+		eitherConditions.add( index, conditions );
+	}
 
 	/**
 	 * Returns whether the conditions block is empty or not.
