@@ -293,5 +293,11 @@ public class NextSceneDataControl extends DataControl {
 		return true;
 	}
 
+	@Override
+	public void recursiveSearch() {
+		check(this.conditionsController, "Conditions");
+		check(this.getNextSceneId(), "Next scene ID");
+	}
+
 
 }

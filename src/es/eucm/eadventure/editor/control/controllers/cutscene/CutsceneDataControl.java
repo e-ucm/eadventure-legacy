@@ -563,4 +563,15 @@ public class CutsceneDataControl extends DataControlWithResources {
 	public boolean canBeDuplicated( ) {
 		return true;
 	}
+
+	@Override
+	public void recursiveSearch() {
+		check(this.getId(), "ID");
+		check(this.getDocumentation(), "Documentation");
+		check(this.getName(), "Name");
+		if (this.getEndScene() != null)
+			this.getEndScene().recursiveSearch();
+		for (DataControl dc : getNextScenes())
+			dc.recursiveSearch();
+	}
 }

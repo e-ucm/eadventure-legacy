@@ -265,4 +265,10 @@ public class ItemsListDataControl extends DataControl {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	public void recursiveSearch() {
+		for (DataControl dc : this.itemsDataControlList)
+			dc.recursiveSearch();
+	}
 }

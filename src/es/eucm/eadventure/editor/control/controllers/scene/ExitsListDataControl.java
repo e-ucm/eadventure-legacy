@@ -297,4 +297,10 @@ public class ExitsListDataControl extends DataControl {
 		return sceneDataControl.getActiveAreasList().getActiveAreas();
 	}
 
+	@Override
+	public void recursiveSearch() {
+		for (DataControl dc : this.exitsDataControlList)
+			dc.recursiveSearch();
+	}
+
 }

@@ -558,5 +558,16 @@ public class SceneDataControl extends DataControlWithResources {
 	public float getPlayerScale() {
 		return scene.getPlayerScale();
 	}
+
+	@Override
+	public void recursiveSearch() {
+		this.getActiveAreasList().recursiveSearch();
+		this.getBarriersList().recursiveSearch();
+		check(this.getDocumentation(), "Documentation");
+		check(this.getName(), "Name");
+		check(this.getId(), "ID");
+		this.getExitsList().recursiveSearch();
+		this.getReferencesList().recursiveSearch();
+	}
 	
 }

@@ -381,4 +381,10 @@ public class ActionsListDataControl extends DataControl {
 	public boolean canBeDuplicated( ) {
 		return false;
 	}
+
+	@Override
+	public void recursiveSearch() {
+		for (DataControl dc : this.actionsDataControlList)
+			dc.recursiveSearch();
+	}
 }

@@ -106,4 +106,8 @@ public class EmptyDataControl extends DataControl{
 		
 	}
 
+	@Override
+	public void recursiveSearch() {
+	}
+
 }

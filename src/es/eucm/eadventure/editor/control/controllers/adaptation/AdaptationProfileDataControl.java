@@ -29,6 +29,7 @@ public class AdaptationProfileDataControl extends DataControl{
 	//TODO PANEL
 	
 	private int number;
+	
 	public AdaptationProfileDataControl( List<AdaptationRule> adpRules, AdaptedState initialState, String path){
 		this (new AdaptationProfile (adpRules, initialState, path));
 	}
@@ -372,6 +373,17 @@ public class AdaptationProfileDataControl extends DataControl{
 	@Override
 	public boolean canBeDuplicated( ) {
 		return true;
+	}
+	
+	@Override
+	public void recursiveSearch( ) {
+		for (DataControl dc : this.dataControls) {
+			dc.recursiveSearch( );
+		}
+		check("" + number, "Number");
+		check(getFileName(), "File Name");
+		check(getInitialScene(), "Initial Scene");
+		check(getPath(), "Path");
 	}
 
 }

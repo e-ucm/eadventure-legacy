@@ -369,4 +369,11 @@ public class ExitDataControl extends DataControl {
 	public boolean canBeDuplicated( ) {
 		return true;
 	}
+
+	@Override
+	public void recursiveSearch() {
+		check(this.getDocumentation(), "Documentation");
+		for (DataControl dc : this.nextScenesDataControlList)
+			dc.recursiveSearch();
+	}
 }

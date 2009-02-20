@@ -276,5 +276,18 @@ public class AdaptationRuleDataControl extends DataControl{
 		return true;
 	}
 
+	@Override
+	public void recursiveSearch( ) {
+		check(getDescription(), "Description");
+		check(getId(), "ID");
+		check(getInitialScene(), "Initial Scene");
+		for (int i = 0; i < this.getFlagActionCount(); i++)
+			check(getFlag(i), "Flag");
+		for (int i = 0; i < this.getUOLPropertyCount(); i++) {
+			check(this.getUOLPropertyId(i), "UOL Property ID");
+			check(this.getUOLPropertyValue(i), "UOL Property Value");
+		}
+	}
+
 
 }

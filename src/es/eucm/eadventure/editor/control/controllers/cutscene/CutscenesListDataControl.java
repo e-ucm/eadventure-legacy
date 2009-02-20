@@ -308,4 +308,10 @@ public class CutscenesListDataControl extends DataControl {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	public void recursiveSearch() {
+		for (DataControl dc : this.cutscenesDataControlList)
+			dc.recursiveSearch();
+	}
 }

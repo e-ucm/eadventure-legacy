@@ -403,4 +403,17 @@ public class AtrezzoDataControl extends DataControlWithResources {
 		return true;
 	}
 
+
+	@Override
+	public void recursiveSearch() {
+		check(this.getBriefDescription(), "Brief Description");
+		check(this.getDetailedDescription(), "Detailed Description");
+		check(this.getDocumentation(), "Documentation");
+		check(this.getId(), "ID");
+		check(this.getName(), "Name");
+		check(this.getPreviewImage(), "Preview Image");
+	}
+	
+	
+
 }

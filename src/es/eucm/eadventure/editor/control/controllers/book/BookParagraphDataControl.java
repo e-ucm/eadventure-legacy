@@ -296,4 +296,9 @@ public class BookParagraphDataControl extends DataControl {
 	public boolean canBeDuplicated( ) {
 		return true;
 	}
+
+	@Override
+	public void recursiveSearch() {
+		check(this.getParagraphContent(), "Paragraph content");
+	}
 }

@@ -351,4 +351,13 @@ public class ResourcesDataControl extends DataControl {
 			e.printStackTrace();
 		}
 	}
+
+	@Override
+	public void recursiveSearch() {
+		check(this.getConditions(), "Conditions");
+		for (int i = 0; i < this.getAssetCount(); i++) {
+			check(this.getAssetDescription(i), "Asset description");
+			check(this.getAssetPath(i), "Asset path");
+		}
+	}
 }

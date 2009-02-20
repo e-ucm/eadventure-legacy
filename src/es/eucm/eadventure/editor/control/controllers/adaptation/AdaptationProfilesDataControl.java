@@ -271,5 +271,12 @@ public class AdaptationProfilesDataControl extends DataControl{
 		return false;
 	}
 
+	@Override
+	public void recursiveSearch( ) {
+		for (DataControl dc : this.profiles) {
+			dc.recursiveSearch( );
+		}
+	}
+
 
 }

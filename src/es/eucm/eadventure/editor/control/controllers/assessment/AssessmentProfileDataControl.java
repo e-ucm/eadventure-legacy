@@ -359,4 +359,16 @@ public class AssessmentProfileDataControl extends DataControl{
 	public void setSmtpPwd(String smtpPwd) {
 		profile.setSmtpPwd(smtpPwd);
 	}
+
+	@Override
+	public void recursiveSearch( ) {
+		for (DataControl dc : dataControls)
+			dc.recursiveSearch( );
+		check(getEmail(), "Email");
+		check(this.getPath(), "Path");
+		check(this.getSmtpPort(), "SMTP Port");
+		check(this.getSmtpPwd(), "SMTP Pwd");
+		check(this.getSmtpServer(), "SMPT Server");
+		check(this.getSmtpUser(), "SMPT User");
+	}
 }

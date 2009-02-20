@@ -264,4 +264,11 @@ public class NPCsListDataControl extends DataControl {
 	public boolean canBeDuplicated( ) {
 		return false;
 	}
+
+	@Override
+	public void recursiveSearch() {
+		for (DataControl dc : this.npcsDataControlList) {
+			dc.recursiveSearch();
+		}
+	}
 }

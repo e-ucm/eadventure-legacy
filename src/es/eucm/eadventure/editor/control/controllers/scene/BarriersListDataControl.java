@@ -299,9 +299,10 @@ public class BarriersListDataControl extends DataControl {
 	public List<ActiveAreaDataControl> getParentSceneActiveAreas() {
 		return sceneDataControl.getActiveAreasList().getActiveAreas();
 	}
-	
-	
-	
-	
 
+	@Override
+	public void recursiveSearch() {
+		for (DataControl dc : this.barriersDataControlList)
+			dc.recursiveSearch();
+	}
 }

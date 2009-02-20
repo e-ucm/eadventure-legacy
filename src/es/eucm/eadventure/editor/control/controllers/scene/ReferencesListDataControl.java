@@ -903,4 +903,17 @@ public class ReferencesListDataControl extends DataControl{
 	public void setHorizontalSplitPosition(int horizontalSplitPosition) {
 		this.horizontalSplitPosition = horizontalSplitPosition;
 	}
+
+	@Override
+	public void recursiveSearch() {
+		if (this.getAtrezzoReferences() != null)
+			for (DataControl dc : this.getAtrezzoReferences())
+				dc.recursiveSearch();
+		if (this.getItemReferences() != null)
+			for (DataControl dc : this.getItemReferences())
+				dc.recursiveSearch();
+		if (this.getNPCReferences() != null)
+			for (DataControl dc : this.getNPCReferences())
+				dc.recursiveSearch();
+	}
 }

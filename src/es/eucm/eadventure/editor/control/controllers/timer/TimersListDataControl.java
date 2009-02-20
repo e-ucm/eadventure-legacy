@@ -294,4 +294,10 @@ public class TimersListDataControl extends DataControl {
 	public boolean canBeDuplicated( ) {
 		return false;
 	}
+
+	@Override
+	public void recursiveSearch() {
+		for (DataControl dc : this.timersDataControlList)
+			dc.recursiveSearch();
+	}
 }

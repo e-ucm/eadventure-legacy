@@ -201,5 +201,9 @@ public class NodeDataControl extends DataControl {
 
 	public boolean isInitial() {
 		return initial;
+	}
+
+	@Override
+	public void recursiveSearch() {
 	}	
 }

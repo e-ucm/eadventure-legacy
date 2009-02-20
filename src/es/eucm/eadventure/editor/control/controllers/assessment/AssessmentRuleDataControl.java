@@ -543,4 +543,20 @@ public class AssessmentRuleDataControl extends DataControl{
 		return true;
 	}
 
+	@Override
+	public void recursiveSearch() {
+		check(this.getConcept(), "Concept");
+		check(this.getEffectText(), "Effect text");
+		check(this.getId(), "ID");
+		check(this.getConditions(), "Conditions");
+		for (int i = 0; i < this.getEffectsCount(); i++) {
+			check(this.getEffectNames()[i], "Effect name");
+			check(this.getEffectText(i), "Effect text");
+		}
+		check(this.getEndConditions(), "End Conditions");
+		for (int i = 0; i < this.getPropertyCount(); i++) {
+			check(this.getPropertyId(i), "Property ID");
+		}
+	}
+
 }

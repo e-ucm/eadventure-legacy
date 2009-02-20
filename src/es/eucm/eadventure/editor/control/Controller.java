@@ -7,6 +7,7 @@ import java.awt.Toolkit;
 import java.awt.Window;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Stack;
 import java.util.Timer;
@@ -35,6 +36,7 @@ import es.eucm.eadventure.editor.control.config.ConfigData;
 import es.eucm.eadventure.editor.control.config.ProjectConfigData;
 import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
+import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.ToolManager;
 import es.eucm.eadventure.editor.control.controllers.VarFlagsController;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfilesDataControl;
@@ -54,6 +56,7 @@ import es.eucm.eadventure.editor.gui.ProjectFolderChooser;
 import es.eucm.eadventure.editor.gui.displaydialogs.InvalidReportDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.AdventureDataDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.ExportToLOMDialog;
+import es.eucm.eadventure.editor.gui.editdialogs.SearchDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.VarsFlagsDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.GUIStylesDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.GraphicConfigDialog;
@@ -3024,5 +3027,9 @@ public class Controller {
 		} else{
 			//System.out.println("[ToolManager] Local Tool Manager Could NOT be POPED: Total local tool managers = "+localToolManagers.size());
 		}
+	}
+
+	public void search() {
+		new SearchDialog();
 	}
 }

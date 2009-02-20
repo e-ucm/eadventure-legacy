@@ -310,4 +310,14 @@ public class BarrierDataControl extends DataControl {
 		return true;
 	}
 
+	@Override
+	public void recursiveSearch() {
+		check(this.getBriefDescription(), "Brief Description");
+		check(this.getConditions(), "Conditions");
+		check(this.getDetailedDescription(), "Detailed Description");
+		check(this.getDocumentation(), "Documentation");
+		check(this.getId(), "ID");
+		check(this.getName(), "Name");
+	}
+
 }

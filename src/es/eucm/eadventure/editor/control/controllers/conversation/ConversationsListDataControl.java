@@ -296,4 +296,10 @@ public class ConversationsListDataControl extends DataControl {
 			
 		}
 	}
+
+	@Override
+	public void recursiveSearch() {
+		for (DataControl dc : this.conversationsDataControlList)
+			dc.recursiveSearch();
+	}
 }

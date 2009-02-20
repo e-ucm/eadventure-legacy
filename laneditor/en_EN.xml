@@ -1774,4 +1774,11 @@ avoids retyping.</entry>
 	<entry key="Edition.UndoRedo.Name."></entry>
 	<entry key="Edition.UndoRedo.Name."></entry>
 	<entry key="Edition.UndoRedo.Name."></entry>
+	
+	<entry key="Search.Title">Search</entry>
+	<entry key="Search.CaseSensitive">Case sensitive</entry>
+	<entry key="Search.FullMatch">Full match</entry>
+	<entry key="Search.Search">Search</entry>
+	<entry key="Search.Where">Where</entry>
+	<entry key="Search.Places">Places</entry>
 </properties>

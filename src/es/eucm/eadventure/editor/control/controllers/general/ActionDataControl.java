@@ -357,4 +357,15 @@ public class ActionDataControl extends DataControlWithResources {
 		controller.addTool(new ChangeIntegerValueTool(action, keepDistance, "getKeepDistance","setKeepDistance"));
 	}
 
+	@Override
+	public void recursiveSearch() {
+		check(this.getConditions(), "Conditions");
+		check(this.getIdTarget(), "ID Target");
+		
+		for (int i = 0; i < this.getEffects().getEffectCount(); i++) {
+			check(this.getEffects().getEffectInfo(i), "Effect");
+		}
+		
+	}
+
 }
