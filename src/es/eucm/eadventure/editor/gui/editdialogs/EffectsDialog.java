@@ -1,6 +1,5 @@
 package es.eucm.eadventure.editor.gui.editdialogs;
 
-import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -8,8 +7,6 @@ import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
-import javax.swing.JDialog;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
@@ -22,12 +19,14 @@ import es.eucm.eadventure.editor.gui.elementpanels.general.EffectsPanel;
  * 
  * @author Bruno Torijano Bueno
  */
-public class EffectsDialog extends JDialog {
+public class EffectsDialog extends ToolManagableDialog {
 
 	/**
 	 * Required.
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private EffectsPanel effectsPanel;
 
 	/**
 	 * Constructor.
@@ -38,7 +37,7 @@ public class EffectsDialog extends JDialog {
 	public EffectsDialog( EffectsController effectsController ) {
 
 		// Call to the JDialog constructor
-		super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "Effects.Title" ), Dialog.ModalityType.APPLICATION_MODAL );
+		super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "Effects.Title" ), false );//, Dialog.ModalityType.APPLICATION_MODAL );
 
 		// Push the dialog into the stack, and add the window listener to pop in when closing
 		Controller.getInstance( ).pushWindow( this );
@@ -56,7 +55,8 @@ public class EffectsDialog extends JDialog {
 		c.weightx = 1;
 		c.weighty = 1;
 		MacroReferenceEffectDialog.ID = null;
-		add( new EffectsPanel( effectsController ), c );
+		effectsPanel = new EffectsPanel( effectsController );
+		add(effectsPanel, c );
 
 		// Set the size, position and properties of the dialog
 		setResizable( false );
@@ -64,5 +64,9 @@ public class EffectsDialog extends JDialog {
 		Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
 		setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
 		setVisible( true );
+	}
+	
+	public boolean updateFields(){
+		return effectsPanel.updateFields();
 	}
 }

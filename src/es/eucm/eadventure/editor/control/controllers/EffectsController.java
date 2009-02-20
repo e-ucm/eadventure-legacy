@@ -28,6 +28,9 @@ import es.eucm.eadventure.common.data.chapter.effects.TriggerLastSceneEffect;
 import es.eucm.eadventure.common.data.chapter.effects.TriggerSceneEffect;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.tools.general.effects.AddEffectTool;
+import es.eucm.eadventure.editor.control.tools.general.effects.DeleteEffectTool;
+import es.eucm.eadventure.editor.control.tools.generic.MoveObjectTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 import es.eucm.eadventure.editor.gui.assetchooser.AssetChooser;
 import es.eucm.eadventure.editor.gui.editdialogs.effectdialogs.EffectDialog;
@@ -361,9 +364,7 @@ public class EffectsController {
 						newEffect = new TriggerSceneEffect( target, x, y );
 						break;
 				}
-
-				effects.add( newEffect );
-				controller.dataModified( );
+				controller.addTool(new AddEffectTool(effects, newEffect));
 				effectAdded = true;
 			}
 		} else if (selectedValue != null){
@@ -381,8 +382,7 @@ public class EffectsController {
 				if (negController.getEffect( )!=null)
 					randomEffect.setNegativeEffect( negController.getEffect( ) );
 				
-				effects.add( randomEffect );
-				controller.dataModified( );
+				controller.addTool(new AddEffectTool(effects, randomEffect));
 				effectAdded = true;
 			}
 		}
@@ -397,57 +397,7 @@ public class EffectsController {
 	 *            Index of the effect
 	 */
 	public void deleteEffect( int index ) {
-		Effect deletedEffect = effects.getEffects( ).remove( index );
-		controller.dataModified( );
-
-		if( deletedEffect.getType( ) == Effect.ACTIVATE ) {
-			ActivateEffect activateEffect = (ActivateEffect) deletedEffect;
-			controller.getVarFlagSummary( ).deleteFlagReference( activateEffect.getTargetId( ) );
-		}
-
-		else if( deletedEffect.getType( ) == Effect.DEACTIVATE ) {
-			DeactivateEffect deactivateEffect = (DeactivateEffect) deletedEffect;
-			controller.getVarFlagSummary( ).deleteFlagReference( deactivateEffect.getTargetId( ) );
-		}
-		
-		else if( deletedEffect.getType( ) == Effect.SET_VALUE ) {
-			SetValueEffect setValueEffect = (SetValueEffect) deletedEffect;
-			controller.getVarFlagSummary( ).deleteFlagReference( setValueEffect.getTargetId( ) );
-		}
-		
-		else if( deletedEffect.getType( ) == Effect.INCREMENT_VAR ) {
-			IncrementVarEffect setValueEffect = (IncrementVarEffect) deletedEffect;
-			controller.getVarFlagSummary( ).deleteFlagReference( setValueEffect.getTargetId( ) );
-		}
-		
-		else if( deletedEffect.getType( ) == Effect.DECREMENT_VAR ) {
-			DecrementVarEffect setValueEffect = (DecrementVarEffect) deletedEffect;
-			controller.getVarFlagSummary( ).deleteFlagReference( setValueEffect.getTargetId( ) );
-		}
-		
-		else if( deletedEffect.getType( ) == Effect.RANDOM_EFFECT ) {
-			RandomEffect randomEffect = (RandomEffect) deletedEffect;
-			if (randomEffect.getNegativeEffect( )!=null){
-				if ( randomEffect.getNegativeEffect( ).getType( ) == Effect.ACTIVATE ){
-					ActivateEffect activateEffect = (ActivateEffect) randomEffect.getNegativeEffect( );
-					controller.getVarFlagSummary( ).deleteFlagReference( activateEffect.getTargetId( ) );
-				} else if ( randomEffect.getNegativeEffect( ).getType( ) == Effect.DEACTIVATE ){
-					DeactivateEffect deactivateEffect = (DeactivateEffect) randomEffect.getNegativeEffect( );
-					controller.getVarFlagSummary( ).deleteFlagReference( deactivateEffect.getTargetId( ) );
-				}
-			}
-			
-			if (randomEffect.getPositiveEffect( )!=null){
-				if ( randomEffect.getPositiveEffect( ).getType( ) == Effect.ACTIVATE ){
-					ActivateEffect activateEffect = (ActivateEffect) randomEffect.getPositiveEffect( );
-					controller.getVarFlagSummary( ).deleteFlagReference( activateEffect.getTargetId( ) );
-				} else if ( randomEffect.getPositiveEffect( ).getType( ) == Effect.DEACTIVATE ){
-					DeactivateEffect deactivateEffect = (DeactivateEffect) randomEffect.getPositiveEffect( );
-					controller.getVarFlagSummary( ).deleteFlagReference( deactivateEffect.getTargetId( ) );
-				}
-			}
-
-		}
+		controller.addTool(new DeleteEffectTool (effects, index));
 	}
 
 	/**
@@ -458,15 +408,16 @@ public class EffectsController {
 	 * @return True if the effect was moved, false otherwise
 	 */
 	public boolean moveUpEffect( int index ) {
-		boolean effectMoved = false;
+		return controller.addTool(new MoveObjectTool(effects.getEffects(), index, MoveObjectTool.MODE_UP));
+		/*boolean effectMoved = false;
 
 		if( index > 0 ) {
 			effects.getEffects( ).add( index - 1, effects.getEffects( ).remove( index ) );
 			controller.dataModified( );
 			effectMoved = true;
-		}
+		}*/
 
-		return effectMoved;
+		//return effectMoved;
 	}
 
 	/**
@@ -477,7 +428,8 @@ public class EffectsController {
 	 * @return True if the effect was moved, false otherwise
 	 */
 	public boolean moveDownEffect( int index ) {
-		boolean effectMoved = false;
+		return controller.addTool(new MoveObjectTool(effects.getEffects(), index, MoveObjectTool.MODE_DOWN));
+		/*boolean effectMoved = false;
 
 		if( index < effects.getEffects( ).size( ) - 1 ) {
 			effects.getEffects( ).add( index + 1, effects.getEffects( ).remove( index ) );
@@ -485,7 +437,7 @@ public class EffectsController {
 			effectMoved = true;
 		}
 
-		return effectMoved;
+		return effectMoved;*/
 	}
 
 	/**
@@ -610,7 +562,7 @@ public class EffectsController {
 
 		// If a change has been made
 		if( newProperties != null ) {
-
+			//XXX
 			controller.dataModified( );
 			effectEdited = true;
 

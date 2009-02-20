@@ -19,8 +19,9 @@ import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
+import es.eucm.eadventure.editor.gui.Updateable;
 
-public class EffectsPanel extends JPanel {
+public class EffectsPanel extends JPanel implements Updateable{
 
 	/**
 	 * Required.
@@ -269,5 +270,11 @@ public class EffectsPanel extends JPanel {
 
 			return value;
 		}
+	}
+
+	@Override
+	public boolean updateFields() {
+		effectsTable.updateUI();
+		return true;
 	}
 }

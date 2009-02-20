@@ -68,8 +68,7 @@ public class ToolManager {
 	
 	public boolean redoTool() {
 		if (redoList.size() > 0) {
-			Tool temp = redoList.get(redoList.size() - 1);
-			redoList.remove(temp);
+			Tool temp = redoList.remove(redoList.size() - 1);
 			boolean done = temp.redoTool();
 			if (done) {
 				undoList.add(temp);
