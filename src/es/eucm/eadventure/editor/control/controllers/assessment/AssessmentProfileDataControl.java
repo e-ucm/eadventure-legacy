@@ -63,7 +63,7 @@ public class AssessmentProfileDataControl extends DataControl{
 				this.profile.getRules().add( assRule );
 				dataControls.add( new AssessmentRuleDataControl( assRule ) );
 				controller.getIdentifierSummary( ).addAssessmentRuleId( assRuleId );
-				controller.dataModified( );
+				//controller.dataModified( );
 				added = true;
 			}
 
@@ -128,7 +128,7 @@ public class AssessmentProfileDataControl extends DataControl{
 				dataControls.remove( dataControl );
 				controller.deleteIdentifierReferences( assRuleId );
 				controller.getIdentifierSummary( ).deleteAssessmentRuleId( assRuleId );
-				controller.dataModified( );
+				//controller.dataModified( );
 				deleted = true;
 			}
 		}
@@ -167,7 +167,7 @@ public class AssessmentProfileDataControl extends DataControl{
 		if( elementIndex < profile.getRules().size( ) - 1 ) {
 			profile.getRules().add( elementIndex + 1, profile.getRules().remove( elementIndex ) );
 			dataControls.add( elementIndex + 1, dataControls.remove( elementIndex ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 
@@ -182,7 +182,7 @@ public class AssessmentProfileDataControl extends DataControl{
 		if( elementIndex > 0 ) {
 			profile.getRules().add( elementIndex - 1, profile.getRules().remove( elementIndex ) );
 			dataControls.add( elementIndex - 1, dataControls.remove( elementIndex ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 
@@ -223,7 +223,7 @@ public class AssessmentProfileDataControl extends DataControl{
 				//Checks if the file exists. In that case, ask to overwrite it
 						File assessmentFile = new File (Controller.getInstance( ).getProjectFolder( ), profile.getPath() );
 						renamed = assessmentFile.renameTo( new File(Controller.getInstance( ).getProjectFolder( ), AssetsController.getCategoryFolder( AssetsController.CATEGORY_ASSESSMENT ) +"/"+fileName) );
-						controller.dataModified( );
+						//controller.dataModified( );
 						profile.setPath( AssetsController.getCategoryFolder( AssetsController.CATEGORY_ASSESSMENT ) +"/"+fileName );
 			}
 			

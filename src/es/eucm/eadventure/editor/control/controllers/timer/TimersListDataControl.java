@@ -144,7 +144,7 @@ public class TimersListDataControl extends DataControl {
 				// Add the new timer
 				timersList.add( newTimer );
 				timersDataControlList.add( new TimerDataControl( newTimer ) );
-				controller.dataModified( );
+				//controller.dataModified( );
 				elementAdded = true;
 		}
 
@@ -174,7 +174,7 @@ public class TimersListDataControl extends DataControl {
 					TextConstants.getElementName( Controller.TIMER )+" #"+Integer.toString( index ), "0" } ) ) ) {
 				if( timersList.remove( dataControl.getContent( ) ) ) {
 					timersDataControlList.remove( dataControl );
-					controller.dataModified( );
+					//controller.dataModified( );
 					elementDeleted = true;
 				}
 			}
@@ -190,7 +190,7 @@ public class TimersListDataControl extends DataControl {
 		if( elementIndex > 0 ) {
 			timersList.add( elementIndex - 1, timersList.remove( elementIndex ) );
 			timersDataControlList.add( elementIndex - 1, timersDataControlList.remove( elementIndex ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 
@@ -205,7 +205,7 @@ public class TimersListDataControl extends DataControl {
 		if( elementIndex < timersList.size( ) - 1 ) {
 			timersList.add( elementIndex + 1, timersList.remove( elementIndex ) );
 			timersDataControlList.add( elementIndex + 1, timersDataControlList.remove( elementIndex ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 

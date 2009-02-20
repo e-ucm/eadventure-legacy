@@ -244,7 +244,7 @@ public class AtrezzoDataControl extends DataControlWithResources {
 			Resources newResources = new Resources( );
 			resourcesList.add( newResources );
 			resourcesDataControlList.add( new ResourcesDataControl( newResources, Controller.ATREZZO ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementAdded = true;
 		}
 
@@ -265,7 +265,7 @@ public class AtrezzoDataControl extends DataControlWithResources {
 				if( selectedResources > 0 && selectedResources >= resourcesIndex )
 					selectedResources--;
 
-				controller.dataModified( );
+				//controller.dataModified( );
 				elementDeleted = true;
 			}
 		}
@@ -285,7 +285,7 @@ public class AtrezzoDataControl extends DataControlWithResources {
 		if( elementIndex > 0 ) {
 			resourcesList.add( elementIndex - 1, resourcesList.remove( elementIndex ) );
 			resourcesDataControlList.add( elementIndex - 1, resourcesDataControlList.remove( elementIndex ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 
@@ -300,7 +300,7 @@ public class AtrezzoDataControl extends DataControlWithResources {
 		if( elementIndex < resourcesList.size( ) - 1 ) {
 			resourcesList.add( elementIndex + 1, resourcesList.remove( elementIndex ) );
 			resourcesDataControlList.add( elementIndex + 1, resourcesDataControlList.remove( elementIndex ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 
@@ -327,7 +327,7 @@ public class AtrezzoDataControl extends DataControlWithResources {
 				controller.replaceIdentifierReferences( oldAtrezzoId, newAtrezzoId );
 				controller.getIdentifierSummary( ).deleteAtrezzoId( oldAtrezzoId );
 				controller.getIdentifierSummary( ).addAtrezzoId( newAtrezzoId );
-				controller.dataModified( );
+				//controller.dataModified( );
 				elementRenamed = true;
 			}
 		}

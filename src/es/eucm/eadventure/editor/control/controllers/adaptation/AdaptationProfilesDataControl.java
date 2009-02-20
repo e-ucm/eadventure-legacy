@@ -73,7 +73,7 @@ public class AdaptationProfilesDataControl extends DataControl{
 						File newAssFile = new File (Controller.getInstance( ).getProjectFolder( ),AssetsController.getCategoryFolder( AssetsController.CATEGORY_ADAPTATION )+"/"+fileName );
 						newAssFile.createNewFile( );
 						this.profiles.add( new AdaptationProfileDataControl ( new ArrayList<AdaptationRule>(), new AdaptedState(), AssetsController.getCategoryFolder( AssetsController.CATEGORY_ADAPTATION )+"/"+fileName) );
-						controller.dataModified( );
+						//controller.dataModified( );
 						added = true;
 					} catch( IOException e ) {
 						Controller.getInstance( ).showErrorDialog( "Error.CreateAdaptationFile.Title", "Error.CreateAdaptationFile.Message" );
@@ -158,7 +158,7 @@ public class AdaptationProfilesDataControl extends DataControl{
 						File deletedFile = new File (Controller.getInstance( ).getProjectFolder( )+"/"+path);
 						if (deletedFile.exists( ))
 							deleted =deletedFile.delete( );
-						controller.dataModified( );
+						//controller.dataModified( );
 						break;
 					}
 				}
@@ -208,7 +208,7 @@ public class AdaptationProfilesDataControl extends DataControl{
 
 		if( elementIndex < profiles.size( ) - 1 ) {
 			profiles.add( elementIndex + 1, profiles.remove( elementIndex ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 
@@ -222,7 +222,7 @@ public class AdaptationProfilesDataControl extends DataControl{
 
 		if( elementIndex > 0 ) {
 			profiles.add( elementIndex - 1, profiles.remove( elementIndex ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 

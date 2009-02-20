@@ -177,7 +177,7 @@ public class ReferencesListDataControl extends DataControl{
 		while (it.hasNext()){
 			ElementContainer element = it.next();
 			if (!element.isPlayer()){
-			if (element.getErdc().getElementId().equals(er.getIdTarget()))
+			if (element.getErdc().getElementId().equals(er.getTargetId()))
 				count++;
 			}
 		}
@@ -421,7 +421,7 @@ public class ReferencesListDataControl extends DataControl{
 					ElementContainer ec = new ElementContainer(erdc,-1,null);
 					lastElementContainer = ec;
 					reassignLayerAllReferencesDataControl(insertInOrder(ec,false));
-					controller.dataModified( );
+					//controller.dataModified( );
 					elementAdded = true;
 					addNewReferenceListener.addNewNodeElement(type);
 				}
@@ -451,7 +451,7 @@ public class ReferencesListDataControl extends DataControl{
 					ElementContainer ec = new ElementContainer(erdc,-1,null);
 					lastElementContainer = ec;
 					reassignLayerAllReferencesDataControl(insertInOrder(ec,false));
-					controller.dataModified( );
+					//controller.dataModified( );
 					elementAdded = true;
 					addNewReferenceListener.addNewNodeElement(type);
 				}
@@ -480,7 +480,7 @@ public class ReferencesListDataControl extends DataControl{
 					ElementContainer ec = new ElementContainer(erdc,-1,null);
 					lastElementContainer = ec;
 					reassignLayerAllReferencesDataControl(insertInOrder(ec,false));
-					controller.dataModified( );
+					//controller.dataModified( );
 					elementAdded = true;
 					addNewReferenceListener.addNewNodeElement(type);
 				}
@@ -544,7 +544,7 @@ public class ReferencesListDataControl extends DataControl{
 		}
 		// delete in allReferencesDataControl
 		delete(dataControl);
-		controller.dataModified( );
+		//controller.dataModified( );
 		elementDeleted = true;
 		addNewReferenceListener.deleteNodeElement();
 		
@@ -596,25 +596,25 @@ public class ReferencesListDataControl extends DataControl{
 			//itemReferencesList.add( itemElementIndex - 1, itemReferencesList.remove( itemElementIndex ) );
 			//itemReferencesDataControlList.add( itemElementIndex - 1, itemReferencesDataControlList.remove( itemElementIndex ) );
 			moveUp(dataControl);
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		} else if (atrezzoElementIndex >= 0) {
 			//atrezzoReferencesList.add( atrezzoElementIndex - 1, atrezzoReferencesList.remove( atrezzoElementIndex ) );
 			//atrezzoReferencesDataControlList.add( atrezzoElementIndex - 1, atrezzoReferencesDataControlList.remove( atrezzoElementIndex ) );
 			moveUp(dataControl);
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		} else if (npcElementIndex >= 0) {
 			//npcReferencesList.add( npcElementIndex - 1, npcReferencesList.remove( npcElementIndex ) );
 			//npcReferencesDataControlList.add( npcElementIndex - 1, npcReferencesDataControlList.remove( npcElementIndex ) );
 			moveUp(dataControl);
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 		}// if it is a player
 		else {
 			moveUp(dataControl);
-			controller.dataModified();
+			//controller.dataModified();
 			elementMoved = true;
 		}
 
@@ -662,24 +662,24 @@ public class ReferencesListDataControl extends DataControl{
 			//itemReferencesList.add( itemElementIndex + 1, itemReferencesList.remove( itemElementIndex ) );
 			//itemReferencesDataControlList.add( itemElementIndex + 1, itemReferencesDataControlList.remove( itemElementIndex ) );
 			moveDown(dataControl);
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		} else if( atrezzoElementIndex >= 0 && atrezzoElementIndex <= atrezzoReferencesList.size( ) - 1 ) {
 			//atrezzoReferencesList.add( atrezzoElementIndex + 1, atrezzoReferencesList.remove( atrezzoElementIndex ) );
 			//atrezzoReferencesDataControlList.add( atrezzoElementIndex + 1, atrezzoReferencesDataControlList.remove( atrezzoElementIndex ) );
 			moveDown(dataControl);
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		} else if( npcElementIndex >= 0 && npcElementIndex <= npcReferencesList.size( ) - 1 ) {
 			//npcReferencesList.add( npcElementIndex + 1, npcReferencesList.remove( npcElementIndex ) );
 			//npcReferencesDataControlList.add( npcElementIndex + 1, npcReferencesDataControlList.remove( npcElementIndex ) );
 			moveDown(dataControl);
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 		} else {
 			moveDown(dataControl);
-			controller.dataModified();
+			//controller.dataModified();
 			elementMoved = true;
 		}
 
@@ -753,7 +753,7 @@ public class ReferencesListDataControl extends DataControl{
 		int i = 0;
 		// Check every item reference
 		while( i < itemReferencesList.size( ) ) {
-			if( itemReferencesList.get( i ).getIdTarget( ).equals( id ) ) {
+			if( itemReferencesList.get( i ).getTargetId( ).equals( id ) ) {
 				itemReferencesList.remove( i );
 				itemReferencesDataControlList.remove( i );
 			} else
@@ -763,7 +763,7 @@ public class ReferencesListDataControl extends DataControl{
 		i = 0;
 		// Check every item reference
 		while( i < atrezzoReferencesList.size( ) ) {
-			if( atrezzoReferencesList.get( i ).getIdTarget( ).equals( id ) ) {
+			if( atrezzoReferencesList.get( i ).getTargetId( ).equals( id ) ) {
 				atrezzoReferencesList.remove( i );
 				atrezzoReferencesDataControlList.remove( i );
 			} else
@@ -773,7 +773,7 @@ public class ReferencesListDataControl extends DataControl{
 		i = 0;
 		// Check every item reference
 		while( i < npcReferencesList.size( ) ) {
-			if( npcReferencesList.get( i ).getIdTarget( ).equals( id ) ) {
+			if( npcReferencesList.get( i ).getTargetId( ).equals( id ) ) {
 				npcReferencesList.remove( i );
 				npcReferencesDataControlList.remove( i );
 			} else

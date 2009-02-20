@@ -5,6 +5,7 @@ import java.util.List;
 import es.eucm.eadventure.common.data.chapter.ConversationReference;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.tools.general.ChangeTargetIdTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class ConversationReferenceDataControl extends DataControl {
@@ -47,7 +48,7 @@ public class ConversationReferenceDataControl extends DataControl {
 	 * @return idTarget of the conversation reference
 	 */
 	public String getIdTarget( ) {
-		return conversationReference.getIdTarget( );
+		return conversationReference.getTargetId( );
 	}
 
 	/**
@@ -66,28 +67,14 @@ public class ConversationReferenceDataControl extends DataControl {
 	 *            New id of the conversation reference
 	 */
 	public void setIdTarget( String idTarget ) {
+		controller.addTool(new ChangeTargetIdTool(conversationReference, idTarget));
 		// If the value is different
-		if( !idTarget.equals( conversationReference.getIdTarget( ) ) ) {
+		//if( !idTarget.equals( conversationReference.getTargetId( ) ) ) {
 			// Set the new id target, update the tree and modify the data
-			conversationReference.setIdTarget( idTarget );
-			controller.updateTree( );
-			controller.dataModified( );
-		}
-	}
-
-	/**
-	 * Sets the new documentation of the conversation reference.
-	 * 
-	 * @param documentation
-	 *            Documentation of the conversation reference
-	 */
-	public void setDocumentation( String documentation ) {
-		// If the value is different
-		if( !documentation.equals( conversationReference.getDocumentation( ) ) ) {
-			// Set the new documentation and modify the data
-			conversationReference.setDocumentation( documentation );
-			controller.dataModified( );
-		}
+		//	conversationReference.setTargetId( idTarget );
+		//	controller.updateTree( );
+		//	controller.dataModified( );
+		//}
 	}
 
 	@Override
@@ -173,13 +160,13 @@ public class ConversationReferenceDataControl extends DataControl {
 
 	@Override
 	public int countIdentifierReferences( String id ) {
-		return conversationReference.getIdTarget( ).equals( id ) ? 1 : 0;
+		return conversationReference.getTargetId( ).equals( id ) ? 1 : 0;
 	}
 
 	@Override
 	public void replaceIdentifierReferences( String oldId, String newId ) {
-		if( conversationReference.getIdTarget( ).equals( oldId ) )
-			conversationReference.setIdTarget( newId );
+		if( conversationReference.getTargetId( ).equals( oldId ) )
+			conversationReference.setTargetId( newId );
 	}
 
 	@Override

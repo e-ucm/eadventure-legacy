@@ -145,7 +145,7 @@ public class BooksListDataControl extends DataControl {
 					BookDataControl newDataControl = new BookDataControl( newBook );
 					booksDataControlList.add( newDataControl );
 					controller.getIdentifierSummary( ).addBookId( bookId );
-					controller.dataModified( );
+					//controller.dataModified( );
 					elementAdded = true;
 				}
 
@@ -168,7 +168,7 @@ public class BooksListDataControl extends DataControl {
 				booksDataControlList.remove( dataControl );
 				controller.deleteIdentifierReferences( bookId );
 				controller.getIdentifierSummary( ).deleteBookId( bookId );
-				controller.dataModified( );
+				//controller.dataModified( );
 				elementDeleted = true;
 			}
 		}
@@ -184,7 +184,7 @@ public class BooksListDataControl extends DataControl {
 		if( elementIndex > 0 ) {
 			booksList.add( elementIndex - 1, booksList.remove( elementIndex ) );
 			booksDataControlList.add( elementIndex - 1, booksDataControlList.remove( elementIndex ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 
@@ -199,7 +199,7 @@ public class BooksListDataControl extends DataControl {
 		if( elementIndex < booksList.size( ) - 1 ) {
 			booksList.add( elementIndex + 1, booksList.remove( elementIndex ) );
 			booksDataControlList.add( elementIndex + 1, booksDataControlList.remove( elementIndex ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 

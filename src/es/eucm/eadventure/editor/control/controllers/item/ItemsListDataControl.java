@@ -123,7 +123,7 @@ public class ItemsListDataControl extends DataControl {
 				itemsList.add( newItem );
 				itemsDataControlList.add( new ItemDataControl( newItem ) );
 				controller.getIdentifierSummary( ).addItemId( itemId );
-				controller.dataModified( );
+				//controller.dataModified( );
 				elementAdded = true;
 			}
 		}
@@ -143,7 +143,7 @@ public class ItemsListDataControl extends DataControl {
 				itemsDataControlList.remove( dataControl );
 				controller.deleteIdentifierReferences( itemId );
 				controller.getIdentifierSummary( ).deleteItemId( itemId );
-				controller.dataModified( );
+				//controller.dataModified( );
 				elementDeleted = true;
 			}
 		}
@@ -159,7 +159,7 @@ public class ItemsListDataControl extends DataControl {
 		if( elementIndex > 0 ) {
 			itemsList.add( elementIndex - 1, itemsList.remove( elementIndex ) );
 			itemsDataControlList.add( elementIndex - 1, itemsDataControlList.remove( elementIndex ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 
@@ -174,7 +174,7 @@ public class ItemsListDataControl extends DataControl {
 		if( elementIndex < itemsList.size( ) - 1 ) {
 			itemsList.add( elementIndex + 1, itemsList.remove( elementIndex ) );
 			itemsDataControlList.add( elementIndex + 1, itemsDataControlList.remove( elementIndex ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 

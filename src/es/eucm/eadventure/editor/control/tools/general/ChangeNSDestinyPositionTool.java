@@ -1,6 +1,6 @@
 package es.eucm.eadventure.editor.control.tools.general;
 
-import es.eucm.eadventure.common.data.chapter.NextScene;
+import es.eucm.eadventure.common.data.Positioned;
 import es.eucm.eadventure.editor.control.Controller;
 
 
@@ -11,7 +11,7 @@ import es.eucm.eadventure.editor.control.Controller;
  */
 public class ChangeNSDestinyPositionTool extends ChangePositionTool{
 
-	public ChangeNSDestinyPositionTool(NextScene nextScene, int newX, int newY){
+	public ChangeNSDestinyPositionTool(Positioned nextScene, int newX, int newY){
 		super (nextScene, newX, newY);
 		this.addListener(new ChangePositionToolListener(){
 			public void positionUpdated(int newX, int newY) {

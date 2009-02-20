@@ -12,7 +12,9 @@ import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
 import es.eucm.eadventure.editor.control.tools.general.ChangeDocumentationTool;
+import es.eucm.eadventure.editor.control.tools.general.ChangeNSDestinyPositionTool;
 import es.eucm.eadventure.editor.control.tools.general.ChangeNameTool;
+import es.eucm.eadventure.editor.control.tools.general.ChangePositionTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class SceneDataControl extends DataControlWithResources {
@@ -211,7 +213,7 @@ public class SceneDataControl extends DataControlWithResources {
 	 * @return X coordinate of the initial position
 	 */
 	public int getDefaultInitialPositionX( ) {
-		return scene.getDefaultX( );
+		return scene.getPositionX( );
 	}
 
 	/**
@@ -220,7 +222,7 @@ public class SceneDataControl extends DataControlWithResources {
 	 * @return Y coordinate of the initial position
 	 */
 	public int getDefaultInitialPositionY( ) {
-		return scene.getDefaultY( );
+		return scene.getPositionY( );
 	}
 
 	/**
@@ -265,12 +267,9 @@ public class SceneDataControl extends DataControlWithResources {
 	 */
 	public void toggleDefaultInitialPosition( ) {
 		if( scene.hasDefaultPosition( ) )
-			scene.setDefaultPosition( Integer.MIN_VALUE, Integer.MIN_VALUE );
+			controller.addTool(new ChangeNSDestinyPositionTool(scene, Integer.MIN_VALUE, Integer.MIN_VALUE));
 		else
-			scene.setDefaultPosition( 0, 0 );
-
-		// The data has been modified
-		controller.dataModified( );
+			controller.addTool(new ChangeNSDestinyPositionTool(scene, 0,0));
 	}
 
 	/**
@@ -282,12 +281,7 @@ public class SceneDataControl extends DataControlWithResources {
 	 *            Y coordinate of the initial position
 	 */
 	public void setDefaultInitialPosition( int positionX, int positionY ) {
-		// If the values are different
-		if( positionX != scene.getDefaultX( ) || positionY != scene.getDefaultY( ) ) {
-			// Set the new default initial position and modify the data
-			scene.setDefaultPosition( positionX, positionY );
-			controller.dataModified( );
-		}
+		controller.addTool(new ChangePositionTool(scene, positionX, positionY));
 	}
 
 	@Override
@@ -330,7 +324,7 @@ public class SceneDataControl extends DataControlWithResources {
 			Resources newResources = new Resources( );
 			resourcesList.add( newResources );
 			resourcesDataControlList.add( new ResourcesDataControl( newResources, Controller.SCENE ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementAdded = true;
 		}
 
@@ -354,7 +348,7 @@ public class SceneDataControl extends DataControlWithResources {
 					if( selectedResources > 0 && selectedResources >= resourcesIndex )
 						selectedResources--;
 
-					controller.dataModified( );
+					//controller.dataModified( );
 					elementDeleted = true;
 				}
 	//		}
@@ -375,7 +369,7 @@ public class SceneDataControl extends DataControlWithResources {
 		if( elementIndex > 0 ) {
 			resourcesList.add( elementIndex - 1, resourcesList.remove( elementIndex ) );
 			resourcesDataControlList.add( elementIndex - 1, resourcesDataControlList.remove( elementIndex ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 
@@ -390,7 +384,7 @@ public class SceneDataControl extends DataControlWithResources {
 		if( elementIndex < resourcesList.size( ) - 1 ) {
 			resourcesList.add( elementIndex + 1, resourcesList.remove( elementIndex ) );
 			resourcesDataControlList.add( elementIndex + 1, resourcesDataControlList.remove( elementIndex ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 
@@ -417,7 +411,7 @@ public class SceneDataControl extends DataControlWithResources {
 				controller.replaceIdentifierReferences( oldSceneId, newSceneId );
 				controller.getIdentifierSummary( ).deleteSceneId( oldSceneId );
 				controller.getIdentifierSummary( ).addSceneId( newSceneId );
-				controller.dataModified( );
+				//controller.dataModified( );
 				elementRenamed = true;
 			}
 		}

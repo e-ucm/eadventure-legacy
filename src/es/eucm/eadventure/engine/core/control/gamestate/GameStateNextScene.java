@@ -86,8 +86,8 @@ public class GameStateNextScene extends GameState {
                 	game.getFunctionalPlayer().setScale(scene.getTrajectory().getInitial().getScale());
                 } else if( scene.hasDefaultPosition( ) ) {
                     // If no next scene position was defined, use the scene default
-                    game.getFunctionalPlayer( ).setX( scene.getDefaultX( ) );
-                    game.getFunctionalPlayer( ).setY( scene.getDefaultY( ) );
+                    game.getFunctionalPlayer( ).setX( scene.getPositionX( ) );
+                    game.getFunctionalPlayer( ).setY( scene.getPositionY( ) );
                     game.getFunctionalPlayer().setScale( scene.getPlayerScale() );
                 } else {
                     // If no position was defined at all, place the player in the middle

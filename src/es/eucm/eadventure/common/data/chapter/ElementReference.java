@@ -1,12 +1,13 @@
 package es.eucm.eadventure.common.data.chapter;
 
 import es.eucm.eadventure.common.data.Documented;
+import es.eucm.eadventure.common.data.HasTargetId;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 
 /**
  * This class holds the data for a element reference in eAdventure
  */
-public class ElementReference implements Cloneable, Documented {
+public class ElementReference implements Cloneable, Documented, HasTargetId {
 
 	/**
 	 * Id of the element referenced
@@ -98,7 +99,7 @@ public class ElementReference implements Cloneable, Documented {
 	 * 
 	 * @return the id of the element that is referenced
 	 */
-	public String getIdTarget( ) {
+	public String getTargetId( ) {
 		return idTarget;
 	}
 
@@ -162,7 +163,7 @@ public class ElementReference implements Cloneable, Documented {
 	 * @param idTarget
 	 *            Id of the new referenced element
 	 */
-	public void setIdTarget( String idTarget ) {
+	public void setTargetId( String idTarget ) {
 		this.idTarget = idTarget;
 	}
 

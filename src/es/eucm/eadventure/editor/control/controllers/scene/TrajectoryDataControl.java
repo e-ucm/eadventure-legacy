@@ -245,13 +245,13 @@ public class TrajectoryDataControl extends DataControl {
 				else
 					i++;
 			}
-			controller.dataModified();
+			//controller.dataModified();
 			return true;
 		}
 		if (sideDataControlList.contains(dataControl)) {
 			trajectory.getSides().remove((Side) dataControl.getContent());
 			sideDataControlList.remove(dataControl);
-			controller.dataModified();
+			//controller.dataModified();
 			return true;
 		}
 		

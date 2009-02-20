@@ -118,7 +118,7 @@ public class ActiveAreasListDataControl extends DataControl {
 				ActiveAreaDataControl newActiveAreaDataControl = new ActiveAreaDataControl( sceneDataControl, newActiveArea );
 				activeAreasDataControlList.add( newActiveAreaDataControl );
 				controller.getIdentifierSummary( ).addActiveAreaId( itemId );
-				controller.dataModified( );
+				//controller.dataModified( );
 				elementAdded = true;
 			}
 		}
@@ -133,7 +133,7 @@ public class ActiveAreasListDataControl extends DataControl {
 		if( activeAreasList.remove( dataControl.getContent( ) ) ) {
 			activeAreasDataControlList.remove( dataControl );
 			controller.getIdentifierSummary().deleteActiveAreaId(((ActiveArea) dataControl.getContent()).getId());
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementDeleted = true;
 		}
 
@@ -148,7 +148,7 @@ public class ActiveAreasListDataControl extends DataControl {
 		if( elementIndex > 0 ) {
 			activeAreasList.add( elementIndex - 1, activeAreasList.remove( elementIndex ) );
 			activeAreasDataControlList.add( elementIndex - 1, activeAreasDataControlList.remove( elementIndex ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 
@@ -163,7 +163,7 @@ public class ActiveAreasListDataControl extends DataControl {
 		if( elementIndex < activeAreasList.size( ) - 1 ) {
 			activeAreasList.add( elementIndex + 1, activeAreasList.remove( elementIndex ) );
 			activeAreasDataControlList.add( elementIndex + 1, activeAreasDataControlList.remove( elementIndex ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 

@@ -123,7 +123,7 @@ public class BarriersListDataControl extends DataControl {
 
 				barriersList.add( newBarrier );
 				barriersDataControlList.add( newBarrierDataControl );
-				controller.dataModified( );
+				//controller.dataModified( );
 				elementAdded = true;
 
 		}
@@ -137,7 +137,7 @@ public class BarriersListDataControl extends DataControl {
 
 		if( barriersList.remove( dataControl.getContent( ) ) ) {
 			barriersDataControlList.remove( dataControl );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementDeleted = true;
 		}
 
@@ -152,7 +152,7 @@ public class BarriersListDataControl extends DataControl {
 		if( elementIndex > 0 ) {
 			barriersList.add( elementIndex - 1, barriersList.remove( elementIndex ) );
 			barriersDataControlList.add( elementIndex - 1, barriersDataControlList.remove( elementIndex ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 
@@ -167,7 +167,7 @@ public class BarriersListDataControl extends DataControl {
 		if( elementIndex < barriersList.size( ) - 1 ) {
 			barriersList.add( elementIndex + 1, barriersList.remove( elementIndex ) );
 			barriersDataControlList.add( elementIndex + 1, barriersDataControlList.remove( elementIndex ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 

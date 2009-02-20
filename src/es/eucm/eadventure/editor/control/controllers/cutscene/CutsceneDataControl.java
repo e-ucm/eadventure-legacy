@@ -285,7 +285,7 @@ public class CutsceneDataControl extends DataControlWithResources {
 			Resources newResources = new Resources( );
 			resourcesList.add( newResources );
 			resourcesDataControlList.add( new ResourcesDataControl( newResources, cutsceneType ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementAdded = true;
 		}
 
@@ -303,7 +303,7 @@ public class CutsceneDataControl extends DataControlWithResources {
 					NextScene newNextScene = new NextScene( selectedScene );
 					nextScenesList.add( newNextScene );
 					nextScenesDataControlList.add( new NextSceneDataControl( newNextScene ) );
-					controller.dataModified( );
+					//controller.dataModified( );
 					elementAdded = true;
 				}
 			}
@@ -317,7 +317,7 @@ public class CutsceneDataControl extends DataControlWithResources {
 		else if( type == Controller.END_SCENE ) {
 			cutscene.setEndScene( true );
 			endSceneDataControl = new EndSceneDataControl( );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementAdded = true;
 		}
 
@@ -340,7 +340,7 @@ public class CutsceneDataControl extends DataControlWithResources {
 					if( selectedResources > 0 && selectedResources >= resourcesIndex )
 						selectedResources--;
 
-					controller.dataModified( );
+					//controller.dataModified( );
 					elementDeleted = true;
 				}
 			}
@@ -364,8 +364,8 @@ public class CutsceneDataControl extends DataControlWithResources {
 			elementDeleted = true;
 		}
 
-		if( elementDeleted )
-			controller.dataModified( );
+		//if( elementDeleted )
+		//controller.dataModified( );
 
 		return elementDeleted;
 	}
@@ -381,7 +381,7 @@ public class CutsceneDataControl extends DataControlWithResources {
 			if( elementIndex > 0 ) {
 				resourcesList.add( elementIndex - 1, resourcesList.remove( elementIndex ) );
 				resourcesDataControlList.add( elementIndex - 1, resourcesDataControlList.remove( elementIndex ) );
-				controller.dataModified( );
+				//controller.dataModified( );
 				elementMoved = true;
 			}
 		}
@@ -393,7 +393,7 @@ public class CutsceneDataControl extends DataControlWithResources {
 			if( elementIndex > 0 ) {
 				nextScenesList.add( elementIndex - 1, nextScenesList.remove( elementIndex ) );
 				nextScenesDataControlList.add( elementIndex - 1, nextScenesDataControlList.remove( elementIndex ) );
-				controller.dataModified( );
+				//controller.dataModified( );
 				elementMoved = true;
 			}
 		}
@@ -412,7 +412,7 @@ public class CutsceneDataControl extends DataControlWithResources {
 			if( elementIndex < resourcesList.size( ) - 1 ) {
 				resourcesList.add( elementIndex + 1, resourcesList.remove( elementIndex ) );
 				resourcesDataControlList.add( elementIndex + 1, resourcesDataControlList.remove( elementIndex ) );
-				controller.dataModified( );
+				//controller.dataModified( );
 				elementMoved = true;
 			}
 		}
@@ -424,7 +424,7 @@ public class CutsceneDataControl extends DataControlWithResources {
 			if( elementIndex < nextScenesList.size( ) - 1 ) {
 				nextScenesList.add( elementIndex + 1, nextScenesList.remove( elementIndex ) );
 				nextScenesDataControlList.add( elementIndex + 1, nextScenesDataControlList.remove( elementIndex ) );
-				controller.dataModified( );
+				//controller.dataModified( );
 				elementMoved = true;
 			}
 		}
@@ -452,7 +452,7 @@ public class CutsceneDataControl extends DataControlWithResources {
 				controller.replaceIdentifierReferences( oldCutsceneId, newCutsceneId );
 				controller.getIdentifierSummary( ).deleteCutsceneId( oldCutsceneId );
 				controller.getIdentifierSummary( ).addCutsceneId( newCutsceneId );
-				controller.dataModified( );
+				//controller.dataModified( );
 				elementRenamed = true;
 			}
 		}

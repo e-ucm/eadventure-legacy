@@ -134,7 +134,7 @@ public class CutscenesListDataControl extends DataControl {
 				cutscenesList.add( newCutscene );
 				cutscenesDataControlList.add( new CutsceneDataControl( newCutscene ) );
 				controller.getIdentifierSummary( ).addCutsceneId( cutsceneId );
-				controller.dataModified( );
+				//controller.dataModified( );
 				elementAdded = true;
 			}
 		}
@@ -156,7 +156,7 @@ public class CutscenesListDataControl extends DataControl {
 				cutscenesList.add( newCutscene );
 				cutscenesDataControlList.add( new CutsceneDataControl( newCutscene ) );
 				controller.getIdentifierSummary( ).addCutsceneId( cutsceneId );
-				controller.dataModified( );
+				//controller.dataModified( );
 				elementAdded = true;
 			}
 		}
@@ -182,7 +182,7 @@ public class CutscenesListDataControl extends DataControl {
 					cutscenesDataControlList.remove( dataControl );
 					controller.deleteIdentifierReferences( cutsceneId );
 					controller.getIdentifierSummary( ).deleteCutsceneId( cutsceneId );
-					controller.dataModified( );
+					//controller.dataModified( );
 					elementDeleted = true;
 				}
 			}
@@ -203,7 +203,7 @@ public class CutscenesListDataControl extends DataControl {
 		if( elementIndex > 0 ) {
 			cutscenesList.add( elementIndex - 1, cutscenesList.remove( elementIndex ) );
 			cutscenesDataControlList.add( elementIndex - 1, cutscenesDataControlList.remove( elementIndex ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 
@@ -218,7 +218,7 @@ public class CutscenesListDataControl extends DataControl {
 		if( elementIndex < cutscenesList.size( ) - 1 ) {
 			cutscenesList.add( elementIndex + 1, cutscenesList.remove( elementIndex ) );
 			cutscenesDataControlList.add( elementIndex + 1, cutscenesDataControlList.remove( elementIndex ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 

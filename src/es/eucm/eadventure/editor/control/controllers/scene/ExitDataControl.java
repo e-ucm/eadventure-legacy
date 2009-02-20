@@ -205,7 +205,7 @@ public class ExitDataControl extends DataControl {
 					NextScene newNextScene = new NextScene( selectedScene );
 					nextScenesList.add( newNextScene );
 					nextScenesDataControlList.add( new NextSceneDataControl( newNextScene ) );
-					controller.dataModified( );
+					//controller.dataModified( );
 					elementAdded = true;
 				}
 			}
@@ -226,7 +226,7 @@ public class ExitDataControl extends DataControl {
 		if( nextScenesList.size( ) > 1 ) {
 			if( nextScenesList.remove( dataControl.getContent( ) ) ) {
 				nextScenesDataControlList.remove( dataControl );
-				controller.dataModified( );
+				//controller.dataModified( );
 				elementDeleted = true;
 			}
 		}
@@ -246,7 +246,7 @@ public class ExitDataControl extends DataControl {
 		if( elementIndex > 0 ) {
 			nextScenesList.add( elementIndex - 1, nextScenesList.remove( elementIndex ) );
 			nextScenesDataControlList.add( elementIndex - 1, nextScenesDataControlList.remove( elementIndex ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 
@@ -261,7 +261,7 @@ public class ExitDataControl extends DataControl {
 		if( elementIndex < nextScenesList.size( ) - 1 ) {
 			nextScenesList.add( elementIndex + 1, nextScenesList.remove( elementIndex ) );
 			nextScenesDataControlList.add( elementIndex + 1, nextScenesDataControlList.remove( elementIndex ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 

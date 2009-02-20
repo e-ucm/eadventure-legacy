@@ -94,7 +94,7 @@ public class AtrezzoListDataControl extends DataControl {
 				atrezzoList.add( newAtrezzo );
 				atrezzoDataControlList.add( new AtrezzoDataControl( newAtrezzo ) );
 				controller.getIdentifierSummary( ).addAtrezzoId( atrezzoId );
-				controller.dataModified( );
+				//controller.dataModified( );
 				elementAdded = true;
 			}
 		}
@@ -173,7 +173,7 @@ public class AtrezzoListDataControl extends DataControl {
 				atrezzoDataControlList.remove( dataControl );
 				controller.deleteIdentifierReferences( atrezzoId );
 				controller.getIdentifierSummary( ).deleteItemId( atrezzoId );
-				controller.dataModified( );
+				//controller.dataModified( );
 				elementDeleted = true;
 			}
 		}
@@ -230,7 +230,7 @@ public class AtrezzoListDataControl extends DataControl {
 		if( elementIndex < atrezzoList.size( ) - 1 ) {
 			atrezzoList.add( elementIndex + 1, atrezzoList.remove( elementIndex ) );
 			atrezzoDataControlList.add( elementIndex + 1, atrezzoDataControlList.remove( elementIndex ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 
@@ -245,7 +245,7 @@ public class AtrezzoListDataControl extends DataControl {
 		if( elementIndex > 0 ) {
 			atrezzoList.add( elementIndex - 1, atrezzoList.remove( elementIndex ) );
 			atrezzoDataControlList.add( elementIndex - 1, atrezzoDataControlList.remove( elementIndex ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 

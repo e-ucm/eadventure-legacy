@@ -69,7 +69,7 @@ public class ConversationReferencesListDataControl extends DataControl {
 		// Fill the array with the info
 		for( int i = 0; i < conversationReferencesList.size( ); i++ ) {
 			ConversationReference conversationReference = conversationReferencesList.get( i );
-			conversationReferencesInfo[i][0] = conversationReference.getIdTarget( );
+			conversationReferencesInfo[i][0] = conversationReference.getTargetId( );
 
 			if( conversationReference.getConditions( ).isEmpty( ) )
 				conversationReferencesInfo[i][1] = TextConstants.getText( "GeneralText.No" );
@@ -129,7 +129,7 @@ public class ConversationReferencesListDataControl extends DataControl {
 					ConversationReference newConversationReference = new ConversationReference( selectedConversation );
 					conversationReferencesList.add( newConversationReference );
 					conversationReferencesDataControlList.add( new ConversationReferenceDataControl( newConversationReference ) );
-					controller.dataModified( );
+					//controller.dataModified( );
 					elementAdded = true;
 				}
 			}
@@ -148,7 +148,7 @@ public class ConversationReferencesListDataControl extends DataControl {
 
 		if( conversationReferencesList.remove( dataControl.getContent( ) ) ) {
 			conversationReferencesDataControlList.remove( dataControl );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementDeleted = true;
 		}
 
@@ -163,7 +163,7 @@ public class ConversationReferencesListDataControl extends DataControl {
 		if( elementIndex > 0 ) {
 			conversationReferencesList.add( elementIndex - 1, conversationReferencesList.remove( elementIndex ) );
 			conversationReferencesDataControlList.add( elementIndex - 1, conversationReferencesDataControlList.remove( elementIndex ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 
@@ -178,7 +178,7 @@ public class ConversationReferencesListDataControl extends DataControl {
 		if( elementIndex < conversationReferencesList.size( ) - 1 ) {
 			conversationReferencesList.add( elementIndex + 1, conversationReferencesList.remove( elementIndex ) );
 			conversationReferencesDataControlList.add( elementIndex + 1, conversationReferencesDataControlList.remove( elementIndex ) );
-			controller.dataModified( );
+			//controller.dataModified( );
 			elementMoved = true;
 		}
 
@@ -241,7 +241,7 @@ public class ConversationReferencesListDataControl extends DataControl {
 
 		// Check every conversation reference
 		while( i < conversationReferencesList.size( ) ) {
-			if( conversationReferencesList.get( i ).getIdTarget( ).equals( id ) ) {
+			if( conversationReferencesList.get( i ).getTargetId( ).equals( id ) ) {
 				conversationReferencesList.remove( i );
 				conversationReferencesDataControlList.remove( i );
 			}

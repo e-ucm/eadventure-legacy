@@ -70,8 +70,8 @@ public class SceneDOMWriter {
 			// Append the default inital position (if avalaible)
 			if( scene.hasDefaultPosition( ) ) {
 				Element initialPositionElement = doc.createElement( "default-initial-position" );
-				initialPositionElement.setAttribute( "x", String.valueOf( scene.getDefaultX( ) ) );
-				initialPositionElement.setAttribute( "y", String.valueOf( scene.getDefaultY( ) ) );
+				initialPositionElement.setAttribute( "x", String.valueOf( scene.getPositionX( ) ) );
+				initialPositionElement.setAttribute( "y", String.valueOf( scene.getPositionY( ) ) );
 				sceneElement.appendChild( initialPositionElement );
 			}
 
@@ -173,7 +173,7 @@ public class SceneDOMWriter {
 				for( ElementReference itemReference : scene.getItemReferences( ) ) {
 					// Create the item reference element
 					Element itemReferenceElement = doc.createElement( "object-ref" );
-					itemReferenceElement.setAttribute( "idTarget", itemReference.getIdTarget( ) );
+					itemReferenceElement.setAttribute( "idTarget", itemReference.getTargetId( ) );
 					itemReferenceElement.setAttribute( "x", String.valueOf( itemReference.getX( ) ) );
 					itemReferenceElement.setAttribute( "y", String.valueOf( itemReference.getY( ) ) );
 					itemReferenceElement.setAttribute( "scale", String.valueOf( itemReference.getScale()));
@@ -219,7 +219,7 @@ public class SceneDOMWriter {
 				for( ElementReference characterReference : scene.getCharacterReferences( ) ) {
 					// Create the character reference element
 					Element npcReferenceElement = doc.createElement( "character-ref" );
-					npcReferenceElement.setAttribute( "idTarget", characterReference.getIdTarget( ) );
+					npcReferenceElement.setAttribute( "idTarget", characterReference.getTargetId( ) );
 					npcReferenceElement.setAttribute( "x", String.valueOf( characterReference.getX( ) ) );
 					npcReferenceElement.setAttribute( "y", String.valueOf( characterReference.getY( ) ) );
 					npcReferenceElement.setAttribute( "scale", String.valueOf( characterReference.getScale()));
@@ -459,7 +459,7 @@ public class SceneDOMWriter {
 				for( ElementReference atrezzoReference : scene.getAtrezzoReferences( ) ) {
 					// Create the atrezzo reference element
 					Element atrezzoReferenceElement = doc.createElement( "atrezzo-ref" );
-					atrezzoReferenceElement.setAttribute( "idTarget", atrezzoReference.getIdTarget( ) );
+					atrezzoReferenceElement.setAttribute( "idTarget", atrezzoReference.getTargetId( ) );
 					atrezzoReferenceElement.setAttribute( "x", String.valueOf( atrezzoReference.getX( ) ) );
 					atrezzoReferenceElement.setAttribute( "y", String.valueOf( atrezzoReference.getY( ) ) );
 					atrezzoReferenceElement.setAttribute( "scale", String.valueOf( atrezzoReference.getScale()));
