@@ -3,11 +3,15 @@ package es.eucm.eadventure.editor.control.controllers.adaptation;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.adaptation.AdaptationRule;
-import es.eucm.eadventure.common.data.adaptation.UOLProperty;
-import es.eucm.eadventure.common.gui.TextConstants;
-import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.control.tools.general.ChangeDescriptionTool;
+import es.eucm.eadventure.editor.control.tools.adaptation.AddActionTool;
+import es.eucm.eadventure.editor.control.tools.adaptation.AddUOLPropertyTool;
+import es.eucm.eadventure.editor.control.tools.adaptation.ChangeActionTool;
+import es.eucm.eadventure.editor.control.tools.adaptation.ChangeUOLPropertyTool;
+import es.eucm.eadventure.editor.control.tools.adaptation.DeleteActionTool;
+import es.eucm.eadventure.editor.control.tools.adaptation.DeleteUOLPropertyTool;
+import es.eucm.eadventure.editor.control.tools.general.ChangeTargetIdTool;
+import es.eucm.eadventure.editor.control.tools.generic.MoveObjectTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class AdaptationRuleDataControl extends DataControl{
@@ -107,7 +111,7 @@ public class AdaptationRuleDataControl extends DataControl{
 	@Override
 	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
 		for (String flag: adaptationRule.getAdaptedState( ).getFlagsVars( )){
-			varFlagSummary.addFlagReference( flag );	
+			varFlagSummary.addReference( flag );	
 		}
 		
 	}
@@ -117,91 +121,36 @@ public class AdaptationRuleDataControl extends DataControl{
 	}
 
 
-	public void setDescription( String text ) {
-		ChangeDescriptionTool tool = new ChangeDescriptionTool(adaptationRule, text);
-		controller.addTool(tool);
-	}
-
 	public void setInitialScene( String initScene ) {
-		adaptationRule.getAdaptedState( ).setInitialScene( initScene );
+		controller.addTool(new ChangeTargetIdTool(adaptationRule.getAdaptedState( ), initScene));
+		//adaptationRule.getAdaptedState( ).setTargetId( initScene );
 	}
 	
 	public String getInitialScene(  ) {
-		return adaptationRule.getAdaptedState( ).getInitialScene( );
+		return adaptationRule.getAdaptedState( ).getTargetId( );
 	}
 
 	public boolean moveUOLPropertyUp( int selectedRow ) {
-		boolean elementMoved = false;
-
-		if( selectedRow > 0 ) {
-			adaptationRule.getUOLProperties( ).add( selectedRow - 1, adaptationRule.getUOLProperties( ).remove( selectedRow ) );
-			controller.dataModified( );
-			elementMoved = true;
-		}
-
-		return elementMoved;
-
+		return	controller.addTool(new MoveObjectTool(adaptationRule.getUOLProperties( ),selectedRow,MoveObjectTool.MODE_UP));
 	}
 
 	public boolean moveUOLPropertyDown( int selectedRow ) {
-		boolean elementMoved = false;
-
-		if( selectedRow < adaptationRule.getUOLProperties( ).size( ) - 1 ) {
-			adaptationRule.getUOLProperties( ).add( selectedRow + 1, adaptationRule.getUOLProperties( ).remove( selectedRow ) );
-			controller.dataModified( );
-			elementMoved = true;
-		}
-
-		return elementMoved;	
+		return	controller.addTool(new MoveObjectTool(adaptationRule.getUOLProperties( ),selectedRow,MoveObjectTool.MODE_DOWN));
 	}
-
 	public boolean addFlagAction( int selectedRow ) {
-		
-		boolean added=false;
-		//Check there is at least one flag
-
-		String[] flags = Controller.getInstance( ).getVarFlagSummary( ).getFlags( );
-		if (flags!=null && flags.length>0){
-
-			//	By default, the flag is activated. Default flag will be the first one
-			adaptationRule.getAdaptedState( ).addActivatedFlag( flags[0] );
-			Controller.getInstance( ).updateFlagSummary( );
-			added=true;
-		}
-		
-		//Otherwise, prompt error message
-		// If the list had no elements, show an error message
-		else
-			Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Adaptation.ErrorNoFlags.Title" ), TextConstants.getText( "Adaptation.ErrorNoFlags" ) );
-		
-		return added;
+		return controller.addTool(new AddActionTool(adaptationRule, selectedRow));
 	}
 
 	public void deleteFlagAction( int selectedRow ) {
-		if (selectedRow >=0 && selectedRow <adaptationRule.getAdaptedState( ).getFlagsVars( ).size( )){
-			adaptationRule.getAdaptedState( ).removeFlagVar( selectedRow );
-			controller.updateFlagSummary( );
-		}
+		controller.addTool(new DeleteActionTool(adaptationRule, selectedRow));
 	}
 
 	public int getFlagActionCount( ) {
 		return adaptationRule.getAdaptedState( ).getFlagsVars( ).size( );
 	}
 
-	public void changeAction( int rowIndex ) {
-		if (rowIndex >=0 && rowIndex <adaptationRule.getAdaptedState( ).getFlagsVars( ).size( )){
-			adaptationRule.getAdaptedState( ).changeAction( rowIndex );
-		}
-
-		
-	}
-
 	public void setFlag( int rowIndex, String flag ) {
-		if (rowIndex >=0 && rowIndex <adaptationRule.getAdaptedState( ).getFlagsVars(  ).size( )){
-			adaptationRule.getAdaptedState( ).changeFlag( rowIndex, flag );
-			controller.updateFlagSummary( );
-		}
-		
+		controller.addTool(new ChangeActionTool(adaptationRule, rowIndex, flag, ChangeActionTool.SET_ID));
 	}
 
 	public String getFlag( int rowIndex ) {
@@ -216,15 +165,12 @@ public class AdaptationRuleDataControl extends DataControl{
 		return adaptationRule.getId( );
 	}
 
-	
 	public void addBlankUOLProperty( int selectedRow ) {
-		adaptationRule.getUOLProperties( ).add( selectedRow, new UOLProperty("PropertyId", "PropertyValue") );
+		controller.addTool(new AddUOLPropertyTool(adaptationRule, selectedRow));
 	}
 
 	public void deleteUOLProperty( int selectedRow ) {
-		if (selectedRow >=0 && selectedRow <adaptationRule.getUOLProperties( ).size( )){
-			adaptationRule.getUOLProperties( ).remove( selectedRow );
-		}
+		controller.addTool(new DeleteUOLPropertyTool(adaptationRule, selectedRow));
 	}
 
 	public int getUOLPropertyCount( ) {
@@ -232,23 +178,11 @@ public class AdaptationRuleDataControl extends DataControl{
 	}
 
 	public void setUOLPropertyValue( int rowIndex, String string ) {
-		if (rowIndex >=0 && rowIndex <adaptationRule.getUOLProperties( ).size( )){
-			//Check only integers are set
-			// TODO the only integer are allowed temporality
-			//	if (controller.isPropertyIdValid( string ))
-				adaptationRule.getUOLProperties( ).get( rowIndex ).setValue( string );
-			
-		}
-
-		
+		controller.addTool(new ChangeUOLPropertyTool(adaptationRule, string, rowIndex, ChangeUOLPropertyTool.SET_VALUE));
 	}
 
 	public void setUOLPropertyId( int rowIndex, String string ) {
-		if (rowIndex >=0 && rowIndex <adaptationRule.getUOLProperties( ).size( )){
-			if (controller.isPropertyIdValid( string ))
-				adaptationRule.getUOLProperties( ).get( rowIndex ).setId( string );
-		}
-		
+		controller.addTool(new ChangeUOLPropertyTool(adaptationRule, string, rowIndex, ChangeUOLPropertyTool.SET_ID));
 	}
 
 	public String getUOLPropertyId( int rowIndex ) {
@@ -260,10 +194,7 @@ public class AdaptationRuleDataControl extends DataControl{
 	}
 
 	public void setAction( int rowIndex, String string ) {
-		
-		if (!adaptationRule.getAdaptedState( ).getAction( rowIndex ).equals( string ))
-			adaptationRule.getAdaptedState( ).changeAction( rowIndex );
-		
+		controller.addTool(new ChangeActionTool(adaptationRule, rowIndex, string, ChangeActionTool.SET_VALUE));
 	}
 
 	@Override

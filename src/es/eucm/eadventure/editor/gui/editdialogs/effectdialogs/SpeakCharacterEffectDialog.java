@@ -43,7 +43,7 @@ public class SpeakCharacterEffectDialog extends EffectDialog {
 	public SpeakCharacterEffectDialog( HashMap<Integer, String> currentProperties ) {
 
 		// Call the super method
-		super( TextConstants.getText( "SpeakCharacterEffect.Title" ) );
+		super( TextConstants.getText( "SpeakCharacterEffect.Title" ) , false);
 
 		// Take the list of characters
 		String[] charactersArray = controller.getIdentifierSummary( ).getNPCIds( );

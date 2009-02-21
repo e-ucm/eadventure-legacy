@@ -60,7 +60,7 @@ public class FlagEffectDialog extends EffectDialog {
 	public FlagEffectDialog( int type, HashMap<Integer, String> currentProperties ) {
 
 		// Call the super method
-		super( TextConstants.getText( dialogTitles[type] ) );
+		super( TextConstants.getText( dialogTitles[type] ), false );
 
 		// Take the array of flags
 		String[] flagsArray = controller.getVarFlagSummary( ).getFlags( );

@@ -41,7 +41,7 @@ public class RandomEffectDialog extends EffectDialog{
 	public RandomEffectDialog( int probability, 
 			SingleEffectController positiveEffectController,
 			SingleEffectController negativeEffectController ) {
-		super( TextConstants.getText( "RandomEffect.Title" ) );
+		super( TextConstants.getText( "RandomEffect.Title" ) , false);
 		this.positiveEffectController = positiveEffectController;
 		this.negativeEffectController = negativeEffectController;
 

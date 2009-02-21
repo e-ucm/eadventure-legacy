@@ -1,5 +1,6 @@
 package es.eucm.eadventure.editor.control.tools.general.resources;
 
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
@@ -85,6 +86,30 @@ public class SelectResourceTool extends ResourcesTool{
 		return done;
 	}
 
-
-
+	/**
+	 * Uses a SelectResourceTool to get the assetPath of a resource belonging to the given category using an asset chooser with
+	 * the given filter
+	 * @param category
+	 * @param filter
+	 * @return
+	 */
+	public static String selectAssetPathUsingChooser ( int category, int filter ){
+		String assetPath = null;
+		
+		Resources resources = new Resources();
+		AssetInformation[] assetsInformation= new AssetInformation[1];
+		assetsInformation[0] = new AssetInformation("", "marihuanhell", false, category, filter);
+		int resourcesType = -10;
+		int index = 0;
+		try {
+			SelectResourceTool tool = new SelectResourceTool(resources, assetsInformation, resourcesType, index);
+			tool.doTool();
+			if (tool.resources.existAsset("marihuanhell"))
+				assetPath = tool.resources.getAssetPath("marihuanhell");
+		} catch (CloneNotSupportedException e) {
+			ReportDialog.GenerateErrorReport(e, true, "Error selecting asset path");
+		}
+		return assetPath;
+	}
+	
 }

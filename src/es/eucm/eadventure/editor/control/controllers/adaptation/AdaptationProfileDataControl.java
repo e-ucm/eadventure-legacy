@@ -271,11 +271,11 @@ public class AdaptationProfileDataControl extends DataControl{
 	public void setInitialScene( String initScene ) {
 		if (profile.getInitialState()==null)
 			profile.setInitialState( new AdaptedState() );
-		profile.getInitialState().setInitialScene( initScene );
+		profile.getInitialState().setTargetId( initScene );
 	}
 	
 	public String getInitialScene(  ) {
-		return profile.getInitialState().getInitialScene( );
+		return profile.getInitialState().getTargetId( );
 	}
 
 	public boolean addFlagAction( int selectedRow ) {
@@ -340,10 +340,10 @@ public class AdaptationProfileDataControl extends DataControl{
 		for (int i=0; i<profile.getRules().size( ); i++){
 			info[i][0]=profile.getRules().get( i ).getId( );
 			info[i][1]=String.valueOf( profile.getRules().get( i ).getUOLProperties( ).size( ));
-			if (profile.getRules().get( i ).getAdaptedState( ).getInitialScene( )==null)
+			if (profile.getRules().get( i ).getAdaptedState( ).getTargetId( )==null)
 				info[i][2]="<Not selected>";
 			else
-				info[i][2]=profile.getRules().get( i ).getAdaptedState( ).getInitialScene( );
+				info[i][2]=profile.getRules().get( i ).getAdaptedState( ).getTargetId( );
 			info[i][3]=String.valueOf( profile.getRules().get( i ).getAdaptedState( ).getFlagsVars( ).size( ));
 		}
 		return info;

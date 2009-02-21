@@ -69,7 +69,7 @@ public class PlayAnimationEffectDialog extends EffectDialog {
 	public PlayAnimationEffectDialog( EffectsController effectsController, HashMap<Integer, String> currentProperties ) {
 
 		// Call the super method
-		super( TextConstants.getText( "PlayAnimationEffect.Title" ) );
+		super( TextConstants.getText( "PlayAnimationEffect.Title" ) , true);
 		this.effectsController = effectsController;
 
 		// Create the set of values for the scenes

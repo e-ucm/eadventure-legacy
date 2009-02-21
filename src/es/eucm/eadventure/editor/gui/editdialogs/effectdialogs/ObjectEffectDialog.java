@@ -58,7 +58,7 @@ public class ObjectEffectDialog extends EffectDialog {
 	public ObjectEffectDialog( int type, HashMap<Integer, String> currentProperties ) {
 
 		// Call the super method
-		super( TextConstants.getText( dialogTitles[type] ) );
+		super( TextConstants.getText( dialogTitles[type] ) , false);
 
 		// Take the list of items
 		String[] itemsArray = controller.getIdentifierSummary( ).getItemIds( );

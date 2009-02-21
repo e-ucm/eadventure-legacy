@@ -5,8 +5,6 @@ import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
 import java.awt.Window;
 import java.awt.event.KeyEvent;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 
 import javax.swing.JDialog;
 
@@ -15,6 +13,7 @@ import es.eucm.eadventure.editor.gui.Updateable;
 
 public abstract class ToolManagableDialog extends JDialog implements Updateable{
 
+	private boolean worksInLocal;
 	private static final KeyEventDispatcher undoRedoDispatcher = new KeyEventDispatcher(){
 
 		@Override
@@ -47,35 +46,18 @@ public abstract class ToolManagableDialog extends JDialog implements Updateable{
 	
 	public ToolManagableDialog (Window window, String title, boolean worksInLocal){
 		super (window, title, Dialog.ModalityType.TOOLKIT_MODAL);
+		this.worksInLocal = worksInLocal;
 		addUndoRedoDispatcher();
-		if (worksInLocal){
-			this.addWindowListener(new WindowListener(){
-				
-				public void windowActivated(WindowEvent e) {
-				}
-	
-				public void windowClosed(WindowEvent e) {
-				}
-	
+		/*if (worksInLocal){
+			this.addWindowListener(new WindowAdapter(){
 				public void windowClosing(WindowEvent e) {
 					Controller.getInstance().popLocalToolManager();
 				}
-	
-				public void windowDeactivated(WindowEvent e) {
-				}
-	
-				public void windowDeiconified(WindowEvent e) {
-				}
-	
-				public void windowIconified(WindowEvent e) {
-				}
-	
 				public void windowOpened(WindowEvent e) {
 					Controller.getInstance().pushLocalToolManager();
 				}
-				
 			});
-		}
+		}*/
 	}
 
 	@Override
@@ -84,4 +66,14 @@ public abstract class ToolManagableDialog extends JDialog implements Updateable{
 		return false;
 	}
 	
+	public void setVisible(boolean visible){
+		if (worksInLocal){
+			if (visible){
+				Controller.getInstance().pushLocalToolManager();
+			} else {
+				Controller.getInstance().popLocalToolManager();
+			}
+		}
+		super.setVisible(visible);
+	}
 }

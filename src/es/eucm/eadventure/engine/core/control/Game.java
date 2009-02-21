@@ -445,8 +445,8 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         if( adaptedStateToExecute != null ) {
 
             // If it has an initial scene, set it
-            if( adaptedStateToExecute.getInitialScene( ) != null ) 
-                firstScene = new NextScene( adaptedStateToExecute.getInitialScene( ) );
+            if( adaptedStateToExecute.getTargetId( ) != null ) 
+                firstScene = new NextScene( adaptedStateToExecute.getTargetId( ) );
 
             // Set the flags
             for( String flag : adaptedStateToExecute.getActivatedFlags( ) )

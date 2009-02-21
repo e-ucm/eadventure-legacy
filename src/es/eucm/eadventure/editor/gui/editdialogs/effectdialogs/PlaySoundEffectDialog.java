@@ -60,7 +60,7 @@ public class PlaySoundEffectDialog extends EffectDialog {
 	public PlaySoundEffectDialog( EffectsController effectsController, HashMap<Integer, String> currentProperties ) {
 
 		// Call the super method
-		super( TextConstants.getText( "PlaySoundEffect.Title" ) );
+		super( TextConstants.getText( "PlaySoundEffect.Title" ), false );
 		this.effectsController = effectsController;
 
 		// Load the image for the delete content button

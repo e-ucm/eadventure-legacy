@@ -118,7 +118,7 @@ public class AdaptationHandler extends DefaultHandler {
             for( int i = 0; i < attrs.getLength( ); i++ ) {
                 if( attrs.getQName( i ).equals( "idTarget" ) ) {
                     if(parsing==INITIAL_STATE) {
-                        initialState.setInitialScene( attrs.getValue( i ) );
+                        initialState.setTargetId( attrs.getValue( i ) );
                     } else {
                         rule_temp.setInitialScene( attrs.getValue( i ));
                     }

@@ -43,7 +43,7 @@ public class MacroReferenceEffectDialog extends EffectDialog {
 	public MacroReferenceEffectDialog( HashMap<Integer, String> currentProperties ) {
 
 		// Call the super method
-		super( TextConstants.getText( "MacroReferenceEffect.Title" ) );
+		super( TextConstants.getText( "MacroReferenceEffect.Title" ), false );
 
 		String macroId = null;
 		if ( ID!=null )

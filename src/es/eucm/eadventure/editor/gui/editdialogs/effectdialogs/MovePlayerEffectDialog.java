@@ -53,7 +53,7 @@ public class MovePlayerEffectDialog extends EffectDialog {
 	public MovePlayerEffectDialog( HashMap<Integer, String> currentProperties ) {
 
 		// Call the super method
-		super( TextConstants.getText( "MovePlayerEffect.Title" ) );
+		super( TextConstants.getText( "MovePlayerEffect.Title" ), true );
 
 		// Load the path to the image of the player
 		String playerPath = controller.getPlayerImagePath( );

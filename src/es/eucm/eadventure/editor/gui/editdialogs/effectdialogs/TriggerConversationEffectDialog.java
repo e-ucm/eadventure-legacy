@@ -36,7 +36,7 @@ public class TriggerConversationEffectDialog extends EffectDialog {
 	public TriggerConversationEffectDialog( HashMap<Integer, String> currentProperties ) {
 
 		// Call the super method
-		super( TextConstants.getText( "TriggerConversationEffect.Title" ) );
+		super( TextConstants.getText( "TriggerConversationEffect.Title" ), false );
 
 		// Take the array of conversations
 		String[] conversationsArray = controller.getIdentifierSummary( ).getConversationsIds( );

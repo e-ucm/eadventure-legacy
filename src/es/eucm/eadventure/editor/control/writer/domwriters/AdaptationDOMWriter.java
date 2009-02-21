@@ -46,9 +46,9 @@ public class AdaptationDOMWriter {
 				Node initialStateNode = doc.createElement( "initial-state" );
 				
 				// Append initial scene if available
-				if (initialState.getInitialScene( )!= null && !initialState.getInitialScene( ).equals( "" )){
+				if (initialState.getTargetId( )!= null && !initialState.getTargetId( ).equals( "" )){
 					Element initialScene = doc.createElement( "initial-scene" );
-					initialScene.setAttribute( "idTarget", initialState.getInitialScene( ) );
+					initialScene.setAttribute( "idTarget", initialState.getTargetId( ) );
 					initialStateNode.appendChild( initialScene );
 				}
 				
@@ -94,9 +94,9 @@ public class AdaptationDOMWriter {
 					
 					
 					// Append initial scene if available
-					if (rule.getAdaptedState( ).getInitialScene( )!= null && !rule.getAdaptedState( ).getInitialScene( ).equals( "" )){
+					if (rule.getAdaptedState( ).getTargetId( )!= null && !rule.getAdaptedState( ).getTargetId( ).equals( "" )){
 						Element initialScene = doc.createElement( "initial-scene" );
-						initialScene.setAttribute( "idTarget", rule.getAdaptedState( ).getInitialScene( ) );
+						initialScene.setAttribute( "idTarget", rule.getAdaptedState( ).getTargetId( ) );
 						gameStateNode.appendChild( initialScene );
 					}
 					

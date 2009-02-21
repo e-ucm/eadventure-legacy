@@ -3,11 +3,13 @@ package es.eucm.eadventure.common.data.adaptation;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.common.data.HasTargetId;
+
 /**
  * Stores the adaptation data, which includes the flag activation and deactivation values,
  * along with the inital scene of the game 
  */
-public class AdaptedState implements Cloneable {
+public class AdaptedState implements Cloneable, HasTargetId {
 
     /**
      * Id of the initial scene
@@ -41,7 +43,7 @@ public class AdaptedState implements Cloneable {
      * Returns the id of the initial scene
      * @return Id of the initial scene, null if none
      */
-    public String getInitialScene( ) {
+    public String getTargetId( ) {
         return initialScene;
     }
     
@@ -57,7 +59,7 @@ public class AdaptedState implements Cloneable {
      * Sets the initial scene id
      * @param initialScene Id of the initial scene
      */
-    public void setInitialScene( String initialScene ) {
+    public void setTargetId( String initialScene ) {
         this.initialScene = initialScene;
     }
     
