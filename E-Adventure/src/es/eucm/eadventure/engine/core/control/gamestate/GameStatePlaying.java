@@ -78,8 +78,8 @@ public class GameStatePlaying extends GameState {
         if( game.getAdaptedStateToExecute( ) != null ) {
             
             // If it has an initial scene, set it
-            if( game.getAdaptedStateToExecute( ).getInitialScene( ) != null ) {
-                game.setNextScene( new NextScene( game.getAdaptedStateToExecute( ).getInitialScene( ) ) );
+            if( game.getAdaptedStateToExecute( ).getTargetId( ) != null ) {
+                game.setNextScene( new NextScene( game.getAdaptedStateToExecute( ).getTargetId( ) ) );
                 game.setState( Game.STATE_NEXT_SCENE );
                 game.flushEffectsQueue( );
             }

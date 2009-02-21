@@ -12,10 +12,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 
-import es.eucm.eadventure.common.data.Documented;
+import es.eucm.eadventure.common.data.Described;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationRuleDataControl;
-import es.eucm.eadventure.editor.control.tools.listeners.DocumentationChangeListener;
+import es.eucm.eadventure.editor.control.tools.listeners.DescriptionChangeListener;
 
 public class AdaptationRulePanel extends JPanel {
 
@@ -74,7 +74,7 @@ public class AdaptationRulePanel extends JPanel {
 		descriptionTextArea = new JTextArea( adpRuleDataControl.getDescription( ), 4, 0 );
 		descriptionTextArea.setLineWrap( true );
 		descriptionTextArea.setWrapStyleWord( true );
-		descriptionTextArea.getDocument( ).addDocumentListener( new DocumentationChangeListener( descriptionTextArea, (Documented) adaptationRuleDataControl.getContent() ) );
+		descriptionTextArea.getDocument( ).addDocumentListener( new DescriptionChangeListener( descriptionTextArea, (Described) adaptationRuleDataControl.getContent() ) );
 		conceptPanel.add( new JScrollPane( descriptionTextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER ) );
 		conceptPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AdaptationRule.Description" ) ) );
 		add( conceptPanel, c );

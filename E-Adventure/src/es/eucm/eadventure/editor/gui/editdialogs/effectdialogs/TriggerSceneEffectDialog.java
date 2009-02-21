@@ -52,7 +52,7 @@ public class TriggerSceneEffectDialog extends EffectDialog {
 	public TriggerSceneEffectDialog( HashMap<Integer, String> currentProperties ) {
 
 		// Call the super method
-		super( TextConstants.getText( "TriggerSceneEffect.Title" ) );
+		super( TextConstants.getText( "TriggerSceneEffect.Title" ), true );
 
 		// Take the list of characters
 		String[] scenesArray = controller.getIdentifierSummary( ).getSceneIds( );
@@ -76,7 +76,6 @@ public class TriggerSceneEffectDialog extends EffectDialog {
 			c.fill = GridBagConstraints.HORIZONTAL;
 			c.weightx = 1;
 			scenesComboBox = new JComboBox( scenesArray );
-			scenesComboBox.addActionListener( new ScenesComboBoxActionListener( ) );
 			mainPanel.add( scenesComboBox, c );
 
 			// Create and add the panel
@@ -102,8 +101,11 @@ public class TriggerSceneEffectDialog extends EffectDialog {
 				playerPositionPanel = new PositionPanel( new ElementImagePanel( null, playerPath ),x,y );
 				//playerPositionPanel.setPosition( x, y );
 			} else {
+				// Select the first element
+				scenesComboBox.setSelectedIndex( 0 );
 				playerPositionPanel = new PositionPanel( new ElementImagePanel( null, playerPath ),400,500 );
 			}
+			playerPositionPanel.loadImage( controller.getSceneImagePath( scenesComboBox.getSelectedItem( ).toString( ) ) );
 			
 			if (!Controller.getInstance( ).isPlayTransparent( ))
 				mainPanel.add( playerPositionPanel, c );
@@ -111,9 +113,7 @@ public class TriggerSceneEffectDialog extends EffectDialog {
 			// Add the panel to the center
 			add( mainPanel, BorderLayout.CENTER );
 
-			// Select the first element
-			scenesComboBox.setSelectedIndex( 0 );
-
+			scenesComboBox.addActionListener( new ScenesComboBoxActionListener( ) );
 
 
 			// Set the dialog

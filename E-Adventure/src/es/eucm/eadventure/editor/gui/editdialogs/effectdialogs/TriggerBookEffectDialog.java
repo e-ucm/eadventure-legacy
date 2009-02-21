@@ -36,7 +36,7 @@ public class TriggerBookEffectDialog extends EffectDialog {
 	public TriggerBookEffectDialog( HashMap<Integer, String> currentProperties ) {
 
 		// Call the super method
-		super( TextConstants.getText( "TriggerBookEffect.Title" ) );
+		super( TextConstants.getText( "TriggerBookEffect.Title" ), false );
 
 		// Take the list of books
 		String[] booksArray = controller.getIdentifierSummary( ).getBookIds( );

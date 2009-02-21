@@ -36,7 +36,7 @@ public class TriggerCutsceneEffectDialog extends EffectDialog {
 	public TriggerCutsceneEffectDialog( HashMap<Integer, String> currentProperties ) {
 
 		// Call the super method
-		super( TextConstants.getText( "TriggerCutsceneEffect.Title" ) );
+		super( TextConstants.getText( "TriggerCutsceneEffect.Title" ), false );
 
 		// Take the list of cutscenes
 		String[] cutscenesArray = controller.getIdentifierSummary( ).getCutsceneIds( );

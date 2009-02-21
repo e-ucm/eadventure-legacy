@@ -25,6 +25,7 @@ import es.eucm.eadventure.common.data.chapter.effects.TriggerLastSceneEffect;
 import es.eucm.eadventure.common.data.chapter.effects.TriggerSceneEffect;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.tools.general.effects.AddEffectTool;
 import es.eucm.eadventure.editor.gui.editdialogs.effectdialogs.EffectDialog;
 
 /**
@@ -194,9 +195,7 @@ public class SingleEffectController extends EffectsController{
 						break;
 				}
 
-				effects.add( newEffect );
-				controller.dataModified( );
-				effectAdded = true;
+				effectAdded = controller.addTool(new AddEffectTool(effects,newEffect));
 			}
 		}
 

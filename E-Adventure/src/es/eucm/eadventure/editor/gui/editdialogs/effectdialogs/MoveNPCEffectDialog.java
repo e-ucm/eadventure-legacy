@@ -64,7 +64,7 @@ public class MoveNPCEffectDialog extends EffectDialog {
 	public MoveNPCEffectDialog( HashMap<Integer, String> currentProperties ) {
 
 		// Call the super method
-		super( TextConstants.getText( "MoveNPCEffect.Title" ) );
+		super( TextConstants.getText( "MoveNPCEffect.Title" ) , true);
 
 		// Take the list of characters
 		String[] charactersArray = controller.getIdentifierSummary( ).getNPCIds( );

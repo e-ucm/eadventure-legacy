@@ -37,7 +37,7 @@ public class SpeakPlayerEffectDialog extends EffectDialog {
 	public SpeakPlayerEffectDialog( HashMap<Integer, String> currentProperties ) {
 
 		// Call the super method
-		super( TextConstants.getText( "SpeakPlayerEffect.Title" ) );
+		super( TextConstants.getText( "SpeakPlayerEffect.Title" ), false );
 
 		// Create the main panel
 		JPanel mainPanel = new JPanel( );

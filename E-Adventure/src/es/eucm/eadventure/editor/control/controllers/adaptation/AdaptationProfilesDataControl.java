@@ -155,9 +155,9 @@ public class AdaptationProfilesDataControl extends DataControl{
 						Controller.getInstance( ).deleteAssetReferences( path );
 						
 						// Delete the file
-						File deletedFile = new File (Controller.getInstance( ).getProjectFolder( )+"/"+path);
-						if (deletedFile.exists( ))
-							deleted =deletedFile.delete( );
+						//File deletedFile = new File (Controller.getInstance( ).getProjectFolder( )+"/"+path);
+						//if (deletedFile.exists( ))
+						//	deleted =deletedFile.delete( );
 						//controller.dataModified( );
 						break;
 					}

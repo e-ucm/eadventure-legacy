@@ -52,7 +52,7 @@ public class AdaptationRule implements Cloneable, Described {
     }
 
     public void setInitialScene( String initialScene ) {
-        gameState.setInitialScene( initialScene );
+        gameState.setTargetId( initialScene );
         
     }
 
@@ -126,5 +126,9 @@ public class AdaptationRule implements Cloneable, Described {
 			ar.uolState.add((UOLProperty) uolp.clone());
 		}
 		return ar;
+	}
+
+	public void setAdaptedState(AdaptedState state) {
+		this.gameState = state;
 	}
 }

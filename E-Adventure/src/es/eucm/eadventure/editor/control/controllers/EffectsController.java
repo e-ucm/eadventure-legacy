@@ -30,9 +30,10 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.tools.general.effects.AddEffectTool;
 import es.eucm.eadventure.editor.control.tools.general.effects.DeleteEffectTool;
+import es.eucm.eadventure.editor.control.tools.general.effects.ReplaceEffectTool;
+import es.eucm.eadventure.editor.control.tools.general.resources.SelectResourceTool;
 import es.eucm.eadventure.editor.control.tools.generic.MoveObjectTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
-import es.eucm.eadventure.editor.gui.assetchooser.AssetChooser;
 import es.eucm.eadventure.editor.gui.editdialogs.effectdialogs.EffectDialog;
 
 /**
@@ -562,102 +563,12 @@ public class EffectsController {
 
 		// If a change has been made
 		if( newProperties != null ) {
-			//XXX
-			controller.dataModified( );
-			effectEdited = true;
-
-			switch( effectType ) {
-				case Effect.ACTIVATE:
-					ActivateEffect activateEffect = (ActivateEffect) effect;
-					activateEffect.setTargetId( newProperties.get( EFFECT_PROPERTY_TARGET ) );
-					Controller.getInstance( ).updateFlagSummary( );
-					break;
-				case Effect.DEACTIVATE:
-					DeactivateEffect deactivateEffect = (DeactivateEffect) effect;
-					deactivateEffect.setTargetId( newProperties.get( EFFECT_PROPERTY_TARGET ) );
-					Controller.getInstance( ).updateFlagSummary( );
-					break;
-				case Effect.SET_VALUE:
-					SetValueEffect setValueEffect = (SetValueEffect) effect;
-					setValueEffect.setTargetId( newProperties.get( EFFECT_PROPERTY_TARGET ) );
-					setValueEffect.setValue( Integer.parseInt( newProperties.get( EFFECT_PROPERTY_VALUE ) ) );
-					Controller.getInstance( ).updateFlagSummary( );
-					break;
-				case Effect.INCREMENT_VAR:
-					IncrementVarEffect incrementVarEffect = (IncrementVarEffect) effect;
-					incrementVarEffect.setTargetId( newProperties.get( EFFECT_PROPERTY_TARGET ) );
-					incrementVarEffect.setIncrement( Integer.parseInt( newProperties.get( EFFECT_PROPERTY_VALUE ) ) );
-					Controller.getInstance( ).updateFlagSummary( );
-					break;
-				case Effect.DECREMENT_VAR:
-					DecrementVarEffect decrementVarEffect = (DecrementVarEffect) effect;
-					decrementVarEffect.setTargetId( newProperties.get( EFFECT_PROPERTY_TARGET ) );
-					decrementVarEffect.setDecrement( Integer.parseInt( newProperties.get( EFFECT_PROPERTY_VALUE ) ) );
-					Controller.getInstance( ).updateFlagSummary( );
-					break;
-				case Effect.MACRO_REF:
-					MacroReferenceEffect macroEffect = (MacroReferenceEffect) effect;
-					macroEffect.setTargetId( newProperties.get( EFFECT_PROPERTY_TARGET ) );
-					break;
-				case Effect.CONSUME_OBJECT:
-					ConsumeObjectEffect consumeObjectEffect = (ConsumeObjectEffect) effect;
-					consumeObjectEffect.setTargetId( newProperties.get( EFFECT_PROPERTY_TARGET ) );
-					break;
-				case Effect.GENERATE_OBJECT:
-					GenerateObjectEffect generateObjectEffect = (GenerateObjectEffect) effect;
-					generateObjectEffect.setTargetId( newProperties.get( EFFECT_PROPERTY_TARGET ) );
-					break;
-				case Effect.SPEAK_PLAYER:
-					SpeakPlayerEffect speakPlayerEffect = (SpeakPlayerEffect) effect;
-					speakPlayerEffect.setLine( newProperties.get( EFFECT_PROPERTY_TEXT ) );
-					break;
-				case Effect.SPEAK_CHAR:
-					SpeakCharEffect speakCharEffect = (SpeakCharEffect) effect;
-					speakCharEffect.setTargetId( newProperties.get( EFFECT_PROPERTY_TARGET ) );
-					speakCharEffect.setLine( newProperties.get( EFFECT_PROPERTY_TEXT ) );
-					break;
-				case Effect.TRIGGER_BOOK:
-					TriggerBookEffect triggerBookEffect = (TriggerBookEffect) effect;
-					triggerBookEffect.setTargetId( newProperties.get( EFFECT_PROPERTY_TARGET ) );
-					break;
-				case Effect.PLAY_SOUND:
-					PlaySoundEffect playSoundEffect = (PlaySoundEffect) effect;
-					playSoundEffect.setPath( newProperties.get( EFFECT_PROPERTY_PATH ) );
-					playSoundEffect.setBackground( Boolean.parseBoolean( newProperties.get( EFFECT_PROPERTY_BACKGROUND ) ) );
-					break;
-				case Effect.PLAY_ANIMATION:
-					PlayAnimationEffect playAnimationEffect = (PlayAnimationEffect) effect;
-					playAnimationEffect.setPath( newProperties.get( EFFECT_PROPERTY_PATH ) );
-					playAnimationEffect.setDestiny( Integer.parseInt( newProperties.get( EFFECT_PROPERTY_X ) ), Integer.parseInt( newProperties.get( EFFECT_PROPERTY_Y ) ) );
-					break;
-				case Effect.MOVE_PLAYER:
-					MovePlayerEffect movePlayerEffect = (MovePlayerEffect) effect;
-					movePlayerEffect.setDestiny( Integer.parseInt( newProperties.get( EFFECT_PROPERTY_X ) ), Integer.parseInt( newProperties.get( EFFECT_PROPERTY_Y ) ) );
-					break;
-				case Effect.MOVE_NPC:
-					MoveNPCEffect moveNPCEffect = (MoveNPCEffect) effect;
-					moveNPCEffect.setTargetId( newProperties.get( EFFECT_PROPERTY_TARGET ) );
-					moveNPCEffect.setDestiny( Integer.parseInt( newProperties.get( EFFECT_PROPERTY_X ) ), Integer.parseInt( newProperties.get( EFFECT_PROPERTY_Y ) ) );
-					break;
-				case Effect.TRIGGER_CONVERSATION:
-					TriggerConversationEffect triggerConversationEffect = (TriggerConversationEffect) effect;
-					triggerConversationEffect.setTargetId( newProperties.get( EFFECT_PROPERTY_TARGET ) );
-					break;
-				case Effect.TRIGGER_CUTSCENE:
-					TriggerCutsceneEffect triggerCutsceneEffect = (TriggerCutsceneEffect) effect;
-					triggerCutsceneEffect.setTargetId( newProperties.get( EFFECT_PROPERTY_TARGET ) );
-					break;
-				case Effect.TRIGGER_SCENE:
-					TriggerSceneEffect triggerSceneEffect = (TriggerSceneEffect) effect;
-					triggerSceneEffect.setTargetId( newProperties.get( EFFECT_PROPERTY_TARGET ) );
-					triggerSceneEffect.setPosition( Integer.parseInt( newProperties.get( EFFECT_PROPERTY_X ) ), Integer.parseInt( newProperties.get( EFFECT_PROPERTY_Y ) ) );
-					break;
-				case Effect.RANDOM_EFFECT:
-					RandomEffect randomEffect = (RandomEffect) effect;
-					randomEffect.setProbability( Integer.parseInt( newProperties.get( EFFECT_PROPERTY_PROBABILITY )  ) );
-					randomEffect.setPositiveEffect( pos.getEffect( ) );
-					randomEffect.setNegativeEffect( neg.getEffect( ) );
-					break;
+			
+			if( effectType!= Effect.RANDOM_EFFECT ) {
+				effectEdited = controller.addTool(new ReplaceEffectTool(effects, effect, newProperties));
+			} else {
+				effectEdited = controller.addTool(new ReplaceEffectTool(effects, effect, newProperties,
+						pos.getEffect( ),neg.getEffect( )));
 			}
 		}
 
@@ -673,7 +584,7 @@ public class EffectsController {
 	 * @return The path of the asset if it was selected, or null if no asset was selected
 	 */
 	public String selectAsset( int assetType ) {
-		String selectedAsset = null;
+		/*String selectedAsset = null;
 		String assetPath = null;
 		
 		// Show a dialog to select a file, with the fitting file filter
@@ -715,7 +626,15 @@ public class EffectsController {
 			else if( assetType == ASSET_SOUND )
 				assetPath = assetPaths[assetIndex];
 			controller.dataModified( );
-		}
+		}*/
+		int assetCategory = -1;
+		if( assetType == ASSET_ANIMATION )
+			assetCategory = AssetsController.CATEGORY_ANIMATION;
+		else if( assetType == ASSET_SOUND )
+			assetCategory = AssetsController.CATEGORY_AUDIO;
+		
+		String assetPath = SelectResourceTool.selectAssetPathUsingChooser ( assetCategory, AssetsController.FILTER_NONE );
+		
 		return assetPath;
 	}
 
@@ -943,14 +862,14 @@ public class EffectsController {
 				PlayAnimationEffect playAnimationEffect = (PlayAnimationEffect) effect;
 				if( playAnimationEffect.getPath( ).equals( assetPath ) ) {
 					playAnimationEffect.setPath( "" );
-					Controller.getInstance( ).dataModified( );
+					//Controller.getInstance( ).dataModified( );
 				}
 			} else if( type == Effect.PLAY_SOUND ) {
 				// If the asset is the same, delete it
 				PlaySoundEffect playSoundEffect = (PlaySoundEffect) effect;
 				if( playSoundEffect.getPath( ).equals( assetPath ) ) {
 					playSoundEffect.setPath( "" );
-					Controller.getInstance( ).dataModified( );
+					//Controller.getInstance( ).dataModified( );
 				}
 			}
 			

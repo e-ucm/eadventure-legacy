@@ -42,10 +42,10 @@ public abstract class EffectDialog extends ToolManagableDialog {
 	 * @param title
 	 *            Title of the dialog
 	 */
-	public EffectDialog( String title ) {
+	public EffectDialog( String title, boolean worksInLocal ) {
 
 		// Call the super method
-		super( Controller.getInstance( ).peekWindow( ), title );//, Dialog.ModalityType.APPLICATION_MODAL );
+		super( Controller.getInstance( ).peekWindow( ), title, worksInLocal );//, Dialog.ModalityType.APPLICATION_MODAL );
 
 		// Set the controller and the properties
 		controller = Controller.getInstance( );
