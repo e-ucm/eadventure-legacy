@@ -3,10 +3,8 @@ package es.eucm.eadventure.editor.control.controllers.conversation;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
-import es.eucm.eadventure.common.data.chapter.conversation.node.DialogueConversationNode;
 import es.eucm.eadventure.common.data.chapter.conversation.node.OptionConversationNode;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
@@ -14,6 +12,14 @@ import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.control.controllers.character.NPCDataControl;
+import es.eucm.eadventure.editor.control.tools.conversation.AddNodeLineTool;
+import es.eucm.eadventure.editor.control.tools.conversation.AddNodeTool;
+import es.eucm.eadventure.editor.control.tools.conversation.DeleteNodeLineTool;
+import es.eucm.eadventure.editor.control.tools.conversation.DeleteNodeLinkTool;
+import es.eucm.eadventure.editor.control.tools.conversation.DeleteNodeOptionTool;
+import es.eucm.eadventure.editor.control.tools.conversation.MoveNodeLineTool;
+import es.eucm.eadventure.editor.control.tools.general.ChangeNameTool;
+import es.eucm.eadventure.editor.control.tools.generic.ChangeStringValueTool;
 import es.eucm.eadventure.editor.gui.assetchooser.AssetChooser;
 import es.eucm.eadventure.editor.gui.editdialogs.EffectsDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.SynthesizerDialog;
@@ -127,42 +133,7 @@ public abstract class ConversationDataControl extends DataControl {
 	 * @return True if a node was added, false otherwise
 	 */
 	public boolean addChild( ConversationNodeView nodeView, int nodeType ) {
-		ConversationNode newChild = null;
-
-		// By default, add the child
-		boolean addChild = true;
-
-		// If the node has effects, ask for confirmation (for the effect will be deleted)
-		//if( nodeView.hasEffects( ) )
-		//	addChild = controller.showStrictConfirmDialog( TextConstants.getText( "Conversation.OperationAddChild" ), TextConstants.getText( "Conversation.ConfirmationAddChildToNodeWithEffects" ) );
-
-		// If it's sure to add the child
-		if( addChild ) {
-
-			// Create the requested node (only accept dialogue and option node)
-			if( nodeType == ConversationNode.DIALOGUE )
-				newChild = new DialogueConversationNode( );
-			if( nodeType == ConversationNode.OPTION )
-				newChild = new OptionConversationNode( );
-
-			// If a child has been created
-			if( newChild != null ) {
-				// Take the full conversation node
-				ConversationNode node = (ConversationNode) nodeView;
-
-				// Add the child to the given node
-				node.addChild( newChild );
-
-				// If the node was an option node, add a new line
-				if( node.getType( ) == ConversationNode.OPTION )
-					node.addLine( new ConversationLine( ConversationLine.PLAYER, TextConstants.getText( "ConversationLine.NewOption" ) ) );
-
-				// Set the data as modified
-				controller.dataModified( );
-			}
-		}
-
-		return newChild != null;
+		return controller.addTool(new AddNodeTool(nodeView, nodeType));
 	}
 
 	/**
@@ -207,11 +178,7 @@ public abstract class ConversationDataControl extends DataControl {
 	 *            Name of the line
 	 */
 	public void addNodeLine( ConversationNodeView nodeView, int lineIndex, String name ) {
-		// Insert the dialogue line in the selected position
-		( (ConversationNode) nodeView ).addLine( lineIndex, new ConversationLine( name, TextConstants.getText( "ConversationLine.DefaultText" ) ) );
-
-		// Set the data as modified
-		controller.dataModified( );
+		controller.addTool(new AddNodeLineTool(nodeView, lineIndex, name));
 	}
 
 	/**
@@ -228,13 +195,7 @@ public abstract class ConversationDataControl extends DataControl {
 		// Take the complete node
 		ConversationNode node = (ConversationNode) nodeView;
 
-		// Set the new name for the line if the value has changed
-		if( !node.getLineName( lineIndex ).equals( name ) ) {
-			node.getLine( lineIndex ).setName( name );
-
-			// Set the data as modified
-			controller.dataModified( );
-		}
+		controller.addTool(new ChangeNameTool(node.getLine( lineIndex ), name));
 	}
 
 	/**
@@ -250,14 +211,7 @@ public abstract class ConversationDataControl extends DataControl {
 	public void setNodeLineText( ConversationNodeView nodeView, int lineIndex, String text ) {
 		// Take the complete node
 		ConversationNode node = (ConversationNode) nodeView;
-
-		// Set the new text for the line if the value has changed
-		if( !node.getLineName( lineIndex ).equals( text ) ) {
-			node.getLine( lineIndex ).setText( text );
-
-			// Set the data as modified
-			controller.dataModified( );
-		}
+		controller.addTool(new ChangeStringValueTool(node.getLine( lineIndex ), text, "getText", "setText"));
 	}
 	
 	/**
@@ -276,10 +230,7 @@ public abstract class ConversationDataControl extends DataControl {
 
 		// Set the new text for the line if the value has changed
 		if( !node.hasAudioPath( lineIndex ) || !node.getAudioPath( lineIndex ).equals( audioPath ) ) {
-			node.getLine( lineIndex ).setAudioPath( audioPath );
-
-			// Set the data as modified
-			controller.dataModified( );
+			controller.addTool(new ChangeStringValueTool(node.getLine( lineIndex ), audioPath, "getAudioPath", "setAudioPath"));
 		}
 	}
 
@@ -294,28 +245,7 @@ public abstract class ConversationDataControl extends DataControl {
 	 * @return True if the line was moved, false otherwise
 	 */
 	public boolean moveNodeLineUp( ConversationNodeView nodeView, int lineIndex ) {
-		boolean lineMoved = false;
-
-		// Take the full node
-		ConversationNode node = (ConversationNode) nodeView;
-
-		// Cannot move the line up if it is in the first position
-		if( lineIndex > 0 ) {
-			// Remove the line and insert it in the upper position
-			node.addLine( lineIndex - 1, node.removeLine( lineIndex ) );
-
-			// If the node is a OptionNode, move the respective child along the line
-			if( node.getType( ) == ConversationNode.OPTION ) {
-				ConversationNode nodeMoved = node.removeChild( lineIndex );
-				node.addChild( lineIndex - 1, nodeMoved );
-			}
-
-			// The line was successfully moved
-			controller.dataModified( );
-			lineMoved = true;
-		}
-
-		return lineMoved;
+		return controller.addTool(new MoveNodeLineTool ( nodeView, lineIndex, MoveNodeLineTool.UP));
 	}
 
 	/**
@@ -328,28 +258,7 @@ public abstract class ConversationDataControl extends DataControl {
 	 * @return True if the line was moved, false otherwise
 	 */
 	public boolean moveNodeLineDown( ConversationNodeView nodeView, int lineIndex ) {
-		boolean lineMoved = false;
-
-		// Take the full node
-		ConversationNode node = (ConversationNode) nodeView;
-
-		// Cannot move the line down if it is the last position
-		if( lineIndex < node.getLineCount( ) - 1 ) {
-			// Remove the line and insert it in the lower position
-			node.addLine( lineIndex + 1, node.removeLine( lineIndex ) );
-
-			// If the node is a OptionNode, move the respective child along the line
-			if( node.getType( ) == ConversationNodeView.OPTION ) {
-				ConversationNode nodeMoved = node.removeChild( lineIndex );
-				node.addChild( lineIndex + 1, nodeMoved );
-			}
-
-			// The line was successfully moved
-			controller.dataModified( );
-			lineMoved = true;
-		}
-
-		return lineMoved;
+		return controller.addTool(new MoveNodeLineTool ( nodeView, lineIndex, MoveNodeLineTool.DOWN));
 	}
 
 	/**
@@ -361,11 +270,7 @@ public abstract class ConversationDataControl extends DataControl {
 	 *            Index of the line to delete
 	 */
 	public void deleteNodeLine( ConversationNodeView nodeView, int lineIndex ) {
-		// Delete the line
-		( (ConversationNode) nodeView ).removeLine( lineIndex );
-
-		// Set the data as modified
-		controller.dataModified( );
+		controller.addTool(new DeleteNodeLineTool(nodeView, lineIndex));
 	}
 
 	/**
@@ -377,19 +282,7 @@ public abstract class ConversationDataControl extends DataControl {
 	 * @return True if the link was deleted, false otherwise
 	 */
 	public boolean deleteNodeLink( ConversationNodeView nodeView ) {
-		boolean linkDeleted = false;
-
-		// Ask for confirmation
-		if( controller.showStrictConfirmDialog( TextConstants.getText( "Conversation.OperationDeleteLink" ), TextConstants.getText( "Conversation.ConfirmationDeleteLink" ) ) ) {
-			// Delete the link of the node
-			( (ConversationNode) nodeView ).removeChild( 0 );
-
-			// Set the data as modified
-			controller.dataModified( );
-			linkDeleted = true;
-		}
-
-		return linkDeleted;
+		return controller.addTool(new DeleteNodeLinkTool(nodeView));
 	}
 
 	/**
@@ -403,23 +296,7 @@ public abstract class ConversationDataControl extends DataControl {
 	 * @return True if the option was deleted, false otherwise
 	 */
 	public boolean deleteNodeOption( ConversationNodeView nodeView, int optionIndex ) {
-		boolean optionDeleted = false;
-
-		// Ask for confirmation
-		if( controller.showStrictConfirmDialog( TextConstants.getText( "Conversation.OperationDeleteOption" ), TextConstants.getText( "Conversation.ConfirmationDeleteOption" ) ) ) {
-			// Take the complete node
-			ConversationNode node = (ConversationNode) nodeView;
-
-			// Delete the selected option along with the line
-			node.removeLine( optionIndex );
-			node.removeChild( optionIndex );
-
-			// Set the data as modified
-			controller.dataModified( );
-			optionDeleted = true;
-		}
-
-		return optionDeleted;
+		return controller.addTool(new DeleteNodeOptionTool(nodeView, optionIndex));
 	}
 
 	/**
@@ -481,6 +358,7 @@ public abstract class ConversationDataControl extends DataControl {
 		return false;
 	}
 
+	/// TODO ME QUEDO AQUÍ
 	public boolean editLineAudioPath( ConversationNodeView selectedNode, int selectedRow ) {
 		boolean edited=false;
 		String selectedAsset = null;

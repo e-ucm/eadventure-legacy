@@ -1,11 +1,12 @@
 package es.eucm.eadventure.common.data.chapter.conversation.line;
 
+import es.eucm.eadventure.common.data.Named;
 import es.eucm.eadventure.common.data.chapter.elements.Player;
 
 /**
  * This class stores a single conversation line, along with the name of the speaker character.
  */
-public class ConversationLine implements Cloneable {
+public class ConversationLine implements Cloneable, Named {
 
 	/**
 	 * Constant for the player identifier for the lines.
