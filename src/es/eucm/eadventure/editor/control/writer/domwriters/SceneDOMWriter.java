@@ -1,5 +1,7 @@
 package es.eucm.eadventure.editor.control.writer.domwriters;
 
+import java.awt.Point;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -83,6 +85,7 @@ public class SceneDOMWriter {
 				for( Exit exit : scene.getExits( ) ) {
 					// Create the exit element
 					Element exitElement = doc.createElement( "exit" );
+					exitElement.setAttribute( "rectangular", (exit.isRectangular() ? "yes" : "no"));
 					exitElement.setAttribute( "x", String.valueOf( exit.getX( ) ) );
 					exitElement.setAttribute( "y", String.valueOf( exit.getY( ) ) );
 					exitElement.setAttribute( "width", String.valueOf( exit.getWidth( ) ) );
@@ -158,6 +161,16 @@ public class SceneDOMWriter {
 						// Append the next scene
 						exitElement.appendChild( nextSceneElement );
 					}
+					
+					if (!exit.isRectangular()) {
+						for (Point point : exit.getPoints()) {
+							Element pointNode = doc.createElement("point");
+							pointNode.setAttribute("x", String.valueOf((int) point.getX()));
+							pointNode.setAttribute("y", String.valueOf((int) point.getY()));
+							exitElement.appendChild(pointNode);
+						}
+					}
+					
 					// Append the exit
 					exitsElement.appendChild( exitElement );
 				}
@@ -267,7 +280,8 @@ public class SceneDOMWriter {
 					// Create the active area element
 					Element aaElement = doc.createElement( "active-area" );
 					if (activeArea.getId() != null)
-						aaElement.setAttribute( "id", activeArea.getId());
+					aaElement.setAttribute( "id", activeArea.getId());
+					aaElement.setAttribute( "rectangular", (activeArea.isRectangular() ? "yes" : "no"));
 					aaElement.setAttribute( "x", String.valueOf( activeArea.getX( ) ) );
 					aaElement.setAttribute( "y", String.valueOf( activeArea.getY( ) ) );
 					aaElement.setAttribute( "width", String.valueOf( activeArea.getWidth( ) ) );
@@ -390,6 +404,16 @@ public class SceneDOMWriter {
 						aaElement.appendChild( actionsNode );
 					}
 					
+					
+					if (!activeArea.isRectangular()) {
+						for (Point point : activeArea.getPoints()) {
+							Element pointNode = doc.createElement("point");
+							pointNode.setAttribute("x", String.valueOf((int) point.getX()));
+							pointNode.setAttribute("y", String.valueOf((int) point.getY()));
+							aaElement.appendChild(pointNode);
+						}
+					}
+
 					// Append the exit
 					aasElement.appendChild( aaElement );
 				}

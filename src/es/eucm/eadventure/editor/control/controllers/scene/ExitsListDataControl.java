@@ -108,7 +108,7 @@ public class ExitsListDataControl extends DataControl {
 
 		if( type == Controller.EXIT ) {
 			// Creamos una salida y su controlador
-			Exit newExit = new Exit( 0, 0, 20, 20 );
+			Exit newExit = new Exit( true, 0, 0, 20, 20 );
 			ExitDataControl newExitDataControl = new ExitDataControl( sceneDataControl, newExit );
 
 			// If there is a new next scene in the exit, add it to the list

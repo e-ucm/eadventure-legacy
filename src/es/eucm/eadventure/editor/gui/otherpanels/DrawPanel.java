@@ -1,8 +1,10 @@
 package es.eucm.eadventure.editor.gui.otherpanels;
 
+import java.awt.AlphaComposite;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
@@ -432,6 +434,27 @@ public class DrawPanel  extends JPanel {
 			g.fillOval(posX2 - i / 2, posY2 - i / 2, i, i);
 		}
 	}
+	
+	public void fillRelativePoly(int x[], int y[], Color color, float alpha) {
+		if (checkBackBuffer()) {
+			int x2[] = new int[x.length];
+			int y2[] = new int[y.length];
+			for (int i = 0; i < x2.length; i++) {
+				x2[i] = marginX + (int) (x[i] * sizeRatio);
+				y2[i] = marginY + (int) (y[i] * sizeRatio);
+			}
+			
+			Graphics2D g = (Graphics2D) backBuffer.getGraphics();
+			g.setColor(color);
+			if (alpha != 1.0f) {
+				AlphaComposite alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
+				g.setComposite(alphaComposite);
+			}
+			g.fillPolygon(x2, y2, x2.length);
+		}
+		
+	}
+
 
 	public void drawRelativeString(String id, int posX, int posY) {
 		if(checkBackBuffer()) {
@@ -493,5 +516,6 @@ public class DrawPanel  extends JPanel {
 	public void addMouseMotionListener(MouseMotionListener ml) {
 		insidePanel.addMouseMotionListener(ml);
 	}
+
 	
 }

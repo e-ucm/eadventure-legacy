@@ -3,6 +3,8 @@ package es.eucm.eadventure.engine.core.control.functionaldata;
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.Polygon;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
@@ -12,9 +14,11 @@ import es.eucm.eadventure.common.data.chapter.elements.ActiveArea;
 import es.eucm.eadventure.common.data.chapter.elements.Item;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 
-public class FunctionalActiveArea extends FunctionalItem{
+public class FunctionalActiveArea extends FunctionalItem {
 
     private ActiveArea activeArea;
+    
+    private Polygon polygon;
     
     private static Item buildItem ( ActiveArea activeArea ){
         Item item = new Item(activeArea.getId( ), activeArea.getName( ), activeArea.getDescription( ), activeArea.getDetailedDescription( ) );
@@ -54,6 +58,12 @@ public class FunctionalActiveArea extends FunctionalItem{
         
         image = bImagenTransparente;
         
+    	if (!activeArea.isRectangular()) {
+	        polygon = new Polygon();
+	        for (Point point : activeArea.getPoints()) {
+	        	polygon.addPoint(point.x, point.y);
+	        }
+    	}
         
 
     }
@@ -74,15 +84,19 @@ public class FunctionalActiveArea extends FunctionalItem{
     
     @Override
     public boolean isPointInside( float x, float y ) {
-        boolean isInside = false;
-        
-        int mousex = (int)( x - ( this.x - getWidth( ) / 2 ) );
-        int mousey = (int)( y - ( this.y - getHeight( ) ) );
-        
-        isInside = ( ( mousex >= 0 ) && ( mousex < getWidth() ) && ( mousey >= 0 ) && ( mousey < getHeight() ) ) ;
-        
-        //System.out.println( "IS ACTIVE AREA INSIDE("+this.activeArea.getId( )+")="+isInside+" "+x+" , "+y );
-        //System.out.println( "X="+this.x+" Y="+ this.y+" WIDTH="+this.getWidth( )+" HEIGHT="+this.getHeight( ));
+    	boolean isInside = false;
+        if (activeArea.isRectangular()) {
+		    
+		    int mousex = (int)( x - ( this.x - getWidth( ) / 2 ) );
+		    int mousey = (int)( y - ( this.y - getHeight( ) ) );
+		    
+		    isInside = ( ( mousex >= 0 ) && ( mousex < getWidth() ) && ( mousey >= 0 ) && ( mousey < getHeight() ) ) ;
+		    
+		    //System.out.println( "IS ACTIVE AREA INSIDE("+this.activeArea.getId( )+")="+isInside+" "+x+" , "+y );
+		    //System.out.println( "X="+this.x+" Y="+ this.y+" WIDTH="+this.getWidth( )+" HEIGHT="+this.getHeight( ));
+        } else {
+        	return polygon.contains(x, y);
+        }
         return isInside;
     }
 

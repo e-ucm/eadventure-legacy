@@ -28,9 +28,14 @@
 <!ATTLIST default-initial-position
 	%position;
 >
+<!ELEMENT point EMPTY>
+<!ATTLIST point
+	%position;
+>
 <!ELEMENT exits (exit+)>
-<!ELEMENT exit (documentation?, exit-look?, next-scene+)>
+<!ELEMENT exit (documentation?, exit-look?, next-scene+, point*)>
 <!ATTLIST exit
+	rectangular (yes | no) "yes"
 	%rectangle; 
 >
 <!ELEMENT exit-look EMPTY>
@@ -95,9 +100,10 @@
 >
 
 <!ELEMENT active-areas (active-area+)>
-<!ELEMENT active-area (documentation?, condition?, description, actions?)>
+<!ELEMENT active-area (documentation?, condition?, description, actions?, point*)>
 <!ATTLIST active-area 
 	id ID #IMPLIED
+	rectangular (yes | no) "yes"
 	%rectangle;  
 >
 

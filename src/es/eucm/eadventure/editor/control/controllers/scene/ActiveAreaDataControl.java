@@ -1,7 +1,9 @@
 package es.eucm.eadventure.editor.control.controllers.scene;
 
+import java.awt.Point;
 import java.util.List;
 
+import es.eucm.eadventure.common.data.chapter.Rectangle;
 import es.eucm.eadventure.common.data.chapter.elements.ActiveArea;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
@@ -12,9 +14,12 @@ import es.eucm.eadventure.editor.control.tools.general.ChangeDescriptionTool;
 import es.eucm.eadventure.editor.control.tools.general.ChangeDetailedDescriptionTool;
 import es.eucm.eadventure.editor.control.tools.general.ChangeDocumentationTool;
 import es.eucm.eadventure.editor.control.tools.general.ChangeNameTool;
+import es.eucm.eadventure.editor.control.tools.general.areaedition.AddNewPointTool;
+import es.eucm.eadventure.editor.control.tools.general.areaedition.ChangeRectangularValueTool;
+import es.eucm.eadventure.editor.control.tools.general.areaedition.DeletePointTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
-public class ActiveAreaDataControl extends DataControl {
+public class ActiveAreaDataControl extends DataControl implements RectangleArea {
 
 	/**
 	 * Scene controller that contains this element reference (used to extract the id of the scene).
@@ -139,6 +144,8 @@ public class ActiveAreaDataControl extends DataControl {
 		controller.addTool(new ChangeNameTool(activeArea, name));
 	}
 
+	
+	
 	/**
 	 * Sets the new brief description of the activeArea.
 	 * 
@@ -346,4 +353,33 @@ public class ActiveAreaDataControl extends DataControl {
 		check(this.getName(), TextConstants.getText("Search.Name"));
 	}
 
+	public boolean isRectangular() {
+		return activeArea.isRectangular();
+	}
+
+	public List<Point> getPoints() {
+		return activeArea.getPoints();
+	}
+
+	public void addPoint(int x, int y) {
+		controller.addTool(new AddNewPointTool(activeArea, x, y));
+	}
+
+	public Point getLastPoint() {
+		if (activeArea.getPoints().size() > 0)
+			return activeArea.getPoints().get(activeArea.getPoints().size() - 1);
+		return null;
+	}
+
+	public void deletePoint(Point point) {
+		controller.addTool(new DeletePointTool(activeArea, point));
+	}
+
+	public void setRectangular(boolean selected) {
+		controller.addTool(new ChangeRectangularValueTool(activeArea, selected));
+	}
+
+	public Rectangle getRectangle() {
+		return (Rectangle) this.getContent();
+	}
 }
