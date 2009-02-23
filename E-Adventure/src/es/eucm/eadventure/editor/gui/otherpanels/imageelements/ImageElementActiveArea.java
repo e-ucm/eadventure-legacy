@@ -4,6 +4,7 @@ import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Polygon;
 import java.awt.image.BufferedImage;
 
 import es.eucm.eadventure.editor.control.controllers.DataControl;
@@ -20,6 +21,8 @@ public class ImageElementActiveArea extends ImageElement {
 	private int maxX;
 	
 	private int maxY;
+	
+	private Polygon polygon;
 	
 	public ImageElementActiveArea(ActiveAreaDataControl activeAreaDataControl) {
 		this.activeAreaDataControl = activeAreaDataControl;
@@ -65,13 +68,17 @@ public class ImageElementActiveArea extends ImageElement {
 		AlphaComposite alphaComposite = AlphaComposite.getInstance(
 				AlphaComposite.SRC_OVER, 0.3f);
 		g.setComposite(alphaComposite);
+
 		
+		polygon = new Polygon();
+
 		int x[] = new int[activeAreaDataControl.getPoints().size()];
 		int y[] = new int[activeAreaDataControl.getPoints().size()];
 		for (int i = 0; i < activeAreaDataControl.getPoints().size(); i++) {
 			x[i] = (int) activeAreaDataControl.getPoints().get(i).getX() - minX;
 			y[i] = (int) activeAreaDataControl.getPoints().get(i).getY() - minY;
-		}
+			polygon.addPoint(x[i], y[i]);
+		}	
 		
 		g.setColor(Color.GREEN);
 		g.fillPolygon(x, y, activeAreaDataControl.getPoints().size());
@@ -152,17 +159,26 @@ public class ImageElementActiveArea extends ImageElement {
 
 	@Override
 	public int getHeight() {
-		return activeAreaDataControl.getHeight();
+		if (activeAreaDataControl.isRectangular())
+			return activeAreaDataControl.getHeight();
+		else
+			return maxY - minY;
 	}
 
 	@Override
 	public int getWidth() {
-		return activeAreaDataControl.getWidth();
+		if (activeAreaDataControl.isRectangular())
+			return activeAreaDataControl.getWidth();
+		else
+			return maxX - minX;
 	}
 
 	@Override
 	public boolean transparentPoint(int x, int y) {
-		return false;
+		if (activeAreaDataControl.isRectangular())
+			return false;
+		else
+			return !polygon.contains(x, y);
 	}
 
 	@Override

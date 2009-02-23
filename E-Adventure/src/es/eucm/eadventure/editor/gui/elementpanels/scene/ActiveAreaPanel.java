@@ -1,6 +1,7 @@
 package es.eucm.eadventure.editor.gui.elementpanels.scene;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -163,7 +164,7 @@ public class ActiveAreaPanel extends JPanel {
 			spep.setSelectedElement(activeAreaDataControl);
 			looksPanel = spep;
 		} else {
-			looksPanel = new IrregularAreaEditionPanel(scenePath, activeAreaDataControl);
+			looksPanel = new IrregularAreaEditionPanel(scenePath, activeAreaDataControl, Color.GREEN);
 			spep = ((IrregularAreaEditionPanel) looksPanel).getScenePreviewEditionPanel();
 			spep.setShowTextEdition(false);		
 		}
@@ -187,7 +188,7 @@ public class ActiveAreaPanel extends JPanel {
 		mainPanel.add( conditionsPanel, c );
 		
 		c.gridy = 1;
-		rectangular = new JCheckBox("Is rectangular?");
+		rectangular = new JCheckBox(TextConstants.getText("ActiveArea.IsRectangular"));
 		rectangular.setSelected(activeAreaDataControl.isRectangular());
 		rectangular.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {

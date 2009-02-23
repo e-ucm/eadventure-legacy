@@ -880,6 +880,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="Exit.Documentation">Documentación de la salida</entry>
 	<entry key="Exit.Preview">Posición y tamaño de la salida</entry>
 	<entry key="Exit.AdvancedOptions">Opciones avanzadas</entry>
+	<entry key="Exit.IsRectangular">Es rectangular?</entry>
 
 	<entry key="ExitLook.TextPanelTitle">Etiqueta de la salida</entry>
 	<entry key="ExitLook.CustomizeText">Etiqueta personalizada</entry>
@@ -901,6 +902,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="ActiveArea.DetailedDescription">Descripción detallada de la zona activa</entry>
 	<entry key="ActiveArea.DocPanelTitle">Documentación</entry>
 	<entry key="ActiveArea.DocPanelTip">Panel para la documentación de la zona activa</entry>
+	<entry key="ActiveArea.IsRectangular">Es rectangular?</entry>
 	
 	<entry key="Barrier.Title">Barrera</entry>
 	<entry key="Barrier.Documentation">Descripción de la barrera (no se usa en el motor)</entry>
