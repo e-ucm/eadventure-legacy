@@ -360,13 +360,13 @@ public class AssessmentHandler extends DefaultHandler {
         
         else if( qName.equals( "set-property" ) ) {
             String id = null;
-            int value = 0;
+            String value = null;
             
             for( int i = 0; i < attrs.getLength( ); i++ ) {
                 if( attrs.getQName( i ).equals( "id" ) )
                     id = attrs.getValue( i );
                 if( attrs.getQName( i ).equals( "value" ) )
-                    value = Integer.parseInt( attrs.getValue( i ) );
+                    value = attrs.getValue( i );
             }
             
             currentAssessmentRule.addProperty( new AssessmentProperty( id, value ) );

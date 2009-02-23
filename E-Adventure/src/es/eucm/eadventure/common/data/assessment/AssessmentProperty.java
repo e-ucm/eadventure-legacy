@@ -65,7 +65,7 @@ public class AssessmentProperty implements Serializable, Cloneable, HasId {
 	public Object clone() throws CloneNotSupportedException {
 		AssessmentProperty ap = (AssessmentProperty) super.clone();
 		ap.id = (id != null ? new String(id) : null);
-		ap.value = value;
+		ap.value = (value != null ? new String(value) : null);
 		return ap;
 	}
 }
