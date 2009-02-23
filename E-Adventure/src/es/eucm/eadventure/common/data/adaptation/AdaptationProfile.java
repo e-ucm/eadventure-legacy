@@ -9,7 +9,7 @@ import java.util.List;
  * @author Javier
  *
  */
-public class AdaptationProfile  implements Cloneable{
+public class AdaptationProfile  implements Cloneable, ContainsAdaptedState{
 
 	/**
 	 * Relative path of the file containing the adaptation rules
@@ -98,14 +98,14 @@ public class AdaptationProfile  implements Cloneable{
 	/**
 	 * @return the initialState
 	 */
-	public AdaptedState getInitialState() {
+	public AdaptedState getAdaptedState() {
 		return initialState;
 	}
 
 	/**
 	 * @param initialState the initialState to set
 	 */
-	public void setInitialState(AdaptedState initialState) {
+	public void setAdaptedState(AdaptedState initialState) {
 		this.initialState = initialState;
 	}
 
@@ -180,4 +180,5 @@ public class AdaptationProfile  implements Cloneable{
 			ap.vars.add((s != null ? new String(s) : null));
 		return ap; 
 	}
+
 }

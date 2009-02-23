@@ -9,6 +9,14 @@ import es.eucm.eadventure.common.data.assessment.TimedAssessmentRule;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.tools.assessment.AddAssessmentPropertyTool;
+import es.eucm.eadventure.editor.control.tools.assessment.AddEffectTool;
+import es.eucm.eadventure.editor.control.tools.assessment.DeleteAssessmentPropertyTool;
+import es.eucm.eadventure.editor.control.tools.assessment.DeleteEffectTool;
+import es.eucm.eadventure.editor.control.tools.general.ChangeIdTool;
+import es.eucm.eadventure.editor.control.tools.generic.ChangeIntegerValueTool;
+import es.eucm.eadventure.editor.control.tools.generic.ChangeStringValueTool;
+import es.eucm.eadventure.editor.control.tools.generic.MoveObjectTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class AssessmentRuleDataControl extends DataControl{
@@ -168,29 +176,27 @@ public class AssessmentRuleDataControl extends DataControl{
 	}
 
 	public void setConcept( String text ) {
-		assessmentRule.setConcept( text );
+		controller.addTool(new ChangeStringValueTool(assessmentRule, text, "getConcept", "setConcept"));
 		
 	}
 
 	public void setEffectText( String text ) {
-		assessmentRule.setText( text );
-		controller.dataModified( );
+		controller.addTool(new ChangeStringValueTool(assessmentRule, text, "getText", "setText"));
 	}
-	
+
 	public void setEffectText( int effect, String text ) {
 		if (assessmentRule instanceof TimedAssessmentRule){
 			TimedAssessmentRule tRule = (TimedAssessmentRule)assessmentRule;
-			tRule.setText( text, effect );
-			controller.dataModified( );
+			if (effect >=0 && effect<tRule.getEffectsCount() ){
+				controller.addTool(new ChangeStringValueTool(tRule.getEffects().get(effect), text, "getText", "setText"));
+			}
 		} else {
-			assessmentRule.setText( text );		
-			controller.dataModified( );
+			controller.addTool(new ChangeStringValueTool(assessmentRule, text, "getText", "setText"));
 		}
 	}
 
 	public void setImportance( int importance ) {
-		assessmentRule.setImportance( importance );
-		
+		controller.addTool(new ChangeIntegerValueTool(assessmentRule, importance, "getImportance", "setImportance"));
 	}
 	
 	public int getImportance( ) {
@@ -220,77 +226,45 @@ public class AssessmentRuleDataControl extends DataControl{
 
 
 	public boolean movePropertyUp( int selectedRow ) {
-		boolean elementMoved = false;
-
-		if( selectedRow > 0 ) {
-			assessmentRule.getAssessmentProperties( ).add( selectedRow - 1, assessmentRule.getAssessmentProperties( ).remove( selectedRow ) );
-			controller.dataModified( );
-			elementMoved = true;
-		}
-
-		return elementMoved;
-
+		return	controller.addTool(new MoveObjectTool(assessmentRule.getAssessmentProperties( ),selectedRow,MoveObjectTool.MODE_UP));
 	}
 	
 	public boolean movePropertyUp( int selectedRow, int effect ) {
-		boolean elementMoved = false;
 		if (assessmentRule instanceof TimedAssessmentRule){
 			TimedAssessmentRule tRule = (TimedAssessmentRule)assessmentRule;
 			if(  effect>=0 && effect<tRule.getEffectsCount( ) && selectedRow >0 ) {
-				tRule.getEffects( ).get( effect ).getAssessmentProperties( ).add( selectedRow - 1, assessmentRule.getAssessmentProperties( ).remove( selectedRow ) );
-				controller.dataModified( );
-				elementMoved = true;
+				return	controller.addTool(new MoveObjectTool(
+						tRule.getEffects( ).get( effect ).getAssessmentProperties( ),selectedRow,MoveObjectTool.MODE_UP));
 			}	
 		} else {
-			if( selectedRow > 0 ) {
-				assessmentRule.getAssessmentProperties( ).add( selectedRow - 1, assessmentRule.getAssessmentProperties( ).remove( selectedRow ) );
-				controller.dataModified( );
-				elementMoved = true;
-			}
+			return movePropertyUp( selectedRow );
 		}
 
-		return elementMoved;
+		return false;
 
 	}
 
 
 	public boolean movePropertyDown( int selectedRow ) {
-		boolean elementMoved = false;
-		
-		if( selectedRow < assessmentRule.getAssessmentProperties( ).size( ) - 1 ) {
-			assessmentRule.getAssessmentProperties( ).add( selectedRow + 1, assessmentRule.getAssessmentProperties( ).remove( selectedRow ) );
-			controller.dataModified( );
-			elementMoved = true;
-		}
-
-		return elementMoved;	
+		return	controller.addTool(new MoveObjectTool(assessmentRule.getAssessmentProperties( ),selectedRow,MoveObjectTool.MODE_DOWN));
 	}
 	
 	public boolean movePropertyDown( int selectedRow, int effect ) {
-		boolean elementMoved = false;
-
 		if (assessmentRule instanceof TimedAssessmentRule){
 			TimedAssessmentRule tRule = (TimedAssessmentRule)assessmentRule;
 			if( effect>=0 && effect<tRule.getEffectsCount( ) && selectedRow < tRule.getEffects( ).get( effect ).getAssessmentProperties( ).size( ) - 1 ) {
-				tRule.getEffects( ).get( effect ).getAssessmentProperties( ).add( selectedRow + 1, assessmentRule.getAssessmentProperties( ).remove( selectedRow ) );
-				controller.dataModified( );
-				elementMoved = true;
+				return	controller.addTool(new MoveObjectTool(tRule.getEffects( ).get( effect ).getAssessmentProperties( ),selectedRow,MoveObjectTool.MODE_UP));
 			}	
 		} else {
-			if( selectedRow < assessmentRule.getAssessmentProperties( ).size( ) - 1 ) {
-				assessmentRule.getAssessmentProperties( ).add( selectedRow + 1, assessmentRule.getAssessmentProperties( ).remove( selectedRow ) );
-				controller.dataModified( );
-				elementMoved = true;
-			}			
+			return movePropertyDown(selectedRow);
 		}
 
-		return elementMoved;	
+		return false;	
 	}
 
 
-	public void addBlankProperty( int selectedRow ) {
-		assessmentRule.getAssessmentProperties( ).add( selectedRow, new AssessmentProperty("PropertyId", 0) );
-		controller.dataModified( );
+	public boolean addBlankProperty( int selectedRow ) {
+		return controller.addTool(new AddAssessmentPropertyTool(assessmentRule.getAssessmentProperties(),selectedRow));
 	}
 	
 	public boolean addBlankProperty( int selectedRow, int effect ) {
@@ -298,46 +272,33 @@ public class AssessmentRuleDataControl extends DataControl{
 		if (assessmentRule instanceof TimedAssessmentRule){
 			TimedAssessmentRule tRule = (TimedAssessmentRule)assessmentRule;
 			if (effect>=0 && effect<tRule.getEffectsCount( )){
-				TimedAssessmentEffect currentEffect = tRule.getEffects( ).get( effect ); 
-				currentEffect.getAssessmentProperties( ).add( selectedRow, new AssessmentProperty("PropertyId", 0) );
-				controller.dataModified( );
-				added = true;
+				TimedAssessmentEffect currentEffect = tRule.getEffects( ).get( effect );
+				added = controller.addTool(new AddAssessmentPropertyTool(currentEffect.getAssessmentProperties(),selectedRow));
 			}
 		} else {
-			assessmentRule.getAssessmentProperties( ).add( selectedRow, new AssessmentProperty("PropertyId", 0) );
-			controller.dataModified( );
-			added = true;
+			added = addBlankProperty ( selectedRow );
 		}
 
 		return added;
 	}
 
 
-	public void deleteProperty( int selectedRow ) {
-		if (selectedRow >=0 && selectedRow <assessmentRule.getAssessmentProperties( ).size( )){
-			assessmentRule.getAssessmentProperties( ).remove( selectedRow );
-			controller.dataModified( );
-		}
-
-		
+	public boolean deleteProperty( int selectedRow ) {
+		return controller.addTool(new DeleteAssessmentPropertyTool(assessmentRule.getAssessmentProperties(),selectedRow));
 	}
 	
-	public void deleteProperty( int selectedRow, int effect ) {
-			if (assessmentRule instanceof TimedAssessmentRule){
-				TimedAssessmentRule tRule = (TimedAssessmentRule)assessmentRule;
-				if (effect>=0 && effect<tRule.getEffectsCount( )){
-					tRule.getEffects( ).get( effect ).getAssessmentProperties( ).remove( selectedRow );
-					controller.dataModified( );
-				}
-			} else {
-
-		if (selectedRow >=0 && selectedRow <assessmentRule.getAssessmentProperties( ).size( )){
-			assessmentRule.getAssessmentProperties( ).remove( selectedRow );
-			controller.dataModified( );
-		}
+	public boolean deleteProperty( int selectedRow, int effect ) {
+		if (assessmentRule instanceof TimedAssessmentRule){
+			TimedAssessmentRule tRule = (TimedAssessmentRule)assessmentRule;
+			if (effect>=0 && effect<tRule.getEffectsCount( )){
+				return controller.addTool(new DeleteAssessmentPropertyTool(tRule.getEffects( ).get( effect ).getAssessmentProperties( )
+						,selectedRow));
 			}
-
-		
+		} 
+		else {
+			return deleteProperty ( selectedRow );
+		}
+		return false;
 	}
 
 
@@ -363,8 +324,8 @@ public class AssessmentRuleDataControl extends DataControl{
 			
 			try{
 				int value = Integer.parseInt( string );
-				assessmentRule.getAssessmentProperties( ).get( rowIndex ).setValue( value );
-				controller.dataModified( );
+				controller.addTool(new ChangeIntegerValueTool(assessmentRule.getAssessmentProperties( ).get( rowIndex ),
+						value, "getValue", "setValue"));
 			} catch (Exception e){
 				//Display error message
 				controller.showErrorDialog( TextConstants.getText("AssessmentRule.InvalidPropertyID"), TextConstants.getText("AssessmentRule.InvalidPropertyID.Message") );
@@ -382,58 +343,38 @@ public class AssessmentRuleDataControl extends DataControl{
 			if (property!=null){
 				try{
 					int value = Integer.parseInt( string );
-					property.setValue( value );
-					controller.dataModified( );
+					controller.addTool(new ChangeIntegerValueTool(property,	value, "getValue", "setValue"));
 				} catch (Exception e){
 					//Display error message
 					controller.showErrorDialog( TextConstants.getText("AssessmentRule.InvalidPropertyID"), TextConstants.getText("AssessmentRule.InvalidPropertyID.Message") );
 				}
 			}
 		}else {
-			if (rowIndex >=0 && rowIndex <assessmentRule.getAssessmentProperties( ).size( )){
-				//Check only integers are set
-				try{
-					int value = Integer.parseInt( string );
-					assessmentRule.getAssessmentProperties( ).get( rowIndex ).setValue( value );
-				} catch (Exception e){
-					//Display error message
-					controller.showErrorDialog( TextConstants.getText("AssessmentRule.InvalidPropertyID"), TextConstants.getText("AssessmentRule.InvalidPropertyID.Message") );
-					controller.dataModified( );
-				}
-				
-			}
+			setPropertyValue ( rowIndex, string);
 		}
-
-		
-		
-
-		
 	}
 
 
 	public void setPropertyId( int rowIndex, String string ) {
 		if (rowIndex >=0 && rowIndex <assessmentRule.getAssessmentProperties( ).size( )){
 			if (controller.isElementIdValid( string )){
-				assessmentRule.getAssessmentProperties( ).get( rowIndex ).setId( string );
-				controller.dataModified( );
+				controller.addTool(new ChangeIdTool(assessmentRule.getAssessmentProperties( ).get( rowIndex ), string ));
 			}
 		}
 		
 	}
-	
+
 	public void setPropertyId( int rowIndex, int effect, String string ) {
 		if (assessmentRule instanceof TimedAssessmentRule){
 			TimedAssessmentRule tRule = (TimedAssessmentRule)assessmentRule;
 			AssessmentProperty property = tRule.getProperty( rowIndex, effect );
 			if (property!=null){
-				property.setId( string );
-				controller.dataModified( );
+				controller.addTool(new ChangeIdTool(property, string ));
 			}
 		}else {
 			if (rowIndex >=0 && rowIndex <assessmentRule.getAssessmentProperties( ).size( )){
 				if (controller.isElementIdValid( string )){
-					assessmentRule.getAssessmentProperties( ).get( rowIndex ).setId( string );
-					controller.dataModified( );
+					controller.addTool(new ChangeIdTool(assessmentRule.getAssessmentProperties( ).get( rowIndex ), string ));
 				}
 			}
 
@@ -496,21 +437,18 @@ public class AssessmentRuleDataControl extends DataControl{
 		return tRule.getMaxTime( effect );
 		
 	}
-	
+
 	public void setMinTime (int time, int effect){
 		TimedAssessmentRule tRule = (TimedAssessmentRule)assessmentRule;
 		if (effect>=0 && effect<tRule.getEffectsCount( )){
-			tRule.setMinTime( time, effect );
-			controller.dataModified( );
+			controller.addTool(new ChangeIntegerValueTool(tRule.getEffects().get(effect), time, "getMinTime", "setMinTime"));
 		}
 	}
 	
 	public void setMaxTime (int time, int effect){
 		TimedAssessmentRule tRule = (TimedAssessmentRule)assessmentRule;
 		if (effect>=0 && effect<tRule.getEffectsCount( )){
-			tRule.setMaxTime( time, effect );
-			controller.dataModified( );
-		}
+			controller.addTool(new ChangeIntegerValueTool(tRule.getEffects().get(effect), time, "getMaxTime", "setMaxTime"));		}
 	}
 	
 	public int getEffectsCount(){
@@ -529,13 +467,12 @@ public class AssessmentRuleDataControl extends DataControl{
 	
 	public void addEffectBlock( int index ){
 		TimedAssessmentRule tRule = (TimedAssessmentRule)assessmentRule;
-		tRule.addEffect( );
+		controller.addTool(new AddEffectTool(tRule, index));
 	}
-	
+
 	public void removeEffectBlock(int currentIndex ){
 		TimedAssessmentRule tRule = (TimedAssessmentRule)assessmentRule;
-		if (currentIndex>=0 && currentIndex<tRule.getEffectsCount( ))
-			tRule.getEffects( ).remove( currentIndex );
+		controller.addTool(new DeleteEffectTool(tRule, currentIndex));
 	}
 
 	@Override

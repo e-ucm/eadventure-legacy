@@ -12,6 +12,10 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.tools.adaptation.AddActionTool;
+import es.eucm.eadventure.editor.control.tools.adaptation.ChangeActionTool;
+import es.eucm.eadventure.editor.control.tools.adaptation.DeleteActionTool;
+import es.eucm.eadventure.editor.control.tools.general.ChangeTargetIdTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class AdaptationProfileDataControl extends DataControl{
@@ -248,7 +252,7 @@ public class AdaptationProfileDataControl extends DataControl{
 			dataControl.updateVarFlagSummary( varFlagSummary );
 		
 		//Update the initial state
-		for (String flag: profile.getInitialState().getFlagsVars( )){
+		for (String flag: profile.getAdaptedState().getFlagsVars( )){
 			varFlagSummary.addFlagReference( flag );	
 		}
 		
@@ -258,80 +262,45 @@ public class AdaptationProfileDataControl extends DataControl{
 	 * @return the profile.getInitialState()
 	 */
 	public AdaptedState getInitialState( ) {
-		return profile.getInitialState();
-	}
-
-	/**
-	 * @param profile.getInitialState() the profile.getInitialState() to set
-	 */
-	public void setInitialState( AdaptedState initialState ) {
-		this.profile.setInitialState( profile.getInitialState() );
+		return profile.getAdaptedState();
 	}
 
 	public void setInitialScene( String initScene ) {
-		if (profile.getInitialState()==null)
-			profile.setInitialState( new AdaptedState() );
-		profile.getInitialState().setTargetId( initScene );
+		if (profile.getAdaptedState()==null)
+			profile.setAdaptedState( new AdaptedState() );
+		controller.addTool(new ChangeTargetIdTool(profile.getAdaptedState(), initScene));
 	}
 	
 	public String getInitialScene(  ) {
-		return profile.getInitialState().getTargetId( );
+		return profile.getAdaptedState().getTargetId( );
 	}
 
 	public boolean addFlagAction( int selectedRow ) {
-		boolean added=false;
-		//Check there is at least one flag
-
-		String[] flags = Controller.getInstance( ).getVarFlagSummary( ).getFlags( );
-		if (flags!=null && flags.length>0){
-
-			//	By default, the flag is activated. Default flag will be the first one
-			profile.getInitialState().addActivatedFlag( flags[0] );
-			added=true;
-		}
-		
-		//Otherwise, prompt error message
-		// If the list had no elements, show an error message
-		else
-			Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Adaptation.ErrorNoFlags.Title" ), TextConstants.getText( "Adaptation.ErrorNoFlags" ) );
-		
-		return added;
-		
+		return controller.addTool(new AddActionTool(profile, selectedRow));
 	}
 
 	public void deleteFlagAction( int selectedRow ) {
-		if (selectedRow >=0 && selectedRow <profile.getInitialState().getFlagsVars( ).size( )){
-			profile.getInitialState().removeFlagVar( selectedRow );
-			controller.updateFlagSummary( );
-		}
+		controller.addTool(new DeleteActionTool(profile, selectedRow));
 	}
 
 	public int getFlagActionCount( ) {
-		return profile.getInitialState().getFlagsVars( ).size( );
-	}
-
-	public void changeAction( int rowIndex ) {
-		if (rowIndex >=0 && rowIndex <profile.getInitialState().getFlagsVars( ).size( )){
-			profile.getInitialState().changeAction( rowIndex );
-		}
-
-		
+		return profile.getAdaptedState().getFlagsVars( ).size( );
 	}
 
 	public void setFlag( int rowIndex, String flag ) {
-		if (rowIndex >=0 && rowIndex <profile.getInitialState().getFlagsVars(  ).size( )){
-			profile.getInitialState().changeFlag( rowIndex, flag );
-			controller.updateFlagSummary( );
-		}
-		
+		controller.addTool(new ChangeActionTool(profile, rowIndex, flag, ChangeActionTool.SET_ID));
+	}
+	
+	public void setAction( int rowIndex, String string ) {
+		controller.addTool(new ChangeActionTool(profile, rowIndex, string, ChangeActionTool.SET_VALUE));
 	}
 
 	public String getFlag( int rowIndex ) {
-		return profile.getInitialState().getFlagVar( rowIndex );
+		return profile.getAdaptedState().getFlagVar( rowIndex );
 	}
 
 	public String getAction( int rowIndex ) {
-		return profile.getInitialState().getAction( rowIndex );
+		return profile.getAdaptedState().getAction( rowIndex );
 	}
 
 	public String[][] getAdaptationRulesInfo( ) {
@@ -349,25 +318,11 @@ public class AdaptationProfileDataControl extends DataControl{
 		return info;
 	}
 
-	public void setAction( int rowIndex, String string ) {
-		if (!profile.getInitialState().getAction( rowIndex ).equals( string ))
-			profile.getInitialState().changeAction( rowIndex );
-		
-		
-	}
-
 	/**
 	 * @return the profile.getPath()
 	 */
 	public String getPath( ) {
 		return profile.getPath();
-	}
-
-	/**
-	 * @param profile.getPath() the profile.getPath() to set
-	 */
-	public void setPath( String path) {
-		this.profile.setPath( path );
 	}
 
 	@Override

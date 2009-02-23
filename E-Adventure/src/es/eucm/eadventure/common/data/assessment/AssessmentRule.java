@@ -134,7 +134,7 @@ public class AssessmentRule implements Cloneable {
      * Return the rule's importance
      * @return Importance of the rule
      */
-    public int getImportance( ) {
+    public Integer getImportance( ) {
         return importance;
     }
 
@@ -162,7 +162,7 @@ public class AssessmentRule implements Cloneable {
 	/**
 	 * @param importance the importance to set
 	 */
-	public void setImportance( int importance ) {
+	public void setImportance( Integer importance ) {
 		this.importance = importance;
 	}
 

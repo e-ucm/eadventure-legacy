@@ -58,7 +58,7 @@ public class AdaptationEngine {
 		    	vars.addVar ( var );
 		    }
 
-		    initialAdaptedState = profile.getInitialState();
+		    initialAdaptedState = profile.getAdaptedState();
 		    externalAdaptationRules = profile.getRules();
     	} else {
     		initialAdaptedState = new AdaptedState();

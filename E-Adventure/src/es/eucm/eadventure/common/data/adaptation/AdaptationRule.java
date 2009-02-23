@@ -11,7 +11,7 @@ import es.eucm.eadventure.common.data.Described;
 /**
  * 
  */
-public class AdaptationRule implements Cloneable, Described {
+public class AdaptationRule implements Cloneable, Described, ContainsAdaptedState {
 
 	//ID
 	private String id;

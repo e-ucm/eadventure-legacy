@@ -2,10 +2,12 @@ package es.eucm.eadventure.common.data.assessment;
 
 import java.io.Serializable;
 
+import es.eucm.eadventure.common.data.HasId;
+
 /**
  * Assessment property, stores an id and a value
  */
-public class AssessmentProperty implements Serializable, Cloneable {
+public class AssessmentProperty implements Serializable, Cloneable, HasId {
 
     /**
      * Required
@@ -44,7 +46,7 @@ public class AssessmentProperty implements Serializable, Cloneable {
      * Returns the value of the property
      * @return Value of the property
      */
-    public int getValue( ) {
+    public Integer getValue( ) {
         return value;
     }
 
@@ -52,7 +54,7 @@ public class AssessmentProperty implements Serializable, Cloneable {
 		this.id=id;
 	}
 
-	public void setValue( int value ) {
+	public void setValue( Integer value ) {
 		this.value = value;
 	}
 	

@@ -16,14 +16,14 @@ public class TimedAssessmentEffect extends AssessmentEffect {
 	/**
 	 * @return the minTime
 	 */
-	public int getMinTime( ) {
+	public Integer getMinTime( ) {
 		return minTime;
 	}
 
 	/**
 	 * @param minTime the minTime to set
 	 */
-	public void setMinTime( int minTime ) {
+	public void setMinTime( Integer minTime ) {
 		this.minTime = minTime;
 	}
 

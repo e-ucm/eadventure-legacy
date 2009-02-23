@@ -3,6 +3,7 @@ package es.eucm.eadventure.editor.control.tools.adaptation;
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.adaptation.AdaptationRule;
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
+import es.eucm.eadventure.common.data.adaptation.ContainsAdaptedState;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.tools.Tool;
@@ -17,7 +18,7 @@ public class ChangeActionTool extends Tool{
 	public static final int SET_ID = 2;
 	public static final int SET_VALUE = 3;
 	
-	protected AdaptationRule rule;
+	protected ContainsAdaptedState containsAS;
 	
 	protected AdaptedState state;
 	
@@ -29,8 +30,8 @@ public class ChangeActionTool extends Tool{
 	
 	protected String newValue;
 	
-	public ChangeActionTool (AdaptationRule rule, int index, String newValue, int mode){
-		this.rule = rule;
+	public ChangeActionTool (ContainsAdaptedState rule, int index, String newValue, int mode){
+		this.containsAS = rule;
 		this.state = rule.getAdaptedState();
 		this.index = index;
 		this.newValue = newValue;
@@ -90,7 +91,7 @@ public class ChangeActionTool extends Tool{
 
 	@Override
 	public boolean redoTool() {
-		rule.setAdaptedState( state );
+		containsAS.setAdaptedState( state );
 		Controller.getInstance( ).updateFlagSummary( );
 		Controller.getInstance().updatePanel();
 		return true;
@@ -98,7 +99,7 @@ public class ChangeActionTool extends Tool{
 
 	@Override
 	public boolean undoTool() {
-		rule.setAdaptedState( oldState );
+		containsAS.setAdaptedState( oldState );
 		Controller.getInstance( ).updateFlagSummary( );
 		Controller.getInstance().updatePanel();
 		return true;
