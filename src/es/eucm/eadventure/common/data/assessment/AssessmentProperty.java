@@ -22,14 +22,14 @@ public class AssessmentProperty implements Serializable, Cloneable, HasId {
     /**
      * Value of the property
      */
-    private int value; 
+    private String value; 
 
     /**
      * Default constructor
      * @param id Id of the property
      * @param value Value of the property
      */
-    public AssessmentProperty( String id, int value ) {
+    public AssessmentProperty( String id, String value ) {
         this.id = id;
         this.value = value;
     }
@@ -46,7 +46,9 @@ public class AssessmentProperty implements Serializable, Cloneable, HasId {
      * Returns the value of the property
      * @return Value of the property
      */
-    public Integer getValue( ) {
+
+    public String getValue( ) {
+
         return value;
     }
 
@@ -54,7 +56,9 @@ public class AssessmentProperty implements Serializable, Cloneable, HasId {
 		this.id=id;
 	}
 
-	public void setValue( Integer value ) {
+
+	public void setValue( String value ) {
+
 		this.value = value;
 	}
 	

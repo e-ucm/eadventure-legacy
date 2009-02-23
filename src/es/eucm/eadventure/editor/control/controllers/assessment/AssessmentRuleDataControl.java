@@ -161,10 +161,6 @@ public class AssessmentRuleDataControl extends DataControl{
 	public String getConcept( ) {
 		return assessmentRule.getConcept( );
 	}
-
-	public String getEffectText( ) {
-		return assessmentRule.getText( );
-	}
 	
 	public String getEffectText( int effect ) {
 		if (assessmentRule instanceof TimedAssessmentRule){
@@ -180,9 +176,11 @@ public class AssessmentRuleDataControl extends DataControl{
 		
 	}
 
+
 	public void setEffectText( String text ) {
 		controller.addTool(new ChangeStringValueTool(assessmentRule, text, "getText", "setText"));
 	}
+
 
 	public void setEffectText( int effect, String text ) {
 		if (assessmentRule instanceof TimedAssessmentRule){
@@ -225,9 +223,11 @@ public class AssessmentRuleDataControl extends DataControl{
 
 
 
+
 	public boolean movePropertyUp( int selectedRow ) {
 		return	controller.addTool(new MoveObjectTool(assessmentRule.getAssessmentProperties( ),selectedRow,MoveObjectTool.MODE_UP));
 	}
+
 	
 	public boolean movePropertyUp( int selectedRow, int effect ) {
 		if (assessmentRule instanceof TimedAssessmentRule){
@@ -245,10 +245,12 @@ public class AssessmentRuleDataControl extends DataControl{
 	}
 
 
+
 	public boolean movePropertyDown( int selectedRow ) {
 		return	controller.addTool(new MoveObjectTool(assessmentRule.getAssessmentProperties( ),selectedRow,MoveObjectTool.MODE_DOWN));
 	}
 	
+
 	public boolean movePropertyDown( int selectedRow, int effect ) {
 		if (assessmentRule instanceof TimedAssessmentRule){
 			TimedAssessmentRule tRule = (TimedAssessmentRule)assessmentRule;
@@ -263,9 +265,9 @@ public class AssessmentRuleDataControl extends DataControl{
 	}
 
 
-	public boolean addBlankProperty( int selectedRow ) {
-		return controller.addTool(new AddAssessmentPropertyTool(assessmentRule.getAssessmentProperties(),selectedRow));
-	}
+
+
+
 	
 	public boolean addBlankProperty( int selectedRow, int effect ) {
 		boolean added = false;
@@ -274,9 +276,11 @@ public class AssessmentRuleDataControl extends DataControl{
 			if (effect>=0 && effect<tRule.getEffectsCount( )){
 				TimedAssessmentEffect currentEffect = tRule.getEffects( ).get( effect );
 				added = controller.addTool(new AddAssessmentPropertyTool(currentEffect.getAssessmentProperties(),selectedRow));
+
 			}
 		} else {
-			added = addBlankProperty ( selectedRow );
+
+			added = controller.addTool(new AddAssessmentPropertyTool(assessmentRule.getAssessmentProperties(),selectedRow));;
 		}
 
 		return added;
@@ -287,6 +291,7 @@ public class AssessmentRuleDataControl extends DataControl{
 		return controller.addTool(new DeleteAssessmentPropertyTool(assessmentRule.getAssessmentProperties(),selectedRow));
 	}
 	
+
 	public boolean deleteProperty( int selectedRow, int effect ) {
 		if (assessmentRule instanceof TimedAssessmentRule){
 			TimedAssessmentRule tRule = (TimedAssessmentRule)assessmentRule;
@@ -301,11 +306,6 @@ public class AssessmentRuleDataControl extends DataControl{
 		return false;
 	}
 
-
-	public int getPropertyCount( ) {
-		return assessmentRule.getAssessmentProperties( ).size( );
-	}
-	
 	public int getPropertyCount( int effect ) {
 		if (assessmentRule instanceof TimedAssessmentRule){
 			TimedAssessmentRule tRule = (TimedAssessmentRule)assessmentRule;
@@ -318,14 +318,15 @@ public class AssessmentRuleDataControl extends DataControl{
 	}
 
 
+	
+
 	public void setPropertyValue( int rowIndex, String string ) {
 		if (rowIndex >=0 && rowIndex <assessmentRule.getAssessmentProperties( ).size( )){
 			//Check only integers are set
 			
 			try{
-				int value = Integer.parseInt( string );
-				controller.addTool(new ChangeIntegerValueTool(assessmentRule.getAssessmentProperties( ).get( rowIndex ),
-						value, "getValue", "setValue"));
+				controller.addTool(new ChangeStringValueTool(assessmentRule.getAssessmentProperties( ).get( rowIndex ),
+						string, "getValue", "setValue"));
 			} catch (Exception e){
 				//Display error message
 				controller.showErrorDialog( TextConstants.getText("AssessmentRule.InvalidPropertyID"), TextConstants.getText("AssessmentRule.InvalidPropertyID.Message") );
@@ -334,16 +335,18 @@ public class AssessmentRuleDataControl extends DataControl{
 		}
 
 		
+		
 	}
 	
 	public void setPropertyValue( int rowIndex, int effect, String string ) {
+
 		if (assessmentRule instanceof TimedAssessmentRule){
 			TimedAssessmentRule tRule = (TimedAssessmentRule)assessmentRule;
 			AssessmentProperty property = tRule.getProperty( rowIndex, effect );
 			if (property!=null){
 				try{
-					int value = Integer.parseInt( string );
-					controller.addTool(new ChangeIntegerValueTool(property,	value, "getValue", "setValue"));
+					controller.addTool(new ChangeStringValueTool(property,	string, "getValue", "setValue"));
+
 				} catch (Exception e){
 					//Display error message
 					controller.showErrorDialog( TextConstants.getText("AssessmentRule.InvalidPropertyID"), TextConstants.getText("AssessmentRule.InvalidPropertyID.Message") );
@@ -351,6 +354,7 @@ public class AssessmentRuleDataControl extends DataControl{
 			}
 		}else {
 			setPropertyValue ( rowIndex, string);
+
 		}
 	}
 
@@ -361,8 +365,9 @@ public class AssessmentRuleDataControl extends DataControl{
 				controller.addTool(new ChangeIdTool(assessmentRule.getAssessmentProperties( ).get( rowIndex ), string ));
 			}
 		}
-		
+
 	}
+
 
 	public void setPropertyId( int rowIndex, int effect, String string ) {
 		if (assessmentRule instanceof TimedAssessmentRule){
@@ -384,10 +389,6 @@ public class AssessmentRuleDataControl extends DataControl{
 		
 	}
 
-	public String getPropertyId( int rowIndex ) {
-		return this.assessmentRule.getAssessmentProperties( ).get( rowIndex ).getId( );
-	}
-	
 	public String getPropertyId( int rowIndex, int effect ) {
 		if (assessmentRule instanceof TimedAssessmentRule){
 			TimedAssessmentRule tRule = (TimedAssessmentRule)assessmentRule;
@@ -402,18 +403,14 @@ public class AssessmentRuleDataControl extends DataControl{
 		
 	}
 
-	public int getPropertyValue( int rowIndex ) {
-		return this.assessmentRule.getAssessmentProperties( ).get( rowIndex ).getValue( );
-	}
-	
-	public int getPropertyValue( int rowIndex, int effect ) {
+	public String getPropertyValue( int rowIndex, int effect ) {
 		if (assessmentRule instanceof TimedAssessmentRule){
 			TimedAssessmentRule tRule = (TimedAssessmentRule)assessmentRule;
 			AssessmentProperty property = tRule.getProperty( rowIndex, effect );
 			if (property!=null){
 				return property.getValue( );
 			}else
-				return Integer.MIN_VALUE;
+				return "";
 		}else {
 			return this.assessmentRule.getAssessmentProperties( ).get( rowIndex ).getValue( );
 		}
@@ -482,18 +479,28 @@ public class AssessmentRuleDataControl extends DataControl{
 
 	@Override
 	public void recursiveSearch() {
+		
 		check(this.getConcept(), TextConstants.getText("Search.Concept"));
-		check(this.getEffectText(), TextConstants.getText("Search.EffectText"));
+		
+		if (assessmentRule instanceof AssessmentRule){
+			for (int j = 0; j < this.getPropertyCount(-1); j++)
+				check(this.getPropertyId(j,-1), TextConstants.getText("Search.PropertyID"));
+		
+			check(this.getEffectText(-1), TextConstants.getText("Search.EffectText"));
+		
+		}
 		check(this.getId(), "ID");
 		check(this.getConditions(), TextConstants.getText("Search.Conditions"));
+		
+		if (assessmentRule instanceof TimedAssessmentRule){
 		for (int i = 0; i < this.getEffectsCount(); i++) {
 			check(this.getEffectNames()[i], TextConstants.getText("Search.EffectName"));
 			check(this.getEffectText(i), TextConstants.getText("Search.EffectText"));
+			for (int j = 0; j < this.getPropertyCount(i); j++)
+				check(this.getPropertyId(j,i), TextConstants.getText("Search.PropertyID"));
+		}
 		}
 		check(this.getEndConditions(), TextConstants.getText("Search.EndConditions"));
-		for (int i = 0; i < this.getPropertyCount(); i++) {
-			check(this.getPropertyId(i), TextConstants.getText("Search.PropertyID"));
-		}
 	}
 
 }

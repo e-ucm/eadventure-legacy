@@ -135,7 +135,7 @@ public class AssessmentRulePanel extends JPanel {
 		c2.weightx=1; c2.weighty=0.2;
 		JPanel textPanel = new JPanel( );
 		textPanel.setLayout( new GridLayout( ) );
-		textTextArea = new JTextArea( assRuleDataControl.getEffectText( ), 4, 0 );
+		textTextArea = new JTextArea( assRuleDataControl.getEffectText( 0), 4, 0 );
 		textTextArea.setLineWrap( true );
 		textTextArea.setWrapStyleWord( true );
 		textTextArea.getDocument( ).addDocumentListener( new DocumentationTextAreaChangesListener( ) );
@@ -185,7 +185,7 @@ public class AssessmentRulePanel extends JPanel {
 			}
 			
 			else if (arg0.getDocument( ) == textTextArea.getDocument( )){
-				assessmentRuleDataControl.setEffectText( textTextArea.getText( ) );
+				assessmentRuleDataControl.setEffectText( -1,textTextArea.getText( ) );
 			}
 
 			
@@ -204,7 +204,7 @@ public class AssessmentRulePanel extends JPanel {
 			}
 			
 			else if (arg0.getDocument( ) == textTextArea.getDocument( )){
-				assessmentRuleDataControl.setEffectText( textTextArea.getText( ) );
+				assessmentRuleDataControl.setEffectText(-1, textTextArea.getText( ) );
 			}
 
 

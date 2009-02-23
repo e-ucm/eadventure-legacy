@@ -476,7 +476,7 @@ class AssessmentPropertiesPanel extends JPanel {
 					break;
 				case 1:
 					// Property value
-					value = Integer.toString( assessmentRuleDataControl.getPropertyValue ( rowIndex, currentIndex ));
+					value = assessmentRuleDataControl.getPropertyValue ( rowIndex, currentIndex );
 					break;
 			}
 
