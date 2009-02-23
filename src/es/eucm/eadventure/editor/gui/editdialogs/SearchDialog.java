@@ -2,6 +2,7 @@ package es.eucm.eadventure.editor.gui.editdialogs;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -53,11 +54,15 @@ public class SearchDialog extends JDialog {
 	public SearchDialog() {
 		controller = Controller.getInstance();
 		this.setLayout(new BorderLayout());
-		this.setPreferredSize(new Dimension(300, 500));
 		this.setTitle(TextConstants.getText("Search.Title"));
 		
 		JPanel inputPanel = new JPanel();
 		textField = new JTextField(15);
+		textField.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				search();
+			}
+		});
 		inputPanel.add(textField);
 		caseSensitive = new JCheckBox(TextConstants.getText("Search.CaseSensitive"));
 		inputPanel.add(caseSensitive);
@@ -99,7 +104,11 @@ public class SearchDialog extends JDialog {
 		this.add(scrollPane, BorderLayout.CENTER);
 				
 		
-		this.setSize(400, 600);
+		this.setSize(460, 600);
+		
+		Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
+		setLocation(screenSize.width - 460 , ( screenSize.height - 600 ) / 2 );
+
 		this.setVisible(true);
 		Controller.getInstance( ).pushWindow( this );
 		addWindowListener( new WindowAdapter( ) {

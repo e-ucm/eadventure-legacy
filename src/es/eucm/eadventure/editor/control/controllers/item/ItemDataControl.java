@@ -428,12 +428,12 @@ public class ItemDataControl extends DataControlWithResources {
 
 	@Override
 	public void recursiveSearch() {
-		check(this.getBriefDescription(), "Brief Description");
-		check(this.getDetailedDescription(), "Detailed Description");
-		check(this.getDocumentation(), "Documentation");
+		check(this.getBriefDescription(), TextConstants.getText("Search.BriefDescription"));
+		check(this.getDetailedDescription(), TextConstants.getText("Search.DetailedDescription"));
+		check(this.getDocumentation(), TextConstants.getText("Search.Documentation"));
 		check(this.getId(), "ID");
-		check(this.getName(), "Name");
-		check(this.getPreviewImage(), "Preview Image");
+		check(this.getName(), TextConstants.getText("Search.Name"));
+		check(this.getPreviewImage(), TextConstants.getText("Search.PreviewImage"));
 		this.getActionsList().recursiveSearch();
 	}
 }

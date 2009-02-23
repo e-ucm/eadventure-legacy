@@ -3,6 +3,7 @@ package es.eucm.eadventure.editor.control.controllers.adaptation;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.adaptation.AdaptationRule;
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.tools.adaptation.AddActionTool;
 import es.eucm.eadventure.editor.control.tools.adaptation.AddUOLPropertyTool;
@@ -209,14 +210,14 @@ public class AdaptationRuleDataControl extends DataControl{
 
 	@Override
 	public void recursiveSearch( ) {
-		check(getDescription(), "Description");
+		check(getDescription(), TextConstants.getText("Search.Description"));
 		check(getId(), "ID");
-		check(getInitialScene(), "Initial Scene");
+		check(getInitialScene(), TextConstants.getText("Search.InitialScene"));
 		for (int i = 0; i < this.getFlagActionCount(); i++)
-			check(getFlag(i), "Flag");
+			check(getFlag(i), TextConstants.getText("Search.Flag"));
 		for (int i = 0; i < this.getUOLPropertyCount(); i++) {
-			check(this.getUOLPropertyId(i), "UOL Property ID");
-			check(this.getUOLPropertyValue(i), "UOL Property Value");
+			check(this.getUOLPropertyId(i), TextConstants.getText("Search.UOLPropertyID"));
+			check(this.getUOLPropertyValue(i), TextConstants.getText("Search.UOLPropertyValue"));
 		}
 	}
 

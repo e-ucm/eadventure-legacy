@@ -728,8 +728,8 @@ public class TreeConversationDataControl extends ConversationDataControl {
 			for (int i = 0; i < temp.getChildCount(); i++)
 				list.add(temp.getChildView(i));
 			for (int i = 0; i < temp.getLineCount(); i ++) {
-				check(temp.getLineName(i), "Node line name");
-				check(temp.getLineText(i), "Node line text");
+				check(temp.getLineName(i), TextConstants.getText("Search.LineName"));
+				check(temp.getLineText(i), TextConstants.getText("Search.LineText"));
 			}
 		}
 	}

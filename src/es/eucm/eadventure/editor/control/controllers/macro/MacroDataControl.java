@@ -174,11 +174,11 @@ public class MacroDataControl extends DataControl{
 
 	@Override
 	public void recursiveSearch() {
-		check(this.getDocumentation(), "Documentation");
+		check(this.getDocumentation(), TextConstants.getText("Search.Documentation"));
 		check(this.getId(), "ID");
 		
 		for (int i = 0; i < this.getController().getEffectCount(); i++) {
-			check(this.getController().getEffectInfo(i), "Effect");
+			check(this.getController().getEffectInfo(i), TextConstants.getText("Search.Effect"));
 		}
 	}
 

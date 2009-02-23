@@ -359,11 +359,11 @@ public class ActionDataControl extends DataControlWithResources {
 
 	@Override
 	public void recursiveSearch() {
-		check(this.getConditions(), "Conditions");
-		check(this.getIdTarget(), "ID Target");
+		check(this.getConditions(), TextConstants.getText("Search.Conditions"));
+		check(this.getIdTarget(), TextConstants.getText("Search.IDTarget"));
 		
 		for (int i = 0; i < this.getEffects().getEffectCount(); i++) {
-			check(this.getEffects().getEffectInfo(i), "Effect");
+			check(this.getEffects().getEffectInfo(i), TextConstants.getText("Search.Effect"));
 		}
 		
 	}

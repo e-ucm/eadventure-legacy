@@ -575,11 +575,11 @@ public class ChapterDataControl extends DataControl {
 
 	@Override
 	public void recursiveSearch() {
-		check(this.getAdaptationPath(), "Adaptation Path");
-		check(this.getAssessmentPath(), "Assessment Path");
-		check(this.getDescription(), "Descritpion");
-		check(this.getInitialScene(), "Initial scene");
-		check(this.getTitle(), "Title");
+		check(this.getAdaptationPath(), TextConstants.getText("Search.AdaptationPath"));
+		check(this.getAssessmentPath(), TextConstants.getText("Search.AssessmentPath"));
+		check(this.getDescription(), TextConstants.getText("Search.Descritpion"));
+		check(this.getInitialScene(), TextConstants.getText("Search.InitialScene"));
+		check(this.getTitle(), TextConstants.getText("Search.Title"));
 		this.getAtrezzoList().recursiveSearch();
 		this.getBooksList().recursiveSearch();
 		this.getConversationsList().recursiveSearch();

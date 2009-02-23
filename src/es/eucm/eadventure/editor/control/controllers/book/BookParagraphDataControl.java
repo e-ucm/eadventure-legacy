@@ -299,6 +299,6 @@ public class BookParagraphDataControl extends DataControl {
 
 	@Override
 	public void recursiveSearch() {
-		check(this.getParagraphContent(), "Paragraph content");
+		check(this.getParagraphContent(), TextConstants.getText("Search.ParagraphContent"));
 	}
 }

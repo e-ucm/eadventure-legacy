@@ -364,11 +364,10 @@ public class AssessmentProfileDataControl extends DataControl{
 	public void recursiveSearch( ) {
 		for (DataControl dc : dataControls)
 			dc.recursiveSearch( );
-		check(getEmail(), "Email");
-		check(this.getPath(), "Path");
-		check(this.getSmtpPort(), "SMTP Port");
-		check(this.getSmtpPwd(), "SMTP Pwd");
-		check(this.getSmtpServer(), "SMPT Server");
-		check(this.getSmtpUser(), "SMPT User");
+		check(getEmail(), TextConstants.getText("Search.EMail"));
+		check(this.getPath(), TextConstants.getText("Search.Path"));
+		check(this.getSmtpPort(), TextConstants.getText("Search.SMTPPort"));
+		check(this.getSmtpServer(), TextConstants.getText("Search.SMPTServer"));
+		check(this.getSmtpUser(), TextConstants.getText("Search.SMPTUser"));
 	}
 }
