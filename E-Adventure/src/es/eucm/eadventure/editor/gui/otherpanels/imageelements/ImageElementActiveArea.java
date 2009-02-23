@@ -3,6 +3,7 @@ package es.eucm.eadventure.editor.gui.otherpanels.imageelements;
 import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 
 import es.eucm.eadventure.editor.control.controllers.DataControl;
@@ -12,11 +13,40 @@ public class ImageElementActiveArea extends ImageElement {
 
 	private ActiveAreaDataControl activeAreaDataControl;
 
-	public ImageElementActiveArea(ActiveAreaDataControl barrierDataControl) {
-		this.activeAreaDataControl = barrierDataControl;
-		image = new BufferedImage(barrierDataControl.getWidth(),
-				barrierDataControl.getHeight(), BufferedImage.TYPE_4BYTE_ABGR);
-		fillImage();
+	private int minX;
+	
+	private int minY;
+	
+	private int maxX;
+	
+	private int maxY;
+	
+	public ImageElementActiveArea(ActiveAreaDataControl activeAreaDataControl) {
+		this.activeAreaDataControl = activeAreaDataControl;
+		createImage();
+	}
+
+	private void createImage() {
+		if (activeAreaDataControl.isRectangular()) {
+			image = new BufferedImage(activeAreaDataControl.getWidth(),
+					activeAreaDataControl.getHeight(), BufferedImage.TYPE_4BYTE_ABGR);
+			fillImage();
+		} else {
+			minX = Integer.MAX_VALUE;
+			minY = Integer.MAX_VALUE;
+			maxX = 0;
+			maxY = 0;
+			for (Point point : activeAreaDataControl.getPoints()) {
+				if (point.getX() > maxX) maxX = (int) point.getX();
+				if (point.getX() < minX) minX = (int) point.getX();
+				if (point.getY() > maxY) maxY = (int) point.getY();
+				if (point.getY() < minY) minY = (int) point.getY();
+			}
+			image = new BufferedImage(maxX - minX, maxY - minY, BufferedImage.TYPE_4BYTE_ABGR);
+			
+			fillImageIrregular(minX, minY);
+			
+		}
 	}
 
 	private void fillImage() {
@@ -29,13 +59,34 @@ public class ImageElementActiveArea extends ImageElement {
 		g.setColor(Color.BLACK);
 		g.drawRect(0, 0, image.getWidth(null) - 1, image.getHeight(null) - 1);
 	}
+	
+	private void fillImageIrregular(int minX, int minY) {
+		Graphics2D g = (Graphics2D) image.getGraphics();
+		AlphaComposite alphaComposite = AlphaComposite.getInstance(
+				AlphaComposite.SRC_OVER, 0.3f);
+		g.setComposite(alphaComposite);
+		
+		int x[] = new int[activeAreaDataControl.getPoints().size()];
+		int y[] = new int[activeAreaDataControl.getPoints().size()];
+		for (int i = 0; i < activeAreaDataControl.getPoints().size(); i++) {
+			x[i] = (int) activeAreaDataControl.getPoints().get(i).getX() - minX;
+			y[i] = (int) activeAreaDataControl.getPoints().get(i).getY() - minY;
+		}
+		
+		g.setColor(Color.GREEN);
+		g.fillPolygon(x, y, activeAreaDataControl.getPoints().size());
+		g.setColor(Color.BLACK);
+		g.drawPolygon(x, y, activeAreaDataControl.getPoints().size());
+	}
 
 	@Override
 	public void changePosition(int x, int y) {
-		int width = activeAreaDataControl.getWidth();
-		int height = activeAreaDataControl.getHeight();
-		activeAreaDataControl.setActiveArea(x - width / 2, y - height, width,
-				height);
+		if (activeAreaDataControl.isRectangular()) {
+			int width = activeAreaDataControl.getWidth();
+			int height = activeAreaDataControl.getHeight();
+			activeAreaDataControl.setActiveArea(x - width / 2, y - height, width,
+					height);
+		}
 	}
 
 	@Override
@@ -55,21 +106,23 @@ public class ImageElementActiveArea extends ImageElement {
 
 	@Override
 	public int getX() {
-		return activeAreaDataControl.getX() + activeAreaDataControl.getWidth()
-				/ 2;
+		if (activeAreaDataControl.isRectangular())
+			return activeAreaDataControl.getX() + activeAreaDataControl.getWidth() / 2;
+		else
+			return minX + (maxX - minX) / 2;
 	}
 
 	@Override
 	public int getY() {
-		return activeAreaDataControl.getY() + activeAreaDataControl.getHeight();
+		if (activeAreaDataControl.isRectangular())
+			return activeAreaDataControl.getY() + activeAreaDataControl.getHeight();
+		else
+			return maxY;
 	}
 
 	@Override
 	public void recreateImage() {
-		image = new BufferedImage(activeAreaDataControl.getWidth(),
-				activeAreaDataControl.getHeight(),
-				BufferedImage.TYPE_4BYTE_ABGR);
-		fillImage();
+		createImage();
 	}
 
 	@Override
@@ -83,7 +136,7 @@ public class ImageElementActiveArea extends ImageElement {
 
 	@Override
 	public boolean canResize() {
-		return true;
+		return activeAreaDataControl.isRectangular();
 	}
 
 	@Override

@@ -1,5 +1,7 @@
 package es.eucm.eadventure.common.loader.subparsers;
 
+import java.awt.Point;
+
 import org.xml.sax.Attributes;
 
 import es.eucm.eadventure.common.data.chapter.Chapter;
@@ -107,8 +109,11 @@ public class ActiveAreaSubParser extends SubParser {
 
 				int x = 0, y = 0, width = 0, height = 0;
 				String id = null;
+				boolean rectangular = false;
 				
 				for( int i = 0; i < attrs.getLength( ); i++ ) {
+					if( attrs.getQName(i).equals("rectangular"))
+						rectangular = attrs.getValue(i).equals("yes");
 					if( attrs.getQName( i ).equals( "x" ) )
 						x = Integer.parseInt( attrs.getValue( i ) );
 					if( attrs.getQName( i ).equals( "y" ) )
@@ -122,7 +127,23 @@ public class ActiveAreaSubParser extends SubParser {
 					
 				}
 
-				activeArea = new ActiveArea( (id==null?generateId():id), x, y, width, height );
+				activeArea = new ActiveArea( (id==null?generateId():id), rectangular, x, y, width, height );
+			}
+			
+			else if( qName.equals("point")) {
+				if (activeArea != null) {
+					int x = 0, y = 0;
+					
+					for (int i = 0; i < attrs.getLength() ; i++) {
+						if (attrs.getQName(i).equals("x"))
+							x = Integer.parseInt( attrs.getValue(i) );
+						if (attrs.getQName(i).equals("y"))
+							y = Integer.parseInt( attrs.getValue(i) );
+					}
+					
+					Point point = new Point(x, y);
+					activeArea.addPoint(point);
+				}
 			}
 
 			else if( qName.equals("actions")) {

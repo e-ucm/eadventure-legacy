@@ -1,5 +1,7 @@
 package es.eucm.eadventure.common.data.chapter;
 
+import java.awt.Point;
+import java.awt.Polygon;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +47,10 @@ public class Exit implements Cloneable, Documented, Rectangle {
      * Default exit look (it can exists or not)
      */
     private ExitLook defaultExitLook;
+    
+    private boolean rectangular;
+    
+    private List<Point> points;
 
 	/**
 	 * Creates a new Exit
@@ -58,14 +64,16 @@ public class Exit implements Cloneable, Documented, Rectangle {
 	 * @param height
 	 *            The height of the exit
 	 */
-	public Exit( int x, int y, int width, int height ) {
+	public Exit( boolean rectangular, int x, int y, int width, int height ) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
 
 		documentation = null;
+		points = new ArrayList<Point>();
 		nextScenes = new ArrayList<NextScene>( );
+		this.rectangular = rectangular;
 	}
 
 	/**
@@ -182,7 +190,15 @@ public class Exit implements Cloneable, Documented, Rectangle {
      * @return true if the point (x, y) is inside the exit, false otherwise
      */
     public boolean isPointInside( int x, int y ) {
-        return x > getX0() && x < getX1() && y > getY0() && y < getY1();
+    	if (rectangular)
+    		return x > getX0() && x < getX1() && y > getY0() && y < getY1();
+    	else {
+   	        Polygon polygon = new Polygon();
+   	        for (Point point : getPoints()) {
+   	        	polygon.addPoint(point.x, point.y);
+   	        }
+   	        return polygon.contains(x, y);
+    	}
     }
 
     /**
@@ -231,5 +247,21 @@ public class Exit implements Cloneable, Documented, Rectangle {
 		e.x = x;
 		e.y = y;
 		return e;
+	}
+
+	public boolean isRectangular() {
+		return rectangular;
+	}
+
+	public void setRectangular(boolean rectangular) {
+		this.rectangular = rectangular;
+	}
+	
+	public List<Point> getPoints() {
+		return points;
+	}
+	
+	public void addPoint(Point point) {
+		points.add(point);
 	}
 }

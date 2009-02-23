@@ -19,6 +19,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import es.eucm.eadventure.common.data.chapter.Rectangle;
 import es.eucm.eadventure.common.data.chapter.Trajectory;
 import es.eucm.eadventure.common.data.chapter.Trajectory.Node;
 import es.eucm.eadventure.common.data.chapter.Trajectory.Side;
@@ -33,6 +34,7 @@ import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataC
 import es.eucm.eadventure.editor.control.controllers.scene.ExitDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.InfluenceAreaDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.NodeDataControl;
+import es.eucm.eadventure.editor.control.controllers.scene.PointDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
 import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElement;
 import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElementActiveArea;
@@ -41,6 +43,7 @@ import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElementExit;
 import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElementInfluenceArea;
 import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElementNode;
 import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElementPlayer;
+import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElementPoint;
 import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElementReference;
 import es.eucm.eadventure.engine.core.gui.GUI;
 
@@ -102,6 +105,11 @@ public class ScenePreviewEditionPanel extends JPanel {
 	 * Key for the node category
 	 */
 	public static final int CATEGORY_NODE = 8;
+	
+	/**
+	 * Key for the point category
+	 */
+	public static final int CATEGORY_POINT = 9;
 
 	/**
 	 * Key for the influence area category
@@ -140,6 +148,8 @@ public class ScenePreviewEditionPanel extends JPanel {
 	 * The trajectory asociated with the scene
 	 */
 	private Trajectory trajectory;
+	
+	private Rectangle rectangle;
 	
 	/**
 	 * Boolean indicating if the user is rescaling
@@ -349,6 +359,14 @@ public class ScenePreviewEditionPanel extends JPanel {
 		list.add(new ImageElementNode(nodeDataControl));
 		recreateCheckBoxPanel();
 	}
+	
+	public void addPoint(PointDataControl pointDataControl) {
+		Integer key = new Integer(CATEGORY_POINT);
+		addCategory(key, true, true);
+		List<ImageElement> list = elements.get(key);
+		list.add(new ImageElementPoint(pointDataControl));
+		recreateCheckBoxPanel();
+	}
 
 	
 	/**
@@ -397,6 +415,10 @@ public class ScenePreviewEditionPanel extends JPanel {
 	 */
 	public void setTrajectory(Trajectory trajectory) {
 		this.trajectory = trajectory;
+	}
+	
+	public void setIrregularRectangle(Rectangle rectangle) {
+		this.rectangle = rectangle;
 	}
 	
 	/**
@@ -533,6 +555,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 				paintBorders(g, influenceArea, RESIZE_BORDER);
 		}
 		paintTrajectory(g);
+		paintIrregularRectangle(g);
 	}
 
 	/**
@@ -632,7 +655,27 @@ public class ScenePreviewEditionPanel extends JPanel {
 			drawPanel.drawRelativeLine(firstElement.getX(), firstElement.getY() - 10, x, y);
 		}
 	}
+
 	
+	/**
+	 * Draw the sides of the trajectory in the graphics component
+	 * 
+	 * @param g the graphics component where to draw
+	 */
+	private void paintIrregularRectangle(Graphics g) {
+		Integer key = new Integer(CATEGORY_POINT);
+		if (rectangle == null || rectangle.isRectangular() || !(displayCategory.get(key) != null ? displayCategory.get(key) : false ))
+			return;
+		
+		int x[] = new int[rectangle.getPoints().size()];
+		int y[] = new int[rectangle.getPoints().size()];
+		for (int i = 0; i < rectangle.getPoints().size(); i++) {
+			x[i] = rectangle.getPoints().get(i).x;
+			y[i] = rectangle.getPoints().get(i).y;
+		}
+		drawPanel.fillRelativePoly(x, y, Color.GREEN, 0.4f);
+	}
+
 	/**
 	 * Recreate the image of an element
 	 * 

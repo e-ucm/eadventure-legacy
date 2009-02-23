@@ -1,5 +1,8 @@
 package es.eucm.eadventure.common.data.chapter.elements;
 
+import java.awt.Point;
+import java.util.List;
+
 import es.eucm.eadventure.common.data.chapter.Rectangle;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 
@@ -131,5 +134,16 @@ public class Barrier extends Element implements Rectangle {
 		b.x = x;
 		b.y = y;
 		return b;
+	}
+
+	public List<Point> getPoints() {
+		return null;
+	}
+
+	public boolean isRectangular() {
+		return true;
+	}
+
+	public void setRectangular(boolean rectangular) {
 	}
 }

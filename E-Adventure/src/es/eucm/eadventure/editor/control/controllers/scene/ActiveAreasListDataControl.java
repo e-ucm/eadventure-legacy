@@ -113,7 +113,7 @@ public class ActiveAreasListDataControl extends DataControl {
 
 			// If some value was typed and the identifier is valid
 			if( itemId != null && controller.isElementIdValid( itemId ) ) {
-				ActiveArea newActiveArea = new ActiveArea( itemId, 0, 0, 20, 20 );
+				ActiveArea newActiveArea = new ActiveArea( itemId, true, 0, 0, 20, 20 );
 				activeAreasList.add( newActiveArea );
 				ActiveAreaDataControl newActiveAreaDataControl = new ActiveAreaDataControl( sceneDataControl, newActiveArea );
 				activeAreasDataControlList.add( newActiveAreaDataControl );

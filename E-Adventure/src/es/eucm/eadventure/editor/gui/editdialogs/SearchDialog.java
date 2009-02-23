@@ -54,7 +54,7 @@ public class SearchDialog extends JDialog {
 	public SearchDialog() {
 		controller = Controller.getInstance();
 		this.setLayout(new BorderLayout());
-		this.setTitle(TextConstants.getText("Search.Title"));
+		this.setTitle(TextConstants.getText("Search.DialogTitle"));
 		
 		JPanel inputPanel = new JPanel();
 		textField = new JTextField(15);

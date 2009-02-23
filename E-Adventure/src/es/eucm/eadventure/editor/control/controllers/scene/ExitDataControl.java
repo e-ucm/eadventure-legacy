@@ -1,10 +1,12 @@
 package es.eucm.eadventure.editor.control.controllers.scene;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.Exit;
 import es.eucm.eadventure.common.data.chapter.NextScene;
+import es.eucm.eadventure.common.data.chapter.Rectangle;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
@@ -12,9 +14,12 @@ import es.eucm.eadventure.editor.control.controllers.general.ExitLookDataControl
 import es.eucm.eadventure.editor.control.controllers.general.NextSceneDataControl;
 import es.eucm.eadventure.editor.control.tools.ChangeRectangleValueTool;
 import es.eucm.eadventure.editor.control.tools.general.ChangeDocumentationTool;
+import es.eucm.eadventure.editor.control.tools.general.areaedition.AddNewPointTool;
+import es.eucm.eadventure.editor.control.tools.general.areaedition.ChangeRectangularValueTool;
+import es.eucm.eadventure.editor.control.tools.general.areaedition.DeletePointTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
-public class ExitDataControl extends DataControl {
+public class ExitDataControl extends DataControl implements RectangleArea {
 
 	/**
 	 * Scene controller that contains this element reference (used to extract the id of the scene).
@@ -376,4 +381,35 @@ public class ExitDataControl extends DataControl {
 		for (DataControl dc : this.nextScenesDataControlList)
 			dc.recursiveSearch();
 	}
+	
+	public boolean isRectangular() {
+		return exit.isRectangular();
+	}
+
+	public List<Point> getPoints() {
+		return exit.getPoints();
+	}
+
+	public void addPoint(int x, int y) {
+		controller.addTool(new AddNewPointTool(exit, x, y));
+	}
+
+	public Point getLastPoint() {
+		if (exit.getPoints().size() > 0)
+			return exit.getPoints().get(exit.getPoints().size() - 1);
+		return null;
+	}
+
+	public void deletePoint(Point point) {
+		controller.addTool(new DeletePointTool(exit, point));
+	}
+
+	public void setRectangular(boolean selected) {
+		controller.addTool(new ChangeRectangularValueTool(exit, selected));
+	}
+
+	public Rectangle getRectangle() {
+		return (Rectangle) this.getContent();
+	}
+
 }

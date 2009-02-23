@@ -10,11 +10,14 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import es.eucm.eadventure.common.data.Described;
 import es.eucm.eadventure.common.data.Detailed;
@@ -29,6 +32,7 @@ import es.eucm.eadventure.editor.control.tools.listeners.DocumentationChangeList
 import es.eucm.eadventure.editor.control.tools.listeners.NameChangeListener;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.editdialogs.ConditionsDialog;
+import es.eucm.eadventure.editor.gui.otherpanels.IrregularAreaEditionPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 
 public class ActiveAreaPanel extends JPanel {
@@ -59,6 +63,8 @@ public class ActiveAreaPanel extends JPanel {
 	private JTextField descriptionTextField;
 
 	private JTextField detailedDescriptionTextField;
+	
+	private JCheckBox rectangular;
 
 	/**
 	 * Constructor.
@@ -127,6 +133,7 @@ public class ActiveAreaPanel extends JPanel {
 		detailedDescriptionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ActiveArea.DetailedDescription" ) ) );
 		docPanel.add( detailedDescriptionPanel, cDoc );
 		
+		
 		cDoc.gridy = 4;
 		cDoc.fill = GridBagConstraints.BOTH;
 		cDoc.weightx = 1;
@@ -146,11 +153,20 @@ public class ActiveAreaPanel extends JPanel {
 		JPanel mainPanel = new JPanel();
 		// Take the path of the background
 		String scenePath = Controller.getInstance( ).getSceneImagePath( activeAreaDataControl.getParentSceneId( ) );
-				
-		spep = new ScenePreviewEditionPanel(scenePath);
-		spep.setShowTextEdition(true);
-		spep.setFixedSelectedElement(true);
-		spep.setSelectedElement(activeAreaDataControl);
+		
+		JPanel looksPanel;
+		
+		if (activeAreaDataControl.isRectangular()) {
+			spep = new ScenePreviewEditionPanel(scenePath);
+			spep.setShowTextEdition(true);
+			spep.setFixedSelectedElement(true);
+			spep.setSelectedElement(activeAreaDataControl);
+			looksPanel = spep;
+		} else {
+			looksPanel = new IrregularAreaEditionPanel(scenePath, activeAreaDataControl);
+			spep = ((IrregularAreaEditionPanel) looksPanel).getScenePreviewEditionPanel();
+			spep.setShowTextEdition(false);		
+		}
 		
 		// Set the layout of the principal panel
 		mainPanel.setLayout( new GridBagLayout( ) );
@@ -170,11 +186,25 @@ public class ActiveAreaPanel extends JPanel {
 		conditionsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ActiveArea.Conditions" ) ) );
 		mainPanel.add( conditionsPanel, c );
 		
-		// Add the created rectangle position panel
 		c.gridy = 1;
+		rectangular = new JCheckBox("Is rectangular?");
+		rectangular.setSelected(activeAreaDataControl.isRectangular());
+		rectangular.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				if (activeAreaDataControl.isRectangular() != rectangular.isSelected()) {
+					activeAreaDataControl.setRectangular(rectangular.isSelected());
+					Controller.getInstance().reloadPanel();
+				}
+			}
+		});
+		mainPanel.add( rectangular, c);
+
+		
+		// Add the created rectangle position panel
+		c.gridy = 2;
 		c.fill = GridBagConstraints.BOTH;		
 		c.weighty = 1;
-		mainPanel.add( spep, c );
+		mainPanel.add( looksPanel , c );
 		
 		return mainPanel;
 	}

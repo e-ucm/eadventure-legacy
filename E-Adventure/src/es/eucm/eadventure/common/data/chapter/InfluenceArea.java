@@ -1,5 +1,8 @@
 package es.eucm.eadventure.common.data.chapter;
 
+import java.awt.Point;
+import java.util.List;
+
 public class InfluenceArea implements Cloneable, Rectangle {
 
 	private boolean exists = false;
@@ -110,5 +113,16 @@ public class InfluenceArea implements Cloneable, Rectangle {
 		ia.x = x;
 		ia.y = y;
 		return ia;
+	}
+
+	public boolean isRectangular() {
+		return true;
+	}
+
+	public void setRectangular(boolean rectangular) {
+	}
+	
+	public List<Point> getPoints() {
+		return null;
 	}
 }

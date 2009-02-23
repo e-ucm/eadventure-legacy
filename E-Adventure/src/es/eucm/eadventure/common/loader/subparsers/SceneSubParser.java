@@ -1,5 +1,7 @@
 package es.eucm.eadventure.common.loader.subparsers;
 
+import java.awt.Point;
+
 import org.xml.sax.Attributes;
 
 import es.eucm.eadventure.common.data.chapter.Chapter;
@@ -110,6 +112,9 @@ public class SceneSubParser extends SubParser {
 	 */
 	private NextScene currentNextScene;
 
+	
+	private Point currentPoint;
+	
 	/**
 	 * Stores the current element reference being used
 	 */
@@ -216,8 +221,11 @@ public class SceneSubParser extends SubParser {
 			// If it is an exit tag, create the new exit
 			else if( qName.equals( "exit" ) ) {
 				int x = 0, y = 0, width = 0, height = 0;
+				boolean rectangular = true;
 
 				for( int i = 0; i < attrs.getLength( ); i++ ) {
+					if( attrs.getQName( i ).equals( "rectangular" ))
+						rectangular = attrs.getValue( i ).equals("yes");
 					if( attrs.getQName( i ).equals( "x" ) )
 						x = Integer.parseInt( attrs.getValue( i ) );
 					if( attrs.getQName( i ).equals( "y" ) )
@@ -228,7 +236,7 @@ public class SceneSubParser extends SubParser {
 						height = Integer.parseInt( attrs.getValue( i ) );
 				}
 
-				currentExit = new Exit( x, y, width, height );
+				currentExit = new Exit( rectangular, x, y, width, height );
 				reading = READING_EXIT;
 			}
 			
@@ -243,7 +251,6 @@ public class SceneSubParser extends SubParser {
                 }
                 currentExitLook.setCursorPath( cursorPath );
                 currentExitLook.setExitText( text );
-                
             }
 
 
@@ -263,6 +270,21 @@ public class SceneSubParser extends SubParser {
 
 				currentNextScene = new NextScene( idTarget, x, y );
 				reading = READING_NEXT_SCENE;
+			}
+			
+			else if ( qName.equals("point")) {
+				
+				int x = 0;
+				int y = 0;
+				
+				for (int i = 0; i < attrs.getLength(); i++) {
+					if ( attrs.getQName( i ).equals( "x" ))
+						x = Integer.parseInt( attrs.getValue( i ) );
+					if ( attrs.getQName( i ).equals( "y" ))
+						y = Integer.parseInt( attrs.getValue( i ) );
+				}
+				
+				currentPoint = new Point(x, y);
 			}
 
 			// If it is a object-ref or character-ref, create the new element reference
@@ -411,6 +433,10 @@ public class SceneSubParser extends SubParser {
 			else if( qName.equals( "next-scene" ) ) {
 				currentExit.addNextScene( currentNextScene );
 				reading = READING_NONE;
+			}
+			
+			else if ( qName.equals ( "point" )) {
+				currentExit.addPoint(currentPoint);
 			}
 
 			// If it is a object-ref tag, store the reference in the scene

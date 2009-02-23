@@ -6,10 +6,13 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 
 import javax.swing.BorderFactory;
+import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import es.eucm.eadventure.common.data.Documented;
 import es.eucm.eadventure.common.gui.TextConstants;
@@ -17,6 +20,7 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.scene.ExitDataControl;
 import es.eucm.eadventure.editor.control.tools.listeners.DocumentationChangeListener;
 import es.eucm.eadventure.editor.gui.elementpanels.general.ExitLookPanel;
+import es.eucm.eadventure.editor.gui.otherpanels.IrregularAreaEditionPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 
 public class ExitPanel extends JTabbedPane {
@@ -54,12 +58,21 @@ public class ExitPanel extends JTabbedPane {
 		this.exitDataControl = exitDataControl;
 
 
-		// Take the path of the background
+		JPanel looksPanel;
+
 		String scenePath = Controller.getInstance( ).getSceneImagePath( exitDataControl.getParentSceneId( ) );
-		spep = new ScenePreviewEditionPanel(scenePath);
-		spep.setShowTextEdition(true);
-		spep.setSelectedElement(exitDataControl);
-		spep.setFixedSelectedElement(true);
+		
+		if (exitDataControl.isRectangular()) {
+			spep = new ScenePreviewEditionPanel(scenePath);
+			spep.setShowTextEdition(true);
+			spep.setSelectedElement(exitDataControl);
+			spep.setFixedSelectedElement(true);
+			looksPanel = spep;
+		} else {
+			looksPanel = new IrregularAreaEditionPanel(scenePath, exitDataControl);
+			spep = ((IrregularAreaEditionPanel) looksPanel).getScenePreviewEditionPanel();
+			spep.setShowTextEdition(false);		
+		}
 		
 		// Set the layout of the principal panel
 		mainPanel.setLayout( new GridBagLayout( ) );
@@ -80,8 +93,23 @@ public class ExitPanel extends JTabbedPane {
 		documentationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Exit.Documentation" ) ) );
 		mainPanel.add( documentationPanel, c );
 
-		// Add the created rectangle position panel
+
 		c.gridy = 1;
+		final JCheckBox rectangular = new JCheckBox("Is rectangular?");
+		rectangular.setSelected(exitDataControl.isRectangular());
+		rectangular.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				if (ExitPanel.this.exitDataControl.isRectangular() != rectangular.isSelected()) {
+					ExitPanel.this.exitDataControl.setRectangular(rectangular.isSelected());
+					Controller.getInstance().reloadPanel();
+				}
+			}
+		});
+		mainPanel.add( rectangular, c);
+
+		
+		// Add the created rectangle position panel
+		c.gridy = 2;
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1;
 		c.weighty = 1;

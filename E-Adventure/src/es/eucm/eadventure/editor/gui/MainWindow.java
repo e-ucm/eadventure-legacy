@@ -364,7 +364,7 @@ public class MainWindow extends JFrame {
 		});
 		redo.setAccelerator( KeyStroke.getKeyStroke( 'Y', InputEvent.CTRL_MASK ) );
 
-		JMenuItem search = new JMenuItem(TextConstants.getText("Search.Title"));
+		JMenuItem search = new JMenuItem(TextConstants.getText("Search.DialogTitle"));
 		search.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.search();

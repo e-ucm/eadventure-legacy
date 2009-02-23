@@ -1,5 +1,9 @@
 package es.eucm.eadventure.common.data.chapter.elements;
 
+import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
+
 import es.eucm.eadventure.common.data.chapter.Rectangle;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 
@@ -28,13 +32,20 @@ public class ActiveArea extends Item implements Rectangle {
 	 */
 	private int height;
 	
+	private boolean rectangular;
+	
+	private List<Point> points;
+	
 	/**
 	 * Conditions of the active area
 	 */
 	private Conditions conditions;
+	
+	
 
 	/**
 	 * Creates a new Exit
+	 * @param rectangular 
 	 * 
 	 * @param x
 	 *            The horizontal coordinate of the upper left corner of the exit
@@ -45,12 +56,14 @@ public class ActiveArea extends Item implements Rectangle {
 	 * @param height
 	 *            The height of the exit
 	 */
-	public ActiveArea( String id, int x, int y, int width, int height ) {
+	public ActiveArea( String id, boolean rectangular, int x, int y, int width, int height ) {
 		super(id);
+		this.rectangular = rectangular;
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
+		points = new ArrayList<Point>();
 		conditions = new Conditions();
 	}
 
@@ -90,6 +103,18 @@ public class ActiveArea extends Item implements Rectangle {
 		return height;
 	}
 
+	public boolean isRectangular( ) {
+		return rectangular;
+	}
+	
+	public List<Point> getPoints() {
+		return points;
+	}
+	
+	public void addPoint(Point point) {
+		points.add(point);
+	}
+	
 	/**
 	 * Set the values of the exit.
 	 * 
@@ -131,5 +156,9 @@ public class ActiveArea extends Item implements Rectangle {
 		aa.x = x;
 		aa.y = y;
 		return aa;
+	}
+
+	public void setRectangular(boolean rectangular) {
+		this.rectangular = rectangular;
 	}
 }

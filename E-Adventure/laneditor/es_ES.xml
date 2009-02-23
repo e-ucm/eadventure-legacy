@@ -1772,7 +1772,7 @@ ya que de esta manera se evita reescribirlos varias veces.</entry>
 	<entry key="Edition.UndoRedo.Name."></entry>
 	<entry key="Edition.UndoRedo.Name."></entry>
 
-	<entry key="Search.Title">Buscar...</entry>
+	<entry key="Search.DialogTitle">Buscar...</entry>
 	<entry key="Search.CaseSensitive">Dif. may. y min.</entry>
 	<entry key="Search.FullMatch">Encontrar completa</entry>
 	<entry key="Search.Search">Buscar</entry>
