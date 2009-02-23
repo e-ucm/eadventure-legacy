@@ -499,10 +499,10 @@ public class PlayerDataControl extends DataControlWithResources{
 
 	@Override
 	public void recursiveSearch() {
-		check(this.getDocumentation(), "Documentation");
-		check(this.getBriefDescription(), "Brief Description");
-		check(this.getDetailedDescription(), "Detailed Description");
-		check(this.getName(), "Name");
-		check(this.getPlayerVoice(), "Player Voice");
+		check(this.getDocumentation(), TextConstants.getText("Search.Documentation"));
+		check(this.getBriefDescription(), TextConstants.getText("Search.BriefDescription"));
+		check(this.getDetailedDescription(), TextConstants.getText("Search.DetailedDescription"));
+		check(this.getName(), TextConstants.getText("Search.Name"));
+		check(this.getPlayerVoice(), TextConstants.getText("Search.PlayerVoice"));
 	}
 }

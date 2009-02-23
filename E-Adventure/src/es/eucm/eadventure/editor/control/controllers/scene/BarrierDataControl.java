@@ -3,6 +3,7 @@ package es.eucm.eadventure.editor.control.controllers.scene;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.elements.Barrier;
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.tools.ChangeRectangleValueTool;
@@ -312,12 +313,12 @@ public class BarrierDataControl extends DataControl {
 
 	@Override
 	public void recursiveSearch() {
-		check(this.getBriefDescription(), "Brief Description");
-		check(this.getConditions(), "Conditions");
-		check(this.getDetailedDescription(), "Detailed Description");
-		check(this.getDocumentation(), "Documentation");
+		check(this.getBriefDescription(), TextConstants.getText("Search.BriefDescription"));
+		check(this.getConditions(), TextConstants.getText("Search.Conditions"));
+		check(this.getDetailedDescription(), TextConstants.getText("Search.DetailedDescription"));
+		check(this.getDocumentation(), TextConstants.getText("Search.Documentation"));
 		check(this.getId(), "ID");
-		check(this.getName(), "Name");
+		check(this.getName(), TextConstants.getText("Search.Name"));
 	}
 
 }

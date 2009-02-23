@@ -1773,10 +1773,55 @@ ya que de esta manera se evita reescribirlos varias veces.</entry>
 	<entry key="Edition.UndoRedo.Name."></entry>
 
 	<entry key="Search.Title">Buscar...</entry>
-	<entry key="Search.CaseSensitive">Dif. Mayúsculas y Minúsculas</entry>
+	<entry key="Search.CaseSensitive">Dif. may. y min.</entry>
 	<entry key="Search.FullMatch">Encontrar completa</entry>
 	<entry key="Search.Search">Buscar</entry>
 	<entry key="Search.Where">Donde</entry>
 	<entry key="Search.Places">Sitios</entry>
-
+	
+	<entry key="Search.State">Estado</entry>
+	<entry key="Search.Value">Valor</entry>
+	<entry key="Search.Conditions">Condiciones</entry>
+	<entry key="Search.Documentation">Documentación</entry>
+	<entry key="Search.IDTarget">ID Destino</entry>
+	<entry key="Search.Number">Número</entry>
+	<entry key="Search.FileName">Nombre de fichero</entry>
+	<entry key="Search.InitialScene">Escena inicial</entry>
+	<entry key="Search.Path">Ubicación</entry>
+	<entry key="Search.Description">Descripción</entry>
+	<entry key="Search.Flag">Flag</entry>
+	<entry key="Search.UOLPropertyID">ID de propiedad UOL</entry>
+	<entry key="Search.UOLPropertyValue">Valor de propiedad UOL</entry>
+	<entry key="Search.EMail">e-mail</entry>
+	<entry key="Search.SMTPPort">SMTP Port</entry>
+	<entry key="Search.SMTPPwd">SMTP Pwd</entry>
+	<entry key="Search.SMTPServer">SMTP Server</entry>
+	<entry key="Search.SMTPUser">SMTP User</entry>
+	<entry key="Search.Concept">Concepto</entry>
+	<entry key="Search.EffectText">Texto del efecto</entry>
+	<entry key="Search.EffectName">Nombre del efecto</entry>
+	<entry key="Search.EffectConditions">Condiciones del efecto</entry>
+	<entry key="Search.PropertyID">ID de la propiedad</entry>
+	<entry key="Search.EndConditions">Condiciones finales</entry>
+	<entry key="Search.InitConditions">Condiciones iniciales</entry>
+	<entry key="Search.BriefDescription">Descripción breve</entry>
+	<entry key="Search.DetailedDescription">Descripción detallada</entry>
+	<entry key="Search.Name">Nombre</entry>
+	<entry key="Search.PreviewImage">Imagen de previsualización</entry>
+	<entry key="Search.ParagraphContent">Contenido del parrafo</entry>
+	<entry key="Search.NPCVoice">Voz del NPC</entry>
+	<entry key="Search.Conversations">Conversaciones</entry>
+	<entry key="Search.PlayerVoice">Voz del juegador</entry>
+	<entry key="Search.LineName">Nombre de la linea</entry>
+	<entry key="Search.LineText">Texto de la linea</entry>
+	<entry key="Search.Effect">Efecto</entry>
+	<entry key="Search.PostEffect">Post-Efecto</entry>
+	<entry key="Search.Title">Titulo</entry>
+	<entry key="Search.AdapatationPath">Ubicación del fichero de adapatación</entry>
+	<entry key="Search.AssessmentPath">Ubicación del fichero de aprendiaje</entry>
+	<entry key="Search.AssetDescription">Descripción recurso</entry>
+	<entry key="Search.AssetPath">Ubicación recurso</entry>
+	<entry key="Search.ElementID">ID del elemento</entry>
+	
+	
 </properties>

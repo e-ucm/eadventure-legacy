@@ -372,7 +372,7 @@ public class ExitDataControl extends DataControl {
 
 	@Override
 	public void recursiveSearch() {
-		check(this.getDocumentation(), "Documentation");
+		check(this.getDocumentation(), TextConstants.getText("Search.Documentation"));
 		for (DataControl dc : this.nextScenesDataControlList)
 			dc.recursiveSearch();
 	}

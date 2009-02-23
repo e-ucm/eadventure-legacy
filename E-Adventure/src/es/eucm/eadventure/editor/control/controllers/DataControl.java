@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.character.ConversationReferenceDataControl;
 import es.eucm.eadventure.editor.control.controllers.character.ConversationReferencesListDataControl;
@@ -277,9 +278,9 @@ public abstract class DataControl implements Cloneable {
 	protected void check(ConditionsController conditions, String desc) {
 		for (int i = 0; i < conditions.getEitherConditionsBlockCount(); i++) {
 			for (int j = 0; j < conditions.getConditionCount(i); j++) {
-				check(conditions.getConditionId(i, j), desc + " (id)");
-				check(conditions.getConditionState(i, j), desc + " (state)");
-				check(conditions.getConditionValue(i, j), desc + " (value)");
+				check(conditions.getConditionId(i, j), desc + " (ID)");
+				check(conditions.getConditionState(i, j), desc + " (" + TextConstants.getText("Search.State") + ")");
+				check(conditions.getConditionValue(i, j), desc + " (" + TextConstants.getText("Search.Value") + ")");
 			}
 		}
 	}
@@ -288,9 +289,9 @@ public abstract class DataControl implements Cloneable {
 			ConversationReferencesListDataControl conversations,
 			String desc) {
 		for (ConversationReferenceDataControl conv : conversations.getConversationReferences()) {
-			check(conv.getConditions(), desc + " (conditions) ");
-			check(conv.getDocumentation(), desc + " (documentation)");
-			check(conv.getIdTarget(), desc + " (ID Target)");
+			check(conv.getConditions(), desc + " (" + TextConstants.getText("Search.Conditions") + ") ");
+			check(conv.getDocumentation(), desc + " (" + TextConstants.getText("Search.Documentation") + ")");
+			check(conv.getIdTarget(), desc + " (" + TextConstants.getText("Search.IDTarget") + ")");
 		}
 	}
 

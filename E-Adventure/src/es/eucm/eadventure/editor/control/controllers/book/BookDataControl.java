@@ -410,10 +410,10 @@ public class BookDataControl extends DataControlWithResources {
 
 	@Override
 	public void recursiveSearch() {
-		check(this.getDocumentation(), "Documentation");
+		check(this.getDocumentation(), TextConstants.getText("Search.Documentation"));
 		check(this.getId(), "ID");
 		if (this.getBookParagraphsList() != null)
 			this.getBookParagraphsList().recursiveSearch();
-		check(this.getPreviewImage(), "Preview Image");
+		check(this.getPreviewImage(), TextConstants.getText("Search.PreviewImage"));
 	}
 }

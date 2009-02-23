@@ -523,15 +523,15 @@ public class NPCDataControl extends DataControlWithResources {
 
 	@Override
 	public void recursiveSearch() {
-		check(this.getBriefDescription(), "Brief Description");
-		check(this.getDetailedDescription(), "Detailed Description");
-		check(this.getDocumentation(), "Documentation");
+		check(this.getBriefDescription(), TextConstants.getText("Search.BriefDescription"));
+		check(this.getDetailedDescription(), TextConstants.getText("Search.DetailedDescription"));
+		check(this.getDocumentation(), TextConstants.getText("Search.Documentation"));
 		check(this.getId(), "ID");
-		check(this.getName(), "Name");
-		check(this.getNPCVoice(), "NPC Voice");
-		check(this.getPreviewImage(), "Preview Image");
+		check(this.getName(), TextConstants.getText("Search.Name"));
+		check(this.getNPCVoice(), TextConstants.getText("Search.NPCVoice"));
+		check(this.getPreviewImage(), TextConstants.getText("Search.PreviewImage"));
 		getActionsList().recursiveSearch();
-		check(this.getConversationReferencesList(), "Conversations");
+		check(this.getConversationReferencesList(), TextConstants.getText("Search.Conversations"));
 	}
 
 

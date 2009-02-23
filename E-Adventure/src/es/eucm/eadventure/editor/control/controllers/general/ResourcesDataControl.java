@@ -354,10 +354,10 @@ public class ResourcesDataControl extends DataControl {
 
 	@Override
 	public void recursiveSearch() {
-		check(this.getConditions(), "Conditions");
+		check(this.getConditions(), TextConstants.getText("Search.Conditions"));
 		for (int i = 0; i < this.getAssetCount(); i++) {
-			check(this.getAssetDescription(i), "Asset description");
-			check(this.getAssetPath(i), "Asset path");
+			check(this.getAssetDescription(i), TextConstants.getText("Search.AssetDescription"));
+			check(this.getAssetPath(i), TextConstants.getText("Search.AssetPath"));
 		}
 	}
 }

@@ -563,8 +563,8 @@ public class SceneDataControl extends DataControlWithResources {
 	public void recursiveSearch() {
 		this.getActiveAreasList().recursiveSearch();
 		this.getBarriersList().recursiveSearch();
-		check(this.getDocumentation(), "Documentation");
-		check(this.getName(), "Name");
+		check(this.getDocumentation(), TextConstants.getText("Search.Documentation"));
+		check(this.getName(),TextConstants.getText("Search.Name"));
 		check(this.getId(), "ID");
 		this.getExitsList().recursiveSearch();
 		this.getReferencesList().recursiveSearch();

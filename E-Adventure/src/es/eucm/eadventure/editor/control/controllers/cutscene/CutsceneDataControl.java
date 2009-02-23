@@ -567,8 +567,8 @@ public class CutsceneDataControl extends DataControlWithResources {
 	@Override
 	public void recursiveSearch() {
 		check(this.getId(), "ID");
-		check(this.getDocumentation(), "Documentation");
-		check(this.getName(), "Name");
+		check(this.getDocumentation(), TextConstants.getText("Search.Documentation"));
+		check(this.getName(), TextConstants.getText("Search.Name"));
 		if (this.getEndScene() != null)
 			this.getEndScene().recursiveSearch();
 		for (DataControl dc : getNextScenes())

@@ -380,10 +380,10 @@ public class AdaptationProfileDataControl extends DataControl{
 		for (DataControl dc : this.dataControls) {
 			dc.recursiveSearch( );
 		}
-		check("" + number, "Number");
-		check(getFileName(), "File Name");
-		check(getInitialScene(), "Initial Scene");
-		check(getPath(), "Path");
+		check("" + number, TextConstants.getText("Search.Number"));
+		check(getFileName(), TextConstants.getText("Search.FileName"));
+		check(getInitialScene(), TextConstants.getText("Search.InitialScene"));
+		check(getPath(), TextConstants.getText("Search.Path"));
 	}
 
 }

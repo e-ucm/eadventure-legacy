@@ -3,6 +3,7 @@ package es.eucm.eadventure.editor.control.controllers.scene;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.ElementReference;
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
@@ -378,9 +379,9 @@ public class ElementReferenceDataControl extends DataControl {
 
 	@Override
 	public void recursiveSearch() {
-		check(this.conditionsController, "Condtions");
-		check(this.getDocumentation(), "Documentation");
-		check(this.getElementId(), "Element ID");
+		check(this.conditionsController, TextConstants.getText("Search.Condtions"));
+		check(this.getDocumentation(), TextConstants.getText("Search.Documentation"));
+		check(this.getElementId(), TextConstants.getText("Search.ElementID"));
 	}
 	
 }

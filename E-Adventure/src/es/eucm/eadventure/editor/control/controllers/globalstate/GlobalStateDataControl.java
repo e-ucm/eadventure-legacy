@@ -172,8 +172,8 @@ public class GlobalStateDataControl extends DataControl{
 
 	@Override
 	public void recursiveSearch() {
-		check(this.controller, "Conditions");
-		check(this.getDocumentation(), "Documentation");
+		check(this.controller, TextConstants.getText("Search.Conditions"));
+		check(this.getDocumentation(), TextConstants.getText("Search.Documentation"));
 		check(this.getId(), "ID");
 	}
 }
