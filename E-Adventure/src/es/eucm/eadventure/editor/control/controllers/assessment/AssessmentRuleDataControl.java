@@ -189,7 +189,7 @@ public class AssessmentRuleDataControl extends DataControl{
 				controller.addTool(new ChangeStringValueTool(tRule.getEffects().get(effect), text, "getText", "setText"));
 			}
 		} else {
-			controller.addTool(new ChangeStringValueTool(assessmentRule, text, "getText", "setText"));
+			setEffectText ( text );
 		}
 	}
 
