@@ -36,7 +36,7 @@ public class AddAssessmentPropertyTool extends Tool{
 
 	@Override
 	public boolean doTool() {
-		propertyAdded = new AssessmentProperty("PropertyId", 0);
+		propertyAdded = new AssessmentProperty("PropertyId", "");
 		parent.add( index,  propertyAdded);
 		return true;
 	}
