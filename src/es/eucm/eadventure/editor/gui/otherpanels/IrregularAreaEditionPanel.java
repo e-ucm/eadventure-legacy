@@ -1,6 +1,7 @@
 package es.eucm.eadventure.editor.gui.otherpanels;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,14 +12,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
-import es.eucm.eadventure.common.data.chapter.Trajectory;
 import es.eucm.eadventure.editor.control.controllers.IrregularAreaEditionController;
 import es.eucm.eadventure.editor.control.controllers.TrajectoryScenePreviewEditionController;
-import es.eucm.eadventure.editor.control.controllers.scene.ActiveAreaDataControl;
-import es.eucm.eadventure.editor.control.controllers.scene.NodeDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.PointDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.RectangleArea;
-import es.eucm.eadventure.editor.control.controllers.scene.TrajectoryDataControl;
 import es.eucm.eadventure.common.gui.TextConstants;
 
 /**
@@ -49,10 +46,10 @@ public class IrregularAreaEditionPanel extends JPanel {
 	 * @param scenePath path to the background image
 	 * @param trajectoryDataControl the trajectoryDataControl
 	 */
-	public IrregularAreaEditionPanel(String scenePath, RectangleArea rectangleArea) {
+	public IrregularAreaEditionPanel(String scenePath, RectangleArea rectangleArea, Color color) {
 		setLayout(new BorderLayout());
 		spep = new ScenePreviewEditionPanel(scenePath);
-		iaec = new IrregularAreaEditionController(spep, rectangleArea);
+		iaec = new IrregularAreaEditionController(spep, rectangleArea, color);
 		spep.changeController(iaec);
 		for (Point point: rectangleArea.getPoints())
 			spep.addPoint(new PointDataControl(point));

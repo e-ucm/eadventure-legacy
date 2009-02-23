@@ -1,5 +1,6 @@
 package es.eucm.eadventure.editor.gui.elementpanels.scene;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -69,7 +70,7 @@ public class ExitPanel extends JTabbedPane {
 			spep.setFixedSelectedElement(true);
 			looksPanel = spep;
 		} else {
-			looksPanel = new IrregularAreaEditionPanel(scenePath, exitDataControl);
+			looksPanel = new IrregularAreaEditionPanel(scenePath, exitDataControl, Color.RED);
 			spep = ((IrregularAreaEditionPanel) looksPanel).getScenePreviewEditionPanel();
 			spep.setShowTextEdition(false);		
 		}
@@ -95,7 +96,7 @@ public class ExitPanel extends JTabbedPane {
 
 
 		c.gridy = 1;
-		final JCheckBox rectangular = new JCheckBox("Is rectangular?");
+		final JCheckBox rectangular = new JCheckBox(TextConstants.getText("Exit.IsRectangular"));
 		rectangular.setSelected(exitDataControl.isRectangular());
 		rectangular.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
@@ -113,7 +114,7 @@ public class ExitPanel extends JTabbedPane {
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1;
 		c.weighty = 1;
-		mainPanel.add( spep, c );
+		mainPanel.add( looksPanel, c );
 		
 		this.insertTab(  TextConstants.getText( "Exit.Title" ), null, mainPanel,  TextConstants.getText( "Exit.Title" ), 0 );
 		this.insertTab( TextConstants.getText( "Exit.AdvancedOptions" ), null, new ExitLookPanel(this.exitDataControl.getExitLookDataControl( )), TextConstants.getText( "Exit.AdvancedOptions" ), 1 );

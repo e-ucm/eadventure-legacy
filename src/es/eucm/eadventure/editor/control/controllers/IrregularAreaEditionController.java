@@ -1,10 +1,9 @@
 package es.eucm.eadventure.editor.control.controllers;
 
+import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 
-import es.eucm.eadventure.common.data.chapter.Rectangle;
-import es.eucm.eadventure.editor.control.controllers.scene.ActiveAreaDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.PointDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.RectangleArea;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
@@ -49,11 +48,14 @@ public class IrregularAreaEditionController extends NormalScenePreviewEditionCon
 
 	private int selectedTool = POINT_EDIT;
 	
-	public IrregularAreaEditionController(ScenePreviewEditionPanel spep, RectangleArea rectangleArea) {
+	private Color color;
+	
+	public IrregularAreaEditionController(ScenePreviewEditionPanel spep, RectangleArea rectangleArea, Color color) {
 		super(spep);
 		this.spep = spep;
 		this.aadc = rectangleArea;
-		spep.setIrregularRectangle(aadc.getRectangle());
+		this.color = color;
+		spep.setIrregularRectangle(aadc.getRectangle(), color);
 	}
 	
 	public void mouseClicked(MouseEvent e) {
@@ -65,7 +67,7 @@ public class IrregularAreaEditionController extends NormalScenePreviewEditionCon
 			if (this.underMouse == null) {
 				aadc.addPoint(x, y);
 				spep.addPoint(new PointDataControl(aadc.getLastPoint()));
-				spep.setIrregularRectangle(aadc.getRectangle());
+				spep.setIrregularRectangle(aadc.getRectangle(), color);
 				spep.repaint();
 			} 
 		} else if (selectedTool == DELETE_TOOL){
@@ -75,7 +77,7 @@ public class IrregularAreaEditionController extends NormalScenePreviewEditionCon
 				spep.removeElement(ScenePreviewEditionPanel.CATEGORY_POINT, underMouse);
 				underMouse = null;
 				spep.setSelectedElement((ImageElement) null); 
-				spep.setIrregularRectangle(aadc.getRectangle());
+				spep.setIrregularRectangle(aadc.getRectangle(), color);
 				spep.repaint();
 			} 
 		} 

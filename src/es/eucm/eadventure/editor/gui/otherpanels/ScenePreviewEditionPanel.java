@@ -151,6 +151,8 @@ public class ScenePreviewEditionPanel extends JPanel {
 	
 	private Rectangle rectangle;
 	
+	private Color rectangleColor = Color.RED;
+	
 	/**
 	 * Boolean indicating if the user is rescaling
 	 */
@@ -417,8 +419,9 @@ public class ScenePreviewEditionPanel extends JPanel {
 		this.trajectory = trajectory;
 	}
 	
-	public void setIrregularRectangle(Rectangle rectangle) {
+	public void setIrregularRectangle(Rectangle rectangle, Color color) {
 		this.rectangle = rectangle;
+		this.rectangleColor = color;
 	}
 	
 	/**
@@ -673,7 +676,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 			x[i] = rectangle.getPoints().get(i).x;
 			y[i] = rectangle.getPoints().get(i).y;
 		}
-		drawPanel.fillRelativePoly(x, y, Color.GREEN, 0.4f);
+		drawPanel.fillRelativePoly(x, y, rectangleColor, 0.4f);
 	}
 
 	/**

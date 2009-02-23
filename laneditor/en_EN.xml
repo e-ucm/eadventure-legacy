@@ -878,6 +878,7 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="Exit.Documentation">Full description of the exit</entry>
 	<entry key="Exit.Preview">Position and size of the exit</entry>
 	<entry key="Exit.AdvancedOptions">Advanced options</entry>
+	<entry key="Exit.IsRectangular">Is rectangular?</entry>
 	
 	<entry key="ExitLook.TextPanelTitle">Displayed text on the exit</entry>
 	<entry key="ExitLook.CustomizeText">Customized text</entry>
@@ -899,6 +900,7 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="ActiveArea.DetailedDescription">Detailed description of the active area</entry>
 	<entry key="ActiveArea.DocPanelTitle">Documentation</entry>
 	<entry key="ActiveArea.DocPanelTip">Panel for the edition of the documentation of the active area</entry>
+	<entry key="ActiveArea.IsRectangular">Is rectangular?</entry>
 
 	<entry key="Barrier.Title">Barrier</entry>
 	<entry key="Barrier.Documentation">Full description of the barrier</entry>
