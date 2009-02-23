@@ -154,6 +154,10 @@ public class TimedAssessmentRule extends AssessmentRule {
 		effects.add( new TimedAssessmentEffect() );
 	}
 	
+	public TimedAssessmentEffect getLastEffect(){
+		return effects.get(effects.size()-1);
+	}
+	
 	public void addEffect(int min, int max){
 		this.effectIndex++;
 		TimedAssessmentEffect newEffect = new TimedAssessmentEffect();

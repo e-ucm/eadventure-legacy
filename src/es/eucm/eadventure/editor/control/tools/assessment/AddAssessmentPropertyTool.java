@@ -1,19 +1,20 @@
-package es.eucm.eadventure.editor.control.tools.adaptation;
+package es.eucm.eadventure.editor.control.tools.assessment;
 
-import es.eucm.eadventure.common.data.adaptation.AdaptationRule;
-import es.eucm.eadventure.common.data.adaptation.UOLProperty;
+import java.util.List;
+
+import es.eucm.eadventure.common.data.assessment.AssessmentProperty;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.tools.Tool;
 
-public class DeleteUOLPropertyTool extends Tool{
+public class AddAssessmentPropertyTool extends Tool{
 
-	protected UOLProperty propertyDeleted;
+	protected AssessmentProperty propertyAdded;
 	
-	protected AdaptationRule parent;
+	protected List<AssessmentProperty> parent;
 	
 	protected int index;
 	
-	public DeleteUOLPropertyTool (AdaptationRule parent, int index){
+	public AddAssessmentPropertyTool (List<AssessmentProperty> parent, int index){
 		this.parent = parent;
 		this.index = index;
 	}
@@ -35,23 +36,21 @@ public class DeleteUOLPropertyTool extends Tool{
 
 	@Override
 	public boolean doTool() {
-		if (index >=0 && index <parent.getUOLProperties( ).size( )){
-			propertyDeleted = parent.getUOLProperties( ).remove( index );
-			return true;
-		}
-		return false;
+		propertyAdded = new AssessmentProperty("PropertyId", 0);
+		parent.add( index,  propertyAdded);
+		return true;
 	}
 
 	@Override
 	public boolean redoTool() {
-		parent.getUOLProperties().remove(index);
+		parent.add(index, propertyAdded);
 		Controller.getInstance().updatePanel();
 		return true;
 	}
 
 	@Override
 	public boolean undoTool() {
-		parent.getUOLProperties().add(index, propertyDeleted);
+		parent.remove(index);
 		Controller.getInstance().updatePanel();
 		return true;
 	}

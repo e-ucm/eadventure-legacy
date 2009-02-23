@@ -3,6 +3,7 @@ package es.eucm.eadventure.editor.control.tools.adaptation;
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.adaptation.AdaptationRule;
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
+import es.eucm.eadventure.common.data.adaptation.ContainsAdaptedState;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.tools.Tool;
@@ -14,7 +15,7 @@ import es.eucm.eadventure.editor.control.tools.Tool;
  */
 public class AddActionTool extends Tool{
 
-	protected AdaptationRule rule;
+	protected ContainsAdaptedState containsAS;
 	
 	protected AdaptedState state;
 	
@@ -24,8 +25,8 @@ public class AddActionTool extends Tool{
 	
 	protected int mode;
 	
-	public AddActionTool (AdaptationRule rule, int index){
-		this.rule = rule;
+	public AddActionTool (ContainsAdaptedState rule, int index){
+		this.containsAS = rule;
 		this.state = rule.getAdaptedState();
 		this.index = index;
 	}
@@ -73,7 +74,7 @@ public class AddActionTool extends Tool{
 
 	@Override
 	public boolean redoTool() {
-		rule.setAdaptedState( state );
+		containsAS.setAdaptedState( state );
 		Controller.getInstance( ).updateFlagSummary( );
 		Controller.getInstance().updatePanel();
 		return true;
@@ -81,7 +82,7 @@ public class AddActionTool extends Tool{
 
 	@Override
 	public boolean undoTool() {
-		rule.setAdaptedState( oldState );
+		containsAS.setAdaptedState( oldState );
 		Controller.getInstance( ).updateFlagSummary( );
 		Controller.getInstance().updatePanel();
 		return true;

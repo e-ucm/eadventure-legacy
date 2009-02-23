@@ -12,6 +12,7 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.tools.assessment.ChangeReportSettingsTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class AssessmentProfileDataControl extends DataControl{
@@ -275,13 +276,6 @@ public class AssessmentProfileDataControl extends DataControl{
 		return profile.getPath();
 	}
 
-	/**
-	 * @param path the path to set
-	 */
-	public void setPath( String path ) {
-		profile.setPath(path);
-	}
-
 	@Override
 	public boolean canBeDuplicated( ) {
 		return true;
@@ -298,8 +292,7 @@ public class AssessmentProfileDataControl extends DataControl{
 	 * @param showReportAtEnd the showReportAtEnd to set
 	 */
 	public void setShowReportAtEnd(boolean showReportAtEnd) {
-		profile.setShowReportAtEnd(showReportAtEnd);
-		Controller.getInstance().dataModified();
+		controller.addTool(new ChangeReportSettingsTool(profile, showReportAtEnd, ChangeReportSettingsTool.SHOW_REPORT));
 	}
 	
 	public boolean isSendByEmail() {
@@ -307,8 +300,7 @@ public class AssessmentProfileDataControl extends DataControl{
 	}
 	
 	public void setSendByEmail(boolean sendByEmail) {
-		profile.setSendByEmail(sendByEmail);
-		Controller.getInstance().dataModified();
+		controller.addTool(new ChangeReportSettingsTool(profile, sendByEmail, ChangeReportSettingsTool.SEND));
 	}
 	
 	public String getEmail() {
@@ -316,8 +308,7 @@ public class AssessmentProfileDataControl extends DataControl{
 	}
 	
 	public void setEmail(String email) {
-		profile.setEmail(email);
-		Controller.getInstance().dataModified();
+		controller.addTool(new ChangeReportSettingsTool(profile, email, ChangeReportSettingsTool.EMAIL));
 	}
 
 	public String getSmtpServer() {
@@ -341,23 +332,23 @@ public class AssessmentProfileDataControl extends DataControl{
 	}
 
 	public void setSmtpServer(String smtpServer) {
-		profile.setSmtpServer(smtpServer);
+		controller.addTool(new ChangeReportSettingsTool(profile, smtpServer, ChangeReportSettingsTool.SMTP_SERVER));
 	}
 	
 	public void setSmtpSSL(boolean smtpSSL) {
-		profile.setSmtpSSL(smtpSSL);
+		controller.addTool(new ChangeReportSettingsTool(profile, smtpSSL, ChangeReportSettingsTool.SMTP_SSL));
 	}
 	
 	public void setSmtpPort(String smtpPort) {
-		profile.setSmtpPort(smtpPort);
+		controller.addTool(new ChangeReportSettingsTool(profile, smtpPort, ChangeReportSettingsTool.SMTP_PORT));
 	}
 	
 	public void setSmtpUser(String smtpUser) {
-		profile.setSmtpUser(smtpUser);
+		controller.addTool(new ChangeReportSettingsTool(profile, smtpUser, ChangeReportSettingsTool.SMTP_USER));
 	}
 	
 	public void setSmtpPwd(String smtpPwd) {
-		profile.setSmtpPwd(smtpPwd);
+		controller.addTool(new ChangeReportSettingsTool(profile, smtpPwd, ChangeReportSettingsTool.SMTP_PWD));
 	}
 
 	@Override
