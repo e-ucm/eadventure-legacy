@@ -16,6 +16,7 @@ import java.util.Stack;
 import javax.swing.JOptionPane;
 
 import es.eucm.eadventure.comm.AdventureApplet;
+import es.eucm.eadventure.comm.manager.commManager.CommManagerApi;
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
 import es.eucm.eadventure.common.data.adventure.ChapterSummary;
@@ -693,7 +694,10 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             functionalScene.stopBackgroundMusic( );
         if( adaptationEngine != null )
             adaptationEngine.stopAdaptationClock( );
-        
+        //TODO tener en cuenta SCORM 2004 
+        if (comm.getCommType()==CommManagerApi.SCORMV12_TYPE){
+        	comm.disconnect(null);
+        }
         staticStop();
     }
     

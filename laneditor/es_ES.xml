@@ -14,6 +14,7 @@
 	<entry key="MenuFile.Save">Guardar</entry>
 	<entry key="MenuFile.SaveAs">Guardar como...</entry>
 	<entry key="MenuFile.LOMProperties">Propiedades de Objeto de Aprendizaje (LO)</entry>
+	<entry key="MenuFile.LOMSCORMProperties">Propiedades de Objeto de Aprendizaje para paquetes SCORM (LO)</entry>
 	<entry key="MenuFile.ExportLOM">Exportar como Objeto de Aprendizaje (LO)</entry>
 	<entry key="MenuFile.ExportGame">Exportar como fichero EAD</entry>
 	<entry key="MenuFile.ExportStandalone">Exportar como fichero jar ejecutable</entry>
@@ -1679,6 +1680,104 @@ Si no los cambia, el juego empleará los botones por defecto.</entry>
 	
 	<entry key="LOM.Duration.InvalidValue.Message">El valor introducido no es válido para {#0}. Por favor, escriba un número entero positivo o déjelo en blanco.</entry>
 	<entry key="LOM.Duration.InvalidValue.Title">Valor incorrecto</entry>
+	
+	<entry key="IMS.Meta.Tab">MetaMetaData</entry>
+	<entry key="IMS.Meta.Tip">Meta meta data</entry>
+	<entry key="IMS.Rights.Tab">Rights</entry>
+	<entry key="IMS.Rights.Tip">Rights Data</entry>
+	<entry key="IMS.Classification.Tab">Classification</entry>
+	<entry key="IMS.Classification.Tip">Classification Data</entry>
+	<entry key="IMS.General.Catalog">Catalog</entry>
+	<entry key="IMS.General.Entry">Entry</entry>
+	<entry key="IMS.LifeCycle.Status">Status</entry>
+	<entry key="IMS.Technical.Format">Format</entry>
+	<entry key="IMS.Technical.Location">Location</entry>
+	<entry key="IMS.MetaMetaData.Metadatascheme">Meta Data Scheme</entry>
+	<entry key="IMS.Rights.Cost">Cost</entry>
+	<entry key="IMS.Rights.CopyAndOth">Copy and other restrictions</entry>
+	<entry key="IMS.Classification.Purpose">Purpose</entry>
+	<entry key="IMS.Classification.Description">Description</entry>
+	<entry key="IMS.Classification.Keyword">Keywords</entry>
+
+	
+	
+	
+	<entry key="IMS.LifeCycle.Status">Estado o condición en el que está el recurso</entry>
+	<entry key="IMS.LifeCycle.Status0">Draft</entry>
+	<entry key="IMS.LifeCycle.Status1">Final</entry>
+	<entry key="IMS.LifeCycle.Status2">Revised</entry>
+	<entry key="IMS.LifeCycle.Status3">Unavailable</entry>
+	
+	<entry key="IMS.Educational.InteractivityType">Flujo de interacción entre el recurso y los usuarios previstos</entry>
+	<entry key="IMS.Educational.InteractivityType0">Active</entry>
+	<entry key="IMS.Educational.InteractivityType1">Expositive</entry>
+	<entry key="IMS.Educational.InteractivityType2">Mixed</entry>
+	<entry key="IMS.Educational.InteractivityType3">Undefined</entry>
+	
+	<entry key="IMS.Educational.LearningResourceType">Tipo específico de recurso</entry>
+	<entry key="IMS.Educational.LearningResourceType0">Exercise</entry>
+	<entry key="IMS.Educational.LearningResourceType1">Simulation</entry>
+	<entry key="IMS.Educational.LearningResourceType2">Questionnaire</entry>
+	<entry key="IMS.Educational.LearningResourceType3">Diagram</entry> 	
+	<entry key="IMS.Educational.LearningResourceType4">Figure</entry>
+	<entry key="IMS.Educational.LearningResourceType5">Graph</entry>
+	<entry key="IMS.Educational.LearningResourceType6">Index</entry>
+	<entry key="IMS.Educational.LearningResourceType7">Slide</entry>
+	<entry key="IMS.Educational.LearningResourceType8">Table</entry>
+	<entry key="IMS.Educational.LearningResourceType9">Narrative Text</entry>
+	<entry key="IMS.Educational.LearningResourceType10">Exam</entry>
+	<entry key="IMS.Educational.LearningResourceType11">Experiment</entry>
+	<entry key="IMS.Educational.LearningResourceType12">Problem Statement</entry>
+	<entry key="IMS.Educational.LearningResourceType13">Self Assessment</entry>
+	
+	<entry key="IMS.Educational.InteractivityLevel">Grado de interacción entre el recurso y el usuario</entry>
+	<entry key="IMS.Educational.InteractivityLevel0">Very Low</entry>
+	<entry key="IMS.Educational.InteractivityLevel1">Low</entry>
+	<entry key="IMS.Educational.InteractivityLevel2">Medium</entry>
+	<entry key="IMS.Educational.InteractivityLevel3">High</entry>
+	<entry key="IMS.Educational.InteractivityLevel4">Very High</entry>
+	
+	<entry key="IMS.Educational.SemanticDensity">Medida subjetiva de la utilidad del recurso comparado con su tamaño o duración</entry>
+	<entry key="IMS.Educational.SemanticDensity0">Very Low</entry>
+	<entry key="IMS.Educational.SemanticDensity1">Low</entry>
+	<entry key="IMS.Educational.SemanticDensity2">Medium</entry>
+	<entry key="IMS.Educational.SemanticDensity3">High</entry>
+	<entry key="IMS.Educational.SemanticDensity4">Very High</entry>
+	
+	<entry key="IMS.Educational.IntendedEndUserRole">Usuario principal para el cual está diseñado el recurso</entry>
+	<entry key="IMS.Educational.IntendedEndUserRole0">Teacher</entry>
+	<entry key="IMS.Educational.IntendedEndUserRole1">Author</entry>
+	<entry key="IMS.Educational.IntendedEndUserRole2">Learner</entry>
+	<entry key="IMS.Educational.IntendedEndUserRole3">Manager</entry>
+	
+	<entry key="IMS.Educational.Contex">Entorno donde se pretende que tenga lugar el uso del recurso </entry>
+	<entry key="IMS.Educational.Contex0">Primary Education</entry>	
+	<entry key="IMS.Educational.Contex1">Secondary Education</entry>
+	<entry key="IMS.Educational.Contex2">Higher Education</entry>
+	<entry key="IMS.Educational.Contex3">University First Cycle</entry>
+	<entry key="IMS.Educational.Contex4">University Second Cycle</entry>
+	<entry key="IMS.Educational.Contex5">University Postgrade</entry>
+	<entry key="IMS.Educational.Contex6">Technical School First Cycle</entry>
+	<entry key="IMS.Educational.Contex7">Technical School Second Cycle</entry>
+	<entry key="IMS.Educational.Contex8">Professional Formation</entry>
+	<entry key="IMS.Educational.Contex9">Continuous Formation</entry>
+	<entry key="IMS.Educational.Contex10">Vocational Training</entry>
+	
+	<entry key="IMS.Educational.Difficulty">Define la dificultad del recurso</entry>	
+	<entry key="IMS.Educational.Difficulty0">Very Easy</entry>
+	<entry key="IMS.Educational.Difficulty1">Easy</entry>
+	<entry key="IMS.Educational.Difficulty2">Medium</entry>
+	<entry key="IMS.Educational.Difficulty3">Difficult</entry>
+	<entry key="IMS.Educational.Difficulty4">Very Difficult</entry>
+	
+	<entry key="IMS.Classification.Purpose0">Discipline</entry>
+	<entry key="IMS.Classification.Purpose1">Idea</entry>
+	<entry key="IMS.Classification.Purpose2">Prerequisite</entry>
+	<entry key="IMS.Classification.Purpose3">Educational Objetive</entry>
+	<entry key="IMS.Classification.Purpose4">Accessibility Restrictions</entry>
+	<entry key="IMS.Classification.Purpose5">Educational  Level</entry>
+	<entry key="IMS.Classification.Purpose6">Skill level</entry>
+	<entry key="IMS.Classification.Purpose7">Security Level</entry>
 	
 	
 	<entry key="Timer.InitConditions">Condiciones para activación del temporizador</entry>

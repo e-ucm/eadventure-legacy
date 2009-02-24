@@ -8,6 +8,7 @@ import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfil
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfilesDataControl;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfileDataControl;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfilesDataControl;
+import es.eucm.eadventure.editor.control.controllers.ims.IMSDataControl;
 import es.eucm.eadventure.editor.control.controllers.lom.LOMDataControl;
 import es.eucm.eadventure.editor.control.tools.general.ChangeDescriptionTool;
 import es.eucm.eadventure.editor.control.tools.general.ChangeTitleTool;
@@ -36,6 +37,12 @@ public class AdventureDataControl {
 	 * exporting games to LOM)
 	 */
 	private LOMDataControl lomController;
+	
+	/**
+	 * Controller for IMS data (only required when exporting
+	 * games to SCORM)
+	 */
+	private IMSDataControl imsController;
 	
 	/**
 	 * Assessment file data controller
@@ -72,6 +79,7 @@ public class AdventureDataControl {
 	public AdventureDataControl( ) {
 		adventureData = new AdventureData();
 		lomController = new LOMDataControl();
+		imsController = new IMSDataControl();
 		assessmentProfilesDataControl = new AssessmentProfilesDataControl();
 		adaptationProfilesDataControl = new AdaptationProfilesDataControl();
 	}
@@ -95,6 +103,7 @@ public class AdventureDataControl {
 		adventureData.setPlayerMode( playerMode );
 		adventureData.addChapter( new Chapter( chapterTitle, sceneId ) );
 		lomController = new LOMDataControl();
+		imsController = new IMSDataControl();
 		assessmentProfilesDataControl = new AssessmentProfilesDataControl();
 		adaptationProfilesDataControl = new AdaptationProfilesDataControl();
 	}
@@ -125,6 +134,7 @@ public class AdventureDataControl {
 		adventureData.setPlayerMode( DescriptorData.MODE_PLAYER_3RDPERSON );
 		 
 		lomController = new LOMDataControl();
+		imsController = new IMSDataControl();
 	}
 
     public boolean isCursorTypeAllowed( String type ){
@@ -329,6 +339,20 @@ public class AdventureDataControl {
 		this.lomController = lomController;
 	}
 	
+	/**
+	 * @return the imsController
+	 */
+	public IMSDataControl getImsController() {
+		return imsController;
+	}
+
+	/**
+	 * @param imsController the imsController to set
+	 */
+	public void setImsController(IMSDataControl imsController) {
+		this.imsController = imsController;
+	}
+
 	/**
 	 * @return the assessmentRulesListDataControl
 	 */
