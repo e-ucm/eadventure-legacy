@@ -61,9 +61,9 @@ public class ResourcesDataControl extends DataControl {
 				break;
 			case Controller.ACTION_CUSTOM:
 			case Controller.ACTION_CUSTOM_INTERACT:
-				assetsInformation = new AssetInformation[] {new AssetInformation( TextConstants.getText( "Resources.DescriptionButtonNormal"), "buttonNormal", true, AssetsController.CATEGORY_IMAGE, AssetsController.FILTER_PNG),
-						new AssetInformation(TextConstants.getText("Resources.DescriptionButtonOver"), "buttonOver", true, AssetsController.CATEGORY_IMAGE, AssetsController.FILTER_PNG),
-						new AssetInformation(TextConstants.getText("Resources.DescriptionButtonPressed"), "buttonPressed", true, AssetsController.CATEGORY_IMAGE, AssetsController.FILTER_PNG),
+				assetsInformation = new AssetInformation[] {new AssetInformation( TextConstants.getText( "Resources.DescriptionButtonNormal"), "buttonNormal", true, AssetsController.CATEGORY_BUTTON, AssetsController.FILTER_PNG),
+						new AssetInformation(TextConstants.getText("Resources.DescriptionButtonOver"), "buttonOver", true, AssetsController.CATEGORY_BUTTON, AssetsController.FILTER_PNG),
+						new AssetInformation(TextConstants.getText("Resources.DescriptionButtonPressed"), "buttonPressed", true, AssetsController.CATEGORY_BUTTON, AssetsController.FILTER_PNG),
 						new AssetInformation(TextConstants.getText("Resources.DescriptionActionAnimation"), "actionAnimation", false, AssetsController.CATEGORY_ANIMATION, AssetsController.FILTER_NONE)};
 				 break;
 			case Controller.CUTSCENE_VIDEO:

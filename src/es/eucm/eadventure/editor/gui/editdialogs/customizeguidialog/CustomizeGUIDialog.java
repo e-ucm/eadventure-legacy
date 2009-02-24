@@ -26,9 +26,11 @@ public class CustomizeGUIDialog extends JDialog{
 		
 		//Create the cursors panel
 		CursorsPanel cursorsPanel= new CursorsPanel (dataControl);
+		ButtonsPanel buttonsPanel = new ButtonsPanel (dataControl);
 		
 		tabbedPane.insertTab( TextConstants.getText( "Cursors.Title" ), null, cursorsPanel, TextConstants.getText( "Cursors.Tip" ), 0 );
-		
+		tabbedPane.insertTab( TextConstants.getText( "Buttons.Title" ), null, buttonsPanel, TextConstants.getText( "Buttons.Tip" ), 1 );
+
 		addWindowListener( new WindowAdapter( ) {
 			public void windowClosing( WindowEvent e ) {
 				setVisible( false );

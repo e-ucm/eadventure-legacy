@@ -1454,6 +1454,7 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="AssetsChooser.Background">Choose a background image</entry>
 	<entry key="AssetsChooser.Icon">Choose an icon image</entry>
 	<entry key="AssetsChooser.Cursor">Choose an image for the cursor</entry>
+	<entry key="AssetsChooser.Button">Choose an image for the button</entry>
 	<entry key="AssetsChooser.FormattedText">Choose a rtf or html file</entry>
 	
 	<entry key="Cursors.Information"> Here you can customize how the mouse looks for different events in the game. 
@@ -1490,7 +1491,41 @@ When not customized, default cursors will be used in the game.</entry>
 	
 	<entry key="Cursor.PreviewTitle">Cursor preview</entry>
 	
+	
+	<entry key="Buttons.Title">Buttons</entry>
+	<entry key="Buttons.Tip">Customize the buttons for different actions</entry>
+	<entry key="Buttons.DeleteButton">Delete button</entry>
+	<entry key="Buttons.Select">Select...</entry>
+	<entry key="Buttons.Preview">View button</entry>
+	<entry key="Buttons.Information">Here you can customize how the action buttons look. 
+When not customized, default buttons will be used in the game.</entry>
+	
+	<entry key="Button.talk.Description">Talk button</entry>
+	<entry key="Button.use-grab.Description">Use-grab button</entry>
+	<entry key="Button.examine.Description">Examine button</entry>
+	<entry key="Button.talk.normal.Description">Normal talk button</entry>
+	<entry key="Button.talk.highlighted.Description">Highlighted talk button</entry>
+	<entry key="Button.talk.pressed.Description">Pressed talk button</entry>
+	<entry key="Button.use-grab.normal.Description">Normal use-grab button</entry>
+	<entry key="Button.use-grab.highlighted.Description">Highlighted use-grab button</entry>
+	<entry key="Button.use-grab.pressed.Description">Pressed use-grab button</entry>
+	<entry key="Button.examine.normal.Description">Normal examine button</entry>
+	<entry key="Button.examine.highlighted.Description">Highlighted examine button</entry>
+	<entry key="Button.examine.pressed.Description">Pressed examine button</entry>
+
+	<entry key="Button.talk.normal.Tip">This is the normal talk button, the one shown when the mouse is not on it or clicking the action</entry>
+	<entry key="Button.talk.highlighted.Tip">This is the highlighted talk button, the one shown when the mouse is over it but not clicking</entry>
+	<entry key="Button.talk.pressed.Tip">This is the pressed talk button, the one shown when the mouse is pressed inside the button</entry>
+	<entry key="Button.use-grab.normal.Tip">This is the normal use-grab button, the one shown when the mouse is not on or clicking the action</entry>
+	<entry key="Button.use-grab.highlighted.Tip">This is the highlighted use-grab button, the one shown when the mouse is over it but not clicking</entry>
+	<entry key="Button.use-grab.pressed.Tip">This is the pressed use-grab button, the one show when the mouse is pressed inside the button</entry>
+	<entry key="Button.examine.normal.Tip">This is the normal examine button, the one shown when the mouse is not on or clicking the action</entry>
+	<entry key="Button.examine.highlighted.Tip">This is the highlighted examine button, the one show when the mouse is over it but not clicking</entry>
+	<entry key="Button.examine.pressed.Tip">This is the pressed examine button, the one show when the mouse is pressed inside the button</entry>
+	
+	
 	<entry key="CursorAssets.Preview">Cursor preview</entry>
+	<entry key="ButtonAssets.Preview">Button preview</entry>
 	<entry key="CustomizeGUI.Title">GUI Customization</entry>
 	<entry key="CustomizeGUI.Cursors.HelpText">	Here you can customize how the mouse looks for different events in the game. When not customized, default cursors will be used in the game.</entry>
 	<entry key="VideoAssets.Title">Video assets</entry>

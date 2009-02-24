@@ -1455,6 +1455,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="AssetsChooser.Background">Escoja una imagen de fondo</entry>
 	<entry key="AssetsChooser.Icon">Escoja una imagen de icono</entry>
 	<entry key="AssetsChooser.Cursor">Escoja una imagen de cursor</entry>
+	<entry key="AssetsChooser.Button">Escoja una imagen para el botón</entry>
 	<entry key="AssetsChooser.FormattedText">Escoja un archivo RTF o HTML</entry>
 	
 	<entry key="Cursors.Information"> Desde este menú puede personalizar la apariencia del raton para los distintos eventos del juego. 
@@ -1491,7 +1492,40 @@ Si no los cambia, el juego empleará los cursores por defecto (ambientación fan
 	
 	<entry key="Cursor.PreviewTitle">Previsualización</entry>
 	
+	<entry key="Buttons.Title">Botones</entry>
+	<entry key="Buttons.Tip">Presonalización de los botones para las acciones por defecto</entry>
+	<entry key="Buttons.DeleteButton">Borrar boton</entry>
+	<entry key="Buttons.Select">Elegir...</entry>
+	<entry key="Buttons.Preview">Ver el boton</entry>
+	<entry key="Buttons.Information"> Desde este menú puede personalizar la apariencia de los botones para las distintas acciones del juego. 
+Si no los cambia, el juego empleará los botones por defecto.</entry>
+	
+	<entry key="Button.talk.Description">Boton hablar</entry>
+	<entry key="Button.use-grab.Description">Boton de usar-coger</entry>
+	<entry key="Button.examine.Description">Boton examinar</entry>
+	<entry key="Button.talk.normal.Description">Boton de hablar normal</entry>
+	<entry key="Button.talk.highlighted.Description">Boton de hablar resaltado</entry>
+	<entry key="Button.talk.pressed.Description">Boton de hablar presionado</entry>
+	<entry key="Button.use-grab.normal.Description">Boton de usar-coger normal</entry>
+	<entry key="Button.use-grab.highlighted.Description">Boton de usar-coger resaltado</entry>
+	<entry key="Button.use-grab.pressed.Description">Boton de user-coger presionado</entry>
+	<entry key="Button.examine.normal.Description">Boton de examinar normal</entry>
+	<entry key="Button.examine.highlighted.Description">Boton de examinar resaltado</entry>
+	<entry key="Button.examine.pressed.Description">Boton de examinar presionado</entry>
+
+	<entry key="Button.talk.normal.Tip">Este es el boton de hablar normal, el que se enseña cuando el ratón no esta sobre él</entry>
+	<entry key="Button.talk.highlighted.Tip">Este es el boton de hablar resaltado, el que se eseña cuando el retón está sobre él pero no está presionado</entry>
+	<entry key="Button.talk.pressed.Tip">Este es el boton de hablar presionado, el que se eseña cuando el ratón esta pulsado sobre él</entry>
+	<entry key="Button.use-grab.normal.Tip">Este es el boton de usar-coger normal, el que se eseña cuando el ratón no está sobre él</entry>
+	<entry key="Button.use-grab.highlighted.Tip">Este es el botono de usar-coger resaltado, el que se eseña cuando el ratón esta sobre él pero no está presionado</entry>
+	<entry key="Button.use-grab.pressed.Tip">Este es el botón de usar-coger presionado, el que se eseña cuando el ratón está pulsado sobre él</entry>
+	<entry key="Button.examine.normal.Tip">Este es el botón de examinar normal, el que se eseña cuando el ratón no está sobre él</entry>
+	<entry key="Button.examine.highlighted.Tip">Este es el botón de examinar resaltado, el que se eseña cuando el ratón estña sobre él pero no está presionado</entry>
+	<entry key="Button.examine.pressed.Tip">Este es el botón de examinar presionado, el que se eseña cuando el ratón está pulsado sobre él</entry>
+	
+	
 	<entry key="CursorAssets.Preview">Previsualización</entry>
+	<entry key="ButtonAssets.Preview">Previsualización</entry>
 	<entry key="CustomizeGUI.Title">Personalizacion de la GUI</entry>
 	<entry key="CustomizeGUI.Cursors.HelpText">	Desde este menú puede personalizar la apariencia del raton para los distintos eventos del juego. Si no los cambia, el juego empleará los cursores por defecto (ambientación fantástica).</entry>
 	<entry key="VideoAssets.Title">Recursos de vídeo</entry>
