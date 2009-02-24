@@ -778,6 +778,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="Resources.NewBlock">Nueva apariencia</entry>
 	<entry key="Resources.DeleteBlock">Borrar apariencia</entry>
 
+	<entry key="Resources.ResourcesGroup">Grupo de recursos</entry>
 	<entry key="Resources.EditAsset">Editar recurso</entry>
 	<entry key="Resources.EditAssetMessage">Seleccione un recurso de la lista:</entry>
 	<entry key="Resources.DeleteAsset">Eliminar recurso</entry>
@@ -799,21 +800,33 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="Resources.DescriptionBookBackground">Imagen de fondo del libro</entry>
 	<entry key="Resources.DescriptionItemImage">Imagen del objeto</entry>
 	<entry key="Resources.DescriptionItemIcon">Icono de inventario del objeto</entry>
-	<entry key="Resources.DescriptionCharacterAnimationStandUp">Animación del personaje mirando hacia arriba</entry>
-	<entry key="Resources.DescriptionCharacterAnimationStandDown">Animación del personaje mirando hacia abajo</entry>
-	<entry key="Resources.DescriptionCharacterAnimationStandRight">Animación del personaje mirando hacia la derecha</entry>
-	<entry key="Resources.DescriptionCharacterAnimationSpeakUp">Animación del personaje hablando hacia arriba</entry>
-	<entry key="Resources.DescriptionCharacterAnimationSpeakDown">Animación del personaje hablando hacia abajo</entry>
-	<entry key="Resources.DescriptionCharacterAnimationSpeakRight">Animación del personaje hablando hacia la derecha</entry>
-	<entry key="Resources.DescriptionCharacterAnimationUseRight">Animación del personaje usando un objeto</entry>
-	<entry key="Resources.DescriptionCharacterAnimationWalkUp">Animación del personaje andando hacia arriba</entry>
-	<entry key="Resources.DescriptionCharacterAnimationWalkDown">Animación del personaje andando hacia abajo</entry>
-	<entry key="Resources.DescriptionCharacterAnimationWalkRight">Animación del personaje andando hacia la derecha</entry>
+	<entry key="Resources.DescriptionCharacterAnimationStandUp">Hacia arriba</entry>
+	<entry key="Resources.DescriptionCharacterAnimationStandDown">Hacia abajo</entry>
+	<entry key="Resources.DescriptionCharacterAnimationStandRight">Hacia la derecha</entry>
+	<entry key="Resources.DescriptionCharacterAnimationStandLeft">Hacia la izquierda</entry>
+	<entry key="Resources.DescriptionCharacterAnimationSpeakUp">Hacia arriba</entry>
+	<entry key="Resources.DescriptionCharacterAnimationSpeakDown">Hacia abajo</entry>
+	<entry key="Resources.DescriptionCharacterAnimationSpeakRight">Hacia la derecha</entry>
+	<entry key="Resources.DescriptionCharacterAnimationSpeakLeft">Hacia la izquierda</entry>
+	<entry key="Resources.DescriptionCharacterAnimationUseRight">Objeto a su derecha</entry>
+	<entry key="Resources.DescriptionCharacterAnimationUseLeft">Objeto a su izquierda</entry>
+	<entry key="Resources.DescriptionCharacterAnimationWalkUp">Hacia arriba</entry>
+	<entry key="Resources.DescriptionCharacterAnimationWalkDown">Hacia abajo</entry>
+	<entry key="Resources.DescriptionCharacterAnimationWalkRight">Hacia la derecha</entry>
+	<entry key="Resources.DescriptionCharacterAnimationWalkLeft">Hacia la izquierda</entry>
 	<entry key="Resources.DescriptionVideoscenes">Video para la escena intermedia</entry>
 	<entry key="Resources.DescriptionButtonNormal">Imagen para el estado normal del botón</entry>
 	<entry key="Resources.DescriptionButtonOver">Imagen para el botón cuando tiene el ratón encima</entry>
 	<entry key="Resources.DescriptionButtonPressed">Imagen para el botón cuando se pulsa</entry>
-	<entry key="Resources.DescriptionActionAnimation">Animación para cuando realiza la acción</entry>
+	<entry key="Resources.DescriptionActionAnimation">Animación hacia la derecha para cuando realiza la acción (opcional)</entry>
+	<entry key="Resources.DescriptionActionAnimationLeft">Animación hacia la izquierda para cuando realiza la acción (opcional)</entry>
+
+	<entry key="Resources.WalkingAnimations">Animaciones caminando</entry>
+	<entry key="Resources.UsingAnimations">Animaciones usando</entry>
+	<entry key="Resources.StandingAnimations">Animaciones parado</entry>
+	<entry key="Resources.SpeakingAnimations">Animaciones hablando</entry>
+	<entry key="Resources.Animations">Animaciones</entry>
+	<entry key="Resources.Button">Boton</entry>
 
 	<entry key="Adventure.Title">Datos de la aventura</entry>
 	<entry key="Adventure.AdventureTitle">Título de la aventura</entry>

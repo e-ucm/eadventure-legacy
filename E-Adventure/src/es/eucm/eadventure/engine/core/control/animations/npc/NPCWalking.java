@@ -1,5 +1,6 @@
 package es.eucm.eadventure.engine.core.control.animations.npc;
 
+import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.engine.core.control.animations.AnimationState;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalNPC;
 import es.eucm.eadventure.common.data.chapter.elements.NPC;
@@ -44,7 +45,10 @@ public class NPCWalking extends NPCState{
 
         MultimediaManager multimedia = MultimediaManager.getInstance( );
         animations[EAST] = multimedia.loadAnimation( resources.getAssetPath( NPC.RESOURCE_TYPE_WALK_RIGHT ), false, MultimediaManager.IMAGE_SCENE );
-        animations[WEST] = multimedia.loadAnimation( resources.getAssetPath( NPC.RESOURCE_TYPE_WALK_RIGHT ), true, MultimediaManager.IMAGE_SCENE );
+        if (resources.getAssetPath( NPC.RESOURCE_TYPE_WALK_LEFT ) != null && resources.getAssetPath( NPC.RESOURCE_TYPE_WALK_LEFT) != AssetsController.ASSET_EMPTY_ANIMATION)
+        	animations[WEST ] = multimedia.loadAnimation( resources.getAssetPath( NPC.RESOURCE_TYPE_WALK_LEFT), false, MultimediaManager.IMAGE_SCENE);
+        else
+        	animations[WEST] = multimedia.loadAnimation( resources.getAssetPath( NPC.RESOURCE_TYPE_WALK_RIGHT ), true, MultimediaManager.IMAGE_SCENE );
         animations[NORTH] = multimedia.loadAnimation( resources.getAssetPath( NPC.RESOURCE_TYPE_WALK_UP ), false, MultimediaManager.IMAGE_SCENE );
         animations[SOUTH] = multimedia.loadAnimation( resources.getAssetPath( NPC.RESOURCE_TYPE_WALK_DOWN ), false, MultimediaManager.IMAGE_SCENE );
     }

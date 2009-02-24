@@ -775,6 +775,7 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="Resources.NewBlock">New appearance</entry>
 	<entry key="Resources.DeleteBlock">Delete appearance</entry>
 
+	<entry key="Resources.ResourcesGroup">Resources Group</entry>
 	<entry key="Resources.EditAsset">Edit asset</entry>
 	<entry key="Resources.EditAssetMessage">Select an asset from the list</entry>
 	<entry key="Resources.DeleteAsset">Clear asset</entry>
@@ -796,22 +797,34 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="Resources.DescriptionBookBackground">Background image of the book</entry>
 	<entry key="Resources.DescriptionItemImage">Image of the item</entry>
 	<entry key="Resources.DescriptionItemIcon">Inventory icon of the item</entry>
-	<entry key="Resources.DescriptionCharacterAnimationStandUp">Character's animation looking up</entry>
-	<entry key="Resources.DescriptionCharacterAnimationStandDown">Character's animation looking down</entry>
-	<entry key="Resources.DescriptionCharacterAnimationStandRight">Character's animation looking right</entry>
-	<entry key="Resources.DescriptionCharacterAnimationSpeakUp">Character's animation speaking up</entry>
-	<entry key="Resources.DescriptionCharacterAnimationSpeakDown">Character's animation speaking down</entry>
-	<entry key="Resources.DescriptionCharacterAnimationSpeakRight">Character's animation speaking right</entry>
-	<entry key="Resources.DescriptionCharacterAnimationUseRight">Character's animation using an object</entry>
-	<entry key="Resources.DescriptionCharacterAnimationWalkUp">Character's animation walking up</entry>
-	<entry key="Resources.DescriptionCharacterAnimationWalkDown">Character's animation walking down</entry>
-	<entry key="Resources.DescriptionCharacterAnimationWalkRight">Character's animation walking right</entry>
+	<entry key="Resources.DescriptionCharacterAnimationStandUp">Looking up</entry>
+	<entry key="Resources.DescriptionCharacterAnimationStandDown">Looking down</entry>
+	<entry key="Resources.DescriptionCharacterAnimationStandRight">Looking right</entry>
+	<entry key="Resources.DescriptionCharacterAnimationStandLeft">Looking left</entry>
+	<entry key="Resources.DescriptionCharacterAnimationSpeakUp">Speaking up</entry>
+	<entry key="Resources.DescriptionCharacterAnimationSpeakDown">Speaking down</entry>
+	<entry key="Resources.DescriptionCharacterAnimationSpeakRight">Speaking right</entry>
+	<entry key="Resources.DescriptionCharacterAnimationSpeakleft">Speaking left</entry>
+	<entry key="Resources.DescriptionCharacterAnimationUseRight">Object to the right</entry>
+	<entry key="Resources.DescriptionCharacterAnimationUseLeft">Object to the left</entry>
+	<entry key="Resources.DescriptionCharacterAnimationWalkUp">Walking up</entry>
+	<entry key="Resources.DescriptionCharacterAnimationWalkDown">Walking down</entry>
+	<entry key="Resources.DescriptionCharacterAnimationWalkRight">Walking right</entry>
+	<entry key="Resources.DescriptionCharacterAnimationWalkLeft">Walking left</entry>
 	<entry key="Resources.DescriptionVideoscenes">Video of the videoscene</entry>
 	<entry key="Resources.DescriptionButtonNormal">Image for the normal button state</entry>
 	<entry key="Resources.DescriptionButtonOver">Image for the button when the mouse is over it</entry>
 	<entry key="Resources.DescriptionButtonPressed">Image for the button when it is pressed</entry>
-	<entry key="Resources.DescriptionActionAnimation">Animation used when the action is executed</entry>
+	<entry key="Resources.DescriptionActionAnimation">Animation looking right used when the action is executed (optional)</entry>
+	<entry key="Resources.DescriptionActionAnimationLeft">Animation looking left used when the action is executed (optional)</entry>
 
+	<entry key="Resources.WalkingAnimations">Walking Animations</entry>
+	<entry key="Resources.UsingAnimations">Using Animations</entry>
+	<entry key="Resources.StandingAnimations">Standing Animations</entry>
+	<entry key="Resources.SpeakingAnimations">Talking Animations</entry>
+	<entry key="Resources.Animations">Animations</entry>
+	<entry key="Resources.Button">Button</entry>
+	
 	<entry key="Adventure.Title">Adventure data</entry>
 	<entry key="Adventure.AdventureTitle">Title of the adventure</entry>
 	<entry key="Adventure.AdventureDescription">Description of the adventure</entry>

@@ -1,5 +1,6 @@
 package es.eucm.eadventure.editor.gui.elementpanels.general;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -7,12 +8,15 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -64,6 +68,10 @@ public class ResourcesPanel extends JPanel {
 
 	private LooksPanel previewUpdater;
 
+	private GridBagConstraints c;
+	
+	List<JPanel> assetPanels;
+	
 	/**
 	 * Constructor.
 	 * 
@@ -74,7 +82,141 @@ public class ResourcesPanel extends JPanel {
 		//super( JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED );
 		super( );
 		this.resourcesDataControl = dataControl;
+		assetPanels = new ArrayList<JPanel>();
+		
+		int assetGroups = dataControl.getAssetGroupCount();
+		if (assetGroups == 1) {
+			createSingleGroupPanel();
+		} else {
+			createMultiGroupPanel();
+		}
+		
+		
+	}
 
+	private void createMultiGroupPanel() {
+
+		setLayout( new GridBagLayout( ) );
+		setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Resources.Title" ) ) );
+		c = new GridBagConstraints( );
+		c.insets = new Insets( 2, 4, 2, 4 );
+
+		JTextPane informationTextPane = new JTextPane( );
+		informationTextPane.setEditable( false );
+		informationTextPane.setBackground( getBackground( ) );
+		informationTextPane.setText( TextConstants.getText( "Resources.Information" ) );
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.weightx = 1;
+		c.gridy = 0;
+		c.weighty = 0;
+		add( informationTextPane, c );
+
+		c.gridy = 1;
+		JPanel conditionsPanel = new JPanel( );
+		conditionsPanel.setLayout( new GridLayout( ) );
+		JButton conditionsButton = new JButton( TextConstants.getText( "GeneralText.EditConditions" ) );
+		conditionsButton.addActionListener( new ConditionsButtonListener( ) );
+		conditionsPanel.add( conditionsButton );
+		conditionsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Resources.Conditions" ) ) );
+		add( conditionsPanel, c );
+
+		c.gridy = 2;
+		JPanel panel = new JPanel();
+		panel.setLayout(new BorderLayout());
+		panel.setBorder(BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder(), TextConstants.getText( "Resources.ResourcesGroup")));
+		final JComboBox groupCombo = new JComboBox();
+		for (int i = 0; i < resourcesDataControl.getAssetGroupCount(); i++) {
+			groupCombo.addItem(resourcesDataControl.getGroupInfo(i));
+		}
+		groupCombo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				setSelectedGroup(groupCombo.getSelectedIndex());
+			}
+		});
+		panel.add(groupCombo, BorderLayout.CENTER);
+		add(panel, c);
+		
+		groupCombo.setSelectedIndex(0);
+		setSelectedGroup(0);
+		
+	}
+
+	protected void setSelectedGroup(int selectedIndex) {
+		Icon deleteContentIcon = new ImageIcon( "img/icons/deleteContent.png" );
+		
+		while (!assetPanels.isEmpty()) {
+			remove(assetPanels.get(0));
+			assetPanels.remove(0);
+		}
+		
+		int assetCount = resourcesDataControl.getGroupAssetCount( selectedIndex );
+		assetFields = new JTextField[assetCount];
+		viewButtons = new JButton[assetCount];
+
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.weightx = 1;
+		c.gridy = 2;
+		c.weighty = 0;
+		
+		for( int j = 0; j < assetCount; j++ ) {
+			int i = resourcesDataControl.getAssetIndex(selectedIndex, j);
+			
+			JPanel assetPanel = new JPanel( );
+			assetPanel.setLayout( new GridBagLayout( ) );
+			assetPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), resourcesDataControl.getAssetDescription( i ) ) );
+			GridBagConstraints c2 = new GridBagConstraints( );
+			c2.insets = new Insets( 2, 2, 2, 2 );
+			c2.fill = GridBagConstraints.NONE;
+			c2.weightx = 0;
+			c2.weighty = 0;
+
+			JButton deleteContentButton = new JButton( deleteContentIcon );
+			deleteContentButton.addActionListener( new DeleteContentButtonListener( i ) );
+			deleteContentButton.setPreferredSize( new Dimension( 20, 20 ) );
+			deleteContentButton.setToolTipText( TextConstants.getText( "Resources.DeleteAsset" ) );
+			assetPanel.add( deleteContentButton, c2 );
+
+			assetFields[j] = new JTextField( MAX_SPACE );
+			assetFields[j].setText( resourcesDataControl.getAssetPath( i ) );
+			assetFields[j].setEditable( false );
+			c2.gridx = 1;
+			c2.fill = GridBagConstraints.HORIZONTAL;
+			c2.weightx = 1;
+			assetPanel.add( assetFields[j], c2 );
+
+			JButton selectButton = new JButton( TextConstants.getText( "Resources.Select" ) );
+			selectButton.addActionListener( new ExamineButtonListener( i ) );
+			c2.gridx = 2;
+			c2.fill = GridBagConstraints.NONE;
+			c2.weightx = 0;
+			assetPanel.add( selectButton, c2 );
+			
+			if (resourcesDataControl.getAssetCategory(i) == AssetsController.CATEGORY_ANIMATION) {
+				JButton editButton = new JButton( TextConstants.getText("Resources.Create") + "/" + TextConstants.getText("Resources.Edit"));
+				editButton.addActionListener( new EditButtonListener(i));
+				c2.gridx++;
+				assetPanel.add(editButton);
+			}
+			
+			viewButtons[j] = new JButton( getPreviewText( i ) );
+			viewButtons[j].setEnabled( resourcesDataControl.getAssetPath( i ) != null );
+			viewButtons[j].addActionListener( new ViewButtonListener( i ) );
+			c2.gridx++;
+			assetPanel.add( viewButtons[j], c2 );
+
+			c.gridy++;
+			add( assetPanel, c );
+			assetPanels.add(assetPanel);
+		}
+		c.gridy++;
+		c.fill = GridBagConstraints.BOTH;
+		c.weightx = 1;
+		c.weighty = 1;
+		
+		this.updateUI();
+	}
+
+	private void createSingleGroupPanel() {
 		// Load the image for the delete content button
 		Icon deleteContentIcon = new ImageIcon( "img/icons/deleteContent.png" );
 
@@ -115,8 +257,9 @@ public class ResourcesPanel extends JPanel {
 		//resourcesPanel.add( conditionsPanel, c );
 		add( conditionsPanel, c );
 
+		
 		// Create the fields
-		int assetCount = dataControl.getAssetCount( );
+		int assetCount = resourcesDataControl.getAssetCount( );
 		assetFields = new JTextField[assetCount];
 		viewButtons = new JButton[assetCount];
 
@@ -126,7 +269,7 @@ public class ResourcesPanel extends JPanel {
 			// Create the panel and set the border
 			JPanel assetPanel = new JPanel( );
 			assetPanel.setLayout( new GridBagLayout( ) );
-			assetPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), dataControl.getAssetDescription( i ) ) );
+			assetPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), resourcesDataControl.getAssetDescription( i ) ) );
 			GridBagConstraints c2 = new GridBagConstraints( );
 			c2.insets = new Insets( 2, 2, 2, 2 );
 			c2.fill = GridBagConstraints.NONE;
@@ -142,7 +285,7 @@ public class ResourcesPanel extends JPanel {
 
 			// Create the text field and insert it
 			assetFields[i] = new JTextField( MAX_SPACE );
-			assetFields[i].setText( dataControl.getAssetPath( i ) );
+			assetFields[i].setText( resourcesDataControl.getAssetPath( i ) );
 			assetFields[i].setEditable( false );
 			c2.gridx = 1;
 			c2.fill = GridBagConstraints.HORIZONTAL;
@@ -165,34 +308,19 @@ public class ResourcesPanel extends JPanel {
 				assetPanel.add(editButton);
 			}
 			
-			// Create the "View" button and insert it
 			viewButtons[i] = new JButton( getPreviewText( i ) );
-			viewButtons[i].setEnabled( dataControl.getAssetPath( i ) != null );
+			viewButtons[i].setEnabled( resourcesDataControl.getAssetPath( i ) != null );
 			viewButtons[i].addActionListener( new ViewButtonListener( i ) );
 			c2.gridx++;
 			assetPanel.add( viewButtons[i], c2 );
 
-			// Add the panel
 			c.gridy++;
-			//resourcesPanel.add( assetPanel, c );
 			add( assetPanel, c );
 		}
-
-		// Add a filler at the end
 		c.gridy++;
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1;
 		c.weighty = 1;
-		//add( new JFiller( ), c );
-		//add( new JFiller( ), c );
-
-		// TODO Parche, arreglar
-		//resourcesPanel.setPreferredSize( new Dimension( 0, assetCount * 80 ) );
-		//setPreferredSize( new Dimension( 0, assetCount * 80 ) );
-		//setMaximumSize( new Dimension( 0, assetCount * 80 ) );
-
-		// Insert the panel into the scroll
-		//setViewportView( resourcesPanel );
 	}
 
 	/**

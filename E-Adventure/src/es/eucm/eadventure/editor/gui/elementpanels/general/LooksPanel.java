@@ -152,7 +152,6 @@ public abstract class LooksPanel extends JScrollPane {
 
 		//Add the lookPanel to the ScrollbarPane
 		setViewportView( lookPanel );
-
 	}
 
 	/**

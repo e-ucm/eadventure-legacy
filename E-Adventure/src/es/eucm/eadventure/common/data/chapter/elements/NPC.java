@@ -24,7 +24,9 @@ public class NPC extends Element {
      * The tag for the standright animation
      */
     public static final String RESOURCE_TYPE_STAND_RIGHT = "standright";
-    
+
+    public static final String RESOURCE_TYPE_STAND_LEFT = "standleft";
+
     /**
      * The tag for the speakup animation
      */
@@ -40,10 +42,14 @@ public class NPC extends Element {
      */
     public static final String RESOURCE_TYPE_SPEAK_RIGHT = "speakright";
     
+    public static final String RESOURCE_TYPE_SPEAK_LEFT = "speakleft";
+
     /**
      * The tag for the useright animation
      */
     public static final String RESOURCE_TYPE_USE_RIGHT = "useright";
+    
+    public static final String RESOURCE_TYPE_USE_LEFT = "useleft";
     
     /**
      * The tag for the walkup animation
@@ -60,7 +66,8 @@ public class NPC extends Element {
      */
     public static final String RESOURCE_TYPE_WALK_RIGHT = "walkright";
 
-	
+	public static final String RESOURCE_TYPE_WALK_LEFT = "walkleft";
+
 	/**
 	 * The front color of the text of the character
 	 */

@@ -32,9 +32,9 @@ import es.eucm.eadventure.common.data.chapter.elements.Player;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.data.chapter.scenes.Scene;
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.engine.adaptation.AdaptationEngine;
 import es.eucm.eadventure.engine.assessment.AssessmentEngine;
-import es.eucm.eadventure.engine.core.control.animations.AnimationState;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalItem;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalNPC;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
@@ -506,42 +506,66 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         MultimediaManager multimedia = MultimediaManager.getInstance( );
     	for (Resources r : gameData.getPlayer().getResources()) {
             multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_STAND_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
-            multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_STAND_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
+            if (r.getAssetPath( Player.RESOURCE_TYPE_STAND_LEFT) != null && r.getAssetPath( Player.RESOURCE_TYPE_STAND_LEFT) != AssetsController.ASSET_EMPTY_ANIMATION)
+            	multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_STAND_LEFT), false, MultimediaManager.IMAGE_PLAYER);
+            else
+            	multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_STAND_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
             multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_STAND_UP ), false, MultimediaManager.IMAGE_PLAYER );
             multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_STAND_DOWN ), false, MultimediaManager.IMAGE_PLAYER );
             
             multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_SPEAK_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
-            multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_SPEAK_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
+            if (r.getAssetPath( Player.RESOURCE_TYPE_SPEAK_LEFT) != null && r.getAssetPath( Player.RESOURCE_TYPE_SPEAK_LEFT) != AssetsController.ASSET_EMPTY_ANIMATION)
+            	multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_SPEAK_LEFT), false, MultimediaManager.IMAGE_PLAYER);
+            else
+            	multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_SPEAK_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
             multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_SPEAK_UP ), false, MultimediaManager.IMAGE_PLAYER );
             multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_SPEAK_DOWN ), false, MultimediaManager.IMAGE_PLAYER );
 
             multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_USE_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
-            multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_USE_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
+            if (r.getAssetPath( Player.RESOURCE_TYPE_USE_LEFT) != null && r.getAssetPath( Player.RESOURCE_TYPE_USE_LEFT) != AssetsController.ASSET_EMPTY_ANIMATION)
+            	multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_USE_LEFT), false, MultimediaManager.IMAGE_PLAYER);
+            else
+            	multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_USE_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
 
             multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_WALK_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
-            multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_WALK_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
+            if (r.getAssetPath( Player.RESOURCE_TYPE_WALK_LEFT) != null && r.getAssetPath( Player.RESOURCE_TYPE_WALK_LEFT) != AssetsController.ASSET_EMPTY_ANIMATION)
+            	multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_WALK_LEFT), false, MultimediaManager.IMAGE_PLAYER);
+            else
+            	multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_WALK_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
             multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_WALK_UP ), false, MultimediaManager.IMAGE_PLAYER );
             multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_WALK_DOWN ), false, MultimediaManager.IMAGE_PLAYER );
     	}
     	for (NPC npc : gameData.getCharacters()) {
     		for (Resources r : npc.getResources()) {
-                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
-                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
-                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_UP ), false, MultimediaManager.IMAGE_PLAYER );
-                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_DOWN ), false, MultimediaManager.IMAGE_PLAYER );
+                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ), false, MultimediaManager.IMAGE_SCENE );
+                if (r.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT) != null && r.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT) != AssetsController.ASSET_EMPTY_ANIMATION)
+                	multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT), false, MultimediaManager.IMAGE_SCENE);
+                else
+                	multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ), true, MultimediaManager.IMAGE_SCENE );
+                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_UP ), false, MultimediaManager.IMAGE_SCENE );
+                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_DOWN ), false, MultimediaManager.IMAGE_SCENE );
                 
-                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
-                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
-                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_UP ), false, MultimediaManager.IMAGE_PLAYER );
-                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_DOWN ), false, MultimediaManager.IMAGE_PLAYER );
+                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_RIGHT ), false, MultimediaManager.IMAGE_SCENE );
+                if (r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_LEFT) != null && r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_LEFT) != AssetsController.ASSET_EMPTY_ANIMATION)
+                	multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_LEFT), false, MultimediaManager.IMAGE_SCENE);
+                else
+                	multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_RIGHT ), true, MultimediaManager.IMAGE_SCENE );
+                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_UP ), false, MultimediaManager.IMAGE_SCENE );
+                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_DOWN ), false, MultimediaManager.IMAGE_SCENE );
 
-                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_USE_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
-                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_USE_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
+                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_USE_RIGHT ), false, MultimediaManager.IMAGE_SCENE );
+                if (r.getAssetPath( NPC.RESOURCE_TYPE_USE_LEFT) != null && r.getAssetPath( NPC.RESOURCE_TYPE_USE_LEFT) != AssetsController.ASSET_EMPTY_ANIMATION)
+                	multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_USE_LEFT), false, MultimediaManager.IMAGE_SCENE);
+                else
+                	multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_USE_RIGHT ), true, MultimediaManager.IMAGE_SCENE );
 
-                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
-                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
-                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_UP ), false, MultimediaManager.IMAGE_PLAYER );
-                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_DOWN ), false, MultimediaManager.IMAGE_PLAYER );
+                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_RIGHT ), false, MultimediaManager.IMAGE_SCENE );
+                if (r.getAssetPath( NPC.RESOURCE_TYPE_WALK_LEFT) != null && r.getAssetPath( NPC.RESOURCE_TYPE_WALK_LEFT) != AssetsController.ASSET_EMPTY_ANIMATION)
+                	multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_LEFT), false, MultimediaManager.IMAGE_SCENE);
+                else
+                	multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_RIGHT ), true, MultimediaManager.IMAGE_SCENE );
+                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_UP ), false, MultimediaManager.IMAGE_SCENE );
+                multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_DOWN ), false, MultimediaManager.IMAGE_SCENE );
     		}
     	}
 
@@ -694,13 +718,14 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             functionalScene.stopBackgroundMusic( );
         if( adaptationEngine != null )
             adaptationEngine.stopAdaptationClock( );
+
         //TODO tener en cuenta SCORM 2004 
         if (comm.getCommType()==CommManagerApi.SCORMV12_TYPE){
         	comm.disconnect(null);
         }
         staticStop();
     }
-    
+            
     /**
      * Stops all sounds and music, the gui, etc
      */
