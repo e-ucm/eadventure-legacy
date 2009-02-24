@@ -1,4 +1,4 @@
-package es.eucm.eadventure.editor.control.controllers.lom;
+package es.eucm.eadventure.editor.control.controllers.ims;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
@@ -6,18 +6,18 @@ import es.eucm.eadventure.editor.data.ims.IMSGeneral;
 import es.eucm.eadventure.editor.data.lom.LOMGeneral;
 import es.eucm.eadventure.editor.data.lom.LangString;
 
-public class LOMGeneralDataControl {
+public class IMSGeneralDataControl {
 
 	public static final String[] AVAILABLE_LANGS= new String[]{"en", "es"};
 	
-	private LOMGeneral data;
+	private IMSGeneral data;
 	
-	public LOMGeneralDataControl (LOMGeneral data){
+	public IMSGeneralDataControl (IMSGeneral data){
 		this.data = data;
 	}
 	
-	public LOMTextDataControl getTitleController (){
-		return new LOMTextDataControl (){
+	public IMSTextDataControl getTitleController (){
+		return new IMSTextDataControl (){
 
 			public String getText( ) {
 				return data.getTitle( ).getValue( 0 );
@@ -30,8 +30,8 @@ public class LOMGeneralDataControl {
 		};
 	}
 	
-	public LOMOptionsDataControl getLanguageController() {
-		return new LOMOptionsDataControl (){
+	public IMSOptionsDataControl getLanguageController() {
+		return new IMSOptionsDataControl (){
 
 			public String[] getOptions( ) {
 				return new String[]{TextConstants.getText("LOM.General.Language.English"), TextConstants.getText("LOM.General.Language.Spanish")};
@@ -40,7 +40,8 @@ public class LOMGeneralDataControl {
 			public void setOption( int option ) {
 				if (option!=getSelectedOption()){
 					data.setLanguage( AVAILABLE_LANGS[option] );
-					Controller.getInstance().updateLOMLanguage();
+					// TODO ver que pasa con esto!!
+					//Controller.getInstance().updateLOMLanguage();
 				}
 				
 			}
@@ -56,9 +57,37 @@ public class LOMGeneralDataControl {
 		};
 	}
 	
+	public IMSTextDataControl getCatalogController() {
+		return new IMSTextDataControl (){
+
+			public String getText( ) {
+				return data.getCatalog();
+			}
+
+			public void setText( String text ) {
+				data.setCalaog( text );
+			}
+			
+		};
+	}
 	
-	public LOMTextDataControl getDescriptionController (){
-		return new LOMTextDataControl (){
+	public IMSTextDataControl getEntryController() {
+		return new IMSTextDataControl (){
+
+			public String getText( ) {
+				return data.getEntry().getValue(0);
+			}
+
+			public void setText( String text ) {
+				data.setEntry( new LangString(text) );
+			}
+			
+		};
+	}
+	
+	
+	public IMSTextDataControl getDescriptionController (){
+		return new IMSTextDataControl (){
 
 			public String getText( ) {
 				return data.getDescription( ).getValue( 0 );
@@ -71,8 +100,8 @@ public class LOMGeneralDataControl {
 		};
 	}
 	
-	public LOMTextDataControl getKeywordController (){
-		return new LOMTextDataControl (){
+	public IMSTextDataControl getKeywordController (){
+		return new IMSTextDataControl (){
 
 			public String getText( ) {
 				return data.getKeyword( ).getValue( 0 );
@@ -88,14 +117,14 @@ public class LOMGeneralDataControl {
 	/**
 	 * @return the data
 	 */
-	public LOMGeneral getData( ) {
+	public IMSGeneral getData( ) {
 		return data;
 	}
 
 	/**
 	 * @param data the data to set
 	 */
-	public void setData( LOMGeneral data ) {
+	public void setData( IMSGeneral data ) {
 		this.data = data;
 	}
 

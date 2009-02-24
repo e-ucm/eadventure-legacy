@@ -66,4 +66,6 @@ public class LOMGeneralDOMWriter extends LOMSimpleDataWriter{
 
 		return generalElement;
 	}
+	
+
 }

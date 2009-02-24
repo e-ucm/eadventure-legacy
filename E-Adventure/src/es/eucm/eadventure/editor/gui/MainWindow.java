@@ -292,6 +292,16 @@ public class MainWindow extends JFrame {
 		fileMenu.add( itLOMProp );
 		fileMenu.addSeparator( );
 		
+		JMenuItem itLOMSCORMProp = new JMenuItem( TextConstants.getText( "MenuFile.LOMSCORMProperties" ) );
+		itLOMSCORMProp.setEnabled( controller.isFloderLoaded( ) );
+		itLOMSCORMProp.addActionListener(  new ActionListener( ) {
+			public void actionPerformed( ActionEvent e ) {
+				controller.showLOMSCORMDataDialog( );
+			}
+		} );
+		fileMenu.add( itLOMSCORMProp );
+		fileMenu.addSeparator( );
+		
 		JMenu itImport = new JMenu( TextConstants.getText( "MenuFile.Import" ) );
 		JMenuItem itImportGame = new JMenuItem( TextConstants.getText( "MenuFile.ImportGame" ) );
 		itImportGame.addActionListener(  new ActionListener( ) {
@@ -333,6 +343,9 @@ public class MainWindow extends JFrame {
 				controller.exportToLOM();
 			}
 		} );
+		
+		
+		
 		itExport.add( itExportGame );
 		itExport.add( itExportStandalone );
 		itExport.add( itExportLOM );

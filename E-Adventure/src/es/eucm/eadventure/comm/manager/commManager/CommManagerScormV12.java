@@ -76,7 +76,7 @@ public class CommManagerScormV12 extends AdventureApplet{
         this.sendJavaScript(command);
         
         this.connected = false;
-        //TODO no se xk hay que devolver algo aki, ver si se cambia!!!
+     
 		return false;
 	}
 	

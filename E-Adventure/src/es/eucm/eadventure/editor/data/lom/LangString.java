@@ -40,11 +40,11 @@ public class LangString {
 		summary.add( this );
 	}
 	
-	public LangString(){
+	/*public LangString(){
 		languages = new ArrayList<String>();
 		values = new ArrayList<String>();
 		summary.add( this );
-	}
+	}*/
 	
 	public void addValue(String language, String value){
 		languages.add( language );
@@ -57,6 +57,10 @@ public class LangString {
 	
 	public int getNValues(){
 		return values.size( );
+	}
+	
+	public int getNLanguages(){
+		return languages.size();
 	}
 	
 	public String getValue(int i){

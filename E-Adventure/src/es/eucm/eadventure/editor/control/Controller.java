@@ -64,6 +64,7 @@ import es.eucm.eadventure.editor.gui.editdialogs.assetsdialogs.ImageAssetsDialog
 import es.eucm.eadventure.editor.gui.editdialogs.assetsdialogs.VideoAssetsDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.assetsdialogs.XMLAssetsDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.customizeguidialog.CustomizeGUIDialog;
+import es.eucm.eadventure.editor.gui.ims.IMSDialog;
 import es.eucm.eadventure.editor.gui.lomdialog.LOMDialog;
 import es.eucm.eadventure.editor.gui.startdialog.StartDialog;
 import es.eucm.eadventure.engine.EAdventureDebug;
@@ -2047,6 +2048,9 @@ public class Controller {
 											} else if (type == 1 && Writer.exportAsWebCTObject( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, adventureData )) { 
 												mainWindow.showInformationDialog( TextConstants.getText( "Operation.ExportT.Success.Title" ), 
 														TextConstants.getText( "Operation.ExportT.Success.Message" ) );
+											} else if (type == 2 && Writer.exportAsSCORM( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, adventureData )){
+												mainWindow.showInformationDialog( TextConstants.getText( "Operation.ExportT.Success.Title" ), 
+														TextConstants.getText( "Operation.ExportT.Success.Message" ) );
 											} else {
 												mainWindow.showInformationDialog( TextConstants.getText( "Operation.ExportT.NotSuccess.Title" ), 
 														TextConstants.getText( "Operation.ExportT.NotSuccess.Message" ) );
@@ -2242,10 +2246,17 @@ public class Controller {
 	}
 	
 	/**
-	 * Shows the adventure data dialog editor.
+	 * Shows the LOM data dialog editor.
 	 */
 	public void showLOMDataDialog( ) {
 		new LOMDialog( adventureData.getLomController( ) );
+	}
+	
+	/**
+	 * Shows the LOM for SCORM packages data dialog editor.
+	 */
+	public void showLOMSCORMDataDialog( ) {
+		new IMSDialog( adventureData.getImsController( ) );
 	}
 
 
