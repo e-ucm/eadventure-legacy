@@ -1,5 +1,8 @@
 package es.eucm.eadventure.engine.core.gui.hud.contextualhud;
 
+import java.awt.AlphaComposite;
+import java.awt.Color;
+import java.awt.Composite;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
@@ -267,6 +270,19 @@ public class Inventory {
     public void draw( Graphics2D g ) {
         
         int indexLastItemDisplayed;
+        
+        Composite temp = g.getComposite();
+		Color tempColor = g.getColor();
+        Composite alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f);
+		g.setComposite(alphaComposite);
+		g.setColor(Color.DARK_GRAY);
+		if (upperInventory) {
+			g.fillRect(0, (int) -dy, GUI.WINDOW_WIDTH, INVENTORY_PANEL_HEIGHT);
+        } else {
+			g.fillRect(0, GUI.WINDOW_HEIGHT - INVENTORY_PANEL_HEIGHT + (int) dy, GUI.WINDOW_WIDTH, INVENTORY_PANEL_HEIGHT);        	
+        }
+    	g.setComposite(temp);
+    	g.setColor(tempColor);
 
         
         if (Game.getInstance().getInventory().getItemCount() < INVENTORY_LINES * INVENTORY_ITEMS_PER_LINE) {
