@@ -1,7 +1,9 @@
 package es.eucm.eadventure.engine.core.control.functionaldata.functionalactions;
 
 import es.eucm.eadventure.common.data.chapter.CustomAction;
+import es.eucm.eadventure.common.data.chapter.elements.Player;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
+import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.engine.core.control.DebugLog;
 import es.eucm.eadventure.engine.core.control.animations.Animation;
 import es.eucm.eadventure.engine.core.control.animations.AnimationState;
@@ -51,23 +53,40 @@ public class FunctionalCustom extends FunctionalAction {
             if( new FunctionalConditions(customAction.getResources( ).get( i ).getConditions( )).allConditionsOk( ) )
             	resources = customAction.getResources( ).get( i );
 
+        Resources playerResources = functionalPlayer.getResources();
+        
 		MultimediaManager multimedia = MultimediaManager.getInstance( );
 		Animation[] animation = new Animation[4];
 
+
 		if (resources.getAssetPath("actionAnimation") != null && !resources.getAssetPath("actionAnimation").equals("")) {
-			if (element.getX() > functionalPlayer.getX()) {
-				functionalPlayer.setDirection(AnimationState.EAST);
-			} else {
-				functionalPlayer.setDirection(AnimationState.WEST);
-			}
 			animation[AnimationState.EAST] = multimedia.loadAnimation( resources.getAssetPath( "actionAnimation" ), false, MultimediaManager.IMAGE_PLAYER );
 			animation[AnimationState.WEST] = multimedia.loadAnimation( resources.getAssetPath( "actionAnimation" ), true, MultimediaManager.IMAGE_PLAYER );
 			animation[AnimationState.NORTH] = multimedia.loadAnimation( resources.getAssetPath( "actionAnimation" ), false, MultimediaManager.IMAGE_PLAYER );
-			animation[AnimationState.SOUTH] = multimedia.loadAnimation( resources.getAssetPath( "actionAnimation" ), true, MultimediaManager.IMAGE_PLAYER );
-			
-			functionalPlayer.setAnimation(animation, -1);
-			hasAnimation = true;
-		} 
+			animation[AnimationState.SOUTH] = multimedia.loadAnimation( resources.getAssetPath( "actionAnimation" ), false, MultimediaManager.IMAGE_PLAYER );
+		} else {
+			animation[AnimationState.EAST] = multimedia.loadAnimation( playerResources.getAssetPath( Player.RESOURCE_TYPE_USE_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
+			if (playerResources.getAssetPath( Player.RESOURCE_TYPE_USE_LEFT) != null && playerResources.getAssetPath( Player.RESOURCE_TYPE_USE_LEFT) != AssetsController.ASSET_EMPTY_ANIMATION)
+				animation[AnimationState.WEST] = multimedia.loadAnimation( playerResources.getAssetPath( Player.RESOURCE_TYPE_USE_LEFT ), false, MultimediaManager.IMAGE_PLAYER );
+			else
+				animation[AnimationState.WEST] = multimedia.loadAnimation( playerResources.getAssetPath( Player.RESOURCE_TYPE_USE_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
+			animation[AnimationState.NORTH] = multimedia.loadAnimation( playerResources.getAssetPath( Player.RESOURCE_TYPE_USE_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
+			animation[AnimationState.SOUTH] = multimedia.loadAnimation( playerResources.getAssetPath( Player.RESOURCE_TYPE_USE_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
+		}
+		
+		if (resources.getAssetPath("actionAnimationLeft") != null && !resources.getAssetPath("actionAnimationLeft").equals("")) {
+			animation[AnimationState.WEST] = multimedia.loadAnimation( resources.getAssetPath( "actionAnimationLeft" ), true, MultimediaManager.IMAGE_PLAYER );
+		}
+		
+		if (element.getX() > functionalPlayer.getX()) {
+			functionalPlayer.setDirection(AnimationState.EAST);
+		} else {
+			functionalPlayer.setDirection(AnimationState.WEST);
+		}
+		functionalPlayer.setAnimation(animation, -1);
+		hasAnimation = true;
+
+		
 		totalTime = 0;
 		finished = false;
 		

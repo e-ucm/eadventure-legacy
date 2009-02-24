@@ -110,7 +110,7 @@ public class ResourcesDOMWriter {
 			// If the owner is a character
 			else if( resourcesType == RESOURCES_CHARACTER ) {
 				// For each asset, if it has not been declared attach the empty animation
-				String[] assets = new String[] { "standup", "standdown", "standright", "speakup", "speakdown", "speakright", "useright", "walkup", "walkdown", "walkright" };
+				String[] assets = new String[] { "standup", "standdown", "standright", "standleft", "speakup", "speakdown", "speakright", "speakleft", "useright", "useleft", "walkup", "walkdown", "walkright", "walkleft" };
 				for( String asset : assets ) {
 					if( resources.getAssetPath( asset ) == null ) {
 						Element assetElement = doc.createElement( "asset" );
