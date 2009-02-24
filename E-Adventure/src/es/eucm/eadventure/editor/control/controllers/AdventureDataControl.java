@@ -365,4 +365,69 @@ public class AdventureDataControl {
 	public AdventureData getAdventureData() {
 		return adventureData;
 	}
+	
+	public void setButton(String action, String type, String path) {
+		CustomButton button = new CustomButton(action, type, path);
+		CustomButton temp = null;
+		for (CustomButton cb : adventureData.getButtons()) {
+			if (cb.equals(button))
+				temp = cb;
+		}
+		if (temp != null)
+			adventureData.getButtons().remove(temp);
+		adventureData.addButton(button);
+	}
+
+	public String getButtonPath(String action, String type) {
+		CustomButton button = new CustomButton(action, type, null);
+		for (CustomButton cb : adventureData.getButtons()) {
+			if (cb.equals(button))
+				return cb.getPath();
+		}
+		return null;
+	}
+
+	public void deleteButton(String action, String type) {
+		CustomButton button = new CustomButton(action, type, null);
+		CustomButton temp = null;
+		for (CustomButton cb : adventureData.getButtons()) {
+			if (cb.equals(button))
+				temp = cb;
+		}
+		if (temp != null)
+			adventureData.getButtons().remove(temp);
+	}
+
+	public void editButtonPath(String action, String type) {
+		String selectedButton = null;
+		AssetChooser chooser = AssetsController.getAssetChooser( AssetsController.CATEGORY_BUTTON, AssetsController.FILTER_NONE );
+		int option = chooser.showAssetChooser( Controller.getInstance().peekWindow( ) );
+		//In case the asset was selected from the zip file
+		if( option == AssetChooser.ASSET_FROM_ZIP ) {
+			selectedButton = chooser.getSelectedAsset( );
+		}
+
+		//In case the asset was not in the zip file: first add it
+		else if( option == AssetChooser.ASSET_FROM_OUTSIDE ) {
+			boolean added = AssetsController.addSingleAsset( AssetsController.CATEGORY_BUTTON, chooser.getSelectedFile( ).getAbsolutePath( ) );
+			if( added ) {
+				selectedButton = chooser.getSelectedFile( ).getName( );
+			}
+		}
+
+		// If a file was selected
+		if( selectedButton != null ) {
+			// Take the index of the selected asset
+			String[] assetFilenames = AssetsController.getAssetFilenames( AssetsController.CATEGORY_BUTTON );
+			String[] assetPaths = AssetsController.getAssetsList( AssetsController.CATEGORY_BUTTON );
+			int assetIndex = -1;
+			for( int i = 0; i < assetFilenames.length; i++ )
+				if( assetFilenames[i].equals( selectedButton ) )
+					assetIndex = i;
+
+			this.setButton(action, type, assetPaths[assetIndex]);			
+			
+			Controller.getInstance( ).dataModified( );
+		}
+	}
 }

@@ -210,6 +210,7 @@ public class ResourcesPanel extends JPanel {
 			case AssetsController.CATEGORY_ANIMATION:
 			case AssetsController.CATEGORY_IMAGE:
 			case AssetsController.CATEGORY_ICON:
+			case AssetsController.CATEGORY_BUTTON:
 				previewText = TextConstants.getText( "Resources.ViewAsset" );
 				break;
 			case AssetsController.CATEGORY_AUDIO:
@@ -422,6 +423,7 @@ public class ResourcesPanel extends JPanel {
 				case AssetsController.CATEGORY_BACKGROUND:
 				case AssetsController.CATEGORY_IMAGE:
 				case AssetsController.CATEGORY_ICON:
+				case AssetsController.CATEGORY_BUTTON:
 					new ImageDialog( assetPath );
 					break;
 				case AssetsController.CATEGORY_ANIMATION:

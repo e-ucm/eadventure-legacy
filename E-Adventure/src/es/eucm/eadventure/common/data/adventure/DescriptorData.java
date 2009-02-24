@@ -79,6 +79,18 @@ public class DescriptorData implements Cloneable, Described, Titled {
     	return cursorTypes;
     }
     
+    private static final String[] actionTypes = {TALK_BUTTON, USE_GRAB_BUTTON, EXAMINE_BUTTON};
+    
+    public static String[] getActionTypes() {
+    	return actionTypes;
+    }
+    
+    private static final String[] buttonTypes = {NORMAL_BUTTON, HIGHLIGHTED_BUTTON, PRESSED_BUTTON};
+    
+    public static String[] getButtonTypes() {
+    	return buttonTypes;
+    }
+    
     public static final boolean[][] typeAllowed = {
     	//TRADITIONAL GUI
     	{

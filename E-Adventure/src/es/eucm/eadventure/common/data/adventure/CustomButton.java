@@ -59,6 +59,15 @@ public class CustomButton implements Cloneable {
     	this.type = type;
         this.path = path;
     }
+    
+    public boolean equals(Object o) {
+    	if (o == null || !(o instanceof CustomButton))
+    		return false;
+    	CustomButton button = (CustomButton) o;
+    	if (button.action.equals(action) && button.type.equals(type))
+    		return true;
+    	return false;
+    }
  
     
 	public Object clone() throws CloneNotSupportedException {
@@ -66,7 +75,6 @@ public class CustomButton implements Cloneable {
 		cb.action = (action != null ? new String(action) : null);
 		cb.path = (path != null ? new String(path) : null);
 		cb.type = (type != null ? new String(type) : null);
-		
 		return cb;
 	}
 }

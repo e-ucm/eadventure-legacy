@@ -36,6 +36,7 @@ import es.eucm.eadventure.editor.gui.assetchooser.AnimationChooser;
 import es.eucm.eadventure.editor.gui.assetchooser.AssetChooser;
 import es.eucm.eadventure.editor.gui.assetchooser.AudioChooser;
 import es.eucm.eadventure.editor.gui.assetchooser.BackgroundChooser;
+import es.eucm.eadventure.editor.gui.assetchooser.ButtonChooser;
 import es.eucm.eadventure.editor.gui.assetchooser.CursorChooser;
 import es.eucm.eadventure.editor.gui.assetchooser.FormatedTextChooser;
 import es.eucm.eadventure.editor.gui.assetchooser.IconChooser;
@@ -104,6 +105,12 @@ public class AssetsController {
 	 * Animation Image category
 	 */
 	public static final int CATEGORY_ANIMATION_IMAGE = 10;
+
+	/**
+	 * Customized button category
+	 */
+	public static final int CATEGORY_BUTTON = 11;
+
 
 	/**
 	 * Void filter.
@@ -201,6 +208,11 @@ public class AssetsController {
 	 * Path for the video assets.
 	 */
 	private static final String CATEGORY_STYLED_TEXT_PATH = "assets/styledtext";
+	
+	/**
+	 * Path for the custom button assets.
+	 */
+	private static final String CATEGORY_BUTTON_PATH = "gui/buttons";
 
 	/**
 	 * Static class. Private constructor.
@@ -1068,6 +1080,9 @@ public class AssetsController {
 			case CATEGORY_STYLED_TEXT:
 				folder = CATEGORY_STYLED_TEXT_PATH;
 				break;
+			case CATEGORY_BUTTON:
+				folder = CATEGORY_BUTTON_PATH;
+				break;
 
 		}
 
@@ -1111,6 +1126,7 @@ public class AssetsController {
 			case CATEGORY_IMAGE:
 			case CATEGORY_CURSOR:
 			case CATEGORY_ICON:
+			case CATEGORY_BUTTON:
 				fileFilter = new ImageFileFilter( );
 				break;
 			case CATEGORY_AUDIO:
@@ -1156,6 +1172,9 @@ public class AssetsController {
 				break;
 			case CATEGORY_STYLED_TEXT:
 				assetChooser = new FormatedTextChooser( );
+				break;
+			case CATEGORY_BUTTON:
+				assetChooser = new ButtonChooser( );
 				break;
 
 		}
