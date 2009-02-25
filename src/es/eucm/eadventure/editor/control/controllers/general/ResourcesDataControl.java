@@ -401,6 +401,8 @@ public class ResourcesDataControl extends DataControl {
 	}
 	
 	public int getAssetIndex(int group, int asset) {
+		if (assetsGroups == null)
+			return asset;
 		return assetsGroups[group][asset];
 	}
 }

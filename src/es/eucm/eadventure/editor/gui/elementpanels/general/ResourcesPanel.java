@@ -72,6 +72,8 @@ public class ResourcesPanel extends JPanel {
 	
 	List<JPanel> assetPanels;
 	
+	private int selectedIndex = 0;
+	
 	/**
 	 * Constructor.
 	 * 
@@ -79,7 +81,6 @@ public class ResourcesPanel extends JPanel {
 	 *            Resources data control
 	 */
 	public ResourcesPanel( ResourcesDataControl dataControl ) {
-		//super( JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED );
 		super( );
 		this.resourcesDataControl = dataControl;
 		assetPanels = new ArrayList<JPanel>();
@@ -90,8 +91,22 @@ public class ResourcesPanel extends JPanel {
 		} else {
 			createMultiGroupPanel();
 		}
+	}
+
+	public ResourcesPanel(ResourcesDataControl dataControl,
+			int selectedIndex2) {
+		super( );
+		selectedIndex = selectedIndex2;
+		this.resourcesDataControl = dataControl;
+		assetPanels = new ArrayList<JPanel>();
 		
-		
+		int assetGroups = dataControl.getAssetGroupCount();
+		if (assetGroups == 1) {
+			createSingleGroupPanel();
+		} else {
+			createMultiGroupPanel();
+		}
+
 	}
 
 	private void createMultiGroupPanel() {
@@ -136,12 +151,13 @@ public class ResourcesPanel extends JPanel {
 		panel.add(groupCombo, BorderLayout.CENTER);
 		add(panel, c);
 		
-		groupCombo.setSelectedIndex(0);
-		setSelectedGroup(0);
+		groupCombo.setSelectedIndex(selectedIndex);
+		setSelectedGroup(selectedIndex);
 		
 	}
 
 	protected void setSelectedGroup(int selectedIndex) {
+		this.selectedIndex = selectedIndex;
 		Icon deleteContentIcon = new ImageIcon( "img/icons/deleteContent.png" );
 		
 		while (!assetPanels.isEmpty()) {
@@ -171,7 +187,7 @@ public class ResourcesPanel extends JPanel {
 			c2.weighty = 0;
 
 			JButton deleteContentButton = new JButton( deleteContentIcon );
-			deleteContentButton.addActionListener( new DeleteContentButtonListener( i ) );
+			deleteContentButton.addActionListener( new DeleteContentButtonListener( i , j) );
 			deleteContentButton.setPreferredSize( new Dimension( 20, 20 ) );
 			deleteContentButton.setToolTipText( TextConstants.getText( "Resources.DeleteAsset" ) );
 			assetPanel.add( deleteContentButton, c2 );
@@ -185,7 +201,7 @@ public class ResourcesPanel extends JPanel {
 			assetPanel.add( assetFields[j], c2 );
 
 			JButton selectButton = new JButton( TextConstants.getText( "Resources.Select" ) );
-			selectButton.addActionListener( new ExamineButtonListener( i ) );
+			selectButton.addActionListener( new ExamineButtonListener( i , j) );
 			c2.gridx = 2;
 			c2.fill = GridBagConstraints.NONE;
 			c2.weightx = 0;
@@ -193,7 +209,7 @@ public class ResourcesPanel extends JPanel {
 			
 			if (resourcesDataControl.getAssetCategory(i) == AssetsController.CATEGORY_ANIMATION) {
 				JButton editButton = new JButton( TextConstants.getText("Resources.Create") + "/" + TextConstants.getText("Resources.Edit"));
-				editButton.addActionListener( new EditButtonListener(i));
+				editButton.addActionListener( new EditButtonListener( i, j ));
 				c2.gridx++;
 				assetPanel.add(editButton);
 			}
@@ -281,7 +297,7 @@ public class ResourcesPanel extends JPanel {
 
 			// Create the delete content button
 			JButton deleteContentButton = new JButton( deleteContentIcon );
-			deleteContentButton.addActionListener( new DeleteContentButtonListener( i ) );
+			deleteContentButton.addActionListener( new DeleteContentButtonListener( i, i ) );
 			deleteContentButton.setPreferredSize( new Dimension( 20, 20 ) );
 			deleteContentButton.setToolTipText( TextConstants.getText( "Resources.DeleteAsset" ) );
 			assetPanel.add( deleteContentButton, c2 );
@@ -297,7 +313,7 @@ public class ResourcesPanel extends JPanel {
 
 			// Create the "Select" button and insert it
 			JButton selectButton = new JButton( TextConstants.getText( "Resources.Select" ) );
-			selectButton.addActionListener( new ExamineButtonListener( i ) );
+			selectButton.addActionListener( new ExamineButtonListener( i , i) );
 			c2.gridx = 2;
 			c2.fill = GridBagConstraints.NONE;
 			c2.weightx = 0;
@@ -306,7 +322,7 @@ public class ResourcesPanel extends JPanel {
 			// Create the "Create/Edit" button when necessary
 			if (resourcesDataControl.getAssetCategory(i) == AssetsController.CATEGORY_ANIMATION) {
 				JButton editButton = new JButton( TextConstants.getText("Resources.Create") + "/" + TextConstants.getText("Resources.Edit"));
-				editButton.addActionListener( new EditButtonListener(i));
+				editButton.addActionListener( new EditButtonListener(i, i));
 				c2.gridx++;
 				assetPanel.add(editButton);
 			}
@@ -380,6 +396,8 @@ public class ResourcesPanel extends JPanel {
 		 * Index of the asset.
 		 */
 		private int assetIndex;
+		
+		private int fieldIndex;
 
 		/**
 		 * Constructor.
@@ -387,8 +405,9 @@ public class ResourcesPanel extends JPanel {
 		 * @param assetIndex
 		 *            Index of the asset
 		 */
-		public DeleteContentButtonListener( int assetIndex ) {
+		public DeleteContentButtonListener( int assetIndex , int fieldIndex) {
 			this.assetIndex = assetIndex;
+			this.fieldIndex = fieldIndex;
 		}
 
 		/*
@@ -398,8 +417,8 @@ public class ResourcesPanel extends JPanel {
 		 */
 		public void actionPerformed( ActionEvent e ) {
 			resourcesDataControl.deleteAssetPath( assetIndex );
-			assetFields[assetIndex].setText( null );
-			viewButtons[assetIndex].setEnabled( false );
+			assetFields[fieldIndex].setText( null );
+			viewButtons[fieldIndex].setEnabled( false );
 			if( previewUpdater != null )
 				previewUpdater.updateResources( );
 		}
@@ -415,14 +434,17 @@ public class ResourcesPanel extends JPanel {
 		 */
 		private int assetIndex;
 
+		
+		private int fieldIndex;
 		/**
 		 * Constructor.
 		 * 
 		 * @param assetIndex
 		 *            Index of the asset
 		 */
-		public ExamineButtonListener( int assetIndex ) {
+		public ExamineButtonListener( int assetIndex , int fieldIndex) {
 			this.assetIndex = assetIndex;
+			this.fieldIndex = fieldIndex;
 		}
 
 		/*
@@ -432,8 +454,8 @@ public class ResourcesPanel extends JPanel {
 		 */
 		public void actionPerformed( ActionEvent e )  {
 			resourcesDataControl.editAssetPath( assetIndex );
-			assetFields[assetIndex].setText( resourcesDataControl.getAssetPath( assetIndex ) );
-			viewButtons[assetIndex].setEnabled( resourcesDataControl.getAssetPath( assetIndex ) != null );
+			assetFields[fieldIndex].setText( resourcesDataControl.getAssetPath( assetIndex ) );
+			viewButtons[fieldIndex].setEnabled( resourcesDataControl.getAssetPath( assetIndex ) != null );
 			if( previewUpdater != null ) {
 				previewUpdater.updateResources( );
 			}
@@ -450,14 +472,17 @@ public class ResourcesPanel extends JPanel {
 		 */
 		private int assetIndex;
 
+		private int fieldIndex;
+		
 		/**
 		 * Constructor.
 		 * 
 		 * @param assetIndex
 		 *            Index of the asset
 		 */
-		public EditButtonListener( int assetIndex ) {
+		public EditButtonListener( int assetIndex , int fieldIndex) {
 			this.assetIndex = assetIndex;
+			this.fieldIndex = fieldIndex;
 		}
 
 		/*
@@ -510,8 +535,8 @@ public class ResourcesPanel extends JPanel {
 				
 			}
 			
-			assetFields[assetIndex].setText( resourcesDataControl.getAssetPath( assetIndex ) );
-			viewButtons[assetIndex].setEnabled( resourcesDataControl.getAssetPath( assetIndex ) != null );
+			assetFields[fieldIndex].setText( resourcesDataControl.getAssetPath( assetIndex ) );
+			viewButtons[fieldIndex].setEnabled( resourcesDataControl.getAssetPath( assetIndex ) != null );
 			
 			if( previewUpdater != null ) {
 				previewUpdater.updateResources( );
@@ -585,5 +610,9 @@ public class ResourcesPanel extends JPanel {
 	 */
 	public void setPreviewUpdater( LooksPanel previewUpdater ) {
 		this.previewUpdater = previewUpdater;
+	}
+
+	public int getSelectedIndex() {
+		return selectedIndex;
 	}
 }
