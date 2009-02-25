@@ -67,7 +67,7 @@ public class GameStatePlaying extends GameState {
 
         // Draw the functional scene, and then the GUI
         game.getFunctionalScene( ).draw( );
-        GUI.getInstance( ).drawScene( g );
+        GUI.getInstance( ).drawScene( g , elapsedTime);
         GUI.getInstance( ).drawHUD( g );
 
         // Draw the FPS

@@ -122,6 +122,9 @@ public class SceneDOMWriter {
 							nextSceneElement.setAttribute( "x", String.valueOf( nextScene.getPositionX( ) ) );
 							nextSceneElement.setAttribute( "y", String.valueOf( nextScene.getPositionY( ) ) );
 						}
+						
+						nextSceneElement.setAttribute( "transitionTime", String.valueOf( nextScene.getTransitionTime()));
+						nextSceneElement.setAttribute( "transitionType", String.valueOf( nextScene.getTransitionType()));
 
 						// Append the conditions (if avalaible)
 						if( !nextScene.getConditions( ).isEmpty( ) ) {

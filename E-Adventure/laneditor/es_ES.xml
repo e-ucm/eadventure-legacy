@@ -941,6 +941,13 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="NextScene.Effects">Efectos de la "Siguiente escena"</entry>
 	<entry key="NextScene.PostEffects">Post-efectos de la "Siguiente escena"</entry>
 	<entry key="NextScene.AdvancedOptions">Opciones avanzadas</entry>
+	<entry key="NextScene.Transition">Transicion</entry>
+	<entry key="NextScene.NoTransition">Sin transicion</entry>
+	<entry key="NextScene.TopToBottom">De arriba hacia abajo</entry>
+	<entry key="NextScene.BottomToTop">De abajo hacia arriba</entry>
+	<entry key="NextScene.LeftToRight">De izquierda a derecha</entry>
+	<entry key="NextScene.RightToLeft">De derecha a izquierda</entry>
+	<entry key="NextScene.TransitionTime">Time de transicion</entry>
 
 	<entry key="ElementReference.ItemReferences">Mostrar referencias a objetos</entry>
 	<entry key="ElementReference.NPCReferences">Mostrar referencias a personajes</entry>

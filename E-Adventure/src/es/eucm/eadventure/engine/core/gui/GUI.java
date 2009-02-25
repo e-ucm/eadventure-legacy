@@ -1,15 +1,19 @@
 package es.eucm.eadventure.engine.core.gui;
 
+import java.awt.AWTException;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.FontMetrics;
 import java.awt.Frame;
 import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.RenderingHints;
+import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -20,6 +24,7 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
+import es.eucm.eadventure.common.data.chapter.NextScene;
 import es.eucm.eadventure.engine.core.gui.hud.HUD;
 
 /**
@@ -105,6 +110,19 @@ public abstract class GUI implements FocusListener {
      */
     protected ArrayList<Text> textToDraw;
     
+    private int transitionTime;
+    
+    private int transitionType;
+    
+    private long elapsedTime;
+    
+    private boolean hasTransition;
+    
+    private boolean transitionStarted;
+
+    private BufferedImage transitionImage;
+    
+	BufferedImage tempImage = new BufferedImage(WINDOW_WIDTH, WINDOW_HEIGHT, BufferedImage.TYPE_4BYTE_ABGR);
     
     /**
      * Return the GUI instance. GUI is a singleton class.
@@ -485,7 +503,60 @@ public abstract class GUI implements FocusListener {
      * Draws the scene buffer given a Graphics2D
      * @param g Graphics2D to be used by the scene buffer
      */
-    public void drawScene( Graphics2D g ) {
+    public void drawScene( Graphics2D g , long elapsedTime ) {
+    	this.elapsedTime += elapsedTime;
+    	
+    	if (hasTransition && elapsedTime < transitionTime) {
+    		if (!transitionStarted) {
+    			Toolkit toolkit = Toolkit.getDefaultToolkit();
+    			Dimension screenSize = toolkit.getScreenSize();
+    			Rectangle screenRect = new Rectangle(screenSize);
+    			Robot robot;
+				try {
+					robot = new Robot();
+	    			transitionImage = robot.createScreenCapture(screenRect);
+	    			transitionImage = transitionImage.getSubimage(gameFrame.getX(), gameFrame.getY(), WINDOW_WIDTH, WINDOW_HEIGHT);
+				} catch (AWTException e) {
+				}
+    			
+		        transitionStarted = true;
+		        g.drawImage(transitionImage, 0, 0, null);
+    		} else {
+    			Graphics2D g2 = tempImage.createGraphics();
+    			drawToGraphics(g2);
+    			g2.dispose();
+
+    			float temp = (float) this.elapsedTime / (float) transitionTime;
+    			if (transitionType == NextScene.RIGHT_TO_LEFT) {
+        			float temp2 = (float) WINDOW_WIDTH * temp;
+	    			g.drawImage(transitionImage, (int) (- temp2), 0, null);
+	    			g.drawImage(tempImage, (int) (WINDOW_WIDTH - temp2), 0,  null);
+    			} else if (transitionType == NextScene.LEFT_TO_RIGHT) {
+        			float temp2 = (float) WINDOW_WIDTH * temp;
+	    			g.drawImage(transitionImage, (int) (temp2), 0, null);
+	    			g.drawImage(tempImage, (int) (temp2 - WINDOW_WIDTH), 0,  null);
+    			} else if (transitionType == NextScene.TOP_TO_BOTTOM) {
+        			float temp3 = (float) WINDOW_HEIGHT * temp;
+        			g.drawImage(transitionImage, 0, (int) temp3, null);
+        			g.drawImage(tempImage, 0, (int) (temp3 - WINDOW_HEIGHT), null);
+    			} else if (transitionType == NextScene.BOTTOM_TO_TOP) {
+        			float temp3 = (float) WINDOW_HEIGHT * temp;
+        			g.drawImage(transitionImage, 0, (int) -temp3, null);
+        			g.drawImage(tempImage, 0, (int) (WINDOW_HEIGHT - temp3), null);
+    			}
+    			
+    			
+    			if (this.elapsedTime >= transitionTime) {
+    				hasTransition = false;
+    			}
+    		}
+    	} else {
+    		hasTransition = false;
+    		drawToGraphics(g);
+    	}
+    }
+    
+    private void drawToGraphics(Graphics2D g) {
         if(background != null){
             background.draw( g );
             background = null;
@@ -502,6 +573,7 @@ public abstract class GUI implements FocusListener {
         for(Text text : textToDraw)
             text.draw( g );
         textToDraw.clear();
+
     }
     
     /**
@@ -945,4 +1017,16 @@ public abstract class GUI implements FocusListener {
 	public boolean mouseDraggedinHud(MouseEvent e) {
 		return hud.mouseDragged(e);
 	}
+	
+    public void setTransition(int transitionTime, int transitionType, long elapsedTime) {
+    	this.transitionTime = transitionTime;
+    	this.transitionType = transitionType;
+    	this.elapsedTime = 0;
+    	if (transitionTime > 0 && transitionType > 0) {
+    		this.hasTransition = true;
+    		this.transitionStarted = false;
+    	} else
+    		this.hasTransition = false;
+    }
+
 }

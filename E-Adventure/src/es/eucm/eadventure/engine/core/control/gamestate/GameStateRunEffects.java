@@ -50,7 +50,7 @@ public class GameStateRunEffects extends GameState {
         // Draw the scene
         if (game.getFunctionalScene()!=null)
         	game.getFunctionalScene( ).draw( );
-        GUI.getInstance( ).drawScene( g );
+        GUI.getInstance( ).drawScene( g , elapsedTime);
         GUI.getInstance( ).drawHUD( g );
         
         

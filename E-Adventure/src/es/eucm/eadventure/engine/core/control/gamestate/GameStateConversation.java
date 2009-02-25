@@ -173,7 +173,7 @@ public class GameStateConversation extends GameState {
         
         // Draw the scene
         game.getFunctionalScene( ).draw( );
-        GUI.getInstance().drawScene( g );
+        GUI.getInstance().drawScene( g , elapsedTime);
                 
         //g.setColor( Color.WHITE );
         //g.drawString( Integer.toString( fps ), 780, 14 );

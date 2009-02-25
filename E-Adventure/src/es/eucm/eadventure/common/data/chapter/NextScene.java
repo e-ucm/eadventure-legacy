@@ -11,11 +11,21 @@ import es.eucm.eadventure.common.data.chapter.effects.Effects;
  */
 public class NextScene implements Cloneable, HasTargetId, Positioned{
 
+	public static final int NO_TRANSITION = 0;
+	
+	public static final int TOP_TO_BOTTOM = 1;
+	
+	public static final int BOTTOM_TO_TOP = 2;
+	
+	public static final int LEFT_TO_RIGHT = 3;
+
+	public static final int RIGHT_TO_LEFT = 4;
+
 	/**
 	 * Id of the target scene
 	 */
 	private String nextSceneId;
-
+	
 	/**
 	 * X position in which the player should appear in the new scene
 	 */
@@ -45,6 +55,10 @@ public class NextScene implements Cloneable, HasTargetId, Positioned{
      * A list of assets. Required to store, when desired, customized cursors for the exits
      */
     private ExitLook look;
+    
+    private int transitionType;
+    
+    private int transitionTime;
 	
 	/**
 	 * Creates a new NextScene
@@ -60,6 +74,8 @@ public class NextScene implements Cloneable, HasTargetId, Positioned{
 		conditions = new Conditions( );
 		effects = new Effects( );
 		postEffects = new Effects( );
+		transitionType = NO_TRANSITION;
+		transitionTime = 0;
 	}
 
 	/**
@@ -80,6 +96,8 @@ public class NextScene implements Cloneable, HasTargetId, Positioned{
 		conditions = new Conditions( );
 		effects = new Effects( );
 		postEffects = new Effects( );
+		transitionType = NO_TRANSITION;
+		transitionTime = 0;
 	}
 
 	/**
@@ -251,6 +269,22 @@ public class NextScene implements Cloneable, HasTargetId, Positioned{
     
     public void setExitLook(ExitLook exitLook){
         look= exitLook ;
+    }
+    
+    public int getTransitionType() {
+    	return transitionType;
+    }
+    
+    public int getTransitionTime() {
+    	return transitionTime;
+    }
+    
+    public void setTransitionType(int transitionType) {
+    	this.transitionType = transitionType;
+    }
+    
+    public void setTransitionTime(int transitionTime) {
+    	this.transitionTime = transitionTime;
     }
     
 	public Object clone() throws CloneNotSupportedException {

@@ -946,7 +946,6 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
                 currentState = new GameStateNextScene( );
                 break;
             case STATE_VIDEO_SCENE:
-                currentState = new GameStateVideoscene( );
                 break;
             case STATE_RUN_EFFECTS:
                 currentState = new GameStateRunEffects( this.conversationStored!=null );

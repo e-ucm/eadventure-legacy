@@ -4,11 +4,14 @@ import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.NextScene;
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.control.tools.general.ChangeNSDestinyPositionTool;
 import es.eucm.eadventure.editor.control.tools.general.ChangeTargetIdTool;
+import es.eucm.eadventure.editor.control.tools.general.ChangeTransitionTimeTool;
+import es.eucm.eadventure.editor.control.tools.general.ChangeTransitionTypeTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class NextSceneDataControl extends DataControl {
@@ -298,6 +301,24 @@ public class NextSceneDataControl extends DataControl {
 		check(this.conditionsController, TextConstants.getText("Search.Conditions"));
 		check(this.getNextSceneId(), TextConstants.getText("Search.NextScene"));
 	}
+
+	public int getTransitionType() {
+		return nextScene.getTransitionType();
+	}
+
+	public Number getTransitionTime() {
+		return nextScene.getTransitionTime();
+	}
+
+	public void setTransitionTime(int value) {
+		Controller.getInstance().addTool(new ChangeTransitionTimeTool(nextScene, value));
+	}
+
+	public void setTransitionType(int selectedIndex) {
+		Controller.getInstance().addTool(new ChangeTransitionTypeTool(nextScene, selectedIndex));
+	}
+	
+	
 
 
 }

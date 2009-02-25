@@ -23,6 +23,7 @@ public class GameStateNextScene extends GameState {
      */
     public void mainLoop( long elapsedTime, int fps ) {
         
+    	
         // Flush the image pool and the garbage colector
         MultimediaManager.getInstance( ).flushImagePool( MultimediaManager.IMAGE_SCENE );
         System.gc( );
@@ -64,7 +65,8 @@ public class GameStateNextScene extends GameState {
                 // set the player layer for this scene
                 game.setPlayerLayer(scene.getPlayerLayer());
                 // Create the new functional scene
-                game.setFunctionalScene( new FunctionalScene( scene, game.getFunctionalPlayer( ), backgroundMusicId ) );
+                FunctionalScene newScene = new FunctionalScene( scene, game.getFunctionalPlayer( ), backgroundMusicId );
+                game.setFunctionalScene( newScene );
                 
                
                 // Set the player position
@@ -106,12 +108,14 @@ public class GameStateNextScene extends GameState {
 
                 // Switch to run effects node
                 game.setState( Game.STATE_RUN_EFFECTS );
+                GUI.getInstance().setTransition(nextScene.getTransitionTime(), nextScene.getTransitionType(), elapsedTime);
                 break;
                 
             case GeneralScene.SLIDESCENE:
                                
                 // If it is a slidescene, load the slidescene
                 game.setState( Game.STATE_SLIDE_SCENE );
+                GUI.getInstance().setTransition(nextScene.getTransitionTime(), nextScene.getTransitionType(), elapsedTime);
                 break;
                
             case GeneralScene.VIDEOSCENE:
