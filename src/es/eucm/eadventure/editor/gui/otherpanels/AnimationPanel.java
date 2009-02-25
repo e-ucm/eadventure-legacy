@@ -277,9 +277,11 @@ public class AnimationPanel extends JPanel implements ClockListener {
 		public void ancestorRemoved( AncestorEvent event ) {
 			// Stop the clock
 			try {
-				clock.stopClock( );
-				clock.join( );
-				clock = null;
+				if (clock != null) {
+					clock.stopClock( );
+					clock.join( );
+					clock = null;
+				}
 			} catch( InterruptedException e ) {
 	        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
 			}

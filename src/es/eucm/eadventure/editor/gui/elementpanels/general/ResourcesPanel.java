@@ -213,6 +213,9 @@ public class ResourcesPanel extends JPanel {
 		c.weightx = 1;
 		c.weighty = 1;
 		
+		if (previewUpdater != null)
+			this.previewUpdater.updateResources(selectedIndex);
+		
 		this.updateUI();
 	}
 

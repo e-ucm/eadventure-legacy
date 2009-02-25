@@ -30,6 +30,14 @@ public abstract class LooksPanel extends JScrollPane {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	public static final int STANDING = 0;
+	
+	public static final int TALKING = 1;
+	
+	public static final int USING = 2;
+	
+	public static final int WALKING = 3;
+	
 	protected DataControlWithResources dataControl;
 
 	protected JPanel lookPanel;
@@ -46,6 +54,8 @@ public abstract class LooksPanel extends JScrollPane {
 	protected JButton deleteResourcesBlock;
 
 	protected ResourcesPanel resourcesPanel;
+	
+	protected int selectedResourceGroup = 0;
 
 	private String[] getResourceNames(){
 		String[] resourcesArray = new String[dataControl.getResourcesCount( )];
@@ -195,7 +205,11 @@ public abstract class LooksPanel extends JScrollPane {
 		//lookPanel.repaint( );
 		resourcesPanel.repaint( );
 		resourcesPanel.updateUI( );
-
+	}
+	
+	public void updateResources(int group) {
+		this.selectedResourceGroup = group;
+		updatePreview();
 	}
 
 }

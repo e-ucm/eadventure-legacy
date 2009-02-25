@@ -117,6 +117,10 @@ public class PlayerDataControl extends DataControlWithResources{
 
 		return previewImagePath;
 	}
+	
+	public String getAnimationPath(String animation) {
+		return resourcesDataControlList.get( selectedResources ).getAssetPath( animation );
+	}
 
 	/**
 	 * Returns the documentation of the player.
@@ -291,11 +295,10 @@ public class PlayerDataControl extends DataControlWithResources{
 	public void playerImageChange(){
 		String preview = getPreviewImage();
 		if (preview!=null){
-		for (SceneDataControl scene : Controller.getInstance().getSelectedChapterDataControl().getScenesList().getScenes()){
-			scene.imageChangeNotify(preview);
+			for (SceneDataControl scene : Controller.getInstance().getSelectedChapterDataControl().getScenesList().getScenes()){
+				scene.imageChangeNotify(preview);
+			}
 		}
-		}
-		
 	}
 	
 	/**

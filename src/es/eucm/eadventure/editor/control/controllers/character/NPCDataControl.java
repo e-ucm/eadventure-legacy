@@ -534,5 +534,9 @@ public class NPCDataControl extends DataControlWithResources {
 		check(this.getConversationReferencesList(), TextConstants.getText("Search.Conversations"));
 	}
 
+	public String getAnimationPath(String animation) {
+		return resourcesDataControlList.get( selectedResources ).getAssetPath( animation );
+	}
+
 
 }
