@@ -295,11 +295,8 @@ public class PlayerPanel extends JPanel {
 
 	private class VoiceCheckVoxListener implements ItemListener{
 
-		public void itemStateChanged(ItemEvent arg0) {
-			
-			
+		public void itemStateChanged(ItemEvent arg0) {	
 			playerDataControl.setAlwaysSynthesizer(alwaysSynthesizer.isSelected());
-			
 		}
 		
 	}
@@ -447,11 +444,6 @@ public class PlayerPanel extends JPanel {
 		@Override
 		protected void createPreview( ) {
 			playerDataControl = (PlayerDataControl) this.dataControl;
-			// Take the path to the current image of the player
-			//String playerImagePath = playerDataControl.getPreviewImage( );
-
-			//imagePanel = new ImagePanel( playerImagePath );
-			//imagePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Player.Preview" ) ) );
 			
 			if (imagePanel != null)
 				lookPanel.remove(imagePanel);
@@ -460,7 +452,6 @@ public class PlayerPanel extends JPanel {
 			
 			lookPanel.add( imagePanel, cLook );
 			
-			// TODO Parche, arreglar
 			lookPanel.setPreferredSize( new Dimension( 0, 800 ) );
 		}
 
@@ -476,12 +467,6 @@ public class PlayerPanel extends JPanel {
 			lookPanel.add( imagePanel, cLook );
 			
 			lookPanel.repaint();
-			
-			/*
-			imagePanel.loadImage( playerDataControl.getPreviewImage( ) );
-			imagePanel.repaint( );
-			getParent( ).getParent( ).repaint( );
-			*/
 		}
 		
 		private JPanel createImagePanel() {

@@ -390,12 +390,6 @@ public class NPCPanel extends JPanel {
 		 * Listener for the "Acept" button of the color chooser dialog.
 		 */
 		private class UpdateColorListener implements ActionListener {
-
-			/*
-			 * (non-Javadoc)
-			 * 
-			 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-			 */
 			public void actionPerformed( ActionEvent e ) {
 				// Update the text color
 				if( frontColor ) {
@@ -412,12 +406,6 @@ public class NPCPanel extends JPanel {
 		 * Listener for the color preview panel.
 		 */
 		private class UpdatePreviewPanelListener implements ChangeListener {
-
-			/*
-			 * (non-Javadoc)
-			 * 
-			 * @see javax.swing.event.ChangeListener#stateChanged(javax.swing.event.ChangeEvent)
-			 */
 			public void stateChanged( ChangeEvent e ) {
 				if( frontColor )
 					colorPreviewPanel.setTextFrontColot( colorChooser.getColor( ) );
@@ -454,10 +442,7 @@ public class NPCPanel extends JPanel {
 			
 			lookPanel.add( imagePanel, cLook );
 
-			
-			// TODO Parche, arreglar
 			lookPanel.setPreferredSize( new Dimension( 0, 800 ) );
-
 		}
 
 		@Override

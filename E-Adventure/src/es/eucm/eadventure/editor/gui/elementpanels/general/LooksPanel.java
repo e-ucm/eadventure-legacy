@@ -189,7 +189,8 @@ public abstract class LooksPanel extends JScrollPane {
 		//multipleImagePanel.repaint( );
 		updatePreview( );
 		lookPanel.remove( resourcesPanel );
-		resourcesPanel = new ResourcesPanel( dataControl.getResources( ).get( dataControl.getSelectedResources( ) ) );
+		int selectedIndex = resourcesPanel.getSelectedIndex();
+		resourcesPanel = new ResourcesPanel( dataControl.getResources( ).get( dataControl.getSelectedResources( ) ) , selectedIndex);
 		resourcesPanel.setPreviewUpdater( this );
 		GridBagConstraints cLook = new GridBagConstraints( );
 		cLook.gridy = 1;
