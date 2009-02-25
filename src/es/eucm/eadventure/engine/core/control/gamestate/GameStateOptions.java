@@ -352,7 +352,7 @@ public class GameStateOptions extends GameState {
             gameImage = new BufferedImage( 800, 600, BufferedImage.TYPE_INT_RGB );
             Graphics2D graphicGrey = (Graphics2D) gameImage.getGraphics( );
             game.getFunctionalScene( ).draw( );
-            GUI.getInstance( ).drawScene( graphicGrey );
+            GUI.getInstance( ).drawScene( graphicGrey, elapsedTime );
             GUI.getInstance( ).drawHUD( graphicGrey );
             ColorConvertOp colorConvert = new ColorConvertOp( ColorSpace.getInstance( ColorSpace.CS_GRAY ), null );
             colorConvert.filter( gameImage, gameImage );

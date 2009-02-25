@@ -14,8 +14,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
@@ -54,7 +60,11 @@ public class NextScenePanel extends JTabbedPane {
 	 * Destiny position button.
 	 */
 	private JButton destinyPositionButton;
+	
+	private JSpinner spinner;
 
+	private JComboBox transitionCombo;
+	
 	/**
 	 * Constructor.
 	 * 
@@ -161,8 +171,40 @@ public class NextScenePanel extends JTabbedPane {
 		postEffectsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "NextScene.PostEffects" ) ) );
 		mainPanel.add( postEffectsPanel, c );
 
-		// Add a filler at the end
+		
 		c.gridy = 5;
+		JPanel transitionPanel = new JPanel();
+		transitionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "NextScene.Transition" ) ) );
+		String[] options = new String[]{ TextConstants.getText("NextScene.NoTransition"),
+				TextConstants.getText("NextScene.TopToBottom"),
+				TextConstants.getText("NextScene.BottomToTop"),
+				TextConstants.getText("NextScene.LeftToRight"),
+				TextConstants.getText("NextScene.RightToLeft")};
+		transitionCombo = new JComboBox(options);
+		transitionCombo.setSelectedIndex(nextSceneDataControl.getTransitionType());
+		transitionCombo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				comboModified();
+			}
+		});
+		transitionPanel.add(transitionCombo);
+	
+		JPanel temp = new JPanel();
+		temp.add(new JLabel(TextConstants.getText("Animation.Duration") + ": "));
+	    SpinnerModel sm = new SpinnerNumberModel(nextSceneDataControl.getTransitionTime(), 0, 5000, 100);
+	    spinner = new JSpinner(sm);
+	    spinner.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				spinnerModified();
+			}});
+	    temp.add(spinner);
+
+	    transitionPanel.add(temp);
+		
+		mainPanel.add(transitionPanel, c);
+		
+		// Add a filler at the end
+		c.gridy++;
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1;
 		c.weighty = 1;
@@ -171,6 +213,14 @@ public class NextScenePanel extends JTabbedPane {
 		
 		this.insertTab( TextConstants.getText( "NextScene.AdvancedOptions" ), null, new ExitLookPanel(nextSceneDataControl.getExitLookDataController( )), TextConstants.getText( "NextScene.AdvancedOptions" ), 1 );
 		
+	}
+
+	protected void comboModified() {
+		nextSceneDataControl.setTransitionType(transitionCombo.getSelectedIndex());
+	}
+
+	protected void spinnerModified() {
+		nextSceneDataControl.setTransitionTime((Integer) spinner.getValue());					
 	}
 
 	/**

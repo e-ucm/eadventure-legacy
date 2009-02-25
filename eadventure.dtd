@@ -48,6 +48,8 @@
 	idTarget IDREF #REQUIRED
 	x NMTOKEN #IMPLIED
 	y NMTOKEN #IMPLIED
+	transitionTime CDATA "0"
+	transitionType CDATA "0"
 >
 <!ELEMENT trajectory (node*, initialnode?, side*)>
 <!ELEMENT node EMPTY>

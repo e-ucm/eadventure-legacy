@@ -80,6 +80,9 @@ public class CutsceneDOMWriter {
 						nextSceneElement.setAttribute( "y", String.valueOf( nextScene.getPositionY( ) ) );
 					}
 
+					nextSceneElement.setAttribute( "transitionTime", String.valueOf( nextScene.getTransitionTime()));
+					nextSceneElement.setAttribute( "transitionType", String.valueOf( nextScene.getTransitionType()));
+
 					// Append the conditions (if avalaible)
 					if( !nextScene.getConditions( ).isEmpty( ) ) {
 						Node conditionsNode = ConditionsDOMWriter.buildDOM( nextScene.getConditions( ) );

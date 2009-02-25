@@ -939,6 +939,13 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="NextScene.Effects">Effects of the next scene</entry>
 	<entry key="NextScene.PostEffects">Post-effects of the next scene</entry>
 	<entry key="NextScene.AdvancedOptions">Advanced options</entry>
+	<entry key="NextScene.Transition">Transition</entry>
+	<entry key="NextScene.NoTransition">No transition</entry>
+	<entry key="NextScene.TopToBottom">Top to bottom</entry>
+	<entry key="NextScene.BottomToTop">Bottom to top</entry>
+	<entry key="NextScene.LeftToRight">Left to right</entry>
+	<entry key="NextScene.RightToLeft">Right to left</entry>
+	<entry key="NextScene.TransitionTime">Transition time</entry>
 
 	<entry key="ElementReference.ItemReferences">Show item references</entry>
 	<entry key="ElementReference.NPCReferences">Show character references</entry>

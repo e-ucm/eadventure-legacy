@@ -258,7 +258,8 @@ public class SceneSubParser extends SubParser {
 			else if( qName.equals( "next-scene" ) ) {
 				String idTarget = "";
 				int x = -1, y = -1;
-
+				int transitionType = 0, transitionTime = 0;
+				
 				for( int i = 0; i < attrs.getLength( ); i++ ) {
 					if( attrs.getQName( i ).equals( "idTarget" ) )
 						idTarget = attrs.getValue( i );
@@ -266,9 +267,15 @@ public class SceneSubParser extends SubParser {
 						x = Integer.parseInt( attrs.getValue( i ) );
 					if( attrs.getQName( i ).equals( "y" ) )
 						y = Integer.parseInt( attrs.getValue( i ) );
+					if (attrs.getQName( i ).equals( "transitionType"))
+						transitionType = Integer.parseInt( attrs.getValue(i));
+					if (attrs.getQName( i ).equals( "transitionTime"))
+						transitionTime = Integer.parseInt( attrs.getValue(i));
 				}
 
 				currentNextScene = new NextScene( idTarget, x, y );
+				currentNextScene.setTransitionType(transitionType);
+				currentNextScene.setTransitionTime(transitionTime);
 				reading = READING_NEXT_SCENE;
 			}
 			
