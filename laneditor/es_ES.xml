@@ -947,6 +947,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="NextScene.BottomToTop">De abajo hacia arriba</entry>
 	<entry key="NextScene.LeftToRight">De izquierda a derecha</entry>
 	<entry key="NextScene.RightToLeft">De derecha a izquierda</entry>
+	<entry key="NextScene.FadeIn">Transparencia</entry>
 	<entry key="NextScene.TransitionTime">Time de transicion</entry>
 
 	<entry key="ElementReference.ItemReferences">Mostrar referencias a objetos</entry>

@@ -1,6 +1,7 @@
 package es.eucm.eadventure.engine.core.gui;
 
 import java.awt.AWTException;
+import java.awt.AlphaComposite;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Component;
@@ -102,8 +103,6 @@ public abstract class GUI implements FocusListener {
      * List of elements to be painted.
      */
     protected ArrayList<ElementImage> elementsToDraw;
-    
-    private ArrayList<ElementImage> virtualElementsToDraw;
     
     /**
      * List of texts to be painted.
@@ -506,19 +505,23 @@ public abstract class GUI implements FocusListener {
     public void drawScene( Graphics2D g , long elapsedTime ) {
     	this.elapsedTime += elapsedTime;
     	
-    	if (hasTransition && elapsedTime < transitionTime) {
+    	if (hasTransition && this.elapsedTime < transitionTime) {
     		if (!transitionStarted) {
     			Toolkit toolkit = Toolkit.getDefaultToolkit();
     			Dimension screenSize = toolkit.getScreenSize();
     			Rectangle screenRect = new Rectangle(screenSize);
     			Robot robot;
+    			int tempX = 0, tempY = 0;
+    			if (this.getJFrame() != null) {
+    				tempX = getJFrame().getX();
+    				tempY = getJFrame().getY();
+    			}
 				try {
 					robot = new Robot();
 	    			transitionImage = robot.createScreenCapture(screenRect);
-	    			transitionImage = transitionImage.getSubimage(gameFrame.getX(), gameFrame.getY(), WINDOW_WIDTH, WINDOW_HEIGHT);
+	    			transitionImage = transitionImage.getSubimage(gameFrame.getX() + tempX, gameFrame.getY() + tempY, WINDOW_WIDTH, WINDOW_HEIGHT);
 				} catch (AWTException e) {
 				}
-    			
 		        transitionStarted = true;
 		        g.drawImage(transitionImage, 0, 0, null);
     		} else {
@@ -543,8 +546,12 @@ public abstract class GUI implements FocusListener {
         			float temp3 = (float) WINDOW_HEIGHT * temp;
         			g.drawImage(transitionImage, 0, (int) -temp3, null);
         			g.drawImage(tempImage, 0, (int) (WINDOW_HEIGHT - temp3), null);
+    			} else if (transitionType == NextScene.FADE_IN) {
+    				g.drawImage(tempImage, 0, 0, null);
+    				AlphaComposite alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1 - temp);
+    				g.setComposite(alphaComposite);
+    				g.drawImage(transitionImage, 0, 0, null);
     			}
-    			
     			
     			if (this.elapsedTime >= transitionTime) {
     				hasTransition = false;
