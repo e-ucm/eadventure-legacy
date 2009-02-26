@@ -66,7 +66,7 @@ public class FunctionalCustom extends FunctionalAction {
 			animation[AnimationState.SOUTH] = multimedia.loadAnimation( resources.getAssetPath( "actionAnimation" ), false, MultimediaManager.IMAGE_PLAYER );
 		} else {
 			animation[AnimationState.EAST] = multimedia.loadAnimation( playerResources.getAssetPath( Player.RESOURCE_TYPE_USE_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
-			if (playerResources.getAssetPath( Player.RESOURCE_TYPE_USE_LEFT) != null && playerResources.getAssetPath( Player.RESOURCE_TYPE_USE_LEFT) != AssetsController.ASSET_EMPTY_ANIMATION)
+			if (playerResources.getAssetPath( Player.RESOURCE_TYPE_USE_LEFT) != null && !playerResources.getAssetPath( Player.RESOURCE_TYPE_USE_LEFT).equals(AssetsController.ASSET_EMPTY_ANIMATION))
 				animation[AnimationState.WEST] = multimedia.loadAnimation( playerResources.getAssetPath( Player.RESOURCE_TYPE_USE_LEFT ), false, MultimediaManager.IMAGE_PLAYER );
 			else
 				animation[AnimationState.WEST] = multimedia.loadAnimation( playerResources.getAssetPath( Player.RESOURCE_TYPE_USE_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );

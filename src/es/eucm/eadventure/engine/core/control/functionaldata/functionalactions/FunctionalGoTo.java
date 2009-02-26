@@ -82,7 +82,7 @@ public class FunctionalGoTo extends FunctionalAction {
 	        }
             Animation[] animations = new Animation[4];
 	        animations[AnimationState.EAST] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_WALK_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
-	        if (resources.getAssetPath(Player.RESOURCE_TYPE_WALK_LEFT) != null && resources.getAssetPath(Player.RESOURCE_TYPE_WALK_LEFT) != AssetsController.ASSET_EMPTY_ANIMATION)
+	        if (resources.getAssetPath(Player.RESOURCE_TYPE_WALK_LEFT) != null && !resources.getAssetPath(Player.RESOURCE_TYPE_WALK_LEFT).equals(AssetsController.ASSET_EMPTY_ANIMATION))
 	        	animations[AnimationState.WEST] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_WALK_LEFT) , false, MultimediaManager.IMAGE_PLAYER);
 	        else
 	        	animations[AnimationState.WEST] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_WALK_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
@@ -135,7 +135,7 @@ public class FunctionalGoTo extends FunctionalAction {
 	private void setAnimation(float oldSpeedX, float oldSpeedY, float newSpeedX, float newSpeedY) {
         Animation[] animations = new Animation[4];
         animations[AnimationState.EAST] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_WALK_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
-        if (resources.getAssetPath(Player.RESOURCE_TYPE_WALK_LEFT) != null && resources.getAssetPath(Player.RESOURCE_TYPE_WALK_LEFT) != AssetsController.ASSET_EMPTY_ANIMATION)
+        if (resources.getAssetPath(Player.RESOURCE_TYPE_WALK_LEFT) != null && !resources.getAssetPath(Player.RESOURCE_TYPE_WALK_LEFT).equals(AssetsController.ASSET_EMPTY_ANIMATION))
         	animations[AnimationState.WEST] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_WALK_LEFT) , false, MultimediaManager.IMAGE_PLAYER);
         else
         	animations[AnimationState.WEST] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_WALK_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
