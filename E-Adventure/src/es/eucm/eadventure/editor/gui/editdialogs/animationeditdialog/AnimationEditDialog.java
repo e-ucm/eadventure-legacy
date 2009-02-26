@@ -17,7 +17,6 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -30,6 +29,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import es.eucm.eadventure.common.data.Documented;
 import es.eucm.eadventure.common.data.animation.Animation;
 import es.eucm.eadventure.common.data.animation.Frame;
 import es.eucm.eadventure.common.gui.TextConstants;
@@ -37,8 +37,11 @@ import es.eucm.eadventure.common.loader.Loader;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.animation.AnimationDataControl;
+import es.eucm.eadventure.editor.control.controllers.animation.FrameDataControl;
+import es.eucm.eadventure.editor.control.tools.listeners.DocumentationChangeListener;
 import es.eucm.eadventure.editor.control.writer.AnimationWriter;
 import es.eucm.eadventure.editor.gui.displaydialogs.AnimationDialog;
+import es.eucm.eadventure.editor.gui.editdialogs.ToolManagableDialog;
 
 /**
  * This class shows an dialog to edit an animation
@@ -46,7 +49,7 @@ import es.eucm.eadventure.editor.gui.displaydialogs.AnimationDialog;
  * @author Eugenio Marchiori
  *
  */
-public class AnimationEditDialog extends JDialog {
+public class AnimationEditDialog extends ToolManagableDialog {
 	
 	/**
 	 * Default generated serialVersionUID
@@ -123,8 +126,9 @@ public class AnimationEditDialog extends JDialog {
 	 * Empty constructor. Creates a new animation.
 	 */
 	public AnimationEditDialog() {
-		super();
+		super(Controller.getInstance().peekWindow(), "", true);
 		animationDataControl = new AnimationDataControl(new Animation("id", new Frame()));
+
 		buildInterface();
 	}
 	
@@ -138,7 +142,7 @@ public class AnimationEditDialog extends JDialog {
 	 * The animation to edit (can be null)
 	 */
 	public AnimationEditDialog(String filename, Animation animation) {
-		super();
+		super(Controller.getInstance().peekWindow(), TextConstants.getText("Animation.DialogTitle", filename), true);
 		if (animation == null) {
 			animationDataControl = new AnimationDataControl(Loader.loadAnimation(AssetsController.getInputStreamCreator(), filename));
 		} else {
@@ -162,7 +166,6 @@ public class AnimationEditDialog extends JDialog {
 	 * Build the edition interface with all of it's components
 	 */
 	private void buildInterface() {
-		//this.setLayout(new BorderLayout());
 		this.setLayout(new GridBagLayout());
 		this.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
 		this.setModalityType(ModalityType.APPLICATION_MODAL);
@@ -172,21 +175,17 @@ public class AnimationEditDialog extends JDialog {
 		
 		createDescriptionPanel();
 		
-
-		
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridy = 0;
 		gbc.weighty = 0.5;
-		this.add(descriptionPanel, gbc);//, BorderLayout.NORTH);
+		this.add(descriptionPanel, gbc);
 		
-		AnimationListModel listModel = new AnimationListModel(animationDataControl.getAnimation());
+		AnimationListModel listModel = new AnimationListModel(animationDataControl);
 		
 		frameList = new JList(listModel);
-		//frameList.add(new JLabel("hola"));
 		frameList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		frameList.getSelectionModel().addListSelectionListener(new AnimationListSelectionListener(this));
 		frameList.setLayoutOrientation(JList.HORIZONTAL_WRAP);
-		frameList.setVisibleRowCount(-1);
 		frameList.setCellRenderer(new AnimationListRenderer());
 		frameList.setVisibleRowCount(1);
 		JScrollPane listScroller = new JScrollPane(frameList);
@@ -202,8 +201,7 @@ public class AnimationEditDialog extends JDialog {
 		frameListPanel.setMinimumSize(new Dimension(600, 240));
 		gbc.gridy = 1;
 		gbc.weighty = 1;
-		this.add(frameListPanel, gbc);//, BorderLayout.CENTER);
-		
+		this.add(frameListPanel, gbc);
 		
 		configurationPanel = new JPanel();
 		configurationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Animation.Details" ) ));
@@ -217,7 +215,7 @@ public class AnimationEditDialog extends JDialog {
 		JButton preview = new JButton(TextConstants.getText( "Animation.Preview" ));
 		preview.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				new AnimationDialog(animationDataControl.getAnimation());
+				new AnimationDialog((Animation) animationDataControl.getContent());
 			}
 		});
 		acceptCancelPanel.add(preview);
@@ -275,7 +273,8 @@ public class AnimationEditDialog extends JDialog {
 		gbc.gridx = 1;
 		gbc.weightx = 1;
 		gbc.fill = GridBagConstraints.HORIZONTAL;
-		documentationTextField = new JTextField(animationDataControl.getAnimation().getDocumentation());
+		documentationTextField = new JTextField(animationDataControl.getDocumentation());
+		documentationTextField.getDocument().addDocumentListener(new DocumentationChangeListener(documentationTextField, (Documented) animationDataControl.getContent()));
 		temp.add(documentationTextField, gbc);
 
 		descriptionPanel.add(temp);
@@ -290,7 +289,7 @@ public class AnimationEditDialog extends JDialog {
 		gbc.weightx = 1;
 		gbc.fill = GridBagConstraints.NONE;
 		useTransitions = new JCheckBox(TextConstants.getText("Animation.UseTransitions"));
-		if (animationDataControl.getAnimation().isUseTransitions())
+		if (animationDataControl.isUseTransitions())
 			useTransitions.setSelected(true);
 		else
 			useTransitions.setSelected(false);
@@ -305,7 +304,7 @@ public class AnimationEditDialog extends JDialog {
 		gbc.weightx = 1;
 		gbc.fill = GridBagConstraints.NONE;
 		slides = new JCheckBox(TextConstants.getText("Animation.Slides"));
-		if (animationDataControl.getAnimation().isSlides())
+		if (animationDataControl.isSlides())
 			slides.setSelected(true);
 		else
 			slides.setSelected(false);
@@ -324,8 +323,8 @@ public class AnimationEditDialog extends JDialog {
 	}
 
 	protected void changeSlides() {
-		if (slides.isSelected() != animationDataControl.getAnimation().isSlides()) {
-			animationDataControl.getAnimation().setSlides(slides.isSelected());
+		if (slides.isSelected() != animationDataControl.isSlides()) {
+			animationDataControl.setSlides(slides.isSelected());
 			frameList.getSelectionModel().clearSelection();
 			configurationPanel.removeAll();
 			this.validate();
@@ -334,8 +333,8 @@ public class AnimationEditDialog extends JDialog {
 	}
 
 	protected void changeUseTransitions() {
-		if (useTransitions.isSelected() != animationDataControl.getAnimation().isUseTransitions()) {
-			animationDataControl.getAnimation().setUseTransitions(useTransitions.isSelected());
+		if (useTransitions.isSelected() != animationDataControl.isUseTransitions()) {
+			animationDataControl.setUseTransitions(useTransitions.isSelected());
 			frameList.getSelectionModel().clearSelection();
 			frameList.updateUI();
 			configurationPanel.removeAll();
@@ -408,8 +407,7 @@ public class AnimationEditDialog extends JDialog {
 	 */
 	protected void saveAndClose() {
 		if (animationDataControl.getFilename() != null) {
-			animationDataControl.getAnimation().setDocumentation(documentationTextField.getText());
-			AnimationWriter.writeAnimation(animationDataControl.getFilename(), animationDataControl.getAnimation());
+			AnimationWriter.writeAnimation(animationDataControl.getFilename(), (Animation) animationDataControl.getContent());
 		}
 		this.setVisible(false);
 	}
@@ -422,16 +420,15 @@ public class AnimationEditDialog extends JDialog {
 		Frame newFrame = new Frame();
 
 		int index = frameList.getSelectedIndex() / 2;
-		if (!animationDataControl.getAnimation().isUseTransitions()) {
+		if (!animationDataControl.isUseTransitions()) {
 			index = frameList.getSelectedIndex();
 		}
 		if (frameList.getSelectedIndex() == -1)
-			index = animationDataControl.getAnimation().getFrames().size() - 1;
+			index = animationDataControl.getFrameCount() - 1;
 		
-		
-		animationDataControl.getAnimation().addFrame(index, newFrame);
+		animationDataControl.addFrame(index, newFrame);
 		frameList.updateUI();
-		int newFrameIndex = animationDataControl.getAnimation().getFrames().indexOf(newFrame);
+		int newFrameIndex = animationDataControl.indexOfFrame(newFrame);
 		frameList.setSelectedIndex(newFrameIndex);
 		if (frameConfigPanel!=null)
 			frameConfigPanel.selectImage();
@@ -441,14 +438,12 @@ public class AnimationEditDialog extends JDialog {
 	 * Delete the selected frame from the list
 	 */
 	protected void deleteFrame() {
-		if (frameList.getSelectedValue() instanceof Frame) {
-			int index = animationDataControl.getAnimation().getFrames().indexOf(frameList.getSelectedValue());
-			animationDataControl.getAnimation().removeFrame(index);
+		if (frameList.getSelectedValue() instanceof FrameDataControl) {
+			animationDataControl.deleteFrame((FrameDataControl) frameList.getSelectedValue());
 			frameList.getSelectionModel().clearSelection();
 			configurationPanel.removeAll();
 			this.validate();
 			this.repaint();
-//			frameList.updateUI();
 		}
 	}
 
@@ -456,16 +451,8 @@ public class AnimationEditDialog extends JDialog {
 	 * Move the selected frame in the list to the left
 	 */
 	protected void moveFrameLeft() {
-	/*	int index = frameList.getSelectedIndex() / 2;
-		Frame temp = animationDataControl.getAnimation().getFrame(index);
-		animationDataControl.getAnimation().getFrames().remove(index);
-		animationDataControl.getAnimation().getFrames().add(index - 1, temp);
-		frameList.setSelectedValue(temp, true);
-	*/
-		Frame temp = (Frame) frameList.getSelectedValue();
-		int index = animationDataControl.getAnimation().getFrames().indexOf(temp);
-		animationDataControl.getAnimation().getFrames().remove(temp);
-		animationDataControl.getAnimation().getFrames().add(index - 1, temp);
+		FrameDataControl temp = (FrameDataControl) frameList.getSelectedValue();
+		animationDataControl.moveFrameLeft(temp);
 		frameList.setSelectedValue(temp, true);
 		frameList.updateUI();
 	}
@@ -474,11 +461,8 @@ public class AnimationEditDialog extends JDialog {
 	 * Move the selected frame in the list to the right
 	 */
 	protected void moveFrameRight() {
-		Frame temp2 = (Frame) frameList.getSelectedValue();
-		int index = animationDataControl.getAnimation().getFrames().indexOf(temp2);
-		Frame temp = animationDataControl.getAnimation().getFrame(index + 1);
-		animationDataControl.getAnimation().getFrames().remove(index + 1);
-		animationDataControl.getAnimation().getFrames().add(index, temp);
+		FrameDataControl temp2 = (FrameDataControl) frameList.getSelectedValue();
+		animationDataControl.moveFrameRight(temp2);
 		frameList.setSelectedValue(temp2, true);
 		frameList.updateUI();
 	}
@@ -491,15 +475,11 @@ public class AnimationEditDialog extends JDialog {
 	 */
 	private class AnimationListModel extends AbstractListModel {
 
-		/**
-		 * 
-		 * 
-		 */
 		private static final long serialVersionUID = -2832912217451105062L;
 
-		private Animation animation;
+		private AnimationDataControl animation;
 		
-		public AnimationListModel(Animation animation) {
+		public AnimationListModel(AnimationDataControl animation) {
 			super();
 			this.animation = animation;
 		}
@@ -507,23 +487,21 @@ public class AnimationEditDialog extends JDialog {
 		public Object getElementAt(int index) {
 			if (animation.isUseTransitions()) {
 				if (index % 2 == 0) {
-					return animation.getFrame(index / 2);
+					return animation.getFrameDataControl(index / 2);
 				} else {
-					return animation.getTransitions().get((index - 1) / 2 + 1);
+					return animation.getTransitionDataControls().get((index - 1) / 2 + 1);
 				}
 			} else {
-				return animation.getFrame(index);
+				return animation.getFrameDataControl(index);
 			}
 		}
 
 		public int getSize() {
 			if (animation.isUseTransitions())
-				return (animation.getFrames().size() * 2) - 1;
+				return (animation.getFrameCount() * 2) - 1;
 			else
-				return animation.getFrames().size();
-		}
-		
-		
+				return animation.getFrameCount();
+		}		
 	}
 	
 	/**
@@ -556,8 +534,8 @@ public class AnimationEditDialog extends JDialog {
 	 * @param index the index of the selection
 	 */
 	public void selectionChanged(int index) {
-		if (animationDataControl.getAnimation().isUseTransitions()) {
-	        if (index < 0 || index >= (animationDataControl.getAnimation().getFrames().size() * 2) + 1) {
+		if (animationDataControl.isUseTransitions()) {
+	        if (index < 0 || index >= (animationDataControl.getFrameCount() * 2) + 1) {
 	        	selectedNothing();
 	        	return;
 	        }
@@ -568,7 +546,7 @@ public class AnimationEditDialog extends JDialog {
 	        	selectedTransition((index - 1) / 2 + 1);
 	        }
 		} else {
-	        if (index < 0 || index >= animationDataControl.getAnimation().getFrames().size()) {
+	        if (index < 0 || index >= animationDataControl.getFrameCount()) {
 	        	selectedNothing();
 	        	return;
 	        }
@@ -583,7 +561,7 @@ public class AnimationEditDialog extends JDialog {
 	 * 		index of the selected frame
 	 */
 	public void selectedFrame(int i) {
-		if (i < animationDataControl.getAnimation().getFrames().size() - 1)
+		if (i < animationDataControl.getFrameCount() - 1)
 			moveRightButton.setEnabled(true);
 		else
 			moveRightButton.setEnabled(false);
@@ -594,7 +572,7 @@ public class AnimationEditDialog extends JDialog {
 		deleteButton.setEnabled(true);
 		
 		configurationPanel.removeAll();
-		frameConfigPanel = new FrameConfigPanel(animationDataControl.getAnimation().getFrame(i), frameList, this);
+		frameConfigPanel = new FrameConfigPanel(animationDataControl.getFrameDataControl(i), frameList, this);
 		configurationPanel.add(frameConfigPanel);
 		this.validate();
 		this.repaint();
@@ -624,13 +602,20 @@ public class AnimationEditDialog extends JDialog {
 		deleteButton.setEnabled(false);
 
 		configurationPanel.removeAll();
-		configurationPanel.add(new TransitionConfigPanel(animationDataControl.getAnimation().getTransitions().get(i), frameList));
+		configurationPanel.add(new TransitionConfigPanel(animationDataControl.getTransitionDataControls().get(i), frameList));
 		this.validate();
 		this.repaint();
 	}
 
 	public AnimationDataControl getAnimationDataControl() {
 		return animationDataControl;
+	}
+	
+	@Override
+	public boolean updateFields() {
+		this.validate();
+		this.repaint();
+		return true;
 	}
 
 }

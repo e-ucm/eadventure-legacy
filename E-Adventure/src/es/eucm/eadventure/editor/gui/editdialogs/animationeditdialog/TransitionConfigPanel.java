@@ -15,6 +15,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import es.eucm.eadventure.common.data.animation.Transition;
+import es.eucm.eadventure.editor.control.controllers.animation.TransitionDataControl;
 
 public class TransitionConfigPanel extends JPanel {
 
@@ -23,7 +24,7 @@ public class TransitionConfigPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Transition transition;
+	private TransitionDataControl transition;
 
 	private JList list;
 
@@ -31,14 +32,14 @@ public class TransitionConfigPanel extends JPanel {
 
 	private JSpinner spinner;
 	
-	public TransitionConfigPanel(Transition transition, JList list) {
-		this.transition = transition;
+	public TransitionConfigPanel(TransitionDataControl transitionDataControl, JList list) {
+		this.transition = transitionDataControl;
 		this.list = list;
 		this.setLayout(new GridLayout(1,1));
 
 		JPanel temp2 = new JPanel();
 		temp2.add(new JLabel("Duration" + ": "));
-	    SpinnerModel sm = new SpinnerNumberModel(transition.getTime(), 0, 10000, 100);
+	    SpinnerModel sm = new SpinnerNumberModel(transitionDataControl.getTime(), 0, 10000, 100);
 	    spinner = new JSpinner(sm);
 	    spinner.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
@@ -55,7 +56,7 @@ public class TransitionConfigPanel extends JPanel {
 		comboBox.addItem("HORIZONTAL");
 		comboBox.addItem("VERTICAL");
 
-		switch(transition.getType()) {
+		switch(transitionDataControl.getType()) {
 		case Transition.TYPE_NONE:
 			comboBox.setSelectedIndex(0);
 			break;

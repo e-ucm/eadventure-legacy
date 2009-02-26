@@ -19,8 +19,8 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import es.eucm.eadventure.common.data.animation.Frame;
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.controllers.animation.FrameDataControl;
 
 public class FrameConfigPanel extends JPanel {
 	
@@ -29,7 +29,7 @@ public class FrameConfigPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private Frame frame;
+	private FrameDataControl frame;
 	
 	private JList list;
 	
@@ -41,8 +41,8 @@ public class FrameConfigPanel extends JPanel {
 	
 	private JCheckBox checkbox;
 	
-	public FrameConfigPanel(Frame frame, JList list, AnimationEditDialog aed) {
-		this.frame = frame;
+	public FrameConfigPanel(FrameDataControl frameDataControl, JList list, AnimationEditDialog aed) {
+		this.frame = frameDataControl;
 		this.list = list;
 		this.aed = aed;
 		this.setLayout(new GridBagLayout());
@@ -55,7 +55,7 @@ public class FrameConfigPanel extends JPanel {
 		
 		JPanel temp = new JPanel();
 		temp.add(new JLabel(TextConstants.getText("Animation.Duration") + ": "));
-	    SpinnerModel sm = new SpinnerNumberModel(frame.getTime(), 0, 10000, 100);
+	    SpinnerModel sm = new SpinnerNumberModel(frameDataControl.getTime(), 0, 10000, 100);
 	    spinner = new JSpinner(sm);
 	    spinner.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
@@ -64,9 +64,9 @@ public class FrameConfigPanel extends JPanel {
 	    temp.add(spinner);
 	    
 
-	    if (aed.getAnimationDataControl().getAnimation().isSlides()) {
+	    if (aed.getAnimationDataControl().isSlides()) {
 			checkbox = new JCheckBox(TextConstants.getText("Animation.WaitForClick"));
-			if (frame.isWaitforclick()) {
+			if (frameDataControl.isWaitForClick()) {
 				checkbox.setSelected(true);
 				spinner.setEnabled(false);
 			} else
@@ -97,7 +97,7 @@ public class FrameConfigPanel extends JPanel {
 
 		// Create the text field and insert it
 		textField = new JTextField(40);
-		textField.setText(frame.getUri());
+		textField.setText(frameDataControl.getImageURI());
 		textField.setEditable( false );
 		c2.gridx = 0;
 		c2.fill = GridBagConstraints.HORIZONTAL;
@@ -119,7 +119,7 @@ public class FrameConfigPanel extends JPanel {
 	}
 
 	protected void changeWaitForClick() {
-		frame.setWaitforclick(checkbox.isSelected());
+		frame.setWaitForClick(checkbox.isSelected());
 		if (checkbox.isSelected())
 			spinner.setEnabled(false);
 		else
@@ -129,7 +129,7 @@ public class FrameConfigPanel extends JPanel {
 	public void selectImage() {
 		String temp = aed.getAnimationDataControl().editAssetPath(aed);
 		if (temp != null) {
-			frame.setUri(temp);
+			frame.setImageURI(temp);
 			list.updateUI();
 			textField.setText(temp);
 			list.updateUI();

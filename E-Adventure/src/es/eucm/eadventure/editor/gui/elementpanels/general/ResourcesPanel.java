@@ -25,6 +25,7 @@ import javax.swing.JTextPane;
 import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.common.data.animation.Animation;
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
 import es.eucm.eadventure.editor.control.writer.AnimationWriter;
@@ -491,11 +492,9 @@ public class ResourcesPanel extends JPanel {
 		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 		 */
 		public void actionPerformed( ActionEvent e ) {			
-			if (resourcesDataControl.getAssetPath(assetIndex) != null && resourcesDataControl.getAssetPath(assetIndex).toLowerCase().endsWith(".eaa")) {
-				// Already an "new" animation
+			if (resourcesDataControl.getAssetPath(assetIndex) != null && resourcesDataControl.getAssetPath(assetIndex).toLowerCase().endsWith(".eaa") && !resourcesDataControl.getAssetPath(assetIndex).equals(AssetsController.ASSET_EMPTY_ANIMATION)) {
 				new AnimationEditDialog(resourcesDataControl.getAssetPath(assetIndex), null);
 			} else {
-				// Create a "new" animation (use the old one if present)
 				String filename= null;
 				String animationName = "anim" + (new Random()).nextInt(1000);
 				if (resourcesDataControl.getAssetPath(assetIndex) != null) {

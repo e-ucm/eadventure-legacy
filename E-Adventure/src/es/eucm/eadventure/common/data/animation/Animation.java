@@ -10,6 +10,8 @@ import java.util.List;
 import javax.swing.ImageIcon;
 
 
+import es.eucm.eadventure.common.data.Documented;
+import es.eucm.eadventure.common.data.HasId;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 
@@ -20,7 +22,7 @@ import es.eucm.eadventure.editor.control.controllers.AssetsController;
  * 
  * @author Eugenio Marchiori
  */
-public class Animation implements Cloneable {
+public class Animation implements Cloneable, Documented, HasId {
 
 	/**
 	 * The xml tag for the background music of the animation
@@ -176,7 +178,6 @@ public class Animation implements Cloneable {
 			frames.add(after + 1, frame);
 			transitions.add(after + 2, new Transition());			
 		}
-		
 		return frame;
 	}
 	
@@ -555,6 +556,11 @@ public class Animation implements Cloneable {
 		}
 		a.useTransitions = useTransitions;
 		return a;
+	}
+
+	@Override
+	public void setId(String id) {
+		this.id = id;
 	}
 
 }

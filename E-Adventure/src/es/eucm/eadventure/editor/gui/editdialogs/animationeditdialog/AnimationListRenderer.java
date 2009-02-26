@@ -12,9 +12,10 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
 
-import es.eucm.eadventure.common.data.animation.Frame;
 import es.eucm.eadventure.common.data.animation.Transition;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
+import es.eucm.eadventure.editor.control.controllers.animation.FrameDataControl;
+import es.eucm.eadventure.editor.control.controllers.animation.TransitionDataControl;
 
 /**
  * Class that is responsible for creating the container for
@@ -49,16 +50,16 @@ public class AnimationListRenderer implements ListCellRenderer {
         	panel.setForeground(list.getForeground());
         }
 
-        if (value instanceof Frame) {
+        if (value instanceof FrameDataControl) {
 	        panel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
-	        Frame f = (Frame) value;
+	        FrameDataControl f = (FrameDataControl) value;
 	        
 	        JLabel temp = new JLabel();
 	        
 	        
 	        Image image = null;
-	        if (f.getUri() != null && f.getUri().length() > 0)
-	        	image = AssetsController.getImage(f.getUri());
+	        if (f.getImageURI() != null && f.getImageURI().length() > 0)
+	        	image = AssetsController.getImage(f.getImageURI());
 	        ImageIcon icon;
 	        if (image == null) {
 	        	icon = new ImageIcon("img/icons/noImageFrame.png"); 
@@ -76,12 +77,12 @@ public class AnimationListRenderer implements ListCellRenderer {
         	temp.setHorizontalAlignment(JLabel.CENTER);
         	panel.add(temp, BorderLayout.SOUTH);	        	
         }
-        else if (value instanceof Transition) {
+        else if (value instanceof TransitionDataControl) {
         	JLabel temp = new JLabel();
         	temp.setHorizontalAlignment(JLabel.CENTER);
         	temp.setVerticalAlignment(JLabel.CENTER);
         	ImageIcon icon;
-        	Transition t = (Transition) value;
+        	TransitionDataControl t = (TransitionDataControl) value;
         	switch(t.getType()) {
         	case Transition.TYPE_NONE:
         		icon = new ImageIcon("img/icons/transitionNone.png"); 
