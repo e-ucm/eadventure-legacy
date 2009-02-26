@@ -71,7 +71,7 @@ public class FunctionalSpeak extends FunctionalAction {
         Animation[] animations = new Animation[4];
         
         animations[AnimationState.EAST] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_SPEAK_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
-        if (resources.getAssetPath(Player.RESOURCE_TYPE_SPEAK_LEFT) != null && resources.getAssetPath(Player.RESOURCE_TYPE_SPEAK_LEFT) != AssetsController.ASSET_EMPTY_ANIMATION)
+        if (resources.getAssetPath(Player.RESOURCE_TYPE_SPEAK_LEFT) != null && !resources.getAssetPath(Player.RESOURCE_TYPE_SPEAK_LEFT).equals(AssetsController.ASSET_EMPTY_ANIMATION))
         	animations[AnimationState.WEST] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_SPEAK_LEFT), false, MultimediaManager.IMAGE_PLAYER);
         else
         	animations[AnimationState.WEST] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_SPEAK_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );

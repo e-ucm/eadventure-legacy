@@ -138,7 +138,7 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
 
         Animation[] animations = new Animation[4];
         animations[AnimationState.EAST] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_STAND_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
-        if (resources.getAssetPath(Player.RESOURCE_TYPE_STAND_LEFT) != null && resources.getAssetPath(Player.RESOURCE_TYPE_STAND_LEFT) != AssetsController.ASSET_EMPTY_ANIMATION)
+        if (resources.getAssetPath(Player.RESOURCE_TYPE_STAND_LEFT) != null && !resources.getAssetPath(Player.RESOURCE_TYPE_STAND_LEFT).equals(AssetsController.ASSET_EMPTY_ANIMATION))
         	animations[AnimationState.WEST] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_STAND_LEFT), false, MultimediaManager.IMAGE_PLAYER);
         else
         	animations[AnimationState.WEST] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_STAND_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
