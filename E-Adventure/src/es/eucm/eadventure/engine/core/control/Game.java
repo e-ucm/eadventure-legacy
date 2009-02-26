@@ -51,17 +51,11 @@ import es.eucm.eadventure.engine.core.control.gamestate.GameStateOptions;
 import es.eucm.eadventure.engine.core.control.gamestate.GameStatePlaying;
 import es.eucm.eadventure.engine.core.control.gamestate.GameStateRunEffects;
 import es.eucm.eadventure.engine.core.control.gamestate.GameStateSlidescene;
-import es.eucm.eadventure.engine.core.control.gamestate.GameStateVideoscene;
 import es.eucm.eadventure.engine.core.data.GameText;
 import es.eucm.eadventure.engine.core.data.SaveGame;
 import es.eucm.eadventure.engine.core.data.SaveGameException;
 import es.eucm.eadventure.engine.core.data.SaveTimer;
 
-//import es.eucm.eadventure.engine.core.data.userinteraction.highlevel.HighLevelInteraction;
-//import es.eucm.eadventure.engine.core.data.userinteraction.lowlevel.LowLevelInteraction;
-
-//import es.eucm.eadventure.engine.core.data.userinteraction.highlevel.HighLevelInteraction;
-//import es.eucm.eadventure.engine.core.data.userinteraction.lowlevel.LowLevelInteraction;
 import es.eucm.eadventure.engine.core.gui.DebugValuesPanel;
 import es.eucm.eadventure.engine.core.gui.DebugLogPanel;
 import es.eucm.eadventure.engine.core.gui.GUI;

@@ -945,6 +945,7 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="NextScene.BottomToTop">Bottom to top</entry>
 	<entry key="NextScene.LeftToRight">Left to right</entry>
 	<entry key="NextScene.RightToLeft">Right to left</entry>
+	<entry key="NextScene.FadeIn">Fade in</entry>
 	<entry key="NextScene.TransitionTime">Transition time</entry>
 
 	<entry key="ElementReference.ItemReferences">Show item references</entry>

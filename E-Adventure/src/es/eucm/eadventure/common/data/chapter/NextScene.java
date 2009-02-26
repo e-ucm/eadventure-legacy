@@ -21,6 +21,8 @@ public class NextScene implements Cloneable, HasTargetId, Positioned{
 
 	public static final int RIGHT_TO_LEFT = 4;
 
+	public static final int FADE_IN = 5;
+
 	/**
 	 * Id of the target scene
 	 */

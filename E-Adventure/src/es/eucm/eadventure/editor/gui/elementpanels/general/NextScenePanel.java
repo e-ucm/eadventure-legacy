@@ -179,7 +179,8 @@ public class NextScenePanel extends JTabbedPane {
 				TextConstants.getText("NextScene.TopToBottom"),
 				TextConstants.getText("NextScene.BottomToTop"),
 				TextConstants.getText("NextScene.LeftToRight"),
-				TextConstants.getText("NextScene.RightToLeft")};
+				TextConstants.getText("NextScene.RightToLeft"),
+				TextConstants.getText("NextScene.FadeIn")};
 		transitionCombo = new JComboBox(options);
 		transitionCombo.setSelectedIndex(nextSceneDataControl.getTransitionType());
 		transitionCombo.addActionListener(new ActionListener() {
