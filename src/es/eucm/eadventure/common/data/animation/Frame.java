@@ -21,13 +21,12 @@ import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
  * @author Eugenio Marchiori
  *
  */
-public class Frame implements Cloneable {
+public class Frame implements Cloneable, Timed {
 	
 	/**
 	 * The xml tag for the sound of the frame
 	 */
 	public static final String RESOURCE_TYPE_SOUND = "sound";
-	
 	
 	/**
 	 * The frame is a image
@@ -82,6 +81,7 @@ public class Frame implements Cloneable {
 		time = DEFAULT_TIME;
 		image = null;
 		waitforclick = false;
+		resources = new ArrayList<Resources>();
 	}
 
 	/**
@@ -94,6 +94,7 @@ public class Frame implements Cloneable {
 		time = DEFAULT_TIME;
 		image = null;
 		waitforclick = false;
+		resources = new ArrayList<Resources>();
 	}
 	
 	/**
@@ -108,6 +109,7 @@ public class Frame implements Cloneable {
 		this.time = time;
 		image = null;
 		waitforclick = false;
+		resources = new ArrayList<Resources>();
 	}
 	
 	/**
@@ -245,10 +247,8 @@ public class Frame implements Cloneable {
             // draw the transformed image
             Graphics2D g = (Graphics2D) newImage.getGraphics( );
             
-            
             g.drawImage( image, transform, null);
             g.dispose( );
-        
         }
 
         return newImage;

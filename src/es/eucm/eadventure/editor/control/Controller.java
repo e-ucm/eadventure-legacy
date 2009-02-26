@@ -405,6 +405,8 @@ public class Controller {
 	public static final int SIDE = 63;
 
 	public static final int TRAJECTORY = 64;
+	
+	public static final int ANIMATION = 65;
 
 	//TYPES OF EAD FILES
 	public static final int FILE_ADVENTURE_1STPERSON_PLAYER = 0;

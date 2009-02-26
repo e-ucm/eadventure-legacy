@@ -13,7 +13,13 @@ import es.eucm.eadventure.editor.gui.Updateable;
 
 public abstract class ToolManagableDialog extends JDialog implements Updateable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private boolean worksInLocal;
+	
 	private static final KeyEventDispatcher undoRedoDispatcher = new KeyEventDispatcher(){
 
 		@Override

@@ -6,7 +6,7 @@ package es.eucm.eadventure.common.data.animation;
  * @author Eugenio Marchiori
  *
  */
-public class Transition implements Cloneable {
+public class Transition implements Cloneable, Timed {
 	
 	/**
 	 * The transition does nothing
