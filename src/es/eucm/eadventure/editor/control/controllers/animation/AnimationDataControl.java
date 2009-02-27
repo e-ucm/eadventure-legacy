@@ -134,7 +134,7 @@ public class AnimationDataControl extends DataControl {
 			transitionDataControls.add(new TransitionDataControl(transition));
 	}
 	
-	public String editAssetPath(Component window){
+	public String getImagePath(Component window){
 		String selectedAsset = null;
 
 		AssetChooser chooser = AssetsController.getAssetChooser( AssetsController.CATEGORY_IMAGE, AssetsController.FILTER_NONE );
@@ -152,6 +152,30 @@ public class AnimationDataControl extends DataControl {
 			if( added ) {
 				selectedAsset = chooser.getSelectedFile( ).getName( );
 				selectedAsset = AssetsController.getCategoryFolder(AssetsController.CATEGORY_ANIMATION_IMAGE) + "/" + selectedAsset;
+			}
+		}
+		
+		return selectedAsset;
+	}
+
+	public String getSoundPath(Component window){
+		String selectedAsset = null;
+
+		AssetChooser chooser = AssetsController.getAssetChooser( AssetsController.CATEGORY_AUDIO, AssetsController.FILTER_NONE );
+		int option = chooser.showAssetChooser( window );
+		//In case the asset was selected from the zip file
+		if( option == AssetChooser.ASSET_FROM_ZIP ) {
+			selectedAsset = chooser.getSelectedAsset( );
+			selectedAsset = AssetsController.getCategoryFolder(AssetsController.CATEGORY_AUDIO) + "/" + selectedAsset;
+		}
+
+		//In case the asset was not in the zip file: first add it
+		else if( option == AssetChooser.ASSET_FROM_OUTSIDE ) {
+			boolean added = AssetsController.addSingleAsset( AssetsController.CATEGORY_ANIMATION_AUDIO, chooser.getSelectedFile( ).getAbsolutePath( ) );
+			
+			if( added ) {
+				selectedAsset = chooser.getSelectedFile( ).getName( );
+				selectedAsset = AssetsController.getCategoryFolder(AssetsController.CATEGORY_ANIMATION_AUDIO) + "/" + selectedAsset;
 			}
 		}
 		

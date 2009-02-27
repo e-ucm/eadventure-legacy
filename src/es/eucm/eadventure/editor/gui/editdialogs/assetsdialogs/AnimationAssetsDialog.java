@@ -103,7 +103,7 @@ public class AnimationAssetsDialog extends JDialog {
 		mainPanel.add( deleteAsset, c );
 
 		// Create a panel for the element preview
-		animationPanel = new AnimationPanel( );
+		animationPanel = new AnimationPanel( true );
 		animationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AnimationAssets.Preview" ) ) );
 
 		// Add the panel

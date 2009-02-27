@@ -108,22 +108,20 @@ public class AnimationWriter {
 	public static Element createFrameElement(Frame f, Document doc) {
 		Element element = doc.createElement("frame");
 		
-		if (f.getUri() != null)
-			element.setAttribute("uri", f.getUri());
-		else
-			element.setAttribute("uri", "");
+		element.setAttribute("uri", (f.getUri() != null ? f.getUri() : ""));
 		
 		if (f.getType() == Frame.TYPE_IMAGE)
 			element.setAttribute("type", "image");
 		else if (f.getType() == Frame.TYPE_VIDEO)
 			element.setAttribute("type", "video");
 		
-		element.setAttribute("time", "" + f.getTime());
+		element.setAttribute("time", String.valueOf(f.getTime()));
 		
-		if (f.isWaitforclick())
-			element.setAttribute("waitforclick", "yes");
-		else
-			element.setAttribute("waitforclick", "no");
+		element.setAttribute("waitforclick", (f.isWaitforclick() ? "yes" : "no"));
+		
+		element.setAttribute("soundUri", (f.getSoundUri() != null ? f.getSoundUri() : ""));
+		
+		element.setAttribute("maxSoundTime", String.valueOf(f.getMaxSoundTime()));
 		
 		return element;
 	}

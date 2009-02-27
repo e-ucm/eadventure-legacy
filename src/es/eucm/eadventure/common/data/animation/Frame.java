@@ -69,8 +69,11 @@ public class Frame implements Cloneable, Timed {
 	 */
 	private List<Resources> resources;
 	
-	
 	private boolean waitforclick;
+	
+	private String soundUri;
+	
+	private int maxSoundTime;
 	
 	/**
 	 * Creates a new empty frame
@@ -82,6 +85,8 @@ public class Frame implements Cloneable, Timed {
 		image = null;
 		waitforclick = false;
 		resources = new ArrayList<Resources>();
+		soundUri = "";
+		maxSoundTime = 1000;
 	}
 
 	/**
@@ -95,6 +100,8 @@ public class Frame implements Cloneable, Timed {
 		image = null;
 		waitforclick = false;
 		resources = new ArrayList<Resources>();
+		soundUri = "";
+		maxSoundTime = 1000;
 	}
 	
 	/**
@@ -110,6 +117,8 @@ public class Frame implements Cloneable, Timed {
 		image = null;
 		waitforclick = false;
 		resources = new ArrayList<Resources>();
+		soundUri = "";
+		maxSoundTime = 1000;
 	}
 	
 	/**
@@ -166,6 +175,22 @@ public class Frame implements Cloneable, Timed {
 	 */
 	public void setType(int type) {
 		this.type = type;
+	}
+	
+	public String getSoundUri() {
+		return soundUri;
+	}
+	
+	public void setSoundUri(String soundUri) {
+		this.soundUri = soundUri;
+	}
+	
+	public int getMaxSoundTime() {
+		return maxSoundTime;
+	}
+	
+	public void setMaxSoundTime(int maxSoundTime) {
+		this.maxSoundTime = maxSoundTime;
 	}
 
 	/**

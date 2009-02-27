@@ -110,6 +110,11 @@ public class AssetsController {
 	 * Customized button category
 	 */
 	public static final int CATEGORY_BUTTON = 11;
+	
+	/**
+	 * Animation sound category
+	 */
+	public static final int CATEGORY_ANIMATION_AUDIO = 12;
 
 
 	/**
@@ -1060,6 +1065,7 @@ public class AssetsController {
 				break;
 			case CATEGORY_ANIMATION:
 			case CATEGORY_ANIMATION_IMAGE:
+			case CATEGORY_ANIMATION_AUDIO:
 				folder = CATEGORY_ANIMATION_FOLDER;
 				break;
 			case CATEGORY_IMAGE:

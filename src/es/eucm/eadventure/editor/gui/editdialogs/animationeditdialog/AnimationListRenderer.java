@@ -56,10 +56,14 @@ public class AnimationListRenderer implements ListCellRenderer {
 	        
 	        JLabel temp = new JLabel();
 	        
-	        
 	        Image image = null;
-	        if (f.getImageURI() != null && f.getImageURI().length() > 0)
+	        if (f.getImageURI() != null && f.getImageURI().length() > 0) {
 	        	image = AssetsController.getImage(f.getImageURI());
+		        if (f.getSoundUri() != null && f.getSoundUri() != "") {
+					ImageIcon soundIcon = new ImageIcon( "img/icons/hasSound.png" );
+					image.getGraphics().drawImage(soundIcon.getImage(), 0,0, null);
+		        }
+	        }
 	        ImageIcon icon;
 	        if (image == null) {
 	        	icon = new ImageIcon("img/icons/noImageFrame.png"); 
@@ -69,6 +73,7 @@ public class AnimationListRenderer implements ListCellRenderer {
 	        		icon = new ImageIcon(image.getScaledInstance(-1, 100, Image.SCALE_SMOOTH));
 	        	}
 	        }
+	        
         	temp.setIcon(icon);
         	
         	panel.add(temp, BorderLayout.CENTER);
