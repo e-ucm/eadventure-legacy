@@ -114,4 +114,12 @@ public class ElementContainer {
 		return image;
 	}
 	
+	public boolean isVisible() {
+		return this.erdc.isVisible();
+	}
+	
+	public void setVisible(boolean visible) {
+		this.erdc.setVisible(visible);
+	}
+	
 }

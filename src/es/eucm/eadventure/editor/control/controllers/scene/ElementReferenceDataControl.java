@@ -42,6 +42,8 @@ public class ElementReferenceDataControl extends DataControl {
 	 * The type of the element reference (item, npc or atrezzo)
 	 */
 	private int type;
+	
+	private boolean visible;
 
 	/**
 	 * Contructor.
@@ -55,6 +57,7 @@ public class ElementReferenceDataControl extends DataControl {
 		this.sceneDataControl = sceneDataControl;
 		this.elementReference = elementReference;
 		this.type = type;
+		this.visible = true;
 		if (type == Controller.ITEM_REFERENCE || type == Controller.NPC_REFERENCE)
 			this.influenceAreaDataControl = new InfluenceAreaDataControl(sceneDataControl, elementReference.getInfluenceArea(), this);
 		// Create subcontrollers
@@ -382,6 +385,16 @@ public class ElementReferenceDataControl extends DataControl {
 		check(this.conditionsController, TextConstants.getText("Search.Condtions"));
 		check(this.getDocumentation(), TextConstants.getText("Search.Documentation"));
 		check(this.getElementId(), TextConstants.getText("Search.ElementID"));
+	}
+
+
+
+	public boolean isVisible() {
+		return visible;
+	}
+	
+	public void setVisible(boolean visible) {
+		this.visible = visible;
 	}
 	
 }

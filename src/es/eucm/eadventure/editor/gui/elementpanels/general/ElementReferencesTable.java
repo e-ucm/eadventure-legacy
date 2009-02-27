@@ -6,8 +6,11 @@ import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumn;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
@@ -15,6 +18,7 @@ import es.eucm.eadventure.editor.control.controllers.scene.ElementContainer;
 import es.eucm.eadventure.editor.control.controllers.scene.ReferencesListDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.book.IconTextPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.ElementReferenceSelectionListener;
+import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 
 public class ElementReferencesTable extends JTable implements ElementReferenceSelectionListener{
 
@@ -25,14 +29,40 @@ public class ElementReferencesTable extends JTable implements ElementReferenceSe
 	
 	private ReferencesListDataControl dataControl;
 	
-	public ElementReferencesTable (ReferencesListDataControl dControl){
+	private ScenePreviewEditionPanel spep;
+	
+	public ElementReferencesTable (ReferencesListDataControl dControl, ScenePreviewEditionPanel spep){
 		super();
+		this.spep = spep;
+		
 		this.setModel( new ElementsTableModel() );
 		this.getColumnModel( ).setColumnSelectionAllowed( false );
 		this.setDragEnabled( false );
 		this.getColumnModel().getColumn(0).setMaxWidth( 55 );
 		this.getColumnModel().getColumn(0).setPreferredWidth(50);
-		this.getColumnModel().getColumn(1).setCellRenderer(
+		
+		TableColumn tc = this.getColumnModel().getColumn(1); 
+		tc.setMaxWidth(30);
+		tc.setCellEditor(this.getDefaultEditor(Boolean.class));
+		tc.setCellRenderer(this.getDefaultRenderer(Boolean.class));
+		
+
+		this.getModel().addTableModelListener(new TableModelListener(){ 
+			public void tableChanged(TableModelEvent tme) { 
+				if (tme.getType() == TableModelEvent.UPDATE) { 
+					int row = tme.getFirstRow(); 
+					int col = tme.getColumn(); 
+					List<ElementContainer> references = dataControl.getAllReferencesDataControl();
+					if (col == 1){ 
+						references.get(row).setVisible(((Boolean) ElementReferencesTable.this.getModel().getValueAt(row, col)).booleanValue());
+						ElementReferencesTable.this.spep.repaint();
+					} 
+				} 
+			} 
+		}); 
+
+		
+		this.getColumnModel().getColumn(2).setCellRenderer(
 				new ElementsReferencesTableCellRenderer());
 		this.getSelectionModel( ).setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
 		this.dataControl = dControl;
@@ -46,9 +76,9 @@ public class ElementReferencesTable extends JTable implements ElementReferenceSe
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
-
+		
 		public int getColumnCount( ) {
-			return 2;
+			return 3;
 		}
 
 		public int getRowCount( ) {
@@ -56,21 +86,38 @@ public class ElementReferencesTable extends JTable implements ElementReferenceSe
 		}
 
 		public Object getValueAt( int rowIndex, int columnIndex ) {
-			if (columnIndex ==1 ){
-				List<ElementContainer> references = dataControl.getAllReferencesDataControl();
-				return references.get( rowIndex );
-			} else {
+			if (columnIndex == 0)
 				return Integer.toString( rowIndex );
+			List<ElementContainer> references = dataControl.getAllReferencesDataControl();
+			if (columnIndex ==2 )
+				return references.get( rowIndex );
+			if (columnIndex == 1) {
+				return new Boolean(references.get( rowIndex ).isVisible());
 			}
-			
+			return null;
 		}
 		
 		@Override
 		public String getColumnName(int columnIndex) {
-			if (columnIndex==1)
+			if (columnIndex==2)
 				return TextConstants.getText( "ElementList.Title" );
-			else
+			if (columnIndex==0)
 				return TextConstants.getText( "ElementList.Layer" );
+			return "";
+		}
+		
+		@Override
+		public void setValueAt(Object value, int rowIndex, int columnIndex) {
+			if (columnIndex == 1) {
+				Boolean bvalue = (Boolean) value;
+				List<ElementContainer> references = dataControl.getAllReferencesDataControl();
+				references.get(rowIndex).setVisible(bvalue.booleanValue());
+			}
+		}
+		
+		@Override
+		public boolean isCellEditable(int row, int column) {
+			return column == 1;
 		}
 	}
 	
