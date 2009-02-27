@@ -16,6 +16,9 @@ import es.eucm.eadventure.common.data.animation.Animation;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.common.loader.Loader;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
+import es.eucm.eadventure.editor.gui.audio.Sound;
+import es.eucm.eadventure.editor.gui.audio.SoundMidi;
+import es.eucm.eadventure.editor.gui.audio.SoundMp3;
 import es.eucm.eadventure.editor.gui.auxiliar.clock.Clock;
 import es.eucm.eadventure.editor.gui.auxiliar.clock.ClockListener;
 
@@ -75,12 +78,15 @@ public class AnimationPanel extends JPanel implements ClockListener {
 	private Animation animation;
 	
 	
+	private boolean useAudio;
+	
 	/**
 	 * Constructor.
 	 */
-	public AnimationPanel( ) {
+	public AnimationPanel(boolean useAudio) {
 		super( );
-
+		this.useAudio = useAudio;
+		
 		// Add the closing listener
 		addAncestorListener( new ClosingListener( ) );
 		this.addMouseListener(new AnimationPanelMouseListener());
@@ -101,13 +107,13 @@ public class AnimationPanel extends JPanel implements ClockListener {
 	 * @param animationPath
 	 *            Path to the animation , including the suffix
 	 */
-	public AnimationPanel( String animationPath ) {
-		this( );
+	public AnimationPanel(boolean useAudio,  String animationPath) {
+		this( useAudio );
 		loadAnimation( animationPath );
 	}
 	
-	public AnimationPanel( Animation animation) {
-		this();
+	public AnimationPanel(boolean useAudio, Animation animation) {
+		this( useAudio );
 		this.animation=animation;
 		animation.restart();
 		// Remove all components, and add a label if the animation is not loaded
@@ -232,7 +238,21 @@ public class AnimationPanel extends JPanel implements ClockListener {
 			double imageRatio;
 			if (animation != null) {
 				Image temp = animation.getImage(accumulatedAnimationTime);
-		
+
+				String audioPath = animation.getNewSound();
+				Sound sound = null;
+				if( useAudio && audioPath != null ) {
+					// Create a new player (depending on the file) and start playing
+					String lowerCasePath = audioPath.toLowerCase( );
+					if( lowerCasePath.endsWith( "mp3" ) )
+						sound = new SoundMp3( audioPath );
+					else if( lowerCasePath.endsWith( "mid" ) || lowerCasePath.endsWith( "midi" ) )
+						sound = new SoundMidi( audioPath );
+					if (sound != null)
+						sound.startPlaying( );
+				}
+
+				
 				imageRatio = (double) temp.getWidth( null ) / (double) temp.getHeight( null );
 			} else {
 				imageRatio = (double) frames[currentFrameIndex].getWidth( null ) / (double) frames[currentFrameIndex].getHeight( null );			

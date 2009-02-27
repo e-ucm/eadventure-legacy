@@ -71,6 +71,12 @@ public class Animation implements Cloneable, Documented, HasId {
 
 	private boolean fullscreen;
 	
+	private String newSound = null;
+	
+	private int soundMaxTime = 1000;
+
+	private int lastSoundFrame = -1;
+	
 	/**
 	 * Creates a new Animation. It can be created without any frames (empty = true)
 	 * or with the minimum number of frames and transitions (empty = false)
@@ -310,6 +316,11 @@ public class Animation implements Cloneable, Documented, HasId {
 			if (frames.get(i).isWaitforclick())
 				temp--;
 			if (frames.get(i).getTime() > elapsedTime || (frames.get(i).isWaitforclick() && temp < 0 && slides)) {
+				if (lastSoundFrame != i) {
+					newSound = frames.get(i).getSoundUri();
+					soundMaxTime = frames.get(i).getMaxSoundTime();
+					lastSoundFrame = i;
+				}
 				return frames.get(i).getImage(mirror, fullscreen);
 			}
 			if (i == frames.size() - 1)
@@ -324,6 +335,16 @@ public class Animation implements Cloneable, Documented, HasId {
 		return noImage();
 	}
 	
+	public String getNewSound() {
+		String temp = newSound;
+		newSound = null;
+		return temp;
+	}
+	
+	public int getSoundMaxTime() {
+		return soundMaxTime;
+	}
+
 	/**
 	 * Method to generate an image with no content.
 	 * 
@@ -562,5 +583,6 @@ public class Animation implements Cloneable, Documented, HasId {
 	public void setId(String id) {
 		this.id = id;
 	}
+
 
 }

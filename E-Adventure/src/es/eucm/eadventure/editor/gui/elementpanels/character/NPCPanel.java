@@ -522,11 +522,11 @@ public class NPCPanel extends JPanel implements Updateable {
 			temp.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), title ) );
 			if (animationPath != null) {
 				if (animationPath.endsWith(".eaa"))
-					temp.add(new AnimationPanel(Loader.loadAnimation(AssetsController.getInputStreamCreator(), animationPath)), BorderLayout.CENTER);
+					temp.add(new AnimationPanel(false, Loader.loadAnimation(AssetsController.getInputStreamCreator(), animationPath)), BorderLayout.CENTER);
 				else
-					temp.add(new AnimationPanel( animationPath + "_01.png" ), BorderLayout.CENTER);
+					temp.add(new AnimationPanel(false, animationPath + "_01.png" ), BorderLayout.CENTER);
 			} else
-				temp.add(new AnimationPanel(""), BorderLayout.CENTER);
+				temp.add(new AnimationPanel(false, ""), BorderLayout.CENTER);
 			
 			return temp;
 		}

@@ -1,5 +1,6 @@
 package es.eucm.eadventure.editor.gui.editdialogs.animationeditdialog;
 
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -7,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -33,9 +36,11 @@ public class FrameConfigPanel extends JPanel {
 	
 	private JList list;
 	
-	private JSpinner spinner;
+	private JSpinner frameTimeSpinner;
 	
-	private JTextField textField;
+	private JTextField imageUriTextField;
+	
+	private JTextField soundUriTextField;
 	
 	private AnimationEditDialog aed;
 	
@@ -56,19 +61,19 @@ public class FrameConfigPanel extends JPanel {
 		JPanel temp = new JPanel();
 		temp.add(new JLabel(TextConstants.getText("Animation.Duration") + ": "));
 	    SpinnerModel sm = new SpinnerNumberModel(frameDataControl.getTime(), 0, 10000, 100);
-	    spinner = new JSpinner(sm);
-	    spinner.addChangeListener(new ChangeListener() {
+	    frameTimeSpinner = new JSpinner(sm);
+	    frameTimeSpinner.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
 				modifyFrame();					
 			}});
-	    temp.add(spinner);
+	    temp.add(frameTimeSpinner);
 	    
 
 	    if (aed.getAnimationDataControl().isSlides()) {
 			checkbox = new JCheckBox(TextConstants.getText("Animation.WaitForClick"));
 			if (frameDataControl.isWaitForClick()) {
 				checkbox.setSelected(true);
-				spinner.setEnabled(false);
+				frameTimeSpinner.setEnabled(false);
 			} else
 				checkbox.setSelected(false);
 			checkbox.addChangeListener(new ChangeListener() {
@@ -86,9 +91,18 @@ public class FrameConfigPanel extends JPanel {
 	    c.gridy = 1;
 	    c.gridx = 0;
 	    c.weightx = 1;
-		JPanel assetPanel = new JPanel( );
-		assetPanel.setLayout( new GridBagLayout( ) );
-		assetPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), "Imagen" ) );
+	    JPanel imageAssetPanel = createImageAssetPanel(frameDataControl);
+		
+		this.add(imageAssetPanel, c);
+		
+		c.gridy++;
+		this.add(createSoundAssetPanel(frameDataControl), c);
+	}
+	
+	private JPanel createImageAssetPanel(FrameDataControl frameDataControl) {
+		JPanel imageAssetPanel = new JPanel( );
+		imageAssetPanel.setLayout( new GridBagLayout( ) );
+		imageAssetPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), "Imagen" ) );
 		GridBagConstraints c2 = new GridBagConstraints( );
 		c2.insets = new Insets( 2, 2, 2, 2 );
 		c2.fill = GridBagConstraints.NONE;
@@ -96,50 +110,112 @@ public class FrameConfigPanel extends JPanel {
 		c2.weighty = 0;
 
 		// Create the text field and insert it
-		textField = new JTextField(40);
-		textField.setText(frameDataControl.getImageURI());
-		textField.setEditable( false );
+		imageUriTextField = new JTextField(40);
+		imageUriTextField.setText(frameDataControl.getImageURI());
+		imageUriTextField.setEditable( false );
 		c2.gridx = 0;
 		c2.fill = GridBagConstraints.HORIZONTAL;
 		c2.weightx = 1;
-		assetPanel.add( textField, c2 );
+		imageAssetPanel.add( imageUriTextField, c2 );
 
 		// Create the "Select" button and insert it
-		JButton selectButton = new JButton( TextConstants.getText( "Resources.Select" ) );
-		selectButton.addActionListener( new ActionListener() {
+		JButton imageSelectButton = new JButton( TextConstants.getText( "Resources.Select" ) );
+		imageSelectButton.addActionListener( new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				selectImage();
 			}} );
 		c2.gridx = 1;
 		c2.fill = GridBagConstraints.NONE;
 		c2.weightx = 0;
-		assetPanel.add( selectButton, c2 );
+		imageAssetPanel.add( imageSelectButton, c2 );
 		
-		this.add(assetPanel, c);
+		return imageAssetPanel;
+	}
+
+	private JPanel createSoundAssetPanel(FrameDataControl frameDataControl) {
+		Icon deleteContentIcon = new ImageIcon( "img/icons/deleteContent.png" );
+		
+		JPanel soundAssetPanel = new JPanel( );
+		soundAssetPanel.setLayout( new GridBagLayout( ) );
+		soundAssetPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), "Sound" ) );
+		GridBagConstraints c2 = new GridBagConstraints( );
+		c2.insets = new Insets( 2, 2, 2, 2 );
+		c2.fill = GridBagConstraints.NONE;
+		c2.weightx = 0;
+		c2.weighty = 0;
+		
+
+		JButton deleteContentButton = new JButton( deleteContentIcon );
+		deleteContentButton.addActionListener( new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				deleteSound();
+			}
+		});
+		deleteContentButton.setPreferredSize( new Dimension( 20, 20 ) );
+		deleteContentButton.setToolTipText( TextConstants.getText( "Resources.DeleteAsset" ) );
+		soundAssetPanel.add( deleteContentButton, c2 );
+
+		// Create the text field and insert it
+		soundUriTextField = new JTextField(40);
+		soundUriTextField.setText(frameDataControl.getSoundUri());
+		soundUriTextField.setEditable( false );
+		c2.gridx = 1;
+		c2.fill = GridBagConstraints.HORIZONTAL;
+		c2.weightx = 1;
+		soundAssetPanel.add( soundUriTextField, c2 );
+
+		// Create the "Select" button and insert it
+		JButton soundSelectButton = new JButton( TextConstants.getText( "Resources.Select" ) );
+		soundSelectButton.addActionListener( new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				selectSound();
+			}} );
+		c2.gridx = 2;
+		c2.fill = GridBagConstraints.NONE;
+		c2.weightx = 0;
+		soundAssetPanel.add( soundSelectButton, c2 );
+		
+		return soundAssetPanel;
 	}
 
 	protected void changeWaitForClick() {
 		frame.setWaitForClick(checkbox.isSelected());
 		if (checkbox.isSelected())
-			spinner.setEnabled(false);
+			frameTimeSpinner.setEnabled(false);
 		else
-			spinner.setEnabled(true);
+			frameTimeSpinner.setEnabled(true);
 	}
 
-	public void selectImage() {
-		String temp = aed.getAnimationDataControl().editAssetPath(aed);
+	protected void selectImage() {
+		String temp = aed.getAnimationDataControl().getImagePath(aed);
 		if (temp != null) {
 			frame.setImageURI(temp);
 			list.updateUI();
-			textField.setText(temp);
+			imageUriTextField.setText(temp);
 			list.updateUI();
 		}
 	}
-
-	protected void modifyFrame() {
-		frame.setTime(((Double) spinner.getModel().getValue()).longValue());
-		list.updateUI();
+	
+	protected void selectSound() {
+		String temp = aed.getAnimationDataControl().getSoundPath(aed);
+		if (temp != null) {
+			frame.setSoundURI(temp);
+			list.updateUI();
+			soundUriTextField.setText(temp);
+			list.updateUI();
+		}
 	}
 	
-	
+	protected void deleteSound() {
+		frame.setSoundURI("");
+		list.updateUI();
+		soundUriTextField.setText("");
+		list.updateUI();
+	}
+
+
+	protected void modifyFrame() {
+		frame.setTime(((Double) frameTimeSpinner.getModel().getValue()).longValue());
+		list.updateUI();
+	}
 }

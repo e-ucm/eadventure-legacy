@@ -37,10 +37,10 @@ public class AnimationDialog extends JDialog {
 
 		
 		if (animationPath.endsWith(".eaa")) {
-			add(new AnimationPanel(Loader.loadAnimation(AssetsController.getInputStreamCreator(), animationPath)));
+			add(new AnimationPanel(true, Loader.loadAnimation(AssetsController.getInputStreamCreator(), animationPath)));
 		} else {
 			// Create and add the animation panel (a PNG suffix is attached to the path)
-			add( new AnimationPanel( animationPath + "_01.png" ) );
+			add( new AnimationPanel(true, animationPath + "_01.png" ) );
 		}
 		// Set the dialog properties
 		setMinimumSize( new Dimension( 400, 300 ) );
@@ -63,7 +63,7 @@ public class AnimationDialog extends JDialog {
 		super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "AnimationDialog.Title", animation.getId()), Dialog.ModalityType.APPLICATION_MODAL );
 
 		// Create and add the animation panel (a PNG suffix is attached to the path)
-		add( new AnimationPanel( animation ) );
+		add( new AnimationPanel(true, animation ) );
 
 		// Set the dialog properties
 		setMinimumSize( new Dimension( 400, 300 ) );

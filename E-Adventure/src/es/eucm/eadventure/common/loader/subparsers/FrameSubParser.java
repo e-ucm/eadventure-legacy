@@ -24,9 +24,8 @@ public class FrameSubParser extends DefaultHandler {
 	public void startElement(String namespaceURI, String sName, String qName, Attributes attrs) {
 		if (qName.equals("frame")) {
 			for (int i = 0; i < attrs.getLength(); i++) {
-				if (attrs.getQName(i).equals("uri")) {
+				if (attrs.getQName(i).equals("uri"))
 					frame.setUri(attrs.getValue(i));
-				}
 				if (attrs.getQName(i).equals("type")) {
 					if (attrs.getValue(i).equals("image"))
 						frame.setType(Frame.TYPE_IMAGE);
@@ -36,12 +35,12 @@ public class FrameSubParser extends DefaultHandler {
 				if (attrs.getQName(i).equals("time")) {
 					frame.setTime(Long.parseLong(attrs.getValue(i)));
 				}
-				if (attrs.getQName(i).equals("waitforclick")) {
-					if (attrs.getValue(i).equals("yes"))
-						frame.setWaitforclick(true);
-					else
-						frame.setWaitforclick(false);
-				}
+				if (attrs.getQName(i).equals("waitforclick"))
+					frame.setWaitforclick(attrs.getValue(i).equals("yes"));
+				if (attrs.getQName(i).equals("soundUri"))
+					frame.setSoundUri(attrs.getValue(i));
+				if (attrs.getQName(i).equals("maxSoundTime"))
+					frame.setMaxSoundTime(Integer.parseInt(attrs.getValue(i)));
 			}
 		}
 		

@@ -23,7 +23,7 @@ public class AnimationChooser extends AssetChooser {
 
 	@Override
 	protected void createPreviewPanel( Container parent ) {
-		animationPanel = new AnimationPanel( );
+		animationPanel = new AnimationPanel( true );
 		animationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AnimationAssets.Preview" ) ) );
 		parent.add( animationPanel );
 	}

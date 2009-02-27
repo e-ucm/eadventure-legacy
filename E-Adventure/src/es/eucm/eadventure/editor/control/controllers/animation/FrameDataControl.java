@@ -10,6 +10,7 @@ import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
 import es.eucm.eadventure.editor.control.tools.animation.ChangeImageURITool;
+import es.eucm.eadventure.editor.control.tools.animation.ChangeSoundUriTool;
 import es.eucm.eadventure.editor.control.tools.animation.ChangeTimeTool;
 import es.eucm.eadventure.editor.control.tools.animation.ChangeWaitForClick;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
@@ -53,7 +54,15 @@ public class FrameDataControl extends DataControlWithResources {
 	public void setWaitForClick(boolean waitForClick) {
 		Controller.getInstance().addTool(new ChangeWaitForClick(frame, waitForClick));
 	}
+	
+	public String getSoundUri() {
+		return frame.getSoundUri();
+	}
 		
+	public void setSoundURI(String uri) {
+		Controller.getInstance().addTool(new ChangeSoundUriTool(frame, uri));
+	}
+
 	@Override
 	public boolean addElement(int type) {
 		return false;
@@ -187,5 +196,6 @@ public class FrameDataControl extends DataControlWithResources {
 	public void setSelectedResources(int selectedResources) {
 		this.selectedResources = selectedResources;
 	}
+
 
 }

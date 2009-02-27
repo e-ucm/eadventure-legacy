@@ -2,6 +2,8 @@ package es.eucm.eadventure.engine.core.control.animations;
 
 import java.awt.Image;
 
+import es.eucm.eadventure.engine.multimedia.MultimediaManager;
+
 /**
  * Class that represents an animation made up of frames in the engine. It uses
  * the logic in {@link es.eucm.eadventure.common.data.animation.Animation}.
@@ -20,7 +22,7 @@ public class FrameAnimation implements Animation {
 	 * The time accumulated in the playing of the animation
 	 */
 	private long accumulatedTime;
-		
+			
 	/**
 	 * Create a new instance using an animation.
 	 * 
@@ -32,7 +34,13 @@ public class FrameAnimation implements Animation {
 	}
 	
 	public Image getImage() {
-		return animation.getImage(accumulatedTime);
+		Image temp = animation.getImage(accumulatedTime);
+		String sound = animation.getNewSound();
+		if (sound != null && sound != "") {
+	        long soundID = MultimediaManager.getInstance().loadSound(sound , false );
+	        MultimediaManager.getInstance().startPlaying( soundID );
+		}
+		return temp;
 	}
 
 	public boolean isPlayingForFirstTime() {
