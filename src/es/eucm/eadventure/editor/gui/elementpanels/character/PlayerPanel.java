@@ -44,11 +44,12 @@ import es.eucm.eadventure.editor.control.tools.listeners.DescriptionChangeListen
 import es.eucm.eadventure.editor.control.tools.listeners.DetailedDescriptionChangeListener;
 import es.eucm.eadventure.editor.control.tools.listeners.DocumentationChangeListener;
 import es.eucm.eadventure.editor.control.tools.listeners.NameChangeListener;
+import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.auxiliar.components.TextPreviewPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.general.LooksPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.AnimationPanel;
 
-public class PlayerPanel extends JPanel {
+public class PlayerPanel extends JPanel implements Updateable {
 
 	/**
 	 * Required.
@@ -105,7 +106,9 @@ public class PlayerPanel extends JPanel {
 	private JPanel docPanel;
 
 	private LooksPanel looksPanel;
-	
+
+	private String[] checkVoices; 
+
 	/**
 	 * Constructor.
 	 * 
@@ -205,7 +208,6 @@ public class PlayerPanel extends JPanel {
 				}
 			}
 		}
-		String[] checkVoices; 
 		if (!hasAlan){
 			voicesComboBox = new JComboBox(voices);
 			checkVoices = voices;
@@ -545,5 +547,24 @@ public class PlayerPanel extends JPanel {
 		}
 
 
+	}
+
+	@Override
+	public boolean updateFields() {
+		this.looksPanel.updateResources();
+		this.looksPanel.updatePreview();
+		this.descriptionTextField.setText(playerDataControl.getBriefDescription());
+		this.detailedDescriptionTextField.setText(playerDataControl.getDetailedDescription());
+		this.documentationTextArea.setText(playerDataControl.getDocumentation());
+		this.nameTextField.setText(playerDataControl.getName());
+		this.textPreviewPanel.updateUI();
+		if (playerDataControl.getPlayerVoice() != null){
+			for (int i =1; i<checkVoices.length;i++)
+				if (checkVoices[i].equals(playerDataControl.getPlayerVoice()))
+					voicesComboBox.setSelectedIndex(i);
+		}
+		alwaysSynthesizer.setSelected(playerDataControl.isAlwaysSynthesizer());
+		this.repaint();
+		return true;
 	}
 }
