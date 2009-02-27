@@ -44,11 +44,12 @@ import es.eucm.eadventure.editor.control.tools.listeners.DescriptionChangeListen
 import es.eucm.eadventure.editor.control.tools.listeners.DetailedDescriptionChangeListener;
 import es.eucm.eadventure.editor.control.tools.listeners.DocumentationChangeListener;
 import es.eucm.eadventure.editor.control.tools.listeners.NameChangeListener;
+import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.auxiliar.components.TextPreviewPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.general.LooksPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.AnimationPanel;
 
-public class NPCPanel extends JPanel {
+public class NPCPanel extends JPanel implements Updateable {
 
 	/**
 	 * Required.
@@ -106,6 +107,9 @@ public class NPCPanel extends JPanel {
 	private JPanel docPanel;
 
 	private LooksPanel looksPanel;
+	
+	private String[] checkVoices; 
+
 
 	/**
 	 * Constructor.
@@ -206,7 +210,6 @@ public class NPCPanel extends JPanel {
 				}
 			}
 		}
-		String[] checkVoices; 
 		if (!hasAlan){
 			voicesComboBox = new JComboBox(voices);
 			checkVoices = voices;
@@ -533,5 +536,24 @@ public class NPCPanel extends JPanel {
 			getParent( ).getParent( ).repaint( );
 		}
 
+	}
+	
+	@Override
+	public boolean updateFields() {
+		this.looksPanel.updateResources();
+		this.looksPanel.updatePreview();
+		this.descriptionTextField.setText(npcDataControl.getBriefDescription());
+		this.detailedDescriptionTextField.setText(npcDataControl.getDetailedDescription());
+		this.documentationTextArea.setText(npcDataControl.getDocumentation());
+		this.nameTextField.setText(npcDataControl.getName());
+		this.textPreviewPanel.updateUI();
+		if (npcDataControl.getNPCVoice() != null){
+			for (int i =1; i<checkVoices.length;i++)
+				if (checkVoices[i].equals(npcDataControl.getNPCVoice()))
+					voicesComboBox.setSelectedIndex(i);
+		}
+		alwaysSynthesizer.setSelected(npcDataControl.isAlwaysSynthesizer());
+		this.repaint();
+		return true;
 	}
 }

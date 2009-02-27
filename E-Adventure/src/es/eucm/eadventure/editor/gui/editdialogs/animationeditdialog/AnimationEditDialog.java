@@ -427,11 +427,10 @@ public class AnimationEditDialog extends ToolManagableDialog {
 			index = animationDataControl.getFrameCount() - 1;
 		
 		animationDataControl.addFrame(index, newFrame);
+
 		frameList.updateUI();
 		int newFrameIndex = animationDataControl.indexOfFrame(newFrame);
 		frameList.setSelectedIndex(newFrameIndex);
-		if (frameConfigPanel!=null)
-			frameConfigPanel.selectImage();
 	}
 
 	/**
@@ -613,6 +612,19 @@ public class AnimationEditDialog extends ToolManagableDialog {
 	
 	@Override
 	public boolean updateFields() {
+		if (descriptionPanel != null) {
+			this.documentationTextField.setText(animationDataControl.getDocumentation());
+			this.useTransitions.setSelected(animationDataControl.isUseTransitions());
+			this.slides.setSelected(animationDataControl.isSlides());
+			descriptionPanel.updateUI();
+		}
+		if (configurationPanel != null) {
+			this.selectionChanged(this.frameList.getSelectedIndex());
+		}
+		if (frameListPanel != null) {
+			frameListPanel.updateUI();
+			frameList.updateUI();
+		}
 		this.validate();
 		this.repaint();
 		return true;
