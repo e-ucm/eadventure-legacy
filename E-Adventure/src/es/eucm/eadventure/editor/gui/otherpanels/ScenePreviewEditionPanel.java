@@ -530,7 +530,8 @@ public class ScenePreviewEditionPanel extends JPanel {
 		Collections.sort(elementsToDraw);
 		
 		for (ImageElement imageElement : elementsToDraw) {
-			drawPanel.paintRelativeImage(imageElement.getImage(), imageElement.getX(), imageElement.getY(), imageElement.getScale());
+			if (imageElement.isVisible())
+				drawPanel.paintRelativeImage(imageElement.getImage(), imageElement.getX(), imageElement.getY(), imageElement.getScale());
 		}
 		
 		if (spec.getUnderMouse() != null) {

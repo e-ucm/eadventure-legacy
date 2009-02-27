@@ -7,11 +7,14 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.EventObject;
 import java.util.List;
 
+import javax.swing.DefaultCellEditor;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
@@ -123,7 +126,16 @@ public class SceneLinksPanel extends JPanel {
 		tc.setCellEditor(checkBoxes.getDefaultEditor(Boolean.class)); 
 		tc.setCellRenderer(checkBoxes.getDefaultRenderer(Boolean.class)); 
 		tc.setMaxWidth(30);
-		checkBoxes.getColumnModel().getColumn(1).setMaxWidth(80);
+		tc = checkBoxes.getColumnModel().getColumn(1);
+		tc.setCellEditor(new DefaultCellEditor(new JTextField()) {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public boolean isCellEditable(EventObject arg0) {
+				return false;
+			}			
+		});
+		tc.setMaxWidth(80);
 		dtm.addTableModelListener(new TableModelListener(){ 
 			public void tableChanged(TableModelEvent tme) { 
 				if (tme.getType() == TableModelEvent.UPDATE) { 

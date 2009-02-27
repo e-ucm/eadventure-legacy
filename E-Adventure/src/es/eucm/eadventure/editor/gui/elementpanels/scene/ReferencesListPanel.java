@@ -339,7 +339,8 @@ public class ReferencesListPanel extends JPanel{
 		tablePanel.add(infPanel,BorderLayout.NORTH);
 		
 		// Create the table (CENTER)
-		table = new ElementReferencesTable(referencesListDataControl);
+		table = new ElementReferencesTable(referencesListDataControl, spep);
+
 		table.addMouseListener( new MouseAdapter(){
 			public void mousePressed(MouseEvent e){
 				// By default the JTable only selects the nodes with the left click of the mouse
@@ -359,7 +360,7 @@ public class ReferencesListPanel extends JPanel{
 				if (evt.getButton( ) == MouseEvent.BUTTON3){
 					JPopupMenu menu = getCompletePopupMenu();
 					menu.show( evt.getComponent( ), evt.getX( ), evt.getY( ) );
-				}
+				} 
 			}
 		});
 		
@@ -371,6 +372,7 @@ public class ReferencesListPanel extends JPanel{
 				updateSelectedElementReference();
 			}
 		});
+		
 		
 		//Create the buttons panel (SOUTH)
 		JPanel buttonsPanel = new JPanel();

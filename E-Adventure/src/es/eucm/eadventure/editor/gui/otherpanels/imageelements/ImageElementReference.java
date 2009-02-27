@@ -110,7 +110,7 @@ public class ImageElementReference extends ImageElement {
 
 	@Override
 	public boolean transparentPoint(int x, int y) {
-		if (image == null)
+		if (image == null || !elementReferenceDataControl.isVisible())
 			return false;
 		else {
 			int alpha = ((BufferedImage) this.image).getRGB((int) (x / this
@@ -122,5 +122,10 @@ public class ImageElementReference extends ImageElement {
 	@Override
 	public DataControl getReferencedDataControl() {
 		return elementReferenceDataControl.getReferencedElementDataControl();
+	}
+	
+	@Override
+	public boolean isVisible() {
+		return elementReferenceDataControl.isVisible();
 	}
 }
