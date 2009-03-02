@@ -41,13 +41,12 @@ public class OptionConversationNode extends ConversationNode {
     
 	/* Methods */
 
-	public boolean isRandom() {
+	public Boolean isRandom() {
 		return random;
 	}
-
-	public void changeRandomly() {
-		this.random = !this.random;
-		
+	
+	public void setRandom(Boolean newValue){
+		this.random = newValue;
 	}
 
 	/**

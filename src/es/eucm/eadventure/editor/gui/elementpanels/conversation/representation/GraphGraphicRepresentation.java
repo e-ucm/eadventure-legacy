@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -302,9 +303,14 @@ public class GraphGraphicRepresentation extends GraphicRepresentation {
 				ConversationNodeView node = newReducedConversationNodes.get( i );
 				int nodeIndex = nodes.indexOf( node );
 
+				// Search the position of its oldest brother (the one on the right), and move it 100 to the right
+				Point nodePosition = getPositionOfOldestBrother( node );
+				nodePosition.x+=100;
 				// Search the position of its father, and move it 100 units down
-				Point nodePosition = getPositionOfFather( node );
-				nodePosition.y += 100;
+				if (nodePosition.x==Integer.MIN_VALUE || nodePosition.y==Integer.MIN_VALUE){
+					nodePosition = getPositionOfFather( node );
+					nodePosition.y += 100;
+				}
 
 				// Create a new graphic node, with the node and the position, and set it into the vector (in the same
 				// position as node)
@@ -354,6 +360,51 @@ public class GraphGraphicRepresentation extends GraphicRepresentation {
 		// Return a copy of the position of the father
 		return new Point( graphicNodes.get( nodes.indexOf( father ) ).getPosition( ) );
 	}
+	
+	/**
+	 * Returns the position of the brother of the given node which is on the right.
+	 * If no brother is found, or if the given node has no parent, (-INF,-INF) is
+	 * returned
+	 * 
+	 * @param node
+	 *            Node 
+	 */
+	private Point getPositionOfOldestBrother( ConversationNodeView node ) {
+		ConversationNodeView father = null;
+		ConversationNodeView brother = null;
+
+		// Pick all the nodes in the conversation
+		List<ConversationNodeView> nodes = graphConversationDataControl.getAllNodes( );
+
+		// For each node in the conversation
+		for( int i = 0; i < nodes.size( ) && father == null; i++ ) {
+			ConversationNodeView possibleFather = nodes.get( i );
+
+			// Check for all the children nodes of the current node (possible father)
+			for( int j = 0; j < possibleFather.getChildCount( ); j++ )
+				// If the child is the same as the given node, we have found the father
+				if( possibleFather.getChildView( j ) == node ){
+					father = possibleFather;
+				}
+		}
+		
+		// Take the position of the brother on the right
+		Point maxPoint = new Point (Integer.MIN_VALUE, Integer.MIN_VALUE);
+		if (father!=null){
+			for( int j = 0; j < father.getChildCount( ); j++ ){
+				if ( father.getChildView( j )!=node ){
+					ConversationNodeView possibleBrother = father.getChildView( j );
+					if ( graphicNodes.get( nodes.indexOf(possibleBrother) ).getPosition().x>maxPoint.x ){
+						maxPoint = graphicNodes.get( nodes.indexOf(possibleBrother) ).getPosition();
+					}
+				}
+			}
+		}
+
+		// Return a copy of the position of the father
+		return (Point)maxPoint.clone();
+	}
+
 
 	@Override
 	public void mousePressed( Point point ) {

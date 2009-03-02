@@ -49,8 +49,7 @@ public class DeleteNodeLinkTool extends Tool {
 	public boolean doTool() {
 		// Ask for confirmation
 		if( Controller.getInstance().showStrictConfirmDialog( confirmTitle, confirmText ) ) {
-			linkDeleted = parent.getChild(linkIndex);
-			parent.removeChild(linkIndex);
+			linkDeleted = parent.removeChild(linkIndex);
 			return true;
 		}
 		return false;

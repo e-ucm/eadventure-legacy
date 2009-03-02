@@ -1,6 +1,7 @@
 package es.eucm.eadventure.editor.control.tools.assessment;
 
 import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
+import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.tools.Tool;
 
 public class ChangeReportSettingsTool extends Tool{
@@ -46,7 +47,29 @@ public class ChangeReportSettingsTool extends Tool{
 
 	@Override
 	public boolean combine(Tool other) {
-		return false;
+		boolean changed = true;
+		ChangeReportSettingsTool o = null;
+		if (other instanceof ChangeReportSettingsTool){
+			 o =(ChangeReportSettingsTool)other;
+			 if (o.profile!=profile)
+				 return false;
+		} else {
+			return false;
+		}
+		if (mode!=o.mode)
+			return false;
+		
+		switch(mode){
+			case SMTP_SERVER:
+			case SMTP_PWD:
+			case SMTP_USER:
+			case SMTP_PORT:
+			case EMAIL: 
+				newValue = o.newValue;
+				break;
+			default: changed = false;break;
+		}
+		return changed;
 	}
 
 	@Override
@@ -55,34 +78,65 @@ public class ChangeReportSettingsTool extends Tool{
 		switch(mode){
 			case SHOW_REPORT: 
 				oldValue = Boolean.toString(profile.isShowReportAtEnd());
+				if (oldValue==null && newValue ==null ||oldValue.equals(newValue)){
+					changed = false; break;
+				}
 				profile.setShowReportAtEnd(Boolean.parseBoolean(newValue));
 				break;
 			case SEND: 
 				oldValue = Boolean.toString(profile.isSendByEmail());
+				if (oldValue==null && newValue ==null ||oldValue.equals(newValue)){
+					changed = false; break;
+				}
+				
 				profile.setSendByEmail(Boolean.parseBoolean(newValue));
 				break;
 			case EMAIL: 
 				oldValue = profile.getEmail();
+				if (oldValue==null && newValue ==null ||oldValue.equals(newValue)){
+					changed = false; break;
+				}
+
 				profile.setEmail(newValue);
 				break;
 			case SMTP_SERVER: 
 				oldValue = profile.getSmtpServer();
+				if (oldValue==null && newValue ==null ||oldValue.equals(newValue)){
+					changed = false; break;
+				}
+
 				profile.setSmtpServer(newValue);
 				break;
 			case SMTP_SSL: 
 				oldValue = Boolean.toString(profile.isSmtpSSL());
+				if (oldValue==null && newValue ==null ||oldValue.equals(newValue)){
+					changed = false; break;
+				}
+
 				profile.setSmtpSSL(Boolean.parseBoolean(newValue));
 				break;
 			case SMTP_PORT:
 				oldValue = profile.getSmtpPort();
+				if (oldValue==null && newValue ==null ||oldValue.equals(newValue)){
+					changed = false; break;
+				}
+
 				profile.setSmtpPort(newValue);
 				break;
 			case SMTP_USER: 
 				oldValue = profile.getSmtpUser();
+				if (oldValue==null && newValue ==null ||oldValue.equals(newValue)){
+					changed = false; break;
+				}
+
 				profile.setSmtpUser(newValue);
 				break;
 			case SMTP_PWD:
 				oldValue = profile.getSmtpPwd();
+				if (oldValue==null && newValue ==null ||oldValue.equals(newValue)){
+					changed = false; break;
+				}
+
 				profile.setSmtpPwd(newValue); 
 				break;
 			default: changed = false;break;
@@ -120,6 +174,10 @@ public class ChangeReportSettingsTool extends Tool{
 				break;
 			default: changed = false;break;
 		}
+		
+		if (changed)
+			Controller.getInstance().updatePanel();
+		
 		return changed;
 	}
 
@@ -152,7 +210,12 @@ public class ChangeReportSettingsTool extends Tool{
 				profile.setSmtpPwd(oldValue); 
 				break;
 			default: changed = false;break;
+
 		}
+		
+		if (changed)
+			Controller.getInstance().updatePanel();
+		
 		return changed;
 	}
 }

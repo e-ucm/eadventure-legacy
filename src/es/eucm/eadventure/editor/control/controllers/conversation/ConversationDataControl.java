@@ -3,24 +3,26 @@ package es.eucm.eadventure.editor.control.controllers.conversation;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
+import es.eucm.eadventure.common.data.chapter.conversation.Conversation;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
 import es.eucm.eadventure.common.data.chapter.conversation.node.OptionConversationNode;
 import es.eucm.eadventure.common.gui.TextConstants;
-import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.control.controllers.character.NPCDataControl;
 import es.eucm.eadventure.editor.control.tools.conversation.AddNodeLineTool;
-import es.eucm.eadventure.editor.control.tools.conversation.AddNodeTool;
+import es.eucm.eadventure.editor.control.tools.conversation.AddConversationNodeTool;
 import es.eucm.eadventure.editor.control.tools.conversation.DeleteNodeLineTool;
 import es.eucm.eadventure.editor.control.tools.conversation.DeleteNodeLinkTool;
 import es.eucm.eadventure.editor.control.tools.conversation.DeleteNodeOptionTool;
 import es.eucm.eadventure.editor.control.tools.conversation.MoveNodeLineTool;
+import es.eucm.eadventure.editor.control.tools.conversation.SelectLineAudioPathTool;
 import es.eucm.eadventure.editor.control.tools.general.ChangeNameTool;
+import es.eucm.eadventure.editor.control.tools.generic.ChangeBooleanValueTool;
 import es.eucm.eadventure.editor.control.tools.generic.ChangeStringValueTool;
-import es.eucm.eadventure.editor.gui.assetchooser.AssetChooser;
 import es.eucm.eadventure.editor.gui.editdialogs.EffectsDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.SynthesizerDialog;
 
@@ -133,7 +135,7 @@ public abstract class ConversationDataControl extends DataControl {
 	 * @return True if a node was added, false otherwise
 	 */
 	public boolean addChild( ConversationNodeView nodeView, int nodeType ) {
-		return controller.addTool(new AddNodeTool(nodeView, nodeType));
+		return controller.addTool(new AddConversationNodeTool(nodeView, nodeType));
 	}
 
 	/**
@@ -166,7 +168,20 @@ public abstract class ConversationDataControl extends DataControl {
 	 * @return True if the node was succesfully moved, false otherwise
 	 */
 	public abstract boolean moveNode( ConversationNodeView nodeView, ConversationNodeView hostNodeView );
-
+	
+	/**
+	 * Default getter for the data contained
+	 * @return The conversation
+	 */
+	public abstract Conversation getConversation( );
+	
+	/**
+	 * Default setter
+	 * @param conversation
+	 * @return
+	 */
+	public abstract void setConversation( Conversation conversation );
+	
 	/**
 	 * Adds a line in the given node, with the given name and a default text.
 	 * 
@@ -358,42 +373,13 @@ public abstract class ConversationDataControl extends DataControl {
 		return false;
 	}
 
-	/// TODO ME QUEDO AQUÍ
 	public boolean editLineAudioPath( ConversationNodeView selectedNode, int selectedRow ) {
-		boolean edited=false;
-		String selectedAsset = null;
-		AssetChooser chooser = AssetsController.getAssetChooser( AssetsController.CATEGORY_AUDIO, AssetsController.FILTER_NONE );
-		int option = chooser.showAssetChooser( controller.peekWindow( ) );
-		//In case the asset was selected from the zip file
-		if( option == AssetChooser.ASSET_FROM_ZIP ) {
-			selectedAsset = chooser.getSelectedAsset( );
+		try {
+			return controller.addTool(new SelectLineAudioPathTool( ((ConversationNode)selectedNode).getLine( selectedRow ) ) );
+		} catch (CloneNotSupportedException e) {
+			ReportDialog.GenerateErrorReport(new Exception ("Could not clone resources"), false, TextConstants.getText("Error.Title"));
+			return false;
 		}
-
-		//In case the asset was not in the zip file: first add it
-		else if( option == AssetChooser.ASSET_FROM_OUTSIDE ) {
-			boolean added = AssetsController.addSingleAsset( AssetsController.CATEGORY_AUDIO, chooser.getSelectedFile( ).getAbsolutePath( ) );
-			if( added ) {
-				selectedAsset = chooser.getSelectedFile( ).getName( );
-			}
-		}
-
-		// If a file was selected
-		if( selectedAsset != null ) {
-			// Take the index of the selected asset
-			String[] assetFilenames = AssetsController.getAssetFilenames( AssetsController.CATEGORY_AUDIO );
-			String[] assetPaths = AssetsController.getAssetsList( AssetsController.CATEGORY_AUDIO );
-			int assetIndex = -1;
-			for( int i = 0; i < assetFilenames.length; i++ )
-				if( assetFilenames[i].equals( selectedAsset ) )
-					assetIndex = i;
-
-			// Store the data in the resources block (removing the suffix if necessary)
-			this.setNodeLineAudioPath( selectedNode, selectedRow, assetPaths[assetIndex] );
-			edited=true;
-			controller.dataModified( );
-		}
-
-		return edited;
 	}
 	
 	
@@ -406,12 +392,10 @@ public abstract class ConversationDataControl extends DataControl {
 	  */
 	public void setRandomlyOptions(ConversationNodeView selectedNode){
 		ConversationNode node = (ConversationNode) selectedNode;
-		// Set the data as modified
-		controller.dataModified( );
 		//Change the randomly of showing of options
-			((OptionConversationNode)node).changeRandomly();
-			
-		
+		controller.addTool(new ChangeBooleanValueTool((OptionConversationNode)node,
+				!((OptionConversationNode)node).isRandom(),
+				"isRandom", "setRandom"));
 	}
 	
 	/**
@@ -435,20 +419,20 @@ public abstract class ConversationDataControl extends DataControl {
 		boolean player = false;
 		String name = node.getLine(selectedRow).getName();
 		if (!name.equals("")){
-		if (name.equals("Player")){
-			control = controller.getSelectedChapterDataControl().getPlayer();
-			player = true;
-		}
-		else{
-			for (NPCDataControl npc : controller.getSelectedChapterDataControl().getNPCsList().getNPCs())
-				if (name.equals(npc.getId())){
-					control = npc;
-					break;
-				}
+			if (name.equals("Player")){
+				control = controller.getSelectedChapterDataControl().getPlayer();
+				player = true;
+			}
+			else{
+				for (NPCDataControl npc : controller.getSelectedChapterDataControl().getNPCsList().getNPCs())
+					if (name.equals(npc.getId())){
+						control = npc;
+						break;
+					}
+						
+						
 					
-					
-				
-		}
+			}
 		} 
 		new SynthesizerDialog(selectedRow, node, control,player);
 	}
