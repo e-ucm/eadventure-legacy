@@ -152,21 +152,10 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
     }
 
     
-    /**
-     * Check if all player conversation lines must be read by synthesizer
-     * @return
-     * 		true, if all player conversation lines must be read by synthesizer
-     */
     public boolean isAlwaysSynthesizer(){
     	return player.isAlwaysSynthesizer();
     }
     
-    /**
-     * Takes the player voice for synthesizer
-     * 
-     * @return
-     * 		A string representing associates voice
-     */
     public String getPlayerVoice(){
     	return player.getVoice();
     }

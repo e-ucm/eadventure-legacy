@@ -1112,15 +1112,11 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      * Check if the Stack only have one empty FIFO
      */
     public boolean isEmptyFIFOinStack(){
-    	/*if (effectsQueue.size()==1)
-    		return (effectsQueue.peek().isEmpty());
-    	else return false;*/
     	return effectsQueue.peek().isEmpty();
     }
     
     
     public void endConversation(){
-    	//this.popEffectsStack();
     	if (!isEmptyFIFOinStack())
     		setState(STATE_RUN_EFFECTS);
         else 

@@ -107,6 +107,7 @@
 	<entry key="GameText.TextUseCannot2">Ok... NO</entry>
 	<entry key="GameText.TextCustomCannot1">I don't think this is going to work</entry>
 	<entry key="GameText.TextCustomCannot2">Can't do such a thing</entry>
+	<entry key="GameText.More">More...</entry>
 	
 	<entry key="Report.Title">Report Generation</entry>
 	<entry key="Report.SelectFolder">Select the directory where you want to save the report</entry>
