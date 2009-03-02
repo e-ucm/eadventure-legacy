@@ -11,6 +11,26 @@ public interface TalkingElement {
      */
     public void speak( String text );
     
+    public void speakWithFreeTTS(String text, String voice);
+    
+    public void speak ( String text, String audioPath );
+    
+    /**
+     * Check if all player conversation lines must be read by synthesizer
+     * @return
+     * 		true, if all player conversation lines must be read by synthesizer
+     */
+    public boolean isAlwaysSynthesizer();
+    
+    /**
+     * Takes the player voice for synthesizer
+     * 
+     * @return
+     * 		A string representing associates voice
+     */
+    public String getPlayerVoice();
+
+    
     /**
      * Makes the character stops speaking
      */

@@ -363,10 +363,6 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
         setState( TALK );
     }
     
-    /**
-     * TODO poner bien docu!!!
-     * Funcion que va a leer del TTS!!!!!!
-     */
     public void speakWithFreeTTS(String text, String voice){
     	DebugLog.player("NPC " + npc.getId() + " speaks with text-to-speach");
     	// Start the voice
@@ -379,10 +375,6 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
     	talkingAnimation.stopTTSTalking();
     }
     
-    /*
-     * (non-Javadoc)
-     * @see es.eucm.eadventure.engine.engine.control.functionaldata.TalkingElement#stopTalking()
-     */
     public void stopTalking( ) {
         talkingAnimation.setAudio( null );
         talkingAnimation.stopTTSTalking();
