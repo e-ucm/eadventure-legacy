@@ -13,6 +13,7 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.control.tools.conversation.DeleteConversationNodeTool;
+import es.eucm.eadventure.editor.control.tools.conversation.LinkConversationNodeTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class GraphConversationDataControl extends ConversationDataControl {
@@ -108,7 +109,7 @@ public class GraphConversationDataControl extends ConversationDataControl {
 	}
 
 	@Override
-	protected boolean canLinkNodeTo( ConversationNodeView fatherView, ConversationNodeView childView ) {
+	public boolean canLinkNodeTo( ConversationNodeView fatherView, ConversationNodeView childView ) {
 		boolean canLinkNodeTo = false;
 
 		// Check first if the nodes are different
@@ -140,15 +141,14 @@ public class GraphConversationDataControl extends ConversationDataControl {
 	}
 
 	@Override
-	protected boolean canMoveNodeTo( ConversationNodeView nodeView, ConversationNodeView hostNodeView ) {
+	public boolean canMoveNodeTo( ConversationNodeView nodeView, ConversationNodeView hostNodeView ) {
 		// No node moving is allowed in graph conversations
 		return false;
 	}
 
-	//TODO
 	@Override
 	public boolean linkNode( ConversationNodeView fatherView, ConversationNodeView childView ) {
-		boolean nodeLinked = false;
+		/*boolean nodeLinked = false;
 
 		// If it is not possible to link the node to the given one, show a message
 		if( !canLinkNodeTo( fatherView, childView ) )
@@ -181,10 +181,10 @@ public class GraphConversationDataControl extends ConversationDataControl {
 			}
 		}
 
-		return nodeLinked;
+		return nodeLinked;*/
+		return controller.addTool( new LinkConversationNodeTool ( this, fatherView, childView ) );
 	}
 
-	//TODO
 	@Override
 	public boolean deleteNode( ConversationNodeView nodeView ) {
 		/*boolean nodeDeleted = false;

@@ -1,6 +1,5 @@
 package es.eucm.eadventure.editor.gui.editdialogs;
 
-import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
@@ -14,8 +13,6 @@ import java.awt.event.WindowEvent;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
@@ -33,6 +30,11 @@ import es.eucm.eadventure.editor.control.controllers.character.NPCDataControl;
 import es.eucm.eadventure.editor.control.tools.generic.ChangeBooleanValueTool;
 
 public class SynthesizerDialog extends ToolManagableDialog implements ItemListener{
+
+	/**
+	 * Required
+	 */
+	private static final long serialVersionUID = -8944148760482181057L;
 
 	private JTextField voices;
 	
@@ -55,14 +57,6 @@ public class SynthesizerDialog extends ToolManagableDialog implements ItemListen
 
 		this.node = node;
 		
-		// Push the dialog into the stack, and add the window listener to pop in when closing
-		Controller.getInstance( ).pushWindow( this );
-		addWindowListener( new WindowAdapter( ) {
-			public void windowClosing( WindowEvent e ) {
-				Controller.getInstance( ).popWindow( );
-			}
-		} );
-		
 		TitledBorder border = BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( EtchedBorder.LOWERED ), TextConstants.getText( "Synthesizer.BorderVoices" ), TitledBorder.LEFT, TitledBorder.TOP );	
 		JButton play = new JButton(TextConstants.getText( "Synthesizer.ButtonPlay" ));
 		play.addActionListener( new ActionListener( ) {
@@ -81,6 +75,7 @@ public class SynthesizerDialog extends ToolManagableDialog implements ItemListen
 		voices = new JTextField();
 		//voices.setBorder(border);
 		readSynthesizer = new JCheckBox(TextConstants.getText( "Synthesizer.CheckLine" ));
+		readSynthesizer.setSelected(node.getLine(selectedConversationLine).getSynthesizerVoice());
 		readSynthesizer.addItemListener(this);
 		voices.setEditable(false);
 		//TODO añadir player/npc voice 
@@ -124,5 +119,11 @@ public class SynthesizerDialog extends ToolManagableDialog implements ItemListen
 		Controller.getInstance().addTool(new ChangeBooleanValueTool(node.getLine(selectedConversationLine),
 				readSynthesizer.isSelected(), "getSynthesizerVoice", "setSynthesizerVoice"));
 		//this.node.getLine(selectedConversationLine).setSynthesizerVoice(readSynthesizer.isSelected());
+	}
+
+	@Override
+	public boolean updateFields() {
+		readSynthesizer.setSelected(node.getLine(selectedConversationLine).getSynthesizerVoice());
+		return true;
 	}
 }
