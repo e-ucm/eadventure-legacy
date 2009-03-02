@@ -5,13 +5,16 @@ import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
 import java.awt.Window;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.JDialog;
 
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.gui.Updateable;
 
-public abstract class ToolManagableDialog extends JDialog implements Updateable{
+public abstract class ToolManagableDialog extends JDialog implements Updateable, WindowListener{
 
 	/**
 	 * 
@@ -54,16 +57,7 @@ public abstract class ToolManagableDialog extends JDialog implements Updateable{
 		super (window, title, Dialog.ModalityType.TOOLKIT_MODAL);
 		this.worksInLocal = worksInLocal;
 		addUndoRedoDispatcher();
-		/*if (worksInLocal){
-			this.addWindowListener(new WindowAdapter(){
-				public void windowClosing(WindowEvent e) {
-					Controller.getInstance().popLocalToolManager();
-				}
-				public void windowOpened(WindowEvent e) {
-					Controller.getInstance().pushLocalToolManager();
-				}
-			});
-		}*/
+		this.addWindowListener(this);
 	}
 
 	@Override
@@ -82,4 +76,28 @@ public abstract class ToolManagableDialog extends JDialog implements Updateable{
 		}
 		super.setVisible(visible);
 	}
+	
+	public void windowClosing(WindowEvent e) {
+		Controller.getInstance( ).popWindow( );
+		setVisible(false);
+		dispose();
+	}
+	public void windowOpened(WindowEvent e) {
+		Controller.getInstance( ).pushWindow( this );
+	}
+	
+	@Override
+	public void windowActivated(WindowEvent e) {}
+
+	@Override
+	public void windowClosed(WindowEvent e) {}
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {}
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {}
+
+	@Override
+	public void windowIconified(WindowEvent e) {}
 }

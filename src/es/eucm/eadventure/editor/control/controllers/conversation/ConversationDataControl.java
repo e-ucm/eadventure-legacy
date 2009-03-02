@@ -94,7 +94,7 @@ public abstract class ConversationDataControl extends DataControl {
 	 *            Node to act as the child
 	 * @return True if node2 can be attached to node1, false otherwise
 	 */
-	protected abstract boolean canLinkNodeTo( ConversationNodeView fatherView, ConversationNodeView childView );
+	public abstract boolean canLinkNodeTo( ConversationNodeView fatherView, ConversationNodeView childView );
 
 	/**
 	 * Returns if it is possible to delete the given node
@@ -123,7 +123,7 @@ public abstract class ConversationDataControl extends DataControl {
 	 *            Node that will act as host
 	 * @return True if node can be moved as a child of host node, false otherwise
 	 */
-	protected abstract boolean canMoveNodeTo( ConversationNodeView nodeView, ConversationNodeView hostNodeView );
+	public abstract boolean canMoveNodeTo( ConversationNodeView nodeView, ConversationNodeView hostNodeView );
 
 	/**
 	 * Adds a new child of the indicated type, to the given node

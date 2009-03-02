@@ -13,6 +13,8 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.control.tools.conversation.DeleteConversationNodeTool;
+import es.eucm.eadventure.editor.control.tools.conversation.MoveConversationNodeTool;
+import es.eucm.eadventure.editor.control.tools.conversation.ToggleGoBackTagTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class TreeConversationDataControl extends ConversationDataControl {
@@ -108,7 +110,7 @@ public class TreeConversationDataControl extends ConversationDataControl {
 	}
 
 	@Override
-	protected boolean canLinkNodeTo( ConversationNodeView fatherView, ConversationNodeView childView ) {
+	public boolean canLinkNodeTo( ConversationNodeView fatherView, ConversationNodeView childView ) {
 		// No links are allowed in trees, only add and delete operations
 		return false;
 	}
@@ -126,7 +128,7 @@ public class TreeConversationDataControl extends ConversationDataControl {
 	}
 
 	@Override
-	protected boolean canMoveNodeTo( ConversationNodeView nodeView, ConversationNodeView hostNodeView ) {
+	public boolean canMoveNodeTo( ConversationNodeView nodeView, ConversationNodeView hostNodeView ) {
 		boolean possibleMove = false;
 
 		// First check that both nodes are not the root, and they're not the same node
@@ -143,14 +145,12 @@ public class TreeConversationDataControl extends ConversationDataControl {
 		return possibleMove;
 	}
 
-	//TODO
 	@Override
 	public boolean linkNode( ConversationNodeView fatherView, ConversationNodeView childView ) {
 		// No links are allowed in a tree, return false always
 		return false;
 	}
 
-	//TODO
 	@Override
 	public boolean deleteNode( ConversationNodeView nodeView ) {
 		/*boolean nodeDeleted = false;
@@ -174,7 +174,7 @@ public class TreeConversationDataControl extends ConversationDataControl {
 
 	@Override
 	public boolean moveNode( ConversationNodeView nodeView, ConversationNodeView hostNodeView ) {
-		boolean nodeMoved = false;
+		/*boolean nodeMoved = false;
 
 		// If it is not possible to move the node to the given position, show a message
 		if( !canMoveNodeTo( nodeView, hostNodeView ) )
@@ -223,7 +223,8 @@ public class TreeConversationDataControl extends ConversationDataControl {
 			}
 		}
 
-		return nodeMoved;
+		return nodeMoved;*/
+		return controller.addTool( new MoveConversationNodeTool( this, nodeView, hostNodeView ) );
 	}
 
 	/**
@@ -266,7 +267,7 @@ public class TreeConversationDataControl extends ConversationDataControl {
 	 * @return True if the tag was added, false otherwise
 	 */
 	public boolean toggleGoBackTag( ConversationNodeView nodeView ) {
-		ConversationNode node = (ConversationNode) nodeView;
+		/*ConversationNode node = (ConversationNode) nodeView;
 		boolean goBackTagAdded = false;
 
 		// If there is no "go-back" tag, add it
@@ -303,7 +304,8 @@ public class TreeConversationDataControl extends ConversationDataControl {
 			goBackTagAdded = true;
 		}
 
-		return goBackTagAdded;
+		return goBackTagAdded;*/
+		return controller.addTool( new ToggleGoBackTagTool(this, nodeView));
 	}
 
 	/**
@@ -315,7 +317,7 @@ public class TreeConversationDataControl extends ConversationDataControl {
 	 *            Supossedly father node
 	 * @return True if child is really a child (direct or indirect) of father, false otherwise
 	 */
-	private boolean isChildOf( ConversationNodeView child, ConversationNodeView father ) {
+	public boolean isChildOf( ConversationNodeView child, ConversationNodeView father ) {
 		boolean isChild = false;
 
 		// If the father node is a dialogue node, with a valid child
@@ -354,7 +356,7 @@ public class TreeConversationDataControl extends ConversationDataControl {
 	 * @param childNode
 	 *            Node whose father we want to find
 	 */
-	private ConversationNode searchForFather( ConversationNode possibleFather, ConversationNode childNode ) {
+	public ConversationNode searchForFather( ConversationNode possibleFather, ConversationNode childNode ) {
 		ConversationNode father = null;
 
 		// If it is a dialogue node and it has a valid child, do another call to the function
