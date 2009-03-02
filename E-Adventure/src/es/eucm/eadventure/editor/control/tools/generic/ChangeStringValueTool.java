@@ -6,6 +6,7 @@ import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.tools.Tool;
+import es.eucm.eadventure.editor.control.tools.general.ChangeDocumentationTool;
 
 /**
  * Generic tool that uses introspection to change a string value
@@ -16,6 +17,8 @@ public class ChangeStringValueTool extends Tool{
 
 	protected Method get;
 	protected Method set;
+	protected String getName;
+	protected String setName;
 
 	protected String oldValue;
 	protected String newValue;
@@ -41,6 +44,8 @@ public class ChangeStringValueTool extends Tool{
 		this.newValue = newValue;
 		this.updatePanel = updatePanel;
 		this.updateTree = updateTree;
+		this.getName = getMethodName;
+		this.setName = setMethodName;
 		try {
 			set = data.getClass().getMethod(setMethodName, new String("a").getClass());
 			get = data.getClass().getMethod(getMethodName );
@@ -71,6 +76,14 @@ public class ChangeStringValueTool extends Tool{
 
 	@Override
 	public boolean combine(Tool other) {
+		if (other instanceof ChangeStringValueTool) {
+			ChangeStringValueTool cnt = (ChangeStringValueTool) other;
+			if (cnt.getName.equals(getName) && cnt.setName.equals(setName) && data==cnt.data) {
+				newValue = cnt.newValue;
+				timeStamp = cnt.timeStamp;
+				return true;
+			}
+		}
 		return false;
 	}
 

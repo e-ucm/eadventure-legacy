@@ -3,6 +3,7 @@ package es.eucm.eadventure.editor.control.controllers.conversation;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.common.data.chapter.conversation.Conversation;
 import es.eucm.eadventure.common.data.chapter.conversation.GraphConversation;
 import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
@@ -11,6 +12,7 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
+import es.eucm.eadventure.editor.control.tools.conversation.DeleteConversationNodeTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class GraphConversationDataControl extends ConversationDataControl {
@@ -143,6 +145,7 @@ public class GraphConversationDataControl extends ConversationDataControl {
 		return false;
 	}
 
+	//TODO
 	@Override
 	public boolean linkNode( ConversationNodeView fatherView, ConversationNodeView childView ) {
 		boolean nodeLinked = false;
@@ -181,9 +184,10 @@ public class GraphConversationDataControl extends ConversationDataControl {
 		return nodeLinked;
 	}
 
+	//TODO
 	@Override
 	public boolean deleteNode( ConversationNodeView nodeView ) {
-		boolean nodeDeleted = false;
+		/*boolean nodeDeleted = false;
 
 		// Get the complete node list
 		List<ConversationNodeView> nodes = getAllNodes( );
@@ -218,7 +222,9 @@ public class GraphConversationDataControl extends ConversationDataControl {
 			}
 		}
 
-		return nodeDeleted;
+		return nodeDeleted;*/
+		
+		return controller.addTool(new DeleteConversationNodeTool(nodeView, (GraphConversation)getConversation()));
 	}
 
 	@Override
@@ -485,6 +491,18 @@ public class GraphConversationDataControl extends ConversationDataControl {
 				check(cnv.getLineName(i) , TextConstants.getText("Search.LineName"));
 				check(cnv.getLineText(i), TextConstants.getText("Earch.LineText"));
 			}
+		}
+	}
+
+	@Override
+	public Conversation getConversation() {
+		return graphConversation;
+	}
+
+	@Override
+	public void setConversation(Conversation conversation) {
+		if ( conversation instanceof GraphConversation ){
+			graphConversation = (GraphConversation)conversation;
 		}
 	}
 }

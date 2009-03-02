@@ -14,7 +14,7 @@ import es.eucm.eadventure.editor.control.tools.Tool;
  * @author Javier
  *
  */
-public class AddNodeTool extends Tool{
+public class AddConversationNodeTool extends Tool{
 
 	protected ConversationNode newChild;
 	
@@ -24,12 +24,12 @@ public class AddNodeTool extends Tool{
 	
 	protected int nodeType;
 	
-	public AddNodeTool ( ConversationNode parent, int nodeType ){
+	public AddConversationNodeTool ( ConversationNode parent, int nodeType ){
 		this.parent = parent;
 		this.nodeType = nodeType;
 	}
 	
-	public AddNodeTool ( ConversationNodeView nodeView, int nodeType ){
+	public AddConversationNodeTool ( ConversationNodeView nodeView, int nodeType ){
 		this.parent = (ConversationNode)nodeView;
 		this.nodeType = nodeType;
 	}

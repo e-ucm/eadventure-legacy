@@ -121,7 +121,7 @@ public class ConversationLine implements Cloneable, Named {
 	 * @return
 	 * 		if this line has to be read by synthesizer
 	 */
-	public boolean getSynthesizerVoice() {
+	public Boolean getSynthesizerVoice() {
 		return synthesizerVoice;
 	}
 
@@ -131,7 +131,7 @@ public class ConversationLine implements Cloneable, Named {
 	 * @param synthesizerVoice
 	 * 				true for to be read by synthesizer
 	 */
-	public void setSynthesizerVoice(boolean synthesizerVoice) {
+	public void setSynthesizerVoice(Boolean synthesizerVoice) {
 		this.synthesizerVoice = synthesizerVoice;
 	}
 

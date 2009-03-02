@@ -3,6 +3,7 @@ package es.eucm.eadventure.editor.control.controllers.conversation;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.common.data.chapter.conversation.Conversation;
 import es.eucm.eadventure.common.data.chapter.conversation.TreeConversation;
 import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
@@ -11,6 +12,7 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
+import es.eucm.eadventure.editor.control.tools.conversation.DeleteConversationNodeTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class TreeConversationDataControl extends ConversationDataControl {
@@ -141,15 +143,17 @@ public class TreeConversationDataControl extends ConversationDataControl {
 		return possibleMove;
 	}
 
+	//TODO
 	@Override
 	public boolean linkNode( ConversationNodeView fatherView, ConversationNodeView childView ) {
 		// No links are allowed in a tree, return false always
 		return false;
 	}
 
+	//TODO
 	@Override
 	public boolean deleteNode( ConversationNodeView nodeView ) {
-		boolean nodeDeleted = false;
+		/*boolean nodeDeleted = false;
 
 		// Ask for confirmation
 		if( controller.showStrictConfirmDialog( TextConstants.getText( "Conversation.OperationDeleteNode" ), TextConstants.getText( "Conversation.ConfirmDeleteNode" ) ) ) {
@@ -164,7 +168,8 @@ public class TreeConversationDataControl extends ConversationDataControl {
 			}
 		}
 
-		return nodeDeleted;
+		return nodeDeleted;*/
+		return controller.addTool(new DeleteConversationNodeTool(DeleteConversationNodeTool.MODE_TREE, nodeView, getConversation()));
 	}
 
 	@Override
@@ -731,6 +736,18 @@ public class TreeConversationDataControl extends ConversationDataControl {
 				check(temp.getLineName(i), TextConstants.getText("Search.LineName"));
 				check(temp.getLineText(i), TextConstants.getText("Search.LineText"));
 			}
+		}
+	}
+
+	@Override
+	public Conversation getConversation() {
+		return treeConversation;
+	}
+
+	@Override
+	public void setConversation(Conversation conversation) {
+		if ( conversation instanceof TreeConversation){
+			this.treeConversation = (TreeConversation)conversation;
 		}
 	}
 }

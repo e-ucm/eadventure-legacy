@@ -30,8 +30,9 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.character.PlayerDataControl;
 import es.eucm.eadventure.editor.control.controllers.character.NPCDataControl;
+import es.eucm.eadventure.editor.control.tools.generic.ChangeBooleanValueTool;
 
-public class SynthesizerDialog extends JDialog implements ItemListener{
+public class SynthesizerDialog extends ToolManagableDialog implements ItemListener{
 
 	private JTextField voices;
 	
@@ -48,7 +49,7 @@ public class SynthesizerDialog extends JDialog implements ItemListener{
 	
 	public SynthesizerDialog(int selectedRow, ConversationNode node, DataControlWithResources playerNpcControl, boolean player){
 		// Call to the JDialog constructor
-		super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "Synthesizer.Title" ), Dialog.ModalityType.APPLICATION_MODAL );
+		super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "Synthesizer.Title" ), false);//, Dialog.ModalityType.APPLICATION_MODAL );
 
 		this.selectedConversationLine = selectedRow;
 
@@ -120,7 +121,8 @@ public class SynthesizerDialog extends JDialog implements ItemListener{
 	}
 
 	public void itemStateChanged(ItemEvent e) {
-		this.node.getLine(selectedConversationLine).setSynthesizerVoice(readSynthesizer.isSelected());
-		
+		Controller.getInstance().addTool(new ChangeBooleanValueTool(node.getLine(selectedConversationLine),
+				readSynthesizer.isSelected(), "getSynthesizerVoice", "setSynthesizerVoice"));
+		//this.node.getLine(selectedConversationLine).setSynthesizerVoice(readSynthesizer.isSelected());
 	}
 }
