@@ -7,6 +7,7 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.tools.books.ChangeParagraphContentTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 import es.eucm.eadventure.editor.gui.assetchooser.AssetChooser;
 
@@ -78,12 +79,7 @@ public class BookParagraphDataControl extends DataControl {
 	 *            New content for the paragtaph
 	 */
 	public void setParagraphTextContent( String content ) {
-		// If the value is different
-		if( !content.equals( bookParagraph.getContent( ) ) ) {
-			// Set the new text and modify the data
-			bookParagraph.setContent( content );
-			controller.dataModified( );
-		}
+		Controller.getInstance().addTool(new ChangeParagraphContentTool(bookParagraph, content));
 	}
 
 	/**
@@ -120,9 +116,9 @@ public class BookParagraphDataControl extends DataControl {
 				if( assetFilenames[i].equals( selectedAsset ) )
 					assetIndex = i;
 
-			// Store the data 
-			bookParagraph.setContent( assetPaths[assetIndex] );
-			controller.dataModified( );
+			
+			Controller.getInstance().addTool(new ChangeParagraphContentTool(bookParagraph, assetPaths[assetIndex]));
+			
 		}
 	}
 	
@@ -151,9 +147,8 @@ public class BookParagraphDataControl extends DataControl {
 					if( assetFilenames[i].equals( selectedAsset ) )
 						assetIndex = i;
 
-				// Store the data
-				bookParagraph.setContent( assetPaths[assetIndex] );
-				controller.dataModified( );
+				
+				Controller.getInstance().addTool(new ChangeParagraphContentTool(bookParagraph, assetPaths[assetIndex]));
 			}
 		}
 	}
@@ -162,8 +157,7 @@ public class BookParagraphDataControl extends DataControl {
 	 * Deletes the content of the image paragraph. This method must be used only with image paragraphs.
 	 */
 	public void deleteImageParagraphContent( ) {
-		// Set the content to an empty string
-		bookParagraph.setContent( "" );
+		Controller.getInstance().addTool(new ChangeParagraphContentTool(bookParagraph, ""));
 	}
 
 	@Override
@@ -253,7 +247,6 @@ public class BookParagraphDataControl extends DataControl {
 		// If it is an image paragraph and contains the asset, delete it
 		if( bookParagraph.getType( ) == BookParagraph.IMAGE && bookParagraph.getContent( ).equals( assetPath ) ) {
 			bookParagraph.setContent( "" );
-			controller.dataModified( );
 		}
 	}
 

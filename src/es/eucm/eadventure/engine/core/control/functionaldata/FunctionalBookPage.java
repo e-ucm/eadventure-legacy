@@ -1,18 +1,14 @@
 package es.eucm.eadventure.engine.core.control.functionaldata;
 
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.JEditorPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -29,17 +25,20 @@ import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.book.BookPage;
 import es.eucm.eadventure.engine.core.gui.GUI;
+import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
-
-import javax.swing.text.html.HTMLDocument;
 
 public class FunctionalBookPage extends JPanel{
 
-    private BookPage bookPage;
+	private static final long serialVersionUID = 1L;
+
+	private BookPage bookPage;
     
     private boolean isValid;
     
     private Image background;
+    
+    private Image image;
     
     private JEditorPane editorPane;
     
@@ -65,7 +64,6 @@ public class FunctionalBookPage extends JPanel{
             }
             
             try {
-
                 if (isValid){
                 editorPane.setPage( url );
                 editorPane.setEditable( false );
@@ -124,44 +122,33 @@ public class FunctionalBookPage extends JPanel{
                 isValid=true;
                 
             }
-            /*try {
-                File file = new File ("C:\\Datos\\workspace\\EAdventure2D\\ChocolateRevisited\\assets\\styledtext\\index.htm");
-                url = file.toURI( ).toURL( );
-            } catch( MalformedURLException e ) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }*/
             
+        } else if (bookPage.getType() == BookPage.TYPE_IMAGE) {
+            url = ResourceHandler.getInstance( ).getResourceAsURLFromZip( bookPage.getUri( ) );
+            image = MultimediaManager.getInstance( ).loadImageFromZip( bookPage.getUri() , MultimediaManager.IMAGE_SCENE );
         }
         
         if (url==null){
             isValid=false;
-            //System.out.println( "[LOG] FunctionalBookPage - Constructor - URL is null "+bookPage.getUri( ) );
         }
         
         
         
-       
-        editorPane.addMouseListener( new FunctionalBookMouseListener() );
-        //addMouseListener(Game.getInstance());
-        editorPane.setOpaque( false );
-        //editorPane.setCaret( null );
-        editorPane.setEditable( false );
-        //editorPane.setHighlighter( null );
-        
-        this.setOpaque( false );
-        
-        this.setLayout(null );
-        //if (bookPage.getMargin( )>0){
-        //    Component margin = Box.createRigidArea( new Dimension(bookPage.getMargin( ), GUI.WINDOW_HEIGHT) );
-            //margin.addMouseListener( new FunctionalBookMouseListener() );
-        //    this.add( margin );
-        //}
-    	editorPane.setBounds(bookPage.getMargin(), bookPage.getMarginTop(), GUI.WINDOW_WIDTH - bookPage.getMargin() - bookPage.getMarginEnd(), GUI.WINDOW_HEIGHT - bookPage.getMarginTop() - bookPage.getMarginBottom());
-        if ( bookPage.getScrollable( ) )
-            this.add( new JScrollPane(editorPane, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED) );
-        else
-            this.add( editorPane );
+        if (editorPane != null) {
+	        editorPane.addMouseListener( new FunctionalBookMouseListener() );
+	        editorPane.setOpaque( false );
+	        editorPane.setEditable( false );
+	        
+	        this.setOpaque( false );
+	        
+	        this.setLayout(null );
+	
+	    	editorPane.setBounds(bookPage.getMargin(), bookPage.getMarginTop(), GUI.WINDOW_WIDTH - bookPage.getMargin() - bookPage.getMarginEnd(), GUI.WINDOW_HEIGHT - bookPage.getMarginTop() - bookPage.getMarginBottom());
+	        if ( bookPage.getScrollable( ) )
+	            this.add( new JScrollPane(editorPane, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED) );
+	        else
+	            this.add( editorPane );
+        }
     }
     
    
@@ -211,6 +198,8 @@ public class FunctionalBookPage extends JPanel{
     
     public void paint (Graphics g){
         g.drawImage( background, 0, 0, background.getWidth( null ), background.getHeight( null ), null );
+        if (image != null)
+        	g.drawImage(image, bookPage.getMargin(), bookPage.getMarginTop(), this.getWidth() - bookPage.getMarginEnd(), this.getHeight() - bookPage.getMarginBottom(), 0, 0, image.getWidth(null), image.getHeight(null), null);
         super.paint( g );
     }
 

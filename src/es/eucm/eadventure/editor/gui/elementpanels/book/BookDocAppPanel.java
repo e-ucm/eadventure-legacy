@@ -22,12 +22,13 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.book.BookDataControl;
 import es.eucm.eadventure.editor.control.tools.listeners.DocumentationChangeListener;
+import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.displaydialogs.StyledBookDialog;
 import es.eucm.eadventure.editor.gui.elementpanels.general.LooksPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.imagepanels.BookImagePanel;
 import es.eucm.eadventure.editor.gui.otherpanels.imagepanels.ImagePanel;
 
-public class BookDocAppPanel extends JPanel {
+public class BookDocAppPanel extends JPanel implements Updateable{
 
 	/**
 	 * Required.
@@ -213,6 +214,16 @@ public class BookDocAppPanel extends JPanel {
 			getParent( ).getParent( ).repaint( );
 		}
 
+	}
+
+	@Override
+	public boolean updateFields() {
+		bookLooks.updateResources();
+		bookLooks.updatePreview();
+		bookLooks.repaint();
+		
+		documentationTextArea.setText(this.bookDataControl.getDocumentation());
+		return true;
 	}
 
 }

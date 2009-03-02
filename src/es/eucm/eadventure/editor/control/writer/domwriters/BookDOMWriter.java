@@ -103,7 +103,19 @@ public class BookDOMWriter {
 					if (page.getMarginBottom() != 0)
 						pageElement.setAttribute("marginBottom", Integer.toString(page.getMarginBottom()));
 					pageElement.setAttribute( "uri", page.getUri( ) );
-					pageElement.setAttribute( "type", ( page.getType( ) == BookPage.TYPE_RESOURCE)?"resource":"url" );
+					switch (page.getType()) {
+					case BookPage.TYPE_RESOURCE:
+						pageElement.setAttribute( "type", "resource");
+						break;
+					case BookPage.TYPE_IMAGE:
+						pageElement.setAttribute( "type", "image");
+						break;
+					case BookPage.TYPE_URL:
+						pageElement.setAttribute( "type", "url");
+						break;
+					default:
+						pageElement.setAttribute( "type", "url");
+					}
 					
 					
 					textPagesElement.appendChild( pageElement );

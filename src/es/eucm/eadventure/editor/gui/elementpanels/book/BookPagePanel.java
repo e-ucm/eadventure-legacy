@@ -29,10 +29,11 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.book.BookPagesListDataControl;
+import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.editdialogs.ChangePageMarginsDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.HTMLEditDialog;
 
-public class BookPagePanel extends JPanel{
+public class BookPagePanel extends JPanel implements Updateable {
 
 	/**
 	 * Default serialVersionUID
@@ -41,8 +42,6 @@ public class BookPagePanel extends JPanel{
 
 	private BookPagesListDataControl dataControl;
 	
-	private BookPage bookPage;
-
 	/**
 	 * Radio button for the "Traditional" option.
 	 */
@@ -52,6 +51,8 @@ public class BookPagePanel extends JPanel{
 	 * Radio button for the "Contextual" option.
 	 */
 	private JRadioButton urlRadioButton;
+	
+	private JRadioButton imageRadioButton;
 	
 	private JLabel validPage;
 	
@@ -76,7 +77,7 @@ public class BookPagePanel extends JPanel{
 	public BookPagePanel (BookPagesPanel parentPanel, BookPagesListDataControl pagesDataControl, int pageIndex){
 		dataControl = pagesDataControl;
 		this.parent = parentPanel;
-		bookPage = pagesDataControl.getSelectedPage( );
+		BookPage bookPage = pagesDataControl.getSelectedPage( );
 
 		// Set the values
 
@@ -96,7 +97,7 @@ public class BookPagePanel extends JPanel{
 		pageTypePanel.add( resourceRadioButton, c1 );
 
 		// Traditional description
-		c1.insets = new Insets( 0, 5, 5, 5 );
+		c1.insets = new Insets( 0, 0, 5, 5 );
 		c1.gridy = 1;
 		c1.weightx = 1;
 		c1.fill = GridBagConstraints.BOTH;
@@ -119,7 +120,7 @@ public class BookPagePanel extends JPanel{
 		pageTypePanel.add( urlRadioButton, c1 );
 
 		// Contextual description
-		c1.insets = new Insets( 0, 5, 5, 5 );
+		c1.insets = new Insets( 0, 0, 5, 5 );
 		c1.gridx = 0;
 		c1.gridy = 3;
 		c1.weightx = 1;
@@ -131,30 +132,68 @@ public class BookPagePanel extends JPanel{
 		htmlReportInfo.setText( TextConstants.getText( "BookPageType.URLDescription" ) );
 		pageTypePanel.add( htmlReportInfo, c1 );
 
+		
+		// Contextual radio button
+		c1.insets = new Insets( 5, 5, 3, 5 );
+		c1.gridy = 4;
+		c1.fill = GridBagConstraints.NONE;
+		c1.anchor = GridBagConstraints.LINE_START;
+		imageRadioButton = new JRadioButton( TextConstants.getText( "BookPageType.Image" ) );
+		imageRadioButton.addActionListener( new ActionListener( ) {
+			public void actionPerformed( ActionEvent arg0 ) {}
+		} );
+		pageTypePanel.add( imageRadioButton, c1 );
+
+		// Contextual description
+		c1.insets = new Insets( 0, 0, 5, 5 );
+		c1.gridx = 0;
+		c1.gridy = 5;
+		c1.weightx = 1;
+		c1.fill = GridBagConstraints.BOTH;
+		c1.anchor = GridBagConstraints.CENTER;
+		JTextPane imageReportInfo = new JTextPane( );
+		imageReportInfo.setEditable( false );
+		imageReportInfo.setBackground( getBackground( ) );
+		imageReportInfo.setText( TextConstants.getText( "BookPageType.ImageDescription" ) );
+		pageTypePanel.add( imageReportInfo, c1 );
+
 		// Configure the radio buttons
 		resourceRadioButton.addActionListener( new OptionChangedListener( ) );
 		urlRadioButton.addActionListener( new OptionChangedListener( ) );
+		imageRadioButton.addActionListener( new OptionChangedListener( ) );
 		ButtonGroup typeButtonGroup = new ButtonGroup( );
 		typeButtonGroup.add( resourceRadioButton );
 		typeButtonGroup.add( urlRadioButton );
+		typeButtonGroup.add( imageRadioButton );
 		if ( bookPage == null){
 			resourceRadioButton.setSelected( false );
 			resourceRadioButton.setEnabled( false );
 			urlRadioButton.setSelected( false );
 			urlRadioButton.setEnabled( false );
-		}else if( bookPage.getType( ) == BookPage.TYPE_RESOURCE )
+			imageRadioButton.setSelected( false );
+			imageRadioButton.setEnabled( false );
+		} else if( bookPage.getType( ) == BookPage.TYPE_RESOURCE )
 			resourceRadioButton.setSelected( true );
 		else if( bookPage.getType( ) == BookPage.TYPE_URL )
 			urlRadioButton.setSelected( true );
+		else if ( bookPage.getType() == BookPage.TYPE_IMAGE )
+			imageRadioButton.setSelected( true );
 
 
 		//---------------- Asset path panel -------------------------------------//
 		JPanel assetPathPanel = new JPanel( );
 		assetPathPanel.setLayout( new GridBagLayout( ) );
+		String borderText = ""; 
+		
 		if (bookPage!=null && bookPage.getType( ) == BookPage.TYPE_RESOURCE)
-			assetPathPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "BookPage.AssetPath" ) ) );
+			borderText = TextConstants.getText( "BookPage.AssetPath" );
+		else if (bookPage != null && bookPage.getType() == BookPage.TYPE_IMAGE)
+			borderText = TextConstants.getText( "BookPage.Image");
 		else
-			assetPathPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "BookPage.URL" ) ) );
+		    borderText = TextConstants.getText( "BookPage.URL" );
+
+		assetPathPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), borderText ) );
+
 		GridBagConstraints c2 = new GridBagConstraints( );
 		c2.insets = new Insets( 4, 5, 4, 5 );
 		c2.fill = GridBagConstraints.NONE;
@@ -198,7 +237,7 @@ public class BookPagePanel extends JPanel{
 		c2.weightx = 0;
 		createButton = new JButton( TextConstants.getText("Resources.Create"));
 		createButton.addActionListener(new CreateButtonListener());
-		createButton.setEnabled(bookPage != null && !pathTextField.isEditable());
+		createButton.setEnabled(bookPage != null && !pathTextField.isEditable() && bookPage.getType() != BookPage.TYPE_IMAGE);
 		assetPathPanel.add( createButton, c2);
 
 		
@@ -207,7 +246,7 @@ public class BookPagePanel extends JPanel{
 		c2.weightx = 0;
 		editButton = new JButton( TextConstants.getText("Resources.Edit"));
 		editButton.addActionListener(new EditButtonListener());
-		editButton.setEnabled(bookPage != null && !pathTextField.isEditable() && pathTextField.getText().length() > 0);
+		editButton.setEnabled(bookPage != null && !pathTextField.isEditable() && pathTextField.getText().length() > 0 && bookPage.getType() != BookPage.TYPE_IMAGE);
 		assetPathPanel.add( editButton, c2);
 
 		//---------------- Asset path panel -------------------------------------//
@@ -224,7 +263,7 @@ public class BookPagePanel extends JPanel{
 		        	background = AssetsController.getImage( backgroundPath );
 		        else
 		        	background = null;
-				new ChangePageMarginsDialog(bookPage, background);
+				new ChangePageMarginsDialog(dataControl, background);
 				parent.updatePreview( );				
 			}
 		});
@@ -241,6 +280,7 @@ public class BookPagePanel extends JPanel{
 		// Add the principal and the buttons panel
 		add( pageTypePanel, c );
 		
+				
 		c.gridy = 1;
 		add( assetPathPanel, c );
 		
@@ -262,10 +302,13 @@ public class BookPagePanel extends JPanel{
 	}
 
 	private void validateContentSource(){
+		BookPage bookPage = dataControl.getSelectedPage();
 		if (bookPage==null || !dataControl.isValidPage( bookPage )){
 			validPage.setIcon(notValid);
 			if (bookPage==null || bookPage.getType( ) == BookPage.TYPE_URL)
 				validPage.setToolTipText( TextConstants.getText( "BookPage.NotValidURL" ) );
+			else if (bookPage == null || bookPage.getType() == BookPage.TYPE_IMAGE)
+				validPage.setToolTipText( TextConstants.getText( "BookPage.NotValidImage"));
 			else
 				validPage.setToolTipText( TextConstants.getText( "BookPage.NotValidResource" ) );
 			
@@ -356,11 +399,6 @@ public class BookPagePanel extends JPanel{
 	 */
 	private class OptionChangedListener implements ActionListener {
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-		 */
 		public void actionPerformed( ActionEvent e ) {
 			if( e.getSource( ).equals( resourceRadioButton ) ){
 				dataControl.setType(BookPage.TYPE_RESOURCE);
@@ -376,6 +414,13 @@ public class BookPagePanel extends JPanel{
 				selectButton.setEnabled( false );
 				createButton.setEnabled( false );
 				editButton.setEnabled( false );
+			} else if ( e.getSource().equals( imageRadioButton )) {
+				dataControl.setType(BookPage.TYPE_IMAGE);
+				pathTextField.setText( dataControl.getSelectedPage().getUri() );
+				pathTextField.setEnabled( false);
+				selectButton.setEnabled( true );
+				createButton.setEnabled( false );
+				editButton.setEnabled( false );
 			}
 		}
 	}
@@ -384,20 +429,16 @@ public class BookPagePanel extends JPanel{
 	 * Listener for the examine button.
 	 */
 	private class ExamineButtonListener implements ActionListener {
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-		 */
 		public void actionPerformed( ActionEvent e ) {
-			// Ask the user for an image
-			//bookParagraphDataControl.setImageParagraphContent( );
-			if (dataControl.getSelectedPage( ).getType( ) == BookPage.TYPE_RESOURCE){
-				if (dataControl.editAssetPath( )){
+			if (dataControl.getSelectedPage( ).getType( ) == BookPage.TYPE_RESOURCE || dataControl.getSelectedPage().getType() == BookPage.TYPE_IMAGE){
+				if (dataControl.getSelectedPage().getType() == BookPage.TYPE_RESOURCE && dataControl.editStyledTextAssetPath( )){
 					pathTextField.setText( dataControl.getSelectedPage( ).getUri( ) );
 					editButton.setEnabled(true);
 					validateContentSource(); 
+				} else if (dataControl.getSelectedPage().getType() == BookPage.TYPE_IMAGE && dataControl.editImageAssetPath( )) {
+					pathTextField.setText( dataControl.getSelectedPage().getUri());
+					editButton.setEnabled(true);
+					validateContentSource();
 				}
 			} 
 		}
@@ -409,23 +450,7 @@ public class BookPagePanel extends JPanel{
 	 */
 	private class CreateButtonListener implements ActionListener {
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-		 */
 		public void actionPerformed( ActionEvent e ) {
-			// Ask the user for an image
-			//bookParagraphDataControl.setImageParagraphContent( );
-
-			/*
-			if (bookPage.getUri() == null || bookPage.getUri().compareTo("") == 0) {
-				String newFileName = "folder..." + parent.getDataControl().getId() + "_" + dataControl.getSelectedPage() + ".html";
-			}
-			*/
-			
-			// Create new asset if no asset is selected
-		
 			String filename = null;
 			
 			filename = AssetsController.TempFileGenerator.generateTempFileAbsolutePath("html");
@@ -450,26 +475,10 @@ public class BookPagePanel extends JPanel{
 	 */
 	private class EditButtonListener implements ActionListener {
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-		 */
-		public void actionPerformed( ActionEvent e ) {
-			// Ask the user for an image
-			//bookParagraphDataControl.setImageParagraphContent( );
-
-			/*
-			if (bookPage.getUri() == null || bookPage.getUri().compareTo("") == 0) {
-				String newFileName = "folder..." + parent.getDataControl().getId() + "_" + dataControl.getSelectedPage() + ".html";
-			}
-			*/
-			
-			// Create new asset if no asset is selected
-		
+		public void actionPerformed( ActionEvent e ) {		
 			String filename = null;
-			if (!(bookPage.getUri() == null) && !(bookPage.getUri().compareTo("") == 0)) {
-				filename = Controller.getInstance( ).getProjectFolder( ) + "/" + bookPage.getUri();
+			if (!(dataControl.getSelectedPage().getUri() == null) && !(dataControl.getSelectedPage().getUri().compareTo("") == 0)) {
+				filename = Controller.getInstance( ).getProjectFolder( ) + "/" + dataControl.getSelectedPage().getUri();
 			}
 			
 			
@@ -483,6 +492,33 @@ public class BookPagePanel extends JPanel{
 			parent.updatePreview( );
 			
 		}
+	}
+
+
+	@Override
+	public boolean updateFields() {
+		if( dataControl.getSelectedPage().getType() == BookPage.TYPE_RESOURCE ){
+			resourceRadioButton.setSelected(true);
+			pathTextField.setEditable( false );
+			selectButton.setEnabled( true );
+			createButton.setEnabled( true );
+			editButton.setEnabled( false );
+		}else if( dataControl.getSelectedPage().getType() == BookPage.TYPE_URL ){
+			urlRadioButton.setSelected(true);
+			pathTextField.setEditable( true );
+			selectButton.setEnabled( false );
+			createButton.setEnabled( false );
+			editButton.setEnabled( false );
+		} else if ( dataControl.getSelectedPage().getType() == BookPage.TYPE_IMAGE ) {
+			imageRadioButton.setSelected(true);
+			pathTextField.setEnabled( false);
+			selectButton.setEnabled( true );
+			createButton.setEnabled( false );
+			editButton.setEnabled( false );
+		}
+		pathTextField.setText(dataControl.getSelectedPage().getUri());
+		parent.updatePreview();
+		return true;
 	}
 
 }

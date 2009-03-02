@@ -129,6 +129,7 @@ public class ImageBookParagraphPanel extends JPanel {
 		 */
 		public void actionPerformed( ActionEvent e ) {
 			// Delete the current path and disable the view button
+			
 			pathTextField.setText( null );
 			bookParagraphDataControl.deleteImageParagraphContent( );
 			imagePanel.removeImage( );
@@ -156,4 +157,6 @@ public class ImageBookParagraphPanel extends JPanel {
 				imagePanel.removeImage( );
 		}
 	}
+	
+	
 }
