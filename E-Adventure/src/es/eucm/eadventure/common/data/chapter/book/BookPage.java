@@ -18,6 +18,11 @@ public class BookPage implements Cloneable {
     public static final int TYPE_RESOURCE=1;
 
     /**
+     * The page takes the document as an image from the zip file
+     */
+    public static final int TYPE_IMAGE=2;
+    
+    /**
      * The url/resource path
      */
     private String uri;

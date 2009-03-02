@@ -1066,8 +1066,10 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="BookPage.MarginToolTip">Use esta barra para ajustar el espacio entre la página y el borde de la imagen de fondo</entry>
 	<entry key="BookPage.URL">Escriba aquí la URL</entry>
 	<entry key="BookPage.AssetPath">Ubicación del recurso seleccionado</entry>
+	<entry key="BookPage.Image">Ubicación del recurso seleccionado</entry>
 	<entry key="BookPage.NotValidURL">No se puede acceder a la URL indicada. Por favor, compruebe la dirección y el funcionamiento de su conexión a Internet</entry>
 	<entry key="BookPage.NotValidResource">Se han encontrado problemas con el archivo seleccionado, es posible que no pueda verse correctamente en el juego</entry>
+	<entry key="BookPage.NotValidImage">Se han encontrado problemas con el formato de imagen</entry>
 	<entry key="BookPage.Valid">El contenido parece válido.</entry>
 	
 	
@@ -1076,6 +1078,8 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="BookPageType.ResourceDescription">Escoja este tipo para seleccionar el contenido desde un archivo local. El archivo será añadido al fichero de la aventura.</entry>
 	<entry key="BookPageType.URL">URL</entry>
 	<entry key="BookPageType.URLDescription">Escoja este tipo para escribir la dirección URL del contenido a mostrar. El contenido se mostrará desde la URL en tiempo de ejecución</entry>	
+	<entry key="BookPageType.Image">Imagen</entry>
+	<entry key="BookPageType.ImageDescription">Escoja este tipo para incluir una imagen como el contendio de la página</entry>
 
 	<entry key="BookParagraphsList.Title">Párrafos del libro</entry>
 	<entry key="BookParagraphsList.ListTitle">Lista de párrafos del libro</entry>

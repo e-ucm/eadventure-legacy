@@ -1064,16 +1064,20 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="BookPage.MarginToolTip">Use this slider to adjust the space between the page and the border of the background image</entry>
 	<entry key="BookPage.URL">Type here the URL</entry>
 	<entry key="BookPage.AssetPath">Path of the Selected asset</entry>
+	<entry key="BookPage.Image">Path of the selected asset</entry>
 	<entry key="BookPage.NotValidURL">The URL provided is not accessible, so it is not guaranteed it will be shown in the game. Please, check you typed correctly the URL and your Internet connection is working properly.</entry>
 	<entry key="BookPage.NotValidResource">There are problems with the formatted text file provided, so it might not be shown in the game</entry>
+	<entry key="BookPage.NotValidImage">There are problems with the image format</entry>
 	<entry key="BookPage.Valid">There are no apparent problems with the content source provided.</entry>
-	
+		
 	
 	<entry key="BookPageType.Title">Source of the content</entry>
 	<entry key="BookPageType.Resource">Local resource</entry>
 	<entry key="BookPageType.ResourceDescription">When this type is selected you can provide the content from a local file, which will be added to the &lt;e-Adventure&gt; file</entry>
 	<entry key="BookPageType.URL">URL</entry>
 	<entry key="BookPageType.URLDescription">When this type is selected you must type the URL containing the content. Note therefore the page will be available as long as the URL is accessible</entry>
+	<entry key="BookPageType.Image">Image</entry>
+	<entry key="BookPageType.ImageDescription">When this type is selected you must provide an image as the content for the page</entry>
 
 	<entry key="BookParagraphsList.Title">Book paragraphs</entry>
 	<entry key="BookParagraphsList.ListTitle">List of book paragraphs</entry>

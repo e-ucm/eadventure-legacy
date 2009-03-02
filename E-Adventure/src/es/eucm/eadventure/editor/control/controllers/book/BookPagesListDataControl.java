@@ -4,12 +4,19 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.common.data.chapter.book.BookPage;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
+import es.eucm.eadventure.editor.control.tools.books.AddBookPageTool;
+import es.eucm.eadventure.editor.control.tools.books.ChangeBookPageMarginsTool;
+import es.eucm.eadventure.editor.control.tools.books.ChangeBookPageScrollableTool;
+import es.eucm.eadventure.editor.control.tools.books.ChangeBookPageTypeTool;
+import es.eucm.eadventure.editor.control.tools.books.ChangeBookPageUriTool;
+import es.eucm.eadventure.editor.control.tools.books.DeleteBookPageTool;
+import es.eucm.eadventure.editor.control.tools.books.MoveBookPageDownTool;
+import es.eucm.eadventure.editor.control.tools.books.MoveBookPageUpTool;
 import es.eucm.eadventure.editor.gui.assetchooser.AssetChooser;
 import es.eucm.eadventure.editor.gui.otherpanels.FormattedTextPanel;
 
@@ -81,56 +88,26 @@ public class BookPagesListDataControl{
 	public BookPage addPage( ) {
 		BookPage newBookPage = new BookPage("", defaultType,defaultMargin, defaultScrollable);
 
-		bookPagesList.add( newBookPage );
+		Controller.getInstance().addTool(new AddBookPageTool(bookPagesList, newBookPage, selectedPage));
 		
-		//If there is a selected page, move the new one until it is just below
-		if (selectedPage>=0 && selectedPage<bookPagesList.size( )){
-			//We need size-2-selectedRow movements
-			for (int i=0; i<bookPagesList.size( )-2-selectedPage; i++){
-				movePageUp (newBookPage);
-			}
-			this.selectedPage++;
-		}
+		selectedPage = bookPagesList.indexOf(newBookPage);
 
-		Controller.getInstance( ).dataModified( );
 		return newBookPage;
 	}
 
 	public boolean deletePage( BookPage page ) {
-		boolean elementDeleted = false;
-
-		if( bookPagesList.remove( page ) ) {
-			Controller.getInstance( ).dataModified( );
-			elementDeleted = true;
-		}
-
-		return elementDeleted;
+		Controller.getInstance().addTool(new DeleteBookPageTool(bookPagesList, page));
+		return true;
 	}
 
 	public boolean movePageUp( BookPage page ) {
-		boolean elementMoved = false;
-		int elementIndex = bookPagesList.indexOf( page );
-
-		if( elementIndex > 0 ) {
-			bookPagesList.add( elementIndex - 1, bookPagesList.remove( elementIndex ) );
-			Controller.getInstance( ).dataModified( );
-			elementMoved = true;
-		}
-
-		return elementMoved;
+		Controller.getInstance().addTool(new MoveBookPageUpTool(bookPagesList, page));
+		return true;
 	}
 
 	public boolean movePageDown( BookPage page ) {
-		boolean elementMoved = false;
-		int elementIndex = bookPagesList.indexOf( page );
-
-		if( elementIndex < bookPagesList.size( )-1 ) {
-			bookPagesList.add( elementIndex + 1, bookPagesList.remove( elementIndex ) );
-			Controller.getInstance( ).dataModified( );
-			elementMoved = true;
-		}
-
-		return elementMoved;
+		Controller.getInstance().addTool(new MoveBookPageDownTool(bookPagesList, page));
+		return true;
 	}
 
 	public int countAssetReferences( String assetPath ) {
@@ -189,7 +166,7 @@ public class BookPagesListDataControl{
 		return currentPage;
 	}
 	
-	public boolean editAssetPath(){
+	public boolean editStyledTextAssetPath(){
 		String selectedAsset = null;
 		if (selectedPage<0 || selectedPage>=bookPagesList.size( ))
 			return false;
@@ -228,19 +205,61 @@ public class BookPagesListDataControl{
 				if( assetFilenames[i].equals( selectedAsset ) )
 					assetIndex = i;
 
-			// Store the data in the resources block (removing the suffix if necessary)
-			bookPagesList.get( selectedPage ).setUri( assetPaths[assetIndex] );
-			Controller.getInstance().dataModified( );
+			Controller.getInstance().addTool(new ChangeBookPageUriTool(bookPagesList.get(selectedPage), assetPaths[assetIndex]));
 			return true;
 		}else
 			return false;
-
 	}
+
 	
+	public boolean editImageAssetPath(){
+		String selectedAsset = null;
+		if (selectedPage<0 || selectedPage>=bookPagesList.size( ))
+			return false;
+		AssetChooser chooser = AssetsController.getAssetChooser( AssetsController.CATEGORY_IMAGE, AssetsController.FILTER_NONE );
+		int option = chooser.showAssetChooser( Controller.getInstance( ).peekWindow( ) );
+		//In case the asset was selected from the zip file
+		if( option == AssetChooser.ASSET_FROM_ZIP ) {
+			selectedAsset = chooser.getSelectedAsset( );
+		}
+
+		//In case the asset was not in the zip file: first add it
+		else if( option == AssetChooser.ASSET_FROM_OUTSIDE ) {
+			boolean added = AssetsController.addSingleAsset( AssetsController.CATEGORY_IMAGE, chooser.getSelectedFile( ).getAbsolutePath( ) );
+			
+			//Check if there are referenced files. Those files must be in a folder where the asset is contained, and that folder must be called
+			//assetname_files
+			String filePath = chooser.getSelectedFile( ).getAbsolutePath( );
+			String filesFolderPath = filePath.substring( 0, filePath.lastIndexOf( "." ))+"_files";
+			File filesFolder = new File(filesFolderPath); 
+			if (filesFolder.exists( ) && filesFolder.isDirectory( )){
+				added &=AssetsController.addSingleAsset( AssetsController.CATEGORY_IMAGE, filesFolderPath );
+			}
+			
+			if( added ) {
+				selectedAsset = chooser.getSelectedFile( ).getName( );
+			}
+		}
+
+		// If a file was selected
+		if( selectedAsset != null ) {
+			// Take the index of the selected asset
+			String[] assetFilenames = AssetsController.getAssetFilenames( AssetsController.CATEGORY_IMAGE );
+			String[] assetPaths = AssetsController.getAssetsList( AssetsController.CATEGORY_IMAGE);
+			int assetIndex = -1;
+			for( int i = 0; i < assetFilenames.length; i++ )
+				if( assetFilenames[i].equals( selectedAsset ) )
+					assetIndex = i;
+
+			Controller.getInstance().addTool(new ChangeBookPageUriTool(bookPagesList.get(selectedPage), assetPaths[assetIndex]));
+			return true;
+		}else
+			return false;
+	}
+
 	public boolean editURL(String newURL){
 		if (selectedPage>=0 && selectedPage<bookPagesList.size( ) && bookPagesList.get( selectedPage ).getType( ) == BookPage.TYPE_URL){
-			bookPagesList.get( selectedPage ).setUri( newURL );
-			Controller.getInstance( ).dataModified( );
+			Controller.getInstance().addTool(new ChangeBookPageUriTool(bookPagesList.get(selectedPage), newURL));
 			return true;
 		}
 		return false;
@@ -248,31 +267,22 @@ public class BookPagesListDataControl{
 	
 	public boolean setType ( int newType ){
 		boolean typeSet = false;
-		if ( newType!=bookPagesList.get( selectedPage ).getType( ) && selectedPage >=0 && selectedPage<bookPagesList.size( )){
-			bookPagesList.get( selectedPage ).setType( newType );
-			
-			if (newType == BookPage.TYPE_RESOURCE)
-				bookPagesList.get( selectedPage ).setUri( "" );
-			else
-				bookPagesList.get( selectedPage ).setUri( "http://www." );
-
+		if (selectedPage >= 0 && selectedPage<bookPagesList.size( ) && newType!=bookPagesList.get( selectedPage ).getType( )){
+			Controller.getInstance().addTool(new ChangeBookPageTypeTool(bookPagesList.get(selectedPage), newType));
 			typeSet = true;
-			Controller.getInstance( ).dataModified( );
 		}
 		return typeSet;
 	}
 	
-	public void setMargin ( int newMargin ){
+	public void setMargins ( int newMargin, int newMarginTop, int newMarginBottom, int newMarginEnd ){
 		if ( selectedPage >=0 && selectedPage<bookPagesList.size( )){
-			bookPagesList.get( selectedPage ).setMargin( newMargin );
-			Controller.getInstance( ).dataModified( );
+			Controller.getInstance().addTool(new ChangeBookPageMarginsTool(bookPagesList.get(selectedPage), newMargin, newMarginTop, newMarginBottom, newMarginEnd));
 		}
 	}
 	
 	public void setScrollable ( boolean scrollable ){
 		if ( selectedPage >=0 && selectedPage<bookPagesList.size( )){
-			bookPagesList.get( selectedPage ).setScrollable(scrollable);
-			Controller.getInstance( ).dataModified( );
+			Controller.getInstance().addTool(new ChangeBookPageScrollableTool(bookPagesList.get(selectedPage), scrollable));
 		}
 	}
 
@@ -283,11 +293,14 @@ public class BookPagesListDataControl{
 				FormattedTextPanel panel = new FormattedTextPanel();
 				panel.loadFile( page.getUri( ) );
 				isValid = ! page.getUri( ).equals( "" ) && panel.isValid( );
-			}else {
+			}else if (page.getType() == BookPage.TYPE_URL){
 				//Check the URL exists and is accessible
 				URL url = new URL (page.getUri( ));
 				url.openStream( ).close( );
 				isValid = true;
+			} else if (page.getType() == BookPage.TYPE_IMAGE) {
+				if (page.getUri().length() > 0)
+					isValid = true;
 			}
 		} catch (Exception e){	
 			isValid = false;

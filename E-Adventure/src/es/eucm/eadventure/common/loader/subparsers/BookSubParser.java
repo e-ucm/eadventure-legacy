@@ -10,7 +10,7 @@ import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 
 /**
- * Class to subparse books
+ * Class to sub-parse books
  */
 public class BookSubParser extends SubParser {
 
@@ -139,9 +139,12 @@ public class BookSubParser extends SubParser {
                     if( attrs.getQName( i ).equals( "uri" ) )
                         uri = attrs.getValue( i );
                     
-                    if( attrs.getQName( i ).equals( "type" ) )
+                    if( attrs.getQName( i ).equals( "type" ) ) {
                         if ( attrs.getValue( i ).equals( "resource" ))
                             type = BookPage.TYPE_RESOURCE;
+                        if ( attrs.getValue( i ).equals( "image" ))
+                        	type = BookPage.TYPE_IMAGE;
+                    }
                     
                     if( attrs.getQName( i ).equals( "scrollable" ) )
                         if ( attrs.getValue( i ).equals( "yes" ))

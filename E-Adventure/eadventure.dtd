@@ -135,7 +135,7 @@
 <!ELEMENT page EMPTY>
 <!ATTLIST page
 	uri CDATA #REQUIRED
-	type (url | resource) "url"
+	type (url | resource | image) "url"
 	margin CDATA #IMPLIED
 	marginEnd CDATA #IMPLIED
 	marginTop CDATA #IMPLIED

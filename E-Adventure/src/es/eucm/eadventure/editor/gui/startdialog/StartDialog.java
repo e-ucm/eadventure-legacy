@@ -519,8 +519,9 @@ public class StartDialog extends JFileChooser {
 		}
 
 		public Object getValueAt( int rowIndex, int columnIndex ) {
+			int index = info.length - rowIndex - 1;
 			if( columnIndex == 1 ) {
-				String data = info[rowIndex][0];
+				String data = info[index][0];
 				int i = data.lastIndexOf( "\\" );
 				if( i > 0 && i < data.length( ) )
 					return data.substring( i + 1, data.length( ) );
@@ -533,7 +534,7 @@ public class StartDialog extends JFileChooser {
 				}
 
 			} else if( columnIndex == 0 ) {
-				return info[rowIndex][0];
+				return info[index][0];
 
 			} else {
 				return "";
@@ -555,7 +556,7 @@ public class StartDialog extends JFileChooser {
 		}
 
 		public void mousePressed( MouseEvent e ) {
-			int selectedRow = table.getSelectedRow( );
+			int selectedRow = info.length - table.getSelectedRow( ) - 1;
 			if( selectedRow >= 0 ) {
 				openRecentsButton.setEnabled(true);
 				recentFile = new File( info[selectedRow][0] );

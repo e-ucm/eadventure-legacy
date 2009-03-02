@@ -11,8 +11,8 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import es.eucm.eadventure.common.data.chapter.book.BookPage;
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.controllers.book.BookPagesListDataControl;
 import es.eucm.eadventure.editor.gui.otherpanels.BookPagePreviewPanel;
 
 /**
@@ -32,7 +32,7 @@ public class ChangePageMarginsDialog extends JDialog {
 	/**
 	 * The bookPage which is being edited
 	 */
-	private BookPage bookPage;
+	private BookPagesListDataControl bookPagesList;
 	
 	/**
 	 * The preview panel for the page (where the page is shown)
@@ -68,19 +68,19 @@ public class ChangePageMarginsDialog extends JDialog {
 	 * Constructor with a bookPage and an image for the background,
 	 * displays the dialog
 	 * 
-	 * @param bookPage The BookPage to be edited
+	 * @param bookPagesList The BookPage to be edited
 	 * @param background The image to display in the background
 	 */
-	public ChangePageMarginsDialog(BookPage bookPage, Image background) {
+	public ChangePageMarginsDialog(BookPagesListDataControl bookPagesList, Image background) {
 		super();
-		this.bookPage = bookPage;
+		this.bookPagesList = bookPagesList;
 		this.background = background;
 		this.setModalityType(ModalityType.APPLICATION_MODAL);
 		this.setModal(true);
 		this.setLayout(new BorderLayout());
 		this.setTitle(TextConstants.getText("BookPage.MarginDialog"));
 
-		bookPagePreview = new BookPagePreviewPanel(null, bookPage, background);
+		bookPagePreview = new BookPagePreviewPanel(null, bookPagesList.getSelectedPage(), background);
 		this.add(bookPagePreview, BorderLayout.CENTER);
 		
 		createMarginSlider();
@@ -123,12 +123,12 @@ public class ChangePageMarginsDialog extends JDialog {
 	 * Creates the marginBottomSlider
 	 */
 	private void createMarginBottomSlider() {
-		marginBottomSlider = new JSlider(JSlider.VERTICAL, 0, 150, (bookPage!=null)?bookPage.getMarginBottom( ):0);
+		marginBottomSlider = new JSlider(JSlider.VERTICAL, 0, 150, (bookPagesList!=null)?bookPagesList.getSelectedPage().getMarginBottom( ):0);
 		marginBottomSlider.setMajorTickSpacing( 15 );
 		marginBottomSlider.setMinorTickSpacing( 5 );
 		marginBottomSlider.setPaintTicks( true );
 		marginBottomSlider.setPaintLabels( false );
-		marginBottomSlider.setEnabled( bookPage!=null );
+		marginBottomSlider.setEnabled( bookPagesList!=null );
 		marginBottomSlider.addChangeListener( new ChangeListener(){
 			public void stateChanged( ChangeEvent e ) {
 				if(!marginBottomSlider.getValueIsAdjusting( )){
@@ -143,12 +143,12 @@ public class ChangePageMarginsDialog extends JDialog {
 	 * Creates the marginTopSlider
 	 */
 	private void createMarginTopSlider() {
-		marginTopSlider = new JSlider(JSlider.VERTICAL, -150, 0, (bookPage!=null)?-bookPage.getMarginTop( ):0);
+		marginTopSlider = new JSlider(JSlider.VERTICAL, -150, 0, (bookPagesList!=null)?-bookPagesList.getSelectedPage().getMarginTop( ):0);
 		marginTopSlider.setMajorTickSpacing( 15 );
 		marginTopSlider.setMinorTickSpacing( 5 );
 		marginTopSlider.setPaintTicks( true );
 		marginTopSlider.setPaintLabels( false );
-		marginTopSlider.setEnabled( bookPage!=null );
+		marginTopSlider.setEnabled( bookPagesList!=null );
 		marginTopSlider.addChangeListener( new ChangeListener(){
 			public void stateChanged( ChangeEvent e ) {
 				if(!marginTopSlider.getValueIsAdjusting( )){
@@ -163,12 +163,12 @@ public class ChangePageMarginsDialog extends JDialog {
 	 * Creates the marginEndSlider
 	 */
 	private void createMarginEndSlider() {
-		marginEndSlider = new JSlider(JSlider.HORIZONTAL, -150, 0, (bookPage!=null)?-bookPage.getMarginEnd( ):0);
+		marginEndSlider = new JSlider(JSlider.HORIZONTAL, -150, 0, (bookPagesList!=null)?-bookPagesList.getSelectedPage().getMarginEnd( ):0);
 		marginEndSlider.setMajorTickSpacing( 15 );
 		marginEndSlider.setMinorTickSpacing( 5 );
 		marginEndSlider.setPaintTicks( true );
 		marginEndSlider.setPaintLabels( false );
-		marginEndSlider.setEnabled( bookPage!=null );
+		marginEndSlider.setEnabled( bookPagesList!=null );
 		marginEndSlider.addChangeListener( new ChangeListener(){
 			public void stateChanged( ChangeEvent e ) {
 				if(!marginEndSlider.getValueIsAdjusting( )){
@@ -183,12 +183,12 @@ public class ChangePageMarginsDialog extends JDialog {
 	 * Creates the marginSlider
 	 */
 	private void createMarginSlider() {
-		marginSlider = new JSlider(JSlider.HORIZONTAL, 0, 150, (bookPage!=null)?bookPage.getMargin( ):0);
+		marginSlider = new JSlider(JSlider.HORIZONTAL, 0, 150, (bookPagesList!=null)?bookPagesList.getSelectedPage().getMargin( ):0);
 		marginSlider.setMajorTickSpacing( 15 );
 		marginSlider.setMinorTickSpacing( 5 );
 		marginSlider.setPaintTicks( true );
 		marginSlider.setPaintLabels( false );
-		marginSlider.setEnabled( bookPage!=null );
+		marginSlider.setEnabled( bookPagesList!=null );
 		marginSlider.addChangeListener( new ChangeListener(){
 			public void stateChanged( ChangeEvent e ) {
 				if(!marginSlider.getValueIsAdjusting( )){
@@ -203,13 +203,12 @@ public class ChangePageMarginsDialog extends JDialog {
 	 * Method called when one of the margins is modified
 	 */
 	protected void marginChanged() {
-		this.bookPage.setMargin( marginSlider.getValue( ) );
-		this.bookPage.setMarginTop(- marginTopSlider.getValue( ) );
-		this.bookPage.setMarginBottom( marginBottomSlider.getValue( ) );
-		this.bookPage.setMarginEnd(- marginEndSlider.getValue( ) );
+		this.bookPagesList.setMargins( marginSlider.getValue( ), - marginTopSlider.getValue( ) , marginBottomSlider.getValue( ) ,- marginEndSlider.getValue( ) );
+		
 		this.remove(bookPagePreview);
-		bookPagePreview = new BookPagePreviewPanel(null, bookPage, background);
+		bookPagePreview = new BookPagePreviewPanel(null, bookPagesList.getSelectedPage(), background);
 		this.add(bookPagePreview, BorderLayout.CENTER);
+		
 		bookPagePreview.updateUI();
 	}
 

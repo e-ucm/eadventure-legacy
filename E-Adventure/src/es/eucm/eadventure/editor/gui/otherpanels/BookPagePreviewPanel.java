@@ -1,8 +1,6 @@
 package es.eucm.eadventure.editor.gui.otherpanels;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
@@ -12,8 +10,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.JEditorPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -42,11 +38,12 @@ public class BookPagePreviewPanel extends JPanel{
     
     private JEditorPane editorPane;
     
+    private Image image;
+    
     private StyledBookDialog parent;
     
     public BookPagePreviewPanel ( StyledBookDialog parent, BookPage bookPage, Image backgroundImage){
         super();
-        editorPane = new JEditorPane();
         this.parent = parent;
         isValid=true;
         this.bookPage = bookPage;
@@ -54,6 +51,7 @@ public class BookPagePreviewPanel extends JPanel{
         this.addMouseListener(new BookPageMouseListener() );
         URL url = null;
         if (bookPage.getType( ) == BookPage.TYPE_URL){
+            editorPane = new JEditorPane();
             try {
                 url = new URL(bookPage.getUri( ));
                 url.openStream( ).close( );
@@ -63,7 +61,6 @@ public class BookPagePreviewPanel extends JPanel{
             }
             
             try {
-
                 if (isValid){
                 editorPane.setPage( url );
                 editorPane.setEditable( false );
@@ -79,6 +76,7 @@ public class BookPagePreviewPanel extends JPanel{
 
         }
         else if (bookPage.getType( ) == BookPage.TYPE_RESOURCE){
+            editorPane = new JEditorPane();
             url = AssetsController.getResourceAsURLFromZip( bookPage.getUri( ) );
             String ext =url.getFile( ).substring( url.getFile().lastIndexOf( '.' )+1, url.getFile( ).length( ) ).toLowerCase( );
             if (ext.equals( "html" ) || ext.equals( "htm" ) || ext.equals( "rtf" )){
@@ -118,6 +116,10 @@ public class BookPagePreviewPanel extends JPanel{
                 isValid=true;
                 
             }
+        } else if (bookPage.getType() == BookPage.TYPE_IMAGE) {
+            url = AssetsController.getResourceAsURLFromZip( bookPage.getUri( ) );
+            if( bookPage.getUri() != null && bookPage.getUri().length( ) > 0 )
+    			image = AssetsController.getImage( bookPage.getUri() );
         }
         
         if (url==null){
@@ -126,7 +128,12 @@ public class BookPagePreviewPanel extends JPanel{
         }
         
        
+        if (editorPane != null) {
+        	addEditorPane();
+        }
+    }
         
+    private void addEditorPane() {
         editorPane.setOpaque( false );
         //editorPane.setCaret( null );
         editorPane.setEditable( false );
@@ -139,18 +146,18 @@ public class BookPagePreviewPanel extends JPanel{
         this.setLayout(null);
         if ( !bookPage.getScrollable( ) ){
 	    	editorPane.setBounds(bookPage.getMargin(), bookPage.getMarginTop(), GUI.WINDOW_WIDTH - bookPage.getMargin() - bookPage.getMarginEnd(), GUI.WINDOW_HEIGHT - bookPage.getMarginTop() - bookPage.getMarginBottom());
-	    	
-	    	this.add( editorPane/* , BorderLayout.CENTER*/ );
+	    	this.add( editorPane);
         }
 	    else{
 	    	JPanel viewPort = new JPanel(){
-	    	    public void paint (Graphics g){
+				private static final long serialVersionUID = 1L;
+
+				public void paint (Graphics g){
 	    	    	if (background!=null)
 	    	    		g.drawImage( background, 0, 0, background.getWidth(null), background.getHeight(null), null );
 	    	        super.paint( g );
 	    	    }
 	    	};
-//	    	viewPort.setLayout( new BoxLayout(viewPort, BoxLayout.LINE_AXIS) );
 	    	viewPort.setLayout(new BorderLayout());
 	    	viewPort.setOpaque( false );
 	    	
@@ -196,9 +203,7 @@ public class BookPagePreviewPanel extends JPanel{
     public class ProcessHTML{
 
         private String html;
-        
-        private boolean sthBetween;
-        
+                
         private int currentPos;
         
         private int state;
@@ -211,17 +216,12 @@ public class BookPagePreviewPanel extends JPanel{
         private final int STATE_RTQ = 5;
         
         private String reference;
-        
-        private final String[] tokens = new String[]{"<",">","=","\"", "src"};
-        
+                
         public ProcessHTML ( String html ){
             this.html = html;
-            sthBetween = false;
             currentPos = 0;
             state = STATE_NONE;
         }
-        
-        
         
         public String start(){
             state = STATE_NONE;
@@ -305,7 +305,10 @@ public class BookPagePreviewPanel extends JPanel{
     public void paint (Graphics g){
     	if (background!=null && !bookPage.getScrollable( ))
     		g.drawImage( background, 0, 0, background.getWidth(null), background.getHeight(null), null );
-        super.paint(g);
+    	if (this.image != null)
+    		g.drawImage(this.image, bookPage.getMargin(), bookPage.getMarginTop(), GUI.WINDOW_WIDTH - bookPage.getMarginEnd(), GUI.WINDOW_HEIGHT - bookPage.getMarginBottom(), 0, 0, this.image.getWidth(null), this.image.getHeight(null), null);
+        if (editorPane != null)
+        	super.paint(g);
     }
     
     /**
@@ -320,6 +323,8 @@ public class BookPagePreviewPanel extends JPanel{
     		g.drawImage( background, 0, 0, background.getWidth(null), background.getHeight(null), null );
     	if (editorPane != null)
     		editorPane.paint(g.create(bookPage.getMargin(), bookPage.getMarginTop(), GUI.WINDOW_WIDTH - bookPage.getMargin() - bookPage.getMarginEnd(), GUI.WINDOW_HEIGHT - bookPage.getMarginTop() - bookPage.getMarginBottom()));
+    	if (this.image != null)
+    		g.drawImage(this.image, bookPage.getMargin(), bookPage.getMarginTop(), GUI.WINDOW_WIDTH - bookPage.getMarginEnd(), GUI.WINDOW_HEIGHT - bookPage.getMarginBottom(), 0, 0, this.image.getWidth(null), this.image.getHeight(null), null);
     	return image;
     }
 

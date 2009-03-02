@@ -116,12 +116,12 @@ public class BookPagesPanel extends JPanel{
 		infoAndPreview.setResizeWeight(0.5);
 		infoAndPreview.setDividerSize(10);
 		infoAndPreview.setContinuousLayout(true);
-		infoAndPreview.setDividerLocation(280);
+		infoAndPreview.setDividerLocation(320);
 		
 		//JPanel leftPanel = new JPanel();
 		//leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.PAGE_AXIS));
-		pageEditionPanelContainer.setMinimumSize( new Dimension(100,250) );
-		previewPanelContainer.setMinimumSize( new Dimension(100,250) );
+		pageEditionPanelContainer.setMinimumSize( new Dimension(100,300) );
+		previewPanelContainer.setMinimumSize( new Dimension(100,150) );
 		pagesPanel.setMinimumSize( new Dimension (150,0) );
 		// create split pane with two panels: infoAndPreview panel and table
 		splitAndTable = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
@@ -229,9 +229,6 @@ public class BookPagesPanel extends JPanel{
 		pageEditionPanelContainer.updateUI( );
 		previewPanelContainer.updateUI( );
 		previewPanelScroll.updateUI();
-		
-		
-		//previewPanel.updatePreview( );
 	}
 
 	
@@ -400,6 +397,7 @@ public class BookPagesPanel extends JPanel{
 
 	
 	private void addPage(){
+		
 		if (dataControl.getBookPagesList( ).addPage( )!=null){
 			
 			int selectedRow = pagesTable.getSelectedRow( ); 

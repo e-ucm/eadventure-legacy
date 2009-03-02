@@ -28,6 +28,10 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.book.BookDataControl;
 import es.eucm.eadventure.editor.control.controllers.book.BookParagraphDataControl;
+import es.eucm.eadventure.editor.control.tools.books.AddParagraphElementTool;
+import es.eucm.eadventure.editor.control.tools.books.DeleteParagraphElementTool;
+import es.eucm.eadventure.editor.control.tools.books.MoveParagraphElementDownTool;
+import es.eucm.eadventure.editor.control.tools.books.MoveParagraphElementUpTool;
 import es.eucm.eadventure.editor.gui.otherpanels.imagepanels.BookImagePanel;
 
 public class BookParagraphsPanel extends JPanel{
@@ -332,28 +336,28 @@ public class BookParagraphsPanel extends JPanel{
 	
 	private void delete( ) {
 		BookParagraphDataControl paragraph = dataControl.getBookParagraphsList( ).getBookParagraphs( ).get( paragraphsTable.getSelectedRow( ) );
-		if (dataControl.getBookParagraphsList( ).deleteElement( paragraph, true )){
-			paragraphsTable.clearSelection( );
-			paragraphsTable.updateUI( );
-		}
+		Controller.getInstance().addTool(new DeleteParagraphElementTool(dataControl, paragraph));
+		paragraphsTable.clearSelection( );
+		paragraphsTable.updateUI( );
 	}
 
 	private void moveUp(){
 		int selectedRow = paragraphsTable.getSelectedRow( );
 		BookParagraphDataControl paragraph = dataControl.getBookParagraphsList( ).getBookParagraphs( ).get( selectedRow );
-		if (dataControl.getBookParagraphsList( ).moveElementUp( paragraph )){
-			paragraphsTable.getSelectionModel( ).setSelectionInterval( selectedRow-1, selectedRow-1 );
-			paragraphsTable.updateUI( );
-		}
+		Controller.getInstance().addTool(new MoveParagraphElementUpTool(dataControl, paragraph));
+
+		paragraphsTable.getSelectionModel( ).setSelectionInterval( selectedRow-1, selectedRow-1 );
+		paragraphsTable.updateUI( );
+
 	}
 	
 	private void moveDown(){
 		int selectedRow = paragraphsTable.getSelectedRow( );
 		BookParagraphDataControl paragraph = dataControl.getBookParagraphsList( ).getBookParagraphs( ).get( selectedRow );
-		if (dataControl.getBookParagraphsList( ).moveElementDown( paragraph )){
-			paragraphsTable.getSelectionModel( ).setSelectionInterval( selectedRow+1, selectedRow+1 );
-			paragraphsTable.updateUI( );
-		}
+		Controller.getInstance().addTool(new MoveParagraphElementDownTool(dataControl, paragraph));
+
+		paragraphsTable.getSelectionModel( ).setSelectionInterval( selectedRow+1, selectedRow+1 );
+		paragraphsTable.updateUI( );
 	}
 	/**
 	 * This class is the action listener for the add buttons of the popup menus.
@@ -381,25 +385,17 @@ public class BookParagraphsPanel extends JPanel{
 		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 		 */
 		public void actionPerformed( ActionEvent e ) {
-			if (dataControl.getBookParagraphsList( ).addElement( type )){
+			
+			int selectedRow = paragraphsTable.getSelectedRow( ); 
+			
+			Controller.getInstance().addTool(new AddParagraphElementTool(dataControl, type, selectedRow));
+
+			paragraphsTable.clearSelection( );
+			if (selectedRow != -1 && selectedRow < dataControl.getBookParagraphsList().getBookParagraphs().size() - 1)
+				paragraphsTable.getSelectionModel( ).setSelectionInterval( selectedRow+1, selectedRow+1 );
 				
-				int selectedRow = paragraphsTable.getSelectedRow( ); 
-				//If a row is selected, move the new paragraph up until it is under the selected one
-				if (selectedRow>=0 && selectedRow<paragraphsTable.getRowCount( )){
-					
-					//We need size-2-selectedRow movements
-					BookParagraphDataControl newParagraph = dataControl.getBookParagraphsList( ).getLastBookParagraph( );
-					for (int i=0; i<paragraphsTable.getRowCount( )-2-paragraphsTable.getSelectedRow( ); i++){
-						dataControl.getBookParagraphsList( ).moveElementUp( newParagraph );
-					}
-					
-					//Set the new paragraph selected
-					paragraphsTable.clearSelection( );
-					paragraphsTable.getSelectionModel( ).setSelectionInterval( selectedRow+1, selectedRow+1 );
-				} 
-				
-				paragraphsTable.updateUI( );
-			}
+			paragraphsTable.updateUI( );
+			
 		}
 	}
 
