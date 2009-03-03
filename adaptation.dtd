@@ -1,4 +1,8 @@
 <!ELEMENT adaptation (initial-state?, adaptation-rule*)>
+<!ATTLIST adaptation
+	scorm12 (yes|no) "no"
+	scorm2004 (yes|no) "no"
+>
 <!ELEMENT initial-state (initial-scene?, (activate | deactivate | set-value)*)>
 <!ELEMENT adaptation-rule (description, uol-state, game-state)>
 <!ELEMENT description (#PCDATA)>
