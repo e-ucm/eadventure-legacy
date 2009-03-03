@@ -1209,7 +1209,10 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="Player.LookPanelTip">Panel for the edition of the different appearances of the player </entry>
 	<entry key="Player.DocPanelTitle">Documentation</entry>
 	<entry key="Player.DocPanelTip">Panel for the edition of the documentation of the player, including description, name and speech-text configuration </entry>
-
+	<entry key="Player.ShowsSpeechBubble">Shows speech bubble</entry>
+	<entry key="Player.BubbleBkgColor">Bubble background color</entry>
+	<entry key="Player.BubbleBorderColor">Bubble border color</entry>
+	
 	<entry key="NPCsList.Title">Characters</entry>
 	<entry key="NPCsList.ListTitle">List of characters</entry>
 	<entry key="NPCsList.Information">The characters take a very important role in every adventure. They can strike up conversations with the player, offering information or advice. They can interact with items also, receiving or giving items to the player.</entry>

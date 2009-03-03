@@ -153,6 +153,17 @@ public class CharacterSubParser extends SubParser {
 				if( qName.equals( "bordercolor" ) )
 					npc.setTextBorderColor( color );
 			}
+			
+			else if ( qName.equals( "textcolor") ) {
+				for (int i = 0; i < attrs.getLength(); i++) {
+					if (attrs.getQName(i).equals("showsSpeechBubble"))
+						npc.setShowsSpeechBubbles(attrs.getValue(i).equals("yes"));
+					if (attrs.getQName(i).equals("bubbleBkgColor"))
+						npc.setBubbleBkgColor( attrs.getValue(i));
+					if (attrs.getQName(i).equals("bubbleBorderColor"))
+						npc.setBubbleBorderColor( attrs.getValue(i));
+				}
+			}
 
 			// If it is a conversation reference tag, store the destination id, and switch the element being parsed
 			else if( qName.equals( "conversation-ref" ) ) {

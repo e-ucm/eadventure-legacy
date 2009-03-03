@@ -84,7 +84,10 @@ public class FunctionalGrab extends FunctionalAction {
         	if (!canGrab) {
                 finished = true;
                 functionalPlayer.popAnimation();
-        		functionalPlayer.speak( GameText.getTextGrabCannot( ) );
+                if (functionalPlayer.isAlwaysSynthesizer())
+                	functionalPlayer.speakWithFreeTTS( GameText.getTextGrabCannot(), functionalPlayer.getPlayerVoice());
+                else
+                	functionalPlayer.speak( GameText.getTextGrabCannot( ) );
         	}
         } else if( !finished && totalTime > 1000 ) {
             finished = true;

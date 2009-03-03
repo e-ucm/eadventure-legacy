@@ -109,12 +109,20 @@ public class FunctionalCustom extends FunctionalAction {
             
             if (element instanceof FunctionalItem) {
             	FunctionalItem item = (FunctionalItem) element;
-	            if( !item.custom(actionName) )
-	                functionalPlayer.speak( GameText.getTextCustomCannot( ) );
+	            if( !item.custom(actionName) ) {
+	                if (functionalPlayer.isAlwaysSynthesizer())
+	                	functionalPlayer.speakWithFreeTTS(GameText.getTextCustomCannot(), functionalPlayer.getPlayerVoice());
+	                else
+	                	functionalPlayer.speak( GameText.getTextCustomCannot( ) );
+	            }
             } else if (element instanceof FunctionalNPC) {
             	FunctionalNPC npc = (FunctionalNPC) element;
-            	if (!npc.custom(actionName))
-            		functionalPlayer.speak( GameText.getTextCustomCannot());
+            	if (!npc.custom(actionName)) {
+            		if (functionalPlayer.isAlwaysSynthesizer())
+            			functionalPlayer.speakWithFreeTTS(GameText.getTextCustomCannot(), functionalPlayer.getPlayerVoice());
+            		else
+            			functionalPlayer.speak( GameText.getTextCustomCannot());
+            	}
             }
         }
 

@@ -5,6 +5,7 @@ import java.awt.AlphaComposite;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Composite;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FontMetrics;
@@ -360,7 +361,7 @@ public abstract class GUI implements FocusListener {
     
     /**
      * Draw the text array with a border, given the lower-middle position of the text
-     * @param g Graphics2D where make the painting
+     * @param g Graphics2D where to draw
      * @param strings String[] of Strings to be drawn
      * @param x Int coordinate of the middle of the string to be drawn
      * @param y Int coordinate of the bottom of the string to be drawn
@@ -371,7 +372,7 @@ public abstract class GUI implements FocusListener {
         //Calculate the total height of the block text
         FontMetrics fontMetrics = g.getFontMetrics( );
         int textBlockHeight = fontMetrics.getHeight( ) * strings.length - fontMetrics.getLeading( );
-        
+
         // This is the y lower position of the first line
         int realY = y - textBlockHeight + fontMetrics.getAscent( );
         
@@ -380,6 +381,51 @@ public abstract class GUI implements FocusListener {
             drawStringOnto( g, line, x, realY, true, textColor, borderColor, true );
             realY += fontMetrics.getHeight();
         }
+    }
+    
+    /**
+     * Draw the text array with a border, given the lower-middle position of the text with a
+     * speech bubble of the given colors as background
+     * 
+     * @param g Graphics2D where to draw
+     * @param strings String[] of the strings to be drawn
+     * @param x int coordinate of the middle of the string to be drawn
+     * @param y int coordinate of the bottom of the string to be drawn
+     * @param textColor Color of the text
+     * @param borderColor Color of the border of the text
+     * @param bkgColor Color of the background of the bubble
+     * @param bubbleBorder Color of the border of the bubble
+     */
+    public static void drawStringOnto( Graphics2D g, String[] strings, int x, int y, Color textColor, Color borderColor, Color bkgColor, Color bubbleBorder) {
+        FontMetrics fontMetrics = g.getFontMetrics( );
+        int textBlockHeight = fontMetrics.getHeight( ) * strings.length - fontMetrics.getLeading( );
+
+        int maxWidth = 25;
+        for (String line : strings)
+        	maxWidth = (fontMetrics.stringWidth(line) > maxWidth ? (int) fontMetrics.stringWidth(line) : maxWidth);
+
+        AlphaComposite alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.8f);
+		Composite temp = g.getComposite();
+		g.setComposite(alphaComposite);
+        g.setColor(bkgColor);
+        g.fillRoundRect(x - maxWidth / 2 - 5, y - textBlockHeight - 5, maxWidth + 10, textBlockHeight + 10, 20, 20);
+
+        g.setComposite(temp);
+        g.setColor(bubbleBorder);
+        g.drawRoundRect(x - maxWidth / 2 - 5, y - textBlockHeight - 5, maxWidth + 10, textBlockHeight + 10, 20, 20);
+        
+		g.setComposite(alphaComposite);        
+        g.setColor(bkgColor);
+        int x_p[] = new int[]{x - 10, x + 10, x};
+        int y_p[] = new int[]{y + 5, y + 5, y + 15};
+        g.fillPolygon(x_p, y_p, 3);
+
+        g.setComposite(temp);    	
+        g.setColor(bubbleBorder);
+        g.drawLine(x_p[0], y_p[0], x_p[2], y_p[2]);
+        g.drawLine(x_p[1], y_p[1], x_p[2], y_p[2]);
+
+        drawStringOnto(g, strings, x, y, textColor, borderColor);
     }
     
     /**
@@ -813,8 +859,8 @@ public abstract class GUI implements FocusListener {
         boolean added = false;
         int i=0;
         Text text = new Text(string, x, y, textColor, borderColor);
-        while(!added && i<textToDraw.size()){
-            if(y <= textToDraw.get(i).getY() ){
+        while(!added && i < textToDraw.size()) {
+            if(y <= textToDraw.get(i).getY() ) {
                 textToDraw.add(i, text);
                 added = true;
             }
@@ -823,7 +869,32 @@ public abstract class GUI implements FocusListener {
         if(!added)
             textToDraw.add(text);
     }
-    
+
+    /**
+     * Adds the string to the array text buffer sorted by its Y coordinate
+     * @param string Array string
+     * @param x X coordinate
+     * @param y Y coordinate
+     * @param textColor Color of the string
+     * @param borderColor Color if the border of the string
+     * @param bubbleBkgColor Color of the bubbles background
+     * @param bubbleBorderColor Color of the bubbles border
+     */
+    public void addTextToDraw(String[] string, int x, int y, Color textColor, Color borderColor, Color bubbleBkgColor, Color bubbleBorderColor){
+        boolean added = false;
+        int i=0;
+        Text text = new Text(string, x, y, textColor, borderColor, bubbleBkgColor, bubbleBorderColor);
+        while(!added && i < textToDraw.size()) {
+            if(y <= textToDraw.get(i).getY() ) {
+                textToDraw.add(i, text);
+                added = true;
+            }
+            i++;
+        }
+        if(!added)
+            textToDraw.add(text);
+    }
+
     /**
      * Background class that store the image of the background and a screen offset
      */
@@ -967,6 +1038,12 @@ public abstract class GUI implements FocusListener {
          */
         private Color borderColor;
         
+        private Color bubbleBkgColor;
+        
+        private Color bubbleBorderColor;
+        
+        private boolean showBubble = false;
+        
         /**
          * Constructor of the class
          * @param text Array string
@@ -982,13 +1059,35 @@ public abstract class GUI implements FocusListener {
             this.textColor = textColor;
             this.borderColor = borderColor;
         }
-        
+
+        /**
+         * Constructor of the class
+         * @param text Array string
+         * @param x X coordinate
+         * @param y Y coordinate
+         * @param textColor Color of the text
+         * @param borderColor Color of the borde of the text
+         */
+        public Text(String[] text, int x, int y, Color textColor, Color borderColor, Color bubbleBkgColor, Color bubbleBorderColor){
+            this.text = text;
+            this.x = x;
+            this.y = y;
+            this.textColor = textColor;
+            this.borderColor = borderColor;
+            this.showBubble = true;
+            this.bubbleBkgColor = bubbleBkgColor;
+            this.bubbleBorderColor = bubbleBorderColor;
+        }
+
         /**
          * Draw the text onto the position
          * @param g Graphics2D to draw the text
          */
         public void draw(Graphics2D g){
-            GUI.drawStringOnto(g, text, x, y, textColor, borderColor);
+        	if (showBubble)
+        		GUI.drawStringOnto(g, text, x, y, textColor, borderColor, bubbleBkgColor, bubbleBorderColor);
+        	else
+        		GUI.drawStringOnto(g, text, x, y, textColor, borderColor);
         }
         
         /**

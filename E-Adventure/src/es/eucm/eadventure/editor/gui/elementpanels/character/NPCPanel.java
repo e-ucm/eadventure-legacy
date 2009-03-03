@@ -110,6 +110,12 @@ public class NPCPanel extends JPanel implements Updateable {
 	
 	private String[] checkVoices; 
 
+	private JButton bubbleBkgButton;
+	
+	private JButton bubbleBorderButton;
+	
+	private JCheckBox showsSpeechBubbles;
+
 
 	/**
 	 * Constructor.
@@ -117,14 +123,14 @@ public class NPCPanel extends JPanel implements Updateable {
 	 * @param playerDataControl
 	 *            Player controller
 	 */
-	public NPCPanel( NPCDataControl npcDataControl ) {
+	public NPCPanel( NPCDataControl npcDataControl2 ) {
 		// Create the doc panel and layout
 		docPanel = new JPanel( );
 		docPanel.setLayout( new GridBagLayout( ) );
 		GridBagConstraints cDoc = new GridBagConstraints( );
 
 		// Set the controller
-		this.npcDataControl = npcDataControl;
+		this.npcDataControl = npcDataControl2;
 
 		// Set the layout
 		setLayout( new BorderLayout( ) );
@@ -147,17 +153,7 @@ public class NPCPanel extends JPanel implements Updateable {
 
 		// Create the field for the text color
 		cDoc.gridy = 1;
-		JPanel textColorPanel = new JPanel( );
-		textColorPanel.setLayout( new GridLayout( 3, 1, 4, 4 ) );
-		textPreviewPanel = new TextPreviewPanel( npcDataControl.getTextFrontColor( ), npcDataControl.getTextBorderColor( ) );
-		textColorPanel.add( textPreviewPanel );
-		JButton frontColorButton = new JButton( TextConstants.getText( "NPC.FrontColor" ) );
-		frontColorButton.addActionListener( new ChangeTextColorListener( ChangeTextColorListener.FRONT_COLOR ) );
-		textColorPanel.add( frontColorButton );
-		JButton borderColorButton = new JButton( TextConstants.getText( "NPC.BorderColor" ) );
-		borderColorButton.addActionListener( new ChangeTextColorListener( ChangeTextColorListener.BORDER_COLOR ) );
-		textColorPanel.add( borderColorButton );
-		textColorPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "NPC.TextColor" ) ) );
+		JPanel textColorPanel = createTextColorPanel();
 		docPanel.add( textColorPanel, cDoc );
 
 		// Create the field for the name
@@ -274,6 +270,63 @@ public class NPCPanel extends JPanel implements Updateable {
 		return voiceName;
 	}
 	
+	private JPanel createTextColorPanel() {
+		JPanel textColorPanel = new JPanel( );
+		textColorPanel.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 0;
+		c.weightx = 1.0;
+		c.weighty = 0.1;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		
+		showsSpeechBubbles = new JCheckBox(TextConstants.getText( "Player.ShowsSpeechBubble" ));
+		textColorPanel.add(showsSpeechBubbles, c);
+		showsSpeechBubbles.setSelected( npcDataControl.getShowsSpeechBubbles() );
+		showsSpeechBubbles.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				if (showsSpeechBubbles.isSelected() != npcDataControl.getShowsSpeechBubbles()) {
+					npcDataControl.setShowsSpeechBubbles(showsSpeechBubbles.isSelected());
+					if (bubbleBkgButton != null && bubbleBorderButton != null) {
+						bubbleBkgButton.setEnabled(npcDataControl.getShowsSpeechBubbles());
+						bubbleBorderButton.setEnabled(npcDataControl.getShowsSpeechBubbles());
+					}
+					if (textPreviewPanel != null) {
+						textPreviewPanel.setShowsSpeechBubbles(showsSpeechBubbles.isSelected());
+					}
+					
+				}
+			}
+		});
+		textPreviewPanel = new TextPreviewPanel( npcDataControl.getTextFrontColor( ), npcDataControl.getTextBorderColor( ) , npcDataControl.getShowsSpeechBubbles(), npcDataControl.getBubbleBkgColor(), npcDataControl.getBubbleBorderColor());
+		c.gridy++;
+		c.weighty = 1.0;
+		c.ipady = 40;
+		textColorPanel.add( textPreviewPanel, c );
+		JButton frontColorButton = new JButton( TextConstants.getText( "NPC.FrontColor" ) );
+		frontColorButton.addActionListener( new ChangeTextColorListener( ChangeTextColorListener.FRONT_COLOR ) );
+		c.gridy++;
+		c.ipady = 0;
+		c.weighty = 0.1;
+		textColorPanel.add( frontColorButton,c );
+		JButton borderColorButton = new JButton( TextConstants.getText( "NPC.BorderColor" ) );
+		borderColorButton.addActionListener( new ChangeTextColorListener( ChangeTextColorListener.BORDER_COLOR ) );
+		c.gridy++;
+		textColorPanel.add( borderColorButton, c );
+		bubbleBkgButton = new JButton( TextConstants.getText( "Player.BubbleBkgColor" ));
+		bubbleBkgButton.addActionListener( new ChangeTextColorListener( ChangeTextColorListener.BUBBLEBKG_COLOR ));
+		c.gridy++;
+		textColorPanel.add(bubbleBkgButton,c);
+		bubbleBkgButton.setEnabled(npcDataControl.getShowsSpeechBubbles());
+		bubbleBorderButton = new JButton( TextConstants.getText( "Player.BubbleBorderColor" ));
+		bubbleBorderButton.addActionListener( new ChangeTextColorListener( ChangeTextColorListener.BUBBLEBORDER_COLOR ));
+		c.gridy++;
+		textColorPanel.add(bubbleBorderButton, c);
+		bubbleBorderButton.setEnabled(npcDataControl.getShowsSpeechBubbles());
+		textColorPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "NPC.TextColor" ) ) );
+		return textColorPanel;
+	}
+	
 	/**
 	 * Called when the demo synthesizer button has been pressed
 	 */
@@ -330,17 +383,18 @@ public class NPCPanel extends JPanel implements Updateable {
 		/**
 		 * Constant for front color.
 		 */
-		public static final boolean FRONT_COLOR = true;
+		public static final int FRONT_COLOR = 0;
 
 		/**
 		 * Constant for border color.
 		 */
-		public static final boolean BORDER_COLOR = false;
-
-		/**
-		 * True if the front color must change, false if the border color must change.
-		 */
-		private boolean frontColor;
+		public static final int BORDER_COLOR = 1;
+		
+		public static final int BUBBLEBKG_COLOR = 2;
+		
+		public static final int BUBBLEBORDER_COLOR = 3;
+		
+		private int color;
 
 		/**
 		 * Color chooser.
@@ -358,14 +412,14 @@ public class NPCPanel extends JPanel implements Updateable {
 		 * @param frontColor
 		 *            Whether the front or border color must be changed
 		 */
-		public ChangeTextColorListener( boolean frontColor ) {
-			this.frontColor = frontColor;
+		public ChangeTextColorListener( int color ) {
+			this.color = color;
 
 			// Create the color chooser
 			colorChooser = new JColorChooser( );
 
 			// Create and add the preview panel, attaching it to the color chooser
-			colorPreviewPanel = new TextPreviewPanel( npcDataControl.getTextFrontColor( ), npcDataControl.getTextBorderColor( ) );
+			colorPreviewPanel = new TextPreviewPanel( npcDataControl.getTextFrontColor( ), npcDataControl.getTextBorderColor( ), npcDataControl.getShowsSpeechBubbles(), npcDataControl.getBubbleBkgColor(), npcDataControl.getBubbleBorderColor() );
 			colorPreviewPanel.setPreferredSize( new Dimension( 400, 40 ) );
 			colorPreviewPanel.setBorder( BorderFactory.createEmptyBorder( 1, 1, 1, 1 ) );
 			colorChooser.setPreviewPanel( colorPreviewPanel );
@@ -379,12 +433,28 @@ public class NPCPanel extends JPanel implements Updateable {
 		 */
 		public void actionPerformed( ActionEvent e ) {
 			// Update the color on the color chooser and the preview panel
-			colorChooser.setColor( frontColor ? npcDataControl.getTextFrontColor( ) : npcDataControl.getTextBorderColor( ) );
-			colorPreviewPanel.setTextFrontColot( npcDataControl.getTextFrontColor( ) );
+			if (color == FRONT_COLOR)
+				colorChooser.setColor(npcDataControl.getTextFrontColor());
+			else if (color == BORDER_COLOR)
+				colorChooser.setColor(npcDataControl.getTextBorderColor());
+			else if (color == BUBBLEBKG_COLOR)
+				colorChooser.setColor(npcDataControl.getBubbleBkgColor());
+			else if (color == BUBBLEBORDER_COLOR)
+				colorChooser.setColor(npcDataControl.getBubbleBorderColor());
+			
+			colorPreviewPanel.setTextFrontColor( npcDataControl.getTextFrontColor( ) );
 			colorPreviewPanel.setTextBorderColor( npcDataControl.getTextBorderColor( ) );
 
 			// Create and show the dialog
-			JDialog colorDialog = JColorChooser.createDialog( null, TextConstants.getText( frontColor ? "NPC.FrontColor" : "NPC.BorderColor" ), true, colorChooser, new UpdateColorListener( ), null );
+			JDialog colorDialog = null;
+			if (color == FRONT_COLOR)
+				colorDialog = JColorChooser.createDialog( null, TextConstants.getText("Player.FrontColor"), true, colorChooser, new UpdateColorListener( ), null );
+			else if (color == BORDER_COLOR)
+				colorDialog = JColorChooser.createDialog( null, TextConstants.getText("Player.BorderColor"), true, colorChooser, new UpdateColorListener( ), null );
+			else if (color == BUBBLEBKG_COLOR)
+				colorDialog = JColorChooser.createDialog( null, TextConstants.getText("Player.BubbleBkgColor"), true, colorChooser, new UpdateColorListener( ), null );
+			else if (color == BUBBLEBORDER_COLOR)
+				colorDialog = JColorChooser.createDialog( null, TextConstants.getText("Player.BubbleBorderColor"), true, colorChooser, new UpdateColorListener( ), null );
 			colorDialog.setResizable( false );
 			colorDialog.setVisible( true );
 		}
@@ -393,14 +463,26 @@ public class NPCPanel extends JPanel implements Updateable {
 		 * Listener for the "Acept" button of the color chooser dialog.
 		 */
 		private class UpdateColorListener implements ActionListener {
+
+			/*
+			 * (non-Javadoc)
+			 * 
+			 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+			 */
 			public void actionPerformed( ActionEvent e ) {
 				// Update the text color
-				if( frontColor ) {
+				if( color == FRONT_COLOR ) {
 					npcDataControl.setTextFrontColor( colorChooser.getColor( ) );
-					textPreviewPanel.setTextFrontColot( colorChooser.getColor( ) );
-				} else {
+					textPreviewPanel.setTextFrontColor( colorChooser.getColor( ) );
+				} else if (color == BORDER_COLOR){
 					npcDataControl.setTextBorderColor( colorChooser.getColor( ) );
 					textPreviewPanel.setTextBorderColor( colorChooser.getColor( ) );
+				} else if (color == BUBBLEBKG_COLOR) {
+					npcDataControl.setBubbleBkgColor( colorChooser.getColor() );
+					textPreviewPanel.setBubbleBkgColor( colorChooser.getColor() );
+				} else if (color == BUBBLEBORDER_COLOR) {
+					npcDataControl.setBubbleBorderColor( colorChooser.getColor() );
+					textPreviewPanel.setBubbleBorderColor( colorChooser.getColor() );
 				}
 			}
 		}
@@ -409,11 +491,21 @@ public class NPCPanel extends JPanel implements Updateable {
 		 * Listener for the color preview panel.
 		 */
 		private class UpdatePreviewPanelListener implements ChangeListener {
+
+			/*
+			 * (non-Javadoc)
+			 * 
+			 * @see javax.swing.event.ChangeListener#stateChanged(javax.swing.event.ChangeEvent)
+			 */
 			public void stateChanged( ChangeEvent e ) {
-				if( frontColor )
-					colorPreviewPanel.setTextFrontColot( colorChooser.getColor( ) );
-				else
+				if( color == FRONT_COLOR )
+					colorPreviewPanel.setTextFrontColor( colorChooser.getColor( ) );
+				else if ( color == BORDER_COLOR )
 					colorPreviewPanel.setTextBorderColor( colorChooser.getColor( ) );
+				else if ( color == BUBBLEBKG_COLOR )
+					colorPreviewPanel.setBubbleBkgColor( colorChooser.getColor() );
+				else if ( color == BUBBLEBORDER_COLOR )
+					colorPreviewPanel.setBubbleBorderColor( colorChooser.getColor() );
 			}
 		}
 	}
@@ -546,6 +638,14 @@ public class NPCPanel extends JPanel implements Updateable {
 		this.detailedDescriptionTextField.setText(npcDataControl.getDetailedDescription());
 		this.documentationTextArea.setText(npcDataControl.getDocumentation());
 		this.nameTextField.setText(npcDataControl.getName());
+		this.showsSpeechBubbles.setSelected(npcDataControl.getShowsSpeechBubbles());
+		this.bubbleBkgButton.setEnabled(npcDataControl.getShowsSpeechBubbles());
+		this.bubbleBorderButton.setEnabled(npcDataControl.getShowsSpeechBubbles());
+		this.textPreviewPanel.setBubbleBkgColor(npcDataControl.getBubbleBkgColor());
+		this.textPreviewPanel.setBubbleBorderColor(npcDataControl.getBubbleBorderColor());
+		this.textPreviewPanel.setTextBorderColor(npcDataControl.getTextBorderColor());
+		this.textPreviewPanel.setTextFrontColor(npcDataControl.getTextFrontColor());
+		this.textPreviewPanel.setShowsSpeechBubbles(npcDataControl.getShowsSpeechBubbles());
 		this.textPreviewPanel.updateUI();
 		if (npcDataControl.getNPCVoice() != null){
 			for (int i =1; i<checkVoices.length;i++)

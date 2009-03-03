@@ -76,6 +76,10 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
      */
     private Color textBorderColor;
     
+    private Color bubbleBkgColor;
+    
+    private Color bubbleBorderColor;
+    
     /**
      * Resources being used by the character
      */
@@ -149,6 +153,8 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
 
         textFrontColor = generateColor( player.getTextFrontColor( ) );
         textBorderColor = generateColor( player.getTextBorderColor( ) );
+        bubbleBkgColor = generateColor( player.getBubbleBkgColor() );
+        bubbleBorderColor = generateColor( player.getBubbleBorderColor() );
     }
 
     
@@ -302,10 +308,18 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
     		    	cancelActions();
     				nextAction = new FunctionalGive(null, element);
     				game.getActionManager( ).setActionSelected( ActionManager.ACTION_GIVE_TO );
-    			} else
-    				speak( GameText.getTextGiveObjectNotInventory( ) );
-    		} else
-    			speak( GameText.getTextGiveNPC( ) );
+    			} else {
+    				if (player.isAlwaysSynthesizer())
+    					speakWithFreeTTS( GameText.getTextGiveObjectNotInventory(), player.getVoice());
+    				else
+    					speak( GameText.getTextGiveObjectNotInventory( ) );
+    			}
+    		} else {
+    			if (player.isAlwaysSynthesizer())
+    				speakWithFreeTTS( GameText.getTextGiveNPC(), player.getVoice());
+    			else
+    				speak( GameText.getTextGiveNPC( ) );
+    		}
     		break;
     	case ActionManager.ACTION_GIVE_TO:
     		if( element.canPerform( actionSelected ) ) {
@@ -502,16 +516,11 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
      */
     public void speakWithFreeTTS(String text, String voice){
         if (text!=null){
-        	DebugLog.player("Player speaks with text-to-speach");
+        	DebugLog.player("Player speaks with text-to-speech");
         	FunctionalSpeak functionalSpeak = new FunctionalSpeak(null, text);
         	functionalSpeak.setSpeakFreeTTS(text, voice);
         	addAction(functionalSpeak);
         }
-        //TODO old code, left because of the "draw()" call, maybe the new code
-        //   causes problems
-//    	speak(text);
- //   	draw();
-  //  	talkingAnimation.setSpeakFreeTTS(text, voice);  
     }
     
     public void dealocateTTS(){
@@ -698,6 +707,21 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
 	@Override
 	public InfluenceArea getInfluenceArea() {
 		return null;
+	}
+
+	@Override
+	public Color getBubbleBkgColor() {
+		return bubbleBkgColor;
+	}
+
+	@Override
+	public Color getBubbleBorderColor() {
+		return bubbleBorderColor;
+	}
+
+	@Override
+	public boolean getShowsSpeechBubbles() {
+		return player.getShowsSpeechBubbles();
 	}
 
 }

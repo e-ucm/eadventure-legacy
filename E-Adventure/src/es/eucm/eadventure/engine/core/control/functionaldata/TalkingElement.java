@@ -1,5 +1,7 @@
 package es.eucm.eadventure.engine.core.control.functionaldata;
 
+import java.awt.Color;
+
 /**
  * Interface for all talking characters
  */
@@ -41,4 +43,10 @@ public interface TalkingElement {
      * @return true if the character is talking, false otherwise
      */
     public boolean isTalking( );
+    
+    public boolean getShowsSpeechBubbles();
+    
+    public Color getBubbleBkgColor();
+    
+    public Color getBubbleBorderColor();
 }

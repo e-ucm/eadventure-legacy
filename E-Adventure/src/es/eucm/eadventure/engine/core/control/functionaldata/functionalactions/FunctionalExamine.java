@@ -34,8 +34,12 @@ public class FunctionalExamine extends FunctionalAction {
 	@Override
 	public void start(FunctionalPlayer functionalPlayer) {
 		this.functionalPlayer = functionalPlayer;
-		if( !element.examine( ) ) 
-			functionalPlayer.speak( element.getElement( ).getDetailedDescription( ) );
+		if( !element.examine( ) )  {
+			if (functionalPlayer.isAlwaysSynthesizer())
+				functionalPlayer.speakWithFreeTTS( element.getElement().getDetailedDescription(), functionalPlayer.getPlayerVoice());
+			else
+				functionalPlayer.speak( element.getElement( ).getDetailedDescription( ) );
+		}
 		finished = true;
 		
 		DebugLog.player("Started Examine: " + element.getElement().getId());

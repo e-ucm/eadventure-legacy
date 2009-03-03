@@ -29,6 +29,12 @@ public class TextPreviewPanel extends JPanel {
 	 * Color of the border of the text.
 	 */
 	private Color textBorderColor;
+	
+	private boolean speechBubble;
+	
+	private Color bubbleBkgColor;
+	
+	private Color bubbleBorderColor;
 
 	/**
 	 * Constructor.
@@ -38,9 +44,12 @@ public class TextPreviewPanel extends JPanel {
 	 * @param textBorderColor
 	 *            Border text color
 	 */
-	public TextPreviewPanel( Color textFrontColor, Color textBorderColor ) {
+	public TextPreviewPanel( Color textFrontColor, Color textBorderColor, boolean speechBubble, Color bubbleBkgColor, Color bubbleBorderColor) {
 		this.textFrontColor = textFrontColor;
 		this.textBorderColor = textBorderColor;
+		this.speechBubble = speechBubble;
+		this.bubbleBkgColor = bubbleBkgColor;
+		this.bubbleBorderColor = bubbleBorderColor;
 	}
 
 	/**
@@ -49,7 +58,7 @@ public class TextPreviewPanel extends JPanel {
 	 * @param textFrontColor
 	 *            Front text color
 	 */
-	public void setTextFrontColot( Color textFrontColor ) {
+	public void setTextFrontColor( Color textFrontColor ) {
 		this.textFrontColor = textFrontColor;
 		repaint( );
 	}
@@ -64,6 +73,16 @@ public class TextPreviewPanel extends JPanel {
 		this.textBorderColor = textBorderColor;
 		repaint( );
 	}
+	
+	public void setBubbleBkgColor( Color bubbleBkgColor) {
+		this.bubbleBkgColor = bubbleBkgColor;
+		repaint();
+	}
+	
+	public void setBubbleBorderColor( Color bubbleBorderColor ) {
+		this.bubbleBorderColor = bubbleBorderColor;
+		repaint();
+	}
 
 	@Override
 	public void paint( Graphics g ) {
@@ -75,8 +94,21 @@ public class TextPreviewPanel extends JPanel {
 		// Calculate the position to paint
 		g.setFont( g.getFont( ).deriveFont( 18.0f ) );
 		FontMetrics fontMetrics = g.getFontMetrics( );
+		
 		int x = ( getWidth( ) / 2 ) - ( fontMetrics.stringWidth( displayText ) / 2 );
 		int y = ( getHeight( ) / 2 ) + ( fontMetrics.getAscent( ) / 2 );
+		
+        int textBlockHeight = fontMetrics.getHeight( ) - fontMetrics.getLeading( );
+
+		if (speechBubble) {
+	        int maxWidth = fontMetrics.stringWidth(displayText);
+	        g.setColor(bubbleBkgColor);
+	        g.fillRoundRect(getWidth() / 2 - maxWidth / 2 - 5, y - textBlockHeight - 5, maxWidth + 10, textBlockHeight + 10, 20, 20);
+	        g.setColor(bubbleBorderColor);
+	        g.drawRoundRect(getWidth() / 2 - maxWidth / 2 - 5, y - textBlockHeight - 5, maxWidth + 10, textBlockHeight + 10, 20, 20);
+	        g.setColor(bubbleBkgColor);
+		}
+		
 
 		// Draw the border of the text
 		g.setColor( textBorderColor );
@@ -88,5 +120,10 @@ public class TextPreviewPanel extends JPanel {
 		// Draw the text
 		g.setColor( textFrontColor );
 		g.drawString( displayText, x, y );
+	}
+
+	public void setShowsSpeechBubbles(boolean selected) {
+		this.speechBubble = selected;
+		repaint();
 	}
 }

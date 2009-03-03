@@ -67,7 +67,10 @@ public class FunctionalTalk extends FunctionalAction {
         	}
             finished = false;
         } else {
-            functionalPlayer.speak( GameText.getTextTalkCannot( ) );
+        	if (functionalPlayer.isAlwaysSynthesizer())
+        		functionalPlayer.speakWithFreeTTS(GameText.getTextTalkCannot(), functionalPlayer.getPlayerVoice());
+        	else
+        		functionalPlayer.speak( GameText.getTextTalkCannot( ) );
             finished = true;
         }
         
@@ -93,9 +96,12 @@ public class FunctionalTalk extends FunctionalAction {
 			}
 		}
 		
-		if( !triggeredConversation )
-			functionalPlayer.speak( GameText.getTextTalkCannot( ) );
-		
+		if( !triggeredConversation ) {
+			if (functionalPlayer.isAlwaysSynthesizer())
+				functionalPlayer.speakWithFreeTTS(GameText.getTextTalkCannot(), functionalPlayer.getPlayerVoice());
+			else
+				functionalPlayer.speak( GameText.getTextTalkCannot( ) );
+		}
 		finished = true;
 	}
 }

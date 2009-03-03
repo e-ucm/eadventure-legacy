@@ -121,6 +121,18 @@ public class PlayerSubParser extends SubParser {
 				if( qName.equals( "bordercolor" ) )
 					player.setTextBorderColor( color );
 			} 
+
+			else if ( qName.equals( "textcolor") ) {
+				for (int i = 0; i < attrs.getLength(); i++) {
+					if (attrs.getQName(i).equals("showsSpeechBubble"))
+						player.setShowsSpeechBubbles(attrs.getValue(i).equals("yes"));
+					if (attrs.getQName(i).equals("bubbleBkgColor"))
+						player.setBubbleBkgColor( attrs.getValue(i));
+					if (attrs.getQName(i).equals("bubbleBorderColor"))
+						player.setBubbleBorderColor( attrs.getValue(i));
+				}
+			}
+
 			// If it is a voice tag, take the voice and the always synthesizer option
 			else if (qName.equals( "voice" )){
 				String voice = new String("");

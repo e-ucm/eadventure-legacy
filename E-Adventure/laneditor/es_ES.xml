@@ -1211,6 +1211,9 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="Player.LookPanelTip">Panel para la edición de las posibles apariencias del protagonista</entry>
 	<entry key="Player.DocPanelTitle">Información</entry>
 	<entry key="Player.DocPanelTip">Panel para editar la información del protagonista</entry>
+	<entry key="Player.ShowsSpeechBubble">Muestra bocadillos de dialog</entry>
+	<entry key="Player.BubbleBkgColor">Editar color de fondo de bocadillos</entry>
+	<entry key="Player.BubbleBorderColor">Editar color de borde de bocadillos</entry>
 
 	<entry key="NPCsList.Title">Personajes</entry>
 	<entry key="NPCsList.ListTitle">Lista de personajes</entry>

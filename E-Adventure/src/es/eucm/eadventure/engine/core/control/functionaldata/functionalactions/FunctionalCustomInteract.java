@@ -62,13 +62,21 @@ public class FunctionalCustomInteract extends FunctionalAction {
 	            FunctionalItem item1 = (FunctionalItem) element;
 	            if (anotherElement instanceof FunctionalItem) {
 		            FunctionalItem item2 = (FunctionalItem) anotherElement;
-		            if( !item1.customInteract(customActionName, item2) && !item2.customInteract(customActionName, item1) )
-		                functionalPlayer.speak( GameText.getTextCustomCannot() );
+		            if( !item1.customInteract(customActionName, item2) && !item2.customInteract(customActionName, item1) ) {
+		                if (functionalPlayer.isAlwaysSynthesizer())
+		                	functionalPlayer.speakWithFreeTTS(GameText.getTextCustomCannot(),functionalPlayer.getPlayerVoice());
+		                else
+		                	functionalPlayer.speak( GameText.getTextCustomCannot() );
+		            }
 	            }
 	            if (anotherElement instanceof FunctionalNPC) {
 	            	FunctionalNPC npc = (FunctionalNPC) anotherElement;
-	            	if (!item1.customInteract(customActionName, npc))
-	            		functionalPlayer.speak( GameText.getTextCustomCannot() );
+	            	if (!item1.customInteract(customActionName, npc)) {
+	            		if (functionalPlayer.isAlwaysSynthesizer())
+	            			functionalPlayer.speakWithFreeTTS(GameText.getTextCustomCannot(), functionalPlayer.getPlayerVoice());
+	            		else
+	            			functionalPlayer.speak( GameText.getTextCustomCannot() );
+	            	}
 	            }
 	            finished = true;
 	        }
