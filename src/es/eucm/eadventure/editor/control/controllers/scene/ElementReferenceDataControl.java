@@ -13,8 +13,8 @@ import es.eucm.eadventure.editor.control.controllers.character.NPCDataControl;
 import es.eucm.eadventure.editor.control.controllers.character.NPCsListDataControl;
 import es.eucm.eadventure.editor.control.controllers.item.ItemDataControl;
 import es.eucm.eadventure.editor.control.controllers.item.ItemsListDataControl;
-import es.eucm.eadventure.editor.control.tools.ChangeElementReferenceTool;
 import es.eucm.eadventure.editor.control.tools.general.ChangeDocumentationTool;
+import es.eucm.eadventure.editor.control.tools.general.ChangeElementReferenceTool;
 import es.eucm.eadventure.editor.control.tools.general.ChangeTargetIdTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
@@ -315,7 +315,6 @@ public class ElementReferenceDataControl extends DataControl {
 
 	@Override
 	public boolean canBeDuplicated( ) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

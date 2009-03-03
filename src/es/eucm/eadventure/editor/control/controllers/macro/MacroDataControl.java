@@ -33,10 +33,6 @@ public class MacroDataControl extends DataControl{
 		return macro.getId();
 	}
 	
-	private void setId ( String newId ){
-		macro.setId( newId );
-	}
-
 	/**
 	 * @return the controller
 	 */
@@ -148,7 +144,7 @@ public class MacroDataControl extends DataControl{
 
 			// If some value was typed and the identifiers are different
 			if( newItemId != null && !newItemId.equals( oldItemId ) && Controller.getInstance().isElementIdValid( newItemId ) ) {
-				setId( newItemId );
+				macro.setId( newItemId );
 				Controller.getInstance().replaceIdentifierReferences( oldItemId, newItemId );
 				Controller.getInstance().getIdentifierSummary( ).deleteMacroId( oldItemId );
 				Controller.getInstance().getIdentifierSummary( ).addMacroId( newItemId );

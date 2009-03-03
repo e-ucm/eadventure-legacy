@@ -1,7 +1,8 @@
-package es.eucm.eadventure.editor.control.tools;
+package es.eucm.eadventure.editor.control.tools.general;
 
 import es.eucm.eadventure.common.data.chapter.Rectangle;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.tools.Tool;
 
 public class ChangeRectangleValueTool extends Tool {
 
@@ -63,22 +64,16 @@ public class ChangeRectangleValueTool extends Tool {
 	}
 
 	@Override
-	public String getToolName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public boolean redoTool() {
 		rectangle.setValues(x, y, width, height);
-		Controller.getInstance().reloadPanel();
+		Controller.getInstance().updatePanel();
 		return true;
 	}
 
 	@Override
 	public boolean undoTool() {
 		rectangle.setValues(oldX, oldY, oldWidth, oldHeight);
-		Controller.getInstance().reloadPanel();
+		Controller.getInstance().updatePanel();
 		return true;
 	}
 	

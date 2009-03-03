@@ -42,9 +42,9 @@ public class ChangeIntegerValueTool extends Tool{
 		this.updatePanel = updatePanel;
 		this.updateTree = updateTree;
 		try {
-			set = data.getClass().getMethod(setMethodName, new Integer(0).getClass());
+			set = data.getClass().getMethod(setMethodName, Integer.class);
 			get = data.getClass().getMethod(getMethodName );
-			if ( get.getReturnType() != new Integer(0).getClass()) {
+			if ( get.getReturnType() != Integer.class) {
 				get = set = null;
 				ReportDialog.GenerateErrorReport(new Exception ("Get method must return Integer value"), false, TextConstants.getText("Error.Title"));
 			}

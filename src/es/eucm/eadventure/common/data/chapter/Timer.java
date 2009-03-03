@@ -39,14 +39,14 @@ public class Timer implements Cloneable, Documented {
 	/**
 	 * @return the seconds
 	 */
-	public long getTime( ) {
+	public Long getTime( ) {
 		return seconds;
 	}
 
 	/**
 	 * @param seconds the seconds to set
 	 */
-	public void setTime( long seconds ) {
+	public void setTime( Long seconds ) {
 		this.seconds = seconds;
 	}
 

@@ -209,7 +209,7 @@ public class NPC extends Element {
 	 * @return
 	 * 		True, if always read by synthesizer, false, otherwise
 	 */
-	public boolean isAlwaysSynthesizer() {
+	public Boolean isAlwaysSynthesizer() {
 		return alwaysSynthesizer;
 	}
 
@@ -219,7 +219,7 @@ public class NPC extends Element {
 	 * @param alwaysSynthesizer
 	 * 				the new value
 	 */
-	public void setAlwaysSynthesizer(boolean alwaysSynthesizer) {
+	public void setAlwaysSynthesizer(Boolean alwaysSynthesizer) {
 		this.alwaysSynthesizer = alwaysSynthesizer;
 	}
 	

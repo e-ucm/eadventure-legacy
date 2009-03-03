@@ -40,11 +40,6 @@ public class DeleteNodeTool extends Tool {
 	}
 
 	@Override
-	public String getToolName() {
-		return "Delete tree node";
-	}
-
-	@Override
 	public boolean redoTool() {
 		return treeNode.delete(false);
 	}

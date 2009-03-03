@@ -51,14 +51,6 @@ public abstract class EffectDialog extends ToolManagableDialog {
 		controller = Controller.getInstance( );
 		properties = null;
 
-		// Push the dialog into the stack, and add the window listener to pop in when closing
-		controller.pushWindow( this );
-		addWindowListener( new WindowAdapter( ) {
-			public void windowClosing( WindowEvent e ) {
-				controller.popWindow( );
-			}
-		} );
-
 		// Create the panel for the buttons
 		JPanel buttonsPanel = new JPanel( );
 		buttonsPanel.setLayout( new FlowLayout( FlowLayout.RIGHT, 4, 4 ) );

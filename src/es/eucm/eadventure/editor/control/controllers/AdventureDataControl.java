@@ -2,6 +2,7 @@ package es.eucm.eadventure.editor.control.controllers;
 
 import java.util.List;
 
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfileDataControl;
@@ -10,8 +11,14 @@ import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfil
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfilesDataControl;
 import es.eucm.eadventure.editor.control.controllers.ims.IMSDataControl;
 import es.eucm.eadventure.editor.control.controllers.lom.LOMDataControl;
+import es.eucm.eadventure.editor.control.tools.AddCursorTool;
+import es.eucm.eadventure.editor.control.tools.DeleteCursorTool;
+import es.eucm.eadventure.editor.control.tools.SelectButtonTool;
+import es.eucm.eadventure.editor.control.tools.SelectCursorPathTool;
 import es.eucm.eadventure.editor.control.tools.general.ChangeDescriptionTool;
 import es.eucm.eadventure.editor.control.tools.general.ChangeTitleTool;
+import es.eucm.eadventure.editor.control.tools.generic.ChangeBooleanValueTool;
+import es.eucm.eadventure.editor.control.tools.generic.ChangeIntegerValueTool;
 import es.eucm.eadventure.common.data.adventure.AdventureData;
 import es.eucm.eadventure.common.data.adventure.CustomButton;
 import es.eucm.eadventure.common.data.adventure.CustomCursor;
@@ -209,17 +216,7 @@ public class AdventureDataControl {
 	 *            New GUI type for the adventure
 	 */
 	public void setGUIType( int guiType ) {
-		adventureData.setGUIType( guiType );
-	}
-
-	/**
-	 * Sets the list of chapters of the adventure.
-	 * 
-	 * @param chapters
-	 *            New chapters list for the adventure
-	 */
-	public void setChapters( List<Chapter> chapters ) {
-		adventureData.setChapters(chapters);
+		Controller.getInstance().addTool( new ChangeIntegerValueTool(adventureData, guiType, "getGUIType", "setGUIType") );
 	}
 
 	/**
@@ -233,13 +230,9 @@ public class AdventureDataControl {
 	 * @param playerMode the playerMode to set
 	 */
 	public void setPlayerMode( int playerMode ) {
-		adventureData.setPlayerMode(playerMode);
+		Controller.getInstance().addTool( new ChangeIntegerValueTool(adventureData, playerMode, "getPlayerMode", "setPlayerMode") );
 	}
 	
-    public void addCursor(CustomCursor cursor){
-        adventureData.getCursors().add( cursor );
-    }
-    
     public List<CustomCursor> getCursors(){
         return adventureData.getCursors();
     }
@@ -248,10 +241,6 @@ public class AdventureDataControl {
         return adventureData.getButtons();
     }
 
-    
-    public void addCursor(String type, String path){
-        addCursor(new CustomCursor(type,path));
-    }
     
     public String getCursorPath(String type){
         for (CustomCursor cursor: adventureData.getCursors()){
@@ -275,54 +264,16 @@ public class AdventureDataControl {
     		}
     	}
     	if (position>=0){
-    		adventureData.getCursors().remove( position );
-    		Controller.getInstance().dataModified();
+    		Controller.getInstance().addTool( new DeleteCursorTool(adventureData, position));
     	}
     }
 
     public void editCursorPath(int t){
-    	if (isCursorTypeAllowed(t)){
-    		String type = DescriptorData.getCursorTypeString(t);
-
-    		String selectedCursor = null;
-    		AssetChooser chooser = AssetsController.getAssetChooser( AssetsController.CATEGORY_CURSOR, AssetsController.FILTER_NONE );
-    		int option = chooser.showAssetChooser( Controller.getInstance().peekWindow( ) );
-    		//In case the asset was selected from the zip file
-    		if( option == AssetChooser.ASSET_FROM_ZIP ) {
-    			selectedCursor = chooser.getSelectedAsset( );
-    		}
-
-    		//In case the asset was not in the zip file: first add it
-    		else if( option == AssetChooser.ASSET_FROM_OUTSIDE ) {
-    			boolean added = AssetsController.addSingleAsset( AssetsController.CATEGORY_CURSOR, chooser.getSelectedFile( ).getAbsolutePath( ) );
-    			if( added ) {
-    				selectedCursor = chooser.getSelectedFile( ).getName( );
-    			}
-    		}
-
-    		// If a file was selected
-    		if( selectedCursor != null ) {
-    			// Take the index of the selected asset
-    			String[] assetFilenames = AssetsController.getAssetFilenames( AssetsController.CATEGORY_CURSOR );
-    			String[] assetPaths = AssetsController.getAssetsList( AssetsController.CATEGORY_CURSOR );
-    			int assetIndex = -1;
-    			for( int i = 0; i < assetFilenames.length; i++ )
-    				if( assetFilenames[i].equals( selectedCursor ) )
-    					assetIndex = i;
-
-    			boolean exists = false;
-    			for (int i=0; i<adventureData.getCursors().size( ); i++){
-    				if (adventureData.getCursors().get( i ).getType( ).equals( type )){
-    					adventureData.getCursors().get( i ).setPath( assetPaths[assetIndex] );
-    					exists=true;
-    				}
-    			}
-    			if (!exists)
-    				this.addCursor( type, assetPaths[assetIndex] );
-    			Controller.getInstance( ).dataModified( );
-    		}
-
-    	}
+    	try {
+			Controller.getInstance().addTool( new SelectCursorPathTool( adventureData, t  ) );
+		} catch (CloneNotSupportedException e) {
+			ReportDialog.GenerateErrorReport(e, false, "Could not clone cursor-adventureData");
+		}
     }
 
 	/**
@@ -372,7 +323,7 @@ public class AdventureDataControl {
 	}
 
 	public void setCommentaries(boolean commentaries) {
-		adventureData.setCommentaries(commentaries);
+		Controller.getInstance().addTool(new ChangeBooleanValueTool(adventureData, commentaries, "isCommentaries","setCommentaries"));
 	}
 	
 	public int getGraphicConfig() {
@@ -380,7 +331,7 @@ public class AdventureDataControl {
 	}
 	 
 	public void setGraphicConfig(int graphicConfig) {
-		this.adventureData.setGraphicConfig(graphicConfig);
+		Controller.getInstance().addTool(new ChangeIntegerValueTool(adventureData, graphicConfig, "getGraphicConfig","setGraphicConfig"));
 	}
 
 	/**
@@ -423,7 +374,7 @@ public class AdventureDataControl {
 	}
 
 	public void editButtonPath(String action, String type) {
-		String selectedButton = null;
+		/*String selectedButton = null;
 		AssetChooser chooser = AssetsController.getAssetChooser( AssetsController.CATEGORY_BUTTON, AssetsController.FILTER_NONE );
 		int option = chooser.showAssetChooser( Controller.getInstance().peekWindow( ) );
 		//In case the asset was selected from the zip file
@@ -452,6 +403,11 @@ public class AdventureDataControl {
 			this.setButton(action, type, assetPaths[assetIndex]);			
 			
 			Controller.getInstance( ).dataModified( );
+		}*/
+		try {
+			Controller.getInstance().addTool( new SelectButtonTool( adventureData, action, type ) );
+		} catch (CloneNotSupportedException e) {
+			ReportDialog.GenerateErrorReport(e, false, "Could not clone resources: buttons");
 		}
 	}
 }

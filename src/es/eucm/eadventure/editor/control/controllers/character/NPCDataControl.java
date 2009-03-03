@@ -14,6 +14,8 @@ import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.general.ActionsListDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
+import es.eucm.eadventure.editor.control.tools.generic.ChangeBooleanValueTool;
+import es.eucm.eadventure.editor.control.tools.generic.ChangeStringValueTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class NPCDataControl extends DataControlWithResources {
@@ -246,8 +248,7 @@ public class NPCDataControl extends DataControlWithResources {
 		if( blue.length( ) == 1 )
 			blue = "0" + blue;
 
-		npc.setTextFrontColor( "#" + red + green + blue );
-		controller.dataModified();
+		controller.addTool( new ChangeStringValueTool(npc,"#" + red + green + blue,"getTextFrontColor", "setTextFrontColor") );
 	}
 
 	/**
@@ -268,8 +269,7 @@ public class NPCDataControl extends DataControlWithResources {
 		if( blue.length( ) == 1 )
 			blue = "0" + blue;
 
-		npc.setTextBorderColor( "#" + red + green + blue );
-		controller.dataModified();
+		controller.addTool( new ChangeStringValueTool(npc,"#" + red + green + blue,"getTextBorderColor", "setTextBorderColor") );
 	}
 
 	/**
@@ -279,8 +279,7 @@ public class NPCDataControl extends DataControlWithResources {
 	 * 			Boolean value
 	 */
 	public void setAlwaysSynthesizer(boolean always){
-		npc.setAlwaysSynthesizer(always);
-		controller.dataModified();
+		controller.addTool( new ChangeBooleanValueTool(npc, always, "isAlwaysSynthesizer", "setAlwaysSynthesizer"));
 	}
 	
 	/**
@@ -290,8 +289,7 @@ public class NPCDataControl extends DataControlWithResources {
 	 * 			a string with the valid voice
 	 */
 	public void setNPCVoice(String voice){
-		npc.setVoice(voice);
-		controller.dataModified();
+		controller.addTool( new ChangeStringValueTool(npc,voice,"getVoice", "setVoice") );
 	}
 	
 	/**
