@@ -90,7 +90,7 @@ public class NormalScenePreviewEditionController implements ScenePreviewEditionC
 
 	public void mousePressed(MouseEvent e) {
 		setMouseUnder(e.getX(), e.getY());
-		if (underMouse != null && (underMouse == spep.getSelectedElement() || underMouse == spep.getInfluenceArea())) {
+		if (underMouse != null) {
 			startDragX = e.getX();
 			startDragY = e.getY();
 			originalX = underMouse.getX();

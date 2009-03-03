@@ -156,10 +156,9 @@ public class TrajectoryScenePreviewEditionController extends NormalScenePreviewE
 	}
 
 	public void mousePressed(MouseEvent e) {
-
 		if (selectedTool == NODE_EDIT) {
 			setMouseUnder(e.getX(), e.getY());
-			if (underMouse != null && underMouse == spep.getSelectedElement()) {
+			if (underMouse != null) {
 				startDragX = e.getX();
 				startDragY = e.getY();
 				originalX = underMouse.getX();
