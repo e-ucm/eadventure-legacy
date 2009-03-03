@@ -423,6 +423,13 @@ public class Controller {
 	private static final String TEMP_NAME = "_$temp";
 	
 	/**
+	 * Identifiers for differents scorm profiles
+	 */
+	public static final int SCORM12 = 0;
+	
+	public static final int SCORM2004 = 0;
+	
+	/**
 	 * Singleton instance.
 	 */
 	private static Controller controllerInstance = null;
@@ -2005,6 +2012,16 @@ public class Controller {
 				
 				boolean validated = dialog.isValidated( );
 				
+				if (type==2 && !hasScormProfiles(SCORM12)){
+					// error situation: both profiles must be scorm 1.2 if they exist
+					mainWindow.showErrorDialog( TextConstants.getText( "Operation.ExportSCORM12.BadProfiles.Title" ), 
+							TextConstants.getText( "Operation.ExportSCORM12.BadProfiles.Message" ) );
+				} else if (type==3 && !hasScormProfiles(SCORM2004)){
+					// error situation: both profiles must be scorm 2004 if they exist
+					mainWindow.showErrorDialog( TextConstants.getText( "Operation.ExportSCORM2004.BadProfiles.Title" ), 
+							TextConstants.getText( "Operation.ExportSCORM2004.BadProfiles.Message" ) );
+				} else
+				
 				if (validated){
 					//String loName = this.showInputDialog( TextConstants.getText( "Operation.ExportToLOM.Title" ), TextConstants.getText( "Operation.ExportToLOM.Message" ), TextConstants.getText( "Operation.ExportToLOM.DefaultValue" ));
 					if (loName!=null && !loName.equals( "" ) && !loName.contains( " " )){
@@ -2059,9 +2076,10 @@ public class Controller {
 											} else if (type == 2 && Writer.exportAsSCORM( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, adventureData )){
 												mainWindow.showInformationDialog( TextConstants.getText( "Operation.ExportT.Success.Title" ), 
 														TextConstants.getText( "Operation.ExportT.Success.Message" ) );
-											}  else if (type == 3 && Writer.exportAsSCORM2004( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, adventureData )){
-												mainWindow.showInformationDialog( TextConstants.getText( "Operation.ExportT.Success.Title" ), 
-														TextConstants.getText( "Operation.ExportT.Success.Message" ) );
+												
+											}  else if (type == 3 &&Writer.exportAsSCORM2004( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, adventureData )){
+														mainWindow.showInformationDialog( TextConstants.getText( "Operation.ExportT.Success.Title" ), 
+																TextConstants.getText( "Operation.ExportT.Success.Message" ) );		
 											}else {
 												mainWindow.showInformationDialog( TextConstants.getText( "Operation.ExportT.NotSuccess.Title" ), 
 														TextConstants.getText( "Operation.ExportT.NotSuccess.Message" ) );
@@ -2097,6 +2115,30 @@ public class Controller {
 			"Operation.FileNotSavedMessage" );
 		}
 
+	}
+	
+	/**
+	 * Check if assessment and adaptation profiles are both scorm 1.2 or scorm 2004
+	 * 
+	 * @param scormType
+	 * 				the scorm type, 1.2 or 2004
+	 * @return
+	 */
+	private boolean hasScormProfiles(int scormType){
+		
+		if (scormType == SCORM12){
+			// check that adaptation and assessment profiles are scorm 1.2 profiles
+		 return (adventureData.getAssessmentRulesListDataControl().isScorm12Profile(chapterDataControlList.get(selectedChapter).getAssessmentPath())
+				 &&	adventureData.getAdaptationRulesListDataControl().isScorm12Profile( chapterDataControlList.get(selectedChapter).getAdaptationPath()));
+			 
+		}else if (scormType == SCORM2004){
+			// check that adaptation and assessment profiles are scorm 2004 profiles
+			return (adventureData.getAssessmentRulesListDataControl().isScorm2004Profile(chapterDataControlList.get(selectedChapter).getAssessmentPath())
+					 &&	adventureData.getAdaptationRulesListDataControl().isScorm2004Profile( chapterDataControlList.get(selectedChapter).getAdaptationPath()));
+					
+		}
+		
+		return false;
 	}
 
 	/**

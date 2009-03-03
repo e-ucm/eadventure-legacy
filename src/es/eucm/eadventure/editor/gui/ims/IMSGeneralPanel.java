@@ -69,6 +69,7 @@ public class IMSGeneralPanel extends JPanel{
 		buttonPanel.add( setDefaults );
 		add ( Box.createVerticalStrut( 1 ));
 		add(buttonPanel);
-		add ( Box.createRigidArea( new Dimension (400,350) ));
+		add ( Box.createRigidArea( new Dimension (400,45) ));
+		//setSize(400, 100);
 	}
 }

@@ -12,6 +12,7 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfileDataControl;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class AdaptationProfilesDataControl extends DataControl{
@@ -276,6 +277,39 @@ public class AdaptationProfilesDataControl extends DataControl{
 		for (DataControl dc : this.profiles) {
 			dc.recursiveSearch( );
 		}
+	}
+
+	
+	/**
+	 * Check if the assessment profile which has the specific "path" is scorm 1.2 profile
+	 * 
+	 * @param path
+	 * 			the path of the assessment profile to confirm if it is or it isn´t scorm 1.2
+	 * @return
+	 */
+	public boolean isScorm12Profile(String path){
+		for (AdaptationProfileDataControl profile:profiles){
+			if (profile.getPath().equals(path)){
+				return profile.isScorm12();
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Check if the assessment profile which has the specific "path" is scorm 2004 profile
+	 * 
+	 * @param path
+	 * 			the path of the assessment profile to confirm if it is or it isn´t scorm 2004
+	 * @return
+	 */
+	public boolean isScorm2004Profile(String path){
+		for (AdaptationProfileDataControl profile:profiles){
+			if (profile.getPath().equals(path)){
+				return profile.isScorm2004();
+			}
+		}
+		return false;
 	}
 
 

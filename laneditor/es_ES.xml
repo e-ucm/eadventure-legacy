@@ -487,6 +487,11 @@ Por favor, inténtelo de nuevo cambiando dicho directorio.</entry>
 	
 	<entry key="Operation.ExportToLOM.LOMAppletProperties">Propiedades del applet</entry>
 	<entry key="Operation.ExportToLOM.LOMAppletRunInsideBrowser">El applet se ejecuta dentro del explorador</entry>
+	<entry key="Operation.ExportSCORM12.BadProfiles.Title">Perfiles incorrectos</entry>
+	<entry key="Operation.ExportSCORM12.BadProfiles.Message">El perfil de evaluación y el de adaptación deben ser del tipo SCORM 1.2 en caso de existir.</entry>
+	<entry key="Operation.ExportSCORM2004.BadProfiles.Title">Perfiles incorrectos</entry>
+	<entry key="Operation.ExportSCORM2004.BadProfiles.Message">El perfil de evaluación y el de adaptación deben ser del tipo SCORM 2004 en caso de existir.</entry>
+	
 	
 	
 	<entry key="GUIStyles.Title">Estilo de GUI de la aventura</entry>

@@ -3,10 +3,13 @@ package es.eucm.eadventure.editor.gui.ims;
 import java.awt.BorderLayout;
 import java.awt.Dialog;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -35,11 +38,7 @@ public class IMSDialog extends JDialog{
 		tabs.insertTab( TextConstants.getText("LOM.Educational.Tab"), null, new IMSEducationalPanel(dataControl.getEducational( )), TextConstants.getText("LOM.Educational.Tip"), 2 );
 		tabs.insertTab(  TextConstants.getText("IMS.Rights.Tab")+" & "+TextConstants.getText("IMS.Classification.Tab"), null, new IMSRightsAndClassificationPanel(dataControl.getRights(), dataControl.getClassification()), TextConstants.getText("IMS.Rights.Tip") + " & " + TextConstants.getText("IMS.Classification.Tip"), 3 );
 		
-		JPanel dialogCont = new JPanel();
-		dialogCont.setVisible(true);
-		dialogCont.setLayout(new BorderLayout());
-		dialogCont.add(tabs,BorderLayout.NORTH);
-		// Add "OK" button: If you press here, the window will be closed
+		// create button to close the dialog
 		ok = new JButton ("OK");
 		ok.setToolTipText( "Close the window"  );
 		ok.addActionListener( new ActionListener(){
@@ -48,14 +47,23 @@ public class IMSDialog extends JDialog{
 			}
 		});
 		
-		dialogCont.add(ok,BorderLayout.SOUTH);
+		//dialogCont.add(ok,BorderLayout.SOUTH);
 		
-		
+		JPanel cont = new JPanel();
+		cont.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.HORIZONTAL; 
+		c.weightx = 0.5;
+		c.weighty = 0.5;
+		c.gridy = 0;
+		cont.add(tabs,c);
+		c.fill = GridBagConstraints.NONE;
+		c.gridy = 1;
+		c.ipady = 0;
+		cont.add(ok,c);   
 		// Set size and position and show the dialog
-		//this.getContentPane( ).setLayout( new BorderLayout() );
-		this.getContentPane( ).add( dialogCont);
-		setSize( new Dimension( 400, 100 ) );
-		setMinimumSize( new Dimension( 450, 300) );
+		this.getContentPane( ).add( cont);
+		setMinimumSize( new Dimension( 450, 450) );
 		Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
 		setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
 		setVisible( true );

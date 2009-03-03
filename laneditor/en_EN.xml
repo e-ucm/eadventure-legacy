@@ -484,6 +484,12 @@ Please, try it again with other destiny directory.</entry>
 
 	<entry key="Operation.ExportToLOM.LOMAppletProperties">Applet properties</entry>
 	<entry key="Operation.ExportToLOM.LOMAppletRunInsideBrowser">The applet runs inside the browser</entry>
+	<entry key="Operation.ExportSCORM12.BadProfiles.Title">Incorrect Profiles</entry>
+	<entry key="Operation.ExportSCORM12.BadProfiles.Message">The assessment and adaptation profile must be SCORM 1.2 if they exists.</entry>
+	<entry key="Operation.ExportSCORM2004.BadProfiles.Title">Incorrect Profiles</entry>
+	<entry key="Operation.ExportSCORM2004.BadProfiles.Message">The assessment and adaptation profile must be SCORM 2004 if they exists.</entry>
+	
+	
 	
 	<entry key="GUIStyles.Title">GUI style for the adventure</entry>
 	<entry key="GUIStyles.Traditional">Traditional GUI</entry>

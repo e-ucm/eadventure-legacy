@@ -255,7 +255,40 @@ public class AssessmentProfilesDataControl extends DataControl{
 	public List<AssessmentProfileDataControl> getProfiles( ) {
 		return profiles;
 	}
+	
+	/**
+	 * Check if the assessment profile which has the specific "path" is scorm 1.2 profile
+	 * 
+	 * @param path
+	 * 			the path of the assessment profile to confirm if it is or it isn´t scorm 1.2
+	 * @return
+	 */
+	public boolean isScorm12Profile(String path){
+		for (AssessmentProfileDataControl profile:profiles){
+			if (profile.getPath().equals(path)){
+				return profile.isScorm12();
+			}
+		}
+		return false;
+	}
 
+	/**
+	 * Check if the assessment profile which has the specific "path" is scorm 2004 profile
+	 * 
+	 * @param path
+	 * 			the path of the assessment profile to confirm if it is or it isn´t scorm 2004
+	 * @return
+	 */
+	public boolean isScorm2004Profile(String path){
+		for (AssessmentProfileDataControl profile:profiles){
+			if (profile.getPath().equals(path)){
+				return profile.isScorm2004();
+			}
+		}
+		return false;
+	}
+
+	
 	/**
 	 * @param profiles the profiles to set
 	 */

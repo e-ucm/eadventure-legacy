@@ -35,7 +35,7 @@ public class AdaptationProfileDataControl extends DataControl{
 	private int number;
 	
 	public AdaptationProfileDataControl( List<AdaptationRule> adpRules, AdaptedState initialState, String path){
-		this (new AdaptationProfile (adpRules, initialState, path));
+		this (new AdaptationProfile (adpRules, initialState, path,false,false));
 	}
 	
 	public AdaptationProfileDataControl(AdaptationProfile profile) {

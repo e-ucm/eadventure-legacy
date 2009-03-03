@@ -57,6 +57,16 @@ public class AdaptationHandler extends DefaultHandler {
     private InputStreamCreator isCreator;
     
     /**
+     * Boolean to check if it is an scorm 1.2 profile
+     */
+    private boolean scorm12;
+    
+    /**
+     * Boolean to check if it is an scorm 2004 profile
+     */
+    private boolean scorm2004;
+    
+    /**
      * Default constructor
      */
     public AdaptationHandler( InputStreamCreator isCreator, List<AdaptationRule> rules, AdaptedState iState ) {
@@ -102,6 +112,18 @@ public class AdaptationHandler extends DefaultHandler {
      */
     public void startElement( String namespaceURI, String sName, String qName, Attributes attrs ) throws SAXException {
 
+    	// Check if it is an scorm adaptation profile
+    	if (qName.equals("adaptation")){
+    		for( int i = 0; i < attrs.getLength( ); i++ ) {
+    			 if (attrs.getQName(i).equals("scorm12")){
+                 	scorm12 = attrs.getValue(i).equals("yes");
+                 }
+                 if (attrs.getQName(i).equals("scorm2004")){
+                 	scorm2004 = attrs.getValue(i).equals("yes");
+                 }
+    		}
+    	}
+    	
         //Start parsing the initial state
         if (qName.equals( "initial-state" )) {
             parsing = INITIAL_STATE;
@@ -271,5 +293,19 @@ public class AdaptationHandler extends DefaultHandler {
         
         return new InputSource( inputStream );
     }
+
+	/**
+	 * @return the scorm12
+	 */
+	public boolean isScorm12() {
+		return scorm12;
+	}
+
+	/**
+	 * @return the scorm2004
+	 */
+	public boolean isScorm2004() {
+		return scorm2004;
+	}
 
 }

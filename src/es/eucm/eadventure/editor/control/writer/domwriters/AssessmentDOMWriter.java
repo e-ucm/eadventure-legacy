@@ -58,6 +58,18 @@ public class AssessmentDOMWriter {
 					assessmentNode.setAttribute("send-to-email", profile.getEmail());
 				}
 			}
+			// add scorm attributes 
+			if (profile.isScorm12()){
+				assessmentNode.setAttribute("scorm12","yes");
+			}else {
+				assessmentNode.setAttribute("scorm12","no");
+			}
+			if (profile.isScorm2004()){
+				assessmentNode.setAttribute("scorm2004","yes");
+			}else {
+				assessmentNode.setAttribute("scorm2004","no");
+			}
+			
 			
 			Element smtpConfigNode = doc.createElement("smtp-config");
 			smtpConfigNode.setAttribute("smtp-ssl", (profile.isSmtpSSL() ? "yes" : "no"));

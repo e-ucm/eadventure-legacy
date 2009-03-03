@@ -332,6 +332,10 @@ public class Writer {
 		List<AdaptationRule> rules = ((AdaptationProfile)controller.getContent( )).getRules();
 		AdaptedState initialState = controller.getInitialState( );
 		
+		// check if it is an scorm profile
+		boolean scorm2004 =((AdaptationProfile)controller.getContent( )).isScorm2004();
+		boolean scorm12  = ((AdaptationProfile)controller.getContent( )).isScorm12();
+		
 		// Create the necessary elements for building the DOM
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance( );
 		TransformerFactory tFactory = TransformerFactory.newInstance( );
@@ -345,7 +349,7 @@ public class Writer {
 			db = dbf.newDocumentBuilder( );
 		
 			// Pick the main node of the chapter
-			Node adpNode = AdaptationDOMWriter.buildDOM( rules, initialState );
+			Node adpNode = AdaptationDOMWriter.buildDOM( rules, initialState,scorm12,scorm2004 );
 			indentDOM( adpNode, 0 );
 			
 			doc = db.newDocument( );
