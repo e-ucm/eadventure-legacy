@@ -350,6 +350,22 @@ public class AssessmentProfileDataControl extends DataControl{
 	public void setSmtpPwd(String smtpPwd) {
 		controller.addTool(new ChangeReportSettingsTool(profile, smtpPwd, ChangeReportSettingsTool.SMTP_PWD));
 	}
+	
+	public boolean isScorm12(){
+		return profile.isScorm12();
+	}
+	
+	public boolean isScorm2004(){
+		return profile.isScorm2004();
+	}
+	
+	public void setScorm2004(boolean scorm){
+		profile.setScorm2004(scorm);
+	}
+	
+	public void setScorm12(boolean scorm){
+		profile.setScorm12(scorm);
+	}
 
 	@Override
 	public void recursiveSearch( ) {

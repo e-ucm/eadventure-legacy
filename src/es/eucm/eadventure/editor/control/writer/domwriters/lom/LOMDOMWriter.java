@@ -29,7 +29,7 @@ public class LOMDOMWriter {
 			manifest.setAttribute( "xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance" );
 			manifest.setAttribute( "xsi:schemaLocation", "http://www.imsglobal.org/xsd/imscp_v1p1 imscp_v1p1.xsd http://www.imsglobal.org/xsd/imsmd_v1p2 imsmd_v1p2p4.xsd" );
 			manifest.setAttribute( "version", "IMS CP 1.1.3" );
-			manifest.appendChild( buildLOMDOM(dataControl) );
+			//manifest.appendChild( buildLOMDOM(dataControl) );
 			
 
 		} catch( ParserConfigurationException e ) {
@@ -39,7 +39,7 @@ public class LOMDOMWriter {
 		return manifest;
 	}
 	
-	public static Node buildLOMDOM( LOMDataControl dataControl ) {
+	public static Node buildLOMDOM( LOMDataControl dataControl, boolean scorm ) {
 		Element lomElement = null;
 		
 		
@@ -52,19 +52,19 @@ public class LOMDOMWriter {
 
 			// Create the root node
 			lomElement = doc.createElement( "imsmd:lom" );
-			Node generalNode = LOMGeneralDOMWriter.buildDOM(dataControl.getGeneral( ).getData( ) );
+			Node generalNode = LOMGeneralDOMWriter.buildDOM(dataControl.getGeneral( ).getData( ),scorm );
 			doc.adoptNode( generalNode );
 			lomElement.appendChild( generalNode );
 			
-			Node lifeCycleNode =  LOMLifeCycleDOMWriter.buildDOM(dataControl.getLifeCycle( ).getData( ) );
+			Node lifeCycleNode =  LOMLifeCycleDOMWriter.buildDOM(dataControl.getLifeCycle( ).getData( ),scorm );
 			doc.adoptNode( lifeCycleNode );
 			lomElement.appendChild( lifeCycleNode );
 			
-			Node technicalNode = LOMTechnicalDOMWriter.buildDOM(dataControl.getTechnical( ).getData( ) );
+			Node technicalNode = LOMTechnicalDOMWriter.buildDOM(dataControl.getTechnical( ).getData( ),scorm );
 			doc.adoptNode( technicalNode );
 			lomElement.appendChild( technicalNode );
 			
-			Node educationalNode =LOMEducationalDOMWriter.buildDOM(dataControl.getEducational( ).getData( ) );
+			Node educationalNode =LOMEducationalDOMWriter.buildDOM(dataControl.getEducational( ).getData( ),scorm );
 			doc.adoptNode( educationalNode );
 			lomElement.appendChild( educationalNode );
 			

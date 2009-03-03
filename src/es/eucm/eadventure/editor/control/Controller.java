@@ -32,7 +32,9 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.common.loader.Loader;
 import es.eucm.eadventure.common.loader.incidences.Incidence;
 import es.eucm.eadventure.editor.control.config.ConfigData;
+import es.eucm.eadventure.editor.control.config.LOMConfigData;
 import es.eucm.eadventure.editor.control.config.ProjectConfigData;
+import es.eucm.eadventure.editor.control.config.SCORMConfigData;
 import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.ToolManager;
@@ -42,6 +44,7 @@ import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfil
 import es.eucm.eadventure.editor.control.controllers.character.NPCDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ChapterDataControl;
 import es.eucm.eadventure.editor.control.controllers.item.ItemDataControl;
+import es.eucm.eadventure.editor.control.controllers.lom.LOMDataControl;
 import es.eucm.eadventure.editor.control.controllers.atrezzo.AtrezzoDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
 import es.eucm.eadventure.editor.control.tools.Tool;
@@ -548,6 +551,8 @@ public class Controller {
 	public void init( ) {
 		// Load the configuration
 		ConfigData.loadFromXML( ReleaseFolders.configFileEditorRelativePath() );
+		ProjectConfigData.init();
+		SCORMConfigData.init();
 		
 		// Create necessary folders if no created befor
 		File projectsFolder = ReleaseFolders.projectsFolder( );
@@ -1047,7 +1052,8 @@ public class Controller {
 
 			// Init project properties (empty)
 			ProjectConfigData.init();
-			
+			SCORMConfigData.init();
+		
 			AssetsController.createFolderStructure();
 			
 			// Check the consistency of the chapters
@@ -2053,7 +2059,10 @@ public class Controller {
 											} else if (type == 2 && Writer.exportAsSCORM( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, adventureData )){
 												mainWindow.showInformationDialog( TextConstants.getText( "Operation.ExportT.Success.Title" ), 
 														TextConstants.getText( "Operation.ExportT.Success.Message" ) );
-											} else {
+											}  else if (type == 3 && Writer.exportAsSCORM2004( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, adventureData )){
+												mainWindow.showInformationDialog( TextConstants.getText( "Operation.ExportT.Success.Title" ), 
+														TextConstants.getText( "Operation.ExportT.Success.Message" ) );
+											}else {
 												mainWindow.showInformationDialog( TextConstants.getText( "Operation.ExportT.NotSuccess.Title" ), 
 														TextConstants.getText( "Operation.ExportT.NotSuccess.Message" ) );
 											}
@@ -2498,6 +2507,15 @@ public class Controller {
 	}
 
 	/**
+	 * Returns the LOM controller.
+	 * 
+	 * @return Adventure LOM controller.
+	 * 
+	 */
+	public LOMDataControl getLOMDataControl(){
+		return adventureData.getLomController();
+	}
+	/**
 	 * Sets the new title of the adventure.
 	 * 
 	 * @param title
@@ -2904,6 +2922,10 @@ public class Controller {
 	public void updateLOMLanguage( ) {
 		this.adventureData.getLomController( ).updateLanguage( );
 		
+	}
+	
+	public void updateIMSLanguage(){
+		this.adventureData.getImsController().updateLanguage();
 	}
 
 	public void showAboutDialog( ) {

@@ -115,6 +115,24 @@ public class LOMEducational {
 		this.intendedEndUserRole.add( new Vocabulary(Vocabulary.ED_INTENDED_END_USER_ROLE_5_5, index) );
 	}
 	
+	public void setSemanticDensity(int index){
+		this.semanticDensity = new Vocabulary(Vocabulary.ED_SEMANTIC_DENSITY_5_4, index);
+	}
+	
+	public void setDifficulty(int index){
+		this.difficulty = new Vocabulary(Vocabulary.ED_DIFFICULTY_5_8, index);
+	}
+	
+	public void setInteractivityLevel(int index){
+		this.interactivityLevel = new Vocabulary(Vocabulary.ED_INTERACTIVITY_LEVEL_5_3, index);
+	}
+	
+	public void setInteractivityType(int index){
+		this.interactivityType= new Vocabulary(Vocabulary.ED_INTERACTIVITY_TYPE_5_1, index);
+	}
+	
+	
+	
 	public void setLearningResourceType(int index){
 		this.learningResourceType = new ArrayList<Vocabulary>();
 		this.learningResourceType.add( new Vocabulary(Vocabulary.ED_LEARNING_RESOURCE_TYPE_5_2, index) );

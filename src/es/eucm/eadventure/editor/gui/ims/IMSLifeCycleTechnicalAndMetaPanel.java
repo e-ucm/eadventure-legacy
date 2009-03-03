@@ -40,19 +40,19 @@ public class IMSLifeCycleTechnicalAndMetaPanel extends JPanel{
 		
 		//Add the panels
 		add (versionPanel);
-		add (Box.createVerticalStrut(5));
+		add (Box.createVerticalStrut(1));
 		add (status);
-		add (Box.createVerticalStrut(5));
+		add (Box.createVerticalStrut(1));
 		add (meta);
-		add (Box.createVerticalStrut(5));
+		add (Box.createVerticalStrut(1));
 		add (format);
-		add (Box.createVerticalStrut(5));
+		add (Box.createVerticalStrut(1));
 		add (location);
-		add (Box.createVerticalStrut(5));
+		add (Box.createVerticalStrut(1));
 		add (minVersionPanel);
-		add (Box.createVerticalStrut(5));
+		add (Box.createVerticalStrut(1));
 		add (maxVersionPanel);
-		add ( Box.createRigidArea( new Dimension (400,250) ));
+		add ( Box.createRigidArea( new Dimension (400,350) ));
 	}
 	
 	

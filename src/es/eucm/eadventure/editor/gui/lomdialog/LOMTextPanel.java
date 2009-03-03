@@ -77,6 +77,15 @@ public class LOMTextPanel extends JPanel{
 		}
 	}
 
+	/**
+	 * Changes the value
+	 * 
+	 * @param text
+	 * 			new value
+	 */
+	public void setValue(String text){
+		dataControl.setText(text);
+	}
 	
 	/**
 	 * Listener for the text area. It checks the value of the area and updates the documentation.

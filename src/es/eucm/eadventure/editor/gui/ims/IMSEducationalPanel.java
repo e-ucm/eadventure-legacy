@@ -91,7 +91,7 @@ public class IMSEducationalPanel extends JPanel{
 		add (typicalAgeRangePanel);
 		add (Box.createVerticalStrut(2));
 		add (typicalLearningTimePanel);
-		add ( Box.createRigidArea( new Dimension (400,50) ));
+		add ( Box.createRigidArea( new Dimension (400,300) ));
 	}
 	
 	/**

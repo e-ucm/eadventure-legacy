@@ -39,8 +39,15 @@ public class AdaptationRulePanel extends JPanel {
 	 * 
 	 * @param adpRuleDataControl
 	 *            Controller of the element reference
+	 *            
+	 * @param  scorm12 
+	 * 				Show if it is a Scorm 1.2 profile      
+	 * 
+	 *  @param  scorm2004
+	 * 				Show if it is a Scorm 2004 profile      
+	 *            
 	 */
-	public AdaptationRulePanel( AdaptationRuleDataControl adpRuleDataControl ) {
+	public AdaptationRulePanel( AdaptationRuleDataControl adpRuleDataControl, boolean scorm12, boolean scorm2004 ) {
 
 		// Set the controller
 		this.adaptationRuleDataControl = adpRuleDataControl;
@@ -80,7 +87,7 @@ public class AdaptationRulePanel extends JPanel {
 		add( conceptPanel, c );
 
 		// Create the uol-state panel
-		UOLPropertiesPanel uolPanel = new UOLPropertiesPanel( this.adaptationRuleDataControl ); 
+		UOLPropertiesPanel uolPanel = new UOLPropertiesPanel( this.adaptationRuleDataControl,scorm12, scorm2004  ); 
 		c.gridy = 2;
 		c.fill = GridBagConstraints.BOTH;
 		c.weighty = 1;

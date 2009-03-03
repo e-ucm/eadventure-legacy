@@ -14,7 +14,7 @@
 	<entry key="MenuFile.Save">Save project</entry>
 	<entry key="MenuFile.SaveAs">Save project as...</entry>
 	<entry key="MenuFile.LOMProperties">Learning Object properties</entry>
-	<entry key="MenuFile.LOMSCORMProperties">Learning Object properties for SCORM </entry>
+	<entry key="MenuFile.LOMSCORMProperties">Learning Object properties for SCORM 1.2 (IMS-LOM) </entry>
 	<entry key="MenuFile.ExportLOM">Export as Learning Object</entry>
 	<entry key="MenuFile.ExportGame">Export as EAD file</entry>
 	<entry key="MenuFile.ExportStandalone">Export as a standalone jar-based game</entry>
@@ -1604,6 +1604,9 @@ When not customized, default buttons will be used in the game.</entry>
 	<entry key="AdaptationRulesList.ListTitle">List of adaptation rules</entry>
 	<entry key="AdaptationRulesList.Title">Adaptation rules summary</entry>
 	<entry key="AdaptationRulesList.Information">These are all the adaptation rules specified so far. You can edit whichever by browsing the tree and clicking on the specified rule. Moreover, you are allowed to modify the initial state fields in this panel.</entry>
+	<entry key="AdaptationRulesList.Scorm2004">Set to SCORM 2004 profile</entry>
+	<entry key="AdaptationRulesList.Scorm12">Set to SCORM 1.2 profile</entry>
+	<entry key="AdaptationRulesList.ScormBorder">Set curren profile as Scorm profile</entry>
 
 	<entry key="AdaptationProfiles.Title">Adaptation profiles</entry>
 	<entry key="AdaptationProfiles.Information">This section of the tree structure allows the creation and edition of new adaptation profiles. To select which should be the active profile for the chapter use the combo box in the chapter panel</entry>

@@ -7,6 +7,7 @@ import javax.swing.JComponent;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfileDataControl;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentRuleDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.assessment.TimedAssessmentRulePanel;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.TreeNode;
@@ -82,7 +83,9 @@ public class TimedAssessmentRuleTreeNode extends TreeNode{
 	@Override
 	public JComponent getEditPanel( ) {
 		//return new ChapterPanel( dataControl );
-		return new TimedAssessmentRulePanel( dataControl );
+		boolean scorm12 = ((AssessmentProfileDataControl)((AssessmentProfileTreeNode)parent).getDataControl()).isScorm12();
+		boolean scorm2004 = ((AssessmentProfileDataControl)((AssessmentProfileTreeNode)parent).getDataControl()).isScorm2004();
+		return new TimedAssessmentRulePanel( dataControl,scorm12,scorm2004 );
 	}
 
 	@Override

@@ -64,10 +64,11 @@ public class IMSGeneralPanel extends JPanel{
 				descriptionPanel.updateText( );
 			}
 		});
+		
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.add( setDefaults );
 		add ( Box.createVerticalStrut( 1 ));
 		add(buttonPanel);
-		add ( Box.createRigidArea( new Dimension (500,100) ));
+		add ( Box.createRigidArea( new Dimension (400,350) ));
 	}
 }

@@ -20,7 +20,7 @@ public class LOMTechnicalDOMWriter extends LOMSimpleDataWriter{
 	 */
 	private LOMTechnicalDOMWriter( ) {}
 
-	public static Node buildDOM( LOMTechnical technical ) {
+	public static Node buildDOM( LOMTechnical technical ,boolean scorm) {
 		Element technicalElement = null;
 
 		try {
@@ -35,18 +35,18 @@ public class LOMTechnicalDOMWriter extends LOMSimpleDataWriter{
 			//Create the requirement node
 			Element requirement = doc.createElement( "imsmd:requirement" );
 			//Create the orComposite node
-			Element orComposite = doc.createElement( "imsmd:orcomposite" );
+			Element orComposite = doc.createElement( scorm?"imsmd:orComposite":"imsmd:orcomposite" );
 			
 			//Create the minimum version node
 			if (isStringSet(technical.getMinimumVersion( ))){
-				Element minVer = doc.createElement( "imsmd:minimumversion" );
+				Element minVer = doc.createElement( scorm?"imsmd:minimumVersion":"imsmd:minimumversion" );
 				minVer.setTextContent( technical.getMinimumVersion( ));
 				orComposite.appendChild( minVer );
 			}
 			
 			//Create the maximum version node
 			if (isStringSet(technical.getMinimumVersion( ))){
-				Element maxVer = doc.createElement( "imsmd:maximumversion" );
+				Element maxVer = doc.createElement( scorm?"imsmd:maximumVersion":"imsmd:maximumversion" );
 				maxVer.setTextContent( technical.getMaximumVersion( ));
 				orComposite.appendChild( maxVer );
 			}

@@ -1,6 +1,7 @@
 package es.eucm.eadventure.editor.control.controllers.lom;
 
 import es.eucm.eadventure.editor.data.lom.LOMEducational;
+import es.eucm.eadventure.editor.control.config.LOMConfigData;
 
 public class LOMTypicalLearningTimeDataControl extends LOMDurationDataControl{
 
@@ -14,9 +15,10 @@ public class LOMTypicalLearningTimeDataControl extends LOMDurationDataControl{
 	
 	protected boolean setParameter(int param, String value){
 		boolean set = super.setParameter( param, value );
-		if (set)
+		if (set){
 			data.setTypicalLearningTime( toString() );
-		
+			LOMConfigData.storeData(LOMEducationalDataControl.GROUP, "typicalLearningTime", toString());
+		}
 		return set;
 	}
 	

@@ -84,7 +84,9 @@ public class AssessmentRuleTreeNode extends TreeNode{
 	@Override
 	public JComponent getEditPanel( ) {
 		//return new ChapterPanel( dataControl );
-		return new AssessmentRulePanel( dataControl );
+		boolean scorm12 = ((AssessmentProfileDataControl)((AssessmentProfileTreeNode)parent).getDataControl()).isScorm12();
+		boolean scorm2004 = ((AssessmentProfileDataControl)((AssessmentProfileTreeNode)parent).getDataControl()).isScorm2004();
+		return new AssessmentRulePanel( dataControl,scorm12,scorm2004 );
 	}
 
 	@Override

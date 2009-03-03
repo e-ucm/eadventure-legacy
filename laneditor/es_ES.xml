@@ -14,7 +14,7 @@
 	<entry key="MenuFile.Save">Guardar</entry>
 	<entry key="MenuFile.SaveAs">Guardar como...</entry>
 	<entry key="MenuFile.LOMProperties">Propiedades de Objeto de Aprendizaje (LO)</entry>
-	<entry key="MenuFile.LOMSCORMProperties">Propiedades de Objeto de Aprendizaje para paquetes SCORM (LO)</entry>
+	<entry key="MenuFile.LOMSCORMProperties">Propiedades de Objeto de Aprendizaje para paquetes SCORM 1.2 (IMS-LOM)</entry>
 	<entry key="MenuFile.ExportLOM">Exportar como Objeto de Aprendizaje (LO)</entry>
 	<entry key="MenuFile.ExportGame">Exportar como fichero EAD</entry>
 	<entry key="MenuFile.ExportStandalone">Exportar como fichero jar ejecutable</entry>
@@ -1604,6 +1604,9 @@ Si no los cambia, el juego empleará los botones por defecto.</entry>
 	<entry key="AdaptationRulesList.ListTitle">Lista de reglas de adaptación</entry>
 	<entry key="AdaptationRulesList.Title">Resumen del perfil de adaptación</entry>
 	<entry key="AdaptationRulesList.Information">Estas son las reglas de adaptación definidas en este perfil. Para añadir nuevas reglas o editar las existentes, use el botón derecho en el perfil de adaptación en el árbol de la izquierda y seleccione la opción correspondiente.   En esta misma página puede definir un estado inicial por defecto para el juego que se aplicará en caso de no poder activar ninguna de las reglas de adaptación. Esto permite tener perfiles de adaptación estáticos que no requieren la intervención de un LMS.</entry>
+	<entry key="AdaptationRulesList.Scorm2004">Perfil SCORM 2004 </entry>
+	<entry key="AdaptationRulesList.Scorm12">Perfil 1.2 </entry>
+	<entry key="AdaptationRulesList.ScormBorder">Convertir perfil actual en perfil Scorm</entry>
 
 	<entry key="AdaptationProfiles.Title">Perfiles de adaptación</entry>
 	<entry key="AdaptationProfiles.Information">Esta sección del árbol permite la creación y modificación de los perfiles de adaptación. Para activar uno de los perfiles, emplee el selector en la pantalla de edición de las propiedades generales del capítulo.</entry>

@@ -56,8 +56,13 @@ public class AssessmentRulePanel extends JPanel {
 	 * 
 	 * @param assRuleDataControl
 	 *            Controller of the element reference
+	 * @param  scorm12 
+	 * 				Show if it is a Scorm 1.2 profile     
+	 * 
+	 * @param  scorm2004
+	 * 				Show if it is a Scorm 2004 profile                    
 	 */
-	public AssessmentRulePanel( AssessmentRuleDataControl assRuleDataControl ) {
+	public AssessmentRulePanel( AssessmentRuleDataControl assRuleDataControl, boolean scorm12, boolean scorm2004 ) {
 
 		// Set the controller
 		Controller controller = Controller.getInstance( );
@@ -147,7 +152,7 @@ public class AssessmentRulePanel extends JPanel {
 
 		// Create and add the set-property table
 		c2.weighty=0.8; c2.fill=GridBagConstraints.BOTH; c2.gridy=1;
-		AssessmentPropertiesPanel propPanel = new AssessmentPropertiesPanel( this.assessmentRuleDataControl ); 
+		AssessmentPropertiesPanel propPanel = new AssessmentPropertiesPanel( this.assessmentRuleDataControl,scorm12, scorm2004 ); 
 		effectPanel.add( propPanel, c2 );
 		
 		c.gridy = 4;

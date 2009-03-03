@@ -1,7 +1,9 @@
 package es.eucm.eadventure.editor.gui.lomdialog;
 
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -10,6 +12,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import es.eucm.eadventure.editor.control.config.LOMConfigData;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.lom.LOMGeneralDataControl;
@@ -57,8 +60,9 @@ public class LOMGeneralPanel extends JPanel{
 				descriptionPanel.updateText( );
 			}
 		});
+		
 		JPanel buttonPanel = new JPanel();
-		buttonPanel.add( setDefaults );
+		buttonPanel.add( setDefaults);
 		add ( Box.createVerticalStrut( 1 ));
 		add(buttonPanel);
 		add ( Box.createRigidArea( new Dimension (400,100) ));

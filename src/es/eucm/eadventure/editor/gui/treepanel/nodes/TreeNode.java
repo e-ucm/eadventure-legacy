@@ -96,7 +96,7 @@ public abstract class TreeNode {
 	/**
 	 * Parent node.
 	 */
-	private TreeNode parent;
+	protected TreeNode parent;
 
 	/**
 	 * List of node children.

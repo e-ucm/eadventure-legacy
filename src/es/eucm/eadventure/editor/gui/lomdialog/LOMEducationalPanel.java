@@ -15,7 +15,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.config.LOMConfigData;
 import es.eucm.eadventure.editor.control.controllers.lom.LOMEducationalDataControl;
+import es.eucm.eadventure.editor.control.controllers.lom.LOMGeneralDataControl;
 
 public class LOMEducationalPanel extends JPanel{
 
@@ -42,19 +44,26 @@ public class LOMEducationalPanel extends JPanel{
 		c1.setHgap( 2 );
 		c1.setVgap( 2 );
 		firstRow.setLayout( c1 );
-		firstRow.add( new LOMOptionsPanel(dataControl.getIntendedEndUserRoleController( ), TextConstants.getText("LOM.Educational.IntendedEndUserRole")) );
-		firstRow.add( new LOMOptionsPanel(dataControl.getSemanticDensityController( ), TextConstants.getText("LOM.Educational.SemanticDensity")) );
-		firstRow.add( new LOMOptionsPanel(dataControl.getLearningResourceTypeController( ), TextConstants.getText("LOM.Educational.LearningResourceType")) );
+		LOMOptionsPanel intendedEnd = new LOMOptionsPanel(dataControl.getIntendedEndUserRoleController( ), TextConstants.getText("LOM.Educational.IntendedEndUserRole")) ;
+		firstRow.add(intendedEnd );
+		LOMOptionsPanel semantic =new LOMOptionsPanel(dataControl.getSemanticDensityController( ), TextConstants.getText("LOM.Educational.SemanticDensity")) ;
+		firstRow.add( semantic);
+		LOMOptionsPanel learningResources = new LOMOptionsPanel(dataControl.getLearningResourceTypeController( ), TextConstants.getText("LOM.Educational.LearningResourceType"));
+		firstRow.add( learningResources);
 		
 		JPanel secondRow = new JPanel();
 		GridLayout c2 = new GridLayout(1,4);
 		c2.setHgap( 2 );
 		c2.setVgap( 2 );
 		secondRow.setLayout( c2 );
-		secondRow.add( new LOMOptionsPanel(dataControl.getContextController( ), TextConstants.getText("LOM.Educational.Context")) );
-		secondRow.add( new LOMOptionsPanel(dataControl.getDifficultyController( ), TextConstants.getText("LOM.Educational.Difficulty")) );
-		secondRow.add( new LOMOptionsPanel(dataControl.getInteractivityLevelController( ), TextConstants.getText("LOM.Educational.InteractivityLevel")) );
-		secondRow.add( new LOMOptionsPanel(dataControl.getInteractivityTypeController( ), TextConstants.getText("LOM.Educational.InteractivityType")) );
+		LOMOptionsPanel context = new LOMOptionsPanel(dataControl.getContextController( ), TextConstants.getText("LOM.Educational.Context")) ;
+		secondRow.add( context);
+		LOMOptionsPanel difficulty = new LOMOptionsPanel(dataControl.getDifficultyController( ), TextConstants.getText("LOM.Educational.Difficulty")) ;
+		secondRow.add( difficulty);
+		LOMOptionsPanel interactivityLevel =  new LOMOptionsPanel(dataControl.getInteractivityLevelController( ), TextConstants.getText("LOM.Educational.InteractivityLevel")) ;
+		secondRow.add(interactivityLevel);
+		LOMOptionsPanel interactivityType = new LOMOptionsPanel(dataControl.getInteractivityTypeController( ), TextConstants.getText("LOM.Educational.InteractivityType")) ;
+		secondRow.add(interactivityType );
 		
 		optionsPanel.add( firstRow );
 		optionsPanel.add( secondRow );
@@ -81,6 +90,41 @@ public class LOMEducationalPanel extends JPanel{
 		//Create the other panels
 		LOMTextPanel descriptionPanel = new LOMTextPanel(dataControl.getDescriptionController( ), TextConstants.getText("LOM.Educational.Description"), LOMTextPanel.TYPE_AREA);
 		LOMTextPanel typicalAgeRangePanel = new LOMTextPanel(dataControl.getTypicalAgeRangeController( ), TextConstants.getText("LOM.Educational.TypicalAgeRange"), LOMTextPanel.TYPE_FIELD);
+		
+		// check if there are related stored data in config file
+		/*if (LOMConfigData.isStored(LOMEducationalDataControl.GROUP, "intendedEndUserRole")){
+			intendedEnd.setSelectedOption(LOMConfigData.getProperty(LOMGeneralDataControl.GROUP, "intendedEndUserRole"));
+		}
+		if (LOMConfigData.isStored(LOMEducationalDataControl.GROUP, "semanticDensity")){
+			semantic.setSelectedOption(LOMConfigData.getProperty(LOMGeneralDataControl.GROUP, "semanticDensity"));
+		}
+		if (LOMConfigData.isStored(LOMEducationalDataControl.GROUP, "learningResourcesType")){
+			learningResources.setSelectedOption(LOMConfigData.getProperty(LOMGeneralDataControl.GROUP, "learningResourcesType"));
+		}
+		if (LOMConfigData.isStored(LOMEducationalDataControl.GROUP, "context")){
+			context.setSelectedOption(LOMConfigData.getProperty(LOMGeneralDataControl.GROUP, "context"));
+		}
+		if (LOMConfigData.isStored(LOMEducationalDataControl.GROUP, "difficulty")){
+			difficulty.setSelectedOption(LOMConfigData.getProperty(LOMGeneralDataControl.GROUP, "difficulty"));
+		}
+		if (LOMConfigData.isStored(LOMEducationalDataControl.GROUP, "interactivityLevel")){
+			interactivityLevel.setSelectedOption(LOMConfigData.getProperty(LOMGeneralDataControl.GROUP, "interactivityLevel"));
+		}
+		if (LOMConfigData.isStored(LOMEducationalDataControl.GROUP, "interactivityType")){
+			interactivityType.setSelectedOption(LOMConfigData.getProperty(LOMGeneralDataControl.GROUP, "interactivityType"));
+		}
+		
+		if (LOMConfigData.isStored(LOMEducationalDataControl.GROUP, "description")){
+			descriptionPanel.setValue(LOMConfigData.getProperty(LOMGeneralDataControl.GROUP, "description"));
+		}
+		if (LOMConfigData.isStored(LOMEducationalDataControl.GROUP, "typicalAgeRange")){
+			typicalAgeRangePanel.setValue(LOMConfigData.getProperty(LOMGeneralDataControl.GROUP, "typicalAgeRange"));
+		}
+		if (LOMConfigData.isStored(LOMEducationalDataControl.GROUP, "typicalLearningTime")){
+			String data =LOMConfigData.getProperty(LOMGeneralDataControl.GROUP, "typicalAgeRange");
+			
+		}*/
+		
 		
 		//Add all panels
 		add (optionsPanel);

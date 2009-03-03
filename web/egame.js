@@ -27,18 +27,29 @@ function connect()
     var applet = document.getElementById('eadventure');
     //document.eadventure.connectionEstablished();
     applet.connectionEstablished("Se inicia la conexion con el LMS!!");
-    communicationIni = API.LMSInitialize("");
+	if (APIVersion == "SCORM12"){
+	communicationIni = API.LMSInitialize("");
+	} else if (APIVersion == "SCORM2004"){
+	communicationIni = API.Initialize("");
+	}
       if (!communicationIni){
-     //      alert("The conexion has failed, error " + API.LMSGetLastError());
-           document.eadventure.connectionFailed(API.LMSGetLastError());                   
+          alert("The conexion has failed, error ");
+           	if (APIVersion == "SCORM12"){
+				applet.connectionFailed(API.LMSGetLastError());
+			} else if (APIVersion == "SCORM2004"){
+				applet.connectionFailed(API.GetLastError());
+			}
+
+		   
+		                      
       } else {
-       //     alert("Begin the comunication with LSM");
-            document.edventure.connectionEstablished();
+           alert("Begin the comunication with LSM");
+				//applet.connectionEstablished();
       }
    }
    else
    {
-    //  alert("Doesn´t find the SCORM RTE!!(connect)");
+     alert("Doesn´t find the SCORM RTE!!(connect)");
    }
 }
 ;
@@ -46,22 +57,28 @@ function connect()
 function disconnect(){
     var endComm;
       
+	  var applet = document.getElementById('eadventure');
     if (API != null)
    {
-    endComm = API.LMSFinish("");  
+			if (APIVersion == "SCORM12"){
+				endComm = API.LMSFinish("");  
+			} else if (APIVersion == "SCORM2004"){
+				endComm = API.Terminate("");  
+			}
+    
     if (!endComm){
-//           alert("The end conexion has failed, error " + API.LMSGetLastError());
+         alert("The end conexion has failed, error ");
            
                   
       } else {
-  //          alert("The conexion with LMS has finised ok");
-            document.eadventure.disconnectOK();
+            alert("The conexion with LMS has finised ok");
+            applet.disconnectOK();
       }
       
    }
    else
    {
-    //  alert("Doesn´t find the SCORM RTE!!(disconect)");
+      alert("Doesn´t find the SCORM RTE!!(disconect)");
    }
 };
 
@@ -72,25 +89,32 @@ function getLMSData(adventureMessage){
     var OK;
     if (API != null)
    {
-//   alert("Vamos a enviar API.LMSGetValue("+adventureMessage+")" );
-    charString = API.LMSGetValue(adventureMessage);  
-    OK = API.LMSGetLastError("");
-  //  alert("Nos llega "+charString);
+  alert("Vamos a enviar API.LMSGetValue("+adventureMessage+")" );
+			if (APIVersion == "SCORM12"){
+				charString = API.LMSGetValue(adventureMessage);  
+				OK = API.LMSGetLastError("");
+			} else if (APIVersion == "SCORM2004"){
+				charString = API.GetValue(adventureMessage);  
+				OK = API.GetLastError("");
+			}
+	
+	
+   alert("Nos llega "+charString);
     var applet = document.getElementById('eadventure');
     applet.dataReceived(adventureMessage,charString);
     //document.eadventure.dataReceived(adventureMessage,charString);
-    if (OK != "0"){
-    //       alert("The get operation was failed, error " + API.LMSGetErrorString(OK));
+    if (!OK ){
+           alert("The get operation was failed, error " );
                   
       } else {
         //ver como se llama el metodo de eagema para pillar datos del LMS
-        document.eagame.dataReceived(adventureMessage,charString);
-      //  alert(charString + " was send by LMS!!");
+        applet.dataReceived(adventureMessage,charString);
+      alert(charString + " was send by LMS!!");
       }
    }
    else
    {
-    //  alert("Doesn´t find the SCORM RTE, (getLMSdata)!!");
+     alert("Doesn´t find the SCORM RTE, (getLMSdata)!!");
    }
     
 };
@@ -123,21 +147,31 @@ function getLMSData(adventureMessage){
 function setLMSData(valueFromApplet1,valueFromApplet2){
     
     var ok;
+	var res;
     if (API != null)
    {
-    ok = API.LMSSetValue(valueFromApplet1,valueFromApplet2); 
+   if (APIVersion == "SCORM12"){
+				res = API.LMSSetValue(valueFromApplet1,valueFromApplet2); 
+				ok = API.LMSGetLastError("");
+			} else if (APIVersion == "SCORM2004"){
+				res = API.SetValue(valueFromApplet1,valueFromApplet2); 
+				ok = API.GetLastError("");
+			}
+    
+   
+    
     if (!ok){
-    //       alert("The end conexion has failed, error " + API.LMSGetErrorString(API.LMSGetLastError("")) );
+         alert("The end conexion has failed, error " );
                   
       } else {
         //ver como se llama el metodo de eagame para pillar datos del LMS
-       ///document.eagame.getDataS(carString);
-      //   alert("The data has been send OK!!ole!");
+       //document.eagame.getDataS(carString);
+        alert("The data has been send OK!!ole!");
       }
    }
    else
    {
-    //  alert("Doesn´t find the SCORM RTE!!(setLMSdata)");
+     alert("Doesn´t find the SCORM RTE!!(setLMSdata)");
    }
     
 };
@@ -187,7 +221,8 @@ return false;
 //
 function searchRTE(win)
 {
-   while ((win.API == null) && (win.parent != null) && (win.parent != win))
+   while ((win.API == null) && (win.parent != null) && 
+   (win.parent != win)&&(win.API_1484_11== null))
    {
       tries ++ ;
       if (tries > maxTries)
@@ -197,8 +232,16 @@ function searchRTE(win)
       win = win.parent;
 
    }
- 
-   return win.API;
+   if (win.API!=null){
+	APIVersion = "SCORM12";
+	return win.API;
+	
+   }else if (win.API_1484_11!=null){
+   APIVersion = "SCORM2004";
+	return win.API_1484_11;
+
+   }
+   
 }
 ;
 
@@ -213,10 +256,6 @@ function getRTE(win)
    if ((API == null) && (win.opener != null))
    {
       API = searchRTE(win.opener);
-   }
-   if (API != null)
-   {
-      APIVersion = API.version;
    }
 
 }
