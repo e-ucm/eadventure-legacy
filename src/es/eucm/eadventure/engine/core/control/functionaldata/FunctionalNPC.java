@@ -70,6 +70,10 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
      */
     private Color textBorderColor;
     
+    private Color bubbleBkgColor;
+    
+    private Color bubbleBorderColor;
+    
     /**
      * Resources being used by the character
      */
@@ -126,7 +130,9 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
         
         textFrontColor = generateColor( npc.getTextFrontColor( ) );
         textBorderColor = generateColor( npc.getTextBorderColor( ) );
-
+        bubbleBorderColor = generateColor( npc.getBubbleBorderColor() );
+        bubbleBkgColor = generateColor( npc.getBubbleBkgColor() );
+        
         // Select the resources
         resources = createResourcesBlock( );
         
@@ -364,7 +370,7 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
     }
     
     public void speakWithFreeTTS(String text, String voice){
-    	DebugLog.player("NPC " + npc.getId() + " speaks with text-to-speach");
+    	DebugLog.player("NPC " + npc.getId() + " speaks with text-to-speech");
     	// Start the voice
     	speak(text);
     	draw();
@@ -558,6 +564,21 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
 	@Override
 	public InfluenceArea getInfluenceArea() {
 		return influenceArea;
+	}
+
+	@Override
+	public Color getBubbleBkgColor() {
+		return bubbleBkgColor;
+	}
+
+	@Override
+	public Color getBubbleBorderColor() {
+		return bubbleBorderColor;
+	}
+
+	@Override
+	public boolean getShowsSpeechBubbles() {
+		return npc.getShowsSpeechBubbles();
 	}
 
 }

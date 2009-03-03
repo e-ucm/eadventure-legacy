@@ -221,6 +221,11 @@
 	id ID #IMPLIED
 >
 <!ELEMENT textcolor (frontcolor, bordercolor)>
+<!ATTLIST textcolor
+	showsSpeechBubble (yes | no) "no"
+	bubbleBkgColor CDATA #IMPLIED
+	bubbleBorderColor CDATA #IMPLIED
+>
 <!ELEMENT frontcolor EMPTY>
 <!ATTLIST frontcolor
 	color CDATA #REQUIRED

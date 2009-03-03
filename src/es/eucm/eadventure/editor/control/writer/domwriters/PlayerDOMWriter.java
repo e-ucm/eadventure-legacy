@@ -46,7 +46,10 @@ public class PlayerDOMWriter {
 			}
 
 			// Create the textcolor
-			Node textColorNode = doc.createElement( "textcolor" );
+			Element textColorNode = doc.createElement( "textcolor" );
+			textColorNode.setAttribute( "showsSpeechBubble", (player.getShowsSpeechBubbles() ? "yes" : "no"));
+			textColorNode.setAttribute( "bubbleBkgColor", player.getBubbleBkgColor());
+			textColorNode.setAttribute( "bubbleBorderColor", player.getBubbleBorderColor());
 
 			// Create and append the frontcolor
 			Element frontColorElement = doc.createElement( "frontcolor" );

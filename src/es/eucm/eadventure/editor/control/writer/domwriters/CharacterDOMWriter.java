@@ -48,8 +48,11 @@ public class CharacterDOMWriter {
 			}
 
 			// Create the textcolor
-			Node textColorNode = doc.createElement( "textcolor" );
-
+			Element textColorNode = doc.createElement( "textcolor" );
+			textColorNode.setAttribute( "showsSpeechBubble", (character.getShowsSpeechBubbles() ? "yes" : "no"));
+			textColorNode.setAttribute( "bubbleBkgColor", character.getBubbleBkgColor());
+			textColorNode.setAttribute( "bubbleBorderColor", character.getBubbleBorderColor());
+			
 			// Create and append the frontcolor
 			Element frontColorElement = doc.createElement( "frontcolor" );
 			frontColorElement.setAttribute( "color", character.getTextFrontColor( ) );

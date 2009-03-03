@@ -96,6 +96,12 @@ public class PlayerPanel extends JPanel implements Updateable {
 	 */
 	private JTextField trySynthesizer;
 	
+	private JButton bubbleBkgButton;
+	
+	private JButton bubbleBorderButton;
+	
+	private JCheckBox showsSpeechBubbles;
+	
 	/**
 	 * Check box to set that the conversation lines of the player must be read by synthesizer
 	 */
@@ -115,14 +121,14 @@ public class PlayerPanel extends JPanel implements Updateable {
 	 * @param playerDataControl
 	 *            Player controller
 	 */
-	public PlayerPanel( PlayerDataControl playerDataControl ) {
+	public PlayerPanel( PlayerDataControl playerDataControl2 ) {
 		// Create the doc panel and layout
 		docPanel = new JPanel( );
 		docPanel.setLayout( new GridBagLayout( ) );
 		GridBagConstraints cDoc = new GridBagConstraints( );
 
 		// Set the controller
-		this.playerDataControl = playerDataControl;
+		this.playerDataControl = playerDataControl2;
 
 		// Set the layout
 		setLayout( new BorderLayout( ) );
@@ -145,17 +151,7 @@ public class PlayerPanel extends JPanel implements Updateable {
 
 		// Create the field for the text color
 		cDoc.gridy = 1;
-		JPanel textColorPanel = new JPanel( );
-		textColorPanel.setLayout( new GridLayout( 3, 1, 4, 4 ) );
-		textPreviewPanel = new TextPreviewPanel( playerDataControl.getTextFrontColor( ), playerDataControl.getTextBorderColor( ) );
-		textColorPanel.add( textPreviewPanel );
-		JButton frontColorButton = new JButton( TextConstants.getText( "Player.FrontColor" ) );
-		frontColorButton.addActionListener( new ChangeTextColorListener( ChangeTextColorListener.FRONT_COLOR ) );
-		textColorPanel.add( frontColorButton );
-		JButton borderColorButton = new JButton( TextConstants.getText( "Player.BorderColor" ) );
-		borderColorButton.addActionListener( new ChangeTextColorListener( ChangeTextColorListener.BORDER_COLOR ) );
-		textColorPanel.add( borderColorButton );
-		textColorPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Player.TextColor" ) ) );
+		JPanel textColorPanel = crateTextColorPanel();
 		docPanel.add( textColorPanel, cDoc );
 
 		// Create the field for the name
@@ -259,6 +255,64 @@ public class PlayerPanel extends JPanel implements Updateable {
 
 	}
 	
+	private JPanel crateTextColorPanel() {
+		JPanel textColorPanel = new JPanel( );
+		//textColorPanel.setLayout( new GridLayout( 6, 1, 4, 4 ) );
+		textColorPanel.setLayout( new GridBagLayout() );
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 0;
+		c.weightx = 1.0;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.weighty = 0.1;
+		
+		showsSpeechBubbles = new JCheckBox(TextConstants.getText( "Player.ShowsSpeechBubble" ));
+		textColorPanel.add(showsSpeechBubbles, c);
+		showsSpeechBubbles.setSelected( playerDataControl.getShowsSpeechBubbles() );
+		showsSpeechBubbles.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				if (showsSpeechBubbles.isSelected() != playerDataControl.getShowsSpeechBubbles()) {
+					playerDataControl.setShowsSpeechBubbles(showsSpeechBubbles.isSelected());
+					if (bubbleBkgButton != null && bubbleBorderButton != null) {
+						bubbleBkgButton.setEnabled(playerDataControl.getShowsSpeechBubbles());
+						bubbleBorderButton.setEnabled(playerDataControl.getShowsSpeechBubbles());
+					}
+					if (textPreviewPanel != null) {
+						textPreviewPanel.setShowsSpeechBubbles(showsSpeechBubbles.isSelected());
+					}
+					
+				}
+			}
+		});
+		textPreviewPanel = new TextPreviewPanel( playerDataControl.getTextFrontColor( ), playerDataControl.getTextBorderColor( ), playerDataControl.getShowsSpeechBubbles(), playerDataControl.getBubbleBkgColor(), playerDataControl.getBubbleBorderColor() );
+		c.gridy++;
+		c.weighty = 1.0;
+		c.ipady = 40;
+		textColorPanel.add( textPreviewPanel ,c);
+		JButton frontColorButton = new JButton( TextConstants.getText( "Player.FrontColor" ) );
+		frontColorButton.addActionListener( new ChangeTextColorListener( ChangeTextColorListener.FRONT_COLOR ) );
+		c.gridy++;
+		c.weighty = 0.1;
+		c.ipady = 0;
+		textColorPanel.add( frontColorButton ,c);
+		JButton borderColorButton = new JButton( TextConstants.getText( "Player.BorderColor" ) );
+		borderColorButton.addActionListener( new ChangeTextColorListener( ChangeTextColorListener.BORDER_COLOR ) );
+		c.gridy++;
+		textColorPanel.add( borderColorButton ,c);
+		bubbleBkgButton = new JButton( TextConstants.getText( "Player.BubbleBkgColor" ));
+		bubbleBkgButton.addActionListener( new ChangeTextColorListener( ChangeTextColorListener.BUBBLEBKG_COLOR ));
+		c.gridy++;
+		textColorPanel.add(bubbleBkgButton,c);
+		bubbleBkgButton.setEnabled(playerDataControl.getShowsSpeechBubbles());
+		bubbleBorderButton = new JButton( TextConstants.getText( "Player.BubbleBorderColor" ));
+		bubbleBorderButton.addActionListener( new ChangeTextColorListener( ChangeTextColorListener.BUBBLEBORDER_COLOR ));
+		c.gridy++;
+		textColorPanel.add(bubbleBorderButton,c);
+		bubbleBorderButton.setEnabled(playerDataControl.getShowsSpeechBubbles());
+		textColorPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Player.TextColor" ) ) );
+		return textColorPanel;
+	}
+	
 	/**
 	 * Return a string array with names of the available voices for synthesizer text
 	 * @return
@@ -328,17 +382,18 @@ public class PlayerPanel extends JPanel implements Updateable {
 		/**
 		 * Constant for front color.
 		 */
-		public static final boolean FRONT_COLOR = true;
+		public static final int FRONT_COLOR = 0;
 
 		/**
 		 * Constant for border color.
 		 */
-		public static final boolean BORDER_COLOR = false;
-
-		/**
-		 * True if the front color must change, false if the border color must change.
-		 */
-		private boolean frontColor;
+		public static final int BORDER_COLOR = 1;
+		
+		public static final int BUBBLEBKG_COLOR = 2;
+		
+		public static final int BUBBLEBORDER_COLOR = 3;
+		
+		private int color;
 
 		/**
 		 * Color chooser.
@@ -356,14 +411,14 @@ public class PlayerPanel extends JPanel implements Updateable {
 		 * @param frontColor
 		 *            Whether the front or border color must be changed
 		 */
-		public ChangeTextColorListener( boolean frontColor ) {
-			this.frontColor = frontColor;
+		public ChangeTextColorListener( int color ) {
+			this.color = color;
 
 			// Create the color chooser
 			colorChooser = new JColorChooser( );
 
 			// Create and add the preview panel, attaching it to the color chooser
-			colorPreviewPanel = new TextPreviewPanel( playerDataControl.getTextFrontColor( ), playerDataControl.getTextBorderColor( ) );
+			colorPreviewPanel = new TextPreviewPanel( playerDataControl.getTextFrontColor( ), playerDataControl.getTextBorderColor( ), playerDataControl.getShowsSpeechBubbles(), playerDataControl.getBubbleBkgColor(), playerDataControl.getBubbleBorderColor() );
 			colorPreviewPanel.setPreferredSize( new Dimension( 400, 40 ) );
 			colorPreviewPanel.setBorder( BorderFactory.createEmptyBorder( 1, 1, 1, 1 ) );
 			colorChooser.setPreviewPanel( colorPreviewPanel );
@@ -377,12 +432,28 @@ public class PlayerPanel extends JPanel implements Updateable {
 		 */
 		public void actionPerformed( ActionEvent e ) {
 			// Update the color on the color chooser and the preview panel
-			colorChooser.setColor( frontColor ? playerDataControl.getTextFrontColor( ) : playerDataControl.getTextBorderColor( ) );
-			colorPreviewPanel.setTextFrontColot( playerDataControl.getTextFrontColor( ) );
+			if (color == FRONT_COLOR)
+				colorChooser.setColor(playerDataControl.getTextFrontColor());
+			else if (color == BORDER_COLOR)
+				colorChooser.setColor(playerDataControl.getTextBorderColor());
+			else if (color == BUBBLEBKG_COLOR)
+				colorChooser.setColor(playerDataControl.getBubbleBkgColor());
+			else if (color == BUBBLEBORDER_COLOR)
+				colorChooser.setColor(playerDataControl.getBubbleBorderColor());
+			
+			colorPreviewPanel.setTextFrontColor( playerDataControl.getTextFrontColor( ) );
 			colorPreviewPanel.setTextBorderColor( playerDataControl.getTextBorderColor( ) );
 
 			// Create and show the dialog
-			JDialog colorDialog = JColorChooser.createDialog( null, TextConstants.getText( frontColor ? "Player.FrontColor" : "Player.BorderColor" ), true, colorChooser, new UpdateColorListener( ), null );
+			JDialog colorDialog = null;
+			if (color == FRONT_COLOR)
+				colorDialog = JColorChooser.createDialog( null, TextConstants.getText("Player.FrontColor"), true, colorChooser, new UpdateColorListener( ), null );
+			else if (color == BORDER_COLOR)
+				colorDialog = JColorChooser.createDialog( null, TextConstants.getText("Player.BorderColor"), true, colorChooser, new UpdateColorListener( ), null );
+			else if (color == BUBBLEBKG_COLOR)
+				colorDialog = JColorChooser.createDialog( null, TextConstants.getText("Player.BubbleBkgColor"), true, colorChooser, new UpdateColorListener( ), null );
+			else if (color == BUBBLEBORDER_COLOR)
+				colorDialog = JColorChooser.createDialog( null, TextConstants.getText("Player.BubbleBorderColor"), true, colorChooser, new UpdateColorListener( ), null );
 			colorDialog.setResizable( false );
 			colorDialog.setVisible( true );
 		}
@@ -399,12 +470,18 @@ public class PlayerPanel extends JPanel implements Updateable {
 			 */
 			public void actionPerformed( ActionEvent e ) {
 				// Update the text color
-				if( frontColor ) {
+				if( color == FRONT_COLOR ) {
 					playerDataControl.setTextFrontColor( colorChooser.getColor( ) );
-					textPreviewPanel.setTextFrontColot( colorChooser.getColor( ) );
-				} else {
+					textPreviewPanel.setTextFrontColor( colorChooser.getColor( ) );
+				} else if (color == BORDER_COLOR){
 					playerDataControl.setTextBorderColor( colorChooser.getColor( ) );
 					textPreviewPanel.setTextBorderColor( colorChooser.getColor( ) );
+				} else if (color == BUBBLEBKG_COLOR) {
+					playerDataControl.setBubbleBkgColor( colorChooser.getColor() );
+					textPreviewPanel.setBubbleBkgColor( colorChooser.getColor() );
+				} else if (color == BUBBLEBORDER_COLOR) {
+					playerDataControl.setBubbleBorderColor( colorChooser.getColor() );
+					textPreviewPanel.setBubbleBorderColor( colorChooser.getColor() );
 				}
 			}
 		}
@@ -420,10 +497,14 @@ public class PlayerPanel extends JPanel implements Updateable {
 			 * @see javax.swing.event.ChangeListener#stateChanged(javax.swing.event.ChangeEvent)
 			 */
 			public void stateChanged( ChangeEvent e ) {
-				if( frontColor )
-					colorPreviewPanel.setTextFrontColot( colorChooser.getColor( ) );
-				else
+				if( color == FRONT_COLOR )
+					colorPreviewPanel.setTextFrontColor( colorChooser.getColor( ) );
+				else if ( color == BORDER_COLOR )
 					colorPreviewPanel.setTextBorderColor( colorChooser.getColor( ) );
+				else if ( color == BUBBLEBKG_COLOR )
+					colorPreviewPanel.setBubbleBkgColor( colorChooser.getColor() );
+				else if ( color == BUBBLEBORDER_COLOR )
+					colorPreviewPanel.setBubbleBorderColor( colorChooser.getColor() );
 			}
 		}
 	}
@@ -557,6 +638,14 @@ public class PlayerPanel extends JPanel implements Updateable {
 		this.detailedDescriptionTextField.setText(playerDataControl.getDetailedDescription());
 		this.documentationTextArea.setText(playerDataControl.getDocumentation());
 		this.nameTextField.setText(playerDataControl.getName());
+		this.showsSpeechBubbles.setSelected(playerDataControl.getShowsSpeechBubbles());
+		this.bubbleBkgButton.setEnabled(playerDataControl.getShowsSpeechBubbles());
+		this.bubbleBorderButton.setEnabled(playerDataControl.getShowsSpeechBubbles());
+		this.textPreviewPanel.setBubbleBkgColor(playerDataControl.getBubbleBkgColor());
+		this.textPreviewPanel.setBubbleBorderColor(playerDataControl.getBubbleBorderColor());
+		this.textPreviewPanel.setTextBorderColor(playerDataControl.getTextBorderColor());
+		this.textPreviewPanel.setTextFrontColor(playerDataControl.getTextFrontColor());
+		this.textPreviewPanel.setShowsSpeechBubbles(playerDataControl.getShowsSpeechBubbles());
 		this.textPreviewPanel.updateUI();
 		if (playerDataControl.getPlayerVoice() != null){
 			for (int i =1; i<checkVoices.length;i++)

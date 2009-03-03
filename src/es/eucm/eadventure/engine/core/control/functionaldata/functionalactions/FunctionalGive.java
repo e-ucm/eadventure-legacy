@@ -94,7 +94,10 @@ public class FunctionalGive extends FunctionalAction {
 	            	canGive = item.giveTo(npc);
 	            	if (!canGive) {
 	            		DebugLog.player("Can't give: " + item.getItem().getId() + " to " + npc.getNPC().getId());
-		                functionalPlayer.speak( GameText.getTextGiveCannot( ) );
+		                if (functionalPlayer.isAlwaysSynthesizer())
+		                	functionalPlayer.speakWithFreeTTS(GameText.getTextGiveCannot(), functionalPlayer.getPlayerVoice());
+		                else
+		                	functionalPlayer.speak( GameText.getTextGiveCannot( ) );
 		                functionalPlayer.popAnimation();
 		                finished = true;
 	            	}

@@ -86,7 +86,10 @@ public class FunctionalUse extends FunctionalAction {
         	canUse = item.use();
         	if (!canUse) {
         		DebugLog.player("Can't use " + item.getElement().getId());
-                functionalPlayer.speak( GameText.getTextUseCannot( ) );
+        		if (functionalPlayer.isAlwaysSynthesizer())
+        			functionalPlayer.speakWithFreeTTS( GameText.getTextUseCannot(), functionalPlayer.getPlayerVoice());
+        		else
+        			functionalPlayer.speak( GameText.getTextUseCannot( ) );
                 functionalPlayer.popAnimation();
                 finished = true;       		
         	}

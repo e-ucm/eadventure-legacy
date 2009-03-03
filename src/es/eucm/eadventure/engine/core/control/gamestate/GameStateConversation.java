@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import es.eucm.eadventure.engine.core.control.DebugLog;
+import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
 import es.eucm.eadventure.engine.core.control.functionaldata.TalkingElement;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffect;
@@ -21,17 +22,7 @@ import es.eucm.eadventure.engine.core.gui.GUI;
  * A game main loop during a conversation
  */
 public class GameStateConversation extends GameState {
-    
-    /**
-     * Left most point of the response text block
-     */
-    private final int RESPONSE_TEXT_X;
-    
-    /**
-     * Upper most point of the response text block
-     */
-    private final int RESPONSE_TEXT_Y;
-    
+            
     /**
      * Number of response lines to display
      */
@@ -46,37 +37,7 @@ public class GameStateConversation extends GameState {
      * Ascent of the text of the response
      */
     private final int RESPONSE_TEXT_ASCENT;
-    
-    /**
-     * Color of the normal response text
-     */
-    private static final Color RESPONSE_TEXT_NORMAL = Color.YELLOW;
-    
-    /**
-     * Color of the highlighted response text
-     */
-    private static final Color RESPONSE_TEXT_HIGHLIGHTED = Color.RED;
-    
-    /**
-     * Color of the border of the response text
-     */
-    private static final Color RESPONSE_TEXT_BORDER = Color.BLACK;
-    
-    /**
-     * Constant for no mouse button clicked
-     */
-    private static final int MOUSE_BUTTON_NONE = 0;
-    
-    /**
-     * Constant for left mouse button clicked
-     */
-    private static final int MOUSE_BUTTON_LEFT = 1;
-    
-    /**
-     * Constant for right mouse button clicked
-     */
-    private static final int MOUSE_BUTTON_RIGHT = 2;
-    
+        
     /**
      * Current conversational node being played
      */
@@ -100,7 +61,7 @@ public class GameStateConversation extends GameState {
     /**
      * Last mouse button pressed
      */
-    private int mouseClickedButton = MOUSE_BUTTON_NONE;
+    private int mouseClickedButton = MouseEvent.NOBUTTON;
     
     /**
      * Variable to control the access to doRandom()
@@ -113,12 +74,12 @@ public class GameStateConversation extends GameState {
     private int optionSelected;
     
     /**
-     * 
+     * Indicates if an option was selected
      */
     private boolean isOptionSelected;
     
     /**
-     * 
+     * Indicates if a key was pressed
      */
     private boolean keyPressed;
 
@@ -131,8 +92,6 @@ public class GameStateConversation extends GameState {
      * Creates a new GameStateConversation
      */
     public GameStateConversation( ) {
-        RESPONSE_TEXT_X = GUI.getInstance( ).getResponseTextX( );
-        RESPONSE_TEXT_Y = GUI.getInstance( ).getResponseTextY( );
         RESPONSE_TEXT_NUMBER_LINES = GUI.getInstance( ).getResponseTextNumberLines( );
         RESPONSE_TEXT_ASCENT = GUI.getInstance( ).getGraphics( ).getFontMetrics( ).getAscent( );
         RESPONSE_TEXT_HEIGHT = RESPONSE_TEXT_ASCENT + 2;
@@ -185,27 +144,27 @@ public class GameStateConversation extends GameState {
      * Processed mouse clicks when in a dialog node.
      * If no button was pressed, the conversation goes on normally (goes to the next line only if no
      * character is talking or the one talking has finished).
-     * If the left button was pressed, the current line is skipped.
-     * If the right button was pressed, all the lines are skipped.
+     * If the left button (BUTTON1) was pressed, the current line is skipped.
+     * If the right button (BUTTON3) was pressed, all the lines are skipped.
      */
     private void processDialogNode() {
-        if( mouseClickedButton == MOUSE_BUTTON_NONE ) {
+        if( mouseClickedButton == MouseEvent.NOBUTTON ) {
             if( game.getCharacterCurrentlyTalking( ) == null || 
               ( game.getCharacterCurrentlyTalking( ) != null &&
                !game.getCharacterCurrentlyTalking( ).isTalking( ) ) ) {
                 playNextLine( );
             }
         }
-        else if( mouseClickedButton == MOUSE_BUTTON_LEFT ) {
+        else if( mouseClickedButton == MouseEvent.BUTTON1 ) {
         	DebugLog.user("Skipped line in conversation");
             playNextLine( );
-            mouseClickedButton = MOUSE_BUTTON_NONE;
+            mouseClickedButton = MouseEvent.NOBUTTON;
         }
-        else if( mouseClickedButton == MOUSE_BUTTON_RIGHT ) {
+        else if( mouseClickedButton == MouseEvent.BUTTON3 ) {
             DebugLog.user("Skipped conversation");
         	currentLine = currentNode.getLineCount( );
             playNextLine( );
-            mouseClickedButton = MOUSE_BUTTON_NONE;
+            mouseClickedButton = MouseEvent.NOBUTTON;
         }
         firstTime = true;
     }
@@ -259,10 +218,17 @@ public class GameStateConversation extends GameState {
      * @param optionIndex The index of the option
      */
     private void drawLine(Graphics2D g, String text, int optionIndex, int lineIndex) {
-    	Color textColor = (optionIndex == optionHighlighted ? RESPONSE_TEXT_HIGHLIGHTED : RESPONSE_TEXT_NORMAL);
-    	int y = RESPONSE_TEXT_Y + optionIndex * RESPONSE_TEXT_HEIGHT + RESPONSE_TEXT_ASCENT;
+    	Color textColor = Game.getInstance().getFunctionalPlayer().getTextFrontColor();
+    	if (optionIndex == optionHighlighted) {
+    		int red = textColor.getRed();
+    		int green = textColor.getGreen();
+    		int blue = textColor.getBlue();
+    		textColor = new Color(255 - red, 255 - green, 255 - blue);
+    	}    	
+    	int y = GUI.getInstance( ).getResponseTextY( ) + optionIndex * RESPONSE_TEXT_HEIGHT + RESPONSE_TEXT_ASCENT;
+    	int x = GUI.getInstance( ).getResponseTextX( );
     	String fullText = (lineIndex + 1) + ".- " + text;
-    	GUI.drawStringOnto(g, fullText, RESPONSE_TEXT_X, y, false, textColor, RESPONSE_TEXT_BORDER, true);
+    	GUI.drawStringOnto(g, fullText, x, y, false, textColor, Game.getInstance().getFunctionalPlayer().getTextBorderColor(), true);
     }
     
     
@@ -312,7 +278,7 @@ public class GameStateConversation extends GameState {
             if (line.isValidAudio( )){
                 player.speak( line.getText(), line.getAudioPath( ));
             }else if (line.getSynthesizerVoice()||player.isAlwaysSynthesizer()){
-            		player.speakWithFreeTTS(line.getText(), player.getPlayerVoice());
+            	player.speakWithFreeTTS(line.getText(), player.getPlayerVoice());
             }else{	
                 player.speak( line.getText( ) );
             }
@@ -345,19 +311,19 @@ public class GameStateConversation extends GameState {
     @Override
     public synchronized void mouseClicked(MouseEvent e) {
 		if (currentNode.getType() == ConversationNode.OPTION
-				&& RESPONSE_TEXT_Y <= e.getY()
-				&& RESPONSE_TEXT_Y + currentNode.getLineCount()	* RESPONSE_TEXT_HEIGHT + RESPONSE_TEXT_ASCENT >= e.getY() 
+				&& GUI.getInstance( ).getResponseTextY( ) <= e.getY()
+				&& GUI.getInstance( ).getResponseTextY( ) + currentNode.getLineCount()	* RESPONSE_TEXT_HEIGHT + RESPONSE_TEXT_ASCENT >= e.getY() 
 				&& !isOptionSelected) {
-			optionSelected = (e.getY() - RESPONSE_TEXT_Y) / RESPONSE_TEXT_HEIGHT;
+			optionSelected = (e.getY() - GUI.getInstance( ).getResponseTextY( )) / RESPONSE_TEXT_HEIGHT;
 			if (currentNode.getLineCount() <= RESPONSE_TEXT_NUMBER_LINES)
 				selectDisplayedOption();
 			else
 				selectNoAllDisplayedOption();
 		} else if (currentNode.getType() == ConversationNode.DIALOGUE) {
 			if (e.getButton() == MouseEvent.BUTTON1)
-				mouseClickedButton = MOUSE_BUTTON_LEFT;
+				mouseClickedButton = MouseEvent.BUTTON1;
 			else if (e.getButton() == MouseEvent.BUTTON3)
-				mouseClickedButton = MOUSE_BUTTON_RIGHT;
+				mouseClickedButton = MouseEvent.BUTTON3;
 		}
 	}
 
@@ -379,8 +345,8 @@ public class GameStateConversation extends GameState {
     
     @Override
     public void mouseMoved( MouseEvent e ) {
-        if( RESPONSE_TEXT_Y <= e.getY( ) )
-            optionHighlighted = ( e.getY( ) - RESPONSE_TEXT_Y ) / RESPONSE_TEXT_HEIGHT;
+        if( GUI.getInstance( ).getResponseTextY( ) <= e.getY( ) )
+            optionHighlighted = ( e.getY( ) - GUI.getInstance( ).getResponseTextY( ) ) / RESPONSE_TEXT_HEIGHT;
         else
             optionHighlighted = -1;
     }

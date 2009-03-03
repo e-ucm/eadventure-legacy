@@ -122,8 +122,6 @@ public class NPCTalking extends NPCState {
     	int wordsPerSecond = (int)task.getDuration()/60;
     	String[] words= text.split(" ");
     	timeTalking = (words.length/wordsPerSecond) * 1000;
-	  
-
     }
     
     public void stopTTSTalking(){
@@ -144,8 +142,12 @@ public class NPCTalking extends NPCState {
     public void draw( int x, int y , float scale, int depth) {
     	super.draw( x, y , scale,depth);
 		// If there is a line to speak, draw it
-        if( !text.equals( "" ) )
-            GUI.getInstance( ).addTextToDraw( text, x - Game.getInstance( ).getFunctionalScene( ).getOffsetX( ), y - Math.round(npc.getHeight( ) * scale), npc.getTextFrontColor( ), npc.getTextBorderColor( ) );
+        if( !text.equals( "" ) ) {
+        	if (npc.getShowsSpeechBubbles())
+                GUI.getInstance( ).addTextToDraw( text, x - Game.getInstance( ).getFunctionalScene( ).getOffsetX( ), y - Math.round(npc.getHeight( ) * scale), npc.getTextFrontColor( ), npc.getTextBorderColor( ) , npc.getBubbleBkgColor(), npc.getBubbleBorderColor());
+        	else
+        		GUI.getInstance( ).addTextToDraw( text, x - Game.getInstance( ).getFunctionalScene( ).getOffsetX( ), y - Math.round(npc.getHeight( ) * scale), npc.getTextFrontColor( ), npc.getTextBorderColor( ) );
+        }
     }
 
     @Override

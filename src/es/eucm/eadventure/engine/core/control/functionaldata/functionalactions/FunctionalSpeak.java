@@ -181,28 +181,27 @@ public class FunctionalSpeak extends FunctionalAction {
     		this.deallocate = false;
     	}
     	
-			@Override
-			public void run() {
-		    	 VoiceManager voiceManager = VoiceManager.getInstance();
-		         // TODO ver que la voz exista!!!
-		         voice = voiceManager.getVoice(voiceText);
-		         voice.allocate();
-		         duration =voice.getRate();
-		         voice.speak(text);
-		         deallocate();
-		         
-			}
+		@Override
+		public void run() {
+	    	 VoiceManager voiceManager = VoiceManager.getInstance();
+	         // TODO ver que la voz exista!!!
+	         voice = voiceManager.getVoice(voiceText);
+	         voice.allocate();
+	         duration =voice.getRate();
+	         voice.speak(text);
+	         deallocate();
+		}
 		
-			public void deallocate(){
-				if (!deallocate) {
-					voice.deallocate();
-					deallocate = true;
-				}
+		public void deallocate(){
+			if (!deallocate) {
+				voice.deallocate();
+				deallocate = true;
 			}
-			
-			public float getDuration(){
-				return duration;
-			}
+		}
+
+		public float getDuration(){
+			return duration;
+		}
     }
 
 	@Override
@@ -217,7 +216,10 @@ public class FunctionalSpeak extends FunctionalAction {
         		posX = Math.round( GUI.WINDOW_WIDTH/2.0f+Game.getInstance().getFunctionalScene().getOffsetX( ) );
         		posY = Math.round( GUI.WINDOW_HEIGHT*1.0f/6.0f+ (functionalPlayer!=null?functionalPlayer.getHeight():0) );
         	}
-        	GUI.getInstance().addTextToDraw( text, posX , posY, functionalPlayer.getTextFrontColor( ), functionalPlayer.getTextBorderColor( ) );
+        	if (functionalPlayer.getShowsSpeechBubbles()) {
+        		GUI.getInstance().addTextToDraw( text, posX , posY, functionalPlayer.getTextFrontColor( ), functionalPlayer.getTextBorderColor( ), functionalPlayer.getBubbleBkgColor(), functionalPlayer.getBubbleBorderColor());
+        	} else
+        		GUI.getInstance().addTextToDraw( text, posX , posY, functionalPlayer.getTextFrontColor( ), functionalPlayer.getTextBorderColor( ));
         }
 	}
 

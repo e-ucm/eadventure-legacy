@@ -32,7 +32,10 @@ public class FunctionalLook extends FunctionalAction {
                 functionalPlayer.setDirection( AnimationState.EAST );
         }
 		finished = true;
-        functionalPlayer.speak(element.getElement( ).getDescription( ));
+		if (functionalPlayer.isAlwaysSynthesizer())
+			functionalPlayer.speakWithFreeTTS(element.getElement().getDescription(), functionalPlayer.getPlayerVoice());
+		else
+			functionalPlayer.speak(element.getElement( ).getDescription( ));
         
         DebugLog.player("Look: " + element.getElement().getId() + " desc: " + element.getElement().getDescription());
 	}

@@ -78,6 +78,12 @@ public class NPC extends Element {
 	 */
 	protected String textBorderColor;
 	
+	protected String bubbleBkgColor;
+	
+	protected String bubbleBorderColor;
+	
+	protected Boolean showsSpeechBubbles;
+	
 	/**
 	 * The voice which the synthesizer uses to read text of the character
 	 */
@@ -107,6 +113,9 @@ public class NPC extends Element {
 		// Default colors are white for the front color, and black for the border color
 		textFrontColor = "#FFFFFF";
 		textBorderColor = "#000000";
+		showsSpeechBubbles = false;
+		bubbleBkgColor = "#FFFFFF";
+		bubbleBorderColor = "#00000";
 	}
 
 	/**
@@ -126,6 +135,23 @@ public class NPC extends Element {
 	public String getTextBorderColor( ) {
 		return textBorderColor;
 	}
+	
+	public String getBubbleBorderColor() {
+		return bubbleBorderColor;
+	}
+	
+	public String getBubbleBkgColor() {
+		return bubbleBkgColor;
+	}
+	
+	public Boolean getShowsSpeechBubbles() {
+		return showsSpeechBubbles;
+	}
+	
+	public void setShowsSpeechBubbles(Boolean showsSpeechBubbles) {
+		this.showsSpeechBubbles = showsSpeechBubbles;
+	}
+
 
 	/**
 	 * Returns the list of conversation references related to this npc
@@ -156,6 +182,14 @@ public class NPC extends Element {
 		this.textBorderColor = textBorderColor;
 	}
 
+	public void setBubbleBorderColor( String bubbleBorderColor ) {
+		this.bubbleBorderColor = bubbleBorderColor;
+	}
+	
+	public void setBubbleBkgColor( String bubbleBkgColor ) {
+		this.bubbleBkgColor = bubbleBkgColor;
+	}
+	
 	/**
 	 * Adds a conversation reference to the list of conversation references
 	 * 

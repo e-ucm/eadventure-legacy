@@ -239,6 +239,36 @@ public class PlayerDataControl extends DataControlWithResources{
 
 		controller.addTool( new ChangeStringValueTool(player,"#" + red + green + blue,"getTextBorderColor", "setTextBorderColor") );
 	}
+	
+	public void setBubbleBkgColor( Color bubbleBkgColor ) {
+		String red = Integer.toHexString( bubbleBkgColor.getRed() );
+		String green = Integer.toHexString( bubbleBkgColor.getGreen() );
+		String blue = Integer.toHexString( bubbleBkgColor.getBlue() );
+		
+		if (red.length() == 1)
+			red = "0" + red;
+		if (green.length() == 1)
+			green = "0" + green;
+		if (blue.length() == 1)
+			blue = "0" + blue;
+		
+		controller.addTool( new ChangeStringValueTool(player,"#" + red + green + blue,"getBubbleBkgColor", "setBubbleBkgColor") );
+ 	}
+
+	public void setBubbleBorderColor( Color bubbleBorderColor ) {
+		String red = Integer.toHexString( bubbleBorderColor.getRed() );
+		String green = Integer.toHexString( bubbleBorderColor.getGreen() );
+		String blue = Integer.toHexString( bubbleBorderColor.getBlue() );
+		
+		if (red.length() == 1)
+			red = "0" + red;
+		if (green.length() == 1)
+			green = "0" + green;
+		if (blue.length() == 1)
+			blue = "0" + blue;
+		
+		controller.addTool( new ChangeStringValueTool(player,"#" + red + green + blue,"getBubbleBorderColor", "setBubbleBorderColor") );
+ 	}
 
 	/**
 	 * Sets the new name of the player.
@@ -510,4 +540,21 @@ public class PlayerDataControl extends DataControlWithResources{
 		check(this.getName(), TextConstants.getText("Search.Name"));
 		check(this.getPlayerVoice(), TextConstants.getText("Search.PlayerVoice"));
 	}
+
+	public Color getBubbleBorderColor() {
+		return new Color( Integer.valueOf( player.getBubbleBorderColor( ).substring( 1 ), 16 ).intValue( ) );
+	}
+	
+	public Color getBubbleBkgColor() {
+		return new Color( Integer.valueOf( player.getBubbleBkgColor( ).substring( 1 ), 16 ).intValue( ) );
+	}
+	
+	public boolean getShowsSpeechBubbles() {
+		return player.getShowsSpeechBubbles();
+	}
+	
+	public void setShowsSpeechBubbles(boolean showsSpeechBubbles) {
+		controller.addTool( new ChangeBooleanValueTool(player, showsSpeechBubbles, "getShowsSpeechBubbles", "setShowsSpeechBubbles"));
+	}
+
 }

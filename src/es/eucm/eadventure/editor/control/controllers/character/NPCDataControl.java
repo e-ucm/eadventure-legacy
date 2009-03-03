@@ -272,6 +272,36 @@ public class NPCDataControl extends DataControlWithResources {
 		controller.addTool( new ChangeStringValueTool(npc,"#" + red + green + blue,"getTextBorderColor", "setTextBorderColor") );
 	}
 
+	public void setBubbleBkgColor( Color bubbleBkgColor ) {
+		String red = Integer.toHexString( bubbleBkgColor.getRed() );
+		String green = Integer.toHexString( bubbleBkgColor.getGreen() );
+		String blue = Integer.toHexString( bubbleBkgColor.getBlue() );
+		
+		if (red.length() == 1)
+			red = "0" + red;
+		if (green.length() == 1)
+			green = "0" + green;
+		if (blue.length() == 1)
+			blue = "0" + blue;
+		
+		controller.addTool( new ChangeStringValueTool(npc,"#" + red + green + blue,"getBubbleBkgColor", "setBubbleBkgColor"));
+ 	}
+
+	public void setBubbleBorderColor( Color bubbleBorderColor ) {
+		String red = Integer.toHexString( bubbleBorderColor.getRed() );
+		String green = Integer.toHexString( bubbleBorderColor.getGreen() );
+		String blue = Integer.toHexString( bubbleBorderColor.getBlue() );
+		
+		if (red.length() == 1)
+			red = "0" + red;
+		if (green.length() == 1)
+			green = "0" + green;
+		if (blue.length() == 1)
+			blue = "0" + blue;
+		
+		controller.addTool( new ChangeStringValueTool(npc, "#" + red + green + blue,"getBubbleBorderColor", "setBubbleBorderColor"));
+ 	}
+
 	/**
 	 * Set the possibility to all conversation lines to be read by synthesizer
 	 * 
@@ -534,6 +564,22 @@ public class NPCDataControl extends DataControlWithResources {
 
 	public String getAnimationPath(String animation) {
 		return resourcesDataControlList.get( selectedResources ).getAssetPath( animation );
+	}
+	
+	public Color getBubbleBorderColor() {
+		return new Color( Integer.valueOf( npc.getBubbleBorderColor( ).substring( 1 ), 16 ).intValue( ) );
+	}
+	
+	public Color getBubbleBkgColor() {
+		return new Color( Integer.valueOf( npc.getBubbleBkgColor( ).substring( 1 ), 16 ).intValue( ) );
+	}
+	
+	public Boolean getShowsSpeechBubbles() {
+		return npc.getShowsSpeechBubbles();
+	}
+	
+	public void setShowsSpeechBubbles(Boolean showsSpeechBubbles) {
+		controller.addTool( new ChangeBooleanValueTool(npc, showsSpeechBubbles, "getShowsSpeechBubbles", "setShowsSpeechBubbles"));
 	}
 
 
