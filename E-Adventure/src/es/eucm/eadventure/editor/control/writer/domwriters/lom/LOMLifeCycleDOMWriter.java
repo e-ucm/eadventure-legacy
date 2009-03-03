@@ -20,7 +20,7 @@ public class LOMLifeCycleDOMWriter extends LOMSimpleDataWriter{
 	 */
 	private LOMLifeCycleDOMWriter( ) {}
 
-	public static Node buildDOM( LOMLifeCycle lifeCycle ) {
+	public static Node buildDOM( LOMLifeCycle lifeCycle, boolean scorm ) {
 		Element lifeCycleElement = null;
 
 		try {
@@ -30,12 +30,12 @@ public class LOMLifeCycleDOMWriter extends LOMSimpleDataWriter{
 			Document doc = db.newDocument( );
 
 			// Create the root node
-			lifeCycleElement = doc.createElement( "imsmd:lifecycle" );
+			lifeCycleElement = doc.createElement( scorm?"imsmd:lifeCycle":"imsmd:lifeycle" );
 			
 			//Create the version node
 			if (isStringSet(lifeCycle.getVersion( ))){
 				Element version = doc.createElement( "imsmd:version" );
-				version.appendChild( buildLangStringNode(doc, lifeCycle.getVersion( )));
+				version.appendChild( buildLangStringNode(doc, lifeCycle.getVersion( ),scorm));
 				lifeCycleElement.appendChild( version );
 			}
 			

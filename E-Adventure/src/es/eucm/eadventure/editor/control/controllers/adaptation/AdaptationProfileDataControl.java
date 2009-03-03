@@ -340,5 +340,21 @@ public class AdaptationProfileDataControl extends DataControl{
 		check(getInitialScene(), TextConstants.getText("Search.InitialScene"));
 		check(getPath(), TextConstants.getText("Search.Path"));
 	}
+	
+	public boolean isScorm2004(){
+		return profile.isScorm2004();
+	}
+	
+	public boolean isScorm12(){
+		return profile.isScorm12();
+	}
+	
+	public void setScorm2004(boolean scorm){
+		profile.setScorm2004(scorm);
+	}
+	
+	public void setScorm12(boolean scorm){
+		profile.setScorm12(scorm);
+	}
 
 }

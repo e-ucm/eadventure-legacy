@@ -3,10 +3,13 @@ package es.eucm.eadventure.editor.control.controllers.lom;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.data.lom.LOMEducational;
 import es.eucm.eadventure.editor.data.lom.LangString;
+import es.eucm.eadventure.editor.control.config.LOMConfigData;
 
 public class LOMEducationalDataControl {
 
 	public static final String[] AVAILABLE_LANGS= new String[]{"en", "es"};
+
+	public static final String GROUP = "educational";
 	
 	private LOMEducational data;
 	
@@ -28,6 +31,7 @@ public class LOMEducationalDataControl {
 
 			public void setOption( int option ) {
 				data.getInteractivityType( ).setValueIndex( option );
+				LOMConfigData.storeData(GROUP, "interactivityType", Integer.toString(option));
 			}
 
 			public int getSelectedOption( ) {
@@ -51,6 +55,7 @@ public class LOMEducationalDataControl {
 			public void setOption( int option ) {
 				
 				data.getLearningResourceType( ).setValueIndex( mapIndex(option) );
+				LOMConfigData.storeData(GROUP, "learningResourceType", Integer.toString(option));
 			}
 
 			public int getSelectedOption( ) {
@@ -96,6 +101,7 @@ public class LOMEducationalDataControl {
 
 			public void setOption( int option ) {
 				data.getInteractivityLevel( ).setValueIndex( option );
+				LOMConfigData.storeData(GROUP, "interactivityLevel", Integer.toString(option));
 			}
 
 			public int getSelectedOption( ) {
@@ -118,6 +124,7 @@ public class LOMEducationalDataControl {
 
 			public void setOption( int option ) {
 				data.getSemanticDensity( ).setValueIndex( option );
+				LOMConfigData.storeData(GROUP, "semanticDensity", Integer.toString(option));
 			}
 
 			public int getSelectedOption( ) {
@@ -140,6 +147,7 @@ public class LOMEducationalDataControl {
 
 			public void setOption( int option ) {
 				data.getIntendedEndUserRole( ).setValueIndex( option );
+				LOMConfigData.storeData(GROUP, "intendedEndUserRole", Integer.toString(option));
 			}
 
 			public int getSelectedOption( ) {
@@ -162,6 +170,7 @@ public class LOMEducationalDataControl {
 
 			public void setOption( int option ) {
 				data.getContext( ).setValueIndex( option );
+				LOMConfigData.storeData(GROUP, "context", Integer.toString(option));
 			}
 
 			public int getSelectedOption( ) {
@@ -184,6 +193,7 @@ public class LOMEducationalDataControl {
 
 			public void setOption( int option ) {
 				data.getDifficulty( ).setValueIndex( option );
+				LOMConfigData.storeData(GROUP, "difficulty", Integer.toString(option));
 			}
 
 			public int getSelectedOption( ) {
@@ -203,6 +213,7 @@ public class LOMEducationalDataControl {
 
 			public void setText( String text ) {
 				data.setDescription( new LangString(text) );
+				LOMConfigData.storeData(GROUP, "description", text);
 			}
 			
 		};
@@ -217,6 +228,7 @@ public class LOMEducationalDataControl {
 
 			public void setText( String text ) {
 				data.setTypicalAgeRange( new LangString(text) );
+				LOMConfigData.storeData(GROUP, "typicalAgeRange", text);
 			}
 			
 		};

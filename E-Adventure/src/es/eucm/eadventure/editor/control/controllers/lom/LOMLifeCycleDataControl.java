@@ -2,9 +2,13 @@ package es.eucm.eadventure.editor.control.controllers.lom;
 
 import es.eucm.eadventure.editor.data.lom.LOMLifeCycle;
 import es.eucm.eadventure.editor.data.lom.LangString;
+import es.eucm.eadventure.editor.control.config.LOMConfigData;
+
 
 public class LOMLifeCycleDataControl {
 
+	public static final String GROUP = "lifeCicle";
+	
 	private LOMLifeCycle data;
 	
 	public LOMLifeCycleDataControl (LOMLifeCycle data){
@@ -20,6 +24,7 @@ public class LOMLifeCycleDataControl {
 
 			public void setText( String text ) {
 				data.setVersion( new LangString(text) );
+				LOMConfigData.storeData(GROUP, "version",text);
 			}
 			
 		};

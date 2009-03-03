@@ -1,9 +1,12 @@
 package es.eucm.eadventure.editor.control.controllers.lom;
 
 import es.eucm.eadventure.editor.data.lom.LOMTechnical;
+import es.eucm.eadventure.editor.control.config.LOMConfigData;
 
 public class LOMTechnicalDataControl {
 
+	public static final String GROUP = "technical";
+	
 	private LOMTechnical data;
 	
 	public LOMTechnicalDataControl (LOMTechnical data){
@@ -19,6 +22,7 @@ public class LOMTechnicalDataControl {
 
 			public void setText( String text ) {
 				data.setMaximumVersion( text );
+				LOMConfigData.storeData(GROUP, "maximumVersion", text);
 			}
 			
 		};
@@ -33,6 +37,7 @@ public class LOMTechnicalDataControl {
 
 			public void setText( String text ) {
 				data.setMinimumVersion( text );
+				LOMConfigData.storeData(GROUP, "minimumVersion", text);
 			}
 			
 		};

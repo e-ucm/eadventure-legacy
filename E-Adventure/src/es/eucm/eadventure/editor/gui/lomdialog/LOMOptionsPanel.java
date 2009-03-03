@@ -33,5 +33,9 @@ public class LOMOptionsPanel extends JPanel{
 		add (comboBox);
 		setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), title ) );
 	}
+	
+	public void setSelectedOption(String op){
+		dataControl.setOption(Integer.parseInt(op));
+	}
 
 }

@@ -31,6 +31,17 @@ public class AssessmentProfile implements Cloneable {
 	 */
 	private List<String> vars;
 	
+	/**
+	 * Store if adaptation profile is for scorm2004 
+	 */
+	private boolean scorm2004;
+	
+	
+	/**
+	 * Store if adaptation profile is for scorm 1.2
+	 */
+	private boolean scorm12;
+	
 	////////FEEDBACK
 	/**
 	 * If true, the assessment report is shown to the student at the end of the chapter
@@ -288,5 +299,33 @@ public class AssessmentProfile implements Cloneable {
 			}
 		}
 		return ap;
+	}
+
+	/**
+	 * @return the scorm2004
+	 */
+	public boolean isScorm2004() {
+		return scorm2004;
+	}
+
+	/**
+	 * @param scorm2004 the scorm2004 to set
+	 */
+	public void setScorm2004(boolean scorm2004) {
+		this.scorm2004 = scorm2004;
+	}
+
+	/**
+	 * @return the scorm12
+	 */
+	public boolean isScorm12() {
+		return scorm12;
+	}
+
+	/**
+	 * @param scorm12 the scorm12 to set
+	 */
+	public void setScorm12(boolean scorm12) {
+		this.scorm12 = scorm12;
 	}
 }

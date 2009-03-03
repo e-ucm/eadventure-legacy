@@ -2,13 +2,15 @@ package es.eucm.eadventure.editor.control.controllers.lom;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.data.ims.IMSGeneral;
 import es.eucm.eadventure.editor.data.lom.LOMGeneral;
 import es.eucm.eadventure.editor.data.lom.LangString;
+import es.eucm.eadventure.editor.control.config.LOMConfigData;
 
 public class LOMGeneralDataControl {
 
 	public static final String[] AVAILABLE_LANGS= new String[]{"en", "es"};
+	
+	public static final String GROUP = "general";
 	
 	private LOMGeneral data;
 	
@@ -25,6 +27,7 @@ public class LOMGeneralDataControl {
 
 			public void setText( String text ) {
 				data.setTitle( new LangString(text) );
+				LOMConfigData.storeData(GROUP, "title", text);
 			}
 			
 		};
@@ -41,6 +44,7 @@ public class LOMGeneralDataControl {
 				if (option!=getSelectedOption()){
 					data.setLanguage( AVAILABLE_LANGS[option] );
 					Controller.getInstance().updateLOMLanguage();
+					LOMConfigData.storeData(GROUP, "language", Integer.toString(option));
 				}
 				
 			}
@@ -66,6 +70,7 @@ public class LOMGeneralDataControl {
 
 			public void setText( String text ) {
 				data.setDescription( new LangString(text) );
+				LOMConfigData.storeData(GROUP, "description", text);
 			}
 			
 		};
@@ -80,6 +85,7 @@ public class LOMGeneralDataControl {
 
 			public void setText( String text ) {
 				data.setKeyword( new LangString(text) );
+				LOMConfigData.storeData(GROUP, "keyword", text);
 			}
 			
 		};

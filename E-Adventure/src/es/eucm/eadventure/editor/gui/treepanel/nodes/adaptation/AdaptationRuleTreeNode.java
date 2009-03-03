@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfileDataControl;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationRuleDataControl;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfileDataControl;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentRuleDataControl;
@@ -26,7 +27,7 @@ public class AdaptationRuleTreeNode extends TreeNode{
 	 * The icon for this node class.
 	 */
 	private static Icon icon;
-
+	
 	/**
 	 * Loads the icon of the node class.
 	 */
@@ -44,6 +45,7 @@ public class AdaptationRuleTreeNode extends TreeNode{
 	 */
 	public AdaptationRuleTreeNode( TreeNode parent, AdaptationRuleDataControl dataControl ) {
 		super( parent );
+		
 		this.dataControl = dataControl;
 	}
 
@@ -83,7 +85,9 @@ public class AdaptationRuleTreeNode extends TreeNode{
 	@Override
 	public JComponent getEditPanel( ) {
 		//return new ChapterPanel( dataControl );
-		return new AdaptationRulePanel( dataControl );
+		boolean scorm12 = ((AdaptationProfileDataControl)((AdaptationProfileTreeNode)parent).getDataControl()).isScorm12();
+		boolean scorm2004 =((AdaptationProfileDataControl)((AdaptationProfileTreeNode)parent).getDataControl()).isScorm2004();
+		return new AdaptationRulePanel( dataControl,scorm12,scorm2004 );
 	}
 
 	@Override

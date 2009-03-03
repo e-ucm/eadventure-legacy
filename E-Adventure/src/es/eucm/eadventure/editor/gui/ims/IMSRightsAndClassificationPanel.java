@@ -36,15 +36,15 @@ public class IMSRightsAndClassificationPanel extends JPanel{
 			
 			//Add the panels
 			add (cost);
-			add (Box.createVerticalStrut(5));
+			add (Box.createVerticalStrut(1));
 			add (copyAndOth);
-			add (Box.createVerticalStrut(5));
+			add (Box.createVerticalStrut(1));
 			add (purpose);
-			add (Box.createVerticalStrut(5));
+			add (Box.createVerticalStrut(1));
 			add (description);
-			add (Box.createVerticalStrut(5));
+			add (Box.createVerticalStrut(1));
 			add (keywordPanel);
-			add ( Box.createRigidArea( new Dimension (400,250) ));
+			add ( Box.createRigidArea( new Dimension (400,350) ));
 		}
 		
 	

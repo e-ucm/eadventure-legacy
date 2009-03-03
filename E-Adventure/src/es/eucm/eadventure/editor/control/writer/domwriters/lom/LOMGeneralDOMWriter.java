@@ -19,7 +19,7 @@ public class LOMGeneralDOMWriter extends LOMSimpleDataWriter{
 	 */
 	private LOMGeneralDOMWriter( ) {}
 
-	public static Node buildDOM( LOMGeneral general ) {
+	public static Node buildDOM( LOMGeneral general , boolean scorm) {
 		Element generalElement = null;
 
 		try {
@@ -34,7 +34,7 @@ public class LOMGeneralDOMWriter extends LOMSimpleDataWriter{
 			//Create the title node
 			if (isStringSet(general.getTitle( ))){
 				Element title = doc.createElement( "imsmd:title" );
-				title.appendChild( buildLangStringNode(doc, general.getTitle( )));
+				title.appendChild( buildLangStringNode(doc, general.getTitle( ),scorm));
 				generalElement.appendChild( title );
 			}
 			
@@ -48,7 +48,7 @@ public class LOMGeneralDOMWriter extends LOMSimpleDataWriter{
 			//Create the description node
 			if (isStringSet(general.getDescription( ))){
 				Element description = doc.createElement( "imsmd:description" );
-				description.appendChild( buildLangStringNode(doc, general.getDescription( )));
+				description.appendChild( buildLangStringNode(doc, general.getDescription( ),scorm));
 				generalElement.appendChild( description );
 			}
 			
@@ -56,7 +56,7 @@ public class LOMGeneralDOMWriter extends LOMSimpleDataWriter{
 			//Create the keyword node
 			if (isStringSet(general.getKeyword( ))){
 				Element keyword = doc.createElement( "imsmd:keyword" );
-				keyword.appendChild( buildLangStringNode(doc, general.getKeyword( )));
+				keyword.appendChild( buildLangStringNode(doc, general.getKeyword( ),scorm));
 				generalElement.appendChild( keyword );
 			}
 

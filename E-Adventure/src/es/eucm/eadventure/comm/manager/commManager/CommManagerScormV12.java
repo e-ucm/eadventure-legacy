@@ -167,6 +167,8 @@ public class CommManagerScormV12 extends AdventureApplet{
 		
 		System.out.println("Esto es lo que nos ha devuelto el LMS: "+ value);
 		//return data;
+		if (value==null)
+			value = new String("");
 		valuesFromLMS.put(key, value);
 		//lock=false;
 		

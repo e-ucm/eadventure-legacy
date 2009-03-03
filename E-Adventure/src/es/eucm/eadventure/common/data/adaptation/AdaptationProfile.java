@@ -37,6 +37,17 @@ public class AdaptationProfile  implements Cloneable, ContainsAdaptedState{
 	private List<String> vars;
 	
 	/**
+	 * Store if adaptation profile is for scorm2004 
+	 */
+	private boolean scorm2004;
+	
+	
+	/**
+	 * Store if adaptation profile is for scorm 1.2
+	 */
+	private boolean scorm12;
+	
+	/**
 	 * @param path
 	 * @param rules
 	 * @param initialState
@@ -48,6 +59,8 @@ public class AdaptationProfile  implements Cloneable, ContainsAdaptedState{
 		this.initialState = initialState;
 		flags = new ArrayList<String>();
 		vars = new ArrayList<String>();
+		scorm2004 = false;
+		scorm12 = false;
 	}
 
 	/**
@@ -56,7 +69,8 @@ public class AdaptationProfile  implements Cloneable, ContainsAdaptedState{
 	public AdaptationProfile() {
 		path = null;
 		rules = new ArrayList<AdaptationRule>();
-		
+		scorm2004 = false;
+		scorm12 = false;
 	}
 	
 	/**
@@ -179,6 +193,34 @@ public class AdaptationProfile  implements Cloneable, ContainsAdaptedState{
 		for (String s : vars)
 			ap.vars.add((s != null ? new String(s) : null));
 		return ap; 
+	}
+
+	/**
+	 * @return the scorm2004
+	 */
+	public boolean isScorm2004() {
+		return scorm2004;
+	}
+
+	/**
+	 * @param scorm2004 the scorm2004 to set
+	 */
+	public void setScorm2004(boolean scorm2004) {
+		this.scorm2004 = scorm2004;
+	}
+
+	/**
+	 * @return the scorm12
+	 */
+	public boolean isScorm12() {
+		return scorm12;
+	}
+
+	/**
+	 * @param scorm12 the scorm12 to set
+	 */
+	public void setScorm12(boolean scorm12) {
+		this.scorm12 = scorm12;
 	}
 
 }

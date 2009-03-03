@@ -32,6 +32,7 @@ import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.config.SCORMConfigData;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentRuleDataControl;
 import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
@@ -97,12 +98,16 @@ class AssessmentPropertiesPanel extends JPanel {
 	/**
 	 * Constructor
 	 * 
-	 * @param principalPanel
-	 *            Link to the principal panel, for sending signals
 	 * @param assessmentRuleDataControl
 	 *            Data controller to edit the lines
+	 *            
+	 * @param  scorm12 
+	 * 				Show if it is a Scorm 1.2 profile, to take its data model     
+	 * 
+	 * @param  scorm2004
+	 * 				Show if it is a Scorm 2004 profile, to take its data model                    
 	 */
-	public AssessmentPropertiesPanel( AssessmentRuleDataControl assDataControl ) {
+	public AssessmentPropertiesPanel( AssessmentRuleDataControl assDataControl, boolean scorm12, boolean scorm2004 ) {
 		// Set the initial values
 		this.assessmentRuleDataControl = assDataControl;
 
@@ -129,6 +134,19 @@ class AssessmentPropertiesPanel extends JPanel {
 		propertiesTable.setColumnSelectionAllowed( false );
 		propertiesTable.setRowSelectionAllowed( true );
 
+		if (scorm12){
+			//Edition of column 0: combo box (activate, deactivate)
+			JComboBox actionValuesCB = new JComboBox (takesCorrectElements( SCORMConfigData.getPartsOfModel12(),false));
+			propertiesTable.getColumnModel( ).getColumn( 0 ).setCellEditor( new DefaultCellEditor( actionValuesCB ) );
+			}
+			
+		if (scorm2004){
+			//Edition of column 0: combo box (activate, deactivate)
+			JComboBox actionValuesCB = new JComboBox (takesCorrectElements(SCORMConfigData.getPartsOfModel2004(),true));
+			propertiesTable.getColumnModel( ).getColumn( 0 ).setCellEditor( new DefaultCellEditor( actionValuesCB ) );
+					
+			}
+		
 		// Misc properties
 		//propertiesTable.setTableHeader( null );
 		propertiesTable.setIntercellSpacing( new Dimension( 1, 1 ) );
@@ -157,6 +175,36 @@ class AssessmentPropertiesPanel extends JPanel {
 		addComponents();
 	}
 
+	/**
+	 * Only takes the elements that can be written
+	 * 
+	 * @param dataModel
+	 * 				All scorm data model elements
+	 * @param s2004
+	 * 			It is Scorm 2004?
+	 * @return
+	 * 			The elements that can be written
+	 */
+	private String[] takesCorrectElements(ArrayList<String> dataModel,boolean s2004){
+		ArrayList<String> canWrite = new ArrayList<String>();
+		// the format of scorm data model in datamodel.xml and datamodel2004.xml:
+		// <entry key="part of scorm data model">#"can be read (0 or 1)"#"can be write (0 or 1)"#"Data type"</entry>
+		for (int i=0;i<dataModel.size();i++){
+			if (s2004){
+				if (SCORMConfigData.getProperty2004(dataModel.get(i)).charAt(3)=='1'){
+					canWrite.add(dataModel.get(i));
+				}
+			} else {
+				if (SCORMConfigData.getProperty12(dataModel.get(i)).charAt(3)=='1'){
+					canWrite.add(dataModel.get(i));
+				}
+			}
+		}
+		String[] result = new String[canWrite.size()];
+		return canWrite.toArray(result);
+		
+		
+	}
 	/**
 	 * Removes all elements in the panel, and sets a dialogue node panel
 	 */
@@ -445,6 +493,7 @@ class AssessmentPropertiesPanel extends JPanel {
 		 */
 		public void setValueAt( Object value, int rowIndex, int columnIndex ) {
 
+			if (value!=null){
 			// If the value isn't an empty string
 			if( !value.toString( ).trim( ).equals( "" ) ) {
 				// If the name is being edited, and it has really changed
@@ -457,6 +506,7 @@ class AssessmentPropertiesPanel extends JPanel {
 
 
 				fireTableCellUpdated( rowIndex, columnIndex );
+			}
 			}
 		}
 

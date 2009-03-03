@@ -29,7 +29,7 @@ public class IMSDOMWriter {
 
 			// Create the root node
 			lomElement = doc.createElement( "lom" );
-			lomElement.setAttribute("xmlns", "http://www.imsglobal.org/xsd/imsmd_rootv1p2p1");
+			//lomElement.setAttribute("xmlns", "http://www.imsglobal.org/xsd/imsmd_rootv1p2p1");
 			// Create general node
 			Node generalNode = IMSGeneralDOMWriter.buildDOM(dataControl.getGeneral( ).getData( ) );
 			doc.adoptNode( generalNode );

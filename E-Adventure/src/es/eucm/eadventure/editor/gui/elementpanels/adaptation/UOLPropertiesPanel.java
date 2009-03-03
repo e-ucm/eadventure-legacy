@@ -32,6 +32,7 @@ import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.config.SCORMConfigData;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationRuleDataControl;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentRuleDataControl;
 import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
@@ -95,12 +96,16 @@ class UOLPropertiesPanel extends JPanel {
 	/**
 	 * Constructor
 	 * 
-	 * @param principalPanel
-	 *            Link to the principal panel, for sending signals
 	 * @param adaptationRuleDataControl
 	 *            Data controller to edit the lines
+	 *            
+	 * @param  scorm12 
+	 * 				Show if it is a Scorm 1.2 profile, to take its data model     
+	 * 
+	 *  @param  scorm2004
+	 * 				Show if it is a Scorm 2004 profile, to take its data model             
 	 */
-	public UOLPropertiesPanel( AdaptationRuleDataControl adpDataControl ) {
+	public UOLPropertiesPanel( AdaptationRuleDataControl adpDataControl,boolean scorm12, boolean scorm2004  ) {
 		// Set the initial values
 		this.adaptationRuleDataControl = adpDataControl;
 
@@ -120,6 +125,18 @@ class UOLPropertiesPanel extends JPanel {
 		//propertiesTable.getColumnModel( ).getColumn( 0 ).setMaxWidth( 60 );
 		//propertiesTable.getColumnModel( ).getColumn( 1 ).setMaxWidth( 60 );
 		
+		if (scorm12){
+		//Edition of column 0: combo box (activate, deactivate)
+		JComboBox actionValuesCB = new JComboBox (takesCorrectElements(SCORMConfigData.getPartsOfModel12(),false));
+		propertiesTable.getColumnModel( ).getColumn( 0 ).setCellEditor( new DefaultCellEditor( actionValuesCB ) );
+		}
+		
+		if (scorm2004){
+			//Edition of column 0: combo box (activate, deactivate)
+			JComboBox actionValuesCB = new JComboBox (takesCorrectElements(SCORMConfigData.getPartsOfModel2004(),true));
+			propertiesTable.getColumnModel( ).getColumn( 0 ).setCellEditor( new DefaultCellEditor( actionValuesCB ) );
+				
+		}
 
 		// Selection properties
 		propertiesTable.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
@@ -153,6 +170,37 @@ class UOLPropertiesPanel extends JPanel {
 		/* End of dialogue panel elements */
 
 		addComponents();
+	}
+	
+	/**
+	 * Only takes the elements that can be written
+	 * 
+	 * @param dataModel
+	 * 				All scorm data model elements
+	 * @param s2004
+	 * 			It is Scorm 2004?
+	 * @return
+	 * 			The elements that can be written
+	 */
+	private String[] takesCorrectElements(ArrayList<String> dataModel,boolean s2004){
+		ArrayList<String> canWrite = new ArrayList<String>();
+		// the format of scorm data model in datamodel.xml and datamodel2004.xml:
+		// <entry key="part of scorm data model">#"can be read (0 or 1)"#"can be write (0 or 1)"#"Data type"</entry>
+		for (int i=0;i<dataModel.size();i++){
+			if (s2004){
+				if (SCORMConfigData.getProperty2004(dataModel.get(i)).charAt(3)=='0'){
+					canWrite.add(dataModel.get(i));
+				}
+			} else {
+				if (SCORMConfigData.getProperty12(dataModel.get(i)).charAt(3)=='0'){
+					canWrite.add(dataModel.get(i));
+				}
+			}
+		}
+		String[] result = new String[canWrite.size()];
+		return canWrite.toArray(result);
+		
+		
 	}
 
 	/**
@@ -443,6 +491,7 @@ class UOLPropertiesPanel extends JPanel {
 		public void setValueAt( Object value, int rowIndex, int columnIndex ) {
 
 			// If the value isn't an empty string
+			if (value != null){
 			if( !value.toString( ).trim( ).equals( "" ) ) {
 				// If the name is being edited, and it has really changed
 				if( columnIndex == 0 )
@@ -454,6 +503,7 @@ class UOLPropertiesPanel extends JPanel {
 
 
 				fireTableCellUpdated( rowIndex, columnIndex );
+			}
 			}
 		}
 

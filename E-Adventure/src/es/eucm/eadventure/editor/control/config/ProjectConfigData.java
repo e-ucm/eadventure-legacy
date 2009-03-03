@@ -26,6 +26,10 @@ public class ProjectConfigData {
 		storeToXML();
 	}
 	
+	public static void addConsumer(ProjectConfigDataConsumer consumer){
+		consumers.add(consumer);
+	}
+	
 	public static void loadFromXML (){
 		properties = new Properties();
 		try {
@@ -39,6 +43,7 @@ public class ProjectConfigData {
 		for ( ProjectConfigDataConsumer consumer: consumers ){
 			consumer.updateData( );
 		}
+		LOMConfigData.loadData();
 	}
 	
 	public static void storeToXML() {
