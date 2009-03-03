@@ -138,6 +138,12 @@ public class AssessmentHandler extends DefaultHandler {
                 		profile.setSendByEmail(true);
                 	}
                 }
+                if (attrs.getQName(i).equals("scorm12")){
+                	profile.setScorm12(attrs.getValue(i).equals("yes"));
+                }
+                if (attrs.getQName(i).equals("scorm2004")){
+                	profile.setScorm2004(attrs.getValue(i).equals("yes"));
+                }
             }
             
         }

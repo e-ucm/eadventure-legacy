@@ -29,8 +29,8 @@ public class AdaptationDOMWriter {
 	 *            Chapter data to be written
 	 * @return DOM element with the chapter data
 	 */
-	public static Node buildDOM( List<AdaptationRule> rules, AdaptedState initialState ) {
-		Node adaptationNode = null;
+	public static Node buildDOM( List<AdaptationRule> rules, AdaptedState initialState,boolean scorm12, boolean scorm2004 ) {
+		Element adaptationNode = null;
 
 		try {
 			// Create the necessary elements to create the DOM
@@ -40,6 +40,17 @@ public class AdaptationDOMWriter {
 
 			// Create the root node
 			adaptationNode = doc.createElement( "adaptation" );
+			
+			if (scorm12){
+				adaptationNode.setAttribute("scorm12","yes");
+			}else {
+				adaptationNode.setAttribute("scorm12","no");
+			}
+			if (scorm2004){
+				adaptationNode.setAttribute("scorm2004","yes");
+			}else {
+				adaptationNode.setAttribute("scorm2004","no");
+			}
 			
 			// Append the initial state, when available
 			if (initialState != null && !initialState.isEmpty( )){

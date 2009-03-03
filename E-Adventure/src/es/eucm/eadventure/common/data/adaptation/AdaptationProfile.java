@@ -51,16 +51,18 @@ public class AdaptationProfile  implements Cloneable, ContainsAdaptedState{
 	 * @param path
 	 * @param rules
 	 * @param initialState
+	 * @param scorm12
+	 * @param scorm2004
 	 */
 	public AdaptationProfile(List<AdaptationRule> rules,
-			AdaptedState initialState, String path) {
+			AdaptedState initialState, String path,boolean scorm12, boolean scorm2004) {
 		this.path = path;
 		this.rules = rules;
 		this.initialState = initialState;
 		flags = new ArrayList<String>();
 		vars = new ArrayList<String>();
-		scorm2004 = false;
-		scorm12 = false;
+		this.scorm2004 = scorm2004;
+		this.scorm12 = scorm12;
 	}
 
 	/**

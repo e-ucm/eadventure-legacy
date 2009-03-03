@@ -44,7 +44,8 @@ public class IMSRightsAndClassificationPanel extends JPanel{
 			add (description);
 			add (Box.createVerticalStrut(1));
 			add (keywordPanel);
-			add ( Box.createRigidArea( new Dimension (400,350) ));
+			add ( Box.createRigidArea( new Dimension (400,45) ));
+			//setSize(400, 200);
 		}
 		
 	
