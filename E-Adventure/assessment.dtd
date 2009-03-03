@@ -2,6 +2,8 @@
 <!ATTLIST assessment-rules
 	show-report-at-end ( yes | no ) "no"
 	send-to-email CDATA #IMPLIED
+	scorm12 (yes|no) "no"
+	scorm2004 (yes|no) "no"
 >
 
 <!ELEMENT smtp-config EMPTY>

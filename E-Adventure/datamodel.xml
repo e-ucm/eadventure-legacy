@@ -36,6 +36,18 @@
 <entry key="cmi.student_preference.audio">#1#1#CMISInteger</entry> 
 <entry key="cmi.student_preference.language">#1#1#CMIString255</entry>
 <entry key="cmi.student_preference.speed">#1#1#CMISInteger</entry>
-<entry key="cmi.student_preference.text">#1#1#CMIString255</entry>
+<entry key="cmi.student_preference.text">#1#1#CMISInteger</entry>
 <entry key="cmi.interactions._children">#1#0#CMIString255</entry>
+<entry key="cmi.interactions._count">#1#0#CMIInteger</entry>
+<entry key="cmi.interactions.n.id">#0#1#CMIIdentifier</entry>
+<entry key="cmi.interactions.n.objetives._count">#1#0#CMIInteger</entry>
+<entry key="cmi.interactions.n.objetives.m.id">#0#1#CMIIdentifier</entry>
+<entry key="cmi.interactions.n.time">#0#1#CMITime</entry>
+<entry key="cmi.interactions.n.type">#0#1#CMIVocabulary(true-false,choice,fill-in,matching,performance,sequencing,likert,numeric)</entry>
+<entry key="cmi.interactions.n.correct_responses._count">#1#0#CMIInteger</entry>
+<entry key="cmi.interactions.n.correct_responses.m.pattern">#0#1#CMIFeedback</entry>
+<entry key="cmi.interactions.n.weigh">#0#1#CMIDecimal</entry>
+<entry key="cmi.interactions.n.student_response">#0#1#CMIFeedback</entry>
+<entry key="cmi.interactions.n.result">#0#1#CMIVocabulary(correct,wrong,unanticipated,neutral,CMIDecimal)</entry>
+<entry key="cmi.interactions.n.latency">#0#1#CMITimespan</entry>
 </properties>
