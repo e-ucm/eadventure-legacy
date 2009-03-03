@@ -23,7 +23,7 @@ import es.eucm.eadventure.editor.gui.displaydialogs.ImageDialog;
 
 /**
  * 
- * @author Javier Torrente
+ * @author Eugenio Marchiori
  */
 public class ButtonsPanel extends JScrollPane {
 
@@ -131,7 +131,6 @@ public class ButtonsPanel extends JScrollPane {
 				deleteContentButton.setToolTipText( TextConstants.getText( "Buttons.DeleteButton" ) );
 				assetPanel.add( deleteContentButton, c2 );
 				
-	
 				// Create the text field and insert it
 				buttonFields[i] = new JTextField( MAX_SPACE );
 				if (adventureData.getButtonPath(actionTypes[j] , buttonTypes[i])!=null)
@@ -214,7 +213,7 @@ public class ButtonsPanel extends JScrollPane {
 		 */
 		public void actionPerformed( ActionEvent e ) {
 			adventureData.deleteButton( actionTypes[assetIndex/actionTypes.length] , buttonTypes[assetIndex%buttonTypes.length] );
-			buttonFields[assetIndex].setText( null );
+			buttonFields[assetIndex].setText( "" );
 			viewButtons[assetIndex].setEnabled( false );
 		}
 	}
@@ -281,7 +280,6 @@ public class ButtonsPanel extends JScrollPane {
 		public void actionPerformed( ActionEvent arg0 ) {
 
 			String assetPath = adventureData.getButtonPath( actionTypes[assetIndex/actionTypes.length] , buttonTypes[assetIndex%buttonTypes.length] );
-			
 			new ImageDialog( assetPath );
 		}
 	}

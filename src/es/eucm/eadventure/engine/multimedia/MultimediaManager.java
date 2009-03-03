@@ -185,20 +185,22 @@ public class MultimediaManager {
         
         if( image != null ) {
 
-            // set up the transform
-            AffineTransform transform = new AffineTransform( );
-            transform.scale( x, y );
-            transform.translate( ( x - 1 ) * image.getWidth( null ) / 2, ( y - 1 ) * image.getHeight( null ) / 2 );
-    
-            // create a transparent (not translucent) image
-            newImage = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( image.getWidth( null ), image.getHeight( null ), Transparency.BITMASK );
-    
-            // draw the transformed image
-            Graphics2D g = (Graphics2D) newImage.getGraphics( );
-            
-            
-            g.drawImage( image, transform, null);
-            g.dispose( );
+        	if (x != 1.0f || y != 1.0f) {
+	            // set up the transform
+	            AffineTransform transform = new AffineTransform( );
+	            transform.scale( x, y );
+	            transform.translate( ( x - 1 ) * image.getWidth( null ) / 2, ( y - 1 ) * image.getHeight( null ) / 2 );
+	    
+	            // create a transparent (not translucent) image
+	            newImage = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( image.getWidth( null ), image.getHeight( null ), Transparency.BITMASK );
+	    
+	            // draw the transformed image
+	            Graphics2D g = (Graphics2D) newImage.getGraphics( );
+	            
+	            
+	            g.drawImage( image, transform, null);
+	            g.dispose( );
+        	} return image;
         
         }
 
@@ -325,7 +327,6 @@ public class MultimediaManager {
     
     public void stopPlayingMusic(){
         Collection<Sound> sounds = soundCache.values();
-        ArrayList<Sound> soundsToRemove = new ArrayList<Sound>();
         for(Sound sound : sounds){
             if(sound.getId()==musicSoundId){
                 sound.stopPlaying();

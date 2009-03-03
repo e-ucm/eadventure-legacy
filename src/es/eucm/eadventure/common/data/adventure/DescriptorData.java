@@ -29,6 +29,11 @@ public class DescriptorData implements Cloneable, Described, Titled {
     public static final String HIGHLIGHTED_BUTTON="highlighted";
     public static final String NORMAL_BUTTON="normal";
     public static final String PRESSED_BUTTON="pressed";
+    
+    public static final String NORMAL_ARROW_RIGHT="normalright";
+    public static final String NORMAL_ARROW_LEFT="normalleft";
+    public static final String HIGHLIGHTED_ARROW_RIGHT="highlightedright";
+    public static final String HIGHLIGHTED_ARROW_LEFT="highlightedleft";
 
 	
     public static String getCursorTypeString (int index){
@@ -91,6 +96,12 @@ public class DescriptorData implements Cloneable, Described, Titled {
     	return buttonTypes;
     }
     
+    private static final String[] arrowTypes = {NORMAL_ARROW_RIGHT, NORMAL_ARROW_LEFT, HIGHLIGHTED_ARROW_RIGHT, HIGHLIGHTED_ARROW_LEFT};
+    
+	public static String[] getArrowTypes() {
+		return arrowTypes;
+	}
+
     public static final boolean[][] typeAllowed = {
     	//TRADITIONAL GUI
     	{
@@ -177,6 +188,8 @@ public class DescriptorData implements Cloneable, Described, Titled {
      */
     protected List<CustomButton> buttons;
 
+    protected List<CustomArrow> arrows;
+    
     /**
      * This flag tells if the adventure should show automatic commentaries.
      */
@@ -194,6 +207,7 @@ public class DescriptorData implements Cloneable, Described, Titled {
         contents = new ArrayList<ChapterSummary>( );
         cursors = new ArrayList<CustomCursor>();
         buttons = new ArrayList<CustomButton>();
+        arrows = new ArrayList<CustomArrow>();
 		title = null;
 		description = null;
 		guiType = -1;
@@ -350,6 +364,27 @@ public class DescriptorData implements Cloneable, Described, Titled {
         return null;
     }
     
+    public void addArrow(CustomArrow arrow) {
+    	arrows.add(arrow);
+    }
+    
+    public void addArrow(String type, String path) {
+    	arrows.add(new CustomArrow(type, path));
+    }
+    
+    public List<CustomArrow> getArrows() {
+    	return arrows;
+    }
+    
+    public String getArrowPath(String type){
+        for (CustomArrow arrow: arrows){
+            if (arrow.getType( ).equals( type )){
+                return arrow.getPath( );
+            }
+        }
+        return null;
+    }
+
     
     public Boolean isCommentaries() {
         return commentaries;
@@ -399,6 +434,11 @@ public class DescriptorData implements Cloneable, Described, Titled {
 			for (CustomCursor cc : cursors)
 				dd.cursors.add((CustomCursor) cc.clone());
 		}
+		if (arrows != null) {
+			dd.arrows = new ArrayList<CustomArrow>();
+			for (CustomArrow ca : arrows)
+				dd.arrows.add((CustomArrow) ca.clone());
+		}
 		dd.description = (description != null ? new String(description) : null);
 		dd.graphicConfig = graphicConfig;
 		dd.guiCustomized = guiCustomized;
@@ -408,4 +448,5 @@ public class DescriptorData implements Cloneable, Described, Titled {
 		dd.title = (title != null ? new String(title) : null);
 		return dd;
 	}
+
 }

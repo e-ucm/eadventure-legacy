@@ -177,7 +177,6 @@ public abstract class ConversationNode implements ConversationNodeView {
     
 	public Object clone() throws CloneNotSupportedException {
 		ConversationNode cn = (ConversationNode) super.clone();
-	
 		return cn;
 	}
 

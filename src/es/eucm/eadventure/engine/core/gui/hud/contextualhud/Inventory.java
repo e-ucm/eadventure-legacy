@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 
+import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
 import es.eucm.eadventure.engine.core.gui.GUI;
@@ -170,6 +171,17 @@ public class Inventory {
      */
     private Image right;
     
+
+    /**
+     * Image for the left button highlighted
+     */
+    private Image lefthigh;
+    
+    /**
+     * Image for the right button highlighted
+     */
+    private Image righthigh;
+
     /**
      * Relative Y coordinate of the inventory
      * (the less the more inventory is shown)
@@ -197,35 +209,40 @@ public class Inventory {
      */
     private boolean drawRight;
     
+    private boolean highlightRight;
+    
+    private boolean highlightLeft;
+    
     /**
      * Constructor
      */
     public Inventory( ) {
         indexFirstItemDisplayed = 0;
-        //If the GUI is customized
-        if( Game.getInstance().getGameDescriptor().isGUICustomized() ) {
-            //Load the left and right custom buttons
-            
-            left = MultimediaManager.getInstance( ).loadImageFromZip( "gui/hud/contextual/left.png", MultimediaManager.IMAGE_MENU );
-            
-            // IF the image has not been customized, use defaults
-            if (left == null){
-                left = MultimediaManager.getInstance( ).loadImage( "gui/hud/contextual/left.png", MultimediaManager.IMAGE_MENU );
-            }
-            
-            right = MultimediaManager.getInstance( ).loadImageFromZip( "gui/hud/contextual/right.png", MultimediaManager.IMAGE_MENU );
-            // IF the image has not been customized, use defaults
-            if (right == null){
-                right = MultimediaManager.getInstance( ).loadImage( "gui/hud/contextual/right.png", MultimediaManager.IMAGE_MENU );
-            }
 
-        } 
-        //if not
-        else {
-            //load the default ones
-            left = MultimediaManager.getInstance( ).loadImage( "gui/hud/contextual/left.png", MultimediaManager.IMAGE_MENU );
-            right = MultimediaManager.getInstance( ).loadImage( "gui/hud/contextual/right.png", MultimediaManager.IMAGE_MENU );
-        }
+        DescriptorData descriptor = Game.getInstance().getGameDescriptor();
+        String leftpath = descriptor.getArrowPath(DescriptorData.NORMAL_ARROW_LEFT);
+        String rightpath = descriptor.getArrowPath(DescriptorData.NORMAL_ARROW_RIGHT);
+        if (leftpath == null)
+        	left = MultimediaManager.getInstance( ).loadImage( "gui/hud/contextual/left.png", MultimediaManager.IMAGE_MENU );
+        else
+        	left = MultimediaManager.getInstance().loadImageFromZip(leftpath, MultimediaManager.IMAGE_MENU );
+        if (rightpath == null)
+        	right = MultimediaManager.getInstance( ).loadImage( "gui/hud/contextual/right.png", MultimediaManager.IMAGE_MENU );
+        else
+        	right = MultimediaManager.getInstance().loadImageFromZip(rightpath, MultimediaManager.IMAGE_MENU );
+
+        leftpath = descriptor.getArrowPath(DescriptorData.HIGHLIGHTED_ARROW_LEFT);
+        rightpath = descriptor.getArrowPath(DescriptorData.HIGHLIGHTED_ARROW_RIGHT);
+        if (leftpath == null)
+        	lefthigh = MultimediaManager.getInstance( ).loadImage( "gui/hud/contextual/left.png", MultimediaManager.IMAGE_MENU );
+        else
+        	lefthigh = MultimediaManager.getInstance().loadImageFromZip(leftpath, MultimediaManager.IMAGE_MENU );
+        if (rightpath == null)
+        	righthigh = MultimediaManager.getInstance( ).loadImage( "gui/hud/contextual/right.png", MultimediaManager.IMAGE_MENU );
+        else
+        	righthigh = MultimediaManager.getInstance().loadImageFromZip(rightpath, MultimediaManager.IMAGE_MENU );
+
+        
         upperInventory = false;
     }
     
@@ -325,14 +342,14 @@ public class Inventory {
         
         if( upperInventory ){
         	if (drawLeft)
-        		g.drawImage( left, SCROLL_LEFT_X, UPPER_SCROLL_LEFT_Y - (int)dy, null );
+        		g.drawImage( (highlightLeft ? lefthigh : left), SCROLL_LEFT_X, UPPER_SCROLL_LEFT_Y - (int)dy, null );
             if (drawRight)
-            	g.drawImage( right, SCROLL_RIGHT_X, UPPER_SCROLL_RIGHT_Y - (int)dy, null );
+            	g.drawImage( (highlightRight ? righthigh : right), SCROLL_RIGHT_X, UPPER_SCROLL_RIGHT_Y - (int)dy, null );
         }else{
         	if (drawLeft)
-        		g.drawImage( left, SCROLL_LEFT_X, BOTTOM_SCROLL_LEFT_Y + (int)dy, null );
+        		g.drawImage( (highlightLeft ? lefthigh : left), SCROLL_LEFT_X, BOTTOM_SCROLL_LEFT_Y + (int)dy, null );
             if (drawRight)
-            	g.drawImage( right, SCROLL_RIGHT_X, BOTTOM_SCROLL_RIGHT_Y + (int)dy, null );
+            	g.drawImage( (highlightRight ? righthigh : right), SCROLL_RIGHT_X, BOTTOM_SCROLL_RIGHT_Y + (int)dy, null );
         }
     }
     
@@ -415,10 +432,25 @@ public class Inventory {
                 indexX += ITEM_SPACING_X;
         }
 
+        
+        highlightLeft = false;
+        highlightRight = false;
         if( element != null )
             Game.getInstance( ).getActionManager( ).setElementOver( element );
-        else
+        else {
+            int scroll_left_y = BOTTOM_SCROLL_LEFT_Y;
+            int scroll_right_y = BOTTOM_SCROLL_RIGHT_Y;
+            if( upperInventory ){ 
+                scroll_left_y = UPPER_SCROLL_LEFT_Y;
+                scroll_right_y = UPPER_SCROLL_RIGHT_Y;
+            }
+            if( e.getY( ) > scroll_left_y && e.getY( ) < scroll_left_y + SCROLL_HEIGHT && e.getX( ) > SCROLL_LEFT_X && e.getX( ) < SCROLL_LEFT_X + SCROLL_WIDTH )
+            	highlightLeft = true;
+            else if( e.getY( ) > scroll_right_y && e.getY( ) < scroll_right_y + SCROLL_HEIGHT && e.getX( ) > SCROLL_RIGHT_X && e.getX( ) < SCROLL_RIGHT_X + SCROLL_WIDTH )
+            	highlightRight = true;
+
             Game.getInstance( ).getActionManager( ).setElementOver( null );
+        }
     }
     
     /**

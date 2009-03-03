@@ -10,11 +10,14 @@ import java.awt.event.WindowEvent;
 import javax.swing.JDialog;
 import javax.swing.JTabbedPane;
 
+import es.eucm.eadventure.common.data.adventure.AdventureData;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
 
 public class CustomizeGUIDialog extends JDialog{
+
+	private static final long serialVersionUID = 1L;
 
 	private AdventureDataControl dataControl;
 	
@@ -27,10 +30,14 @@ public class CustomizeGUIDialog extends JDialog{
 		//Create the cursors panel
 		CursorsPanel cursorsPanel= new CursorsPanel (dataControl);
 		ButtonsPanel buttonsPanel = new ButtonsPanel (dataControl);
+		InventoryPanel inventoryPanel = new InventoryPanel (dataControl);
 		
 		tabbedPane.insertTab( TextConstants.getText( "Cursors.Title" ), null, cursorsPanel, TextConstants.getText( "Cursors.Tip" ), 0 );
 		tabbedPane.insertTab( TextConstants.getText( "Buttons.Title" ), null, buttonsPanel, TextConstants.getText( "Buttons.Tip" ), 1 );
-
+		if (dataControl.getGUIType() == AdventureData.GUI_CONTEXTUAL) {
+			tabbedPane.insertTab( TextConstants.getText( "Inventory.Title" ), null, inventoryPanel, TextConstants.getText( "Inventory.Tip" ), 2);
+		}
+		
 		addWindowListener( new WindowAdapter( ) {
 			public void windowClosing( WindowEvent e ) {
 				setVisible( false );

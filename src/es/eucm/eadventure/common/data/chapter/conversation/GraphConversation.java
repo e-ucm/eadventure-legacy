@@ -63,7 +63,6 @@ public class GraphConversation extends Conversation {
 	
 	public Object clone() throws CloneNotSupportedException {
 		GraphConversation gc = (GraphConversation) super.clone();
-	
 		return gc;
 	}
 }
