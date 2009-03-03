@@ -134,6 +134,19 @@ public class DescriptorHandler extends DefaultHandler {
 	            gameDescriptor.addButton( action, type, uri );
 	        }
 	        
+	        if (qName.equals( "arrow" )) {
+	        	String type="";String uri="";
+	        	for (int i = 0; i < attrs.getLength(); i++) {
+	               if (attrs.getQName( i ).equals( "type" )){
+	                  type=attrs.getValue( i );
+	               }else if (attrs.getQName( i ).equals( "uri" )){
+	                  uri=attrs.getValue( i );
+	               }
+	        	}
+	        	gameDescriptor.addArrow( type, uri);
+	        }
+
+	        
 	        if (qName.endsWith("automatic-commentaries")) {
 	            gameDescriptor.setCommentaries(true);
 	        }

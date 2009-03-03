@@ -1,6 +1,7 @@
 package es.eucm.eadventure.common.data.chapter.conversation;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
@@ -126,7 +127,34 @@ public abstract class Conversation implements Cloneable {
 		Conversation c = (Conversation) super.clone();
 		c.conversationId = (conversationId != null ? new String(conversationId) : null);
 		c.conversationType = conversationType;
+		
+		HashMap<ConversationNode, ConversationNode> clonedNodes = new HashMap<ConversationNode, ConversationNode>();
+		
 		c.root = (root != null ? (ConversationNode) root.clone() : null);
+
+		clonedNodes.put(root, c.root);
+		List<ConversationNode> nodes = new ArrayList<ConversationNode>();
+		List<ConversationNode> visited = new ArrayList<ConversationNode>();
+ 		nodes.add(root);
+ 		
+		while(!nodes.isEmpty()) {
+			ConversationNode temp = nodes.get(0);
+			ConversationNode cloned = clonedNodes.get(temp);
+			nodes.remove(0);
+			visited.add(temp);
+			
+			for (int i = 0 ; i < temp.getChildCount(); i++) {
+				ConversationNode tempCloned = clonedNodes.get(temp.getChild(i));
+				if (tempCloned == null) {
+					tempCloned = (ConversationNode) temp.getChild(i).clone();
+					clonedNodes.put(temp.getChild(i), tempCloned);
+				} 
+				cloned.addChild(tempCloned);
+				
+				if (!visited.contains(temp.getChild(i)) && !nodes.contains(temp.getChild(i)))
+					nodes.add(temp.getChild(i));
+			}
+		}
 		return c;
 	}
 }

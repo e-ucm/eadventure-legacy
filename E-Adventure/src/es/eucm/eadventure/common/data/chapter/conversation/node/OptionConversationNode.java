@@ -213,11 +213,12 @@ public class OptionConversationNode extends ConversationNode {
 		OptionConversationNode ocn = (OptionConversationNode) super.clone();
 		ocn.effectConsumed = effectConsumed;
 		ocn.effects = (effects != null ? (Effects) effects.clone() : null);
-		if (optionNodes != null) {
+/*		if (optionNodes != null) {
 			ocn.optionNodes = new ArrayList<ConversationNode>();
 			for (ConversationNode cn : optionNodes)
 				ocn.optionNodes.add((ConversationNode) cn.clone());
-		}
+		}*/
+		ocn.optionNodes = new ArrayList<ConversationNode>();
 		if (options != null) {
 			ocn.options = new ArrayList<ConversationLine>();
 			for (ConversationLine cl : options)

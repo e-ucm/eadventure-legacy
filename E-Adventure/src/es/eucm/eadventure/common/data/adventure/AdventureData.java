@@ -112,6 +112,8 @@ public class AdventureData extends DescriptorData {
 		ad.buttons = new ArrayList<CustomButton>();
 		for (CustomButton cb : buttons)
 			ad.buttons.add((CustomButton) cb.clone());
+		for (CustomArrow ca : arrows)
+			ad.arrows.add((CustomArrow) ca.clone());
 		ad.chapters = new ArrayList<Chapter>();
 		for (Chapter c : chapters)
 			ad.chapters.add((Chapter) c.clone());

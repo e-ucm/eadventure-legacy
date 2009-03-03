@@ -11,8 +11,9 @@ import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfil
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfilesDataControl;
 import es.eucm.eadventure.editor.control.controllers.ims.IMSDataControl;
 import es.eucm.eadventure.editor.control.controllers.lom.LOMDataControl;
-import es.eucm.eadventure.editor.control.tools.AddCursorTool;
+import es.eucm.eadventure.editor.control.tools.DeleteArrowTool;
 import es.eucm.eadventure.editor.control.tools.DeleteCursorTool;
+import es.eucm.eadventure.editor.control.tools.SelectArrowTool;
 import es.eucm.eadventure.editor.control.tools.SelectButtonTool;
 import es.eucm.eadventure.editor.control.tools.SelectCursorPathTool;
 import es.eucm.eadventure.editor.control.tools.general.ChangeDescriptionTool;
@@ -20,12 +21,12 @@ import es.eucm.eadventure.editor.control.tools.general.ChangeTitleTool;
 import es.eucm.eadventure.editor.control.tools.generic.ChangeBooleanValueTool;
 import es.eucm.eadventure.editor.control.tools.generic.ChangeIntegerValueTool;
 import es.eucm.eadventure.common.data.adventure.AdventureData;
+import es.eucm.eadventure.common.data.adventure.CustomArrow;
 import es.eucm.eadventure.common.data.adventure.CustomButton;
 import es.eucm.eadventure.common.data.adventure.CustomCursor;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
 import es.eucm.eadventure.common.data.adaptation.AdaptationProfile;
-import es.eucm.eadventure.editor.gui.assetchooser.AssetChooser;
 
 /**
  * This class holds all the information of the adventure, including the chapters and the configuration of the HUD.
@@ -241,6 +242,9 @@ public class AdventureDataControl {
         return adventureData.getButtons();
     }
 
+    public List<CustomArrow> getArrows(){
+    	return adventureData.getArrows();
+    }
     
     public String getCursorPath(String type){
         for (CustomCursor cursor: adventureData.getCursors()){
@@ -276,6 +280,27 @@ public class AdventureDataControl {
 		}
     }
 
+    public String getArrowPath(String type){
+    	for (CustomArrow arrow: adventureData.getArrows()) {
+    		if (arrow.getType().equals(type)) {
+    			return arrow.getPath();
+    		}
+    	}
+    	return null;
+    }
+    
+    public void deleteArrow(String type) {
+    	int position=-1;
+    	for (int i=0; i<adventureData.getArrows().size( ); i++){
+    		if (adventureData.getArrows().get(i).getType( ).equals( type )){
+    			position= i;break;
+    		}
+    	}
+    	if (position>=0){
+    		Controller.getInstance().addTool( new DeleteArrowTool(adventureData, position));
+    	}
+    }
+    
 	/**
 	 * @return the lomController
 	 */
@@ -374,40 +399,19 @@ public class AdventureDataControl {
 	}
 
 	public void editButtonPath(String action, String type) {
-		/*String selectedButton = null;
-		AssetChooser chooser = AssetsController.getAssetChooser( AssetsController.CATEGORY_BUTTON, AssetsController.FILTER_NONE );
-		int option = chooser.showAssetChooser( Controller.getInstance().peekWindow( ) );
-		//In case the asset was selected from the zip file
-		if( option == AssetChooser.ASSET_FROM_ZIP ) {
-			selectedButton = chooser.getSelectedAsset( );
-		}
-
-		//In case the asset was not in the zip file: first add it
-		else if( option == AssetChooser.ASSET_FROM_OUTSIDE ) {
-			boolean added = AssetsController.addSingleAsset( AssetsController.CATEGORY_BUTTON, chooser.getSelectedFile( ).getAbsolutePath( ) );
-			if( added ) {
-				selectedButton = chooser.getSelectedFile( ).getName( );
-			}
-		}
-
-		// If a file was selected
-		if( selectedButton != null ) {
-			// Take the index of the selected asset
-			String[] assetFilenames = AssetsController.getAssetFilenames( AssetsController.CATEGORY_BUTTON );
-			String[] assetPaths = AssetsController.getAssetsList( AssetsController.CATEGORY_BUTTON );
-			int assetIndex = -1;
-			for( int i = 0; i < assetFilenames.length; i++ )
-				if( assetFilenames[i].equals( selectedButton ) )
-					assetIndex = i;
-
-			this.setButton(action, type, assetPaths[assetIndex]);			
-			
-			Controller.getInstance( ).dataModified( );
-		}*/
 		try {
 			Controller.getInstance().addTool( new SelectButtonTool( adventureData, action, type ) );
 		} catch (CloneNotSupportedException e) {
 			ReportDialog.GenerateErrorReport(e, false, "Could not clone resources: buttons");
 		}
 	}
+	
+	public void editArrowPath(String type) {
+		try {
+			Controller.getInstance().addTool( new SelectArrowTool( adventureData, type ) );
+		} catch (CloneNotSupportedException e) {
+			ReportDialog.GenerateErrorReport(e, false, "Could not clone resources: buttons");
+		}
+	}
+
 }

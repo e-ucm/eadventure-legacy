@@ -11,6 +11,7 @@ import org.w3c.dom.Node;
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
+import es.eucm.eadventure.common.data.adventure.CustomArrow;
 import es.eucm.eadventure.common.data.adventure.CustomButton;
 import es.eucm.eadventure.common.data.adventure.CustomCursor;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
@@ -91,6 +92,17 @@ public class DescriptorDOMWriter {
 					buttonsNode.appendChild( currentButton );
 				}
 				guiElement.appendChild( buttonsNode );
+			}
+			
+			if (adventureData.getArrows().size() > 0) {
+				Node arrowNode = doc.createElement( "arrows" );
+				for (CustomArrow arrow : adventureData.getArrows()) {
+					Element currentArrow = doc.createElement( "arrow");
+					currentArrow.setAttribute( "type", arrow.getType());
+					currentArrow.setAttribute( "uri", arrow.getPath());
+					arrowNode.appendChild(currentArrow);
+				}
+				guiElement.appendChild( arrowNode );
 			}
 
 			configurationNode.appendChild( guiElement );

@@ -195,7 +195,8 @@ public class DialogueConversationNode extends ConversationNode {
 		}
 		dcn.effectConsumed = effectConsumed;
 		dcn.effects = (effects != null ? (Effects) effects.clone() : null);
-		dcn.nextNode = (nextNode != null ? (ConversationNode) nextNode.clone() : null);
+		//dcn.nextNode = (nextNode != null ? (ConversationNode) nextNode.clone() : null);
+		dcn.nextNode = null;
 		dcn.terminal = terminal;
 		return dcn;
 	}

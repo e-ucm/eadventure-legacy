@@ -6,7 +6,7 @@
 
 <!ELEMENT configuration (gui,mode,graphics?)>
 <!ELEMENT invalid EMPTY>
-<!ELEMENT gui (cursors?, buttons?)>
+<!ELEMENT gui (cursors?, buttons?, arrows?)>
 <!ATTLIST gui
 	type (traditional | contextual) "traditional"
 	customized (yes | no) "no"
@@ -23,6 +23,13 @@
 <!ATTLIST button
 	action (talk | use-grab | examine ) "use-grab"
 	type (highlighted | normal | pressed ) "normal"
+	uri CDATA #REQUIRED
+>
+
+<!ELEMENT arrows (arrow+)>
+<!ELEMENT arrow EMPTY>
+<!ATTLIST arrow
+	type (normalright | normalleft | highlightedright | highlightedleft ) "normalright"
 	uri CDATA #REQUIRED
 >
 

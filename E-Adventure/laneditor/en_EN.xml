@@ -1552,6 +1552,20 @@ When not customized, default buttons will be used in the game.</entry>
 	<entry key="Button.examine.highlighted.Tip">This is the highlighted examine button, the one show when the mouse is over it but not clicking</entry>
 	<entry key="Button.examine.pressed.Tip">This is the pressed examine button, the one show when the mouse is pressed inside the button</entry>
 	
+	<entry key="Inventory.Infromation">Here you can customize how the arrows of the inventory look. 
+When not customized, default arrows will be used in the game.</entry>
+	<entry key="Inventory.Title">Inventory</entry>
+	<entry key="Inventory.Tip">Customize the default elements of the inventory</entry>
+	<entry key="Inventory.Select">Select...</entry>
+	<entry key="Inventory.Preview">View arrow</entry>
+	<entry key="Inventory.normalleft.Description">Normal left arrow</entry>
+	<entry key="Inventory.normalleft.Tip">This is the arrow in the left in its normal state.</entry>
+	<entry key="Inventory.highlightedleft.Description">Highlighted left arrow</entry>
+	<entry key="Inventory.highlightedleft.Tip">This is the arrow in the left in its highlighted stated.</entry>
+	<entry key="Inventory.normalright.Description">Normal right arrow</entry>
+	<entry key="Inventory.normalright.Tip">This is the arrow in the right in its normal state.</entry>
+	<entry key="Inventory.highlightedright.Description">Highlighted right arrow</entry>
+	<entry key="Inventory.highlightedright.Tip">This is the arrow in the right in its highlighted stated.</entry>
 	
 	<entry key="CursorAssets.Preview">Cursor preview</entry>
 	<entry key="ButtonAssets.Preview">Button preview</entry>

@@ -1552,6 +1552,21 @@ Si no los cambia, el juego empleará los botones por defecto.</entry>
 	<entry key="Button.examine.highlighted.Tip">Este es el botón de examinar resaltado, el que se eseña cuando el ratón estña sobre él pero no está presionado</entry>
 	<entry key="Button.examine.pressed.Tip">Este es el botón de examinar presionado, el que se eseña cuando el ratón está pulsado sobre él</entry>
 	
+	<entry key="Inventory.Infromation">Desde este menú puede personalizar la apariencia de las fechas del inventario. 
+Si no las cambia, el juego empleará las flechas por defecto.</entry>
+	<entry key="Inventory.Title">Inventario</entry>
+	<entry key="Inventory.Tip">Presonalización de los elementos del inventario</entry>
+	<entry key="Inventory.Select">Elegir...</entry>
+	<entry key="Inventory.Preview">Ver la flecha</entry>
+	<entry key="Inventory.normalleft.Description">Flecha izquierda normal</entry>
+	<entry key="Inventory.normalleft.Tip">Esta es la fecha izquierda en su estado normal</entry>
+	<entry key="Inventory.highlightedleft.Description">Flecha izquierda resaltada</entry>
+	<entry key="Inventory.highlightedleft.Tip">Esta es la fecha izqueirda en su estado resaltado.</entry>
+	<entry key="Inventory.normalright.Description">Flecha derecha normal</entry>
+	<entry key="Inventory.normalright.Tip">Esta es la fecha derecha en su estado normal.</entry>
+	<entry key="Inventory.highlightedright.Description">Flecha derecha resaltada</entry>
+	<entry key="Inventory.highlightedright.Tip">Esta es la fecha derecha en su estado resaltado.</entry>
+	
 	
 	<entry key="CursorAssets.Preview">Previsualización</entry>
 	<entry key="ButtonAssets.Preview">Previsualización</entry>
