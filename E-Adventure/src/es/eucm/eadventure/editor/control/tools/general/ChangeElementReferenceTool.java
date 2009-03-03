@@ -1,7 +1,8 @@
-package es.eucm.eadventure.editor.control.tools;
+package es.eucm.eadventure.editor.control.tools.general;
 
 import es.eucm.eadventure.common.data.chapter.ElementReference;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.tools.Tool;
 
 public class ChangeElementReferenceTool extends Tool {
 

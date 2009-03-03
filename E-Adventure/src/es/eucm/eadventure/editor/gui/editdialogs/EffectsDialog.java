@@ -39,14 +39,6 @@ public class EffectsDialog extends ToolManagableDialog {
 		// Call to the JDialog constructor
 		super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "Effects.Title" ), false );//, Dialog.ModalityType.APPLICATION_MODAL );
 
-		// Push the dialog into the stack, and add the window listener to pop in when closing
-		Controller.getInstance( ).pushWindow( this );
-		addWindowListener( new WindowAdapter( ) {
-			public void windowClosing( WindowEvent e ) {
-				Controller.getInstance( ).popWindow( );
-			}
-		} );
-
 		// Create the main panel and add it
 		setLayout( new GridBagLayout( ) );
 		GridBagConstraints c = new GridBagConstraints( );

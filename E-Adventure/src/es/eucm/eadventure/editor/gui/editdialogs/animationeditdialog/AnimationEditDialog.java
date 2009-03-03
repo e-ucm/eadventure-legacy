@@ -150,15 +150,6 @@ public class AnimationEditDialog extends ToolManagableDialog {
 		}
 		animationDataControl.setFilename(filename);
 
-		// Push the dialog into the stack, and add the window listener to pop in when closing
-		Controller.getInstance( ).pushWindow( this );
-		addWindowListener( new WindowAdapter( ) {
-			public void windowClosing( WindowEvent e ) {
-				Controller.getInstance( ).popWindow( );
-			}
-		} );
-
-		
 		buildInterface();
 	}
 

@@ -224,7 +224,7 @@ public class DescriptorData implements Cloneable, Described, Titled {
 	 * 
 	 * @return Adventure's GUI type
 	 */
-	public int getGUIType( ) {
+	public Integer getGUIType( ) {
 		return guiType;
 	}
 
@@ -261,14 +261,14 @@ public class DescriptorData implements Cloneable, Described, Titled {
 	/**
 	 * @return the playerMode
 	 */
-	public int getPlayerMode( ) {
+	public Integer getPlayerMode( ) {
 		return playerMode;
 	}
 
 	/**
 	 * @param playerMode the playerMode to set
 	 */
-	public void setPlayerMode( int playerMode ) {
+	public void setPlayerMode( Integer playerMode ) {
 		this.playerMode = playerMode;
 	}
     
@@ -351,19 +351,19 @@ public class DescriptorData implements Cloneable, Described, Titled {
     }
     
     
-    public boolean isCommentaries() {
+    public Boolean isCommentaries() {
         return commentaries;
     }
 
-    public void setCommentaries(boolean commentaries) {
+    public void setCommentaries(Boolean commentaries) {
         this.commentaries = commentaries;
     }
     
-	public int getGraphicConfig() {
+	public Integer getGraphicConfig() {
 		return this.graphicConfig;
 	}
 	 
-	public void setGraphicConfig(int graphicConfig) {
+	public void setGraphicConfig(Integer graphicConfig) {
 		this.graphicConfig = graphicConfig;
 	}
 

@@ -42,9 +42,9 @@ public class ChangeBooleanValueTool extends Tool{
 		this.updatePanel = updatePanel;
 		this.updateTree = updateTree;
 		try {
-			set = data.getClass().getMethod(setMethodName, new Boolean(true).getClass());
+			set = data.getClass().getMethod(setMethodName, Boolean.class);
 			get = data.getClass().getMethod(getMethodName );
-			if ( get.getReturnType() != new Boolean(true).getClass()) {
+			if ( get.getReturnType() != Boolean.class) {
 				get = set = null;
 				ReportDialog.GenerateErrorReport(new Exception ("Get method must return Boolean value"), false, TextConstants.getText("Error.Title"));
 			}

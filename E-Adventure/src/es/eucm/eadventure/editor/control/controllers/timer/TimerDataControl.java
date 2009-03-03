@@ -8,6 +8,7 @@ import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.control.tools.general.ChangeDocumentationTool;
+import es.eucm.eadventure.editor.control.tools.generic.ChangeLongValueTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class TimerDataControl extends DataControl {
@@ -257,8 +258,7 @@ public class TimerDataControl extends DataControl {
 	}
 	
 	public void setTime( long newTime ){
-		timer.setTime( newTime );
-		controller.dataModified( );
+		controller.addTool(new ChangeLongValueTool(timer, newTime, "getTime", "setTime"));
 	}
 
 	@Override

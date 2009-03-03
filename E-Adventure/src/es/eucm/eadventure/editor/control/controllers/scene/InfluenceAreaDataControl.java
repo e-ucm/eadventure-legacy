@@ -4,7 +4,7 @@ import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.InfluenceArea;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.control.tools.ChangeRectangleValueTool;
+import es.eucm.eadventure.editor.control.tools.general.ChangeRectangleValueTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class InfluenceAreaDataControl extends DataControl {
@@ -212,6 +212,7 @@ public class InfluenceAreaDataControl extends DataControl {
 
 	public void referenceScaleChanged(int incrementX, int incrementY) {
 		if (influenceArea.isExists())  {
+			controller.dataModified();
 			influenceArea.setWidth(influenceArea.getWidth() + incrementX);
 			influenceArea.setHeight(influenceArea.getHeight() + incrementY);
 		}

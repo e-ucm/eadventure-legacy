@@ -18,6 +18,8 @@ import es.eucm.eadventure.editor.control.tools.general.ChangeDescriptionTool;
 import es.eucm.eadventure.editor.control.tools.general.ChangeDetailedDescriptionTool;
 import es.eucm.eadventure.editor.control.tools.general.ChangeDocumentationTool;
 import es.eucm.eadventure.editor.control.tools.general.ChangeNameTool;
+import es.eucm.eadventure.editor.control.tools.generic.ChangeBooleanValueTool;
+import es.eucm.eadventure.editor.control.tools.generic.ChangeStringValueTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class PlayerDataControl extends DataControlWithResources{
@@ -214,7 +216,7 @@ public class PlayerDataControl extends DataControlWithResources{
 		if( blue.length( ) == 1 )
 			blue = "0" + blue;
 
-		player.setTextFrontColor( "#" + red + green + blue );
+		controller.addTool( new ChangeStringValueTool(player,"#" + red + green + blue,"getTextFrontColor", "setTextFrontColor") );
 	}
 
 	/**
@@ -235,7 +237,7 @@ public class PlayerDataControl extends DataControlWithResources{
 		if( blue.length( ) == 1 )
 			blue = "0" + blue;
 
-		player.setTextBorderColor( "#" + red + green + blue );
+		controller.addTool( new ChangeStringValueTool(player,"#" + red + green + blue,"getTextBorderColor", "setTextBorderColor") );
 	}
 
 	/**
@@ -275,7 +277,7 @@ public class PlayerDataControl extends DataControlWithResources{
 	 * 			Boolean value
 	 */
 	public void setAlwaysSynthesizer(boolean always){
-		player.setAlwaysSynthesizer(always);
+		controller.addTool( new ChangeBooleanValueTool(player, always, "isAlwaysSynthesizer", "setAlwaysSynthesizer"));
 	}
 	
 	
@@ -286,7 +288,7 @@ public class PlayerDataControl extends DataControlWithResources{
 	 * 			a string with the valid voice
 	 */
 	public void setPlayerVoice(String voice){
-		player.setVoice(voice);
+		controller.addTool( new ChangeStringValueTool(player,voice,"getVoice", "setVoice") );
 	}
 	
 	/**

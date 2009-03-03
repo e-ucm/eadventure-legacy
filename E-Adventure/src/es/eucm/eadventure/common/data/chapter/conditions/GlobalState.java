@@ -1,6 +1,7 @@
 package es.eucm.eadventure.common.data.chapter.conditions;
 
 import es.eucm.eadventure.common.data.Documented;
+import es.eucm.eadventure.common.data.HasId;
 
 /**
  * Group of conditions named with an Id, so it can be refered to
@@ -8,7 +9,7 @@ import es.eucm.eadventure.common.data.Documented;
  * @author Javier
  *
  */
-public class GlobalState extends Conditions implements Documented{
+public class GlobalState extends Conditions implements Documented, HasId{
 
 	/**
 	 * Id of the Conditions group

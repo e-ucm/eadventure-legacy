@@ -8,10 +8,6 @@ import es.eucm.eadventure.editor.data.ims.IMSLifeCycle;
 import es.eucm.eadventure.editor.data.ims.IMSMetaMetaData;
 import es.eucm.eadventure.editor.data.ims.IMSRights;
 import es.eucm.eadventure.editor.data.ims.IMSTechnical;
-import es.eucm.eadventure.editor.data.lom.LOMEducational;
-import es.eucm.eadventure.editor.data.lom.LOMGeneral;
-import es.eucm.eadventure.editor.data.lom.LOMLifeCycle;
-import es.eucm.eadventure.editor.data.lom.LOMTechnical;
 import es.eucm.eadventure.editor.data.lom.LangString;
 
 public class IMSDataControl {

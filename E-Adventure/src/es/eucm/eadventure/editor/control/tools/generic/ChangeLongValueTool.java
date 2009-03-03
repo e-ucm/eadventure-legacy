@@ -8,19 +8,17 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.tools.Tool;
 
 /**
- * Generic tool that uses introspection to change a string value
+ * Generic tool that uses introspection to change an integer value
  * @author Javier
  *
  */
-public class ChangeStringValueTool extends Tool{
+public class ChangeLongValueTool extends Tool{
 
 	protected Method get;
 	protected Method set;
-	protected String getName;
-	protected String setName;
 
-	protected String oldValue;
-	protected String newValue;
+	protected Long oldValue;
+	protected Long newValue;
 	
 	protected Object data;
 	
@@ -30,27 +28,25 @@ public class ChangeStringValueTool extends Tool{
 	/**
 	 * Default constructor. Will update panel but not tree
 	 * @param data 			The object which data is to be modified
-	 * @param newValue		The new Value (String)
-	 * @param getMethodName The name of the get method. Must follow this pattern: public String getMethodName()
-	 * @param setMethodName The name of the set method. Must follow this pattern: public * setMethodName( String )
+	 * @param newValue		The new Value (Long)
+	 * @param getMethodName The name of the get method. Must follow this pattern: public Long getMethodName()
+	 * @param setMethodName The name of the set method. Must follow this pattern: public * setMethodName( Long )
 	 */
-	public ChangeStringValueTool (Object data, String newValue, String getMethodName, String setMethodName ) {
+	public ChangeLongValueTool (Object data,Long newValue, String getMethodName, String setMethodName ) {
 		this (data, newValue, getMethodName, setMethodName, false, true);
 	}
 
-	public ChangeStringValueTool (Object data, String newValue, String getMethodName, String setMethodName, boolean updateTree, boolean updatePanel) {
+	public ChangeLongValueTool (Object data, Long newValue, String getMethodName, String setMethodName, boolean updateTree, boolean updatePanel) {
 		this.data = data;
 		this.newValue = newValue;
 		this.updatePanel = updatePanel;
 		this.updateTree = updateTree;
-		this.getName = getMethodName;
-		this.setName = setMethodName;
 		try {
-			set = data.getClass().getMethod(setMethodName, String.class);
+			set = data.getClass().getMethod(setMethodName, Long.class);
 			get = data.getClass().getMethod(getMethodName );
-			if ( get.getReturnType() != String.class) {
+			if ( get.getReturnType() != Long.class) {
 				get = set = null;
-				ReportDialog.GenerateErrorReport(new Exception ("Get method must return String value"), false, TextConstants.getText("Error.Title"));
+				ReportDialog.GenerateErrorReport(new Exception ("Get method must return Long value"), false, TextConstants.getText("Error.Title"));
 			}
 		} catch (SecurityException e) {
 			get = set = null;
@@ -75,14 +71,6 @@ public class ChangeStringValueTool extends Tool{
 
 	@Override
 	public boolean combine(Tool other) {
-		if (other instanceof ChangeStringValueTool) {
-			ChangeStringValueTool cnt = (ChangeStringValueTool) other;
-			if (cnt.getName.equals(getName) && cnt.setName.equals(setName) && data==cnt.data) {
-				newValue = cnt.newValue;
-				timeStamp = cnt.timeStamp;
-				return true;
-			}
-		}
 		return false;
 	}
 
@@ -92,7 +80,7 @@ public class ChangeStringValueTool extends Tool{
 		if (get !=null && set !=null){
 			// Get the old value
 			try {
-				oldValue = (String)get.invoke(data);
+				oldValue = (Long)get.invoke(data);
 				if (newValue!=null && oldValue==null ||
 						newValue==null && oldValue!=null ||
 						(newValue!=null && oldValue!=null && !oldValue.equals(newValue))){

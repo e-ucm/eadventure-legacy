@@ -2,11 +2,11 @@ package es.eucm.eadventure.editor.control.controllers.scene;
 
 import java.awt.Image;
 
+import es.eucm.eadventure.editor.control.Controller;
+
 
 /**
- * esta clase es usada para contener en una misma estructura 2 tipos de objetos, o element reference data control o 
- * su simil para el player
- *
+ * This class can contain either an ElementReferenceDataControl or its equivalent for the player
  */
 public class ElementContainer {
 
@@ -45,6 +45,7 @@ public class ElementContainer {
 	 * 			the new image
 	 */
 	public void setImage(Image image) {
+		Controller.getInstance().dataModified();
 		this.image = image;
 	}
 
@@ -81,6 +82,7 @@ public class ElementContainer {
 	 *			the new layer.
 	 */
 	public void setLayer(int layer){
+		Controller.getInstance().dataModified();
 		if (erdc==null)
 			playerLayer = layer;
 		else 
@@ -102,9 +104,6 @@ public class ElementContainer {
 		return playerLayer;
 	}
 
-	public void setPlayerLayer(int playerLayer) {
-		this.playerLayer = playerLayer;
-	}
 
 	public ElementReferenceDataControl getErdc() {
 		return erdc;
@@ -119,6 +118,7 @@ public class ElementContainer {
 	}
 	
 	public void setVisible(boolean visible) {
+		Controller.getInstance().dataModified();
 		this.erdc.setVisible(visible);
 	}
 	

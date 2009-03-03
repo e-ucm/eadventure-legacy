@@ -177,7 +177,6 @@ public class ConversationReferenceDataControl extends DataControl {
 
 	@Override
 	public boolean canBeDuplicated( ) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

@@ -8,6 +8,7 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.tools.general.ChangeDocumentationTool;
+import es.eucm.eadventure.editor.control.tools.general.ChangeIdTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class GlobalStateDataControl extends DataControl{
@@ -33,10 +34,6 @@ public class GlobalStateDataControl extends DataControl{
 		return globalState.getId();
 	}
 	
-	private void setId ( String newId ){
-		globalState.setId( newId );
-	}
-
 	/**
 	 * @return the controller
 	 */
@@ -145,7 +142,7 @@ public class GlobalStateDataControl extends DataControl{
 
 			// If some value was typed and the identifiers are different
 			if( newItemId != null && !newItemId.equals( oldItemId ) && Controller.getInstance().isElementIdValid( newItemId ) ) {
-				setId( newItemId );
+				globalState.setId( newItemId );
 				Controller.getInstance().replaceIdentifierReferences( oldItemId, newItemId );
 				Controller.getInstance().getIdentifierSummary( ).deleteGlobalStateId( oldItemId );
 				Controller.getInstance().getIdentifierSummary( ).addGlobalStateId( newItemId );
