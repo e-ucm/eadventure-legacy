@@ -27,7 +27,7 @@ public class EAdventureDebug {
         Loader.setAdventureData (data);
         ResourceHandler.setExternalMode( isCreator );
         GameText.reloadStrings();
-        Game.create(true);
+        Game.create(true, true);
         Game.getInstance( ).setAdventureName( data.getTitle() );
         Game.getInstance( ).run( );
         Game.delete( );
@@ -38,7 +38,7 @@ public class EAdventureDebug {
         Loader.setAdventureData (data);
         ResourceHandler.setExternalMode( isCreator );
         GameText.reloadStrings();
-        Game.create( );
+        Game.create(true, false);
         Game.getInstance( ).setAdventureName( data.getTitle() );
         Game.getInstance( ).run( );
         Game.delete( );

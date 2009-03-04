@@ -189,7 +189,7 @@ public class FunctionalBookPage extends JPanel{
                     try {
                         pane.setPage(e.getURL());
                     } catch (Exception t) {
-                    	ReportDialog.GenerateErrorReport(t, true, "UNKNOWERROR");
+                    	ReportDialog.GenerateErrorReport(t, Game.getInstance().isFromEditor(), "UNKNOWERROR");
                     }
                 }
             }
@@ -335,7 +335,7 @@ public class FunctionalBookPage extends JPanel{
             }
             reference = "";
             }catch (Exception e){
-            	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
+            	ReportDialog.GenerateErrorReport(e, Game.getInstance().isFromEditor(), "UNKNOWERROR");
             }
         }
     }

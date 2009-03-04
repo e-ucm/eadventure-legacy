@@ -161,8 +161,8 @@ public class TextConstants {
 	 */
 	public static String getText( String identifier ) {
 		String text = null;
-
-		if( guiStrings.containsKey( identifier ) )
+		
+		if( guiStrings != null && guiStrings.containsKey( identifier ) )
 			text = guiStrings.getProperty( identifier );
 		else {
 			text = "Error";
@@ -230,6 +230,7 @@ public class TextConstants {
 	 * @param c The class of the tool
 	 * @return The the text if any, "Error" if not found
 	 */
+	@SuppressWarnings("unchecked")
 	public static String getEditionToolName ( Class c ){
 		return getText ("Edition.UndoRedo.Name."+c.getSimpleName());
 	}

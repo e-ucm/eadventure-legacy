@@ -27,6 +27,8 @@ import javax.swing.*;
  */
 public class EAdventure {
     
+	public static String VERSION = "0.9";
+	
 	/**
      * Launchs a new e-Adventure game
      * @param args Arguments

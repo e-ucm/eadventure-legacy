@@ -299,6 +299,8 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     
     private boolean debug = false;
     
+    private boolean fromEditor = false;
+    
     private DebugValuesPanel debugChangesPanel;
     
     private DebugLogPanel debugLogPanel;
@@ -328,8 +330,9 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         instance = new Game( );
     }
     
-    public static void create(boolean debug) {
+    public static void create(boolean fromEditor, boolean debug) {
     	instance = new Game();
+    	instance.fromEditor = fromEditor;
     	instance.debug = debug;
     }
     
@@ -592,6 +595,11 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             // Load the game descriptor (it holds the info of the GUI and the player)
             gameDescriptor = Loader.loadDescriptorData( ResourceHandler.getInstance() );
   
+            if (gameDescriptor == null) {
+            	// TODO possibly add dialog to tell player the game couldn't get loaded
+            	return;
+            }
+            
             GUI.setGraphicConfig(gameDescriptor.getGraphicConfig());
             
             GUI.create();
@@ -693,7 +701,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             }
 
         } catch( Exception e ) {
-        	ReportDialog.GenerateErrorReport(e, false, "FATAL ERROR. This should not happen.");
+        	ReportDialog.GenerateErrorReport(e, Game.getInstance().isFromEditor(), "FATAL ERROR. This should not happen.");
         }
         
         try {
@@ -1474,12 +1482,12 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         //timerManager.deleteTimer( timerId );
     }
 
-	public void setDebugMode(boolean b) {
-		debug = b;
-	}
-
 	public boolean isDebug() {
 		return debug;
+	}
+	
+	public boolean isFromEditor() {
+		return fromEditor;
 	}
 	
 	public String processText(String text) {

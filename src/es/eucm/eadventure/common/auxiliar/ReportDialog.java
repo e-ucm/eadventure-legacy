@@ -7,12 +7,18 @@ import java.awt.GridBagLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.IOException;
 import javax.mail.AuthenticationFailedException;
 import javax.mail.MessagingException;
+
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.io.FileNotFoundException;
 import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
@@ -22,7 +28,6 @@ import java.text.ParseException;
 import java.io.UnsupportedEncodingException;  
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
-import java.awt.HeadlessException;
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.sampled.LineUnavailableException;
@@ -39,6 +44,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.engine.EAdventure;
 
 
 public class ReportDialog extends JDialog {
@@ -315,33 +321,50 @@ public class ReportDialog extends JDialog {
 	}
 	
 	protected void sendReport(boolean error) {
-		String email;
-		String title;
+		String report;
 		if (error) {
-			title = "ERROR REPORT";
-			email = "ERROR REPORT\n" + message + "\n\n";
+			report = "ERROR REPORT\n" + message + "\n\n";
 			
 			if (askName) {
-				email += "USER: " + nameTextField.getText() + "\n";
-				email += "EMAIL: " + emailTextField.getText() + "\n\n";
+				report += "USER: " + nameTextField.getText() + "\n";
+				report += "EMAIL: " + emailTextField.getText() + "\n\n";
 			}
 			
-			email += "DESCRIPTION:\n" + descriptionTextArea.getText() + "\n\n\n";
-			email += "STACK TRACE:\n" + exception + "\n";
+			report += "DESCRIPTION:\n" + descriptionTextArea.getText() + "\n\n\n";
+			report += "STACK TRACE:\n" + exception + "\n";
 		}
 		else {
-			title = "COMMENTS AND SUGGESTIONS";
-			email = "USER COMMENTS\n\n";
+			report = "USER COMMENTS\n\n";
 			
-			email += "USER: " + nameTextField.getText() + "\n";
-			email += "EMAIL: " + emailTextField.getText() + "\n\n";
+			report += "USER: " + nameTextField.getText() + "\n";
+			report += "EMAIL: " + emailTextField.getText() + "\n\n";
 			
-			email += "COMMENTS AND SUGGESTIONS:\n" + descriptionTextArea.getText() + "\n";
+			report += "COMMENTS AND SUGGESTIONS:\n" + descriptionTextArea.getText() + "\n";
 		}
-        SendMail sm = new SendMail();
-        try {
-        	sm.postReport(title, email);
-        } catch (Exception e) {};
+		        
+		try {
+			URL url = new URL("http://147.96.112.160:88/pruebas/test3.php");
+			HttpURLConnection con = (HttpURLConnection)url.openConnection();
+			con.setRequestMethod("POST");
+			con.setDoInput (true);
+			con.setDoOutput (true);
+
+			con.setUseCaches (false);
+			con.setAllowUserInteraction(true);
+			HttpURLConnection.setFollowRedirects(true);
+			con.setInstanceFollowRedirects(true);
+			DataOutputStream out = new DataOutputStream(con.getOutputStream());
+			String content = "type=" + (error ? "bug" : "comment" ) + "&version=" + EAdventure.VERSION + "&file=" + report;
+			out.writeBytes (content);
+			out.flush ();
+			out.close ();
+			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			in.readLine();
+			//System.out.print(in.readLine());
+		} catch (Exception e) {
+			//e.printStackTrace();
+		}
+        
 	}
 
 	private JPanel createNamePanel() {
@@ -382,5 +405,6 @@ public class ReportDialog extends JDialog {
 
 	public static void main(String[] args) {
 		ReportDialog.GenerateErrorReport(new Exception(), false, "FATALE ERORR MESSAGEKA OH MY GODD!!!!!! THIS IS BROKEDN");
+		//ReportDialog.GenerateCommentsReport();
 	}
 }

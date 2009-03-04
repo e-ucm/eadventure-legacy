@@ -72,7 +72,7 @@ public class Options {
                 options.loadFromXML( is );
                 is.close( );
             } catch( IOException e ) {
-            	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
+            	ReportDialog.GenerateErrorReport(e, Game.getInstance().isFromEditor(), "UNKNOWERROR");
             }
         }
     }
@@ -88,7 +88,7 @@ public class Options {
             try {
                 options.storeToXML( os, "eAdventure game options", "ISO-8859-1" );
             } catch( IOException e ) {
-            	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
+            	ReportDialog.GenerateErrorReport(e, Game.getInstance().isFromEditor(), "UNKNOWERROR");
             }
         }
     }

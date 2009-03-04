@@ -232,9 +232,9 @@ public class GameStateOptions extends GameState {
             // Close the input stream
             is.close( );
         } catch( FontFormatException e ) {
-        	es.eucm.eadventure.common.auxiliar.ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
+        	es.eucm.eadventure.common.auxiliar.ReportDialog.GenerateErrorReport(e, Game.getInstance().isFromEditor(), "UNKNOWERROR");
         } catch( IOException e ) {
-        	es.eucm.eadventure.common.auxiliar.ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
+        	es.eucm.eadventure.common.auxiliar.ReportDialog.GenerateErrorReport(e, Game.getInstance().isFromEditor(), "UNKNOWERROR");
         }
         
         imgButton = MultimediaManager.getInstance( ).loadImage( "gui/options/Button.png", MultimediaManager.IMAGE_MENU );
