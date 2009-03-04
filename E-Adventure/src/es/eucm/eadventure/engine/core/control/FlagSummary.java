@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+
 /**
  * This class stores the state of the flags in the game
  */
@@ -193,5 +194,55 @@ public class FlagSummary implements Serializable {
 		}
 		return new ArrayList<String>();
 	}
+	
+	public String processText(String text) {
+		String newText = "";
+		
+		String[] parts = text.split("\\(");
+		if (parts.length == 1)
+			return text;
+		
+		for (int i = 0; i < parts.length; i++) {
+			String part = parts[i];
+			if (part.length() > 0 && part.charAt(0) == '#') {
+				String[] parts2 = part.split("\\)");
+
+				parts2[0] = evaluateExpression(parts2[0]);
+				
+				parts[i] = parts2[0];
+				for (int j = 1; j < parts2.length; j++) {
+					parts[i] += parts2[j];
+				}
+				
+			} else if (i > 0){
+				parts[i] = "(" + part;
+			}
+			
+			newText += parts[i];
+		}
+		
+		
+		return newText;
+	}
+	
+	public String evaluateExpression(String expression) {
+		if (expression.contains("?") && expression.contains(":")) {
+			String[] values = expression.substring(1).split("\\?|\\:");
+			
+			if (values.length != 3)
+				return "(" + expression + ")";
+			
+			Flag flag = flags.get(values[0]);
+			if (flag == null)
+				return "(" + expression + ")";
+			
+			if (flag.isActive())
+				return values[1];
+			else
+				return values[2];
+		} else
+			return "(" + expression + ")";
+	}
+
 
 }

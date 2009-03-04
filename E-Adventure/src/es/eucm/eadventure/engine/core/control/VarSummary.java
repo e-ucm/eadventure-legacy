@@ -203,5 +203,115 @@ public class VarSummary implements Serializable {
 		}
 		return new ArrayList<String>();
 	}
- 
+
+	public String processText(String text) {
+		String newText = "";
+		
+		String[] parts = text.split("\\(");
+		if (parts.length == 1)
+			return text;
+		
+		for (int i = 0; i < parts.length; i++) {
+			String part = parts[i];
+			if (part.length() > 0 && part.charAt(0) == '#') {
+				String[] parts2 = part.split("\\)");
+
+				parts2[0] = evaluateExpression(parts2[0]);
+				
+				parts[i] = parts2[0];
+				for (int j = 1; j < parts2.length; j++) {
+					parts[i] += parts2[j];
+				}
+				
+			} else if (i > 0){
+				parts[i] = "(" + part;
+			}
+			
+			newText += parts[i];
+		}
+		
+		
+		return newText;
+	}
+	
+	public String evaluateExpression(String expression) {
+		if (expression.contains("?") && expression.contains(":")) {
+			String[] values = expression.substring(1).split("\\?|\\:");
+			
+			if (values.length != 3)
+				return "(" + expression + ")";
+			
+			int op = 0;
+			String[] comparison = new String[]{new String(values[0])};
+			if (values[0].contains(">=")) {
+				op = 1;
+				comparison = values[0].split(">=");
+			} else if (values[0].contains(">")) {
+				op = 2;
+				comparison = values[0].split(">");
+			} else if (values[0].contains("<=")) {
+				op = 3;
+				comparison = values[0].split("<=");
+			} else if (values[0].contains("<")) {
+				op = 4;
+				comparison = values[0].split("<");
+			} else if (values[0].contains("==")) {
+				op = 5;
+				comparison = values[0].split("==");
+			}
+			
+			for (int i = 0; i < comparison.length; i++) {
+				comparison[i].replaceAll(" ", "");
+			}
+			
+			if (op == 0) {
+				return "(" + expression + ")";
+			} else {
+				int numValue = 0;
+				try {
+					numValue = Integer.parseInt(comparison[1]);
+				} catch (NumberFormatException e) {
+					return "(" + expression + ")";
+				}
+				Var var = vars.get(comparison[0]);
+				if (var == null)
+					return "(" + expression + ")";
+				int varValue = var.getValue();
+				if (op == 1) {
+					if (varValue >= numValue)
+						return values[1];
+					else
+						return values[2];
+				} else if (op == 2) {
+					if (varValue > numValue)
+						return values[1];
+					else
+						return values[2];
+				} else if (op == 3) {
+					if (varValue <= numValue)
+						return values[1];
+					else
+						return values[2];
+				} else if (op == 4) {
+					if (varValue < numValue)
+						return values[1];
+					else
+						return values[2];
+				} else if (op == 5) {
+					if (varValue == numValue)
+						return values[1];
+					else
+						return values[2];
+				}
+				return "(" + expression + ")";
+			}
+		} else {
+			String varname = expression.substring(1);
+			Var var = vars.get(varname);
+			if (var != null)
+				return "" + var.getValue();
+			return "(" + expression + ")";
+		}
+	}
+	
 }
