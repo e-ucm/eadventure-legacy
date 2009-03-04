@@ -57,12 +57,14 @@ public class SelectButtonTool extends SelectResourceTool{
 		if (!done)
 			return false;
 		else {
-			for (int i =0; i<adventureData.getCursors().size(); i++){
-				if (adventureData.getCursors().get(i).getType().equals(type)){
-					if (removed)
-						adventureData.getCursors().remove(i);
-					else
-						adventureData.getCursors().get(i).setPath(resources.getAssetPath(type));
+			for (int i =0; i<adventureData.getButtons().size(); i++){
+				if (adventureData.getButtons().get(i).getType().equals(type)
+						&&adventureData.getButtons().get(i).getAction().equals(action)){
+					if (removed){
+						adventureData.getButtons().remove(i);
+						setButton(action, type, resources.getAssetPath(action+"#"+type));
+					}else
+						adventureData.getButtons().get(i).setPath(resources.getAssetPath(action+"#"+type));
 					break;
 					
 				}
@@ -76,14 +78,15 @@ public class SelectButtonTool extends SelectResourceTool{
 	@Override
 	public boolean redoTool(){
 		if (removed)
-			adventureData.addCursor(type, "");
+			adventureData.addButton(action,type, "");
 		boolean done = super.redoTool();
 		if (!done)
 			return false;
 		else {
-			for (int i =0; i<adventureData.getCursors().size(); i++){
-				if (adventureData.getCursors().get(i).getType().equals(type)){
-					adventureData.getCursors().get(i).setPath(resources.getAssetPath(type));
+			for (int i =0; i<adventureData.getButtons().size(); i++){
+				if (adventureData.getButtons().get(i).getType().equals(type)
+						&&adventureData.getButtons().get(i).getAction().equals(action)){
+					adventureData.getButtons().get(i).setPath(resources.getAssetPath(action+"#"+type));
 				}
 			}
 			controller.updatePanel();
@@ -125,6 +128,7 @@ public class SelectButtonTool extends SelectResourceTool{
 		}
 		if (temp != null)
 			adventureData.getButtons().remove(temp);
+		System.out.println("Adding button: "+button.getAction()+ ","+button.getType()+","+button.getPath());
 		adventureData.addButton(button);
 	}
 }
