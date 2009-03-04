@@ -11,6 +11,7 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfileDataControl;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class AssessmentProfilesDataControl extends DataControl{
@@ -263,11 +264,10 @@ public class AssessmentProfilesDataControl extends DataControl{
 	 * 			the path of the assessment profile to confirm if it is or it isn´t scorm 1.2
 	 * @return
 	 */
-	public boolean isScorm12Profile(String path){
+	public boolean isScorm12Profile( ){
+		boolean isScorm12 = true;
 		for (AssessmentProfileDataControl profile:profiles){
-			if (profile.getPath().equals(path)){
-				return profile.isScorm12();
-			}
+			isScorm12 &= profile.isScorm12();
 		}
 		return false;
 	}
@@ -279,11 +279,10 @@ public class AssessmentProfilesDataControl extends DataControl{
 	 * 			the path of the assessment profile to confirm if it is or it isn´t scorm 2004
 	 * @return
 	 */
-	public boolean isScorm2004Profile(String path){
+	public boolean isScorm2004Profile( ){
+		boolean isScorm2004 = true;
 		for (AssessmentProfileDataControl profile:profiles){
-			if (profile.getPath().equals(path)){
-				return profile.isScorm2004();
-			}
+			isScorm2004 &= profile.isScorm2004();
 		}
 		return false;
 	}
@@ -309,5 +308,19 @@ public class AssessmentProfilesDataControl extends DataControl{
 	public void recursiveSearch() {
 		for (DataControl dc : this.profiles)
 			dc.recursiveSearch();
+	}
+
+	/**
+	 * Returns the AssessmentProfile which path matches the given one, null if not found
+	 * @param adaptationPath
+	 */
+	public AssessmentProfileDataControl getProfileByPath(String adaptationPath) {
+		for ( AssessmentProfileDataControl profile: profiles){
+			if (profile.getPath().equals(adaptationPath) ){
+				return profile;
+			}
+		}
+		return null;
+		
 	}
 }

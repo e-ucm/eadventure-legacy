@@ -429,13 +429,17 @@ public class MainWindow extends JFrame {
 		});
 		visualization.add( itGraphicConfig);
 		adventureMenu.add( visualization);
-		
-		if( controller.isPlayTransparent( ) ) {
-			itPlayerMode = new JMenuItem( TextConstants.getText( "MenuAdventure.ChangeToModePlayerVisible" ) );
-			itPlayerMode.setToolTipText( TextConstants.getText( "MenuAdventure.ModePlayerVisible" ) );
+		if ( controller.isFloderLoaded()){
+			if( controller.isPlayTransparent( ) ) {
+				itPlayerMode = new JMenuItem( TextConstants.getText( "MenuAdventure.ChangeToModePlayerVisible" ) );
+				itPlayerMode.setToolTipText( TextConstants.getText( "MenuAdventure.ModePlayerVisible" ) );
+			} else {
+				itPlayerMode = new JMenuItem( TextConstants.getText( "MenuAdventure.ChangeToModePlayerTransparent" ) );
+				itPlayerMode.setToolTipText( TextConstants.getText( "MenuAdventure.ModePlayerTransparent" ) );
+			}
 		} else {
-			itPlayerMode = new JMenuItem( TextConstants.getText( "MenuAdventure.ChangeToModePlayerTransparent" ) );
-			itPlayerMode.setToolTipText( TextConstants.getText( "MenuAdventure.ModePlayerTransparent" ) );
+			itPlayerMode = new JMenuItem( TextConstants.getText( "MenuAdventure.ChangeToModePlayerVisible" ) );
+			itPlayerMode.setEnabled(false);
 		}
 		itPlayerMode.addActionListener( new ActionListener( ) {
 
