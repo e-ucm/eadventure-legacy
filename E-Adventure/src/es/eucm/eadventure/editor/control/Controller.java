@@ -37,17 +37,21 @@ import es.eucm.eadventure.editor.control.config.ProjectConfigData;
 import es.eucm.eadventure.editor.control.config.SCORMConfigData;
 import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
+import es.eucm.eadventure.editor.control.controllers.ChapterToolManager;
 import es.eucm.eadventure.editor.control.controllers.ToolManager;
 import es.eucm.eadventure.editor.control.controllers.VarFlagsController;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfilesDataControl;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfilesDataControl;
 import es.eucm.eadventure.editor.control.controllers.character.NPCDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ChapterDataControl;
+import es.eucm.eadventure.editor.control.controllers.general.ChapterListDataControl;
 import es.eucm.eadventure.editor.control.controllers.item.ItemDataControl;
 import es.eucm.eadventure.editor.control.controllers.lom.LOMDataControl;
 import es.eucm.eadventure.editor.control.controllers.atrezzo.AtrezzoDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
 import es.eucm.eadventure.editor.control.tools.Tool;
+import es.eucm.eadventure.editor.control.tools.general.SwapPlayerModeTool;
+import es.eucm.eadventure.editor.control.tools.generic.ChangeIntegerValueTool;
 import es.eucm.eadventure.editor.control.writer.Writer;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 import es.eucm.eadventure.editor.data.support.IdentifierSummary;
@@ -459,25 +463,6 @@ public class Controller {
 	 */
 	private AdventureDataControl adventureData;
 
-	/**
-	 * Stores the index of the selected chapter in the editor.
-	 */
-	private int selectedChapter;
-
-	/**
-	 * Controller for the chapters of the adventure.
-	 */
-	private List<ChapterDataControl> chapterDataControlList;
-
-	/**
-	 * Summary of identifiers.
-	 */
-	private IdentifierSummary identifierSummary;
-
-	/**
-	 * Summary of flags.
-	 */
-	private VarFlagSummary varFlagSummary;
 
 	/**
 	 * Stores if the data has been modified since the last save.
@@ -499,22 +484,13 @@ public class Controller {
 		return isTempFile;
 	}*/
 	
-	/**
-	 * Global tool manager. For undo/redo in main window (real changes in the data structure)
-	 */
-	private ToolManager globalToolManager;
-	
-	/**
-	 * Local tool managers. For undo/redo in dialogs (This will only reflect temporal changes, not real changes in data)
-	 */
-	private Stack<ToolManager> localToolManagers;
+	private ChapterListDataControl chaptersController;
 	
 	/**
 	 * Void and private constructor.
 	 */
 	private Controller( ) {
-		globalToolManager = new ToolManager(true);
-		localToolManagers = new Stack<ToolManager>();
+		chaptersController = new ChapterListDataControl();
 	}
 	
 	private String getCurrentExportSaveFolder(){
@@ -588,17 +564,17 @@ public class Controller {
 		TextConstants.appendStrings( ReleaseFolders.getLanguageFilePath4Editor(false, languageFile) );
 
 		// Create a list for the chapters
-		chapterDataControlList = new ArrayList<ChapterDataControl>( );
+		chaptersController = new ChapterListDataControl();
 
 		// Inits the controller with empty data
 		currentZipFile = null;
 		currentZipPath = null;
 		currentZipName = null;
-		adventureData = new AdventureDataControl( TextConstants.getText( "DefaultValue.AdventureTitle" ), TextConstants.getText( "DefaultValue.ChapterTitle" ), TextConstants.getText( "DefaultValue.SceneId" ) );
-		selectedChapter = 0;
-		chapterDataControlList.add( new ChapterDataControl( getSelectedChapterData( ) ) );
-		identifierSummary = new IdentifierSummary( getSelectedChapterData( ) );
-		varFlagSummary = new VarFlagSummary( );
+		//adventureData = new AdventureDataControl( TextConstants.getText( "DefaultValue.AdventureTitle" ), TextConstants.getText( "DefaultValue.ChapterTitle" ), TextConstants.getText( "DefaultValue.SceneId" ) );
+		//selectedChapter = 0;
+		//chapterDataControlList.add( new ChapterDataControl( getSelectedChapterData( ) ) );
+		//identifierSummary = new IdentifierSummary( getSelectedChapterData( ) );
+		
 		dataModified = false;
 
 		mainWindow = new MainWindow( );
@@ -634,12 +610,12 @@ public class Controller {
 				} else if( op == StartDialog.CANCEL_OPTION ) {
 					exit( );
 				}
-				selectedChapter = 0;
+				//selectedChapter = 0;
 			} 
 
 			if ( currentZipFile == null ){
 			//newFile( FILE_ADVENTURE_3RDPERSON_PLAYER );
-				selectedChapter = -1;
+				//selectedChapter = -1;
 				mainWindow.reloadData( );
 			}
 			/*
@@ -741,7 +717,7 @@ public class Controller {
 	 * @return Index of the selected chapter
 	 */
 	public int getSelectedChapter( ) {
-		return selectedChapter;
+		return chaptersController.getSelectedChapter();
 	}
 
 	/**
@@ -749,9 +725,9 @@ public class Controller {
 	 * 
 	 * @return Selected chapter data
 	 */
-	private Chapter getSelectedChapterData( ) {
-		return adventureData.getChapters( ).get( selectedChapter );
-	}
+	//private Chapter getSelectedChapterData( ) {
+	//	return adventureData.getChapters( ).get( selectedChapter );
+	//}
 
 	/**
 	 * Returns the selected chapter data controller.
@@ -759,10 +735,7 @@ public class Controller {
 	 * @return The selected chapter data controller
 	 */
 	public ChapterDataControl getSelectedChapterDataControl( ) {
-		if (chapterDataControlList.size()!=0)
-			return chapterDataControlList.get( selectedChapter );
-		else 
-			return null;
+		return chaptersController.getSelectedChapterDataControl();
 	}
 
 	/**
@@ -771,7 +744,7 @@ public class Controller {
 	 * @return The identifier summary
 	 */
 	public IdentifierSummary getIdentifierSummary( ) {
-		return identifierSummary;
+		return chaptersController.getIdentifierSummary();
 	}
 
 	/**
@@ -780,7 +753,7 @@ public class Controller {
 	 * @return The varFlag summary
 	 */
 	public VarFlagSummary getVarFlagSummary( ) {
-		return varFlagSummary;
+		return chaptersController.getVarFlagSummary();
 	}
 
 	/**
@@ -875,23 +848,7 @@ public class Controller {
 	}
 
 	public void swapPlayerMode( boolean showConfirmation ) {
-		boolean swap = true;
-		if( showConfirmation )
-			swap = showStrictConfirmDialog( TextConstants.getText( "SwapPlayerMode.Title" ), TextConstants.getText( "SwapPlayerMode.Message" ) );
-
-		if( swap ) {
-			if( adventureData.getPlayerMode( ) == DescriptorData.MODE_PLAYER_1STPERSON ) {
-				adventureData.setPlayerMode( DescriptorData.MODE_PLAYER_3RDPERSON );
-				// adds player reference
-				chapterDataControlList.get(selectedChapter).getScenesList().addPlayerToAllScenes();
-			} else if( adventureData.getPlayerMode( ) == DescriptorData.MODE_PLAYER_3RDPERSON ) {
-				adventureData.setPlayerMode( DescriptorData.MODE_PLAYER_1STPERSON );
-				// delete player reference
-				chapterDataControlList.get(selectedChapter).getScenesList().deletePlayerToAllScenes();
-			}
-			dataModified( );
-		}
-
+		addTool( new SwapPlayerModeTool( showConfirmation, adventureData, chaptersController ) );
 	}
 
 	// ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1048,14 +1005,8 @@ public class Controller {
 				playerMode = DescriptorData.MODE_PLAYER_1STPERSON;
 			adventureData = new AdventureDataControl( TextConstants.getText( "DefaultValue.AdventureTitle" ), TextConstants.getText( "DefaultValue.ChapterTitle" ), TextConstants.getText( "DefaultValue.SceneId" ), playerMode );
 
-			// Select the first chapter
-			selectedChapter = 0;
-
 			// Clear the list of data controllers and refill it
-			chapterDataControlList.clear( );
-			chapterDataControlList.add( new ChapterDataControl( getSelectedChapterData( ) ) );
-			identifierSummary.loadIdentifiers( getSelectedChapterData( ) );
-			varFlagSummary.clear( );
+			chaptersController = new ChapterListDataControl ( adventureData.getChapters() );
 
 			// Init project properties (empty)
 			ProjectConfigData.init();
@@ -1064,9 +1015,7 @@ public class Controller {
 			AssetsController.createFolderStructure();
 			
 			// Check the consistency of the chapters
-			boolean valid = true;
-			for( ChapterDataControl chapterDataControl : chapterDataControlList )
-				valid &= chapterDataControl.isValid( null, null );
+			boolean valid = chaptersController.isValid(null, null);
 
 			// Save the data
 			if( Writer.writeData( currentZipFile, adventureData, valid ) ) {
@@ -1108,78 +1057,7 @@ public class Controller {
 		
 		return fileCreated;
  
-		}
-		/*// If the file exists, append a random number
-		File file = new File( completeFilePath + ".ead" );
-		Random random = new Random( );
-		while( file.exists( ) ) {
-			int rNumber = random.nextInt( 10000 ) + 1;
-			file = new File( completeFilePath + "_" + rNumber + ".ead" );
-			if( !file.exists( ) ) {
-				completeFilePath += "_" + rNumber;
-			}
-		}
-
-		// If some file was selected set the new file
-		if( completeFilePath != null ) {
-
-			// Add the ".ead" if it is not present in the name
-			if( !completeFilePath.toLowerCase( ).endsWith( ".ead" ) )
-				completeFilePath += ".ead";
-
-			// Create a file to extract the name and path
-			File newFile = new File( completeFilePath );
-
-			// If the temp file exists it is deleted
-			if( newFile.exists( ) ) {
-				newFile.delete( );
-			}
-			// Set the new file, path and create the new adventure
-			currentZipFile = newFile.getAbsolutePath( );
-			currentZipPath = newFile.getParent( );
-			currentZipName = newFile.getName( );
-			int playerMode = -1;
-			if( fileType == FILE_ADVENTURE_VISIBLE_PLAYER )
-				playerMode = AdventureDataControl.PLAYER_VISIBLE;
-			else if( fileType == FILE_ADVENTURE_TRANSPARENT_PLAYER )
-				playerMode = AdventureDataControl.PLAYER_TRANSPARENT;
-			adventureData = new AdventureDataControl( TextConstants.getText( "DefaultValue.AdventureTitle" ), TextConstants.getText( "DefaultValue.ChapterTitle" ), TextConstants.getText( "DefaultValue.SceneId" ), playerMode );
-
-			// Select the first chapter
-			selectedChapter = 0;
-
-			// Clear the list of data controllers and refill it
-			chapterDataControlList.clear( );
-			chapterDataControlList.add( new ChapterDataControl( getSelectedChapterData( ) ) );
-			identifierSummary.loadIdentifiers( getSelectedChapterData( ) );
-			flagSummary.clear( );
-
-			// Check the consistency of the chapters
-			boolean valid = true;
-			for( ChapterDataControl chapterDataControl : chapterDataControlList )
-				valid &= chapterDataControl.isValid( null, null );
-
-			// Save the data
-			if( Writer.writeData( currentZipFile, adventureData, valid ) ) {
-				// Set modified to false and update the window title
-				dataModified = false;
-				try {
-					Thread.sleep( 1 );
-				} catch( InterruptedException e ) {
-					e.printStackTrace( );
-				}
-
-				
-				mainWindow.reloadData( );
-
-				// The file was saved
-				fileCreated = true;
-
-			}
-		}
-		
-		return fileCreated;
-	}*/
+	}
 	
 	public boolean fixIncidences(List<Incidence> incidences ){
 		boolean abort = false;
@@ -1210,23 +1088,15 @@ public class Controller {
 						for (int j=0; j<chapters.size( ); j++){
 							if (chapters.get( j ).getName( ).equals( chapterName )){
 								chapters.remove( j );
-								this.chapterDataControlList.remove( j );
+								//this.chapterDataControlList.remove( j );
 								// Update selected chapter if necessary
-								if (selectedChapter == j){
-									if (chapterDataControlList.size( )>0){
-										if (j>0)
-											selectedChapter--;
-										else
-											selectedChapter=0;
-									} else {
+								if (chapters.size()==0){
 										// When there are no more chapters, add a new, blank one
 										Chapter newChapter = new Chapter(TextConstants.getText( "DefaultValue.ChapterTitle" ), TextConstants.getText( "DefaultValue.SceneId" ));
 										chapters.add( newChapter );
-										chapterDataControlList.add( new ChapterDataControl (newChapter) );
-									}
-									this.setSelectedChapter( selectedChapter );
+										//chapterDataControlList.add( new ChapterDataControl (newChapter) );
 								}
-								
+								chaptersController = new ChapterListDataControl ( chapters );
 								dataModified( );
 								break;
 							}
@@ -1259,10 +1129,10 @@ public class Controller {
 								}
 								// Replace it if found
 								if (found>=0){
-									chapters.remove( found );
-									this.chapterDataControlList.remove( found );
-									chapters.add( found, chapter );
-									chapterDataControlList.add( found, new ChapterDataControl(chapter) );
+									//this.chapterDataControlList.remove( found );
+									chapters.set( found, chapter );
+									chaptersController = new ChapterListDataControl(chapters);
+									//chapterDataControlList.add( found, new ChapterDataControl(chapter) );
 									
 									// Copy original file to project
 									File destinyFile = new File(this.getProjectFolder( ), chapter.getName( ));
@@ -1349,17 +1219,8 @@ public class Controller {
 	}
 
 	public boolean replaceSelectedChapter(Chapter newChapter) {
-		int chapter = this.getSelectedChapter();
-		adventureData.getChapters( ).get( selectedChapter );
-		adventureData.getChapters().set(selectedChapter, newChapter);
-		this.chapterDataControlList.remove( chapter );
-		chapterDataControlList.add( chapter, new ChapterDataControl(newChapter) );
-		
-		identifierSummary = new IdentifierSummary(newChapter);
-		identifierSummary.loadIdentifiers( getSelectedChapterData( ) );
-
+		chaptersController.replaceSelectedChapter(newChapter, adventureData);
 		mainWindow.reloadData( );
-		
 		return true;
 	}
 	
@@ -1458,16 +1319,8 @@ public class Controller {
 					currentZipPath = newFile.getParent( );
 					currentZipName = newFile.getName( );
 					adventureData = new AdventureDataControl(loadedAdventureData);
-					
-					// Select the first chapter
-					selectedChapter = 0;
-	
-					// Clear the list and load the chapters
-					chapterDataControlList.clear( );
-					for( Chapter chapter : adventureData.getChapters( ) )
-						chapterDataControlList.add( new ChapterDataControl( chapter ) );
-					identifierSummary.loadIdentifiers( getSelectedChapterData( ) );
-					getSelectedChapterDataControl( ).updateVarFlagSummary( varFlagSummary );
+
+					chaptersController = new ChapterListDataControl( adventureData.getChapters() );
 					
 					// Check asset files
 					AssetsController.checkAssetFilesConsistency( incidences );
@@ -1622,9 +1475,7 @@ public class Controller {
 				//}
 	
 				// Check the consistency of the chapters
-				boolean valid = true;
-				for( ChapterDataControl chapterDataControl : chapterDataControlList )
-					valid &= chapterDataControl.isValid( null, null );
+				boolean valid = chaptersController.isValid(null, null);
 	
 				// If the data is not valid, show an error message
 				if( !valid )
@@ -2128,13 +1979,11 @@ public class Controller {
 		
 		if (scormType == SCORM12){
 			// check that adaptation and assessment profiles are scorm 1.2 profiles
-		 return (adventureData.getAssessmentRulesListDataControl().isScorm12Profile(chapterDataControlList.get(selectedChapter).getAssessmentPath())
-				 &&	adventureData.getAdaptationRulesListDataControl().isScorm12Profile( chapterDataControlList.get(selectedChapter).getAdaptationPath()));
+		 return chaptersController.hasScorm12Profiles(adventureData);
 			 
 		}else if (scormType == SCORM2004){
 			// check that adaptation and assessment profiles are scorm 2004 profiles
-			return (adventureData.getAssessmentRulesListDataControl().isScorm2004Profile(chapterDataControlList.get(selectedChapter).getAssessmentPath())
-					 &&	adventureData.getAdaptationRulesListDataControl().isScorm2004Profile( chapterDataControlList.get(selectedChapter).getAdaptationPath()));
+			return chaptersController.hasScorm2004Profiles(adventureData);
 					
 		}
 		
@@ -2271,9 +2120,7 @@ public class Controller {
 		List<String> incidences = new ArrayList<String>( );
 
 		// Check all the chapters
-		boolean valid = true;
-		for( ChapterDataControl chapterDataControl : chapterDataControlList )
-			valid &= chapterDataControl.isValid( null, incidences );
+		boolean valid = chaptersController.isValid( null, incidences);
 
 		// If the data is valid, show a dialog with the information
 		if( valid ){
@@ -2322,14 +2169,8 @@ public class Controller {
 
 		// If the new GUI style is different from the current, and valid, change the value
 		int optionSelected = guiStylesDialog.getOptionSelected( );
-		if( optionSelected != -1 && adventureData.getGUIType( ) != optionSelected ) {
-			if( optionSelected == 0 ) {
-				adventureData.setGUIType( DescriptorData.GUI_TRADITIONAL );
-				dataModified( );
-			} else if( optionSelected == 1 ) {
-				adventureData.setGUIType( DescriptorData.GUI_CONTEXTUAL );
-				dataModified( );
-			}
+		if( optionSelected != -1 ) {
+			addTool (new ChangeIntegerValueTool( adventureData, optionSelected, "getGUIType", "setGUIType", false, false ));
 		}
 	}
 
@@ -2401,7 +2242,7 @@ public class Controller {
 	 * Shows the flags dialog.
 	 */
 	public void showEditFlagDialog( ) {
-		new VarsFlagsDialog( new VarFlagsController( varFlagSummary ) );
+		new VarsFlagsDialog( new VarFlagsController( getVarFlagSummary() ) );
 	}
 
 	/**
@@ -2411,18 +2252,13 @@ public class Controller {
 	 *            Index of the new selected chapter
 	 */
 	public void setSelectedChapter( int selectedChapter ) {
-		this.selectedChapter = selectedChapter;
-
-		// Update the identifier and flag summary
-		identifierSummary.loadIdentifiers( getSelectedChapterData( ) );
-		getSelectedChapterDataControl( ).updateVarFlagSummary( varFlagSummary );
-
-		// Reload the main window
+		
+		chaptersController.setSelectedChapterInternal( selectedChapter );
 		mainWindow.reloadData(  );
 	}
-
+	
 	public void updateFlagSummary( ) {
-		getSelectedChapterDataControl( ).updateVarFlagSummary( varFlagSummary );
+		chaptersController.updateFlagSummary();
 	}
 
 	/**
@@ -2431,24 +2267,19 @@ public class Controller {
 	 */
 	public void addChapter( ) {
 		// Show a dialog asking for the chapter title
-		String chapterTitle = mainWindow.showInputDialog( TextConstants.getText( "Operation.AddChapterTitle" ), TextConstants.getText( "Operation.AddChapterMessage" ), TextConstants.getText( "Operation.AddChapterDefaultValue" ) );
+		String chapterTitle = showInputDialog( TextConstants.getText( "Operation.AddChapterTitle" ), TextConstants.getText( "Operation.AddChapterMessage" ), TextConstants.getText( "Operation.AddChapterDefaultValue" ) );
 
 		// If some value was typed
 		if( chapterTitle != null ) {
 			// Create the new chapter, and the controller
 			Chapter newChapter = new Chapter( chapterTitle, TextConstants.getText( "DefaultValue.SceneId" ) );
 			adventureData.getChapters( ).add( newChapter );
-			chapterDataControlList.add( new ChapterDataControl( newChapter ) );
+			//chapterDataControlList.add( newChapterDataControl );
+			chaptersController.addChapterDataControl(newChapter);
 
-			// Select the new chapter, and add the new data the data
-			selectedChapter = adventureData.getChapters( ).size( ) - 1;
-			identifierSummary.loadIdentifiers( getSelectedChapterData( ) );
-			getSelectedChapterDataControl( ).updateVarFlagSummary( varFlagSummary );
-
-			// Update the main window
-			dataModified( );
-			mainWindow.reloadData( );
 		}
+
+		mainWindow.reloadData();
 	}
 
 	/**
@@ -2461,16 +2292,9 @@ public class Controller {
 			// Ask for confirmation
 			if( mainWindow.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteChapterTitle" ), TextConstants.getText( "Operation.DeleteChapterMessage" ) ) ) {
 				// Delete the chapter and the controller
-				adventureData.getChapters( ).remove( selectedChapter );
-				chapterDataControlList.remove( selectedChapter );
-
-				// Update the selected chapter when needed
-				if( selectedChapter > 0 )
-					selectedChapter--;
-
-				// Update the data
-				identifierSummary.loadIdentifiers( getSelectedChapterData( ) );
-				getSelectedChapterDataControl( ).updateVarFlagSummary( varFlagSummary );
+				adventureData.getChapters( ).remove( getSelectedChapter() );
+				chaptersController.removeChapterDataControl();
+				//chapterDataControlList.remove( selectedChapter );
 
 				// Update the main window
 				dataModified( );
@@ -2488,16 +2312,11 @@ public class Controller {
 	 */
 	public void moveChapterUp( ) {
 		// If the chapter can be moved
-		if( selectedChapter > 0 ) {
+		if( getSelectedChapter() > 0 ) {
 			// Move the chapter and update the selected chapter
-			adventureData.getChapters( ).add( selectedChapter - 1, adventureData.getChapters( ).remove( selectedChapter ) );
-			chapterDataControlList.add( selectedChapter - 1, chapterDataControlList.remove( selectedChapter ) );
-			selectedChapter--;
-
-			// Update the data
-			identifierSummary.loadIdentifiers( getSelectedChapterData( ) );
-			getSelectedChapterDataControl( ).updateVarFlagSummary( varFlagSummary );
-
+			adventureData.getChapters( ).add( getSelectedChapter() - 1, adventureData.getChapters( ).remove( getSelectedChapter() ) );
+			chaptersController.moveChapterUp();
+			
 			// Update the main window
 			dataModified( );
 			mainWindow.reloadData(  );
@@ -2510,16 +2329,11 @@ public class Controller {
 	 */
 	public void moveChapterDown( ) {
 		// If the chapter can be moved
-		if( selectedChapter < adventureData.getChapters( ).size( ) - 1 ) {
+		if( getSelectedChapter() < adventureData.getChapters( ).size( ) - 1 ) {
 			// Move the chapter and update the selected chapter
-			adventureData.getChapters( ).add( selectedChapter + 1, adventureData.getChapters( ).remove( selectedChapter ) );
-			chapterDataControlList.add( selectedChapter + 1, chapterDataControlList.remove( selectedChapter ) );
-			selectedChapter++;
-
-			// Update the data
-			identifierSummary.loadIdentifiers( getSelectedChapterData( ) );
-			getSelectedChapterDataControl( ).updateVarFlagSummary( varFlagSummary );
-
+			adventureData.getChapters( ).add( getSelectedChapter() + 1, adventureData.getChapters( ).remove( getSelectedChapter() ) );
+			chaptersController.moveChapterDown();
+			
 			// Update the main window
 			dataModified( );
 			mainWindow.reloadData(  );
@@ -2734,12 +2548,7 @@ public class Controller {
 	 * @return Number of references to the given asset
 	 */
 	public int countAssetReferences( String assetPath ) {
-		int count = 0;
-
-		// Search in all the chapters
-		for( ChapterDataControl chapterDataControl : chapterDataControlList ){
-			count += chapterDataControl.countAssetReferences( assetPath );
-		}return count;
+		return chaptersController.countAssetReferences(assetPath);
 	}
 
 	/**
@@ -2748,9 +2557,7 @@ public class Controller {
 	 * @param assetTypes
 	 */
 	public void getAssetReferences(List<String> assetPaths, List<Integer> assetTypes){
-		for( ChapterDataControl chapterDataControl : chapterDataControlList ){
-			chapterDataControl.getAssetReferences( assetPaths, assetTypes );
-		}
+		chaptersController.getAssetReferences(assetPaths, assetTypes);
 	}
 	
 	/**
@@ -2760,9 +2567,7 @@ public class Controller {
 	 *            Path of the asset (relative to the ZIP), without suffix in case of an animation or set of slides
 	 */
 	public void deleteAssetReferences( String assetPath ) {
-		// Delete the asset in all the chapters
-		for( ChapterDataControl chapterDataControl : chapterDataControlList )
-			chapterDataControl.deleteAssetReferences( assetPath );
+		chaptersController.deleteAssetReferences(assetPath);
 	}
 
 	/**
@@ -2783,10 +2588,7 @@ public class Controller {
 	 *            Identifier to be deleted
 	 */
 	public void deleteIdentifierReferences( String id ) {
-		if (getSelectedChapterDataControl() != null)
-			getSelectedChapterDataControl( ).deleteIdentifierReferences( id );
-		else
-			this.identifierSummary.deleteAssessmentRuleId( id );
+		chaptersController.deleteIdentifierReferences(id);
 	}
 
 	/**
@@ -2950,7 +2752,7 @@ public class Controller {
 	}
 
 	public boolean isFloderLoaded( ) {
-		return this.selectedChapter !=-1;
+		return chaptersController.isAnyChapterSelected();
 	}
 
 	public String getEditorMinVersion(){
@@ -3061,49 +2863,26 @@ public class Controller {
 	// METHODS TO MANAGE UNDO/REDO
 	
 	public boolean addTool(Tool tool) {
-		if (localToolManagers.isEmpty()){
-			System.out.println("[ToolManager] Global Tool Manager: Tool ADDED");
-			return globalToolManager.addTool(tool);
-		}else{
-			System.out.println("[ToolManager] Local Tool Manager: Tool ADDED");
-			return localToolManagers.peek().addTool(tool);
-		}
+		return chaptersController.addTool(tool);
 	}
 
 	public void undoTool() {
-		if (localToolManagers.isEmpty()){
-			globalToolManager.undoTool();
-			System.out.println("[ToolManager] Global Tool Manager: Undo Performed");
-		}else {
-			localToolManagers.peek().undoTool();
-			System.out.println("[ToolManager] Local Tool Manager: Undo Performed");
-		}
+		chaptersController.undoTool();
 	}
 
 	public void redoTool() {
-		if (localToolManagers.isEmpty()){
-			globalToolManager.redoTool();
-			System.out.println("[ToolManager] Global Tool Manager: Redo Performed");
-		}else{
-			localToolManagers.peek().redoTool();
-			System.out.println("[ToolManager] Local Tool Manager: Redo Performed");
-		}
+		chaptersController.redoTool();
 	}
 	
 	public void pushLocalToolManager(){
-		localToolManagers.push(new ToolManager(false));
-		System.out.println("[ToolManager] Local Tool Manager PUSHED: Total local tool managers = "+localToolManagers.size());
+		chaptersController.pushLocalToolManager();
 	}
 	
 	public void popLocalToolManager(){
-		if (!localToolManagers.isEmpty()){
-			localToolManagers.pop();
-			System.out.println("[ToolManager] Local Tool Manager POPED: Total local tool managers = "+localToolManagers.size());
-		} else{
-			System.out.println("[ToolManager] Local Tool Manager Could NOT be POPED: Total local tool managers = "+localToolManagers.size());
-		}
+		chaptersController.popLocalToolManager();
 	}
 
+	
 	public void search() {
 		new SearchDialog();
 	}

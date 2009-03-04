@@ -7,6 +7,7 @@ import javax.media.format.VideoFormat;
 
 import de.schlichtherle.io.ArchiveDetector;
 import de.schlichtherle.io.DefaultArchiveDetector;
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.editor.control.Controller;
 
 public class AdventureEditor {
@@ -40,6 +41,7 @@ public class AdventureEditor {
 			Controller controller = Controller.getInstance( );
 			controller.init( );
 		}catch( Exception e){
+			ReportDialog.GenerateErrorReport(e, true, "Error in main AdventureEditor");
 		}
 	}
 }

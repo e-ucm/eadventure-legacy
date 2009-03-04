@@ -178,7 +178,7 @@ public class AdventureDataControl {
 	 * 
 	 * @return Adventure's GUI type
 	 */
-	public int getGUIType( ) {
+	public Integer getGUIType( ) {
 		return adventureData.getGUIType();
 	}
 
@@ -217,7 +217,7 @@ public class AdventureDataControl {
 	 * @param guiType
 	 *            New GUI type for the adventure
 	 */
-	public void setGUIType( int guiType ) {
+	public void setGUIType( Integer guiType ) {
 		Controller.getInstance().addTool( new ChangeIntegerValueTool(adventureData, guiType, "getGUIType", "setGUIType") );
 	}
 

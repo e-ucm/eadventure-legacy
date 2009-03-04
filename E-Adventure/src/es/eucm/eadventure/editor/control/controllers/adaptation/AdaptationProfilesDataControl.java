@@ -287,13 +287,12 @@ public class AdaptationProfilesDataControl extends DataControl{
 	 * 			the path of the assessment profile to confirm if it is or it isn´t scorm 1.2
 	 * @return
 	 */
-	public boolean isScorm12Profile(String path){
+	public boolean isScorm12Profile( ){
+		boolean isScorm12 = true;
 		for (AdaptationProfileDataControl profile:profiles){
-			if (profile.getPath().equals(path)){
-				return profile.isScorm12();
-			}
+			isScorm12 &= profile.isScorm12();
 		}
-		return false;
+		return isScorm12;
 	}
 
 	/**
@@ -303,13 +302,26 @@ public class AdaptationProfilesDataControl extends DataControl{
 	 * 			the path of the assessment profile to confirm if it is or it isn´t scorm 2004
 	 * @return
 	 */
-	public boolean isScorm2004Profile(String path){
+	public boolean isScorm2004Profile( ){
+		boolean isScorm2004 = true;
 		for (AdaptationProfileDataControl profile:profiles){
-			if (profile.getPath().equals(path)){
-				return profile.isScorm2004();
+			isScorm2004 &= profile.isScorm2004();
+		}
+		return isScorm2004;
+	}
+
+	/**
+	 * Returns the AdaptationProfile which path matches the given one, null if not found
+	 * @param adaptationPath
+	 */
+	public AdaptationProfileDataControl getProfileByPath(String adaptationPath) {
+		for ( AdaptationProfileDataControl profile: profiles){
+			if (profile.getPath().equals(adaptationPath) ){
+				return profile;
 			}
 		}
-		return false;
+		return null;
+		
 	}
 
 

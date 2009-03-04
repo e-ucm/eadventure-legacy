@@ -80,4 +80,9 @@ public class ToolManager {
 		}
 		return false;
 	}
+	
+	public void clear(){
+		undoList.clear();
+		redoList.clear();
+	}
 }
