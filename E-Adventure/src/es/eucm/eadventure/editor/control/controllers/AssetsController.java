@@ -162,7 +162,7 @@ public class AssetsController {
 	/**
 	 * Number of categories.
 	 */
-	private static final int CATEGORIES_COUNT = 10;
+	private static final int CATEGORIES_COUNT = 13;
 
 	/**
 	 * Path for the assessment files.

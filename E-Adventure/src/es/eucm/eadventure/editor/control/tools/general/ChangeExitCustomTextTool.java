@@ -3,6 +3,7 @@ package es.eucm.eadventure.editor.control.tools.general;
 import es.eucm.eadventure.common.data.chapter.ExitLook;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.tools.Tool;
+import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeNameTool;
 
 public class ChangeExitCustomTextTool extends Tool{
 	protected ExitLook exitLook;

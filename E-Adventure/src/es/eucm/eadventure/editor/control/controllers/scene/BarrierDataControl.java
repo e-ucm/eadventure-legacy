@@ -6,11 +6,11 @@ import es.eucm.eadventure.common.data.chapter.elements.Barrier;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.control.tools.general.ChangeDescriptionTool;
-import es.eucm.eadventure.editor.control.tools.general.ChangeDetailedDescriptionTool;
-import es.eucm.eadventure.editor.control.tools.general.ChangeDocumentationTool;
-import es.eucm.eadventure.editor.control.tools.general.ChangeNameTool;
 import es.eucm.eadventure.editor.control.tools.general.ChangeRectangleValueTool;
+import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeDescriptionTool;
+import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeDetailedDescriptionTool;
+import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeDocumentationTool;
+import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeNameTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class BarrierDataControl extends DataControl {

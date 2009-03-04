@@ -1,4 +1,4 @@
-package es.eucm.eadventure.editor.control.tools;
+package es.eucm.eadventure.editor.control.tools.general.assets;
 
 import java.util.ArrayList;
 
@@ -9,7 +9,6 @@ import es.eucm.eadventure.common.data.chapter.ExitLook;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
-import es.eucm.eadventure.editor.control.tools.general.resources.SelectResourceTool;
 import es.eucm.eadventure.editor.data.AssetInformation;
 
 public class SelectCursorPathTool extends SelectResourceTool{

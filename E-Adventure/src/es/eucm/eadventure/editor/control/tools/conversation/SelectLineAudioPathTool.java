@@ -4,7 +4,7 @@ import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
-import es.eucm.eadventure.editor.control.tools.general.resources.SelectResourceTool;
+import es.eucm.eadventure.editor.control.tools.general.assets.SelectResourceTool;
 import es.eucm.eadventure.editor.data.AssetInformation;
 
 public class SelectLineAudioPathTool extends SelectResourceTool{

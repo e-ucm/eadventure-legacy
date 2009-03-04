@@ -202,9 +202,11 @@ public class CursorsPanel extends JScrollPane implements Updateable{
 		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 		 */
 		public void actionPerformed( ActionEvent e ) {
-			adventureData.deleteCursor( assetIndex );
-			cursorFields[assetIndex].setText( null );
-			viewButtons[assetIndex].setEnabled( false );
+			if (adventureData.isCursorTypeAllowed( assetIndex )){
+				adventureData.deleteCursor( assetIndex );
+				cursorFields[assetIndex].setText( null );
+				viewButtons[assetIndex].setEnabled( false );
+			}
 		}
 	}
 
@@ -281,11 +283,19 @@ public class CursorsPanel extends JScrollPane implements Updateable{
 		int assetCount = cursorTypes.length;
 		for( int i = 0; i < assetCount; i++ ) {
 			if (adventureData.isCursorTypeAllowed( i )){
-				if (adventureData.getCursorPath( i )!=null)
-					cursorFields[i].setText( adventureData.getCursorPath( i ) );	
+				if (adventureData.getCursorPath( i )!=null){
+					cursorFields[i].setText( adventureData.getCursorPath( i ) );
+					viewButtons[i].setEnabled( true );
+				} else {
+					cursorFields[i].setText( null );
+					viewButtons[i].setEnabled( false );
+				}
+				
 			}
-			else
-				cursorFields[i].setText( TextConstants.getText( "Cursors.TypeNotAllowed" ) );			
+			else{
+				cursorFields[i].setText( TextConstants.getText( "Cursors.TypeNotAllowed" ) );
+				viewButtons[i].setEnabled( false );
+			}
 		}
 		return true;
 	}

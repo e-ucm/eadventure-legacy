@@ -6,7 +6,7 @@ import es.eucm.eadventure.common.data.chapter.ConversationReference;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.control.tools.general.ChangeTargetIdTool;
+import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeTargetIdTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class ConversationReferenceDataControl extends DataControl {

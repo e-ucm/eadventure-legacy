@@ -9,9 +9,9 @@ import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.control.tools.general.ChangeNSDestinyPositionTool;
-import es.eucm.eadventure.editor.control.tools.general.ChangeTargetIdTool;
 import es.eucm.eadventure.editor.control.tools.general.ChangeTransitionTimeTool;
 import es.eucm.eadventure.editor.control.tools.general.ChangeTransitionTypeTool;
+import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeTargetIdTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class NextSceneDataControl extends DataControl {

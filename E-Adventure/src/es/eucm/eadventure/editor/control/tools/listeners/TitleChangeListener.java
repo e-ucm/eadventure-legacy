@@ -7,7 +7,7 @@ import javax.swing.text.JTextComponent;
 import es.eucm.eadventure.common.data.Titled;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.tools.Tool;
-import es.eucm.eadventure.editor.control.tools.general.ChangeTitleTool;
+import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeTitleTool;
 
 public class TitleChangeListener implements DocumentListener {
 

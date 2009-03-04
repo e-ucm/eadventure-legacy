@@ -13,7 +13,7 @@ import es.eucm.eadventure.editor.control.tools.assessment.AddAssessmentPropertyT
 import es.eucm.eadventure.editor.control.tools.assessment.AddEffectTool;
 import es.eucm.eadventure.editor.control.tools.assessment.DeleteAssessmentPropertyTool;
 import es.eucm.eadventure.editor.control.tools.assessment.DeleteEffectTool;
-import es.eucm.eadventure.editor.control.tools.general.ChangeIdTool;
+import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeIdTool;
 import es.eucm.eadventure.editor.control.tools.generic.ChangeIntegerValueTool;
 import es.eucm.eadventure.editor.control.tools.generic.ChangeStringValueTool;
 import es.eucm.eadventure.editor.control.tools.generic.MoveObjectTool;

@@ -15,7 +15,7 @@ import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.tools.adaptation.AddActionTool;
 import es.eucm.eadventure.editor.control.tools.adaptation.ChangeActionTool;
 import es.eucm.eadventure.editor.control.tools.adaptation.DeleteActionTool;
-import es.eucm.eadventure.editor.control.tools.general.ChangeTargetIdTool;
+import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeTargetIdTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class AdaptationProfileDataControl extends DataControl{

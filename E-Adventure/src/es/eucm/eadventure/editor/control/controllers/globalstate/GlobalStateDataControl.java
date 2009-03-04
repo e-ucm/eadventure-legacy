@@ -7,8 +7,8 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.control.tools.general.ChangeDocumentationTool;
-import es.eucm.eadventure.editor.control.tools.general.ChangeIdTool;
+import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeDocumentationTool;
+import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeIdTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class GlobalStateDataControl extends DataControl{

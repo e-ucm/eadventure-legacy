@@ -1,10 +1,9 @@
-package es.eucm.eadventure.editor.control.tools.general;
+package es.eucm.eadventure.editor.control.tools.general.assets;
 
 import es.eucm.eadventure.common.data.chapter.ExitLook;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
-import es.eucm.eadventure.editor.control.tools.general.resources.SelectResourceTool;
 import es.eucm.eadventure.editor.data.AssetInformation;
 
 public class SelectExitCursorPathTool extends SelectResourceTool{

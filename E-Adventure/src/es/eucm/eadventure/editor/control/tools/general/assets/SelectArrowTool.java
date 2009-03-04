@@ -1,4 +1,4 @@
-package es.eucm.eadventure.editor.control.tools;
+package es.eucm.eadventure.editor.control.tools.general.assets;
 
 
 import es.eucm.eadventure.common.data.adventure.AdventureData;
@@ -6,7 +6,6 @@ import es.eucm.eadventure.common.data.adventure.CustomArrow;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
-import es.eucm.eadventure.editor.control.tools.general.resources.SelectResourceTool;
 import es.eucm.eadventure.editor.data.AssetInformation;
 
 public class SelectArrowTool extends SelectResourceTool {
@@ -93,7 +92,7 @@ public class SelectArrowTool extends SelectResourceTool {
 		if (resources.getAssetPath(type).equals("NULL")){
 			removed = false;
 		} else {
-			for (int i =0; i<adventureData.getButtons().size(); i++){
+			for (int i =0; i<adventureData.getArrows().size(); i++){
 				CustomArrow arrow =adventureData.getArrows().get(i); 
 				if ( arrow.getType().equals(type)){
 					adventureData.getArrows().remove(arrow);

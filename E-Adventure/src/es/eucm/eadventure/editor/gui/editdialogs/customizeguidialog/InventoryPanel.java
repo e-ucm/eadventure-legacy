@@ -19,13 +19,14 @@ import javax.swing.JTextPane;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
+import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.displaydialogs.ImageDialog;
 
 /**
  * 
  * @author Javier Torrente
  */
-public class InventoryPanel extends JScrollPane {
+public class InventoryPanel extends JScrollPane implements Updateable{
 
 	/**
 	 * Required.
@@ -268,6 +269,24 @@ public class InventoryPanel extends JScrollPane {
 			String assetPath = adventureData.getArrowPath( arrowTypes[assetIndex] );
 			new ImageDialog( assetPath );
 		}
+	}
+
+
+	@Override
+	public boolean updateFields() {
+		// For every cursor, update the cursorPath field
+		int assetCount = arrowTypes.length;
+		for( int i = 0; i < assetCount; i++ ) {
+			if (adventureData.getArrowPath( arrowTypes[i] )!=null){
+				arrowFields[i].setText( adventureData.getArrowPath( arrowTypes[i] ) );
+				viewButtons[i].setEnabled( true );
+			} else {
+				arrowFields[i].setText( null );
+				viewButtons[i].setEnabled( false );
+			}
+				
+		}
+		return true;
 	}
 	
 }

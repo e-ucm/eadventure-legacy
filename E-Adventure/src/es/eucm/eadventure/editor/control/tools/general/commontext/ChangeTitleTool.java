@@ -1,4 +1,4 @@
-package es.eucm.eadventure.editor.control.tools.general;
+package es.eucm.eadventure.editor.control.tools.general.commontext;
 
 import es.eucm.eadventure.common.data.Titled;
 import es.eucm.eadventure.editor.control.Controller;

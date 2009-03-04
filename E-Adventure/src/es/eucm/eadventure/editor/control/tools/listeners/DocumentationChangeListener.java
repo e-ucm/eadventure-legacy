@@ -7,7 +7,7 @@ import javax.swing.text.JTextComponent;
 import es.eucm.eadventure.common.data.Documented;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.tools.Tool;
-import es.eucm.eadventure.editor.control.tools.general.ChangeDocumentationTool;
+import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeDocumentationTool;
 
 public class DocumentationChangeListener implements DocumentListener {
 

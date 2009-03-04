@@ -22,6 +22,8 @@ public class CustomizeGUIDialog extends ToolManagableDialog{
 	
 	private ButtonsPanel buttonsPanel;
 	
+	private InventoryPanel inventoryPanel;
+	
 	public CustomizeGUIDialog (AdventureDataControl dControl){
 		super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "CustomizeGUI.Title" ), false );//, Dialog.ModalityType.APPLICATION_MODAL );
 		this.dataControl=dControl;
@@ -31,11 +33,12 @@ public class CustomizeGUIDialog extends ToolManagableDialog{
 		//Create the cursors panel
 		cursorsPanel= new CursorsPanel (dataControl);
 		buttonsPanel = new ButtonsPanel (dataControl);
-		InventoryPanel inventoryPanel = new InventoryPanel (dataControl);
+		inventoryPanel = null;
 		
 		tabbedPane.insertTab( TextConstants.getText( "Cursors.Title" ), null, cursorsPanel, TextConstants.getText( "Cursors.Tip" ), 0 );
 		tabbedPane.insertTab( TextConstants.getText( "Buttons.Title" ), null, buttonsPanel, TextConstants.getText( "Buttons.Tip" ), 1 );
 		if (dataControl.getGUIType() == AdventureData.GUI_CONTEXTUAL) {
+			inventoryPanel = new InventoryPanel (dataControl);
 			tabbedPane.insertTab( TextConstants.getText( "Inventory.Title" ), null, inventoryPanel, TextConstants.getText( "Inventory.Tip" ), 2);
 		}
 		
@@ -50,6 +53,6 @@ public class CustomizeGUIDialog extends ToolManagableDialog{
 	@Override
 	public boolean updateFields() {
 		//Update cursorsPanel and buttonsPanel
-		return cursorsPanel.updateFields() && buttonsPanel.updateFields();
+		return cursorsPanel.updateFields() && buttonsPanel.updateFields() && (inventoryPanel==null?true:inventoryPanel.updateFields());
 	}
 }
