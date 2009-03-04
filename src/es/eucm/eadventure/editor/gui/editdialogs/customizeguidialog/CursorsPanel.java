@@ -19,13 +19,14 @@ import javax.swing.JTextPane;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
+import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.displaydialogs.ImageDialog;
 
 /**
  * 
  * @author Javier Torrente
  */
-public class CursorsPanel extends JScrollPane {
+public class CursorsPanel extends JScrollPane implements Updateable{
 
 	/**
 	 * Required.
@@ -272,6 +273,21 @@ public class CursorsPanel extends JScrollPane {
 			
 			new ImageDialog( assetPath );
 		}
+	}
+
+	@Override
+	public boolean updateFields() {
+		// For every cursor, update the cursorPath field
+		int assetCount = cursorTypes.length;
+		for( int i = 0; i < assetCount; i++ ) {
+			if (adventureData.isCursorTypeAllowed( i )){
+				if (adventureData.getCursorPath( i )!=null)
+					cursorFields[i].setText( adventureData.getCursorPath( i ) );	
+			}
+			else
+				cursorFields[i].setText( TextConstants.getText( "Cursors.TypeNotAllowed" ) );			
+		}
+		return true;
 	}
 
 }

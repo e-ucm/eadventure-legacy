@@ -19,13 +19,14 @@ import javax.swing.JTextPane;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
+import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.displaydialogs.ImageDialog;
 
 /**
  * 
  * @author Eugenio Marchiori
  */
-public class ButtonsPanel extends JScrollPane {
+public class ButtonsPanel extends JScrollPane implements Updateable{
 
 	/**
 	 * Required.
@@ -114,6 +115,8 @@ public class ButtonsPanel extends JScrollPane {
 			c3.weighty = 0;
 			
 			for( int i = 0; i < buttonTypes.length; i++ ) {
+				int assetIndex = j*buttonTypes.length + i;
+				
 				// Create the panel and set the border
 				JPanel assetPanel = new JPanel( );
 				assetPanel.setLayout( new GridBagLayout( ) );
@@ -132,30 +135,30 @@ public class ButtonsPanel extends JScrollPane {
 				assetPanel.add( deleteContentButton, c2 );
 				
 				// Create the text field and insert it
-				buttonFields[i] = new JTextField( MAX_SPACE );
+				buttonFields[assetIndex] = new JTextField( MAX_SPACE );
 				if (adventureData.getButtonPath(actionTypes[j] , buttonTypes[i])!=null)
-					buttonFields[i].setText( adventureData.getButtonPath(actionTypes[j] , buttonTypes[i] ) );	
+					buttonFields[assetIndex].setText( adventureData.getButtonPath(actionTypes[j] , buttonTypes[i] ) );	
 	 			
-				buttonFields[i].setEditable( false );
+				buttonFields[assetIndex].setEditable( false );
 				c2.gridx = 1;
 				c2.fill = GridBagConstraints.HORIZONTAL;
 				c2.weightx = 1;
-				assetPanel.add( buttonFields[i], c2 );
+				assetPanel.add( buttonFields[assetIndex], c2 );
 	
 				// Create the "Select" button and insert it
 				JButton selectButton = new JButton( TextConstants.getText( "Buttons.Select" ) );
-				selectButton.addActionListener( new ExamineButtonListener( i ) );
+				selectButton.addActionListener( new ExamineButtonListener( assetIndex, j, i ) );
 				c2.gridx = 2;
 				c2.fill = GridBagConstraints.NONE;
 				c2.weightx = 0;
 				assetPanel.add( selectButton, c2 );
 	
 				// Create the "View" button and insert it
-				viewButtons[i] = new JButton( TextConstants.getText( "Buttons.Preview" ) );
-				viewButtons[i].setEnabled( adventureData.getButtonPath( actionTypes[j] , buttonTypes[i])!=null );
-				viewButtons[i].addActionListener( new ViewButtonListener( i ) );
+				viewButtons[assetIndex] = new JButton( TextConstants.getText( "Buttons.Preview" ) );
+				viewButtons[assetIndex].setEnabled( adventureData.getButtonPath( actionTypes[j] , buttonTypes[i])!=null );
+				viewButtons[assetIndex].addActionListener( new ViewButtonListener( assetIndex, j, i ) );
 				c2.gridx = 3;
-				assetPanel.add( viewButtons[i], c2 );
+				assetPanel.add( viewButtons[assetIndex], c2 );
 				
 	
 				// Add the panel
@@ -183,6 +186,21 @@ public class ButtonsPanel extends JScrollPane {
 
 		// Insert the panel into the scroll
 		setViewportView( mainPanel );
+	}
+	
+	@Override
+	public boolean updateFields() {
+		// For every cursor, update the cursorPath field
+		for (int j = 0; j < actionTypes.length; j++) {
+			for( int i = 0; i < buttonTypes.length; i++ ) {
+				int assetIndex = j*buttonTypes.length+i;
+				if (adventureData.getButtonPath(actionTypes[j] , buttonTypes[i])!=null)
+					buttonFields[assetIndex].setText( adventureData.getButtonPath(actionTypes[j] , buttonTypes[i] ) );
+				else
+					buttonFields[assetIndex].setText(null);
+			}
+		}
+		return true;
 	}
 
 
@@ -228,14 +246,21 @@ public class ButtonsPanel extends JScrollPane {
 		 */
 		private int assetIndex;
 
+		
+		private int action;
+		
+		private int type;
+		
 		/**
 		 * Constructor.
 		 * 
 		 * @param assetIndex
 		 *            Index of the asset
 		 */
-		public ExamineButtonListener( int assetIndex ) {
+		public ExamineButtonListener( int assetIndex , int action, int type) {
 			this.assetIndex = assetIndex;
+			this.action = action;
+			this.type = type;
 		}
 
 		/*
@@ -244,11 +269,12 @@ public class ButtonsPanel extends JScrollPane {
 		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 		 */
 		public void actionPerformed( ActionEvent e ) {
-			adventureData.editButtonPath(actionTypes[assetIndex/actionTypes.length] , buttonTypes[assetIndex%buttonTypes.length]);
-			if (adventureData.getButtonPath( actionTypes[assetIndex/actionTypes.length] , buttonTypes[assetIndex%buttonTypes.length] ) != null){
-				buttonFields[assetIndex].setText( adventureData.getButtonPath( actionTypes[assetIndex/actionTypes.length] , buttonTypes[assetIndex%buttonTypes.length] ) );
-				viewButtons[assetIndex].setEnabled( adventureData.getButtonPath( actionTypes[assetIndex/actionTypes.length] , buttonTypes[assetIndex%buttonTypes.length] ) != null );
+			adventureData.editButtonPath(actionTypes[action] , buttonTypes[type]);
+			if (adventureData.getButtonPath( actionTypes[action] , buttonTypes[type] ) != null){
+				buttonFields[assetIndex].setText( adventureData.getButtonPath( actionTypes[action] , buttonTypes[type] ) );
+				
 			}
+			viewButtons[assetIndex].setEnabled( adventureData.getButtonPath( actionTypes[action] , buttonTypes[type] ) != null );
 		}
 	}
 
@@ -261,6 +287,10 @@ public class ButtonsPanel extends JScrollPane {
 		 * Index of the asset.
 		 */
 		private int assetIndex;
+		
+		private int action;
+		
+		private int type;
 
 		/**
 		 * Constructor.
@@ -268,8 +298,10 @@ public class ButtonsPanel extends JScrollPane {
 		 * @param assetIndex
 		 *            Index of the asset
 		 */
-		public ViewButtonListener( int assetIndex ) {
+		public ViewButtonListener( int assetIndex, int action, int type ) {
 			this.assetIndex = assetIndex;
+			this.action = action;
+			this.type = type;
 		}
 
 		/*
@@ -279,7 +311,7 @@ public class ButtonsPanel extends JScrollPane {
 		 */
 		public void actionPerformed( ActionEvent arg0 ) {
 
-			String assetPath = adventureData.getButtonPath( actionTypes[assetIndex/actionTypes.length] , buttonTypes[assetIndex%buttonTypes.length] );
+			String assetPath = adventureData.getButtonPath( actionTypes[action] , buttonTypes[type] );
 			new ImageDialog( assetPath );
 		}
 	}

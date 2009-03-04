@@ -1,35 +1,36 @@
 package es.eucm.eadventure.editor.gui.editdialogs.customizeguidialog;
 
 import java.awt.BorderLayout;
-import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
-import javax.swing.JDialog;
 import javax.swing.JTabbedPane;
 
 import es.eucm.eadventure.common.data.adventure.AdventureData;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
+import es.eucm.eadventure.editor.gui.editdialogs.ToolManagableDialog;
 
-public class CustomizeGUIDialog extends JDialog{
+public class CustomizeGUIDialog extends ToolManagableDialog{
 
 	private static final long serialVersionUID = 1L;
 
 	private AdventureDataControl dataControl;
 	
+	private CursorsPanel cursorsPanel;
+	
+	private ButtonsPanel buttonsPanel;
+	
 	public CustomizeGUIDialog (AdventureDataControl dControl){
-		super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "CustomizeGUI.Title" ), Dialog.ModalityType.APPLICATION_MODAL );
+		super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "CustomizeGUI.Title" ), false );//, Dialog.ModalityType.APPLICATION_MODAL );
 		this.dataControl=dControl;
 		//Create the tabbed pane
 		JTabbedPane tabbedPane = new JTabbedPane();
 		
 		//Create the cursors panel
-		CursorsPanel cursorsPanel= new CursorsPanel (dataControl);
-		ButtonsPanel buttonsPanel = new ButtonsPanel (dataControl);
+		cursorsPanel= new CursorsPanel (dataControl);
+		buttonsPanel = new ButtonsPanel (dataControl);
 		InventoryPanel inventoryPanel = new InventoryPanel (dataControl);
 		
 		tabbedPane.insertTab( TextConstants.getText( "Cursors.Title" ), null, cursorsPanel, TextConstants.getText( "Cursors.Tip" ), 0 );
@@ -37,13 +38,6 @@ public class CustomizeGUIDialog extends JDialog{
 		if (dataControl.getGUIType() == AdventureData.GUI_CONTEXTUAL) {
 			tabbedPane.insertTab( TextConstants.getText( "Inventory.Title" ), null, inventoryPanel, TextConstants.getText( "Inventory.Tip" ), 2);
 		}
-		
-		addWindowListener( new WindowAdapter( ) {
-			public void windowClosing( WindowEvent e ) {
-				setVisible( false );
-				dispose( );
-			}
-		} );
 		
 		this.getContentPane( ).setLayout( new BorderLayout() );
 		this.getContentPane( ).add( tabbedPane, BorderLayout.CENTER );
@@ -53,4 +47,9 @@ public class CustomizeGUIDialog extends JDialog{
 		this.setVisible( true );
 	}
 	
+	@Override
+	public boolean updateFields() {
+		//Update cursorsPanel and buttonsPanel
+		return cursorsPanel.updateFields() && buttonsPanel.updateFields();
+	}
 }

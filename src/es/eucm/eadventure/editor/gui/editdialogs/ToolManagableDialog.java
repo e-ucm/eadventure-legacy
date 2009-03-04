@@ -5,7 +5,6 @@ import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
 import java.awt.Window;
 import java.awt.event.KeyEvent;
-import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
@@ -78,6 +77,7 @@ public abstract class ToolManagableDialog extends JDialog implements Updateable,
 	}
 	
 	public void windowClosing(WindowEvent e) {
+		KeyboardFocusManager.getCurrentKeyboardFocusManager().removeKeyEventDispatcher(undoRedoDispatcher);
 		Controller.getInstance( ).popWindow( );
 		setVisible(false);
 		dispose();
