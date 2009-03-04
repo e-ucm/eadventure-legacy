@@ -10,10 +10,10 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
-import es.eucm.eadventure.editor.control.tools.general.ChangeDescriptionTool;
-import es.eucm.eadventure.editor.control.tools.general.ChangeDetailedDescriptionTool;
-import es.eucm.eadventure.editor.control.tools.general.ChangeDocumentationTool;
-import es.eucm.eadventure.editor.control.tools.general.ChangeNameTool;
+import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeDescriptionTool;
+import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeDetailedDescriptionTool;
+import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeDocumentationTool;
+import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeNameTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class AtrezzoDataControl extends DataControlWithResources {

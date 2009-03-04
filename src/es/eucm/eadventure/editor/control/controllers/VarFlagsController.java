@@ -231,10 +231,6 @@ public class VarFlagsController {
 				controller.showErrorDialog( TextConstants.getText( "Ids.AddId" ), TextConstants.getText( "Ids.ErrorIdWhitespaces" ) );
 		}
 
-		// If the flag was added, set the data as modified
-		if( addedFlag )
-			controller.dataModified( );
-
 		return addedFlag;
 	}
 
@@ -256,10 +252,6 @@ public class VarFlagsController {
 		else
 			controller.showErrorDialog( TextConstants.getText( "Flags.DeleteFlag" ), TextConstants.getText( "Flags.ErrorFlagWithReferences" ) );
 
-		// If the flag was added, set the data as modified
-		if( deletedFlag )
-			controller.dataModified( );
-
 		return deletedFlag;
 	}
 	
@@ -280,10 +272,6 @@ public class VarFlagsController {
 		// If not, show an error
 		else
 			controller.showErrorDialog( TextConstants.getText( "Vars.DeleteVar" ), TextConstants.getText( "Vars.ErrorVarWithReferences" ) );
-
-		// If the flag was added, set the data as modified
-		if( deletedVar )
-			controller.dataModified( );
 
 		return deletedVar;
 	}

@@ -16,8 +16,8 @@ import es.eucm.eadventure.editor.control.tools.animation.ChangeUseTransitionsToo
 import es.eucm.eadventure.editor.control.tools.animation.DeleteFrameTool;
 import es.eucm.eadventure.editor.control.tools.animation.MoveFrameLeftTool;
 import es.eucm.eadventure.editor.control.tools.animation.MoveFrameRightTool;
-import es.eucm.eadventure.editor.control.tools.general.ChangeDocumentationTool;
-import es.eucm.eadventure.editor.control.tools.general.ChangeIdTool;
+import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeDocumentationTool;
+import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeIdTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 import es.eucm.eadventure.editor.gui.assetchooser.AssetChooser;
 

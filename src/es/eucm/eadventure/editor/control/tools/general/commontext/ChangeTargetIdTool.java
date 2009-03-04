@@ -1,6 +1,6 @@
-package es.eucm.eadventure.editor.control.tools.general;
+package es.eucm.eadventure.editor.control.tools.general.commontext;
 
-import es.eucm.eadventure.common.data.HasId;
+import es.eucm.eadventure.common.data.HasTargetId;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.tools.Tool;
 
@@ -9,7 +9,7 @@ import es.eucm.eadventure.editor.control.tools.Tool;
  * @author Javier
  *
  */
-public class ChangeIdTool extends Tool{
+public class ChangeTargetIdTool extends Tool{
 
 	/**
 	 * The new id
@@ -39,21 +39,21 @@ public class ChangeIdTool extends Tool{
 	/**
 	 * The element which contains the targetId
 	 */
-	protected HasId elementWithTargetId;
+	protected HasTargetId elementWithTargetId;
 	
 	/**
 	 * Default constructor. Does not update neither tree nor panel
 	 * @param elementWithTargetId
 	 * @param newId
 	 */
-	public ChangeIdTool (HasId elementWithTargetId, String newId){
+	public ChangeTargetIdTool (HasTargetId elementWithTargetId, String newId){
 		this (elementWithTargetId, newId, false,true);
 	}
 	
-	public ChangeIdTool (HasId elementWithTargetId, String newId, boolean updateTree, boolean reloadPanel){
+	public ChangeTargetIdTool (HasTargetId elementWithTargetId, String newId, boolean updateTree, boolean reloadPanel){
 		this.elementWithTargetId = elementWithTargetId;
 		this.id = newId;
-		this.oldId = elementWithTargetId.getId();
+		this.oldId = elementWithTargetId.getTargetId();
 		this.updateTree = updateTree;
 		this.reloadPanel = reloadPanel;
 		this.controller = Controller.getInstance();
@@ -77,8 +77,8 @@ public class ChangeIdTool extends Tool{
 	@Override
 	public boolean doTool() {
 		boolean done = false;
-		if (!elementWithTargetId.getId().equals(id)){
-			elementWithTargetId.setId(id);
+		if (!elementWithTargetId.getTargetId().equals(id)){
+			elementWithTargetId.setTargetId(id);
 			done = true;
 			if (updateTree)
 				controller.updateTree();
@@ -95,7 +95,7 @@ public class ChangeIdTool extends Tool{
 
 	@Override
 	public boolean undoTool() {
-		elementWithTargetId.setId(oldId);
+		elementWithTargetId.setTargetId(oldId);
 		String temp = oldId;
 		oldId = id;
 		id = temp;

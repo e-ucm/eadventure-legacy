@@ -1,4 +1,4 @@
-package es.eucm.eadventure.editor.control.tools.general.resources;
+package es.eucm.eadventure.editor.control.tools.general.assets;
 
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;

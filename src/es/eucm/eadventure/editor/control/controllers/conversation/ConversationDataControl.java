@@ -20,7 +20,7 @@ import es.eucm.eadventure.editor.control.tools.conversation.DeleteNodeLinkTool;
 import es.eucm.eadventure.editor.control.tools.conversation.DeleteNodeOptionTool;
 import es.eucm.eadventure.editor.control.tools.conversation.MoveNodeLineTool;
 import es.eucm.eadventure.editor.control.tools.conversation.SelectLineAudioPathTool;
-import es.eucm.eadventure.editor.control.tools.general.ChangeNameTool;
+import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeNameTool;
 import es.eucm.eadventure.editor.control.tools.generic.ChangeBooleanValueTool;
 import es.eucm.eadventure.editor.control.tools.generic.ChangeStringValueTool;
 import es.eucm.eadventure.editor.gui.editdialogs.EffectsDialog;

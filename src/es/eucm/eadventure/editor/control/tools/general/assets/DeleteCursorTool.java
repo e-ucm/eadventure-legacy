@@ -1,18 +1,21 @@
-package es.eucm.eadventure.editor.control.tools;
+package es.eucm.eadventure.editor.control.tools.general.assets;
 
 import es.eucm.eadventure.common.data.adventure.AdventureData;
 import es.eucm.eadventure.common.data.adventure.CustomCursor;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.tools.Tool;
 
-public class AddCursorTool extends Tool{
+public class DeleteCursorTool extends Tool{
 
 	private AdventureData adventureData;
 	
-	private CustomCursor cursor;
+	private CustomCursor cursorDeleted;
 	
-	public AddCursorTool (AdventureData adventureData, CustomCursor cursor){
+	private int index;
+	
+	public DeleteCursorTool (AdventureData adventureData, int index){
 		this.adventureData = adventureData;
-		this.cursor = cursor;
+		this.index = index;
 	}
 	
 	@Override
@@ -32,20 +35,20 @@ public class AddCursorTool extends Tool{
 
 	@Override
 	public boolean doTool() {
-		adventureData.getCursors().add( cursor );
+		cursorDeleted = adventureData.getCursors().remove( index );
 		return true;
 	}
 
 	@Override
 	public boolean redoTool() {
-		adventureData.getCursors().add( cursor );
+		cursorDeleted = adventureData.getCursors().remove( index );
 		Controller.getInstance().updatePanel();
 		return true;
 	}
 
 	@Override
 	public boolean undoTool() {
-		adventureData.getCursors().remove( cursor );
+		adventureData.getCursors().add( index, cursorDeleted );
 		Controller.getInstance().updatePanel();
 		return true;
 	}

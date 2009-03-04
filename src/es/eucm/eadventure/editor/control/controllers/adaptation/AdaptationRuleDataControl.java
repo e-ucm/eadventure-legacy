@@ -11,7 +11,7 @@ import es.eucm.eadventure.editor.control.tools.adaptation.ChangeActionTool;
 import es.eucm.eadventure.editor.control.tools.adaptation.ChangeUOLPropertyTool;
 import es.eucm.eadventure.editor.control.tools.adaptation.DeleteActionTool;
 import es.eucm.eadventure.editor.control.tools.adaptation.DeleteUOLPropertyTool;
-import es.eucm.eadventure.editor.control.tools.general.ChangeTargetIdTool;
+import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeTargetIdTool;
 import es.eucm.eadventure.editor.control.tools.generic.MoveObjectTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 

@@ -129,7 +129,7 @@ public class ButtonsPanel extends JScrollPane implements Updateable{
 	
 				// Create the delete content button
 				JButton deleteContentButton = new JButton( deleteContentIcon );
-				deleteContentButton.addActionListener( new DeleteContentButtonListener( i ) );
+				deleteContentButton.addActionListener( new DeleteContentButtonListener( assetIndex, j, i ) );
 				deleteContentButton.setPreferredSize( new Dimension( 20, 20 ) );
 				deleteContentButton.setToolTipText( TextConstants.getText( "Buttons.DeleteButton" ) );
 				assetPanel.add( deleteContentButton, c2 );
@@ -194,10 +194,13 @@ public class ButtonsPanel extends JScrollPane implements Updateable{
 		for (int j = 0; j < actionTypes.length; j++) {
 			for( int i = 0; i < buttonTypes.length; i++ ) {
 				int assetIndex = j*buttonTypes.length+i;
-				if (adventureData.getButtonPath(actionTypes[j] , buttonTypes[i])!=null)
+				if (adventureData.getButtonPath(actionTypes[j] , buttonTypes[i])!=null){
 					buttonFields[assetIndex].setText( adventureData.getButtonPath(actionTypes[j] , buttonTypes[i] ) );
-				else
+					viewButtons[assetIndex].setEnabled(true);
+				}else{
 					buttonFields[assetIndex].setText(null);
+					viewButtons[assetIndex].setEnabled(false);
+				}
 			}
 		}
 		return true;
@@ -213,6 +216,10 @@ public class ButtonsPanel extends JScrollPane implements Updateable{
 		 * Index of the asset.
 		 */
 		private int assetIndex;
+		
+		private int action;
+		
+		private int type;
 
 		/**
 		 * Constructor.
@@ -220,7 +227,9 @@ public class ButtonsPanel extends JScrollPane implements Updateable{
 		 * @param assetIndex
 		 *            Index of the asset
 		 */
-		public DeleteContentButtonListener( int assetIndex ) {
+		public DeleteContentButtonListener( int assetIndex, int action, int type) {
+			this.action = action;
+			this.type = type;
 			this.assetIndex = assetIndex;
 		}
 
@@ -230,8 +239,8 @@ public class ButtonsPanel extends JScrollPane implements Updateable{
 		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 		 */
 		public void actionPerformed( ActionEvent e ) {
-			adventureData.deleteButton( actionTypes[assetIndex/actionTypes.length] , buttonTypes[assetIndex%buttonTypes.length] );
-			buttonFields[assetIndex].setText( "" );
+			adventureData.deleteButton( actionTypes[action] , buttonTypes[type] );
+			buttonFields[assetIndex].setText( null );
 			viewButtons[assetIndex].setEnabled( false );
 		}
 	}

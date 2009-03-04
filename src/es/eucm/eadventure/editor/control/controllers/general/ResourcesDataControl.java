@@ -8,10 +8,10 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.control.tools.general.resources.DeleteAssetReferencesInResources;
-import es.eucm.eadventure.editor.control.tools.general.resources.DeleteResourceTool;
-import es.eucm.eadventure.editor.control.tools.general.resources.EditResourceTool;
-import es.eucm.eadventure.editor.control.tools.general.resources.SelectResourceTool;
+import es.eucm.eadventure.editor.control.tools.general.assets.DeleteAssetReferencesInResources;
+import es.eucm.eadventure.editor.control.tools.general.assets.DeleteResourceTool;
+import es.eucm.eadventure.editor.control.tools.general.assets.EditResourceTool;
+import es.eucm.eadventure.editor.control.tools.general.assets.SelectResourceTool;
 import es.eucm.eadventure.editor.data.AssetInformation;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 

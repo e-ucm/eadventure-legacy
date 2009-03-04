@@ -9,7 +9,7 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.tools.general.ChangeExitCustomTextTool;
 import es.eucm.eadventure.editor.control.tools.general.InvalidExitCursorTool;
-import es.eucm.eadventure.editor.control.tools.general.SelectExitCursorPathTool;
+import es.eucm.eadventure.editor.control.tools.general.assets.SelectExitCursorPathTool;
 
 public class ExitLookDataControl {
 

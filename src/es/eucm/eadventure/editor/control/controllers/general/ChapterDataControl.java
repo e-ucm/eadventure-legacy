@@ -18,11 +18,11 @@ import es.eucm.eadventure.editor.control.controllers.item.ItemsListDataControl;
 import es.eucm.eadventure.editor.control.controllers.macro.MacroListDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ScenesListDataControl;
 import es.eucm.eadventure.editor.control.controllers.timer.TimersListDataControl;
-import es.eucm.eadventure.editor.control.tools.general.ChangeDescriptionTool;
-import es.eucm.eadventure.editor.control.tools.general.ChangeSelectedProfileTool;
-import es.eucm.eadventure.editor.control.tools.general.ChangeTargetIdTool;
-import es.eucm.eadventure.editor.control.tools.general.ChangeTitleTool;
-import es.eucm.eadventure.editor.control.tools.general.SetNoSelectedProfileTool;
+import es.eucm.eadventure.editor.control.tools.general.chapters.ChangeSelectedProfileTool;
+import es.eucm.eadventure.editor.control.tools.general.chapters.SetNoSelectedProfileTool;
+import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeDescriptionTool;
+import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeTargetIdTool;
+import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeTitleTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 /**

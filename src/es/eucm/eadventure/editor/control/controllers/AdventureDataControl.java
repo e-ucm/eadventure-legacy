@@ -11,13 +11,14 @@ import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfil
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfilesDataControl;
 import es.eucm.eadventure.editor.control.controllers.ims.IMSDataControl;
 import es.eucm.eadventure.editor.control.controllers.lom.LOMDataControl;
-import es.eucm.eadventure.editor.control.tools.DeleteArrowTool;
-import es.eucm.eadventure.editor.control.tools.DeleteCursorTool;
-import es.eucm.eadventure.editor.control.tools.SelectArrowTool;
-import es.eucm.eadventure.editor.control.tools.SelectButtonTool;
-import es.eucm.eadventure.editor.control.tools.SelectCursorPathTool;
-import es.eucm.eadventure.editor.control.tools.general.ChangeDescriptionTool;
-import es.eucm.eadventure.editor.control.tools.general.ChangeTitleTool;
+import es.eucm.eadventure.editor.control.tools.general.assets.DeleteArrowTool;
+import es.eucm.eadventure.editor.control.tools.general.assets.DeleteButtonTool;
+import es.eucm.eadventure.editor.control.tools.general.assets.DeleteCursorTool;
+import es.eucm.eadventure.editor.control.tools.general.assets.SelectArrowTool;
+import es.eucm.eadventure.editor.control.tools.general.assets.SelectButtonTool;
+import es.eucm.eadventure.editor.control.tools.general.assets.SelectCursorPathTool;
+import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeDescriptionTool;
+import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeTitleTool;
 import es.eucm.eadventure.editor.control.tools.generic.ChangeBooleanValueTool;
 import es.eucm.eadventure.editor.control.tools.generic.ChangeIntegerValueTool;
 import es.eucm.eadventure.common.data.adventure.AdventureData;
@@ -366,18 +367,6 @@ public class AdventureDataControl {
 		return adventureData;
 	}
 	
-	public void setButton(String action, String type, String path) {
-		CustomButton button = new CustomButton(action, type, path);
-		CustomButton temp = null;
-		for (CustomButton cb : adventureData.getButtons()) {
-			if (cb.equals(button))
-				temp = cb;
-		}
-		if (temp != null)
-			adventureData.getButtons().remove(temp);
-		adventureData.addButton(button);
-	}
-
 	public String getButtonPath(String action, String type) {
 		CustomButton button = new CustomButton(action, type, null);
 		for (CustomButton cb : adventureData.getButtons()) {
@@ -388,14 +377,7 @@ public class AdventureDataControl {
 	}
 
 	public void deleteButton(String action, String type) {
-		CustomButton button = new CustomButton(action, type, null);
-		CustomButton temp = null;
-		for (CustomButton cb : adventureData.getButtons()) {
-			if (cb.equals(button))
-				temp = cb;
-		}
-		if (temp != null)
-			adventureData.getButtons().remove(temp);
+		Controller.getInstance().addTool( new DeleteButtonTool( adventureData, action, type ) );
 	}
 
 	public void editButtonPath(String action, String type) {
@@ -410,7 +392,7 @@ public class AdventureDataControl {
 		try {
 			Controller.getInstance().addTool( new SelectArrowTool( adventureData, type ) );
 		} catch (CloneNotSupportedException e) {
-			ReportDialog.GenerateErrorReport(e, false, "Could not clone resources: buttons");
+			ReportDialog.GenerateErrorReport(e, false, "Could not clone resources: arrows");
 		}
 	}
 

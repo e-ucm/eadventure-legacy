@@ -7,7 +7,7 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
-import es.eucm.eadventure.editor.control.tools.general.ChangeDocumentationTool;
+import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeDocumentationTool;
 import es.eucm.eadventure.editor.control.tools.generic.ChangeLongValueTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
