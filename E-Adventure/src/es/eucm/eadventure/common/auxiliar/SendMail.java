@@ -48,12 +48,7 @@ public class SendMail {
 	 * The default "from" address
 	 */
 	private static final String DEFAULT_FROM = "eAdventure.online.support@gmail.com";
-	
-	/**
-	 * The address where to send error reports
-	 */
-	private static final String ERROR_TO = "eAdventure.online.support@gmail.com";
-	
+		
 	/**
 	 * Default port for the SMTP server
 	 */
@@ -302,24 +297,7 @@ public class SendMail {
 		this.port = port;
 	}
 
-	/**
-	 * Post an error report
-	 * 
-	 * @param mail The contents of the error report
-	 */
-	public void postErrorReport(String mail) {		
-		String[] recp = new String[1];
-		recp[0] = ERROR_TO;
-		postMail(recp, "Error Report", mail, DEFAULT_FROM);
-	}
-
 	public void setDebug(boolean debug) {
 		this.debug = debug;
-	}
-
-	public void postReport(String title, String email) {
-		String[] recp = new String[1];
-		recp[0] = ERROR_TO;
-		postMail(recp, title, email, DEFAULT_FROM);
 	}
 }
