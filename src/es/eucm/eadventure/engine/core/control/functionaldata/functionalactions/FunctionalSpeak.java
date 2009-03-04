@@ -96,7 +96,9 @@ public class FunctionalSpeak extends FunctionalAction {
      * Set the text to be displayed. This is what the player is saying
      * @param text the text to be displayed
      */
-    public void setText( String text ) {
+    public void setText( String text2 ) {
+    	String text = Game.getInstance().processText(text2);
+
         this.text = GUI.getInstance( ).splitText( text );
         
         float multiplier = 1;
@@ -142,12 +144,14 @@ public class FunctionalSpeak extends FunctionalAction {
             try {
                 Thread.sleep( 1 );
             } catch( InterruptedException e ) {
-            }}
+            }
+            }
         }
     }
 
-    public void setSpeakFreeTTS(String text, String voice){
-   	 
+    public void setSpeakFreeTTS(String text2, String voice){
+    	String text = Game.getInstance().processText(text2);
+    	
     	task = new TTask(voice, text);
     	Timer timer = new Timer () ;
     	timer.schedule(task, 0);
@@ -160,7 +164,6 @@ public class FunctionalSpeak extends FunctionalAction {
     	int wordsPerSecond = (int)task.getDuration()/60;
     	String[] words= text.split(" ");
     	timeTalking = (words.length/wordsPerSecond) *1000;
-    	
    }
     
     public void stopTTSTalking(){

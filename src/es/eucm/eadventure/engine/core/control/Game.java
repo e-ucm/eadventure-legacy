@@ -1481,4 +1481,8 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
 	public boolean isDebug() {
 		return debug;
 	}
+	
+	public String processText(String text) {
+		return flags.processText(vars.processText(text));
+	}
 }

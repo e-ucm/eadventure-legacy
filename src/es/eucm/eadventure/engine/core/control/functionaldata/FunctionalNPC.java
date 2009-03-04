@@ -12,6 +12,7 @@ import es.eucm.eadventure.common.data.chapter.resources.Asset;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.engine.core.control.ActionManager;
 import es.eucm.eadventure.engine.core.control.DebugLog;
+import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.animations.npc.NPCIdle;
 import es.eucm.eadventure.engine.core.control.animations.npc.NPCState;
 import es.eucm.eadventure.engine.core.control.animations.npc.NPCTalking;
@@ -356,20 +357,26 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
      * (non-Javadoc)
      * @see es.eucm.eadventure.engine.engine.control.functionaldata.TalkingElement#speak(java.lang.String)
      */
-    public void speak( String text ) {
+    public void speak( String text2 ) {
+    	String text = Game.getInstance().processText(text2);
+
     	DebugLog.player("NPC " + npc.getId() + " says " + text);
         talkingAnimation.setText( text );
         setState( TALK );
     }
     
-    public void speak ( String text, String audioPath ){
+    public void speak ( String text2, String audioPath ){
+    	String text = Game.getInstance().processText(text2);
+
     	DebugLog.player("NPC " + npc.getId() + " says " + text + " with audio");
         talkingAnimation.setAudio(audioPath);
         talkingAnimation.setText( text );
         setState( TALK );
     }
     
-    public void speakWithFreeTTS(String text, String voice){
+    public void speakWithFreeTTS(String text2, String voice){
+    	String text = Game.getInstance().processText(text2);
+
     	DebugLog.player("NPC " + npc.getId() + " speaks with text-to-speech");
     	// Start the voice
     	speak(text);
