@@ -158,7 +158,7 @@ public class ActiveAreaPanel extends JPanel {
 		JPanel looksPanel;
 		
 		if (activeAreaDataControl.isRectangular()) {
-			spep = new ScenePreviewEditionPanel(scenePath);
+			spep = new ScenePreviewEditionPanel(false, scenePath);
 			spep.setShowTextEdition(true);
 			spep.setFixedSelectedElement(true);
 			spep.setSelectedElement(activeAreaDataControl);

@@ -121,7 +121,7 @@ public class BarrierPanel extends JPanel {
 		JPanel mainPanel = new JPanel();
 		// Take the path of the background
 		String scenePath = Controller.getInstance( ).getSceneImagePath( barrierDataControl.getParentSceneId( ) );
-		spep = new ScenePreviewEditionPanel(scenePath);
+		spep = new ScenePreviewEditionPanel(false, scenePath);
 		spep.setShowTextEdition(true);
 		spep.setSelectedElement(barrierDataControl);
 		spep.setFixedSelectedElement(true);

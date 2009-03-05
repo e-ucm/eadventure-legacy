@@ -20,6 +20,7 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
+import es.eucm.eadventure.editor.control.config.SceneLinksConfigData;
 import es.eucm.eadventure.editor.control.controllers.SceneLinksController;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ScenesListDataControl;
@@ -90,9 +91,25 @@ public class SceneLinksPanel extends JPanel {
 				
 		JScrollPane sp = createCheckBoxTable();
 		
+		boolean isConfig = true;
+		for (SceneDataControl scene : sldc.getScenes()) {
+			if (!SceneLinksConfigData.isSceneConfig(scene.getId())) {
+				isConfig = false;
+			}
+		}
+		
 		sceneElements = new ArrayList<SceneElement>();
 		for (SceneDataControl scene : sldc.getScenes()) {
 			SceneElement element = new SceneElement(scene);
+			if (isConfig) {
+				element.setVisible(SceneLinksConfigData.getSceneVisible(element.getId()));
+				element.changePosition(SceneLinksConfigData.getSceneX(element.getId()), SceneLinksConfigData.getSceneY(element.getId()));
+			} else {
+				SceneLinksConfigData.setSceneVisible(element.getId(), element.isVisible());
+				SceneLinksConfigData.setSceneX(element.getId(), element.getPosX());
+				SceneLinksConfigData.setSceneY(element.getId(), element.getPosY());
+			}
+			
 			sceneElements.add(element);
 			dtm.addRow(new Object[]{new Boolean(element.isVisible()),element.getId()}); 
 		}
@@ -163,7 +180,12 @@ public class SceneLinksPanel extends JPanel {
 	private void paintGraph() {
 		drawPanel.paintBackground();
 		
-		drawingScale = (float) (0.5f * (1 - Math.log(sceneElements.size()) / Math.log(100)));
+		int number = sceneElements.size();
+		for (SceneElement scene : sceneElements) {
+			if (!scene.isVisible())
+				number--;
+		}
+		drawingScale = (float) (0.3f * (1 - Math.log(number) / Math.log(100)));
 		List<Line> lines = new ArrayList<Line>();
 		
 		for (SceneElement scene : sceneElements) {

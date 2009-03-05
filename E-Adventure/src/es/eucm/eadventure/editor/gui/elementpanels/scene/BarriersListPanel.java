@@ -68,7 +68,7 @@ public class BarriersListPanel extends JPanel {
 			spep = tep.getScenePreviewEditionPanel();
 			add( tep, c );
 		} else {
-			spep = new ScenePreviewEditionPanel(scenePath);
+			spep = new ScenePreviewEditionPanel(false, scenePath);
 			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_BARRIER, true);
 			add( spep, c );
 		}

@@ -47,7 +47,7 @@ public class TrajectoryEditionPanel extends JPanel {
 	 */
 	public TrajectoryEditionPanel(String scenePath, TrajectoryDataControl trajectoryDataControl) {
 		setLayout(new BorderLayout());
-		spep = new ScenePreviewEditionPanel(scenePath);
+		spep = new ScenePreviewEditionPanel(false, scenePath);
 		tspec = new TrajectoryScenePreviewEditionController(spep, trajectoryDataControl);
 		spep.changeController(tspec);
 		for (NodeDataControl nodeDataControl: trajectoryDataControl.getNodes())

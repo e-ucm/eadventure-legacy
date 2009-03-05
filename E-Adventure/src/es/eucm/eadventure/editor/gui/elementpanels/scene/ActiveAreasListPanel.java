@@ -60,7 +60,7 @@ public class ActiveAreasListPanel extends JPanel {
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1;
 		c.weighty = 1;
-		ScenePreviewEditionPanel spep = new ScenePreviewEditionPanel(scenePath);
+		ScenePreviewEditionPanel spep = new ScenePreviewEditionPanel(false, scenePath);
 		add( spep, c );
 
 		if( scenePath != null ) {

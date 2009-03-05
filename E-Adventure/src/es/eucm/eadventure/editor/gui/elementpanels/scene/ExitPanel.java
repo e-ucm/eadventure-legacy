@@ -64,7 +64,7 @@ public class ExitPanel extends JTabbedPane {
 		String scenePath = Controller.getInstance( ).getSceneImagePath( exitDataControl.getParentSceneId( ) );
 		
 		if (exitDataControl.isRectangular()) {
-			spep = new ScenePreviewEditionPanel(scenePath);
+			spep = new ScenePreviewEditionPanel(false, scenePath);
 			spep.setShowTextEdition(true);
 			spep.setSelectedElement(exitDataControl);
 			spep.setFixedSelectedElement(true);
