@@ -343,7 +343,7 @@ public class ReportDialog extends JDialog {
 		}
 		        
 		try {
-			URL url = new URL("http://147.96.112.160:88/pruebas/test3.php");
+			URL url = new URL("http://backend-ea.e-ucm.es/reports.php");
 			HttpURLConnection con = (HttpURLConnection)url.openConnection();
 			con.setRequestMethod("POST");
 			con.setDoInput (true);
