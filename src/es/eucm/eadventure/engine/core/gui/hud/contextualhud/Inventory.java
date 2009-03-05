@@ -6,6 +6,7 @@ import java.awt.Composite;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.engine.core.control.Game;
@@ -29,11 +30,6 @@ public class Inventory {
     public static final int INVENTORY_PANEL_HEIGHT = 48;
     
     /**
-     * Left most point of the panel that contains the inventory
-     */
-    public static final int INVENTORY_PANEL_X = 0;
-
-    /**
      * Upper most point of the panel that contains the upper inventory
      */
     public static final int UPPER_INVENTORY_PANEL_Y = 0;
@@ -42,12 +38,6 @@ public class Inventory {
      * Upper most point of the panel that contains the bottom inventory
      */
     public static final int BOTTOM_INVENTORY_PANEL_Y = GUI.WINDOW_HEIGHT - INVENTORY_PANEL_HEIGHT;
-
-    
-    /**
-     * Number of inventory lines in the inventory panel
-     */
-    public static final int INVENTORY_LINES = 1;
 
     /**
      * Number of inventory items in each line of the inventory panel
@@ -67,47 +57,17 @@ public class Inventory {
     /**
      * Top left position of the scroll up button
      */
-    public static final int SCROLL_LEFT_X = INVENTORY_PANEL_X;
-    
-    /**
-     * Top left position of the uppder scroll up button 
-     */
-    public static final int UPPER_SCROLL_LEFT_Y = UPPER_INVENTORY_PANEL_Y;
-    
-    /**
-     * Top left position of the bottom scroll up button 
-     */
-    public static final int BOTTOM_SCROLL_LEFT_Y = BOTTOM_INVENTORY_PANEL_Y;
+    public static final int SCROLL_LEFT_X = 0;
     
     /**
      * Top left position of the scroll down button
      */
-    public static final int SCROLL_RIGHT_X = INVENTORY_PANEL_X + INVENTORY_PANEL_WIDTH - SCROLL_WIDTH;
+    public static final int SCROLL_RIGHT_X = INVENTORY_PANEL_WIDTH - SCROLL_WIDTH;
     
-    /**
-     * Top left position of the upper scroll down button
-     */
-    public static final int UPPER_SCROLL_RIGHT_Y = UPPER_INVENTORY_PANEL_Y;
-    
-    /**
-     * Top left position of the bottom scroll down button
-     */
-    public static final int BOTTOM_SCROLL_RIGHT_Y = BOTTOM_INVENTORY_PANEL_Y;
-
     /**
      * Left most point of the panel that contains the inventory items
      */
-    public static final int ITEMS_PANEL_X = INVENTORY_PANEL_X + SCROLL_WIDTH;
-
-    /**
-     * Upper most point of the panel that contains the upper inventory items
-     */
-    public static final int UPPER_ITEMS_PANEL_Y = UPPER_INVENTORY_PANEL_Y;
-    
-    /**
-     * Upper most point of the panel that contains the bottom inventory items
-     */
-    public static final int BOTTOM_ITEMS_PANEL_Y = BOTTOM_INVENTORY_PANEL_Y;
+    public static final int ITEMS_PANEL_X = SCROLL_WIDTH;
 
     /**
      * Width of the panel that contains the inventory items
@@ -115,24 +75,9 @@ public class Inventory {
     public static final int ITEMS_PANEL_WIDTH = INVENTORY_PANEL_WIDTH - 2*SCROLL_WIDTH;
 
     /**
-     * Height of the panel that contains the inventory items
-     */
-    public static final int ITEMS_PANEL_HEIGHT = INVENTORY_PANEL_HEIGHT;
-
-    /**
      * Left most point of the first inventory item
      */
     public static final int FIRST_ITEM_X = ITEMS_PANEL_X;
-
-    /**
-     * Upper most point of the first upper inventory item
-     */
-    public static final int UPPER_FIRST_ITEM_Y = UPPER_ITEMS_PANEL_Y;
-    
-    /**
-     * Upper most point of the first bottom inventory item
-     */
-    public static final int BOTTOM_FIRST_ITEM_Y = BOTTOM_ITEMS_PANEL_Y;
 
     /**
      * Width of an inventory item
@@ -148,11 +93,6 @@ public class Inventory {
      * Width of the spacing between inventory items
      */
     public static final int ITEM_SPACING_X = ITEM_WIDTH;
-
-    /**
-     * Height of the spacing between inventory items
-     */
-    public static final int ITEM_SPACING_Y = ITEM_HEIGHT;
 
     public static final int MIN_OFFSET = 0;
    
@@ -275,7 +215,7 @@ public class Inventory {
      * Scrolls the inventory right
      */
     private void scrollInventoryRight( ) {
-        if( (dx == 0.0) && (Game.getInstance( ).getInventory( ).getItemCount( ) > indexFirstItemDisplayed + INVENTORY_ITEMS_PER_LINE * INVENTORY_LINES) ) {
+        if( (dx == 0.0) && (Game.getInstance( ).getInventory( ).getItemCount( ) > indexFirstItemDisplayed + INVENTORY_ITEMS_PER_LINE) ) {
             dx = -1.0;
         }
     }
@@ -285,72 +225,63 @@ public class Inventory {
      * @param g Graphics to draw the inventory
      */
     public void draw( Graphics2D g ) {
-        
         int indexLastItemDisplayed;
-        
-        Composite temp = g.getComposite();
-		Color tempColor = g.getColor();
-        Composite alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f);
-		g.setComposite(alphaComposite);
-		g.setColor(Color.DARK_GRAY);
-		if (upperInventory) {
-			g.fillRect(0, (int) -dy, GUI.WINDOW_WIDTH, INVENTORY_PANEL_HEIGHT);
-        } else {
-			g.fillRect(0, GUI.WINDOW_HEIGHT - INVENTORY_PANEL_HEIGHT + (int) dy, GUI.WINDOW_WIDTH, INVENTORY_PANEL_HEIGHT);        	
-        }
-    	g.setComposite(temp);
-    	g.setColor(tempColor);
 
-        
-        if (Game.getInstance().getInventory().getItemCount() < INVENTORY_LINES * INVENTORY_ITEMS_PER_LINE) {
+        BufferedImage inventory = new BufferedImage(INVENTORY_PANEL_WIDTH, INVENTORY_PANEL_HEIGHT, BufferedImage.TYPE_4BYTE_ABGR);
+        Graphics2D g_inv = (Graphics2D) inventory.getGraphics();
+        Composite temp = g_inv.getComposite();
+        Color tempColor = g_inv.getColor();
+        Composite alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f);
+		g_inv.setComposite(alphaComposite);
+		g_inv.setColor(Color.DARK_GRAY);
+		
+		g_inv.fillRect(0, 0, INVENTORY_PANEL_WIDTH, INVENTORY_PANEL_HEIGHT);
+		
+    	g_inv.setComposite(temp);
+    	g_inv.setColor(tempColor);
+		
+    	
+    	drawLeft = false;
+    	drawRight = false;
+    	int itemCount = Game.getInstance().getInventory().getItemCount();
+        if (itemCount < INVENTORY_ITEMS_PER_LINE) {
         	indexFirstItemDisplayed = 0;
-        	drawLeft = false;
-        	drawRight = false;
         	indexLastItemDisplayed = Game.getInstance().getInventory().getItemCount() - 1;
         } else {
-        	if (indexFirstItemDisplayed > 0) {
+        	if (indexFirstItemDisplayed > 0)
         		drawLeft = true;
-        	} else
-        		drawLeft = false;
-        	if (Game.getInstance().getInventory().getItemCount() - indexFirstItemDisplayed >  INVENTORY_LINES * INVENTORY_ITEMS_PER_LINE) {
+        	if (itemCount - indexFirstItemDisplayed >  INVENTORY_ITEMS_PER_LINE) {
         		drawRight = true;
-        		indexLastItemDisplayed = indexFirstItemDisplayed + INVENTORY_LINES * INVENTORY_ITEMS_PER_LINE;
-        	} else {
-        		indexLastItemDisplayed = Game.getInstance().getInventory().getItemCount() - 1;
-        		drawRight = false;
-        	}
+        		indexLastItemDisplayed = indexFirstItemDisplayed + INVENTORY_ITEMS_PER_LINE;
+        	} else
+        		indexLastItemDisplayed = itemCount - 1; 
         }
-        if (dx < 0 && indexFirstItemDisplayed == 0) {
-        	drawLeft = true;
-        }
-        if (dx > 0 && (indexLastItemDisplayed - indexFirstItemDisplayed) + 2> INVENTORY_LINES * INVENTORY_ITEMS_PER_LINE )
-        	drawRight = true;
         
         int x = FIRST_ITEM_X + (int)dx;
-        int y = BOTTOM_FIRST_ITEM_Y + (int)dy;
-        if( upperInventory )y = UPPER_FIRST_ITEM_Y - (int)dy;
+
+        g_inv.setClip(SCROLL_WIDTH, 0, ITEMS_PANEL_WIDTH, INVENTORY_PANEL_HEIGHT);
+        
         int firstItem = indexFirstItemDisplayed - 1;
         if( firstItem < 0 ) firstItem = 0;
         else x -= ITEM_WIDTH;
         int lastItem = indexLastItemDisplayed + 1;
         if( lastItem > Game.getInstance( ).getInventory( ).getItemCount( ) ) lastItem = Game.getInstance( ).getInventory( ).getItemCount( );
-        //for( int i = indexFirstItemDisplayed; i < indexLastItemDisplayed; i++ ) {
         for( int i = firstItem; i < lastItem; i++ ) {
-            g.drawImage( Game.getInstance( ).getInventory( ).getItem( i ).getIconImage( ), x, y, null );
+            g_inv.drawImage( Game.getInstance( ).getInventory( ).getItem( i ).getIconImage( ), x, 0, null );
             x += ITEM_SPACING_X;
         }
         
-        if( upperInventory ){
-        	if (drawLeft)
-        		g.drawImage( (highlightLeft ? lefthigh : left), SCROLL_LEFT_X, UPPER_SCROLL_LEFT_Y - (int)dy, null );
-            if (drawRight)
-            	g.drawImage( (highlightRight ? righthigh : right), SCROLL_RIGHT_X, UPPER_SCROLL_RIGHT_Y - (int)dy, null );
-        }else{
-        	if (drawLeft)
-        		g.drawImage( (highlightLeft ? lefthigh : left), SCROLL_LEFT_X, BOTTOM_SCROLL_LEFT_Y + (int)dy, null );
-            if (drawRight)
-            	g.drawImage( (highlightRight ? righthigh : right), SCROLL_RIGHT_X, BOTTOM_SCROLL_RIGHT_Y + (int)dy, null );
-        }
+        g_inv.setClip(0,0,INVENTORY_PANEL_WIDTH, INVENTORY_PANEL_HEIGHT);
+
+
+        if (drawLeft)
+        	g_inv.drawImage( (highlightLeft ? lefthigh : left), 0, 0, null );
+        if (drawRight)
+           	g_inv.drawImage( (highlightRight ? righthigh : right), INVENTORY_PANEL_WIDTH - SCROLL_WIDTH, 0, null );
+    	
+        g_inv.finalize();
+        
+       	g.drawImage(inventory, 0, (int) (upperInventory ? -dy : GUI.WINDOW_HEIGHT - SCROLL_HEIGHT + dy), null);
     }
     
     /**
@@ -360,47 +291,34 @@ public class Inventory {
      */
     public FunctionalElement mouseClicked( MouseEvent e ) {
         FunctionalElement element = null;
-        int items_panel_y = BOTTOM_ITEMS_PANEL_Y;
-        if( upperInventory ) items_panel_y = UPPER_ITEMS_PANEL_Y;
-        if ( e.getX( ) > ITEMS_PANEL_X && e.getX( ) < ITEMS_PANEL_X + ITEMS_PANEL_WIDTH && e.getY( ) > items_panel_y && e.getY( ) < items_panel_y + ITEMS_PANEL_HEIGHT ){
-            
+        int inventory_y = (!upperInventory ? BOTTOM_INVENTORY_PANEL_Y : UPPER_INVENTORY_PANEL_Y);
+        
+        if (e.getY() <= inventory_y || e.getY( ) >= inventory_y + INVENTORY_PANEL_HEIGHT )
+        	return null;
+        
+        if ( e.getX( ) > ITEMS_PANEL_X && e.getX( ) < ITEMS_PANEL_X + ITEMS_PANEL_WIDTH ){
             int indexLastItemDisplayed;
          
-            if( indexFirstItemDisplayed + INVENTORY_LINES * INVENTORY_ITEMS_PER_LINE > Game.getInstance( ).getInventory( ).getItemCount( ) )
+            if( indexFirstItemDisplayed + INVENTORY_ITEMS_PER_LINE > Game.getInstance( ).getInventory( ).getItemCount( ) )
                 indexLastItemDisplayed = Game.getInstance( ).getInventory( ).getItemCount( );
             else
-                indexLastItemDisplayed = indexFirstItemDisplayed + INVENTORY_LINES * INVENTORY_ITEMS_PER_LINE;
+                indexLastItemDisplayed = indexFirstItemDisplayed + INVENTORY_ITEMS_PER_LINE;
         
             int indexX = FIRST_ITEM_X;
-            int indexY = BOTTOM_FIRST_ITEM_Y;
-            if( upperInventory ) indexY = UPPER_FIRST_ITEM_Y;
+
             for( int i = indexFirstItemDisplayed; i < indexLastItemDisplayed; i++ ) {
-        
-                if( indexX < e.getX( ) && e.getX( ) < indexX + ITEM_WIDTH && indexY < e.getY( ) && e.getY( ) < indexY + ITEM_HEIGHT )
-                    element = Game.getInstance( ).getInventory( ).getItem( i );
-        
-                if( indexX == FIRST_ITEM_X + ITEM_SPACING_X * (INVENTORY_ITEMS_PER_LINE-1) ) {
-                    indexX = FIRST_ITEM_X;
-                    indexY += ITEM_SPACING_Y;
-                } else
-                    indexX += ITEM_SPACING_X;
+                if( indexX < e.getX( ) && e.getX( ) < indexX + ITEM_WIDTH ) {
+               		element = Game.getInstance( ).getInventory( ).getItem( i );                	
+                }
+                indexX += ITEM_SPACING_X;
             }
-        
         } else {
-            
-            int scroll_left_y = BOTTOM_SCROLL_LEFT_Y;
-            int scroll_right_y = BOTTOM_SCROLL_RIGHT_Y;
-            if( upperInventory ){ 
-                scroll_left_y = UPPER_SCROLL_LEFT_Y;
-                scroll_right_y = UPPER_SCROLL_RIGHT_Y;
-            }
-            if( e.getY( ) > scroll_left_y && e.getY( ) < scroll_left_y + SCROLL_HEIGHT && e.getX( ) > SCROLL_LEFT_X && e.getX( ) < SCROLL_LEFT_X + SCROLL_WIDTH )
+            if( e.getX( ) > SCROLL_LEFT_X && e.getX( ) < SCROLL_LEFT_X + SCROLL_WIDTH )
                 scrollInventoryLeft();
-            else if( e.getY( ) > scroll_right_y && e.getY( ) < scroll_right_y + SCROLL_HEIGHT && e.getX( ) > SCROLL_RIGHT_X && e.getX( ) < SCROLL_RIGHT_X + SCROLL_WIDTH )
+            else if( e.getX( ) > SCROLL_RIGHT_X && e.getX( ) < SCROLL_RIGHT_X + SCROLL_WIDTH )
                 scrollInventoryRight();
         }
         return element;
-
     }
 
     /**
@@ -412,45 +330,35 @@ public class Inventory {
         int indexLastItemDisplayed;
         FunctionalElement element = null;
 
-        if( indexFirstItemDisplayed + INVENTORY_LINES * INVENTORY_ITEMS_PER_LINE > Game.getInstance( ).getInventory( ).getItemCount( ) )
-            indexLastItemDisplayed = Game.getInstance( ).getInventory( ).getItemCount( );
-        else
-            indexLastItemDisplayed = indexFirstItemDisplayed + INVENTORY_LINES * INVENTORY_ITEMS_PER_LINE;
-
-        int indexX = FIRST_ITEM_X;
-        int indexY = BOTTOM_FIRST_ITEM_Y;
-        if( upperInventory ) indexY = UPPER_FIRST_ITEM_Y;
-        for( int i = indexFirstItemDisplayed; i < indexLastItemDisplayed; i++ ) {
-
-            if( indexX < e.getX( ) && e.getX( ) < indexX + ITEM_WIDTH && indexY < e.getY( ) && e.getY( ) < indexY + ITEM_HEIGHT )
-                element = Game.getInstance( ).getInventory( ).getItem( i );
-
-            if( indexX == FIRST_ITEM_X + ITEM_SPACING_X * (INVENTORY_ITEMS_PER_LINE-1) ) {
-                indexX = FIRST_ITEM_X;
-                indexY += ITEM_SPACING_Y;
-            } else
-                indexX += ITEM_SPACING_X;
-        }
-
-        
+        int inventory_y = (!upperInventory ? BOTTOM_INVENTORY_PANEL_Y : UPPER_INVENTORY_PANEL_Y);
         highlightLeft = false;
         highlightRight = false;
-        if( element != null )
-            Game.getInstance( ).getActionManager( ).setElementOver( element );
-        else {
-            int scroll_left_y = BOTTOM_SCROLL_LEFT_Y;
-            int scroll_right_y = BOTTOM_SCROLL_RIGHT_Y;
-            if( upperInventory ){ 
-                scroll_left_y = UPPER_SCROLL_LEFT_Y;
-                scroll_right_y = UPPER_SCROLL_RIGHT_Y;
-            }
-            if( e.getY( ) > scroll_left_y && e.getY( ) < scroll_left_y + SCROLL_HEIGHT && e.getX( ) > SCROLL_LEFT_X && e.getX( ) < SCROLL_LEFT_X + SCROLL_WIDTH )
-            	highlightLeft = true;
-            else if( e.getY( ) > scroll_right_y && e.getY( ) < scroll_right_y + SCROLL_HEIGHT && e.getX( ) > SCROLL_RIGHT_X && e.getX( ) < SCROLL_RIGHT_X + SCROLL_WIDTH )
-            	highlightRight = true;
+        
+        if (e.getY() <= inventory_y || e.getY( ) >= inventory_y + INVENTORY_PANEL_HEIGHT )
+        	return;
+        
+        if ( e.getX( ) > ITEMS_PANEL_X && e.getX( ) < ITEMS_PANEL_X + ITEMS_PANEL_WIDTH ){         
+            if( indexFirstItemDisplayed + INVENTORY_ITEMS_PER_LINE > Game.getInstance( ).getInventory( ).getItemCount( ) )
+                indexLastItemDisplayed = Game.getInstance( ).getInventory( ).getItemCount( );
+            else
+                indexLastItemDisplayed = indexFirstItemDisplayed + INVENTORY_ITEMS_PER_LINE;
+        
+            int indexX = FIRST_ITEM_X;
 
-            Game.getInstance( ).getActionManager( ).setElementOver( null );
+            for( int i = indexFirstItemDisplayed; i < indexLastItemDisplayed; i++ ) {
+                if( indexX < e.getX( ) && e.getX( ) < indexX + ITEM_WIDTH ) {
+               		element = Game.getInstance( ).getInventory( ).getItem( i );                	
+                }
+                indexX += ITEM_SPACING_X;
+            }
+        } else {
+            if( e.getX( ) > SCROLL_LEFT_X && e.getX( ) < SCROLL_LEFT_X + SCROLL_WIDTH )
+            	highlightLeft = true;
+            else if( e.getX( ) > SCROLL_RIGHT_X && e.getX( ) < SCROLL_RIGHT_X + SCROLL_WIDTH )
+            	highlightRight = true;
         }
+        
+        Game.getInstance( ).getActionManager( ).setElementOver( element );
     }
     
     /**
@@ -479,13 +387,11 @@ public class Inventory {
      */
     public void setDX( double dx ) {
         if( dx < -ITEM_WIDTH ) {
-            //if( indexFirstItemDisplayed > 1 )
-                indexFirstItemDisplayed++;
+        	indexFirstItemDisplayed++;
             dx = 0.0;
         }
         if( dx > ITEM_WIDTH ) {
-            //if( Game.getInstance( ).getInventory( ).getItemCount( ) > indexFirstItemDisplayed + INVENTORY_ITEMS_PER_LINE * INVENTORY_LINES )
-                indexFirstItemDisplayed--;
+            indexFirstItemDisplayed--;
             dx = 0.0;
         }
         this.dx = dx;

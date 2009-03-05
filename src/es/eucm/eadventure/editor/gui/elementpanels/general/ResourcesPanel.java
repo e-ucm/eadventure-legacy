@@ -2,16 +2,23 @@ package es.eucm.eadventure.editor.gui.elementpanels.general;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -25,7 +32,6 @@ import javax.swing.JTextPane;
 import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.common.data.animation.Animation;
 import es.eucm.eadventure.common.gui.TextConstants;
-import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
 import es.eucm.eadventure.editor.control.writer.AnimationWriter;
@@ -325,8 +331,15 @@ public class ResourcesPanel extends JPanel {
 				JButton editButton = new JButton( TextConstants.getText("Resources.Create") + "/" + TextConstants.getText("Resources.Edit"));
 				editButton.addActionListener( new EditButtonListener(i, i));
 				c2.gridx++;
-				assetPanel.add(editButton);
+				assetPanel.add(editButton, c2);
+			} else if (resourcesDataControl.isIconFromImage(i)) {
+				JButton createIconButton = new JButton( TextConstants.getText("Resources.CreateIcon"));
+				createIconButton.addActionListener( new CreateIconButtonListener(i));
+				c2.gridx++;
+				assetPanel.add(createIconButton, c2);
 			}
+			
+			
 			
 			viewButtons[i] = new JButton( getPreviewText( i ) );
 			viewButtons[i].setEnabled( resourcesDataControl.getAssetPath( i ) != null );
@@ -503,12 +516,11 @@ public class ResourcesPanel extends JPanel {
 					filename = AssetsController.TempFileGenerator.generateTempFileOverwriteExisting(animationName, "eaa");				
 				} else {
 					animationName = JOptionPane.showInputDialog(null, TextConstants.getText("Animation.AskFilename"), TextConstants.getText("Animation.AskFilenameTitle"), JOptionPane.QUESTION_MESSAGE);
-					if (animationName!=null){
-					if (animationName.length() > 0) {
+					if (animationName!=null && animationName.length() > 0) {
 						filename = AssetsController.TempFileGenerator.generateTempFileOverwriteExisting(animationName, "eaa");
-					} else {
-						filename = AssetsController.TempFileGenerator.generateTempFileAbsolutePath(animationName, "eaa");
-					}
+					//} else {
+					//	filename = AssetsController.TempFileGenerator.generateTempFileAbsolutePath(animationName, "eaa");
+					//}
 					}
 				}
 				if (filename!=null){
@@ -539,6 +551,81 @@ public class ResourcesPanel extends JPanel {
 			
 			if( previewUpdater != null ) {
 				previewUpdater.updateResources( );
+			}
+		}
+	}
+
+	/**
+	 * This class is the listener for the "Create icon" buttons on the panels.
+	 */
+	private class CreateIconButtonListener implements ActionListener {
+
+		/**
+		 * Index of the asset.
+		 */
+		private int assetIndex;
+
+		
+		/**
+		 * Constructor.
+		 * 
+		 * @param assetIndex
+		 *            Index of the asset
+		 */
+		public CreateIconButtonListener( int assetIndex ) {
+			this.assetIndex = assetIndex;
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
+		public void actionPerformed( ActionEvent e ) {
+			String imagePath = resourcesDataControl.getAssetPath(resourcesDataControl.getOriginalImage(assetIndex));
+			if (imagePath != null && !imagePath.equals("")) {
+				String[] temp = imagePath.split("/");
+				String newName = temp[temp.length-1];
+				newName = "icon_" + newName.substring(0, newName.length() - 4);
+				String filename = AssetsController.TempFileGenerator.generateTempFileOverwriteExisting(newName, "png");				
+				Image original = AssetsController.getImage( imagePath );
+				BufferedImage bufferdOriginal = new BufferedImage(original.getWidth(null), original.getHeight(null), BufferedImage.TYPE_4BYTE_ABGR);
+				bufferdOriginal.getGraphics().drawImage(original, 0, 0, original.getWidth(null), original.getHeight(null), null);
+				BufferedImage newImage = new BufferedImage(80, 48, BufferedImage.TYPE_4BYTE_ABGR);
+				
+				int width = original.getWidth(null);
+				int height = original.getHeight(null);
+				
+				int tempWidth = 80;
+				int tempHeight = (int) ((float) height / (float) width * 80);
+				if (tempHeight > 48) {
+					tempHeight = 48;
+					tempWidth = (int) ((float) width / (float) height * 48);
+				}
+				
+				Graphics2D g = (Graphics2D) newImage.getGraphics();
+				System.out.println("" + tempWidth + " x " + tempHeight);
+				int dx1 = (80 - tempWidth) / 2;
+				int dy1 = (48 - tempHeight) / 2;
+				
+				float scale = (float) tempWidth / (float) width;
+	            AffineTransform at = AffineTransform.getScaleInstance(scale, scale);
+	            AffineTransformOp aop = new AffineTransformOp(at, AffineTransformOp.TYPE_BICUBIC);
+				
+	            g.drawImage(bufferdOriginal, aop, dx1, dy1);
+				g.finalize();
+
+				File file = new File(filename);
+				try {
+					ImageIO.write(newImage, "png", file);
+				} catch (IOException e1) {
+					return;
+				}
+				
+				resourcesDataControl.setAssetPath(filename, assetIndex);
+				assetFields[assetIndex].setText( resourcesDataControl.getAssetPath( assetIndex ) );
+				
+				
 			}
 		}
 	}
