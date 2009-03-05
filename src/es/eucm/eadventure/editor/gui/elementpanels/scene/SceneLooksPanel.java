@@ -39,7 +39,7 @@ public class SceneLooksPanel extends LooksPanel {
 		// Take the path of the background
 		String scenePath = sceneDataControl.getPreviewBackground( );
 
-		scenePreviewEditionPanel = new ScenePreviewEditionPanel( scenePath );
+		scenePreviewEditionPanel = new ScenePreviewEditionPanel(false, scenePath );
 		scenePreviewEditionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Scene.Preview" ) ) );
 
 		// Add the item references first

@@ -48,7 +48,7 @@ public class IrregularAreaEditionPanel extends JPanel {
 	 */
 	public IrregularAreaEditionPanel(String scenePath, RectangleArea rectangleArea, Color color) {
 		setLayout(new BorderLayout());
-		spep = new ScenePreviewEditionPanel(scenePath);
+		spep = new ScenePreviewEditionPanel(false, scenePath);
 		iaec = new IrregularAreaEditionController(spep, rectangleArea, color);
 		spep.changeController(iaec);
 		for (Point point: rectangleArea.getPoints())

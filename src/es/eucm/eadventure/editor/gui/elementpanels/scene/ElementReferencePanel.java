@@ -170,7 +170,7 @@ public class ElementReferencePanel extends JPanel {
 		infoPanel.add( conditionsPanel, c );
 
 		// Create image panel
-		scenePreviewEditionPanel = new ScenePreviewEditionPanel(scenePath);
+		scenePreviewEditionPanel = new ScenePreviewEditionPanel(true, scenePath);
 		scenePreviewEditionPanel.setShowTextEdition(true);
 
 

@@ -6,13 +6,17 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JSlider;
@@ -119,6 +123,14 @@ public class DrawPanel  extends JPanel {
 	 * @param zoomable boolean indicating if the zoom elements must be added
 	 */
 	private void addZoomElements(boolean zoomable) {
+		JPanel sliderPanel = new JPanel();
+		
+		Icon zoomOutIcon = new ImageIcon( "img/icons/zoomout.png" );
+		JButton zoomout = new JButton(zoomOutIcon);
+		zoomout.setSize(20,20);
+		sliderPanel.add(zoomout);
+		
+		
 		final JSlider slider = new JSlider(10, 30);
 		slider.setValue(10);
 		slider.addChangeListener(new ChangeListener() {
@@ -128,6 +140,25 @@ public class DrawPanel  extends JPanel {
 				DrawPanel.this.getParent().repaint();
 			}
 		});
+		sliderPanel.add(slider);
+
+		Icon zoomInIcon = new ImageIcon( "img/icons/zoomin.png" );
+		JButton zoomin = new JButton(zoomInIcon);
+		zoomin.setSize(20,20);
+		sliderPanel.add(zoomin);
+
+		zoomin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				slider.setValue(slider.getValue() + 3);
+			}
+		});
+		zoomout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				slider.setValue(slider.getValue() - 3);
+			}
+		});
+
+		
 		scrollX = new JScrollBar(JScrollBar.HORIZONTAL, 0, 10, 0, 100);
 		scrollY = new JScrollBar(JScrollBar.VERTICAL, 0, 10, 0, 100);
 		scrollX.addAdjustmentListener(new AdjustmentListener() {
@@ -143,7 +174,7 @@ public class DrawPanel  extends JPanel {
 		scrollX.setEnabled(false);
 		scrollY.setEnabled(false);
 		if (zoomable) {
-			this.add(slider, BorderLayout.NORTH);
+			this.add(sliderPanel, BorderLayout.NORTH);
 			this.add(scrollX, BorderLayout.SOUTH);
 			this.add(scrollY, BorderLayout.EAST);
 		}
@@ -371,8 +402,9 @@ public class DrawPanel  extends JPanel {
 	 * @return
 	 */
 	public int getRelativeX(int realX) {
-		int dx = marginX - (scrollX != null ? (int) ((scrollX.getValue() / (90.0) / zoom) * (1 - 1/zoom) * backgroundWidth) : 0);
-		return (int) ((realX) * sizeRatio * zoom) + dx;
+		//int dx = marginX - (scrollX != null ? (int) ((scrollX.getValue() / (90.0) / zoom) * (1 - 1/zoom) * backgroundWidth) : 0);
+		//return (int) ((realX) * sizeRatio * zoom) + dx;
+		return marginX + (int) (realX * sizeRatio);
 	}
 	
 	/**
@@ -393,12 +425,15 @@ public class DrawPanel  extends JPanel {
 	 * @return
 	 */
 	public int getRelativeY(int realY) {
-		int dy = marginY - (scrollY != null ? (int) ((scrollY.getValue() / (90.0) / zoom) * (1 - 1/zoom) * backgroundHeight) : 0);
-		return (int) ((realY) * sizeRatio * zoom) + dy;
+//		int dy = marginY - (scrollY != null ? (int) ((scrollY.getValue() / (90.0) / zoom) * (1 - 1/zoom) * backgroundHeight) : 0);
+//		return (int) ((realY) * sizeRatio * zoom) + dy;
+		
+		return marginY + (int) (realY * sizeRatio);
+
 	}
 
 	public int getRelativeWidth(int realWidth) {
-		return (int) (realWidth * zoom * sizeRatio );
+		return (int) (realWidth * sizeRatio );
 	}
 	
 	public int getRealWidth(int relativeWidth) {
@@ -406,7 +441,7 @@ public class DrawPanel  extends JPanel {
 	}
 	
 	public int getRelativeHeight(int realHeight) {
-		return (int) (realHeight * zoom * sizeRatio);
+		return (int) (realHeight * sizeRatio);
 	}
 	
 	public int getRealHeight(int relativeHeight) {
@@ -516,6 +551,5 @@ public class DrawPanel  extends JPanel {
 	public void addMouseMotionListener(MouseMotionListener ml) {
 		insidePanel.addMouseMotionListener(ml);
 	}
-
 	
 }

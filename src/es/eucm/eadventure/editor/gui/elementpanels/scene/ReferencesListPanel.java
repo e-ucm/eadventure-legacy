@@ -100,7 +100,7 @@ public class ReferencesListPanel extends JPanel{
 		infoPanel.add( informationTextPane,BorderLayout.CENTER);
 		
 		// Create the scene preview edition panel
-		spep = new ScenePreviewEditionPanel(scenePath);
+		spep = new ScenePreviewEditionPanel(false, scenePath);
 		spep.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ItemReferencesList.PreviewTitle" ) ) );
 
 		// Add the item references if an image was loaded

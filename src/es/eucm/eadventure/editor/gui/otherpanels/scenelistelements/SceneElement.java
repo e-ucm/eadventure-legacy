@@ -11,6 +11,7 @@ import java.util.Random;
 
 import javax.swing.ImageIcon;
 
+import es.eucm.eadventure.editor.control.config.SceneLinksConfigData;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ExitDataControl;
@@ -141,6 +142,8 @@ public class SceneElement {
 			this.posY = 580;
 		else
 			this.posY = y;
+		SceneLinksConfigData.setSceneX(getId(), x);
+		SceneLinksConfigData.setSceneY(getId(), y);
 	}
 
 	public DataControl getDataControl() {
@@ -161,5 +164,6 @@ public class SceneElement {
 	
 	public void setVisible(boolean visible) {
 		this.visible = visible;
+		SceneLinksConfigData.setSceneVisible(getId(), visible);
 	}
 }

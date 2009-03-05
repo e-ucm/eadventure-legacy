@@ -237,7 +237,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 	/**
 	 * Default constructor
 	 */
-	public ScenePreviewEditionPanel() {
+	public ScenePreviewEditionPanel(boolean zoomable) {
 		super();
 		elements = new HashMap<Integer, List<ImageElement>>();
 		displayCategory = new HashMap<Integer, Boolean>();
@@ -246,7 +246,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 		bl.setHgap(10);
 		bl.setVgap(10);
 		setLayout(bl);
-		drawPanel = new DrawPanel(false);
+		drawPanel = new DrawPanel(zoomable);
 		add(drawPanel, BorderLayout.CENTER);
 		recreateCheckBoxPanel();
 		recreateTextEditionPanel();
@@ -277,8 +277,8 @@ public class ScenePreviewEditionPanel extends JPanel {
 	 * 
 	 * @param imagePath path to the background image
 	 */
-	public ScenePreviewEditionPanel(String imagePath) {
-		this();
+	public ScenePreviewEditionPanel(boolean zoomable, String imagePath) {
+		this(zoomable);
 		loadBackground(imagePath);
 	}
 	
@@ -584,7 +584,8 @@ public class ScenePreviewEditionPanel extends JPanel {
 			g.setColor(Color.RED);
 			g.drawRect(x, y, width, height);
 			g.setColor(color);
-			g.drawImage(element.getImage(), x, y, width, height, null);
+			drawPanel.paintRelativeImage(element.getImage(), element.getX(), element.getY(), element.getScale());
+//			g.drawImage(element.getImage(), x, y, width, height, null);
 		} else if (border_type == HARD_BORDER) {
 			Color color = g.getColor();
 			g.setColor(Color.RED);
@@ -593,7 +594,8 @@ public class ScenePreviewEditionPanel extends JPanel {
 			g.fillRect(x + width, y, 4, height + 4);
 			g.fillRect(x - 4, y + height, width + 4, 4);
 			g.setColor(color);
-			g.drawImage(element.getImage(), x, y, width, height, null);
+			drawPanel.paintRelativeImage(element.getImage(), element.getX(), element.getY(), element.getScale());
+//			g.drawImage(element.getImage(), x, y, width, height, null);
 		} else if (border_type == RESCALE_BORDER) {
 			Color color = g.getColor();
 			g.setColor(Color.GREEN);
