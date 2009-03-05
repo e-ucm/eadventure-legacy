@@ -446,7 +446,19 @@ public class ScenePreviewEditionPanel extends JPanel {
 		
 		repaint();
 	}
-	
+
+	/**
+	 * Remove all element from a given category
+	 * 
+	 * @param category the category of the element
+	 */
+	public void removeElements(int category) {
+		Integer key = new Integer(category);
+		List<ImageElement> list = elements.get(key);
+		list.clear();
+		repaint();
+	}
+
 	/**
 	 * Set a category to be display or hidden
 	 * 

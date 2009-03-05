@@ -72,13 +72,15 @@ public class TrajectoryScenePreviewEditionController extends NormalScenePreviewE
 		setMouseUnder(e.getX(), e.getY());
 	
 		if (selectedTool == NODE_EDIT) {
-
 			if (this.underMouse == null) {
 				tdc.addNode(x, y);
 				spep.addNode(tdc.getLastNode());
 				spep.setTrajectory((Trajectory) tdc.getContent());
 				spep.repaint();
-			} 
+			} else {
+				spep.setSelectedElement(underMouse);
+				spep.repaint();
+			}
 		} else if (selectedTool == DELETE_TOOL){
 			if (underMouse != null) {
 				NodeDataControl nodeDataControl = ((ImageElementNode) underMouse).getNodeDataControl();

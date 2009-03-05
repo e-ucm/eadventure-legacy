@@ -1,6 +1,7 @@
 package es.eucm.eadventure.editor.control.tools.scene;
 
 import es.eucm.eadventure.common.data.chapter.Trajectory.Node;
+import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.tools.Tool;
 
 public class SetNodeValuesTool extends Tool{
@@ -19,6 +20,9 @@ public class SetNodeValuesTool extends Tool{
 		this.newX = newX;
 		this.newY = newY;
 		this.newScale = newScale;
+		this.oldX = node.getX();
+		this.oldY = node.getY();
+		this.oldScale = node.getScale();
 		this.node = node;
 	}
 	
@@ -58,12 +62,14 @@ public class SetNodeValuesTool extends Tool{
 	@Override
 	public boolean redoTool() {
 		node.setValues(newX, newY, newScale);
+		Controller.getInstance().updatePanel();
 		return true;
 	}
 
 	@Override
 	public boolean undoTool() {
 		node.setValues(oldX, oldY, oldScale);
+		Controller.getInstance().updatePanel();
 		return true;
 	}
 
