@@ -16,16 +16,21 @@ import es.eucm.eadventure.editor.control.controllers.scene.BarrierDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.BarriersListDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ExitDataControl;
+import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.TrajectoryEditionPanel;
 
-public class BarriersListPanel extends JPanel {
+public class BarriersListPanel extends JPanel implements Updateable {
 
 	/**
 	 * Required.
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private	ScenePreviewEditionPanel spep;
+
+	private TrajectoryEditionPanel tep;
+	
 	/**
 	 * Constructor.
 	 * 
@@ -62,9 +67,8 @@ public class BarriersListPanel extends JPanel {
 		c.weightx = 1;
 		c.weighty = 1;
 		
-		ScenePreviewEditionPanel spep;
 		if (barriersListDataControl.getTrajectoryDataControl().hasTrajectory()) {
-			TrajectoryEditionPanel tep = new TrajectoryEditionPanel(scenePath, barriersListDataControl.getTrajectoryDataControl());
+			tep = new TrajectoryEditionPanel(scenePath, barriersListDataControl.getTrajectoryDataControl());
 			spep = tep.getScenePreviewEditionPanel();
 			add( tep, c );
 		} else {
@@ -99,5 +103,12 @@ public class BarriersListPanel extends JPanel {
 				spep.addBarrier(barrier);
 			}
 		}
+	}
+
+	public boolean updateFields() {
+		if (tep != null)
+			tep.update();
+		spep.repaint();
+		return true;
 	}
 }

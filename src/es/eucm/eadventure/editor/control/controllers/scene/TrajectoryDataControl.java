@@ -2,7 +2,6 @@ package es.eucm.eadventure.editor.control.controllers.scene;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import es.eucm.eadventure.common.data.chapter.Trajectory;
 import es.eucm.eadventure.common.data.chapter.Trajectory.Node;
@@ -10,6 +9,11 @@ import es.eucm.eadventure.common.data.chapter.Trajectory.Side;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.tools.scene.AddTrajectoryNodeTool;
+import es.eucm.eadventure.editor.control.tools.scene.AddTrajectorySideTool;
+import es.eucm.eadventure.editor.control.tools.scene.DeleteTrajectoryNodeTool;
+import es.eucm.eadventure.editor.control.tools.scene.DeleteTrajectorySideTool;
+import es.eucm.eadventure.editor.control.tools.scene.SetTrajectoryInitialNodeTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 /**
@@ -42,7 +46,7 @@ public class TrajectoryDataControl extends DataControl {
 	/**
 	 * Initial node controller
 	 */
-	private NodeDataControl initialNode;
+	public NodeDataControl initialNode;
 	
 	/**
 	 * Constructor.
@@ -160,47 +164,11 @@ public class TrajectoryDataControl extends DataControl {
 		if (trajectory == null) {
 			return false;
 		}
-		String id = "node" + (new Random()).nextInt(10000);
-		Node newNode = trajectory.addNode(id, x, y, 1.0f);
-		NodeDataControl nodeDataControl = new NodeDataControl(sceneDataControl, newNode);
-		nodeDataControlList.add(nodeDataControl);
-		if (trajectory.getInitial() == newNode) {
-			setInitialNode(nodeDataControl);
-		}
-		controller.dataModified();
+		
+		Controller.getInstance().addTool(new AddTrajectoryNodeTool(trajectory, this, x, y, sceneDataControl));
+		
 		
 		return true;
-	}
-	
-	/**
-	 * Delete the node at the position x, y
-	 * 
-	 * @param x the position along the x-axis of the node
-	 * @param y the position along the y-axis of the node
-	 * @return Boolean indicating if the node was deleted
-	 */
-	public boolean deleteNode(int x, int y) {
-		NodeDataControl dataControl = null;
-		for (NodeDataControl nodeDC : nodeDataControlList) {
-			if (nodeDC.getX() == x && nodeDC.getY() == y)
-				dataControl = nodeDC;
-		}
-		if (dataControl != null) {
-			trajectory.removeNode(dataControl.getX(), dataControl.getY());
-			int i = 0;
-			while( i < sideDataControlList.size()) {
-				SideDataControl sideDC = sideDataControlList.get(i);
-				if (sideDC.getStart() == dataControl || sideDC.getEnd() == dataControl) {
-					sideDataControlList.remove(sideDC);
-				} else {
-					i++;
-				}
-			}
-			nodeDataControlList.remove(dataControl);
-			controller.dataModified();
-			return true;
-		}
-		return false;
 	}
 	
 	/**
@@ -213,13 +181,10 @@ public class TrajectoryDataControl extends DataControl {
 	public boolean addSide(NodeDataControl startNode, NodeDataControl endNode) {
 		if (startNode == endNode)
 			return false;
-		Side side = trajectory.addSide(startNode.getID(), endNode.getID());
-		if (side != null) {
-			sideDataControlList.add(new SideDataControl(sceneDataControl, this, side));
-			controller.dataModified();
-			return true;
-		}
-		return false;
+		
+		Controller.getInstance().addTool(new AddTrajectorySideTool(startNode, endNode, trajectory, this, sceneDataControl));
+
+		return true;
 	}
 	
 	@Override
@@ -234,21 +199,13 @@ public class TrajectoryDataControl extends DataControl {
 		boolean elementDeleted = false;
 
 		if (nodeDataControlList.contains(dataControl)) {
-			Node temp = (Node) dataControl.getContent();
-			trajectory.removeNode(temp.getX(), temp.getY());
-			nodeDataControlList.remove(dataControl);
-			int i = 0;
-			while (i < sideDataControlList.size()) {
-				SideDataControl side = sideDataControlList.get(i);
-				if (!trajectory.getSides().contains(side.getContent()))
-					sideDataControlList.remove(i);
-				else
-					i++;
-			}
-			//controller.dataModified();
+			Controller.getInstance().addTool(new DeleteTrajectoryNodeTool(dataControl, trajectory, this));
+			
 			return true;
 		}
 		if (sideDataControlList.contains(dataControl)) {
+			Controller.getInstance().addTool(new DeleteTrajectorySideTool((SideDataControl) dataControl, trajectory, this));
+			
 			trajectory.getSides().remove((Side) dataControl.getContent());
 			sideDataControlList.remove(dataControl);
 			//controller.dataModified();
@@ -400,13 +357,7 @@ public class TrajectoryDataControl extends DataControl {
 	 * @param nodeDataControl The new initial node data control
 	 */
 	public void setInitialNode(NodeDataControl nodeDataControl) {
-		trajectory.setInitial(nodeDataControl.getID());
-		if (initialNode != null) {
-			initialNode.setInitial(false);
-		}
-		initialNode = nodeDataControl;
-		initialNode.setInitial(true);
-		controller.dataModified();
+		Controller.getInstance().addTool(new SetTrajectoryInitialNodeTool(trajectory, this, nodeDataControl));
 	}
 
 	/**

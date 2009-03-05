@@ -39,6 +39,8 @@ public class TrajectoryEditionPanel extends JPanel {
 	 */
 	protected TrajectoryScenePreviewEditionController tspec;
 	
+	private TrajectoryDataControl trajectoryDataControl;
+	
 	/**
 	 * Default constructor, with the path to the background and the trajectoryDataControl
 	 * 
@@ -47,6 +49,7 @@ public class TrajectoryEditionPanel extends JPanel {
 	 */
 	public TrajectoryEditionPanel(String scenePath, TrajectoryDataControl trajectoryDataControl) {
 		setLayout(new BorderLayout());
+		this.trajectoryDataControl = trajectoryDataControl;
 		spep = new ScenePreviewEditionPanel(false, scenePath);
 		tspec = new TrajectoryScenePreviewEditionController(spep, trajectoryDataControl);
 		spep.changeController(tspec);
@@ -113,5 +116,12 @@ public class TrajectoryEditionPanel extends JPanel {
 	 */
 	public ScenePreviewEditionPanel getScenePreviewEditionPanel() {
 		return spep;
+	}
+	
+	public void update() {
+		spep.removeElements(ScenePreviewEditionPanel.CATEGORY_NODE);
+		for (NodeDataControl nodeDataControl: trajectoryDataControl.getNodes())
+			spep.addNode(nodeDataControl);
+		spep.setTrajectory((Trajectory) trajectoryDataControl.getContent());
 	}
 }
