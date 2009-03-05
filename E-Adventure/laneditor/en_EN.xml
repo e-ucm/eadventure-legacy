@@ -794,7 +794,8 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="Resources.PlayVideoAsset">Play</entry>
 	<entry key="Resources.ErrorNoAssets">There are no assets for this category.
 		Please add some assets with the managers in the "Adventure" menu of the main window</entry>
-
+	<entry key="Resources.CreateIcon">Create icon from image</entry>
+	
 	<entry key="Resources.DescriptionSceneBackground">Background image of the scene</entry>
 	<entry key="Resources.DescriptionSceneForeground">Foreground mask for the scene</entry>
 	<entry key="Resources.DescriptionSceneHardMap">Hard map image of the scene</entry>
@@ -1558,7 +1559,7 @@ When not customized, default buttons will be used in the game.</entry>
 	<entry key="Button.examine.highlighted.Tip">This is the highlighted examine button, the one show when the mouse is over it but not clicking</entry>
 	<entry key="Button.examine.pressed.Tip">This is the pressed examine button, the one show when the mouse is pressed inside the button</entry>
 	
-	<entry key="Inventory.Infromation">Here you can customize how the arrows of the inventory look. 
+	<entry key="Inventory.Information">Here you can customize how the arrows of the inventory look. 
 When not customized, default arrows will be used in the game.</entry>
 	<entry key="Inventory.Title">Inventory</entry>
 	<entry key="Inventory.Tip">Customize the default elements of the inventory</entry>

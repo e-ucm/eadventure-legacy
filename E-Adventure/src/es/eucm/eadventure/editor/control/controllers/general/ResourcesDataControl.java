@@ -1,6 +1,8 @@
 package es.eucm.eadventure.editor.control.controllers.general;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.gui.TextConstants;
@@ -43,6 +45,8 @@ public class ResourcesDataControl extends DataControl {
 	
 	private int resourcesType;
 
+	private Map<String, String> imageIconMap;
+	
 	/**
 	 * Contructor.
 	 * 
@@ -82,6 +86,8 @@ public class ResourcesDataControl extends DataControl {
 				break;
 			case Controller.ITEM:
 				assetsInformation = new AssetInformation[] { new AssetInformation( TextConstants.getText( "Resources.DescriptionItemImage" ), "image", false, AssetsController.CATEGORY_IMAGE, AssetsController.FILTER_NONE ), new AssetInformation( TextConstants.getText( "Resources.DescriptionItemIcon" ), "icon", false, AssetsController.CATEGORY_ICON, AssetsController.FILTER_NONE ) };
+				imageIconMap = new HashMap<String, String>();
+				imageIconMap.put("icon", "image");
 				break;
 			case Controller.PLAYER:
 			case Controller.NPC:
@@ -405,4 +411,20 @@ public class ResourcesDataControl extends DataControl {
 			return asset;
 		return assetsGroups[group][asset];
 	}
+	
+	public boolean isIconFromImage(int i) {
+		if (imageIconMap == null)
+			return false;
+		return imageIconMap.get(assetsInformation[i].name) != null;
+	}
+	
+	public int getOriginalImage(int i) {
+		String name = imageIconMap.get(assetsInformation[i].name);
+		for (int j = 0; j < assetsInformation.length; j++) {
+			if (assetsInformation[j].name.equals(name))
+				return j;
+		}
+		return -1;
+	}
+	
 }

@@ -796,6 +796,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="Resources.PlayVideoAsset">Reproducir</entry>
 	<entry key="Resources.ErrorNoAssets">No hay recursos asociados a esta categoría.
 		Por favor añada algunos recursos con las opciones del menú "Aventura" en la ventana principal.</entry>
+	<entry key="Resources.CreateIcon">Crear icono desde imagen</entry>
 
 	<entry key="Resources.DescriptionSceneBackground">Imagen de fondo de la escena</entry>
 	<entry key="Resources.DescriptionSceneForeground">Máscara frontal de la escena</entry>
@@ -1557,7 +1558,7 @@ Si no los cambia, el juego empleará los botones por defecto.</entry>
 	<entry key="Button.examine.highlighted.Tip">Este es el botón de examinar resaltado, el que se eseña cuando el ratón estña sobre él pero no está presionado</entry>
 	<entry key="Button.examine.pressed.Tip">Este es el botón de examinar presionado, el que se eseña cuando el ratón está pulsado sobre él</entry>
 	
-	<entry key="Inventory.Infromation">Desde este menú puede personalizar la apariencia de las fechas del inventario. 
+	<entry key="Inventory.Information">Desde este menú puede personalizar la apariencia de las fechas del inventario. 
 Si no las cambia, el juego empleará las flechas por defecto.</entry>
 	<entry key="Inventory.Title">Inventario</entry>
 	<entry key="Inventory.Tip">Presonalización de los elementos del inventario</entry>
@@ -2008,6 +2009,4 @@ ya que de esta manera se evita reescribirlos varias veces.</entry>
 	<entry key="Search.AssetDescription">Descripción recurso</entry>
 	<entry key="Search.AssetPath">Ubicación recurso</entry>
 	<entry key="Search.ElementID">ID del elemento</entry>
-	
-	
 </properties>
