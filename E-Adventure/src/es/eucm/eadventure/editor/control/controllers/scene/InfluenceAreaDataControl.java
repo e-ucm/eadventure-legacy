@@ -140,7 +140,7 @@ public class InfluenceAreaDataControl extends DataControl {
 		boolean elementDeleted = false;
 		return elementDeleted;
 	}
-
+	
 	@Override
 	public boolean moveElementUp( DataControl dataControl ) {
 		boolean elementMoved = false;

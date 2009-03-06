@@ -77,7 +77,7 @@ public class FrameDataControl extends DataControlWithResources {
 	public boolean canBeDeleted() {
 		return false;
 	}
-
+	
 	@Override
 	public boolean canBeDuplicated() {
 		return false;

@@ -259,7 +259,7 @@ public class ActiveAreaDataControl extends DataControl implements RectangleArea 
 		boolean elementDeleted = false;
 		return elementDeleted;
 	}
-
+	
 	@Override
 	public boolean moveElementUp( DataControl dataControl ) {
 		boolean elementMoved = false;

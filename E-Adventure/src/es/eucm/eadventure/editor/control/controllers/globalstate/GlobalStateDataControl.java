@@ -91,7 +91,7 @@ public class GlobalStateDataControl extends DataControl{
 	public boolean deleteElement(DataControl dataControl, boolean askConfirmation) {
 		return false;
 	}
-
+	
 	@Override
 	public void deleteIdentifierReferences(String id) {
 	}

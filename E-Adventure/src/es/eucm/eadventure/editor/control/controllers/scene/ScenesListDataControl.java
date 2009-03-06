@@ -298,6 +298,5 @@ public class ScenesListDataControl extends DataControl {
 		for (DataControl dc : this.scenesDataControlList)
 			dc.recursiveSearch();
 	}
-	
 
 }

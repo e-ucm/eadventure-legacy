@@ -68,7 +68,7 @@ public class AdaptationRuleDataControl extends DataControl{
 	public boolean deleteElement( DataControl dataControl , boolean askConfirmation) {
 		return false;
 	}
-
+	
 	@Override
 	public void deleteIdentifierReferences( String id ) {
 		

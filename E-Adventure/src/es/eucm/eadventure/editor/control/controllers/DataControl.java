@@ -31,6 +31,7 @@ public abstract class DataControl implements Cloneable {
 	 */
 	protected Controller controller;
 
+	
 	/**
 	 * Constructor.
 	 */
@@ -123,7 +124,7 @@ public abstract class DataControl implements Cloneable {
 	 * @return True if the element was deleted, false otherwise
 	 */
 	public abstract boolean deleteElement( DataControl dataControl , boolean askConfirmation);
-
+	
 	/**
 	 * Duplicates a given element from the current element.
 	 * 
