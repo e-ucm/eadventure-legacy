@@ -69,7 +69,7 @@ public class SceneLooksPanel extends LooksPanel {
 
 	}
 	
-	protected void addPlayer(){
+	public void addPlayer(){
 		if (!Controller.getInstance().isPlayTransparent() && sceneDataControl.isAllowPlayer())
 			scenePreviewEditionPanel.addPlayer(sceneDataControl, sceneDataControl.getReferencesList().getPlayerImage());
 		scenePreviewEditionPanel.repaint();
