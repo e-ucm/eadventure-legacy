@@ -539,7 +539,6 @@ public class StartDialog extends JFileChooser {
 			} else {
 				return "";
 			}
-
 		}
 
 		public void mouseClicked( MouseEvent e ) {

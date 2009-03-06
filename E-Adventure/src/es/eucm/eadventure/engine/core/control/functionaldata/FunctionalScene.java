@@ -186,7 +186,7 @@ public class FunctionalScene implements Renderable {
         // Add the functional active areas
         for( ActiveArea activeArea : scene.getActiveAreas( ) )
             if( new FunctionalConditions(activeArea.getConditions( )).allConditionsOk( ) )
-                this.areas.add( new FunctionalActiveArea( activeArea ) );
+                this.areas.add( new FunctionalActiveArea( activeArea , activeArea.getInfluenceArea()) );
         
         // Add the functional barriers
         for( Barrier barrier : scene.getBarriers( ) )
@@ -310,7 +310,7 @@ public class FunctionalScene implements Renderable {
                 
                 // If it was not found, search for it and add it
                 if( !found ) {
-                    areas.add( new FunctionalActiveArea( activeArea ) );
+                    areas.add( new FunctionalActiveArea( activeArea, activeArea.getInfluenceArea()) );
                 }
             }
         }

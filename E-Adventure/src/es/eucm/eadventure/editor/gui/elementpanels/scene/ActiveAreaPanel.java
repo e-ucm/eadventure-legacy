@@ -24,9 +24,11 @@ import es.eucm.eadventure.common.data.Described;
 import es.eucm.eadventure.common.data.Detailed;
 import es.eucm.eadventure.common.data.Documented;
 import es.eucm.eadventure.common.data.Named;
+import es.eucm.eadventure.common.data.chapter.Trajectory;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.scene.ActiveAreaDataControl;
+import es.eucm.eadventure.editor.control.controllers.scene.NodeDataControl;
 import es.eucm.eadventure.editor.control.tools.listeners.DescriptionChangeListener;
 import es.eucm.eadventure.editor.control.tools.listeners.DetailedDescriptionChangeListener;
 import es.eucm.eadventure.editor.control.tools.listeners.DocumentationChangeListener;
@@ -35,6 +37,8 @@ import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.editdialogs.ConditionsDialog;
 import es.eucm.eadventure.editor.gui.otherpanels.IrregularAreaEditionPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
+import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElementActiveArea;
+import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElementInfluenceArea;
 
 public class ActiveAreaPanel extends JPanel {
 
@@ -161,13 +165,36 @@ public class ActiveAreaPanel extends JPanel {
 			spep = new ScenePreviewEditionPanel(false, scenePath);
 			spep.setShowTextEdition(true);
 			spep.setFixedSelectedElement(true);
+			//spep.addActiveArea(activeAreaDataControl);
 			spep.setSelectedElement(activeAreaDataControl);
+			if (activeAreaDataControl.getSceneDataControl().getTrajectory().hasTrajectory()) {
+				spep.setTrajectory((Trajectory) activeAreaDataControl.getSceneDataControl().getTrajectory().getContent());
+				for (NodeDataControl nodeDataControl: activeAreaDataControl.getSceneDataControl().getTrajectory().getNodes())
+					spep.addNode(nodeDataControl);
+				if (activeAreaDataControl.getInfluenceArea() != null)
+					spep.addInfluenceArea(activeAreaDataControl.getInfluenceArea());
+			}
 			looksPanel = spep;
 		} else {
-			looksPanel = new IrregularAreaEditionPanel(scenePath, activeAreaDataControl, Color.GREEN);
+			looksPanel = new IrregularAreaEditionPanel(scenePath, activeAreaDataControl, true, Color.GREEN);
 			spep = ((IrregularAreaEditionPanel) looksPanel).getScenePreviewEditionPanel();
+			spep.setFixedSelectedElement(false);
+			if (activeAreaDataControl.getSceneDataControl().getTrajectory().hasTrajectory()) {
+				spep.setTrajectory((Trajectory) activeAreaDataControl.getSceneDataControl().getTrajectory().getContent());
+				for (NodeDataControl nodeDataControl: activeAreaDataControl.getSceneDataControl().getTrajectory().getNodes())
+					spep.addNode(nodeDataControl);
+				if (activeAreaDataControl.getInfluenceArea() != null) {
+					ImageElementInfluenceArea ieia =new ImageElementInfluenceArea(activeAreaDataControl.getInfluenceArea(), new ImageElementActiveArea(activeAreaDataControl)); 
+					spep.addInfluenceArea(ieia);
+					if (activeAreaDataControl.getPoints().size() < 3) {
+						ieia.setVisible(false);
+					}
+				}
+			}
+			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_INFLUENCEAREA, false);
 			spep.setShowTextEdition(false);		
 		}
+		
 		
 		// Set the layout of the principal panel
 		mainPanel.setLayout( new GridBagLayout( ) );

@@ -2186,4 +2186,7 @@ avoids retyping.</entry>
 	<entry key="Search.AssetPath">Asset Path</entry>
 	<entry key="Search.ElementID">Element ID</entry>
 	
+	<entry key="DrawPanel.ZoomIn">Zoom in</entry>
+	<entry key="DrawPanel.ZoomOut">Zoom out</entry>
+	<entry key="DrawPanel.ZoomSlider">Present zoom in the panel</entry>
 </properties>

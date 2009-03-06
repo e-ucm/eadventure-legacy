@@ -114,7 +114,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 	/**
 	 * Key for the influence area category
 	 */
-	public static final int CATEGORY_INFLUENCEAREA = 9;
+	public static final int CATEGORY_INFLUENCEAREA = 10;
 
 	private static final int LIGHT_BORDER = 1;
 
@@ -233,6 +233,8 @@ public class ScenePreviewEditionPanel extends JPanel {
 	 * Boolean that determines if the precise edition is enabled
 	 */
 	private boolean showTextEdition = false;
+
+	private boolean resizeInfluenceArea;
 	
 	/**
 	 * Default constructor
@@ -385,12 +387,23 @@ public class ScenePreviewEditionPanel extends JPanel {
 		for (Integer key2 : elements.keySet()) {
 			for (ImageElement imageElement : elements.get(key2)) {	
 				if (imageElement.getDataControl() != null &&
-						imageElement.getDataControl() == influenceArea.getElementReferenceDataControl()) {
+						imageElement.getDataControl() == influenceArea.getDataControl()) {
 					temp = imageElement;
 				}
 			}
 		}
+		if (temp == null)
+			temp = selectedElement;
 		this.influenceArea = new ImageElementInfluenceArea(influenceArea, temp);
+		list.add(this.influenceArea);
+	}
+	
+	public void addInfluenceArea(ImageElementInfluenceArea influenceArea) {
+		Integer key = new Integer(CATEGORY_INFLUENCEAREA);
+		addCategory(key, true, true);
+		List<ImageElement> list = elements.get(key);
+		list.clear();
+		this.influenceArea = influenceArea;
 		list.add(this.influenceArea);
 	}
 
@@ -565,7 +578,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 			}
 		}
 		if (influenceArea != null) {
-			if (resize)
+			if (resizeInfluenceArea)
 				paintBorders(g, influenceArea, RESIZE_BORDER_ACTIVE);
 			else
 				paintBorders(g, influenceArea, RESIZE_BORDER);
@@ -685,13 +698,15 @@ public class ScenePreviewEditionPanel extends JPanel {
 		if (rectangle == null || rectangle.isRectangular() || !(displayCategory.get(key) != null ? displayCategory.get(key) : false ))
 			return;
 		
-		int x[] = new int[rectangle.getPoints().size()];
-		int y[] = new int[rectangle.getPoints().size()];
-		for (int i = 0; i < rectangle.getPoints().size(); i++) {
-			x[i] = rectangle.getPoints().get(i).x;
-			y[i] = rectangle.getPoints().get(i).y;
+		if (rectangle.getPoints().size() > 0) {
+			int x[] = new int[rectangle.getPoints().size()];
+			int y[] = new int[rectangle.getPoints().size()];
+			for (int i = 0; i < rectangle.getPoints().size(); i++) {
+				x[i] = rectangle.getPoints().get(i).x;
+				y[i] = rectangle.getPoints().get(i).y;
+			}
+			drawPanel.fillRelativePoly(x, y, rectangleColor, 0.4f);
 		}
-		drawPanel.fillRelativePoly(x, y, rectangleColor, 0.4f);
 	}
 
 	/**
@@ -783,22 +798,36 @@ public class ScenePreviewEditionPanel extends JPanel {
 	 */
 	public ImageElement getResizeElement(int x, int y) {
 		ImageElement tempElement = selectedElement;
-		if (influenceArea != null)
-			tempElement = influenceArea;
-		else
-			tempElement = selectedElement;
-		if (tempElement == null || !tempElement.canResize())
+
+		if ((tempElement == null || !tempElement.canResize()) && (influenceArea == null))
 			return null;
-		int x_image = (int) ((tempElement.getX() + tempElement.getImage().getWidth(null) * tempElement.getScale() / 2));
-		int y_image = (int) ((tempElement.getY() - tempElement.getImage().getHeight(null) * tempElement.getScale()));
-		int height = (int) ((tempElement.getImage().getHeight(null)* tempElement.getScale()));
-		
-		int margin = drawPanel.getRealWidth(8);
-		if (x > x_image - margin &&
-				x < x_image + margin &&
-				y > y_image + height - margin &&
-				y < y_image + height + margin) {
-			return tempElement;
+
+		if (tempElement != null) {
+			int x_image = (int) ((tempElement.getX() + tempElement.getImage().getWidth(null) * tempElement.getScale() / 2));
+			int y_image = (int) ((tempElement.getY() - tempElement.getImage().getHeight(null) * tempElement.getScale()));
+			int height = (int) ((tempElement.getImage().getHeight(null)* tempElement.getScale()));
+			
+			int margin = drawPanel.getRealWidth(8);
+			if (x > x_image - margin &&
+					x < x_image + margin &&
+					y > y_image + height - margin &&
+					y < y_image + height + margin) {
+				return tempElement;
+			}
+		}
+		if (influenceArea != null && movableCategory.get(new Integer(CATEGORY_INFLUENCEAREA))){
+			tempElement = influenceArea;
+			int x_image = (int) ((tempElement.getX() + tempElement.getImage().getWidth(null) * tempElement.getScale() / 2));
+			int y_image = (int) ((tempElement.getY() - tempElement.getImage().getHeight(null) * tempElement.getScale()));
+			int height = (int) ((tempElement.getImage().getHeight(null)* tempElement.getScale()));
+			
+			int margin = drawPanel.getRealWidth(8);
+			if (x > x_image - margin &&
+					x < x_image + margin &&
+					y > y_image + height - margin &&
+					y < y_image + height + margin) {
+				return tempElement;
+			}
 		}
 		return null;
 	}
@@ -896,7 +925,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 	public void setRescale(boolean rescale) {
 		if (rescale) {
 			this.setCursor(Cursor.getPredefinedCursor(Cursor.NE_RESIZE_CURSOR));
-		} else if (!resize){
+		} else if (!resize && !resizeInfluenceArea){
 			this.setCursor(Cursor.getDefaultCursor());
 		}
 		this.rescale = rescale;
@@ -954,17 +983,30 @@ public class ScenePreviewEditionPanel extends JPanel {
 		return resize;
 	}
 	
+	public boolean isResizeInflueceArea() {
+		return resizeInfluenceArea;
+	}
+	
 	/**
 	 * Set a new value to resize
 	 * @param resize the new value of resize
 	 */
 	public void setResize(boolean resize) {
-		if (resize) {
+		if (resize || resizeInfluenceArea) {
 			this.setCursor(Cursor.getPredefinedCursor(Cursor.SE_RESIZE_CURSOR));
 		} else if (!rescale){
 			this.setCursor(Cursor.getDefaultCursor());
 		}
 		this.resize = resize;
+	}
+	
+	public void setResizeInflueceArea(boolean resizeInfluenceArea) {
+		if (resize || resizeInfluenceArea) {
+			this.setCursor(Cursor.getPredefinedCursor(Cursor.SE_RESIZE_CURSOR));
+		} else if (!rescale){
+			this.setCursor(Cursor.getDefaultCursor());
+		}
+		this.resizeInfluenceArea = resizeInfluenceArea;
 	}
 	
 	/**
@@ -1054,7 +1096,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 	public JPanel createTextEditionPanel() {
 		JPanel textInputPanel = new JPanel();
 		textInputPanel.add(new JLabel(TextConstants.getText("SPEP.XCoordinate")));
-		SpinnerNumberModel spinnerModel = new SpinnerNumberModel(selectedElement.getX(), -200, GUI.WINDOW_WIDTH + 200, 5);
+		SpinnerNumberModel spinnerModel = new SpinnerNumberModel(selectedElement.getX(), -200, drawPanel.getBackgroundWidth() + 200, 5);
 		posXSpinner = new JSpinner(spinnerModel);
 		posXSpinner.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
@@ -1066,7 +1108,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 		textInputPanel.add(posXSpinner);
 
 		textInputPanel.add(new JLabel("   " + TextConstants.getText("SPEP.YCoordinate")));
-		spinnerModel = new SpinnerNumberModel(selectedElement.getY(), -200, GUI.WINDOW_WIDTH + 200, 5);
+		spinnerModel = new SpinnerNumberModel(selectedElement.getY(), -200, GUI.WINDOW_HEIGHT + 200, 5);
 		posYSpinner = new JSpinner(spinnerModel);
 		posYSpinner.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {

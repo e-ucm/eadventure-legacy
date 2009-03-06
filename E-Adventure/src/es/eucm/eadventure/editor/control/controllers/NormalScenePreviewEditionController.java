@@ -10,6 +10,7 @@ import javax.swing.JPopupMenu;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElement;
+import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElementInfluenceArea;
 import es.eucm.eadventure.editor.gui.treepanel.TreeNodeControl;
 
 public class NormalScenePreviewEditionController implements ScenePreviewEditionController {
@@ -110,7 +111,7 @@ public class NormalScenePreviewEditionController implements ScenePreviewEditionC
 	}
 
 	public void mouseDragged(MouseEvent e) {
-		if (underMouse != null && !spep.isRescale() && !spep.isResize()) {
+		if (underMouse != null && !spep.isRescale() && !spep.isResize() && !spep.isResizeInflueceArea()) {
 			int changeX = spep.getRealWidth(e.getX() - startDragX);
 			int changeY = spep.getRealHeight(e.getY() - startDragY);
 			int x = originalX + changeX;
@@ -118,7 +119,7 @@ public class NormalScenePreviewEditionController implements ScenePreviewEditionC
 			underMouse.changePosition(x, y);
 			spep.updateTextEditionPanel();
 			spep.repaint();
-		} else if (underMouse != null && spep.isRescale() && !spep.isResize()) {
+		} else if (underMouse != null && spep.isRescale() && !spep.isResize() && !spep.isResizeInflueceArea()) {
 			double changeX = (e.getX() - startDragX);
 			double changeY = - (e.getY() - startDragY);
 			double width = underMouse.getImage().getWidth(null);
@@ -139,7 +140,7 @@ public class NormalScenePreviewEditionController implements ScenePreviewEditionC
 			underMouse.setScale(scale);
 			spep.updateTextEditionPanel();
 			spep.repaint();
-		} else if (underMouse != null && !spep.isRescale() && spep.isResize()) {
+		} else if (underMouse != null && !spep.isRescale() && (spep.isResize() || spep.isResizeInflueceArea())) {
 			int changeX = spep.getRealWidth(e.getX() - startDragX);
 			int changeY = spep.getRealHeight(e.getY() - startDragY);
 			underMouse.changeSize(originalWidth + changeX, originalHeight + changeY);
@@ -164,20 +165,29 @@ public class NormalScenePreviewEditionController implements ScenePreviewEditionC
 			underMouse = rescaleElement;
 			spep.setRescale(true);
 			spep.setResize(false);
+			spep.setResizeInflueceArea(false);
 			spep.repaint();
 		} else if (resizeElement != null) {
 			underMouse = resizeElement;
-			spep.setResize(true);
+			if (resizeElement instanceof ImageElementInfluenceArea) {
+				spep.setResizeInflueceArea(true);
+				spep.setResize(false);
+			} else {
+				spep.setResizeInflueceArea(false);
+				spep.setResize(true);
+			}
 			spep.setRescale(false);
 			spep.repaint();
-		} else if (imageElement != underMouse || (imageElement != null && (spep.isRescale() || spep.isResize()))) {
+		} else if (imageElement != underMouse || (imageElement != null && (spep.isRescale() || spep.isResize() || spep.isResizeInflueceArea()))) {
 			underMouse = imageElement;
 			spep.setRescale(false);
 			spep.setResize(false);
+			spep.setResizeInflueceArea(false);
 			spep.repaint();
 		} else if (imageElement == null){
 			underMouse = null;
 			spep.setRescale(false);
+			spep.setResizeInflueceArea(false);
 			spep.setResize(false);
 		}
 	}

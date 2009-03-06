@@ -3,6 +3,7 @@ package es.eucm.eadventure.editor.gui.otherpanels;
 import java.awt.AlphaComposite;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -22,6 +23,9 @@ import javax.swing.JScrollBar;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
+import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.engine.core.gui.GUI;
 
 /**
  * A JPanel that allows double-buffering, zooming and other
@@ -127,7 +131,9 @@ public class DrawPanel  extends JPanel {
 		
 		Icon zoomOutIcon = new ImageIcon( "img/icons/zoomout.png" );
 		JButton zoomout = new JButton(zoomOutIcon);
-		zoomout.setSize(20,20);
+		zoomout.setPreferredSize(new Dimension(20,20));
+		zoomout.setContentAreaFilled(false);
+		zoomout.setToolTipText(TextConstants.getText("DrawPanel.ZoomOut"));
 		sliderPanel.add(zoomout);
 		
 		
@@ -140,11 +146,14 @@ public class DrawPanel  extends JPanel {
 				DrawPanel.this.getParent().repaint();
 			}
 		});
+		sliderPanel.setToolTipText(TextConstants.getText("DrawPanel.ZoomSlider"));
 		sliderPanel.add(slider);
 
 		Icon zoomInIcon = new ImageIcon( "img/icons/zoomin.png" );
 		JButton zoomin = new JButton(zoomInIcon);
-		zoomin.setSize(20,20);
+		zoomin.setPreferredSize(new Dimension(20,20));
+		zoomin.setContentAreaFilled(false);
+		zoomin.setToolTipText(TextConstants.getText("DrawPanel.ZoomIn"));
 		sliderPanel.add(zoomin);
 
 		zoomin.addActionListener(new ActionListener() {
@@ -550,6 +559,10 @@ public class DrawPanel  extends JPanel {
 	
 	public void addMouseMotionListener(MouseMotionListener ml) {
 		insidePanel.addMouseMotionListener(ml);
+	}
+	
+	public int getBackgroundWidth() {
+		return (backgroundWidth > GUI.WINDOW_WIDTH ? backgroundWidth : GUI.WINDOW_WIDTH);
 	}
 	
 }

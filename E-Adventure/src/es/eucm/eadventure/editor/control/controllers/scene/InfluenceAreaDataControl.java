@@ -19,21 +19,21 @@ public class InfluenceAreaDataControl extends DataControl {
 	 */
 	private InfluenceArea influenceArea;
 	
-	private ElementReferenceDataControl elementReferenceDataControl;
+	private DataControl dataControl;
 
 	/**
 	 * Constructor.
 	 * 
 	 * @param sceneDataControl
 	 *            Parent scene controller
-	 * @param elementReference 
+	 * @param dataControl 
 	 * @param activeArea
 	 *            Exit of the data control structure
 	 */
-	public InfluenceAreaDataControl( SceneDataControl sceneDataControl, InfluenceArea influenceArea, ElementReferenceDataControl elementReference ) {
+	public InfluenceAreaDataControl( SceneDataControl sceneDataControl, InfluenceArea influenceArea, DataControl dataControl ) {
 		this.sceneDataControl = sceneDataControl;
 		this.influenceArea = influenceArea;
-		this.elementReferenceDataControl = elementReference;
+		this.dataControl = dataControl;
 	}
 	
 	/**
@@ -97,6 +97,11 @@ public class InfluenceAreaDataControl extends DataControl {
 	public void setInfluenceArea( int x, int y, int width, int height ) {
 		influenceArea.setExists(true);
 		controller.addTool(new ChangeRectangleValueTool(influenceArea, x, y, width, height));
+	}
+	
+	public void setInfluenceArea(InfluenceArea influenceArea) {
+		this.influenceArea = influenceArea;
+		this.influenceArea.setExists(true);
 	}
 
 	@Override
@@ -206,8 +211,8 @@ public class InfluenceAreaDataControl extends DataControl {
 		return influenceArea.isExists();
 	}
 
-	public ElementReferenceDataControl getElementReferenceDataControl() {
-		return elementReferenceDataControl;
+	public DataControl getDataControl() {
+		return dataControl;
 	}
 
 	public void referenceScaleChanged(int incrementX, int incrementY) {

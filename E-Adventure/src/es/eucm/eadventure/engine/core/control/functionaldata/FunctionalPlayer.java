@@ -420,9 +420,10 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
         	Image image = getCurrentAnimation().getImage();
             int realX = (int) (x - ( image.getWidth( null ) * scale / 2 ) - Game.getInstance( ).getFunctionalScene( ).getOffsetX( ));
             int realY = (int) (y - ( image.getHeight( null ) * scale )); 
+
             if (scale != 1) {
         		Image temp = image.getScaledInstance(Math.round(image.getWidth(null) * scale), Math.round(image.getHeight(null) * scale), Image.SCALE_SMOOTH);
-        		
+            	
         		if (layer==Scene.PLAYER_WITHOUT_LAYER||layer==Scene.PLAYER_NO_ALLOWED)
         			GUI.getInstance().addPlayerToDraw(temp, realX, realY, Math.round(y),Math.round(y));
         		else 

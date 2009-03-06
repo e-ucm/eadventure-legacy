@@ -41,6 +41,7 @@ public class ActiveAreaDataControl extends DataControl implements RectangleArea 
 	 */
 	private ConditionsController conditionsController;
 
+	private InfluenceAreaDataControl influenceAreaDataControl;
 
 	/**
 	 * Constructor.
@@ -53,6 +54,8 @@ public class ActiveAreaDataControl extends DataControl implements RectangleArea 
 	public ActiveAreaDataControl( SceneDataControl sceneDataControl, ActiveArea activeArea ) {
 		this.sceneDataControl = sceneDataControl;
 		this.activeArea = activeArea;
+
+		this.influenceAreaDataControl = new InfluenceAreaDataControl(sceneDataControl, activeArea.getInfluenceArea(), this);
 
 		// Create subcontrollers
 		actionsListDataControl = new ActionsListDataControl( activeArea.getActions( ) );
@@ -362,7 +365,7 @@ public class ActiveAreaDataControl extends DataControl implements RectangleArea 
 	}
 
 	public void addPoint(int x, int y) {
-		controller.addTool(new AddNewPointTool(activeArea, x, y));
+		controller.addTool(new AddNewPointTool(activeArea, x, y, influenceAreaDataControl));
 	}
 
 	public Point getLastPoint() {
@@ -372,7 +375,7 @@ public class ActiveAreaDataControl extends DataControl implements RectangleArea 
 	}
 
 	public void deletePoint(Point point) {
-		controller.addTool(new DeletePointTool(activeArea, point));
+		controller.addTool(new DeletePointTool(activeArea, point, influenceAreaDataControl));
 	}
 
 	public void setRectangular(boolean selected) {
@@ -381,5 +384,13 @@ public class ActiveAreaDataControl extends DataControl implements RectangleArea 
 
 	public Rectangle getRectangle() {
 		return (Rectangle) this.getContent();
+	}
+	
+	public InfluenceAreaDataControl getInfluenceArea() {
+		return influenceAreaDataControl;
+	}
+	
+	public SceneDataControl getSceneDataControl() {
+		return sceneDataControl;
 	}
 }

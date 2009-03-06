@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
 import es.eucm.eadventure.common.data.chapter.Action;
+import es.eucm.eadventure.common.data.chapter.InfluenceArea;
 import es.eucm.eadventure.common.data.chapter.elements.ActiveArea;
 import es.eucm.eadventure.common.data.chapter.elements.Item;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
@@ -19,7 +20,7 @@ public class FunctionalActiveArea extends FunctionalItem {
     private ActiveArea activeArea;
     
     private Polygon polygon;
-    
+
     private static Item buildItem ( ActiveArea activeArea ){
         Item item = new Item(activeArea.getId( ), activeArea.getName( ), activeArea.getDescription( ), activeArea.getDetailedDescription( ) );
         for (Action action:activeArea.getActions( )){
@@ -30,18 +31,19 @@ public class FunctionalActiveArea extends FunctionalItem {
     }
     
     private static int calculateX(ActiveArea activeArea){
-        return activeArea.getX( ) + activeArea.getWidth( )/2;
+   		return activeArea.getX( ) + activeArea.getWidth( ) / 2;
     }
     
     private static int calculateY(ActiveArea activeArea){
-        return  activeArea.getY( )+activeArea.getHeight( );        
+        return  activeArea.getY( ) + activeArea.getHeight( );        
     }
     
     
-    public FunctionalActiveArea ( ActiveArea activeArea ){
+    public FunctionalActiveArea ( ActiveArea activeArea , InfluenceArea influenceArea){
         super ( buildItem(activeArea), null, calculateX(activeArea), calculateY(activeArea) );
         
         this.activeArea = activeArea;
+        this.influenceArea = influenceArea;
         
         // Create transparent image
         BufferedImage bImagenTransparente = new BufferedImage(

@@ -19,7 +19,7 @@ public class ImageElementPoint extends ImageElement {
 		AlphaComposite alphaComposite = AlphaComposite.getInstance(
 				AlphaComposite.SRC_OVER, 0.6f);
 		g.setComposite(alphaComposite);
-		g.setColor(Color.BLUE);
+		g.setColor(Color.GREEN);
 		g.fillOval(0, 0, 20, 20);
 		g.setColor(Color.BLACK);
 		g.drawOval(0, 0, 19, 19);

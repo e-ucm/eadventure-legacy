@@ -40,16 +40,18 @@ public class IrregularAreaEditionPanel extends JPanel {
 	 */
 	protected IrregularAreaEditionController iaec;
 	
+	private boolean hasInfluenceArea;
 	/**
 	 * Default constructor, with the path to the background and the trajectoryDataControl
 	 * 
 	 * @param scenePath path to the background image
 	 * @param trajectoryDataControl the trajectoryDataControl
 	 */
-	public IrregularAreaEditionPanel(String scenePath, RectangleArea rectangleArea, Color color) {
+	public IrregularAreaEditionPanel(String scenePath, RectangleArea rectangleArea, boolean hasInfluenceArea, Color color) {
 		setLayout(new BorderLayout());
+		this.hasInfluenceArea = hasInfluenceArea;
 		spep = new ScenePreviewEditionPanel(false, scenePath);
-		iaec = new IrregularAreaEditionController(spep, rectangleArea, color);
+		iaec = new IrregularAreaEditionController(spep, rectangleArea, color, hasInfluenceArea);
 		spep.changeController(iaec);
 		for (Point point: rectangleArea.getPoints())
 			spep.addPoint(new PointDataControl(point));
@@ -70,6 +72,9 @@ public class IrregularAreaEditionPanel extends JPanel {
 		ButtonGroup group = new ButtonGroup();
 	    buttonPanel.add(createToolButton("BarriersList.EditNodes", IrregularAreaEditionController.POINT_EDIT, "img/icons/nodeEdit.png", group));
 		buttonPanel.add(createToolButton("BarriersList.DeleteTool", IrregularAreaEditionController.DELETE_TOOL, "img/icons/deleteTool.png", group));
+		if (hasInfluenceArea) {
+			buttonPanel.add(createToolButton("BarriersList.EditInfluenceArea", IrregularAreaEditionController.INFLUENCE_AREA_TOOL, "img/icons/influenceAreaTool.png", group));
+		}
 		return buttonPanel;
 	}
 	

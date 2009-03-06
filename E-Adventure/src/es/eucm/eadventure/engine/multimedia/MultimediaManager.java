@@ -200,10 +200,9 @@ public class MultimediaManager {
 	            
 	            g.drawImage( image, transform, null);
 	            g.dispose( );
-        	} return image;
-        
+        	} else
+        		return image;
         }
-
         return newImage;
     }
     
@@ -440,14 +439,12 @@ public class MultimediaManager {
     	if (animationPath != null && animationPath.endsWith(".eaa")) {
     		FrameAnimation animation = new FrameAnimation(Loader.loadAnimation(ResourceHandler.getInstance(), animationPath));
     		animation.setMirror(mirror);
-    		animationCache.put(animationPath + (mirror ? "t" : "f"), animation);
-    		return animation;
+    		temp = animation;
     	} else {
 	        int i = 1;
 	        List<Image> frames = new ArrayList<Image>( );
 	        Image currentFrame = null;
 	        boolean end = false;
-	        
 	        while( !end ) {
 	            if( mirror )
 	                currentFrame = loadMirroredImageFromZip( animationPath + "_" + leadingZeros( i ) + ".png", category );
@@ -460,12 +457,12 @@ public class MultimediaManager {
 	            } else
 	                end = true;
 	        }
-	        
 	        ImageAnimation animation = new ImageAnimation( );
 	        animation.setImages( frames.toArray( new Image[] { } ) );
-    		animationCache.put(animationPath + (mirror ? "t" : "f"), animation);
-	        return animation;
+	        temp = animation;
     	}
+		animationCache.put(animationPath + (mirror ? "t" : "f"), temp);
+		return temp;
     }
     
     /**

@@ -246,6 +246,10 @@ public class Exit implements Cloneable, Documented, Rectangle {
 		e.width = width;
 		e.x = x;
 		e.y = y;
+		e.rectangular = rectangular;
+		e.points = (points != null ? new ArrayList<Point>() : null);
+		for (Point p : points)
+			e.points.add((Point) p.clone());
 		return e;
 	}
 
