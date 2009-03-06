@@ -45,10 +45,15 @@ public class ImageElementActiveArea extends ImageElement {
 				if (point.getY() > maxY) maxY = (int) point.getY();
 				if (point.getY() < minY) minY = (int) point.getY();
 			}
+			if (activeAreaDataControl.getPoints().size() < 3) {
+				maxX = 20;
+				minX = 0;
+				maxY = 20;
+				minY = 0;
+			}
 			image = new BufferedImage(maxX - minX, maxY - minY, BufferedImage.TYPE_4BYTE_ABGR);
 			
 			fillImageIrregular(minX, minY);
-			
 		}
 	}
 
@@ -69,21 +74,22 @@ public class ImageElementActiveArea extends ImageElement {
 				AlphaComposite.SRC_OVER, 0.3f);
 		g.setComposite(alphaComposite);
 
-		
-		polygon = new Polygon();
-
-		int x[] = new int[activeAreaDataControl.getPoints().size()];
-		int y[] = new int[activeAreaDataControl.getPoints().size()];
-		for (int i = 0; i < activeAreaDataControl.getPoints().size(); i++) {
-			x[i] = (int) activeAreaDataControl.getPoints().get(i).getX() - minX;
-			y[i] = (int) activeAreaDataControl.getPoints().get(i).getY() - minY;
-			polygon.addPoint(x[i], y[i]);
-		}	
-		
-		g.setColor(Color.GREEN);
-		g.fillPolygon(x, y, activeAreaDataControl.getPoints().size());
-		g.setColor(Color.BLACK);
-		g.drawPolygon(x, y, activeAreaDataControl.getPoints().size());
+		if (activeAreaDataControl.getPoints().size() > 0) {
+			polygon = new Polygon();
+	
+			int x[] = new int[activeAreaDataControl.getPoints().size()];
+			int y[] = new int[activeAreaDataControl.getPoints().size()];
+			for (int i = 0; i < activeAreaDataControl.getPoints().size(); i++) {
+				x[i] = (int) activeAreaDataControl.getPoints().get(i).getX() - minX;
+				y[i] = (int) activeAreaDataControl.getPoints().get(i).getY() - minY;
+				polygon.addPoint(x[i], y[i]);
+			}	
+			
+			g.setColor(Color.GREEN);
+			g.fillPolygon(x, y, activeAreaDataControl.getPoints().size());
+			g.setColor(Color.BLACK);
+			g.drawPolygon(x, y, activeAreaDataControl.getPoints().size());
+		}
 	}
 
 	@Override
@@ -154,7 +160,13 @@ public class ImageElementActiveArea extends ImageElement {
 			width = 1;
 		if (height < 1)
 			height = 1;
+		
+		if (activeAreaDataControl.getInfluenceArea() != null) {
+			activeAreaDataControl.getInfluenceArea().setInfluenceArea(-20, -20, width + 40, height + 40);
+		}
+		
 		activeAreaDataControl.setActiveArea(x, y, width, height);
+		
 	}
 
 	@Override

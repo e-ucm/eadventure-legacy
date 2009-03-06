@@ -5,6 +5,7 @@ import java.awt.Point;
 import org.xml.sax.Attributes;
 
 import es.eucm.eadventure.common.data.chapter.Chapter;
+import es.eucm.eadventure.common.data.chapter.InfluenceArea;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.common.data.chapter.effects.Effects;
 import es.eucm.eadventure.common.data.chapter.elements.ActiveArea;
@@ -110,7 +111,9 @@ public class ActiveAreaSubParser extends SubParser {
 				int x = 0, y = 0, width = 0, height = 0;
 				String id = null;
 				boolean rectangular = false;
-				
+				int influenceX = 0, influenceY = 0, influenceWidth = 0, influenceHeight = 0;
+				boolean hasInfluence = false;
+
 				for( int i = 0; i < attrs.getLength( ); i++ ) {
 					if( attrs.getQName(i).equals("rectangular"))
 						rectangular = attrs.getValue(i).equals("yes");
@@ -124,10 +127,24 @@ public class ActiveAreaSubParser extends SubParser {
 						height = Integer.parseInt( attrs.getValue( i ) );
 					if ( attrs.getQName(i).equals("id"))
 						id = attrs.getValue(i);
+					if ( attrs.getQName( i ).equals( "hasInfluenceArea"))
+						hasInfluence = attrs.getValue( i ).equals( "yes" );
+					if ( attrs.getQName( i ).equals( "influenceX"))
+						influenceX = Integer.parseInt(attrs.getValue(i));
+					if ( attrs.getQName( i ).equals( "influenceY"))
+						influenceY = Integer.parseInt(attrs.getValue(i));
+					if ( attrs.getQName( i ).equals( "influenceWidth"))
+						influenceWidth = Integer.parseInt(attrs.getValue(i));
+					if ( attrs.getQName( i ).equals( "influenceHeight"))
+						influenceHeight = Integer.parseInt(attrs.getValue(i));
 					
 				}
 
 				activeArea = new ActiveArea( (id==null?generateId():id), rectangular, x, y, width, height );
+				if (hasInfluence) {
+					InfluenceArea influenceArea = new InfluenceArea(influenceX, influenceY, influenceWidth, influenceHeight);
+					activeArea.setInfluenceArea(influenceArea);
+				}
 			}
 			
 			else if( qName.equals("point")) {

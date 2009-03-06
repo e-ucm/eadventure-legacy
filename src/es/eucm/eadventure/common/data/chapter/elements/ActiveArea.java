@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.common.data.chapter.InfluenceArea;
 import es.eucm.eadventure.common.data.chapter.Rectangle;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 
@@ -41,7 +42,7 @@ public class ActiveArea extends Item implements Rectangle {
 	 */
 	private Conditions conditions;
 	
-	
+	private InfluenceArea influenceArea;
 
 	/**
 	 * Creates a new Exit
@@ -65,6 +66,7 @@ public class ActiveArea extends Item implements Rectangle {
 		this.height = height;
 		points = new ArrayList<Point>();
 		conditions = new Conditions();
+		influenceArea = new InfluenceArea();
 	}
 
 	/**
@@ -73,7 +75,16 @@ public class ActiveArea extends Item implements Rectangle {
 	 * @return the horizontal coordinate of the upper left corner of the exit
 	 */
 	public int getX( ) {
-		return x;
+		if (rectangular)
+			return x;
+		else {
+		    int minX = Integer.MAX_VALUE; 
+			for (Point point : points) {
+	        	if (point.x < minX)
+	        		minX = point.x;
+			}
+			return minX;
+		}
 	}
 
 	/**
@@ -82,7 +93,16 @@ public class ActiveArea extends Item implements Rectangle {
 	 * @return the horizontal coordinate of the bottom right of the exit
 	 */
 	public int getY( ) {
-		return y;
+		if (rectangular)
+			return y;
+		else {
+			int minY = Integer.MAX_VALUE; 
+			for (Point point : points) {
+	        	if (point.y < minY)
+	        		minY = point.y;
+			}
+			return minY;
+		}
 	}
 
 	/**
@@ -91,7 +111,20 @@ public class ActiveArea extends Item implements Rectangle {
 	 * @return Width of the exit
 	 */
 	public int getWidth( ) {
-		return width;
+		if (rectangular) 
+			return width;
+		else {
+			int maxX = Integer.MIN_VALUE;
+			int minX = Integer.MAX_VALUE;
+			for (Point point : points) {
+	        	if (point.x > maxX)
+	        		maxX = point.x;
+	        	if (point.x < minX)
+	        		minX = point.x;
+			}
+			return maxX - minX;
+			
+		}
 	}
 
 	/**
@@ -100,7 +133,20 @@ public class ActiveArea extends Item implements Rectangle {
 	 * @return Height of the exit
 	 */
 	public int getHeight( ) {
-		return height;
+		if (rectangular)
+			return height;
+		else {
+			int maxY = Integer.MIN_VALUE;
+			int minY = Integer.MAX_VALUE;
+			for (Point point : points) {
+	        	if (point.y > maxY)
+	        		maxY = point.y;
+	        	if (point.y < minY)
+	        		minY = point.y;
+			}
+			return maxY - minY;
+		}
+
 	}
 
 	public boolean isRectangular( ) {
@@ -114,7 +160,7 @@ public class ActiveArea extends Item implements Rectangle {
 	public void addPoint(Point point) {
 		points.add(point);
 	}
-	
+		
 	/**
 	 * Set the values of the exit.
 	 * 
@@ -155,10 +201,23 @@ public class ActiveArea extends Item implements Rectangle {
 		aa.width = width;
 		aa.x = x;
 		aa.y = y;
+		aa.influenceArea = (influenceArea != null ? (InfluenceArea) influenceArea.clone() : null);
+		aa.rectangular = rectangular;
+		aa.points = (points != null ? new ArrayList<Point>() : null);
+		for (Point p : points)
+			aa.points.add((Point) p.clone());
 		return aa;
 	}
 
 	public void setRectangular(boolean rectangular) {
 		this.rectangular = rectangular;
+	}
+	
+	public InfluenceArea getInfluenceArea() {
+		return influenceArea;
+	}
+	
+	public void setInfluenceArea(InfluenceArea influeceArea) {
+		this.influenceArea = influeceArea;
 	}
 }

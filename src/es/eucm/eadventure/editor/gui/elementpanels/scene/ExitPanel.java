@@ -70,7 +70,7 @@ public class ExitPanel extends JTabbedPane {
 			spep.setFixedSelectedElement(true);
 			looksPanel = spep;
 		} else {
-			looksPanel = new IrregularAreaEditionPanel(scenePath, exitDataControl, Color.RED);
+			looksPanel = new IrregularAreaEditionPanel(scenePath, exitDataControl, false, Color.RED);
 			spep = ((IrregularAreaEditionPanel) looksPanel).getScenePreviewEditionPanel();
 			spep.setShowTextEdition(false);		
 		}

@@ -289,6 +289,16 @@ public class SceneDOMWriter {
 					aaElement.setAttribute( "y", String.valueOf( activeArea.getY( ) ) );
 					aaElement.setAttribute( "width", String.valueOf( activeArea.getWidth( ) ) );
 					aaElement.setAttribute( "height", String.valueOf( activeArea.getHeight( ) ) );
+					if (activeArea.getInfluenceArea().isExists()) {
+						aaElement.setAttribute( "hasInfluenceArea", "yes");
+						InfluenceArea ia = activeArea.getInfluenceArea();
+						aaElement.setAttribute( "influenceX", String.valueOf(ia.getX() ));
+						aaElement.setAttribute( "influenceY", String.valueOf(ia.getY() ));
+						aaElement.setAttribute( "influenceWidth", String.valueOf(ia.getWidth() ));
+						aaElement.setAttribute( "influenceHeight", String.valueOf(ia.getHeight() ));
+					} else {
+						aaElement.setAttribute( "hasInfluenceArea", "no");
+					}
 
 					// Append the documentation (if avalaible)
 					if( activeArea.getDocumentation( ) != null ) {

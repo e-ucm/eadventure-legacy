@@ -566,6 +566,7 @@ public abstract class GUI implements FocusListener {
 					robot = new Robot();
 	    			transitionImage = robot.createScreenCapture(screenRect);
 	    			transitionImage = transitionImage.getSubimage(gameFrame.getX() + tempX, gameFrame.getY() + tempY, WINDOW_WIDTH, WINDOW_HEIGHT);
+	    			this.elapsedTime = 0;
 				} catch (AWTException e) {
 				}
 		        transitionStarted = true;

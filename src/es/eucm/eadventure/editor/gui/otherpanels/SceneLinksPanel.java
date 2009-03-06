@@ -1,8 +1,10 @@
 package es.eucm.eadventure.editor.gui.otherpanels;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.image.BufferedImage;
@@ -76,9 +78,18 @@ public class SceneLinksPanel extends JPanel {
 		setLayout(new GridBagLayout());
 		drawPanel = new DrawPanel(true);
 		BufferedImage background = new BufferedImage(800, 600, BufferedImage.TYPE_4BYTE_ABGR);
-		Graphics g = background.getGraphics();
+		Graphics2D g = (Graphics2D) background.getGraphics();
+
+		g.setColor((new JPanel()).getBackground());
+		g.fillRect(0, 0 , 800, 600);
 		g.setColor(Color.BLACK);
+		g.drawRect(0, 0, 799, 599);
+		
+		AlphaComposite alphaComposite = AlphaComposite.getInstance(
+				AlphaComposite.SRC_OVER, 0.3f);
+		g.setComposite(alphaComposite);
 		g.fillRect(0, 0, 800, 600);
+		
 		
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridx = 0;

@@ -2012,4 +2012,9 @@ ya que de esta manera se evita reescribirlos varias veces.</entry>
 	<entry key="Search.AssetDescription">Descripción recurso</entry>
 	<entry key="Search.AssetPath">Ubicación recurso</entry>
 	<entry key="Search.ElementID">ID del elemento</entry>
+
+	<entry key="DrawPanel.ZoomIn">Más zoom</entry>
+	<entry key="DrawPanel.ZoomOut">Menos zoom</entry>
+	<entry key="DrawPanel.ZoomSlider">Zoom actual del panel</entry>
+
 </properties>

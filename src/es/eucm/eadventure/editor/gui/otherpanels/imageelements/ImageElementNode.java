@@ -22,11 +22,10 @@ public class ImageElementNode extends ImageElement {
 		if (imagePath != null && imagePath.length() > 0)
 			playerImage = AssetsController.getImage(imagePath);
 		if (playerImage != null) {
+			float scale = nodeDataControl.getScale();
 			image = new BufferedImage(
-					(int) (playerImage.getWidth(null) * nodeDataControl
-							.getScale()),
-					(int) (playerImage.getHeight(null) * nodeDataControl
-							.getScale()) + 10, BufferedImage.TYPE_4BYTE_ABGR);
+					Math.max(playerImage.getWidth(null) , (int) (10 * (1 / scale))),
+					playerImage.getHeight(null) + (int) (10 * (1 / scale)), BufferedImage.TYPE_4BYTE_ABGR);
 		} else {
 			image = new BufferedImage(20, 20, BufferedImage.TYPE_4BYTE_ABGR);
 		}
@@ -39,10 +38,8 @@ public class ImageElementNode extends ImageElement {
 				AlphaComposite.SRC_OVER, 0.6f);
 		g.setComposite(alphaComposite);
 		if (playerImage != null) {
-			int width = (int) (playerImage.getWidth(null) * nodeDataControl
-					.getScale());
-			int height = (int) (playerImage.getHeight(null) * nodeDataControl
-					.getScale());
+			int width = playerImage.getWidth(null);
+			int height = playerImage.getHeight(null);
 			g.drawImage(playerImage, 0, 0, width, height, null);
 			alphaComposite = AlphaComposite.getInstance(
 					AlphaComposite.SRC_OVER, 0.3f);
@@ -51,9 +48,10 @@ public class ImageElementNode extends ImageElement {
 				g.setColor(Color.RED);
 			else
 				g.setColor(Color.BLUE);
-			g.fillOval(width / 2 - 10, height - 10, 19, 19);
+			float scale = nodeDataControl.getScale();
+			g.fillOval(width / 2 - (int) (10 / scale), height - (int) (10 / scale), (int) (19 / scale), (int) (19 / scale));
 			g.setColor(Color.BLACK);
-			g.drawOval(width / 2 - 10, height - 10, 19, 19);
+			g.drawOval(width / 2 - (int) (10 / scale), height - (int) (10 / scale), (int) (19 / scale), (int) (19 / scale));
 		} else {
 			if (nodeDataControl.isInitial())
 				g.setColor(Color.RED);
@@ -99,11 +97,10 @@ public class ImageElementNode extends ImageElement {
 	@Override
 	public void recreateImage() {
 		if (playerImage != null) {
+			float scale = nodeDataControl.getScale();
 			image = new BufferedImage(
-					(int) (playerImage.getWidth(null) * nodeDataControl
-							.getScale()),
-					(int) (playerImage.getHeight(null) * nodeDataControl
-							.getScale()) + 10, BufferedImage.TYPE_4BYTE_ABGR);
+					Math.max(playerImage.getWidth(null) , (int) (10 * (1 / scale))),
+					playerImage.getHeight(null) + (int) (10 * (1 / scale)), BufferedImage.TYPE_4BYTE_ABGR);
 		} else {
 			image = new BufferedImage(20, 20, BufferedImage.TYPE_4BYTE_ABGR);
 		}

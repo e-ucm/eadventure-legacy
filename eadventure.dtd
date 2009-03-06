@@ -107,6 +107,8 @@
 	id ID #IMPLIED
 	rectangular (yes | no) "yes"
 	%rectangle;  
+	hasInfluenceArea (yes | no) "no" 
+	%influence_area;
 >
 
 <!ELEMENT barriers (barrier+)>

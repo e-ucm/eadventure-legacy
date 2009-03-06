@@ -8,6 +8,7 @@ import es.eucm.eadventure.editor.control.controllers.scene.PointDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.RectangleArea;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElement;
+import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElementInfluenceArea;
 import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElementPoint;
 
 /**
@@ -27,6 +28,8 @@ public class IrregularAreaEditionController extends NormalScenePreviewEditionCon
 	 * Id for the delete tool
 	 */
 	public static final int DELETE_TOOL = 2;
+
+	public static final int INFLUENCE_AREA_TOOL = 3;
 		
 	private ScenePreviewEditionPanel spep;
 	
@@ -50,11 +53,14 @@ public class IrregularAreaEditionController extends NormalScenePreviewEditionCon
 	
 	private Color color;
 	
-	public IrregularAreaEditionController(ScenePreviewEditionPanel spep, RectangleArea rectangleArea, Color color) {
+	private boolean hasInfluenceArea;
+	
+	public IrregularAreaEditionController(ScenePreviewEditionPanel spep, RectangleArea rectangleArea, Color color, boolean hasInfluenceArea) {
 		super(spep);
 		this.spep = spep;
 		this.aadc = rectangleArea;
 		this.color = color;
+		this.hasInfluenceArea = hasInfluenceArea;
 		spep.setIrregularRectangle(aadc.getRectangle(), color);
 	}
 	
@@ -67,6 +73,11 @@ public class IrregularAreaEditionController extends NormalScenePreviewEditionCon
 			if (this.underMouse == null) {
 				aadc.addPoint(x, y);
 				spep.addPoint(new PointDataControl(aadc.getLastPoint()));
+				if (hasInfluenceArea) {
+					if (aadc.getPoints().size() >= 3) 
+						((ImageElementInfluenceArea) spep.getInfluenceArea()).setVisible(true);
+					spep.getInfluenceArea().recreateImage();
+				}
 				spep.setIrregularRectangle(aadc.getRectangle(), color);
 				spep.repaint();
 			} 
@@ -75,12 +86,19 @@ public class IrregularAreaEditionController extends NormalScenePreviewEditionCon
 				PointDataControl pointDataControl = (PointDataControl) ((ImageElementPoint) underMouse).getDataControl();
 				aadc.deletePoint((Point) pointDataControl.getContent());
 				spep.removeElement(ScenePreviewEditionPanel.CATEGORY_POINT, underMouse);
+				if (hasInfluenceArea) {
+					if (aadc.getPoints().size() < 3) 
+						((ImageElementInfluenceArea) spep.getInfluenceArea()).setVisible(false);
+					spep.getInfluenceArea().recreateImage();
+				}
 				underMouse = null;
 				spep.setSelectedElement((ImageElement) null); 
 				spep.setIrregularRectangle(aadc.getRectangle(), color);
 				spep.repaint();
 			} 
-		} 
+		} else if (selectedTool == INFLUENCE_AREA_TOOL) {
+			
+		}
 	}
 
 
@@ -93,9 +111,9 @@ public class IrregularAreaEditionController extends NormalScenePreviewEditionCon
 	}
 
 	public void mousePressed(MouseEvent e) {
-		if (selectedTool == POINT_EDIT) {
+		if (selectedTool == POINT_EDIT || selectedTool == INFLUENCE_AREA_TOOL) {
 			setMouseUnder(e.getX(), e.getY());
-			if (underMouse != null && underMouse == spep.getSelectedElement()) {
+			if (underMouse != null) {
 				startDragX = e.getX();
 				startDragY = e.getY();
 				originalX = underMouse.getX();
@@ -103,8 +121,6 @@ public class IrregularAreaEditionController extends NormalScenePreviewEditionCon
 				originalWidth = underMouse.getImage().getWidth(null);
 				originalHeight = underMouse.getImage().getHeight(null);
 				originalScale = underMouse.getScale();
-			}
-			else if (underMouse != null) {
 				spep.setSelectedElement(underMouse);
 				spep.repaint();
 			}
@@ -116,15 +132,15 @@ public class IrregularAreaEditionController extends NormalScenePreviewEditionCon
 	}
 
 	public void mouseDragged(MouseEvent e) {
-		if (selectedTool == POINT_EDIT) {
-			if (underMouse != null && !spep.isRescale()) {
+		if (selectedTool == POINT_EDIT || selectedTool == INFLUENCE_AREA_TOOL) {
+			if (underMouse != null && !spep.isRescale() && !(spep.isResize() || spep.isResizeInflueceArea())) {
 				int changeX = spep.getRealWidth(e.getX() - startDragX);
 				int changeY = spep.getRealHeight(e.getY() - startDragY);
 				int x = originalX + changeX;
 				int y = originalY + changeY;
 				underMouse.changePosition(x, y);
 				spep.repaint();
-			} else if (underMouse != null && spep.isRescale()) {
+			} else if (underMouse != null && spep.isRescale() && !(spep.isResize() || spep.isResizeInflueceArea())) {
 				double changeX = (e.getX() - startDragX);
 				double changeY = - (e.getY() - startDragY);
 				double width = originalWidth / originalScale;
@@ -145,6 +161,13 @@ public class IrregularAreaEditionController extends NormalScenePreviewEditionCon
 				underMouse.setScale(scale);
 				underMouse.recreateImage();
 				spep.repaint();
+			} else if (underMouse != null && !spep.isRescale() && (spep.isResize() || spep.isResizeInflueceArea())) {
+				int changeX = spep.getRealWidth(e.getX() - startDragX);
+				int changeY = spep.getRealHeight(e.getY() - startDragY);
+				underMouse.changeSize(originalWidth + changeX, originalHeight + changeY);
+				underMouse.recreateImage();
+				spep.updateTextEditionPanel();
+				spep.repaint();
 			}
 		} 
 	}
@@ -153,7 +176,7 @@ public class IrregularAreaEditionController extends NormalScenePreviewEditionCon
 		setMouseUnder(e.getX(), e.getY());
 		if (spep.getFirstElement() != null) {
 			spep.repaint();
-		}	
+		}
 	}
 		
 	public ImageElement getUnderMouse() {
@@ -163,5 +186,15 @@ public class IrregularAreaEditionController extends NormalScenePreviewEditionCon
 	public void setSelectedTool(int tool) {
 		selectedTool = tool;
 		spep.setFirstElement(null);
+		spep.setSelectedElement((ImageElement) null);
+		if (selectedTool == POINT_EDIT || selectedTool == DELETE_TOOL) {
+			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_POINT, true);
+			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_INFLUENCEAREA, false);
+		} else {
+			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_POINT, false);
+			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_INFLUENCEAREA, true);
+			spep.setSelectedElement((ImageElement) null);
+		}
+		spep.repaint();
 	}
 }

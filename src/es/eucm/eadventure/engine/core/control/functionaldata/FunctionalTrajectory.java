@@ -278,7 +278,6 @@ public class FunctionalTrajectory {
 		if (destinationElement == null)
 			return false;
 		else {
-			if (!(destinationElement instanceof FunctionalActiveArea)) {
 				InfluenceArea area;
 				if (destinationElement.getInfluenceArea() != null)
 					area = destinationElement.getInfluenceArea();
@@ -303,16 +302,6 @@ public class FunctionalTrajectory {
 				
 				if (posX > x1 && posX < x2 && posY > y1 && posY < y2)
 					return true;
-			} else {
-				FunctionalActiveArea area = (FunctionalActiveArea) destinationElement;
-				int x1 = (int) area.getX();
-				int y1 = (int) area.getY();
-				int x2 = (int) (area.getWidth() + area.getX());
-				int y2 = (int) (area.getHeight() + area.getY());
-				
-				if (posX > x1 && posX < x2 && posY > y1 && posY < y2)
-					return true;
-			}
 		}
 		return false;
 	}

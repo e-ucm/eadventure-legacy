@@ -145,7 +145,6 @@ public class RecentFiles {
 	}
 
 	public void orderFilesByDate( ) {
-
 		for( int i = 0; i < nFiles; i++ ) {
 			RecentFile minDate = recentFiles[i];
 			int minPos = i;
@@ -156,12 +155,10 @@ public class RecentFiles {
 					minPos = j;
 				}
 			}
-
 			//Swap min value, locating it in pos. i: i<->minPos
 			recentFiles[minPos] = recentFiles[i];
 			recentFiles[i] = minDate;
 		}
-
 	}
 
 	public void fileLoaded( String path ) {
@@ -183,8 +180,8 @@ public class RecentFiles {
 
 			//If there is no room
 			if( nFiles == recentFiles.length ) {
-				//Remove the oldest. As it is ordered, it is the last one. Replace it by the new one
-				recentFiles[recentFiles.length - 1] = newFile;
+				//Remove the oldest. As it is ordered, it is the first one. Replace it by the new one
+				recentFiles[0] = newFile;
 			}
 			//In case there is room enough, just insert it in the las position
 			else {

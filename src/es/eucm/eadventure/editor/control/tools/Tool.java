@@ -4,6 +4,9 @@ import es.eucm.eadventure.common.gui.TextConstants;
 
 public abstract class Tool {
 	
+	/**
+	 * Stores the time when the tool was created
+	 */
 	protected long timeStamp = System.currentTimeMillis();
 	
 	protected boolean isGlobal = false;
@@ -16,6 +19,10 @@ public abstract class Tool {
 		this.isGlobal = isGlobal;
 	}
 	
+	/**
+	 * Get the time when the tool was created
+	 * @return The time when the tool was created
+	 */
 	public long getTimeStamp() {
 		return timeStamp;
 	}

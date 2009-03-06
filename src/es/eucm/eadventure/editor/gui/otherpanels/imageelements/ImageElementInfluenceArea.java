@@ -14,6 +14,8 @@ public class ImageElementInfluenceArea extends ImageElement {
 
 	private ImageElement imageElementReference;
 
+	private boolean visible = true;
+	
 	public ImageElementInfluenceArea(
 			InfluenceAreaDataControl influenceAreaDataControl,
 			ImageElement reference) {
@@ -40,7 +42,7 @@ public class ImageElementInfluenceArea extends ImageElement {
 			AlphaComposite alphaComposite = AlphaComposite.getInstance(
 					AlphaComposite.SRC_OVER, 0.3f);
 			g.setComposite(alphaComposite);
-			g.setColor(Color.GREEN);
+			g.setColor(Color.BLUE);
 			g.fillRect(0, 0, image.getWidth(null), image.getHeight(null));
 			g.setColor(Color.BLACK);
 			g.drawRect(0, 0, image.getWidth(null) - 1,
@@ -133,6 +135,7 @@ public class ImageElementInfluenceArea extends ImageElement {
 
 	@Override
 	public void recreateImage() {
+		imageElementReference.recreateImage();
 		if (influenceAreaDataControl.hasInfluenceArea())
 			image = new BufferedImage(influenceAreaDataControl.getWidth(),
 					influenceAreaDataControl.getHeight(),
@@ -201,4 +204,12 @@ public class ImageElementInfluenceArea extends ImageElement {
 		return null;
 	}
 
+	public void setVisible(boolean b) {
+		this.visible = b;
+	}
+
+	@Override
+	public boolean isVisible() {
+		return visible;
+	}
 }

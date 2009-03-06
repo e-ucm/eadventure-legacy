@@ -20,7 +20,7 @@ public class PointDataControl extends DataControl {
 	 * @param activeArea
 	 *            Exit of the data control structure
 	 */
-	public PointDataControl( Point point  ) {
+	public PointDataControl( Point point ) {
 		this.point = point;
 	}
 	
