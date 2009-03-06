@@ -42,7 +42,7 @@ import es.eucm.eadventure.editor.control.controllers.character.NPCDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ChapterDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ChapterListDataControl;
 import es.eucm.eadventure.editor.control.controllers.item.ItemDataControl;
-import es.eucm.eadventure.editor.control.controllers.lom.LOMDataControl;
+import es.eucm.eadventure.editor.control.controllers.metadata.lom.LOMDataControl;
 import es.eucm.eadventure.editor.control.controllers.atrezzo.AtrezzoDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
 import es.eucm.eadventure.editor.control.tools.Tool;
@@ -71,8 +71,9 @@ import es.eucm.eadventure.editor.gui.editdialogs.assetsdialogs.ImageAssetsDialog
 import es.eucm.eadventure.editor.gui.editdialogs.assetsdialogs.VideoAssetsDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.assetsdialogs.XMLAssetsDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.customizeguidialog.CustomizeGUIDialog;
-import es.eucm.eadventure.editor.gui.ims.IMSDialog;
-import es.eucm.eadventure.editor.gui.lomdialog.LOMDialog;
+import es.eucm.eadventure.editor.gui.metadatadialog.ims.IMSDialog;
+import es.eucm.eadventure.editor.gui.metadatadialog.lomdialog.LOMDialog;
+import es.eucm.eadventure.editor.gui.metadatadialog.lomes.LOMESDialog;
 import es.eucm.eadventure.editor.gui.startdialog.StartDialog;
 import es.eucm.eadventure.engine.EAdventureDebug;
 
@@ -432,6 +433,8 @@ public class Controller {
 	public static final int SCORM12 = 0;
 	
 	public static final int SCORM2004 = 1;
+	
+	public static final int AGREGA = 2;
 	
 	/**
 	 * Singleton instance.
@@ -1861,7 +1864,11 @@ public class Controller {
 					// error situation: both profiles must be scorm 2004 if they exist
 					mainWindow.showErrorDialog( TextConstants.getText( "Operation.ExportSCORM2004.BadProfiles.Title" ), 
 							TextConstants.getText( "Operation.ExportSCORM2004.BadProfiles.Message" ) );
-				} else
+				} else if (type==4 && !hasScormProfiles(AGREGA)){
+					// error situation: both profiles must be scorm 2004 if they exist to export to AGREGA
+					mainWindow.showErrorDialog( TextConstants.getText( "Operation.ExportSCORM2004AGREGA.BadProfiles.Title" ), 
+							TextConstants.getText( "Operation.ExportSCORM2004AGREGA.BadProfiles.Message" ) );
+				}else
 				
 				if (validated){
 					//String loName = this.showInputDialog( TextConstants.getText( "Operation.ExportToLOM.Title" ), TextConstants.getText( "Operation.ExportToLOM.Message" ), TextConstants.getText( "Operation.ExportToLOM.DefaultValue" ));
@@ -1921,6 +1928,9 @@ public class Controller {
 											}  else if (type == 3 &&Writer.exportAsSCORM2004( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, adventureData )){
 														mainWindow.showInformationDialog( TextConstants.getText( "Operation.ExportT.Success.Title" ), 
 																TextConstants.getText( "Operation.ExportT.Success.Message" ) );		
+											}if (type == 4 &&Writer.exportAsAGREGA( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, adventureData )){
+												mainWindow.showInformationDialog( TextConstants.getText( "Operation.ExportT.Success.Title" ), 
+														TextConstants.getText( "Operation.ExportT.Success.Message" ) );		
 											}else {
 												mainWindow.showInformationDialog( TextConstants.getText( "Operation.ExportT.NotSuccess.Title" ), 
 														TextConstants.getText( "Operation.ExportT.NotSuccess.Message" ) );
@@ -1971,7 +1981,7 @@ public class Controller {
 			// check that adaptation and assessment profiles are scorm 1.2 profiles
 		 return chaptersController.hasScorm12Profiles(adventureData);
 			 
-		}else if (scormType == SCORM2004){
+		}else if (scormType == SCORM2004||scormType == AGREGA){
 			// check that adaptation and assessment profiles are scorm 2004 profiles
 			return chaptersController.hasScorm2004Profiles(adventureData);
 					
@@ -2148,6 +2158,14 @@ public class Controller {
 	public void showLOMSCORMDataDialog( ) {
 		new IMSDialog( adventureData.getImsController( ) );
 	}
+	
+	/**
+	 * Shows the LOMES for AGREGA packages data dialog editor.
+	 */
+	public void showLOMESDataDialog( ) {
+		new LOMESDialog( adventureData.getLOMESController());
+	}
+	
 
 
 	/**

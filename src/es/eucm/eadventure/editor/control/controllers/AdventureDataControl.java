@@ -9,8 +9,10 @@ import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfil
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfilesDataControl;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfileDataControl;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfilesDataControl;
-import es.eucm.eadventure.editor.control.controllers.ims.IMSDataControl;
-import es.eucm.eadventure.editor.control.controllers.lom.LOMDataControl;
+import es.eucm.eadventure.editor.control.controllers.metadata.lomes.LOMESDataControl;
+import es.eucm.eadventure.editor.control.controllers.metadata.ims.IMSDataControl;
+import es.eucm.eadventure.editor.control.controllers.metadata.lom.LOMDataControl;
+import es.eucm.eadventure.editor.control.controllers.metadata.lomes.LOMESDataControl;
 import es.eucm.eadventure.editor.control.tools.Tool;
 import es.eucm.eadventure.editor.control.tools.general.assets.DeleteArrowTool;
 import es.eucm.eadventure.editor.control.tools.general.assets.DeleteButtonTool;
@@ -56,6 +58,11 @@ public class AdventureDataControl {
 	private IMSDataControl imsController;
 	
 	/**
+	 * Controller for LOM-ES data (require to export games as ODE)
+	 */
+	private LOMESDataControl lomesController;
+	
+	/**
 	 * Assessment file data controller
 	 */
 	private AssessmentProfilesDataControl assessmentProfilesDataControl;
@@ -91,6 +98,7 @@ public class AdventureDataControl {
 		adventureData = new AdventureData();
 		lomController = new LOMDataControl();
 		imsController = new IMSDataControl();
+		lomesController = new LOMESDataControl();
 		assessmentProfilesDataControl = new AssessmentProfilesDataControl();
 		adaptationProfilesDataControl = new AdaptationProfilesDataControl();
 	}
@@ -336,6 +344,13 @@ public class AdventureDataControl {
 	public IMSDataControl getImsController() {
 		return imsController;
 	}
+	
+	/**
+	 * @return the lomesController
+	 */
+	public LOMESDataControl getLOMESController(){
+		return lomesController;
+		}
 
 	/**
 	 * @param imsController the imsController to set

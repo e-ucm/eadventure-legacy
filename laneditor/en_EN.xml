@@ -15,6 +15,7 @@
 	<entry key="MenuFile.SaveAs">Save project as...</entry>
 	<entry key="MenuFile.LOMProperties">Learning Object properties</entry>
 	<entry key="MenuFile.LOMSCORMProperties">Learning Object properties for SCORM 1.2 (IMS-LOM) </entry>
+	<entry key="MenuFile.LOMESProperties">LOM-ES properties </entry>
 	<entry key="MenuFile.ExportLOM">Export as Learning Object</entry>
 	<entry key="MenuFile.ExportGame">Export as EAD file</entry>
 	<entry key="MenuFile.ExportStandalone">Export as a standalone jar-based game</entry>
@@ -23,6 +24,8 @@
 	<entry key="MenuFile.ImportGame">Import game as new project</entry>
 	<entry key="MenuFile.ImportChapter">Import chapter</entry>
 	<entry key="MenuFile.Exit">Exit</entry>
+	<entry key="MenuFile.AllLOMProperties">LOM Metadata Editor</entry>
+	
 	
 	<entry key="About">About</entry>
 	<entry key="Menu.About">About</entry>
@@ -488,6 +491,8 @@ Please, try it again with other destiny directory.</entry>
 	<entry key="Operation.ExportSCORM12.BadProfiles.Message">The assessment and adaptation profile must be SCORM 1.2 if they exists.</entry>
 	<entry key="Operation.ExportSCORM2004.BadProfiles.Title">Incorrect Profiles</entry>
 	<entry key="Operation.ExportSCORM2004.BadProfiles.Message">The assessment and adaptation profile must be SCORM 2004 if they exists.</entry>
+	<entry key="Operation.ExportSCORM2004AGREGA.BadProfiles.Title">Incorrect Profiles</entry>
+	<entry key="Operation.ExportSCORM2004AGREGA.BadProfiles.Message">The assessment and adaptation profile must be SCORM 2004 if they exists to export in AGREGA format.</entry>
 	
 	
 	
@@ -1751,15 +1756,12 @@ When not customized, default arrows will be used in the game.</entry>
 	<entry key="IMS.Classification.Purpose">Purpose</entry>
 	<entry key="IMS.Classification.Description">Description</entry>
 	<entry key="IMS.Classification.Keyword">Keywords</entry>
-
-	
-	
 	
 	<entry key="IMS.LifeCycle.Status">The state or condition this resource is in</entry>
-	<entry key="IMS.LifeCycle.Status1">Draft</entry>
-	<entry key="IMS.LifeCycle.Status2">Final</entry>
-	<entry key="IMS.LifeCycle.Status3">Revised</entry>
-	<entry key="IMS.LifeCycle.Status4">Unavailable</entry>
+	<entry key="IMS.LifeCycle.Status0">Draft</entry>
+	<entry key="IMS.LifeCycle.Status1">Final</entry>
+	<entry key="IMS.LifeCycle.Status2">Revised</entry>
+	<entry key="IMS.LifeCycle.Status3">Unavailable</entry>
 	
 	<entry key="IMS.Educational.InteractivityType">The flow of interaction between this resource and the intended user</entry>
 	<entry key="IMS.Educational.InteractivityType0">Active</entry>
@@ -1831,6 +1833,174 @@ When not customized, default arrows will be used in the game.</entry>
 	<entry key="IMS.Classification.Purpose5">Educational  Level</entry>
 	<entry key="IMS.Classification.Purpose6">Skill level</entry>
 	<entry key="IMS.Classification.Purpose7">Security Level</entry>
+	<entry key="IMS.Classification.Purpose8">Competency</entry>
+	
+	<entry key="LOMES.LifeCycle.Role">Role</entry>
+	<entry key="LOMES.LifeCycle.Entity">Entity</entry>
+	<entry key="LOMES.LifeCycle.Description">Description</entry>
+	<entry key="LOMES.LifeCycle.Type">Type</entry>
+	<entry key="LOMES.LifeCycle.Name">Name</entry>
+	<entry key="LOMES.MetaMetaData.Catalog">Catalog</entry>
+	<entry key="LOMES.MetaMetaData.Entry">Entry</entry>
+	<entry key="LOMES.MetaMetaData.Language">Language</entry>
+	
+	<entry key="LOMES.LifeCycle.Role0">Author</entry>
+	<entry key="LOMES.LifeCycle.Role1">Publisher</entry>
+	<entry key="LOMES.LifeCycle.Role2">Initiator</entry>
+	<entry key="LOMES.LifeCycle.Role3">Terminator</entry>
+	<entry key="LOMES.LifeCycle.Role4">Validator</entry>
+	<entry key="LOMES.LifeCycle.Role5">Editor</entry>
+	<entry key="LOMES.LifeCycle.Role6">Graphical</entry>
+	<entry key="LOMES.LifeCycle.Role7">Designer</entry>
+	<entry key="LOMES.LifeCycle.Role8">Technical implementer</entry>
+	<entry key="LOMES.LifeCycle.Role9">Content provider</entry>
+	<entry key="LOMES.LifeCycle.Role10">Technical validator</entry>
+	<entry key="LOMES.LifeCycle.Role11">Educational validator</entry>
+	<entry key="LOMES.LifeCycle.Role12">Script writer</entry>
+	<entry key="LOMES.LifeCycle.Role13">Instructional designer</entry>
+	<entry key="LOMES.LifeCycle.Role14">Subject matter expert</entry>
+	
+	<entry key="LOMES.Technical.Type0">Operating system</entry>
+	<entry key="LOMES.Technical.Type1">browser</entry>
+	<entry key="LOMES.Technical.Name0">Pc-dos</entry>
+	<entry key="LOMES.Technical.Name1">Ms-windows</entry>
+	<entry key="LOMES.Technical.Name2">Macos</entry>
+	<entry key="LOMES.Technical.Name3">Linux</entry>
+	<entry key="LOMES.Technical.Name4">Unix</entry>
+	<entry key="LOMES.Technical.Name5">Multi-os</entry>
+	<entry key="LOMES.Technical.Name6">None</entry>
+	<entry key="LOMES.Technical.Name7">Any</entry>
+	<entry key="LOMES.Technical.Name8">Mozilla firefox</entry>
+	<entry key="LOMES.Technical.Name9">Netscape communicator</entry>
+	<entry key="LOMES.Technical.Name10">Ms-internet explorer</entry>
+	<entry key="LOMES.Technical.Name11">Opera</entry>
+	<entry key="LOMES.Technical.Name12">Amaya</entry>
+
+
+	
+	<entry key="LOMES.MetaMetaData.Role0">Creator</entry>
+	<entry key="LOMES.MetaMetaData.Role1">Validator</entry>
+	
+	<entry key="LOMES.Educational.CognitiveProcess">"Cognitive Process"</entry>
+	<entry key="LOMES.Educational.CognitiveProcess0">Analyse</entry>
+	<entry key="LOMES.Educational.CognitiveProcess1">Implement</entry>
+	<entry key="LOMES.Educational.CognitiveProcess2">Collaborate</entry>
+	<entry key="LOMES.Educational.CognitiveProcess3">Compare</entry>
+	<entry key="LOMES.Educational.CognitiveProcess4">Share</entry>
+	<entry key="LOMES.Educational.CognitiveProcess5">Compete</entry>
+	<entry key="LOMES.Educational.CognitiveProcess6">Understand</entry>
+	<entry key="LOMES.Educational.CognitiveProcess7">Prove</entry>
+	<entry key="LOMES.Educational.CognitiveProcess8">Communicate</entry>
+	<entry key="LOMES.Educational.CognitiveProcess9">Contextualize</entry>
+	<entry key="LOMES.Educational.CognitiveProcess10">Cooperate</entry>
+	<entry key="LOMES.Educational.CognitiveProcess11">Create</entry>
+	<entry key="LOMES.Educational.CognitiveProcess12">Decide</entry>
+	<entry key="LOMES.Educational.CognitiveProcess13">Define</entry>
+	<entry key="LOMES.Educational.CognitiveProcess14">Describe</entry>
+	<entry key="LOMES.Educational.CognitiveProcess15">Discuss</entry>
+	<entry key="LOMES.Educational.CognitiveProcess16">Design</entry>
+	<entry key="LOMES.Educational.CognitiveProcess17">Self assessment</entry>
+	<entry key="LOMES.Educational.CognitiveProcess18">Implement</entry>
+	<entry key="LOMES.Educational.CognitiveProcess19">Implement</entry>
+	<entry key="LOMES.Educational.CognitiveProcess20">Collaborate</entry>
+	<entry key="LOMES.Educational.CognitiveProcess21">Explain</entry>
+	<entry key="LOMES.Educational.CognitiveProcess22">Extrapolate</entry>
+	<entry key="LOMES.Educational.CognitiveProcess23">Innovate</entry>
+	<entry key="LOMES.Educational.CognitiveProcess24">Investigate</entry>
+	<entry key="LOMES.Educational.CognitiveProcess25">Judge</entry>
+	<entry key="LOMES.Educational.CognitiveProcess26">Motivate</entry>
+	<entry key="LOMES.Educational.CognitiveProcess27">Observe</entry>
+	<entry key="LOMES.Educational.CognitiveProcess28">Organize</entry>
+	<entry key="LOMES.Educational.CognitiveProcess29">Organize oneself</entry>
+	<entry key="LOMES.Educational.CognitiveProcess30">Plan</entry>
+	<entry key="LOMES.Educational.CognitiveProcess31">Practise</entry>
+	<entry key="LOMES.Educational.CognitiveProcess32">Produce</entry>
+	<entry key="LOMES.Educational.CognitiveProcess33">Recognize</entry>
+	<entry key="LOMES.Educational.CognitiveProcess34">Remember</entry>
+	<entry key="LOMES.Educational.CognitiveProcess35">Write up</entry>
+	<entry key="LOMES.Educational.CognitiveProcess36">Consider</entry>
+	<entry key="LOMES.Educational.CognitiveProcess37">Connect</entry>
+	<entry key="LOMES.Educational.CognitiveProcess38">Represent</entry>
+	<entry key="LOMES.Educational.CognitiveProcess39">Solve</entry>
+	<entry key="LOMES.Educational.CognitiveProcess40">Simulate</entry>
+	<entry key="LOMES.Educational.CognitiveProcess41">Summarize</entry>
+	<entry key="LOMES.Educational.CognitiveProcess42">Value</entry>
+	
+	<entry key="LOMES.Educational.Context0">classroom</entry>
+	<entry key="LOMES.Educational.Context1">laboratory</entry>
+	<entry key="LOMES.Educational.Context2">real environment</entry>
+	<entry key="LOMES.Educational.Context3">home</entry>
+	<entry key="LOMES.Educational.Context4">mixed</entry>
+	<entry key="LOMES.Educational.Context5">teacher</entry>
+	<entry key="LOMES.Educational.Context6">family</entry>
+	<entry key="LOMES.Educational.Context7">tutor</entry>
+	<entry key="LOMES.Educational.Context8">schoolmate</entry>
+	<entry key="LOMES.Educational.Context9">independent</entry>
+	<entry key="LOMES.Educational.Context10">blended</entry>
+	<entry key="LOMES.Educational.Context11">presencial</entry>
+	<entry key="LOMES.Educational.Context12">face to face</entry>
+	<entry key="LOMES.Educational.Context13">distance</entry>
+
+	
+	<entry key="LOMES.Educational.IntendedEndUserRole0">learner</entry>
+	<entry key="LOMES.Educational.IntendedEndUserRole1">special needs learner</entry>
+	<entry key="LOMES.Educational.IntendedEndUserRole2">gifted learner</entry>
+	<entry key="LOMES.Educational.IntendedEndUserRole3">learners late integration into the education system</entry>
+	<entry key="LOMES.Educational.IntendedEndUserRole4">learner with other specific educational support needs</entry>
+	<entry key="LOMES.Educational.IntendedEndUserRole5">general public</entry>
+	<entry key="LOMES.Educational.IntendedEndUserRole6">individual</entry>
+	<entry key="LOMES.Educational.IntendedEndUserRole7">group</entry>
+	<entry key="LOMES.Educational.IntendedEndUserRole8">teacher</entry>
+	<entry key="LOMES.Educational.IntendedEndUserRole9">tutor</entry>
+	<entry key="LOMES.Educational.IntendedEndUserRole10">family</entry>
+	<entry key="LOMES.Educational.IntendedEndUserRole11">information scientist</entry>
+	<entry key="LOMES.Educational.IntendedEndUserRole12">computer scientist</entry>
+	<entry key="LOMES.Educational.IntendedEndUserRole13">manager</entry>
+	<entry key="LOMES.Educational.IntendedEndUserRole14">Education expert</entry>
+	<entry key="LOMES.Educational.IntendedEndUserRole15">subject matter expert</entry>
+	
+	
+	<entry key="LOMES.Educational.LearningResourceType0">Photograph</entry>
+	<entry key="LOMES.Educational.LearningResourceType1">Illustration</entry>
+	<entry key="LOMES.Educational.LearningResourceType2">Video</entry>
+	<entry key="LOMES.Educational.LearningResourceType3">Animation</entry>
+	<entry key="LOMES.Educational.LearningResourceType4">Music</entry>
+	<entry key="LOMES.Educational.LearningResourceType5">Sound effect</entry>
+	<entry key="LOMES.Educational.LearningResourceType6">Voice-over</entry>
+	<entry key="LOMES.Educational.LearningResourceType7">Compound audio</entry>
+	<entry key="LOMES.Educational.LearningResourceType8">Narrative text</entry>
+	<entry key="LOMES.Educational.LearningResourceType9">Hypertext</entry>
+	<entry key="LOMES.Educational.LearningResourceType10">Computer graphics</entry>
+	<entry key="LOMES.Educational.LearningResourceType11">Integrated media</entry>
+	<entry key="LOMES.Educational.LearningResourceType12">Multimedia presentation</entry>
+	<entry key="LOMES.Educational.LearningResourceType13">Tutorial</entry>
+	<entry key="LOMES.Educational.LearningResourceType14">Guided reading</entry>
+	<entry key="LOMES.Educational.LearningResourceType15">Master class</entry>
+	<entry key="LOMES.Educational.LearningResourceType16">Textual-image analysis</entry>
+	<entry key="LOMES.Educational.LearningResourceType17">Discussion activity</entry>
+	<entry key="LOMES.Educational.LearningResourceType18">Closed exercise or problem</entry>
+	<entry key="LOMES.Educational.LearningResourceType19">Contextualized case problem</entry>
+	<entry key="LOMES.Educational.LearningResourceType20">Open problem</entry>
+	<entry key="LOMES.Educational.LearningResourceType21">Real or virtual learning environment</entry>
+	<entry key="LOMES.Educational.LearningResourceType22">Didactic game</entry>
+	<entry key="LOMES.Educational.LearningResourceType23">Webquest</entry>
+	<entry key="LOMES.Educational.LearningResourceType24">Experiment</entry>
+	<entry key="LOMES.Educational.LearningResourceType25">Real project</entry>
+	<entry key="LOMES.Educational.LearningResourceType26">Simulation</entry>
+	<entry key="LOMES.Educational.LearningResourceType27">Questionnaire</entry>
+	<entry key="LOMES.Educational.LearningResourceType28">Exam</entry>
+	<entry key="LOMES.Educational.LearningResourceType29">Self assessment</entry>
+	
+	<entry key="LOMES.Rights.AccesType0">Universal</entry>
+	<entry key="LOMES.Rights.AccesType1">Non-universal</entry>
+	
+	<entry key="LOMES.Rights.Description">Rights Description</entry>
+	<entry key="LOMES.Rights.AccessType">Access Type</entry>
+	<entry key="LOMES.Rights.AccessDescription">Access Description</entry>
+	<entry key="LOMES.Classification.Source">Source</entry>
+	<entry key="LOMES.Classification.Identifier">Identifier</entry>
+	<entry key="LOMES.Classification.Entry">Entry</entry>
+	
 	
 	
 	

@@ -1,11 +1,11 @@
 package es.eucm.eadventure.editor.control.config;
 
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.control.controllers.lom.LOMEducationalDataControl;
-import es.eucm.eadventure.editor.control.controllers.lom.LOMGeneralDataControl;
-import es.eucm.eadventure.editor.control.controllers.lom.LOMLifeCycleDataControl;
-import es.eucm.eadventure.editor.control.controllers.lom.LOMTechnicalDataControl;
-import es.eucm.eadventure.editor.data.lom.LangString;
+import es.eucm.eadventure.editor.control.controllers.metadata.lom.LOMEducationalDataControl;
+import es.eucm.eadventure.editor.control.controllers.metadata.lom.LOMGeneralDataControl;
+import es.eucm.eadventure.editor.control.controllers.metadata.lom.LOMLifeCycleDataControl;
+import es.eucm.eadventure.editor.control.controllers.metadata.lom.LOMTechnicalDataControl;
+import es.eucm.eadventure.editor.data.meta.LangString;
 
 public class LOMConfigData implements ProjectConfigDataConsumer{
 
