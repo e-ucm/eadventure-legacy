@@ -9,7 +9,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
-import es.eucm.eadventure.editor.data.lom.LOMGeneral;
+import es.eucm.eadventure.editor.data.meta.lom.LOMGeneral;
 
 
 public class LOMGeneralDOMWriter extends LOMSimpleDataWriter{

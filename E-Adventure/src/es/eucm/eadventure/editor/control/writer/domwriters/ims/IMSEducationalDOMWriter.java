@@ -9,9 +9,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
-import es.eucm.eadventure.editor.data.ims.IMSEducational;
-import es.eucm.eadventure.editor.data.lom.LOMEducational;
-import es.eucm.eadventure.editor.data.lom.LOMGeneral;
+import es.eucm.eadventure.editor.data.meta.ims.IMSEducational;
 
 
 public class IMSEducationalDOMWriter extends IMSSimpleDataWriter{

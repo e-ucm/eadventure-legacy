@@ -11,11 +11,13 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
+import es.eucm.eadventure.editor.control.tools.general.ChangeAllowPlayerInSceneTool;
 import es.eucm.eadventure.editor.control.tools.general.ChangeNSDestinyPositionTool;
 import es.eucm.eadventure.editor.control.tools.general.ChangePositionTool;
 import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeDocumentationTool;
 import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeNameTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
+import es.eucm.eadventure.editor.gui.elementpanels.scene.SceneLooksPanel;
 
 public class SceneDataControl extends DataControlWithResources {
 
@@ -535,6 +537,7 @@ public class SceneDataControl extends DataControlWithResources {
 		return scene.getPlayerLayer();
 	}
 	
+	
 	public void setAllowPlayerLayer(boolean allow){
 		scene.setAllowPlayerLayer(allow);
 	}
@@ -550,7 +553,21 @@ public class SceneDataControl extends DataControlWithResources {
 		referencesListDataControl.addPlayer();
 		
 	}
-
+	
+	public void changeAllowPlayerLayer(boolean isAllowPlayerLayer, SceneLooksPanel looksPanel){		
+		Controller.getInstance().addTool(new ChangeAllowPlayerInSceneTool(isAllowPlayerLayer,looksPanel,this));
+	}
+	
+	
+	
+	// this method is only used in SwapPlayerModeTool
+	public void insertPlayer(){
+		deletePlayerInReferenceList();
+		referencesListDataControl.restorePlayer();
+	}
+	// this method is only used in SwapPlayerModeTool
+	
+	
 	public void setPlayerScale(float scale) {
 		scene.setPlayerScale(scale);
 	}

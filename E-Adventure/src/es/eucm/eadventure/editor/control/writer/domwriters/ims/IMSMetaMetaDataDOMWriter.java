@@ -9,8 +9,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
-import es.eucm.eadventure.editor.data.ims.IMSLifeCycle;
-import es.eucm.eadventure.editor.data.ims.IMSMetaMetaData;
+import es.eucm.eadventure.editor.data.meta.ims.IMSMetaMetaData;
 
 public class IMSMetaMetaDataDOMWriter extends IMSSimpleDataWriter{
 

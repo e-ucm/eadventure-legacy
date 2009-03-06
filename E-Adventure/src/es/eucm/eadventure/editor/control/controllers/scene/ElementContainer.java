@@ -114,12 +114,17 @@ public class ElementContainer {
 	}
 	
 	public boolean isVisible() {
+		if (erdc==null){
+			return true;
+		}
 		return this.erdc.isVisible();
 	}
 	
 	public void setVisible(boolean visible) {
+		if (erdc!=null){
 		Controller.getInstance().dataModified();
 		this.erdc.setVisible(visible);
+		}
 	}
 	
 }
