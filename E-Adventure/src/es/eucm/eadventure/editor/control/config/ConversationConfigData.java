@@ -11,6 +11,8 @@ public class ConversationConfigData implements ProjectConfigDataConsumer{
 
 	private static Controller controller = Controller.getInstance();
 	
+	
+	
 	private static boolean checkParameters ( String convId, int nodeIndex ){
 		boolean parametersOk = false;
 		
