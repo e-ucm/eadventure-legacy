@@ -29,7 +29,6 @@ public class SwapPlayerModeTool extends Tool{
 		this.adventureData = adventureData;
 		controller = Controller.getInstance();
 		this.chapterDataControlList = chapterDataControlList;
-		setGlobal(true);
 		oldPlayerLayer = new ArrayList<Integer>();
 		//Take the player layer in each scene
 		for (SceneDataControl scene:chapterDataControlList.getSelectedChapterDataControl().getScenesList().getScenes()){

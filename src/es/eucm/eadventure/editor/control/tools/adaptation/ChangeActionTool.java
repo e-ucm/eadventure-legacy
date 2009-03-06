@@ -91,18 +91,34 @@ public class ChangeActionTool extends Tool{
 
 	@Override
 	public boolean redoTool() {
-		containsAS.setAdaptedState( state );
-		Controller.getInstance( ).updateFlagSummary( );
-		Controller.getInstance().updatePanel();
-		return true;
+		return undoTool();
 	}
 
 	@Override
 	public boolean undoTool() {
-		containsAS.setAdaptedState( oldState );
-		Controller.getInstance( ).updateFlagSummary( );
-		Controller.getInstance().updatePanel();
-		return true;
+		
+		try {
+			AdaptedState temp = (AdaptedState)state.clone();
+			// Restore initial scene id
+			state.setTargetId( oldState.getTargetId() );
+			// Restore all FlagVars
+			state.getFlagsVars().clear();
+			for ( String flagVar: oldState.getFlagsVars()){
+				state.getFlagsVars().add(flagVar);
+			}
+			// Restore all actions
+			state.getActionsValues().clear();
+			for ( String flagVar: oldState.getActionsValues()){
+				state.getActionsValues().add(flagVar);
+			}
+			oldState = temp;
+			Controller.getInstance( ).updateFlagSummary( );
+			Controller.getInstance().updatePanel();
+			return true;
+		} catch (CloneNotSupportedException e) {
+			ReportDialog.GenerateErrorReport(e, false, "Could not clone adaptedState "+((state==null)?"null":state.getClass().toString()));
+			return false;
+		}		
 	}
 
 }

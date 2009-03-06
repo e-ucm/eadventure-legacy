@@ -229,4 +229,11 @@ public class AdaptedState implements Cloneable, HasTargetId {
 		as.initialScene = (initialScene != null ? new String(initialScene) : null);
 		return as; 
 	}
+
+	/**
+	 * @return the actionsValues
+	 */
+	public List<String> getActionsValues() {
+		return actionsValues;
+	}
 } 

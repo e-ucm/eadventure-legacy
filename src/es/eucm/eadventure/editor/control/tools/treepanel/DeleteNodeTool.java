@@ -44,12 +44,14 @@ public class DeleteNodeTool extends Tool {
 
 	@Override
 	public boolean redoTool() {
-		return treeNode.delete(false);
+		Controller.getInstance().replaceSelectedChapter((Chapter)chapterDataControl.getContent());
+		Controller.getInstance().reloadData();
+		return true;
 	}
 
 	@Override
 	public boolean undoTool() {
-		treeNode.addExistingChildInPosition(index, treeNode);
+		Controller.getInstance().replaceSelectedChapter(chapter);
 		Controller.getInstance().reloadData();
 		//Controller.getInstance().replaceSelectedChapter(chapter);
 		// TreeNodeControl.getInstance().changeTreeNodeDataControlContent(treeNode.getDataControl().getContent());

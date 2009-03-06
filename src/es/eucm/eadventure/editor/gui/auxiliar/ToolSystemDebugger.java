@@ -49,7 +49,8 @@ public class ToolSystemDebugger extends JDialog{
 			}
 			listValues[ctManager.getGlobalToolManager().getRedoList().size()] = "[[CURRENT]]]";
 			for ( int j=0;	j<ctManager.getGlobalToolManager().getUndoList().size(); j++){
-				listValues[ctManager.getGlobalToolManager().getRedoList().size()+1+j] = ctManager.getGlobalToolManager().getUndoList().get(j).getToolName();
+				listValues[ctManager.getGlobalToolManager().getRedoList().size()+
+				           ctManager.getGlobalToolManager().getUndoList().size()-j] = ctManager.getGlobalToolManager().getUndoList().get(j).getToolName();
 			}
 
 			JList newList = new JList(listValues);

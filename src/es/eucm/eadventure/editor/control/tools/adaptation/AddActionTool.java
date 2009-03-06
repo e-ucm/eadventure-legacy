@@ -1,7 +1,6 @@
 package es.eucm.eadventure.editor.control.tools.adaptation;
 
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
-import es.eucm.eadventure.common.data.adaptation.AdaptationRule;
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
 import es.eucm.eadventure.common.data.adaptation.ContainsAdaptedState;
 import es.eucm.eadventure.common.gui.TextConstants;
@@ -15,8 +14,6 @@ import es.eucm.eadventure.editor.control.tools.Tool;
  */
 public class AddActionTool extends Tool{
 
-	protected ContainsAdaptedState containsAS;
-	
 	protected AdaptedState state;
 	
 	protected AdaptedState oldState;
@@ -25,9 +22,8 @@ public class AddActionTool extends Tool{
 	
 	protected int mode;
 	
-	public AddActionTool (ContainsAdaptedState rule, int index){
-		this.containsAS = rule;
-		this.state = rule.getAdaptedState();
+	public AddActionTool (AdaptedState state, int index){
+		this.state = state;
 		this.index = index;
 	}
 	
@@ -74,18 +70,34 @@ public class AddActionTool extends Tool{
 
 	@Override
 	public boolean redoTool() {
-		containsAS.setAdaptedState( state );
-		Controller.getInstance( ).updateFlagSummary( );
-		Controller.getInstance().updatePanel();
-		return true;
+		return undoTool();
 	}
 
 	@Override
 	public boolean undoTool() {
-		containsAS.setAdaptedState( oldState );
-		Controller.getInstance( ).updateFlagSummary( );
-		Controller.getInstance().updatePanel();
-		return true;
+		try {
+			AdaptedState temp = (AdaptedState)state.clone();
+			// Restore initial scene id
+			state.setTargetId( oldState.getTargetId() );
+			// Restore all FlagVars
+			state.getFlagsVars().clear();
+			for ( String flagVar: oldState.getFlagsVars()){
+				state.getFlagsVars().add(flagVar);
+			}
+			// Restore all actions
+			state.getActionsValues().clear();
+			for ( String flagVar: oldState.getActionsValues()){
+				state.getActionsValues().add(flagVar);
+			}
+			oldState = temp;
+			Controller.getInstance( ).updateFlagSummary( );
+			Controller.getInstance().updatePanel();
+			return true;
+		} catch (CloneNotSupportedException e) {
+			ReportDialog.GenerateErrorReport(e, false, "Could not clone adaptedState "+((state==null)?"null":state.getClass().toString()));
+			return false;
+		}
+
 	}
 
 }

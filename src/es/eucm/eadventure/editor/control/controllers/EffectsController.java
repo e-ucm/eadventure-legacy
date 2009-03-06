@@ -1013,6 +1013,7 @@ public class EffectsController {
 			// If random effect
 			if ( type == Effect.RANDOM_EFFECT){
 				RandomEffect randomEffect = (RandomEffect) effect;
+				
 				if (randomEffect.getPositiveEffect( )!=null){
 					if (deleteSingleEffect(id, randomEffect.getPositiveEffect())){
 						randomEffect.setPositiveEffect(null);
@@ -1022,6 +1023,7 @@ public class EffectsController {
 				if (randomEffect.getNegativeEffect( )!=null){
 					if (deleteSingleEffect(id, randomEffect.getNegativeEffect())){
 						randomEffect.setNegativeEffect(null);
+						
 					}
 				}
 

@@ -52,7 +52,6 @@ public class SelectCursorPathTool extends SelectResourceTool{
 		this.adventureData = adventureData;
 		this.t = t;
 		this.type = DescriptorData.getCursorTypeString(t);
-		this.setGlobal(true);
 	}
 
 	@Override

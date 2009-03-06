@@ -209,7 +209,7 @@ public class ChapterListDataControl {
 	public boolean replaceSelectedChapter(Chapter newChapter ) {
 		int chapter = this.getSelectedChapter();
 		chapters.set( getSelectedChapter(), newChapter);
-		chapterDataControlList.get( chapter ).update( newChapter );
+		chapterDataControlList.set( chapter , new ChapterDataControl(newChapter ));
 		identifierSummary = new IdentifierSummary(newChapter);
 		identifierSummary.loadIdentifiers( getSelectedChapterData( ) );
 
@@ -358,18 +358,16 @@ public class ChapterListDataControl {
 	
 	public boolean addTool(Tool tool) {
 		boolean done = true;
-		if ( tool.isGlobal() ){
-			for ( int i=0; i< chapterToolManagers.size(); i++){
-				if (i==0){
-					done = chapterToolManagers.get(i).addTool(tool);
-				} else if (done){
-					chapterToolManagers.get(i).addTool(false, tool);
-				}
-					
-			}
+		if ( !tool.doesClone() ){
+			done =chapterToolManagers.get( getSelectedChapter() ).addTool(tool);
 		} else {
-			done =chapterToolManagers.get( getSelectedChapter() ).addTool(tool); 
+			if (tool.doTool()) {
+				chapterToolManagers.get( getSelectedChapter() ).clear();
+				chapterToolManagers.get( getSelectedChapter() ).addTool(false, tool);
+			} else 
+				chapterToolManagers.get( getSelectedChapter() ).addTool(false, tool);
 		}
+		 
 		return done; 
 	}
 
