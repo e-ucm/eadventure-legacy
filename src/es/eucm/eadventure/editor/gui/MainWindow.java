@@ -282,6 +282,12 @@ public class MainWindow extends JFrame {
 		} );
 		fileMenu.add( itFileSaveAs );
 		fileMenu.addSeparator( );
+		
+		
+		// create Lom Properties menu (IEEE LOM, IMS LOM, LOM-ES)
+		JMenu itLomProperties = new JMenu( TextConstants.getText( "MenuFile.AllLOMProperties" ) );
+		
+		
 		JMenuItem itLOMProp = new JMenuItem( TextConstants.getText( "MenuFile.LOMProperties" ) );
 		itLOMProp.setEnabled( controller.isFolderLoaded( ) );
 		itLOMProp.addActionListener(  new ActionListener( ) {
@@ -289,8 +295,8 @@ public class MainWindow extends JFrame {
 				controller.showLOMDataDialog( );
 			}
 		} );
-		fileMenu.add( itLOMProp );
-		fileMenu.addSeparator( );
+		itLomProperties.add( itLOMProp );
+		//itLomProperties.addSeparator( );
 		
 		JMenuItem itLOMSCORMProp = new JMenuItem( TextConstants.getText( "MenuFile.LOMSCORMProperties" ) );
 		itLOMSCORMProp.setEnabled( controller.isFolderLoaded( ) );
@@ -299,7 +305,19 @@ public class MainWindow extends JFrame {
 				controller.showLOMSCORMDataDialog( );
 			}
 		} );
-		fileMenu.add( itLOMSCORMProp );
+		itLomProperties.add( itLOMSCORMProp );
+		//itLomProperties.addSeparator( );
+		
+		JMenuItem itLOMESProp = new JMenuItem( TextConstants.getText( "MenuFile.LOMESProperties" ) );
+		itLOMESProp.setEnabled( controller.isFolderLoaded( ) );
+		itLOMESProp.addActionListener(  new ActionListener( ) {
+			public void actionPerformed( ActionEvent e ) {
+				controller.showLOMESDataDialog();
+			}
+		} );
+		itLomProperties.add( itLOMESProp );
+		
+		fileMenu.add(itLomProperties);
 		fileMenu.addSeparator( );
 		
 		JMenu itImport = new JMenu( TextConstants.getText( "MenuFile.Import" ) );

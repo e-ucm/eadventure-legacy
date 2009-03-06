@@ -36,6 +36,7 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementContainer;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ReferencesListDataControl;
+import es.eucm.eadventure.editor.control.tools.general.MovePlayerLayerInTableTool;
 import es.eucm.eadventure.editor.gui.editdialogs.ConditionsDialog;
 import es.eucm.eadventure.editor.gui.elementpanels.general.ElementReferencesTable;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
@@ -442,21 +443,15 @@ public class ReferencesListPanel extends JPanel{
 	}
 	
 	private void moveUp(){
-		int selectedRow = table.getSelectedRow( );
-		ElementContainer element = referencesListDataControl.getAllReferencesDataControl().get( selectedRow );
-		if (referencesListDataControl.moveElementUp( element.getErdc() )){
-			table.getSelectionModel( ).setSelectionInterval( selectedRow-1, selectedRow-1 );
-			table.updateUI( );
-		}
+		Controller.getInstance().addTool(new MovePlayerLayerInTableTool(referencesListDataControl,table,true));
+		
 	}
 	
+
+	
 	private void moveDown(){
-		int selectedRow = table.getSelectedRow( );
-		ElementContainer element = referencesListDataControl.getAllReferencesDataControl().get( selectedRow );
-		if (referencesListDataControl.moveElementDown( element.getErdc() )){
-			table.getSelectionModel( ).setSelectionInterval( selectedRow+1, selectedRow+1 );
-			table.updateUI( );
-		}
+		Controller.getInstance().addTool(new MovePlayerLayerInTableTool(referencesListDataControl,table,false));
+		
 	}
 	
 	
