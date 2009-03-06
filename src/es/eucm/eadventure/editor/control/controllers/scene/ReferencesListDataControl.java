@@ -11,6 +11,7 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.tools.general.MovePlayerLayerInTableTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.scene.ReferenceListener;
 
@@ -842,8 +843,9 @@ public class ReferencesListDataControl extends DataControl{
 	}
 
 	public void setPlayerPosition(int playerPosition) {
-		this.playerPositionInAllReferences = playerPosition;
+		this.playerPositionInAllReferences= playerPosition;
 		this.sceneDataControl.setPlayerLayer(playerPosition);
+		
 	}
 	
 	public void deletePlayer(){
@@ -851,9 +853,19 @@ public class ReferencesListDataControl extends DataControl{
 			allReferencesDataControl.remove(playerPositionInAllReferences);
 			reassignLayerAllReferencesDataControl(playerPositionInAllReferences);
 			playerPositionInAllReferences  = NO_PLAYER;
+			//sets player layer to no allowed
+			sceneDataControl.setPlayerLayer(Scene.PLAYER_NO_ALLOWED);
 			}
-		//sets player layer to allowed
-		sceneDataControl.setPlayerLayer(Scene.PLAYER_NO_ALLOWED);
+		
+	}
+	
+	// this function was made to insert player in correct position in SwapPlayerModeTool
+	// CAUTION!! dont check if has layer or if it is allowed, because where it is call that has been checked
+	//			 dont call to setPlayerLayer() because it has been checked
+	public void restorePlayer(){
+		ElementContainer ec = new ElementContainer(null,sceneDataControl.getPlayerLayer(),AssetsController.getImage( this.playerImagePath ));
+		int layer = insertInOrder(ec,true);
+		reassignLayerAllReferencesDataControl(layer);
 	}
 	
 	public void addPlayer(){
@@ -915,5 +927,9 @@ public class ReferencesListDataControl extends DataControl{
 		if (this.getNPCReferences() != null)
 			for (DataControl dc : this.getNPCReferences())
 				dc.recursiveSearch();
+	}
+
+	public void setPlayerPositionInAllReferences(int playerPositionInAllReferences) {
+		this.playerPositionInAllReferences = playerPositionInAllReferences;
 	}
 }

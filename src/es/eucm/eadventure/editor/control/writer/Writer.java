@@ -48,6 +48,7 @@ import es.eucm.eadventure.editor.control.writer.domwriters.ChapterDOMWriter;
 import es.eucm.eadventure.editor.control.writer.domwriters.DescriptorDOMWriter;
 import es.eucm.eadventure.editor.control.writer.domwriters.ims.IMSDOMWriter;
 import es.eucm.eadventure.editor.control.writer.domwriters.lom.LOMDOMWriter;
+import es.eucm.eadventure.editor.control.writer.domwriters.lomes.LOMESDOMWriter;
 
 /**
  * Static class, containing the main functions to write an adventure into an XML file.
@@ -1156,6 +1157,199 @@ public class Writer {
 		return dataSaved;
 	}
 
+
+	
+	public static boolean exportAsAGREGA( String zipFilename, String loName, String authorName, String organization, boolean windowed, String gameFilename, AdventureDataControl adventureData ) {
+		boolean dataSaved = true;
+
+		try {
+			// Create the necessary elements for building the DOM
+			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance( );
+			
+			TransformerFactory tFactory = TransformerFactory.newInstance( );
+			DocumentBuilder db = dbf.newDocumentBuilder( );
+			Document doc = null;
+			Transformer transformer = null;
+			OutputStream fout = null;
+			OutputStreamWriter writeFile = null;
+			
+			//Clean temp directory
+			File tempDir = new File("web/temp");
+			for(File tempFile:tempDir.listFiles( )){
+				if (tempFile.isDirectory( ))
+					tempFile.deleteAll( );
+				tempFile.delete( );
+			}
+
+			// Copy the web to the zip
+			dataSaved &=writeWebPage( loName , windowed,"es.eucm.eadventure.engine.EAdventureAppletScorm" );
+			
+			// Merge project & e-Adventure jar into file eAdventure_temp.jar
+			// Destiny file
+			File jarUnsigned = new File("web/temp/eAdventure.zip");
+			
+			// Create output stream		
+			FileOutputStream mergedFile = new FileOutputStream(jarUnsigned);
+			
+			// Create zipoutput stream
+			ZipOutputStream os = new ZipOutputStream(mergedFile);
+			
+			// Merge projectDirectory and web/eAdventure_temp.jar into output stream
+			File.mergeZipAndDirToJar( "web/eAdventure_temp.jar", gameFilename, os );
+			
+			// Create and copy the manifest into the output stream
+			String manifestText = Writer.defaultManifestFile( "es.eucm.eadventure.engine.EAdventureAppletScorm" );
+			ZipEntry manifestEntry = new ZipEntry("META-INF/MANIFEST.MF");
+			os.putNextEntry( manifestEntry );
+			os.write( manifestText.getBytes( ) );
+			os.closeEntry( );
+			os.flush( );
+			os.close( );
+			
+			dataSaved &= jarUnsigned.renameTo( new File("web/temp/"+loName+"_unsigned.jar") );
+			
+			// Integrate game and jar into a new jar File
+			
+			dataSaved = JARSigner.signJar( authorName, organization, "web/temp/"+loName+"_unsigned.jar", "web/temp/"+loName+".jar" );
+
+			new File("web/temp/"+loName+"_unsigned.jar").delete( );
+			
+			/** ******* START WRITING THE MANIFEST ********* */
+			// Create the necessary elements for building the DOM
+			db = dbf.newDocumentBuilder( );
+			doc = db.newDocument( );
+	
+			// Pick the main node for the descriptor
+			Element manifest = null;
+			manifest = doc.createElement( "manifest" );
+			manifest.setAttribute( "identifier", "eAdventureGame" );
+			manifest.setAttribute( "xmlns","http://www.imsglobal.org/xsd/imscp_v1p1");
+			manifest.setAttribute( "xmlns:lomes","http://ltsc.ieee.org/xsd/LOM" );
+			manifest.setAttribute( "xmlns:xsi","http://www.w3.org/2001/XMLSchema-instance");
+			manifest.setAttribute( "xmlns:adlcp","http://www.adlnet.org/xsd/adlcp_v1p3");
+			manifest.setAttribute("xmlns:imsss","http://www.imsglobal.org/xsd/imsss");
+			manifest.setAttribute("xmlns:adlseq","http://www.adlnet.org/xsd/adlseq_v1p3");
+			manifest.setAttribute("xmlns:adlnav","http://www.adlnet.org/xsd/adlnav_v1p3");
+			manifest.setAttribute("xsi:schemaLocation","http://www.imsglobal.org/xsd/imscp_v1p1 imscp_v1p1.xsd http://ltsc.ieee.org/xsd/LOM lom.xsd http://www.adlnet.org/xsd/adlcp_v1p3 adlcp_v1p3.xsd http://www.imsglobal.org/xsd/imsss imsss_v1p0.xsd http://www.adlnet.org/xsd/adlseq_v1p3 adlseq_v1p3.xsd http://www.adlnet.org/xsd/adlnav_v1p3 adlnav_v1p3.xsd");
+			//manifest.setAttribute( "version", "0.9" );
+			
+			
+			// Create metadata (that is mandatory for SCORM 2004)
+			Element metadata = doc.createElement("metadata");
+			Element schema = doc.createElement("schema");
+			schema.setTextContent("ADL SCORM");
+			metadata.appendChild(schema);
+			Element schemaversion = doc.createElement("schemaversion");
+			schemaversion.setTextContent("2004 3rd Edition");
+			metadata.appendChild(schemaversion);
+			manifest.appendChild(metadata);
+			
+			
+			//Create the organizations node (required)
+			Element organizations = doc.createElement( "organizations" );
+			organizations.setAttribute( "default", ORGANIZATION_IDENTIFIER );
+			// Just one organization
+			Element organizationEl = doc.createElement( "organization" );
+			organizationEl.setAttribute( "identifier", ORGANIZATION_IDENTIFIER );
+			organizationEl.setAttribute( "structure", ORGANIZATION_STRUCTURE );
+			Node organizationTitleNode = doc.createElement( "title" );
+			organizationTitleNode.setTextContent(adventureData.getTitle()  );
+			organizationEl.appendChild( organizationTitleNode );
+			// The organization contains only one item, which refers to the unique resource
+			Element itemEl = doc.createElement( "item" );
+			itemEl.setAttribute( "identifier", ITEM_IDENTIFIER );
+			itemEl.setAttribute( "identifierref", RESOURCE_IDENTIFIER );
+			itemEl.setAttribute( "isvisible", "true" );
+			//itemEl.setAttribute( "parameters", "" );
+			Node itemTitleNode = doc.createElement( "title" );
+			itemTitleNode.setTextContent( adventureData.getTitle() );
+			itemEl.appendChild( itemTitleNode );
+			organizationEl.appendChild( itemEl );
+			//Append the organization node to organizations
+			organizations.appendChild( organizationEl );
+			
+			manifest.appendChild( organizations );
+			//Create the resources node
+			Node resources = doc.createElement( "resources" );
+			Element resource = doc.createElement( "resource" );
+			resource.setAttribute( "identifier", RESOURCE_IDENTIFIER );
+			resource.setAttribute( "adlcp:scormType", "sco" );
+			resource.setAttribute( "type", "webcontent" );
+			resource.setAttribute( "href", loName+".html" );
+			
+			
+			Node metaData = doc.createElement( "metadata" );
+			Node lomNode = LOMESDOMWriter.buildLOMESDOM( adventureData.getLOMESController());
+			doc.adoptNode(lomNode);
+			metaData.appendChild( lomNode );
+			resource.appendChild( metaData );
+			
+			Element file = doc.createElement( "file" );
+			file.setAttribute( "href", loName+".html" );
+			resource.appendChild( file );
+			
+			Element file2 = doc.createElement( "file" );
+			file2.setAttribute( "href", "egame.js" );
+			resource.appendChild( file2 );
+
+			Element file3 = doc.createElement( "file" );
+			file3.setAttribute( "href", loName+".jar" );
+			resource.appendChild( file3 );
+
+			resources.appendChild( resource );
+			manifest.appendChild( resources );
+			indentDOM( manifest, 0 );
+			doc.adoptNode( manifest );
+			doc.appendChild( manifest );
+			
+			// Create the necessary elements for export the DOM into a XML file
+			transformer = tFactory.newTransformer( );
+
+			// Create the output buffer, write the DOM and close it
+			//fout = new FileOutputStream( zipFilename + "/imsmanifest.xml" );
+			fout = new FileOutputStream( "web/temp/imsmanifest.xml" );
+			writeFile = new OutputStreamWriter( fout, "UTF-8" );
+			transformer.transform( new DOMSource( doc ), new StreamResult( writeFile ) );
+			writeFile.close( );
+			fout.close( );
+			
+			// copy mandatory xsd
+			File.unzipDir("web/Scorm2004AgregaContent.zip", "web/temp/");
+			
+			
+			//copy javascript
+			File javaScript = new File("web/egame.js");
+			javaScript.copyTo(new File("web/temp/egame.js"));
+			/** ******** END WRITING THE MANIFEST ********** */
+			
+			/** COPY EVERYTHING TO THE ZIP*/
+			File.zipDirectory("web/temp/", zipFilename);
+			//dataSaved&=new File("web/temp").archiveCopyAllTo( new File(zipFile) );
+			
+
+			// Update the zip files
+			//File.umount( );
+
+		} catch( IOException exception ) {
+			Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.WriteData" ) );
+        	ReportDialog.GenerateErrorReport(exception, true, TextConstants.getText( "Error.WriteData" ));
+			dataSaved = false;
+		} catch( ParserConfigurationException exception ) {
+			Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.WriteData" ) );
+        	ReportDialog.GenerateErrorReport(exception, true, TextConstants.getText( "Error.WriteData" ));
+			dataSaved = false;
+		} catch( TransformerConfigurationException exception ) {
+			Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.WriteData" ) );
+        	ReportDialog.GenerateErrorReport(exception, true, TextConstants.getText( "Error.WriteData" ));
+			dataSaved = false;
+		} catch( TransformerException exception ) {
+			Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.WriteData" ) );
+        	ReportDialog.GenerateErrorReport(exception, true, TextConstants.getText( "Error.WriteData" ));
+			dataSaved = false;
+		}
+
+		return dataSaved;
+	}
 
 	
 	
