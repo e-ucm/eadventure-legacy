@@ -55,6 +55,7 @@ public class ChangeAllowPlayerInSceneTool extends Tool{
 		}
 		looksPanel.addPlayer();
 		
+		controller.updatePanel();
 		/*looksPanel = new SceneLooksPanel(looksPanel.getSceneDataControl());
 		tabPanel.remove(0);
 		tabPanel.insertTab( TextConstants.getText( "Scene.LookPanelTitle" ), null, looksPanel, TextConstants.getText( "Scene.LookPanelTip" ), 0 );
