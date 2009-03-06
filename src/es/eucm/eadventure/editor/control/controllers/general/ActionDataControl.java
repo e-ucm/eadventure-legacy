@@ -217,7 +217,7 @@ public class ActionDataControl extends DataControlWithResources {
 	public boolean deleteElement( DataControl dataControl , boolean askConfirmation) {
 		return false;
 	}
-
+	
 	@Override
 	public boolean moveElementUp( DataControl dataControl ) {
 		return false;

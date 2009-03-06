@@ -231,6 +231,7 @@ public class AnimationDataControl extends DataControl {
 			boolean askConfirmation) {
 		return false;
 	}
+	
 
 	@Override
 	public void deleteIdentifierReferences(String id) {

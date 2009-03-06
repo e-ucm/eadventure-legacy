@@ -191,7 +191,7 @@ public class NextSceneDataControl extends DataControl {
 	public boolean deleteElement( DataControl dataControl, boolean askConfirmation ) {
 		return false;
 	}
-
+	
 	@Override
 	public boolean moveElementUp( DataControl dataControl ) {
 		return false;
