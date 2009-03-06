@@ -32,10 +32,10 @@ public class LOMESRightsDOMWriter extends LOMESSimpleDataWriter{
 			rightsElement = doc.createElement("lomes:rights");
 			
 			// Create cost node
-			rightsElement.appendChild( buildVocabularyNode(doc,"cost",rights.getCost() ));
+			rightsElement.appendChild( buildVocabularyNode(doc,"lomes:cost",rights.getCost() ));
 			
 			// Create copyright and other restrictions
-			rightsElement.appendChild(buildVocabularyNode(doc,"copyrightAndOtherRestrictions" ,rights.getCopyrightandotherrestrictions()));
+			rightsElement.appendChild(buildVocabularyNode(doc,"lomes:copyrightAndOtherRestrictions" ,rights.getCopyrightandotherrestrictions()));
 
 			// Create description node
 			Element description = doc.createElement( "lomes:description" );
@@ -47,7 +47,7 @@ public class LOMESRightsDOMWriter extends LOMESSimpleDataWriter{
 			Element access = doc.createElement("lomes:access");
 			
 			// Create access type and access description
-			access.appendChild(buildVocabularyNode(doc,"accessType" ,rights.getAccessType()));
+			access.appendChild(buildVocabularyNode(doc,"lomes:accessType" ,rights.getAccessType()));
 			Element accessDescription = doc.createElement( "lomes:description" );
 			accessDescription.appendChild( buildLangStringNode(doc, rights.getAccessDescription()));
 			access.appendChild( accessDescription );

@@ -1,7 +1,11 @@
 package es.eucm.eadventure.editor.gui.metadatadialog.lomes;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
@@ -45,22 +49,29 @@ public class LOMESRightsAndClassificationPanel extends JPanel{
 			LOMESTextPanel identifier = new LOMESTextPanel(classificationController.getIdentifier(), TextConstants.getText("LOMES.Classification.Identifier"), LOMESTextPanel.TYPE_FIELD);
 			LOMESTextPanel entry = new LOMESTextPanel(classificationController.getEntry(), TextConstants.getText("LOMES.Classification.Entry"), LOMESTextPanel.TYPE_FIELD);
 			//Add the panels
-			add (cost);
-			add (Box.createVerticalStrut(1));
-			add (copyAndOth);
+			
+			JPanel costAndCopy = new JPanel();
+			costAndCopy.setLayout(new GridLayout(0,2));
+			costAndCopy.add(cost);
+			costAndCopy.add(copyAndOth);
+			
+			JPanel access = new JPanel();
+			access.setLayout(new GridLayout(0,2));
+			access.add(accessType);
+			access.add(accessDescription);
+			access.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText("LOMES.Rights.Access") ) );
+			
+			
+			
+			add (costAndCopy);
 			add (Box.createVerticalStrut(1));
 			add (descriptionR);
 			add (Box.createVerticalStrut(1));
-			add (accessType);
+			add (access);
 			add (Box.createVerticalStrut(1));
-			add (accessDescription);
-			add (Box.createVerticalStrut(1));
-		
+	
 			add (purpose);
 			add (Box.createVerticalStrut(1));
-			add (source);
-			add (Box.createVerticalStrut(1));
-			add (identifier);
 			add (source);
 			add (Box.createVerticalStrut(1));
 			add (identifier);
