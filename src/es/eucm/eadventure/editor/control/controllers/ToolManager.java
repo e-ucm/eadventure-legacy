@@ -5,6 +5,7 @@ import java.util.List;
 
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.tools.Tool;
+import es.eucm.eadventure.editor.control.tools.general.chapters.DeleteChapterTool;
 
 /**
  * Controller that manages a double list of tools for undo/redo
@@ -29,8 +30,12 @@ public class ToolManager {
 		this.notifyController = notifyController;
 	}
 	
-	public boolean addTool(Tool tool) {
-		boolean done = tool.doTool();
+	public boolean addTool( Tool tool ) {
+		return addTool ( true, tool );
+	}
+	
+	public boolean addTool(boolean execute, Tool tool) {
+		boolean done = execute?tool.doTool():true;
 		if (done) {
 			if (undoList.size() == 0)
 				undoList.add(tool);
@@ -85,4 +90,21 @@ public class ToolManager {
 		undoList.clear();
 		redoList.clear();
 	}
+
+	
+	// DEbugging
+	/**
+	 * @return the undoList
+	 */
+	public List<Tool> getUndoList() {
+		return undoList;
+	}
+
+	/**
+	 * @return the redoList
+	 */
+	public List<Tool> getRedoList() {
+		return redoList;
+	}
+	
 }

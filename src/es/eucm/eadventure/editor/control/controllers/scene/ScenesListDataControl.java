@@ -147,8 +147,8 @@ public class ScenesListDataControl extends DataControl {
 
 			// Ask for confirmation
 			if(!askConfirmation || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { sceneId, references } ) ) ) {
-				if( scenesList.remove( dataControl.getContent( ) ) ) {
-					scenesDataControlList.remove( dataControl );
+				if( scenesDataControlList.remove( dataControl ) ) {
+					scenesList.remove( dataControl.getContent( ) );
 					controller.deleteIdentifierReferences( sceneId );
 					controller.getIdentifierSummary( ).deleteSceneId( sceneId );
 					//controller.dataModified( );

@@ -45,6 +45,7 @@ public class SelectArrowTool extends SelectResourceTool {
 		super(createResources(adventureData, type), createAssetInfoArray( type ), Controller.RESOURCES, 0);
 		this.adventureData = adventureData;
 		this.type = type;
+		this.setGlobal(true);
 	}
 
 	@Override

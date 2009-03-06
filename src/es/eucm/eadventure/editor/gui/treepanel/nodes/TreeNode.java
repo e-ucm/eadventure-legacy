@@ -402,7 +402,7 @@ public abstract class TreeNode {
 	}
 	
 	/**
-	 * Deletes the node.
+	 * Deletes the node (invoked by DeleteNodeTool).
 	 */
 	public boolean delete( boolean askConfirmation ) {
 		if( getDataControl( ).canBeDeleted( ) && parent.getDataControl( ).deleteElement( getDataControl( ), askConfirmation ) ) {
@@ -418,6 +418,17 @@ public abstract class TreeNode {
 			return true;
 		}
 		return false;
+	}
+	
+	public boolean addExistingChildInPosition ( int index, TreeNode child ){
+		parent.children.add(index, child);
+		ownerPanel.updateTreePanel( );
+		ownerPanel.selectChildOfSelectedElement( child );
+		return true;
+	}
+	
+	public int getIndexInParent( ){
+		return parent.getIndexOfChild(this);
 	}
 
 	/**

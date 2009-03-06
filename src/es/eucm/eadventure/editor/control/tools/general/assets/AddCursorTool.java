@@ -14,6 +14,7 @@ public class AddCursorTool extends Tool{
 	public AddCursorTool (AdventureData adventureData, CustomCursor cursor){
 		this.adventureData = adventureData;
 		this.cursor = cursor;
+		this.setGlobal(true);
 	}
 	
 	@Override

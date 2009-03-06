@@ -16,6 +16,7 @@ public class DeleteCursorTool extends Tool{
 	public DeleteCursorTool (AdventureData adventureData, int index){
 		this.adventureData = adventureData;
 		this.index = index;
+		this.setGlobal(true);
 	}
 	
 	@Override

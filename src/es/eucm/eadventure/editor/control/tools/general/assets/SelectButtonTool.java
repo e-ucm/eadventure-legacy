@@ -48,6 +48,7 @@ public class SelectButtonTool extends SelectResourceTool{
 		this.adventureData = adventureData;
 		this.type = type;
 		this.action = action;
+		this.setGlobal(true);
 	}
 
 	@Override

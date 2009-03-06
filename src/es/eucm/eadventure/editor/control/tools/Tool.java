@@ -6,6 +6,16 @@ public abstract class Tool {
 	
 	protected long timeStamp = System.currentTimeMillis();
 	
+	protected boolean isGlobal = false;
+	
+	public boolean isGlobal(){
+		return isGlobal;
+	}
+	
+	public void setGlobal ( boolean isGlobal ){
+		this.isGlobal = isGlobal;
+	}
+	
 	public long getTimeStamp() {
 		return timeStamp;
 	}
