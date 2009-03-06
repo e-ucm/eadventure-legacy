@@ -38,14 +38,16 @@ public class LOMESLifeCycleDOMWriter extends LOMESSimpleDataWriter{
 			lifeCycleElement.appendChild( version );
 			
 			// Create the status node and add it 
-			lifeCycleElement.appendChild(buildVocabularyNode(doc,"status",lifeCycle.getStatus()));
+			lifeCycleElement.appendChild(buildVocabularyNode(doc,"lomes:status",lifeCycle.getStatus()));
 			
 			// contribution node
 			Element contribution = doc.createElement("lomes:contribute");
-			contribution.appendChild(buildVocabularyNode(doc,"role",lifeCycle.getRole()));
+			contribution.appendChild(buildVocabularyNode(doc,"lomes:role",lifeCycle.getRole()));
 			Element entity = doc.createElement("lomes:entity");
 			entity.setTextContent(lifeCycle.getEntity());
 			contribution.appendChild(entity);
+			
+			lifeCycleElement.appendChild(contribution);
 			
 			
 			

@@ -42,6 +42,6 @@ public class LOMESMetaMetaDataPanel extends JPanel{
 		add (Box.createVerticalStrut(1));
 		add (language);
 		add (Box.createVerticalStrut(1));
-		add ( Box.createRigidArea( new Dimension (400,45) ));
+		add ( Box.createRigidArea( new Dimension (100,45) ));
 	}
 }

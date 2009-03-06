@@ -41,6 +41,8 @@ public class LOMESGeneralDOMWriter extends LOMESSimpleDataWriter{
 			entry.setTextContent(general.getEntry());
 			identifier.appendChild(entry);
 			
+			generalElement.appendChild(identifier);
+			
 			//Create the title node
 			Element title = doc.createElement( "lomes:title" );
 			title.appendChild( buildLangStringNode(doc, general.getTitle( )));

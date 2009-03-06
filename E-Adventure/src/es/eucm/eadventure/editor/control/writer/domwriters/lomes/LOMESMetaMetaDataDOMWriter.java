@@ -39,14 +39,16 @@ public class LOMESMetaMetaDataDOMWriter extends LOMESSimpleDataWriter{
 			Element entry =  doc.createElement( "lomes:entry" );
 			entry.setTextContent(metametadata.getEntry());
 			identifier.appendChild(entry);
-			
+			metaMetaDataElement.appendChild(identifier);
 			
 			// contribution node
 			Element contribution = doc.createElement("lomes:contribute");
-			contribution.appendChild(buildVocabularyNode(doc,"role",metametadata.getRole()));
+			contribution.appendChild(buildVocabularyNode(doc,"lomes:role",metametadata.getRole()));
 			Element entity = doc.createElement("lomes:entity");
 			entity.setTextContent(metametadata.getEntity());
 			contribution.appendChild(entity);
+			
+			metaMetaDataElement.appendChild(contribution);
 			
 			
 			// metadata scheme

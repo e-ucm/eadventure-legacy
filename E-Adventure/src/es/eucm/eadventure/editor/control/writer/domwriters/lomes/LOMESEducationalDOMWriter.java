@@ -33,28 +33,28 @@ public class LOMESEducationalDOMWriter extends LOMESSimpleDataWriter{
 			educationalElement = doc.createElement( "lomes:educational" );
 			
 			//Create the interactivity type node
-			Node intType = buildVocabularyNode(doc, "interactivityType", educational.getInteractivityType( ));
+			Node intType = buildVocabularyNode(doc, "lomes:interactivityType", educational.getInteractivityType( ));
 			educationalElement.appendChild( intType );
 
 			//Create the learning resource type
-			Node lrType = buildVocabularyNode(doc, "learningResourceType", educational.getLearningResourceType( ));
+			Node lrType = buildVocabularyNode(doc, "lomes:learningResourceType", educational.getLearningResourceType( ));
 			educationalElement.appendChild( lrType );
 
 			
 			//Create the interactivity level node
-			Node intLevel = buildVocabularyNode(doc, "interactivityLevel", educational.getInteractivityLevel( ));
+			Node intLevel = buildVocabularyNode(doc, "lomes:interactivityLevel", educational.getInteractivityLevel( ));
 			educationalElement.appendChild( intLevel );
 			
 			//Create the semantic density node
-			Node semanticDensity = buildVocabularyNode(doc, "semanticDensity", educational.getSemanticDensity( ));
+			Node semanticDensity = buildVocabularyNode(doc, "lomes:semanticDensity", educational.getSemanticDensity( ));
 			educationalElement.appendChild( semanticDensity );
 			
 			//Create the intended end user role node
-			Node ieuRole = buildVocabularyNode(doc, "intendededEndUserRole", educational.getIntendedEndUserRole( ));
+			Node ieuRole = buildVocabularyNode(doc, "lomes:intendededEndUserRole", educational.getIntendedEndUserRole( ));
 			educationalElement.appendChild( ieuRole );
 			
 			//Create the context node
-			Node context = buildVocabularyNode(doc, "context", educational.getContext( ));
+			Node context = buildVocabularyNode(doc, "lomes:context", educational.getContext( ));
 			educationalElement.appendChild( context );
 			
 			//Create the typical age range node
@@ -65,7 +65,7 @@ public class LOMESEducationalDOMWriter extends LOMESSimpleDataWriter{
 			}
 
 			//Create the difficulty node
-			Node difficulty = buildVocabularyNode(doc, "difficulty", educational.getDifficulty( ));
+			Node difficulty = buildVocabularyNode(doc, "lomes:difficulty", educational.getDifficulty( ));
 			educationalElement.appendChild( difficulty );
 
 			//Create the typical learning time node

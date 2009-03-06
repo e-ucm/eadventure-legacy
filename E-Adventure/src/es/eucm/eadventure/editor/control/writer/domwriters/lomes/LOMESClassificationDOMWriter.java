@@ -33,7 +33,7 @@ public class LOMESClassificationDOMWriter extends LOMESSimpleDataWriter{
 			classificationElement = doc.createElement("lomes:classification");
 			
 			// Create the purpose node
-			classificationElement.appendChild( buildVocabularyNode(doc,"purpose",classification.getPurpose()));
+			classificationElement.appendChild( buildVocabularyNode(doc,"lomes:purpose",classification.getPurpose()));
 				
 			// Create taxon path node
 			Element taxonPath = doc.createElement("lomes:taxonPath");
