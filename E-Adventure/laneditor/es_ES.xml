@@ -15,6 +15,7 @@
 	<entry key="MenuFile.SaveAs">Guardar como...</entry>
 	<entry key="MenuFile.LOMProperties">Propiedades de Objeto de Aprendizaje (LO)</entry>
 	<entry key="MenuFile.LOMSCORMProperties">Propiedades de Objeto de Aprendizaje para paquetes SCORM 1.2 (IMS-LOM)</entry>
+	<entry key="MenuFile.LOMSCORMProperties">Propiedades de la especificaión LOM-ES</entry>
 	<entry key="MenuFile.ExportLOM">Exportar como Objeto de Aprendizaje (LO)</entry>
 	<entry key="MenuFile.ExportGame">Exportar como fichero EAD</entry>
 	<entry key="MenuFile.ExportStandalone">Exportar como fichero jar ejecutable</entry>
@@ -22,8 +23,8 @@
 	<entry key="MenuFile.Import">Importar...</entry>
 	<entry key="MenuFile.ImportGame">Importar juego como nuevo proyecto</entry>
 	<entry key="MenuFile.ImportChapter">Importar capítulo</entry>
-	
 	<entry key="MenuFile.Exit">Salir</entry>
+	<entry key="MenuFile.AllLOMProperties">Editor de Metadatos Lom</entry>
 
 	<entry key="About">Acerca de</entry>
 	<entry key="Menu.About">Acerca de</entry>
@@ -491,6 +492,8 @@ Por favor, inténtelo de nuevo cambiando dicho directorio.</entry>
 	<entry key="Operation.ExportSCORM12.BadProfiles.Message">El perfil de evaluación y el de adaptación deben ser del tipo SCORM 1.2 en caso de existir.</entry>
 	<entry key="Operation.ExportSCORM2004.BadProfiles.Title">Perfiles incorrectos</entry>
 	<entry key="Operation.ExportSCORM2004.BadProfiles.Message">El perfil de evaluación y el de adaptación deben ser del tipo SCORM 2004 en caso de existir.</entry>
+	<entry key="Operation.ExportSCORM2004AGREGA.BadProfiles.Title">Perfiles incorrectos</entry>
+	<entry key="Operation.ExportSCORM2004AGREGA.BadProfiles.Message">El perfil de evaluación y el de adaptación deben ser del tipo SCORM 2004 en caso de existir para poder exportar en formato AGREGA.</entry>
 	
 	
 	
