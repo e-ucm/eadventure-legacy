@@ -2,6 +2,7 @@ package es.eucm.eadventure.editor.control.controllers;
 
 import java.util.Stack;
 
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.tools.Tool;
 
 public class ChapterToolManager {
@@ -30,14 +31,19 @@ public class ChapterToolManager {
 	// METHODS TO MANAGE UNDO/REDO
 	
 	public boolean addTool(Tool tool) {
+		return addTool ( true, tool );
+	}
+	
+	public boolean addTool( boolean execute, Tool tool ) {
 		if (localToolManagers.isEmpty()){
-			System.out.println("[ToolManager] Global Tool Manager: Tool ADDED");
-			return globalToolManager.addTool(tool);
+			System.out.println("[ToolManager] Global Tool Manager: Tool \""+ tool.getToolName() + "\" ADDED");
+			return globalToolManager.addTool(execute, tool);
 		}else{
-			System.out.println("[ToolManager] Local Tool Manager: Tool ADDED");
-			return localToolManagers.peek().addTool(tool);
+			System.out.println("[ToolManager] Local Tool Manager: Tool \""+ tool.getToolName() + "\" ADDED");
+			return localToolManagers.peek().addTool(execute, tool);
 		}
 	}
+
 
 	public void undoTool() {
 		if (localToolManagers.isEmpty()){
@@ -71,5 +77,14 @@ public class ChapterToolManager {
 		} else{
 			System.out.println("[ToolManager] Local Tool Manager Could NOT be POPED: Total local tool managers = "+localToolManagers.size());
 		}
+	}
+
+	
+	// ONLY FOR DEBUGGING
+	/**
+	 * @return the globalToolManager
+	 */
+	public ToolManager getGlobalToolManager() {
+		return globalToolManager;
 	}
 }

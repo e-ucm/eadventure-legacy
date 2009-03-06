@@ -100,6 +100,15 @@ public class ChapterDataControl extends DataControl {
 	 *            Contained chapter data
 	 */
 	public ChapterDataControl( Chapter chapter ) {
+		update ( chapter );
+	}
+	
+	/**
+	 * Updates the data contained in the data control with a new chapter. 
+	 * This method is essential for some undo/redo tools
+	 * @param chaper
+	 */
+	public void update ( Chapter chapter ){
 		this.chapter = chapter;
 
 		// Create the subcontrollers
@@ -113,7 +122,7 @@ public class ChapterDataControl extends DataControl {
 		conversationsListDataControl = new ConversationsListDataControl( chapter.getConversations( ) );
 		timersListDataControl = new TimersListDataControl( chapter.getTimers( ) );
 		globalStatesListDataControl = new GlobalStateListDataControl( chapter.getGlobalStates() );
-		macrosListDataControl = new MacroListDataControl ( chapter.getMacros( ) );
+		macrosListDataControl = new MacroListDataControl ( chapter.getMacros( ) );		
 	}
 
 	/**

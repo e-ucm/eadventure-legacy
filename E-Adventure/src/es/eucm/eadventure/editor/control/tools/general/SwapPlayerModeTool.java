@@ -1,12 +1,9 @@
 package es.eucm.eadventure.editor.control.tools.general;
 
-import java.util.List;
-
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
-import es.eucm.eadventure.editor.control.controllers.general.ChapterDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ChapterListDataControl;
 import es.eucm.eadventure.editor.control.tools.Tool;
 
@@ -25,6 +22,7 @@ public class SwapPlayerModeTool extends Tool{
 		this.adventureData = adventureData;
 		controller = Controller.getInstance();
 		this.chapterDataControlList = chapterDataControlList;
+		setGlobal(true);
 	}
 	
 	@Override

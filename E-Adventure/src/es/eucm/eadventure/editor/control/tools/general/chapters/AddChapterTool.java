@@ -1,12 +1,9 @@
 package es.eucm.eadventure.editor.control.tools.general.chapters;
 
-import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
-import es.eucm.eadventure.editor.control.controllers.general.ChapterDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ChapterListDataControl;
 import es.eucm.eadventure.editor.control.tools.Tool;
 
@@ -14,25 +11,30 @@ public class AddChapterTool extends Tool{
 
 	private Controller controller;
 	
-	private AdventureDataControl adventureData;
-	
 	private ChapterListDataControl chaptersController;
 	
+	private Chapter newChapter;
+	
+	private int index;
+	
+	public AddChapterTool ( ChapterListDataControl chaptersController ){
+		this.chaptersController = chaptersController;
+		this.controller = Controller.getInstance();
+		setGlobal(true);
+	}
 	
 	@Override
 	public boolean canRedo() {
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean canUndo() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean combine(Tool other) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -44,11 +46,11 @@ public class AddChapterTool extends Tool{
 		// If some value was typed
 		if( chapterTitle != null ) {
 			// Create the new chapter, and the controller
-			Chapter newChapter = new Chapter( chapterTitle, TextConstants.getText( "DefaultValue.SceneId" ) );
-			adventureData.getChapters( ).add( newChapter );
-			//chapterDataControlList.add( newChapterDataControl );
+			newChapter = new Chapter( chapterTitle, TextConstants.getText( "DefaultValue.SceneId" ) );
 			chaptersController.addChapterDataControl(newChapter);
+			index = chaptersController.getSelectedChapter();
 
+			controller.reloadData();
 			return true;
 		}
 		return false;
@@ -57,14 +59,16 @@ public class AddChapterTool extends Tool{
 
 	@Override
 	public boolean redoTool() {
-		// TODO Auto-generated method stub
-		return false;
+		chaptersController.addChapterDataControl( index, newChapter );
+		controller.reloadData();
+		return true;
 	}
 
 	@Override
 	public boolean undoTool() {
-		chaptersController.removeChapterDataControl(chaptersController.getSelectedChapter()-1);
-		return false;
+		boolean done = (chaptersController.removeChapterDataControl(index)) != null;
+		controller.reloadData();
+		return done;
 	}
 	
 

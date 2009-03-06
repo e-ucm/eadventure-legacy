@@ -11,6 +11,7 @@ import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfil
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfilesDataControl;
 import es.eucm.eadventure.editor.control.controllers.ims.IMSDataControl;
 import es.eucm.eadventure.editor.control.controllers.lom.LOMDataControl;
+import es.eucm.eadventure.editor.control.tools.Tool;
 import es.eucm.eadventure.editor.control.tools.general.assets.DeleteArrowTool;
 import es.eucm.eadventure.editor.control.tools.general.assets.DeleteButtonTool;
 import es.eucm.eadventure.editor.control.tools.general.assets.DeleteCursorTool;
@@ -21,6 +22,7 @@ import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeDescript
 import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeTitleTool;
 import es.eucm.eadventure.editor.control.tools.generic.ChangeBooleanValueTool;
 import es.eucm.eadventure.editor.control.tools.generic.ChangeIntegerValueTool;
+import es.eucm.eadventure.editor.gui.editdialogs.GUIStylesDialog;
 import es.eucm.eadventure.common.data.adventure.AdventureData;
 import es.eucm.eadventure.common.data.adventure.CustomArrow;
 import es.eucm.eadventure.common.data.adventure.CustomButton;
@@ -198,7 +200,9 @@ public class AdventureDataControl {
 	 *            New title for the adventure
 	 */
 	public void setTitle( String title ) {
-		Controller.getInstance().addTool(new ChangeTitleTool(adventureData, title));
+		Tool tool = new ChangeTitleTool(adventureData, title);
+		tool.setGlobal(true);
+		Controller.getInstance().addTool(tool);
 	}
 
 	/**
@@ -208,17 +212,25 @@ public class AdventureDataControl {
 	 *            New description for the adventure
 	 */
 	public void setDescription( String description ) {
-		Controller.getInstance().addTool(new ChangeDescriptionTool(adventureData, description));
+		Tool tool = new ChangeDescriptionTool(adventureData, description);
+		tool.setGlobal(true);
+		Controller.getInstance().addTool(tool);
 	}
 
 	/**
-	 * Sets the GUI type of the adventure.
-	 * 
-	 * @param guiType
-	 *            New GUI type for the adventure
+	 * Shows the GUI style selection dialog.
 	 */
-	public void setGUIType( Integer guiType ) {
-		Controller.getInstance().addTool( new ChangeIntegerValueTool(adventureData, guiType, "getGUIType", "setGUIType") );
+	public void showGUIStylesDialog( ) {
+		// Show the dialog
+		GUIStylesDialog guiStylesDialog = new GUIStylesDialog( adventureData.getGUIType( ) );
+
+		// If the new GUI style is different from the current, and valid, change the value
+		int optionSelected = guiStylesDialog.getOptionSelected( );
+		if( optionSelected != -1 ) {
+			Tool tool =new ChangeIntegerValueTool( adventureData, optionSelected, "getGUIType", "setGUIType" );
+			tool.setGlobal(true);
+			Controller.getInstance().addTool (tool);
+		}
 	}
 
 	/**
@@ -232,7 +244,9 @@ public class AdventureDataControl {
 	 * @param playerMode the playerMode to set
 	 */
 	public void setPlayerMode( int playerMode ) {
-		Controller.getInstance().addTool( new ChangeIntegerValueTool(adventureData, playerMode, "getPlayerMode", "setPlayerMode") );
+		Tool tool = new ChangeIntegerValueTool(adventureData, playerMode, "getPlayerMode", "setPlayerMode");
+		tool.setGlobal(true);
+		Controller.getInstance().addTool( tool );
 	}
 	
     public List<CustomCursor> getCursors(){
@@ -349,7 +363,9 @@ public class AdventureDataControl {
 	}
 
 	public void setCommentaries(boolean commentaries) {
-		Controller.getInstance().addTool(new ChangeBooleanValueTool(adventureData, commentaries, "isCommentaries","setCommentaries"));
+		Tool tool = new ChangeBooleanValueTool(adventureData, commentaries, "isCommentaries","setCommentaries");
+		tool.setGlobal( true );
+		Controller.getInstance().addTool( tool );
 	}
 	
 	public int getGraphicConfig() {
@@ -357,7 +373,9 @@ public class AdventureDataControl {
 	}
 	 
 	public void setGraphicConfig(int graphicConfig) {
-		Controller.getInstance().addTool(new ChangeIntegerValueTool(adventureData, graphicConfig, "getGraphicConfig","setGraphicConfig"));
+		Tool tool = new ChangeIntegerValueTool(adventureData, graphicConfig, "getGraphicConfig","setGraphicConfig");
+		tool.setGlobal( true );
+		Controller.getInstance().addTool( tool );
 	}
 
 	/**

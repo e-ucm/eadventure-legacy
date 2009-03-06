@@ -232,6 +232,14 @@ public class TextConstants {
 	 */
 	@SuppressWarnings("unchecked")
 	public static String getEditionToolName ( Class c ){
-		return getText ("Edition.UndoRedo.Name."+c.getSimpleName());
+		String text = null;
+		
+		if( guiStrings != null && guiStrings.containsKey( "Edition.UndoRedo.Name."+c.getSimpleName() ) )
+			text = guiStrings.getProperty( "Edition.UndoRedo.Name."+c.getSimpleName() );
+		else {
+			text = c.getSimpleName();
+		}
+
+		return text;
 	}
 }

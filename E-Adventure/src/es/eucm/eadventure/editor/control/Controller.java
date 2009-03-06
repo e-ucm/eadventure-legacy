@@ -8,7 +8,6 @@ import java.awt.Window;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -32,13 +31,10 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.common.loader.Loader;
 import es.eucm.eadventure.common.loader.incidences.Incidence;
 import es.eucm.eadventure.editor.control.config.ConfigData;
-import es.eucm.eadventure.editor.control.config.LOMConfigData;
 import es.eucm.eadventure.editor.control.config.ProjectConfigData;
 import es.eucm.eadventure.editor.control.config.SCORMConfigData;
 import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
-import es.eucm.eadventure.editor.control.controllers.ChapterToolManager;
-import es.eucm.eadventure.editor.control.controllers.ToolManager;
 import es.eucm.eadventure.editor.control.controllers.VarFlagsController;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfilesDataControl;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfilesDataControl;
@@ -51,6 +47,9 @@ import es.eucm.eadventure.editor.control.controllers.atrezzo.AtrezzoDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
 import es.eucm.eadventure.editor.control.tools.Tool;
 import es.eucm.eadventure.editor.control.tools.general.SwapPlayerModeTool;
+import es.eucm.eadventure.editor.control.tools.general.chapters.AddChapterTool;
+import es.eucm.eadventure.editor.control.tools.general.chapters.DeleteChapterTool;
+import es.eucm.eadventure.editor.control.tools.general.chapters.MoveChapterTool;
 import es.eucm.eadventure.editor.control.tools.generic.ChangeIntegerValueTool;
 import es.eucm.eadventure.editor.control.writer.Writer;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
@@ -58,6 +57,7 @@ import es.eucm.eadventure.editor.data.support.IdentifierSummary;
 import es.eucm.eadventure.editor.gui.LoadingScreen;
 import es.eucm.eadventure.editor.gui.MainWindow;
 import es.eucm.eadventure.editor.gui.ProjectFolderChooser;
+import es.eucm.eadventure.editor.gui.auxiliar.ToolSystemDebugger;
 import es.eucm.eadventure.editor.gui.displaydialogs.InvalidReportDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.AdventureDataDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.ExportToLOMDialog;
@@ -431,7 +431,7 @@ public class Controller {
 	 */
 	public static final int SCORM12 = 0;
 	
-	public static final int SCORM2004 = 0;
+	public static final int SCORM2004 = 1;
 	
 	/**
 	 * Singleton instance.
@@ -645,8 +645,12 @@ public class Controller {
 		mainWindow.setResizable( true );
 		mainWindow.setEnabled( true );
 		mainWindow.setVisible( true );
+		//DEBUGGING
+		tsd = new ToolSystemDebugger( chaptersController );
 
 	}
+	
+	private ToolSystemDebugger tsd;
 
 	// ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -702,13 +706,7 @@ public class Controller {
 	 * @return Array with the chapter titles
 	 */
 	public String[] getChapterTitles( ) {
-		List<String> chapterNames = new ArrayList<String>( );
-
-		// Add the chapter titles
-		for( Chapter chapter : adventureData.getChapters( ) )
-			chapterNames.add( chapter.getTitle( ) );
-
-		return chapterNames.toArray( new String[] {} );
+		return chaptersController.getChapterTitles();
 	}
 
 	/**
@@ -719,15 +717,6 @@ public class Controller {
 	public int getSelectedChapter( ) {
 		return chaptersController.getSelectedChapter();
 	}
-
-	/**
-	 * Returns the data of the selected chapter.
-	 * 
-	 * @return Selected chapter data
-	 */
-	//private Chapter getSelectedChapterData( ) {
-	//	return adventureData.getChapters( ).get( selectedChapter );
-	//}
 
 	/**
 	 * Returns the selected chapter data controller.
@@ -1219,7 +1208,8 @@ public class Controller {
 	}
 
 	public boolean replaceSelectedChapter(Chapter newChapter) {
-		chaptersController.replaceSelectedChapter(newChapter, adventureData);
+		chaptersController.replaceSelectedChapter(newChapter);
+		//mainWindow.updateTree();
 		mainWindow.reloadData( );
 		return true;
 	}
@@ -2164,14 +2154,7 @@ public class Controller {
 	 * Shows the GUI style selection dialog.
 	 */
 	public void showGUIStylesDialog( ) {
-		// Show the dialog
-		GUIStylesDialog guiStylesDialog = new GUIStylesDialog( adventureData.getGUIType( ) );
-
-		// If the new GUI style is different from the current, and valid, change the value
-		int optionSelected = guiStylesDialog.getOptionSelected( );
-		if( optionSelected != -1 ) {
-			addTool (new ChangeIntegerValueTool( adventureData, optionSelected, "getGUIType", "setGUIType", false, false ));
-		}
+		adventureData.showGUIStylesDialog();
 	}
 
 	/**
@@ -2266,20 +2249,7 @@ public class Controller {
 	 * view of the application if a new chapter was added.
 	 */
 	public void addChapter( ) {
-		// Show a dialog asking for the chapter title
-		String chapterTitle = showInputDialog( TextConstants.getText( "Operation.AddChapterTitle" ), TextConstants.getText( "Operation.AddChapterMessage" ), TextConstants.getText( "Operation.AddChapterDefaultValue" ) );
-
-		// If some value was typed
-		if( chapterTitle != null ) {
-			// Create the new chapter, and the controller
-			Chapter newChapter = new Chapter( chapterTitle, TextConstants.getText( "DefaultValue.SceneId" ) );
-			adventureData.getChapters( ).add( newChapter );
-			//chapterDataControlList.add( newChapterDataControl );
-			chaptersController.addChapterDataControl(newChapter);
-
-		}
-
-		mainWindow.reloadData();
+		addTool ( new AddChapterTool ( chaptersController ) );
 	}
 
 	/**
@@ -2287,40 +2257,14 @@ public class Controller {
 	 * if needed.
 	 */
 	public void deleteChapter( ) {
-		// Check the number of chapters, the chapters can be deleted when there are more than one
-		if( adventureData.getChapters( ).size( ) > 1 ) {
-			// Ask for confirmation
-			if( mainWindow.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteChapterTitle" ), TextConstants.getText( "Operation.DeleteChapterMessage" ) ) ) {
-				// Delete the chapter and the controller
-				adventureData.getChapters( ).remove( getSelectedChapter() );
-				chaptersController.removeChapterDataControl();
-				//chapterDataControlList.remove( selectedChapter );
-
-				// Update the main window
-				dataModified( );
-				mainWindow.reloadData( );
-			}
-		}
-
-		// If there is only one chapter, show an error message
-		else
-			mainWindow.showErrorDialog( TextConstants.getText( "Operation.DeleteChapterTitle" ), TextConstants.getText( "Operation.DeleteChapterErrorLastChapter" ) );
+		addTool ( new DeleteChapterTool ( chaptersController ) );
 	}
 
 	/**
 	 * Moves the selected chapter to the previous position of the chapter's list.
 	 */
 	public void moveChapterUp( ) {
-		// If the chapter can be moved
-		if( getSelectedChapter() > 0 ) {
-			// Move the chapter and update the selected chapter
-			adventureData.getChapters( ).add( getSelectedChapter() - 1, adventureData.getChapters( ).remove( getSelectedChapter() ) );
-			chaptersController.moveChapterUp();
-			
-			// Update the main window
-			dataModified( );
-			mainWindow.reloadData(  );
-		}
+		addTool ( new MoveChapterTool(MoveChapterTool.MODE_UP, chaptersController ) );
 	}
 
 	/**
@@ -2328,16 +2272,7 @@ public class Controller {
 	 * 
 	 */
 	public void moveChapterDown( ) {
-		// If the chapter can be moved
-		if( getSelectedChapter() < adventureData.getChapters( ).size( ) - 1 ) {
-			// Move the chapter and update the selected chapter
-			adventureData.getChapters( ).add( getSelectedChapter() + 1, adventureData.getChapters( ).remove( getSelectedChapter() ) );
-			chaptersController.moveChapterDown();
-			
-			// Update the main window
-			dataModified( );
-			mainWindow.reloadData(  );
-		}
+		addTool ( new MoveChapterTool(MoveChapterTool.MODE_DOWN, chaptersController ) );
 	}
 
 	// ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -2751,16 +2686,16 @@ public class Controller {
 		CustomizeGUIDialog dialog = new CustomizeGUIDialog(this.adventureData);
 	}
 
-	public boolean isFloderLoaded( ) {
+	public boolean isFolderLoaded( ) {
 		return chaptersController.isAnyChapterSelected();
 	}
 
 	public String getEditorMinVersion(){
-		return "0.9";
+		return "0.10";
 	}
 	
 	public String getEditorVersion(){
-		return "0.9";
+		return "0.10";
 	}
 
 	public void updateLOMLanguage( ) {
@@ -2863,15 +2798,19 @@ public class Controller {
 	// METHODS TO MANAGE UNDO/REDO
 	
 	public boolean addTool(Tool tool) {
-		return chaptersController.addTool(tool);
+		boolean added = chaptersController.addTool(tool);
+		tsd.update();
+		return added;
 	}
 
 	public void undoTool() {
 		chaptersController.undoTool();
+		tsd.update();
 	}
 
 	public void redoTool() {
 		chaptersController.redoTool();
+		tsd.update();
 	}
 	
 	public void pushLocalToolManager(){

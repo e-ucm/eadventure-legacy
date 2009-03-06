@@ -138,7 +138,7 @@ public class MainWindow extends JFrame {
 		
 		// Create the tree structure for the panel
 		TreeNode root = null;
-		if (Controller.getInstance( ).isFloderLoaded( ))
+		if (Controller.getInstance( ).isFolderLoaded( ))
 			root = new ChapterTreeNode( null, controller.getSelectedChapterDataControl( ),
 					controller.getAssessmentController( ), controller.getAdaptationController( ));
 		else
@@ -201,11 +201,11 @@ public class MainWindow extends JFrame {
 		JMenu editMenu = new JMenu(TextConstants.getText("MenuEdit.Title"));
 		windowMenu.add(editMenu);
 		JMenu adventureMenu = new JMenu( TextConstants.getText( "MenuAdventure.Title" ) );
-		adventureMenu.setEnabled( Controller.getInstance( ).isFloderLoaded( ) );
+		adventureMenu.setEnabled( Controller.getInstance( ).isFolderLoaded( ) );
 		adventureMenu.setMnemonic( KeyEvent.VK_A );
 		windowMenu.add( adventureMenu );
 		chaptersMenu = new JMenu( TextConstants.getText( "MenuChapters.Title" ) );
-		chaptersMenu.setEnabled( Controller.getInstance( ).isFloderLoaded( ) );
+		chaptersMenu.setEnabled( Controller.getInstance( ).isFolderLoaded( ) );
 		chaptersMenu.setMnemonic( KeyEvent.VK_H );
 		windowMenu.add( chaptersMenu );
 		JMenu runMenu = new JMenu( TextConstants.getText( "MenuRun.Title" ) );
@@ -264,7 +264,7 @@ public class MainWindow extends JFrame {
 		fileMenu.add( itFileLoad );
 		fileMenu.addSeparator( );
 		JMenuItem itFileSave = new JMenuItem( TextConstants.getText( "MenuFile.Save" ) );
-		itFileSave.setEnabled( controller.isFloderLoaded( ) );
+		itFileSave.setEnabled( controller.isFolderLoaded( ) );
 		itFileSave.addActionListener( new ActionListener( ) {
 			public void actionPerformed( ActionEvent e ) {
 				//controller.saveFile( controller.isTempFile( ) );
@@ -274,7 +274,7 @@ public class MainWindow extends JFrame {
 		itFileSave.setAccelerator( KeyStroke.getKeyStroke( 'S', InputEvent.CTRL_MASK ) );
 		fileMenu.add( itFileSave );
 		JMenuItem itFileSaveAs = new JMenuItem( TextConstants.getText( "MenuFile.SaveAs" ) );
-		itFileSaveAs.setEnabled( controller.isFloderLoaded( ) );
+		itFileSaveAs.setEnabled( controller.isFolderLoaded( ) );
 		itFileSaveAs.addActionListener( new ActionListener( ) {
 			public void actionPerformed( ActionEvent e ) {
 				controller.saveFile( true );
@@ -283,7 +283,7 @@ public class MainWindow extends JFrame {
 		fileMenu.add( itFileSaveAs );
 		fileMenu.addSeparator( );
 		JMenuItem itLOMProp = new JMenuItem( TextConstants.getText( "MenuFile.LOMProperties" ) );
-		itLOMProp.setEnabled( controller.isFloderLoaded( ) );
+		itLOMProp.setEnabled( controller.isFolderLoaded( ) );
 		itLOMProp.addActionListener(  new ActionListener( ) {
 			public void actionPerformed( ActionEvent e ) {
 				controller.showLOMDataDialog( );
@@ -293,7 +293,7 @@ public class MainWindow extends JFrame {
 		fileMenu.addSeparator( );
 		
 		JMenuItem itLOMSCORMProp = new JMenuItem( TextConstants.getText( "MenuFile.LOMSCORMProperties" ) );
-		itLOMSCORMProp.setEnabled( controller.isFloderLoaded( ) );
+		itLOMSCORMProp.setEnabled( controller.isFolderLoaded( ) );
 		itLOMSCORMProp.addActionListener(  new ActionListener( ) {
 			public void actionPerformed( ActionEvent e ) {
 				controller.showLOMSCORMDataDialog( );
@@ -322,7 +322,7 @@ public class MainWindow extends JFrame {
 		fileMenu.addSeparator( );
 		
 		JMenu itExport = new JMenu( TextConstants.getText( "MenuFile.Export" ) );
-		itExport.setEnabled( controller.isFloderLoaded( ) );
+		itExport.setEnabled( controller.isFolderLoaded( ) );
 		JMenuItem itExportGame = new JMenuItem( TextConstants.getText( "MenuFile.ExportGame" ) );
 		itExportGame.addActionListener(  new ActionListener( ) {
 			public void actionPerformed( ActionEvent e ) {
@@ -429,7 +429,7 @@ public class MainWindow extends JFrame {
 		});
 		visualization.add( itGraphicConfig);
 		adventureMenu.add( visualization);
-		if ( controller.isFloderLoaded()){
+		if ( controller.isFolderLoaded()){
 			if( controller.isPlayTransparent( ) ) {
 				itPlayerMode = new JMenuItem( TextConstants.getText( "MenuAdventure.ChangeToModePlayerVisible" ) );
 				itPlayerMode.setToolTipText( TextConstants.getText( "MenuAdventure.ModePlayerVisible" ) );
@@ -703,7 +703,7 @@ public class MainWindow extends JFrame {
 		
 		// Create and place the new root
 		TreeNode newRoot=null;
-		if (Controller.getInstance( ).isFloderLoaded( ))
+		if (Controller.getInstance( ).isFolderLoaded( ))
 			newRoot = new ChapterTreeNode( null, controller.getSelectedChapterDataControl( ),
 					controller.getAssessmentController( ), controller.getAdaptationController( ) );
 		else
@@ -763,7 +763,7 @@ public class MainWindow extends JFrame {
 		while( chaptersMenu.getItemCount( ) > 8 )
 			chaptersMenu.remove( 8 );
 
-		if (Controller.getInstance( ).isFloderLoaded( )){
+		if (Controller.getInstance( ).isFolderLoaded( )){
 			// Then, add the new chapters to the menu
 			int chapterIndex = 0;
 			ButtonGroup chapterButtonGroup = new ButtonGroup( );

@@ -3,11 +3,9 @@ package es.eucm.eadventure.editor.control.controllers.general;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.eucm.eadventure.common.data.adventure.AdventureData;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
 import es.eucm.eadventure.editor.control.controllers.ChapterToolManager;
-import es.eucm.eadventure.editor.control.controllers.ToolManager;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfileDataControl;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfileDataControl;
 import es.eucm.eadventure.editor.control.tools.Tool;
@@ -41,11 +39,17 @@ public class ChapterListDataControl {
 	 */
 	private VarFlagSummary varFlagSummary;
 	
+	/**
+	 * The list of chapters
+	 */
+	private List<Chapter> chapters;
+	
 	public ChapterListDataControl(){
 		varFlagSummary = new VarFlagSummary( );
 		chapterDataControlList = new ArrayList<ChapterDataControl>();
 		chapterToolManagers = new ArrayList<ChapterToolManager>();
 		setSelectedChapterInternal( -1 );
+		chapters = new ArrayList<Chapter>();
 	}
 	
 	public ChapterListDataControl ( List<Chapter> chapters ){
@@ -56,6 +60,7 @@ public class ChapterListDataControl {
 		}
 		if (chapters.size()>0)
 			setSelectedChapterInternal( 0 );
+		this.chapters = chapters;
 	}
 	
 	public void setSelectedChapterInternal( int newSelectedChapter ){
@@ -93,9 +98,22 @@ public class ChapterListDataControl {
 	 * @param chapter
 	 */
 	public void addChapterDataControl ( Chapter newChapter ){
+		chapters.add( newChapter );
 		chapterDataControlList.add( new ChapterDataControl(newChapter) );
 		chapterToolManagers.add( new ChapterToolManager() );
 		setSelectedChapterInternal( chapterDataControlList.size()-1 );
+	}
+	
+	/**
+	 * Adds a new data control with the new chapter in the given position. 
+	 * It also updates automatically the selectedChapter, pointing to this new one
+	 * @param chapter
+	 */
+	public void addChapterDataControl ( int index, Chapter newChapter ){
+		chapters.add( index, newChapter );
+		chapterDataControlList.add( index, new ChapterDataControl(newChapter) );
+		chapterToolManagers.add( index, new ChapterToolManager() );
+		setSelectedChapterInternal( index );
 	}
 	
 	/**
@@ -103,8 +121,8 @@ public class ChapterListDataControl {
 	 * It also updates automatically the selectedChapter if necessary
 	 * @param chapter
 	 */
-	public void removeChapterDataControl (  ){
-		removeChapterDataControl ( selectedChapter );
+	public ChapterDataControl removeChapterDataControl (  ){
+		return removeChapterDataControl ( selectedChapter );
 	}
 	
 	/**
@@ -112,10 +130,12 @@ public class ChapterListDataControl {
 	 * It also updates automatically the selectedChapter if necessary
 	 * @param chapter
 	 */
-	public void removeChapterDataControl ( int index ){
-		chapterDataControlList.remove(index);
+	public ChapterDataControl removeChapterDataControl ( int index ){
+		chapters.remove( index );
+		ChapterDataControl removed = chapterDataControlList.remove(index);
 		chapterToolManagers.remove(index);
 		setSelectedChapterInternal( selectedChapter-1 );
+		return removed;
 	}
 	
 	/**
@@ -155,12 +175,6 @@ public class ChapterListDataControl {
 		}
 	}
 	
-	public void clear (){
-		chapterDataControlList.clear();
-		chapterToolManagers.clear();
-		setSelectedChapterInternal( -1 );
-	}
-	
 	public void deletePlayerToAllScenesSelectedChapter(){
 		
 	}
@@ -192,12 +206,10 @@ public class ChapterListDataControl {
 		return varFlagSummary;
 	}
 
-	public boolean replaceSelectedChapter(Chapter newChapter, AdventureDataControl adventureData) {
+	public boolean replaceSelectedChapter(Chapter newChapter ) {
 		int chapter = this.getSelectedChapter();
-		adventureData.getChapters().set( getSelectedChapter(), newChapter);
-		this.chapterDataControlList.remove( chapter );
-		chapterDataControlList.add( chapter, new ChapterDataControl(newChapter) );
-		
+		chapters.set( getSelectedChapter(), newChapter);
+		chapterDataControlList.get( chapter ).update( newChapter );
 		identifierSummary = new IdentifierSummary(newChapter);
 		identifierSummary.loadIdentifiers( getSelectedChapterData( ) );
 
@@ -239,34 +251,56 @@ public class ChapterListDataControl {
 	public void updateFlagSummary( ) {
 		getSelectedChapterDataControl( ).updateVarFlagSummary( varFlagSummary );
 	}
+
+	/**
+	 * Moves the selected chapter to the previous position of the chapter's list.
+	 */
+	public boolean moveChapterUp( ) {
+		return moveChapterUp  ( selectedChapter );
+	}
+		
 	
 	/**
 	 * Moves the selected chapter to the previous position of the chapter's list.
 	 */
-	public void moveChapterUp(  ) {
+	public boolean moveChapterUp( int index ) {
 		// If the chapter can be moved
-		if( selectedChapter > 0 ) {
+		if( index > 0 ) {
 			// Move the chapter and update the selected chapter
-			chapterDataControlList.add( selectedChapter - 1, chapterDataControlList.remove( selectedChapter ) );
-			chapterToolManagers.add( selectedChapter - 1, chapterToolManagers.remove( selectedChapter ) );
+			chapters.add( index - 1, chapters.remove( index ) );
+			// Move the chapter and update the selected chapter
+			chapterDataControlList.add( index - 1, chapterDataControlList.remove( index ) );
+			chapterToolManagers.add( index - 1, chapterToolManagers.remove( index ) );
 
-			setSelectedChapterInternal ( getSelectedChapter()-1);
-
+			setSelectedChapterInternal ( index-1);
+			return true;
 		}
+		return false;
 	}
 
 	/**
 	 * Moves the selected chapter to the next position of the chapter's list.
 	 * 
 	 */
-	public void moveChapterDown( ) {
+	public boolean moveChapterDown( ) {
+		return moveChapterDown ( selectedChapter );
+	}
+	
+	/**
+	 * Moves the selected chapter to the next position of the chapter's list.
+	 * 
+	 */
+	public boolean moveChapterDown( int index ) {
 		// If the chapter can be moved
-		if( selectedChapter < chapterDataControlList.size( ) - 1 ) {
+		if( index < chapterDataControlList.size( ) - 1 ) {
 			// Move the chapter and update the selected chapter
-			chapterDataControlList.add( selectedChapter + 1, chapterDataControlList.remove( selectedChapter ) );
-			setSelectedChapterInternal ( getSelectedChapter()+1);
-
+			chapters.add( index + 1, chapters.remove( index ) );
+			// Move the chapter and update the selected chapter
+			chapterDataControlList.add( index + 1, chapterDataControlList.remove( index ) );
+			setSelectedChapterInternal ( index + 1 );
+			return true;
 		}
+		return false;
 	}
 	
 	/**
@@ -282,7 +316,8 @@ public class ChapterListDataControl {
 		// Search in all the chapters
 		for( ChapterDataControl chapterDataControl : chapterDataControlList ){
 			count += chapterDataControl.countAssetReferences( assetPath );
-		}return count;
+		}
+		return count;
 	}
 	
 	/**
@@ -322,7 +357,20 @@ public class ChapterListDataControl {
 	}
 	
 	public boolean addTool(Tool tool) {
-		return chapterToolManagers.get( getSelectedChapter() ).addTool(tool);
+		boolean done = true;
+		if ( tool.isGlobal() ){
+			for ( int i=0; i< chapterToolManagers.size(); i++){
+				if (i==0){
+					done = chapterToolManagers.get(i).addTool(tool);
+				} else if (done){
+					chapterToolManagers.get(i).addTool(false, tool);
+				}
+					
+			}
+		} else {
+			done =chapterToolManagers.get( getSelectedChapter() ).addTool(tool); 
+		}
+		return done; 
 	}
 
 	public void undoTool() {
@@ -342,6 +390,7 @@ public class ChapterListDataControl {
 	}
 	
 	public void update ( List<Chapter> chapters ){
+		this.chapters = chapters;
 		varFlagSummary = new VarFlagSummary( );
 		chapterDataControlList = new ArrayList<ChapterDataControl>();
 		chapterToolManagers = new ArrayList<ChapterToolManager>();
@@ -353,5 +402,34 @@ public class ChapterListDataControl {
 		if (chapters.size()>0)
 			setSelectedChapterInternal( 0 );		
 	}
+	
+	/**
+	 * Returns an array with the chapter titles.
+	 * 
+	 * @return Array with the chapter titles
+	 */
+	public String[] getChapterTitles( ) {
+		List<String> chapterNames = new ArrayList<String>( );
 
+		// Add the chapter titles
+		for( ChapterDataControl chapterDataControl : chapterDataControlList){
+			Chapter chapter = (Chapter)chapterDataControl.getContent();
+			chapterNames.add( chapter.getTitle( ) );
+		}
+
+		return chapterNames.toArray( new String[] {} );
+	}
+	
+	public int getChaptersCount () {
+		return chapters.size();
+	}
+
+
+	////////DEBUGGING OPTIONS
+	/**
+	 * @return the chapterToolManagers
+	 */
+	public List<ChapterToolManager> getChapterToolManagers() {
+		return chapterToolManagers;
+	}
 }

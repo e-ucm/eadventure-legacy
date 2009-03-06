@@ -21,6 +21,7 @@ public class DeleteButtonTool extends Tool{
 		this.adventureData = adventureData;
 		this.action = action;
 		this.type = type;
+		this.setGlobal(true);
 	}
 	
 	@Override
