@@ -21,7 +21,6 @@ public class MoveChapterTool extends Tool{
 		this.mode = mode;
 		this.chaptersController = chaptersController;
 		this.controller = Controller.getInstance();
-		setGlobal(true);
 	}
 	
 	@Override
@@ -100,7 +99,7 @@ public class MoveChapterTool extends Tool{
 	public boolean moveChapterDown( int index ) {
 		boolean moved = false;
 		// Move the chapter and update the selected chapter
-		moved=	chaptersController.moveChapterDown();
+		moved=	chaptersController.moveChapterDown(index);
 		// Update the main window
 		if (moved)
 			controller.reloadData(  );

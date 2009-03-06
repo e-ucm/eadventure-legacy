@@ -17,10 +17,11 @@ public class AddChapterTool extends Tool{
 	
 	private int index;
 	
+	private String chapterTitle;
+	
 	public AddChapterTool ( ChapterListDataControl chaptersController ){
 		this.chaptersController = chaptersController;
 		this.controller = Controller.getInstance();
-		setGlobal(true);
 	}
 	
 	@Override
@@ -41,7 +42,7 @@ public class AddChapterTool extends Tool{
 	@Override
 	public boolean doTool() {
 		// Show a dialog asking for the chapter title
-		String chapterTitle = controller.showInputDialog( TextConstants.getText( "Operation.AddChapterTitle" ), TextConstants.getText( "Operation.AddChapterMessage" ), TextConstants.getText( "Operation.AddChapterDefaultValue" ) );
+		chapterTitle = controller.showInputDialog( TextConstants.getText( "Operation.AddChapterTitle" ), TextConstants.getText( "Operation.AddChapterMessage" ), TextConstants.getText( "Operation.AddChapterDefaultValue" ) );
 
 		// If some value was typed
 		if( chapterTitle != null ) {
@@ -59,7 +60,11 @@ public class AddChapterTool extends Tool{
 
 	@Override
 	public boolean redoTool() {
-		chaptersController.addChapterDataControl( index, newChapter );
+		// Create the new chapter, and the controller
+		newChapter = new Chapter( chapterTitle, TextConstants.getText( "DefaultValue.SceneId" ) );
+		chaptersController.addChapterDataControl(newChapter);
+		index = chaptersController.getSelectedChapter();
+
 		controller.reloadData();
 		return true;
 	}

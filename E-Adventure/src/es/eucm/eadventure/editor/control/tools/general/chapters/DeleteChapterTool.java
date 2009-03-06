@@ -20,17 +20,17 @@ public class DeleteChapterTool extends Tool{
 	public DeleteChapterTool ( ChapterListDataControl chaptersController ){
 		this.chaptersController = chaptersController;
 		controller = Controller.getInstance();
-		setGlobal(true);
+		doesClone(true);
 	}
 	
 	@Override
 	public boolean canRedo() {
-		return true;
+		return false;
 	}
 
 	@Override
 	public boolean canUndo() {
-		return true;
+		return false;
 	}
 
 	@Override

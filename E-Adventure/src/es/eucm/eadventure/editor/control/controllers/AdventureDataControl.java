@@ -209,7 +209,6 @@ public class AdventureDataControl {
 	 */
 	public void setTitle( String title ) {
 		Tool tool = new ChangeTitleTool(adventureData, title);
-		tool.setGlobal(true);
 		Controller.getInstance().addTool(tool);
 	}
 
@@ -221,7 +220,6 @@ public class AdventureDataControl {
 	 */
 	public void setDescription( String description ) {
 		Tool tool = new ChangeDescriptionTool(adventureData, description);
-		tool.setGlobal(true);
 		Controller.getInstance().addTool(tool);
 	}
 
@@ -236,7 +234,6 @@ public class AdventureDataControl {
 		int optionSelected = guiStylesDialog.getOptionSelected( );
 		if( optionSelected != -1 ) {
 			Tool tool =new ChangeIntegerValueTool( adventureData, optionSelected, "getGUIType", "setGUIType" );
-			tool.setGlobal(true);
 			Controller.getInstance().addTool (tool);
 		}
 	}
@@ -253,7 +250,6 @@ public class AdventureDataControl {
 	 */
 	public void setPlayerMode( int playerMode ) {
 		Tool tool = new ChangeIntegerValueTool(adventureData, playerMode, "getPlayerMode", "setPlayerMode");
-		tool.setGlobal(true);
 		Controller.getInstance().addTool( tool );
 	}
 	
@@ -379,7 +375,6 @@ public class AdventureDataControl {
 
 	public void setCommentaries(boolean commentaries) {
 		Tool tool = new ChangeBooleanValueTool(adventureData, commentaries, "isCommentaries","setCommentaries");
-		tool.setGlobal( true );
 		Controller.getInstance().addTool( tool );
 	}
 	
@@ -389,7 +384,6 @@ public class AdventureDataControl {
 	 
 	public void setGraphicConfig(int graphicConfig) {
 		Tool tool = new ChangeIntegerValueTool(adventureData, graphicConfig, "getGraphicConfig","setGraphicConfig");
-		tool.setGlobal( true );
 		Controller.getInstance().addTool( tool );
 	}
 

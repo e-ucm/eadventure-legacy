@@ -9,14 +9,14 @@ public abstract class Tool {
 	 */
 	protected long timeStamp = System.currentTimeMillis();
 	
-	protected boolean isGlobal = false;
+	protected boolean doesClone = false;
 	
-	public boolean isGlobal(){
-		return isGlobal;
+	public boolean doesClone(){
+		return doesClone;
 	}
 	
-	public void setGlobal ( boolean isGlobal ){
-		this.isGlobal = isGlobal;
+	public void doesClone ( boolean doesClone ){
+		this.doesClone = doesClone;
 	}
 	
 	/**
