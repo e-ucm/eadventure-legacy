@@ -119,6 +119,7 @@ public class Scene extends GeneralScene implements Positioned{
 		barriers = new ArrayList<Barrier>();
 		playerLayer = PLAYER_WITHOUT_LAYER;
 		allowPlayerLayer = true;
+		playerScale = 1.0f;
 	}
 
 	/**
@@ -384,7 +385,7 @@ public class Scene extends GeneralScene implements Positioned{
 
 	@Override
 	public void setPositionY(int newY) {
-		this.defaultX = newY;
+		this.defaultY = newY;
 	}
 
 }

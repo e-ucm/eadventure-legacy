@@ -51,6 +51,7 @@ import es.eucm.eadventure.engine.core.control.gamestate.GameStateOptions;
 import es.eucm.eadventure.engine.core.control.gamestate.GameStatePlaying;
 import es.eucm.eadventure.engine.core.control.gamestate.GameStateRunEffects;
 import es.eucm.eadventure.engine.core.control.gamestate.GameStateSlidescene;
+import es.eucm.eadventure.engine.core.control.gamestate.GameStateVideoscene;
 import es.eucm.eadventure.engine.core.data.GameText;
 import es.eucm.eadventure.engine.core.data.SaveGame;
 import es.eucm.eadventure.engine.core.data.SaveGameException;
@@ -948,7 +949,8 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
                 currentState = new GameStateNextScene( );
                 break;
             case STATE_VIDEO_SCENE:
-                break;
+                currentState = new GameStateVideoscene( );
+            	break;
             case STATE_RUN_EFFECTS:
                 currentState = new GameStateRunEffects( this.conversationStored!=null );
                 break;

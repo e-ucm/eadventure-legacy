@@ -131,6 +131,7 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
         speedX = 0;
         speedY = 0;
         layer = -1;
+        scale = 1;
         currentDirection = AnimationState.EAST;
         // Select the resources block
         resources = createResourcesBlock( );

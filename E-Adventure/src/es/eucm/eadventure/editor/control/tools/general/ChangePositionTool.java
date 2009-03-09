@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.Positioned;
+import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.tools.Tool;
 
 public class ChangePositionTool extends Tool{
@@ -64,6 +65,15 @@ public class ChangePositionTool extends Tool{
 
 	@Override
 	public boolean combine(Tool other) {
+		if (other instanceof ChangePositionTool) {
+			ChangePositionTool cpt = (ChangePositionTool) other;
+			if (cpt.data == data) {
+				x = cpt.x;
+				y = cpt.y;
+				timeStamp = cpt.timeStamp;
+				return true;
+			}
+		}
 		return false;
 	}
 
@@ -99,12 +109,13 @@ public class ChangePositionTool extends Tool{
 		for (ChangePositionToolListener l: listeners){
 			l.positionUpdated(oldX, oldY);
 		}
+		Controller.getInstance().updatePanel();
 		return true;
 	}
 
 	public void addListener(ChangePositionToolListener listener){
-		
 	}
+	
 	/**
 	 * Listener to notify changes in the tool
 	 * @author Javier

@@ -404,20 +404,29 @@ public abstract class GUI implements FocusListener {
         for (String line : strings)
         	maxWidth = (fontMetrics.stringWidth(line) > maxWidth ? (int) fontMetrics.stringWidth(line) : maxWidth);
 
+        int tempX = x;
+        int tempY = y;
+        if (tempX - maxWidth / 2 < 0)
+        	tempX = maxWidth / 2;
+        if (tempY - textBlockHeight < 0)
+        	tempY = textBlockHeight;
+        if (tempX + maxWidth / 2 > GUI.WINDOW_WIDTH)
+        	tempX = GUI.WINDOW_WIDTH - maxWidth / 2;
+                
         AlphaComposite alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.8f);
 		Composite temp = g.getComposite();
 		g.setComposite(alphaComposite);
         g.setColor(bkgColor);
-        g.fillRoundRect(x - maxWidth / 2 - 5, y - textBlockHeight - 5, maxWidth + 10, textBlockHeight + 10, 20, 20);
+        g.fillRoundRect(tempX - maxWidth / 2 - 5, tempY - textBlockHeight - 5, maxWidth + 10, textBlockHeight + 10, 20, 20);
 
         g.setComposite(temp);
         g.setColor(bubbleBorder);
-        g.drawRoundRect(x - maxWidth / 2 - 5, y - textBlockHeight - 5, maxWidth + 10, textBlockHeight + 10, 20, 20);
+        g.drawRoundRect(tempX - maxWidth / 2 - 5, tempY - textBlockHeight - 5, maxWidth + 10, textBlockHeight + 10, 20, 20);
         
 		g.setComposite(alphaComposite);        
         g.setColor(bkgColor);
-        int x_p[] = new int[]{x - 10, x + 10, x};
-        int y_p[] = new int[]{y + 5, y + 5, y + 15};
+        int x_p[] = new int[]{tempX - 10, tempX + 10, tempX};
+        int y_p[] = new int[]{tempY + 5, tempY + 5, tempY + 15};
         g.fillPolygon(x_p, y_p, 3);
 
         g.setComposite(temp);    	

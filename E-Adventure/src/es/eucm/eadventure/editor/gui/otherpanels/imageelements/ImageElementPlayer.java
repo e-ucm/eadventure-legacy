@@ -29,8 +29,7 @@ public class ImageElementPlayer extends ImageElement {
 
 	@Override
 	public float getScale() {
-		if (sceneDataControl.getTrajectory() != null
-				&& sceneDataControl.getTrajectory().hasTrajectory())
+		if (sceneDataControl.getTrajectory() != null && sceneDataControl.getTrajectory().hasTrajectory())
 			return 1.0f;
 		else
 			return sceneDataControl.getPlayerScale();
@@ -62,7 +61,8 @@ public class ImageElementPlayer extends ImageElement {
 
 	@Override
 	public void setScale(float scale) {
-		sceneDataControl.setPlayerScale(scale);
+		if (scale > 0.2f && scale < 5)
+			sceneDataControl.setPlayerScale(scale);
 	}
 
 	@Override
