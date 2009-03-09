@@ -27,6 +27,7 @@ import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfileDataControl;
+import es.eucm.eadventure.editor.gui.Updateable;
 
 
 
@@ -457,4 +458,5 @@ public class AssessmentProfilePanel extends JPanel {
 			return assRulesInfo[rowIndex][columnIndex];
 		}
 	}
+
 }

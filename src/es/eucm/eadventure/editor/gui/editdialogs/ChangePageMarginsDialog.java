@@ -5,13 +5,13 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
 
-import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.book.BookPagesListDataControl;
 import es.eucm.eadventure.editor.gui.otherpanels.BookPagePreviewPanel;
 
@@ -22,7 +22,7 @@ import es.eucm.eadventure.editor.gui.otherpanels.BookPagePreviewPanel;
  * @author Eugenio Marchiori
  *
  */
-public class ChangePageMarginsDialog extends JDialog {
+public class ChangePageMarginsDialog extends ToolManagableDialog {
 
 	/**
 	 * Default generated serialVersionUID
@@ -65,6 +65,12 @@ public class ChangePageMarginsDialog extends JDialog {
 	private Image background;
 	
 	/**
+	 * This value is only used to avoid that invoking updateFileds will modify 
+	 * the values stored in dataControl, as this would add new Tools
+	 */
+	private boolean setChanges;
+	
+	/**
 	 * Constructor with a bookPage and an image for the background,
 	 * displays the dialog
 	 * 
@@ -72,11 +78,10 @@ public class ChangePageMarginsDialog extends JDialog {
 	 * @param background The image to display in the background
 	 */
 	public ChangePageMarginsDialog(BookPagesListDataControl bookPagesList, Image background) {
-		super();
+		super( Controller.getInstance().peekWindow(), TextConstants.getText("BookPage.MarginDialog"), true );
 		this.bookPagesList = bookPagesList;
 		this.background = background;
-		this.setModalityType(ModalityType.APPLICATION_MODAL);
-		this.setModal(true);
+		setChanges = true;
 		this.setLayout(new BorderLayout());
 		this.setTitle(TextConstants.getText("BookPage.MarginDialog"));
 
@@ -203,13 +208,33 @@ public class ChangePageMarginsDialog extends JDialog {
 	 * Method called when one of the margins is modified
 	 */
 	protected void marginChanged() {
-		this.bookPagesList.setMargins( marginSlider.getValue( ), - marginTopSlider.getValue( ) , marginBottomSlider.getValue( ) ,- marginEndSlider.getValue( ) );
-		
+		if (setChanges){
+			this.bookPagesList.setMargins( marginSlider.getValue( ), - marginTopSlider.getValue( ) , marginBottomSlider.getValue( ) ,- marginEndSlider.getValue( ) );
+			
+			this.remove(bookPagePreview);
+			bookPagePreview = new BookPagePreviewPanel(null, bookPagesList.getSelectedPage(), background);
+			this.add(bookPagePreview, BorderLayout.CENTER);
+			
+			bookPagePreview.updateUI();
+		}
+	}
+
+	
+	public boolean updateFields(){
+		// Temporarily deactivate user changes
+		setChanges = false;
+		marginSlider.setValue((bookPagesList!=null)?bookPagesList.getSelectedPage().getMargin( ):0);
+		marginEndSlider.setValue((bookPagesList!=null)?-bookPagesList.getSelectedPage().getMarginEnd( ):0);
+		marginTopSlider.setValue((bookPagesList!=null)?bookPagesList.getSelectedPage().getMarginTop( ):0);
+		marginBottomSlider.setValue((bookPagesList!=null)?bookPagesList.getSelectedPage().getMarginBottom( ):0);
 		this.remove(bookPagePreview);
 		bookPagePreview = new BookPagePreviewPanel(null, bookPagesList.getSelectedPage(), background);
 		this.add(bookPagePreview, BorderLayout.CENTER);
 		
 		bookPagePreview.updateUI();
+		// Reactivate user changes
+		setChanges = false;
+		return true;
+		
 	}
-
 }

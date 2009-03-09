@@ -176,6 +176,7 @@ public class AtrezzoPanel extends JPanel implements Updateable {
 	public boolean updateFields() {
 		this.documentationTextArea.setText(this.atrezzoDataControl.getDocumentation());
 		this.nameTextField.setText(this.atrezzoDataControl.getName());
+		this.looksPanel.updateResources();
 		this.looksPanel.updatePreview();
 		return true;
 	}

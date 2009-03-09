@@ -116,6 +116,7 @@ Si no desea crear un nuevo juego, puede abrir un archivo ya existente empleando 
 Por favor, seleccione una de las siguientes opciones:
 1) Borrar el capítulo, 2) Reemplazarlo con otro fichero, 3) Abortar el proceso.</entry>	
 	<entry key="GeneralText.Delete">Borrar</entry>
+	<entry key="GeneralText.NotSelected">&lt; No Seleccionado &gt;</entry>
 	<entry key="GeneralText.Is">Es</entry>
 	<entry key="GeneralText.Replace">Reemplazar</entry>
 	<entry key="GeneralText.Abort">Abortar</entry>

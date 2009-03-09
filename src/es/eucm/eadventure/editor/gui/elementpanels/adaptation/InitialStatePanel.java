@@ -8,12 +8,10 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultCellEditor;
-import javax.swing.ImageIcon;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
@@ -26,24 +24,17 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableCellEditor;
 
-import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine;
-import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
-import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfileDataControl;
-import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationRuleDataControl;
-import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentRuleDataControl;
-import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
-import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
+import es.eucm.eadventure.editor.gui.Updateable;
 
 /**
  * This class is the panel used to display and edit nodes. It holds node operations, like adding and removing lines,
  * editing end effects, remove links and reposition lines and children
  */
-class InitialStatePanel extends JPanel {
+class InitialStatePanel extends JPanel implements Updateable{
 
 	/**
 	 * Required
@@ -154,7 +145,7 @@ class InitialStatePanel extends JPanel {
 		
 		String[] scenes = Controller.getInstance( ).getIdentifierSummary( ).getSceneIds( );
 		String[] isValues = new String[scenes.length+1];
-		isValues[0] = "< Not selected >";
+		isValues[0] = TextConstants.getText("GeneralText.NotSelected");
 		for (int i=0; i<scenes.length; i++){
 			isValues[i+1]=scenes[i];
 		}
@@ -453,5 +444,32 @@ class InitialStatePanel extends JPanel {
 
 			return value;
 		}
+	}
+	
+	
+	@Override
+	public boolean updateFields() {
+		actionFlagsTable.setRowSelectionInterval(-1, -1);
+		actionFlagsTable.updateUI();
+		deleteActionFlagButton.setEnabled( false );
+		
+		String[] scenes = Controller.getInstance( ).getIdentifierSummary( ).getSceneIds( );
+		String[] isValues = new String[scenes.length+1];
+		isValues[0] = TextConstants.getText("GeneralText.NotSelected");
+		for (int i=0; i<scenes.length; i++){
+			isValues[i+1]=scenes[i];
+		}
+		
+		this.initialSceneCB.setModel(new DefaultComboBoxModel(isValues) );
+		
+		if (adaptationRuleDataControl.getInitialScene( )==null){
+			initialSceneCB.setSelectedIndex( 0 );
+		}else{
+			initialSceneCB.setSelectedItem( adaptationRuleDataControl.getInitialScene( ) );
+		}
+		
+		initialSceneCB.updateUI();
+		
+		return true;
 	}
 }

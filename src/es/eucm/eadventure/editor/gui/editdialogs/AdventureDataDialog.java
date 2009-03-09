@@ -1,7 +1,6 @@
 package es.eucm.eadventure.editor.gui.editdialogs;
 
 import java.awt.BorderLayout;
-import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -14,11 +13,8 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
 import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -35,7 +31,7 @@ import es.eucm.eadventure.editor.control.Controller;
  * 
  * @author Bruno Torijano Bueno
  */
-public class AdventureDataDialog extends JDialog {
+public class AdventureDataDialog extends ToolManagableDialog {
 
 	/**
 	 * Required.
@@ -69,7 +65,7 @@ public class AdventureDataDialog extends JDialog {
 
 	public AdventureDataDialog( String adventureTitle, String adventureDescription, boolean isPlayerTransparent ) {
 		// Set the values
-		super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "Adventure.Title" ), Dialog.ModalityType.APPLICATION_MODAL );
+		super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "Adventure.Title" ), false );//, Dialog.ModalityType.APPLICATION_MODAL );
 		this.controller = Controller.getInstance( );
 
 		// Panel with the options
@@ -267,5 +263,16 @@ public class AdventureDataDialog extends JDialog {
 
 		}
 
+	}
+	
+	public boolean updateFields(){
+		descriptionTextArea.setText( Controller.getInstance().getAdventureDescription() );
+		titleTextField.setText( Controller.getInstance().getAdventureTitle() );
+		if (controller.isCommentaries()) {
+			commentariesCheckBox.setSelected(true);
+		} else {
+			commentariesCheckBox.setSelected(false);
+		}
+		return true;
 	}
 }

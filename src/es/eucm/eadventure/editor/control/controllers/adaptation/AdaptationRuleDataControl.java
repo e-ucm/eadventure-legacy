@@ -139,7 +139,7 @@ public class AdaptationRuleDataControl extends DataControl{
 		return	controller.addTool(new MoveObjectTool(adaptationRule.getUOLProperties( ),selectedRow,MoveObjectTool.MODE_DOWN));
 	}
 	public boolean addFlagAction( int selectedRow ) {
-		return controller.addTool(new AddActionTool(adaptationRule, selectedRow));
+		return controller.addTool(new AddActionTool(adaptationRule.getAdaptedState(), selectedRow));
 	}
 
 	public void deleteFlagAction( int selectedRow ) {
