@@ -2003,6 +2003,8 @@ public class Controller {
 				@Override
 				public void run() {
 					mainWindow.setNormalRunAvailable( false );
+					// First update flags
+					chaptersController.updateVarsFlagsForRunning();
 					EAdventureDebug.normalRun(Controller.getInstance().adventureData.getAdventureData(), AssetsController.getInputStreamCreator());
 					mainWindow.setNormalRunAvailable( true );
 				}
@@ -2011,6 +2013,14 @@ public class Controller {
 		}
 	}
 
+	/**
+	 * Private method that fills the flags and vars structures of the chapter data before passing on the information to the game engine
+	 * for running
+	 */
+	private void updateVarsFlagsForRunning (){
+		chaptersController.updateVarsFlagsForRunning();
+	}
+	
 	/**
 	 * Executes the current project. Firstly, it checks that the game does not present any consistency errors. 
 	 * Then exports the project to the web dir as a temp .ead file and gets it running
@@ -2024,6 +2034,7 @@ public class Controller {
 				@Override
 				public void run() {
 					mainWindow.setNormalRunAvailable( false );
+					chaptersController.updateVarsFlagsForRunning();
 					EAdventureDebug.debug(Controller.getInstance().adventureData.getAdventureData(), AssetsController.getInputStreamCreator());
 					mainWindow.setNormalRunAvailable( true );
 				}

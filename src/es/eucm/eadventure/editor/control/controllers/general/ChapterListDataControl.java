@@ -68,7 +68,11 @@ public class ChapterListDataControl {
 		if (selectedChapter==-1){
 			if (chapterDataControlList.size()>0){
 				selectedChapter = 0;
-				identifierSummary = new IdentifierSummary( getSelectedChapterData());
+				if (identifierSummary==null)
+					identifierSummary = new IdentifierSummary( getSelectedChapterData());
+				else
+					identifierSummary.loadIdentifiers( getSelectedChapterData());
+
 				if (varFlagSummary==null)
 					varFlagSummary = new VarFlagSummary();
 				getSelectedChapterDataControl().updateVarFlagSummary(varFlagSummary);
@@ -387,20 +391,6 @@ public class ChapterListDataControl {
 		chapterToolManagers.get( getSelectedChapter() ).popLocalToolManager();
 	}
 	
-	public void update ( List<Chapter> chapters ){
-		this.chapters = chapters;
-		varFlagSummary = new VarFlagSummary( );
-		chapterDataControlList = new ArrayList<ChapterDataControl>();
-		chapterToolManagers = new ArrayList<ChapterToolManager>();
-		
-		for ( Chapter chapter: chapters ){
-			chapterDataControlList.add( new ChapterDataControl ( chapter ) );
-			chapterToolManagers.add( new ChapterToolManager() );
-		}
-		if (chapters.size()>0)
-			setSelectedChapterInternal( 0 );		
-	}
-	
 	/**
 	 * Returns an array with the chapter titles.
 	 * 
@@ -423,6 +413,26 @@ public class ChapterListDataControl {
 	}
 
 
+	/**
+	 * Private method that fills the flags and vars structures of the chapter data before passing on the information to the game engine
+	 * for running*/
+	 public void updateVarsFlagsForRunning (){
+		// Update everyChapter
+		for ( ChapterDataControl chapterDataControl: chapterDataControlList ){
+			VarFlagSummary tempSummary = new VarFlagSummary();
+			chapterDataControl.updateVarFlagSummary( tempSummary );
+			Chapter chapter = (Chapter)chapterDataControl.getContent();
+			// Update flags
+			for ( String flag: tempSummary.getFlags()){
+				chapter.addFlag(flag);
+			}
+			// Update vars
+			for ( String var: tempSummary.getVars()){
+				chapter.addVar(var);
+			}
+		}
+	}
+	
 	////////DEBUGGING OPTIONS
 	/**
 	 * @return the chapterToolManagers
@@ -430,4 +440,6 @@ public class ChapterListDataControl {
 	public List<ChapterToolManager> getChapterToolManagers() {
 		return chapterToolManagers;
 	}
+	
+	
 }
