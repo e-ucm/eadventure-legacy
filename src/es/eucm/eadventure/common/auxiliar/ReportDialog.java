@@ -73,6 +73,10 @@ public class ReportDialog extends JDialog {
 	String exception = "";
 	
 	String message = "";
+
+	String os;
+	
+	String java;
 	
 	public static void GenerateErrorReport(Exception e, boolean askName, String message) {
 		if (isInterestingException(e))
@@ -192,6 +196,16 @@ public class ReportDialog extends JDialog {
 			this.add(createNamePanel(), c);
 			c.gridy++;
 		}
+		
+		os = "OS: " + System.getProperty("os.name");
+		JLabel los = new JLabel(os);
+		this.add(los, c);
+		c.gridy++;
+		
+		java = "JAVA: " + System.getProperty("java.version") + " from " + System.getProperty("java.vendor");
+		JLabel ljava = new JLabel(java);
+		this.add(ljava, c);
+		c.gridy++;
 		
 		
 		JPanel descriptionPanel = new JPanel();
@@ -329,6 +343,8 @@ public class ReportDialog extends JDialog {
 				report += "USER: " + nameTextField.getText() + "\n";
 				report += "EMAIL: " + emailTextField.getText() + "\n\n";
 			}
+			report += os + "\n";
+			report += java + "\n";
 			
 			report += "DESCRIPTION:\n" + descriptionTextArea.getText() + "\n\n\n";
 			report += "STACK TRACE:\n" + exception + "\n";
@@ -359,8 +375,8 @@ public class ReportDialog extends JDialog {
 			out.flush ();
 			out.close ();
 			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-			in.readLine();
 			//System.out.print(in.readLine());
+			in.readLine();
 		} catch (Exception e) {
 			//e.printStackTrace();
 		}

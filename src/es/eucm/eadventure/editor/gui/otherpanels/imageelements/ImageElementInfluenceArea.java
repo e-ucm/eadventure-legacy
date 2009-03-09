@@ -63,13 +63,12 @@ public class ImageElementInfluenceArea extends ImageElement {
 
 		int width = influenceAreaDataControl.getWidth();
 		int height = influenceAreaDataControl.getHeight();
-		int imageWidth = (int) (imageElementReference.getWidth() * imageElementReference
-				.getScale());
-		int imageHeight = (int) (imageElementReference.getHeight() * imageElementReference
-				.getScale());
+		int imageWidth = (int) (imageElementReference.getWidth() * imageElementReference.getScale());
+		int imageHeight = (int) (imageElementReference.getHeight() * imageElementReference.getScale());
 		int imageX = imageElementReference.getX();
 		int imageY = imageElementReference.getY();
 
+		
 		int imageTempX = imageX - imageWidth / 2;
 		int imageTempY = imageY - imageHeight;
 		int tempX = x - width / 2;
@@ -78,20 +77,19 @@ public class ImageElementInfluenceArea extends ImageElement {
 		tempX = tempX - imageTempX;
 		tempY = tempY - imageTempY;
 
-		if (tempX > 0)
-			tempX = 0;
-		if (tempY > 0)
-			tempY = 0;
-		if (tempX < imageElementReference.getWidth()
-				* imageElementReference.getScale() - width)
-			tempX = (int) (imageElementReference.getWidth()
-					* imageElementReference.getScale() - width);
-		if (tempY < imageElementReference.getHeight()
-				* imageElementReference.getScale() - height)
-			tempY = (int) (imageElementReference.getHeight()
-					* imageElementReference.getScale() - height);
+		
+		if (- tempX > width)
+			tempX = - width;
+		if (- tempY > height)
+			tempY = - height;
+		if (tempX > imageElementReference.getWidth() * imageElementReference.getScale())
+			tempX = (int) (imageElementReference.getWidth()	* imageElementReference.getScale());
+		if (tempY > imageElementReference.getHeight() * imageElementReference.getScale() )
+			tempY = (int) (imageElementReference.getHeight() * imageElementReference.getScale() );
 
 		influenceAreaDataControl.setInfluenceArea(tempX, tempY, width, height);
+		
+		
 	}
 
 	@Override
@@ -171,11 +169,11 @@ public class ImageElementInfluenceArea extends ImageElement {
 		int x = influenceAreaDataControl.getX();
 		int y = influenceAreaDataControl.getY();
 
-		int imageWidth = (int) (imageElementReference.getWidth() * imageElementReference
-				.getScale());
-		int imageHeight = (int) (imageElementReference.getHeight() * imageElementReference
-				.getScale());
-
+		//int imageWidth = (int) (imageElementReference.getWidth() * imageElementReference.getScale());
+		//int imageHeight = (int) (imageElementReference.getHeight() * imageElementReference.getScale());
+		int imageWidth = x + 5;
+		int imageHeight = y + 5;
+		
 		if (width + x < imageWidth)
 			width = imageWidth - x;
 		if (height + y < imageHeight)

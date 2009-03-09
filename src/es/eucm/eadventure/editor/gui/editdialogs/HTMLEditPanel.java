@@ -40,7 +40,7 @@ public class HTMLEditPanel extends KafenioPanel {
 		// NOTE: remove support for tables because of bad support in the editor library
 		newConfig.setCustomMenuItems("edit view font format search tools help");
 		newConfig.setCustomToolBar1("SAVE,SEPARATOR,CUT,COPY,PASTE,SEPARATOR,BOLD"
-									+ ",ITALIC,UNDERLINE,SEPARATOR,LEFT,CENTER,RIGHT,JUSTIFY");
+									+ ",ITALIC,UNDERLINE,SEPARATOR,LEFT,CENTER,RIGHT,JUSTIFY,SEPARATOR,TABLE");
 		newConfig.setCustomToolBar2("ulist,olist,spearator,deindent,indent,separator,image,separator,viewsource," +
 									"separator,strike,superscript,subscript,insertcharacter,separator,find,color");
 		

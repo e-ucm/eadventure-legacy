@@ -37,6 +37,7 @@ public class GUIFrame extends GUI implements FocusListener {
      */
     private JFrame bkgFrame;
     
+    
     private static DisplayMode originalDisplayMode;
     
     private Component component = null;

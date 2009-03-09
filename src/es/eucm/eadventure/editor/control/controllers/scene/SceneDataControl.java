@@ -16,6 +16,7 @@ import es.eucm.eadventure.editor.control.tools.general.ChangeNSDestinyPositionTo
 import es.eucm.eadventure.editor.control.tools.general.ChangePositionTool;
 import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeDocumentationTool;
 import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeNameTool;
+import es.eucm.eadventure.editor.control.tools.scene.ChangePlayerScaleTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 import es.eucm.eadventure.editor.gui.elementpanels.scene.SceneLooksPanel;
 
@@ -569,7 +570,8 @@ public class SceneDataControl extends DataControlWithResources {
 	
 	
 	public void setPlayerScale(float scale) {
-		scene.setPlayerScale(scale);
+		//scene.setPlayerScale(scale);
+		Controller.getInstance().addTool(new ChangePlayerScaleTool(scene, scale));
 	}
 	
 	public float getPlayerScale() {
