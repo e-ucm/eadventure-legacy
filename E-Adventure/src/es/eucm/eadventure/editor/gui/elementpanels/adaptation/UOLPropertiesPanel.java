@@ -8,7 +8,6 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultCellEditor;
@@ -25,24 +24,18 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableCellEditor;
 
-import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine;
-import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
-import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
 import es.eucm.eadventure.common.gui.TextConstants;
-import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.config.SCORMConfigData;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationRuleDataControl;
-import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentRuleDataControl;
-import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
+import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 
 /**
  * This class is the panel used to display and edit nodes. It holds node operations, like adding and removing lines,
  * editing end effects, remove links and reposition lines and children
  */
-class UOLPropertiesPanel extends JPanel {
+class UOLPropertiesPanel extends JPanel implements Updateable{
 
 	/**
 	 * Required
@@ -529,5 +522,16 @@ class UOLPropertiesPanel extends JPanel {
 
 			return value;
 		}
+	}
+
+	@Override
+	public boolean updateFields() {
+		propertiesTable.setRowSelectionInterval(-1, -1);
+		propertiesTable.updateUI();
+		
+		movePropertyDownButton.setEnabled(false);
+		movePropertyUpButton.setEnabled(false);
+		deletePropertyButton.setEnabled(false);
+		return true;
 	}
 }

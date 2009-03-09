@@ -23,7 +23,7 @@ import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.gui.displaydialogs.StyledBookDialog;
 import es.eucm.eadventure.engine.core.gui.GUI;
 
-public class BookPagePreviewPanel extends JPanel{
+public class BookPagePreviewPanel extends JPanel {
 	
     /**
 	 * Required
@@ -57,7 +57,6 @@ public class BookPagePreviewPanel extends JPanel{
                 url.openStream( ).close( );
             } catch( Exception e ) {
                 isValid = false;
-                System.out.println( "[LOG] FunctionalBookPage - Constructor - Error creating URL "+bookPage.getUri( ) );
             }
             
             try {
@@ -66,9 +65,7 @@ public class BookPagePreviewPanel extends JPanel{
                 editorPane.setEditable( false );
                 if (!( editorPane.getEditorKit( ) instanceof HTMLEditorKit ) && !( editorPane.getEditorKit( ) instanceof RTFEditorKit )){
                    isValid = false;
-                   System.out.println( "[LOG] FunctionalBookPage - Constructor - Type of page not valid "+bookPage.getUri( ) );
                 }else{
-                    System.out.println( "[LOG] FunctionalBookPage - Constructor - Page OK "+bookPage.getUri( ) );
                 }
                 
                 }            
@@ -124,7 +121,6 @@ public class BookPagePreviewPanel extends JPanel{
         
         if (url==null){
             isValid=false;
-            System.out.println( "[LOG] FunctionalBookPage - Constructor - URL is null "+bookPage.getUri( ) );
         }
         
        

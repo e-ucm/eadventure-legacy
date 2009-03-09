@@ -276,7 +276,7 @@ public class AdaptationProfileDataControl extends DataControl{
 	}
 
 	public boolean addFlagAction( int selectedRow ) {
-		return controller.addTool(new AddActionTool(profile, selectedRow));
+		return controller.addTool(new AddActionTool(profile.getAdaptedState(), selectedRow));
 	}
 
 	public void deleteFlagAction( int selectedRow ) {

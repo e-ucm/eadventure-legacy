@@ -10,9 +10,10 @@ import javax.swing.JPanel;
 import javax.swing.JTextPane;
 
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 
-public class AdaptationProfilesPanel extends JPanel{
+public class AdaptationProfilesPanel extends JPanel implements Updateable{
 	/**
 	 * Required
 	 */
@@ -42,5 +43,10 @@ public class AdaptationProfilesPanel extends JPanel{
 		c.weighty = 1;
 		c.gridy = 1;
 		add (new JFiller(),c);
+	}
+
+	@Override
+	public boolean updateFields() {
+		return true;
 	}
 }

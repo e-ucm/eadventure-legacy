@@ -113,6 +113,7 @@
 	<entry key="ErrorSolving.Chapter.Message">When reading the chapter "{#1}" the next problem was found: {#0}.
 Please, select what to do: 1) Delete the chapter, 2) Replace it with other file, 3) Abort process.</entry>
 	<entry key="GeneralText.Delete">Delete</entry>
+	<entry key="GeneralText.NotSelected">&lt; Not Selected &gt;</entry>
 	<entry key="GeneralText.Replace">Replace</entry>
 	<entry key="GeneralText.Abort">Abort</entry>
 	<entry key="GeneralText.Select">Select</entry>

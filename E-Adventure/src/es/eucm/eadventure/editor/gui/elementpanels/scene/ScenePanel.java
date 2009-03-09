@@ -24,10 +24,11 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
 import es.eucm.eadventure.editor.control.tools.listeners.DocumentationChangeListener;
 import es.eucm.eadventure.editor.control.tools.listeners.NameChangeListener;
+import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.editdialogs.PlayerPositionDialog;
 
-public class ScenePanel extends JPanel {
+public class ScenePanel extends JPanel implements Updateable{
 
 	/**
 	 * Required.
@@ -147,6 +148,7 @@ public class ScenePanel extends JPanel {
 		JPanel allowPlayerLayer = new JPanel();
 		allowPlayerLayer.setLayout(new GridLayout( 0, 1 ) );
 		isAllowPlayerLayer = new JCheckBox(TextConstants.getText("Scene.AllowPlayer"),sceneDataControl.isAllowPlayer());
+		isAllowPlayerLayer.setSelected( sceneDataControl.isAllowPlayer() );
 		isAllowPlayerLayer.addActionListener(new PlayerLayerCheckBoxListener());
 		allowPlayerLayer.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Scene.AllowPlayerBorder" ) ) );
 		allowPlayerLayer.add(isAllowPlayerLayer);
@@ -233,6 +235,18 @@ public class ScenePanel extends JPanel {
 			// Set the new data
 			sceneDataControl.setDefaultInitialPosition( initialPositionDialog.getPositionX( ), initialPositionDialog.getPositionY( ) );
 		}
+	}
+
+
+	@Override
+	public boolean updateFields() {
+		documentationTextArea.setText( sceneDataControl.getDocumentation( ) );
+		nameTextField.setText( sceneDataControl.getName( ) );
+		initialPositionButton.setEnabled( sceneDataControl.hasDefaultInitialPosition( ) );
+		isAllowPlayerLayer.setSelected( sceneDataControl.isAllowPlayer() );
+		looksPanel.updateResources();
+		looksPanel.updatePreview();
+		return true;
 	}
 
 }

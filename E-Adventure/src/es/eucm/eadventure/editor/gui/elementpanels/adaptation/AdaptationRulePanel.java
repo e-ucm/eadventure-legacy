@@ -16,8 +16,9 @@ import es.eucm.eadventure.common.data.Described;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationRuleDataControl;
 import es.eucm.eadventure.editor.control.tools.listeners.DescriptionChangeListener;
+import es.eucm.eadventure.editor.gui.Updateable;
 
-public class AdaptationRulePanel extends JPanel {
+public class AdaptationRulePanel extends JPanel implements Updateable{
 
 	/**
 	 * Required.
@@ -33,6 +34,17 @@ public class AdaptationRulePanel extends JPanel {
 	 * Text area for the description.
 	 */
 	private JTextArea descriptionTextArea;
+	
+	/**
+	 * Panel conaining the UOL state panel (LMS-side state)
+	 */
+	private UOLPropertiesPanel uolPanel;
+	
+	/**
+	 * Panel conaining the game state panel (based on flags/vars)
+	 */
+	private GameStatePanel gsPanel;
+	
 
 	/**
 	 * Constructor.
@@ -87,7 +99,7 @@ public class AdaptationRulePanel extends JPanel {
 		add( conceptPanel, c );
 
 		// Create the uol-state panel
-		UOLPropertiesPanel uolPanel = new UOLPropertiesPanel( this.adaptationRuleDataControl,scorm12, scorm2004  ); 
+		uolPanel = new UOLPropertiesPanel( this.adaptationRuleDataControl,scorm12, scorm2004  ); 
 		c.gridy = 2;
 		c.fill = GridBagConstraints.BOTH;
 		c.weighty = 1;
@@ -100,11 +112,17 @@ public class AdaptationRulePanel extends JPanel {
 		c3.insets = new Insets( 5, 5, 5, 5 );
 		c3.weightx=1; 
 		c3.weighty=0.8; c3.fill=GridBagConstraints.BOTH;
-		GameStatePanel gsPanel = new GameStatePanel( this.adaptationRuleDataControl ); 
+		gsPanel = new GameStatePanel( this.adaptationRuleDataControl ); 
 		
 		c.gridy = 3;
 		c.fill = GridBagConstraints.BOTH;
 		c.weighty = 1;
 		add( gsPanel, c );
+	}
+	
+	@Override
+	public boolean updateFields() {
+		descriptionTextArea.setText( adaptationRuleDataControl.getDescription( ) );
+		return uolPanel.updateFields() && gsPanel.updateFields();
 	}
 }

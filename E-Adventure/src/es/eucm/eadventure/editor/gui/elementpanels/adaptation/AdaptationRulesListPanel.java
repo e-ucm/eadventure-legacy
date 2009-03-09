@@ -17,12 +17,10 @@ import javax.swing.JTextPane;
 import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.gui.TextConstants;
-import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfileDataControl;
-import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfileDataControl;
-import es.eucm.eadventure.editor.control.controllers.scene.ScenesListDataControl;
+import es.eucm.eadventure.editor.gui.Updateable;
 
-public class AdaptationRulesListPanel extends JPanel {
+public class AdaptationRulesListPanel extends JPanel implements Updateable{
 
 	/**
 	 * Required.
@@ -34,6 +32,10 @@ public class AdaptationRulesListPanel extends JPanel {
 	private JCheckBox scorm2004;	
 	
 	private AdaptationProfileDataControl rulesListDataControl;
+	
+	private JTable informationTable;
+	
+	private InitialStatePanel initialStatePanel;
 	/**
 	 * Constructor.
 	 * 
@@ -87,14 +89,15 @@ public class AdaptationRulesListPanel extends JPanel {
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1;
 		c.weighty = 1;
-		add (new InitialStatePanel(adpRulesListDataControl), c);
+		initialStatePanel = new InitialStatePanel(adpRulesListDataControl);
+		add (initialStatePanel, c);
 		
 		// Create the table with the data
 		c.gridy = 3;
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1;
 		c.weighty = 1;
-		JTable informationTable = new JTable( new AssessmentRulesInfoTableModel( adpRulesListDataControl.getAdaptationRulesInfo( ) ) );
+		informationTable = new JTable( new AssessmentRulesInfoTableModel( adpRulesListDataControl.getAdaptationRulesInfo( ) ) );
 		informationTable.removeEditor( );
 		JPanel listPanel = new JPanel( );
 		listPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AdaptationRulesList.ListTitle" ) ) );
@@ -222,5 +225,13 @@ public class AdaptationRulesListPanel extends JPanel {
 		public Object getValueAt( int rowIndex, int columnIndex ) {
 			return assRulesInfo[rowIndex][columnIndex];
 		}
+	}
+
+	@Override
+	public boolean updateFields() {
+		scorm2004.setSelected(rulesListDataControl.isScorm2004());
+		scorm12.setSelected(rulesListDataControl.isScorm12());
+		informationTable.updateUI();
+		return initialStatePanel.updateFields();
 	}
 }
