@@ -148,19 +148,9 @@ public class FunctionalTrajectory {
 		
 		List<FunctionalPath> fullPathList = getFullPathList(tempPaths);
 		
-		for (FunctionalPath tempPath : fullPathList) {
-			System.out.println(tempPath.getLength() + "::" + tempPath.getSides().size());
-		}
-		System.out.println("---");
-
 		List<FunctionalPath> validPaths = getValidPaths(fullPathList, fromX, fromY, toX, toY);
 			
 		Collections.sort(validPaths);
-
-		for (FunctionalPath bestPath : validPaths) {
-			System.out.println(bestPath.getLength() + "::" + bestPath.getDistance() + "::" + bestPath.getSides().size());
-		}
-		System.out.println("...");
 		
 		FunctionalPath bestPath = validPaths.get(validPaths.size() - 1);
 		this.nearestX = (int) bestPath.getDestX();
