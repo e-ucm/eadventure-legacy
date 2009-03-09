@@ -51,10 +51,6 @@ public class ConditionsController {
 	 */
 	private Controller controller;
 
-	/**
-	 * Link to the flags summary.
-	 */
-	private VarFlagSummary varFlagSummary;
 
 	/**
 	 * Conditions data.
@@ -72,7 +68,6 @@ public class ConditionsController {
 	public ConditionsController( Conditions conditions ) {
 		this.conditions = conditions;
 		controller = Controller.getInstance( );
-		varFlagSummary = controller.getVarFlagSummary( );
 	}
 
 	/**
@@ -266,7 +261,7 @@ public class ConditionsController {
 	 *            Index of the either conditions block
 	 */
 	public void deleteEitherConditionsBlock( int index ) {
-		controller.addTool(new DeleteEitherBlockTool(conditions,varFlagSummary,index));
+		controller.addTool(new DeleteEitherBlockTool(conditions,controller.getVarFlagSummary(),index));
 	}
 
 	/**
@@ -288,20 +283,20 @@ public class ConditionsController {
 				Controller.getInstance().getIdentifierSummary().isGlobalStateId(conditionId)){
 			if( blockIndex == MAIN_CONDITIONS_BLOCK ){
 				if ( type == FLAG_CONDITION ){
-					Controller.getInstance().addTool(new AddConditionTool(conditions.getMainConditions( ),new Condition( conditionId, getStateFromString( conditionState ) ),varFlagSummary ));
+					Controller.getInstance().addTool(new AddConditionTool(conditions.getMainConditions( ),new Condition( conditionId, getStateFromString( conditionState ) ),controller.getVarFlagSummary() ));
 				}else if ( type == VAR_CONDITION ){
-					Controller.getInstance().addTool(new AddConditionTool(conditions.getMainConditions( ),new VarCondition( conditionId, getStateFromString( conditionState ), Integer.parseInt(value) ),varFlagSummary ));
+					Controller.getInstance().addTool(new AddConditionTool(conditions.getMainConditions( ),new VarCondition( conditionId, getStateFromString( conditionState ), Integer.parseInt(value) ),controller.getVarFlagSummary() ));
 				} else if (type == GLOBAL_STATE_CONDITION ){
-					Controller.getInstance().addTool(new AddConditionTool(conditions.getMainConditions( ),new GlobalStateReference( conditionId ),varFlagSummary ));
+					Controller.getInstance().addTool(new AddConditionTool(conditions.getMainConditions( ),new GlobalStateReference( conditionId ),controller.getVarFlagSummary() ));
 				}
 	
 			}else{
 				if ( type == FLAG_CONDITION ){
-					Controller.getInstance().addTool(new AddConditionTool(conditions.getEitherConditions( blockIndex ),new Condition( conditionId, getStateFromString( conditionState ) ),varFlagSummary ));
+					Controller.getInstance().addTool(new AddConditionTool(conditions.getEitherConditions( blockIndex ),new Condition( conditionId, getStateFromString( conditionState ) ),controller.getVarFlagSummary() ));
 				}else if ( type == VAR_CONDITION ){
-					Controller.getInstance().addTool(new AddConditionTool(conditions.getEitherConditions( blockIndex ),new VarCondition( conditionId, getStateFromString( conditionState ), Integer.parseInt(value) ),varFlagSummary ));					
+					Controller.getInstance().addTool(new AddConditionTool(conditions.getEitherConditions( blockIndex ),new VarCondition( conditionId, getStateFromString( conditionState ), Integer.parseInt(value) ),controller.getVarFlagSummary() ));					
 				}else if (type == GLOBAL_STATE_CONDITION ){
-					Controller.getInstance().addTool(new AddConditionTool(conditions.getEitherConditions( blockIndex ),new GlobalStateReference( conditionId ), varFlagSummary));
+					Controller.getInstance().addTool(new AddConditionTool(conditions.getEitherConditions( blockIndex ),new GlobalStateReference( conditionId ), controller.getVarFlagSummary()));
 				}
 			}
 		}
@@ -319,10 +314,10 @@ public class ConditionsController {
 	 */
 	public void deleteCondition( int blockIndex, int conditionIndex ) {
 		if( blockIndex == MAIN_CONDITIONS_BLOCK ) {
-			controller.addTool(new DeleteConditionTool(conditions.getMainConditions( ), conditionIndex, varFlagSummary));
+			controller.addTool(new DeleteConditionTool(conditions.getMainConditions( ), conditionIndex, controller.getVarFlagSummary()));
 		}
 		else {
-			controller.addTool(new DeleteConditionTool(conditions.getEitherConditions( blockIndex ), conditionIndex, varFlagSummary));
+			controller.addTool(new DeleteConditionTool(conditions.getEitherConditions( blockIndex ), conditionIndex, controller.getVarFlagSummary()));
 		}
 	}
 
@@ -349,13 +344,13 @@ public class ConditionsController {
 				// Create the new condition according to the type
 				if ( type == ConditionsController.FLAG_CONDITION ){
 					newCondition = new Condition ( id, getStateFromString(state) ) ;
-					controller.addTool(new ReplaceConditionTool(conditions.getMainConditions(), newCondition, conditionIndex,varFlagSummary));
+					controller.addTool(new ReplaceConditionTool(conditions.getMainConditions(), newCondition, conditionIndex,controller.getVarFlagSummary()));
 				} else if ( type == ConditionsController.VAR_CONDITION ){
 					newCondition = new VarCondition ( id, getStateFromString(state), Integer.parseInt(value) ) ;
-					controller.addTool(new ReplaceConditionTool(conditions.getMainConditions(), newCondition, conditionIndex,varFlagSummary));
+					controller.addTool(new ReplaceConditionTool(conditions.getMainConditions(), newCondition, conditionIndex,controller.getVarFlagSummary()));
 				} else if ( type == ConditionsController.GLOBAL_STATE_CONDITION ){
 					newCondition = new GlobalStateReference ( id ) ;
-					controller.addTool(new ReplaceConditionTool(conditions.getMainConditions(), newCondition, conditionIndex,varFlagSummary));
+					controller.addTool(new ReplaceConditionTool(conditions.getMainConditions(), newCondition, conditionIndex,controller.getVarFlagSummary()));
 				}
 			}
 		}
@@ -367,13 +362,13 @@ public class ConditionsController {
 					(type == VAR_CONDITION && ((VarCondition)oldCondition).getValue()!=Integer.parseInt(value))){
 				if ( type == ConditionsController.FLAG_CONDITION ){
 					newCondition = new Condition ( id, getStateFromString(state) ) ;
-					controller.addTool(new ReplaceConditionTool(conditions.getEitherConditions( blockIndex ), newCondition, conditionIndex,varFlagSummary));
+					controller.addTool(new ReplaceConditionTool(conditions.getEitherConditions( blockIndex ), newCondition, conditionIndex,controller.getVarFlagSummary()));
 				} else if ( type == ConditionsController.VAR_CONDITION ){
 					newCondition = new VarCondition ( id, getStateFromString(state), Integer.parseInt(value) ) ;
-					controller.addTool(new ReplaceConditionTool(conditions.getEitherConditions( blockIndex ), newCondition, conditionIndex,varFlagSummary));
+					controller.addTool(new ReplaceConditionTool(conditions.getEitherConditions( blockIndex ), newCondition, conditionIndex,controller.getVarFlagSummary()));
 				} else if ( type == ConditionsController.GLOBAL_STATE_CONDITION ){
 					newCondition = new GlobalStateReference ( id ) ;
-					controller.addTool(new ReplaceConditionTool(conditions.getEitherConditions( blockIndex ), newCondition, conditionIndex,varFlagSummary));
+					controller.addTool(new ReplaceConditionTool(conditions.getEitherConditions( blockIndex ), newCondition, conditionIndex,controller.getVarFlagSummary()));
 				}
 				
 			}

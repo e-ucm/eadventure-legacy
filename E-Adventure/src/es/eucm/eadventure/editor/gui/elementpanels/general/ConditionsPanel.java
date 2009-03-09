@@ -655,6 +655,7 @@ public class ConditionsPanel extends JPanel implements Updateable{
 		for( int i = 0; i < conditionsController.getEitherConditionsBlockCount( ); i++ )
 			addEitherConditionsBlockPanel( );
 
+		updateUI();
 		return true;
 	}
 }

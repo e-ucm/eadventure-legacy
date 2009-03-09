@@ -289,6 +289,7 @@ public class Loader {
 				newProfile = new AdaptationProfile(adpParser.getAdaptationRules(), adpParser.getInitialState(), xmlFile , adpParser.isScorm12(), adpParser.isScorm2004());
 				
 				newProfile.setFlags(adpParser.getFlags());
+				System.out.println("ADP PARSER FLAGS:"+adpParser.getFlags());
 				newProfile.setVars(adpParser.getVars());
 	
 			} catch( ParserConfigurationException e ) {

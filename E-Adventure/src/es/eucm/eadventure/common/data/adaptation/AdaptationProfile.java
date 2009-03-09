@@ -73,6 +73,8 @@ public class AdaptationProfile  implements Cloneable, ContainsAdaptedState{
 		rules = new ArrayList<AdaptationRule>();
 		scorm2004 = false;
 		scorm12 = false;
+		flags = new ArrayList<String>();
+		vars = new ArrayList<String>();
 	}
 	
 	/**

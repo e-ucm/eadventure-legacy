@@ -1,4 +1,4 @@
-package es.eucm.eadventure.engine.adaptation;
+ package es.eucm.eadventure.engine.adaptation;
 
 import java.util.AbstractSet;
 import java.util.ArrayList;
@@ -47,15 +47,19 @@ public class AdaptationEngine {
      */
     @SuppressWarnings("unchecked")
     public void init( String adaptationPath ) {
+    	boolean inited = false;
     	if (adaptationPath!=null && !adaptationPath.equals("")){
 		    AdaptationProfile profile = Loader.loadAdaptationProfile( ResourceHandler.getInstance(), adaptationPath, new ArrayList<Incidence>() );
-		    FlagSummary flags = Game.getInstance().getFlags();
-		    VarSummary vars = Game.getInstance().getVars();
-		    for (String flag: profile.getFlags() ){
-		    	flags.addFlag ( flag );
-		    }
-		    for (String var: profile.getVars() ){
-		    	vars.addVar ( var );
+		    if (profile!=null){
+			    FlagSummary flags = Game.getInstance().getFlags();
+			    VarSummary vars = Game.getInstance().getVars();
+			    for (String flag: profile.getFlags() ){
+			    	flags.addFlag ( flag );
+			    }
+			    for (String var: profile.getVars() ){
+			    	vars.addVar ( var );
+			    }
+			    inited = true;
 		    }
 
 		    initialAdaptedState = profile.getAdaptedState();
@@ -65,7 +69,7 @@ public class AdaptationEngine {
     		externalAdaptationRules = new ArrayList<AdaptationRule>();
     	}
 		    
-	    if(initialAdaptedState!=null) {
+	    if(inited) {
 	        Game.getInstance().setAdaptedStateToExecute(initialAdaptedState);
 	    }
 	 
