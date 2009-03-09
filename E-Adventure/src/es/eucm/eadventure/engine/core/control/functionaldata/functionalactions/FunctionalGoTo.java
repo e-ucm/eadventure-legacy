@@ -91,7 +91,7 @@ public class FunctionalGoTo extends FunctionalAction {
             functionalPlayer.setAnimation(animations, -1);
 
         } else if (!trajectoryUpdated){
-        	trajectory.updatePathToNearestPoint(functionalPlayer.getX(), functionalPlayer.getY(), posX, posY);
+        	trajectory.updatePathToNearestPoint(functionalPlayer.getX(), functionalPlayer.getY(), originalPosX, originalPosY);
         }
         
         DebugLog.player("Player moves: hasTrajectory=" + trajectory.hasTrajectory() + " destination=" + posX + "," + posY);
@@ -142,55 +142,29 @@ public class FunctionalGoTo extends FunctionalAction {
         animations[AnimationState.NORTH] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_WALK_UP ), false, MultimediaManager.IMAGE_PLAYER );
         animations[AnimationState.SOUTH] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_WALK_DOWN ), false, MultimediaManager.IMAGE_PLAYER );
 
+        
+        int nextDir = AnimationState.EAST;
+		if (Math.abs(newSpeedY) > Math.abs(newSpeedX)) {
+			if (newSpeedY > 0)
+				nextDir = AnimationState.SOUTH;
+			else
+				nextDir = AnimationState.NORTH;
+		} else {
+			if (newSpeedX > 0)
+				nextDir = AnimationState.EAST;
+			else 
+				nextDir = AnimationState.WEST;
+		}
+        
 		if (!hasAnimation) {
 			hasAnimation = true;
-			if (muchGreater(newSpeedY, newSpeedX)) {
-				if (newSpeedY > 0) {
-					functionalPlayer.setDirection(AnimationState.SOUTH);
-				} else {
-					functionalPlayer.setDirection(AnimationState.NORTH);
-				}
-			} else {
-				if (newSpeedX > 0) {
-					functionalPlayer.setDirection(AnimationState.EAST);
-				} else {
-					functionalPlayer.setDirection(AnimationState.WEST);
-				}
-			}
+			functionalPlayer.setDirection(nextDir);
             functionalPlayer.setAnimation(animations, -1);
-		} else {
-			if (muchGreater(newSpeedY, newSpeedX) && !muchGreater(oldSpeedY, oldSpeedX)) {
-				functionalPlayer.popAnimation();
-				if (newSpeedY > 0) {
-		            functionalPlayer.setDirection(AnimationState.SOUTH);
-				} else {
-		            functionalPlayer.setDirection(AnimationState.NORTH);
-				}
-	            functionalPlayer.setAnimation(animations, -1);
-			} else if (!muchGreater(newSpeedY, newSpeedX) && muchGreater(oldSpeedY, oldSpeedX)) {
-				functionalPlayer.popAnimation();
-				if (newSpeedX > 0) {
-		            functionalPlayer.setDirection(AnimationState.EAST);
-				} else {
-		            functionalPlayer.setDirection(AnimationState.WEST);
-				}
-	            functionalPlayer.setAnimation(animations, -1);
-			} else {
-				if (oldSpeedX > 0 && newSpeedX < 0) {
-		            functionalPlayer.setDirection(AnimationState.WEST);
-		            functionalPlayer.popAnimation();
-		            functionalPlayer.setAnimation(animations, -1);
-				} else if (oldSpeedX < 0 && newSpeedX > 0) {
-		            functionalPlayer.setDirection(AnimationState.EAST);
-		            functionalPlayer.popAnimation();
-		            functionalPlayer.setAnimation(animations, -1);
-				}
-			}
+		} else if (nextDir != functionalPlayer.getDirection()) {
+			functionalPlayer.popAnimation();
+			functionalPlayer.setDirection(nextDir);
+			functionalPlayer.setAnimation(animations, -1);
 		}
-	}
-	
-	private boolean muchGreater(float a, float b) {
-		return (Math.abs(a) > Math.abs(b));
 	}
 
 	public boolean canGetTo() {

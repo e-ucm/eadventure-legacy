@@ -147,21 +147,20 @@ public class FunctionalTrajectory {
 		}
 		
 		List<FunctionalPath> fullPathList = getFullPathList(tempPaths);
-
-		List<FunctionalPath> validPaths;
 		
-		validPaths = getValidPaths(fullPathList, fromX, fromY, toX, toY);
+		for (FunctionalPath tempPath : fullPathList) {
+			System.out.println(tempPath.getLength() + "::" + tempPath.getSides().size());
+		}
+		System.out.println("---");
+
+		List<FunctionalPath> validPaths = getValidPaths(fullPathList, fromX, fromY, toX, toY);
 			
 		Collections.sort(validPaths);
 
-		/*
 		for (FunctionalPath bestPath : validPaths) {
-			for (FunctionalSide fs : bestPath.getSides()) {
-				System.out.print(bestPath.getLength() + "::" + bestPath.getDistance() + "::" + fs.getSide() + "--->");
-			}
-			System.out.println();
+			System.out.println(bestPath.getLength() + "::" + bestPath.getDistance() + "::" + bestPath.getSides().size());
 		}
-		 */
+		System.out.println("...");
 		
 		FunctionalPath bestPath = validPaths.get(validPaths.size() - 1);
 		this.nearestX = (int) bestPath.getDestX();
@@ -216,7 +215,6 @@ public class FunctionalTrajectory {
 			boolean end = false;
 			int sideNr = 1;
 			while (!end && sideNr <= tempPath.getSides().size()) {
-				
 				Node endNode = newPath.getSides().get(sideNr - 1).getEndNode();
 				float deltaX = endNode.getX() - posX;
 				float deltaY = endNode.getY() - posY;
