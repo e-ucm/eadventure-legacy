@@ -21,7 +21,8 @@ public class SelectLineAudioPathTool extends SelectResourceTool{
 	
 	protected static Resources createResources(ConversationLine line){
 		Resources resources = new Resources();
-		resources.addAsset(AUDIO_STR, line.getAudioPath());
+		if ( line.getAudioPath()!=null )
+			resources.addAsset(AUDIO_STR, line.getAudioPath());
 		return resources;
 	}
 	
