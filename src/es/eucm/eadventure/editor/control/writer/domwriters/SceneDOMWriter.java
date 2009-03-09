@@ -11,8 +11,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
-import es.eucm.eadventure.common.data.chapter.Action;
-import es.eucm.eadventure.common.data.chapter.CustomAction;
 import es.eucm.eadventure.common.data.chapter.ElementReference;
 import es.eucm.eadventure.common.data.chapter.Exit;
 import es.eucm.eadventure.common.data.chapter.ExitLook;
@@ -336,83 +334,9 @@ public class SceneDOMWriter {
 					
 					// Append the actions (if there is at least one)
 					if( !activeArea.getActions( ).isEmpty( ) ) {
-						// Create the actions node
-						Node actionsNode = doc.createElement( "actions" );
-
-						// For every action
-						for( Action action : activeArea.getActions( ) ) {
-							Element actionElement = null;
-
-							// Create the element
-							switch( action.getType( ) ) {
-								case Action.EXAMINE:
-									actionElement = doc.createElement( "examine" );
-									break;
-								case Action.GRAB:
-									actionElement = doc.createElement( "grab" );
-									break;
-								case Action.USE:
-									actionElement = doc.createElement( "use" );
-									break;
-								case Action.USE_WITH:
-									actionElement = doc.createElement( "use-with" );
-									actionElement.setAttribute( "idTarget", action.getTargetId( ) );
-									break;
-								case Action.GIVE_TO:
-									actionElement = doc.createElement( "give-to" );
-									actionElement.setAttribute( "idTarget", action.getTargetId( ) );
-									break;
-								case Action.CUSTOM:
-									actionElement = doc.createElement( "custom" );
-									actionElement.setAttribute("name", ((CustomAction) action).getName());
-									if (((CustomAction) action).isNeedsGoTo())
-										actionElement.setAttribute("needsGoTo", "yes");
-									else
-										actionElement.setAttribute("needsGoTo", "no");
-									actionElement.setAttribute("keepDistance", "" + ((CustomAction) action).getKeepDistance());
-									for (Resources resources : ((CustomAction) action).getResources())
-										actionElement.appendChild(ResourcesDOMWriter.buildDOM(resources, ResourcesDOMWriter.RESOURCES_CUSTOM_ACTION));
-									break;
-								case Action.CUSTOM_INTERACT:
-									actionElement = doc.createElement( "custom-interact" );
-									actionElement.setAttribute("idTarget", action.getTargetId());
-									actionElement.setAttribute("name", ((CustomAction) action).getName());
-									if (((CustomAction) action).isNeedsGoTo())
-										actionElement.setAttribute("needsGoTo", "yes");
-									else
-										actionElement.setAttribute("needsGoTo", "no");
-									actionElement.setAttribute("keepDistance", "" + ((CustomAction) action).getKeepDistance());
-									for (Resources resources : ((CustomAction) action).getResources())
-										actionElement.appendChild(ResourcesDOMWriter.buildDOM(resources, ResourcesDOMWriter.RESOURCES_CUSTOM_ACTION));
-									break;							
-
-							}
-
-							// Append the documentation (if avalaible)
-							if( action.getDocumentation( ) != null ) {
-								Node actionDocumentationNode = doc.createElement( "documentation" );
-								actionDocumentationNode.appendChild( doc.createTextNode( action.getDocumentation( ) ) );
-								actionElement.appendChild( actionDocumentationNode );
-							}
-
-							// Append the conditions (if avalaible)
-							if( !action.getConditions( ).isEmpty( ) ) {
-								Node conditionsNode = ConditionsDOMWriter.buildDOM( action.getConditions( ) );
-								doc.adoptNode( conditionsNode );
-								actionElement.appendChild( conditionsNode );
-							}
-
-							// Append the effects (if avalaible)
-							if( !action.getEffects( ).isEmpty( ) ) {
-								Node effectsNode = EffectsDOMWriter.buildDOM( EffectsDOMWriter.EFFECTS, action.getEffects( ) );
-								doc.adoptNode( effectsNode );
-								actionElement.appendChild( effectsNode );
-							}
-
-							// Append the action element
-							actionsNode.appendChild( actionElement );
-						}
-
+						Node actionsNode = ActionsDOMWriter.buildDOM(activeArea.getActions());
+						doc.adoptNode(actionsNode);
+						
 						// Append the actions node
 						aaElement.appendChild( actionsNode );
 					}

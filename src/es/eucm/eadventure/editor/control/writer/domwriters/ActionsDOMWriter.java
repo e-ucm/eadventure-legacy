@@ -85,8 +85,9 @@ public class ActionsDOMWriter {
 							}
 							break;							
 					}
+					
 					actionElement.setAttribute("needsGoTo", (action.isNeedsGoTo() ? "yes" : "no"));
-					actionElement.setAttribute("keepDistance", "" + action.getKeepDistance());
+					actionElement.setAttribute("keepDistance", "" + action.getKeepDistance().intValue());
 
 					// Append the documentation (if avalaible)
 					if( action.getDocumentation( ) != null ) {

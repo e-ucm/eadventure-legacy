@@ -47,8 +47,12 @@ public class FunctionalBarrier{
             	by2 = temp;
             }
             
-            if (x >= bx1 && x <= bx2 && y >= by1 && y <= by2)
+            if (x >= bx1 && x <= bx2 && y >= by1 && y <= by2) {
+                System.out.print(barrier.getName() + " " + bx1 + " " + bx2 + " " + by1 + " " + by2 + " " + x + " " + y); 
+            	System.out.println("->TRUE");
             	return true;
+            }// else
+            //	System.out.println("->FALSE");
         }
         return false;
     }
@@ -75,7 +79,6 @@ public class FunctionalBarrier{
         
         // Direction vector
         float dx = targetX - px;
-        float dy = 0;
         
         // Determine closer side of the barrier
         float bx = Integer.MIN_VALUE;

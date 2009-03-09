@@ -29,7 +29,6 @@ public class FunctionalConditions{
         	Conditions eitherCondition = conditions.getEitherBlock(i);
             if( conditionsOK )
                 conditionsOK = new FunctionalConditions (eitherCondition).evaluateSimpleConditionsWithOR( );
-
         }
 
         return conditionsOK;
