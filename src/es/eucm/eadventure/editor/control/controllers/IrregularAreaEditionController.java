@@ -29,26 +29,16 @@ public class IrregularAreaEditionController extends NormalScenePreviewEditionCon
 	 */
 	public static final int DELETE_TOOL = 2;
 
+	/**
+	 * Id for the tool that edits the influence area
+	 */
 	public static final int INFLUENCE_AREA_TOOL = 3;
-		
-	private ScenePreviewEditionPanel spep;
-	
+			
+	/**
+	 * The data control of the rectangle being edited
+	 */
 	private RectangleArea aadc;
 	
-	private int startDragX;
-	
-	private int startDragY;
-	
-	private int originalX;
-	
-	private int originalY;
-	
-	private int originalWidth;
-	
-	private int originalHeight;
-
-	private float originalScale;
-
 	private int selectedTool = POINT_EDIT;
 	
 	private Color color;

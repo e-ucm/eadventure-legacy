@@ -38,25 +38,12 @@ public class TrajectoryScenePreviewEditionController extends NormalScenePreviewE
 	 */
 	public static final int EDIT_BARRIERS = 3;
 
+	/**
+	 * Id for the tool to select the initial node
+	 */
 	public static final int SELECT_INITIAL = 4;
-		
-	private ScenePreviewEditionPanel spep;
 	
 	private TrajectoryDataControl tdc;
-	
-	private int startDragX;
-	
-	private int startDragY;
-	
-	private int originalX;
-	
-	private int originalY;
-	
-	private int originalWidth;
-	
-	private int originalHeight;
-
-	private float originalScale;
 
 	private int selectedTool = NODE_EDIT;
 	
@@ -148,13 +135,9 @@ public class TrajectoryScenePreviewEditionController extends NormalScenePreviewE
 	}
 
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	public void mousePressed(MouseEvent e) {
@@ -179,8 +162,6 @@ public class TrajectoryScenePreviewEditionController extends NormalScenePreviewE
 	}
 
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	public void mouseDragged(MouseEvent e) {
