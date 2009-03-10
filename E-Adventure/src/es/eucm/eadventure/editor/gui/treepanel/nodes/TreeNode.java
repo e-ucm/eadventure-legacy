@@ -85,6 +85,7 @@ import es.eucm.eadventure.editor.gui.treepanel.nodes.timer.TimersListTreeNode;
  * This class contains the operations required to build a JTree panel with the data from the script.
  * 
  * @author Bruno Torijano Bueno
+ * @author Eugenio Marchiori
  */
 public abstract class TreeNode {
 
@@ -602,6 +603,13 @@ public abstract class TreeNode {
 		return TextConstants.getElementName( getNodeType( ) );
 	}
 	
+	/**
+	 * Change the current tree node to the one that has
+	 * the given object as its data control.
+	 * 
+	 * @param object The object of the tree node
+	 * @return true if the tree node was changed
+	 */
 	public boolean changeTreeNodeForObject(Object object) {
 		TreeNode tempParent = parent;
 		TreeNode tempNode = this;
@@ -621,6 +629,13 @@ public abstract class TreeNode {
 		return false;
 	}
 	
+	/**
+	 * Change the tree node for the one that has the given
+	 * object as the content of its data control.
+	 * 
+	 * @param object The content of the data control of the desired tree node
+	 * @return true if the tree node was changed
+	 */
 	public boolean changeTreeNodeForObjectContent(Object object) {
 		TreeNode tempParent = parent;
 		TreeNode tempNode = this;
@@ -640,6 +655,15 @@ public abstract class TreeNode {
 		return false;
 	}
 	
+	/**
+	 * Returns the relative path from the current tree
+	 * node to the one that has the given object as its data
+	 * control. Returns null if said data control is not in the
+	 * current tree node or its descendants.
+	 * 
+	 * @param object The data control
+	 * @return the tree path if it exists
+	 */
 	public TreePath getTreePathForObject(Object object) {
 		TreeNode tempParent = parent;
 		TreeNode tempNode = this;
@@ -654,6 +678,15 @@ public abstract class TreeNode {
 		return null;
 	}
 
+	/**
+	 * Returns the relative path from the current tree
+	 * node to the one that has the given object as its data
+	 * control content. Returns null if said data control is not in the
+	 * current tree node or its descendants.
+	 * 
+	 * @param object The data controls content
+	 * @return the tree path if it exists
+	 */
 	public TreePath getTreePathForObjectContent(Object object) {
 		TreeNode tempParent = parent;
 		TreeNode tempNode = this;
@@ -668,6 +701,12 @@ public abstract class TreeNode {
 		return null;
 	}
 
+	/**
+	 * Change the tree node to the one in the given path
+	 * 
+	 * @param path the path of the new tree node
+	 * @return true if successfully changed
+	 */
 	public boolean changeTreeNodeForPath(TreePath path) {
 		try {
 			if (path != null) {
@@ -683,6 +722,13 @@ public abstract class TreeNode {
 		return false;
 	}
 	
+	/**
+	 * Recursive method to find the tree path of a object.
+	 * 
+	 * @param treePath the original tree path
+	 * @param object the object
+	 * @return the new tree path
+	 */
 	private TreePath getTreeNodeForObject(TreePath treePath, Object object) {
 		TreeNode temp = this.isObjectTreeNode(object);
 		if (treePath == null && temp != null) {
@@ -691,7 +737,6 @@ public abstract class TreeNode {
 		if (temp != null && treePath != null) {
 			return treePath.pathByAddingChild(this);
 		}
-		
 		TreePath tempPath;
 		if (children != null) {
 			for (TreeNode child : children) {
@@ -702,12 +747,18 @@ public abstract class TreeNode {
 				}
 				if (tempPath != null)
 					return tempPath;
-		
 			}
 		}
 		return null;
 	}
 
+	/**
+	 * Recursive method to find the tree path that has the given object as its data control content
+	 * 
+	 * @param treePath the original tree path
+	 * @param object the object
+	 * @return the new tree path
+	 */
 	private TreePath getTreeNodeForObjectContent(TreePath treePath, Object object) {
 		TreeNode temp = this.isObjectContentTreeNode(object);
 		if (treePath == null && temp != null) {
@@ -733,10 +784,27 @@ public abstract class TreeNode {
 		return null;
 	}
 
+	/**
+	 * Returns the tree node if the content of its that control is the
+	 * given object, null in another case
+	 * 
+	 * @param object The data control content
+	 * @return The treenode or null
+	 */
 	public abstract TreeNode isObjectContentTreeNode(Object object);
 
+	/**
+	 * Returns the tree node if the object is its data control
+	 * @param object The data control
+	 * @return The tree node of null
+	 */
 	public abstract TreeNode isObjectTreeNode(Object object);
 
+	/**
+	 * Get the list of children of the tree node
+	 * 
+	 * @return The list of children
+	 */
 	public List<TreeNode> getChildren() {
 		return children;
 	}

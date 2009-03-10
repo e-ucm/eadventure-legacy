@@ -11,10 +11,14 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.control.tools.general.MovePlayerLayerInTableTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.scene.ReferenceListener;
 
+
+
+/**
+ * Data control for the list of references in the scene
+ */
 public class ReferencesListDataControl extends DataControl{
 
 	
@@ -66,12 +70,7 @@ public class ReferencesListDataControl extends DataControl{
 	 * List of non-player character reference controllers.
 	 */
 	private List<ElementReferenceDataControl> npcReferencesDataControlList;
-	
-	/**
-	 * List of all elements order by number of layer (or y position when they have the same layer "-1")
-	 */
-	//private List<ElementContainer> allReferences;
-	
+		
 	/**
 	 * List of all elements order by number of layer (or y position when they have the same layer "-1")
 	 */

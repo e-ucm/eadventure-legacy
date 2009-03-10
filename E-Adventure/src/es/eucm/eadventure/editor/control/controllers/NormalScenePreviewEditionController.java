@@ -15,23 +15,50 @@ import es.eucm.eadventure.editor.gui.treepanel.TreeNodeControl;
 
 public class NormalScenePreviewEditionController implements ScenePreviewEditionController {
 
+	/**
+	 * The object under the mouse pointer
+	 */
 	protected ImageElement underMouse;
 	
-	private ScenePreviewEditionPanel spep;
+	/**
+	 * The panel where the scene is shown
+	 */
+	protected ScenePreviewEditionPanel spep;
 	
-	private int startDragX;
+	/**
+	 * The x axis value of the point where the drag started
+	 */
+	protected int startDragX;
 	
-	private int startDragY;
+	/**
+	 * The y axis value of the point where the drag started
+	 */
+	protected int startDragY;
 	
-	private int originalX;
+	/**
+	 * The original x value of the dragged object
+	 */
+	protected int originalX;
 	
-	private int originalY;
+	/**
+	 * The original y value of the dragged object
+	 */
+	protected int originalY;
 
-	private int originalWidth;
+	/**
+	 * The original width of the object being resized
+	 */
+	protected int originalWidth;
 	
-	private int originalHeight;
+	/**
+	 * The original height of the object being resized
+	 */
+	protected int originalHeight;
 	
-	private float originalScale;
+	/**
+	 * The original scale of the object being rescaled
+	 */
+	protected float originalScale;
 	
 	public NormalScenePreviewEditionController(ScenePreviewEditionPanel spep) {
 		this.spep = spep;
@@ -80,13 +107,9 @@ public class NormalScenePreviewEditionController implements ScenePreviewEditionC
 	}
 
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	public void mousePressed(MouseEvent e) {
@@ -106,8 +129,6 @@ public class NormalScenePreviewEditionController implements ScenePreviewEditionC
 	}
 
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	public void mouseDragged(MouseEvent e) {

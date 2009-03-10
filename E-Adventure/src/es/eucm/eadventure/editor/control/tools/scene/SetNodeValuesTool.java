@@ -42,13 +42,11 @@ public class SetNodeValuesTool extends Tool{
 			SetNodeValuesTool crvt = (SetNodeValuesTool) other;
 			if (crvt.node != node)
 				return false;
-			if (crvt.newX!=newX || crvt.newY!=newY || crvt.newScale!=newScale) {
-				newX = crvt.newX;
-				newY = crvt.newY;
-				newScale = crvt.newScale;
-				timeStamp = crvt.timeStamp;
-				return true;
-			}
+			newX = crvt.newX;
+			newY = crvt.newY;
+			newScale = crvt.newScale;
+			timeStamp = crvt.timeStamp;
+			return true;
 		}
 		return false;
 	}
