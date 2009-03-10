@@ -89,6 +89,32 @@ public class Action implements Cloneable, Documented, HasTargetId {
 	 */
 	public Action( int type ) {
 		this( type, null, new Conditions( ), new Effects( ) );
+		switch(type) {
+		case EXAMINE:
+			needsGoTo = false;
+			keepDistance = 0;
+			break;
+		case GRAB:
+			needsGoTo = true;
+			keepDistance = 35;
+			break;
+		case GIVE_TO:
+			needsGoTo = true;
+			keepDistance = 35;
+			break;
+		case USE_WITH:
+			needsGoTo = true;
+			keepDistance = 35;
+			break;
+		case USE:
+			needsGoTo = true;
+			keepDistance = 35;
+			break;
+		default:
+			needsGoTo = false;
+			keepDistance = 0;
+			break;
+		}
 	}
 
 	/**
