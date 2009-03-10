@@ -209,18 +209,18 @@ public class FunctionalSpeak extends FunctionalAction {
 
 	@Override
 	public void drawAditionalElements() {
-        if( !text.equals( "" ) ) {
+        if( text != null && (text.length > 1 || !text[0].equals(""))) {
         	int posX;
         	int posY;
         	if (functionalPlayer != null && !functionalPlayer.isTransparent()) {
 	        	posX = (int) functionalPlayer.getX() - Game.getInstance( ).getFunctionalScene( ).getOffsetX( );
-	            posY = (int) functionalPlayer.getY() - functionalPlayer.getHeight( );
+	            posY = (int) (functionalPlayer.getY() - functionalPlayer.getHeight( ) * functionalPlayer.getScale());
         	} else {
         		posX = Math.round( GUI.WINDOW_WIDTH/2.0f+Game.getInstance().getFunctionalScene().getOffsetX( ) );
         		posY = Math.round( GUI.WINDOW_HEIGHT*1.0f/6.0f+ (functionalPlayer!=null?functionalPlayer.getHeight():0) );
         	}
         	if (functionalPlayer.getShowsSpeechBubbles()) {
-        		GUI.getInstance().addTextToDraw( text, posX , posY, functionalPlayer.getTextFrontColor( ), functionalPlayer.getTextBorderColor( ), functionalPlayer.getBubbleBkgColor(), functionalPlayer.getBubbleBorderColor());
+        		GUI.getInstance().addTextToDraw( text, posX , posY - 15, functionalPlayer.getTextFrontColor( ), functionalPlayer.getTextBorderColor( ), functionalPlayer.getBubbleBkgColor(), functionalPlayer.getBubbleBorderColor());
         	} else
         		GUI.getInstance().addTextToDraw( text, posX , posY, functionalPlayer.getTextFrontColor( ), functionalPlayer.getTextBorderColor( ));
         }
