@@ -4,8 +4,6 @@ import java.awt.Component;
 import java.awt.Image;
 import java.util.ArrayList;
 
-import javax.swing.JScrollPane;
-
 import es.eucm.eadventure.common.data.chapter.book.Book;
 import es.eucm.eadventure.common.data.chapter.book.BookPage;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;

@@ -15,16 +15,13 @@ public class GameStateRunEffects extends GameState {
      * The current effect being executed
      */
     private FunctionalEffect currentExecutingEffect;
-    
-    private boolean fromConversation;
-    
+        
     /**
      * Constructor
      */
     public GameStateRunEffects(boolean fromConversation) {
         super();
         currentExecutingEffect = null;
-        this.fromConversation=fromConversation;
     }
 
     /*

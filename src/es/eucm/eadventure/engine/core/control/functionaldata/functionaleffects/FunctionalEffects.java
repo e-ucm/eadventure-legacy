@@ -44,14 +44,6 @@ public class FunctionalEffects {
     	// If the effects structure has cancel action, add it
     	hasCancelAction = effects.hasCancelAction( );
     }
-    
-    /**
-     * Adds a new effect to the list.
-     * @param effect the effect to be added
-     */
-    private void add( FunctionalEffect effect ) {
-        functionalEffects.add( effect );
-    }
 
     /**
      * Return the effect in the given position.

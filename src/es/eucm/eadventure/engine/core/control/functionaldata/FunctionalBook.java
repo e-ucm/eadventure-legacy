@@ -1,9 +1,5 @@
 package es.eucm.eadventure.engine.core.control.functionaldata;
 
-import java.awt.Image;
-
-import javax.swing.JDialog;
-
 import es.eucm.eadventure.common.data.chapter.book.Book;
 
 /**

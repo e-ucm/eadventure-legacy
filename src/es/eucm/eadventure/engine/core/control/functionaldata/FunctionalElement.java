@@ -6,7 +6,6 @@ import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.common.data.chapter.CustomAction;
 import es.eucm.eadventure.common.data.chapter.InfluenceArea;
 import es.eucm.eadventure.common.data.chapter.elements.Element;
-import es.eucm.eadventure.engine.core.control.ActionManager;
 
 /**
  * This class defines the common behaviour from the characters and
