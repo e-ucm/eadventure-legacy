@@ -9,7 +9,7 @@ import es.eucm.eadventure.common.data.chapter.Rectangle;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 
 /**
- * This class holds the data of an exit in eAdventure
+ * This class holds the data of an active area in eAdventure
  */
 public class ActiveArea extends Item implements Rectangle {
 
@@ -33,8 +33,14 @@ public class ActiveArea extends Item implements Rectangle {
 	 */
 	private int height;
 	
+	/**
+	 * True if the active area is rectangular
+	 */
 	private boolean rectangular;
 	
+	/**
+	 * List of the points in the active area
+	 */
 	private List<Point> points;
 	
 	/**

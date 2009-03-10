@@ -8,15 +8,17 @@ import java.util.Set;
 import netscape.javascript.JSObject;
 
 import es.eucm.eadventure.comm.AdventureApplet;
-import es.eucm.eadventure.comm.CommException;
 import es.eucm.eadventure.common.data.assessment.AssessmentProperty;
 import es.eucm.eadventure.engine.adaptation.AdaptationEngine;
 
 public class CommManagerLD extends AdventureApplet{
 
+	private static final long serialVersionUID = -2750949905060993695L;
+	
 	private boolean commWorking = false;
-	private boolean connected;
+
 	private AdaptationEngine adaptationEngine;
+	
 	private String propertyNames = null;
 	
 	public void connectionEstablished(String serverComment) {

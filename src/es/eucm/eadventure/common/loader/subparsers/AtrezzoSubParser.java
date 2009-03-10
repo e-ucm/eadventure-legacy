@@ -2,12 +2,10 @@ package es.eucm.eadventure.common.loader.subparsers;
 
 import org.xml.sax.Attributes;
 
-import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.common.data.chapter.effects.Effects;
 import es.eucm.eadventure.common.data.chapter.elements.Atrezzo;
-import es.eucm.eadventure.common.data.chapter.elements.Item;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 
 /**
@@ -78,16 +76,6 @@ public class AtrezzoSubParser extends SubParser{
 	 * Subparser for effects and conditions.
 	 */
 	private SubParser subParser;
-
-	/**
-	 * Stores the action documentation;
-	 */
-	private String currentDocumentation;
-
-	/**
-	 * Stores an idTarget.
-	 */
-	private String currentIdTarget;
 
 	/* Methods */
 

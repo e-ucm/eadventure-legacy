@@ -13,12 +13,6 @@ import es.eucm.eadventure.common.data.chapter.effects.Effects;
 public class TimerSubParser extends SubParser {
 
 	/* Attributes */
-
-	/**
-	 * Constant for reading nothing
-	 */
-	private static final int READING_NONE = 0;
-
 	/**
 	 * Constant for subparsing nothing
 	 */
@@ -33,11 +27,6 @@ public class TimerSubParser extends SubParser {
 	 * Constant for subparsing effect tag
 	 */
 	private static final int SUBPARSING_EFFECT = 2;
-
-	/**
-	 * Stores the current element being parsed
-	 */
-	private int reading = READING_NONE;
 
 	/**
 	 * Stores the current element being subparsed
@@ -90,7 +79,6 @@ public class TimerSubParser extends SubParser {
 			// If it is a timer tag, create a new timer with its time
 			if( qName.equals( "timer" ) ) {
 				String time = "";
-				boolean initialScene = false;
 
 				for( int i = 0; i < attrs.getLength( ); i++ ) {
 					if( attrs.getQName( i ).equals( "time" ) )

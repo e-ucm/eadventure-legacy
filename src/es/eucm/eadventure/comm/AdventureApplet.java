@@ -9,14 +9,27 @@ import netscape.javascript.JSObject;
 
 public abstract class AdventureApplet extends JApplet implements LMStoComInterface, CommManagerApi{
 	
+	private static final long serialVersionUID = 3561527305650676509L;
 	
+	/**
+	 * User ID for the applet
+	 */
 	protected String userId;
+	
+	/**
+	 * Run ID for the applet
+	 */
 	protected String runId;
+	
+	/**
+	 * True if the applet runs in a new window
+	 */
 	protected boolean windowed;
 	
-	
+	/**
+	 * Read the default parameters for the applet
+	 */
 	public void readParameters() {
-
         userId = getParameter("USER_ID");
         if(userId == null) {
             userId = "";
@@ -32,14 +45,13 @@ public abstract class AdventureApplet extends JApplet implements LMStoComInterfa
         String temp = getParameter("WINDOWED");
         if(temp != null && temp.equalsIgnoreCase("yes"))
         		windowed = true;
-        
     }
 
-
-	
-	
-	
-	
+	/**
+	 * Send a command through java script
+	 * 
+	 * @param command The command
+	 */
 	public void sendJavaScript(String command){
 		JSObject win = null;
         try {

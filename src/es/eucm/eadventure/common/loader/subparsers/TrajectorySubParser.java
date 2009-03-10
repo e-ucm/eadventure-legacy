@@ -4,8 +4,6 @@ import org.xml.sax.Attributes;
 
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.data.chapter.Trajectory;
-import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
-import es.eucm.eadventure.common.data.chapter.elements.Barrier;
 import es.eucm.eadventure.common.data.chapter.scenes.Scene;
 
 /**
@@ -16,19 +14,9 @@ public class TrajectorySubParser extends SubParser {
 	/* Attributes */
 
 	/**
-	 * Constant for reading nothing.
-	 */
-	private static final int READING_NONE = 0;
-
-	/**
 	 * Constant for subparsing nothing.
 	 */
 	private static final int SUBPARSING_NONE = 0;
-
-	/**
-	 * Store the current element being parsed.
-	 */
-	private int reading = READING_NONE;
 
 	/**
 	 * Stores the current element being subparsed.
@@ -45,11 +33,6 @@ public class TrajectorySubParser extends SubParser {
 	 */
 	private SubParser subParser;
 
-	/**
-	 * Stores the scene where the area should be attached
-	 */
-	private Scene scene;
-
 	/* Methods */
 
 	/**
@@ -60,7 +43,6 @@ public class TrajectorySubParser extends SubParser {
 	 */
 	public TrajectorySubParser( Chapter chapter, Scene scene ) {
 		super( chapter );
-		this.scene = scene;
 		this.trajectory = new Trajectory();
 		scene.setTrajectory(trajectory);
 	}

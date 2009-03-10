@@ -222,6 +222,8 @@ public class SceneSubParser extends SubParser {
 			else if( qName.equals( "exit" ) ) {
 				int x = 0, y = 0, width = 0, height = 0;
 				boolean rectangular = true;
+				int influenceX = 0, influenceY = 0, influenceWidth = 0, influenceHeight = 0;
+				boolean hasInfluence = false;
 
 				for( int i = 0; i < attrs.getLength( ); i++ ) {
 					if( attrs.getQName( i ).equals( "rectangular" ))
@@ -234,9 +236,23 @@ public class SceneSubParser extends SubParser {
 						width = Integer.parseInt( attrs.getValue( i ) );
 					if( attrs.getQName( i ).equals( "height" ) )
 						height = Integer.parseInt( attrs.getValue( i ) );
+					if ( attrs.getQName( i ).equals( "hasInfluenceArea"))
+						hasInfluence = attrs.getValue( i ).equals( "yes" );
+					if ( attrs.getQName( i ).equals( "influenceX"))
+						influenceX = Integer.parseInt(attrs.getValue(i));
+					if ( attrs.getQName( i ).equals( "influenceY"))
+						influenceY = Integer.parseInt(attrs.getValue(i));
+					if ( attrs.getQName( i ).equals( "influenceWidth"))
+						influenceWidth = Integer.parseInt(attrs.getValue(i));
+					if ( attrs.getQName( i ).equals( "influenceHeight"))
+						influenceHeight = Integer.parseInt(attrs.getValue(i));
 				}
 
 				currentExit = new Exit( rectangular, x, y, width, height );
+				if (hasInfluence) {
+					InfluenceArea influenceArea = new InfluenceArea(influenceX, influenceY, influenceWidth, influenceHeight);
+					currentExit.setInfluenceArea(influenceArea);
+				}
 				reading = READING_EXIT;
 			}
 			

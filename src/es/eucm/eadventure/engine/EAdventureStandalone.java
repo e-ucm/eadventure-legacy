@@ -22,10 +22,6 @@ import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
  */
 public class EAdventureStandalone {
 	
-	private static final String CONFIG_FILE = "config_engine.xml";
-	
-	private static final String LANGUAGE_DIR = "lanengine";
-
     private static long startTime;
     
     public static int getElapsedTime(){
