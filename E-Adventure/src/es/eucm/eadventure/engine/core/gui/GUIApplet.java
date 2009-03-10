@@ -11,16 +11,11 @@ import java.awt.Point;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 
-import javax.swing.BorderFactory;
 import javax.swing.JApplet;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
-import es.eucm.eadventure.engine.EAdventureApplet;
 import es.eucm.eadventure.engine.core.control.Game;
-import es.eucm.eadventure.engine.core.gui.GUI.ElementImage;
-import es.eucm.eadventure.engine.core.gui.GUI.Text;
 import es.eucm.eadventure.engine.core.gui.hud.contextualhud.ContextualHUD;
 import es.eucm.eadventure.engine.core.gui.hud.traditionalhud.TraditionalHUD;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;

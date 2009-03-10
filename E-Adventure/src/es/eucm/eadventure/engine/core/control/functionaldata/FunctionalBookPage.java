@@ -234,9 +234,7 @@ public class FunctionalBookPage extends JPanel{
     public class ProcessHTML{
 
         private String html;
-        
-        private boolean sthBetween;
-        
+                
         private int currentPos;
         
         private int state;
@@ -249,18 +247,13 @@ public class FunctionalBookPage extends JPanel{
         private final int STATE_RTQ = 5;
         
         private String reference;
-        
-        private final String[] tokens = new String[]{"<",">","=","\"", "src"};
-        
+                
         public ProcessHTML ( String html ){
             this.html = html;
-            sthBetween = false;
             currentPos = 0;
             state = STATE_NONE;
         }
-        
-        
-        
+          
         public String start(){
             state = STATE_NONE;
             String lastThree = "";

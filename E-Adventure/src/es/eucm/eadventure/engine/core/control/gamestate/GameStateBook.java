@@ -6,7 +6,6 @@ import java.awt.Image;
 import java.awt.event.MouseEvent;
 
 import es.eucm.eadventure.common.data.chapter.book.Book;
-import es.eucm.eadventure.common.data.chapter.elements.NPC;
 import es.eucm.eadventure.common.data.chapter.resources.Asset;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.engine.core.control.Game;

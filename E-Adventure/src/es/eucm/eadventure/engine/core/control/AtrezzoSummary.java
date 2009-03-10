@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.elements.Atrezzo;
-import es.eucm.eadventure.common.data.chapter.elements.Item;
 
 
 /**
