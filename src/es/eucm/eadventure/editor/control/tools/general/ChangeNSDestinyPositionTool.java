@@ -9,7 +9,7 @@ import es.eucm.eadventure.editor.control.Controller;
  * @author Javier
  *
  */
-public class ChangeNSDestinyPositionTool extends ChangePositionTool{
+public class ChangeNSDestinyPositionTool extends ChangePositionTool {
 
 	public ChangeNSDestinyPositionTool(Positioned nextScene, int newX, int newY){
 		super (nextScene, newX, newY);
@@ -17,7 +17,6 @@ public class ChangeNSDestinyPositionTool extends ChangePositionTool{
 			public void positionUpdated(int newX, int newY) {
 				Controller.getInstance().reloadPanel();
 			}
-			
 		});
 	}
 	

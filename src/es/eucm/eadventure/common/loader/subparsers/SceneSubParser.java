@@ -206,7 +206,7 @@ public class SceneSubParser extends SubParser {
 
 			// If it is a default-initial-position tag, store it in the scene
 			else if( qName.equals( "default-initial-position" ) ) {
-				int x = 0, y = 0;
+				int x = Integer.MIN_VALUE, y = Integer.MIN_VALUE;
 
 				for( int i = 0; i < attrs.getLength( ); i++ ) {
 					if( attrs.getQName( i ).equals( "x" ) )
@@ -257,7 +257,7 @@ public class SceneSubParser extends SubParser {
 			// If it is a next-scene tag, create the new next scene
 			else if( qName.equals( "next-scene" ) ) {
 				String idTarget = "";
-				int x = -1, y = -1;
+				int x = Integer.MIN_VALUE, y = Integer.MIN_VALUE;
 				int transitionType = 0, transitionTime = 0;
 				
 				for( int i = 0; i < attrs.getLength( ); i++ ) {
