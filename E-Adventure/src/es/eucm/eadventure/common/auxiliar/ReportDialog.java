@@ -7,8 +7,12 @@ import java.awt.GridBagLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -47,6 +51,12 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.engine.EAdventure;
 
 
+/**
+ * This class has methods used to generate and send an error or comments report to
+ * the e-adventure server.
+ * 
+ * @author Eugenio Marchiori
+ */
 public class ReportDialog extends JDialog {
 
 	/**
@@ -54,30 +64,78 @@ public class ReportDialog extends JDialog {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * The width of the panel
+	 */
 	private static int PANEL_WIDTH = 500;
 	
+	/**
+	 * The height of the panel
+	 */
 	private static int PANEL_HEIGHT = 500;
 	
+	/**
+	 * The text field for the name
+	 */
 	private JTextField nameTextField;
 
+	/**
+	 * The text field for the email
+	 */
 	private JTextField emailTextField;
 	
+	/**
+	 * The area where to write the description
+	 */
 	private JTextArea descriptionTextArea;
 		
+	/**
+	 * The send button
+	 */
 	private JButton sendButton;
 	
+	/**
+	 * The don't send or cancel button
+	 */
 	private JButton dontSendButton;
 	
+	/**
+	 * Boolean indicating if the panel should ask for the name
+	 */
 	private boolean askName;
 	
-	String exception = "";
+	/**
+	 * The string with the exception
+	 */
+	private String exception = "";
 	
-	String message = "";
+	/**
+	 * The string with the message
+	 */
+	private String message = "";
 
-	String os;
+	/**
+	 * The string with the os
+	 */
+	private String os;
 	
-	String java;
+	/**
+	 * The string with the java version
+	 */
+	private String java;
 	
+	/**
+	 * The string with the release
+	 */
+	private String release;
+	
+	/**
+	 * Generate an error report panel from an exception.
+	 * 
+	 * @param e The exception
+	 * @param askName if true, the name and email will be asked
+	 * @param message A message with more information
+	 */
 	public static void GenerateErrorReport(Exception e, boolean askName, String message) {
 		if (isInterestingException(e))
 			new ReportDialog(e, askName, message);
@@ -85,10 +143,20 @@ public class ReportDialog extends JDialog {
 			e.printStackTrace();
 	}
 	
+	/**
+	 * Generate a comments report panel
+	 */
 	public static void GenerateCommentsReport() {
 		new ReportDialog();
 	}
 	
+	/**
+	 * Filter for the interesting exceptions and the known and
+	 * managed ones.
+	 * 
+	 * @param e The exception
+	 * @return True if the exception is interesting (should be reported)
+	 */
 	private static boolean isInterestingException(Exception e) {
 		if (e instanceof NullPointerException)
 			return true;
@@ -157,13 +225,21 @@ public class ReportDialog extends JDialog {
 		return true;
 	}
 	
+	/**
+	 * Constructor for the error report dialog.
+	 * 
+	 * @param e The exception
+	 * @param askName True if the name and email should be asked
+	 * @param message A message with more information on the error
+	 */
 	private ReportDialog(Exception e, boolean askName, String message) {
 		super();
 		
 		this.setSize(PANEL_WIDTH, PANEL_HEIGHT);
 		this.setResizable(false);
 		
-		this.setTitle(TextConstants.getText("ErrorReport.Title"));
+		String title = TextConstants.getText("ErrorReport.Title");
+		this.setTitle((!title.equals("Error") ? title : "Error Report"));
 		
 		this.setLayout(new GridBagLayout());
 		this.askName = askName;
@@ -207,10 +283,30 @@ public class ReportDialog extends JDialog {
 		this.add(ljava, c);
 		c.gridy++;
 		
-		
+		File moreinfo = new File("RELEASE");
+		release = null;
+		if (moreinfo.exists()) {
+			try {
+				FileReader fis = new FileReader(moreinfo);
+				BufferedReader dis = new BufferedReader(fis);
+				release = "RELEASE: ";
+				if (dis.ready()) {
+					release += dis.readLine();
+				}
+				JLabel lrelease = new JLabel(release);
+				this.add(lrelease, c);
+				c.gridy++;
+				dis.close();
+				fis.close();
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+
 		JPanel descriptionPanel = new JPanel();
 		descriptionPanel.setLayout(new BorderLayout());
-		descriptionPanel.add(new JLabel(TextConstants.getText("ErrorReport.ShortDescription")), BorderLayout.NORTH);
+		String shortDesc = TextConstants.getText("ErrorReport.ShortDescription");
+		descriptionPanel.add(new JLabel((!shortDesc.equals("Error") ? shortDesc : "Short description")), BorderLayout.NORTH);
 		
 		descriptionTextArea = new JTextArea();
 		descriptionTextArea.setLineWrap(true);
@@ -224,10 +320,10 @@ public class ReportDialog extends JDialog {
 		this.add(descriptionPanel, c);
 		c.gridy++;
 		
-		
 		JPanel exceptionPanel = new JPanel();
 		exceptionPanel.setLayout(new BorderLayout());
-		exceptionPanel.add(new JLabel(TextConstants.getText("ErrorReport.FoundException")), BorderLayout.NORTH);
+		String foundException = TextConstants.getText("ErrorReport.FoundException");
+		exceptionPanel.add(new JLabel((!foundException.equals("Error") ? foundException : "Found exception")), BorderLayout.NORTH);
 		
 		JTextArea exceptionTextArea = new JTextArea();
 		if (e != null) {
@@ -247,16 +343,16 @@ public class ReportDialog extends JDialog {
 		this.add(exceptionPanel, c);
 		c.gridy++;
 		
-		
-		
 		c.weighty = 0.1;
 		c.fill = GridBagConstraints.NONE;
 		this.add(createButtonPanel(true), c);
 		
-		
 		this.setVisible(true);
 	}
 	
+	/**
+	 * Constructor for the comments report dialog
+	 */
 	private ReportDialog() {
 		super();
 		
@@ -287,6 +383,33 @@ public class ReportDialog extends JDialog {
 		this.add(createNamePanel(), c);
 		c.gridy++;
 		
+		os = "OS: " + System.getProperty("os.name");
+		JLabel los = new JLabel(os);
+		this.add(los, c);
+		c.gridy++;
+		
+		java = "JAVA: " + System.getProperty("java.version") + " from " + System.getProperty("java.vendor");
+		JLabel ljava = new JLabel(java);
+		this.add(ljava, c);
+		c.gridy++;
+
+		File moreinfo = new File("./RELEASE");
+		release = null;
+		if (moreinfo.exists()) {
+			try {
+				FileInputStream fis = new FileInputStream(moreinfo);
+				BufferedInputStream bis = new BufferedInputStream(fis);
+				DataInputStream dis = new DataInputStream(bis);
+				if (dis.available() != 0) {
+					release = "RELEASE: " + dis.readUTF();
+					JLabel lrelease = new JLabel(release);
+					this.add(lrelease, c);
+					c.gridy++;
+				}
+			} catch (Exception ex) {
+			}
+		}
+
 		
 		JPanel descriptionPanel = new JPanel();
 		descriptionPanel.setLayout(new BorderLayout());
@@ -312,9 +435,16 @@ public class ReportDialog extends JDialog {
 		this.setVisible(true);
 	}
 	
+	/**
+	 * Creates and returns the button panel (send and cancel)
+	 * 
+	 * @param error Indicates if the buttons are of an error or comments
+	 * @return The new JPanel
+	 */
 	private JPanel createButtonPanel(final boolean error) {
 		JPanel buttonPanel = new JPanel();
-		sendButton = new JButton(TextConstants.getText("ErrorReport.Send"));
+		String send = TextConstants.getText("ErrorReport.Send");
+		sendButton = new JButton((!send.equals("Error") ? send : "Send"));
 		sendButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ReportDialog.this.sendReport(error);
@@ -323,7 +453,8 @@ public class ReportDialog extends JDialog {
 		});
 		buttonPanel.add(sendButton);
 		
-		dontSendButton = new JButton(TextConstants.getText("ErrorReport.Cancel"));
+		String cancel = TextConstants.getText("ErrorReport.Cancel");
+		dontSendButton = new JButton((!cancel.equals("Error") ? cancel : "Cancel"));
 		dontSendButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ReportDialog.this.setVisible(false);
@@ -334,6 +465,11 @@ public class ReportDialog extends JDialog {
 		return buttonPanel;
 	}
 	
+	/**
+	 * Generate the actual report and send it using php to the e-adventure server
+	 * 
+	 * @param error Indicates if it is an error or comments report
+	 */
 	protected void sendReport(boolean error) {
 		String report;
 		if (error) {
@@ -343,8 +479,12 @@ public class ReportDialog extends JDialog {
 				report += "USER: " + nameTextField.getText() + "\n";
 				report += "EMAIL: " + emailTextField.getText() + "\n\n";
 			}
+			
 			report += os + "\n";
 			report += java + "\n";
+			if (release != null)
+				report += release + "\n";
+			report += "\n";
 			
 			report += "DESCRIPTION:\n" + descriptionTextArea.getText() + "\n\n\n";
 			report += "STACK TRACE:\n" + exception + "\n";
@@ -354,7 +494,13 @@ public class ReportDialog extends JDialog {
 			
 			report += "USER: " + nameTextField.getText() + "\n";
 			report += "EMAIL: " + emailTextField.getText() + "\n\n";
-			
+
+			report += os + "\n";
+			report += java + "\n";
+			if (release != null)
+				report += release + "\n";
+			report += "\n";
+
 			report += "COMMENTS AND SUGGESTIONS:\n" + descriptionTextArea.getText() + "\n";
 		}
 		        
@@ -383,6 +529,11 @@ public class ReportDialog extends JDialog {
         
 	}
 
+	/**
+	 * Create the panel where the name and email are inputed
+	 * 
+	 * @return the new JPanel
+	 */
 	private JPanel createNamePanel() {
 		JPanel temp = new JPanel();
 		temp.setLayout(new GridBagLayout());
@@ -391,7 +542,8 @@ public class ReportDialog extends JDialog {
 		c.gridx = 0;
 		c.gridy = 0;
 		c.fill = GridBagConstraints.NONE;
-		temp.add(new JLabel(TextConstants.getText("ErrorReport.Name")), c);
+		String name = TextConstants.getText("ErrorReport.Name");
+		temp.add(new JLabel((!name.equals("Error") ? name : "Name")), c);
 		
 		nameTextField = new JTextField(25) {
 			private static final long serialVersionUID = 1L;
@@ -408,7 +560,8 @@ public class ReportDialog extends JDialog {
 		c.gridy++;
 		c.gridx = 0;
 		c.fill = GridBagConstraints.NONE;
-		temp.add(new JLabel(TextConstants.getText("ErrorReport.Email")), c);
+		String email = TextConstants.getText("ErrorReport.Email");
+		temp.add(new JLabel((!email.equals("Error") ? email : "e-mail")), c);
 		
 		emailTextField = new JTextField(200);
 		c.gridx++;
@@ -419,6 +572,11 @@ public class ReportDialog extends JDialog {
 	}
 	
 
+	/**
+	 * Test method
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		ReportDialog.GenerateErrorReport(new Exception(), false, "FATALE ERORR MESSAGEKA OH MY GODD!!!!!! THIS IS BROKEDN");
 		//ReportDialog.GenerateCommentsReport();
