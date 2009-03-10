@@ -51,6 +51,8 @@ public class Exit implements Cloneable, Documented, Rectangle {
     private boolean rectangular;
     
     private List<Point> points;
+    
+	private InfluenceArea influenceArea;
 
 	/**
 	 * Creates a new Exit
@@ -74,6 +76,7 @@ public class Exit implements Cloneable, Documented, Rectangle {
 		points = new ArrayList<Point>();
 		nextScenes = new ArrayList<NextScene>( );
 		this.rectangular = rectangular;
+		influenceArea = new InfluenceArea();
 	}
 
 	/**
@@ -82,7 +85,16 @@ public class Exit implements Cloneable, Documented, Rectangle {
 	 * @return the horizontal coordinate of the upper left corner of the exit
 	 */
 	public int getX( ) {
-		return x;
+		if (rectangular)
+			return x;
+		else {
+		    int minX = Integer.MAX_VALUE; 
+			for (Point point : points) {
+	        	if (point.x < minX)
+	        		minX = point.x;
+			}
+			return minX;
+		}
 	}
 
 	/**
@@ -91,7 +103,16 @@ public class Exit implements Cloneable, Documented, Rectangle {
 	 * @return the horizontal coordinate of the bottom right of the exit
 	 */
 	public int getY( ) {
-		return y;
+		if (rectangular)
+			return y;
+		else {
+			int minY = Integer.MAX_VALUE; 
+			for (Point point : points) {
+	        	if (point.y < minY)
+	        		minY = point.y;
+			}
+			return minY;
+		}
 	}
 
 	/**
@@ -100,7 +121,20 @@ public class Exit implements Cloneable, Documented, Rectangle {
 	 * @return Width of the exit
 	 */
 	public int getWidth( ) {
-		return width;
+		if (rectangular) 
+			return width;
+		else {
+			int maxX = Integer.MIN_VALUE;
+			int minX = Integer.MAX_VALUE;
+			for (Point point : points) {
+	        	if (point.x > maxX)
+	        		maxX = point.x;
+	        	if (point.x < minX)
+	        		minX = point.x;
+			}
+			return maxX - minX;
+			
+		}
 	}
 
 	/**
@@ -109,7 +143,19 @@ public class Exit implements Cloneable, Documented, Rectangle {
 	 * @return Height of the exit
 	 */
 	public int getHeight( ) {
-		return height;
+		if (rectangular)
+			return height;
+		else {
+			int maxY = Integer.MIN_VALUE;
+			int minY = Integer.MAX_VALUE;
+			for (Point point : points) {
+	        	if (point.y > maxY)
+	        		maxY = point.y;
+	        	if (point.y < minY)
+	        		minY = point.y;
+			}
+			return maxY - minY;
+		}
 	}
 
 	/**
@@ -243,6 +289,7 @@ public class Exit implements Cloneable, Documented, Rectangle {
 			for (NextScene ns : nextScenes)
 				e.nextScenes.add((NextScene) ns.clone());
 		}
+		e.influenceArea = (influenceArea != null ? (InfluenceArea) influenceArea.clone() : null);
 		e.width = width;
 		e.x = x;
 		e.y = y;
@@ -267,5 +314,13 @@ public class Exit implements Cloneable, Documented, Rectangle {
 	
 	public void addPoint(Point point) {
 		points.add(point);
+	}
+	
+	public InfluenceArea getInfluenceArea() {
+		return influenceArea;
+	}
+	
+	public void setInfluenceArea(InfluenceArea influeceArea) {
+		this.influenceArea = influeceArea;
 	}
 }

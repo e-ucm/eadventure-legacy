@@ -37,6 +37,8 @@
 <!ATTLIST exit
 	rectangular (yes | no) "yes"
 	%rectangle; 
+	hasInfluenceArea (yes | no) "no" 
+	%influence_area;
 >
 <!ELEMENT exit-look EMPTY>
 <!ATTLIST exit-look 

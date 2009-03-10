@@ -1,14 +1,12 @@
 package es.eucm.eadventure.common.auxiliar.filefilters;
 
 import java.io.File;
-import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
 
 import es.eucm.eadventure.common.auxiliar.FileFilter;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.loader.Loader;
-import es.eucm.eadventure.common.loader.incidences.Incidence;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 
 /**

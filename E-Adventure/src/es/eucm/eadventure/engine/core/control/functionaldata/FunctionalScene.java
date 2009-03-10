@@ -702,15 +702,26 @@ public class FunctionalScene implements Renderable {
             FunctionalGoTo functionalGoTo = new FunctionalGoTo(null, destX, destY);
             int finalX = functionalGoTo.getPosX();
             int finalY = functionalGoTo.getPosY();
-            Exit exit = Game.getInstance( ).getFunctionalScene( ).getExitInside( finalX - offsetX, finalY );
+            Exit exit = getExitInside( finalX - offsetX, finalY );
             player.cancelActions();
-            if( exit == null ) {
+            if( exit == null && !player.isTransparent()) {
                 player.addAction(functionalGoTo);
             }
             else {
-            	player.addAction(new FunctionalExit(exit));
-            	if (!player.isTransparent())
-            		player.addAction(functionalGoTo);
+                if (!player.isTransparent() && this.getTrajectory().hasTrajectory()) {
+                	functionalGoTo = new FunctionalGoTo(null, destX, destY, Game.getInstance().getFunctionalPlayer(), new FunctionalExitArea(exit, exit.getInfluenceArea()));
+                	if (functionalGoTo.canGetTo()) {
+                		player.addAction(new FunctionalExit(exit));
+                		player.addAction(functionalGoTo);
+                	}
+                } else {
+                	if (!player.isTransparent() && functionalGoTo.canGetTo()) {
+                    	player.addAction(new FunctionalExit(exit));
+                		player.addAction(functionalGoTo);
+                	} else if (player.isTransparent()) {
+                    	player.addAction(new FunctionalExit(exit));
+                	}
+                }
             }
             Game.getInstance( ).getActionManager( ).setActionSelected( ActionManager.ACTION_GOTO );
         } else {

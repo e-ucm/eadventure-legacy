@@ -1,26 +1,20 @@
 package es.eucm.eadventure.comm.manager.commManager;
 
-import java.applet.Applet;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import javax.swing.JApplet;
-
 import es.eucm.eadventure.comm.AdventureApplet;
-import es.eucm.eadventure.comm.CommException;
-import es.eucm.eadventure.comm.CommListenerApi;
 
 import es.eucm.eadventure.common.data.assessment.AssessmentProperty;
 import es.eucm.eadventure.engine.adaptation.AdaptationEngine;
 
-import netscape.javascript.JSObject;
-
 
 public class CommManagerScormV12 extends AdventureApplet{
 	
+	private static final long serialVersionUID = 3444828969384528659L;
+
 	private final String SEND_DIR = "cmi.interactions";
 
 	private boolean connected;
@@ -29,6 +23,7 @@ public class CommManagerScormV12 extends AdventureApplet{
 
 	
 	private HashMap<String,String> adaptedStates;
+
 	private int index;
 	
 	private AdaptationEngine adaptationEngine;

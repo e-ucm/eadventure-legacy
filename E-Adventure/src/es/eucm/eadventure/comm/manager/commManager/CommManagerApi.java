@@ -2,15 +2,7 @@ package es.eucm.eadventure.comm.manager.commManager;
 
 import java.util.HashMap;
 
-import javax.swing.JApplet;
-
-import netscape.javascript.JSObject;
-
-import es.eucm.eadventure.comm.CommException;
-import es.eucm.eadventure.comm.CommListenerApi;
 import es.eucm.eadventure.engine.adaptation.AdaptationEngine;
-
-
 
 public interface CommManagerApi {
 

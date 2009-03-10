@@ -5,7 +5,6 @@ import java.io.File;
 import javax.swing.JFileChooser;
 
 import es.eucm.eadventure.common.auxiliar.FileFilter;
-import es.eucm.eadventure.editor.gui.startdialog.StartDialog;
 
 /**
  * Filter for ZIP files (and folders).

@@ -42,6 +42,8 @@ public class ExitDataControl extends DataControl implements RectangleArea {
 	private List<NextSceneDataControl> nextScenesDataControlList;
 	
 	private ExitLookDataControl exitLookDataControl;
+	
+	private InfluenceAreaDataControl influenceAreaDataControl;
 
 	/**
 	 * Constructor.
@@ -55,6 +57,8 @@ public class ExitDataControl extends DataControl implements RectangleArea {
 		this.sceneDataControl = sceneDataControl;
 		this.exit = exit;
 		this.nextScenesList = exit.getNextScenes( );
+		
+		this.influenceAreaDataControl = new InfluenceAreaDataControl(sceneDataControl, exit.getInfluenceArea(), this);
 
 		// Create subcontrollers
 		nextScenesDataControlList = new ArrayList<NextSceneDataControl>( );
@@ -410,6 +414,14 @@ public class ExitDataControl extends DataControl implements RectangleArea {
 
 	public Rectangle getRectangle() {
 		return (Rectangle) this.getContent();
+	}
+
+	public InfluenceAreaDataControl getInfluenceArea() {
+		return influenceAreaDataControl;
+	}
+	
+	public SceneDataControl getSceneDataControl() {
+		return sceneDataControl;
 	}
 
 }

@@ -3,21 +3,48 @@ package es.eucm.eadventure.common.data.chapter;
 import java.awt.Point;
 import java.util.List;
 
+/**
+ * The influence area for an item reference or active area
+ */
 public class InfluenceArea implements Cloneable, Rectangle {
 
+	/**
+	 * True if the influence area exists (is defined)
+	 */
 	private boolean exists = false;
 	
+	/**
+	 * The x axis value of the influence area, relative
+	 * to the objects top left corner
+	 */
 	private int x;
 	
+	/**
+	 * The y axis value of the influence area, relative
+	 * to the objects top left corner
+	 */
 	private int y;
 	
+	/**
+	 * The width of the active area
+	 */
 	private int width;
 	
+	/**
+	 * The height of the active area
+	 */
 	private int height;
 	
-	public InfluenceArea() {
-	}
-	
+	public InfluenceArea() {}
+		
+	/**
+	 * Creates a new influence area with the given parameters
+	 * 
+	 * @param x The x axis value
+	 * @param y The y axis value
+	 * @param width The width of the influence area
+	 * @param height The height of the influence area
+	 */
 	public InfluenceArea(int x, int y, int width, int height) {
 		exists = true;
 		this.x = x;
@@ -25,8 +52,6 @@ public class InfluenceArea implements Cloneable, Rectangle {
 		this.width = width;
 		this.height = height;
 	}
-
-	
 	
 	/**
 	 * @return the exists

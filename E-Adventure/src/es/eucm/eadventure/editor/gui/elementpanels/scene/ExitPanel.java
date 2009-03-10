@@ -16,13 +16,17 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import es.eucm.eadventure.common.data.Documented;
+import es.eucm.eadventure.common.data.chapter.Trajectory;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.scene.ExitDataControl;
+import es.eucm.eadventure.editor.control.controllers.scene.NodeDataControl;
 import es.eucm.eadventure.editor.control.tools.listeners.DocumentationChangeListener;
 import es.eucm.eadventure.editor.gui.elementpanels.general.ExitLookPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.IrregularAreaEditionPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
+import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElementExit;
+import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElementInfluenceArea;
 
 public class ExitPanel extends JTabbedPane {
 
@@ -68,10 +72,31 @@ public class ExitPanel extends JTabbedPane {
 			spep.setShowTextEdition(true);
 			spep.setSelectedElement(exitDataControl);
 			spep.setFixedSelectedElement(true);
+			if (exitDataControl.getSceneDataControl().getTrajectory().hasTrajectory()) {
+				spep.setTrajectory((Trajectory) exitDataControl.getSceneDataControl().getTrajectory().getContent());
+				for (NodeDataControl nodeDataControl: exitDataControl.getSceneDataControl().getTrajectory().getNodes())
+					spep.addNode(nodeDataControl);
+				if (exitDataControl.getInfluenceArea() != null)
+					spep.addInfluenceArea(exitDataControl.getInfluenceArea());
+			}
 			looksPanel = spep;
 		} else {
-			looksPanel = new IrregularAreaEditionPanel(scenePath, exitDataControl, false, Color.RED);
+			looksPanel = new IrregularAreaEditionPanel(scenePath, exitDataControl, true, Color.RED);
 			spep = ((IrregularAreaEditionPanel) looksPanel).getScenePreviewEditionPanel();
+			spep.setFixedSelectedElement(false);
+			if (exitDataControl.getSceneDataControl().getTrajectory().hasTrajectory()) {
+				spep.setTrajectory((Trajectory) exitDataControl.getSceneDataControl().getTrajectory().getContent());
+				for (NodeDataControl nodeDataControl: exitDataControl.getSceneDataControl().getTrajectory().getNodes())
+					spep.addNode(nodeDataControl);
+				if (exitDataControl.getInfluenceArea() != null) {
+					ImageElementInfluenceArea ieia =new ImageElementInfluenceArea(exitDataControl.getInfluenceArea(), new ImageElementExit(exitDataControl)); 
+					spep.addInfluenceArea(ieia);
+					if (exitDataControl.getPoints().size() < 3) {
+						ieia.setVisible(false);
+					}
+				}
+			}
+			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_INFLUENCEAREA, false);
 			spep.setShowTextEdition(false);		
 		}
 		

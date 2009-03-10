@@ -83,7 +83,7 @@ public class File extends java.io.File{
 		}
 		try{
 			if (origin.isDirectory( )){
-				boolean copiedAux2 = destiny.mkdirs( );
+				//boolean copiedAux2 = destiny.mkdirs( );
 				//copied &= copiedAux2;
 				//if (!copiedAux2){
 					//System.out.println( "DIRECTORIO NO CREADO(MKDIRS): "+destiny.getAbsolutePath( ) );
@@ -91,7 +91,7 @@ public class File extends java.io.File{
 				for ( java.io.File childOrigin: origin.listFiles( )){
 					if (childOrigin.isDirectory( )){
 						File childDestiny = new File (destiny.getAbsolutePath( ), childOrigin.getName( )+"/");
-						boolean copiedAux =childDestiny.mkdirs( ); 
+						//boolean copiedAux =childDestiny.mkdirs( ); 
 						//copied &= copiedAux;
 						//if (!copiedAux){
 							//System.out.println( "DIRECTORIO HIJO NO CREADO(MKDIRS): "+childDestiny.getAbsolutePath( ) );

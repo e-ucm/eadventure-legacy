@@ -88,6 +88,13 @@ public class SceneDOMWriter {
 					exitElement.setAttribute( "y", String.valueOf( exit.getY( ) ) );
 					exitElement.setAttribute( "width", String.valueOf( exit.getWidth( ) ) );
 					exitElement.setAttribute( "height", String.valueOf( exit.getHeight( ) ) );
+					exitElement.setAttribute( "hasInfluenceArea", (exit.getInfluenceArea().isExists() ? "yes" : "no"));
+					if (exit.getInfluenceArea().isExists()) {
+						exitElement.setAttribute( "influenceX", String.valueOf(exit.getInfluenceArea().getX()));
+						exitElement.setAttribute( "influenceY", String.valueOf(exit.getInfluenceArea().getY()));
+						exitElement.setAttribute( "influenceWidth", String.valueOf(exit.getInfluenceArea().getWidth()));
+						exitElement.setAttribute( "influenceHeight", String.valueOf(exit.getInfluenceArea().getHeight()));
+					}
 
 					// Append the documentation (if avalaible)
 					if( exit.getDocumentation( ) != null ) {

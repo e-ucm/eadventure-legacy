@@ -10,8 +10,6 @@ import org.w3c.dom.Node;
 
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.Trajectory;
-import es.eucm.eadventure.common.data.chapter.elements.Item;
-import es.eucm.eadventure.common.data.chapter.resources.Resources;
 
 public class TrajectoryDOMWriter {
 
