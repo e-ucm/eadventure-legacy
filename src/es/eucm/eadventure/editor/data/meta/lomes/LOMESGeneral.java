@@ -3,15 +3,16 @@ package es.eucm.eadventure.editor.data.meta.lomes;
 import java.util.ArrayList;
 
 import es.eucm.eadventure.editor.data.meta.LangString;
+import es.eucm.eadventure.editor.data.meta.Vocabulary;
+import es.eucm.eadventure.editor.data.meta.auxiliar.LOMESGeneralId;
+import es.eucm.eadventure.editor.data.meta.auxiliar.LOMIdentifier;
 
 public class LOMESGeneral {
 
-	//1.1 Identifier
-	//1.1.1
-	private String catalog;
 	
-	//1.1.2
-	private String entry;
+	
+	//1.1 Identifier
+	private LOMIdentifier identifier;
 	
 	//1.2
 	private LangString title;
@@ -25,13 +26,16 @@ public class LOMESGeneral {
 	//1.5 
 	private ArrayList<LangString> keyword;
 	
+	//1.8 
+	private Vocabulary aggregationLevel;
+	
 	public LOMESGeneral (){
-		catalog = null;
-		entry = null;
 		title = null;
 		language = new ArrayList<String>();
 		description = new ArrayList<LangString>();
 		keyword = new ArrayList<LangString>();
+		aggregationLevel = new Vocabulary(Vocabulary.GE_AGGREGATION_LEVEL_1_8);
+		identifier = new LOMIdentifier();
 	}
 	
 	
@@ -52,16 +56,10 @@ public class LOMESGeneral {
 		this.keyword.add( keyword );
 	}
 	
-	public void addCatalog(String catalog){
-		this.catalog = catalog;
+	public void addIdentifier(String catalog, String entry){
+		identifier.addIdentifier(catalog, entry);
 	}
 	
-	public void addEntry(String entry){
-		this.entry = entry;
-	}
-	
-
-
 
 	/*********************************** SETTERS **************************/
 	public void setTitle(LangString title){
@@ -82,26 +80,24 @@ public class LOMESGeneral {
 		this.keyword = new ArrayList<LangString>();
 		this.keyword.add( keyword );
 	}
+
 	
-
-	public void setCatalog(String catalog) {
-		this.catalog = catalog;
-	}
-
-
-	public void setEntry(String entry) {
-		this.entry = entry;
+	
+	public void setAggregationLevel(int index){
+		this.aggregationLevel.setValueIndex(index);
 	}
 	
 
 	/*********************************** GETTERS **************************/
+	
+	
 	//IDENTIFIER
-	public String getCatalog(){
-		return this.catalog;
+	public LOMESGeneralId getIdentifier(int index){
+		return (LOMESGeneralId)identifier.get(index);
 	}
 	
-	public String getEntry(){
-		return this.entry;
+	public int getNIdentifier(){
+		return identifier.getSize();
 	}
 	
 	//TITLE
@@ -121,6 +117,10 @@ public class LOMESGeneral {
 	public int getNLanguage(){
 		return language.size( );
 	}
+	
+	public ArrayList<String> getLanguages(){
+		return language;
+	}
 
 	//DESCRIPTION
 	public LangString getDescription(){
@@ -135,6 +135,10 @@ public class LOMESGeneral {
 		return description.size( );
 	}
 	
+	public ArrayList<LangString> getDescriptions(){
+		return description;
+	}
+	
 	//KEYWORD
 	public LangString getKeyword(){
 		return keyword.get( 0 );
@@ -144,8 +148,36 @@ public class LOMESGeneral {
 		return keyword.get( i );
 	}
 	
+	public ArrayList<LangString> getKeywords(){
+		return keyword;
+	}
+
+	public String[] keywordsToString(){
+		String[] keyw = new String[keyword.size()];
+		for (int i=0; i<keyword.size();i++)
+			keyw[i] = keyword.get(i).getValue(0);
+		return keyw;
+	}
 	public int getNKeyword(){
 		return keyword.size( );
 	}
+	
+	public void deleteKey(int index){
+		
+	}
+	
+	public Vocabulary getAggregationLevel(){
+		return this.aggregationLevel;
+	}
+
+
+	/**
+	 * @return the identifier
+	 */
+	public LOMIdentifier getIdentifier() {
+		return identifier;
+	}
+	
+
 	
 }

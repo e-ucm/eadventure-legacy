@@ -39,7 +39,6 @@ public class LOMESTextPanel extends JPanel{
 	
 	public LOMESTextPanel ( LOMESTextDataControl dataControl, String title , int type, boolean editable){
 		this.dataControl = dataControl;
-		
 		setLayout( new GridLayout( ) );
 	
 		if (type==TYPE_AREA){
@@ -149,5 +148,15 @@ public class LOMESTextPanel extends JPanel{
 		}
 		updateUI();
 		
+	}
+	
+	public String getText(){
+		//textArea or textField must be != null
+		if (this.textArea!=null){
+			return textArea.getText();
+		}
+		else {
+			return textField.getText();
+		}
 	}
 }

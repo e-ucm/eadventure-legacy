@@ -836,7 +836,11 @@ public class Controller {
 	}
 
 	public boolean isPlayTransparent( ) {
+		if (adventureData==null){
+			return false;
+		}
 		return adventureData.getPlayerMode( ) == DescriptorData.MODE_PLAYER_1STPERSON;
+	
 	}
 
 	public void swapPlayerMode( boolean showConfirmation ) {
@@ -845,12 +849,12 @@ public class Controller {
 
 	// ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	// Functions that perform usual aplication actions
+	// Functions that perform usual application actions
 
 	/**
 	 * This method creates a new file with it's respective data.
 	 * 
-	 * @return True if the new data was created succesfully, false otherwise
+	 * @return True if the new data was created successfully, false otherwise
 	 */
 	public boolean newFile( int fileType ) {
 		boolean fileCreated = false;

@@ -79,4 +79,8 @@ public class LangString {
 		return null;
 	}
 	
+	public void deleteValue(int index){
+		values.remove(index);
+	}
+	
 }
