@@ -1,6 +1,7 @@
 package es.eucm.eadventure.editor.control.controllers.metadata.lomes;
 
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.data.meta.auxiliar.LOMIdentifier;
 import es.eucm.eadventure.editor.data.meta.ims.IMSClassification;
 import es.eucm.eadventure.editor.data.meta.ims.IMSEducational;
 import es.eucm.eadventure.editor.data.meta.ims.IMSGeneral;
@@ -38,8 +39,7 @@ public class LOMESDataControl {
 	public LOMESDataControl () {
 		LOMESGeneral generalData = new LOMESGeneral();
 		generalData.setTitle( new LangString("Default") );
-		generalData.setCatalog(new String("Default"));
-		generalData.addEntry("Default");
+		generalData.addIdentifier("Default","Default");
 		generalData.setDescription( new LangString("Default") );
 		generalData.setKeyword( new LangString("Default") );
 		generalData.setLanguage( DEFAULT_LANGUAGE );

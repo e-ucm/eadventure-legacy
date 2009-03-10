@@ -1996,12 +1996,21 @@ When not customized, default arrows will be used in the game.</entry>
 	<entry key="LOMES.Rights.AccesType1">Non-universal</entry>
 	
 	<entry key="LOMES.Rights.Description">Rights Description</entry>
+	<entry key="LOMES.Rights.Access">Access</entry>
 	<entry key="LOMES.Rights.AccessType">Access Type</entry>
 	<entry key="LOMES.Rights.AccessDescription">Access Description</entry>
 	<entry key="LOMES.Classification.Source">Source</entry>
 	<entry key="LOMES.Classification.Identifier">Identifier</entry>
 	<entry key="LOMES.Classification.Entry">Entry</entry>
-	
+	<entry key="LOMES.General.AggregationLevel">Aggregation Level</entry>
+	<entry key="LOMES.Add">Add</entry>
+	<entry key="LOMES.Delete">Delete</entry>
+	<entry key="LOMES.GeneralIdentifier.DialogTitle">Create new Identifier</entry>
+	<entry key="LOMES.GeneralId.CatalogName">Catalog</entry>
+	<entry key="LOMES.GeneralId.EntryName">Entry</entry>
+	<entry key="LOMES.AddElement">Add new element</entry>
+	<entry key="LOMES.General.Identifier">Identifier</entry>
+	<entry key="LOMES.Value">Value</entry>
 	
 	
 	

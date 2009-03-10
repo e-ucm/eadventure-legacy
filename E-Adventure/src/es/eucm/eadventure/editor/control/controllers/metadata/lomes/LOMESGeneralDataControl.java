@@ -1,7 +1,10 @@
 package es.eucm.eadventure.editor.control.controllers.metadata.lomes;
 
+import java.util.ArrayList;
+
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.data.meta.auxiliar.LOMIdentifier;
 import es.eucm.eadventure.editor.data.meta.ims.IMSGeneral;
 import es.eucm.eadventure.editor.data.meta.lomes.LOMESGeneral;
 import es.eucm.eadventure.editor.data.meta.LangString;
@@ -15,6 +18,34 @@ public class LOMESGeneralDataControl {
 	public LOMESGeneralDataControl (LOMESGeneral data){
 		this.data = data;
 	}
+	
+	public LOMIdentifier getIdentifier(){
+		return data.getIdentifier();
+	}
+	
+	
+	public LOMESOptionsDataControl getAggregationLevel() {
+		return new LOMESOptionsDataControl (){
+
+			public String[] getOptions( ) {
+				String[] options = new String[data.getAggregationLevel().getValues( ).length];
+				for (int i=0; i<options.length; i++){
+					options[i]= Integer.toString(i);
+				}
+				return options;
+			}
+
+			public void setOption( int option ) {
+				data.getAggregationLevel().setValueIndex( option );
+			}
+
+			public int getSelectedOption( ) {
+				return data.getAggregationLevel().getValueIndex( );
+			}
+			
+		};
+	}
+
 	
 	public LOMESTextDataControl getTitleController (){
 		return new LOMESTextDataControl (){
@@ -57,15 +88,15 @@ public class LOMESGeneralDataControl {
 		};
 	}
 	
-	public LOMESTextDataControl getCatalogController() {
+	/*public LOMESTextDataControl getCatalogController() {
 		return new LOMESTextDataControl (){
 
 			public String getText( ) {
-				return data.getCatalog();
+				return data.getIdentifier(data.getCurrentId()).getCatalog();
 			}
 
 			public void setText( String text ) {
-				data.setCatalog(text );
+				data.getIdentifier(data.getCurrentId()).setCatalog(text );
 			}
 			
 		};
@@ -75,18 +106,18 @@ public class LOMESGeneralDataControl {
 		return new LOMESTextDataControl (){
 
 			public String getText( ) {
-				return data.getEntry();
+				return data.getIdentifier(data.getCurrentId()).getEntry();
 			}
 
 			public void setText( String text ) {
-				data.setEntry(text );
+				data.getIdentifier(data.getCurrentId()).setEntry(text );
 			}
 			
 		};
-	}
+	}*/
 	
 	
-	public LOMESTextDataControl getDescriptionController (){
+	/*public LOMESTextDataControl getDescriptionController (){
 		return new LOMESTextDataControl (){
 
 			public String getText( ) {
@@ -98,9 +129,9 @@ public class LOMESGeneralDataControl {
 			}
 			
 		};
-	}
+	}*/
 	
-	public LOMESTextDataControl getKeywordController (){
+	/*public LOMESTextDataControl getKeywordController (){
 		return new LOMESTextDataControl (){
 
 			public String getText( ) {
@@ -112,6 +143,22 @@ public class LOMESGeneralDataControl {
 			}
 			
 		};
+	}*/
+	
+	public String[] getKeywordsToString(){
+		return data.keywordsToString();
+	}
+	
+	public ArrayList<LangString> getKeywords(){
+		return data.getKeywords();
+	}
+	
+	public ArrayList<LangString> getDescriptions(){
+		return data.getDescriptions();
+	}
+	
+	public ArrayList<String> getLanguages(){
+		return data.getLanguages();
 	}
 
 	/**

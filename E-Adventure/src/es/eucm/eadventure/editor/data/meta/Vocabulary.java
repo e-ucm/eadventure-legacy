@@ -36,6 +36,8 @@ public class Vocabulary {
 	private static final String LOM_ES_SOURCE = "LOM-ESv1.0";
 	
 	// For LOM-ES
+	public static final String[] GE_AGGREGATION_LEVEL_1_8 = new String[]{"1","2","3","4"};
+	
 	public static final String[] MD_CONTRIBUTION_TYPE_2_3_1 = new String[]{"creator","validator"};
 	
 	public static final String[] LC_CONTRIBUTION_TYPE_2_3_1  = new String[] {"author", "publisher", "initiator", "terminator","validator", "editor", "graphical designer","technical implementer", "content provider","technical validator", "educational validator", "script writer","instructional designer", "subject matter expert"};
