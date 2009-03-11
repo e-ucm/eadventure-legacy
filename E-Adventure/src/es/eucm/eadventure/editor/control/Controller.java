@@ -1932,7 +1932,7 @@ public class Controller {
 											}  else if (type == 3 &&Writer.exportAsSCORM2004( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, adventureData )){
 														mainWindow.showInformationDialog( TextConstants.getText( "Operation.ExportT.Success.Title" ), 
 																TextConstants.getText( "Operation.ExportT.Success.Message" ) );		
-											}if (type == 4 &&Writer.exportAsAGREGA( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, adventureData )){
+											}else if (type == 4 &&Writer.exportAsAGREGA( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, adventureData )){
 												mainWindow.showInformationDialog( TextConstants.getText( "Operation.ExportT.Success.Title" ), 
 														TextConstants.getText( "Operation.ExportT.Success.Message" ) );		
 											}else {
