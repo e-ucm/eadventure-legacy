@@ -31,6 +31,8 @@ public class BarriersListPanel extends JPanel implements Updateable {
 
 	private TrajectoryEditionPanel tep;
 	
+	private BarriersListDataControl barriersListDataControl;
+	
 	/**
 	 * Constructor.
 	 * 
@@ -38,7 +40,8 @@ public class BarriersListPanel extends JPanel implements Updateable {
 	 *            ActiveAreas list controller
 	 */
 	public BarriersListPanel( BarriersListDataControl barriersListDataControl ) {
-
+		this.barriersListDataControl = barriersListDataControl;
+		
 		// Take the path of the background
 		String scenePath = Controller.getInstance( ).getSceneImagePath( barriersListDataControl.getParentSceneId( ) );
 
@@ -106,6 +109,11 @@ public class BarriersListPanel extends JPanel implements Updateable {
 	}
 
 	public boolean updateFields() {
+		if (tep == null && barriersListDataControl.getTrajectoryDataControl().hasTrajectory())
+			return false;
+		if (tep != null && !barriersListDataControl.getTrajectoryDataControl().hasTrajectory())
+			return false;
+		
 		if (tep != null)
 			tep.update();
 		spep.repaint();

@@ -210,6 +210,7 @@ public class Trajectory implements Cloneable {
 	}
 
 	public Node getNodeForId(String id) {
+		if (id == null) return null;
 		for (Node node : nodes) {
 			if (id.equals(node.id))
 				return node;

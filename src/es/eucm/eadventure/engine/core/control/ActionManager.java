@@ -218,8 +218,13 @@ public class ActionManager {
  
             //Customized. Not created yet.
             else if(isCursorSet && !cursors.containsKey( exit )){
-                Cursor newCursor = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( getCursorPath( exit ), MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "exitCursor("+exit+")" );
-                this.cursors.put( exit, newCursor );
+                Cursor newCursor;
+                try {
+                	newCursor = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( getCursorPath( exit ), MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "exitCursor("+exit+")" );
+                } catch (Exception exc) {
+                	newCursor = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( "gui/cursors/nocursor.png", MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "exitCursor("+exit+")" );
+                }
+               	this.cursors.put( exit, newCursor );
                 setExitCursor(newCursor);
             }
             

@@ -332,26 +332,6 @@ public class TrajectoryDataControl extends DataControl {
 	}
 
 	/**
-	 * Sets the value of the hasTrajectory property and creates or eliminates
-	 * the trajectory as necessary
-	 * 
-	 * @param hasTrajectory new value for hasTrajectory
-	 */
-	public void setHasTrajectory(boolean hasTrajectory) {
-		if (hasTrajectory) {
-			if (trajectory == null) {
-				trajectory = new Trajectory();
-				sceneDataControl.setTrajectory(trajectory);
-			}
-		} else {
-			if (trajectory != null) {
-				trajectory = null;
-				sceneDataControl.setTrajectory(null);
-			}
-		}
-	}
-
-	/**
 	 * Set the initial node of the trajectory to the given one
 	 * 
 	 * @param nodeDataControl The new initial node data control

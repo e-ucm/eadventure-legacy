@@ -24,6 +24,7 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
 import es.eucm.eadventure.editor.control.tools.listeners.DocumentationChangeListener;
 import es.eucm.eadventure.editor.control.tools.listeners.NameChangeListener;
+import es.eucm.eadventure.editor.control.tools.scene.ChangeHasTrajectoryTool;
 import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.editdialogs.PlayerPositionDialog;
@@ -209,11 +210,7 @@ public class ScenePanel extends JPanel implements Updateable{
 	
 	private class TrajectoryCheckBoxListener implements ActionListener {
 		public void actionPerformed( ActionEvent e ) {
-			if (sceneDataControl.getTrajectory().hasTrajectory()) {
-				sceneDataControl.getTrajectory().setHasTrajectory(false);
-			} else {
-				sceneDataControl.getTrajectory().setHasTrajectory(true);
-			}
+			Controller.getInstance().addTool(new ChangeHasTrajectoryTool(((JCheckBox) e.getSource()).isSelected(), sceneDataControl));
 		}
 	}
 	
