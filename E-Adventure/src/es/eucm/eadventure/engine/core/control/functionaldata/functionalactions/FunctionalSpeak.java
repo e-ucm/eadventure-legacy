@@ -154,7 +154,7 @@ public class FunctionalSpeak extends FunctionalAction {
     	
     	task = new TTask(voice, text);
     	Timer timer = new Timer () ;
-    	timer.schedule(task, 0);
+    	
     	while (task.getDuration()==0){
         	try {
     			Thread.sleep( 1 );
@@ -164,6 +164,7 @@ public class FunctionalSpeak extends FunctionalAction {
     	int wordsPerSecond = (int)task.getDuration()/60;
     	String[] words= text.split(" ");
     	timeTalking = (words.length/wordsPerSecond) *1000;
+    	timer.schedule(task, 0);
    }
     
     public void stopTTSTalking(){
@@ -182,17 +183,21 @@ public class FunctionalSpeak extends FunctionalAction {
     		this.voiceText = voiceText;
     		this.text = text;
     		this.deallocate = false;
+    		 VoiceManager voiceManager = VoiceManager.getInstance();
+	         voice = voiceManager.getVoice(voiceText);
+	         voice.allocate();
+	         duration =voice.getRate();
     	}
     	
 		@Override
 		public void run() {
-	    	 VoiceManager voiceManager = VoiceManager.getInstance();
-	         // TODO ver que la voz exista!!!
-	         voice = voiceManager.getVoice(voiceText);
-	         voice.allocate();
-	         duration =voice.getRate();
-	         voice.speak(text);
-	         deallocate();
+	    	try{
+			 voice.speak(text);
+	        // deallocate();
+	    	}catch(IllegalStateException e){
+				System.out.println("TTS found one word which can not be processated.");
+			}
+	        
 		}
 		
 		public void deallocate(){

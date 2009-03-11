@@ -513,8 +513,7 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
     }
     
     /**
-     * TODO poner bien docu!!!
-     * Funcion que va a leer del TTS!!!!!!
+     *
      */
     public void speakWithFreeTTS(String text, String voice){
         if (text!=null){
