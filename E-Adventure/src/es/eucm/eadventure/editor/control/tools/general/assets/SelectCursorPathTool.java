@@ -33,7 +33,8 @@ public class SelectCursorPathTool extends SelectResourceTool{
 		Resources resources = new Resources();
 		boolean introduced = false;
 		for (int i=0; i<adventureData.getCursors().size(); i++){
-			if (adventureData.getCursors( ).get( i ).getType( ).equals( type ) ){
+			if (adventureData.getCursors( ).get( i ).getType( ).equals( type ) && 
+					adventureData.getCursors( ).get( i ).getPath( )!=null){
 				resources.addAsset(type, adventureData.getCursors().get( i ).getPath());
 				introduced = true;break;
 			}
