@@ -112,7 +112,6 @@ public class NPCTalking extends NPCState {
     public void setSpeakFreeTTS(String text, String voice){
     	task = new TTask(voice, text);
     	Timer timer = new Timer () ;
-    	timer.schedule(task, 0);
     	while (task.getDuration()==0){
     	try {
 			Thread.sleep( 1 );
@@ -122,6 +121,7 @@ public class NPCTalking extends NPCState {
     	int wordsPerSecond = (int)task.getDuration()/60;
     	String[] words= text.split(" ");
     	timeTalking = (words.length/wordsPerSecond) * 1000;
+    	timer.schedule(task, 0);
     }
     
     public void stopTTSTalking(){
@@ -185,17 +185,20 @@ public class NPCTalking extends NPCState {
     		this.voiceText = voiceText;
     		this.text = text;
     		this.dealocate=false;
+    		VoiceManager voiceManager = VoiceManager.getInstance();
+	        voice = voiceManager.getVoice(voiceText);
+	        voice.allocate();	    	 
+	        duration =voice.getRate();
     	}
     	
 			@Override
 			public void run() {
-		    	 VoiceManager voiceManager = VoiceManager.getInstance();
-		         // TODO ver que la voz exista!!!
-		         voice = voiceManager.getVoice(voiceText);
-		         voice.allocate();
-		         duration =voice.getRate();
+				try{
 		         voice.speak(text);
-		         deallocate();
+		       //  deallocate();
+				} catch(IllegalStateException e){
+					System.out.println("TTS found one word which can not be processated.");
+				}
 		         
 			}
 		

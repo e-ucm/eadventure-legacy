@@ -384,9 +384,6 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
     	talkingAnimation.setSpeakFreeTTS(text,voice);   
     }
     
-    public void dealocateTTS(){
-    	talkingAnimation.stopTTSTalking();
-    }
     
     public void stopTalking( ) {
         talkingAnimation.setAudio( null );
