@@ -446,6 +446,7 @@ public class GameStateOptions extends GameState {
             for( int i = 0; i < NUMBER_OPTIONS_OF_PANEL[currentPanel]; i++ ) {
                 g.drawImage( (highlightedOption == i && mouseButtonPressed)? imgPressedButton : imgButton, panelPosition.x + FIRST_BUTTON_OFFSET_X, panelPosition.y + FIRST_BUTTON_OFFSET_Y + BUTTON_HEIGHT * i, null );
                 g.setColor( highlightedOption == i ? HIGHLIGHTED_COLOR : NORMAL_COLOR );
+               if (panelOptionsText.length> i)
                 GUI.drawString( g, panelOptionsText[i], GUI.WINDOW_WIDTH / 2, panelPosition.y + FIRST_BUTTON_OFFSET_Y + BUTTON_HEIGHT / 2 + BUTTON_HEIGHT * i );
             }
         }

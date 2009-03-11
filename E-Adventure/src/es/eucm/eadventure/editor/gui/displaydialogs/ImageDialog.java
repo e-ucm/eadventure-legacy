@@ -44,6 +44,7 @@ public class ImageDialog extends GraphicDialog {
 
 	@Override
 	protected void deleteImages( ) {
+		if (image!=null)
 		image.flush( );
 	}
 }
