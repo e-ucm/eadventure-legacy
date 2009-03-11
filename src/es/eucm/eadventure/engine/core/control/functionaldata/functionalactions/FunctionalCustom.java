@@ -15,16 +15,41 @@ import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
 import es.eucm.eadventure.engine.core.data.GameText;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 
+/**
+ * A custom action, defined by the user.
+ * 
+ * @author Eugenio Marchiori
+ */
 public class FunctionalCustom extends FunctionalAction {
 
+	/**
+	 * The element onto with to perform the action
+	 */
 	private FunctionalElement element;
 	
+	/**
+	 * The name of the action
+	 */
 	private String actionName;
 	
+	/**
+	 * The total time of the action
+	 */
 	private long totalTime;
 		
+	/**
+	 * True if the action has special animation
+	 */
 	private boolean hasAnimation;
 	
+	/**
+	 * Default constructor, using the functional element
+	 * object of the action and the action name.
+	 * 
+	 * @param element The element onto which the action is
+	 * performed 
+	 * @param actionName The name of the action
+	 */
 	public FunctionalCustom(FunctionalElement element, String actionName) {
 		super(null);
 		this.element = element;

@@ -14,14 +14,36 @@ import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalNPC;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
 import es.eucm.eadventure.engine.core.data.GameText;
 
+/**
+ * The action to talk with an npc
+ * 
+ * @author Eugenio Marchiori
+ */
 public class FunctionalTalk extends FunctionalAction {
 
+	/**
+	 * The default distance to keep between player and
+	 * npc
+	 */
 	public static final int DEFAULT_DISTANCE_TO_KEEP = 35;
 	
+	/**
+	 * The functional npc to speak with
+	 */
 	FunctionalNPC npc;
 	
+	/**
+	 * True if there is a conversation
+	 */
 	private boolean anyConversation;
 	
+	/**
+	 * Constructor using a default action and the npc with
+	 * which to talk
+	 * 
+	 * @param action The original action
+	 * @param npc The npc with which to talk
+	 */
 	public FunctionalTalk(Action action, FunctionalElement npc) {
 		super(action);
 		this.npc = (FunctionalNPC) npc;

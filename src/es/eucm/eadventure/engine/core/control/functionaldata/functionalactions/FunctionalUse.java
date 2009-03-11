@@ -13,14 +13,33 @@ import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
 import es.eucm.eadventure.engine.core.data.GameText;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 
+/**
+ * The action to use an element
+ * 
+ * @author Eugenio Marchiori
+ */
 public class FunctionalUse extends FunctionalAction {
 
+	/**
+	 * The element to use
+	 */
 	private FunctionalElement element;
 	
+	/**
+	 * The total elapsed time of the action
+	 */
 	private long totalTime;
 	
+	/**
+	 * True if the element can be used
+	 */
 	private boolean canUse = false;
 	
+	/**
+	 * Constructor with the element to use
+	 * 
+	 * @param element The element to be used
+	 */
 	public FunctionalUse(FunctionalElement element) {
 		super(null);
 		this.type = ActionManager.ACTION_USE;

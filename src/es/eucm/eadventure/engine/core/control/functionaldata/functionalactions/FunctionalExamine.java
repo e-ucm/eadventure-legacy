@@ -6,10 +6,26 @@ import es.eucm.eadventure.engine.core.control.DebugLog;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
 
+/**
+ * The action to examine an object
+ * 
+ * @author Eugenio Marchiori
+ *
+ */
 public class FunctionalExamine extends FunctionalAction {
 
+	/**
+	 * The element to be examined
+	 */
 	FunctionalElement element;
 	
+	/**
+	 * Default constructor, using the original action and
+	 * the element to examine.
+	 * 
+	 * @param action
+	 * @param element
+	 */
 	public FunctionalExamine(Action action, FunctionalElement element) {
 		super(action);
 		type = ActionManager.ACTION_EXAMINE;

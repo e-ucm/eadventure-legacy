@@ -41,6 +41,7 @@ import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.auxiliar.filefilters.FolderFileFilter;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.config.ProjectConfigData;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.gui.treepanel.TreeNodeControl;
 import es.eucm.eadventure.editor.gui.treepanel.TreePanel;
@@ -103,6 +104,7 @@ public class MainWindow extends JFrame {
 	
 	private JMenuItem redo;
 	
+	private JCheckBoxMenuItem itAutoBackup;
 	
 	/**
 	 * Constructor. Creates the general layout.
@@ -619,6 +621,13 @@ public class MainWindow extends JFrame {
 			}
 		} );
 		configurationMenu.add( itShowStartDialog );
+		itAutoBackup = new JCheckBoxMenuItem( TextConstants.getText( "MenuConfiguration.AutoBackup"), controller.getAutoSaveEnabled() );
+		itAutoBackup.addActionListener( new ActionListener() {
+			public void actionPerformed( ActionEvent e) {
+				controller.setAutoSaveEnabled( ((JCheckBoxMenuItem) e.getSource()).isSelected());
+			}
+		});
+		configurationMenu.add( itAutoBackup );
 		JCheckBoxMenuItem itEnglish = new JCheckBoxMenuItem(TextConstants.getText( "MenuConfiguration.Language.English" ), controller.getLanguage( ) == ReleaseFolders.LANGUAGE_ENGLISH);
 		itEnglish.addActionListener( new ActionListener(){
 			public void actionPerformed( ActionEvent e ) {
@@ -742,6 +751,7 @@ public class MainWindow extends JFrame {
 			}
 			//Update the Show Start Dialog item
 			itShowStartDialog.setSelected( controller.getShowStartDialog( ) );
+			itAutoBackup.setSelected( controller.getAutoSaveEnabled() );
 
 
 		

@@ -1,6 +1,7 @@
 package es.eucm.eadventure.common.auxiliar;
 
 import java.awt.BorderLayout;
+import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -237,6 +238,8 @@ public class ReportDialog extends JDialog {
 		
 		this.setSize(PANEL_WIDTH, PANEL_HEIGHT);
 		this.setResizable(false);
+		this.setModalityType(Dialog.ModalityType.TOOLKIT_MODAL);
+		
 		
 		String title = TextConstants.getText("ErrorReport.Title");
 		this.setTitle((!title.equals("Error") ? title : "Error Report"));

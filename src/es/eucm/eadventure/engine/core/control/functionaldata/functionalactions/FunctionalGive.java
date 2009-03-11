@@ -15,16 +15,42 @@ import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
 import es.eucm.eadventure.engine.core.data.GameText;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 
+/**
+ * The action to give an element to an NPC
+ * 
+ * @author Eugenio Marchiori
+ *
+ */
 public class FunctionalGive extends FunctionalAction {
 
+	/**
+	 * The element to give
+	 */
 	private FunctionalElement element;
 	
+	/**
+	 * The other element of the action (an NPC in this case)
+	 */
 	private FunctionalElement anotherElement;
 	
+	/**
+	 * The total elapsed time of the action
+	 */
 	private long totalTime;
 	
+	/**
+	 * True if the element can be given to the
+	 * other element of the action
+	 */
 	private boolean canGive = false;
 	
+	/**
+	 * Default constructor, with the original action
+	 * and the element to be given
+	 * 
+	 * @param action The original action
+	 * @param element The element to be given
+	 */
 	public FunctionalGive(Action action, FunctionalElement element) {
 		super(action);
 		this.element = element;
@@ -114,6 +140,7 @@ public class FunctionalGive extends FunctionalAction {
 		
 	}
 	
+	@Override
 	public FunctionalElement getAnotherElement() {
 		return anotherElement;
 	}

@@ -233,7 +233,7 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
     	if (actionPool.size() > 0)
     		return actionPool.get(actionPool.size() - 1);
     	else
-    		return new FunctionalNullAction(null);
+    		return new FunctionalNullAction();
     }
     
     public void popAction() {
@@ -297,7 +297,7 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
     		addAction(new FunctionalLook(element));
     		return;
     	}
-    	FunctionalAction nextAction = new FunctionalNullAction(null);
+    	FunctionalAction nextAction = new FunctionalNullAction();
     	switch( actionSelected ) {
     	case ActionManager.ACTION_EXAMINE:
         	cancelActions();

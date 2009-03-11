@@ -76,6 +76,7 @@
 	<entry key="MenuConfiguration.Language">Set Language</entry>
 	<entry key="MenuConfiguration.Language.English">English</entry>
 	<entry key="MenuConfiguration.Language.Spanish">Spanish</entry>
+	<entry key="MenuConfiguration.AutoBackup">Automatic backup every 15 minutes</entry>
 	
 	<entry key="MenuEdit.Title">Edit</entry>
 	<entry key="MenuEdit.Undo">Undo</entry>
