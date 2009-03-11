@@ -15,8 +15,6 @@ public class BarriersListDataControl extends DataControl {
 	 * Scene controller that contains this element reference.
 	 */
 	private SceneDataControl sceneDataControl;
-
-	private TrajectoryDataControl trajectoryDataControl;
 	
 	/**
 	 * List of barriers.
@@ -254,14 +252,9 @@ public class BarriersListDataControl extends DataControl {
 	public boolean canBeDuplicated( ) {
 		return false;
 	}
-
-	
-	public void setTrajectoryDataControl(TrajectoryDataControl trajectoryDataControl) {
-		this.trajectoryDataControl = trajectoryDataControl;
-	}
 	
 	public TrajectoryDataControl getTrajectoryDataControl() {
-		return trajectoryDataControl;
+		return sceneDataControl.getTrajectory();
 	}
 	
 	/**

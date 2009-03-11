@@ -135,25 +135,34 @@ public class ContextualHUD extends HUD {
         
         DescriptorData descriptor =Game.getInstance().getGameDescriptor( ); 
         
-        if (descriptor.getCursorPath( DescriptorData.CURSOR_OVER )==null){
+        if (descriptor.getCursorPath( DescriptorData.CURSOR_OVER )==null)
             cursorOver = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImage( "gui/cursors/over.png", MultimediaManager.IMAGE_MENU ), new Point( 5, 5 ), "cursorOver" );            
-        }
-        else{
-            cursorOver = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( descriptor.getCursorPath( DescriptorData.CURSOR_OVER ), MultimediaManager.IMAGE_MENU ), new Point( 5, 5 ), "cursorOver" );            
+        else {
+            try {
+            	cursorOver = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( descriptor.getCursorPath( DescriptorData.CURSOR_OVER ), MultimediaManager.IMAGE_MENU ), new Point( 5, 5 ), "cursorOver" );
+            } catch (Exception e) {
+                cursorOver = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImage( "gui/cursors/nocursor.png", MultimediaManager.IMAGE_MENU ), new Point( 5, 5 ), "cursorOver" );            
+            }
         }
         
-        if (descriptor.getCursorPath( DescriptorData.EXIT_CURSOR )==null){
+        if (descriptor.getCursorPath( DescriptorData.EXIT_CURSOR )==null)
             cursorExit = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImage( "gui/cursors/exit.png", MultimediaManager.IMAGE_MENU ), new Point( 5, 5 ), "cursorExit" );            
-        }
-        else{
-            cursorExit = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( descriptor.getCursorPath( DescriptorData.EXIT_CURSOR ), MultimediaManager.IMAGE_MENU ), new Point( 5, 5 ), "cursorExit" );
+        else {
+            try {
+            	cursorExit = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( descriptor.getCursorPath( DescriptorData.EXIT_CURSOR ), MultimediaManager.IMAGE_MENU ), new Point( 5, 5 ), "cursorExit" );
+            } catch (Exception e) {
+            	cursorExit = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImage( "gui/cursors/nocursor.png", MultimediaManager.IMAGE_MENU ), new Point( 5, 5 ), "cursorExit" );            
+            }
         }
         
-        if (descriptor.getCursorPath( DescriptorData.CURSOR_ACTION )==null){
+        if (descriptor.getCursorPath( DescriptorData.CURSOR_ACTION )==null)
             cursorAction = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImage( "gui/cursors/action.png", MultimediaManager.IMAGE_MENU ), new Point( 5, 5 ), "cursorAction" );            
-        }
-        else{
-            cursorAction = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( descriptor.getCursorPath( DescriptorData.CURSOR_ACTION ), MultimediaManager.IMAGE_MENU ), new Point( 5, 5 ), "cursorAction" );
+        else {
+        	try {
+                cursorAction = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( descriptor.getCursorPath( DescriptorData.CURSOR_ACTION ), MultimediaManager.IMAGE_MENU ), new Point( 5, 5 ), "cursorAction" );
+        	} catch (Exception e) {
+            	cursorAction = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImage( "gui/cursors/nocursor.png", MultimediaManager.IMAGE_MENU ), new Point( 5, 5 ), "cursorAction" );            
+        	}
         }
         
     }

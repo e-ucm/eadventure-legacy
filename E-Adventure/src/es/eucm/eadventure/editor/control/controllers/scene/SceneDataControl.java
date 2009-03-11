@@ -524,10 +524,13 @@ public class SceneDataControl extends DataControlWithResources {
 	public TrajectoryDataControl getTrajectory() {
 		return trajectoryDataControl;
 	}
+	
+	public void setTrajectoryDataControl(TrajectoryDataControl trajectoryDataControl) {
+		this.trajectoryDataControl = trajectoryDataControl;	
+	}
 
 	public void setTrajectory(Trajectory trajectory) {
 		scene.setTrajectory(trajectory);
-		controller.dataModified();
 	}
 	
 	public void setPlayerLayer(int layer){

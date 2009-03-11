@@ -6,7 +6,6 @@ import javax.swing.JComponent;
 
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.scene.ScenePanel;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.TreeNode;
@@ -50,7 +49,7 @@ public class SceneTreeNode extends TreeNode {
 		children.add( new ExitsListTreeNode( this, dataControl.getExitsList( ) ) );
 		children.add( new ActiveAreasListTreeNode( this, dataControl.getActiveAreasList( ) ) );
 		if (!Controller.getInstance( ).isPlayTransparent( ))
-			children.add( new BarriersListTreeNode( this, dataControl.getBarriersList( ), dataControl.getTrajectory() ) );
+			children.add( new BarriersListTreeNode( this, dataControl.getBarriersList( ) ) );
 		children.add( new ReferencesListTreeNode( this, dataControl.getReferencesList( ) ) );
 	}
 
