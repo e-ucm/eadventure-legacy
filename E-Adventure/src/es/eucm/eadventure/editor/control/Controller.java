@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.swing.Icon;
 import javax.swing.JDialog;
 import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
@@ -489,6 +490,10 @@ public class Controller {
 	
 	private ChapterListDataControl chaptersController;
 	
+	private AutoSave autoSave;
+	
+	private Timer autoSaveTimer;
+	
 	/**
 	 * Void and private constructor.
 	 */
@@ -650,7 +655,36 @@ public class Controller {
 		mainWindow.setVisible( true );
 		//DEBUGGING
 		tsd = new ToolSystemDebugger( chaptersController );
+	}
+	
+	private void updateAutoSave() {
+		if (ProjectConfigData.existsKey( "autosave" )) {
+			String temp = ProjectConfigData.getProperty( "autosave" );
+			if (temp.equals("yes")) {
+				startAutoSave(15);
+			} else {
+				stopAutoSave();
+			}
+		} else {
+			ProjectConfigData.setProperty( "autosave", "yes");
+			startAutoSave(15);
+		}
+	}
+	
+	public void startAutoSave(int minutes) {
+		stopAutoSave();
 
+		autoSaveTimer = new Timer();
+		autoSave = new AutoSave();
+		autoSaveTimer.schedule(autoSave, 10000, minutes * 60 * 1000);
+	}
+	
+	public void stopAutoSave() {
+		if (autoSaveTimer != null) {
+			autoSaveTimer.cancel();
+			autoSaveTimer = null;
+		}
+		autoSave = null;
 	}
 	
 	private ToolSystemDebugger tsd;
@@ -1349,6 +1383,8 @@ public class Controller {
 				// Load project config file
 				ProjectConfigData.loadFromXML( );
 				
+				updateAutoSave();
+				
 				// Feedback
 				//loadingScreen.close( );
 				mainWindow.showInformationDialog( 
@@ -1744,6 +1780,51 @@ public class Controller {
 		return exported;
 	}
 
+	
+	public boolean createBackup( String targetFilePath ){
+		boolean fileSaved = false;
+		if (targetFilePath == null)
+			targetFilePath = currentZipFile + ".tmp";
+		File category = new File (currentZipFile, "backup");
+		try {
+			boolean valid = chaptersController.isValid(null, null);
+
+			category.create( );
+
+			if( Writer.writeData( currentZipFile + File.separatorChar + "backup", adventureData, valid ) ) {
+				fileSaved = true;
+			}
+
+			if (fileSaved) {
+				String selectedPath = targetFilePath; 
+
+				if (selectedPath != null) {
+	
+					java.io.File destinyFile = new File (selectedPath);
+	
+					if ( targetFilePath !=null || isValidTargetFile( destinyFile ) ){
+						if ( !destinyFile.exists( ) || targetFilePath!=null  ){
+							destinyFile.delete( );
+							if (Writer.export( getProjectFolder(), destinyFile.getAbsolutePath( ) ))
+								fileSaved = true;
+						}
+					} else
+						fileSaved = false;
+				}
+			}
+		} catch (Exception e){
+			fileSaved = false;
+		}
+		
+		if (category.exists()) {
+			category.deleteAll();
+		}
+
+		return fileSaved;
+	}
+
+	
+	
 	public void exportStandaloneGame(){
 		boolean exportGame = true;
 		try{
@@ -2857,5 +2938,24 @@ public class Controller {
 	
 	public void search() {
 		new SearchDialog();
+	}
+
+	public boolean getAutoSaveEnabled() {
+		if (ProjectConfigData.existsKey( "autosave" )) {
+			String temp = ProjectConfigData.getProperty( "autosave" );
+			if (temp.equals("yes")) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public void setAutoSaveEnabled(boolean selected) {
+		if (selected != getAutoSaveEnabled()) {
+			ProjectConfigData.setProperty("autosave", (selected?"yes" : "no"));
+			updateAutoSave();
+		}
 	}
 }

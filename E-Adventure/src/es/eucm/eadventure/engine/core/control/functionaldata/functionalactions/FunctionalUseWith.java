@@ -12,16 +12,37 @@ import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalItem;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 
+/**
+ * The action to use an element with another 
+ */
 public class FunctionalUseWith extends FunctionalAction {
 
+	/**
+	 * The first element
+	 */
 	private FunctionalElement element;
 	
+	/**
+	 * The second element
+	 */
 	private FunctionalElement anotherElement;
 	
+	/**
+	 * The total elapsed time of the action
+	 */
 	private long totalTime;
 	
+	/**
+	 * True if the element can be used with the other
+	 */
 	private boolean canUseWith = false;
 	
+	/**
+	 * Constructor using the original action and the first element
+	 * 
+	 * @param action The original action
+	 * @param element The first element
+	 */
 	public FunctionalUseWith(Action action, FunctionalElement element) {
 		super(action);
 		this.element = element;
@@ -99,6 +120,7 @@ public class FunctionalUseWith extends FunctionalAction {
         }
 	}
 
+	@Override
 	public FunctionalElement getAnotherElement() {
 		return anotherElement;
 	}

@@ -14,14 +14,36 @@ import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
 import es.eucm.eadventure.engine.core.data.GameText;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 
+/**
+ * The action to grab an element
+ * 
+ * @author Eugenio Marchiori
+ *
+ */
 public class FunctionalGrab extends FunctionalAction {
 
+	/**
+	 * The element to grab
+	 */
 	private FunctionalElement element;
 	
+    /**
+     * The total elapsed time of the action
+     */
     private long totalTime;
 
+    /**
+     * True if the element can be grabed
+     */
     private boolean canGrab = false;
     
+	/**
+	 * Default constructor, with the original action and
+	 * the element to grab
+	 * 
+	 * @param action The original action
+	 * @param element The element to grab
+	 */
 	public FunctionalGrab(Action action, FunctionalElement element) {
 		super(action);
 		this.element = element;

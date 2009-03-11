@@ -6,10 +6,24 @@ import es.eucm.eadventure.engine.core.control.animations.AnimationState;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
 
+/**
+ * The action to look at an element
+ * 
+ * @author Eugenio Marchiori
+ *
+ */
 public class FunctionalLook extends FunctionalAction {
 
+	/**
+	 * The element to look at 
+	 */
 	private FunctionalElement element;
 	
+	/**
+	 * Default constructor, with the element to look at
+	 * 
+	 * @param element The element to look at
+	 */
 	public FunctionalLook(FunctionalElement element) {
 		super(null);
 		type = ActionManager.ACTION_LOOK;

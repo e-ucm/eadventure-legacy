@@ -77,6 +77,7 @@
 	<entry key="MenuConfiguration.Language">Cambiar idioma</entry>
 	<entry key="MenuConfiguration.Language.English">Inglés</entry>
 	<entry key="MenuConfiguration.Language.Spanish">Castellano</entry>
+	<entry key="MenuConfiguration.AutoBackup">Copia de seguridad automática cada 15 minutos</entry>
 	
 	<entry key="MenuEdit.Title">Edición</entry>
 	<entry key="MenuEdit.Undo">Deshacer</entry>

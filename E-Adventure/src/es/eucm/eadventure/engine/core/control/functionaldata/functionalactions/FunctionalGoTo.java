@@ -14,28 +14,74 @@ import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalTrajectory;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 
+/**
+ * The action to go to a certain position or to the
+ * influence area of an element if possible.
+ * 
+ * @author Eugenio Marchiori
+ *
+ */
 public class FunctionalGoTo extends FunctionalAction {
 
+	/**
+	 * The position along the x axis the player will reach
+	 */
 	private int posX;
 	
+	/**
+	 * The position along the y axis the player will reach
+	 */
 	private int posY;
 	
+	/**
+	 * The position along the x axis the player wanted to reach
+	 */
 	private int originalPosX;
 	
+	/**
+	 * The position along the y axis the player wanted to reach
+	 */
 	private int originalPosY;
 	
+	/**
+	 * The speed at which the player moves along the x axis
+	 */
 	private float speedX;
 	
+	/**
+	 * True if the action has an animation 
+	 */
 	private boolean hasAnimation = false;
 	
+	/**
+	 * The functional trajectory of the scene (if it exists)
+	 */
 	private FunctionalTrajectory trajectory;
 	
+	/**
+	 * The resources used in the action
+	 */
 	private Resources resources;
 	
+    /**
+     * The games multimedia manager
+     */
     private MultimediaManager multimedia;
 	
+    /**
+     * True if the trajectory was already updated for the current
+     * destination
+     */
     private boolean trajectoryUpdated;
     
+	/**
+	 * Default constructor with the original action and
+	 * the position to reach.
+	 * 
+	 * @param action The original action
+	 * @param posX The position to reach along the x axis
+	 * @param posY The position to reach along the y axis
+	 */
 	public FunctionalGoTo(Action action, int posX, int posY) {
 		super(action);
 		this.originalPosX = posX;
@@ -50,11 +96,31 @@ public class FunctionalGoTo extends FunctionalAction {
 		keepDistance = 0;
 	}
 	
+	/**
+	 * Default constructor including the distance to keep
+	 * between the player and the position to reach.
+	 *  
+	 * @param action The original action
+	 * @param posX The position to reach along the x axis
+	 * @param posY The position to reach along the y axis
+	 * @param keepDistance The distance to keep 
+	 */
 	public FunctionalGoTo(Action action, int posX, int posY, int keepDistance) {
 		this(action, posX, posY);
 		this.keepDistance = keepDistance;
 	}
 
+	/**
+	 * Constructor with an element, used mainly when the scene
+	 * uses trajectories and the influence area of the object
+	 * must be used to decide where to go.
+	 * 
+	 * @param action The original action
+	 * @param x The position along the x axis
+	 * @param y The position along the y axis
+	 * @param functionalPlayer The functional player of the game
+	 * @param element The element to get to
+	 */
 	public FunctionalGoTo(Action action, int x, int y, FunctionalPlayer functionalPlayer, FunctionalElement element) {
 		this(action, x, y);
 		if (trajectory.hasTrajectory()) {
@@ -68,7 +134,7 @@ public class FunctionalGoTo extends FunctionalAction {
 	public void start(FunctionalPlayer functionalPlayer) {
 		this.functionalPlayer = functionalPlayer;
 		finished = false;
-		this.needsGoTo = false;
+ 		this.needsGoTo = false;
 		
 		resources = functionalPlayer.getResources( );
         multimedia = MultimediaManager.getInstance( );
@@ -132,6 +198,15 @@ public class FunctionalGoTo extends FunctionalAction {
 		}
 	}
 	
+	/**
+	 * Set the animation necessary in each moment given the
+	 * old and new speeds of the player along each axis
+	 * 
+	 * @param oldSpeedX The previous speed along the x axis
+	 * @param oldSpeedY The previous speed along the y axis
+	 * @param newSpeedX The current speed algon the x axis
+	 * @param newSpeedY The current speed algon the y axis
+	 */
 	private void setAnimation(float oldSpeedX, float oldSpeedY, float newSpeedX, float newSpeedY) {
         Animation[] animations = new Animation[4];
         animations[AnimationState.EAST] = multimedia.loadAnimation( resources.getAssetPath( Player.RESOURCE_TYPE_WALK_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
@@ -167,6 +242,12 @@ public class FunctionalGoTo extends FunctionalAction {
 		}
 	}
 
+	/**
+	 * Returns true if the player can get to his destination
+	 * and false in any other case
+	 * 
+	 * @return True if the player can get to his destination
+	 */
 	public boolean canGetTo() {
 		if (!trajectory.hasTrajectory())
 			return posX == originalPosX && posY == originalPosY;

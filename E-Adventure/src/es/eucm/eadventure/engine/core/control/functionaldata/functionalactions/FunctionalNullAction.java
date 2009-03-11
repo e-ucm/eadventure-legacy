@@ -1,13 +1,21 @@
 package es.eucm.eadventure.engine.core.control.functionaldata.functionalactions;
 
-import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
 
+/**
+ * A null action that does nothing
+ * 
+ * @author Eugenio Marchiori
+ *
+ */
 public class FunctionalNullAction extends FunctionalAction {
 
-	public FunctionalNullAction(Action action) {
-		super(action);
+	/**
+	 * Default constructor
+	 */
+	public FunctionalNullAction() {
+		super(null);
 		finished = true;
 		type = -1;
 	}

@@ -10,10 +10,24 @@ import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalNextSceneEffect;
 
+/**
+ * The action to exit a scene
+ * 
+ * @author Eugenio Marchiori
+ *
+ */
 public class FunctionalExit extends FunctionalAction {
 
+	/**
+	 * The exit through which the player leaves the scene
+	 */
 	private Exit exit;
 	
+	/**
+	 * Default constructor, with the exit to use.
+	 * 
+	 * @param exit The exit through which the player leaves the scene.
+	 */
 	public FunctionalExit(Exit exit) {
 		super(null);
 		this.exit = exit;

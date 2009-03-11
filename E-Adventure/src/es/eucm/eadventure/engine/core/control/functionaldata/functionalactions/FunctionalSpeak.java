@@ -20,10 +20,22 @@ import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 
+/**
+ * The action to speak a line
+ * 
+ * @author Eugenio Marchiori
+ *
+ */
 public class FunctionalSpeak extends FunctionalAction {
 
+	/**
+	 * The text to be spoken
+	 */
 	private String[] text;
 
+    /**
+     * The id of the spoken audio
+     */
     private long audioId=-1;
     
     /**
@@ -48,12 +60,27 @@ public class FunctionalSpeak extends FunctionalAction {
      */
     private int timeTalking;
 
+	/**
+	 * Constructor with the original action and the text
+	 * to speak
+	 * 
+	 * @param action The original action
+	 * @param text The text to speak
+	 */
 	public FunctionalSpeak(Action action, String text) {
 		super(action);
 		type = ActionManager.ACTION_TALK;
 		setText(text);
 	}
 
+	/**
+	 * Constructor with the original action, the text
+	 * to speak and the audio to use
+	 * 
+	 * @param action The original action
+	 * @param text The text to speak
+	 * @param audioPath The path of the audio
+	 */
 	public FunctionalSpeak(Action action, String text, String audioPath) {
 		super(action);
 		type = ActionManager.ACTION_TALK;
@@ -109,6 +136,11 @@ public class FunctionalSpeak extends FunctionalAction {
         if( timeTalking < (int)( 1400 * multiplier ) ) timeTalking = (int)( 1400 * multiplier );
     }
     
+    /**
+     * Set the audio used by the action
+     * 
+     * @param audioPath The path of the audio
+     */
     public void setAudio( String audioPath ) {
         if (audioPath==null){
             if (audioId!=-1){
@@ -149,6 +181,12 @@ public class FunctionalSpeak extends FunctionalAction {
         }
     }
 
+    /**
+     * Set the parameters to speak with freeTTS.
+     * 
+     * @param text2 The text that must be said
+     * @param voice The voice of the player
+     */
     public void setSpeakFreeTTS(String text2, String voice){
     	String text = Game.getInstance().processText(text2);
     	
@@ -167,20 +205,24 @@ public class FunctionalSpeak extends FunctionalAction {
     	timer.schedule(task, 0);
    }
     
+    /**
+     * Stop the freetts speech
+     */
     public void stopTTSTalking(){
     	if (task != null)
     		task.deallocate();
     }
 
+    /**
+     * The timertask that plays the freetts speech in the background
+     */
     public class TTask extends TimerTask{
 
-    	private String voiceText;
     	private String text;
     	private float duration;
     	private boolean deallocate;
     	
     	public TTask ( String voiceText, String text ){
-    		this.voiceText = voiceText;
     		this.text = text;
     		this.deallocate = false;
     		 VoiceManager voiceManager = VoiceManager.getInstance();
