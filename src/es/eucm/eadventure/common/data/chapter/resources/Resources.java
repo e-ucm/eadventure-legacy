@@ -126,7 +126,7 @@ public class Resources implements Cloneable {
     public boolean existAsset( String type ) {
         boolean existAsset = false;
         
-        existAsset = assets.containsKey(type);
+        existAsset = assets.containsKey(type) && assets.get(type) != null;
         
         return existAsset;
     }
