@@ -212,7 +212,6 @@ public class FunctionalItem extends FunctionalElement {
             case ActionManager.ACTION_CUSTOM_INTERACT:
                 canPerform = true;
                 break;
-
             case ActionManager.ACTION_GIVE_TO:
             case ActionManager.ACTION_TALK:
                 canPerform = false;

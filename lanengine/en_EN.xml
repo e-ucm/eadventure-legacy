@@ -145,14 +145,14 @@
 	<entry key="ErrorReport.TitleComments">Send comments and suggestions</entry>
 	<entry key="ErrorReport.Comments">Please use this space for comments or suggestions</entry>
 
-	<entry key="ActionButton.Talk">Talk</entry>
+	<entry key="ActionButton.Talk">Talk with..</entry>
 	<entry key="ActionButton.Examine">Examine</entry>
 	<entry key="ActionButton.GrabGiveUse">Grab/Give/Use</entry>
 	<entry key="ActionButton.Grab">Grab</entry>
 	<entry key="ActionButton.Use">Use</entry>
-	<entry key="ActionButton.UseGive">Use With/Give To</entry>
-	<entry key="ActionButton.GiveTo">Give To</entry>
-	<entry key="ActionButton.UseWith">Use With</entry>
+	<entry key="ActionButton.UseGive">Use With../Give To..</entry>
+	<entry key="ActionButton.GiveTo">Give To..</entry>
+	<entry key="ActionButton.UseWith">Use With..</entry>
 	
 	<entry key="DebugFrame.Title">Debug info</entry>
 	<entry key="DebugFrame.AllFlagsAndVars">All flags and vars</entry>
