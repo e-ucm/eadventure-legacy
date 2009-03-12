@@ -37,17 +37,17 @@ public class LOMGeneralIdentifierDialog extends JDialog{
 	
 	private String entryValue;
 	
-	private LOMESContainer container;
+	//private LOMESContainer container;
 	
 	public LOMGeneralIdentifierDialog(LOMESContainer container, int selectedItem){
 		super( Controller.getInstance( ).peekWindow( ), container.getTitle(), Dialog.ModalityType.APPLICATION_MODAL );
-		this.container = container;
+		//this.container = container;
 		if (selectedItem ==0){
 			catalogValue="";
 			entryValue="";
 		}else {
-			catalogValue = ((LOMESGeneralId)this.container.get(selectedItem-1)).getCatalog();
-			entryValue = ((LOMESGeneralId)this.container.get(selectedItem-1)).getCatalog();
+			catalogValue = ((LOMESGeneralId)container.get(selectedItem-1)).getCatalog();
+			entryValue = ((LOMESGeneralId)container.get(selectedItem-1)).getCatalog();
 		}
 		
 		GridBagConstraints c = new GridBagConstraints(); 

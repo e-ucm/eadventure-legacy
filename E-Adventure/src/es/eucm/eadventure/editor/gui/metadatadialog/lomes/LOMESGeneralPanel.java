@@ -18,7 +18,7 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.metadata.ims.IMSGeneralDataControl;
 import es.eucm.eadventure.editor.control.controllers.metadata.lom.LOMGeneralDataControl;
 import es.eucm.eadventure.editor.control.controllers.metadata.lomes.LOMESGeneralDataControl;
-import es.eucm.eadventure.editor.gui.metadatadialog.lomes.elementdialog.LOMCreatePrimitivePanel;
+import es.eucm.eadventure.editor.gui.metadatadialog.lomes.elementdialog.LOMCreatePrimitiveContainerPanel;
 
 public class LOMESGeneralPanel extends JPanel{
 
@@ -26,7 +26,7 @@ public class LOMESGeneralPanel extends JPanel{
 	
 	private LOMESTextPanel titlePanel;
 	
-	private LOMCreatePrimitivePanel descriptionPanel;	
+	private LOMCreatePrimitiveContainerPanel descriptionPanel;	
 	
 	public LOMESGeneralPanel (LOMESGeneralDataControl dControl){
 		this.dataControl = dControl;
@@ -37,11 +37,11 @@ public class LOMESGeneralPanel extends JPanel{
 		// Create the panels
 		
 		titlePanel = new LOMESTextPanel(dataControl.getTitleController( ), TextConstants.getText("LOM.General.Title"), LOMESTextPanel.TYPE_FIELD);
-		LOMCreatePrimitivePanel languagePanel = new LOMCreatePrimitivePanel(LOMCreatePrimitivePanel.STRING_TYPE,dataControl.getLanguages(),TextConstants.getText("LOM.General.Language"),LOMCreatePrimitivePanel.FIELD_TYPE_FIELD);
-		descriptionPanel = new LOMCreatePrimitivePanel(LOMCreatePrimitivePanel.LANGSTRING_TYPE,dataControl.getDescriptions(),TextConstants.getText("LOM.General.Description"),LOMCreatePrimitivePanel.FIELD_TYPE_AREA);
+		LOMCreatePrimitiveContainerPanel languagePanel = new LOMCreatePrimitiveContainerPanel(LOMCreatePrimitiveContainerPanel.STRING_TYPE,dataControl.getLanguages(),TextConstants.getText("LOM.General.Language"),LOMCreatePrimitiveContainerPanel.FIELD_TYPE_FIELD);
+		descriptionPanel = new LOMCreatePrimitiveContainerPanel(LOMCreatePrimitiveContainerPanel.LANGSTRING_TYPE,dataControl.getDescriptions(),TextConstants.getText("LOM.General.Description"),LOMCreatePrimitiveContainerPanel.FIELD_TYPE_AREA);
 		LOMESOptionsPanel aggregationLevel = new LOMESOptionsPanel(dataControl.getAggregationLevel(), TextConstants.getText("LOMES.General.AggregationLevel")) ;
-		LOMESCreatePanel identifierPanel = new LOMESCreatePanel(dataControl.getIdentifier());
-		LOMCreatePrimitivePanel keywordPanel = new LOMCreatePrimitivePanel(LOMCreatePrimitivePanel.LANGSTRING_TYPE,dataControl.getKeywords(),TextConstants.getText("LOM.General.Keyword"),LOMCreatePrimitivePanel.FIELD_TYPE_FIELD);
+		LOMESCreateContainerPanel identifierPanel = new LOMESCreateContainerPanel(dataControl.getIdentifier(), TextConstants.getText( "LOMES.General.Identifier" ));
+		LOMCreatePrimitiveContainerPanel keywordPanel = new LOMCreatePrimitiveContainerPanel(LOMCreatePrimitiveContainerPanel.LANGSTRING_TYPE,dataControl.getKeywords(),TextConstants.getText("LOM.General.Keyword"),LOMCreatePrimitiveContainerPanel.FIELD_TYPE_FIELD);
 		
 		//LOMESOptionsPanel languagePanel = new LOMESOptionsPanel(dataControl.getLanguageController( ), TextConstants.getText("LOM.General.Language"));
 		// descriptionPanel = new LOMESTextPanel(dataControl.getDescriptionController( ), TextConstants.getText("LOM.General.Description"), LOMESTextPanel.TYPE_AREA);

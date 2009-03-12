@@ -21,13 +21,8 @@ import es.eucm.eadventure.editor.control.controllers.metadata.lomes.LOMESTechnic
 
 public class LOMESLifeCycleAndTechnicalPanel extends JPanel{
 
-	private LOMESLifeCycleDataControl lifeCycleController;
-	
-	private LOMESTechnicalDataControl technicalController;
 	
 	public LOMESLifeCycleAndTechnicalPanel (LOMESLifeCycleDataControl lifeCycleController, LOMESTechnicalDataControl technicalController){
-		this.lifeCycleController = lifeCycleController;
-		this.technicalController = technicalController;
 		
 		//Layout
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
@@ -36,9 +31,7 @@ public class LOMESLifeCycleAndTechnicalPanel extends JPanel{
 		//Lyfecyle panels
 		LOMESTextPanel versionPanel = new LOMESTextPanel(lifeCycleController.getVersionController( ), TextConstants.getText("LOM.LifeCycle.Version"), LOMESTextPanel.TYPE_FIELD);
 		LOMESOptionsPanel status = new LOMESOptionsPanel(lifeCycleController.getStatusController(), TextConstants.getText("IMS.LifeCycle.Status"));
-		LOMESOptionsPanel role = new LOMESOptionsPanel(lifeCycleController.getRoleController(), TextConstants.getText("LOMES.LifeCycle.Role"));
-		LOMESTextPanel entity =  new LOMESTextPanel(lifeCycleController.getEntityController(), TextConstants.getText("LOMES.LifeCycle.Entity"), LOMESTextPanel.TYPE_FIELD);
-		LOMESTextPanel description = new LOMESTextPanel(lifeCycleController.getEntityController(), TextConstants.getText("LOMES.LifeCycle.Description"), LOMESTextPanel.TYPE_FIELD);
+		LOMESCreateContainerPanel contribute = new LOMESCreateContainerPanel(lifeCycleController.getContribute(),TextConstants.getText("LOMES.LifeCycle.Contribute"));
 		
 		//Technical panels
 		LOMESTextPanel minVersionPanel = new LOMESTextPanel(technicalController.getMinimumVersionController( ), TextConstants.getText("LOM.Technical.MinimumVersion"), LOMESTextPanel.TYPE_FIELD, false);
@@ -54,11 +47,7 @@ public class LOMESLifeCycleAndTechnicalPanel extends JPanel{
 		add (Box.createVerticalStrut(1));
 		add (status);
 		add (Box.createVerticalStrut(1));
-		add (role);
-		add (Box.createVerticalStrut(1));
-		add (entity);
-		add (Box.createVerticalStrut(1));
-		add (description);
+		add (contribute);
 		add (Box.createVerticalStrut(1));
 		add (type);
 		add (Box.createVerticalStrut(1));

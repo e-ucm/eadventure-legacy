@@ -1,9 +1,12 @@
 package es.eucm.eadventure.editor.control.controllers.metadata.lomes;
 
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.data.meta.auxiliar.LOMESContainer;
+import es.eucm.eadventure.editor.data.meta.auxiliar.LOMESLifeCycleDate;
 import es.eucm.eadventure.editor.data.meta.ims.IMSLifeCycle;
 import es.eucm.eadventure.editor.data.meta.lomes.LOMESLifeCycle;
 import es.eucm.eadventure.editor.data.meta.LangString;
+import es.eucm.eadventure.editor.data.meta.Vocabulary;
 
 public class LOMESLifeCycleDataControl {
 
@@ -12,57 +15,7 @@ public class LOMESLifeCycleDataControl {
 	public LOMESLifeCycleDataControl (LOMESLifeCycle data){
 		this.data = data;
 	}
-	
-	public LOMESOptionsDataControl getRoleController() {
-		return new LOMESOptionsDataControl (){
 
-			public String[] getOptions( ) {
-				String[] options = new String[data.getRole().getValues( ).length];
-				for (int i=0; i<options.length; i++){
-					options[i]=TextConstants.getText( "LOMES.LifeCycle.Role"+i );
-				}
-				return options;
-			}
-
-			public void setOption( int option ) {
-				data.getRole().setValueIndex( option );
-			}
-
-			public int getSelectedOption( ) {
-				return data.getRole().getValueIndex( );
-			}
-			
-		};
-	}
-	
-	
-	public LOMESTextDataControl getEntityController (){
-		return new LOMESTextDataControl (){
-
-			public String getText( ) {
-				return data.getEntity();
-			}
-
-			public void setText( String text ) {
-				data.setEntity(text) ;
-			}
-			
-		};
-	}
-	
-	public LOMESTextDataControl getDescriptionController (){
-		return new LOMESTextDataControl (){
-
-			public String getText( ) {
-				return data.getDescription();
-			}
-
-			public void setText( String text ) {
-				data.setDescription(text) ;
-			}
-			
-		};
-	}
 	
 	public LOMESTextDataControl getVersionController (){
 		return new LOMESTextDataControl (){
@@ -100,7 +53,13 @@ public class LOMESLifeCycleDataControl {
 		};
 	}
 	
-
+	
+	
+	public LOMESContainer getContribute(){
+		return data.getContribute();
+	}
+	
+	
 	/**
 	 * @return the data
 	 */

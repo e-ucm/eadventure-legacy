@@ -6,7 +6,7 @@ public interface LOMESComposeType {
 	
 	public static final int ATTR_VOCABULARY = 1;
 	
-	public String[] attributes();
+	public String getTitle();
 	
 	
 }

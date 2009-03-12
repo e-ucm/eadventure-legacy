@@ -11,12 +11,19 @@ import javax.swing.JPanel;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.data.meta.auxiliar.LOMContribute;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMESContainer;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMIdentifier;
 import es.eucm.eadventure.editor.gui.editdialogs.PlayerPositionDialog;
 import es.eucm.eadventure.editor.gui.metadatadialog.lomes.elementdialog.LOMGeneralIdentifierDialog;
+import es.eucm.eadventure.editor.gui.metadatadialog.lomes.elementdialog.LOMLifeCycleContributeDialog;
 
-public class LOMESCreatePanel extends JPanel{
+
+/**
+ * Panel for container of compose types. 
+ *
+ */
+public class LOMESCreateContainerPanel extends JPanel{
 
 	private JButton add;
 	
@@ -26,7 +33,7 @@ public class LOMESCreatePanel extends JPanel{
 	
 	private  LOMESContainer container;
 	
-	public LOMESCreatePanel(LOMESContainer container){
+	public LOMESCreateContainerPanel(LOMESContainer container,String title){
 		this.container = container;
 		this.setLayout(new GridLayout(0,3));
 		
@@ -51,7 +58,7 @@ public class LOMESCreatePanel extends JPanel{
 		
 		this.add(delete);
 		
-		this.setBorder(BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "LOMES.General.Identifier" ) )); 
+		this.setBorder(BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), title )); 
 		
 		
 		
@@ -95,6 +102,16 @@ public class LOMESCreatePanel extends JPanel{
 				else {
 					elements.removeItemAt(selectedIndex);
 					elements.insertItemAt(idDialog.getEntry(), selectedIndex);
+				}
+			}if (container instanceof LOMContribute){
+				int selectedIndex = elements.getSelectedIndex();
+				LOMLifeCycleContributeDialog idDialog = new LOMLifeCycleContributeDialog(container,selectedIndex);
+				((LOMContribute)container).addContribute(idDialog.getRoleValue(),idDialog.getEntityValue(),idDialog.getDateValue(),selectedIndex);
+				if (selectedIndex==0)
+					elements.addItem(idDialog.getRoleValue().getValue());
+				else {
+					elements.removeItemAt(selectedIndex);
+					elements.insertItemAt(idDialog.getRoleValue().getValue(), selectedIndex);
 				}
 			}
 		}

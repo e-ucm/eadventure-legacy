@@ -1,4 +1,4 @@
-package es.eucm.eadventure.editor.control.controllers.metadata.lomes;
+package es.eucm.eadventure.editor.control.controllers.metadata.lomes.time;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
@@ -170,7 +170,7 @@ public class LOMESDurationDataControl {
 
 
 	/******************************** SETTERS *******************************/
-	private String paramToString(int param){
+	protected String paramToString(int param){
 		String paramString =null;
 		switch (param){
 			case YEARS: paramString = TextConstants.getText( "LOM.Duration.Years" );break;
