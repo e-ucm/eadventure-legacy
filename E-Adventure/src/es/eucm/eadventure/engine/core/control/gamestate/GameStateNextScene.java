@@ -35,6 +35,16 @@ public class GameStateNextScene extends GameState {
         // Depending on the type of the scene
         switch( generalScene.getType( ) ) {
             case GeneralScene.SCENE:
+            	
+                GUI.getInstance().setTransition(nextScene.getTransitionTime(), nextScene.getTransitionType(), elapsedTime);
+                
+            	if (game.getFunctionalScene() != null && GUI.getInstance().hasTransition()) {
+	                game.getFunctionalScene( ).draw( );
+            	}
+            	if (GUI.getInstance().hasTransition())
+            		GUI.getInstance( ).drawScene( null , elapsedTime);
+            	GUI.getInstance().clearBackground();
+            	
                 // If it is a scene
                 Scene scene = (Scene) generalScene;
                 
@@ -108,14 +118,21 @@ public class GameStateNextScene extends GameState {
 
                 // Switch to run effects node
                 game.setState( Game.STATE_RUN_EFFECTS );
-                GUI.getInstance().setTransition(nextScene.getTransitionTime(), nextScene.getTransitionType(), elapsedTime);
+                
                 break;
                 
             case GeneralScene.SLIDESCENE:
                                
+                GUI.getInstance().setTransition(nextScene.getTransitionTime(), nextScene.getTransitionType(), elapsedTime);
+            	if (game.getFunctionalScene() != null && GUI.getInstance().hasTransition()) {
+	                game.getFunctionalScene( ).draw( );
+            	}
+            	if (GUI.getInstance().hasTransition())
+            		GUI.getInstance( ).drawScene( null , elapsedTime);
+            	GUI.getInstance().clearBackground();
+
                 // If it is a slidescene, load the slidescene
                 game.setState( Game.STATE_SLIDE_SCENE );
-                GUI.getInstance().setTransition(nextScene.getTransitionTime(), nextScene.getTransitionType(), elapsedTime);
                 break;
                
             case GeneralScene.VIDEOSCENE:
