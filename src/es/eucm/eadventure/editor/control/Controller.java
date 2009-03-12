@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.swing.Icon;
 import javax.swing.JDialog;
 import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
@@ -26,6 +25,8 @@ import es.eucm.eadventure.common.auxiliar.filefilters.FolderFileFilter;
 import es.eucm.eadventure.common.auxiliar.filefilters.XMLFileFilter;
 import es.eucm.eadventure.common.data.adventure.AdventureData;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
+import es.eucm.eadventure.common.data.animation.Animation;
+import es.eucm.eadventure.common.data.animation.Frame;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.data.chapter.elements.Player;
 import es.eucm.eadventure.common.gui.TextConstants;
@@ -51,7 +52,6 @@ import es.eucm.eadventure.editor.control.tools.general.SwapPlayerModeTool;
 import es.eucm.eadventure.editor.control.tools.general.chapters.AddChapterTool;
 import es.eucm.eadventure.editor.control.tools.general.chapters.DeleteChapterTool;
 import es.eucm.eadventure.editor.control.tools.general.chapters.MoveChapterTool;
-import es.eucm.eadventure.editor.control.tools.generic.ChangeIntegerValueTool;
 import es.eucm.eadventure.editor.control.writer.Writer;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 import es.eucm.eadventure.editor.data.support.IdentifierSummary;
@@ -60,17 +60,7 @@ import es.eucm.eadventure.editor.gui.MainWindow;
 import es.eucm.eadventure.editor.gui.ProjectFolderChooser;
 import es.eucm.eadventure.editor.gui.auxiliar.ToolSystemDebugger;
 import es.eucm.eadventure.editor.gui.displaydialogs.InvalidReportDialog;
-import es.eucm.eadventure.editor.gui.editdialogs.AdventureDataDialog;
-import es.eucm.eadventure.editor.gui.editdialogs.ExportToLOMDialog;
-import es.eucm.eadventure.editor.gui.editdialogs.SearchDialog;
-import es.eucm.eadventure.editor.gui.editdialogs.VarsFlagsDialog;
-import es.eucm.eadventure.editor.gui.editdialogs.GUIStylesDialog;
-import es.eucm.eadventure.editor.gui.editdialogs.GraphicConfigDialog;
-import es.eucm.eadventure.editor.gui.editdialogs.assetsdialogs.AnimationAssetsDialog;
-import es.eucm.eadventure.editor.gui.editdialogs.assetsdialogs.AudioAssetsDialog;
-import es.eucm.eadventure.editor.gui.editdialogs.assetsdialogs.ImageAssetsDialog;
-import es.eucm.eadventure.editor.gui.editdialogs.assetsdialogs.VideoAssetsDialog;
-import es.eucm.eadventure.editor.gui.editdialogs.assetsdialogs.XMLAssetsDialog;
+import es.eucm.eadventure.editor.gui.editdialogs.*;
 import es.eucm.eadventure.editor.gui.editdialogs.customizeguidialog.CustomizeGUIDialog;
 import es.eucm.eadventure.editor.gui.metadatadialog.ims.IMSDialog;
 import es.eucm.eadventure.editor.gui.metadatadialog.lomdialog.LOMDialog;
@@ -425,8 +415,6 @@ public class Controller {
 	public static final int FILE_ASSESSMENT = 2;
 	
 	public static final int FILE_ADAPTATION = 3;
-
-	private static final String TEMP_NAME = "_$temp";
 	
 	/**
 	 * Identifiers for differents scorm profiles
@@ -2270,70 +2258,106 @@ public class Controller {
 	public void showGUIStylesDialog( ) {
 		adventureData.showGUIStylesDialog();
 	}
-
+	
 	/**
-	 * Shows the assessment files dialog.
+	 * Asks for confirmation and then deletes all unreferenced assets.
+	 * Checks for animations indirectly referenced assets.
 	 */
-	public void showAssessmentFilesDialog( ) {
-		// Show the dialog
-		new XMLAssetsDialog( XMLAssetsDialog.ASSESSMENT );
+	public void deleteUnsuedAssets() {
+		if (!this.showStrictConfirmDialog(TextConstants.getText("DeleteUnusedAssets.Title"), TextConstants.getText("DeleteUnusedAssets.Warning")))
+			return;
+		
+		int deletedAssetCount = 0;
+		ArrayList<String> assets = new ArrayList<String>();
+		for (String temp : AssetsController.getAssetsList(AssetsController.CATEGORY_IMAGE))
+			if (!assets.contains(temp)) assets.add(temp);
+		for (String temp : AssetsController.getAssetsList(AssetsController.CATEGORY_BACKGROUND))
+			if (!assets.contains(temp)) assets.add(temp);
+		for (String temp : AssetsController.getAssetsList(AssetsController.CATEGORY_VIDEO))
+			if (!assets.contains(temp)) assets.add(temp);
+		for (String temp : AssetsController.getAssetsList(AssetsController.CATEGORY_AUDIO))
+			if (!assets.contains(temp)) assets.add(temp);
+		for (String temp : AssetsController.getAssetsList(AssetsController.CATEGORY_CURSOR))
+			if (!assets.contains(temp)) assets.add(temp);
+		for (String temp : AssetsController.getAssetsList(AssetsController.CATEGORY_BUTTON))
+			if (!assets.contains(temp)) assets.add(temp);
+		for (String temp : AssetsController.getAssetsList(AssetsController.CATEGORY_ICON))
+			if (!assets.contains(temp)) assets.add(temp);
+		for (String temp : AssetsController.getAssetsList(AssetsController.CATEGORY_STYLED_TEXT))
+			if (!assets.contains(temp)) assets.add(temp);
+		
+		assets.remove("gui/cursors/arrow_left.png");
+		assets.remove("gui/cursors/arrow_right.png");
+		
+		for (String temp : assets) {
+			int references = 0;
+			references = countAssetReferences( temp );
+			if (references == 0) {
+				new File( Controller.getInstance( ).getProjectFolder( ), temp ).delete( );
+				deletedAssetCount++;
+			}
+		}
+				
+		assets.clear();
+		for (String temp : AssetsController.getAssetsList(AssetsController.CATEGORY_ANIMATION_AUDIO))
+			if (!assets.contains(temp)) assets.add(temp);
+		for (String temp : AssetsController.getAssetsList(AssetsController.CATEGORY_ANIMATION_IMAGE))
+			if (!assets.contains(temp)) assets.add(temp);
+		for (String temp : AssetsController.getAssetsList(AssetsController.CATEGORY_ANIMATION))
+			if (!assets.contains(temp)) assets.add(temp);
+		
+		
+		int i = 0;	
+		while (i < assets.size()) {
+			String temp = assets.get(i);
+			if (countAssetReferences(AssetsController.removeSuffix(temp)) != 0) {
+				assets.remove(temp);
+				if (temp.endsWith("eaa")) {
+					Animation a = Loader.loadAnimation(AssetsController.getInputStreamCreator(), temp);
+					for (Frame f : a.getFrames()) {
+						if (f.getUri() != null && assets.contains(f.getUri())) {
+							for (int j = 0; j < assets.size(); j++) {
+								if (assets.get(j).equals(f.getUri())) {
+									if (j < i) i--;
+									assets.remove(j);
+								}
+							}
+						}
+						if (f.getSoundUri() != null && assets.contains(f.getSoundUri())) {
+							for (int j = 0; j < assets.size(); j++) {
+								if (assets.get(j).equals(f.getSoundUri())) {
+									if (j < i) i--;
+									assets.remove(j);
+								}
+							}
+						}
+					}
+				} else {
+					int j = 0;
+					while (j < assets.size()) {
+						if (assets.get(j).startsWith(AssetsController.removeSuffix(temp))) {
+							if (j < i) i--;
+							assets.remove(j);
+						} else
+							j++;
+					}
+				}
+			} else {
+				i++;
+			}
+		}
+		
+		for (String temp2 : assets) {
+			new File( Controller.getInstance( ).getProjectFolder( ), temp2 ).delete( );
+			deletedAssetCount++;
+		}
+				
+		if (deletedAssetCount != 0)
+			mainWindow.showInformationDialog(TextConstants.getText("DeleteUnusedAssets.Title"), TextConstants.getText("DeleteUnusedAssets.AssetsDeleted", new String[] {String.valueOf(deletedAssetCount)}));
+		else
+			mainWindow.showInformationDialog(TextConstants.getText("DeleteUnusedAssets.Title"), TextConstants.getText("DeleteUnusedAssets.NoUnsuedAssetsFound"));
 	}
-
-	/**
-	 * Shows the adaptation files dialog.
-	 */
-	public void showAdaptationFilesDialog( ) {
-		// Show the dialog
-		new XMLAssetsDialog( XMLAssetsDialog.ADAPTATION );
-	}
-
-	/**
-	 * Shows the background assets dialog.
-	 */
-	public void showBackgroundAssetsDialog( ) {
-		// Show the dialog
-		new ImageAssetsDialog( ImageAssetsDialog.BACKGROUND );
-	}
-
-	/**
-	 * Shows the animation assets dialog.
-	 */
-	public void showAnimationAssetsDialog( ) {
-		// Show the dialog
-		new AnimationAssetsDialog( );
-	}
-
-	/**
-	 * Shows the image assets dialog.
-	 */
-	public void showImageAssetsDialog( ) {
-		// Show the dialog
-		new ImageAssetsDialog( ImageAssetsDialog.IMAGE );
-	}
-
-	/**
-	 * Shows the icon assets dialog.
-	 */
-	public void showIconAssetsDialog( ) {
-		// Show the dialog
-		new ImageAssetsDialog( ImageAssetsDialog.ICON );
-	}
-
-	/**
-	 * Shows the audio assets dialog.
-	 */
-	public void showAudioAssetsDialog( ) {
-		// Show the dialog
-		new AudioAssetsDialog( );
-	}
-
-	/**
-	 * Shows the audio assets dialog.
-	 */
-	public void showVideoAssetsDialog( ) {
-		// Show the dialog
-		new VideoAssetsDialog( );
-	}
+	
 
 	/**
 	 * Shows the flags dialog.
@@ -2597,7 +2621,7 @@ public class Controller {
 	 * @return Number of references to the given asset
 	 */
 	public int countAssetReferences( String assetPath ) {
-		return chaptersController.countAssetReferences(assetPath);
+		return adventureData.countAssetReferences(assetPath) + chaptersController.countAssetReferences(assetPath);
 	}
 
 	/**

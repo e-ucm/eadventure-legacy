@@ -117,6 +117,7 @@ public class ContextualHUD extends HUD {
     
     private boolean mouseReleased = false;
     
+    
     /**
      * Function that initializa the HUD class
      */

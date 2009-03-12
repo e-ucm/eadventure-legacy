@@ -53,14 +53,7 @@
 	<entry key="MenuAdventure.CustomizeGUI">Customize GUI elements...</entry>
 	<entry key="MenuAdventure.GraphicConfig">Select Grahpic Configuration...</entry>
 	<entry key="MenuAdventure.Visualization">Visualization...</entry>
-	<entry key="MenuAdventure.AssessmentFiles">Manage assessment files...</entry>
-	<entry key="MenuAdventure.AdaptationFiles">Manage adaptation files...</entry>
-	<entry key="MenuAdventure.BackgroundAssets">Manage background assets...</entry>
-	<entry key="MenuAdventure.AnimationAssets">Manage animation assets...</entry>
-	<entry key="MenuAdventure.ImageAssets">Manage image assets...</entry>
-	<entry key="MenuAdventure.IconAssets">Manage icon assets...</entry>
-	<entry key="MenuAdventure.AudioAssets">Manage audio assets...</entry>
-	<entry key="MenuAdventure.VideoAssets">Manage video assets...</entry>
+	<entry key="MenuAdventure.DeleteUnusedAssets">Delete unused assets</entry>
 	<entry key="MenuAdventure.ChangeToModePlayerTransparent">Convert to 1st person mode</entry>
 	<entry key="MenuAdventure.ChangeToModePlayerVisible">Convert to 3rd person mode</entry>
 	<entry key="MenuAdventure.ModePlayerTransparent">1st person mode</entry>
@@ -2223,4 +2216,12 @@ avoids retyping.</entry>
 	<entry key="DrawPanel.ZoomIn">Zoom in</entry>
 	<entry key="DrawPanel.ZoomOut">Zoom out</entry>
 	<entry key="DrawPanel.ZoomSlider">Present zoom in the panel</entry>
+	
+	<entry key="DeleteUnusedAssets.Title">Delete unused assets</entry>
+	<entry key="DeleteUnusedAssets.AssetsDeleted">Deleted {#0} unused assets</entry>
+	<entry key="DeleteUnusedAssets.NoUnsuedAssetsFound">No unused assets found</entry>
+	<entry key="DeleteUnusedAssets.Warning">All unreferenced assets will be deleted, this operation cannot be undone.
+It's strongly recommended that you backup your project before continuing.
+Unreferenced assessment and adaptation profiles will remain intact.</entry>
+
 </properties>

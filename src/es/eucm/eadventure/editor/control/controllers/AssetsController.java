@@ -182,7 +182,7 @@ public class AssetsController {
 	/**
 	 * Path for the animation assets.
 	 */
-	private static final String CATEGORY_ANIMATION_FOLDER = "assets/animation";
+	public static final String CATEGORY_ANIMATION_FOLDER = "assets/animation";
 
 	/**
 	 * Path for the image assets.
@@ -732,7 +732,7 @@ public class AssetsController {
 	 *            If true, asks the user for confirmation to delete
 	 * @return True if the asset was deleted, false otherwise
 	 */
-	private static boolean deleteAsset( String assetPath, boolean askForConfirmation ) {
+	public static boolean deleteAsset( String assetPath, boolean askForConfirmation ) {
 		boolean assetDeleted = false;
 
 		// Count the references, if it is an animation, remove the suffix to do the search
