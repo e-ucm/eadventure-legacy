@@ -459,6 +459,7 @@ public class SceneDataControl extends DataControlWithResources {
 
 		// Increase the counter with the references in the exits
 		count += exitsListDataControl.countAssetReferences( assetPath );
+		count += activeAreasListDataControl.countAssetReferences(assetPath);
 
 		return count;
 	}

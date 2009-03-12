@@ -54,14 +54,7 @@
 	<entry key="MenuAdventure.CustomizeGUI">Personalizar elementos de la interfaz...</entry>
 	<entry key="MenuAdventure.GraphicConfig">Elegir configuración gráfica...</entry>
 	<entry key="MenuAdventure.Visualization">Visualización...</entry>
-	<entry key="MenuAdventure.AssessmentFiles">Administrar archivos de evaluación...</entry>
-	<entry key="MenuAdventure.AdaptationFiles">Administrar archivos de adaptación...</entry>
-	<entry key="MenuAdventure.BackgroundAssets">Administrar recursos de fondos...</entry>
-	<entry key="MenuAdventure.AnimationAssets">Administrar recursos de animaciones...</entry>
-	<entry key="MenuAdventure.ImageAssets">Administrar recursos de imágenes...</entry>
-	<entry key="MenuAdventure.IconAssets">Administrar recursos de iconos...</entry>
-	<entry key="MenuAdventure.AudioAssets">Administrar recursos de audio...</entry>
-	<entry key="MenuAdventure.VideoAssets">Administrar recursos de video...</entry>
+	<entry key="MenuAdventure.DeleteUnusedAssets">Eliminar recursos no utilizados</entry>
 	<entry key="MenuAdventure.ChangeToModePlayerTransparent">Convertir a aventura en primera persona</entry>
 	<entry key="MenuAdventure.ChangeToModePlayerVisible">Convertir a aventura con jugador visible</entry>
 	<entry key="MenuAdventure.ModePlayerTransparent">Modo primera persona</entry>
@@ -2018,5 +2011,13 @@ ya que de esta manera se evita reescribirlos varias veces.</entry>
 	<entry key="DrawPanel.ZoomIn">Más zoom</entry>
 	<entry key="DrawPanel.ZoomOut">Menos zoom</entry>
 	<entry key="DrawPanel.ZoomSlider">Zoom actual del panel</entry>
+
+	<entry key="DeleteUnusedAssets.Title">Eliminar recursos no utilizados</entry>
+	<entry key="DeleteUnusedAssets.AssetsDeleted">Eliminados {#0} recursos no utilizados</entry>
+	<entry key="DeleteUnusedAssets.NoUnsuedAssetsFound">No se encontraron recursos no utilizados</entry>
+
+	<entry key="DeleteUnusedAssets.Warning">Todos los recursos no referenciados serán eliminados del proyecto, esta operación no se puede deshacer.
+Es muy recomendable que haga una copia de seguridad de su proyecto antes de continuar.
+Los perfiles de adaptación y evaluación no utilizados permaneceran intactos.</entry>
 
 </properties>

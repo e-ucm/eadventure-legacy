@@ -393,9 +393,8 @@ public class FunctionalItem extends FunctionalElement {
         // Only take the FIRST valid action
         for( int i = 0; i < item.getActions( ).size( ) && !customInteract; i++ ) {
             Action action = item.getAction( i );
-            if( action.getType( ) == Action.CUSTOM
-            		&& action.getTargetId( ).equals( anotherItem.getItem( ).getId( ) ) 
-            		&& ((CustomAction) action).getName().equals(actionName)) {
+            if( action.getType( ) == Action.CUSTOM_INTERACT && ((CustomAction) action).getName().equals(actionName)
+            		&& action.getTargetId() != null && action.getTargetId( ).equals( anotherItem.getItem( ).getId( ) ) ) {
                 if( new FunctionalConditions( action.getConditions( ) ).allConditionsOk( ) ) {
                     // Store the effects
                 	FunctionalEffects.storeAllEffects(action.getEffects( ));

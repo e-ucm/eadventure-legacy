@@ -1,6 +1,11 @@
 package es.eucm.eadventure.engine.core.gui.hud.contextualhud;
 
+import java.awt.AlphaComposite;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Composite;
 import java.awt.Graphics2D;
+import java.awt.Stroke;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +79,10 @@ public class ActionButtons {
     private ActionButton mouthButton;
     private ActionButton eyeButton;
     
+    private long appearedTime = Long.MAX_VALUE;
+    
+    private static long appearingTime = 600L;
+
     /**
      * Constructor of the class.
      * Requires that the MultimediaManager class is loaded.
@@ -113,6 +122,7 @@ public class ActionButtons {
 		}
 		recalculateButtonsPositions();
 		clearButtons();
+		appearedTime = System.currentTimeMillis();
 	}
 	
 	/**
@@ -126,7 +136,7 @@ public class ActionButtons {
 		List<CustomAction> added = new ArrayList<CustomAction>();
 		for (Action action : actions) {
 			if (action.getType() == Action.CUSTOM) {
-				boolean add = true;
+				boolean add = functionalElement.getFirstValidCustomAction(((CustomAction) action).getName()) != null;
 				for (CustomAction customAction: added) {
 					if (customAction.getName().equals(((CustomAction) action).getName()))
 						add = false;
@@ -136,7 +146,7 @@ public class ActionButtons {
 					added.add((CustomAction) action);
 				}
 			} if (action.getType() == Action.CUSTOM_INTERACT && functionalElement.isInInventory()) {
-				boolean add = true;
+				boolean add = functionalElement.getFirstValidCustomInteraction(((CustomAction) action).getName()) != null;
 				for (CustomAction customAction: added) {
 					if (customAction.getName().equals(((CustomAction) action).getName()))
 						add = false;
@@ -197,11 +207,9 @@ public class ActionButtons {
 	    		degreeIncrement = degreeIncrement / 2;
 	    		radius = radius * 1.5;
     		} else {
-    			angle = angle / 2;
+    			angle = - angle / 2;
     		}
-    	}
-    	
-    	if (newCenterX > (GUI.WINDOW_WIDTH - radius - MAX_BUTTON_WIDTH / 2)) {
+    	} else if (newCenterX > (GUI.WINDOW_WIDTH - radius - MAX_BUTTON_WIDTH / 2)) {
     		if (newCenterY - radius < MAX_BUTTON_HEIGHT) {
         		angle = angle / 2;
     			degreeIncrement = - degreeIncrement / 2;
@@ -300,9 +308,33 @@ public class ActionButtons {
      */
     public void draw( Graphics2D g ) {
         //For each action button
+    	float percent = (float) (System.currentTimeMillis() - appearedTime) / (float) appearingTime; 
+    	//System.out.println("" + System.currentTimeMillis() + " " + appearedTime + " " + percent);
+    	if (percent > 1) percent = 1;
+    	
+    	Composite original = g.getComposite();
+    	g.setColor(Color.RED);
+		Composite alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f);
+		g.setComposite(alphaComposite);
+    	g.fillOval(centerX - 10, centerY - 10, 20 , 20);
+    	
+    	
     	for (ActionButton ab : buttons) {
-    		ab.draw(g);
+    		g.setComposite(alphaComposite);
+        	int posX = (int) ((ab.getPosX() - centerX) * percent + centerX);
+        	int posY = (int) ((ab.getPosY() - centerY) * percent + centerY);
+    		if (ab.isOver()) {
+	    		Stroke temp = g.getStroke();
+	    		g.setStroke(new BasicStroke(3.0f));
+	    		g.drawLine(centerX, centerY, ab.getPosX(), ab.getPosY());
+	    		g.setStroke(temp);
+    		} else {
+	    		g.drawLine(centerX, centerY, posX, posY);
+    		}
+    		g.setComposite(original);
+    		ab.draw(g, percent, posX, posY);
     	}
+    	
     }
 
     /**

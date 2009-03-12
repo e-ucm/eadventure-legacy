@@ -41,7 +41,6 @@ import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.auxiliar.filefilters.FolderFileFilter;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.control.config.ProjectConfigData;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.gui.treepanel.TreeNodeControl;
 import es.eucm.eadventure.editor.gui.treepanel.TreePanel;
@@ -486,48 +485,15 @@ public class MainWindow extends JFrame {
 		} );
 		adventureMenu.add( itAdaptationFiles );*/
 		//adventureMenu.addSeparator( );
-		JMenuItem itBackgroundAssets = new JMenuItem( TextConstants.getText( "MenuAdventure.BackgroundAssets" ) );
-		itBackgroundAssets.addActionListener( new ActionListener( ) {
-			public void actionPerformed( ActionEvent e ) {
-				controller.showBackgroundAssetsDialog( );
+		
+		JMenuItem itDeleteUnusedAssets = new JMenuItem (TextConstants.getText("MenuAdventure.DeleteUnusedAssets"));
+		itDeleteUnusedAssets.addActionListener( new ActionListener() {
+			public void actionPerformed( ActionEvent e) {
+				controller.deleteUnsuedAssets();
 			}
-		} );
-		adventureMenu.add( itBackgroundAssets );
-		JMenuItem itAnimationAssets = new JMenuItem( TextConstants.getText( "MenuAdventure.AnimationAssets" ) );
-		itAnimationAssets.addActionListener( new ActionListener( ) {
-			public void actionPerformed( ActionEvent e ) {
-				controller.showAnimationAssetsDialog( );
-			}
-		} );
-		adventureMenu.add( itAnimationAssets );
-		JMenuItem itImageAssets = new JMenuItem( TextConstants.getText( "MenuAdventure.ImageAssets" ) );
-		itImageAssets.addActionListener( new ActionListener( ) {
-			public void actionPerformed( ActionEvent e ) {
-				controller.showImageAssetsDialog( );
-			}
-		} );
-		adventureMenu.add( itImageAssets );
-		JMenuItem itIconAssets = new JMenuItem( TextConstants.getText( "MenuAdventure.IconAssets" ) );
-		itIconAssets.addActionListener( new ActionListener( ) {
-			public void actionPerformed( ActionEvent e ) {
-				controller.showIconAssetsDialog( );
-			}
-		} );
-		adventureMenu.add( itIconAssets );
-		JMenuItem itAudioAssets = new JMenuItem( TextConstants.getText( "MenuAdventure.AudioAssets" ) );
-		itAudioAssets.addActionListener( new ActionListener( ) {
-			public void actionPerformed( ActionEvent e ) {
-				controller.showAudioAssetsDialog( );
-			}
-		} );
-		adventureMenu.add( itAudioAssets );
-		JMenuItem itVideoAssets = new JMenuItem( TextConstants.getText( "MenuAdventure.VideoAssets" ) );
-		itVideoAssets.addActionListener( new ActionListener( ) {
-			public void actionPerformed( ActionEvent e ) {
-				controller.showVideoAssetsDialog( );
-			}
-		} );
-		adventureMenu.add( itVideoAssets );
+		});
+		adventureMenu.add(itDeleteUnusedAssets);
+	
 
 		// Create the "Chapter" elements
 		JMenuItem itAddChapter = new JMenuItem( TextConstants.getText( "MenuChapters.AddChapter" ) );

@@ -415,6 +415,24 @@ public class DescriptorData implements Cloneable, Described, Titled {
 	public void setPlayerName(String playerName) {
 		this.playerName = playerName;
 	}
+	
+	public int countAssetReferences(String path) {
+		int count = 0;
+		for (CustomButton cb : buttons) {
+			if (cb.getPath().equals(path))
+				count++;
+		}
+		for (CustomArrow a : arrows) {
+			if (a.getPath().equals(path))
+				count++;
+		}
+		for (CustomCursor cc : cursors) {
+			if (cc.getPath().equals(path))
+				count++;
+		}
+		
+		return count;
+	}
 
 	public Object clone() throws CloneNotSupportedException {
 		DescriptorData dd = (DescriptorData) super.clone();

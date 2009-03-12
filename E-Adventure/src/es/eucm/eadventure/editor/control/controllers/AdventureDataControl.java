@@ -423,4 +423,9 @@ public class AdventureDataControl {
 		}
 	}
 
+	public int countAssetReferences(String assetPath) {
+		return adventureData.countAssetReferences(assetPath);
+	}
+
+
 }

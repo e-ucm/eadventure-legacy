@@ -64,6 +64,16 @@ public class CustomActionDataControl extends ActionDataControl {
 	}
 
 	@Override
+	public int countAssetReferences( String assetPath ) {
+		int count = super.countAssetReferences(assetPath);
+		
+		for (ResourcesDataControl resources : resourcesDataControlList)
+			count += resources.countAssetReferences(assetPath);
+		
+		return count;
+	}
+
+	@Override
 	public List<ResourcesDataControl> getResources() {
 		return resourcesDataControlList;
 	}

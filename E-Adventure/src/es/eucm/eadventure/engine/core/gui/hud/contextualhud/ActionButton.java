@@ -1,6 +1,8 @@
 package es.eucm.eadventure.engine.core.gui.hud.contextualhud;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
+import java.awt.Composite;
 import java.awt.Graphics2D;
 import java.awt.Image;
 
@@ -222,18 +224,25 @@ public class ActionButton {
 		this.posY = posY;
 	}
 
-	public void draw(Graphics2D g) {
-		int x = (posX - ACTIONBUTTON_WIDTH / 2);
-		int y = posY - ACTIONBUTTON_HEIGHT / 2;
+	public void draw(Graphics2D g, float percent, int posX, int posY) {
+		int x = (this.posX - ACTIONBUTTON_WIDTH / 2);
+		int y = this.posY - ACTIONBUTTON_HEIGHT / 2;
 		if (pressed)
-			g.drawImage(buttonNormal,x ,y , null );
+			g.drawImage(buttonPressed,x ,y , null );
 		else if (over) {
 			g.drawImage(buttonOver, x, y, null);
 			String[] text = new String[1];
 			text[0] = actionName;
             GUI.drawStringOnto(g, text, posX, y, Color.BLACK, Color.WHITE);
-		} else
+		} else {
+			x = (posX - ACTIONBUTTON_WIDTH / 2);
+			y = posY - ACTIONBUTTON_HEIGHT / 2;
+	    	Composite original = g.getComposite();
+			Composite alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, percent);
+			g.setComposite(alphaComposite);
 			g.drawImage(buttonNormal, x, y, null);
+			g.setComposite(original);
+		}
 	}
 	
 	public String getName() {
@@ -276,4 +285,15 @@ public class ActionButton {
 		actionName = string;
 	}
 
+	public int getPosX() {
+		return posX;
+	}
+	
+	public int getPosY() {
+		return posY;
+	}
+	
+	public boolean isOver() {
+		return over;
+	}
 }
