@@ -2,6 +2,7 @@ package es.eucm.eadventure.engine.core.control.gamestate;
 
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 
 import es.eucm.eadventure.common.data.chapter.NextScene;
 import es.eucm.eadventure.common.data.chapter.resources.Asset;
@@ -34,6 +35,8 @@ public class GameStateSlidescene extends GameState {
      * Flag to control that we jump to the next chapter at most once
      */
     private boolean yetSkipped = false;
+    
+    private BufferedImage bkg = new BufferedImage(GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT, BufferedImage.TYPE_4BYTE_ABGR);
 
     /**
      * Creates a new GameStateSlidescene
@@ -92,14 +95,19 @@ public class GameStateSlidescene extends GameState {
      */
     public void mainLoop( long elapsedTime, int fps ) {
         // Paint the current slide
-        Graphics2D g = GUI.getInstance( ).getGraphics( );
+        Graphics2D g = (Graphics2D) bkg.getGraphics( );
         g.clearRect( 0, 0, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT );
         slides.update(elapsedTime);
         if (!slides.isPlayingForFirstTime())
         	finishedSlides();
         g.drawImage( slides.getImage( ), 0, 0, null );
-        GUI.getInstance( ).endDraw( );
         g.dispose( );
+        
+        GUI.getInstance().addBackgroundToDraw(bkg, 0);
+//        GUI.getInstance().addElementToDraw(slides.getImage(), 0, 0, 0, 0);
+        GUI.getInstance( ).endDraw( );
+        GUI.getInstance().drawScene(GUI.getInstance().getGraphics(), elapsedTime);
+        
     }
 
     @Override

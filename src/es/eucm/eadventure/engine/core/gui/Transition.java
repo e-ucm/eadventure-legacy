@@ -1,14 +1,9 @@
 package es.eucm.eadventure.engine.core.gui;
 
-import java.awt.AWTException;
 import java.awt.AlphaComposite;
-import java.awt.Canvas;
-import java.awt.Dimension;
-import java.awt.Frame;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.Robot;
-import java.awt.Toolkit;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 import es.eucm.eadventure.common.data.chapter.NextScene;
@@ -44,7 +39,7 @@ public class Transition {
     /**
      * The bufferd image of the transition
      */
-    private BufferedImage transitionImage;
+    private Image transitionImage;
     
 	/**
 	 * Temporary image for the transition
@@ -56,6 +51,7 @@ public class Transition {
     	this.type = transitionType;
     	this.elapsedTime = 0;
    		this.started = false;
+   		this.transitionImage = new BufferedImage(GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT, BufferedImage.TYPE_4BYTE_ABGR);
 	}
     
     public boolean hasFinished(long elapsedTime) {
@@ -66,29 +62,26 @@ public class Transition {
     	return false;
     }
     
+    public boolean hasStarted() {
+    	return started;
+    }
+    
+    public Graphics getGraphics() {
+    	return transitionImage.getGraphics();
+    }
+    
+    public void start(Graphics2D g) {
+    	started = true;
+        g.drawImage(transitionImage, 0, 0, null);
+		this.elapsedTime = 0;
+    }
+    
+    public void setImage(Image image) {
+    	transitionImage = image;
+    }
+    
     public void update(Graphics2D g) {
-		if (!started) {
-			Toolkit toolkit = Toolkit.getDefaultToolkit();
-			Dimension screenSize = toolkit.getScreenSize();
-			Rectangle screenRect = new Rectangle(screenSize);
-			Robot robot;
-			int tempX = 0, tempY = 0;
-			Frame frame = GUI.getInstance().getJFrame();
-			if (frame != null) {
-				tempX = frame.getX();
-				tempY = frame.getY();
-			}
-			try {
-				robot = new Robot();
-    			transitionImage = robot.createScreenCapture(screenRect);
-    			Canvas gameFrame = GUI.getInstance().getFrame();
-    			transitionImage = transitionImage.getSubimage(gameFrame.getX() + tempX, gameFrame.getY() + tempY, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT);
-    			this.elapsedTime = 0;
-			} catch (AWTException e) {
-			}
-	        started = true;
-	        g.drawImage(transitionImage, 0, 0, null);
-		} else {
+		if (started) {
 			Graphics2D g2 = tempImage.createGraphics();
 			GUI.getInstance().drawToGraphics(g2);
 			g2.dispose();
