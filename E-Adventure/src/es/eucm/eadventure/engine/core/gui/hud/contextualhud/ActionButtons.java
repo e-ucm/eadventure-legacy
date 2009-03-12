@@ -238,20 +238,27 @@ public class ActionButtons {
 	 */
 	private void addDefaultObjectButtons(FunctionalItem item) {
 		buttons.add(eyeButton);
-		if (!item.isInInventory())
+		
+		if (!item.isInInventory()) {
 			handButton.setName(TextConstants.getText("ActionButton.Grab"));
-		else if (item.canBeUsedAlone())
-			handButton.setName(TextConstants.getText("ActionButton.Use"));
-		else if (item.isInInventory()) {
-			if (item.canPerform(Action.GIVE_TO) && item.canPerform(Action.USE_WITH)) {
-				handButton.setName(TextConstants.getText("ActionButton.UseGive"));
-			} else if (item.canPerform(Action.GIVE_TO))
+			if (item.getFirstValidAction(Action.USE) != null)
+				handButton.setName(TextConstants.getText("ActionButton.Use"));
+		} else {
+			boolean useAlone = item.canBeUsedAlone();
+			boolean giveTo = item.getFirstValidAction(Action.GIVE_TO) != null;
+			boolean useWith = item.getFirstValidAction(Action.USE_WITH) != null;
+			if (useAlone && !giveTo && !useWith) {
+				handButton.setName(TextConstants.getText("ActionButton.Use"));
+			} else if (!useAlone && giveTo && !useWith) {
 				handButton.setName(TextConstants.getText("ActionButton.GiveTo"));
-			else if  (item.canPerform(Action.USE_WITH))
+			} else if (!useAlone && !giveTo && useWith) {
 				handButton.setName(TextConstants.getText("ActionButton.UseWith"));
+			} else if (!useAlone && giveTo && useWith) {
+				handButton.setName(TextConstants.getText("ActionButton.UseGive"));
+			} else {
+				handButton.setName(TextConstants.getText("ActionButton.Use"));
+			}
 		}
-		else
-			handButton.setName(TextConstants.getText("ActionButton.GrabGiveUse"));
 		buttons.add(handButton);
 	}    
 
