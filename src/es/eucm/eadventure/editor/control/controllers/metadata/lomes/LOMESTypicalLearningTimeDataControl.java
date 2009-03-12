@@ -1,5 +1,6 @@
 package es.eucm.eadventure.editor.control.controllers.metadata.lomes;
 
+import es.eucm.eadventure.editor.control.controllers.metadata.lomes.time.LOMESDurationDataControl;
 import es.eucm.eadventure.editor.data.meta.ims.IMSEducational;
 import es.eucm.eadventure.editor.data.meta.lomes.LOMESEducational;
 

@@ -10,6 +10,7 @@ public abstract class LOMESContainer {
 	
 	protected ArrayList<LOMESComposeType> container;
 	
+	
 	protected LOMESContainer(){
 		container = new ArrayList<LOMESComposeType>();
 	}

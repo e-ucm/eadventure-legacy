@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import es.eucm.eadventure.editor.data.meta.LangString;
 import es.eucm.eadventure.editor.data.meta.Vocabulary;
+import es.eucm.eadventure.editor.data.meta.auxiliar.LOMContribute;
+import es.eucm.eadventure.editor.data.meta.auxiliar.LOMESLifeCycleContribute;
 
 public class LOMESLifeCycle {
 
@@ -14,24 +16,13 @@ public class LOMESLifeCycle {
 	private ArrayList<Vocabulary> status;
 	
 	//2.3 Contribute
-	//2.3.1
-	private Vocabulary role; 
-	
-	//2.3.2 
-	private String entity;
-	
-	//2.3.3 Date; It has 2 values, dateTime and description
-	private String dateTime;
-	
-	private String description;
+	private LOMContribute contribute;
 	
 	public LOMESLifeCycle (){
 		version = null;
-		role = new Vocabulary(Vocabulary.LC_CONTRIBUTION_TYPE_2_3_1);
+		
 		status = new ArrayList<Vocabulary>();
-		entity = null;
-		dateTime = null;
-		description = null;
+	
 }
 	
 	
@@ -54,25 +45,7 @@ public class LOMESLifeCycle {
 		this.version=version;
 	}
 	
-	public void setRole(int index){
-		this.role = new Vocabulary(Vocabulary.LC_CONTRIBUTION_TYPE_2_3_1,index);
-	}
 	
-	
-	
-	public void setEntity(String entity) {
-		this.entity = entity;
-	}
-	
-	public void setDateTime(String dateTime) {
-		this.dateTime = dateTime;
-	}
-	
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	
-
 
 	
 	/*********************************** GETTERS **************************/
@@ -84,26 +57,34 @@ public class LOMESLifeCycle {
 	public Vocabulary getStatus(){
 		return status.get(0);
 	}
-	
-	
+
+
 	//CONTRIBUTION
+	/**
+	 * @return the contribute
+	 */
+	public LOMContribute getContribute() {
+		return contribute;
+	}
+
+
+	/**
+	 * @param status the status to set
+	 */
+	public void setStatus(ArrayList<Vocabulary> status) {
+		this.status = status;
+	}
+
+
+	/**
+	 * @param contribute the contribute to set
+	 */
+	public void setContribute(LOMContribute contribute) {
+		this.contribute = contribute;
+	}
 	
-	public Vocabulary getRole(){
-		return role;
-	}
-
-
-	public String getEntity() {
-		return entity;
-	}
 	
-	public String getDateTime() {
-		return dateTime;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
+	
+	
 	
 }

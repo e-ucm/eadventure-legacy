@@ -21,7 +21,7 @@ import es.eucm.eadventure.editor.data.meta.auxiliar.LOMIdentifier;
  *
  */
 
-public class LOMCreatePrimitivePanel extends JPanel{
+public class LOMCreatePrimitiveContainerPanel extends JPanel{
 	
 	public static final int STRING_TYPE = 0;
 	
@@ -53,7 +53,7 @@ public class LOMCreatePrimitivePanel extends JPanel{
 	 */
 	private int fieldType;
 	
-	public LOMCreatePrimitivePanel(int type,ArrayList container,String title,int fieldType){
+	public LOMCreatePrimitiveContainerPanel(int type,ArrayList container,String title,int fieldType){
 		this.setLayout(new GridLayout(0,3));
 		this.fieldType = fieldType;
 		this.type = type;
@@ -94,7 +94,7 @@ public class LOMCreatePrimitivePanel extends JPanel{
 	}
 	
 	
-	public LOMCreatePrimitivePanel(int type,ArrayList container,String title,String[] vocabularyType){
+	public LOMCreatePrimitiveContainerPanel(int type,ArrayList container,String title,String[] vocabularyType){
 		this(type,container,title,0);
 		this.vocabularyType = vocabularyType;
 	}

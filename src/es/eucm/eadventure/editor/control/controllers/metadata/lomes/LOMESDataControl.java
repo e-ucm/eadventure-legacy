@@ -1,6 +1,7 @@
 package es.eucm.eadventure.editor.control.controllers.metadata.lomes;
 
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.data.meta.auxiliar.LOMContribute;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMIdentifier;
 import es.eucm.eadventure.editor.data.meta.ims.IMSClassification;
 import es.eucm.eadventure.editor.data.meta.ims.IMSEducational;
@@ -48,8 +49,7 @@ public class LOMESDataControl {
 		LOMESLifeCycle lifeCycle = new LOMESLifeCycle();
 		lifeCycle.setVersion( new LangString("Default") );
 		lifeCycle.addStatus(0);
-		lifeCycle.setRole(0);
-		lifeCycle.setEntity("Default");
+		lifeCycle.setContribute(new LOMContribute());
 		this.lifeCycle = new LOMESLifeCycleDataControl(lifeCycle);
 		
 		LOMESTechnical tech = new LOMESTechnical();

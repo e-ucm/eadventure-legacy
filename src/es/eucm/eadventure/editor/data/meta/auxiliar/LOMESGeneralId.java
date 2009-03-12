@@ -41,12 +41,18 @@ public class LOMESGeneralId implements LOMESComposeType{
 		this.entry = entry;
 	}
 
-	@Override
-	public String[] attributes() {
+	
+	public static String[] attributes() {
 		String[] attr = new String[LOMESGeneralId.NUMBER_ATTR];
 		attr[0] = TextConstants.getText("LOMES.GeneralId.CatalogName")+" "+ATTR_STRING;
 		attr[0] = TextConstants.getText("LOMES.GeneralId.EntryName")+" "+ATTR_STRING;
 		return attr;
+	}
+
+	@Override
+	public String getTitle() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	
