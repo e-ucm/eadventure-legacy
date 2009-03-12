@@ -185,7 +185,7 @@ public class EffectsPanel extends JPanel implements Updateable{
 		public void actionPerformed( ActionEvent e ) {
 			int effectIndex = effectsTable.getSelectedRow( );
 
-			if( effectIndex >= 0 ) {
+			if( effectIndex >= 0 && effectIndex<effectsTable.getRowCount()-1) {
 				effectsController.moveDownEffect( effectIndex );
 				effectsTable.setRowSelectionInterval( effectIndex + 1, effectIndex + 1 );
 				effectsTable.updateUI( );
