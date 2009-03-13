@@ -14,10 +14,12 @@ import javax.media.RealizeCompleteEvent;
 import javax.media.StopEvent;
 
 import es.eucm.eadventure.common.data.chapter.NextScene;
+import es.eucm.eadventure.common.data.chapter.effects.Effects;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.data.chapter.scenes.Videoscene;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 
@@ -127,7 +129,9 @@ public class GameStateVideoscene extends GameState  implements ControllerListene
                 game.setState( Game.STATE_NEXT_SCENE );
             }
             else
-                game.setState( Game.STATE_RUN_EFFECTS );
+            	// this method also change the state to run effects
+                FunctionalEffects.storeAllEffects(new Effects());
+                //game.setState( Game.STATE_RUN_EFFECTS );
         }
     }
 
