@@ -15,6 +15,11 @@ public class GameStateRunEffects extends GameState {
      * The current effect being executed
      */
     private FunctionalEffect currentExecutingEffect;
+    
+    /**
+     * Distinguish when the State run effects are called from a conversation
+     */
+    private boolean fromConversation;
         
     /**
      * Constructor
@@ -22,6 +27,7 @@ public class GameStateRunEffects extends GameState {
     public GameStateRunEffects(boolean fromConversation) {
         super();
         currentExecutingEffect = null;
+        this.fromConversation = fromConversation;
     }
 
     /*
@@ -64,33 +70,35 @@ public class GameStateRunEffects extends GameState {
             currentExecutingEffect = null;
             
             
-            
+            /*
             // If no more effects must be executed, switch the state
             if( game.isEmptyFIFOinStack() ) {
-                //XXX MODIFIED
-                //game.updateDataPendingFromFlags( false );
                 System.gc( );
                 GUI.getInstance().toggleHud( true );
-                //XXX MODIFIED by angel; con esta modificacion sobra la variable fromConversation
-               /* if (fromConversation)
-                    game.setAndPopState( );
-                else
-                    game.setState( Game.STATE_PLAYING );*/
-                
                 // Look if there are some stored state, and change to correct one.               
                 game.setAndPopState( );
                                
-            } 
+            } */
             
             boolean stop = false;
             // Execute effects while some of them is not instantaneous
             
-            while( !stop && !game.isEmptyFIFOinStack() ) {
+            while( !stop /*&& !game.isEmptyFIFOinStack()*/ ) {
                 FunctionalEffect currentEffect = game.getFirstElementOfTop();
+                if (currentEffect==null){
+                	System.gc( );
+                    GUI.getInstance().toggleHud( true );
+                    stop = true;
+                    // Look if there are some stored conversation state, and change to correct one.               
+                    game.evaluateState(fromConversation);
+   
+                }else {
+                
                 currentEffect.triggerEffect( );
                 stop = !currentEffect.isInstantaneous( );
                 if( stop )
                     currentExecutingEffect = currentEffect;
+                }
             }
         }
    

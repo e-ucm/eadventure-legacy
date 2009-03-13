@@ -33,7 +33,7 @@ public class CommManagerLD extends AdventureApplet{
 		
 	}
 
-	public void dataReceived(String key, String value) {
+	public void dataFromLMS(String key, String value) {
 		// TODO Auto-generated method stub
 		
 	}

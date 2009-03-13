@@ -217,7 +217,16 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      */
     private GameState currentState;
     
-    private GameStateConversation conversationStored;
+    
+    /**
+     * Store if each arraylist of effects in effectsQueue comes from a conversation, to manage stackOfStates properly 
+     */
+    private Stack<Boolean> isConvEffectsBlock;
+    
+    /**
+     * Store the number of blocks of effects created in conversations are in effectsQueue
+     */
+    private int numberConv;
     
     /**
      * LIFO of Queues of effects to be performed
@@ -413,21 +422,17 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         // Initialize the stack of queue of effects
         effectsQueue = new Stack< List<FunctionalEffect> >( );        
         effectsQueue.push(new ArrayList<FunctionalEffect>());
-       
+        
+        //Initialize the stack that store if each list of effects keep in effectsQueue is made in a conversation or not
+        isConvEffectsBlock = new Stack<Boolean>();
+        
+        numberConv= 0;
+        
+        
         // Initialize the stack of states (used to keep the conversations and can throw its effects)
         stackOfState = new Stack<GameState>();
         
         // Initialize the FIFO of interactions
-
-      
-     
-      //highLevelInteraction = new ArrayDeque<HighLevelInteraction>();
-       // lowLevelInteraction = new ArrayDeque<LowLevelInteraction>();
-
-        //highLevelInteraction = new ArrayDeque<HighLevelInteraction>();
-        //lowLevelInteraction = new ArrayDeque<LowLevelInteraction>();
-
-
         g.clearRect( 0, 0, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT );
         GUI.drawString( g, GameText.TEXT_PLEASE_WAIT, 400, 280 );
         GUI.drawString( g, GameText.TEXT_LOADING_DATA, 400, 300 );
@@ -888,13 +893,21 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     /**
      * Pop the state stack, changing to the state to just pop state
      */
-    public void setAndPopState (){
-        GameState oldState = this.popCurrentState();
+    /*public void setAndPopState (boolean fromConversation){
+        
+    	if (fromConversation){
+    	GameState oldState = this.popCurrentState();
         if (oldState!=null)
           this.currentState=oldState;
         else
             setState (STATE_PLAYING);
-    }
+    	} else
+    	if (!isEmptyFIFOinStack())
+    		setState(STATE_RUN_EFFECTS);
+        else 
+        	setState (STATE_PLAYING);
+    	
+    }*/
     
    /**
     * Push in the state stack the GameState gs
@@ -905,6 +918,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         
     	stackOfState.push(gs);
     	
+    	
     }
     
     /**
@@ -912,13 +926,14 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      * 
      * @return null if is empty stack, the top state in other case
      */
-    public GameState popCurrentState(){
+  /*  public GameState popCurrentState(){
        
     	GameState toReturn=null;
         if (!(stackOfState.size() == 0))
         	toReturn = stackOfState.pop();
+        	
         return toReturn;
-    }
+    }*/
     	
     
     /**
@@ -928,10 +943,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     public void setState( int state ) {
        
         
-        //if (this.gameStatesStack!=null && !this.gameStatesStack.isEmpty( ))
-        //   setAndPopState();
-        //else {
-        //System.out.println("STATE CHANGED"+state);
+      
         GUI.getInstance().setDefaultCursor();
         switch( state ) {
             case STATE_LOADING:
@@ -951,8 +963,8 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             case STATE_VIDEO_SCENE:
                 currentState = new GameStateVideoscene( );
             	break;
-            case STATE_RUN_EFFECTS:
-                currentState = new GameStateRunEffects( this.conversationStored!=null );
+            case STATE_RUN_EFFECTS:	
+            	currentState = new GameStateRunEffects( this.isConvEffectsBlock.peek());
                 break;
             case STATE_RUN_EFFECTS_FROM_CONVERSATION:
                 currentState = new GameStateRunEffects( true );
@@ -967,6 +979,17 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
                 currentState = new GameStateOptions();
                 break;
         }//}
+    }
+    
+    
+    public void evaluateState(boolean fromConversation){
+    	
+    	if 	(numberConv<stackOfState.size())
+    		currentState = stackOfState.pop();
+    	else if (!isEmptyFIFOinStack())
+        		setState(STATE_RUN_EFFECTS);
+            else 
+            	setState (STATE_PLAYING);
     }
     
     /**
@@ -1077,25 +1100,44 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     /**
      * Stores a series of effects in the queue, and changes the state of the game
      * @param effects List of effects to be stored
+     * @param fromConversation
+     * 			Distinguish when the State run effects are called from a conversation, to manage the stack of states
+     * 			which only stores conversation states.
      */
-    public void storeEffectsInQueue( List<FunctionalEffect> effects ) {
-        storeEffectsInQueue(effects, false);
-    }
-    public void storeEffectsInQueue( List<FunctionalEffect> effects, boolean fromConversation ) {
-       
+    public void storeEffectsInQueue( List<FunctionalEffect> effects , boolean fromConversation) {
+    	isConvEffectsBlock.push(fromConversation);
+    	effectsQueue.push(new ArrayList<FunctionalEffect>());
     	for( int i = 0; i < effects.size( ); i++ )
     		effectsQueue.peek().add( i, effects.get( i ) );
     	
-        if (fromConversation)
-        	setState( STATE_RUN_EFFECTS_FROM_CONVERSATION );
-        else
-            setState( STATE_RUN_EFFECTS );
+    	if (fromConversation) 
+    		numberConv++;
+    	
+    	setState( STATE_RUN_EFFECTS );
     }
     
     /**
      * Gets the first element of the top of the stack
      */
     public FunctionalEffect getFirstElementOfTop(){
+    	FunctionalEffect toReturn = null;
+    	if (effectsQueue.size()>1 && effectsQueue.peek().isEmpty()){
+    		effectsQueue.pop();
+    		if (isConvEffectsBlock.pop())
+    			numberConv--;
+    	} else {
+    		if (effectsQueue.peek().size()!=0){
+    		toReturn= effectsQueue.peek().remove(0);
+    		if (effectsQueue.size()>1 && effectsQueue.peek().isEmpty()){
+    			effectsQueue.pop();
+    			if (isConvEffectsBlock.pop())
+    				numberConv--;
+    		}
+    		}
+    	}
+    	return toReturn;
+    	
+    	
     	//Con esto que esta comentado no solo avanzo en la cola, sino en la pila tb
     	/*if (effectsQueue.peek().size()==1 && effectsQueue.size()!=1){
     		FunctionalEffect fe = effectsQueue.peek().remove(0);
@@ -1104,19 +1146,11 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     	}else
     		return effectsQueue.peek().remove(0);*/
     	//Solo avanzamos en la cola
-    	FunctionalEffect toReturn= effectsQueue.peek().remove(0);
-    	if (effectsQueue.size()>1 && effectsQueue.peek().isEmpty())
-    		effectsQueue.pop();
     	
-    	return toReturn;
+    	
     }
     
-    /**
-     * Pop the Stack
-     */
-    public void popEffectsStack(){
-    	effectsQueue.pop();
-    }
+    
     
     /**
      * Check if the Stack only have one empty FIFO
@@ -1131,23 +1165,24 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     		setState(STATE_RUN_EFFECTS);
         else 
         	setState (STATE_PLAYING);
+    	
     }
     
     /**
      * Adds a element to effect Stack
      */
-    public void addToTheStack( List<FunctionalEffect> el ){
+  /* public void addToTheStack( List<FunctionalEffect> el ){
     	effectsQueue.push(el);
-    }
+    }*/
     
     /**
      * Places an effect in the end of the queue, and changes the state of the game
      * @param effect FunctionalEffect to be enqueued
      */
-    public void enqueueEffect( FunctionalEffect effect ) {
+   /* public void enqueueEffect( FunctionalEffect effect ) {
     	effectsQueue.peek().add(effect);
         setState( STATE_RUN_EFFECTS );
-    }
+    }*/
 
     /**
      * Sets the asynchronous communication api
@@ -1495,4 +1530,6 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
 	public String processText(String text) {
 		return flags.processText(vars.processText(text));
 	}
+
+	
 }

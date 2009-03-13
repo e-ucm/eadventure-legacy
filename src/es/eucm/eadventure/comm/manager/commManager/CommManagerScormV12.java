@@ -15,12 +15,9 @@ public class CommManagerScormV12 extends AdventureApplet{
 	
 	private static final long serialVersionUID = 3444828969384528659L;
 
-	private final String SEND_DIR = "cmi.interactions";
-
 	private boolean connected;
 	
 	private boolean lock;
-
 	
 	private HashMap<String,String> adaptedStates;
 
@@ -43,10 +40,7 @@ public class CommManagerScormV12 extends AdventureApplet{
 	}
 	
 	 
-	/*public void addListener(CommListenerApi commListener) {
-		// TODO Auto-generated method stub
-		
-	}*/
+	
 
 	/**
 	 * 
@@ -96,52 +90,6 @@ public class CommManagerScormV12 extends AdventureApplet{
         
 	}
 
-	public void getAllObjetives() {
-		
-		String command = "javascript:getLMSData(\"cmi.objetives._count\");";
-		lock = true;
-        this.sendJavaScript(command);
-		
-        adaptedStates = new HashMap<String,String>();
-        
-        waitResponse();
-        
-        String value = valuesFromLMS.get("cmi.objetives._count");
-    
-        if (!lock){
-        int count = Integer.valueOf(value);
-        if (count !=0){
-		for (int i = 0; i < count; i++ ){
-			command = "javascript:getLMSData(\"cmi.objetives."+ String.valueOf(i) + ".id\");";
-			this.sendJavaScript(command);
-		}
-		int milis =0;
-		while (valuesFromLMS.get("cmi.objetives"+String.valueOf(count)+".id") == null){
-			try {
-				Thread.sleep(500);
-				milis+=500;
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			if (milis >= 30000){
-				break;
-			}
-		}
-		
-       // ArrayList<String> temp = 
-        for (int i=0; i<count;i++){
-        	String aux = valuesFromLMS.get("cmi.objetives"+String.valueOf(i)+".id");
-        	if (aux!=null)
-        	adaptedStates.put(aux,"1");
-        }
-        
-        }
-        
-        }
-        
-		
-	}
-	
 	public int getCommType() {
 		
 		return CommManagerApi.SCORMV12_TYPE;
@@ -158,14 +106,14 @@ public class CommManagerScormV12 extends AdventureApplet{
 		System.out.println(serverComment);		
 	}
 
-	public void dataReceived(String key, String value) {
+	public void dataFromLMS(String key, String value) {
 		
 		System.out.println("Esto es lo que nos ha devuelto el LMS: "+ value);
-		//return data;
+
 		if (value==null)
 			value = new String("");
 		valuesFromLMS.put(key, value);
-		//lock=false;
+	
 		
 	}
 
@@ -190,23 +138,6 @@ public class CommManagerScormV12 extends AdventureApplet{
 
 	public void notifyRelevantState( List<AssessmentProperty> list) {
 		
-		/*getFromLMS(SEND_DIR+"._count");
-		
-		String value = valuesFromLMS.get(SEND_DIR+"._count");
-		int count = Integer.valueOf(value);
-		
-		for (int i=0; i< list.size(); i++){
-			
-			if (i<count){
-				
-				value = "id:"+list.get(i).getId() + " value:" + list.get(i).getValue();
-				String command = "javascript:setLMSData(\""+ SEND_DIR + String.valueOf(i) +".student_response \", \"" + value + "\");";
-				this.sendJavaScript(command);
-				
-			} else {
-				//TODO situacion de error
-			}
-		}*/
 		System.out.println("Entramos en notify relevant state");
 		Iterator<AssessmentProperty> it = list.iterator();
 		while (it.hasNext()){
@@ -229,7 +160,6 @@ public class CommManagerScormV12 extends AdventureApplet{
 
 
 	public HashMap<String,String> getInitialStates() {
-		//getAllObjetives();
 		waitResponse();
 		
 		return valuesFromLMS;

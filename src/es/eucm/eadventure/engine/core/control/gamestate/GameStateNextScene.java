@@ -114,10 +114,11 @@ public class GameStateNextScene extends GameState {
                 game.getActionManager( ).setActionSelected( ActionManager.ACTION_GOTO );
                 
                 // Play the post effects only if we arrive to a playable scene
+                // this method also call to  game.setState( Game.STATE_RUN_EFFECTS );
                 FunctionalEffects.storeAllEffects(nextScene.getPostEffects( ));
 
                 // Switch to run effects node
-                game.setState( Game.STATE_RUN_EFFECTS );
+                //game.setState( Game.STATE_RUN_EFFECTS );
                 
                 break;
                 

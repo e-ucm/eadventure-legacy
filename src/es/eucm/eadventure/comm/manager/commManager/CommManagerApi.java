@@ -1,7 +1,10 @@
 package es.eucm.eadventure.comm.manager.commManager;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 
+import es.eucm.eadventure.common.data.assessment.AssessmentProperty;
 import es.eucm.eadventure.engine.adaptation.AdaptationEngine;
 
 public interface CommManagerApi {
@@ -16,18 +19,19 @@ public interface CommManagerApi {
 	public boolean connect(HashMap<String,String> info); //throws CommException;
 	
 	public boolean disconnect(HashMap<String,String> info); //throws CommException;
-
-	//public boolean sendMessage(String attribute, String value) throws CommException;
 	
-	//public abstract void addListener(CommListenerApi commListener);
-	
-	//public String[] getAllObjetives();
+	public void notifyRelevantState(List<AssessmentProperty> list);
 	
 	public boolean isConnected();
 	
 	public void setAdaptationEngine(AdaptationEngine engine);
 	
 	public int getCommType();
+	
+	public void getAdaptedState( Set<String> properties );
+	
+	
+	public HashMap<String,String> getInitialStates();
 	
 	
 }

@@ -39,7 +39,8 @@ public class FunctionalMacroReferenceEffect extends FunctionalEffect{
 		}
 		
 		// Add functional effects to the stack-queue. The GameStateEffects will trigger them normally
-		Game.getInstance().addToTheStack( fEffects );
-	}
+		//Game.getInstance().addToTheStack( fEffects );
+		Game.getInstance().storeEffectsInQueue(fEffects,false);
+		}
 
 }
