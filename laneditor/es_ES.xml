@@ -1836,6 +1836,15 @@ Si no las cambia, el juego empleará las flechas por defecto.</entry>
 	<entry key="Timer.Effects">Efectos a ejecutar si expira el temporizador</entry>
 	<entry key="Timer.PostEffects">Efectos a ejecutar si se desactiva el temporizador</entry>
 	<entry key="Timer.Time">Tiempo</entry>
+	<entry key="Timer.UsesEndCondition">Utiliza condiciones para desactivación (si no se utilizan, se desactivará cuando se dejen de cumplir las condiciones de entrada)</entry>
+	<entry key="Timer.LoopControl">Control de ciclos</entry>
+	<entry key="Timer.MultipleStarts">Multiples inicios</entry>
+	<entry key="Timer.MultipleStartsDesc">      Activo -> Si el temporizador esta parado, cuando se cumplan las condiciones de inicio comenzar nuevamente.
+      Desactivo -> Si el temporizador esta parado no vuelve a comenzar incluso si se cumplen las condiciones de entrada</entry>
+	<entry key="Timer.RunsInLoop">Utiliza bucles</entry>
+	<entry key="Timer.RunsInLoopDesc">      Activo -> Si transcurre el tiempo del temporizador, este entrará en otro bucle una y otra vez hasta que sea detenido.
+      Desactivo -> Cuando transcurre el tiempo del temporizador, este se detiene</entry>
+	
 	
 	<entry key="TimersList.Title">Temporizadores</entry>
 	<entry key="TimersList.ListTitle">Lista de temporizadores</entry>

@@ -293,6 +293,9 @@
 <!ELEMENT timer (documentation?, init-condition?, end-condition?, effect?, post-effect?)>
 <!ATTLIST timer 
 	time NMTOKEN #REQUIRED
+	usesEndCondition (yes | no) "yes"
+	runsInLoop (yes | no) "yes"
+	multipleStarts (yes | no) "yes"
 >
 
 <!-- TODO: REMOVE EFFECT ONCE ALL SAMPLE GAMES HAD BEEN UPDATED -->
