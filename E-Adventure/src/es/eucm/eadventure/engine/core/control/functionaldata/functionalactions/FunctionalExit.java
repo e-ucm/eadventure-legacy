@@ -1,12 +1,16 @@
 package es.eucm.eadventure.engine.core.control.functionaldata.functionalactions;
 
+import java.util.List;
+
 import es.eucm.eadventure.common.data.chapter.Exit;
 import es.eucm.eadventure.common.data.chapter.NextScene;
+import es.eucm.eadventure.common.data.chapter.effects.Effects;
 import es.eucm.eadventure.engine.core.control.DebugLog;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffect;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalNextSceneEffect;
 
@@ -53,8 +57,11 @@ public class FunctionalExit extends FunctionalAction {
                     nextScene = exit.getNextScenes( ).get( i );
 
             if( nextScene != null ) {
-            	FunctionalEffects.storeAllEffects(nextScene.getEffects( ));
-                Game.getInstance().enqueueEffect( new FunctionalNextSceneEffect( nextScene ) );
+            	// merge all effects in one structure
+            	FunctionalEffects effects =  new FunctionalEffects(nextScene.getEffects( ));
+            	effects.addEffect( new FunctionalNextSceneEffect( nextScene ));
+            	FunctionalEffects.storeAllEffects(effects);
+                //Game.getInstance().enqueueEffect( new FunctionalNextSceneEffect( nextScene ) );
             }
         }
 		finished = true;

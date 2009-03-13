@@ -130,8 +130,8 @@ public class EAdventureAppletScorm extends CommManagerScormV12{
         this.destroy();
     }
     
-    public void dataReceived(String key, String value){
-    	super.dataReceived(key, value);
+    public void dataFromLMS(String key, String value){
+    	super.dataFromLMS(key, value);
     	System.out.println("Recivimos el dato "+ key + " " + value);
     }
 	

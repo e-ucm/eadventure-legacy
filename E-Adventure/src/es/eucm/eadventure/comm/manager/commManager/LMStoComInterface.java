@@ -12,16 +12,11 @@ public interface LMStoComInterface {
 	
 	public void connectionFailed(String serverComment);
 	
-	public void dataReceived(String key, String value);
+	public void dataFromLMS(String key, String value);
 	
 	public void dataSendingOK(String serverComment);
 	
 	public void dataSendingFailed(String serverComment);
-	
-	public void notifyRelevantState(List<AssessmentProperty> list);
-	
-	public void getAdaptedState( Set<String> properties );
-	
-	public HashMap<String,String> getInitialStates();
+
 
 }

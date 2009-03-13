@@ -6,6 +6,7 @@ import java.awt.Image;
 import java.awt.event.MouseEvent;
 
 import es.eucm.eadventure.common.data.chapter.book.Book;
+import es.eucm.eadventure.common.data.chapter.effects.Effects;
 import es.eucm.eadventure.common.data.chapter.resources.Asset;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.engine.core.control.Game;
@@ -13,6 +14,7 @@ import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalBook;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalStyledBook;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalTextBook;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
@@ -85,7 +87,9 @@ public class GameStateBook extends GameState {
     
                 if( book.isInLastPage( ) ){
                     GUI.getInstance( ).restoreFrame( );
-                    game.setState( Game.STATE_RUN_EFFECTS );
+                    // this method also change the state to run effects
+                    FunctionalEffects.storeAllEffects(new Effects());
+                    //game.setState( Game.STATE_RUN_EFFECTS );
                 }else
                     book.nextPage( );
             }
@@ -94,7 +98,8 @@ public class GameStateBook extends GameState {
         // Right click ends the book
         else if( e.getButton() == MouseEvent.BUTTON3 ) {
             GUI.getInstance( ).restoreFrame( );
-            game.setState( Game.STATE_RUN_EFFECTS );
+            FunctionalEffects.storeAllEffects(new Effects());
+            //game.setState( Game.STATE_RUN_EFFECTS );
         }
     }
     

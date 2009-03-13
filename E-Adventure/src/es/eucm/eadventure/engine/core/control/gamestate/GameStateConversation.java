@@ -103,7 +103,7 @@ public class GameStateConversation extends GameState {
         
         isOptionSelected = false;
 
-        game.addToTheStack(new ArrayList<FunctionalEffect>());
+       
     }
 
     public synchronized void mainLoop( long elapsedTime, int fps ) {
@@ -247,7 +247,7 @@ public class GameStateConversation extends GameState {
 		if (currentNode.hasValidEffect() && !currentNode.isEffectConsumed()) {
 			currentNode.consumeEffect();
 			game.pushCurrentState(this);
-			FunctionalEffects.storeAllEffects(currentNode.getEffects());
+			FunctionalEffects.storeAllEffects(currentNode.getEffects(),true);
 			GUI.getInstance().toggleHud(true);
 		}
 		else if ((!currentNode.hasValidEffect() || currentNode.isEffectConsumed()) && currentNode.isTerminal()) {
@@ -402,9 +402,9 @@ public class GameStateConversation extends GameState {
         if(currentNode.hasValidEffect( ) && !currentNode.isEffectConsumed( ) ) {
             currentNode.consumeEffect( );
             game.pushCurrentState(this);
-            FunctionalEffects.storeAllEffects(currentNode.getEffects( ));
-            GUI.getInstance().toggleHud( true );
-        }
+           	FunctionalEffects.storeAllEffects(currentNode.getEffects( ),true);
+           	GUI.getInstance().toggleHud( true );
+        } 
         else if ((!currentNode.hasValidEffect( ) || currentNode.isEffectConsumed( ) ) && currentNode.isTerminal( )){
             for (ConversationNode node: game.getConversation( ).getAllNodes( )){
                 node.resetEffect( );

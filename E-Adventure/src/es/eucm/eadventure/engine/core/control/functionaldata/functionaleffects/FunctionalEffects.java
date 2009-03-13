@@ -44,6 +44,8 @@ public class FunctionalEffects {
     	// If the effects structure has cancel action, add it
     	hasCancelAction = effects.hasCancelAction( );
     }
+    
+    
 
     /**
      * Return the effect in the given position.
@@ -74,18 +76,32 @@ public class FunctionalEffects {
      * Queues the effects in the game effects queue to be done when possible.
      */
     public static void storeAllEffects( Effects effects ) {
-        Game.getInstance( ).storeEffectsInQueue( new FunctionalEffects(effects).getEffects() );
+        Game.getInstance( ).storeEffectsInQueue( new FunctionalEffects(effects).getEffects(), false );
     }
     
-    public static void storeAllEffects( Effects effects, boolean fromConversation ) {
+    public static void storeAllEffects( Effects effects , boolean fromConversation) {
         Game.getInstance( ).storeEffectsInQueue( new FunctionalEffects(effects).getEffects(), fromConversation );
     }
+    
+    public static void storeAllEffects( FunctionalEffects functionalEffects ) {
+        Game.getInstance( ).storeEffectsInQueue( functionalEffects.getEffects() ,false);
+    }
+    
+    
 
 	/**
 	 * @return the functionalEffects
 	 */
 	public ArrayList<FunctionalEffect> getEffects() {
 		return functionalEffects;
+	}
+	
+	/**
+	 * Add new functional effect
+	 * @param functionalEffect
+	 */
+	public void addEffect(FunctionalEffect functionalEffect){
+		functionalEffects.add(functionalEffect);
 	}
 
 }
