@@ -48,7 +48,11 @@ public class FunctionalSpeak extends FunctionalAction {
      * The speech must be launched in another thread
      */
     private TTask task;
-
+    
+    /**
+     * Check if tts synthesizer is been used
+     */
+    private boolean ttsInUse;
 
     /**
      * Time spent in this state
@@ -71,6 +75,7 @@ public class FunctionalSpeak extends FunctionalAction {
 		super(action);
 		type = ActionManager.ACTION_TALK;
 		setText(text);
+		ttsInUse=false;
 	}
 
 	/**
@@ -86,6 +91,7 @@ public class FunctionalSpeak extends FunctionalAction {
 		type = ActionManager.ACTION_TALK;
 		setText(text);
 		setAudio(audioPath);
+		ttsInUse=false;
 	}
 
 	@Override
@@ -112,7 +118,7 @@ public class FunctionalSpeak extends FunctionalAction {
 	public void update(long elapsedTime) {
 		totalTime += elapsedTime;
 		
-        if( totalTime > timeTalking &&(audioId==-1 || !MultimediaManager.getInstance( ).isPlaying( audioId ))) {
+        if( totalTime > timeTalking &&(audioId==-1 || !MultimediaManager.getInstance( ).isPlaying( audioId ))&&(!ttsInUse) ) {
         	finished = true;
         	functionalPlayer.popAnimation();
         	stopTTSTalking();
@@ -192,16 +198,7 @@ public class FunctionalSpeak extends FunctionalAction {
     	
     	task = new TTask(voice, text);
     	Timer timer = new Timer () ;
-    	
-    	while (task.getDuration()==0){
-        	try {
-    			Thread.sleep( 1 );
-    		} catch (InterruptedException e) {
-    		}
-        	}
-    	int wordsPerSecond = (int)task.getDuration()/60;
-    	String[] words= text.split(" ");
-    	timeTalking = (words.length/wordsPerSecond) *1000;
+    	ttsInUse = true;
     	timer.schedule(task, 0);
    }
     
@@ -209,8 +206,10 @@ public class FunctionalSpeak extends FunctionalAction {
      * Stop the freetts speech
      */
     public void stopTTSTalking(){
-    	if (task != null)
-    		task.deallocate();
+    	if (task != null){
+    		task.cancel();
+    		ttsInUse = false;
+    	}
     }
 
     /**
@@ -219,7 +218,6 @@ public class FunctionalSpeak extends FunctionalAction {
     public class TTask extends TimerTask{
 
     	private String text;
-    	private float duration;
     	private boolean deallocate;
     	
     	public TTask ( String voiceText, String text ){
@@ -228,29 +226,31 @@ public class FunctionalSpeak extends FunctionalAction {
     		 VoiceManager voiceManager = VoiceManager.getInstance();
 	         voice = voiceManager.getVoice(voiceText);
 	         voice.allocate();
-	         duration =voice.getRate();
+	        
+	         
     	}
     	
 		@Override
 		public void run() {
 	    	try{
+	    	
 			 voice.speak(text);
-	        // deallocate();
+			 ttsInUse=false;
+	        
 	    	}catch(IllegalStateException e){
 				System.out.println("TTS found one word which can not be processated.");
 			}
 	        
 		}
 		
-		public void deallocate(){
-			if (!deallocate) {
+		@Override
+		public boolean cancel(){
+			 if (!deallocate) {
 				voice.deallocate();
 				deallocate = true;
 			}
-		}
-
-		public float getDuration(){
-			return duration;
+			 return true;
+			
 		}
     }
 

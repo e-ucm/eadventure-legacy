@@ -523,12 +523,7 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
         	addAction(functionalSpeak);
         }
     }
-    
-    public void dealocateTTS(){
-    	if (getCurrentAction().getType() == ActionManager.ACTION_TALK) {
-    		((FunctionalSpeak) getCurrentAction()).stopTTSTalking();
-    	}
-    }
+ 
         
     /*
      *  (non-Javadoc)

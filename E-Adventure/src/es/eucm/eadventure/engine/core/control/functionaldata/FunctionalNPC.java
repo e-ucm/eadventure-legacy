@@ -444,7 +444,7 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
     }
     
     /**
-     * Return the las direction set
+     * Return the last direction set
      */
     public int getDirection() {
         return currentDirection;
