@@ -482,7 +482,7 @@ public class Controller {
 	private AutoSave autoSave;
 	
 	private Timer autoSaveTimer;
-	
+		
 	/**
 	 * Void and private constructor.
 	 */
@@ -1253,7 +1253,6 @@ public class Controller {
 			// If the data was not saved, ask for an action (save, discard changes...)
 			if( dataModified ) {
 				int option = mainWindow.showConfirmDialog( TextConstants.getText( "Operation.LoadFileTitle" ), TextConstants.getText( "Operation.LoadFileMessage" ) );
-				String oldZipFile = currentZipFile;
 	
 				// If the data must be saved, load the new file only if the save was succesful
 				if( option == JOptionPane.YES_OPTION )
@@ -1270,36 +1269,44 @@ public class Controller {
 			}
 	
 			if( loadFile && completeFilePath == null ) {
+				this.stopAutoSave();
 				// Show dialog
-				ProjectFolderChooser projectChooser = new ProjectFolderChooser(false, false);
-				if ( projectChooser.showOpenDialog( mainWindow ) == JFileChooser.APPROVE_OPTION ){
-					completeFilePath = projectChooser.getSelectedFile( ).getAbsolutePath( );
-					String folderName = projectChooser.getSelectedFile( ).getName( );
+				StartDialog start = new StartDialog(StartDialog.OPEN_TAB);
+				
+				//mainWindow.setEnabled( false );
+				mainWindow.setVisible( false );
 
-					if (projectChooser.getSelectedFile().getAbsolutePath().endsWith(".eap")) {
-						completeFilePath = completeFilePath.substring(0, completeFilePath.length() - 4);
-						folderName = folderName.substring(0, folderName.length() - 4);
+				int op = start.showOpenDialog( null );
+				//start.end();
+				if( op == StartDialog.NEW_FILE_OPTION ) {
+					newFile( start.getFileType( ) );
+				} else if( op == StartDialog.OPEN_FILE_OPTION ) {
+					java.io.File selectedFile = start.getSelectedFile( );
+					if (selectedFile.getAbsolutePath().toLowerCase().endsWith(".eap")) {
+						String absolutePath = selectedFile.getPath();
+						loadFile(absolutePath.substring(0, absolutePath.length() - 4), true);
+					} else if (selectedFile.isDirectory( ) && selectedFile.exists( ))
+						loadFile( start.getSelectedFile( ).getAbsolutePath( ), true );
+					else {
+						this.importGame( selectedFile.getAbsolutePath( ) );
 					}
-					
-					// Check the parent folder is not forbidden
-					if ( isValidTargetProject( projectChooser.getSelectedFile() ) ){
-						// Check characters are ok. Otherwise, show error
-						if ( !FolderFileFilter.checkCharacters( folderName )){
-							// Display error message
-							this.showErrorDialog( TextConstants.getText( "Error.Title" ), 
-									TextConstants.getText( "Error.ProjectFolderName", FolderFileFilter.getAllowedChars() ) );
-							completeFilePath = null;
-						}
-					}
-					else{
-						// Show error: The target dir cannot be contained 
-						mainWindow.showErrorDialog( TextConstants.getText( "Operation.NewProject.ForbiddenParent.Title" ), 
-								TextConstants.getText( "Operation.NewProject.ForbiddenParent.Message" ) );
-						completeFilePath = null;
-					}
-					
+				} else if( op == StartDialog.RECENT_FILE_OPTION ) {
+					loadFile( start.getRecentFile( ).getAbsolutePath( ), true );
+				} else if( op == StartDialog.CANCEL_OPTION ) {
+					exit( );
 				}
-				//completeFilePath = mainWindow.showSingleSelectionLoadDialog( System.getenv( "HOME" ), new ProjectFileFilter( ) );
+
+				if ( currentZipFile == null ){
+					mainWindow.reloadData( );
+				}
+				
+				mainWindow.setResizable( true );
+				mainWindow.setEnabled( true );
+				mainWindow.setVisible( true );
+				//DEBUGGING
+				tsd = new ToolSystemDebugger( chaptersController );
+				
+				return true;
 	
 			}
 	
@@ -1307,17 +1314,9 @@ public class Controller {
 			// If some file was selected
 			if( completeFilePath != null ) {
 				if (loadingImage){
-					//ls = new LoadingScreen2(TextConstants.getText( "Operation.LoadProject" ), getLoadingImage( ), mainWindow);
 					loadingScreen.setMessage( TextConstants.getText( "Operation.LoadProject" ) );
 					this.loadingScreen.setVisible( true );
 					loadingImage = true;
-					
-									//loadingScreen.close( );
-					//loadingScreen = new LoadingScreen(TextConstants.getText( "Operation.LoadProject" ), getLoadingImage( ), mainWindow);
-					//loadingScreen.setVisible( true );
-					//loadingScreen.repaint( );
-					//loadingScreen.setVisible( true );
-					
 				}
 				// Create a file to extract the name and path
 				File newFile = new File( completeFilePath );

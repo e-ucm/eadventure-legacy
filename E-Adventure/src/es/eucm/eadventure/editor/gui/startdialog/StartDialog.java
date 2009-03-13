@@ -72,6 +72,10 @@ public class StartDialog extends JFileChooser {
 
 	public static final int RECENT_FILE_OPTION = 5;
 
+	public static final int NEW_TAB = 0;
+	
+	public static final int OPEN_TAB = 1;
+	
 	private File recentFile;
 
 	private int fileType;
@@ -93,7 +97,9 @@ public class StartDialog extends JFileChooser {
 	private JButton buttonNew;
 
 	private JButton openRecentsButton;
-
+	
+	private JTabbedPane tab;
+	
 	/**
 	 * @return the fileType
 	 */
@@ -106,6 +112,11 @@ public class StartDialog extends JFileChooser {
 	 */
 	public void setFileType( int fileType ) {
 		this.fileType = fileType;
+	}
+	
+	public StartDialog(int tab) {
+		this();
+		this.tab.setSelectedIndex(tab);
 	}
 
 	public StartDialog( ) {
@@ -129,7 +140,7 @@ public class StartDialog extends JFileChooser {
 		c.weightx = 0;
 		c.fill = GridBagConstraints.BOTH;
 		centralPanel.add( label, c );
-		JTabbedPane tab = new JTabbedPane( );
+		tab = new JTabbedPane( );
 
 		tab.insertTab( TextConstants.getText( "GeneralText.New" ), null, createNewFilePanel( ), "", 0 );
 		tab.insertTab( TextConstants.getText( "GeneralText.Open" ), null, createOpenFilePanel( ), "", 1 );

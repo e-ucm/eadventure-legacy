@@ -127,7 +127,8 @@ public class ActionButtons {
 	
 	/**
 	 * Method that adds the necessary custom action buttons to the list
-	 * of buttons
+	 * of buttons.
+	 * The number of buttons is limited to 8 (including the default ones)
 	 * 
 	 * @param actions the actions of the element
 	 * @param functionalElement the functional element with the actions
@@ -135,6 +136,8 @@ public class ActionButtons {
 	private void addCustomActionButtons(List<Action> actions, FunctionalElement functionalElement) {
 		List<CustomAction> added = new ArrayList<CustomAction>();
 		for (Action action : actions) {
+			if (buttons.size() >= 8)
+				return;
 			if (action.getType() == Action.CUSTOM) {
 				boolean add = functionalElement.getFirstValidCustomAction(((CustomAction) action).getName()) != null;
 				for (CustomAction customAction: added) {
@@ -183,6 +186,7 @@ public class ActionButtons {
     	int newCenterX = centerX;
     	// TODO check the radius recalculation to get an appropiate distribution
     	radius = 20 * buttons.size();
+
     	if (centerY > GUI.WINDOW_HEIGHT / 2) {
     		if (centerY > GUI.WINDOW_HEIGHT - MAX_BUTTON_HEIGHT / 2)
     			newCenterY = GUI.WINDOW_HEIGHT - MAX_BUTTON_HEIGHT / 2;
@@ -207,7 +211,9 @@ public class ActionButtons {
 	    		degreeIncrement = degreeIncrement / 2;
 	    		radius = radius * 1.5;
     		} else {
-    			angle = - angle / 2;
+    	    	if (centerY > GUI.WINDOW_HEIGHT / 2)
+    	    		degreeIncrement = - degreeIncrement;
+    			angle = angle / 2;
     		}
     	} else if (newCenterX > (GUI.WINDOW_WIDTH - radius - MAX_BUTTON_WIDTH / 2)) {
     		if (newCenterY - radius < MAX_BUTTON_HEIGHT) {
@@ -219,10 +225,11 @@ public class ActionButtons {
 	    		degreeIncrement = - degreeIncrement / 2;
 	    		radius = radius * 1.5;
     		} else {
+    	    	if (centerY > GUI.WINDOW_HEIGHT / 2)
+    	    		degreeIncrement = - degreeIncrement;
     			angle = - angle / 2;
     		}
     	}
-
     	
 		for (ActionButton ab : buttons) {
 			ab.setPosX((int) (Math.cos(angle) * radius + newCenterX));
@@ -334,6 +341,9 @@ public class ActionButtons {
     		}
     		g.setComposite(original);
     		ab.draw(g, percent, posX, posY);
+    	}
+    	if (buttonOver != null) {
+    		buttonOver.drawName(g);
     	}
     	
     }

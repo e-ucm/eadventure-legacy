@@ -562,6 +562,9 @@ public class DrawPanel  extends JPanel {
 	}
 	
 	public int getBackgroundWidth() {
+		int backgroundWidth = GUI.WINDOW_WIDTH;
+		if (background != null)
+			backgroundWidth = background.getWidth(null);
 		return (backgroundWidth > GUI.WINDOW_WIDTH ? backgroundWidth : GUI.WINDOW_WIDTH);
 	}
 	

@@ -321,24 +321,12 @@ public class MainWindow extends JFrame {
 		fileMenu.add(itLomProperties);
 		fileMenu.addSeparator( );
 		
-		JMenu itImport = new JMenu( TextConstants.getText( "MenuFile.Import" ) );
-		JMenuItem itImportGame = new JMenuItem( TextConstants.getText( "MenuFile.ImportGame" ) );
-		itImportGame.addActionListener(  new ActionListener( ) {
-			public void actionPerformed( ActionEvent e ) {
-				controller.importGame();
-			}
-		} );
-
 		JMenuItem importChapter = new JMenuItem( TextConstants.getText( "MenuFile.ImportChapter" ) );
 		importChapter.addActionListener(  new ActionListener( ) {
 			public void actionPerformed( ActionEvent e ) {
 				controller.importChapter();
 			}
 		} );
-		itImport.add( itImportGame );
-		//itImport.add( importChapter );
-		fileMenu.add( itImport );
-		fileMenu.addSeparator( );
 		
 		JMenu itExport = new JMenu( TextConstants.getText( "MenuFile.Export" ) );
 		itExport.setEnabled( controller.isFolderLoaded( ) );
