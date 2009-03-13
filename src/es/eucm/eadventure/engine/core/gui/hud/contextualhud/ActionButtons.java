@@ -316,11 +316,12 @@ public class ActionButtons {
     	g.setColor(Color.RED);
 		Composite alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f);
 		g.setComposite(alphaComposite);
-    	g.fillOval(centerX - 10, centerY - 10, 20 , 20);
+    	g.fillOval(centerX - 8, centerY - 8, 16 , 16);
     	
     	
     	for (ActionButton ab : buttons) {
     		g.setComposite(alphaComposite);
+        	g.setColor(Color.RED);
         	int posX = (int) ((ab.getPosX() - centerX) * percent + centerX);
         	int posY = (int) ((ab.getPosY() - centerY) * percent + centerY);
     		if (ab.isOver()) {
