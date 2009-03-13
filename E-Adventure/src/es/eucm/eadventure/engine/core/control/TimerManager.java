@@ -3,6 +3,7 @@ package es.eucm.eadventure.engine.core.control;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import es.eucm.eadventure.common.data.chapter.Timer;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 import es.eucm.eadventure.engine.core.data.SaveTimer;
@@ -38,13 +39,16 @@ public class TimerManager {
         return ID - 1;
     }
 
-    public int addTimer( Conditions initConditions, Conditions endConditions, TimerEventListener listener, long timeUpdate ) {
-        FunctionalTimer newTimer = new FunctionalTimer( initConditions, endConditions, listener, timeUpdate, false );
+    public int addTimer ( Timer timer, TimerEventListener listener, long timeUpdate) {
+    	FunctionalTimer newTimer = new FunctionalTimer( timer.getInitCond( ), timer.getEndCond( ), listener, timeUpdate, false );
+    	newTimer.setUsesEndCondition(timer.isUsesEndCondition());
+    	newTimer.setRunsInLoop(timer.isRunsInLoop());
+    	newTimer.setMultipleStarts(timer.isMultipleStarts());
         timers.put( new Integer( ID ), newTimer );
         ID++;
         return ID - 1;
     }
-
+    
     public void deleteTimer( int id ) {
         if( timers.containsKey( new Integer(id) ) ) {
             timers.remove( new Integer(id) );
@@ -146,12 +150,17 @@ public class TimerManager {
                 FunctionalTimer currentTimer = timers.get( new Integer( i ) );
 
                 // First case: the timer has not been initialized yet. In this
-                // case
-                // check if current conditions are satisfied.
+                // case check if current conditions are satisfied.
                 if( currentTimer.getState( ) == FunctionalTimer.STATE_NO_INIT 
-                        || currentTimer.getState( ) == FunctionalTimer.STATE_DONE ) {
-                    if( new FunctionalConditions(currentTimer.getInitConditions( )).allConditionsOk( ) ) {
-                        currentTimer.setLastUpdate( currentTime );
+                        || (currentTimer.isMultipleStarts() && currentTimer.getState( ) == FunctionalTimer.STATE_DONE )) {
+                	
+                    if( new FunctionalConditions(currentTimer.getInitConditions( )).allConditionsOk( ) 
+                    		&& (!currentTimer.isUsesEndCondition() 
+                    				|| (new FunctionalConditions( currentTimer.getEndConditions()).allConditionsOk()))) {
+                    	
+                    	DebugLog.general("Timer started " + i);
+
+                    	currentTimer.setLastUpdate( currentTime );
                         currentTimer.setState( FunctionalTimer.STATE_RUNNING );
 
                         TimerEventListener listener = currentTimer.getListener( );
@@ -166,23 +175,41 @@ public class TimerManager {
                 // 2) Check if a timer cycle has been accomplished to notify the
                 // listener
                 else if( currentTimer.getState( ) == FunctionalTimer.STATE_RUNNING ) {
-                    if( new FunctionalConditions( currentTimer.getEndConditions( ) ).allConditionsOk( ) ) {
-                        currentTimer.setLastUpdate( currentTime );
+                    if( (currentTimer.isUsesEndCondition() && new FunctionalConditions( currentTimer.getEndConditions( ) ).allConditionsOk( ))
+                    		|| (!currentTimer.isUsesEndCondition() && !(new FunctionalConditions( currentTimer.getInitConditions()).allConditionsOk()))) {
+
+                    	DebugLog.general("Timer stoped " + i);
+
+                    	currentTimer.setLastUpdate( currentTime );
                         currentTimer.setState( FunctionalTimer.STATE_DONE );
 
                         TimerEventListener listener = currentTimer.getListener( );
                         if( listener != null )
                             listener.timerStopped( i, currentTime );
+                        
+                        
                     } else if( notifyCycles ) {
+                    	
                         // Check the time gap:
                         long gap = currentTime - currentTimer.getLastUpdate( );
                         if( gap >= currentTimer.getTimeUpdate( ) && currentTimer.isNotifyUpdates( ) ) {
+                        	
+                        	if (!currentTimer.isRunsInLoop()) {
+                            	DebugLog.general("Timer ended first cycle and stoped " + i);
+                                currentTimer.setState( FunctionalTimer.STATE_DONE );
+                        	} else {
+                            	DebugLog.general("Timer ended cycle and continues " + i);
+                        	}
+                        	
                             TimerEventListener listener = currentTimer.getListener( );
                             if( listener != null ) {
                                 currentTimer.setLastUpdate( currentTime );
-                                listener.cycleCompleted( i, gap );
+                            	listener.cycleCompleted( i, gap );
+                                if (!currentTimer.isRunsInLoop())
+                                	listener.timerStopped( i, currentTime);
                             }
                         }
+                        
                     }
                 }
             }
@@ -225,14 +252,44 @@ public class TimerManager {
          */
         private boolean isAssessmentTimer;
         
+        private boolean usesEndCondition;
+        
+        private boolean runsInLoop;
+        
+        private boolean multipleStarts;
         
         private int state;
 
-        public FunctionalTimer( Conditions initConditions, Conditions endConditions, TimerEventListener listener ) {
+        public FunctionalTimer( Conditions initConditions, Conditions endConditions, TimerEventListener listener) {
             this( initConditions, endConditions, listener, NO_UPDATE , true);
         }
         
-        /*
+		public boolean isUsesEndCondition() {
+        	return usesEndCondition;
+		}
+        
+        public void setUsesEndCondition(boolean usesEndCondition) {
+        	this.usesEndCondition = usesEndCondition;
+        }
+        
+        public boolean isRunsInLoop() {
+        	return runsInLoop;
+        }
+        
+        public void setRunsInLoop(boolean runsInLoop) {
+        	this.runsInLoop = runsInLoop;
+        }
+        
+        public boolean isMultipleStarts() {
+        	return multipleStarts;
+        }
+        
+        public void setMultipleStarts(boolean multipleStarts) {
+        	this.multipleStarts = multipleStarts;
+        }
+        
+        
+		/*
         // Empty constructor
         public FunctionalTimer(){
         	
@@ -247,6 +304,10 @@ public class TimerManager {
             notifyUpdates = ( timeUpdate != NO_UPDATE );
             this.state = STATE_NO_INIT;
             this.isAssessmentTimer = assessment;
+
+            usesEndCondition = true;
+            runsInLoop = true;
+            multipleStarts = true;
         }
         
         public boolean isAssessmentTimer(){

@@ -310,21 +310,25 @@ public class ContextualHUD extends HUD {
         	inHud = processRightClickNoButton(actionManager.getElementOver(), e);
         	DebugLog.user("Mouse click, no action button. " + e.getX() + " , " + e.getY());
         }else{
-            if( showActionButtons ) {
-                actionButtons.mouseClicked( e );
-                if( actionButtons.getButtonPressed()!=null ){
-                	DebugLog.user("Mouse click, inside action button: " + actionButtons.getButtonPressed().getName());
-                	inHud = processButtonPressed(actionManager, e);
-                }
-            }else if( showInventory && ( e.getY( ) > Inventory.BOTTOM_INVENTORY_PANEL_Y || e.getY( ) < Inventory.UPPER_INVENTORY_PANEL_Y + Inventory.INVENTORY_PANEL_HEIGHT ) ) {
-            	DebugLog.user("Mouse click in inventory");
-            	inHud = processInventoryClick(actionManager, e);
-            }else if( actionManager.getElementOver( ) != null ){
-            	DebugLog.user("Mouse click over element at " + e.getX() + " , " + e.getY());
-                inHud = processElementClick(actionManager, e);
-            }
-            showActionButtons = false;
-            elementAction = null;  
+        	if (e.getClickCount() == 2) {
+    			processRightClickNoButton(actionManager.getElementOver(), e);
+        	} else {
+	            if( showActionButtons ) {
+	                actionButtons.mouseClicked( e );
+	                if( actionButtons.getButtonPressed()!=null ){
+	                	DebugLog.user("Mouse click, inside action button: " + actionButtons.getButtonPressed().getName());
+	                	inHud = processButtonPressed(actionManager, e);
+	                }
+	            }else if( showInventory && ( e.getY( ) > Inventory.BOTTOM_INVENTORY_PANEL_Y || e.getY( ) < Inventory.UPPER_INVENTORY_PANEL_Y + Inventory.INVENTORY_PANEL_HEIGHT ) ) {
+	            	DebugLog.user("Mouse click in inventory");
+	            	inHud = processInventoryClick(actionManager, e);
+	            }else if( actionManager.getElementOver( ) != null ){
+	            	DebugLog.user("Mouse click over element at " + e.getX() + " , " + e.getY());
+	                inHud = processElementClick(actionManager, e);
+	            }
+	            showActionButtons = false;
+	            elementAction = null;
+        	}
         }
         
         return inHud;

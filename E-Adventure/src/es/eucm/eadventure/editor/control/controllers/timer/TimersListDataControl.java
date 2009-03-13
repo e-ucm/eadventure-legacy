@@ -140,7 +140,10 @@ public class TimersListDataControl extends DataControl {
 		if( type == Controller.TIMER ) {
 			// Create the new timer with default time
 				Timer newTimer = new Timer(  );
-
+				newTimer.setRunsInLoop(false);
+				newTimer.setMultipleStarts(false);
+				newTimer.setUsesEndCondition(false);
+				
 				// Add the new timer
 				timersList.add( newTimer );
 				timersDataControlList.add( new TimerDataControl( newTimer ) );

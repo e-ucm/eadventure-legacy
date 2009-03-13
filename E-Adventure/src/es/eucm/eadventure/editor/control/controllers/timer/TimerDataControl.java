@@ -8,6 +8,7 @@ import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeDocumentationTool;
+import es.eucm.eadventure.editor.control.tools.generic.ChangeBooleanValueTool;
 import es.eucm.eadventure.editor.control.tools.generic.ChangeLongValueTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
@@ -283,6 +284,30 @@ public class TimerDataControl extends DataControl {
 		for (int i = 0; i < this.getPostEffects().getEffectCount(); i++) {
 			check(this.getPostEffects().getEffectInfo(i), TextConstants.getText("Search.PostEffect"));
 		}
+	}
+
+	public boolean isUsesEndCondition() {
+		return timer.isUsesEndCondition();
+	}
+
+	public void setUsesEndCondition(boolean selected) {
+		controller.addTool(new ChangeBooleanValueTool(timer, selected, "isUsesEndCondition", "setUsesEndCondition"));
+	}
+
+	public boolean isMultipleStarts() {
+		return timer.isMultipleStarts();
+	}
+	
+	public void setMultipleStarts(boolean multipleStarts) {
+		controller.addTool(new ChangeBooleanValueTool(timer, multipleStarts, "isMultipleStarts", "setMultipleStarts"));
+	}
+
+	public boolean isRunsInLoop() {
+		return timer.isRunsInLoop();
+	}
+	
+	public void setRunsInLoop(boolean runsInLoop) {
+		controller.addTool(new ChangeBooleanValueTool(timer, runsInLoop, "isRunsInLoop", "setRunsInLoop"));
 	}
 
 }

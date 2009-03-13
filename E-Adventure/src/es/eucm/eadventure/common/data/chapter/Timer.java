@@ -20,12 +20,21 @@ public class Timer implements Cloneable, Documented {
 	
 	private String documentation;
 	
+	private Boolean usesEndCondition;
+	
+	private Boolean runsInLoop;
+	
+	private Boolean multipleStarts;
+	
 	public Timer(long time, Conditions init, Conditions end, Effects effect, Effects postEffect){
 		this.seconds = time;
 		this.initCond = init;
 		this.endCond = end;
 		this.effect = effect;
 		this.postEffect = postEffect;
+		usesEndCondition = true;
+		runsInLoop = true;
+		multipleStarts = true;
 	}
 	
 	public Timer(long time){
@@ -121,6 +130,48 @@ public class Timer implements Cloneable, Documented {
 	}
 	
 	
+	/**
+	 * @return the usesEndCondition
+	 */
+	public Boolean isUsesEndCondition() {
+		return usesEndCondition;
+	}
+
+	/**
+	 * @param usesEndCondition the usesEndCondition to set
+	 */
+	public void setUsesEndCondition(Boolean usesEndCondition) {
+		this.usesEndCondition = usesEndCondition;
+	}
+	
+	/**
+	 * @return the runsInLoop
+	 */
+	public Boolean isRunsInLoop() {
+		return runsInLoop;
+	}
+
+	/**
+	 * @param runsInLoop the runsInLoop to set
+	 */
+	public void setRunsInLoop(Boolean runsInLoop) {
+		this.runsInLoop = runsInLoop;
+	}
+
+	/**
+	 * @return the multipleStarts
+	 */
+	public Boolean isMultipleStarts() {
+		return multipleStarts;
+	}
+
+	/**
+	 * @param multipleStarts the multipleStarts to set
+	 */
+	public void setMultipleStarts(Boolean multipleStarts) {
+		this.multipleStarts = multipleStarts;
+	}
+
 	public Object clone() throws CloneNotSupportedException {
 		Timer t = (Timer) super.clone();
 		t.documentation = (documentation != null ? new String(documentation) : null);
@@ -129,6 +180,10 @@ public class Timer implements Cloneable, Documented {
 		t.initCond = (initCond !=  null ? (Conditions) initCond.clone() : null);
 		t.postEffect = (postEffect != null ? (Effects) postEffect.clone() : null);
 		t.seconds = seconds;
+		t.runsInLoop = runsInLoop;
+		t.multipleStarts = multipleStarts;
+		t.usesEndCondition = usesEndCondition;
 		return t;
 	}
+
 }

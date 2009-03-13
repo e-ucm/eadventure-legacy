@@ -176,13 +176,11 @@ public class NPCTalking extends NPCState {
     
     public class TTask extends TimerTask{
 
-    	private String voiceText;
     	private String text;
     	private float duration;
     	private boolean dealocate;
     	
     	public TTask ( String voiceText, String text ){
-    		this.voiceText = voiceText;
     		this.text = text;
     		this.dealocate=false;
     		VoiceManager voiceManager = VoiceManager.getInstance();

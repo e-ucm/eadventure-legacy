@@ -161,9 +161,9 @@ public class ImageElementActiveArea extends ImageElement {
 		if (height < 1)
 			height = 1;
 		
-		if (activeAreaDataControl.getInfluenceArea() != null) {
-			activeAreaDataControl.getInfluenceArea().setInfluenceArea(-20, -20, width + 40, height + 40);
-		}
+//		if (activeAreaDataControl.getInfluenceArea() != null) {
+//			activeAreaDataControl.getInfluenceArea().setInfluenceArea(-20, -20, width + 40, height + 40);
+//		}
 		
 		activeAreaDataControl.setActiveArea(x, y, width, height);
 		

@@ -9,11 +9,13 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextArea;
+import javax.swing.JTextPane;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -42,7 +44,8 @@ public class TimerPanel extends JPanel {
 	
 	private JLabel totalTime;
 
-
+	private JButton conditions2Button;
+	
 	/**
 	 * Constructor.
 	 * 
@@ -91,9 +94,46 @@ public class TimerPanel extends JPanel {
 		timePanel.add( totalTime );
 		timePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Timer.Time" ) ) );
 		add ( timePanel, c );
+
 		
+		// Create loop control panel
+		c.gridy++;
+		JPanel loopControlPanel = new JPanel();
+		loopControlPanel.setLayout(new GridBagLayout());
+		GridBagConstraints c2 = new GridBagConstraints();
+		//c2.fill = GridBagConstraints.HORIZONTAL;
+		c2.anchor = GridBagConstraints.WEST;
+		c2.gridx = 0;
+		c2.gridy = 0;
+		
+		JCheckBox multipleStart = new JCheckBox(TextConstants.getText("Timer.MultipleStarts"));
+		multipleStart.setSelected(timerDataControl.isMultipleStarts());
+		multipleStart.addChangeListener(new CheckBoxChangeListener(CheckBoxChangeListener.MULTIPLESTARTS));
+		loopControlPanel.add( multipleStart , c2);
+		c2.gridy++;
+		JTextPane informationTextPane = new JTextPane( );
+		informationTextPane.setEditable( false );
+		informationTextPane.setBackground( getBackground( ) );
+		informationTextPane.setText(TextConstants.getText("Timer.MultipleStartsDesc"));
+		loopControlPanel.add( informationTextPane , c2);
+		c2.gridy++;
+		
+		JCheckBox runsInLoop = new JCheckBox(TextConstants.getText("Timer.RunsInLoop"));
+		runsInLoop.setSelected(timerDataControl.isRunsInLoop());
+		runsInLoop.addChangeListener(new CheckBoxChangeListener(CheckBoxChangeListener.RUNSINLOOP));
+		loopControlPanel.add( runsInLoop , c2);
+		c2.gridy++;
+		informationTextPane = new JTextPane( );
+		informationTextPane.setEditable( false );
+		informationTextPane.setBackground( getBackground( ) );
+		informationTextPane.setText(TextConstants.getText("Timer.RunsInLoopDesc"));
+		loopControlPanel.add( informationTextPane , c2);
+		
+		loopControlPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Timer.LoopControl" ) ) );
+		add ( loopControlPanel, c );
+
 		// Create the button for the conditions
-		c.gridy = 2;
+		c.gridy++;
 		JPanel conditionsPanel = new JPanel( );
 		conditionsPanel.setLayout( new GridLayout( ) );
 		JButton conditionsButton = new JButton( TextConstants.getText( "GeneralText.EditInitConditions" ) );
@@ -103,18 +143,24 @@ public class TimerPanel extends JPanel {
 		add( conditionsPanel, c );
 		
 		// Create the button for the conditions
-		c.gridy = 3;
+		c.gridy++;
 		JPanel conditions2Panel = new JPanel( );
-		conditions2Panel.setLayout( new GridLayout( ) );
-		JButton conditions2Button = new JButton( TextConstants.getText( "GeneralText.EditEndConditions" ) );
+		conditions2Panel.setLayout( new GridLayout( 2, 1) );
+		
+		JCheckBox usesEndCondition = new JCheckBox(TextConstants.getText("Timer.UsesEndCondition"));
+		usesEndCondition.setSelected(timerDataControl.isUsesEndCondition());
+		usesEndCondition.addChangeListener(new CheckBoxChangeListener(CheckBoxChangeListener.USESENDCONDITION));
+		conditions2Panel.add(usesEndCondition);
+		
+		conditions2Button = new JButton( TextConstants.getText( "GeneralText.EditEndConditions" ) );
 		conditions2Button.addActionListener( new EndConditionsButtonListener( ) );
+		conditions2Button.setEnabled(timerDataControl.isUsesEndCondition());
 		conditions2Panel.add( conditions2Button );
 		conditions2Panel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Timer.EndConditions" ) ) );
 		add( conditions2Panel, c );
 
-
 		// Create the button for the effects
-		c.gridy = 4;
+		c.gridy++;
 		JPanel effectsPanel = new JPanel( );
 		effectsPanel.setLayout( new GridLayout( ) );
 		JButton effectsButton = new JButton( TextConstants.getText( "GeneralText.EditEffects" ) );
@@ -124,7 +170,7 @@ public class TimerPanel extends JPanel {
 		add( effectsPanel, c );
 
 		// Create the button for the post-effects
-		c.gridy = 5;
+		c.gridy++;
 		JPanel postEffectsPanel = new JPanel( );
 		postEffectsPanel.setLayout( new GridLayout( ) );
 		JButton postEffectsButton = new JButton( TextConstants.getText( "GeneralText.EditPostEffects" ) );
@@ -134,7 +180,7 @@ public class TimerPanel extends JPanel {
 		add( postEffectsPanel, c );
 
 		// Add a filler at the end
-		c.gridy = 6;
+		c.gridy++;
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1;
 		c.weighty = 1;
@@ -251,4 +297,31 @@ public class TimerPanel extends JPanel {
 			}
 	}
 
+	private class CheckBoxChangeListener implements ChangeListener {
+		
+		public static final int USESENDCONDITION = 0;
+		
+		public static final int MULTIPLESTARTS = 1;
+		
+		public static final int RUNSINLOOP = 2;
+		
+		private int type;
+		
+		public CheckBoxChangeListener (int type) {
+			this.type = type;
+		}
+		
+		public void stateChanged(ChangeEvent arg0) {
+			if (type == USESENDCONDITION) {
+				timerDataControl.setUsesEndCondition(((JCheckBox)arg0.getSource()).isSelected());
+				conditions2Button.setEnabled(timerDataControl.isUsesEndCondition());
+			} else if (type == MULTIPLESTARTS) {
+				timerDataControl.setMultipleStarts(((JCheckBox) arg0.getSource()).isSelected());
+			} else if (type == RUNSINLOOP) {
+				timerDataControl.setRunsInLoop(((JCheckBox) arg0.getSource()).isSelected());
+			}
+		}
+		
+	}
+	
 }
