@@ -681,13 +681,13 @@ public class EffectsController {
 			varFlagSummary.addFlagReference( deactivateEffect.getTargetId( ) );
 		} else if ( effect.getType() == Effect.SET_VALUE ){
 			SetValueEffect setValueEffect = (SetValueEffect)effect;
-			varFlagSummary.addFlagReference( setValueEffect.getTargetId() );
+			varFlagSummary.addVarReference( setValueEffect.getTargetId() );
 		} else if ( effect.getType() == Effect.INCREMENT_VAR ){
 			IncrementVarEffect incrementEffect = (IncrementVarEffect)effect;
-			varFlagSummary.addFlagReference( incrementEffect.getTargetId() );
+			varFlagSummary.addVarReference( incrementEffect.getTargetId() );
 		} else if ( effect.getType() == Effect.DECREMENT_VAR ){
 			DecrementVarEffect decrementEffect = (DecrementVarEffect)effect;
-			varFlagSummary.addFlagReference( decrementEffect.getTargetId() );
+			varFlagSummary.addVarReference( decrementEffect.getTargetId() );
 		}
 	}
 
