@@ -79,13 +79,26 @@ public class TimerSubParser extends SubParser {
 			// If it is a timer tag, create a new timer with its time
 			if( qName.equals( "timer" ) ) {
 				String time = "";
-
+				boolean usesEndCondition = true;
+				boolean runsInLoop = true;
+				boolean multipleStarts = true;
+				
+				
 				for( int i = 0; i < attrs.getLength( ); i++ ) {
 					if( attrs.getQName( i ).equals( "time" ) )
 						time = attrs.getValue( i );
+					if( attrs.getQName( i ).equals( "usesEndCondition" ))
+						usesEndCondition = attrs.getValue( i ).equals("yes");
+					if( attrs.getQName( i ).equals( "runsInLoop" ))
+						runsInLoop = attrs.getValue( i ).equals("yes");
+					if( attrs.getQName( i ).equals( "multipleStarts" ))
+						multipleStarts = attrs.getValue( i ).equals("yes");
 				}
 
 				timer = new Timer( Long.parseLong( time ) );
+				timer.setRunsInLoop(runsInLoop);
+				timer.setUsesEndCondition(usesEndCondition);
+				timer.setMultipleStarts(multipleStarts);
 			}
 
 			// If it is a condition tag, create the new condition, the subparser and switch the state

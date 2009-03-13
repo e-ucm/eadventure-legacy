@@ -32,6 +32,9 @@ public class TimerDOMWriter {
 
 			// Set the time attribute
 			timerElement.setAttribute( "time", Long.toString( timer.getTime( ) ) );
+			timerElement.setAttribute( "usesEndCondition", timer.isUsesEndCondition() ? "yes" : "no");
+			timerElement.setAttribute( "multipleStarts", timer.isMultipleStarts() ? "yes" : "no");
+			timerElement.setAttribute( "runsInLoop", timer.isRunsInLoop() ? "yes" : "no");
 
 			// Append the documentation (if avalaible)
 			if( timer.getDocumentation( ) != null ) {

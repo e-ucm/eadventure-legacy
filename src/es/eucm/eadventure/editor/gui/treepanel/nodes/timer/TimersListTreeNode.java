@@ -3,29 +3,14 @@ package es.eucm.eadventure.editor.gui.treepanel.nodes.timer;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
-import javax.swing.JPanel;
-import java.net.URL;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfileDataControl;
-import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentRuleDataControl;
-import es.eucm.eadventure.editor.control.controllers.general.ChapterDataControl;
 import es.eucm.eadventure.editor.control.controllers.timer.TimerDataControl;
 import es.eucm.eadventure.editor.control.controllers.timer.TimersListDataControl;
-import es.eucm.eadventure.editor.gui.elementpanels.assessment.AssessmentProfilePanel;
-import es.eucm.eadventure.editor.gui.elementpanels.general.ChapterPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.timer.TimersListPanel;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.TreeNode;
-import es.eucm.eadventure.editor.gui.treepanel.nodes.book.BooksListTreeNode;
-import es.eucm.eadventure.editor.gui.treepanel.nodes.character.NPCsListTreeNode;
-import es.eucm.eadventure.editor.gui.treepanel.nodes.character.PlayerTreeNode;
-import es.eucm.eadventure.editor.gui.treepanel.nodes.conversation.ConversationsListTreeNode;
-import es.eucm.eadventure.editor.gui.treepanel.nodes.cutscene.CutscenesListTreeNode;
-import es.eucm.eadventure.editor.gui.treepanel.nodes.item.ItemsListTreeNode;
-import es.eucm.eadventure.editor.gui.treepanel.nodes.scene.SceneTreeNode;
-import es.eucm.eadventure.editor.gui.treepanel.nodes.scene.ScenesListTreeNode;
 
 public class TimersListTreeNode extends TreeNode{
 

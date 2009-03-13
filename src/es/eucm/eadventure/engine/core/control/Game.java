@@ -477,7 +477,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         // Add timers to the TimerManager
         this.gameTimers = new HashMap<Integer, Timer>();
         for (Timer timer: gameData.getTimers( )){
-            int id = timerManager.addTimer( timer.getInitCond( ), timer.getEndCond( ), this, timer.getTime( ) );
+            int id = timerManager.addTimer( timer, this, timer.getTime( ) );
             gameTimers.put( new Integer(id), timer );
         }
         
