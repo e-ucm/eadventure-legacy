@@ -7,6 +7,7 @@ import java.awt.Toolkit;
 
 import javax.swing.BorderFactory;
 
+import es.eucm.eadventure.common.data.chapter.Trajectory;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.gui.otherpanels.positionimagepanels.ElementImagePanel;
@@ -47,6 +48,7 @@ public class PlayerPositionDialog extends ToolManagableDialog {
 
 		// Get the path to the scene image and the player
 		String scenePath = Controller.getInstance( ).getSceneImagePath( sceneId );
+		Trajectory trajectory = Controller.getInstance().getSceneTrajectory( sceneId );
 		String playerPath = Controller.getInstance( ).getPlayerImagePath( );
 
 		// Set the layout
@@ -57,7 +59,7 @@ public class PlayerPositionDialog extends ToolManagableDialog {
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1;
 		c.weighty = 1;
-		playerPositionPanel = new PositionPanel(new ElementImagePanel( scenePath, playerPath ),positionX, positionY );
+		playerPositionPanel = new PositionPanel(new ElementImagePanel( scenePath, playerPath, trajectory ),positionX, positionY );
 		playerPositionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "PlayerPosition.PositionPanel" ) ) );
 		//playerPositionPanel.setPosition( positionX, positionY );
 		add( playerPositionPanel, c );

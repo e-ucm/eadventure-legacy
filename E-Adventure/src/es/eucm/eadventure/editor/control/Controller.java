@@ -28,6 +28,7 @@ import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.data.animation.Animation;
 import es.eucm.eadventure.common.data.animation.Frame;
 import es.eucm.eadventure.common.data.chapter.Chapter;
+import es.eucm.eadventure.common.data.chapter.Trajectory;
 import es.eucm.eadventure.common.data.chapter.elements.Player;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.common.loader.Loader;
@@ -2573,6 +2574,25 @@ public class Controller {
 		return sceneImagePath;
 	}
 
+	/**
+	 * This method returns the trajectory of a scene from its id.
+	 * 
+	 * @param sceneId
+	 *            Scene id
+	 * @return Trajectory of the scene, null if it was not found
+	 */
+	public Trajectory getSceneTrajectory( String sceneId ) {
+		Trajectory trajectory = null;
+
+		// Search for the image in the list, comparing the identifiers
+		for( SceneDataControl scene : getSelectedChapterDataControl( ).getScenesList( ).getScenes( ) )
+			if( sceneId.equals( scene.getId( ) )  && scene.getTrajectory().hasTrajectory())
+				trajectory = (Trajectory) scene.getTrajectory().getContent();
+
+		return trajectory;
+	}
+
+	
 	/**
 	 * This method returns the absolute path of the default image of the player.
 	 * 

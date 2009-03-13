@@ -187,19 +187,6 @@ public class PositionPanel extends JPanel implements Positioned{
 	 *            Y coordinate of the selected position
 	 */
 	public void setPosition( int x, int y ) {
-		// Set the new values
-		//positionX = x;
-		//positionY = y;
-
-		// Set the values on the fields
-		//positionXTextField.setValue( positionX );
-		//positionYTextField.setValue( positionY );
-		//positionXTextField.setText( String.valueOf( positionX ) );
-		//positionYTextField.setText( String.valueOf( positionY ) );
-
-		// Set the point in the panel and repaint it
-		//positionImagePanel.setSelectedPoint( positionX, positionY );
-		//positionImagePanel.repaint( );
 		Controller.getInstance().addTool(new ChangePositionTool(this,x,y));
 	}
 	
@@ -212,53 +199,6 @@ public class PositionPanel extends JPanel implements Positioned{
 		positionY = y;
 		positionYTextField.setValue( positionY );
 	}
-
-
-	/**
-	 * Updates the values of the position, extracting them from the text fields.
-	 */
-	/*private void checkPositionValues( ) {
-
-		try {
-			// Try to parse the value from the text field
-			//positionX = Integer.parseInt( positionXTextField.getText( ) );
-		} catch( NumberFormatException e ) {
-			// If it failed, set the last valid value
-			//positionXTextField.setText( String.valueOf( positionX ) );
-		}
-
-		try {
-			// Try to parse the value from the text field
-			//positionY = Integer.parseInt( positionYTextField.getText( ) );
-		} catch( NumberFormatException e ) {
-			// If it failed, set the last valid value
-			//positionYTextField.setText( String.valueOf( positionY ) );
-		}
-
-		// Call the listener
-		if( positionPanelListener != null )
-			positionPanelListener.updatePositionValues( positionX, positionY );
-
-		// Set the values on the panel and repaint it
-		positionImagePanel.setSelectedPoint( positionX, positionY );
-		positionImagePanel.repaint( );
-	}*/
-
-	/**
-	 * Listener for the text fields. It checks the values from the fields and updates the panel.
-	 */
-	/*private class TextFieldChangesListener extends FocusAdapter implements ActionListener {
-
-	
-		public void focusLost( FocusEvent e ) {
-			checkPositionValues( );
-		}
-
-	
-		public void actionPerformed( ActionEvent e ) {
-			checkPositionValues( );
-		}
-	}*/
 
 	/**
 	 * Listener for the image panel.
