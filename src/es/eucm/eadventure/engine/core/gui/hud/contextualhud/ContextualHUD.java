@@ -324,7 +324,7 @@ public class ContextualHUD extends HUD {
 	            	inHud = processInventoryClick(actionManager, e);
 	            }else if( actionManager.getElementOver( ) != null ){
 	            	DebugLog.user("Mouse click over element at " + e.getX() + " , " + e.getY());
-	                inHud = processElementClick(actionManager, e);
+	                inHud = processElementClick(actionManager);
 	            }
 	            showActionButtons = false;
 	            elementAction = null;
@@ -368,6 +368,16 @@ public class ContextualHUD extends HUD {
 				pressedTime = Long.MAX_VALUE;
 				return true;
 			}
+		} else if (pressedTime < 600) {
+			if (Math.abs(pressedX - e.getX()) < 30 &&
+					Math.abs(pressedY - e.getY()) < 30 &&
+					pressedX != e.getX() && pressedY != e.getY()) {
+				System.out.println("Emulate left click");
+				mouseReleased = false;
+				pressedTime = Long.MAX_VALUE;
+				MouseEvent d = new MouseEvent(e.getComponent(), e.getID(), e.getWhen(), e.getModifiers(), pressedX, pressedY, e.getXOnScreen(), e.getYOnScreen(), 1, false, MouseEvent.BUTTON1);
+				return this.mouseClicked(d);
+			}
 		}
 		
 		pressedTime = Long.MAX_VALUE;
@@ -392,11 +402,9 @@ public class ContextualHUD extends HUD {
      * Method called when an element is clicked
      * 
      * @param actionManager The actionManager of the Game
-     * @param e The MouseEvent of the click
      * @return Value of inHud
      */
-    private boolean processElementClick(ActionManager actionManager,
-			MouseEvent e) {
+    private boolean processElementClick(ActionManager actionManager) {
         if( elementInCursor!= null ){
         	if (game.getFunctionalPlayer().getCurrentAction().getType() == Action.CUSTOM_INTERACT) {
         		actionManager.setActionSelected(ActionManager.ACTION_CUSTOM_INTERACT);

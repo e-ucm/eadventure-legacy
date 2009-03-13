@@ -1096,7 +1096,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 	public JPanel createTextEditionPanel() {
 		JPanel textInputPanel = new JPanel();
 		textInputPanel.add(new JLabel(TextConstants.getText("SPEP.XCoordinate")));
-		SpinnerNumberModel spinnerModel = new SpinnerNumberModel(selectedElement.getX(), -200, drawPanel.getBackgroundWidth() + 200, 5);
+		SpinnerNumberModel spinnerModel = new SpinnerNumberModel(selectedElement.getX(), -400, drawPanel.getBackgroundWidth() + 400, 5);
 		posXSpinner = new JSpinner(spinnerModel);
 		posXSpinner.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
@@ -1108,7 +1108,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 		textInputPanel.add(posXSpinner);
 
 		textInputPanel.add(new JLabel("   " + TextConstants.getText("SPEP.YCoordinate")));
-		spinnerModel = new SpinnerNumberModel(selectedElement.getY(), -200, GUI.WINDOW_HEIGHT + 200, 5);
+		spinnerModel = new SpinnerNumberModel(selectedElement.getY(), -400, GUI.WINDOW_HEIGHT + 400, 5);
 		posYSpinner = new JSpinner(spinnerModel);
 		posYSpinner.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
@@ -1122,7 +1122,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 		
 		if (selectedElement.canRescale()) {
 			textInputPanel.add(new JLabel("   " + TextConstants.getText("SPEP.Scale")));
-			spinnerModel = new SpinnerNumberModel(new Float(selectedElement.getScale()), new Float(0.02), new Float(15.00f), new Float(0.02f));
+			spinnerModel = new SpinnerNumberModel(new Float(selectedElement.getScale()), new Float(0.02f), new Float(15.00f), new Float(0.02f));
 			scaleSpinner = new JSpinner(spinnerModel);
 			scaleSpinner.addChangeListener(new ChangeListener() {
 				public void stateChanged(ChangeEvent arg0) {

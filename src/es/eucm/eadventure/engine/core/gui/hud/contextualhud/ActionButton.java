@@ -231,9 +231,6 @@ public class ActionButton {
 			g.drawImage(buttonPressed,x ,y , null );
 		else if (over) {
 			g.drawImage(buttonOver, x, y, null);
-			String[] text = new String[1];
-			text[0] = actionName;
-            GUI.drawStringOnto(g, text, posX, y, Color.BLACK, Color.WHITE);
 		} else {
 			x = (posX - ACTIONBUTTON_WIDTH / 2);
 			y = posY - ACTIONBUTTON_HEIGHT / 2;
@@ -243,6 +240,12 @@ public class ActionButton {
 			g.drawImage(buttonNormal, x, y, null);
 			g.setComposite(original);
 		}
+	}
+	
+	public void drawName(Graphics2D g) {
+		int y = this.posY - ACTIONBUTTON_HEIGHT / 2;
+		String[] text = new String[] {actionName};
+        GUI.drawStringOnto(g, text, posX, y, Color.BLACK, Color.WHITE);
 	}
 	
 	public String getName() {
