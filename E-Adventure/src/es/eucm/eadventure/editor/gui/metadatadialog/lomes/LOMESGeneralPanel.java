@@ -45,11 +45,6 @@ public class LOMESGeneralPanel extends JPanel{
 		LOMESCreateContainerPanel identifierPanel = new LOMESCreateContainerPanel(dataControl.getIdentifier(), TextConstants.getText( "LOMES.General.Identifier" ),LOMContributeDialog.NONE);
 		LOMCreatePrimitiveContainerPanel keywordPanel = new LOMCreatePrimitiveContainerPanel(LOMCreatePrimitiveContainerPanel.LANGSTRING_TYPE,dataControl.getKeywords(),TextConstants.getText("LOM.General.Keyword"),LOMCreatePrimitiveContainerPanel.FIELD_TYPE_FIELD);
 		
-		//LOMESOptionsPanel languagePanel = new LOMESOptionsPanel(dataControl.getLanguageController( ), TextConstants.getText("LOM.General.Language"));
-		// descriptionPanel = new LOMESTextPanel(dataControl.getDescriptionController( ), TextConstants.getText("LOM.General.Description"), LOMESTextPanel.TYPE_AREA);
-		//LOMESTextPanel keywordPanel = new LOMESTextPanel(dataControl.getKeywordController( ), TextConstants.getText("LOM.General.Keyword"), LOMESTextPanel.TYPE_FIELD);
-		//LOMESTextPanel catalog = new LOMESTextPanel(dataControl.getCatalogController(), TextConstants.getText("IMS.General.Catalog"), LOMESTextPanel.TYPE_FIELD);
-		//LOMESTextPanel entry = new LOMESTextPanel(dataControl.getEntryController(), TextConstants.getText("IMS.General.Entry"), LOMESTextPanel.TYPE_FIELD);
 		
 		// Add the panels
 		add ( Box.createVerticalStrut( 1 ));

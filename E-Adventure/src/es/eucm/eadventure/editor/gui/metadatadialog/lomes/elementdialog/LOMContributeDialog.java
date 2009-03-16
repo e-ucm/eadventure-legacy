@@ -94,15 +94,6 @@ public class LOMContributeDialog extends JDialog{
 		
 		entity = new LOMCreatePrimitiveContainerPanel(LOMCreatePrimitiveContainerPanel.STRING_TYPE,entityValue,TextConstants.getText("LOMES.LifeCycle.Entity"),LOMCreatePrimitiveContainerPanel.FIELD_TYPE_FIELD);
 		
-		JPanel mainPanel = new JPanel(new GridBagLayout());
-		c = new GridBagConstraints(); 
-		c.insets = new Insets(5,5,5,5);c.gridy = 0;
-		c.fill = GridBagConstraints.BOTH;c.weightx=1;
-		mainPanel.add(rolePanel,c);
-		c.gridy=1;
-		mainPanel.add(entity,c);
-		c.gridy=2;
-		mainPanel.add(datePanel,c);
 		
 		JPanel buttonPanel = new JPanel(new GridBagLayout());
 		c =  new GridBagConstraints(); 
@@ -119,11 +110,23 @@ public class LOMContributeDialog extends JDialog{
 		});
 		buttonPanel.add(ok,c);
 		
-		this.getContentPane().setLayout(new GridLayout(0,2));
+		JPanel mainPanel = new JPanel(new GridBagLayout());
+		c = new GridBagConstraints(); 
+		c.insets = new Insets(5,5,5,5);c.gridy = 0;
+		c.fill = GridBagConstraints.BOTH;c.weightx=1;
+		mainPanel.add(rolePanel,c);
+		c.gridy=1;
+		mainPanel.add(entity,c);
+		c.gridy=2;
+		mainPanel.add(datePanel,c);
+		c.gridy=3;
+		mainPanel.add(buttonPanel,c);
+		
+		//this.getContentPane().setLayout(new GridLayout(2,0));
 		this.getContentPane().add(mainPanel);
-		this.getContentPane().add(buttonPanel);
+		//this.getContentPane().add(buttonPanel);
 	
-		this.setSize( new Dimension(250,200) );
+		this.setSize( new Dimension(200,300) );
 		Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
 		setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
 		setResizable( false );
