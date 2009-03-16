@@ -82,6 +82,8 @@ public class TimerSubParser extends SubParser {
 				boolean usesEndCondition = true;
 				boolean runsInLoop = true;
 				boolean multipleStarts = true;
+				boolean countDown = false, showWhenStopped = false, showTime = false;
+				String displayName = "timer";
 				
 				
 				for( int i = 0; i < attrs.getLength( ); i++ ) {
@@ -93,12 +95,24 @@ public class TimerSubParser extends SubParser {
 						runsInLoop = attrs.getValue( i ).equals("yes");
 					if( attrs.getQName( i ).equals( "multipleStarts" ))
 						multipleStarts = attrs.getValue( i ).equals("yes");
+					if( attrs.getQName( i ).equals( "showTime" ))
+						showTime = attrs.getValue( i ).equals("yes");
+					if( attrs.getQName( i ).equals( "displayName" ))
+						displayName = attrs.getValue( i );
+					if( attrs.getQName( i ).equals( "countDown" ))
+						countDown = attrs.getValue( i ).equals("yes");
+					if( attrs.getQName( i ).equals( "showWhenStopped" ))
+						showWhenStopped = attrs.getValue( i ).equals("yes");
 				}
 
 				timer = new Timer( Long.parseLong( time ) );
 				timer.setRunsInLoop(runsInLoop);
 				timer.setUsesEndCondition(usesEndCondition);
 				timer.setMultipleStarts(multipleStarts);
+				timer.setShowTime(showTime);
+				timer.setDisplayName(displayName);
+				timer.setCountDown(countDown);
+				timer.setShowWhenStopped(showWhenStopped);
 			}
 
 			// If it is a condition tag, create the new condition, the subparser and switch the state

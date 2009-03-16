@@ -1,5 +1,7 @@
 package es.eucm.eadventure.common.data.chapter;
 
+import java.awt.Color;
+
 import es.eucm.eadventure.common.data.Documented;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.common.data.chapter.effects.Effects;
@@ -25,6 +27,18 @@ public class Timer implements Cloneable, Documented {
 	private Boolean runsInLoop;
 	
 	private Boolean multipleStarts;
+		
+	private Boolean showTime;
+	
+	private String displayName;
+	
+	private Boolean countDown;
+	
+	private Boolean showWhenStopped;
+	
+	private Color fontColor = Color.BLACK;
+	
+	private Color borderColor = Color.WHITE;
 	
 	public Timer(long time, Conditions init, Conditions end, Effects effect, Effects postEffect){
 		this.seconds = time;
@@ -35,6 +49,11 @@ public class Timer implements Cloneable, Documented {
 		usesEndCondition = true;
 		runsInLoop = true;
 		multipleStarts = true;
+		
+		showTime = false;
+		displayName = "timer";
+		countDown = true;
+		showWhenStopped = false;
 	}
 	
 	public Timer(long time){
@@ -172,6 +191,79 @@ public class Timer implements Cloneable, Documented {
 		this.multipleStarts = multipleStarts;
 	}
 
+
+	/**
+	 * @return the countDown
+	 */
+	public Boolean isCountDown() {
+		return countDown;
+	}
+
+	/**
+	 * @param countDown the countDown to set
+	 */
+	public void setCountDown(Boolean countDown) {
+		this.countDown = countDown;
+	}
+
+	/**
+	 * @return the showWhenStopped
+	 */
+	public Boolean isShowWhenStopped() {
+		return showWhenStopped;
+	}
+
+	/**
+	 * @param showWhenStopped the showWhenStopped to set
+	 */
+	public void setShowWhenStopped(Boolean showWhenStopped) {
+		this.showWhenStopped = showWhenStopped;
+	}
+
+	/**
+	 * @return the fontColor
+	 */
+	public Color getFontColor() {
+		return fontColor;
+	}
+
+	/**
+	 * @param fontColor the fontColor to set
+	 */
+	public void setFontColor(Color fontColor) {
+		this.fontColor = fontColor;
+	}
+
+	/**
+	 * @return the borderColor
+	 */
+	public Color getBorderColor() {
+		return borderColor;
+	}
+
+	/**
+	 * @param borderColor the borderColor to set
+	 */
+	public void setBorderColor(Color borderColor) {
+		this.borderColor = borderColor;
+	}
+	
+	public String getDisplayName() {
+		return displayName;
+	}
+	
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
+	}
+
+	public Boolean isShowTime() {
+		return showTime;
+	}
+	
+	public void setShowTime(Boolean showTime) {
+		this.showTime = showTime;
+	}
+	
 	public Object clone() throws CloneNotSupportedException {
 		Timer t = (Timer) super.clone();
 		t.documentation = (documentation != null ? new String(documentation) : null);

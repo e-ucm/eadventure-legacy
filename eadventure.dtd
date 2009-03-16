@@ -289,13 +289,16 @@
 
 <!ELEMENT go-back EMPTY>
 
-
-<!ELEMENT timer (documentation?, init-condition?, end-condition?, effect?, post-effect?)>
+<!ELEMENT timer (documentation?, init-condition?, end-condition?, effect?, post-effect?, textcolor?)>
 <!ATTLIST timer 
 	time NMTOKEN #REQUIRED
 	usesEndCondition (yes | no) "yes"
 	runsInLoop (yes | no) "yes"
 	multipleStarts (yes | no) "yes"
+	showTime (yes | no) "no"
+	displayName NMTOKEN "timer"
+	countDown (yes | no) "yes"
+	showWhenStopped (yes | no) "no"	
 >
 
 <!-- TODO: REMOVE EFFECT ONCE ALL SAMPLE GAMES HAD BEEN UPDATED -->

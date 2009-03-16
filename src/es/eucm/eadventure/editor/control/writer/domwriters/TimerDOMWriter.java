@@ -35,7 +35,11 @@ public class TimerDOMWriter {
 			timerElement.setAttribute( "usesEndCondition", timer.isUsesEndCondition() ? "yes" : "no");
 			timerElement.setAttribute( "multipleStarts", timer.isMultipleStarts() ? "yes" : "no");
 			timerElement.setAttribute( "runsInLoop", timer.isRunsInLoop() ? "yes" : "no");
-
+			timerElement.setAttribute( "showTime" , timer.isShowTime() ? "yes" : "no");
+			timerElement.setAttribute( "displayName", timer.getDisplayName());
+			timerElement.setAttribute( "countDown", timer.isCountDown() ? "yes" : "no");
+			timerElement.setAttribute( "showWhenStopped", timer.isShowWhenStopped() ? "yes" : "no");
+			
 			// Append the documentation (if avalaible)
 			if( timer.getDocumentation( ) != null ) {
 				Node timerDocumentationNode = doc.createElement( "documentation" );

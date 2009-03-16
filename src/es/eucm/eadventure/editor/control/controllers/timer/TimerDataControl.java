@@ -10,6 +10,7 @@ import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeDocumentationTool;
 import es.eucm.eadventure.editor.control.tools.generic.ChangeBooleanValueTool;
 import es.eucm.eadventure.editor.control.tools.generic.ChangeLongValueTool;
+import es.eucm.eadventure.editor.control.tools.generic.ChangeStringValueTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class TimerDataControl extends DataControl {
@@ -310,4 +311,35 @@ public class TimerDataControl extends DataControl {
 		controller.addTool(new ChangeBooleanValueTool(timer, runsInLoop, "isRunsInLoop", "setRunsInLoop"));
 	}
 
+	public boolean isShowTime() {
+		return timer.isShowTime();
+	}
+
+	public void setShowTime(boolean selected) {
+		controller.addTool(new ChangeBooleanValueTool(timer, selected, "isShowTime", "setShowTime"));
+	}
+
+	public boolean isCountDown() {
+		return timer.isCountDown();
+	}
+	
+	public void setCountDown(boolean countDown) {
+		controller.addTool(new ChangeBooleanValueTool(timer, countDown, "isCountDown", "setCountDown"));
+	}
+
+	public boolean isShowWhenStopped() {
+		return timer.isShowWhenStopped();
+	}
+	
+	public void setShowWhenStopped(boolean showWhenStopped) {
+		controller.addTool(new ChangeBooleanValueTool(timer, showWhenStopped, "isShowWhenStopped", "setShowWhenStopped"));
+	}
+
+	public String getDisplayName() {
+		return timer.getDisplayName();
+	}
+	
+	public void setDisplayName(String displayName) {
+		controller.addTool(new ChangeStringValueTool(timer, displayName, "getDisplayName", "setDisplayName"));
+	}
 }
