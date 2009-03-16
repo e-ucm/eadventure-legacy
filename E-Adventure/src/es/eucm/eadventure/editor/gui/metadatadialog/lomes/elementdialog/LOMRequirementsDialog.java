@@ -106,6 +106,8 @@ public class LOMRequirementsDialog extends JDialog{
 		mainPanel.add(namePanel,c);
 		c.gridy=2;
 		mainPanel.add(maxPanel,c);
+		c.gridy=3;
+		mainPanel.add(minPanel,c);
 		
 		
 		JPanel buttonPanel = new JPanel(new GridBagLayout());

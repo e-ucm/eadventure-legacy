@@ -1,6 +1,9 @@
 package es.eucm.eadventure.editor.control.controllers.metadata.lomes;
 
+import java.util.ArrayList;
+
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.data.meta.auxiliar.LOMTaxonPath;
 import es.eucm.eadventure.editor.data.meta.ims.IMSClassification;
 import es.eucm.eadventure.editor.data.meta.lomes.LOMESClassification;
 import es.eucm.eadventure.editor.data.meta.LangString;
@@ -50,7 +53,11 @@ public class LOMESClassificationDataControl {
 		};
 	}
 	
-	public LOMESTextDataControl getSource(){
+	public LOMTaxonPath getTaxonPath(){
+	    return data.getTaxonPath();
+	}
+	
+	/*public LOMESTextDataControl getSource(){
 		return new LOMESTextDataControl (){
 
 			public String getText( ) {
@@ -90,9 +97,9 @@ public class LOMESClassificationDataControl {
 			}
 			
 		};
-	}
+	}*/
 	
-	public LOMESTextDataControl getKeywordController (){
+	/*public LOMESTextDataControl getKeywordController (){
 		return new LOMESTextDataControl (){
 
 			public String getText( ) {
@@ -104,6 +111,10 @@ public class LOMESClassificationDataControl {
 			}
 			
 		};
+	}*/
+	
+	public ArrayList<LangString> getKeywords(){
+		return data.getKeywords();
 	}
 
 	public LOMESClassification getData() {

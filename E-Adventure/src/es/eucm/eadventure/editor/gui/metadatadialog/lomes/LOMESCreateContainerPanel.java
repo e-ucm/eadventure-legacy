@@ -16,8 +16,12 @@ import es.eucm.eadventure.editor.data.meta.auxiliar.LOMContribute;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMESContainer;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMIdentifier;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMRequirement;
+import es.eucm.eadventure.editor.data.meta.auxiliar.LOMTaxon;
+import es.eucm.eadventure.editor.data.meta.auxiliar.LOMTaxonPath;
 import es.eucm.eadventure.editor.gui.editdialogs.PlayerPositionDialog;
 import es.eucm.eadventure.editor.gui.metadatadialog.lomes.elementdialog.LOMRequirementsDialog;
+import es.eucm.eadventure.editor.gui.metadatadialog.lomes.elementdialog.LOMTaxonDialog;
+import es.eucm.eadventure.editor.gui.metadatadialog.lomes.elementdialog.LOMTaxonPathDialog;
 import es.eucm.eadventure.editor.gui.metadatadialog.lomes.elementdialog.LOMlIdentifierDialog;
 import es.eucm.eadventure.editor.gui.metadatadialog.lomes.elementdialog.LOMContributeDialog;
 
@@ -139,6 +143,32 @@ public class LOMESCreateContainerPanel extends JPanel{
 				else {
 					elements.removeItemAt(selectedIndex);
 					elements.insertItemAt(idDialog.getTypeValue(), selectedIndex);
+				}
+				
+			}else if (container instanceof LOMTaxonPath){
+				int selectedIndex = elements.getSelectedIndex();
+				LOMTaxonPathDialog idDialog = new LOMTaxonPathDialog(container,selectedIndex);
+				
+				
+				((LOMTaxonPath)container).addTaxonPath(idDialog.getSourceValue(),idDialog.getTaxonValue(), selectedIndex);
+				if (selectedIndex==0)
+					elements.addItem(idDialog.getSourceValue().getValue(0));
+				else {
+					elements.removeItemAt(selectedIndex);
+					elements.insertItemAt(idDialog.getSourceValue().getValue(0), selectedIndex);
+				}
+				
+			}else if (container instanceof LOMTaxon){
+				int selectedIndex = elements.getSelectedIndex();
+				LOMTaxonDialog idDialog = new LOMTaxonDialog(container,selectedIndex);
+				
+				
+				((LOMTaxon)container).addTaxon(idDialog.getIdValue(), idDialog.getEntryValue(), selectedIndex);
+				if (selectedIndex==0)
+					elements.addItem(idDialog.getIdValue());
+				else {
+					elements.removeItemAt(selectedIndex);
+					elements.insertItemAt(idDialog.getIdValue(), selectedIndex);
 				}
 				
 			}

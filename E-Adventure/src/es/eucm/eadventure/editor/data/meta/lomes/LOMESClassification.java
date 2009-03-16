@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import es.eucm.eadventure.editor.data.meta.LangString;
 import es.eucm.eadventure.editor.data.meta.Vocabulary;
+import es.eucm.eadventure.editor.data.meta.auxiliar.LOMTaxonPath;
 
 public class LOMESClassification {
 
@@ -12,16 +13,7 @@ public class LOMESClassification {
 	private Vocabulary purpose;
 	
 	//9.2 Taxon  Path
-	
-	//9.2.1
-	private LangString source;
-	
-	//9.2.2 TAXON
-	//9.2.2.1 
-	private String identifier;
-	
-	//9.2.2.2
-	private LangString entry;
+	private LOMTaxonPath taxonPath;
 	
 	// 9.3
 	private LangString description;
@@ -33,9 +25,7 @@ public class LOMESClassification {
 		purpose = new Vocabulary(Vocabulary.LOMES_CL_PURPOSE_9_1);
 		description = null;
 		keyword = new ArrayList<LangString>();
-		source =null;
-		identifier=null;
-		entry=null;
+		taxonPath = new LOMTaxonPath();
 		
 	}
 	
@@ -52,6 +42,10 @@ public class LOMESClassification {
 	
 	public LangString getKeyword(){
 		return keyword.get( 0 );
+	}
+	
+	public ArrayList<LangString> getKeywords(){
+	    return keyword;
 	}
 	
 	public LangString getKeyword(int i){
@@ -85,32 +79,23 @@ public class LOMESClassification {
 		this.keyword = keyword;
 	}
 
-	public LangString getSource() {
-		return source;
-	}
-
-	public void setSource(LangString source) {
-		this.source = source;
-	}
-
-	public String getIdentifier() {
-		return identifier;
-	}
-
-	public void setIdentifier(String identifier) {
-		this.identifier = identifier;
-	}
-
-	public LangString getEntry() {
-		return entry;
-	}
-
-	public void setEntry(LangString entry) {
-		this.entry = entry;
-	}
 
 	public void setPurpose(Vocabulary purpose) {
 		this.purpose = purpose;
+	}
+
+	/**
+	 * @return the taxonPath
+	 */
+	public LOMTaxonPath getTaxonPath() {
+	    return taxonPath;
+	}
+
+	/**
+	 * @param taxonPath the taxonPath to set
+	 */
+	public void setTaxonPath(LOMTaxonPath taxonPath) {
+	    this.taxonPath = taxonPath;
 	}
 
 	

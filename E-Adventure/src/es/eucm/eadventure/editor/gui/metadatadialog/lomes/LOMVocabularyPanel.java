@@ -22,7 +22,8 @@ public class LOMVocabularyPanel extends JPanel{
 	
 	public LOMVocabularyPanel(String[] values,int selection){
 		//super( Controller.getInstance( ).peekWindow( ), TextConstants.getText("LOMES.Value"), Dialog.ModalityType.APPLICATION_MODAL );
-		elements = new JComboBox(values);
+		super();
+	    	elements = new JComboBox(values);
 		this.selection=selection;
 		
 		GridBagConstraints c = new GridBagConstraints(); 

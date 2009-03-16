@@ -4,6 +4,8 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMContribute;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMIdentifier;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMRequirement;
+import es.eucm.eadventure.editor.data.meta.auxiliar.LOMTaxon;
+import es.eucm.eadventure.editor.data.meta.auxiliar.LOMTaxonPath;
 import es.eucm.eadventure.editor.data.meta.ims.IMSClassification;
 import es.eucm.eadventure.editor.data.meta.ims.IMSEducational;
 import es.eucm.eadventure.editor.data.meta.ims.IMSGeneral;
@@ -91,9 +93,7 @@ public class LOMESDataControl {
 		classif.setDescription(new LangString("Default"));
 		classif.setKeyword(new LangString("Default"));
 		classif.setPurpose(0);
-		classif.setSource(new LangString("None"));
-		classif.setIdentifier("Empty");
-		classif.setEntry(new LangString("None"));
+		classif.setTaxonPath(new LOMTaxonPath(new LangString("Default"),new LOMTaxon(new String("Default"),new LangString("Default"))));
 		classification = new LOMESClassificationDataControl(classif);
 		
 		

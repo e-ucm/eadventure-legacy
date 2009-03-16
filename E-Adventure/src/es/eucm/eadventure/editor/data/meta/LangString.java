@@ -82,5 +82,21 @@ public class LangString {
 	public void deleteValue(int index){
 		values.remove(index);
 	}
+	/**
+	 * Changes the value for specified "index" value, keeping the previous language
+	 * @param value
+	 * @param index
+	 */
+	public void setValue(String value, int index){
+	    values.remove(index);
+	    values.add(index,value);
+	    
+	}
+	
+	public void setLanguage(String lang,int index){
+	    languages.remove(index);
+	    languages.add(index,lang);
+	    
+	}
 	
 }
