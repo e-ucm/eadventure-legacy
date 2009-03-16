@@ -134,21 +134,26 @@ public class PlayerPanel extends JPanel implements Updateable {
 		setLayout( new BorderLayout( ) );
 		//setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Player.Title" ) ) );
 		//GridBagConstraints c = new GridBagConstraints( );
-		cDoc.insets = new Insets( 5, 5, 5, 5 );
+		cDoc.insets = new Insets( 5, 5, 2, 2 );
 
 		// Create the text area for the documentation
-		cDoc.fill = GridBagConstraints.HORIZONTAL;
+		cDoc.fill = GridBagConstraints.BOTH;
 		cDoc.weightx = 1;
+		cDoc.weighty = 1;
 		JPanel documentationPanel = new JPanel( );
-		documentationPanel.setLayout( new GridLayout( ) );
+		documentationPanel.setLayout(new BorderLayout());
 		documentationTextArea = new JTextArea( playerDataControl.getDocumentation( ), 4, 0 );
 		documentationTextArea.setLineWrap( true );
 		documentationTextArea.setWrapStyleWord( true );
 		documentationTextArea.getDocument( ).addDocumentListener( new DocumentationChangeListener( documentationTextArea, (Documented) playerDataControl.getContent()) );
-		documentationPanel.add( new JScrollPane( documentationTextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER ) );
+		documentationPanel.add( new JScrollPane( documentationTextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER ), BorderLayout.CENTER );
 		documentationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Player.Documentation" ) ) );
 		docPanel.add( documentationPanel, cDoc );
 
+		
+		cDoc.fill = GridBagConstraints.HORIZONTAL;
+		cDoc.weighty = 0.0;
+		
 		// Create the field for the text color
 		cDoc.gridy = 1;
 		JPanel textColorPanel = crateTextColorPanel();

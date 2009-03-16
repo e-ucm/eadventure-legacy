@@ -195,7 +195,7 @@ public class BookPagePanel extends JPanel implements Updateable {
 		assetPathPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), borderText ) );
 
 		GridBagConstraints c2 = new GridBagConstraints( );
-		c2.insets = new Insets( 4, 5, 4, 5 );
+		c2.insets = new Insets( 2, 2, 0, 0 );
 		c2.fill = GridBagConstraints.NONE;
 		c2.weightx = 0;
 		c2.weighty = 0;

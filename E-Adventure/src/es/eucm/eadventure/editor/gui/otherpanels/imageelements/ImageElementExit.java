@@ -45,7 +45,11 @@ public class ImageElementExit extends ImageElement {
 				if (point.getY() > maxY) maxY = (int) point.getY();
 				if (point.getY() < minY) minY = (int) point.getY();
 			}
-			image = new BufferedImage(maxX - minX, maxY - minY, BufferedImage.TYPE_4BYTE_ABGR);
+			
+			if (exitDataControl.getPoints().size() >= 3)
+				image = new BufferedImage(maxX - minX, maxY - minY, BufferedImage.TYPE_4BYTE_ABGR);
+			else
+				image = new BufferedImage(20, 20, BufferedImage.TYPE_4BYTE_ABGR);
 			
 			fillImageIrregular(minX, minY);
 		}
@@ -79,10 +83,12 @@ public class ImageElementExit extends ImageElement {
 			polygon.addPoint(x[i], y[i]);
 		}
 		
-		g.setColor(Color.RED);
-		g.fillPolygon(x, y, exitDataControl.getPoints().size());
-		g.setColor(Color.BLACK);
-		g.drawPolygon(x, y, exitDataControl.getPoints().size());
+		if (exitDataControl.getPoints().size() >= 3) {
+			g.setColor(Color.RED);
+			g.fillPolygon(x, y, exitDataControl.getPoints().size());
+			g.setColor(Color.BLACK);
+			g.drawPolygon(x, y, exitDataControl.getPoints().size());
+		}
 	}
 
 	@Override

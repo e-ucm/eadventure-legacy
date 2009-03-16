@@ -21,10 +21,14 @@ public class ImageElementInfluenceArea extends ImageElement {
 			ImageElement reference) {
 		this.influenceAreaDataControl = influenceAreaDataControl;
 		this.imageElementReference = reference;
-		if (influenceAreaDataControl.hasInfluenceArea())
-			image = new BufferedImage(influenceAreaDataControl.getWidth(),
+		if (influenceAreaDataControl.hasInfluenceArea()) {
+			if (influenceAreaDataControl.getWidth() == 0 || influenceAreaDataControl.getHeight() == 0)
+				image = null;
+			else
+				image = new BufferedImage(influenceAreaDataControl.getWidth(),
 					influenceAreaDataControl.getHeight(),
 					BufferedImage.TYPE_4BYTE_ABGR);
+		}
 		else {
 			int width = (int) (reference.getImage().getWidth(null)
 					* reference.getScale() + 40);
@@ -184,11 +188,15 @@ public class ImageElementInfluenceArea extends ImageElement {
 
 	@Override
 	public int getHeight() {
+		if (image == null)
+			return 0;
 		return image.getHeight(null);
 	}
 
 	@Override
 	public int getWidth() {
+		if (image == null)
+			return 0;
 		return image.getWidth(null);
 	}
 
