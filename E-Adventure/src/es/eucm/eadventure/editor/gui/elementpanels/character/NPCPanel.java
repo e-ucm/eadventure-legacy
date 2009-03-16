@@ -629,8 +629,7 @@ public class NPCPanel extends JPanel implements Updateable {
 		}
 
 	}
-	
-	@Override
+
 	public boolean updateFields() {
 		this.looksPanel.updateResources();
 		this.looksPanel.updatePreview();

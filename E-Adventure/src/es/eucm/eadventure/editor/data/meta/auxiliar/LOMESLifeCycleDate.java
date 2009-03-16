@@ -43,7 +43,6 @@ public class LOMESLifeCycleDate implements LOMESComposeType{
 		return attr;
 	}
 
-	@Override
 	public String getTitle() {
 		
 		return TextConstants.getText("LOMES.LifeCycle.DateTitle");

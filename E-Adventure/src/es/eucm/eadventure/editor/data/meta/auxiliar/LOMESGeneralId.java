@@ -49,7 +49,6 @@ public class LOMESGeneralId implements LOMESComposeType{
 		return attr;
 	}
 
-	@Override
 	public String getTitle() {
 		// TODO Auto-generated method stub
 		return null;

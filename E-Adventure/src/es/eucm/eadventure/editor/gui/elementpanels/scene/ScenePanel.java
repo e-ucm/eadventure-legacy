@@ -234,8 +234,6 @@ public class ScenePanel extends JPanel implements Updateable{
 		}
 	}
 
-
-	@Override
 	public boolean updateFields() {
 		documentationTextArea.setText( sceneDataControl.getDocumentation( ) );
 		nameTextField.setText( sceneDataControl.getName( ) );

@@ -9,7 +9,6 @@ import es.eucm.eadventure.editor.data.meta.LangString;
 
 public class LOMConfigData implements ProjectConfigDataConsumer{
 
-	@Override
 	public void updateData() {	}
 	
 	private static Controller controller = Controller.getInstance();

@@ -188,7 +188,6 @@ public class ButtonsPanel extends JScrollPane implements Updateable{
 		setViewportView( mainPanel );
 	}
 	
-	@Override
 	public boolean updateFields() {
 		// For every cursor, update the cursorPath field
 		for (int j = 0; j < actionTypes.length; j++) {

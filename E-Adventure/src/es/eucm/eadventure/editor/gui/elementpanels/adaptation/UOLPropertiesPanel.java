@@ -524,7 +524,6 @@ class UOLPropertiesPanel extends JPanel implements Updateable{
 		}
 	}
 
-	@Override
 	public boolean updateFields() {
 		propertiesTable.setRowSelectionInterval(-1, -1);
 		propertiesTable.updateUI();

@@ -72,8 +72,6 @@ public class LOMESLifeCycleContribute implements LOMESComposeType{
 		this.date = date;
 	}
 
-
-	@Override
 	public String getTitle() {
 		// TODO Auto-generated method stub
 		return null;

@@ -227,7 +227,6 @@ public class AdaptationRulesListPanel extends JPanel implements Updateable{
 		}
 	}
 
-	@Override
 	public boolean updateFields() {
 		scorm2004.setSelected(rulesListDataControl.isScorm2004());
 		scorm12.setSelected(rulesListDataControl.isScorm12());

@@ -33,7 +33,6 @@ public class BookPanel extends JTabbedPane implements Updateable {
 		this.insertTab( TextConstants.getText("Book.DocAndApp"), null, bookDocAppPanel, TextConstants.getText("Book.DocAndApp.Tip"), 1 );
 	}
 
-	@Override
 	public boolean updateFields() {
 		int selectedTab = this.getSelectedIndex();
 		bookDocAppPanel.updateFields();
