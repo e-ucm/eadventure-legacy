@@ -27,9 +27,6 @@ import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfileDataControl;
-import es.eucm.eadventure.editor.gui.Updateable;
-
-
 
 public class AssessmentProfilePanel extends JPanel {
 
@@ -266,7 +263,6 @@ public class AssessmentProfilePanel extends JPanel {
 				}	
 			}
 		});
-		sendByEmailPanel.add(sendByEmailCheck);
 		
 		sendByEmailText = new JTextField(40);
 		sendByEmailText.setEnabled(dataControl.isShowReportAtEnd() && dataControl.isSendByEmail());
@@ -281,7 +277,17 @@ public class AssessmentProfilePanel extends JPanel {
 			public void keyTyped(KeyEvent arg0) {
 			}
 		});
-		sendByEmailPanel.add(sendByEmailText);
+		
+		JPanel tempPanelemail = new JPanel();
+		tempPanelemail.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 0;
+		tempPanelemail.add(sendByEmailCheck, c);
+		c.gridx++;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		tempPanelemail.add(sendByEmailText, c);
+		sendByEmailPanel.add(tempPanelemail);
 		
 		smtpConfig = createSmtpConfigPanel();
 		if (!dataControl.isSendByEmail()) {

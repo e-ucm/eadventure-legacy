@@ -22,9 +22,7 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
-import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.engine.core.control.TimerManager;
-import es.eucm.eadventure.engine.core.data.SaveTimer;
 import es.eucm.eadventure.engine.core.gui.hud.HUD;
 
 /**

@@ -47,7 +47,6 @@ public class LOMClassificationTaxonPath implements LOMESComposeType{
 	    this.taxon = taxon;
 	}
 
-	@Override
 	public String getTitle() {
 	    // TODO Auto-generated method stub
 	    return null;

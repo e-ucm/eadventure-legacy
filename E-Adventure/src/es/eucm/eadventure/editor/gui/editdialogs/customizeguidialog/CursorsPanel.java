@@ -84,7 +84,7 @@ public class CursorsPanel extends JScrollPane implements Updateable{
 		//resourcesPanel.add( informationTextPane, c );
 		JTextPane informationTextPane = new JTextPane( );
 		informationTextPane.setEditable( false );
-		informationTextPane.setBackground( getBackground( ) );
+		informationTextPane.setBackground( mainPanel.getBackground( ) );
 		informationTextPane.setText( TextConstants.getText( "Cursors.Information" ) );
 		JPanel informationPanel = new JPanel( );
 		informationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "GeneralText.Information" ) ) );
