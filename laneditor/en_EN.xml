@@ -2051,6 +2051,10 @@ When not customized, default arrows will be used in the game.</entry>
 	<entry key="Timer.RunsInLoop">Runs in loops</entry>
 	<entry key="Timer.RunsInLoopDesc">      Set -> The timer will run once and again until it is stopped
       Not set -> The timer will run once and stop. </entry>
+	<entry key="Timer.ShowTimer">Show timer</entry>
+	<entry key="Timer.DisplayName">Display name</entry>
+	<entry key="Timer.CountDown">Count-down</entry>
+	<entry key="Timer.ShowWhenStopped">Show when stopped</entry>
 	
 	<entry key="TimersList.Title">List of timers</entry>
 	<entry key="TimersList.ListTitle">List of timers</entry>
