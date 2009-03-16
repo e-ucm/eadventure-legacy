@@ -3,6 +3,7 @@ package es.eucm.eadventure.editor.control.controllers.metadata.lomes;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMContribute;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMIdentifier;
+import es.eucm.eadventure.editor.data.meta.auxiliar.LOMRequirement;
 import es.eucm.eadventure.editor.data.meta.ims.IMSClassification;
 import es.eucm.eadventure.editor.data.meta.ims.IMSEducational;
 import es.eucm.eadventure.editor.data.meta.ims.IMSGeneral;
@@ -18,6 +19,7 @@ import es.eucm.eadventure.editor.data.meta.lomes.LOMESMetaMetaData;
 import es.eucm.eadventure.editor.data.meta.lomes.LOMESRights;
 import es.eucm.eadventure.editor.data.meta.lomes.LOMESTechnical;
 import es.eucm.eadventure.editor.data.meta.LangString;
+import es.eucm.eadventure.editor.data.meta.Vocabulary;
 
 public class LOMESDataControl {
 
@@ -49,16 +51,11 @@ public class LOMESDataControl {
 		LOMESLifeCycle lifeCycle = new LOMESLifeCycle();
 		lifeCycle.setVersion( new LangString("Default") );
 		lifeCycle.addStatus(0);
-		lifeCycle.setContribute(new LOMContribute());
+		lifeCycle.setContribute(new LOMContribute(Vocabulary.LC_CONTRIBUTION_TYPE_2_3_1));
 		this.lifeCycle = new LOMESLifeCycleDataControl(lifeCycle);
 		
 		LOMESTechnical tech = new LOMESTechnical();
-		//tech.setFormat(new String(""));
-		//tech.setLocation(new String(""), true);
-		tech.setName(0);
-		tech.setType(0);
-		tech.setMinimumVersion( Controller.getInstance().getEditorMinVersion() );
-		tech.setMaximumVersion( Controller.getInstance().getEditorVersion() );
+		tech.setRequirement(new LOMRequirement());
 		this.technical = new LOMESTechnicalDataControl(tech);
 		
 		LOMESEducational educ = new LOMESEducational();
@@ -74,10 +71,8 @@ public class LOMESDataControl {
 		educational = new LOMESEducationalDataControl(educ);
 		
 		LOMESMetaMetaData metametad = new LOMESMetaMetaData();
-		metametad.setCatalog("Empty");
-		metametad.setEntry("Empty");
-		metametad.setRole(0);
-		metametad.setEntity("Empty");
+		metametad.addIdentifier("Default","Default");
+		metametad.setContribute(new LOMContribute(Vocabulary.MD_CONTRIBUTION_TYPE_2_3_1));
 		metametad.setDescription("Empty");
 		metametad.setLanguage("en");
 		metametad.setMetadatascheme(new String(""));

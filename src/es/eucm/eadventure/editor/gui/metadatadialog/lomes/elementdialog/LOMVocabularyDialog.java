@@ -22,13 +22,13 @@ import javax.swing.event.DocumentListener;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 
-public class LOMVocavularyDialog extends JDialog{
+public class LOMVocabularyDialog extends JDialog{
 	
 	private int selection;
 	
 	private JComboBox elements;
 	
-	public LOMVocavularyDialog(String[] values,int selection){
+	public LOMVocabularyDialog(String[] values,int selection){
 		super( Controller.getInstance( ).peekWindow( ), TextConstants.getText("LOMES.Value"), Dialog.ModalityType.APPLICATION_MODAL );
 		elements = new JComboBox(values);
 		this.selection=selection;

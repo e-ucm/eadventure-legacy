@@ -1,6 +1,8 @@
 package es.eucm.eadventure.editor.control.controllers.metadata.lomes;
 
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.data.meta.auxiliar.LOMESContainer;
+import es.eucm.eadventure.editor.data.meta.auxiliar.LOMIdentifier;
 import es.eucm.eadventure.editor.data.meta.ims.IMSMetaMetaData;
 import es.eucm.eadventure.editor.data.meta.lomes.LOMESMetaMetaData;
 import es.eucm.eadventure.editor.data.meta.LangString;
@@ -15,69 +17,15 @@ public class LOMESMetaMetaDataControl {
 		this.data = data;
 	}
 	
-	public LOMESTextDataControl getCatalog(){
-		return new LOMESTextDataControl (){
-
-			public String getText( ) {
-				return data.getCatalog();
-			}
-
-			public void setText( String text ) {
-				data.setCatalog(text);
-			}
-			
-		};
+	public LOMIdentifier getIdentifier(){
+		return data.getIdentifier();
 	}
 	
-	public LOMESTextDataControl getEntry(){
-		return new LOMESTextDataControl (){
-
-			public String getText( ) {
-				return data.getEntry();
-			}
-
-			public void setText( String text ) {
-				data.setEntry(text);
-			}
-			
-		};
+	public LOMESContainer getContribute(){
+		return data.getContribute();
 	}
 	
-	public LOMESOptionsDataControl getRoleController() {
-		return new LOMESOptionsDataControl (){
-
-			public String[] getOptions( ) {
-				String[] options = new String[data.getRole().getValues( ).length];
-				for (int i=0; i<options.length; i++){
-					options[i]=TextConstants.getText( "LOMES.MetaMetaData.Role"+i );
-				}
-				return options;
-			}
-
-			public void setOption( int option ) {
-				data.getRole().setValueIndex( option );
-			}
-
-			public int getSelectedOption( ) {
-				return data.getRole().getValueIndex( );
-			}
-			
-		};
-	}
 	
-	public LOMESTextDataControl getEntity(){
-		return new LOMESTextDataControl (){
-
-			public String getText( ) {
-				return data.getEntity();
-			}
-
-			public void setText( String text ) {
-				data.getEntity();
-			}
-			
-		};
-	}
 	
 	public LOMESTextDataControl getDescription(){
 		return new LOMESTextDataControl (){

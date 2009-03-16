@@ -77,4 +77,16 @@ public class LOMESDOMWriter {
 
 	}
 	
+	public static Element createOneIdentifier(Document doc, String cat, String ent){
+		
+		Element identifier = doc.createElement( "lomes:identifier" );
+		Element catalog =  doc.createElement( "lomes:catalog" );
+		catalog.setTextContent(cat);
+		identifier.appendChild(catalog);
+		Element entry =  doc.createElement( "lomes:entry" );
+		entry.setTextContent(ent);
+		identifier.appendChild(entry);
+		return identifier;
+	}
+	
 }

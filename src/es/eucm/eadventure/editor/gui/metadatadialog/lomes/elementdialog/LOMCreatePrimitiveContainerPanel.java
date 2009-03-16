@@ -29,8 +29,9 @@ public class LOMCreatePrimitiveContainerPanel extends JPanel{
 	
 	public static final int VOCABULARY_TYPE = 2;
 	
-	public static final int FIELD_TYPE_AREA=0;
-	public static final int FIELD_TYPE_FIELD=1;
+	public static final int FIELD_TYPE_NONE=0;
+	public static final int FIELD_TYPE_AREA=1;
+	public static final int FIELD_TYPE_FIELD=2;
 	
 	private JButton add;
 	
@@ -214,7 +215,7 @@ public class LOMCreatePrimitiveContainerPanel extends JPanel{
 			int previousValue=0;
 			if (selectedIndex!=0)
 				previousValue = vocabularyContainer.get(selectedIndex-1).getValueIndex();
-			LOMVocavularyDialog idDialog = new LOMVocavularyDialog(vocabularyType,selectedIndex==0?0:previousValue);
+			LOMVocabularyDialog idDialog = new LOMVocabularyDialog(vocabularyType,selectedIndex==0?0:previousValue);
 			
 			if (selectedIndex==0){
 				elements.addItem(vocabularyType[idDialog.getSelection()]);

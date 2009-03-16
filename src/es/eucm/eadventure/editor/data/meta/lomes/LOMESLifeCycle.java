@@ -20,7 +20,7 @@ public class LOMESLifeCycle {
 	
 	public LOMESLifeCycle (){
 		version = null;
-		
+		contribute = null;
 		status = new ArrayList<Vocabulary>();
 	
 }

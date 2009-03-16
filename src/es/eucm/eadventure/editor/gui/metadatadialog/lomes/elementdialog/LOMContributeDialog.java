@@ -35,8 +35,13 @@ import es.eucm.eadventure.editor.gui.metadatadialog.lomes.LOMESOptionsPanel;
 import es.eucm.eadventure.editor.gui.metadatadialog.lomes.LOMVocabularyPanel;
 
 
-public class LOMLifeCycleContributeDialog extends JDialog{
+public class LOMContributeDialog extends JDialog{
 
+	public static final int NONE =0;
+	
+	public static final int LIFECYCLE=1;
+	
+	public static final int METAMETADATA=2;
 	
 	private LOMCreatePrimitiveContainerPanel entity;
 	
@@ -52,13 +57,17 @@ public class LOMLifeCycleContributeDialog extends JDialog{
 	
 	private LOMESContainer container;
 	
-	public LOMLifeCycleContributeDialog(LOMESContainer container, int selectedItem){
+
+	
+	public LOMContributeDialog(LOMESContainer container, int selectedItem, int type){
 		super( Controller.getInstance( ).peekWindow( ), container.getTitle(), Dialog.ModalityType.APPLICATION_MODAL );
 		this.container = container;
-	
 		
 		if (selectedItem ==0){
-			roleValue=new Vocabulary(LOMESLifeCycleContribute.getRoleVocabularyType());
+			if (type==LIFECYCLE)
+				roleValue=new Vocabulary(LOMESLifeCycleContribute.getRoleLifeCycleVocabularyType());
+			if (type==METAMETADATA)
+				roleValue=new Vocabulary(LOMESLifeCycleContribute.getRoleMetametaVocabularyType());
 			entityValue=new ArrayList<String>();
 			dateValue = new LOMESLifeCycleDate();
 		}else {
@@ -70,7 +79,10 @@ public class LOMLifeCycleContributeDialog extends JDialog{
 		GridBagConstraints c = new GridBagConstraints(); 
 		c.insets = new Insets(2,2,2,2);c.weightx=1;c.fill = GridBagConstraints.BOTH;
 		JPanel rolePanel = new JPanel(new GridBagLayout());
-		role = new LOMVocabularyPanel(LOMESLifeCycleContribute.getRoleOptions(),roleValue.getValueIndex());
+		if (type == LIFECYCLE)
+			role = new LOMVocabularyPanel(LOMESLifeCycleContribute.getRoleLifeCycleOptions(),roleValue.getValueIndex());
+		if (type == METAMETADATA)
+			role = new LOMVocabularyPanel(LOMESLifeCycleContribute.getRoleMetametaOptions(),roleValue.getValueIndex());
 		rolePanel.add(role,c);
 		rolePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "LOMES.LifeCycle.RoleName" ) ) );
 		

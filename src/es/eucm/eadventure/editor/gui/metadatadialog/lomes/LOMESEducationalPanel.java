@@ -14,10 +14,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import es.eucm.eadventure.editor.gui.metadatadialog.lomes.elementdialog.LOMCreatePrimitiveContainerPanel;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.metadata.ims.IMSEducationalDataControl;
 import es.eucm.eadventure.editor.control.controllers.metadata.lom.LOMEducationalDataControl;
 import es.eucm.eadventure.editor.control.controllers.metadata.lomes.LOMESEducationalDataControl;
+import es.eucm.eadventure.editor.gui.metadatadialog.lomes.elementdialog.LOMCreatePrimitiveContainerPanel;
 
 public class LOMESEducationalPanel extends JPanel{
 
@@ -44,20 +46,24 @@ public class LOMESEducationalPanel extends JPanel{
 		c1.setHgap( 2 );
 		c1.setVgap( 2 );
 		firstRow.setLayout( c1 );
-		firstRow.add( new LOMESOptionsPanel(dataControl.getIntendedEndUserRoleController( ), TextConstants.getText("LOM.Educational.IntendedEndUserRole")) );
+		firstRow.add(new LOMCreatePrimitiveContainerPanel(LOMCreatePrimitiveContainerPanel.VOCABULARY_TYPE,dataControl.getIntendedEndUserRole(), TextConstants.getText("LOM.Educational.IntendedEndUserRole"),dataControl.getIntendedEndUserRoleOptions()));
+		//firstRow.add( new LOMESOptionsPanel(dataControl.getIntendedEndUserRoleController( ), TextConstants.getText("LOM.Educational.IntendedEndUserRole")) );
 		firstRow.add( new LOMESOptionsPanel(dataControl.getSemanticDensityController( ), TextConstants.getText("LOM.Educational.SemanticDensity")) );
-		firstRow.add( new LOMESOptionsPanel(dataControl.getLearningResourceTypeController( ), TextConstants.getText("LOM.Educational.LearningResourceType")) );
+		firstRow.add( new LOMCreatePrimitiveContainerPanel(LOMCreatePrimitiveContainerPanel.VOCABULARY_TYPE,dataControl.getLearningResourceType(), TextConstants.getText("LOM.Educational.LearningResourceType"),dataControl.getLearningResourceTypeOptions()));
+		//firstRow.add( new LOMESOptionsPanel(dataControl.getLearningResourceTypeController( ), TextConstants.getText("LOM.Educational.LearningResourceType")) );
 		
 		JPanel secondRow = new JPanel();
 		GridLayout c2 = new GridLayout(1,4);
 		c2.setHgap( 2 );
 		c2.setVgap( 2 );
 		secondRow.setLayout( c2 );
-		secondRow.add( new LOMESOptionsPanel(dataControl.getContextController( ), TextConstants.getText("LOM.Educational.Context")) );
+		secondRow.add(new LOMCreatePrimitiveContainerPanel(LOMCreatePrimitiveContainerPanel.VOCABULARY_TYPE,dataControl.getContext(), TextConstants.getText("LOM.Educational.Context"),dataControl.getContextOptions()));
+		//secondRow.add( new LOMESOptionsPanel(dataControl.getContextController( ), TextConstants.getText("LOM.Educational.Context")) );
 		secondRow.add( new LOMESOptionsPanel(dataControl.getDifficultyController( ), TextConstants.getText("LOM.Educational.Difficulty")) );
 		secondRow.add( new LOMESOptionsPanel(dataControl.getInteractivityLevelController( ), TextConstants.getText("LOM.Educational.InteractivityLevel")) );
 		secondRow.add( new LOMESOptionsPanel(dataControl.getInteractivityTypeController( ), TextConstants.getText("LOM.Educational.InteractivityType")) );
-		secondRow.add(new LOMESOptionsPanel(dataControl.getCognitiveProcessController(), TextConstants.getText("LOMES.Educational.CognitiveProcess")) );
+		secondRow.add(new LOMCreatePrimitiveContainerPanel(LOMCreatePrimitiveContainerPanel.VOCABULARY_TYPE,dataControl.getCognitiveProcess(), TextConstants.getText("LOM.Educational.CognitiveProcess"),dataControl.getCognitiveProcessOptions()));
+		//secondRow.add(new LOMESOptionsPanel(dataControl.getCognitiveProcessController(), TextConstants.getText("LOMES.Educational.CognitiveProcess")) );
 		
 		optionsPanel.add( firstRow );
 		optionsPanel.add( secondRow );
@@ -82,8 +88,10 @@ public class LOMESEducationalPanel extends JPanel{
 		typicalLearningTimePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "LOM.Educational.TypicalLearningTime" ) ) );
 		
 		//Create the other panels
-		LOMESTextPanel descriptionPanel = new LOMESTextPanel(dataControl.getDescriptionController( ), TextConstants.getText("LOM.Educational.Description"), LOMESTextPanel.TYPE_AREA);
-		LOMESTextPanel typicalAgeRangePanel = new LOMESTextPanel(dataControl.getTypicalAgeRangeController( ), TextConstants.getText("LOM.Educational.TypicalAgeRange"), LOMESTextPanel.TYPE_FIELD);
+		LOMCreatePrimitiveContainerPanel descriptionPanel = new LOMCreatePrimitiveContainerPanel(LOMCreatePrimitiveContainerPanel.LANGSTRING_TYPE,dataControl.getDescription(), TextConstants.getText("LOM.Educational.Description"),LOMCreatePrimitiveContainerPanel.FIELD_TYPE_AREA);
+		//LOMESTextPanel descriptionPanel = new LOMESTextPanel(dataControl.getDescriptionController( ), TextConstants.getText("LOM.Educational.Description"), LOMESTextPanel.TYPE_AREA);
+		LOMCreatePrimitiveContainerPanel typicalAgeRangePanel = new LOMCreatePrimitiveContainerPanel(LOMCreatePrimitiveContainerPanel.LANGSTRING_TYPE,dataControl.getTypicalAgeRange(), TextConstants.getText("LOM.Educational.TypicalAgeRange"),LOMCreatePrimitiveContainerPanel.FIELD_TYPE_FIELD);
+		//LOMESTextPanel typicalAgeRangePanel = new LOMESTextPanel(dataControl.getTypicalAgeRangeController( ), TextConstants.getText("LOM.Educational.TypicalAgeRange"), LOMESTextPanel.TYPE_FIELD);
 		
 		//Add all panels
 		add (optionsPanel);
