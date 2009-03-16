@@ -2006,6 +2006,21 @@ When not customized, default arrows will be used in the game.</entry>
 	
 	<entry key="LOMES.Rights.AccesType0">Universal</entry>
 	<entry key="LOMES.Rights.AccesType1">Non-universal</entry>
+	<entry key="LOMES.Rights.CopyAndOthers0">propietary license</entry>
+	<entry key="LOMES.Rights.CopyAndOthers1">free software license EUPL</entry>
+	<entry key="LOMES.Rights.CopyAndOthers2">free software license GPL</entry>
+	<entry key="LOMES.Rights.CopyAndOthers3">dual free content license GPL and EUPL</entry>
+	<entry key="LOMES.Rights.CopyAndOthers4">other free software licenses</entry>
+	<entry key="LOMES.Rights.CopyAndOthers5">public domain</entry>
+	<entry key="LOMES.Rights.CopyAndOthers6">not appropriate</entry>
+	<entry key="LOMES.Rights.CopyAndOthers7">intellectual property license</entry>
+	<entry key="LOMES.Rights.CopyAndOthers8">creative commons: attribution</entry>
+	<entry key="LOMES.Rights.CopyAndOthers9">creative commons: attribution - non derived work</entry>
+	<entry key="LOMES.Rights.CopyAndOthers10">creative commons: attribution - non derived work - non commercial</entry>
+	<entry key="LOMES.Rights.CopyAndOthers11">creative commons: attribution - non commercial</entry>
+	<entry key="LOMES.Rights.CopyAndOthers12">creative commons: attribution - non commercial - share alike</entry>
+	<entry key="LOMES.Rights.CopyAndOthers13">creative commons: attribution - share alike</entry>
+	<entry key="LOMES.Rights.CopyAndOthers14">license GFDL</entry>
 	
 	<entry key="LOMES.Rights.Description">Rights Description</entry>
 	<entry key="LOMES.Rights.Access">Access</entry>
@@ -2030,6 +2045,13 @@ When not customized, default arrows will be used in the game.</entry>
 	<entry key="LOMES.Value">Value</entry>
 	<entry key="LOMES.Date.DataTimeName">Data Time</entry>
 	<entry key="LOMES.Date.Description">Description</entry>
+	<entry key="LOMES.RightsAccess.DialogTitle">Add new Access entry</entry>
+	<entry key="LOMES.ClassificationTaxonPath.DialogTitle">Add new Taxon Path entry</entry>
+	<entry key="LOMES.TaxonPath.Name">Taxon Path</entry>
+	<entry key="LOMES.Classification.TaxonPathSorce">Source</entry>
+	<entry key="LOMES.Classification.TaxonPathTaxon">Taxon</entry>
+	<entry key="LOMES.Classification.TaxonId">Identifier</entry>
+	<entry key="LOMES.Classification.TaxonEntry">Entry</entry>
 	
 	
 	<entry key="LOMES.Technical.Type0">Contribute</entry>
