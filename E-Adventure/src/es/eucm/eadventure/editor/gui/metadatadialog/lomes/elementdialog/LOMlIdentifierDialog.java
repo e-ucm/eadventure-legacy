@@ -26,7 +26,7 @@ import es.eucm.eadventure.editor.data.meta.auxiliar.LOMESContainer;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMESGeneralId;
 import es.eucm.eadventure.editor.gui.metadatadialog.lomes.LOMESTextPanel;
 
-public class LOMGeneralIdentifierDialog extends JDialog{
+public class LOMlIdentifierDialog extends JDialog{
 
 	
 	private JTextField catalog;
@@ -39,7 +39,7 @@ public class LOMGeneralIdentifierDialog extends JDialog{
 	
 	//private LOMESContainer container;
 	
-	public LOMGeneralIdentifierDialog(LOMESContainer container, int selectedItem){
+	public LOMlIdentifierDialog(LOMESContainer container, int selectedItem){
 		super( Controller.getInstance( ).peekWindow( ), container.getTitle(), Dialog.ModalityType.APPLICATION_MODAL );
 		//this.container = container;
 		if (selectedItem ==0){

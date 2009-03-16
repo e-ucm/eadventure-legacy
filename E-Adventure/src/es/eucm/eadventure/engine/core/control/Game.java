@@ -1214,17 +1214,6 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         return false;
     }
     
-
-  /*  public void addInteracction(HighLevelInteraction interaction){
-=======
-    /*public void addInteracction(HighLevelInteraction interaction){
->>>>>>> .r264
-    	if (currentState instanceof GameStateConversation){
-    		//LowLevelInteraction lowlevelint = new LowLevelInteraction();
-    		//lowLevelInteraction.add(e)
-    	}
-    }*/
-
     /**
      * Returns the book
      * @return Book

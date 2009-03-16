@@ -173,29 +173,30 @@ public class LOMESEducational {
 		return language.get( 0 );
 	}
 	
-	public Vocabulary getContext(){
-		return context.get( 0 );
+	public ArrayList<Vocabulary>  getContext(){
+		return context;
 	}
 
 	
-	public Vocabulary getIntendedEndUserRole(){
-		return intendedEndUserRole.get( 0 );
+	
+	public ArrayList<Vocabulary> getIntendedEndUserRole(){
+		return intendedEndUserRole;
 	}
 	
-	public Vocabulary getLearningResourceType(){
-		return learningResourceType.get( 0 );
+	public ArrayList<Vocabulary> getLearningResourceType(){
+		return learningResourceType;
 	}
 
-	public Vocabulary getCognitiveProcess(){
-			return this.cognitiveProcess.get(0);
+	public ArrayList<Vocabulary> getCognitiveProcess(){
+			return this.cognitiveProcess;
 	}
 	
-	public LangString getDescription(){
-		return description.get( 0 );
+	public ArrayList<LangString> getDescription(){
+		return description;
 	}
 	
-	public LangString getTypicalAgeRange(){
-		return typicalAgeRange.get( 0 );
+	public ArrayList<LangString> getTypicalAgeRange(){
+		return typicalAgeRange;
 	}
 
 	public Vocabulary getDifficulty(){

@@ -14,7 +14,7 @@ import es.eucm.eadventure.editor.data.meta.auxiliar.LOMESComposeType;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMESContainer;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMESLifeCycleDate;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMIdentifier;
-import es.eucm.eadventure.editor.gui.metadatadialog.lomes.elementdialog.LOMGeneralIdentifierDialog;
+import es.eucm.eadventure.editor.gui.metadatadialog.lomes.elementdialog.LOMlIdentifierDialog;
 import es.eucm.eadventure.editor.gui.metadatadialog.lomes.elementdialog.LOMLifeCycleDateDialog;
 import es.eucm.eadventure.editor.data.meta.LangString;
 

@@ -1,9 +1,12 @@
 package es.eucm.eadventure.editor.control.controllers.metadata.lomes;
 
+import java.util.ArrayList;
+
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.data.meta.ims.IMSEducational;
 import es.eucm.eadventure.editor.data.meta.lomes.LOMESEducational;
 import es.eucm.eadventure.editor.data.meta.LangString;
+import es.eucm.eadventure.editor.data.meta.Vocabulary;
 
 public class LOMESEducationalDataControl {
 
@@ -38,51 +41,19 @@ public class LOMESEducationalDataControl {
 		};
 	}
 
-	public LOMESOptionsDataControl getLearningResourceTypeController() {
-		return new LOMESOptionsDataControl (){
-
-			public String[] getOptions( ) {
-				String[] options = new String[14];
-				for (int i=0; i<options.length; i++){
-					options[i]=TextConstants.getText( "IMS.Educational.LearningResourceType"+i );
-				}
-				return options;
-			}
-
-			public void setOption( int option ) {
-				
-				data.getLearningResourceType( ).setValueIndex( /*mapIndex(*/option/*)*/ );
-			}
-
-			public int getSelectedOption( ) {
-				return /*mapIndexInverse(*/data.getLearningResourceType( ).getValueIndex( );//);
-			}
-			
-			private int mapIndex( int index ){
-				switch(index){
-					case 0: return 0;
-					case 1: return 1;
-					case 2: return 10;
-					case 3: return 13;
-					case 4: return 14;
-					default: return 0;
-				}
-			}
-			
-			private int mapIndexInverse( int invIndex){
-				switch(invIndex){
-					case 0: return 0;
-					case 1: return 1;
-					case 10: return 2;
-					case 13: return 3;
-					case 14: return 4;
-					default: return 0;
-				}
-				
-			}
-			
-		};
+	public ArrayList<Vocabulary> getLearningResourceType(){
+	    return data.getLearningResourceType();
 	}
+	
+	public String[] getLearningResourceTypeOptions(){
+	    String[] options = new String[data.getLearningResourceType( ).get(0).getValues( ).length];
+		for (int i=0; i<options.length; i++){
+			options[i]=TextConstants.getText( "LOMES.Educational.LearningResourceType"+i );
+		}
+		return options;
+	}
+	
+
 	
 	public LOMESOptionsDataControl getInteractivityLevelController() {
 		return new LOMESOptionsDataControl (){
@@ -128,7 +99,20 @@ public class LOMESEducationalDataControl {
 		};
 	}
 	
-	public LOMESOptionsDataControl getIntendedEndUserRoleController() {
+	
+	public ArrayList<Vocabulary> getIntendedEndUserRole(){
+	    return data.getIntendedEndUserRole();
+	}
+	
+	public String[] getIntendedEndUserRoleOptions(){
+	    String[] options = new String[data.getIntendedEndUserRole( ).get(0).getValues( ).length];
+		for (int i=0; i<options.length; i++){
+			options[i]=TextConstants.getText( "LOMES.Educational.IntendedEndUserRole"+i );
+		}
+		return options;
+	}
+	
+	/*public LOMESOptionsDataControl getIntendedEndUserRoleController() {
 		return new LOMESOptionsDataControl (){
 
 			public String[] getOptions( ) {
@@ -148,9 +132,21 @@ public class LOMESEducationalDataControl {
 			}
 			
 		};
+	}*/
+	
+	public ArrayList<Vocabulary> getContext(){
+	    return data.getContext();
 	}
 	
-	public LOMESOptionsDataControl getContextController() {
+	public String[] getContextOptions(){
+	    String[] options = new String[data.getContext( ).get(0).getValues( ).length];
+		for (int i=0; i<options.length; i++){
+			options[i]=TextConstants.getText( "LOMES.Educational.Context"+i );
+		}
+		return options;
+	}
+	
+	/*public LOMESOptionsDataControl getContextController() {
 		return new LOMESOptionsDataControl (){
 
 			public String[] getOptions( ) {
@@ -170,7 +166,7 @@ public class LOMESEducationalDataControl {
 			}
 			
 		};
-	}
+	}*/
 
 	public LOMESOptionsDataControl getDifficultyController() {
 		return new LOMESOptionsDataControl (){
@@ -193,7 +189,21 @@ public class LOMESEducationalDataControl {
 			
 		};
 	}
-	public LOMESOptionsDataControl getCognitiveProcessController() {
+	
+	
+	public ArrayList<Vocabulary> getCognitiveProcess(){
+	    return data.getCognitiveProcess();
+	}
+	
+	public String[] getCognitiveProcessOptions(){
+	    String[] options = new String[data.getCognitiveProcess( ).get(0).getValues( ).length];
+		for (int i=0; i<options.length; i++){
+			options[i]=TextConstants.getText( "LOMES.Educational.CognitiveProcess"+i );
+		}
+		return options;
+	}
+	
+	/*public LOMESOptionsDataControl getCognitiveProcessController() {
 		return new LOMESOptionsDataControl (){
 
 			public String[] getOptions( ) {
@@ -213,11 +223,11 @@ public class LOMESEducationalDataControl {
 			}
 			
 		};
-	}
+	}*/
 	
 	
 	/******************* TEXT CONTROLLERS *******************************************/
-	public LOMESTextDataControl getDescriptionController (){
+	/*public LOMESTextDataControl getDescriptionController (){
 		return new LOMESTextDataControl (){
 
 			public String getText( ) {
@@ -229,9 +239,12 @@ public class LOMESEducationalDataControl {
 			}
 			
 		};
+	}*/
+	public ArrayList<LangString> getDescription(){
+	    return data.getDescription();
 	}
 	
-	public LOMESTextDataControl getTypicalAgeRangeController (){
+	/*public LOMESTextDataControl getTypicalAgeRangeController (){
 		return new LOMESTextDataControl (){
 
 			public String getText( ) {
@@ -243,7 +256,11 @@ public class LOMESEducationalDataControl {
 			}
 			
 		};
+	}*/
+	public ArrayList<LangString> getTypicalAgeRange(){
+	    return data.getTypicalAgeRange();
 	}
+	
 
 	public LOMESTypicalLearningTimeDataControl getTypicalLearningTime() {
 		return new LOMESTypicalLearningTimeDataControl(data);

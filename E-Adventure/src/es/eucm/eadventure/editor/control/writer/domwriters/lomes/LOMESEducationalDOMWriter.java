@@ -37,8 +37,10 @@ public class LOMESEducationalDOMWriter extends LOMESSimpleDataWriter{
 			educationalElement.appendChild( intType );
 
 			//Create the learning resource type
-			Node lrType = buildVocabularyNode(doc, "lomes:learningResourceType", educational.getLearningResourceType( ));
-			educationalElement.appendChild( lrType );
+			for (int i=0;i<educational.getLearningResourceType().size();i++){
+			    Node lrType = buildVocabularyNode(doc, "lomes:learningResourceType", educational.getLearningResourceType( ).get(i));
+			    educationalElement.appendChild( lrType );
+			}
 
 			
 			//Create the interactivity level node
@@ -50,18 +52,24 @@ public class LOMESEducationalDOMWriter extends LOMESSimpleDataWriter{
 			educationalElement.appendChild( semanticDensity );
 			
 			//Create the intended end user role node
-			Node ieuRole = buildVocabularyNode(doc, "lomes:intendededEndUserRole", educational.getIntendedEndUserRole( ));
-			educationalElement.appendChild( ieuRole );
+			for (int i =0;i<educational.getIntendedEndUserRole().size();i++){
+			    Node ieuRole = buildVocabularyNode(doc, "lomes:intendededEndUserRole", educational.getIntendedEndUserRole( ).get(i));
+			    educationalElement.appendChild( ieuRole );
+			}
 			
 			//Create the context node
-			Node context = buildVocabularyNode(doc, "lomes:context", educational.getContext( ));
-			educationalElement.appendChild( context );
+			for (int i=0;i<educational.getContext().size();i++){
+			    Node context = buildVocabularyNode(doc, "lomes:context", educational.getContext( ).get(i));
+			    educationalElement.appendChild( context );
+			}
 			
 			//Create the typical age range node
-			if (isStringSet(educational.getTypicalAgeRange( ))){
+			for (int i =0;i<educational.getTypicalAgeRange().size();i++){
+			if (isStringSet(educational.getTypicalAgeRange( ).get(i))){
 				Element taRange = doc.createElement( "lomes:typicalAgeRange" );
-				taRange.appendChild( buildLangStringNode(doc, educational.getTypicalAgeRange( )) );
+				taRange.appendChild( buildLangStringNode(doc, educational.getTypicalAgeRange( ).get(i)) );
 				educationalElement.appendChild( taRange );
+			}
 			}
 
 			//Create the difficulty node
@@ -76,10 +84,12 @@ public class LOMESEducationalDOMWriter extends LOMESSimpleDataWriter{
 			educationalElement.appendChild( tlTime );
 			
 			//Create the description node
-			if (isStringSet(educational.getDescription( ))){
+			for (int i =0;i<educational.getDescription().size();i++){
+			if (isStringSet(educational.getDescription( ).get(i))){
 				Element description = doc.createElement( "lomes:description" );
-				description.appendChild( buildLangStringNode(doc, educational.getDescription( )));
+				description.appendChild( buildLangStringNode(doc, educational.getDescription( ).get(i)));
 				educationalElement.appendChild( description );
+			}
 			}
 			
 			
@@ -91,8 +101,10 @@ public class LOMESEducationalDOMWriter extends LOMESSimpleDataWriter{
 			}
 			
 			//create cognitive process node
-			Node cognitive = buildVocabularyNode(doc, "cognitiveProcess", educational.getCognitiveProcess());
+			for (int i =0;i<educational.getCognitiveProcess().size();i++){
+			Node cognitive = buildVocabularyNode(doc, "cognitiveProcess", educational.getCognitiveProcess().get(i));
 			educationalElement.appendChild( cognitive );
+			}
 
 
 		} catch( ParserConfigurationException e ) {

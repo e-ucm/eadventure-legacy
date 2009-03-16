@@ -24,8 +24,8 @@ public class LOMIdentifier extends LOMESContainer{
 		if (index ==0){
 			add(new LOMESGeneralId(catalog,entry));
 		}else {
-		delete(index-1);
-		add(new LOMESGeneralId(catalog,entry),index-1);
+		    delete(index-1);
+		    add(new LOMESGeneralId(catalog,entry),index-1);
 
 		}
 	}

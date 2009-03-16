@@ -9,6 +9,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
+import es.eucm.eadventure.editor.data.meta.auxiliar.LOMOrComposite;
 import es.eucm.eadventure.editor.data.meta.ims.IMSTechnical;
 import es.eucm.eadventure.editor.data.meta.lomes.LOMESTechnical;
 
@@ -53,28 +54,31 @@ public class LOMESTechnicalDOMWriter extends LOMESSimpleDataWriter{
 			//Create the requirement node
 			Element requirement = doc.createElement( "lomes:requirement" );
 			
+			for (int i=0;i<technical.getRequirement().getSize();i++){
+			
 			Element orComposite = doc.createElement("lomes:orComposite");
 			
-			orComposite.appendChild(buildVocabularyNode(doc,"type",technical.getType()));
-			orComposite.appendChild(buildVocabularyNode(doc,"name",technical.getName()));
+			orComposite.appendChild(buildVocabularyNode(doc,"type",((LOMOrComposite)technical.getRequirement().get(i)).getType()));
+			orComposite.appendChild(buildVocabularyNode(doc,"name",((LOMOrComposite)technical.getRequirement().get(i)).getName()));
 			
 			
-			
-			//Create the minimum version node
-			if (isStringSet(technical.getMinimumVersion( ))){
-				Element minVer = doc.createElement( "lomes:minimumversion" );
-				minVer.setTextContent( technical.getMinimumVersion( ));
-				orComposite.appendChild( minVer );
-			}
 			
 			//Create the maximum version node
-			if (isStringSet(technical.getMinimumVersion( ))){
+			if (isStringSet(((LOMOrComposite)technical.getRequirement().get(i)).getMaximumVersion())){
 				Element maxVer = doc.createElement( "lomes:maximumversion" );
-				maxVer.setTextContent( technical.getMaximumVersion( ));
+				maxVer.setTextContent( ((LOMOrComposite)technical.getRequirement().get(i)).getMaximumVersion());
 				orComposite.appendChild( maxVer );
 			}
 			
+			//Create the minimum version node
+			if (isStringSet(((LOMOrComposite)technical.getRequirement().get(i)).getMinimumVersion())){
+				Element minVer = doc.createElement( "lomes:maximumversion" );
+				minVer.setTextContent(((LOMOrComposite)technical.getRequirement().get(i)).getMinimumVersion());
+				orComposite.appendChild( minVer );
+			}
+			
 			requirement.appendChild(orComposite);
+			}
 			technicalElement.appendChild( requirement );
 			
 		} catch( ParserConfigurationException e ) {

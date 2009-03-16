@@ -1,5 +1,7 @@
 package es.eucm.eadventure.editor.control.writer.domwriters.lomes;
 
+import java.util.ArrayList;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -9,6 +11,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
+import es.eucm.eadventure.editor.data.meta.auxiliar.LOMESLifeCycleContribute;
 import es.eucm.eadventure.editor.data.meta.ims.IMSMetaMetaData;
 import es.eucm.eadventure.editor.data.meta.lomes.LOMESMetaMetaData;
 
@@ -32,24 +35,36 @@ public class LOMESMetaMetaDataDOMWriter extends LOMESSimpleDataWriter{
 			metaMetaDataElement = doc.createElement("lomes:metaMetadata");
 			
 			//Create identifier node
-			Element identifier = doc.createElement( "lomes:identifier" );
-			Element catalog =  doc.createElement( "lomes:catalog" );
-			catalog.setTextContent(metametadata.getCatalog());
-			identifier.appendChild(catalog);
-			Element entry =  doc.createElement( "lomes:entry" );
-			entry.setTextContent(metametadata.getEntry());
-			identifier.appendChild(entry);
-			metaMetaDataElement.appendChild(identifier);
+			//Create identifier node for each identifier
+			for (int i=0;i<metametadata.getNIdentifier();i++){
+				metaMetaDataElement.appendChild(LOMESDOMWriter.createOneIdentifier(doc,metametadata.getIdentifier(i).getCatalog(),metametadata.getIdentifier(i).getEntry()));
+			}
+		
 			
 			// contribution node
-			Element contribution = doc.createElement("lomes:contribute");
-			contribution.appendChild(buildVocabularyNode(doc,"lomes:role",metametadata.getRole()));
-			Element entity = doc.createElement("lomes:entity");
-			entity.setTextContent(metametadata.getEntity());
-			contribution.appendChild(entity);
-			
-			metaMetaDataElement.appendChild(contribution);
-			
+			for (int i=0;i<metametadata.getContribute().getSize();i++){
+				Element contribution = doc.createElement("lomes:contribute");
+				//Add role
+				contribution.appendChild(buildVocabularyNode(doc,"lomes:role",((LOMESLifeCycleContribute)metametadata.getContribute().get(i)).getRole()));
+				//take all entities for that contribution
+				ArrayList<String> ent = ((LOMESLifeCycleContribute)metametadata.getContribute().get(i)).getEntity();
+				for (int j=0;j<ent.size();j++){
+					Element entity = doc.createElement("lomes:entity");
+					entity.setTextContent(ent.get(j));
+					contribution.appendChild(entity);
+				}
+				//Add date
+				Element date = doc.createElement("lomes:date");
+				Element dateTime = doc.createElement("lomes:dateTime");
+				dateTime.setTextContent(((LOMESLifeCycleContribute)metametadata.getContribute().get(i)).getDate().getDateTime());
+				date.appendChild(dateTime);
+				Element description = doc.createElement( "lomes:description" );
+				description.appendChild( buildLangStringNode(doc, ((LOMESLifeCycleContribute)metametadata.getContribute().get(i)).getDate().getDescription()));
+				date.appendChild(description);
+				
+				metaMetaDataElement.appendChild(contribution);
+				}
+				
 			
 			// metadata scheme
 			Element metadatascheme = doc.createElement("lomes:metadataSchema");

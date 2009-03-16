@@ -7,9 +7,11 @@ import es.eucm.eadventure.editor.data.meta.Vocabulary;
 
 public class LOMContribute extends LOMESContainer{
 
-	public LOMContribute(){
+	
+	public LOMContribute(String[] roleValues){
 		super();
-		add(new LOMESLifeCycleContribute());
+		add(new LOMESLifeCycleContribute(roleValues));
+	
 	}
 	
 	public LOMContribute(Vocabulary role,ArrayList<String> entity,LOMESLifeCycleDate date){
@@ -41,7 +43,7 @@ public class LOMContribute extends LOMESContainer{
 
 	@Override
 	public String getTitle() {
-		return TextConstants.getText( "LOMES.GeneralIdentifier.DialogTitle" );
+		return TextConstants.getText( "LOMES.LCContribute.DialogTitle" );
 	}
 
 	@Override

@@ -43,7 +43,7 @@ public class LOMESGeneralId implements LOMESComposeType{
 
 	
 	public static String[] attributes() {
-		String[] attr = new String[LOMESGeneralId.NUMBER_ATTR];
+		String[] attr = new String[NUMBER_ATTR];
 		attr[0] = TextConstants.getText("LOMES.GeneralId.CatalogName")+" "+ATTR_STRING;
 		attr[0] = TextConstants.getText("LOMES.GeneralId.EntryName")+" "+ATTR_STRING;
 		return attr;

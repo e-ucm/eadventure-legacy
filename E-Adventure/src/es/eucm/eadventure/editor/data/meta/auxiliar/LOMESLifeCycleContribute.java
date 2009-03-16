@@ -7,9 +7,11 @@ import es.eucm.eadventure.editor.data.meta.Vocabulary;
 
 public class LOMESLifeCycleContribute implements LOMESComposeType{
 
+    public static final int NUMBER_ATTR = 3;
 	
-	private static final int numberRoleValues = 14;
+	private static final int numberRoleLifecycleValues = 14;
 	
+	private static final int numberRoleMetametaValues = 2;
 	//2.3.1
 	private Vocabulary role; 
 	
@@ -18,8 +20,8 @@ public class LOMESLifeCycleContribute implements LOMESComposeType{
 	
 	private LOMESLifeCycleDate date;
 	
-	public LOMESLifeCycleContribute(){
-		role = new Vocabulary(Vocabulary.LC_CONTRIBUTION_TYPE_2_3_1);
+	public LOMESLifeCycleContribute(String[] roleValues){
+		role = new Vocabulary(roleValues);
 		entity = new ArrayList<String>();
 		date = new LOMESLifeCycleDate();
 	}
@@ -48,7 +50,7 @@ public class LOMESLifeCycleContribute implements LOMESComposeType{
 	}
 
 	public static String[] attributes() {
-		String[] attr = new String[LOMESGeneralId.NUMBER_ATTR];
+		String[] attr = new String[NUMBER_ATTR];
 		attr[0] = TextConstants.getText("LOMES.GeneralId.CatalogName")+" "+ATTR_STRING;
 		attr[0] = TextConstants.getText("LOMES.GeneralId.EntryName")+" "+ATTR_STRING;
 		return attr;
@@ -77,14 +79,26 @@ public class LOMESLifeCycleContribute implements LOMESComposeType{
 		return null;
 	}
 	
-	public static String[] getRoleVocabularyType(){
+	public static String[] getRoleLifeCycleVocabularyType(){
 		return Vocabulary.LC_CONTRIBUTION_TYPE_2_3_1;
 	}
 	
-	public static String[] getRoleOptions( ) {
-		String[] options = new String[numberRoleValues];
+	public static String[] getRoleMetametaVocabularyType(){
+		return Vocabulary.MD_CONTRIBUTION_TYPE_2_3_1;
+	}
+	
+	public static String[] getRoleLifeCycleOptions( ) {
+		String[] options = new String[numberRoleLifecycleValues];
 		for (int i=0; i<options.length; i++){
 			options[i]=TextConstants.getText( "LOMES.LifeCycle.Role"+i );
+		}
+		return options;
+	}
+	
+	public static String[] getRoleMetametaOptions( ) {
+		String[] options = new String[numberRoleMetametaValues];
+		for (int i=0; i<options.length; i++){
+			options[i]=TextConstants.getText( "LOMES.Metameta.Role"+i );
 		}
 		return options;
 	}

@@ -35,7 +35,7 @@ public class LOMESGeneralDOMWriter extends LOMESSimpleDataWriter{
 			
 			//Create identifier node for each identifier
 			for (int i=0;i<general.getNIdentifier();i++){
-				generalElement.appendChild(createOneIdentifier(doc,general.getIdentifier(i).getCatalog(),general.getIdentifier(i).getEntry()));
+				generalElement.appendChild(LOMESDOMWriter.createOneIdentifier(doc,general.getIdentifier(i).getCatalog(),general.getIdentifier(i).getEntry()));
 			}
 	
 			
@@ -86,15 +86,5 @@ public class LOMESGeneralDOMWriter extends LOMESSimpleDataWriter{
 		return generalElement;
 	}
 	
-	private static Element createOneIdentifier(Document doc, String cat, String ent){
-		
-		Element identifier = doc.createElement( "lomes:identifier" );
-		Element catalog =  doc.createElement( "lomes:catalog" );
-		catalog.setTextContent(cat);
-		identifier.appendChild(catalog);
-		Element entry =  doc.createElement( "lomes:entry" );
-		entry.setTextContent(ent);
-		identifier.appendChild(entry);
-		return identifier;
-	}
+	
 }

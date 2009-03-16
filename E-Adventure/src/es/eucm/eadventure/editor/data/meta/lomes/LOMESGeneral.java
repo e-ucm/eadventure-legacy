@@ -100,6 +100,13 @@ public class LOMESGeneral {
 		return identifier.getSize();
 	}
 	
+	/**
+	 * @return the identifier
+	 */
+	public LOMIdentifier getIdentifier() {
+		return identifier;
+	}
+	
 	//TITLE
 	public LangString getTitle(){
 		return title;
@@ -171,12 +178,7 @@ public class LOMESGeneral {
 	}
 
 
-	/**
-	 * @return the identifier
-	 */
-	public LOMIdentifier getIdentifier() {
-		return identifier;
-	}
+	
 	
 
 	

@@ -4,26 +4,18 @@ import java.util.ArrayList;
 
 import es.eucm.eadventure.editor.data.meta.LangString;
 import es.eucm.eadventure.editor.data.meta.Vocabulary;
+import es.eucm.eadventure.editor.data.meta.auxiliar.LOMContribute;
+import es.eucm.eadventure.editor.data.meta.auxiliar.LOMESGeneralId;
+import es.eucm.eadventure.editor.data.meta.auxiliar.LOMIdentifier;
 
 public class LOMESMetaMetaData {
 
 	
 	//3.1 Identifier
-	//3.1.1
-	private String catalog;
-	
-	//3.1.2
-	private String entry;
+	private LOMIdentifier identifier;
 	
 	//3.2 Contribute
-	//3.2.1
-	private Vocabulary role; 
-	
-	//3.2.2 
-	private String entity;
-	
-	//3.2.3 Date; It has 2 values, dateTime and description
-	private String dateTime;
+	private LOMContribute contribute;
 	
 	private String description;
 	
@@ -35,6 +27,8 @@ public class LOMESMetaMetaData {
 	
 	public LOMESMetaMetaData (){
 		metadatascheme = new ArrayList<String>();
+		identifier = new LOMIdentifier();
+		language = new String();
 }
 	
 	
@@ -43,26 +37,20 @@ public class LOMESMetaMetaData {
 		this.metadatascheme.add(metadatascheme);
 	}
 	
-	/*********************************** SETTERS **************************/
-	public void setCatalog(String catalog){
-		this.catalog = catalog;
+	public void addIdentifier(String catalog, String entry){
+		identifier.addIdentifier(catalog, entry);
 	}
 	
-	public void setEntry(String entry){
-		this.entry = entry;
-	}
+	/*********************************** SETTERS **************************/
 	
 
-	public void setRole(int index){
-		this.role = new Vocabulary(Vocabulary.MD_CONTRIBUTION_TYPE_2_3_1,index);
-	}
-	public void setEntity(String entity) {
-		this.entity = entity;
+	/**
+	 * @param contribute the contribute to set
+	 */
+	public void setContribute(LOMContribute contribute) {
+		this.contribute = contribute;
 	}
 	
-	public void setDateTime(String dateTime) {
-		this.dateTime = dateTime;
-	}
 	
 	public void setDescription(String description) {
 		this.description = description;
@@ -79,27 +67,28 @@ public class LOMESMetaMetaData {
 	
 	/*********************************** GETTERS **************************/
 	//IDENTIFIER
-	public String getCatalog(){
-		return this.catalog;
+	public LOMESGeneralId getIdentifier(int index){
+		return (LOMESGeneralId)identifier.get(index);
+	}
+		
+	public int getNIdentifier(){
+		return identifier.getSize();
 	}
 	
-	public String getEntry(){
-		return this.entry;
+	/**
+	 * @return the identifier
+	 */
+	public LOMIdentifier getIdentifier() {
+		return identifier;
 	}
 	
 	//CONTRIBUTION
 	
-	public Vocabulary getRole(){
-		return role;
-	}
-
-
-	public String getEntity() {
-		return entity;
-	}
-	
-	public String getDateTime() {
-		return dateTime;
+	/**
+	 * @return the contribute
+	 */
+	public LOMContribute getContribute() {
+		return contribute;
 	}
 
 	public String getDescription() {
