@@ -450,7 +450,7 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
      * @see es.eucm.eadventure.engine.core.control.functionaldata.Renderable#update(long)
      */
     public void update( long elapsedTime ) {
-    	if (getCurrentAction().isFinished()) {
+    	while (getCurrentAction().isFinished()) {
     		this.popAction();
     	}
     	if (!getCurrentAction().isStarted()) {
