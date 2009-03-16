@@ -116,7 +116,7 @@ public class BookPagesPanel extends JPanel{
 		infoAndPreview.setResizeWeight(0.5);
 		infoAndPreview.setDividerSize(10);
 		infoAndPreview.setContinuousLayout(true);
-		infoAndPreview.setDividerLocation(320);
+		infoAndPreview.setDividerLocation(360);
 		
 		//JPanel leftPanel = new JPanel();
 		//leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.PAGE_AXIS));

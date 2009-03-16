@@ -1,5 +1,6 @@
 package es.eucm.eadventure.editor.gui.elementpanels.timer;
 
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -102,96 +103,13 @@ public class TimerPanel extends JPanel {
 		
 		// Create the time panel
 		c.gridy = 1;
-		JPanel timePanel = new JPanel();
-		timePanel.setLayout(new GridBagLayout());
-		GridBagConstraints c_time = new GridBagConstraints();
-		c_time.gridx = 0;
-		c_time.gridy = 0;
-		long current = timerDataControl.getTime( );
-		long min = 1;
-		long max = 99 * 3600;
-		long increment = 1;
-		JLabel totalTime = new JLabel("seg");
-		JSpinner timeSpinner = new JSpinner(new SpinnerNumberModel(current, min, max, increment));
-		timeSpinner.addChangeListener(new TimeSpinnerListener());
-		timePanel.add( timeSpinner , c_time);
-		c_time.gridx++;
-		timePanel.add( totalTime, c_time );
 		
-		c_time.gridx = 0;
-		c_time.gridy = 1;
-		c_time.fill = GridBagConstraints.HORIZONTAL;
-		c_time.insets = new Insets(5, 5, 0, 0);
-		JCheckBox showTime = new JCheckBox(TextConstants.getText("Timer.ShowTimer"));
-		showTime.setSelected(timerDataControl.isShowTime());
-		showTime.addChangeListener(new CheckBoxChangeListener(CheckBoxChangeListener.SHOW_TIME));
-		timePanel.add(showTime, c_time);
-		c_time.gridx++;
-		
-		JLabel dnLabel = new JLabel(TextConstants.getText("Timer.DisplayName"));
-		timePanel.add(dnLabel, c_time);
-		c_time.gridx++;
-		
-		displayName = new JTextField(8);
-		displayName.setText(timerDataControl.getDisplayName());
-		displayName.setEnabled(timerDataControl.isShowTime());
-		displayName.getDocument().addDocumentListener(new DisplayNameChangesListener());
-		timePanel.add(displayName, c_time);
-		c_time.gridx++;
-		
-		countDown = new JCheckBox(TextConstants.getText("Timer.CountDown"));
-		countDown.setSelected(timerDataControl.isCountDown());
-		countDown.setEnabled(timerDataControl.isShowTime());
-		countDown.addChangeListener(new CheckBoxChangeListener(CheckBoxChangeListener.COUNTDOWN));
-		timePanel.add(countDown, c_time);
-		c_time.gridx++;
-		
-		showWhenStopped = new JCheckBox(TextConstants.getText("Timer.ShowWhenStopped"));
-		showWhenStopped.setSelected(timerDataControl.isShowWhenStopped());
-		showWhenStopped.setEnabled(timerDataControl.isShowTime());
-		showWhenStopped.addChangeListener(new CheckBoxChangeListener(CheckBoxChangeListener.SHOWWHENSTOPPED));
-		timePanel.add(showWhenStopped, c_time);
-		c_time.gridx++;
-		
-		timePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Timer.Time" ) ) );
-		add ( timePanel, c );
+		add ( createTimePanel(), c );
 
 		
 		// Create loop control panel
 		c.gridy++;
-		JPanel loopControlPanel = new JPanel();
-		loopControlPanel.setLayout(new GridBagLayout());
-		GridBagConstraints c2 = new GridBagConstraints();
-		//c2.fill = GridBagConstraints.HORIZONTAL;
-		c2.anchor = GridBagConstraints.WEST;
-		c2.gridx = 0;
-		c2.gridy = 0;
-		
-		JCheckBox multipleStart = new JCheckBox(TextConstants.getText("Timer.MultipleStarts"));
-		multipleStart.setSelected(timerDataControl.isMultipleStarts());
-		multipleStart.addChangeListener(new CheckBoxChangeListener(CheckBoxChangeListener.MULTIPLESTARTS));
-		loopControlPanel.add( multipleStart , c2);
-		c2.gridy++;
-		JTextPane informationTextPane = new JTextPane( );
-		informationTextPane.setEditable( false );
-		informationTextPane.setBackground( getBackground( ) );
-		informationTextPane.setText(TextConstants.getText("Timer.MultipleStartsDesc"));
-		loopControlPanel.add( informationTextPane , c2);
-		c2.gridy++;
-		
-		JCheckBox runsInLoop = new JCheckBox(TextConstants.getText("Timer.RunsInLoop"));
-		runsInLoop.setSelected(timerDataControl.isRunsInLoop());
-		runsInLoop.addChangeListener(new CheckBoxChangeListener(CheckBoxChangeListener.RUNSINLOOP));
-		loopControlPanel.add( runsInLoop , c2);
-		c2.gridy++;
-		informationTextPane = new JTextPane( );
-		informationTextPane.setEditable( false );
-		informationTextPane.setBackground( getBackground( ) );
-		informationTextPane.setText(TextConstants.getText("Timer.RunsInLoopDesc"));
-		loopControlPanel.add( informationTextPane , c2);
-		
-		loopControlPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Timer.LoopControl" ) ) );
-		add ( loopControlPanel, c );
+		add ( createLoopControlPanel(), c );
 
 		// Create the button for the conditions
 		c.gridy++;
@@ -249,6 +167,110 @@ public class TimerPanel extends JPanel {
 		
 	}
 
+	private JPanel createTimePanel() {
+		JPanel timePanel = new JPanel();
+		timePanel.setLayout(new GridBagLayout());
+		GridBagConstraints c_time = new GridBagConstraints();
+		c_time.gridx = 0;
+		c_time.gridy = 0;
+		long current = timerDataControl.getTime( );
+		long min = 1;
+		long max = 99 * 3600;
+		long increment = 1;
+		JLabel totalTime = new JLabel("seg");
+		JSpinner timeSpinner = new JSpinner(new SpinnerNumberModel(current, min, max, increment));
+		timeSpinner.addChangeListener(new TimeSpinnerListener());
+		JPanel temp = new JPanel();
+		temp.add(timeSpinner);
+		temp.add(totalTime);
+		timePanel.add( temp , c_time);
+		
+		c_time.gridx++;
+		c_time.fill = GridBagConstraints.HORIZONTAL;
+		c_time.insets = new Insets(5, 5, 0, 0);
+		JCheckBox showTime = new JCheckBox(TextConstants.getText("Timer.ShowTimer"));
+		showTime.setSelected(timerDataControl.isShowTime());
+		showTime.addChangeListener(new CheckBoxChangeListener(CheckBoxChangeListener.SHOW_TIME));
+		timePanel.add(showTime, c_time);
+		c_time.gridx = 0;
+		c_time.gridy++;
+		
+		JLabel dnLabel = new JLabel(TextConstants.getText("Timer.DisplayName"));
+		timePanel.add(dnLabel, c_time);
+		c_time.gridx++;
+		
+		displayName = new JTextField(8);
+		displayName.setText(timerDataControl.getDisplayName());
+		displayName.setEnabled(timerDataControl.isShowTime());
+		displayName.getDocument().addDocumentListener(new DisplayNameChangesListener());
+		timePanel.add(displayName, c_time);
+		c_time.gridx = 0;
+		c_time.gridy++;
+		
+		countDown = new JCheckBox(TextConstants.getText("Timer.CountDown"));
+		countDown.setSelected(timerDataControl.isCountDown());
+		countDown.setEnabled(timerDataControl.isShowTime());
+		countDown.addChangeListener(new CheckBoxChangeListener(CheckBoxChangeListener.COUNTDOWN));
+		timePanel.add(countDown, c_time);
+		c_time.gridx++;
+		
+		showWhenStopped = new JCheckBox(TextConstants.getText("Timer.ShowWhenStopped"));
+		showWhenStopped.setSelected(timerDataControl.isShowWhenStopped());
+		showWhenStopped.setEnabled(timerDataControl.isShowTime());
+		showWhenStopped.addChangeListener(new CheckBoxChangeListener(CheckBoxChangeListener.SHOWWHENSTOPPED));
+		timePanel.add(showWhenStopped, c_time);
+		c_time.gridx++;
+		
+		timePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Timer.Time" ) ) );
+		return timePanel;
+	}
+	
+	private JPanel createLoopControlPanel() {
+		JPanel loopControlPanel = new JPanel();
+		loopControlPanel.setLayout(new GridBagLayout());
+		GridBagConstraints c2 = new GridBagConstraints();
+		c2.fill = GridBagConstraints.HORIZONTAL;
+		c2.anchor = GridBagConstraints.WEST;
+		c2.gridx = 0;
+		c2.gridy = 0;
+		c2.weightx = 0.1;
+		
+		JCheckBox multipleStart = new JCheckBox(TextConstants.getText("Timer.MultipleStarts"));
+		multipleStart.setSelected(timerDataControl.isMultipleStarts());
+		multipleStart.addChangeListener(new CheckBoxChangeListener(CheckBoxChangeListener.MULTIPLESTARTS));
+		loopControlPanel.add( multipleStart , c2);
+		c2.gridy++;
+		c2.weightx = 1.0;
+		
+		JTextPane informationTextPane = new JTextPane( );
+		informationTextPane.setEditable( false );
+		informationTextPane.setBackground( getBackground( ) );
+		Font font = informationTextPane.getFont();
+		font = font.deriveFont(10.0f);
+		informationTextPane.setFont(font);
+		informationTextPane.setText(TextConstants.getText("Timer.MultipleStartsDesc"));
+		loopControlPanel.add( informationTextPane , c2);
+		c2.gridy++;
+		c2.weightx = 0.1;
+		
+		JCheckBox runsInLoop = new JCheckBox(TextConstants.getText("Timer.RunsInLoop"));
+		runsInLoop.setSelected(timerDataControl.isRunsInLoop());
+		runsInLoop.addChangeListener(new CheckBoxChangeListener(CheckBoxChangeListener.RUNSINLOOP));
+		loopControlPanel.add( runsInLoop , c2);		
+		c2.gridy++;
+		c2.weightx = 1.0;
+
+		informationTextPane = new JTextPane( );
+		informationTextPane.setEditable( false );
+		informationTextPane.setBackground( getBackground( ) );
+		informationTextPane.setFont(font);
+		informationTextPane.setText(TextConstants.getText("Timer.RunsInLoopDesc"));
+		loopControlPanel.add( informationTextPane , c2);
+		
+		loopControlPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Timer.LoopControl" ) ) );
+		return loopControlPanel;
+	}
+	
 	/**
 	 * Listener for the edit conditions button.
 	 */

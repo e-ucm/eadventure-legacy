@@ -893,6 +893,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="BarriersList.SelectInitialNode">Seleccionar nodo inicial</entry>
 	<entry key="BarriersList.DeleteTool">Herramienta borrado</entry>
 	<entry key="BarriersList.EditBarriers">Editar barreras</entry>
+	<entry key="BarriersList.EditInfluenceArea">Editar area de influencia</entry>
 
 	<entry key="Exit.Title">Salida</entry>
 	<entry key="Exit.Documentation">Documentación de la salida</entry>

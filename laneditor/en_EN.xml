@@ -893,7 +893,7 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="BarriersList.SelectInitialNode">Select initial node</entry>
 	<entry key="BarriersList.DeleteTool">Delete tool</entry>
 	<entry key="BarriersList.EditBarriers">Edit barriers</entry>
-
+	<entry key="BarriersList.EditInfluenceArea">Edit influence area</entry>
 
 	<entry key="Exit.Title">Exit</entry>
 	<entry key="Exit.Documentation">Full description of the exit</entry>
