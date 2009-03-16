@@ -370,6 +370,8 @@ public abstract class GUI implements FocusListener {
 
         // This is the y lower position of the first line
         int realY = y - textBlockHeight + fontMetrics.getAscent( );
+        if (realY < fontMetrics.getAscent())
+        	realY = fontMetrics.getAscent();
         
         //Draw each line of the string array
         for( String line : strings ) {

@@ -414,7 +414,7 @@ public class GameText {
         if (showCommentaries())
             return TEXT_TALK_CANNOT[ (int)( TEXT_TALK_CANNOT.length * Math.random( ) ) ];
         else
-            return null;    
+            return null;
     }
     
     /**
@@ -436,7 +436,7 @@ public class GameText {
         if (showCommentaries())
             return TEXT_GIVE_OBJECT_NOT_INVENTORY[ (int)( TEXT_GIVE_OBJECT_NOT_INVENTORY.length * Math.random( ) ) ];
         else
-            return null;    
+            return null;
     }
     
     /**

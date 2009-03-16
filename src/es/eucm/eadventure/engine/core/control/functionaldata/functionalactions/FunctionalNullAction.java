@@ -16,7 +16,7 @@ public class FunctionalNullAction extends FunctionalAction {
 	 */
 	public FunctionalNullAction() {
 		super(null);
-		finished = true;
+		finished = false;
 		type = -1;
 	}
 
