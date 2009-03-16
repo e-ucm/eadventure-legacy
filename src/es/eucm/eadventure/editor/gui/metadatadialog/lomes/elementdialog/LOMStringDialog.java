@@ -24,8 +24,10 @@ import es.eucm.eadventure.editor.control.Controller;
 
 public class LOMStringDialog extends JDialog{
 	
-	public static final int TYPE_AREA=0;
-	public static final int TYPE_FIELD=1;
+    
+    	public static final int TYPE_NONE=0;
+	public static final int TYPE_AREA=1;
+	public static final int TYPE_FIELD=2;
 	
 	private JTextField text;
 	
@@ -58,7 +60,7 @@ public class LOMStringDialog extends JDialog{
 			textArea.setEditable( true );
 			c.ipady = 100;
 			textPanel.add( new JScrollPane( textArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER ) ,c);
-			this.setSize( new Dimension(300,250) );
+			this.setSize( new Dimension(250,200) );
 			//textPanel.add(textArea,c);
 			text = null;
 		}
@@ -80,9 +82,14 @@ public class LOMStringDialog extends JDialog{
 		buttonPanel.add(ok,c);
 		
 		
-		this.getContentPane().setLayout(new GridLayout(2,0));
-		this.getContentPane().add(textPanel);
-		this.getContentPane().add(buttonPanel);
+		this.getContentPane().setLayout(new GridBagLayout());
+		c =  new GridBagConstraints();
+		c.gridy=0;
+		c.weightx=1.0;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		this.getContentPane().add(textPanel,c);
+		c.gridy=1;
+		this.getContentPane().add(buttonPanel,c);
 	
 		Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
 		setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );

@@ -184,6 +184,7 @@ public class LOMCreatePrimitiveContainerPanel extends JPanel{
 					previousValue = stringContainer.get(selectedIndex-1);
 				LOMStringDialog idDialog = new LOMStringDialog(previousValue,fieldType);
 				
+				if (!idDialog.getTextValue().equals("")){
 				if (selectedIndex==0){
 					elements.addItem(idDialog.getTextValue());
 					stringContainer.add(idDialog.getTextValue());
@@ -193,6 +194,7 @@ public class LOMCreatePrimitiveContainerPanel extends JPanel{
 					elements.removeItemAt(selectedIndex);
 					elements.insertItemAt(idDialog.getTextValue(), selectedIndex);
 				}
+				}
 			}
 		else if (type == LANGSTRING_TYPE){
 			int selectedIndex = elements.getSelectedIndex();
@@ -201,6 +203,7 @@ public class LOMCreatePrimitiveContainerPanel extends JPanel{
 				previousValue = langstringContainer.get(selectedIndex-1);
 			LOMStringDialog idDialog = new LOMStringDialog(previousValue.getValue(0),fieldType);
 			
+			if (!idDialog.getTextValue().equals("")){
 			if (selectedIndex==0){
 				elements.addItem(idDialog.getTextValue());
 				langstringContainer.add(new LangString(idDialog.getTextValue()));
@@ -210,12 +213,14 @@ public class LOMCreatePrimitiveContainerPanel extends JPanel{
 				elements.removeItemAt(selectedIndex);
 				elements.insertItemAt(idDialog.getTextValue(), selectedIndex);
 			}
+			}
 		}if (type == VOCABULARY_TYPE){
 			int selectedIndex = elements.getSelectedIndex();
 			int previousValue=0;
 			if (selectedIndex!=0)
 				previousValue = vocabularyContainer.get(selectedIndex-1).getValueIndex();
 			LOMVocabularyDialog idDialog = new LOMVocabularyDialog(vocabularyType,selectedIndex==0?0:previousValue);
+			
 			
 			if (selectedIndex==0){
 				elements.addItem(vocabularyType[idDialog.getSelection()]);
@@ -226,6 +231,7 @@ public class LOMCreatePrimitiveContainerPanel extends JPanel{
 				elements.removeItemAt(selectedIndex);
 				elements.insertItemAt(vocabularyType[idDialog.getSelection()], selectedIndex);
 			}
+			
 		}
 	}
 		
