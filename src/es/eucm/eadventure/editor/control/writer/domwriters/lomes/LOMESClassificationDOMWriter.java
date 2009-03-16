@@ -9,6 +9,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
+import es.eucm.eadventure.editor.data.meta.auxiliar.LOMClassificationTaxon;
+import es.eucm.eadventure.editor.data.meta.auxiliar.LOMClassificationTaxonPath;
+import es.eucm.eadventure.editor.data.meta.auxiliar.LOMTaxon;
 import es.eucm.eadventure.editor.data.meta.ims.IMSClassification;
 import es.eucm.eadventure.editor.data.meta.ims.IMSRights;
 import es.eucm.eadventure.editor.data.meta.lomes.LOMESClassification;
@@ -36,23 +39,30 @@ public class LOMESClassificationDOMWriter extends LOMESSimpleDataWriter{
 			classificationElement.appendChild( buildVocabularyNode(doc,"lomes:purpose",classification.getPurpose()));
 				
 			// Create taxon path node
-			Element taxonPath = doc.createElement("lomes:taxonPath");
-			Element source = doc.createElement( "lomes:source" );
-			source.appendChild( buildLangStringNode(doc,classification.getSource()));
-			taxonPath.appendChild( source );
+			for (int i=0; i<classification.getTaxonPath().getSize();i++){
+        			Element taxonPath = doc.createElement("lomes:taxonPath");
+        			Element source = doc.createElement( "lomes:source" );
+        			source.appendChild( buildLangStringNode(doc,((LOMClassificationTaxonPath)classification.getTaxonPath().get(i)).getSource()));
+        			taxonPath.appendChild( source );
+        			
+        			// Create taxon node
+        			LOMTaxon tax = ((LOMClassificationTaxonPath)classification.getTaxonPath().get(i)).getTaxon();
+        			for (int j = 0; j<tax.getSize();j++){
+                			Element taxon = doc.createElement("lomes:taxon");
+                			Element identifier = doc.createElement("lomes:identifier");
+                			identifier.setTextContent(((LOMClassificationTaxon)tax.get(j)).getIdentifier());
+                			taxon.appendChild(identifier);
+                			
+                			Element entry = doc.createElement( "lomes:entry" );
+                			entry.appendChild( buildLangStringNode(doc,((LOMClassificationTaxon)tax.get(j)).getEntry()));
+                			taxon.appendChild( entry );
+                			
+                			taxonPath.appendChild(taxon);
+			}
 			
-			// Create taxon node
-			Element taxon = doc.createElement("lomes:taxon");
-			Element identifier = doc.createElement("lomes:identifier");
-			identifier.setTextContent(classification.getIdentifier());
-			taxon.appendChild(identifier);
 			
-			Element entry = doc.createElement( "lomes:entry" );
-			entry.appendChild( buildLangStringNode(doc,classification.getEntry()));
-			taxon.appendChild( entry );
-			
-			taxonPath.appendChild(taxon);
 			classificationElement.appendChild(taxonPath);
+			}
 			
 			
 			// Create the description node

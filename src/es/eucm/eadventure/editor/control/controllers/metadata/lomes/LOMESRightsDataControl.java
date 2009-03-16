@@ -46,7 +46,11 @@ public class LOMESRightsDataControl {
 		return new LOMESOptionsDataControl (){
 
 			public String[] getOptions( ) {
-				return new String[]{"Yes","No"};
+			    String[] options = new String[data.getCopyrightandotherrestrictions().getValues( ).length];
+				for (int i=0; i<options.length; i++){
+					options[i]=TextConstants.getText( "LOMES.Rights.CopyAndOthers"+i );
+				}
+				return options;
 			}
 
 			public void setOption( int option ) {

@@ -19,9 +19,12 @@ public class LOMIdentifier extends LOMESContainer{
 	public void addIdentifier(String catalog, String entry){
 		add(new LOMESGeneralId(catalog,entry));
 	}
-   
+	
+	
 	public void addIdentifier(String catalog, String entry,int index){
-		if (index ==0){
+		// index is related with the set of options in container dialog. The index 0 means add new element,
+	    	// and the others index are index-1 because the selected index == 0 is reserved for "add new element" 
+	    	if (index ==0){
 			add(new LOMESGeneralId(catalog,entry));
 		}else {
 		    delete(index-1);

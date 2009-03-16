@@ -1,6 +1,8 @@
 package es.eucm.eadventure.editor.gui.metadatadialog.lomes;
 
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -15,8 +17,9 @@ public class LOMESMetaMetaDataPanel extends JPanel{
 	
 	public LOMESMetaMetaDataPanel(LOMESMetaMetaDataControl metaController){
 		//Layout
-		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-		
+	    	setLayout(new GridBagLayout());
+	    	GridBagConstraints c = new GridBagConstraints();
+	    	
 		//Meta panels
 		LOMESTextPanel meta = new LOMESTextPanel(metaController.getMetadataschemeController(), TextConstants.getText("IMS.MetaMetaData.Metadatascheme"), LOMESTextPanel.TYPE_FIELD);
 		LOMESCreateContainerPanel identifierPanel = new LOMESCreateContainerPanel(metaController.getIdentifier(), TextConstants.getText( "LOMES.General.Identifier" ),LOMContributeDialog.NONE);
@@ -26,14 +29,24 @@ public class LOMESMetaMetaDataPanel extends JPanel{
 		
 		// add Panels
 		
-		add (identifierPanel);
-		add (Box.createVerticalStrut(1));
-		add (contribute);
-		add (Box.createVerticalStrut(1));
-		add (meta);
-		add (Box.createVerticalStrut(1));
-		add (language);
-		add (Box.createVerticalStrut(1));
-		add ( Box.createRigidArea( new Dimension (100,45) ));
+		JPanel container = new JPanel();
+		container.setLayout(new GridBagLayout());
+		c.gridy=0;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.weightx = 1.0;
+		//Add the panels
+		container.add (meta,c);
+		c.gridy=1;
+		container.add (identifierPanel,c);
+		c.gridy=2;
+		container.add (contribute,c);
+		c.gridy=3;
+		container.add (language,c);
+		
+
+		c.gridy=0;
+		c.anchor = GridBagConstraints.NORTH;
+		c.weighty=1.0;
+		add(container,c);
 	}
 }

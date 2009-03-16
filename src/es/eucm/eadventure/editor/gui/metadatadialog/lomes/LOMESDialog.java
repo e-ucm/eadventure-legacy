@@ -55,9 +55,10 @@ public class LOMESDialog extends JDialog{
 		cont.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.HORIZONTAL; 
-		c.weightx = 0.5;
-		c.weighty = 0.5;
+		c.weightx = 1;
+		c.weighty = 1;
 		c.gridy = 0;
+		//c.ipady = 70;
 		cont.add(tabs,c);
 		c.fill = GridBagConstraints.NONE;
 		c.gridy = 1;
@@ -65,7 +66,7 @@ public class LOMESDialog extends JDialog{
 		cont.add(ok,c);   
 		// Set size and position and show the dialog
 		this.getContentPane( ).add( cont);
-		setMinimumSize( new Dimension( 450, 450) );
+		setMinimumSize( new Dimension( 450, 500) );
 		Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
 		setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
 		setVisible( true );
