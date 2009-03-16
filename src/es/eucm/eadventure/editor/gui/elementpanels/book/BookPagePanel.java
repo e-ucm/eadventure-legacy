@@ -495,7 +495,6 @@ public class BookPagePanel extends JPanel implements Updateable {
 	}
 
 
-	@Override
 	public boolean updateFields() {
 		if( dataControl.getSelectedPage().getType() == BookPage.TYPE_RESOURCE ){
 			resourceRadioButton.setSelected(true);

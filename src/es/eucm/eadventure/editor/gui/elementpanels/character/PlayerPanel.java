@@ -626,11 +626,8 @@ public class PlayerPanel extends JPanel implements Updateable {
 			super.updateResources( );
 			getParent( ).getParent( ).repaint( );
 		}
-
-
 	}
 
-	@Override
 	public boolean updateFields() {
 		this.looksPanel.updateResources();
 		this.looksPanel.updatePreview();

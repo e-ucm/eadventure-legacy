@@ -579,7 +579,6 @@ public class Animation implements Cloneable, Documented, HasId {
 		return a;
 	}
 
-	@Override
 	public void setId(String id) {
 		this.id = id;
 	}

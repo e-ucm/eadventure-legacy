@@ -378,12 +378,10 @@ public class Scene extends GeneralScene implements Positioned{
 		return s;
 	}
 
-	@Override
 	public void setPositionX(int newX) {
 		this.defaultX = newX;
 	}
 
-	@Override
 	public void setPositionY(int newY) {
 		this.defaultY = newY;
 	}

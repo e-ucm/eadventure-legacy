@@ -577,7 +577,6 @@ public class ConditionsPanel extends JPanel implements Updateable{
 		}
 	}
 
-	@Override
 	public boolean updateFields() {
 		int n= getComponentCount();
 		for (int i=0; i<n; i++){

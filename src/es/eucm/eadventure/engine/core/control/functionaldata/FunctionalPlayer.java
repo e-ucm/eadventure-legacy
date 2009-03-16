@@ -705,17 +705,14 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
 		return null;
 	}
 
-	@Override
 	public Color getBubbleBkgColor() {
 		return bubbleBkgColor;
 	}
 
-	@Override
 	public Color getBubbleBorderColor() {
 		return bubbleBorderColor;
 	}
 
-	@Override
 	public boolean getShowsSpeechBubbles() {
 		return player.getShowsSpeechBubbles();
 	}

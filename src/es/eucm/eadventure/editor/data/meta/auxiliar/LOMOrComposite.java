@@ -59,11 +59,9 @@ public class LOMOrComposite implements LOMESComposeType{
 		return options;
 	}
     
-    
-    @Override
     public String getTitle() {
-	// TODO Auto-generated method stub
-	return null;
+		// TODO Auto-generated method stub
+		return null;
     }
 
     /**

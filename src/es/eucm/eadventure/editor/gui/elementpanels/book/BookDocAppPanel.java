@@ -216,7 +216,6 @@ public class BookDocAppPanel extends JPanel implements Updateable{
 
 	}
 
-	@Override
 	public boolean updateFields() {
 		bookLooks.updateResources();
 		bookLooks.updatePreview();

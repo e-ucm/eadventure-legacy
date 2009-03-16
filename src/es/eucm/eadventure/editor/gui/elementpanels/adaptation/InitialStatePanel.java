@@ -446,8 +446,6 @@ class InitialStatePanel extends JPanel implements Updateable{
 		}
 	}
 	
-	
-	@Override
 	public boolean updateFields() {
 		actionFlagsTable.setRowSelectionInterval(-1, -1);
 		actionFlagsTable.updateUI();

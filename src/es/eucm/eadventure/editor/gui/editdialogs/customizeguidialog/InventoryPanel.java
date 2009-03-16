@@ -271,8 +271,6 @@ public class InventoryPanel extends JScrollPane implements Updateable{
 		}
 	}
 
-
-	@Override
 	public boolean updateFields() {
 		// For every cursor, update the cursorPath field
 		int assetCount = arrowTypes.length;

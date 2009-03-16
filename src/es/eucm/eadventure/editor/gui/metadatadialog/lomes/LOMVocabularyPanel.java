@@ -42,7 +42,6 @@ public class LOMVocabularyPanel extends JPanel{
 	
 	private class VocabularySelectionListener implements ActionListener {
 
-		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			
 			selection = elements.getSelectedIndex();

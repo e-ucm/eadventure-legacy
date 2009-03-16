@@ -570,17 +570,14 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
 		return influenceArea;
 	}
 
-	@Override
 	public Color getBubbleBkgColor() {
 		return bubbleBkgColor;
 	}
 
-	@Override
 	public Color getBubbleBorderColor() {
 		return bubbleBorderColor;
 	}
 
-	@Override
 	public boolean getShowsSpeechBubbles() {
 		return npc.getShowsSpeechBubbles();
 	}

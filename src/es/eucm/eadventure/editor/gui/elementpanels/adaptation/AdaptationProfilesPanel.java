@@ -45,7 +45,6 @@ public class AdaptationProfilesPanel extends JPanel implements Updateable{
 		add (new JFiller(),c);
 	}
 
-	@Override
 	public boolean updateFields() {
 		return true;
 	}

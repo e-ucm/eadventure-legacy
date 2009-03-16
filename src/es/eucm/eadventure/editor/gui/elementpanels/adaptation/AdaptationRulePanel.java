@@ -119,8 +119,7 @@ public class AdaptationRulePanel extends JPanel implements Updateable{
 		c.weighty = 1;
 		add( gsPanel, c );
 	}
-	
-	@Override
+
 	public boolean updateFields() {
 		descriptionTextArea.setText( adaptationRuleDataControl.getDescription( ) );
 		return uolPanel.updateFields() && gsPanel.updateFields();

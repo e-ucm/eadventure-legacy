@@ -24,7 +24,6 @@ public abstract class ToolManagableDialog extends JDialog implements Updateable,
 	
 	private static final KeyEventDispatcher undoRedoDispatcher = new KeyEventDispatcher(){
 
-		@Override
 		public boolean dispatchKeyEvent(KeyEvent e) {
 			boolean dispatched = false;
 			if (e.getID() == KeyEvent.KEY_RELEASED && e.isControlDown() && e.getKeyCode() == KeyEvent.VK_Z){
@@ -59,7 +58,6 @@ public abstract class ToolManagableDialog extends JDialog implements Updateable,
 		this.addWindowListener(this);
 	}
 
-	@Override
 	public boolean updateFields() {
 		//Do nothing
 		return false;
@@ -86,18 +84,13 @@ public abstract class ToolManagableDialog extends JDialog implements Updateable,
 		Controller.getInstance( ).pushWindow( this );
 	}
 	
-	@Override
 	public void windowActivated(WindowEvent e) {}
 
-	@Override
 	public void windowClosed(WindowEvent e) {}
 
-	@Override
 	public void windowDeactivated(WindowEvent e) {}
 
-	@Override
 	public void windowDeiconified(WindowEvent e) {}
 
-	@Override
 	public void windowIconified(WindowEvent e) {}
 }

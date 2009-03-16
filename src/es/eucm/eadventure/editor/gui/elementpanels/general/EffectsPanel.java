@@ -272,7 +272,6 @@ public class EffectsPanel extends JPanel implements Updateable{
 		}
 	}
 
-	@Override
 	public boolean updateFields() {
 		effectsTable.updateUI();
 		return true;
