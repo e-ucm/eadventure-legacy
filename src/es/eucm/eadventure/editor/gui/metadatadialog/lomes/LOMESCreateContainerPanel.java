@@ -1,6 +1,7 @@
 package es.eucm.eadventure.editor.gui.metadatadialog.lomes;
 
-import java.awt.GridLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -8,17 +9,14 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
-import javax.swing.WindowConstants;
 
 import es.eucm.eadventure.common.gui.TextConstants;
-import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMContribute;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMESContainer;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMIdentifier;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMRequirement;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMTaxon;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMTaxonPath;
-import es.eucm.eadventure.editor.gui.editdialogs.PlayerPositionDialog;
 import es.eucm.eadventure.editor.gui.metadatadialog.lomes.elementdialog.LOMRequirementsDialog;
 import es.eucm.eadventure.editor.gui.metadatadialog.lomes.elementdialog.LOMTaxonDialog;
 import es.eucm.eadventure.editor.gui.metadatadialog.lomes.elementdialog.LOMTaxonPathDialog;
@@ -31,6 +29,11 @@ import es.eucm.eadventure.editor.gui.metadatadialog.lomes.elementdialog.LOMContr
  *
  */
 public class LOMESCreateContainerPanel extends JPanel{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8233716462597295660L;
 
 	private JButton add;
 	
@@ -45,8 +48,11 @@ public class LOMESCreateContainerPanel extends JPanel{
 	public LOMESCreateContainerPanel(LOMESContainer container,String title,int type){
 		this.container = container;
 		this.type = type;
-		this.setLayout(new GridLayout(0,3));
-		
+		this.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 0;
 		
 		String[] containerElements = container.elements();
 		String[] ele = new String[containerElements.length+1];
@@ -57,17 +63,21 @@ public class LOMESCreateContainerPanel extends JPanel{
 		
 		elements = new JComboBox(ele);
 		
-		this.add(elements);
+		this.add(elements, c);
 		
 		add = new JButton(TextConstants.getText("LOMES.Add"));
 		add.addActionListener( new AddButtonListener());
 		
-		this.add(add);
+		c.gridx++;
+		c.fill = GridBagConstraints.NONE;
+		
+		this.add(add, c);
 		
 		delete = new JButton(TextConstants.getText("LOMES.Delete"));
 		delete.addActionListener( new DeleteButtonListener ());
 		
-		this.add(delete);
+		c.gridx ++;
+		this.add(delete, c);
 		
 		this.setBorder(BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), title )); 
 		

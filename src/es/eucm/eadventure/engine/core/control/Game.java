@@ -495,7 +495,11 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
 
     public void repaintDebug() {
     	if (debug) {
+    		debugChangesPanel.updateUI();
+    		debugChangesPanel.validate();
     		debugChangesPanel.repaint();
+    		debugLogPanel.updateUI();
+    		debugLogPanel.validate();
     		debugLogPanel.repaint();
     	}
     }

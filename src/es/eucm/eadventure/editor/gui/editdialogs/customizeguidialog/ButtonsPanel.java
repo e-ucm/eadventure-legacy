@@ -87,7 +87,7 @@ public class ButtonsPanel extends JScrollPane implements Updateable{
 		//resourcesPanel.add( informationTextPane, c );
 		JTextPane informationTextPane = new JTextPane( );
 		informationTextPane.setEditable( false );
-		informationTextPane.setBackground( getBackground( ) );
+		informationTextPane.setBackground( mainPanel.getBackground() );
 		informationTextPane.setText( TextConstants.getText( "Buttons.Information" ) );
 		JPanel informationPanel = new JPanel( );
 		informationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "GeneralText.Information" ) ) );
@@ -291,10 +291,6 @@ public class ButtonsPanel extends JScrollPane implements Updateable{
 	 */
 	private class ViewButtonListener implements ActionListener {
 
-		/**
-		 * Index of the asset.
-		 */
-		private int assetIndex;
 		
 		private int action;
 		
@@ -307,7 +303,6 @@ public class ButtonsPanel extends JScrollPane implements Updateable{
 		 *            Index of the asset
 		 */
 		public ViewButtonListener( int assetIndex, int action, int type ) {
-			this.assetIndex = assetIndex;
 			this.action = action;
 			this.type = type;
 		}

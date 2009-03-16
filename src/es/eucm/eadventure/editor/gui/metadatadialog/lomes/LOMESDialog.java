@@ -54,19 +54,19 @@ public class LOMESDialog extends JDialog{
 		JPanel cont = new JPanel();
 		cont.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
-		c.fill = GridBagConstraints.HORIZONTAL; 
+		c.fill = GridBagConstraints.BOTH; 
 		c.weightx = 1;
 		c.weighty = 1;
 		c.gridy = 0;
 		//c.ipady = 70;
 		cont.add(tabs,c);
-		c.fill = GridBagConstraints.NONE;
+		c.fill = GridBagConstraints.VERTICAL;
 		c.gridy = 1;
 		c.ipady = 0;
-		cont.add(ok,c);   
+		cont.add(ok,c);
 		// Set size and position and show the dialog
 		this.getContentPane( ).add( cont);
-		setMinimumSize( new Dimension( 450, 500) );
+		setMinimumSize( new Dimension( 450, 520) );
 		Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
 		setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
 		setVisible( true );

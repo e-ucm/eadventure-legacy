@@ -1,9 +1,9 @@
 package es.eucm.eadventure.editor.gui.elementpanels.scene;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Insets;
 
 import javax.swing.BorderFactory;
@@ -107,20 +107,26 @@ public class ExitPanel extends JTabbedPane {
 		c.insets = new Insets( 5, 5, 5, 5 );
 
 		// Create and add te documenation panel
-		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 1;
+		c.weighty = 0.2;
+		c.fill = GridBagConstraints.BOTH;
 		JPanel documentationPanel = new JPanel( );
-		documentationPanel.setLayout( new GridLayout( ) );
+		documentationPanel.setLayout( new BorderLayout( ) );
 		documentationTextArea = new JTextArea( exitDataControl.getDocumentation( ), 4, 0 );
 		documentationTextArea.setLineWrap( true );
 		documentationTextArea.setWrapStyleWord( true );
 		documentationTextArea.getDocument( ).addDocumentListener( new DocumentationChangeListener( documentationTextArea, (Documented) exitDataControl.getContent() ) );
-		documentationPanel.add( new JScrollPane( documentationTextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER ) );
+		documentationPanel.add( new JScrollPane( documentationTextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER ) , BorderLayout.CENTER);
 		documentationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Exit.Documentation" ) ) );
 		mainPanel.add( documentationPanel, c );
 
-
+		c.fill = GridBagConstraints.BOTH;
+		c.weighty = 0.8;
 		c.gridy = 1;
+		
+		JPanel temp = new JPanel();
+		temp.setLayout(new BorderLayout());
+		
 		final JCheckBox rectangular = new JCheckBox(TextConstants.getText("Exit.IsRectangular"));
 		rectangular.setSelected(exitDataControl.isRectangular());
 		rectangular.addChangeListener(new ChangeListener() {
@@ -131,15 +137,11 @@ public class ExitPanel extends JTabbedPane {
 				}
 			}
 		});
-		mainPanel.add( rectangular, c);
 
+		temp.add(rectangular, BorderLayout.NORTH);
+		temp.add(looksPanel, BorderLayout.CENTER);
 		
-		// Add the created rectangle position panel
-		c.gridy = 2;
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 1;
-		c.weighty = 1;
-		mainPanel.add( looksPanel, c );
+		mainPanel.add(temp, c);
 		
 		this.insertTab(  TextConstants.getText( "Exit.Title" ), null, mainPanel,  TextConstants.getText( "Exit.Title" ), 0 );
 		this.insertTab( TextConstants.getText( "Exit.AdvancedOptions" ), null, new ExitLookPanel(this.exitDataControl.getExitLookDataControl( )), TextConstants.getText( "Exit.AdvancedOptions" ), 1 );

@@ -1,6 +1,7 @@
 package es.eucm.eadventure.editor.gui.metadatadialog.lomes.elementdialog;
 
-import java.awt.GridLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -13,8 +14,6 @@ import javax.swing.JPanel;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.data.meta.LangString;
 import es.eucm.eadventure.editor.data.meta.Vocabulary;
-import es.eucm.eadventure.editor.data.meta.auxiliar.LOMESContainer;
-import es.eucm.eadventure.editor.data.meta.auxiliar.LOMIdentifier;
 
 /**
  *	Panel for String or LangString elements with SPM more than 1
@@ -23,6 +22,11 @@ import es.eucm.eadventure.editor.data.meta.auxiliar.LOMIdentifier;
 
 public class LOMCreatePrimitiveContainerPanel extends JPanel{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8966721707717829637L;
+
 	public static final int STRING_TYPE = 0;
 	
 	public static final int LANGSTRING_TYPE = 1;
@@ -55,7 +59,7 @@ public class LOMCreatePrimitiveContainerPanel extends JPanel{
 	private int fieldType;
 	
 	public LOMCreatePrimitiveContainerPanel(int type,ArrayList container,String title,int fieldType){
-		this.setLayout(new GridLayout(0,3));
+		this.setLayout(new GridBagLayout());
 		this.fieldType = fieldType;
 		this.type = type;
 		if (type == STRING_TYPE){
@@ -66,6 +70,10 @@ public class LOMCreatePrimitiveContainerPanel extends JPanel{
 			this.vocabularyContainer = container;
 		}
 		
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 0;
+		c.gridy = 0;
 		
 		String[] containerElements = getElements();
 		String[] ele = new String[containerElements.length+1];
@@ -76,17 +84,20 @@ public class LOMCreatePrimitiveContainerPanel extends JPanel{
 		
 		elements = new JComboBox(ele);
 		
-		this.add(elements);
+		this.add(elements,c);
 		
 		add = new JButton(TextConstants.getText("LOMES.Add"));
 		add.addActionListener( new AddButtonListener());
 		
-		this.add(add);
+		c.gridx++;
+		c.fill = GridBagConstraints.NONE;
+		this.add(add,c);
 		
 		delete = new JButton(TextConstants.getText("LOMES.Delete"));
 		delete.addActionListener( new DeleteButtonListener ());
 		
-		this.add(delete);
+		c.gridx++;
+		this.add(delete,c);
 		
 		this.setBorder(BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), title )); 
 		

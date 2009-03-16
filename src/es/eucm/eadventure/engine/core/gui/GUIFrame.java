@@ -106,7 +106,7 @@ public class GUIFrame extends GUI implements FocusListener {
             	bkgFrame.setLocation( ( screenSize.width - WINDOW_WIDTH ) / 2, ( screenSize.height - WINDOW_HEIGHT ) / 2);
         	} else {
             	bkgFrame.setSize(screenSize.width, screenSize.height);
-            	bkgFrame.setLocation( 0 , 0);
+            	bkgFrame.setLocation( 0 , (System.getProperty("os.name").contains("Mac") ? 15 : 0));
         	}
         }
 
@@ -149,7 +149,7 @@ public class GUIFrame extends GUI implements FocusListener {
         		DisplayMode[] dmodes = gm.getDisplayModes();
         		for (int i = 0; i < dmodes.length && !changed; i++) {
         			if (dmodes[i].getBitDepth() == dm.getBitDepth() && dmodes[i].getHeight() == dm.getHeight() && dmodes[i].getWidth() == dm.getWidth()) {
-        				gm.setFullScreenWindow(bkgFrame);   
+        				gm.setFullScreenWindow(bkgFrame); 
         				gm.setDisplayMode(dm);
         				changed = true;
         			}
@@ -279,13 +279,13 @@ public class GUIFrame extends GUI implements FocusListener {
 			        int posY = ( screenSize.height - GUI.WINDOW_HEIGHT ) / 2 - (int) bkgFrame.getLocation().getY();
 			    	if (Game.getInstance().isDebug()) {
 				        posX = ( screenSize.width - GUI.WINDOW_WIDTH );
-				        posY = 0;
+				        posY = (System.getProperty("os.name").contains("Mac") ? 15 : 0);
 			    	}
 					
 			    	if (components[i] instanceof DebugLogPanel) {
-			    		components[i].setBounds(0,GUI.WINDOW_HEIGHT, screenSize.width, screenSize.height - GUI.WINDOW_HEIGHT);
+			    		components[i].setBounds(0, GUI.WINDOW_HEIGHT + (System.getProperty("os.name").contains("Mac") ? 15 : 0), screenSize.width, screenSize.height - GUI.WINDOW_HEIGHT - (System.getProperty("os.name").contains("Mac") ? 15 : 0));
 			    	} else if (components[i] instanceof DebugValuesPanel) {
-			    		components[i].setBounds(0, 0, screenSize.width - GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT);
+			    		components[i].setBounds(0, (System.getProperty("os.name").contains("Mac") ? 15 : 0), screenSize.width - GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT);
 			    	} else
 			    		components[i].setBounds(posX, posY, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT);
 				} else {

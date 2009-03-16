@@ -64,7 +64,7 @@ public class LOMDialog extends JDialog{
 		this.getContentPane( ).setLayout( new BorderLayout() );
 		this.getContentPane( ).add( cont, BorderLayout.CENTER );
 		//setSize( new Dimension( 400, 200 ) );
-		setMinimumSize( new Dimension( 450, 480 ) );
+		setMinimumSize( new Dimension( 450, 520 ) );
 		Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
 		setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
 		setVisible( true );
