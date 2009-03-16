@@ -41,14 +41,29 @@ public class TimerPanel extends JPanel {
 	 */
 	private TimerDataControl timerDataControl;
 	
+	/**
+	 * Documentation text area
+	 */
 	private JTextArea documentationTextArea;
 	
+	/**
+	 * End conditions button
+	 */
 	private JButton conditions2Button;
 	
+	/**
+	 * Text field for the display name
+	 */
 	private JTextField displayName;
 	
+	/**
+	 * Check box that set the timer to count-down
+	 */
 	private JCheckBox countDown;
 	
+	/**
+	 * Check box that sets the timer to show when stopped
+	 */
 	private JCheckBox showWhenStopped;
 	
 	/**
@@ -337,6 +352,9 @@ public class TimerPanel extends JPanel {
 			}
 	}
 
+	/**
+	 * A ChangeListener for all the JCheckBox components in the panel
+	 */
 	private class CheckBoxChangeListener implements ChangeListener {
 
 		public static final int USESENDCONDITION = 0;
