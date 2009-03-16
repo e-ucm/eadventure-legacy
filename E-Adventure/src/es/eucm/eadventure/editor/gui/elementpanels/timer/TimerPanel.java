@@ -88,6 +88,10 @@ public class TimerPanel extends JPanel {
 		// Create the time panel
 		c.gridy = 1;
 		JPanel timePanel = new JPanel();
+		timePanel.setLayout(new GridBagLayout());
+		GridBagConstraints c_time = new GridBagConstraints();
+		c_time.gridx = 0;
+		c_time.gridy = 0;
 		long current = timerDataControl.getTime( );
 		long min = 1;
 		long max = 99 * 3600;
@@ -95,29 +99,44 @@ public class TimerPanel extends JPanel {
 		JLabel totalTime = new JLabel("seg");
 		JSpinner timeSpinner = new JSpinner(new SpinnerNumberModel(current, min, max, increment));
 		timeSpinner.addChangeListener(new TimeSpinnerListener());
-		timePanel.add( timeSpinner );
-		timePanel.add( totalTime );
+		timePanel.add( timeSpinner , c_time);
+		c_time.gridx++;
+		timePanel.add( totalTime, c_time );
 		
-		
-		JCheckBox showTime = new JCheckBox("Show time");
+		c_time.gridx = 0;
+		c_time.gridy = 1;
+		c_time.fill = GridBagConstraints.HORIZONTAL;
+		c_time.insets = new Insets(5, 5, 0, 0);
+		JCheckBox showTime = new JCheckBox(TextConstants.getText("Timer.ShowTimer"));
 		showTime.setSelected(timerDataControl.isShowTime());
 		showTime.addChangeListener(new CheckBoxChangeListener(CheckBoxChangeListener.SHOW_TIME));
-		timePanel.add(showTime);
+		timePanel.add(showTime, c_time);
+		c_time.gridx++;
 		
-		displayName = new JTextField();
+		JLabel dnLabel = new JLabel(TextConstants.getText("Timer.DisplayName"));
+		timePanel.add(dnLabel, c_time);
+		c_time.gridx++;
+		
+		displayName = new JTextField(8);
 		displayName.setText(timerDataControl.getDisplayName());
+		displayName.setEnabled(timerDataControl.isShowTime());
 		displayName.getDocument().addDocumentListener(new DisplayNameChangesListener());
-		timePanel.add(displayName);
+		timePanel.add(displayName, c_time);
+		c_time.gridx++;
 		
-		countDown = new JCheckBox("Count-down");
+		countDown = new JCheckBox(TextConstants.getText("Timer.CountDown"));
 		countDown.setSelected(timerDataControl.isCountDown());
+		countDown.setEnabled(timerDataControl.isShowTime());
 		countDown.addChangeListener(new CheckBoxChangeListener(CheckBoxChangeListener.COUNTDOWN));
-		timePanel.add(countDown);
+		timePanel.add(countDown, c_time);
+		c_time.gridx++;
 		
-		showWhenStopped = new JCheckBox("shown when stopped");
+		showWhenStopped = new JCheckBox(TextConstants.getText("Timer.ShowWhenStopped"));
 		showWhenStopped.setSelected(timerDataControl.isShowWhenStopped());
+		showWhenStopped.setEnabled(timerDataControl.isShowTime());
 		showWhenStopped.addChangeListener(new CheckBoxChangeListener(CheckBoxChangeListener.SHOWWHENSTOPPED));
-		timePanel.add(showWhenStopped);
+		timePanel.add(showWhenStopped, c_time);
+		c_time.gridx++;
 		
 		timePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Timer.Time" ) ) );
 		add ( timePanel, c );

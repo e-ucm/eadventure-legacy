@@ -1844,6 +1844,10 @@ Si no las cambia, el juego empleará las flechas por defecto.</entry>
 	<entry key="Timer.RunsInLoop">Utiliza bucles</entry>
 	<entry key="Timer.RunsInLoopDesc">      Activo -> Si transcurre el tiempo del temporizador, este entrará en otro bucle una y otra vez hasta que sea detenido.
       Desactivo -> Cuando transcurre el tiempo del temporizador, este se detiene</entry>
+	<entry key="Timer.ShowTimer">Mostrar en juego</entry>
+	<entry key="Timer.DisplayName">Nombre a mostrar</entry>
+	<entry key="Timer.CountDown">Cuenta regresiva</entry>
+	<entry key="Timer.ShowWhenStopped">Mostrar cuando esta parado</entry>
 	
 	
 	<entry key="TimersList.Title">Temporizadores</entry>
