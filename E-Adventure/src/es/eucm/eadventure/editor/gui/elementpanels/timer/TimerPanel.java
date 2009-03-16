@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
@@ -42,9 +43,13 @@ public class TimerPanel extends JPanel {
 	
 	private JTextArea documentationTextArea;
 	
-	private JLabel totalTime;
-
 	private JButton conditions2Button;
+	
+	private JTextField displayName;
+	
+	private JCheckBox countDown;
+	
+	private JCheckBox showWhenStopped;
 	
 	/**
 	 * Constructor.
@@ -87,11 +92,33 @@ public class TimerPanel extends JPanel {
 		long min = 1;
 		long max = 99 * 3600;
 		long increment = 1;
-		totalTime = new JLabel(timerDataControl.getTimeHhMmSs( ));
+		JLabel totalTime = new JLabel("seg");
 		JSpinner timeSpinner = new JSpinner(new SpinnerNumberModel(current, min, max, increment));
 		timeSpinner.addChangeListener(new TimeSpinnerListener());
 		timePanel.add( timeSpinner );
 		timePanel.add( totalTime );
+		
+		
+		JCheckBox showTime = new JCheckBox("Show time");
+		showTime.setSelected(timerDataControl.isShowTime());
+		showTime.addChangeListener(new CheckBoxChangeListener(CheckBoxChangeListener.SHOW_TIME));
+		timePanel.add(showTime);
+		
+		displayName = new JTextField();
+		displayName.setText(timerDataControl.getDisplayName());
+		displayName.getDocument().addDocumentListener(new DisplayNameChangesListener());
+		timePanel.add(displayName);
+		
+		countDown = new JCheckBox("Count-down");
+		countDown.setSelected(timerDataControl.isCountDown());
+		countDown.addChangeListener(new CheckBoxChangeListener(CheckBoxChangeListener.COUNTDOWN));
+		timePanel.add(countDown);
+		
+		showWhenStopped = new JCheckBox("shown when stopped");
+		showWhenStopped.setSelected(timerDataControl.isShowWhenStopped());
+		showWhenStopped.addChangeListener(new CheckBoxChangeListener(CheckBoxChangeListener.SHOWWHENSTOPPED));
+		timePanel.add(showWhenStopped);
+		
 		timePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Timer.Time" ) ) );
 		add ( timePanel, c );
 
@@ -252,37 +279,33 @@ public class TimerPanel extends JPanel {
 	 * Listener for the text area. It checks the value of the area and updates the documentation.
 	 */
 	private class DocumentationTextAreaChangesListener implements DocumentListener {
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.event.DocumentListener#changedUpdate(javax.swing.event.DocumentEvent)
-		 */
 		public void changedUpdate( DocumentEvent arg0 ) {
-		// Do nothing
+			// Do nothing
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.event.DocumentListener#insertUpdate(javax.swing.event.DocumentEvent)
-		 */
 		public void insertUpdate( DocumentEvent arg0 ) {
-			// Set the new content
 			timerDataControl.setDocumentation( documentationTextArea.getText( ) );
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.event.DocumentListener#removeUpdate(javax.swing.event.DocumentEvent)
-		 */
 		public void removeUpdate( DocumentEvent arg0 ) {
-			// Set the new content
 			timerDataControl.setDocumentation( documentationTextArea.getText( ) );
 		}
 	}
-	
+
+	private class DisplayNameChangesListener implements DocumentListener {
+		public void changedUpdate( DocumentEvent arg0 ) {
+			// Do nothing
+		}
+
+		public void insertUpdate( DocumentEvent arg0 ) {
+			timerDataControl.setDisplayName( displayName.getText( ) );
+		}
+
+		public void removeUpdate( DocumentEvent arg0 ) {
+			timerDataControl.setDisplayName( displayName.getText( ) );
+		}
+	}
+
 	/**
 	 * Listener for the time spinner
 	 */
@@ -292,19 +315,23 @@ public class TimerPanel extends JPanel {
 				JSpinner timeSpinner = (JSpinner)e.getSource( );
 				SpinnerNumberModel model = (SpinnerNumberModel) timeSpinner.getModel();
 				timerDataControl.setTime( model.getNumber( ).longValue( ) );
-				totalTime.setText( timerDataControl.getTimeHhMmSs( ) );
-				totalTime.updateUI( );
 			}
 	}
 
 	private class CheckBoxChangeListener implements ChangeListener {
-		
+
 		public static final int USESENDCONDITION = 0;
 		
 		public static final int MULTIPLESTARTS = 1;
 		
 		public static final int RUNSINLOOP = 2;
 		
+		public static final int SHOW_TIME = 3;
+
+		public static final int COUNTDOWN = 4;
+		
+		public static final int SHOWWHENSTOPPED = 5;
+
 		private int type;
 		
 		public CheckBoxChangeListener (int type) {
@@ -312,13 +339,29 @@ public class TimerPanel extends JPanel {
 		}
 		
 		public void stateChanged(ChangeEvent arg0) {
+			boolean selected = ((JCheckBox)arg0.getSource()).isSelected();
 			if (type == USESENDCONDITION) {
-				timerDataControl.setUsesEndCondition(((JCheckBox)arg0.getSource()).isSelected());
+				timerDataControl.setUsesEndCondition(selected);
 				conditions2Button.setEnabled(timerDataControl.isUsesEndCondition());
 			} else if (type == MULTIPLESTARTS) {
-				timerDataControl.setMultipleStarts(((JCheckBox) arg0.getSource()).isSelected());
+				timerDataControl.setMultipleStarts(selected);
 			} else if (type == RUNSINLOOP) {
-				timerDataControl.setRunsInLoop(((JCheckBox) arg0.getSource()).isSelected());
+				timerDataControl.setRunsInLoop(selected);
+			} else if (type == SHOW_TIME) {
+				timerDataControl.setShowTime(selected);
+				if (timerDataControl.isShowTime()) {
+					displayName.setEnabled(true);
+					countDown.setEnabled(true);
+					showWhenStopped.setEnabled(true);
+				} else {
+					displayName.setEnabled(false);
+					countDown.setEnabled(false);
+					showWhenStopped.setEnabled(false);
+				}
+			} else if (type == COUNTDOWN) {
+				timerDataControl.setCountDown(selected);
+			} else if (type == SHOWWHENSTOPPED) {
+				timerDataControl.setShowWhenStopped(selected);
 			}
 		}
 		

@@ -1,5 +1,8 @@
 package es.eucm.eadventure.engine.core.control;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -7,6 +10,7 @@ import es.eucm.eadventure.common.data.chapter.Timer;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 import es.eucm.eadventure.engine.core.data.SaveTimer;
+import es.eucm.eadventure.engine.core.gui.GUI;
 
 public class TimerManager {
 
@@ -44,6 +48,10 @@ public class TimerManager {
     	newTimer.setUsesEndCondition(timer.isUsesEndCondition());
     	newTimer.setRunsInLoop(timer.isRunsInLoop());
     	newTimer.setMultipleStarts(timer.isMultipleStarts());
+    	newTimer.setShowTime(timer.isShowTime());
+    	newTimer.setCountDown(timer.isCountDown());
+    	newTimer.setName(timer.getDisplayName());
+    	newTimer.setShowWhenStopped(timer.isShowWhenStopped());
         timers.put( new Integer( ID ), newTimer );
         ID++;
         return ID - 1;
@@ -156,7 +164,7 @@ public class TimerManager {
                 	
                     if( new FunctionalConditions(currentTimer.getInitConditions( )).allConditionsOk( ) 
                     		&& (!currentTimer.isUsesEndCondition() 
-                    				|| (new FunctionalConditions( currentTimer.getEndConditions()).allConditionsOk()))) {
+                    				|| !(new FunctionalConditions( currentTimer.getEndConditions()).allConditionsOk()))) {
                     	
                     	DebugLog.general("Timer started " + i);
 
@@ -259,6 +267,14 @@ public class TimerManager {
         private boolean multipleStarts;
         
         private int state;
+        
+        private String name;
+        
+        private boolean showTime;
+        
+        private boolean countDown;
+        
+        private boolean showWhenStopped;
 
         public FunctionalTimer( Conditions initConditions, Conditions endConditions, TimerEventListener listener) {
             this( initConditions, endConditions, listener, NO_UPDATE , true);
@@ -308,6 +324,9 @@ public class TimerManager {
             usesEndCondition = true;
             runsInLoop = true;
             multipleStarts = true;
+            showTime = false;
+            name = "timer";
+            countDown = false;
         }
         
         public boolean isAssessmentTimer(){
@@ -419,7 +438,83 @@ public class TimerManager {
             this.state = state;
          
         }
+
+		public String getName() {
+			return name;
+		}
+
+		public void setName(String name) {
+			this.name = name;
+		}
+
+		public void setShowTime(boolean showTime) {
+			this.showTime = showTime;
+		}
+
+		public boolean isShowTime() {
+			return showTime;
+		}
+
+		public void setCountDown(boolean countDown) {
+			this.countDown = countDown;
+		}
+
+		public boolean isCountDown() {
+			return countDown;
+		}
+
+		public String getTime() {
+			long time = 0;
+			if ((state == STATE_NO_INIT && countDown) || (state == STATE_DONE && !countDown)) 
+				time = timeUpdate;	
+			else if ((state == STATE_NO_INIT && !countDown) || (state == STATE_DONE && countDown))
+				time = 0;
+			else {
+				time = System.currentTimeMillis() / 1000 - lastUpdate;
+				if (countDown)
+					time = timeUpdate - time;
+			}
+			System.out.println("" + state + " -> "+ timeUpdate + " : " + lastUpdate + " : " + System.currentTimeMillis());
+			
+			DecimalFormat myFormatter = new DecimalFormat("00");
+			String temp = (countDown ? "-" : "") + myFormatter.format(Math.abs(time / 3600));
+			temp += ":" + myFormatter.format(Math.abs(time % 3600 / 60));
+			temp += ":" + myFormatter.format(Math.abs(time % 60));
+			return temp;
+		}
+
+		public void setShowWhenStopped(boolean showWhenStopped) {
+			this.showWhenStopped = showWhenStopped;
+		}
+
+		public boolean isShowWhenStopped() {
+			return showWhenStopped;
+		}
     }
+
+	public void draw(Graphics2D g) {
+		ArrayList<String> timerText = new ArrayList<String>();
+		for (Integer key : this.timers.keySet()) {
+			FunctionalTimer timer = this.timers.get(key);
+			if (timer.isShowTime()) {
+                if (timer.isShowWhenStopped() || timer.getState() == FunctionalTimer.STATE_RUNNING) {
+					String text = timer.getName();
+					if (text.length() > 0) {
+						text += " : ";
+					}
+					text += timer.getTime();
+					timerText.add(text);
+                }
+			}
+		}
+		
+		String[] a = new String[timerText.size()];
+		
+		for (int i = 0; i < timerText.size(); i++) {
+			a[i] = timerText.get(i);
+		}
+		GUI.drawStringOnto(g, a, GUI.WINDOW_WIDTH, 0, Color.WHITE, Color.BLACK);
+	}
     
     
 }
