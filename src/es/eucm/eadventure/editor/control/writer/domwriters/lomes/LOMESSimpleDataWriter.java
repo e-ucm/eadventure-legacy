@@ -20,12 +20,14 @@ public class LOMESSimpleDataWriter {
 			
 			//Create the source element
 			Node source = doc.createElement( "lomes:source" );
-			source.appendChild( buildStringNode(doc, vocabulary.getSource( )) );
+			source.setTextContent(vocabulary.getSource( ));
+			//source.appendChild( buildStringNode(doc, vocabulary.getSource( )) );
 			vocElement.appendChild( source );
 			
 			//Create the value element
 			Node value = doc.createElement( "lomes:value" );
-			value.appendChild( buildStringNode(doc, vocabulary.getValue( )) );
+			value.setTextContent(vocabulary.getValue( ));
+			//value.appendChild( buildStringNode(doc, vocabulary.getValue( )) );
 			vocElement.appendChild( value );
 			
 
@@ -36,7 +38,6 @@ public class LOMESSimpleDataWriter {
 	public static Node buildLangStringNode (Document doc, LangString lang){
 		Element langElement = null;
 		String language = new String("x-none");
-		//TODO ver que pasa cuando es vacio, no se si se puede dejar vacio el campo de texto
 		String value = new String("");
 		
 			langElement = doc.createElement( "lomes:string" );
@@ -44,13 +45,15 @@ public class LOMESSimpleDataWriter {
 			if (lang!=null){
 			if (lang.getLanguage(0)!=null){
 				language = lang.getLanguage(0);
+				if (!language.equals("")&&!language.equals("XXlan"))
+				langElement.setAttribute( "language", language);
 			}
 			if (lang.getValue(0)!=null){
 					value = lang.getValue(0);
 			}
 			}
 			
-			langElement.setAttribute( "xml:lang", language );
+			
 			langElement.setTextContent( value);
 
 		return langElement;

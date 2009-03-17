@@ -152,7 +152,7 @@ public class LOMESCreateContainerPanel extends JPanel{
 					elements.addItem(idDialog.getTypeValue().getValue());
 				else {
 					elements.removeItemAt(selectedIndex);
-					elements.insertItemAt(idDialog.getTypeValue(), selectedIndex);
+					elements.insertItemAt(idDialog.getTypeValue().getValue(), selectedIndex);
 				}
 				
 			}else if (container instanceof LOMTaxonPath){

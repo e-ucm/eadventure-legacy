@@ -43,9 +43,9 @@ public class LOMVocabularyDialog extends JDialog{
 		
 		
 		JPanel buttonPanel = new JPanel(new GridBagLayout());
-		c =  new GridBagConstraints(); 
-		c.anchor = GridBagConstraints.CENTER;
-		c.fill = GridBagConstraints.NONE;
+		GridBagConstraints c2 =  new GridBagConstraints(); 
+		c2.anchor = GridBagConstraints.CENTER;
+		c2.fill = GridBagConstraints.NONE;
 		JButton ok = new JButton("OK");
 		ok.addActionListener(new ActionListener(){
 
@@ -55,13 +55,16 @@ public class LOMVocabularyDialog extends JDialog{
 			}
 			
 		});
-		buttonPanel.add(ok,c);
+		buttonPanel.add(ok,c2);
 		
-		this.getContentPane().setLayout(new GridLayout(0,2));
+		c.gridy=1;
+		textPanel.add(buttonPanel,c);
+		
+		this.getContentPane().setLayout(new GridBagLayout());
 		this.getContentPane().add(textPanel);
-		this.getContentPane().add(buttonPanel);
+		//this.getContentPane().add(buttonPanel);
 	
-		this.setSize( new Dimension(200,150) );
+		this.setSize( new Dimension(285,100) );
 		Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
 		setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
 		setResizable( false );

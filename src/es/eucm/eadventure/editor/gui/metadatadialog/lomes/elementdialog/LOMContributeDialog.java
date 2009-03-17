@@ -55,6 +55,8 @@ public class LOMContributeDialog extends JDialog{
 	
 	private LOMESLifeCycleDate dateValue;
 	
+	private LangString descriptionValue;
+	
 	private LOMESContainer container;
 	
 
@@ -71,9 +73,9 @@ public class LOMContributeDialog extends JDialog{
 			entityValue=new ArrayList<String>();
 			dateValue = new LOMESLifeCycleDate();
 		}else {
-			roleValue=((LOMESLifeCycleContribute)container.get(selectedItem)).getRole();
-			entityValue=((LOMESLifeCycleContribute)container.get(selectedItem)).getEntity();
-			dateValue =((LOMESLifeCycleContribute)container.get(selectedItem)).getDate();
+			roleValue=((LOMESLifeCycleContribute)container.get(selectedItem-1)).getRole();
+			entityValue=((LOMESLifeCycleContribute)container.get(selectedItem-1)).getEntity();
+			dateValue =((LOMESLifeCycleContribute)container.get(selectedItem-1)).getDate();
 		}
 		
 		GridBagConstraints c = new GridBagConstraints(); 
@@ -126,7 +128,7 @@ public class LOMContributeDialog extends JDialog{
 		this.getContentPane().add(mainPanel);
 		//this.getContentPane().add(buttonPanel);
 	
-		this.setSize( new Dimension(200,300) );
+		this.setSize( new Dimension(250,300) );
 		Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
 		setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
 		setResizable( false );

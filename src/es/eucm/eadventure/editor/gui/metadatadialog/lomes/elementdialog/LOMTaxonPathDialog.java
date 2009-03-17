@@ -52,8 +52,8 @@ public class LOMTaxonPathDialog extends JDialog{
 		    taxonValue=new LOMTaxon();
 		}else {
 		    
-		    sourceValue=((LOMClassificationTaxonPath)container.get(selectedItem)).getSource();
-		    taxonValue=((LOMClassificationTaxonPath)container.get(selectedItem)).getTaxon();
+		    sourceValue=((LOMClassificationTaxonPath)container.get(selectedItem-1)).getSource();
+		    taxonValue=((LOMClassificationTaxonPath)container.get(selectedItem-1)).getTaxon();
 		   
 		}
 		
@@ -64,13 +64,7 @@ public class LOMTaxonPathDialog extends JDialog{
 	
 		taxon = new LOMESCreateContainerPanel(taxonValue,TextConstants.getText("LOMES.Classification.TaxonPathTaxon"),LOMContributeDialog.NONE);
 		
-		JPanel mainPanel = new JPanel(new GridBagLayout());
-		c = new GridBagConstraints(); 
-		c.insets = new Insets(5,5,5,5);c.gridy = 0;
-		c.fill = GridBagConstraints.BOTH;c.weightx=1;
-		mainPanel.add(source,c);
-		c.gridy=1;
-		mainPanel.add(taxon,c);
+		
 		
 		
 		JPanel buttonPanel = new JPanel(new GridBagLayout());
@@ -88,11 +82,21 @@ public class LOMTaxonPathDialog extends JDialog{
 		});
 		buttonPanel.add(ok,c);
 		
-		this.getContentPane().setLayout(new GridLayout(0,2));
+		JPanel mainPanel = new JPanel(new GridBagLayout());
+		c = new GridBagConstraints(); 
+		c.insets = new Insets(5,5,5,5);c.gridy = 0;
+		c.fill = GridBagConstraints.BOTH;c.weightx=1;
+		mainPanel.add(source,c);
+		c.gridy=1;
+		mainPanel.add(taxon,c);
+		c.gridy=2;
+		mainPanel.add(buttonPanel,c);
+		
+		this.getContentPane().setLayout(new GridBagLayout());
 		this.getContentPane().add(mainPanel);
-		this.getContentPane().add(buttonPanel);
+		//this.getContentPane().add(buttonPanel);
 	
-		this.setSize( new Dimension(250,200) );
+		this.setSize( new Dimension(270,230) );
 		Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
 		setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
 		setResizable( false );

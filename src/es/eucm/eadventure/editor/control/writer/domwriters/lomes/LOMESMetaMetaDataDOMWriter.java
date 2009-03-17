@@ -61,6 +61,7 @@ public class LOMESMetaMetaDataDOMWriter extends LOMESSimpleDataWriter{
 				Element description = doc.createElement( "lomes:description" );
 				description.appendChild( buildLangStringNode(doc, ((LOMESLifeCycleContribute)metametadata.getContribute().get(i)).getDate().getDescription()));
 				date.appendChild(description);
+				contribution.appendChild(date);
 				
 				metaMetaDataElement.appendChild(contribution);
 				}

@@ -70,48 +70,56 @@ public class LOMLifeCycleDateDialog extends JDialog{
 		c.gridy=0;
 		years = new JTextField(transformer.getYears());
 		years.getDocument().addDocumentListener(new TextFieldListener (years));
+		years.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "LOMES.Date.Years" ) ) );
 		dateTimePanel.add(years,c);
 
 		// text field for months
 		c.gridy=1;
 		months = new JTextField(transformer.getMonths());
 		months.getDocument().addDocumentListener(new TextFieldListener (months));
+		months.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "LOMES.Date.Months" ) ) );
 		dateTimePanel.add(months,c);
 		
 		// text field for days
 		c.gridy=2;
 		days = new JTextField(transformer.getDays());
 		days.getDocument().addDocumentListener(new TextFieldListener (days));
+		days.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "LOMES.Date.Days" ) ) );
 		dateTimePanel.add(days,c);
 		
 		// text field for hours
 		c.gridy=3;
 		hours = new JTextField(transformer.getHours());
 		hours.getDocument().addDocumentListener(new TextFieldListener (hours));
+		hours.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "LOMES.Date.Hours" ) ) );
 		dateTimePanel.add(hours,c);
 		
 		// text field for minutes
 		c.gridy=4;
 		minutes = new JTextField(transformer.getMinutes());
 		minutes.getDocument().addDocumentListener(new TextFieldListener (minutes));
+		minutes.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "LOMES.Date.Minutes" ) ) );
 		dateTimePanel.add(minutes,c);
 		
 		// text field for seconds
 		c.gridy=5;
 		seconds = new JTextField(transformer.getSeconds());
 		seconds.getDocument().addDocumentListener(new TextFieldListener (seconds));
+		seconds.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "LOMES.Date.Seconds" ) ) );
 		dateTimePanel.add(seconds,c);
 		
-		// text field for milise
+		// text field for miliseconds
 		c.gridy=6;
 		milisec = new JTextField(transformer.getMilisec());
 		milisec.getDocument().addDocumentListener(new TextFieldListener (milisec));
+		milisec.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "LOMES.Date.Miliseconds" ) ) );
 		dateTimePanel.add(milisec,c);
 		
 		// text field for timeZone
 		c.gridy=7;
 		timeZone = new JTextField(transformer.getTimeZone());
 		timeZone.getDocument().addDocumentListener(new TextFieldListener (timeZone));
+		timeZone.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "LOMES.Date.TimeZone" ) ) );
 		dateTimePanel.add(timeZone,c);
 		
 		dateTimePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "LOMES.GeneralId.DateName" ) ) );
@@ -122,13 +130,7 @@ public class LOMLifeCycleDateDialog extends JDialog{
 		descriptionPanel.add(description,c);
 		descriptionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "LOMES.GeneralId.DescriptionName" ) ) );
 		
-		JPanel mainPanel = new JPanel(new GridBagLayout());
-		c = new GridBagConstraints(); 
-		c.insets = new Insets(5,5,5,5);c.gridy = 0;
-		c.fill = GridBagConstraints.BOTH;c.weightx=1;
-		mainPanel.add(dateTimePanel,c);
-		c.gridy=1;
-		mainPanel.add(descriptionPanel,c);
+		
 		
 		JPanel buttonPanel = new JPanel(new GridBagLayout());
 		c =  new GridBagConstraints(); 
@@ -145,11 +147,20 @@ public class LOMLifeCycleDateDialog extends JDialog{
 		});
 		buttonPanel.add(ok,c);
 		
-		this.getContentPane().setLayout(new GridLayout(0,2));
+		JPanel mainPanel = new JPanel(new GridBagLayout());
+		c = new GridBagConstraints(); 
+		c.insets = new Insets(5,5,5,5);c.gridy = 0;
+		c.fill = GridBagConstraints.BOTH;c.weightx=1;
+		mainPanel.add(dateTimePanel,c);
+		c.gridy=1;
+		mainPanel.add(descriptionPanel,c);
+		c.gridy=2;
+		mainPanel.add(buttonPanel,c);
+		//this.getContentPane().setLayout(new GridLayout(0,2));
 		this.getContentPane().add(mainPanel);
-		this.getContentPane().add(buttonPanel);
+		///this.getContentPane().add(buttonPanel);
 	
-		this.setSize( new Dimension(250,200) );
+		this.setSize( new Dimension(250,500) );
 		Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
 		setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
 		setResizable( false );

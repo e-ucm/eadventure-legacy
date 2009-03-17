@@ -8,6 +8,7 @@ public class LOMTaxon extends LOMESContainer{
 	
 	public LOMTaxon(){
 		super();
+		add(new  LOMClassificationTaxon());
 	}
 	
 	public LOMTaxon(String identifier,LangString entry){

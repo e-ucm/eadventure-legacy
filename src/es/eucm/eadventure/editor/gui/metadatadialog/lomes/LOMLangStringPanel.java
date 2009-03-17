@@ -1,5 +1,7 @@
 package es.eucm.eadventure.editor.gui.metadatadialog.lomes;
 
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
@@ -25,27 +27,40 @@ public class LOMLangStringPanel extends JPanel{
 	super();
 	String valueData;
 	String languageData;
-	this.setLayout(new GridLayout(0,2));
+	this.setLayout(new GridBagLayout());
 	
 	if (langstring!=null){
 	    valueData = langstring.getValue(0);
 	    languageData = langstring.getLanguage(0);
+	    this.langstring = langstring;
 	}else {
 	    valueData = new String("");
 	    languageData = new String("");
+	    langstring = new LangString("");
 	}
-	JPanel valuePanel = new JPanel();
+	
+	GridBagConstraints c = new GridBagConstraints();
+	c.fill = GridBagConstraints.HORIZONTAL;
+	c.weightx=1;
+	//c.gridy=0;
+	JPanel valuePanel = new JPanel(new GridBagLayout());
 	value = new JTextField(valueData);
 	value.getDocument().addDocumentListener(new TextFieldListener (value));
-	valuePanel.add(value);
+	value.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText("LOMES.LangString.Value")) );
+	valuePanel.add(value,c);
 	
-	JPanel languagePanel = new JPanel();
+	//c.gridy=1;
+	JPanel languagePanel = new JPanel(new GridBagLayout());
 	language = new JTextField(languageData);
 	language.getDocument().addDocumentListener(new TextFieldListener (language));
-	languagePanel.add(language);
+	language.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText("LOMES.LangString.Language")) );
+	languagePanel.add(language,c);
 	
-	this.add(valuePanel);
-	this.add(languagePanel);
+	
+	c.gridy=0;
+	this.add(valuePanel,c);
+	c.gridy=1;
+	this.add(languagePanel,c);
 	
 	this.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), border) );
 	

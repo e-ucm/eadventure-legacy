@@ -1242,6 +1242,9 @@ public class Writer {
 			Element schemaversion = doc.createElement("schemaversion");
 			schemaversion.setTextContent("2004 3rd Edition");
 			metadata.appendChild(schemaversion);
+			Node lomNode = LOMESDOMWriter.buildLOMESDOM( adventureData.getLOMESController());
+			doc.adoptNode(lomNode);
+			metadata.appendChild(lomNode);
 			manifest.appendChild(metadata);
 			
 			
@@ -1276,14 +1279,7 @@ public class Writer {
 			resource.setAttribute( "adlcp:scormType", "sco" );
 			resource.setAttribute( "type", "webcontent" );
 			resource.setAttribute( "href", loName+".html" );
-			
-			
-			Node metaData = doc.createElement( "metadata" );
-			Node lomNode = LOMESDOMWriter.buildLOMESDOM( adventureData.getLOMESController());
-			doc.adoptNode(lomNode);
-			metaData.appendChild( lomNode );
-			resource.appendChild( metaData );
-			
+	
 			Element file = doc.createElement( "file" );
 			file.setAttribute( "href", loName+".html" );
 			resource.appendChild( file );

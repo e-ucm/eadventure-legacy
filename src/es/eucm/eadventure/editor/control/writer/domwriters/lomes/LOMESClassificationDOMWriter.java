@@ -49,7 +49,7 @@ public class LOMESClassificationDOMWriter extends LOMESSimpleDataWriter{
         			LOMTaxon tax = ((LOMClassificationTaxonPath)classification.getTaxonPath().get(i)).getTaxon();
         			for (int j = 0; j<tax.getSize();j++){
                 			Element taxon = doc.createElement("lomes:taxon");
-                			Element identifier = doc.createElement("lomes:identifier");
+                			Element identifier = doc.createElement("lomes:id");
                 			identifier.setTextContent(((LOMClassificationTaxon)tax.get(j)).getIdentifier());
                 			taxon.appendChild(identifier);
                 			

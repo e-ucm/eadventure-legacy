@@ -188,6 +188,7 @@ public class LOMESDurationDataControl {
 		boolean set = false;
 		int intValue=-1;
 		try{
+		    	if (!(param==LOMESTimeDataControl.TIMEZONE)&&!(param==LOMESTimeDataControl.MILISECONDS)){
 			if (value==null || value.equals( "" ) || Integer.parseInt( value )>0){
 				if (value==null || value.equals( "" )){
 					intValue=0; 	
@@ -205,6 +206,9 @@ public class LOMESDurationDataControl {
 
 				set = true;
 			}
+		    	} else {
+		    	    set=true;
+		    	}
 		} catch (Exception e){}
 		
 		// Display error message

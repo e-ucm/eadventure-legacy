@@ -1841,43 +1841,40 @@ When not customized, default arrows will be used in the game.</entry>
 	<entry key="LOMES.MetaMetaData.Entry">Entry</entry>
 	<entry key="LOMES.MetaMetaData.Language">Language</entry>
 	
-
-	
-	<entry key="LOMES.LifeCyle.Role0">Author</entry>
-	<entry key="LOMES.LifeCyle.Role1">Publisher</entry>
-	<entry key="LOMES.LifeCyle.Role2">Initiator</entry>
-	<entry key="LOMES.LifeCyle.Role3">Terminator</entry>
-	<entry key="LOMES.LifeCyle.Role4">Validator</entry>
-	<entry key="LOMES.LifeCyle.Role5">Editor</entry>
-	<entry key="LOMES.LifeCyle.Role6">Graphical designer</entry>
-	<entry key="LOMES.LifeCyle.Role7">Technical implementer</entry>
-	<entry key="LOMES.LifeCyle.Role8">Content provider</entry>
-	<entry key="LOMES.LifeCyle.Role9">Technical validator</entry>
-	<entry key="LOMES.LifeCyle.Role10">Educational validator</entry>
-	<entry key="LOMES.LifeCyle.Role11">Script writer</entry>
-	<entry key="LOMES.LifeCyle.Role12">Instructional designer</entry>
-	<entry key="LOMES.LifeCyle.Role13">Subject matter expert</entry>
-	
-	<entry key="LOMES.LifeCyle.RoleName">Role</entry>
+	<entry key="LOMES.LifeCycle.RoleName">Role</entry>
 	
 	<entry key="LOMES.LifeCyle.Date">Date</entry>
 	<entry key="LOMES.LifeCycle.Entity">Entity</entry>
 	<entry key="LOMES.LifeCycle.Contribute">Contribute</entry>
 	
+	<entry key="LOMES.LangString.Value">Value</entry>
+	<entry key="LOMES.LangString.Language">Language</entry>
+	
+	
+	<entry key="LOMES.LifeCycle.Role0">Author</entry>
+	<entry key="LOMES.LifeCycle.Role1">Publisher</entry>
+	<entry key="LOMES.LifeCycle.Role2">Initiator</entry>
+	<entry key="LOMES.LifeCycle.Role3">Terminator</entry>
+	<entry key="LOMES.LifeCycle.Role4">Validator</entry>
+	<entry key="LOMES.LifeCycle.Role5">Editor</entry>
+	<entry key="LOMES.LifeCycle.Role6">Graphical designer</entry>
+	<entry key="LOMES.LifeCycle.Role7">Technical implementer</entry>
+	<entry key="LOMES.LifeCycle.Role8">Content provider</entry>
+	<entry key="LOMES.LifeCycle.Role9">Technical validator</entry>
+	<entry key="LOMES.LifeCycle.Role10">Educational validator</entry>
+	<entry key="LOMES.LifeCycle.Role11">Script writer</entry>
+	<entry key="LOMES.LifeCycle.Role12">Instructional designer</entry>
+	<entry key="LOMES.LifeCycle.Role13">Subject matter expert</entry>
 	
 	<entry key="LOMES.Metameta.Role0">Creator</entry>
 	<entry key="LOMES.Metameta.Role1">Validator</entry>
-	
-	
-	<entry key="LOMES.MetaMetaData.Role0">Creator</entry>
-	<entry key="LOMES.MetaMetaData.Role1">Validator</entry>
-	
+
 	<entry key="LOMES.Technical.Type">Type</entry>
 	<entry key="LOMES.Technical.Name">Name</entry>
 	<entry key="LOMES.Technical.Requirement">Requirement</entry>
 	
 	<entry key="LOMES.Technical.Type0">Operating system</entry>
-	<entry key="LOMES.Technical.Type1">browser</entry>
+	<entry key="LOMES.Technical.Type1">Browser</entry>
 	<entry key="LOMES.Technical.Name0">Pc-dos</entry>
 	<entry key="LOMES.Technical.Name1">Ms-windows</entry>
 	<entry key="LOMES.Technical.Name2">Macos</entry>
@@ -2029,6 +2026,7 @@ When not customized, default arrows will be used in the game.</entry>
 	<entry key="LOMES.Classification.Source">Source</entry>
 	<entry key="LOMES.Classification.Identifier">Identifier</entry>
 	<entry key="LOMES.Classification.Entry">Entry</entry>
+	<entry key="LOMES.Requirement.Title">Create New Requirement</entry>
 	<entry key="LOMES.General.AggregationLevel">Aggregation Level</entry>
 	<entry key="LOMES.Add">Add</entry>
 	<entry key="LOMES.Edit">Edit</entry>
@@ -2052,11 +2050,14 @@ When not customized, default arrows will be used in the game.</entry>
 	<entry key="LOMES.Classification.TaxonPathTaxon">Taxon</entry>
 	<entry key="LOMES.Classification.TaxonId">Identifier</entry>
 	<entry key="LOMES.Classification.TaxonEntry">Entry</entry>
-	
-	
-	<entry key="LOMES.Technical.Type0">Contribute</entry>
-	
-	
+	<entry key="LOMES.Date.Years">Year</entry>
+	<entry key="LOMES.Date.Months">Month</entry>
+	<entry key="LOMES.Date.Days">Day</entry>
+	<entry key="LOMES.Date.Hours">Hour</entry>
+	<entry key="LOMES.Date.Minutes">Minute</entry>
+	<entry key="LOMES.Date.Seconds">Second</entry>
+	<entry key="LOMES.Date.Miliseconds">Milisecond</entry>
+	<entry key="LOMES.Date.TimeZone">Time Zone</entry>
 	
 	
 	<entry key="Timer.InitConditions">Conditions to start the timer</entry>

@@ -27,8 +27,8 @@ public class LOMOrComposite implements LOMESComposeType{
 
 	
 	public LOMOrComposite(){
-	    	type = new Vocabulary(Vocabulary.TE_TYPE_4_4_1_1);
-		name = new Vocabulary(Vocabulary.TE_NAME_4_4_1_2);
+	    	type = new Vocabulary(Vocabulary.TE_TYPE_4_4_1_1, Vocabulary.LOM_ES_SOURCE, 0);
+		name = new Vocabulary(Vocabulary.TE_NAME_4_4_1_2, Vocabulary.LOM_ES_SOURCE, 0);
 		this.minimumVersion = Controller.getInstance().getEditorMinVersion();
 		this.maximumVersion = Controller.getInstance().getEditorVersion();
 	}

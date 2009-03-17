@@ -22,7 +22,7 @@ public class LOMESClassification {
 	private ArrayList<LangString> keyword;
 	
 	public LOMESClassification(){
-		purpose = new Vocabulary(Vocabulary.LOMES_CL_PURPOSE_9_1);
+		purpose = new Vocabulary(Vocabulary.LOMES_CL_PURPOSE_9_1,Vocabulary.LOM_ES_SOURCE,0);
 		description = null;
 		keyword = new ArrayList<LangString>();
 		taxonPath = new LOMTaxonPath();
