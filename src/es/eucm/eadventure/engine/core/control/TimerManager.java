@@ -474,7 +474,7 @@ public class TimerManager {
 				if (countDown)
 					time = timeUpdate - time;
 			}
-			System.out.println("" + state + " -> "+ timeUpdate + " : " + lastUpdate + " : " + System.currentTimeMillis());
+			//System.out.println("" + state + " -> "+ timeUpdate + " : " + lastUpdate + " : " + System.currentTimeMillis());
 			
 			DecimalFormat myFormatter = new DecimalFormat("00");
 			String temp = (countDown ? "-" : "") + myFormatter.format(Math.abs(time / 3600));

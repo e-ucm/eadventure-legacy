@@ -296,7 +296,7 @@
 	runsInLoop (yes | no) "yes"
 	multipleStarts (yes | no) "yes"
 	showTime (yes | no) "no"
-	displayName NMTOKEN "timer"
+	displayName CDATA "timer"
 	countDown (yes | no) "yes"
 	showWhenStopped (yes | no) "no"	
 >
