@@ -32,6 +32,7 @@ public class LOMESGeneralDOMWriter extends LOMESSimpleDataWriter{
 
 			// Create the root node
 			generalElement = doc.createElement( "lomes:general" );
+			generalElement.setAttribute("uniqueElementName", "general");
 			
 			//Create identifier node for each identifier
 			for (int i=0;i<general.getNIdentifier();i++){
@@ -43,6 +44,7 @@ public class LOMESGeneralDOMWriter extends LOMESSimpleDataWriter{
 			
 			//Create the title node
 			Element title = doc.createElement( "lomes:title" );
+			title.setAttribute("uniqueElementName", "title");
 			title.appendChild( buildLangStringNode(doc, general.getTitle( )));
 			generalElement.appendChild( title );
 			

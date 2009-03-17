@@ -9,6 +9,8 @@ import es.eucm.eadventure.editor.data.meta.auxiliar.LOMESLifeCycleContribute;
 
 public class LOMESLifeCycle {
 
+    
+    	public static final String VERSION_DEFAULT="V1.0";
 	//2.1
 	private LangString version;
 	
@@ -19,7 +21,7 @@ public class LOMESLifeCycle {
 	private LOMContribute contribute;
 	
 	public LOMESLifeCycle (){
-		version = null;
+		version = new LangString(VERSION_DEFAULT);
 		contribute = null;
 		status = new ArrayList<Vocabulary>();
 	

@@ -17,15 +17,18 @@ public class LOMESSimpleDataWriter {
 		Element vocElement = null;
 
 			vocElement = doc.createElement( name );
-			
+			int pos = name.indexOf(":");
+			vocElement.setAttribute("vocElement", name.substring(pos+1,name.length()));
 			//Create the source element
-			Node source = doc.createElement( "lomes:source" );
+			Element source = doc.createElement( "lomes:source" );
+			source.setAttribute("vocElement", "source");
 			source.setTextContent(vocabulary.getSource( ));
 			//source.appendChild( buildStringNode(doc, vocabulary.getSource( )) );
 			vocElement.appendChild( source );
 			
 			//Create the value element
-			Node value = doc.createElement( "lomes:value" );
+			Element value = doc.createElement( "lomes:value" );
+			value.setAttribute("vocElement", "value");
 			value.setTextContent(vocabulary.getValue( ));
 			//value.appendChild( buildStringNode(doc, vocabulary.getValue( )) );
 			vocElement.appendChild( value );

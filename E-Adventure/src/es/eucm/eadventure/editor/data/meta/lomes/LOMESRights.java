@@ -5,6 +5,11 @@ import es.eucm.eadventure.editor.data.meta.Vocabulary;
 
 public class LOMESRights {
 
+    
+    	public static final String DEFAULT_DESCRIPTION="La utilización de estos contenidos es universal, gratuita y abierta, siempre y cuando se trate de un uso educativo no comercial. Las acciones, productos y utilidades derivadas de su utilización no podrán, en consecuencia, generar ningún tipo de lucro. Asimismo, es obligada la referencia a la fuente.";
+    
+    	public static final String DEFAULT_ACCESS_DSCRIPTION="No existen restricciones ó MEC";
+    	
 	/*
 	 * cost and copyrightandotherrestrictions only can be "yes" or "no"
 	 */
@@ -29,7 +34,7 @@ public class LOMESRights {
 	public LOMESRights(){
 		cost = new Vocabulary(Vocabulary.IMS_YES_NO,Vocabulary.LOM_ES_SOURCE,0);
 		copyrightandotherrestrictions = new Vocabulary(Vocabulary.LOMES_RG_COP_AND_OTHER_6_2,Vocabulary.LOM_ES_SOURCE,0);
-		description = null;
+		description = new LangString(DEFAULT_DESCRIPTION);
 		accessType = new Vocabulary(Vocabulary.LOMES_RG_ACCESS_TYPE_6_4_1,Vocabulary.LOM_ES_SOURCE,0);
 		accessDescription = null;
 	}

@@ -33,6 +33,7 @@ public class LOMESMetaMetaDataDOMWriter extends LOMESSimpleDataWriter{
 			
 			// Create root node
 			metaMetaDataElement = doc.createElement("lomes:metaMetadata");
+			metaMetaDataElement.setAttribute("vocElement", "metaMetadata");
 			
 			//Create identifier node
 			//Create identifier node for each identifier
@@ -55,7 +56,9 @@ public class LOMESMetaMetaDataDOMWriter extends LOMESSimpleDataWriter{
 				}
 				//Add date
 				Element date = doc.createElement("lomes:date");
+				date.setAttribute("vocElement", "date");
 				Element dateTime = doc.createElement("lomes:dateTime");
+				dateTime.setAttribute("vocElement", "dateTime");
 				dateTime.setTextContent(((LOMESLifeCycleContribute)metametadata.getContribute().get(i)).getDate().getDateTime());
 				date.appendChild(dateTime);
 				Element description = doc.createElement( "lomes:description" );

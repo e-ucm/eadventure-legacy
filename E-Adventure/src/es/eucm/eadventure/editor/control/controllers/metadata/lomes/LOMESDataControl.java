@@ -44,7 +44,7 @@ public class LOMESDataControl {
 	public LOMESDataControl () {
 		LOMESGeneral generalData = new LOMESGeneral();
 		generalData.setTitle( new LangString("Default") );
-		generalData.addIdentifier("Default","Default");
+		//generalData.addIdentifier(LOMIdentifier.CATALOG_DEFAULT,LOMIdentifier.ENTRY_DEFAULT);
 		generalData.setDescription( new LangString("Default") );
 		generalData.setKeyword( new LangString("Default") );
 		generalData.setLanguage( DEFAULT_LANGUAGE );
@@ -52,7 +52,7 @@ public class LOMESDataControl {
 		general = new LOMESGeneralDataControl(generalData);
 		
 		LOMESLifeCycle lifeCycle = new LOMESLifeCycle();
-		lifeCycle.setVersion( new LangString("Default") );
+		lifeCycle.setVersion( new LangString(LOMESLifeCycle.VERSION_DEFAULT) );
 		lifeCycle.addStatus(0);
 		lifeCycle.setContribute(new LOMContribute(Vocabulary.LC_CONTRIBUTION_TYPE_2_3_1));
 		this.lifeCycle = new LOMESLifeCycleDataControl(lifeCycle);
@@ -74,17 +74,17 @@ public class LOMESDataControl {
 		educational = new LOMESEducationalDataControl(educ);
 		
 		LOMESMetaMetaData metametad = new LOMESMetaMetaData();
-		metametad.addIdentifier("Default","Default");
+		//metametad.addIdentifier(LOMIdentifier.CATALOG_DEFAULT,LOMIdentifier.ENTRY_DEFAULT+"-meta");
 		metametad.setContribute(new LOMContribute(Vocabulary.MD_CONTRIBUTION_TYPE_2_3_1));
 		metametad.setDescription("Empty");
 		metametad.setLanguage("en");
-		metametad.setMetadatascheme(new String("Empty"));
+		metametad.setMetadatascheme(new String("LOM-ES V1.0"));
 		metametadata = new LOMESMetaMetaDataControl(metametad);
 		
 		LOMESRights right = new LOMESRights();
 		right.setCopyrightandotherrestrictions(0);
-		right.setCost(0);
-		right.setDescription(new LangString("Empty"));
+		right.setCost(1);
+		//right.setDescription(new LangString("Empty"));
 		right.setAccessType(0);
 		right.setAccessDescription(new LangString("None"));
 		

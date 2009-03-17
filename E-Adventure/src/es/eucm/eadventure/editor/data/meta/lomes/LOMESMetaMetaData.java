@@ -27,7 +27,7 @@ public class LOMESMetaMetaData {
 	
 	public LOMESMetaMetaData (){
 		metadatascheme = new ArrayList<String>();
-		identifier = new LOMIdentifier();
+		identifier = new LOMIdentifier(true);
 		language = new String();
 }
 	

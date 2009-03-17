@@ -35,7 +35,7 @@ public class LOMESGeneral {
 		description = new ArrayList<LangString>();
 		keyword = new ArrayList<LangString>();
 		aggregationLevel = new Vocabulary(Vocabulary.GE_AGGREGATION_LEVEL_1_8,Vocabulary.LOM_ES_SOURCE,0);
-		identifier = new LOMIdentifier();
+		identifier = new LOMIdentifier(false);
 	}
 	
 	
