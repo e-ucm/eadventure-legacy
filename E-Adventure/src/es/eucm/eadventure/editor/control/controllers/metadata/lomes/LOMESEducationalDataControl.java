@@ -45,7 +45,7 @@ public class LOMESEducationalDataControl {
 	    return data.getLearningResourceType();
 	}
 	
-	public String[] getLearningResourceTypeOptions(){
+	public String[] getLearningResourceTypeTextOptions(){
 	    String[] options = new String[data.getLearningResourceType( ).get(0).getValues( ).length];
 		for (int i=0; i<options.length; i++){
 			options[i]=TextConstants.getText( "LOMES.Educational.LearningResourceType"+i );
@@ -53,6 +53,10 @@ public class LOMESEducationalDataControl {
 		return options;
 	}
 	
+	
+	public String[] getLearningResourceTypeOptions(){
+	    return data.getLearningResourceType().get(0).getValues();
+	}
 
 	
 	public LOMESOptionsDataControl getInteractivityLevelController() {
@@ -104,13 +108,18 @@ public class LOMESEducationalDataControl {
 	    return data.getIntendedEndUserRole();
 	}
 	
-	public String[] getIntendedEndUserRoleOptions(){
+	public String[] getIntendedEndUserRoleTextOptions(){
 	    String[] options = new String[data.getIntendedEndUserRole( ).get(0).getValues( ).length];
 		for (int i=0; i<options.length; i++){
 			options[i]=TextConstants.getText( "LOMES.Educational.IntendedEndUserRole"+i );
 		}
 		return options;
 	}
+	
+	public String[] getIntendedEndUserRoleOptions(){
+	    return data.getIntendedEndUserRole().get(0).getValues();
+	}
+	
 	
 	/*public LOMESOptionsDataControl getIntendedEndUserRoleController() {
 		return new LOMESOptionsDataControl (){
@@ -138,12 +147,16 @@ public class LOMESEducationalDataControl {
 	    return data.getContext();
 	}
 	
-	public String[] getContextOptions(){
+	public String[] getContextTextOptions(){
 	    String[] options = new String[data.getContext( ).get(0).getValues( ).length];
 		for (int i=0; i<options.length; i++){
 			options[i]=TextConstants.getText( "LOMES.Educational.Context"+i );
 		}
 		return options;
+	}
+	
+	public String[] getContextOptions(){
+	    return data.getContext().get(0).getValues();
 	}
 	
 	/*public LOMESOptionsDataControl getContextController() {
@@ -195,12 +208,16 @@ public class LOMESEducationalDataControl {
 	    return data.getCognitiveProcess();
 	}
 	
-	public String[] getCognitiveProcessOptions(){
+	public String[] getCognitiveProcessTextOptions(){
 	    String[] options = new String[data.getCognitiveProcess( ).get(0).getValues( ).length];
 		for (int i=0; i<options.length; i++){
 			options[i]=TextConstants.getText( "LOMES.Educational.CognitiveProcess"+i );
 		}
 		return options;
+	}
+	
+	public String[] getCognitiveProcessOptions(){
+	    return data.getCognitiveProcess().get(0).getValues();
 	}
 	
 	/*public LOMESOptionsDataControl getCognitiveProcessController() {
