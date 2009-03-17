@@ -36,6 +36,12 @@ public class FunctionalAtrezzo extends FunctionalElement {
      */
    // private Image icon;
 
+    private Image oldImage = null;
+    
+    private float oldScale = -1;
+    
+    private Image oldOriginalImage = null;
+    
     /**
      * Atrezzo item containing the data
      */
@@ -160,12 +166,23 @@ public class FunctionalAtrezzo extends FunctionalElement {
     public void draw( ) {
     	int x_image = Math.round( x - ( getWidth( ) * scale / 2 ) ) - Game.getInstance( ).getFunctionalScene( ).getOffsetX( );
     	int y_image = Math.round( y - getHeight( ) * scale);
+    	
     	if (scale != 1) {
-    		Image temp = image.getScaledInstance(Math.round(image.getWidth(null) * scale), Math.round(image.getHeight(null) * scale), Image.SCALE_SMOOTH);
+    		Image temp;
+    		if (scale == oldScale && image == oldOriginalImage) {
+    			temp = oldImage;
+    		} else {
+    			temp = image.getScaledInstance(Math.round(image.getWidth(null) * scale), Math.round(image.getHeight(null) * scale), Image.SCALE_SMOOTH);
+    			oldImage = temp;
+    			oldOriginalImage = image;
+    			oldScale = scale;
+    		}
     		if (layer==-1)
     			GUI.getInstance().addElementToDraw(temp, x_image, y_image, Math.round(y),Math.round(y));
     		else 
     			GUI.getInstance().addElementToDraw(temp, x_image, y_image, layer, Math.round(y));
+    	
+    	
     	} else 
     		if (layer==-1)
     			GUI.getInstance( ).addElementToDraw( image, x_image, y_image, Math.round( y ), Math.round(y) );
