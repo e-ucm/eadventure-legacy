@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
@@ -59,11 +60,14 @@ public class LOMContributeDialog extends JDialog{
 	
 	private LOMESContainer container;
 	
+	private int type;
+	
 
 	
 	public LOMContributeDialog(LOMESContainer container, int selectedItem, int type){
 		super( Controller.getInstance( ).peekWindow( ), container.getTitle(), Dialog.ModalityType.APPLICATION_MODAL );
 		this.container = container;
+		this.type = type;
 		
 		if (selectedItem ==0){
 			if (type==LIFECYCLE)
@@ -110,7 +114,22 @@ public class LOMContributeDialog extends JDialog{
 			}
 			
 		});
+		c.gridx=0;
 		buttonPanel.add(ok,c);
+		
+		JButton info = new JButton("Info");
+		info.addActionListener(new ActionListener(){
+
+			public void actionPerformed(ActionEvent e) {
+				showInfo();
+				
+			}
+			
+		});
+		c.gridx=1;
+		buttonPanel.add(info,c);
+		
+		
 		
 		JPanel mainPanel = new JPanel(new GridBagLayout());
 		c = new GridBagConstraints(); 
@@ -124,9 +143,9 @@ public class LOMContributeDialog extends JDialog{
 		c.gridy=3;
 		mainPanel.add(buttonPanel,c);
 		
-		//this.getContentPane().setLayout(new GridLayout(2,0));
+		
 		this.getContentPane().add(mainPanel);
-		//this.getContentPane().add(buttonPanel);
+		
 	
 		this.setSize( new Dimension(250,300) );
 		Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
@@ -136,7 +155,15 @@ public class LOMContributeDialog extends JDialog{
 	
 	}
 	
-
+	private void showInfo() {
+	    
+	    if (type == LIFECYCLE)
+		JOptionPane.showMessageDialog(this,  TextConstants.getText("LOMES.LyfeCycle.ContributeInfo"), "Info",JOptionPane.INFORMATION_MESSAGE);
+	    if (type == METAMETADATA)
+		JOptionPane.showMessageDialog(this,  TextConstants.getText("LOMES.MetaMetaData.ContributeInfo"), "Info",JOptionPane.INFORMATION_MESSAGE);
+		
+	    
+	}
 	
 	/**
 	 * @return the entityValue

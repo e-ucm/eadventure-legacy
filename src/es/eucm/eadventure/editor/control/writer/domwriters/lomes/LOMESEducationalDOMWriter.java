@@ -32,6 +32,7 @@ public class LOMESEducationalDOMWriter extends LOMESSimpleDataWriter{
 
 			// Create the root node
 			educationalElement = doc.createElement( "lomes:educational" );
+			educationalElement.setAttribute("vocElement", "educational");
 			
 			//Create the interactivity type node
 			Node intType = buildVocabularyNode(doc, "lomes:interactivityType", educational.getInteractivityType( ));

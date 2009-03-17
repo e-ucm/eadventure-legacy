@@ -6,13 +6,28 @@ import es.eucm.eadventure.common.gui.TextConstants;
 
 public class LOMIdentifier extends LOMESContainer{
 
+    
+    	//public static final String 
+    
+    	public static final String CATALOG_DEFAULT = "Catálogo unificado mec-red.es-ccaa de identificación de ODE";
 	
-	public LOMIdentifier(){
+    	//take care when this class is call from MetaMetaData: it must be added suffix "-meta" 
+    	public static final String ENTRY_DEFAULT = "es-ma_20090317_2_1300009";
+    	
+    	public boolean isFromMeta;
+    	
+	public LOMIdentifier(boolean isFromMeta){
 		super();
+		this.isFromMeta = isFromMeta;
+		if (isFromMeta)
+		    add(new LOMESGeneralId(CATALOG_DEFAULT,ENTRY_DEFAULT+"-meta"));
+		else 
+		    add(new LOMESGeneralId(CATALOG_DEFAULT,ENTRY_DEFAULT));
 	}
 	
-	public LOMIdentifier(String catalog, String entry){
-		this();
+	public LOMIdentifier(String catalog, String entry,boolean isFromMeta){
+		super();
+		this.isFromMeta = isFromMeta;
 		add(new LOMESGeneralId(catalog,entry));
 	}
 	

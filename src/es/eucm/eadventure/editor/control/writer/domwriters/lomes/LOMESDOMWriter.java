@@ -81,9 +81,11 @@ public class LOMESDOMWriter {
 		
 		Element identifier = doc.createElement( "lomes:identifier" );
 		Element catalog =  doc.createElement( "lomes:catalog" );
+		catalog.setAttribute("uniqueElementName", "catalog");
 		catalog.setTextContent(cat);
 		identifier.appendChild(catalog);
 		Element entry =  doc.createElement( "lomes:entry" );
+		entry.setAttribute("uniqueElementName", "entry");
 		entry.setTextContent(ent);
 		identifier.appendChild(entry);
 		return identifier;

@@ -32,6 +32,7 @@ public class LOMESTechnicalDOMWriter extends LOMESSimpleDataWriter{
 
 			// Create the root node
 			technicalElement = doc.createElement( "lomes:technical" );
+			technicalElement.setAttribute("vocElement", "technical");
 			
 			// Create the format node
 			/*Element format = doc.createElement("format");
@@ -67,12 +68,14 @@ public class LOMESTechnicalDOMWriter extends LOMESSimpleDataWriter{
 			//Create the minimum version node
 			if (isStringSet(((LOMOrComposite)technical.getRequirement().get(i)).getMinimumVersion())){
 				Element minVer = doc.createElement( "lomes:minimumVersion" );
+				minVer.setAttribute("vocElement", "minimumVersion");
 				minVer.setTextContent(((LOMOrComposite)technical.getRequirement().get(i)).getMinimumVersion());
 				orComposite.appendChild( minVer );
 			}
 			//Create the maximum version node
 			if (isStringSet(((LOMOrComposite)technical.getRequirement().get(i)).getMaximumVersion())){
 				Element maxVer = doc.createElement( "lomes:maximumVersion" );
+				maxVer.setAttribute("vocElement", "maximumVersion");
 				maxVer.setTextContent( ((LOMOrComposite)technical.getRequirement().get(i)).getMaximumVersion());
 				orComposite.appendChild( maxVer );
 			}

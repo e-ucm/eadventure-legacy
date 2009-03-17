@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
@@ -145,7 +146,20 @@ public class LOMLifeCycleDateDialog extends JDialog{
 			}
 			
 		});
+		c.gridx=0;
 		buttonPanel.add(ok,c);
+		
+		JButton info = new JButton("Info");
+		info.addActionListener(new ActionListener(){
+
+			public void actionPerformed(ActionEvent e) {
+				showInfo();
+				
+			}
+			
+		});
+		c.gridx=1;
+		buttonPanel.add(info,c);
 		
 		JPanel mainPanel = new JPanel(new GridBagLayout());
 		c = new GridBagConstraints(); 
@@ -168,7 +182,9 @@ public class LOMLifeCycleDateDialog extends JDialog{
 	
 	}
 	
-	
+	private void showInfo(){
+	    JOptionPane.showMessageDialog(this,  TextConstants.getText("LOMES.Date.Info"), "Info",JOptionPane.INFORMATION_MESSAGE);
+	}
 	
 	
 	

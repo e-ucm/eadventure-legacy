@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import es.eucm.eadventure.common.gui.TextConstants;
@@ -24,7 +25,7 @@ public class LOMESCreateComposeTypePanel extends JPanel{
 
 	private JButton edit;
 	
-	//private JLabel name;
+	private JLabel value;
 	
 	private  LOMESComposeType compose;
 	
@@ -37,9 +38,15 @@ public class LOMESCreateComposeTypePanel extends JPanel{
 		edit.addActionListener( new EditButtonListener());
 		GridBagConstraints c = new GridBagConstraints();
 		
-		this.add(edit);
+		   c.gridy=0;
 		
-		 
+		if (compose instanceof LOMESLifeCycleDate){
+		    value = new JLabel(((LOMESLifeCycleDate)compose).getDateTime());
+		    this.add(value,c);
+		    c.gridy=1;
+		}
+		
+		this.add(edit,c);
 		
 		
 		

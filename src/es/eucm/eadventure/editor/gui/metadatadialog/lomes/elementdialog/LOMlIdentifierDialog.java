@@ -14,12 +14,14 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import es.eucm.eadventure.editor.data.meta.auxiliar.LOMIdentifier;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMESContainer;
@@ -43,11 +45,11 @@ public class LOMlIdentifierDialog extends JDialog{
 		super( Controller.getInstance( ).peekWindow( ), container.getTitle(), Dialog.ModalityType.APPLICATION_MODAL );
 		//this.container = container;
 		if (selectedItem ==0){
-			catalogValue="";
-			entryValue="";
+			catalogValue=LOMIdentifier.CATALOG_DEFAULT;
+			entryValue=LOMIdentifier.ENTRY_DEFAULT;
 		}else {
 			catalogValue = ((LOMESGeneralId)container.get(selectedItem-1)).getCatalog();
-			entryValue = ((LOMESGeneralId)container.get(selectedItem-1)).getCatalog();
+			entryValue = ((LOMESGeneralId)container.get(selectedItem-1)).getEntry();
 		}
 		
 		GridBagConstraints c = new GridBagConstraints(); 
@@ -64,13 +66,7 @@ public class LOMlIdentifierDialog extends JDialog{
 		entryPanel.add(entry,c);
 		entryPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "LOMES.GeneralId.EntryName" ) ) );
 		
-		JPanel mainPanel = new JPanel(new GridBagLayout());
-		c = new GridBagConstraints(); 
-		c.insets = new Insets(5,5,5,5);c.gridy = 0;
-		c.fill = GridBagConstraints.BOTH;c.weightx=1;
-		mainPanel.add(catalogPanel,c);
-		c.gridy=1;
-		mainPanel.add(entryPanel,c);
+		
 		
 		JPanel buttonPanel = new JPanel(new GridBagLayout());
 		c =  new GridBagConstraints(); 
@@ -87,11 +83,33 @@ public class LOMlIdentifierDialog extends JDialog{
 		});
 		buttonPanel.add(ok,c);
 		
-		this.getContentPane().setLayout(new GridLayout(0,2));
-		this.getContentPane().add(mainPanel);
-		this.getContentPane().add(buttonPanel);
+		JButton info = new JButton("Info");
+		info.addActionListener(new ActionListener(){
+
+			public void actionPerformed(ActionEvent e) {
+				showInfo();	
+			}
+			
+		});
+		c.gridx=1;
+		buttonPanel.add(info,c);
+		
+		JPanel mainPanel = new JPanel(new GridBagLayout());
+		c = new GridBagConstraints(); 
+		c.insets = new Insets(5,5,5,5);c.gridy = 0;
+		c.fill = GridBagConstraints.HORIZONTAL;c.weightx=1;
+		mainPanel.add(catalogPanel,c);
+		c.gridy=1;
+		mainPanel.add(entryPanel,c);
+		c.gridy=2;
+		mainPanel.add(buttonPanel,c);
+		
+		this.getContentPane().setLayout(new GridBagLayout());
+		c.gridy=0;
+		this.getContentPane().add(mainPanel,c);
+		
 	
-		this.setSize( new Dimension(250,200) );
+		this.setSize( new Dimension(350,200) );
 		Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
 		setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
 		setResizable( false );
@@ -108,6 +126,9 @@ public class LOMlIdentifierDialog extends JDialog{
 		return this.entryValue;
 	}
 	
+	private void showInfo(){
+	    JOptionPane.showMessageDialog(this,  TextConstants.getText("LOMES.Identifier.EntryInfo"), "Info",JOptionPane.INFORMATION_MESSAGE);
+	}
 	
 	private class TextFieldListener implements DocumentListener {
 

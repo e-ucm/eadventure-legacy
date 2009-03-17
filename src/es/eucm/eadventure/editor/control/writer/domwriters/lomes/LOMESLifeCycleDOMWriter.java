@@ -34,9 +34,11 @@ public class LOMESLifeCycleDOMWriter extends LOMESSimpleDataWriter{
 
 			// Create the root node
 			lifeCycleElement = doc.createElement( "lomes:lifeCycle" );
+			lifeCycleElement.setAttribute("vocElement", "lifeCycle");
 			
 			//Create the version node
 			Element version = doc.createElement( "lomes:version" );
+			version.setAttribute("vocElement", "version");
 			version.appendChild( buildLangStringNode(doc, lifeCycle.getVersion( )));
 			lifeCycleElement.appendChild( version );
 			
@@ -57,7 +59,9 @@ public class LOMESLifeCycleDOMWriter extends LOMESSimpleDataWriter{
 			}
 			//Add date
 			Element date = doc.createElement("lomes:date");
+			date.setAttribute("vocElement", "date");
 			Element dateTime = doc.createElement("lomes:dateTime");
+			dateTime.setAttribute("vocElement", "dateTime");
 			dateTime.setTextContent(((LOMESLifeCycleContribute)lifeCycle.getContribute().get(i)).getDate().getDateTime());
 			date.appendChild(dateTime);
 			Element description = doc.createElement( "lomes:description" );

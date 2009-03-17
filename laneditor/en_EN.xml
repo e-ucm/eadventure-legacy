@@ -2058,6 +2058,57 @@ When not customized, default arrows will be used in the game.</entry>
 	<entry key="LOMES.Date.Seconds">Second</entry>
 	<entry key="LOMES.Date.Miliseconds">Milisecond</entry>
 	<entry key="LOMES.Date.TimeZone">Time Zone</entry>
+	<entry key="LOMES.Identifier.EntryInfo">To make correct LOMES Identifier's entry follow next indications: 
+	administration(abbreviation in lower case)_creation date(yearmonthday)_agregation level_nº of object, at least 7 digits(number smaller that 10.000.000)-meta
+
+	Note: "-meta" suffix is only required for Identifier in MetaMetaData 
+	
+	Example: es-ex_20061017_2_1300009-meta
+	
+	Abbreviation for any spanish public administration(MEC, RED.ES, etc.) : es
+	
+	Abbreviation for States (must carry "es" abbreviation):
+	
+	es-an Andalucía                                         es-ib Islas Baleares / Illes Balears
+	es-ar Aragón                                            es-lr La Rioja
+	es-cl Castilla y León                                   es-ma Comunidad de Madrid
+	es-cm Castilla–La Mancha                                es-mu Región de Murcia
+	es-ic Canarias                                          es-na Navarra / Nafarroa
+	es-ct Cataluña/Catalunya                                es-as Principado de Asturias
+	es-ex Extremadura                                       es-eu País Vasco / Euskadi
+	es-ga Galicia                                           es-cb Cantabria
+	es-cv Comunidad Valenciana / Comunitat Valenciana</entry>
+	<entry key="LOMES.LyfeCycle.ContributeInfo">To make correct LOMES Contribute's entry follow next indications: 
+	When "Contribute Type" is “Content Provider”, the next value must appear in "Contribut Entity": 
+		BEGIN:VCARD VERSION 3.0 FN: EMAIL;TYPE=INTERNET:ORG: "Company name" END:VCARD
+		Note: "Company name" must be a non empty value, representing the name of company which privides this educational content.
+		
+	When "Contribute Type" is “Publisher”, the next value must appear in "Contribut Entity":
+		BEGIN:VCARD VERSION 3.0 FN:Contenido digital educativo creado, catalogado y financiado con fondos FEDER dentro del expediente 714/07-LoteX EMAIL;TYPE=INTERNET:sugerencias@red.es ORG:RED.ES END:VCARD
+	
+	When "Contribute Type" has other values,  the next value must appear in "Contribut Entity":
+		BEGIN:VCARD VERSION:3.0 FN: "Title" EMAIL;TYPE=INTERNET: "example@yourmail.com" ORG: "Organization" END:VCARD
+		Note: "Title", "example@yourmail.com" and "Organization" can be any value, even empty.</entry>
+
+
+	<entry key="LOMES.MetaMetaData.ContributeInfo">To make correct LOMES Contribute's entry follow next indications: 
+	When "Contribute Type" is “Creator”, the next value must appear in "Contribut Entity": 
+		BEGIN:VCARD VERSION 3.0 FN: EMAIL;TYPE=INTERNET:ORG: "Company name" END:VCARD
+		Note: "Company name" must be a non empty value, representing the name of company which privides this educational content.
+		
+	When "Contribute Type" is “Validator”, the next value must appear in "Contribut Entity":
+		BEGIN:VCARD VERSION 3.0 FN:Contenido digital educativo creado, catalogado y financiado con fondos FEDER dentro del expediente 714/07-LoteX EMAIL;TYPE=INTERNET:sugerencias@red.es ORG:RED.ES END:VCARD</entry>
+	
+	<entry key="LOMES.Date.Info">Date Time must follow that pattern:  AAAA[-MM[-DD[Thh[:mm[:ss[.s[IZH]]]]]]] where:
+		AAAA=Year, expressed with 4 digits(>=0001)
+		MM=Moth expressed with 2 digits (from 01 to 12)
+		DD=Day expressed with 2 digits (from 01 to 31)
+		hh=Hour expressed with 2 digits (from 00 to 23)(am/pm it is not allowed)
+		mm=Minute expressed with 2 digits  (from 00 to 59)
+		ss=Seconds expressed with 2 digits  (from 00 to 59)
+		s=One or more digits for second tenth 
+		Time Zone identifier (“Z” for UTC or +hh:mm or –hh:mm)
+		</entry>
 	
 	
 	<entry key="Timer.InitConditions">Conditions to start the timer</entry>

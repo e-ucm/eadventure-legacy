@@ -34,6 +34,7 @@ public class LOMESClassificationDOMWriter extends LOMESSimpleDataWriter{
 			
 			// Create the root
 			classificationElement = doc.createElement("lomes:classification");
+			classificationElement.setAttribute("vocElement", "classification");
 			
 			// Create the purpose node
 			classificationElement.appendChild( buildVocabularyNode(doc,"lomes:purpose",classification.getPurpose()));
@@ -42,6 +43,7 @@ public class LOMESClassificationDOMWriter extends LOMESSimpleDataWriter{
 			for (int i=0; i<classification.getTaxonPath().getSize();i++){
         			Element taxonPath = doc.createElement("lomes:taxonPath");
         			Element source = doc.createElement( "lomes:source" );
+        			source.setAttribute("vocElement", "source");
         			source.appendChild( buildLangStringNode(doc,((LOMClassificationTaxonPath)classification.getTaxonPath().get(i)).getSource()));
         			taxonPath.appendChild( source );
         			
@@ -50,6 +52,7 @@ public class LOMESClassificationDOMWriter extends LOMESSimpleDataWriter{
         			for (int j = 0; j<tax.getSize();j++){
                 			Element taxon = doc.createElement("lomes:taxon");
                 			Element identifier = doc.createElement("lomes:id");
+                			identifier.setAttribute("vocElement", "id");
                 			identifier.setTextContent(((LOMClassificationTaxon)tax.get(j)).getIdentifier());
                 			taxon.appendChild(identifier);
                 			
