@@ -4,7 +4,7 @@ import es.eucm.eadventure.editor.control.Controller;
 
 public class Vocabulary {
 
-	public static final String[] ED_INTERACTIVITY_TYPE_5_1 = new String[]{"active", "explosive", "mixed"};
+	public static final String[] ED_INTERACTIVITY_TYPE_5_1 = new String[]{"active", "expositive", "mixed"};
 	
 	public static final String[] ED_LEARNING_RESOURCE_TYPE_5_2 = new String[]{"exercise", "simulation", "questionnaire", "diagram", "figure", "graph", "index", "slide", "table", "narrative text", "exam", "experiment", "problem statement", "self assessment", "lecture"};
 	
@@ -25,7 +25,7 @@ public class Vocabulary {
 	
 	public static final String[] IMS_CL_PURPOSE_9_1 = new String[]{"discipline", "idea", "prerequisite", "eduactional objetive", "accesibility restrictions", "eduacational level", "skill level", "security level"};
 	
-	public static final String[] IMS_ED_INTERACTIVITY_TYPE_5_1 = new String[]{"active", "explosive", "mixed", "undefined"};
+	public static final String[] IMS_ED_INTERACTIVITY_TYPE_5_1 = new String[]{"active", "expositive", "mixed", "undefined"};
 	
 	public static final String[] IMS_ED_LEARNING_RESOURCE_TYPE_5_2 = new String[]{"exercise", "simulation", "questionnaire", "diagram", "figure", "graph", "index", "slide", "table", "narrative text", "exam", "experiment", "problem statement", "self assessment"};
 	
@@ -46,7 +46,7 @@ public class Vocabulary {
 	
 	//public static final String[] LC_STATUS_2_2 = new String[] {"draft","final","revised","unavailable"};
 	
-	public static final String[] TE_NAME_4_4_1_2 = new String[] {"pc-dos","ms-windows", "macos","linux", "unix", "multi-so","none", "any","mozilla firefox", "netscape communicator", "ms-internet explorer", "opera", "amaya"};
+	public static final String[] TE_NAME_4_4_1_2 = new String[] {"pc-dos","ms-windows", "macos","linux", "unix", "multi-os","none", "any","mozilla firefox", "netscape communicator", "ms-internet explorer", "opera", "amaya"};
 	
 	public static final String[] LOMES_ED_LEARNING_RESOURCE_TYPE_5_2 = new String[] {"photograph", "illustration", "video", "animation","music", "sound effect", "voice-over", "compound audio", "narrative text", "hypertext","computer graphics","integrated media", "multimedia presentation", "tutorial", "guided reading", "master class", "textual-image analysis","discussion activity", "closed exercise or problem","contextualized case problem", "open problem" , "real or virtual learning environment","didactic game", "webquest","experiment","real project", "simulation", "questionnaire","exam", "self assessment"};
 	

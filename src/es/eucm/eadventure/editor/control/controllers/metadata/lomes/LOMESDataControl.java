@@ -53,7 +53,7 @@ public class LOMESDataControl {
 		
 		LOMESLifeCycle lifeCycle = new LOMESLifeCycle();
 		lifeCycle.setVersion( new LangString(LOMESLifeCycle.VERSION_DEFAULT) );
-		lifeCycle.addStatus(0);
+		lifeCycle.addStatus(1);
 		lifeCycle.setContribute(new LOMContribute(Vocabulary.LC_CONTRIBUTION_TYPE_2_3_1));
 		this.lifeCycle = new LOMESLifeCycleDataControl(lifeCycle);
 		
