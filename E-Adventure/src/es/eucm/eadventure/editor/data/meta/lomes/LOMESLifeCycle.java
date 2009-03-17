@@ -32,13 +32,13 @@ public class LOMESLifeCycle {
 	}
 	
 	public void addStatus(int index){
-		this.status.add(new Vocabulary(Vocabulary.LC_STAUS_VALUE_2_2,index));
+		this.status.add(new Vocabulary(Vocabulary.LC_STAUS_VALUE_2_2,Vocabulary.LOM_ES_SOURCE,index));
 	}
 	/*********************************** SETTERS **************************/
 	
 	public void setStatus(int index){
 		this.status= new ArrayList<Vocabulary>();
-		this.status.add( new Vocabulary(Vocabulary.LC_STAUS_VALUE_2_2,index) );
+		this.status.add( new Vocabulary(Vocabulary.LC_STAUS_VALUE_2_2,Vocabulary.LOM_ES_SOURCE,index) );
 	}
 	
 	public void setVersion(LangString version){

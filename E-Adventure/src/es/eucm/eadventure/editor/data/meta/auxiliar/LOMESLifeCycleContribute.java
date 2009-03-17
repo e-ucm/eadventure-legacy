@@ -21,8 +21,9 @@ public class LOMESLifeCycleContribute implements LOMESComposeType{
 	private LOMESLifeCycleDate date;
 	
 	public LOMESLifeCycleContribute(String[] roleValues){
-		role = new Vocabulary(roleValues);
+		role = new Vocabulary(roleValues, Vocabulary.LOM_ES_SOURCE, 0);
 		entity = new ArrayList<String>();
+		entity.add(new String("Empty"));
 		date = new LOMESLifeCycleDate();
 	}
 	
@@ -88,7 +89,7 @@ public class LOMESLifeCycleContribute implements LOMESComposeType{
 	public static String[] getRoleLifeCycleOptions( ) {
 		String[] options = new String[numberRoleLifecycleValues];
 		for (int i=0; i<options.length; i++){
-			options[i]=TextConstants.getText( "LOMES.LifeCycle.Role"+i );
+			options[i]=TextConstants.getText("LOMES.LifeCycle.Role"+i);
 		}
 		return options;
 	}
@@ -96,7 +97,7 @@ public class LOMESLifeCycleContribute implements LOMESComposeType{
 	public static String[] getRoleMetametaOptions( ) {
 		String[] options = new String[numberRoleMetametaValues];
 		for (int i=0; i<options.length; i++){
-			options[i]=TextConstants.getText( "LOMES.Metameta.Role"+i );
+			options[i]=TextConstants.getText("LOMES.Metameta.Role"+i);
 		}
 		return options;
 	}

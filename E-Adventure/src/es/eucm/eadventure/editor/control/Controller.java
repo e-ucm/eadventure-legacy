@@ -483,6 +483,8 @@ public class Controller {
 	
 	private Timer autoSaveTimer;
 		
+	private boolean isLomEs=false;
+	
 	/**
 	 * Void and private constructor.
 	 */
@@ -2233,6 +2235,7 @@ public class Controller {
 	 * Shows the LOM data dialog editor.
 	 */
 	public void showLOMDataDialog( ) {
+	    	isLomEs=false;
 		new LOMDialog( adventureData.getLomController( ) );
 	}
 	
@@ -2240,6 +2243,7 @@ public class Controller {
 	 * Shows the LOM for SCORM packages data dialog editor.
 	 */
 	public void showLOMSCORMDataDialog( ) {
+	    	isLomEs=false;
 		new IMSDialog( adventureData.getImsController( ) );
 	}
 	
@@ -2247,6 +2251,7 @@ public class Controller {
 	 * Shows the LOMES for AGREGA packages data dialog editor.
 	 */
 	public void showLOMESDataDialog( ) {
+	    	isLomEs=true;
 		new LOMESDialog( adventureData.getLOMESController());
 	}
 	
@@ -3000,5 +3005,12 @@ public class Controller {
 			ProjectConfigData.setProperty("autosave", (selected?"yes" : "no"));
 			updateAutoSave();
 		}
+	}
+
+	/**
+	 * @return the isLomEs
+	 */
+	public boolean isLomEs() {
+	    return isLomEs;
 	}
 }

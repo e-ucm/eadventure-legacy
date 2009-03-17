@@ -47,14 +47,10 @@ public class LOMESRightsAndClassificationPanel extends JPanel{
 	 
 			//Classification Panels
 			LOMESOptionsPanel purpose = new LOMESOptionsPanel(classificationController.getPurpose(), TextConstants.getText("IMS.Classification.Purpose"));
-			LOMESCreateContainerPanel taxonPath = new LOMESCreateContainerPanel(classificationController.getTaxonPath(),TextConstants.getText("LOMES.TaxonPath.Name "),LOMContributeDialog.NONE);
+			LOMESCreateContainerPanel taxonPath = new LOMESCreateContainerPanel(classificationController.getTaxonPath(),TextConstants.getText("LOMES.TaxonPath.Name"),LOMContributeDialog.NONE);
 			LOMESTextPanel description = new LOMESTextPanel(classificationController.getDescription(), TextConstants.getText("IMS.Classification.Description"), LOMESTextPanel.TYPE_AREA);
 			LOMCreatePrimitiveContainerPanel keywordPanel = new LOMCreatePrimitiveContainerPanel(LOMCreatePrimitiveContainerPanel.LANGSTRING_TYPE,classificationController.getKeywords(),TextConstants.getText("LOM.General.Keyword"),LOMCreatePrimitiveContainerPanel.FIELD_TYPE_FIELD);
 			
-			
-			//LOMESTextPanel source = new LOMESTextPanel(classificationController.getSource(), TextConstants.getText("LOMES.Classification.Source"), LOMESTextPanel.TYPE_FIELD);
-			//LOMESTextPanel identifier = new LOMESTextPanel(classificationController.getIdentifier(), TextConstants.getText("LOMES.Classification.Identifier"), LOMESTextPanel.TYPE_FIELD);
-			//LOMESTextPanel entry = new LOMESTextPanel(classificationController.getEntry(), TextConstants.getText("LOMES.Classification.Entry"), LOMESTextPanel.TYPE_FIELD);
 			//Add the panels
 			
 			JPanel costAndCopy = new JPanel();

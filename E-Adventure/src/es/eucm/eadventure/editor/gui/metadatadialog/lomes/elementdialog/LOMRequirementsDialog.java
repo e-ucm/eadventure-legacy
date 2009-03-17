@@ -63,10 +63,10 @@ public class LOMRequirementsDialog extends JDialog{
 		    minValue = Controller.getInstance().getEditorVersion();
 		}else {
 		    
-		    typeValue=((LOMOrComposite)container.get(selectedItem)).getType();
-		    nameValue= ((LOMOrComposite)container.get(selectedItem)).getName();
-		    maxValue = ((LOMOrComposite)container.get(selectedItem)).getMaximumVersion();
-		    minValue = ((LOMOrComposite)container.get(selectedItem)).getMinimumVersion();
+		    typeValue=((LOMOrComposite)container.get(selectedItem-1)).getType();
+		    nameValue= ((LOMOrComposite)container.get(selectedItem-1)).getName();
+		    maxValue = ((LOMOrComposite)container.get(selectedItem-1)).getMaximumVersion();
+		    minValue = ((LOMOrComposite)container.get(selectedItem-1)).getMinimumVersion();
 		}
 		
 		GridBagConstraints c = new GridBagConstraints(); 
@@ -96,6 +96,22 @@ public class LOMRequirementsDialog extends JDialog{
 		minPanel.add(minimumVersion,c);
 		minPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "LOM.Technical.MinimumVersion" ) ) );
 		
+		JPanel buttonPanel = new JPanel(new GridBagLayout());
+		c =  new GridBagConstraints(); 
+		c.anchor = GridBagConstraints.CENTER;
+		c.fill = GridBagConstraints.NONE;
+		JButton ok = new JButton("OK");
+		ok.addActionListener(new ActionListener(){
+
+			public void actionPerformed(ActionEvent e) {
+			    typeValue.setValueIndex(type.getSelection());
+			    nameValue.setValueIndex(name.getSelection());
+			    	dispose();
+				
+			}
+			
+		});
+		buttonPanel.add(ok,c);
 		
 		JPanel mainPanel = new JPanel(new GridBagLayout());
 		c = new GridBagConstraints(); 
@@ -108,28 +124,16 @@ public class LOMRequirementsDialog extends JDialog{
 		mainPanel.add(maxPanel,c);
 		c.gridy=3;
 		mainPanel.add(minPanel,c);
+		c.gridy=4;
+		mainPanel.add(buttonPanel,c);
 		
 		
-		JPanel buttonPanel = new JPanel(new GridBagLayout());
-		c =  new GridBagConstraints(); 
-		c.anchor = GridBagConstraints.CENTER;
-		c.fill = GridBagConstraints.NONE;
-		JButton ok = new JButton("OK");
-		ok.addActionListener(new ActionListener(){
-
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-				
-			}
-			
-		});
-		buttonPanel.add(ok,c);
 		
-		this.getContentPane().setLayout(new GridLayout(0,2));
+		this.getContentPane().setLayout(new GridBagLayout());
 		this.getContentPane().add(mainPanel);
-		this.getContentPane().add(buttonPanel);
+		//this.getContentPane().add(buttonPanel);
 	
-		this.setSize( new Dimension(250,200) );
+		this.setSize( new Dimension(250,320) );
 		Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
 		setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
 		setResizable( false );

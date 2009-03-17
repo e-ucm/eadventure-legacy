@@ -1,5 +1,7 @@
 package es.eucm.eadventure.editor.gui.metadatadialog.lomes;
 
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,15 +29,17 @@ public class LOMESCreateComposeTypePanel extends JPanel{
 	private  LOMESComposeType compose;
 	
 	public LOMESCreateComposeTypePanel(LOMESComposeType compose){
+	    	super();
 		this.compose = compose;
-		this.setLayout(new GridLayout(0,1));
+		this.setLayout(new GridBagLayout());
 		
 		edit = new JButton(TextConstants.getText("LOMES.Edit"));
 		edit.addActionListener( new EditButtonListener());
+		GridBagConstraints c = new GridBagConstraints();
 		
 		this.add(edit);
 		
-		this.setBorder(BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "LOMES.General.Identifier" ) )); 
+		 
 		
 		
 		

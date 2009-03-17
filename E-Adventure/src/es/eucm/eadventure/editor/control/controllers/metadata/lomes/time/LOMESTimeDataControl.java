@@ -29,7 +29,7 @@ public class LOMESTimeDataControl extends LOMESDurationDataControl {
 			value+=months+"-";
 		}
 		if (days>0&&days<32){
-			value+=days+"-";
+			value+=days;
 		}
 		if (hours>0 || minutes>0 || seconds>0){
 			value+="T";
@@ -41,7 +41,7 @@ public class LOMESTimeDataControl extends LOMESDurationDataControl {
 			value+=minutes+":";
 		}
 		if (seconds>0 &&seconds <60){
-			value+=seconds+":";
+			value+=seconds+".";
 		}
 		if (milisec>0 && milisec<10){
 			value+=milisec;
@@ -71,12 +71,13 @@ public class LOMESTimeDataControl extends LOMESDurationDataControl {
 				duration = duration.substring( posM+1, duration.length( ) );
 			}
 			if (duration.contains( "T" )){
-				int posD = duration.indexOf( "D" );
+				int posD = duration.indexOf( "T" );
 				days = Integer.parseInt( duration.substring( 0, posD ) );
 				duration = duration.substring( posD+1, duration.length( ) );
 			}
 			else  {
 				days = Integer.parseInt( duration);
+				duration = "";
 			}
 			if (duration.contains( ":" )){
 				int posH = duration.indexOf( ":" );
@@ -88,23 +89,29 @@ public class LOMESTimeDataControl extends LOMESDurationDataControl {
 				minutes = Integer.parseInt( duration.substring( 0, posM ) );
 				duration = duration.substring( posM+1, duration.length( ) );
 			}
-			int posS  =-1;
-			if (duration.contains( "Z" )){
-				posS = duration.indexOf( "Z" );	
-			}
-			if (duration.contains( "+" )){
-				posS = duration.indexOf( "+" );
-			}
-			if (duration.contains( "-" )){
-				posS = duration.indexOf( "-" );
-			}
-
-			if (posS!=-1){
+			if (duration.contains( "." )){
+				int posS = duration.indexOf( "." );
 				seconds = Integer.parseInt( duration.substring( 0, posS ) );
 				duration = duration.substring( posS+1, duration.length( ) );
+			}
+			
+			int posMS  =-1;
+			if (duration.contains( "Z" )){
+				posMS = duration.indexOf( "Z" );	
+			}
+			if (duration.contains( "+" )){
+				posMS = duration.indexOf( "+" );
+			}
+			if (duration.contains( "-" )){
+				posMS = duration.indexOf( "-" );
+			}
+
+			if (posMS!=-1){
+				milisec = Integer.parseInt( duration.substring( 0, posMS ) );
+				duration = duration.substring( posMS, duration.length( ) );
 				timeZone = duration;
-			} else {
-				seconds = Integer.parseInt( duration);
+			} else if (!duration.equals("")){
+				milisec = Integer.parseInt( duration);
 			}
 		
 
@@ -116,8 +123,8 @@ public class LOMESTimeDataControl extends LOMESDurationDataControl {
 		String paramString =super.paramToString(param);
 		if (paramString==null){
 		switch (param){
-			case MILISECONDS: paramString = TextConstants.getText( "LOM.Duration.Years" );break;
-			case TIMEZONE: paramString = TextConstants.getText( "LOM.Duration.Months" );break;
+			case MILISECONDS: paramString = TextConstants.getText( "LOMES.Date.Miliseconds" );break;
+			case TIMEZONE: paramString = TextConstants.getText( "LOMES.Date.TimeZone" );break;
 		}
 		}
 		return paramString;
@@ -129,23 +136,23 @@ public class LOMESTimeDataControl extends LOMESDurationDataControl {
 	
 		boolean set = super.setParameter(param,value);
 		try{
-		if (!set){
-		int intValue=-1;
 		
+		int intValue=-1;
+			if (!(param==TIMEZONE)){
 			if (value==null || value.equals( "" ) || Integer.parseInt( value )>0){
 				if (value==null || value.equals( "" )){
 					intValue=0; 	
 				}else{
 					intValue = Integer.parseInt( value );
 				}
-				switch (param){
-					case MILISECONDS: milisec = intValue;break;
-					case TIMEZONE: timeZone = value;break;
-				}
-
+				milisec = intValue;
 				set = true;
 			}
-		}
+			}else {
+			    timeZone = value;
+			    set=true;
+			}
+		
 		} catch (Exception e){}
 		
 		// Display error message

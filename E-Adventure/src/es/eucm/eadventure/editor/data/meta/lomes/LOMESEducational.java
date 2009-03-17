@@ -59,10 +59,10 @@ public class LOMESEducational {
 		this.description = new ArrayList<LangString>();
 		this.typicalAgeRange = new ArrayList<LangString>();
 		
-		this.difficulty = new Vocabulary(Vocabulary.ED_DIFFICULTY_5_8);
-		this.interactivityLevel = new Vocabulary(Vocabulary.ED_INTERACTIVITY_LEVEL_5_3);
-		this.interactivityType = new Vocabulary(Vocabulary.ED_INTERACTIVITY_TYPE_5_1);
-		this.semanticDensity = new Vocabulary(Vocabulary.ED_SEMANTIC_DENSITY_5_4);
+		this.difficulty = new Vocabulary(Vocabulary.ED_DIFFICULTY_5_8,Vocabulary.LOM_ES_SOURCE,0);
+		this.interactivityLevel = new Vocabulary(Vocabulary.ED_INTERACTIVITY_LEVEL_5_3,Vocabulary.LOM_ES_SOURCE,0);
+		this.interactivityType = new Vocabulary(Vocabulary.ED_INTERACTIVITY_TYPE_5_1,Vocabulary.LOM_ES_SOURCE,0);
+		this.semanticDensity = new Vocabulary(Vocabulary.ED_SEMANTIC_DENSITY_5_4,Vocabulary.LOM_ES_SOURCE,0);
 
 	}
 	
@@ -75,16 +75,16 @@ public class LOMESEducational {
 	}
 	
 	public void addContext(int index){
-		this.context.add( new Vocabulary(Vocabulary.LOMES_ED_CONTEXT_5_6, index) );
+		this.context.add( new Vocabulary(Vocabulary.LOMES_ED_CONTEXT_5_6,Vocabulary.LOM_ES_SOURCE, index) );
 	}
 
 	
 	public void addIntendedEndUserRole(int index){
-		this.intendedEndUserRole.add( new Vocabulary(Vocabulary.LOMES_ED_INTENDED_END_USER_ROLE_5_5, index) );
+		this.intendedEndUserRole.add( new Vocabulary(Vocabulary.LOMES_ED_INTENDED_END_USER_ROLE_5_5,Vocabulary.LOM_ES_SOURCE, index) );
 	}
 	
 	public void addLearningResourceType(int index){
-		this.learningResourceType.add( new Vocabulary(Vocabulary.LOMES_ED_LEARNING_RESOURCE_TYPE_5_2, index) );
+		this.learningResourceType.add( new Vocabulary(Vocabulary.LOMES_ED_LEARNING_RESOURCE_TYPE_5_2,Vocabulary.LOM_ES_SOURCE, index) );
 	}
 
 	
@@ -97,7 +97,7 @@ public class LOMESEducational {
 	}
 	
 	public void addCognitiveProcess(int index){
-		this.cognitiveProcess.add(new Vocabulary(Vocabulary.LOMES_ED_COGNITIVE_PROCESS_5_12,index));
+		this.cognitiveProcess.add(new Vocabulary(Vocabulary.LOMES_ED_COGNITIVE_PROCESS_5_12,Vocabulary.LOM_ES_SOURCE,index));
 	}
 
 
@@ -114,41 +114,41 @@ public class LOMESEducational {
 	
 	public void setContext(int index){
 		this.context = new ArrayList<Vocabulary>();
-		this.context.add( new Vocabulary(Vocabulary.LOMES_ED_CONTEXT_5_6, index) );
+		this.context.add( new Vocabulary(Vocabulary.LOMES_ED_CONTEXT_5_6,Vocabulary.LOM_ES_SOURCE, index) );
 	}
 
 	
 	public void setIntendedEndUserRole(int index){
 		this.intendedEndUserRole = new ArrayList<Vocabulary>();
-		this.intendedEndUserRole.add( new Vocabulary(Vocabulary.LOMES_ED_INTENDED_END_USER_ROLE_5_5, index) );
+		this.intendedEndUserRole.add( new Vocabulary(Vocabulary.LOMES_ED_INTENDED_END_USER_ROLE_5_5,Vocabulary.LOM_ES_SOURCE, index) );
 	}
 	
 	public void setSemanticDensity(int index){
-		this.semanticDensity = new Vocabulary(Vocabulary.ED_SEMANTIC_DENSITY_5_4, index);
+		this.semanticDensity = new Vocabulary(Vocabulary.ED_SEMANTIC_DENSITY_5_4,Vocabulary.LOM_ES_SOURCE, index);
 	}
 	
 	public void setDifficulty(int index){
-		this.difficulty = new Vocabulary(Vocabulary.ED_DIFFICULTY_5_8, index);
+		this.difficulty = new Vocabulary(Vocabulary.ED_DIFFICULTY_5_8,Vocabulary.LOM_ES_SOURCE, index);
 	}
 	
 	public void setInteractivityLevel(int index){
-		this.interactivityLevel = new Vocabulary(Vocabulary.ED_INTERACTIVITY_LEVEL_5_3, index);
+		this.interactivityLevel = new Vocabulary(Vocabulary.ED_INTERACTIVITY_LEVEL_5_3,Vocabulary.LOM_ES_SOURCE, index);
 	}
 	
 	public void setInteractivityType(int index){
-		this.interactivityType= new Vocabulary(Vocabulary.ED_INTERACTIVITY_TYPE_5_1, index);
+		this.interactivityType= new Vocabulary(Vocabulary.ED_INTERACTIVITY_TYPE_5_1,Vocabulary.LOM_ES_SOURCE, index);
 	}
 	
 	public void setCognitiveProcess(int index){
 		this.cognitiveProcess = new ArrayList<Vocabulary>();
-		this.cognitiveProcess.add(new Vocabulary(Vocabulary.LOMES_ED_COGNITIVE_PROCESS_5_12,index));
+		this.cognitiveProcess.add(new Vocabulary(Vocabulary.LOMES_ED_COGNITIVE_PROCESS_5_12,Vocabulary.LOM_ES_SOURCE,index));
 	}
 	
 	
 	
 	public void setLearningResourceType(int index){
 		this.learningResourceType = new ArrayList<Vocabulary>();
-		this.learningResourceType.add( new Vocabulary(Vocabulary.LOMES_ED_LEARNING_RESOURCE_TYPE_5_2, index) );
+		this.learningResourceType.add( new Vocabulary(Vocabulary.LOMES_ED_LEARNING_RESOURCE_TYPE_5_2,Vocabulary.LOM_ES_SOURCE, index) );
 	}
 
 	

@@ -11,8 +11,8 @@ public class LOMESLifeCycleDate implements LOMESComposeType{
 	private LangString description;
 	
 	public LOMESLifeCycleDate(){
-		dateTime = new String("1970-12-2");
-		description = new LangString("");
+		dateTime = new String("1970-12-02T05:01:14.338Z");
+		description = new LangString("Empty");
 	}
 	
 	public LOMESLifeCycleDate(String dateTime,LangString description){

@@ -9,6 +9,7 @@ public class LOMRequirement extends LOMESContainer{
    
         public LOMRequirement(){
         	super();
+        	add(new LOMOrComposite());
         }
         
         public LOMRequirement(Vocabulary type,Vocabulary name,String minimumVersion,String maximumVersion){
@@ -40,7 +41,7 @@ public class LOMRequirement extends LOMESContainer{
         
         @Override
         public String getTitle() {
-        	return TextConstants.getText( "LOMES.GeneralIdentifier.DialogTitle" );
+        	return TextConstants.getText( "LOMES.Requirement.Title" );
         }
         
         @Override

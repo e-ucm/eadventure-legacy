@@ -1,5 +1,7 @@
 package es.eucm.eadventure.editor.data.meta;
 
+import es.eucm.eadventure.editor.control.Controller;
+
 public class Vocabulary {
 
 	public static final String[] ED_INTERACTIVITY_TYPE_5_1 = new String[]{"active", "explosive", "mixed"};
@@ -33,7 +35,7 @@ public class Vocabulary {
 	
 	private static final String DEFAULT_SOURCE = "LOMv1.0"; 
 	
-	private static final String LOM_ES_SOURCE = "LOM-ESv1.0";
+	public static final String LOM_ES_SOURCE = "LOM-ESv1.0";
 	
 	// For LOM-ES
 	public static final String[] GE_AGGREGATION_LEVEL_1_8 = new String[]{"1","2","3","4"};
@@ -71,17 +73,25 @@ public class Vocabulary {
 	public Vocabulary(String[]values){
 		this.values = values;
 		this.currentValue = 0;
-		this.source = DEFAULT_SOURCE;
+		if (Controller.getInstance().isLomEs()){
+		    this.source = LOM_ES_SOURCE;
+		}else {
+		    this.source = DEFAULT_SOURCE;
+		}
 	}
 	
 	public Vocabulary(String[]values, int value){
 		this.values = values;
 		this.currentValue = value;
-		this.source = DEFAULT_SOURCE;
+		if (Controller.getInstance().isLomEs()){
+		    this.source = LOM_ES_SOURCE;
+		}else {
+		    this.source = DEFAULT_SOURCE;
+		}
 	}
 	
 	public Vocabulary(String[]values, String value){
-		this(values, DEFAULT_SOURCE,value);
+	    this(values, DEFAULT_SOURCE,value);
 	}
 
 	public Vocabulary(String[]values, String source, String value){
@@ -94,7 +104,13 @@ public class Vocabulary {
 		}
 		this.source = source;
 	}
-
+	
+	public Vocabulary(String[]values, String source, int value){
+		this.values = values;
+		currentValue = value;
+		this.source = source;
+	}
+	
 	
 	/************** GETTERS ******************/
 	public int getValueIndex(){

@@ -58,23 +58,23 @@ public class LOMESTechnicalDOMWriter extends LOMESSimpleDataWriter{
 			
 			Element orComposite = doc.createElement("lomes:orComposite");
 			
-			orComposite.appendChild(buildVocabularyNode(doc,"type",((LOMOrComposite)technical.getRequirement().get(i)).getType()));
-			orComposite.appendChild(buildVocabularyNode(doc,"name",((LOMOrComposite)technical.getRequirement().get(i)).getName()));
+			orComposite.appendChild(buildVocabularyNode(doc,"lomes:type",((LOMOrComposite)technical.getRequirement().get(i)).getType()));
+			orComposite.appendChild(buildVocabularyNode(doc,"lomes:name",((LOMOrComposite)technical.getRequirement().get(i)).getName()));
 			
 			
 			
-			//Create the maximum version node
-			if (isStringSet(((LOMOrComposite)technical.getRequirement().get(i)).getMaximumVersion())){
-				Element maxVer = doc.createElement( "lomes:maximumversion" );
-				maxVer.setTextContent( ((LOMOrComposite)technical.getRequirement().get(i)).getMaximumVersion());
-				orComposite.appendChild( maxVer );
-			}
 			
 			//Create the minimum version node
 			if (isStringSet(((LOMOrComposite)technical.getRequirement().get(i)).getMinimumVersion())){
-				Element minVer = doc.createElement( "lomes:maximumversion" );
+				Element minVer = doc.createElement( "lomes:minimumVersion" );
 				minVer.setTextContent(((LOMOrComposite)technical.getRequirement().get(i)).getMinimumVersion());
 				orComposite.appendChild( minVer );
+			}
+			//Create the maximum version node
+			if (isStringSet(((LOMOrComposite)technical.getRequirement().get(i)).getMaximumVersion())){
+				Element maxVer = doc.createElement( "lomes:maximumVersion" );
+				maxVer.setTextContent( ((LOMOrComposite)technical.getRequirement().get(i)).getMaximumVersion());
+				orComposite.appendChild( maxVer );
 			}
 			
 			requirement.appendChild(orComposite);

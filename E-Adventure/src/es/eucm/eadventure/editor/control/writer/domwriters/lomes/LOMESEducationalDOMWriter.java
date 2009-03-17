@@ -9,6 +9,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
+import es.eucm.eadventure.editor.data.meta.LangString;
 import es.eucm.eadventure.editor.data.meta.ims.IMSEducational;
 import es.eucm.eadventure.editor.data.meta.lomes.LOMESEducational;
 
@@ -53,7 +54,7 @@ public class LOMESEducationalDOMWriter extends LOMESSimpleDataWriter{
 			
 			//Create the intended end user role node
 			for (int i =0;i<educational.getIntendedEndUserRole().size();i++){
-			    Node ieuRole = buildVocabularyNode(doc, "lomes:intendededEndUserRole", educational.getIntendedEndUserRole( ).get(i));
+			    Node ieuRole = buildVocabularyNode(doc, "lomes:intendedEndUserRole", educational.getIntendedEndUserRole( ).get(i));
 			    educationalElement.appendChild( ieuRole );
 			}
 			
@@ -78,9 +79,12 @@ public class LOMESEducationalDOMWriter extends LOMESSimpleDataWriter{
 
 			//Create the typical learning time node
 			Node tlTime = doc.createElement( "lomes:typicalLearningTime" );
-			Node dateTime = doc.createElement( "lomes:dateTime" );
+			Node dateTime = doc.createElement( "lomes:duration" );
 			dateTime.setTextContent( educational.getTypicalLearningTime( ) );
-			tlTime.appendChild( dateTime );
+			tlTime.appendChild( dateTime );	
+			Node tdescription = doc.createElement("lomes:description");
+			tdescription.appendChild(buildLangStringNode(doc,new LangString("Total game duration")));
+			tlTime.appendChild(tdescription);
 			educationalElement.appendChild( tlTime );
 			
 			//Create the description node
@@ -102,7 +106,7 @@ public class LOMESEducationalDOMWriter extends LOMESSimpleDataWriter{
 			
 			//create cognitive process node
 			for (int i =0;i<educational.getCognitiveProcess().size();i++){
-			Node cognitive = buildVocabularyNode(doc, "cognitiveProcess", educational.getCognitiveProcess().get(i));
+			Node cognitive = buildVocabularyNode(doc, "lomes:cognitiveProcess", educational.getCognitiveProcess().get(i));
 			educationalElement.appendChild( cognitive );
 			}
 

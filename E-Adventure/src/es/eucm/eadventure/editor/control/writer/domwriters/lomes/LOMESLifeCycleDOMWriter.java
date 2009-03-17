@@ -63,6 +63,7 @@ public class LOMESLifeCycleDOMWriter extends LOMESSimpleDataWriter{
 			Element description = doc.createElement( "lomes:description" );
 			description.appendChild( buildLangStringNode(doc, ((LOMESLifeCycleContribute)lifeCycle.getContribute().get(i)).getDate().getDescription()));
 			date.appendChild(description);
+			contribution.appendChild(date);
 			
 			lifeCycleElement.appendChild(contribution);
 			}

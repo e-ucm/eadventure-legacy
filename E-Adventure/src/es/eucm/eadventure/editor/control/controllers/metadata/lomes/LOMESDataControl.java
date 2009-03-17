@@ -48,6 +48,7 @@ public class LOMESDataControl {
 		generalData.setDescription( new LangString("Default") );
 		generalData.setKeyword( new LangString("Default") );
 		generalData.setLanguage( DEFAULT_LANGUAGE );
+		generalData.setAggregationLevel(0);
 		general = new LOMESGeneralDataControl(generalData);
 		
 		LOMESLifeCycle lifeCycle = new LOMESLifeCycle();
@@ -69,7 +70,7 @@ public class LOMESDataControl {
 		educ.setIntendedEndUserRole( 0 );
 		educ.setLearningResourceType( 0 );
 		educ.setCognitiveProcess(0);
-		
+		educ.setTypicalLearningTime("PT1H30M");
 		educational = new LOMESEducationalDataControl(educ);
 		
 		LOMESMetaMetaData metametad = new LOMESMetaMetaData();
@@ -77,7 +78,7 @@ public class LOMESDataControl {
 		metametad.setContribute(new LOMContribute(Vocabulary.MD_CONTRIBUTION_TYPE_2_3_1));
 		metametad.setDescription("Empty");
 		metametad.setLanguage("en");
-		metametad.setMetadatascheme(new String(""));
+		metametad.setMetadatascheme(new String("Empty"));
 		metametadata = new LOMESMetaMetaDataControl(metametad);
 		
 		LOMESRights right = new LOMESRights();

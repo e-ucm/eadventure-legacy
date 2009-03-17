@@ -27,10 +27,10 @@ public class LOMESRights {
 	
 	
 	public LOMESRights(){
-		cost = new Vocabulary(Vocabulary.IMS_YES_NO);
-		copyrightandotherrestrictions = new Vocabulary(Vocabulary.LOMES_RG_COP_AND_OTHER_6_2);
+		cost = new Vocabulary(Vocabulary.IMS_YES_NO,Vocabulary.LOM_ES_SOURCE,0);
+		copyrightandotherrestrictions = new Vocabulary(Vocabulary.LOMES_RG_COP_AND_OTHER_6_2,Vocabulary.LOM_ES_SOURCE,0);
 		description = null;
-		accessType = new Vocabulary(Vocabulary.LOMES_RG_ACCESS_TYPE_6_4_1);
+		accessType = new Vocabulary(Vocabulary.LOMES_RG_ACCESS_TYPE_6_4_1,Vocabulary.LOM_ES_SOURCE,0);
 		accessDescription = null;
 	}
 
@@ -51,7 +51,7 @@ public class LOMESRights {
 
 
 	public void setCopyrightandotherrestrictions(int index) {
-		this.copyrightandotherrestrictions = new Vocabulary(Vocabulary.LOMES_RG_COP_AND_OTHER_6_2,index);
+		this.copyrightandotherrestrictions = new Vocabulary(Vocabulary.LOMES_RG_COP_AND_OTHER_6_2,Vocabulary.LOM_ES_SOURCE,index);
 	}
 
 
@@ -71,7 +71,7 @@ public class LOMESRights {
 
 
 	public void setAccessType(int index) {
-		this.accessType = new Vocabulary(Vocabulary.LOMES_RG_ACCESS_TYPE_6_4_1,index);
+		this.accessType = new Vocabulary(Vocabulary.LOMES_RG_ACCESS_TYPE_6_4_1,Vocabulary.LOM_ES_SOURCE,index);
 	}
 
 
