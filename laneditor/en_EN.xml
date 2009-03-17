@@ -75,6 +75,13 @@
 	<entry key="MenuEdit.Undo">Undo</entry>
 	<entry key="MenuEdit.Redo">Redo</entry>
 	
+	<entry key="Tools.Title">Tools</entry>
+	<entry key="Tools.Undo">Undo</entry>
+	<entry key="Tools.Redo">Redo</entry>
+	<entry key="Tools.Find">Find</entry>
+	<entry key="Tools.Back">Back</entry>
+	<entry key="Tools.Forward">Forward</entry>
+	
 	<entry key="StartDialog.Title">Welcome to the &lt;e-Adventure&gt; editor</entry>
 	<entry key="StartDialog.Message">To start using the &lt;e-Adventure&gt; editor, you must choose between creating a new adventure, or opening an existing one to edit it.</entry>
 	<entry key="StartDialog.Option0">New adventure</entry>

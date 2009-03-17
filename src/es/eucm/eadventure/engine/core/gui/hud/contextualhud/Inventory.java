@@ -225,6 +225,9 @@ public class Inventory {
      * @param g Graphics to draw the inventory
      */
     public void draw( Graphics2D g ) {
+    	if (dy == INVENTORY_PANEL_HEIGHT - 15.0 || dy == INVENTORY_PANEL_HEIGHT)
+    		return;
+    	
         int indexLastItemDisplayed;
 
         BufferedImage inventory = new BufferedImage(INVENTORY_PANEL_WIDTH, INVENTORY_PANEL_HEIGHT, BufferedImage.TYPE_4BYTE_ABGR);

@@ -76,6 +76,13 @@
 	<entry key="MenuEdit.Undo">Deshacer</entry>
 	<entry key="MenuEdit.Redo">Rehacer</entry>
 		
+	<entry key="Tools.Title">Herramientas</entry>
+	<entry key="Tools.Undo">Deshacer</entry>
+	<entry key="Tools.Redo">Rehacer</entry>
+	<entry key="Tools.Find">Buscar</entry>
+	<entry key="Tools.Back">Atras</entry>
+	<entry key="Tools.Forward">Adelante</entry>
+
 	<entry key="StartDialog.Title">Editor de aventuras</entry>
 	<entry key="StartDialog.Message">Para comenzar a usar el editor de &lt;e-Adventure&gt;, debe escoger entre crear un nuevo archivo para almacenar la nueva aventura, o seleccionar una aventura ya creada para editarla.</entry>
 	<entry key="StartDialog.Option0">Nueva aventura</entry>

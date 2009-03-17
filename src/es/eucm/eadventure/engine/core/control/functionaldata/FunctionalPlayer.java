@@ -463,7 +463,6 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
     		getCurrentAction().update(elapsedTime);
     	}
     	//TODO check if the animation must be pop because it repeated as indicated
-    	
     	getCurrentAnimation( ).update( elapsedTime );
     }
     
