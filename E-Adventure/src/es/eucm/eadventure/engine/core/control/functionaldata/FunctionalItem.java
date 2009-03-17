@@ -41,9 +41,15 @@ public class FunctionalItem extends FunctionalElement {
      * Item containing the data
      */
     protected Item item;
-    
+        
     protected InfluenceArea influenceArea;
 
+    private Image oldOriginalImage = null;
+    
+    private Image oldImage = null;
+    
+    private float oldScale = -1;
+    
     /**
      * Creates a new FunctionalItem
      * @param item the item's data
@@ -167,7 +173,15 @@ public class FunctionalItem extends FunctionalElement {
     	int x_image = Math.round( x - ( getWidth( ) * scale / 2 ) ) - Game.getInstance( ).getFunctionalScene( ).getOffsetX( );
     	int y_image = Math.round( y - getHeight( ) * scale);
     	if (scale != 1) {
-    		Image temp = image.getScaledInstance(Math.round(image.getWidth(null) * scale), Math.round(image.getHeight(null) * scale), Image.SCALE_SMOOTH);
+    		Image temp;
+    		if (image == oldOriginalImage && scale == oldScale) {
+    			temp = oldImage;
+    		} else {
+    			temp = image.getScaledInstance(Math.round(image.getWidth(null) * scale), Math.round(image.getHeight(null) * scale), Image.SCALE_SMOOTH);
+    			oldImage = temp;
+    			oldOriginalImage = image;
+    			oldScale = scale;
+    		}
     		if (layer==-1)
     			GUI.getInstance().addElementToDraw(temp, x_image, y_image, Math.round(y), Math.round(y));
     		else 

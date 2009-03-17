@@ -107,6 +107,12 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
     
     private boolean isTransparent=false;
         
+    private float oldScale = -1;
+    
+    private Image oldImage = null;
+    
+    private Image oldOriginalImage = null;
+    
     /**
      * @return the isTransparent
      */
@@ -419,31 +425,29 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
     public void draw( ) {
         if (!isTransparent) {
         	Image image = getCurrentAnimation().getImage();
+        	
             int realX = (int) (x - ( image.getWidth( null ) * scale / 2 ) - Game.getInstance( ).getFunctionalScene( ).getOffsetX( ));
             int realY = (int) (y - ( image.getHeight( null ) * scale )); 
 
-            if (scale != 1) {
-        		Image temp = image.getScaledInstance(Math.round(image.getWidth(null) * scale), Math.round(image.getHeight(null) * scale), Image.SCALE_SMOOTH);
-            	
-        		if (layer==Scene.PLAYER_WITHOUT_LAYER||layer==Scene.PLAYER_NO_ALLOWED)
-        			GUI.getInstance().addPlayerToDraw(temp, realX, realY, Math.round(y),Math.round(y));
-        		else 
-        			GUI.getInstance().addElementToDraw(temp, realX, realY, layer, Math.round(y));
-        		
+            if (image == oldOriginalImage && scale == oldScale) {
+            	image = oldImage;
+            } else if (scale != 1) {
+            	oldOriginalImage = image;
+        		image = image.getScaledInstance(Math.round(image.getWidth(null) * scale), Math.round(image.getHeight(null) * scale), Image.SCALE_SMOOTH);
             } else {
-            	
-	            if (layer==Scene.PLAYER_WITHOUT_LAYER||layer==Scene.PLAYER_NO_ALLOWED)
-	            	GUI.getInstance( ).addPlayerToDraw( image, realX, realY, Math.round( y ), Math.round(y));
-	            else 
-	            	GUI.getInstance( ).addElementToDraw( image, realX, realY, layer, Math.round(y) );
+            	oldOriginalImage = image;
+            }
             
-            
-        }
+            oldScale = scale;
+            oldImage = image;
+
+            if (layer==Scene.PLAYER_WITHOUT_LAYER||layer==Scene.PLAYER_NO_ALLOWED)
+            	GUI.getInstance( ).addPlayerToDraw( image, realX, realY, Math.round( y ), Math.round(y));
+            else 
+            	GUI.getInstance( ).addElementToDraw( image, realX, realY, layer, Math.round(y) );
         }
         if (getCurrentAction().isStarted() && !getCurrentAction().isFinished())
         	getCurrentAction().drawAditionalElements();
-        
-        
     }
     /*
      *  (non-Javadoc)
