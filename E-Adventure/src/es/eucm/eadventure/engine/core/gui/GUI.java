@@ -597,7 +597,6 @@ public abstract class GUI implements FocusListener {
         	timerManager.draw(g);
         }
         
-        
         for(Text text : textToDraw)
             text.draw( g );
         textToDraw.clear();

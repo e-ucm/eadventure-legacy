@@ -1,3 +1,4 @@
+
 package es.eucm.eadventure.editor.gui;
 
 import java.awt.BorderLayout;
@@ -18,9 +19,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -30,6 +32,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButtonMenuItem;
+import javax.swing.JSeparator;
 import javax.swing.JSplitPane;
 import javax.swing.JTextPane;
 import javax.swing.KeyStroke;
@@ -155,8 +158,18 @@ public class MainWindow extends JFrame {
 		treePanel.setMinimumSize( new Dimension( 210, 0 ) );
 		treePanel.setPreferredSize( new Dimension( 210, 0 ) );
 
+		
+		JPanel treeToolsPanel = new JPanel();
+		treeToolsPanel.setLayout(new BorderLayout());
+		treeToolsPanel.setMinimumSize( new Dimension( 210, 0 ) );
+		treeToolsPanel.setPreferredSize( new Dimension( 210, 0 ) );
+		treeToolsPanel.add(treePanel, BorderLayout.CENTER);
+		JPanel toolsPanel = createToolsPanel();
+		treeToolsPanel.add(toolsPanel, BorderLayout.NORTH);
+		
+		
 		// Create the split panel
-		JSplitPane splitPane = new JSplitPane( JSplitPane.HORIZONTAL_SPLIT, treePanel, editorContainer );
+		JSplitPane splitPane = new JSplitPane( JSplitPane.HORIZONTAL_SPLIT, treeToolsPanel, editorContainer );
 		splitPane.setBorder( null );
 
 		// Add the panels to the frame
@@ -186,6 +199,71 @@ public class MainWindow extends JFrame {
 	}
 
 	
+	private JPanel createToolsPanel() {
+		JPanel temp = new JPanel();
+		
+		JButton undoButton = createToolButton( "img/icons/undo.png" , TextConstants.getText("Tools.Undo") );
+		JButton redoButton = createToolButton( "img/icons/redo.png" , TextConstants.getText("Tools.Redo") );
+		JButton backButton = createToolButton( "img/icons/moveNodeLeft.png" , TextConstants.getText("Tools.Back") );
+		JButton forwardButton = createToolButton( "img/icons/moveNodeRight.png" , TextConstants.getText("Tools.Forward") );
+		JButton findButton = createToolButton( "img/icons/find.png" , TextConstants.getText("Tools.Find") );
+		
+		undoButton.addActionListener( new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.undoTool();
+			}
+		});
+		redoButton.addActionListener( new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.redoTool();
+			}
+		});
+		findButton.addActionListener( new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.search();
+			}
+		});
+		backButton.addActionListener( new ActionListener() {
+			public void actionPerformed ( ActionEvent e ) {
+				TreeNodeControl.getInstance().goBack();
+			}
+		});
+		forwardButton.addActionListener( new ActionListener() {
+			public void actionPerformed ( ActionEvent e ) {
+				TreeNodeControl.getInstance().goForward();
+			}
+		});
+
+		temp.setLayout( new FlowLayout( FlowLayout.CENTER ) );
+
+		temp.add( undoButton );
+		temp.add( redoButton );
+		JSeparator separator = new JSeparator( JSeparator.VERTICAL );
+		separator.setPreferredSize( new Dimension( 2, 24 ) );
+		temp.add( separator );
+		temp.add( findButton );
+		separator = new JSeparator( JSeparator.VERTICAL );
+		separator.setPreferredSize( new Dimension( 2, 24 ) );
+		temp.add( separator );
+		temp.add( backButton );
+		temp.add( forwardButton );
+		
+		temp.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText("Tools.Title") ) );
+
+		return temp;
+	}
+	
+	private JButton createToolButton( String icon, String toolTipText) {
+		JButton tempButton = new JButton( new ImageIcon(icon));		
+		tempButton.setPreferredSize( new Dimension( 24, 22 ) );
+		tempButton.setFocusPainted( false );
+		tempButton.setContentAreaFilled( false );
+		tempButton.setRolloverEnabled( true );
+		tempButton.setToolTipText(toolTipText);
+		return tempButton;
+	}
+
+
 	private JMenuBar createMenuBar (){
 		return createMenuBarAdventureMode();
 	}
@@ -598,25 +676,7 @@ public class MainWindow extends JFrame {
 		languageMenu.add( itEnglish );
 		languageMenu.add( itSpanish );
 		configurationMenu.add( languageMenu );
-		
-		Icon back = new ImageIcon( "img/icons/moveNodeLeft.png" );
-		JMenuItem itBack = new JMenuItem(back);
-		itBack.addActionListener( new ActionListener() {
-			public void actionPerformed ( ActionEvent e ) {
-				TreeNodeControl.getInstance().goBack();
-			}
-		});
-		windowMenu.add(itBack);
-		
-		Icon forward = new ImageIcon( "img/icons/moveNodeRight.png" );
-		JMenuItem itForward = new JMenuItem(forward);
-		itForward.addActionListener( new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				TreeNodeControl.getInstance().goForward();
-			}
-		});
-		windowMenu.add(itForward);
-		
+				
 		return windowMenu;
 	}
 	

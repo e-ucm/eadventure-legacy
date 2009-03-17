@@ -35,25 +35,16 @@ public class GameStatePlaying extends GameState {
 
         // Process the mouse events
         while( vMouse.size( ) > 0 ) {
-            
-            // If it is a mouse clicked, trigger it
             if( vMouse.get( 0 ).getID( ) == MouseEvent.MOUSE_CLICKED )
                 mouseClickedEvent( vMouse.get( 0 ) );
-                
-            // If it is a mouse moved, trigger it
             else if( vMouse.get( 0 ).getID( ) == MouseEvent.MOUSE_MOVED )
                 mouseMovedEvent( vMouse.get( 0 ) );
-            
             else if ( vMouse.get( 0 ).getID() == MouseEvent.MOUSE_PRESSED)
             	mousePressedEvent( vMouse.get(0) );
-            
             else if ( vMouse.get(0).getID() == MouseEvent.MOUSE_RELEASED)
             	mouseReleasedEvent( vMouse.get(0) );
-            
             else if ( vMouse.get(0).getID() == MouseEvent.MOUSE_DRAGGED)
             	mouseDraggedEvent( vMouse.get(0) );
-                
-            // Delete the event
             vMouse.remove( 0 );
         }
 
@@ -63,7 +54,8 @@ public class GameStatePlaying extends GameState {
         
         // Get the graphics and paint the whole screen in black
         Graphics2D g = GUI.getInstance( ).getGraphics( );
-        g.clearRect( 0, 0, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT );
+        // TODO check, though it should give no problems with non-transparent backgrounds
+        //g.clearRect( 0, 0, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT );
 
         // Draw the functional scene, and then the GUI
         game.getFunctionalScene( ).draw( );
@@ -90,7 +82,6 @@ public class GameStatePlaying extends GameState {
             for( String flag : game.getAdaptedStateToExecute( ).getDeactivatedFlags( ) )
                 game.getFlags( ).deactivateFlag( flag );
             
-
         }
 
         // Update the data pending from the flags
