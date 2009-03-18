@@ -2,6 +2,8 @@ package es.eucm.eadventure.editor.gui.metadatadialog.lomes;
 
 
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -33,7 +35,7 @@ public class LOMESGeneralPanel extends JPanel{
 		this.dataControl = dControl;
 		
 		//Layout
-		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+		setLayout(new GridBagLayout());
 		
 		// Create the panels
 		
@@ -46,19 +48,25 @@ public class LOMESGeneralPanel extends JPanel{
 		LOMCreatePrimitiveContainerPanel keywordPanel = new LOMCreatePrimitiveContainerPanel(LOMCreatePrimitiveContainerPanel.LANGSTRING_TYPE,dataControl.getKeywords(),TextConstants.getText("LOM.General.Keyword"),LOMCreatePrimitiveContainerPanel.FIELD_TYPE_FIELD);
 		
 		
+		
+		GridBagConstraints c = new GridBagConstraints();
+		JPanel container = new JPanel();
+		container.setLayout(new GridBagLayout());
+		c.gridy=0;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.weightx = 1.0;
 		// Add the panels
-		add ( Box.createVerticalStrut( 1 ));
-		add (titlePanel);
-		add ( Box.createVerticalStrut( 1 ));
-		add (identifierPanel);
-		add ( Box.createVerticalStrut( 1 ));
-		add (languagePanel);
-		add ( Box.createVerticalStrut( 1 ));
-		add (descriptionPanel);
-		add ( Box.createVerticalStrut( 1 ));
-		add (keywordPanel);
-		add ( Box.createVerticalStrut( 1 ));
-		add (aggregationLevel);
+		container.add (titlePanel,c);
+		c.gridy++;
+		container.add (identifierPanel,c);
+		c.gridy++;
+		container.add (languagePanel,c);
+		c.gridy++;
+		container.add (descriptionPanel,c);
+		c.gridy++;
+		container.add (keywordPanel,c);
+		c.gridy++;
+		container.add (aggregationLevel,c);
 		// Add "set defaults" button: If you press here, the title and description fields will be filled with the title and description of the adventure 
 		JButton setDefaults = new JButton (TextConstants.getText( "LOM.General.SetDefaults" ));
 		setDefaults.setToolTipText( TextConstants.getText( "LOM.General.SetDefaultsTip" ) );
@@ -77,10 +85,13 @@ public class LOMESGeneralPanel extends JPanel{
 		
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.add( setDefaults );
-		add ( Box.createVerticalStrut( 1 ));
-		add(buttonPanel);
-		add ( Box.createRigidArea( new Dimension (400,45) ));
-		//setSize(400, 100);
+		c.gridy++;
+		container.add(buttonPanel,c);
+				
+		c.gridy=0;
+		c.anchor = GridBagConstraints.NORTH;
+		c.weighty=1.0;
+		add(container,c);
 	}
 	
 	

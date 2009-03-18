@@ -71,15 +71,22 @@ public class LOMESEducationalPanel extends JPanel{
 		GridLayout c4 = new GridLayout(1,4);
 		c2.setHgap( 2 );
 		c2.setVgap( 2 );
-		thirdRow.setLayout( c2 );
+		thirdRow.setLayout( new GridBagLayout());
+		GridBagConstraints c6 = new GridBagConstraints();
+		c6.fill = GridBagConstraints.HORIZONTAL;
+		c6.gridx=0;
+		c6.weightx=1;
 		//SEMANTIC
-		thirdRow.add( new LOMESOptionsPanel(dataControl.getSemanticDensityController( ), TextConstants.getText("LOM.Educational.SemanticDensity")) );
+		thirdRow.add( new LOMESOptionsPanel(dataControl.getSemanticDensityController( ), TextConstants.getText("LOM.Educational.SemanticDensity")),c6 );
+		c6.gridx++;
 		//DIFFICULTY
-		thirdRow.add( new LOMESOptionsPanel(dataControl.getDifficultyController( ), TextConstants.getText("LOM.Educational.Difficulty")) );
+		thirdRow.add( new LOMESOptionsPanel(dataControl.getDifficultyController( ), TextConstants.getText("LOM.Educational.Difficulty")),c6 );
+		c6.gridx++;
 		//INTERACTIVITY LEVEL
-		thirdRow.add( new LOMESOptionsPanel(dataControl.getInteractivityLevelController( ), TextConstants.getText("LOM.Educational.InteractivityLevel")) );
+		thirdRow.add( new LOMESOptionsPanel(dataControl.getInteractivityLevelController( ), TextConstants.getText("LOM.Educational.InteractivityLevel")),c6 );
+		c6.gridx++;
 		//INTERACTIVITY TYPE
-		thirdRow.add( new LOMESOptionsPanel(dataControl.getInteractivityTypeController( ), TextConstants.getText("LOM.Educational.InteractivityType")) );
+		thirdRow.add( new LOMESOptionsPanel(dataControl.getInteractivityTypeController( ), TextConstants.getText("LOM.Educational.InteractivityType")),c6 );
 		
 		
 		

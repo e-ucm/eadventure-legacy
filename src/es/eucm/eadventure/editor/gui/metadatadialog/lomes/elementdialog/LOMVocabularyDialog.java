@@ -10,6 +10,8 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -30,6 +32,9 @@ public class LOMVocabularyDialog extends JDialog{
 	
 	public LOMVocabularyDialog(String[] values,int selection){
 		super( Controller.getInstance( ).peekWindow( ), TextConstants.getText("LOMES.Value"), Dialog.ModalityType.APPLICATION_MODAL );
+		
+		Controller.getInstance().pushWindow(this);
+		
 		elements = new JComboBox(values);
 		this.selection=selection;
 		
@@ -70,6 +75,14 @@ public class LOMVocabularyDialog extends JDialog{
 		setResizable( false );
 		setVisible( true );
 	
+		addWindowListener( new WindowAdapter (){
+			@Override
+			public void windowClosed(WindowEvent e) {
+				Controller.getInstance().popWindow();
+				
+			}
+			
+		});
 		
 	}
 

@@ -487,7 +487,6 @@ public abstract class AssetChooser extends JFileChooser {
 			}
 			
 		});
-		Controller.getInstance().pushWindow(dialog);
 		return dialog;
 			
 	}

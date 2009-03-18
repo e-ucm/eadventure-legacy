@@ -10,6 +10,8 @@ import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -26,6 +28,7 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMESContainer;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMESGeneralId;
+import es.eucm.eadventure.editor.gui.metadatadialog.lomes.LOMESCreateContainerPanel;
 import es.eucm.eadventure.editor.gui.metadatadialog.lomes.LOMESTextPanel;
 
 public class LOMlIdentifierDialog extends JDialog{
@@ -41,12 +44,18 @@ public class LOMlIdentifierDialog extends JDialog{
 	
 	//private LOMESContainer container;
 	
-	public LOMlIdentifierDialog(LOMESContainer container, int selectedItem){
+	
+	public LOMlIdentifierDialog(LOMESContainer container, int selectedItem,int from){
 		super( Controller.getInstance( ).peekWindow( ), container.getTitle(), Dialog.ModalityType.APPLICATION_MODAL );
+		Controller.getInstance().pushWindow(this);
+		
 		//this.container = container;
 		if (selectedItem ==0){
 			catalogValue=LOMIdentifier.CATALOG_DEFAULT;
 			entryValue=LOMIdentifier.ENTRY_DEFAULT;
+			if (from == LOMESCreateContainerPanel.METAMETADATA){
+			    entryValue += "-meta";
+			}
 		}else {
 			catalogValue = ((LOMESGeneralId)container.get(selectedItem-1)).getCatalog();
 			entryValue = ((LOMESGeneralId)container.get(selectedItem-1)).getEntry();
@@ -114,6 +123,15 @@ public class LOMlIdentifierDialog extends JDialog{
 		setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
 		setResizable( false );
 		setVisible( true );
+		
+		addWindowListener( new WindowAdapter (){
+			@Override
+			public void windowClosed(WindowEvent e) {
+				Controller.getInstance().popWindow();
+				
+			}
+			
+		});
 	
 	}
 	

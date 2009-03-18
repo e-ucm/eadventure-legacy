@@ -34,6 +34,7 @@ public class LOMESMetaMetaDataPanel extends JPanel{
 		c.gridy=0;
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 1.0;
+		//c.weighty=1.0;
 		//Add the panels
 		container.add (meta,c);
 		c.gridy=1;

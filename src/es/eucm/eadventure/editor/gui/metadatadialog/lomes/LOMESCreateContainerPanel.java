@@ -1,5 +1,6 @@
 package es.eucm.eadventure.editor.gui.metadatadialog.lomes;
 
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -25,7 +26,7 @@ import es.eucm.eadventure.editor.gui.metadatadialog.lomes.elementdialog.LOMContr
 
 
 /**
- * Panel for container of compose types. 
+ * Panel for manage the container of compose types. 
  *
  */
 public class LOMESCreateContainerPanel extends JPanel{
@@ -35,6 +36,14 @@ public class LOMESCreateContainerPanel extends JPanel{
 	 */
 	private static final long serialVersionUID = -8233716462597295660L;
 
+	public static final int NONE = 0;
+	
+	public static final int METAMETADATA = 1;
+	
+	public static final int LIFECYCLE=2;
+	
+	public static final int GENERAL=3;
+	
 	private JButton add;
 	
 	private JButton delete;
@@ -62,6 +71,7 @@ public class LOMESCreateContainerPanel extends JPanel{
 		}
 		
 		elements = new JComboBox(ele);
+		elements.setPreferredSize(new Dimension(150,20));
 		
 		this.add(elements, c);
 		
@@ -78,14 +88,22 @@ public class LOMESCreateContainerPanel extends JPanel{
 		
 		c.gridx ++;
 		this.add(delete, c);
-		
+	
 		this.setBorder(BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), title )); 
 		
 		
 		
 	}
 	
-	
+	public int parentIdentifierType(){
+	    //each component is inside one JPanel, and this JPanel is inside LOMESPanel
+	    if (this.getParent().getParent() instanceof LOMESGeneralPanel){
+		return GENERAL;
+	    } else if (this.getParent().getParent() instanceof LOMESMetaMetaDataPanel){
+		return METAMETADATA;
+	    } else 
+		return NONE;
+	}
 	
 	/**
 	 * Listener for the "Delete" button
@@ -118,8 +136,8 @@ public class LOMESCreateContainerPanel extends JPanel{
 		public void actionPerformed( ActionEvent arg0 ) {
 			if (container instanceof LOMIdentifier){
 				int selectedIndex = elements.getSelectedIndex();
-				LOMlIdentifierDialog idDialog = new LOMlIdentifierDialog(container,selectedIndex);
-				//only add new element if it in not empty
+				LOMlIdentifierDialog idDialog = new LOMlIdentifierDialog(container,selectedIndex,parentIdentifierType());
+				//only add new element if it is not empty
 				if (!idDialog.getCatalog().equals("")&&!idDialog.getEntry().equals("")){
 					((LOMIdentifier)container).addIdentifier(idDialog.getCatalog(),idDialog.getEntry(),selectedIndex);
 				if (selectedIndex==0)

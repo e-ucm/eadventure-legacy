@@ -34,7 +34,7 @@ public class LOMTaxon extends LOMESContainer{
 	public String[] elements(){
 		String[] elements= new String[container.size()];
 		for (int i=0; i<container.size();i++)
-			elements[i] = ((LOMClassificationTaxonPath)container.get(i)).getSource().getValue(0);
+			elements[i] = ((LOMClassificationTaxon)container.get(i)).getTitle();
 		return elements;
 	}
 
