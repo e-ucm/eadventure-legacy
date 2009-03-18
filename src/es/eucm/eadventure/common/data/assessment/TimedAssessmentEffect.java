@@ -3,9 +3,9 @@ package es.eucm.eadventure.common.data.assessment;
 
 public class TimedAssessmentEffect extends AssessmentEffect {
 
-	protected int minTime;
+	protected Integer minTime;
 	
-	protected int maxTime;
+	protected Integer maxTime;
 	
     public TimedAssessmentEffect (){
     	super();
@@ -30,14 +30,14 @@ public class TimedAssessmentEffect extends AssessmentEffect {
 	/**
 	 * @return the maxTime
 	 */
-	public int getMaxTime( ) {
+	public Integer getMaxTime( ) {
 		return maxTime;
 	}
 
 	/**
 	 * @param maxTime the maxTime to set
 	 */
-	public void setMaxTime( int maxTime ) {
+	public void setMaxTime( Integer maxTime ) {
 		this.maxTime = maxTime;
 	}
     

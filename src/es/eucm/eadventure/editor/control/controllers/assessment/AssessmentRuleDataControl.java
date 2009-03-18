@@ -11,6 +11,7 @@ import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.tools.assessment.AddAssessmentPropertyTool;
 import es.eucm.eadventure.editor.control.tools.assessment.AddEffectTool;
+import es.eucm.eadventure.editor.control.tools.assessment.ChangeMinTimeValueTool;
 import es.eucm.eadventure.editor.control.tools.assessment.DeleteAssessmentPropertyTool;
 import es.eucm.eadventure.editor.control.tools.assessment.DeleteEffectTool;
 import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeIdTool;
@@ -438,7 +439,7 @@ public class AssessmentRuleDataControl extends DataControl{
 	public void setMinTime (int time, int effect){
 		TimedAssessmentRule tRule = (TimedAssessmentRule)assessmentRule;
 		if (effect>=0 && effect<tRule.getEffectsCount( )){
-			controller.addTool(new ChangeIntegerValueTool(tRule.getEffects().get(effect), time, "getMinTime", "setMinTime"));
+			controller.addTool(new ChangeMinTimeValueTool(tRule.getEffects().get(effect), time));
 		}
 	}
 	
