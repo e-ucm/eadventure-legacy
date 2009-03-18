@@ -1,6 +1,7 @@
 package es.eucm.eadventure.editor.gui.metadatadialog.lomes;
 
 
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
@@ -24,6 +25,7 @@ public class LOMVocabularyPanel extends JPanel{
 		//super( Controller.getInstance( ).peekWindow( ), TextConstants.getText("LOMES.Value"), Dialog.ModalityType.APPLICATION_MODAL );
 		super();
 	    	elements = new JComboBox(values);
+	    	elements.setPreferredSize(new Dimension(80,20));
 		this.selection=selection;
 		
 		GridBagConstraints c = new GridBagConstraints(); 

@@ -41,7 +41,7 @@ public class LOMESRightsAndClassificationPanel extends JPanel{
 			//Rights Panels
 			LOMESOptionsPanel cost = new LOMESOptionsPanel(rightsController.getCost(), TextConstants.getText("IMS.Rights.Cost"));
 			LOMESOptionsPanel copyAndOth = new LOMESOptionsPanel(rightsController.getCopyrightandotherrestrictions(), TextConstants.getText("IMS.Rights.CopyAndOth"));
-			LOMESTextPanel descriptionR = new LOMESTextPanel(rightsController.getDescriptionController(), TextConstants.getText("LOMES.Rights.Description"), LOMESTextPanel.TYPE_FIELD);
+			LOMESTextPanel descriptionR = new LOMESTextPanel(rightsController.getDescriptionController(), TextConstants.getText("LOMES.Rights.Description"), LOMESTextPanel.TYPE_AREA);
 			LOMESOptionsPanel accessType = new LOMESOptionsPanel(rightsController.getAccesType(), TextConstants.getText("LOMES.Rights.AccessType"));
 			LOMESTextPanel accessDescription= new LOMESTextPanel(rightsController.getAccessDescriptionController(), TextConstants.getText("LOMES.Rights.AccessDescription"), LOMESTextPanel.TYPE_FIELD);
 	 
@@ -73,8 +73,10 @@ public class LOMESRightsAndClassificationPanel extends JPanel{
 			//Add the panels
 			container.add (costAndCopy,c);
 			c.gridy=1;
+			c.ipady=50;
 			container.add (descriptionR,c);
 			c.gridy=2;
+			c.ipady=0;
 			container.add (access,c);
 			c.gridy=3;
 			container.add (purpose,c);
@@ -86,9 +88,7 @@ public class LOMESRightsAndClassificationPanel extends JPanel{
 			c.gridy=6;
 			c.ipady=0;
 			container.add(keywordPanel,c);
-			
-			
-
+	
 			c.gridy=0;
 			c.anchor = GridBagConstraints.NORTH;
 			c.weighty=1.0;

@@ -8,6 +8,8 @@ import java.awt.GridBagLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.Box;
 import javax.swing.JButton;
@@ -32,6 +34,8 @@ public class LOMESDialog extends JDialog{
 	public LOMESDialog (LOMESDataControl dataControl){
 		super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "LOM.Title" ), Dialog.ModalityType.APPLICATION_MODAL );
 		this.dataControl = dataControl;
+		
+		Controller.getInstance().pushWindow(this);
 		
 		tabs = new JTabbedPane();
 		tabs.insertTab( TextConstants.getText("LOM.General.Tab"), null, new LOMESGeneralPanel(dataControl.getGeneral( )), TextConstants.getText("LOM.General.Tip"), 0 );
@@ -70,6 +74,16 @@ public class LOMESDialog extends JDialog{
 		Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
 		setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
 		setVisible( true );
+		
+		// Pop that window when is closed
+		addWindowListener( new WindowAdapter (){
+			@Override
+			public void windowClosed(WindowEvent e) {
+				Controller.getInstance().popWindow();
+				
+			}
+			
+		});
 		
 	}
 	

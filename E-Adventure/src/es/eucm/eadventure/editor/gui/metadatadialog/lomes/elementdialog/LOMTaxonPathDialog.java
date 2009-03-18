@@ -9,6 +9,8 @@ import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -44,6 +46,9 @@ public class LOMTaxonPathDialog extends JDialog{
 	
 	public LOMTaxonPathDialog(LOMESContainer container, int selectedItem){
 		super( Controller.getInstance( ).peekWindow( ), container.getTitle(), Dialog.ModalityType.APPLICATION_MODAL );
+		
+		Controller.getInstance().pushWindow(this);
+		
 		this.container = container;
 		
 		if (selectedItem ==0){
@@ -101,6 +106,15 @@ public class LOMTaxonPathDialog extends JDialog{
 		setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
 		setResizable( false );
 		setVisible( true );
+		
+		addWindowListener( new WindowAdapter (){
+			@Override
+			public void windowClosed(WindowEvent e) {
+				Controller.getInstance().popWindow();
+				
+			}
+			
+		});
 	
 	}
 

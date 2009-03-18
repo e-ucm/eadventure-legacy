@@ -9,6 +9,8 @@ import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -56,6 +58,8 @@ public class LOMLifeCycleDateDialog extends JDialog{
 	
 	public LOMLifeCycleDateDialog(LOMESLifeCycleDate composeData){
 		super( Controller.getInstance( ).peekWindow( ), composeData.getTitle(), Dialog.ModalityType.APPLICATION_MODAL );
+		
+		Controller.getInstance().pushWindow(this);
 		
 		transformer = new LOMESDateDataControl(composeData);
 		
@@ -179,6 +183,16 @@ public class LOMLifeCycleDateDialog extends JDialog{
 		setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
 		setResizable( false );
 		setVisible( true );
+		
+		
+		addWindowListener( new WindowAdapter (){
+			@Override
+			public void windowClosed(WindowEvent e) {
+				Controller.getInstance().popWindow();
+				
+			}
+			
+		});
 	
 	}
 	
