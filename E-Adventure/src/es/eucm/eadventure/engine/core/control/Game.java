@@ -731,7 +731,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         if( adaptationEngine != null )
             adaptationEngine.stopAdaptationClock( );
 
-        //TODO tener en cuenta SCORM 2004 
+        // Stop the communication 
         if (comm.getCommType()==CommManagerApi.SCORMV12_TYPE){
         	comm.disconnect(null);
         }

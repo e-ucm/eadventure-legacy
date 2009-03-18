@@ -92,14 +92,8 @@ public class EAdventureAppletScorm extends CommManagerScormV12{
      * @see java.applet.Applet#start()
      */
     public void start( ) {
-      //  try {
-			this.connect(new HashMap<String, String>());
-			// this.getMessage("cmi.core.student_id");
-			// this.sendMessage("cmi.comments","Este es mi comentario: jajjajaja");
-		/*} catch (CommException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
+
+	this.connect(new HashMap<String, String>());
         gameThread = new Thread(eAdventure);
         gameThread.start();
     }
@@ -111,21 +105,18 @@ public class EAdventureAppletScorm extends CommManagerScormV12{
     public void stop() {
         System.out.println("Closing...");
         eAdventure.setGameOver();
-   //     try {
-			this.disconnect(new HashMap<String,String>());
-	//	} catch (CommException e1) {
-			// TODO Auto-generated catch block
-		//	e1.printStackTrace();
-	//	}
-        try {
+	this.disconnect(new HashMap<String,String>());
+	try {
             System.out.println("Trying to join...");
-            gameThread.join();
-            System.out.println("...join successful.");
             Game.delete();
             ResourceHandler.delete();
+            gameThread.join();
+            System.out.println("...join successful.");
+            
         } catch( InterruptedException e ) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            //e.printStackTrace();
+            
         }
         this.destroy();
     }
