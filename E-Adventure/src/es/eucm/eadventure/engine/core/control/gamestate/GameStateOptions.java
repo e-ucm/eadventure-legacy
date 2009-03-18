@@ -253,9 +253,7 @@ public class GameStateOptions extends GameState {
         existsSaveGame = new boolean[ MAX_NUM_SAVEGAME_SLOTS ];
         for( int i = 0; i < MAX_NUM_SAVEGAME_SLOTS; i++ ) {
             saveGames[i] = new SaveGame( );
-            
 				existsSaveGame[i] = saveGames[i].existSaveFile( game.getAdventureName( ) + "_" + i + ".txt" );
-			
         }
     }
     
@@ -444,10 +442,15 @@ public class GameStateOptions extends GameState {
             // Paint the options
             g.setFont( optionsFont );
             for( int i = 0; i < NUMBER_OPTIONS_OF_PANEL[currentPanel]; i++ ) {
-                g.drawImage( (highlightedOption == i && mouseButtonPressed)? imgPressedButton : imgButton, panelPosition.x + FIRST_BUTTON_OFFSET_X, panelPosition.y + FIRST_BUTTON_OFFSET_Y + BUTTON_HEIGHT * i, null );
-                g.setColor( highlightedOption == i ? HIGHLIGHTED_COLOR : NORMAL_COLOR );
-               if (panelOptionsText.length> i)
-                GUI.drawString( g, panelOptionsText[i], GUI.WINDOW_WIDTH / 2, panelPosition.y + FIRST_BUTTON_OFFSET_Y + BUTTON_HEIGHT / 2 + BUTTON_HEIGHT * i );
+            	if (Game.getInstance().isAppletMode() && (i == 0 || i == 3)) {
+            		g.drawImage( imgPressedButton, panelPosition.x + FIRST_BUTTON_OFFSET_X, panelPosition.y + FIRST_BUTTON_OFFSET_Y + BUTTON_HEIGHT * i, null );
+            		g.setColor( NORMAL_COLOR );
+            	} else {
+            		g.drawImage( (highlightedOption == i && mouseButtonPressed)? imgPressedButton : imgButton, panelPosition.x + FIRST_BUTTON_OFFSET_X, panelPosition.y + FIRST_BUTTON_OFFSET_Y + BUTTON_HEIGHT * i, null );
+            		g.setColor( highlightedOption == i ? HIGHLIGHTED_COLOR : NORMAL_COLOR );
+            	}
+                if (panelOptionsText.length> i)
+                	GUI.drawString( g, panelOptionsText[i], GUI.WINDOW_WIDTH / 2, panelPosition.y + FIRST_BUTTON_OFFSET_Y + BUTTON_HEIGHT / 2 + BUTTON_HEIGHT * i );
             }
         }
 
@@ -629,10 +632,8 @@ public class GameStateOptions extends GameState {
         if( e.getKeyCode( ) == KeyEvent.VK_ESCAPE ) {
             if( currentPanel == OPTIONS_PANEL )
                 backToGame( );
-            
             else if(currentPanel==SAVE_PANEL || currentPanel == LOAD_PANEL )
                 changePanel( SAVELOAD_PANEL );
-            
             else
                 changePanel( OPTIONS_PANEL );
         }
@@ -646,7 +647,10 @@ public class GameStateOptions extends GameState {
     	case OPTIONS_PANEL:
     		if (highlightedOption>NUMBER_OPTIONS_OF_PANEL[OPTIONS_PANEL]){
     			highlightedOption = -1;
+    		} else if ((highlightedOption == 0 || highlightedOption == 3 ) && Game.getInstance().isAppletMode()) {
+    			highlightedOption = -1;
     		}
+
     		break;
     	case SAVELOAD_PANEL:
     		if ( highlightedOption>NUMBER_OPTIONS_OF_PANEL[SAVELOAD_PANEL]){

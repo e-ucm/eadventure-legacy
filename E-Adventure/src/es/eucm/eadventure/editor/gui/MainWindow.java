@@ -65,15 +65,15 @@ public class MainWindow extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Default width of the window.
+	 * Total margin on the x axis
 	 */
-	private static final int WINDOW_WIDTH = 900;
-
+	private static final int WINDOW_MARGIN_X = 80;
+	
 	/**
-	 * Default height of the window.
+	 * Total margin on the y axis
 	 */
-	private static final int WINDOW_HEIGHT = 725;
-
+	private static final int WINDOW_MARGIN_Y = 150;
+	
 	/**
 	 * Instance of the controller.
 	 */
@@ -189,10 +189,14 @@ public class MainWindow extends JFrame {
 
 		// Set size and position
 		setMinimumSize( new Dimension( 640, 400 ) );
-		setSize( WINDOW_WIDTH, WINDOW_HEIGHT );
 		Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
-		setLocation( ( screenSize.width - WINDOW_WIDTH ) / 2, ( screenSize.height - WINDOW_HEIGHT ) / 2 );
-
+		int width = screenSize.width - WINDOW_MARGIN_X;
+		int height = screenSize.height - WINDOW_MARGIN_Y;
+		setSize(width , height );
+		setLocation( ( screenSize.width - width) / 2, ( screenSize.height - height ) / 2 );
+		
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		
 		this.setModalExclusionType( Dialog.ModalExclusionType.APPLICATION_EXCLUDE );
 		// Set title and properties
 		updateTitle( );
