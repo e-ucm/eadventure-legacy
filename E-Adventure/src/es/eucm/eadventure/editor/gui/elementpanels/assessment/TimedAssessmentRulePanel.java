@@ -439,16 +439,10 @@ public class TimedAssessmentRulePanel extends JPanel {
 		public void stateChanged( ChangeEvent e ) {
 			SpinnerNumberModel model =  (SpinnerNumberModel)minTime.getModel( );
 			int currentMin = model.getNumber( ).intValue( );
+			
 			assessmentRuleDataControl.setMinTime(currentMin, currentEffect );
 			
-			SpinnerNumberModel modelMax = (SpinnerNumberModel)maxTime.getModel( );
-			int currentMax = modelMax.getNumber( ).intValue( );
-			if (currentMin>= currentMax){
-				currentMax = currentMin+1;
-				assessmentRuleDataControl.setMaxTime(currentMax, currentEffect );
-			}
-			
-			maxTime.setModel( new SpinnerNumberModel(currentMax, currentMin, Integer.MAX_VALUE, 1) );
+			maxTime.setModel( new SpinnerNumberModel(assessmentRuleDataControl.getMaxTime(currentEffect), currentMin + 1, Integer.MAX_VALUE, 1) );
 			maxTime.updateUI( );
 			minTime.updateUI( );
 		}
