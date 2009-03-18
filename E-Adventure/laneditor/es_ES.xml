@@ -13,9 +13,9 @@
 	<entry key="MenuFile.Load">Abrir...</entry>
 	<entry key="MenuFile.Save">Guardar</entry>
 	<entry key="MenuFile.SaveAs">Guardar como...</entry>
-	<entry key="MenuFile.LOMProperties">Propiedades de Objeto de Aprendizaje (LO)</entry>
+	<entry key="MenuFile.LOMProperties">Propiedades de Objeto de Aprendizaje para paquetes IMS-CP y SCORM 2004 (LSTC-LOM)</entry>
 	<entry key="MenuFile.LOMSCORMProperties">Propiedades de Objeto de Aprendizaje para paquetes SCORM 1.2 (IMS-LOM)</entry>
-	<entry key="MenuFile.LOMESProperties">Propiedades de la especificaión LOM-ES</entry>
+	<entry key="MenuFile.LOMESProperties">Propiedades de Objeto de Aprendizaje para paquetes AGREGA (LOM-ES)</entry>
 	<entry key="MenuFile.ExportLOM">Exportar como Objeto de Aprendizaje (LO)</entry>
 	<entry key="MenuFile.ExportGame">Exportar como fichero EAD</entry>
 	<entry key="MenuFile.ExportStandalone">Exportar como fichero jar ejecutable</entry>
