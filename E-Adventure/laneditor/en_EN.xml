@@ -2043,7 +2043,7 @@ When not customized, default arrows will be used in the game.</entry>
 	<entry key="LOMES.GeneralId.CatalogName">Catalog</entry>
 	<entry key="LOMES.GeneralId.DateName">Date</entry>
 	<entry key="LOMES.GeneralId.DescriptionName">Description</entry>
-	<entry key="LOMES.LifeCycle.DateTitle">Create new Data</entry>
+	<entry key="LOMES.LifeCycle.DateTitle">Create new Date</entry>
 	<entry key="LOMES.GeneralId.EntryName">Entry</entry>
 	<entry key="LOMES.AddElement">Add new element</entry>
 	<entry key="LOMES.General.Identifier">Identifier</entry>
@@ -2086,24 +2086,24 @@ When not customized, default arrows will be used in the game.</entry>
 	es-ga Galicia                                           es-cb Cantabria
 	es-cv Comunidad Valenciana / Comunitat Valenciana</entry>
 	<entry key="LOMES.LyfeCycle.ContributeInfo">To make correct LOMES Contribute's entry follow next indications: 
-	When "Contribute Type" is “Content Provider”, the next value must appear in "Contribut Entity": 
+	When "Contribute Type" is “Content Provider”, the next value must appear in "Contribute Entity": 
 		BEGIN:VCARD VERSION 3.0 FN: EMAIL;TYPE=INTERNET:ORG: "Company name" END:VCARD
 		Note: "Company name" must be a non empty value, representing the name of company which privides this educational content.
 		
-	When "Contribute Type" is “Publisher”, the next value must appear in "Contribut Entity":
+	When "Contribute Type" is “Publisher”, the next value must appear in "Contribute Entity":
 		BEGIN:VCARD VERSION 3.0 FN:Contenido digital educativo creado, catalogado y financiado con fondos FEDER dentro del expediente 714/07-LoteX EMAIL;TYPE=INTERNET:sugerencias@red.es ORG:RED.ES END:VCARD
 	
-	When "Contribute Type" has other values,  the next value must appear in "Contribut Entity":
+	When "Contribute Type" has other values,  the next value must appear in "Contribute Entity":
 		BEGIN:VCARD VERSION:3.0 FN: "Title" EMAIL;TYPE=INTERNET: "example@yourmail.com" ORG: "Organization" END:VCARD
 		Note: "Title", "example@yourmail.com" and "Organization" can be any value, even empty.</entry>
 
 
 	<entry key="LOMES.MetaMetaData.ContributeInfo">To make correct LOMES Contribute's entry follow next indications: 
-	When "Contribute Type" is “Creator”, the next value must appear in "Contribut Entity": 
+	When "Contribute Type" is “Creator”, the next value must appear in "Contribute Entity": 
 		BEGIN:VCARD VERSION 3.0 FN: EMAIL;TYPE=INTERNET:ORG: "Company name" END:VCARD
 		Note: "Company name" must be a non empty value, representing the name of company which privides this educational content.
 		
-	When "Contribute Type" is “Validator”, the next value must appear in "Contribut Entity":
+	When "Contribute Type" is “Validator”, the next value must appear in "Contribute Entity":
 		BEGIN:VCARD VERSION 3.0 FN:Contenido digital educativo creado, catalogado y financiado con fondos FEDER dentro del expediente 714/07-LoteX EMAIL;TYPE=INTERNET:sugerencias@red.es ORG:RED.ES END:VCARD</entry>
 	
 	<entry key="LOMES.Date.Info">Date Time must follow that pattern:  AAAA[-MM[-DD[Thh[:mm[:ss[.s[IZH]]]]]]] where:
