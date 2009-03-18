@@ -19,7 +19,7 @@
 		</fileset>
 	</path>
 
-	<target name="complie">
+	<target name="compile">
 		<mkdir dir="./web/tempcompile/" />
 		<javac srcdir="./src/" destdir="./web/tempcompile/" source="1.5" target="1.5"
 			excludes="es/eucm/eadventure/editor/**">
@@ -35,10 +35,13 @@
 			<fileset dir="web">
 				<include name="temp/**/*.*"/>
 			</fileset>
+			<fileset dir="web">
+				<include name="tempcompile/**/*.*"/>
+			</fileset>
 		</delete>
 	</target>
 
-	<target name="jar" description="generate the eadventure applet">
+	<target name="jar" depends="compile" description="generate the eadventure applet">
 		<delete file="web/eAdventure_temp.jar" />
 		<copy todir="web/temp">
 			<fileset dir=".">

@@ -310,7 +310,7 @@ public class ContextualHUD extends HUD {
         	inHud = processRightClickNoButton(actionManager.getElementOver(), e);
         	DebugLog.user("Mouse click, no action button. " + e.getX() + " , " + e.getY());
         }else{
-        	if (e.getClickCount() == 2) {
+        	if (e.getClickCount() == 2 && System.getProperty("os.name").contains("Windows")) {
     			processRightClickNoButton(actionManager.getElementOver(), e);
         	} else {
 	            if( showActionButtons ) {
