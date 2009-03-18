@@ -12,14 +12,8 @@ import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
 import es.eucm.eadventure.common.gui.TextConstants;
-import es.eucm.eadventure.editor.control.controllers.metadata.ims.IMSClassificationDataControl;
-import es.eucm.eadventure.editor.control.controllers.metadata.ims.IMSLifeCycleDataControl;
-import es.eucm.eadventure.editor.control.controllers.metadata.ims.IMSMetaMetaDataControl;
-import es.eucm.eadventure.editor.control.controllers.metadata.ims.IMSRightsDataControl;
-import es.eucm.eadventure.editor.control.controllers.metadata.ims.IMSTechnicalDataControl;
 import es.eucm.eadventure.editor.control.controllers.metadata.lomes.LOMESClassificationDataControl;
 import es.eucm.eadventure.editor.control.controllers.metadata.lomes.LOMESRightsDataControl;
-import es.eucm.eadventure.editor.gui.metadatadialog.lomes.elementdialog.LOMContributeDialog;
 import es.eucm.eadventure.editor.gui.metadatadialog.lomes.elementdialog.LOMCreatePrimitiveContainerPanel;
 
 public class LOMESRightsAndClassificationPanel extends JPanel{
