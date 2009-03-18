@@ -217,8 +217,7 @@ public class LOMLifeCycleDateDialog extends JDialog{
 		public void insertUpdate( DocumentEvent e ) {
 			if (textField == years){
 				transformer.setYears( textField.getText( ));
-			}
-			else if (textField == months){
+			}else if (textField == months){
 				transformer.setMonths(textField.getText( ));
 			}else if (textField == days){
 				transformer.setDays(textField.getText( ));
