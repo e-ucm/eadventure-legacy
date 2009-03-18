@@ -1636,7 +1636,8 @@ Si no las cambia, el juego empleará las flechas por defecto.</entry>
 	<entry key="AdaptationRulesList.Information">Estas son las reglas de adaptación definidas en este perfil. Para añadir nuevas reglas o editar las existentes, use el botón derecho en el perfil de adaptación en el árbol de la izquierda y seleccione la opción correspondiente.   En esta misma página puede definir un estado inicial por defecto para el juego que se aplicará en caso de no poder activar ninguna de las reglas de adaptación. Esto permite tener perfiles de adaptación estáticos que no requieren la intervención de un LMS.</entry>
 	<entry key="AdaptationRulesList.Scorm2004">Perfil SCORM 2004 </entry>
 	<entry key="AdaptationRulesList.Scorm12">Perfil 1.2 </entry>
-	<entry key="AdaptationRulesList.ScormBorder">Convertir perfil actual en perfil Scorm</entry>
+	<entry key="AdaptationRulesList.Normal">Perfil Normal</entry>
+	<entry key="AdaptationRulesList.ScormBorder">Cambiar el tipo de perfil</entry>
 
 	<entry key="AdaptationProfiles.Title">Perfiles de adaptación</entry>
 	<entry key="AdaptationProfiles.Information">Esta sección del árbol permite la creación y modificación de los perfiles de adaptación. Para activar uno de los perfiles, emplee el selector en la pantalla de edición de las propiedades generales del capítulo.</entry>

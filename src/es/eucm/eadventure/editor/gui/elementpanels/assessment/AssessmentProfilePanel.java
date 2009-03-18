@@ -11,12 +11,14 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -27,6 +29,7 @@ import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfileDataControl;
+
 
 public class AssessmentProfilePanel extends JPanel {
 
@@ -57,9 +60,11 @@ public class AssessmentProfilePanel extends JPanel {
 	
 	private AssessmentProfileDataControl dataControl;
 	
-	private JCheckBox scorm2004;
+	private JRadioButton scorm12;
 	
-	private JCheckBox scorm12;
+	private JRadioButton scorm2004;
+	
+	private JRadioButton normal;
 	
 
 	/**
@@ -87,15 +92,23 @@ public class AssessmentProfilePanel extends JPanel {
 		
 		JPanel scormPanel = new JPanel();
 		scormPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AdaptationRulesList.ScormBorder" ) ) );
-		scorm2004 = new JCheckBox(TextConstants.getText( "AdaptationRulesList.Scorm2004" ) );
-		scorm12 = new JCheckBox(TextConstants.getText( "AdaptationRulesList.Scorm12" ) );
-		scorm2004.addActionListener(new Scorm2004CheckBoxListener());
-		scorm12.addActionListener(new Scorm12CheckBoxListener());
+		scorm2004 = new JRadioButton(TextConstants.getText( "AdaptationRulesList.Scorm2004" ) );
+		scorm12 = new JRadioButton(TextConstants.getText( "AdaptationRulesList.Scorm12" ) );
+		normal = new JRadioButton(TextConstants.getText( "AdaptationRulesList.Normal" ) );
+		scorm2004.addActionListener(new Scorm2004RadioButtonListener());
+		scorm12.addActionListener(new Scorm12RadioButtonListener());
+		normal.addActionListener(new NormalRadioButtonListener());
 		scorm2004.setSelected(dataControl.isScorm2004());
 		scorm12.setSelected(dataControl.isScorm12());
-		scormPanel.setLayout(new GridLayout( 0, 2 ));
+		normal.setSelected(!dataControl.isScorm2004()&&!dataControl.isScorm12());
+		ButtonGroup group = new ButtonGroup();
+		group.add(scorm12);
+		group.add(scorm2004);
+		group.add(normal);
+		scormPanel.setLayout(new GridLayout( 0, 3 ));
 		scormPanel.add(scorm12);
 		scormPanel.add(scorm2004);
+		scormPanel.add(normal);
 		//set the constraints
 		c.gridy = 1;
 		c.fill = GridBagConstraints.HORIZONTAL;
@@ -129,9 +142,9 @@ public class AssessmentProfilePanel extends JPanel {
 	}
 	
 	/**
-	 * Listener for the "Scorm2004" check box.
+	 * Listener for the "Scorm2004" radio button.
 	 */
-	private class Scorm2004CheckBoxListener implements ActionListener {
+	private class Scorm2004RadioButtonListener implements ActionListener {
 
 		/*
 		 * (non-Javadoc)
@@ -139,19 +152,17 @@ public class AssessmentProfilePanel extends JPanel {
 		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 		 */
 		public void actionPerformed( ActionEvent e ) {
-			dataControl.setScorm2004(scorm2004.isSelected());
-			if (dataControl.isScorm12()){
-				dataControl.setScorm12(false);
-				scorm12.setSelected(false);
-			}
+			dataControl.setScorm2004(true);
+			dataControl.setScorm12(false);
+			
 		}
 
 	}
 	
 	/**
-	 * Listener for the "Scorm12" check box.
+	 * Listener for the "Scorm12" radio button.
 	 */
-	private class Scorm12CheckBoxListener implements ActionListener {
+	private class Scorm12RadioButtonListener implements ActionListener {
 
 		/*
 		 * (non-Javadoc)
@@ -159,14 +170,31 @@ public class AssessmentProfilePanel extends JPanel {
 		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 		 */
 		public void actionPerformed( ActionEvent e ) {
-			dataControl.setScorm12(scorm12.isSelected());
-			if (dataControl.isScorm2004()){
-				dataControl.setScorm2004(false);
-				scorm2004.setSelected(false);
-			}
+			dataControl.setScorm12(true);
+			dataControl.setScorm2004(false);
+			
 		}
 
 	}
+	
+	/**
+	 * Listener for the "normal" radio button.
+	 */
+	private class NormalRadioButtonListener implements ActionListener {
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
+		public void actionPerformed( ActionEvent e ) {
+			dataControl.setScorm12(false);
+			dataControl.setScorm2004(false);
+			
+		}
+
+	}
+	
 	
 	private JPanel createFeedbackPanel(AssessmentProfileDataControl assRulesListDataControl) {
 		JPanel feedbackPanel = new JPanel();
