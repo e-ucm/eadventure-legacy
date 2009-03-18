@@ -178,14 +178,14 @@ class UOLPropertiesPanel extends JPanel implements Updateable{
 	private String[] takesCorrectElements(ArrayList<String> dataModel,boolean s2004){
 		ArrayList<String> canWrite = new ArrayList<String>();
 		// the format of scorm data model in datamodel.xml and datamodel2004.xml:
-		// <entry key="part of scorm data model">#"can be read (0 or 1)"#"can be write (0 or 1)"#"Data type"</entry>
+		// <entry key="part of scorm cmi data model">#"can be read (0 or 1)"#"can be write (0 or 1)"#"Data type"</entry>
 		for (int i=0;i<dataModel.size();i++){
 			if (s2004){
-				if (SCORMConfigData.getProperty2004(dataModel.get(i)).charAt(3)=='0'){
+				if (SCORMConfigData.getProperty2004(dataModel.get(i)).charAt(3)=='1'){
 					canWrite.add(dataModel.get(i));
 				}
 			} else {
-				if (SCORMConfigData.getProperty12(dataModel.get(i)).charAt(3)=='0'){
+				if (SCORMConfigData.getProperty12(dataModel.get(i)).charAt(3)=='1'){
 					canWrite.add(dataModel.get(i));
 				}
 			}
