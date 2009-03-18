@@ -78,6 +78,7 @@ public class LOMContributeDialog extends JDialog{
 			if (type==METAMETADATA)
 				roleValue=new Vocabulary(LOMESLifeCycleContribute.getRoleMetametaVocabularyType());
 			entityValue=new ArrayList<String>();
+			entityValue.add(new String("Empty"));
 			dateValue = new LOMESLifeCycleDate();
 		}else {
 			roleValue=((LOMESLifeCycleContribute)container.get(selectedItem-1)).getRole();

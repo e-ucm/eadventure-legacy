@@ -53,7 +53,7 @@ public class LOMTaxonPathDialog extends JDialog{
 		
 		if (selectedItem ==0){
 			
-		    sourceValue=new LangString("");
+		    sourceValue=new LangString("Empty");
 		    taxonValue=new LOMTaxon();
 		}else {
 		    

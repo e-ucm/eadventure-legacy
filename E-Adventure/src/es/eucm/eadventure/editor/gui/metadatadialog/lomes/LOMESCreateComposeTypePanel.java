@@ -68,6 +68,7 @@ public class LOMESCreateComposeTypePanel extends JPanel{
 				LOMLifeCycleDateDialog idDialog = new LOMLifeCycleDateDialog((LOMESLifeCycleDate)compose);
 				((LOMESLifeCycleDate)compose).setDateTime(idDialog.getDateTimeValue());
 				((LOMESLifeCycleDate)compose).setDescription(new LangString(idDialog.getDescriptionValue()));
+				value.setText(idDialog.getDateTimeValue());
 				
 			}
 		}

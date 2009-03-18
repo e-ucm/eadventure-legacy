@@ -47,7 +47,7 @@ public class LOMESRightsAndClassificationPanel extends JPanel{
 	 
 			//Classification Panels
 			LOMESOptionsPanel purpose = new LOMESOptionsPanel(classificationController.getPurpose(), TextConstants.getText("IMS.Classification.Purpose"));
-			LOMESCreateContainerPanel taxonPath = new LOMESCreateContainerPanel(classificationController.getTaxonPath(),TextConstants.getText("LOMES.TaxonPath.Name"),LOMContributeDialog.NONE);
+			//LOMESCreateContainerPanel taxonPath = new LOMESCreateContainerPanel(classificationController.getTaxonPath(),TextConstants.getText("LOMES.TaxonPath.Name"),LOMContributeDialog.NONE);
 			LOMESTextPanel description = new LOMESTextPanel(classificationController.getDescription(), TextConstants.getText("IMS.Classification.Description"), LOMESTextPanel.TYPE_AREA);
 			LOMCreatePrimitiveContainerPanel keywordPanel = new LOMCreatePrimitiveContainerPanel(LOMCreatePrimitiveContainerPanel.LANGSTRING_TYPE,classificationController.getKeywords(),TextConstants.getText("LOM.General.Keyword"),LOMCreatePrimitiveContainerPanel.FIELD_TYPE_FIELD);
 			
@@ -72,20 +72,20 @@ public class LOMESRightsAndClassificationPanel extends JPanel{
 			c.weightx = 1.0;
 			//Add the panels
 			container.add (costAndCopy,c);
-			c.gridy=1;
+			c.gridy++;
 			c.ipady=50;
 			container.add (descriptionR,c);
-			c.gridy=2;
+			c.gridy++;
 			c.ipady=0;
 			container.add (access,c);
-			c.gridy=3;
+			c.gridy++;
 			container.add (purpose,c);
-			c.gridy=4;
-			container.add(taxonPath,c);
-			c.gridy=5;
+			//c.gridy++;
+			//container.add(taxonPath,c);
+			c.gridy++;
 			c.ipady=30;
 			container.add(description,c);
-			c.gridy=6;
+			c.gridy++;
 			c.ipady=0;
 			container.add(keywordPanel,c);
 	

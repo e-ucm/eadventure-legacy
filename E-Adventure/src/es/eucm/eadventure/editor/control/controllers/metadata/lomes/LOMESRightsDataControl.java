@@ -33,7 +33,7 @@ public class LOMESRightsDataControl {
 
 			public int getSelectedOption( ) {
 				for (int i=0; i<AVAILABLE_OPTIONS.length; i++){
-					if (AVAILABLE_OPTIONS[i].equals( data.getCost() ))
+					if (AVAILABLE_OPTIONS[i].equals( data.getCost().getValue() ))
 						return i;
 				}
 				return -1;
@@ -62,7 +62,7 @@ public class LOMESRightsDataControl {
 
 			public int getSelectedOption( ) {
 				for (int i=0; i<AVAILABLE_OPTIONS.length; i++){
-					if (AVAILABLE_OPTIONS[i].equals( data.getCopyrightandotherrestrictions() ))
+					if (AVAILABLE_OPTIONS[i].equals( data.getCopyrightandotherrestrictions().getValue() ))
 						return i;
 				}
 				return -1;
@@ -119,7 +119,7 @@ public class LOMESRightsDataControl {
 
 			public int getSelectedOption( ) {
 				for (int i=0; i<AVAILABLE_OPTIONS.length; i++){
-					if (AVAILABLE_OPTIONS[i].equals( data.getCopyrightandotherrestrictions() ))
+					if (AVAILABLE_OPTIONS[i].equals( data.getAccessType().getValue() ))
 						return i;
 				}
 				return -1;
