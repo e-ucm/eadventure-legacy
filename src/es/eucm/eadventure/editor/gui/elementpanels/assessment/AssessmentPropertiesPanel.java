@@ -191,11 +191,11 @@ class AssessmentPropertiesPanel extends JPanel {
 		// <entry key="part of scorm data model">#"can be read (0 or 1)"#"can be write (0 or 1)"#"Data type"</entry>
 		for (int i=0;i<dataModel.size();i++){
 			if (s2004){
-				if (SCORMConfigData.getProperty2004(dataModel.get(i)).charAt(3)=='1'){
+				if (SCORMConfigData.getProperty2004(dataModel.get(i)).charAt(1)=='1'){
 					canWrite.add(dataModel.get(i));
 				}
 			} else {
-				if (SCORMConfigData.getProperty12(dataModel.get(i)).charAt(3)=='1'){
+				if (SCORMConfigData.getProperty12(dataModel.get(i)).charAt(1)=='1'){
 					canWrite.add(dataModel.get(i));
 				}
 			}
