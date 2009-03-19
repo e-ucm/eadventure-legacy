@@ -883,9 +883,27 @@ public class Controller {
 	 */
 	public boolean newFile( int fileType ) {
 		boolean fileCreated = false;
-		boolean createNewFile = true;
 
-		// If the data was not saved, ask for an action (save, discard changes...)
+		if ( fileType == Controller.FILE_ADVENTURE_1STPERSON_PLAYER || 
+			fileType == Controller.FILE_ADVENTURE_3RDPERSON_PLAYER)
+			fileCreated = newAdventureFile ( fileType );
+		else if ( fileType == Controller.FILE_ASSESSMENT){
+			//fileCreated = newAssessmentFile();
+		} else if ( fileType == Controller.FILE_ADAPTATION){
+			//fileCreated = newAdaptationFile();
+		}
+
+		if( fileCreated )
+			AssetsController.resetCache( );
+
+		return fileCreated;
+	}
+
+	
+	public boolean newFile() {
+		boolean fileCreated = false;
+		boolean createNewFile = true;
+		
 		if( dataModified ) {
 			int option = mainWindow.showConfirmDialog( TextConstants.getText( "Operation.NewFileTitle" ), TextConstants.getText( "Operation.NewFileMessage" ) );
 
@@ -904,27 +922,55 @@ public class Controller {
 				createNewFile = false;
 
 		}
+		
+		if (createNewFile) {
+			this.stopAutoSave();
+			ConfigData.storeToXML( );
+			ProjectConfigData.storeToXML( );
+			ConfigData.loadFromXML( ReleaseFolders.configFileEditorRelativePath() );
+			ProjectConfigData.init();
 
-		// If the file must be created
-		if( createNewFile ) {
-			if ( fileType == Controller.FILE_ADVENTURE_1STPERSON_PLAYER || 
-					fileType == Controller.FILE_ADVENTURE_3RDPERSON_PLAYER)
-				fileCreated = newAdventureFile ( fileType );
-			else if ( fileType == Controller.FILE_ASSESSMENT){
-				//fileCreated = newAssessmentFile();
-			}
-			else if ( fileType == Controller.FILE_ADAPTATION){
-				//fileCreated = newAdaptationFile();
+			// Show dialog
+			StartDialog start = new StartDialog(StartDialog.NEW_TAB);
+			
+			//mainWindow.setEnabled( false );
+			mainWindow.setVisible( false );
+
+			int op = start.showOpenDialog( null );
+			//start.end();
+			if( op == StartDialog.NEW_FILE_OPTION ) {
+				newFile( start.getFileType( ) );
+			} else if( op == StartDialog.OPEN_FILE_OPTION ) {
+				java.io.File selectedFile = start.getSelectedFile( );
+				if (selectedFile.getAbsolutePath().toLowerCase().endsWith(".eap")) {
+					String absolutePath = selectedFile.getPath();
+					loadFile(absolutePath.substring(0, absolutePath.length() - 4), true);
+				} else if (selectedFile.isDirectory( ) && selectedFile.exists( ))
+					loadFile( start.getSelectedFile( ).getAbsolutePath( ), true );
+				else {
+					this.importGame( selectedFile.getAbsolutePath( ) );
+				}
+			} else if( op == StartDialog.RECENT_FILE_OPTION ) {
+				loadFile( start.getRecentFile( ).getAbsolutePath( ), true );
+			} else if( op == StartDialog.CANCEL_OPTION ) {
+				exit( );
 			}
 
+			if ( currentZipFile == null ){
+				mainWindow.reloadData( );
+			}
+			
+			mainWindow.setResizable( true );
+			mainWindow.setEnabled( true );
+			mainWindow.setVisible( true );
+			//DEBUGGING
+			tsd = new ToolSystemDebugger( chaptersController );
 		}
-		if( fileCreated )
-			AssetsController.resetCache( );
-
-		return fileCreated;
-
+		
+		return createNewFile;
 	}
-
+	
+	
 	private boolean newAdventureFile( int fileType ){
 		boolean fileCreated = false;
 		
@@ -1272,6 +1318,11 @@ public class Controller {
 	
 			if( loadFile && completeFilePath == null ) {
 				this.stopAutoSave();
+				ConfigData.storeToXML( );
+				ProjectConfigData.storeToXML( );
+				ConfigData.loadFromXML( ReleaseFolders.configFileEditorRelativePath() );
+				ProjectConfigData.init();
+
 				// Show dialog
 				StartDialog start = new StartDialog(StartDialog.OPEN_TAB);
 				
