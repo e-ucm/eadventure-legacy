@@ -320,7 +320,7 @@ public class MainWindow extends JFrame {
 		windowMenu.add( about );
 
 		// Create the "File" elements
-		JMenu itFileNew = new JMenu( TextConstants.getText( "MenuFile.New" ) );
+/*		JMenu itFileNew = new JMenu( TextConstants.getText( "MenuFile.New" ) );
 		JMenuItem itNewAdventurePlayerVisible = new JMenuItem( TextConstants.getText( "MenuFile.NewAdventurePlayerVisible" ) );
 		JMenuItem itNewAdventurePlayerTransparent = new JMenuItem( TextConstants.getText( "MenuFile.NewAdventurePlayerTransparent" ) );
 		itNewAdventurePlayerVisible.addActionListener( new ActionListener( ) {
@@ -336,7 +336,17 @@ public class MainWindow extends JFrame {
 		itFileNew.add( itNewAdventurePlayerTransparent );
 		itFileNew.add( itNewAdventurePlayerVisible );
 		itNewAdventurePlayerVisible.setAccelerator( KeyStroke.getKeyStroke( 'N', InputEvent.CTRL_MASK ) );
+		fileMenu.add( itFileNew );*/
+		JMenuItem itFileNew = new JMenuItem( TextConstants.getText("MenuFile.New"));
+		itFileNew.addActionListener( new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.newFile();
+			}
+		});
 		fileMenu.add( itFileNew );
+		
+		
+		
 		JMenuItem itFileLoad = new JMenuItem( TextConstants.getText( "MenuFile.Load" ) );
 		itFileLoad.addActionListener( new ActionListener( ) {
 			public void actionPerformed( ActionEvent e ) {
