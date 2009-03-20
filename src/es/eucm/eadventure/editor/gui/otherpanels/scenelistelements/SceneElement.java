@@ -11,9 +11,16 @@ import java.util.Random;
 
 import javax.swing.ImageIcon;
 
+import es.eucm.eadventure.common.data.chapter.effects.Effect;
+import es.eucm.eadventure.common.data.chapter.effects.TriggerSceneEffect;
+import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.config.SceneLinksConfigData;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.general.ActionDataControl;
+import es.eucm.eadventure.editor.control.controllers.item.ItemDataControl;
+import es.eucm.eadventure.editor.control.controllers.scene.ActiveAreaDataControl;
+import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ExitDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
 
@@ -22,6 +29,10 @@ public class SceneElement {
 	private SceneDataControl sceneDataControl;
 	
 	private List<ExitElement> exitElements;
+	
+	private List<ActiveAreaElement> activeAreaElements;
+	
+	private List<ItemReferenceElement> itemReferenceElements;
 	
 	private int posX;
 	
@@ -47,6 +58,8 @@ public class SceneElement {
 		}
 		setColor();
 		exitElements = new ArrayList<ExitElement>();
+		activeAreaElements = new ArrayList<ActiveAreaElement>();
+		itemReferenceElements = new ArrayList<ItemReferenceElement>();
 		Graphics2D g = (Graphics2D) image.getGraphics();
 		AlphaComposite alphaComposite = AlphaComposite.getInstance(
 				AlphaComposite.SRC_OVER, 0.3f);
@@ -60,7 +73,54 @@ public class SceneElement {
 			g.fillRect(x, y, width, height);
 			exitElements.add(new ExitElement(exit));
 		}
-		
+		for (ActiveAreaDataControl aadc : sceneDataControl.getActiveAreasList().getActiveAreas()) {
+			boolean hasTriggerScene = false;
+			List<String> sceneIds = new ArrayList<String>();
+			for (ActionDataControl adc : aadc.getActionsList().getActions()) {
+				for (Effect e : adc.getEffects().getEffects()) {
+					if (e.getType() == Effect.TRIGGER_SCENE) {
+						TriggerSceneEffect tse = (TriggerSceneEffect) e;
+						sceneIds.add(tse.getTargetId());
+						hasTriggerScene = true;
+					}
+				}
+			}
+			if (hasTriggerScene) {
+				int x = aadc.getX();
+				int y = aadc.getY();
+				int width = aadc.getWidth();
+				int height = aadc.getHeight();
+				g.fillRect(x, y, width, height);
+				activeAreaElements.add(new ActiveAreaElement(aadc, sceneIds));
+			}
+		}
+		for (ElementReferenceDataControl irdc : sceneDataControl.getReferencesList().getItemReferences()) {
+			boolean hasTriggerScene = false;
+			List<String> sceneIds = new ArrayList<String>();
+			for (ActionDataControl adc : ((ItemDataControl) irdc.getReferencedElementDataControl()).getActionsList().getActions()) {
+				for (Effect e : adc.getEffects().getEffects()) {
+					if (e.getType() == Effect.TRIGGER_SCENE) {
+						TriggerSceneEffect tse = (TriggerSceneEffect) e;
+						sceneIds.add(tse.getTargetId());
+						hasTriggerScene = true;
+					}
+				}
+			}
+			if (hasTriggerScene) {
+				Image image;
+				String imagePath = Controller.getInstance().getElementImagePath(irdc.getElementId());
+				if (imagePath != null)
+					image = AssetsController.getImage(imagePath);
+				else
+					image = (new ImageIcon("img/assets/EmptyImage.png")).getImage();
+				int width = (int) (irdc.getElementScale() * image.getWidth(null));
+				int height = (int) (irdc.getElementScale() * image.getHeight(null));
+				int x = irdc.getElementX() - width / 2;
+				int y = irdc.getElementY() - height;
+				g.drawImage(image, x, y, width, height, null);
+				itemReferenceElements.add(new ItemReferenceElement(irdc, sceneIds));
+			}
+		}
 		
 		posX = (new Random()).nextInt(780);
 		posY = (new Random()).nextInt(580);	
@@ -165,5 +225,13 @@ public class SceneElement {
 	public void setVisible(boolean visible) {
 		this.visible = visible;
 		SceneLinksConfigData.setSceneVisible(getId(), visible);
+	}
+
+	public List<ActiveAreaElement> getActiveAreaElements() {
+		return activeAreaElements;
+	}
+
+	public List<ItemReferenceElement> getItemReferenceElements() {
+		return itemReferenceElements;
 	}
 }

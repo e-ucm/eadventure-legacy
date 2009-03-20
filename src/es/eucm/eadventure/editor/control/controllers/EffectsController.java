@@ -231,6 +231,10 @@ public class EffectsController {
 
 		return effectInfo;
 	}
+	
+	public List<Effect> getEffects() {
+		return effects.getEffects();
+	}
 
 	/**
 	 * Adds a new condition to the block.

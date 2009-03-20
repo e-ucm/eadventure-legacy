@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Stroke;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.AdjustmentEvent;
@@ -465,6 +466,19 @@ public class DrawPanel  extends JPanel {
 			int posY2 = marginY + (int) (y2 * sizeRatio);
 			Graphics g = backBuffer.getGraphics();
 			g.setColor(color);
+			g.drawLine(posX1, posY1, posX2, posY2);
+		}
+	}
+
+	public void drawRelativeLine(int x1, int y1, int x2, int y2, Color color, Stroke stroke) {
+		if(checkBackBuffer()) {
+			int posX1 = marginX + (int) (x1 * sizeRatio);
+			int posY1 = marginY + (int) (y1 * sizeRatio);
+			int posX2 = marginX + (int) (x2 * sizeRatio);
+			int posY2 = marginY + (int) (y2 * sizeRatio);
+			Graphics g = backBuffer.getGraphics();
+			g.setColor(color);
+			((Graphics2D) g).setStroke(stroke);
 			g.drawLine(posX1, posY1, posX2, posY2);
 		}
 	}
