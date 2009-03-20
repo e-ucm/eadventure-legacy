@@ -1,12 +1,14 @@
 package es.eucm.eadventure.editor.gui.otherpanels;
 
 import java.awt.AlphaComposite;
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Stroke;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.EventObject;
@@ -26,7 +28,9 @@ import es.eucm.eadventure.editor.control.config.SceneLinksConfigData;
 import es.eucm.eadventure.editor.control.controllers.SceneLinksController;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ScenesListDataControl;
+import es.eucm.eadventure.editor.gui.otherpanels.scenelistelements.ActiveAreaElement;
 import es.eucm.eadventure.editor.gui.otherpanels.scenelistelements.ExitElement;
+import es.eucm.eadventure.editor.gui.otherpanels.scenelistelements.ItemReferenceElement;
 import es.eucm.eadventure.editor.gui.otherpanels.scenelistelements.SceneElement;
 
 /**
@@ -207,10 +211,33 @@ public class SceneLinksPanel extends JPanel {
 				for (ExitElement exit : scene.getExitElements()) {
 					int x1 = (int) (scene.getPosX() + exit.getPosX() * drawingScale);
 					int y1 = (int) (scene.getPosY() + exit.getPosY() * drawingScale);
+					BasicStroke basicStroke = new BasicStroke();
 					for (String id : exit.getSceneIds()) {
 						SceneElement temp = this.getSceneElementForId(id);
 						if (temp != null && temp.isVisible()) {
-							addLine(x1, y1, temp, scene.getColor(), lines);
+							addLine(x1, y1, temp, scene.getColor(), basicStroke, lines);
+						}
+					}
+				}
+				for (ActiveAreaElement aae : scene.getActiveAreaElements()) {
+					int x1 = (int) (scene.getPosX() + aae.getPosX() * drawingScale);
+					int y1 = (int) (scene.getPosY() + aae.getPosY() * drawingScale);
+					BasicStroke basicStroke = new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[] {9}, 0 );
+					for (String id : aae.getSceneIds()) {
+						SceneElement temp = this.getSceneElementForId(id);
+						if (temp != null && temp.isVisible()) {
+							addLine(x1, y1, temp, scene.getColor(), basicStroke, lines);
+						}
+					}
+				}
+				for (ItemReferenceElement ire : scene.getItemReferenceElements()) {
+					int x1 = (int) (scene.getPosX() + ire.getPosX() * drawingScale);
+					int y1 = (int) (scene.getPosY() + ire.getPosY() * drawingScale);
+					BasicStroke basicStroke = new BasicStroke(1, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[] {9}, 0 );
+					for (String id : ire.getSceneIds()) {
+						SceneElement temp = this.getSceneElementForId(id);
+						if (temp != null && temp.isVisible()) {
+							addLine(x1, y1, temp, scene.getColor(), basicStroke, lines);
 						}
 					}
 				}
@@ -218,7 +245,7 @@ public class SceneLinksPanel extends JPanel {
 		}
 		
 		for (Line line : lines) {
-			drawPanel.drawRelativeLine(line.x1, line.y1, line.x2, line.y2, line.color);
+			drawPanel.drawRelativeLine(line.x1, line.y1, line.x2, line.y2, line.color, line.stroke);
 			drawPanel.drawRelativeArrowTip(line.x1, line.y1, line.x2, line.y2, line.color);
 		}
 	}
@@ -232,7 +259,7 @@ public class SceneLinksPanel extends JPanel {
 	 * @param color The color of the line
 	 * @param lines The list of lines where to add the new one
 	 */
-	private void addLine(int x1, int y1, SceneElement temp, Color color, List<Line> lines) {
+	private void addLine(int x1, int y1, SceneElement temp, Color color, Stroke stroke, List<Line> lines) {
 		double w = temp.getWidth() * drawingScale /2;
 		double h = temp.getHeight() * drawingScale / 2;
 		int x2 = (int) (temp.getPosX() + w);
@@ -258,7 +285,7 @@ public class SceneLinksPanel extends JPanel {
 				x3 = (int) (x2 + (h/(y2 - y1))*(x2 - x1));
 			}
 		}
-		lines.add(new Line(x1, y1, x3, y3, color));
+		lines.add(new Line(x1, y1, x3, y3, color, stroke));
 	}
 
 	/**
@@ -270,12 +297,14 @@ public class SceneLinksPanel extends JPanel {
 		public int y1;
 		public int y2;
 		public Color color;
-		public Line(int x1, int y1, int x2, int y2, Color color) {
+		public Stroke stroke;
+		public Line(int x1, int y1, int x2, int y2, Color color, Stroke stroke) {
 			this.x1 = x1;
 			this.x2 = x2;
 			this.y1 = y1;
 			this.y2 = y2;
 			this.color = color;
+			this.stroke = stroke;
 		}
 	}
 
