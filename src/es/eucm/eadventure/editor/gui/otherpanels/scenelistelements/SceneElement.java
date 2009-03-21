@@ -11,12 +11,17 @@ import java.util.Random;
 
 import javax.swing.ImageIcon;
 
+import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
+import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
 import es.eucm.eadventure.common.data.chapter.effects.Effect;
 import es.eucm.eadventure.common.data.chapter.effects.TriggerSceneEffect;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.config.SceneLinksConfigData;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.character.ConversationReferenceDataControl;
+import es.eucm.eadventure.editor.control.controllers.character.NPCDataControl;
+import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ActionDataControl;
 import es.eucm.eadventure.editor.control.controllers.item.ItemDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ActiveAreaDataControl;
@@ -34,6 +39,8 @@ public class SceneElement {
 	
 	private List<ItemReferenceElement> itemReferenceElements;
 	
+	private List<NPCReferenceElement> npcReferenceElements;
+ 	
 	private int posX;
 	
 	private int posY;
@@ -94,6 +101,8 @@ public class SceneElement {
 				activeAreaElements.add(new ActiveAreaElement(aadc, sceneIds));
 			}
 		}
+		alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.6f);
+		g.setComposite(alphaComposite);
 		for (ElementReferenceDataControl irdc : sceneDataControl.getReferencesList().getItemReferences()) {
 			boolean hasTriggerScene = false;
 			List<String> sceneIds = new ArrayList<String>();
@@ -118,10 +127,62 @@ public class SceneElement {
 				int x = irdc.getElementX() - width / 2;
 				int y = irdc.getElementY() - height;
 				g.drawImage(image, x, y, width, height, null);
-				itemReferenceElements.add(new ItemReferenceElement(irdc, sceneIds));
+				itemReferenceElements.add(new ItemReferenceElement(irdc, height, sceneIds));
 			}
 		}
-		
+		for (ElementReferenceDataControl irdc : sceneDataControl.getReferencesList().getNPCReferences()) {
+			boolean hasTriggerScene = false;
+			List<String> sceneIds = new ArrayList<String>();
+			for (ActionDataControl adc : ((NPCDataControl) irdc.getReferencedElementDataControl()).getActionsList().getActions()) {
+				for (Effect e : adc.getEffects().getEffects()) {
+					if (e.getType() == Effect.TRIGGER_SCENE) {
+						TriggerSceneEffect tse = (TriggerSceneEffect) e;
+						sceneIds.add(tse.getTargetId());
+						hasTriggerScene = true;
+					}
+				}
+			}
+			for (ConversationReferenceDataControl crdc : ((NPCDataControl) irdc.getReferencedElementDataControl()).getConversationReferencesList().getConversationReferences()) {
+				for (ConversationDataControl cdc : Controller.getInstance().getSelectedChapterDataControl().getConversationsList().getConversations()) {
+					if (cdc.getId().equals(crdc.getIdTarget())) {
+						List<ConversationNodeView> nodes = new ArrayList<ConversationNodeView>();
+						nodes.add(cdc.getRootNode());
+						int i = 0;
+						while (i < nodes.size()) {
+							ConversationNodeView node = nodes.get(i);
+							for (int j = 0; j < node.getChildCount(); j++) {
+								if (!nodes.contains(node.getChildView(j)))
+									nodes.add(node.getChildView(j));
+							}
+							for (Effect e : ((ConversationNode) node).getEffects().getEffects()) {
+								if (e.getType() == Effect.TRIGGER_SCENE) {
+									TriggerSceneEffect tse = (TriggerSceneEffect) e;
+									sceneIds.add(tse.getTargetId());
+									hasTriggerScene = true;
+								}
+							}
+							i++;
+						}
+					}
+				}
+			}
+			if (hasTriggerScene) {
+				Image image;
+				String imagePath = Controller.getInstance().getElementImagePath(irdc.getElementId());
+				if (imagePath != null)
+					image = AssetsController.getImage(imagePath);
+				else
+					image = (new ImageIcon("img/assets/EmptyImage.png")).getImage();
+				int width = (int) (irdc.getElementScale() * image.getWidth(null));
+				int height = (int) (irdc.getElementScale() * image.getHeight(null));
+				int x = irdc.getElementX() - width / 2;
+				int y = irdc.getElementY() - height;
+				g.drawImage(image, x, y, width, height, null);
+				itemReferenceElements.add(new ItemReferenceElement(irdc, height, sceneIds));
+			}
+		}			
+
+
 		posX = (new Random()).nextInt(780);
 		posY = (new Random()).nextInt(580);	
 	}
@@ -233,5 +294,9 @@ public class SceneElement {
 
 	public List<ItemReferenceElement> getItemReferenceElements() {
 		return itemReferenceElements;
+	}
+	
+	public List<NPCReferenceElement> getNPCReferenceElements() {
+		return npcReferenceElements;
 	}
 }
