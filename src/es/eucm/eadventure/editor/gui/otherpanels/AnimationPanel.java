@@ -81,11 +81,18 @@ public class AnimationPanel extends JPanel implements ClockListener {
 	private boolean useAudio;
 	
 	/**
+	 * This int indicates where the animation panel is created, to
+	 * determine how to obtain the images of the animation
+	 */
+	private int where;
+	
+	/**
 	 * Constructor.
 	 */
-	public AnimationPanel(boolean useAudio) {
+	public AnimationPanel(boolean useAudio, int where) {
 		super( );
 		this.useAudio = useAudio;
+		this.where = where;
 		
 		// Add the closing listener
 		addAncestorListener( new ClosingListener( ) );
@@ -108,12 +115,12 @@ public class AnimationPanel extends JPanel implements ClockListener {
 	 *            Path to the animation , including the suffix
 	 */
 	public AnimationPanel(boolean useAudio,  String animationPath) {
-		this( useAudio );
+		this( useAudio , Animation.EDITOR);
 		loadAnimation( animationPath );
 	}
 	
 	public AnimationPanel(boolean useAudio, Animation animation) {
-		this( useAudio );
+		this( useAudio , Animation.EDITOR);
 		this.animation=animation;
 		animation.restart();
 		// Remove all components, and add a label if the animation is not loaded
@@ -144,6 +151,7 @@ public class AnimationPanel extends JPanel implements ClockListener {
 		
 		if (animationPath.endsWith(".eaa")) {
 			this.animation = Loader.loadAnimation(AssetsController.getInputStreamCreator(), animationPath);
+			this.animation.setAbsolutePath(animationPath);
 		} else {
 	
 			// Load the image and calculate the sizes
@@ -237,7 +245,7 @@ public class AnimationPanel extends JPanel implements ClockListener {
 			double dialogRatio = (double) ( getWidth( ) - ( MARGIN * 2 ) ) / (double) ( getHeight( ) - ( MARGIN * 2 ) );
 			double imageRatio;
 			if (animation != null) {
-				Image temp = animation.getImage(accumulatedAnimationTime);
+				Image temp = animation.getImage(accumulatedAnimationTime, where);
 
 				String audioPath = animation.getNewSound();
 				Sound sound = null;
@@ -273,7 +281,7 @@ public class AnimationPanel extends JPanel implements ClockListener {
 				y = MARGIN;
 			}
 			if (animation != null) {
-				g.drawImage( animation.getImage(accumulatedAnimationTime), x, y, width, height, null, null );			
+				g.drawImage( animation.getImage(accumulatedAnimationTime, where), x, y, width, height, null, null );			
 			} else {
 				g.drawImage( frames[currentFrameIndex], x, y, width, height, null, null );
 			}
@@ -313,7 +321,6 @@ public class AnimationPanel extends JPanel implements ClockListener {
 	}
 	
 	private class AnimationPanelMouseListener implements MouseListener {
-
 		public void mouseClicked(MouseEvent arg0) {
 			if (animation != null) {
 				accumulatedAnimationTime = animation.skipFrame(accumulatedAnimationTime);
@@ -331,6 +338,5 @@ public class AnimationPanel extends JPanel implements ClockListener {
 
 		public void mouseReleased(MouseEvent arg0) {
 		}
-		
 	}
 }

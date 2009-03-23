@@ -29,6 +29,12 @@ public class Animation implements Cloneable, Documented, HasId {
 	 */
 	public static final String RESOURCE_TYPE_MUSIC = "music";
 
+	public static final int ENGINE = 0;
+	
+	public static final int EDITOR = 1;
+	
+	public static final int PREVIEW = 2;
+	
 	/**
 	 * Set of frames for the animation
 	 */
@@ -76,6 +82,8 @@ public class Animation implements Cloneable, Documented, HasId {
 	private int soundMaxTime = 1000;
 
 	private int lastSoundFrame = -1;
+
+	private String animationPath;
 	
 	/**
 	 * Creates a new Animation. It can be created without any frames (empty = true)
@@ -260,8 +268,6 @@ public class Animation implements Cloneable, Documented, HasId {
 		return resources;
 	}
 	
-	
-	
 	/**
 	 * @return the slides
 	 */
@@ -299,7 +305,7 @@ public class Animation implements Cloneable, Documented, HasId {
 	 * @return
 	 * The image to draw, in a loop
 	 */
-	public Image getImage(long elapsedTime) {
+	public Image getImage(long elapsedTime, int where) {
 		int temp = skippedFrames;
 
 		// check to see if the all the waiting frames have been
@@ -321,13 +327,13 @@ public class Animation implements Cloneable, Documented, HasId {
 					soundMaxTime = frames.get(i).getMaxSoundTime();
 					lastSoundFrame = i;
 				}
-				return frames.get(i).getImage(mirror, fullscreen);
+				return frames.get(i).getImage(mirror, fullscreen, where);
 			}
 			if (i == frames.size() - 1)
 				return noImage();
 			elapsedTime -= frames.get(i).getTime();
 			if (transitions.get(i+1).getTime() > elapsedTime && useTransitions) {
-				return combinedFrames(i, elapsedTime);
+				return combinedFrames(i, elapsedTime, where);
 			}
 			if (useTransitions)
 				elapsedTime -= transitions.get(i+1).getTime();
@@ -410,9 +416,9 @@ public class Animation implements Cloneable, Documented, HasId {
 	 * @param elapsedTime The time elapsed in the transition
 	 * @return An image with the combination of the two frames
 	 */
-	private Image combinedFrames(int i, long elapsedTime) {
-		Image start = frames.get(i).getImage(mirror, fullscreen);
-		Image end = frames.get(i+1).getImage(mirror, fullscreen);
+	private Image combinedFrames(int i, long elapsedTime, int where) {
+		Image start = frames.get(i).getImage(mirror, fullscreen, where);
+		Image end = frames.get(i+1).getImage(mirror, fullscreen, where);
 		long time = transitions.get(i+1).getTime();
 		Image temp;
 		Graphics2D g;
@@ -583,5 +589,14 @@ public class Animation implements Cloneable, Documented, HasId {
 		this.id = id;
 	}
 
+	public void setAbsolutePath(String animationPath) {
+		this.animationPath = animationPath;
+		for (Frame frame : frames)
+			frame.setAbsolutePath(animationPath);
+	}
+
+	public String getAboslutePath() {
+		return animationPath;
+	}
 
 }

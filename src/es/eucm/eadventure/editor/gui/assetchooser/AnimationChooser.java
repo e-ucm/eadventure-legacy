@@ -4,6 +4,7 @@ import java.awt.Container;
 
 import javax.swing.BorderFactory;
 
+import es.eucm.eadventure.common.data.animation.Animation;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.gui.otherpanels.AnimationPanel;
@@ -23,7 +24,7 @@ public class AnimationChooser extends AssetChooser {
 
 	@Override
 	protected void createPreviewPanel( Container parent ) {
-		animationPanel = new AnimationPanel( true );
+		animationPanel = new AnimationPanel( true , Animation.PREVIEW);
 		animationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AnimationAssets.Preview" ) ) );
 		parent.add( animationPanel );
 	}
