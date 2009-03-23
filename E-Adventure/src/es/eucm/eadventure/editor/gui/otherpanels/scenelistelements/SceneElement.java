@@ -2,6 +2,7 @@ package es.eucm.eadventure.editor.gui.otherpanels.scenelistelements;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
+import java.awt.Composite;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -14,6 +15,7 @@ import javax.swing.ImageIcon;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
 import es.eucm.eadventure.common.data.chapter.effects.Effect;
+import es.eucm.eadventure.common.data.chapter.effects.TriggerConversationEffect;
 import es.eucm.eadventure.common.data.chapter.effects.TriggerSceneEffect;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.config.SceneLinksConfigData;
@@ -80,6 +82,20 @@ public class SceneElement {
 			g.fillRect(x, y, width, height);
 			exitElements.add(new ExitElement(exit));
 		}
+		
+		getActiveAreaNextScene(g);
+		
+		getItemNextScene(g);
+		
+		getNPCNextScene(g);
+		
+
+
+		posX = (new Random()).nextInt(780);
+		posY = (new Random()).nextInt(580);	
+	}
+	
+	private void getActiveAreaNextScene(Graphics2D g) {
 		for (ActiveAreaDataControl aadc : sceneDataControl.getActiveAreasList().getActiveAreas()) {
 			boolean hasTriggerScene = false;
 			List<String> sceneIds = new ArrayList<String>();
@@ -89,6 +105,14 @@ public class SceneElement {
 						TriggerSceneEffect tse = (TriggerSceneEffect) e;
 						sceneIds.add(tse.getTargetId());
 						hasTriggerScene = true;
+					}
+					if (e.getType() == Effect.TRIGGER_CONVERSATION) {
+						TriggerConversationEffect tce = (TriggerConversationEffect) e;
+						List<String> temp = getConversationSceneIds(tce.getTargetId());
+						if (temp != null && !temp.isEmpty()) {
+							sceneIds.addAll(temp);
+							hasTriggerScene = true;
+						}
 					}
 				}
 			}
@@ -101,7 +125,10 @@ public class SceneElement {
 				activeAreaElements.add(new ActiveAreaElement(aadc, sceneIds));
 			}
 		}
-		alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.6f);
+	}
+	
+	private void getItemNextScene(Graphics2D g) {
+		Composite alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.6f);
 		g.setComposite(alphaComposite);
 		for (ElementReferenceDataControl irdc : sceneDataControl.getReferencesList().getItemReferences()) {
 			boolean hasTriggerScene = false;
@@ -113,55 +140,12 @@ public class SceneElement {
 						sceneIds.add(tse.getTargetId());
 						hasTriggerScene = true;
 					}
-				}
-			}
-			if (hasTriggerScene) {
-				Image image;
-				String imagePath = Controller.getInstance().getElementImagePath(irdc.getElementId());
-				if (imagePath != null)
-					image = AssetsController.getImage(imagePath);
-				else
-					image = (new ImageIcon("img/assets/EmptyImage.png")).getImage();
-				int width = (int) (irdc.getElementScale() * image.getWidth(null));
-				int height = (int) (irdc.getElementScale() * image.getHeight(null));
-				int x = irdc.getElementX() - width / 2;
-				int y = irdc.getElementY() - height;
-				g.drawImage(image, x, y, width, height, null);
-				itemReferenceElements.add(new ItemReferenceElement(irdc, height, sceneIds));
-			}
-		}
-		for (ElementReferenceDataControl irdc : sceneDataControl.getReferencesList().getNPCReferences()) {
-			boolean hasTriggerScene = false;
-			List<String> sceneIds = new ArrayList<String>();
-			for (ActionDataControl adc : ((NPCDataControl) irdc.getReferencedElementDataControl()).getActionsList().getActions()) {
-				for (Effect e : adc.getEffects().getEffects()) {
-					if (e.getType() == Effect.TRIGGER_SCENE) {
-						TriggerSceneEffect tse = (TriggerSceneEffect) e;
-						sceneIds.add(tse.getTargetId());
-						hasTriggerScene = true;
-					}
-				}
-			}
-			for (ConversationReferenceDataControl crdc : ((NPCDataControl) irdc.getReferencedElementDataControl()).getConversationReferencesList().getConversationReferences()) {
-				for (ConversationDataControl cdc : Controller.getInstance().getSelectedChapterDataControl().getConversationsList().getConversations()) {
-					if (cdc.getId().equals(crdc.getIdTarget())) {
-						List<ConversationNodeView> nodes = new ArrayList<ConversationNodeView>();
-						nodes.add(cdc.getRootNode());
-						int i = 0;
-						while (i < nodes.size()) {
-							ConversationNodeView node = nodes.get(i);
-							for (int j = 0; j < node.getChildCount(); j++) {
-								if (!nodes.contains(node.getChildView(j)))
-									nodes.add(node.getChildView(j));
-							}
-							for (Effect e : ((ConversationNode) node).getEffects().getEffects()) {
-								if (e.getType() == Effect.TRIGGER_SCENE) {
-									TriggerSceneEffect tse = (TriggerSceneEffect) e;
-									sceneIds.add(tse.getTargetId());
-									hasTriggerScene = true;
-								}
-							}
-							i++;
+					if (e.getType() == Effect.TRIGGER_CONVERSATION) {
+						TriggerConversationEffect tce = (TriggerConversationEffect) e;
+						List<String> temp = getConversationSceneIds(tce.getTargetId());
+						if (temp != null && !temp.isEmpty()) {
+							sceneIds.addAll(temp);
+							hasTriggerScene = true;
 						}
 					}
 				}
@@ -180,13 +164,74 @@ public class SceneElement {
 				g.drawImage(image, x, y, width, height, null);
 				itemReferenceElements.add(new ItemReferenceElement(irdc, height, sceneIds));
 			}
-		}			
-
-
-		posX = (new Random()).nextInt(780);
-		posY = (new Random()).nextInt(580);	
+		}
 	}
 
+	private List<String> getConversationSceneIds(String targetId) {
+		List<String> sceneIds = new ArrayList<String>();
+		for (ConversationDataControl cdc : Controller.getInstance().getSelectedChapterDataControl().getConversationsList().getConversations()) {
+			if (cdc.getId().equals(targetId)) {
+				List<ConversationNodeView> nodes = new ArrayList<ConversationNodeView>();
+				nodes.add(cdc.getRootNode());
+				int i = 0;
+				while (i < nodes.size()) {
+					ConversationNodeView node = nodes.get(i);
+					for (int j = 0; j < node.getChildCount(); j++) {
+						if (!nodes.contains(node.getChildView(j)))
+							nodes.add(node.getChildView(j));
+					}
+					for (Effect e : ((ConversationNode) node).getEffects().getEffects()) {
+						if (e.getType() == Effect.TRIGGER_SCENE) {
+							TriggerSceneEffect tse = (TriggerSceneEffect) e;
+							sceneIds.add(tse.getTargetId());
+						}
+					}
+					i++;
+				}
+			}
+		}
+		if (sceneIds.isEmpty())
+			return null;
+		return sceneIds;
+	}
+
+	private void getNPCNextScene(Graphics2D g) {
+		for (ElementReferenceDataControl irdc : sceneDataControl.getReferencesList().getNPCReferences()) {
+			boolean hasTriggerScene = false;
+			List<String> sceneIds = new ArrayList<String>();
+			for (ActionDataControl adc : ((NPCDataControl) irdc.getReferencedElementDataControl()).getActionsList().getActions()) {
+				for (Effect e : adc.getEffects().getEffects()) {
+					if (e.getType() == Effect.TRIGGER_SCENE) {
+						TriggerSceneEffect tse = (TriggerSceneEffect) e;
+						sceneIds.add(tse.getTargetId());
+						hasTriggerScene = true;
+					}
+				}
+			}
+			for (ConversationReferenceDataControl crdc : ((NPCDataControl) irdc.getReferencedElementDataControl()).getConversationReferencesList().getConversationReferences()) {
+				List<String> temp = getConversationSceneIds(crdc.getIdTarget());
+				if (temp != null && !temp.isEmpty()) {
+					sceneIds.addAll(temp);
+					hasTriggerScene = true;
+				}
+			}
+			if (hasTriggerScene) {
+				Image image;
+				String imagePath = Controller.getInstance().getElementImagePath(irdc.getElementId());
+				if (imagePath != null)
+					image = AssetsController.getImage(imagePath);
+				else
+					image = (new ImageIcon("img/assets/EmptyImage.png")).getImage();
+				int width = (int) (irdc.getElementScale() * image.getWidth(null));
+				int height = (int) (irdc.getElementScale() * image.getHeight(null));
+				int x = irdc.getElementX() - width / 2;
+				int y = irdc.getElementY() - height;
+				g.drawImage(image, x, y, width, height, null);
+				itemReferenceElements.add(new ItemReferenceElement(irdc, height, sceneIds));
+			}
+		}			
+	}
+	
 	private void setColor() {
 		switch ((new Random()).nextInt(9)) {
 		case 0:

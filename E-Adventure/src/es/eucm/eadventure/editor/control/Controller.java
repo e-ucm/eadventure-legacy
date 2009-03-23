@@ -1296,7 +1296,6 @@ public class Controller {
 		
 		boolean fileLoaded = false;
 		try{
-			
 			boolean loadFile = true;
 			// If the data was not saved, ask for an action (save, discard changes...)
 			if( dataModified ) {
@@ -1313,7 +1312,6 @@ public class Controller {
 				// Cancel the action if selected
 				else if( option == JOptionPane.CANCEL_OPTION )
 					loadFile = false;
-	
 			}
 	
 			if( loadFile && completeFilePath == null ) {
@@ -1360,7 +1358,6 @@ public class Controller {
 				tsd = new ToolSystemDebugger( chaptersController );
 				
 				return true;
-	
 			}
 	
 			//LoadingScreen loadingScreen = new LoadingScreen(TextConstants.getText( "Operation.LoadProject" ), getLoadingImage( ), mainWindow);

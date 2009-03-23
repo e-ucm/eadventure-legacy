@@ -190,12 +190,12 @@ public class MainWindow extends JFrame {
 		// Set size and position
 		setMinimumSize( new Dimension( 640, 400 ) );
 		Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
-		int width = screenSize.width - WINDOW_MARGIN_X;
-		int height = screenSize.height - WINDOW_MARGIN_Y;
+		int width = 800;//screenSize.width - WINDOW_MARGIN_X;
+		int height = 600;//screenSize.height - WINDOW_MARGIN_Y;
 		setSize(width , height );
 		setLocation( ( screenSize.width - width) / 2, ( screenSize.height - height ) / 2 );
 		
-		setExtendedState(JFrame.MAXIMIZED_BOTH);
+//		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		
 		this.setModalExclusionType( Dialog.ModalExclusionType.APPLICATION_EXCLUDE );
 		// Set title and properties
@@ -301,42 +301,20 @@ public class MainWindow extends JFrame {
 		about.add(aboutEadventure);
 		aboutEadventure.setArmed( false );
 		aboutEadventure.addActionListener( new ActionListener(){
-
 			public void actionPerformed( ActionEvent arg0 ) {
 				controller.showAboutDialog();
 			}
-			
 		});
 		JMenuItem sendComments = new JMenuItem ( TextConstants.getText( "Menu.SendComments" ) );
 		about.add(sendComments);
 		sendComments.setArmed( false );
 		sendComments.addActionListener( new ActionListener(){
-
 			public void actionPerformed( ActionEvent arg0 ) {
 				ReportDialog.GenerateCommentsReport();
 			}
-			
 		});
 		windowMenu.add( about );
 
-		// Create the "File" elements
-/*		JMenu itFileNew = new JMenu( TextConstants.getText( "MenuFile.New" ) );
-		JMenuItem itNewAdventurePlayerVisible = new JMenuItem( TextConstants.getText( "MenuFile.NewAdventurePlayerVisible" ) );
-		JMenuItem itNewAdventurePlayerTransparent = new JMenuItem( TextConstants.getText( "MenuFile.NewAdventurePlayerTransparent" ) );
-		itNewAdventurePlayerVisible.addActionListener( new ActionListener( ) {
-			public void actionPerformed( ActionEvent e ) {
-				controller.newFile( Controller.FILE_ADVENTURE_3RDPERSON_PLAYER );
-			}
-		} );
-		itNewAdventurePlayerTransparent.addActionListener( new ActionListener( ) {
-			public void actionPerformed( ActionEvent e ) {
-				controller.newFile( Controller.FILE_ADVENTURE_1STPERSON_PLAYER );
-			}
-		} );
-		itFileNew.add( itNewAdventurePlayerTransparent );
-		itFileNew.add( itNewAdventurePlayerVisible );
-		itNewAdventurePlayerVisible.setAccelerator( KeyStroke.getKeyStroke( 'N', InputEvent.CTRL_MASK ) );
-		fileMenu.add( itFileNew );*/
 		JMenuItem itFileNew = new JMenuItem( TextConstants.getText("MenuFile.New"));
 		itFileNew.addActionListener( new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -345,14 +323,13 @@ public class MainWindow extends JFrame {
 		});
 		fileMenu.add( itFileNew );
 		
-		
-		
 		JMenuItem itFileLoad = new JMenuItem( TextConstants.getText( "MenuFile.Load" ) );
 		itFileLoad.addActionListener( new ActionListener( ) {
 			public void actionPerformed( ActionEvent e ) {
 				controller.loadFile( );
 			}
 		} );
+		
 		itFileLoad.setAccelerator( KeyStroke.getKeyStroke( 'L', InputEvent.CTRL_MASK ) );
 		fileMenu.add( itFileLoad );
 		fileMenu.addSeparator( );

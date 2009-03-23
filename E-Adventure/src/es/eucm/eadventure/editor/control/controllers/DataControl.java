@@ -250,7 +250,7 @@ public abstract class DataControl implements Cloneable {
 		return DataControl.resultSet;
 	}
 	
-	public abstract void recursiveSearch (  );
+	public abstract void recursiveSearch ();
 	
 	protected void addResult (String where) {
 		List<String> places = resultSet.get(this);

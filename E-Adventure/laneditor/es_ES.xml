@@ -2303,11 +2303,13 @@ ya que de esta manera se evita reescribirlos varias veces.</entry>
 	<entry key="Search.Effect">Efecto</entry>
 	<entry key="Search.PostEffect">Post-Efecto</entry>
 	<entry key="Search.Title">Titulo</entry>
-	<entry key="Search.AdapatationPath">Ubicación del fichero de adapatación</entry>
+	<entry key="Search.AdaptationPath">Ubicación del fichero de adapatación</entry>
 	<entry key="Search.AssessmentPath">Ubicación del fichero de aprendiaje</entry>
 	<entry key="Search.AssetDescription">Descripción recurso</entry>
 	<entry key="Search.AssetPath">Ubicación recurso</entry>
 	<entry key="Search.ElementID">ID del elemento</entry>
+	<entry key="Search.NextScene">Siguiente escena</entry>
+	<entry key="Search.Conditions">Condiciones</entry>
 
 	<entry key="DrawPanel.ZoomIn">Más zoom</entry>
 	<entry key="DrawPanel.ZoomOut">Menos zoom</entry>

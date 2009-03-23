@@ -148,82 +148,11 @@ public class GraphConversationDataControl extends ConversationDataControl {
 
 	@Override
 	public boolean linkNode( ConversationNodeView fatherView, ConversationNodeView childView ) {
-		/*boolean nodeLinked = false;
-
-		// If it is not possible to link the node to the given one, show a message
-		if( !canLinkNodeTo( fatherView, childView ) )
-			controller.showErrorDialog( TextConstants.getText( "Conversation.OperationLinkNode" ), TextConstants.getText( "Conversation.ErrorLinkNode" ) );
-
-		// If it can be linked
-		else {
-			boolean linkNode = true;
-
-			// If the node has an effect, ask for confirmation (for the effect will be deleted)
-			//if( fatherView.hasEffects( ) )
-				//linkNode = controller.showStrictConfirmDialog( TextConstants.getText( "Conversation.OperationLinkNode" ), TextConstants.getText( "Conversation.ErrorLinkNode" ) );
-
-			// If the node must be linked
-			if( linkNode ) {
-				// Take the complete nodes
-				ConversationNode father = (ConversationNode) fatherView;
-				ConversationNode child = (ConversationNode) childView;
-
-				// Add the new child
-				father.addChild( child );
-
-				// If the father is an option node, add a new line
-				if( father.getType( ) == ConversationNode.OPTION )
-					father.addLine( new ConversationLine( ConversationLine.PLAYER, TextConstants.getText( "ConversationLine.DefaultText" ) ) );
-
-				// The node was successfully linked
-				controller.dataModified( );
-				nodeLinked = true;
-			}
-		}
-
-		return nodeLinked;*/
 		return controller.addTool( new LinkConversationNodeTool ( this, fatherView, childView ) );
 	}
 
 	@Override
 	public boolean deleteNode( ConversationNodeView nodeView ) {
-		/*boolean nodeDeleted = false;
-
-		// Get the complete node list
-		List<ConversationNodeView> nodes = getAllNodes( );
-
-		// For each node
-		for( ConversationNodeView currentNodeView : nodes ) {
-			int j = 0;
-
-			// Search for the node which is being deleted among each node's children
-			while( j < currentNodeView.getChildCount( ) ) {
-
-				// If the current child is the node we want to delete
-				if( currentNodeView.getChildView( j ) == nodeView ) {
-					// Take the complete current node
-					ConversationNode currentNode = (ConversationNode) currentNodeView;
-
-					// Delete the child
-					currentNode.removeChild( j );
-
-					// If the current node is an option node, delete the line too
-					if( currentNode.getType( ) == ConversationNode.OPTION )
-						currentNode.removeLine( j );
-
-					// The node has been deleted
-					controller.dataModified( );
-					nodeDeleted = true;
-				}
-
-				// If it's not, go for the next child
-				else
-					j++;
-			}
-		}
-
-		return nodeDeleted;*/
-		
 		return controller.addTool(new DeleteConversationNodeTool(nodeView, (GraphConversation)getConversation()));
 	}
 
@@ -489,7 +418,7 @@ public class GraphConversationDataControl extends ConversationDataControl {
 		for (ConversationNodeView cnv : this.getAllNodes()) {
 			for (int i = 0; i < cnv.getLineCount(); i++) {
 				check(cnv.getLineName(i) , TextConstants.getText("Search.LineName"));
-				check(cnv.getLineText(i), TextConstants.getText("Earch.LineText"));
+				check(cnv.getLineText(i), TextConstants.getText("Search.LineText"));
 			}
 		}
 	}
