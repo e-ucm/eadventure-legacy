@@ -40,7 +40,6 @@ public class AssessmentRuleDataControl extends DataControl{
 			TimedAssessmentRule tRule = (TimedAssessmentRule)assessmentRule;
 			initConditionsController = new ConditionsController( tRule.getInitConditions( ) );
 			endConditionsController = new ConditionsController( tRule.getEndConditions( ) );
-			tRule.setUsesEndConditions(true);
 		}else {
 			conditionsController = new ConditionsController( assessmentRule.getConditions( ) );	
 		}

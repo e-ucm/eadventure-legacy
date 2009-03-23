@@ -184,7 +184,8 @@ public class AssessmentHandler extends DefaultHandler {
             
             String id = null;
             int importance = 0;
-            boolean usesEndConditions = true;
+            boolean usesEndConditions = false;
+            boolean has = false;
             
             for( int i = 0; i < attrs.getLength( ); i++ ) {
                 if( attrs.getQName( i ).equals( "id" ) )
@@ -195,12 +196,14 @@ public class AssessmentHandler extends DefaultHandler {
                             importance = j;
                 }
                 if ( attrs.getQName( i ).equals( "usesEndConditions" )) {
+                	has = true;
                 	usesEndConditions = attrs.getValue(i).equals("yes");
                 }
             }
             
             currentAssessmentRule = new TimedAssessmentRule( id, importance );
-            ((TimedAssessmentRule) currentAssessmentRule).setUsesEndConditions(usesEndConditions);
+            if (has)
+            	((TimedAssessmentRule) currentAssessmentRule).setUsesEndConditions(usesEndConditions);
         }
         
         else if( qName.equals( "condition" ) || qName.equals( "init-condition" ) || qName.equals( "end-condition" )) {
