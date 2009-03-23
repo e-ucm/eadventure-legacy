@@ -586,7 +586,7 @@ public class ChapterDataControl extends DataControl {
 	public void recursiveSearch() {
 		check(this.getAdaptationPath(), TextConstants.getText("Search.AdaptationPath"));
 		check(this.getAssessmentPath(), TextConstants.getText("Search.AssessmentPath"));
-		check(this.getDescription(), TextConstants.getText("Search.Descritpion"));
+		check(this.getDescription(), TextConstants.getText("Search.Description"));
 		check(this.getInitialScene(), TextConstants.getText("Search.InitialScene"));
 		check(this.getTitle(), TextConstants.getText("Search.Title"));
 		this.getAtrezzoList().recursiveSearch();

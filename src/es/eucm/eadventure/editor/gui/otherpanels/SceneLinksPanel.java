@@ -268,7 +268,7 @@ public class SceneLinksPanel extends JPanel {
 		int x3 = x2;
 		int y3 = y2;
 		
-		if (h == 0 || ((y2 - y1) != 0 && Math.abs(w/h) <= Math.abs((x2 - x1)/(y2 - y1)))) {
+		if (h == 0 || y2 == y1 || ((y2 - y1) != 0 && Math.abs(w/h) <= Math.abs((x2 - x1)/(y2 - y1)))) {
 			if (x1 <= x2) {
 				x3 = (int) (x2 - w);
 				y3 = (int) (y2 - (w/(x2 - x1))*(y2 - y1));
@@ -283,8 +283,9 @@ public class SceneLinksPanel extends JPanel {
 			} else if (y1 > y2) {
 				y3 = (int) (y2 + h);
 				x3 = (int) (x2 + (h/(y2 - y1))*(x2 - x1));
-			}
+			} 
 		}
+		
 		lines.add(new Line(x1, y1, x3, y3, color, stroke));
 	}
 

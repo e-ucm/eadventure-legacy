@@ -2306,11 +2306,13 @@ avoids retyping.</entry>
 	<entry key="Search.Effect">Effect</entry>
 	<entry key="Search.PostEffect">Post Effect</entry>
 	<entry key="Search.Title">Title</entry>
-	<entry key="Search.AdapatationPath">Adaptation Path</entry>
+	<entry key="Search.AdaptationPath">Adaptation Path</entry>
 	<entry key="Search.AssessmentPath">Assessment Path</entry>
 	<entry key="Search.AssetDescription">Asset Description</entry>
 	<entry key="Search.AssetPath">Asset Path</entry>
 	<entry key="Search.ElementID">Element ID</entry>
+	<entry key="Search.NextScene">Next Scene</entry>
+	<entry key="Search.Conditions">Conditions</entry>
 	
 	<entry key="DrawPanel.ZoomIn">Zoom in</entry>
 	<entry key="DrawPanel.ZoomOut">Zoom out</entry>

@@ -381,7 +381,7 @@ public class ElementReferenceDataControl extends DataControl {
 
 	@Override
 	public void recursiveSearch() {
-		check(this.conditionsController, TextConstants.getText("Search.Condtions"));
+		check(this.conditionsController, TextConstants.getText("Search.Conditions"));
 		check(this.getDocumentation(), TextConstants.getText("Search.Documentation"));
 		check(this.getElementId(), TextConstants.getText("Search.ElementID"));
 	}

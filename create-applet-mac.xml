@@ -34,11 +34,13 @@
 		<delete>
 			<fileset dir="web">
 				<include name="temp/**/*.*"/>
-			</fileset>
-			<fileset dir="web">
 				<include name="tempcompile/**/*.*"/>
 			</fileset>
 		</delete>
+		<delete dir="web/tempcompile"/>
+		<delete dir="web/temp/es"/>
+		<delete dir="web/temp/gui"/>
+		<delete dir="web/temp/lanengine"/>
 	</target>
 
 	<target name="jar" depends="compile" description="generate the eadventure applet">
@@ -155,5 +157,9 @@
 	</target>-->
 	
 
-	<target name="generate" depends="cleanup,jar,cleanup" description="Clean and Generate" />
+	<target name="generate" description="Clean and Generate">
+		<antcall target="cleanup"></antcall>
+		<antcall target="jar"></antcall>
+		<antcall target="cleanup"></antcall>
+	</target>
 </project>

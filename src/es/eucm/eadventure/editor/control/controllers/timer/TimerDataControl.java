@@ -276,7 +276,7 @@ public class TimerDataControl extends DataControl {
 
 	@Override
 	public void recursiveSearch() {
-		check(this.getDocumentation(), TextConstants.getText("Search.Docuementation"));
+		check(this.getDocumentation(), TextConstants.getText("Search.Documentation"));
 		check(this.getEndConditions(), TextConstants.getText("Search.EndConditions"));
 		check(this.getInitConditions(), TextConstants.getText("Search.InitConditions"));
 		for (int i = 0; i < this.getEffects().getEffectCount(); i++) {

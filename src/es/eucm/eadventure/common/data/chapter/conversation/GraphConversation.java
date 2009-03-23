@@ -36,29 +36,21 @@ public class GraphConversation extends Conversation {
 	 * @return List with the nodes of the conversation
 	 */
 	public List<ConversationNode> getAllNodes( ) {
-		// Create two vectors, one for the already visited nodes, and one for the nodes we have to visit
-		List<ConversationNode> visited = new ArrayList<ConversationNode>( );
-		List<ConversationNode> notVisited = new ArrayList<ConversationNode>( );
-
-		// Add the start node into the not yet visited nodes
-		notVisited.add( getRootNode( ) );
-
-		// While there is nodes to visit
-		while( !notVisited.isEmpty( ) ) {
-			// Remove the first node, and add it into the visited vector
-			ConversationNode currentNode = notVisited.remove( 0 );
-			visited.add( currentNode );
-
-			// For every child of the current node
-			for( int i = 0; i < currentNode.getChildCount( ); i++ )
-				// If the child isn't in the visited vector nor into the not visited vector, add it to the not visited
-				// vector
-				if( !visited.contains( currentNode.getChild( i ) ) && !notVisited.contains( currentNode.getChild( i ) ) )
-					notVisited.add( currentNode.getChild( i ) );
+		List<ConversationNode> nodes = new ArrayList<ConversationNode>();
+		
+		nodes.add( getRootNode() );
+		int i = 0;
+		while (i < nodes.size()) {
+			ConversationNode temp = nodes.get(i);
+			i++;
+			for (int j = 0; j < temp.getChildCount(); j++) {
+				ConversationNode temp2 = temp.getChild(j);
+				if (!nodes.contains(temp2))
+					nodes.add(temp2);
+			}
 		}
-
-		// Return the visited vector
-		return visited;
+		
+		return nodes;
 	}
 	
 	public Object clone() throws CloneNotSupportedException {

@@ -153,77 +153,11 @@ public class TreeConversationDataControl extends ConversationDataControl {
 
 	@Override
 	public boolean deleteNode( ConversationNodeView nodeView ) {
-		/*boolean nodeDeleted = false;
-
-		// Ask for confirmation
-		if( controller.showStrictConfirmDialog( TextConstants.getText( "Conversation.OperationDeleteNode" ), TextConstants.getText( "Conversation.ConfirmDeleteNode" ) ) ) {
-			// Take the complete node
-			ConversationNode node = (ConversationNode) nodeView;
-
-			// If the node was deleted
-			if( recursiveDeleteNode( treeConversation.getRootNode( ), node ) ) {
-				// Set the data as modified
-				controller.dataModified( );
-				nodeDeleted = true;
-			}
-		}
-
-		return nodeDeleted;*/
 		return controller.addTool(new DeleteConversationNodeTool(DeleteConversationNodeTool.MODE_TREE, nodeView, getConversation()));
 	}
 
 	@Override
 	public boolean moveNode( ConversationNodeView nodeView, ConversationNodeView hostNodeView ) {
-		/*boolean nodeMoved = false;
-
-		// If it is not possible to move the node to the given position, show a message
-		if( !canMoveNodeTo( nodeView, hostNodeView ) )
-			controller.showErrorDialog( TextConstants.getText( "Conversation.OperationModeNode" ), TextConstants.getText( "Conversation.ErrorMoveNode" ) );
-
-		// If it can be moved, try to move the node
-		else {
-
-			// First we check that is possible to move, and that hostNode is not a child of node, because that would
-			// make a cycle
-			if( !isChildOf( hostNodeView, nodeView ) ) {
-				// Take the full conversation node
-				ConversationNode node = (ConversationNode) nodeView;
-				ConversationNode hostNode = (ConversationNode) hostNodeView;
-
-				// First obtain the father of node, to delete the link
-				ConversationNode fatherOfNode = searchForFather( treeConversation.getRootNode( ), node );
-
-				int i = 0;
-				// For each child of the father node
-				while( i < fatherOfNode.getChildCount( ) ) {
-					// If the current child is the node to be moved, remove it
-					if( fatherOfNode.getChild( i ) == node ) {
-						fatherOfNode.removeChild( i );
-
-						// Remove the line too if it is an option node
-						if( fatherOfNode.getType( ) == ConversationNode.OPTION )
-							fatherOfNode.removeLine( i );
-					}
-
-					// If it is not, increase i
-					else
-						i++;
-				}
-
-				// Add the moving node to the host node
-				hostNode.addChild( node );
-
-				// If the host node is an option node, add a new line
-				if( hostNode.getType( ) == ConversationNode.OPTION )
-					hostNode.addLine( new ConversationLine( ConversationLine.PLAYER, TextConstants.getText( "ConversationLine.DefaultText" ) ) );
-
-				// Set the data as modified
-				controller.dataModified( );
-				nodeMoved = true;
-			}
-		}
-
-		return nodeMoved;*/
 		return controller.addTool( new MoveConversationNodeTool( this, nodeView, hostNodeView ) );
 	}
 
@@ -267,44 +201,6 @@ public class TreeConversationDataControl extends ConversationDataControl {
 	 * @return True if the tag was added, false otherwise
 	 */
 	public boolean toggleGoBackTag( ConversationNodeView nodeView ) {
-		/*ConversationNode node = (ConversationNode) nodeView;
-		boolean goBackTagAdded = false;
-
-		// If there is no "go-back" tag, add it
-		if( !TreeConversation.thereIsGoBackTag( node ) ) {
-
-			boolean addGoBackTag = true;
-
-			// If the node has an effect, ask for confirmation (for the effect will be deleted)
-			if( nodeView.hasEffects( ) )
-				addGoBackTag = controller.showStrictConfirmDialog( TextConstants.getText( "Conversation.OperationAddGoBackTag" ), TextConstants.getText( "Conversation.ConfirmationAddGoBackTag" ) );
-
-			// Add the go-back tag
-			if( addGoBackTag ) {
-
-				// First we must search for the father of the node
-				ConversationNode father = searchForFather( treeConversation.getRootNode( ), node );
-
-				// Attach then the node to the father
-				node.addChild( father );
-
-				// Tag attached
-				controller.dataModified( );
-				goBackTagAdded = true;
-			}
-		}
-
-		// It there is a "go-back" tag, delete it
-		else {
-			// We remove the only child of the node
-			node.removeChild( 0 );
-
-			// Tag deleted
-			controller.dataModified( );
-			goBackTagAdded = true;
-		}
-
-		return goBackTagAdded;*/
 		return controller.addTool( new ToggleGoBackTagTool(this, nodeView));
 	}
 
@@ -382,58 +278,6 @@ public class TreeConversationDataControl extends ConversationDataControl {
 		}
 
 		return father;
-	}
-
-	/**
-	 * Recursive function that deletes the references of nodeToDelete in node and its children.
-	 * 
-	 * @param node
-	 *            Node to check for references to the node being deleted
-	 * @param nodeToDelete
-	 *            Reference to the node that is being deleted
-	 * @return True if the node to delete was found and deleted, false otherwise
-	 */
-	private boolean recursiveDeleteNode( ConversationNode node, ConversationNode nodeToDelete ) {
-		boolean isDeleted = false;
-
-		// If it is a dialogue node
-		if( node.getType( ) == ConversationNode.DIALOGUE ) {
-			// If the node has a valid child
-			if( !node.isTerminal( ) && !TreeConversation.thereIsGoBackTag( node ) ) {
-				// If the child equals the node to be deleted, delete the child
-				if( node.getChild( 0 ) == nodeToDelete ) {
-					node.removeChild( 0 );
-					isDeleted = true;
-				}
-
-				// If not, call the function with the child of the current node
-				else
-					isDeleted = recursiveDeleteNode( node.getChild( 0 ), nodeToDelete );
-			}
-		}
-
-		// If the node is a option node
-		else if( node.getType( ) == ConversationNode.OPTION ) {
-			int i = 0;
-
-			// For each child
-			while( i < node.getChildCount( ) ) {
-				// If the child equals the node to be deleted, delete the child and its line
-				if( node.getChild( i ) == nodeToDelete ) {
-					node.removeChild( i );
-					node.removeLine( i );
-					isDeleted = true;
-				}
-
-				// If not, make a recursive call with the current child, and increase i
-				else {
-					isDeleted = isDeleted || recursiveDeleteNode( node.getChild( i ), nodeToDelete );
-					i++;
-				}
-			}
-		}
-
-		return isDeleted;
 	}
 
 	@Override
@@ -729,11 +573,13 @@ public class TreeConversationDataControl extends ConversationDataControl {
 		check(this.getId(), "ID");
 		List<ConversationNodeView> list = new ArrayList<ConversationNodeView>();
 		list.add(this.getRootNode());
-		while(!list.isEmpty()) {
-			ConversationNodeView temp = list.get(0);
-			list.remove(0);
+		int j = 0;
+		while(j < list.size()) {
+			ConversationNodeView temp = list.get(j);
+			j++;
 			for (int i = 0; i < temp.getChildCount(); i++)
-				list.add(temp.getChildView(i));
+				if (!list.contains(temp.getChildView(i)))
+					list.add(temp.getChildView(i));
 			for (int i = 0; i < temp.getLineCount(); i ++) {
 				check(temp.getLineName(i), TextConstants.getText("Search.LineName"));
 				check(temp.getLineText(i), TextConstants.getText("Search.LineText"));
