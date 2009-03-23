@@ -25,6 +25,7 @@
 <!ATTLIST timed-assessment-rule
 	id ID #REQUIRED
 	importance ( verylow | low | normal | high | veryhigh ) #REQUIRED
+	usesEndConditions ( yes | no) "yes"
 >
 
 

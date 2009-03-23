@@ -1406,7 +1406,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="GeneralText.PreviewText">Esta es una línea de prueba</entry>
 	<entry key="GeneralText.EditConditions">Editar condiciones</entry>
 	<entry key="GeneralText.EditInitConditions">Editar condiciones iniciales</entry>
-	<entry key="GeneralText.EditEndConditions">Edit condiciones finales</entry>
+	<entry key="GeneralText.EditEndConditions">Editar condiciones finales</entry>
 	<entry key="GeneralText.EditEffects">Editar efectos</entry>
 	<entry key="GeneralText.EditPostEffects">Editar post efectos</entry>
 
@@ -2125,6 +2125,7 @@ Si no las cambia, el juego empleará las flechas por defecto.</entry>
 	<entry key="Timer.PostEffects">Efectos a ejecutar si se desactiva el temporizador</entry>
 	<entry key="Timer.Time">Tiempo</entry>
 	<entry key="Timer.UsesEndCondition">Utiliza condiciones para desactivación (si no se utilizan, se desactivará cuando se dejen de cumplir las condiciones de entrada)</entry>
+	<entry key="Timer.UsesEndConditionShort">Utiliza condiciones para desactivación</entry>
 	<entry key="Timer.LoopControl">Control de ciclos</entry>
 	<entry key="Timer.MultipleStarts">Multiples inicios</entry>
 	<entry key="Timer.MultipleStartsDesc">      Activo -> Si el temporizador esta parado, cuando se cumplan las condiciones de inicio comenzar nuevamente.

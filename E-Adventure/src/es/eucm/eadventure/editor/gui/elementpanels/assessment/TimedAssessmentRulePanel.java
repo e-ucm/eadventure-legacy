@@ -12,6 +12,7 @@ import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -27,9 +28,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import es.eucm.eadventure.common.gui.TextConstants;
-import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentRuleDataControl;
-import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.editdialogs.ConditionsDialog;
 
 public class TimedAssessmentRulePanel extends JPanel {
@@ -73,6 +72,8 @@ public class TimedAssessmentRulePanel extends JPanel {
 	
 	private AssessmentPropertiesPanel propPanel;
 	
+	private JButton endConditionsButton;
+	
 	/**
 	 * Constructor.
 	 * 
@@ -85,9 +86,6 @@ public class TimedAssessmentRulePanel extends JPanel {
 	 * 				Show if it is a Scorm 2004 profile                  
 	 */
 	public TimedAssessmentRulePanel( AssessmentRuleDataControl assRuleDataControl, boolean scorm12, boolean scorm2004 ) {
-
-		// Set the controller
-		Controller controller = Controller.getInstance( );
 		this.assessmentRuleDataControl = assRuleDataControl;
 		
 		// Calculate the currentEffect index:
@@ -149,15 +147,37 @@ public class TimedAssessmentRulePanel extends JPanel {
 		c.gridy = 3;
 		c.fill = GridBagConstraints.HORIZONTAL;
 		JPanel conditionsPanel = new JPanel( );
-		conditionsPanel.setLayout( new GridLayout(1,2) );
+		conditionsPanel.setLayout( new GridBagLayout() );
+		
+		
 		JButton initConditionsButton = new JButton( TextConstants.getText( "GeneralText.EditInitConditions" ) );
 		initConditionsButton.addActionListener( new InitConditionsButtonListener( ) );
 		
-		JButton endConditionsButton = new JButton( TextConstants.getText( "GeneralText.EditEndConditions" ) );
+		JCheckBox useEndConditionsCheck = new JCheckBox(TextConstants.getText("Timer.UsesEndConditionShort"));
+		useEndConditionsCheck.setSelected(assessmentRuleDataControl.isUsesEndConditions());
+		useEndConditionsCheck.addChangeListener( new UseEndConditionsCheckListener( ));
+		
+		endConditionsButton = new JButton( TextConstants.getText( "GeneralText.EditEndConditions" ) );
+		endConditionsButton.setEnabled(assessmentRuleDataControl.isUsesEndConditions());
 		endConditionsButton.addActionListener( new EndConditionsButtonListener( ) );
 		
-		conditionsPanel.add( initConditionsButton );
-		conditionsPanel.add( endConditionsButton );
+		
+		GridBagConstraints g = new GridBagConstraints();
+		g.fill = GridBagConstraints.HORIZONTAL;
+		g.gridwidth = 2;
+		g.gridx = 0;
+		g.gridy = 0;
+		g.weightx = 1;
+		conditionsPanel.add( useEndConditionsCheck , g);
+		
+		g.gridx = 0;
+		g.gridwidth = 1;
+		g.fill = GridBagConstraints.HORIZONTAL;
+		g.weightx = 0.5;
+		g.gridy = 1;
+		conditionsPanel.add( initConditionsButton , g);
+		g.gridx = 1;
+		conditionsPanel.add( endConditionsButton , g);
 		conditionsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AssessmentRule.Conditions" ) ) );
 		add( conditionsPanel, c );
 
@@ -492,4 +512,13 @@ public class TimedAssessmentRulePanel extends JPanel {
 		}
 	}
 
+	private class UseEndConditionsCheckListener implements ChangeListener {
+		public void stateChanged(ChangeEvent arg0) {
+			if (((JCheckBox) arg0.getSource()).isSelected() != assessmentRuleDataControl.isUsesEndConditions()) {
+				assessmentRuleDataControl.setUsesEndConditions(((JCheckBox) arg0.getSource()).isSelected());
+				endConditionsButton.setEnabled(((JCheckBox) arg0.getSource()).isSelected());
+			}
+		}
+	}
+	
 }

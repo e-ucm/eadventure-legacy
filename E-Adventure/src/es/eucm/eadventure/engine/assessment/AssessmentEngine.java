@@ -133,9 +133,7 @@ public class AssessmentEngine implements TimerEventListener {
 		for (AssessmentRule assessmentRule : assessmentRules) {
 			if (assessmentRule instanceof TimedAssessmentRule) {
 				TimedAssessmentRule tRule = (TimedAssessmentRule) assessmentRule;
-				int id = TimerManager.getInstance().addTimer(
-						tRule.getInitConditions(), tRule.getEndConditions(),
-						this);
+				int id = TimerManager.getInstance().addTimer(tRule.getInitConditions(), tRule.getEndConditions(), tRule.isUsesEndConditions(), this);
 				timedRules.put(new Integer(id), tRule);
 			}
 		}

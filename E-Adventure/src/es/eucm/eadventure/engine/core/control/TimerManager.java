@@ -36,8 +36,8 @@ public class TimerManager {
         ID = 0;
     }
 
-    public int addTimer( Conditions initConditions, Conditions endConditions, TimerEventListener listener ) {
-        FunctionalTimer newTimer = new FunctionalTimer( initConditions, endConditions, listener );
+    public int addTimer( Conditions initConditions, Conditions endConditions, boolean usesEndConditions, TimerEventListener listener ) {
+        FunctionalTimer newTimer = new FunctionalTimer( initConditions, endConditions, usesEndConditions, listener );
         timers.put( new Integer( ID ), newTimer );
         ID++;
         return ID - 1;
@@ -276,8 +276,9 @@ public class TimerManager {
         
         private boolean showWhenStopped;
 
-        public FunctionalTimer( Conditions initConditions, Conditions endConditions, TimerEventListener listener) {
+        public FunctionalTimer( Conditions initConditions, Conditions endConditions, boolean usesEndConditions, TimerEventListener listener) {
             this( initConditions, endConditions, listener, NO_UPDATE , true);
+            this.usesEndCondition = usesEndConditions;
         }
         
 		public boolean isUsesEndCondition() {

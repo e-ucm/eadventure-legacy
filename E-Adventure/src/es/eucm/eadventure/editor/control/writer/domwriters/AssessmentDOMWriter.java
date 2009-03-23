@@ -89,6 +89,7 @@ public class AssessmentDOMWriter {
 					Element ruleNode = doc.createElement( "timed-assessment-rule" );
 					ruleNode.setAttribute( "id", tRule.getId( ) );
 					ruleNode.setAttribute( "importance", AssessmentRule.IMPORTANCE_VALUES[tRule.getImportance( )] );
+					ruleNode.setAttribute( "usesEndConditions" , (tRule.isUsesEndConditions() ? "yes" : "no"));
 					
 					//Append concept
 					if (tRule.getConcept( )!=null && !tRule.getConcept( ).equals( "" )){
