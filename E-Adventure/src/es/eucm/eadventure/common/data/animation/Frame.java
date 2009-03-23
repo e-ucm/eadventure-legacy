@@ -5,12 +5,20 @@ import java.awt.Image;
 import java.awt.Transparency;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
+import es.eucm.eadventure.common.auxiliar.File;
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
+import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
@@ -74,6 +82,8 @@ public class Frame implements Cloneable, Timed {
 	private String soundUri;
 	
 	private int maxSoundTime;
+
+	private String animationPath;
 	
 	/**
 	 * Creates a new empty frame
@@ -220,17 +230,16 @@ public class Frame implements Cloneable, Timed {
 	 * @param fullscreen If true, the image is scaled to fullscreen
 	 * @return The image for the frame, with the necessary modifications made
 	 */
-	public Image getImage(boolean mirror, boolean fullscreen) {
+	public Image getImage(boolean mirror, boolean fullscreen, int where) {
 		if (image != null)
 			return image;
 		if (uri != null && uri.length() > 0) {
-			try {
+			if (where == Animation.ENGINE)
 				image = ResourceHandler.getInstance( ).getResourceAsImageFromZip(uri);
-			} catch (Exception e){
-				image = AssetsController.getImage(uri);				
-			}
-			if (image == null)
-				image = AssetsController.getImage(uri);				
+			else if (where == Animation.EDITOR)
+				image = AssetsController.getImage(uri);
+			else if (where == Animation.PREVIEW)
+				image = getImageFromAnimationPath();
 		}
 		if (image != null && mirror)
 			image = getScaledImage(image, -1, 1);
@@ -242,6 +251,43 @@ public class Frame implements Cloneable, Timed {
 		    	return icon.getImage();
 		    else
 		    	return new BufferedImage(100,120,BufferedImage.TYPE_3BYTE_BGR);
+		}
+
+		return image;
+	}
+	
+	private Image getImageFromAnimationPath() {
+		Image image = null;
+
+		try {
+			InputStream inputStream = null;
+			
+			String regexp = File.separator;
+			if (regexp.equals("\\"))
+				regexp = "\\\\";
+			String temp[] = this.animationPath.split(regexp);
+			String filename = "";
+			for (int i = 0; i < temp.length - 1; i++) {
+				filename += temp[i] + File.separator;
+			}
+			
+			temp = this.uri.split("/");
+			filename += temp[temp.length - 1]; 
+			
+			if( new File( filename ).exists( ) )
+				inputStream = new FileInputStream( filename );
+
+			if( inputStream != null ) {
+				image = ImageIO.read( inputStream );
+				if (image == null || image.getHeight(null) == -1 || image.getWidth(null) == -1) {
+					Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.ImageTypeNotSupported") );
+				}
+				inputStream.close( );
+			}
+		} catch( IOException e ) {
+        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
+		} catch( Exception e) {
+        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
 		}
 
 		return image;
@@ -330,5 +376,44 @@ public class Frame implements Cloneable, Timed {
 		f.uri = (uri != null ? new String(uri) : null);
 		f.waitforclick = waitforclick;
 		return f;
+	}
+
+	public void setAbsolutePath(String animationPath) {
+		this.animationPath = animationPath;
+	}
+
+	public String getImageAbsolutePath() {
+		String regexp = File.separator;
+		if (regexp.equals("\\"))
+			regexp = "\\\\";
+		String temp[] = this.animationPath.split(regexp);
+		String filename = "";
+		for (int i = 0; i < temp.length - 1; i++) {
+			filename += temp[i] + File.separator;
+		}
+		
+		temp = this.uri.split("/");
+		filename += temp[temp.length - 1]; 
+		
+		return filename;
+	}
+	
+	public String getSoundAbsolutePath() {
+		if (soundUri == null || soundUri.equals(""))
+			return null;
+		
+		String regexp = File.separator;
+		if (regexp.equals("\\"))
+			regexp = "\\\\";
+		String temp[] = this.animationPath.split(regexp);
+		String filename = "";
+		for (int i = 0; i < temp.length - 1; i++) {
+			filename += temp[i] + File.separator;
+		}
+		
+		temp = this.soundUri.split("/");
+		filename += temp[temp.length - 1]; 
+		
+		return filename;
 	}
 }

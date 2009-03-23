@@ -34,7 +34,7 @@ public class FrameAnimation implements Animation {
 	}
 	
 	public Image getImage() {
-		Image temp = animation.getImage(accumulatedTime);
+		Image temp = animation.getImage(accumulatedTime, es.eucm.eadventure.common.data.animation.Animation.ENGINE);
 		String sound = animation.getNewSound();
 		if (sound != null && sound != "") {
 	        long soundID = MultimediaManager.getInstance().loadSound(sound , false );

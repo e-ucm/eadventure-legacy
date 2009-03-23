@@ -28,9 +28,12 @@ import es.eucm.eadventure.common.auxiliar.filefilters.JPGSlidesFileFilter;
 import es.eucm.eadventure.common.auxiliar.filefilters.MP3FileFilter;
 import es.eucm.eadventure.common.auxiliar.filefilters.PNGAnimationFileFilter;
 import es.eucm.eadventure.common.auxiliar.filefilters.XMLFileFilter;
+import es.eucm.eadventure.common.data.animation.Animation;
+import es.eucm.eadventure.common.data.animation.Frame;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.common.loader.incidences.Incidence;
 import es.eucm.eadventure.common.loader.InputStreamCreator;
+import es.eucm.eadventure.common.loader.Loader;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.gui.assetchooser.AnimationChooser;
 import es.eucm.eadventure.editor.gui.assetchooser.AssetChooser;
@@ -624,7 +627,6 @@ public class AssetsController {
 
 			// If it is an animation asset, add all the images of the animation
 			if( assetsCategory == CATEGORY_ANIMATION && !assetPath.endsWith(".eaa")) {
-
 				// Prepare the root of the animation path and the extension
 				String extension = getExtension( assetPath );
 				assetPath = removeSuffix( assetPath );
@@ -656,6 +658,38 @@ public class AssetsController {
 					else
 						end = true;
 				}
+			} else if (assetsCategory == CATEGORY_ANIMATION) {
+				
+				Animation animation = Loader.loadAnimation(AssetsController.getInputStreamCreator(), assetPath);
+				animation.setAbsolutePath(assetPath);
+				File sourceFile = new File( assetPath );
+				File destinyFile = new File( categoryFolder, sourceFile.getName ( ) );
+
+				if ( !sourceFile.getAbsolutePath().toLowerCase().equals(destinyFile.getAbsolutePath().toLowerCase()) ){
+					if( destinyFile.exists( ) && !Controller.getInstance().showStrictConfirmDialog( TextConstants.getText( "Assets.AddAsset" ), TextConstants.getText( "Assets.WarningAssetFound", sourceFile.getName() ) ) ) {
+						deleteAsset( assetPath, false );
+					}
+					assetsAdded = sourceFile.copyTo( destinyFile );
+				} else {
+					assetsAdded = true;
+				}
+				
+				if (assetsAdded) {
+					for (Frame frame : animation.getFrames()) {
+						String image = frame.getImageAbsolutePath();
+						sourceFile = new File( image );
+						destinyFile = new File( categoryFolder, sourceFile.getName ( ) );
+						sourceFile.copyTo( destinyFile );
+						
+						String sound = frame.getSoundAbsolutePath();
+						if (sound != null) {
+							sourceFile = new File( sound );
+							destinyFile = new File( categoryFolder, sourceFile.getName ( ) );
+							sourceFile.copyTo( destinyFile );
+						}
+					}
+				}
+
 			}
 
 			// If it is not an animation asset, just add the file
@@ -1186,153 +1220,6 @@ public class AssetsController {
 		}
 		return assetChooser;
 	}
-
-	/*private static class VideoCache {
-
-		private static Random random;
-
-		private static int MAX_RANDOM = 100000;
-
-		private static final String TEMP_FILE_NAME = "$temp_EAD_";
-
-		private ArrayList<String> assetPaths;
-
-		private ArrayList<String> cacheFiles;
-
-		public VideoCache( ) {
-			assetPaths = new ArrayList<String>( );
-			cacheFiles = new ArrayList<String>( );
-			random = new Random( );
-		}
-
-		public void clean( ) {
-			for( int i = 0; i < cacheFiles.size( ); i++ ) {
-				if( isTempFile( cacheFiles.get( i ) ) ) {
-					File file = new File( cacheFiles.get( i ) );
-					file.delete( );
-				}
-			}
-
-		}
-
-		private boolean isTempFile( String absolutePath ) {
-			//return absolutePath.contains( TEMP_FILE_NAME );
-			return false;
-		}
-
-		public void cacheVideo( String videoAsset ) {
-			String zipFile = Controller.getInstance( ).getProjectFolder( );
-			String absolutePath = generateTempFileAbsolutePath( getExtension( videoAsset ) );
-
-			File sourceFile = new File( zipFile, videoAsset );
-			if( sourceFile.exists( ) )
-				sourceFile.copyTo( new File( absolutePath ) );
-
-			cacheVideo( videoAsset, absolutePath );
-
-		}
-
-		public void reset( ) {
-			assetPaths = new ArrayList<String>( );
-			cacheFiles = new ArrayList<String>( );
-
-		}
-
-		private int findVideo( ArrayList<String> list, String path ) {
-			int position = -1;
-			for( int i = 0; i < list.size( ); i++ ) {
-				if( list.get( i ).equals( path ) ) {
-					position = i;
-					break;
-				}
-			}
-			return position;
-		}
-
-		public boolean isVideoCachedZip( String assetPath ) {
-			return findVideo( this.assetPaths, assetPath ) != -1;
-		}
-
-		public boolean isVideoCachedFile( String absolutePath ) {
-			return findVideo( this.cacheFiles, absolutePath ) != -1;
-		}
-
-		public void cacheVideo( String assetPath, String absolutePath ) {
-			int absPathPosition = findVideo( this.assetPaths, assetPath );
-			if( absPathPosition == -1 ) {
-				assetPaths.add( assetPath );
-				cacheFiles.add( absolutePath );
-			} else {
-				assetPaths.remove( absPathPosition );
-				cacheFiles.remove( absPathPosition );
-				assetPaths.add( absPathPosition, assetPath );
-				cacheFiles.add( absPathPosition, absolutePath );
-			}
-		}
-
-		public MediaLocator fetchVideo( String assetPath ) {
-			String absolutePath = null;
-
-			String[] assetsList = AssetsController.getAssetsList( CATEGORY_VIDEO );
-			int position = -1;
-			//If it is in the zip
-			for( int i = 0; i < assetsList.length; i++ ) {
-				if( assetsList[i].equals( assetPath ) ) {
-					position = i;
-				}
-			}
-			if( position != -1 ) {
-				int posInCache = findVideo( assetPaths, assetPath );
-				//It is already in cache
-				if( posInCache != -1 ) {
-					absolutePath = cacheFiles.get( posInCache );
-				}
-				//It it is not in cache, put it in
-				else {
-					String zipFile = Controller.getInstance( ).getProjectFolder( );
-
-					// Add the file
-					absolutePath = generateTempFileAbsolutePath( getExtension( assetPath ) );
-					File sourceFile = new File( zipFile, assetPath );
-					if( sourceFile.exists( ) )
-						sourceFile.copyTo( new File( absolutePath ) );
-
-				}
-			}
-
-			File destinyFile = new File( absolutePath );
-			try {
-				return new MediaLocator( destinyFile.toURI( ).toURL( ) );
-			} catch( MalformedURLException e ) {
-				// TODO Auto-generated catch block
-				e.printStackTrace( );
-				return null;
-			}
-		}
-
-		public static String generateTempFileAbsolutePath( String extension ) {
-			String tempDirectory = null;
-			if( System.getenv( "TEMP" ) != null && !System.getenv( "TEMP" ).equals( "" ) ) {
-				tempDirectory = System.getenv( "TEMP" );
-			} else if( System.getenv( "HOME" ) != null && !System.getenv( "HOME" ).equals( "" ) ) {
-				tempDirectory = System.getenv( "HOME" );
-			} else if( System.getenv( "ROOT" ) != null && !System.getenv( "ROOT" ).equals( "" ) ) {
-				tempDirectory = System.getenv( "ROOT" );
-			} else {
-				tempDirectory = "";
-			}
-
-			String fileName = TEMP_FILE_NAME + random.nextInt( MAX_RANDOM ) + "." + extension;
-			File file = new File( tempDirectory + "\\" + fileName );
-			while( file.exists( ) ) {
-				fileName = TEMP_FILE_NAME + random.nextInt( MAX_RANDOM ) + "." + extension;
-				file = new File( tempDirectory + "\\" + fileName );
-			}
-			return tempDirectory + "\\" + fileName;
-
-		}
-
-	}*/
 
 	public static class TempFileGenerator {
 		private static Random random=new Random();
