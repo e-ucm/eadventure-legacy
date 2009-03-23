@@ -34,6 +34,8 @@ public class TimedAssessmentRule extends AssessmentRule {
 	 * Time the rule took 
 	 */
 	protected long elapsedTime;
+	
+	protected boolean usesEndConditions;
 
     private long startTime;
 	
@@ -46,6 +48,7 @@ public class TimedAssessmentRule extends AssessmentRule {
     	super (id, importance);
     	effects = new ArrayList<TimedAssessmentEffect>();
     	this.endConditions = new Conditions();
+    	usesEndConditions = true;
     	effectIndex = -1;
        	elapsedTime = 0;
     	isDone = false;
@@ -258,8 +261,16 @@ public class TimedAssessmentRule extends AssessmentRule {
 		tar.elapsedTime = elapsedTime;
 		tar.endConditions = (endConditions != null ? (Conditions) endConditions.clone() : null);
 		tar.isDone = isDone;
+		tar.usesEndConditions = usesEndConditions;
 		return tar;
 	}
-		
+
+	public void setUsesEndConditions(boolean b) {
+		this.usesEndConditions = b;
+	}
+	
+	public boolean isUsesEndConditions() {
+		return usesEndConditions;
+	}
 
 }

@@ -7,11 +7,13 @@ import es.eucm.eadventure.common.data.assessment.AssessmentRule;
 import es.eucm.eadventure.common.data.assessment.TimedAssessmentEffect;
 import es.eucm.eadventure.common.data.assessment.TimedAssessmentRule;
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.tools.assessment.AddAssessmentPropertyTool;
 import es.eucm.eadventure.editor.control.tools.assessment.AddEffectTool;
 import es.eucm.eadventure.editor.control.tools.assessment.ChangeMinTimeValueTool;
+import es.eucm.eadventure.editor.control.tools.assessment.ChangeUsesEndCondition;
 import es.eucm.eadventure.editor.control.tools.assessment.DeleteAssessmentPropertyTool;
 import es.eucm.eadventure.editor.control.tools.assessment.DeleteEffectTool;
 import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeIdTool;
@@ -29,7 +31,7 @@ public class AssessmentRuleDataControl extends DataControl{
 	private ConditionsController initConditionsController;
 	
 	private ConditionsController endConditionsController;
-	
+		
 	public AssessmentRuleDataControl (AssessmentRule assessmentRule){
 		this.assessmentRule = assessmentRule;
 		
@@ -38,6 +40,7 @@ public class AssessmentRuleDataControl extends DataControl{
 			TimedAssessmentRule tRule = (TimedAssessmentRule)assessmentRule;
 			initConditionsController = new ConditionsController( tRule.getInitConditions( ) );
 			endConditionsController = new ConditionsController( tRule.getEndConditions( ) );
+			tRule.setUsesEndConditions(true);
 		}else {
 			conditionsController = new ConditionsController( assessmentRule.getConditions( ) );	
 		}
@@ -502,6 +505,17 @@ public class AssessmentRuleDataControl extends DataControl{
 		}
 		}
 		check(this.getEndConditions(), TextConstants.getText("Search.EndConditions"));
+	}
+
+	public boolean isUsesEndConditions() {
+		if (assessmentRule instanceof TimedAssessmentRule) {
+			return ((TimedAssessmentRule) assessmentRule).isUsesEndConditions();
+		}
+		return false;
+	}
+
+	public void setUsesEndConditions(boolean selected) {
+		Controller.getInstance().addTool(new ChangeUsesEndCondition((TimedAssessmentRule) assessmentRule, selected));
 	}
 
 }

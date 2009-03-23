@@ -2126,6 +2126,7 @@ When not customized, default arrows will be used in the game.</entry>
 	<entry key="Timer.PostEffects">Effects to be executed if the timer is stopped</entry>
 	<entry key="Timer.Time">Time</entry>
 	<entry key="Timer.UsesEndCondition">Uses end conditions (if not, the timer will stop when start conditions aren't met)</entry>
+	<entry key="Timer.UsesEndConditionShort">Uses end conditions</entry>
 	<entry key="Timer.LoopControl">Loop control</entry>
 	<entry key="Timer.MultipleStarts">Multiple starts</entry>
 	<entry key="Timer.MultipleStartsDesc">      Set -> If the timer is stopped, it will start again once the conditions to start are met
