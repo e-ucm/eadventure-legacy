@@ -375,18 +375,16 @@ public class AssessmentHandler extends DefaultHandler {
         else if( qName.equals( "set-property" ) ) {
             String id = null;
             String value = null;
-            String op = null;
             
             for( int i = 0; i < attrs.getLength( ); i++ ) {
                 if( attrs.getQName( i ).equals( "id" ) )
                     id = attrs.getValue( i );
                 if( attrs.getQName( i ).equals( "value" ) )
                     value = attrs.getValue( i );
-                if( attrs.getQName( i ).equals( "operation" ) )
-                    op = attrs.getValue( i );
+                
             }
             
-            currentAssessmentRule.addProperty( new AssessmentProperty( id, value,op ) );
+            currentAssessmentRule.addProperty( new AssessmentProperty( id, value ) );
         }
         
         else if( qName.equals( "effect" ) ) {

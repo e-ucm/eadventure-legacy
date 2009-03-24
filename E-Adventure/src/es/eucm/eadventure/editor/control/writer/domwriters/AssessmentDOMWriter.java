@@ -175,7 +175,6 @@ public class AssessmentDOMWriter {
 						Element propertyElement = doc.createElement( "set-property" );
 						propertyElement.setAttribute( "id", property.getId( ) );
 						propertyElement.setAttribute( "value", String.valueOf( property.getValue( ) ) );
-						propertyElement.setAttribute( "value", property.getOperation());
 						effectNode.appendChild( propertyElement );
 					}
 					//Append the effect
