@@ -126,6 +126,7 @@ Please, select what to do: 1) Delete the chapter, 2) Replace it with other file,
 	<entry key="GeneralText.Project">Project</entry>
 	<entry key="GeneralText.New">New</entry>
 	<entry key="GeneralText.NewProjectFolder">NewProject</entry>
+	<entry key="GeneralText.FinishingBackup">Finishing backup</entry>
 	<entry key="ErrorSolving.Chapter.NotReplaced.Title">Chapter not replaced</entry>
 	<entry key="ErrorSolving.Chapter.NotReplaced.Message">An error occurred replacing the chapter.
 The operation was aborted.</entry>
