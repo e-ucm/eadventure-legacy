@@ -2,6 +2,7 @@ package es.eucm.eadventure.editor.control.tools.assessment;
 
 import java.util.List;
 
+import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
 import es.eucm.eadventure.common.data.assessment.AssessmentProperty;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.tools.Tool;
@@ -36,7 +37,7 @@ public class AddAssessmentPropertyTool extends Tool{
 
 	@Override
 	public boolean doTool() {
-		propertyAdded = new AssessmentProperty("PropertyId", "0");
+		propertyAdded = new AssessmentProperty("PropertyId", "0",AssessmentProfile.EQUALS);
 		parent.add( index,  propertyAdded);
 		return true;
 	}

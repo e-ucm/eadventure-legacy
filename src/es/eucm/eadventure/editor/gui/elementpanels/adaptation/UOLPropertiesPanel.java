@@ -30,6 +30,7 @@ import es.eucm.eadventure.editor.control.config.SCORMConfigData;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationRuleDataControl;
 import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
+import es.eucm.eadventure.common.data.adaptation.AdaptationProfile;
 
 /**
  * This class is the panel used to display and edit nodes. It holds node operations, like adding and removing lines,
@@ -117,15 +118,21 @@ class UOLPropertiesPanel extends JPanel implements Updateable{
 		propertiesTable.setAutoCreateColumnsFromModel( false );
 		//propertiesTable.getColumnModel( ).getColumn( 0 ).setMaxWidth( 60 );
 		//propertiesTable.getColumnModel( ).getColumn( 1 ).setMaxWidth( 60 );
+	
+		// Set the operations values 
+		JComboBox operations = new JComboBox (AdaptationProfile.getOperations() );
+		propertiesTable.getColumnModel( ).getColumn( 1 ).setCellEditor( new DefaultCellEditor(operations));
+		propertiesTable.getColumnModel( ).getColumn( 1 ).setMaxWidth( 60 );
 		
+		// if is SCORM profile, fill the fields of the SCORM data model which can be accessed
 		if (scorm12){
-		//Edition of column 0: combo box (activate, deactivate)
+		
 		JComboBox actionValuesCB = new JComboBox (takesCorrectElements(SCORMConfigData.getPartsOfModel12(),false));
 		propertiesTable.getColumnModel( ).getColumn( 0 ).setCellEditor( new DefaultCellEditor( actionValuesCB ) );
 		}
 		
 		if (scorm2004){
-			//Edition of column 0: combo box (activate, deactivate)
+			
 			JComboBox actionValuesCB = new JComboBox (takesCorrectElements(SCORMConfigData.getPartsOfModel2004(),true));
 			propertiesTable.getColumnModel( ).getColumn( 0 ).setCellEditor( new DefaultCellEditor( actionValuesCB ) );
 				
@@ -428,6 +435,8 @@ class UOLPropertiesPanel extends JPanel implements Updateable{
 			if (columnIndex == 0)
 				name = "Id";
 			else if (columnIndex == 1)
+				name = "Op";
+			else if (columnIndex == 2)
 				name = "Value";
 			return name;
 		}
@@ -455,7 +464,7 @@ class UOLPropertiesPanel extends JPanel implements Updateable{
 		 */
 		public int getColumnCount( ) {
 			// All line tables has three columns
-			return 2;
+			return 3;
 		}
 
 		/*
@@ -490,8 +499,13 @@ class UOLPropertiesPanel extends JPanel implements Updateable{
 				if( columnIndex == 0 )
 					adaptationRuleDataControl.setUOLPropertyId( rowIndex, value.toString( ) );
 
-				// If the text is being edited, and it has really changed
+				// If the comparison operation is being edited, and it has really changed
 				if( columnIndex == 1 )
+				    adaptationRuleDataControl.setUOLPropertyOp( rowIndex, AdaptationProfile.getOpName(value));
+
+				
+				// If the text is being edited, and it has really changed
+				if( columnIndex == 2 )
 					adaptationRuleDataControl.setUOLPropertyValue( rowIndex, value.toString( ) );
 
 
@@ -515,6 +529,11 @@ class UOLPropertiesPanel extends JPanel implements Updateable{
 					value = adaptationRuleDataControl.getUOLPropertyId ( rowIndex );
 					break;
 				case 1:
+					// Comparison operation value
+					value = AdaptationProfile.getOpRepresentation(adaptationRuleDataControl.getUOLPropertyOp ( rowIndex ));
+					break;
+				
+				case 2:
 					// Property value
 					value = adaptationRuleDataControl.getUOLPropertyValue ( rowIndex );
 					break;

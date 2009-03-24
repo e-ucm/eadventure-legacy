@@ -36,12 +36,12 @@ public class AdaptationRulePanel extends JPanel implements Updateable{
 	private JTextArea descriptionTextArea;
 	
 	/**
-	 * Panel conaining the UOL state panel (LMS-side state)
+	 * Panel containing the UOL state panel (LMS-side state)
 	 */
 	private UOLPropertiesPanel uolPanel;
 	
 	/**
-	 * Panel conaining the game state panel (based on flags/vars)
+	 * Panel containing the game state panel (based on flags/vars)
 	 */
 	private GameStatePanel gsPanel;
 	

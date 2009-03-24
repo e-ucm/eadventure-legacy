@@ -1,6 +1,7 @@
 package es.eucm.eadventure.editor.gui.elementpanels.adaptation;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -8,27 +9,38 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.EventObject;
 
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.DefaultCellEditor;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.CellEditorListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellEditor;
 
+import es.eucm.eadventure.common.data.adaptation.AdaptedState;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationRuleDataControl;
 import es.eucm.eadventure.editor.gui.Updateable;
+import es.eucm.eadventure.editor.gui.editdialogs.VarDialog;
 
 /**
  * This class is the panel used to display and edit nodes. It holds node operations, like adding and removing lines,
@@ -77,6 +89,8 @@ class GameStatePanel extends JPanel implements Updateable{
 	 */
 	private JComboBox initialSceneCB;
 	
+	
+	
 
 	/* Methods */
 
@@ -105,27 +119,18 @@ class GameStatePanel extends JPanel implements Updateable{
 
 		// Column size properties
 		actionFlagsTable.setAutoCreateColumnsFromModel( false );
-		//propertiesTable.getColumnModel( ).getColumn( 0 ).setMaxWidth( 60 );
-		//propertiesTable.getColumnModel( ).getColumn( 1 ).setMaxWidth( 60 );
+		actionFlagsTable.getColumnModel( ).getColumn( 0 ).setMaxWidth( 60 );
+		actionFlagsTable.getColumnModel( ).getColumn( 1 ).setMaxWidth( 60 );
 		
-
+		
 		// Selection properties
 		actionFlagsTable.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
 		actionFlagsTable.setCellSelectionEnabled( false );
 		actionFlagsTable.setColumnSelectionAllowed( false );
 		actionFlagsTable.setRowSelectionAllowed( true );
 
-		//Edition of column 0: combo box (activate, deactivate)
-		String[] actionValues = new String[]{"activate", "deactivate"};
-		JComboBox actionValuesCB = new JComboBox (actionValues);
-		actionFlagsTable.getColumnModel( ).getColumn( 0 ).setCellEditor( new DefaultCellEditor( actionValuesCB ) );
 		
-		//Edition of column 1: combo box (flags list)
-		String [] flags = Controller.getInstance( ).getVarFlagSummary( ).getFlags( );
-		JComboBox flagsCB = new JComboBox (flags);
-		actionFlagsTable.getColumnModel( ).getColumn( 1 ).setCellEditor( new DefaultCellEditor( flagsCB ) );
 		// Misc properties
-		//propertiesTable.setTableHeader( null );
 		actionFlagsTable.setIntercellSpacing( new Dimension( 1, 1 ) );
 
 		// Add selection listener to the table
@@ -257,7 +262,7 @@ class GameStatePanel extends JPanel implements Updateable{
 			if( selectedRow == -1 )
 				selectedRow = actionFlagsTable.getRowCount( ) - 1;
 
-
+			
 			// Insert the dialogue line in the selected position
 			if (adaptationRuleDataControl.addFlagAction( selectedRow + 1 )){
 
@@ -340,19 +345,28 @@ class GameStatePanel extends JPanel implements Updateable{
 		 */
 		private static final long serialVersionUID = 1L;
 
-
+		/**
+		 * Store if each element in table is flag or variable (true for flags and false for vars)
+		 */
+		//private ArrayList<Boolean> isFlagVar;
+		
 		/**
 		 * Constructor
 		 */
 		public NodeTableModel(  ) {
+		   // isFlagVar = new ArrayList<Boolean>();
 		}
 
 		public String getColumnName ( int columnIndex ){
 			String name = "";
 			if (columnIndex == 0)
-				name = "Action";
+				name = "Var?";
 			else if (columnIndex == 1)
-				name = "Flag";
+				name = "Flag?";
+			if (columnIndex == 2)
+				name = "Action";
+			else if (columnIndex == 3)
+				name = "Var/Flag";
 			return name;
 		}
 		
@@ -378,8 +392,8 @@ class GameStatePanel extends JPanel implements Updateable{
 		 * @see javax.swing.table.TableModel#getColumnCount()
 		 */
 		public int getColumnCount( ) {
-			// All line tables has three columns
-			return 2;
+			// All line tables has four columns
+			return 4;
 		}
 
 		/*
@@ -409,16 +423,64 @@ class GameStatePanel extends JPanel implements Updateable{
 
 			// If the value isn't an empty string
 			if( value!=null && !value.toString( ).trim( ).equals( "" ) ) {
-				// If the name is being edited, and it has really changed
-				if( columnIndex == 0 )
+			    	// The two first check box aren´t editable
+			    	if( columnIndex == 0){
+			    	    // if not selected
+			    	    if (adaptationRuleDataControl.isFlag(rowIndex)){
+			    		
+			    		
+			    		String[] names = Controller.getInstance( ).getVarFlagSummary( ).getVars();
+			    		// take any var if there are at least one 
+			    		if (names.length!=0){
+			    		    // change to var
+			    		    adaptationRuleDataControl.change(rowIndex, names[0]);
+			    		  
+			    		}else 
+			    		    Controller.getInstance().showErrorDialog(TextConstants.getText("Error.NoVarsAvailable.Title"), TextConstants.getText("Error.NoVarsAvailable.Message"));
+			    		
+			    	    }
+			    	    
+			    		
+			    	}
+			    
+			    	if( columnIndex == 1){
+			    	    // if not selected
+			    	if (!adaptationRuleDataControl.isFlag(rowIndex)){
+			    		
+			    		
+			    		String[] names = Controller.getInstance( ).getVarFlagSummary( ).getFlags();
+			    		// take any flag if there are at least one 
+			    		if (names.length!=0){
+			    		    // change to flag
+			    		    adaptationRuleDataControl.change(rowIndex, names[0]);
+			    		    // 	change the row editor
+			    		   // actionFlagsTable.revalidate( );
+			    		}else 
+			    		    Controller.getInstance().showErrorDialog(TextConstants.getText("Error.NoFlagsAvailable.Title"), TextConstants.getText("Error.NoFlagsAvailable.Message"));
+			    		
+			    	    }
+			    		
+			    	}
+			    	
+			    	// If the action is being edited, and it has really changed
+				if( columnIndex == 2){
+				    // if is a "set value" action, ask for that value
+				    if (value.toString().equals(AdaptedState.VALUE)){
+					VarDialog dialog= new VarDialog(adaptationRuleDataControl.getValueToSet(rowIndex));
+					if (!dialog.getValue().equals("error"))
+					    adaptationRuleDataControl.setAction( rowIndex, value.toString() + " " +dialog.getValue() );
+				    }
+				    else 
 					adaptationRuleDataControl.setAction( rowIndex, value.toString( ) );
+				}
 
-				// If the text is being edited, and it has really changed
-				if( columnIndex == 1 )
+				// If the flag is being edited, and it has really changed
+				if( columnIndex == 3 )
+				    
 					adaptationRuleDataControl.setFlag( rowIndex, value.toString( ) );
 
 
-				fireTableCellUpdated( rowIndex, columnIndex );
+				fireTableRowsUpdated( rowIndex, rowIndex );
 			}
 		}
 
@@ -432,19 +494,61 @@ class GameStatePanel extends JPanel implements Updateable{
 
 			// Return value depending of the selected row
 			switch( columnIndex ) {
-				case 0:
-					// Id of the property
+				
+				case 0: // IsVar 
+				    	
+				    	value = !adaptationRuleDataControl.isFlag(rowIndex);
+				    	setRowEditor(rowIndex,(Boolean)value);
+				    	break;
+				    	
+				case 1: // IsFlag 
+				    	value = adaptationRuleDataControl.isFlag(rowIndex);
+				    	setRowEditor(rowIndex,(Boolean)value);
+				    	break;
+			
+				case 2:
+					// Action
 					value = adaptationRuleDataControl.getAction( rowIndex );
 					break;
-				case 1:
-					// Property value
+				case 3:
+					// Flag/Var name
 					value = adaptationRuleDataControl.getFlag( rowIndex );
 					break;
 			}
 
 			return value;
 		}
+		
+		private void setRowEditor(int index, boolean isFlag){
+		    	
+		    
+		    	//Edition of column 2: combo box (activate, deactivate for flags; increment, decrement, set value for vars )
+			String[] actionValues;
+			if (isFlag)
+			    actionValues = new String[]{"activate", "deactivate"};
+			else 
+			    actionValues = new String[]{"increment", "decrement", "set-value"};
+			JComboBox actionValuesCB = new JComboBox (actionValues);
+			actionFlagsTable.getColumnModel( ).getColumn( 2 ).setCellEditor( new DefaultCellEditor( actionValuesCB ) );
+		
+			//Edition of column 3: combo box (flags or var list)
+			String [] flagsVars;
+			if (isFlag)
+			    flagsVars = Controller.getInstance( ).getVarFlagSummary( ).getFlags( );
+			else
+			    flagsVars = Controller.getInstance( ).getVarFlagSummary( ).getVars();
+			JComboBox flagsCB = new JComboBox (flagsVars);
+			actionFlagsTable.getColumnModel( ).getColumn( 3 ).setCellEditor( new DefaultCellEditor( flagsCB ) );
+		}
+		
+		
 	}
+	
+	
+
+	
+	
+	
 
 	public boolean updateFields() {
 		actionFlagsTable.setRowSelectionInterval(-1, -1);

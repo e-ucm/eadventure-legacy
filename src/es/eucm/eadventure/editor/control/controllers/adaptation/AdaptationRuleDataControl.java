@@ -154,6 +154,10 @@ public class AdaptationRuleDataControl extends DataControl{
 		controller.addTool(new ChangeActionTool(adaptationRule, rowIndex, flag, ChangeActionTool.SET_ID));
 	}
 
+	public void change(int rowIndex,String name){
+	    adaptationRule.getAdaptedState().change(rowIndex, name);
+	}
+	
 	public String getFlag( int rowIndex ) {
 		return this.adaptationRule.getAdaptedState( ).getFlagVar( rowIndex );
 	}
@@ -162,6 +166,10 @@ public class AdaptationRuleDataControl extends DataControl{
 		return this.adaptationRule.getAdaptedState( ).getAction( rowIndex );
 	}
 
+	public boolean isFlag(int rowIndex){
+	    return this.adaptationRule.getAdaptedState().isFlag(rowIndex);
+	}
+	
 	public String getId( ) {
 		return adaptationRule.getId( );
 	}
@@ -185,6 +193,10 @@ public class AdaptationRuleDataControl extends DataControl{
 	public void setUOLPropertyId( int rowIndex, String string ) {
 		controller.addTool(new ChangeUOLPropertyTool(adaptationRule, string, rowIndex, ChangeUOLPropertyTool.SET_ID));
 	}
+	
+	public void setUOLPropertyOp( int rowIndex, String string ) {
+		controller.addTool(new ChangeUOLPropertyTool(adaptationRule, string, rowIndex, ChangeUOLPropertyTool.SET_OP));
+	}
 
 	public String getUOLPropertyId( int rowIndex ) {
 		return this.adaptationRule.getUOLProperties( ).get( rowIndex ).getId( );
@@ -193,9 +205,21 @@ public class AdaptationRuleDataControl extends DataControl{
 	public String getUOLPropertyValue( int rowIndex ) {
 		return adaptationRule.getUOLProperties( ).get( rowIndex ).getValue( );
 	}
+	
+	public String getUOLPropertyOp( int rowIndex ) {
+		return adaptationRule.getUOLProperties( ).get( rowIndex ).getOperation();
+	}
 
 	public void setAction( int rowIndex, String string ) {
 		controller.addTool(new ChangeActionTool(adaptationRule, rowIndex, string, ChangeActionTool.SET_VALUE));
+	}
+	
+	public int getValueToSet(int rowIndex){
+	    if (adaptationRule.getAdaptedState().getValueToSet(rowIndex)==Integer.MIN_VALUE)
+		return 0;
+	    else
+		return adaptationRule.getAdaptedState().getValueToSet(rowIndex);
+
 	}
 
 	@Override

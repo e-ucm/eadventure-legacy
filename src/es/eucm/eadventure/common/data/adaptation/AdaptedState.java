@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.HasTargetId;
+import es.eucm.eadventure.editor.control.Controller;
 
 /**
  * Stores the adaptation data, which includes the flag activation and deactivation values,
@@ -16,9 +17,21 @@ public class AdaptedState implements Cloneable, HasTargetId {
      */
     private String initialScene;
     
+    /**
+     * Flags values
+     */
     public static final String ACTIVATE = "activate";
     
     public static final String DEACTIVATE = "deactivate";
+    
+    /**
+     * Vars values
+     */
+    public static final String INCREMENT = "increment";
+    
+    public static final String DECREMENT = "decrement";
+    
+    public static final String VALUE = "set-value";
     
     /**
      * List of all flags and vars (in order)
@@ -31,12 +44,18 @@ public class AdaptedState implements Cloneable, HasTargetId {
     private List<String> actionsValues;
     
     /**
+     * Store if each component of allFlagsVars is flag (true value) or var (false value)
+     */
+    private List<Boolean> isFlagOrVar;
+    
+    /**
      * Constructor
      */
     public AdaptedState( ) {
         initialScene = null;
         allFlagsVars = new ArrayList<String>( );
         actionsValues = new ArrayList<String>( );
+        isFlagOrVar = new ArrayList<Boolean>();
     }
     
     /**
@@ -70,6 +89,7 @@ public class AdaptedState implements Cloneable, HasTargetId {
     public void addActivatedFlag( String flag ) {
         allFlagsVars.add( flag );
         actionsValues.add( ACTIVATE );
+        isFlagOrVar.add(true);
     }
     
     /**
@@ -79,6 +99,7 @@ public class AdaptedState implements Cloneable, HasTargetId {
     public void addDeactivatedFlag( String flag ) {
         allFlagsVars.add( flag );
         actionsValues.add( DEACTIVATE );
+        isFlagOrVar.add(true);
     }
 
     /**
@@ -86,9 +107,9 @@ public class AdaptedState implements Cloneable, HasTargetId {
      * @param var
      * @param value
      */
-    public void addVarValue ( String var, int value ){
+    public void addVarValue ( String var, String value ){
     	allFlagsVars.add( var );
-    	actionsValues.add( Integer.toString(value) );
+    	actionsValues.add( value);
     }
     
     public void removeFlagVar( int row ){
@@ -128,15 +149,62 @@ public class AdaptedState implements Cloneable, HasTargetId {
 
     }
     
-    public void changeValue ( int row, int newValue ){
-    	if ( row>=0 && row<=actionsValues.size() ){
-    		actionsValues.remove( row );
-    		actionsValues.add( row, Integer.toString(newValue) );
-    	}
+    /**
+     * Change the type of "index" position. If in that position there was a flag, change it to var and vice versa.
+     * It change and set the new flag or var to default value.
+     * 
+     * @param index
+     * 		the position where the change will take place
+     * @param name
+     * 		the name of the new flag or var
+     */
+    public void change(int index,String name){
+	if (isFlag(index)){
+	    actionsValues.set(index, INCREMENT);
+	    allFlagsVars.set(index, name);
+	}else {
+	    actionsValues.set(index, ACTIVATE);
+	    allFlagsVars.set(index, name);
+	}
     }
     
+    
+    public void changeAction ( int row, String newValue ){
+    	if ( row>=0 && row<=actionsValues.size() ){
+    		actionsValues.remove( row );
+    		actionsValues.add( row, newValue );
+    	}
+    }
+   
     public String getAction (int i){
     	return actionsValues.get( i );
+    }
+    
+    public String getValueForVar(int i){
+	String val = actionsValues.get(i);
+	if (val.contains(VALUE)){
+	    return Integer.toString(getValueToSet(i));
+	}else {
+	    return null;
+	}
+    }
+    
+   
+    /**
+     * Returns the value for "VALUE" action (the value which will be set to associated var)
+     * @param index
+     * @return
+     */
+    public int getValueToSet(int index){
+	String val = actionsValues.get( index );
+	int subIndex = val.indexOf(" ");
+	if (subIndex!=-1){
+	    val = val.substring(subIndex+1);
+	    return Integer.parseInt(val);
+	}else{
+	    return Integer.MIN_VALUE;
+	}
+	    
     }
     
     public int getValue (int i){
@@ -217,6 +285,22 @@ public class AdaptedState implements Cloneable, HasTargetId {
     	}
     	}
     }
+    
+    /**
+     * Check if the value in the given position is flag or variable.  
+     * 
+     * @param index
+     * 		the position in allFlagsVar
+     * @return
+     * 	    true if the value in the given position has "flag" value.
+     */
+    public boolean isFlag(int index){
+	String value = actionsValues.get(index);
+	if (value.equals(ACTIVATE)||value.equals(DEACTIVATE))
+	    return true;
+	else 
+	    return false;
+    }
 
 	public Object clone() throws CloneNotSupportedException {
 		AdaptedState as = (AdaptedState) super.clone();
@@ -236,4 +320,6 @@ public class AdaptedState implements Cloneable, HasTargetId {
 	public List<String> getActionsValues() {
 		return actionsValues;
 	}
+	
+	
 } 

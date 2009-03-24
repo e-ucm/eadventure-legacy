@@ -68,9 +68,9 @@ public class ChangeActionTool extends Tool{
 						added = true;
 					}
 					
-				} else if (mode == SET_VALUE){
+				} else if (mode == SET_VALUE){ 
 					if (!state.getAction( index ).equals( newValue )){
-						state.changeAction( index );
+						state.changeAction( index,newValue );
 						added = true;
 					}
 				}

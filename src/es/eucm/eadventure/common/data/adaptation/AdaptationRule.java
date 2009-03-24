@@ -40,11 +40,14 @@ public class AdaptationRule implements Cloneable, Described, ContainsAdaptedStat
     }
     
     /**
-     * Adds a new assessment property
-     * @param property Assessment property to be added
+     * Adds a new UOL property
+     * 
+     * @param id
+     * @param value
+     * @param op Operation of comparison between the value of var id in LMS and value
      */
-    public void addUOLProperty( String id, String value ) {
-        addUOLProperty ( new UOLProperty(id,value));
+    public void addUOLProperty( String id, String value, String op ) {
+        addUOLProperty ( new UOLProperty(id,value,op));
     }
     
     public List<UOLProperty> getUOLProperties( ) {
@@ -66,7 +69,7 @@ public class AdaptationRule implements Cloneable, Described, ContainsAdaptedStat
         
     }
     
-    public void addVarValue ( String var,int value ){
+    public void addVarValue ( String var,String value ){
     	gameState.addVarValue(var, value);
     }
 
