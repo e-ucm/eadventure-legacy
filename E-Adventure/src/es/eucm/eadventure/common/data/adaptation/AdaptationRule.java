@@ -109,6 +109,11 @@ public class AdaptationRule implements Cloneable, Described, ContainsAdaptedStat
         return names;
     }
     
+    /**
+     * Return the value of the property with specific key
+     * @param key
+     * @return
+     */
     public String getPropertyValue ( String key ){
     	for (UOLProperty property: uolState){
     		if (property.getId().equals(key)){
@@ -117,6 +122,20 @@ public class AdaptationRule implements Cloneable, Described, ContainsAdaptedStat
     	}
     	return null;
     	
+    }
+    
+    /**
+     * Return the operation of the property with specific key
+     * @param key
+     * @return
+     */
+    public String getPropertyOp(String key){
+	for (UOLProperty property: uolState){
+		if (property.getId().equals(key)){
+			return property.getOperation();
+		}
+	}
+	return null;
     }
     
 	public Object clone() throws CloneNotSupportedException {

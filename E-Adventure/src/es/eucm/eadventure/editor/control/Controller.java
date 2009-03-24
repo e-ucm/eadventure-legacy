@@ -1487,7 +1487,7 @@ public class Controller {
 							if (FolderFileFilter.checkCharacters( newFolder.getName( ) )){
 						
 							// If the file doesn't exist, or if the user confirms the writing in the file
-							if( (!newFile.exists() && !newFolder.exists( )) || !newFolder.exists() || newFolder.list( ).length == 0 || mainWindow.showStrictConfirmDialog( TextConstants.getText( "Operation.SaveFileTitle" ), TextConstants.getText( "Operation.FolderNotEmpty", newFolder.getName( ) ) ) ) {
+							if( (!newFile.exists() && !newFolder.exists( )) || !newFolder.exists() || newFolder.list( ).length == 0 || mainWindow.showStrictConfirmDialog( TextConstants.getText( "Operation.SaveFileTitle" ), TextConstants.getText( "Operation.NewProject.FolderNotEmptyMessage", newFolder.getName( ) ) ) ) {
 								// If the file exists, delete it so it's clean in the first save
 								//if( newFile.exists( ) )
 								//	newFile.delete( );

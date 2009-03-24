@@ -526,17 +526,8 @@ class InitialStatePanel extends JPanel implements Updateable{
 	}
 	
 	public boolean updateFields() {
-	    	int index = actionFlagsTable.getSelectedRow();
-	    	int rowc = actionFlagsTable.getRowCount();
-	    	// if table is not empty, but there aren´t any row selected
-	    	if (actionFlagsTable.getRowCount()!=0){
-	    	    if (index==-1)
-	    		index =0;
-	    	    actionFlagsTable.setRowSelectionInterval(index, index);
-	    	}else {
-	    	    actionFlagsTable.setRowSelectionInterval(-1, -1);
-	    	}
-		
+	    
+	    	actionFlagsTable.clearSelection();
 		actionFlagsTable.updateUI();
 		deleteActionFlagButton.setEnabled( false );
 		

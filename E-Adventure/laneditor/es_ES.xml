@@ -2322,6 +2322,7 @@ ya que de esta manera se evita reescribirlos varias veces.</entry>
 	<entry key="Search.ElementID">ID del elemento</entry>
 	<entry key="Search.NextScene">Siguiente escena</entry>
 	<entry key="Search.Conditions">Condiciones</entry>
+	<entry key="Search.Var">Variable</entry>
 
 	<entry key="DrawPanel.ZoomIn">Más zoom</entry>
 	<entry key="DrawPanel.ZoomOut">Menos zoom</entry>

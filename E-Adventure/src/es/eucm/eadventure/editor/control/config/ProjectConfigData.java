@@ -48,7 +48,10 @@ public class ProjectConfigData {
 	
 	public static void storeToXML() {
 		try {
-			properties.storeToXML( new FileOutputStream( Controller.getInstance().getProjectFolder()+"/"+FILE_NAME ), "Project Configuration" );
+		    	FileOutputStream file = new FileOutputStream( Controller.getInstance().getProjectFolder()+"/"+FILE_NAME );
+			properties.storeToXML( file , "Project Configuration" );
+			file.close();
+			
 		} catch( FileNotFoundException e ) {} catch( IOException e ) {}
 	}
 	

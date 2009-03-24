@@ -459,10 +459,27 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
                 flags.deactivateFlag( flag );
             // Set the vars
             List<String> adaptedVars = new ArrayList<String>();
-            List<Integer> adaptedValues = new ArrayList<Integer>();
+            List<String> adaptedValues = new ArrayList<String>();
             adaptedStateToExecute.getVarsValues(adaptedVars, adaptedValues );
             for ( int i=0; i<adaptedVars.size(); i++ ){
-            	vars.setVarValue(adaptedVars.get(i), adaptedValues.get(i).intValue());
+        	String varName = adaptedVars.get(i);
+        	String varValue = adaptedValues.get(i);
+        	// check if it is a "set value" operation
+        	if (AdaptedState.isSetValueOp( varValue)){
+        	    String val = AdaptedState.getSetValueData(varValue);
+        	    if (val!=null)
+        	    vars.setVarValue(varName, Integer.parseInt(val));
+        	}
+        	// it is "increment" or "decrement" operation, for both of them is necessary to 
+        	// get the current value of referenced variable
+        	else{
+        	    int currentValue = vars.getValue(varName);
+        	    if (AdaptedState.isIncrementOp(varValue)){
+            	    	vars.setVarValue(varName, currentValue + 1);
+        	    }else if (AdaptedState.isDecrementOp(varValue)){
+            	    	vars.setVarValue(varName, currentValue - 1);
+        	    }
+        	}
             }
             	
         }

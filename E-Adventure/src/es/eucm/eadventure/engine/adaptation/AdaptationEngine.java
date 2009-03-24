@@ -49,21 +49,8 @@ public class AdaptationEngine {
     public void init( String adaptationPath ) {
     	boolean inited = false;
     	if (adaptationPath!=null && !adaptationPath.equals("")){
-		    AdaptationProfile profile = Loader.loadAdaptationProfile( ResourceHandler.getInstance(), adaptationPath, new ArrayList<Incidence>() );
-		    if (profile!=null){
-			    FlagSummary flags = Game.getInstance().getFlags();
-			    VarSummary vars = Game.getInstance().getVars();
-			    for (String flag: profile.getFlags() ){
-			    	flags.addFlag ( flag );
-			    }
-			    for (String var: profile.getVars() ){
-			    	vars.addVar ( var );
-			    }
-			    inited = true;
-		    }
-
-		    initialAdaptedState = profile.getAdaptedState();
-		    externalAdaptationRules = profile.getRules();
+    	    loadAdaptationProfile(adaptationPath);
+    	    inited = true;
     	} else {
     		initialAdaptedState = new AdaptedState();
     		externalAdaptationRules = new ArrayList<AdaptationRule>();
@@ -76,62 +63,131 @@ public class AdaptationEngine {
 	    //If we are an applet...
 	    if(Game.getInstance( ).isAppletMode( )) {
 	        if (Game.getInstance().getComm().getCommType() == CommManagerApi.LD_ENVIROMENT_TYPE){
-	  
-	        	Game.getInstance( ).getComm( ).setAdaptationEngine(this);
-	        
-	        //Create a Set with all the properties that should be requested from the server
-	        externalPropertyNames = new HashSet<String>();
-	        for(AdaptationRule rule : externalAdaptationRules) {
-	            for(String name : rule.getPropertyNames()) {
-	                externalPropertyNames.add( name );
-	            }
-	        }
-	        
-	        //Request an initial state and set the clock to ask again late
-	        requestNewState( );
-	        adaptationClock = new AdaptationClock( this );
-	        adaptationClock.start( );
+	          //Process rules
+	            processLDRules();
 	        }
 	        else if ((Game.getInstance().getComm().getCommType() == CommManagerApi.SCORMV12_TYPE ) ||
 	        		Game.getInstance().getComm().getCommType() == CommManagerApi.SCORMV2004_TYPE){
-	        	//HashMap<String,Integer> lmsInitialStates = Game.getInstance().getComm().getInitialStates();
-	        	//System.out.println("Entramos en el sitio correcto en AssesmentEngine.init()");
-	        	Set<String> properties = new HashSet<String>();
-	        	for(AdaptationRule rule : externalAdaptationRules) {
-	        		/*Integer response = lmsInitialStates.get(rule.getId());
-	        		if (response!=null){
-	        			initialAdaptedState.merge(rule.getAdaptedState());
-	        		}*/
-	        		// get all property names, to search in LMS
-	        		Set<String> propertyNames = rule.getPropertyNames();	
-	        		for (String propertyName : propertyNames)
-	        			properties.add(propertyName);
-	        		//Search in LMS to get associated values
-	        		Game.getInstance().getComm().getAdaptedState(properties);
-		        	// Get the values
-	        		HashMap<String,String> lmsInitialStates = Game.getInstance().getComm().getInitialStates();
-		        	Set<String> keys = lmsInitialStates.keySet();
-		        	// Comprobar que todas las propiedades se cumplen
-		        	boolean runRule = true;
-		        	Iterator<String> it=propertyNames.iterator();
-		        	while(runRule && it.hasNext()){
-		        		//System.out.println("entramos en el bucle");
-		        		String propertyName = it.next();
-		        		if (keys.contains(propertyName)){
-		        			if (!lmsInitialStates.get(propertyName).equals(rule.getPropertyValue(propertyName))){
-		        				runRule=false;
-		        			}
-		        		}
-		        			
-		        	}
-		        	if (runRule){
-		        		Game.getInstance( ).setAdaptedStateToExecute( rule.getAdaptedState( ) );
-		        	//	System.out.println("Se tendria que ejecutar la regla");
-		        	}
-		        	}
+	            //Process rules
+	            processSCORMRules();
+	        
 	        }
 	        
 	    }
+    }
+    
+    /**
+     * Load the adaptation profile filling the initial adapted state and external adaptation rules
+     * @param adaptationPath
+     * 			the path where adaptation profile is
+     */
+    private void loadAdaptationProfile(String adaptationPath){
+	
+	AdaptationProfile profile = Loader.loadAdaptationProfile( ResourceHandler.getInstance(), adaptationPath, new ArrayList<Incidence>() );
+	    if (profile!=null){
+		    FlagSummary flags = Game.getInstance().getFlags();
+		    VarSummary vars = Game.getInstance().getVars();
+		    for (String flag: profile.getFlags() ){
+		    	flags.addFlag ( flag );
+		    }
+		    for (String var: profile.getVars() ){
+		    	vars.addVar ( var );
+		    }
+	
+	    }
+
+	    initialAdaptedState = profile.getAdaptedState();
+	    externalAdaptationRules = profile.getRules();
+    }
+    
+    /**
+     * Process the adaptation rules for LD communication type.
+     */
+    private void processLDRules(){
+	Game.getInstance( ).getComm( ).setAdaptationEngine(this);
+        
+        //Create a Set with all the properties that should be requested from the server
+        externalPropertyNames = new HashSet<String>();
+        for(AdaptationRule rule : externalAdaptationRules) {
+            for(String name : rule.getPropertyNames()) {
+                externalPropertyNames.add( name );
+            }
+        }
+        
+        //Request an initial state and set the clock to ask again late
+        requestNewState( );
+        adaptationClock = new AdaptationClock( this );
+        adaptationClock.start( );
+    }
+    
+    /**
+     * Process the adaptation rules for SCORM communication type.
+     */
+    private void processSCORMRules(){
+	//System.out.println("Entramos en el sitio correcto en AssesmentEngine.init()");
+	Set<String> properties = new HashSet<String>();
+	for(AdaptationRule rule : externalAdaptationRules) {
+		// get all property names, to search in LMS
+		Set<String> propertyNames = rule.getPropertyNames();	
+		for (String propertyName : propertyNames)
+			properties.add(propertyName);
+		//Search in LMS to get associated values
+		Game.getInstance().getComm().getAdaptedState(properties);
+        	// Get the values
+		HashMap<String,String> lmsInitialStates = Game.getInstance().getComm().getInitialStates();
+        	Set<String> keys = lmsInitialStates.keySet();
+        	// Comprobar que todas las propiedades se cumplen
+        	boolean runRule = true;
+        	Iterator<String> it=propertyNames.iterator();
+        	while(runRule && it.hasNext()){
+        		//System.out.println("entramos en el bucle");
+        		String propertyName = it.next();
+        		runRule = checkOperation(keys,lmsInitialStates,propertyName,rule);
+    		} 
+        	if (runRule){
+        		Game.getInstance( ).setAdaptedStateToExecute( rule.getAdaptedState( ) );
+        	//	System.out.println("Se tendria que ejecutar la regla");
+        	}
+        }
+    }
+    
+    private boolean checkOperation(Set<String> keys, HashMap<String,String> lmsInitialStates,String propertyName,AdaptationRule rule){
+	boolean runRule=true;
+	try{
+	   
+	if (keys.contains(propertyName)){
+	    String op = rule.getPropertyOp(propertyName);
+	    if (op.equals(AdaptationProfile.EQUALS)){
+		if (!lmsInitialStates.get(propertyName).equals(rule.getPropertyValue(propertyName))){
+			runRule=false;
+		}
+	    } else if (op.equals(AdaptationProfile.GRATER)){
+		// the data get from LMS must be grater than the value 
+		if (Integer.parseInt(lmsInitialStates.get(propertyName))>Integer.parseInt(rule.getPropertyValue(propertyName))){
+			runRule=false;
+		}
+	    }else if (op.equals(AdaptationProfile.GRATER_EQ)){
+		// the data get from LMS must be grater or equals than the value 
+		if (Integer.parseInt(lmsInitialStates.get(propertyName))>=Integer.parseInt(rule.getPropertyValue(propertyName))){
+			runRule=false;
+		}
+	    }else if (op.equals(AdaptationProfile.LESS)){
+		// the data get from LMS must be less than the value 
+		if (Integer.parseInt(lmsInitialStates.get(propertyName))<Integer.parseInt(rule.getPropertyValue(propertyName))){
+			runRule=false;
+		}
+	    }else if (op.equals(AdaptationProfile.LESS_EQ)){
+		// the data get from LMS must be less or equals than the value 
+		if (Integer.parseInt(lmsInitialStates.get(propertyName))<=Integer.parseInt(rule.getPropertyValue(propertyName))){
+			runRule=false;
+		}
+	    }
+	}
+	}catch (NumberFormatException e){
+	    System.out.println("Error:try to use numeric comparator with a non numeric field ");
+	}
+	
+	return runRule;
     }
     
     /**

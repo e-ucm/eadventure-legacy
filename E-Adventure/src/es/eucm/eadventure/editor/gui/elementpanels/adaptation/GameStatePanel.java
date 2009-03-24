@@ -551,7 +551,7 @@ class GameStatePanel extends JPanel implements Updateable{
 	
 
 	public boolean updateFields() {
-		actionFlagsTable.setRowSelectionInterval(-1, -1);
+		actionFlagsTable.clearSelection();
 		actionFlagsTable.updateUI();
 		deleteActionFlagButton.setEnabled( false );
 		
