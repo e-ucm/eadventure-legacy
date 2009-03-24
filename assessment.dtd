@@ -88,5 +88,4 @@
 <!ATTLIST set-property
 	id NMTOKEN #REQUIRED
 	value NMTOKEN #REQUIRED
-	operation (eq|gt|lt|ge|le) "eq"
 >
