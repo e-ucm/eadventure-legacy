@@ -56,7 +56,7 @@ public class ChangeUOLPropertyTool extends Tool{
 
 	@Override
 	public boolean doTool() {
-		if (mode == SET_ID || mode == SET_VALUE){
+		if (mode == SET_ID || mode == SET_VALUE || mode == SET_OP){
 			if (index>=0 && index<parent.getUOLProperties().size()){
 				parent.getUOLProperties().remove(index);
 				parent.getUOLProperties().add(index, newProperty);
