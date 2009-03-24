@@ -673,6 +673,7 @@ public class Controller {
 	public void stopAutoSave() {
 		if (autoSaveTimer != null) {
 			autoSaveTimer.cancel();
+			autoSave.stop();
 			autoSaveTimer = null;
 		}
 		autoSave = null;
@@ -1124,6 +1125,15 @@ public class Controller {
 		
 		return fileCreated;
  
+	}
+	
+	public void showLoadingScreen(String message) {
+		loadingScreen.setMessage(message);
+		loadingScreen.setVisible(true);
+	}
+	
+	public void hideLoadingScreen() {
+		loadingScreen.setVisible(false);
 	}
 	
 	public boolean fixIncidences(List<Incidence> incidences ){

@@ -132,6 +132,7 @@ Por favor, seleccione una de las siguientes opciones:
 	<entry key="GeneralText.Folders">Carpetas</entry>
 	<entry key="GeneralText.Project">Proyecto</entry>
 	<entry key="GeneralText.NewFolder">Nueva carpeta</entry>
+	<entry key="GeneralText.FinishingBackup">Creando copia de seguridad</entry>
 	<entry key="ErrorSolving.Chapter.NotReplaced.Title">Error al reemplazar el capítulo.</entry>
 	<entry key="ErrorSolving.Chapter.NotReplaced.Message">Ocurrió un error al reemplazar el capítulo. 
 Dicha operación no se completó.</entry>
