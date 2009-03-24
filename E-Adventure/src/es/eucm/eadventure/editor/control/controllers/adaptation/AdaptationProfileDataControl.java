@@ -302,7 +302,14 @@ public class AdaptationProfileDataControl extends DataControl{
 	public String getAction( int rowIndex ) {
 		return profile.getAdaptedState().getAction( rowIndex );
 	}
+	
+	public int getValueToSet(int rowIndex){
+	    if (profile.getAdaptedState().getValueToSet(rowIndex)==Integer.MIN_VALUE)
+		return 0;
+	    else
+		return profile.getAdaptedState().getValueToSet(rowIndex);
 
+	}
 	public String[][] getAdaptationRulesInfo( ) {
 		String[][] info = new String[profile.getRules().size( )][4];
 		
@@ -339,6 +346,15 @@ public class AdaptationProfileDataControl extends DataControl{
 		check(getFileName(), TextConstants.getText("Search.FileName"));
 		check(getInitialScene(), TextConstants.getText("Search.InitialScene"));
 		check(getPath(), TextConstants.getText("Search.Path"));
+	}
+	
+	
+	public void change(int rowIndex,String name){
+	    profile.getAdaptedState().change(rowIndex, name);
+	}
+	
+	public boolean isFlag(int rowIndex){
+	    return this.profile.getAdaptedState().isFlag(rowIndex);
 	}
 	
 	public boolean isScorm2004(){

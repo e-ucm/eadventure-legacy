@@ -12,6 +12,7 @@ public class UOLProperty implements Serializable, Cloneable {
      */
     private static final long serialVersionUID = 1L;
 
+    
     /**
      * Id of the property
      */
@@ -21,15 +22,23 @@ public class UOLProperty implements Serializable, Cloneable {
      * Value of the property
      */
     private String value; 
+    
+    
+    /**
+     * The type of the comparison operation between LMS value of "id" and attribute "value"
+     */
+    private String operation;
 
     /**
      * Default constructor
      * @param id Id of the property
      * @param value Value of the property
+     * @param operation The comparison operation between LMS value of Id and Value
      */
-    public UOLProperty( String id, String value ) {
+    public UOLProperty( String id, String value, String operation ) {
         this.id = id;
         this.value = value;
+        this.operation = operation;
     }
 
     /**
@@ -48,18 +57,35 @@ public class UOLProperty implements Serializable, Cloneable {
         return value;
     }
 
-	public void setId( String id ) {
+    public void setId( String id ) {
 		this.id=id;
-	}
+    }
 
-	public void setValue( String value ) {
+    public void setValue( String value ) {
 		this.value = value;
-	}
+    }
 	
-	public Object clone() throws CloneNotSupportedException {
-		UOLProperty uolp = (UOLProperty) super.clone();
-		uolp.id = (id != null ? new String(id) : null);
-		uolp.value = (value != null ? new String(value) : null);
-		return uolp;
-	}
+    /**
+     * @return the operation
+     */
+    public String getOperation() {
+	return operation;
+    }
+
+    /**
+     * @param operation the operation to set
+     */
+    public void setOperation(String operation) {
+	this.operation = operation;
+    }
+	
+    public Object clone() throws CloneNotSupportedException {
+	UOLProperty uolp = (UOLProperty) super.clone();
+	uolp.id = (id != null ? new String(id) : null);
+	uolp.value = (value != null ? new String(value) : null);
+	uolp.operation = (operation != null ? new String(operation) : null);;
+	return uolp;
+    }	
+
+	
 }

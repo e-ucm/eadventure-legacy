@@ -179,20 +179,60 @@ public class AdaptationHandler extends DefaultHandler {
         // If the tag set-value a var
         else if( qName.equals( "set-value" ) ) {
         	String var = null;
-        	int value = 0;
+        	String value = null;
             for( int i = 0; i < attrs.getLength( ); i++ ) {
                 if( attrs.getQName( i ).equals( "var" ) ) {
                 	var = attrs.getValue( i );
                 }
                 else if( attrs.getQName( i ).equals( "value" ) ) {
-                	value = Integer.parseInt( attrs.getValue ( i ) );
+                	value =  attrs.getValue ( i ) ;
                 }
             }
                 	
             if (parsing==INITIAL_STATE) {
-                initialState.addVarValue(var, value);
+                initialState.addVarValue(var, AdaptedState.VALUE+" "+value);
             } else {
-                rule_temp.addVarValue(var, value);
+                rule_temp.addVarValue(var, AdaptedState.VALUE+" "+value);
+            }
+            addVar ( var );
+   
+        }
+        
+        // If the tag increment a var
+        else if( qName.equals( "increment" ) ) {
+        	String var = null;
+        	int value = 0;
+            for( int i = 0; i < attrs.getLength( ); i++ ) {
+                if( attrs.getQName( i ).equals( "var" ) ) {
+                	var = attrs.getValue( i );
+                }
+                
+            }
+                	
+            if (parsing==INITIAL_STATE) {
+                initialState.addVarValue(var, AdaptedState.INCREMENT);
+            } else {
+                rule_temp.addVarValue(var, AdaptedState.INCREMENT);
+            }
+            addVar ( var );
+   
+        }
+        
+        // If the tag decrement a var
+        else if( qName.equals( "decrement" ) ) {
+        	String var = null;
+        	int value = 0;
+            for( int i = 0; i < attrs.getLength( ); i++ ) {
+                if( attrs.getQName( i ).equals( "var" ) ) {
+                	var = attrs.getValue( i );
+                }
+               
+            }
+                	
+            if (parsing==INITIAL_STATE) {
+                initialState.addVarValue(var, AdaptedState.DECREMENT);
+            } else {
+                rule_temp.addVarValue(var, AdaptedState.DECREMENT);
             }
             addVar ( var );
    
@@ -203,14 +243,17 @@ public class AdaptationHandler extends DefaultHandler {
         else if (qName.equals( "property" )) {
             String id = null;
             String value =  null;
+            String op = null;
             for( int i = 0; i < attrs.getLength( ); i++ ) {
                 if( attrs.getQName( i ).equals( "id" ) ) {
                     id = attrs.getValue( i );  
                 } else if (attrs.getQName( i ).equals( "value" ) ) {
                     value = attrs.getValue( i ); 
+                }else if (attrs.getQName( i ).equals( "operation" ) ) {
+                    op = attrs.getValue( i );
                 }
             }
-            rule_temp.addUOLProperty( new UOLProperty(id,value) );
+            rule_temp.addUOLProperty( new UOLProperty(id,value,op) );
         }
             
     }

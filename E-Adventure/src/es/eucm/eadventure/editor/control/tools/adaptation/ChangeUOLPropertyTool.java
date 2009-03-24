@@ -14,6 +14,7 @@ public class ChangeUOLPropertyTool extends Tool{
 
 	public static final int SET_ID=2;
 	public static final int SET_VALUE=3;
+	public static final int SET_OP = 4;
 	
 	protected UOLProperty oldProperty;
 	protected UOLProperty newProperty;
@@ -30,9 +31,11 @@ public class ChangeUOLPropertyTool extends Tool{
 		this.index = index;
 		
 		if (mode == SET_ID){
-			newProperty = new UOLProperty(newData, oldProperty.getValue());
+			newProperty = new UOLProperty(newData, oldProperty.getValue(),oldProperty.getOperation());
 		} else if (mode == SET_VALUE){
-			newProperty = new UOLProperty(oldProperty.getId(), newData );
+			newProperty = new UOLProperty(oldProperty.getId(), newData , oldProperty.getOperation());
+		}else if (mode == SET_OP){
+			newProperty = new UOLProperty(oldProperty.getId(), oldProperty.getValue(), newData );
 		}
 	}
 	
@@ -43,7 +46,7 @@ public class ChangeUOLPropertyTool extends Tool{
 
 	@Override
 	public boolean canUndo() {
-		return mode == SET_ID || mode ==SET_VALUE;
+		return mode == SET_ID || mode ==SET_VALUE || mode == SET_OP;
 	}
 
 	@Override
@@ -76,7 +79,7 @@ public class ChangeUOLPropertyTool extends Tool{
 
 	@Override
 	public boolean undoTool() {
-		if (mode == SET_ID || mode == SET_VALUE){
+		if (mode == SET_ID || mode == SET_VALUE||mode == SET_OP){
 			parent.getUOLProperties().remove(index);
 			parent.getUOLProperties().add(index, oldProperty);
 			Controller.getInstance().updatePanel();

@@ -1,5 +1,6 @@
 package es.eucm.eadventure.editor.control.tools.adaptation;
 
+import es.eucm.eadventure.common.data.adaptation.AdaptationProfile;
 import es.eucm.eadventure.common.data.adaptation.AdaptationRule;
 import es.eucm.eadventure.common.data.adaptation.UOLProperty;
 import es.eucm.eadventure.editor.control.Controller;
@@ -35,7 +36,7 @@ public class AddUOLPropertyTool extends Tool{
 
 	@Override
 	public boolean doTool() {
-		propertyAdded = new UOLProperty("PropertyId", "PropertyValue");
+		propertyAdded = new UOLProperty("PropertyId", "PropertyValue",AdaptationProfile.EQUALS);
 		parent.getUOLProperties( ).add( index,  propertyAdded);
 		return true;
 	}

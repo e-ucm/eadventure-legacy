@@ -25,13 +25,20 @@ public class AssessmentProperty implements Serializable, Cloneable, HasId {
     private String value; 
 
     /**
+     * The type of the comparison operation between game value of "id" and attribute "value"
+     */
+    private String operation;
+    
+    /**
      * Default constructor
      * @param id Id of the property
      * @param value Value of the property
+     * @param operation The comparison operation between game value of Id and Value
      */
-    public AssessmentProperty( String id, String value ) {
+    public AssessmentProperty( String id, String value , String operation) {
         this.id = id;
         this.value = value;
+        this.operation = operation;
     }
 
     /**
@@ -62,10 +69,25 @@ public class AssessmentProperty implements Serializable, Cloneable, HasId {
 		this.value = value;
 	}
 	
+	/**
+	 * @return the operation
+	 */
+	public String getOperation() {
+	    return operation;
+	}
+
+	/**
+	 * @param operation the operation to set
+	 */
+	public void setOperation(String operation) {
+	    this.operation = operation;
+	}
+
 	public Object clone() throws CloneNotSupportedException {
 		AssessmentProperty ap = (AssessmentProperty) super.clone();
 		ap.id = (id != null ? new String(id) : null);
 		ap.value = (value != null ? new String(value) : null);
+		ap.operation = (operation != null ? new String(operation) : null);
 		return ap;
 	}
 }

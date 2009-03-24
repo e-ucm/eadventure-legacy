@@ -11,6 +11,21 @@ import java.util.List;
  */
 public class AssessmentProfile implements Cloneable {
 
+    
+    /**
+     * Constants to identify the comparison operations
+     */
+    public static final String EQUALS = "eq";
+    
+    public static final String GRATER = "gt";
+    
+    public static final String LESS = "lt";
+    
+    public static final String GRATER_EQ = "ge";
+    
+    public static final String LESS_EQ = "le";
+    
+    
 	/**
 	 * Relative path of the file containing the asssessment rules
 	 */
@@ -328,4 +343,63 @@ public class AssessmentProfile implements Cloneable {
 	public void setScorm12(boolean scorm12) {
 		this.scorm12 = scorm12;
 	}
+	
+	/**
+	 * Returns all operation representation
+	 * 
+	 * @return
+	 */
+	public static String[] getOperations(){
+	    return new String[]{"=",">","<",">=","<="};	
+	}
+	
+	/**
+	 * Gets the operation name from an operation representation
+	 * 
+	 * @param ope
+	 * 	the representation of the operation
+	 * @return
+	 * 	the name of the operation
+	 */
+	public static String getOpName(Object ope){
+	    String op=new String("");
+	    if (ope.equals("=")){
+		op=EQUALS;
+	    }else if (ope.equals(">")){
+		op=GRATER;
+	    }else if (ope.equals("<")){
+		op=LESS;
+	    }else if (ope.equals(">=")){
+		op=GRATER_EQ;
+	    }else if (ope.equals("<=")){
+		op=LESS_EQ;
+	    }
+	    return op;
+	}
+	
+	
+	/**
+	 * Gets the operation representation from an operation name
+	 * 
+	 * @param ope
+	 * 	 the name of the operation
+	 * @return
+	 * 	the representation of the operation
+	 */
+	public static String getOpRepresentation(Object ope){   
+	    String op=new String("");
+	    if (ope.equals(EQUALS)){
+		op="=";
+	    }else if (ope.equals(GRATER)){
+		op=">";
+	    }else if (ope.equals(LESS)){
+		op="<";
+	    }else if (ope.equals(GRATER_EQ)){
+		op=">=";
+	    }else if (ope.equals(LESS_EQ)){
+		op="<=";
+	    }
+	    return op;
+	}
+
 }

@@ -26,6 +26,10 @@
 	<entry key="MenuFile.Exit">Exit</entry>
 	<entry key="MenuFile.AllLOMProperties">LOM Metadata Editor</entry>
 	
+	<entry key="VarDialog.Title">Introduce new value</entry>
+	<entry key="VarDialog.Value">Value</entry>
+	<entry key="VarDialog.Err.Message">Only number can be inserted.</entry>
+	<entry key="VarDialog.Err.Title">Bad String Format</entry>
 	
 	<entry key="About">About</entry>
 	<entry key="Menu.About">About</entry>
@@ -204,7 +208,11 @@ This could provoke errors when executing or loading the adventures.</entry>
 	<entry key="Error.ImageTypeNotSupported">The image could not be loaded, possible because the image type is not completly supported.</entry>	
 	<entry key="Error.BadAudioFormat.Title">Unsupported audio format. </entry>
 	<entry key="Error.BadAudioFormat.Message">This video has a unsupported format. Please, try to convert this video file to one of next codecs: MPEG 1 video, DivX 5 (or lower), MS-MPEG 4 V2 or XVID. </entry>
-	
+	<entry key="Error.NoVarsAvailable.Title">No Variable available. </entry>
+	<entry key="Error.NoVarsAvailable.Message">There aren't variables in this chapter. Please, create one before try to use variables here</entry>
+	<entry key="Error.NoFlagsAvailable.Title">No Flag available. </entry>
+	<entry key="Error.NoFlagsAvailable.Message">There aren't flags in this chapter. Please, create one before try to use flags here</entry>
+
 
 	<entry key="SwapPlayerMode.Title">Change player mode - Confirmation dialog</entry>
 	<entry key="SwapPlayerMode.Message">Are you sure you want to change the current mode? 

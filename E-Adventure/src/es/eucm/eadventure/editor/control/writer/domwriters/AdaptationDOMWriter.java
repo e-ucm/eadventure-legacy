@@ -63,11 +63,29 @@ public class AdaptationDOMWriter {
 					initialStateNode.appendChild( initialScene );
 				}
 				
-				// Append activate / deactivate flags
+				// Append activate / deactivate flags or set value var
+				Element actionFlag;
 				for (int i=0; i<initialState.getFlagsVars( ).size( ); i++){
-					Element actionFlag = doc.createElement( initialState.getAction( i ) );
+				    if (initialState.isFlag(i)){
+					actionFlag = doc.createElement( initialState.getAction( i ) );
 					actionFlag.setAttribute( "flag", initialState.getFlagVar( i ) );
-					initialStateNode.appendChild( actionFlag );
+					
+				    } else {
+					// check if this operation is "set-value"
+					boolean isValue = initialState.getAction( i ).contains(AdaptedState.VALUE);
+					if (isValue)
+					   // get only the title of the operation
+					    actionFlag = doc.createElement( AdaptedState.VALUE );
+					else 
+					    // get the title
+					    actionFlag = doc.createElement( initialState.getAction( i ) );
+					//set the name of the current var
+					actionFlag.setAttribute( "var", initialState.getFlagVar( i ) );
+					// if is "set-value" operation, also store the future value
+					if (isValue)
+					    actionFlag.setAttribute( "value", initialState.getValueForVar(i));
+				    }
+				    initialStateNode.appendChild( actionFlag );
 				}
 				
 				//Append the node
@@ -95,6 +113,7 @@ public class AdaptationDOMWriter {
 					propertyElement.setAttribute( "id", property.getId( ) );
 					propertyElement.setAttribute( "value", property.getValue( ) );
 					uolStateNode.appendChild( propertyElement );
+					propertyElement.setAttribute( "operation",property.getOperation());
 				}
 				ruleNode.appendChild( uolStateNode );
 				
@@ -110,13 +129,33 @@ public class AdaptationDOMWriter {
 						initialScene.setAttribute( "idTarget", rule.getAdaptedState( ).getTargetId( ) );
 						gameStateNode.appendChild( initialScene );
 					}
-					
-					// Append activate / deactivate flags
+									
+					// Append activate / deactivate flags or set value var
+					Element actionFlag;
 					for (int i=0; i<rule.getAdaptedState( ).getFlagsVars( ).size( ); i++){
-						Element actionFlag = doc.createElement( rule.getAdaptedState( ).getAction( i ) );
+					    if (rule.getAdaptedState( ).isFlag(i)){
+						actionFlag = doc.createElement( rule.getAdaptedState( ).getAction( i ) );
 						actionFlag.setAttribute( "flag", rule.getAdaptedState( ).getFlagVar( i ) );
-						gameStateNode.appendChild( actionFlag );
+						
+					    } else {
+						// check if this operation is "set-value"
+						boolean isValue = rule.getAdaptedState( ).getAction( i ).contains(AdaptedState.VALUE);
+						if (isValue)
+						   // get only the title of the operation
+						    actionFlag = doc.createElement( AdaptedState.VALUE );
+						else 
+						    // get the title
+						    actionFlag = doc.createElement( rule.getAdaptedState( ).getAction( i ) );
+						//set the name of the current var
+						actionFlag.setAttribute( "var", rule.getAdaptedState( ).getFlagVar( i ) );
+						// if is "set-value" operation, also store the future value
+						if (isValue)
+						    actionFlag.setAttribute( "value", rule.getAdaptedState( ).getValueForVar(i) );
+					    
+					    }
+					    gameStateNode.appendChild( actionFlag );
 					}
+					
 				}
 				//Append the node
 				ruleNode.appendChild( gameStateNode );
