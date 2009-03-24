@@ -124,8 +124,8 @@ class AssessmentPropertiesPanel extends JPanel {
 
 		// Column size properties
 		propertiesTable.setAutoCreateColumnsFromModel( false );
-		propertiesTable.getColumnModel( ).getColumn( 0 ).setMaxWidth( 60 );
-		propertiesTable.getColumnModel( ).getColumn( 1 ).setMaxWidth( 60 );
+		//propertiesTable.getColumnModel( ).getColumn( 0 ).setMaxWidth( 60 );
+		//propertiesTable.getColumnModel( ).getColumn( 1 ).setMaxWidth( 60 );
 		
 
 		// Selection properties
@@ -434,12 +434,10 @@ class AssessmentPropertiesPanel extends JPanel {
 		}
 
 		public String getColumnName ( int columnIndex ){
-		    String name = "";
+			String name = "";
 			if (columnIndex == 0)
 				name = "Id";
 			else if (columnIndex == 1)
-				name = "Op";
-			else if (columnIndex == 2)
 				name = "Value";
 			return name;
 		}
@@ -467,7 +465,7 @@ class AssessmentPropertiesPanel extends JPanel {
 		 */
 		public int getColumnCount( ) {
 			// All line tables has three columns
-			return 3;
+			return 2;
 		}
 
 		/*
@@ -502,15 +500,9 @@ class AssessmentPropertiesPanel extends JPanel {
 				if( columnIndex == 0 )
 					assessmentRuleDataControl.setPropertyId( rowIndex, currentIndex, value.toString( ) );
 
-				// If the operation is being edited, and it has really changed
-				if( columnIndex == 1 )
-					//assessmentRuleDataControl.setPropertyOperation( rowIndex, currentIndex, value.toString( ) );
-				
 				// If the text is being edited, and it has really changed
-				if( columnIndex == 2 )
+				if( columnIndex == 1 )
 					assessmentRuleDataControl.setPropertyValue( rowIndex, currentIndex, value.toString( ) );
-
-				
 
 
 				fireTableCellUpdated( rowIndex, columnIndex );
@@ -533,10 +525,6 @@ class AssessmentPropertiesPanel extends JPanel {
 					value = assessmentRuleDataControl.getPropertyId ( rowIndex, currentIndex );
 					break;
 				case 1:
-					// Operation value
-					value = assessmentRuleDataControl.getPropertyValue ( rowIndex, currentIndex );
-					break;
-				case 2:
 					// Property value
 					value = assessmentRuleDataControl.getPropertyValue ( rowIndex, currentIndex );
 					break;
