@@ -252,11 +252,11 @@ public class AdaptedState implements Cloneable, HasTargetId {
      * @param vars
      * @param values
      */
-    public void getVarsValues ( List<String> vars, List<Integer> values){
+    public void getVarsValues ( List<String> vars, List<String> values){
     	for ( int i=0; i<actionsValues.size(); i++){
     		if ( !actionsValues.get(i).equals(ACTIVATE) && !actionsValues.get(i).equals(DEACTIVATE) ){
     			vars.add(allFlagsVars.get(i));
-    			values.add(new Integer(actionsValues.get(i)));
+    			values.add(actionsValues.get(i));
     		}
     	}
     }
@@ -319,6 +319,52 @@ public class AdaptedState implements Cloneable, HasTargetId {
 	 */
 	public List<String> getActionsValues() {
 		return actionsValues;
+	}
+	
+	/**
+	 * Check if the given String is a "set-value" operation
+	 * @param op
+	 * @return
+	 */
+	public static boolean isSetValueOp(String op){
+	    return op.contains(VALUE);
+	}
+	
+	
+	/**
+	 * Check if the given String is a "increment" operation
+	 * 
+	 * @param op
+	 * @return
+	 */
+	public static boolean isIncrementOp(String op){
+	    return op.equals(INCREMENT);
+	}
+	
+	/**
+	 * Check if the given String is a "decrement" operation
+	 * 
+	 * @param op
+	 * @return
+	 */
+	public static boolean isDecrementOp(String op){
+	    return op.equals(DECREMENT);
+	}
+	
+	/**
+	 * Take the numeric value from a "action value" that will be set as var value
+	 * 
+	 * @param value
+	 * @return
+	 */
+	public static String getSetValueData(String value){
+	    int subIndex = value.indexOf(" ");
+		if (subIndex!=-1){
+		    value = value.substring(subIndex+1);
+		    return value;
+		}else{
+		    return null;
+		}
 	}
 	
 	

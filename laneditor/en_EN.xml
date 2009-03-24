@@ -2322,6 +2322,7 @@ avoids retyping.</entry>
 	<entry key="Search.ElementID">Element ID</entry>
 	<entry key="Search.NextScene">Next Scene</entry>
 	<entry key="Search.Conditions">Conditions</entry>
+	<entry key="Search.Var">Variable</entry>
 	
 	<entry key="DrawPanel.ZoomIn">Zoom in</entry>
 	<entry key="DrawPanel.ZoomOut">Zoom out</entry>

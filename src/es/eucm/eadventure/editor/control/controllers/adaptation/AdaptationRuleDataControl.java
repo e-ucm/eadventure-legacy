@@ -237,8 +237,12 @@ public class AdaptationRuleDataControl extends DataControl{
 		check(getDescription(), TextConstants.getText("Search.Description"));
 		check(getId(), "ID");
 		check(getInitialScene(), TextConstants.getText("Search.InitialScene"));
-		for (int i = 0; i < this.getFlagActionCount(); i++)
+		for (int i = 0; i < this.getFlagActionCount(); i++){
+		    if (isFlag(i))
 			check(getFlag(i), TextConstants.getText("Search.Flag"));
+		    else
+			check(getFlag(i), TextConstants.getText("Search.Var"));
+		}
 		for (int i = 0; i < this.getUOLPropertyCount(); i++) {
 			check(this.getUOLPropertyId(i), TextConstants.getText("Search.UOLPropertyID"));
 			check(this.getUOLPropertyValue(i), TextConstants.getText("Search.UOLPropertyValue"));

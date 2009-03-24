@@ -11,7 +11,7 @@ import es.eucm.eadventure.common.data.assessment.AssessmentProperty;
 import es.eucm.eadventure.engine.adaptation.AdaptationEngine;
 
 
-public class CommManagerScormV12 extends AdventureApplet{
+public class CommManagerScorm extends AdventureApplet{
 	
 	private static final long serialVersionUID = 3444828969384528659L;
 
@@ -31,7 +31,7 @@ public class CommManagerScormV12 extends AdventureApplet{
 	private HashMap<String,String> valuesFromLMS;
 
 	
-	public CommManagerScormV12(){
+	public CommManagerScorm(){
 		valuesFromLMS = new HashMap<String,String>();
 		connected = false;
 		adaptedStates = new HashMap<String,String>();
@@ -133,7 +133,7 @@ public class CommManagerScormV12 extends AdventureApplet{
 		
 		String command = "javascript:getLMSData(\""+ attribute + "\");";
         
-        this.sendJavaScript(command);
+		this.sendJavaScript(command);
 	}
 
 	public void notifyRelevantState( List<AssessmentProperty> list) {
