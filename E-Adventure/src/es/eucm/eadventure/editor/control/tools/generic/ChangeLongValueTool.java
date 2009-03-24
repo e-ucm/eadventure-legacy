@@ -16,6 +16,8 @@ public class ChangeLongValueTool extends Tool{
 
 	protected Method get;
 	protected Method set;
+	protected String getName;
+	protected String setName;
 
 	protected Long oldValue;
 	protected Long newValue;
@@ -44,15 +46,20 @@ public class ChangeLongValueTool extends Tool{
 		try {
 			set = data.getClass().getMethod(setMethodName, Long.class);
 			get = data.getClass().getMethod(getMethodName );
+			this.getName = getMethodName;
+			this.setName = setMethodName;
 			if ( get.getReturnType() != Long.class) {
 				get = set = null;
+				getName = setName = null;
 				ReportDialog.GenerateErrorReport(new Exception ("Get method must return Long value"), false, TextConstants.getText("Error.Title"));
 			}
 		} catch (SecurityException e) {
 			get = set = null;
+			getName = setName = null;
 			ReportDialog.GenerateErrorReport(e, false, TextConstants.getText("Error.Title"));
 		} catch (NoSuchMethodException e) {
 			get = set = null;
+			getName = setName = null;
 			ReportDialog.GenerateErrorReport(e, false, TextConstants.getText("Error.Title"));			
 		}
 		

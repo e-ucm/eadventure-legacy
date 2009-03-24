@@ -410,7 +410,7 @@ public class AdventureHandler extends DefaultHandler {
         
         // Build and return a input stream with the file (usually the DTD): 
         // 1) First try looking at main folder
-        InputStream inputStream = AdaptationHandler.class.getResourceAsStream( filename );
+        InputStream inputStream = AdventureHandler.class.getResourceAsStream( filename );
         if ( inputStream==null ){
         	try {
 				inputStream = new FileInputStream ( filename );

@@ -16,6 +16,8 @@ public class ChangeIntegerValueTool extends Tool{
 
 	protected Method get;
 	protected Method set;
+	protected String getName;
+	protected String setName;
 
 	protected Integer oldValue;
 	protected Integer newValue;
@@ -44,15 +46,20 @@ public class ChangeIntegerValueTool extends Tool{
 		try {
 			set = data.getClass().getMethod(setMethodName, Integer.class);
 			get = data.getClass().getMethod(getMethodName );
+			this.getName = getMethodName;
+			this.setName = setMethodName;
 			if ( get.getReturnType() != Integer.class) {
 				get = set = null;
+				getName = setName = null;
 				ReportDialog.GenerateErrorReport(new Exception ("Get method must return Integer value"), false, TextConstants.getText("Error.Title"));
 			}
 		} catch (SecurityException e) {
 			get = set = null;
+			getName = setName = null;
 			ReportDialog.GenerateErrorReport(e, false, TextConstants.getText("Error.Title"));
 		} catch (NoSuchMethodException e) {
 			get = set = null;
+			getName = setName = null;
 			ReportDialog.GenerateErrorReport(e, false, TextConstants.getText("Error.Title"));			
 		}
 		

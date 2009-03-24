@@ -645,7 +645,7 @@ public class Controller {
 		mainWindow.setEnabled( true );
 		mainWindow.setVisible( true );
 		//DEBUGGING
-		tsd = new ToolSystemDebugger( chaptersController );
+		//tsd = new ToolSystemDebugger( chaptersController );
 	}
 	
 	private void updateAutoSave() {
@@ -678,7 +678,7 @@ public class Controller {
 		autoSave = null;
 	}
 	
-	private ToolSystemDebugger tsd;
+	//private ToolSystemDebugger tsd;
 
 	// ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -964,7 +964,7 @@ public class Controller {
 			mainWindow.setEnabled( true );
 			mainWindow.setVisible( true );
 			//DEBUGGING
-			tsd = new ToolSystemDebugger( chaptersController );
+			//tsd = new ToolSystemDebugger( chaptersController );
 		}
 		
 		return createNewFile;
@@ -1355,7 +1355,7 @@ public class Controller {
 				mainWindow.setEnabled( true );
 				mainWindow.setVisible( true );
 				//DEBUGGING
-				tsd = new ToolSystemDebugger( chaptersController );
+				//tsd = new ToolSystemDebugger( chaptersController );
 				
 				return true;
 			}
@@ -3009,18 +3009,18 @@ public class Controller {
 	
 	public boolean addTool(Tool tool) {
 		boolean added = chaptersController.addTool(tool);
-		tsd.update();
+		//tsd.update();
 		return added;
 	}
 
 	public void undoTool() {
 		chaptersController.undoTool();
-		tsd.update();
+		//tsd.update();
 	}
 
 	public void redoTool() {
 		chaptersController.redoTool();
-		tsd.update();
+		//tsd.update();
 	}
 	
 	public void pushLocalToolManager(){
