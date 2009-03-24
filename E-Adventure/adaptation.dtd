@@ -3,7 +3,7 @@
 	scorm12 (yes|no) "no"
 	scorm2004 (yes|no) "no"
 >
-<!ELEMENT initial-state (initial-scene?, (activate | deactivate | set-value)*)>
+<!ELEMENT initial-state (initial-scene?, (activate | deactivate | set-value | increment | decrement)*)>
 <!ELEMENT adaptation-rule (description, uol-state, game-state)>
 <!ELEMENT description (#PCDATA)>
 <!ELEMENT uol-state (property*)>
@@ -11,8 +11,9 @@
 <!ATTLIST property
 	id NMTOKEN #REQUIRED
 	value NMTOKEN #REQUIRED
+	operation (eq|gt|lt|ge|le) "eq" 
 >
-<!ELEMENT game-state (initial-scene?, (activate | deactivate | set-value)*)>
+<!ELEMENT game-state (initial-scene?, (activate | deactivate | set-value | increment | decrement)*)>
 <!ELEMENT initial-scene EMPTY>
 <!ATTLIST initial-scene
 	idTarget NMTOKEN #REQUIRED
@@ -30,4 +31,11 @@
 	var NMTOKEN #REQUIRED
 	value NMTOKEN #REQUIRED
 >
-
+<!ELEMENT increment EMPTY>
+<!ATTLIST increment
+	var NMTOKEN #REQUIRED
+>
+<!ELEMENT decrement EMPTY>
+<!ATTLIST decrement
+	var NMTOKEN #REQUIRED
+>
