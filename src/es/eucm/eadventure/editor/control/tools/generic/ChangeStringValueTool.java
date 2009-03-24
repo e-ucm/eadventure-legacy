@@ -43,20 +43,24 @@ public class ChangeStringValueTool extends Tool{
 		this.newValue = newValue;
 		this.updatePanel = updatePanel;
 		this.updateTree = updateTree;
-		this.getName = getMethodName;
-		this.setName = setMethodName;
+
 		try {
 			set = data.getClass().getMethod(setMethodName, String.class);
 			get = data.getClass().getMethod(getMethodName );
+			this.getName = getMethodName;
+			this.setName = setMethodName;
 			if ( get.getReturnType() != String.class) {
 				get = set = null;
+				getName = setName = null;
 				ReportDialog.GenerateErrorReport(new Exception ("Get method must return String value"), false, TextConstants.getText("Error.Title"));
 			}
 		} catch (SecurityException e) {
 			get = set = null;
+			getName = setName = null;
 			ReportDialog.GenerateErrorReport(e, false, TextConstants.getText("Error.Title"));
 		} catch (NoSuchMethodException e) {
 			get = set = null;
+			getName = setName = null;
 			ReportDialog.GenerateErrorReport(e, false, TextConstants.getText("Error.Title"));			
 		}
 		

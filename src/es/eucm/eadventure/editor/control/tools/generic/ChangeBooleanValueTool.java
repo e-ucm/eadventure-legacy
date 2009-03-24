@@ -16,6 +16,8 @@ public class ChangeBooleanValueTool extends Tool{
 
 	protected Method get;
 	protected Method set;
+	protected String getName;
+	protected String setName;
 
 	protected Boolean oldValue;
 	protected Boolean newValue;
@@ -44,15 +46,20 @@ public class ChangeBooleanValueTool extends Tool{
 		try {
 			set = data.getClass().getMethod(setMethodName, Boolean.class);
 			get = data.getClass().getMethod(getMethodName );
+			this.getName = getMethodName;
+			this.setName = setMethodName;
 			if ( get.getReturnType() != Boolean.class) {
 				get = set = null;
+				getName = setName = null;
 				ReportDialog.GenerateErrorReport(new Exception ("Get method must return Boolean value"), false, TextConstants.getText("Error.Title"));
 			}
 		} catch (SecurityException e) {
 			get = set = null;
+			getName = setName = null;
 			ReportDialog.GenerateErrorReport(e, false, TextConstants.getText("Error.Title"));
 		} catch (NoSuchMethodException e) {
 			get = set = null;
+			getName = setName = null;
 			ReportDialog.GenerateErrorReport(e, false, TextConstants.getText("Error.Title"));			
 		}
 		
@@ -71,6 +78,14 @@ public class ChangeBooleanValueTool extends Tool{
 
 	@Override
 	public boolean combine(Tool other) {
+		if (other instanceof ChangeBooleanValueTool) {
+			ChangeBooleanValueTool cnt = (ChangeBooleanValueTool) other;
+			if (cnt.getName.equals(getName) && cnt.setName.equals(setName) && data==cnt.data) {
+				newValue = cnt.newValue;
+				timeStamp = cnt.timeStamp;
+				return true;
+			}
+		}
 		return false;
 	}
 

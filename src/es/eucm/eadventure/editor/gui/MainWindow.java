@@ -190,8 +190,8 @@ public class MainWindow extends JFrame {
 		// Set size and position
 		setMinimumSize( new Dimension( 640, 400 ) );
 		Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
-		int width = 800;//screenSize.width - WINDOW_MARGIN_X;
-		int height = 600;//screenSize.height - WINDOW_MARGIN_Y;
+		int width = 850;//screenSize.width - WINDOW_MARGIN_X;
+		int height = 700;//screenSize.height - WINDOW_MARGIN_Y;
 		setSize(width , height );
 		setLocation( ( screenSize.width - width) / 2, ( screenSize.height - height ) / 2 );
 		
