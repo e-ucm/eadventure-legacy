@@ -204,7 +204,7 @@ public class Loader {
 	public static AssessmentProfile loadAssessmentProfile ( InputStreamCreator isCreator, String xmlFile, List<Incidence> incidences ){
 		
 		AssessmentProfile newProfile = null;
-		if (Loader.adventureData.getAssessmentProfiles().size()!=0){
+		if (Loader.adventureData!=null&&Loader.adventureData.getAssessmentProfiles().size()!=0){
 			for (AssessmentProfile profile: adventureData.getAssessmentProfiles()){
 				if (profile.getPath().equals(xmlFile)){
 					newProfile = profile; break;
