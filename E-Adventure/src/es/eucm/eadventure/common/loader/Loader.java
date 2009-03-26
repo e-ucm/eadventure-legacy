@@ -207,7 +207,11 @@ public class Loader {
 		if (Loader.adventureData!=null&&Loader.adventureData.getAssessmentProfiles().size()!=0){
 			for (AssessmentProfile profile: adventureData.getAssessmentProfiles()){
 				if (profile.getPath().equals(xmlFile)){
-					newProfile = profile; break;
+					try {
+					    newProfile = (AssessmentProfile)profile.clone();
+					} catch (CloneNotSupportedException e) {
+					    e.printStackTrace();
+					} break;
 				}
 			}
 			
