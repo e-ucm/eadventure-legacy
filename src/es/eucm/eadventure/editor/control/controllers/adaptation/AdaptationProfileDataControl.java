@@ -14,8 +14,10 @@ import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.tools.adaptation.AddActionTool;
 import es.eucm.eadventure.editor.control.tools.adaptation.ChangeActionTool;
+import es.eucm.eadventure.editor.control.tools.adaptation.ChangeAdaptationProfileTypeTool;
 import es.eucm.eadventure.editor.control.tools.adaptation.DeleteActionTool;
 import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeTargetIdTool;
+import es.eucm.eadventure.editor.control.tools.generic.ChangeBooleanValueTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class AdaptationProfileDataControl extends DataControl{
@@ -368,12 +370,17 @@ public class AdaptationProfileDataControl extends DataControl{
 		return profile.isScorm12();
 	}
 	
-	public void setScorm2004(boolean scorm){
-		profile.setScorm2004(scorm);
+	
+	public void changeToScorm2004Profile(){
+	    controller.addTool(new ChangeAdaptationProfileTypeTool(profile,ChangeAdaptationProfileTypeTool.SCORM2004 ,profile.isScorm12(),profile.isScorm2004()));
 	}
 	
-	public void setScorm12(boolean scorm){
-		profile.setScorm12(scorm);
+	public void changeToScorm12Profile(){
+	    controller.addTool(new ChangeAdaptationProfileTypeTool(profile,ChangeAdaptationProfileTypeTool.SCORM12 ,profile.isScorm12(),profile.isScorm2004()));
 	}
-
+	
+	public void changeToNormalProfile(){
+	    controller.addTool(new ChangeAdaptationProfileTypeTool(profile,ChangeAdaptationProfileTypeTool.NORMAL ,profile.isScorm12(),profile.isScorm2004()));
+	}
+	
 }

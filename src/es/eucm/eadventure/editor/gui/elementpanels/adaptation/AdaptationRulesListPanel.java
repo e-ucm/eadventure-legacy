@@ -35,7 +35,7 @@ public class AdaptationRulesListPanel extends JPanel implements Updateable{
 	
 	private JRadioButton normal;
 	
-	private AdaptationProfileDataControl rulesListDataControl;
+	private AdaptationProfileDataControl adaptationProfileDataControl;
 	
 	private JTable informationTable;
 	
@@ -48,7 +48,7 @@ public class AdaptationRulesListPanel extends JPanel implements Updateable{
 	 */
 	public AdaptationRulesListPanel( AdaptationProfileDataControl adpRulesListDataControl ) {
 		
-		this.rulesListDataControl = adpRulesListDataControl;
+		this.adaptationProfileDataControl = adpRulesListDataControl;
 		// Set the layout and the border
 		setLayout( new GridBagLayout( ) );
 		setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AdaptationRulesList.Title" ) ) );
@@ -78,9 +78,9 @@ public class AdaptationRulesListPanel extends JPanel implements Updateable{
 		scorm2004.addActionListener(new Scorm2004RadioButtonListener());
 		scorm12.addActionListener(new Scorm12RadioButtonListener());
 		normal.addActionListener(new NormalRadioButtonListener());
-		scorm2004.setSelected(rulesListDataControl.isScorm2004());
-		scorm12.setSelected(rulesListDataControl.isScorm12());
-		normal.setSelected(!rulesListDataControl.isScorm2004()&&!rulesListDataControl.isScorm12());
+		scorm2004.setSelected(adaptationProfileDataControl.isScorm2004());
+		scorm12.setSelected(adaptationProfileDataControl.isScorm12());
+		normal.setSelected(!adaptationProfileDataControl.isScorm2004()&&!adaptationProfileDataControl.isScorm12());
 		ButtonGroup group = new ButtonGroup();
 		group.add(scorm12);
 		group.add(scorm2004);
@@ -132,9 +132,7 @@ public class AdaptationRulesListPanel extends JPanel implements Updateable{
 		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 		 */
 		public void actionPerformed( ActionEvent e ) {
-			rulesListDataControl.setScorm2004(true);
-			rulesListDataControl.setScorm12(false);
-			
+		    adaptationProfileDataControl.changeToScorm2004Profile();
 		}
 
 	}
@@ -150,9 +148,7 @@ public class AdaptationRulesListPanel extends JPanel implements Updateable{
 		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 		 */
 		public void actionPerformed( ActionEvent e ) {
-			rulesListDataControl.setScorm12(true);
-			rulesListDataControl.setScorm2004(false);
-			
+		    adaptationProfileDataControl.changeToScorm12Profile();
 		}
 
 	}
@@ -168,9 +164,7 @@ public class AdaptationRulesListPanel extends JPanel implements Updateable{
 		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 		 */
 		public void actionPerformed( ActionEvent e ) {
-			rulesListDataControl.setScorm12(false);
-			rulesListDataControl.setScorm2004(false);
-			
+		    adaptationProfileDataControl.changeToNormalProfile();
 		}
 
 	}
@@ -255,8 +249,8 @@ public class AdaptationRulesListPanel extends JPanel implements Updateable{
 	}
 
 	public boolean updateFields() {
-		scorm2004.setSelected(rulesListDataControl.isScorm2004());
-		scorm12.setSelected(rulesListDataControl.isScorm12());
+		scorm2004.setSelected(adaptationProfileDataControl.isScorm2004());
+		scorm12.setSelected(adaptationProfileDataControl.isScorm12());
 		informationTable.updateUI();
 		return initialStatePanel.updateFields();
 	}

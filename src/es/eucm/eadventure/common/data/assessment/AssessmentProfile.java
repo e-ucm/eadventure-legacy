@@ -325,11 +325,13 @@ public class AssessmentProfile implements Cloneable {
 	}
 
 	/**
-	 * @param scorm2004 the scorm2004 to set
+	 * Changes to scorm2004 profile
 	 */
-	public void setScorm2004(boolean scorm2004) {
-		this.scorm2004 = scorm2004;
+	public void changeToScorm2004Profile(){
+	    scorm2004=true;
+	    scorm12=false;
 	}
+
 
 	/**
 	 * @return the scorm12
@@ -339,11 +341,22 @@ public class AssessmentProfile implements Cloneable {
 	}
 
 	/**
-	 * @param scorm12 the scorm12 to set
+	 * Changes to scorm12 profile
 	 */
-	public void setScorm12(boolean scorm12) {
-		this.scorm12 = scorm12;
+	public void changeToScorm12Profile(){
+	    scorm2004=false;
+	    scorm12=true;
 	}
+
+	
+	/**
+	 * Changes to scorm2004 profile
+	 */
+	public void changeToNormalProfile(){
+	    scorm2004=false;
+	    scorm12=false;
+	}
+
 	
 	/**
 	 * Returns all operation representation
@@ -401,6 +414,26 @@ public class AssessmentProfile implements Cloneable {
 		op="<=";
 	    }
 	    return op;
+	}
+
+	/**
+	 * Don´t use this method in the editor
+	 * 
+	 * @param scorm2004 the scorm2004 to set
+	 */
+	// It is only use in AssessmentHandler to set the value during the parsing
+	public void setScorm2004(boolean scorm2004) {
+	    this.scorm2004 = scorm2004;
+	}
+
+	/**
+	 *  Don´t use this method in the editor
+	 * 
+	 * @param scorm12 the scorm12 to set
+	 */
+	// It is only use in AssessmentHandler to set the value during the parsing
+	public void setScorm12(boolean scorm12) {
+	    this.scorm12 = scorm12;
 	}
 
 }

@@ -210,9 +210,9 @@ This could provoke errors when executing or loading the adventures.</entry>
 	<entry key="Error.BadAudioFormat.Title">Unsupported audio format. </entry>
 	<entry key="Error.BadAudioFormat.Message">This video has a unsupported format. Please, try to convert this video file to one of next codecs: MPEG 1 video, DivX 5 (or lower), MS-MPEG 4 V2 or XVID. </entry>
 	<entry key="Error.NoVarsAvailable.Title">No Variable available. </entry>
-	<entry key="Error.NoVarsAvailable.Message">There aren't variables in this chapter. Please, create one before try to use variables here</entry>
+	<entry key="Error.NoVarsAvailable.Message">There aren't variables in this chapter.  To create one, fill the combobox with the name of the new one. </entry>
 	<entry key="Error.NoFlagsAvailable.Title">No Flag available. </entry>
-	<entry key="Error.NoFlagsAvailable.Message">There aren't flags in this chapter. Please, create one before try to use flags here</entry>
+	<entry key="Error.NoFlagsAvailable.Message">There aren't flags in this chapter. To create one, fill the combobox with the name of the new one. </entry>
 
 
 	<entry key="SwapPlayerMode.Title">Change player mode - Confirmation dialog</entry>

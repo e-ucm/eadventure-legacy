@@ -89,6 +89,11 @@ class GameStatePanel extends JPanel implements Updateable{
 	 */
 	private JComboBox initialSceneCB;
 	
+	/**
+	 * Combo box to show the flags and vars in chapter
+	 */
+	private JComboBox flagsCB;
+
 	
 	
 
@@ -431,13 +436,13 @@ class GameStatePanel extends JPanel implements Updateable{
 			    		
 			    		String[] names = Controller.getInstance( ).getVarFlagSummary( ).getVars();
 			    		// take any var if there are at least one 
-			    		if (names.length!=0){
+			    		if (names.length==0){
+			    		    Controller.getInstance().showErrorDialog(TextConstants.getText("Error.NoVarsAvailable.Title"), TextConstants.getText("Error.NoVarsAvailable.Message"));
+			    		    // change to var
+			    		    adaptationRuleDataControl.change(rowIndex, "");
+			    		}else 
 			    		    // change to var
 			    		    adaptationRuleDataControl.change(rowIndex, names[0]);
-			    		  
-			    		}else 
-			    		    Controller.getInstance().showErrorDialog(TextConstants.getText("Error.NoVarsAvailable.Title"), TextConstants.getText("Error.NoVarsAvailable.Message"));
-			    		
 			    	    }
 			    	    
 			    		
@@ -450,14 +455,13 @@ class GameStatePanel extends JPanel implements Updateable{
 			    		
 			    		String[] names = Controller.getInstance( ).getVarFlagSummary( ).getFlags();
 			    		// take any flag if there are at least one 
-			    		if (names.length!=0){
-			    		    // change to flag
-			    		    adaptationRuleDataControl.change(rowIndex, names[0]);
-			    		    // 	change the row editor
-			    		   // actionFlagsTable.revalidate( );
-			    		}else 
+			    		if (names.length==0){
 			    		    Controller.getInstance().showErrorDialog(TextConstants.getText("Error.NoFlagsAvailable.Title"), TextConstants.getText("Error.NoFlagsAvailable.Message"));
-			    		
+			    		    // change to flag
+			    		    adaptationRuleDataControl.change(rowIndex, "");
+			    		}   else
+			    		 // change to flag
+			    		    adaptationRuleDataControl.change(rowIndex, names[0]);		
 			    	    }
 			    		
 			    	}
@@ -475,10 +479,22 @@ class GameStatePanel extends JPanel implements Updateable{
 				}
 
 				// If the flag is being edited, and it has really changed
-				if( columnIndex == 3 )
-				    
-					adaptationRuleDataControl.setFlag( rowIndex, value.toString( ) );
-
+				if( columnIndex == 3 ){
+				    if ((Boolean)isFlag(rowIndex,0)){
+    				    if (!Controller.getInstance().getVarFlagSummary().existsVar(value.toString( ))){
+    					Controller.getInstance().getVarFlagSummary().addVar(value.toString());
+    					Controller.getInstance().getVarFlagSummary().addVarReference(value.toString());
+    					flagsCB.addItem( value.toString( ) );
+    				    }
+				    }else if ((Boolean)isFlag(rowIndex,1)){
+    				    if (!Controller.getInstance().getVarFlagSummary().existsFlag(value.toString( ))){
+        					Controller.getInstance().getVarFlagSummary().addFlag(value.toString());
+        					Controller.getInstance().getVarFlagSummary().addFlagReference(value.toString());
+        					flagsCB.addItem( value.toString( ) );
+        				     }	
+				    }
+				    adaptationRuleDataControl.setFlag( rowIndex, value.toString( ) );
+				}
 
 				fireTableRowsUpdated( rowIndex, rowIndex );
 			}
@@ -519,6 +535,21 @@ class GameStatePanel extends JPanel implements Updateable{
 			return value;
 		}
 		
+		private boolean isFlag(int rowIndex, int columnIndex){
+		    boolean value=false;
+		    switch( columnIndex ) {
+		    case 0: // IsVar 
+		    	
+		    	value = !adaptationRuleDataControl.isFlag(rowIndex);
+		    	break;
+		    	
+		    case 1: // IsFlag 
+		    	value = adaptationRuleDataControl.isFlag(rowIndex);
+		    	break;
+		    }
+		    return value;
+		}
+		
 		private void setRowEditor(int index, boolean isFlag){
 		    	
 		    
@@ -537,7 +568,8 @@ class GameStatePanel extends JPanel implements Updateable{
 			    flagsVars = Controller.getInstance( ).getVarFlagSummary( ).getFlags( );
 			else
 			    flagsVars = Controller.getInstance( ).getVarFlagSummary( ).getVars();
-			JComboBox flagsCB = new JComboBox (flagsVars);
+			flagsCB = new JComboBox (flagsVars);
+			flagsCB.setEditable(true);
 			actionFlagsTable.getColumnModel( ).getColumn( 3 ).setCellEditor( new DefaultCellEditor( flagsCB ) );
 		}
 		

@@ -215,9 +215,9 @@ Esto puede provocar errores al cargar las aventuras.</entry>
 	<entry key="Error.BadAudioFormat.Title">Formato de video no soportado. </entry>
 	<entry key="Error.BadAudioFormat.Message">Este video tiene un formato no soportado. Por facor, intente convertir este fichero de video a alguno de los siguiente codecs: MPEG 1 video, DivX 5 (o inferior), MS-MPEG 4 V2 o XVID. </entry>
 	<entry key="Error.NoVarsAvailable.Title">No hay variables disponibles. </entry>
-	<entry key="Error.NoVarsAvailable.Message">No hay variables disponibles en este capítulo. Por favor, cree variables si desea usarlas aquí.</entry>
+	<entry key="Error.NoVarsAvailable.Message">No hay variables disponibles en este capítulo. Por favor, cree flags introduciendo el nombre deseado en la lista de los flags.</entry>
 	<entry key="Error.NoFlagsAvailable.Title">No hay flags disponibles. </entry>
-	<entry key="Error.NoFlagsAvailable.Message">No hay flags disponibles en este capítulo. Por favor, cree flags si desea usarlas aquí.</entry>
+	<entry key="Error.NoFlagsAvailable.Message">No hay flags disponibles en este capítulo. Por favor, cree flags introduciendo el nombre deseado en la lista de los flags.</entry>
 
 
 
