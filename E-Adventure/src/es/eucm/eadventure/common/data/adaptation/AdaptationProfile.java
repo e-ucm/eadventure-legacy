@@ -217,30 +217,42 @@ public class AdaptationProfile  implements Cloneable, ContainsAdaptedState{
 	/**
 	 * @return the scorm2004
 	 */
-	public boolean isScorm2004() {
+	public Boolean isScorm2004() {
 		return scorm2004;
 	}
-
+	
 	/**
-	 * @param scorm2004 the scorm2004 to set
+	 * Changes to scorm2004 profile
 	 */
-	public void setScorm2004(boolean scorm2004) {
-		this.scorm2004 = scorm2004;
+	public void changeToScorm2004Profile(){
+	    scorm2004=true;
+	    scorm12=false;
 	}
 
 	/**
 	 * @return the scorm12
 	 */
-	public boolean isScorm12() {
+	public Boolean isScorm12() {
 		return scorm12;
 	}
 
 	/**
-	 * @param scorm12 the scorm12 to set
+	 * Changes to scorm12 profile
 	 */
-	public void setScorm12(boolean scorm12) {
-		this.scorm12 = scorm12;
+	public void changeToScorm12Profile(){
+	    scorm2004=false;
+	    scorm12=true;
 	}
+
+	
+	/**
+	 * Changes to scorm2004 profile
+	 */
+	public void changeToNormalProfile(){
+	    scorm2004=false;
+	    scorm12=false;
+	}
+
 	
 	/**
 	 * Returns all operation representation

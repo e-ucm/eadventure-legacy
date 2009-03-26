@@ -420,14 +420,15 @@ class InitialStatePanel extends JPanel implements Updateable{
 			    		
 			    		String[] names = Controller.getInstance( ).getVarFlagSummary( ).getVars();
 			    		// take any var if there are at least one 
-			    		if (names.length!=0){
+			    		if (names.length==0){
+			    		    Controller.getInstance().showErrorDialog(TextConstants.getText("Error.NoVarsAvailable.Title"), TextConstants.getText("Error.NoVarsAvailable.Message"));
+			    		    // change to var
+			    		    adaptationRuleDataControl.change(rowIndex, "");
+			    		}else 
 			    		    // change to var
 			    		    adaptationRuleDataControl.change(rowIndex, names[0]);
-			    		  
-			    		}else 
-			    		    Controller.getInstance().showErrorDialog(TextConstants.getText("Error.NoVarsAvailable.Title"), TextConstants.getText("Error.NoVarsAvailable.Message"));
-			    		
 			    	    }
+			    	    
 			    	    
 			    		
 			    	}
@@ -439,13 +440,14 @@ class InitialStatePanel extends JPanel implements Updateable{
 			    		
 			    		String[] names = Controller.getInstance( ).getVarFlagSummary( ).getFlags();
 			    		// take any flag if there are at least one 
-			    		if (names.length!=0){
-			    		    // change to flag
-			    		    adaptationRuleDataControl.change(rowIndex, names[0]);
-			    		 
-			    		}else 
+			    		if (names.length==0){
 			    		    Controller.getInstance().showErrorDialog(TextConstants.getText("Error.NoFlagsAvailable.Title"), TextConstants.getText("Error.NoFlagsAvailable.Message"));
-			    		
+			    		    // change to flag
+			    		    adaptationRuleDataControl.change(rowIndex, "");
+			    		}else    
+			    		 // change to flag
+			    		    adaptationRuleDataControl.change(rowIndex, names[0]);		
+			    	    
 			    	    }
 			    		
 			    	}

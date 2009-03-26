@@ -94,10 +94,11 @@ public class AdaptationEngine {
 		    	vars.addVar ( var );
 		    }
 	
-	    }
+	    
 
 	    initialAdaptedState = profile.getAdaptedState();
 	    externalAdaptationRules = profile.getRules();
+	    }
     }
     
     /**

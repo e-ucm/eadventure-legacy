@@ -152,8 +152,7 @@ public class AssessmentProfilePanel extends JPanel {
 		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 		 */
 		public void actionPerformed( ActionEvent e ) {
-			dataControl.setScorm2004(true);
-			dataControl.setScorm12(false);
+			dataControl.changeToScorm2004Profile();
 			
 		}
 
@@ -170,8 +169,7 @@ public class AssessmentProfilePanel extends JPanel {
 		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 		 */
 		public void actionPerformed( ActionEvent e ) {
-			dataControl.setScorm12(true);
-			dataControl.setScorm2004(false);
+			dataControl.changeToScorm12Profile();
 			
 		}
 
@@ -188,8 +186,7 @@ public class AssessmentProfilePanel extends JPanel {
 		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 		 */
 		public void actionPerformed( ActionEvent e ) {
-			dataControl.setScorm12(false);
-			dataControl.setScorm2004(false);
+			dataControl.changeToNormalProfile();
 			
 		}
 

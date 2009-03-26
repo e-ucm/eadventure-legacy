@@ -12,6 +12,8 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.tools.adaptation.ChangeAdaptationProfileTypeTool;
+import es.eucm.eadventure.editor.control.tools.animation.ChangeAssessmentProfileTypeTool;
 import es.eucm.eadventure.editor.control.tools.assessment.ChangeReportSettingsTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
@@ -359,14 +361,17 @@ public class AssessmentProfileDataControl extends DataControl{
 		return profile.isScorm2004();
 	}
 	
-	public void setScorm2004(boolean scorm){
-		profile.setScorm2004(scorm);
+	public void changeToScorm2004Profile(){
+	    controller.addTool(new ChangeAssessmentProfileTypeTool(profile,ChangeAssessmentProfileTypeTool.SCORM2004 ,profile.isScorm12(),profile.isScorm2004()));
 	}
 	
-	public void setScorm12(boolean scorm){
-		profile.setScorm12(scorm);
+	public void changeToScorm12Profile(){
+	    controller.addTool(new ChangeAssessmentProfileTypeTool(profile,ChangeAssessmentProfileTypeTool.SCORM12 ,profile.isScorm12(),profile.isScorm2004()));
 	}
-
+	
+	public void changeToNormalProfile(){
+	    controller.addTool(new ChangeAssessmentProfileTypeTool(profile,ChangeAssessmentProfileTypeTool.NORMAL ,profile.isScorm12(),profile.isScorm2004()));
+	}
 	@Override
 	public void recursiveSearch( ) {
 		for (DataControl dc : dataControls)
