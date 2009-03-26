@@ -1590,6 +1590,11 @@ Si no las cambia, el juego empleará las flechas por defecto.</entry>
 	<entry key="Inventory.normalright.Tip">Esta es la fecha derecha en su estado normal.</entry>
 	<entry key="Inventory.highlightedright.Description">Flecha derecha resaltada</entry>
 	<entry key="Inventory.highlightedright.Tip">Esta es la fecha derecha en su estado resaltado.</entry>
+	<entry key="Inventory.Position">Posición</entry>
+	<entry key="Inventory.NoInventory">Sin inventario</entry>
+	<entry key="Inventory.TopAndBottom">Arriba y abajo</entry>
+	<entry key="Inventory.OnlyTop">Solo arriba</entry>
+	<entry key="Inventory.OnlyBottom">Solo abajo</entry>
 	
 	
 	<entry key="CursorAssets.Preview">Previsualización</entry>

@@ -158,12 +158,30 @@ public class AdventureHandler extends DefaultHandler {
 		
 		// If reading the GUI tag, store the settings
 		if( qName.equals( "gui" ) ) {
-			for( int i = 0; i < attrs.getLength( ); i++ )
-				if( attrs.getQName( i ).equals( "type" ) )
+			for( int i = 0; i < attrs.getLength( ); i++ ) {
+				if( attrs.getQName( i ).equals( "type" ) ) {
 					if( attrs.getValue( i ).equals( "traditional" ) )
 						adventureData.setGUIType( DescriptorData.GUI_TRADITIONAL );
 					else if( attrs.getValue( "type" ).equals( "contextual" ) )
 						adventureData.setGUIType( DescriptorData.GUI_CONTEXTUAL );
+				}
+				if (attrs.getQName( i ).equals( "customized" )) {
+					if (attrs.getValue(i).equals("yes"))
+						adventureData.setGUI(adventureData.getGUIType(), true);
+					else
+						adventureData.setGUI(adventureData.getGUIType(), false);
+				}
+				if (attrs.getQName( i ).equals( "inventoryPosition" )) {
+					if (attrs.getValue(i).equals("none"))
+						adventureData.setInventoryPosition(DescriptorData.INVENTORY_NONE);
+					else if (attrs.getValue(i).equals("top_bottom"))
+						adventureData.setInventoryPosition(DescriptorData.INVENTORY_TOP_BOTTOM);
+					else if (attrs.getValue(i).equals("top"))
+						adventureData.setInventoryPosition(DescriptorData.INVENTORY_TOP);
+					else if (attrs.getValue(i).equals("bottom"))
+						adventureData.setInventoryPosition(DescriptorData.INVENTORY_BOTTOM);
+				}
+			}
 		}
 		
 	       //Cursor

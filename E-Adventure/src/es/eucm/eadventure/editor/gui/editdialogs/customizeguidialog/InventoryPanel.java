@@ -11,6 +11,7 @@ import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -52,6 +53,7 @@ public class InventoryPanel extends JScrollPane implements Updateable{
 	 */
 	private JButton[] viewButtons;
 
+	private JComboBox whereInventory;
 
 	/**
 	 * Constructor.
@@ -96,7 +98,6 @@ public class InventoryPanel extends JScrollPane implements Updateable{
 		int assetCount = arrowTypes.length;
 		arrowFields = new JTextField[assetCount];
 		viewButtons = new JButton[assetCount];
-
 
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new GridBagLayout());
@@ -163,6 +164,25 @@ public class InventoryPanel extends JScrollPane implements Updateable{
 		c.gridy++;
 		mainPanel.add( buttonPanel, c );
 
+		
+		JPanel inventoryPosition = new JPanel();
+		inventoryPosition.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Inventory.Position" ) ) );
+		inventoryPosition.setLayout(new BorderLayout());
+		
+		
+		String[] options= new String[4];
+		options[0] = TextConstants.getText("Inventory.NoInventory");
+		options[1] = TextConstants.getText("Inventory.TopAndBottom");
+		options[2] = TextConstants.getText("Inventory.OnlyTop");
+		options[3] = TextConstants.getText("Inventory.OnlyBottom");
+		whereInventory = new JComboBox(options);
+		whereInventory.setSelectedIndex(adventureData.getInventoryPosition());
+		whereInventory.addActionListener(new ComboBoxActionListener());
+		inventoryPosition.add(whereInventory, BorderLayout.CENTER);
+
+		c.gridy++;
+		mainPanel.add(inventoryPosition, c);
+		
 		// Add a filler at the end
 		c.gridy++;
 		c.fill = GridBagConstraints.BOTH;
@@ -270,6 +290,12 @@ public class InventoryPanel extends JScrollPane implements Updateable{
 			new ImageDialog( assetPath );
 		}
 	}
+	
+	private class ComboBoxActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			adventureData.setInventoryPosition(whereInventory.getSelectedIndex());
+		}
+	}
 
 	public boolean updateFields() {
 		// For every cursor, update the cursorPath field
@@ -284,6 +310,7 @@ public class InventoryPanel extends JScrollPane implements Updateable{
 			}
 				
 		}
+		whereInventory.setSelectedIndex(adventureData.getInventoryPosition());
 		return true;
 	}
 	

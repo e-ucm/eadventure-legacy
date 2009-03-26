@@ -34,7 +34,7 @@ public class ContextualHUD extends HUD {
      */
     private final int GAME_AREA_HEIGHT = 600;
     
-    /**
+    /** 
      * Left most point of the response text block
      */
     private static final int RESPONSE_TEXT_X = 10;
@@ -136,36 +136,30 @@ public class ContextualHUD extends HUD {
         
         DescriptorData descriptor =Game.getInstance().getGameDescriptor( ); 
         
-        if (descriptor.getCursorPath( DescriptorData.CURSOR_OVER )==null)
-            cursorOver = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImage( "gui/cursors/over.png", MultimediaManager.IMAGE_MENU ), new Point( 5, 5 ), "cursorOver" );            
+        cursorOver = getCursor(descriptor, DescriptorData.CURSOR_OVER, "cursorOver", "gui/cursors/over.png");
+        cursorExit = getCursor(descriptor, DescriptorData.EXIT_CURSOR, "cursorExit", "gui/cursors/exit.png");
+        cursorAction = getCursor(descriptor, DescriptorData.CURSOR_ACTION, "cursorAction", "gui/cursors/action.png");
+        
+    }
+    
+    private Cursor getCursor(DescriptorData descriptor, String cursor, String type, String defaultPath) {
+        Cursor temp = null;
+    	if (descriptor.getCursorPath( cursor )==null)
+    		try {
+    			temp = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImage( defaultPath, MultimediaManager.IMAGE_MENU ), new Point( 5, 5 ), type );            
+    		} catch (Exception e) {
+    			DebugLog.general("Cound't find default cursor " + cursor);
+                temp = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImage( "gui/cursors/nocursor.png", MultimediaManager.IMAGE_MENU ), new Point( 5, 5 ), type );            
+    		}
         else {
             try {
-            	cursorOver = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( descriptor.getCursorPath( DescriptorData.CURSOR_OVER ), MultimediaManager.IMAGE_MENU ), new Point( 5, 5 ), "cursorOver" );
+            	temp = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( descriptor.getCursorPath( cursor ), MultimediaManager.IMAGE_MENU ), new Point( 5, 5 ), type );
             } catch (Exception e) {
-                cursorOver = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImage( "gui/cursors/nocursor.png", MultimediaManager.IMAGE_MENU ), new Point( 5, 5 ), "cursorOver" );            
+    			DebugLog.general("Cound't find custom cursor " + cursor);
+                temp = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImage( "gui/cursors/nocursor.png", MultimediaManager.IMAGE_MENU ), new Point( 5, 5 ), type );            
             }
         }
-        
-        if (descriptor.getCursorPath( DescriptorData.EXIT_CURSOR )==null)
-            cursorExit = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImage( "gui/cursors/exit.png", MultimediaManager.IMAGE_MENU ), new Point( 5, 5 ), "cursorExit" );            
-        else {
-            try {
-            	cursorExit = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( descriptor.getCursorPath( DescriptorData.EXIT_CURSOR ), MultimediaManager.IMAGE_MENU ), new Point( 5, 5 ), "cursorExit" );
-            } catch (Exception e) {
-            	cursorExit = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImage( "gui/cursors/nocursor.png", MultimediaManager.IMAGE_MENU ), new Point( 5, 5 ), "cursorExit" );            
-            }
-        }
-        
-        if (descriptor.getCursorPath( DescriptorData.CURSOR_ACTION )==null)
-            cursorAction = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImage( "gui/cursors/action.png", MultimediaManager.IMAGE_MENU ), new Point( 5, 5 ), "cursorAction" );            
-        else {
-        	try {
-                cursorAction = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( descriptor.getCursorPath( DescriptorData.CURSOR_ACTION ), MultimediaManager.IMAGE_MENU ), new Point( 5, 5 ), "cursorAction" );
-        	} catch (Exception e) {
-            	cursorAction = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImage( "gui/cursors/nocursor.png", MultimediaManager.IMAGE_MENU ), new Point( 5, 5 ), "cursorAction" );            
-        	}
-        }
-        
+        return temp;
     }
     
     /*
@@ -265,11 +259,11 @@ public class ContextualHUD extends HUD {
         //else the inventory is not shown
         }else{
             //If the mouse is in the upper inventory window offset, show it 
-            if( e.getY( ) > GUI.WINDOW_HEIGHT-INVENTORY_OFF_OFFSET ){
+            if( e.getY( ) > GUI.WINDOW_HEIGHT-INVENTORY_OFF_OFFSET && Game.getInstance().showBottomInventory()){
                 inventory.setUpperInventory( false );
                 showInventory = true; 
             //else if the mouse is in the lower inventory window offset, show it 
-            }else if( e.getY( ) < INVENTORY_OFF_OFFSET ){
+            }else if( e.getY( ) < INVENTORY_OFF_OFFSET && Game.getInstance().showTopInventory()){
                 inventory.setUpperInventory( true );
                 showInventory = true;
             }

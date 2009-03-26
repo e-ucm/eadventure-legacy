@@ -35,6 +35,10 @@ public class DescriptorData implements Cloneable, Described, Titled {
     public static final String HIGHLIGHTED_ARROW_RIGHT="highlightedright";
     public static final String HIGHLIGHTED_ARROW_LEFT="highlightedleft";
 
+    public static final int INVENTORY_NONE = 0;
+    public static final int INVENTORY_TOP_BOTTOM = 1;
+    public static final int INVENTORY_TOP = 2;
+    public static final int INVENTORY_BOTTOM = 3;
 	
     public static String getCursorTypeString (int index){
     	switch(index){
@@ -200,6 +204,8 @@ public class DescriptorData implements Cloneable, Described, Titled {
      */
     protected String playerName = "";
     
+    protected Integer inventoryPosition = INVENTORY_TOP_BOTTOM;
+       
     /**
      * Constructor
      */
@@ -416,6 +422,14 @@ public class DescriptorData implements Cloneable, Described, Titled {
 		this.playerName = playerName;
 	}
 	
+	public Integer getInventoryPosition() {
+		return inventoryPosition;
+	}
+	
+	public void setInventoryPosition(Integer inventoryPosition) {
+		this.inventoryPosition = inventoryPosition;
+	}
+	
 	public int countAssetReferences(String path) {
 		int count = 0;
 		for (CustomButton cb : buttons) {
@@ -464,6 +478,7 @@ public class DescriptorData implements Cloneable, Described, Titled {
 		dd.playerMode = playerMode;
 		dd.playerName = (playerName != null ? new String(playerName) : null);
 		dd.title = (title != null ? new String(title) : null);
+		dd.inventoryPosition = new Integer(inventoryPosition);
 		return dd;
 	}
 
