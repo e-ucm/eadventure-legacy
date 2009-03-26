@@ -127,6 +127,7 @@ public class AssessmentProfile implements Cloneable {
 	public List<AssessmentRule> getRules() {
 		return rules;
 	}
+	
 
 	/**
 	 * Adds a new rule to the structure

@@ -67,7 +67,7 @@ public class AdaptationProfileDataControl extends DataControl{
 			adpRule.setId( adpRuleId );
 			profile.addRule( adpRule );
 			dataControls.add( new AdaptationRuleDataControl( adpRule ) );
-			controller.getIdentifierSummary( ).addAssessmentRuleId( adpRuleId );
+			controller.getIdentifierSummary( ).addAdaptationRuleId( adpRuleId );
 			//controller.dataModified( );
 			added = true;
 

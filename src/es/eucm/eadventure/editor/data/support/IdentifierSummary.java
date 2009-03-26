@@ -137,6 +137,8 @@ public class IdentifierSummary {
 		globalStateIdentifiers.clear( );
 		macroIdentifiers.clear( );
 		activeAreaIdentifiers.clear();
+		assessmentRuleIdentifiers.clear();
+		adaptationRuleIdentifiers.clear();
 
 		// Add scene IDs
 		for( Scene scene : chapter.getScenes( ) ) {
@@ -178,6 +180,9 @@ public class IdentifierSummary {
 		// Add macro IDs
 		for( Macro macro : chapter.getMacros( ) )
 			addMacroId( macro.getId( ) );
+		
+		// Add assessment rules ids
+		//for ()
 
 
 	}
