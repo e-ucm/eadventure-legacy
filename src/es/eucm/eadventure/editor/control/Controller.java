@@ -647,27 +647,18 @@ public class Controller {
 		//DEBUGGING
 		//tsd = new ToolSystemDebugger( chaptersController );
 	}
-	
-	private void updateAutoSave() {
-		if (ProjectConfigData.existsKey( "autosave" )) {
-			String temp = ProjectConfigData.getProperty( "autosave" );
-			if (temp.equals("yes")) {
-				startAutoSave(15);
-			} else {
-				stopAutoSave();
-			}
-		} else {
-			ProjectConfigData.setProperty( "autosave", "yes");
-			startAutoSave(15);
-		}
-	}
-	
+		
 	public void startAutoSave(int minutes) {
 		stopAutoSave();
-
-		autoSaveTimer = new Timer();
-		autoSave = new AutoSave();
-		autoSaveTimer.schedule(autoSave, 10000, minutes * 60 * 1000);
+		
+		if ((ProjectConfigData.existsKey("autosave") && ProjectConfigData.getProperty("autosave").equals("yes"))
+				|| !ProjectConfigData.existsKey("autosave")) { 
+			autoSaveTimer = new Timer();
+			autoSave = new AutoSave();
+			autoSaveTimer.schedule(autoSave, 10000, minutes * 60 * 1000);
+		}
+		if (!ProjectConfigData.existsKey("autosave"))
+			ProjectConfigData.setProperty("autosave", "yes");
 	}
 	
 	public void stopAutoSave() {
@@ -925,7 +916,7 @@ public class Controller {
 		}
 		
 		if (createNewFile) {
-			this.stopAutoSave();
+			stopAutoSave();
 			ConfigData.storeToXML( );
 			ProjectConfigData.storeToXML( );
 			ConfigData.loadFromXML( ReleaseFolders.configFileEditorRelativePath() );
@@ -1431,7 +1422,7 @@ public class Controller {
 				// Load project config file
 				ProjectConfigData.loadFromXML( );
 				
-				updateAutoSave();
+				startAutoSave(15);
 				
 				// Feedback
 				//loadingScreen.close( );
@@ -2128,6 +2119,8 @@ public class Controller {
 	 * Then exports the project to the web dir as a temp .ead file and gets it running
 	 */
 	public void run(){
+		stopAutoSave();
+		
 		// Check adventure consistency
 		if (checkAdventureConsistency( false )){
 			this.getSelectedChapterDataControl().getConversationsList().resetAllConversationNodes();
@@ -2139,19 +2132,12 @@ public class Controller {
 					// First update flags
 					chaptersController.updateVarsFlagsForRunning();
 					EAdventureDebug.normalRun(Controller.getInstance().adventureData.getAdventureData(), AssetsController.getInputStreamCreator());
+					Controller.getInstance().startAutoSave(15);
 					mainWindow.setNormalRunAvailable( true );
 				}
 				
 			}, 1000);
 		}
-	}
-
-	/**
-	 * Private method that fills the flags and vars structures of the chapter data before passing on the information to the game engine
-	 * for running
-	 */
-	private void updateVarsFlagsForRunning (){
-		chaptersController.updateVarsFlagsForRunning();
 	}
 	
 	/**
@@ -2159,6 +2145,8 @@ public class Controller {
 	 * Then exports the project to the web dir as a temp .ead file and gets it running
 	 */
 	public void debugRun(){
+		stopAutoSave();
+		
 		// Check adventure consistency
 		if (checkAdventureConsistency( false )){
 			this.getSelectedChapterDataControl().getConversationsList().resetAllConversationNodes();
@@ -2169,6 +2157,7 @@ public class Controller {
 					mainWindow.setNormalRunAvailable( false );
 					chaptersController.updateVarsFlagsForRunning();
 					EAdventureDebug.debug(Controller.getInstance().adventureData.getAdventureData(), AssetsController.getInputStreamCreator());
+					Controller.getInstance().startAutoSave(15);
 					mainWindow.setNormalRunAvailable( true );
 				}
 				
@@ -3061,7 +3050,7 @@ public class Controller {
 	public void setAutoSaveEnabled(boolean selected) {
 		if (selected != getAutoSaveEnabled()) {
 			ProjectConfigData.setProperty("autosave", (selected?"yes" : "no"));
-			updateAutoSave();
+			startAutoSave(15);
 		}
 	}
 
