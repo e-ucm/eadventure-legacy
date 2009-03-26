@@ -23,6 +23,7 @@ import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeDescript
 import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeTitleTool;
 import es.eucm.eadventure.editor.control.tools.generic.ChangeBooleanValueTool;
 import es.eucm.eadventure.editor.control.tools.generic.ChangeIntegerValueTool;
+import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 import es.eucm.eadventure.editor.gui.editdialogs.GUIStylesDialog;
 import es.eucm.eadventure.common.data.adventure.AdventureData;
 import es.eucm.eadventure.common.data.adventure.CustomArrow;
@@ -161,6 +162,24 @@ public class AdventureDataControl {
 
     public boolean isCursorTypeAllowed( int type ){
     	return DescriptorData.typeAllowed[adventureData.getGUIType()][type];
+    }
+    
+    public void updateAssessmentFlagSummary(String assessmentPath , VarFlagSummary varFlagSummary) {
+	for (int i = 0; i<assessmentProfilesDataControl.getProfiles().size();i++){
+	    if (assessmentProfilesDataControl.getProfiles().get(i).getPath().equals(assessmentPath)){
+		assessmentProfilesDataControl.getProfiles().get(i).updateVarFlagSummary( varFlagSummary );
+		break;
+	    }
+	}
+    }
+    
+    public void updateAdaptationFlagSummary(String adaptationPath , VarFlagSummary varFlagSummary) {
+	for (int i = 0; i<adaptationProfilesDataControl.getProfiles().size();i++){
+	    if (adaptationProfilesDataControl.getProfiles().get(i).getPath().equals(adaptationPath)){
+		adaptationProfilesDataControl.getProfiles().get(i).updateVarFlagSummary( varFlagSummary );
+		break;
+	    }
+	}
     }
 
 	

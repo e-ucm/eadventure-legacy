@@ -2432,6 +2432,13 @@ public class Controller {
 	
 	public void updateFlagSummary( ) {
 		chaptersController.updateFlagSummary();
+		// Update the summary with assessment and adaptation elements (if there are someone added in current chapter)
+		String adaptationPath = chaptersController.getSelectedChapterDataControl().getAdaptationPath();
+		String assessmentPath = chaptersController.getSelectedChapterDataControl().getAssessmentPath();
+		if (!adaptationPath.equals(""))
+		    adventureData.updateAdaptationFlagSummary(adaptationPath, chaptersController.getVarFlagSummary());
+		if (!assessmentPath.equals(""))
+		    adventureData.updateAssessmentFlagSummary(assessmentPath, chaptersController.getVarFlagSummary());
 	}
 
 	/**

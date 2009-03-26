@@ -60,7 +60,8 @@ public class SetNoSelectedProfileTool extends Tool{
 		else if (!oldValue.equals(newValue)){
 			setData(newValue);done=true;
 		}
-		
+		// update var/flags summary, because in adaptation and/or assessement profiles may have new var/flag
+		controller.updateFlagSummary();
 		return done;
 	}
 	
@@ -75,6 +76,8 @@ public class SetNoSelectedProfileTool extends Tool{
 	@Override
 	public boolean redoTool() {
 		setData(newValue);
+		// update var/flags summary, because in adaptation and/or assessement profiles may have new var/flag
+		controller.updateFlagSummary();
 		controller.reloadPanel();
 		return true;
 	}
@@ -82,6 +85,8 @@ public class SetNoSelectedProfileTool extends Tool{
 	@Override
 	public boolean undoTool() {
 		setData(oldValue);
+		// update var/flags summary, because in adaptation and/or assessement profiles may have new var/flag
+		controller.updateFlagSummary();
 		controller.reloadPanel();
 		return true;
 	}
