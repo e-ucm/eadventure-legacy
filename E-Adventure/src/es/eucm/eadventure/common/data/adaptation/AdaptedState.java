@@ -301,6 +301,26 @@ public class AdaptedState implements Cloneable, HasTargetId {
 	else 
 	    return false;
     }
+    /**
+     * Check if the value with the given name is flag or variable.
+     * 
+     * @param name
+     * 		the name of the var or flag
+     * @return
+     * 		true, if name is flag
+     */
+    public boolean isFlag(String name){
+	boolean isFlag=false;
+	for (int i=0;i<allFlagsVars.size();i++){
+	    if (allFlagsVars.get(i).equals(name)){
+		if (isFlag(i))
+		    return true;
+		else
+		    return false;
+	    }
+	}
+	return isFlag;
+    }
 
 	public Object clone() throws CloneNotSupportedException {
 		AdaptedState as = (AdaptedState) super.clone();

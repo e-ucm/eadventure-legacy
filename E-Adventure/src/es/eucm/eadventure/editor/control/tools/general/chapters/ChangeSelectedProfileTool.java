@@ -93,6 +93,8 @@ public class ChangeSelectedProfileTool extends Tool{
 				//controller.dataModified( );
 			}
 		}
+		// update var/flags summary, because in adaptation and/or assessement profiles may have new var/flag
+		controller.updateFlagSummary();
 		return done;
 	}
 
@@ -104,6 +106,7 @@ public class ChangeSelectedProfileTool extends Tool{
 			chapter.setAdaptationPath(newValue);
 		}
 		controller.reloadPanel();
+		controller.updateFlagSummary();
 		return true;
 	}
 
@@ -114,6 +117,7 @@ public class ChangeSelectedProfileTool extends Tool{
 		} else if (mode == MODE_ADAPTATION){
 			chapter.setAdaptationPath(oldValue);
 		}
+		controller.updateFlagSummary();
 		controller.reloadPanel();
 		return true;
 	}

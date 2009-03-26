@@ -376,8 +376,6 @@ public class ChapterDataControl extends DataControl {
 		itemsListDataControl.updateVarFlagSummary( varFlagSummary );
 		npcsListDataControl.updateVarFlagSummary( varFlagSummary );
 		conversationsListDataControl.updateVarFlagSummary( varFlagSummary );
-		//assessmentProfilesDataControl.updateVarFlagSummary( varFlagSummary );
-		//adaptationProfilesDataControl.updateFlagSummary( flagSummary );
 		timersListDataControl.updateVarFlagSummary( varFlagSummary );
 		globalStatesListDataControl.updateVarFlagSummary( varFlagSummary );
 		macrosListDataControl.updateVarFlagSummary( varFlagSummary );

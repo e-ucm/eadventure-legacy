@@ -373,6 +373,7 @@ public class TimedAssessmentRulePanel extends JPanel {
 				// Change the effect text
 				textTextArea.setText( assessmentRuleDataControl.getEffectText( currentEffect ) );
 				
+				propPanel.setEnabled(true);
 				// Change the properties
 				propPanel.setCurrentIndex( currentEffect );
 			}
@@ -399,6 +400,7 @@ public class TimedAssessmentRulePanel extends JPanel {
 			// Update the combo box
 			effectComboBox.setModel( new DefaultComboBoxModel(assessmentRuleDataControl.getEffectNames( )) );
 			
+			propPanel.setEnabled(true);
 			propPanel.setCurrentIndex( currentEffect );
 			
 			effectComboBox.setSelectedIndex( currentEffect );
@@ -447,6 +449,7 @@ public class TimedAssessmentRulePanel extends JPanel {
 					minTime.updateUI( );
 					maxTime.updateUI( );
 					maxTime.setEnabled( false );
+					propPanel.setEnabled(false);
 				}
 				effectComboBox.updateUI( );
 			}

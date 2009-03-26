@@ -112,7 +112,10 @@ public class AdaptationRuleDataControl extends DataControl{
 	@Override
 	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
 		for (String flag: adaptationRule.getAdaptedState( ).getFlagsVars( )){
-			varFlagSummary.addReference( flag );	
+			if (isFlag(flag))
+			    varFlagSummary.addFlagReference( flag );
+			else 
+			    varFlagSummary.addVarReference(flag);
 		}
 		
 	}
@@ -168,6 +171,10 @@ public class AdaptationRuleDataControl extends DataControl{
 
 	public boolean isFlag(int rowIndex){
 	    return this.adaptationRule.getAdaptedState().isFlag(rowIndex);
+	}
+	
+	public boolean isFlag(String name){
+	    return this.adaptationRule.getAdaptedState().isFlag(name);
 	}
 	
 	public String getId( ) {
