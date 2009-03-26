@@ -164,7 +164,8 @@ public class Chapter extends ChapterSummary implements HasTargetId {
         GeneralScene initialGeneralScene = null;
         if (initialScene!=null){
         	initialGeneralScene = getGeneralScene ( initialScene );
-        } else {
+        }
+        if (initialGeneralScene == null) {
             // Return the FIRST initial scene stored
             for( int i = 0; i < getGeneralScenes().size( ) && initialGeneralScene == null; i++ )
                 if( getGeneralScenes().get( i ).isInitialScene( ) )
@@ -173,7 +174,6 @@ public class Chapter extends ChapterSummary implements HasTargetId {
             // If there is no initial scene, return the first scene
             if (initialGeneralScene==null)
                 initialGeneralScene=getGeneralScenes().get( 0 );
-        	
         }
 
         return initialGeneralScene;

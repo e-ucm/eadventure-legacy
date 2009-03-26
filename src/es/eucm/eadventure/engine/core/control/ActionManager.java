@@ -11,6 +11,7 @@ import es.eucm.eadventure.common.data.chapter.NextScene;
 import es.eucm.eadventure.common.data.chapter.scenes.GeneralScene;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
+import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalScene;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 
@@ -203,11 +204,13 @@ public class ActionManager {
      */
     public void mouseMoved( MouseEvent e ) {
         Game game = Game.getInstance();
-        FunctionalElement elementInside = game.getFunctionalScene( ).getElementInside( e.getX( ), e.getY( ) );
-        Exit exit = game.getFunctionalScene( ).getExitInside( e.getX( ), e.getY( ) );
+        FunctionalScene functionalScene = game.getFunctionalScene();
+        if (functionalScene == null)
+        	return;
+        FunctionalElement elementInside = functionalScene.getElementInside( e.getX( ), e.getY( ) );
+        Exit exit = functionalScene.getExitInside( e.getX( ), e.getY( ) );
         if( elementInside != null ) {
             setElementOver( elementInside );
-            
         } else if( exit != null && actionSelected == ACTION_GOTO ) {
             //Check if the exit has a customized cursor. If it has already been created, retrieve it. Otherwise, create it
             boolean isCursorSet = getCursorPath( exit )!=null && !getCursorPath( exit ).equals( "" );

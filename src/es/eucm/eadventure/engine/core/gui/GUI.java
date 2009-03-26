@@ -1,6 +1,7 @@
 package es.eucm.eadventure.engine.core.gui;
 
 import java.awt.AlphaComposite;
+import java.awt.BasicStroke;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Component;
@@ -12,6 +13,7 @@ import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
 import java.awt.Image;
 import java.awt.RenderingHints;
+import java.awt.Stroke;
 import java.awt.Toolkit;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -119,6 +121,12 @@ public abstract class GUI implements FocusListener {
     protected ArrayList<Text> textToDraw;
     
     private Transition transition = null;
+
+	private boolean showsOffsetArrows = false;
+
+	private boolean moveOffsetRight = false;
+
+	private boolean moveOffsetLeft = false;
     
     /**
      * Return the GUI instance. GUI is a singleton class.
@@ -595,6 +603,34 @@ public abstract class GUI implements FocusListener {
         TimerManager timerManager = TimerManager.getInstance();
         if (timerManager != null) {
         	timerManager.draw(g);
+        }
+        
+        if (showsOffsetArrows) {
+        	g.setColor(Color.BLACK);
+        	int ytemp = GUI.WINDOW_HEIGHT / 2;
+        	Composite old = g.getComposite();
+        	AlphaComposite alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.6f);
+        	
+        	if (!this.moveOffsetLeft)
+        		g.setComposite(alphaComposite);
+        	g.fillOval(-30, ytemp - 30, 60, 60);
+        	
+        	if (this.moveOffsetRight)
+        		g.setComposite(old);
+        	else
+        		g.setComposite(alphaComposite);
+        	g.fillOval(GUI.WINDOW_WIDTH - 30, ytemp - 30, 60, 60);
+        	
+        	
+        	g.setComposite(old);
+        	g.setColor(Color.WHITE);
+        	Stroke oldStroke = g.getStroke();
+        	g.setStroke(new BasicStroke(5));
+        	g.drawLine(5, ytemp, 15, ytemp - 15);
+        	g.drawLine(5, ytemp, 15, ytemp + 15);
+        	g.drawLine(GUI.WINDOW_WIDTH - 5, ytemp, GUI.WINDOW_WIDTH - 15, ytemp - 15);
+        	g.drawLine(GUI.WINDOW_WIDTH - 5, ytemp, GUI.WINDOW_WIDTH - 15, ytemp + 15);
+        	g.setStroke(oldStroke);
         }
         
         for(Text text : textToDraw)
@@ -1110,6 +1146,13 @@ public abstract class GUI implements FocusListener {
 
 	public boolean hasTransition() {
 		return transition != null && !transition.hasFinished(0);
+	}
+
+	public void setShowsOffestArrows(boolean showsOffsetArrows,
+			boolean moveOffsetRight, boolean moveOffsetLeft) {
+		this.showsOffsetArrows  = showsOffsetArrows;
+		this.moveOffsetRight = moveOffsetRight;
+		this.moveOffsetLeft = moveOffsetLeft;
 	}
 
 }

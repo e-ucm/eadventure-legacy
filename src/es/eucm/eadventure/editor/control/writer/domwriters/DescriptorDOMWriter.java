@@ -71,6 +71,21 @@ public class DescriptorDOMWriter {
 			else if( adventureData.getGUIType( ) == DescriptorData.GUI_CONTEXTUAL )
 				guiElement.setAttribute( "type", "contextual" );
 			
+			switch (adventureData.getInventoryPosition()) {
+			case DescriptorData.INVENTORY_NONE:
+				guiElement.setAttribute( "inventoryPosition", "none");
+				break;
+			case DescriptorData.INVENTORY_TOP_BOTTOM:
+				guiElement.setAttribute( "inventoryPosition", "top_bottom");
+				break;
+			case DescriptorData.INVENTORY_TOP:
+				guiElement.setAttribute( "inventoryPosition", "top");
+				break;
+			case DescriptorData.INVENTORY_BOTTOM:
+				guiElement.setAttribute( "inventoryPosition", "bottom");
+				break;
+			}
+			
 			if (adventureData.getCursors( ).size( )>0){
 				Node cursorsNode = doc.createElement( "cursors" );
 				for (CustomCursor cursor: adventureData.getCursors( )){

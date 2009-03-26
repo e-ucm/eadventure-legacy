@@ -12,7 +12,6 @@ import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfil
 import es.eucm.eadventure.editor.control.controllers.metadata.lomes.LOMESDataControl;
 import es.eucm.eadventure.editor.control.controllers.metadata.ims.IMSDataControl;
 import es.eucm.eadventure.editor.control.controllers.metadata.lom.LOMDataControl;
-import es.eucm.eadventure.editor.control.controllers.metadata.lomes.LOMESDataControl;
 import es.eucm.eadventure.editor.control.tools.Tool;
 import es.eucm.eadventure.editor.control.tools.general.assets.DeleteArrowTool;
 import es.eucm.eadventure.editor.control.tools.general.assets.DeleteButtonTool;
@@ -421,6 +420,14 @@ public class AdventureDataControl {
 		} catch (CloneNotSupportedException e) {
 			ReportDialog.GenerateErrorReport(e, false, "Could not clone resources: arrows");
 		}
+	}
+	
+	public int getInventoryPosition() {
+		return adventureData.getInventoryPosition();
+	}
+	
+	public void setInventoryPosition(int inventoryPosition) {
+		Controller.getInstance().addTool( new ChangeIntegerValueTool(adventureData, inventoryPosition, "getInventoryPosition", "setInventoryPosition"));
 	}
 
 	public int countAssetReferences(String assetPath) {

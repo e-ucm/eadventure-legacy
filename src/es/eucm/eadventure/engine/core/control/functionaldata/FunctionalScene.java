@@ -17,6 +17,7 @@ import es.eucm.eadventure.common.data.chapter.elements.NPC;
 import es.eucm.eadventure.common.data.chapter.resources.Asset;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.data.chapter.scenes.Scene;
+import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.engine.core.control.ActionManager;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.ItemSummary;
@@ -36,6 +37,9 @@ public class FunctionalScene implements Renderable {
      */
     private final static int MAX_OFFSET_X = 300;
 
+    
+    private final static int OFFSET_ARROW_AREA_RADIUS = 30;
+    
     /**
      * Scene data
      */
@@ -98,6 +102,12 @@ public class FunctionalScene implements Renderable {
      */
     private int offsetX;
     
+    private boolean moveOffsetRight = false;
+    
+    private boolean moveOffsetLeft = false;
+    
+    private boolean showsOffsetArrows = false;
+    
     /**
      * Creates a new FunctionalScene loading the background music.
      * @param scene the scene's data
@@ -136,6 +146,10 @@ public class FunctionalScene implements Renderable {
         background = null;
         if( resources.existAsset( Scene.RESOURCE_TYPE_BACKGROUND ) )
             background = MultimediaManager.getInstance( ).loadImageFromZip( resources.getAssetPath( Scene.RESOURCE_TYPE_BACKGROUND ), MultimediaManager.IMAGE_SCENE );
+
+        if (Controller.getInstance().isPlayTransparent() && background != null && background.getWidth(null) > GUI.WINDOW_WIDTH) {
+        	showsOffsetArrows = true;
+        }
 
         // Load the foreground image
         foreground = null;
@@ -459,9 +473,15 @@ public class FunctionalScene implements Renderable {
         // If the resources have changed, load the new one
         if( resources != newResources ) {
             resources = newResources;
+            showsOffsetArrows = false;
             
             if( resources.existAsset( Scene.RESOURCE_TYPE_BACKGROUND ) )
                 background = MultimediaManager.getInstance( ).loadImageFromZip( resources.getAssetPath( Scene.RESOURCE_TYPE_BACKGROUND ), MultimediaManager.IMAGE_SCENE );
+            
+            if (Controller.getInstance().isPlayTransparent() && background != null && background.getWidth(null) > GUI.WINDOW_WIDTH) {
+            	showsOffsetArrows = true;
+            }
+            
 
             // If there was a foreground, delete it
             if( foreground != null )
@@ -581,6 +601,8 @@ public class FunctionalScene implements Renderable {
      */
     private boolean updateOffset( ) {
         // TODO Francis: Comentar
+    	if (Controller.getInstance().isPlayTransparent())
+    		return false;
         boolean updated = false;
         
         // Scroll
@@ -600,6 +622,19 @@ public class FunctionalScene implements Renderable {
         }
         
         return updated;
+    }
+    
+    public void updateOffset(boolean right) {
+    	int iw = background.getWidth(null);
+    	if (right)  {
+	    	offsetX += 10;
+	    	if (offsetX + GUI.WINDOW_WIDTH > iw)
+	    		offsetX = iw - GUI.WINDOW_WIDTH;
+    	} else {
+    		offsetX -= 10;
+    		if (offsetX < 0)
+    			offsetX = 0;
+    	}
     }
 
     /*
@@ -621,6 +656,7 @@ public class FunctionalScene implements Renderable {
         if(foreground != null)
             GUI.getInstance().addForegroundToDraw(foreground, offsetX);
         
+        GUI.getInstance().setShowsOffestArrows(showsOffsetArrows, moveOffsetRight, moveOffsetLeft);
     }
 
     /**
@@ -632,6 +668,8 @@ public class FunctionalScene implements Renderable {
      */
     public FunctionalElement getElementInside( int x, int y ) {
         FunctionalElement element = null;
+        if (isInsideOffsetArrow(x, y))
+        	return null;
 
         Iterator<FunctionalItem> ito = items.iterator( );
         while( ito.hasNext( ) && element == null ) {
@@ -657,6 +695,24 @@ public class FunctionalScene implements Renderable {
         return element;
     }
     
+    public boolean isInsideOffsetArrow( int x, int y) {
+    	moveOffsetRight = false;
+    	moveOffsetLeft = false;
+    	
+    	if (showsOffsetArrows) {
+    		int ypos = GUI.WINDOW_HEIGHT / 2;
+    		if (y >= ypos - OFFSET_ARROW_AREA_RADIUS && y <= ypos + OFFSET_ARROW_AREA_RADIUS) {
+    			int max_x = (int) Math.ceil(Math.sqrt(OFFSET_ARROW_AREA_RADIUS*OFFSET_ARROW_AREA_RADIUS - Math.pow(y - ypos, 2)));
+    			if (x <= max_x)
+    				moveOffsetLeft = true;
+    			if (x >= GUI.WINDOW_WIDTH - max_x)
+    				moveOffsetRight = true;
+    		}	
+    	}
+    	
+    	return moveOffsetLeft || moveOffsetRight;
+    }
+    
     public FunctionalTrajectory getTrajectory() {
     	return trajectory;
     }
@@ -670,6 +726,9 @@ public class FunctionalScene implements Renderable {
      */
     public Exit getExitInside( int x, int y ) {
         Exit exit = null;
+        if (this.isInsideOffsetArrow(x, y))
+        	return null;
+        
         boolean found = false;
         Iterator<Exit> ito = scene.getExits( ).iterator( );
         while( ito.hasNext( ) && !found ) {
@@ -689,6 +748,15 @@ public class FunctionalScene implements Renderable {
      */
     public void mouseClicked( int x, int y ) {
         // FIXME Francis: Aclarar el uso del offset, ya que se añade en sitios que no deberia y viceversa
+    	if (isInsideOffsetArrow(x, y)) {
+    		System.out.println("Is inside offset arrow");
+	    	if (moveOffsetRight)
+	    		updateOffset(true);
+	    	if (moveOffsetLeft)
+	    		updateOffset(false);
+    	}
+    	
+    	
         FunctionalElement element = getElementInside( x + offsetX, y );
         if( Game.getInstance( ).getActionManager( ).getActionSelected( ) == ActionManager.ACTION_GOTO || element == null ) {
             int destX = x+offsetX;

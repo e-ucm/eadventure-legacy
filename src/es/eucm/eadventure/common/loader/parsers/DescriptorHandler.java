@@ -86,6 +86,7 @@ public class DescriptorHandler extends DefaultHandler {
 	        if( qName.equals( "gui" ) ) {
 	            int guiType = DescriptorData.GUI_TRADITIONAL;
 	            boolean guiCustomized = false;
+	            int inventoryPosition = DescriptorData.INVENTORY_TOP_BOTTOM;
 	            
 	            for( int i = 0; i < attrs.getLength( ); i++ ) {
 	                // Type of the GUI
@@ -100,10 +101,22 @@ public class DescriptorHandler extends DefaultHandler {
 	                else if( attrs.getQName( i ).equals( "customized" ) ) {
 	                    guiCustomized = attrs.getValue( i ).equals( "yes" );
 	                }
+					if (attrs.getQName( i ).equals( "inventoryPosition" )) {
+						if (attrs.getValue(i).equals("none"))
+							inventoryPosition = DescriptorData.INVENTORY_NONE;
+						else if (attrs.getValue(i).equals("top_bottom"))
+							inventoryPosition = DescriptorData.INVENTORY_TOP_BOTTOM;
+						else if (attrs.getValue(i).equals("top"))
+							inventoryPosition = DescriptorData.INVENTORY_TOP;
+						else if (attrs.getValue(i).equals("bottom"))
+							inventoryPosition = DescriptorData.INVENTORY_BOTTOM;
+					}
+
 	            }
 	            
 	            // Set the values
 	            gameDescriptor.setGUI( guiType, guiCustomized );
+	            gameDescriptor.setInventoryPosition(inventoryPosition);
 	        }
 	        
 	        //Cursor

@@ -1589,6 +1589,11 @@ When not customized, default arrows will be used in the game.</entry>
 	<entry key="Inventory.normalright.Tip">This is the arrow in the right in its normal state.</entry>
 	<entry key="Inventory.highlightedright.Description">Highlighted right arrow</entry>
 	<entry key="Inventory.highlightedright.Tip">This is the arrow in the right in its highlighted stated.</entry>
+	<entry key="Inventory.Position">Position</entry>
+	<entry key="Inventory.NoInventory">No inventory</entry>
+	<entry key="Inventory.TopAndBottom">Top and bottom</entry>
+	<entry key="Inventory.OnlyTop">Only top</entry>
+	<entry key="Inventory.OnlyBottom">Only bottom</entry>
 	
 	<entry key="CursorAssets.Preview">Cursor preview</entry>
 	<entry key="ButtonAssets.Preview">Button preview</entry>
