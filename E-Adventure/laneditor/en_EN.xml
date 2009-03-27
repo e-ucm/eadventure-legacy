@@ -504,8 +504,8 @@ Please, try it again with other destiny directory.</entry>
 	<entry key="Operation.ExportSCORM2004.BadProfiles.Message">The assessment and adaptation profile must be SCORM 2004 if they exists.</entry>
 	<entry key="Operation.ExportSCORM2004AGREGA.BadProfiles.Title">Incorrect Profiles</entry>
 	<entry key="Operation.ExportSCORM2004AGREGA.BadProfiles.Message">The assessment and adaptation profile must be SCORM 2004 if they exists to export in AGREGA format.</entry>
-	
-	
+	<entry key="Operation.AdaptationPanel.InsertButton">Insert statement</entry>
+	<entry key="Operation.AdaptationPanel.DeleteButton">Delete statement</entry>	
 	
 	<entry key="GUIStyles.Title">GUI style for the adventure</entry>
 	<entry key="GUIStyles.Traditional">Traditional GUI</entry>
