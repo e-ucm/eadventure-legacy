@@ -653,10 +653,10 @@ public class Controller {
 		
 		if ((ProjectConfigData.existsKey("autosave") && ProjectConfigData.getProperty("autosave").equals("yes"))
 				|| !ProjectConfigData.existsKey("autosave")) { 
-			autoSaveTimer = new Timer();
+/*			autoSaveTimer = new Timer();
 			autoSave = new AutoSave();
 			autoSaveTimer.schedule(autoSave, 10000, minutes * 60 * 1000);
-		}
+*/		}
 		if (!ProjectConfigData.existsKey("autosave"))
 			ProjectConfigData.setProperty("autosave", "yes");
 	}
