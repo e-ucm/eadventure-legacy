@@ -6,20 +6,25 @@ import java.util.List;
 
 
 import es.eucm.eadventure.common.auxiliar.File;
+import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
 import es.eucm.eadventure.common.data.assessment.AssessmentRule;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfileDataControl;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class AssessmentProfilesDataControl extends DataControl{
 
 	private List<AssessmentProfileDataControl> profiles;
+	private List<AssessmentProfile> data;
 	
-	public AssessmentProfilesDataControl () {
-		profiles = new ArrayList<AssessmentProfileDataControl> ();
+	public AssessmentProfilesDataControl (List<AssessmentProfile> data) {
+		this.profiles = new ArrayList<AssessmentProfileDataControl>();
+		this.data = data;
+		for (AssessmentProfile ap: data){
+			profiles.add(new AssessmentProfileDataControl(ap));
+		}
 	}
 	
 	@Override
@@ -60,7 +65,9 @@ public class AssessmentProfilesDataControl extends DataControl{
 						for (AssessmentProfileDataControl profile: this.profiles){
 							if (profile.getPath( ).equals( AssetsController.getCategoryFolder( AssetsController.CATEGORY_ASSESSMENT )+"/"+fileName )){
 								controller.deleteAssetReferences( profile.getPath() );
+								data.remove( profiles.indexOf(profile));
 								profiles.remove( profile );
+								break;
 							}
 						}
 					}else
@@ -72,7 +79,9 @@ public class AssessmentProfilesDataControl extends DataControl{
 					try {
 						File newAssFile = new File (Controller.getInstance( ).getProjectFolder( ),AssetsController.getCategoryFolder( AssetsController.CATEGORY_ASSESSMENT )+"/"+fileName );
 						newAssFile.createNewFile( );
-						this.profiles.add( new AssessmentProfileDataControl ( new ArrayList<AssessmentRule>(), AssetsController.getCategoryFolder( AssetsController.CATEGORY_ASSESSMENT )+"/"+fileName) );
+						List<AssessmentRule> newRules = new ArrayList<AssessmentRule>();
+						this.profiles.add( new AssessmentProfileDataControl ( newRules, AssetsController.getCategoryFolder( AssetsController.CATEGORY_ASSESSMENT )+"/"+fileName) );
+						data.add( (AssessmentProfile)profiles.get(profiles.size()-1).getContent() );
 						//controller.dataModified( );
 						added = true;
 					} catch( IOException e ) {
@@ -150,6 +159,7 @@ public class AssessmentProfilesDataControl extends DataControl{
 				int references = Controller.getInstance( ).countAssetReferences( path );
 				if(!askConfirmation || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { 
 						TextConstants.getElementName( Controller.ASSESSMENT_PROFILE ), Integer.toString( references ) } ) ) ) {
+					data.remove(profiles.indexOf(dataControl));
 					deleted = this.profiles.remove( dataControl );
 					if (deleted){
 						Controller.getInstance( ).deleteAssetReferences( path );
@@ -208,6 +218,7 @@ public class AssessmentProfilesDataControl extends DataControl{
 
 		if( elementIndex < profiles.size( ) - 1 ) {
 			profiles.add( elementIndex + 1, profiles.remove( elementIndex ) );
+			data.add( elementIndex + 1, data.remove( elementIndex ) );
 			//controller.dataModified( );
 			elementMoved = true;
 		}
@@ -222,6 +233,7 @@ public class AssessmentProfilesDataControl extends DataControl{
 
 		if( elementIndex > 0 ) {
 			profiles.add( elementIndex - 1, profiles.remove( elementIndex ) );
+			data.add( elementIndex - 1, data.remove( elementIndex ) );
 			//controller.dataModified( );
 			elementMoved = true;
 		}
@@ -287,13 +299,6 @@ public class AssessmentProfilesDataControl extends DataControl{
 		return false;
 	}
 
-	
-	/**
-	 * @param profiles the profiles to set
-	 */
-	public void setProfiles( List<AssessmentProfileDataControl> profiles ) {
-		this.profiles = profiles;
-	}
 	
 	public AssessmentProfileDataControl getLastProfile(){
 		return this.profiles.get( profiles.size( ) -1 );

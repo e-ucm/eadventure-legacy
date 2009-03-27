@@ -23,10 +23,12 @@ import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
 import es.eucm.eadventure.common.auxiliar.filefilters.EADFileFilter;
 import es.eucm.eadventure.common.auxiliar.filefilters.FolderFileFilter;
 import es.eucm.eadventure.common.auxiliar.filefilters.XMLFileFilter;
+import es.eucm.eadventure.common.data.adaptation.AdaptationProfile;
 import es.eucm.eadventure.common.data.adventure.AdventureData;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.data.animation.Animation;
 import es.eucm.eadventure.common.data.animation.Frame;
+import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.data.chapter.Trajectory;
 import es.eucm.eadventure.common.data.chapter.elements.Player;
@@ -39,7 +41,9 @@ import es.eucm.eadventure.editor.control.config.SCORMConfigData;
 import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.VarFlagsController;
+import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfileDataControl;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfilesDataControl;
+import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfileDataControl;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfilesDataControl;
 import es.eucm.eadventure.editor.control.controllers.character.NPCDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ChapterDataControl;
@@ -1441,6 +1445,7 @@ public class Controller {
 				//ls.close( );
 				loadingScreen.setVisible(false);
 		} catch (Exception e){
+			e.printStackTrace();
 			fileLoaded = false;
 			if (loadingImage)
 				loadingScreen.setVisible(false);
@@ -2131,6 +2136,19 @@ public class Controller {
 					mainWindow.setNormalRunAvailable( false );
 					// First update flags
 					chaptersController.updateVarsFlagsForRunning();
+					
+					AssessmentProfilesDataControl cnt1 = Controller.getInstance().getAssessmentController();
+					Controller.getInstance().adventureData.getAdventureData().getAssessmentProfiles().clear();
+					for (AssessmentProfileDataControl profile:cnt1.getProfiles()){
+						Controller.getInstance().adventureData.getAdventureData().getAssessmentProfiles().add((AssessmentProfile)profile.getContent());
+					}
+					
+					AdaptationProfilesDataControl cnt2 = Controller.getInstance().getAdaptationController();
+					Controller.getInstance().adventureData.getAdventureData().getAdaptationProfiles().clear();
+					for (AdaptationProfileDataControl profile:cnt2.getProfiles()){
+						Controller.getInstance().adventureData.getAdventureData().getAdaptationProfiles().add((AdaptationProfile)profile.getContent());
+					}
+					
 					EAdventureDebug.normalRun(Controller.getInstance().adventureData.getAdventureData(), AssetsController.getInputStreamCreator());
 					Controller.getInstance().startAutoSave(15);
 					mainWindow.setNormalRunAvailable( true );
@@ -2156,6 +2174,19 @@ public class Controller {
 				public void run() {
 					mainWindow.setNormalRunAvailable( false );
 					chaptersController.updateVarsFlagsForRunning();
+					
+					AssessmentProfilesDataControl cnt1 = Controller.getInstance().getAssessmentController();
+					Controller.getInstance().adventureData.getAdventureData().getAssessmentProfiles().clear();
+					for (AssessmentProfileDataControl profile:cnt1.getProfiles()){
+						Controller.getInstance().adventureData.getAdventureData().getAssessmentProfiles().add((AssessmentProfile)profile.getContent());
+					}
+					
+					AdaptationProfilesDataControl cnt2 = Controller.getInstance().getAdaptationController();
+					Controller.getInstance().adventureData.getAdventureData().getAdaptationProfiles().clear();
+					for (AdaptationProfileDataControl profile:cnt2.getProfiles()){
+						Controller.getInstance().adventureData.getAdventureData().getAdaptationProfiles().add((AdaptationProfile)profile.getContent());
+					}
+					
 					EAdventureDebug.debug(Controller.getInstance().adventureData.getAdventureData(), AssetsController.getInputStreamCreator());
 					Controller.getInstance().startAutoSave(15);
 					mainWindow.setNormalRunAvailable( true );

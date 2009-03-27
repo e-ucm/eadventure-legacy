@@ -6,6 +6,7 @@ import java.util.List;
 
 
 import es.eucm.eadventure.common.auxiliar.File;
+import es.eucm.eadventure.common.data.adaptation.AdaptationProfile;
 import es.eucm.eadventure.common.data.adaptation.AdaptationRule;
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
 import es.eucm.eadventure.common.gui.TextConstants;
@@ -19,9 +20,13 @@ public class AdaptationProfilesDataControl extends DataControl{
 
 	private List<AdaptationProfileDataControl> profiles;
 	
-	public AdaptationProfilesDataControl () {
-		profiles = new ArrayList<AdaptationProfileDataControl> ();
+	public AdaptationProfilesDataControl (List<AdaptationProfile> data) {
+		this.profiles = new ArrayList<AdaptationProfileDataControl>();
+		for (AdaptationProfile ap: data){
+			profiles.add(new AdaptationProfileDataControl(ap));
+		}
 	}
+	
 	
 	@Override
 	public boolean addElement( int type ) {
@@ -256,13 +261,6 @@ public class AdaptationProfilesDataControl extends DataControl{
 		return profiles;
 	}
 
-	/**
-	 * @param profiles the profiles to set
-	 */
-	public void setProfiles( List<AdaptationProfileDataControl> profiles ) {
-		this.profiles = profiles;
-	}
-	
 	public AdaptationProfileDataControl getLastProfile(){
 		return this.profiles.get( profiles.size( ) -1 );
 	}
