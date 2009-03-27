@@ -428,7 +428,7 @@ class GameStatePanel extends JPanel implements Updateable{
 
 			// If the value isn't an empty string
 			if( value!=null && !value.toString( ).trim( ).equals( "" ) ) {
-			    	// The two first check box aren´t editable
+			    	
 			    	if( columnIndex == 0){
 			    	    // if not selected
 			    	    if (adaptationRuleDataControl.isFlag(rowIndex)){
@@ -549,34 +549,33 @@ class GameStatePanel extends JPanel implements Updateable{
 		    }
 		    return value;
 		}
-		
-		private void setRowEditor(int index, boolean isFlag){
-		    	
-		    
-		    	//Edition of column 2: combo box (activate, deactivate for flags; increment, decrement, set value for vars )
-			String[] actionValues;
-			if (isFlag)
-			    actionValues = new String[]{"activate", "deactivate"};
-			else 
-			    actionValues = new String[]{"increment", "decrement", "set-value"};
-			JComboBox actionValuesCB = new JComboBox (actionValues);
-			actionFlagsTable.getColumnModel( ).getColumn( 2 ).setCellEditor( new DefaultCellEditor( actionValuesCB ) );
-		
-			//Edition of column 3: combo box (flags or var list)
-			String [] flagsVars;
-			if (isFlag)
-			    flagsVars = Controller.getInstance( ).getVarFlagSummary( ).getFlags( );
-			else
-			    flagsVars = Controller.getInstance( ).getVarFlagSummary( ).getVars();
-			flagsCB = new JComboBox (flagsVars);
-			flagsCB.setEditable(true);
-			actionFlagsTable.getColumnModel( ).getColumn( 3 ).setCellEditor( new DefaultCellEditor( flagsCB ) );
-		}
-		
-		
+
 	}
 	
 	
+	
+	private void setRowEditor(int index, boolean isFlag){
+	    	
+	    
+	    	//Edition of column 2: combo box (activate, deactivate for flags; increment, decrement, set value for vars )
+		String[] actionValues;
+		if (isFlag)
+		    actionValues = new String[]{"activate", "deactivate"};
+		else 
+		    actionValues = new String[]{"increment", "decrement", "set-value"};
+		JComboBox actionValuesCB = new JComboBox (actionValues);
+		actionFlagsTable.getColumnModel( ).getColumn( 2 ).setCellEditor( new DefaultCellEditor( actionValuesCB ) );
+	
+		//Edition of column 3: combo box (flags or var list)
+		String [] flagsVars;
+		if (isFlag)
+		    flagsVars = Controller.getInstance( ).getVarFlagSummary( ).getFlags( );
+		else
+		    flagsVars = Controller.getInstance( ).getVarFlagSummary( ).getVars();
+		flagsCB = new JComboBox (flagsVars);
+		flagsCB.setEditable(true);
+		actionFlagsTable.getColumnModel( ).getColumn( 3 ).setCellEditor( new DefaultCellEditor( flagsCB ) );
+	}
 
 	
 	
@@ -601,6 +600,10 @@ class GameStatePanel extends JPanel implements Updateable{
 		}else{
 			initialSceneCB.setSelectedItem( adaptationRuleDataControl.getInitialScene( ) );
 		}
+		
+		for (int i=0;i<actionFlagsTable.getRowCount();i++)
+		    setRowEditor(i,adaptationRuleDataControl.isFlag(i));
+		
 		
 		initialSceneCB.updateUI();
 		

@@ -9,6 +9,7 @@ import es.eucm.eadventure.editor.control.tools.adaptation.AddActionTool;
 import es.eucm.eadventure.editor.control.tools.adaptation.AddUOLPropertyTool;
 import es.eucm.eadventure.editor.control.tools.adaptation.ChangeActionTool;
 import es.eucm.eadventure.editor.control.tools.adaptation.ChangeUOLPropertyTool;
+import es.eucm.eadventure.editor.control.tools.adaptation.ChangeVarFlagTool;
 import es.eucm.eadventure.editor.control.tools.adaptation.DeleteActionTool;
 import es.eucm.eadventure.editor.control.tools.adaptation.DeleteUOLPropertyTool;
 import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeTargetIdTool;
@@ -158,7 +159,8 @@ public class AdaptationRuleDataControl extends DataControl{
 	}
 
 	public void change(int rowIndex,String name){
-	    adaptationRule.getAdaptedState().change(rowIndex, name);
+	    //adaptationRule.getAdaptedState().change(rowIndex, name);
+	    controller.addTool(new ChangeVarFlagTool(adaptationRule.getAdaptedState(),rowIndex,name));
 	}
 	
 	public String getFlag( int rowIndex ) {
