@@ -508,6 +508,8 @@ Por favor, inténtelo de nuevo cambiando dicho directorio.</entry>
 	<entry key="Operation.ExportSCORM2004.BadProfiles.Message">El perfil de evaluación y el de adaptación deben ser del tipo SCORM 2004 en caso de existir.</entry>
 	<entry key="Operation.ExportSCORM2004AGREGA.BadProfiles.Title">Perfiles incorrectos</entry>
 	<entry key="Operation.ExportSCORM2004AGREGA.BadProfiles.Message">El perfil de evaluación y el de adaptación deben ser del tipo SCORM 2004 en caso de existir para poder exportar en formato AGREGA.</entry>
+	<entry key="Operation.AdaptationPanel.InsertButton">Insertar</entry>
+	<entry key="Operation.AdaptationPanel.DeleteButton">Borrar</entry>	
 	
 	
 	

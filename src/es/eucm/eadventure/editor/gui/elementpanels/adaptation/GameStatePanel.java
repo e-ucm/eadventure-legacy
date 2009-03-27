@@ -153,9 +153,9 @@ class GameStatePanel extends JPanel implements Updateable{
 
 		/* Dialogue panel elements */
 		//TODO TextConstants
-		insertActionFlagButton = new JButton( "Insert statement" );
+		insertActionFlagButton = new JButton( TextConstants.getText("Operation.AdaptationPanel.InsertButton")  );
 		insertActionFlagButton.addActionListener( new ListenerButtonInsertLine( ) );
-		deleteActionFlagButton = new JButton( "Delete statement" );
+		deleteActionFlagButton = new JButton( TextConstants.getText("Operation.AdaptationPanel.DeleteButton") );
 		deleteActionFlagButton.addActionListener( new ListenerButtonDeleteLine( ) );
 		
 		String[] scenes = Controller.getInstance( ).getIdentifierSummary( ).getSceneIds( );
