@@ -31,6 +31,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.CellEditorListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.event.TableModelEvent;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellEditor;
@@ -94,7 +95,10 @@ class GameStatePanel extends JPanel implements Updateable{
 	 */
 	private JComboBox flagsCB;
 
-	
+	/**
+	 * The table model
+	 */
+	private NodeTableModel tableModel;
 	
 
 	/* Methods */
@@ -120,7 +124,8 @@ class GameStatePanel extends JPanel implements Updateable{
 
 		/* Common elements (for Node and Option panels) */
 		// Create the table with an empty model
-		actionFlagsTable = new JTable( new NodeTableModel( ) );
+		tableModel = new NodeTableModel( ) ;
+		actionFlagsTable = new JTable( tableModel);
 
 		// Column size properties
 		actionFlagsTable.setAutoCreateColumnsFromModel( false );
@@ -603,7 +608,7 @@ class GameStatePanel extends JPanel implements Updateable{
 		
 		for (int i=0;i<actionFlagsTable.getRowCount();i++)
 		    setRowEditor(i,adaptationRuleDataControl.isFlag(i));
-		
+		actionFlagsTable.tableChanged(new TableModelEvent(tableModel ));
 		
 		initialSceneCB.updateUI();
 		

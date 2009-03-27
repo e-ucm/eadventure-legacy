@@ -22,7 +22,7 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfileDataControl;
 import es.eucm.eadventure.editor.gui.Updateable;
 
-public class AdaptationRulesListPanel extends JPanel implements Updateable{
+public class AdaptationRulesListPanel extends JPanel {
 
 	/**
 	 * Required.
@@ -251,7 +251,9 @@ public class AdaptationRulesListPanel extends JPanel implements Updateable{
 	public boolean updateFields() {
 		scorm2004.setSelected(adaptationProfileDataControl.isScorm2004());
 		scorm12.setSelected(adaptationProfileDataControl.isScorm12());
+		normal.setSelected(!adaptationProfileDataControl.isScorm2004()&&!adaptationProfileDataControl.isScorm12());
 		informationTable.updateUI();
-		return initialStatePanel.updateFields();
+		//return initialStatePanel.updateFields();
+		return true;
 	}
 }

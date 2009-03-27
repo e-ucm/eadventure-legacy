@@ -79,6 +79,17 @@ public class VarSummary implements Serializable {
     }
     
     /**
+     * Looks for "varName" is in the stored vars
+     * 
+     * @param varName
+     * 		Key to look for
+     * @return
+     */
+    public boolean existVar(String varName){
+	return vars.containsValue(varName);
+    }
+    
+    /**
      * Returns the value of a variable
      * @param varName
      * @return

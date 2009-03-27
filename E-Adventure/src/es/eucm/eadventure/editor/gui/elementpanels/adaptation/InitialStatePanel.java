@@ -23,6 +23,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.event.TableModelEvent;
 import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.data.adaptation.AdaptationProfile;
@@ -37,7 +38,7 @@ import es.eucm.eadventure.editor.gui.editdialogs.VarDialog;
  * This class is the panel used to display and edit nodes. It holds node operations, like adding and removing lines,
  * editing end effects, remove links and reposition lines and children
  */
-class InitialStatePanel extends JPanel implements Updateable{
+class InitialStatePanel extends JPanel{
 
 	/**
 	 * Required
@@ -85,6 +86,11 @@ class InitialStatePanel extends JPanel implements Updateable{
 	 * Combo box to show the flags and vars in chapter
 	 */
 	private JComboBox flagsCB;
+	
+	/**
+	 * The table model
+	 */
+	private NodeTableModel tableModel;
 
 	/* Methods */
 
@@ -109,7 +115,8 @@ class InitialStatePanel extends JPanel implements Updateable{
 
 		/* Common elements (for Node and Option panels) */
 		// Create the table with an empty model
-		actionFlagsTable = new JTable( new NodeTableModel( ) );
+		tableModel = new NodeTableModel( ) ;
+		actionFlagsTable = new JTable( tableModel);
 
 		// Column size properties
 		actionFlagsTable.setAutoCreateColumnsFromModel( false );
@@ -551,6 +558,7 @@ class InitialStatePanel extends JPanel implements Updateable{
 		else 
 		    actionValues = new String[]{"increment", "decrement", "set-value"};
 		JComboBox actionValuesCB = new JComboBox (actionValues);
+		actionValuesCB.setFocusable(false);
 		actionFlagsTable.getColumnModel( ).getColumn( 2 ).setCellEditor( new DefaultCellEditor( actionValuesCB ) );
 	
 		//Edition of column 3: combo box (flags or var list)
@@ -565,10 +573,9 @@ class InitialStatePanel extends JPanel implements Updateable{
 		actionFlagsTable.getColumnModel( ).getColumn( 3 ).setCellEditor( new DefaultCellEditor( flagsCB ) );
 	}
 	
-	public boolean updateFields() {
+	/*public boolean updateFields() {
 	    
-	    	actionFlagsTable.clearSelection();
-		actionFlagsTable.updateUI();
+	    	
 		deleteActionFlagButton.setEnabled( false );
 		
 		String[] scenes = Controller.getInstance( ).getIdentifierSummary( ).getSceneIds( );
@@ -585,11 +592,14 @@ class InitialStatePanel extends JPanel implements Updateable{
 		}else{
 			initialSceneCB.setSelectedItem( adaptationProfileDataControl.getInitialScene( ) );
 		}
-		for (int i=0;i<actionFlagsTable.getRowCount();i++)
-		    setRowEditor(i,adaptationProfileDataControl.isFlag(i));
+		actionFlagsTable.clearSelection();
+		initialSceneCB.requestFocus();
+		actionFlagsTable.updateUI();
+		
+		
 		
 		initialSceneCB.updateUI();
 		
 		return true;
-	}
+	}*/
 }

@@ -94,6 +94,16 @@ public class FlagSummary implements Serializable {
         return activeFlags;
     }
     /**
+     * Looks for "flagName" is in the stored flags
+     * 
+     * @param flagName
+     * 		Key to look for
+     * @return
+     */
+    public boolean existFlag(String flagName){
+	return flags.containsKey(flagName);
+    }
+    /**
      * Method maintained to avoid breaking savegames
      */
     public ArrayList<String> getInactiveFlags( ) {

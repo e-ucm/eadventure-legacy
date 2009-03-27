@@ -18,7 +18,7 @@ import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationRuleDa
 import es.eucm.eadventure.editor.control.tools.listeners.DescriptionChangeListener;
 import es.eucm.eadventure.editor.gui.Updateable;
 
-public class AdaptationRulePanel extends JPanel implements Updateable{
+public class AdaptationRulePanel extends JPanel {
 
 	/**
 	 * Required.

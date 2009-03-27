@@ -4,8 +4,10 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.List;
 
 import es.eucm.eadventure.engine.core.control.Game;
+import es.eucm.eadventure.common.data.adaptation.AdaptedState;
 import es.eucm.eadventure.common.data.chapter.NextScene;
 import es.eucm.eadventure.engine.core.gui.GUI;
 
@@ -78,9 +80,40 @@ public class GameStatePlaying extends GameState {
             
             // Set the flag values
             for( String flag : game.getAdaptedStateToExecute( ).getActivatedFlags( ) )
-                game.getFlags( ).activateFlag( flag );
+               if (game.getFlags().existFlag(flag))
+        	game.getFlags( ).activateFlag( flag );
             for( String flag : game.getAdaptedStateToExecute( ).getDeactivatedFlags( ) )
-                game.getFlags( ).deactivateFlag( flag );
+              if (game.getFlags().existFlag(flag))
+        	game.getFlags( ).deactivateFlag( flag );
+            
+            // Set the vars
+            List<String> adaptedVars = new ArrayList<String>();
+            List<String> adaptedValues = new ArrayList<String>();
+            game.getAdaptedStateToExecute().getVarsValues(adaptedVars, adaptedValues );
+            for ( int i=0; i<adaptedVars.size(); i++ ){
+        	String varName = adaptedVars.get(i);
+        	String varValue = adaptedValues.get(i);
+        	// check if it is a "set value" operation
+        	if (AdaptedState.isSetValueOp( varValue)){
+        	    String val = AdaptedState.getSetValueData(varValue);
+        	    if (val!=null)
+        	    game.getVars().setVarValue(varName, Integer.parseInt(val));
+        	}
+        	// it is "increment" or "decrement" operation, for both of them is necessary to 
+        	// get the current value of referenced variable
+        	else{
+        	    if (game.getVars().existVar(varName)){
+        	    int currentValue = game.getVars().getValue(varName);
+        	    if (AdaptedState.isIncrementOp(varValue)){
+        		game.getVars().setVarValue(varName, currentValue + 1);
+        	    }else if (AdaptedState.isDecrementOp(varValue)){
+        		game.getVars().setVarValue(varName, currentValue - 1);
+        	    }
+        	    }
+        	}
+            }
+            	
+        
             
         }
 
