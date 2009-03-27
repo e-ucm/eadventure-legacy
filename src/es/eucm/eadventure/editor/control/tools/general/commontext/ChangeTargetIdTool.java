@@ -77,7 +77,7 @@ public class ChangeTargetIdTool extends Tool{
 	@Override
 	public boolean doTool() {
 		boolean done = false;
-		if (!elementWithTargetId.getTargetId().equals(id)){
+		if (elementWithTargetId.getTargetId()==null||!elementWithTargetId.getTargetId().equals(id)){
 			elementWithTargetId.setTargetId(id);
 			done = true;
 			if (updateTree)

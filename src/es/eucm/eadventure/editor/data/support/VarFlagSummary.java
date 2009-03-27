@@ -238,11 +238,11 @@ public class VarFlagSummary {
 		int varIndex = vars.indexOf( var );
 
 		// If the var was on the list, update the references
-		if( varIndex >= 0 ) {
+		if( varIndex >= 0 ) { 
 			int references = varReferences.get( varIndex ) + 1;
 			varReferences.set( varIndex, references );
 		}
-
+ 
 		// If the var wasn't on the list, add it
 		else {
 			vars.add( var );

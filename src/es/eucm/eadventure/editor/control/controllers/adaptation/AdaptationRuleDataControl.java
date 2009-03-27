@@ -159,10 +159,9 @@ public class AdaptationRuleDataControl extends DataControl{
 	}
 
 	public void change(int rowIndex,String name){
-	    //adaptationRule.getAdaptedState().change(rowIndex, name);
+	    //profile.getAdaptedState().change(rowIndex, name);
 	    controller.addTool(new ChangeVarFlagTool(adaptationRule.getAdaptedState(),rowIndex,name));
 	}
-	
 	public String getFlag( int rowIndex ) {
 		return this.adaptationRule.getAdaptedState( ).getFlagVar( rowIndex );
 	}

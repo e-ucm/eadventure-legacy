@@ -13,12 +13,15 @@ public class ChangeVarFlagTool extends Tool{
     
     private String name;
     
+    private String oldName;
+    
     private AdaptedState adapState;
     
     public ChangeVarFlagTool(AdaptedState adapState,int index,String name){
 	this.adapState = adapState;
 	this.index =  index;
-	this.name = name;	
+	this.name = name;
+	this.oldName = adapState.getFlagVar(index);
     }
     
     @Override
@@ -39,18 +42,22 @@ public class ChangeVarFlagTool extends Tool{
     @Override
     public boolean doTool() {
 	adapState.change(index, name);
-	Controller.getInstance().updatePanel();
+	//Controller.getInstance().updatePanel();
 	return true;
     }
 
     @Override
     public boolean redoTool() {
-	return doTool();
+	adapState.change(index, name);
+	Controller.getInstance().updatePanel();
+	return true;
     }
 
     @Override
     public boolean undoTool() {
-	return doTool();
+	adapState.change(index, oldName);
+	Controller.getInstance().updatePanel();
+	return true;
     }
 
 }

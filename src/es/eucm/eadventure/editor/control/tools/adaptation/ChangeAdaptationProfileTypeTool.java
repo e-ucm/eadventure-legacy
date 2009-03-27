@@ -64,13 +64,13 @@ public class ChangeAdaptationProfileTypeTool extends Tool{
 	    adapProfile.changeToScorm12Profile();
 	else if (type==SCORM2004)
 	    adapProfile.changeToScorm2004Profile();
-	Controller.getInstance().updatePanel();
         return true;
     }
     
     @Override
     public boolean redoTool() {
 	doTool();
+	Controller.getInstance().updatePanel();
         return true;
     }
     
