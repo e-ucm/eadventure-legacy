@@ -99,8 +99,8 @@ public class AdventureDataControl {
 		lomController = new LOMDataControl();
 		imsController = new IMSDataControl();
 		lomesController = new LOMESDataControl();
-		assessmentProfilesDataControl = new AssessmentProfilesDataControl();
-		adaptationProfilesDataControl = new AdaptationProfilesDataControl();
+		assessmentProfilesDataControl = new AssessmentProfilesDataControl(adventureData.getAssessmentProfiles());
+		adaptationProfilesDataControl = new AdaptationProfilesDataControl(adventureData.getAdaptationProfiles());
 	}
 
 	/**
@@ -123,8 +123,8 @@ public class AdventureDataControl {
 		adventureData.addChapter( new Chapter( chapterTitle, sceneId ) );
 		lomController = new LOMDataControl();
 		imsController = new IMSDataControl();
-		assessmentProfilesDataControl = new AssessmentProfilesDataControl();
-		adaptationProfilesDataControl = new AdaptationProfilesDataControl();
+		assessmentProfilesDataControl = new AssessmentProfilesDataControl(adventureData.getAssessmentProfiles());
+		adaptationProfilesDataControl = new AdaptationProfilesDataControl(adventureData.getAdaptationProfiles());
 	}
 
 	public AdventureDataControl( String adventureTitle, String chapterTitle, String sceneId ) {
