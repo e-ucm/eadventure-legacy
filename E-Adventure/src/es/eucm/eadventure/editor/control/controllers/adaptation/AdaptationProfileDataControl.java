@@ -15,6 +15,7 @@ import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.tools.adaptation.AddActionTool;
 import es.eucm.eadventure.editor.control.tools.adaptation.ChangeActionTool;
 import es.eucm.eadventure.editor.control.tools.adaptation.ChangeAdaptationProfileTypeTool;
+import es.eucm.eadventure.editor.control.tools.adaptation.ChangeVarFlagTool;
 import es.eucm.eadventure.editor.control.tools.adaptation.DeleteActionTool;
 import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeTargetIdTool;
 import es.eucm.eadventure.editor.control.tools.generic.ChangeBooleanValueTool;
@@ -355,7 +356,8 @@ public class AdaptationProfileDataControl extends DataControl{
 	
 	
 	public void change(int rowIndex,String name){
-	    profile.getAdaptedState().change(rowIndex, name);
+	    //profile.getAdaptedState().change(rowIndex, name);
+	    controller.addTool(new ChangeVarFlagTool(profile.getAdaptedState(),rowIndex,name));
 	}
 	
 	public boolean isFlag(int rowIndex){

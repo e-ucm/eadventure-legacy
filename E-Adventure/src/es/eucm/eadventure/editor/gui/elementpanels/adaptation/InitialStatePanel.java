@@ -47,7 +47,7 @@ class InitialStatePanel extends JPanel implements Updateable{
 	/**
 	 * Adaptation rule data controller.
 	 */
-	private AdaptationProfileDataControl adaptationRuleDataControl;
+	private AdaptationProfileDataControl adaptationProfileDataControl;
 
 
 	/**
@@ -93,12 +93,12 @@ class InitialStatePanel extends JPanel implements Updateable{
 	 * 
 	 * @param principalPanel
 	 *            Link to the principal panel, for sending signals
-	 * @param adaptationRuleDataControl
+	 * @param adaptationProfileDataControl
 	 *            Data controller to edit the lines
 	 */
 	public InitialStatePanel( AdaptationProfileDataControl adpDataControl ) {
 		// Set the initial values
-		this.adaptationRuleDataControl = adpDataControl;
+		this.adaptationProfileDataControl = adpDataControl;
 
 		// Create and set border (titled border in this case)
 		border = BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( EtchedBorder.LOWERED ), TextConstants.getText( "AdaptationRule.InitialState.Title" ), TitledBorder.CENTER, TitledBorder.TOP );
@@ -150,16 +150,16 @@ class InitialStatePanel extends JPanel implements Updateable{
 		}
 		this.initialSceneCB = new JComboBox(isValues);
 		
-		if (adaptationRuleDataControl.getInitialScene( )==null){
+		if (adaptationProfileDataControl.getInitialScene( )==null){
 			initialSceneCB.setSelectedIndex( 0 );
 		}else{
-			initialSceneCB.setSelectedItem( adaptationRuleDataControl.getInitialScene( ) );
+			initialSceneCB.setSelectedItem( adaptationProfileDataControl.getInitialScene( ) );
 		}
 		initialSceneCB.addActionListener( new ActionListener(){
 
 			public void actionPerformed( ActionEvent e ) {
 				if (initialSceneCB.getSelectedIndex( )>0)
-					adaptationRuleDataControl.setInitialScene( initialSceneCB.getSelectedItem( ).toString( ) );
+					adaptationProfileDataControl.setInitialScene( initialSceneCB.getSelectedItem( ).toString( ) );
 			}
 			
 		});
@@ -258,7 +258,7 @@ class InitialStatePanel extends JPanel implements Updateable{
 
 
 			// Insert the dialogue line in the selected position
-			if(adaptationRuleDataControl.addFlagAction( selectedRow + 1 )){
+			if(adaptationProfileDataControl.addFlagAction( selectedRow + 1 )){
 
 				// Select the inserted line
 				actionFlagsTable.setRowSelectionInterval( selectedRow + 1, selectedRow + 1 );
@@ -285,14 +285,14 @@ class InitialStatePanel extends JPanel implements Updateable{
 			int selectedRow = actionFlagsTable.getSelectedRow( );
 
 			// Delete the selected line
-			adaptationRuleDataControl.deleteFlagAction( selectedRow );
+			adaptationProfileDataControl.deleteFlagAction( selectedRow );
 
 			// If there are no more lines, clear selection (this disables the "Delete line" button)
-			if( adaptationRuleDataControl.getFlagActionCount( ) == 0 )
+			if( adaptationProfileDataControl.getFlagActionCount( ) == 0 )
 				actionFlagsTable.clearSelection( );
 
 			// If the deleted line was the last one, select the new last line in the node
-			else if(adaptationRuleDataControl.getFlagActionCount( ) == selectedRow )
+			else if(adaptationProfileDataControl.getFlagActionCount( ) == selectedRow )
 				actionFlagsTable.setRowSelectionInterval( selectedRow - 1, selectedRow - 1 );
 
 			// Update the table
@@ -369,8 +369,8 @@ class InitialStatePanel extends JPanel implements Updateable{
 			int rowCount = 0;
 
 			// If there is a node, the number of rows is the same as the number of lines
-			if( adaptationRuleDataControl != null )
-				rowCount = adaptationRuleDataControl.getFlagActionCount( );
+			if( adaptationProfileDataControl != null )
+				rowCount = adaptationProfileDataControl.getFlagActionCount( );
 
 			return rowCount;
 		}
@@ -412,10 +412,10 @@ class InitialStatePanel extends JPanel implements Updateable{
 
 			// If the value isn't an empty string
 			if( value!=null && !value.toString( ).trim( ).equals( "" ) ) {
-			    	// The two first check box aren´t editable
+			    	
 			    	if( columnIndex == 0){
 			    	    // if not selected
-			    	    if (adaptationRuleDataControl.isFlag(rowIndex)){
+			    	    if (adaptationProfileDataControl.isFlag(rowIndex)){
 			    		
 			    		
 			    		String[] names = Controller.getInstance( ).getVarFlagSummary( ).getVars();
@@ -423,10 +423,10 @@ class InitialStatePanel extends JPanel implements Updateable{
 			    		if (names.length==0){
 			    		    Controller.getInstance().showErrorDialog(TextConstants.getText("Error.NoVarsAvailable.Title"), TextConstants.getText("Error.NoVarsAvailable.Message"));
 			    		    // change to var
-			    		    adaptationRuleDataControl.change(rowIndex, "");
+			    		    adaptationProfileDataControl.change(rowIndex, "");
 			    		}else 
 			    		    // change to var
-			    		    adaptationRuleDataControl.change(rowIndex, names[0]);
+			    		    adaptationProfileDataControl.change(rowIndex, names[0]);
 			    	    }
 			    	    
 			    	    
@@ -435,7 +435,7 @@ class InitialStatePanel extends JPanel implements Updateable{
 			    
 			    	if( columnIndex == 1){
 			    	    // if not selected
-			    	if (!adaptationRuleDataControl.isFlag(rowIndex)){
+			    	if (!adaptationProfileDataControl.isFlag(rowIndex)){
 			    		
 			    		
 			    		String[] names = Controller.getInstance( ).getVarFlagSummary( ).getFlags();
@@ -443,10 +443,10 @@ class InitialStatePanel extends JPanel implements Updateable{
 			    		if (names.length==0){
 			    		    Controller.getInstance().showErrorDialog(TextConstants.getText("Error.NoFlagsAvailable.Title"), TextConstants.getText("Error.NoFlagsAvailable.Message"));
 			    		    // change to flag
-			    		    adaptationRuleDataControl.change(rowIndex, "");
+			    		    adaptationProfileDataControl.change(rowIndex, "");
 			    		}else    
 			    		 // change to flag
-			    		    adaptationRuleDataControl.change(rowIndex, names[0]);		
+			    		    adaptationProfileDataControl.change(rowIndex, names[0]);		
 			    	    
 			    	    }
 			    		
@@ -456,12 +456,12 @@ class InitialStatePanel extends JPanel implements Updateable{
 				if( columnIndex == 2){
 				    // if is a "set value" action, ask for that value
 				    if (value.toString().equals(AdaptedState.VALUE)){
-					VarDialog dialog= new VarDialog(adaptationRuleDataControl.getValueToSet(rowIndex));
+					VarDialog dialog= new VarDialog(adaptationProfileDataControl.getValueToSet(rowIndex));
 					if (!dialog.getValue().equals("error"))
-					    adaptationRuleDataControl.setAction( rowIndex, value.toString() + " " +dialog.getValue() );
+					    adaptationProfileDataControl.setAction( rowIndex, value.toString() + " " +dialog.getValue() );
 				    }
 				    else 
-					adaptationRuleDataControl.setAction( rowIndex, value.toString( ) );
+					adaptationProfileDataControl.setAction( rowIndex, value.toString( ) );
 				}
 				// If the flag is being edited, and it has really changed
 				if( columnIndex == 3 ){
@@ -478,7 +478,7 @@ class InitialStatePanel extends JPanel implements Updateable{
             					flagsCB.addItem( value.toString( ) );
             				     }	
 				    }
-				    adaptationRuleDataControl.setFlag( rowIndex, value.toString( ) );
+				    adaptationProfileDataControl.setFlag( rowIndex, value.toString( ) );
 				}
 				
 
@@ -500,22 +500,22 @@ class InitialStatePanel extends JPanel implements Updateable{
 				
 				case 0: // IsVar 
 				    	
-				    	value = !adaptationRuleDataControl.isFlag(rowIndex);
+				    	value = !adaptationProfileDataControl.isFlag(rowIndex);
 				    	setRowEditor(rowIndex,(Boolean)value);
 				    	break;
 				    	
 				case 1: // IsFlag 
-				    	value = adaptationRuleDataControl.isFlag(rowIndex);
+				    	value = adaptationProfileDataControl.isFlag(rowIndex);
 				    	setRowEditor(rowIndex,(Boolean)value);
 				    	break;
 			
 				case 2:
 					// Id of the property
-					value = adaptationRuleDataControl.getAction( rowIndex );
+					value = adaptationProfileDataControl.getAction( rowIndex );
 					break;
 				case 3:
 					// Property value
-					value = adaptationRuleDataControl.getFlag( rowIndex );
+					value = adaptationProfileDataControl.getFlag( rowIndex );
 					break;
 			}
 
@@ -527,40 +527,42 @@ class InitialStatePanel extends JPanel implements Updateable{
 		    switch( columnIndex ) {
 		    case 0: // IsVar 
 		    	
-		    	value = !adaptationRuleDataControl.isFlag(rowIndex);
+		    	value = !adaptationProfileDataControl.isFlag(rowIndex);
 		    	break;
 		    	
 		    case 1: // IsFlag 
-		    	value = adaptationRuleDataControl.isFlag(rowIndex);
+		    	value = adaptationProfileDataControl.isFlag(rowIndex);
 		    	break;
 		    }
 		    return value;
 		}
 		
-		private void setRowEditor(int index, boolean isFlag){
-		    	
-		    
-		    	//Edition of column 2: combo box (activate, deactivate for flags; increment, decrement, set value for vars )
-			String[] actionValues;
-			if (isFlag)
-			    actionValues = new String[]{"activate", "deactivate"};
-			else 
-			    actionValues = new String[]{"increment", "decrement", "set-value"};
-			JComboBox actionValuesCB = new JComboBox (actionValues);
-			actionFlagsTable.getColumnModel( ).getColumn( 2 ).setCellEditor( new DefaultCellEditor( actionValuesCB ) );
 		
-			//Edition of column 3: combo box (flags or var list)
-			String [] flagsVars;
-			if (isFlag)
-			    flagsVars = Controller.getInstance( ).getVarFlagSummary( ).getFlags( );
-			else
-			    flagsVars = Controller.getInstance( ).getVarFlagSummary( ).getVars();
-			
-			flagsCB = new JComboBox (flagsVars);
-			flagsCB.setEditable(true);
-			actionFlagsTable.getColumnModel( ).getColumn( 3 ).setCellEditor( new DefaultCellEditor( flagsCB ) );
-		}
+	}
+
+	
+	private void setRowEditor(int index, boolean isFlag){
+	    	
+	    
+	    	//Edition of column 2: combo box (activate, deactivate for flags; increment, decrement, set value for vars )
+		String[] actionValues;
+		if (isFlag)
+		    actionValues = new String[]{"activate", "deactivate"};
+		else 
+		    actionValues = new String[]{"increment", "decrement", "set-value"};
+		JComboBox actionValuesCB = new JComboBox (actionValues);
+		actionFlagsTable.getColumnModel( ).getColumn( 2 ).setCellEditor( new DefaultCellEditor( actionValuesCB ) );
+	
+		//Edition of column 3: combo box (flags or var list)
+		String [] flagsVars;
+		if (isFlag)
+		    flagsVars = Controller.getInstance( ).getVarFlagSummary( ).getFlags( );
+		else
+		    flagsVars = Controller.getInstance( ).getVarFlagSummary( ).getVars();
 		
+		flagsCB = new JComboBox (flagsVars);
+		flagsCB.setEditable(true);
+		actionFlagsTable.getColumnModel( ).getColumn( 3 ).setCellEditor( new DefaultCellEditor( flagsCB ) );
 	}
 	
 	public boolean updateFields() {
@@ -578,11 +580,13 @@ class InitialStatePanel extends JPanel implements Updateable{
 		
 		this.initialSceneCB.setModel(new DefaultComboBoxModel(isValues) );
 		
-		if (adaptationRuleDataControl.getInitialScene( )==null){
+		if (adaptationProfileDataControl.getInitialScene( )==null){
 			initialSceneCB.setSelectedIndex( 0 );
 		}else{
-			initialSceneCB.setSelectedItem( adaptationRuleDataControl.getInitialScene( ) );
+			initialSceneCB.setSelectedItem( adaptationProfileDataControl.getInitialScene( ) );
 		}
+		for (int i=0;i<actionFlagsTable.getRowCount();i++)
+		    setRowEditor(i,adaptationProfileDataControl.isFlag(i));
 		
 		initialSceneCB.updateUI();
 		
