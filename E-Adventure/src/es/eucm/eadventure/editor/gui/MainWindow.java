@@ -650,7 +650,7 @@ public class MainWindow extends JFrame {
 				controller.setAutoSaveEnabled( ((JCheckBoxMenuItem) e.getSource()).isSelected());
 			}
 		});
-		configurationMenu.add( itAutoBackup );
+//		configurationMenu.add( itAutoBackup );
 		JCheckBoxMenuItem itEnglish = new JCheckBoxMenuItem(TextConstants.getText( "MenuConfiguration.Language.English" ), controller.getLanguage( ) == ReleaseFolders.LANGUAGE_ENGLISH);
 		itEnglish.addActionListener( new ActionListener(){
 			public void actionPerformed( ActionEvent e ) {
