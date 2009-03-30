@@ -19,6 +19,7 @@ public class AdvancedFeaturesPanel extends JPanel{
 	 */
 	private static final long serialVersionUID = 6602692300239491332L;
 
+	
 	public AdvancedFeaturesPanel (){
 		// Set the layout and the border
 		setLayout( new GridBagLayout( ) );
