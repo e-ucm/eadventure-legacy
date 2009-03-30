@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.Documented;
+import es.eucm.eadventure.common.data.HasId;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 
 /**
  * This class holds a "bookscene" data
  */
-public class Book implements Cloneable, Documented {
+public class Book implements Cloneable, Documented, HasId {
 
     /**
      * The xml tag for the background image of the bookscene

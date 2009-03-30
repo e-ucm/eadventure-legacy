@@ -45,6 +45,7 @@ import es.eucm.eadventure.common.auxiliar.filefilters.FolderFileFilter;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
+import es.eucm.eadventure.editor.gui.structurepanel.StructurePanel;
 import es.eucm.eadventure.editor.gui.treepanel.TreeNodeControl;
 import es.eucm.eadventure.editor.gui.treepanel.TreePanel;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.EmptyTreeNode;
@@ -93,6 +94,8 @@ public class MainWindow extends JFrame {
 	 */
 	private TreePanel treePanel;
 
+	private StructurePanel structurePanel;
+	
 	/**
 	 * Stack of windows opened.
 	 */
@@ -147,6 +150,7 @@ public class MainWindow extends JFrame {
 					controller.getAssessmentController( ), controller.getAdaptationController( ));
 		else
 			root = new EmptyTreeNode(null);
+
 		
 		TreeNodeControl.getInstance().setRoot(root);
 
@@ -154,6 +158,10 @@ public class MainWindow extends JFrame {
 		JPanel editorContainer = new JPanel( );
 		editorContainer.setMinimumSize( new Dimension( 400, 0 ) );
 		editorContainer.setLayout( new BorderLayout( ) );
+
+		structurePanel = new StructurePanel(editorContainer);
+		structurePanel.recreateElements();
+
 		treePanel = new TreePanel( root, editorContainer );
 		treePanel.setMinimumSize( new Dimension( 210, 0 ) );
 		treePanel.setPreferredSize( new Dimension( 210, 0 ) );
@@ -163,7 +171,10 @@ public class MainWindow extends JFrame {
 		treeToolsPanel.setLayout(new BorderLayout());
 		treeToolsPanel.setMinimumSize( new Dimension( 210, 0 ) );
 		treeToolsPanel.setPreferredSize( new Dimension( 210, 0 ) );
+
 		treeToolsPanel.add(treePanel, BorderLayout.CENTER);
+//		treeToolsPanel.add(structurePanel, BorderLayout.CENTER);
+		
 		JPanel toolsPanel = createToolsPanel();
 		treeToolsPanel.add(toolsPanel, BorderLayout.NORTH);
 		
@@ -741,6 +752,7 @@ public class MainWindow extends JFrame {
 					controller.getAssessmentController( ), controller.getAdaptationController( ) );
 		else
 			newRoot = new EmptyTreeNode(null);
+		structurePanel.recreateElements();
 		
 		updateChapterMenu( );
 		

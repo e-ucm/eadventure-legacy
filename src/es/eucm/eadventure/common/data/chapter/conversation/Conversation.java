@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import es.eucm.eadventure.common.data.HasId;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
 
 /**
  * Implements Tree and Graph conversations
  */
-public abstract class Conversation implements Cloneable {
+public abstract class Conversation implements Cloneable, HasId {
 
 	/**
 	 * Constant for tree conversations.

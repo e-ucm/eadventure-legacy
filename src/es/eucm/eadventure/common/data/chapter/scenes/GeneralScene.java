@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.Documented;
+import es.eucm.eadventure.common.data.HasId;
 import es.eucm.eadventure.common.data.Named;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 
 /**
  * This class holds the data of a scene of any type in eAdventure.
  */
-public abstract class GeneralScene implements Cloneable, Documented, Named {
+public abstract class GeneralScene implements Cloneable, Documented, Named, HasId {
 
 	/**
 	 * A regular eAdventure scene.
