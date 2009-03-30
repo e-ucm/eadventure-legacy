@@ -23,7 +23,7 @@ public class ItemsListStructureElement extends StructureListElement {
 	
 	@Override
 	public StructureElement getChild(int i) {
-		return StructureElementFactory.getStructureElement(((ItemsListDataControl) dataControl).getItems().get(i));
+		return StructureElementFactory.getStructureElement(((ItemsListDataControl) dataControl).getItems().get(i), this);
 	}
 	
 }

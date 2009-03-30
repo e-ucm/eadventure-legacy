@@ -23,7 +23,7 @@ public class CutscenesListStructureElement extends StructureListElement {
 
 	@Override
 	public StructureElement getChild(int i) {
-		return StructureElementFactory.getStructureElement(((CutscenesListDataControl) dataControl).getCutscenes().get(i));
+		return StructureElementFactory.getStructureElement(((CutscenesListDataControl) dataControl).getCutscenes().get(i), this);
 	}
 	
 }

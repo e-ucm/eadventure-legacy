@@ -23,7 +23,7 @@ public class BooksListStructureElement extends StructureListElement {
 	
 	@Override
 	public StructureElement getChild(int i) {
-		return StructureElementFactory.getStructureElement(((BooksListDataControl) dataControl).getBooks().get(i));
+		return StructureElementFactory.getStructureElement(((BooksListDataControl) dataControl).getBooks().get(i), this);
 	}
 	
 }

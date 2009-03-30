@@ -2801,6 +2801,7 @@ public class Controller {
 	 */
 	public void updateTree( ) {
 		mainWindow.updateTree( );
+		mainWindow.updateStructure();
 	}
 
 	/**

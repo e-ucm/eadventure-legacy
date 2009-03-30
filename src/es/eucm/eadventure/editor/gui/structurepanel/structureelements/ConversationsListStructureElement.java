@@ -23,6 +23,6 @@ public class ConversationsListStructureElement extends StructureListElement {
 
 	@Override
 	public StructureElement getChild(int i) {
-		return StructureElementFactory.getStructureElement((((ConversationsListDataControl) dataControl).getConversations().get(i)));
+		return StructureElementFactory.getStructureElement((((ConversationsListDataControl) dataControl).getConversations().get(i)), this);
 	}
 }

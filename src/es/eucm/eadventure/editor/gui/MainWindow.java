@@ -835,6 +835,10 @@ public class MainWindow extends JFrame {
 	public void updateTree( ) {
 		treePanel.updateTreePanel( );
 	}
+	
+	public void updateStructure() {
+		structurePanel.update();
+	}
 
 	/**
 	 * Reloads the panel selected.

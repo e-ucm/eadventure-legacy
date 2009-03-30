@@ -23,6 +23,6 @@ public class ScenesListStructureElement extends StructureListElement {
 
 	@Override
 	public StructureElement getChild(int i) {
-		return StructureElementFactory.getStructureElement((((ScenesListDataControl) dataControl).getScenes().get(i)));
+		return StructureElementFactory.getStructureElement((((ScenesListDataControl) dataControl).getScenes().get(i)), this);
 	}
 }

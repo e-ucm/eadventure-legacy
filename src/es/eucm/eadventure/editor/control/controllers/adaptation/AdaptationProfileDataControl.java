@@ -46,7 +46,8 @@ public class AdaptationProfileDataControl extends DataControl{
 		dataControls = new ArrayList<AdaptationRuleDataControl>();
 		this.profile = profile;
 		
-		for (AdaptationRule rule: profile.getRules()){
+		if (profile != null && profile.getRules() != null)
+		for (AdaptationRule rule : profile.getRules()){
 			rule.setId(generateId());
 			dataControls.add( new AdaptationRuleDataControl(rule) );
 		}
