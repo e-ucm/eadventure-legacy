@@ -7,13 +7,13 @@ import java.awt.LayoutManager2;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StructurePanelLayout implements LayoutManager2 {
+public class StructureListElementLayout implements LayoutManager2 {
 
 	List<StructureComponent> components = new ArrayList<StructureComponent>();
 	
 	@Override
 	public void addLayoutComponent(Component arg0, Object arg1) {
-		components.add(new StructureComponent(arg0, (Integer) arg1));
+		components.add(new StructureComponent(arg0, (String) arg1));
 	}
 
 	@Override
@@ -42,17 +42,14 @@ public class StructurePanelLayout implements LayoutManager2 {
 	@Override
 	public void layoutContainer(Container parent) {
 	    int width = parent.getWidth();
-	    int y = 0;
 	    for (StructureComponent c : components) {
-    		int height2 = c.getSize();
-    		if (c.getSize() == -1) {
-    			height2 = parent.getHeight();
-    			for (StructureComponent d : components) {
-    				if (d != c) height2 -= d.getSize();
-    			}
-    		}
-    		c.getComponent().setBounds(0, y, width, height2);
-    		y += height2;
+	    	if (c.getType().equals("title")) {
+	    		c.getComponent().setBounds(0, 0, width, 39);
+	    	} else if (c.getType().equals("addButton")) {
+	    		c.getComponent().setBounds(width - 25, 7, 20, 20);
+	    	}
+	    	else 
+	    		c.getComponent().setBounds(0, 39, width, parent.getHeight() - 39);
 	    }
 	}
 
@@ -80,19 +77,19 @@ public class StructurePanelLayout implements LayoutManager2 {
 		
 		private Component component;
 		
-		private Integer size;
+		private String type;
 		
-		public StructureComponent(Component component, Integer size) {
+		public StructureComponent(Component component, String type) {
 			this.component = component;
-			this.size = size;
+			this.type = type;
 		}
 		
 		public Component getComponent() {
 			return component;
 		}
 		
-		public int getSize() {
-			return size.intValue();
+		public String getType() {
+			return type;
 		}
 	}
 

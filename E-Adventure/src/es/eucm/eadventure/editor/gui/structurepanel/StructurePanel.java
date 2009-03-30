@@ -5,28 +5,41 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultCellEditor;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.general.AdvancedFeaturesDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ChapterDataControl;
+import es.eucm.eadventure.editor.control.tools.structurepanel.AddElementTool;
+import es.eucm.eadventure.editor.gui.structurepanel.structureelements.AdaptationControllerStructureElement;
 import es.eucm.eadventure.editor.gui.structurepanel.structureelements.AdvancedFeaturesListStructureElement;
+import es.eucm.eadventure.editor.gui.structurepanel.structureelements.AssessmentControllerStructureElement;
 import es.eucm.eadventure.editor.gui.structurepanel.structureelements.AtrezzoListStructureElement;
 import es.eucm.eadventure.editor.gui.structurepanel.structureelements.BooksListStructureElement;
 import es.eucm.eadventure.editor.gui.structurepanel.structureelements.ChapterStructureElement;
@@ -49,6 +62,10 @@ public class StructurePanel extends JPanel {
 	private int selectedElement;
 	
 	private List<StructureListElement> structureElements;
+	
+	private JTable list;
+	
+	private int selectedListElement = -1;
 	
 	public StructurePanel(Container editorContainer) {
 		this.editorContainer = editorContainer;
@@ -78,6 +95,8 @@ public class StructurePanel extends JPanel {
 			advancedFeaturesDataControl.setGlobalStatesListDataContorl(chapterDataControl.getGlobalStatesListDataControl());
 			advancedFeaturesDataControl.setMacrosListDataControl(chapterDataControl.getMacrosListDataControl());
 			structureElements.add(new AdvancedFeaturesListStructureElement(advancedFeaturesDataControl));
+			structureElements.add(new AdaptationControllerStructureElement(Controller.getInstance().getAdaptationController()));
+			structureElements.add(new AssessmentControllerStructureElement(Controller.getInstance().getAssessmentController()));
 		}
 		update();
 	}
@@ -88,7 +107,7 @@ public class StructurePanel extends JPanel {
 		
 		for (StructureListElement element : structureElements) {
 			if (i == selectedElement)
-				add(createSelectedElementPanel(element, i), new Boolean(element.getChildCount() != 0));
+				add(createSelectedElementPanel(element, i), new Integer(element.getChildCount() != 0 ? -1 : 39));
 			else {
 				JButton button = new JButton(element.getName(), element.getIcon());
 				button.setHorizontalAlignment(SwingConstants.LEFT);
@@ -98,18 +117,18 @@ public class StructurePanel extends JPanel {
 		        button.setContentAreaFilled(false);
 				button.addActionListener(new ElementButtonActionListener(i));
 				if (i < selectedElement)
-					add(button, new Boolean(false));
+					add(button, new Integer(25));
 				else if (i > selectedElement)
-					add(button, new Boolean(false));
+					add(button, new Integer(25));
 			} 
 			i++;
 		}
 		this.updateUI();
 	}
 	
-	private JPanel createSelectedElementPanel(final StructureListElement element, int index) {
-		JPanel temp = new JPanel();
-		temp.setLayout(new GridBagLayout());
+	private JPanel createSelectedElementPanel(final StructureListElement element, final int index) {
+		final JPanel temp = new JPanel();
+		temp.setLayout(new StructureListElementLayout());
 		JButton button = new JButton(element.getName(), element.getIcon());
 		button.setHorizontalAlignment(SwingConstants.LEFT);
 		//Border b1 = BorderFactory.createRaisedBevelBorder();
@@ -119,13 +138,9 @@ public class StructurePanel extends JPanel {
         button.setContentAreaFilled(false);
 		button.addActionListener(new ElementButtonActionListener(index));
 		button.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 15));
+		button.setFocusable(false);
 		
-		GridBagConstraints c = new GridBagConstraints();
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 0;
-		c.gridy = 0;
-		c.weightx = 2.0;
-		temp.add(button, c);
+		temp.add(button, "title");
 		
 		
 		 TableModel childData = new AbstractTableModel() {
@@ -141,29 +156,57 @@ public class StructurePanel extends JPanel {
 			public Object getValueAt(int arg0, int arg1) {
 				return element.getChild(arg0);
 			}
-		 };
+			@Override
+		    public boolean isCellEditable(int row, int col) {
+				return list.getSelectedRow() == row;
+	        }
+		};
 		 
-		final JTable list = new JTable(childData);
+		list = new JTable(childData);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		list.getColumnModel().getColumn(0).setCellRenderer(new StructureElementRenderer());
+		StructureElementRenderer renderer = new StructureElementRenderer();
+		list.getColumnModel().getColumn(0).setCellRenderer(renderer);
+		list.getColumnModel().getColumn(0).setCellEditor(renderer);
+		list.setCellSelectionEnabled(true);
 		list.setShowHorizontalLines(true);
 		list.setRowHeight(20);
 		list.setTableHeader(null);
+		list.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
 		list.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
-				list.setRowHeight(20);
-				list.setRowHeight(list.getSelectedRow(), 70);
-				editorContainer.removeAll();
-				editorContainer.add(((StructureElement) list.getValueAt(list.getSelectedRow(), 0)).getEditPanel());
-				editorContainer.validate( );
-				editorContainer.repaint( );
+				if (list.getSelectedRow() >= 0) {
+					list.setRowHeight(20);
+					list.setRowHeight(list.getSelectedRow(), 70);
+					editorContainer.removeAll();
+					editorContainer.add(((StructureElement) list.getValueAt(list.getSelectedRow(), 0)).getEditPanel());
+					editorContainer.validate( );
+					editorContainer.repaint( );
+				} else {
+					editorContainer.removeAll();
+					editorContainer.add(structureElements.get(index).getEditPanel());
+					editorContainer.validate( );
+					editorContainer.repaint( );
+				}
 			}
 		});
-		c.fill = GridBagConstraints.BOTH;
-		c.gridy++;
-		c.weighty = 2.0;
+		
+		if (element.getDataControl().getAddableElements().length > 0) {
+			JButton addButton = new JButton(new ImageIcon("img/icons/addNode.png"));
+			addButton.setContentAreaFilled( false );
+			addButton.setMargin( new Insets(0,0,0,0) );
+			addButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					Controller.getInstance().addTool(new AddElementTool(temp, element, list));
+				}
+			});
+			temp.add(addButton, "addButton");
+			temp.setComponentZOrder(addButton, 0);
+			addButton.setFocusable(false);
+		}
+
+		
 		JScrollPane scrollPane = new JScrollPane(list);
-		temp.add(scrollPane, c);
+		temp.add(scrollPane, "list");
 		return temp;		
 	}
 
@@ -176,6 +219,7 @@ public class StructurePanel extends JPanel {
 		
 		public void actionPerformed(ActionEvent arg0) {
 			selectedElement = index;
+			selectedListElement = -1;
 			update();
 			editorContainer.removeAll();
 			editorContainer.add(structureElements.get(index).getEditPanel());

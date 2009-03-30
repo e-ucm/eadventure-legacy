@@ -18,21 +18,17 @@ public class AdvancedFeaturesListStructureElement extends StructureListElement {
 	
 	@Override
 	public int getChildCount() {
-		return 5;
+		return 3;
 	}
 
 	@Override
 	public StructureElement getChild(int i) {
 		if (i == 0)
-			return StructureElementFactory.getStructureElement((((AdvancedFeaturesDataControl) dataControl).getTimersList()));
+			return StructureElementFactory.getStructureElement((((AdvancedFeaturesDataControl) dataControl).getTimersList()), this);
 		if (i == 1)
-			return StructureElementFactory.getStructureElement((((AdvancedFeaturesDataControl) dataControl).getAdaptationController()));
+			return StructureElementFactory.getStructureElement((((AdvancedFeaturesDataControl) dataControl).getGlobalStatesListDataControl()), this);
 		if (i == 2)
-			return StructureElementFactory.getStructureElement((((AdvancedFeaturesDataControl) dataControl).getAssessmentController()));
-		if (i == 3)
-			return StructureElementFactory.getStructureElement((((AdvancedFeaturesDataControl) dataControl).getGlobalStatesListDataControl()));
-		if (i == 4)
-			return StructureElementFactory.getStructureElement((((AdvancedFeaturesDataControl) dataControl).getMacrosListDataControl()));
+			return StructureElementFactory.getStructureElement((((AdvancedFeaturesDataControl) dataControl).getMacrosListDataControl()), this);
 		return null;
 	}
 }

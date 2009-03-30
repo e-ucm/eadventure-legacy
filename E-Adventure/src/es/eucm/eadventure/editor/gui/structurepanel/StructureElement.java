@@ -3,7 +3,9 @@ package es.eucm.eadventure.editor.gui.structurepanel;
 import javax.swing.Icon;
 import javax.swing.JComponent;
 
+import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.gui.treepanel.TreeNodeControl;
 import es.eucm.eadventure.common.data.HasId;
 
 public class StructureElement {
@@ -14,13 +16,16 @@ public class StructureElement {
 	
 	protected DataControl dataControl;
 
-	public StructureElement(DataControl dataControl) {
+	private StructureListElement parent;
+	
+	public StructureElement(DataControl dataControl, StructureListElement parent) {
 		this.dataControl = dataControl;
+		this.parent = parent;
 		name = null;
 	}
 	
-	public StructureElement(String name, DataControl dataControl) {
-		this(dataControl);
+	public StructureElement(String name, DataControl dataControl, StructureListElement parent) {
+		this(dataControl, parent);
 		this.name = name;
 	}
 
@@ -54,5 +59,16 @@ public class StructureElement {
 		return dataControl.canBeDeleted();
 	}
 	
+	public DataControl getDataControl() {
+		return dataControl;
+	}
+	
+	public boolean delete( boolean askConfirmation ) {
+		if( getDataControl( ).canBeDeleted( ) && parent.getDataControl( ).deleteElement( getDataControl( ), askConfirmation ) ) {
+			Controller.getInstance( ).updateFlagSummary( );
+			return true;
+		}
+		return false;
+	}
 	
 }

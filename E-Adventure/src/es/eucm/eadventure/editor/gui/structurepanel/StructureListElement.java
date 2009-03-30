@@ -30,6 +30,10 @@ public abstract class StructureListElement {
 		return EditPanelFactory.getEditPanel(dataControl);
 	}
 
+	public DataControl getDataControl() {
+		return dataControl;
+	}
+	
 	public abstract int getChildCount();
 	
 	public abstract StructureElement getChild(int i);

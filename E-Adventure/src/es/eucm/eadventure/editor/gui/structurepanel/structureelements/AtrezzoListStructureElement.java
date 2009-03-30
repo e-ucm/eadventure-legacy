@@ -23,6 +23,6 @@ public class AtrezzoListStructureElement extends StructureListElement {
 
 	@Override
 	public StructureElement getChild(int i) {
-		return StructureElementFactory.getStructureElement((((AtrezzoListDataControl) dataControl).getAtrezzoList().get(i)));
+		return StructureElementFactory.getStructureElement((((AtrezzoListDataControl) dataControl).getAtrezzoList().get(i)), this);
 	}
 }

@@ -3,7 +3,9 @@ package es.eucm.eadventure.editor.gui.structurepanel;
 import javax.swing.JComponent;
 
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfileDataControl;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfilesDataControl;
+import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfileDataControl;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfilesDataControl;
 import es.eucm.eadventure.editor.control.controllers.atrezzo.AtrezzoDataControl;
 import es.eucm.eadventure.editor.control.controllers.atrezzo.AtrezzoListDataControl;
@@ -26,6 +28,8 @@ import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ScenesListDataControl;
 import es.eucm.eadventure.editor.control.controllers.timer.TimersListDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.adaptation.AdaptationProfilesPanel;
+import es.eucm.eadventure.editor.gui.elementpanels.adaptation.AdaptationRulesListPanel;
+import es.eucm.eadventure.editor.gui.elementpanels.assessment.AssessmentProfilePanel;
 import es.eucm.eadventure.editor.gui.elementpanels.assessment.AssessmentProfilesPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.atrezzo.AtrezzoListPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.atrezzo.AtrezzoPanel;
@@ -96,6 +100,11 @@ public class EditPanelFactory {
 			return new ConversationPanel((ConversationDataControl) dataControl);
 		if (dataControl instanceof ChapterDataControl)
 			return new ChapterPanel((ChapterDataControl) dataControl);
+		if (dataControl instanceof AssessmentProfileDataControl)
+			return new AssessmentProfilePanel((AssessmentProfileDataControl) dataControl);
+		if (dataControl instanceof AdaptationProfileDataControl)
+			return new AdaptationRulesListPanel((AdaptationProfileDataControl) dataControl);
+		
 		
 		return null;
 	}

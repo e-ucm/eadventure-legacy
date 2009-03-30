@@ -23,6 +23,6 @@ public class NPCsListStructureElement extends StructureListElement {
 
 	@Override
 	public StructureElement getChild(int i) {
-		return StructureElementFactory.getStructureElement((((NPCsListDataControl) dataControl).getNPCs().get(i)));
+		return StructureElementFactory.getStructureElement((((NPCsListDataControl) dataControl).getNPCs().get(i)), this);
 	}
 }
