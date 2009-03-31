@@ -114,13 +114,14 @@ public class CutscenesListDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean addElement( int type ) {
+	public boolean addElement( int type, String cutsceneId ) {
 		boolean elementAdded = false;
 
 		if( type == Controller.CUTSCENE_SLIDES ) {
 
 			// Show a dialog asking for the cutscene id
-			String cutsceneId = controller.showInputDialog( TextConstants.getText( "Operation.AddCutsceneTitle" ), TextConstants.getText( "Operation.AddCutsceneMessage" ), TextConstants.getText( "Operation.AddCutsceneDefaultValue" ) );
+			if (cutsceneId == null)
+				cutsceneId = controller.showInputDialog( TextConstants.getText( "Operation.AddCutsceneTitle" ), TextConstants.getText( "Operation.AddCutsceneMessage" ), TextConstants.getText( "Operation.AddCutsceneDefaultValue" ) );
 
 			// If some value was typed and the identifier is valid
 			if( cutsceneId != null && controller.isElementIdValid( cutsceneId ) ) {
@@ -142,7 +143,8 @@ public class CutscenesListDataControl extends DataControl {
 		else if( type == Controller.CUTSCENE_VIDEO ) {
 
 			// Show a dialog asking for the cutscene id
-			String cutsceneId = controller.showInputDialog( TextConstants.getText( "Operation.AddCutsceneTitle" ), TextConstants.getText( "Operation.AddCutsceneMessage" ), TextConstants.getText( "Operation.AddCutsceneDefaultValue" ) );
+			if (cutsceneId == null)
+				cutsceneId = controller.showInputDialog( TextConstants.getText( "Operation.AddCutsceneTitle" ), TextConstants.getText( "Operation.AddCutsceneMessage" ), TextConstants.getText( "Operation.AddCutsceneDefaultValue" ) );
 
 			// If some value was typed and the identifier is valid
 			if( cutsceneId != null && controller.isElementIdValid( cutsceneId ) ) {
@@ -162,6 +164,11 @@ public class CutscenesListDataControl extends DataControl {
 		}
 
 		return elementAdded;
+	}
+
+	@Override
+	public String getDefaultId(int type) {
+		return TextConstants.getText( "Operation.AddCutsceneDefaultValue" );
 	}
 
 	@Override

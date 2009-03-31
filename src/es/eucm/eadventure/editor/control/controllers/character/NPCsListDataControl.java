@@ -108,13 +108,14 @@ public class NPCsListDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean addElement( int type ) {
+	public boolean addElement( int type, String npcId ) {
 		boolean elementAdded = false;
 
 		if( type == Controller.NPC ) {
 
 			// Show a dialog asking for the character id
-			String npcId = controller.showInputDialog( TextConstants.getText( "Operation.AddNPCTitle" ), TextConstants.getText( "Operation.AddNPCMessage" ), TextConstants.getText( "Operation.AddNPCDefaultValue" ) );
+			if (npcId == null)
+				npcId = controller.showInputDialog( TextConstants.getText( "Operation.AddNPCTitle" ), TextConstants.getText( "Operation.AddNPCMessage" ), TextConstants.getText( "Operation.AddNPCDefaultValue" ) );
 
 			// If some value was typed and the identifier is valid
 			if( npcId != null && controller.isElementIdValid( npcId ) ) {
@@ -129,6 +130,11 @@ public class NPCsListDataControl extends DataControl {
 		}
 
 		return elementAdded;
+	}
+
+	@Override
+	public String getDefaultId(int type) {
+		return TextConstants.getText( "Operation.AddNPCDefaultValue" );
 	}
 
 	@Override

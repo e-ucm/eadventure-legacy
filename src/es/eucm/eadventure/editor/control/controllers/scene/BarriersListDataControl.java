@@ -110,7 +110,7 @@ public class BarriersListDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean addElement( int type ) {
+	public boolean addElement( int type, String barrierId ) {
 		boolean elementAdded = false;
 
 		if( type == Controller.BARRIER ) {

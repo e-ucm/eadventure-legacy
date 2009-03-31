@@ -226,7 +226,7 @@ public class BarrierDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean addElement( int type ) {
+	public boolean addElement( int type, String id ) {
 		boolean elementAdded = false;
 		return elementAdded;
 	}

@@ -103,7 +103,7 @@ public class ExitsListDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean addElement( int type ) {
+	public boolean addElement( int type, String id ) {
 		boolean elementAdded = false;
 
 		if( type == Controller.EXIT ) {
@@ -112,7 +112,7 @@ public class ExitsListDataControl extends DataControl {
 			ExitDataControl newExitDataControl = new ExitDataControl( sceneDataControl, newExit );
 
 			// If there is a new next scene in the exit, add it to the list
-			if( newExitDataControl.addElement( Controller.NEXT_SCENE ) ) {
+			if( newExitDataControl.addElement( Controller.NEXT_SCENE, null ) ) {
 				exitsList.add( newExit );
 				exitsDataControlList.add( newExitDataControl );
 				//controller.dataModified( );

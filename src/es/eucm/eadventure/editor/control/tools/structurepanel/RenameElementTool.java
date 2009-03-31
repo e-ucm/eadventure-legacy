@@ -1,7 +1,5 @@
 package es.eucm.eadventure.editor.control.tools.structurepanel;
 
-import javax.swing.JTable;
-
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.tools.Tool;
@@ -13,12 +11,10 @@ public class RenameElementTool extends Tool {
 	private String oldName;
 	
 	private String newName;
-	
-	private JTable table;
 		
-	public RenameElementTool(JTable table, DataControl dataControl) {
+	public RenameElementTool(DataControl dataControl, String string) {
 		this.dataControl = dataControl;
-		this.table = table;
+		this.newName = string;
 	}
 
 	@Override
@@ -34,11 +30,8 @@ public class RenameElementTool extends Tool {
 	@Override
 	public boolean doTool() {
 		if( dataControl.canBeRenamed( )) {
-			oldName = dataControl.renameElement( null );
+			oldName = dataControl.renameElement( newName );
 			if (oldName != null) {
-				int index = table.getSelectedRow();
-				table.changeSelection(index, index, false, false);
-				table.editCellAt(index, 0);
 				return true;
 			}
 		}

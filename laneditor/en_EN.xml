@@ -1419,6 +1419,8 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="GeneralText.EditEffects">Edit effects</entry>
 	<entry key="GeneralText.EditPostEffects">Edit post effects</entry>
 	<entry key="GeneralText.NewFolder">New Folder</entry>
+	<entry key="GeneralText.Rename">Rename</entry>
+	<entry key="GeneralText.AddNew">Add new</entry>
 
 	<entry key="DefaultValue.AdventureTitle">Adventure title</entry>
 	<entry key="DefaultValue.ChapterTitle">Chapter title</entry>

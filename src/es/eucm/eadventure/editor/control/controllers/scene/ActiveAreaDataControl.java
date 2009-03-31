@@ -252,7 +252,7 @@ public class ActiveAreaDataControl extends DataControl implements RectangleArea 
 	}
 
 	@Override
-	public boolean addElement( int type ) {
+	public boolean addElement( int type, String id ) {
 		boolean elementAdded = false;
 		return elementAdded;
 	}

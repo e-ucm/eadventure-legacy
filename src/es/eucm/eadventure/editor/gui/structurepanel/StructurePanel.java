@@ -3,21 +3,13 @@ package es.eucm.eadventure.editor.gui.structurepanel;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.Rectangle;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
-import javax.swing.DefaultCellEditor;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -25,14 +17,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.general.AdvancedFeaturesDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ChapterDataControl;
@@ -140,10 +131,15 @@ public class StructurePanel extends JPanel {
 		button.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 15));
 		button.setFocusable(false);
 		
+		
 		temp.add(button, "title");
 		
-		
-		 TableModel childData = new AbstractTableModel() {
+		TableModel childData = new AbstractTableModel() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 3895333816471270996L;
+			
 			@Override
 			public int getColumnCount() {
 				return 1;
@@ -196,9 +192,10 @@ public class StructurePanel extends JPanel {
 			addButton.setMargin( new Insets(0,0,0,0) );
 			addButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					Controller.getInstance().addTool(new AddElementTool(temp, element, list));
+					Controller.getInstance().addTool(new AddElementTool(element, list));
 				}
 			});
+			addButton.setToolTipText(TextConstants.getText("GeneralText.AddNew"));
 			temp.add(addButton, "addButton");
 			temp.setComponentZOrder(addButton, 0);
 			addButton.setFocusable(false);
@@ -225,6 +222,7 @@ public class StructurePanel extends JPanel {
 			editorContainer.add(structureElements.get(index).getEditPanel());
 			editorContainer.validate( );
 			editorContainer.repaint( );
+			list.requestFocusInWindow();
 		}
 	}
 	

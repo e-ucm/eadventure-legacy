@@ -114,13 +114,14 @@ public class ConversationsListDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean addElement( int type ) {
+	public boolean addElement( int type , String conversationId) {
 		boolean elementAdded = false;
 
 		if( type == Controller.CONVERSATION_TREE || type == Controller.CONVERSATION_GRAPH ) {
 
 			// Show a dialog asking for the conversation id
-			String conversationId = controller.showInputDialog( TextConstants.getText( "Operation.AddConversationTitle" ), TextConstants.getText( "Operation.AddConversationMessage" ), TextConstants.getText( "Operation.AddConversationDefaultValue" ) );
+			if (conversationId == null)
+				conversationId = controller.showInputDialog( TextConstants.getText( "Operation.AddConversationTitle" ), TextConstants.getText( "Operation.AddConversationMessage" ), TextConstants.getText( "Operation.AddConversationDefaultValue" ) );
 
 			// If some value was typed and the identifier is valid
 			if( conversationId != null && controller.isElementIdValid( conversationId ) ) {
@@ -148,6 +149,11 @@ public class ConversationsListDataControl extends DataControl {
 		}
 
 		return elementAdded;
+	}
+
+	@Override
+	public String getDefaultId(int type) {
+		return TextConstants.getText( "Operation.AddConversationDefaultValue" );
 	}
 
 	@Override

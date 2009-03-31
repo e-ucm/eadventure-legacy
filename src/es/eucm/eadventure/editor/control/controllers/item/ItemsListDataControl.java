@@ -108,13 +108,14 @@ public class ItemsListDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean addElement( int type ) {
+	public boolean addElement( int type, String itemId) {
 		boolean elementAdded = false;
 
 		if( type == Controller.ITEM ) {
 
 			// Show a dialog asking for the item id
-			String itemId = controller.showInputDialog( TextConstants.getText( "Operation.AddItemTitle" ), TextConstants.getText( "Operation.AddItemMessage" ), TextConstants.getText( "Operation.AddItemDefaultValue" ) );
+			if (itemId == null)
+				itemId = controller.showInputDialog( TextConstants.getText( "Operation.AddItemTitle" ), TextConstants.getText( "Operation.AddItemMessage" ), TextConstants.getText( "Operation.AddItemDefaultValue" ) );
 
 			// If some value was typed and the identifier is valid
 			if( itemId != null && controller.isElementIdValid( itemId ) ) {
@@ -129,6 +130,11 @@ public class ItemsListDataControl extends DataControl {
 		}
 
 		return elementAdded;
+	}
+	
+	@Override
+	public String getDefaultId(int type) {
+		return TextConstants.getText( "Operation.AddItemDefaultValue" );
 	}
 
 	@Override

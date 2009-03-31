@@ -64,7 +64,7 @@ public class FrameDataControl extends DataControlWithResources {
 	}
 
 	@Override
-	public boolean addElement(int type) {
+	public boolean addElement(int type, String id) {
 		return false;
 	}
 

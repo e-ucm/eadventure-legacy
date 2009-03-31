@@ -80,13 +80,14 @@ public class AtrezzoListDataControl extends DataControl {
 	
 	
 	@Override
-	public boolean addElement(int type) {
+	public boolean addElement(int type, String atrezzoId) {
 		boolean elementAdded = false;
 
 		if( type == Controller.ATREZZO ) {
 
 			// Show a dialog asking for the item id
-			String atrezzoId = controller.showInputDialog( TextConstants.getText( "Operation.AddAtrezzoTitle" ), TextConstants.getText( "Operation.AddAtrezzoMessage" ), TextConstants.getText( "Operation.AddAtrezzoDefaultValue" ) );
+			if (atrezzoId == null)
+				atrezzoId = controller.showInputDialog( TextConstants.getText( "Operation.AddAtrezzoTitle" ), TextConstants.getText( "Operation.AddAtrezzoMessage" ), TextConstants.getText( "Operation.AddAtrezzoDefaultValue" ) );
 
 			// If some value was typed and the identifier is valid
 			if( atrezzoId != null && controller.isElementIdValid( atrezzoId ) ) {
@@ -103,7 +104,11 @@ public class AtrezzoListDataControl extends DataControl {
 		return elementAdded;
 	}
 
-	
+	@Override
+	public String getDefaultId(int type) {
+		return TextConstants.getText( "Operation.AddAtrezzoDefaultValue" );
+	}
+
 
 	@Override
 	public boolean canAddElement(int type) {

@@ -28,7 +28,7 @@ public class AssessmentProfilesDataControl extends DataControl{
 	}
 	
 	@Override
-	public boolean addElement( int type ) {
+	public boolean addElement( int type , String fileName) {
 		boolean added = false;
 		if (type == Controller.ASSESSMENT_PROFILE){
 		
@@ -36,7 +36,8 @@ public class AssessmentProfilesDataControl extends DataControl{
 		if (controller.showStrictConfirmDialog( TextConstants.getText( "Operation.CreateAssessmentFile" ), TextConstants.getText( "Operation.CreateAssessmentFile.Message" ) )){
 			
 			//Prompt for file name:
-			String fileName = controller.showInputDialog( TextConstants.getText( "Operation.CreateAssessmentFile.FileName" ), TextConstants.getText( "Operation.CreateAssessmentFile.FileName.Message" ), TextConstants.getText( "Operation.CreateAssessmentFile.FileName.DefaultValue" ) );
+			if (fileName == null)
+				fileName = controller.showInputDialog( TextConstants.getText( "Operation.CreateAssessmentFile.FileName" ), TextConstants.getText( "Operation.CreateAssessmentFile.FileName.Message" ), TextConstants.getText( "Operation.CreateAssessmentFile.FileName.DefaultValue" ) );
 			if (fileName!=null){
 				if (fileName.contains( "/") || fileName.contains( "\\" )){
 					controller.showErrorDialog( TextConstants.getText( "Operation.RenameXMLFile.ErrorSlash" ), TextConstants.getText( "Operation.RenameXMLFile.ErrorSlash.Message" ) );
@@ -94,6 +95,11 @@ public class AssessmentProfilesDataControl extends DataControl{
 		}
 		}
 		return added;
+	}
+
+	@Override
+	public String getDefaultId(int type) {
+		return TextConstants.getText( "Operation.CreateAssessmentFile.FileName.DefaultValue" );
 	}
 
 	@Override

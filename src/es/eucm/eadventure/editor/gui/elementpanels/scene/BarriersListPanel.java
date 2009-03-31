@@ -47,7 +47,7 @@ public class BarriersListPanel extends JPanel implements Updateable {
 
 		// Set the layout
 		setLayout( new GridBagLayout( ) );
-		setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "BarriersList.Title" ) ) );
+//		setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "BarriersList.Title" ) ) );
 		GridBagConstraints c = new GridBagConstraints( );
 		c.insets = new Insets( 5, 5, 5, 5 );
 

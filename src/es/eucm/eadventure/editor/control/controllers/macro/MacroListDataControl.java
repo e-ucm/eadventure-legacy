@@ -108,13 +108,14 @@ public class MacroListDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean addElement( int type ) {
+	public boolean addElement( int type, String macroId ) {
 		boolean elementAdded = false;
 
 		if( type == Controller.MACRO ) {
 
 			// Show a dialog asking for the macro id
-			String macroId = controller.showInputDialog( TextConstants.getText( "Operation.AddMacroTitle" ), TextConstants.getText( "Operation.AddMacroMessage" ), TextConstants.getText( "Operation.AddMacroDefaultValue" ) );
+			if (macroId == null)
+				macroId = controller.showInputDialog( TextConstants.getText( "Operation.AddMacroTitle" ), TextConstants.getText( "Operation.AddMacroMessage" ), TextConstants.getText( "Operation.AddMacroDefaultValue" ) );
 
 			// If some value was typed and the identifier is valid
 			if( macroId != null && controller.isElementIdValid( macroId ) ) {
@@ -129,6 +130,11 @@ public class MacroListDataControl extends DataControl {
 		}
 
 		return elementAdded;
+	}
+
+	@Override
+	public String getDefaultId(int type) {
+		return TextConstants.getText( "Operation.AddMacroDefaultValue" );
 	}
 
 	@Override

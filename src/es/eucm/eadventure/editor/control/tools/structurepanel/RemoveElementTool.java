@@ -1,7 +1,6 @@
 package es.eucm.eadventure.editor.control.tools.structurepanel;
 
 import javax.swing.JTable;
-import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.editor.control.Controller;
@@ -32,33 +31,24 @@ public class RemoveElementTool extends Tool {
 	
 	@Override
 	public boolean canRedo() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean canUndo() {
-		// TODO Auto-generated method stub
-		return false;
+		return (chapter != null);
 	}
 
 	@Override
 	public boolean combine(Tool other) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean doTool() {
 		if (element.delete(true)) {
-//			table.updateUI();
-//			int index = table.getSelectedRow();
-//			table.getSelectionModel().clearSelection();
-//			((AbstractTableModel) table.getModel()).fireTableRowsDeleted(index, index);
-//			((AbstractTableModel) table.getModel()).fireTableDataChanged();
 			table.clearSelection();
 			Controller.getInstance().updateTree();
-			
 			return true;
 		}
 		return false;
@@ -66,14 +56,16 @@ public class RemoveElementTool extends Tool {
 
 	@Override
 	public boolean redoTool() {
-		// TODO Auto-generated method stub
-		return false;
+		Controller.getInstance().replaceSelectedChapter((Chapter)chapterDataControl.getContent());
+		Controller.getInstance().reloadData();
+		return true;
 	}
 
 	@Override
 	public boolean undoTool() {
-		// TODO Auto-generated method stub
-		return false;
+		Controller.getInstance().replaceSelectedChapter(chapter);
+		Controller.getInstance().reloadData();
+		return true;
 	}
 
 }

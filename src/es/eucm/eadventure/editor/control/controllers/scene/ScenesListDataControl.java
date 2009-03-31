@@ -110,13 +110,14 @@ public class ScenesListDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean addElement( int type ) {
+	public boolean addElement( int type, String sceneId ) {
 		boolean elementAdded = false;
 
 		if( type == Controller.SCENE ) {
 
 			// Show a dialog asking for the scene id
-			String sceneId = controller.showInputDialog( TextConstants.getText( "Operation.AddSceneTitle" ), TextConstants.getText( "Operation.AddSceneMessage" ), TextConstants.getText( "Operation.AddSceneDefaultValue" ) );
+			if (sceneId == null)
+				sceneId = controller.showInputDialog( TextConstants.getText( "Operation.AddSceneTitle" ), TextConstants.getText( "Operation.AddSceneMessage" ), TextConstants.getText( "Operation.AddSceneDefaultValue" ) );
 
 			// If some value was typed and the identifier is valid
 			if( sceneId != null && controller.isElementIdValid( sceneId ) ) {
@@ -131,6 +132,11 @@ public class ScenesListDataControl extends DataControl {
 		}
 
 		return elementAdded;
+	}
+
+	@Override
+	public String getDefaultId(int type) {
+		return TextConstants.getText( "Operation.AddSceneDefaultValue" );	
 	}
 
 	@Override

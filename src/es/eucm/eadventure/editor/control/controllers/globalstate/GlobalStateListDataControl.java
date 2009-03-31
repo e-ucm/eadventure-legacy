@@ -108,13 +108,14 @@ public class GlobalStateListDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean addElement( int type ) {
+	public boolean addElement( int type, String globalStateId ) {
 		boolean elementAdded = false;
 
 		if( type == Controller.GLOBAL_STATE ) {
 
 			// Show a dialog asking for the globalState id
-			String globalStateId = controller.showInputDialog( TextConstants.getText( "Operation.AddGlobalStateTitle" ), TextConstants.getText( "Operation.AddGlobalStateMessage" ), TextConstants.getText( "Operation.AddGlobalStateDefaultValue" ) );
+			if (globalStateId == null)
+				globalStateId = controller.showInputDialog( TextConstants.getText( "Operation.AddGlobalStateTitle" ), TextConstants.getText( "Operation.AddGlobalStateMessage" ), TextConstants.getText( "Operation.AddGlobalStateDefaultValue" ) );
 
 			// If some value was typed and the identifier is valid
 			if( globalStateId != null && controller.isElementIdValid( globalStateId ) ) {
@@ -129,6 +130,11 @@ public class GlobalStateListDataControl extends DataControl {
 		}
 
 		return elementAdded;
+	}
+
+	@Override
+	public String getDefaultId(int type) {
+		return TextConstants.getText( "Operation.AddGlobalStateDefaultValue" );
 	}
 
 	@Override

@@ -103,7 +103,7 @@ public class ActiveAreasListDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean addElement( int type ) {
+	public boolean addElement( int type, String id ) {
 		boolean elementAdded = false;
 
 		if( type == Controller.ACTIVE_AREA ) {

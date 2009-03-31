@@ -55,7 +55,7 @@ public class ReferencesListTreeNode extends TreeNode implements ReferenceListene
 
 	public void addChild( int type ) {
 		// If the element can be added, and the addition was successful
-		if( getDataControl( ).canAddElement( type ) && getDataControl( ).addElement( type ) ) {
+		if( getDataControl( ).canAddElement( type ) && getDataControl( ).addElement( type, null ) ) {
 			if (lastNode != null)
 				this.setSelectedChild(lastNode);
 		}

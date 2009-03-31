@@ -139,7 +139,7 @@ public class ActionsListDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean addElement( int type ) {
+	public boolean addElement( int type, String id ) {
 		Action newAction = null;
 
 		if( type == Controller.ACTION_EXAMINE )

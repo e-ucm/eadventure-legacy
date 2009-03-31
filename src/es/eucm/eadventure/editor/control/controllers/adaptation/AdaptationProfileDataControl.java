@@ -59,7 +59,7 @@ public class AdaptationProfileDataControl extends DataControl{
 	}
 	
 	@Override
-	public boolean addElement( int type ) {
+	public boolean addElement( int type , String id) {
 		boolean added = false;
 		
 		if (type == Controller.ADAPTATION_RULE){
