@@ -114,7 +114,7 @@ public class BooksListDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean addElement( int type ) {
+	public boolean addElement( int type, String bookId ) {
 		boolean elementAdded = false;
 
 		if( type == Controller.BOOK ) {
@@ -128,7 +128,8 @@ public class BooksListDataControl extends DataControl {
 				bookType = optionSelected;
 
 				// Show a dialog asking for the book id
-				String bookId = controller.showInputDialog( TextConstants.getText( "Operation.AddBookTitle" ), TextConstants.getText( "Operation.AddBookMessage" ), TextConstants.getText( "Operation.AddBookDefaultValue" ) );
+				if (bookId == null)
+					bookId = controller.showInputDialog( TextConstants.getText( "Operation.AddBookTitle" ), TextConstants.getText( "Operation.AddBookMessage" ), TextConstants.getText( "Operation.AddBookDefaultValue" ) );
 
 				// If some value was typed and the identifier is valid
 				if( bookId != null && controller.isElementIdValid( bookId ) ) {
@@ -154,6 +155,11 @@ public class BooksListDataControl extends DataControl {
 		}
 
 		return elementAdded;
+	}
+
+	@Override
+	public String getDefaultId(int type) {
+		return TextConstants.getText( "Operation.AddBookDefaultValue" );
 	}
 
 	@Override

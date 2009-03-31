@@ -2568,6 +2568,7 @@ public class Controller {
 
 	// Methods that perform specific tasks for the microcontrollers
 
+
 	/**
 	 * Returns whether the given identifier is valid or not. If the element identifier is not valid, this method shows
 	 * an error message to the user.
@@ -2577,6 +2578,20 @@ public class Controller {
 	 * @return True if the identifier is valid, false otherwise
 	 */
 	public boolean isElementIdValid( String elementId ) {
+		return isElementIdValid(elementId, true);
+	}
+
+	/**
+	 * Returns whether the given identifier is valid or not. If the element identifier is not valid, this method shows
+	 * an error message to the user if showError is true
+	 * 
+	 * @param elementId
+	 *            Element identifier to be checked
+	 * @param showError
+	 * 			True if the error message must be shown
+	 * @return True if the identifier is valid, false otherwise
+	 */
+	public boolean isElementIdValid( String elementId, boolean showError ) {
 		boolean elementIdValid = false;
 
 		// Check if the identifier has no spaces
@@ -2593,22 +2608,22 @@ public class Controller {
 						elementIdValid = true;
 
 					// Show non-letter first character error
-					else
+					else if (showError)
 						mainWindow.showErrorDialog( TextConstants.getText( "Operation.IdErrorTitle" ), TextConstants.getText( "Operation.IdErrorFirstCharacter" ) );
 				}
 
 				// Show invalid identifier error
-				else
+				else if (showError)
 					mainWindow.showErrorDialog( TextConstants.getText( "Operation.IdErrorTitle" ), TextConstants.getText( "Operation.IdErrorReservedIdentifier", elementId ) );
 			}
 
 			// Show repeated identifier error
-			else
+			else if (showError)
 				mainWindow.showErrorDialog( TextConstants.getText( "Operation.IdErrorTitle" ), TextConstants.getText( "Operation.IdErrorAlreadyUsed" ) );
 		}
 
 		// Show blank spaces error
-		else
+		else if (showError)
 			mainWindow.showErrorDialog( TextConstants.getText( "Operation.IdErrorTitle" ), TextConstants.getText( "Operation.IdErrorBlankSpaces" ) );
 
 		return elementIdValid;

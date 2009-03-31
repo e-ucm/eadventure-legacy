@@ -120,7 +120,7 @@ public class BookParagraphsListDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean addElement( int type ) {
+	public boolean addElement( int type , String id) {
 		BookParagraph newBookParagraph = null;
 
 		if( type == Controller.BOOK_TITLE_PARAGRAPH )

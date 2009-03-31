@@ -31,6 +31,7 @@ public abstract class DataControl implements Cloneable {
 	 */
 	protected Controller controller;
 
+	protected boolean justCreated;
 	
 	/**
 	 * Constructor.
@@ -114,7 +115,11 @@ public abstract class DataControl implements Cloneable {
 	 *            The new type of element we want to add
 	 * @return True if the element was added succesfully, false otherwise
 	 */
-	public abstract boolean addElement( int type );
+	public abstract boolean addElement( int type , String id);
+	
+	public String getDefaultId(int type) {
+		return "id";
+	}
 
 	/**
 	 * Deletes a given element from the current element.
@@ -296,5 +301,12 @@ public abstract class DataControl implements Cloneable {
 		}
 	}
 
+	public void setJustCreated(boolean justCreated) {
+		this.justCreated = justCreated;
+	}
+	
+	public boolean isJustCreated() {
+		return justCreated;
+	}
 	
 }

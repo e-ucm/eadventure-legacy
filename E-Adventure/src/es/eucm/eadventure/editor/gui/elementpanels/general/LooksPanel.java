@@ -98,7 +98,7 @@ public abstract class LooksPanel extends JScrollPane {
 
 			// If new Resources block is pressed create a new resources block (dataControl), rebuild the comboBox and the resources Panel
 			public void actionPerformed( ActionEvent e ) {
-				if( dataControl.addElement( Controller.RESOURCES ) ) {
+				if( dataControl.addElement( Controller.RESOURCES, null ) ) {
 					dataControl.setSelectedResources( dataControl.getResourcesCount( ) - 1 );
 					resourcesComboBox.addItem( TextConstants.getText( "ResourcesList.ResourcesBlockNumber" ) + dataControl.getResourcesCount( ) );
 					resourcesComboBox.setSelectedIndex( resourcesComboBox.getItemCount( ) - 1 );

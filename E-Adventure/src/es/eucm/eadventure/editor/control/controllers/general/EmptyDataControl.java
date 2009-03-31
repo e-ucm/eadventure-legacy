@@ -8,7 +8,7 @@ import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 public class EmptyDataControl extends DataControl{
 
 	@Override
-	public boolean addElement( int type ) {
+	public boolean addElement( int type, String id ) {
 		return false;
 	}
 

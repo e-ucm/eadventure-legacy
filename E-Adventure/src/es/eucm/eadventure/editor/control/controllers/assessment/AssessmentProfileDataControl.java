@@ -47,12 +47,13 @@ public class AssessmentProfileDataControl extends DataControl{
 
 	
 	@Override
-	public boolean addElement( int type ) {
+	public boolean addElement( int type, String assRuleId ) {
 		boolean added = false;
 		
 		if (type == Controller.ASSESSMENT_RULE || type == Controller.TIMED_ASSESSMENT_RULE){
 			// Show a dialog asking for the ass rule id
-			String assRuleId = controller.showInputDialog( TextConstants.getText( "Operation.AddAssessmentRuleTitle" ), TextConstants.getText( "Operation.AddAssessmentRuleMessage" ), TextConstants.getText( "Operation.AddAssessmentRuleDefaultValue" ) );
+			if (assRuleId == null)
+				assRuleId = controller.showInputDialog( TextConstants.getText( "Operation.AddAssessmentRuleTitle" ), TextConstants.getText( "Operation.AddAssessmentRuleMessage" ), TextConstants.getText( "Operation.AddAssessmentRuleDefaultValue" ) );
 
 			// If some value was typed and the identifier is valid
 			if( assRuleId != null && controller.isElementIdValid( assRuleId ) ) {

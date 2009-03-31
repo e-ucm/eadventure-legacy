@@ -27,7 +27,7 @@ public class AddChildTool extends Tool {
 
 	@Override
 	public boolean doTool() {
-		if( treeNode.getDataControl( ).canAddElement( type ) && treeNode.getDataControl( ).addElement( type ) ) {
+		if( treeNode.getDataControl( ).canAddElement( type ) && treeNode.getDataControl( ).addElement( type, null ) ) {
 			addedTreeNode = treeNode.checkForNewChild( type );
 			ownerPanel.updateTreePanel( );
 			ownerPanel.selectChildOfSelectedElement( addedTreeNode );

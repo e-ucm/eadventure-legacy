@@ -198,7 +198,7 @@ public class ExitDataControl extends DataControl implements RectangleArea {
 	}
 
 	@Override
-	public boolean addElement( int type ) {
+	public boolean addElement( int type, String id ) {
 		boolean elementAdded = false;
 
 		if( type == Controller.NEXT_SCENE ) {

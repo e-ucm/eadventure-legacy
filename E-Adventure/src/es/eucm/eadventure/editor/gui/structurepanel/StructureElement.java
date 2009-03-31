@@ -5,19 +5,18 @@ import javax.swing.JComponent;
 
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.gui.treepanel.TreeNodeControl;
 import es.eucm.eadventure.common.data.HasId;
 
 public class StructureElement {
 
-	protected Icon icon;
+	private Icon icon;
 	
-	protected String name;
+	private String name;
 	
-	protected DataControl dataControl;
+	private DataControl dataControl;
 
 	private StructureListElement parent;
-	
+		
 	public StructureElement(DataControl dataControl, StructureListElement parent) {
 		this.dataControl = dataControl;
 		this.parent = parent;
@@ -70,5 +69,12 @@ public class StructureElement {
 		}
 		return false;
 	}
+
+	public void setJustCreated(boolean justCreated) {
+		dataControl.setJustCreated(justCreated);
+	}
 	
+	public boolean isJustCreated() {
+		return dataControl.isJustCreated();
+	}
 }

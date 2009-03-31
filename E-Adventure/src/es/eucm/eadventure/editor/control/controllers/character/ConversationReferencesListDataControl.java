@@ -113,7 +113,7 @@ public class ConversationReferencesListDataControl extends DataControl {
 	}
 
 	@Override
-	public boolean addElement( int type ) {
+	public boolean addElement( int type, String selectedConversation ) {
 		boolean elementAdded = false;
 
 		if( type == Controller.CONVERSATION_REFERENCE ) {
@@ -122,7 +122,8 @@ public class ConversationReferencesListDataControl extends DataControl {
 
 			// If the list has elements, show the dialog with the options
 			if( conversations.length > 0 ) {
-				String selectedConversation = controller.showInputDialog( TextConstants.getText( "Operation.AddConversationReferenceTitle" ), TextConstants.getText( "Operation.AddConversationReferenceMessage" ), conversations );
+				if (selectedConversation == null)
+					selectedConversation = controller.showInputDialog( TextConstants.getText( "Operation.AddConversationReferenceTitle" ), TextConstants.getText( "Operation.AddConversationReferenceMessage" ), conversations );
 
 				// If some value was selected
 				if( selectedConversation != null ) {

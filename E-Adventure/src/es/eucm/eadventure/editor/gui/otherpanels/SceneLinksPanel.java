@@ -99,8 +99,8 @@ public class SceneLinksPanel extends JPanel {
 		c.gridx = 0;
 		c.gridy = 0;
 		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 1.0;
-		c.weighty = 1.0;
+		c.weightx = 2.0;
+		c.weighty = 2.0;
 		drawPanel.setBackground(background);
 		add(drawPanel, c);
 				
@@ -133,12 +133,13 @@ public class SceneLinksPanel extends JPanel {
 		drawPanel.addMouseListener(controller);
 		drawPanel.addMouseMotionListener(controller);
 		
-		c.gridx = 1;
-		c.weightx = 0.1;
-		c.fill = GridBagConstraints.VERTICAL;
+		c.gridy = 1;
+		c.weightx = 1.0;
+		c.weighty = 0.1;
+		c.fill = GridBagConstraints.HORIZONTAL;
 
-		sp.setMinimumSize(new Dimension(110, 0));
-		sp.setPreferredSize(new Dimension(110, 1000));
+		sp.setMinimumSize(new Dimension(0, 150));
+		sp.setPreferredSize(new Dimension(100, 150));
 		add(sp, c);
 	}
 	
@@ -157,7 +158,7 @@ public class SceneLinksPanel extends JPanel {
 		TableColumn tc = checkBoxes.getColumnModel().getColumn(0); 
 		tc.setCellEditor(checkBoxes.getDefaultEditor(Boolean.class)); 
 		tc.setCellRenderer(checkBoxes.getDefaultRenderer(Boolean.class)); 
-		tc.setMaxWidth(30);
+		tc.setMaxWidth(50);
 		tc = checkBoxes.getColumnModel().getColumn(1);
 		tc.setCellEditor(new DefaultCellEditor(new JTextField()) {
 			private static final long serialVersionUID = 1L;
@@ -167,7 +168,6 @@ public class SceneLinksPanel extends JPanel {
 				return false;
 			}			
 		});
-		tc.setMaxWidth(80);
 		dtm.addTableModelListener(new TableModelListener(){ 
 			public void tableChanged(TableModelEvent tme) { 
 				if (tme.getType() == TableModelEvent.UPDATE) { 

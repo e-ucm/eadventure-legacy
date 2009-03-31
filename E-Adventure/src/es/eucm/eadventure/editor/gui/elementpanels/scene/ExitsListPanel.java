@@ -38,7 +38,7 @@ public class ExitsListPanel extends JPanel {
 
 		// Set the layout
 		setLayout( new GridBagLayout( ) );
-		setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ExitsList.Title" ) ) );
+//		setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ExitsList.Title" ) ) );
 		GridBagConstraints c = new GridBagConstraints( );
 		c.insets = new Insets( 5, 5, 5, 5 );
 

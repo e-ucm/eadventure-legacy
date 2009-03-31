@@ -277,7 +277,7 @@ public class CutsceneDataControl extends DataControlWithResources {
 	}
 
 	@Override
-	public boolean addElement( int type ) {
+	public boolean addElement( int type , String selectedScene) {
 		boolean elementAdded = false;
 
 		// If the element is a resources block
@@ -296,7 +296,8 @@ public class CutsceneDataControl extends DataControlWithResources {
 
 			// If the list has elements, show the dialog with the options
 			if( generalScenes.length > 0 ) {
-				String selectedScene = controller.showInputDialog( TextConstants.getText( "Operation.AddNextSceneTitle" ), TextConstants.getText( "Operation.AddNextSceneMessage" ), generalScenes );
+				if (selectedScene == null)
+					selectedScene = controller.showInputDialog( TextConstants.getText( "Operation.AddNextSceneTitle" ), TextConstants.getText( "Operation.AddNextSceneMessage" ), generalScenes );
 
 				// If some value was selected
 				if( selectedScene != null ) {

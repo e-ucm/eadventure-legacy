@@ -34,7 +34,7 @@ public class TransitionDataControl extends DataControl {
 	}
 	
 	@Override
-	public boolean addElement(int type) {
+	public boolean addElement(int type, String id) {
 		return false;
 	}
 

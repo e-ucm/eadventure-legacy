@@ -400,7 +400,7 @@ public class ReferencesListDataControl extends DataControl{
 
 
 	@Override
-	public boolean addElement( int type ) {
+	public boolean addElement( int type, String id ) {
 		boolean elementAdded = false;
 
 		if( type == Controller.ITEM_REFERENCE ) {

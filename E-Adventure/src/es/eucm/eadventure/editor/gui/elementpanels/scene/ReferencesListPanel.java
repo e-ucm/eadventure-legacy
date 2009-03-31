@@ -86,8 +86,6 @@ public class ReferencesListPanel extends JPanel{
 		
 		// Take the path of the background
 		String scenePath = Controller.getInstance( ).getSceneImagePath( referencesListDataControl.getParentSceneId( ) );
-
-		
 		
 		//Create the infoPanel
 		
@@ -148,7 +146,6 @@ public class ReferencesListPanel extends JPanel{
 		tableWithSplit.setDividerSize(10);
 	
 		
-		setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ItemReferencesList.Title" ) ) );
 
 		
 		
@@ -580,7 +577,7 @@ public class ReferencesListPanel extends JPanel{
 			// var for keep the scene preview type of the new element reference
 			int category;
 			
-			if (referencesListDataControl.addElement( type )){
+			if (referencesListDataControl.addElement( type, null )){
 				
 				category = transformType(type);
 	
