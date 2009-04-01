@@ -1158,7 +1158,7 @@ public class Controller {
 					if (option == 0){
 						String chapterName = current.getAffectedResource( );
 						for (int j=0; j<chapters.size( ); j++){
-							if (chapters.get( j ).getName( ).equals( chapterName )){
+							if (chapters.get( j ).getChapterPath( ).equals( chapterName )){
 								chapters.remove( j );
 								//this.chapterDataControlList.remove( j );
 								// Update selected chapter if necessary
@@ -1195,7 +1195,7 @@ public class Controller {
 								
 								int found = -1;
 								for (int j=0; found==-1 && j<chapters.size( ); j++) {
-									if (chapters.get( j ).getName( ).equals( current.getAffectedResource( ) )){
+									if (chapters.get( j ).getChapterPath( ).equals( current.getAffectedResource( ) )){
 										found = j;
 									}
 								}
@@ -1207,7 +1207,7 @@ public class Controller {
 									//chapterDataControlList.add( found, new ChapterDataControl(chapter) );
 									
 									// Copy original file to project
-									File destinyFile = new File(this.getProjectFolder( ), chapter.getName( ));
+									File destinyFile = new File(this.getProjectFolder( ), chapter.getChapterPath( ));
 									if (destinyFile.exists( ))
 										destinyFile.delete( );
 									File sourceFile = new File (absolutePath);
@@ -1241,23 +1241,23 @@ public class Controller {
 				else if (current.getAffectedArea( ) == Incidence.ASSESSMENT_INCIDENCE){
 					mainWindow.showInformationDialog( TextConstants.getText( "ErrorSolving.AssessmentReferenced.Deleted.Title" )+" - Error "+(i+1)+"/"+incidences.size( ), TextConstants.getText( "ErrorSolving.AssessmentReferenced.Deleted.Message", current.getAffectedResource( ) ) );
 					for (int j=0; j<chapters.size( ); j++){
-						if (chapters.get( j ).getAssessmentPath( ).equals( current.getAffectedResource( ) )){
-							chapters.get( j ).setAssessmentPath( "" );
+						if (chapters.get( j ).getAssessmentName( ).equals( current.getAffectedResource( ) )){
+							chapters.get( j ).setAssessmentName( "" );
 							dataModified( );
 						}
 					}
-					adventureData.getAssessmentRulesListDataControl( ).deleteIdentifierReferences( current.getAffectedResource( ) );
+				//	adventureData.getAssessmentRulesListDataControl( ).deleteIdentifierReferences( current.getAffectedResource( ) );
 				}
 				// If it was an assessment profile (referenced) delete the assessment configuration of the chapter
 				else if (current.getAffectedArea( ) == Incidence.ADAPTATION_INCIDENCE){
 					mainWindow.showInformationDialog( TextConstants.getText( "ErrorSolving.AdaptationReferenced.Deleted.Title" )+" - Error "+(i+1)+"/"+incidences.size( ), TextConstants.getText( "ErrorSolving.AdaptationReferenced.Deleted.Message", current.getAffectedResource( ) ) );
 					for (int j=0; j<chapters.size( ); j++){
-						if (chapters.get( j ).getAdaptationPath( ).equals( current.getAffectedResource( ) )){
-							chapters.get( j ).setAdaptationPath( "" );
+						if (chapters.get( j ).getAdaptationName( ).equals( current.getAffectedResource( ) )){
+							chapters.get( j ).setAdaptationName( "" );
 							dataModified( );
 						}
 					}
-					adventureData.getAdaptationRulesListDataControl( ).deleteIdentifierReferences( current.getAffectedResource( ) );
+					//adventureData.getAdaptationRulesListDataControl( ).deleteIdentifierReferences( current.getAffectedResource( ) );
 				}
 
 				// Abort
@@ -1268,11 +1268,11 @@ public class Controller {
 			// Low importance: the game will not be affected
 			else if (current.getImportance( ) == Incidence.IMPORTANCE_LOW){
 				if (current.getAffectedArea( ) == Incidence.ADAPTATION_INCIDENCE){
-					adventureData.getAdaptationRulesListDataControl( ).deleteIdentifierReferences( current.getAffectedResource( ) );
+					//adventureData.getAdaptationRulesListDataControl( ).deleteIdentifierReferences( current.getAffectedResource( ) );
 					dataModified( );
 				}
 				if (current.getAffectedArea( ) == Incidence.ASSESSMENT_INCIDENCE){
-					adventureData.getAssessmentRulesListDataControl( ).deleteIdentifierReferences( current.getAffectedResource( ) );
+					//adventureData.getAssessmentRulesListDataControl( ).deleteIdentifierReferences( current.getAffectedResource( ) );
 					dataModified( );
 				}
 			}
@@ -2136,19 +2136,6 @@ public class Controller {
 					mainWindow.setNormalRunAvailable( false );
 					// First update flags
 					chaptersController.updateVarsFlagsForRunning();
-					
-					AssessmentProfilesDataControl cnt1 = Controller.getInstance().getAssessmentController();
-					Controller.getInstance().adventureData.getAdventureData().getAssessmentProfiles().clear();
-					for (AssessmentProfileDataControl profile:cnt1.getProfiles()){
-						Controller.getInstance().adventureData.getAdventureData().getAssessmentProfiles().add((AssessmentProfile)profile.getContent());
-					}
-					
-					AdaptationProfilesDataControl cnt2 = Controller.getInstance().getAdaptationController();
-					Controller.getInstance().adventureData.getAdventureData().getAdaptationProfiles().clear();
-					for (AdaptationProfileDataControl profile:cnt2.getProfiles()){
-						Controller.getInstance().adventureData.getAdventureData().getAdaptationProfiles().add((AdaptationProfile)profile.getContent());
-					}
-					
 					EAdventureDebug.normalRun(Controller.getInstance().adventureData.getAdventureData(), AssetsController.getInputStreamCreator());
 					Controller.getInstance().startAutoSave(15);
 					mainWindow.setNormalRunAvailable( true );
@@ -2174,19 +2161,6 @@ public class Controller {
 				public void run() {
 					mainWindow.setNormalRunAvailable( false );
 					chaptersController.updateVarsFlagsForRunning();
-					
-					AssessmentProfilesDataControl cnt1 = Controller.getInstance().getAssessmentController();
-					Controller.getInstance().adventureData.getAdventureData().getAssessmentProfiles().clear();
-					for (AssessmentProfileDataControl profile:cnt1.getProfiles()){
-						Controller.getInstance().adventureData.getAdventureData().getAssessmentProfiles().add((AssessmentProfile)profile.getContent());
-					}
-					
-					AdaptationProfilesDataControl cnt2 = Controller.getInstance().getAdaptationController();
-					Controller.getInstance().adventureData.getAdventureData().getAdaptationProfiles().clear();
-					for (AdaptationProfileDataControl profile:cnt2.getProfiles()){
-						Controller.getInstance().adventureData.getAdventureData().getAdaptationProfiles().add((AdaptationProfile)profile.getContent());
-					}
-					
 					EAdventureDebug.debug(Controller.getInstance().adventureData.getAdventureData(), AssetsController.getInputStreamCreator());
 					Controller.getInstance().startAutoSave(15);
 					mainWindow.setNormalRunAvailable( true );
@@ -2464,8 +2438,8 @@ public class Controller {
 	public void updateFlagSummary( ) {
 		chaptersController.updateFlagSummary();
 		// Update the summary with assessment and adaptation elements (if there are someone added in current chapter)
-		String adaptationPath = chaptersController.getSelectedChapterDataControl().getAdaptationPath();
-		String assessmentPath = chaptersController.getSelectedChapterDataControl().getAssessmentPath();
+		String adaptationPath = chaptersController.getSelectedChapterDataControl().getAdaptationName();
+		String assessmentPath = chaptersController.getSelectedChapterDataControl().getAssessmentName();
 		if (!adaptationPath.equals(""))
 		    adventureData.updateAdaptationFlagSummary(adaptationPath, chaptersController.getVarFlagSummary());
 		if (!assessmentPath.equals(""))
@@ -2995,11 +2969,11 @@ public class Controller {
 	}
 
 	public AssessmentProfilesDataControl getAssessmentController(){
-		return this.adventureData.getAssessmentRulesListDataControl( );
+		return this.chaptersController.getSelectedChapterDataControl().getAssessmentProfilesDataControl();
 	}
 	
 	public AdaptationProfilesDataControl getAdaptationController(){
-		return this.adventureData.getAdaptationRulesListDataControl( );
+	    return this.chaptersController.getSelectedChapterDataControl().getAdaptationProfilesDataControl();
 	}
 
 	public boolean isCommentaries( ) {

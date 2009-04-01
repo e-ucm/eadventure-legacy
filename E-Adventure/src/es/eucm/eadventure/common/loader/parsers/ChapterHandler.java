@@ -14,6 +14,8 @@ import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.data.chapter.conditions.GlobalState;
 import es.eucm.eadventure.common.data.chapter.effects.Macro;
 import es.eucm.eadventure.common.loader.InputStreamCreator;
+import es.eucm.eadventure.common.loader.subparsers.AdaptationSubParser;
+import es.eucm.eadventure.common.loader.subparsers.AssessmentSubParser;
 import es.eucm.eadventure.common.loader.subparsers.AtrezzoSubParser;
 import es.eucm.eadventure.common.loader.subparsers.BookSubParser;
 import es.eucm.eadventure.common.loader.subparsers.CharacterSubParser;
@@ -95,6 +97,16 @@ public class ChapterHandler extends DefaultHandler {
 	 */
 	private static final int ATREZZO = 11;
 	
+	/**
+	 * Constant for subparsing assessment tag
+	 */
+	private static final int ASSESSMENT = 12;
+	
+	/**
+	 * Constant for subparsing adaptation tag
+	 */
+	private static final int ADAPTATION = 13;
+	
 
 	/**
 	 * Stores the current element being parsed
@@ -152,8 +164,19 @@ public class ChapterHandler extends DefaultHandler {
 		// If no element is being subparsed, check if we must subparse something
 		if( subParsing == NONE ) {
 
+		    	//Parse eAdventure attributes
+        		if( qName.equals( "eAdventure" ) ) {
+        		    for( int i = 0; i < attrs.getLength( ); i++ ) {
+        	                if( attrs.getQName( i ).equals( "adaptProfile" ) ){
+        	                	chapter.setAdaptationName(attrs.getValue(i));
+        	                }
+        	                if( attrs.getQName( i ).equals( "assessProfile" ) ){
+    	                	chapter.setAssessmentName(attrs.getValue(i));
+        	                }
+		    		}	
+        		}
 			// Subparse scene
-			if( qName.equals( "scene" ) ) {
+		    	else if( qName.equals( "scene" ) ) {
 				subParser = new SceneSubParser( chapter );
 				subParsing = SCENE;
 			}
@@ -237,6 +260,14 @@ public class ChapterHandler extends DefaultHandler {
 			else if( qName.equals( "atrezzoobject" ) ) {
 				subParser = new AtrezzoSubParser( chapter );
 				subParsing = ATREZZO;
+			}// Subparse assessment profile
+			else if (qName.equals( "assessment" )){
+			    subParser = new AssessmentSubParser( chapter );
+			    subParsing = ASSESSMENT;
+			}// Subparse adaptation profile
+			else if (qName.equals( "adaptation" )){
+			    subParser = new AdaptationSubParser( chapter );
+			    subParsing = ADAPTATION;
 			}
 
 
@@ -268,7 +299,7 @@ public class ChapterHandler extends DefaultHandler {
 			// If the element is not being subparsed anymore, return to normal state
 			if( qName.equals( "scene" ) && subParsing == SCENE || ( qName.equals( "slidescene" ) || qName.equals( "videoscene" ) ) && subParsing == CUTSCENE || qName.equals( "book" ) && subParsing == BOOK || qName.equals( "object" ) && subParsing == OBJECT || qName.equals( "player" ) && subParsing == PLAYER || qName.equals( "character" ) && subParsing == CHARACTER || qName.equals( "tree-conversation" ) && subParsing == CONVERSATION || qName.equals( "graph-conversation" ) && subParsing == CONVERSATION || 
 					qName.equals( "timer" ) && subParsing == TIMER || qName.equals( "global-state" ) && subParsing == GLOBAL_STATE
-					|| qName.equals( "macro" ) && subParsing == MACRO || qName.equals( "atrezzoobject" ) && subParsing == ATREZZO) {
+					|| qName.equals( "macro" ) && subParsing == MACRO || qName.equals( "atrezzoobject" ) && subParsing == ATREZZO|| qName.equals( "assessment" ) && subParsing == ASSESSMENT|| qName.equals( "adaptation" ) && subParsing == ADAPTATION) {
 				subParsing = NONE;
 			}
 

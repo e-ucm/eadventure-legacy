@@ -65,12 +65,12 @@ public class AdventureDataControl {
 	/**
 	 * Assessment file data controller
 	 */
-	private AssessmentProfilesDataControl assessmentProfilesDataControl;
+	//private AssessmentProfilesDataControl assessmentProfilesDataControl;
 	
 	/**
 	 * Adaptation file data controller
 	 */
-	private AdaptationProfilesDataControl adaptationProfilesDataControl;
+	//private AdaptationProfilesDataControl adaptationProfilesDataControl;
 
 	/**
 	 * Constructs the data control with the adventureData
@@ -80,13 +80,13 @@ public class AdventureDataControl {
 		adventureData = data;
 
 		// add profiles subcontrollers
-		for ( AssessmentProfile profile: data.getAssessmentProfiles() ){
+		/*for ( AssessmentProfile profile: data.getAssessmentProfiles() ){
 			assessmentProfilesDataControl.getProfiles().add(new AssessmentProfileDataControl(profile))	;
 		}
 		
 		for ( AdaptationProfile profile: data.getAdaptationProfiles() ){
 			adaptationProfilesDataControl.getProfiles().add(new AdaptationProfileDataControl(profile))	;
-		}
+		}*/
 		
 
 	}
@@ -99,8 +99,6 @@ public class AdventureDataControl {
 		lomController = new LOMDataControl();
 		imsController = new IMSDataControl();
 		lomesController = new LOMESDataControl();
-		assessmentProfilesDataControl = new AssessmentProfilesDataControl(adventureData.getAssessmentProfiles());
-		adaptationProfilesDataControl = new AdaptationProfilesDataControl(adventureData.getAdaptationProfiles());
 	}
 
 	/**
@@ -123,8 +121,6 @@ public class AdventureDataControl {
 		adventureData.addChapter( new Chapter( chapterTitle, sceneId ) );
 		lomController = new LOMDataControl();
 		imsController = new IMSDataControl();
-		assessmentProfilesDataControl = new AssessmentProfilesDataControl(adventureData.getAssessmentProfiles());
-		adaptationProfilesDataControl = new AdaptationProfilesDataControl(adventureData.getAdaptationProfiles());
 	}
 
 	public AdventureDataControl( String adventureTitle, String chapterTitle, String sceneId ) {
@@ -165,21 +161,21 @@ public class AdventureDataControl {
     }
     
     public void updateAssessmentFlagSummary(String assessmentPath , VarFlagSummary varFlagSummary) {
-	for (int i = 0; i<assessmentProfilesDataControl.getProfiles().size();i++){
+	/*for (int i = 0; i<assessmentProfilesDataControl.getProfiles().size();i++){
 	    if (assessmentProfilesDataControl.getProfiles().get(i).getPath().equals(assessmentPath)){
 		assessmentProfilesDataControl.getProfiles().get(i).updateVarFlagSummary( varFlagSummary );
 		break;
 	    }
-	}
+	}*/
     }
     
     public void updateAdaptationFlagSummary(String adaptationPath , VarFlagSummary varFlagSummary) {
-	for (int i = 0; i<adaptationProfilesDataControl.getProfiles().size();i++){
-	    if (adaptationProfilesDataControl.getProfiles().get(i).getPath().equals(adaptationPath)){
+	/*for (int i = 0; i<adaptationProfilesDataControl.getProfiles().size();i++){
+	    if (adaptationProfilesDataControl.getProfiles().get(i).getName().equals(adaptationPath)){
 		adaptationProfilesDataControl.getProfiles().get(i).updateVarFlagSummary( varFlagSummary );
 		break;
 	    }
-	}
+	}*/
     }
 
 	
@@ -376,16 +372,16 @@ public class AdventureDataControl {
 	/**
 	 * @return the assessmentRulesListDataControl
 	 */
-	public AssessmentProfilesDataControl getAssessmentRulesListDataControl( ) {
+	/*public AssessmentProfilesDataControl getAssessmentRulesListDataControl( ) {
 		return assessmentProfilesDataControl;
-	}
+	}*/
 
 	/**
 	 * @return the adaptationRulesListDataControl
 	 */
-	public AdaptationProfilesDataControl getAdaptationRulesListDataControl( ) {
+	/*public AdaptationProfilesDataControl getAdaptationRulesListDataControl( ) {
 		return adaptationProfilesDataControl;
-	}
+	}*/
 
 	public boolean isCommentaries() {
 		return adventureData.isCommentaries();

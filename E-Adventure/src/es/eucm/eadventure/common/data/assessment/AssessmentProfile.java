@@ -27,9 +27,11 @@ public class AssessmentProfile implements Cloneable {
     
     
 	/**
-	 * Relative path of the file containing the asssessment rules
+	 * the name of assessment profile
 	 */
-	private String path;
+    	// Also is the path of the assessment profile for old game version. In new game version, there arent separate files for assessment,
+    	// the assessment info is in chapter.xml
+	private String name;
 	
 	/**
 	 * The list of assessment rules
@@ -98,9 +100,9 @@ public class AssessmentProfile implements Cloneable {
 		this( new ArrayList<AssessmentRule>(), path );
 	}
 
-	public AssessmentProfile(List<AssessmentRule> assessmentRules, String path2) {
+	public AssessmentProfile(List<AssessmentRule> assessmentRules, String name) {
 		rules = assessmentRules;
-		this.path = path2;
+		this.name = name;
 		flags = new ArrayList<String>();
 		vars = new ArrayList<String>();
 		sendByEmail = false;
@@ -108,17 +110,17 @@ public class AssessmentProfile implements Cloneable {
 	}
 
 	/**
-	 * @return the path
+	 * @return the name
 	 */
-	public String getPath() {
-		return path;
+	public String getName() {
+		return name;
 	}
 
 	/**
-	 * @param path the path to set
+	 * @param path the name to set
 	 */
-	public void setPath(String path) {
-		this.path = path;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	/**
@@ -295,7 +297,7 @@ public class AssessmentProfile implements Cloneable {
 			for (String s : flags)
 				ap.flags.add((s != null ? new String(s) : null));
 		}
-		ap.path = (path != null ? new String(path) : null);
+		ap.name = (name != null ? new String(name) : null);
 		if (rules != null) {
 			ap.rules = new ArrayList<AssessmentRule>();
 			for (AssessmentRule ar : rules)

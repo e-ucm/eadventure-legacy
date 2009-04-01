@@ -202,7 +202,7 @@ public class DescriptorHandler extends DefaultHandler {
 	            // Store the path of the chapter
 	            for( int i = 0; i < attrs.getLength( ); i++ )
 	                if( attrs.getQName( i ).equals( "path" ) )
-	                    currentChapter.setName( attrs.getValue( i ) );
+	                    currentChapter.setChapterPath( attrs.getValue( i ) );
 	            
 	            // Change the state
 	            reading = READING_CHAPTER;
@@ -213,7 +213,7 @@ public class DescriptorHandler extends DefaultHandler {
 	            // Store the path of the adaptation file
 	            for( int i = 0; i < attrs.getLength( ); i++ )
 	                if( attrs.getQName( i ).equals( "path" ) )
-	                    currentChapter.setAdaptationPath( attrs.getValue( i ) );
+	                    currentChapter.setAdaptationName( attrs.getValue( i ) );
 	        }
 	        
 	        // If it is an assessment file, store the path
@@ -221,7 +221,7 @@ public class DescriptorHandler extends DefaultHandler {
 	            // Store the path of the assessment file
 	            for( int i = 0; i < attrs.getLength( ); i++ )
 	                if( attrs.getQName( i ).equals( "path" ) )
-	                    currentChapter.setAssessmentPath( attrs.getValue( i ) );
+	                    currentChapter.setAssessmentName( attrs.getValue( i ) );
 	        }
 	    }
 	    

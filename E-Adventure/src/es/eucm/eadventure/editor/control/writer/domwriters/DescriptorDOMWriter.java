@@ -162,7 +162,7 @@ public class DescriptorDOMWriter {
 				chapterElement.appendChild( chapterDescriptionNode );
 
 				// Create and append the adaptation configuration
-				if( !chapter.getAdaptationPath( ).equals( "" ) ) {
+				/*if( !chapter.getAdaptationPath( ).equals( "" ) ) {
 					Element adaptationPathElement = doc.createElement( "adaptation-configuration" );
 					adaptationPathElement.setAttribute( "path", chapter.getAdaptationPath( ) );
 					chapterElement.appendChild( adaptationPathElement );
@@ -173,7 +173,7 @@ public class DescriptorDOMWriter {
 					Element assessmentPathElement = doc.createElement( "assessment-configuration" );
 					assessmentPathElement.setAttribute( "path", chapter.getAssessmentPath( ) );
 					chapterElement.appendChild( assessmentPathElement );
-				}
+				}*/
 
 				// Store the node
 				contentsNode.appendChild( chapterElement );

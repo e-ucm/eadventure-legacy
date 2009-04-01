@@ -26,10 +26,12 @@ public class AdaptationProfile  implements Cloneable, ContainsAdaptedState{
     
     
     
-	/**
-	 * Relative path of the file containing the adaptation rules
+    	/**
+	 * The Name of the adaptation profile
 	 */
-	private String path;
+	// Also is the path of the assessment profile for old game version. In new game version, there arent separate files for assessment,
+	// the assessment info is in chapter.xml
+	private String name;
 	
 	/**
 	 * The list of adaptation rules
@@ -63,15 +65,15 @@ public class AdaptationProfile  implements Cloneable, ContainsAdaptedState{
 	private boolean scorm12;
 	
 	/**
-	 * @param path
+	 * @param name
 	 * @param rules
 	 * @param initialState
 	 * @param scorm12
 	 * @param scorm2004
 	 */
 	public AdaptationProfile(List<AdaptationRule> rules,
-			AdaptedState initialState, String path,boolean scorm12, boolean scorm2004) {
-		this.path = path;
+			AdaptedState initialState, String name,boolean scorm12, boolean scorm2004) {
+		this.name = name;
 		this.rules = rules;
 		this.initialState = initialState;
 		flags = new ArrayList<String>();
@@ -84,7 +86,7 @@ public class AdaptationProfile  implements Cloneable, ContainsAdaptedState{
 	 * Empty constructor 
 	 */
 	public AdaptationProfile() {
-		path = null;
+		name = null;
 		rules = new ArrayList<AdaptationRule>();
 		scorm2004 = false;
 		scorm12 = false;
@@ -95,23 +97,23 @@ public class AdaptationProfile  implements Cloneable, ContainsAdaptedState{
 	/**
 	 * @param path
 	 */
-	public AdaptationProfile(String path) {
+	public AdaptationProfile(String name) {
 		this();
-		this.path = path;
+		this.name = name;
 	}
 
 	/**
-	 * @return the path
+	 * @return the name
 	 */
-	public String getPath() {
-		return path;
+	public String getName() {
+		return name;
 	}
 
 	/**
-	 * @param path the path to set
+	 * @param name the name to set
 	 */
-	public void setPath(String path) {
-		this.path = path;
+	public void setName(String  name) {
+		this.name = name;
 	}
 
 	/**
@@ -204,7 +206,7 @@ public class AdaptationProfile  implements Cloneable, ContainsAdaptedState{
 		for (String s : flags)
 			ap.flags.add((s != null ? new String(s) : null));
 		ap.initialState = (AdaptedState) initialState.clone();
-		ap.path = (path != null ? new String(path) : null);
+		ap.name = (name != null ? new String(name) : null);
 		ap.rules = new ArrayList<AdaptationRule>();
 		for (AdaptationRule ar : rules)
 			ap.rules.add((AdaptationRule) ar.clone());
@@ -310,6 +312,34 @@ public class AdaptationProfile  implements Cloneable, ContainsAdaptedState{
 		op="<=";
 	    }
 	    return op;
+	}
+
+	/**
+	 * @param scorm2004 the scorm2004 to set
+	 */
+	public void setScorm2004(boolean scorm2004) {
+	    this.scorm2004 = scorm2004;
+	}
+
+	/**
+	 * @param scorm12 the scorm12 to set
+	 */
+	public void setScorm12(boolean scorm12) {
+	    this.scorm12 = scorm12;
+	}
+
+	/**
+	 * @param initialState the initialState to set
+	 */
+	public void setInitialState(AdaptedState initialState) {
+	    this.initialState = initialState;
+	}
+
+	/**
+	 * @return the initialState
+	 */
+	public AdaptedState getInitialState() {
+	    return initialState;
 	}
 
 }

@@ -67,12 +67,12 @@ public class AdventureHandler extends DefaultHandler {
 	/**
 	 * Assessment controller: to be filled with the assessment data
 	 */ 
-	private List<AssessmentProfile> assessmentController;
+	//private List<AssessmentProfile> assessmentController;
 	
 	/**
 	 * Adaptation controller: to be filled with the adaptation data
 	 */
-	private List<AdaptationProfile> adaptationController;
+	//private List<AdaptationProfile> adaptationController;
 
 	/**
 	 * Chapter being currently read.
@@ -86,10 +86,19 @@ public class AdventureHandler extends DefaultHandler {
 	
 	private InputStreamCreator isCreator;
 	
+	/**
+	 * The paths of assessments files
+	 */
+	private List<String> assessmentPaths;
+	
+	/**
+	 * The paths of adaptation files
+	 */
+	private List<String> adaptationPaths;
+	
 	private static void getXMLFilePaths (InputStreamCreator isCreator, String assessmentFolderPath, String adaptationFolderPath, List<String> assessmentPaths, List<String> adaptationPaths){
 
 		// Assessment
-			
 			for ( String child: isCreator.listNames(assessmentFolderPath)){
 				if (child.toLowerCase().endsWith(".xml")){
 					assessmentPaths.add( assessmentFolderPath+"/"+child );					
@@ -113,25 +122,42 @@ public class AdventureHandler extends DefaultHandler {
 	 */
 	public AdventureHandler(  InputStreamCreator isCreator, String assessmentFolder, String adaptationFolder, List<Incidence> incidences ) {
 		this.isCreator = isCreator;
-		List<String> assessmentPaths = new ArrayList<String>();
-		List<String> adaptationPaths = new ArrayList<String>();
+		assessmentPaths = new ArrayList<String>();
+		adaptationPaths = new ArrayList<String>();
 		getXMLFilePaths(isCreator, assessmentFolder, adaptationFolder, assessmentPaths, adaptationPaths );
 		
 		adventureData = new AdventureData( );
 		this.incidences = incidences;
 		chapters = new ArrayList<Chapter>( );
-		this.assessmentController = adventureData.getAssessmentProfiles();
-		this.adaptationController = adventureData.getAdaptationProfiles();
+		//this.assessmentController = adventureData.getAssessmentProfiles();
+		//this.adaptationController = adventureData.getAdaptationProfiles();
 		
-		// Load all the assessment files
+		
+	}
+	
+	/**
+	 * Load the assessment and adaptation profiles from xml.
+	 * 
+	 */
+	//This method must be called after all chapter data is parse, because is a past funtionality, and must be preserved in order
+	// to bringh the posibility to load game of past versions. Now the adaptation and assessment profiles are into chapter.xml, and not 
+	// in separate files.
+	public void loadProfiles(){
+	 // Load all the assessment files in each chapter
 		for (String assessmentPath : assessmentPaths){
-
-			assessmentController.add( Loader.loadAssessmentProfile ( isCreator, assessmentPath, incidences) );
+		    
+		    AssessmentProfile assessProfile = Loader.loadAssessmentProfile ( isCreator, assessmentPath, incidences) ;
+			for (Chapter chapter : adventureData.getChapters()){
+			    chapter.addAssessmentProfile(assessProfile);
+			}
 		}
 		
-		// Load all the adaptation files
+		// Load all the adaptation files in each chapter
 		for (String adaptationPath: adaptationPaths){
-			adaptationController.add( Loader.loadAdaptationProfile( isCreator, adaptationPath, incidences) );
+		    AdaptationProfile adaptProfile= Loader.loadAdaptationProfile( isCreator, adaptationPath, incidences) ;
+		    for (Chapter chapter : adventureData.getChapters()){
+			    chapter.addAdaptationProfile(adaptProfile);
+			}
 		}
 	}
 
@@ -268,9 +294,9 @@ public class AdventureHandler extends DefaultHandler {
 					chapterPath = attrs.getValue( i );
 			
 			if (chapterPath!=null){
-				currentChapter.setName( chapterPath );
+				currentChapter.setChapterPath( chapterPath );
 			} else 
-				currentChapter.setName( "" );
+				currentChapter.setChapterPath( "" );
 
 			// Open the file and load the data
 			try {
@@ -292,44 +318,45 @@ public class AdventureHandler extends DefaultHandler {
 			} catch( ParserConfigurationException e ) {
 				incidences.add( Incidence.createChapterIncidence( TextConstants.getText( "Error.LoadData.SAX" ), chapterPath ) );
 			} catch( SAXException e ) {
-				incidences.add( Incidence.createChapterIncidence( TextConstants.getText( "Error.LoadData.SAX" ), chapterPath ) );
+			    	incidences.add( Incidence.createChapterIncidence( TextConstants.getText( "Error.LoadData.SAX" ), chapterPath ) );
 			} catch( IOException e ) {
 				incidences.add( Incidence.createChapterIncidence( TextConstants.getText( "Error.LoadData.IO" ), chapterPath ) );
 			}
 
 		}
-
+        	//TODO que pasa con tu wasa!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!77
 		// If reading the adaptation configuration, store it
 		else if( qName.equals( "adaptation-configuration" ) ) {
 			for( int i = 0; i < attrs.getLength( ); i++ )
 				if( attrs.getQName( i ).equals( "path" ) ){
-					String adaptationPath = attrs.getValue( i );
-					currentChapter.setAdaptationPath( adaptationPath );
+					String adaptationName = attrs.getValue( i );
+					currentChapter.setAdaptationName( adaptationName );
 					// Search in incidences. If an adaptation incidence was related to this profile, the error is more relevant
 					for (int j=0; j<incidences.size( ); j++){
 						Incidence current = incidences.get( j );
-						if (current.getAffectedArea( ) == Incidence.ADAPTATION_INCIDENCE && current.getAffectedResource( ).equals( adaptationPath )){
+						if (current.getAffectedArea( ) == Incidence.ADAPTATION_INCIDENCE && current.getAffectedResource( ).equals( adaptationName )){
 							String message = current.getMessage( );
 							incidences.remove( j );
-							incidences.add( j, Incidence.createAdaptationIncidence( true, message+TextConstants.getText( "Error.LoadAdaptation.Referenced" ), adaptationPath ) );
+							incidences.add( j, Incidence.createAdaptationIncidence( true, message+TextConstants.getText( "Error.LoadAdaptation.Referenced" ), adaptationName ) );
 						}
 					}
 				}
 		}
 
+        	//TODO que pasa con tu wasa!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!77
 		// If reading the assessment configuration, store it
 		else if( qName.equals( "assessment-configuration" ) ) {
 			for( int i = 0; i < attrs.getLength( ); i++ )
 				if( attrs.getQName( i ).equals( "path" ) ){
-					String assessmentPath = attrs.getValue( i );
-					currentChapter.setAssessmentPath( assessmentPath );
+					String assessmentName = attrs.getValue( i );
+					currentChapter.setAssessmentName( assessmentName );
 					// Search in incidences. If an adaptation incidence was related to this profile, the error is more relevant
 					for (int j=0; j<incidences.size( ); j++){
 						Incidence current = incidences.get( j );
-						if (current.getAffectedArea( ) == Incidence.ASSESSMENT_INCIDENCE && current.getAffectedResource( ).equals( assessmentPath )){
+						if (current.getAffectedArea( ) == Incidence.ASSESSMENT_INCIDENCE && current.getAffectedResource( ).equals( assessmentName )){
 							String message = current.getMessage( );
 							incidences.remove( j );
-							incidences.add( j, Incidence.createAssessmentIncidence( true, message+TextConstants.getText( "Error.LoadAssessment.Referenced" ), assessmentPath ) );
+							incidences.add( j, Incidence.createAssessmentIncidence( true, message+TextConstants.getText( "Error.LoadAssessment.Referenced" ), assessmentName ) );
 						}
 					}
 

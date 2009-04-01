@@ -35,18 +35,27 @@ public class ChapterDOMWriter {
 	 *            Chapter data to be written
 	 * @return DOM element with the chapter data
 	 */
-	public static Node buildDOM( Chapter chapter, String zipFile ) {
-		Node chapterNode = null;
+	public static Node buildDOM( Chapter chapter, String zipFile , Document doc) {
+		Element chapterNode = null;
 
-		try {
+		//try {
 			// Create the necessary elements to create the DOM
-			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance( );
+		    /*DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance( );
 			DocumentBuilder db = dbf.newDocumentBuilder( );
 			Document doc = db.newDocument( );
-
+		 	*/
 			// Create the root node
 			chapterNode = doc.createElement( "eAdventure" );
+			
+			// Add the adaptation and assessment active profiles
+			if( !chapter.getAdaptationName( ).equals( "" ) ) 
+				chapterNode.setAttribute("adaptProfile", chapter.getAdaptationName());
 
+			// Create and append the assessment configuration
+			if( !chapter.getAssessmentName( ).equals( "" ) ) {
+			    chapterNode.setAttribute("assessProfile", chapter.getAdaptationName());
+			}
+			
 			// Append the scene elements
 			for( Scene scene : chapter.getScenes( ) ) {
 				boolean initialScene = chapter.getTargetId( ).equals( scene.getId( ) );
@@ -126,9 +135,9 @@ public class ChapterDOMWriter {
 
 
 
-		} catch( ParserConfigurationException e ) {
+		/*} catch( ParserConfigurationException e ) {
         	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
-		}
+		}*/
 
 		return chapterNode;
 	}

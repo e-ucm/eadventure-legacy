@@ -62,9 +62,9 @@ public class ChangeSelectedProfileTool extends Tool{
 
 			// Get old Value
 			if (mode==MODE_ASSESSMENT){
-				oldValue = chapter.getAssessmentPath();
+				oldValue = chapter.getAssessmentName();
 			} else if (mode==MODE_ADAPTATION){
-				oldValue = chapter.getAdaptationPath();
+				oldValue = chapter.getAdaptationName();
 			}
 			
 			// If a file was selected
@@ -82,9 +82,9 @@ public class ChangeSelectedProfileTool extends Tool{
 								!oldValue.equals(assetPaths[assetIndex]))){
 				
 					if (mode == MODE_ASSESSMENT){
-						chapter.setAssessmentPath( assetPaths[assetIndex]);
+						chapter.setAssessmentName( assetPaths[assetIndex]);
 					} else if (mode == MODE_ADAPTATION){
-						chapter.setAdaptationPath( assetPaths[assetIndex]);
+						chapter.setAdaptationName( assetPaths[assetIndex]);
 					}
 					newValue = assetPaths[assetIndex];
 					done = true;
@@ -101,9 +101,9 @@ public class ChangeSelectedProfileTool extends Tool{
 	@Override
 	public boolean redoTool() {
 		if (mode == MODE_ASSESSMENT){
-			chapter.setAssessmentPath(newValue);
+			chapter.setAssessmentName(newValue);
 		} else if (mode == MODE_ADAPTATION){
-			chapter.setAdaptationPath(newValue);
+			chapter.setAdaptationName(newValue);
 		}
 		controller.reloadPanel();
 		controller.updateFlagSummary();
@@ -113,9 +113,9 @@ public class ChangeSelectedProfileTool extends Tool{
 	@Override
 	public boolean undoTool() {
 		if (mode == MODE_ASSESSMENT){
-			chapter.setAssessmentPath(oldValue);
+			chapter.setAssessmentName(oldValue);
 		} else if (mode == MODE_ADAPTATION){
-			chapter.setAdaptationPath(oldValue);
+			chapter.setAdaptationName(oldValue);
 		}
 		controller.updateFlagSummary();
 		controller.reloadPanel();

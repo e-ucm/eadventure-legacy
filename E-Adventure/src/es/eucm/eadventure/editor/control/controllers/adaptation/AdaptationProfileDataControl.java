@@ -198,15 +198,15 @@ public class AdaptationProfileDataControl extends DataControl{
 	}
 
 	public String getFileName(){
-		return profile.getPath().substring( Math.max( profile.getPath().lastIndexOf( "/" ), profile.getPath().lastIndexOf( "\\" ) )+1);
+		return profile.getName().substring( Math.max( profile.getName().lastIndexOf( "/" ), profile.getName().lastIndexOf( "\\" ) )+1);
 	}
 	
 	@Override
 	public String renameElement( String name ) {
 		String oldName = null;
 		boolean renamed = false;
-		if (this.profile.getPath() != null) {
-			String[] temp = this.profile.getPath().split("/");
+		if (this.profile.getName() != null) {
+			String[] temp = this.profile.getName().split("/");
 			oldName = temp[temp.length - 1];
 		}
 		
@@ -217,7 +217,7 @@ public class AdaptationProfileDataControl extends DataControl{
 			if (name == null)
 				//Prompt for file name:
 				fileName = controller.showInputDialog( TextConstants.getText( "Operation.RenameAdaptationFile.FileName" ), TextConstants.getText( "Operation.RenameAdaptationFile.FileName.Message" ), getFileName() );
-			if (fileName!=null && !fileName.equals( profile.getPath().substring( profile.getPath().lastIndexOf( "/" ) + 1 ) )){
+			if (fileName!=null && !fileName.equals( profile.getName().substring( profile.getName().lastIndexOf( "/" ) + 1 ) )){
 				if (fileName.contains( "/") || fileName.contains( "\\" )){
 					controller.showErrorDialog( TextConstants.getText( "Operation.RenameXMLFile.ErrorSlash" ), TextConstants.getText( "Operation.RenameXMLFile.ErrorSlash.Message" ) );
 					return null;
@@ -231,10 +231,10 @@ public class AdaptationProfileDataControl extends DataControl{
 				}
 				
 				//Checks if the file exists. In that case, ask to overwrite it
-						File assessmentFile = new File (Controller.getInstance( ).getProjectFolder( ), profile.getPath() );
+						File assessmentFile = new File (Controller.getInstance( ).getProjectFolder( ), profile.getName() );
 						renamed = assessmentFile.renameTo( new File(Controller.getInstance( ).getProjectFolder( ), AssetsController.getCategoryFolder( AssetsController.CATEGORY_ADAPTATION ) +"/"+fileName) );
 						//controller.dataModified( );
-						this.profile.setPath( AssetsController.getCategoryFolder( AssetsController.CATEGORY_ADAPTATION ) +"/"+fileName );
+						this.profile.setName( AssetsController.getCategoryFolder( AssetsController.CATEGORY_ADAPTATION ) +"/"+fileName );
 			}
 			
 		}
@@ -333,10 +333,10 @@ public class AdaptationProfileDataControl extends DataControl{
 	}
 
 	/**
-	 * @return the profile.getPath()
+	 * @return the profile.getName()
 	 */
-	public String getPath( ) {
-		return profile.getPath();
+	public String getName( ) {
+		return profile.getName();
 	}
 
 	@Override
@@ -352,7 +352,7 @@ public class AdaptationProfileDataControl extends DataControl{
 		check("" + number, TextConstants.getText("Search.Number"));
 		check(getFileName(), TextConstants.getText("Search.FileName"));
 		check(getInitialScene(), TextConstants.getText("Search.InitialScene"));
-		check(getPath(), TextConstants.getText("Search.Path"));
+		check(getName(), TextConstants.getText("Search.Path"));
 	}
 	
 	

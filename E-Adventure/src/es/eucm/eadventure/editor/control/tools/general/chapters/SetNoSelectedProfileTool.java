@@ -49,9 +49,9 @@ public class SetNoSelectedProfileTool extends Tool{
 		
 		// Get old Value
 		if (mode==MODE_ASSESSMENT){
-			oldValue = chapter.getAssessmentPath();
+			oldValue = chapter.getAssessmentName();
 		} else if (mode==MODE_ADAPTATION){
-			oldValue = chapter.getAdaptationPath();
+			oldValue = chapter.getAdaptationName();
 		}
 
 		// If oldValue is null, it is a bug. FIX IT
@@ -67,9 +67,9 @@ public class SetNoSelectedProfileTool extends Tool{
 	
 	private void setData(String data){
 		if (mode==MODE_ASSESSMENT){
-			chapter.setAssessmentPath(data);
+			chapter.setAssessmentName(data);
 		} else if (mode==MODE_ADAPTATION){
-			chapter.setAdaptationPath(data);
+			chapter.setAdaptationName(data);
 		}		
 	}
 
