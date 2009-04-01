@@ -8,6 +8,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.controllers.scene.InfluenceAreaDataControl;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElement;
 import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElementInfluenceArea;
@@ -66,7 +67,7 @@ public class NormalScenePreviewEditionController implements ScenePreviewEditionC
 	
 	public void mouseClicked(MouseEvent e) {
 		setMouseUnder(e.getX(), e.getY());
-		if (underMouse != null && !spep.getFixedSelectedElement()) {
+		if (underMouse != null && !spep.getFixedSelectedElement() && !(underMouse instanceof ImageElementInfluenceArea)) {
 			if (e.getButton() == MouseEvent.BUTTON1) {
 				if (e.getClickCount() == 1) {
 					spep.setSelectedElement(underMouse);

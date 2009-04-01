@@ -95,14 +95,6 @@ public class SceneLinksPanel extends JPanel {
 		g.fillRect(0, 0, 800, 600);
 		
 		
-		GridBagConstraints c = new GridBagConstraints();
-		c.gridx = 0;
-		c.gridy = 0;
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 2.0;
-		c.weighty = 2.0;
-		drawPanel.setBackground(background);
-		add(drawPanel, c);
 				
 		JScrollPane sp = createCheckBoxTable();
 		
@@ -132,15 +124,25 @@ public class SceneLinksPanel extends JPanel {
 		SceneLinksController controller = new SceneLinksController(this);
 		drawPanel.addMouseListener(controller);
 		drawPanel.addMouseMotionListener(controller);
+
 		
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0;
 		c.gridy = 1;
+		c.fill = GridBagConstraints.BOTH;
+		c.weightx = 2.0;
+		c.weighty = 2.0;
+		drawPanel.setBackground(background);
+		add(drawPanel, c);
+
+		c.gridy = 0;
 		c.weightx = 1.0;
 		c.weighty = 0.1;
 		c.fill = GridBagConstraints.HORIZONTAL;
-
 		sp.setMinimumSize(new Dimension(0, 150));
 		sp.setPreferredSize(new Dimension(100, 150));
 		add(sp, c);
+
 	}
 	
 	/**

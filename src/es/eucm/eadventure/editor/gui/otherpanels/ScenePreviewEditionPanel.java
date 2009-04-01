@@ -236,6 +236,8 @@ public class ScenePreviewEditionPanel extends JPanel {
 
 	private boolean resizeInfluenceArea;
 	
+	private boolean showInfluenceArea = false;
+	
 	/**
 	 * Default constructor
 	 */
@@ -529,6 +531,8 @@ public class ScenePreviewEditionPanel extends JPanel {
 	public void paint(Graphics g) {
 		paintBackBuffer();
 		super.paint(g);
+		if (drawPanel != null)
+			drawPanel.repaint();
 	}
 			
 	/**
@@ -556,7 +560,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 		
 		for (ImageElement imageElement : elementsToDraw) {
 			if (imageElement.isVisible())
-				drawPanel.paintRelativeImage(imageElement.getImage(), imageElement.getX(), imageElement.getY(), imageElement.getScale());
+				drawPanel.paintRelativeImage(imageElement.getImage(), imageElement.getX(), imageElement.getY(), imageElement.getScale(), 1.0f);
 		}
 		
 		if (spec.getUnderMouse() != null) {
@@ -609,8 +613,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 			g.setColor(Color.RED);
 			g.drawRect(x, y, width, height);
 			g.setColor(color);
-			drawPanel.paintRelativeImage(element.getImage(), element.getX(), element.getY(), element.getScale());
-//			g.drawImage(element.getImage(), x, y, width, height, null);
+			drawPanel.paintRelativeImage(element.getImage(), element.getX(), element.getY(), element.getScale(), 0.5f);
 		} else if (border_type == HARD_BORDER) {
 			Color color = g.getColor();
 			g.setColor(Color.RED);
@@ -619,8 +622,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 			g.fillRect(x + width, y, 4, height + 4);
 			g.fillRect(x - 4, y + height, width + 4, 4);
 			g.setColor(color);
-			drawPanel.paintRelativeImage(element.getImage(), element.getX(), element.getY(), element.getScale());
-//			g.drawImage(element.getImage(), x, y, width, height, null);
+			drawPanel.paintRelativeImage(element.getImage(), element.getX(), element.getY(), element.getScale(), 0.5f);
 		} else if (border_type == RESCALE_BORDER) {
 			Color color = g.getColor();
 			g.setColor(Color.GREEN);
@@ -747,23 +749,32 @@ public class ScenePreviewEditionPanel extends JPanel {
 				return selectedElement;
 			}
 		}
+		if (influenceArea != null && selectedElement != null) {
+			if (!isInside(selectedElement, x, y, true) && isInside(influenceArea, x, y, false))
+				return influenceArea;
+		}
 		for (Integer key : movableCategory.keySet()) {
 			if (movableCategory.get(key) && (displayCategory.get(key) != null ? displayCategory.get(key) : false)) {
 				for (ImageElement imageElement : elements.get(key)) {
-					double scale = imageElement.getScale();
-					double width = imageElement.getWidth();
-					double height = imageElement.getHeight();
-					int minX = (int) (imageElement.getX() - width * scale / 2);
-					int minY = (int) (imageElement.getY() - height * scale);
-					int maxX = (int) (minX + width * scale);
-					int maxY = (int) (minY + height * scale);
-					if (x > minX && x < maxX && y > minY && y < maxY && !imageElement.transparentPoint(x - minX, y - minY)) {
+					if (isInside(imageElement, x, y, true))
 						return imageElement;
-					}
 				}
 			}
 		}
 		return null;
+	}
+	
+	private boolean isInside(ImageElement imageElement, int x, int y, boolean checkTransparent) {
+		double scale = imageElement.getScale();
+		double width = imageElement.getWidth();
+		double height = imageElement.getHeight();
+		int minX = (int) (imageElement.getX() - width * scale / 2);
+		int minY = (int) (imageElement.getY() - height * scale);
+		int maxX = (int) (minX + width * scale);
+		int maxY = (int) (minY + height * scale);
+		if (x > minX && x < maxX && y > minY && y < maxY && (!checkTransparent || !imageElement.transparentPoint(x - minX, y - minY)))
+			return true;
+		return false;
 	}
 
 	/**
@@ -831,6 +842,19 @@ public class ScenePreviewEditionPanel extends JPanel {
 		}
 		return null;
 	}
+	
+	private void resetInfluenceArea() {
+		if (showInfluenceArea) {
+			Integer key = new Integer(CATEGORY_INFLUENCEAREA);
+			addCategory(key, true, true);
+			List<ImageElement> list = elements.get(key);
+			list.clear();
+			if (selectedElement != null && selectedElement.getDataControl() instanceof ElementReferenceDataControl) {
+				if (((ElementReferenceDataControl) selectedElement.getDataControl()).getInfluenceArea() != null)
+					addInfluenceArea(((ElementReferenceDataControl) selectedElement.getDataControl()).getInfluenceArea());
+			}
+		}
+	}
 
 	/**
 	 * Changes the current selectedElement created from a ElementReferenceDataControl.
@@ -840,6 +864,8 @@ public class ScenePreviewEditionPanel extends JPanel {
 	 */
 	public void setSelectedElement(ElementReferenceDataControl erdc){
 		this.selectedElement = new ImageElementReference(erdc);
+		recreateTextEditionPanel();
+		resetInfluenceArea();
 	}
 	
 	/**
@@ -849,13 +875,18 @@ public class ScenePreviewEditionPanel extends JPanel {
 	 * 				The new ElementReferenceDataControl
 	 */
 	public void setSelectedElement(DataControl erdc,Image image, SceneDataControl sceneDataControl){
-		if (erdc!=null)
-			this.selectedElement = new ImageElementReference((ElementReferenceDataControl)erdc);
-		else 
+		if (erdc!=null) {
+			if (!(erdc instanceof InfluenceAreaDataControl))
+				this.selectedElement = new ImageElementReference((ElementReferenceDataControl)erdc);
+		} else 
 			this.selectedElement = new ImageElementPlayer(image,sceneDataControl);
+		recreateTextEditionPanel();
+		resetInfluenceArea();
 	}
 	
 	public void setSelectedElement(ImageElement imageElement) {
+		if (imageElement != null && imageElement instanceof ImageElementInfluenceArea)
+			return;
 		this.selectedElement = imageElement;
 		if (elementReferenceSelectionListener != null){
 			if (selectedElement != null)
@@ -864,6 +895,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 				elementReferenceSelectionListener.elementReferenceSelected(-1);
 		}
 		recreateTextEditionPanel();
+		resetInfluenceArea();
 	}
 	
 	public void setSelectedElement(ActiveAreaDataControl activeAreaDataControl) {
@@ -1205,6 +1237,10 @@ public class ScenePreviewEditionPanel extends JPanel {
 	
 	public int getRealY(int mouseY) {
 		return drawPanel.getRealY(mouseY);
+	}
+
+	public void setShowInfluenceArea(boolean b) {
+		this.showInfluenceArea = b;
 	}
 
 }
