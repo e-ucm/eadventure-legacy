@@ -20,17 +20,6 @@ import es.eucm.eadventure.editor.gui.treepanel.nodes.scene.ReferenceListener;
  * Data control for the list of references in the scene
  */
 public class ReferencesListDataControl extends DataControl{
-
-	
-	/**
-	 * Vertical's split panel initial divider location
-	 */
-	public static final int VERTICAL_INITIAL_POSITION = 515;
-	
-	/**
-	 * Horizontal`s split panel initial divider location
-	 */
-	public static final int HORIZONTAL_INITIAL_POSITION = 280;
 	
 	/**
 	 * Player image path
@@ -100,17 +89,7 @@ public class ReferencesListDataControl extends DataControl{
 	 * Tell us if the player image path has been changed
 	 */
 	private boolean imagePathHasChanged;
-	
-	/**
-	 * Vertical's split panel divider location
-	 */
-	private int verticalSplitPosition;
-	
-	/**
-	 * Horizontal's split panel divider location
-	 */
-	private int horizontalSplitPosition;
-	
+		
 	/**
 	 * Constructor.
 	 * 
@@ -131,8 +110,6 @@ public class ReferencesListDataControl extends DataControl{
 		this.playerPositionInAllReferences = NO_PLAYER;
 		this.addNewReferenceListener = null;
 		this.imagePathHasChanged = false;
-		this.horizontalSplitPosition = HORIZONTAL_INITIAL_POSITION;
-		this.verticalSplitPosition = VERTICAL_INITIAL_POSITION;
 		// Check if one of references has layer -1: if it is true, it means that element references has not layer. 
 		// Create subcontrollers
 		itemReferencesDataControlList = new ArrayList<ElementReferenceDataControl>( );
@@ -887,7 +864,6 @@ public class ReferencesListDataControl extends DataControl{
 		this.addNewReferenceListener = anrl;
 	}
 
-	
 	public void changeImagePlayerPath(String imagePath) {
 		this.playerImagePath = imagePath;
 		this.imagePathHasChanged = true;
@@ -895,24 +871,6 @@ public class ReferencesListDataControl extends DataControl{
 			playerPositionInAllReferences=0;
 			reassignLayerAllReferencesDataControl(insertInOrder(new ElementContainer(null,0,AssetsController.getImage( this.playerImagePath )),true));
 		}
-			
-		
-	}
-
-	public int getVerticalSplitPosition() {
-		return verticalSplitPosition;
-	}
-
-	public void setVerticalSplitPosition(int verticalSplitPosition) {
-		this.verticalSplitPosition = verticalSplitPosition;
-	}
-
-	public int getHorizontalSplitPosition() {
-		return horizontalSplitPosition;
-	}
-
-	public void setHorizontalSplitPosition(int horizontalSplitPosition) {
-		this.horizontalSplitPosition = horizontalSplitPosition;
 	}
 
 	@Override

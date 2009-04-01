@@ -255,6 +255,8 @@ public class DrawPanel  extends JPanel {
 	
 	public void repaint() {
 		super.repaint();
+		if (insidePanel != null)
+			insidePanel.repaint();
 	}
 	
 	public void paint(Graphics g) {
@@ -263,9 +265,15 @@ public class DrawPanel  extends JPanel {
 			
 	public Graphics getGraphics() {
 		if (backBuffer == null) {
-			backBuffer = new BufferedImage(insidePanel.getSize().width, insidePanel.getSize().height, BufferedImage.TYPE_4BYTE_ABGR);
-			height = insidePanel.getSize().height;
-			width = insidePanel.getSize().width;
+			int width = insidePanel.getSize().width;
+			if (width < 1)
+				width = 1;
+			int height = insidePanel.getSize().height;
+			if (height < 1)
+				height = 1;
+			backBuffer = new BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR);
+			this.height = height;
+			this.width = width;
 		}
 		return backBuffer.getGraphics();
 	}
@@ -275,7 +283,7 @@ public class DrawPanel  extends JPanel {
 	 */
 	public void paintBackground() {
 		if (background != null) {
-			paintRelativeImage( background, background.getWidth(null)/2, background.getHeight(null), 1);
+			paintRelativeImage( background, background.getWidth(null)/2, background.getHeight(null), 1, 1.0f);
 		} else {
 	    	ImageIcon icon = new ImageIcon("img/icons/noImageFrame.png"); 
 	    	Image image;
@@ -283,7 +291,7 @@ public class DrawPanel  extends JPanel {
 	    		image = icon.getImage();
 	    	else
 	    		image = new BufferedImage(100,120,BufferedImage.TYPE_3BYTE_BGR);
-			paintRelativeImage( image, image.getWidth(null)/2, image.getHeight(null), 1);
+			paintRelativeImage( image, image.getWidth(null)/2, image.getHeight(null), 1, 1.0f);
 		}
 	}
 	
@@ -299,7 +307,7 @@ public class DrawPanel  extends JPanel {
 	 * @param scale
 	 * 			  The scale of the image
 	 */
-	protected void paintRelativeImage(Image image, int x, int y, double scale) {
+	protected void paintRelativeImage(Image image, int x, int y, double scale, float alpha) {
 		if(checkBackBuffer() && image != null) {
 			int width = (int) ( image.getWidth( null ) * sizeRatio );
 			int height = (int) ( image.getHeight( null ) * sizeRatio );
@@ -307,7 +315,13 @@ public class DrawPanel  extends JPanel {
 			int posX = marginX + (int) (x * sizeRatio - width  * scale / 2);
 			int posY = marginY + (int) (y * sizeRatio - height * scale);
 
-			backBuffer.getGraphics().drawImage( image, posX, posY, (int) (width * scale), (int) (height * scale), null );
+			Graphics2D g = (Graphics2D) backBuffer.getGraphics();
+			
+			if (alpha != 1.0f) {
+				AlphaComposite alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
+				g.setComposite(alphaComposite);
+			}
+			g.drawImage( image, posX, posY, (int) (width * scale), (int) (height * scale), null );
 		}
 	}
 

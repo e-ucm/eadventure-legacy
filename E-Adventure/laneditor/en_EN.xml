@@ -1176,7 +1176,8 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="ElementList.Info">Conditions and information </entry>
 	<entry key="ElementList.PlayerDoc">This is the player. For more information, please go to specific node. The initial position will be ignored if trayectories are used, or if in previous scene it was specified destination position.</entry>
 	<entry key="ElementList.Player">Player</entry>
-
+	<entry key="ElementList.Conditions">Conditions</entry>
+	
 	<entry key="ActionsList.Title">Actions</entry>
 	<entry key="ActionsList.ListTitle">List of actions</entry>
 	<entry key="ActionsList.Information">Each item can have attached a set of actions, each one of them having a set of conditions and effects. These actions will be executed when the player interacts with the items.</entry>

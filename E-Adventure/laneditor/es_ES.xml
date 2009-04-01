@@ -1183,6 +1183,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="ElementList.Info">Información y condiciones </entry>
 	<entry key="ElementList.PlayerDoc">Este es el jugador principal del juego. Para mas información, ver el nodo específico del mismo. La posición inicial se ignora si usamos trayectorias, o si desde la escena anterior se especifica una posición de destino. </entry>
 	<entry key="ElementList.Player">Jugador</entry>
+	<entry key="ElementList.Conditions">Condiciones</entry>
 
 
 	<entry key="ActionsList.Title">Acciones</entry>

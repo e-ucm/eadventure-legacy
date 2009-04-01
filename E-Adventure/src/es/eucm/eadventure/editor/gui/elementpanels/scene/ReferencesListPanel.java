@@ -6,7 +6,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -22,19 +21,17 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextPane;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.plaf.basic.BasicSplitPaneDivider;
-import javax.swing.plaf.basic.BasicSplitPaneUI;
 
+import es.eucm.eadventure.common.data.chapter.Trajectory;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementContainer;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
+import es.eucm.eadventure.editor.control.controllers.scene.NodeDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ReferencesListDataControl;
 import es.eucm.eadventure.editor.control.tools.general.MovePlayerLayerInTableTool;
 import es.eucm.eadventure.editor.gui.editdialogs.ConditionsDialog;
@@ -47,6 +44,8 @@ public class ReferencesListPanel extends JPanel{
 	 * Required.
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private static final int HORIZONTAL_SPLIT_POSITION = 140;
 	
 	private JPanel tablePanel;
 	
@@ -62,18 +61,12 @@ public class ReferencesListPanel extends JPanel{
 	
 	private JSplitPane tableWithSplit;
 	
-	private JSplitPane infoWithSpep;
-	
-	private JPanel infoPanel;
-	
 	BasicSplitPaneDivider horizontalDivider;
 	
 	BasicSplitPaneDivider verticalDivider;
 	
 	private ReferencesListDataControl referencesListDataControl;
-	
-	private JTextArea documentationTextArea;
-	
+		
 	/**
 	 * Constructor.
 	 * 
@@ -86,18 +79,7 @@ public class ReferencesListPanel extends JPanel{
 		
 		// Take the path of the background
 		String scenePath = Controller.getInstance( ).getSceneImagePath( referencesListDataControl.getParentSceneId( ) );
-		
-		//Create the infoPanel
-		
-		infoPanel = new JPanel();
-		infoPanel.setLayout(new BorderLayout());
-		JTextPane informationTextPane = new JTextPane( );
-		informationTextPane.setEditable( false );
-		informationTextPane.setBackground( getBackground( ) );
-		informationTextPane.setText( TextConstants.getText( "ElementList.Empty" ));
-		infoPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText("ElementList.Info" ) ) );
-		infoPanel.add( informationTextPane,BorderLayout.CENTER);
-		
+				
 		// Create the scene preview edition panel
 		spep = new ScenePreviewEditionPanel(false, scenePath);
 		spep.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ItemReferencesList.PreviewTitle" ) ) );
@@ -118,155 +100,32 @@ public class ReferencesListPanel extends JPanel{
 				spep.addPlayer(referencesListDataControl.getSceneDataControl(), referencesListDataControl.getPlayerImage());
 		}
 		
-		//Create a split pane with the two panels: info panel and preview panel
-		infoWithSpep = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
-                infoPanel, spep);
-		infoWithSpep.setOneTouchExpandable(true);
-		infoWithSpep.setResizeWeight(0.5);
-		infoWithSpep.setContinuousLayout(true);
-		infoWithSpep.setDividerLocation(referencesListDataControl.getHorizontalSplitPosition());
-		infoWithSpep.setDividerSize(10);
-
-
-		
-		
-	
 		// Add the table which contains the elements in the scene (items, atrezzo and npc) with its layer position
 		createReferencesTablePanel();
 		
 		// set the listener to get the events in the preview panel that implies changes in the table
 		spep.setElementReferenceSelectionListener(table);
+		spep.setShowTextEdition(true);
 		
-		tableWithSplit = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
-                infoWithSpep, tablePanel);
+		if (referencesListDataControl.getSceneDataControl().getTrajectory().hasTrajectory()) {
+			spep.setTrajectory((Trajectory) referencesListDataControl.getSceneDataControl().getTrajectory().getContent());
+			for (NodeDataControl nodeDataControl: referencesListDataControl.getSceneDataControl().getTrajectory().getNodes())
+				spep.addNode(nodeDataControl);
+			spep.setShowInfluenceArea(true);
+		}
+		
+
+		tableWithSplit = new JSplitPane(JSplitPane.VERTICAL_SPLIT, tablePanel, spep);
 		tableWithSplit.setOneTouchExpandable(true);
-		tableWithSplit.setDividerLocation(referencesListDataControl.getVerticalSplitPosition());
+		tableWithSplit.setDividerLocation(HORIZONTAL_SPLIT_POSITION);
 		tableWithSplit.setContinuousLayout(true);
 		tableWithSplit.setResizeWeight(0.5);
 		tableWithSplit.setDividerSize(10);
 	
-		
-
-		
-		
-		GridBagConstraints c = new GridBagConstraints( );
-		c.insets = new Insets( 5, 5, 5, 5 );
-
-		// Create the text area for the documentation
-		c.fill = GridBagConstraints.BOTH;
-		// Set the layout
 		setLayout( new BorderLayout( ) );
 		add(tableWithSplit,BorderLayout.CENTER);
-		
-		horizontalDivider = ((BasicSplitPaneUI)this.infoWithSpep.getUI()).getDivider();
-		
-		verticalDivider = ((BasicSplitPaneUI)this.tableWithSplit.getUI()).getDivider();
-		
-		verticalDivider.addMouseListener(new MouseListener(){
-			public void mouseClicked(MouseEvent e) {}
-			public void mousePressed(MouseEvent e) {}
-			public void mouseReleased(MouseEvent e) {
-				storeDividerPos(e,true);
-				
-
-			}
-			public void mouseEntered(MouseEvent e) {}
-			public void mouseExited(MouseEvent e) {}
-			});
-		
-		horizontalDivider.addMouseListener(new MouseListener(){
-			public void mouseClicked(MouseEvent e) {}
-			public void mousePressed(MouseEvent e) {}
-			public void mouseReleased(MouseEvent e) {
-				storeDividerPos(e,false);
-				
-
-			}
-			public void mouseEntered(MouseEvent e) {}
-			public void mouseExited(MouseEvent e) {}
-			});
 	}
-	
-	public void storeDividerPos(MouseEvent e, boolean choice){
-		Point p = e.getLocationOnScreen();
-		if (!choice)
-				referencesListDataControl.setHorizontalSplitPosition((int)p.getY());
-		else 
-			referencesListDataControl.setVerticalSplitPosition((int)p.getX());
 		
-	}
-	
-	private void prepareInformationPanel(){
-				
-		//Check if the information is abouth the player
-		
-		boolean player = referencesListDataControl.getLastElementContainer().isPlayer();
-		
-		infoPanel.removeAll();
-		// Set the layout
-		infoPanel.setLayout( new GridBagLayout( ) );
-		infoPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ItemReference.Title" ) ) );
-		GridBagConstraints c = new GridBagConstraints( );
-		c.insets = new Insets( 5, 5, 5, 5 );
-
-		
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weightx = 1;
-		JPanel itemIdPanel = new JPanel( );
-		itemIdPanel.setLayout( new GridLayout( ) );
-		JLabel nameElementLabel = null;
-		if (player)
-			
-			nameElementLabel = new JLabel(TextConstants.getText("ElementList.Player"));
-		else 
-			nameElementLabel = new JLabel(referencesListDataControl.getLastElementContainer().getErdc().getElementId( ));
-					
-			itemIdPanel.add(nameElementLabel);
-		
-		itemIdPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ItemReference.ItemId" ) ) );
-		infoPanel.add( itemIdPanel, c );
-
-		// Create the text area for the documentation
-		c.gridy = 1;
-		JPanel documentationPanel = new JPanel( );
-		documentationPanel.setLayout( new GridLayout( ) );
-		JTextPane playerDoc = null;
-		if (player){
-			playerDoc = new JTextPane( );
-			playerDoc.setEditable(false);
-			playerDoc.setBackground( getBackground( ) );
-			playerDoc.setText(TextConstants.getText( "ElementList.PlayerDoc" ));
-			playerDoc.setMinimumSize(new Dimension(0,75));
-		}
-		else{
-			documentationTextArea = new JTextArea( referencesListDataControl.getLastElementContainer().getErdc().getDocumentation( ), 4, 0 );
-			documentationTextArea.setLineWrap( true );
-			documentationTextArea.setWrapStyleWord( true );
-			documentationTextArea.getDocument( ).addDocumentListener( new DocumentationTextAreaChangesListener( ) );
-			documentationTextArea.setMinimumSize(new Dimension(0,100));
-		}
-		if (player)
-			documentationPanel.add(playerDoc);
-		else
-			documentationPanel.add( new JScrollPane( documentationTextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER ) );
-		documentationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ItemReference.Documentation" ) ) );
-		infoPanel.add( documentationPanel, c );
-
-		// Create the button for the conditions
-		if (!player){
-			c.gridy = 2;
-			JPanel conditionsPanel = new JPanel( );
-			conditionsPanel.setLayout( new GridLayout( ) );
-			JButton conditionsButton = new JButton( TextConstants.getText( "GeneralText.EditConditions" ) );
-			conditionsButton.addActionListener( new ConditionsButtonListener( ) );
-			conditionsPanel.add( conditionsButton );
-			conditionsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ItemReference.Conditions" ) ) );
-			infoPanel.add( conditionsPanel, c );
-		}
-		
-	}
-	
-	
 	private void updateSelectedElementReference(){
 		// No valid row is selected
 		if (table.getSelectedRow( )<0 || table.getSelectedRow( )>=referencesListDataControl.getAllReferencesDataControl().size( )){
@@ -276,8 +135,6 @@ public class ReferencesListPanel extends JPanel{
 			informationTextPane.setEditable( false );
 			informationTextPane.setBackground( getBackground( ) );
 			informationTextPane.setText( TextConstants.getText( "ElementList.Empty" ));
-			infoPanel.setLayout(new BorderLayout());
-			infoPanel.add( informationTextPane, BorderLayout.CENTER);
 			
 			//Disable delete button
 			deleteButton.setEnabled( false );
@@ -293,7 +150,6 @@ public class ReferencesListPanel extends JPanel{
 			referencesListDataControl.setLastElementContainer(elementContainer);
 			spep.setSelectedElement(elementContainer.getErdc(),elementContainer.getImage(),referencesListDataControl.getSceneDataControl());
 			spep.repaint();
-			prepareInformationPanel();
 			// Enable delete button
 			if (elementContainer.isPlayer())
 				deleteButton.setEnabled( false );
@@ -325,14 +181,6 @@ public class ReferencesListPanel extends JPanel{
 		layerTextPane.setText( TextConstants.getText( "ItemReferenceTable.LayerExplanation" ));
 		
 		infPanel.add(layerTextPane,c);
-		// Create the info panel (NORTH)
-		JTextPane informationTextPane = new JTextPane( );
-		informationTextPane.setEditable( false );
-		informationTextPane.setBackground( getBackground( ) );
-		informationTextPane.setText( TextConstants.getText( "ItemReferenceTable.ListDescription" , Integer.toString( referencesListDataControl.getAllReferencesDataControl().size()) ));
-		
-		c.gridy = 1;
-		infPanel.add( informationTextPane,c);
 		
 		tablePanel.add(infPanel,BorderLayout.NORTH);
 		
@@ -422,7 +270,7 @@ public class ReferencesListPanel extends JPanel{
 		
 		
 		tablePanel.add( buttonsPanel,BorderLayout.SOUTH);
-		tablePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ItemReferenceTable.TableBorder" ) ) );
+//		tablePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ItemReferenceTable.TableBorder" ) ) );
 	
 	
 	}
@@ -567,88 +415,23 @@ public class ReferencesListPanel extends JPanel{
 			this.type = type;
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-		 */
 		public void actionPerformed( ActionEvent e ) {
 			
-			// var for keep the scene preview type of the new element reference
 			int category;
-			
 			if (referencesListDataControl.addElement( type, null )){
-				
 				category = transformType(type);
 	
 				if (category!=0&&referencesListDataControl.getLastElementContainer()!=null){
-				// it is not necessary to check if it is an player element container because never a player will be added
-				spep.addElement(category, referencesListDataControl.getLastElementContainer().getErdc());
-				spep.setSelectedElement(referencesListDataControl.getLastElementContainer().getErdc());
-				spep.repaint();
-				int layer = referencesListDataControl.getLastElementContainer().getErdc().getElementReference().getLayer();
-				table.getSelectionModel().setSelectionInterval(layer, layer);
-				table.updateUI( );
+					// it is not necessary to check if it is an player element container because never a player will be added
+					spep.addElement(category, referencesListDataControl.getLastElementContainer().getErdc());
+					spep.setSelectedElement(referencesListDataControl.getLastElementContainer().getErdc());
+					spep.repaint();
+					int layer = referencesListDataControl.getLastElementContainer().getErdc().getElementReference().getLayer();
+					table.getSelectionModel().setSelectionInterval(layer, layer);
+					table.updateUI( );
 				}
 			}
 		}
 	}
-	
-	
-	/**
-	 * Listener for the text area. It checks the value of the area and updates the documentation.
-	 */
-	private class DocumentationTextAreaChangesListener implements DocumentListener {
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.event.DocumentListener#changedUpdate(javax.swing.event.DocumentEvent)
-		 */
-		public void changedUpdate( DocumentEvent arg0 ) {
-		// Do nothing
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.event.DocumentListener#insertUpdate(javax.swing.event.DocumentEvent)
-		 */
-		public void insertUpdate( DocumentEvent arg0 ) {
-			// Set the new content
-			referencesListDataControl.getLastElementContainer().getErdc().setDocumentation( documentationTextArea.getText( ) );
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.event.DocumentListener#removeUpdate(javax.swing.event.DocumentEvent)
-		 */
-		public void removeUpdate( DocumentEvent arg0 ) {
-			// Set the new content
-			referencesListDataControl.getLastElementContainer().getErdc().setDocumentation( documentationTextArea.getText( ) );
-		}
-	}
-	
-	/**
-	 * Listener for the edit conditions button.
-	 */
-	private class ConditionsButtonListener implements ActionListener {
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-		 */
-		public void actionPerformed( ActionEvent e ) {
-			//TODO check player compatibility
-			new ConditionsDialog( referencesListDataControl.getLastElementContainer().getErdc().getConditions( ) );
-		}
-	}
-
-	
-
-
-
 	
 }
