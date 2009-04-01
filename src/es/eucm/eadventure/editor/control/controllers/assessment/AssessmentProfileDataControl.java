@@ -42,7 +42,7 @@ public class AssessmentProfileDataControl extends DataControl{
 	}
 	
 	public String getFileName(){
-		return profile.getPath().substring( Math.max( profile.getPath().lastIndexOf( "/" ), profile.getPath().lastIndexOf( "\\" ) )+1);
+		return profile.getName().substring( Math.max( profile.getName().lastIndexOf( "/" ), profile.getName().lastIndexOf( "\\" ) )+1);
 	}
 
 	
@@ -197,8 +197,8 @@ public class AssessmentProfileDataControl extends DataControl{
 	public String renameElement( String name ) {
 		boolean renamed = false;
 		String oldName = null;
-		if (this.profile.getPath() != null) {
-			String[] temp = this.profile.getPath().split("/");
+		if (this.profile.getName() != null) {
+			String[] temp = this.profile.getName().split("/");
 			oldName = temp[temp.length - 1]; 
 		}
 
@@ -210,7 +210,7 @@ public class AssessmentProfileDataControl extends DataControl{
 			String fileName = name;
 			if (name == null)
 				fileName = controller.showInputDialog( TextConstants.getText( "Operation.RenameAssessmentFile.FileName" ), TextConstants.getText( "Operation.RenameAssessmentFile.FileName.Message" ), getFileName() );
-			if (fileName!=null && !fileName.equals( profile.getPath().substring( profile.getPath().lastIndexOf( "/" ) + 1 ) )){
+			if (fileName!=null && !fileName.equals( profile.getName().substring( profile.getName().lastIndexOf( "/" ) + 1 ) )){
 				if (fileName.contains( "/") || fileName.contains( "\\" )){
 					controller.showErrorDialog( TextConstants.getText( "Operation.RenameXMLFile.ErrorSlash" ), TextConstants.getText( "Operation.RenameXMLFile.ErrorSlash.Message" ) );
 					return null;
@@ -225,10 +225,10 @@ public class AssessmentProfileDataControl extends DataControl{
 				}
 				
 				//Checks if the file exists. In that case, ask to overwrite it
-						File assessmentFile = new File (Controller.getInstance( ).getProjectFolder( ), profile.getPath() );
+						File assessmentFile = new File (Controller.getInstance( ).getProjectFolder( ), profile.getName() );
 						renamed = assessmentFile.renameTo( new File(Controller.getInstance( ).getProjectFolder( ), AssetsController.getCategoryFolder( AssetsController.CATEGORY_ASSESSMENT ) +"/"+fileName) );
 						//controller.dataModified( );
-						profile.setPath( AssetsController.getCategoryFolder( AssetsController.CATEGORY_ASSESSMENT ) +"/"+fileName );
+						profile.setName( AssetsController.getCategoryFolder( AssetsController.CATEGORY_ASSESSMENT ) +"/"+fileName );
 			}
 			
 		}
@@ -276,7 +276,7 @@ public class AssessmentProfileDataControl extends DataControl{
 	 * @return the path
 	 */
 	public String getPath( ) {
-		return profile.getPath();
+		return profile.getName();
 	}
 
 	@Override

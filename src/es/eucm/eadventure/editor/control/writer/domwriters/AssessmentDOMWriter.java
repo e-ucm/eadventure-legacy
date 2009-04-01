@@ -31,19 +31,14 @@ public class AssessmentDOMWriter {
 	 *            Chapter data to be written
 	 * @return DOM element with the chapter data
 	 */
-	public static Node buildDOM( AssessmentProfile profile ) {
+	public static Element buildDOM( AssessmentProfile profile, Document doc ) {
 		List<AssessmentRule> rules = profile.getRules();
 		
 		Element assessmentNode = null;
 
-		try {
-			// Create the necessary elements to create the DOM
-			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance( );
-			DocumentBuilder db = dbf.newDocumentBuilder( );
-			Document doc = db.newDocument( );
-
+			
 			// Create the root node
-			assessmentNode = doc.createElement( "assessment-rules" );
+			assessmentNode = doc.createElement( "assessment" );
 			if ( profile.isShowReportAtEnd() ){
 				assessmentNode.setAttribute("show-report-at-end", "yes");
 			} else {
@@ -69,6 +64,8 @@ public class AssessmentDOMWriter {
 			}else {
 				assessmentNode.setAttribute("scorm2004","no");
 			}
+			//add the profile's name
+			assessmentNode.setAttribute("name",profile.getName());
 			
 			
 			Element smtpConfigNode = doc.createElement("smtp-config");
@@ -115,7 +112,7 @@ public class AssessmentDOMWriter {
 					// Create effects
 					for (int i=0; i<tRule.getEffectsCount( ); i++){
 						//Create effect element and append it
-						Element effectNode = doc.createElement( "effect" );
+						Element effectNode = doc.createElement( "assessEffect" );
 						
 						// Append time attributes
 						effectNode.setAttribute( "time-min", Integer.toString( tRule.getMinTime( i ) ) );
@@ -163,7 +160,7 @@ public class AssessmentDOMWriter {
 					}
 	
 					//Create effect element and append it
-					Node effectNode = doc.createElement( "effect" );
+					Node effectNode = doc.createElement( "assessEffect" );
 					//Append set-text when appropriate
 					if (rule.getText( )!= null && !rule.getText( ).equals( "" )){
 						Node textNode = doc.createElement( "set-text" );
@@ -187,9 +184,7 @@ public class AssessmentDOMWriter {
 			}
 
 
-		} catch( ParserConfigurationException e ) {
-        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
-		}
+		
 
 		return assessmentNode;
 	}

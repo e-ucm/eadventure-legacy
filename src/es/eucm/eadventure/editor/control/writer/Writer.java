@@ -194,17 +194,6 @@ public class Writer {
 			// Add the special asset files
 			AssetsController.addSpecialAssets( );
 
-			/** ******* START WRITING THE ADAPTATION FILES ***** */
-			for (AdaptationProfileDataControl profile : adventureData.getAdaptationRulesListDataControl( ).getProfiles( )){
-				Writer.writeAdaptationData( zipFilename, profile, true );
-			}
-			/** *******  END WRITING THE ADAPTATION FILES  ***** */
-			
-			/** ******* START WRITING THE ASSESSMENT FILES ***** */
-			for (AssessmentProfileDataControl profile : adventureData.getAssessmentRulesListDataControl( ).getProfiles( )){
-				Writer.writeAssessmentData( zipFilename, profile, true );
-			}
-			/** *******  END WRITING THE ASSESSMENT FILES  ***** */
 			
 			/** ******* START WRITING THE DESCRIPTOR ********* */
 			// Pick the main node for the descriptor
@@ -228,11 +217,26 @@ public class Writer {
 
 			/** ******* START WRITING THE CHAPTERS ********* */
 			// Write every chapter
+			
+			
 			int chapterIndex = 1;
 			for( Chapter chapter : adventureData.getChapters( ) ) {
 
+			    	doc = db.newDocument( );
 				// Pick the main node of the chapter
-				mainNode = ChapterDOMWriter.buildDOM( chapter, zipFilename );
+				mainNode = ChapterDOMWriter.buildDOM( chapter, zipFilename ,doc);
+				/** ******* START WRITING THE ADAPTATION DATA ***** */
+				for (AdaptationProfile profile : chapter.getAdaptationProfiles()){
+					mainNode.appendChild(Writer.writeAdaptationData( profile, true,doc ));
+				}
+				/** *******  END WRITING THE ADAPTATION DATA  ***** */
+				
+				/** ******* START WRITING THE ASSESSMENT DATA ***** */
+				for (AssessmentProfile profile : chapter.getAssessmentProfiles()){
+				    mainNode.appendChild(Writer.writeAssessmentData( profile, true ,doc));
+				}
+				/** *******  END WRITING THE ASSESSMENT DATA  ***** */
+				
 				indentDOM( mainNode, 0 );
 				doc = db.newDocument( );
 				doc.adoptNode( mainNode );
@@ -272,33 +276,34 @@ public class Writer {
 		return dataSaved;
 	}
 	
-	public static boolean writeAssessmentData( String zipFilename, AssessmentProfileDataControl controller, boolean valid ) {
-		/********************* STORE ASSESSMENT FILE WHEN PRESENT *******************/
-		boolean dataSaved=false;
-		if (controller.getPath( )!= null && !controller.getPath( ).equals( "" ) && new File(zipFilename, controller.getPath( )).exists()){
+	public static Element writeAssessmentData(/* String zipFilename,*/ AssessmentProfile profile, boolean valid, Document doc ) {
+		/********************* STORE ASSESSMENT DATA WHEN PRESENT *******************/
+		//boolean dataSaved=false;
+	    	Element assNode = null;
+	    	if (profile.getName( )!= null && !profile.getName( ).equals( "" ) /*&& new File(zipFilename, controller.getPath( )).exists()*/){
 		
 		// Create the necessary elements for building the DOM
-		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance( );
+		/*DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance( );
 		TransformerFactory tFactory = TransformerFactory.newInstance( );
 		DocumentBuilder db=null;
-		Document doc = null;
+		/*Document doc = null;
 		Transformer transformer = null;
 		OutputStream fout = null;
-		OutputStreamWriter writeFile = null;
-
-		try {
-			db = dbf.newDocumentBuilder( );
+		OutputStreamWriter writeFile = null;*/
+		
+		//try {
+			//db = dbf.newDocumentBuilder( );
 		
 			// Pick the main node of the chapter
-			Node assNode = AssessmentDOMWriter.buildDOM( (AssessmentProfile)controller.getContent( ) );
-			indentDOM( assNode, 0 );
+			assNode = AssessmentDOMWriter.buildDOM( profile , doc);
+			/*indentDOM( assNode, 0 );
 			
 			doc = db.newDocument( );
 			doc.adoptNode( assNode );
 			doc.appendChild( assNode );
-
+			*/
 			// Create the necessary elements for export the DOM into a XML file
-			transformer = tFactory.newTransformer( );
+			/*transformer = tFactory.newTransformer( );
 			transformer.setOutputProperty( OutputKeys.DOCTYPE_SYSTEM, "assessment.dtd" );
 
 			// 	Create the output buffer, write the DOM and close it
@@ -306,11 +311,11 @@ public class Writer {
 			writeFile = new OutputStreamWriter( fout, "UTF-8" );
 			transformer.transform( new DOMSource( doc ), new StreamResult( writeFile ) );
 			writeFile.close( );
-			fout.close( );
-			dataSaved=true;
-		} catch( ParserConfigurationException e ) {
+			fout.close( );*/
+		//	dataSaved=true;
+		/*} catch( ParserConfigurationException e ) {
         	ReportDialog.GenerateErrorReport(e, true, "UNKNOWNERROR");
-		} catch( TransformerConfigurationException e ) {
+		}/* catch( TransformerConfigurationException e ) {
         	ReportDialog.GenerateErrorReport(e, true, "UNKNOWNERROR");
 		} catch( UnsupportedEncodingException e ) {
         	ReportDialog.GenerateErrorReport(e, true, "UNKNOWNERROR");
@@ -320,69 +325,76 @@ public class Writer {
         	ReportDialog.GenerateErrorReport(e, true, "UNKNOWNERROR");
 		} catch( IOException e ) {
         	ReportDialog.GenerateErrorReport(e, true, "UNKNOWNERROR");
+		}*/
 		}
-		}
-		return dataSaved;
+		return assNode;
 	}
 	
-	public static boolean writeAdaptationData( String zipFilename, AdaptationProfileDataControl controller, boolean valid ) {
-		/********************* STORE ASSESSMENT FILE WHEN PRESENT *******************/
-		boolean dataSaved=false;
-		if (controller.getPath( )!= null && !controller.getPath( ).equals( "" )&& new File(zipFilename, controller.getPath( )).exists()){
+	public static Element writeAdaptationData(/* String zipFilename,*/ AdaptationProfile profile, boolean valid, Document doc ) {
+		/********************* STORE ASSESSMENT DATA WHEN PRESENT *******************/
 		
-		List<AdaptationRule> rules = ((AdaptationProfile)controller.getContent( )).getRules();
-		AdaptedState initialState = controller.getInitialState( );
+	    	Element adpNode = null;
+	    	// take the name of the profile
+		String name = profile.getName();
+		if (name!= null && !profile.getName( ).equals( "" )/*&& new File(zipFilename, controller.getPath( )).exists()*/){
+		
+		List<AdaptationRule> rules = profile.getRules();
+		AdaptedState initialState = profile.getInitialState( );
 		
 		// check if it is an scorm profile
-		boolean scorm2004 =((AdaptationProfile)controller.getContent( )).isScorm2004();
-		boolean scorm12  = ((AdaptationProfile)controller.getContent( )).isScorm12();
+		boolean scorm2004 =profile.isScorm2004();
+		boolean scorm12  = profile.isScorm12();
+		
 		
 		// Create the necessary elements for building the DOM
-		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance( );
+		/*DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance( );
 		TransformerFactory tFactory = TransformerFactory.newInstance( );
 		DocumentBuilder db=null;
 		Document doc = null;
 		Transformer transformer = null;
 		OutputStream fout = null;
 		OutputStreamWriter writeFile = null;
-
-		try {
-			db = dbf.newDocumentBuilder( );
+		*/
+		//try {
+			//db = dbf.newDocumentBuilder( );
 		
 			// Pick the main node of the chapter
-			Node adpNode = AdaptationDOMWriter.buildDOM( rules, initialState,scorm12,scorm2004 );
-			indentDOM( adpNode, 0 );
+			adpNode = AdaptationDOMWriter.buildDOM( rules, initialState,scorm12,scorm2004,name,doc );
+			/*indentDOM( adpNode, 0 );
 			
 			doc = db.newDocument( );
 			doc.adoptNode( adpNode );
 			doc.appendChild( adpNode );
 
 			// Create the necessary elements for export the DOM into a XML file
-			transformer = tFactory.newTransformer( );
+			/*transformer = tFactory.newTransformer( );
 			transformer.setOutputProperty( OutputKeys.DOCTYPE_SYSTEM, "adaptation.dtd" );
-
+			*/
+			
 			// 	Create the output buffer, write the DOM and close it
-			fout = new FileOutputStream( zipFilename + "/"+controller.getPath( ) );
+			/*fout = new FileOutputStream( zipFilename + "/"+controller.getPath( ) );
 			writeFile = new OutputStreamWriter( fout, "UTF-8" );
 			transformer.transform( new DOMSource( doc ), new StreamResult( writeFile ) );
 			writeFile.close( );
-			fout.close( );
-			dataSaved=true;
-		} catch( ParserConfigurationException e ) {
+			fout.close( );*/
+			
+			//dataSaved=true;
+			
+		/*} catch( ParserConfigurationException e ) {
         	ReportDialog.GenerateErrorReport(e, true, "UNKNOWNERROR");
-		} catch( TransformerConfigurationException e ) {
+		}/* catch( TransformerConfigurationException e ) {
         	ReportDialog.GenerateErrorReport(e, true, "UNKNOWNERROR");
-		} catch( UnsupportedEncodingException e ) {
+		}catch( UnsupportedEncodingException e ) {
         	ReportDialog.GenerateErrorReport(e, true, "UNKNOWNERROR");
 		} catch( TransformerException e ) {
         	ReportDialog.GenerateErrorReport(e, true, "UNKNOWNERROR");
-		} catch( FileNotFoundException e ) {
+		} /*catch( FileNotFoundException e ) {
         	ReportDialog.GenerateErrorReport(e, true, "UNKNOWNERROR");
 		} catch( IOException e ) {
         	ReportDialog.GenerateErrorReport(e, true, "UNKNOWNERROR");
+		}*/
 		}
-		}
-		return dataSaved;
+		return adpNode;
 	}
 
 	

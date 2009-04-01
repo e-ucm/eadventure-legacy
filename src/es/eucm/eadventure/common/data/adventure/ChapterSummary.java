@@ -1,7 +1,12 @@
 package es.eucm.eadventure.common.data.adventure;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import es.eucm.eadventure.common.data.Described;
 import es.eucm.eadventure.common.data.Titled;
+import es.eucm.eadventure.common.data.adaptation.AdaptationProfile;
+import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
 
 /**
  * Basically this class represents a chapter entry in the descriptor file.
@@ -23,19 +28,37 @@ public class ChapterSummary implements Cloneable, Titled, Described {
 	private String description;
 
 	/**
-	 * Adaptation file's path, if there is any.
+	 * Adaptation profile's name, if there is any.
 	 */
-	private String adaptationPath;
+	// this attribute isn't in descriptor, now is in chapter.xml, as "eAdventure" element attribute.
+	// don't move to "Chapter" class for no get it dirty.
+	// to support the past versions, this attribute will fill with the path of adaptation file when open a previous version game
+	// once open, the editor make the pertinent changes to store that data in chapter.xml
+	private String adaptationName;
 
 	/**
-	 * Assessment file's path, if there is any.
+	 * Assessment profile's name, if there is any.
 	 */
-	private String assessmentPath;
+	// this attribute isn't in descriptor, now is in chapter.xml, as "eAdventure" element attribute.
+	// don't move to "Chapter" class for no get it dirty.
+	// to support the past versions, this attribute will fill with the path of assessment file when open a previous version game
+	// once open, the editor make the pertinent changes to store that data in chapter.xml
+	private String assessmentName;
+	
+	/**
+	 * List of assessment profiles in chapter. 
+	 */
+	protected List<AssessmentProfile> assessmentProfiles;
+
+	/**
+	 * List of adaptation profiles in chapter. 
+	 */
+	protected List<AdaptationProfile> adaptationProfiles;
 	
 	/**
 	 * Relative path to the zip where it was contained. Used for replacing 
 	 */
-	private String name;
+	private String path;
 	
 	/**
 	 * Empty constructor. Sets values to null or blank
@@ -43,8 +66,10 @@ public class ChapterSummary implements Cloneable, Titled, Described {
 	public ChapterSummary( ) {
 		title = null;
 		description = "";
-		adaptationPath = "";
-		assessmentPath = "";
+		adaptationName = "";
+		assessmentName = "";
+		assessmentProfiles = new ArrayList<AssessmentProfile>();
+		adaptationProfiles = new ArrayList<AdaptationProfile>();
 	}
 	
 	/**
@@ -77,21 +102,21 @@ public class ChapterSummary implements Cloneable, Titled, Described {
 	}
 
 	/**
-	 * Returns the path of the adaptation file.
+	 * Returns the name of the adaptation file.
 	 * 
-	 * @return the path of the adaptation file
+	 * @return the name of the adaptation file
 	 */
-	public String getAdaptationPath( ) {
-		return adaptationPath;
+	public String getAdaptationName( ) {
+		return adaptationName;
 	}
 
 	/**
-	 * Returns the path of the assessment file.
+	 * Returns the name of the assessment file.
 	 * 
-	 * @return the path of the assessment file
+	 * @return the name of the assessment file
 	 */
-	public String getAssessmentPath( ) {
-		return assessmentPath;
+	public String getAssessmentName( ) {
+		return assessmentName;
 	}
 	
 	/**
@@ -115,37 +140,37 @@ public class ChapterSummary implements Cloneable, Titled, Described {
 	}
 
 	/**
-	 * Changes the path of the adaptation file.
+	 * Changes the name of the adaptation file.
 	 * 
-	 * @param adaptationPath
-	 *            the new path of the adaptation file
+	 * @param adaptationName
+	 *            the new name of the adaptation file
 	 */
-	public void setAdaptationPath( String adaptationPath ) {
-		this.adaptationPath = adaptationPath;
+	public void setAdaptationName( String adaptationName ) {
+		this.adaptationName = adaptationName;
 	}
 
 	/**
-	 * Changes the path of the assessment file.
+	 * Changes the name of the assessment file.
 	 * 
-	 * @param assessmentPath
-	 *            the new path of the assessment file
+	 * @param assessmentName
+	 *            the new name of the assessment file
 	 */
-	public void setAssessmentPath( String assessmentPath ) {
-		this.assessmentPath = assessmentPath;
+	public void setAssessmentName( String assessmentName ) {
+		this.assessmentName = assessmentName;
 	}
 	
 	/**
-	 * @return the name
+	 * @return the path of the capt
 	 */
-	public String getName( ) {
-		return name;
+	public String getChapterPath( ) {
+		return path;
 	}
 
 	/**
-	 * @param name the name to set
+	 * @param path the path to set
 	 */
-	public void setName( String name ) {
-		this.name = name;
+	public void setChapterPath( String path ) {
+		this.path = path;
 	}
 
 	/**
@@ -153,7 +178,7 @@ public class ChapterSummary implements Cloneable, Titled, Described {
 	 * @return
 	 */
 	public boolean hasAssessmentProfile() {
-		return this.assessmentPath!=null && !this.assessmentPath.equals("");
+		return this.assessmentName!=null && !this.assessmentName.equals("");
 	}
 	
 	/**
@@ -161,17 +186,52 @@ public class ChapterSummary implements Cloneable, Titled, Described {
 	 * @return
 	 */
 	public boolean hasAdaptationProfile() {
-		return this.adaptationPath!=null && !this.adaptationPath.equals("");
+		return this.adaptationName!=null && !this.adaptationName.equals("");
+	}
+	
+	/**
+	 * Adds new assessment profile
+	 * 
+	 * @param assessProfile
+	 * 		the new assessment profile to add
+	 */
+	public void addAssessmentProfile(AssessmentProfile assessProfile){
+	    assessmentProfiles.add(assessProfile);
+	}
+	
+	/**
+	 * Adds new adaptation profile
+	 * 
+	 * @param adaptProfile
+	 * 		the new assessment profile to add
+	 */
+	public void addAdaptationProfile(AdaptationProfile adaptProfile){
+	    adaptationProfiles.add(adaptProfile);
 	}
 	
 	public Object clone() throws CloneNotSupportedException {
 		ChapterSummary cs = (ChapterSummary) super.clone();
-		cs.adaptationPath = (adaptationPath != null ? new String(adaptationPath) : null);
-		cs.assessmentPath = (assessmentPath != null ? new String(assessmentPath) : null);
+		cs.adaptationName = (adaptationName != null ? new String(adaptationName) : null);
+		cs.assessmentName = (assessmentName != null ? new String(assessmentName) : null);
 		cs.description = (description != null ? new String(description) : null);
-		cs.name = (name != null ? new String(name) : null);
+		cs.path = (path != null ? new String(path) : null);
 		cs.title = (title != null ? new String(title) : null);
-		
+		cs.adaptationProfiles = (adaptationProfiles!=null?new ArrayList<AdaptationProfile>():null);
+		cs.assessmentProfiles = (assessmentProfiles!=null?new ArrayList<AssessmentProfile>():null);
 		return cs;
+	}
+
+	/**
+	 * @return the assessmentProfiles
+	 */
+	public List<AssessmentProfile> getAssessmentProfiles() {
+	    return assessmentProfiles;
+	}
+
+	/**
+	 * @return the adaptationProfiles
+	 */
+	public List<AdaptationProfile> getAdaptationProfiles() {
+	    return adaptationProfiles;
 	}
 }

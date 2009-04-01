@@ -223,13 +223,12 @@ public class ChapterListDataControl {
 	public boolean hasScorm12Profiles( AdventureDataControl adventureData ){
 		boolean hasProfiles = true;
 		for ( ChapterDataControl dataControl: chapterDataControlList ){
-			Chapter chapter = (Chapter)dataControl.getContent();
-			if (chapter.hasAdaptationProfile()){
-				AdaptationProfileDataControl adpProfile = adventureData.getAdaptationRulesListDataControl().getProfileByPath( chapter.getAdaptationPath() );
+			if (dataControl.hasAdaptationProfile()){
+				AdaptationProfileDataControl adpProfile = dataControl.getSelectedAdaptationProfile();
 				hasProfiles &=adpProfile.isScorm12();
 			}
-			if (chapter.hasAssessmentProfile()){
-				AssessmentProfileDataControl assessmentProfile = adventureData.getAssessmentRulesListDataControl().getProfileByPath( chapter.getAssessmentPath() );
+			if (dataControl.hasAssessmentProfile()){
+				AssessmentProfileDataControl assessmentProfile = dataControl.getSelectedAssessmentProfile();
 				hasProfiles &=assessmentProfile.isScorm12();
 			}
 		}
@@ -239,13 +238,12 @@ public class ChapterListDataControl {
 	public boolean hasScorm2004Profiles( AdventureDataControl adventureData ){
 		boolean hasProfiles = true;
 		for ( ChapterDataControl dataControl: chapterDataControlList ){
-			Chapter chapter = (Chapter)dataControl.getContent();
-			if (chapter.hasAdaptationProfile()){
-				AdaptationProfileDataControl adpProfile = adventureData.getAdaptationRulesListDataControl().getProfileByPath( chapter.getAdaptationPath() );
+			if (dataControl.hasAdaptationProfile()){
+				AdaptationProfileDataControl adpProfile = dataControl.getSelectedAdaptationProfile();
 				hasProfiles &=adpProfile.isScorm2004();
 			}
-			if (chapter.hasAssessmentProfile()){
-				AssessmentProfileDataControl assessmentProfile = adventureData.getAssessmentRulesListDataControl().getProfileByPath( chapter.getAssessmentPath() );
+			if (dataControl.hasAssessmentProfile()){
+				AssessmentProfileDataControl assessmentProfile = dataControl.getSelectedAssessmentProfile();
 				hasProfiles &=assessmentProfile.isScorm2004();
 			}
 		}

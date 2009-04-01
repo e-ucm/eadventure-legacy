@@ -153,7 +153,7 @@ public class ChapterPanel extends JPanel {
 		c2.gridx = 1;
 		c2.fill = GridBagConstraints.HORIZONTAL;
 		c2.weightx = 1;
-		assessmentPathTextField = new JTextField( chapterDataControl.getAssessmentPath( ) );
+		assessmentPathTextField = new JTextField( chapterDataControl.getAssessmentName( ) );
 		assessmentPathTextField.setEditable( false );
 		assessmentPathPanel.add( assessmentPathTextField, c2 );
 
@@ -192,7 +192,7 @@ public class ChapterPanel extends JPanel {
 		c2.gridx = 1;
 		c2.fill = GridBagConstraints.HORIZONTAL;
 		c2.weightx = 1;
-		adaptationPathTextField = new JTextField( chapterDataControl.getAdaptationPath( ) );
+		adaptationPathTextField = new JTextField( chapterDataControl.getAdaptationName( ) );
 		adaptationPathTextField.setEditable( false );
 		adaptationPathPanel.add( adaptationPathTextField, c2 );
 
@@ -242,14 +242,14 @@ public class ChapterPanel extends JPanel {
 			if( e.getSource( ).equals( selectAssessmentButton ) ) {
 				// Ask the user for an assessment file
 				chapterDataControl.setAssessmentPath( );
-				assessmentPathTextField.setText( chapterDataControl.getAssessmentPath( ) );
+				assessmentPathTextField.setText( chapterDataControl.getAssessmentName( ) );
 			}
 
 			// Select adaptation file button
 			else if( e.getSource( ).equals( selectAdaptationButton ) ) {
 				// Ask the user for an adaptation file
 				chapterDataControl.setAdaptationPath( );
-				adaptationPathTextField.setText( chapterDataControl.getAdaptationPath( ) );
+				adaptationPathTextField.setText( chapterDataControl.getAdaptationName( ) );
 			}
 
 			// Delete assessment file button

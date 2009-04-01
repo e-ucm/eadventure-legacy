@@ -2,11 +2,16 @@ package es.eucm.eadventure.editor.control.controllers.general;
 
 import java.util.List;
 
+import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfileDataControl;
+import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfilesDataControl;
+import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfileDataControl;
+import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfilesDataControl;
 import es.eucm.eadventure.editor.control.controllers.atrezzo.AtrezzoListDataControl;
 import es.eucm.eadventure.editor.control.controllers.book.BooksListDataControl;
 import es.eucm.eadventure.editor.control.controllers.character.NPCsListDataControl;
@@ -92,6 +97,16 @@ public class ChapterDataControl extends DataControl {
 	 */
 	private MacroListDataControl macrosListDataControl;
 
+	/**
+	 * Assessment file data controller
+	 */
+	private AssessmentProfilesDataControl assessmentProfilesDataControl;
+	
+	/**
+	 * Adaptation file data controller
+	 */
+	private AdaptationProfilesDataControl adaptationProfilesDataControl;
+
 	
 	/**
 	 * Constructor.
@@ -123,6 +138,8 @@ public class ChapterDataControl extends DataControl {
 		timersListDataControl = new TimersListDataControl( chapter.getTimers( ) );
 		globalStatesListDataControl = new GlobalStateListDataControl( chapter.getGlobalStates() );
 		macrosListDataControl = new MacroListDataControl ( chapter.getMacros( ) );		
+		assessmentProfilesDataControl = new AssessmentProfilesDataControl(chapter.getAssessmentProfiles());
+		adaptationProfilesDataControl = new AdaptationProfilesDataControl(chapter.getAdaptationProfiles());
 	}
 
 	/**
@@ -144,21 +161,21 @@ public class ChapterDataControl extends DataControl {
 	}
 
 	/**
-	 * Returns the relative path to the assessment file of the chapter.
+	 * Returns the name to the assessment profile of the chapter.
 	 * 
-	 * @return Relative path to the assessment file of the chapter
+	 * @return Name to the assessment profile of the chapter
 	 */
-	public String getAssessmentPath( ) {
-		return chapter.getAssessmentPath( );
+	public String getAssessmentName( ) {
+		return chapter.getAssessmentName( );
 	}
 
 	/**
-	 * Returns the relative path to the adaptation file of the chapter.
+	 * Returns the name to the adaptation profile of the chapter.
 	 * 
-	 * @return Relative path to the adaptation file of the chapter
+	 * @return Name to the adaptation profile of the chapter
 	 */
-	public String getAdaptationPath( ) {
-		return chapter.getAdaptationPath( );
+	public String getAdaptationName( ) {
+		return chapter.getAdaptationName( );
 	}
 
 	/**
@@ -401,7 +418,9 @@ public class ChapterDataControl extends DataControl {
 		valid &= timersListDataControl.isValid( currentPath, incidences );
 		valid &= globalStatesListDataControl.isValid( currentPath, incidences );
 		valid &= macrosListDataControl.isValid( currentPath, incidences );
-
+		valid &= adaptationProfilesDataControl.isValid( currentPath, incidences );
+		valid &= assessmentProfilesDataControl.isValid( currentPath, incidences );
+		
 		return valid;
 	}
 
@@ -410,9 +429,9 @@ public class ChapterDataControl extends DataControl {
 		int count = 0;
 
 		// Add the references from the assessment and adaptation files
-		if( getAssessmentPath( ).equals( assetPath ) )
+		if( getAssessmentName( ).equals( assetPath ) )
 			count++;
-		if( getAdaptationPath( ).equals( assetPath ) )
+		if( getAdaptationName( ).equals( assetPath ) )
 			count++;
 
 		// Add the references from the elements
@@ -434,8 +453,8 @@ public class ChapterDataControl extends DataControl {
 	@Override
 	public void getAssetReferences( List<String> assetPaths, List<Integer> assetTypes ) {
 		// Add the references from the assessment and adaptation files
-		if( getAssessmentPath( )!=null && !getAssessmentPath().equals( "" ) ){
-			String assessmentPath = getAssessmentPath();
+		if( getAssessmentName( )!=null && !getAssessmentName().equals( "" ) ){
+			String assessmentPath = getAssessmentName();
 			for (String asset: assetPaths){
 				boolean add = true;
 				if (assessmentPath.equals( asset )){
@@ -448,8 +467,8 @@ public class ChapterDataControl extends DataControl {
 				}
 			}
 		}
-		if( getAdaptationPath( )!=null && !getAdaptationPath().equals( "" ) ){
-			String adaptationPath = getAdaptationPath();
+		if( getAdaptationName( )!=null && !getAdaptationName().equals( "" ) ){
+			String adaptationPath = getAdaptationName();
 			for (String asset: assetPaths){
 				boolean add = true;
 				if (adaptationPath.equals( asset )){
@@ -480,10 +499,10 @@ public class ChapterDataControl extends DataControl {
 	@Override
 	public void deleteAssetReferences( String assetPath ) {
 		// Delete the references for the assessment and adaptation files
-		if( getAssessmentPath( ).equals( assetPath ) )
-			chapter.setAssessmentPath("");
-		if( getAdaptationPath( ).equals( assetPath ) )
-			chapter.setAdaptationPath("");
+		if( getAssessmentName( ).equals( assetPath ) )
+			chapter.setAssessmentName("");
+		if( getAdaptationName( ).equals( assetPath ) )
+			chapter.setAdaptationName("");
 
 		// Delete the asset references in the chapter
 		scenesListDataControl.deleteAssetReferences( assetPath );
@@ -582,8 +601,8 @@ public class ChapterDataControl extends DataControl {
 
 	@Override
 	public void recursiveSearch() {
-		check(this.getAdaptationPath(), TextConstants.getText("Search.AdaptationPath"));
-		check(this.getAssessmentPath(), TextConstants.getText("Search.AssessmentPath"));
+		check(this.getAdaptationName(), TextConstants.getText("Search.AdaptationPath"));
+		check(this.getAssessmentName(), TextConstants.getText("Search.AssessmentPath"));
 		check(this.getDescription(), TextConstants.getText("Search.Description"));
 		check(this.getInitialScene(), TextConstants.getText("Search.InitialScene"));
 		check(this.getTitle(), TextConstants.getText("Search.Title"));
@@ -598,5 +617,54 @@ public class ChapterDataControl extends DataControl {
 		this.getPlayer().recursiveSearch();
 		this.getScenesList().recursiveSearch();
 		this.getTimersList().recursiveSearch();
+		this.getAdaptationProfilesDataControl().recursiveSearch();
+		this.getAssessmentProfilesDataControl().recursiveSearch();
+		
+	}
+
+	/**
+	 * Returns the assessment profile that is actually selected
+	 * @return
+	 */
+	public AssessmentProfileDataControl getSelectedAssessmentProfile(){
+	    return assessmentProfilesDataControl.getProfileByPath(chapter.getAssessmentName());
+	}
+	
+	/**
+	 * Returns the adaptation profile that is actually selected
+	 * @return
+	 */
+	public AdaptationProfileDataControl getSelectedAdaptationProfile(){
+	    return adaptationProfilesDataControl.getProfileByPath(chapter.getAdaptationName());
+	}
+	
+	/**
+	 * @return the assessmentProfilesDataControl
+	 */
+	public AssessmentProfilesDataControl getAssessmentProfilesDataControl() {
+	    return assessmentProfilesDataControl;
+	}
+
+	/**
+	 * @return the adaptationProfilesDataControl
+	 */
+	public AdaptationProfilesDataControl getAdaptationProfilesDataControl() {
+	    return adaptationProfilesDataControl;
+	}
+	
+	/**
+	 * Check if chapter has adaptation profile
+	 * @return
+	 */
+	public boolean hasAdaptationProfile(){
+	    return chapter.hasAdaptationProfile();
+	}
+	
+	/**
+	 * Check if chapter has assessment profile
+	 * @return
+	 */
+	public boolean hasAssessmentProfile(){
+	    return chapter.hasAssessmentProfile();
 	}
 }

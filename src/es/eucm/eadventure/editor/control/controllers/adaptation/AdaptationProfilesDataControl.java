@@ -9,6 +9,7 @@ import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.common.data.adaptation.AdaptationProfile;
 import es.eucm.eadventure.common.data.adaptation.AdaptationRule;
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
+import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
@@ -64,8 +65,8 @@ public class AdaptationProfilesDataControl extends DataControl{
 						newFile.delete( );
 						// Search the profile and delete it
 						for (AdaptationProfileDataControl profile: this.profiles){
-							if (profile.getPath( ).equals( AssetsController.getCategoryFolder( AssetsController.CATEGORY_ADAPTATION )+"/"+fileName )){
-								controller.deleteAssetReferences( profile.getPath() );
+							if (profile.getName( ).equals( AssetsController.getCategoryFolder( AssetsController.CATEGORY_ADAPTATION )+"/"+fileName )){
+								controller.deleteAssetReferences( profile.getName() );
 								profiles.remove( profile );
 							}
 						}
@@ -159,7 +160,7 @@ public class AdaptationProfilesDataControl extends DataControl{
 		boolean deleted = false;
 		for (AdaptationProfileDataControl profile:profiles){
 			if (dataControl == profile){
-				String path = profile.getPath( );
+				String path = profile.getName( );
 				int references = Controller.getInstance( ).countAssetReferences( path );
 				if(!askConfirmation || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { 
 						TextConstants.getElementName( Controller.ADAPTATION_PROFILE ), Integer.toString( references ) } ) ) ) {
@@ -184,7 +185,7 @@ public class AdaptationProfilesDataControl extends DataControl{
 	@Override
 	public void deleteIdentifierReferences( String id ) {
 		for (AdaptationProfileDataControl profile:profiles){
-			if (profile.getPath( ).equals( id ))
+			if (profile.getName( ).equals( id ))
 			profiles.remove( profile );break; 
 		}
 		for (AdaptationProfileDataControl profile:profiles){
@@ -321,7 +322,7 @@ public class AdaptationProfilesDataControl extends DataControl{
 	 */
 	public AdaptationProfileDataControl getProfileByPath(String adaptationPath) {
 		for ( AdaptationProfileDataControl profile: profiles){
-			if (profile.getPath().equals(adaptationPath) ){
+			if (profile.getName().equals(adaptationPath) ){
 				return profile;
 			}
 		}

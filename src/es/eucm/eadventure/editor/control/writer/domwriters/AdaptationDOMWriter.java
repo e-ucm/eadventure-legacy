@@ -29,15 +29,10 @@ public class AdaptationDOMWriter {
 	 *            Chapter data to be written
 	 * @return DOM element with the chapter data
 	 */
-	public static Node buildDOM( List<AdaptationRule> rules, AdaptedState initialState,boolean scorm12, boolean scorm2004 ) {
+	public static Element buildDOM( List<AdaptationRule> rules, AdaptedState initialState,boolean scorm12, boolean scorm2004,String name, Document doc ) {
 		Element adaptationNode = null;
 
-		try {
-			// Create the necessary elements to create the DOM
-			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance( );
-			DocumentBuilder db = dbf.newDocumentBuilder( );
-			Document doc = db.newDocument( );
-
+	
 			// Create the root node
 			adaptationNode = doc.createElement( "adaptation" );
 			
@@ -51,6 +46,7 @@ public class AdaptationDOMWriter {
 			}else {
 				adaptationNode.setAttribute("scorm2004","no");
 			}
+			adaptationNode.setAttribute("name", name);
 			
 			// Append the initial state, when available
 			if (initialState != null && !initialState.isEmpty( )){
@@ -98,8 +94,8 @@ public class AdaptationDOMWriter {
 				//Create the rule node and set attributes
 				Node ruleNode = doc.createElement( "adaptation-rule" );
 				
-				//Append description
-				Node descriptionNode = doc.createElement( "description" );
+				//Append rule description
+				Node descriptionNode = doc.createElement( "ruleDescription" );
 				if (rule.getDescription( )!=null)
 					descriptionNode.appendChild( doc.createTextNode( rule.getDescription( ) ) );
 				else
@@ -165,10 +161,6 @@ public class AdaptationDOMWriter {
 				
 			}
 
-
-		} catch( ParserConfigurationException e ) {
-        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
-		}
 
 		return adaptationNode;
 	}

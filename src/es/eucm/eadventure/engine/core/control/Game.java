@@ -396,7 +396,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         ChapterSummary chapter = gameDescriptor.getChapterSummaries( ).get( currentChapter );
         
         // Load the script data
-        gameData = Loader.loadChapterData( ResourceHandler.getInstance(), chapter.getName(), new ArrayList<Incidence>() );
+        gameData = Loader.loadChapterData( ResourceHandler.getInstance(), chapter.getChapterPath(), new ArrayList<Incidence>() );
 
         preLoadAnimations();
 
@@ -409,9 +409,9 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         timerManager.reset( );
         
         // Load the assessment rules and adaptation data
-        adaptationEngine.init( chapter.getAdaptationPath( ) );
+        adaptationEngine.init( chapter.getAdaptationName( ) );
         
-        assessmentEngine.loadAssessmentRules( chapter.getAssessmentPath( ) );
+        assessmentEngine.loadAssessmentRules( chapter.getAssessmentName( ) );
         
         // Initialize the required elements of the game
         actionManager = new ActionManager( );
@@ -669,7 +669,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             boolean needsName = false;
 
             for (ChapterSummary chapter : gameDescriptor.getChapterSummaries( )) {
-            	AssessmentProfile ap = AssessmentEngine.loadAssessmentProfile( chapter.getAssessmentPath( ) );
+            	AssessmentProfile ap = AssessmentEngine.loadAssessmentProfile( chapter.getAssessmentName( ) );
             	if (!needsName && ap != null && ap.isSendByEmail())
             		needsName = true;
             }
@@ -1344,7 +1344,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             	currentChapter = saveGame.getChapter();
                 
                 ChapterSummary chapter = gameDescriptor.getChapterSummaries( ).get( currentChapter );
-                gameData = Loader.loadChapterData( ResourceHandler.getInstance(), chapter.getName( ), new ArrayList<Incidence>() );
+                gameData = Loader.loadChapterData( ResourceHandler.getInstance(), chapter.getChapterPath( ), new ArrayList<Incidence>() );
                 
                 totalTime = saveGame.getTotalTime();
                 flags = saveGame.getFlags( );

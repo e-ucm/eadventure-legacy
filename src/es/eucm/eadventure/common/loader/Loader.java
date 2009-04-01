@@ -70,9 +70,15 @@ public class Loader {
 			InputStream descriptorIS = isCreator.buildInputStream("descriptor.xml");
 			saxParser.parse( descriptorIS, adventureParser );
 			descriptorIS.close( );
-
+			
+			// Load the assessment and adaptation profiles. It must be after parse
+			// the adventure data because the profile's load from xml inserts each profile
+			// in each chapter.
+			adventureParser.loadProfiles();
 			// Store the adventure data
 			adventureData = adventureParser.getAdventureData( );
+			
+			
 
 		} catch( ParserConfigurationException e ) {
 			incidences.add( Incidence.createDescriptorIncidence( TextConstants.getText( "Error.LoadDescriptor.SAX" ) ) );
@@ -136,12 +142,12 @@ public class Loader {
 		boolean chapterFound = false;
 		if (Loader.adventureData!=null){
 			for (Chapter chapter: adventureData.getChapters()){
-				if (chapter!=null && chapter.getName()!=null && chapter.getName().equals(fileName)){
+				if (chapter!=null && chapter.getChapterPath()!=null && chapter.getChapterPath().equals(fileName)){
 					currentChapter = chapter;chapterFound = true; break;
 					
-				} else if (chapter!=null && chapter.getName() == null){
+				} else if (chapter!=null && chapter.getChapterPath() == null){
 					
-					currentChapter = chapter; chapterFound = true; currentChapter.setName("chapter1.xml");break;
+					currentChapter = chapter; chapterFound = true; currentChapter.setChapterPath("chapter1.xml");break;
 					
 				}
 			}
@@ -153,7 +159,7 @@ public class Loader {
 			
 			//if (zipFile!=null){
 				chapterIS = isCreator.buildInputStream(fileName);
-				currentChapter.setName( fileName );
+				currentChapter.setChapterPath( fileName );
 				
 			//} else{
 				// Then fileName is an absolutePath
@@ -204,9 +210,11 @@ public class Loader {
 	public static AssessmentProfile loadAssessmentProfile ( InputStreamCreator isCreator, String xmlFile, List<Incidence> incidences ){
 		
 		AssessmentProfile newProfile = null;
-		if (Loader.adventureData!=null&&Loader.adventureData.getAssessmentProfiles().size()!=0){
-			for (AssessmentProfile profile: adventureData.getAssessmentProfiles()){
-				if (profile.getPath().equals(xmlFile)){
+		if (Loader.adventureData!=null){
+		    for (Chapter chapter : Loader.adventureData.getChapters()){
+			if (chapter.getAssessmentProfiles().size()!=0){
+			for (AssessmentProfile profile: chapter.getAssessmentProfiles()){
+				if (profile.getName().equals(xmlFile)){
 					try {
 					    newProfile = (AssessmentProfile)profile.clone();
 					} catch (CloneNotSupportedException e) {
@@ -214,14 +222,15 @@ public class Loader {
 					} break;
 				}
 			}
-			
+		}
+		}	
 		} else {
 		
 			// Open the file and load the data
 			try {
 				// Set the chapter handler
 				AssessmentProfile profile = new AssessmentProfile();
-				profile.setPath(xmlFile);
+				profile.setName(xmlFile);
 				AssessmentHandler assParser = new AssessmentHandler( isCreator, profile );
 	
 				// Create a new factory
@@ -262,11 +271,15 @@ public class Loader {
 		
 		AdaptationProfile newProfile = null;
 		if (Loader.adventureData!=null){
-			for (AdaptationProfile profile: adventureData.getAdaptationProfiles()){
-				if (profile.getPath().equals(xmlFile)){
+		    for (Chapter chapter : Loader.adventureData.getChapters()){
+			if (chapter.getAssessmentProfiles().size()!=0){
+			    for (AdaptationProfile profile:chapter.getAdaptationProfiles())
+			
+				if (profile.getName().equals(xmlFile)){
 					newProfile = profile; break;
 				}
 			}
+		    }
 			
 		} else {
 		
