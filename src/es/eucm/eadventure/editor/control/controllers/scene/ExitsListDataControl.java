@@ -303,4 +303,8 @@ public class ExitsListDataControl extends DataControl {
 			dc.recursiveSearch();
 	}
 
+	public SceneDataControl getSceneDataControl() {
+		return sceneDataControl;
+	}
+
 }
