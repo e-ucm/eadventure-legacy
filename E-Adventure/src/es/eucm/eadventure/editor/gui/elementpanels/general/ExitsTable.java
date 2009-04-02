@@ -9,24 +9,24 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.gui.TextConstants;
-import es.eucm.eadventure.editor.control.controllers.scene.ActiveAreasListDataControl;
+import es.eucm.eadventure.editor.control.controllers.scene.ExitsListDataControl;
 import es.eucm.eadventure.editor.gui.otherpanels.IrregularAreaEditionPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 
-public class ActiveAreasTable extends JTable {
+public class ExitsTable extends JTable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	protected ActiveAreasListDataControl dataControl;
+	protected ExitsListDataControl dataControl;
 	
 	protected IrregularAreaEditionPanel iaep;
 	
 	protected ScenePreviewEditionPanel spep;
 	
-	public ActiveAreasTable (ActiveAreasListDataControl dControl, IrregularAreaEditionPanel iaep2){
+	public ExitsTable (ExitsListDataControl dControl, IrregularAreaEditionPanel iaep2){
 		super();
 		this.spep = iaep2.getScenePreviewEditionPanel();
 		this.iaep = iaep2;
@@ -39,17 +39,13 @@ public class ActiveAreasTable extends JTable {
 		this.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent arg0) {
 				if (getSelectedRow() >= 0) {
-					iaep.setRectangular(dataControl.getActiveAreas().get(getSelectedRow()));
+					iaep.setRectangular(dataControl.getExits().get(getSelectedRow()));
 					iaep.repaint();
 				}
 			}
 		});
 		
-		this.getColumnModel().getColumn(0).setCellEditor(new DefaultCellEditor(new JTextField()));
 		this.getColumnModel().getColumn(1).setCellEditor(new DefaultCellEditor(new JTextField()));
-		
-		this.getColumnModel().getColumn(3).setCellRenderer(new ConditionsCellRendererEditor());
-		this.getColumnModel().getColumn(3).setCellEditor(new ConditionsCellRendererEditor());
 		
 		this.getSelectionModel( ).setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
 		this.setSize(200, 150);
@@ -61,29 +57,31 @@ public class ActiveAreasTable extends JTable {
 		private static final long serialVersionUID = 1L;
 		
 		public int getColumnCount( ) {
-			return 4;
+			return 3;
 		}
 
 		public int getRowCount( ) {
-			return dataControl.getActiveAreas().size();
+			return dataControl.getExits().size();
 		}
 		
 		@SuppressWarnings("unchecked")
 		public Class getColumnClass(int columnIndex) {
-			if (columnIndex == 2)
+			if (columnIndex == 0 || columnIndex == 2)
 				return Boolean.class;
 			return super.getColumnClass(columnIndex);
 		}
 		
 		public Object getValueAt( int rowIndex, int columnIndex ) {
 			if (columnIndex == 0)
-				return dataControl.getActiveAreas().get(rowIndex).getId();
-			if (columnIndex == 1)
-				return dataControl.getActiveAreas().get(rowIndex).getName();
+				return new Boolean(dataControl.getExits().get(rowIndex).getExitLookDataControl().isTextCustomized());
+			if (columnIndex == 1) {
+				String temp = dataControl.getExits().get(rowIndex).getExitLookDataControl().getCustomizedText();
+				if (temp == null)
+					temp = "";
+				return temp;
+			}
 			if (columnIndex == 2)
-				return new Boolean(dataControl.getActiveAreas().get(rowIndex).isRectangular());
-			if (columnIndex == 3)
-				return dataControl.getActiveAreas().get(rowIndex).getConditions();
+				return new Boolean(dataControl.getExits().get(rowIndex).isRectangular());
 			return null;
 		}
 		
@@ -103,21 +101,22 @@ public class ActiveAreasTable extends JTable {
 		@Override
 		public void setValueAt(Object value, int rowIndex, int columnIndex) {
 			if (columnIndex == 2) {
-				dataControl.getActiveAreas().get(rowIndex).setRectangular(((Boolean) value).booleanValue());
+				dataControl.getExits().get(rowIndex).setRectangular(((Boolean) value).booleanValue());
 				if (getSelectedRow() >= 0) {
-					iaep.setRectangular(dataControl.getActiveAreas().get(getSelectedRow()));
+					iaep.setRectangular(dataControl.getExits().get(getSelectedRow()));
 					iaep.repaint();
 				}
 			} else if (columnIndex == 1) {
-				dataControl.getActiveAreas().get(rowIndex).setName((String) value);
+				dataControl.getExits().get(rowIndex).getExitLookDataControl().setExitText((String) value);
+				this.fireTableDataChanged();
 			} else if (columnIndex == 0) {
-				dataControl.getActiveAreas().get(rowIndex).renameElement((String) value);
+				dataControl.getExits().get(rowIndex).getExitLookDataControl().setExitText(((Boolean) value).booleanValue() ? "" : null);
 			}
 		}
 		
 		@Override
 		public boolean isCellEditable(int row, int column) {
-			return getSelectedRow() == row;
+			return getSelectedRow() == row && (column != 1 || dataControl.getExits().get(row).getExitLookDataControl().isTextCustomized());
 		}
 	}
 }

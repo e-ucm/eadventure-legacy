@@ -12,11 +12,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
-import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.IrregularAreaEditionController;
 import es.eucm.eadventure.editor.control.controllers.NormalScenePreviewEditionController;
 import es.eucm.eadventure.editor.control.controllers.TrajectoryScenePreviewEditionController;
 import es.eucm.eadventure.editor.control.controllers.scene.ActiveAreaDataControl;
+import es.eucm.eadventure.editor.control.controllers.scene.ExitDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.PointDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.RectangleArea;
 import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElement;
@@ -135,6 +135,8 @@ public class IrregularAreaEditionPanel extends JPanel {
 			spep.removeElements(ScenePreviewEditionPanel.CATEGORY_POINT);
 			if (rectangleArea != null && rectangleArea instanceof ActiveAreaDataControl) 
 				spep.setSelectedElement((ActiveAreaDataControl) rectangleArea);
+			if (rectangleArea != null && rectangleArea instanceof ExitDataControl) 
+				spep.setSelectedElement((ExitDataControl) rectangleArea);
 		} else {
 			this.add(buttonPanel, BorderLayout.NORTH);
 			iaec = new IrregularAreaEditionController(spep, rectangleArea, color, hasInfluenceArea);
