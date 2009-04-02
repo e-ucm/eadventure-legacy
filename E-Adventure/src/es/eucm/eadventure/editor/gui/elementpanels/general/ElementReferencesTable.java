@@ -1,12 +1,8 @@
 package es.eucm.eadventure.editor.gui.elementpanels.general;
 
 import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 
-import javax.swing.AbstractCellEditor;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -14,24 +10,18 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableColumn;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementContainer;
 import es.eucm.eadventure.editor.control.controllers.scene.ReferencesListDataControl;
-import es.eucm.eadventure.editor.gui.editdialogs.ConditionsDialog;
 import es.eucm.eadventure.editor.gui.elementpanels.book.IconTextPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.ElementReferenceSelectionListener;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 
 public class ElementReferencesTable extends JTable implements ElementReferenceSelectionListener{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	private ReferencesListDataControl dataControl;
@@ -70,8 +60,8 @@ public class ElementReferencesTable extends JTable implements ElementReferenceSe
 
 		
 		this.getColumnModel().getColumn(2).setCellRenderer(new ElementsReferencesTableCellRenderer());
-		this.getColumnModel().getColumn(3).setCellRenderer(new ElementsReferencesTableCellRenderer());
-		this.getColumnModel().getColumn(3).setCellEditor(new ElementsReferencesTableCellEditor());
+		this.getColumnModel().getColumn(3).setCellRenderer(new ConditionsCellRendererEditor());
+		this.getColumnModel().getColumn(3).setCellEditor(new ConditionsCellRendererEditor());
 		this.getSelectionModel( ).setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
 		this.dataControl = dControl;
 		this.setSize(200, 150);
@@ -80,9 +70,6 @@ public class ElementReferencesTable extends JTable implements ElementReferenceSe
 	
 	private class ElementsTableModel extends AbstractTableModel{
 
-		/**
-		 * 
-		 */
 		private static final long serialVersionUID = 1L;
 		
 		public int getColumnCount( ) {
@@ -131,51 +118,11 @@ public class ElementReferencesTable extends JTable implements ElementReferenceSe
 			return column == 1 || column == 3;
 		}
 	}
-
-	
-	private class ElementsReferencesTableCellEditor extends AbstractCellEditor implements TableCellEditor{
-		
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 8128260157985286632L;
-		
-		ConditionsController value;
-		
-		@Override
-		public Object getCellEditorValue() {
-			return value;
-		}
-		
-		@Override
-		public Component getTableCellEditorComponent(JTable table, Object value,
-				boolean isSelected, int row, int col) {
-			this.value = (ConditionsController) value;
-			JButton boton = new JButton(TextConstants.getText( "GeneralText.EditConditions" ));
-			boton.setFocusable(false);
-			boton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					new ConditionsDialog( (ConditionsController) ElementsReferencesTableCellEditor.this.value );
-				}
-			});
-			return boton;
-		}
-
-	}
 	
 	private class ElementsReferencesTableCellRenderer extends DefaultTableCellRenderer {
 
-		/**
-		 * 
-		 */
 		private static final long serialVersionUID = 1L;
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.table.TableCellRenderer#getTableCellRendererComponent(javax.swing.JTable,
-		 *      java.lang.Object, boolean, boolean, int, int)
-		 */
 		@Override
 		public Component getTableCellRendererComponent(JTable table,
 				Object value, boolean isSelected, boolean hasFocus, int row,
@@ -199,9 +146,7 @@ public class ElementReferencesTable extends JTable implements ElementReferenceSe
 					} else 
 					return null;
 				}
-			} else if (value instanceof ConditionsController) { 
-				return new JButton(TextConstants.getText( "GeneralText.EditConditions" ));
-		    } else if (value != null){
+			} else if (value != null){
 				return new JLabel(value.toString( ));
 			} else {
 				return new JLabel();
@@ -209,7 +154,6 @@ public class ElementReferencesTable extends JTable implements ElementReferenceSe
 		}
 
 	}
-
 
 	public void elementReferenceSelected(int layer) {
 		if (layer != -1)

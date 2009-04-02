@@ -908,6 +908,10 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="ActiveAreasList.Title">Zonas activas</entry>
 	<entry key="ActiveAreasList.PreviewTitle">Previsualización de las zonas activas</entry>
 	<entry key="ActiveAreasList.Information">Las zonas activas son regiones rectangulares de la escena con las que se puede interactuar.</entry>
+	<entry key="ActiveAreasList.Id">Id</entry>
+	<entry key="ActiveAreasList.Name">Nombre</entry>
+	<entry key="ActiveAreasList.Rectangular">Rectangular?</entry>
+	<entry key="ActiveAreasList.Conditions">Condiciones</entry>
 
 	<entry key="BarriersList.Title">Barreras y trayectoria</entry>
 	<entry key="BarriersList.PreviewTitle">Previsualización de las barreras y edición de la trayectoria</entry>

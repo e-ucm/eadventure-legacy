@@ -1,9 +1,6 @@
 package es.eucm.eadventure.editor.gui.elementpanels.scene;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
@@ -15,7 +12,6 @@ import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
@@ -34,8 +30,8 @@ import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataC
 import es.eucm.eadventure.editor.control.controllers.scene.NodeDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ReferencesListDataControl;
 import es.eucm.eadventure.editor.control.tools.general.MovePlayerLayerInTableTool;
-import es.eucm.eadventure.editor.gui.editdialogs.ConditionsDialog;
 import es.eucm.eadventure.editor.gui.elementpanels.general.ElementReferencesTable;
+import es.eucm.eadventure.editor.gui.elementpanels.general.ActiveAreasTable;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 
 public class ReferencesListPanel extends JPanel{
@@ -149,7 +145,7 @@ public class ReferencesListPanel extends JPanel{
 			ElementContainer elementContainer = referencesListDataControl.getAllReferencesDataControl().get( selectedReference);
 			referencesListDataControl.setLastElementContainer(elementContainer);
 			spep.setSelectedElement(elementContainer.getErdc(),elementContainer.getImage(),referencesListDataControl.getSceneDataControl());
-			spep.repaint();
+			//spep.repaint();
 			// Enable delete button
 			if (elementContainer.isPlayer())
 				deleteButton.setEnabled( false );
@@ -168,21 +164,13 @@ public class ReferencesListPanel extends JPanel{
 	private void createReferencesTablePanel(){
 		// Create the main panel
 		tablePanel = new JPanel(new BorderLayout());
-		JPanel infPanel = new JPanel(new GridBagLayout());
-		GridBagConstraints c = new GridBagConstraints( );
-		c.insets = new Insets( 5, 5, 5, 5 );
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weightx = 1;
-		
 		
 		JTextPane layerTextPane = new JTextPane( );
 		layerTextPane.setEditable( false );
 		layerTextPane.setBackground( getBackground( ) );
 		layerTextPane.setText( TextConstants.getText( "ItemReferenceTable.LayerExplanation" ));
 		
-		infPanel.add(layerTextPane,c);
-		
-		tablePanel.add(infPanel,BorderLayout.NORTH);
+		tablePanel.add(layerTextPane,BorderLayout.SOUTH);
 		
 		// Create the table (CENTER)
 		table = new ElementReferencesTable(referencesListDataControl, spep);
@@ -263,13 +251,14 @@ public class ReferencesListPanel extends JPanel{
 		});
 		moveDownButton.setEnabled(false);
 
+		buttonsPanel.setLayout(new GridLayout(2,2));
 		buttonsPanel.add( newButton );
 		buttonsPanel.add( deleteButton );
 		buttonsPanel.add( moveUpButton );
 		buttonsPanel.add( moveDownButton );
 		
 		
-		tablePanel.add( buttonsPanel,BorderLayout.SOUTH);
+		tablePanel.add( buttonsPanel,BorderLayout.EAST);
 //		tablePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ItemReferenceTable.TableBorder" ) ) );
 	
 	
