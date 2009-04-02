@@ -109,7 +109,9 @@ public class ActiveAreasListDataControl extends DataControl {
 		if( type == Controller.ACTIVE_AREA ) {
 			
 			// Show a dialog asking for the item id
-			String itemId = controller.showInputDialog( TextConstants.getText( "Operation.AddItemTitle" ), TextConstants.getText( "Operation.AddItemMessage" ), TextConstants.getText( "Operation.AddItemDefaultValue" ) );
+			String itemId = id;
+			if (id == null)
+				itemId = controller.showInputDialog( TextConstants.getText( "Operation.AddItemTitle" ), TextConstants.getText( "Operation.AddItemMessage" ), TextConstants.getText( "Operation.AddItemDefaultValue" ) );
 
 			// If some value was typed and the identifier is valid
 			if( itemId != null && controller.isElementIdValid( itemId ) ) {
@@ -290,6 +292,10 @@ public class ActiveAreasListDataControl extends DataControl {
 	public void recursiveSearch() {
 		for (DataControl dc : this.activeAreasDataControlList)
 			dc.recursiveSearch();
+	}
+
+	public SceneDataControl getSceneDataControl() {
+		return this.sceneDataControl;
 	}
 
 }

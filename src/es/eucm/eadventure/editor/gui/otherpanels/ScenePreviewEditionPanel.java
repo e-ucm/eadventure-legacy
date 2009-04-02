@@ -853,6 +853,10 @@ public class ScenePreviewEditionPanel extends JPanel {
 				if (((ElementReferenceDataControl) selectedElement.getDataControl()).getInfluenceArea() != null)
 					addInfluenceArea(((ElementReferenceDataControl) selectedElement.getDataControl()).getInfluenceArea());
 			}
+			if (selectedElement != null && selectedElement.getDataControl() instanceof ActiveAreaDataControl) {
+				if (((ActiveAreaDataControl) selectedElement.getDataControl()).getInfluenceArea() != null)
+					addInfluenceArea(((ActiveAreaDataControl) selectedElement.getDataControl()).getInfluenceArea());
+			}
 		}
 	}
 
@@ -1241,6 +1245,21 @@ public class ScenePreviewEditionPanel extends JPanel {
 
 	public void setShowInfluenceArea(boolean b) {
 		this.showInfluenceArea = b;
+	}
+
+	public void removeElement(DataControl dataControl) {
+		ImageElement temp = null;
+		for (Integer key : elements.keySet()) {
+			for (ImageElement imageElement : elements.get(key)) {	
+				if (imageElement.getDataControl() != null && imageElement.getDataControl() == dataControl) {
+					temp = imageElement;
+				}
+			}
+			if (temp != null) {
+				elements.get(key).remove(temp);
+				temp = null;
+			}
+		}
 	}
 
 }

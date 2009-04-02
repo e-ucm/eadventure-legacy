@@ -899,7 +899,10 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="ActiveAreasList.Title">Active areas</entry>
 	<entry key="ActiveAreasList.PreviewTitle">Preview of the active areas location</entry>
 	<entry key="ActiveAreasList.Information">The active areas are transparent, rectangular objects defined in the scenes. Those can be used to define portions of the scene which are interactuable. In this manner, when the mouse is over an active area the user could get some interaction from it</entry>
-	
+	<entry key="ActiveAreasList.Id">Id</entry>
+	<entry key="ActiveAreasList.Name">Name</entry>
+	<entry key="ActiveAreasList.Rectangular">Rectangular?</entry>
+	<entry key="ActiveAreasList.Conditions">Conditions</entry>
 
 	<entry key="BarriersList.Title">Barriers and trajectory</entry>
 	<entry key="BarriersList.PreviewTitle">Preview of the barriers location and edition of the trajectory</entry>

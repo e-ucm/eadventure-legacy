@@ -12,10 +12,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
+import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.IrregularAreaEditionController;
+import es.eucm.eadventure.editor.control.controllers.NormalScenePreviewEditionController;
 import es.eucm.eadventure.editor.control.controllers.TrajectoryScenePreviewEditionController;
+import es.eucm.eadventure.editor.control.controllers.scene.ActiveAreaDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.PointDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.RectangleArea;
+import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElement;
 import es.eucm.eadventure.common.gui.TextConstants;
 
 /**
@@ -40,7 +44,12 @@ public class IrregularAreaEditionPanel extends JPanel {
 	 */
 	protected IrregularAreaEditionController iaec;
 	
+	protected JPanel buttonPanel;
+	
 	private boolean hasInfluenceArea;
+	
+	private Color color;
+	
 	/**
 	 * Default constructor, with the path to the background and the trajectoryDataControl
 	 * 
@@ -51,17 +60,18 @@ public class IrregularAreaEditionPanel extends JPanel {
 		setLayout(new BorderLayout());
 		this.hasInfluenceArea = hasInfluenceArea;
 		spep = new ScenePreviewEditionPanel(false, scenePath);
-		iaec = new IrregularAreaEditionController(spep, rectangleArea, color, hasInfluenceArea);
-		spep.changeController(iaec);
-		for (Point point: rectangleArea.getPoints())
-			spep.addPoint(new PointDataControl(point));
-		spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_POINT, true);
+		this.color = color;
 		
-		add(createButtonPanel(), BorderLayout.NORTH);
+		
+		buttonPanel = createButtonPanel();
 		
 		add(spep, BorderLayout.CENTER);		
+		
+		this.setRectangular(rectangleArea);
 	}
 	
+
+
 	/**
 	 * Create the button panel
 	 * 
@@ -114,4 +124,29 @@ public class IrregularAreaEditionPanel extends JPanel {
 	public ScenePreviewEditionPanel getScenePreviewEditionPanel() {
 		return spep;
 	}
+	
+	public void setRectangular(RectangleArea rectangleArea) {
+		this.remove(buttonPanel);
+		if (rectangleArea == null || rectangleArea.isRectangular()) {
+			spep.changeController(new NormalScenePreviewEditionController(spep));
+			spep.setShowTextEdition(true);
+			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_ACTIVEAREA, true);
+			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_POINT, false);
+			spep.removeElements(ScenePreviewEditionPanel.CATEGORY_POINT);
+			if (rectangleArea != null && rectangleArea instanceof ActiveAreaDataControl) 
+				spep.setSelectedElement((ActiveAreaDataControl) rectangleArea);
+		} else {
+			this.add(buttonPanel, BorderLayout.NORTH);
+			iaec = new IrregularAreaEditionController(spep, rectangleArea, color, hasInfluenceArea);
+			spep.changeController(iaec);
+			spep.setShowTextEdition(false);
+			for (Point point: rectangleArea.getPoints())
+				spep.addPoint(new PointDataControl(point));
+			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_POINT, true);
+			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_ACTIVEAREA, false);
+			spep.setSelectedElement((ImageElement) null);
+		}
+		this.updateUI();
+	}
+	
 }

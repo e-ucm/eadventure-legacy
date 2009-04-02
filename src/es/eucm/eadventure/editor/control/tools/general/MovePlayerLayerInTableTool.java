@@ -4,6 +4,7 @@ import es.eucm.eadventure.editor.control.controllers.scene.ElementContainer;
 import es.eucm.eadventure.editor.control.controllers.scene.ReferencesListDataControl;
 import es.eucm.eadventure.editor.control.tools.Tool;
 import es.eucm.eadventure.editor.gui.elementpanels.general.ElementReferencesTable;
+import es.eucm.eadventure.editor.gui.elementpanels.general.ActiveAreasTable;
 
 
 /**
@@ -19,9 +20,9 @@ public class MovePlayerLayerInTableTool extends Tool{
 	
 	private boolean moveUp;
 	
-	public MovePlayerLayerInTableTool(ReferencesListDataControl rldc, ElementReferencesTable table, boolean isMoveUp){
+	public MovePlayerLayerInTableTool(ReferencesListDataControl rldc, ElementReferencesTable table2, boolean isMoveUp){
 		this.referencesListDataControl = rldc;
-		this.table = table ;
+		this.table = table2 ;
 		this.moveUp = isMoveUp; 
 	}
 	
