@@ -632,12 +632,16 @@ public class EffectsController {
 			controller.dataModified( );
 		}*/
 		int assetCategory = -1;
-		if( assetType == ASSET_ANIMATION )
+		int assetFilter = AssetsController.FILTER_NONE;
+		if( assetType == ASSET_ANIMATION ){
 			assetCategory = AssetsController.CATEGORY_ANIMATION;
-		else if( assetType == ASSET_SOUND )
+			assetFilter = AssetsController.FILTER_PNG;
+			
+		}else if( assetType == ASSET_SOUND ){
 			assetCategory = AssetsController.CATEGORY_AUDIO;
+		}
 		
-		String assetPath = SelectResourceTool.selectAssetPathUsingChooser ( assetCategory, AssetsController.FILTER_NONE );
+		String assetPath = SelectResourceTool.selectAssetPathUsingChooser ( assetCategory, assetFilter );
 		
 		return assetPath;
 	}
