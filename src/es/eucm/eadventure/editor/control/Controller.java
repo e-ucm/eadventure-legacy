@@ -1321,8 +1321,6 @@ public class Controller {
 	
 			if( loadFile && completeFilePath == null ) {
 				this.stopAutoSave();
-				ConfigData.storeToXML( );
-				ProjectConfigData.storeToXML( );
 				ConfigData.loadFromXML( ReleaseFolders.configFileEditorRelativePath() );
 				ProjectConfigData.init();
 
@@ -1544,6 +1542,8 @@ public class Controller {
 	
 			// If the data must be saved
 			if( saveFile ) {
+				ConfigData.storeToXML( );
+				ProjectConfigData.storeToXML( );
 				// If the zip was temp file, delete it
 				//if( isTempFile( ) ) {
 				//	File file = new File( oldZipFile );
