@@ -145,14 +145,6 @@ public class AdaptationProfile  implements Cloneable, ContainsAdaptedState{
 	}
 
 	/**
-	 * Set all the rules
-	 * @param adpRules
-	 */
-	public void setRules(List<AdaptationRule> adpRules) {
-		this.rules = adpRules;
-	}
-	
-	/**
 	 * Adds a new flag
 	 * @param flag
 	 */
