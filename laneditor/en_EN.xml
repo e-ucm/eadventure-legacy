@@ -1204,7 +1204,7 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="ActionsList.ActionName">Action</entry>
 	<entry key="ActionsList.With">With</entry>
 	<entry key="ActionsList.CustomName">Custom Name</entry>
-	<entry key="ActionList.Empty">No action selected./entry>
+	<entry key="ActionList.Empty">No action selected.</entry>
 	
 
 	<entry key="Action.Title">Action</entry>
