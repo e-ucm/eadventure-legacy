@@ -310,8 +310,7 @@ public class Loader {
 				name = name.substring(name.indexOf("/")+1);
 				name = name.substring(0,name.indexOf("."));
 				newProfile = new AdaptationProfile(adpParser.getAdaptationRules(), adpParser.getInitialState(), name , adpParser.isScorm12(), adpParser.isScorm2004());
-				
-				newProfile = new AdaptationProfile(rules, adpParser.getInitialState(), xmlFile , adpParser.isScorm12(), adpParser.isScorm2004());
+			
 				
 				newProfile.setFlags(adpParser.getFlags());
 				System.out.println("ADP PARSER FLAGS:"+adpParser.getFlags());
