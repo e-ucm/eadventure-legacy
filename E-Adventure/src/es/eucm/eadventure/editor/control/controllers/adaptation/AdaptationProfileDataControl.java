@@ -37,8 +37,8 @@ public class AdaptationProfileDataControl extends DataControl{
 	
 	private int number;
 	
-	public AdaptationProfileDataControl( List<AdaptationRule> adpRules, AdaptedState initialState, String path){
-		this (new AdaptationProfile (adpRules, initialState, path,false,false));
+	public AdaptationProfileDataControl( List<AdaptationRule> adpRules, AdaptedState initialState, String name){
+		this (new AdaptationProfile (adpRules, initialState, name,false,false));
 	}
 	
 	public AdaptationProfileDataControl(AdaptationProfile profile) {
@@ -203,46 +203,32 @@ public class AdaptationProfileDataControl extends DataControl{
 	
 	@Override
 	public String renameElement( String name ) {
+	    boolean renamed = false;
 		String oldName = null;
-		boolean renamed = false;
 		if (this.profile.getName() != null) {
-			String[] temp = this.profile.getName().split("/");
-			oldName = temp[temp.length - 1];
+		    oldName = this.profile.getName();
 		}
+
 		
 		// Show confirmation dialog.
-		if (name != null || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.RenameAdaptationFile" ), TextConstants.getText( "Operation.RenameAdaptationFile.Message" ) )){
+		if (name != null || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.RenameAssessmentFile" ), TextConstants.getText( "Operation.RenameAssessmentFile.Message" ) )){
 			
+			//Prompt for file name:
 			String fileName = name;
 			if (name == null)
-				//Prompt for file name:
-				fileName = controller.showInputDialog( TextConstants.getText( "Operation.RenameAdaptationFile.FileName" ), TextConstants.getText( "Operation.RenameAdaptationFile.FileName.Message" ), getFileName() );
-			if (fileName!=null && !fileName.equals( profile.getName().substring( profile.getName().lastIndexOf( "/" ) + 1 ) )){
-				if (fileName.contains( "/") || fileName.contains( "\\" )){
-					controller.showErrorDialog( TextConstants.getText( "Operation.RenameXMLFile.ErrorSlash" ), TextConstants.getText( "Operation.RenameXMLFile.ErrorSlash.Message" ) );
-					return null;
-				}
-				if (!fileName.toLowerCase().endsWith( ".xml" )){
-					if (fileName.endsWith( "." )){
-						fileName=fileName+"xml";
-					}else{
-						fileName=fileName+".xml";
-					}
-				}
-				
-				//Checks if the file exists. In that case, ask to overwrite it
-						File assessmentFile = new File (Controller.getInstance( ).getProjectFolder( ), profile.getName() );
-						renamed = assessmentFile.renameTo( new File(Controller.getInstance( ).getProjectFolder( ), AssetsController.getCategoryFolder( AssetsController.CATEGORY_ADAPTATION ) +"/"+fileName) );
-						//controller.dataModified( );
-						this.profile.setName( AssetsController.getCategoryFolder( AssetsController.CATEGORY_ADAPTATION ) +"/"+fileName );
+				fileName = controller.showInputDialog( TextConstants.getText( "Operation.RenameAssessmentFile.FileName" ), TextConstants.getText( "Operation.RenameAssessmentFile.FileName.Message" ), getFileName() );
+			if (fileName!=null && !fileName.equals( oldName ) && controller.isElementIdValid( fileName )){
+			    	//controller.dataModified( );
+				profile.setName( fileName );
+				renamed=true;
 			}
 			
 		}
 		
 		if (renamed)
 			return oldName;
-		else
-			return null;
+		
+		return null;
 	}
 	
 	@Override

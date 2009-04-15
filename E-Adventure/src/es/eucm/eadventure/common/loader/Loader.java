@@ -55,11 +55,11 @@ public class Loader {
 	 *            Path to the zip file which holds the adventure
 	 * @return The adventure data, null if there was an error
 	 */
-	public static AdventureData loadAdventureData(InputStreamCreator isCreator, String assessmentFolder, String adaptationFolder, List<Incidence> incidences ) {
+	public static AdventureData loadAdventureData(InputStreamCreator isCreator, List<Incidence> incidences ) {
 		AdventureData adventureData = null;
 		try {
 			// Set the adventure handler
-			AdventureHandler adventureParser = new AdventureHandler( isCreator, assessmentFolder, adaptationFolder, incidences );
+			AdventureHandler adventureParser = new AdventureHandler( isCreator,  incidences );
 
 			// Create a new factory
 			SAXParserFactory factory = SAXParserFactory.newInstance( );
@@ -230,7 +230,11 @@ public class Loader {
 			try {
 				// Set the chapter handler
 				AssessmentProfile profile = new AssessmentProfile();
-				profile.setName(xmlFile);
+				
+				String name = xmlFile;
+				name = name.substring(name.indexOf("/")+1);
+				name = name.substring(0,name.indexOf("."));
+				profile.setName(name);
 				AssessmentHandler assParser = new AssessmentHandler( isCreator, profile );
 	
 				// Create a new factory
@@ -302,6 +306,10 @@ public class Loader {
 				
 				// Finally add the new controller to the list
 				// Create the new profile
+				String name = xmlFile;
+				name = name.substring(name.indexOf("/")+1);
+				name = name.substring(0,name.indexOf("."));
+				newProfile = new AdaptationProfile(adpParser.getAdaptationRules(), adpParser.getInitialState(), name , adpParser.isScorm12(), adpParser.isScorm2004());
 				
 				newProfile = new AdaptationProfile(rules, adpParser.getInitialState(), xmlFile , adpParser.isScorm12(), adpParser.isScorm2004());
 				

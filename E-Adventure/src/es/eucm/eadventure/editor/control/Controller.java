@@ -1377,10 +1377,12 @@ public class Controller {
 				// Load the data from the file, and update the info
 				List<Incidence> incidences = new ArrayList<Incidence>();
 				//ls.start( );
-				AdventureData loadedAdventureData = Loader.loadAdventureData( AssetsController.getInputStreamCreator(completeFilePath), 
+				/*AdventureData loadedAdventureData = Loader.loadAdventureData( AssetsController.getInputStreamCreator(completeFilePath), 
 						AssetsController.getCategoryFolder(AssetsController.CATEGORY_ASSESSMENT),
 						AssetsController.getCategoryFolder(AssetsController.CATEGORY_ADAPTATION),incidences );
-	
+				 */
+				AdventureData loadedAdventureData = Loader.loadAdventureData( AssetsController.getInputStreamCreator(completeFilePath),incidences );
+			
 				//mainWindow.setNormalState( );
 				
 				
@@ -1578,6 +1580,21 @@ public class Controller {
 				ConfigData.fileLoaded( currentZipFile );
 				ProjectConfigData.storeToXML( );
 				AssetsController.resetCache( );
+				// also, look for adaptation and assessment folder, and delete them
+				File currentAssessFolder = new File(currentZipFile+"\\"+"assessment");
+				if (currentAssessFolder.exists()){
+				    File[] files = currentAssessFolder.listFiles();
+				    for (int x=0;x<files.length;x++)
+					files[x].delete();
+				    currentAssessFolder.delete();
+				}
+				File currentAdaptFolder = new File(currentZipFile+"\\"+"adaptation");
+				if (currentAdaptFolder.exists()){
+				    File[] files = currentAdaptFolder.listFiles();
+				    for (int x=0;x<files.length;x++)
+					files[x].delete();
+				    currentAdaptFolder.delete();
+				}
 			}
 		} catch (Exception e){
 			fileSaved = false;

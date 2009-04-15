@@ -24,7 +24,7 @@ import es.eucm.eadventure.editor.control.tools.listeners.NameChangeListener;
  * @author Eugenio Marchiori
  *
  */
-public class CustomActionPanel extends JPanel {
+public class CustomActionPropertiesPanel extends JPanel implements ActionTypePanel{
 
 	/**
 	 * Default generated serialVersionUID
@@ -39,7 +39,7 @@ public class CustomActionPanel extends JPanel {
 	/**
 	 * The panel where the general action configuration is displayed
 	 */
-	private ActionPanel actionPanel;
+	private ActionPropertiesPanel actionPanel;
 	
 	/**
 	 * The panel used to configure the resources
@@ -63,12 +63,12 @@ public class CustomActionPanel extends JPanel {
 	 * 
 	 * @param customActionDataControl the dataControl for the customaction
 	 */
-	public CustomActionPanel(CustomActionDataControl customActionDataControl) {
+	public CustomActionPropertiesPanel(CustomActionDataControl customActionDataControl) {
 		this.customActionDataControl = customActionDataControl;
 		
 		tabPanel = new JTabbedPane( );
 		
-		actionPanel = new ActionPanel(customActionDataControl);
+		actionPanel = new ActionPropertiesPanel(customActionDataControl);
 		
 		JPanel personalizationPanel = createPersonalizationPanel();
 		
@@ -148,6 +148,11 @@ public class CustomActionPanel extends JPanel {
 			getParent( ).getParent( ).repaint( );
 		}
 
+	}
+
+	@Override
+	public int getType() {
+	    return ActionTypePanel.CUSTOM_TYPE;
 	}
 	
 }

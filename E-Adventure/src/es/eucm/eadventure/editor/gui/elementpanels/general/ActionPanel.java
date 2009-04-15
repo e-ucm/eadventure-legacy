@@ -1,205 +1,365 @@
 package es.eucm.eadventure.editor.gui.elementpanels.general;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
-import javax.swing.JSpinner;
-import javax.swing.JTextArea;
-import javax.swing.SpinnerModel;
-import javax.swing.SpinnerNumberModel;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+import javax.swing.JSplitPane;
+import javax.swing.JTextPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
-import es.eucm.eadventure.common.data.Documented;
+import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.general.ActionDataControl;
-import es.eucm.eadventure.editor.control.tools.listeners.DocumentationChangeListener;
-import es.eucm.eadventure.editor.gui.editdialogs.ConditionsDialog;
-import es.eucm.eadventure.editor.gui.editdialogs.effectdialogs.MacroReferenceEffectDialog;
+import es.eucm.eadventure.editor.control.controllers.general.ActionsListDataControl;
+import es.eucm.eadventure.editor.control.controllers.general.CustomActionDataControl;
+import es.eucm.eadventure.editor.control.controllers.scene.ElementContainer;
+import es.eucm.eadventure.editor.control.tools.general.MovePlayerLayerInTableTool;
 
-public class ActionPanel extends JPanel {
+public class ActionPanel extends JPanel{
 
-	/**
-	 * Required.
-	 */
-	private static final long serialVersionUID = 1L;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 4806429175992295071L;
 
-	/**
-	 * Controller of the action.
-	 */
-	private ActionDataControl actionDataControl;
-
-	/**
-	 * Text area for the documentation.
-	 */
-	private JTextArea documentationTextArea;
-
-	/**
-	 * Combo box for the elements (items or characters) in the script.
-	 */
-	private JComboBox elementsComboBox;
-
-	/**
-	 * The checkbox with the value of needsGoTo
-	 */
-	private JCheckBox needsGoToCheck;
+    
+    private static final int HORIZONTAL_SPLIT_POSITION = 140;
+    
+    private ActionsListDataControl dataControl;
+    
+    private ActionTypePanel actionPanel;
+    
+    private JPanel actionPanelContainer;
+    
+    private ActionsTable actionsTable;
+    
+    private JButton deleteButton;
+    
+    private JButton moveUpButton;
 	
-	/**
-	 * The spinner to set the value of keepDistance
-	 */
-	private JSpinner keepDistanceSpinner;
+    private JButton moveDownButton;
+    
+    private JSplitPane tableWithSplit;
+    
+    private JPanel tablePanel;
 
-	/**
-	 * Constructor.
+    
+    public ActionPanel(ActionsListDataControl dataControl, ActionTypePanel actionPanel){
+	super();
+	this.dataControl = dataControl;
+	this.actionPanel = actionPanel; 
+	//this.actionPanel = new ActionPropertiesPanel(dataControl.getActions().get(0));
+	setLayout( new GridBagLayout( ) );
+	setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ActionsList.Title" ) ) );
+	GridBagConstraints c = new GridBagConstraints( );
+	c.insets = new Insets( 5, 5, 5, 5 );
+
+	// Create the text area for the documentation
+	c.fill = GridBagConstraints.HORIZONTAL;
+	c.weightx = 1;
+	tablePanel = new JPanel();
+	actionsTable =  new ActionsTable(dataControl);
+	actionsTable.addMouseListener( new MouseAdapter(){
+		public void mousePressed(MouseEvent e){
+			// By default the JTable only selects the nodes with the left click of the mouse
+			// With this code, we spread a new call everytime the right mouse button is pressed
+			if( e.getButton( ) == MouseEvent.BUTTON3 ) {
+				// Create new event (with the left mouse button)
+				MouseEvent newEvent = new MouseEvent( e.getComponent( ), e.getID( ), e.getWhen( ), MouseEvent.BUTTON1_MASK, e.getX( ), e.getY( ), e.getClickCount( ), e.isPopupTrigger( ) );
+
+				// Take the listeners and make the calls
+				for( MouseListener mouseListener : e.getComponent( ).getMouseListeners( ) )
+					mouseListener.mousePressed( newEvent );
+				
+			}
+		}
+		
+		public void mouseClicked(MouseEvent evt){
+			if (evt.getButton( ) == MouseEvent.BUTTON3){
+				JPopupMenu menu = getCompletePopupMenu();
+				menu.show( evt.getComponent( ), evt.getX( ), evt.getY( ) );
+			} 
+		}
+	});
+	
+
+	
+	JPanel buttonsPanel = new JPanel();
+	JButton newButton = new JButton(new ImageIcon("img/icons/addNode.png"));
+	newButton.setContentAreaFilled( false );
+	newButton.setMargin( new Insets(0,0,0,0) );
+	newButton.setToolTipText( TextConstants.getText( "ActionsList.Add" ) );
+	newButton.addMouseListener( new MouseAdapter(){
+		public void mouseClicked (MouseEvent evt){
+			JPopupMenu menu= getAddChildPopupMenu();
+			menu.show( evt.getComponent( ), evt.getX( ), evt.getY( ) );
+		}
+	});
+	deleteButton = new JButton(new ImageIcon("img/icons/deleteNode.png"));
+	deleteButton.setContentAreaFilled( false );
+	deleteButton.setMargin( new Insets(0,0,0,0) );
+	deleteButton.setToolTipText( TextConstants.getText( "ActionsList.Delete" ) );
+	deleteButton.addActionListener(new ActionListener(){
+		public void actionPerformed( ActionEvent e ) {
+			delete();
+		}
+	});
+	deleteButton.setEnabled(false);
+	moveUpButton = new JButton(new ImageIcon("img/icons/moveNodeUp.png"));
+	moveUpButton.setContentAreaFilled( false );
+	moveUpButton.setMargin( new Insets(0,0,0,0) );
+	moveUpButton.setToolTipText( TextConstants.getText( "ActionsList.MoveUp" ) );
+	moveUpButton.addActionListener( new ActionListener(){
+		public void actionPerformed( ActionEvent e ) {
+			moveUp();
+		}
+	});
+	moveUpButton.setEnabled(false);
+	moveDownButton = new JButton(new ImageIcon("img/icons/moveNodeDown.png"));
+	moveDownButton.setContentAreaFilled( false );
+	moveDownButton.setMargin( new Insets(0,0,0,0) );
+	moveDownButton.setToolTipText( TextConstants.getText( "ActionsList.MoveDown" ) );
+	moveDownButton.addActionListener( new ActionListener(){
+		public void actionPerformed( ActionEvent e ) {
+			moveDown();
+		}
+	});
+	moveDownButton.setEnabled(false);
+
+	buttonsPanel.add( newButton );
+	buttonsPanel.add( deleteButton );
+	buttonsPanel.add( moveUpButton );
+	buttonsPanel.add( moveDownButton );
+	
+	tablePanel.setLayout(new BorderLayout());
+	tablePanel.add(buttonsPanel,BorderLayout.SOUTH);
+	
+	
+	tablePanel.add( new JScrollPane(actionsTable, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS) ,BorderLayout.CENTER);
+	
+	
+	actionsTable.getSelectionModel( ).addListSelectionListener( new ListSelectionListener(){
+		public void valueChanged( ListSelectionEvent e ) {
+			updateSelectedElementReference();
+		}
+	});
+	JTextPane informationTextPane = new JTextPane( );
+	informationTextPane.setEditable( false );
+	informationTextPane.setBackground( getBackground( ) );
+	informationTextPane.setText( TextConstants.getText( "ActionList.Empty" ));
+	actionPanelContainer = new JPanel(new BorderLayout());
+	actionPanelContainer.add(informationTextPane,BorderLayout.CENTER);
+	tableWithSplit = new JSplitPane(JSplitPane.VERTICAL_SPLIT, tablePanel,actionPanelContainer);
+	tableWithSplit.setOneTouchExpandable(true);
+	tableWithSplit.setDividerLocation(HORIZONTAL_SPLIT_POSITION);
+	tableWithSplit.setContinuousLayout(true);
+	tableWithSplit.setResizeWeight(0.5);
+	tableWithSplit.setDividerSize(10);
+
+	setLayout( new BorderLayout( ) );
+	add(tableWithSplit,BorderLayout.CENTER);
+    
+    }
+    
+    
+    private void updateSelectedElementReference(){
+	// No valid row is selected
+	if (actionsTable.getSelectedRow( )<0 || actionsTable.getSelectedRow( )>=dataControl.getActions().size()){
+		
+		// set information pane as no element selected
+		JTextPane informationTextPane = new JTextPane( );
+		informationTextPane.setEditable( false );
+		informationTextPane.setBackground( getBackground( ) );
+		informationTextPane.setText( TextConstants.getText( "ActionList.Empty" ));
+		actionPanelContainer.removeAll();
+		actionPanelContainer.add(informationTextPane);
+		//Disable delete button
+		deleteButton.setEnabled( false );
+		//Disable moveUp and moveDown buttons
+		moveUpButton.setEnabled( false );
+		moveDownButton.setEnabled( false );
+	}
+	
+	//When a element has been selected
+	else {
+		int selectedAction = actionsTable.getSelectedRow( );
+		ActionDataControl action = dataControl.getActions().get(selectedAction);
+		actionPanelContainer.removeAll();
+		// Update the panel with action's info
+		if (action instanceof CustomActionDataControl){
+		    actionPanel = new CustomActionPropertiesPanel((CustomActionDataControl)action);
+		    actionPanelContainer.add((CustomActionPropertiesPanel)actionPanel,BorderLayout.CENTER);
+		}else if (action instanceof ActionDataControl){
+		    actionPanel = new ActionPropertiesPanel(action);
+		    actionPanelContainer.add((ActionPropertiesPanel)actionPanel,BorderLayout.CENTER);
+		}
+		actionPanelContainer.updateUI();
+		deleteButton.setEnabled(true);
+		//Enable moveUp and moveDown buttons when there is more than one element
+		moveUpButton.setEnabled( dataControl.getActions().size()>1 && selectedAction>0);
+		moveDownButton.setEnabled( dataControl.getActions().size()>1 && selectedAction<actionsTable.getRowCount( )-1 );
+
+	}
+	updateUI( );
+	
+}
+    
+    /**
+	 * Returns a popup menu with all the operations.
 	 * 
-	 * @param actionDataControl
-	 *            Action controller
+	 * @return Popup menu with all operations
 	 */
-	public ActionPanel( ActionDataControl actionDataControl ) {
+	public JPopupMenu getCompletePopupMenu( ) {
+		JPopupMenu completePopupMenu = getAddChildPopupMenu( );
 
-		// Set the controller
-		this.actionDataControl = actionDataControl;
+		// Separator
+		completePopupMenu.addSeparator( );
 
-		// Set the layout
-		setLayout( new GridBagLayout( ) );
-		setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Action.Title" ) ) );
-		GridBagConstraints c = new GridBagConstraints( );
-		c.insets = new Insets( 5, 5, 5, 5 );
-		c.gridy = 0;
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weightx = 1;
+		// Create and add the delete item
+		JMenuItem deleteMenuItem = new JMenuItem( TextConstants.getText( "TreeNode.DeleteElement" ) );
+		deleteMenuItem.setEnabled( deleteButton.isEnabled( ));
+		deleteMenuItem.addActionListener( new ActionListener( ) {
+			public void actionPerformed( ActionEvent arg0 ) {
+				delete( );
+			}
+		} );
+		completePopupMenu.add( deleteMenuItem );
 
-		// Add the list of items for id target if the action accepts them
-		if( actionDataControl.hasIdTarget( ) ) {
-			JPanel destinyElementPanel = new JPanel( );
-			destinyElementPanel.setLayout( new GridLayout( ) );
-			elementsComboBox = new JComboBox( actionDataControl.getElementsList( ) );
-			elementsComboBox.setSelectedItem( actionDataControl.getIdTarget( ) );
-			elementsComboBox.addActionListener( new ElementComboBoxListener( ) );
-			destinyElementPanel.add( elementsComboBox );
-			destinyElementPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Action.IdTarget" ) ) );
-			add( destinyElementPanel, c );
-			c.gridy++;
-		}
-		// Create the text area for the documentation
-		JPanel documentationPanel = new JPanel( );
-		documentationPanel.setLayout( new GridLayout( ) );
-		documentationTextArea = new JTextArea( actionDataControl.getDocumentation( ), 4, 0 );
-		documentationTextArea.setLineWrap( true );
-		documentationTextArea.setWrapStyleWord( true );
-		documentationTextArea.getDocument( ).addDocumentListener( new DocumentationChangeListener( documentationTextArea, (Documented) actionDataControl.getContent() ));
-		documentationPanel.add( new JScrollPane( documentationTextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER ) );
-		// TODO Revisar problemas con el layout sin esta linea
-		documentationPanel.setMinimumSize( new Dimension( 0, 108 ) );
-		documentationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Action.Documentation" ) ) );
-		add( documentationPanel, c );
+		// Separator
+		completePopupMenu.addSeparator( );
 
-		c.gridy++;
-		JPanel otherPanel = new JPanel();
-		otherPanel.setLayout( new GridLayout(3,1));
-		otherPanel.add(new JLabel(TextConstants.getText("CustomAction.OtherConfigurationDetails")));
-		
-		needsGoToCheck = new JCheckBox(TextConstants.getText("CustomAction.NeedsGoTo"));
-		needsGoToCheck.setSelected(actionDataControl.getNeedsGoTo());
-		needsGoToCheck.addChangeListener( new NeedsGoToCheckListener());
-		otherPanel.add( needsGoToCheck);
-		
-	    JPanel temp = new JPanel();
-		SpinnerModel sm = new SpinnerNumberModel(actionDataControl.getKeepDistance(), 0, 100, 5);
-		keepDistanceSpinner = new JSpinner(sm);
-		keepDistanceSpinner.setEnabled(actionDataControl.getNeedsGoTo());
-		keepDistanceSpinner.addChangeListener(new KeepDistanceSpinnerListener());
-		temp.setLayout(new BorderLayout());
-		temp.add(new JLabel(TextConstants.getText("CustomAction.DistanceToObjective")), BorderLayout.CENTER);
-		temp.add(keepDistanceSpinner, BorderLayout.WEST);
-		otherPanel.add( temp);
-		
-		otherPanel.setBorder(BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder(), TextConstants.getText("CustomAction.OtherConfiguration")));
-		add(otherPanel, c);
+		// Create and add the move up and down item
+		JMenuItem moveUpMenuItem = new JMenuItem( TextConstants.getText( "TreeNode.MoveElementUp" ) );
+		JMenuItem moveDownMenuItem = new JMenuItem( TextConstants.getText( "TreeNode.MoveElementDown" ) );
+		moveUpMenuItem.setEnabled( moveUpButton.isEnabled( ) );
+		moveDownMenuItem.setEnabled( moveDownButton.isEnabled( ) );
+		moveUpMenuItem.addActionListener( new ActionListener( ) {
+			public void actionPerformed( ActionEvent arg0 ) {
+				moveUp( );
+			}
+		} );
+		moveDownMenuItem.addActionListener( new ActionListener( ) {
+			public void actionPerformed( ActionEvent arg0 ) {
+				moveDown( );
+			}
+		} );
+		completePopupMenu.add( moveUpMenuItem );
+		completePopupMenu.add( moveDownMenuItem );
 
-		// Create the button for the conditions
-		c.gridy++;
-		JPanel conditionsPanel = new JPanel( );
-		conditionsPanel.setLayout( new GridLayout( ) );
-		JButton conditionsButton = new JButton( TextConstants.getText( "GeneralText.EditConditions" ) );
-		conditionsButton.addActionListener( new ConditionsButtonListener( ) );
-		conditionsPanel.add( conditionsButton );
-		conditionsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Action.Conditions" ) ) );
-		add( conditionsPanel, c );
-
-		// Create a effects panel and attach it
-		c.gridy++;
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 1;
-		c.weighty = 1;
-		MacroReferenceEffectDialog.ID = null;
-		add( new EffectsPanel( actionDataControl.getEffects( ) ), c );
-		
-		
+		return completePopupMenu;
 	}
-
-	/**
-	 * Listener for the elements (items or characters) combo box.
+    
+    /**
+	 * Returns a popup menu with the add operations.
+	 * 
+	 * @return Popup menu with child adding operations
 	 */
-	private class ElementComboBoxListener implements ActionListener {
+	public JPopupMenu getAddChildPopupMenu( ) {
+		JPopupMenu addChildPopupMenu = new JPopupMenu( );
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-		 */
-		public void actionPerformed( ActionEvent e ) {
-			actionDataControl.setIdTarget( elementsComboBox.getSelectedItem( ).toString( ) );
+		// If the element accepts children
+		if( dataControl.getAddableElements().length > 0 ) {
+			// Add an entry in the popup menu for each type of possible child
+			for( int type : dataControl.getAddableElements( ) ) {
+				JMenuItem addChildMenuItem = new JMenuItem( TextConstants.getText( "TreeNode.AddElement" + type ) );
+				addChildMenuItem.setEnabled( true );
+				addChildMenuItem.addActionListener( new AddActionListener( type ) );
+				addChildPopupMenu.add( addChildMenuItem );
+			}
 		}
+
+		// If no element can be added, insert a disabled general option
+		else {
+			JMenuItem addChildMenuItem = new JMenuItem( TextConstants.getText( "TreeNode.AddElement" ) );
+			addChildMenuItem.setEnabled( false );
+			addChildPopupMenu.add( addChildMenuItem );
+		}
+
+		return addChildPopupMenu;
 	}
-
-
-	/**
-	 * Listener for the edit conditions button.
-	 */
-	private class ConditionsButtonListener implements ActionListener {
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-		 */
-		public void actionPerformed( ActionEvent e ) {
-			new ConditionsDialog( actionDataControl.getConditions( ) );
+	
+	private void delete( ) {
+		ActionDataControl action = dataControl.getActions().get(actionsTable.getSelectedRow( ) );
+		if (dataControl.deleteElement( action, true )){
+		    	((JPanel)actionPanel).setVisible(false);
+			actionsTable.clearSelection( );
+			actionsTable.changeSelection(0, 1, false, false);
+			actionsTable.updateUI( );
+			
 		}
 	}
 	
-	/**
-	 * Listener for the changes in the needsGoTo checkbox
-	 */
-	private class NeedsGoToCheckListener implements ChangeListener {
-		public void stateChanged(ChangeEvent arg0) {
-			actionDataControl.setNeedsGoTo(needsGoToCheck.isSelected());
-			keepDistanceSpinner.setEnabled(needsGoToCheck.isSelected());
-		}
+	private void moveUp(){
+	    //falta tool
+	    int pos = actionsTable.getSelectedRow();
+	    if (dataControl.moveElementUp(dataControl.getActions().get(pos))){
+		actionsTable.clearSelection( );
+		actionsTable.changeSelection(pos-1,0,false,false);
+	    }
+	    //Controller.getInstance().addTool(new MovePlayerLayerInTableTool(referencesListDataControl,table,true));
+		
 	}
 	
-	/**
-	 * Listener for the changes in the keepDistances spinner
-	 */
-	private class KeepDistanceSpinnerListener implements ChangeListener {
-		public void stateChanged(ChangeEvent arg0) {
-			actionDataControl.setKeepDistance(((Integer) keepDistanceSpinner.getModel().getValue()).intValue());
-		}
+
+	
+	private void moveDown(){
+	    int pos = actionsTable.getSelectedRow();
+	    if (dataControl.moveElementDown(dataControl.getActions().get(pos))){
+		actionsTable.clearSelection( );
+		actionsTable.changeSelection(pos+1,0,false,false);
+	    }
+		//Controller.getInstance().addTool(new MovePlayerLayerInTableTool(referencesListDataControl,table,false));
+		
 	}
+	
+	
+	/**
+	 * This class is the action listener for the add buttons of the popup menus.
+	 */
+	private class AddActionListener implements ActionListener {
 
+		/**
+		 * Type of action to be created.
+		 */
+		int type;
 
+		/**
+		 * Constructor
+		 * 
+		 * @param type
+		 *            Type of element the listener must call
+		 */
+		public AddActionListener( int type ) {
+			this.type = type;
+		}
+
+		public void actionPerformed( ActionEvent e ) {	
+			if (dataControl.addElement( type, null )){
+			    if (type==Action.CUSTOM_INTERACT||type==Action.CUSTOM){
+				actionPanel = new CustomActionPropertiesPanel( (CustomActionDataControl)dataControl.getLastAction());
+			    }else {
+				actionPanel = new ActionPropertiesPanel( dataControl.getLastAction());
+			    }
+			    actionsTable.getSelectionModel().setSelectionInterval(actionsTable.getRowCount()-1, actionsTable.getRowCount()-1);
+			    actionsTable.updateUI( );
+				}
+			}
+		}
+	
 }

@@ -8,8 +8,8 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ActionDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.CustomActionDataControl;
-import es.eucm.eadventure.editor.gui.elementpanels.general.ActionPanel;
-import es.eucm.eadventure.editor.gui.elementpanels.general.CustomActionPanel;
+import es.eucm.eadventure.editor.gui.elementpanels.general.ActionPropertiesPanel;
+import es.eucm.eadventure.editor.gui.elementpanels.general.CustomActionPropertiesPanel;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.TreeNode;
 
 public class CustomActionTreeNode extends TreeNode {
@@ -77,7 +77,7 @@ public class CustomActionTreeNode extends TreeNode {
 
 	@Override
 	public JComponent getEditPanel( ) {
-		return new CustomActionPanel( (CustomActionDataControl) dataControl );
+		return new CustomActionPropertiesPanel( (CustomActionDataControl) dataControl );
 	}
 	
 	@Override

@@ -37,8 +37,8 @@ public class AssessmentProfileDataControl extends DataControl{
 		}
 	}
 	
-	public AssessmentProfileDataControl( List<AssessmentRule> assessmentRules, String path){
-		this( new AssessmentProfile (assessmentRules, path) );
+	public AssessmentProfileDataControl( List<AssessmentRule> assessmentRules, String name){
+		this( new AssessmentProfile (assessmentRules, name) );
 	}
 	
 	public String getFileName(){
@@ -198,8 +198,7 @@ public class AssessmentProfileDataControl extends DataControl{
 		boolean renamed = false;
 		String oldName = null;
 		if (this.profile.getName() != null) {
-			String[] temp = this.profile.getName().split("/");
-			oldName = temp[temp.length - 1]; 
+		    oldName = this.profile.getName();
 		}
 
 		
@@ -210,33 +209,18 @@ public class AssessmentProfileDataControl extends DataControl{
 			String fileName = name;
 			if (name == null)
 				fileName = controller.showInputDialog( TextConstants.getText( "Operation.RenameAssessmentFile.FileName" ), TextConstants.getText( "Operation.RenameAssessmentFile.FileName.Message" ), getFileName() );
-			if (fileName!=null && !fileName.equals( profile.getName().substring( profile.getName().lastIndexOf( "/" ) + 1 ) )){
-				if (fileName.contains( "/") || fileName.contains( "\\" )){
-					controller.showErrorDialog( TextConstants.getText( "Operation.RenameXMLFile.ErrorSlash" ), TextConstants.getText( "Operation.RenameXMLFile.ErrorSlash.Message" ) );
-					return null;
-				}
-
-				if (!fileName.toLowerCase().endsWith( ".xml" )){
-					if (fileName.endsWith( "." )){
-						fileName=fileName+"xml";
-					}else{
-						fileName=fileName+".xml";
-					}
-				}
-				
-				//Checks if the file exists. In that case, ask to overwrite it
-						File assessmentFile = new File (Controller.getInstance( ).getProjectFolder( ), profile.getName() );
-						renamed = assessmentFile.renameTo( new File(Controller.getInstance( ).getProjectFolder( ), AssetsController.getCategoryFolder( AssetsController.CATEGORY_ASSESSMENT ) +"/"+fileName) );
-						//controller.dataModified( );
-						profile.setName( AssetsController.getCategoryFolder( AssetsController.CATEGORY_ASSESSMENT ) +"/"+fileName );
+			if (fileName!=null && !fileName.equals( oldName ) && controller.isElementIdValid( fileName )){
+			    	//controller.dataModified( );
+				profile.setName( fileName );
+				renamed=true;
 			}
 			
 		}
 		
 		if (renamed)
 			return oldName;
-		else
-			return null;
+		
+		return null;
 	}
 
 	@Override
@@ -275,7 +259,7 @@ public class AssessmentProfileDataControl extends DataControl{
 	/**
 	 * @return the path
 	 */
-	public String getPath( ) {
+	public String getName( ) {
 		return profile.getName();
 	}
 
@@ -378,7 +362,7 @@ public class AssessmentProfileDataControl extends DataControl{
 		for (DataControl dc : dataControls)
 			dc.recursiveSearch( );
 		check(getEmail(), TextConstants.getText("Search.EMail"));
-		check(this.getPath(), TextConstants.getText("Search.Path"));
+		check(this.getName(), TextConstants.getText("Search.Path"));
 		check(this.getSmtpPort(), TextConstants.getText("Search.SMTPPort"));
 		check(this.getSmtpServer(), TextConstants.getText("Search.SMPTServer"));
 		check(this.getSmtpUser(), TextConstants.getText("Search.SMPTUser"));

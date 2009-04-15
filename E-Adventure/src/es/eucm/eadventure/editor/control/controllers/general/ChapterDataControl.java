@@ -453,7 +453,7 @@ public class ChapterDataControl extends DataControl {
 	@Override
 	public void getAssetReferences( List<String> assetPaths, List<Integer> assetTypes ) {
 		// Add the references from the assessment and adaptation files
-		if( getAssessmentName( )!=null && !getAssessmentName().equals( "" ) ){
+		/*if( getAssessmentName( )!=null && !getAssessmentName().equals( "" ) ){
 			String assessmentPath = getAssessmentName();
 			for (String asset: assetPaths){
 				boolean add = true;
@@ -480,7 +480,7 @@ public class ChapterDataControl extends DataControl {
 					assetTypes.add( last, AssetsController.CATEGORY_ADAPTATION );
 				}
 			}
-		}
+		}*/
 
 		// Add the references from the elements
 		scenesListDataControl.getAssetReferences( assetPaths, assetTypes );

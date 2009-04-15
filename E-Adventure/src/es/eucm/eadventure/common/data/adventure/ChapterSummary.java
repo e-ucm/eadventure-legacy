@@ -32,8 +32,6 @@ public class ChapterSummary implements Cloneable, Titled, Described {
 	 */
 	// this attribute isn't in descriptor, now is in chapter.xml, as "eAdventure" element attribute.
 	// don't move to "Chapter" class for no get it dirty.
-	// to support the past versions, this attribute will fill with the path of adaptation file when open a previous version game
-	// once open, the editor make the pertinent changes to store that data in chapter.xml
 	private String adaptationName;
 
 	/**
@@ -41,8 +39,6 @@ public class ChapterSummary implements Cloneable, Titled, Described {
 	 */
 	// this attribute isn't in descriptor, now is in chapter.xml, as "eAdventure" element attribute.
 	// don't move to "Chapter" class for no get it dirty.
-	// to support the past versions, this attribute will fill with the path of assessment file when open a previous version game
-	// once open, the editor make the pertinent changes to store that data in chapter.xml
 	private String assessmentName;
 	
 	/**
