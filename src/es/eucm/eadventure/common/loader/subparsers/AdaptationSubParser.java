@@ -46,6 +46,7 @@ public class AdaptationSubParser extends SubParser{
     public AdaptationSubParser(Chapter chapter) {
 	super(chapter);
 	profile = new AdaptationProfile();
+	currentString=new StringBuffer();
     }
     
     
@@ -208,7 +209,9 @@ public class AdaptationSubParser extends SubParser{
     
     public void endElement( String namespaceURI, String localName, String qName )  {
         //Finish parsing the initial state
-        if (qName.equals( "initial-state" )) {
+        if (qName.equals( "adaptation" )) {
+            chapter.addAdaptationProfile(profile);
+        }else if (qName.equals( "initial-state" )) {
             parsing = NONE;
             profile.setInitialState(initialState);
         }

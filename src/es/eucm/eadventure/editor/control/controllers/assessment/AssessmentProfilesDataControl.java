@@ -29,73 +29,41 @@ public class AssessmentProfilesDataControl extends DataControl{
 	
 	
 	@Override
-	public boolean addElement( int type , String fileName) {
+	public boolean addElement( int type , String profileName) {
 		boolean added = false;
 		if (type == Controller.ASSESSMENT_PROFILE){
 		
 		// Show confirmation dialog. If yes selected, mainwindow changes to assessment mode
 		if (controller.showStrictConfirmDialog( TextConstants.getText( "Operation.CreateAssessmentFile" ), TextConstants.getText( "Operation.CreateAssessmentFile.Message" ) )){
 			
-			//Prompt for file name:
-			if (fileName == null)
-				fileName = controller.showInputDialog( TextConstants.getText( "Operation.CreateAssessmentFile.FileName" ), TextConstants.getText( "Operation.CreateAssessmentFile.FileName.Message" ), TextConstants.getText( "Operation.CreateAssessmentFile.FileName.DefaultValue" ) );
-			if (fileName!=null){
-				if (fileName.contains( "/") || fileName.contains( "\\" )){
-					controller.showErrorDialog( TextConstants.getText( "Operation.RenameXMLFile.ErrorSlash" ), TextConstants.getText( "Operation.RenameXMLFile.ErrorSlash.Message" ) );
-					return false;
-				}
+			//Prompt for profile name:
+			if (profileName == null)
+			    profileName = controller.showInputDialog( TextConstants.getText( "Operation.CreateAssessmentFile.FileName" ), TextConstants.getText( "Operation.CreateAssessmentFile.FileName.Message" ), TextConstants.getText( "Operation.CreateAssessmentFile.FileName.DefaultValue" ) );
+			if (profileName!=null&& controller.isElementIdValid( profileName )){
+				//Checks if the profile exists. In that case, communicate it
+				if (!existName(profileName )){
+					List<AssessmentRule> newRules = new ArrayList<AssessmentRule>();
+					this.profiles.add( new AssessmentProfileDataControl ( newRules, profileName) );
+					data.add( (AssessmentProfile)profiles.get(profiles.size()-1).getContent() );
+					//controller.dataModified( );
+					added = true;
 
-				if (!fileName.toLowerCase().endsWith( ".xml" )){
-					if (fileName.endsWith( "." )){
-						fileName=fileName+"xml";
-					}else{
-						fileName=fileName+".xml";
-					}
-				}
-				
-				boolean create = true;
-				//Checks if the file exists. In that case, ask to overwrite it
-				File newFile = new File(controller.getProjectFolder( ), AssetsController.getCategoryFolder( AssetsController.CATEGORY_ASSESSMENT )+"/"+fileName);
-				if (newFile.exists( )){
-					
-					//Overwrite it?
-					if (controller.showStrictConfirmDialog( TextConstants.getText( "Operation.OverwriteAssessmentFile" ), TextConstants.getText( "Operation.OverwriteAssessmentFile.Message" ) )){
-						create = true;
-						newFile.delete( );
-						
-						// Search the profile and delete it
-						for (AssessmentProfileDataControl profile: this.profiles){
-							if (profile.getPath( ).equals( AssetsController.getCategoryFolder( AssetsController.CATEGORY_ASSESSMENT )+"/"+fileName )){
-								controller.deleteAssetReferences( profile.getPath() );
-								data.remove( profiles.indexOf(profile));
-								profiles.remove( profile );
-								break;
-							}
-						}
-					}else
-						create = false;
-					
-				}
-				
-				if (create){
-					try {
-						File newAssFile = new File (Controller.getInstance( ).getProjectFolder( ),AssetsController.getCategoryFolder( AssetsController.CATEGORY_ASSESSMENT )+"/"+fileName );
-						newAssFile.createNewFile( );
-						List<AssessmentRule> newRules = new ArrayList<AssessmentRule>();
-						this.profiles.add( new AssessmentProfileDataControl ( newRules, AssetsController.getCategoryFolder( AssetsController.CATEGORY_ASSESSMENT )+"/"+fileName) );
-						data.add( (AssessmentProfile)profiles.get(profiles.size()-1).getContent() );
-						//controller.dataModified( );
-						added = true;
-					} catch( IOException e ) {
-						Controller.getInstance( ).showErrorDialog( "Error.CreateAssessmentFile.Title", "Error.CreateAssessmentFile.Message" );
-					}
-
+				}else {
+				    controller.showErrorDialog(TextConstants.getText("Operation.CreateAdaptationFile.FileName.ExistValue.Title"), TextConstants.getText("Operation.CreateAdaptationFile.FileName.ExistValue.Message"));
 				}
 			}
 			
 		}
 		}
 		return added;
+	}
+	
+	private boolean existName(String name){
+	    for (AssessmentProfileDataControl profile: this.profiles){
+		if (profile.getName().equals(name))
+		    return true;
+	    }
+	    return false;
 	}
 
 	@Override
@@ -162,7 +130,7 @@ public class AssessmentProfilesDataControl extends DataControl{
 		boolean deleted = false;
 		for (AssessmentProfileDataControl profile:profiles){
 			if (dataControl == profile){
-				String path = profile.getPath( );
+				String path = profile.getName( );
 				int references = Controller.getInstance( ).countAssetReferences( path );
 				if(!askConfirmation || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { 
 						TextConstants.getElementName( Controller.ASSESSMENT_PROFILE ), Integer.toString( references ) } ) ) ) {
@@ -187,7 +155,7 @@ public class AssessmentProfilesDataControl extends DataControl{
 	@Override
 	public void deleteIdentifierReferences( String id ) {
 		for (AssessmentProfileDataControl profile:profiles){
-			if (profile.getPath( ).equals( id ))
+			if (profile.getName( ).equals( id ))
 			profiles.remove( profile );break; 
 		}
 
@@ -328,7 +296,7 @@ public class AssessmentProfilesDataControl extends DataControl{
 	 */
 	public AssessmentProfileDataControl getProfileByPath(String adaptationPath) {
 		for ( AssessmentProfileDataControl profile: profiles){
-			if (profile.getPath().equals(adaptationPath) ){
+			if (profile.getName().equals(adaptationPath) ){
 				return profile;
 			}
 		}

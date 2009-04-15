@@ -57,67 +57,67 @@ public class AssetsController {
 	/**
 	 * Assessment files category.
 	 */
-	public static final int CATEGORY_ASSESSMENT = 0;
+	//public static final int CATEGORY_ASSESSMENT = 0;
 
 	/**
 	 * Assessment files category.
 	 */
-	public static final int CATEGORY_ADAPTATION = 1;
+	//public static final int CATEGORY_ADAPTATION = 1;
 
 	/**
 	 * Background category.
 	 */
-	public static final int CATEGORY_BACKGROUND = 2;
+	public static final int CATEGORY_BACKGROUND = 0;
 
 	/**
 	 * Animation category.
 	 */
-	public static final int CATEGORY_ANIMATION = 3;
+	public static final int CATEGORY_ANIMATION = 1;
 
 	/**
 	 * Image category.
 	 */
-	public static final int CATEGORY_IMAGE = 4;
+	public static final int CATEGORY_IMAGE = 2;
 
 	/**
 	 * Icon category.
 	 */
-	public static final int CATEGORY_ICON = 5;
+	public static final int CATEGORY_ICON = 3;
 
 	/**
 	 * Audio category.
 	 */
-	public static final int CATEGORY_AUDIO = 6;
+	public static final int CATEGORY_AUDIO = 4;
 
 	/**
 	 * Video category.
 	 */
-	public static final int CATEGORY_VIDEO = 7;
+	public static final int CATEGORY_VIDEO = 5;
 	
 	/**
 	 * Cursor category.
 	 */
-	public static final int CATEGORY_CURSOR = 8;
+	public static final int CATEGORY_CURSOR = 6;
 
 	/**
 	 * Cursor category.
 	 */
-	public static final int CATEGORY_STYLED_TEXT = 9;
+	public static final int CATEGORY_STYLED_TEXT = 7;
 
 	/**
 	 * Animation Image category
 	 */
-	public static final int CATEGORY_ANIMATION_IMAGE = 10;
+	public static final int CATEGORY_ANIMATION_IMAGE = 8;
 
 	/**
 	 * Customized button category
 	 */
-	public static final int CATEGORY_BUTTON = 11;
+	public static final int CATEGORY_BUTTON = 9;
 	
 	/**
 	 * Animation sound category
 	 */
-	public static final int CATEGORY_ANIMATION_AUDIO = 12;
+	public static final int CATEGORY_ANIMATION_AUDIO = 10;
 
 
 	/**
@@ -165,7 +165,7 @@ public class AssetsController {
 	/**
 	 * Number of categories.
 	 */
-	private static final int CATEGORIES_COUNT = 13;
+	private static final int CATEGORIES_COUNT = 11;
 
 	/**
 	 * Path for the assessment files.
@@ -1088,12 +1088,12 @@ public class AssetsController {
 		String folder = null;
 
 		switch( assetsCategory ) {
-			case CATEGORY_ASSESSMENT:
+			/*case CATEGORY_ASSESSMENT:
 				folder = CATEGORY_ASSESSMENT_FOLDER;
 				break;
 			case CATEGORY_ADAPTATION:
 				folder = CATEGORY_ADAPTATION_FOLDER;
-				break;
+				break;*/
 			case CATEGORY_BACKGROUND:
 				folder = CATEGORY_BACKGROUND_FOLDER;
 				break;
@@ -1142,10 +1142,10 @@ public class AssetsController {
 		FileFilter fileFilter = null;
 
 		switch( assetsCategory ) {
-			case CATEGORY_ASSESSMENT:
+			/*case CATEGORY_ASSESSMENT:
 			case CATEGORY_ADAPTATION:
 				fileFilter = new XMLFileFilter( );
-				break;
+				break;*/
 			case CATEGORY_BACKGROUND:
 				// NOTE: In this category, subfilters are now ignored
 				//if( filter == FILTER_NONE )

@@ -7,7 +7,7 @@ import javax.swing.JComponent;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ActionDataControl;
-import es.eucm.eadventure.editor.gui.elementpanels.general.ActionPanel;
+import es.eucm.eadventure.editor.gui.elementpanels.general.ActionPropertiesPanel;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.TreeNode;
 
 public class GiveToActionTreeNode extends TreeNode {
@@ -75,7 +75,7 @@ public class GiveToActionTreeNode extends TreeNode {
 
 	@Override
 	public JComponent getEditPanel( ) {
-		return new ActionPanel( dataControl );
+		return new ActionPropertiesPanel( dataControl );
 	}
 
 	@Override

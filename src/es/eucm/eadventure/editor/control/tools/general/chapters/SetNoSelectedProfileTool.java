@@ -7,8 +7,8 @@ import es.eucm.eadventure.editor.control.tools.Tool;
 
 public class SetNoSelectedProfileTool extends Tool{
 	
-	public static final int MODE_ADAPTATION = AssetsController.CATEGORY_ADAPTATION;
-	public static final int MODE_ASSESSMENT = AssetsController.CATEGORY_ASSESSMENT;
+	public static final int MODE_ADAPTATION = Controller.ADAPTATION_PROFILE;
+	public static final int MODE_ASSESSMENT = Controller.ASSESSMENT_PROFILE;
 	public static final int MODE_UNKNOWN = -1;
 	
 	protected Chapter chapter;

@@ -10,6 +10,7 @@ import es.eucm.eadventure.common.data.adaptation.AdaptationProfile;
 import es.eucm.eadventure.common.data.adaptation.AdaptationRule;
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
 import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
+import es.eucm.eadventure.common.data.assessment.AssessmentRule;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
@@ -30,69 +31,41 @@ public class AdaptationProfilesDataControl extends DataControl{
 	
 	
 	@Override
-	public boolean addElement( int type , String fileName) {
-		boolean added = false;
+	public boolean addElement( int type , String profileName) {
+	    boolean added = false;
 		if (type == Controller.ADAPTATION_PROFILE){
 		
-		// Show confirmation dialog. If yes selected, mainwindow changes to adaptation mode
+		// Show confirmation dialog. If yes selected, mainwindow changes to assessment mode
 		if (controller.showStrictConfirmDialog( TextConstants.getText( "Operation.CreateAdaptationFile" ), TextConstants.getText( "Operation.CreateAdaptationFile.Message" ) )){
 			
-			//Prompt for file name:
-			if (fileName == null)
-				fileName = controller.showInputDialog( TextConstants.getText( "Operation.CreateAdaptationFile.FileName" ), TextConstants.getText( "Operation.CreateAdaptationFile.FileName.Message" ), TextConstants.getText( "Operation.CreateAdaptationFile.FileName.DefaultValue" ) );
-			if (fileName!=null){
-				if (fileName.contains( "/") || fileName.contains( "\\" )){
-					controller.showErrorDialog( TextConstants.getText( "Operation.RenameXMLFile.ErrorSlash" ), TextConstants.getText( "Operation.RenameXMLFile.ErrorSlash.Message" ) );
-					return false;
-				}
+			//Prompt for profile name:
+			if (profileName == null)
+			    profileName = controller.showInputDialog( TextConstants.getText( "Operation.CreateAdaptationFile.FileName" ), TextConstants.getText( "Operation.CreateAdaptationFile.FileName.Message" ), TextConstants.getText( "Operation.CreateAdaptationFile.FileName.DefaultValue" ) );
+			if (profileName!=null&& controller.isElementIdValid( profileName )){
+				//Checks if the profile exists. In that case, communicate it
+				if (!existName(profileName )){
+					List<AdaptationRule> newRules = new ArrayList<AdaptationRule>();
+					AdaptedState initialState = new AdaptedState();
+					this.profiles.add( new AdaptationProfileDataControl ( newRules, initialState,profileName) );
+					//data.add( (AssessmentProfile)profiles.get(profiles.size()-1).getContent() );
+					//controller.dataModified( );
+					added = true;
 
-				if (!fileName.toLowerCase().endsWith( ".xml" )){
-					if (fileName.endsWith( "." )){
-						fileName=fileName+"xml";
-					}else{
-						fileName=fileName+".xml";
-					}
-				}
-
-				boolean create = true;
-				//Checks if the file exists. In that case, ask to overwrite it
-				File newFile = new File(controller.getProjectFolder( ), AssetsController.getCategoryFolder( AssetsController.CATEGORY_ADAPTATION )+"/"+fileName);
-				if (newFile.exists( )){
-					
-					//Overwrite it?
-					if (controller.showStrictConfirmDialog( TextConstants.getText( "Operation.OverwriteAdaptationFile" ), TextConstants.getText( "Operation.OverwriteAdaptationFile.Message" ) )){
-						create = true;
-						newFile.delete( );
-						// Search the profile and delete it
-						for (AdaptationProfileDataControl profile: this.profiles){
-							if (profile.getName( ).equals( AssetsController.getCategoryFolder( AssetsController.CATEGORY_ADAPTATION )+"/"+fileName )){
-								controller.deleteAssetReferences( profile.getName() );
-								profiles.remove( profile );
-							}
-						}
-
-					}else
-						create = false;
-					
-				}
-				
-				if (create){
-					try {
-						File newAssFile = new File (Controller.getInstance( ).getProjectFolder( ),AssetsController.getCategoryFolder( AssetsController.CATEGORY_ADAPTATION )+"/"+fileName );
-						newAssFile.createNewFile( );
-						this.profiles.add( new AdaptationProfileDataControl ( new ArrayList<AdaptationRule>(), new AdaptedState(), AssetsController.getCategoryFolder( AssetsController.CATEGORY_ADAPTATION )+"/"+fileName) );
-						//controller.dataModified( );
-						added = true;
-					} catch( IOException e ) {
-						Controller.getInstance( ).showErrorDialog( "Error.CreateAdaptationFile.Title", "Error.CreateAdaptationFile.Message" );
-					}
-
+				}else {
+				    controller.showErrorDialog(TextConstants.getText("Operation.CreateAdaptationFile.FileName.ExistValue.Title"), TextConstants.getText("Operation.CreateAdaptationFile.FileName.ExistValue.Message"));
 				}
 			}
 			
 		}
 		}
 		return added;
+	}
+	private boolean existName(String name){
+	    for (AdaptationProfileDataControl profile: this.profiles){
+		if (profile.getName().equals(name))
+		    return true;
+	    }
+	    return false;
 	}
 	
 	@Override

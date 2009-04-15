@@ -34,6 +34,19 @@ import es.eucm.eadventure.common.loader.incidences.Incidence;
  */
 public class AdventureHandler extends DefaultHandler {
 
+    
+    
+    	/**
+    	 * Constant with the assessment folder path
+    	 */
+    	private static final String assessmentFolderPath = "assessment";
+    
+    	/**
+    	 * Constant with the adaptation folder path
+    	 */
+    	private static final String adaptationFolderPath = "adaptation";
+    
+    	
 	/**
 	 * Constant for reading nothing.
 	 */
@@ -96,7 +109,7 @@ public class AdventureHandler extends DefaultHandler {
 	 */
 	private List<String> adaptationPaths;
 	
-	private static void getXMLFilePaths (InputStreamCreator isCreator, String assessmentFolderPath, String adaptationFolderPath, List<String> assessmentPaths, List<String> adaptationPaths){
+	private static void getXMLFilePaths (InputStreamCreator isCreator,List<String> assessmentPaths, List<String> adaptationPaths){
 
 		// Assessment
 			for ( String child: isCreator.listNames(assessmentFolderPath)){
@@ -120,11 +133,11 @@ public class AdventureHandler extends DefaultHandler {
 	 * @param zipFile
 	 *            Path to the zip file which helds the chapter files
 	 */
-	public AdventureHandler(  InputStreamCreator isCreator, String assessmentFolder, String adaptationFolder, List<Incidence> incidences ) {
+	public AdventureHandler(  InputStreamCreator isCreator, List<Incidence> incidences ) {
 		this.isCreator = isCreator;
 		assessmentPaths = new ArrayList<String>();
 		adaptationPaths = new ArrayList<String>();
-		getXMLFilePaths(isCreator, assessmentFolder, adaptationFolder, assessmentPaths, adaptationPaths );
+		getXMLFilePaths(isCreator,assessmentPaths, adaptationPaths );
 		
 		adventureData = new AdventureData( );
 		this.incidences = incidences;

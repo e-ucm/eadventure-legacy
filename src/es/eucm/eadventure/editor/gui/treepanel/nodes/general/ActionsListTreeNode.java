@@ -3,11 +3,15 @@ package es.eucm.eadventure.editor.gui.treepanel.nodes.general;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
+import javax.swing.JPanel;
 
+import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ActionDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ActionsListDataControl;
+import es.eucm.eadventure.editor.gui.elementpanels.general.ActionPanel;
+import es.eucm.eadventure.editor.gui.elementpanels.general.ActionPropertiesPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.general.ActionsListPanel;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.TreeNode;
 
@@ -145,7 +149,8 @@ public class ActionsListTreeNode extends TreeNode {
 
 	@Override
 	public JComponent getEditPanel( ) {
-		return new ActionsListPanel( dataControl );
+		//return new ActionsListPanel( dataControl );
+	    	return new ActionPanel(dataControl,new ActionPropertiesPanel(new ActionDataControl(new Action(0))));
 	}
 
 	@Override

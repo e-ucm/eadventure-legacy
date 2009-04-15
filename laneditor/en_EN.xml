@@ -444,17 +444,19 @@ named 'descriptor.xml' or 'chapterXX.xml' where XX is a number.</entry>
 	<entry key="Operation.EditAssessmentFile.Error">Impossible edit assessment file</entry>
 	<entry key="Operation.EditAssessmentFile.Error.Message">Please, select or create a valid assessment file before</entry>
 	
-	<entry key="Operation.CreateAssessmentFile">Create a new assessment file</entry>
-	<entry key="Operation.CreateAssessmentFile.Message">Are you sure you want to create a new assessment file?</entry>
-	<entry key="Operation.CreateAssessmentFile.FileName">Name of the new assessment file</entry>
-	<entry key="Operation.CreateAssessmentFile.FileName.Message">Type the name of the new assessment file</entry>
-	<entry key="Operation.CreateAssessmentFile.FileName.DefaultValue">assessment-file.xml</entry>
+	<entry key="Operation.CreateAssessmentFile">Create a new assessment profile</entry>
+	<entry key="Operation.CreateAssessmentFile.Message">Are you sure you want to create a new assessment profile?</entry>
+	<entry key="Operation.CreateAssessmentFile.FileName">Name of the new assessment profile</entry>
+	<entry key="Operation.CreateAssessmentFile.FileName.Message">Type the name of the new assessment profile</entry>
+	<entry key="Operation.CreateAssessmentFile.FileName.DefaultValue">assessment-profile</entry>
 
-	<entry key="Operation.CreateAdaptationFile">Create a new adaptation file</entry>
-	<entry key="Operation.CreateAdaptationFile.Message">Are you sure you want to create a new adaptation file?</entry>
-	<entry key="Operation.CreateAdaptationFile.FileName">Name of the new adaptation file</entry>
-	<entry key="Operation.CreateAdaptationFile.FileName.Message">Type the name of the new adaptation file</entry>
-	<entry key="Operation.CreateAdaptationFile.FileName.DefaultValue">adaptation-file.xml</entry>
+	<entry key="Operation.CreateAdaptationFile">Create a new adaptation profile</entry>
+	<entry key="Operation.CreateAdaptationFile.Message">Are you sure you want to create a new adaptation profile?</entry>
+	<entry key="Operation.CreateAdaptationFile.FileName">Name of the new adaptation profile</entry>
+	<entry key="Operation.CreateAdaptationFile.FileName.Message">Type the name of the new adaptation profile</entry>
+	<entry key="Operation.CreateAdaptationFile.FileName.DefaultValue">adaptation-profile</entry>
+	<entry key="Operation.CreateAdaptationFile.FileName.ExistValue.Message">The new name already exists in current chapter.</entry>
+	<entry key="Operation.CreateAdaptationFile.FileName.ExistValue.Title">The new name exists.</entry>
 
 	<entry key="Operation.OverwriteAdaptationFile">File already exists</entry>
 	<entry key="Operation.OverwriteAssessmentFile">File already exists</entry>
@@ -1194,6 +1196,16 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="ActionsList.UseWithAction">Use with {#0}</entry>
 	<entry key="ActionsList.CustomInteractAction">Custom interaction with {#0}</entry>
 	<entry key="ActionsList.UseAction">Use</entry>
+	<entry key="ActionsList.Add">Add action</entry>
+	<entry key="ActionsList.Delete">Delete action</entry>
+	<entry key="ActionsList.MoveUp">Move action up</entry>
+	<entry key="ActionsList.MoveDown">Move action down</entry>
+	<entry key="ActionsList.Pos">Position</entry>
+	<entry key="ActionsList.ActionName">Action</entry>
+	<entry key="ActionsList.With">With</entry>
+	<entry key="ActionsList.CustomName">Custom Name</entry>
+	<entry key="ActionList.Empty">No action selected./entry>
+	
 
 	<entry key="Action.Title">Action</entry>
 	<entry key="Action.OperationAddAction">Add action</entry>
