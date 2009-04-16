@@ -1660,6 +1660,15 @@ When not customized, default arrows will be used in the game.</entry>
 	<entry key="AssessmentProfiles.Title">Assessment profiles</entry>
 	<entry key="AssessmentProfiles.Information">This section of the tree structure allows the creation and edition of new assessment profiles. To select which should be the active profile for the chapter use the combo box in the chapter panel</entry>
 	
+	<entry key="AdaptationProfile.TypeDialog.Title">Select the profile type.</entry>
+	<entry key="AdaptationProfile.NormalProfile">Normal Profile</entry>
+	<entry key="AdaptationProfile.Scorm12Profile">Scorm v1.2 Profile</entry>
+	<entry key="AdaptationProfile.Scorm2004Profile">Scorm 2004 Profile</entry>
+	<entry key="AdaptationProfile.Edit">Edit</entry>
+	<entry key="AdaptationProfile.Expand">Expand</entry>
+	<entry key="AdaptationProfile.InitialDialog.Title">Initial State</entry>
+	<entry key="AdaptationProfile.Empty">No rule selected.</entry>
+	
 	<entry key="AdaptationRulesList.ColumnHeader0">Id</entry>
 	<entry key="AdaptationRulesList.ColumnHeader1">UoL properties</entry>
 	<entry key="AdaptationRulesList.ColumnHeader2">Initial Scene</entry>
