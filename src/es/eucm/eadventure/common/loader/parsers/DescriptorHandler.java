@@ -209,19 +209,37 @@ public class DescriptorHandler extends DefaultHandler {
 	        }
 	        
 	        // If it is an adaptation file, store the path
+	        // With last profile modifications, only old games includes that information in its descriptor file.
+        	// For that reason, the next "path" info is the name of the profile, and it is necessary to eliminate the path's characteristic
+        	// such as / and .xml
+	       
 	        else if( qName.equals( "adaptation-configuration" ) ) {
 	            // Store the path of the adaptation file
 	            for( int i = 0; i < attrs.getLength( ); i++ )
-	                if( attrs.getQName( i ).equals( "path" ) )
-	                    currentChapter.setAdaptationName( attrs.getValue( i ) );
+	                if( attrs.getQName( i ).equals( "path" ) ){
+	                    String adaptationName = attrs.getValue( i );
+	                    // delete the path's characteristics
+	                    adaptationName = adaptationName.substring(adaptationName.indexOf("/")+1);
+	                    adaptationName = adaptationName.substring(0,adaptationName.indexOf("."));
+			    currentChapter.setAdaptationName( adaptationName );
+	                }
+			
 	        }
 	        
 	        // If it is an assessment file, store the path
+	        // With last profile modifications, only old games includes that information in its descriptor file.
+        	// For that reason, the next "path" info is the name of the profile, and it is necessary to eliminate the path's characteristic
+        	// such as / and .xml
 	        else if( qName.equals( "assessment-configuration" ) ) {
 	            // Store the path of the assessment file
 	            for( int i = 0; i < attrs.getLength( ); i++ )
-	                if( attrs.getQName( i ).equals( "path" ) )
-	                    currentChapter.setAssessmentName( attrs.getValue( i ) );
+	                if( attrs.getQName( i ).equals( "path" ) ){
+	                    String assessmentName = attrs.getValue( i );
+	                    // delete the path's characteristics
+	                    assessmentName = assessmentName.substring(assessmentName.indexOf("/")+1);
+	                    assessmentName = assessmentName.substring(0,assessmentName.indexOf("."));
+	                    currentChapter.setAssessmentName( assessmentName );
+	                }
 	        }
 	    }
 	    

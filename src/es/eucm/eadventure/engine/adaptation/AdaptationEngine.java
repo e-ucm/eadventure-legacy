@@ -46,19 +46,19 @@ public class AdaptationEngine {
      * @param adaptationPath Path of the file containing the adaptation data
      */
     @SuppressWarnings("unchecked")
-    public void init( String adaptationPath ) {
-    	boolean inited = false;
-    	if (adaptationPath!=null && !adaptationPath.equals("")){
-    	    loadAdaptationProfile(adaptationPath);
-    	    inited = true;
-    	} else {
+    public void init( AdaptationProfile adaptationProfile ) {
+    	//boolean inited = false;
+    	//if (adaptationPath!=null && !adaptationPath.equals("")){
+    	    loadAdaptationProfile(adaptationProfile);
+    	  //  inited = true;
+    	//} else {
     		initialAdaptedState = new AdaptedState();
     		externalAdaptationRules = new ArrayList<AdaptationRule>();
-    	}
+    	//}
 		    
-	    if(inited) {
+	   // if(inited) {
 	        Game.getInstance().setAdaptedStateToExecute(initialAdaptedState);
-	    }
+	    //}
 	 
 	    //If we are an applet...
 	    if(Game.getInstance( ).isAppletMode( )) {
@@ -78,26 +78,26 @@ public class AdaptationEngine {
     
     /**
      * Load the adaptation profile filling the initial adapted state and external adaptation rules
-     * @param adaptationPath
-     * 			the path where adaptation profile is
+     * @param adaptationProfile
+     * 			the adaptation profile
      */
-    private void loadAdaptationProfile(String adaptationPath){
+    private void loadAdaptationProfile(AdaptationProfile adaptationProfile){
 	
-	AdaptationProfile profile = Loader.loadAdaptationProfile( ResourceHandler.getInstance(), adaptationPath, new ArrayList<Incidence>() );
-	    if (profile!=null){
+	//AdaptationProfile profile = Loader.loadAdaptationProfile( ResourceHandler.getInstance(), adaptationPath, new ArrayList<Incidence>() );  
+	if (adaptationProfile!=null){
 		    FlagSummary flags = Game.getInstance().getFlags();
 		    VarSummary vars = Game.getInstance().getVars();
-		    for (String flag: profile.getFlags() ){
+		    for (String flag: adaptationProfile.getFlags() ){
 		    	flags.addFlag ( flag );
 		    }
-		    for (String var: profile.getVars() ){
+		    for (String var: adaptationProfile.getVars() ){
 		    	vars.addVar ( var );
 		    }
 	
 	    
 
-	    initialAdaptedState = profile.getAdaptedState();
-	    externalAdaptationRules = profile.getRules();
+	    initialAdaptedState = adaptationProfile.getAdaptedState();
+	    externalAdaptationRules = adaptationProfile.getRules();
 	    }
     }
     
