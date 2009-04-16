@@ -230,4 +230,56 @@ public class ChapterSummary implements Cloneable, Titled, Described {
 	public List<AdaptationProfile> getAdaptationProfiles() {
 	    return adaptationProfiles;
 	}
+	
+	/**
+	 * Return the selected assessment profile 
+	 * 
+	 * @return the selected assessment profile
+	 */
+	public AssessmentProfile getSelectedAssessmentProfile(){
+	    for (AssessmentProfile profile: assessmentProfiles){
+		if (profile.getName().equals(assessmentName))
+			return profile;
+	    }
+	    return null;
+	}
+	
+	/**
+	 * Return the selected adaptation profile 
+	 * 
+	 * @return the selected adaptation profile
+	 */
+	public AdaptationProfile getSelectedAdaptationProfile(){
+	    for (AdaptationProfile profile: adaptationProfiles){
+		if (profile.getName().equals(assessmentName))
+			return profile;
+	    }
+	    return null;
+	}
+	
+	/**
+	 * Return all adaptation profiles names
+	 * 
+	 * @return
+	 * 	An array of all adaptation profiles names
+	 */
+	public String[] getAdaptationProfilesNames(){
+	    String[] names = new String[adaptationProfiles.size()];
+	    for (int i=0;i<adaptationProfiles.size();i++)
+		names[i] = adaptationProfiles.get(i).getName();
+	    return names;
+	}
+	
+	/**
+	 * Return all assessment profiles names
+	 * 
+	 * @return
+	 * 	An array of all assessment profiles names
+	 */
+	public String[] getAssessmentProfilesNames(){
+	    String[] names = new String[assessmentProfiles.size()];
+	    for (int i=0;i<assessmentProfiles.size();i++)
+		names[i] = assessmentProfiles.get(i).getName();
+	    return names;
+	}
 }

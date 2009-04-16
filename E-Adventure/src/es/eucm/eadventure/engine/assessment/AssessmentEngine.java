@@ -111,11 +111,12 @@ public class AssessmentEngine implements TimerEventListener {
 	 * @param assessmentPath
 	 *            Path of the file containing the assessment data
 	 */
-	public void loadAssessmentRules(String assessmentPath) {
-		if (assessmentPath != null && !assessmentPath.equals("")) {
-			assessmentProfile = Loader.loadAssessmentProfile(ResourceHandler
-					.getInstance(), assessmentPath, new ArrayList<Incidence>());
-			assessmentRules = assessmentProfile.getRules();
+	public void loadAssessmentRules(AssessmentProfile profile) {
+		//if (assessmentPath != null && !assessmentPath.equals("")) {
+			//assessmentProfile = Loader.loadAssessmentProfile(ResourceHandler
+			//		.getInstance(), assessmentPath, new ArrayList<Incidence>());
+			assessmentProfile = profile;
+	    		assessmentRules = assessmentProfile.getRules();
 
 			FlagSummary flags = Game.getInstance().getFlags();
 			VarSummary vars = Game.getInstance().getVars();
@@ -125,9 +126,9 @@ public class AssessmentEngine implements TimerEventListener {
 			for (String var : assessmentProfile.getVars()) {
 				vars.addVar(var);
 			}
-		} else {
-			assessmentRules = new ArrayList<AssessmentRule>();
-		}
+		//} else {
+			//assessmentRules = new ArrayList<AssessmentRule>();
+		//}
 
 		// Iterate through the rules: those timed add them to the timer manager
 		for (AssessmentRule assessmentRule : assessmentRules) {

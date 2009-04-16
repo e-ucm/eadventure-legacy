@@ -46,19 +46,22 @@ public class ChangeSelectedProfileTool extends Tool{
 	@Override
 	public boolean doTool() {
 		boolean done = false;
+		String[] profileNames = new String[1];
+		// Get the list of profile names
+		if (mode==MODE_ASSESSMENT)
+		    profileNames = chapter.getAssessmentProfilesNames();
+		else if (mode==MODE_ADAPTATION)
+		    profileNames = chapter.getAdaptationProfilesNames();
 		
-		// Get the list of assets from the ZIP file
-		String[] assetFilenames = AssetsController.getAssetFilenames( mode );
-		String[] assetPaths = AssetsController.getAssetsList( mode );
-
-		// If the list of assets is empty, show an error message
-		if( assetFilenames.length == 0 )
+		
+		// If the list of profiles is empty, show an error message
+		if( profileNames.length == 0 )
 			controller.showErrorDialog( TextConstants.getText( "Resources.EditAsset" ), TextConstants.getText( "Resources.ErrorNoAssets" ) );
 
 		// If not empty, select one of them
 		else {
-			// Let the user choose between the assets
-			String selectedAsset = controller.showInputDialog( TextConstants.getText( "Resources.EditAsset" ), TextConstants.getText( "Resources.EditAssetMessage" ), assetFilenames );
+			// Let the user choose between the profiles
+			String selectedProfile = controller.showInputDialog( TextConstants.getText( "Resources.EditAsset" ), TextConstants.getText( "Resources.EditAssetMessage" ), profileNames );
 
 			// Get old Value
 			if (mode==MODE_ASSESSMENT){
@@ -67,28 +70,28 @@ public class ChangeSelectedProfileTool extends Tool{
 				oldValue = chapter.getAdaptationName();
 			}
 			
-			// If a file was selected
-			if( selectedAsset != null ) {
-				// Take the index of the selected asset
-				int assetIndex = -1;
-				for( int i = 0; i < assetFilenames.length; i++ )
-					if( assetFilenames[i].equals( selectedAsset ) )
-						assetIndex = i;
+			// If a profile was selected
+			if( selectedProfile != null ) {
+				// Take the index of the selected profile
+				int profileIndex = -1;
+				for( int i = 0; i < profileNames.length; i++ )
+					if( profileNames[i].equals( selectedProfile ) )
+						profileIndex = i;
 
 				// Store the data (if modified)
-				if (oldValue==null && assetPaths[assetIndex]!=null || 
-						oldValue!=null && assetPaths[assetIndex]==null ||
-						(oldValue!=null && assetPaths[assetIndex]!=null &&
-								!oldValue.equals(assetPaths[assetIndex]))){
+				//if (oldValue==null && profileNames[profileIndex]!=null || 
+				//		oldValue!=null && assetPaths[assetIndex]==null ||
+				//		(oldValue!=null && assetPaths[assetIndex]!=null &&
+				//				!oldValue.equals(assetPaths[assetIndex]))){
 				
 					if (mode == MODE_ASSESSMENT){
-						chapter.setAssessmentName( assetPaths[assetIndex]);
+						chapter.setAssessmentName( profileNames[profileIndex]);
 					} else if (mode == MODE_ADAPTATION){
-						chapter.setAdaptationName( assetPaths[assetIndex]);
+						chapter.setAdaptationName( profileNames[profileIndex]);
 					}
-					newValue = assetPaths[assetIndex];
+					newValue = profileNames[profileIndex];
 					done = true;
-				}
+				//}
 				
 				//controller.dataModified( );
 			}

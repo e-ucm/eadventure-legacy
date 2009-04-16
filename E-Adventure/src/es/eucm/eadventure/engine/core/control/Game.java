@@ -409,9 +409,11 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         timerManager.reset( );
         
         // Load the assessment rules and adaptation data
-        adaptationEngine.init( chapter.getAdaptationName( ) );
+        if (chapter.hasAdaptationProfile())
+             adaptationEngine.init( chapter.getSelectedAdaptationProfile() );
         
-        assessmentEngine.loadAssessmentRules( chapter.getAssessmentName( ) );
+        if (chapter.hasAssessmentProfile())
+            assessmentEngine.loadAssessmentRules( chapter.getSelectedAssessmentProfile() );
         
         // Initialize the required elements of the game
         actionManager = new ActionManager( );
@@ -1312,7 +1314,8 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     public synchronized void updateDataPendingFromState( boolean notifyTimerCycles ) {
         timerManager.update( notifyTimerCycles );
         functionalScene.updateScene( );
-        assessmentEngine.processRules( );
+        if (gameData.hasAssessmentProfile())
+            assessmentEngine.processRules( );
     }
     
     public void save(String saveFile) {
