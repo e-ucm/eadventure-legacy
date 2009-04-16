@@ -1668,6 +1668,16 @@ Si no las cambia, el juego empleará las flechas por defecto.</entry>
 	<entry key="AssessmentProfiles.Title">Perfiles de evaluación</entry>
 	<entry key="AssessmentProfiles.Information">Esta sección del árbol permite la creación y modificación de los perfiles de evaluación. Para activar uno de los perfiles, emplee el selector en la pantalla de edición de las propiedades generales del capítulo.</entry>
 	
+	
+	<entry key="AdaptationProfile.TypeDialog.Title">Seleccione el tipo de perfil.</entry>
+	<entry key="AdaptationProfile.NormalProfile">Perfil Normal</entry>
+	<entry key="AdaptationProfile.Scorm12Profile">Perfil Scorm v1.2</entry>
+	<entry key="AdaptationProfile.Scorm2004Profile">Perfil Scorm 2004</entry>
+	<entry key="AdaptationProfile.Edit">Editar</entry>
+	<entry key="AdaptationProfile.Expand">Expandir</entry>
+	<entry key="AdaptationProfile.InitialDialog.Title">Estado inicial</entry>
+	<entry key="AdaptationProfile.Empty">No hay ninguna regla seleccionada.</entry>
+	
 	<entry key="AdaptationRulesList.ColumnHeader0">Id</entry>
 	<entry key="AdaptationRulesList.ColumnHeader1">Propiedades externas</entry>
 	<entry key="AdaptationRulesList.ColumnHeader2">Escena inicial</entry>
