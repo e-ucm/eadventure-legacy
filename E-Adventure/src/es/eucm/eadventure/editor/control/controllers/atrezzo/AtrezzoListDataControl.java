@@ -284,5 +284,10 @@ public class AtrezzoListDataControl extends DataControl {
 		for (DataControl dc : this.atrezzoDataControlList)
 			dc.recursiveSearch();
 	}
-	
+
+	@Override
+	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+		return getPathFromChild(dataControl, atrezzoDataControlList);
+	}
+
 }

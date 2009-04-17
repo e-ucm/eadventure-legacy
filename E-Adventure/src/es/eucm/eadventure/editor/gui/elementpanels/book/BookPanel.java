@@ -1,51 +1,53 @@
 package es.eucm.eadventure.editor.gui.elementpanels.book;
 
-import javax.swing.JTabbedPane;
+import javax.swing.JComponent;
 
 import es.eucm.eadventure.common.data.chapter.book.Book;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.book.BookDataControl;
-import es.eucm.eadventure.editor.gui.Updateable;
+import es.eucm.eadventure.editor.gui.elementpanels.ElementPanel;
+import es.eucm.eadventure.editor.gui.elementpanels.PanelTab;
 
-public class BookPanel extends JTabbedPane implements Updateable {
+public class BookPanel extends ElementPanel {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-
-	private BookDocAppPanel bookDocAppPanel;
-	private BookParagraphsPanel bookParagraphsPanel;
-	private BookPagesPanel bookPagesPanel;
-	
-	private BookDataControl dataControl;
 	
 	public BookPanel (BookDataControl dataControl){
-		this.dataControl = dataControl;
-		if (dataControl.getType( ) == Book.TYPE_PARAGRAPHS) {
-			bookParagraphsPanel = new BookParagraphsPanel(dataControl);
-			this.insertTab( TextConstants.getText("Book.Contents"), null, bookParagraphsPanel, TextConstants.getText("Book.Contents.Tip"), 0 );
-		} else {
-			bookPagesPanel = new BookPagesPanel(dataControl);
-			this.insertTab( TextConstants.getText("Book.Contents"), null, bookPagesPanel, TextConstants.getText("Book.Contents.Tip"), 0 );
-		}
-		bookDocAppPanel = new BookDocAppPanel(dataControl);
-		this.insertTab( TextConstants.getText("Book.DocAndApp"), null, bookDocAppPanel, TextConstants.getText("Book.DocAndApp.Tip"), 1 );
-	}
-
-	public boolean updateFields() {
-		int selectedTab = this.getSelectedIndex();
-		bookDocAppPanel.updateFields();
-		this.removeTabAt(0);
-		if (dataControl.getType( ) == Book.TYPE_PARAGRAPHS) {
-			bookParagraphsPanel = new BookParagraphsPanel(dataControl);
-			this.insertTab( TextConstants.getText("Book.Contents"), null, bookParagraphsPanel, TextConstants.getText("Book.Contents.Tip"), 0 );
-		} else {
-			bookPagesPanel = new BookPagesPanel(dataControl);
-			this.insertTab( TextConstants.getText("Book.Contents"), null, bookPagesPanel, TextConstants.getText("Book.Contents.Tip"), 0 );
-		}
-		this.setSelectedIndex(selectedTab);
-		return true;
+		addTab(new BookContentPanel(dataControl));
+		addTab(new BookDocPanel(dataControl));
 	}
 	
+	private class BookDocPanel extends PanelTab {
+		private BookDataControl dataControl;
+		
+		public BookDocPanel(BookDataControl dataControl) {
+			super(TextConstants.getText("Book.DocAndApp"));
+			setToolTipText(TextConstants.getText("Book.DocAndApp.Tip"));
+			this.dataControl = dataControl;
+		}
+
+		@Override
+		protected JComponent getTabComponent() {
+			return new BookDocAppPanel(dataControl);
+		}
+	}
+	
+	private class BookContentPanel extends PanelTab {
+		private BookDataControl dataControl;
+		
+		public BookContentPanel(BookDataControl dataControl) {
+			super(TextConstants.getText("Book.Contents"));
+			setToolTipText(TextConstants.getText("Book.Contents.Tip"));
+			this.dataControl = dataControl;
+		}
+
+		@Override
+		protected JComponent getTabComponent() {
+			if (dataControl.getType( ) == Book.TYPE_PARAGRAPHS) {
+				return new BookParagraphsPanel(dataControl);
+			} else {
+				return new BookPagesPanel(dataControl);
+			}
+		}
+	}	
 }

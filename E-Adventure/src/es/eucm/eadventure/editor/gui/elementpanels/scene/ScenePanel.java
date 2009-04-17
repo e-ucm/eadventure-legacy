@@ -1,6 +1,6 @@
 package es.eucm.eadventure.editor.gui.elementpanels.scene;
 
-import javax.swing.JPanel;
+import javax.swing.JComponent;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
@@ -14,8 +14,6 @@ public class ScenePanel extends ElementPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private SceneLooksPanel looksPanel;
-
 	/**
 	 * Constructor.
 	 * 
@@ -23,32 +21,110 @@ public class ScenePanel extends ElementPanel {
 	 *            Scene controller
 	 */
 	public ScenePanel( SceneDataControl sDataControl ) {
-		looksPanel = new SceneLooksPanel( sDataControl );
-		JPanel docPanel = new SceneInfoPanel(sDataControl, looksPanel);
-		ReferencesListPanel referencesPanel = new ReferencesListPanel(sDataControl.getReferencesList());
-		BarriersListPanel barriersPanel = new BarriersListPanel(sDataControl.getBarriersList());
-		ActiveAreasListPanel activeAreasPanel = new ActiveAreasListPanel(sDataControl.getActiveAreasList());
-		ExitsListPanel exitsPanel = new ExitsListPanel(sDataControl.getExitsList());
-		
-		PanelTab tab1 = new PanelTab(TextConstants.getText( "Scene.LookPanelTitle" ), looksPanel);
-		PanelTab tab2 = new PanelTab(TextConstants.getText("Scene.DocPanelTitle"), docPanel);
-		PanelTab tab3 = new PanelTab(TextConstants.getText( "ItemReferencesList.Title" ), referencesPanel);
-		PanelTab tab4 = new PanelTab(TextConstants.getText( "BarriersList.Title" ), barriersPanel);
-		PanelTab tab5 = new PanelTab(TextConstants.getText( "ActiveAreasList.Title" ), activeAreasPanel);
-		PanelTab tab6 = new PanelTab(TextConstants.getText( "ExitsList.Title" ), exitsPanel);
-		this.addTab(tab1);
-		this.addTab(tab2);
-		this.addTab(tab3);
-		this.addTab(tab4);
-		this.addTab(tab5);
-		this.addTab(tab6);
-		
-//		tabPanel.insertTab( TextConstants.getText( "Scene.LookPanelTitle" ), null, looksPanel, TextConstants.getText( "Scene.LookPanelTip" ), 0 );
-//		tabPanel.insertTab( TextConstants.getText( "Scene.DocPanelTitle" ), null, docPanel, TextConstants.getText( "Scene.DocPanelTip" ), 1 );
-//		setLayout( new BorderLayout( ) );
-//		add( tabPanel, BorderLayout.CENTER );
-
+		this.addTab(new SceneLookPanelTab(sDataControl));
+		this.addTab(new SceneDocPanelTab(sDataControl));
+		this.addTab(new ItemsPanelTab(sDataControl));
+		this.addTab(new BarriersPanelTab(sDataControl));
+		this.addTab(new ActiveAreasPanelTab(sDataControl));
+		this.addTab(new ExitsPanelTab(sDataControl));
+		this.addTab(new TrajectoryPanelTab(sDataControl));
 	}
 
+	private class SceneLookPanelTab extends PanelTab {
+		private SceneDataControl sDataControl;
+		
+		public SceneLookPanelTab(SceneDataControl sDataControl) {
+			super(TextConstants.getText("Scene.LookPanelTitle"));
+			this.sDataControl = sDataControl;
+		}
 
+		@Override
+		protected JComponent getTabComponent() {
+			return new SceneLooksPanel( sDataControl );
+		}
+	}
+
+	private class SceneDocPanelTab extends PanelTab {
+		private SceneDataControl sDataControl;
+		
+		public SceneDocPanelTab(SceneDataControl sDataControl) {
+			super(TextConstants.getText("Scene.DocPanelTitle"));
+			this.sDataControl = sDataControl;
+		}
+
+		@Override
+		protected JComponent getTabComponent() {
+			return new SceneInfoPanel( sDataControl );
+		}
+	}
+	
+	private class ItemsPanelTab extends PanelTab {
+		private SceneDataControl sDataControl;
+		
+		public ItemsPanelTab(SceneDataControl sDataControl) {
+			super(TextConstants.getText("ItemReferencesList.Title"));
+			this.sDataControl = sDataControl;
+		}
+
+		@Override
+		protected JComponent getTabComponent() {
+			return new ReferencesListPanel(sDataControl.getReferencesList());
+		}
+	}
+	
+	private class BarriersPanelTab extends PanelTab {
+		private SceneDataControl sDataControl;
+		
+		public BarriersPanelTab(SceneDataControl sDataControl) {
+			super(TextConstants.getText("BarriersList.Title"));
+			this.sDataControl = sDataControl;
+		}
+
+		@Override
+		protected JComponent getTabComponent() {
+			return new BarriersListPanel(sDataControl.getBarriersList());
+		}
+	}
+
+	private class ActiveAreasPanelTab extends PanelTab {
+		private SceneDataControl sDataControl;
+		
+		public ActiveAreasPanelTab(SceneDataControl sDataControl) {
+			super(TextConstants.getText("ActiveAreasList.Title"));
+			this.sDataControl = sDataControl;
+		}
+
+		@Override
+		protected JComponent getTabComponent() {
+			return new ActiveAreasListPanel(sDataControl.getActiveAreasList());
+		}
+	}
+
+	private class ExitsPanelTab extends PanelTab {
+		private SceneDataControl sDataControl;
+		
+		public ExitsPanelTab(SceneDataControl sDataControl) {
+			super(TextConstants.getText("ExitsList.Title"));
+			this.sDataControl = sDataControl;
+		}
+
+		@Override
+		protected JComponent getTabComponent() {
+			return new ExitsListPanel(sDataControl.getExitsList());
+		}
+	}
+
+	private class TrajectoryPanelTab extends PanelTab {
+		private SceneDataControl sDataControl;
+		
+		public TrajectoryPanelTab(SceneDataControl sDataControl) {
+			super(TextConstants.getText("Trajectory.Title"));
+			this.sDataControl = sDataControl;
+		}
+
+		@Override
+		protected JComponent getTabComponent() {
+			return new TrajectoryPanel(sDataControl.getTrajectory(), sDataControl);
+		}
+	}
 }

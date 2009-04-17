@@ -14,8 +14,6 @@ import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.scene.ReferenceListener;
 
-
-
 /**
  * Data control for the list of references in the scene
  */
@@ -889,4 +887,14 @@ public class ReferencesListDataControl extends DataControl{
 	public void setPlayerPositionInAllReferences(int playerPositionInAllReferences) {
 		this.playerPositionInAllReferences = playerPositionInAllReferences;
 	}
+	
+	@Override
+	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+		List<DataControl> path = getPathFromChild(dataControl, itemReferencesDataControlList);
+		if (path != null) return path;
+		path = getPathFromChild(dataControl, atrezzoReferencesDataControlList);
+		if (path != null) return path;
+		return getPathFromChild(dataControl, npcReferencesDataControlList);
+	}
+
 }

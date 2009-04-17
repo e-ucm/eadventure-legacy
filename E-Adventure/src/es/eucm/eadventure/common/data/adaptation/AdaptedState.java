@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.HasTargetId;
-import es.eucm.eadventure.editor.control.Controller;
 
 /**
  * Stores the adaptation data, which includes the flag activation and deactivation values,

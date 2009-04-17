@@ -107,21 +107,21 @@ public class ExitsListDataControl extends DataControl {
 		boolean elementAdded = false;
 
 		if( type == Controller.EXIT ) {
-			// Creamos una salida y su controlador
-			Exit newExit = new Exit( true, 0, 0, 20, 20 );
-			ExitDataControl newExitDataControl = new ExitDataControl( sceneDataControl, newExit );
+			String[] generalScenes = controller.getIdentifierSummary( ).getGeneralSceneIds( );
 
-			// If there is a new next scene in the exit, add it to the list
-			if( newExitDataControl.addElement( Controller.NEXT_SCENE, null ) ) {
-				exitsList.add( newExit );
-				exitsDataControlList.add( newExitDataControl );
-				//controller.dataModified( );
-				elementAdded = true;
+			if( generalScenes.length > 0 ) {
+				String selectedScene = controller.showInputDialog( TextConstants.getText( "Operation.AddNextSceneTitle" ), TextConstants.getText( "Operation.AddNextSceneMessage" ), generalScenes );
+				if( selectedScene != null ) {
+					Exit newExit = new Exit( true, 0, 0, 20, 20 );
+					newExit.setNextSceneId(selectedScene);
+					ExitDataControl newExitDataControl = new ExitDataControl( sceneDataControl, newExit );
+
+					exitsList.add( newExit );
+					exitsDataControlList.add( newExitDataControl );
+					elementAdded = true;
+				}
 			}
-
-			// If the next scene was not inserted, don't add exit and show an error message
-			else
-				controller.showErrorDialog( TextConstants.getText( "Operation.AddExitTitle" ), TextConstants.getText( "Operation.AddExitErrorNoNextScenes" ) );
+			
 		}
 
 		return elementAdded;
@@ -305,6 +305,11 @@ public class ExitsListDataControl extends DataControl {
 
 	public SceneDataControl getSceneDataControl() {
 		return sceneDataControl;
+	}
+
+	@Override
+	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+		return getPathFromChild(dataControl, exitsDataControlList);
 	}
 
 }

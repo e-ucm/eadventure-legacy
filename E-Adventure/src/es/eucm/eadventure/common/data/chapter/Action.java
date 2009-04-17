@@ -44,6 +44,11 @@ public class Action implements Cloneable, Documented, HasTargetId {
 	 * A custom interaction action
 	 */
 	public static final int CUSTOM_INTERACT = 6;
+
+	/**
+	 * An action of the type talk-to
+	 */
+	public static final int TALK_TO = 7;
 	
 	/**
 	 * Stores the action type
@@ -107,6 +112,10 @@ public class Action implements Cloneable, Documented, HasTargetId {
 			keepDistance = 35;
 			break;
 		case USE:
+			needsGoTo = true;
+			keepDistance = 35;
+			break;
+		case TALK_TO:
 			needsGoTo = true;
 			keepDistance = 35;
 			break;

@@ -2,11 +2,9 @@ package es.eucm.eadventure.editor.control.controllers.general;
 
 import java.util.List;
 
-import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfileDataControl;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfilesDataControl;
@@ -667,4 +665,38 @@ public class ChapterDataControl extends DataControl {
 	public boolean hasAssessmentProfile(){
 	    return chapter.hasAssessmentProfile();
 	}
+	
+	@Override
+	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+		List<DataControl> path;
+		path = getPathFromChild(dataControl, scenesListDataControl);
+		if (path != null) return path;
+		path = getPathFromChild(dataControl, cutscenesListDataControl);
+		if (path != null) return path;
+		path = getPathFromChild(dataControl, booksListDataControl);
+		if (path != null) return path;
+		path = getPathFromChild(dataControl, itemsListDataControl);
+		if (path != null) return path;
+		path = getPathFromChild(dataControl, atrezzoListDataControl);
+		if (path != null) return path;
+		path = getPathFromChild(dataControl, npcsListDataControl);
+		if (path != null) return path;
+		path = getPathFromChild(dataControl, playerDataControl);
+		if (path != null) return path;
+		path = getPathFromChild(dataControl, conversationsListDataControl);
+		if (path != null) return path;
+		path = getPathFromChild(dataControl, timersListDataControl);
+		if (path != null) return path;
+		path = getPathFromChild(dataControl, globalStatesListDataControl);
+		if (path != null) return path;
+		path = getPathFromChild(dataControl, macrosListDataControl);
+		if (path != null) return path;
+		path = getPathFromChild(dataControl, assessmentProfilesDataControl);
+		if (path != null) return path;
+		path = getPathFromChild(dataControl, adaptationProfilesDataControl);
+		if (path != null) return path;
+		return null;
+	}
 }
+
+

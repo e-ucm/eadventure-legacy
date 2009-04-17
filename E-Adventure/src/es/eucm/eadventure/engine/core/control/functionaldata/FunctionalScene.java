@@ -725,19 +725,14 @@ public class FunctionalScene implements Renderable {
      * @return the exit in the given position
      */
     public Exit getExitInside( int x, int y ) {
-        Exit exit = null;
         if (this.isInsideOffsetArrow(x, y))
         	return null;
         
-        boolean found = false;
-        Iterator<Exit> ito = scene.getExits( ).iterator( );
-        while( ito.hasNext( ) && !found ) {
-            exit = ito.next( );
-            found = exit.isPointInside( x + offsetX, y );
+        for (Exit exit : scene.getExits()) {
+        	if (exit.isPointInside(x + offsetX, y) && (new FunctionalConditions(exit.getConditions()).allConditionsOk() || exit.isHasNotEffects() ))
+       			return exit;
         }
-        if( !found )
-            exit = null;
-        return exit;
+        return null;
     }
 
     /**

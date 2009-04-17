@@ -3,8 +3,6 @@ package es.eucm.eadventure.common.data.adventure;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.eucm.eadventure.common.data.adaptation.AdaptationProfile;
-import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 
 /**

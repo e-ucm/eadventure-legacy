@@ -37,8 +37,6 @@ import es.eucm.eadventure.editor.gui.treepanel.nodes.book.BulletBookParagraphTre
 import es.eucm.eadventure.editor.gui.treepanel.nodes.book.ImageBookParagraphTreeNode;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.book.TextBookParagraphTreeNode;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.book.TitleBookParagraphTreeNode;
-import es.eucm.eadventure.editor.gui.treepanel.nodes.character.ConversationReferenceTreeNode;
-import es.eucm.eadventure.editor.gui.treepanel.nodes.character.ConversationReferencesListTreeNode;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.character.NPCTreeNode;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.character.NPCsListTreeNode;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.character.PlayerTreeNode;
@@ -156,8 +154,6 @@ public abstract class TreeNode {
 		AtrezzoListTreeNode.loadIcon();
 
 		// Character nodes
-		ConversationReferencesListTreeNode.loadIcon( );
-		ConversationReferenceTreeNode.loadIcon( );
 		NPCsListTreeNode.loadIcon( );
 		NPCTreeNode.loadIcon( );
 		PlayerTreeNode.loadIcon( );
@@ -584,11 +580,6 @@ public abstract class TreeNode {
 			this.type = type;
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-		 */
 		public void actionPerformed( ActionEvent e ) {
 			addChild( type );
 		}

@@ -38,6 +38,4 @@ public abstract class StructureListElement {
 	
 	public abstract StructureElement getChild(int i);
 	
-	
-	
 }

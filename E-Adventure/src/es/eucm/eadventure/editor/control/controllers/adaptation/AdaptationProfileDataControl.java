@@ -3,14 +3,11 @@ package es.eucm.eadventure.editor.control.controllers.adaptation;
 import java.util.ArrayList;
 import java.util.List;
 
-
-import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.common.data.adaptation.AdaptationProfile;
 import es.eucm.eadventure.common.data.adaptation.AdaptationRule;
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.tools.adaptation.AddActionTool;
 import es.eucm.eadventure.editor.control.tools.adaptation.ChangeActionTool;
@@ -18,7 +15,6 @@ import es.eucm.eadventure.editor.control.tools.adaptation.ChangeAdaptationProfil
 import es.eucm.eadventure.editor.control.tools.adaptation.ChangeVarFlagTool;
 import es.eucm.eadventure.editor.control.tools.adaptation.DeleteActionTool;
 import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeTargetIdTool;
-import es.eucm.eadventure.editor.control.tools.generic.ChangeBooleanValueTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class AdaptationProfileDataControl extends DataControl{
@@ -371,5 +367,9 @@ public class AdaptationProfileDataControl extends DataControl{
 	public void changeToNormalProfile(){
 	    controller.addTool(new ChangeAdaptationProfileTypeTool(profile,ChangeAdaptationProfileTypeTool.NORMAL ,profile.isScorm12(),profile.isScorm2004()));
 	}
-	
+
+	@Override
+	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+		return getPathFromChild(dataControl, dataControls);
+	}
 }

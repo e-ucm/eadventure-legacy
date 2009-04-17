@@ -2,9 +2,11 @@ package es.eucm.eadventure.common.loader.subparsers;
 
 import org.xml.sax.Attributes;
 
+import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.data.chapter.ConversationReference;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
+import es.eucm.eadventure.common.data.chapter.effects.TriggerConversationEffect;
 import es.eucm.eadventure.common.data.chapter.elements.NPC;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 
@@ -263,7 +265,14 @@ public class CharacterSubParser extends SubParser {
 
 			// If it is a conversation reference tag, add the reference to the character
 			else if( qName.equals( "conversation-ref" ) ) {
-				npc.addConversationReference( conversationReference );
+				
+				//npc.addConversationReference( conversationReference );
+				Action action = new Action(Action.TALK_TO);
+				action.setConditions(conversationReference.getConditions());
+				action.setDocumentation(conversationReference.getDocumentation());
+				TriggerConversationEffect effect = new TriggerConversationEffect(conversationReference.getTargetId());
+				action.getEffects().add(effect);
+				npc.addAction(action);
 				reading = READING_NONE;
 			}
 

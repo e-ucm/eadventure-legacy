@@ -8,6 +8,7 @@ import java.util.List;
 
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
+import es.eucm.eadventure.common.data.chapter.Exit;
 import es.eucm.eadventure.common.data.chapter.NextScene;
 import es.eucm.eadventure.engine.core.gui.GUI;
 
@@ -73,7 +74,7 @@ public class GameStatePlaying extends GameState {
             
             // If it has an initial scene, set it
             if( game.getAdaptedStateToExecute( ).getTargetId( ) != null ) {
-                game.setNextScene( new NextScene( game.getAdaptedStateToExecute( ).getTargetId( ) ) );
+                game.setNextScene( new Exit( game.getAdaptedStateToExecute( ).getTargetId( ) ) );
                 game.setState( Game.STATE_NEXT_SCENE );
                 game.flushEffectsQueue( );
             }

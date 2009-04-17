@@ -53,7 +53,8 @@ public class ChangeAllowPlayerInSceneTool extends Tool{
 		else{	
 			scene.deletePlayerInReferenceList();
 		}
-		looksPanel.addPlayer();
+		if (looksPanel != null)
+			looksPanel.addPlayer();
 		
 		controller.updatePanel();
 		/*looksPanel = new SceneLooksPanel(looksPanel.getSceneDataControl());

@@ -28,11 +28,6 @@ public class IrregularAreaEditionController extends NormalScenePreviewEditionCon
 	 * Id for the delete tool
 	 */
 	public static final int DELETE_TOOL = 2;
-
-	/**
-	 * Id for the tool that edits the influence area
-	 */
-	public static final int INFLUENCE_AREA_TOOL = 3;
 			
 	/**
 	 * The data control of the rectangle being edited
@@ -64,7 +59,7 @@ public class IrregularAreaEditionController extends NormalScenePreviewEditionCon
 				aadc.addPoint(x, y);
 				spep.addPoint(new PointDataControl(aadc.getLastPoint()));
 				if (hasInfluenceArea) {
-					if (aadc.getPoints().size() >= 3) 
+					if (aadc.getPoints().size() >= 3)
 						((ImageElementInfluenceArea) spep.getInfluenceArea()).setVisible(true);
 					spep.getInfluenceArea().recreateImage();
 				}
@@ -86,8 +81,6 @@ public class IrregularAreaEditionController extends NormalScenePreviewEditionCon
 				spep.setIrregularRectangle(aadc.getRectangle(), color);
 				spep.repaint();
 			} 
-		} else if (selectedTool == INFLUENCE_AREA_TOOL) {
-			
 		}
 	}
 
@@ -101,7 +94,7 @@ public class IrregularAreaEditionController extends NormalScenePreviewEditionCon
 	}
 
 	public void mousePressed(MouseEvent e) {
-		if (selectedTool == POINT_EDIT || selectedTool == INFLUENCE_AREA_TOOL) {
+		if (selectedTool == POINT_EDIT) {
 			setMouseUnder(e.getX(), e.getY());
 			if (underMouse != null) {
 				startDragX = e.getX();
@@ -122,7 +115,7 @@ public class IrregularAreaEditionController extends NormalScenePreviewEditionCon
 	}
 
 	public void mouseDragged(MouseEvent e) {
-		if (selectedTool == POINT_EDIT || selectedTool == INFLUENCE_AREA_TOOL) {
+		if (selectedTool == POINT_EDIT) {
 			if (underMouse != null && !spep.isRescale() && !(spep.isResize() || spep.isResizeInflueceArea())) {
 				int changeX = spep.getRealWidth(e.getX() - startDragX);
 				int changeY = spep.getRealHeight(e.getY() - startDragY);
@@ -180,11 +173,11 @@ public class IrregularAreaEditionController extends NormalScenePreviewEditionCon
 		if (selectedTool == POINT_EDIT || selectedTool == DELETE_TOOL) {
 			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_POINT, true);
 			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_INFLUENCEAREA, false);
-		} else {
-			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_POINT, false);
-			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_INFLUENCEAREA, true);
-			spep.setSelectedElement((ImageElement) null);
-		}
+		} 
 		spep.repaint();
+	}
+	
+	public RectangleArea getEditionRectangle() {
+		return this.aadc;
 	}
 }

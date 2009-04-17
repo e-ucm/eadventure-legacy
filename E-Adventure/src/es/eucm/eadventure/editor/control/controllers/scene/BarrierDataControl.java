@@ -321,4 +321,9 @@ public class BarrierDataControl extends DataControl {
 		check(this.getName(), TextConstants.getText("Search.Name"));
 	}
 
+	@Override
+	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+		return null;
+	}
+
 }

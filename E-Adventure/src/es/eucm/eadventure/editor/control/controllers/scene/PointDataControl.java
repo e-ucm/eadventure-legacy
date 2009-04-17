@@ -164,4 +164,10 @@ public class PointDataControl extends DataControl {
 	@Override
 	public void recursiveSearch() {
 	}	
+	
+	@Override
+	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+		return null;
+	}
+
 }

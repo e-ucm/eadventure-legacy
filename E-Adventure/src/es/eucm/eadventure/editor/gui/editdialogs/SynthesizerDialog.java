@@ -81,22 +81,22 @@ public class SynthesizerDialog extends ToolManagableDialog implements ItemListen
 		//TODO añadir player/npc voice 
 		if (playerNpcControl!=null){
 		if (player){
-			if ( ((PlayerDataControl)playerNpcControl).getPlayerVoice()==null || ((PlayerDataControl)playerNpcControl).getPlayerVoice().equals("")){
+			if ( ((PlayerDataControl)playerNpcControl).getVoice()==null || ((PlayerDataControl)playerNpcControl).getVoice().equals("")){
 				voices.setText(TextConstants.getText( "Synthesizer.Empty" ));
 				play.setEnabled(false);
 				readSynthesizer.setEnabled(false);
 			}
 			else
-				voices.setText(((PlayerDataControl)playerNpcControl).getPlayerVoice());
+				voices.setText(((PlayerDataControl)playerNpcControl).getVoice());
 		}
 		else 
-			if ( ((NPCDataControl)playerNpcControl).getNPCVoice()==null || ((NPCDataControl)playerNpcControl).getNPCVoice().equals("")){
+			if ( ((NPCDataControl)playerNpcControl).getVoice()==null || ((NPCDataControl)playerNpcControl).getVoice().equals("")){
 				voices.setText(TextConstants.getText( "Synthesizer.Empty" ));
 				readSynthesizer.setEnabled(false);
 				play.setEnabled(false);
 			}
 			else
-				voices.setText(((NPCDataControl)playerNpcControl).getNPCVoice());
+				voices.setText(((NPCDataControl)playerNpcControl).getVoice());
 		}
 		pane.add(voices);
 		pane.add(play);

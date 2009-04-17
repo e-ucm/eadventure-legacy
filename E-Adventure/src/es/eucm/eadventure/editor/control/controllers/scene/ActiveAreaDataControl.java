@@ -58,9 +58,8 @@ public class ActiveAreaDataControl extends DataControl implements RectangleArea 
 		this.influenceAreaDataControl = new InfluenceAreaDataControl(sceneDataControl, activeArea.getInfluenceArea(), this);
 
 		// Create subcontrollers
-		actionsListDataControl = new ActionsListDataControl( activeArea.getActions( ) );
+		actionsListDataControl = new ActionsListDataControl( activeArea.getActions( ), this );
 		conditionsController = new ConditionsController( activeArea.getConditions( ) );
-
 	}
 
 	/**
@@ -385,7 +384,7 @@ public class ActiveAreaDataControl extends DataControl implements RectangleArea 
 	public Rectangle getRectangle() {
 		return (Rectangle) this.getContent();
 	}
-	
+
 	public InfluenceAreaDataControl getInfluenceArea() {
 		return influenceAreaDataControl;
 	}
@@ -393,4 +392,10 @@ public class ActiveAreaDataControl extends DataControl implements RectangleArea 
 	public SceneDataControl getSceneDataControl() {
 		return sceneDataControl;
 	}
+	
+	@Override
+	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+		return getPathFromChild(dataControl, actionsListDataControl);
+	}
+
 }

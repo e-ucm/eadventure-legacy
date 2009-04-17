@@ -1,22 +1,25 @@
 package es.eucm.eadventure.editor.control.controllers.scene;
 
 import java.awt.Point;
-import java.util.ArrayList;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.Exit;
-import es.eucm.eadventure.common.data.chapter.NextScene;
 import es.eucm.eadventure.common.data.chapter.Rectangle;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.control.controllers.general.ExitLookDataControl;
-import es.eucm.eadventure.editor.control.controllers.general.NextSceneDataControl;
+import es.eucm.eadventure.editor.control.tools.general.ChangeNSDestinyPositionTool;
 import es.eucm.eadventure.editor.control.tools.general.ChangeRectangleValueTool;
 import es.eucm.eadventure.editor.control.tools.general.areaedition.AddNewPointTool;
 import es.eucm.eadventure.editor.control.tools.general.areaedition.ChangeRectangularValueTool;
 import es.eucm.eadventure.editor.control.tools.general.areaedition.DeletePointTool;
 import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeDocumentationTool;
+import es.eucm.eadventure.editor.control.tools.generic.ChangeBooleanValueTool;
+import es.eucm.eadventure.editor.control.tools.generic.ChangeIntegerValueTool;
+import es.eucm.eadventure.editor.control.tools.generic.ChangeStringValueTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class ExitDataControl extends DataControl implements RectangleArea {
@@ -30,20 +33,22 @@ public class ExitDataControl extends DataControl implements RectangleArea {
 	 * Contained exit.
 	 */
 	private Exit exit;
-
+	
 	/**
-	 * Contained set of next scenes in the exit.
+	 * Conditions controller.
 	 */
-	private List<NextScene> nextScenesList;
-
-	/**
-	 * List of next scene controllers.
-	 */
-	private List<NextSceneDataControl> nextScenesDataControlList;
+	private ConditionsController conditionsController;
 	
 	private ExitLookDataControl exitLookDataControl;
 	
 	private InfluenceAreaDataControl influenceAreaDataControl;
+	
+	private EffectsController effectsController;
+
+	private EffectsController postEffectsController;
+
+	private EffectsController notEffectsController;
+
 
 	/**
 	 * Constructor.
@@ -56,34 +61,14 @@ public class ExitDataControl extends DataControl implements RectangleArea {
 	public ExitDataControl( SceneDataControl sceneDataControl, Exit exit ) {
 		this.sceneDataControl = sceneDataControl;
 		this.exit = exit;
-		this.nextScenesList = exit.getNextScenes( );
 		
 		this.influenceAreaDataControl = new InfluenceAreaDataControl(sceneDataControl, exit.getInfluenceArea(), this);
-
-		// Create subcontrollers
-		nextScenesDataControlList = new ArrayList<NextSceneDataControl>( );
-		for( NextScene nextScene : nextScenesList )
-			nextScenesDataControlList.add( new NextSceneDataControl( nextScene ) );
+		effectsController = new EffectsController(exit.getEffects());
+		postEffectsController = new EffectsController(exit.getPostEffects());
+		notEffectsController = new EffectsController(exit.getNotEffects());
 		
+		conditionsController = new ConditionsController( exit.getConditions( ) );
 		exitLookDataControl = new ExitLookDataControl ( exit );
-	}
-
-	/**
-	 * Returns the list of next scene controllers.
-	 * 
-	 * @return Next scene controllers
-	 */
-	public List<NextSceneDataControl> getNextScenes( ) {
-		return nextScenesDataControlList;
-	}
-
-	/**
-	 * Returns the last next scene controller in the list.
-	 * 
-	 * @return Last next scene controller
-	 */
-	public NextSceneDataControl getLastNextScene( ) {
-		return nextScenesDataControlList.get( nextScenesDataControlList.size( ) - 1 );
 	}
 
 	/**
@@ -173,13 +158,12 @@ public class ExitDataControl extends DataControl implements RectangleArea {
 
 	@Override
 	public int[] getAddableElements( ) {
-		return new int[] { Controller.NEXT_SCENE };
+		return new int[] { };
 	}
 
 	@Override
 	public boolean canAddElement( int type ) {
-		// It can always add new exit
-		return type == Controller.NEXT_SCENE;
+		return false;
 	}
 
 	@Override
@@ -201,29 +185,6 @@ public class ExitDataControl extends DataControl implements RectangleArea {
 	public boolean addElement( int type, String id ) {
 		boolean elementAdded = false;
 
-		if( type == Controller.NEXT_SCENE ) {
-			// Take the list of the scenes
-			String[] generalScenes = controller.getIdentifierSummary( ).getGeneralSceneIds( );
-
-			// If the list has elements, show the dialog with the options
-			if( generalScenes.length > 0 ) {
-				String selectedScene = controller.showInputDialog( TextConstants.getText( "Operation.AddNextSceneTitle" ), TextConstants.getText( "Operation.AddNextSceneMessage" ), generalScenes );
-
-				// If some value was selected
-				if( selectedScene != null ) {
-					NextScene newNextScene = new NextScene( selectedScene );
-					nextScenesList.add( newNextScene );
-					nextScenesDataControlList.add( new NextSceneDataControl( newNextScene ) );
-					//controller.dataModified( );
-					elementAdded = true;
-				}
-			}
-
-			// If the list had no elements, show an error dialog
-			else
-				controller.showErrorDialog( TextConstants.getText( "Operation.AddNextSceneTitle" ), TextConstants.getText( "Operation.AddNextSceneErrorNoScenes" ) );
-		}
-
 		return elementAdded;
 	}
 
@@ -231,33 +192,12 @@ public class ExitDataControl extends DataControl implements RectangleArea {
 	public boolean deleteElement( DataControl dataControl, boolean askConfirmation ) {
 		boolean elementDeleted = false;
 
-		// Delete the next scene only if it is not the last one
-		if( nextScenesList.size( ) > 1 ) {
-			if( nextScenesList.remove( dataControl.getContent( ) ) ) {
-				nextScenesDataControlList.remove( dataControl );
-				//controller.dataModified( );
-				elementDeleted = true;
-			}
-		}
-
-		// If it was the last one, show an error message
-		else
-			controller.showErrorDialog( TextConstants.getText( "Operation.DeleteNextSceneTitle" ), TextConstants.getText( "Operation.DeleteNextSceneErrorLastNextScene" ) );
-
 		return elementDeleted;
 	}
 
 	@Override
 	public boolean moveElementUp( DataControl dataControl ) {
 		boolean elementMoved = false;
-		int elementIndex = nextScenesList.indexOf( dataControl.getContent( ) );
-
-		if( elementIndex > 0 ) {
-			nextScenesList.add( elementIndex - 1, nextScenesList.remove( elementIndex ) );
-			nextScenesDataControlList.add( elementIndex - 1, nextScenesDataControlList.remove( elementIndex ) );
-			//controller.dataModified( );
-			elementMoved = true;
-		}
 
 		return elementMoved;
 	}
@@ -265,14 +205,6 @@ public class ExitDataControl extends DataControl implements RectangleArea {
 	@Override
 	public boolean moveElementDown( DataControl dataControl ) {
 		boolean elementMoved = false;
-		int elementIndex = nextScenesList.indexOf( dataControl.getContent( ) );
-
-		if( elementIndex < nextScenesList.size( ) - 1 ) {
-			nextScenesList.add( elementIndex + 1, nextScenesList.remove( elementIndex ) );
-			nextScenesDataControlList.add( elementIndex + 1, nextScenesDataControlList.remove( elementIndex ) );
-			//controller.dataModified( );
-			elementMoved = true;
-		}
 
 		return elementMoved;
 	}
@@ -284,20 +216,13 @@ public class ExitDataControl extends DataControl implements RectangleArea {
 
 	@Override
 	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
-		// Iterate through each next scene
-		for( NextSceneDataControl nextSceneDataControl : nextScenesDataControlList )
-			nextSceneDataControl.updateVarFlagSummary( varFlagSummary );
+		ConditionsController.updateVarFlagSummary( varFlagSummary, exit.getConditions( ) );
 	}
 
 	@Override
 	public boolean isValid( String currentPath, List<String> incidences ) {
 		boolean valid = true;
 
-		// Iterate through the next scenes
-		for( int i = 0; i < nextScenesDataControlList.size( ); i++ ) {
-			String nextScenePath = currentPath + " >> " + TextConstants.getElementName( Controller.NEXT_SCENE ) + " #" + ( i + 1 ) + " (" + nextScenesDataControlList.get( i ).getNextSceneId( ) + ")";
-			valid &= nextScenesDataControlList.get( i ).isValid( nextScenePath, incidences );
-		}
 
 		return valid;
 	}
@@ -306,57 +231,31 @@ public class ExitDataControl extends DataControl implements RectangleArea {
 	public int countAssetReferences( String assetPath ) {
 		int count = 0;
 
-		// Iterate through each next scene
-		for( NextSceneDataControl nextSceneDataControl : nextScenesDataControlList )
-			count += nextSceneDataControl.countAssetReferences( assetPath );
 
 		return count;
 	}
 
 	@Override
 	public void deleteAssetReferences( String assetPath ) {
-		// Iterate through each next scene
-		for( NextSceneDataControl nextSceneDataControl : nextScenesDataControlList )
-			nextSceneDataControl.deleteAssetReferences( assetPath );
+
 	}
 
 	@Override
 	public int countIdentifierReferences( String id ) {
 		int count = 0;
 
-		// Iterate through each next scene
-		for( NextSceneDataControl nextSceneDataControl : nextScenesDataControlList )
-			count += nextSceneDataControl.countIdentifierReferences( id );
 
 		return count;
 	}
 
 	@Override
 	public void replaceIdentifierReferences( String oldId, String newId ) {
-		// Iterate through each next scene
-		for( NextSceneDataControl nextSceneDataControl : nextScenesDataControlList )
-			nextSceneDataControl.replaceIdentifierReferences( oldId, newId );
+
 	}
 
 	@Override
 	public void deleteIdentifierReferences( String id ) {
-		int i = 0;
 
-		// Check every next scene structure
-		while( i < nextScenesList.size( ) ) {
-			// Update nextscene
-			nextScenesDataControlList.get( i ).deleteIdentifierReferences( id );
-			
-			if( nextScenesList.get( i ).getTargetId( ).equals( id ) ) {
-				nextScenesList.remove( i );
-				nextScenesDataControlList.remove( i );
-				
-			}
-
-			else{
-				i++;
-			}
-		}
 	}
 
 	/**
@@ -369,9 +268,6 @@ public class ExitDataControl extends DataControl implements RectangleArea {
 	@Override
 	public void getAssetReferences( List<String> assetPaths, List<Integer> assetTypes ) {
 		exitLookDataControl.getAssetReferences( assetPaths, assetTypes );
-		for (NextSceneDataControl nextScene: nextScenesDataControlList){
-			nextScene.getAssetReferences( assetPaths, assetTypes );
-		}
 	}
 
 	@Override
@@ -382,8 +278,6 @@ public class ExitDataControl extends DataControl implements RectangleArea {
 	@Override
 	public void recursiveSearch() {
 		check(this.getDocumentation(), TextConstants.getText("Search.Documentation"));
-		for (DataControl dc : this.nextScenesDataControlList)
-			dc.recursiveSearch();
 	}
 	
 	public boolean isRectangular() {
@@ -422,6 +316,104 @@ public class ExitDataControl extends DataControl implements RectangleArea {
 	
 	public SceneDataControl getSceneDataControl() {
 		return sceneDataControl;
+	}
+
+	/**
+	 * Returns the conditions of the element reference.
+	 * 
+	 * @return Conditions of the element reference
+	 */
+	public ConditionsController getConditions( ) {
+		return conditionsController;
+	}
+
+	public String getNextSceneId() {
+		return exit.getNextSceneId();
+	}
+
+	public void setNextSceneId(String value) {
+		Controller.getInstance().addTool(new ChangeStringValueTool(exit, value, "getNextSceneId", "setNextSceneId"));
+	}
+
+	public int getDestinyPositionX() {
+		return exit.getDestinyX();
+	}
+
+	public int getDestinyPositionY() {
+		return exit.getDestinyY();
+	}
+	
+	/**
+	 * Sets the new destiny position of the next scene.
+	 * 
+	 * @param positionX
+	 *            X coordinate of the destiny position
+	 * @param positionY
+	 *            Y coordinate of the destiny position
+	 */
+	public void setDestinyPosition( int positionX, int positionY ) {
+		controller.addTool(new ChangeNSDestinyPositionTool(exit, positionX, positionY));
+	}
+
+	/**
+	 * Toggles the destiny position. If the next scene has a destiny position deletes it, if it doesn't have one, set
+	 * initial values for it.
+	 */
+	public void toggleDestinyPosition( ) {
+		if( exit.hasPlayerPosition( ) )
+			controller.addTool(new ChangeNSDestinyPositionTool(exit, Integer.MIN_VALUE, Integer.MIN_VALUE));
+		else
+			controller.addTool(new ChangeNSDestinyPositionTool(exit, 0,0));
+	}
+	
+	/**
+	 * Returns whether the next scene has a destiny position or not.
+	 * 
+	 * @return True if the next scene has a destiny position, false otherwise
+	 */
+	public boolean hasDestinyPosition( ) {
+		return exit.hasPlayerPosition( );
+	}
+
+	public int getTransitionType() {
+		return exit.getTransitionType();
+	}
+
+	public Number getTransitionTime() {
+		return exit.getTransitionTime();
+	}
+
+	public void setTransitionTime(int value) {
+		Controller.getInstance().addTool(new ChangeIntegerValueTool(exit, value, "getTransitionTime", "setTransitionTime"));
+	}
+
+	public void setTransitionType(int selectedIndex) {
+		Controller.getInstance().addTool(new ChangeIntegerValueTool(exit, selectedIndex, "getTransitionType", "setTransitionType"));
+	}
+
+	public boolean isHasNotEffects() {
+		return exit.isHasNotEffects();
+	}
+
+	public void setHasNotEffects(boolean selected) {
+		Controller.getInstance().addTool(new ChangeBooleanValueTool(exit, selected, "isHasNotEffects", "setHasNotEffects"));
+	}
+
+	public EffectsController getEffects() {
+		return effectsController;
+	}
+
+	public EffectsController getPostEffects() {
+		return postEffectsController;
+	}
+
+	public EffectsController getNotEffects() {
+		return notEffectsController;
+	}
+
+	@Override
+	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+		return null;
 	}
 
 }

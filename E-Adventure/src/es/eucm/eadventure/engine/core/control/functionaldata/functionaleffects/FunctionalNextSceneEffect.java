@@ -1,6 +1,7 @@
 package es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects;
 
 import es.eucm.eadventure.engine.core.control.Game;
+import es.eucm.eadventure.common.data.chapter.Exit;
 import es.eucm.eadventure.common.data.chapter.NextScene;
 
 /**
@@ -11,15 +12,15 @@ public class FunctionalNextSceneEffect extends FunctionalEffect {
     /**
      * Information about the next scene to be loaded
      */
-    private NextScene nextScene;
+    private Exit exit;
 
     /**
      * Creates a new FunctionalNextSceneEffect
      * @param nextScene the next scene
      */
-    public FunctionalNextSceneEffect( NextScene nextScene ) {
+    public FunctionalNextSceneEffect( Exit exit ) {
     	super(null);
-        this.nextScene = nextScene;
+        this.exit = exit;
     }
 
     /*
@@ -27,7 +28,7 @@ public class FunctionalNextSceneEffect extends FunctionalEffect {
      * @see es.eucm.eadventure.engine.engine.data.effects.Effect#triggerEffect()
      */
     public void triggerEffect( ) {
-        Game.getInstance( ).setNextScene( nextScene );
+        Game.getInstance( ).setNextScene( exit );
         Game.getInstance( ).setState( Game.STATE_NEXT_SCENE );
     }
 

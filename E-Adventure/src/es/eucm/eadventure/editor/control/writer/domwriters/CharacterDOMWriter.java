@@ -85,37 +85,6 @@ public class CharacterDOMWriter {
 			// Append the description
 			characterElement.appendChild( descriptionNode );
 
-			// Add the conversation references (if there is at least one)
-			if( !character.getConversationReferences( ).isEmpty( ) ) {
-				Node conversationsNode = doc.createElement( "conversations" );
-
-				// Append every single conversation reference
-				for( ConversationReference conversationReference : character.getConversationReferences( ) ) {
-					// Create the item reference element
-					Element conversationReferenceElement = doc.createElement( "conversation-ref" );
-					conversationReferenceElement.setAttribute( "idTarget", conversationReference.getTargetId( ) );
-
-					// Append the documentation (if avalaible)
-					if( conversationReference.getDocumentation( ) != null ) {
-						Node conversationDocumentationNode = doc.createElement( "documentation" );
-						conversationDocumentationNode.appendChild( doc.createTextNode( conversationReference.getDocumentation( ) ) );
-						conversationReferenceElement.appendChild( conversationDocumentationNode );
-					}
-
-					// Append the conditions (if avalaible)
-					if( !conversationReference.getConditions( ).isEmpty( ) ) {
-						Node conditionsNode = ConditionsDOMWriter.buildDOM( conversationReference.getConditions( ) );
-						doc.adoptNode( conditionsNode );
-						conversationReferenceElement.appendChild( conditionsNode );
-					}
-
-					// Append the conversation reference
-					conversationsNode.appendChild( conversationReferenceElement );
-				}
-				// Append the list of conversations
-				characterElement.appendChild( conversationsNode );
-			}
-			
 			// Create the voice tag
 			Element voiceNode = doc.createElement("voice");
 			// Create and append the voice name and if is alwaysSynthesizer

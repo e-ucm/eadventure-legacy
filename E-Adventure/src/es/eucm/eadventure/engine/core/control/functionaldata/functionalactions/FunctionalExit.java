@@ -48,25 +48,18 @@ public class FunctionalExit extends FunctionalAction {
 	@Override
 	public void start(FunctionalPlayer functionalPlayer) {
         this.functionalPlayer = functionalPlayer;
-        NextScene nextScene = null;
 		if( exit != null ) {
-
-            // Pick the FIRST valid next-scene structure
-            for( int i = 0; i < exit.getNextScenes( ).size( ) && nextScene == null; i++ )
-                if( new FunctionalConditions ( exit.getNextScenes( ).get( i ).getConditions( ) ).allConditionsOk( ) )
-                    nextScene = exit.getNextScenes( ).get( i );
-
-            if( nextScene != null ) {
-            	// merge all effects in one structure
-            	FunctionalEffects effects =  new FunctionalEffects(nextScene.getEffects( ));
-            	effects.addEffect( new FunctionalNextSceneEffect( nextScene ));
-            	FunctionalEffects.storeAllEffects(effects);
-                //Game.getInstance().enqueueEffect( new FunctionalNextSceneEffect( nextScene ) );
+            if( new FunctionalConditions ( exit.getConditions( ) ).allConditionsOk( ) ) {
+           		FunctionalEffects effects =  new FunctionalEffects(exit.getEffects( ));
+           		effects.addEffect( new FunctionalNextSceneEffect( exit ));
+           		FunctionalEffects.storeAllEffects(effects);
+            } else if (exit.isHasNotEffects()) {
+            	FunctionalEffects.storeAllEffects(exit.getNotEffects());
             }
         }
 		finished = true;
 		
-		DebugLog.player("Exit scene to: " + (nextScene != null ? nextScene.getTargetId() : "none") );
+		DebugLog.player("Exit scene to: " + (exit != null ? exit.getNextSceneId() : "none") );
 	}
 
 	@Override

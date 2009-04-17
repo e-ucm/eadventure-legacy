@@ -592,5 +592,20 @@ public class SceneDataControl extends DataControlWithResources {
 		this.getExitsList().recursiveSearch();
 		this.getReferencesList().recursiveSearch();
 	}
-	
+
+	@Override
+	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+		List<DataControl> path = getPathFromChild(dataControl, resourcesDataControlList);
+		if (path != null) return path;
+		path = getPathFromChild(dataControl, exitsListDataControl);
+		if (path != null) return path;
+		path = getPathFromChild(dataControl, referencesListDataControl);
+		if (path != null) return path;
+		path = getPathFromChild(dataControl, activeAreasListDataControl);
+		if (path != null) return path;
+		path = getPathFromChild(dataControl, barriersListDataControl);
+		if (path != null) return path;
+		return getPathFromChild(dataControl, trajectoryDataControl);
+	}
+
 }

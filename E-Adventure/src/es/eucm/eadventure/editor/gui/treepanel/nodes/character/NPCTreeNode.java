@@ -47,7 +47,6 @@ public class NPCTreeNode extends TreeNode {
 		//for( ResourcesDataControl resourcesDataControl : dataControl.getResources( ) )
 		//	children.add( new ResourcesTreeNode( this, resourcesDataControl ) );
 
-		children.add( new ConversationReferencesListTreeNode( this, dataControl.getConversationReferencesList( ) ) );
 		children.add( new ActionsListTreeNode(this, dataControl.getActionsList()));
 	}
 

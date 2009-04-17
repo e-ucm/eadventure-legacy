@@ -19,7 +19,6 @@ import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 public class AdaptationRuleDataControl extends DataControl{
 
 	private AdaptationRule adaptationRule;
-	//TODO PANEL
 	
 	public AdaptationRuleDataControl (AdaptationRule adpRule){
 		this.adaptationRule = adpRule;
@@ -257,5 +256,8 @@ public class AdaptationRuleDataControl extends DataControl{
 		}
 	}
 
-
+	@Override
+	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+		return null;
+	}
 }

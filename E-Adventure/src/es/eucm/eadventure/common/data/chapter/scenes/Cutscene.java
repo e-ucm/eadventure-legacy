@@ -7,6 +7,21 @@ import es.eucm.eadventure.common.data.chapter.NextScene;
 
 public abstract class Cutscene extends GeneralScene {
 
+    /**
+     * The tag for the video
+     */
+    public static final String RESOURCE_TYPE_VIDEO = "video";
+
+    /**
+     * The tag for the slides
+     */
+    public static final String RESOURCE_TYPE_SLIDES = "slides";
+
+    /**
+     * The tag for the background music
+     */
+    public static final String RESOURCE_TYPE_MUSIC = "bgmusic";
+
 	/**
 	 * List of nextscenes of the slidescene
 	 */

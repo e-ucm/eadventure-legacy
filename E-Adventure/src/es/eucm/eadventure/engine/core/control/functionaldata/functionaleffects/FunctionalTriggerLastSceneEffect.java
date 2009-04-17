@@ -13,21 +13,21 @@ public class FunctionalTriggerLastSceneEffect extends FunctionalTriggerSceneEffe
 
     private static String getLastSceneId(){
         if (Game.getInstance( ).getLastScene( )!=null){
-            return Game.getInstance( ).getLastScene( ).getTargetId( );
+            return Game.getInstance( ).getLastScene( ).getNextSceneId();
         }
         return null;
     }
     
     private static int getLastSceneX(){
         if (Game.getInstance( ).getLastScene( )!=null){
-            return Game.getInstance( ).getLastScene( ).getPositionX( );
+            return Game.getInstance( ).getLastScene( ).getDestinyX( );
         }
         return Integer.MIN_VALUE;
     }
     
     private static int getLastSceneY(){
         if (Game.getInstance( ).getLastScene( )!=null){
-            return Game.getInstance( ).getLastScene( ).getPositionY( );
+            return Game.getInstance( ).getLastScene( ).getDestinyY( );
         }
         return Integer.MIN_VALUE;
     }

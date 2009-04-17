@@ -78,8 +78,10 @@ public class SceneLooksPanel extends LooksPanel implements Updateable {
 
 	@Override
 	public void updatePreview( ) {
-		scenePreviewEditionPanel.loadBackground(sceneDataControl.getPreviewBackground( ) );
-		getParent( ).getParent( ).repaint( );
+		if (scenePreviewEditionPanel != null)
+			scenePreviewEditionPanel.loadBackground(sceneDataControl.getPreviewBackground( ) );
+		if (getParent() != null && getParent().getParent() != null)
+			getParent( ).getParent( ).repaint( );
 	}
 
 	public void updateResources( ) {

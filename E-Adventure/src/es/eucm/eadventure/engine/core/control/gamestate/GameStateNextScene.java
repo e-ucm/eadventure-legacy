@@ -5,6 +5,7 @@ import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalScene;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
+import es.eucm.eadventure.common.data.chapter.Exit;
 import es.eucm.eadventure.common.data.chapter.NextScene;
 import es.eucm.eadventure.common.data.chapter.Trajectory.Node;
 import es.eucm.eadventure.common.data.chapter.scenes.GeneralScene;
@@ -29,8 +30,8 @@ public class GameStateNextScene extends GameState {
         System.gc( );
         
         // Pick the next scene, and the scene related to it
-        NextScene nextScene = game.getNextScene( );
-        GeneralScene generalScene = game.getCurrentChapterData( ).getGeneralScene( nextScene.getTargetId( ) );
+        Exit nextScene = game.getNextScene( );
+        GeneralScene generalScene = game.getCurrentChapterData( ).getGeneralScene( nextScene.getNextSceneId());
 
         // Depending on the type of the scene
         switch( generalScene.getType( ) ) {
@@ -83,11 +84,11 @@ public class GameStateNextScene extends GameState {
 
                 if( nextScene.hasPlayerPosition( ) ) {
                     if (scene.getTrajectory() == null) {
-                    	game.getFunctionalPlayer( ).setX( nextScene.getPositionX( ) );
-                    	game.getFunctionalPlayer( ).setY( nextScene.getPositionY( ) );
+                    	game.getFunctionalPlayer( ).setX( nextScene.getDestinyX( ) );
+                    	game.getFunctionalPlayer( ).setY( nextScene.getDestinyY( ) );
                     	game.getFunctionalPlayer().setScale( scene.getPlayerScale());
                     } else {
-                    	Node node = game.getFunctionalScene().getTrajectory().changeInitialNode(nextScene.getPositionX(), nextScene.getPositionY());
+                    	Node node = game.getFunctionalScene().getTrajectory().changeInitialNode(nextScene.getDestinyX(), nextScene.getDestinyY());
                     	game.getFunctionalPlayer().setX(node.getX());
                     	game.getFunctionalPlayer().setY(node.getY());
                     	game.getFunctionalPlayer().setScale(node.getScale());

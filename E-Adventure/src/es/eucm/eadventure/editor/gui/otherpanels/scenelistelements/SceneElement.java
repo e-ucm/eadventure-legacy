@@ -21,7 +21,6 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.config.SceneLinksConfigData;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.control.controllers.character.ConversationReferenceDataControl;
 import es.eucm.eadventure.editor.control.controllers.character.NPCDataControl;
 import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ActionDataControl;
@@ -206,13 +205,6 @@ public class SceneElement {
 						sceneIds.add(tse.getTargetId());
 						hasTriggerScene = true;
 					}
-				}
-			}
-			for (ConversationReferenceDataControl crdc : ((NPCDataControl) irdc.getReferencedElementDataControl()).getConversationReferencesList().getConversationReferences()) {
-				List<String> temp = getConversationSceneIds(crdc.getIdTarget());
-				if (temp != null && !temp.isEmpty()) {
-					sceneIds.addAll(temp);
-					hasTriggerScene = true;
 				}
 			}
 			if (hasTriggerScene) {

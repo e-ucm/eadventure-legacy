@@ -575,4 +575,10 @@ public class CutsceneDataControl extends DataControlWithResources {
 		for (DataControl dc : getNextScenes())
 			dc.recursiveSearch();
 	}
+	
+	@Override
+	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+		return getPathFromChild(dataControl, resourcesDataControlList);
+	}
+
 }

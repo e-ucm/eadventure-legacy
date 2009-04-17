@@ -209,18 +209,14 @@ public class ActionManager {
         	return;
         FunctionalElement elementInside = functionalScene.getElementInside( e.getX( ), e.getY( ) );
         Exit exit = functionalScene.getExitInside( e.getX( ), e.getY( ) );
+                
         if( elementInside != null ) {
             setElementOver( elementInside );
         } else if( exit != null && actionSelected == ACTION_GOTO ) {
-            //Check if the exit has a customized cursor. If it has already been created, retrieve it. Otherwise, create it
-            boolean isCursorSet = getCursorPath( exit )!=null && !getCursorPath( exit ).equals( "" );
-            //Customized. It has already been created
-            if (isCursorSet && cursors.containsKey( exit )){
-                setExitCursor(cursors.get( exit ));
-            }
- 
-            //Customized. Not created yet.
-            else if(isCursorSet && !cursors.containsKey( exit )){
+        	
+            boolean isCursorSet = getCursorPath( exit ) != null && !getCursorPath( exit ).equals( "" );
+
+            if(isCursorSet && !cursors.containsKey( exit )){
                 Cursor newCursor;
                 try {
                 	newCursor = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( getCursorPath( exit ), MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "exitCursor("+exit+")" );
@@ -229,13 +225,10 @@ public class ActionManager {
                 }
                	this.cursors.put( exit, newCursor );
                 setExitCursor(newCursor);
-            }
-            
-            //Not customized. Use default
-            else{
-               setExitCursor(null);
-            }
-            
+            } else if (isCursorSet && cursors.containsKey( exit ))
+                setExitCursor(cursors.get( exit ));
+            else
+            	setExitCursor(null);
             
             GeneralScene nextScene = null;
             
@@ -253,17 +246,9 @@ public class ActionManager {
     }
     
     public String getExitText( Exit exit ) {
-        String exitText=null;
-        for (NextScene nextScene:exit.getNextScenes()){
-            if (new FunctionalConditions(nextScene.getConditions( )).allConditionsOk( )){
-                exitText=nextScene.getExitText( );
-            }
-        }
-        
-        if (exitText==null && exit.getDefaultExitLook()!=null)
-            exitText=exit.getDefaultExitLook().getExitText( );
-        
-        return exitText;
+        if (exit.getDefaultExitLook()!=null)
+            return exit.getDefaultExitLook().getExitText( );
+        return null;
     }
 
     
@@ -272,15 +257,10 @@ public class ActionManager {
      * @return the cursor
      */
     public String getCursorPath(Exit exit){
-        String cursorPath=null;
-        for (NextScene nextScene:exit.getNextScenes()){
-            if (new FunctionalConditions(nextScene.getConditions( )).allConditionsOk( )){
-                cursorPath=nextScene.getCursorPath( );
-            }
-        }
-        if (cursorPath==null && exit.getDefaultExitLook()!=null)
-            cursorPath=exit.getDefaultExitLook().getCursorPath( );
-        return cursorPath;
+    	if (exit.getDefaultExitLook() != null) {
+    		return exit.getDefaultExitLook().getCursorPath();
+    	}
+    	return null;
    }
 
 

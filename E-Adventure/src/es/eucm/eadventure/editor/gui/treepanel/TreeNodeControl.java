@@ -142,19 +142,5 @@ public class TreeNodeControl {
 			while(forwardList.remove(path)){};
 		}
 	}
-
-	/**
-	 * Get the tree node for a given data control.
-	 * 
-	 * @param dataControl The data control
-	 * @return The tree node of the data control
-	 */
-	public TreeNode getTreeNode(DataControl dataControl) {
-		TreePath path = root.getTreePathForObject(dataControl);
-		if (path != null)
-			return (TreeNode) path.getLastPathComponent();
-		else
-			return null;
-	}
 }
 

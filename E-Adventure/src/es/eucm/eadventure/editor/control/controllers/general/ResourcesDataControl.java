@@ -426,5 +426,10 @@ public class ResourcesDataControl extends DataControl {
 		}
 		return -1;
 	}
-	
+
+	@Override
+	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+		return null;
+	}
+
 }

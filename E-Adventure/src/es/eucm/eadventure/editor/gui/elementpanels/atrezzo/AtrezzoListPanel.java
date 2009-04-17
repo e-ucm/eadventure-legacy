@@ -17,8 +17,7 @@ import javax.swing.table.AbstractTableModel;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.atrezzo.AtrezzoListDataControl;
-import es.eucm.eadventure.editor.gui.treepanel.TreeNodeControl;
-
+import es.eucm.eadventure.editor.gui.structurepanel.StructureControl;
 
 public class AtrezzoListPanel extends JPanel{
 	
@@ -32,11 +31,11 @@ public class AtrezzoListPanel extends JPanel{
 	/**
 	 * Constructor.
 	 * 
-	 * @param atrezzoListDataControl
+	 * @param atrezzoListDataControl2
 	 *            Items list controller
 	 */
-	public AtrezzoListPanel( AtrezzoListDataControl atrezzoListDataControl ) {
-		this.atrezzoListDataControl = atrezzoListDataControl;
+	public AtrezzoListPanel( AtrezzoListDataControl atrezzoListDataControl2 ) {
+		this.atrezzoListDataControl = atrezzoListDataControl2;
 		// Set the layout and the border
 		setLayout( new GridBagLayout( ) );
 		setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AtrezzoList.Title" ) ) );
@@ -61,15 +60,16 @@ public class AtrezzoListPanel extends JPanel{
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1;
 		c.weighty = 1;
-		JTable informationTable = new JTable( new AtrezzoInfoTableModel( atrezzoListDataControl.getItemsInfo( ) ) );
+		JTable informationTable = new JTable( new AtrezzoInfoTableModel( atrezzoListDataControl2.getItemsInfo( ) ) );
 		informationTable.removeEditor( );
 		informationTable.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() == 2) {
 					JTable table = (JTable) e.getSource();
-					DataControl dataControl = AtrezzoListPanel.this.atrezzoListDataControl.getAtrezzoList().get(table.getSelectedRow());
-					TreeNodeControl.getInstance().changeTreeNode(dataControl);
+					int row = table.rowAtPoint(e.getPoint());
+					DataControl dataControl = atrezzoListDataControl.getAtrezzoList().get(row);
+					StructureControl.getInstance().changeDataControl(dataControl);
 				}
 			}
 		});

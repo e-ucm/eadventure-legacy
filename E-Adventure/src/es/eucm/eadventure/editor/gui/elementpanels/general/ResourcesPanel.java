@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
@@ -27,7 +26,6 @@ import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
 
 import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.common.data.animation.Animation;
@@ -40,7 +38,6 @@ import es.eucm.eadventure.editor.gui.displaydialogs.AudioDialog;
 import es.eucm.eadventure.editor.gui.displaydialogs.ImageDialog;
 import es.eucm.eadventure.editor.gui.displaydialogs.SlidesDialog;
 import es.eucm.eadventure.editor.gui.displaydialogs.VideoDialog;
-import es.eucm.eadventure.editor.gui.editdialogs.ConditionsDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.animationeditdialog.AnimationEditDialog;
 
 /**
@@ -84,7 +81,8 @@ public class ResourcesPanel extends JPanel {
 	/**
 	 * Constructor.
 	 * 
-	 * @param dataControl
+	 * @p
+	 * aram dataControl
 	 *            Resources data control
 	 */
 	public ResourcesPanel( ResourcesDataControl dataControl ) {
@@ -117,32 +115,13 @@ public class ResourcesPanel extends JPanel {
 	}
 
 	private void createMultiGroupPanel() {
-
 		setLayout( new GridBagLayout( ) );
-		setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Resources.Title" ) ) );
 		c = new GridBagConstraints( );
 		c.insets = new Insets( 2, 4, 2, 4 );
-
-		JTextPane informationTextPane = new JTextPane( );
-		informationTextPane.setEditable( false );
-		informationTextPane.setBackground( getBackground( ) );
-		informationTextPane.setText( TextConstants.getText( "Resources.Information" ) );
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 1;
-		c.gridy = 0;
 		c.weighty = 0;
-		add( informationTextPane, c );
-
-		c.gridy = 1;
-		JPanel conditionsPanel = new JPanel( );
-		conditionsPanel.setLayout( new GridLayout( ) );
-		JButton conditionsButton = new JButton( TextConstants.getText( "GeneralText.EditConditions" ) );
-		conditionsButton.addActionListener( new ConditionsButtonListener( ) );
-		conditionsPanel.add( conditionsButton );
-		conditionsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Resources.Conditions" ) ) );
-		add( conditionsPanel, c );
-
-		c.gridy = 2;
+		c.gridy = 0;
 		JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
 		panel.setBorder(BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder(), TextConstants.getText( "Resources.ResourcesGroup")));
@@ -246,44 +225,16 @@ public class ResourcesPanel extends JPanel {
 		// Load the image for the delete content button
 		Icon deleteContentIcon = new ImageIcon( "img/icons/deleteContent.png" );
 
-		// Remove the border of the scroll pane
-		//setBorder( null );
-
-		// Create the panel to set in the scroll pane
-		//JPanel resourcesPanel = new JPanel( );
-
-		// Set the properties of the panel
-		//resourcesPanel.setLayout( new GridBagLayout( ) );
 		setLayout( new GridBagLayout( ) );
-		//resourcesPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Resources.Title" ) ) );
-		setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Resources.Title" ) ) );
+
 		GridBagConstraints c = new GridBagConstraints( );
 		c.insets = new Insets( 2, 4, 2, 4 );
 
-		// Create and insert a text with information about this panel
-		JTextPane informationTextPane = new JTextPane( );
-		informationTextPane.setEditable( false );
-		informationTextPane.setBackground( getBackground( ) );
-		informationTextPane.setText( TextConstants.getText( "Resources.Information" ) );
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 1;
 		c.gridy = 0;
 		c.weighty = 0;
-		//resourcesPanel.add( informationTextPane, c );
-		add( informationTextPane, c );
 
-		// Create the button for the conditions
-		c.gridy = 1;
-		JPanel conditionsPanel = new JPanel( );
-		conditionsPanel.setLayout( new GridLayout( ) );
-		JButton conditionsButton = new JButton( TextConstants.getText( "GeneralText.EditConditions" ) );
-		conditionsButton.addActionListener( new ConditionsButtonListener( ) );
-		conditionsPanel.add( conditionsButton );
-		conditionsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Resources.Conditions" ) ) );
-		//resourcesPanel.add( conditionsPanel, c );
-		add( conditionsPanel, c );
-
-		
 		// Create the fields
 		int assetCount = resourcesDataControl.getAssetCount( );
 		assetFields = new JTextField[assetCount];
@@ -384,21 +335,6 @@ public class ResourcesPanel extends JPanel {
 		}
 
 		return previewText;
-	}
-
-	/**
-	 * Listener for the edit conditions button.
-	 */
-	private class ConditionsButtonListener implements ActionListener {
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-		 */
-		public void actionPerformed( ActionEvent e ) {
-			new ConditionsDialog( resourcesDataControl.getConditions( ) );
-		}
 	}
 
 	/**

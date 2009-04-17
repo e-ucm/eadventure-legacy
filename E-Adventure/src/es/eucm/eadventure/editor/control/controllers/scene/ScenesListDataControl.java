@@ -305,4 +305,9 @@ public class ScenesListDataControl extends DataControl {
 			dc.recursiveSearch();
 	}
 
+	@Override
+	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+		return getPathFromChild(dataControl, scenesDataControlList);
+	}
+
 }

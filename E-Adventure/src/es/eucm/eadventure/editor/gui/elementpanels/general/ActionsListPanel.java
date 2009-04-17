@@ -4,30 +4,48 @@ import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.JTable;
-import javax.swing.JTextPane;
+import javax.swing.SwingUtilities;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.gui.TextConstants;
-import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.general.ActionDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ActionsListDataControl;
-import es.eucm.eadventure.editor.gui.treepanel.TreeNodeControl;
+import es.eucm.eadventure.editor.control.controllers.general.CustomActionDataControl;
+import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ActionsTable;
 
 public class ActionsListPanel extends JPanel {
 
-	/**
-	 * Required.
-	 */
 	private static final long serialVersionUID = 1L;
 
-	private ActionsListDataControl actionsListDataControl;
+	protected ActionsListDataControl dataControl;
 	
+	private JPanel actionPropertiesPanel;
+	
+	protected JButton deleteButton;
+	
+	protected JButton moveUpButton;
+
+	protected JButton moveDownButton;
+	
+	protected JTable table;
+	
+	private static final int HORIZONTAL_SPLIT_POSITION = 140;
+
 	/**
 	 * Constructor.
 	 * 
@@ -35,120 +53,174 @@ public class ActionsListPanel extends JPanel {
 	 *            Actions list controller
 	 */
 	public ActionsListPanel( ActionsListDataControl actionsListDataControl ) {
-		// Set the layout and the border
-		this.actionsListDataControl = actionsListDataControl;
-		setLayout( new GridBagLayout( ) );
-		setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ActionsList.Title" ) ) );
-		GridBagConstraints c = new GridBagConstraints( );
-		c.insets = new Insets( 5, 5, 5, 5 );
+		this.dataControl = actionsListDataControl;
 
-		// Create the text area for the documentation
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weightx = 1;
-		JTextPane informationTextPane = new JTextPane( );
-		informationTextPane.setEditable( false );
-		informationTextPane.setBackground( getBackground( ) );
-		informationTextPane.setText( TextConstants.getText( "ActionsList.Information" ) );
-		JPanel informationPanel = new JPanel( );
-		informationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "GeneralText.Information" ) ) );
-		informationPanel.setLayout( new BorderLayout( ) );
-		informationPanel.add( informationTextPane, BorderLayout.CENTER );
-		add( informationPanel, c );
+		setLayout(new BorderLayout());
+		
+		actionPropertiesPanel = new JPanel();
+		actionPropertiesPanel.setLayout(new BorderLayout());
+		JPanel tablePanel = createTablePanel();
+		
+		JSplitPane tableWithSplit = new JSplitPane(JSplitPane.VERTICAL_SPLIT, tablePanel, actionPropertiesPanel);
+		tableWithSplit.setOneTouchExpandable(true);
+		tableWithSplit.setDividerLocation(HORIZONTAL_SPLIT_POSITION);
+		tableWithSplit.setContinuousLayout(true);
+		tableWithSplit.setResizeWeight(0.5);
+		tableWithSplit.setDividerSize(10);
+		
+		add(tableWithSplit,BorderLayout.CENTER);
+	}
+	
+	private JPanel createTablePanel(){
+		JPanel tablePanel = new JPanel(new BorderLayout());
+		
+		table = new ActionsTable(dataControl);
 
-		// Create the table with the data
-		c.gridy = 1;
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 1;
-		c.weighty = 1;
-		JTable informationTable = new JTable( new ConversationReferencesInfoTableModel( actionsListDataControl.getActionsInfo( ) ) );
-		informationTable.removeEditor( );
-		informationTable.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if (e.getClickCount() == 2) {
-					JTable table = (JTable) e.getSource();
-					DataControl dataControl = ActionsListPanel.this.actionsListDataControl.getActions().get(table.getSelectedRow());
-					TreeNodeControl.getInstance().changeTreeNode(dataControl);
-				}
+		tablePanel.add( new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER) ,BorderLayout.CENTER);
+		
+		table.getSelectionModel( ).addListSelectionListener( new ListSelectionListener(){
+			public void valueChanged( ListSelectionEvent e ) {
+				updateSelectedAction();
 			}
 		});
-		JPanel listPanel = new JPanel( );
-		listPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ActionsList.ListTitle" ) ) );
-		listPanel.setLayout( new BorderLayout( ) );
-		listPanel.add( new JScrollPane( informationTable, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER ), BorderLayout.CENTER );
-		add( listPanel, c );
+		
+		//Create the buttons panel (SOUTH)
+		JPanel buttonsPanel = new JPanel();
+		JButton newButton = new JButton(new ImageIcon("img/icons/addNode.png"));
+		newButton.setContentAreaFilled( false );
+		newButton.setMargin( new Insets(0,0,0,0) );
+		newButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.AddParagraph" ) );
+		newButton.addMouseListener( new MouseAdapter(){
+			public void mouseClicked (MouseEvent evt){
+				JPopupMenu menu = getAddChildPopupMenu();
+				menu.show( evt.getComponent( ), evt.getX( ), evt.getY( ) );
+			}
+		});
+		
+		deleteButton = new JButton(new ImageIcon("img/icons/deleteNode.png"));
+		deleteButton.setContentAreaFilled( false );
+		deleteButton.setMargin( new Insets(0,0,0,0) );
+		deleteButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.Delete" ) );
+		deleteButton.addActionListener(new ActionListener(){
+			public void actionPerformed( ActionEvent e ) {
+				delete();
+			}
+		});
+		
+		deleteButton.setEnabled(false);
+		moveUpButton = new JButton(new ImageIcon("img/icons/moveNodeUp.png"));
+		moveUpButton.setContentAreaFilled( false );
+		moveUpButton.setMargin( new Insets(0,0,0,0) );
+		moveUpButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.MoveUp" ) );
+		moveUpButton.addActionListener( new ActionListener(){
+			public void actionPerformed( ActionEvent e ) {
+				moveUp();
+			}
+		});
+		moveUpButton.setEnabled(false);
+		moveDownButton = new JButton(new ImageIcon("img/icons/moveNodeDown.png"));
+		moveDownButton.setContentAreaFilled( false );
+		moveDownButton.setMargin( new Insets(0,0,0,0) );
+		moveDownButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.MoveDown" ) );
+		moveDownButton.addActionListener( new ActionListener(){
+			public void actionPerformed( ActionEvent e ) {
+				moveDown();
+			}
+		});
+		moveDownButton.setEnabled(false);
+
+		buttonsPanel.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 0;
+		buttonsPanel.add( newButton , c );
+		c.gridy++;
+		buttonsPanel.add( deleteButton , c );
+		c.anchor = GridBagConstraints.SOUTH;
+		c.gridy++;
+		buttonsPanel.add( moveUpButton , c );
+		c.gridy++;
+		buttonsPanel.add( moveDownButton , c );
+		
+		
+		tablePanel.add( buttonsPanel,BorderLayout.EAST);
+		return tablePanel;
 	}
 
-	/**
-	 * Table model to display the book paragraphs information.
+	private void updateSelectedAction() {
+		int selectedAction = table.getSelectedRow( );
+		actionPropertiesPanel.removeAll();
+
+		if (selectedAction != -1) {
+			ActionDataControl action = dataControl.getActions().get(selectedAction);
+			if (action instanceof CustomActionDataControl){
+			    JPanel actionPanel = new CustomActionPropertiesPanel((CustomActionDataControl)action);
+			    actionPropertiesPanel.add(actionPanel,BorderLayout.CENTER);
+			}else if (action instanceof ActionDataControl){
+			    JPanel actionPanel = new ActionPropertiesPanel(action);
+			    actionPropertiesPanel.add(actionPanel,BorderLayout.CENTER);
+			}
+			actionPropertiesPanel.updateUI();
+			deleteButton.setEnabled(true);
+			//Enable moveUp and moveDown buttons when there is more than one element
+			moveUpButton.setEnabled( dataControl.getActions().size()>1 && selectedAction > 0);
+			moveDownButton.setEnabled( dataControl.getActions().size()>1 && selectedAction < table.getRowCount( )-1 );
+		} else {
+			deleteButton.setEnabled(false);
+			moveUpButton.setEnabled(false);
+			moveDownButton.setEnabled(false);
+		}
+	}
+	
+    /**
+	 * Returns a popup menu with the add operations.
+	 * 
+	 * @return Popup menu with child adding operations
 	 */
-	private class ConversationReferencesInfoTableModel extends AbstractTableModel {
+	public JPopupMenu getAddChildPopupMenu( ) {
+		JPopupMenu addChildPopupMenu = new JPopupMenu( );
 
-		/**
-		 * Required.
-		 */
-		private static final long serialVersionUID = 1L;
-
-		/**
-		 * Array of data to display.
-		 */
-		private String[][] actionsInfo;
-
-		/**
-		 * Constructor.
-		 * 
-		 * @param actionsInfo
-		 *            Container array of the information of the actions
-		 */
-		public ConversationReferencesInfoTableModel( String[][] actionsInfo ) {
-			this.actionsInfo = actionsInfo;
+		for( final int type : dataControl.getAddableElements( ) ) {
+			JMenuItem addChildMenuItem = new JMenuItem( TextConstants.getText( "TreeNode.AddElement" + type ) );
+			addChildMenuItem.setEnabled( true );
+			addChildMenuItem.addActionListener( new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					if (dataControl.addElement(type, null)) {
+						((AbstractTableModel) table.getModel()).fireTableDataChanged();
+						table.changeSelection(table.getRowCount() - 1, table.getRowCount() - 1, false, false);
+					}
+				}
+			});
+			addChildPopupMenu.add( addChildMenuItem );
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.table.TableModel#getColumnCount()
-		 */
-		public int getColumnCount( ) {
-			// Three columns, always
-			return 3;
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.table.TableModel#getRowCount()
-		 */
-		public int getRowCount( ) {
-			return actionsInfo.length;
-		}
-
-		@Override
-		public String getColumnName( int columnIndex ) {
-			String columnName = "";
-
-			// The first column is the type of the action
-			if( columnIndex == 0 )
-				columnName = TextConstants.getText( "ActionsList.ColumnHeader0" );
-
-			// The second one tells if the action has conditions
-			else if( columnIndex == 1 )
-				columnName = TextConstants.getText( "ActionsList.ColumnHeader1" );
-
-			// The second one tells if the action has effects
-			else if( columnIndex == 2 )
-				columnName = TextConstants.getText( "ActionsList.ColumnHeader2" );
-
-			return columnName;
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.table.TableModel#getValueAt(int, int)
-		 */
-		public Object getValueAt( int rowIndex, int columnIndex ) {
-			return actionsInfo[rowIndex][columnIndex];
+		return addChildPopupMenu;
+	}
+	
+	protected void delete() {
+		if (dataControl.deleteElement(dataControl.getActions().get(table.getSelectedRow()), false)) {
+			table.clearSelection();
+			table.changeSelection(0, 1, false, false);
+			table.updateUI();
 		}
 	}
+	
+	protected void moveUp() {
+		int selectedRow = table.getSelectedRow();
+		table.clearSelection();
+		dataControl.moveElementUp(dataControl.getActions().get(selectedRow));
+		((AbstractTableModel) table.getModel()).fireTableDataChanged();
+		table.changeSelection(selectedRow - 1, selectedRow - 1, false, false);
+		table.editCellAt(selectedRow + 1, 0);
+	}
+	
+	protected void moveDown() {
+		int selectedRow = table.getSelectedRow();
+		table.clearSelection();
+		dataControl.moveElementDown(dataControl.getActions().get(selectedRow));
+		((AbstractTableModel) table.getModel()).fireTableDataChanged();
+		table.changeSelection(selectedRow + 1, selectedRow + 1, false, false);
+		table.editCellAt(selectedRow + 1, 0);
+	}
+
 }

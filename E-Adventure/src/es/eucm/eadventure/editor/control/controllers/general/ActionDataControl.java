@@ -69,6 +69,9 @@ public class ActionDataControl extends DataControlWithResources {
 			case Action.CUSTOM_INTERACT:
 				actionType = Controller.ACTION_CUSTOM_INTERACT;
 				break;
+			case Action.TALK_TO:
+				actionType = Controller.ACTION_TALK_TO;
+				break;
 		}
 
 		// Create subcontrollers
@@ -367,5 +370,9 @@ public class ActionDataControl extends DataControlWithResources {
 		}
 		
 	}
-
+	
+	@Override
+	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+		return null;
+	}
 }

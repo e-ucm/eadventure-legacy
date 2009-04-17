@@ -69,6 +69,9 @@ public class ActionsListTreeNode extends TreeNode {
 				case Controller.ACTION_CUSTOM_INTERACT:
 					children.add( new CustomInteractActionTreeNode( this, actionDataControl));
 					break;
+				case Controller.ACTION_TALK_TO:
+					children.add( new TalkToActionTreeNode( this, actionDataControl ) );
+					break;
 			}
 		}
 	}
@@ -149,8 +152,7 @@ public class ActionsListTreeNode extends TreeNode {
 
 	@Override
 	public JComponent getEditPanel( ) {
-		//return new ActionsListPanel( dataControl );
-	    	return new ActionPanel(dataControl,new ActionPropertiesPanel(new ActionDataControl(new Action(0))));
+    	return new ActionsListPanel(dataControl);
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects;
 
+import es.eucm.eadventure.common.data.chapter.Exit;
 import es.eucm.eadventure.common.data.chapter.NextScene;
 import es.eucm.eadventure.common.data.chapter.effects.TriggerSceneEffect;
 import es.eucm.eadventure.engine.core.control.Game;
@@ -23,8 +24,10 @@ public class FunctionalTriggerSceneEffect extends FunctionalEffect {
      */
     public void triggerEffect( ) {
         if( ((TriggerSceneEffect)effect).getTargetId()!=null && !Game.getInstance( ).getCurrentChapterData( ).isCutscene( ((TriggerSceneEffect)effect).getTargetId() ) ) {
-            Game.getInstance( ).setNextScene( new NextScene( ((TriggerSceneEffect)effect).getTargetId()
-            		, ((TriggerSceneEffect)effect).getX(), ((TriggerSceneEffect)effect).getY() ) );
+            Exit exit = new Exit(((TriggerSceneEffect)effect).getTargetId());
+        	exit.setDestinyX(((TriggerSceneEffect)effect).getX());
+        	exit.setDestinyY(((TriggerSceneEffect)effect).getY());
+            Game.getInstance( ).setNextScene(exit);
             Game.getInstance( ).setState( Game.STATE_NEXT_SCENE );
         }
     }

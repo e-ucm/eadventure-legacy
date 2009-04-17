@@ -169,4 +169,9 @@ public class SideDataControl extends DataControl {
 	public void recursiveSearch() {
 	}
 
+	@Override
+	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+		return null;
+	}
+
 }

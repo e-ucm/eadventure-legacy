@@ -70,7 +70,7 @@ public class NPCsListDataControl extends DataControl {
 		for( int i = 0; i < npcsList.size( ); i++ ) {
 			NPC npc = npcsList.get( i );
 			npcsInfo[i][0] = npc.getId( );
-			npcsInfo[i][1] = TextConstants.getText( "NPCsList.ConversationsNumber", String.valueOf( npc.getConversationReferences( ).size( ) ) );
+			npcsInfo[i][1] = TextConstants.getText( "NPCsList.ActionsNumber", String.valueOf( npc.getActions().size( ) ) );
 		}
 
 		return npcsInfo;
@@ -276,5 +276,10 @@ public class NPCsListDataControl extends DataControl {
 		for (DataControl dc : this.npcsDataControlList) {
 			dc.recursiveSearch();
 		}
+	}
+	
+	@Override
+	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+		return getPathFromChild(dataControl, npcsDataControlList);
 	}
 }

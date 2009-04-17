@@ -342,4 +342,10 @@ public class TimerDataControl extends DataControl {
 	public void setDisplayName(String displayName) {
 		controller.addTool(new ChangeStringValueTool(timer, displayName, "getDisplayName", "setDisplayName"));
 	}
+	
+	@Override
+	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+		return null;
+	}
+
 }

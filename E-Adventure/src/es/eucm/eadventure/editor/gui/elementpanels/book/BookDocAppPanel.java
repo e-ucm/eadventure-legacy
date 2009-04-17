@@ -70,8 +70,9 @@ public class BookDocAppPanel extends JPanel implements Updateable{
 		c.insets = new Insets( 5, 5, 5, 5 );
 
 		// Create the text area for the documentation
-		c.fill = GridBagConstraints.HORIZONTAL;
+		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1;
+		c.weighty = 1;
 		JPanel documentationPanel = new JPanel( );
 		documentationPanel.setLayout( new GridLayout( ) );
 		documentationTextArea = new JTextArea( bookDataControl.getDocumentation( ), 4, 0 );
@@ -82,28 +83,19 @@ public class BookDocAppPanel extends JPanel implements Updateable{
 		documentationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Book.Documentation" ) ) );
 		add( documentationPanel, c );
 
+		c.gridy = 1;
+		c.fill = GridBagConstraints.BOTH;
+		c.weightx = 1;
+		c.weighty = 3;
+
 		// Create the looksPanel
 		if (bookDataControl.getType( ) == Book.TYPE_PARAGRAPHS){
 			this.bookLooks = new BookLooksPanel( this.bookDataControl );
-				
-			// Add the preview of the player
-			c.gridy = 1;
-			c.fill = GridBagConstraints.BOTH;
-			c.weightx = 1;
-			c.weighty = 1;
 			this.add( bookLooks, c );
 		} else {
 			this.bookLooks = new StyledBookLooksPanel( this.bookDataControl );
-			
-			// Add the preview of the player
-			c.gridy = 1;
-			c.fill = GridBagConstraints.BOTH;
-			c.weightx = 1;
-			c.weighty = 1;
 			this.add( bookLooks, c );
-			
 		}
-
 	}
 
 	private class BookLooksPanel extends LooksPanel {

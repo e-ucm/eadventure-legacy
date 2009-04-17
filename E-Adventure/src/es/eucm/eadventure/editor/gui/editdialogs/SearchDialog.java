@@ -28,6 +28,7 @@ import javax.swing.table.DefaultTableModel;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.gui.structurepanel.StructureControl;
 import es.eucm.eadventure.editor.gui.treepanel.TreeNodeControl;
 
 public class SearchDialog extends JDialog {
@@ -95,7 +96,7 @@ public class SearchDialog extends JDialog {
 		listMod.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);		
 		listMod.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent arg0) {
-				TreeNodeControl.getInstance().changeTreeNode(dataControls.get(table.getSelectedRow()));
+				StructureControl.getInstance().changeDataControl(dataControls.get(table.getSelectedRow()));
 			}
 		});
 		table.setFillsViewportHeight(true);

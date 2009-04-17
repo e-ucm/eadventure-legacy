@@ -277,4 +277,10 @@ public class ItemsListDataControl extends DataControl {
 		for (DataControl dc : this.itemsDataControlList)
 			dc.recursiveSearch();
 	}
+	
+	@Override
+	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+		return getPathFromChild(dataControl, itemsDataControlList);
+	}
+
 }

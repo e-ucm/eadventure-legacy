@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
+import es.eucm.eadventure.common.data.chapter.Exit;
 import es.eucm.eadventure.common.data.chapter.NextScene;
 import es.eucm.eadventure.common.data.chapter.effects.Effects;
 import es.eucm.eadventure.common.data.chapter.resources.Asset;
@@ -46,7 +47,7 @@ public class GameStateSlidescene extends GameState {
     public GameStateSlidescene( ) {
         super( );
 
-        slidescene = (Slidescene) game.getCurrentChapterData( ).getGeneralScene( game.getNextScene( ).getTargetId( ) );
+        slidescene = (Slidescene) game.getCurrentChapterData( ).getGeneralScene( game.getNextScene( ).getNextSceneId() );
         
         // Select the resources
         Resources resources = createResourcesBlock( );
@@ -140,7 +141,13 @@ public class GameStateSlidescene extends GameState {
 
             // If it had a next scene, jump to it
             if( nextScene != null ) {
-                game.setNextScene( nextScene );
+            	Exit exit = new Exit(nextScene.getTargetId());
+            	exit.setDestinyX(nextScene.getPositionX());
+            	exit.setDestinyY(nextScene.getPositionY());
+            	exit.setPostEffects(nextScene.getPostEffects());
+            	exit.setTransitionTime(nextScene.getTransitionTime());
+            	exit.setTransitionType(nextScene.getTransitionType());
+                game.setNextScene( exit );
                 game.setState( Game.STATE_NEXT_SCENE );
             }
 
