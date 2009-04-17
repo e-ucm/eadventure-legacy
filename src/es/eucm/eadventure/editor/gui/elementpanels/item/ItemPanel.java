@@ -31,7 +31,7 @@ public class ItemPanel extends ElementPanel {
 		private ItemDataControl itemDataControl;
 
 		public ItemDocPanelTab(ItemDataControl itemDataControl) {
-			super(TextConstants.getText( "Item.DocPanelTitle" ));
+			super(TextConstants.getText( "Item.DocPanelTitle" ), itemDataControl);
 			this.itemDataControl = itemDataControl;
 		}
 
@@ -45,7 +45,7 @@ public class ItemPanel extends ElementPanel {
 		private ItemDataControl itemDataControl;
 
 		public ItemLooksPanelTab(ItemDataControl itemDataControl) {
-			super(TextConstants.getText( "Item.LookPanelTitle" ));
+			super(TextConstants.getText( "Item.LookPanelTitle" ), itemDataControl);
 			this.itemDataControl = itemDataControl;
 		}
 
@@ -59,7 +59,7 @@ public class ItemPanel extends ElementPanel {
 		private ItemDataControl itemDataControl;
 
 		public ActionsPanelTab(ItemDataControl itemDataControl) {
-			super(TextConstants.getText( "Item.ActionsPanelTitle" ));
+			super(TextConstants.getText( "Item.ActionsPanelTitle" ), itemDataControl.getActionsList());
 			this.itemDataControl = itemDataControl;
 		}
 

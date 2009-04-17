@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -17,18 +18,19 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
-import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ActionDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ActionsListDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.CustomActionDataControl;
+import es.eucm.eadventure.editor.gui.DataControlsPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ActionsTable;
 
-public class ActionsListPanel extends JPanel {
+public class ActionsListPanel extends JPanel implements DataControlsPanel{
 
 	private static final long serialVersionUID = 1L;
 
@@ -223,4 +225,13 @@ public class ActionsListPanel extends JPanel {
 		table.editCellAt(selectedRow + 1, 0);
 	}
 
+	@Override
+	public void setSelectedItem(List<DataControl> path) {
+		if (path.size() > 0) {
+			for (int i = 0 ; i < dataControl.getActions().size(); i++) {
+				if (dataControl.getActions().get(i) == path.get(path.size() -1))
+					table.changeSelection(i, i, false, false);
+			}
+		}
+	}
 }

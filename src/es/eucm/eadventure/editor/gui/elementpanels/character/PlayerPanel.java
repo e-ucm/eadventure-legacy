@@ -33,7 +33,7 @@ public class PlayerPanel extends ElementPanel {
 		private NPCDataControl dataControl;
 		
 		public DocPanelTab(NPCDataControl dataControl) {
-			super(TextConstants.getText("NPC.DocPanelTitle"));
+			super(TextConstants.getText("NPC.DocPanelTitle"), dataControl);
 			this.dataControl = dataControl;
 		}
 
@@ -47,7 +47,7 @@ public class PlayerPanel extends ElementPanel {
 		private NPCDataControl dataControl;
 		
 		public LooksPanelTab(NPCDataControl dataControl) {
-			super(TextConstants.getText("NPC.LookPanelTitle"));
+			super(TextConstants.getText("NPC.LookPanelTitle"), dataControl);
 			this.dataControl = dataControl;
 		}
 
@@ -61,7 +61,7 @@ public class PlayerPanel extends ElementPanel {
 		private NPCDataControl dataControl;
 		
 		public DialogPanelTab(NPCDataControl dataControl) {
-			super(TextConstants.getText("NPC.DialogPanelTitle"));
+			super(TextConstants.getText("NPC.DialogPanelTitle"), dataControl);
 			this.dataControl = dataControl;
 		}
 

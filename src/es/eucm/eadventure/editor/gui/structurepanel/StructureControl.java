@@ -34,12 +34,7 @@ public class StructureControl {
 	public void changeDataControl(DataControl dataControl) {
 		List<DataControl> path = Controller.getInstance().getSelectedChapterDataControl().getPath(dataControl);
 		if (path != null) {
-			System.out.println("Found! -> " + path.size());
-			while (path.size() > 0) {
-				structurePanel.setSelectedItem(path.get(path.size() - 1));
-				path.remove(path.size() - 1);
-			}
-			structurePanel.showSelectedElement();
+			structurePanel.setSelectedItem(path);
 		}
 	}
 	

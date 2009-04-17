@@ -30,7 +30,7 @@ public class ScenesListPanel extends ElementPanel {
 		private ScenesListDataControl scenesListDataControl;
 		
 		public SceneListPanelTab(ScenesListDataControl scenesListDataControl) {
-			super(TextConstants.getText("ScenesList.Title"));
+			super(TextConstants.getText("ScenesList.Title"), scenesListDataControl);
 			this.scenesListDataControl = scenesListDataControl;
 		}
 

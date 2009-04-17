@@ -29,6 +29,7 @@ import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.general.AdvancedFeaturesDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ChapterDataControl;
 import es.eucm.eadventure.editor.control.tools.structurepanel.AddElementTool;
+import es.eucm.eadventure.editor.gui.DataControlsPanel;
 import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.structurepanel.structureelements.AdaptationControllerStructureElement;
 import es.eucm.eadventure.editor.gui.structurepanel.structureelements.AdvancedFeaturesListStructureElement;
@@ -43,7 +44,7 @@ import es.eucm.eadventure.editor.gui.structurepanel.structureelements.NPCsListSt
 import es.eucm.eadventure.editor.gui.structurepanel.structureelements.PlayerStructureElement;
 import es.eucm.eadventure.editor.gui.structurepanel.structureelements.ScenesListStructureElement;
 
-public class StructurePanel extends JPanel {
+public class StructurePanel extends JPanel implements DataControlsPanel {
 
 	private static final long serialVersionUID = -1768584184321389780L;
 	
@@ -239,42 +240,46 @@ public class StructurePanel extends JPanel {
 		}
 	}
 
-	public void setSelectedItem(DataControl dataControl) {
-		for (int i = 0; i < structureElements.size() ; i++) {
-			if (structureElements.get(i).getDataControl() == dataControl) {
-				selectedElement = i;
-				selectedListItem = -1;
-				return;
+	
+	public void setSelectedItem(List<DataControl> path) {
+		boolean element = true;
+		while (path.size() > 0 && element) {
+			element = false;
+			for (int i = 0; i < structureElements.size(); i++) {
+				if (structureElements.get(i).getDataControl() == path.get(path.size() - 1)) {
+					selectedElement = i;
+					selectedListItem = -1;
+					element = true;
+				}
 			}
+			if (element)
+				path.remove(path.size() - 1);
 		}
-		if (selectedListItem == -1) {
+		
+		if (structureElements.get(selectedElement).getChildCount() > 0) {
 			update();
-			if (list != null) {
-				for (int i = 0; i < structureElements.get(selectedElement).getChildCount(); i++) {
-					if (structureElements.get(selectedElement).getChild(i).getDataControl() == dataControl) {
-						selectedListItem = i;
-						return;
-					}
+			for (int i = 0; i < structureElements.get(selectedElement).getChildCount(); i++) {
+				if (structureElements.get(selectedElement).getChild(i).getDataControl() == path.get(path.size() - 1)) {
+					selectedListItem = i;
+					path.remove(path.size() - 1);
 				}
 			}
 		}
-	}
-	
-	public void showSelectedElement() {
-		update();
 		editorContainer.removeAll();
-		
 		if (selectedListItem == -1) {
 			editorContainer.add(structureElements.get(selectedElement).getEditPanel());
 			StructureControl.getInstance().visitDataControl(structureElements.get(selectedElement).getDataControl());
 		} else {
 			list.changeSelection(selectedListItem, 0, false, false);
 		}
+		
+		if (editorContainer.getComponent(0) instanceof DataControlsPanel) {
+			((DataControlsPanel) editorContainer.getComponent(0)).setSelectedItem(path);
+		}
+		
 		editorContainer.validate( );
 		editorContainer.repaint( );
 		list.requestFocusInWindow();
 	}
-	
-	
 	
 }
