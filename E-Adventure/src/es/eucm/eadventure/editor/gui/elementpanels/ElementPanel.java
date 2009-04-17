@@ -4,15 +4,17 @@ import java.awt.BorderLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.gui.DataControlsPanel;
 import es.eucm.eadventure.editor.gui.Updateable;
 
-public class ElementPanel extends JTabbedPane implements Updateable {
+public class ElementPanel extends JTabbedPane implements Updateable, DataControlsPanel {
 
 	/**
 	 * 
@@ -20,6 +22,8 @@ public class ElementPanel extends JTabbedPane implements Updateable {
 	private static final long serialVersionUID = 1546563540388226634L;
 	
 	private List<PanelTab> tabs;
+	
+	private List<DataControl> itemPath = null;
 	
 	private int selected = -1;
 	
@@ -32,16 +36,17 @@ public class ElementPanel extends JTabbedPane implements Updateable {
 				if (selected == getSelectedIndex())
 					return;
 				selected = getSelectedIndex();
-				SwingUtilities.invokeLater(new Runnable()
-				{
-				    public void run()
-				    {
-				    	((JPanel) getSelectedComponent()).removeAll();
-				    	PanelTab tab = tabs.get(getSelectedIndex());
-				    	((JPanel) getSelectedComponent()).add(tab.getComponent(), BorderLayout.CENTER);
-				    	((JPanel) getSelectedComponent()).updateUI();
+				((JPanel) getSelectedComponent()).removeAll();
+				PanelTab tab = tabs.get(getSelectedIndex());
+				JComponent component = tab.getComponent();
+				((JPanel) getSelectedComponent()).add(component, BorderLayout.CENTER);
+				((JPanel) getSelectedComponent()).updateUI();
+				if (itemPath != null) {
+					if (component instanceof DataControlsPanel) {
+				    	((DataControlsPanel) component).setSelectedItem(itemPath);
+				    	itemPath = null;
 				    }
-				});
+				}
 			}
 		});
 	}
@@ -68,5 +73,18 @@ public class ElementPanel extends JTabbedPane implements Updateable {
 	    	((JPanel) getSelectedComponent()).updateUI();
 		}
 		return true;
+	}
+
+	@Override
+	public void setSelectedItem(List<DataControl> path) {
+		if (path.size() > 0) {
+			for (int i = 0; i < tabs.size(); i++) {
+				if (tabs.get(i).getDataControl() == path.get(path.size() - 1)) {
+					path.remove(path.size() - 1);
+					itemPath = path;
+					this.setSelectedIndex(i);
+				}
+			}
+		}
 	}
 }

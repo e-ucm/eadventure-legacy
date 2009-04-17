@@ -96,6 +96,7 @@ public class SearchDialog extends JDialog {
 		listMod.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);		
 		listMod.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent arg0) {
+				if (!arg0.getValueIsAdjusting())
 				StructureControl.getInstance().changeDataControl(dataControls.get(table.getSelectedRow()));
 			}
 		});

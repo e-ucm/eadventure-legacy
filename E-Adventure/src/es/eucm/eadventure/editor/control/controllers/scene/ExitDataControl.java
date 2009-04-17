@@ -278,6 +278,7 @@ public class ExitDataControl extends DataControl implements RectangleArea {
 	@Override
 	public void recursiveSearch() {
 		check(this.getDocumentation(), TextConstants.getText("Search.Documentation"));
+		check(this.getExitLookDataControl().getCustomizedText(), TextConstants.getText("Search.CustomizedText"));
 	}
 	
 	public boolean isRectangular() {
@@ -410,6 +411,7 @@ public class ExitDataControl extends DataControl implements RectangleArea {
 	public EffectsController getNotEffects() {
 		return notEffectsController;
 	}
+
 
 	@Override
 	public List<DataControl> getPathToDataControl(DataControl dataControl) {

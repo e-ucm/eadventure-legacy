@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -23,6 +24,7 @@ import javax.swing.table.AbstractTableModel;
 import es.eucm.eadventure.common.data.chapter.Trajectory;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.control.controllers.scene.ActiveAreaDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.BarrierDataControl;
@@ -30,12 +32,13 @@ import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataC
 import es.eucm.eadventure.editor.control.controllers.scene.ExitDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ExitsListDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.NodeDataControl;
+import es.eucm.eadventure.editor.gui.DataControlsPanel;
 import es.eucm.eadventure.editor.gui.editdialogs.EffectsDialog;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ExitsTable;
 import es.eucm.eadventure.editor.gui.otherpanels.IrregularAreaEditionPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 
-public class ExitsListPanel extends JPanel {
+public class ExitsListPanel extends JPanel implements DataControlsPanel {
 
 	/**
 	 * Required.
@@ -268,6 +271,16 @@ public class ExitsListPanel extends JPanel {
 		
 		public void actionPerformed(ActionEvent e) {
 			new EffectsDialog( effects );
+		}
+	}
+	
+	@Override
+	public void setSelectedItem(List<DataControl> path) {
+		if (path.size() > 0) {
+			for (int i = 0 ; i < dataControl.getExits().size(); i++) {
+				if (dataControl.getExits().get(i) == path.get(path.size() -1))
+					table.changeSelection(i, i, false, false);
+			}
 		}
 	}
 	

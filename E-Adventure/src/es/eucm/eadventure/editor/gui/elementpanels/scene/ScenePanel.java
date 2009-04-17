@@ -34,7 +34,7 @@ public class ScenePanel extends ElementPanel {
 		private SceneDataControl sDataControl;
 		
 		public SceneLookPanelTab(SceneDataControl sDataControl) {
-			super(TextConstants.getText("Scene.LookPanelTitle"));
+			super(TextConstants.getText("Scene.LookPanelTitle"), sDataControl);
 			this.sDataControl = sDataControl;
 		}
 
@@ -48,7 +48,7 @@ public class ScenePanel extends ElementPanel {
 		private SceneDataControl sDataControl;
 		
 		public SceneDocPanelTab(SceneDataControl sDataControl) {
-			super(TextConstants.getText("Scene.DocPanelTitle"));
+			super(TextConstants.getText("Scene.DocPanelTitle"), sDataControl);
 			this.sDataControl = sDataControl;
 		}
 
@@ -62,7 +62,7 @@ public class ScenePanel extends ElementPanel {
 		private SceneDataControl sDataControl;
 		
 		public ItemsPanelTab(SceneDataControl sDataControl) {
-			super(TextConstants.getText("ItemReferencesList.Title"));
+			super(TextConstants.getText("ItemReferencesList.Title"), sDataControl.getReferencesList());
 			this.sDataControl = sDataControl;
 		}
 
@@ -76,7 +76,7 @@ public class ScenePanel extends ElementPanel {
 		private SceneDataControl sDataControl;
 		
 		public BarriersPanelTab(SceneDataControl sDataControl) {
-			super(TextConstants.getText("BarriersList.Title"));
+			super(TextConstants.getText("BarriersList.Title"), sDataControl.getBarriersList());
 			this.sDataControl = sDataControl;
 		}
 
@@ -90,7 +90,7 @@ public class ScenePanel extends ElementPanel {
 		private SceneDataControl sDataControl;
 		
 		public ActiveAreasPanelTab(SceneDataControl sDataControl) {
-			super(TextConstants.getText("ActiveAreasList.Title"));
+			super(TextConstants.getText("ActiveAreasList.Title"), sDataControl.getActiveAreasList());
 			this.sDataControl = sDataControl;
 		}
 
@@ -104,7 +104,7 @@ public class ScenePanel extends ElementPanel {
 		private SceneDataControl sDataControl;
 		
 		public ExitsPanelTab(SceneDataControl sDataControl) {
-			super(TextConstants.getText("ExitsList.Title"));
+			super(TextConstants.getText("ExitsList.Title"), sDataControl.getExitsList());
 			this.sDataControl = sDataControl;
 		}
 
@@ -118,7 +118,7 @@ public class ScenePanel extends ElementPanel {
 		private SceneDataControl sDataControl;
 		
 		public TrajectoryPanelTab(SceneDataControl sDataControl) {
-			super(TextConstants.getText("Trajectory.Title"));
+			super(TextConstants.getText("Trajectory.Title"), sDataControl.getTrajectory());
 			this.sDataControl = sDataControl;
 		}
 

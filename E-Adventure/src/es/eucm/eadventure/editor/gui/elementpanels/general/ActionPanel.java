@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -24,12 +25,14 @@ import javax.swing.event.ListSelectionListener;
 
 import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ActionDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ActionsListDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.CustomActionDataControl;
+import es.eucm.eadventure.editor.gui.DataControlsPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ActionsTable;
 
-public class ActionPanel extends JPanel{
+public class ActionPanel extends JPanel {
 
     /**
      * 
@@ -359,5 +362,7 @@ public class ActionPanel extends JPanel{
 				}
 			}
 		}
+
+
 	
 }

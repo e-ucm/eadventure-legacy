@@ -21,7 +21,7 @@ public class BookPanel extends ElementPanel {
 		private BookDataControl dataControl;
 		
 		public BookDocPanel(BookDataControl dataControl) {
-			super(TextConstants.getText("Book.DocAndApp"));
+			super(TextConstants.getText("Book.DocAndApp"), dataControl);
 			setToolTipText(TextConstants.getText("Book.DocAndApp.Tip"));
 			this.dataControl = dataControl;
 		}
@@ -36,7 +36,7 @@ public class BookPanel extends ElementPanel {
 		private BookDataControl dataControl;
 		
 		public BookContentPanel(BookDataControl dataControl) {
-			super(TextConstants.getText("Book.Contents"));
+			super(TextConstants.getText("Book.Contents"), dataControl);
 			setToolTipText(TextConstants.getText("Book.Contents.Tip"));
 			this.dataControl = dataControl;
 		}

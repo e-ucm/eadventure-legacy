@@ -2,6 +2,7 @@ package es.eucm.eadventure.editor.gui.elementpanels;
 
 import javax.swing.JComponent;
 
+import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.gui.Updateable;
 
 public abstract class PanelTab implements Updateable {
@@ -14,9 +15,12 @@ public abstract class PanelTab implements Updateable {
 	
 	private JComponent component;
 	
-	public PanelTab(String title) {
+	private DataControl dataControl;
+	
+	public PanelTab(String title, DataControl dataControl) {
 		super();
 		this.title = title;
+		this.dataControl = dataControl;
 	}
 	
 	public String getTitle() {
@@ -43,6 +47,10 @@ public abstract class PanelTab implements Updateable {
 			return ((Updateable) component).updateFields();
 		}
 		return false;
+	}
+
+	public DataControl getDataControl() {
+		return dataControl;
 	}
 	
 }	
