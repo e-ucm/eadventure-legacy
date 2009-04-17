@@ -1,7 +1,5 @@
 package es.eucm.eadventure.editor.gui.elementpanels.item;
 
-import java.awt.Dimension;
-
 import javax.swing.BorderFactory;
 
 import es.eucm.eadventure.common.gui.TextConstants;

@@ -4,6 +4,7 @@ import javax.swing.JComponent;
 
 import es.eucm.eadventure.common.data.chapter.book.Book;
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.book.BookDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.ElementPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.PanelTab;
@@ -48,6 +49,14 @@ public class BookPanel extends ElementPanel {
 			} else {
 				return new BookPagesPanel(dataControl);
 			}
+		}
+		
+		@Override
+		public DataControl getDataControl() {
+			if (dataControl.getType( ) == Book.TYPE_PARAGRAPHS) {
+				return dataControl.getBookParagraphsList();
+			}
+			return super.getDataControl();
 		}
 	}	
 }

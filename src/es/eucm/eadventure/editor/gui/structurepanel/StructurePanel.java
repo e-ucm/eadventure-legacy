@@ -245,7 +245,7 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
 		boolean element = true;
 		while (path.size() > 0 && element) {
 			element = false;
-			for (int i = 0; i < structureElements.size(); i++) {
+			for (int i = 0; i < structureElements.size() && !element; i++) {
 				if (structureElements.get(i).getDataControl() == path.get(path.size() - 1)) {
 					selectedElement = i;
 					selectedListItem = -1;
@@ -256,15 +256,18 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
 				path.remove(path.size() - 1);
 		}
 		
-		if (structureElements.get(selectedElement).getChildCount() > 0) {
+		if (structureElements.get(selectedElement).getChildCount() > 0 && path.size() > 0) {
 			update();
-			for (int i = 0; i < structureElements.get(selectedElement).getChildCount(); i++) {
+			element = false;
+			for (int i = 0; i < structureElements.get(selectedElement).getChildCount() && !element; i++) {
 				if (structureElements.get(selectedElement).getChild(i).getDataControl() == path.get(path.size() - 1)) {
 					selectedListItem = i;
 					path.remove(path.size() - 1);
+					element = true;
 				}
 			}
 		}
+		
 		editorContainer.removeAll();
 		if (selectedListItem == -1) {
 			editorContainer.add(structureElements.get(selectedElement).getEditPanel());
