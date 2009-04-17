@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -28,15 +29,17 @@ import javax.swing.plaf.basic.BasicSplitPaneDivider;
 import es.eucm.eadventure.common.data.chapter.Trajectory;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementContainer;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.NodeDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ReferencesListDataControl;
 import es.eucm.eadventure.editor.control.tools.general.MovePlayerLayerInTableTool;
+import es.eucm.eadventure.editor.gui.DataControlsPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ElementReferencesTable;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 
-public class ReferencesListPanel extends JPanel{
+public class ReferencesListPanel extends JPanel implements DataControlsPanel {
 
 	/**
 	 * Required.
@@ -445,4 +448,13 @@ public class ReferencesListPanel extends JPanel{
 		}
 	}
 	
+	@Override
+	public void setSelectedItem(List<DataControl> path) {
+		if (path.size() > 0) {
+			for (int i = 0 ; i < referencesListDataControl.getAllReferencesDataControl().size(); i++) {
+				if (referencesListDataControl.getAllReferencesDataControl().get(i).getErdc() == path.get(path.size() -1))
+					table.changeSelection(i, i, false, false);
+			}
+		}
+	}
 }

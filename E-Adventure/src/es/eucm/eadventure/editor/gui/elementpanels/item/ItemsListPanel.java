@@ -20,7 +20,6 @@ import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.item.ItemDataControl;
 import es.eucm.eadventure.editor.control.controllers.item.ItemsListDataControl;
 import es.eucm.eadventure.editor.gui.structurepanel.StructureControl;
-import es.eucm.eadventure.editor.gui.treepanel.TreeNodeControl;
 
 public class ItemsListPanel extends JPanel {
 

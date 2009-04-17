@@ -22,8 +22,8 @@ public class ElementPanel extends JTabbedPane implements Updateable, DataControl
 	private static final long serialVersionUID = 1546563540388226634L;
 	
 	private List<PanelTab> tabs;
-	
-	private List<DataControl> itemPath = null;
+
+	private JComponent component = null;
 	
 	private int selected = -1;
 	
@@ -33,19 +33,13 @@ public class ElementPanel extends JTabbedPane implements Updateable, DataControl
 		
 		this.addChangeListener(new ChangeListener() {
 			public void stateChanged(final ChangeEvent arg0) {
-				if (selected == getSelectedIndex())
-					return;
-				selected = getSelectedIndex();
-				((JPanel) getSelectedComponent()).removeAll();
-				PanelTab tab = tabs.get(getSelectedIndex());
-				JComponent component = tab.getComponent();
-				((JPanel) getSelectedComponent()).add(component, BorderLayout.CENTER);
-				((JPanel) getSelectedComponent()).updateUI();
-				if (itemPath != null) {
-					if (component instanceof DataControlsPanel) {
-				    	((DataControlsPanel) component).setSelectedItem(itemPath);
-				    	itemPath = null;
-				    }
+				if (selected != getSelectedIndex()) {
+					selected = getSelectedIndex();
+					((JPanel) getSelectedComponent()).removeAll();
+					PanelTab tab = tabs.get(getSelectedIndex());
+					component = tab.getComponent();
+					((JPanel) getSelectedComponent()).add(component, BorderLayout.CENTER);
+					((JPanel) getSelectedComponent()).updateUI();
 				}
 			}
 		});
@@ -81,8 +75,14 @@ public class ElementPanel extends JTabbedPane implements Updateable, DataControl
 			for (int i = 0; i < tabs.size(); i++) {
 				if (tabs.get(i).getDataControl() == path.get(path.size() - 1)) {
 					path.remove(path.size() - 1);
-					itemPath = path;
 					this.setSelectedIndex(i);
+					if (component != null) {
+						if (component instanceof DataControlsPanel) {
+					    	((DataControlsPanel) component).setSelectedItem(path);
+					    	path = null;
+					    }
+					}
+					return;
 				}
 			}
 		}

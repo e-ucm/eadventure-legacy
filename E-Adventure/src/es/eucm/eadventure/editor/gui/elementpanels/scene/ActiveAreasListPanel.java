@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,18 +22,20 @@ import javax.swing.table.AbstractTableModel;
 import es.eucm.eadventure.common.data.chapter.Trajectory;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ActiveAreaDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ActiveAreasListDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.BarrierDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ExitDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.NodeDataControl;
+import es.eucm.eadventure.editor.gui.DataControlsPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.general.SmallActionsListPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ActiveAreasTable;
 import es.eucm.eadventure.editor.gui.otherpanels.IrregularAreaEditionPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 
-public class ActiveAreasListPanel extends JPanel {
+public class ActiveAreasListPanel extends JPanel implements DataControlsPanel {
 
 	/**
 	 * Required.
@@ -211,5 +214,15 @@ public class ActiveAreasListPanel extends JPanel {
 		auxPanel.add(new SmallActionsListPanel(dataControl.getActiveAreas().get(this.table.getSelectedRow()).getActionsList()));
 
 		previewAuxSplit.setDividerLocation(Integer.MAX_VALUE);
+	}
+	
+	@Override
+	public void setSelectedItem(List<DataControl> path) {
+		if (path.size() > 0) {
+			for (int i = 0 ; i < dataControl.getActiveAreas().size(); i++) {
+				if (dataControl.getActiveAreas().get(i) == path.get(path.size() -1))
+					table.changeSelection(i, i, false, false);
+			}
+		}
 	}
 }

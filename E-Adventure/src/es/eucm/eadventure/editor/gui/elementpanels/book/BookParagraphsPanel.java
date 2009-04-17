@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -26,15 +27,17 @@ import javax.swing.event.ListSelectionListener;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.book.BookDataControl;
 import es.eucm.eadventure.editor.control.controllers.book.BookParagraphDataControl;
 import es.eucm.eadventure.editor.control.tools.books.AddParagraphElementTool;
 import es.eucm.eadventure.editor.control.tools.books.DeleteParagraphElementTool;
 import es.eucm.eadventure.editor.control.tools.books.MoveParagraphElementDownTool;
 import es.eucm.eadventure.editor.control.tools.books.MoveParagraphElementUpTool;
+import es.eucm.eadventure.editor.gui.DataControlsPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.imagepanels.BookImagePanel;
 
-public class BookParagraphsPanel extends JPanel{
+public class BookParagraphsPanel extends JPanel implements DataControlsPanel {
 	
 	/**
 	 * 
@@ -379,11 +382,6 @@ public class BookParagraphsPanel extends JPanel{
 			this.type = type;
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-		 */
 		public void actionPerformed( ActionEvent e ) {
 			
 			int selectedRow = paragraphsTable.getSelectedRow( ); 
@@ -399,5 +397,14 @@ public class BookParagraphsPanel extends JPanel{
 		}
 	}
 
+	@Override
+	public void setSelectedItem(List<DataControl> path) {
+		if (path.size() > 0) {
+			for (int i = 0 ; i < dataControl.getBookParagraphsList().getBookParagraphs().size(); i++) {
+				if (dataControl.getBookParagraphsList().getBookParagraphs().get(i) == path.get(path.size() - 1))
+					paragraphsTable.changeSelection(i, i, false, false);
+			}
+		}
+	}
 
 }

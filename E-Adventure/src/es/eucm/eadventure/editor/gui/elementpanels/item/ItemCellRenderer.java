@@ -12,7 +12,6 @@ import javax.swing.table.TableCellRenderer;
 
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.item.ItemDataControl;
-import es.eucm.eadventure.editor.gui.otherpanels.imagepanels.ImagePanel;
 
 public class ItemCellRenderer implements TableCellRenderer {
 
