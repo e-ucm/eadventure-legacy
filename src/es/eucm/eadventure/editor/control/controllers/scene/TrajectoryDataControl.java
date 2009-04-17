@@ -355,5 +355,12 @@ public class TrajectoryDataControl extends DataControl {
 		
 	}
 	
+	@Override
+	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+		List<DataControl> path = getPathFromChild(dataControl, nodeDataControlList);
+		if (path != null) return path;
+		return getPathFromChild(dataControl, sideDataControlList);
+	}
+	
 	
 }

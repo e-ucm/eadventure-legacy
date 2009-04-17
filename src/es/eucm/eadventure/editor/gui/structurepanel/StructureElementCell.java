@@ -78,7 +78,12 @@ public class StructureElementCell extends JPanel {
 		removeAll();
 
 		if (isSelected && !renaming && !((StructureElement) value).isJustCreated()) {
-			JLabel label = new JLabel(((StructureElement) value).getName(), SwingConstants.CENTER);
+			JLabel label;
+			if (((StructureElement) value).getIcon() == null)
+				label = new JLabel(" " + ((StructureElement) value).getName(), SwingConstants.CENTER);
+			else
+				label = new JLabel(((StructureElement) value).getName(), ((StructureElement) value).getIcon(), SwingConstants.CENTER);
+			
 			label.setFont(label.getFont().deriveFont(Font.BOLD));
 			add(label);
 			setBorder(BorderFactory.createLineBorder(Color.blue, 2));

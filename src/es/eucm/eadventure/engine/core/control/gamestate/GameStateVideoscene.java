@@ -13,6 +13,7 @@ import javax.media.PrefetchCompleteEvent;
 import javax.media.RealizeCompleteEvent;
 import javax.media.StopEvent;
 
+import es.eucm.eadventure.common.data.chapter.Exit;
 import es.eucm.eadventure.common.data.chapter.NextScene;
 import es.eucm.eadventure.common.data.chapter.effects.Effects;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
@@ -55,7 +56,7 @@ public class GameStateVideoscene extends GameState  implements ControllerListene
      */
     public GameStateVideoscene( ) {
         super( );
-        videoscene = (Videoscene) game.getCurrentChapterData( ).getGeneralScene( game.getNextScene( ).getTargetId( ) );
+        videoscene = (Videoscene) game.getCurrentChapterData( ).getGeneralScene( game.getNextScene( ).getNextSceneId() );
 
         stop = true;
         this.prefetched=false;
@@ -125,7 +126,13 @@ public class GameStateVideoscene extends GameState  implements ControllerListene
                     nextScene = currentNextScene;
 
             if( nextScene != null ) {
-                game.setNextScene( nextScene );
+            	Exit exit = new Exit(nextScene.getTargetId());
+            	exit.setDestinyX(nextScene.getPositionX());
+            	exit.setDestinyY(nextScene.getPositionY());
+            	exit.setPostEffects(nextScene.getPostEffects());
+            	exit.setTransitionTime(nextScene.getTransitionTime());
+            	exit.setTransitionType(nextScene.getTransitionType());
+                game.setNextScene( exit );
                 game.setState( Game.STATE_NEXT_SCENE );
             }
             else

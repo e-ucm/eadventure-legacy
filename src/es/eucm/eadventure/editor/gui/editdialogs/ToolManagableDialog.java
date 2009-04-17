@@ -64,6 +64,7 @@ public abstract class ToolManagableDialog extends JDialog implements Updateable,
 	}
 	
 	public void setVisible(boolean visible){
+		Controller.getInstance( ).pushWindow( this );
 		if (worksInLocal){
 			if (visible){
 				Controller.getInstance().pushLocalToolManager();
@@ -80,9 +81,8 @@ public abstract class ToolManagableDialog extends JDialog implements Updateable,
 		setVisible(false);
 		dispose();
 	}
-	public void windowOpened(WindowEvent e) {
-		Controller.getInstance( ).pushWindow( this );
-	}
+	
+	public void windowOpened(WindowEvent e) {}
 	
 	public void windowActivated(WindowEvent e) {}
 

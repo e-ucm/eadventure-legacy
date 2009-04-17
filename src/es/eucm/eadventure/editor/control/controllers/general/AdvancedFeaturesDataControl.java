@@ -14,9 +14,13 @@ public class AdvancedFeaturesDataControl extends DataControl {
 
 	
 	private TimersListDataControl timersList;
+	
 	private AdaptationProfilesDataControl adaptationController;
+	
 	private AssessmentProfilesDataControl assessmentController;
+	
 	private GlobalStateListDataControl globalStatesListDataControl;
+	
 	private MacroListDataControl macrosListDataControl;
 
 
@@ -196,5 +200,15 @@ public class AdvancedFeaturesDataControl extends DataControl {
 		return macrosListDataControl;
 	}
 	
-	
+	@Override
+	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+		List<DataControl> path = getPathFromChild(dataControl, adaptationController);
+		if (path != null) return path;
+		path = getPathFromChild(dataControl, assessmentController);
+		if (path != null) return path;
+		path = getPathFromChild(dataControl, globalStatesListDataControl);
+		if (path != null) return path;
+		return getPathFromChild(dataControl, macrosListDataControl);
+	}
+
 }

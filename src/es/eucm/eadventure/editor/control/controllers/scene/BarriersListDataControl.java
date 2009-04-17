@@ -297,4 +297,14 @@ public class BarriersListDataControl extends DataControl {
 		for (DataControl dc : this.barriersDataControlList)
 			dc.recursiveSearch();
 	}
+
+	public TrajectoryDataControl getParentSceneTrajectory() {
+		return sceneDataControl.getTrajectory();
+	}
+	
+	@Override
+	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+		return getPathFromChild(dataControl, barriersDataControlList);
+	}
+
 }

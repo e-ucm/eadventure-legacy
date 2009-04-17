@@ -318,7 +318,9 @@ public class NextSceneDataControl extends DataControl {
 		Controller.getInstance().addTool(new ChangeTransitionTypeTool(nextScene, selectedIndex));
 	}
 	
-	
-
+	@Override
+	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+		return null;
+	}
 
 }

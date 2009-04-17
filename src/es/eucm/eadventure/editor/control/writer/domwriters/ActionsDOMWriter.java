@@ -57,6 +57,9 @@ public class ActionsDOMWriter {
 						case Action.USE:
 							actionElement = doc.createElement( "use" );
 							break;
+						case Action.TALK_TO:
+							actionElement = doc.createElement( "talk-to" );
+							break;
 						case Action.USE_WITH:
 							actionElement = doc.createElement( "use-with" );
 							actionElement.setAttribute( "idTarget", action.getTargetId( ) );

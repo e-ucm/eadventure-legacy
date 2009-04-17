@@ -139,6 +139,8 @@ public class Controller {
 	 * Id for the slidescene element.
 	 */
 	public static final int CUTSCENE_SLIDES = 10;
+	
+	public static final int CUTSCENE = 910;
 
 	public static final int CUTSCENE_VIDEO = 37;
 
@@ -211,6 +213,11 @@ public class Controller {
 	 * Id for the "Custom" action element.
 	 */
 	public static final int ACTION_CUSTOM = 230;
+	
+	/**
+	 * Id for the "Talk to" action element.
+	 */
+	public static final int ACTION_TALK_TO = 231;
 
 	/**
 	 * Id for the "Use with" action element.
@@ -3104,5 +3111,13 @@ public class Controller {
 	 */
 	public boolean isLomEs() {
 	    return isLomEs;
+	}
+	
+	public String getDefaultExitCursorPath() {
+		String temp = this.adventureData.getCursorPath("exit");
+		if (temp != null && temp.length() > 0)
+			return temp;
+		else
+			return "gui/cursors/exit.png";
 	}
 }

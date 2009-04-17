@@ -8,10 +8,10 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
 import es.eucm.eadventure.common.gui.TextConstants;
-import es.eucm.eadventure.editor.control.controllers.scene.InfluenceAreaDataControl;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElement;
 import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElementInfluenceArea;
+import es.eucm.eadventure.editor.gui.structurepanel.StructureControl;
 import es.eucm.eadventure.editor.gui.treepanel.TreeNodeControl;
 
 public class NormalScenePreviewEditionController implements ScenePreviewEditionController {
@@ -81,14 +81,14 @@ public class NormalScenePreviewEditionController implements ScenePreviewEditionC
 					JMenuItem item = new JMenuItem(TextConstants.getText("SPEP.GoToElementReference"));
 					item.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
-							TreeNodeControl.getInstance().changeTreeNode(underMouse.getDataControl());
+							StructureControl.getInstance().changeDataControl(underMouse.getDataControl());
 						}
 					});
 					menu.add(item);
 					JMenuItem item2 = new JMenuItem(TextConstants.getText("SPEP.GoToReferencedElement"));
 					item2.addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent e) {
-							TreeNodeControl.getInstance().changeTreeNode(underMouse.getReferencedDataControl());
+							StructureControl.getInstance().changeDataControl(underMouse.getReferencedDataControl());
 						}
 					});
 					menu.add(item2);

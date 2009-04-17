@@ -32,7 +32,7 @@ import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.editdialogs.ConditionsDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.EffectsDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.PlayerPositionDialog;
-import es.eucm.eadventure.editor.gui.treepanel.TreeNodeControl;
+import es.eucm.eadventure.editor.gui.structurepanel.StructureControl;
 
 public class NextScenePanel extends JTabbedPane {
 
@@ -108,7 +108,7 @@ public class NextScenePanel extends JTabbedPane {
 				ScenesListDataControl cldc = Controller.getInstance().getSelectedChapterDataControl().getScenesList();
 				for (SceneDataControl cdc : cldc.getScenes()) {
 					if (cdc.getId().equals(NextScenePanel.this.nextSceneDataControl.getNextSceneId())) {
-						TreeNodeControl.getInstance().changeTreeNode(cdc);
+						StructureControl.getInstance().changeDataControl(cdc);
 					}
 				}
 			}
@@ -229,11 +229,6 @@ public class NextScenePanel extends JTabbedPane {
 	 */
 	private class NextSceneComboBoxListener implements ActionListener {
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-		 */
 		public void actionPerformed( ActionEvent e ) {
 			nextSceneDataControl.setNextSceneId( scenesComboBox.getSelectedItem( ).toString( ) );
 
@@ -260,11 +255,6 @@ public class NextScenePanel extends JTabbedPane {
 	 */
 	private class DestinyPositionCheckBoxListener implements ActionListener {
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-		 */
 		public void actionPerformed( ActionEvent e ) {
 			nextSceneDataControl.toggleDestinyPosition( );
 			destinyPositionButton.setEnabled( nextSceneDataControl.hasDestinyPosition( ) );
@@ -276,11 +266,6 @@ public class NextScenePanel extends JTabbedPane {
 	 */
 	private class DestinyPositionButtonListener implements ActionListener {
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-		 */
 		public void actionPerformed( ActionEvent arg0 ) {
 			// Create the dialog with the destiny and show it
 			PlayerPositionDialog destinyPositionDialog = new PlayerPositionDialog( scenesComboBox.getSelectedItem( ).toString( ), nextSceneDataControl.getDestinyPositionX( ), nextSceneDataControl.getDestinyPositionY( ) );
@@ -296,11 +281,6 @@ public class NextScenePanel extends JTabbedPane {
 	 */
 	private class ConditionsButtonListener implements ActionListener {
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-		 */
 		public void actionPerformed( ActionEvent e ) {
 			new ConditionsDialog( nextSceneDataControl.getConditions( ) );
 		}
@@ -311,11 +291,6 @@ public class NextScenePanel extends JTabbedPane {
 	 */
 	private class EffectsButtonListener implements ActionListener {
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-		 */
 		public void actionPerformed( ActionEvent e ) {
 			new EffectsDialog( nextSceneDataControl.getEffects( ) );
 		}
@@ -326,11 +301,6 @@ public class NextScenePanel extends JTabbedPane {
 	 */
 	private class PostEffectsButtonListener implements ActionListener {
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-		 */
 		public void actionPerformed( ActionEvent e ) {
 			new EffectsDialog( nextSceneDataControl.getPostEffects( ) );
 		}

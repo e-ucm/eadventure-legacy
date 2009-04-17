@@ -1,6 +1,8 @@
 
 package es.eucm.eadventure.editor.gui.elementpanels.scene;
 
+import javax.swing.JComponent;
+
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.scene.ScenesListDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.ElementPanel;
@@ -21,11 +23,21 @@ public class ScenesListPanel extends ElementPanel {
 	 *            Scenes list controller
 	 */
 	public ScenesListPanel( ScenesListDataControl scenesListDataControl ) {
-		SceneLinksPanel sceneLinksPanel = new SceneLinksPanel(scenesListDataControl);
+		this.addTab(new SceneListPanelTab(scenesListDataControl));
+	}
+	
+	private class SceneListPanelTab extends PanelTab {
+		private ScenesListDataControl scenesListDataControl;
 		
-		PanelTab tab1 = new PanelTab(TextConstants.getText("ScenesList.Title"), sceneLinksPanel);
-		
-		this.addTab(tab1);
+		public SceneListPanelTab(ScenesListDataControl scenesListDataControl) {
+			super(TextConstants.getText("ScenesList.Title"));
+			this.scenesListDataControl = scenesListDataControl;
+		}
+
+		@Override
+		protected JComponent getTabComponent() {
+			return new SceneLinksPanel(scenesListDataControl);
+		}
 	}
 
 }

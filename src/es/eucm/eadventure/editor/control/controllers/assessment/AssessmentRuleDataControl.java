@@ -517,4 +517,9 @@ public class AssessmentRuleDataControl extends DataControl{
 		Controller.getInstance().addTool(new ChangeUsesEndCondition((TimedAssessmentRule) assessmentRule, selected));
 	}
 
+	@Override
+	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+		return null;
+	}
+
 }

@@ -3,9 +3,13 @@ package es.eucm.eadventure.editor.gui.otherpanels;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Insets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -1115,9 +1119,9 @@ public class ScenePreviewEditionPanel extends JPanel {
 	}
 	
 	public void updateTextEditionPanel() {
-		if (preciseEditionPanel != null) {
+		if (preciseEditionPanel != null && selectedElement != null) {
 			if (posXSpinner != null)
-				posXSpinner.setValue(new Integer(selectedElement.getX()));
+				posXSpinner.setValue(selectedElement.getX());
 			if (posYSpinner != null)
 				posYSpinner.setValue(selectedElement.getY());
 			if (scaleSpinner != null)
@@ -1131,9 +1135,15 @@ public class ScenePreviewEditionPanel extends JPanel {
 	
 	public JPanel createTextEditionPanel() {
 		JPanel textInputPanel = new JPanel();
-		textInputPanel.add(new JLabel(TextConstants.getText("SPEP.XCoordinate")));
+		textInputPanel.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 0;
+		
+		textInputPanel.add(new JLabel(TextConstants.getText("SPEP.XCoordinate")), c);
 		SpinnerNumberModel spinnerModel = new SpinnerNumberModel(selectedElement.getX(), -400, drawPanel.getBackgroundWidth() + 400, 5);
 		posXSpinner = new JSpinner(spinnerModel);
+		posXSpinner.setPreferredSize(new Dimension(60, posXSpinner.getPreferredSize().height));
 		posXSpinner.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
 				int y = selectedElement.getY();
@@ -1141,11 +1151,15 @@ public class ScenePreviewEditionPanel extends JPanel {
 				ScenePreviewEditionPanel.this.repaint();
 			}
 		});
-		textInputPanel.add(posXSpinner);
+		c.gridx++;
+		textInputPanel.add(posXSpinner, c);
 
-		textInputPanel.add(new JLabel("   " + TextConstants.getText("SPEP.YCoordinate")));
+		c.gridx = 0;
+		c.gridy++;
+		textInputPanel.add(new JLabel(TextConstants.getText("SPEP.YCoordinate")), c);
 		spinnerModel = new SpinnerNumberModel(selectedElement.getY(), -400, GUI.WINDOW_HEIGHT + 400, 5);
 		posYSpinner = new JSpinner(spinnerModel);
+		posYSpinner.setPreferredSize(new Dimension(60, posYSpinner.getPreferredSize().height));
 		posYSpinner.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
 				int x = selectedElement.getX();
@@ -1153,28 +1167,39 @@ public class ScenePreviewEditionPanel extends JPanel {
 				ScenePreviewEditionPanel.this.repaint();
 			}
 		});
-		textInputPanel.add(posYSpinner);
+		c.gridx++;
+		textInputPanel.add(posYSpinner, c);
 		
 		
 		if (selectedElement.canRescale()) {
-			textInputPanel.add(new JLabel("   " + TextConstants.getText("SPEP.Scale")));
+			c.gridx = 3;
+			c.gridy = 0;
+			c.insets = new Insets(0,10,0,0);
+			textInputPanel.add(new JLabel(TextConstants.getText("SPEP.Scale")), c);
 			spinnerModel = new SpinnerNumberModel(new Float(selectedElement.getScale()), new Float(0.02f), new Float(15.00f), new Float(0.02f));
 			scaleSpinner = new JSpinner(spinnerModel);
+			scaleSpinner.setPreferredSize(new Dimension(60, scaleSpinner.getPreferredSize().height));
 			scaleSpinner.addChangeListener(new ChangeListener() {
 				public void stateChanged(ChangeEvent arg0) {
 					selectedElement.setScale(((Float) scaleSpinner.getValue()).floatValue());
 					ScenePreviewEditionPanel.this.repaint();
 				}
 			});
-			textInputPanel.add(scaleSpinner);
+			c.insets = new Insets(0,0,0,0);
+			c.gridx++;
+			textInputPanel.add(scaleSpinner, c);
 		} else {
 			scaleSpinner = null;
 		}
 
 		if (selectedElement.canResize()) {
-			textInputPanel.add(new JLabel("   " + TextConstants.getText("SPEP.Width")));
+			c.gridx = 3;
+			c.gridy = 0;
+			c.insets = new Insets(0,10,0,0);
+			textInputPanel.add(new JLabel(TextConstants.getText("SPEP.Width")), c);
 			spinnerModel = new SpinnerNumberModel(selectedElement.getWidth(), 1, GUI.WINDOW_WIDTH + 200, 5);
 			widthSpinner = new JSpinner(spinnerModel);
+			widthSpinner.setPreferredSize(new Dimension(60, widthSpinner.getPreferredSize().height));
 			widthSpinner.addChangeListener(new ChangeListener() {
 				public void stateChanged(ChangeEvent e) {
 					int height = selectedElement.getHeight();
@@ -1183,11 +1208,17 @@ public class ScenePreviewEditionPanel extends JPanel {
 					ScenePreviewEditionPanel.this.repaint();
 				}
 			});
-			textInputPanel.add(widthSpinner);
+			c.gridx++;
+			c.insets = new Insets(0,0,0,0);
+			textInputPanel.add(widthSpinner, c);
 
-			textInputPanel.add(new JLabel("   " + TextConstants.getText("SPEP.Height")));
+			c.gridx--;
+			c.gridy++;
+			c.insets = new Insets(0,10,0,0);
+			textInputPanel.add(new JLabel(TextConstants.getText("SPEP.Height")), c);
 			spinnerModel = new SpinnerNumberModel(selectedElement.getHeight(), 1, GUI.WINDOW_HEIGHT + 200, 5);
 			heightSpinner = new JSpinner(spinnerModel);
+			heightSpinner.setPreferredSize(new Dimension(60, heightSpinner.getPreferredSize().height));
 			heightSpinner.addChangeListener(new ChangeListener() {
 				public void stateChanged(ChangeEvent e) {
 					int width = selectedElement.getWidth();
@@ -1196,7 +1227,9 @@ public class ScenePreviewEditionPanel extends JPanel {
 					ScenePreviewEditionPanel.this.repaint();
 				}
 			});
-			textInputPanel.add(heightSpinner);
+			c.gridx++;
+			c.insets = new Insets(0,0,0,0);
+			textInputPanel.add(heightSpinner, c);
 		} else {
 			widthSpinner = null;
 			heightSpinner = null;

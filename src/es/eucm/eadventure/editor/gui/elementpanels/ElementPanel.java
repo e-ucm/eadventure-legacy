@@ -1,10 +1,10 @@
 package es.eucm.eadventure.editor.gui.elementpanels;
 
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
+import java.awt.BorderLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
@@ -21,59 +21,52 @@ public class ElementPanel extends JTabbedPane implements Updateable {
 	
 	private List<PanelTab> tabs;
 	
+	private int selected = -1;
+	
 	public ElementPanel() {
 		super();
 		tabs = new ArrayList<PanelTab>();
 		
 		this.addChangeListener(new ChangeListener() {
-
 			public void stateChanged(final ChangeEvent arg0) {
+				if (selected == getSelectedIndex())
+					return;
+				selected = getSelectedIndex();
 				SwingUtilities.invokeLater(new Runnable()
 				{
 				    public void run()
 				    {
-				    	ElementPanel.this.getSelectedComponent().repaint();
+				    	((JPanel) getSelectedComponent()).removeAll();
+				    	PanelTab tab = tabs.get(getSelectedIndex());
+				    	((JPanel) getSelectedComponent()).add(tab.getComponent(), BorderLayout.CENTER);
+				    	((JPanel) getSelectedComponent()).updateUI();
 				    }
 				});
 			}
-			
 		});
 	}
 	
 	public void addTab(PanelTab tab) {
 		tabs.add(tab);
-		
-		tab.getComponent().addFocusListener(new FocusListener() {
-			public void focusGained(final FocusEvent arg0) {
-				SwingUtilities.invokeLater(new Runnable()
-				{
-				    public void run()
-				    {
-				    	System.out.println("Called...");
-				    	arg0.getComponent().repaint();
-				    }
-				});
-			}
-
-			public void focusLost(FocusEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
-		this.addTab(tab.getTitle(), tab.getComponent());
+		JPanel panel = new JPanel();
+		panel.setLayout(new BorderLayout());
+		if (tab.getToolTipText() != null)
+			this.addTab(tab.getTitle(), null, panel, tab.getToolTipText());
+		else
+			this.addTab(tab.getTitle(), panel);
 	}
 
 	@Override
 	public boolean updateFields() {
-		boolean result = true;
-		for (PanelTab tab : tabs) {
-			if (tab instanceof Updateable) {
-				result = result && ((Updateable) tab).updateFields();
-			} else 
-				return false;
+		boolean update = false;
+		if (getSelectedComponent() instanceof Updateable)
+			update = ((Updateable) tabs.get(this.getSelectedIndex())).updateFields();
+		if (!update) {
+	    	((JPanel) getSelectedComponent()).removeAll();
+	    	PanelTab tab = tabs.get(getSelectedIndex());
+	    	((JPanel) getSelectedComponent()).add(tab.getComponent(), BorderLayout.CENTER);
+	    	((JPanel) getSelectedComponent()).updateUI();
 		}
-		return result;
+		return true;
 	}
-	
-	
 }

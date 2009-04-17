@@ -177,5 +177,11 @@ public class MacroDataControl extends DataControl{
 			check(this.getController().getEffectInfo(i), TextConstants.getText("Search.Effect"));
 		}
 	}
+	
+	@Override
+	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+		return null;
+	}
+
 
 }

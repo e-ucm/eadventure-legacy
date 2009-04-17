@@ -6,12 +6,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.Documented;
+import es.eucm.eadventure.common.data.Positioned;
 import es.eucm.eadventure.common.data.chapter.ExitLook;
+import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
+import es.eucm.eadventure.common.data.chapter.effects.Effects;
 
 /**
  * This class holds the data of an exit in eAdventure
  */
-public class Exit implements Cloneable, Documented, Rectangle {
+public class Exit implements Cloneable, Documented, Rectangle, Positioned {
+
+	public static final int NO_TRANSITION = 0;
+	
+	public static final int TOP_TO_BOTTOM = 1;
+	
+	public static final int BOTTOM_TO_TOP = 2;
+	
+	public static final int LEFT_TO_RIGHT = 3;
+
+	public static final int RIGHT_TO_LEFT = 4;
+
+	public static final int FADE_IN = 5;
 
 	/**
 	 * X position of the upper left corner of the exit
@@ -55,6 +70,44 @@ public class Exit implements Cloneable, Documented, Rectangle {
 	private InfluenceArea influenceArea;
 
 	/**
+	 * Id of the target scene
+	 */
+	private String nextSceneId;
+	
+	/**
+	 * X position in which the player should appear in the new scene
+	 */
+	private int destinyX;
+
+	/**
+	 * Y position in which the player should appear in the new scene
+	 */
+	private int destinyY;
+
+	/**
+	 * Conditions of the next scene
+	 */
+	private Conditions conditions;
+
+	/**
+	 * Effects triggered before exiting the current scene
+	 */
+	private Effects effects;
+
+	/**
+	 * Post effects triggered after exiting the current scene
+	 */
+	private Effects postEffects;
+
+	private Effects notEffects;
+	
+	private boolean hasNotEffects;
+
+    private Integer transitionType;
+    
+    private Integer transitionTime;
+
+	/**
 	 * Creates a new Exit
 	 * 
 	 * @param x
@@ -77,6 +130,176 @@ public class Exit implements Cloneable, Documented, Rectangle {
 		nextScenes = new ArrayList<NextScene>( );
 		this.rectangular = rectangular;
 		influenceArea = new InfluenceArea();
+
+		destinyX = Integer.MIN_VALUE;
+		destinyY = Integer.MIN_VALUE;
+		conditions = new Conditions( );
+		effects = new Effects( );
+		postEffects = new Effects( );
+		notEffects = new Effects( );
+		hasNotEffects = false;
+		transitionType = NO_TRANSITION;
+		transitionTime = 0;
+		defaultExitLook = new ExitLook();
+	}
+
+	public Exit(String targetId) {
+		this(false,0,0,20,20);
+		this.nextSceneId = targetId;
+	}
+
+	/**
+	 * @return the nextSceneId
+	 */
+	public String getNextSceneId() {
+		return nextSceneId;
+	}
+
+	/**
+	 * @param nextSceneId the nextSceneId to set
+	 */
+	public void setNextSceneId(String nextSceneId) {
+		this.nextSceneId = nextSceneId;
+	}
+
+	/**
+	 * @return the destinyX
+	 */
+	public int getDestinyX() {
+		return destinyX;
+	}
+
+	/**
+	 * @param destinyX the destinyX to set
+	 */
+	public void setDestinyX(int destinyX) {
+		this.destinyX = destinyX;
+	}
+
+	/**
+	 * @return the destinyY
+	 */
+	public int getDestinyY() {
+		return destinyY;
+	}
+
+	/**
+	 * @param destinyY the destinyY to set
+	 */
+	public void setDestinyY(int destinyY) {
+		this.destinyY = destinyY;
+	}
+
+	/**
+	 * @return the conditions
+	 */
+	public Conditions getConditions() {
+		return conditions;
+	}
+
+	/**
+	 * @param conditions the conditions to set
+	 */
+	public void setConditions(Conditions conditions) {
+		this.conditions = conditions;
+	}
+
+	/**
+	 * @return the effects
+	 */
+	public Effects getEffects() {
+		return effects;
+	}
+
+	/**
+	 * @param effects the effects to set
+	 */
+	public void setEffects(Effects effects) {
+		this.effects = effects;
+	}
+
+	/**
+	 * @return the postEffects
+	 */
+	public Effects getPostEffects() {
+		return postEffects;
+	}
+
+	/**
+	 * @param postEffects the postEffects to set
+	 */
+	public void setPostEffects(Effects postEffects) {
+		this.postEffects = postEffects;
+	}
+
+	/**
+	 * @return the notEffects
+	 */
+	public Effects getNotEffects() {
+		return notEffects;
+	}
+
+	/**
+	 * @param notEffects the notEffects to set
+	 */
+	public void setNotEffects(Effects notEffects) {
+		this.notEffects = notEffects;
+	}
+
+	/**
+	 * @return the hasNotEffects
+	 */
+	public Boolean isHasNotEffects() {
+		return hasNotEffects;
+	}
+
+	/**
+	 * @param hasNotEffects the hasNotEffects to set
+	 */
+	public void setHasNotEffects(Boolean hasNotEffects) {
+		this.hasNotEffects = hasNotEffects;
+	}
+
+	/**
+	 * @return the transitionType
+	 */
+	public Integer getTransitionType() {
+		return transitionType;
+	}
+
+	/**
+	 * @param transitionType the transitionType to set
+	 */
+	public void setTransitionType(Integer transitionType) {
+		this.transitionType = transitionType;
+	}
+
+	/**
+	 * @return the transitionTime
+	 */
+	public Integer getTransitionTime() {
+		return transitionTime;
+	}
+
+	/**
+	 * @param transitionTime the transitionTime to set
+	 */
+	public void setTransitionTime(Integer transitionTime) {
+		this.transitionTime = transitionTime;
+	}
+
+	/**
+	 * @param height the height to set
+	 */
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+	/**
+	 * @param nextScenes the nextScenes to set
+	 */
+	public void setNextScenes(List<NextScene> nextScenes) {
+		this.nextScenes = nextScenes;
 	}
 
 	/**
@@ -297,6 +520,16 @@ public class Exit implements Cloneable, Documented, Rectangle {
 		e.points = (points != null ? new ArrayList<Point>() : null);
 		for (Point p : points)
 			e.points.add((Point) p.clone());
+		e.conditions = (conditions != null ? (Conditions) conditions.clone() : null);
+		e.effects = (effects != null ? (Effects) effects.clone() : null);
+		e.postEffects = (postEffects != null ? (Effects) postEffects.clone() : null);
+		e.notEffects = (notEffects != null ? (Effects) notEffects.clone() : null);
+		e.destinyX = destinyX;
+		e.destinyY = destinyY;
+		e.hasNotEffects = hasNotEffects;
+		e.nextSceneId = nextSceneId;
+		e.transitionTime = transitionTime;
+		e.transitionType = transitionType;
 		return e;
 	}
 
@@ -322,5 +555,29 @@ public class Exit implements Cloneable, Documented, Rectangle {
 	
 	public void setInfluenceArea(InfluenceArea influeceArea) {
 		this.influenceArea = influeceArea;
+	}
+
+	public boolean hasPlayerPosition() {
+		return ( destinyX != Integer.MIN_VALUE ) && ( destinyY != Integer.MIN_VALUE );
+	}
+
+	@Override
+	public int getPositionX() {
+		return destinyX;
+	}
+
+	@Override
+	public int getPositionY() {
+		return destinyY;
+	}
+
+	@Override
+	public void setPositionX(int newX) {
+		this.destinyX = newX;
+	}
+
+	@Override
+	public void setPositionY(int newY) {
+		this.destinyY = newY;
 	}
 }

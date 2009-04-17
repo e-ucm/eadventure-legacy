@@ -1,6 +1,8 @@
 package es.eucm.eadventure.editor.gui.elementpanels.scene;
 
 import java.awt.BorderLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
@@ -12,6 +14,7 @@ import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
@@ -30,7 +33,7 @@ import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataC
 import es.eucm.eadventure.editor.control.controllers.scene.NodeDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ReferencesListDataControl;
 import es.eucm.eadventure.editor.control.tools.general.MovePlayerLayerInTableTool;
-import es.eucm.eadventure.editor.gui.elementpanels.general.ElementReferencesTable;
+import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ElementReferencesTable;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 
 public class ReferencesListPanel extends JPanel{
@@ -69,13 +72,9 @@ public class ReferencesListPanel extends JPanel{
 	 *            Item references list controller
 	 */
 	public ReferencesListPanel( ReferencesListDataControl referencesListDataControl ) {
-
 		this.referencesListDataControl = referencesListDataControl;
-		
-		// Take the path of the background
 		String scenePath = Controller.getInstance( ).getSceneImagePath( referencesListDataControl.getParentSceneId( ) );
 				
-		// Create the scene preview edition panel
 		spep = new ScenePreviewEditionPanel(false, scenePath);
 		spep.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ItemReferencesList.PreviewTitle" ) ) );
 
@@ -164,12 +163,29 @@ public class ReferencesListPanel extends JPanel{
 		// Create the main panel
 		tablePanel = new JPanel(new BorderLayout());
 		
+		
+		JPanel temp = new JPanel();
+		temp.setLayout(new GridLayout(2,1));
 		JTextPane layerTextPane = new JTextPane( );
 		layerTextPane.setEditable( false );
 		layerTextPane.setBackground( getBackground( ) );
 		layerTextPane.setText( TextConstants.getText( "ItemReferenceTable.LayerExplanation" ));
 		
-		tablePanel.add(layerTextPane,BorderLayout.SOUTH);
+		temp.add(layerTextPane);
+		
+		JCheckBox isAllowPlayerLayer = new JCheckBox(TextConstants.getText("Scene.AllowPlayer"),referencesListDataControl.getSceneDataControl().isAllowPlayer());
+		isAllowPlayerLayer.setSelected( referencesListDataControl.getSceneDataControl().isAllowPlayer() );
+		isAllowPlayerLayer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				referencesListDataControl.getSceneDataControl().changeAllowPlayerLayer(((JCheckBox) arg0.getSource()).isSelected(), null);
+			}
+		});
+		temp.add(isAllowPlayerLayer);
+		
+		if (!Controller.getInstance().isPlayTransparent())
+			tablePanel.add(temp, BorderLayout.SOUTH);
+		else
+			tablePanel.add(layerTextPane,BorderLayout.SOUTH);
 		
 		// Create the table (CENTER)
 		table = new ElementReferencesTable(referencesListDataControl, spep);
@@ -198,7 +214,7 @@ public class ReferencesListPanel extends JPanel{
 		});
 		
 
-		tablePanel.add( new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS) ,BorderLayout.CENTER);
+		tablePanel.add( new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER) ,BorderLayout.CENTER);
 		
 		table.getSelectionModel( ).addListSelectionListener( new ListSelectionListener(){
 			public void valueChanged( ListSelectionEvent e ) {
@@ -250,11 +266,18 @@ public class ReferencesListPanel extends JPanel{
 		});
 		moveDownButton.setEnabled(false);
 
-		buttonsPanel.setLayout(new GridLayout(2,2));
-		buttonsPanel.add( newButton );
-		buttonsPanel.add( deleteButton );
-		buttonsPanel.add( moveUpButton );
-		buttonsPanel.add( moveDownButton );
+		buttonsPanel.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 0;
+		buttonsPanel.add( newButton , c );
+		c.gridy++;
+		buttonsPanel.add( deleteButton , c );
+		c.anchor = GridBagConstraints.SOUTH;
+		c.gridy++;
+		buttonsPanel.add( moveUpButton , c );
+		c.gridy++;
+		buttonsPanel.add( moveDownButton , c );
 		
 		
 		tablePanel.add( buttonsPanel,BorderLayout.EAST);

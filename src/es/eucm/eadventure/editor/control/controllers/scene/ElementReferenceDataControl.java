@@ -395,5 +395,10 @@ public class ElementReferenceDataControl extends DataControl {
 	public void setVisible(boolean visible) {
 		this.visible = visible;
 	}
-	
+
+	@Override
+	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+		return null;
+	}
+
 }

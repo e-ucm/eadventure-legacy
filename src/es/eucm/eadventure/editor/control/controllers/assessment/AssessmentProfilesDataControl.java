@@ -1,22 +1,19 @@
 package es.eucm.eadventure.editor.control.controllers.assessment;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
-import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
 import es.eucm.eadventure.common.data.assessment.AssessmentRule;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class AssessmentProfilesDataControl extends DataControl{
 
 	private List<AssessmentProfileDataControl> profiles;
+	
 	private List<AssessmentProfile> data;
 	
 	public AssessmentProfilesDataControl (List<AssessmentProfile> data) {
@@ -303,4 +300,10 @@ public class AssessmentProfilesDataControl extends DataControl{
 		return null;
 		
 	}
+	
+	@Override
+	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+		return getPathFromChild(dataControl, profiles);
+	}
+
 }

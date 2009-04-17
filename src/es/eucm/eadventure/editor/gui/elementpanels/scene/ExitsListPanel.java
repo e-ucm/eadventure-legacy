@@ -3,13 +3,16 @@ package es.eucm.eadventure.editor.gui.elementpanels.scene;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
@@ -20,13 +23,15 @@ import javax.swing.table.AbstractTableModel;
 import es.eucm.eadventure.common.data.chapter.Trajectory;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.control.controllers.scene.ActiveAreaDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.BarrierDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ExitDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ExitsListDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.NodeDataControl;
-import es.eucm.eadventure.editor.gui.elementpanels.general.ExitsTable;
+import es.eucm.eadventure.editor.gui.editdialogs.EffectsDialog;
+import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ExitsTable;
 import es.eucm.eadventure.editor.gui.otherpanels.IrregularAreaEditionPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 
@@ -38,14 +43,20 @@ public class ExitsListPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	private static final int HORIZONTAL_SPLIT_POSITION = 140;
-	
+
+	public static final int VERTICAL_SPLIT_POSITION = 150;
+
 	private ExitsListDataControl dataControl;
 	
 	private IrregularAreaEditionPanel iaep;
 	
 	private ExitsTable table;
 	
+	private JPanel auxPanel;
+	
 	private JButton deleteButton;
+	
+	private JSplitPane previewAuxSplit;
 	
 	/**
 	 * Constructor.
@@ -68,27 +79,35 @@ public class ExitsListPanel extends JPanel {
 		
 		setLayout( new BorderLayout( ) );
 
-		JPanel tablePanel = createTablePanel(iaep);
-
-		JSplitPane tableWithSplit = new JSplitPane(JSplitPane.VERTICAL_SPLIT, tablePanel, iaep);
+		auxPanel = new JPanel();
+		auxPanel.setMaximumSize(new Dimension(VERTICAL_SPLIT_POSITION, Integer.MAX_VALUE));
+		auxPanel.setMinimumSize(new Dimension(VERTICAL_SPLIT_POSITION, 0));
+		
+		previewAuxSplit = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, iaep, auxPanel);
+		previewAuxSplit.setDividerSize(10);
+		previewAuxSplit.setContinuousLayout(true);
+		previewAuxSplit.setOneTouchExpandable(true);
+		previewAuxSplit.setResizeWeight(1);
+		previewAuxSplit.setDividerLocation(Integer.MAX_VALUE);
+		
+		JPanel tablePanel = createTablePanel(iaep, previewAuxSplit);
+		JSplitPane tableWithSplit = new JSplitPane(JSplitPane.VERTICAL_SPLIT, tablePanel, previewAuxSplit);
 		tableWithSplit.setOneTouchExpandable(true);
 		tableWithSplit.setDividerLocation(HORIZONTAL_SPLIT_POSITION);
 		tableWithSplit.setContinuousLayout(true);
-		tableWithSplit.setResizeWeight(0.5);
+		tableWithSplit.setResizeWeight(0);
 		tableWithSplit.setDividerSize(10);
 	
-		setLayout( new BorderLayout( ) );
 		add(tableWithSplit,BorderLayout.CENTER);
-		
 		
 		addElementsToPreview(spep, scenePath);
 	}
 
-	private JPanel createTablePanel(IrregularAreaEditionPanel iaep2) {
+	private JPanel createTablePanel(IrregularAreaEditionPanel iaep2, JSplitPane previewAuxSplit2) {
 		JPanel tablePanel = new JPanel();
 		
-		table = new ExitsTable(dataControl, iaep);
-		JScrollPane scroll = new JScrollPane(table);
+		table = new ExitsTable(dataControl, iaep, previewAuxSplit);
+		JScrollPane scroll = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scroll.setMinimumSize(new Dimension(0, 	HORIZONTAL_SPLIT_POSITION));
 
 		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -97,6 +116,7 @@ public class ExitsListPanel extends JPanel {
 					deleteButton.setEnabled(true);
 				else
 					deleteButton.setEnabled(false);
+				updateAuxPanel();
 				deleteButton.repaint();
 			}
 		});
@@ -121,9 +141,13 @@ public class ExitsListPanel extends JPanel {
 				deleteExit();
 			}
 		});
-		buttonsPanel.setLayout(new GridLayout(1,2));
-		buttonsPanel.add(newButton);
-		buttonsPanel.add(deleteButton);
+		buttonsPanel.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 0;
+		buttonsPanel.add(newButton, c);
+		c.gridy = 1;
+		buttonsPanel.add(deleteButton, c);
 		
 		tablePanel.setLayout(new BorderLayout());
 		tablePanel.add(scroll, BorderLayout.CENTER);
@@ -175,4 +199,76 @@ public class ExitsListPanel extends JPanel {
 		dataControl.deleteElement(dataControl.getExits().get(table.getSelectedRow()), true);
 		((AbstractTableModel) table.getModel()).fireTableDataChanged();
 	}
+	
+	protected void updateAuxPanel() {
+		if (auxPanel == null)
+			return;
+		auxPanel.removeAll();
+		if (table.getSelectedRow() == -1) {
+			previewAuxSplit.setDividerLocation(previewAuxSplit.getMaximumDividerLocation());
+			return;
+		}
+		
+		auxPanel.setLayout(new GridBagLayout());
+		final ExitDataControl exit = dataControl.getExits().get(table.getSelectedRow());
+		
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 0;
+		c.weightx = 1.0;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		
+		JButton editConditions = new JButton("Edit conditions");
+		auxPanel.add(editConditions, c);
+		
+		c.gridy++;
+		
+		auxPanel.add(new JLabel("Conditions active"), c);
+		
+		c.gridy++;
+		JButton editEffects = new JButton("Edit effects");
+		editEffects.addActionListener(new EditEffectsListener(exit.getEffects()));
+		auxPanel.add(editEffects, c);
+		
+		c.gridy++;
+		JButton editPostEffects = new JButton("Edit post-effects");
+		editPostEffects.addActionListener(new EditEffectsListener(exit.getPostEffects()));
+		auxPanel.add(editPostEffects, c);
+		
+		c.gridy++;
+		auxPanel.add(new JLabel("Conditions inactive"), c);
+		
+		c.gridy++;
+		final JCheckBox activeWhenFalseConditions = new JCheckBox("Active when false conditions");
+		activeWhenFalseConditions.setSelected(exit.isHasNotEffects());
+		auxPanel.add(activeWhenFalseConditions, c);
+		
+		c.gridy++;
+		final JButton editNotEffects = new JButton("Edit not-effects");
+		editNotEffects.setEnabled(exit.isHasNotEffects());
+		editNotEffects.addActionListener(new EditEffectsListener(exit.getNotEffects()));
+		auxPanel.add(editNotEffects, c);
+		
+		activeWhenFalseConditions.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				exit.setHasNotEffects(activeWhenFalseConditions.isSelected());
+				editNotEffects.setEnabled(activeWhenFalseConditions.isSelected());
+			}
+		});
+		
+		previewAuxSplit.setDividerLocation(Integer.MAX_VALUE);
+	}
+	
+	private class EditEffectsListener implements ActionListener {
+		private EffectsController effects;
+		
+		public EditEffectsListener(EffectsController effects) {
+			this.effects = effects;
+		}
+		
+		public void actionPerformed(ActionEvent e) {
+			new EffectsDialog( effects );
+		}
+	}
+	
 }

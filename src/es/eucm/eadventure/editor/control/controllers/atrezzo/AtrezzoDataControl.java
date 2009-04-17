@@ -414,6 +414,9 @@ public class AtrezzoDataControl extends DataControlWithResources {
 		check(this.getPreviewImage(), TextConstants.getText("Search.PreviewImage"));
 	}
 	
-	
+	@Override
+	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+		return getPathFromChild(dataControl, resourcesDataControlList);
+	}
 
 }

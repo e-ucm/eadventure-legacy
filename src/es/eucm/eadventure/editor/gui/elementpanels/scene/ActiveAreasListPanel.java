@@ -3,7 +3,8 @@ package es.eucm.eadventure.editor.gui.elementpanels.scene;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GridLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,7 +27,8 @@ import es.eucm.eadventure.editor.control.controllers.scene.BarrierDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ExitDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.NodeDataControl;
-import es.eucm.eadventure.editor.gui.elementpanels.general.ActiveAreasTable;
+import es.eucm.eadventure.editor.gui.elementpanels.general.SmallActionsListPanel;
+import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ActiveAreasTable;
 import es.eucm.eadventure.editor.gui.otherpanels.IrregularAreaEditionPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 
@@ -39,6 +41,8 @@ public class ActiveAreasListPanel extends JPanel {
 
 	private static final int HORIZONTAL_SPLIT_POSITION = 140;
 
+	public static final int VERTICAL_SPLIT_POSITION = 150;
+
 	private JButton deleteButton;
 	
 	private ActiveAreasTable table;
@@ -46,6 +50,10 @@ public class ActiveAreasListPanel extends JPanel {
 	private ActiveAreasListDataControl dataControl;
 	
 	private IrregularAreaEditionPanel iaep;
+	
+	private JSplitPane previewAuxSplit;
+	
+	private JPanel auxPanel;
 	
 	/**
 	 * Constructor.
@@ -68,29 +76,35 @@ public class ActiveAreasListPanel extends JPanel {
 		
 		setLayout( new BorderLayout( ) );
 		
+		auxPanel = new JPanel();
+		auxPanel.setMaximumSize(new Dimension(VERTICAL_SPLIT_POSITION, Integer.MAX_VALUE));
+		auxPanel.setMinimumSize(new Dimension(VERTICAL_SPLIT_POSITION, 0));
+		
+		previewAuxSplit = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, iaep, auxPanel);
+		previewAuxSplit.setDividerSize(10);
+		previewAuxSplit.setContinuousLayout(true);
+		previewAuxSplit.setOneTouchExpandable(true);
+		previewAuxSplit.setResizeWeight(1);
+		previewAuxSplit.setDividerLocation(Integer.MAX_VALUE);
 		JPanel tablePanel = createTablePanel(iaep);
 		
-		
-		JSplitPane tableWithSplit = new JSplitPane(JSplitPane.VERTICAL_SPLIT, tablePanel, iaep);
+		JSplitPane tableWithSplit = new JSplitPane(JSplitPane.VERTICAL_SPLIT, tablePanel, previewAuxSplit);
 		tableWithSplit.setOneTouchExpandable(true);
 		tableWithSplit.setDividerLocation(HORIZONTAL_SPLIT_POSITION);
 		tableWithSplit.setContinuousLayout(true);
 		tableWithSplit.setResizeWeight(0.5);
 		tableWithSplit.setDividerSize(10);
 	
-		setLayout( new BorderLayout( ) );
 		add(tableWithSplit,BorderLayout.CENTER);
 		
-		
 		addElementsToPreview(spep, scenePath, activeAreasListDataControl);
-
 	}
 	
 	private JPanel createTablePanel(IrregularAreaEditionPanel iaep) {
 		JPanel tablePanel = new JPanel();
 		
-		table = new ActiveAreasTable(dataControl, iaep);
-		JScrollPane scroll = new JScrollPane(table);
+		table = new ActiveAreasTable(dataControl, iaep, previewAuxSplit);
+		JScrollPane scroll = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scroll.setMinimumSize(new Dimension(0, 	HORIZONTAL_SPLIT_POSITION));
 
 		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -99,6 +113,7 @@ public class ActiveAreasListPanel extends JPanel {
 					deleteButton.setEnabled(true);
 				else
 					deleteButton.setEnabled(false);
+				updateAuxPanel();
 				deleteButton.repaint();
 			}
 		});
@@ -123,9 +138,13 @@ public class ActiveAreasListPanel extends JPanel {
 				deleteActiveArea();
 			}
 		});
-		buttonsPanel.setLayout(new GridLayout(1,2));
-		buttonsPanel.add(newButton);
-		buttonsPanel.add(deleteButton);
+		buttonsPanel.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 0;
+		buttonsPanel.add(newButton, c);
+		c.gridy = 1;
+		buttonsPanel.add(deleteButton, c);
 		
 		tablePanel.setLayout(new BorderLayout());
 		tablePanel.add(scroll, BorderLayout.CENTER);
@@ -170,11 +189,27 @@ public class ActiveAreasListPanel extends JPanel {
 			for( BarrierDataControl barrier : activeAreasListDataControl.getParentSceneBarriers( ) ) {
 				spep.addBarrier(barrier);
 			}
+	
 			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_BARRIER, false);
 
 			for( ActiveAreaDataControl activeArea : activeAreasListDataControl.getActiveAreas( ) ) {
 				spep.addActiveArea(activeArea);
 			}
 		}
+	}
+	
+	protected void updateAuxPanel() {
+		if (auxPanel == null)
+			return;
+		auxPanel.removeAll();
+		if (table.getSelectedRow() == -1) {
+			previewAuxSplit.setDividerLocation(previewAuxSplit.getMaximumDividerLocation());
+			return;
+		}
+		
+		auxPanel.setLayout(new BorderLayout());
+		auxPanel.add(new SmallActionsListPanel(dataControl.getActiveAreas().get(this.table.getSelectedRow()).getActionsList()));
+
+		previewAuxSplit.setDividerLocation(Integer.MAX_VALUE);
 	}
 }

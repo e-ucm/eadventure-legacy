@@ -1,12 +1,13 @@
 package es.eucm.eadventure.common.data.chapter;
 
 public class ExitLook implements Cloneable{
+	
     private String exitText;
     
     private String cursorPath;
 
     public ExitLook(){
-        exitText=null;
+        exitText="";
         cursorPath=null;
     }
     

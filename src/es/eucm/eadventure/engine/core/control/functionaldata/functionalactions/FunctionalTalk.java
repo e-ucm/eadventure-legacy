@@ -3,7 +3,6 @@ package es.eucm.eadventure.engine.core.control.functionaldata.functionalactions;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.Action;
-import es.eucm.eadventure.common.data.chapter.ConversationReference;
 import es.eucm.eadventure.engine.core.control.ActionManager;
 import es.eucm.eadventure.engine.core.control.DebugLog;
 import es.eucm.eadventure.engine.core.control.Game;
@@ -12,6 +11,7 @@ import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalCondition
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalNPC;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
 import es.eucm.eadventure.engine.core.data.GameText;
 
 /**
@@ -54,10 +54,11 @@ public class FunctionalTalk extends FunctionalAction {
 			keepDistance = DEFAULT_DISTANCE_TO_KEEP;
 		keepDistance += npc.getWidth() / 2;
 
-        List<ConversationReference> conversationReferences = this.npc.getNPC( ).getConversationReferences( );     
+        List<Action> actions = this.npc.getNPC().getActions();
+        
         anyConversation = false;
-        for( int i = 0; i < conversationReferences.size( ) && !anyConversation; i++ )
-            if( new FunctionalConditions( conversationReferences.get( i ).getConditions( ) ).allConditionsOk( ) )
+        for( int i = 0; i < actions.size( ) && !anyConversation; i++ )
+            if( actions.get(i).getType() == Action.TALK_TO && new FunctionalConditions( actions.get( i ).getConditions( ) ).allConditionsOk( ) )
                 anyConversation = true;
         
         if( anyConversation ) {
@@ -65,7 +66,6 @@ public class FunctionalTalk extends FunctionalAction {
         } else {
             needsGoTo = false;
         }
-
 	}
 
 	@Override
@@ -106,14 +106,13 @@ public class FunctionalTalk extends FunctionalAction {
 
 	@Override
 	public void update(long elapsedTime) {
-		List<ConversationReference> conversationReferences = npc.getNPC( ).getConversationReferences( );
+		List<Action> actions = npc.getNPC().getActions();
 		boolean triggeredConversation = false;
 
-		for( int i = 0; i < conversationReferences.size( ) && !triggeredConversation; i++ ) {
-			if( new FunctionalConditions( conversationReferences.get( i ).getConditions( ) ).allConditionsOk( ) ) {
+		for( int i = 0; i < actions.size( ) && !triggeredConversation; i++ ) {
+			if( actions.get(i).getType() == Action.TALK_TO && new FunctionalConditions( actions.get( i ).getConditions( ) ).allConditionsOk( ) ) {
 				Game.getInstance( ).setCurrentNPC( npc );
-				Game.getInstance( ).setConversation( conversationReferences.get( i ).getTargetId( ) );
-				Game.getInstance( ).setState( Game.STATE_CONVERSATION );
+            	FunctionalEffects.storeAllEffects(actions.get(i).getEffects( ));
 				triggeredConversation = true;
 			}
 		}

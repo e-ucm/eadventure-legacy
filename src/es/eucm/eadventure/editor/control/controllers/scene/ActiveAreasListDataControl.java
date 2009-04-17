@@ -297,5 +297,11 @@ public class ActiveAreasListDataControl extends DataControl {
 	public SceneDataControl getSceneDataControl() {
 		return this.sceneDataControl;
 	}
+	
+	@Override
+	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+		return getPathFromChild(dataControl, activeAreasDataControlList);
+	}
+
 
 }

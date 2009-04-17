@@ -1,21 +1,15 @@
 package es.eucm.eadventure.editor.control.controllers.adaptation;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 
-import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.common.data.adaptation.AdaptationProfile;
 import es.eucm.eadventure.common.data.adaptation.AdaptationRule;
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
-import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
-import es.eucm.eadventure.common.data.assessment.AssessmentRule;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfileDataControl;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class AdaptationProfilesDataControl extends DataControl{
@@ -303,5 +297,8 @@ public class AdaptationProfilesDataControl extends DataControl{
 		
 	}
 
-
+	@Override
+	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+		return  getPathFromChild(dataControl, profiles);
+	}
 }

@@ -916,7 +916,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="ActiveAreasList.Rectangular">Rectangular?</entry>
 	<entry key="ActiveAreasList.Conditions">Condiciones</entry>
 
-	<entry key="BarriersList.Title">Barreras y trayectoria</entry>
+	<entry key="BarriersList.Title">Barreras</entry>
 	<entry key="BarriersList.PreviewTitle">Previsualización de las barreras y edición de la trayectoria</entry>
 	<entry key="BarriersList.Information">Las barreras son zonas rectangulares de la escena que bloquean el paso del protagonista. La trayectoria es un conjunto de nodos unidos por aristas que inidican los caminos por los que se puede desplazar el protagonista.</entry>
 	<entry key="BarriersList.EditNodes">Editar nodos</entry>
@@ -931,6 +931,16 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="Exit.Preview">Posición y tamaño de la salida</entry>
 	<entry key="Exit.AdvancedOptions">Opciones avanzadas</entry>
 	<entry key="Exit.IsRectangular">Es rectangular?</entry>
+	<entry key="Exit.NoTransition">Sin transición</entry>
+	<entry key="Exit.TopToBottom">Arriba hacia abajo</entry>
+	<entry key="Exit.BottomToTop">Abajo hacia arriba</entry>
+	<entry key="Exit.LeftToRight">Izquierda a derecha</entry>
+	<entry key="Exit.RightToLeft">Derecha a izquierda</entry>
+	<entry key="Exit.FadeIn">Transparencia</entry>
+	
+	<entry key="NextSceneCell.EditDestinyPosition">Editar posición destino</entry>
+	<entry key="NextSceneCell.UsePosition">Usar posición de destino</entry>
+	
 
 	<entry key="ExitLook.TextPanelTitle">Etiqueta de la salida</entry>
 	<entry key="ExitLook.CustomizeText">Etiqueta personalizada</entry>
@@ -1037,6 +1047,10 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="CutscenesList.ColumnHeader1">Tipo de escena intermedia</entry>
 	<entry key="CutscenesList.Slidescene">Escena de diapositivas</entry>
 	<entry key="CutscenesList.Videoscene">Escena de vídeo</entry>
+	
+	<entry key="CutsceneTypes.Title">Seleccione el tipo de escena intermedia</entry>
+	<entry key="CutsceneTypes.Slides">Escena de diapositivas</entry>
+	<entry key="CutsceneTypes.Video">Escena de vídeo</entry>
 	
 	<entry key="Cutscene.Title">Escena intermedia</entry>
 	<entry key="Cutscene.Documentation">Descripción de la escena intermedia (no se usa en el motor)</entry>
@@ -1206,6 +1220,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="ActionsList.UseWithAction">Usar con {#0}</entry>
 	<entry key="ActoinsList.CustomIteractAction">Interacción personalizada con {#0}</entry>
 	<entry key="ActionsList.UseAction">Usar</entry>
+	<entry key="ActionsList.TalkToAction">Hablar con...</entry>
 	<entry key="ActionsList.Add">Añadir acción</entry>
 	<entry key="ActionsList.Delete">Borrar acción</entry>
 	<entry key="ActionsList.MoveUp">Mover arriba</entry>
@@ -1394,6 +1409,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="TreeNode.AddElement22">Añadir acción "Coger"</entry>
 	<entry key="TreeNode.AddElement23">Añadir acción "Usar"</entry>
 	<entry key="TreeNode.AddElement230">Añadir acción "Personalizable"</entry>
+	<entry key="TreeNode.AddElement231">Añadir acción "Hablar con..."</entry>
 	<entry key="TreeNode.AddElement24">Añadir acción "Usar con"</entry>
 	<entry key="TreeNode.AddElement25">Añadir acción "Entregar a"</entry>
 	<entry key="TreeNode.AddElement250">Añadir acción "Intracción personalizable"</entry>
@@ -1475,6 +1491,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="Element.Name22">Coger</entry>
 	<entry key="Element.Name23">Usar</entry>
 	<entry key="Element.Name230">Personalizada</entry>
+	<entry key="Element.Name231">Hablar con...</entry>
 	<entry key="Element.Name24">Usar con</entry>
 	<entry key="Element.Name25">Entregar a</entry>
 	<entry key="Element.Name250">Interacción personalizada</entry>

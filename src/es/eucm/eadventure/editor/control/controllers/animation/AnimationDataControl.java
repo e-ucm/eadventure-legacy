@@ -284,8 +284,11 @@ public class AnimationDataControl extends DataControl {
 	public void updateVarFlagSummary(VarFlagSummary varFlagSummary) {
 	}
 
-
-
-
-	
+	@Override
+	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+		List<DataControl> path = getPathFromChild(dataControl, frameDataControls);
+		if (path != null) return path;
+		path = getPathFromChild(dataControl, transitionDataControls);
+		return path;
+	}
 }

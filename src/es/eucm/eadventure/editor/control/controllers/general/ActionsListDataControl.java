@@ -8,9 +8,12 @@ import javax.swing.JOptionPane;
 
 import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.common.data.chapter.CustomAction;
+import es.eucm.eadventure.common.data.chapter.effects.TriggerConversationEffect;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.character.NPCDataControl;
+import es.eucm.eadventure.editor.control.controllers.item.ItemDataControl;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class ActionsListDataControl extends DataControl {
@@ -25,14 +28,17 @@ public class ActionsListDataControl extends DataControl {
 	 */
 	private List<ActionDataControl> actionsDataControlList;
 
+	private DataControl parent;
+	
 	/**
 	 * Constructor.
 	 * 
 	 * @param actionsList
 	 *            List of actions
 	 */
-	public ActionsListDataControl( List<Action> actionsList ) {
+	public ActionsListDataControl( List<Action> actionsList, DataControl parent ) {
 		this.actionsList = actionsList;
+		this.parent = parent;
 
 		// Create subcontrollers
 		actionsDataControlList = new ArrayList<ActionDataControl>( );
@@ -92,6 +98,8 @@ public class ActionsListDataControl extends DataControl {
 				actionsInfo[i][0] = TextConstants.getText( "ActionsList.CustomInteractAction", action.getTargetId() );
 			else if( action.getType( ) == Action.USE )
 				actionsInfo[i][0] = TextConstants.getText( "ActionsList.UseAction" );
+			else if (action.getType() == Action.TALK_TO)
+				actionsInfo[i][0] = TextConstants.getText( "ActionsList.TalkToAction" );
 
 			if( action.getConditions( ).isEmpty( ) )
 				actionsInfo[i][1] = TextConstants.getText( "GeneralText.No" );
@@ -114,13 +122,16 @@ public class ActionsListDataControl extends DataControl {
 
 	@Override
 	public int[] getAddableElements( ) {
-		return new int[] { Controller.ACTION_EXAMINE, Controller.ACTION_GRAB, Controller.ACTION_USE, Controller.ACTION_CUSTOM, Controller.ACTION_USE_WITH, Controller.ACTION_GIVE_TO};
+		if (parent instanceof ItemDataControl) 
+			return new int[] { Controller.ACTION_EXAMINE, Controller.ACTION_GRAB, Controller.ACTION_USE, Controller.ACTION_CUSTOM, Controller.ACTION_USE_WITH, Controller.ACTION_GIVE_TO};
+		if (parent instanceof NPCDataControl)
+			return new int[] { Controller.ACTION_EXAMINE, Controller.ACTION_USE, Controller.ACTION_CUSTOM, Controller.ACTION_USE_WITH, Controller.ACTION_GIVE_TO, Controller.ACTION_TALK_TO};
+		return new int[] { Controller.ACTION_EXAMINE, Controller.ACTION_GRAB, Controller.ACTION_USE, Controller.ACTION_CUSTOM, Controller.ACTION_USE_WITH, Controller.ACTION_GIVE_TO, Controller.ACTION_TALK_TO};
 	}
 
 	@Override
 	public boolean canAddElement( int type ) {
-		// It can always add new scenes
-		return type == Controller.ACTION_EXAMINE || type == Controller.ACTION_GRAB || type == Controller.ACTION_USE || type == Controller.ACTION_CUSTOM || type == Controller.ACTION_USE_WITH || type == Controller.ACTION_GIVE_TO || type == Controller.ACTION_CUSTOM_INTERACT;
+		return type == Controller.ACTION_EXAMINE || type == Controller.ACTION_GRAB || type == Controller.ACTION_USE || type == Controller.ACTION_CUSTOM || type == Controller.ACTION_USE_WITH || type == Controller.ACTION_GIVE_TO || type == Controller.ACTION_CUSTOM_INTERACT || type == Controller.ACTION_TALK_TO;
 	}
 
 	@Override
@@ -151,7 +162,20 @@ public class ActionsListDataControl extends DataControl {
 		else if( type == Controller.ACTION_USE )
 			newAction = new Action( Action.USE );
 		
-		else if( type == Controller.ACTION_CUSTOM) {
+		else if (type == Controller.ACTION_TALK_TO ) {
+			String[] conversations = controller.getIdentifierSummary( ).getConversationsIds();
+			if( conversations.length > 0 ) {
+				String selectedElement = controller.showInputDialog( TextConstants.getText( "Action.OperationAddAction" ), TextConstants.getText( "TalkToAction.MessageSelectConversation" ), conversations );
+				if( selectedElement != null ) {
+					newAction = new Action( Action.TALK_TO);
+					newAction.getEffects().add(new TriggerConversationEffect(selectedElement));
+				}
+			}
+			else
+				controller.showErrorDialog( TextConstants.getText( "Action.OperationAddAction" ), TextConstants.getText( "Action.ErrorNoItems" ) );
+
+			
+		} else if( type == Controller.ACTION_CUSTOM) {
 			String name = JOptionPane.showInputDialog(null, TextConstants.getText("CustomAction.GetNameMessage"), TextConstants.getText("CustomAction.GetNameTitle"), JOptionPane.QUESTION_MESSAGE);
 			if (name.equals("")) {
 				name = "NONAME_" + (new Random()).nextInt(1000);
@@ -387,4 +411,10 @@ public class ActionsListDataControl extends DataControl {
 		for (DataControl dc : this.actionsDataControlList)
 			dc.recursiveSearch();
 	}
+	
+	@Override
+	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+		return getPathFromChild(dataControl, actionsDataControlList);
+	}
+
 }

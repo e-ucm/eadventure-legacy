@@ -6,8 +6,6 @@ import java.util.List;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.control.controllers.character.ConversationReferenceDataControl;
-import es.eucm.eadventure.editor.control.controllers.character.ConversationReferencesListDataControl;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 /**
@@ -291,16 +289,6 @@ public abstract class DataControl implements Cloneable {
 		}
 	}
 	
-	protected void check(
-			ConversationReferencesListDataControl conversations,
-			String desc) {
-		for (ConversationReferenceDataControl conv : conversations.getConversationReferences()) {
-			check(conv.getConditions(), desc + " (" + TextConstants.getText("Search.Conditions") + ") ");
-			check(conv.getDocumentation(), desc + " (" + TextConstants.getText("Search.Documentation") + ")");
-			check(conv.getIdTarget(), desc + " (" + TextConstants.getText("Search.IDTarget") + ")");
-		}
-	}
-
 	public void setJustCreated(boolean justCreated) {
 		this.justCreated = justCreated;
 	}
@@ -309,4 +297,37 @@ public abstract class DataControl implements Cloneable {
 		return justCreated;
 	}
 	
+	public List<DataControl> getPath(DataControl dataControl) {
+		if (dataControl == this) {
+			List<DataControl> path = new ArrayList<DataControl>();
+			path.add(this);
+			return path;
+		}
+		return getPathToDataControl(dataControl);
+	}
+	 
+	protected abstract List<DataControl> getPathToDataControl(DataControl dataControl);
+
+	protected List<DataControl> getPathFromChild(DataControl dataControl, DataControl child) {
+		if (child != null) {
+			List<DataControl> path = child.getPath(dataControl);
+			if (path != null) {
+				path.add(this);
+				return path;
+			}
+		}
+		return null;
+	}
+	
+	@SuppressWarnings("unchecked")
+	protected List<DataControl> getPathFromChild(DataControl dataControl, List list) {
+		for (Object temp : list) {
+			List<DataControl> path = ((DataControl) temp).getPath(dataControl);
+			if (path != null) {
+				path.add(this);
+				return path;
+			}
+		}
+		return null;
+	}
 }

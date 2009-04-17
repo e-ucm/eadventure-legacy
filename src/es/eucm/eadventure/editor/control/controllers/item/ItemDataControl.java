@@ -65,7 +65,7 @@ public class ItemDataControl extends DataControlWithResources {
 		for( Resources resources : resourcesList )
 			resourcesDataControlList.add( new ResourcesDataControl( resources, Controller.ITEM ) );
 
-		actionsListDataControl = new ActionsListDataControl( item.getActions( ) );
+		actionsListDataControl = new ActionsListDataControl( item.getActions( ), this );
 	}
 
 	/**
@@ -436,4 +436,13 @@ public class ItemDataControl extends DataControlWithResources {
 		check(this.getPreviewImage(), TextConstants.getText("Search.PreviewImage"));
 		this.getActionsList().recursiveSearch();
 	}
+	
+	@Override
+	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+		List<DataControl> path = getPathFromChild(dataControl, resourcesDataControlList);
+		if (path != null) return path;
+		path = getPathFromChild(dataControl, actionsListDataControl);
+		return path;
+	}
+
 }

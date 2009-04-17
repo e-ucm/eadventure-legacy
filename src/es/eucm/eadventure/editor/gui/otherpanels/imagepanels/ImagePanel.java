@@ -1,6 +1,7 @@
 package es.eucm.eadventure.editor.gui.otherpanels.imagepanels;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -329,5 +330,9 @@ public class ImagePanel extends JPanel{
 			// Repaint the panel
 			repaint( );
 		}
+	}
+
+	public Dimension getImageSize() {
+		return new Dimension(image.getWidth(null), image.getHeight(null));
 	}
 }

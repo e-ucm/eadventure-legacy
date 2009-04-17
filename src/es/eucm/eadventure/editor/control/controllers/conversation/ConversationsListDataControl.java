@@ -308,4 +308,9 @@ public class ConversationsListDataControl extends DataControl {
 		for (ConversationDataControl dc : this.conversationsDataControlList)
 			dc.recursiveSearch();
 	}
+	
+	@Override
+	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+		return getPathFromChild(dataControl, conversationsDataControlList);
+	}
 }

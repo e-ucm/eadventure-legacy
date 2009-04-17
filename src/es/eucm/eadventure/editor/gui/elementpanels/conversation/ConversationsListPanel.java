@@ -17,6 +17,7 @@ import javax.swing.table.AbstractTableModel;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.conversation.ConversationsListDataControl;
+import es.eucm.eadventure.editor.gui.structurepanel.StructureControl;
 import es.eucm.eadventure.editor.gui.treepanel.TreeNodeControl;
 
 public class ConversationsListPanel extends JPanel {
@@ -68,7 +69,7 @@ public class ConversationsListPanel extends JPanel {
 				if (e.getClickCount() == 2) {
 					JTable table = (JTable) e.getSource();
 					DataControl dataControl = ConversationsListPanel.this.conversationsListDataControl.getConversations().get(table.getSelectedRow());
-					TreeNodeControl.getInstance().changeTreeNode(dataControl);
+					StructureControl.getInstance().changeDataControl(dataControl);
 				}
 			}
 		});

@@ -214,11 +214,10 @@ public class SceneLinksPanel extends JPanel {
 					int x1 = (int) (scene.getPosX() + exit.getPosX() * drawingScale);
 					int y1 = (int) (scene.getPosY() + exit.getPosY() * drawingScale);
 					BasicStroke basicStroke = new BasicStroke();
-					for (String id : exit.getSceneIds()) {
-						SceneElement temp = this.getSceneElementForId(id);
-						if (temp != null && temp.isVisible()) {
-							addLine(x1, y1, temp, scene.getColor(), basicStroke, lines);
-						}
+					String id = exit.getNextSceneId();
+					SceneElement temp = this.getSceneElementForId(id);
+					if (temp != null && temp.isVisible()) {
+						addLine(x1, y1, temp, scene.getColor(), basicStroke, lines);
 					}
 				}
 				for (ActiveAreaElement aae : scene.getActiveAreaElements()) {

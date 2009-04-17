@@ -36,11 +36,6 @@ public class NPCDataControl extends DataControlWithResources {
 	private List<ResourcesDataControl> resourcesDataControlList;
 
 	/**
-	 * Conversation references list controller.
-	 */
-	private ConversationReferencesListDataControl conversationReferencesListDataControl;
-
-	/**
 	 * Actions list controller.
 	 */
 	private ActionsListDataControl actionsListDataControl;
@@ -71,8 +66,7 @@ public class NPCDataControl extends DataControlWithResources {
 		for( Resources resources : resourcesList )
 			resourcesDataControlList.add( new ResourcesDataControl( resources, Controller.NPC ) );
 
-		conversationReferencesListDataControl = new ConversationReferencesListDataControl( npc.getConversationReferences( ) );
-		actionsListDataControl = new ActionsListDataControl( npc.getActions( ) );
+		actionsListDataControl = new ActionsListDataControl( npc.getActions( ) , this);
 	}
 
 	/**
@@ -102,14 +96,6 @@ public class NPCDataControl extends DataControlWithResources {
 		return resourcesDataControlList.get( resourcesDataControlList.size( ) - 1 );
 	}
 
-	/**
-	 * Returns the conversation reference list controller.
-	 * 
-	 * @return Conversation reference list controller
-	 */
-	public ConversationReferencesListDataControl getConversationReferencesList( ) {
-		return conversationReferencesListDataControl;
-	}
 
 	/**
 	 * Returns the selected resources block of the list.
@@ -318,7 +304,7 @@ public class NPCDataControl extends DataControlWithResources {
 	 * @param voice
 	 * 			a string with the valid voice
 	 */
-	public void setNPCVoice(String voice){
+	public void setVoice(String voice){
 		controller.addTool( new ChangeStringValueTool(npc,voice,"getVoice", "setVoice") );
 	}
 	
@@ -328,7 +314,7 @@ public class NPCDataControl extends DataControlWithResources {
 	 * @return
 	 * 		string representing character voice
 	 */
-	public String getNPCVoice(){
+	public String getVoice(){
 		return npc.getVoice();
 	}
 	
@@ -469,7 +455,6 @@ public class NPCDataControl extends DataControlWithResources {
 
 	@Override
 	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
-		conversationReferencesListDataControl.updateVarFlagSummary( varFlagSummary );
 		actionsListDataControl.updateVarFlagSummary( varFlagSummary );
 	}
 
@@ -525,18 +510,16 @@ public class NPCDataControl extends DataControlWithResources {
 
 	@Override
 	public int countIdentifierReferences( String id ) {
-		return actionsListDataControl.countIdentifierReferences( id ) + conversationReferencesListDataControl.countIdentifierReferences( id );
+		return actionsListDataControl.countIdentifierReferences( id );
 	}
 
 	@Override
 	public void replaceIdentifierReferences( String oldId, String newId ) {
-		conversationReferencesListDataControl.replaceIdentifierReferences( oldId, newId );
 		actionsListDataControl.replaceIdentifierReferences( oldId, newId );
 	}
 
 	@Override
 	public void deleteIdentifierReferences( String id ) {
-		conversationReferencesListDataControl.deleteIdentifierReferences( id );
 		actionsListDataControl.deleteIdentifierReferences( id );
 	}
 
@@ -556,10 +539,9 @@ public class NPCDataControl extends DataControlWithResources {
 		check(this.getDocumentation(), TextConstants.getText("Search.Documentation"));
 		check(this.getId(), "ID");
 		check(this.getName(), TextConstants.getText("Search.Name"));
-		check(this.getNPCVoice(), TextConstants.getText("Search.NPCVoice"));
+		check(this.getVoice(), TextConstants.getText("Search.NPCVoice"));
 		check(this.getPreviewImage(), TextConstants.getText("Search.PreviewImage"));
 		getActionsList().recursiveSearch();
-		check(this.getConversationReferencesList(), TextConstants.getText("Search.Conversations"));
 	}
 
 	public String getAnimationPath(String animation) {
@@ -580,6 +562,13 @@ public class NPCDataControl extends DataControlWithResources {
 	
 	public void setShowsSpeechBubbles(Boolean showsSpeechBubbles) {
 		controller.addTool( new ChangeBooleanValueTool(npc, showsSpeechBubbles, "getShowsSpeechBubbles", "setShowsSpeechBubbles"));
+	}
+
+	@Override
+	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+		List<DataControl> path = getPathFromChild(dataControl, resourcesDataControlList);
+		if (path != null) return path;
+		return getPathFromChild(dataControl, actionsListDataControl);
 	}
 
 

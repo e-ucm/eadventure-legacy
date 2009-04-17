@@ -1,5 +1,6 @@
 package es.eucm.eadventure.editor.gui.elementpanels.general;
 
+import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -9,12 +10,14 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.gui.TextConstants;
@@ -38,6 +41,12 @@ public class EffectsPanel extends JPanel implements Updateable{
 	 */
 	private JTable effectsTable;
 
+	private JButton deleteButton;
+	
+	private JButton moveUpButton;
+	
+	private JButton moveDownButton;
+	
 	/**
 	 * Constructor.
 	 * 
@@ -56,74 +65,93 @@ public class EffectsPanel extends JPanel implements Updateable{
 		setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Effects.Title" ) ) );
 
 		// Set the panel
-		setLayout( new GridBagLayout( ) );
-		GridBagConstraints c = new GridBagConstraints( );
-		c.insets = new Insets( 5, 5, 5, 5 );
+		setLayout( new BorderLayout( ) );
 
-		// Add the description of the panel
-		c.anchor = GridBagConstraints.LINE_START;
-		c.gridwidth = 4;
-		add( new JLabel( TextConstants.getText( "Effects.Description" ) ), c );
-
-		// Add the table with the data
-		c.anchor = GridBagConstraints.CENTER;
-		c.gridy = 1;
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 1;
-		c.weighty = 1;
 		effectsTable = new JTable( new EffectsTableModel( ) );
 		effectsTable.getColumnModel( ).getColumn( 0 ).setMaxWidth( 60 );
 		effectsTable.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
 		effectsTable.addMouseListener( new EffectsTableMouseListener( ) );
 		JScrollPane tableScrollPane = new JScrollPane( effectsTable, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED );
-		add( tableScrollPane, c );
+		add( tableScrollPane, BorderLayout.CENTER );
+		effectsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent arg0) {
+				updateButtons();
+			}
+		});
 
-		// Add the move back effect button
-		c.gridy = 2;
-		c.gridwidth = 1;
-		c.fill = GridBagConstraints.NONE;
-		c.weightx = 0;
-		c.weighty = 0;
-		JButton moveBackEffectButton = new JButton( "<" );
-		moveBackEffectButton.addActionListener( new MoveUpEffectListener( ) );
-		add( moveBackEffectButton, c );
-
-		// Add the add effect button
-		c.gridx = 1;
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weightx = 1;
-		JButton addConditionButton = new JButton( TextConstants.getText( "Effects.AddEffectButton" ) );
-		addConditionButton.addActionListener( new AddEffectListener( ) );
-		add( addConditionButton, c );
-
-		// Add the delete effect button
-		c.gridx = 2;
-		JButton deleteConditionButton = new JButton( TextConstants.getText( "Effects.DeleteEffectButton" ) );
-		deleteConditionButton.addActionListener( new DeleteEffectListener( ) );
-		add( deleteConditionButton, c );
-
-		// Add the move forward effect button
-		c.gridx = 3;
-		c.fill = GridBagConstraints.NONE;
-		c.weightx = 0;
-		JButton moveForwardEffectButton = new JButton( ">" );
-		moveForwardEffectButton.addActionListener( new MoveDownEffectListener( ) );
-		add( moveForwardEffectButton, c );
+		add( createButtonsPanel(), BorderLayout.SOUTH );
 	}
 
+	private void updateButtons() {
+		int selected = effectsTable.getSelectedRow();
+		if (selected == -1) {
+			deleteButton.setEnabled(false);
+			moveUpButton.setEnabled(false);
+			moveDownButton.setEnabled(false);
+		} else {
+			deleteButton.setEnabled(true);
+			moveUpButton.setEnabled(selected > 0);
+			moveDownButton.setEnabled(selected < effectsTable.getRowCount() - 1);
+		}
+	}
+	
+	
+	private JPanel createButtonsPanel() {
+		//Create the buttons panel (SOUTH)
+		JPanel buttonsPanel = new JPanel();
+		JButton newButton = new JButton(new ImageIcon("img/icons/addNode.png"));
+		newButton.setContentAreaFilled( false );
+		newButton.setMargin( new Insets(0,0,0,0) );
+		newButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.AddParagraph" ) );
+		newButton.addActionListener( new AddEffectListener( ));
+		
+		deleteButton = new JButton(new ImageIcon("img/icons/deleteNode.png"));
+		deleteButton.setContentAreaFilled( false );
+		deleteButton.setMargin( new Insets(0,0,0,0) );
+		deleteButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.Delete" ) );
+		deleteButton.addActionListener(new DeleteEffectListener( ));
+		deleteButton.setEnabled(false);
+		
+		moveUpButton = new JButton(new ImageIcon("img/icons/moveNodeUp.png"));
+		moveUpButton.setContentAreaFilled( false );
+		moveUpButton.setMargin( new Insets(0,0,0,0) );
+		moveUpButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.MoveUp" ) );
+		moveUpButton.addActionListener( new MoveUpEffectListener( ) );
+		moveUpButton.setEnabled(false);
+		
+		moveDownButton = new JButton(new ImageIcon("img/icons/moveNodeDown.png"));
+		moveDownButton.setContentAreaFilled( false );
+		moveDownButton.setMargin( new Insets(0,0,0,0) );
+		moveDownButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.MoveDown" ) );
+		moveDownButton.addActionListener( new MoveDownEffectListener( ));
+		moveDownButton.setEnabled(false);
+
+		buttonsPanel.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 0;
+		buttonsPanel.add( newButton , c );
+		c.gridx++;
+		buttonsPanel.add( deleteButton , c );
+		c.anchor = GridBagConstraints.SOUTH;
+		c.gridx++;
+		buttonsPanel.add( moveUpButton , c );
+		c.gridx++;
+		buttonsPanel.add( moveDownButton , c );
+		
+		return buttonsPanel;
+	}
+	
+	
+	
 	/**
 	 * Listener for the add effect button.
 	 */
 	private class AddEffectListener implements ActionListener {
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-		 */
 		public void actionPerformed( ActionEvent e ) {
 			if( effectsController.addEffect( ) ) {
 				effectsTable.updateUI( );
+				updateButtons();
 			}
 
 		}
@@ -133,12 +161,6 @@ public class EffectsPanel extends JPanel implements Updateable{
 	 * Listener for the delete effect button.
 	 */
 	private class DeleteEffectListener implements ActionListener {
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-		 */
 		public void actionPerformed( ActionEvent e ) {
 			int effectIndex = effectsTable.getSelectedRow( );
 
@@ -146,6 +168,7 @@ public class EffectsPanel extends JPanel implements Updateable{
 				effectsController.deleteEffect( effectIndex );
 				effectsTable.clearSelection( );
 				effectsTable.updateUI( );
+				updateButtons();
 			}
 		}
 	}
@@ -154,19 +177,13 @@ public class EffectsPanel extends JPanel implements Updateable{
 	 * Listener for the move up effect button.
 	 */
 	private class MoveUpEffectListener implements ActionListener {
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-		 */
 		public void actionPerformed( ActionEvent e ) {
 			int effectIndex = effectsTable.getSelectedRow( );
-
 			if( effectIndex >= 0 ) {
 				if( effectsController.moveUpEffect( effectIndex ) ) {
-					effectsTable.setRowSelectionInterval( effectIndex - 1, effectIndex - 1 );
+					effectsTable.changeSelection(effectIndex - 1, effectIndex - 1, false, false);
 					effectsTable.updateUI( );
+					updateButtons();
 				}
 			}
 		}
@@ -176,19 +193,14 @@ public class EffectsPanel extends JPanel implements Updateable{
 	 * Listener for the move down effect button.
 	 */
 	private class MoveDownEffectListener implements ActionListener {
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-		 */
 		public void actionPerformed( ActionEvent e ) {
 			int effectIndex = effectsTable.getSelectedRow( );
-
 			if( effectIndex >= 0 && effectIndex<effectsTable.getRowCount()-1) {
-				effectsController.moveDownEffect( effectIndex );
-				effectsTable.setRowSelectionInterval( effectIndex + 1, effectIndex + 1 );
-				effectsTable.updateUI( );
+				if (effectsController.moveDownEffect( effectIndex )) {
+					effectsTable.changeSelection(effectIndex + 1, effectIndex + 1, false, false);
+					effectsTable.updateUI( );
+					updateButtons();
+				}
 			}
 		}
 	}
@@ -220,21 +232,11 @@ public class EffectsPanel extends JPanel implements Updateable{
 		 */
 		private static final long serialVersionUID = 1L;
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.table.TableModel#getColumnCount()
-		 */
 		public int getColumnCount( ) {
 			// Two columns
 			return 2;
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.table.TableModel#getRowCount()
-		 */
 		public int getRowCount( ) {
 			return effectsController.getEffectCount( );
 		}
@@ -254,11 +256,6 @@ public class EffectsPanel extends JPanel implements Updateable{
 			return columnName;
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.table.TableModel#getValueAt(int, int)
-		 */
 		public Object getValueAt( int rowIndex, int columnIndex ) {
 			Object value = null;
 

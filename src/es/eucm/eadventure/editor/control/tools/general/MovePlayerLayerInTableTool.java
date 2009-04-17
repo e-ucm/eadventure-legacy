@@ -3,8 +3,8 @@ package es.eucm.eadventure.editor.control.tools.general;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementContainer;
 import es.eucm.eadventure.editor.control.controllers.scene.ReferencesListDataControl;
 import es.eucm.eadventure.editor.control.tools.Tool;
-import es.eucm.eadventure.editor.gui.elementpanels.general.ElementReferencesTable;
-import es.eucm.eadventure.editor.gui.elementpanels.general.ActiveAreasTable;
+import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ActiveAreasTable;
+import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ElementReferencesTable;
 
 
 /**

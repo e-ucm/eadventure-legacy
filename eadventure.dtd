@@ -37,12 +37,18 @@
 	%position;
 >
 <!ELEMENT exits (exit+)>
-<!ELEMENT exit (documentation?, exit-look?, next-scene+, point*)>
+<!ELEMENT exit (documentation?, exit-look?, next-scene+, point*, condition?, effect?, post-effect?, not-effect?)>
 <!ATTLIST exit
 	rectangular (yes | no) "yes"
 	%rectangle; 
 	hasInfluenceArea (yes | no) "no" 
 	%influence_area;
+	idTarget IDREF #IMPLIED
+	destinyX NMTOKEN #IMPLIED
+	destinyY NMTOKEN #IMPLIED
+	transitionTime CDATA "0"
+	transitionType CDATA "0"
+	not-effects (yes | no) "no"
 >
 <!ELEMENT exit-look EMPTY>
 <!ATTLIST exit-look 
@@ -175,7 +181,7 @@
 <!ELEMENT name (#PCDATA)>
 <!ELEMENT brief (#PCDATA)>
 <!ELEMENT detailed (#PCDATA)>
-<!ELEMENT actions (examine | grab | use | use-with | give-to | custom | custom-interact )+>
+<!ELEMENT actions (examine | grab | use | use-with | give-to | custom | custom-interact | talk-to )+>
 <!ELEMENT examine (documentation?, condition?, effect?)>
 <!ATTLIST examine
 	needsGoTo (yes | no) "yes"
@@ -200,6 +206,11 @@
 <!ELEMENT give-to (documentation?, condition?, effect?)>
 <!ATTLIST give-to
 	idTarget IDREF #REQUIRED
+	needsGoTo (yes | no) "yes"
+	keepDistance CDATA "35"
+>
+<!ELEMENT talk-to (documentation?, condition?, effect?)>
+<!ATTLIST talk-to
 	needsGoTo (yes | no) "yes"
 	keepDistance CDATA "35"
 >
@@ -367,6 +378,7 @@
 	probability NMTOKEN #REQUIRED
 >
 <!ELEMENT post-effect (%effects;)>
+<!ELEMENT not-effect (%effects;)>
 
 <!ELEMENT activate EMPTY>
 <!ATTLIST activate

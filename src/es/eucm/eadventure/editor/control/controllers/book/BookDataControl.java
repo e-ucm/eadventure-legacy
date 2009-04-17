@@ -416,4 +416,12 @@ public class BookDataControl extends DataControlWithResources {
 			this.getBookParagraphsList().recursiveSearch();
 		check(this.getPreviewImage(), TextConstants.getText("Search.PreviewImage"));
 	}
+	
+	@Override
+	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+		List<DataControl> path = getPathFromChild(dataControl, resourcesDataControlList);
+		if (path != null) return path;
+		return getPathFromChild(dataControl, bookParagraphsListDataControl);
+	}
+
 }

@@ -1,6 +1,7 @@
 package es.eucm.eadventure.common.loader.subparsers;
 
 import java.awt.Point;
+import java.util.ArrayList;
 
 import org.xml.sax.Attributes;
 
@@ -224,7 +225,11 @@ public class SceneSubParser extends SubParser {
 				boolean rectangular = true;
 				int influenceX = 0, influenceY = 0, influenceWidth = 0, influenceHeight = 0;
 				boolean hasInfluence = false;
-
+				String idTarget = "";
+				int destinyX = Integer.MIN_VALUE, destinyY = Integer.MIN_VALUE;
+				int transitionType = 0, transitionTime = 0;
+				boolean notEffects = false;
+				
 				for( int i = 0; i < attrs.getLength( ); i++ ) {
 					if( attrs.getQName( i ).equals( "rectangular" ))
 						rectangular = attrs.getValue( i ).equals("yes");
@@ -246,9 +251,29 @@ public class SceneSubParser extends SubParser {
 						influenceWidth = Integer.parseInt(attrs.getValue(i));
 					if ( attrs.getQName( i ).equals( "influenceHeight"))
 						influenceHeight = Integer.parseInt(attrs.getValue(i));
+					
+					
+					if( attrs.getQName( i ).equals( "idTarget" ) )
+						idTarget = attrs.getValue( i );
+					if( attrs.getQName( i ).equals( "destinyX" ) )
+						destinyX = Integer.parseInt( attrs.getValue( i ) );
+					if( attrs.getQName( i ).equals( "destinyY" ) )
+						destinyY = Integer.parseInt( attrs.getValue( i ) );
+					if (attrs.getQName( i ).equals( "transitionType"))
+						transitionType = Integer.parseInt( attrs.getValue(i));
+					if (attrs.getQName( i ).equals( "transitionTime"))
+						transitionTime = Integer.parseInt( attrs.getValue(i));
+					if (attrs.getQName( i ).equals( "not-effects" ))
+						notEffects = attrs.getValue(i).equals("yes");
 				}
 
 				currentExit = new Exit( rectangular, x, y, width, height );
+				currentExit.setNextSceneId(idTarget);
+				currentExit.setDestinyX(destinyX);
+				currentExit.setDestinyY(destinyY);
+				currentExit.setTransitionTime(transitionTime);
+				currentExit.setTransitionType(transitionType);
+				currentExit.setHasNotEffects(notEffects);
 				if (hasInfluence) {
 					InfluenceArea influenceArea = new InfluenceArea(influenceX, influenceY, influenceWidth, influenceHeight);
 					currentExit.setInfluenceArea(influenceArea);
@@ -372,7 +397,14 @@ public class SceneSubParser extends SubParser {
 				subParser = new EffectSubParser( currentEffects, chapter );
 				subParsing = SUBPARSING_EFFECT;
 			}
-			
+
+			// If it is a post-effect tag, create the new effect, the subparser and switch the state
+			else if( qName.equals( "not-effect" ) ) {
+				currentEffects = new Effects( );
+				subParser = new EffectSubParser( currentEffects, chapter );
+				subParsing = SUBPARSING_EFFECT;
+			}
+
 			// If it is a post-effect tag, create the new effect, the subparser and switch the state
 			else if( qName.equals( "active-area" ) ) {
 				subParsing = SUBPARSING_ACTIVE_AREA;
@@ -437,13 +469,38 @@ public class SceneSubParser extends SubParser {
 
 			// If it is an exit tag, store the exit in the scene
 			else if( qName.equals( "exit" ) ) {
-				scene.addExit( currentExit );
+				for (NextScene nextScene : currentExit.getNextScenes()) {
+					try {
+						Exit exit = (Exit) currentExit.clone();
+						exit.setNextScenes(new ArrayList<NextScene>());
+						exit.setDestinyX(nextScene.getPositionX());
+						exit.setDestinyY(nextScene.getPositionY());
+						exit.setEffects(nextScene.getEffects());
+						exit.setPostEffects(nextScene.getPostEffects());
+						if (exit.getDefaultExitLook() == null)
+							exit.setDefaultExitLook(nextScene.getExitLook());
+						else {
+							if (nextScene.getExitLook() != null) {
+								if (nextScene.getExitLook().getExitText() != null && !nextScene.getExitLook().getExitText().equals(""))
+									exit.getDefaultExitLook().setExitText(nextScene.getExitLook().getExitText());
+								if (nextScene.getExitLook().getCursorPath() != null && !nextScene.getExitLook().getCursorPath().equals(""))
+									exit.getDefaultExitLook().setCursorPath(nextScene.getExitLook().getCursorPath());
+							}
+						}
+						exit.setHasNotEffects(false);
+						exit.setConditions(nextScene.getConditions());
+						exit.setNextSceneId(nextScene.getTargetId());
+						scene.addExit(exit);
+					} catch (CloneNotSupportedException e) {
+						e.printStackTrace();
+					}
+				}
+				//scene.addExit( currentExit );
 				reading = READING_NONE;
 			}
 			
             // If it is an exit look tag, store the look in the exit
             else if( qName.equals( "exit-look" ) ) {
-               
             	if (reading==READING_NEXT_SCENE)
                     currentNextScene.setExitLook( currentExitLook );
                 else if (reading == READING_EXIT){
@@ -503,6 +560,9 @@ public class SceneSubParser extends SubParser {
 				if( reading == READING_ELEMENT_REFERENCE )
 					currentElementReference.setConditions( currentConditions );
 
+				if (reading == READING_EXIT )
+					currentExit.setConditions( currentConditions );
+				
 				// Switch the state
 				subParsing = SUBPARSING_NONE;
 				
@@ -517,13 +577,24 @@ public class SceneSubParser extends SubParser {
 
 			// If the effect tag is being closed, add the effects to the current next scene and switch the state
 			if( qName.equals( "effect" ) ) {
-				currentNextScene.setEffects( currentEffects );
+				if (reading == READING_NEXT_SCENE)
+					currentNextScene.setEffects( currentEffects );
+				if (reading == READING_EXIT)
+					currentExit.setEffects( currentEffects);
 				subParsing = SUBPARSING_NONE;
 			}
 
 			// If the effect tag is being closed, add the post-effects to the current next scene and switch the state
 			if( qName.equals( "post-effect" ) ) {
-				currentNextScene.setPostEffects( currentEffects );
+				if (reading == READING_NEXT_SCENE)
+					currentNextScene.setPostEffects( currentEffects );
+				if (reading == READING_EXIT)
+					currentExit.setPostEffects( currentEffects);
+				subParsing = SUBPARSING_NONE;
+			}
+			
+			if (qName.equals( "not-effect" ) ) {
+				currentExit.setNotEffects( currentEffects );
 				subParsing = SUBPARSING_NONE;
 			}
 		}

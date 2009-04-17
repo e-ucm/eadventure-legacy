@@ -11,6 +11,7 @@ import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
+import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.control.tools.conversation.DeleteConversationNodeTool;
 import es.eucm.eadventure.editor.control.tools.conversation.MoveConversationNodeTool;
@@ -598,4 +599,10 @@ public class TreeConversationDataControl extends ConversationDataControl {
 			this.treeConversation = (TreeConversation)conversation;
 		}
 	}
+	
+	@Override
+	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+		return null;
+	}
+
 }

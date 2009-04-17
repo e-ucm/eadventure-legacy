@@ -1,14 +1,24 @@
 package es.eucm.eadventure.editor.gui.elementpanels.scene;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JTextPane;
+import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
+import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.AbstractTableModel;
 
+import es.eucm.eadventure.common.data.chapter.Trajectory;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.scene.ActiveAreaDataControl;
@@ -16,9 +26,10 @@ import es.eucm.eadventure.editor.control.controllers.scene.BarrierDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.BarriersListDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ExitDataControl;
+import es.eucm.eadventure.editor.control.controllers.scene.NodeDataControl;
 import es.eucm.eadventure.editor.gui.Updateable;
+import es.eucm.eadventure.editor.gui.elementpanels.general.tables.BarriersTable;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
-import es.eucm.eadventure.editor.gui.otherpanels.TrajectoryEditionPanel;
 
 public class BarriersListPanel extends JPanel implements Updateable {
 
@@ -28,11 +39,16 @@ public class BarriersListPanel extends JPanel implements Updateable {
 	private static final long serialVersionUID = 1L;
 
 	private	ScenePreviewEditionPanel spep;
+	
+	private BarriersListDataControl dataControl;
+	
+	private JTable table;
+	
+	private JButton deleteButton;
+	
+	
+	private static final int HORIZONTAL_SPLIT_POSITION = 140;
 
-	private TrajectoryEditionPanel tep;
-	
-	private BarriersListDataControl barriersListDataControl;
-	
 	/**
 	 * Constructor.
 	 * 
@@ -40,82 +56,130 @@ public class BarriersListPanel extends JPanel implements Updateable {
 	 *            ActiveAreas list controller
 	 */
 	public BarriersListPanel( BarriersListDataControl barriersListDataControl ) {
-		this.barriersListDataControl = barriersListDataControl;
-		
-		// Take the path of the background
+		this.dataControl = barriersListDataControl;
 		String scenePath = Controller.getInstance( ).getSceneImagePath( barriersListDataControl.getParentSceneId( ) );
+		spep = new ScenePreviewEditionPanel(false, scenePath);
+		addElementsToPreview(scenePath);
+		
+		setLayout( new BorderLayout( ) );
+		
+		JPanel tablePanel = createTablePanel();
+		
+		JSplitPane tableWithSplit = new JSplitPane(JSplitPane.VERTICAL_SPLIT, tablePanel, spep);
+		tableWithSplit.setOneTouchExpandable(true);
+		tableWithSplit.setDividerLocation(HORIZONTAL_SPLIT_POSITION);
+		tableWithSplit.setContinuousLayout(true);
+		tableWithSplit.setResizeWeight(0.5);
+		tableWithSplit.setDividerSize(10);
+	
+		add(tableWithSplit,BorderLayout.CENTER);
+	}
 
-		// Set the layout
-		setLayout( new GridBagLayout( ) );
-//		setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "BarriersList.Title" ) ) );
-		GridBagConstraints c = new GridBagConstraints( );
-		c.insets = new Insets( 5, 5, 5, 5 );
+	private JPanel createTablePanel() {
+		JPanel tablePanel = new JPanel();
+		
+		table = new BarriersTable(dataControl, spep);
+		JScrollPane scroll = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scroll.setMinimumSize(new Dimension(0, 	HORIZONTAL_SPLIT_POSITION));
 
-		// Create the text area for the documentation
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weightx = 1;
-		JTextPane informationTextPane = new JTextPane( );
-		informationTextPane.setEditable( false );
-		informationTextPane.setBackground( getBackground( ) );
-		informationTextPane.setText( TextConstants.getText( "BarriersList.Information" ) );
-		JPanel informationPanel = new JPanel( );
-		informationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "GeneralText.Information" ) ) );
-		informationPanel.setLayout( new BorderLayout( ) );
-		informationPanel.add( informationTextPane, BorderLayout.CENTER );
-		add( informationPanel, c );
-
-		// Create and set the preview panel
+		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent arg0) {
+				if (table.getSelectedRow() >= 0)
+					deleteButton.setEnabled(true);
+				else
+					deleteButton.setEnabled(false);
+				deleteButton.repaint();
+				
+			}
+		});
+		
+		JPanel buttonsPanel = new JPanel();
+		JButton newButton = new JButton(new ImageIcon("img/icons/addNode.png"));
+		newButton.setContentAreaFilled( false );
+		newButton.setMargin( new Insets(0,0,0,0) );
+		newButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.AddParagraph" ) );
+		newButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				addBarrier();
+			}
+		});
+		deleteButton = new JButton(new ImageIcon("img/icons/deleteNode.png"));
+		deleteButton.setContentAreaFilled( false );
+		deleteButton.setMargin( new Insets(0,0,0,0) );
+		deleteButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.Delete" ) );
+		deleteButton.setEnabled(false);
+		deleteButton.addActionListener(new ActionListener(){
+			public void actionPerformed( ActionEvent e ) {
+				deleteBarrier();
+			}
+		});
+		buttonsPanel.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 0;
+		buttonsPanel.add(newButton, c);
 		c.gridy = 1;
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 1;
-		c.weighty = 1;
+		buttonsPanel.add(deleteButton, c);
 		
-		if (barriersListDataControl.getTrajectoryDataControl().hasTrajectory()) {
-			tep = new TrajectoryEditionPanel(scenePath, barriersListDataControl.getTrajectoryDataControl());
-			spep = tep.getScenePreviewEditionPanel();
-			add( tep, c );
-		} else {
-			spep = new ScenePreviewEditionPanel(false, scenePath);
-			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_BARRIER, true);
-			add( spep, c );
-		}
+		tablePanel.setLayout(new BorderLayout());
+		tablePanel.add(scroll, BorderLayout.CENTER);
+		tablePanel.add(buttonsPanel, BorderLayout.EAST);
 		
+		return tablePanel;
+	}
+
+	private void addElementsToPreview(String scenePath) {
+		spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_BARRIER, true);
 
 		if( scenePath != null ) {
-			for( ElementReferenceDataControl elementReference : barriersListDataControl.getParentSceneItemReferences( ) ) {
+			for( ElementReferenceDataControl elementReference : dataControl.getParentSceneItemReferences( ) ) {
 				spep.addElement(ScenePreviewEditionPanel.CATEGORY_OBJECT, elementReference);
 			}
 			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_OBJECT, false);
-			for( ElementReferenceDataControl elementReference : barriersListDataControl.getParentSceneNPCReferences( ) ) {
+			for( ElementReferenceDataControl elementReference : dataControl.getParentSceneNPCReferences( ) ) {
 				spep.addElement(ScenePreviewEditionPanel.CATEGORY_CHARACTER, elementReference);
 			}
 			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_CHARACTER, false);
-			for( ElementReferenceDataControl elementReference : barriersListDataControl.getParentSceneAtrezzoReferences( ) ) {
+			for( ElementReferenceDataControl elementReference : dataControl.getParentSceneAtrezzoReferences( ) ) {
 				spep.addElement(ScenePreviewEditionPanel.CATEGORY_ATREZZO, elementReference);
 			}
 			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_ATREZZO, false);
-			for( ExitDataControl exit : barriersListDataControl.getParentSceneExits( ) ) {
+			for( ExitDataControl exit : dataControl.getParentSceneExits( ) ) {
 				spep.addExit(exit);
 			}
 			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_EXIT, false);
-			for( ActiveAreaDataControl activeArea : barriersListDataControl.getParentSceneActiveAreas( ) ) {
+			for( ActiveAreaDataControl activeArea : dataControl.getParentSceneActiveAreas( ) ) {
 				spep.addActiveArea(activeArea);
 			}
 			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_ACTIVEAREA, false);
-			for( BarrierDataControl barrier : barriersListDataControl.getBarriers( ) ) {
+			for( BarrierDataControl barrier : dataControl.getBarriers( ) ) {
 				spep.addBarrier(barrier);
 			}
+			if (dataControl.getParentSceneTrajectory().hasTrajectory()) {
+				spep.setTrajectory((Trajectory) dataControl.getParentSceneTrajectory().getContent());
+				for (NodeDataControl nodeDataControl: dataControl.getParentSceneTrajectory().getNodes())
+					spep.addNode(nodeDataControl);
+			}
+
 		}
+	}
+	
+	protected void addBarrier() {
+		if (dataControl.addElement(dataControl.getAddableElements()[0], null)) {
+			spep.addBarrier(dataControl.getLastBarrier());
+			spep.repaint();
+			((AbstractTableModel) table.getModel()).fireTableDataChanged();
+			table.getSelectionModel().setSelectionInterval(dataControl.getBarriers().size() - 1, dataControl.getBarriers().size() - 1);
+		}
+	}
+	
+	protected void deleteBarrier() {
+		spep.removeElement(dataControl.getBarriers().get(table.getSelectedRow()));
+		dataControl.deleteElement(dataControl.getBarriers().get(table.getSelectedRow()), true);
+		((AbstractTableModel) table.getModel()).fireTableDataChanged();
 	}
 
 	public boolean updateFields() {
-		if (tep == null && barriersListDataControl.getTrajectoryDataControl().hasTrajectory())
-			return false;
-		if (tep != null && !barriersListDataControl.getTrajectoryDataControl().hasTrajectory())
-			return false;
-		
-		if (tep != null)
-			tep.update();
 		spep.repaint();
 		return true;
 	}

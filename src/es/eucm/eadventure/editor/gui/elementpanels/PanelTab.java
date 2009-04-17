@@ -1,31 +1,52 @@
 package es.eucm.eadventure.editor.gui.elementpanels;
 
 import javax.swing.JComponent;
-import javax.swing.JPanel;
 
-public class PanelTab {
+import es.eucm.eadventure.editor.gui.Updateable;
 
-	/**
-	 * 
-	 */
+public abstract class PanelTab implements Updateable {
+
 	private static final long serialVersionUID = -7666569367118952601L;
 
 	private String title;
 	
-	private JComponent panel;
+	private String toolTipText;
 	
-	public PanelTab(String title, JComponent panel) {
+	private JComponent component;
+	
+	public PanelTab(String title) {
 		super();
 		this.title = title;
-		this.panel = panel;
 	}
 	
 	public String getTitle() {
 		return title;
 	}
 	
-	public JComponent getComponent() {
-		return panel;
+	public void setToolTipText(String toolTipText) {
+		this.toolTipText = toolTipText;
 	}
 	
-}
+	public String getToolTipText() {
+		return toolTipText;
+	}
+
+	public JComponent getComponent() {
+		component = getTabComponent();
+		return component;
+	}
+	
+	protected abstract JComponent getTabComponent();
+	
+	public boolean updateFields() {
+		if (component instanceof Updateable) {
+			return ((Updateable) component).updateFields();
+		}
+		return false;
+	}
+	
+}	
+	
+	
+	
+

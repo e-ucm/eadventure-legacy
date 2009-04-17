@@ -906,7 +906,7 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="ActiveAreasList.Rectangular">Rectangular?</entry>
 	<entry key="ActiveAreasList.Conditions">Conditions</entry>
 
-	<entry key="BarriersList.Title">Barriers and trajectory</entry>
+	<entry key="BarriersList.Title">Barriers</entry>
 	<entry key="BarriersList.PreviewTitle">Preview of the barriers location and edition of the trajectory</entry>
 	<entry key="BarriersList.Information">The barriers are transparent, rectangular objects defined in the scenes. Those rectangles block the movement of the player when the conditions are validated as true. The trajectory is a set of nodes and sides that limit where the player can be and how he can get form one point to the other.</entry>
 	<entry key="BarriersList.EditNodes">Edit nodes</entry>
@@ -921,6 +921,15 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="Exit.Preview">Position and size of the exit</entry>
 	<entry key="Exit.AdvancedOptions">Advanced options</entry>
 	<entry key="Exit.IsRectangular">Is rectangular?</entry>
+	<entry key="Exit.NoTransition">No transition</entry>
+	<entry key="Exit.TopToBottom">Top to bottom</entry>
+	<entry key="Exit.BottomToTop">Bottom to top</entry>
+	<entry key="Exit.LeftToRight">Left to right</entry>
+	<entry key="Exit.RightToLeft">Right to left</entry>
+	<entry key="Exit.FadeIn">Fade in</entry>
+	
+	<entry key="NextSceneCell.EditDestinyPosition">Edit destiny position</entry>
+	<entry key="NextSceneCell.UsePosition">Use destiny position</entry>
 	
 	<entry key="ExitLook.TextPanelTitle">Displayed text on the exit</entry>
 	<entry key="ExitLook.CustomizeText">Customized text</entry>
@@ -1028,6 +1037,10 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="CutscenesList.ColumnHeader1">Type of the cutscene</entry>
 	<entry key="CutscenesList.Slidescene">Slidescene</entry>
 	<entry key="CutscenesList.Videoscene">Videoscene</entry>
+
+	<entry key="CutsceneTypes.Title">Select the cutscene type</entry>
+	<entry key="CutsceneTypes.Slides">Slidescene</entry>
+	<entry key="CutsceneTypes.Video">Videoscene</entry>
 
 	<entry key="Cutscene.Title">Cutscene</entry>
 	<entry key="Cutscene.Documentation">Full description of the cutscene</entry>
@@ -1196,6 +1209,7 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="ActionsList.UseWithAction">Use with {#0}</entry>
 	<entry key="ActionsList.CustomInteractAction">Custom interaction with {#0}</entry>
 	<entry key="ActionsList.UseAction">Use</entry>
+	<entry key="ActionsList.TalkToAction">Talk to...</entry>
 	<entry key="ActionsList.Add">Add action</entry>
 	<entry key="ActionsList.Delete">Delete action</entry>
 	<entry key="ActionsList.MoveUp">Move action up</entry>
@@ -1204,8 +1218,7 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="ActionsList.ActionName">Action</entry>
 	<entry key="ActionsList.With">With</entry>
 	<entry key="ActionsList.CustomName">Custom Name</entry>
-	<entry key="ActionList.Empty">No action selected.</entry>
-	
+	<entry key="ActionList.Empty">No action selected.</entry>	
 
 	<entry key="Action.Title">Action</entry>
 	<entry key="Action.OperationAddAction">Add action</entry>
@@ -1383,6 +1396,7 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="TreeNode.AddElement22">Add "Grab" action</entry>
 	<entry key="TreeNode.AddElement23">Add "Use" action</entry>
 	<entry key="TreeNode.AddElement230">Add "Custom" action</entry>
+	<entry key="TreeNode.AddElement231">Add "Talk to..." action</entry>
 	<entry key="TreeNode.AddElement24">Add "Use with" action</entry>
 	<entry key="TreeNode.AddElement25">Add "Give to" action</entry>
 	<entry key="TreeNode.AddElement250">Add "Custom interact" action</entry>
@@ -1466,6 +1480,7 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="Element.Name21">Examine</entry>
 	<entry key="Element.Name22">Grab</entry>
 	<entry key="Element.Name23">Use</entry>
+	<entry key="Element.Name231">Talk to...</entry>
 	<entry key="Element.Name230">Custom</entry>
 	<entry key="Element.Name24">Use with</entry>
 	<entry key="Element.Name25">Give to</entry>

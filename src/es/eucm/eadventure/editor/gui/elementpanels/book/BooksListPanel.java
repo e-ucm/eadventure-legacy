@@ -17,6 +17,7 @@ import javax.swing.table.AbstractTableModel;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.book.BooksListDataControl;
+import es.eucm.eadventure.editor.gui.structurepanel.StructureControl;
 import es.eucm.eadventure.editor.gui.treepanel.TreeNodeControl;
 
 public class BooksListPanel extends JPanel {
@@ -69,7 +70,7 @@ public class BooksListPanel extends JPanel {
 				if (e.getClickCount() == 2) {
 					JTable table = (JTable) e.getSource();
 					DataControl dataControl = BooksListPanel.this.booksListDataControl.getBooks().get(table.getSelectedRow());
-					TreeNodeControl.getInstance().changeTreeNode(dataControl);
+					StructureControl.getInstance().changeDataControl(dataControl);
 				}
 			}
 		});

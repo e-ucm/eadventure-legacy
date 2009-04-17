@@ -42,38 +42,18 @@ public class ExitTreeNode extends TreeNode {
 	public ExitTreeNode( TreeNode parent, ExitDataControl dataControl ) {
 		super( parent );
 		this.dataControl = dataControl;
-
-		for( NextSceneDataControl nextSceneDataControl : dataControl.getNextScenes( ) )
-			children.add( new NextSceneTreeNode( this, nextSceneDataControl ) );
 	}
 
 	@Override
 	public TreeNode checkForNewChild( int type ) {
 		TreeNode addedTreeNode = null;
 
-		// If a next scene was added
-		if( type == Controller.NEXT_SCENE ) {
-			// Add the last scene of the list
-			addedTreeNode = new NextSceneTreeNode( this, dataControl.getLastNextScene( ) );
-			children.add( addedTreeNode );
-
-			// Spread the owner panel to the children
-			spreadOwnerPanel( );
-		}
-
-		// Return the node created
 		return addedTreeNode;
 	}
 
 	@Override
 	public void checkForDeletedReferences( ) {
-		// If some next scene is missing, delete it
-		int i = 0;
-		while( i < children.size( ) )
-			if( i == dataControl.getNextScenes( ).size( ) || !children.get( i ).getDataControl( ).equals( dataControl.getNextScenes( ).get( i ) ) )
-				children.remove( i );
-			else
-				i++;
+
 	}
 
 	@Override

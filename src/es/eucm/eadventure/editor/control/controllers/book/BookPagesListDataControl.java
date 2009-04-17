@@ -21,6 +21,7 @@ import es.eucm.eadventure.editor.gui.assetchooser.AssetChooser;
 import es.eucm.eadventure.editor.gui.otherpanels.FormattedTextPanel;
 
 public class BookPagesListDataControl{
+	
 	/**
 	 * List of book paragraphs.
 	 */

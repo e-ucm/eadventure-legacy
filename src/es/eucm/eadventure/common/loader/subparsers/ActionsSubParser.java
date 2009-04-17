@@ -139,7 +139,7 @@ public class ActionsSubParser extends SubParser {
 		if( subParsing == SUBPARSING_NONE ) {
 
 			// If it is an examine, use or grab tag, create new conditions and effects
-			if( qName.equals( "examine" ) || qName.equals( "grab" ) || qName.equals( "use" ) ) {
+			if( qName.equals( "examine" ) || qName.equals( "grab" ) || qName.equals( "use" ) || qName.equals( "talk-to")) {
 				for( int i = 0; i < attrs.getLength( ); i++ ) {
 					if (attrs.getQName(i).equals("needsGoTo"))
 						currentNeedsGoTo = attrs.getValue(i).equals("yes");
@@ -285,6 +285,16 @@ public class ActionsSubParser extends SubParser {
 				useAction.setNeedsGoTo(currentNeedsGoTo);
 				useAction.setKeepDistance(currentKeepDistance);
 				element.addAction( useAction );
+				reading = READING_NONE;
+			}
+
+			// If it is an use tag, store the new action in the object
+			else if( qName.equals( "talk-to" ) ) {
+				Action talkToAction = new Action( Action.TALK_TO, currentConditions, currentEffects );
+				talkToAction.setDocumentation( currentDocumentation );
+				talkToAction.setNeedsGoTo(currentNeedsGoTo);
+				talkToAction.setKeepDistance(currentKeepDistance);
+				element.addAction( talkToAction );
 				reading = READING_NONE;
 			}
 

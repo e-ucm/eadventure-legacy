@@ -197,5 +197,9 @@ public class FrameDataControl extends DataControlWithResources {
 		this.selectedResources = selectedResources;
 	}
 
+	@Override
+	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+		return getPathFromChild(dataControl, resourcesDataControls);
+	}
 
 }

@@ -17,6 +17,7 @@ import javax.swing.table.AbstractTableModel;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.cutscene.CutscenesListDataControl;
+import es.eucm.eadventure.editor.gui.structurepanel.StructureControl;
 import es.eucm.eadventure.editor.gui.treepanel.TreeNodeControl;
 
 public class CutscenesListPanel extends JPanel {
@@ -68,7 +69,7 @@ public class CutscenesListPanel extends JPanel {
 				if (e.getClickCount() == 2) {
 					JTable table = (JTable) e.getSource();
 					DataControl dataControl = CutscenesListPanel.this.cutscenesListDataControl.getCutscenes().get(table.getSelectedRow());
-					TreeNodeControl.getInstance().changeTreeNode(dataControl);
+					StructureControl.getInstance().changeDataControl(dataControl);
 				}
 			}
 		});

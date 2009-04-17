@@ -75,7 +75,6 @@ public class TrajectoryEditionPanel extends JPanel {
 		buttonPanel.add(createToolButton("BarriersList.EditSides", TrajectoryScenePreviewEditionController.SIDE_EDIT, "img/icons/sideEdit.png", group));
 		buttonPanel.add(createToolButton("BarriersList.SelectInitialNode", TrajectoryScenePreviewEditionController.SELECT_INITIAL, "img/icons/selectStartNode.png", group));
 		buttonPanel.add(createToolButton("BarriersList.DeleteTool", TrajectoryScenePreviewEditionController.DELETE_TOOL, "img/icons/deleteTool.png", group));
-		buttonPanel.add(createToolButton("BarriersList.EditBarriers", TrajectoryScenePreviewEditionController.EDIT_BARRIERS, "img/icons/barrierEdit.png", group));
 		return buttonPanel;
 	}
 	

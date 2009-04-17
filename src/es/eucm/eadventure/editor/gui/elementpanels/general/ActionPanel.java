@@ -24,12 +24,10 @@ import javax.swing.event.ListSelectionListener;
 
 import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.common.gui.TextConstants;
-import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.general.ActionDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ActionsListDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.CustomActionDataControl;
-import es.eucm.eadventure.editor.control.controllers.scene.ElementContainer;
-import es.eucm.eadventure.editor.control.tools.general.MovePlayerLayerInTableTool;
+import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ActionsTable;
 
 public class ActionPanel extends JPanel{
 

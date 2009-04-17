@@ -7,7 +7,6 @@ import javax.swing.JPanel;
 
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.control.controllers.general.EmptyDataControl;
 
 public class EmptyTreeNode extends TreeNode{
 
@@ -32,7 +31,7 @@ public class EmptyTreeNode extends TreeNode{
 
 	@Override
 	public DataControl getDataControl( ) {
-		return new EmptyDataControl();
+		return null;
 	}
 
 	@Override

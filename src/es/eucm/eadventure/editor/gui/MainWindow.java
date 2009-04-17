@@ -45,6 +45,7 @@ import es.eucm.eadventure.common.auxiliar.filefilters.FolderFileFilter;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
+import es.eucm.eadventure.editor.gui.structurepanel.StructureControl;
 import es.eucm.eadventure.editor.gui.structurepanel.StructurePanel;
 import es.eucm.eadventure.editor.gui.treepanel.TreeNodeControl;
 import es.eucm.eadventure.editor.gui.treepanel.TreePanel;
@@ -161,6 +162,10 @@ public class MainWindow extends JFrame {
 
 		structurePanel = new StructurePanel(editorContainer);
 		structurePanel.recreateElements();
+		structurePanel.setMinimumSize(new Dimension(210, 0));
+		structurePanel.setMaximumSize(new Dimension(210, Integer.MAX_VALUE));
+		structurePanel.setPreferredSize(new Dimension(210, 0));
+		StructureControl.getInstance().setStructurePanel(structurePanel);
 
 		treePanel = new TreePanel( root, editorContainer );
 		treePanel.setMinimumSize( new Dimension( 210, 0 ) );
@@ -170,11 +175,12 @@ public class MainWindow extends JFrame {
 		JPanel treeToolsPanel = new JPanel();
 		treeToolsPanel.setLayout(new BorderLayout());
 		treeToolsPanel.setMinimumSize( new Dimension( 210, 0 ) );
-		treeToolsPanel.setPreferredSize( new Dimension( 210, 0 ) );
+		//treeToolsPanel.setPreferredSize( new Dimension( 210, 0 ) );
+		treeToolsPanel.setMaximumSize(new Dimension(210, Integer.MAX_VALUE));
 
-		treeToolsPanel.add(treePanel, BorderLayout.CENTER);
-//		treeToolsPanel.add(structurePanel, BorderLayout.CENTER);
-		
+//		treeToolsPanel.add(treePanel, BorderLayout.CENTER);
+		treeToolsPanel.add(structurePanel, BorderLayout.CENTER);
+	
 		JPanel toolsPanel = createToolsPanel();
 		treeToolsPanel.add(toolsPanel, BorderLayout.NORTH);
 		
@@ -182,7 +188,8 @@ public class MainWindow extends JFrame {
 		// Create the split panel
 		JSplitPane splitPane = new JSplitPane( JSplitPane.HORIZONTAL_SPLIT, treeToolsPanel, editorContainer );
 		splitPane.setBorder( null );
-
+		
+		
 		// Add the panels to the frame
 		setLayout( new BorderLayout( ) );
 		add( splitPane, BorderLayout.CENTER );
@@ -240,12 +247,12 @@ public class MainWindow extends JFrame {
 		});
 		backButton.addActionListener( new ActionListener() {
 			public void actionPerformed ( ActionEvent e ) {
-				TreeNodeControl.getInstance().goBack();
+				StructureControl.getInstance().goBack();
 			}
 		});
 		forwardButton.addActionListener( new ActionListener() {
 			public void actionPerformed ( ActionEvent e ) {
-				TreeNodeControl.getInstance().goForward();
+				StructureControl.getInstance().goForward();
 			}
 		});
 
@@ -772,8 +779,9 @@ public class MainWindow extends JFrame {
 			itAutoBackup.setSelected( controller.getAutoSaveEnabled() );
 
 
-		
 		this.reloadPanel( );
+		StructureControl.getInstance().changeDataControl(controller.getSelectedChapterDataControl());
+		StructureControl.getInstance().visitDataControl(controller.getSelectedChapterDataControl());
 		treePanel.reloadTree( newRoot );
 		
 		// Update the menu bar
@@ -853,7 +861,7 @@ public class MainWindow extends JFrame {
 				((Updateable)window).updateFields();
 			}
 		}
-		treePanel.updatePanel();
+		structurePanel.updateElementPanel();
 	}
 	
 	/**
@@ -889,6 +897,7 @@ public class MainWindow extends JFrame {
 	 */
 	public void popWindow( ) {
 		windowsStack.pop( );
+		structurePanel.updateElementPanel();
 	}
 
 	/**

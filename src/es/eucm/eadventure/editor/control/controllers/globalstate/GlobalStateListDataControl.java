@@ -276,4 +276,10 @@ public class GlobalStateListDataControl extends DataControl {
 		for (DataControl dc : this.globalStatesDataControlList)
 			dc.recursiveSearch();
 	}
+	
+	@Override
+	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+		return getPathFromChild(dataControl, globalStatesDataControlList);
+	}
+
 }

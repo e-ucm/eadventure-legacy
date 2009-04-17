@@ -2,21 +2,13 @@ package es.eucm.eadventure.editor.gui.elementpanels.general;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.Insets;
 
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import javax.swing.JTextField;
 
-import es.eucm.eadventure.common.data.Named;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.general.CustomActionDataControl;
-import es.eucm.eadventure.editor.control.tools.listeners.NameChangeListener;
 
 /**
  * The panel for the edition of a custom action
@@ -51,13 +43,7 @@ public class CustomActionPropertiesPanel extends JPanel implements ActionTypePan
 	 * and the one with personalization elements
 	 */
 	private JTabbedPane tabPanel;
-	
-	/**
-	 * The text field with the name of the action
-	 */
-	private JTextField nameTextField;
-	
-	
+			
 	/**
 	 * Defaul constructor
 	 * 
@@ -88,33 +74,10 @@ public class CustomActionPropertiesPanel extends JPanel implements ActionTypePan
 	 */
 	private JPanel createPersonalizationPanel() {
 		JPanel personalizationPanel = new JPanel();
-		personalizationPanel.setLayout(new GridBagLayout());
+		personalizationPanel.setLayout(new BorderLayout());
 		
-		
-		GridBagConstraints c = new GridBagConstraints();
-		
-		c.gridx = 0;
-		c.gridy = 0;
-		c.weighty = 0.1;
-		c.weightx = 1.0;
-		c.insets = new Insets( 5, 5, 5, 5 );
-		c.fill = GridBagConstraints.BOTH;
-
-		JPanel namePanel = new JPanel( );
-		namePanel.setLayout( new GridLayout( ) );
-		nameTextField = new JTextField( customActionDataControl.getName( ) );
-		nameTextField.getDocument().addDocumentListener( new NameChangeListener( nameTextField, (Named) customActionDataControl.getContent()));
-		namePanel.add( nameTextField );
-		namePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "CustomAction.Name" ) ) );
-		personalizationPanel.add(namePanel, c);
-		
-		c.weighty = 0.3;
-		c.gridy++;
-		c.weighty = 1.0;
 		looksPanel = new CustomActionLooksPanel( customActionDataControl );
-		looksPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "CustomAction.Appearance" ) ) );
-		personalizationPanel.add(looksPanel, c);
-		
+		personalizationPanel.add(looksPanel, BorderLayout.CENTER);
 		
 		return personalizationPanel;
 	}

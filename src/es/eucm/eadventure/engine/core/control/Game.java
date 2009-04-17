@@ -23,6 +23,7 @@ import es.eucm.eadventure.common.data.adventure.ChapterSummary;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
 import es.eucm.eadventure.common.data.chapter.Chapter;
+import es.eucm.eadventure.common.data.chapter.Exit;
 import es.eucm.eadventure.common.data.chapter.NextScene;
 import es.eucm.eadventure.common.data.chapter.Timer;
 import es.eucm.eadventure.common.data.chapter.book.Book;
@@ -195,12 +196,12 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     /**
      * The next scene that will be loaded
      */
-    private NextScene nextScene;
+    private Exit nextScene;
     
     /**
      * The last scene that was loaded
      */
-    private NextScene lastNextScene;
+    private Exit lastNextScene;
 
     /**
      * Functional scene being played
@@ -445,14 +446,15 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
 
         // By default, set the initial scene taking it from the XML script
         //GeneralScene initialScene = gameData.getInitialGeneralScene( );
-        NextScene firstScene = new NextScene( gameData.getInitialGeneralScene( ).getId( ) );
+        Exit firstScene = new Exit(true, 0, 0, 40, 40);
+        firstScene.setNextSceneId(gameData.getInitialGeneralScene().getId());
         
         // If there is an adapted state to be executed
         if( adaptedStateToExecute != null ) {
 
             // If it has an initial scene, set it
             if( adaptedStateToExecute.getTargetId( ) != null ) 
-                firstScene = new NextScene( adaptedStateToExecute.getTargetId( ) );
+                firstScene.setNextSceneId(adaptedStateToExecute.getTargetId( ));
 
             // Set the flags
             for( String flag : adaptedStateToExecute.getActivatedFlags( ) )
@@ -513,7 +515,6 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         nextChapter = false;
         
     	DebugLog.general("Chapter loaded");
-
     }
 
     public void repaintDebug() {
@@ -1072,7 +1073,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      * Sets the next scene to be loaded
      * @param nextScene New next scene structure
      */
-    public void setNextScene( NextScene nextScene ) {
+    public void setNextScene( Exit nextScene ) {
         this.lastNextScene = this.nextScene;
         this.nextScene = nextScene;
     }
@@ -1081,7 +1082,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      * Returns the current next scene
      * @return Next scene
      */
-    public NextScene getNextScene( ) {
+    public Exit getNextScene( ) {
         return nextScene;
     }
     
@@ -1089,7 +1090,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      * Returns the last next scene
      * @return Next scene
      */
-    public NextScene getLastScene( ) {
+    public Exit getLastScene( ) {
         return lastNextScene;
     }
 

@@ -7,6 +7,7 @@ import es.eucm.eadventure.common.data.chapter.CustomAction;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeNameTool;
 
 public class CustomActionDataControl extends ActionDataControl {
@@ -106,5 +107,9 @@ public class CustomActionDataControl extends ActionDataControl {
 		check(this.getName(), TextConstants.getText("Search.Name"));
 	}
 
+	@Override
+	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+		return getPathFromChild(dataControl, resourcesDataControlList);
+	}
 
 }

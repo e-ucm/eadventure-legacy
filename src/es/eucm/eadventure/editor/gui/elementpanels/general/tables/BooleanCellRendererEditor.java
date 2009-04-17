@@ -1,4 +1,4 @@
-package es.eucm.eadventure.editor.gui.elementpanels.general;
+package es.eucm.eadventure.editor.gui.elementpanels.general.tables;
 
 import java.awt.Component;
 

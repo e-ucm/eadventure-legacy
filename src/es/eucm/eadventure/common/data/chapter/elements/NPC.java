@@ -1,9 +1,5 @@
 package es.eucm.eadventure.common.data.chapter.elements;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import es.eucm.eadventure.common.data.chapter.ConversationReference;
 
 /**
  * This class holds the data of a non playing character (npc) in eAdventure
@@ -93,12 +89,6 @@ public class NPC extends Element {
 	 * Tells if it must be read by synthesizer all conversation lines 
 	 */
 	protected boolean alwaysSynthesizer;
-	
-	/**
-	 * List of conversation references of the player
-	 */
-	private List<ConversationReference> conversationReferences;
-
 
 	/**
 	 * Creates a new NPC
@@ -108,7 +98,6 @@ public class NPC extends Element {
 	 */
 	public NPC( String id ) {
 		super( id );
-		conversationReferences = new ArrayList<ConversationReference>( );
 
 		// Default colors are white for the front color, and black for the border color
 		textFrontColor = "#FFFFFF";
@@ -154,15 +143,6 @@ public class NPC extends Element {
 
 
 	/**
-	 * Returns the list of conversation references related to this npc
-	 * 
-	 * @return the list of conversation references related to this npc
-	 */
-	public List<ConversationReference> getConversationReferences( ) {
-		return conversationReferences;
-	}
-
-	/**
 	 * Sets the front color of the character's text
 	 * 
 	 * @param textFrontColor
@@ -190,15 +170,6 @@ public class NPC extends Element {
 		this.bubbleBkgColor = bubbleBkgColor;
 	}
 	
-	/**
-	 * Adds a conversation reference to the list of conversation references
-	 * 
-	 * @param conversationReference
-	 *            the conversation reference to add
-	 */
-	public void addConversationReference( ConversationReference conversationReference ) {
-		conversationReferences.add( conversationReference );
-	}
 
 	/*
 	 * (non-Javadoc)
@@ -210,8 +181,6 @@ public class NPC extends Element {
 
 		sb.append( "\n" );
 		sb.append( super.toString( ) );
-		for( ConversationReference conversationReference : conversationReferences )
-			sb.append( conversationReference.toString( ) );
 
 		return sb.toString( );
 	}
@@ -259,11 +228,6 @@ public class NPC extends Element {
 	
 	public Object clone() throws CloneNotSupportedException {
 		NPC n = (NPC) super.clone();
-		if (conversationReferences != null) {
-			n.conversationReferences = new ArrayList<ConversationReference>();
-			for (ConversationReference cr : conversationReferences)
-				n.conversationReferences.add((ConversationReference) cr.clone());
-		}
 		n.alwaysSynthesizer = alwaysSynthesizer;
 		n.textBorderColor = (textBorderColor != null ? new String(textBorderColor) : null);
 		n.textFrontColor = (textFrontColor != null ? new String(textFrontColor) : null);

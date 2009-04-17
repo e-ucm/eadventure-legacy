@@ -28,7 +28,7 @@ import es.eucm.eadventure.editor.control.controllers.scene.NodeDataControl;
 import es.eucm.eadventure.editor.control.tools.listeners.DocumentationChangeListener;
 import es.eucm.eadventure.editor.gui.editdialogs.ConditionsDialog;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
-import es.eucm.eadventure.editor.gui.treepanel.TreeNodeControl;
+import es.eucm.eadventure.editor.gui.structurepanel.StructureControl;
 
 public class ElementReferencePanel extends JPanel {
 
@@ -66,25 +66,25 @@ public class ElementReferencePanel extends JPanel {
 	/**
 	 * Constructor.
 	 * 
-	 * @param elementReferenceDataControl
+	 * @param elementReferenceDataControl2
 	 *            Controller of the element reference
 	 */
-	public ElementReferencePanel( ElementReferenceDataControl elementReferenceDataControl ) {
+	public ElementReferencePanel( ElementReferenceDataControl elementReferenceDataControl2 ) {
 
 		// Set the controller
 		Controller controller = Controller.getInstance( );
-		this.elementReferenceDataControl = elementReferenceDataControl;
+		this.elementReferenceDataControl = elementReferenceDataControl2;
 
 		// Take the scene path and the element path
-		String scenePath = controller.getSceneImagePath( elementReferenceDataControl.getParentSceneId( ) );
+		String scenePath = controller.getSceneImagePath( elementReferenceDataControl2.getParentSceneId( ) );
 
 		
 
-		if (elementReferenceDataControl.getType() == Controller.ITEM_REFERENCE)
+		if (elementReferenceDataControl2.getType() == Controller.ITEM_REFERENCE)
 			setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ItemReference.Title" ) ) );
-		else if (elementReferenceDataControl.getType() == Controller.NPC_REFERENCE)
+		else if (elementReferenceDataControl2.getType() == Controller.NPC_REFERENCE)
 			setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "NPCReference.Title" ) ) );
-		else if (elementReferenceDataControl.getType() == Controller.ATREZZO_REFERENCE)
+		else if (elementReferenceDataControl2.getType() == Controller.ATREZZO_REFERENCE)
 			setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AtrezzoReference.Title" ) ) );
 		
 			
@@ -104,17 +104,17 @@ public class ElementReferencePanel extends JPanel {
 		c2.gridy = 0;
 		c2.weightx = 1.0;
 
-		if (elementReferenceDataControl.getType() == Controller.ITEM_REFERENCE){
+		if (elementReferenceDataControl2.getType() == Controller.ITEM_REFERENCE){
 			elementsComboBox = new JComboBox( controller.getIdentifierSummary( ).getItemIds( ) );
 			elementIdPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ItemReference.ItemId" ) ) );
-		}else if (elementReferenceDataControl.getType() == Controller.NPC_REFERENCE){
+		}else if (elementReferenceDataControl2.getType() == Controller.NPC_REFERENCE){
 			elementsComboBox = new JComboBox( controller.getIdentifierSummary( ).getNPCIds( ) );
 			elementIdPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "NPCReference.NPCId" ) ) );
-		}else if (elementReferenceDataControl.getType() == Controller.ATREZZO_REFERENCE){
+		}else if (elementReferenceDataControl2.getType() == Controller.ATREZZO_REFERENCE){
 			elementsComboBox = new JComboBox( controller.getIdentifierSummary( ).getAtrezzoIds() );		
 			elementIdPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AtrezzoReference.AtrezzoId" ) ) );
 		}
-		elementsComboBox.setSelectedItem( elementReferenceDataControl.getElementId( ) );
+		elementsComboBox.setSelectedItem( elementReferenceDataControl2.getElementId( ) );
 		elementsComboBox.addActionListener( new ElementsComboBoxListener( ) );
 		elementIdPanel.add( elementsComboBox, c2 );
 		
@@ -124,7 +124,8 @@ public class ElementReferencePanel extends JPanel {
 		goToButton.setToolTipText(TextConstants.getText("ElementReference.GoToReferencedElement"));
 		goToButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				TreeNodeControl.getInstance().changeTreeNode(ElementReferencePanel.this.elementReferenceDataControl.getReferencedElementDataControl());
+				StructureControl.getInstance().changeDataControl(elementReferenceDataControl.getReferencedElementDataControl());
+				
 			}
 		});
 		c2.gridx = 1;
@@ -141,16 +142,16 @@ public class ElementReferencePanel extends JPanel {
 		c.gridy = 1;
 		JPanel documentationPanel = new JPanel( );
 		documentationPanel.setLayout( new GridLayout( ) );
-		documentationTextArea = new JTextArea( elementReferenceDataControl.getDocumentation( ), 4, 0 );
+		documentationTextArea = new JTextArea( elementReferenceDataControl2.getDocumentation( ), 4, 0 );
 		documentationTextArea.setLineWrap( true );
 		documentationTextArea.setWrapStyleWord( true );
-		documentationTextArea.getDocument( ).addDocumentListener( new DocumentationChangeListener( documentationTextArea, (Documented) elementReferenceDataControl.getContent()) );
+		documentationTextArea.getDocument( ).addDocumentListener( new DocumentationChangeListener( documentationTextArea, (Documented) elementReferenceDataControl2.getContent()) );
 		documentationPanel.add( new JScrollPane( documentationTextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER ) );
-		if (elementReferenceDataControl.getType() == Controller.ITEM_REFERENCE)
+		if (elementReferenceDataControl2.getType() == Controller.ITEM_REFERENCE)
 			documentationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ItemReference.Documentation" ) ) );
-		else if (elementReferenceDataControl.getType() == Controller.NPC_REFERENCE)
+		else if (elementReferenceDataControl2.getType() == Controller.NPC_REFERENCE)
 			documentationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "NPCReference.Documentation" ) ) );
-		else if (elementReferenceDataControl.getType() == Controller.ATREZZO_REFERENCE)
+		else if (elementReferenceDataControl2.getType() == Controller.ATREZZO_REFERENCE)
 			documentationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AtrezzoReference.Documentation" ) ) );
 		infoPanel.add( documentationPanel, c );
 
@@ -161,11 +162,11 @@ public class ElementReferencePanel extends JPanel {
 		JButton conditionsButton = new JButton( TextConstants.getText( "GeneralText.EditConditions" ) );
 		conditionsButton.addActionListener( new ConditionsButtonListener( ) );
 		conditionsPanel.add( conditionsButton );
-		if (elementReferenceDataControl.getType() == Controller.ITEM_REFERENCE)
+		if (elementReferenceDataControl2.getType() == Controller.ITEM_REFERENCE)
 			conditionsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ItemReference.Conditions" ) ) );
-		else if (elementReferenceDataControl.getType() == Controller.NPC_REFERENCE)
+		else if (elementReferenceDataControl2.getType() == Controller.NPC_REFERENCE)
 			conditionsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "NPCReference.Conditions" ) ) );
-		else if (elementReferenceDataControl.getType() == Controller.ATREZZO_REFERENCE)
+		else if (elementReferenceDataControl2.getType() == Controller.ATREZZO_REFERENCE)
 			conditionsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AtrezzoReference.Conditions" ) ) );
 		infoPanel.add( conditionsPanel, c );
 
@@ -206,29 +207,29 @@ public class ElementReferencePanel extends JPanel {
 		if( scenePath != null ) {
 
 			// Add the item references first
-			for( ElementReferenceDataControl elementReference : elementReferenceDataControl.getParentSceneItemReferences( ) ) {
+			for( ElementReferenceDataControl elementReference : elementReferenceDataControl2.getParentSceneItemReferences( ) ) {
 				// Check that the item is not added in the "Items" category
 				scenePreviewEditionPanel.addElement(ScenePreviewEditionPanel.CATEGORY_OBJECT, elementReference);
 			}
 
 			// Add then the character references
-			for( ElementReferenceDataControl elementReference : elementReferenceDataControl.getParentSceneNPCReferences( ) ) {
+			for( ElementReferenceDataControl elementReference : elementReferenceDataControl2.getParentSceneNPCReferences( ) ) {
 				scenePreviewEditionPanel.addElement(ScenePreviewEditionPanel.CATEGORY_CHARACTER, elementReference);
 			}
 			
 			//Add atrezzo references
-			for( ElementReferenceDataControl elementReference : elementReferenceDataControl.getParentSceneAtrezzoReferences( ) ) {
+			for( ElementReferenceDataControl elementReference : elementReferenceDataControl2.getParentSceneAtrezzoReferences( ) ) {
 				scenePreviewEditionPanel.addElement(ScenePreviewEditionPanel.CATEGORY_ATREZZO, elementReference);
 			}
 		}
 
-		scenePreviewEditionPanel.setMovableElement(elementReferenceDataControl);
-		if (elementReferenceDataControl.getSceneDataControl().getTrajectory().hasTrajectory()) {
-			scenePreviewEditionPanel.setTrajectory((Trajectory) elementReferenceDataControl.getSceneDataControl().getTrajectory().getContent());
-			for (NodeDataControl nodeDataControl: elementReferenceDataControl.getSceneDataControl().getTrajectory().getNodes())
+		scenePreviewEditionPanel.setMovableElement(elementReferenceDataControl2);
+		if (elementReferenceDataControl2.getSceneDataControl().getTrajectory().hasTrajectory()) {
+			scenePreviewEditionPanel.setTrajectory((Trajectory) elementReferenceDataControl2.getSceneDataControl().getTrajectory().getContent());
+			for (NodeDataControl nodeDataControl: elementReferenceDataControl2.getSceneDataControl().getTrajectory().getNodes())
 				scenePreviewEditionPanel.addNode(nodeDataControl);
-			if (elementReferenceDataControl.getInfluenceArea() != null) 
-				scenePreviewEditionPanel.addInfluenceArea(elementReferenceDataControl.getInfluenceArea());
+			if (elementReferenceDataControl2.getInfluenceArea() != null) 
+				scenePreviewEditionPanel.addInfluenceArea(elementReferenceDataControl2.getInfluenceArea());
 		}
 
 		scenePreviewEditionPanel.setFixedSelectedElement(true);
@@ -244,11 +245,6 @@ public class ElementReferencePanel extends JPanel {
 	 */
 	private class ElementsComboBoxListener implements ActionListener {
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-		 */
 		public void actionPerformed( ActionEvent e ) {
 			elementReferenceDataControl.setElementId( elementsComboBox.getSelectedItem( ).toString( ) );
 
@@ -263,11 +259,6 @@ public class ElementReferencePanel extends JPanel {
 	 */
 	private class ConditionsButtonListener implements ActionListener {
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-		 */
 		public void actionPerformed( ActionEvent e ) {
 			new ConditionsDialog( elementReferenceDataControl.getConditions( ) );
 		}

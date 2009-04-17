@@ -11,6 +11,7 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
+import es.eucm.eadventure.editor.gui.editdialogs.CutsceneTypesDialog;
 
 public class CutscenesListDataControl extends DataControl {
 
@@ -89,13 +90,13 @@ public class CutscenesListDataControl extends DataControl {
 
 	@Override
 	public int[] getAddableElements( ) {
-		return new int[] { Controller.CUTSCENE_SLIDES, Controller.CUTSCENE_VIDEO };
+		return new int[] { Controller.CUTSCENE };
 	}
 
 	@Override
 	public boolean canAddElement( int type ) {
 		// It can always add new cutscenes
-		return type == Controller.CUTSCENE_SLIDES || type == Controller.CUTSCENE_VIDEO;
+		return type == Controller.CUTSCENE;
 	}
 
 	@Override
@@ -117,49 +118,57 @@ public class CutscenesListDataControl extends DataControl {
 	public boolean addElement( int type, String cutsceneId ) {
 		boolean elementAdded = false;
 
-		if( type == Controller.CUTSCENE_SLIDES ) {
-
-			// Show a dialog asking for the cutscene id
-			if (cutsceneId == null)
-				cutsceneId = controller.showInputDialog( TextConstants.getText( "Operation.AddCutsceneTitle" ), TextConstants.getText( "Operation.AddCutsceneMessage" ), TextConstants.getText( "Operation.AddCutsceneDefaultValue" ) );
-
-			// If some value was typed and the identifier is valid
-			if( cutsceneId != null && controller.isElementIdValid( cutsceneId ) ) {
-				Cutscene newCutscene = null;
-
-				// Create the new cutscene
-				if( type == Controller.CUTSCENE_SLIDES )
-					newCutscene = new Slidescene( cutsceneId );
-
-				// Add the new cutscene
-				cutscenesList.add( newCutscene );
-				cutscenesDataControlList.add( new CutsceneDataControl( newCutscene ) );
-				controller.getIdentifierSummary( ).addCutsceneId( cutsceneId );
-				//controller.dataModified( );
-				elementAdded = true;
+		
+		if ( type == Controller.CUTSCENE) {
+		
+			CutsceneTypesDialog cutscenesTypesDialog = new CutsceneTypesDialog();
+			type = cutscenesTypesDialog.getOptionSelected();
+			
+			
+			if( type == Controller.CUTSCENE_SLIDES ) {
+	
+				// Show a dialog asking for the cutscene id
+				if (cutsceneId == null)
+					cutsceneId = controller.showInputDialog( TextConstants.getText( "Operation.AddCutsceneTitle" ), TextConstants.getText( "Operation.AddCutsceneMessage" ), TextConstants.getText( "Operation.AddCutsceneDefaultValue" ) );
+	
+				// If some value was typed and the identifier is valid
+				if( cutsceneId != null && controller.isElementIdValid( cutsceneId ) ) {
+					Cutscene newCutscene = null;
+	
+					// Create the new cutscene
+					if( type == Controller.CUTSCENE_SLIDES )
+						newCutscene = new Slidescene( cutsceneId );
+	
+					// Add the new cutscene
+					cutscenesList.add( newCutscene );
+					cutscenesDataControlList.add( new CutsceneDataControl( newCutscene ) );
+					controller.getIdentifierSummary( ).addCutsceneId( cutsceneId );
+					//controller.dataModified( );
+					elementAdded = true;
+				}
 			}
-		}
-
-		else if( type == Controller.CUTSCENE_VIDEO ) {
-
-			// Show a dialog asking for the cutscene id
-			if (cutsceneId == null)
-				cutsceneId = controller.showInputDialog( TextConstants.getText( "Operation.AddCutsceneTitle" ), TextConstants.getText( "Operation.AddCutsceneMessage" ), TextConstants.getText( "Operation.AddCutsceneDefaultValue" ) );
-
-			// If some value was typed and the identifier is valid
-			if( cutsceneId != null && controller.isElementIdValid( cutsceneId ) ) {
-				Cutscene newCutscene = null;
-
-				// Create the new cutscene
-				if( type == Controller.CUTSCENE_VIDEO )
-					newCutscene = new Videoscene( cutsceneId );
-
-				// Add the new cutscene
-				cutscenesList.add( newCutscene );
-				cutscenesDataControlList.add( new CutsceneDataControl( newCutscene ) );
-				controller.getIdentifierSummary( ).addCutsceneId( cutsceneId );
-				//controller.dataModified( );
-				elementAdded = true;
+	
+			else if( type == Controller.CUTSCENE_VIDEO ) {
+	
+				// Show a dialog asking for the cutscene id
+				if (cutsceneId == null)
+					cutsceneId = controller.showInputDialog( TextConstants.getText( "Operation.AddCutsceneTitle" ), TextConstants.getText( "Operation.AddCutsceneMessage" ), TextConstants.getText( "Operation.AddCutsceneDefaultValue" ) );
+	
+				// If some value was typed and the identifier is valid
+				if( cutsceneId != null && controller.isElementIdValid( cutsceneId ) ) {
+					Cutscene newCutscene = null;
+	
+					// Create the new cutscene
+					if( type == Controller.CUTSCENE_VIDEO )
+						newCutscene = new Videoscene( cutsceneId );
+	
+					// Add the new cutscene
+					cutscenesList.add( newCutscene );
+					cutscenesDataControlList.add( new CutsceneDataControl( newCutscene ) );
+					controller.getIdentifierSummary( ).addCutsceneId( cutsceneId );
+					//controller.dataModified( );
+					elementAdded = true;
+				}
 			}
 		}
 
@@ -320,4 +329,10 @@ public class CutscenesListDataControl extends DataControl {
 		for (DataControl dc : this.cutscenesDataControlList)
 			dc.recursiveSearch();
 	}
+	
+	@Override
+	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+		return getPathFromChild(dataControl, cutscenesDataControlList);
+	}
+
 }

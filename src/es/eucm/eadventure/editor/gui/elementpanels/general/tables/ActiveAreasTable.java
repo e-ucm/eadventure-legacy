@@ -1,6 +1,7 @@
-package es.eucm.eadventure.editor.gui.elementpanels.general;
+package es.eucm.eadventure.editor.gui.elementpanels.general.tables;
 
 import javax.swing.DefaultCellEditor;
+import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
@@ -9,24 +10,25 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.gui.TextConstants;
-import es.eucm.eadventure.editor.control.controllers.scene.ExitsListDataControl;
+import es.eucm.eadventure.editor.control.controllers.scene.ActiveAreasListDataControl;
+import es.eucm.eadventure.editor.gui.elementpanels.scene.ActiveAreasListPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.IrregularAreaEditionPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 
-public class ExitsTable extends JTable {
+public class ActiveAreasTable extends JTable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	protected ExitsListDataControl dataControl;
+	protected ActiveAreasListDataControl dataControl;
 	
 	protected IrregularAreaEditionPanel iaep;
 	
 	protected ScenePreviewEditionPanel spep;
 	
-	public ExitsTable (ExitsListDataControl dControl, IrregularAreaEditionPanel iaep2){
+	public ActiveAreasTable (ActiveAreasListDataControl dControl, IrregularAreaEditionPanel iaep2, JSplitPane previewAuxSplit){
 		super();
 		this.spep = iaep2.getScenePreviewEditionPanel();
 		this.iaep = iaep2;
@@ -39,13 +41,22 @@ public class ExitsTable extends JTable {
 		this.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent arg0) {
 				if (getSelectedRow() >= 0) {
-					iaep.setRectangular(dataControl.getExits().get(getSelectedRow()));
+					iaep.setRectangular(dataControl.getActiveAreas().get(getSelectedRow()));
 					iaep.repaint();
 				}
 			}
 		});
 		
+		this.getColumnModel().getColumn(0).setCellEditor(new DefaultCellEditor(new JTextField()));
 		this.getColumnModel().getColumn(1).setCellEditor(new DefaultCellEditor(new JTextField()));
+
+		this.getColumnModel().getColumn(2).setCellRenderer(new ConditionsCellRendererEditor());
+		this.getColumnModel().getColumn(2).setCellEditor(new ConditionsCellRendererEditor());
+		
+		String text = TextConstants.getText("ActiveAreasListPanel.EditConditionsAndEffects");
+		this.getColumnModel().getColumn(3).setCellRenderer(new AuxEditCellRendererEditor(previewAuxSplit, ActiveAreasListPanel.VERTICAL_SPLIT_POSITION, text));
+		this.getColumnModel().getColumn(3).setCellEditor(new AuxEditCellRendererEditor(previewAuxSplit, ActiveAreasListPanel.VERTICAL_SPLIT_POSITION, text));
+
 		
 		this.getSelectionModel( ).setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
 		this.setSize(200, 150);
@@ -57,31 +68,20 @@ public class ExitsTable extends JTable {
 		private static final long serialVersionUID = 1L;
 		
 		public int getColumnCount( ) {
-			return 3;
+			return 4;
 		}
 
 		public int getRowCount( ) {
-			return dataControl.getExits().size();
+			return dataControl.getActiveAreas().size();
 		}
-		
-		@SuppressWarnings("unchecked")
-		public Class getColumnClass(int columnIndex) {
-			if (columnIndex == 0 || columnIndex == 2)
-				return Boolean.class;
-			return super.getColumnClass(columnIndex);
-		}
-		
+				
 		public Object getValueAt( int rowIndex, int columnIndex ) {
 			if (columnIndex == 0)
-				return new Boolean(dataControl.getExits().get(rowIndex).getExitLookDataControl().isTextCustomized());
-			if (columnIndex == 1) {
-				String temp = dataControl.getExits().get(rowIndex).getExitLookDataControl().getCustomizedText();
-				if (temp == null)
-					temp = "";
-				return temp;
-			}
+				return dataControl.getActiveAreas().get(rowIndex).getId();
+			if (columnIndex == 1)
+				return dataControl.getActiveAreas().get(rowIndex).getName();
 			if (columnIndex == 2)
-				return new Boolean(dataControl.getExits().get(rowIndex).isRectangular());
+				return dataControl.getActiveAreas().get(rowIndex).getConditions();
 			return null;
 		}
 		
@@ -92,31 +92,22 @@ public class ExitsTable extends JTable {
 			if (columnIndex == 1)
 				return TextConstants.getText( "ActiveAreasList.Name" );
 			if (columnIndex == 2)
-				return TextConstants.getText( "ActiveAreasList.Rectangular" );
-			if (columnIndex == 3)
 				return TextConstants.getText( "ActiveAreasList.Conditions" );
 			return "";
 		}
 		
 		@Override
 		public void setValueAt(Object value, int rowIndex, int columnIndex) {
-			if (columnIndex == 2) {
-				dataControl.getExits().get(rowIndex).setRectangular(((Boolean) value).booleanValue());
-				if (getSelectedRow() >= 0) {
-					iaep.setRectangular(dataControl.getExits().get(getSelectedRow()));
-					iaep.repaint();
-				}
-			} else if (columnIndex == 1) {
-				dataControl.getExits().get(rowIndex).getExitLookDataControl().setExitText((String) value);
-				this.fireTableDataChanged();
+			if (columnIndex == 1) {
+				dataControl.getActiveAreas().get(rowIndex).setName((String) value);
 			} else if (columnIndex == 0) {
-				dataControl.getExits().get(rowIndex).getExitLookDataControl().setExitText(((Boolean) value).booleanValue() ? "" : null);
+				dataControl.getActiveAreas().get(rowIndex).renameElement((String) value);
 			}
 		}
 		
 		@Override
 		public boolean isCellEditable(int row, int column) {
-			return getSelectedRow() == row && (column != 1 || dataControl.getExits().get(row).getExitLookDataControl().isTextCustomized());
+			return getSelectedRow() == row;
 		}
 	}
 }

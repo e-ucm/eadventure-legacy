@@ -263,4 +263,10 @@ public class BookParagraphsListDataControl extends DataControl {
 	public List<BookParagraph> getBookParagraphsList() {
 		return bookParagraphsList;
 	}
+	
+	@Override
+	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+		return getPathFromChild(dataControl, bookParagraphsDataControlList);
+	}
+
 }

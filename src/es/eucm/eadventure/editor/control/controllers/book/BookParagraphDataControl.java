@@ -294,4 +294,10 @@ public class BookParagraphDataControl extends DataControl {
 	public void recursiveSearch() {
 		check(this.getParagraphContent(), TextConstants.getText("Search.ParagraphContent"));
 	}
+	
+	@Override
+	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+		return null;
+	}
+
 }

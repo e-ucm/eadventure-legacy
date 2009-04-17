@@ -1,5 +1,7 @@
 package es.eucm.eadventure.editor.gui.elementpanels.general;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -7,36 +9,26 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
+import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ResourcesTable;
 
-public abstract class LooksPanel extends JScrollPane {
+public abstract class LooksPanel extends JPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-
-	public static final int STANDING = 0;
 	
-	public static final int TALKING = 1;
-	
-	public static final int USING = 2;
-	
-	public static final int WALKING = 3;
+	private static final int HORIZONTAL_SPLIT_POSITION = 60;
 	
 	protected DataControlWithResources dataControl;
 
@@ -47,26 +39,18 @@ public abstract class LooksPanel extends JScrollPane {
 	/**
 	 * Combo box for the selected resources block.
 	 */
-	protected JComboBox resourcesComboBox;
+	protected ResourcesTable resourcesTable;
 
 	protected JButton newResourcesBlock;
-
+	
 	protected JButton deleteResourcesBlock;
 
 	protected ResourcesPanel resourcesPanel;
 	
 	protected int selectedResourceGroup = 0;
-
-	private String[] getResourceNames(){
-		String[] resourcesArray = new String[dataControl.getResourcesCount( )];
-		for( int i = 0; i < dataControl.getResourcesCount( ); i++ ) {
-			resourcesArray[i] = TextConstants.getText( "ResourcesList.ResourcesBlockNumber" ) + ( i + 1 );
-		}
-		return resourcesArray;
-	}
 	
 	public LooksPanel( DataControlWithResources dControl ) {
-		super( JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED );
+		super();
 		this.dataControl = dControl;
 		lookPanel = new JPanel( );
 		lookPanel.setLayout( new GridBagLayout( ) );
@@ -83,68 +67,59 @@ public abstract class LooksPanel extends JScrollPane {
 		resourcesComboPanel.setLayout( new GridLayout( ) );
 		// Create the list of resources
 
-		resourcesComboBox = new JComboBox( getResourceNames() );
-		resourcesComboBox.setSelectedIndex( dataControl.getSelectedResources( ) );
+		//resourcesComboBox = new JComboBox( getResourceNames() );
+		resourcesTable = new ResourcesTable(dataControl, this);
+		resourcesTable.setSelectedIndex( dataControl.getSelectedResources( ) );
+		resourcesTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent arg0) {
+				if (resourcesTable.getSelectedRow() >= 0) {
+					updateResources();
+					if (dataControl.getResourcesCount() > 1) {
+						deleteResourcesBlock.setEnabled(true);
+					} else
+						deleteResourcesBlock.setEnabled(false);
+				}
+			}
+		});
+		JScrollPane scroll = new JScrollPane(resourcesTable, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scroll.setMinimumSize(new Dimension(0, 	HORIZONTAL_SPLIT_POSITION));
 
-		resourcesComboBox.addActionListener( new ResourcesComboBoxListener( ) );
-
-		resourcesComboPanel.add( resourcesComboBox );
-		resourcesComboPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ResourcesList.SelectResourcesBlock" ) ) );
-		lookPanel.add( resourcesComboPanel, cLook );
+		
+		//resourcesComboBox.addActionListener( new ResourcesComboBoxListener( ) );
 
 		//Create the add button
-		newResourcesBlock = new JButton( TextConstants.getText( "Resources.NewBlock" ) );
-		newResourcesBlock.addActionListener( new ActionListener( ) {
+		newResourcesBlock = new JButton(new ImageIcon("img/icons/addNode.png"));
+		newResourcesBlock.setContentAreaFilled( false );
+		newResourcesBlock.setMargin( new Insets(0,0,0,0) );
+		newResourcesBlock.setToolTipText( TextConstants.getText( "ItemReferenceTable.AddParagraph" ) );
+		newResourcesBlock.addActionListener( new NewButtonListener() );
 
-			// If new Resources block is pressed create a new resources block (dataControl), rebuild the comboBox and the resources Panel
-			public void actionPerformed( ActionEvent e ) {
-				if( dataControl.addElement( Controller.RESOURCES, null ) ) {
-					dataControl.setSelectedResources( dataControl.getResourcesCount( ) - 1 );
-					resourcesComboBox.addItem( TextConstants.getText( "ResourcesList.ResourcesBlockNumber" ) + dataControl.getResourcesCount( ) );
-					resourcesComboBox.setSelectedIndex( resourcesComboBox.getItemCount( ) - 1 );
-					updateResources( );
-				}
-			}
-
-		} );
-		//Create the delete Block button
-		Icon deleteBlock = new ImageIcon( "img/icons/deleteContent.png" );
-		this.deleteResourcesBlock = new JButton( deleteBlock );
-		deleteResourcesBlock.addActionListener( new ActionListener( ) {
-
-			public void actionPerformed( ActionEvent e ) {
-				if ( resourcesComboBox.getSelectedIndex( )>=0 ){
-					dataControl.setSelectedResources( resourcesComboBox.getSelectedIndex( ) );
-					int selectedBlock = dataControl.getSelectedResources( );
-					DataControl resourcesToDelete = dataControl.getResources( ).get( selectedBlock );
-					if( dataControl.deleteElement( resourcesToDelete , true ) ) {
-						resourcesComboBox.setModel( new DefaultComboBoxModel(getResourceNames()));
-						//resourcesComboBox.removeItemAt( selectedBlock );
-						dataControl.setSelectedResources( 0 );
-						resourcesComboBox.setSelectedIndex( 0 );
-						updateResources( );
-						resourcesComboBox.updateUI( );
-					}
-				}
-			}
-
-		} );
+		this.deleteResourcesBlock = new JButton(new ImageIcon("img/icons/deleteNode.png"));
+		deleteResourcesBlock.setContentAreaFilled( false );
+		deleteResourcesBlock.setMargin( new Insets(0,0,0,0) );
+		deleteResourcesBlock.setToolTipText( TextConstants.getText( "ItemReferenceTable.Delete" ) );
+		deleteResourcesBlock.setEnabled(false);
+		deleteResourcesBlock.addActionListener( new DeleteButtonListener( ));
+		
 		JPanel blockControls = new JPanel( );
-		blockControls.setLayout( new BoxLayout( blockControls, BoxLayout.LINE_AXIS ) );
-		blockControls.add( newResourcesBlock );
-		blockControls.add( Box.createHorizontalStrut( 1 ) );
-		blockControls.add( deleteResourcesBlock );
-		cLook.gridx = 1;
-		cLook.weightx = 0.2;
-		cLook.anchor = GridBagConstraints.CENTER;
-		cLook.weighty = 0;
-		//cLook.anchor=GridBagConstraints.BASELINE;
-		lookPanel.add( blockControls, cLook );
+		
+		JPanel buttonsPanel = new JPanel();
+		buttonsPanel.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 0;
+		buttonsPanel.add(newResourcesBlock, c);
+		c.gridy = 1;
+		buttonsPanel.add(deleteResourcesBlock, c);
+		
+		blockControls.setLayout(new BorderLayout());
+		blockControls.add(scroll, BorderLayout.CENTER);
+		blockControls.add(buttonsPanel, BorderLayout.EAST);
 
 		//Create the resources Panel
 		resourcesPanel = new ResourcesPanel( dataControl.getResources( ).get( dataControl.getSelectedResources( ) ) );
 		resourcesPanel.setPreviewUpdater( this );
-		cLook.gridy = 1;
+		cLook.gridy = 0;
 		cLook.gridx = 0;
 		cLook.gridwidth = 2;
 		cLook.fill = GridBagConstraints.BOTH;
@@ -153,38 +128,58 @@ public abstract class LooksPanel extends JScrollPane {
 		lookPanel.add( resourcesPanel, cLook );
 
 		// Create and set the preview panel
-		cLook.gridy = 2;
+		cLook.gridy = 1;
 		cLook.fill = GridBagConstraints.BOTH;
 		cLook.weighty = 1;
 		cLook.weightx = 1;
 		cLook.gridwidth = 2;
 		createPreview( );
+		
+		JSplitPane tableWithSplit = new JSplitPane(JSplitPane.VERTICAL_SPLIT, blockControls, lookPanel);
+		tableWithSplit.setOneTouchExpandable(true);
+		tableWithSplit.setDividerLocation(HORIZONTAL_SPLIT_POSITION);
+		tableWithSplit.setContinuousLayout(true);
+		tableWithSplit.setResizeWeight(0);
+		tableWithSplit.setDividerSize(10);
 
-		//Add the lookPanel to the ScrollbarPane
-		setViewportView( lookPanel );
-	}
-
-	/**
-	 * Listener for resources combo box.
-	 */
-	private class ResourcesComboBoxListener implements ActionListener {
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-		 */
-		public void actionPerformed( ActionEvent e ) {
-			updateResources( );
-		}
+		setLayout(new BorderLayout());
+		add(tableWithSplit, BorderLayout.CENTER);
 	}
 
 	public abstract void updatePreview( );
 
 	protected abstract void createPreview( );
 
+	private class DeleteButtonListener implements ActionListener {
+		public void actionPerformed( ActionEvent e ) {
+			if ( resourcesTable.getSelectedIndex( )>=0 ){
+				dataControl.setSelectedResources( resourcesTable.getSelectedIndex( ) );
+				int selectedBlock = dataControl.getSelectedResources( );
+				DataControl resourcesToDelete = dataControl.getResources( ).get( selectedBlock );
+				if( dataControl.deleteElement( resourcesToDelete , true ) ) {
+					dataControl.setSelectedResources( 0 );
+					resourcesTable.setSelectedIndex( 0 );
+					updateResources( );
+					resourcesTable.updateUI( );
+					((AbstractTableModel) resourcesTable.getModel()).fireTableDataChanged();
+				}
+			}
+		}
+	}
+	
+	private class NewButtonListener implements ActionListener {
+		public void actionPerformed( ActionEvent e ) {
+			if( dataControl.addElement( Controller.RESOURCES, null ) ) {
+				dataControl.setSelectedResources( dataControl.getResourcesCount( ) - 1 );
+				updateResources( );
+				resourcesTable.setSelectedIndex(dataControl.getResourcesCount() - 1);
+				((AbstractTableModel) resourcesTable.getModel()).fireTableDataChanged();
+			}
+		}
+	}
+	
 	public void updateResources( ) {
-		dataControl.setSelectedResources( resourcesComboBox.getSelectedIndex( ) );
+		dataControl.setSelectedResources( resourcesTable.getSelectedIndex( ) );
 		//multipleImagePanel.loadImage( sceneDataControl.getPreviewBackground( ) );
 		//multipleImagePanel.repaint( );
 		updatePreview( );
@@ -193,7 +188,7 @@ public abstract class LooksPanel extends JScrollPane {
 		resourcesPanel = new ResourcesPanel( dataControl.getResources( ).get( dataControl.getSelectedResources( ) ) , selectedIndex);
 		resourcesPanel.setPreviewUpdater( this );
 		GridBagConstraints cLook = new GridBagConstraints( );
-		cLook.gridy = 1;
+		cLook.gridy = 0;
 		cLook.gridx = 0;
 		cLook.gridwidth = 2;
 		cLook.fill = GridBagConstraints.BOTH;
@@ -212,5 +207,4 @@ public abstract class LooksPanel extends JScrollPane {
 		this.selectedResourceGroup = group;
 		updatePreview();
 	}
-
 }

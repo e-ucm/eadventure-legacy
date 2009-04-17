@@ -43,20 +43,11 @@ public class SceneInfoPanel extends JPanel implements Updateable{
 	 */
 	private JTextField nameTextField;
 
-	/**
-	 * Initial position button.
-	 */
-	private JButton initialPositionButton;
-
-	private JCheckBox isAllowPlayerLayer;
-	
-	private SceneLooksPanel looksPanel;
-	
-	public SceneInfoPanel(SceneDataControl sDataControl, SceneLooksPanel looksPanel) {
+		
+	public SceneInfoPanel(SceneDataControl sDataControl) {
 		super();
 
 		this.sceneDataControl = sDataControl;
-		this.looksPanel = looksPanel;
 
 		setLayout( new GridBagLayout( ) );
 		GridBagConstraints cDoc = new GridBagConstraints( );
@@ -90,100 +81,18 @@ public class SceneInfoPanel extends JPanel implements Updateable{
 		namePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Scene.Name" ) ) );
 		add( namePanel, cDoc );
 
-		if (!Controller.getInstance( ).isPlayTransparent( )){
-			cDoc.gridy++;
-			JPanel useTrajectoryPanel = new JPanel();
-			useTrajectoryPanel.setLayout( new GridLayout(0,1));
-			JCheckBox useTrajectoryCheckBox = new JCheckBox(TextConstants.getText("Scene.UseTrajectory"), sceneDataControl.getTrajectory().hasTrajectory());
-			useTrajectoryCheckBox.addActionListener( new TrajectoryCheckBoxListener() );
-			
-			useTrajectoryPanel.add(useTrajectoryCheckBox);
-			useTrajectoryPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Scene.UseTrajectoryPanel" ) ) );
-
-			add( useTrajectoryPanel, cDoc );
-		}
-		
-		cDoc.gridy++;
-		JPanel initialPositionPanel = new JPanel( );
-		initialPositionPanel.setLayout( new GridLayout( 0, 1 ) );
-		JCheckBox initialPositionCheckBox = new JCheckBox( TextConstants.getText( "Scene.UseInitialPosition" ), sceneDataControl.hasDefaultInitialPosition( ) );
-		initialPositionCheckBox.addActionListener( new InitialPositionCheckBoxListener( ) );
-		
-		initialPositionButton = new JButton( TextConstants.getText( "Scene.EditInitialPosition" ) );
-		initialPositionButton.setEnabled( sceneDataControl.hasDefaultInitialPosition( ) );
-		initialPositionButton.addActionListener( new InitialPositionButtonListener( ) );
-		
-		if (!Controller.getInstance( ).isPlayTransparent( )){
-			initialPositionPanel.add( initialPositionCheckBox );
-			initialPositionPanel.add( initialPositionButton );
-			initialPositionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Scene.DefaultInitialPosition" ) ) );
-		}
-		
-		add( initialPositionPanel, cDoc );
-		
-		cDoc.gridy++;
-		JPanel allowPlayerLayer = new JPanel();
-		allowPlayerLayer.setLayout(new GridLayout( 0, 1 ) );
-		isAllowPlayerLayer = new JCheckBox(TextConstants.getText("Scene.AllowPlayer"),sceneDataControl.isAllowPlayer());
-		isAllowPlayerLayer.setSelected( sceneDataControl.isAllowPlayer() );
-		isAllowPlayerLayer.addActionListener(new PlayerLayerCheckBoxListener());
-		allowPlayerLayer.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Scene.AllowPlayerBorder" ) ) );
-		allowPlayerLayer.add(isAllowPlayerLayer);
-		add(allowPlayerLayer, cDoc);
-		
 		cDoc.gridy++;
 		cDoc.weightx = 1;
 		cDoc.weighty = 0.5;
 		add( new JFiller( ), cDoc );
 	}
 	
-	private class TrajectoryCheckBoxListener implements ActionListener {
-		public void actionPerformed( ActionEvent e ) {
-			Controller.getInstance().addTool(new ChangeHasTrajectoryTool(((JCheckBox) e.getSource()).isSelected(), sceneDataControl));
-		}
-	}
 
-	/**
-	 * Listener for the "Set default initial position" button
-	 */
-	private class InitialPositionButtonListener implements ActionListener {
-
-		public void actionPerformed( ActionEvent arg0 ) {
-			PlayerPositionDialog initialPositionDialog = new PlayerPositionDialog( sceneDataControl.getId( ), sceneDataControl.getDefaultInitialPositionX( ), sceneDataControl.getDefaultInitialPositionY( ) );
-			sceneDataControl.setDefaultInitialPosition( initialPositionDialog.getPositionX( ), initialPositionDialog.getPositionY( ) );
-		}
-	}
-	
-	/**
-	 * Listener for the "Allow player layer" check box.
-	 */
-	private class PlayerLayerCheckBoxListener implements ActionListener {
-
-		public void actionPerformed( ActionEvent e ) {
-			sceneDataControl.changeAllowPlayerLayer(isAllowPlayerLayer.isSelected(),looksPanel);
-		}
-
-	}
-
-	
-	/**
-	 * Listener for the "Use initial position in this scene" check box.
-	 */
-	private class InitialPositionCheckBoxListener implements ActionListener {
-
-		public void actionPerformed( ActionEvent e ) {
-			sceneDataControl.toggleDefaultInitialPosition( );
-			initialPositionButton.setEnabled( sceneDataControl.hasDefaultInitialPosition( ) );
-		}
-
-	}
 
 
 	public boolean updateFields() {
 		documentationTextArea.setText( sceneDataControl.getDocumentation( ) );
 		nameTextField.setText( sceneDataControl.getName( ) );
-		initialPositionButton.setEnabled( sceneDataControl.hasDefaultInitialPosition( ) );
-		isAllowPlayerLayer.setSelected( sceneDataControl.isAllowPlayer() );
 		return true;
 	}
 

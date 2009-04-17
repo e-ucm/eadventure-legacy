@@ -8,7 +8,6 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeDocumentationTool;
-import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeIdTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class GlobalStateDataControl extends DataControl{
@@ -173,4 +172,10 @@ public class GlobalStateDataControl extends DataControl{
 		check(this.getDocumentation(), TextConstants.getText("Search.Documentation"));
 		check(this.getId(), "ID");
 	}
+	
+	@Override
+	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+		return null;
+	}
+
 }

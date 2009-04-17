@@ -17,6 +17,7 @@ import javax.swing.table.AbstractTableModel;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.timer.TimersListDataControl;
+import es.eucm.eadventure.editor.gui.structurepanel.StructureControl;
 import es.eucm.eadventure.editor.gui.treepanel.TreeNodeControl;
 
 public class TimersListPanel extends JPanel {
@@ -68,7 +69,7 @@ public class TimersListPanel extends JPanel {
 				if (e.getClickCount() == 2) {
 					JTable table = (JTable) e.getSource();
 					DataControl dataControl = TimersListPanel.this.timersListDataControl.getTimers().get(table.getSelectedRow());
-					TreeNodeControl.getInstance().changeTreeNode(dataControl);
+					StructureControl.getInstance().changeDataControl(dataControl);
 				}
 			}
 		});

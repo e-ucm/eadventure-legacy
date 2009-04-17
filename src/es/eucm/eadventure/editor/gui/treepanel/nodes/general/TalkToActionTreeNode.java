@@ -1,22 +1,21 @@
-package es.eucm.eadventure.editor.gui.treepanel.nodes.character;
+package es.eucm.eadventure.editor.gui.treepanel.nodes.general;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 
-import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.control.controllers.character.ConversationReferenceDataControl;
-import es.eucm.eadventure.editor.gui.elementpanels.character.ConversationReferencePanel;
+import es.eucm.eadventure.editor.control.controllers.general.ActionDataControl;
+import es.eucm.eadventure.editor.gui.elementpanels.general.ActionPanel;
 import es.eucm.eadventure.editor.gui.treepanel.nodes.TreeNode;
 
-public class ConversationReferenceTreeNode extends TreeNode {
+public class TalkToActionTreeNode extends TreeNode {
 
 	/**
 	 * Contained micro-controller.
 	 */
-	private ConversationReferenceDataControl dataControl;
+	private ActionDataControl dataControl;
 
 	/**
 	 * The icon for this node class.
@@ -27,7 +26,7 @@ public class ConversationReferenceTreeNode extends TreeNode {
 	 * Loads the icon of the node class.
 	 */
 	public static void loadIcon( ) {
-		icon = new ImageIcon( "img/icons/conversationReference.png" );;
+		icon = new ImageIcon( "img/icons/action.png" );;
 	}
 
 	/**
@@ -36,9 +35,9 @@ public class ConversationReferenceTreeNode extends TreeNode {
 	 * @param parent
 	 *            Parent node
 	 * @param dataControl
-	 *            Conversation reference to be contained
+	 *            Action to be contained
 	 */
-	public ConversationReferenceTreeNode( TreeNode parent, ConversationReferenceDataControl dataControl ) {
+	public TalkToActionTreeNode( TreeNode parent, ActionDataControl dataControl ) {
 		super( parent );
 		this.dataControl = dataControl;
 	}
@@ -56,7 +55,7 @@ public class ConversationReferenceTreeNode extends TreeNode {
 
 	@Override
 	protected int getNodeType( ) {
-		return Controller.CONVERSATION_REFERENCE;
+		return Controller.ACTION_TALK_TO;
 	}
 
 	@Override
@@ -76,12 +75,8 @@ public class ConversationReferenceTreeNode extends TreeNode {
 
 	@Override
 	public JComponent getEditPanel( ) {
-		return new ConversationReferencePanel( dataControl );
-	}
-
-	@Override
-	public String toString( ) {
-		return TextConstants.getText( "Element.Ref", dataControl.getIdTarget( ) );
+		//return new ActionPanel( dataControl );
+		return null;
 	}
 	
 	@Override
@@ -99,4 +94,3 @@ public class ConversationReferenceTreeNode extends TreeNode {
 	}
 
 }
-

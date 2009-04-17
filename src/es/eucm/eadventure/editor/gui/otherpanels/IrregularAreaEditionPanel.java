@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
@@ -46,6 +47,8 @@ public class IrregularAreaEditionPanel extends JPanel {
 	
 	protected JPanel buttonPanel;
 	
+	protected JButton turnIrregular;
+	
 	private boolean hasInfluenceArea;
 	
 	private Color color;
@@ -82,10 +85,20 @@ public class IrregularAreaEditionPanel extends JPanel {
 		ButtonGroup group = new ButtonGroup();
 	    buttonPanel.add(createToolButton("BarriersList.EditNodes", IrregularAreaEditionController.POINT_EDIT, "img/icons/nodeEdit.png", group));
 		buttonPanel.add(createToolButton("BarriersList.DeleteTool", IrregularAreaEditionController.DELETE_TOOL, "img/icons/deleteTool.png", group));
-		if (hasInfluenceArea) {
-			buttonPanel.add(createToolButton("BarriersList.EditInfluenceArea", IrregularAreaEditionController.INFLUENCE_AREA_TOOL, "img/icons/influenceAreaTool.png", group));
-		}
-		return buttonPanel;
+		JButton turnRectangle = new JButton("Turn to rectangle");
+		turnRectangle.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				iaec.getEditionRectangle().setRectangular(true);
+				setRectangular(iaec.getEditionRectangle());
+				IrregularAreaEditionPanel.this.repaint();
+			}
+		});
+		JPanel tempPanel = new JPanel();
+		tempPanel.setLayout(new BorderLayout());
+		tempPanel.add(turnRectangle, BorderLayout.NORTH);
+		tempPanel.add(buttonPanel, BorderLayout.CENTER);
+		
+		return tempPanel;
 	}
 	
 	/**
@@ -127,16 +140,36 @@ public class IrregularAreaEditionPanel extends JPanel {
 	
 	public void setRectangular(RectangleArea rectangleArea) {
 		this.remove(buttonPanel);
+		if (turnIrregular != null)
+			this.remove(turnIrregular);
 		if (rectangleArea == null || rectangleArea.isRectangular()) {
 			spep.changeController(new NormalScenePreviewEditionController(spep));
 			spep.setShowTextEdition(true);
 			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_ACTIVEAREA, true);
+			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_EXIT, true);
 			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_POINT, false);
 			spep.removeElements(ScenePreviewEditionPanel.CATEGORY_POINT);
-			if (rectangleArea != null && rectangleArea instanceof ActiveAreaDataControl) 
+			if (rectangleArea != null && rectangleArea instanceof ActiveAreaDataControl) { 
 				spep.setSelectedElement((ActiveAreaDataControl) rectangleArea);
-			if (rectangleArea != null && rectangleArea instanceof ExitDataControl) 
+				if (((ActiveAreaDataControl) rectangleArea).getInfluenceArea() != null)
+					spep.addInfluenceArea(((ActiveAreaDataControl) rectangleArea).getInfluenceArea());
+			}
+			if (rectangleArea != null && rectangleArea instanceof ExitDataControl) {
 				spep.setSelectedElement((ExitDataControl) rectangleArea);
+				if (((ExitDataControl) rectangleArea).getInfluenceArea() != null)
+					spep.addInfluenceArea(((ExitDataControl) rectangleArea).getInfluenceArea());
+			}
+			if (spep.getSelectedElement() != null && spep.getSelectedElement().getDataControl() != null && spep.getSelectedElement().getDataControl() instanceof RectangleArea) {
+				turnIrregular = new JButton("Turn irregular");
+				turnIrregular.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						((RectangleArea) spep.getSelectedElement().getDataControl()).setRectangular(false);
+						setRectangular((RectangleArea) spep.getSelectedElement().getDataControl());
+						IrregularAreaEditionPanel.this.repaint();
+					}
+				});
+				this.add(turnIrregular, BorderLayout.NORTH);
+			}
 		} else {
 			this.add(buttonPanel, BorderLayout.NORTH);
 			iaec = new IrregularAreaEditionController(spep, rectangleArea, color, hasInfluenceArea);
@@ -146,7 +179,16 @@ public class IrregularAreaEditionPanel extends JPanel {
 				spep.addPoint(new PointDataControl(point));
 			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_POINT, true);
 			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_ACTIVEAREA, false);
+			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_EXIT, false);
 			spep.setSelectedElement((ImageElement) null);
+			if (rectangleArea != null && rectangleArea instanceof ActiveAreaDataControl) { 
+				if (((ActiveAreaDataControl) rectangleArea).getInfluenceArea() != null)
+					spep.addInfluenceArea(((ActiveAreaDataControl) rectangleArea).getInfluenceArea());
+			}
+			if (rectangleArea != null && rectangleArea instanceof ExitDataControl) {
+				if (((ExitDataControl) rectangleArea).getInfluenceArea() != null)
+					spep.addInfluenceArea(((ExitDataControl) rectangleArea).getInfluenceArea());
+			}
 		}
 		this.updateUI();
 	}
