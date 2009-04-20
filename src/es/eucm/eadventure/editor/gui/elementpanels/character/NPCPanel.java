@@ -60,6 +60,7 @@ public class NPCPanel extends ElementPanel {
 		
 		public DialogPanelTab(NPCDataControl dataControl) {
 			super(TextConstants.getText("NPC.DialogPanelTitle"), dataControl);
+			setToolTipText(TextConstants.getText("NPC.DialogPanelTip"));
 			this.dataControl = dataControl;
 		}
 
@@ -73,7 +74,8 @@ public class NPCPanel extends ElementPanel {
 		private NPCDataControl dataControl;
 
 		public ActionsPanelTab(NPCDataControl dataControl) {
-			super(TextConstants.getText( "NPCPanel.Actions" ), dataControl.getActionsList());
+			super(TextConstants.getText( "NPC.ActionsPanelTitle" ), dataControl.getActionsList());
+			setToolTipText(TextConstants.getText("NPC.ActionsPanelTip"));
 			this.dataControl = dataControl;
 		}
 

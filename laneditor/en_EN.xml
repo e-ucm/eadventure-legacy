@@ -878,6 +878,9 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="ScenesList.ItemsNumber">{#0} items</entry>
 	<entry key="ScenesList.NPCsNumber">{#0} NPCs</entry>
 
+	<entry key="SceneLinksPanel.Show">Show?</entry>
+	<entry key="SceneLinksPanel.SceneID">Scene ID</entry>
+
 	<entry key="Scene.Title">Scene</entry>
 	<entry key="Scene.Documentation">Full description of the scene</entry>
 	<entry key="Scene.Name">Name of the scene</entry>
@@ -897,14 +900,24 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="ExitsList.Title">Exits</entry>
 	<entry key="ExitsList.PreviewTitle">Preview of the exits location</entry>
 	<entry key="ExitsList.Information">The exits are areas defined in the scenes, from which the player can access to other areas. When the player moves to an exit, it can travel to another scene or cutscene, depending on the next scene that is defined and active in the exit.</entry>
+	<entry key="ExitsList.NextScene">Next scene</entry>
+	<entry key="ExitsList.Transition">Transition</entry>
+	<entry key="ExitsList.Appearance">Appearance</entry>
+	<entry key="ExitsList.ConditionsAndEffects">Conditions and effects</entry>
+	<entry key="ExitsList.Edit">Edit</entry>
+	<entry key="ExitsList.AddExit">Add new exit</entry>
+	<entry key="ExitsList.DeleteExit">Delete selected exit</entry>
 
 	<entry key="ActiveAreasList.Title">Active areas</entry>
 	<entry key="ActiveAreasList.PreviewTitle">Preview of the active areas location</entry>
 	<entry key="ActiveAreasList.Information">The active areas are transparent, rectangular objects defined in the scenes. Those can be used to define portions of the scene which are interactuable. In this manner, when the mouse is over an active area the user could get some interaction from it</entry>
 	<entry key="ActiveAreasList.Id">Id</entry>
 	<entry key="ActiveAreasList.Name">Name</entry>
-	<entry key="ActiveAreasList.Rectangular">Rectangular?</entry>
 	<entry key="ActiveAreasList.Conditions">Conditions</entry>
+	<entry key="ActiveAreasList.Actions">Actions</entry>
+	<entry key="ActiveAreasList.EditActions">Edit actions</entry>
+	<entry key="ActiveAreasList.AddActiveArea">Add new active area</entry>
+	<entry key="ActiveAreasList.DeleteActiveArea">Delete selected active area</entry>
 
 	<entry key="BarriersList.Title">Barriers</entry>
 	<entry key="BarriersList.PreviewTitle">Preview of the barriers location and edition of the trajectory</entry>
@@ -915,6 +928,12 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="BarriersList.DeleteTool">Delete tool</entry>
 	<entry key="BarriersList.EditBarriers">Edit barriers</entry>
 	<entry key="BarriersList.EditInfluenceArea">Edit influence area</entry>
+	<entry key="BarriersList.Barrier">Barrier</entry>
+	<entry key="BarriersList.BarrierNumber">Barrier #</entry>
+	<entry key="BarriersList.Conditions">Conditions</entry>
+	<entry key="BarriersList.AddBarrier">Add new barrier</entry>
+	<entry key="BarriersList.DeleteBarrier">Delete selected barrier</entry>
+	
 
 	<entry key="Exit.Title">Exit</entry>
 	<entry key="Exit.Documentation">Full description of the exit</entry>
@@ -927,6 +946,16 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="Exit.LeftToRight">Left to right</entry>
 	<entry key="Exit.RightToLeft">Right to left</entry>
 	<entry key="Exit.FadeIn">Fade in</entry>
+	<entry key="Exit.EditConditions">Edit conditions</entry>
+	<entry key="Exit.EditEffects">Edit effects</entry>
+	<entry key="Exit.EditPostEffects">Edit post-effects</entry>
+	<entry key="Exit.EditNotEffects">Edit not-effects</entry>
+	<entry key="Exit.ConditionsActive">Conditions active</entry>
+	<entry key="Exit.ConditionsInactive">Conditions inactive</entry>
+	<entry key="Exit.ActiveWhenConditionsArent">Active when conditions are not</entry>
+	
+	<entry key="Trajectory.Title">Trajectory</entry>
+	<entry key="Trajectory.Title.ToolTip">Here you can activate or de-activate trajectories for the scene as well as edit the current trajectory</entry>
 	
 	<entry key="NextSceneCell.EditDestinyPosition">Edit destiny position</entry>
 	<entry key="NextSceneCell.UsePosition">Use destiny position</entry>
@@ -972,6 +1001,7 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="NextScene.DestinyPosition">Destiny position for the player</entry>
 	<entry key="NextScene.UseDestinyPosition">Use a destiny position for the player</entry>
 	<entry key="NextScene.EditDestinyPosition">Edit the destiny position for the player in the new scene</entry>
+	<entry key="NextScene.EditDestinyPositionShort">Edit the destiny position</entry>
 	<entry key="NextScene.Conditions">Conditions of the next scene</entry>
 	<entry key="NextScene.Effects">Effects of the next scene</entry>
 	<entry key="NextScene.PostEffects">Post-effects of the next scene</entry>
@@ -1045,6 +1075,11 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="Cutscene.Title">Cutscene</entry>
 	<entry key="Cutscene.Documentation">Full description of the cutscene</entry>
 	<entry key="Cutscene.Name">Name of the cutscene</entry>
+	<entry key="Cutscene.CutsceneEndReached">When the cutscene end is reached...</entry>
+	<entry key="Cutscene.ReturnToLastScene">Returns to the last scene</entry>
+	<entry key="Cutscene.GoToNextScene">Goes to a new scene</entry>
+	<entry key="Cutscene.ChapterEnd">Chapter ends</entry>
+	
 	
 	<entry key="Videoscene.Title">Videoscene</entry>
 	<entry key="Videoscene.Documentation">Full description of the videoscene</entry>
@@ -1170,6 +1205,7 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="Item.LookPanelTip">Panel for the edition of the different looks of the item </entry>
 	<entry key="Item.DocPanelTitle">Documentation</entry>
 	<entry key="Item.DocPanelTip">Panel for the edition of the documentation of the item</entry>
+	<entry key="Item.ActionsPanelTitle">Actions</entry>
 
 	<entry key="AtrezzoList.Title">Set items</entry>
 	<entry key="AtrezzoList.ListTitle">List of set items</entry>
@@ -1214,9 +1250,9 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="ActionsList.Delete">Delete action</entry>
 	<entry key="ActionsList.MoveUp">Move action up</entry>
 	<entry key="ActionsList.MoveDown">Move action down</entry>
-	<entry key="ActionsList.Pos">Position</entry>
 	<entry key="ActionsList.ActionName">Action</entry>
-	<entry key="ActionsList.With">With</entry>
+	<entry key="ActionsList.Conditions">Conditions</entry>
+	<entry key="ActionsList.NeedsGoTo">Needs go to</entry>
 	<entry key="ActionsList.CustomName">Custom Name</entry>
 	<entry key="ActionList.Empty">No action selected.</entry>	
 
@@ -1285,6 +1321,10 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="NPC.LookPanelTip">Panel for the edition of the different appearances of the character </entry>
 	<entry key="NPC.DocPanelTitle">Documentation</entry>
 	<entry key="NPC.DocPanelTip">Panel for the edition of the documentation of the character, including description, name and speech-text configuration </entry>
+	<entry key="NPC.DialogPanelTitle">Dialog configuration</entry>
+	<entry key="NPC.DialogPanelTip">Panel for the edition of the characteristics of the characters dialogs</entry>
+	<entry key="NPC.ActionsPanelTitle">Actions</entry>
+	<entry key="NPC.ActionsPanelTip">Panel for the edition of the different actions that can be performed with the character</entry>
 
 	<entry key="ConversationReferencesList.Title">Conversation references</entry>
 	<entry key="ConversationReferencesList.ListTitle">List of conversation references</entry>
@@ -1361,7 +1401,11 @@ Please remember that you cannot make any reference to a macro in its definition<
 
 	<entry key="ResourcesList.SelectResourcesBlock">Appearance to be previewed</entry>
 	<entry key="ResourcesList.ResourcesBlockNumber">Appearance #</entry>
-
+	<entry key="ResourcesList.ResourcesBlock">Appearence block</entry>
+	<entry key="ResourcesList.Conditions">Conditions</entry>
+	<entry key="ResourcesList.AddResourcesBlock">Add new resources block</entry>
+	<entry key="ResourcesList.DeleteResourcesBlock">Delete the selected resources block</entry>
+	
 	<entry key="PlayerPosition.Title">Position of the player</entry>
 	<entry key="PlayerPosition.PositionPanel">Select the position in which the player will appear</entry>
 

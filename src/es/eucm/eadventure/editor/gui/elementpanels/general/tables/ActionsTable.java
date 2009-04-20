@@ -75,12 +75,11 @@ public class ActionsTable extends JTable{
 		@Override
 		public String getColumnName(int columnIndex) {
 			if (columnIndex==0)
-				return TextConstants.getText( "ActionsList.Pos" );
-			if (columnIndex==1)
 				return TextConstants.getText( "ActionsList.ActionName" );
+			if (columnIndex==1)
+				return TextConstants.getText( "ActionsList.NeedsGoTo" );
 			if (columnIndex==2)
-				return TextConstants.getText( "ActionsList.With" );
-			
+				return TextConstants.getText( "ActionsList.Conditions" );
 			return "";
 		}
 		

@@ -57,7 +57,7 @@ public class ExitsTable extends JTable {
 		this.getColumnModel().getColumn(2).setCellRenderer(new ExitLooksCellRendererEditor());
 		this.getColumnModel().getColumn(2).setCellEditor(new ExitLooksCellRendererEditor());
 		this.getColumnModel().getColumn(2).setMinWidth(160);
-		String text = TextConstants.getText("ExitsListPanel.EditConditionsAndEffects");
+		String text = TextConstants.getText("ExitsList.Edit");
 		this.getColumnModel().getColumn(3).setCellRenderer(new AuxEditCellRendererEditor(previewAuxSplit, ExitsListPanel.VERTICAL_SPLIT_POSITION, text));
 		this.getColumnModel().getColumn(3).setCellEditor(new AuxEditCellRendererEditor(previewAuxSplit, ExitsListPanel.VERTICAL_SPLIT_POSITION, text));
 		this.getColumnModel().getColumn(3).setMaxWidth(120);
@@ -106,9 +106,9 @@ public class ExitsTable extends JTable {
 			if (columnIndex == 1)
 				return TextConstants.getText( "ExitsList.Transition" );
 			if (columnIndex == 2)
-				return TextConstants.getText( "ExitsList.Customization" );
+				return TextConstants.getText( "ExitsList.Appearance" );
 			if (columnIndex == 3)
-				return TextConstants.getText( "ExitsList.Conditions" );
+				return TextConstants.getText( "ExitsList.ConditionsAndEffects" );
 			return "";
 		}
 		

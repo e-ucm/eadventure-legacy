@@ -1,24 +1,28 @@
 package es.eucm.eadventure.editor.gui.elementpanels.globalstate;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.JTable;
-import javax.swing.JTextPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.gui.TextConstants;
-import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.globalstate.GlobalStateDataControl;
 import es.eucm.eadventure.editor.control.controllers.globalstate.GlobalStateListDataControl;
-import es.eucm.eadventure.editor.gui.structurepanel.StructureControl;
-import es.eucm.eadventure.editor.gui.treepanel.TreeNodeControl;
+import es.eucm.eadventure.editor.gui.elementpanels.general.tables.GlobalStatesTable;
 
 public class GlobalStatesListPanel extends JPanel {
 
@@ -27,8 +31,16 @@ public class GlobalStatesListPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private GlobalStateListDataControl globalStateListDataControl;
+	private static final int HORIZONTAL_SPLIT_POSITION = 100;
 
+	private GlobalStateListDataControl dataControl;
+
+	private JPanel globalStateInfoPanel;
+	
+	private JTable table;
+	
+	private JButton deleteButton;
+	
 	/**
 	 * Constructor.
 	 * 
@@ -36,116 +48,99 @@ public class GlobalStatesListPanel extends JPanel {
 	 *            Scenes list controller
 	 */
 	public GlobalStatesListPanel( GlobalStateListDataControl gloabalStatesListDataControl ) {
-		this.globalStateListDataControl = gloabalStatesListDataControl;
-		// Set the layout and the border
-		setLayout( new GridBagLayout( ) );
+		this.dataControl = gloabalStatesListDataControl;
+		setLayout( new BorderLayout() );
 		setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "GlobalStatesList.Title" ) ) );
-		GridBagConstraints c = new GridBagConstraints( );
-		c.insets = new Insets( 5, 5, 5, 5 );
 
-		// Create the text area for the documentation
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weightx = 1;
-		JTextPane informationTextPane = new JTextPane( );
-		informationTextPane.setEditable( false );
-		informationTextPane.setBackground( getBackground( ) );
-		informationTextPane.setText( TextConstants.getText( "GlobalStatesList.Information" ) );
-		JPanel informationPanel = new JPanel( );
-		informationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "GeneralText.Information" ) ) );
-		informationPanel.setLayout( new BorderLayout( ) );
-		informationPanel.add( informationTextPane, BorderLayout.CENTER );
-		add( informationPanel, c );
+		globalStateInfoPanel = new JPanel();
+		globalStateInfoPanel.setLayout(new BorderLayout());
+		
+		JPanel tablePanel = createTablePanel();
+		
+		JSplitPane tableWithSplit = new JSplitPane(JSplitPane.VERTICAL_SPLIT, tablePanel, globalStateInfoPanel);
+		tableWithSplit.setOneTouchExpandable(true);
+		tableWithSplit.setDividerLocation(HORIZONTAL_SPLIT_POSITION);
+		tableWithSplit.setContinuousLayout(true);
+		tableWithSplit.setResizeWeight(0);
+		tableWithSplit.setDividerSize(10);
 
-		// Create the table with the data
-		c.gridy = 2;
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 1;
-		c.weighty = 1;
-		JTable informationTable = new JTable( new GlobalStatesInfoTableModel( gloabalStatesListDataControl.getGlobalStatesInfo() ) );
-		informationTable.removeEditor( );
-		informationTable.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if (e.getClickCount() == 2) {
-					JTable table = (JTable) e.getSource();
-					DataControl dataControl = GlobalStatesListPanel.this.globalStateListDataControl.getGlobalStates().get(table.getSelectedRow());
-					StructureControl.getInstance().changeDataControl(dataControl);
-				}
+		add(tableWithSplit, BorderLayout.CENTER);
+	}
+
+	
+	private JPanel createTablePanel() {
+		JPanel tablePanel = new JPanel();
+		
+		table = new GlobalStatesTable(dataControl);
+		JScrollPane scroll = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scroll.setMinimumSize(new Dimension(0, 	HORIZONTAL_SPLIT_POSITION));
+
+		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent arg0) {
+				if (table.getSelectedRow() >= 0)
+					deleteButton.setEnabled(true);
+				else
+					deleteButton.setEnabled(false);
+				updateInfoPanel(table.getSelectedRow());
+				deleteButton.repaint();
+			}			
+		});
+		
+		JPanel buttonsPanel = new JPanel();
+		JButton newButton = new JButton(new ImageIcon("img/icons/addNode.png"));
+		newButton.setContentAreaFilled( false );
+		newButton.setMargin( new Insets(0,0,0,0) );
+		newButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.AddParagraph" ) );
+		newButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				addGlobalState();
 			}
 		});
-		JPanel listPanel = new JPanel( );
-		listPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "GlobalStatesList.ListTitle" ) ) );
-		listPanel.setLayout( new BorderLayout( ) );
-		listPanel.add( new JScrollPane( informationTable, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER ), BorderLayout.CENTER );
-		add( listPanel, c );
+		deleteButton = new JButton(new ImageIcon("img/icons/deleteNode.png"));
+		deleteButton.setContentAreaFilled( false );
+		deleteButton.setMargin( new Insets(0,0,0,0) );
+		deleteButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.Delete" ) );
+		deleteButton.setEnabled(false);
+		deleteButton.addActionListener(new ActionListener(){
+			public void actionPerformed( ActionEvent e ) {
+				deleteGlobalState();
+			}
+		});
+		buttonsPanel.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 0;
+		buttonsPanel.add(newButton, c);
+		c.gridy = 1;
+		buttonsPanel.add(deleteButton, c);
+		
+		tablePanel.setLayout(new BorderLayout());
+		tablePanel.add(scroll, BorderLayout.CENTER);
+		tablePanel.add(buttonsPanel, BorderLayout.EAST);
+		
+		return tablePanel;
 	}
 
-	/**
-	 * Table model to display the global states information.
-	 */
-	private class GlobalStatesInfoTableModel extends AbstractTableModel {
-
-		/**
-		 * Required.
-		 */
-		private static final long serialVersionUID = 1L;
-
-		/**
-		 * Array of data to display.
-		 */
-		private String[][] globalStatesInfo;
-
-		/**
-		 * Constructor.
-		 * 
-		 * @param scenesInfo
-		 *            Container array of the information of the scenes
-		 */
-		public GlobalStatesInfoTableModel( String[][] scenesInfo ) {
-			this.globalStatesInfo = scenesInfo;
+	public void updateInfoPanel(int row) {
+		globalStateInfoPanel.removeAll();		
+		if (row >= 0) {
+			GlobalStateDataControl globalState = dataControl.getGlobalStates().get(row);
+			JPanel timerPanel = new GlobalStatePanel(globalState);
+			globalStateInfoPanel.add(timerPanel);
 		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.table.TableModel#getColumnCount()
-		 */
-		public int getColumnCount( ) {
-			// Two columns, always
-			return 2;
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.table.TableModel#getRowCount()
-		 */
-		public int getRowCount( ) {
-			return globalStatesInfo.length;
-		}
-
-		@Override
-		public String getColumnName( int columnIndex ) {
-			String columnName = "";
-
-			// The first column is the global state identifier
-			if( columnIndex == 0 )
-				columnName = TextConstants.getText( "GlobalStatesList.ColumnHeader0" );
-
-			// The second one is the number of references
-			else if( columnIndex == 1 )
-				columnName = TextConstants.getText( "GlobalStatesList.ColumnHeader1" );
-
-			return columnName;
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.table.TableModel#getValueAt(int, int)
-		 */
-		public Object getValueAt( int rowIndex, int columnIndex ) {
-			return globalStatesInfo[rowIndex][columnIndex];
+		globalStateInfoPanel.updateUI();
+	}
+	
+	protected void addGlobalState() {
+		if (dataControl.addElement(dataControl.getAddableElements()[0], null)) {
+			table.getSelectionModel().setSelectionInterval(dataControl.getGlobalStates().size() - 1, dataControl.getGlobalStates().size() - 1);
+			((AbstractTableModel) table.getModel()).fireTableDataChanged();
 		}
 	}
+	
+	protected void deleteGlobalState() {
+		dataControl.deleteElement(dataControl.getGlobalStates().get(table.getSelectedRow()), true);
+		((AbstractTableModel) table.getModel()).fireTableDataChanged();
+	}
+
 }

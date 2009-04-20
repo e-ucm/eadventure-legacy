@@ -24,6 +24,7 @@ import javax.swing.table.AbstractTableModel;
 import es.eucm.eadventure.common.data.chapter.Trajectory;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.control.controllers.scene.ActiveAreaDataControl;
@@ -33,6 +34,7 @@ import es.eucm.eadventure.editor.control.controllers.scene.ExitDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ExitsListDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.NodeDataControl;
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
+import es.eucm.eadventure.editor.gui.editdialogs.ConditionsDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.EffectsDialog;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ExitsTable;
 import es.eucm.eadventure.editor.gui.otherpanels.IrregularAreaEditionPanel;
@@ -106,6 +108,7 @@ public class ExitsListPanel extends JPanel implements DataControlsPanel {
 		addElementsToPreview(spep, scenePath);
 	}
 
+	
 	private JPanel createTablePanel(IrregularAreaEditionPanel iaep2, JSplitPane previewAuxSplit2) {
 		JPanel tablePanel = new JPanel();
 		
@@ -128,7 +131,7 @@ public class ExitsListPanel extends JPanel implements DataControlsPanel {
 		JButton newButton = new JButton(new ImageIcon("img/icons/addNode.png"));
 		newButton.setContentAreaFilled( false );
 		newButton.setMargin( new Insets(0,0,0,0) );
-		newButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.AddParagraph" ) );
+		newButton.setToolTipText( TextConstants.getText( "ExitsList.AddExit" ) );
 		newButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				addExit();
@@ -137,7 +140,7 @@ public class ExitsListPanel extends JPanel implements DataControlsPanel {
 		deleteButton = new JButton(new ImageIcon("img/icons/deleteNode.png"));
 		deleteButton.setContentAreaFilled( false );
 		deleteButton.setMargin( new Insets(0,0,0,0) );
-		deleteButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.Delete" ) );
+		deleteButton.setToolTipText( TextConstants.getText( "ExitsList.DeleteExit" ) );
 		deleteButton.setEnabled(false);
 		deleteButton.addActionListener(new ActionListener(){
 			public void actionPerformed( ActionEvent e ) {
@@ -221,33 +224,34 @@ public class ExitsListPanel extends JPanel implements DataControlsPanel {
 		c.weightx = 1.0;
 		c.fill = GridBagConstraints.HORIZONTAL;
 		
-		JButton editConditions = new JButton("Edit conditions");
+		JButton editConditions = new JButton(TextConstants.getText("Exit.EditConditions"));
+		editConditions.addActionListener(new EditConditionsListener(exit.getConditions()));
 		auxPanel.add(editConditions, c);
 		
 		c.gridy++;
 		
-		auxPanel.add(new JLabel("Conditions active"), c);
+		auxPanel.add(new JLabel(TextConstants.getText("Exit.ConditionsActive")), c);
 		
 		c.gridy++;
-		JButton editEffects = new JButton("Edit effects");
+		JButton editEffects = new JButton(TextConstants.getText("Exit.EditEffects"));
 		editEffects.addActionListener(new EditEffectsListener(exit.getEffects()));
 		auxPanel.add(editEffects, c);
 		
 		c.gridy++;
-		JButton editPostEffects = new JButton("Edit post-effects");
+		JButton editPostEffects = new JButton(TextConstants.getText("Exit.EditPostEffects"));
 		editPostEffects.addActionListener(new EditEffectsListener(exit.getPostEffects()));
 		auxPanel.add(editPostEffects, c);
 		
 		c.gridy++;
-		auxPanel.add(new JLabel("Conditions inactive"), c);
+		auxPanel.add(new JLabel(TextConstants.getText("Exit.ConditionsInactive")), c);
 		
 		c.gridy++;
-		final JCheckBox activeWhenFalseConditions = new JCheckBox("Active when false conditions");
+		final JCheckBox activeWhenFalseConditions = new JCheckBox(TextConstants.getText("Exit.ActiveWhenConditionsArent"));
 		activeWhenFalseConditions.setSelected(exit.isHasNotEffects());
 		auxPanel.add(activeWhenFalseConditions, c);
 		
 		c.gridy++;
-		final JButton editNotEffects = new JButton("Edit not-effects");
+		final JButton editNotEffects = new JButton(TextConstants.getText("Exit.EditNotEffects"));
 		editNotEffects.setEnabled(exit.isHasNotEffects());
 		editNotEffects.addActionListener(new EditEffectsListener(exit.getNotEffects()));
 		auxPanel.add(editNotEffects, c);
@@ -273,7 +277,19 @@ public class ExitsListPanel extends JPanel implements DataControlsPanel {
 			new EffectsDialog( effects );
 		}
 	}
-	
+
+	private class EditConditionsListener implements ActionListener {
+		private ConditionsController conditions;
+		
+		public EditConditionsListener(ConditionsController conditions) {
+			this.conditions = conditions;
+		}
+		
+		public void actionPerformed(ActionEvent e) {
+			new ConditionsDialog( conditions );
+		}
+	}
+
 	@Override
 	public void setSelectedItem(List<DataControl> path) {
 		if (path.size() > 0) {

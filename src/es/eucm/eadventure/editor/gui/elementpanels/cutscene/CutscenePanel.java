@@ -79,8 +79,13 @@ public class CutscenePanel extends JPanel {
 		namePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Cutscene.Name" ) ) );
 		add( namePanel, c );
 
-		// Add resourcesPanel at the end
+		
 		c.gridy = 2;
+		
+		add( new NextScenePanel(cutsceneDataControl) , c);
+		
+		// Add resourcesPanel at the end
+		c.gridy = 3;
 		c.gridwidth = 2;
 		c.gridx=0;
 		c.fill = GridBagConstraints.BOTH;
@@ -92,6 +97,9 @@ public class CutscenePanel extends JPanel {
 		add( looksPanel, c );
 	}
 
+	
+	
+	
 	private class CutsceneLooksPanel extends LooksPanel {
 
 		/**
@@ -107,6 +115,7 @@ public class CutscenePanel extends JPanel {
 		}
 
 		@Override
+		
 		protected void createPreview( ) {
 
 		}

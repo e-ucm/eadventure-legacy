@@ -78,9 +78,11 @@ public class VideoscenePanel extends JPanel {
 		namePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Videoscene.Name" ) ) );
 		add( namePanel, c );
 
-		// Add a filler at the end
-		// Add resourcesPanel at the end
 		c.gridy = 2;
+		add( new NextScenePanel(cutsceneDataControl) , c);
+
+		// Add resourcesPanel at the end
+		c.gridy = 3;
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1;
 		c.weighty = 0.5;

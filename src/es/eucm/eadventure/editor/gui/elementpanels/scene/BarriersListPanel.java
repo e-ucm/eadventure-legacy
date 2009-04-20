@@ -92,7 +92,6 @@ public class BarriersListPanel extends JPanel implements Updateable, DataControl
 				else
 					deleteButton.setEnabled(false);
 				deleteButton.repaint();
-				
 			}
 		});
 		
@@ -100,7 +99,7 @@ public class BarriersListPanel extends JPanel implements Updateable, DataControl
 		JButton newButton = new JButton(new ImageIcon("img/icons/addNode.png"));
 		newButton.setContentAreaFilled( false );
 		newButton.setMargin( new Insets(0,0,0,0) );
-		newButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.AddParagraph" ) );
+		newButton.setToolTipText( TextConstants.getText( "BarriersList.AddBarrier" ) );
 		newButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				addBarrier();
@@ -109,7 +108,7 @@ public class BarriersListPanel extends JPanel implements Updateable, DataControl
 		deleteButton = new JButton(new ImageIcon("img/icons/deleteNode.png"));
 		deleteButton.setContentAreaFilled( false );
 		deleteButton.setMargin( new Insets(0,0,0,0) );
-		deleteButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.Delete" ) );
+		deleteButton.setToolTipText( TextConstants.getText( "BarriersList.DeleteBarrier" ) );
 		deleteButton.setEnabled(false);
 		deleteButton.addActionListener(new ActionListener(){
 			public void actionPerformed( ActionEvent e ) {

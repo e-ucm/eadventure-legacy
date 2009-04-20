@@ -95,7 +95,7 @@ public class ActiveAreasListPanel extends JPanel implements DataControlsPanel {
 		tableWithSplit.setOneTouchExpandable(true);
 		tableWithSplit.setDividerLocation(HORIZONTAL_SPLIT_POSITION);
 		tableWithSplit.setContinuousLayout(true);
-		tableWithSplit.setResizeWeight(0.5);
+		tableWithSplit.setResizeWeight(0);
 		tableWithSplit.setDividerSize(10);
 	
 		add(tableWithSplit,BorderLayout.CENTER);
@@ -125,7 +125,7 @@ public class ActiveAreasListPanel extends JPanel implements DataControlsPanel {
 		JButton newButton = new JButton(new ImageIcon("img/icons/addNode.png"));
 		newButton.setContentAreaFilled( false );
 		newButton.setMargin( new Insets(0,0,0,0) );
-		newButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.AddParagraph" ) );
+		newButton.setToolTipText( TextConstants.getText( "ActiveAreasList.AddActiveArea" ) );
 		newButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				addActiveArea();
@@ -134,7 +134,7 @@ public class ActiveAreasListPanel extends JPanel implements DataControlsPanel {
 		deleteButton = new JButton(new ImageIcon("img/icons/deleteNode.png"));
 		deleteButton.setContentAreaFilled( false );
 		deleteButton.setMargin( new Insets(0,0,0,0) );
-		deleteButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.Delete" ) );
+		deleteButton.setToolTipText( TextConstants.getText( "ActiveAreasList.DeleteActiveArea" ) );
 		deleteButton.setEnabled(false);
 		deleteButton.addActionListener(new ActionListener(){
 			public void actionPerformed( ActionEvent e ) {

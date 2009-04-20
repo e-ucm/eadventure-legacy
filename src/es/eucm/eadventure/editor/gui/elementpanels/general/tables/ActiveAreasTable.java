@@ -53,7 +53,7 @@ public class ActiveAreasTable extends JTable {
 		this.getColumnModel().getColumn(2).setCellRenderer(new ConditionsCellRendererEditor());
 		this.getColumnModel().getColumn(2).setCellEditor(new ConditionsCellRendererEditor());
 		
-		String text = TextConstants.getText("ActiveAreasListPanel.EditConditionsAndEffects");
+		String text = TextConstants.getText("ActiveAreasList.EditActions");
 		this.getColumnModel().getColumn(3).setCellRenderer(new AuxEditCellRendererEditor(previewAuxSplit, ActiveAreasListPanel.VERTICAL_SPLIT_POSITION, text));
 		this.getColumnModel().getColumn(3).setCellEditor(new AuxEditCellRendererEditor(previewAuxSplit, ActiveAreasListPanel.VERTICAL_SPLIT_POSITION, text));
 
@@ -93,6 +93,8 @@ public class ActiveAreasTable extends JTable {
 				return TextConstants.getText( "ActiveAreasList.Name" );
 			if (columnIndex == 2)
 				return TextConstants.getText( "ActiveAreasList.Conditions" );
+			if (columnIndex == 3)
+				return TextConstants.getText( "ActiveAreasList.Actions");
 			return "";
 		}
 		

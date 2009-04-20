@@ -39,15 +39,10 @@ public class AuxEditCellRendererEditor extends AbstractCellEditor implements Tab
 		button.setEnabled(isSelected);
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println();
-				System.out.println("" + previewAuxSplit.getDividerLocation() + " " + previewAuxSplit.getMaximumDividerLocation() + " " + previewAuxSplit.getWidth());
-				if (previewAuxSplit.getDividerLocation() >= previewAuxSplit.getMaximumDividerLocation() - splitPosition) {
-					System.out.println("setLocation: -" + splitPosition);
+				if (previewAuxSplit.getDividerLocation() >= previewAuxSplit.getWidth() - splitPosition)
 					previewAuxSplit.setDividerLocation(-splitPosition);
-				} else {
-					System.out.println("setLocation: " + Integer.MAX_VALUE);
+				else
 					previewAuxSplit.setDividerLocation(Integer.MAX_VALUE);
-				}
 			}
 		});
 		return button;
