@@ -1,24 +1,28 @@
 package es.eucm.eadventure.editor.gui.elementpanels.timer;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.JTable;
-import javax.swing.JTextPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.gui.TextConstants;
-import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.timer.TimerDataControl;
 import es.eucm.eadventure.editor.control.controllers.timer.TimersListDataControl;
-import es.eucm.eadventure.editor.gui.structurepanel.StructureControl;
-import es.eucm.eadventure.editor.gui.treepanel.TreeNodeControl;
+import es.eucm.eadventure.editor.gui.elementpanels.general.tables.TimersTable;
 
 public class TimersListPanel extends JPanel {
 
@@ -27,7 +31,15 @@ public class TimersListPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private TimersListDataControl timersListDataControl;
+	private static final int HORIZONTAL_SPLIT_POSITION = 100;
+
+	private TimersListDataControl dataControl;
+	
+	private JPanel timerInfoPanel;
+	
+	private JTable table;
+	
+	private JButton deleteButton;
 	
 	/**
 	 * Constructor.
@@ -36,109 +48,102 @@ public class TimersListPanel extends JPanel {
 	 *            timers list controller
 	 */
 	public TimersListPanel( TimersListDataControl timersListDataControl ) {
-		this.timersListDataControl = timersListDataControl;
-		// Set the layout and the border
-		setLayout( new GridBagLayout( ) );
+		this.dataControl = timersListDataControl;
+		setLayout( new BorderLayout( ) );
+		
 		setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "TimersList.Title" ) ) );
-		GridBagConstraints c = new GridBagConstraints( );
-		c.insets = new Insets( 5, 5, 5, 5 );
+		
+		
+		timerInfoPanel = new JPanel();
+		timerInfoPanel.setLayout(new BorderLayout());
+		
+		JPanel tablePanel = createTablePanel(timerInfoPanel);
+		
+		JSplitPane tableWithSplit = new JSplitPane(JSplitPane.VERTICAL_SPLIT, tablePanel, timerInfoPanel);
+		tableWithSplit.setOneTouchExpandable(true);
+		tableWithSplit.setDividerLocation(HORIZONTAL_SPLIT_POSITION);
+		tableWithSplit.setContinuousLayout(true);
+		tableWithSplit.setResizeWeight(0);
+		tableWithSplit.setDividerSize(10);
 
-		// Create the text area for the documentation
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weightx = 1;
-		JTextPane informationTextPane = new JTextPane( );
-		informationTextPane.setEditable( false );
-		informationTextPane.setBackground( getBackground( ) );
-		informationTextPane.setText( TextConstants.getText( "TimersList.Information" ) );
-		JPanel informationPanel = new JPanel( );
-		informationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "GeneralText.Information" ) ) );
-		informationPanel.setLayout( new BorderLayout( ) );
-		informationPanel.add( informationTextPane, BorderLayout.CENTER );
-		add( informationPanel, c );
+		add(tableWithSplit, BorderLayout.CENTER);
+	}
+	
+	
+	private JPanel createTablePanel(JPanel timerInfoPanel) {
+		JPanel tablePanel = new JPanel();
+		
+		table = new TimersTable(dataControl, this);
+		JScrollPane scroll = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scroll.setMinimumSize(new Dimension(0, 	HORIZONTAL_SPLIT_POSITION));
 
-		// Create the table with the data
-		c.gridy = 1;
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 1;
-		c.weighty = 1;
-		JTable informationTable = new JTable( new TimersInfoTableModel( timersListDataControl.getTimersInfo( ) ) );
-		informationTable.removeEditor( );
-		informationTable.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if (e.getClickCount() == 2) {
-					JTable table = (JTable) e.getSource();
-					DataControl dataControl = TimersListPanel.this.timersListDataControl.getTimers().get(table.getSelectedRow());
-					StructureControl.getInstance().changeDataControl(dataControl);
-				}
+		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent arg0) {
+				if (table.getSelectedRow() >= 0)
+					deleteButton.setEnabled(true);
+				else
+					deleteButton.setEnabled(false);
+				updateInfoPanel(table.getSelectedRow());
+				deleteButton.repaint();
+			}			
+		});
+		
+		JPanel buttonsPanel = new JPanel();
+		JButton newButton = new JButton(new ImageIcon("img/icons/addNode.png"));
+		newButton.setContentAreaFilled( false );
+		newButton.setMargin( new Insets(0,0,0,0) );
+		newButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.AddParagraph" ) );
+		newButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				addTimer();
 			}
 		});
-		JPanel listPanel = new JPanel( );
-		listPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "TimersList.ListTitle" ) ) );
-		listPanel.setLayout( new BorderLayout( ) );
-		listPanel.add( new JScrollPane( informationTable, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER ), BorderLayout.CENTER );
-		add( listPanel, c );
+		deleteButton = new JButton(new ImageIcon("img/icons/deleteNode.png"));
+		deleteButton.setContentAreaFilled( false );
+		deleteButton.setMargin( new Insets(0,0,0,0) );
+		deleteButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.Delete" ) );
+		deleteButton.setEnabled(false);
+		deleteButton.addActionListener(new ActionListener(){
+			public void actionPerformed( ActionEvent e ) {
+				deleteTimer();
+			}
+		});
+		buttonsPanel.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 0;
+		buttonsPanel.add(newButton, c);
+		c.gridy = 1;
+		buttonsPanel.add(deleteButton, c);
+		
+		tablePanel.setLayout(new BorderLayout());
+		tablePanel.add(scroll, BorderLayout.CENTER);
+		tablePanel.add(buttonsPanel, BorderLayout.EAST);
+		
+		return tablePanel;
 	}
-
-	/**
-	 * Table model to display the scenes information.
-	 */
-	private class TimersInfoTableModel extends AbstractTableModel {
-
-		/**
-		 * Required.
-		 */
-		private static final long serialVersionUID = 1L;
-
-		/**
-		 * Array of data to display.
-		 */
-		private String[][] timersInfo;
-
-		/**
-		 * Constructor.
-		 * 
-		 * @param timersInfo
-		 *            Container array of the information of the timers
-		 */
-		public TimersInfoTableModel( String[][] timersInfo ) {
-			this.timersInfo = timersInfo;
+	
+	
+	public void updateInfoPanel(int row) {
+		timerInfoPanel.removeAll();		
+		if (row >= 0) {
+			TimerDataControl timer = dataControl.getTimers().get(row);
+			JPanel timerPanel = new TimerPanel(timer);
+			timerInfoPanel.add(timerPanel);
 		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.table.TableModel#getColumnCount()
-		 */
-		public int getColumnCount( ) {
-			// Six columns, always
-			return 6;
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.table.TableModel#getRowCount()
-		 */
-		public int getRowCount( ) {
-			return timersInfo.length;
-		}
-
-		@Override
-		public String getColumnName( int columnIndex ) {
-			String columnName = "";
-				columnName = TextConstants.getText( "TimersList.ColumnHeader"+columnIndex );
-
-			return columnName;
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.table.TableModel#getValueAt(int, int)
-		 */
-		public Object getValueAt( int rowIndex, int columnIndex ) {
-			return timersInfo[rowIndex][columnIndex];
+		timerInfoPanel.updateUI();
+	}
+	
+	protected void addTimer() {
+		if (dataControl.addElement(dataControl.getAddableElements()[0], null)) {
+			table.getSelectionModel().setSelectionInterval(dataControl.getTimers().size() - 1, dataControl.getTimers().size() - 1);
+			((AbstractTableModel) table.getModel()).fireTableDataChanged();
 		}
 	}
+	
+	protected void deleteTimer() {
+		dataControl.deleteElement(dataControl.getTimers().get(table.getSelectedRow()), true);
+		((AbstractTableModel) table.getModel()).fireTableDataChanged();
+	}
+
 }

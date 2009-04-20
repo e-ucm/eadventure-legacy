@@ -61,7 +61,7 @@ public class BarriersTable extends JTable {
 				
 		public Object getValueAt( int rowIndex, int columnIndex ) {
 			if (columnIndex == 0)
-				return rowIndex;
+				return TextConstants.getText("BarriersList.BarrierNumber") + (rowIndex + 1);
 			if (columnIndex == 1)
 				return dataControl.getBarriers().get(rowIndex).getConditions();
 			return null;
@@ -70,9 +70,9 @@ public class BarriersTable extends JTable {
 		@Override
 		public String getColumnName(int columnIndex) {
 			if (columnIndex == 0)
-				return TextConstants.getText( "ExitsList.NextScene" );
+				return TextConstants.getText( "BarriersList.Barrier" );
 			if (columnIndex == 1)
-				return TextConstants.getText( "ExitsList.Transition" );
+				return TextConstants.getText( "BarriersList.Conditions" );
 			return "";
 		}
 		

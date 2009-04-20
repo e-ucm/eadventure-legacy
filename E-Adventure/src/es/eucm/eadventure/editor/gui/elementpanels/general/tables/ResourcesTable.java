@@ -56,7 +56,7 @@ public class ResourcesTable extends JTable {
 				
 		public Object getValueAt( int rowIndex, int columnIndex ) {
 			if (columnIndex == 0)
-				return rowIndex;
+				return TextConstants.getText("ResourcesList.ResourcesBlockNumber") + (rowIndex + 1);
 			if (columnIndex == 1)
 				return dataControl.getResources().get(rowIndex).getConditions();
 			return null;
@@ -65,9 +65,9 @@ public class ResourcesTable extends JTable {
 		@Override
 		public String getColumnName(int columnIndex) {
 			if (columnIndex == 0)
-				return TextConstants.getText( "ExitsList.NextScene" );
+				return TextConstants.getText( "ResourcesList.ResourcesBlock" );
 			if (columnIndex == 1)
-				return TextConstants.getText( "ExitsList.Transition" );
+				return TextConstants.getText( "ResourcesList.Conditions" );
 			return "";
 		}
 		

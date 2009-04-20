@@ -62,6 +62,7 @@ public class PlayerPanel extends ElementPanel {
 		
 		public DialogPanelTab(NPCDataControl dataControl) {
 			super(TextConstants.getText("NPC.DialogPanelTitle"), dataControl);
+			setToolTipText(TextConstants.getText("NPC.DialogPanelTip"));
 			this.dataControl = dataControl;
 		}
 

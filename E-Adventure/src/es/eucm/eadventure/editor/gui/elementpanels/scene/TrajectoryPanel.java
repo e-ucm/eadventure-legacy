@@ -30,7 +30,7 @@ public class TrajectoryPanel extends JPanel implements Updateable {
 
 	private	ScenePreviewEditionPanel spep;
 
-	private TrajectoryEditionPanel tep;
+	private TrajectoryEditionPanel tep = null;
 	
 	private TrajectoryDataControl dataControl;
 		
@@ -40,7 +40,7 @@ public class TrajectoryPanel extends JPanel implements Updateable {
 	
 	private JCheckBox initialPositionCheckBox;
 
-	private JPanel initialPositionPanel;
+	private JPanel initialPositionPanel = null;
 	
 	/**
 	 * Initial position button.
@@ -153,7 +153,8 @@ public class TrajectoryPanel extends JPanel implements Updateable {
 	private class TrajectoryCheckBoxListener implements ActionListener {
 		public void actionPerformed( ActionEvent e ) {
 			Controller.getInstance().addTool(new ChangeHasTrajectoryTool(((JCheckBox) e.getSource()).isSelected(), sceneDataControl));
-
+			dataControl = sceneDataControl.getTrajectory();
+			
 			if (initialPositionPanel != null) {
 				remove(initialPositionPanel);
 				initialPositionPanel = null;

@@ -18,7 +18,6 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.character.NPCsListDataControl;
 import es.eucm.eadventure.editor.gui.structurepanel.StructureControl;
-import es.eucm.eadventure.editor.gui.treepanel.TreeNodeControl;
 
 public class NPCsListPanel extends JPanel {
 
@@ -106,21 +105,11 @@ public class NPCsListPanel extends JPanel {
 			this.npcsInfo = npcsInfo;
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.table.TableModel#getColumnCount()
-		 */
 		public int getColumnCount( ) {
 			// Two columns, always
 			return 2;
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.table.TableModel#getRowCount()
-		 */
 		public int getRowCount( ) {
 			return npcsInfo.length;
 		}
@@ -140,11 +129,6 @@ public class NPCsListPanel extends JPanel {
 			return columnName;
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.table.TableModel#getValueAt(int, int)
-		 */
 		public Object getValueAt( int rowIndex, int columnIndex ) {
 			return npcsInfo[rowIndex][columnIndex];
 		}

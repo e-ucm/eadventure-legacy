@@ -14,11 +14,9 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSpinner;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
-import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
@@ -26,7 +24,6 @@ import javax.swing.event.DocumentListener;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.timer.TimerDataControl;
-import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.editdialogs.ConditionsDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.EffectsDialog;
 
@@ -74,16 +71,12 @@ public class TimerPanel extends JPanel {
 	 *            timer controller
 	 */
 	public TimerPanel( TimerDataControl timerDataControl ) {
-
-		// Set the controller
 		this.timerDataControl = timerDataControl;
 
-		// Set the layout
 		setLayout( new GridBagLayout( ) );
 		GridBagConstraints c = new GridBagConstraints( );
-		c.insets = new Insets( 5, 5, 5, 5 );
 
-		// Create the documentation panel
+		c.insets = new Insets( 5, 5, 5, 5 );
 		c.fill = GridBagConstraints.BOTH;
 		c.gridy = 0;
 		c.weightx = 1;
@@ -100,18 +93,12 @@ public class TimerPanel extends JPanel {
 
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weighty = 0;
-		
-		// Create the time panel
 		c.gridy = 1;
-		
 		add ( createTimePanel(), c );
 
-		
-		// Create loop control panel
 		c.gridy++;
 		add ( createLoopControlPanel(), c );
 
-		// Create the button for the conditions
 		c.gridy++;
 		JPanel conditionsPanel = new JPanel( );
 		conditionsPanel.setLayout( new GridLayout( ) );
@@ -121,16 +108,13 @@ public class TimerPanel extends JPanel {
 		conditionsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Timer.InitConditions" ) ) );
 		add( conditionsPanel, c );
 		
-		// Create the button for the conditions
 		c.gridy++;
 		JPanel conditions2Panel = new JPanel( );
 		conditions2Panel.setLayout( new GridLayout( 2, 1) );
-		
 		JCheckBox usesEndCondition = new JCheckBox(TextConstants.getText("Timer.UsesEndCondition"));
 		usesEndCondition.setSelected(timerDataControl.isUsesEndCondition());
 		usesEndCondition.addChangeListener(new CheckBoxChangeListener(CheckBoxChangeListener.USESENDCONDITION));
 		conditions2Panel.add(usesEndCondition);
-		
 		conditions2Button = new JButton( TextConstants.getText( "GeneralText.EditEndConditions" ) );
 		conditions2Button.addActionListener( new EndConditionsButtonListener( ) );
 		conditions2Button.setEnabled(timerDataControl.isUsesEndCondition());
@@ -138,88 +122,67 @@ public class TimerPanel extends JPanel {
 		conditions2Panel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Timer.EndConditions" ) ) );
 		add( conditions2Panel, c );
 
-		// Create the button for the effects
 		c.gridy++;
+		JPanel allEffectsPanel = new JPanel();
+		allEffectsPanel.setLayout(new GridLayout(1,2));
+		
+		
 		JPanel effectsPanel = new JPanel( );
 		effectsPanel.setLayout( new GridLayout( ) );
 		JButton effectsButton = new JButton( TextConstants.getText( "GeneralText.EditEffects" ) );
 		effectsButton.addActionListener( new EffectsButtonListener( ) );
 		effectsPanel.add( effectsButton );
 		effectsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Timer.Effects" ) ) );
-		add( effectsPanel, c );
 
-		// Create the button for the post-effects
-		c.gridy++;
+		
+		allEffectsPanel.add( effectsPanel);
+
 		JPanel postEffectsPanel = new JPanel( );
 		postEffectsPanel.setLayout( new GridLayout( ) );
 		JButton postEffectsButton = new JButton( TextConstants.getText( "GeneralText.EditPostEffects" ) );
 		postEffectsButton.addActionListener( new PostEffectsButtonListener( ) );
 		postEffectsPanel.add( postEffectsButton );
 		postEffectsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Timer.PostEffects" ) ) );
-		add( postEffectsPanel, c );
-
-		// Add a filler at the end
-		c.gridy++;
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 1;
-		c.weighty = 1;
-		add( new JFiller( ), c );
 		
+		allEffectsPanel.add( postEffectsPanel );		
+		
+		add(allEffectsPanel, c);
 	}
 
 	private JPanel createTimePanel() {
 		JPanel timePanel = new JPanel();
 		timePanel.setLayout(new GridBagLayout());
-		GridBagConstraints c_time = new GridBagConstraints();
-		c_time.gridx = 0;
-		c_time.gridy = 0;
-		long current = timerDataControl.getTime( );
-		long min = 1;
-		long max = 99 * 3600;
-		long increment = 1;
-		JLabel totalTime = new JLabel("seg");
-		JSpinner timeSpinner = new JSpinner(new SpinnerNumberModel(current, min, max, increment));
-		timeSpinner.addChangeListener(new TimeSpinnerListener());
-		JPanel temp = new JPanel();
-		temp.add(timeSpinner);
-		temp.add(totalTime);
-		timePanel.add( temp , c_time);
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 0;
+		c.weightx = 1;
 		
-		c_time.gridx++;
-		c_time.fill = GridBagConstraints.HORIZONTAL;
-		c_time.insets = new Insets(5, 5, 0, 0);
-		JCheckBox showTime = new JCheckBox(TextConstants.getText("Timer.ShowTimer"));
-		showTime.setSelected(timerDataControl.isShowTime());
-		showTime.addChangeListener(new CheckBoxChangeListener(CheckBoxChangeListener.SHOW_TIME));
-		timePanel.add(showTime, c_time);
-		c_time.gridx = 0;
-		c_time.gridy++;
 		
 		JLabel dnLabel = new JLabel(TextConstants.getText("Timer.DisplayName"));
-		timePanel.add(dnLabel, c_time);
-		c_time.gridx++;
-		
+		timePanel.add(dnLabel, c);
+
 		displayName = new JTextField(8);
 		displayName.setText(timerDataControl.getDisplayName());
 		displayName.setEnabled(timerDataControl.isShowTime());
 		displayName.getDocument().addDocumentListener(new DisplayNameChangesListener());
-		timePanel.add(displayName, c_time);
-		c_time.gridx = 0;
-		c_time.gridy++;
-		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx++;
+		timePanel.add(displayName, c);
+
 		countDown = new JCheckBox(TextConstants.getText("Timer.CountDown"));
 		countDown.setSelected(timerDataControl.isCountDown());
 		countDown.setEnabled(timerDataControl.isShowTime());
 		countDown.addChangeListener(new CheckBoxChangeListener(CheckBoxChangeListener.COUNTDOWN));
-		timePanel.add(countDown, c_time);
-		c_time.gridx++;
-		
+		c.fill = GridBagConstraints.NONE;
+		c.gridx++;
+		timePanel.add(countDown, c);
+
 		showWhenStopped = new JCheckBox(TextConstants.getText("Timer.ShowWhenStopped"));
 		showWhenStopped.setSelected(timerDataControl.isShowWhenStopped());
 		showWhenStopped.setEnabled(timerDataControl.isShowTime());
 		showWhenStopped.addChangeListener(new CheckBoxChangeListener(CheckBoxChangeListener.SHOWWHENSTOPPED));
-		timePanel.add(showWhenStopped, c_time);
-		c_time.gridx++;
+		c.gridx++;
+		timePanel.add(showWhenStopped, c);
 		
 		timePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Timer.Time" ) ) );
 		return timePanel;
@@ -275,12 +238,6 @@ public class TimerPanel extends JPanel {
 	 * Listener for the edit conditions button.
 	 */
 	private class InitConditionsButtonListener implements ActionListener {
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-		 */
 		public void actionPerformed( ActionEvent e ) {
 			new ConditionsDialog( timerDataControl.getInitConditions( ) );
 		}
@@ -290,12 +247,6 @@ public class TimerPanel extends JPanel {
 	 * Listener for the edit conditions button.
 	 */
 	private class EndConditionsButtonListener implements ActionListener {
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-		 */
 		public void actionPerformed( ActionEvent e ) {
 			new ConditionsDialog( timerDataControl.getEndConditions( ) );
 		}
@@ -305,12 +256,6 @@ public class TimerPanel extends JPanel {
 	 * Listener for the edit effects button.
 	 */
 	private class EffectsButtonListener implements ActionListener {
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-		 */
 		public void actionPerformed( ActionEvent e ) {
 			new EffectsDialog( timerDataControl.getEffects( ) );
 		}
@@ -320,12 +265,6 @@ public class TimerPanel extends JPanel {
 	 * Listener for the edit post-effects button.
 	 */
 	private class PostEffectsButtonListener implements ActionListener {
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-		 */
 		public void actionPerformed( ActionEvent e ) {
 			new EffectsDialog( timerDataControl.getPostEffects( ) );
 		}
@@ -360,18 +299,6 @@ public class TimerPanel extends JPanel {
 		public void removeUpdate( DocumentEvent arg0 ) {
 			timerDataControl.setDisplayName( displayName.getText( ) );
 		}
-	}
-
-	/**
-	 * Listener for the time spinner
-	 */
-	private class TimeSpinnerListener implements ChangeListener {
-
-			public void stateChanged(ChangeEvent e) {
-				JSpinner timeSpinner = (JSpinner)e.getSource( );
-				SpinnerNumberModel model = (SpinnerNumberModel) timeSpinner.getModel();
-				timerDataControl.setTime( model.getNumber( ).longValue( ) );
-			}
 	}
 
 	/**

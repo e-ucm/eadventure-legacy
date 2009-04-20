@@ -22,7 +22,7 @@ public class BooleanCellRendererEditor extends AbstractCellEditor implements Tab
 	}
 	
 	@Override
-	public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int col) {
+	public Component getTableCellEditorComponent(final JTable table, Object value, boolean isSelected, final int row, final int col) {
 		this.value = (Boolean) value;
 		JCheckBox checkBox = new JCheckBox();
 		checkBox.setFocusable(false);
@@ -33,6 +33,7 @@ public class BooleanCellRendererEditor extends AbstractCellEditor implements Tab
 				boolean selected = ((JCheckBox)arg0.getSource()).isSelected();
 				if (selected != BooleanCellRendererEditor.this.value.booleanValue()) {
 					 BooleanCellRendererEditor.this.value = new Boolean(selected);
+					 stopCellEditing();
 				}
 			}
 		});

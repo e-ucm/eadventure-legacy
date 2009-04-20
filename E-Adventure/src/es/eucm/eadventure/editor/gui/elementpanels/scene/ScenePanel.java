@@ -3,6 +3,7 @@ package es.eucm.eadventure.editor.gui.elementpanels.scene;
 import javax.swing.JComponent;
 
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.ElementPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.PanelTab;
@@ -24,10 +25,12 @@ public class ScenePanel extends ElementPanel {
 		this.addTab(new SceneLookPanelTab(sDataControl));
 		this.addTab(new SceneDocPanelTab(sDataControl));
 		this.addTab(new ItemsPanelTab(sDataControl));
-		this.addTab(new BarriersPanelTab(sDataControl));
+		if (!Controller.getInstance().isPlayTransparent())
+			this.addTab(new BarriersPanelTab(sDataControl));
 		this.addTab(new ActiveAreasPanelTab(sDataControl));
 		this.addTab(new ExitsPanelTab(sDataControl));
-		this.addTab(new TrajectoryPanelTab(sDataControl));
+		if (!Controller.getInstance().isPlayTransparent())
+			this.addTab(new TrajectoryPanelTab(sDataControl));
 	}
 
 	private class SceneLookPanelTab extends PanelTab {
@@ -91,6 +94,7 @@ public class ScenePanel extends ElementPanel {
 		
 		public ActiveAreasPanelTab(SceneDataControl sDataControl) {
 			super(TextConstants.getText("ActiveAreasList.Title"), sDataControl.getActiveAreasList());
+			setToolTipText(TextConstants.getText("ActiveAreasList.Information"));
 			this.sDataControl = sDataControl;
 		}
 
@@ -119,6 +123,7 @@ public class ScenePanel extends ElementPanel {
 		
 		public TrajectoryPanelTab(SceneDataControl sDataControl) {
 			super(TextConstants.getText("Trajectory.Title"), sDataControl.getTrajectory());
+			setToolTipText(TextConstants.getText("Trajectory.Title.ToolTip"));
 			this.sDataControl = sDataControl;
 		}
 

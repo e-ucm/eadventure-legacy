@@ -91,13 +91,13 @@ public abstract class LooksPanel extends JPanel {
 		newResourcesBlock = new JButton(new ImageIcon("img/icons/addNode.png"));
 		newResourcesBlock.setContentAreaFilled( false );
 		newResourcesBlock.setMargin( new Insets(0,0,0,0) );
-		newResourcesBlock.setToolTipText( TextConstants.getText( "ItemReferenceTable.AddParagraph" ) );
+		newResourcesBlock.setToolTipText( TextConstants.getText( "ResourcesList.AddResourcesBlock" ) );
 		newResourcesBlock.addActionListener( new NewButtonListener() );
 
 		this.deleteResourcesBlock = new JButton(new ImageIcon("img/icons/deleteNode.png"));
 		deleteResourcesBlock.setContentAreaFilled( false );
 		deleteResourcesBlock.setMargin( new Insets(0,0,0,0) );
-		deleteResourcesBlock.setToolTipText( TextConstants.getText( "ItemReferenceTable.Delete" ) );
+		deleteResourcesBlock.setToolTipText( TextConstants.getText( "ResourcesList.DeleteResourcesBlock" ) );
 		deleteResourcesBlock.setEnabled(false);
 		deleteResourcesBlock.addActionListener( new DeleteButtonListener( ));
 		

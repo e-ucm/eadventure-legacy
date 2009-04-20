@@ -24,6 +24,7 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.config.SceneLinksConfigData;
 import es.eucm.eadventure.editor.control.controllers.SceneLinksController;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
@@ -94,8 +95,6 @@ public class SceneLinksPanel extends JPanel {
 		g.setComposite(alphaComposite);
 		g.fillRect(0, 0, 800, 600);
 		
-		
-				
 		JScrollPane sp = createCheckBoxTable();
 		
 		boolean isConfig = true;
@@ -152,7 +151,8 @@ public class SceneLinksPanel extends JPanel {
 	 * @return A scroll pane with the checkbox table
 	 */
 	private JScrollPane createCheckBoxTable() {
-		String colNames[] = {"Show?", "Scene ID"}; 
+		
+		String colNames[] = {TextConstants.getText("SceneLinksPanel.Show"), TextConstants.getText("SceneLinksPanel.SceneID")}; 
 		Object[][] data = null; 
 		
 		dtm = new DefaultTableModel(data, colNames);

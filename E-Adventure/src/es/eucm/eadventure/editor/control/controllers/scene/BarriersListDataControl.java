@@ -114,16 +114,12 @@ public class BarriersListDataControl extends DataControl {
 		boolean elementAdded = false;
 
 		if( type == Controller.BARRIER ) {
-			// Creamos una salida y su controlador
-			Barrier newBarrier = new Barrier( Integer.toString( id ), 0, 0, 0, 0 );
+			Barrier newBarrier = new Barrier( Integer.toString( id ), 200, 200, 100, 100 );
 			id++;
 			BarrierDataControl newBarrierDataControl = new BarrierDataControl( sceneDataControl, newBarrier );
-
-				barriersList.add( newBarrier );
-				barriersDataControlList.add( newBarrierDataControl );
-				//controller.dataModified( );
-				elementAdded = true;
-
+			barriersList.add( newBarrier );
+			barriersDataControlList.add( newBarrierDataControl );
+			elementAdded = true;
 		}
 
 		return elementAdded;

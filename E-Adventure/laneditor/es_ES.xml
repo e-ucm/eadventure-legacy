@@ -887,6 +887,9 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="ScenesList.ItemsNumber">{#0} objetos</entry>
 	<entry key="ScenesList.NPCsNumber">{#0} personajes</entry>
 
+	<entry key="SceneLinksPanel.Show">Eseñar?</entry>
+	<entry key="SceneLinksPanel.SceneID">ID de la escena</entry>
+
 	<entry key="Scene.Title">Escena</entry>
 	<entry key="Scene.Documentation">Documentación de la escena</entry>
 	<entry key="Scene.Name">Nombre de la escena</entry>
@@ -907,14 +910,24 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="ExitsList.Title">Salidas</entry>
 	<entry key="ExitsList.PreviewTitle">Previsualización de la posición de las salidas</entry>
 	<entry key="ExitsList.Information">Las salidas son áreas definidas en la escena, a través de las cuales el protagonista puede acceder a otras localizaciones. Cuando el protagonista se mueve dentro del área de la salida, se desplaza hasta el lugar indicado por la estructura de "Siguiente escena" que esté activa en la salida.</entry>
+	<entry key="ExitsList.NextScene">Siguiente escena</entry>
+	<entry key="ExitsList.Transition">Transición</entry>
+	<entry key="ExitsList.Appearance">Apariencia</entry>
+	<entry key="ExitsList.ConditionsAndEffects">Condiciones y efectos</entry>
+	<entry key="ExitsList.Edit">Editar</entry>
+	<entry key="ExitsList.AddExit">Añadir nueva salida</entry>
+	<entry key="ExitsList.DeleteExit">Eliminar salida seleccionada</entry>
 
 	<entry key="ActiveAreasList.Title">Zonas activas</entry>
 	<entry key="ActiveAreasList.PreviewTitle">Previsualización de las zonas activas</entry>
 	<entry key="ActiveAreasList.Information">Las zonas activas son regiones rectangulares de la escena con las que se puede interactuar.</entry>
 	<entry key="ActiveAreasList.Id">Id</entry>
 	<entry key="ActiveAreasList.Name">Nombre</entry>
-	<entry key="ActiveAreasList.Rectangular">Rectangular?</entry>
 	<entry key="ActiveAreasList.Conditions">Condiciones</entry>
+	<entry key="ActiveAreasList.Actions">Acciones</entry>
+	<entry key="ActiveAreasList.EditActions">Editar acciones</entry>
+	<entry key="ActiveAreasList.AddActiveArea">Añadir nueva zona activa</entry>
+	<entry key="ActiveAreasList.DeleteActiveArea">Eliminar zona activa seleccionada</entry>
 
 	<entry key="BarriersList.Title">Barreras</entry>
 	<entry key="BarriersList.PreviewTitle">Previsualización de las barreras y edición de la trayectoria</entry>
@@ -925,6 +938,11 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="BarriersList.DeleteTool">Herramienta borrado</entry>
 	<entry key="BarriersList.EditBarriers">Editar barreras</entry>
 	<entry key="BarriersList.EditInfluenceArea">Editar area de influencia</entry>
+	<entry key="BarriersList.Barrier">Barrera</entry>
+	<entry key="BarriersList.BarrierNumber">Barrera #</entry>
+	<entry key="BarriersList.Conditions">Condiciones</entry>
+	<entry key="BarriersList.AddBarrier">Añadir nueva barrera</entry>
+	<entry key="BarriersList.DeleteBarrier">Eliminar barrera selecionada</entry>
 
 	<entry key="Exit.Title">Salida</entry>
 	<entry key="Exit.Documentation">Documentación de la salida</entry>
@@ -937,6 +955,16 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="Exit.LeftToRight">Izquierda a derecha</entry>
 	<entry key="Exit.RightToLeft">Derecha a izquierda</entry>
 	<entry key="Exit.FadeIn">Transparencia</entry>
+	<entry key="Exit.EditConditions">Editar condiciones</entry>
+	<entry key="Exit.EditEffects">Editar efectos</entry>
+	<entry key="Exit.EditPostEffects">Editar post-efectos</entry>
+	<entry key="Exit.EditNotEffects">Editar no-efectos</entry>
+	<entry key="Exit.ConditionsActive">Condiciones activas</entry>
+	<entry key="Exit.ConditionsInactive">Condiciones inactivas</entry>
+	<entry key="Exit.ActiveWhenConditionsArent">Salida activa cuando condiciones inactivas</entry>
+	
+	<entry key="Trajectory.Title">Trayetoria</entry>
+	<entry key="Trajectory.Title.ToolTip">Aquí se puede activar o desactivar el uso de trajectorias en la escena así como editar la trajectoria concreta</entry>
 	
 	<entry key="NextSceneCell.EditDestinyPosition">Editar posición destino</entry>
 	<entry key="NextSceneCell.UsePosition">Usar posición de destino</entry>
@@ -983,6 +1011,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="NextScene.DestinyPosition">Posición de destino para el protagonista</entry>
 	<entry key="NextScene.UseDestinyPosition">Usar una posición de destino para el protagonista</entry>
 	<entry key="NextScene.EditDestinyPosition">Editar la posición de destino para el protagonista en la nueva escena</entry>
+	<entry key="NextScene.EditDestinyPositionShort">Editar la posición de destino</entry>
 	<entry key="NextScene.Conditions">Condiciones de la "Siguiente escena"</entry>
 	<entry key="NextScene.Effects">Efectos de la "Siguiente escena"</entry>
 	<entry key="NextScene.PostEffects">Post-efectos de la "Siguiente escena"</entry>
@@ -1055,6 +1084,10 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="Cutscene.Title">Escena intermedia</entry>
 	<entry key="Cutscene.Documentation">Descripción de la escena intermedia (no se usa en el motor)</entry>
 	<entry key="Cutscene.Name">Nombre de la escena intermedia</entry>
+	<entry key="Cutscene.CutsceneEndReached">Cuando alcanza el fin de la escena intermedia...</entry>
+	<entry key="Cutscene.ReturnToLastScene">Vuelve a la escena anterior</entry>
+	<entry key="Cutscene.GoToNextScene">Va a una nueva escena</entry>
+	<entry key="Cutscene.ChapterEnd">Termina el capítulo</entry>
 
 	<entry key="Videoscene.Title">Escena de vídeo</entry>
 	<entry key="Videoscene.Documentation">Descripción de la escena de vídeo (no se usa en el motor)</entry>
@@ -1181,6 +1214,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="Item.LookPanelTip">Panel para la edición de las distintas apariencias del objeto</entry>
 	<entry key="Item.DocPanelTitle">Información</entry>
 	<entry key="Item.DocPanelTip">Panel para editar la información del objeto</entry>
+	<entry key="Item.ActionsPanelTitle">Actions</entry>
 
 	<entry key="AtrezzoList.Title">Objetos de atrezo</entry>
 	<entry key="AtrezzoList.ListTitle">Lista de objetos de atrezo</entry>
@@ -1225,9 +1259,9 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="ActionsList.Delete">Borrar acción</entry>
 	<entry key="ActionsList.MoveUp">Mover arriba</entry>
 	<entry key="ActionsList.MoveDown">Mover abajo</entry>
-	<entry key="ActionsList.Pos">Posición</entry>
+	<entry key="ActionsList.NeedsGoTo">Necesita alcanzar objeto</entry>
 	<entry key="ActionsList.ActionName">Acción</entry>
-	<entry key="ActionsList.With">Con</entry>
+	<entry key="ActionsList.Conditions">Condiciones</entry>
 	<entry key="ActionsList.CustomName">Nombre personalizado</entry>
 	<entry key="ActionList.Empty">No se ha seleccionado ninguna acción.</entry>
 	
@@ -1298,6 +1332,10 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="NPC.LookPanelTip">Panel para la edición de las posibles apariencias del personaje </entry>
 	<entry key="NPC.DocPanelTitle">Información</entry>
 	<entry key="NPC.DocPanelTip">Panel para editar la información del personaje</entry>
+	<entry key="NPC.DialogPanelTitle">Configuración de dialogo</entry>
+	<entry key="NPC.DialogPanelTip">Panel para editar las características de dialogos del persoaje</entry>
+	<entry key="NPC.ActionsPanelTitle">Acciones</entry>
+	<entry key="NPC.ActionsPanelTip">Panel para editar las distintas acciones disponibles para realizar con el personaje</entry>
 
 	<entry key="ConversationReferencesList.Title">Referencias a conversación</entry>
 	<entry key="ConversationReferencesList.ListTitle">Lista de referencias a conversación</entry>
@@ -1374,6 +1412,10 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 
 	<entry key="ResourcesList.SelectResourcesBlock">Bloque de recursos a usar en la previsualización del elemento</entry>
 	<entry key="ResourcesList.ResourcesBlockNumber">Bloque de recursos #</entry>
+	<entry key="ResourcesList.ResourcesBlock">Bloque de recursos</entry>
+	<entry key="ResourcesList.Conditions">Condiciones</entry>
+	<entry key="ResourcesList.AddResourcesBlock">Añadir nuevo bloque de recursos</entry>
+	<entry key="ResourcesList.DeleteResourcesBlock">Eliminar el bloque de recursos seleccionado</entry>
 
 	<entry key="PlayerPosition.Title">Posición del protagonista</entry>
 	<entry key="PlayerPosition.PositionPanel">Seleccione el lugar en el que aparecerá el protagonista</entry>
@@ -2273,13 +2315,13 @@ ya que de esta manera se evita reescribirlos varias veces.</entry>
 	<entry key="Synthesizer.CheckLine">Sintetizar la linea seleccionada</entry>
 
 
-	<entry key="SPEP.ShowActiveAreas">Mostrar Areas activas</entry>
+	<entry key="SPEP.ShowActiveAreas">Mostrar zonas activas</entry>
 	<entry key="SPEP.ShowAtrezzo">Mostrar referencias a objetos de atrezo</entry>
 	<entry key="SPEP.ShowBarriers">Mostrar barreras</entry>
 	<entry key="SPEP.ShowCharacterReferences">Mostrar referencias a personajes</entry>
 	<entry key="SPEP.ShowExits">Mostrar salidas</entry>
 	<entry key="SPEP.ShowUncategorized">Mostrar elementos sin categoria</entry>
-	<entry key="SPEP.ShowObjectReferences">Mostrar referencias a objecos</entry>
+	<entry key="SPEP.ShowObjectReferences">Mostrar referencias a objetos</entry>
 	<entry key="SPEP.ShowPlayer">Mostrar jugador</entry>
 	<entry key="SPEP.ShowTrajectory">Mostrar trayectoria</entry>
 	<entry key="SPEP.XCoordinate">Coordenada X</entry>
