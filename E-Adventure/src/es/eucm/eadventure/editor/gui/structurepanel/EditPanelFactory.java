@@ -68,7 +68,7 @@ public class EditPanelFactory {
 		if (dataControl instanceof AtrezzoListDataControl)
 			return new AtrezzoListPanel((AtrezzoListDataControl) dataControl);
 		if (dataControl instanceof AdvancedFeaturesDataControl)
-			return new AdvancedFeaturesPanel();
+			return new AdvancedFeaturesPanel((AdvancedFeaturesDataControl) dataControl);
 		if (dataControl instanceof NPCsListDataControl)
 			return new NPCsListPanel((NPCsListDataControl) dataControl);
 		if (dataControl instanceof ConversationsListDataControl)
@@ -84,12 +84,6 @@ public class EditPanelFactory {
 			return new ItemPanel((ItemDataControl) dataControl);
 		if (dataControl instanceof AtrezzoDataControl)
 			return new AtrezzoPanel((AtrezzoDataControl) dataControl);
-		if (dataControl instanceof TimersListDataControl)
-			return new TimersListPanel((TimersListDataControl) dataControl);
-		if (dataControl instanceof MacroListDataControl)
-			return new MacrosListPanel((MacroListDataControl) dataControl);
-		if (dataControl instanceof GlobalStateListDataControl)
-			return new GlobalStatesListPanel((GlobalStateListDataControl) dataControl);
 		if (dataControl instanceof AssessmentProfilesDataControl)
 			return new AssessmentProfilesPanel();
 		if (dataControl instanceof AdaptationProfilesDataControl)

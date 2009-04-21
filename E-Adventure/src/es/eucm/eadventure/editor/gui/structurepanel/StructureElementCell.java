@@ -216,7 +216,7 @@ public class StructureElementCell extends JPanel {
 			((StructureElement) value).setJustCreated(false);		
 			((StructureElement) value).delete(false);
 			table.clearSelection();
-			Controller.getInstance().updateTree();
+			Controller.getInstance().updateStructure();
 		}
 	}
 	

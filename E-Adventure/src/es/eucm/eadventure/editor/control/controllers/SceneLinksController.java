@@ -6,7 +6,7 @@ import java.awt.event.MouseMotionListener;
 
 import es.eucm.eadventure.editor.gui.otherpanels.SceneLinksPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.scenelistelements.SceneElement;
-import es.eucm.eadventure.editor.gui.treepanel.TreeNodeControl;
+import es.eucm.eadventure.editor.gui.structurepanel.StructureControl;
 
 public class SceneLinksController implements MouseListener, MouseMotionListener {
 
@@ -31,7 +31,7 @@ public class SceneLinksController implements MouseListener, MouseMotionListener 
 	public void mouseClicked(MouseEvent e) {
 		setUnderMouse(e.getX(), e.getY());
 		if (under != null && e.getClickCount() == 2) {
-			TreeNodeControl.getInstance().changeTreeNode(under.getDataControl());
+			StructureControl.getInstance().changeDataControl(under.getDataControl());
 		}
 	}
 

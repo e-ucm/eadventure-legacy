@@ -48,7 +48,7 @@ public class RemoveElementTool extends Tool {
 	public boolean doTool() {
 		if (element.delete(true)) {
 			table.clearSelection();
-			Controller.getInstance().updateTree();
+			Controller.getInstance().updateStructure();
 			return true;
 		}
 		return false;

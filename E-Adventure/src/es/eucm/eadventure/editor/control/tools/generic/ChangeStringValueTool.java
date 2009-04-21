@@ -119,7 +119,7 @@ public class ChangeStringValueTool extends Tool{
 		try {
 			set.invoke(data, newValue);
 			if (updateTree)
-				Controller.getInstance().updateTree();
+				Controller.getInstance().updateStructure();
 			if (updatePanel)
 				Controller.getInstance().updatePanel();
 			done = true;
@@ -135,7 +135,7 @@ public class ChangeStringValueTool extends Tool{
 		try {
 			set.invoke(data, oldValue);
 			if (updateTree)
-				Controller.getInstance().updateTree();
+				Controller.getInstance().updateStructure();
 			if (updatePanel)
 				Controller.getInstance().updatePanel();
 			done = true;

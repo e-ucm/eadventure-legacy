@@ -23,12 +23,10 @@ import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
 import es.eucm.eadventure.common.auxiliar.filefilters.EADFileFilter;
 import es.eucm.eadventure.common.auxiliar.filefilters.FolderFileFilter;
 import es.eucm.eadventure.common.auxiliar.filefilters.XMLFileFilter;
-import es.eucm.eadventure.common.data.adaptation.AdaptationProfile;
 import es.eucm.eadventure.common.data.adventure.AdventureData;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.data.animation.Animation;
 import es.eucm.eadventure.common.data.animation.Frame;
-import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.data.chapter.Trajectory;
 import es.eucm.eadventure.common.data.chapter.elements.Player;
@@ -41,11 +39,10 @@ import es.eucm.eadventure.editor.control.config.SCORMConfigData;
 import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.VarFlagsController;
-import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfileDataControl;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfilesDataControl;
-import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfileDataControl;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfilesDataControl;
 import es.eucm.eadventure.editor.control.controllers.character.NPCDataControl;
+import es.eucm.eadventure.editor.control.controllers.general.AdvancedFeaturesDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ChapterDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ChapterListDataControl;
 import es.eucm.eadventure.editor.control.controllers.item.ItemDataControl;
@@ -63,7 +60,6 @@ import es.eucm.eadventure.editor.data.support.IdentifierSummary;
 import es.eucm.eadventure.editor.gui.LoadingScreen;
 import es.eucm.eadventure.editor.gui.MainWindow;
 import es.eucm.eadventure.editor.gui.ProjectFolderChooser;
-import es.eucm.eadventure.editor.gui.auxiliar.ToolSystemDebugger;
 import es.eucm.eadventure.editor.gui.displaydialogs.InvalidReportDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.*;
 import es.eucm.eadventure.editor.gui.editdialogs.customizeguidialog.CustomizeGUIDialog;
@@ -593,8 +589,6 @@ public class Controller {
 		// Prompt the user to create a new adventure or to load one
 		//while( currentZipFile == null ) {
 			// Load the options and show the dialog
-			String[] options = { TextConstants.getText( "StartDialog.Option0" ), TextConstants.getText( "StartDialog.Option1" ) };
-
 			StartDialog start = new StartDialog( );
 			
 			//mainWindow.setEnabled( false );
@@ -904,13 +898,10 @@ public class Controller {
 
 	
 	public boolean newFile() {
-		boolean fileCreated = false;
 		boolean createNewFile = true;
 		
 		if( dataModified ) {
 			int option = mainWindow.showConfirmDialog( TextConstants.getText( "Operation.NewFileTitle" ), TextConstants.getText( "Operation.NewFileMessage" ) );
-
-			String oldZipFile = currentZipFile;
 
 			// If the data must be saved, create the new file only if the save was successful
 			if( option == JOptionPane.YES_OPTION )
@@ -1474,7 +1465,6 @@ public class Controller {
 		boolean fileSaved = false;
 		try {
 			boolean saveFile = true;
-			String oldZipFile = this.currentZipFile;
 	
 			// Select a new file if it is a "Save as" action
 			if( saveAs ) {
@@ -2241,7 +2231,6 @@ public class Controller {
 		if( dataModified ) {
 			int option = mainWindow.showConfirmDialog( TextConstants.getText( "Operation.ExitTitle" ), TextConstants.getText( "Operation.ExitMessage" ) );
 
-			String oldZipFile = currentZipFile;
 			// If the data must be saved, lexit only if the save was succesful
 			if( option == JOptionPane.YES_OPTION )
 				exit = saveFile( false );
@@ -2812,8 +2801,7 @@ public class Controller {
 	/**
 	 * Updates the tree of the main window.
 	 */
-	public void updateTree( ) {
-		mainWindow.updateTree( );
+	public void updateStructure( ) {
 		mainWindow.updateStructure();
 	}
 
@@ -2944,7 +2932,7 @@ public class Controller {
 	}
 	
 	public void showCustomizeGUIDialog (){
-		CustomizeGUIDialog dialog = new CustomizeGUIDialog(this.adventureData);
+		new CustomizeGUIDialog(this.adventureData);
 	}
 
 	public boolean isFolderLoaded( ) {
@@ -3119,5 +3107,9 @@ public class Controller {
 			return temp;
 		else
 			return "gui/cursors/exit.png";
+	}
+
+	public AdvancedFeaturesDataControl getAdvancedFeaturesController() {
+		return this.chaptersController.getSelectedChapterDataControl().getAdvancedFeaturesController();
 	}
 }

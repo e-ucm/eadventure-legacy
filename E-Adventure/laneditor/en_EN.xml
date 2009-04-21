@@ -1268,6 +1268,8 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="ActionsList.CustomName">Custom Name</entry>
 	<entry key="ActionList.Empty">No action selected.</entry>	
 
+	<entry key="SmallActionList.Action">Action</entry>
+
 	<entry key="Action.Title">Action</entry>
 	<entry key="Action.OperationAddAction">Add action</entry>
 	<entry key="Action.MessageSelectItem">Select an item to be the target of the action</entry>
@@ -2260,12 +2262,9 @@ When not customized, default arrows will be used in the game.</entry>
 	<entry key="TimersList.Title">List of timers</entry>
 	<entry key="TimersList.ListTitle">List of timers</entry>
 	<entry key="TimersList.Information">Timers can be used to force the execution of a set of effects after a certain period of time. The timer is started when its "Start condition" becomes true. The timer will then start counting the indicated amount of time. When the timer expires, the effects block is executed. Timers can also have a "Stop condition". If this condition becomes true, the timer stops and can execute an alternative effects block.</entry>
-	<entry key="TimersList.ColumnHeader0">Index</entry>
-	<entry key="TimersList.ColumnHeader1">Time</entry>
-	<entry key="TimersList.ColumnHeader2">Has init cond</entry>
-	<entry key="TimersList.ColumnHeader3">Has end cond</entry>
-	<entry key="TimersList.ColumnHeader4">Has expiration effects</entry>
-	<entry key="TimersList.ColumnHeader5">Has stoppage effects</entry>
+	<entry key="TimersList.Timer">Timer</entry>
+	<entry key="TimersList.Time">Time</entry>
+	<entry key="TimersList.Display">Display in game</entry>
 	
 	<entry key="AdvancedFeatures.Title">Advanced features</entry>
 	<entry key="AdvancedFeatures.Information">Use this section of the tree to create and edit advanced features such as assessment and adaptation profiles and timers.</entry>
@@ -2301,8 +2300,7 @@ When not customized, default arrows will be used in the game.</entry>
 Global states are just groups of conditions, which can represent important "states" of the adventure games.
 They are specially useful when the same group of conditions is to be referenced more than once, as it
 avoids retyping.</entry>
-	<entry key="GlobalStatesList.ColumnHeader0">Global state id</entry>
-	<entry key="GlobalStatesList.ColumnHeader1">References</entry>
+	<entry key="GlobalStatesList.ID">Global state ID</entry>
 	<entry key="GlobalStatesList.ListTitle">The whole list of global states and global state references</entry>
 	
 	<entry key="GlobalState.Documentation">Documentation (not used in game engine)</entry>
@@ -2313,8 +2311,7 @@ avoids retyping.</entry>
 Macros are just groups of effects, which can represent important functions to be executed in the adventure games.
 They are specially useful when the same group of effects is to be referenced more than once, as it
 avoids retyping.</entry>
-	<entry key="MacrosList.ColumnHeader0">Macro id</entry>
-	<entry key="MacrosList.ColumnHeader1">References</entry>
+	<entry key="MacrosList.ID">Macro ID</entry>
 	<entry key="MacrosList.ListTitle">The whole list of macros and macro references</entry>
 	
 	<entry key="Macro.Documentation">Documentation (not used in game engine)</entry>
@@ -2327,15 +2324,16 @@ avoids retyping.</entry>
 	<entry key="Synthesizer.CheckAlways">Synthesizer all conversations</entry>
 	<entry key="Synthesizer.CheckLine">Synthesize current line</entry>
 
-	<entry key="SPEP.ShowActiveAreas">Show Active Areas</entry>
-	<entry key="SPEP.ShowAtrezzo">Show set item references</entry>
-	<entry key="SPEP.ShowBarriers">Show Barriers</entry>
-	<entry key="SPEP.ShowCharacterReferences">Show Character references</entry>
-	<entry key="SPEP.ShowExits">Show Exits</entry>
-	<entry key="SPEP.ShowUncategorized">Show Uncategorized elements</entry>
-	<entry key="SPEP.ShowObjectReferences">Show Object references</entry>
-	<entry key="SPEP.ShowPlayer">Show Player</entry>
-	<entry key="SPEP.ShowTrajectory">Show Trajectory</entry>
+	<entry key="SPEP.ShowActiveAreas">Active Areas</entry>
+	<entry key="SPEP.ShowAtrezzo">Set items</entry>
+	<entry key="SPEP.ShowBarriers">Barriers</entry>
+	<entry key="SPEP.ShowCharacterReferences">NPCs</entry>
+	<entry key="SPEP.ShowExits">Exits</entry>
+	<entry key="SPEP.ShowUncategorized">Other elements</entry>
+	<entry key="SPEP.ShowObjectReferences">Items</entry>
+	<entry key="SPEP.ShowPlayer">Player</entry>
+	<entry key="SPEP.ShowTrajectory">Trajectory</entry>
+	<entry key="SPEP.ShowPanelTitle">Show/hide components</entry>
 	<entry key="SPEP.XCoordinate">X coordinate</entry>
 	<entry key="SPEP.YCoordinate">Y coordinate</entry>
 	<entry key="SPEP.Scale">Scale</entry>

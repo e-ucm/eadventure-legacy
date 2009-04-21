@@ -7,8 +7,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -20,11 +20,12 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.globalstate.GlobalStateDataControl;
 import es.eucm.eadventure.editor.control.controllers.globalstate.GlobalStateListDataControl;
-import es.eucm.eadventure.editor.gui.elementpanels.general.tables.GlobalStatesTable;
+import es.eucm.eadventure.editor.gui.DataControlsPanel;
 
-public class GlobalStatesListPanel extends JPanel {
+public class GlobalStatesListPanel extends JPanel implements DataControlsPanel {
 
 	/**
 	 * Required.
@@ -50,7 +51,6 @@ public class GlobalStatesListPanel extends JPanel {
 	public GlobalStatesListPanel( GlobalStateListDataControl gloabalStatesListDataControl ) {
 		this.dataControl = gloabalStatesListDataControl;
 		setLayout( new BorderLayout() );
-		setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "GlobalStatesList.Title" ) ) );
 
 		globalStateInfoPanel = new JPanel();
 		globalStateInfoPanel.setLayout(new BorderLayout());
@@ -141,6 +141,17 @@ public class GlobalStatesListPanel extends JPanel {
 	protected void deleteGlobalState() {
 		dataControl.deleteElement(dataControl.getGlobalStates().get(table.getSelectedRow()), true);
 		((AbstractTableModel) table.getModel()).fireTableDataChanged();
+	}
+
+
+	@Override
+	public void setSelectedItem(List<DataControl> path) {
+		if (path.size() > 0) {
+			for (int i = 0 ; i < dataControl.getGlobalStates().size(); i++) {
+				if (dataControl.getGlobalStates().get(i) == path.get(path.size() -1))
+					table.changeSelection(i, i, false, false);
+			}
+		}
 	}
 
 }

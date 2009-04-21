@@ -12,7 +12,6 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
-import es.eucm.eadventure.editor.gui.treepanel.nodes.scene.ReferenceListener;
 
 /**
  * Data control for the list of references in the scene
@@ -79,11 +78,6 @@ public class ReferencesListDataControl extends DataControl{
 	public static final int NO_PLAYER=-1; 
 	
 	/**
-	 * Listener to inform of new element creation (and create new tree node)
-	 */
-	private ReferenceListener addNewReferenceListener;
-	
-	/**
 	 * Tell us if the player image path has been changed
 	 */
 	private boolean imagePathHasChanged;
@@ -106,7 +100,6 @@ public class ReferencesListDataControl extends DataControl{
 		this.allReferencesDataControl = new ArrayList<ElementContainer>();
 		this.lastElementContainer = null;
 		this.playerPositionInAllReferences = NO_PLAYER;
-		this.addNewReferenceListener = null;
 		this.imagePathHasChanged = false;
 		// Check if one of references has layer -1: if it is true, it means that element references has not layer. 
 		// Create subcontrollers
@@ -398,7 +391,6 @@ public class ReferencesListDataControl extends DataControl{
 					reassignLayerAllReferencesDataControl(insertInOrder(ec,false));
 					//controller.dataModified( );
 					elementAdded = true;
-					addNewReferenceListener.addNewNodeElement(type);
 				}
 			}
 
@@ -428,7 +420,6 @@ public class ReferencesListDataControl extends DataControl{
 					reassignLayerAllReferencesDataControl(insertInOrder(ec,false));
 					//controller.dataModified( );
 					elementAdded = true;
-					addNewReferenceListener.addNewNodeElement(type);
 				}
 			}
 
@@ -457,7 +448,6 @@ public class ReferencesListDataControl extends DataControl{
 					reassignLayerAllReferencesDataControl(insertInOrder(ec,false));
 					//controller.dataModified( );
 					elementAdded = true;
-					addNewReferenceListener.addNewNodeElement(type);
 				}
 			}
 
@@ -521,7 +511,6 @@ public class ReferencesListDataControl extends DataControl{
 		delete(dataControl);
 		//controller.dataModified( );
 		elementDeleted = true;
-		addNewReferenceListener.deleteNodeElement();
 		
 		}
 		//if it is a player, we don´t allow to delete it
@@ -852,16 +841,6 @@ public class ReferencesListDataControl extends DataControl{
 	
 	}
 	
-	/**
-	 * Changes the listener
-	 * 
-	 * @param anrl
-	 * 			the new AddNewReferenceListener
-	 */
-	public void setAddNewReferenceListener(ReferenceListener anrl) {
-		this.addNewReferenceListener = anrl;
-	}
-
 	public void changeImagePlayerPath(String imagePath) {
 		this.playerImagePath = imagePath;
 		this.imagePathHasChanged = true;

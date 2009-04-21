@@ -7,7 +7,6 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
 import java.util.ArrayList;
@@ -15,6 +14,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -40,6 +40,7 @@ import es.eucm.eadventure.editor.control.controllers.scene.InfluenceAreaDataCont
 import es.eucm.eadventure.editor.control.controllers.scene.NodeDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.PointDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
+import es.eucm.eadventure.editor.gui.elementpanels.DataControlSelectionListener;
 import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElement;
 import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElementActiveArea;
 import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElementBarrier;
@@ -173,6 +174,8 @@ public class ScenePreviewEditionPanel extends JPanel {
 	private ImageElement firstElement;
 
 	private ElementReferenceSelectionListener elementReferenceSelectionListener;
+
+	private DataControlSelectionListener dataControlSelectionListener;
 	
 	/**
 	 * The ScenePreviewEditionController being currently used
@@ -385,23 +388,25 @@ public class ScenePreviewEditionPanel extends JPanel {
 	 * @param influenceArea the elements influence area
 	 */
 	public void addInfluenceArea(InfluenceAreaDataControl influenceArea) {
-		Integer key = new Integer(CATEGORY_INFLUENCEAREA);
-		addCategory(key, true, true);
-		List<ImageElement> list = elements.get(key);
-		list.clear();
-		ImageElement temp = null;
-		for (Integer key2 : elements.keySet()) {
-			for (ImageElement imageElement : elements.get(key2)) {	
-				if (imageElement.getDataControl() != null &&
-						imageElement.getDataControl() == influenceArea.getDataControl()) {
-					temp = imageElement;
+		if (this.showInfluenceArea) {
+			Integer key = new Integer(CATEGORY_INFLUENCEAREA);
+			addCategory(key, true, true);
+			List<ImageElement> list = elements.get(key);
+			list.clear();
+			ImageElement temp = null;
+			for (Integer key2 : elements.keySet()) {
+				for (ImageElement imageElement : elements.get(key2)) {	
+					if (imageElement.getDataControl() != null &&
+							imageElement.getDataControl() == influenceArea.getDataControl()) {
+						temp = imageElement;
+					}
 				}
 			}
+			if (temp == null)
+				temp = selectedElement;
+			this.influenceArea = new ImageElementInfluenceArea(influenceArea, temp);
+			list.add(this.influenceArea);
 		}
-		if (temp == null)
-			temp = selectedElement;
-		this.influenceArea = new ImageElementInfluenceArea(influenceArea, temp);
-		list.add(this.influenceArea);
 	}
 	
 	public void addInfluenceArea(ImageElementInfluenceArea influenceArea) {
@@ -849,6 +854,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 	
 	private void resetInfluenceArea() {
 		if (showInfluenceArea) {
+			this.influenceArea = null;
 			Integer key = new Integer(CATEGORY_INFLUENCEAREA);
 			addCategory(key, true, true);
 			List<ImageElement> list = elements.get(key);
@@ -893,9 +899,21 @@ public class ScenePreviewEditionPanel extends JPanel {
 	}
 	
 	public void setSelectedElement(ImageElement imageElement) {
-		if (imageElement != null && imageElement instanceof ImageElementInfluenceArea)
+		if (imageElement != null && (imageElement instanceof ImageElementInfluenceArea
+				|| imageElement instanceof ImageElementPoint))
 			return;
-		this.selectedElement = imageElement;
+		boolean exists = false;
+		for (Integer key2 : elements.keySet()) {
+			for (ImageElement imageElement2 : elements.get(key2)) {	
+				if (imageElement2.getDataControl() != null && imageElement != null && 
+						imageElement2.getDataControl() == imageElement.getDataControl()) {
+					exists = true;
+					this.selectedElement = imageElement2;
+				}
+			}
+		}
+		if (!exists)
+			this.selectedElement = imageElement;
 		if (elementReferenceSelectionListener != null){
 			if (selectedElement != null)
 				elementReferenceSelectionListener.elementReferenceSelected(selectedElement.getLayer());
@@ -1057,6 +1075,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 	 */
 	public JPanel createCheckBoxPanel() {
 		JPanel checkBoxPanel = new JPanel();
+		checkBoxPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "SPEP.ShowPanelTitle" ) ) );
 		
 		List<JCheckBox> checkBoxList = new ArrayList<JCheckBox>();
 		for (Integer key : displayCategory.keySet()) {
@@ -1068,10 +1087,18 @@ public class ScenePreviewEditionPanel extends JPanel {
 				checkBoxList.add(newCheckBox);
 		}
 		
-		checkBoxPanel.setLayout(new GridLayout(2,0));
+		checkBoxPanel.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 0;
+		
 		checkBoxPanel.setAutoscrolls(true);
-		for (JCheckBox checkBox : checkBoxList)
-			checkBoxPanel.add(checkBox);
+		for (JCheckBox checkBox : checkBoxList) {
+			checkBoxPanel.add(checkBox, c);
+			c.gridx += c.gridy;
+			c.gridy++;
+			c.gridy = c.gridy % 2;
+		}
 		
 		
 		return checkBoxPanel;
@@ -1292,6 +1319,19 @@ public class ScenePreviewEditionPanel extends JPanel {
 				elements.get(key).remove(temp);
 				temp = null;
 			}
+		}
+	}
+	
+	public void setDataControlSelectionListener(DataControlSelectionListener dataControlSelectionListener) {
+		this.dataControlSelectionListener = dataControlSelectionListener;
+	}
+	
+	public void notifySelectionListener() {
+		if (dataControlSelectionListener != null) {
+			if (selectedElement == null)
+				dataControlSelectionListener.dataControlSelected(null);
+			else
+				dataControlSelectionListener.dataControlSelected(selectedElement.getDataControl());
 		}
 	}
 

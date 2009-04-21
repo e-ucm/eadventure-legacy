@@ -8,7 +8,6 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -22,7 +21,6 @@ import javax.swing.table.AbstractTableModel;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.timer.TimerDataControl;
 import es.eucm.eadventure.editor.control.controllers.timer.TimersListDataControl;
-import es.eucm.eadventure.editor.gui.elementpanels.general.tables.TimersTable;
 
 public class TimersListPanel extends JPanel {
 
@@ -50,9 +48,6 @@ public class TimersListPanel extends JPanel {
 	public TimersListPanel( TimersListDataControl timersListDataControl ) {
 		this.dataControl = timersListDataControl;
 		setLayout( new BorderLayout( ) );
-		
-		setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "TimersList.Title" ) ) );
-		
 		
 		timerInfoPanel = new JPanel();
 		timerInfoPanel.setLayout(new BorderLayout());

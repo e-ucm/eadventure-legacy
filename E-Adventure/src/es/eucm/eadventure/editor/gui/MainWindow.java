@@ -47,11 +47,6 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.gui.structurepanel.StructureControl;
 import es.eucm.eadventure.editor.gui.structurepanel.StructurePanel;
-import es.eucm.eadventure.editor.gui.treepanel.TreeNodeControl;
-import es.eucm.eadventure.editor.gui.treepanel.TreePanel;
-import es.eucm.eadventure.editor.gui.treepanel.nodes.EmptyTreeNode;
-import es.eucm.eadventure.editor.gui.treepanel.nodes.TreeNode;
-import es.eucm.eadventure.editor.gui.treepanel.nodes.general.ChapterTreeNode;
 
 /**
  * This class represents the main frame of the application. It has all the elements of the view part of the application,
@@ -90,11 +85,6 @@ public class MainWindow extends JFrame {
 
 	private JCheckBoxMenuItem itShowStartDialog;
 
-	/**
-	 * Tree panel containing the data tree.
-	 */
-	private TreePanel treePanel;
-
 	private StructurePanel structurePanel;
 	
 	/**
@@ -128,10 +118,6 @@ public class MainWindow extends JFrame {
         	//ErrorReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
 		}
 
-		// Load the icons and graphic resources
-		TreeNode.loadIcons( );
-		TreePanel.loadIcons( );
-		
 		// Create the list of icons of the window
 		List<Image> icons = new ArrayList<Image>();
 		
@@ -144,17 +130,6 @@ public class MainWindow extends JFrame {
 		// First of all, create the bar
 		setJMenuBar( createMenuBar() );
 		
-		// Create the tree structure for the panel
-		TreeNode root = null;
-		if (Controller.getInstance( ).isFolderLoaded( ))
-			root = new ChapterTreeNode( null, controller.getSelectedChapterDataControl( ),
-					controller.getAssessmentController( ), controller.getAdaptationController( ));
-		else
-			root = new EmptyTreeNode(null);
-
-		
-		TreeNodeControl.getInstance().setRoot(root);
-
 		// Create the two panels
 		JPanel editorContainer = new JPanel( );
 		editorContainer.setMinimumSize( new Dimension( 400, 0 ) );
@@ -167,26 +142,18 @@ public class MainWindow extends JFrame {
 		structurePanel.setPreferredSize(new Dimension(210, 0));
 		StructureControl.getInstance().setStructurePanel(structurePanel);
 
-		treePanel = new TreePanel( root, editorContainer );
-		treePanel.setMinimumSize( new Dimension( 210, 0 ) );
-		treePanel.setPreferredSize( new Dimension( 210, 0 ) );
+		JPanel structureToolsPanel = new JPanel();
+		structureToolsPanel.setLayout(new BorderLayout());
+		structureToolsPanel.setMinimumSize( new Dimension( 210, 0 ) );
+		structureToolsPanel.setMaximumSize(new Dimension(210, Integer.MAX_VALUE));
 
-		
-		JPanel treeToolsPanel = new JPanel();
-		treeToolsPanel.setLayout(new BorderLayout());
-		treeToolsPanel.setMinimumSize( new Dimension( 210, 0 ) );
-		//treeToolsPanel.setPreferredSize( new Dimension( 210, 0 ) );
-		treeToolsPanel.setMaximumSize(new Dimension(210, Integer.MAX_VALUE));
-
-//		treeToolsPanel.add(treePanel, BorderLayout.CENTER);
-		treeToolsPanel.add(structurePanel, BorderLayout.CENTER);
+		structureToolsPanel.add(structurePanel, BorderLayout.CENTER);
 	
 		JPanel toolsPanel = createToolsPanel();
-		treeToolsPanel.add(toolsPanel, BorderLayout.NORTH);
-		
+		structureToolsPanel.add(toolsPanel, BorderLayout.NORTH);
 		
 		// Create the split panel
-		JSplitPane splitPane = new JSplitPane( JSplitPane.HORIZONTAL_SPLIT, treeToolsPanel, editorContainer );
+		JSplitPane splitPane = new JSplitPane( JSplitPane.HORIZONTAL_SPLIT, structureToolsPanel, editorContainer );
 		splitPane.setBorder( null );
 		
 		
@@ -752,37 +719,25 @@ public class MainWindow extends JFrame {
 	 */
 	public void reloadData( ) {
 		
-		// Create and place the new root
-		TreeNode newRoot=null;
-		if (Controller.getInstance( ).isFolderLoaded( ))
-			newRoot = new ChapterTreeNode( null, controller.getSelectedChapterDataControl( ),
-					controller.getAssessmentController( ), controller.getAdaptationController( ) );
-		else
-			newRoot = new EmptyTreeNode(null);
 		structurePanel.recreateElements();
 		
 		updateChapterMenu( );
-		
 			
-			//Update the change player mode item menu
-			if( controller.isPlayTransparent( ) ) {
-				itPlayerMode.setText( TextConstants.getText( "MenuAdventure.ChangeToModePlayerVisible" ) );
-				itPlayerMode.setToolTipText( TextConstants.getText( "MenuAdventure.ModePlayerVisible" ) );
-			}
+		//Update the change player mode item menu
+		if( controller.isPlayTransparent( ) ) {
+			itPlayerMode.setText( TextConstants.getText( "MenuAdventure.ChangeToModePlayerVisible" ) );
+			itPlayerMode.setToolTipText( TextConstants.getText( "MenuAdventure.ModePlayerVisible" ) );
+		}
+		else {
+			itPlayerMode.setText( TextConstants.getText( "MenuAdventure.ChangeToModePlayerTransparent" ) );
+			itPlayerMode.setToolTipText( TextConstants.getText( "MenuAdventure.ModePlayerTransparent" ) );
+		}
+		//Update the Show Start Dialog item
+		itShowStartDialog.setSelected( controller.getShowStartDialog( ) );
+		itAutoBackup.setSelected( controller.getAutoSaveEnabled() );
 
-			else {
-				itPlayerMode.setText( TextConstants.getText( "MenuAdventure.ChangeToModePlayerTransparent" ) );
-				itPlayerMode.setToolTipText( TextConstants.getText( "MenuAdventure.ModePlayerTransparent" ) );
-			}
-			//Update the Show Start Dialog item
-			itShowStartDialog.setSelected( controller.getShowStartDialog( ) );
-			itAutoBackup.setSelected( controller.getAutoSaveEnabled() );
-
-
-		this.reloadPanel( );
 		StructureControl.getInstance().changeDataControl(controller.getSelectedChapterDataControl());
 		StructureControl.getInstance().visitDataControl(controller.getSelectedChapterDataControl());
-		treePanel.reloadTree( newRoot );
 		
 		// Update the menu bar
 		this.setJMenuBar( createMenuBar() );
@@ -792,8 +747,6 @@ public class MainWindow extends JFrame {
 		updateTitle( );
 		
 		this.repaint( );
-		
-
 	}
 
 	/**
@@ -837,22 +790,8 @@ public class MainWindow extends JFrame {
 		}
 	}
 
-	/**
-	 * Updates the representation of the tree. It doesn't reload the nodes, just updates the view of the panel.
-	 */
-	public void updateTree( ) {
-		treePanel.updateTreePanel( );
-	}
-	
 	public void updateStructure() {
 		structurePanel.update();
-	}
-
-	/**
-	 * Reloads the panel selected.
-	 */
-	public void reloadPanel( ) {
-		treePanel.loadPanel( );
 	}
 
 	public void updatePanel() {
@@ -863,7 +802,16 @@ public class MainWindow extends JFrame {
 		}
 		structurePanel.updateElementPanel();
 	}
-	
+
+	public void reloadPanel() {
+		for (Window window: windowsStack){
+			if (window instanceof Updateable){
+				((Updateable)window).updateFields();
+			}
+		}
+		structurePanel.reloadElementPanel();
+	}
+
 	/**
 	 * Returns the last window opened by the application.
 	 * 

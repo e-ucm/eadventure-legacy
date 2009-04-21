@@ -43,7 +43,7 @@ public class RenameElementTool extends Tool {
 		if( dataControl.canBeRenamed( )) {
 			oldName = dataControl.renameElement( newName );
 			if (oldName != null) {
-				Controller.getInstance().updateTree();
+				Controller.getInstance().updateStructure();
 				return true;
 			}
 		}		
@@ -55,7 +55,7 @@ public class RenameElementTool extends Tool {
 		if( dataControl.canBeRenamed( )) {
 			newName = dataControl.renameElement( oldName );
 			if (newName != null) {
-				Controller.getInstance().updateTree();
+				Controller.getInstance().updateStructure();
 				return true;
 			}
 		}		

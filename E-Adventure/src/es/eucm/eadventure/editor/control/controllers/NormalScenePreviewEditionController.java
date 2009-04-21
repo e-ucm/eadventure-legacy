@@ -1,18 +1,10 @@
 package es.eucm.eadventure.editor.control.controllers;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
-
-import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElement;
 import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElementInfluenceArea;
-import es.eucm.eadventure.editor.gui.structurepanel.StructureControl;
-import es.eucm.eadventure.editor.gui.treepanel.TreeNodeControl;
 
 public class NormalScenePreviewEditionController implements ScenePreviewEditionController {
 
@@ -69,34 +61,13 @@ public class NormalScenePreviewEditionController implements ScenePreviewEditionC
 		setMouseUnder(e.getX(), e.getY());
 		if (underMouse != null && !spep.getFixedSelectedElement() && !(underMouse instanceof ImageElementInfluenceArea)) {
 			if (e.getButton() == MouseEvent.BUTTON1) {
-				if (e.getClickCount() == 1) {
-					spep.setSelectedElement(underMouse);
-					spep.repaint();
-				} else {
-					TreeNodeControl.getInstance().changeTreeNode(underMouse.getDataControl());
-				}
-			} else if (e.getButton() == MouseEvent.BUTTON3) {
-				if (underMouse.getDataControl() != null && underMouse.getReferencedDataControl() != null) {
-					JPopupMenu menu = new JPopupMenu();
-					JMenuItem item = new JMenuItem(TextConstants.getText("SPEP.GoToElementReference"));
-					item.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent arg0) {
-							StructureControl.getInstance().changeDataControl(underMouse.getDataControl());
-						}
-					});
-					menu.add(item);
-					JMenuItem item2 = new JMenuItem(TextConstants.getText("SPEP.GoToReferencedElement"));
-					item2.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							StructureControl.getInstance().changeDataControl(underMouse.getReferencedDataControl());
-						}
-					});
-					menu.add(item2);
-					menu.show(spep, e.getX(), e.getY());
-				}
+				spep.setSelectedElement(underMouse);
+				spep.notifySelectionListener();
+				spep.repaint();
 			}
 		} else if (underMouse == null && !spep.getFixedSelectedElement()) {
 			spep.setSelectedElement((ImageElement) null);
+			spep.notifySelectionListener();
 			spep.repaint();
 		} else if (spep.getFixedSelectedElement()) {
 			int x = spep.getRealX(e.getX());

@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
+import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.IrregularAreaEditionController;
 import es.eucm.eadventure.editor.control.controllers.NormalScenePreviewEditionController;
 import es.eucm.eadventure.editor.control.controllers.TrajectoryScenePreviewEditionController;
@@ -145,8 +146,8 @@ public class IrregularAreaEditionPanel extends JPanel {
 		if (rectangleArea == null || rectangleArea.isRectangular()) {
 			spep.changeController(new NormalScenePreviewEditionController(spep));
 			spep.setShowTextEdition(true);
-			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_ACTIVEAREA, true);
-			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_EXIT, true);
+			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_ACTIVEAREA, rectangleArea instanceof ActiveAreaDataControl);
+			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_EXIT, rectangleArea instanceof ExitDataControl);
 			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_POINT, false);
 			spep.removeElements(ScenePreviewEditionPanel.CATEGORY_POINT);
 			if (rectangleArea != null && rectangleArea instanceof ActiveAreaDataControl) { 
@@ -175,6 +176,8 @@ public class IrregularAreaEditionPanel extends JPanel {
 			iaec = new IrregularAreaEditionController(spep, rectangleArea, color, hasInfluenceArea);
 			spep.changeController(iaec);
 			spep.setShowTextEdition(false);
+			spep.removeElements(ScenePreviewEditionPanel.CATEGORY_POINT);
+//			spep.removeElement((DataControl) rectangleArea);
 			for (Point point: rectangleArea.getPoints())
 				spep.addPoint(new PointDataControl(point));
 			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_POINT, true);

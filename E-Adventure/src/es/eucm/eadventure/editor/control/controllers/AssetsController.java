@@ -27,7 +27,6 @@ import es.eucm.eadventure.common.auxiliar.categoryfilters.VideoFileFilter;
 import es.eucm.eadventure.common.auxiliar.filefilters.JPGSlidesFileFilter;
 import es.eucm.eadventure.common.auxiliar.filefilters.MP3FileFilter;
 import es.eucm.eadventure.common.auxiliar.filefilters.PNGAnimationFileFilter;
-import es.eucm.eadventure.common.auxiliar.filefilters.XMLFileFilter;
 import es.eucm.eadventure.common.data.animation.Animation;
 import es.eucm.eadventure.common.data.animation.Frame;
 import es.eucm.eadventure.common.gui.TextConstants;
@@ -749,9 +748,6 @@ public class AssetsController {
 				controller.deleteAssetReferences( removeSuffix( assetPath ) );
 			else
 				controller.deleteAssetReferences( assetPath );
-
-			// Reload the panel
-			controller.reloadPanel( );
 		}
 
 		return assetDeleted;

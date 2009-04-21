@@ -35,7 +35,7 @@ public class ChangeTitleTool extends Tool {
 		if( !title.equals( titled.getTitle( ) ) ) {
 			oldTitle = titled.getTitle();
 			titled.setTitle( title );
-			controller.updateTree( );
+			controller.updateStructure( );
 			controller.updateChapterMenu( );
 			return true;
 		} 
@@ -50,7 +50,7 @@ public class ChangeTitleTool extends Tool {
 	@Override
 	public boolean redoTool() {
 		titled.setTitle( title );
-		controller.updateTree( );
+		controller.updateStructure( );
 		controller.updateChapterMenu( );
 		controller.updatePanel();
 		return true;
@@ -59,7 +59,7 @@ public class ChangeTitleTool extends Tool {
 	@Override
 	public boolean undoTool() {
 		titled.setTitle( oldTitle );
-		controller.updateTree( );
+		controller.updateStructure( );
 		controller.updateChapterMenu( );
 		controller.updatePanel();
 		return true;

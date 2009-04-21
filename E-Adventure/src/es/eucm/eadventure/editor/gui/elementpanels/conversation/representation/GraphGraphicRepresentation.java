@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -371,7 +370,6 @@ public class GraphGraphicRepresentation extends GraphicRepresentation {
 	 */
 	private Point getPositionOfOldestBrother( ConversationNodeView node ) {
 		ConversationNodeView father = null;
-		ConversationNodeView brother = null;
 
 		// Pick all the nodes in the conversation
 		List<ConversationNodeView> nodes = graphConversationDataControl.getAllNodes( );

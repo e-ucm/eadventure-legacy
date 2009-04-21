@@ -1,18 +1,20 @@
 package es.eucm.eadventure.editor.gui.elementpanels.general;
 
-import java.awt.BorderLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-
-import javax.swing.BorderFactory;
-import javax.swing.JPanel;
-import javax.swing.JTextPane;
+import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 
 import es.eucm.eadventure.common.gui.TextConstants;
-import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
+import es.eucm.eadventure.editor.control.controllers.general.AdvancedFeaturesDataControl;
+import es.eucm.eadventure.editor.control.controllers.globalstate.GlobalStateListDataControl;
+import es.eucm.eadventure.editor.control.controllers.macro.MacroListDataControl;
+import es.eucm.eadventure.editor.control.controllers.timer.TimersListDataControl;
+import es.eucm.eadventure.editor.gui.elementpanels.ElementPanel;
+import es.eucm.eadventure.editor.gui.elementpanels.PanelTab;
+import es.eucm.eadventure.editor.gui.elementpanels.globalstate.GlobalStatesListPanel;
+import es.eucm.eadventure.editor.gui.elementpanels.macro.MacrosListPanel;
+import es.eucm.eadventure.editor.gui.elementpanels.timer.TimersListPanel;
 
-public class AdvancedFeaturesPanel extends JPanel{
+public class AdvancedFeaturesPanel extends ElementPanel {
 
 	/**
 	 * Required
@@ -20,30 +22,55 @@ public class AdvancedFeaturesPanel extends JPanel{
 	private static final long serialVersionUID = 6602692300239491332L;
 
 	
-	public AdvancedFeaturesPanel (){
-		// Set the layout and the border
-		setLayout( new GridBagLayout( ) );
-		setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AdvancedFeatures.Title" ) ) );
-		GridBagConstraints c = new GridBagConstraints( );
-		c.insets = new Insets( 5, 5, 5, 5 );
+	public AdvancedFeaturesPanel (AdvancedFeaturesDataControl advancedFeaturesDataControl){
+		addTab(new TimersPanelTab(advancedFeaturesDataControl.getTimersList()));
+		addTab(new GlobalStatesPanelTab(advancedFeaturesDataControl.getGlobalStatesListDataControl()));
+		addTab(new MacrosPanelTab(advancedFeaturesDataControl.getMacrosListDataControl()));
+	}
+	
+	private class TimersPanelTab extends PanelTab {
+		private TimersListDataControl timersListDataControl;
 
-		// Create the text area for the documentation
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weightx = 1;
-		JTextPane informationTextPane = new JTextPane( );
-		informationTextPane.setEditable( false );
-		informationTextPane.setBackground( getBackground( ) );
-		informationTextPane.setText( TextConstants.getText( "AdvancedFeatures.Information" ) );
-		JPanel informationPanel = new JPanel( );
-		informationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "GeneralText.Information" ) ) );
-		informationPanel.setLayout( new BorderLayout( ) );
-		informationPanel.add( informationTextPane, BorderLayout.CENTER );
-		add( informationPanel, c );
-		
-		c.fill = GridBagConstraints.BOTH;
-		c.weighty = 1;
-		c.gridy = 1;
-		add (new JFiller(),c);
+		public TimersPanelTab(TimersListDataControl timersListDataControl) {
+			super(TextConstants.getText( "TimersList.Title" ), timersListDataControl);
+			setIcon(new ImageIcon( "img/icons/timers.png" ));
+			this.timersListDataControl = timersListDataControl;
+		}
+
+		@Override
+		protected JComponent getTabComponent() {
+			return new TimersListPanel( timersListDataControl);
+		}
+	}
+
+	private class GlobalStatesPanelTab extends PanelTab {
+		private GlobalStateListDataControl globalStateListDataControl;
+
+		public GlobalStatesPanelTab(GlobalStateListDataControl globalStateDataControl) {
+			super(TextConstants.getText( "GlobalStatesList.Title" ), globalStateDataControl);
+			setIcon(new ImageIcon( "img/icons/groups16.png" ));
+			this.globalStateListDataControl = globalStateDataControl;
+		}
+
+		@Override
+		protected JComponent getTabComponent() {
+			return new GlobalStatesListPanel( globalStateListDataControl);
+		}
+	}
+
+	private class MacrosPanelTab extends PanelTab {
+		private MacroListDataControl macroListDataControl;
+
+		public MacrosPanelTab(MacroListDataControl macroListDataControl) {
+			super(TextConstants.getText( "GlobalStatesList.Title" ), macroListDataControl);
+			setIcon(new ImageIcon( "img/icons/macros.png" ));
+			this.macroListDataControl = macroListDataControl;
+		}
+
+		@Override
+		protected JComponent getTabComponent() {
+			return new MacrosListPanel( macroListDataControl);
+		}
 	}
 	
 }

@@ -31,10 +31,10 @@ import es.eucm.eadventure.editor.control.controllers.scene.ExitDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.NodeDataControl;
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
 import es.eucm.eadventure.editor.gui.Updateable;
-import es.eucm.eadventure.editor.gui.elementpanels.general.tables.BarriersTable;
+import es.eucm.eadventure.editor.gui.elementpanels.DataControlSelectionListener;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 
-public class BarriersListPanel extends JPanel implements Updateable, DataControlsPanel {
+public class BarriersListPanel extends JPanel implements Updateable, DataControlsPanel, DataControlSelectionListener {
 
 	/**
 	 * Required.
@@ -62,6 +62,7 @@ public class BarriersListPanel extends JPanel implements Updateable, DataControl
 		this.dataControl = barriersListDataControl;
 		String scenePath = Controller.getInstance( ).getSceneImagePath( barriersListDataControl.getParentSceneId( ) );
 		spep = new ScenePreviewEditionPanel(false, scenePath);
+		spep.setDataControlSelectionListener(this);
 		addElementsToPreview(scenePath);
 		
 		setLayout( new BorderLayout( ) );
@@ -81,19 +82,22 @@ public class BarriersListPanel extends JPanel implements Updateable, DataControl
 	private JPanel createTablePanel() {
 		JPanel tablePanel = new JPanel();
 		
-		table = new BarriersTable(dataControl, spep);
+		table = new BarriersTable(dataControl);
 		JScrollPane scroll = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scroll.setMinimumSize(new Dimension(0, 	HORIZONTAL_SPLIT_POSITION));
 
 		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent arg0) {
-				if (table.getSelectedRow() >= 0)
+				if (table.getSelectedRow() >= 0) {
 					deleteButton.setEnabled(true);
-				else
+					spep.setSelectedElement(dataControl.getBarriers().get(table.getSelectedRow()));
+					spep.repaint();
+				} else
 					deleteButton.setEnabled(false);
 				deleteButton.repaint();
 			}
 		});
+
 		
 		JPanel buttonsPanel = new JPanel();
 		JButton newButton = new JButton(new ImageIcon("img/icons/addNode.png"));
@@ -171,7 +175,7 @@ public class BarriersListPanel extends JPanel implements Updateable, DataControl
 			spep.addBarrier(dataControl.getLastBarrier());
 			spep.repaint();
 			((AbstractTableModel) table.getModel()).fireTableDataChanged();
-			table.getSelectionModel().setSelectionInterval(dataControl.getBarriers().size() - 1, dataControl.getBarriers().size() - 1);
+			table.changeSelection(dataControl.getBarriers().size() - 1, dataControl.getBarriers().size() - 1, false, false);
 		}
 	}
 	
@@ -194,5 +198,16 @@ public class BarriersListPanel extends JPanel implements Updateable, DataControl
 					table.changeSelection(i, i, false, false);
 			}
 		}
+	}
+
+	@Override
+	public void dataControlSelected(DataControl dataControl2) {
+		if (dataControl2 != null) {
+			for (int i = 0 ; i < dataControl.getBarriers().size(); i++) {
+				if (dataControl.getBarriers().get(i) == dataControl2)
+					table.changeSelection(i, i, false, false);
+			}
+		} else
+			table.clearSelection();
 	}
 }

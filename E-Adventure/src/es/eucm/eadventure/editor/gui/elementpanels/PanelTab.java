@@ -1,5 +1,6 @@
 package es.eucm.eadventure.editor.gui.elementpanels;
 
+import javax.swing.Icon;
 import javax.swing.JComponent;
 
 import es.eucm.eadventure.editor.control.controllers.DataControl;
@@ -14,6 +15,8 @@ public abstract class PanelTab implements Updateable {
 	private String toolTipText;
 	
 	private JComponent component;
+	
+	private Icon icon;
 	
 	private DataControl dataControl;
 	
@@ -53,6 +56,13 @@ public abstract class PanelTab implements Updateable {
 		return dataControl;
 	}
 	
+	public void setIcon (Icon icon) {
+		this.icon = icon;
+	}
+	
+	public Icon getIcon() {
+		return icon;
+	}
 }	
 	
 	
