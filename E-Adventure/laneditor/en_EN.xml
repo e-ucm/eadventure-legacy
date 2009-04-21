@@ -677,6 +677,8 @@ based on the state of the flags.</entry>
 	<entry key="Effect.TriggerScene">Trigger scene</entry>
 	<entry key="Effect.RandomEffect">Effect with probability</entry>
 	<entry key="Effect.MacroReference">Launch a macro</entry>
+	<entry key="Effect.ShowText">Show text</entry>
+	<entry key="Effect.WaitTime">Wait time</entry>
 
 	<entry key="Effect.ActivateInfo">Activate flag: {#0}</entry>
 	<entry key="Effect.DeactivateInfo">Deactivate flag: {#0}</entry>
@@ -699,6 +701,9 @@ based on the state of the flags.</entry>
 	<entry key="Effect.TriggerSceneInfo">Trigger scene {#0}</entry>
 	<entry key="Effect.TriggerLastSceneInfo">Trigger last scene</entry>
 	<entry key="Effect.RandomInfo">{#2} (probability = {#0}%); {#3} (probability = {#1}%)</entry>
+	<entry key="Effect.WaitTimeInfo">Wait {#0} seconds</entry>
+	<entry key="Effect.ShowTextInfo">Show {#0} in position x:{#1} y:{#2}</entry>
+
 
 	<entry key="ImageDialog.Title">Image preview - {#0}</entry>
 	<entry key="SlidesDialog.Title">Slides preview - {#0}</entry>
@@ -785,6 +790,13 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="RandomEffect.Probability.Description">First effect probability(1-100):</entry>
 	<entry key="RandomEffect.Positive.Title">First effect</entry>
 	<entry key="RandomEffect.Negative.Title">Second effect</entry>
+
+	<entry key="WaitTimeEffect.Title">Effect to wait some time</entry>
+	<entry key="WaitTimeEffect.Border">Time</entry>
+	<entry key="WaitTimeEffect.Label">Time that game will be waiting</entry>
+	
+	<entry key="ShowTextEffect.Title">Effect to show text in a scene</entry>
+	<entry key="ShowTextEffect.Border">Preview</entry>
 
 	<entry key="SceneLocation.SceneListDescription">Select a scene to pick a destination point</entry>
 	<entry key="SceneLocation.NoSceneSelected">No scene selected</entry>
@@ -1686,6 +1698,7 @@ When not customized, default arrows will be used in the game.</entry>
 	<entry key="AssessmentRule.Importance.VeryHigh">Very High</entry>
 	<entry key="AssessmentRule.Importance.High">High</entry>
 	
+	<entry key="AssessmentRule.ProfileType">Profile Type</entry>
 	<entry key="AssessmentRule.Title">Assessment Rule</entry>
 	<entry key="AssessmentRule.Concept">Concept</entry>
 	<entry key="AssessmentRule.Information"> Use this section to edit a new assessment rule. In &lt;e-Adventure&gt; assessment rules are defined by the specification of a set of conditions (flags) that, when satisfied, make the game to set values to some properties. Therefore you can edit that conditions, as well as declare the properties to be set and its values. Moreover, you are allowed to type a brief concept for each rule, as well as a piece of text to be printed in the assessment report</entry>	
@@ -1727,6 +1740,11 @@ When not customized, default arrows will be used in the game.</entry>
 	<entry key="AdaptationProfile.Expand">Expand</entry>
 	<entry key="AdaptationProfile.InitialDialog.Title">Initial State</entry>
 	<entry key="AdaptationProfile.Empty">No rule selected.</entry>
+	<entry key="AdaptationProfile.TabbedInitialState">Initial State</entry>
+	<entry key="AdaptationProfile.TabbedLMSState">LMS State</entry>
+	<entry key="AdaptationProfile.AddRule">Add rule</entry>
+	<entry key="AdaptationProfile.DeleteRule">Delete rule</entry>
+	<entry key="AdaptationProfile.AddTimedRule">Add timed rule</entry>
 	
 	<entry key="AdaptationRulesList.ColumnHeader0">Id</entry>
 	<entry key="AdaptationRulesList.ColumnHeader1">UoL properties</entry>

@@ -686,6 +686,9 @@ función de estos estados</entry>
 	<entry key="Effect.TriggerScene">Lanzar escena</entry>
 	<entry key="Effect.RandomEffect">Efecto con probabilidad</entry>
 	<entry key="Effect.MacroReference">Lanzar una macro</entry>
+	<entry key="Effect.ShowText">Mostrar texto</entry>
+	<entry key="Effect.WaitTime">Esperar tiempo</entry>
+
 
 	<entry key="Effect.ActivateInfo">Activar flag: {#0}</entry>
 	<entry key="Effect.DeactivateInfo">Desactivar flag: {#0}</entry>
@@ -708,6 +711,9 @@ función de estos estados</entry>
 	<entry key="Effect.TriggerSceneInfo">Lanzar escena {#0}</entry>
 	<entry key="Effect.TriggerLastSceneInfo">Lanzar última escena</entry>
 	<entry key="Effect.RandomInfo">{#2} (probabilidad = {#0}%); {#3} (probabilidad = {#1}%)</entry>
+	<entry key="Effect.WaitTimeInfo">Esperar {#0} segundos</entry>
+	<entry key="Effect.ShowTextInfo">Mostrar {#0} en la posición x:{#1} y:{#2}</entry>
+
 
 	<entry key="ImageDialog.Title">Previsualización de imagen - {#0}</entry>
 	<entry key="SlidesDialog.Title">Previsualización de diapositivas - {#0}</entry>
@@ -794,6 +800,13 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="RandomEffect.Probability.Description">Probabilidad del primer efecto(1-100):</entry>
 	<entry key="RandomEffect.Positive.Title">Primer efecto</entry>
 	<entry key="RandomEffect.Negative.Title">Segundo efecto (opcional)</entry>
+
+	<entry key="WaitTimeEffect.Title">Efecto para esperar un determinado tiempo</entry>
+	<entry key="WaitTimeEffect.Border">Tiempo</entry>
+	<entry key="WaitTimeEffect.Label">Tiempo que permanecerá en espera el juego</entry>
+	
+	<entry key="ShowTextEffect.Title">Efecto para mostrar texto en la escena</entry>
+	<entry key="ShowTextEffect.Border">Previsualización</entry>
 
 	<entry key="SceneLocation.SceneListDescription">Seleccione la escena para escoger el punto de destino:</entry>
 	<entry key="SceneLocation.NoSceneSelected">Ninguna escena seleccionada</entry>
@@ -1694,6 +1707,7 @@ Si no las cambia, el juego empleará las flechas por defecto.</entry>
 	<entry key="AssessmentRule.Importance.VeryHigh">Muy alta</entry>
 	<entry key="AssessmentRule.Importance.High">Alta</entry>
 	
+	<entry key="AssessmentRule.ProfileType">Tipo de Perfil</entry>
 	<entry key="AssessmentRule.Title">Regla de evaluación</entry>
 	<entry key="AssessmentRule.Concept">Concepto</entry>
 	<entry key="AssessmentRule.Information">En esta sección podrá editar una nueva regla de evaluación. En &lt;e-Adventure&gt;, las reglas de evaluación se definen como un conjunto de condiciones (flags) que, si se satisfacen, activan la regla para que ejecute su efecto. El efecto puede cambie propiedades del LMS y generar entradas en el informe de evaluación.Para editar una regla, primero describa su importancia y la descripción del concepto a evaluar. Luego, indique la condición de activación de la regla y el efecto correspondiente.</entry>	
@@ -1708,8 +1722,8 @@ Si no las cambia, el juego empleará las flechas por defecto.</entry>
 	
 	<entry key="TimedAssessmentRule.Information">En esta sección podrá editar una nueva regla de evaluación temporizada. Estas reglas son similares a las reglas de evaluación genéricas que miden el intervalo de tiempo transcurrido entre dos eventos, definidos como conjuntos de condiciones (inicial y final). En lugar de tener un único efecto, las reglas temporizadas pueden tener distintos bloques de efectos en función del tiempo transcurrido. Empleando los controles de este panel, podrá introducir las condiciones y los distintos bloques de efectos. </entry>	
 	<entry key="TimedAssessmentRule.Effects">Selector de efectos</entry>
-	<entry key="TimedAssessmentRule.MinTime">Tiempo mínimo:  </entry>
-	<entry key="TimedAssessmentRule.MaxTime">Tiempo máximo:  </entry>
+	<entry key="TimedAssessmentRule.MinTime">Tiempo mín  </entry>
+	<entry key="TimedAssessmentRule.MaxTime">Tiempo máx  </entry>
 	<entry key="TimedAssessmentRule.Time">Intervalo de tiempo</entry>
 	
 	<entry key="AssessmentRulesList.ColumnHeader0">Id</entry>
@@ -1736,6 +1750,12 @@ Si no las cambia, el juego empleará las flechas por defecto.</entry>
 	<entry key="AdaptationProfile.Expand">Expandir</entry>
 	<entry key="AdaptationProfile.InitialDialog.Title">Estado inicial</entry>
 	<entry key="AdaptationProfile.Empty">No hay ninguna regla seleccionada.</entry>
+	<entry key="AdaptationProfile.TabbedInitialState">Estado Inicial</entry>
+	<entry key="AdaptationProfile.TabbedLMSState">Estado del LMS</entry>
+	<entry key="AdaptationProfile.AddRule">Añadir regla</entry>
+	<entry key="AdaptationProfile.DeleteRule">Borrar regla</entry>
+	<entry key="AdaptationProfile.AddTimedRule">Añadir regla temporizada</entry>
+	
 	
 	<entry key="AdaptationRulesList.ColumnHeader0">Id</entry>
 	<entry key="AdaptationRulesList.ColumnHeader1">Propiedades externas</entry>

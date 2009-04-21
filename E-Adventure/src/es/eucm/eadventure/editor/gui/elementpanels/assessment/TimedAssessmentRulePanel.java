@@ -1,13 +1,19 @@
 package es.eucm.eadventure.editor.gui.elementpanels.assessment;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
+import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
@@ -18,6 +24,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.SpinnerNumberModel;
@@ -26,6 +33,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.plaf.basic.BasicButtonUI;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentRuleDataControl;
@@ -74,6 +82,17 @@ public class TimedAssessmentRulePanel extends JPanel {
 	
 	private JButton endConditionsButton;
 	
+	public int numEffects;
+	
+	public int currentTab;
+	
+	private JTabbedPane container2 ;
+	
+	private boolean scorm12;
+	
+	private boolean scorm2004;
+	
+
 	/**
 	 * Constructor.
 	 * 
@@ -87,23 +106,27 @@ public class TimedAssessmentRulePanel extends JPanel {
 	 */
 	public TimedAssessmentRulePanel( AssessmentRuleDataControl assRuleDataControl, boolean scorm12, boolean scorm2004 ) {
 		this.assessmentRuleDataControl = assRuleDataControl;
-		
+		this.scorm12=scorm12;
+		this.scorm2004=scorm2004;
+		this.numEffects=0;
+		this.currentTab=0;
 		// Calculate the currentEffect index:
 		if (assessmentRuleDataControl.getEffectsCount( )>0){
 			currentEffect = 0;
+			
 		} else 
 			currentEffect = -1;
 
 		// Set the layout
+		JPanel container1= new JPanel(new GridBagLayout());
 		setLayout( new GridBagLayout( ) );
 		setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AssessmentRule.Title" ) ) );
 		GridBagConstraints c = new GridBagConstraints( );
 		c.insets = new Insets( 1, 5, 1, 5 );
 
 		// Info panel
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weightx = 1;
-		JTextPane informationTextPane = new JTextPane( );
+		
+		/*JTextPane informationTextPane = new JTextPane( );
 		informationTextPane.setEditable( false );
 		informationTextPane.setBackground( getBackground( ) );
 		informationTextPane.setText( TextConstants.getText( "TimedAssessmentRule.Information" ) );
@@ -111,41 +134,41 @@ public class TimedAssessmentRulePanel extends JPanel {
 		informationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "GeneralText.Information" ) ) );
 		informationPanel.setLayout( new BorderLayout( ) );
 		informationPanel.add( informationTextPane, BorderLayout.CENTER );
-		add( informationPanel, c );
+		add( informationPanel, c );*/
 		
+		GridBagConstraints g = new GridBagConstraints();
+		g.fill=GridBagConstraints.BOTH;
 		
 		// Create the combo box of importance
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weightx = 1;
-		c.gridy=1;
-		JPanel importancePanel = new JPanel( );
-		importancePanel.setLayout( new GridLayout( ) );
-		
+		JPanel importancePanel = new JPanel( );		
 		importanceComboBox = new JComboBox( new String[]{TextConstants.getText( "AssessmentRule.Importance.VeryLow" ), TextConstants.getText( "AssessmentRule.Importance.Low" ), TextConstants.getText( "AssessmentRule.Importance.Normal" ), TextConstants.getText( "AssessmentRule.Importance.High" ), TextConstants.getText( "AssessmentRule.Importance.VeryHigh" )} );
 		importanceComboBox.setSelectedIndex( assessmentRuleDataControl.getImportance( ) );
 		importanceComboBox.addActionListener( new ImportanceComboBoxListener( ) );
-		importancePanel.add( importanceComboBox );
+		importancePanel.add( importanceComboBox);
 		importancePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AssessmentRule.Importance.Title" ) ) );
-		add( importancePanel, c );
+		
+		c.fill = GridBagConstraints.BOTH;
+		c.weightx = 1;
+		c.gridy=0;
+		//c.weighty=0;
+		container1.add( importancePanel, c );
 
 		// Create the text area for the concept
-		c.gridy = 2;
-		c.fill = GridBagConstraints.BOTH;
-		c.weighty = 0.2;
-
+		c.gridy++;
+		c.weighty=1;
+		c.ipady=20;
 		JPanel conceptPanel = new JPanel( );
 		conceptPanel.setLayout( new GridLayout( ) );
 		conceptTextArea = new JTextArea( assRuleDataControl.getConcept( ), 4, 0 );
 		conceptTextArea.setLineWrap( true );
 		conceptTextArea.setWrapStyleWord( true );
-		conceptTextArea.getDocument( ).addDocumentListener( new DocumentationTextAreaChangesListener( ) );
-		conceptPanel.add( new JScrollPane( conceptTextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER ) );
+		conceptTextArea.getDocument( ).addDocumentListener( new DocumentationTextAreaChangesListener( null) );
+		conceptPanel.add( new JScrollPane( conceptTextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER ),g );
 		conceptPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AssessmentRule.Concept" ) ) );
-		add( conceptPanel, c );
+		container1.add( conceptPanel, c );
 
 		// Create the button for the conditions
-		c.gridy = 3;
-		c.fill = GridBagConstraints.HORIZONTAL;
+		
 		JPanel conditionsPanel = new JPanel( );
 		conditionsPanel.setLayout( new GridBagLayout() );
 		
@@ -162,26 +185,85 @@ public class TimedAssessmentRulePanel extends JPanel {
 		endConditionsButton.addActionListener( new EndConditionsButtonListener( ) );
 		
 		
-		GridBagConstraints g = new GridBagConstraints();
+		g = new GridBagConstraints();
 		g.fill = GridBagConstraints.HORIZONTAL;
 		g.gridwidth = 2;
 		g.gridx = 0;
 		g.gridy = 0;
-		g.weightx = 1;
+		//g.weightx = 1;
 		conditionsPanel.add( useEndConditionsCheck , g);
 		
 		g.gridx = 0;
 		g.gridwidth = 1;
-		g.fill = GridBagConstraints.HORIZONTAL;
-		g.weightx = 0.5;
+		//g.fill = GridBagConstraints.BOTH;
+		//g.weightx = 0.5;
 		g.gridy = 1;
+		g.anchor = GridBagConstraints.CENTER;
 		conditionsPanel.add( initConditionsButton , g);
-		g.gridx = 1;
+		g.gridy = 2;
 		conditionsPanel.add( endConditionsButton , g);
 		conditionsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AssessmentRule.Conditions" ) ) );
-		add( conditionsPanel, c );
-
-		// Create the effect panel
+		
+		c.gridy++;
+		c.ipady=-10;
+		container1.add( conditionsPanel, c );
+		
+		container2 = new JTabbedPane();
+				
+		addEffectBlock = new AddTabButton(new ImageIcon("img/icons/addNode.png"));
+		addEffectBlock.setContentAreaFilled( false );
+		//addEffectBlock.addActionListener( new AddEffectListener() );
+		
+		
+		JPanel empty = new JPanel() ;
+		empty.add(new JLabel("No hay ningun efecto creado               "));
+		empty.setMinimumSize(new Dimension(200,200));
+		container2.add(empty);
+		container2.setTabComponentAt(0, addEffectBlock);
+		container2.addChangeListener(new EffectsTabPaneListener());
+		
+		if (currentEffect!=-1){
+		for (int i=0;i<assessmentRuleDataControl.getEffectsCount();i++){
+		    currentEffect=i;
+		    JPanel effectPanel = createEffectPanel();
+		    
+		    container2.add(effectPanel);
+		    deleteEffectBlock = new DeleteTabButton(new ImageIcon("img/icons/deleteNode.png"));
+		    deleteEffectBlock.setContentAreaFilled( false );
+		    JPanel buttonCont =  new JPanel(new GridLayout(0,2));
+		    buttonCont.add(new JLabel("#"+i));
+		    buttonCont.add(deleteEffectBlock);
+		    container2.setTabComponentAt(i+1,buttonCont );
+		}
+		numEffects=currentEffect+1;
+		currentEffect=0;
+		currentTab=1;
+		container2.setSelectedIndex(currentTab);
+		
+		}
+		c =  new GridBagConstraints();
+		c.gridy=0;
+		c.gridx=0;
+		c.fill = GridBagConstraints.BOTH;
+		c.weightx=0.75;
+		c.weighty=1;
+		c.insets = new Insets( 5, 5, 5, 5 );
+		container1.setMinimumSize(new Dimension(200,250));
+		container1.setMaximumSize(new Dimension(200,250));
+		container1.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AssessmentRule.Conditions" ) ) );
+		//container1.setMinimumSize(new Dimension(100,50));
+		add(container1,c);
+		c.gridx=1;
+		c.weightx=1;
+		container2.setMaximumSize(new Dimension(250,250));
+		container2.setMinimumSize(new Dimension(250,250));
+		add(container2,c);
+		this.updateUI();
+		// Add the other elements of the scene if a background image was loaded
+	}
+	
+	private JPanel createEffectPanel(){
+	 // Create the effect panel
 		JPanel effectPanel = new JPanel();
 		effectPanel.setLayout( new GridBagLayout( ) );
 		effectPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AssessmentRule.Effect.Title" ) ) );
@@ -191,31 +273,11 @@ public class TimedAssessmentRulePanel extends JPanel {
 		c2.insets = new Insets( 1, 5, 1, 5 );
 		c2.fill=GridBagConstraints.HORIZONTAL;
 		c2.weightx=0.5; c2.weighty=0; c2.gridwidth = 1;
-		// Create the effect-selector panel
-		JPanel selectorPanel = new JPanel();
-		selectorPanel.setLayout( new GridLayout(1,3) );
-		addEffectBlock = new JButton(new ImageIcon("img/icons/addNode.png"));
-		addEffectBlock.setContentAreaFilled( false );
-		addEffectBlock.addActionListener( new AddEffectListener() );
-		deleteEffectBlock = new JButton(new ImageIcon("img/icons/deleteNode.png"));
-		deleteEffectBlock.setContentAreaFilled( false );
-		deleteEffectBlock.addActionListener( new DeleteEffectListener() );
-		this.effectComboBox = new JComboBox(this.assessmentRuleDataControl.getEffectNames( ));
-		effectComboBox.setEditable( false );
-		effectComboBox.addActionListener( new EffectsComboBoxListener() );
-		if (assessmentRuleDataControl.getEffectsCount( ) == 0){
-			effectComboBox.setEnabled( false );
-		}
-		selectorPanel.add( addEffectBlock );
-		selectorPanel.add( deleteEffectBlock );
-		selectorPanel.add( effectComboBox );
-		selectorPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "TimedAssessmentRule.Effects" ) ) );
-		effectPanel.add( selectorPanel, c2 );
 		
 		// Create the time panel
-		c2.gridx = 1;
+		c2.gridx = 0;
 		JPanel timePanel = new JPanel();
-		timePanel.setLayout( new GridLayout(1,4) );
+		timePanel.setLayout( new GridBagLayout() );
 		JLabel minTimeLabel = new JLabel(TextConstants.getText( "TimedAssessmentRule.MinTime" ));
 		JLabel maxTimeLabel = new JLabel(TextConstants.getText( "TimedAssessmentRule.MaxTime" ));
 		if (this.currentEffect>=0){
@@ -229,33 +291,50 @@ public class TimedAssessmentRulePanel extends JPanel {
 			this.maxTime = new JSpinner(new SpinnerNumberModel(current, min, max, increment));
 		} else {
 			this.minTime = new JSpinner();
-			minTime.setEnabled( false );
+			//minTime.setEnabled( false );
 			this.maxTime = new JSpinner();
-			maxTime.setEnabled( false );
+			//maxTime.setEnabled( false );
 		}
-		minTime.addChangeListener( new TimeMinListener() );
-		maxTime.addChangeListener( new TimeMaxListener() );
-		timePanel.add( minTimeLabel );
-		timePanel.add( minTime );
-		timePanel.add( maxTimeLabel );
-		timePanel.add( maxTime );
+		minTime.addChangeListener( new TimeMinListener(minTime,maxTime) );
+		maxTime.addChangeListener( new TimeMaxListener(maxTime) );
+		minTime.setMaximumSize(new Dimension(5,5));
+		maxTime.setMaximumSize(new Dimension(5,5));
+		
+		GridBagConstraints c3= new GridBagConstraints( );
+		
+		c3.gridx=0;c3.gridy=0;
+		c3.insets = new Insets( 1, 5, 1, 5 );
+		c3.fill=GridBagConstraints.BOTH;
+		c3.weightx=1; c3.weighty=0; c3.gridwidth = 1;
+
+		timePanel.add( minTimeLabel,c3 );
+		c3.gridx++;
+		c3.ipadx=-60;
+		timePanel.add( minTime,c3 );
+		c3.gridx++;
+		c3.ipadx=1;
+		timePanel.add( maxTimeLabel,c3 );
+		c3.gridx++;
+		c3.ipadx=-60;
+		timePanel.add( maxTime,c3 );
 		timePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "TimedAssessmentRule.Time" ) ) );
 		effectPanel.add( timePanel, c2 );
 		
 		c2.gridx = 0; c2.gridy = 1;
 		c2.fill=GridBagConstraints.BOTH;
 		c2.weightx = 1; c2.gridwidth = 2; c2.weighty=0.2;
+		c2.ipady=10;
 		JPanel textPanel = new JPanel( );
 		textPanel.setLayout( new GridLayout( ) );
 		if (this.currentEffect>=0)
-			textTextArea = new JTextArea( assRuleDataControl.getEffectText( currentEffect ), 4, 0 );
+			textTextArea = new JTextArea( assessmentRuleDataControl.getEffectText( currentEffect ), 4, 0 );
 		else{
 			textTextArea = new JTextArea( "", 4, 0 );
-			textTextArea.setEditable( false );
+			//textTextArea.setEditable( false );
 		}
 		textTextArea.setLineWrap( true );
 		textTextArea.setWrapStyleWord( true );
-		textTextArea.getDocument( ).addDocumentListener( new DocumentationTextAreaChangesListener( ) );
+		textTextArea.getDocument( ).addDocumentListener( new DocumentationTextAreaChangesListener(textTextArea ) );
 		textPanel.add( new JScrollPane( textTextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER ) );
 		textPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AssessmentRule.Effect.Text" ) , TitledBorder.CENTER, TitledBorder.TOP ) );
 		
@@ -263,24 +342,28 @@ public class TimedAssessmentRulePanel extends JPanel {
 		//effectPanel.add( new JFiller() );
 
 		// Create and add the set-property table
+		c2.ipady=-9;
 		c2.weighty=0.8; c2.fill=GridBagConstraints.BOTH; c2.gridy=2;
 		propPanel = new AssessmentPropertiesPanel( this.assessmentRuleDataControl, scorm12, scorm2004 ); 
+		if (this.currentEffect>=0)
+		    propPanel.setCurrentIndex(currentEffect);
 		effectPanel.add( propPanel, c2 );
-		
-		c.gridy = 4;
-		c.fill = GridBagConstraints.BOTH;
-		c.weighty = 1;
-		add( effectPanel, c );
-
-		// Add the other elements of the scene if a background image was loaded
+		return effectPanel;
 	}
 
-
+	
+	
 	/**
 	 * Listener for the text area. It checks the value of the area and updates the documentation.
 	 */
 	private class DocumentationTextAreaChangesListener implements DocumentListener {
 
+	    
+	    private JTextArea textArea;
+	    
+	    public DocumentationTextAreaChangesListener(JTextArea textArea){
+		this.textArea =textArea ; 
+	    }
 		/*
 		 * (non-Javadoc)
 		 * 
@@ -301,9 +384,10 @@ public class TimedAssessmentRulePanel extends JPanel {
 				assessmentRuleDataControl.setConcept( conceptTextArea.getText( ) );	
 			}
 			
-			else if (arg0.getDocument( ) == textTextArea.getDocument( )){
-				if (currentEffect >=0)
-					assessmentRuleDataControl.setEffectText( currentEffect, textTextArea.getText( ) );
+			else if (arg0.getDocument( ) == textArea.getDocument( )){
+				currentEffect=container2.getSelectedIndex()-1;
+			    	if (currentEffect >=0)
+					assessmentRuleDataControl.setEffectText( currentEffect, textArea.getText( ) );
 			}
 
 			
@@ -321,9 +405,10 @@ public class TimedAssessmentRulePanel extends JPanel {
 				assessmentRuleDataControl.setConcept( conceptTextArea.getText( ) );
 			}
 			
-			else if (arg0.getDocument( ) == textTextArea.getDocument( )){
+			else if (arg0.getDocument( ) == textArea.getDocument( )){
+			    currentEffect=container2.getSelectedIndex()-1;
 				if (currentEffect >=0)
-					assessmentRuleDataControl.setEffectText( currentEffect, textTextArea.getText( ) );
+					assessmentRuleDataControl.setEffectText( currentEffect, textArea.getText( ) );
 			}
 
 
@@ -349,15 +434,15 @@ public class TimedAssessmentRulePanel extends JPanel {
 	/**
 	 * Listener for the effects combo box.
 	 */
-	private class EffectsComboBoxListener implements ActionListener {
+	private class EffectsTabPaneListener implements ChangeListener {
 
 		/*
 		 * (non-Javadoc)
 		 * 
 		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 		 */
-		public void actionPerformed( ActionEvent e ) {
-			currentEffect = effectComboBox.getSelectedIndex( );
+		/*public void actionPerformed( ActionEvent e ) {
+			currentEffect = container2.getSelectedIndex( );
 			if (currentEffect>=0){
 				// Activate timer spinners
 				minTime.setEnabled( true );
@@ -377,7 +462,59 @@ public class TimedAssessmentRulePanel extends JPanel {
 				// Change the properties
 				propPanel.setCurrentIndex( currentEffect );
 			}
+		}*/
+
+		@Override
+		public void stateChanged(ChangeEvent e) {
+		    int pastTab =  currentTab;
+		    //currentEffect = container2.getSelectedIndex( )-1;
+		    currentTab=container2.getSelectedIndex( );
+		  if (pastTab!=currentTab){
+			if (currentTab>0){
+				// Activate timer spinners
+				//minTime.setEnabled( true );
+				minTime.setModel( new SpinnerNumberModel(assessmentRuleDataControl.getMinTime( currentTab-1 ), 0, Integer.MAX_VALUE, 1) );
+				maxTime.setModel( new SpinnerNumberModel(assessmentRuleDataControl.getMaxTime( currentTab-1 ), assessmentRuleDataControl.getMinTime( currentTab-1 )+1, Integer.MAX_VALUE, 1) );
+				minTime.updateUI( );
+				maxTime.updateUI( );
+				//maxTime.setEnabled( true );
+				
+				// Activate delete button
+				deleteEffectBlock.setEnabled( true );
+				
+				// Change the effect text
+				textTextArea.setText( assessmentRuleDataControl.getEffectText( currentTab-1 ) );
+				
+				propPanel.setEnabled(true);
+				// Change the properties
+				propPanel.setCurrentIndex( currentTab-1 );
+				propPanel.updateUI();
+			    
+				
+			   /* currentEffect=currentTab-1;
+			    JPanel effectPanel = createEffectPanel();
+			    
+			    //container2.getComponentAt(currentEffect);
+			    container2.setComponentAt(currentEffect, effectPanel);
+			    /*deleteEffectBlock = new DeleteTabButton(new ImageIcon("img/icons/deleteNode.png"));
+			    deleteEffectBlock.setContentAreaFilled( false );
+			    JPanel buttonCont =  new JPanel(new GridLayout(0,2));
+			    buttonCont.add(new JLabel("#"+currentEffect));
+			    buttonCont.add(deleteEffectBlock);
+			    container2.setTabComponentAt(currentEffect+1,buttonCont );*/
+
+			    
+			}else{
+			    if (pastTab==0&&container2.getTabCount()>1)
+			    container2.setSelectedIndex(1);
+			    else if (pastTab<container2.getTabCount())
+				container2.setSelectedIndex(pastTab);
+			    else 
+				container2.setSelectedIndex(0);
+			}
+		  }
 		}
+		
 	}
 	
 	private class AddEffectListener implements ActionListener {
@@ -458,27 +595,45 @@ public class TimedAssessmentRulePanel extends JPanel {
 	}
 	
 	private class TimeMinListener implements ChangeListener {
-
+	    
+	    private JSpinner minT;
+	    
+	    private JSpinner maxT;
+	    
+	    public TimeMinListener(JSpinner minT,JSpinner maxT){
+		this.minT = minT;
+		this.maxT = maxT;
+	    }
+	    
 		public void stateChanged( ChangeEvent e ) {
-			SpinnerNumberModel model =  (SpinnerNumberModel)minTime.getModel( );
-			int currentMin = model.getNumber( ).intValue( );
+			//SpinnerNumberModel model =  (SpinnerNumberModel)minTime.getModel( );
 			
+		    	int currentMin = ((Number)minT.getValue()).intValue();
+			currentEffect = container2.getSelectedIndex()-1;
 			assessmentRuleDataControl.setMinTime(currentMin, currentEffect );
 			
-			maxTime.setModel( new SpinnerNumberModel(assessmentRuleDataControl.getMaxTime(currentEffect), currentMin + 1, Integer.MAX_VALUE, 1) );
-			maxTime.updateUI( );
-			minTime.updateUI( );
+			maxT.setModel( new SpinnerNumberModel(assessmentRuleDataControl.getMaxTime(currentEffect), currentMin + 1, Integer.MAX_VALUE, 1) );
+			maxT.updateUI( );
+			minT.updateUI( );
 		}
 		
 	}
 
 	private class TimeMaxListener implements ChangeListener {
 
+	    private JSpinner maxT;
+	    
+	    public TimeMaxListener(JSpinner maxT){
+		this.maxT = maxT;
+	    }
+	    
+	    
 		public void stateChanged( ChangeEvent e ) {
-			SpinnerNumberModel model =  (SpinnerNumberModel)maxTime.getModel( );
-			int currentMax = model.getNumber( ).intValue( );
+			//SpinnerNumberModel model =  (SpinnerNumberModel)maxTime.getModel( );
+			int currentMax = ((Number)maxT.getValue()).intValue();
+			currentEffect = container2.getSelectedIndex()-1;
 			assessmentRuleDataControl.setMaxTime(currentMax, currentEffect );
-			maxTime.updateUI( );
+			maxT.updateUI( );
 		}
 		
 	}
@@ -523,5 +678,138 @@ public class TimedAssessmentRulePanel extends JPanel {
 			}
 		}
 	}
+	
+	private class AddTabButton extends JButton implements ActionListener {
+	        /**
+	     * 
+	     */
+	    private static final long serialVersionUID = -657186905921501288L;
+
+		public AddTabButton(ImageIcon icon) {
+	            super(icon);
+	            int size = 17;
+	            setPreferredSize(new Dimension(size, size));
+	            setToolTipText("Add effect");
+	            //Make the button looks the same for all Laf's
+	            setUI(new BasicButtonUI());
+	            //Make it transparent
+	            setContentAreaFilled(false);
+	            //No need to be focusable
+	            setFocusable(false);
+	            setBorder(BorderFactory.createEtchedBorder());
+	            setBorderPainted(false);
+	            //Making nice rollover effect
+	            //we use the same listener for all buttons
+	            addMouseListener(buttonMouseListener);
+	            setRolloverEnabled(true);
+	            //Close the proper tab by clicking the button
+	            addActionListener(this);
+	        }
+
+	        public void actionPerformed(ActionEvent e) {
+	            //currentEffect = assessmentRuleDataControl.getEffectsCount()+1;
+	            	
+	            	assessmentRuleDataControl.addEffectBlock( numEffects );
+	            	currentEffect=-1;
+			JPanel cont = createEffectPanel();
+			/*if ( currentEffect == -1){
+				currentEffect = 0;
+				textTextArea.setText( assessmentRuleDataControl.getEffectText( currentEffect ) );
+				// Activate timer spinners
+				minTime.setEnabled( true );
+				minTime.setModel( new SpinnerNumberModel(assessmentRuleDataControl.getMinTime( currentEffect ), 0, Integer.MAX_VALUE, 1) );
+				maxTime.setModel( new SpinnerNumberModel(assessmentRuleDataControl.getMaxTime( currentEffect ), assessmentRuleDataControl.getMinTime( currentEffect )+1, Integer.MAX_VALUE, 1) );
+				minTime.updateUI( );
+				maxTime.updateUI( );
+				maxTime.setEnabled( true );
+			}*/
+			
+			// Update the combo box
+			//effectComboBox.setModel( new DefaultComboBoxModel(assessmentRuleDataControl.getEffectNames( )) );
+			
+			propPanel.setEnabled(true);
+			propPanel.setCurrentIndex( numEffects );
+			
+			//effectComboBox.setSelectedIndex( currentEffect );
+			//effectComboBox.updateUI( );
+			//effectComboBox.setEnabled( true );
+			textTextArea.setEditable( true );
+			
+			
+			deleteEffectBlock = new DeleteTabButton(new ImageIcon("img/icons/deleteNode.png"));
+			deleteEffectBlock.setContentAreaFilled( false );
+			JPanel buttonCont =  new JPanel(new GridLayout(0,2));
+			buttonCont.add(new JLabel("#"+Integer.toString(numEffects)));
+			numEffects++;
+			buttonCont.add(deleteEffectBlock);
+			container2.add(cont,numEffects);
+			container2.setTabComponentAt(numEffects,buttonCont );
+			container2.setSelectedIndex(numEffects);
+	        }
+	}
+	
+	private class DeleteTabButton extends JButton implements ActionListener {
+	    /**
+	     * 
+	     */
+	    private static final long serialVersionUID = -1916833906840632247L;
+
+		public DeleteTabButton(ImageIcon icon) {
+	            super(icon);
+	            int size = 17;
+	            setPreferredSize(new Dimension(size, size));
+	            setToolTipText("remove this effect");
+	            //Make the button looks the same for all Laf's
+	            setUI(new BasicButtonUI());
+	            //Make it transparent
+	            setContentAreaFilled(false);
+	            //No need to be focusable
+	            setFocusable(false);
+	            setBorder(BorderFactory.createEtchedBorder());
+	            setBorderPainted(false);
+	            //Making nice rollover effect
+	            //we use the same listener for all buttons
+	            addMouseListener(buttonMouseListener);
+	            setRolloverEnabled(true);
+	            //Close the proper tab by clicking the button
+	            addActionListener(this);
+	        }
+
+	        public void actionPerformed(ActionEvent e) {
+	            currentEffect = container2.getSelectedIndex()-1;
+			if (currentEffect>=0){
+				assessmentRuleDataControl.removeEffectBlock( currentEffect );
+				
+				// Update the combo box
+				//effectComboBox.setModel( new DefaultComboBoxModel(assessmentRuleDataControl.getEffectNames( )) );
+				
+				numEffects--;
+				container2.remove(currentEffect+1);
+				//container2.updateUI();
+				//effectComboBox.updateUI( );
+			}
+	        }
+	}
+	
+	private final static MouseListener buttonMouseListener = new MouseAdapter() {
+	        public void mouseEntered(MouseEvent e) {
+	            Component component = e.getComponent();
+	            if (component instanceof AbstractButton) {
+	                AbstractButton button = (AbstractButton) component;
+	                button.setBorderPainted(true);
+	            }
+	        }
+
+	        public void mouseExited(MouseEvent e) {
+	            Component component = e.getComponent();
+	            if (component instanceof AbstractButton) {
+	                AbstractButton button = (AbstractButton) component;
+	                button.setBorderPainted(false);
+	            }
+	        }
+	    };
+
+
+
 	
 }

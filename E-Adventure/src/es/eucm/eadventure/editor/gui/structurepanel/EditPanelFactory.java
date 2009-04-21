@@ -27,8 +27,10 @@ import es.eucm.eadventure.editor.control.controllers.macro.MacroListDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ScenesListDataControl;
 import es.eucm.eadventure.editor.control.controllers.timer.TimersListDataControl;
+import es.eucm.eadventure.editor.gui.elementpanels.adaptation.AdaptationPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.adaptation.AdaptationProfilesPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.adaptation.AdaptationRulesListPanel;
+import es.eucm.eadventure.editor.gui.elementpanels.assessment.AssessmentPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.assessment.AssessmentProfilePanel;
 import es.eucm.eadventure.editor.gui.elementpanels.assessment.AssessmentProfilesPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.atrezzo.AtrezzoListPanel;
@@ -101,9 +103,9 @@ public class EditPanelFactory {
 		if (dataControl instanceof ChapterDataControl)
 			return new ChapterPanel((ChapterDataControl) dataControl);
 		if (dataControl instanceof AssessmentProfileDataControl)
-			return new AssessmentProfilePanel((AssessmentProfileDataControl) dataControl);
+			return new AssessmentPanel((AssessmentProfileDataControl) dataControl);
 		if (dataControl instanceof AdaptationProfileDataControl)
-			return new AdaptationRulesListPanel((AdaptationProfileDataControl) dataControl);
+			return new AdaptationPanel((AdaptationProfileDataControl) dataControl);
 		
 		
 		return null;
