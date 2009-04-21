@@ -38,6 +38,6 @@ public class NPCsListPanel extends JPanel {
 		ResizeableCellRenderer renderer = new NPCCellRenderer();
 		setLayout( new BorderLayout( ) );
 		setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "NPCsList.Title" ) ) );
-		add(new ResizeableListPanel(dataControlList, renderer), BorderLayout.CENTER);
+		add(new ResizeableListPanel(dataControlList, renderer, "NPCsListPanel"), BorderLayout.CENTER);
 	}
 }

@@ -35,7 +35,7 @@ public class CutscenesListPanel extends JPanel {
 			dataControlList.add(item);
 		}
 		ResizeableCellRenderer renderer = new CutsceneCellRenderer();
-		add(new ResizeableListPanel(dataControlList, renderer), BorderLayout.CENTER);
+		add(new ResizeableListPanel(dataControlList, renderer, "CutscenesListPanel"), BorderLayout.CENTER);
 	}
 
 }

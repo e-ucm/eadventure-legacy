@@ -35,6 +35,6 @@ public class AtrezzoListPanel extends JPanel{
 			dataControlList.add(item);
 		}
 		ResizeableCellRenderer renderer = new AtrezzoCellRenderer();
-		add(new ResizeableListPanel(dataControlList, renderer), BorderLayout.CENTER);
+		add(new ResizeableListPanel(dataControlList, renderer, "AtrezzoListPanel"), BorderLayout.CENTER);
 	}
 }

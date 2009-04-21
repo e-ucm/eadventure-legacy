@@ -33,7 +33,7 @@ public class ItemsListPanel extends JPanel {
 			dataControlList.add(item);
 		}
 		ResizeableCellRenderer renderer = new ItemCellRenderer();
-		JPanel panel = new ResizeableListPanel(dataControlList, renderer);
+		JPanel panel = new ResizeableListPanel(dataControlList, renderer, "ItemsListPanel");
 		setLayout(new BorderLayout());
 		setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ItemsList.Title" ) ) );
 		add(panel, BorderLayout.CENTER);

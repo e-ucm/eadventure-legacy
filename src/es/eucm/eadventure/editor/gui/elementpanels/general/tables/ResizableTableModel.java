@@ -20,8 +20,9 @@ public class ResizableTableModel extends AbstractTableModel {
 	 * @param itemsInfo
 	 *            Container array of the information of the items
 	 */
-	public ResizableTableModel( List<DataControl> list ) {
+	public ResizableTableModel( List<DataControl> list, int size ) {
 		this.list = list;
+		this.size = size;
 	}
 
 	public int getColumnCount( ) {
