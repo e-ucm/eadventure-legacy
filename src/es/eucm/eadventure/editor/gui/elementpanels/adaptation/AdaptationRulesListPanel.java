@@ -102,7 +102,7 @@ public class AdaptationRulesListPanel extends JPanel {
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1;
 		c.weighty = 1;
-		initialStatePanel = new InitialStatePanel(adpRulesListDataControl);
+		initialStatePanel = new InitialStatePanel(adpRulesListDataControl,true);
 		add (initialStatePanel, c);
 		
 		// Create the table with the data

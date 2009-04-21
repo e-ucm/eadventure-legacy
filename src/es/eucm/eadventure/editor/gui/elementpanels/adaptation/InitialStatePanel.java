@@ -1,19 +1,24 @@
 package es.eucm.eadventure.editor.gui.elementpanels.adaptation;
 
 import java.awt.BorderLayout;
+import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultCellEditor;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -33,6 +38,7 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfileDataControl;
 import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.editdialogs.VarDialog;
+
 
 /**
  * This class is the panel used to display and edit nodes. It holds node operations, like adding and removing lines,
@@ -97,12 +103,12 @@ class InitialStatePanel extends JPanel{
 	/**
 	 * Constructor
 	 * 
-	 * @param principalPanel
-	 *            Link to the principal panel, for sending signals
 	 * @param adaptationProfileDataControl
 	 *            Data controller to edit the lines
+	 * @param showExpand
+	 * 		To show or not the button expand           
 	 */
-	public InitialStatePanel( AdaptationProfileDataControl adpDataControl ) {
+	public InitialStatePanel( AdaptationProfileDataControl adpDataControl, boolean showExpand ) {
 		// Set the initial values
 		this.adaptationProfileDataControl = adpDataControl;
 
@@ -173,13 +179,13 @@ class InitialStatePanel extends JPanel{
 		
 		/* End of dialogue panel elements */
 
-		addComponents();
+		addComponents(showExpand);
 	}
 
 	/**
 	 * Removes all elements in the panel, and sets a dialogue node panel
 	 */
-	private void addComponents( ) {
+	private void addComponents(boolean showExpand ) {
 		// Remove all elements
 		removeAll( );
 
@@ -220,6 +226,19 @@ class InitialStatePanel extends JPanel{
 		JPanel insertDeletePanel = new JPanel();
 		insertDeletePanel.add( insertActionFlagButton );
 		insertDeletePanel.add( deleteActionFlagButton );
+		if (showExpand){
+		    JButton expand = new JButton(TextConstants.getText("AdaptationProfile.Expand"));
+		    expand.addActionListener(new ActionListener(){
+
+			@Override
+			    public void actionPerformed(ActionEvent e) {
+			    
+			    new InitialStateDialog();
+			}
+			
+		    });
+		    insertDeletePanel.add( expand);
+		}
 		//c.fill = GridBagConstraints.BOTH;
 		//c.weightx = 0.015;
 		//c.gridx = 2;
@@ -242,8 +261,38 @@ class InitialStatePanel extends JPanel{
 		
 	}
 
+	/**
+	 * Class to show the initial state in a new window
+	 */
+	 private class InitialStateDialog extends JDialog{
 
-
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		
+		public InitialStateDialog(){
+		    super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "AdaptationProfile.InitialDialog.Title" ), Dialog.ModalityType.APPLICATION_MODAL);
+		    Controller.getInstance().pushWindow(this);
+		    
+		    this.add(new InitialStatePanel(adaptationProfileDataControl,false));
+		    
+		    addWindowListener( new WindowAdapter (){
+			@Override
+			public void windowClosed(WindowEvent e) {
+				Controller.getInstance().popWindow();
+				
+			}
+			
+		    });
+		    
+		    this.setSize( new Dimension(500,300) );
+			Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
+			setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
+			setResizable( false );
+			setVisible( true );
+		}
+	    }
 
 	/**
 	 * Listener for the "Insert property" button
