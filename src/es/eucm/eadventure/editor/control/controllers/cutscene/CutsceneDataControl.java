@@ -7,7 +7,9 @@ import es.eucm.eadventure.common.data.chapter.NextScene;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.data.chapter.scenes.Cutscene;
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.loader.Loader;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.general.NextSceneDataControl;
@@ -579,6 +581,29 @@ public class CutsceneDataControl extends DataControlWithResources {
 	@Override
 	public List<DataControl> getPathToDataControl(DataControl dataControl) {
 		return getPathFromChild(dataControl, resourcesDataControlList);
+	}
+
+	/**
+	 * Returns the path to the selected preview image.
+	 * 
+	 * @return Path to the image, null if not present
+	 */
+	public String getPreviewImage( ) {
+		if (cutsceneType == Controller.CUTSCENE_SLIDES) {
+			
+			String previewImagePath = resourcesDataControlList.get( selectedResources ).getAssetPath( "slides" );
+	
+			// Add the extension of the frame
+			if( previewImagePath != null && !previewImagePath.toLowerCase().endsWith(".eaa"))
+				previewImagePath += "_01.jpg";
+			else if (previewImagePath != null) {
+				return Loader.loadAnimation(AssetsController.getInputStreamCreator(), previewImagePath).getFrame(0).getUri();
+			}
+			
+			return previewImagePath;
+		} else {
+			return "img/icons/video.png";
+		}
 	}
 
 }

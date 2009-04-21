@@ -36,7 +36,6 @@ import es.eucm.eadventure.editor.control.controllers.scene.NodeDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ReferencesListDataControl;
 import es.eucm.eadventure.editor.control.tools.general.MovePlayerLayerInTableTool;
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
-import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ElementReferencesTable;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 
 public class ReferencesListPanel extends JPanel implements DataControlsPanel {

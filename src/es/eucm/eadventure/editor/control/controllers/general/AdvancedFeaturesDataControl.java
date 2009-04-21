@@ -3,8 +3,6 @@ package es.eucm.eadventure.editor.control.controllers.general;
 import java.util.List;
 
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfilesDataControl;
-import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfilesDataControl;
 import es.eucm.eadventure.editor.control.controllers.globalstate.GlobalStateListDataControl;
 import es.eucm.eadventure.editor.control.controllers.macro.MacroListDataControl;
 import es.eucm.eadventure.editor.control.controllers.timer.TimersListDataControl;
@@ -13,12 +11,8 @@ import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 public class AdvancedFeaturesDataControl extends DataControl {
 
 	
-	private TimersListDataControl timersList;
-	
-	private AdaptationProfilesDataControl adaptationController;
-	
-	private AssessmentProfilesDataControl assessmentController;
-	
+	private TimersListDataControl timersListDataControl;
+		
 	private GlobalStateListDataControl globalStatesListDataControl;
 	
 	private MacroListDataControl macrosListDataControl;
@@ -91,47 +85,70 @@ public class AdvancedFeaturesDataControl extends DataControl {
 
 	@Override
 	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
-		//TODO
+		timersListDataControl.updateVarFlagSummary( varFlagSummary );
+		globalStatesListDataControl.updateVarFlagSummary( varFlagSummary );
+		macrosListDataControl.updateVarFlagSummary( varFlagSummary );
 	}
 
 	@Override
 	public boolean isValid( String currentPath, List<String> incidences ) {
 		boolean valid = true;
-	
+
+		valid &= timersListDataControl.isValid( currentPath , incidences);
+		valid &= globalStatesListDataControl.isValid( currentPath, incidences );
+		valid &= macrosListDataControl.isValid( currentPath, incidences );
+
 		return valid;
 	}
 
 	@Override
 	public int countAssetReferences( String assetPath ) {
 		int count = 0;
-
+		
+		count += timersListDataControl.countAssetReferences( assetPath );
+		count += globalStatesListDataControl.countAssetReferences( assetPath );
+		count += macrosListDataControl.countAssetReferences( assetPath );
+		
 		return count;
 	}
 	
 	public void getAssetReferences( List<String> assetPaths, List<Integer> assetTypes){
-
+		timersListDataControl.getAssetReferences( assetPaths, assetTypes );
+		globalStatesListDataControl.getAssetReferences( assetPaths, assetTypes );
+		macrosListDataControl.getAssetReferences( assetPaths, assetTypes );
 	}
 
 
 	@Override
 	public void deleteAssetReferences( String assetPath ) {
-
+		timersListDataControl.deleteAssetReferences(assetPath);
+		globalStatesListDataControl.deleteAssetReferences(assetPath);
+		macrosListDataControl.deleteAssetReferences(assetPath);
 	}
 
 	@Override
 	public int countIdentifierReferences( String id ) {
 		int count = 0;
 
+		count += timersListDataControl.countIdentifierReferences(id);
+		count += globalStatesListDataControl.countIdentifierReferences(id);
+		count += macrosListDataControl.countIdentifierReferences(id);
+		
 		return count;
 	}
 
 	@Override
 	public void replaceIdentifierReferences( String oldId, String newId ) {
-
+		timersListDataControl.replaceIdentifierReferences(oldId, newId);
+		globalStatesListDataControl.replaceIdentifierReferences(oldId, newId);
+		macrosListDataControl.replaceIdentifierReferences(oldId, newId);
 	}
 
 	@Override
 	public void deleteIdentifierReferences( String id ) {
+		timersListDataControl.deleteIdentifierReferences( id );
+		globalStatesListDataControl.deleteIdentifierReferences( id );
+		macrosListDataControl.deleteIdentifierReferences( id );
 
 	}
 
@@ -143,26 +160,15 @@ public class AdvancedFeaturesDataControl extends DataControl {
 
 	@Override
 	public void recursiveSearch() {
-
+		this.getMacrosListDataControl().recursiveSearch();
+		this.getGlobalStatesListDataControl().recursiveSearch();
+		this.getTimersList().recursiveSearch();
 	}
 
 
 	public void setTimerListDataControl(TimersListDataControl timersList) {
-		this.timersList = timersList;
+		this.timersListDataControl = timersList;
 	}
-
-
-	public void setAdaptationProfilesDataControl(
-			AdaptationProfilesDataControl adaptationController) {
-		this.adaptationController = adaptationController;
-	}
-
-
-	public void setAssessmentProfilesDataControl(
-			AssessmentProfilesDataControl assessmentController) {
-		this.assessmentController = assessmentController;
-	}
-
 
 	public void setGlobalStatesListDataContorl(
 			GlobalStateListDataControl globalStatesListDataControl) {
@@ -177,17 +183,7 @@ public class AdvancedFeaturesDataControl extends DataControl {
 
 
 	public TimersListDataControl getTimersList() {
-		return timersList;
-	}
-
-
-	public AdaptationProfilesDataControl getAdaptationController() {
-		return adaptationController;
-	}
-
-
-	public AssessmentProfilesDataControl getAssessmentController() {
-		return assessmentController;
+		return timersListDataControl;
 	}
 
 
@@ -202,11 +198,9 @@ public class AdvancedFeaturesDataControl extends DataControl {
 	
 	@Override
 	public List<DataControl> getPathToDataControl(DataControl dataControl) {
-		List<DataControl> path = getPathFromChild(dataControl, adaptationController);
+		List<DataControl> path = getPathFromChild(dataControl, globalStatesListDataControl);
 		if (path != null) return path;
-		path = getPathFromChild(dataControl, assessmentController);
-		if (path != null) return path;
-		path = getPathFromChild(dataControl, globalStatesListDataControl);
+		path = getPathFromChild(dataControl, timersListDataControl);
 		if (path != null) return path;
 		return getPathFromChild(dataControl, macrosListDataControl);
 	}

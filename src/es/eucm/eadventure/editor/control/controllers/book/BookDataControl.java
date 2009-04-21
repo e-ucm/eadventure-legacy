@@ -407,6 +407,7 @@ public class BookDataControl extends DataControlWithResources {
 	public boolean canBeDuplicated( ) {
 		return true;
 	}
+	
 
 	@Override
 	public void recursiveSearch() {

@@ -26,7 +26,6 @@ import javax.swing.table.TableModel;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.control.controllers.general.AdvancedFeaturesDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ChapterDataControl;
 import es.eucm.eadventure.editor.control.tools.structurepanel.AddElementTool;
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
@@ -82,13 +81,7 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
 			structureElements.add(new PlayerStructureElement(chapterDataControl.getPlayer()));
 			structureElements.add(new NPCsListStructureElement(chapterDataControl.getNPCsList()));
 			structureElements.add(new ConversationsListStructureElement(chapterDataControl.getConversationsList()));
-			AdvancedFeaturesDataControl advancedFeaturesDataControl = new AdvancedFeaturesDataControl();
-			advancedFeaturesDataControl.setTimerListDataControl(chapterDataControl.getTimersList());
-			advancedFeaturesDataControl.setAdaptationProfilesDataControl(Controller.getInstance().getAdaptationController());
-			advancedFeaturesDataControl.setAssessmentProfilesDataControl(Controller.getInstance().getAssessmentController());
-			advancedFeaturesDataControl.setGlobalStatesListDataContorl(chapterDataControl.getGlobalStatesListDataControl());
-			advancedFeaturesDataControl.setMacrosListDataControl(chapterDataControl.getMacrosListDataControl());
-			structureElements.add(new AdvancedFeaturesListStructureElement(advancedFeaturesDataControl));
+			structureElements.add(new AdvancedFeaturesListStructureElement(Controller.getInstance().getAdvancedFeaturesController()));
 			structureElements.add(new AdaptationControllerStructureElement(Controller.getInstance().getAdaptationController()));
 			structureElements.add(new AssessmentControllerStructureElement(Controller.getInstance().getAssessmentController()));
 		}
@@ -110,6 +103,7 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
 		        button.setBorder(BorderFactory.createCompoundBorder(b1,b2));
 		        button.setContentAreaFilled(false);
 				button.addActionListener(new ElementButtonActionListener(i));
+				button.setFocusable(false);
 				if (i < selectedElement)
 					add(button, new Integer(25));
 				else if (i > selectedElement)
@@ -173,6 +167,7 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
 				if (list.getSelectedRow() >= 0) {
 					list.setRowHeight(20);
 					list.setRowHeight(list.getSelectedRow(), 70);
+					list.editCellAt(list.getSelectedRow(), 0);
 					editorContainer.removeAll();
 					editorContainer.add(((StructureElement) list.getValueAt(list.getSelectedRow(), 0)).getEditPanel());
 					StructureControl.getInstance().visitDataControl(((StructureElement) list.getValueAt(list.getSelectedRow(), 0)).getDataControl());
@@ -236,7 +231,17 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
 			}
 		}
 		if (!temp) {
-			
+			reloadElementPanel();
+		}
+	}
+
+	public void reloadElementPanel() {
+		editorContainer.removeAll();
+		if (selectedListItem == -1) {
+			editorContainer.add(structureElements.get(selectedElement).getEditPanel());
+			StructureControl.getInstance().visitDataControl(structureElements.get(selectedElement).getDataControl());
+		} else {
+			list.changeSelection(selectedListItem, 0, false, false);
 		}
 	}
 
@@ -256,8 +261,8 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
 				path.remove(path.size() - 1);
 		}
 		
+		update();
 		if (structureElements.get(selectedElement).getChildCount() > 0 && path.size() > 0) {
-			update();
 			element = false;
 			for (int i = 0; i < structureElements.get(selectedElement).getChildCount() && !element; i++) {
 				if (structureElements.get(selectedElement).getChild(i).getDataControl() == path.get(path.size() - 1)) {

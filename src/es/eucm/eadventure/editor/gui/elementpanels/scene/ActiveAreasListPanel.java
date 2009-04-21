@@ -23,6 +23,7 @@ import es.eucm.eadventure.common.data.chapter.Trajectory;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.NormalScenePreviewEditionController;
 import es.eucm.eadventure.editor.control.controllers.scene.ActiveAreaDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ActiveAreasListDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.BarrierDataControl;
@@ -30,12 +31,12 @@ import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataC
 import es.eucm.eadventure.editor.control.controllers.scene.ExitDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.NodeDataControl;
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
+import es.eucm.eadventure.editor.gui.elementpanels.DataControlSelectionListener;
 import es.eucm.eadventure.editor.gui.elementpanels.general.SmallActionsListPanel;
-import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ActiveAreasTable;
 import es.eucm.eadventure.editor.gui.otherpanels.IrregularAreaEditionPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 
-public class ActiveAreasListPanel extends JPanel implements DataControlsPanel {
+public class ActiveAreasListPanel extends JPanel implements DataControlsPanel, DataControlSelectionListener {
 
 	/**
 	 * Required.
@@ -160,8 +161,8 @@ public class ActiveAreasListPanel extends JPanel implements DataControlsPanel {
 		if (dataControl.addElement(dataControl.getAddableElements()[0], null)) {
 			iaep.getScenePreviewEditionPanel().addActiveArea(dataControl.getLastActiveArea());
 			iaep.repaint();
-			table.getSelectionModel().setSelectionInterval(dataControl.getActiveAreas().size() - 1, dataControl.getActiveAreas().size() - 1);
 			((AbstractTableModel) table.getModel()).fireTableDataChanged();
+			table.changeSelection(dataControl.getActiveAreas().size() - 1, dataControl.getActiveAreas().size() - 1, false, false);
 		}
 	}
 	
@@ -198,6 +199,11 @@ public class ActiveAreasListPanel extends JPanel implements DataControlsPanel {
 			for( ActiveAreaDataControl activeArea : activeAreasListDataControl.getActiveAreas( ) ) {
 				spep.addActiveArea(activeArea);
 			}
+			
+			spep.changeController(new NormalScenePreviewEditionController(spep));
+			spep.setDataControlSelectionListener(this);
+			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_ACTIVEAREA, true);
+
 		}
 	}
 	
@@ -206,7 +212,7 @@ public class ActiveAreasListPanel extends JPanel implements DataControlsPanel {
 			return;
 		auxPanel.removeAll();
 		if (table.getSelectedRow() == -1) {
-			previewAuxSplit.setDividerLocation(previewAuxSplit.getMaximumDividerLocation());
+			previewAuxSplit.setDividerLocation(Integer.MAX_VALUE);
 			return;
 		}
 		
@@ -224,5 +230,16 @@ public class ActiveAreasListPanel extends JPanel implements DataControlsPanel {
 					table.changeSelection(i, i, false, false);
 			}
 		}
+	}
+
+	@Override
+	public void dataControlSelected(DataControl dataControl2) {
+		if (dataControl2 != null) {
+			for (int i = 0 ; i < dataControl.getActiveAreas().size(); i++) {
+				if (dataControl.getActiveAreas().get(i) == dataControl2)
+					table.changeSelection(i, i, false, false);
+			}
+		} else
+			table.clearSelection();
 	}
 }

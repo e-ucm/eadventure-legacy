@@ -1,4 +1,4 @@
-package es.eucm.eadventure.editor.gui.elementpanels.item;
+package es.eucm.eadventure.editor.gui.elementpanels.cutscene;
 
 import java.awt.Component;
 
@@ -6,10 +6,10 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
-import es.eucm.eadventure.editor.control.controllers.item.ItemDataControl;
+import es.eucm.eadventure.editor.control.controllers.cutscene.CutsceneDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ResizeableCellRenderer;
 
-public class ItemCellRenderer extends ResizeableCellRenderer {
+public class CutsceneCellRenderer extends ResizeableCellRenderer {
 
 	private static final long serialVersionUID = 8128260157985286632L;
 	
@@ -18,9 +18,9 @@ public class ItemCellRenderer extends ResizeableCellRenderer {
 		if (value2 == null)
 			return new JPanel();
 
-		value = (ItemDataControl) value2;
-		name = ((ItemDataControl) value2).getId();
-		image = AssetsController.getImage(((ItemDataControl) value2).getPreviewImage());
+		value = (CutsceneDataControl) value2;
+		name = ((CutsceneDataControl) value2).getId();
+		image = AssetsController.getImage(((CutsceneDataControl) value2).getPreviewImage());
 		
 		return createPanel();
 	}
@@ -30,9 +30,9 @@ public class ItemCellRenderer extends ResizeableCellRenderer {
 		if (value2 == null)
 			return new JPanel();
 
-		value = (ItemDataControl) value2;
-		name = ((ItemDataControl) value2).getId();
-		image = AssetsController.getImage(((ItemDataControl) value2).getPreviewImage());
+		value = (CutsceneDataControl) value2;
+		name = ((CutsceneDataControl) value2).getId();
+		image = AssetsController.getImage(((CutsceneDataControl) value2).getPreviewImage());
 
 		return createPanel();
 	}

@@ -81,7 +81,7 @@ public class ChangeTargetIdTool extends Tool{
 			elementWithTargetId.setTargetId(id);
 			done = true;
 			if (updateTree)
-				controller.updateTree();
+				controller.updateStructure();
 			if (reloadPanel)
 				controller.updatePanel();
 		}
@@ -100,7 +100,7 @@ public class ChangeTargetIdTool extends Tool{
 		oldId = id;
 		id = temp;
 		if (updateTree)
-			controller.updateTree();
+			controller.updateStructure();
 		if (reloadPanel)
 			controller.updatePanel();
 		

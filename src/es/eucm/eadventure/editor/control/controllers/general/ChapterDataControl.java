@@ -81,21 +81,6 @@ public class ChapterDataControl extends DataControl {
 	private ConversationsListDataControl conversationsListDataControl;
 	
 	/**
-	 * Timers data controller
-	 */
-	private TimersListDataControl timersListDataControl;
-	
-	/**
-	 * List of Global States
-	 */
-	private GlobalStateListDataControl globalStatesListDataControl;
-	
-	/**
-	 * List of macro
-	 */
-	private MacroListDataControl macrosListDataControl;
-
-	/**
 	 * Assessment file data controller
 	 */
 	private AssessmentProfilesDataControl assessmentProfilesDataControl;
@@ -105,6 +90,10 @@ public class ChapterDataControl extends DataControl {
 	 */
 	private AdaptationProfilesDataControl adaptationProfilesDataControl;
 
+	/**
+	 * Advanced features data controller (timers, global states and macros)
+	 */
+	private AdvancedFeaturesDataControl advancedFeaturesDataControl;
 	
 	/**
 	 * Constructor.
@@ -133,9 +122,13 @@ public class ChapterDataControl extends DataControl {
 		atrezzoListDataControl = new AtrezzoListDataControl(chapter.getAtrezzo());
 		npcsListDataControl = new NPCsListDataControl( chapter.getCharacters( ) );
 		conversationsListDataControl = new ConversationsListDataControl( chapter.getConversations( ) );
-		timersListDataControl = new TimersListDataControl( chapter.getTimers( ) );
-		globalStatesListDataControl = new GlobalStateListDataControl( chapter.getGlobalStates() );
-		macrosListDataControl = new MacroListDataControl ( chapter.getMacros( ) );		
+		TimersListDataControl timersListDataControl = new TimersListDataControl( chapter.getTimers( ) );
+		GlobalStateListDataControl globalStatesListDataControl = new GlobalStateListDataControl( chapter.getGlobalStates() );
+		MacroListDataControl macrosListDataControl = new MacroListDataControl ( chapter.getMacros( ) );		
+		advancedFeaturesDataControl = new AdvancedFeaturesDataControl();
+		advancedFeaturesDataControl.setTimerListDataControl(timersListDataControl);
+		advancedFeaturesDataControl.setGlobalStatesListDataContorl(globalStatesListDataControl);
+		advancedFeaturesDataControl.setMacrosListDataControl(macrosListDataControl);
 		assessmentProfilesDataControl = new AssessmentProfilesDataControl(chapter.getAssessmentProfiles());
 		adaptationProfilesDataControl = new AdaptationProfilesDataControl(chapter.getAdaptationProfiles());
 	}
@@ -262,7 +255,7 @@ public class ChapterDataControl extends DataControl {
 	 * @return Timers list controller
 	 */
 	public TimersListDataControl getTimersList(){
-		return this.timersListDataControl;
+		return this.advancedFeaturesDataControl.getTimersList();
 	}
 
 	/**
@@ -391,9 +384,9 @@ public class ChapterDataControl extends DataControl {
 		itemsListDataControl.updateVarFlagSummary( varFlagSummary );
 		npcsListDataControl.updateVarFlagSummary( varFlagSummary );
 		conversationsListDataControl.updateVarFlagSummary( varFlagSummary );
-		timersListDataControl.updateVarFlagSummary( varFlagSummary );
-		globalStatesListDataControl.updateVarFlagSummary( varFlagSummary );
-		macrosListDataControl.updateVarFlagSummary( varFlagSummary );
+		advancedFeaturesDataControl.updateVarFlagSummary( varFlagSummary );
+		adaptationProfilesDataControl.updateVarFlagSummary(varFlagSummary);
+		assessmentProfilesDataControl.updateVarFlagSummary(varFlagSummary);
 	}
 
 	@Override
@@ -413,9 +406,7 @@ public class ChapterDataControl extends DataControl {
 		valid &= playerDataControl.isValid( playerPath, incidences );
 		valid &= npcsListDataControl.isValid( currentPath, incidences );
 		valid &= conversationsListDataControl.isValid( currentPath, incidences );
-		valid &= timersListDataControl.isValid( currentPath, incidences );
-		valid &= globalStatesListDataControl.isValid( currentPath, incidences );
-		valid &= macrosListDataControl.isValid( currentPath, incidences );
+		valid &= advancedFeaturesDataControl.isValid( currentPath, incidences );
 		valid &= adaptationProfilesDataControl.isValid( currentPath, incidences );
 		valid &= assessmentProfilesDataControl.isValid( currentPath, incidences );
 		
@@ -441,46 +432,13 @@ public class ChapterDataControl extends DataControl {
 		count += playerDataControl.countAssetReferences( assetPath );
 		count += npcsListDataControl.countAssetReferences( assetPath );
 		count += conversationsListDataControl.countAssetReferences( assetPath );
-		count += timersListDataControl.countAssetReferences( assetPath );
-		count += globalStatesListDataControl.countAssetReferences( assetPath );
-		count += macrosListDataControl.countAssetReferences( assetPath );
+		count += advancedFeaturesDataControl.countAssetReferences( assetPath );
 
 		return count;
 	}
 
 	@Override
 	public void getAssetReferences( List<String> assetPaths, List<Integer> assetTypes ) {
-		// Add the references from the assessment and adaptation files
-		/*if( getAssessmentName( )!=null && !getAssessmentName().equals( "" ) ){
-			String assessmentPath = getAssessmentName();
-			for (String asset: assetPaths){
-				boolean add = true;
-				if (assessmentPath.equals( asset )){
-					add = false; break;
-				}
-				if (add){
-					int last = assetPaths.size( );
-					assetPaths.add( last, assessmentPath );
-					assetTypes.add( last, AssetsController.CATEGORY_ASSESSMENT );
-				}
-			}
-		}
-		if( getAdaptationName( )!=null && !getAdaptationName().equals( "" ) ){
-			String adaptationPath = getAdaptationName();
-			for (String asset: assetPaths){
-				boolean add = true;
-				if (adaptationPath.equals( asset )){
-					add = false; break;
-				}
-				if (add){
-					int last = assetPaths.size( );
-					assetPaths.add( last, adaptationPath );
-					assetTypes.add( last, AssetsController.CATEGORY_ADAPTATION );
-				}
-			}
-		}*/
-
-		// Add the references from the elements
 		scenesListDataControl.getAssetReferences( assetPaths, assetTypes );
 		cutscenesListDataControl.getAssetReferences( assetPaths, assetTypes );
 		booksListDataControl.getAssetReferences( assetPaths, assetTypes );
@@ -489,9 +447,7 @@ public class ChapterDataControl extends DataControl {
 		playerDataControl.getAssetReferences( assetPaths, assetTypes );
 		npcsListDataControl.getAssetReferences( assetPaths, assetTypes );
 		conversationsListDataControl.getAssetReferences( assetPaths, assetTypes );
-		timersListDataControl.getAssetReferences( assetPaths, assetTypes );
-		globalStatesListDataControl.getAssetReferences( assetPaths, assetTypes );
-		macrosListDataControl.getAssetReferences( assetPaths, assetTypes );
+		advancedFeaturesDataControl.getAssetReferences(assetPaths, assetTypes);
 	}
 	
 	@Override
@@ -511,9 +467,7 @@ public class ChapterDataControl extends DataControl {
 		playerDataControl.deleteAssetReferences( assetPath );
 		npcsListDataControl.deleteAssetReferences( assetPath );
 		conversationsListDataControl.deleteAssetReferences( assetPath );
-		timersListDataControl.deleteAssetReferences( assetPath );
-		globalStatesListDataControl.deleteAssetReferences( assetPath );
-		macrosListDataControl.deleteAssetReferences( assetPath );
+		advancedFeaturesDataControl.deleteAssetReferences( assetPath );
 		//assessmentProfilesDataControl.deleteAssetReferences( assetPath );
 		//adaptationProfilesDataControl.deleteAssetReferences( assetPath );
 	}
@@ -533,9 +487,7 @@ public class ChapterDataControl extends DataControl {
 		count += atrezzoListDataControl.countIdentifierReferences(id);
 		count += npcsListDataControl.countIdentifierReferences( id );
 		count += conversationsListDataControl.countIdentifierReferences( id );
-		count += timersListDataControl.countIdentifierReferences( id );
-		count += globalStatesListDataControl.countIdentifierReferences( id );
-		count += macrosListDataControl.countIdentifierReferences( id );
+		count += advancedFeaturesDataControl.countIdentifierReferences(id);
 
 		return count;
 	}
@@ -553,9 +505,7 @@ public class ChapterDataControl extends DataControl {
 		atrezzoListDataControl.replaceIdentifierReferences(oldId, newId);
 		npcsListDataControl.replaceIdentifierReferences( oldId, newId );
 		conversationsListDataControl.replaceIdentifierReferences( oldId, newId );
-		timersListDataControl.replaceIdentifierReferences( oldId, newId );
-		globalStatesListDataControl.replaceIdentifierReferences( oldId, newId );
-		macrosListDataControl.replaceIdentifierReferences( oldId, newId );
+		advancedFeaturesDataControl.replaceIdentifierReferences(oldId, newId);
 	}
 
 	
@@ -573,9 +523,7 @@ public class ChapterDataControl extends DataControl {
 		atrezzoListDataControl.deleteIdentifierReferences(id);
 		npcsListDataControl.deleteIdentifierReferences( id );
 		conversationsListDataControl.deleteIdentifierReferences( id );
-		timersListDataControl.deleteIdentifierReferences( id );
-		globalStatesListDataControl.deleteIdentifierReferences( id );
-		macrosListDataControl.deleteIdentifierReferences( id );
+		advancedFeaturesDataControl.deleteIdentifierReferences(id);
 	}
 
 	@Override
@@ -587,14 +535,14 @@ public class ChapterDataControl extends DataControl {
 	 * @return the globalStatesListDataControl
 	 */
 	public GlobalStateListDataControl getGlobalStatesListDataControl() {
-		return globalStatesListDataControl;
+		return advancedFeaturesDataControl.getGlobalStatesListDataControl();
 	}
 
 	/**
 	 * @return the globalStatesListDataControl
 	 */
 	public MacroListDataControl getMacrosListDataControl() {
-		return macrosListDataControl;
+		return advancedFeaturesDataControl.getMacrosListDataControl();
 	}
 
 	@Override
@@ -608,16 +556,13 @@ public class ChapterDataControl extends DataControl {
 		this.getBooksList().recursiveSearch();
 		this.getConversationsList().recursiveSearch();
 		this.getCutscenesList().recursiveSearch();
-		this.getGlobalStatesListDataControl().recursiveSearch();
 		this.getItemsList().recursiveSearch();
-		this.getMacrosListDataControl().recursiveSearch();
 		this.getNPCsList().recursiveSearch();
 		this.getPlayer().recursiveSearch();
 		this.getScenesList().recursiveSearch();
-		this.getTimersList().recursiveSearch();
+		this.getAdvancedFeaturesController().recursiveSearch();
 		this.getAdaptationProfilesDataControl().recursiveSearch();
 		this.getAssessmentProfilesDataControl().recursiveSearch();
-		
 	}
 
 	/**
@@ -685,17 +630,17 @@ public class ChapterDataControl extends DataControl {
 		if (path != null) return path;
 		path = getPathFromChild(dataControl, conversationsListDataControl);
 		if (path != null) return path;
-		path = getPathFromChild(dataControl, timersListDataControl);
-		if (path != null) return path;
-		path = getPathFromChild(dataControl, globalStatesListDataControl);
-		if (path != null) return path;
-		path = getPathFromChild(dataControl, macrosListDataControl);
+		path = getPathFromChild(dataControl, advancedFeaturesDataControl);
 		if (path != null) return path;
 		path = getPathFromChild(dataControl, assessmentProfilesDataControl);
 		if (path != null) return path;
 		path = getPathFromChild(dataControl, adaptationProfilesDataControl);
 		if (path != null) return path;
 		return null;
+	}
+
+	public AdvancedFeaturesDataControl getAdvancedFeaturesController() {
+		return this.advancedFeaturesDataControl;
 	}
 }
 

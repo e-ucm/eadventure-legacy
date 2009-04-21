@@ -54,9 +54,12 @@ public class StructureControl {
 		if (backList.size() > 1) {
 			DataControl temp = backList.remove(backList.size() - 1);
 			DataControl temp2 = backList.get(backList.size() - 1);
+			List<DataControl> tempBack = new ArrayList<DataControl>();
+			tempBack.addAll(backList);
 			List<DataControl> tempFwrd = new ArrayList<DataControl>();
 			tempFwrd.addAll(forwardList);
 			changeDataControl(temp2);
+			backList = tempBack;
 			forwardList = tempFwrd;
 			forwardList.add(temp);
 		}
@@ -69,9 +72,13 @@ public class StructureControl {
 		if (forwardList.size() > 0) {
 			DataControl temp = forwardList.get(forwardList.size() - 1);
 			forwardList.remove(temp);
+			List<DataControl> tempBack = new ArrayList<DataControl>();
+			tempBack.addAll(backList);
 			List<DataControl> tempFwrd = new ArrayList<DataControl>();
 			tempFwrd.addAll(forwardList);
 			changeDataControl(temp);
+			backList = tempBack;
+			backList.add(temp);
 			forwardList = tempFwrd;
 		}
 	}

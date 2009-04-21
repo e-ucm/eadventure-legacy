@@ -27,6 +27,7 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
+import es.eucm.eadventure.editor.control.controllers.NormalScenePreviewEditionController;
 import es.eucm.eadventure.editor.control.controllers.scene.ActiveAreaDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.BarrierDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
@@ -36,11 +37,11 @@ import es.eucm.eadventure.editor.control.controllers.scene.NodeDataControl;
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
 import es.eucm.eadventure.editor.gui.editdialogs.ConditionsDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.EffectsDialog;
-import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ExitsTable;
+import es.eucm.eadventure.editor.gui.elementpanels.DataControlSelectionListener;
 import es.eucm.eadventure.editor.gui.otherpanels.IrregularAreaEditionPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 
-public class ExitsListPanel extends JPanel implements DataControlsPanel {
+public class ExitsListPanel extends JPanel implements DataControlsPanel, DataControlSelectionListener {
 
 	/**
 	 * Required.
@@ -118,9 +119,11 @@ public class ExitsListPanel extends JPanel implements DataControlsPanel {
 
 		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent arg0) {
-				if (table.getSelectedRow() >= 0)
+				if (table.getSelectedRow() >= 0) {
 					deleteButton.setEnabled(true);
-				else
+					iaep.setRectangular(dataControl.getExits().get(table.getSelectedRow()));
+					iaep.repaint();
+				} else
 					deleteButton.setEnabled(false);
 				updateAuxPanel();
 				deleteButton.repaint();
@@ -184,10 +187,14 @@ public class ExitsListPanel extends JPanel implements DataControlsPanel {
 				spep.addActiveArea(activeArea);
 			}
 			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_ACTIVEAREA, false);
-
+			
 			for( ExitDataControl exit : dataControl.getExits( ) ) {
 				spep.addExit(exit);
 			}
+			spep.changeController(new NormalScenePreviewEditionController(spep));
+			spep.setDataControlSelectionListener(this);
+			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_EXIT, true);
+
 		}
 	}
 	
@@ -195,8 +202,8 @@ public class ExitsListPanel extends JPanel implements DataControlsPanel {
 		if (dataControl.addElement(dataControl.getAddableElements()[0], null)) {
 			iaep.getScenePreviewEditionPanel().addExit(dataControl.getLastExit());
 			iaep.repaint();
-			table.getSelectionModel().setSelectionInterval(dataControl.getExits().size() - 1, dataControl.getExits().size() - 1);
 			((AbstractTableModel) table.getModel()).fireTableDataChanged();
+			table.changeSelection(dataControl.getExits().size() - 1, dataControl.getExits().size() - 1, false, false);
 		}
 	}
 	
@@ -211,7 +218,7 @@ public class ExitsListPanel extends JPanel implements DataControlsPanel {
 			return;
 		auxPanel.removeAll();
 		if (table.getSelectedRow() == -1) {
-			previewAuxSplit.setDividerLocation(previewAuxSplit.getMaximumDividerLocation());
+			previewAuxSplit.setDividerLocation(Integer.MAX_VALUE);
 			return;
 		}
 		
@@ -297,6 +304,19 @@ public class ExitsListPanel extends JPanel implements DataControlsPanel {
 				if (dataControl.getExits().get(i) == path.get(path.size() -1))
 					table.changeSelection(i, i, false, false);
 			}
+		}
+	}
+
+
+	@Override
+	public void dataControlSelected(DataControl dataControl2) {
+		if (dataControl2 != null) {
+			for (int i = 0 ; i < dataControl.getExits().size(); i++) {
+				if (dataControl.getExits().get(i) == dataControl2)
+					table.changeSelection(i, i, false, false);
+			}
+		} else {
+			table.clearSelection();
 		}
 	}
 	

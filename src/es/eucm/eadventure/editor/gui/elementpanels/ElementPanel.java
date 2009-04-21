@@ -13,6 +13,7 @@ import javax.swing.event.ChangeListener;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
 import es.eucm.eadventure.editor.gui.Updateable;
+import es.eucm.eadventure.editor.gui.structurepanel.StructureControl;
 
 public class ElementPanel extends JTabbedPane implements Updateable, DataControlsPanel {
 
@@ -37,6 +38,7 @@ public class ElementPanel extends JTabbedPane implements Updateable, DataControl
 					selected = getSelectedIndex();
 					((JPanel) getSelectedComponent()).removeAll();
 					PanelTab tab = tabs.get(getSelectedIndex());
+					StructureControl.getInstance().visitDataControl(tab.getDataControl());
 					component = tab.getComponent();
 					((JPanel) getSelectedComponent()).add(component, BorderLayout.CENTER);
 					((JPanel) getSelectedComponent()).updateUI();
@@ -50,9 +52,9 @@ public class ElementPanel extends JTabbedPane implements Updateable, DataControl
 		JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
 		if (tab.getToolTipText() != null)
-			this.addTab(tab.getTitle(), null, panel, tab.getToolTipText());
+			this.addTab(tab.getTitle(), tab.getIcon(), panel, tab.getToolTipText());
 		else
-			this.addTab(tab.getTitle(), panel);
+			this.addTab(tab.getTitle(), tab.getIcon(), panel);
 	}
 
 	@Override

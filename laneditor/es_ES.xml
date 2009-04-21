@@ -1278,6 +1278,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="ActionsList.CustomName">Nombre personalizado</entry>
 	<entry key="ActionList.Empty">No se ha seleccionado ninguna acción.</entry>
 	
+	<entry key="SmallActionList.Action">Acción</entry>
 	
 
 	<entry key="Action.Title">Acción</entry>
@@ -2272,12 +2273,9 @@ Si no las cambia, el juego empleará las flechas por defecto.</entry>
 	<entry key="TimersList.Title">Temporizadores</entry>
 	<entry key="TimersList.ListTitle">Lista de temporizadores</entry>
 	<entry key="TimersList.Information">Los temporizadores se pueden usar para forzar la ejecución de eventos tras un determinado tiempo. Los temporizadores arrancan cuando su condición de activación se vuelve evalúa a cierto y empiezan a contar el tiempo. Si el intervalo indicado expira, se ejecutará el bloque de efectos correspondiente. Los temporizadores también se pueden detener si se vuelve cierta su condición de desactivación. En tal caso, se puede ejecutar otro bloque de efectos distinto.</entry>
-	<entry key="TimersList.ColumnHeader0">Índice</entry>
-	<entry key="TimersList.ColumnHeader1">Tiempo</entry>
-	<entry key="TimersList.ColumnHeader2">Tiene condición de activación</entry>
-	<entry key="TimersList.ColumnHeader3">Tiene condición de desactivación</entry>
-	<entry key="TimersList.ColumnHeader4">Tiene efectos al expirar</entry>
-	<entry key="TimersList.ColumnHeader5">Tiene efectos al ser desactivado</entry>
+	<entry key="TimersList.Timer">Temporizador</entry>
+	<entry key="TimersList.Time">Tiempo</entry>
+	<entry key="TimersList.Display">Mostrar en juego</entry>
 	
 	<entry key="AdvancedFeatures.Title">Características avanzadas</entry>
 	<entry key="AdvancedFeatures.Information">Esta sección del árbol se emplea para añadir y gestionar características avanzadas del editor.</entry>
@@ -2308,8 +2306,7 @@ Si no las cambia, el juego empleará las flechas por defecto.</entry>
 	<entry key="GlobalStatesList.Information">Esta es la lista de estados globales definidos hasta el momento en el capítulo, junto al número de veces que fue referenciado cada uno.
 Los "Estados globales" son simplemente grupos de condiciones que pueden usarse para definir "estados" del juego.
 Son especialmente útiles cuando se pretende hacer referencia al mismo grupo de condiciones desde puntos distintos, ya que de esta manera se evita reescribir dichas condiciones continuamente.</entry>
-	<entry key="GlobalStatesList.ColumnHeader0">Identificador</entry>
-	<entry key="GlobalStatesList.ColumnHeader1">Referencias</entry>
+	<entry key="GlobalStatesList.ID">Identificador de estado global</entry>
 	<entry key="GlobalStatesList.ListTitle">Lista completa de referencias a los estados globales</entry>
 	
 	<entry key="GlobalState.Documentation">Descripción (no se usa en el motor)</entry>
@@ -2320,8 +2317,7 @@ Son especialmente útiles cuando se pretende hacer referencia al mismo grupo de 
 Las macros son simplemente grupos de efectos a los que se puede referenciar en distintos puntos del juego. 
 Son especialmente útiles cuando se van a usar los mismos efectos en distintos momentos, 
 ya que de esta manera se evita reescribirlos varias veces.</entry>
-	<entry key="MacrosList.ColumnHeader0">Identificador</entry>
-	<entry key="MacrosList.ColumnHeader1">Referencias</entry>
+	<entry key="MacrosList.ID">Identificador de macro</entry>
 	<entry key="MacrosList.ListTitle">Lista completa de macros y referencias</entry>
 	
 	<entry key="Macro.Documentation">Descripción (no se usa en el motor)</entry>
@@ -2335,15 +2331,16 @@ ya que de esta manera se evita reescribirlos varias veces.</entry>
 	<entry key="Synthesizer.CheckLine">Sintetizar la linea seleccionada</entry>
 
 
-	<entry key="SPEP.ShowActiveAreas">Mostrar zonas activas</entry>
-	<entry key="SPEP.ShowAtrezzo">Mostrar referencias a objetos de atrezo</entry>
-	<entry key="SPEP.ShowBarriers">Mostrar barreras</entry>
-	<entry key="SPEP.ShowCharacterReferences">Mostrar referencias a personajes</entry>
-	<entry key="SPEP.ShowExits">Mostrar salidas</entry>
-	<entry key="SPEP.ShowUncategorized">Mostrar elementos sin categoria</entry>
-	<entry key="SPEP.ShowObjectReferences">Mostrar referencias a objetos</entry>
-	<entry key="SPEP.ShowPlayer">Mostrar jugador</entry>
-	<entry key="SPEP.ShowTrajectory">Mostrar trayectoria</entry>
+	<entry key="SPEP.ShowActiveAreas">Zonas activas</entry>
+	<entry key="SPEP.ShowAtrezzo">Objetos de atrezo</entry>
+	<entry key="SPEP.ShowBarriers">Barreras</entry>
+	<entry key="SPEP.ShowCharacterReferences">Personajes</entry>
+	<entry key="SPEP.ShowExits">Salidas</entry>
+	<entry key="SPEP.ShowUncategorized">Otros elementos</entry>
+	<entry key="SPEP.ShowObjectReferences">Objetos</entry>
+	<entry key="SPEP.ShowPlayer">Jugador</entry>
+	<entry key="SPEP.ShowTrajectory">Trayectoria</entry>
+	<entry key="SPEP.ShowPanelTitle">Mostrar/ocultar elementos</entry>
 	<entry key="SPEP.XCoordinate">Coordenada X</entry>
 	<entry key="SPEP.YCoordinate">Coordenada Y</entry>
 	<entry key="SPEP.Scale">Escala</entry>

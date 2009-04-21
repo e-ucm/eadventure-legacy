@@ -8,7 +8,6 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -22,7 +21,6 @@ import javax.swing.table.AbstractTableModel;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.macro.MacroDataControl;
 import es.eucm.eadventure.editor.control.controllers.macro.MacroListDataControl;
-import es.eucm.eadventure.editor.gui.elementpanels.general.tables.MacrosTable;
 
 public class MacrosListPanel extends JPanel {
 
@@ -50,7 +48,6 @@ public class MacrosListPanel extends JPanel {
 	public MacrosListPanel( MacroListDataControl macrosListDataControl ) {
 		this.dataControl = macrosListDataControl;
 		setLayout( new BorderLayout() );
-		setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "MacrosList.Title" ) ) );
 
 		globalStateInfoPanel = new JPanel();
 		globalStateInfoPanel.setLayout(new BorderLayout());
