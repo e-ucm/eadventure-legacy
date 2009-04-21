@@ -2439,6 +2439,7 @@ ya que de esta manera se evita reescribirlos varias veces.</entry>
 	<entry key="Search.NextScene">Siguiente escena</entry>
 	<entry key="Search.Conditions">Condiciones</entry>
 	<entry key="Search.Var">Variable</entry>
+	<entry key="Search.CustomizedText">Texto personalizado</entry>
 
 	<entry key="DrawPanel.ZoomIn">Más zoom</entry>
 	<entry key="DrawPanel.ZoomOut">Menos zoom</entry>
@@ -2451,5 +2452,9 @@ ya que de esta manera se evita reescribirlos varias veces.</entry>
 	<entry key="DeleteUnusedAssets.Warning">Todos los recursos no referenciados serán eliminados del proyecto, esta operación no se puede deshacer.
 Es muy recomendable que haga una copia de seguridad de su proyecto antes de continuar.
 Los perfiles de adaptación y evaluación no utilizados permaneceran intactos.</entry>
+
+	<entry key="ResizeableListPanel.Size0ToolTip">Ver los elementos en una lista sencilla</entry>
+	<entry key="ResizeableListPanel.Size1ToolTip">Ver los elementos en una lista con vistas previas pequeñas</entry>
+	<entry key="ResizeableListPanel.Size2ToolTip">Ver los elementos en una lista con vistas previas grandes</entry>
 
 </properties>

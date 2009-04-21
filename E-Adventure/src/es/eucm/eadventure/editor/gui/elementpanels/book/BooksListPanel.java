@@ -35,7 +35,7 @@ public class BooksListPanel extends JPanel {
 			dataControlList.add(item);
 		}
 		ResizeableCellRenderer renderer = new BookCellRenderer();
-		add(new ResizeableListPanel(dataControlList, renderer), BorderLayout.CENTER);
+		add(new ResizeableListPanel(dataControlList, renderer, "BooksListPanel"), BorderLayout.CENTER);
 	}
 
 }

@@ -112,7 +112,7 @@ public class ExitsListDataControl extends DataControl {
 			if( generalScenes.length > 0 ) {
 				String selectedScene = controller.showInputDialog( TextConstants.getText( "Operation.AddNextSceneTitle" ), TextConstants.getText( "Operation.AddNextSceneMessage" ), generalScenes );
 				if( selectedScene != null ) {
-					Exit newExit = new Exit( true, 0, 0, 20, 20 );
+					Exit newExit = new Exit( true, 240, 240, 100, 100 );
 					newExit.setNextSceneId(selectedScene);
 					ExitDataControl newExitDataControl = new ExitDataControl( sceneDataControl, newExit );
 

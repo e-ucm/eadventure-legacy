@@ -9,11 +9,14 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.config.ResizeableListConfigData;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ResizeableCellRenderer;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ResizableTableModel;
@@ -29,11 +32,14 @@ public class ResizeableListPanel extends JPanel {
 	
 	private JTable informationTable;
 	
+	private String name = "";
+	
 	private List<DataControl> dataControlList;
 	
-	public ResizeableListPanel(List<DataControl> dataControlList, ResizeableCellRenderer renderer) {
+	public ResizeableListPanel(List<DataControl> dataControlList, ResizeableCellRenderer renderer, String name) {
 		this.dataControlList = dataControlList;
 		this.renderer = renderer;
+		this.name = name;
 		createPanel();
 	}
 	
@@ -48,7 +54,8 @@ public class ResizeableListPanel extends JPanel {
 		c.weightx = 1;
 		
 		JPanel buttonsPanel = new JPanel();
-		JButton sizeZero = new JButton("size  0");
+		JButton sizeZero = new JButton(new ImageIcon("img/icons/size0.png"));
+		sizeZero.setToolTipText(TextConstants.getText("ResizeableListPanel.Size0ToolTip"));
 		sizeZero.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				changeSize(0);
@@ -56,7 +63,8 @@ public class ResizeableListPanel extends JPanel {
 		});
 		buttonsPanel.add(sizeZero);
 
-		JButton sizeOne = new JButton("size  1");
+		JButton sizeOne = new JButton(new ImageIcon("img/icons/size1.png"));
+		sizeOne.setToolTipText(TextConstants.getText("ResizeableListPanel.Size1ToolTip"));
 		sizeOne.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				changeSize(1);
@@ -64,7 +72,8 @@ public class ResizeableListPanel extends JPanel {
 		});
 		buttonsPanel.add(sizeOne);
 
-		JButton sizeTwo = new JButton("size  2");
+		JButton sizeTwo = new JButton(new ImageIcon("img/icons/size2.png"));
+		sizeTwo.setToolTipText(TextConstants.getText("ResizeableListPanel.Size2ToolTip"));
 		sizeTwo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				changeSize(2);
@@ -80,8 +89,9 @@ public class ResizeableListPanel extends JPanel {
 		c.weightx = 1;
 		c.weighty = 1;
 		
-		model = new ResizableTableModel( dataControlList );
-		
+		int size = ResizeableListConfigData.getSize(name);
+		model = new ResizableTableModel( dataControlList , size);
+		renderer.setSize(size);
 		informationTable = new JTable( model );
 		informationTable.addMouseListener(new InformationTableMouseListener());
 		
@@ -89,7 +99,12 @@ public class ResizeableListPanel extends JPanel {
 			informationTable.getColumnModel().getColumn(i).setCellRenderer(renderer);
 			informationTable.getColumnModel().getColumn(i).setCellEditor(renderer);
 		}
-		informationTable.setRowHeight(200);
+		if (size == 0)
+			informationTable.setRowHeight(20);
+		if (size == 1)
+			informationTable.setRowHeight(100);
+		if (size == 2)
+			informationTable.setRowHeight(200);
 		informationTable.setTableHeader(null);
 
 		add( new JScrollPane( informationTable, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER ), c );
@@ -125,5 +140,6 @@ public class ResizeableListPanel extends JPanel {
 			informationTable.setRowHeight(100);
 		if (size == 2)
 			informationTable.setRowHeight(200);
+		ResizeableListConfigData.setSize(name, size);
 	}
 }

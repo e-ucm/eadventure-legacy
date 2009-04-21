@@ -2431,6 +2431,7 @@ avoids retyping.</entry>
 	<entry key="Search.NextScene">Next Scene</entry>
 	<entry key="Search.Conditions">Conditions</entry>
 	<entry key="Search.Var">Variable</entry>
+	<entry key="Search.CustomizedText">Customized text</entry>
 	
 	<entry key="DrawPanel.ZoomIn">Zoom in</entry>
 	<entry key="DrawPanel.ZoomOut">Zoom out</entry>
@@ -2443,4 +2444,7 @@ avoids retyping.</entry>
 It's strongly recommended that you backup your project before continuing.
 Unreferenced assessment and adaptation profiles will remain intact.</entry>
 
+	<entry key="ResizeableListPanel.Size0ToolTip">View all the elements in a simple list</entry>
+	<entry key="ResizeableListPanel.Size1ToolTip">View all the elements in a list with small previews</entry>
+	<entry key="ResizeableListPanel.Size2ToolTip">View all the elements in a list with big previews</entry>
 </properties>
