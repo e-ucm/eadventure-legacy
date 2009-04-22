@@ -5,7 +5,6 @@ import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.conversation.Conversation;
 import es.eucm.eadventure.common.data.chapter.conversation.GraphConversation;
-import es.eucm.eadventure.common.data.chapter.conversation.TreeConversation;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
@@ -36,9 +35,7 @@ public class ConversationsListDataControl extends DataControl {
 		// Create the subcontrollers
 		conversationsDataControlList = new ArrayList<ConversationDataControl>( );
 		for( Conversation conversation : conversationsList ) {
-			if( conversation.getType( ) == Conversation.TREE )
-				conversationsDataControlList.add( new TreeConversationDataControl( (TreeConversation) conversation ) );
-			else if( conversation.getType( ) == Conversation.GRAPH )
+			if( conversation.getType( ) == Conversation.GRAPH )
 				conversationsDataControlList.add( new GraphConversationDataControl( (GraphConversation) conversation ) );
 		}
 	}
@@ -128,13 +125,8 @@ public class ConversationsListDataControl extends DataControl {
 				Conversation newConversation = null;
 				ConversationDataControl newConversationDataControl = null;
 
-				// Create the new conversation
-				if( type == Controller.CONVERSATION_TREE ) {
-					newConversation = new TreeConversation( conversationId );
-					newConversationDataControl = new TreeConversationDataControl( (TreeConversation) newConversation );
-				}
 
-				else if( type == Controller.CONVERSATION_GRAPH ) {
+				if( type == Controller.CONVERSATION_GRAPH ) {
 					newConversation = new GraphConversation( conversationId );
 					newConversationDataControl = new GraphConversationDataControl( (GraphConversation) newConversation );
 				}

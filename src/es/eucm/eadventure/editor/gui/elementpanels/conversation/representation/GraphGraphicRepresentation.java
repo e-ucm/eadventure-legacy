@@ -50,12 +50,6 @@ public class GraphGraphicRepresentation extends GraphicRepresentation {
 	private GraphConversationDataControl graphConversationDataControl;
 
 	/**
-	 * Set of graphic nodes representating the conversation. The nodes are placed in the same order as the nodes
-	 * extracted with conversation.getAllNodes( )
-	 */
-	private List<GraphicNode> graphicNodes;
-
-	/**
 	 * Size of the represented conversation
 	 */
 	private Dimension conversationSize;
@@ -164,7 +158,7 @@ public class GraphGraphicRepresentation extends GraphicRepresentation {
 		// For each graphic node, and while the clicked node has not been found
 		for( int i = 0; i < graphicNodes.size( ) && node == null; i++ )
 			// If the current graphic node has been clicked, store the node
-			if( graphicNodes.get( i ).isInside( point ) )
+			if( graphicNodes.get( i ).isInside( scale, point ) )
 				node = graphicNodes.get( i ).getNode( );
 
 		return node;
@@ -215,7 +209,7 @@ public class GraphGraphicRepresentation extends GraphicRepresentation {
 
 				// Update the config data of the conversation
 				String id = this.graphConversationDataControl.getId( );
-				ConversationConfigData.setNodePos( id, i, graphicNodes.get( i ).getPosition( scale ) );
+				ConversationConfigData.setNodePos( id, i, graphicNodes.get( i ).getPosition( 1.0f ) );
 			}
 
 		// Set the new upper left corner
@@ -235,7 +229,7 @@ public class GraphGraphicRepresentation extends GraphicRepresentation {
 			for( int j = 0; j < currentNode.getChildCount( ); j++ ) {
 				Point childPosition = currentNode.getChildPosition( scale, j );
 				g.drawLine( (int) currentNode.getPosition( scale ).getX( ), (int) currentNode.getPosition( scale ).getY( ), (int) childPosition.getX( ), (int) childPosition.getY( ) );
-				drawArrow( g, currentNode.getPosition( scale ), childPosition );
+				drawArrow( g, currentNode.getChildNode( j ), currentNode.getPosition( scale ), childPosition );
 			}
 		}
 
@@ -406,7 +400,7 @@ public class GraphGraphicRepresentation extends GraphicRepresentation {
 		// For each graphic node, and while the clicked node has not been found
 		for( int i = ( graphicNodes.size( ) - 1 ); i >= 0 && pickedNode == null; i-- )
 			// If the current graphic node has been clicked (25 points of radius), store the node
-			if( graphicNodes.get( i ).isInside( point ) ){
+			if( graphicNodes.get( i ).isInside( scale, point ) ){
 				pickedNode = graphicNodes.get( i );
 				pickedNodeIndex = i;
 			}
@@ -426,14 +420,14 @@ public class GraphGraphicRepresentation extends GraphicRepresentation {
 		// If te mouse is being dragged
 		if( state == MOUSE_DRAG ) {
 			// Calculate the difference between the last position and the new position
-			Point moved = new Point( point.x - lastPoint.x, point.y - lastPoint.y );
+			Point moved = new Point( (int) ((point.x - lastPoint.x) / scale), (int) ((point.y - lastPoint.y) / scale) );
 
 			// Move the picked node
 			pickedNode.moveNode( moved );
 			
 			// Update the config data of the conversation
 			String id = this.graphConversationDataControl.getId( );
-			ConversationConfigData.setNodePos( id, pickedNodeIndex, pickedNode.getPosition( scale ) );
+			ConversationConfigData.setNodePos( id, pickedNodeIndex, pickedNode.getPosition( 1.0f ) );
 
 			// Set the point to the new node and set modified to true
 			lastPoint = point;

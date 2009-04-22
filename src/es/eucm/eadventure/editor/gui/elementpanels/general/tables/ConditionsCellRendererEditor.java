@@ -27,6 +27,8 @@ public class ConditionsCellRendererEditor extends AbstractCellEditor implements 
 	
 	@Override
 	public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int col) {
+		if (value == null)
+			return null;
 		this.value = (ConditionsController) value;
 		JButton button = new JButton(TextConstants.getText( "GeneralText.EditConditions" ));
 		button.setFocusable(false);
@@ -41,13 +43,14 @@ public class ConditionsCellRendererEditor extends AbstractCellEditor implements 
 
 	@Override
 	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-		if (value instanceof ConditionsController) { 
-			JButton button = new JButton(TextConstants.getText( "GeneralText.EditConditions" ));
-			button.setFocusable(false);
-			button.setEnabled(isSelected);
-			return button;
-	    }
-		return null;
+		if (value == null)
+			return null;
+		this.value = (ConditionsController) value;
+		JButton button = new JButton(TextConstants.getText( "GeneralText.EditConditions" ));
+		button.setFocusable(false);
+		button.setEnabled(isSelected);
+		return button;
+		
 	}
 
 }

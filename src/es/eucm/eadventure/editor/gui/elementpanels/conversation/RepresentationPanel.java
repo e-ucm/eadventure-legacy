@@ -1,8 +1,6 @@
 package es.eucm.eadventure.editor.gui.elementpanels.conversation;
 
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Point;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
@@ -13,11 +11,8 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.config.ConversationConfigData;
 import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
 import es.eucm.eadventure.editor.control.controllers.conversation.GraphConversationDataControl;
-import es.eucm.eadventure.editor.control.controllers.conversation.TreeConversationDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.conversation.representation.GraphGraphicRepresentation;
 import es.eucm.eadventure.editor.gui.elementpanels.conversation.representation.GraphicRepresentation;
-import es.eucm.eadventure.editor.gui.elementpanels.conversation.representation.TreeGraphicRepresentation;
-import es.eucm.eadventure.editor.gui.elementpanels.conversation.representation.graphicnode.GraphicNode;
 
 /**
  * This class is the panel used to display the graphical representation of the current conversation. It paints the
@@ -78,12 +73,8 @@ class RepresentationPanel extends JPanel {
 		this.conversationPanel = principalPanel;
 		this.conversationDataControl = conversationDataControl;
 
-		// If the conversation is a tree conversation, create a new tree graphic representation
-		if( conversationDataControl.getType( ) == Controller.CONVERSATION_TREE )
-			conversationRepresentation = new TreeGraphicRepresentation( (TreeConversationDataControl) conversationDataControl, getSize( ) );
-
 		// If the conversation is a graph conversation, create a new graph graphic representation
-		else if( conversationDataControl.getType( ) == Controller.CONVERSATION_GRAPH )
+		if( conversationDataControl.getType( ) == Controller.CONVERSATION_GRAPH )
 			conversationRepresentation = new GraphGraphicRepresentation( (GraphConversationDataControl) conversationDataControl, getSize( ) );
 
 		// Add the mouse and resize listeners to the panel
@@ -118,21 +109,9 @@ class RepresentationPanel extends JPanel {
 
 		// If there is a current conversation
 		if( conversationRepresentation != null ) {
-
-			// If there is a selected node, draw a big red filled circle (to make it seem selected)
-			if( conversationPanel.getSelectedNode( ) != null ) {
-				Point point = conversationRepresentation.getPositionOfNode( conversationPanel.getSelectedNode( ) );
-				g.setColor( Color.RED );
-				g.fillOval( point.x - GraphicNode.NODE_SELECTED_RADIUS, point.y - GraphicNode.NODE_SELECTED_RADIUS, GraphicNode.NODE_SELECTED_DIAMETER, GraphicNode.NODE_SELECTED_DIAMETER );
-			}
-
-			// If there is a selected child, draw a big blue filled circle (to make it seem selected)
-			if( conversationPanel.getSelectedChild( ) != null ) {
-				Point point = conversationRepresentation.getPositionOfNode( conversationPanel.getSelectedChild( ) );
-				g.setColor( Color.BLUE );
-				g.fillOval( point.x - GraphicNode.NODE_SELECTED_RADIUS, point.y - GraphicNode.NODE_SELECTED_RADIUS, GraphicNode.NODE_SELECTED_DIAMETER, GraphicNode.NODE_SELECTED_DIAMETER );
-			}
-
+			conversationRepresentation.setSelectedNode(conversationPanel.getSelectedNode());
+			conversationRepresentation.setSelectedChildNode(conversationPanel.getSelectedChild());
+			
 			// Draw the conversation
 			conversationRepresentation.drawConversation( g );
 		}

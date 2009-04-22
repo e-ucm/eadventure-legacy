@@ -17,22 +17,22 @@ public class GraphicNode {
 	/**
 	 * Radius of the nodes.
 	 */
-	public static final int NODE_RADIUS = 25;
+	public static final int NODE_RADIUS = 40;
 
 	/**
 	 * Diameter for the nodes.
 	 */
-	public static final int NODE_DIAMETER = 50;
+	public static final int NODE_DIAMETER = 80;
 
 	/**
 	 * Radius to paint the border on the nodes.
 	 */
-	public static final int NODE_SELECTED_RADIUS = 30;
+	public static final int NODE_SELECTED_RADIUS = 45;
 
 	/**
 	 * Diameter to paint the border on the nodes.
 	 */
-	public static final int NODE_SELECTED_DIAMETER = 60;
+	public static final int NODE_SELECTED_DIAMETER = 90;
 
 	/**
 	 * Link to the conversational attached node
@@ -49,6 +49,10 @@ public class GraphicNode {
 	 */
 	private List<GraphicNode> children;
 
+	protected boolean selected;
+	
+	protected boolean selectedChild;
+		
 	/**
 	 * Constructor
 	 * 
@@ -61,6 +65,7 @@ public class GraphicNode {
 		this.node = node;
 		this.position = position;
 		children = new ArrayList<GraphicNode>( );
+		selected = false;
 	}
 
 	/**
@@ -111,6 +116,10 @@ public class GraphicNode {
 		return children.get( index ).getPosition( scale );
 	}
 
+	public GraphicNode getChildNode( int index ) {
+		return children.get( index );
+	}
+
 	/**
 	 * Returns the position of the node in the canvas.
 	 * @param scale 
@@ -134,17 +143,18 @@ public class GraphicNode {
 
 	/**
 	 * Returns if the given point is inside the node (for selecting nodes with mouse clicks).
+	 * @param scale 
 	 * 
 	 * @param point
 	 *            Point we want to know if it is inside the node
 	 * @return True if the point is near enough of the node, false otherwise
 	 */
-	public boolean isInside( Point point ) {
+	public boolean isInside( float scale, Point point ) {
 		// True if the distance is less than the radius of the node
+		Point position = getPosition(scale);
 		double difX = point.getX( ) - position.getX( );
 		double difY = point.getY( ) - position.getY( );
-
-		return Math.sqrt( difX * difX + difY * difY ) <= NODE_RADIUS;
+		return Math.sqrt( difX * difX + difY * difY ) <= NODE_RADIUS * scale;
 	}
 
 	/**
@@ -155,11 +165,35 @@ public class GraphicNode {
 	 *            Graphics for drawing
 	 */
 	public void drawNode( float scale, Graphics g ) {
+		if( selected ) {
+			int x = (int) ((position.getX( ) - NODE_SELECTED_RADIUS) * scale);
+			int y = (int) ((position.getY( ) - NODE_SELECTED_RADIUS) * scale);
+			int d = (int) (NODE_SELECTED_DIAMETER * scale);
+			g.setColor( Color.RED );
+			g.fillOval( x, y, d, d );
+		}
+
+		if( selectedChild ) {
+			int x = (int) ((position.getX( ) - NODE_SELECTED_RADIUS) * scale);
+			int y = (int) ((position.getY( ) - NODE_SELECTED_RADIUS) * scale);
+			int d = (int) (NODE_SELECTED_DIAMETER * scale);
+			g.setColor( Color.BLUE );
+			g.fillOval( x, y, d, d );
+		}
+
 		// Draws a black circle
 		g.setColor( Color.BLACK );
 		int x = (int) ((position.getX( ) - NODE_RADIUS) * scale);
 		int y = (int) ((position.getY( ) - NODE_RADIUS) * scale);
 		int d = (int) (NODE_DIAMETER * scale);
 		g.fillOval( x, y, d, d );
+	}
+	
+	public void setSelected(boolean selected) {
+		this.selected = selected;
+	}
+	
+	public void setSelectedChild(boolean selectedChild) {
+		this.selectedChild = selectedChild;
 	}
 }

@@ -46,12 +46,7 @@ public abstract class ResizeableCellRenderer extends AbstractCellEditor implemen
 		
 		
 		JButton goToButton = new JButton("Editar");
-		goToButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				StructureControl.getInstance().changeDataControl(value);
-			}
-		});
-
+		goToButton.addActionListener(new EditButtonActionListener(value));
 		
 		JPanel panel = new JPanel();
 		
@@ -69,6 +64,19 @@ public abstract class ResizeableCellRenderer extends AbstractCellEditor implemen
 		panel.setBackground(Color.WHITE);
 		return panel;
 	}
+	
+	private class EditButtonActionListener implements ActionListener {
+
+		private DataControl dataControl;
+		
+		public EditButtonActionListener(DataControl dataControl) {
+			this.dataControl = dataControl;
+		}
+		
+		public void actionPerformed(ActionEvent e) {
+			StructureControl.getInstance().changeDataControl(dataControl);
+		}
+	}
 
 	@Override
 	public Object getCellEditorValue() {
@@ -78,4 +86,5 @@ public abstract class ResizeableCellRenderer extends AbstractCellEditor implemen
 	public void setSize(int size) {
 		this.size = size;
 	}
+
 }

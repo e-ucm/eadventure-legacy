@@ -7,6 +7,7 @@ import org.xml.sax.Attributes;
 
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.data.chapter.conversation.Conversation;
+import es.eucm.eadventure.common.data.chapter.conversation.GraphConversation;
 import es.eucm.eadventure.common.data.chapter.conversation.TreeConversation;
 import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
@@ -244,7 +245,7 @@ public class TreeConversationSubParser extends SubParser {
 		if( subParsing == SUBPARSING_NONE ) {
 			// If the conversation ends, store it in the game data
 			if( qName.equals( "tree-conversation" ) ) {
-				chapter.addConversation( conversation );
+				chapter.addConversation( new GraphConversation((TreeConversation) conversation));
 			}
 
 			// If the tag is a line said by the player, add it to the current node
