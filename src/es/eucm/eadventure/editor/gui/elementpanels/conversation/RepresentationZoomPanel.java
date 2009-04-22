@@ -13,14 +13,12 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import es.eucm.eadventure.common.gui.TextConstants;
-import es.eucm.eadventure.editor.gui.elementpanels.conversation.representation.GraphicRepresentation;
 
 public class RepresentationZoomPanel extends JPanel {
 
 	private static final long serialVersionUID = -205324436088837002L;
 	
 	private RepresentationPanel representationPanel;
-	
 	
 	public RepresentationZoomPanel(RepresentationPanel representationPanel2) {
 		this.representationPanel = representationPanel2;
@@ -30,6 +28,7 @@ public class RepresentationZoomPanel extends JPanel {
 		zoomout.setPreferredSize(new Dimension(20,20));
 		zoomout.setContentAreaFilled(false);
 		zoomout.setToolTipText(TextConstants.getText("DrawPanel.ZoomOut"));
+		zoomout.setFocusable(false);
 		add(zoomout);
 		
 		final JSlider slider = new JSlider(1, 10);
@@ -42,6 +41,7 @@ public class RepresentationZoomPanel extends JPanel {
 			}
 		});
 		slider.setToolTipText(TextConstants.getText("DrawPanel.ZoomSlider"));
+		slider.setFocusable(false);
 		add(slider);
 
 		Icon zoomInIcon = new ImageIcon( "img/icons/zoomin.png" );
@@ -49,6 +49,7 @@ public class RepresentationZoomPanel extends JPanel {
 		zoomin.setPreferredSize(new Dimension(20,20));
 		zoomin.setContentAreaFilled(false);
 		zoomin.setToolTipText(TextConstants.getText("DrawPanel.ZoomIn"));
+		zoomin.setFocusable(false);
 		add(zoomin);
 
 		zoomin.addActionListener(new ActionListener() {

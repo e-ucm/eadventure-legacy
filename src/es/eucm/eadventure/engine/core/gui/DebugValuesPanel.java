@@ -2,6 +2,7 @@ package es.eucm.eadventure.engine.core.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 import es.eucm.eadventure.common.data.chapter.conditions.GlobalState;
@@ -163,10 +165,17 @@ public class DebugValuesPanel extends JPanel {
 			}
 			dtmChanges.setChanges(changes);
 			dtmChanges.fireTableStructureChanged();
+			final Rectangle r = table.getVisibleRect();
 			dtm.setChanges(changes);
-			table.updateUI();
+			dtm.fireTableStructureChanged();
+			SwingUtilities.invokeLater(new Runnable()
+			{
+			    public void run()
+			    {
+					table.scrollRectToVisible(r);
+			    }
+			});
 			changeTable.setModel(dtmChanges);
-			
 		}
 	}
 

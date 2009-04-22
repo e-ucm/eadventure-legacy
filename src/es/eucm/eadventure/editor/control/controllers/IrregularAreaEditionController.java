@@ -55,7 +55,7 @@ public class IrregularAreaEditionController extends NormalScenePreviewEditionCon
 		setMouseUnder(e.getX(), e.getY());
 	
 		if (selectedTool == POINT_EDIT) {
-			if (this.underMouse == null) {
+			if (this.underMouse == null || this.underMouse instanceof ImageElementInfluenceArea) {
 				aadc.addPoint(x, y);
 				spep.addPoint(new PointDataControl(aadc.getLastPoint()));
 				if (hasInfluenceArea) {
@@ -67,17 +67,11 @@ public class IrregularAreaEditionController extends NormalScenePreviewEditionCon
 				spep.repaint();
 			} 
 		} else if (selectedTool == DELETE_TOOL){
-			if (underMouse != null) {
+			if (underMouse != null && underMouse instanceof ImageElementPoint) {
 				PointDataControl pointDataControl = (PointDataControl) ((ImageElementPoint) underMouse).getDataControl();
 				aadc.deletePoint((Point) pointDataControl.getContent());
 				spep.removeElement(ScenePreviewEditionPanel.CATEGORY_POINT, underMouse);
-				if (hasInfluenceArea) {
-					if (aadc.getPoints().size() < 3) 
-						((ImageElementInfluenceArea) spep.getInfluenceArea()).setVisible(false);
-					spep.getInfluenceArea().recreateImage();
-				}
 				underMouse = null;
-				spep.setSelectedElement((ImageElement) null); 
 				spep.setIrregularRectangle(aadc.getRectangle(), color);
 				spep.repaint();
 			} 
@@ -168,9 +162,10 @@ public class IrregularAreaEditionController extends NormalScenePreviewEditionCon
 	
 	public void setSelectedTool(int tool) {
 		selectedTool = tool;
-		spep.setFirstElement(null);
-		spep.setSelectedElement((ImageElement) null);
-		if (selectedTool == POINT_EDIT || selectedTool == DELETE_TOOL) {
+		if (selectedTool == POINT_EDIT) {
+			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_POINT, true);
+			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_INFLUENCEAREA, true);
+		} else if (selectedTool == DELETE_TOOL) {
 			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_POINT, true);
 			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_INFLUENCEAREA, false);
 		} 

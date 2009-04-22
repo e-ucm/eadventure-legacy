@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 import es.eucm.eadventure.common.gui.TextConstants;
@@ -47,7 +48,6 @@ public class DebugLogPanel extends JPanel {
 		pane.addTab(TextConstants.getText("DebugFrameLog.Player"), null, player.getScrollPane(), TextConstants.getText("DebugFrameLog.PlayerTip"));
 		
 		general = new DebugTable();
-
 		pane.addTab(TextConstants.getText("DebugFrameLog.General"), null, general.getScrollPane(), TextConstants.getText("DebugFrameLog.General"));
 		
 		this.add(pane, BorderLayout.CENTER);
@@ -104,9 +104,15 @@ public class DebugLogPanel extends JPanel {
 			line[0] = time;
 			line[1] = text;
 			dtm.addRow(line);
-			table.updateUI();
-			Rectangle r = table.getCellRect(table.getRowCount()-1, 0, true);
-			table.scrollRectToVisible(r);
+			dtm.fireTableDataChanged();
+			SwingUtilities.invokeLater(new Runnable()
+			{
+			    public void run()
+			    {
+					Rectangle r = table.getCellRect(table.getRowCount()-1, 0, true);
+					table.scrollRectToVisible(r);
+			    }
+			});
 		}
 	}
 	

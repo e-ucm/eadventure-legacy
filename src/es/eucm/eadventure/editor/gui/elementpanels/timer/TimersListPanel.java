@@ -87,7 +87,7 @@ public class TimersListPanel extends JPanel {
 		JButton newButton = new JButton(new ImageIcon("img/icons/addNode.png"));
 		newButton.setContentAreaFilled( false );
 		newButton.setMargin( new Insets(0,0,0,0) );
-		newButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.AddParagraph" ) );
+		newButton.setToolTipText( TextConstants.getText( "TimersList.AddTimer" ) );
 		newButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				addTimer();
@@ -96,7 +96,7 @@ public class TimersListPanel extends JPanel {
 		deleteButton = new JButton(new ImageIcon("img/icons/deleteNode.png"));
 		deleteButton.setContentAreaFilled( false );
 		deleteButton.setMargin( new Insets(0,0,0,0) );
-		deleteButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.Delete" ) );
+		deleteButton.setToolTipText( TextConstants.getText( "TimersList.DeleteTimer" ) );
 		deleteButton.setEnabled(false);
 		deleteButton.addActionListener(new ActionListener(){
 			public void actionPerformed( ActionEvent e ) {

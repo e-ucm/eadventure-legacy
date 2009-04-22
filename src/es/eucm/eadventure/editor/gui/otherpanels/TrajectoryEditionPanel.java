@@ -93,7 +93,8 @@ public class TrajectoryEditionPanel extends JPanel {
 		button = new JToggleButton(icon);
 		group.add(button);
 		button.setToolTipText(TextConstants.getText(text));
-
+		button.setFocusable(false);
+		
 		if (tool == TrajectoryScenePreviewEditionController.NODE_EDIT) {
 			button.setSelected(true);
 		}
