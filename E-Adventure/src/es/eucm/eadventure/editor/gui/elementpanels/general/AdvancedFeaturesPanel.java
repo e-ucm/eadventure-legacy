@@ -21,7 +21,6 @@ public class AdvancedFeaturesPanel extends ElementPanel {
 	 */
 	private static final long serialVersionUID = 6602692300239491332L;
 
-	
 	public AdvancedFeaturesPanel (AdvancedFeaturesDataControl advancedFeaturesDataControl){
 		addTab(new TimersPanelTab(advancedFeaturesDataControl.getTimersList()));
 		addTab(new GlobalStatesPanelTab(advancedFeaturesDataControl.getGlobalStatesListDataControl()));
@@ -62,7 +61,7 @@ public class AdvancedFeaturesPanel extends ElementPanel {
 		private MacroListDataControl macroListDataControl;
 
 		public MacrosPanelTab(MacroListDataControl macroListDataControl) {
-			super(TextConstants.getText( "GlobalStatesList.Title" ), macroListDataControl);
+			super(TextConstants.getText( "MacrosList.Title" ), macroListDataControl);
 			setIcon(new ImageIcon( "img/icons/macros.png" ));
 			this.macroListDataControl = macroListDataControl;
 		}

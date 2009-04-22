@@ -13,7 +13,6 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
-import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.IrregularAreaEditionController;
 import es.eucm.eadventure.editor.control.controllers.NormalScenePreviewEditionController;
 import es.eucm.eadventure.editor.control.controllers.TrajectoryScenePreviewEditionController;
@@ -86,7 +85,7 @@ public class IrregularAreaEditionPanel extends JPanel {
 		ButtonGroup group = new ButtonGroup();
 	    buttonPanel.add(createToolButton("BarriersList.EditNodes", IrregularAreaEditionController.POINT_EDIT, "img/icons/nodeEdit.png", group));
 		buttonPanel.add(createToolButton("BarriersList.DeleteTool", IrregularAreaEditionController.DELETE_TOOL, "img/icons/deleteTool.png", group));
-		JButton turnRectangle = new JButton("Turn to rectangle");
+		JButton turnRectangle = new JButton(TextConstants.getText("SPEP.ConvertToRectangularArea"));
 		turnRectangle.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				iaec.getEditionRectangle().setRectangular(true);
@@ -116,7 +115,7 @@ public class IrregularAreaEditionPanel extends JPanel {
 		button = new JToggleButton(icon);
 		group.add(button);
 		button.setToolTipText(TextConstants.getText(text));
-
+		button.setFocusable(false);
 		if (tool == TrajectoryScenePreviewEditionController.NODE_EDIT) {
 			button.setSelected(true);
 		}
@@ -161,7 +160,7 @@ public class IrregularAreaEditionPanel extends JPanel {
 					spep.addInfluenceArea(((ExitDataControl) rectangleArea).getInfluenceArea());
 			}
 			if (spep.getSelectedElement() != null && spep.getSelectedElement().getDataControl() != null && spep.getSelectedElement().getDataControl() instanceof RectangleArea) {
-				turnIrregular = new JButton("Turn irregular");
+				turnIrregular = new JButton(TextConstants.getText("SPEP.ConvertToIrregularArea"));
 				turnIrregular.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						((RectangleArea) spep.getSelectedElement().getDataControl()).setRectangular(false);
@@ -177,7 +176,6 @@ public class IrregularAreaEditionPanel extends JPanel {
 			spep.changeController(iaec);
 			spep.setShowTextEdition(false);
 			spep.removeElements(ScenePreviewEditionPanel.CATEGORY_POINT);
-//			spep.removeElement((DataControl) rectangleArea);
 			for (Point point: rectangleArea.getPoints())
 				spep.addPoint(new PointDataControl(point));
 			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_POINT, true);
@@ -195,5 +193,4 @@ public class IrregularAreaEditionPanel extends JPanel {
 		}
 		this.updateUI();
 	}
-	
 }

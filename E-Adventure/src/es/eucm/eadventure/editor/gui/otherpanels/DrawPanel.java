@@ -135,6 +135,7 @@ public class DrawPanel  extends JPanel {
 		zoomout.setPreferredSize(new Dimension(20,20));
 		zoomout.setContentAreaFilled(false);
 		zoomout.setToolTipText(TextConstants.getText("DrawPanel.ZoomOut"));
+		zoomout.setFocusable(false);
 		sliderPanel.add(zoomout);
 		
 		
@@ -147,7 +148,8 @@ public class DrawPanel  extends JPanel {
 				DrawPanel.this.getParent().repaint();
 			}
 		});
-		sliderPanel.setToolTipText(TextConstants.getText("DrawPanel.ZoomSlider"));
+		slider.setFocusable(false);
+		slider.setToolTipText(TextConstants.getText("DrawPanel.ZoomSlider"));
 		sliderPanel.add(slider);
 
 		Icon zoomInIcon = new ImageIcon( "img/icons/zoomin.png" );
@@ -155,6 +157,7 @@ public class DrawPanel  extends JPanel {
 		zoomin.setPreferredSize(new Dimension(20,20));
 		zoomin.setContentAreaFilled(false);
 		zoomin.setToolTipText(TextConstants.getText("DrawPanel.ZoomIn"));
+		zoomin.setFocusable(false);
 		sliderPanel.add(zoomin);
 
 		zoomin.addActionListener(new ActionListener() {
