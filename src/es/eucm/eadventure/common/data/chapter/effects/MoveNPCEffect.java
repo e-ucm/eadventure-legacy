@@ -5,7 +5,7 @@ import es.eucm.eadventure.common.data.HasTargetId;
 /**
  * An effect that makes a character to walk to a given position.
  */
-public class MoveNPCEffect implements Effect, HasTargetId {
+public class MoveNPCEffect extends AbstractEffect implements HasTargetId {
 
 	/**
 	 * Id of the npc who will walk
@@ -30,6 +30,7 @@ public class MoveNPCEffect implements Effect, HasTargetId {
 	 *            Y final position for the NPC
 	 */
 	public MoveNPCEffect( String idTarget, int x, int y ) {
+	    	super();
 		this.idTarget = idTarget;
 		this.x = x;
 		this.y = y;

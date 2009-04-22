@@ -1,8 +1,10 @@
 package es.eucm.eadventure.editor.control.controllers;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import es.eucm.eadventure.common.data.chapter.effects.AbstractEffect;
 import es.eucm.eadventure.common.data.chapter.effects.ActivateEffect;
 import es.eucm.eadventure.common.data.chapter.effects.CancelActionEffect;
 import es.eucm.eadventure.common.data.chapter.effects.ConsumeObjectEffect;
@@ -19,6 +21,7 @@ import es.eucm.eadventure.common.data.chapter.effects.PlayAnimationEffect;
 import es.eucm.eadventure.common.data.chapter.effects.PlaySoundEffect;
 import es.eucm.eadventure.common.data.chapter.effects.RandomEffect;
 import es.eucm.eadventure.common.data.chapter.effects.SetValueEffect;
+import es.eucm.eadventure.common.data.chapter.effects.ShowTextEffect;
 import es.eucm.eadventure.common.data.chapter.effects.SpeakCharEffect;
 import es.eucm.eadventure.common.data.chapter.effects.SpeakPlayerEffect;
 import es.eucm.eadventure.common.data.chapter.effects.TriggerBookEffect;
@@ -26,11 +29,13 @@ import es.eucm.eadventure.common.data.chapter.effects.TriggerConversationEffect;
 import es.eucm.eadventure.common.data.chapter.effects.TriggerCutsceneEffect;
 import es.eucm.eadventure.common.data.chapter.effects.TriggerLastSceneEffect;
 import es.eucm.eadventure.common.data.chapter.effects.TriggerSceneEffect;
+import es.eucm.eadventure.common.data.chapter.effects.WaitTimeEffect;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.tools.general.assets.SelectResourceTool;
 import es.eucm.eadventure.editor.control.tools.general.effects.AddEffectTool;
 import es.eucm.eadventure.editor.control.tools.general.effects.DeleteEffectTool;
+import es.eucm.eadventure.editor.control.tools.general.effects.MoveEffectInTableTool;
 import es.eucm.eadventure.editor.control.tools.general.effects.ReplaceEffectTool;
 import es.eucm.eadventure.editor.control.tools.generic.MoveObjectTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
@@ -82,6 +87,22 @@ public class EffectsController {
 	 * Constant for effect property. Refers to "Value" flag.
 	 */
 	public static final int EFFECT_PROPERTY_VALUE = 7;
+	
+	/**
+	 * Constant for effect property. Refers to time value for WaitTimeEffect.
+	 */
+	public static final int EFFECT_PROPERTY_TIME= 8;
+	
+	/**
+	 * Constant for effect property. Refers to text front color .
+	 */
+	public static final int EFFECT_PROPERTY_FRONT_COLOR= 9;
+	
+	/**
+	 * Constant for effect property. Refers to text border color.
+	 */
+	public static final int EFFECT_PROPERTY_BORDER_COLOR= 10;
+	
 
 	/**
 	 * Constant to filter the selection of an asset. Used for animations.
@@ -102,6 +123,8 @@ public class EffectsController {
 	 * Contained block of effects.
 	 */
 	protected Effects effects;
+	
+	protected List<ConditionsController> conditionsList; 
 
 	/**
 	 * Constructor.
@@ -112,7 +135,22 @@ public class EffectsController {
 	public EffectsController( Effects effects ) {
 		this.effects = effects;
 		controller = Controller.getInstance( );
+		conditionsList=new ArrayList<ConditionsController>();
+		// create the list of effects controllers
+		for (AbstractEffect effect:effects.getEffects()){
+			conditionsList.add(new ConditionsController(effect.getConditions()));
+		    }
 	}
+	
+	/**
+	 * Return the conditions controller in the given position.
+	 * @param index
+	 * @return
+	 */
+	public ConditionsController getConditionController(int index){
+	    return conditionsList.get(index);
+	}
+	
 
 	/**
 	 * Returns the number of effects contained.
@@ -132,12 +170,12 @@ public class EffectsController {
 	 */
 	public String getEffectInfo( int index ) {
 		if ( getEffectCount()>0 ){
-			Effect effect = effects.getEffects( ).get( index );
+			AbstractEffect effect = effects.getEffects( ).get( index );
 			return getEffectInfo (effect);
 		} else
 			return null;
 	}
-	protected static String getEffectInfo( Effect effect ) {
+	protected static String getEffectInfo( AbstractEffect effect ) {
 		String effectInfo = null;
 
 		switch( effect.getType( ) ) {
@@ -227,12 +265,20 @@ public class EffectsController {
 				negInfo = getEffectInfo (randomEffect.getNegativeEffect( ));
 				effectInfo = TextConstants.getText( "Effect.RandomInfo", new String[]{Integer.toString( randomEffect.getProbability( ) ), Integer.toString( 100-randomEffect.getProbability( ) ), posInfo, negInfo});
 				break;
+			case Effect.WAIT_TIME:
+			    	WaitTimeEffect waitTimeEffect = (WaitTimeEffect)effect;
+			    	effectInfo = TextConstants.getText("Effect.WaitTimeInfo", Integer.toString(waitTimeEffect.getTime()));
+			    	break;
+			case Effect.SHOW_TEXT:
+			    	ShowTextEffect showTextInfo = (ShowTextEffect)effect;
+			    	effectInfo = TextConstants.getText("Effect.ShowTextInfo",new String[] {showTextInfo.getText(),Integer.toString(showTextInfo.getX()),Integer.toString(showTextInfo.getY())});
+			    	break;
 		}
 
 		return effectInfo;
 	}
 	
-	public List<Effect> getEffects() {
+	public List<AbstractEffect> getEffects() {
 		return effects.getEffects();
 	}
 
@@ -255,11 +301,15 @@ public class EffectsController {
 				TextConstants.getText( "Effect.MovePlayer" ), TextConstants.getText( "Effect.MoveCharacter" ), 
 				TextConstants.getText( "Effect.TriggerConversation" ), TextConstants.getText( "Effect.TriggerCutscene" ), 
 				TextConstants.getText( "Effect.TriggerScene" ), TextConstants.getText( "Effect.TriggerLastScene" ) , 
-				TextConstants.getText( "Effect.RandomEffect" )};
+				TextConstants.getText( "Effect.RandomEffect" ),TextConstants.getText( "Effect.ShowText" ),
+				TextConstants.getText( "Effect.WaitTime" )};
 
 		// Create a list with the types of the effects (in the same order as the previous)
 		final int[] effectTypes = { Effect.ACTIVATE, Effect.DEACTIVATE, Effect.SET_VALUE, Effect.INCREMENT_VAR, Effect.DECREMENT_VAR, 
-				Effect.MACRO_REF, Effect.CONSUME_OBJECT, Effect.GENERATE_OBJECT, Effect.CANCEL_ACTION, Effect.SPEAK_PLAYER, Effect.SPEAK_CHAR, Effect.TRIGGER_BOOK, Effect.PLAY_SOUND, Effect.PLAY_ANIMATION, Effect.MOVE_PLAYER, Effect.MOVE_NPC, Effect.TRIGGER_CONVERSATION, Effect.TRIGGER_CUTSCENE, Effect.TRIGGER_SCENE, Effect.TRIGGER_LAST_SCENE, Effect.RANDOM_EFFECT };
+				Effect.MACRO_REF, Effect.CONSUME_OBJECT, Effect.GENERATE_OBJECT, Effect.CANCEL_ACTION, Effect.SPEAK_PLAYER, 
+				Effect.SPEAK_CHAR, Effect.TRIGGER_BOOK, Effect.PLAY_SOUND, Effect.PLAY_ANIMATION, Effect.MOVE_PLAYER, Effect.MOVE_NPC, 
+				Effect.TRIGGER_CONVERSATION, Effect.TRIGGER_CUTSCENE, Effect.TRIGGER_SCENE, Effect.TRIGGER_LAST_SCENE, Effect.RANDOM_EFFECT,
+				Effect.SHOW_TEXT,Effect.WAIT_TIME};
 
 		// Show a dialog to select the type of the effect
 		String selectedValue = controller.showInputDialog( TextConstants.getText( "Effects.OperationAddEffect" ), TextConstants.getText( "Effects.SelectEffectType" ), effectNames );
@@ -282,7 +332,7 @@ public class EffectsController {
 			
 
 			if( effectProperties != null ) {
-				Effect newEffect = null;
+				AbstractEffect newEffect = null;
 
 				// Take all the values from the set
 				String target = effectProperties.get( EFFECT_PROPERTY_TARGET );
@@ -301,6 +351,19 @@ public class EffectsController {
 				boolean background = false;
 				if( effectProperties.containsKey( EFFECT_PROPERTY_BACKGROUND ) )
 					background = Boolean.parseBoolean( effectProperties.get( EFFECT_PROPERTY_BACKGROUND ) );
+				
+				int time=0;
+				if ( effectProperties.containsKey( EFFECT_PROPERTY_TIME  ) )
+					time = Integer.parseInt( effectProperties.get( EFFECT_PROPERTY_TIME ) );
+
+				int frontColor=0;
+				if ( effectProperties.containsKey( EFFECT_PROPERTY_FRONT_COLOR  ) )
+				    frontColor = Integer.parseInt( effectProperties.get( EFFECT_PROPERTY_FRONT_COLOR ) );
+
+				int borderColor=0;
+				if ( effectProperties.containsKey( EFFECT_PROPERTY_BORDER_COLOR  ) )
+				    borderColor = Integer.parseInt( effectProperties.get( EFFECT_PROPERTY_BORDER_COLOR ) );
+
 
 				switch( selectedType ) {
 					case Effect.ACTIVATE:
@@ -368,8 +431,14 @@ public class EffectsController {
 					case Effect.TRIGGER_SCENE:
 						newEffect = new TriggerSceneEffect( target, x, y );
 						break;
+					case Effect.WAIT_TIME:
+					    	newEffect = new WaitTimeEffect(time);
+					    	break;
+					case Effect.SHOW_TEXT:
+					    	newEffect = new ShowTextEffect(text,x,y,frontColor,borderColor);
+					    	break;
 				}
-				controller.addTool(new AddEffectTool(effects, newEffect));
+				controller.addTool(new AddEffectTool(effects, newEffect,conditionsList));
 				effectAdded = true;
 			}
 		} else if (selectedValue != null){
@@ -387,7 +456,7 @@ public class EffectsController {
 				if (negController.getEffect( )!=null)
 					randomEffect.setNegativeEffect( negController.getEffect( ) );
 				
-				controller.addTool(new AddEffectTool(effects, randomEffect));
+				controller.addTool(new AddEffectTool(effects, randomEffect,conditionsList));
 				effectAdded = true;
 			}
 		}
@@ -402,7 +471,7 @@ public class EffectsController {
 	 *            Index of the effect
 	 */
 	public void deleteEffect( int index ) {
-		controller.addTool(new DeleteEffectTool (effects, index));
+		controller.addTool(new DeleteEffectTool (effects, index,conditionsList));
 	}
 
 	/**
@@ -413,7 +482,7 @@ public class EffectsController {
 	 * @return True if the effect was moved, false otherwise
 	 */
 	public boolean moveUpEffect( int index ) {
-		return controller.addTool(new MoveObjectTool(effects.getEffects(), index, MoveObjectTool.MODE_UP));
+		return controller.addTool(new MoveEffectInTableTool(effects, index, MoveObjectTool.MODE_UP,conditionsList));
 		/*boolean effectMoved = false;
 
 		if( index > 0 ) {
@@ -433,7 +502,7 @@ public class EffectsController {
 	 * @return True if the effect was moved, false otherwise
 	 */
 	public boolean moveDownEffect( int index ) {
-		return controller.addTool(new MoveObjectTool(effects.getEffects(), index, MoveObjectTool.MODE_DOWN));
+		return controller.addTool(new MoveEffectInTableTool(effects, index, MoveObjectTool.MODE_DOWN,conditionsList));
 		/*boolean effectMoved = false;
 
 		if( index < effects.getEffects( ).size( ) - 1 ) {
@@ -456,7 +525,7 @@ public class EffectsController {
 		boolean effectEdited = false;
 
 		// Take the effect and its type
-		Effect effect = effects.getEffects( ).get( index );
+		AbstractEffect effect = effects.getEffects( ).get( index );
 		int effectType = effect.getType( );
 
 		// Create the hashmap to store the current values
@@ -547,6 +616,18 @@ public class EffectsController {
 				currentValues.put( EFFECT_PROPERTY_X, String.valueOf( triggerSceneEffect.getX( ) ) );
 				currentValues.put( EFFECT_PROPERTY_Y, String.valueOf( triggerSceneEffect.getY( ) ) );
 				break;
+			case Effect.WAIT_TIME:
+			    	WaitTimeEffect waitTimeEffect = (WaitTimeEffect)effect;
+			    	currentValues.put(EFFECT_PROPERTY_TIME, Integer.toString(waitTimeEffect.getTime()));
+			    	break;
+			case Effect.SHOW_TEXT:
+			    	ShowTextEffect showTextEffect = (ShowTextEffect)effect;
+			    	currentValues.put(EFFECT_PROPERTY_TEXT, showTextEffect.getText());
+			    	currentValues.put(EFFECT_PROPERTY_X, Integer.toString(showTextEffect.getX()));
+			    	currentValues.put(EFFECT_PROPERTY_Y, Integer.toString(showTextEffect.getY()));
+			    	currentValues.put(EFFECT_PROPERTY_FRONT_COLOR, Integer.toString(showTextEffect.getRgbFrontColor()));
+			    	currentValues.put(EFFECT_PROPERTY_BORDER_COLOR, Integer.toString(showTextEffect.getRgbBorderColor()));
+			    	break;
 		}
 
 		// Show the editing dialog

@@ -370,10 +370,10 @@
 >
 
 <!ELEMENT either (%basic-condition;)+>
-<!ENTITY % effects "(activate | deactivate | set-value | increment | decrement | macro-ref | consume-object | generate-object | cancel-action | speak-player | speak-char | play-sound | play-animation | move-player | move-npc | trigger-book | trigger-conversation | trigger-cutscene | trigger-scene | trigger-last-scene | random-effect )*">
-<!ENTITY % simple-effect "(activate | deactivate | set-value | increment | decrement | macro-ref | consume-object | generate-object | speak-player | speak-char | play-sound | play-animation | move-player | move-npc | trigger-book | trigger-conversation | trigger-cutscene | trigger-scene | trigger-last-scene )?">
+<!ENTITY % effects "((activate | deactivate | set-value | increment | decrement | macro-ref | consume-object | generate-object | cancel-action | speak-player | speak-char | play-sound | play-animation | move-player | move-npc | trigger-book | trigger-conversation | trigger-cutscene | trigger-scene | trigger-last-scene | random-effect | wait-time | show-text), condition?)*">
+<!ENTITY % simple-effect "(activate | deactivate | set-value | increment | decrement | macro-ref | consume-object | generate-object | speak-player | speak-char | play-sound | play-animation | move-player | move-npc | trigger-book | trigger-conversation | trigger-cutscene | trigger-scene | trigger-last-scene | wait-time | show-text )?">
 <!ELEMENT effect (%effects;)>
-<!ELEMENT random-effect (%simple-effect;, %simple-effect;)>
+<!ELEMENT random-effect (%simple-effect;, %simple-effect;,condition?)>
 <!ATTLIST random-effect
 	probability NMTOKEN #REQUIRED
 >
@@ -462,6 +462,18 @@
 	idTarget IDREF #REQUIRED
 	x NMTOKEN #REQUIRED
 	y NMTOKEN #REQUIRED
+>
+
+<!ELEMENT wait-time EMPTY>
+<!ATTLIST wait-time
+	time NMTOKEN #REQUIRED
+>
+<!ELEMENT show-text (#PCDATA)>
+<!ATTLIST show-text
+	x NMTOKEN #REQUIRED
+	y NMTOKEN #REQUIRED
+	frontColor NMTOKEN #REQUIRED
+	borderColor NMTOKEN #REQUIRED
 >
 
 <!-- #############################Adaptation info ##################################################################-->

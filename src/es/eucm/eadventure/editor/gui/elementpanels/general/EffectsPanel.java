@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -20,9 +21,12 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
+import es.eucm.eadventure.common.data.chapter.effects.AbstractEffect;
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.gui.Updateable;
+import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ConditionsCellRendererEditor;
 
 public class EffectsPanel extends JPanel implements Updateable{
 
@@ -69,15 +73,24 @@ public class EffectsPanel extends JPanel implements Updateable{
 
 		effectsTable = new JTable( new EffectsTableModel( ) );
 		effectsTable.getColumnModel( ).getColumn( 0 ).setMaxWidth( 60 );
+		effectsTable.getColumnModel().getColumn(2).setCellRenderer(new ConditionsCellRendererEditor());
+		effectsTable.getColumnModel().getColumn(2).setCellEditor(new ConditionsCellRendererEditor());
+		effectsTable.getColumnModel().getColumn(2).setMaxWidth(120);
+		effectsTable.getColumnModel().getColumn(2).setMinWidth(120);
+		effectsTable.getColumnModel().getColumn(2).setWidth(120);
 		effectsTable.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
-		effectsTable.addMouseListener( new EffectsTableMouseListener( ) );
-		JScrollPane tableScrollPane = new JScrollPane( effectsTable, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED );
-		add( tableScrollPane, BorderLayout.CENTER );
 		effectsTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent arg0) {
-				updateButtons();
+			    effectsTable.setRowHeight(20);
+			    effectsTable.setRowHeight(effectsTable.getSelectedRow(), 25);
+			    updateButtons();
 			}
 		});
+		
+		//effectsTable.addMouseListener( new EffectsTableMouseListener( ) );
+		JScrollPane tableScrollPane = new JScrollPane( effectsTable, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED );
+		add( tableScrollPane, BorderLayout.CENTER );
+		
 
 		add( createButtonsPanel(), BorderLayout.SOUTH );
 	}
@@ -233,8 +246,8 @@ public class EffectsPanel extends JPanel implements Updateable{
 		private static final long serialVersionUID = 1L;
 
 		public int getColumnCount( ) {
-			// Two columns
-			return 2;
+			// Three columns
+			return 3;
 		}
 
 		public int getRowCount( ) {
@@ -244,7 +257,8 @@ public class EffectsPanel extends JPanel implements Updateable{
 		@Override
 		public String getColumnName( int columnIndex ) {
 			String columnName = "";
-
+			
+				
 			// The first column is the effect number
 			if( columnIndex == 0 )
 				columnName = TextConstants.getText( "Effects.EffectNumberColumnTitle" );
@@ -252,20 +266,34 @@ public class EffectsPanel extends JPanel implements Updateable{
 			// The second one the effect information
 			else if( columnIndex == 1 )
 				columnName = TextConstants.getText( "Effects.EffectDescriptionColumnTitle" );
-
+			
+			// The third one has the condition of each effect
+			else if( columnIndex == 2 )
+				columnName = TextConstants.getText(  "ActionsList.Conditions" );
+			
 			return columnName;
 		}
 
 		public Object getValueAt( int rowIndex, int columnIndex ) {
 			Object value = null;
-
+			
+			
 			if( columnIndex == 0 )
 				value = rowIndex + 1;
 
 			else if( columnIndex == 1 )
 				value = effectsController.getEffectInfo( rowIndex );
+			
+			else if (columnIndex == 2)
+			    	value = effectsController.getConditionController(rowIndex);	
+
 
 			return value;
+		}
+		
+		@Override
+		public boolean isCellEditable(int row, int column) {
+			return row == effectsTable.getSelectedRow();
 		}
 	}
 

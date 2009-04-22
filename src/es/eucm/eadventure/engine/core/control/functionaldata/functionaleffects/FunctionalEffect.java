@@ -1,5 +1,6 @@
 package es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects;
 
+import es.eucm.eadventure.common.data.chapter.effects.AbstractEffect;
 import es.eucm.eadventure.common.data.chapter.effects.ActivateEffect;
 import es.eucm.eadventure.common.data.chapter.effects.ConsumeObjectEffect;
 import es.eucm.eadventure.common.data.chapter.effects.DeactivateEffect;
@@ -14,12 +15,15 @@ import es.eucm.eadventure.common.data.chapter.effects.PlayAnimationEffect;
 import es.eucm.eadventure.common.data.chapter.effects.PlaySoundEffect;
 import es.eucm.eadventure.common.data.chapter.effects.RandomEffect;
 import es.eucm.eadventure.common.data.chapter.effects.SetValueEffect;
+import es.eucm.eadventure.common.data.chapter.effects.ShowTextEffect;
 import es.eucm.eadventure.common.data.chapter.effects.SpeakCharEffect;
 import es.eucm.eadventure.common.data.chapter.effects.SpeakPlayerEffect;
 import es.eucm.eadventure.common.data.chapter.effects.TriggerBookEffect;
 import es.eucm.eadventure.common.data.chapter.effects.TriggerConversationEffect;
 import es.eucm.eadventure.common.data.chapter.effects.TriggerCutsceneEffect;
 import es.eucm.eadventure.common.data.chapter.effects.TriggerSceneEffect;
+import es.eucm.eadventure.common.data.chapter.effects.WaitTimeEffect;
+import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 
 /**
  * This abstract class defines how a certain effect must be triggered
@@ -30,12 +34,12 @@ public abstract class FunctionalEffect {
 	/**
 	 * The effect to be ruled
 	 */
-	protected Effect effect;
+	protected AbstractEffect effect;
 	
 	/**
 	 * Constructor
 	 */
-	public FunctionalEffect ( Effect effect ){
+	public FunctionalEffect ( AbstractEffect effect ){
 		this.effect = effect;
 	}
 	
@@ -57,11 +61,19 @@ public abstract class FunctionalEffect {
     public abstract boolean isStillRunning();
     
     /**
+     * Returns true if all conditions associated to this effect are OK
+     * @return
+     */
+    public boolean isAllConditionsOK(){
+	return new FunctionalConditions(effect.getConditions()).allConditionsOk();
+    }
+    
+    /**
      * Static factory constructor for FunctionalEffects. Creates a new 
      * FunctionalEffect according to the type of the Effect provided as 
      * argument
      */
-    public static FunctionalEffect buildFunctionalEffect ( Effect effect ){
+    public static FunctionalEffect buildFunctionalEffect ( AbstractEffect effect ){
     	FunctionalEffect fe = null;
     	switch (effect.getType()){
     		case Effect.ACTIVATE:
@@ -126,6 +138,12 @@ public abstract class FunctionalEffect {
     		case Effect.TRIGGER_SCENE:
     			fe = new FunctionalTriggerSceneEffect ( (TriggerSceneEffect)effect );
     			break;
+    		case Effect.SHOW_TEXT:
+			fe = new FunctionalShowTextEffect( (ShowTextEffect)effect );
+			break;
+    		case Effect.WAIT_TIME:
+			fe = new FunctionalWaitTimeEffect( (WaitTimeEffect)effect );
+			break;
     	}
     	return fe;
     }

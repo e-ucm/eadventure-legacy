@@ -808,6 +808,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	
 	<entry key="ShowTextEffect.Title">Efecto para mostrar texto en la escena</entry>
 	<entry key="ShowTextEffect.Border">Previsualización</entry>
+	<entry key="ShowTextEffect.TextLabel">Introduzca el texto: </entry>
 
 	<entry key="SceneLocation.SceneListDescription">Seleccione la escena para escoger el punto de destino:</entry>
 	<entry key="SceneLocation.NoSceneSelected">Ninguna escena seleccionada</entry>

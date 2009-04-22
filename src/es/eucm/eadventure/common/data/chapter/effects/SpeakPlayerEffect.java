@@ -3,7 +3,7 @@ package es.eucm.eadventure.common.data.chapter.effects;
 /**
  * An effect that makes the player to speak a line of text.
  */
-public class SpeakPlayerEffect implements Effect {
+public class SpeakPlayerEffect extends AbstractEffect{
 
 	/**
 	 * Text for the player to speak
@@ -17,6 +17,7 @@ public class SpeakPlayerEffect implements Effect {
 	 *            the text to be spoken
 	 */
 	public SpeakPlayerEffect( String line ) {
+	    	super();
 		this.line = line;
 	}
 

@@ -1,5 +1,8 @@
 package es.eucm.eadventure.editor.control.tools.general.effects;
 
+import java.util.List;
+
+import es.eucm.eadventure.common.data.chapter.effects.AbstractEffect;
 import es.eucm.eadventure.common.data.chapter.effects.ActivateEffect;
 import es.eucm.eadventure.common.data.chapter.effects.DeactivateEffect;
 import es.eucm.eadventure.common.data.chapter.effects.DecrementVarEffect;
@@ -9,6 +12,7 @@ import es.eucm.eadventure.common.data.chapter.effects.IncrementVarEffect;
 import es.eucm.eadventure.common.data.chapter.effects.RandomEffect;
 import es.eucm.eadventure.common.data.chapter.effects.SetValueEffect;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.tools.Tool;
 
 /**
@@ -19,14 +23,17 @@ import es.eucm.eadventure.editor.control.tools.Tool;
 public class DeleteEffectTool extends Tool{
 	
 	protected Effects effects;
-	protected Effect effectDeleted;
+	protected AbstractEffect effectDeleted;
 	protected int index;
 	protected Controller controller;
+	protected List<ConditionsController> conditions;
+	protected ConditionsController condition;
 	
 	
-	public DeleteEffectTool (Effects effects, int index){
+	public DeleteEffectTool (Effects effects, int index,List<ConditionsController> conditions){
 		this.effects = effects;
 		this.index = index;
+		this.conditions=conditions; 
 		controller = Controller.getInstance();
 	}
 	
@@ -48,6 +55,7 @@ public class DeleteEffectTool extends Tool{
 	@Override
 	public boolean doTool() {
 		effectDeleted = effects.getEffects().remove(index);
+		condition = conditions.remove(index);
 		updateVarFlagSummary(effectDeleted);
 		return true;
 	}
@@ -55,6 +63,7 @@ public class DeleteEffectTool extends Tool{
 	@Override
 	public boolean redoTool() {
 		effects.getEffects().remove(index);
+		conditions.remove(index);
 		updateVarFlagSummary(effectDeleted);
 		Controller.getInstance().updatePanel();
 		return true;
@@ -63,6 +72,7 @@ public class DeleteEffectTool extends Tool{
 	@Override
 	public boolean undoTool() {
 		effects.getEffects().add(index, effectDeleted);
+		conditions.add(index,condition);
 		undoUpdateVarFlagSummary(effectDeleted);
 		Controller.getInstance().updatePanel();
 		return true;

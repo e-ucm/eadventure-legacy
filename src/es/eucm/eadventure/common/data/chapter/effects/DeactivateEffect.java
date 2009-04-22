@@ -5,7 +5,7 @@ import es.eucm.eadventure.common.data.HasTargetId;
 /**
  * An effect that deactivates a flag.
  */
-public class DeactivateEffect implements Effect, HasTargetId {
+public class DeactivateEffect extends AbstractEffect implements  HasTargetId {
 
 	/**
 	 * Name of the flag to be activated
@@ -19,6 +19,7 @@ public class DeactivateEffect implements Effect, HasTargetId {
 	 *            the id of the flag to be deactivated
 	 */
 	public DeactivateEffect( String idFlag ) {
+	    	super();
 		this.idFlag = idFlag;
 	}
 

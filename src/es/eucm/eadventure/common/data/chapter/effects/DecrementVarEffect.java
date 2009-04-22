@@ -5,7 +5,7 @@ import es.eucm.eadventure.common.data.HasTargetId;
 /**
  * An effect that decrements a var according to a given value
  */
-public class DecrementVarEffect implements Effect, HasTargetId {
+public class DecrementVarEffect extends AbstractEffect implements HasTargetId {
 
 	/**
 	 * Name of the var
@@ -24,6 +24,7 @@ public class DecrementVarEffect implements Effect, HasTargetId {
 	 *            the id of the var to be activated
 	 */
 	public DecrementVarEffect( String idVar, int value ) {
+	    	super();
 		this.idVar = idVar;
 		this.value = value;
 	}

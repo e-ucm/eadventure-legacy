@@ -2,6 +2,7 @@ package es.eucm.eadventure.editor.control.controllers;
 
 import java.util.HashMap;
 
+import es.eucm.eadventure.common.data.chapter.effects.AbstractEffect;
 import es.eucm.eadventure.common.data.chapter.effects.ActivateEffect;
 import es.eucm.eadventure.common.data.chapter.effects.ConsumeObjectEffect;
 import es.eucm.eadventure.common.data.chapter.effects.DeactivateEffect;
@@ -16,6 +17,7 @@ import es.eucm.eadventure.common.data.chapter.effects.MovePlayerEffect;
 import es.eucm.eadventure.common.data.chapter.effects.PlayAnimationEffect;
 import es.eucm.eadventure.common.data.chapter.effects.PlaySoundEffect;
 import es.eucm.eadventure.common.data.chapter.effects.SetValueEffect;
+import es.eucm.eadventure.common.data.chapter.effects.ShowTextEffect;
 import es.eucm.eadventure.common.data.chapter.effects.SpeakCharEffect;
 import es.eucm.eadventure.common.data.chapter.effects.SpeakPlayerEffect;
 import es.eucm.eadventure.common.data.chapter.effects.TriggerBookEffect;
@@ -23,6 +25,7 @@ import es.eucm.eadventure.common.data.chapter.effects.TriggerConversationEffect;
 import es.eucm.eadventure.common.data.chapter.effects.TriggerCutsceneEffect;
 import es.eucm.eadventure.common.data.chapter.effects.TriggerLastSceneEffect;
 import es.eucm.eadventure.common.data.chapter.effects.TriggerSceneEffect;
+import es.eucm.eadventure.common.data.chapter.effects.WaitTimeEffect;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.tools.general.effects.AddEffectTool;
@@ -35,7 +38,7 @@ import es.eucm.eadventure.editor.gui.editdialogs.effectdialogs.EffectDialog;
  */
 public class SingleEffectController extends EffectsController{
 
-	private static Effects createEffectsStructure ( Effect effect ){
+	private static Effects createEffectsStructure ( AbstractEffect effect ){
 		Effects effects = new Effects();
 		if (effect!=null)
 			effects.add( effect );
@@ -48,7 +51,7 @@ public class SingleEffectController extends EffectsController{
 	 * @param effects
 	 *            Contained block of effects
 	 */
-	public SingleEffectController( Effect effect ) {
+	public SingleEffectController( AbstractEffect effect ) {
 		super( createEffectsStructure(effect) );
 	}
 
@@ -81,10 +84,10 @@ public class SingleEffectController extends EffectsController{
 		boolean effectAdded = false;
 
 		// Create a list with the names of the effects (in the same order as the next)
-		final String[] effectNames = { TextConstants.getText( "Effect.Activate" ), TextConstants.getText( "Effect.Deactivate" ), TextConstants.getText( "Effect.ConsumeObject" ), TextConstants.getText( "Effect.GenerateObject" ), TextConstants.getText( "Effect.SpeakPlayer" ), TextConstants.getText( "Effect.SpeakCharacter" ), TextConstants.getText( "Effect.TriggerBook" ), TextConstants.getText( "Effect.PlaySound" ), TextConstants.getText( "Effect.PlayAnimation" ), TextConstants.getText( "Effect.MovePlayer" ), TextConstants.getText( "Effect.MoveCharacter" ), TextConstants.getText( "Effect.TriggerConversation" ), TextConstants.getText( "Effect.TriggerCutscene" ), TextConstants.getText( "Effect.TriggerScene" ), TextConstants.getText( "Effect.TriggerLastScene" ) };
+		final String[] effectNames = { TextConstants.getText( "Effect.Activate" ), TextConstants.getText( "Effect.Deactivate" ), TextConstants.getText( "Effect.ConsumeObject" ), TextConstants.getText( "Effect.GenerateObject" ), TextConstants.getText( "Effect.SpeakPlayer" ), TextConstants.getText( "Effect.SpeakCharacter" ), TextConstants.getText( "Effect.TriggerBook" ), TextConstants.getText( "Effect.PlaySound" ), TextConstants.getText( "Effect.PlayAnimation" ), TextConstants.getText( "Effect.MovePlayer" ), TextConstants.getText( "Effect.MoveCharacter" ), TextConstants.getText( "Effect.TriggerConversation" ), TextConstants.getText( "Effect.TriggerCutscene" ), TextConstants.getText( "Effect.TriggerScene" ), TextConstants.getText( "Effect.TriggerLastScene" ),TextConstants.getText( "Effect.ShowText" ),TextConstants.getText( "Effect.WaitTime" ) };
 
 		// Create a list with the types of the effects (in the same order as the previous)
-		final int[] effectTypes = { Effect.ACTIVATE, Effect.DEACTIVATE, Effect.CONSUME_OBJECT, Effect.GENERATE_OBJECT, Effect.SPEAK_PLAYER, Effect.SPEAK_CHAR, Effect.TRIGGER_BOOK, Effect.PLAY_SOUND, Effect.PLAY_ANIMATION, Effect.MOVE_PLAYER, Effect.MOVE_NPC, Effect.TRIGGER_CONVERSATION, Effect.TRIGGER_CUTSCENE, Effect.TRIGGER_SCENE, Effect.TRIGGER_LAST_SCENE };
+		final int[] effectTypes = { Effect.ACTIVATE, Effect.DEACTIVATE, Effect.CONSUME_OBJECT, Effect.GENERATE_OBJECT, Effect.SPEAK_PLAYER, Effect.SPEAK_CHAR, Effect.TRIGGER_BOOK, Effect.PLAY_SOUND, Effect.PLAY_ANIMATION, Effect.MOVE_PLAYER, Effect.MOVE_NPC, Effect.TRIGGER_CONVERSATION, Effect.TRIGGER_CUTSCENE, Effect.TRIGGER_SCENE, Effect.TRIGGER_LAST_SCENE,Effect.SHOW_TEXT,Effect.WAIT_TIME };
 
 		// Show a dialog to select the type of the effect
 		String selectedValue = controller.showInputDialog( TextConstants.getText( "Effects.OperationAddEffect" ), TextConstants.getText( "Effects.SelectEffectType" ), effectNames );
@@ -106,7 +109,7 @@ public class SingleEffectController extends EffectsController{
 			
 
 			if( effectProperties != null ) {
-				Effect newEffect = null;
+				AbstractEffect newEffect = null;
 
 				// Take all the values from the set
 				String target = effectProperties.get( EFFECT_PROPERTY_TARGET );
@@ -129,6 +132,19 @@ public class SingleEffectController extends EffectsController{
 				if( effectProperties.containsKey( EFFECT_PROPERTY_BACKGROUND ) )
 					background = Boolean.parseBoolean( effectProperties.get( EFFECT_PROPERTY_BACKGROUND ) );
 
+				int time=0;
+				if ( effectProperties.containsKey( EFFECT_PROPERTY_TIME  ) )
+					time = Integer.parseInt( effectProperties.get( EFFECT_PROPERTY_TIME ) );
+
+				int frontColor=0;
+				if ( effectProperties.containsKey( EFFECT_PROPERTY_FRONT_COLOR  ) )
+				    frontColor = Integer.parseInt( effectProperties.get( EFFECT_PROPERTY_FRONT_COLOR ) );
+
+				int borderColor=0;
+				if ( effectProperties.containsKey( EFFECT_PROPERTY_BORDER_COLOR  ) )
+				    borderColor = Integer.parseInt( effectProperties.get( EFFECT_PROPERTY_BORDER_COLOR ) );
+
+				
 				switch( selectedType ) {
 					case Effect.ACTIVATE:
 						newEffect = new ActivateEffect( target );
@@ -193,9 +209,15 @@ public class SingleEffectController extends EffectsController{
 					case Effect.TRIGGER_SCENE:
 						newEffect = new TriggerSceneEffect( target, x, y );
 						break;
+					case Effect.WAIT_TIME:
+					    	newEffect = new WaitTimeEffect(time);
+					    	break;
+					case Effect.SHOW_TEXT:
+					    	newEffect = new ShowTextEffect(text,x,y,frontColor,borderColor);
+					    	break;
 				}
 
-				effectAdded = controller.addTool(new AddEffectTool(effects,newEffect));
+				effectAdded = controller.addTool(new AddEffectTool(effects,newEffect,null));
 			}
 		}
 
@@ -227,7 +249,7 @@ public class SingleEffectController extends EffectsController{
 			return addEffect ( );
 	}
 
-	public Effect getEffect (){
+	public AbstractEffect getEffect (){
 		if ( getEffectCount( )>0 )
 			return effects.getEffects( ).get( 0 );
 		else

@@ -3,6 +3,7 @@ package es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.common.data.chapter.effects.AbstractEffect;
 import es.eucm.eadventure.common.data.chapter.effects.Effect;
 import es.eucm.eadventure.common.data.chapter.effects.Macro;
 import es.eucm.eadventure.common.data.chapter.effects.MacroReferenceEffect;
@@ -34,7 +35,7 @@ public class FunctionalMacroReferenceEffect extends FunctionalEffect{
 		
 		// Build list of functional effects
 		List<FunctionalEffect> fEffects = new ArrayList<FunctionalEffect>( );
-		for ( Effect effect: macro.getEffects() ){
+		for ( AbstractEffect effect: macro.getEffects() ){
 			fEffects.add( FunctionalEffect.buildFunctionalEffect( effect ) );
 		}
 		

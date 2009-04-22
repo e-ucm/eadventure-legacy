@@ -11,13 +11,13 @@ public class Effects implements Cloneable {
 	/**
 	 * List of effects to be triggered
 	 */
-	private List<Effect> effects;
+	private List<AbstractEffect> effects;
 
 	/**
 	 * Creates a new list of Effects.
 	 */
 	public Effects( ) {
-		effects = new ArrayList<Effect>( );
+		effects = new ArrayList<AbstractEffect>( );
 	}
 
 	/**
@@ -42,7 +42,7 @@ public class Effects implements Cloneable {
 	 * @param effect
 	 *            the effect to be added
 	 */
-	public void add( Effect effect ) {
+	public void add( AbstractEffect effect ) {
 		effects.add( effect );
 	}
 
@@ -51,7 +51,7 @@ public class Effects implements Cloneable {
 	 * 
 	 * @return List of effects
 	 */
-	public List<Effect> getEffects( ) {
+	public List<AbstractEffect> getEffects( ) {
 		return effects;
 	}
 	
@@ -71,9 +71,9 @@ public class Effects implements Cloneable {
 	public Object clone() throws CloneNotSupportedException {
 		Effects e = (Effects) super.clone();
 		if (effects != null) {
-			e.effects = new ArrayList<Effect>();
+			e.effects = new ArrayList<AbstractEffect>();
 			for (Effect ef : effects)
-				e.effects.add((Effect) ef.clone());
+				e.effects.add((AbstractEffect) ef.clone());
 		}
 		return e; 
 	}

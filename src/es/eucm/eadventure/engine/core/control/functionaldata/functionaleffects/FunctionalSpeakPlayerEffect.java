@@ -2,6 +2,7 @@ package es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects;
 
 import es.eucm.eadventure.common.data.chapter.effects.SpeakPlayerEffect;
 import es.eucm.eadventure.engine.core.control.Game;
+import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
 
 /**
@@ -22,12 +23,15 @@ public class FunctionalSpeakPlayerEffect extends FunctionalEffect {
      * @see es.eucm.eadventure.engine.engine.data.effects.Effect#triggerEffect()
      */
     public void triggerEffect( ) {
+	FunctionalConditions cond = new FunctionalConditions(effect.getConditions());
+	if (cond.allConditionsOk()){
         FunctionalPlayer player = Game.getInstance( ).getFunctionalPlayer( );
         if (player.isAlwaysSynthesizer())
         	player.speakWithFreeTTS( ((SpeakPlayerEffect)effect).getLine(), player.getPlayerVoice() );
         else
         	player.speak( ((SpeakPlayerEffect)effect).getLine() );
         Game.getInstance( ).setCharacterCurrentlyTalking( player );
+	}
     }
 
     /*

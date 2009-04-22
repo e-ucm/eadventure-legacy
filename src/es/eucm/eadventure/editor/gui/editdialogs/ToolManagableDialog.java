@@ -63,6 +63,10 @@ public abstract class ToolManagableDialog extends JDialog implements Updateable,
 		return false;
 	}
 	
+	public void setTitle(String title){
+	    super.setTitle(title);
+	}
+	
 	public void setVisible(boolean visible){
 		Controller.getInstance( ).pushWindow( this );
 		if (worksInLocal){

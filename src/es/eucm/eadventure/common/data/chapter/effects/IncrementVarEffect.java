@@ -5,7 +5,7 @@ import es.eucm.eadventure.common.data.HasTargetId;
 /**
  * An effect that increments a var according to a given value
  */
-public class IncrementVarEffect implements Effect, HasTargetId {
+public class IncrementVarEffect extends AbstractEffect implements HasTargetId {
 
 	/**
 	 * Name of the var
@@ -24,6 +24,7 @@ public class IncrementVarEffect implements Effect, HasTargetId {
 	 *            the id of the var to be activated
 	 */
 	public IncrementVarEffect( String idVar, int value ) {
+	    	super();
 		this.idVar = idVar;
 		this.value = value;
 	}

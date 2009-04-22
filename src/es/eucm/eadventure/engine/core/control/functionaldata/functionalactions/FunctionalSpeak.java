@@ -89,7 +89,7 @@ public class FunctionalSpeak extends FunctionalAction {
 	public FunctionalSpeak(Action action, String text, String audioPath) {
 		super(action);
 		type = ActionManager.ACTION_TALK;
-		setText(text);
+		setText(text);	
 		setAudio(audioPath);
 		ttsInUse=false;
 	}

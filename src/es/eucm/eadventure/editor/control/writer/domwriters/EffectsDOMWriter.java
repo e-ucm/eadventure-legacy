@@ -9,6 +9,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
+import es.eucm.eadventure.common.data.chapter.effects.AbstractEffect;
 import es.eucm.eadventure.common.data.chapter.effects.ActivateEffect;
 import es.eucm.eadventure.common.data.chapter.effects.ConsumeObjectEffect;
 import es.eucm.eadventure.common.data.chapter.effects.DeactivateEffect;
@@ -25,12 +26,14 @@ import es.eucm.eadventure.common.data.chapter.effects.PlayAnimationEffect;
 import es.eucm.eadventure.common.data.chapter.effects.PlaySoundEffect;
 import es.eucm.eadventure.common.data.chapter.effects.RandomEffect;
 import es.eucm.eadventure.common.data.chapter.effects.SetValueEffect;
+import es.eucm.eadventure.common.data.chapter.effects.ShowTextEffect;
 import es.eucm.eadventure.common.data.chapter.effects.SpeakCharEffect;
 import es.eucm.eadventure.common.data.chapter.effects.SpeakPlayerEffect;
 import es.eucm.eadventure.common.data.chapter.effects.TriggerBookEffect;
 import es.eucm.eadventure.common.data.chapter.effects.TriggerConversationEffect;
 import es.eucm.eadventure.common.data.chapter.effects.TriggerCutsceneEffect;
 import es.eucm.eadventure.common.data.chapter.effects.TriggerSceneEffect;
+import es.eucm.eadventure.common.data.chapter.effects.WaitTimeEffect;
 
 public class EffectsDOMWriter {
 
@@ -108,9 +111,10 @@ public class EffectsDOMWriter {
 	public static void appendEffects ( Document doc, Node effectsNode, Effects effects ){
 
 		// Add every effect
-		for( Effect effect : effects.getEffects( ) ) {
+		for( AbstractEffect effect : effects.getEffects( ) ) {
 			
 			Element effectElement = null;
+			Node conditionsNode = null;
 			
 			if ( effect.getType( ) != Effect.RANDOM_EFFECT)
 				effectElement = buildEffectNode( effect, doc );
@@ -133,14 +137,20 @@ public class EffectsDOMWriter {
 
 				
 			}
-
+			// Create conditions for current effect
+			conditionsNode = ConditionsDOMWriter.buildDOM(effect.getConditions());
+			doc.adoptNode( conditionsNode );
 			// Add the effect
 			effectsNode.appendChild( effectElement );
-		}
+			
+			// Add conditions associated to that effect
+			effectsNode.appendChild(conditionsNode);
+		
+			}
 
 	}
 	
-	private static Element buildEffectNode (Effect effect, Document doc){
+	private static Element buildEffectNode (AbstractEffect effect, Document doc){
 		Element effectElement = null;
 
 		switch( effect.getType( ) ) {
@@ -252,6 +262,20 @@ public class EffectsDOMWriter {
 				effectElement.setAttribute( "idTarget", triggerSceneEffect.getTargetId( ) );
 				effectElement.setAttribute( "x", String.valueOf( triggerSceneEffect.getX( ) ) );
 				effectElement.setAttribute( "y", String.valueOf( triggerSceneEffect.getY( ) ) );
+				break;
+			case Effect.WAIT_TIME:
+			    	WaitTimeEffect waitTimeEffect = (WaitTimeEffect)effect;
+			    	effectElement = doc.createElement( "wait-time" );
+			    	effectElement.setAttribute( "time", Integer.toString(waitTimeEffect.getTime() ));
+			    	break;
+			case Effect.SHOW_TEXT:
+			    	ShowTextEffect showTextEffect = (ShowTextEffect)effect;
+			    	effectElement = doc.createElement( "show-text" );
+				effectElement.setAttribute( "x", String.valueOf( showTextEffect.getX( ) ) );
+				effectElement.setAttribute( "y", String.valueOf( showTextEffect.getY( ) ) );
+				effectElement.setAttribute( "frontColor", String.valueOf( showTextEffect.getRgbFrontColor() ) );
+				effectElement.setAttribute( "borderColor", String.valueOf( showTextEffect.getRgbBorderColor() ) );
+				effectElement.appendChild( doc.createTextNode(showTextEffect.getText() ));
 				break;
 				
 		}
