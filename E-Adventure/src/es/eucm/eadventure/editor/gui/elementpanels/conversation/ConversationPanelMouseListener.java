@@ -13,9 +13,7 @@ import javax.swing.JPopupMenu;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
 import es.eucm.eadventure.common.gui.TextConstants;
-import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
-import es.eucm.eadventure.editor.control.controllers.conversation.TreeConversationDataControl;
 import es.eucm.eadventure.editor.gui.displaydialogs.ConversationDialog;
 import es.eucm.eadventure.editor.gui.elementpanels.conversation.representation.GraphicRepresentation;
 
@@ -115,22 +113,6 @@ public class ConversationPanelMouseListener implements MouseListener, MouseMotio
 				moveNodeItem.setEnabled( conversationDataControl.canMoveNode( clickedNode ) );
 				moveNodeItem.addActionListener( new MoveNodeActionListener( ) );
 				nodePopupMenu.add( moveNodeItem );
-
-				// If it is a tree conversation, add the go back tag option
-				if( conversationDataControl.getType( ) == Controller.CONVERSATION_TREE ) {
-					// Add separator
-					nodePopupMenu.addSeparator( );
-
-					// Add the go back tag operation
-					JMenuItem setGoBackTagItem = new JMenuItem( );
-					if( !TreeConversationDataControl.thereIsGoBackTag( clickedNode ) )
-						setGoBackTagItem.setText( TextConstants.getText( "Conversation.OptionAddGoBackTag" ) );
-					else
-						setGoBackTagItem.setText( TextConstants.getText( "Conversation.OptionRemoveGoBackTag" ) );
-					setGoBackTagItem.setEnabled( ( (TreeConversationDataControl) conversationDataControl ).canToggleGoBackTag( clickedNode ) );
-					setGoBackTagItem.addActionListener( new ToggleGoBackActionListener( ) );
-					nodePopupMenu.add( setGoBackTagItem );
-				}
 
 				// Display the menu
 				nodePopupMenu.show( e.getComponent( ), e.getX( ), e.getY( ) );
@@ -355,31 +337,5 @@ public class ConversationPanelMouseListener implements MouseListener, MouseMotio
 				representationPanel.changeState( RepresentationPanel.WAITING_SECOND_NODE_TO_MOVE );
 		}
 	}
-
-	/**
-	 * Listener for the "Perform go-back" option. This action can only take place when the active conversation is a tree
-	 * conversation
-	 */
-	private class ToggleGoBackActionListener implements ActionListener {
-
-		public void actionPerformed( ActionEvent e ) {
-
-			// This method should only be called with tree conversations
-			TreeConversationDataControl treeConversationDataControl = (TreeConversationDataControl) conversationDataControl;
-
-			// Add or remove the tag, depending if the node has the tag or not
-			if( treeConversationDataControl.toggleGoBackTag( conversationPanel.getSelectedNode( ) ) ) {
-				// Switch state to normal
-				representationPanel.changeState( RepresentationPanel.NORMAL );
-
-				// Update the node and conversation panel and reload the options
-				conversationPanel.reloadOptions( );
-				representationPanel.updateRepresentation( );
-			}
-		}
-	}
-
-
-
 
 }

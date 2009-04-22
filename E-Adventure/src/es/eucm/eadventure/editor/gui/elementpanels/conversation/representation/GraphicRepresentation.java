@@ -3,6 +3,7 @@ package es.eucm.eadventure.editor.gui.elementpanels.conversation.representation;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
 import es.eucm.eadventure.editor.gui.elementpanels.conversation.representation.graphicnode.GraphicNode;
@@ -17,8 +18,17 @@ public abstract class GraphicRepresentation {
 	 */
 	private static final int ARROW_SIZE = 15;
 
-	protected float scale = 0.5f;
-	
+	protected float scale = 1.0f;
+
+	/**
+	 * Set of graphic nodes representating the conversation
+	 */
+	protected List<GraphicNode> graphicNodes;
+
+	protected GraphicNode selectedNode;
+
+	protected GraphicNode selectedChildNode;
+
 	/**
 	 * Returns the size of the painted conversation.
 	 * 
@@ -100,7 +110,7 @@ public abstract class GraphicRepresentation {
 	 * @param endPoint
 	 *            End point of the line
 	 */
-	protected void drawArrow( Graphics g, Point startPoint, Point endPoint ) {
+	protected void drawArrow( Graphics g, GraphicNode node, Point startPoint, Point endPoint ) {
 		double dX, dY, angle = 0;
 
 		dX = startPoint.getX( ) - endPoint.getX( );
@@ -119,9 +129,16 @@ public abstract class GraphicRepresentation {
 		int[] pointsY = new int[3];
 
 		// Obtain the first point of the arrow
-		pointsX[0] = (int) ( endPoint.getX( ) + Math.cos( angle ) * GraphicNode.NODE_RADIUS * scale);
-		pointsY[0] = (int) ( endPoint.getY( ) + Math.sin( angle ) * GraphicNode.NODE_RADIUS * scale);
-
+		boolean found = false;
+		int i = 0;
+		while (!found) {
+			pointsX[0] = (int) ( endPoint.getX( ) + Math.cos( angle ) * i * scale);
+			pointsY[0] = (int) ( endPoint.getY( ) + Math.sin( angle ) * i * scale);
+			if (!node.isInside(scale, new Point(pointsX[0], pointsY[0])))
+				found = true;
+			else
+				i++;
+		}
 		// Obtain the second point of the arrow
 		pointsX[1] = (int) ( pointsX[0] + Math.cos( angle + 0.4 ) * ARROW_SIZE * scale);
 		pointsY[1] = (int) ( pointsY[0] + Math.sin( angle + 0.4 ) * ARROW_SIZE * scale);
@@ -140,4 +157,27 @@ public abstract class GraphicRepresentation {
 	public void setScale(float value) {
 		scale = value;
 	}
+
+	public void setSelectedNode(ConversationNodeView selectedNode) {
+		if (this.selectedNode != null) 
+			this.selectedNode.setSelected(false);
+		for (GraphicNode node : graphicNodes) {
+			if (node.getNode() == selectedNode)
+				this.selectedNode = node;
+		}
+		if (this.selectedNode != null)
+			this.selectedNode.setSelected(true);
+	}
+	
+	public void setSelectedChildNode(ConversationNodeView selectedNode) {
+		if (this.selectedChildNode != null) 
+			this.selectedChildNode.setSelectedChild(false);
+		for (GraphicNode node : graphicNodes) {
+			if (node.getNode() == selectedNode)
+				this.selectedChildNode = node;
+		}
+		if (this.selectedChildNode != null)
+			this.selectedChildNode.setSelectedChild(true);
+	}
+
 }

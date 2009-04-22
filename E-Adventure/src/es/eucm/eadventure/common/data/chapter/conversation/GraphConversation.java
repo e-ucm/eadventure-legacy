@@ -30,6 +30,10 @@ public class GraphConversation extends Conversation {
 		super( Conversation.GRAPH, conversationName, root );
 	}
 
+	public GraphConversation(TreeConversation conversation) {
+		super( Conversation.GRAPH, conversation.getId(), conversation.getRootNode());
+	}
+
 	/**
 	 * Returns a list with all the nodes in the conversation.
 	 * 
