@@ -68,6 +68,7 @@ public class ConversationPanel extends JPanel {
 		// Create the conversation and node panels
 		representationPanel = new RepresentationPanel( this, conversationDataControl );
 		linesPanel = new LinesPanel( this, conversationDataControl );
+		RepresentationZoomPanel zoomPanel = new RepresentationZoomPanel(representationPanel);
 
 		// Create a new panel, to be placed down, containing the node panel and the status bar
 		JPanel downPanel = new JPanel( );
@@ -84,6 +85,7 @@ public class ConversationPanel extends JPanel {
 		// Add the scroll panel (conversation panel) and the down panel (node panel and status bar) to the principal
 		// panel
 		setLayout( new BorderLayout( ) );
+		add( zoomPanel, BorderLayout.NORTH );
 		add( scrollPanel, BorderLayout.CENTER );
 		add( downPanel, BorderLayout.SOUTH );
 	}
@@ -165,5 +167,45 @@ public class ConversationPanel extends JPanel {
 	 */
 	public ConversationNodeView getSelectedChild( ) {
 		return selectedChild;
+	}
+	
+	public void changeScrollX(int value) {
+		int oldValue = scrollPanel.getHorizontalScrollBar().getValue();
+		int maxValue = scrollPanel.getHorizontalScrollBar().getMaximum();
+		value = oldValue + value;
+		if (value > maxValue)
+			value = maxValue;
+		if (value < 0)
+			value = 0;
+		scrollPanel.getHorizontalScrollBar().setValue(value);
+		reloadScroll();
+	}
+
+	public void changeScrollY(int value) {
+		int oldValue = scrollPanel.getVerticalScrollBar().getValue();
+		int maxValue = scrollPanel.getVerticalScrollBar().getMaximum();
+		value = oldValue + value;
+		if (value > maxValue)
+			value = maxValue;
+		if (value < 0)
+			value = 0;
+		scrollPanel.getVerticalScrollBar().setValue(value);
+		reloadScroll();
+	}
+
+	public Dimension getScrollSize() {
+		return scrollPanel.getSize();
+	}
+
+	public int getScrollXValue() {
+		return scrollPanel.getHorizontalScrollBar().getValue();
+	}
+
+	public int getScrollYValue() {
+		return scrollPanel.getVerticalScrollBar().getValue();
+	}
+	
+	public void changeScale(float scale) {
+		
 	}
 }

@@ -17,6 +17,8 @@ public abstract class GraphicRepresentation {
 	 */
 	private static final int ARROW_SIZE = 15;
 
+	protected float scale = 0.5f;
+	
 	/**
 	 * Returns the size of the painted conversation.
 	 * 
@@ -101,11 +103,9 @@ public abstract class GraphicRepresentation {
 	protected void drawArrow( Graphics g, Point startPoint, Point endPoint ) {
 		double dX, dY, angle = 0;
 
-		// Calculate the X and Y differences
 		dX = startPoint.getX( ) - endPoint.getX( );
 		dY = startPoint.getY( ) - endPoint.getY( );
 
-		// Calculate the angle
 		if( dX == 0 && dY > 0 )
 			angle = Math.PI / 2;
 		if( dX == 0 && dY < 0 )
@@ -119,18 +119,25 @@ public abstract class GraphicRepresentation {
 		int[] pointsY = new int[3];
 
 		// Obtain the first point of the arrow
-		pointsX[0] = (int) ( endPoint.getX( ) + Math.cos( angle ) * GraphicNode.NODE_RADIUS );
-		pointsY[0] = (int) ( endPoint.getY( ) + Math.sin( angle ) * GraphicNode.NODE_RADIUS );
+		pointsX[0] = (int) ( endPoint.getX( ) + Math.cos( angle ) * GraphicNode.NODE_RADIUS * scale);
+		pointsY[0] = (int) ( endPoint.getY( ) + Math.sin( angle ) * GraphicNode.NODE_RADIUS * scale);
 
 		// Obtain the second point of the arrow
-		pointsX[1] = (int) ( pointsX[0] + Math.cos( angle + 0.4 ) * ARROW_SIZE );
-		pointsY[1] = (int) ( pointsY[0] + Math.sin( angle + 0.4 ) * ARROW_SIZE );
+		pointsX[1] = (int) ( pointsX[0] + Math.cos( angle + 0.4 ) * ARROW_SIZE * scale);
+		pointsY[1] = (int) ( pointsY[0] + Math.sin( angle + 0.4 ) * ARROW_SIZE * scale);
 
 		// Obtain the third point of the arrow
-		pointsX[2] = (int) ( pointsX[0] + Math.cos( angle - 0.4 ) * ARROW_SIZE );
-		pointsY[2] = (int) ( pointsY[0] + Math.sin( angle - 0.4 ) * ARROW_SIZE );
+		pointsX[2] = (int) ( pointsX[0] + Math.cos( angle - 0.4 ) * ARROW_SIZE * scale);
+		pointsY[2] = (int) ( pointsY[0] + Math.sin( angle - 0.4 ) * ARROW_SIZE * scale);
 
-		// Draw the circle
 		g.fillPolygon( pointsX, pointsY, 3 );
+	}
+	
+	public float getScale() {
+		return scale;
+	}
+	
+	public void setScale(float value) {
+		scale = value;
 	}
 }

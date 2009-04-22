@@ -139,24 +139,19 @@ public class GraphGraphicRepresentation extends GraphicRepresentation {
 			}
 			Point nodePosition = new Point( pointX, pointY );
 
-			// If the node is a dialogue node, add a new graphic node
 			if( node.getType( ) == ConversationNodeView.DIALOGUE )
 				graphicNodes.add( new DialogueGraphicNode( node, nodePosition ) );
-
-			// If the node is an option node, add a new graphic node
-			else
+			else if (node.getType() == ConversationNodeView.OPTION)
 				graphicNodes.add( new OptionGraphicNode( node, nodePosition ) );
 		}
 
-		// Create the links between the nodes
-		updateLinks( );
+		updateLinksBetweenNodes( );
 
-		// Set the size of the conversation, and the container size
 		updateConversationSize( );
 		if (!posConfigured)
 			setContainerSize( containerSize );
 	}
-
+	
 	@Override
 	public Dimension getConversationSize( ) {
 		return conversationSize;
@@ -183,7 +178,7 @@ public class GraphGraphicRepresentation extends GraphicRepresentation {
 		for( int i = 0; i < graphicNodes.size( ) && point == null; i++ )
 			// If the current graphic node holds the node we are searching, store the position of the node
 			if( graphicNodes.get( i ).getNode( ) == node )
-				point = graphicNodes.get( i ).getPosition( );
+				point = graphicNodes.get( i ).getPosition( scale );
 
 		return point;
 	}
@@ -220,7 +215,7 @@ public class GraphGraphicRepresentation extends GraphicRepresentation {
 
 				// Update the config data of the conversation
 				String id = this.graphConversationDataControl.getId( );
-				ConversationConfigData.setNodePos( id, i, graphicNodes.get( i ).getPosition( ) );
+				ConversationConfigData.setNodePos( id, i, graphicNodes.get( i ).getPosition( scale ) );
 			}
 
 		// Set the new upper left corner
@@ -238,9 +233,9 @@ public class GraphGraphicRepresentation extends GraphicRepresentation {
 
 			// For each child, draw a line from the current node to the child node
 			for( int j = 0; j < currentNode.getChildCount( ); j++ ) {
-				Point childPosition = currentNode.getChildPosition( j );
-				g.drawLine( (int) currentNode.getPosition( ).getX( ), (int) currentNode.getPosition( ).getY( ), (int) childPosition.getX( ), (int) childPosition.getY( ) );
-				drawArrow( g, currentNode.getPosition( ), childPosition );
+				Point childPosition = currentNode.getChildPosition( scale, j );
+				g.drawLine( (int) currentNode.getPosition( scale ).getX( ), (int) currentNode.getPosition( scale ).getY( ), (int) childPosition.getX( ), (int) childPosition.getY( ) );
+				drawArrow( g, currentNode.getPosition( scale ), childPosition );
 			}
 		}
 
@@ -248,7 +243,7 @@ public class GraphGraphicRepresentation extends GraphicRepresentation {
 		for( int i = 0; i < graphicNodes.size( ); i++ ) {
 			GraphicNode currentNode = graphicNodes.get( i );
 			// Paint the node
-			currentNode.drawNode( g );
+			currentNode.drawNode( scale, g );
 		}
 	}
 
@@ -327,7 +322,7 @@ public class GraphGraphicRepresentation extends GraphicRepresentation {
 
 		// Set the new vector of graphic nodes, and update the links
 		graphicNodes = newGraphicNodes;
-		updateLinks( );
+		updateLinksBetweenNodes( );
 
 		// Update the conversation size
 		updateConversationSize( );
@@ -357,7 +352,7 @@ public class GraphGraphicRepresentation extends GraphicRepresentation {
 		}
 
 		// Return a copy of the position of the father
-		return new Point( graphicNodes.get( nodes.indexOf( father ) ).getPosition( ) );
+		return new Point( graphicNodes.get( nodes.indexOf( father ) ).getPosition( scale ) );
 	}
 	
 	/**
@@ -392,8 +387,8 @@ public class GraphGraphicRepresentation extends GraphicRepresentation {
 			for( int j = 0; j < father.getChildCount( ); j++ ){
 				if ( father.getChildView( j )!=node ){
 					ConversationNodeView possibleBrother = father.getChildView( j );
-					if ( graphicNodes.get( nodes.indexOf(possibleBrother) ).getPosition().x>maxPoint.x ){
-						maxPoint = graphicNodes.get( nodes.indexOf(possibleBrother) ).getPosition();
+					if ( graphicNodes.get( nodes.indexOf(possibleBrother) ).getPosition( scale ).x>maxPoint.x ){
+						maxPoint = graphicNodes.get( nodes.indexOf(possibleBrother) ).getPosition( scale );
 					}
 				}
 			}
@@ -438,7 +433,7 @@ public class GraphGraphicRepresentation extends GraphicRepresentation {
 			
 			// Update the config data of the conversation
 			String id = this.graphConversationDataControl.getId( );
-			ConversationConfigData.setNodePos( id, pickedNodeIndex, pickedNode.getPosition( ) );
+			ConversationConfigData.setNodePos( id, pickedNodeIndex, pickedNode.getPosition( scale ) );
 
 			// Set the point to the new node and set modified to true
 			lastPoint = point;
@@ -468,7 +463,7 @@ public class GraphGraphicRepresentation extends GraphicRepresentation {
 	/**
 	 * Set the links between the graphical nodes
 	 */
-	private void updateLinks( ) {
+	private void updateLinksBetweenNodes( ) {
 		// Get all the conversational nodes
 		List<ConversationNodeView> nodes = graphConversationDataControl.getAllNodes( );
 
@@ -502,7 +497,7 @@ public class GraphGraphicRepresentation extends GraphicRepresentation {
 
 		// Find the maximum and minimum values
 		for( int i = 0; i < graphicNodes.size( ); i++ ) {
-			Point currentNode = graphicNodes.get( i ).getPosition( );
+			Point currentNode = graphicNodes.get( i ).getPosition( scale );
 			right = Math.max( right, currentNode.x );
 			left = Math.min( left, currentNode.x );
 			top = Math.min( top, currentNode.y );
@@ -515,8 +510,11 @@ public class GraphGraphicRepresentation extends GraphicRepresentation {
 		top -= CONVERSATION_MARGIN;
 		bottom += CONVERSATION_MARGIN;
 
+		int width = (int) ((right - left));
+		int height = (int) ((bottom - top));
+		
 		// Set the conversation size and the upper left corner
-		conversationSize = new Dimension( right - left, bottom - top );
-		upperLeftCorner = new Point( left, top );
+		conversationSize = new Dimension( width, height );
+		upperLeftCorner = new Point( (int) (left), (int) (top) );
 	}
 }

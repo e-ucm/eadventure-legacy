@@ -24,9 +24,9 @@ public class OptionGraphicNode extends GraphicNode {
 	}
 
 	@Override
-	public void drawNode( Graphics g ) {
+	public void drawNode( float scale, Graphics g ) {
 		// Paint the circle
-		super.drawNode( g );
+		super.drawNode( scale, g );
 
 		// Write a O inside
 		g.setColor( SystemColor.control );

@@ -89,6 +89,13 @@ public class SceneDOMWriter {
 					exitElement.setAttribute( "width", String.valueOf( exit.getWidth( ) ) );
 					exitElement.setAttribute( "height", String.valueOf( exit.getHeight( ) ) );
 					exitElement.setAttribute( "hasInfluenceArea", (exit.getInfluenceArea().isExists() ? "yes" : "no"));
+					exitElement.setAttribute( "idTarget", exit.getNextSceneId());
+					exitElement.setAttribute( "destinyY", String.valueOf(exit.getDestinyY()));
+					exitElement.setAttribute( "destinyX", String.valueOf(exit.getDestinyX()));
+					exitElement.setAttribute( "transitionType", String.valueOf(exit.getTransitionType()));
+					exitElement.setAttribute( "transitionTime", String.valueOf(exit.getTransitionTime()));
+					exitElement.setAttribute( "not-effects", (exit.isHasNotEffects() ? "yes" : "no"));
+					
 					if (exit.getInfluenceArea().isExists()) {
 						exitElement.setAttribute( "influenceX", String.valueOf(exit.getInfluenceArea().getX()));
 						exitElement.setAttribute( "influenceY", String.valueOf(exit.getInfluenceArea().getY()));
@@ -179,6 +186,25 @@ public class SceneDOMWriter {
 						}
 					}
 					
+					
+					if (exit.getEffects() != null && !exit.getEffects().isEmpty()) {
+						Node effectsNode = EffectsDOMWriter.buildDOM( EffectsDOMWriter.POST_EFFECTS, exit.getEffects( ) );
+						doc.adoptNode( effectsNode );
+						exitElement.appendChild( effectsNode );
+					}
+
+					if (exit.getPostEffects() != null && !exit.getPostEffects().isEmpty()) {
+						Node postEffectsNode = EffectsDOMWriter.buildDOM( EffectsDOMWriter.EFFECTS, exit.getPostEffects( ) );
+						doc.adoptNode( postEffectsNode );
+						exitElement.appendChild( postEffectsNode );
+					}
+
+					if (exit.getNotEffects() != null && !exit.getNotEffects().isEmpty()) {
+						Node notEffectsNode = EffectsDOMWriter.buildDOM( EffectsDOMWriter.NOT_EFFECTS, exit.getNotEffects( ) );
+						doc.adoptNode( notEffectsNode );
+						exitElement.appendChild( notEffectsNode );
+					}
+
 					// Append the exit
 					exitsElement.appendChild( exitElement );
 				}

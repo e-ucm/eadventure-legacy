@@ -43,7 +43,12 @@ public class EffectsDOMWriter {
 	 * Constant for the post effect block.
 	 */
 	public static final String POST_EFFECTS = "post-effect";
-	
+
+	/**
+	 * Constant for the not effect block.
+	 */
+	public static final String NOT_EFFECTS = "not-effect";
+
 	/**
 	 * Constant for the macro block.
 	 */

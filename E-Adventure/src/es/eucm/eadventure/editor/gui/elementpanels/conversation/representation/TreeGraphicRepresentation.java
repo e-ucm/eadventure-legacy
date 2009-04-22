@@ -84,7 +84,7 @@ public class TreeGraphicRepresentation extends GraphicRepresentation {
 		for( int i = 0; i < graphicNodes.size( ) && point == null; i++ )
 			// If the current graphic node holds the node we are searching, store the position of the node
 			if( graphicNodes.get( i ).getNode( ) == node )
-				point = graphicNodes.get( i ).getPosition( );
+				point = graphicNodes.get( i ).getPosition( 1.0f );
 
 		return point;
 	}
@@ -106,9 +106,9 @@ public class TreeGraphicRepresentation extends GraphicRepresentation {
 
 			// For each child, draw a line from the current node to the child node
 			for( int j = 0; j < currentNode.getChildCount( ); j++ ) {
-				Point childPosition = currentNode.getChildPosition( j );
-				g.drawLine( (int) currentNode.getPosition( ).getX( ), (int) currentNode.getPosition( ).getY( ), (int) childPosition.getX( ), (int) childPosition.getY( ) );
-				drawArrow( g, currentNode.getPosition( ), childPosition );
+				Point childPosition = currentNode.getChildPosition( 1.0f, j );
+				g.drawLine( (int) currentNode.getPosition( 1.0f ).getX( ), (int) currentNode.getPosition( 1.0f ).getY( ), (int) childPosition.getX( ), (int) childPosition.getY( ) );
+				drawArrow( g, currentNode.getPosition( 1.0f ), childPosition );
 			}
 		}
 
@@ -117,7 +117,7 @@ public class TreeGraphicRepresentation extends GraphicRepresentation {
 			GraphicNode currentNode = graphicNodes.get( i );
 
 			// Paint the node
-			currentNode.drawNode( g );
+			currentNode.drawNode( 1.0f, g );
 		}
 	}
 
