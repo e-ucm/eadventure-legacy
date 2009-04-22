@@ -797,6 +797,7 @@ Please remember that you cannot make any reference to a macro in its definition<
 	
 	<entry key="ShowTextEffect.Title">Effect to show text in a scene</entry>
 	<entry key="ShowTextEffect.Border">Preview</entry>
+	<entry key="ShowTextEffect.TextLabel">Introduce text: </entry>
 
 	<entry key="SceneLocation.SceneListDescription">Select a scene to pick a destination point</entry>
 	<entry key="SceneLocation.NoSceneSelected">No scene selected</entry>

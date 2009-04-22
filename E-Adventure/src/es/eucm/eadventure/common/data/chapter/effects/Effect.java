@@ -110,6 +110,15 @@ public interface Effect extends Cloneable {
 	 */
 	public static final int MACRO_REF = 20;
 
+	/**
+	 * Constant for wait-time effect
+	 */
+	public static final int WAIT_TIME = 21;
+	
+	/**
+	 * Constant for show-text effect
+	 */
+	public static final int SHOW_TEXT = 22;
 
 	/**
 	 * Returns the type of the effect.

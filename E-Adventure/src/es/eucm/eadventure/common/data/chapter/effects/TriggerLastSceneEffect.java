@@ -1,7 +1,11 @@
 package es.eucm.eadventure.common.data.chapter.effects;
 
-public class TriggerLastSceneEffect implements Effect{
+public class TriggerLastSceneEffect extends AbstractEffect{
 
+    
+    public TriggerLastSceneEffect(){
+	super();
+    }
 	
 	public int getType( ) {
 		return Effect.TRIGGER_LAST_SCENE;

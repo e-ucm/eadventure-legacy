@@ -3,7 +3,7 @@ package es.eucm.eadventure.common.data.chapter.effects;
 /**
  * An effect that plays a sound
  */
-public class PlaySoundEffect implements Effect {
+public class PlaySoundEffect extends AbstractEffect{
 
 	/**
 	 * Whether the sound must be played in background
@@ -24,6 +24,7 @@ public class PlaySoundEffect implements Effect {
 	 *            path to the sound file
 	 */
 	public PlaySoundEffect( boolean background, String path ) {
+	    	super();
 		this.background = background;
 		this.path = path;
 	}

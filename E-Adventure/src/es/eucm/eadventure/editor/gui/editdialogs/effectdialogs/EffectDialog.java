@@ -191,6 +191,12 @@ public abstract class EffectDialog extends ToolManagableDialog {
 			case Effect.TRIGGER_SCENE:
 				effectProperties = new TriggerSceneEffectDialog( currentProperties ).getEffectProperties( );
 				break;
+			case Effect.WAIT_TIME:
+			    	effectProperties = new WaitTimeEffectDialog(currentProperties).getEffectProperties();
+			    	break;
+			case Effect.SHOW_TEXT:
+			    	effectProperties = new ShowTextEffectDialog(currentProperties).getEffectProperties();
+			    	break;
 		}
 
 		return effectProperties;

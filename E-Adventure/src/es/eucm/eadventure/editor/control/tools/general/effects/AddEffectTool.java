@@ -1,8 +1,11 @@
 package es.eucm.eadventure.editor.control.tools.general.effects;
 
-import es.eucm.eadventure.common.data.chapter.effects.Effect;
+import java.util.List;
+
+import es.eucm.eadventure.common.data.chapter.effects.AbstractEffect;
 import es.eucm.eadventure.common.data.chapter.effects.Effects;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.tools.Tool;
 
 /**
@@ -13,11 +16,14 @@ import es.eucm.eadventure.editor.control.tools.Tool;
 public class AddEffectTool extends Tool{
 
 	protected Effects effects;
-	protected Effect effectToAdd;
+	protected AbstractEffect effectToAdd;
+	protected List<ConditionsController> conditions;
+	protected ConditionsController condition;
 	
-	public AddEffectTool (Effects effects, Effect effectToAdd){
+	public AddEffectTool (Effects effects, AbstractEffect effectToAdd,List<ConditionsController> conditions){
 		this.effects = effects;
 		this.effectToAdd = effectToAdd;
+		this.conditions = conditions;
 	}
 	
 	@Override
@@ -38,6 +44,11 @@ public class AddEffectTool extends Tool{
 	@Override
 	public boolean doTool() {
 		effects.add(effectToAdd);
+		if (conditions!=null){
+		    condition = new ConditionsController(effectToAdd.getConditions());
+		    conditions.add(condition);
+		}
+		
 		return true;
 	}
 
@@ -52,6 +63,9 @@ public class AddEffectTool extends Tool{
 	@Override
 	public boolean undoTool() {
 		effects.getEffects().remove(effectToAdd);
+		if (conditions!=null){
+		    conditions.remove(condition);
+		}
 		Controller.getInstance().updatePanel();
 		return true;
 	}

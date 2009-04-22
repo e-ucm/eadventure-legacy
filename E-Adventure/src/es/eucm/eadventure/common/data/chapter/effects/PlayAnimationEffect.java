@@ -3,7 +3,7 @@ package es.eucm.eadventure.common.data.chapter.effects;
 /**
  * An effect that plays a sound
  */
-public class PlayAnimationEffect implements Effect {
+public class PlayAnimationEffect extends AbstractEffect {
 
 	/**
 	 * The path to the base animation file
@@ -31,6 +31,7 @@ public class PlayAnimationEffect implements Effect {
 	 *            Y coordinate for the animation to play
 	 */
 	public PlayAnimationEffect( String path, int x, int y ) {
+	    	super();
 		this.path = path;
 		this.x = x;
 		this.y = y;

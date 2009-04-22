@@ -7,7 +7,7 @@ import es.eucm.eadventure.common.data.HasTargetId;
  * @author Javier
  *
  */
-public class MacroReferenceEffect implements Effect, HasTargetId{
+public class MacroReferenceEffect extends AbstractEffect implements HasTargetId{
 
 	/**
 	 * The id
@@ -20,6 +20,7 @@ public class MacroReferenceEffect implements Effect, HasTargetId{
 	 * @param state
 	 */
 	public MacroReferenceEffect( String id ) {
+	    	super();
 		macroId = id;
 	}
 

@@ -5,7 +5,7 @@ import es.eucm.eadventure.common.data.HasTargetId;
 /**
  * An effect that sets a var with a given value
  */
-public class SetValueEffect implements Effect, HasTargetId {
+public class SetValueEffect extends AbstractEffect implements HasTargetId {
 
 	/**
 	 * Name of the var to be activated
@@ -24,6 +24,7 @@ public class SetValueEffect implements Effect, HasTargetId {
 	 *            the id of the var to be activated
 	 */
 	public SetValueEffect( String idVar, int value ) {
+	    	super();
 		this.idVar = idVar;
 		this.value = value;
 	}

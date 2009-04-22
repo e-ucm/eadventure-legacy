@@ -5,7 +5,7 @@ import es.eucm.eadventure.common.data.HasTargetId;
 /**
  * An effect that generates an object in the inventory.
  */
-public class GenerateObjectEffect implements Effect, HasTargetId {
+public class GenerateObjectEffect extends AbstractEffect implements HasTargetId {
 
 	/**
 	 * Id of the item to be generated
@@ -19,6 +19,7 @@ public class GenerateObjectEffect implements Effect, HasTargetId {
 	 *            the id of the object to be generated
 	 */
 	public GenerateObjectEffect( String idTarget ) {
+	    	super();
 		this.idTarget = idTarget;
 	}
 

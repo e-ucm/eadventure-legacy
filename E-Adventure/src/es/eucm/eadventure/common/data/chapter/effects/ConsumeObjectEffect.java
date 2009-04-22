@@ -5,7 +5,7 @@ import es.eucm.eadventure.common.data.HasTargetId;
 /**
  * An effect that consumes an object in the inventory
  */
-public class ConsumeObjectEffect implements Effect, HasTargetId {
+public class ConsumeObjectEffect extends AbstractEffect implements  HasTargetId {
 
 	/**
 	 * Id of the item to be consumed
@@ -19,6 +19,7 @@ public class ConsumeObjectEffect implements Effect, HasTargetId {
 	 *            the id of the object to be consumed
 	 */
 	public ConsumeObjectEffect( String idTarget ) {
+	    	super();
 		this.idTarget = idTarget;
 	}
 

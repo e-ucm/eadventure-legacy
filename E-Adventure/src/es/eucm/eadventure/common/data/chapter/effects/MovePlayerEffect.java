@@ -3,7 +3,7 @@ package es.eucm.eadventure.common.data.chapter.effects;
 /**
  * An effect that makes the player to move to the given position.
  */
-public class MovePlayerEffect implements Effect {
+public class MovePlayerEffect extends AbstractEffect {
 
 	/**
 	 * The destination of the player
@@ -21,6 +21,7 @@ public class MovePlayerEffect implements Effect {
 	 *            Y final position for the player
 	 */
 	public MovePlayerEffect( int x, int y ) {
+	    	super();
 		this.x = x;
 		this.y = y;
 	}

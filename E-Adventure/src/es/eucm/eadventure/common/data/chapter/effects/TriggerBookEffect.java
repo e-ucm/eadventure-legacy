@@ -5,7 +5,7 @@ import es.eucm.eadventure.common.data.HasTargetId;
 /**
  * An effect that raises a "bookscene".
  */
-public class TriggerBookEffect implements Effect, HasTargetId {
+public class TriggerBookEffect extends AbstractEffect implements HasTargetId {
 
 	/**
 	 * Id of the book to be shown
@@ -19,6 +19,7 @@ public class TriggerBookEffect implements Effect, HasTargetId {
 	 *            the id of the book to be shown
 	 */
 	public TriggerBookEffect( String targetBookId ) {
+	    	super();
 		this.targetBookId = targetBookId;
 	}
 

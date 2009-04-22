@@ -5,7 +5,7 @@ import es.eucm.eadventure.common.data.HasTargetId;
 /**
  * An effect that triggers a conversation.
  */
-public class TriggerConversationEffect implements Effect, HasTargetId {
+public class TriggerConversationEffect extends AbstractEffect implements HasTargetId {
 
 	/**
 	 * Id of the conversation to be played
@@ -19,6 +19,7 @@ public class TriggerConversationEffect implements Effect, HasTargetId {
 	 *            the id of the conversation to be triggered
 	 */
 	public TriggerConversationEffect( String targetConversationId ) {
+	    	super();
 		this.targetConversationId = targetConversationId;
 	}
 

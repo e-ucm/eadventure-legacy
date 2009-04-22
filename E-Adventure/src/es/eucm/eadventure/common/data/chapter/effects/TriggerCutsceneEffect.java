@@ -5,7 +5,7 @@ import es.eucm.eadventure.common.data.HasTargetId;
 /**
  * An effect that triggers a cutscene
  */
-public class TriggerCutsceneEffect implements Effect, HasTargetId {
+public class TriggerCutsceneEffect extends AbstractEffect implements HasTargetId {
 
 	/**
 	 * Id of the cutscene to be played
@@ -19,6 +19,7 @@ public class TriggerCutsceneEffect implements Effect, HasTargetId {
 	 *            the id of the cutscene to be triggered
 	 */
 	public TriggerCutsceneEffect( String targetCutsceneId ) {
+	    	super();
 		this.targetCutsceneId = targetCutsceneId;
 	}
 

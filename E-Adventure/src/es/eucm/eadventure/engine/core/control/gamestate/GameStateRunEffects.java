@@ -2,8 +2,10 @@ package es.eucm.eadventure.engine.core.control.gamestate;
 
 import java.awt.Graphics2D;
 
+import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffect;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalPlayAnimationEffect;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalShowTextEffect;
 import es.eucm.eadventure.engine.core.gui.GUI;
 
 /**
@@ -53,7 +55,12 @@ public class GameStateRunEffects extends GameState {
         // Draw the scene
         if (game.getFunctionalScene()!=null)
         	game.getFunctionalScene( ).draw( );
+      
+    	 // If is show text effect, call to its draw method
+        if (currentExecutingEffect instanceof FunctionalShowTextEffect)
+            ((FunctionalShowTextEffect)currentExecutingEffect).draw();
         GUI.getInstance( ).drawScene( g , elapsedTime);
+        
         GUI.getInstance( ).drawHUD( g );
         
         
@@ -93,11 +100,13 @@ public class GameStateRunEffects extends GameState {
                     game.evaluateState(fromConversation);
    
                 }else {
-                
-                currentEffect.triggerEffect( );
-                stop = !currentEffect.isInstantaneous( );
-                if( stop )
-                    currentExecutingEffect = currentEffect;
+                    // Check if all conditions associated to effect are OK
+            	    if (currentEffect.isAllConditionsOK()){
+            		currentEffect.triggerEffect( );
+                    	stop = !currentEffect.isInstantaneous( );
+                    	if( stop )
+                		currentExecutingEffect = currentEffect;
+            	    }
                 }
             }
         }

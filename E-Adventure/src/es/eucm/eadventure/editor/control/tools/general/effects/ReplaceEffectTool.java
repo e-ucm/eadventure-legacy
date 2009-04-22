@@ -3,6 +3,7 @@ package es.eucm.eadventure.editor.control.tools.general.effects;
 import java.util.HashMap;
 
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
+import es.eucm.eadventure.common.data.chapter.effects.AbstractEffect;
 import es.eucm.eadventure.common.data.chapter.effects.ActivateEffect;
 import es.eucm.eadventure.common.data.chapter.effects.ConsumeObjectEffect;
 import es.eucm.eadventure.common.data.chapter.effects.DeactivateEffect;
@@ -18,12 +19,14 @@ import es.eucm.eadventure.common.data.chapter.effects.PlayAnimationEffect;
 import es.eucm.eadventure.common.data.chapter.effects.PlaySoundEffect;
 import es.eucm.eadventure.common.data.chapter.effects.RandomEffect;
 import es.eucm.eadventure.common.data.chapter.effects.SetValueEffect;
+import es.eucm.eadventure.common.data.chapter.effects.ShowTextEffect;
 import es.eucm.eadventure.common.data.chapter.effects.SpeakCharEffect;
 import es.eucm.eadventure.common.data.chapter.effects.SpeakPlayerEffect;
 import es.eucm.eadventure.common.data.chapter.effects.TriggerBookEffect;
 import es.eucm.eadventure.common.data.chapter.effects.TriggerConversationEffect;
 import es.eucm.eadventure.common.data.chapter.effects.TriggerCutsceneEffect;
 import es.eucm.eadventure.common.data.chapter.effects.TriggerSceneEffect;
+import es.eucm.eadventure.common.data.chapter.effects.WaitTimeEffect;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.control.tools.Tool;
@@ -36,18 +39,18 @@ import es.eucm.eadventure.editor.control.tools.Tool;
 public class ReplaceEffectTool extends Tool{
 
 	protected Effects effects;
-	protected Effect effect;
+	protected AbstractEffect effect;
 	protected HashMap<Integer, String> newProperties;
-	protected Effect oldEffect;
+	protected AbstractEffect oldEffect;
 	
-	protected Effect pos;
-	protected Effect neg;
+	protected AbstractEffect pos;
+	protected AbstractEffect neg;
 	
-	public ReplaceEffectTool (Effects effects, Effect effect, HashMap<Integer, String> newProperties){
+	public ReplaceEffectTool (Effects effects, AbstractEffect effect, HashMap<Integer, String> newProperties){
 		this(effects,effect,newProperties,null,null);
 	}
 	
-	public ReplaceEffectTool (Effects effects, Effect effect, HashMap<Integer, String> newProperties, Effect pos, Effect neg){
+	public ReplaceEffectTool (Effects effects, AbstractEffect effect, HashMap<Integer, String> newProperties, AbstractEffect pos, AbstractEffect neg){
 		this.effects = effects;
 		this.effect = effect;
 		this.pos = pos;
@@ -80,7 +83,7 @@ public class ReplaceEffectTool extends Tool{
 		if( newProperties != null ) {
 			effectEdited = true;
 			try {
-				oldEffect = (Effect) effect.clone();
+				oldEffect = (AbstractEffect) effect.clone();
 			} catch (CloneNotSupportedException e) {
 				ReportDialog.GenerateErrorReport(e, true, "Error cloning effect "+effect.getType());
 			}
@@ -176,6 +179,17 @@ public class ReplaceEffectTool extends Tool{
 					randomEffect.setPositiveEffect( pos );
 					randomEffect.setNegativeEffect( neg );
 					break;
+				case Effect.WAIT_TIME:
+				    	WaitTimeEffect waitTimeEffect = (WaitTimeEffect)effect;
+				    	waitTimeEffect.setTime(Integer.parseInt(newProperties.get( EffectsController.EFFECT_PROPERTY_TIME )  ) );
+				    	break;
+				case Effect.SHOW_TEXT:
+				    	ShowTextEffect showTextEffect = (ShowTextEffect)effect;
+				    	showTextEffect.setText(newProperties.get( EffectsController.EFFECT_PROPERTY_TEXT )  );
+				    	showTextEffect.setTextPosition(Integer.parseInt(newProperties.get( EffectsController.EFFECT_PROPERTY_X )  ), Integer.parseInt(newProperties.get( EffectsController.EFFECT_PROPERTY_Y )  ));
+				    	showTextEffect.setRgbFrontColor(Integer.parseInt(newProperties.get( EffectsController.EFFECT_PROPERTY_FRONT_COLOR )  ));
+				    	showTextEffect.setRgbBorderColor(Integer.parseInt(newProperties.get( EffectsController.EFFECT_PROPERTY_BORDER_COLOR )));
+				    	break;
 			}
 			effectEdited = true;
 		}

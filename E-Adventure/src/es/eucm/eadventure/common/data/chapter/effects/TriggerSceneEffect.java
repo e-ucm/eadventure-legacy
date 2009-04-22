@@ -5,7 +5,7 @@ import es.eucm.eadventure.common.data.HasTargetId;
 /**
  * An effect that triggers a scene
  */
-public class TriggerSceneEffect implements Effect, HasTargetId {
+public class TriggerSceneEffect extends AbstractEffect implements HasTargetId {
 
 	/**
 	 * Id of the cutscene to be played
@@ -33,6 +33,7 @@ public class TriggerSceneEffect implements Effect, HasTargetId {
 	 *            Y position of the player in the new scene
 	 */
 	public TriggerSceneEffect( String targetSceneId, int x, int y ) {
+	    	super();
 		this.targetSceneId = targetSceneId;
 		this.x = x;
 		this.y = y;

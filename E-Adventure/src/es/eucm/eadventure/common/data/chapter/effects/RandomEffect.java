@@ -7,17 +7,17 @@ package es.eucm.eadventure.common.data.chapter.effects;
  *      100-PROBABILITY times NEGATIVE EFFECT is triggered
  * @author Javier
  */
-public class RandomEffect implements Effect{
+public class RandomEffect extends AbstractEffect{
 
 	/** 
 	 * Effect to be triggered PROBABILITY% of the times
 	 */
-    private Effect positiveEffect;
+    private AbstractEffect positiveEffect;
 
     /** 
 	 * Effect to be triggered 100-PROBABILITY% of the times
 	 */
-    private Effect negativeEffect;
+    private AbstractEffect negativeEffect;
     
     /**
      * Probability in range 0%-100%
@@ -29,6 +29,7 @@ public class RandomEffect implements Effect{
      * @param probability
      */
     public RandomEffect ( int probability ){
+	super();
     	this.probability = probability;
     }
     
@@ -46,14 +47,14 @@ public class RandomEffect implements Effect{
     /**
      * @param positiveEffect the positiveEffect to set
      */
-    public void setPositiveEffect( Effect positiveEffect ) {
+    public void setPositiveEffect( AbstractEffect positiveEffect ) {
         this.positiveEffect = positiveEffect;
     }
 
     /**
      * @param negativeEffect the negativeEffect to set
      */
-    public void setNegativeEffect( Effect negativeEffect ) {
+    public void setNegativeEffect( AbstractEffect negativeEffect ) {
         this.negativeEffect = negativeEffect;
     }
 
@@ -74,21 +75,21 @@ public class RandomEffect implements Effect{
 	/**
 	 * @return the positiveEffect
 	 */
-	public Effect getPositiveEffect( ) {
+	public AbstractEffect getPositiveEffect( ) {
 		return positiveEffect;
 	}
 
 	/**
 	 * @return the negativeEffect
 	 */
-	public Effect getNegativeEffect( ) {
+	public AbstractEffect getNegativeEffect( ) {
 		return negativeEffect;
 	}
 
 	public Object clone() throws CloneNotSupportedException {
 		RandomEffect re = (RandomEffect) super.clone();
-		re.negativeEffect = (negativeEffect != null ? (Effect) negativeEffect.clone() : null);
-		re.positiveEffect = (positiveEffect != null ? (Effect) positiveEffect.clone() : null);
+		re.negativeEffect = (negativeEffect != null ? (AbstractEffect) negativeEffect.clone() : null);
+		re.positiveEffect = (positiveEffect != null ? (AbstractEffect) positiveEffect.clone() : null);
 		re.probability = probability;
 		return re;
 	}

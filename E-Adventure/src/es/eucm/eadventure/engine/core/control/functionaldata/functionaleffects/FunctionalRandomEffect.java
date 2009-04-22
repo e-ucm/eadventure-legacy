@@ -64,7 +64,8 @@ public class FunctionalRandomEffect extends FunctionalEffect{
     public void triggerEffect( ) {
         effectTriggered =getEffectToBeTriggered();
         if (effectTriggered!=null){
-            effectTriggered.triggerEffect( );
+            if (effectTriggered.isAllConditionsOK())
+        	effectTriggered.triggerEffect( );
         }
     }
 

@@ -5,7 +5,7 @@ import es.eucm.eadventure.common.data.HasTargetId;
 /**
  * An effect that activates a flag
  */
-public class ActivateEffect implements Effect, HasTargetId {
+public class ActivateEffect extends AbstractEffect implements HasTargetId {
 
 	/**
 	 * Name of the flag to be activated
@@ -19,6 +19,7 @@ public class ActivateEffect implements Effect, HasTargetId {
 	 *            the id of the flag to be activated
 	 */
 	public ActivateEffect( String idFlag ) {
+	    	super();
 		this.idFlag = idFlag;
 	}
 

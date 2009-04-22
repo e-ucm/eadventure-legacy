@@ -3,6 +3,8 @@ package es.eucm.eadventure.common.loader.subparsers;
 import org.xml.sax.Attributes;
 
 import es.eucm.eadventure.common.data.chapter.Chapter;
+import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
+import es.eucm.eadventure.common.data.chapter.effects.AbstractEffect;
 import es.eucm.eadventure.common.data.chapter.effects.ActivateEffect;
 import es.eucm.eadventure.common.data.chapter.effects.CancelActionEffect;
 import es.eucm.eadventure.common.data.chapter.effects.ConsumeObjectEffect;
@@ -19,6 +21,7 @@ import es.eucm.eadventure.common.data.chapter.effects.PlayAnimationEffect;
 import es.eucm.eadventure.common.data.chapter.effects.PlaySoundEffect;
 import es.eucm.eadventure.common.data.chapter.effects.RandomEffect;
 import es.eucm.eadventure.common.data.chapter.effects.SetValueEffect;
+import es.eucm.eadventure.common.data.chapter.effects.ShowTextEffect;
 import es.eucm.eadventure.common.data.chapter.effects.SpeakCharEffect;
 import es.eucm.eadventure.common.data.chapter.effects.SpeakPlayerEffect;
 import es.eucm.eadventure.common.data.chapter.effects.TriggerBookEffect;
@@ -26,14 +29,36 @@ import es.eucm.eadventure.common.data.chapter.effects.TriggerConversationEffect;
 import es.eucm.eadventure.common.data.chapter.effects.TriggerCutsceneEffect;
 import es.eucm.eadventure.common.data.chapter.effects.TriggerLastSceneEffect;
 import es.eucm.eadventure.common.data.chapter.effects.TriggerSceneEffect;
+import es.eucm.eadventure.common.data.chapter.effects.WaitTimeEffect;
 
 /**
  * Class to subparse effects
  */
 public class EffectSubParser extends SubParser {
 
+    	/* Constants */
+    	/**
+	 * Constant for no subparsing
+	 */
+	private static final int SUBPARSING_NONE = 0;
+	
+	/**
+	 * Constant for subparsing conditions
+	 */
+	private static final int SUBPARSING_CONDITION = 1;
+    
 	/* Attributes */
 
+	/**
+	 * The current subparser being used
+	 */
+	private SubParser subParser;
+	
+	/**
+	 * Indicates the current element being subparsed
+	 */
+	private int subParsing;
+	
 	/**
 	 * Stores the current id target
 	 */
@@ -44,12 +69,35 @@ public class EffectSubParser extends SubParser {
 	 */
 	private Effects effects;
 	
+	/**
+	 * Atributes for show-text effects
+	 */
+	
+	int x = 0;
+	int y = 0;
+	int frontColor=0;
+	int borderColor=0;
     /**
      * Constants for reading random-effect
      */
     private boolean positiveBlockRead = false;
     private boolean readingRandomEffect = false;
     private RandomEffect randomEffect;
+    
+    /**
+     * Stores the current conditions being read
+     */
+    private Conditions currentConditions;
+    
+    /**
+     * CurrentEffect. Stores the last created effect to add it later the conditions
+     */
+    private AbstractEffect currentEffect;
+    
+    /**
+     * New effects
+     */
+    private AbstractEffect newEffect;
 
 	/* Methods */
 
@@ -73,7 +121,7 @@ public class EffectSubParser extends SubParser {
 	 *      java.lang.String, org.xml.sax.Attributes)
 	 */
 	public void startElement( String namespaceURI, String sName, String qName, Attributes attrs ) {
-		Effect newEffect = null;
+	     newEffect = null;
 		
 		// If it is a cancel-action tag
 		if( qName.equals( "cancel-action" ) ) {
@@ -311,10 +359,49 @@ public class EffectSubParser extends SubParser {
             readingRandomEffect = true;
             positiveBlockRead = false;
         }
+	// wait-time effect
+        else if( qName.equals( "wait-time" ) ) {
+		int time=0;
+		for( int i = 0; i < attrs.getLength( ); i++ ) {
+			if( attrs.getQName( i ).equals( "time" ) )
+			    time = Integer.parseInt( attrs.getValue( i ) );
+		}
+
+		// Add the new move NPC effect
+		newEffect=  new WaitTimeEffect( time  ) ;
+	}
+		
+	// show-text effect
+        else if( qName.equals( "show-text" ) ) {
+		x = 0;
+		y = 0;
+		frontColor=0;
+		borderColor=0;
+		for( int i = 0; i < attrs.getLength( ); i++ ) {
+			if( attrs.getQName( i ).equals( "x" ) )
+				x = Integer.parseInt( attrs.getValue( i ) );
+			else if( attrs.getQName( i ).equals( "y" ) )
+				y = Integer.parseInt( attrs.getValue( i ) );
+			else if( attrs.getQName( i ).equals( "frontColor" ) )
+			    frontColor = Integer.parseInt( attrs.getValue( i ) );
+			else if( attrs.getQName( i ).equals( "borderColor" ) )
+			    borderColor = Integer.parseInt( attrs.getValue( i ) );
+		}
+
+		
+	}// If it is a condition tag, create new conditions and switch the state
+	else if( qName.equals( "condition" ) ) {
+		currentConditions = new Conditions( );
+		subParser = new ConditionSubParser( currentConditions, chapter );
+		subParsing = SUBPARSING_CONDITION;
+	}
 
 		// Not reading Random effect: Add the new Effect if not null
 		if (!readingRandomEffect && newEffect!=null){
 			effects.add( newEffect );
+			// Store current effect
+			currentEffect = newEffect;
+			
 		}
 
 		// Reading random effect
@@ -335,7 +422,15 @@ public class EffectSubParser extends SubParser {
 				readingRandomEffect = false;
 				randomEffect = null;
 			}
+			// Store current effect
+			currentEffect = newEffect;
+			
 
+		}
+		
+		// If it is reading an effect or a condition, spread the call
+		if( subParsing != SUBPARSING_NONE ) {
+			subParser.startElement( namespaceURI, sName, qName, attrs );
 		}
 
 	}
@@ -348,7 +443,9 @@ public class EffectSubParser extends SubParser {
 	 */
 	public void endElement( String namespaceURI, String sName, String qName ) {
 		
-		Effect newEffect = null;
+	 // If no element is being subparsed
+		if( subParsing == SUBPARSING_NONE ) {
+		    newEffect = null;
 		
 		// If it is a speak-player
 		if( qName.equals( "speak-player" ) ) {
@@ -360,11 +457,20 @@ public class EffectSubParser extends SubParser {
 		else if( qName.equals( "speak-char" ) ) {
 			// Add the effect and clear the current string
 			newEffect = new SpeakCharEffect( currentCharIdTarget, currentString.toString( ).trim( ) ) ;
+		}// If it is a show-text
+		else if( qName.equals( "show-text" ) ) {
+		    	// Add the new ShowTextEffect
+			newEffect=  new ShowTextEffect( currentString.toString( ).trim( ), x, y ,frontColor, borderColor) ;
 		}
+		
+		
 		
 		// Not reading Random effect: Add the new Effect if not null
 		if (!readingRandomEffect && newEffect!=null){
 			effects.add( newEffect );
+			// Store current effect
+			currentEffect = newEffect;
+			
 		}
 
 		// Reading random effect
@@ -385,10 +491,47 @@ public class EffectSubParser extends SubParser {
 				readingRandomEffect = false;
 				randomEffect = null;
 			}
+			// Store current effect
+			currentEffect = newEffect;
+			
 
 		}
+		
+		
 
 		// Reset the current string
 		currentString = new StringBuffer( );
 	}
+		// If a condition is being subparsed
+		else if( subParsing == SUBPARSING_CONDITION ) {
+			// Spread the call
+			subParser.endElement( namespaceURI, sName, qName );
+
+			// If the condition tag is being closed
+			if( qName.equals( "condition" ) ) {
+			    // Store the conditions in the effect
+			    currentEffect.setConditions( currentConditions );
+
+				// Switch state
+				subParsing = SUBPARSING_NONE;
+			}
+		}
+
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see es.eucm.eadventure.engine.loader.subparsers.SubParser#characters(char[], int, int)
+	 */
+	public void characters( char[] buf, int offset, int len ) {
+		// If no element is being subparsed
+		if( subParsing == SUBPARSING_NONE )
+			super.characters( buf, offset, len );
+
+		// If it is reading an effect or a condition, spread the call
+		else
+			subParser.characters( buf, offset, len );
+	}
+	
 }
