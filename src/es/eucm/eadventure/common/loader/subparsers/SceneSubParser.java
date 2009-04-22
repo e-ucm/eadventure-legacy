@@ -469,31 +469,35 @@ public class SceneSubParser extends SubParser {
 
 			// If it is an exit tag, store the exit in the scene
 			else if( qName.equals( "exit" ) ) {
-				for (NextScene nextScene : currentExit.getNextScenes()) {
-					try {
-						Exit exit = (Exit) currentExit.clone();
-						exit.setNextScenes(new ArrayList<NextScene>());
-						exit.setDestinyX(nextScene.getPositionX());
-						exit.setDestinyY(nextScene.getPositionY());
-						exit.setEffects(nextScene.getEffects());
-						exit.setPostEffects(nextScene.getPostEffects());
-						if (exit.getDefaultExitLook() == null)
-							exit.setDefaultExitLook(nextScene.getExitLook());
-						else {
-							if (nextScene.getExitLook() != null) {
-								if (nextScene.getExitLook().getExitText() != null && !nextScene.getExitLook().getExitText().equals(""))
-									exit.getDefaultExitLook().setExitText(nextScene.getExitLook().getExitText());
-								if (nextScene.getExitLook().getCursorPath() != null && !nextScene.getExitLook().getCursorPath().equals(""))
-									exit.getDefaultExitLook().setCursorPath(nextScene.getExitLook().getCursorPath());
+				if (currentExit.getNextScenes().size() > 0) {
+					for (NextScene nextScene : currentExit.getNextScenes()) {
+						try {
+							Exit exit = (Exit) currentExit.clone();
+							exit.setNextScenes(new ArrayList<NextScene>());
+							exit.setDestinyX(nextScene.getPositionX());
+							exit.setDestinyY(nextScene.getPositionY());
+							exit.setEffects(nextScene.getEffects());
+							exit.setPostEffects(nextScene.getPostEffects());
+							if (exit.getDefaultExitLook() == null)
+								exit.setDefaultExitLook(nextScene.getExitLook());
+							else {
+								if (nextScene.getExitLook() != null) {
+									if (nextScene.getExitLook().getExitText() != null && !nextScene.getExitLook().getExitText().equals(""))
+										exit.getDefaultExitLook().setExitText(nextScene.getExitLook().getExitText());
+									if (nextScene.getExitLook().getCursorPath() != null && !nextScene.getExitLook().getCursorPath().equals(""))
+										exit.getDefaultExitLook().setCursorPath(nextScene.getExitLook().getCursorPath());
+								}
 							}
+							exit.setHasNotEffects(false);
+							exit.setConditions(nextScene.getConditions());
+							exit.setNextSceneId(nextScene.getTargetId());
+							scene.addExit(exit);
+						} catch (CloneNotSupportedException e) {
+							e.printStackTrace();
 						}
-						exit.setHasNotEffects(false);
-						exit.setConditions(nextScene.getConditions());
-						exit.setNextSceneId(nextScene.getTargetId());
-						scene.addExit(exit);
-					} catch (CloneNotSupportedException e) {
-						e.printStackTrace();
 					}
+				} else {
+					scene.addExit(currentExit);
 				}
 				//scene.addExit( currentExit );
 				reading = READING_NONE;

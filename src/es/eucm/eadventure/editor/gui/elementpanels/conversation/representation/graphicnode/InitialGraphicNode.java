@@ -26,9 +26,9 @@ public class InitialGraphicNode extends GraphicNode {
 	}
 
 	@Override
-	public void drawNode( Graphics g ) {
+	public void drawNode( float scale, Graphics g ) {
 		// Paint the circle
-		super.drawNode( g );
+		super.drawNode( scale, g );
 
 		// Write a I inside the node
 		g.setColor( SystemColor.control );

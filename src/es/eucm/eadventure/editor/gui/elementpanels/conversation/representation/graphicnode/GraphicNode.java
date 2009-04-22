@@ -101,22 +101,24 @@ public class GraphicNode {
 
 	/**
 	 * Returns the position of the selected GraphicNode child.
+	 * @param scale 
 	 * 
 	 * @param index
 	 *            Index of child
 	 * @return The position of the given child node
 	 */
-	public Point getChildPosition( int index ) {
-		return children.get( index ).getPosition( );
+	public Point getChildPosition( float scale, int index ) {
+		return children.get( index ).getPosition( scale );
 	}
 
 	/**
 	 * Returns the position of the node in the canvas.
+	 * @param scale 
 	 * 
 	 * @return The position of the node
 	 */
-	public Point getPosition( ) {
-		return position;
+	public Point getPosition(float scale ) {
+		return new Point( (int) (position.x * scale) , (int) (position.y * scale));
 	}
 
 	/**
@@ -147,13 +149,17 @@ public class GraphicNode {
 
 	/**
 	 * Draws the current node in the stored position.
+	 * @param scale 
 	 * 
 	 * @param g
 	 *            Graphics for drawing
 	 */
-	public void drawNode( Graphics g ) {
+	public void drawNode( float scale, Graphics g ) {
 		// Draws a black circle
 		g.setColor( Color.BLACK );
-		g.fillOval( (int) position.getX( ) - NODE_RADIUS, (int) position.getY( ) - NODE_RADIUS, NODE_DIAMETER, NODE_DIAMETER );
+		int x = (int) ((position.getX( ) - NODE_RADIUS) * scale);
+		int y = (int) ((position.getY( ) - NODE_RADIUS) * scale);
+		int d = (int) (NODE_DIAMETER * scale);
+		g.fillOval( x, y, d, d );
 	}
 }

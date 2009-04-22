@@ -238,13 +238,14 @@ public class AdaptationProfileDataControl extends DataControl{
 			dataControl.updateVarFlagSummary( varFlagSummary );
 		
 		//Update the initial state
-		for (String flag: profile.getAdaptedState().getFlagsVars( )){
-		    if (profile.getAdaptedState().isFlag(flag))
-			varFlagSummary.addFlagReference( flag );
-		    else 
-			varFlagSummary.addVarReference(flag);
+		if (profile != null && profile.getAdaptedState() != null) {
+	 		for (String flag: profile.getAdaptedState().getFlagsVars( )){
+			    if (profile.getAdaptedState().isFlag(flag))
+				varFlagSummary.addFlagReference( flag );
+			    else 
+				varFlagSummary.addVarReference(flag);
+			}
 		}
-		
 	}
 
 	/**

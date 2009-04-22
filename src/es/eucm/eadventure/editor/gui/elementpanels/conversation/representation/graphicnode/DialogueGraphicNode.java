@@ -27,9 +27,9 @@ public class DialogueGraphicNode extends GraphicNode {
 	}
 
 	@Override
-	public void drawNode( Graphics g ) {
+	public void drawNode( float scale, Graphics g ) {
 		// Paint the circle
-		super.drawNode( g );
+		super.drawNode( scale, g );
 
 		// Set color and font
 		g.setColor( SystemColor.control );

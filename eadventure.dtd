@@ -37,7 +37,7 @@
 	%position;
 >
 <!ELEMENT exits (exit+)>
-<!ELEMENT exit (documentation?, exit-look?, next-scene+, point*, condition?, effect?, post-effect?, not-effect?)>
+<!ELEMENT exit (documentation?, exit-look?, next-scene?, point*, condition?, effect?, post-effect?, not-effect?)>
 <!ATTLIST exit
 	rectangular (yes | no) "yes"
 	%rectangle; 
