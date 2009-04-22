@@ -9,13 +9,14 @@ import javax.swing.ScrollPaneConstants;
 
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
 import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
+import es.eucm.eadventure.editor.gui.Updateable;
 
 /**
  * This class centralizes all the operations for conversation structures and nodes. It has two panels, a panel to
  * represent the conversation graphically (RepresentationPanel), and a panel to display and edit the content of nodes
  * (LinesPanel). It also has a status bar which informs the user of the status of the application
  */
-public class ConversationPanel extends JPanel {
+public class ConversationPanel extends JPanel implements Updateable {
 
 	/**
 	 * Required
@@ -207,5 +208,11 @@ public class ConversationPanel extends JPanel {
 	
 	public void changeScale(float scale) {
 		
+	}
+
+	@Override
+	public boolean updateFields() {
+		representationPanel.repaint( );
+		return true;
 	}
 }

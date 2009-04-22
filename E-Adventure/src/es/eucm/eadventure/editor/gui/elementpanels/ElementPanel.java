@@ -60,8 +60,7 @@ public class ElementPanel extends JTabbedPane implements Updateable, DataControl
 	@Override
 	public boolean updateFields() {
 		boolean update = false;
-		if (getSelectedComponent() instanceof Updateable)
-			update = ((Updateable) tabs.get(this.getSelectedIndex())).updateFields();
+		update = tabs.get(this.getSelectedIndex()).updateFields();
 		if (!update) {
 	    	((JPanel) getSelectedComponent()).removeAll();
 	    	PanelTab tab = tabs.get(getSelectedIndex());

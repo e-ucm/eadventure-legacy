@@ -35,13 +35,14 @@ import es.eucm.eadventure.editor.control.controllers.scene.ExitDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ExitsListDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.NodeDataControl;
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
+import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.editdialogs.ConditionsDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.EffectsDialog;
 import es.eucm.eadventure.editor.gui.elementpanels.DataControlSelectionListener;
 import es.eucm.eadventure.editor.gui.otherpanels.IrregularAreaEditionPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 
-public class ExitsListPanel extends JPanel implements DataControlsPanel, DataControlSelectionListener {
+public class ExitsListPanel extends JPanel implements DataControlsPanel, DataControlSelectionListener, Updateable {
 
 	/**
 	 * Required.
@@ -318,6 +319,17 @@ public class ExitsListPanel extends JPanel implements DataControlsPanel, DataCon
 		} else {
 			table.clearSelection();
 		}
+	}
+
+
+	@Override
+	public boolean updateFields() {
+		int selection = table.getSelectedRow();
+		((AbstractTableModel) table.getModel()).fireTableDataChanged();
+		table.clearSelection();
+		if (selection != -1)
+			table.changeSelection(selection, selection, false, false);
+		return true;
 	}
 	
 }
