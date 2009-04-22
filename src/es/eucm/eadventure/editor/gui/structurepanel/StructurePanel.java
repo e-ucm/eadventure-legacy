@@ -237,12 +237,14 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
 
 	public void reloadElementPanel() {
 		editorContainer.removeAll();
-		if (selectedListItem == -1) {
+		if (list == null || list.getSelectedRow() == -1) {
 			editorContainer.add(structureElements.get(selectedElement).getEditPanel());
 			StructureControl.getInstance().visitDataControl(structureElements.get(selectedElement).getDataControl());
 		} else {
-			list.changeSelection(selectedListItem, 0, false, false);
+			editorContainer.add(structureElements.get(selectedElement).getChild(list.getSelectedRow()).getEditPanel());
 		}
+		editorContainer.validate( );
+		editorContainer.repaint( );
 	}
 
 	

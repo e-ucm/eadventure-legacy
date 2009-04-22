@@ -134,6 +134,7 @@ Por favor, seleccione una de las siguientes opciones:
 	<entry key="GeneralText.NewFolder">Nueva carpeta</entry>
 	<entry key="GeneralText.Rename">Renombrar</entry>
 	<entry key="GeneralText.AddNew">Añadir nuevo/a</entry>
+	<entry key="GeneralText.Edit">Editar</entry>
 
 	<entry key="GeneralText.FinishingBackup">Creando copia de seguridad</entry>
 	<entry key="ErrorSolving.Chapter.NotReplaced.Title">Error al reemplazar el capítulo.</entry>

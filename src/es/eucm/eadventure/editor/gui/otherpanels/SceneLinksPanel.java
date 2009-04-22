@@ -29,6 +29,7 @@ import es.eucm.eadventure.editor.control.config.SceneLinksConfigData;
 import es.eucm.eadventure.editor.control.controllers.SceneLinksController;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ScenesListDataControl;
+import es.eucm.eadventure.editor.gui.elementpanels.general.tables.EditDataControlCellRendererEditor;
 import es.eucm.eadventure.editor.gui.otherpanels.scenelistelements.ActiveAreaElement;
 import es.eucm.eadventure.editor.gui.otherpanels.scenelistelements.ExitElement;
 import es.eucm.eadventure.editor.gui.otherpanels.scenelistelements.ItemReferenceElement;
@@ -117,7 +118,7 @@ public class SceneLinksPanel extends JPanel {
 			}
 			
 			sceneElements.add(element);
-			dtm.addRow(new Object[]{new Boolean(element.isVisible()),element.getId()}); 
+			dtm.addRow(new Object[]{new Boolean(element.isVisible()),element.getId(),element.getDataControl()}); 
 		}
 		
 		SceneLinksController controller = new SceneLinksController(this);
@@ -152,7 +153,7 @@ public class SceneLinksPanel extends JPanel {
 	 */
 	private JScrollPane createCheckBoxTable() {
 		
-		String colNames[] = {TextConstants.getText("SceneLinksPanel.Show"), TextConstants.getText("SceneLinksPanel.SceneID")}; 
+		String colNames[] = {TextConstants.getText("SceneLinksPanel.Show"), TextConstants.getText("SceneLinksPanel.SceneID"), TextConstants.getText("GeneralText.Edit")}; 
 		Object[][] data = null; 
 		
 		dtm = new DefaultTableModel(data, colNames);
@@ -170,6 +171,9 @@ public class SceneLinksPanel extends JPanel {
 				return false;
 			}			
 		});
+		tc = checkBoxes.getColumnModel().getColumn(2);
+		tc.setCellEditor(new EditDataControlCellRendererEditor());
+		tc.setCellRenderer(new EditDataControlCellRendererEditor());
 		dtm.addTableModelListener(new TableModelListener(){ 
 			public void tableChanged(TableModelEvent tme) { 
 				if (tme.getType() == TableModelEvent.UPDATE) { 
@@ -182,6 +186,7 @@ public class SceneLinksPanel extends JPanel {
 				} 
 			} 
 		}); 
+
 		return new JScrollPane(checkBoxes, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 	}
 
