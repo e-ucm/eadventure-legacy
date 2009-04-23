@@ -84,6 +84,7 @@ public class ConversationDOMWriter {
 			for( int i = 0; i < currentNode.getLineCount( ); i++ ) {
 				// Create a phrase element, and extract the actual text line
 				Element phrase;
+				Node conditionsNode = null;
 				ConversationLine line = currentNode.getLine( i );
 
 				// If the line belongs to the player, create a "speak-player" element. Otherwise, if it belongs to a
@@ -112,6 +113,13 @@ public class ConversationDOMWriter {
 				
 				// Add the element to the DOM root
 				rootDOMNode.appendChild( phrase );
+				
+				// Create conditions for current effect
+				conditionsNode = ConditionsDOMWriter.buildDOM(line.getConditions());
+				document.adoptNode( conditionsNode );
+				
+				// Add conditions associated to that effect
+				rootDOMNode.appendChild(conditionsNode);
 			}
 
 			

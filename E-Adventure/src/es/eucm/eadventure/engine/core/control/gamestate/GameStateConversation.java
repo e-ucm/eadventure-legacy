@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import es.eucm.eadventure.engine.core.control.DebugLog;
 import es.eucm.eadventure.engine.core.control.Game;
+import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
 import es.eucm.eadventure.engine.core.control.functionaldata.TalkingElement;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffect;
@@ -359,9 +360,9 @@ public class GameStateConversation extends GameState {
         if( game.getCharacterCurrentlyTalking( ) != null && game.getCharacterCurrentlyTalking( ).isTalking( ) )
             game.getCharacterCurrentlyTalking( ).stopTalking();
         
-        if( currentLine < currentNode.getLineCount( ) )
+        if( currentLine < currentNode.getLineCount( ) && new FunctionalConditions(currentNode.getLine(currentLine).getConditions()).allConditionsOk())
         	playNextLineInNode();
-        else
+        else 
         	skipToNextNode();
     }
 

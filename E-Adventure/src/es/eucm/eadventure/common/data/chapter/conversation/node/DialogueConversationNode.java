@@ -3,6 +3,7 @@ package es.eucm.eadventure.common.data.chapter.conversation.node;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine;
 import es.eucm.eadventure.common.data.chapter.effects.Effects;
 
@@ -199,6 +200,16 @@ public class DialogueConversationNode extends ConversationNode {
 		dcn.nextNode = null;
 		dcn.terminal = terminal;
 		return dcn;
+	}
+
+	@Override
+	public Conditions getLineConditions(int index) {
+	   return dialogue.get(index).getConditions();
+	}
+
+	@Override
+	public ConversationLine getConversationLine(int index) {
+	    return dialogue.get(index);
 	}
 
 }

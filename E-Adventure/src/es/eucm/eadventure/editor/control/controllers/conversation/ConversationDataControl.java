@@ -5,10 +5,12 @@ import java.util.List;
 
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.conversation.Conversation;
+import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
 import es.eucm.eadventure.common.data.chapter.conversation.node.OptionConversationNode;
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
@@ -468,4 +470,12 @@ public abstract class ConversationDataControl extends DataControl {
 		}
 		return valid;
 	}
+	
+	/**
+	 * Returns the conditions controller associated to the given conversation line
+	 * @param convLine
+	 * @return Conditions controller
+	 * 		
+	 */
+	public abstract ConditionsController getLineConditionController(ConversationLine convLine);
 }

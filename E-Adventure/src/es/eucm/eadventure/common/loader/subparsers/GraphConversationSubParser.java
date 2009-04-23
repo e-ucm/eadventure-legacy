@@ -6,6 +6,7 @@ import java.util.List;
 import org.xml.sax.Attributes;
 
 import es.eucm.eadventure.common.data.chapter.Chapter;
+import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.common.data.chapter.conversation.GraphConversation;
 import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
@@ -29,6 +30,11 @@ public class GraphConversationSubParser extends SubParser {
 	 * Constant for subparsing effect tag
 	 */
 	private static final int SUBPARSING_EFFECT = 1;
+	
+	/**
+	 * Constant for subparsing conditions
+	 */
+	private static final int SUBPARSING_CONDITION = 2;
 
 	/**
 	 * Stores the current element being subparsed
@@ -69,7 +75,7 @@ public class GraphConversationSubParser extends SubParser {
 	/**
 	 * Subparser for the effect
 	 */
-	private SubParser effectSubParser;
+	private SubParser subParser;
 
 	/**
 	 * Name of the last non-player character read, "NPC" is no name were found
@@ -90,6 +96,17 @@ public class GraphConversationSubParser extends SubParser {
 	 * Check if a conversation line must be synthesize
 	 */
 	private Boolean synthesizerVoice;
+	
+	/**
+	 * Stores the current conditions being read
+	 */
+	 private Conditions currentConditions;
+	 
+	 /**
+	  * Store the current conversation line
+	  */
+	 private ConversationLine conversationLine;
+	    
 	
 	/* Methods */
 
@@ -211,14 +228,19 @@ public class GraphConversationSubParser extends SubParser {
 			else if( qName.equals( "effect" ) ) {
 				// Create the new effects, and the subparser
 				currentEffects = new Effects( );
-				effectSubParser = new EffectSubParser( currentEffects, chapter );
+				subParser = new EffectSubParser( currentEffects, chapter );
 				subParsing = SUBPARSING_EFFECT;
+			}// If it is a condition tag, create new conditions and switch the state
+			else if( qName.equals( "condition" ) ) {
+				currentConditions = new Conditions( );
+				subParser = new ConditionSubParser( currentConditions, chapter );
+				subParsing = SUBPARSING_CONDITION;
 			}
 		}
 
 		// If we are subparsing an effect, spread the call
-		if( subParsing == SUBPARSING_EFFECT ) {
-			effectSubParser.startElement( namespaceURI, sName, qName, attrs );
+		if( subParsing == SUBPARSING_EFFECT || subParsing == SUBPARSING_CONDITION) {
+			subParser.startElement( namespaceURI, sName, qName, attrs );
 		}
 	}
 
@@ -250,14 +272,14 @@ public class GraphConversationSubParser extends SubParser {
 				// Store the read string into the current node, and then delete the string. The trim is performed so we
 				// don't
 				// have to worry with indentations or leading/trailing spaces
-				ConversationLine line =new ConversationLine( ConversationLine.PLAYER, new String( currentString ).trim( ) );
+				conversationLine =new ConversationLine( ConversationLine.PLAYER, new String( currentString ).trim( ) );
 				if (audioPath!=null && !this.audioPath.equals( "" )){
-					line.setAudioPath( audioPath );
+				    conversationLine.setAudioPath( audioPath );
 				}
 				if (synthesizerVoice!=null)
-					line.setSynthesizerVoice(synthesizerVoice);
+				    conversationLine.setSynthesizerVoice(synthesizerVoice);
 				
-				currentNode.addLine( line );
+				currentNode.addLine( conversationLine );
 			}
 
 			// If the tag is a line said by a non-player character, add it to the current node
@@ -265,13 +287,13 @@ public class GraphConversationSubParser extends SubParser {
 				// Store the read string into the current node, and then delete the string. The trim is performed so we
 				// don't
 				// have to worry with indentations or leading/trailing spaces
-				ConversationLine line =new ConversationLine( characterName, new String( currentString ).trim( ) );
+			    	conversationLine =new ConversationLine( characterName, new String( currentString ).trim( ) );
 				if (audioPath!=null && !this.audioPath.equals( "" )){
-					line.setAudioPath( audioPath );
+				    conversationLine.setAudioPath( audioPath );
 				}
 				if (synthesizerVoice!=null)
-					line.setSynthesizerVoice(synthesizerVoice);
-				currentNode.addLine( line );
+				    conversationLine.setSynthesizerVoice(synthesizerVoice);
+				currentNode.addLine( conversationLine );
 			}
 
 			// Reset the current string
@@ -279,15 +301,20 @@ public class GraphConversationSubParser extends SubParser {
 		}
 
 		// If we are subparsing an effect
-		else if( subParsing == SUBPARSING_EFFECT ) {
+		else if( subParsing == SUBPARSING_EFFECT ||subParsing == SUBPARSING_CONDITION ) {
 			// Spread the call
-			effectSubParser.endElement( namespaceURI, sName, qName );
+			subParser.endElement( namespaceURI, sName, qName );
 
 			// If the effect is being closed, insert the effect into the current node
 			if( qName.equals( "effect" ) ) {
 				currentNode.setEffects( currentEffects );
 				subParsing = SUBPARSING_NONE;
 			}
+			 // If the effect is being closed, insert the effect into the current node
+			else if( qName.equals( "condition" ) ) {
+			    		conversationLine.setConditions(currentConditions);
+					subParsing = SUBPARSING_NONE;
+				}
 		}
 	}
 
@@ -302,8 +329,8 @@ public class GraphConversationSubParser extends SubParser {
 			super.characters( buf, offset, len );
 
 		// If an effect is being subparsed, spread the call
-		else if( subParsing == SUBPARSING_EFFECT )
-			effectSubParser.characters( buf, offset, len );
+		else if( subParsing == SUBPARSING_EFFECT || subParsing == SUBPARSING_CONDITION )
+			subParser.characters( buf, offset, len );
 	}
 
 	/**

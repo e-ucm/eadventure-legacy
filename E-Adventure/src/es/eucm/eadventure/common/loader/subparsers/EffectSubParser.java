@@ -122,7 +122,7 @@ public class EffectSubParser extends SubParser {
 	 */
 	public void startElement( String namespaceURI, String sName, String qName, Attributes attrs ) {
 	     newEffect = null;
-		
+	
 		// If it is a cancel-action tag
 		if( qName.equals( "cancel-action" ) ) {
 			newEffect= new CancelActionEffect( ) ;

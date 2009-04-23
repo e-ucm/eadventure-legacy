@@ -3,6 +3,7 @@ package es.eucm.eadventure.editor.control.controllers.conversation;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.common.data.chapter.conversation.Conversation;
 import es.eucm.eadventure.common.data.chapter.conversation.GraphConversation;
 import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine;
@@ -11,6 +12,7 @@ import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
+import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.control.tools.conversation.DeleteConversationNodeTool;
@@ -23,6 +25,11 @@ public class GraphConversationDataControl extends ConversationDataControl {
 	 * Reference to the graph conversation.
 	 */
 	private GraphConversation graphConversation;
+	
+	/**
+	 * A list with each conversation line conditions controller
+	 */
+	private List<ConditionsController> allConditions;
 
 	/**
 	 * Constructor.
@@ -32,6 +39,7 @@ public class GraphConversationDataControl extends ConversationDataControl {
 	 */
 	public GraphConversationDataControl( GraphConversation graphConversation ) {
 		this.graphConversation = graphConversation;
+		storeAllConditions();
 	}
 
 	@Override
@@ -49,6 +57,52 @@ public class GraphConversationDataControl extends ConversationDataControl {
 		return graphConversation.getRootNode( );
 	}
 
+	/**
+	 * Store all line conditions in allConditions
+	 */
+	private void storeAllConditions(){
+	    	allConditions = new ArrayList<ConditionsController>();
+	    	// Take all the nodes, and add the line count of each one
+		List<ConversationNodeView> nodes = getAllNodes( );
+		for( ConversationNodeView node : nodes ){
+		    for (int i=0;i<node.getLineCount();i++){
+			allConditions.add(new ConditionsController(node.getLineConditions(i)));
+		    }
+		}	    
+	}
+	
+	/**
+	 * Returns the conditions controller associated to the given conversation line
+	 * @param convLine
+	 * @return Conditions controller
+	 * 		
+	 */
+	public ConditionsController getLineConditionController(ConversationLine convLine){
+	    int lineNumber = getLineNumber(convLine);
+	    return allConditions.get(lineNumber);
+	}
+	
+	/**
+	 * Returns the conversation line number, relative to allConditions.
+	 * @param convNode
+	 * @return
+	 */
+	private int getLineNumber(ConversationLine convLine){
+	    	int lineNumber=0;
+	    	// Take all the nodes, and add the line count of each one
+		List<ConversationNodeView> nodes = getAllNodes( );
+		for( ConversationNodeView node : nodes ){
+		    for (int i=0;i<node.getLineCount();i++){
+			if (convLine == node.getConversationLine(i)){
+			    return lineNumber;
+			} else {
+			    lineNumber++;
+			}
+		    }
+		}
+		return lineNumber;
+	}
+	
 	@Override
 	public int getConversationLineCount( ) {
 		int lineCount = 0;

@@ -26,6 +26,7 @@ import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
+import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ConditionsCellRendererEditor;
 import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
@@ -147,6 +148,15 @@ class LinesPanel extends JPanel {
 		lineTable.getColumnModel( ).getColumn( 0 ).setMaxWidth( 30 );
 		lineTable.getColumnModel( ).getColumn( 1 ).setMaxWidth( 60 );
 		lineTable.getColumnModel( ).getColumn( 3 ).setMaxWidth( 30 );
+		lineTable.getColumnModel().getColumn(4).setMaxWidth(120);
+		lineTable.getColumnModel().getColumn(4).setMinWidth(120);
+		lineTable.getColumnModel().getColumn(4).setWidth(120);
+		
+		
+		// Conditions column cell renderer and editor
+		lineTable.getColumnModel().getColumn(4).setCellRenderer(new ConditionsCellRendererEditor());
+		lineTable.getColumnModel().getColumn(4).setCellEditor(new ConditionsCellRendererEditor());
+		
 
 		// Selection properties
 		lineTable.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
@@ -617,6 +627,10 @@ class LinesPanel extends JPanel {
 		}
 	}
 	
+	/**
+	 * Listener for synthesizer button
+	 *
+	 */
 	private class ListenerButtonEditSynthesizer implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
@@ -728,8 +742,8 @@ class LinesPanel extends JPanel {
 		 * @see javax.swing.table.TableModel#getColumnCount()
 		 */
 		public int getColumnCount( ) {
-			// All line tables has three columns
-			return 4;
+			// All line tables has five columns
+			return 5;
 		}
 
 		/*
@@ -751,11 +765,11 @@ class LinesPanel extends JPanel {
 
 			// If the node is a dialogue node, the character name and the text are editable
 			if( node.getType( ) == ConversationNodeView.DIALOGUE )
-				isEditable = columnIndex > 0 && columnIndex<3;
+				isEditable = (columnIndex > 0 && columnIndex<3)||columnIndex==4;
 
 			// If the node is an option node, only the text is editable
 			else if( node.getType( ) == ConversationNodeView.OPTION )
-				isEditable = columnIndex > 1 && columnIndex<3;
+				isEditable = (columnIndex > 1 && columnIndex<3)||columnIndex==4;
 
 			return isEditable;
 		}
@@ -816,6 +830,11 @@ class LinesPanel extends JPanel {
 						// Has audio or not
 						value = node.hasAudioPath( rowIndex )?"Audio":"";
 						break;
+						
+					case 4:
+					    	// Conditions
+						 value = conversationDataControl.getLineConditionController(node.getConversationLine(rowIndex));
+						 break;
 				}
 			}
 

@@ -1,5 +1,8 @@
 package es.eucm.eadventure.common.data.chapter.conversation.node;
 
+import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
+import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine;
+
 public interface ConversationNodeView extends Cloneable {
 
 	/**
@@ -99,4 +102,22 @@ public interface ConversationNodeView extends Cloneable {
 	 * @return True if the node has a set of effects, false otherwise
 	 */
 	public boolean hasEffects( );
+	
+	/**
+	 * Returns the conditions of the line in the given index.
+	 * 
+	 * @param index
+	 *            Index of the line
+	 * @return Conditions of the line
+	 */
+	public Conditions getLineConditions(int index);
+	
+	/**
+	 * Returns the conversation line in the given index.
+	 * 
+	 * @param index
+	 *            Index of the line
+	 * @return Conversation Line
+	 */
+	public ConversationLine getConversationLine(int index);
 }
