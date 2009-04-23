@@ -243,16 +243,13 @@ public class ExitsListDataControl extends DataControl {
 		// Spread the call to every exit
 		for( ExitDataControl exitDataControl : exitsDataControlList )
 			exitDataControl.deleteIdentifierReferences( id );
-
-		// If some exit has no next scene elements, delete it
+		
 		int i = 0;
 		while( i < exitsList.size( ) ) {
-			if( exitsList.get( i ).getNextScenes( ).size( ) == 0 ) {
+			if( exitsList.get( i ).getNextSceneId() == null ) {
 				exitsList.remove( i );
 				exitsDataControlList.remove( i );
-			}
-
-			else
+			} else
 				i++;
 		}
 	}

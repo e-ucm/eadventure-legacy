@@ -1,34 +1,29 @@
 package es.eucm.eadventure.editor.gui.elementpanels.conversation;
 
-import java.awt.Dimension;
+import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.BorderFactory;
-import javax.swing.DefaultCellEditor;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
-import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
+
 import es.eucm.eadventure.editor.control.controllers.conversation.GraphConversationDataControl;
-import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ConditionsCellRendererEditor;
-import es.eucm.eadventure.common.data.chapter.conversation.GraphConversation;
 import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
@@ -63,7 +58,7 @@ class LinesPanel extends JPanel {
 	/**
 	 * Table in which the node lines are represented
 	 */
-	private JTable lineTable;
+	private LinesTable lineTable;
 
 	/**
 	 * Scroll panel that holds the table
@@ -89,12 +84,7 @@ class LinesPanel extends JPanel {
 	 * "Delete line" button
 	 */
 	private JButton deleteLineButton;
-	
-	/**
-	 * "Edit audio" button
-	 */
-	private JButton editAudioButton;
-	
+		
 	/**
 	 * "Edit effect" button
 	 */
@@ -109,11 +99,8 @@ class LinesPanel extends JPanel {
 	 * "Delete option" button
 	 */
 	private JButton deleteOptionButton;
-	
-	/**
-	 * "Edit Synthesizer" button
-	 */
-	private JButton editSynthesizeButton;
+
+	private JButton insertOptionButton;
 	
 	/**
 	 * Select the player or any exists character to speak selected conversation line
@@ -142,77 +129,61 @@ class LinesPanel extends JPanel {
 		setLayout( new GridBagLayout( ) );
 
 		/* Common elements (for Node and Option panels) */
-		// Create the table with an empty model
-		lineTable = new JTable( new NodeTableModel( null ) );
-
-		// Column size properties
-		lineTable.setAutoCreateColumnsFromModel( false );
-		lineTable.getColumnModel( ).getColumn( 0 ).setMaxWidth( 30 );
-		lineTable.getColumnModel( ).getColumn( 1 ).setMaxWidth( 60 );
-		lineTable.getColumnModel( ).getColumn( 3 ).setMaxWidth( 30 );
-		lineTable.getColumnModel().getColumn(4).setMaxWidth(120);
-		lineTable.getColumnModel().getColumn(4).setMinWidth(120);
-		lineTable.getColumnModel().getColumn(4).setWidth(120);
-		
-		
-		// Conditions column cell renderer and editor
-		lineTable.getColumnModel().getColumn(4).setCellRenderer(new ConditionsCellRendererEditor());
-		lineTable.getColumnModel().getColumn(4).setCellEditor(new ConditionsCellRendererEditor());
-		
-
-		// Selection properties
-		lineTable.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
-		lineTable.setCellSelectionEnabled( false );
-		lineTable.setColumnSelectionAllowed( false );
-		lineTable.setRowSelectionAllowed( true );
-
-		// Misc properties
-		lineTable.setTableHeader( null );
-		lineTable.setIntercellSpacing( new Dimension( 1, 1 ) );
-
-		// Add selection listener to the table
+		lineTable = new LinesTable( conversationDataControl , this);
 		lineTable.getSelectionModel( ).addListSelectionListener( new NodeTableSelectionListener( ) );
 
 		// Table scrollPane
 		tableScrollPanel = new JScrollPane( lineTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER );
 
 		// Create the set of values for the characters
-		List<String> charactersList = new ArrayList<String>( );
-		charactersList.add( TextConstants.getText( "ConversationLine.PlayerName" ) );
-		String[] charactersArray = Controller.getInstance( ).getIdentifierSummary( ).getNPCIds( );
-		for( String npc : charactersArray )
-			charactersList.add( npc );
-		charactersArray = charactersList.toArray( new String[] {} );
-
-		// Set the character name editor to a ComboBox with all character names
-		JComboBox charactersComboBox = new JComboBox( charactersArray );
-		lineTable.getColumnModel( ).getColumn( 1 ).setCellEditor( new DefaultCellEditor( charactersComboBox ) );
 
 		// Up and down buttons
-		moveLineUpButton = new JButton( "/\\" );
+		moveLineUpButton = new JButton(new ImageIcon("img/icons/moveNodeUp.png"));
+		moveLineUpButton.setContentAreaFilled( false );
+		moveLineUpButton.setMargin( new Insets(0,0,0,0) );
+		moveLineUpButton.setFocusable(false);
+		moveLineUpButton.setToolTipText( TextConstants.getText( "Conversations.MoveLineUp" ) );
 		moveLineUpButton.addActionListener( new ListenerButtonMoveLineUp( ) );
-		moveLineDownButton = new JButton( "\\/" );
+		
+		
+		moveLineDownButton = new JButton(new ImageIcon("img/icons/moveNodeDown.png"));
+		moveLineDownButton.setContentAreaFilled( false );
+		moveLineDownButton.setMargin( new Insets(0,0,0,0) );
+		moveLineDownButton.setFocusable(false);
+		moveLineDownButton.setToolTipText( TextConstants.getText( "Conversations.MoveLineDown" ) );
 		moveLineDownButton.addActionListener( new ListenerButtonMoveLineDown( ) );
 		/* End of common elements */
 
 		/* Dialogue panel elements */
-		insertLineButton = new JButton( TextConstants.getText( "Conversations.InsertLine" ) );
+		insertLineButton = new JButton(new ImageIcon("img/icons/addNode.png"));
+		insertLineButton.setContentAreaFilled( false );
+		insertLineButton.setMargin( new Insets(0,0,0,0) );
+		insertLineButton.setFocusable(false);
+		insertLineButton.setToolTipText( TextConstants.getText( "Conversations.InsertLine" ) );
 		insertLineButton.addActionListener( new ListenerButtonInsertLine( ) );
-		deleteLineButton = new JButton( TextConstants.getText( "Conversations.DeleteLine" ) );
+		deleteLineButton = new JButton(new ImageIcon("img/icons/deleteNode.png"));
+		deleteLineButton.setContentAreaFilled( false );
+		deleteLineButton.setMargin( new Insets(0,0,0,0) );
+		deleteLineButton.setToolTipText(TextConstants.getText( "Conversations.DeleteLine" ));
 		deleteLineButton.addActionListener( new ListenerButtonDeleteLine( ) );
-		editAudioButton = new JButton( TextConstants.getText( "Conversations.EditAudio" ) );
-		editAudioButton.addActionListener( new ListenerButtonEditAudio( ) );
 		editEffectButton = new JButton( TextConstants.getText( "Conversations.EditEffect" ) );
 		editEffectButton.addActionListener( new ListenerButtonEditEffect( ) );
 		deleteLinkButton = new JButton( TextConstants.getText( "Conversations.DeleteLink" ) );
 		deleteLinkButton.addActionListener( new ListenerButtonDeleteLink( ) );
-		editSynthesizeButton = new JButton( TextConstants.getText( "Conversations.EditSynthesize" ) );
-		editSynthesizeButton.addActionListener( new ListenerButtonEditSynthesizer( ) );
 		/* End of dialogue panel elements */
 
 		/* Option panel elements */
-		deleteOptionButton = new JButton( TextConstants.getText( "Conversations.DeleteOption" ) );
+		deleteOptionButton = new JButton(new ImageIcon("img/icons/deleteNode.png"));
+		deleteOptionButton.setContentAreaFilled( false );
+		deleteOptionButton.setMargin( new Insets(0,0,0,0) );
+		deleteOptionButton.setToolTipText(TextConstants.getText( "Conversations.DeleteOption" ));
 		deleteOptionButton.addActionListener( new ListenerButtonDeleteOption( ) );
+		insertOptionButton = new JButton(new ImageIcon("img/icons/addNode.png"));
+		insertOptionButton.setContentAreaFilled( false );
+		insertOptionButton.setMargin( new Insets(0,0,0,0) );
+		insertOptionButton.setFocusable(false);
+		insertOptionButton.setToolTipText( TextConstants.getText( "Conversations.InsertLine" ) );
+		insertOptionButton.addActionListener( new ListenerButtonInsertOption( ) );
 		/* End of option panel elements */
 	}
 
@@ -220,61 +191,34 @@ class LinesPanel extends JPanel {
 	 * Removes all elements in the panel, and sets a dialogue node panel
 	 */
 	private void setDialoguePanel( ) {
-		// Remove all elements
 		removeAll( );
-
-		// Disable all buttons
 		moveLineUpButton.setEnabled( false );
 		moveLineDownButton.setEnabled( false );
 		deleteLineButton.setEnabled( false );
-		editAudioButton.setEnabled( false );
-		editSynthesizeButton.setEnabled(false);
-
-		// Create constraints
-		GridBagConstraints c = new GridBagConstraints( );
-
-		// Add the scroll panel (with the table)
-		c.fill = GridBagConstraints.BOTH;
-		c.insets = new Insets( 2, 2, 2, 2 );
-		c.weightx = 0.98;
-		c.weighty = 1;
+		
+		JPanel buttonsPanel = new JPanel();
+		buttonsPanel.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
 		c.gridx = 0;
 		c.gridy = 0;
-		c.gridheight = 6;
-		add( tableScrollPanel, c );
+		buttonsPanel.add( insertLineButton , c );
+		c.gridy++;
+		buttonsPanel.add( deleteLineButton , c );
+		c.anchor = GridBagConstraints.SOUTH;
+		c.gridy++;
+		buttonsPanel.add( moveLineUpButton , c );
+		c.gridy++;
+		buttonsPanel.add( moveLineDownButton , c );
 
-		// Add the up and down buttons
-		c.fill = GridBagConstraints.VERTICAL;
-		c.weightx = 0.005;
-		c.gridx = 1;
-		c.gridy = 0;
-		c.gridheight = 1;
-		add( moveLineUpButton, c );
 
-		c.gridy = 3;
-		add( moveLineDownButton, c );
-
-		// Add the insert, delete and edit buttons
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 0.015;
-		c.gridx = 2;
-		c.gridy = 0;
-		add( insertLineButton, c );
-
-		c.gridy = 1;
-		add( deleteLineButton, c );
+		JPanel generalButtonsPanel = new JPanel();
+		generalButtonsPanel.add(editEffectButton);
+		generalButtonsPanel.add(deleteLinkButton);
 		
-		c.gridy = 2;
-		add( editAudioButton, c );
-
-		c.gridy = 3;
-		add( editEffectButton, c );
-
-		c.gridy = 4;
-		add( deleteLinkButton, c );
-		
-		c.gridy = 5;
-		add( editSynthesizeButton, c );
+		setLayout(new BorderLayout());
+		add(generalButtonsPanel, BorderLayout.NORTH);
+		add(buttonsPanel, BorderLayout.EAST);
+		add(tableScrollPanel, BorderLayout.CENTER);
 	}
 
 	/**
@@ -288,49 +232,29 @@ class LinesPanel extends JPanel {
 		moveLineUpButton.setEnabled( false );
 		moveLineDownButton.setEnabled( false );
 		deleteOptionButton.setEnabled( false );
-		editAudioButton.setEnabled(false);
-		editSynthesizeButton.setEnabled(false);
 		 
-		// Create constraints
-		GridBagConstraints c = new GridBagConstraints( );
-
-		// Add the scroll panel (with the table)
-		c.fill = GridBagConstraints.BOTH;
-		c.insets = new Insets( 2, 2, 2, 2 );
-		c.weightx = 0.98;
-		c.weighty = 1;
+		
+		JPanel buttonsPanel = new JPanel();
+		buttonsPanel.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
 		c.gridx = 0;
 		c.gridy = 0;
-		c.gridheight = 6;
-		add( tableScrollPanel, c );
-
-		// Add the up and down buttons
-		c.fill = GridBagConstraints.VERTICAL;
-		c.weightx = 0.02;
-		c.gridx = 1;
-		c.gridy = 0;
-		c.gridheight = 1;
-		add( moveLineUpButton, c );
-
-		c.gridy = 5;
-		c.fill = GridBagConstraints.BOTH;
-		add( moveLineDownButton, c );
-
-		// Add the delete option button
-		c.gridy = 1;
-		add( deleteOptionButton, c );
+		buttonsPanel.add( insertOptionButton , c );
+		c.gridy++;
+		buttonsPanel.add( deleteOptionButton , c );
+		c.anchor = GridBagConstraints.SOUTH;
+		c.gridy++;
+		buttonsPanel.add( moveLineUpButton , c );
+		c.gridy++;
+		buttonsPanel.add( moveLineDownButton , c );
 		
-		// Add the sound option button
-		c.gridy = 3;
-		add(editAudioButton,c);
+		JPanel generalButtonsPanel = new JPanel();
+		generalButtonsPanel.add(editEffectButton);
 		
-		// Add the effects option button
-		c.gridy = 2;
-		add(editEffectButton,c);
-		
-		// Add the edit synthesizer button 
-		c.gridy = 4;
-		add( editSynthesizeButton, c );
+		setLayout(new BorderLayout());
+		add(generalButtonsPanel, BorderLayout.NORTH);
+		add(buttonsPanel, BorderLayout.EAST);
+		add(tableScrollPanel, BorderLayout.CENTER);
 	}
 
 	/**
@@ -341,11 +265,7 @@ class LinesPanel extends JPanel {
 		ConversationNodeView selectedNode = conversationPanel.getSelectedNode( );
 
 		// Set the new model for the table
-		lineTable.setModel( new NodeTableModel( selectedNode ) );
-
-		// Cancel the current cell being edited
-		if( lineTable.isEditing( ) )
-			lineTable.getCellEditor( ).cancelCellEditing( );
+		lineTable.newSelectedNode(selectedNode);
 
 		// If no node has been selected, remove all elements and change the panel title
 		if( selectedNode == null ) {
@@ -393,7 +313,7 @@ class LinesPanel extends JPanel {
 	}
 
 	/**
-	 * Listener for the move line up ( /\ ) button
+	 * Listener for the move line up button
 	 */
 	private class ListenerButtonMoveLineUp implements ActionListener {
 
@@ -422,7 +342,7 @@ class LinesPanel extends JPanel {
 	}
 
 	/**
-	 * Listener for the move line down ( \/ ) button
+	 * Listener for the move line down button
 	 */
 	private class ListenerButtonMoveLineDown implements ActionListener {
 
@@ -455,11 +375,6 @@ class LinesPanel extends JPanel {
 	 */
 	private class ListenerButtonInsertLine implements ActionListener {
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-		 */
 		public void actionPerformed( ActionEvent e ) {
 			// Take the selected row, and the selected node
 			int selectedRow = lineTable.getSelectedRow( );
@@ -479,6 +394,59 @@ class LinesPanel extends JPanel {
 
 			// Insert the dialogue line in the selected position
 			conversationDataControl.addNodeLine( selectedNode, selectedRow + 1, name,((GraphConversationDataControl)conversationDataControl).getLineNumber(selectedNode.getConversationLine(selectedRow))+1  ,((GraphConversationDataControl)conversationDataControl).getAllConditions());
+
+			// Select the inserted line
+			lineTable.setRowSelectionInterval( selectedRow + 1, selectedRow + 1 );
+			lineTable.scrollRectToVisible( lineTable.getCellRect( selectedRow + 1, 0, true ) );
+
+			// Update the table
+			lineTable.revalidate( );
+		}
+	}
+	
+	public void editNextLine() {
+		final int selectedRow = lineTable.getSelectedRow( );
+		if (selectedRow == lineTable.getRowCount() - 1) {
+			ConversationNodeView selectedNode = conversationPanel.getSelectedNode( );
+	
+			// Set the default name for the new line
+			String name = selectedNode.getLineName( selectedRow );
+	
+			// Insert the dialogue line in the selected position
+			conversationDataControl.addNodeLine( selectedNode, selectedRow + 1, name,((GraphConversationDataControl)conversationDataControl).getLineNumber(selectedNode.getConversationLine(selectedRow))+1  ,((GraphConversationDataControl)conversationDataControl).getAllConditions());
+		}
+		((AbstractTableModel) lineTable.getModel()).fireTableDataChanged();
+		lineTable.changeSelection(selectedRow + 1, selectedRow + 1, false, false);
+		SwingUtilities.invokeLater(new Runnable()
+		{
+		    public void run()
+		    {
+		        if (lineTable.editCellAt(selectedRow + 1, 1))
+		            ((JScrollPane) lineTable.getEditorComponent()).requestFocusInWindow();        
+		    }
+		});
+	}
+
+	/**
+	 * Listener for the "Insert line" button
+	 */
+	private class ListenerButtonInsertOption implements ActionListener {
+
+		public void actionPerformed( ActionEvent e ) {
+			// Take the selected row, and the selected node
+			int selectedRow = lineTable.getSelectedRow( );
+			ConversationNodeView selectedNode = conversationPanel.getSelectedNode( );
+
+			// If no row is selected, set the insertion position at the end
+			if( selectedRow == -1 )
+				selectedRow = lineTable.getRowCount( ) - 1;
+
+			// Insert the dialogue line in the selected position
+			conversationDataControl.addChild(selectedNode, ConversationNodeView.DIALOGUE );
+
+			// Update the conversation panel and reload the options
+			conversationPanel.reloadOptions( );
+			conversationPanel.updateRepresentation();
 
 			// Select the inserted line
 			lineTable.setRowSelectionInterval( selectedRow + 1, selectedRow + 1 );
@@ -519,29 +487,6 @@ class LinesPanel extends JPanel {
 			lineTable.revalidate( );
 		}
 	}
-
-	/**
-	 * Listener for the "Edit audio" button
-	 */
-	private class ListenerButtonEditAudio implements ActionListener {
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-		 */
-		public void actionPerformed( ActionEvent e ) {
-			// Take the selected row, and the selected node
-			int selectedRow = lineTable.getSelectedRow( );
-			ConversationNodeView selectedNode = conversationPanel.getSelectedNode( );
-
-			// Edit the audio of the selected line
-			if(conversationDataControl.editLineAudioPath( selectedNode, selectedRow)){
-				lineTable.updateUI( );
-			}
-		}
-	}
-
 	
 	/**
 	 * Listener for the "Edit effect" button
@@ -630,26 +575,6 @@ class LinesPanel extends JPanel {
 	}
 	
 	/**
-	 * Listener for synthesizer button
-	 *
-	 */
-	private class ListenerButtonEditSynthesizer implements ActionListener{
-
-		public void actionPerformed(ActionEvent e) {
-			
-			// Take the selected row, and the selected node
-			int selectedRow = lineTable.getSelectedRow( );
-			ConversationNodeView selectedNode = conversationPanel.getSelectedNode( );
-			conversationDataControl.editSynthesize(selectedRow, selectedNode);
-			
-			
-			
-		
-		}
-		
-	}
-
-	/**
 	 * Private class managing the selection listener of the table
 	 */
 	private class NodeTableSelectionListener implements ListSelectionListener {
@@ -670,8 +595,6 @@ class LinesPanel extends JPanel {
 				moveLineDownButton.setEnabled( false );
 				deleteOptionButton.setEnabled( false );
 				deleteLineButton.setEnabled( false );
-				editAudioButton.setEnabled( false );
-				editSynthesizeButton.setEnabled(false);
 			}
 
 			// If there is a line selected
@@ -681,8 +604,6 @@ class LinesPanel extends JPanel {
 				moveLineDownButton.setEnabled( true );
 				deleteOptionButton.setEnabled( true );
 				deleteLineButton.setEnabled( true );
-				editAudioButton.setEnabled( true );
-				editSynthesizeButton.setEnabled(true);
 
 				// If the node is an option node
 				if( conversationPanel.getSelectedNode( ).getType( ) == ConversationNodeView.OPTION ) {
@@ -698,149 +619,4 @@ class LinesPanel extends JPanel {
 		}
 	}
 
-	/**
-	 * Private class containing the model for the line table
-	 */
-	private class NodeTableModel extends AbstractTableModel {
-
-		/**
-		 * Required
-		 */
-		private static final long serialVersionUID = 1L;
-
-		/**
-		 * Link to the representated conversational node
-		 */
-		private ConversationNodeView node;
-
-		/**
-		 * Constructor
-		 * 
-		 * @param node
-		 *            Node which lines will be in the table
-		 */
-		public NodeTableModel( ConversationNodeView node ) {
-			this.node = node;
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.table.TableModel#getRowCount()
-		 */
-		public int getRowCount( ) {
-			int rowCount = 0;
-
-			// If there is a node, the number of rows is the same as the number of lines
-			if( node != null )
-				rowCount = node.getLineCount( );
-
-			return rowCount;
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.table.TableModel#getColumnCount()
-		 */
-		public int getColumnCount( ) {
-			// All line tables has five columns
-			return 5;
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.table.TableModel#getColumnClass(int)
-		 */
-		public Class<?> getColumnClass( int c ) {
-			return getValueAt( 0, c ).getClass( );
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.table.TableModel#isCellEditable(int, int)
-		 */
-		public boolean isCellEditable( int rowIndex, int columnIndex ) {
-			boolean isEditable = false;;
-
-			// If the node is a dialogue node, the character name and the text are editable
-			if( node.getType( ) == ConversationNodeView.DIALOGUE )
-				isEditable = (columnIndex > 0 && columnIndex<3)||columnIndex==4;
-
-			// If the node is an option node, only the text is editable
-			else if( node.getType( ) == ConversationNodeView.OPTION )
-				isEditable = (columnIndex > 1 && columnIndex<3)||columnIndex==4;
-
-			return isEditable;
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.table.TableModel#setValueAt(java.lang.Object, int, int)
-		 */
-		public void setValueAt( Object value, int rowIndex, int columnIndex ) {
-
-			// If the value isn't an empty string
-			if( !value.toString( ).trim( ).equals( "" ) ) {
-				// If the name is being edited, and it has really changed
-				if( columnIndex == 1 )
-					if( value.toString( ).equals( TextConstants.getText( "ConversationLine.PlayerName" ) ) )
-						conversationDataControl.setNodeLineName( node, rowIndex, ConversationLine.PLAYER );
-					else
-						conversationDataControl.setNodeLineName( node, rowIndex, value.toString( ) );
-
-				// If the text is being edited, and it has really changed
-				if( columnIndex == 2 )
-					conversationDataControl.setNodeLineText( node, rowIndex, value.toString( ) );
-
-
-				fireTableCellUpdated( rowIndex, columnIndex );
-			}
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.table.TableModel#getValueAt(int, int)
-		 */
-		public Object getValueAt( int rowIndex, int columnIndex ) {
-			Object value = null;
-
-			// If there is a valid node
-			if( node != null ) {
-				// Return value depending of the selected row
-				switch( columnIndex ) {
-					case 0:
-						// Number of line
-						value = rowIndex + 1;
-						break;
-					case 1:
-						// Character name of the line
-						if( node.isPlayerLine( rowIndex ) )
-							value = TextConstants.getText( "ConversationLine.PlayerName" );
-						else
-							value = node.getLineName( rowIndex );
-						break;
-					case 2:
-						// Text of the line
-						value = node.getLineText( rowIndex );
-						break;
-					case 3:
-						// Has audio or not
-						value = node.hasAudioPath( rowIndex )?"Audio":"";
-						break;
-						
-					case 4:
-					    	// Conditions
-						 value = conversationDataControl.getLineConditionController(node.getConversationLine(rowIndex));
-						 break;
-				}
-			}
-
-			return value;
-		}
-	}
 }

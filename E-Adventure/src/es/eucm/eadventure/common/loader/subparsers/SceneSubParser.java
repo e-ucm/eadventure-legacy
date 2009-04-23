@@ -627,6 +627,7 @@ public class SceneSubParser extends SubParser {
 			subParser.endElement( namespaceURI, sName, qName);
 			if (qName.equals("trajectory")) {
 				subParsing = SUBPARSING_NONE;
+				scene.getTrajectory().deleteUnconnectedNodes();
 			}
 		}
 

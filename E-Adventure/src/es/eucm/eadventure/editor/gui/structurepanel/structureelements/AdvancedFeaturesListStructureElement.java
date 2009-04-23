@@ -4,8 +4,6 @@ import javax.swing.ImageIcon;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.control.controllers.general.AdvancedFeaturesDataControl;
-import es.eucm.eadventure.editor.gui.structurepanel.StructureElementFactory;
 import es.eucm.eadventure.editor.gui.structurepanel.StructureListElement;
 import es.eucm.eadventure.editor.gui.structurepanel.StructureElement;
 

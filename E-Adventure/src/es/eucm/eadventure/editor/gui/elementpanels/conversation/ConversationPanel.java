@@ -8,6 +8,7 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
 import es.eucm.eadventure.editor.gui.Updateable;
 
@@ -64,7 +65,7 @@ public class ConversationPanel extends JPanel implements Updateable {
 		selectedChild = null;
 
 		// Create the status bar
-		statusBar = new StatusBar( "Status: Normal" );
+		statusBar = new StatusBar( TextConstants.getText( "Conversation.StatusBarNormal" ) );
 
 		// Create the conversation and node panels
 		representationPanel = new RepresentationPanel( this, conversationDataControl );
@@ -214,5 +215,9 @@ public class ConversationPanel extends JPanel implements Updateable {
 	public boolean updateFields() {
 		representationPanel.repaint( );
 		return true;
+	}
+
+	public void updateRepresentation() {
+		representationPanel.updateRepresentation();
 	}
 }

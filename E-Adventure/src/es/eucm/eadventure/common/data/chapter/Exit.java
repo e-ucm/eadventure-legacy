@@ -517,9 +517,11 @@ public class Exit implements Cloneable, Documented, Rectangle, Positioned {
 		e.x = x;
 		e.y = y;
 		e.rectangular = rectangular;
-		e.points = (points != null ? new ArrayList<Point>() : null);
-		for (Point p : points)
-			e.points.add((Point) p.clone());
+		if (points != null) {
+			e.points = new ArrayList<Point>();
+			for (Point p : points)
+				e.points.add((Point) p.clone());
+		}
 		e.conditions = (conditions != null ? (Conditions) conditions.clone() : null);
 		e.effects = (effects != null ? (Effects) effects.clone() : null);
 		e.postEffects = (postEffects != null ? (Effects) postEffects.clone() : null);
@@ -527,9 +529,9 @@ public class Exit implements Cloneable, Documented, Rectangle, Positioned {
 		e.destinyX = destinyX;
 		e.destinyY = destinyY;
 		e.hasNotEffects = hasNotEffects;
-		e.nextSceneId = nextSceneId;
-		e.transitionTime = transitionTime;
-		e.transitionType = transitionType;
+		e.nextSceneId = (nextSceneId != null ? new String(nextSceneId) : null);
+		e.transitionTime = new Integer(transitionTime);
+		e.transitionType = new Integer(transitionType);
 		return e;
 	}
 

@@ -58,6 +58,9 @@ public class DeleteTrajectoryNodeTool extends Tool {
 		if (wasInitial) {
 			trajectory.setInitial(null);
 			trajectoryDataControl.initialNode = null;
+			
+			trajectory.setInitial(trajectory.getNodes().get(0).getID());
+			trajectoryDataControl.initialNode = trajectoryDataControl.getNodes().get(0);
 		}		
 		
 		for (SideDataControl side : trajectoryDataControl.getSides()) {
@@ -81,6 +84,9 @@ public class DeleteTrajectoryNodeTool extends Tool {
 		if (wasInitial) {
 			trajectory.setInitial(null);
 			trajectoryDataControl.initialNode = null;
+
+			trajectory.setInitial(trajectory.getNodes().get(0).getID());
+			trajectoryDataControl.initialNode = trajectoryDataControl.getNodes().get(0);
 		}		
 
 		for (SideDataControl side : trajectoryDataControl.getSides()) {

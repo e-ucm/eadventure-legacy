@@ -47,8 +47,10 @@ public class ChangeHasTrajectoryTool extends Tool {
 			sceneDataControl.setTrajectory(null);
 			sceneDataControl.setTrajectoryDataControl(newTrajectoryDataControl);
 		} else {
-			newTrajectoryDataControl = new TrajectoryDataControl(sceneDataControl, new Trajectory());
-			sceneDataControl.setTrajectory((Trajectory) newTrajectoryDataControl.getContent());
+			Trajectory trajectory = new Trajectory();
+			trajectory.addNode(300, 300, 1.0f);
+			newTrajectoryDataControl = new TrajectoryDataControl(sceneDataControl, trajectory);
+			sceneDataControl.setTrajectory(trajectory);
 			sceneDataControl.setTrajectoryDataControl(newTrajectoryDataControl);
 		}
 		return true;

@@ -71,12 +71,13 @@ public class TrajectoryScenePreviewEditionController extends NormalScenePreviewE
 		} else if (selectedTool == DELETE_TOOL){
 			if (underMouse != null) {
 				NodeDataControl nodeDataControl = ((ImageElementNode) underMouse).getNodeDataControl();
-				tdc.deleteElement(nodeDataControl, true);
-				spep.removeElement(ScenePreviewEditionPanel.CATEGORY_NODE, underMouse);
-				underMouse = null;
-				spep.setSelectedElement((ImageElement) null); 
-				spep.setTrajectory((Trajectory) tdc.getContent());
-				spep.repaint();
+				if (tdc.deleteElement(nodeDataControl, true)) {
+					spep.removeElement(ScenePreviewEditionPanel.CATEGORY_NODE, underMouse);
+					underMouse = null;
+					spep.setSelectedElement((ImageElement) null); 
+					spep.setTrajectory((Trajectory) tdc.getContent());
+					spep.repaint();
+				}
 			} else {
 				findAndDeleteSide(x, y);
 			}
