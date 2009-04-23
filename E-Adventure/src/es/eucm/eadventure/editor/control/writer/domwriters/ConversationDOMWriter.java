@@ -226,6 +226,7 @@ public class ConversationDOMWriter {
 				ConversationNode node = nodes.get( i );
 
 				Element nodeElement = null;
+				Node conditionsNode = null;
 
 				// If the node is a dialogue node
 				if( node instanceof DialogueConversationNode ) {
@@ -266,15 +267,12 @@ public class ConversationDOMWriter {
 						// Add the element to the node
 						nodeElement.appendChild( phrase );
 						
-						//TODO MODIFIED
-						if( node.hasEffects( ) ) {
-							// Extract the root node
-							Node effect = EffectsDOMWriter.buildDOM( EffectsDOMWriter.EFFECTS, node.getEffects( ) );
-
-							// Insert it into the DOM
-							doc.adoptNode( effect );
-							nodeElement.appendChild( effect );
-						}
+						// Create conditions for current effect
+						conditionsNode = ConditionsDOMWriter.buildDOM(line.getConditions());
+						doc.adoptNode( conditionsNode );
+						// Add conditions associated to that effect
+						nodeElement.appendChild(conditionsNode);
+						
 			 
 					}
 
@@ -344,6 +342,12 @@ public class ConversationDOMWriter {
 						//If there is a synthesizer valid voice, store it as attribute
 						if (line.getSynthesizerVoice())
 							lineElement.setAttribute( "synthesize", "yes");
+						
+
+						// Create conditions for current effect
+						conditionsNode = ConditionsDOMWriter.buildDOM(line.getConditions());
+						doc.adoptNode( conditionsNode );
+						
 
 						// Create a child tag, and set it the index of the child
 						Element childElement = doc.createElement( "child" );
@@ -351,6 +355,9 @@ public class ConversationDOMWriter {
 
 						// Insert the text line in the option node
 						nodeElement.appendChild( lineElement );
+						// Add conditions associated to that effect
+						nodeElement.appendChild(conditionsNode);
+						// Insert child tag
 						nodeElement.appendChild( childElement );
 					}
 					// If node has an effect, include it into the DOM
