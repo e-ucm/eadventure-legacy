@@ -90,6 +90,16 @@ public class GameStateConversation extends GameState {
     private int numberDisplayedOptions;
     
     /**
+     * An array list that match the number "i" option with its real position in option node.
+     */
+    // Remember that only will be show the options lines which achieves its conditions
+    private ArrayList<Integer> correspondingIndex;
+    
+    /**
+     * Store only the option which has all conditions OK
+     */
+    private ArrayList<ConversationLine> optionsToShow;
+    /**
      * Creates a new GameStateConversation
      */
     public GameStateConversation( ) {
@@ -101,7 +111,7 @@ public class GameStateConversation extends GameState {
         currentLine = 0;
         firstLineDisplayed = 0;
         optionHighlighted = -1;
-        
+        optionsToShow = new ArrayList<ConversationLine>();
         isOptionSelected = false;
 
        
@@ -196,20 +206,44 @@ public class GameStateConversation extends GameState {
 		}
 		numberDisplayedOptions = 0;
 
-		if (currentNode.getLineCount() <= RESPONSE_TEXT_NUMBER_LINES) {
-			for (int i = 0; i < currentNode.getLineCount(); i++) {
-				drawLine(g, currentNode.getLine(i).getText(), i, i);
+		storeOKConditionsConversationLines();
+		if (optionsToShow.size() <= RESPONSE_TEXT_NUMBER_LINES) {
+			for (int i = 0; i < optionsToShow.size(); i++) {
+				drawLine(g, optionsToShow.get(i).getText(), i, i);
 				numberDisplayedOptions++;
 			}
 		} else {
-			int i, indexLastLine = Math.min(firstLineDisplayed + RESPONSE_TEXT_NUMBER_LINES - 1, currentNode.getLineCount());
+			int i, indexLastLine = Math.min(firstLineDisplayed + RESPONSE_TEXT_NUMBER_LINES - 1, optionsToShow.size());
 			for (i = firstLineDisplayed; i < indexLastLine; i++) {
-				drawLine(g, currentNode.getLine(i).getText(), (i - firstLineDisplayed), i);
+				drawLine(g, optionsToShow.get(i).getText(), (i - firstLineDisplayed), i);
 				numberDisplayedOptions++;
 			}
 			drawLine(g, TextConstants.getText("GameText.More"), (i - firstLineDisplayed), i);
 		}
+		
+		// if there are not options to draw, finalize the conversation
+		if (numberDisplayedOptions==0)
+		    endConversation();
     }
+    
+    
+    /**
+     * Returns the number of conversation lines in current option node which has all conditions OK
+     * @return number of lines with achieve its conditions.
+     */
+    private void storeOKConditionsConversationLines(){
+	optionsToShow = new ArrayList<ConversationLine>();
+	correspondingIndex = new ArrayList<Integer>();
+	for (int i = 0; i < currentNode.getLineCount(); i++){
+	    if ((new FunctionalConditions(currentNode.getLine(i).getConditions()).allConditionsOk())){
+		optionsToShow.add(currentNode.getLine(i));
+		// Store the real position in node of recent inserted conversation line
+		correspondingIndex.add(i);
+	    }
+	}
+	
+    }
+    
     
     /**
      * Draw an option line in a given graphics object.
@@ -252,29 +286,39 @@ public class GameStateConversation extends GameState {
 			GUI.getInstance().toggleHud(true);
 		}
 		else if ((!currentNode.hasValidEffect() || currentNode.isEffectConsumed()) && currentNode.isTerminal()) {
-			for (ConversationNode node : game.getConversation().getAllNodes())
-				node.resetEffect();
-			GUI.getInstance().toggleHud(true);
-			game.endConversation();
+		    endConversation();
 		}
 		else if (!currentNode.isTerminal()) {
 			if (optionSelected >= 0 && optionSelected < currentNode.getChildCount()) {
-				currentNode = currentNode.getChild(optionSelected);
+				currentNode = currentNode.getChild(correspondingIndex.get(optionSelected));
 				isOptionSelected = false;
 			}
 		}
     }
     
     /**
+     * Finalize the conversation
+     */
+    private void endConversation(){
+	 for (ConversationNode node: game.getConversation( ).getAllNodes( )){
+	        node.resetEffect( );
+	    }
+	    GUI.getInstance().toggleHud( true );
+	    game.endConversation();
+    }
+    
+   
+    
+    /**
      * If the user chooses a valid option, it is selected and its text show.
      */
     private void selectDisplayedOption(){
-    	if(optionSelected >= 0 && optionSelected < currentNode.getLineCount( ) ) {
+    	if(optionSelected >= 0 && optionSelected < optionsToShow.size()) {
             if( game.getCharacterCurrentlyTalking( ) != null && game.getCharacterCurrentlyTalking( ).isTalking( ) )
                 game.getCharacterCurrentlyTalking( ).stopTalking( );
 
             FunctionalPlayer player = game.getFunctionalPlayer( );
-            ConversationLine line = currentNode.getLine( optionSelected );
+            ConversationLine line = currentNode.getLine( correspondingIndex.get(optionSelected) );
             
             if (line.isValidAudio( )){
                 player.speak( line.getText(), line.getAudioPath( ));
@@ -316,7 +360,7 @@ public class GameStateConversation extends GameState {
 				&& GUI.getInstance( ).getResponseTextY( ) + currentNode.getLineCount()	* RESPONSE_TEXT_HEIGHT + RESPONSE_TEXT_ASCENT >= e.getY() 
 				&& !isOptionSelected) {
 			optionSelected = (e.getY() - GUI.getInstance( ).getResponseTextY( )) / RESPONSE_TEXT_HEIGHT;
-			if (currentNode.getLineCount() <= RESPONSE_TEXT_NUMBER_LINES)
+			if (optionsToShow.size() <= RESPONSE_TEXT_NUMBER_LINES)
 				selectDisplayedOption();
 			else
 				selectNoAllDisplayedOption();
@@ -337,7 +381,7 @@ public class GameStateConversation extends GameState {
 	    		optionSelected = -1;
 	    	keyPressed=true;
 	    	
-	    	if( currentNode.getLineCount( ) <= RESPONSE_TEXT_NUMBER_LINES )
+	    	if( this.optionsToShow.size() <= RESPONSE_TEXT_NUMBER_LINES )
 	    		selectDisplayedOption();
 	    	else if (optionSelected >= firstLineDisplayed && optionSelected <= numberDisplayedOptions + firstLineDisplayed)
 	    		selectNoAllDisplayedOption();
@@ -359,6 +403,7 @@ public class GameStateConversation extends GameState {
     private void playNextLine( ) {
         if( game.getCharacterCurrentlyTalking( ) != null && game.getCharacterCurrentlyTalking( ).isTalking( ) )
             game.getCharacterCurrentlyTalking( ).stopTalking();
+        
         
         if( currentLine < currentNode.getLineCount( ) )
         	playNextLineInNode();
@@ -410,11 +455,7 @@ public class GameStateConversation extends GameState {
            	GUI.getInstance().toggleHud( true );
         } 
         else if ((!currentNode.hasValidEffect( ) || currentNode.isEffectConsumed( ) ) && currentNode.isTerminal( )){
-            for (ConversationNode node: game.getConversation( ).getAllNodes( )){
-                node.resetEffect( );
-            }
-            GUI.getInstance().toggleHud( true );
-            game.endConversation();
+            endConversation();
         }
         else if (!currentNode.isTerminal( )){
             currentNode = currentNode.getChild( 0 );

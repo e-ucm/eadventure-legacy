@@ -65,7 +65,10 @@ public abstract class FunctionalEffect {
      * @return
      */
     public boolean isAllConditionsOK(){
-	return new FunctionalConditions(effect.getConditions()).allConditionsOk();
+	if (effect!=null)
+	    return new FunctionalConditions(effect.getConditions()).allConditionsOk();
+	else 
+	    return true;
     }
     
     /**

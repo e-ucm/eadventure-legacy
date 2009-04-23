@@ -505,7 +505,7 @@ class LinesPanel extends JPanel {
 			ConversationNodeView selectedNode = conversationPanel.getSelectedNode( );
 
 			// Delete the selected line
-			conversationDataControl.deleteNodeLine( selectedNode, selectedRow );
+			conversationDataControl.deleteNodeLine( selectedNode, selectedRow ,((GraphConversationDataControl)conversationDataControl).getLineNumber(selectedNode.getConversationLine(selectedRow))  ,((GraphConversationDataControl)conversationDataControl).getAllConditions());
 
 			// If there are no more lines, clear selection (this disables the "Delete line" button)
 			if( selectedNode.getLineCount( ) == 0 )
