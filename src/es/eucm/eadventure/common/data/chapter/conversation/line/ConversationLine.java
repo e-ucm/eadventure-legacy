@@ -1,6 +1,7 @@
 package es.eucm.eadventure.common.data.chapter.conversation.line;
 
 import es.eucm.eadventure.common.data.Named;
+import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.common.data.chapter.elements.Player;
 
 /**
@@ -32,6 +33,11 @@ public class ConversationLine implements Cloneable, Named {
 	 * Tell if the line has to be read by synthesizer
 	 */
 	private boolean synthesizerVoice;
+	
+	/**
+	 * Conditions associated to this line
+	 */
+	private Conditions conditions;
 
 	/**
 	 * Constructor.
@@ -45,6 +51,7 @@ public class ConversationLine implements Cloneable, Named {
 		this.name = name;
 		this.text = text;
 		this.synthesizerVoice = false;
+		conditions = new Conditions();
 	}
 
 	/**
@@ -134,6 +141,22 @@ public class ConversationLine implements Cloneable, Named {
 	public void setSynthesizerVoice(Boolean synthesizerVoice) {
 		this.synthesizerVoice = synthesizerVoice;
 	}
+	
+	
+
+	/**
+	 * @return the conditions
+	 */
+	public Conditions getConditions() {
+	    return conditions;
+	}
+
+	/**
+	 * @param conditions the conditions to set
+	 */
+	public void setConditions(Conditions conditions) {
+	    this.conditions = conditions;
+	}
 
 	public Object clone() throws CloneNotSupportedException {
 		ConversationLine cl = (ConversationLine) super.clone();
@@ -141,6 +164,7 @@ public class ConversationLine implements Cloneable, Named {
 		cl.name = (name != null ? new String(name) : null);
 		cl.synthesizerVoice = synthesizerVoice;
 		cl.text = (text != null ? new String(text) : null);
+		cl.conditions = (conditions != null  ? (Conditions)conditions.clone():null);
 		return cl;
 	}	
 

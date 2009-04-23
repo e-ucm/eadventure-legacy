@@ -272,7 +272,7 @@
 >
 
 <!-- MODIFIED: EFFECT -->
-<!ELEMENT dialogue-node ((speak-player | speak-char)*, (child | end-conversation), effect?)>
+<!ELEMENT dialogue-node (((speak-player | speak-char),conditions?)*, (child | end-conversation), effect?)>
 <!ATTLIST dialogue-node
 	nodeindex CDATA #REQUIRED
 >

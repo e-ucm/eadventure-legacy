@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine;
 import es.eucm.eadventure.common.data.chapter.effects.Effects;
 
@@ -226,5 +227,18 @@ public class OptionConversationNode extends ConversationNode {
 		}
 		ocn.random = random;
 		return ocn;
+	}
+
+	/**
+	 * In that case, return the conditions of the option equals to the given index.
+	 */
+	@Override
+	public Conditions getLineConditions(int index) {
+	    return options.get(index).getConditions();
+	}
+
+	@Override
+	public ConversationLine getConversationLine(int index) {
+	    return options.get(index);
 	}
 }
