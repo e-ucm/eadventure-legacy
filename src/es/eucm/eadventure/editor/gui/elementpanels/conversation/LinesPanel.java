@@ -26,7 +26,9 @@ import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
+import es.eucm.eadventure.editor.control.controllers.conversation.GraphConversationDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ConditionsCellRendererEditor;
+import es.eucm.eadventure.common.data.chapter.conversation.GraphConversation;
 import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
@@ -476,7 +478,7 @@ class LinesPanel extends JPanel {
 				name = selectedNode.getLineName( selectedRow );
 
 			// Insert the dialogue line in the selected position
-			conversationDataControl.addNodeLine( selectedNode, selectedRow + 1, name );
+			conversationDataControl.addNodeLine( selectedNode, selectedRow + 1, name,((GraphConversationDataControl)conversationDataControl).getLineNumber(selectedNode.getConversationLine(selectedRow))+1  ,((GraphConversationDataControl)conversationDataControl).getAllConditions());
 
 			// Select the inserted line
 			lineTable.setRowSelectionInterval( selectedRow + 1, selectedRow + 1 );
