@@ -161,6 +161,7 @@ public abstract class GraphicRepresentation {
 	public void setSelectedNode(ConversationNodeView selectedNode) {
 		if (this.selectedNode != null) 
 			this.selectedNode.setSelected(false);
+		this.selectedNode = null;
 		for (GraphicNode node : graphicNodes) {
 			if (node.getNode() == selectedNode)
 				this.selectedNode = node;
@@ -170,14 +171,15 @@ public abstract class GraphicRepresentation {
 	}
 	
 	public void setSelectedChildNode(ConversationNodeView selectedNode) {
-		if (this.selectedChildNode != null) 
-			this.selectedChildNode.setSelectedChild(false);
+		if (selectedChildNode != null) 
+			selectedChildNode.setSelectedChild(false);
+		selectedChildNode = null;
 		for (GraphicNode node : graphicNodes) {
 			if (node.getNode() == selectedNode)
-				this.selectedChildNode = node;
+				selectedChildNode = node;
 		}
-		if (this.selectedChildNode != null)
-			this.selectedChildNode.setSelectedChild(true);
+		if (selectedChildNode != null)
+			selectedChildNode.setSelectedChild(true);
 	}
 
 }
