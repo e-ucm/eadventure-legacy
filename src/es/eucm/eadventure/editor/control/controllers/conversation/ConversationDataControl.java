@@ -193,6 +193,11 @@ public abstract class ConversationDataControl extends DataControl {
 	 *            Index in which the line will be placed
 	 * @param name
 	 *            Name of the line
+	 * @param indexInConditions
+	 * 	      The index of new conversation line in allConditions list
+	 * @param allConditions
+	 * 	      The list with all conditions controllers
+	 * 
 	 */
 	public void addNodeLine( ConversationNodeView nodeView, int lineIndex, String name, int indexInConditions, List<ConditionsController> allConditions ) {
 		controller.addTool(new AddNodeLineTool(nodeView, lineIndex, name,indexInConditions,allConditions));
@@ -285,9 +290,14 @@ public abstract class ConversationDataControl extends DataControl {
 	 *            Node in which the line will be deleted
 	 * @param lineIndex
 	 *            Index of the line to delete
+	 * @param indexInConditions
+	 * 	      The index of new conversation line in allConditions list
+	 * @param allConditions
+	 * 	      The list with all conditions controllers
+	 *
 	 */
-	public void deleteNodeLine( ConversationNodeView nodeView, int lineIndex ) {
-		controller.addTool(new DeleteNodeLineTool(nodeView, lineIndex));
+	public void deleteNodeLine( ConversationNodeView nodeView, int lineIndex,int indexInConditions, List<ConditionsController> allConditions  ) {
+		controller.addTool(new DeleteNodeLineTool(nodeView, lineIndex,indexInConditions,allConditions));
 	}
 
 	/**
