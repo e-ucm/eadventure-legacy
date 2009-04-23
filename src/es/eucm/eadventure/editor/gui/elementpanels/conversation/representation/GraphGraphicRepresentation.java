@@ -155,9 +155,7 @@ public class GraphGraphicRepresentation extends GraphicRepresentation {
 	public ConversationNodeView getNodeInPosition( Point point ) {
 		ConversationNodeView node = null;
 
-		// For each graphic node, and while the clicked node has not been found
 		for( int i = 0; i < graphicNodes.size( ) && node == null; i++ )
-			// If the current graphic node has been clicked, store the node
 			if( graphicNodes.get( i ).isInside( scale, point ) )
 				node = graphicNodes.get( i ).getNode( );
 
@@ -228,6 +226,21 @@ public class GraphGraphicRepresentation extends GraphicRepresentation {
 			// For each child, draw a line from the current node to the child node
 			for( int j = 0; j < currentNode.getChildCount( ); j++ ) {
 				Point childPosition = currentNode.getChildPosition( scale, j );
+				if (currentNode instanceof OptionGraphicNode) {
+					String text = currentNode.getNode().getLineText(j);
+					double nodeX = currentNode.getPosition(scale).getX();
+					double nodeY = currentNode.getPosition(scale).getY();
+					double childX = childPosition.getX();
+					double childY = childPosition.getY();
+					double h = Math.sqrt(Math.pow(nodeX - childX, 2) +  Math.pow(nodeY - childY, 2));
+					
+					double posX = nodeX - 80 * (nodeX - childX) * scale / h;
+					double posY = nodeY -  80 * (nodeY - childY) * scale / h;
+					
+					if (text.length() > 15)
+						text = text.substring(0, 12) + "...";
+					g.drawString(text, (int) posX, (int) posY);
+				}
 				g.drawLine( (int) currentNode.getPosition( scale ).getX( ), (int) currentNode.getPosition( scale ).getY( ), (int) childPosition.getX( ), (int) childPosition.getY( ) );
 				drawArrow( g, currentNode.getChildNode( j ), currentNode.getPosition( scale ), childPosition );
 			}

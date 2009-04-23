@@ -102,11 +102,6 @@ class RepresentationPanel extends JPanel {
 	public void paint( Graphics g ) {
 		super.paint( g );
 
-		// Set antialiasing
-		// TODO Antialiased disabled due to problems with large areas
-		// Graphics2D g2 = (Graphics2D)g;
-		// g2.setRenderingHint( RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON );
-
 		// If there is a current conversation
 		if( conversationRepresentation != null ) {
 			conversationRepresentation.setSelectedNode(conversationPanel.getSelectedNode());
