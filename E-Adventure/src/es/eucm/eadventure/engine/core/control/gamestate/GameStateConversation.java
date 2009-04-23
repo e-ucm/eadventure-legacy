@@ -360,7 +360,7 @@ public class GameStateConversation extends GameState {
         if( game.getCharacterCurrentlyTalking( ) != null && game.getCharacterCurrentlyTalking( ).isTalking( ) )
             game.getCharacterCurrentlyTalking( ).stopTalking();
         
-        if( currentLine < currentNode.getLineCount( ) && new FunctionalConditions(currentNode.getLine(currentLine).getConditions()).allConditionsOk())
+        if( currentLine < currentNode.getLineCount( ) )
         	playNextLineInNode();
         else 
         	skipToNextNode();
@@ -373,6 +373,9 @@ public class GameStateConversation extends GameState {
         ConversationLine line = currentNode.getLine( currentLine );
         TalkingElement talking = null;
 
+        // Only talk if all conditions in current line are OK
+        if ((new FunctionalConditions(currentNode.getLine(currentLine).getConditions()).allConditionsOk())){
+        
         if( line.isPlayerLine( ) )
             talking = game.getFunctionalPlayer( );
         else {
@@ -391,7 +394,7 @@ public class GameStateConversation extends GameState {
             	talking.speak( line.getText( ));
         }
         game.setCharacterCurrentlyTalking(talking);
-        
+        }
         currentLine++;
     }
     

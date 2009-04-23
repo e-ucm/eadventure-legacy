@@ -194,8 +194,8 @@ public abstract class ConversationDataControl extends DataControl {
 	 * @param name
 	 *            Name of the line
 	 */
-	public void addNodeLine( ConversationNodeView nodeView, int lineIndex, String name ) {
-		controller.addTool(new AddNodeLineTool(nodeView, lineIndex, name));
+	public void addNodeLine( ConversationNodeView nodeView, int lineIndex, String name, int indexInConditions, List<ConditionsController> allConditions ) {
+		controller.addTool(new AddNodeLineTool(nodeView, lineIndex, name,indexInConditions,allConditions));
 	}
 
 	/**

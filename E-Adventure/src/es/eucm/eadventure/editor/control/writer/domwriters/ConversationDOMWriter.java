@@ -123,16 +123,7 @@ public class ConversationDOMWriter {
 			}
 
 			
-			//TODO MODIFIED
-			if( currentNode.hasEffects( ) ) {
-				// Extract the root node
-				Node effect = EffectsDOMWriter.buildDOM( EffectsDOMWriter.EFFECTS, currentNode.getEffects( ) );
-
-				// Insert it into the DOM
-				document.adoptNode( effect );
-				rootDOMNode.appendChild( effect );
-			}
- 
+			
 			
 			// Check if the node is terminal
 			if( currentNode.isTerminal( ) ) {
@@ -274,6 +265,17 @@ public class ConversationDOMWriter {
 
 						// Add the element to the node
 						nodeElement.appendChild( phrase );
+						
+						//TODO MODIFIED
+						if( node.hasEffects( ) ) {
+							// Extract the root node
+							Node effect = EffectsDOMWriter.buildDOM( EffectsDOMWriter.EFFECTS, node.getEffects( ) );
+
+							// Insert it into the DOM
+							doc.adoptNode( effect );
+							nodeElement.appendChild( effect );
+						}
+			 
 					}
 
 					// Check if the node is terminal

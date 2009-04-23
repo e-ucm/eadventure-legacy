@@ -87,7 +87,7 @@ public class GraphConversationDataControl extends ConversationDataControl {
 	 * @param convNode
 	 * @return
 	 */
-	private int getLineNumber(ConversationLine convLine){
+	public int getLineNumber(ConversationLine convLine){
 	    	int lineNumber=0;
 	    	// Take all the nodes, and add the line count of each one
 		List<ConversationNodeView> nodes = getAllNodes( );
@@ -493,6 +493,13 @@ public class GraphConversationDataControl extends ConversationDataControl {
 	@Override
 	public List<DataControl> getPathToDataControl(DataControl dataControl) {
 		return null;
+	}
+
+	/**
+	 * @return the allConditions
+	 */
+	public List<ConditionsController> getAllConditions() {
+	    return allConditions;
 	}
 
 }
