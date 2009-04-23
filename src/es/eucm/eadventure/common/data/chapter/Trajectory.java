@@ -226,6 +226,47 @@ public class Trajectory implements Cloneable {
 		return initial;
 	}
 	
+	public void deleteUnconnectedNodes() {
+		List<Node> connected = new ArrayList<Node>();
+		if (initial == null) {
+			initial = nodes.get(0);
+		}
+		connected.add(initial);
+		int i = 0;
+		while (i < connected.size()) {
+			Node temp = connected.get(i);
+			i++;
+			for (Side side : sides) {
+				if (side.getIDEnd().equals(temp.getID())) {
+					Node node = this.getNodeForId(side.getIDStart());
+					if (!connected.contains(node))
+						connected.add(node);
+				}
+				if (side.getIDStart().equals(temp.getID())) {
+					Node node = this.getNodeForId(side.getIDEnd());
+					if (!connected.contains(node))
+						connected.add(node);
+				}
+			}
+		}
+		i = 0;
+		while (i < nodes.size()) {
+			if (!connected.contains(nodes.get(i))) {
+				int j = 0;
+				while (j < sides.size()) {
+					if (sides.get(j).getIDEnd().equals(nodes.get(i).getID()))
+						sides.remove(j);
+					else if (sides.get(j).getIDStart().equals(nodes.get(i).getID()))
+						sides.remove(j);
+					else
+						j++;
+				}
+				nodes.remove(i);
+			} else
+				i++;
+		}
+	}
+	
 	public Object clone() throws CloneNotSupportedException {
 		Trajectory t = (Trajectory) super.clone();
 		t.initial = (initial != null ? (Node) initial.clone() : null);

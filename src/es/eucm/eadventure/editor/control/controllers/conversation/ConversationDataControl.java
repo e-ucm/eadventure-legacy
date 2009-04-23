@@ -12,9 +12,7 @@ import es.eucm.eadventure.common.data.chapter.conversation.node.OptionConversati
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
-import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
-import es.eucm.eadventure.editor.control.controllers.character.NPCDataControl;
 import es.eucm.eadventure.editor.control.tools.conversation.AddNodeLineTool;
 import es.eucm.eadventure.editor.control.tools.conversation.AddConversationNodeTool;
 import es.eucm.eadventure.editor.control.tools.conversation.DeleteNodeLineTool;
@@ -26,7 +24,6 @@ import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeNameTool
 import es.eucm.eadventure.editor.control.tools.generic.ChangeBooleanValueTool;
 import es.eucm.eadventure.editor.control.tools.generic.ChangeStringValueTool;
 import es.eucm.eadventure.editor.gui.editdialogs.EffectsDialog;
-import es.eucm.eadventure.editor.gui.editdialogs.SynthesizerDialog;
 
 public abstract class ConversationDataControl extends DataControl {
 
@@ -421,34 +418,6 @@ public abstract class ConversationDataControl extends DataControl {
 		ConversationNode node = (ConversationNode) selectedNode;
 		return ((OptionConversationNode)node).isRandom();
 	}
-	
-	/**
-	 * 
-	 */
-	public void editSynthesize(int selectedRow, ConversationNodeView selectedNode){
-		ConversationNode node = (ConversationNode) selectedNode;
-		DataControlWithResources control = null;
-		boolean player = false;
-		String name = node.getLine(selectedRow).getName();
-		if (!name.equals("")){
-			if (name.equals("Player")){
-				control = controller.getSelectedChapterDataControl().getPlayer();
-				player = true;
-			}
-			else{
-				for (NPCDataControl npc : controller.getSelectedChapterDataControl().getNPCsList().getNPCs())
-					if (name.equals(npc.getId())){
-						control = npc;
-						break;
-					}
-						
-						
-					
-			}
-		} 
-		new SynthesizerDialog(selectedRow, node, control,player);
-	}
-	
 	
 	/**
 	 * An options node cannot be empty

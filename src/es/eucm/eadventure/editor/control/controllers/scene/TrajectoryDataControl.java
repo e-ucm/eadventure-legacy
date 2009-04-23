@@ -196,23 +196,20 @@ public class TrajectoryDataControl extends DataControl {
 
 	@Override
 	public boolean deleteElement( DataControl dataControl , boolean askConfirmation) {
-		boolean elementDeleted = false;
-
 		if (nodeDataControlList.contains(dataControl)) {
-			Controller.getInstance().addTool(new DeleteTrajectoryNodeTool(dataControl, trajectory, this));
-			
-			return true;
+			if (nodeDataControlList.size() > 1) {
+				Controller.getInstance().addTool(new DeleteTrajectoryNodeTool(dataControl, trajectory, this));
+				return true;
+			} else
+				return false;
 		}
 		if (sideDataControlList.contains(dataControl)) {
 			Controller.getInstance().addTool(new DeleteTrajectorySideTool((SideDataControl) dataControl, trajectory, this));
-			
 			trajectory.getSides().remove((Side) dataControl.getContent());
 			sideDataControlList.remove(dataControl);
-			//controller.dataModified();
 			return true;
 		}
-		
-		return elementDeleted;
+		return false;
 	}
 
 	@Override

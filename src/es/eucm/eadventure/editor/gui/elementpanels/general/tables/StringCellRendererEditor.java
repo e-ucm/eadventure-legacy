@@ -47,11 +47,10 @@ public class StringCellRendererEditor extends AbstractCellEditor implements Tabl
 
 	@Override
 	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-		this.value = (String) value;
 		if (isSelected)
-			return new JTextField(this.value);
+			return new JTextField((String) value);
 		else
-			return new JLabel(this.value);
+			return new JLabel((String) value);
 	}
 
 }

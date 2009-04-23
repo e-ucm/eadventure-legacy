@@ -1379,6 +1379,13 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="Conversations.DeleteLink">Borrar enlace</entry>
 	<entry key="Conversations.DeleteOption">Borrar opción</entry>
 	<entry key="Conversations.EditSynthesize">Opción de sintetizar</entry>
+	<entry key="Conversations.Synthesize">Sintetizar</entry>
+	<entry key="Conversations.Listen">Escuchar</entry>
+	<entry key="Conversations.NoAudio">Sin audio</entry>
+	<entry key="Conversations.DeleteAudio">Eliminar audio</entry>
+	<entry key="Conversations.Select">Elegir</entry>
+	<entry key="Conversations.MoveLineUp">Mover linea hacia arriba</entry>
+	<entry key="Conversations.MoveLineDown">Mover linea hacia abajo</entry>
 
 	<entry key="Conversation.OptionPreviewConversation">Previsualizar conversación</entry>
 	<entry key="Conversation.OptionPreviewPartialConversation">Previsualizar conversación desde este nodo</entry>

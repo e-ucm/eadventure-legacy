@@ -15,38 +15,48 @@ import es.eucm.eadventure.editor.gui.DataControlsPanel;
 import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.structurepanel.StructureControl;
 
+/**
+ * Class that extends JTabbedPane with new functionality, used to place independent
+ * JComponents in each tab that are updates every time they are visited as well as when
+ * it is requested by the system.<br>
+ * This class also implements the DataControlsPanel interface, allowing it to change the
+ * selected tab depending on a DataControl.
+ * 
+ * @author Eugenio Marchiori
+ */
 public class ElementPanel extends JTabbedPane implements Updateable, DataControlsPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1546563540388226634L;
 	
+	/**
+	 * The list of PanelTabs
+	 */
 	private List<PanelTab> tabs;
 
+	/**
+	 * The JComponent of the tab being shown
+	 */
 	private JComponent component = null;
 	
+	/**
+	 * The index of the selected tab
+	 */
 	private int selected = -1;
 	
+	/**
+	 * Constructor
+	 */
 	public ElementPanel() {
 		super();
 		tabs = new ArrayList<PanelTab>();
-		
-		this.addChangeListener(new ChangeListener() {
-			public void stateChanged(final ChangeEvent arg0) {
-				if (selected != getSelectedIndex()) {
-					selected = getSelectedIndex();
-					((JPanel) getSelectedComponent()).removeAll();
-					PanelTab tab = tabs.get(getSelectedIndex());
-					StructureControl.getInstance().visitDataControl(tab.getDataControl());
-					component = tab.getComponent();
-					((JPanel) getSelectedComponent()).add(component, BorderLayout.CENTER);
-					((JPanel) getSelectedComponent()).updateUI();
-				}
-			}
-		});
+		this.addChangeListener(new ElementPanelTabChangeListener());
 	}
 	
+	/**
+	 * Add a new PanelTab to the panel
+	 * 
+	 * @param tab The new PanelTab element
+	 */
 	public void addTab(PanelTab tab) {
 		tabs.add(tab);
 		JPanel panel = new JPanel();
@@ -57,7 +67,6 @@ public class ElementPanel extends JTabbedPane implements Updateable, DataControl
 			this.addTab(tab.getTitle(), tab.getIcon(), panel);
 	}
 
-	@Override
 	public boolean updateFields() {
 		boolean update = false;
 		update = tabs.get(this.getSelectedIndex()).updateFields();
@@ -85,6 +94,24 @@ public class ElementPanel extends JTabbedPane implements Updateable, DataControl
 					}
 					return;
 				}
+			}
+		}
+	}
+	
+	/**
+	 * Private class representing the change listener for the changes in the
+	 * selected tab of the pane.
+	 */
+	private class ElementPanelTabChangeListener implements ChangeListener {
+		public void stateChanged(final ChangeEvent arg0) {
+			if (selected != getSelectedIndex()) {
+				selected = getSelectedIndex();
+				((JPanel) getSelectedComponent()).removeAll();
+				PanelTab tab = tabs.get(getSelectedIndex());
+				StructureControl.getInstance().visitDataControl(tab.getDataControl());
+				component = tab.getComponent();
+				((JPanel) getSelectedComponent()).add(component, BorderLayout.CENTER);
+				((JPanel) getSelectedComponent()).updateUI();
 			}
 		}
 	}

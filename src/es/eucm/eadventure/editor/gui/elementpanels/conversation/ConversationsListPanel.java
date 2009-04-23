@@ -104,21 +104,10 @@ public class ConversationsListPanel extends JPanel {
 			this.conversationsInfo = conversationsInfo;
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.table.TableModel#getColumnCount()
-		 */
 		public int getColumnCount( ) {
-			// Two columns, always
 			return 2;
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.table.TableModel#getRowCount()
-		 */
 		public int getRowCount( ) {
 			return conversationsInfo.length;
 		}
@@ -138,11 +127,6 @@ public class ConversationsListPanel extends JPanel {
 			return columnName;
 		}
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.table.TableModel#getValueAt(int, int)
-		 */
 		public Object getValueAt( int rowIndex, int columnIndex ) {
 			return conversationsInfo[rowIndex][columnIndex];
 		}

@@ -20,18 +20,13 @@ import es.eucm.eadventure.editor.control.controllers.cutscene.CutsceneDataContro
 import es.eucm.eadventure.editor.control.controllers.cutscene.CutscenesListDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.AdvancedFeaturesDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ChapterDataControl;
-import es.eucm.eadventure.editor.control.controllers.globalstate.GlobalStateListDataControl;
 import es.eucm.eadventure.editor.control.controllers.item.ItemDataControl;
 import es.eucm.eadventure.editor.control.controllers.item.ItemsListDataControl;
-import es.eucm.eadventure.editor.control.controllers.macro.MacroListDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ScenesListDataControl;
-import es.eucm.eadventure.editor.control.controllers.timer.TimersListDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.adaptation.AdaptationPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.adaptation.AdaptationProfilesPanel;
-import es.eucm.eadventure.editor.gui.elementpanels.adaptation.AdaptationRulesListPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.assessment.AssessmentPanel;
-import es.eucm.eadventure.editor.gui.elementpanels.assessment.AssessmentProfilePanel;
 import es.eucm.eadventure.editor.gui.elementpanels.assessment.AssessmentProfilesPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.atrezzo.AtrezzoListPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.atrezzo.AtrezzoPanel;
@@ -46,13 +41,10 @@ import es.eucm.eadventure.editor.gui.elementpanels.cutscene.CutscenePanel;
 import es.eucm.eadventure.editor.gui.elementpanels.cutscene.CutscenesListPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.general.AdvancedFeaturesPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.general.ChapterPanel;
-import es.eucm.eadventure.editor.gui.elementpanels.globalstate.GlobalStatesListPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.item.ItemPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.item.ItemsListPanel;
-import es.eucm.eadventure.editor.gui.elementpanels.macro.MacrosListPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.scene.ScenePanel;
 import es.eucm.eadventure.editor.gui.elementpanels.scene.ScenesListPanel;
-import es.eucm.eadventure.editor.gui.elementpanels.timer.TimersListPanel;
 
 public class EditPanelFactory {
 

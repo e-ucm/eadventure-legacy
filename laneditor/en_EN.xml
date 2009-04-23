@@ -1367,6 +1367,13 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="Conversations.DeleteLink">Delete link</entry>
 	<entry key="Conversations.DeleteOption">Delete option</entry>
 	<entry key="Conversations.EditSynthesize">Synthesize option</entry>
+	<entry key="Conversations.Synthesize">Synthesize</entry>
+	<entry key="Conversations.Listen">Listen</entry>
+	<entry key="Conversations.NoAudio">No audio</entry>
+	<entry key="Conversations.DeleteAudio">Delete audio</entry>
+	<entry key="Conversations.Select">Select</entry>
+	<entry key="Conversations.MoveLineUp">Move line up</entry>
+	<entry key="Conversations.MoveLineDown">Move line down</entry>
 
 	<entry key="Conversation.OptionPreviewConversation">Preview conversation</entry>
 	<entry key="Conversation.OptionPreviewPartialConversation">Preview conversation from this node</entry>
