@@ -158,21 +158,20 @@ public class SceneLinksPanel extends JPanel {
 		String colNames[] = {TextConstants.getText("SceneLinksPanel.Show"), TextConstants.getText("SceneLinksPanel.SceneID"), TextConstants.getText("GeneralText.Edit")}; 
 		Object[][] data = null; 
 		
-		dtm = new DefaultTableModel(data, colNames);
+		dtm = new DefaultTableModel(data, colNames) {
+			private static final long serialVersionUID = 1946349590475022293L;
+			
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return row == checkBoxes.getSelectedRow() && column != 1;
+			}
+			
+		};
 		checkBoxes = new JTable(dtm);
 		TableColumn tc = checkBoxes.getColumnModel().getColumn(0); 
 		tc.setCellEditor(checkBoxes.getDefaultEditor(Boolean.class)); 
 		tc.setCellRenderer(checkBoxes.getDefaultRenderer(Boolean.class)); 
 		tc.setMaxWidth(50);
-		tc = checkBoxes.getColumnModel().getColumn(1);
-		tc.setCellEditor(new DefaultCellEditor(new JTextField()) {
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public boolean isCellEditable(EventObject arg0) {
-				return false;
-			}			
-		});
 		tc = checkBoxes.getColumnModel().getColumn(2);
 		tc.setCellEditor(new EditDataControlCellRendererEditor());
 		tc.setCellRenderer(new EditDataControlCellRendererEditor());
@@ -340,7 +339,7 @@ public class SceneLinksPanel extends JPanel {
 			SceneElement scene = sceneElements.get(i);
 			if (scene.isVisible() && scene.getPosX() < x && scene.getPosX() + scene.getWidth() * drawingScale > x
 					&& scene.getPosY() < y && scene.getPosY() + scene.getHeight() * drawingScale > y) {
-				checkBoxes.getSelectionModel().setSelectionInterval(i, i);
+				checkBoxes.changeSelection(i, 0, false, false);
 				return scene;
 			}
 		}

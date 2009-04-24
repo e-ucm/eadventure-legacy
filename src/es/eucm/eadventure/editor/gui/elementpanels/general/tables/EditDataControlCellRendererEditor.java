@@ -30,6 +30,7 @@ public class EditDataControlCellRendererEditor extends AbstractCellEditor implem
 		this.value = (DataControl) value;
 		JButton button = new JButton(TextConstants.getText( "GeneralText.Edit" ));
 		button.setFocusable(false);
+		button.setEnabled(isSelected);
 		button.addActionListener(new EditButtonActionListener(this.value));
 		return button;
 	}
