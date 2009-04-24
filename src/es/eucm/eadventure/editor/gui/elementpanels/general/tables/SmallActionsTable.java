@@ -38,9 +38,9 @@ public class SmallActionsTable extends JTable{
 				if (getSelectedRow() != -1) {
 					if (dataControl.getActions().get(getSelectedRow()).getType() == Controller.ACTION_CUSTOM ||
 							dataControl.getActions().get(getSelectedRow()).getType() == Controller.ACTION_CUSTOM_INTERACT)
-						setRowHeight(getSelectedRow(), 160);
+						setRowHeight(getSelectedRow(), 185);
 					else
-						setRowHeight(getSelectedRow(), 130);
+						setRowHeight(getSelectedRow(), 155);
 				}
 			}
 		});

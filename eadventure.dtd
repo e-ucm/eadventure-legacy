@@ -182,50 +182,58 @@
 <!ELEMENT brief (#PCDATA)>
 <!ELEMENT detailed (#PCDATA)>
 <!ELEMENT actions (examine | grab | use | use-with | give-to | custom | custom-interact | talk-to )+>
-<!ELEMENT examine (documentation?, condition?, effect?)>
+<!ELEMENT examine (documentation?, condition?, effect?,not-effect?)>
 <!ATTLIST examine
 	needsGoTo (yes | no) "yes"
 	keepDistance CDATA "10"
+	not-effects (yes | no) "no"
 >
-<!ELEMENT grab (documentation?, condition?, effect?)>
+<!ELEMENT grab (documentation?, condition?, effect?,not-effect?)>
 <!ATTLIST grab
 	needsGoTo (yes | no) "yes"
 	keepDistance CDATA "10"
+	not-effects (yes | no) "no"
 >
-<!ELEMENT use (documentation?, condition?, effect?)>
+<!ELEMENT use (documentation?, condition?, effect?,not-effect?)>
 <!ATTLIST use
 	needsGoTo (yes | no) "yes"
 	keepDistance CDATA "10"
+	not-effects (yes | no) "no"
 >
-<!ELEMENT use-with (documentation?, condition?, effect?)>
+<!ELEMENT use-with (documentation?, condition?, effect?,not-effect?)>
 <!ATTLIST use-with
 	idTarget IDREF #REQUIRED
 	needsGoTo (yes | no) "yes"
 	keepDistance CDATA "10"
+	not-effects (yes | no) "no"
 >
-<!ELEMENT give-to (documentation?, condition?, effect?)>
+<!ELEMENT give-to (documentation?, condition?, effect?,not-effect?)>
 <!ATTLIST give-to
 	idTarget IDREF #REQUIRED
 	needsGoTo (yes | no) "yes"
 	keepDistance CDATA "35"
+	not-effects (yes | no) "no"
 >
-<!ELEMENT talk-to (documentation?, condition?, effect?)>
+<!ELEMENT talk-to (documentation?, condition?, effect?,not-effect?)>
 <!ATTLIST talk-to
 	needsGoTo (yes | no) "yes"
 	keepDistance CDATA "35"
+	not-effects (yes | no) "no"
 >
-<!ELEMENT custom (resources*, documentation?, condition?, effect?)>
+<!ELEMENT custom (resources*, documentation?, condition?, effect?,not-effect?)>
 <!ATTLIST custom
 	name CDATA #REQUIRED
 	needsGoTo (yes | no) "no"
 	keepDistance CDATA "0"
+	not-effects (yes | no) "no"
 >
-<!ELEMENT custom-interact (resources*, documentation?, condition?, effect?)>
+<!ELEMENT custom-interact (resources*, documentation?, condition?, effect?,not-effect?)>
 <!ATTLIST custom-interact
 	idTarget IDREF #REQUIRED
 	name CDATA #REQUIRED
 	needsGoTo (yes | no) "no"
 	keepDistance CDATA "0"
+	not-effects (yes | no) "no"
 >
 
 <!ELEMENT voice EMPTY>

@@ -121,7 +121,17 @@ public class FunctionalActiveArea extends FunctionalItem {
                 }
             }
         }
-        
+     // if no actions can be launched (because its conditions are't OK), lunch the first action which has not-effects
+        for( int i = 0; i < item.getActions( ).size( ) && !givenTo; i++ ) {
+            Action action = item.getAction( i );
+            if( action.getType( ) == Action.GIVE_TO && action.getTargetId( ).equals( npc.getElement( ).getId( ) ) ) {
+                if( action.isActivatedNotEffects()) {
+                    // Store the effects
+                	FunctionalEffects.storeAllEffects(action.getNotEffects());
+                    givenTo = true;
+                }
+            }
+        }
         return givenTo;
     }
 
@@ -143,7 +153,17 @@ public class FunctionalActiveArea extends FunctionalItem {
                 } 
             }
         }
-        
+        // if no actions can be launched (because its conditions are't OK), lunch the first action which has not-effects
+        for( int i = 0; i < item.getActions( ).size( ) && !grabbed; i++ ) {
+            Action action = item.getAction( i );
+            if( action.getType( ) == Action.GRAB ) {
+                if( action.isActivatedNotEffects() ) {
+                    // Store the effects
+                	FunctionalEffects.storeAllEffects(action.getNotEffects());
+                    grabbed = true;
+                } 
+            }
+        }
         return grabbed;
     }
 

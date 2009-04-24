@@ -90,7 +90,7 @@ public class ActionsTable extends JTable{
 		
 		@Override
 		public boolean isCellEditable(int row, int column) {
-			return row == getSelectedRow();
+		    return row == getSelectedRow();
 		}
 	}
 }

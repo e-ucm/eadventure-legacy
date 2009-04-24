@@ -512,9 +512,18 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
     
     
     public Action getFirstValidAction(int actionType) {
-        for( Action action : npc.getActions() ) {
+        // Looks first in actions
+	for( Action action : npc.getActions() ) {
             if( action.getType( ) == actionType ) {
                 if( new FunctionalConditions(action.getConditions( ) ).allConditionsOk( ) ) {
+                	return action;
+                } 
+            }
+        }
+	// if no actions can be launched (because its conditions are't OK), lunch the first action which has not-effects
+	for( Action action : npc.getActions() ) {
+            if( action.getType( ) == actionType ) {
+                if( action.isActivatedNotEffects()) {
                 	return action;
                 } 
             }
@@ -524,9 +533,18 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
     
 	@Override
 	public CustomAction getFirstValidCustomAction(String actionName) {
-        for( Action action : npc.getActions() ) {
+	 // Looks first in actions
+	for( Action action : npc.getActions() ) {
             if( action.getType( ) == Action.CUSTOM && ((CustomAction) action).getName().equals(actionName) ) {
                 if( new FunctionalConditions(action.getConditions( ) ).allConditionsOk( ) ) {
+                	return (CustomAction) action;
+                } 
+            }
+        }
+	// if no actions can be launched (because its conditions are't OK), lunch the first action which has not-effects
+	for( Action action : npc.getActions() ) {
+            if( action.getType( ) == Action.CUSTOM && ((CustomAction) action).getName().equals(actionName) ) {
+                if( action.isActivatedNotEffects() ) {
                 	return (CustomAction) action;
                 } 
             }
@@ -536,9 +554,18 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
 	}
 
 	public CustomAction getFirstValidCustomInteraction(String actionName) {
-        for( Action action : npc.getActions() ) {
+	//Looks first in actions
+	for( Action action : npc.getActions() ) {
             if( action.getType( ) == Action.CUSTOM_INTERACT && ((CustomAction) action).getName().equals(actionName) ) {
                 if( new FunctionalConditions(action.getConditions( ) ).allConditionsOk( ) ) {
+                	return (CustomAction) action;
+                } 
+            }
+        }
+	// if no actions can be launched (because its conditions are't OK), lunch the first action which has not-effects
+	for( Action action : npc.getActions() ) {
+            if( action.getType( ) == Action.CUSTOM_INTERACT && ((CustomAction) action).getName().equals(actionName) ) {
+                if( action.isActivatedNotEffects() ) {
                 	return (CustomAction) action;
                 } 
             }
@@ -557,6 +584,17 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
                 if( new FunctionalConditions( action.getConditions( ) ).allConditionsOk( ) ) {
                     // Store the effects
                 	FunctionalEffects.storeAllEffects(action.getEffects( ));
+                    custom = true;
+                } 
+            }
+        }
+     // if no actions can be launched (because its conditions are't OK), lunch the first action which has not-effects
+        for( int i = 0; i < npc.getActions( ).size( ) && !custom; i++ ) {
+            Action action = npc.getAction( i );
+            if( action.getType( ) == Action.CUSTOM && ((CustomAction) action).getName().equals(actionName) ) {
+                if( action.isActivatedNotEffects() ) {
+                    // Store the effects
+                	FunctionalEffects.storeAllEffects(action.getNotEffects());
                     custom = true;
                 } 
             }
