@@ -2,7 +2,9 @@ package es.eucm.eadventure.editor.control.tools.structurepanel;
 
 import javax.swing.JTable;
 
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.Chapter;
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.general.ChapterDataControl;
 import es.eucm.eadventure.editor.control.tools.Tool;
@@ -25,7 +27,7 @@ public class RemoveElementTool extends Tool {
 		try {
 			chapter = (Chapter) (((Chapter) chapterDataControl.getContent()).clone());
 		} catch (Exception e) {
-			e.printStackTrace();
+			ReportDialog.GenerateErrorReport(e, true, "Could not clone chapter");	
 		}
 	}
 	
