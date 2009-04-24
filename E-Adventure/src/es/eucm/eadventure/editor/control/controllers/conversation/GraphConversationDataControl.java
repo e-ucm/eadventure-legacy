@@ -1,7 +1,9 @@
 package es.eucm.eadventure.editor.control.controllers.conversation;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import es.eucm.eadventure.common.data.chapter.conversation.Conversation;
 import es.eucm.eadventure.common.data.chapter.conversation.GraphConversation;
@@ -28,7 +30,7 @@ public class GraphConversationDataControl extends ConversationDataControl {
 	/**
 	 * A list with each conversation line conditions controller
 	 */
-	private List<ConditionsController> allConditions;
+	private Map<ConversationNodeView,List<ConditionsController>> allConditions;
 
 	/**
 	 * Constructor.
@@ -60,13 +62,17 @@ public class GraphConversationDataControl extends ConversationDataControl {
 	 * Store all line conditions in allConditions
 	 */
 	private void storeAllConditions(){
-	    	allConditions = new ArrayList<ConditionsController>();
+	    	allConditions = new HashMap<ConversationNodeView,List<ConditionsController>>();
 	    	// Take all the nodes, and add the line count of each one
 		List<ConversationNodeView> nodes = getAllNodes( );
 		for( ConversationNodeView node : nodes ){
+		    ArrayList<ConditionsController> nodeConditions = new ArrayList<ConditionsController>();
+		    // add each condition for each conversation line
 		    for (int i=0;i<node.getLineCount();i++){
-			allConditions.add(new ConditionsController(node.getLineConditions(i)));
+			nodeConditions.add(new ConditionsController(node.getLineConditions(i)));
 		    }
+		    allConditions.put(node, nodeConditions);
+		    
 		}	    
 	}
 	
@@ -76,31 +82,10 @@ public class GraphConversationDataControl extends ConversationDataControl {
 	 * @return Conditions controller
 	 * 		
 	 */
-	public ConditionsController getLineConditionController(ConversationLine convLine){
-	    int lineNumber = getLineNumber(convLine);
-	    return allConditions.get(lineNumber);
+	public ConditionsController getLineConditionController(ConversationNodeView node,int line){
+	    return (allConditions.get(node)).get(line);
 	}
 	
-	/**
-	 * Returns the conversation line number, relative to allConditions.
-	 * @param convNode
-	 * @return
-	 */
-	public int getLineNumber(ConversationLine convLine){
-	    	int lineNumber=0;
-	    	// Take all the nodes, and add the line count of each one
-		List<ConversationNodeView> nodes = getAllNodes( );
-		for( ConversationNodeView node : nodes ){
-		    for (int i=0;i<node.getLineCount();i++){
-			if (convLine == node.getConversationLine(i)){
-			    return lineNumber;
-			} else {
-			    lineNumber++;
-			}
-		    }
-		}
-		return lineNumber;
-	}
 	
 	@Override
 	public int getConversationLineCount( ) {
@@ -207,7 +192,7 @@ public class GraphConversationDataControl extends ConversationDataControl {
 
 	@Override
 	public boolean deleteNode( ConversationNodeView nodeView ) {
-		return controller.addTool(new DeleteConversationNodeTool(nodeView, (GraphConversation)getConversation()));
+		return controller.addTool(new DeleteConversationNodeTool(nodeView, (GraphConversation)getConversation(),allConditions));
 	}
 
 	@Override
@@ -497,7 +482,7 @@ public class GraphConversationDataControl extends ConversationDataControl {
 	/**
 	 * @return the allConditions
 	 */
-	public List<ConditionsController> getAllConditions() {
+	public Map<ConversationNodeView,List<ConditionsController>> getAllConditions() {
 	    return allConditions;
 	}
 
