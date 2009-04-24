@@ -355,6 +355,8 @@ class LinesPanel extends JPanel {
 			//TODO MODIFIED
 			//editEffectButton.setEnabled( selectedNode.isTerminal( ) );
 			editEffectButton.setEnabled( true );
+			this.addDialogButton.setEnabled(conversationDataControl.canAddChild( conversationPanel.getSelectedNode(), ConversationNode.DIALOGUE ));
+			this.addOptionButton.setEnabled(conversationDataControl.canDeleteNode( conversationPanel.getSelectedNode() ));
 		}
 
 		// Update the table
