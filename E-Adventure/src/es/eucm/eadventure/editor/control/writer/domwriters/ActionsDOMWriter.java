@@ -91,6 +91,7 @@ public class ActionsDOMWriter {
 					
 					actionElement.setAttribute("needsGoTo", (action.isNeedsGoTo() ? "yes" : "no"));
 					actionElement.setAttribute("keepDistance", "" + action.getKeepDistance().intValue());
+					actionElement.setAttribute("not-effects", action.isActivatedNotEffects()? "yes":"no");
 
 					// Append the documentation (if avalaible)
 					if( action.getDocumentation( ) != null ) {
@@ -111,6 +112,12 @@ public class ActionsDOMWriter {
 						Node effectsNode = EffectsDOMWriter.buildDOM( EffectsDOMWriter.EFFECTS, action.getEffects( ) );
 						doc.adoptNode( effectsNode );
 						actionElement.appendChild( effectsNode );
+					}
+					// Append the not effects (if avalaible)
+					if (action.getNotEffects() != null && !action.getNotEffects().isEmpty()) {
+						Node notEffectsNode = EffectsDOMWriter.buildDOM( EffectsDOMWriter.NOT_EFFECTS, action.getNotEffects( ) );
+						doc.adoptNode( notEffectsNode );
+						actionElement.appendChild( notEffectsNode );
 					}
 
 					// Append the action element

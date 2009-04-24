@@ -255,7 +255,18 @@ public class FunctionalItem extends FunctionalElement {
                 }
             }
         }
-            
+        
+     // if no actions can be launched (because its conditions are't OK), lunch the first action which has activated not-effects
+        for( int i = 0; i < item.getActions( ).size( ) && !examined; i++ ) {
+            Action action = item.getAction( i );
+            if( action.getType( ) == Action.EXAMINE ) {
+                if( action.isActivatedNotEffects() ) {
+                    // Store the effects
+                	FunctionalEffects.storeAllEffects(action.getNotEffects());
+                    examined = true;
+                }
+            }
+        }  
         return examined;
     }
 
@@ -284,6 +295,15 @@ public class FunctionalItem extends FunctionalElement {
                 } 
             }
         }
+        
+        // if no actions can be launched (because its conditions are't OK), lunch the first action which has activated not-effects
+        for( Action action : item.getActions() ) {
+            if( action.getType( ) == actionType ) {
+                if( action.isActivatedNotEffects() ) {
+                	return action;
+                } 
+            }
+        }
         return null;
     }
     
@@ -295,6 +315,16 @@ public class FunctionalItem extends FunctionalElement {
                 } 
             }
         }
+        
+     // if no actions can be launched (because its conditions are't OK), lunch the first action which has activated not-effects
+        for( Action action : item.getActions() ) {
+            if( action.getType( ) == Action.CUSTOM && ((CustomAction) action).getName().equals(actionName) ) {
+                if( action.isActivatedNotEffects() ) {
+                	return (CustomAction) action;
+                } 
+            }
+        }
+        
         return null;
     }
     
@@ -306,6 +336,14 @@ public class FunctionalItem extends FunctionalElement {
     			}
     		}
     	}
+    	  // if no actions can be launched (because its conditions are't OK), lunch the first action which has activated not-effects
+    	for (Action action : item.getActions()) {
+		if (action.getType() == Action.CUSTOM_INTERACT && ((CustomAction) action).getName().endsWith(actionName)) {
+			if ( action.isActivatedNotEffects()) {
+				return (CustomAction) action;
+			}
+		}
+	}
     	return null;
     }
     
@@ -333,7 +371,21 @@ public class FunctionalItem extends FunctionalElement {
                 } 
             }
         }
-        
+        // if no actions can be launched (because its conditions are't OK), lunch the first action which has activated not-effects
+        for( int i = 0; i < item.getActions( ).size( ) && !grabbed; i++ ) {
+            Action action = item.getAction( i );
+            if( action.getType( ) == Action.GRAB ) {
+                if( action.isActivatedNotEffects() ) {
+                    // If the it has not a cancel action, grab the item
+                    if( !action.getEffects( ).hasCancelAction( ) )
+                        Game.getInstance( ).grabItem( item.getId( ) );
+                    
+                    // Store the effects
+                    FunctionalEffects.storeAllEffects(action.getNotEffects());
+                    grabbed = true;
+                } 
+            }
+        }
         return grabbed;
     }
     
@@ -355,7 +407,17 @@ public class FunctionalItem extends FunctionalElement {
                 } 
             }
         }
-        
+     // if no actions can be launched (because its conditions are't OK), lunch the first action which has activated not-effects
+        for( int i = 0; i < item.getActions( ).size( ) && !used; i++ ) {
+            Action action = item.getAction( i );
+            if( action.getType( ) == Action.USE ) {
+                if( action.isActivatedNotEffects() ) {
+                    // Store the effects
+                	FunctionalEffects.storeAllEffects(action.getNotEffects());
+                    used = true;
+                } 
+            }
+        }
         return used;
     }
 
@@ -373,7 +435,17 @@ public class FunctionalItem extends FunctionalElement {
                 } 
             }
         }
-        
+     // if no actions can be launched (because its conditions are't OK), lunch the first action which has activated not-effects
+        for( int i = 0; i < item.getActions( ).size( ) && !custom; i++ ) {
+            Action action = item.getAction( i );
+            if( action.getType( ) == Action.CUSTOM && ((CustomAction) action).getName().equals(actionName) ) {
+                if( action.isActivatedNotEffects()) {
+                    // Store the effects
+                	FunctionalEffects.storeAllEffects(action.getNotEffects());
+                    custom = true;
+                } 
+            }
+        }
         return custom;
     }
 
@@ -397,7 +469,17 @@ public class FunctionalItem extends FunctionalElement {
                 }
             }
         }
-        
+     // if no actions can be launched (because its conditions are't OK), lunch the first action which has activated not-effects
+        for( int i = 0; i < item.getActions( ).size( ) && !usedWith; i++ ) {
+            Action action = item.getAction( i );
+            if( action.getType( ) == Action.USE_WITH && action.getTargetId( ).equals( anotherItem.getItem( ).getId( ) ) ) {
+                if( action.isActivatedNotEffects() ) {
+                    // Store the effects
+                	FunctionalEffects.storeAllEffects(action.getNotEffects());
+                    usedWith = true;
+                }
+            }
+        }
         return usedWith;
     }
 
@@ -412,6 +494,18 @@ public class FunctionalItem extends FunctionalElement {
                 if( new FunctionalConditions( action.getConditions( ) ).allConditionsOk( ) ) {
                     // Store the effects
                 	FunctionalEffects.storeAllEffects(action.getEffects( ));
+                	customInteract = true;
+                }
+            }
+        }
+        // if no actions can be launched (because its conditions are't OK), lunch the first action which has activated not-effects
+        for( int i = 0; i < item.getActions( ).size( ) && !customInteract; i++ ) {
+            Action action = item.getAction( i );
+            if( action.getType( ) == Action.CUSTOM_INTERACT && ((CustomAction) action).getName().equals(actionName)
+            		&& action.getTargetId() != null && action.getTargetId( ).equals( anotherItem.getItem( ).getId( ) ) ) {
+                if( action.isActivatedNotEffects() ) {
+                    // Store the effects
+                	FunctionalEffects.storeAllEffects(action.getNotEffects());
                 	customInteract = true;
                 }
             }
@@ -437,7 +531,19 @@ public class FunctionalItem extends FunctionalElement {
                 }
             }
         }
-        
+     // if no actions can be launched (because its conditions are't OK), lunch the first action which has activated not-effects
+        for( int i = 0; i < item.getActions( ).size( ) && !customInteract; i++ ) {
+            Action action = item.getAction( i );
+            if( action.getType( ) == Action.CUSTOM_INTERACT 
+            		&& action.getTargetId( ).equals( npc.getNPC().getId( ) ) 
+            		&& ((CustomAction) action).getName().equals(actionName)) {
+                if( action.isActivatedNotEffects()) {
+                    // Store the effects
+                	FunctionalEffects.storeAllEffects(action.getNotEffects());
+                	customInteract = true;
+                }
+            }
+        }
         return customInteract;
     }
 
@@ -464,7 +570,21 @@ public class FunctionalItem extends FunctionalElement {
                 }
             }
         }
-        
+     // if no actions can be launched (because its conditions are't OK), lunch the first action which has activated not-effects
+        for( int i = 0; i < item.getActions( ).size( ) && !givenTo; i++ ) {
+            Action action = item.getAction( i );
+            if( action.getType( ) == Action.GIVE_TO && action.getTargetId( ).equals( npc.getElement( ).getId( ) ) ) {
+                if( action.isActivatedNotEffects() ) {
+                    // If the item has not a cancel action, consume the item
+                    if( !action.getEffects( ).hasCancelAction( ) )
+                        Game.getInstance( ).consumeItem( item.getId( ) );
+                    
+                    // Store the effects
+                    FunctionalEffects.storeAllEffects(action.getNotEffects());
+                    givenTo = true;
+                }
+            }
+        }
         return givenTo;
     }
 

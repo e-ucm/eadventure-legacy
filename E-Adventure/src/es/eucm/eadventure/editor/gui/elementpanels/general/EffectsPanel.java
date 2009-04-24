@@ -293,7 +293,10 @@ public class EffectsPanel extends JPanel implements Updateable{
 		
 		@Override
 		public boolean isCellEditable(int row, int column) {
-			return row == effectsTable.getSelectedRow();
+		    boolean isEditable = false;
+			if (column==2)
+			    isEditable=true;
+			return isEditable &&row == effectsTable.getSelectedRow();
 		}
 	}
 

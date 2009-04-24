@@ -3,6 +3,7 @@ package es.eucm.eadventure.editor.control.controllers.general;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.Action;
+import es.eucm.eadventure.common.data.chapter.effects.Effects;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
@@ -36,6 +37,11 @@ public class ActionDataControl extends DataControlWithResources {
 	 * Effects controller
 	 */
 	private EffectsController effectsController;
+	
+	/**
+	 * Not-Effects controller
+	 */
+	private EffectsController notEffectsController;
 
 	/**
 	 * Contructor.
@@ -77,6 +83,7 @@ public class ActionDataControl extends DataControlWithResources {
 		// Create subcontrollers
 		conditionsController = new ConditionsController( action.getConditions( ) );
 		effectsController = new EffectsController( action.getEffects( ) );
+		notEffectsController = new EffectsController( action.getNotEffects() );
 	}
 
 	/**
@@ -358,6 +365,26 @@ public class ActionDataControl extends DataControlWithResources {
 			controller.dataModified();
 		}*/
 		controller.addTool(new ChangeIntegerValueTool(action, keepDistance, "getKeepDistance","setKeepDistance"));
+	}
+	
+	/**
+	 * Change activated not effects
+	 * @param activated
+	 */
+	public void setActivatedNotEffects(boolean activated){
+	    action.setActivatedNotEffects(activated);
+	}
+	
+	public boolean isActivatedNotEffects(){
+	    return action.isActivatedNotEffects();
+	}
+	
+
+	/**
+	 * @return the notEffectsController
+	 */
+	public EffectsController getNotEffectsController() {
+	    return notEffectsController;
 	}
 
 	@Override

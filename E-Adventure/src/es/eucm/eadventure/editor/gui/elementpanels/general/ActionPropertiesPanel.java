@@ -5,16 +5,23 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import es.eucm.eadventure.common.data.Documented;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.general.ActionDataControl;
 import es.eucm.eadventure.editor.control.tools.listeners.DocumentationChangeListener;
+import es.eucm.eadventure.editor.gui.editdialogs.EffectsDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.effectdialogs.MacroReferenceEffectDialog;
 
 public class ActionPropertiesPanel extends JPanel implements ActionTypePanel{
@@ -28,7 +35,13 @@ public class ActionPropertiesPanel extends JPanel implements ActionTypePanel{
 	 * Text area for the documentation.
 	 */
 	private JTextArea documentationTextArea;
-
+	
+	/**
+	 * Data Control
+	 */
+	private ActionDataControl actionDataControl;
+	
+	
 	/**
 	 * Constructor.
 	 * 
@@ -38,6 +51,8 @@ public class ActionPropertiesPanel extends JPanel implements ActionTypePanel{
 	public ActionPropertiesPanel( ActionDataControl actionDataControl ) {
 
 		setLayout( new GridBagLayout( ) );
+		
+		this.actionDataControl = actionDataControl;
 		
 		GridBagConstraints c = new GridBagConstraints( );
 		c.insets = new Insets( 5, 5, 5, 5 );
@@ -65,6 +80,48 @@ public class ActionPropertiesPanel extends JPanel implements ActionTypePanel{
 		c.weighty = 1;
 		MacroReferenceEffectDialog.ID = null;
 		add( new EffectsPanel( actionDataControl.getEffects( ) ), c );
+		
+		c.gridy++;
+		c.weighty = 0;
+		c.ipady=-3;
+		add( editNotEffects(),c);
+		
+	}
+	
+	private JPanel editNotEffects(){
+	    GridBagConstraints c = new GridBagConstraints( );
+		c.insets = new Insets( 5, 5, 5, 5 );
+		c.gridy = 0;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.weightx = 1;
+		
+	    // Edit not effects
+		JPanel notEffContainer = new JPanel(new GridBagLayout());
+		final JButton editNotEff = new JButton(TextConstants.getText("Exit.EditNotEffects"));
+		editNotEff.addActionListener(new ActionListener(){
+
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+			new EffectsDialog( actionDataControl.getNotEffectsController() );
+			
+		    }
+		    
+		});
+		editNotEff.setEnabled(this.actionDataControl.isActivatedNotEffects());
+		
+		final JCheckBox enableNotEff = new JCheckBox(TextConstants.getText("Exit.ActiveWhenConditionsArent"));
+		enableNotEff.setSelected(this.actionDataControl.isActivatedNotEffects());
+		enableNotEff.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			    actionDataControl.setActivatedNotEffects(enableNotEff.isSelected());
+			    editNotEff.setEnabled(enableNotEff.isSelected());
+			}
+		});
+
+		notEffContainer.add(enableNotEff,c);
+		c.gridy++;
+		notEffContainer.add(editNotEff,c);
+		return notEffContainer;
 	}
 
 	@Override

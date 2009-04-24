@@ -76,6 +76,16 @@ public class Action implements Cloneable, Documented, HasTargetId {
 	private Effects effects;
 
 	/**
+	 * Alternative effects, when the conditions aren't OK
+	 */
+	private Effects notEffects;
+	
+	/**
+	 * Activate not effects
+	 */
+	private boolean activatedNotEffects;
+	
+	/**
 	 * Indicates whether the character needs to go up to the object
 	 */
 	private boolean needsGoTo;
@@ -93,7 +103,7 @@ public class Action implements Cloneable, Documented, HasTargetId {
 	 *            The type of the action
 	 */
 	public Action( int type ) {
-		this( type, null, new Conditions( ), new Effects( ) );
+		this( type, null, new Conditions( ), new Effects( ), new Effects() );
 		switch(type) {
 		case EXAMINE:
 			needsGoTo = false;
@@ -135,7 +145,7 @@ public class Action implements Cloneable, Documented, HasTargetId {
 	 *            The target of the action
 	 */
 	public Action( int type, String idTarget ) {
-		this( type, idTarget, new Conditions( ), new Effects( ) );
+		this( type, idTarget, new Conditions( ), new Effects( ) , new Effects());
 	}
 
 	/**
@@ -147,9 +157,11 @@ public class Action implements Cloneable, Documented, HasTargetId {
 	 *            The conditions of the action (must not be null)
 	 * @param effects
 	 *            The effects of the action (must not be null)
+	 * @param notEffects
+	 *            The effects of the action when the conditions aren't OK (must not be null)
 	 */
-	public Action( int type, Conditions conditions, Effects effects ) {
-		this( type, null, conditions, effects );
+	public Action( int type, Conditions conditions, Effects effects , Effects notEffects) {
+		this( type, null, conditions, effects,notEffects );
 	}
 
 	/**
@@ -163,12 +175,15 @@ public class Action implements Cloneable, Documented, HasTargetId {
 	 *            The conditions of the action (must not be null)
 	 * @param effects
 	 *            The effects of the action (must not be null)
+	 * @param notEffects
+	 *            The effects of the action when the conditions aren't OK (must not be null)
 	 */
-	public Action( int type, String idTarget, Conditions conditions, Effects effects ) {
+	public Action( int type, String idTarget, Conditions conditions, Effects effects, Effects notEffects ) {
 		this.type = type;
 		this.idTarget = idTarget;
 		this.conditions = conditions;
 		this.effects = effects;
+		this.notEffects = notEffects;
 		documentation = null;
 	}
 
@@ -285,6 +300,20 @@ public class Action implements Cloneable, Documented, HasTargetId {
 		this.keepDistance = keepDistance;
 	}
 	
+	/**
+	 * @return the notEffects
+	 */
+	public Effects getNotEffects() {
+	    return notEffects;
+	}
+
+	/**
+	 * @param notEffects the notEffects to set
+	 */
+	public void setNotEffects(Effects notEffects) {
+	    this.notEffects = notEffects;
+	}
+
 	public Object clone() throws CloneNotSupportedException {
 		Action a = (Action) super.clone();
 		a.conditions = (conditions != null ? (Conditions) conditions.clone() : null);
@@ -294,7 +323,23 @@ public class Action implements Cloneable, Documented, HasTargetId {
 		a.keepDistance = keepDistance;
 		a.needsGoTo = needsGoTo;
 		a.type = type;
+		a.notEffects = (notEffects != null ? (Effects) notEffects.clone() : null);
+		a.activatedNotEffects = activatedNotEffects;
 		return a;
+	}
+
+	/**
+	 * @return the activateNotEffects
+	 */
+	public boolean isActivatedNotEffects() {
+	    return activatedNotEffects;
+	}
+
+	/**
+	 * @param activateNotEffects the activateNotEffects to set
+	 */
+	public void setActivatedNotEffects(boolean activateNotEffects) {
+	    this.activatedNotEffects = activateNotEffects;
 	}
 
 }

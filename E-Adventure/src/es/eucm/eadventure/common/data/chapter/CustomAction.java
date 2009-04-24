@@ -55,9 +55,10 @@ public class CustomAction extends Action implements Named {
 	 * @param type the type of the action
 	 * @param conditions the conditions of the action
 	 * @param effects the effects of the action
+	 * @param notEffects The effects of the action when the conditions aren't OK (must not be null)
 	 */
-	public CustomAction( int type, Conditions conditions, Effects effects ) {
-		super( type, conditions, effects );
+	public CustomAction( int type, Conditions conditions, Effects effects, Effects notEffects ) {
+		super( type, conditions, effects, notEffects );
 		resources = new ArrayList<Resources>();
 	}
 
@@ -69,9 +70,10 @@ public class CustomAction extends Action implements Named {
 	 * @param idTarget the id of the other object
 	 * @param conditions the conditions of the action
 	 * @param effects the effects of the action
+	 * @param notEffects The effects of the action when the conditions aren't OK (must not be null)
 	 */
-	public CustomAction( int type, String idTarget, Conditions conditions, Effects effects ) {
-		super( type, idTarget, conditions, effects);
+	public CustomAction( int type, String idTarget, Conditions conditions, Effects effects, Effects notEffects ) {
+		super( type, idTarget, conditions, effects,notEffects);
 		resources = new ArrayList<Resources>();
 	}
 	
@@ -81,7 +83,7 @@ public class CustomAction extends Action implements Named {
 	 * @param action a normal action
 	 */
 	public CustomAction(Action action) {
-		super(action.getType(), action.getTargetId(), action.getConditions(), action.getEffects());
+		super(action.getType(), action.getTargetId(), action.getConditions(), action.getEffects(), action.getNotEffects());
 		resources = new ArrayList<Resources>();
 	}
 	

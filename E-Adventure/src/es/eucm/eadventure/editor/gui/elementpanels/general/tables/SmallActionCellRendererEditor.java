@@ -122,6 +122,31 @@ public class SmallActionCellRendererEditor extends AbstractCellEditor implements
 		temp.add(effectsButton, c);
 		
 		c.gridy++;
+		
+		final JCheckBox enableNotEff = new JCheckBox(TextConstants.getText("Exit.ActiveWhenConditionsArent"));
+		final JButton notEffectsButton = new JButton(TextConstants.getText("Exit.EditNotEffects"));
+		
+		enableNotEff.setSelected(value.isActivatedNotEffects());
+		enableNotEff.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			    value.setActivatedNotEffects(enableNotEff.isSelected());
+			    notEffectsButton.setEnabled(enableNotEff.isSelected());
+			}
+		});
+		enableNotEff.setSelected(value.isActivatedNotEffects());
+		temp.add(enableNotEff,c);
+		
+		c.gridy++;
+		notEffectsButton.setFocusable(false);
+		notEffectsButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new EffectsDialog( value.getNotEffectsController() );
+			}
+		});
+		notEffectsButton.setEnabled(enableNotEff.isSelected());
+		temp.add(notEffectsButton, c);
+		
+		c.gridy++;
 		final JCheckBox getToCheckBox = new JCheckBox("Needs get to");
 		getToCheckBox.setSelected(value.getNeedsGoTo());
 		temp.add(getToCheckBox, c);
