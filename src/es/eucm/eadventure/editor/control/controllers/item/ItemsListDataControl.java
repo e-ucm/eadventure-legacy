@@ -3,6 +3,7 @@ package es.eucm.eadventure.editor.control.controllers.item;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.elements.Item;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
@@ -113,24 +114,45 @@ public class ItemsListDataControl extends DataControl {
 
 		if( type == Controller.ITEM ) {
 
-			// Show a dialog asking for the item id
 			if (itemId == null)
 				itemId = controller.showInputDialog( TextConstants.getText( "Operation.AddItemTitle" ), TextConstants.getText( "Operation.AddItemMessage" ), TextConstants.getText( "Operation.AddItemDefaultValue" ) );
 
-			// If some value was typed and the identifier is valid
 			if( itemId != null && controller.isElementIdValid( itemId ) ) {
-				// Add thew new item
 				Item newItem = new Item( itemId );
 				itemsList.add( newItem );
 				itemsDataControlList.add( new ItemDataControl( newItem ) );
 				controller.getIdentifierSummary( ).addItemId( itemId );
-				//controller.dataModified( );
 				elementAdded = true;
 			}
 		}
 
 		return elementAdded;
 	}
+
+	@Override
+	public boolean duplicateElement( DataControl dataControl ) {
+		if (!(dataControl instanceof ItemDataControl))
+			return false;
+		
+		try {
+			Item newElement = (Item) (((Item) (dataControl.getContent())).clone());
+			String id = newElement.getId();
+			int i = 1;
+			do {
+				id = newElement.getId() + i;
+				i++;
+			} while (!controller.isElementIdValid(id, false));
+			newElement.setId(id);
+			itemsList.add(newElement);
+			itemsDataControlList.add( new ItemDataControl(newElement));
+			controller.getIdentifierSummary().addItemId( id);
+			return true;
+		} catch (CloneNotSupportedException e) {
+			ReportDialog.GenerateErrorReport(e, true, "Could not clone item");	
+			return false;
+		} 
+	}
+
 	
 	@Override
 	public String getDefaultId(int type) {

@@ -77,4 +77,8 @@ public class StructureElement {
 	public boolean isJustCreated() {
 		return dataControl.isJustCreated();
 	}
+
+	public boolean canBeDuplicated() {
+		return dataControl.canBeDuplicated();
+	}
 }

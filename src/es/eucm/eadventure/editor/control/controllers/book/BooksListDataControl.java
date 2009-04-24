@@ -3,6 +3,7 @@ package es.eucm.eadventure.editor.control.controllers.book;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.book.Book;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.gui.TextConstants;
@@ -157,6 +158,31 @@ public class BooksListDataControl extends DataControl {
 		return elementAdded;
 	}
 
+	@Override
+	public boolean duplicateElement( DataControl dataControl ) {
+		if (!(dataControl instanceof BookDataControl))
+			return false;
+		
+		try {
+			Book newElement = (Book) (((Book) (dataControl.getContent())).clone());
+			String id = newElement.getId();
+			int i = 1;
+			do {
+				id = newElement.getId() + i;
+				i++;
+			} while (!controller.isElementIdValid(id, false));
+			newElement.setId(id);
+			booksList.add(newElement);
+			booksDataControlList.add( new BookDataControl(newElement));
+			controller.getIdentifierSummary().addBookId( id);
+			return true;
+		} catch (CloneNotSupportedException e) {
+			ReportDialog.GenerateErrorReport(e, true, "Could not clone book");	
+			return false;
+		} 
+	}
+
+	
 	@Override
 	public String getDefaultId(int type) {
 		return TextConstants.getText( "Operation.AddBookDefaultValue" );

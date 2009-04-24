@@ -107,7 +107,7 @@ public class PlayerDataControl extends NPCDataControl {
 
 	@Override
 	public boolean canBeDuplicated( ) {
-		return true;
+		return false;
 
 	}
 

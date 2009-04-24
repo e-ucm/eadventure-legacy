@@ -135,7 +135,9 @@ public abstract class DataControl implements Cloneable {
 	 *            Data controller which contains the element
 	 * @return True if the element was deleted, false otherwise
 	 */
-	//public abstract boolean duplicateElement( DataControl dataControl );
+	public boolean duplicateElement( DataControl dataControl ) {
+		return false;
+	}
 
 	
 	/**

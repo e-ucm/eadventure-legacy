@@ -31,6 +31,7 @@ import es.eucm.eadventure.editor.control.controllers.scene.ExitDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.NodeDataControl;
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
 import es.eucm.eadventure.editor.gui.Updateable;
+import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.elementpanels.DataControlSelectionListener;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 
@@ -49,6 +50,7 @@ public class BarriersListPanel extends JPanel implements Updateable, DataControl
 	
 	private JButton deleteButton;
 	
+	private JButton duplicateButton;
 	
 	private static final int HORIZONTAL_SPLIT_POSITION = 140;
 
@@ -90,10 +92,13 @@ public class BarriersListPanel extends JPanel implements Updateable, DataControl
 			public void valueChanged(ListSelectionEvent arg0) {
 				if (table.getSelectedRow() >= 0) {
 					deleteButton.setEnabled(true);
+					duplicateButton.setEnabled(true);
 					spep.setSelectedElement(dataControl.getBarriers().get(table.getSelectedRow()));
 					spep.repaint();
-				} else
+				} else {
 					deleteButton.setEnabled(false);
+					duplicateButton.setEnabled(false);
+				}
 				deleteButton.repaint();
 			}
 		});
@@ -119,14 +124,32 @@ public class BarriersListPanel extends JPanel implements Updateable, DataControl
 				deleteBarrier();
 			}
 		});
+		duplicateButton = new JButton(new ImageIcon("img/icons/duplicateNode.png"));
+		duplicateButton.setContentAreaFilled( false );
+		duplicateButton.setMargin( new Insets(0,0,0,0) );
+		duplicateButton.setToolTipText( TextConstants.getText( "BarriersList.DuplicateBarrier" ) );
+		duplicateButton.setEnabled(false);
+		duplicateButton.addActionListener(new ActionListener(){
+			public void actionPerformed( ActionEvent e ) {
+				duplicateBarrier();
+			}
+		});
+
 		buttonsPanel.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridx = 0;
 		c.gridy = 0;
 		buttonsPanel.add(newButton, c);
 		c.gridy = 1;
+		buttonsPanel.add(duplicateButton, c);
+		c.gridy = 3;
 		buttonsPanel.add(deleteButton, c);
-		
+
+		c.gridy = 2;
+		c.fill = GridBagConstraints.VERTICAL;
+		c.weighty = 2.0;
+		buttonsPanel.add(new JFiller(), c);
+
 		tablePanel.setLayout(new BorderLayout());
 		tablePanel.add(scroll, BorderLayout.CENTER);
 		tablePanel.add(buttonsPanel, BorderLayout.EAST);
@@ -178,13 +201,23 @@ public class BarriersListPanel extends JPanel implements Updateable, DataControl
 			table.changeSelection(dataControl.getBarriers().size() - 1, dataControl.getBarriers().size() - 1, false, false);
 		}
 	}
-	
+
+	protected void duplicateBarrier() {
+		if (dataControl.duplicateElement(dataControl.getBarriers().get(table.getSelectedRow()))) {
+			spep.addBarrier(dataControl.getLastBarrier());
+			spep.repaint();
+			((AbstractTableModel) table.getModel()).fireTableDataChanged();
+			table.changeSelection(dataControl.getBarriers().size() - 1, dataControl.getBarriers().size() - 1, false, false);
+		}
+	}
+
 	protected void deleteBarrier() {
 		spep.removeElement(dataControl.getBarriers().get(table.getSelectedRow()));
 		dataControl.deleteElement(dataControl.getBarriers().get(table.getSelectedRow()), true);
 		((AbstractTableModel) table.getModel()).fireTableDataChanged();
 	}
 
+	
 	public boolean updateFields() {
 		spep.repaint();
 		return true;

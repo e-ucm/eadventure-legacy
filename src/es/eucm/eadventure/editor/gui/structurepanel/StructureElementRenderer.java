@@ -14,15 +14,18 @@ public class StructureElementRenderer extends AbstractCellEditor implements Tabl
 	private StructureElementCell see;
 	
 	private StructureElement value;
+	
+	private StructureListElement parent;
 		
-	public StructureElementRenderer() {
+	public StructureElementRenderer(StructureListElement parent) {
+		this.parent = parent;
 	}
 
 	@Override
 	public Component getTableCellRendererComponent(JTable table, Object value,
 			boolean isSelected, boolean isFocus, int row, int col) {
 		this.value = (StructureElement) value;
-		see = new StructureElementCell(this.value, table, isSelected);
+		see = new StructureElementCell(this.value, table, isSelected, parent);
 		return see;
 	}
 
@@ -30,7 +33,7 @@ public class StructureElementRenderer extends AbstractCellEditor implements Tabl
 	public Component getTableCellEditorComponent(JTable table, Object value,
 			boolean isSelected, int row, int col) {
 		this.value = (StructureElement) value;
-		see = new StructureElementCell(this.value, table, true);
+		see = new StructureElementCell(this.value, table, true, parent);
 		return see;
 	}
 

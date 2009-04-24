@@ -3,6 +3,7 @@ package es.eucm.eadventure.editor.control.controllers.scene;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.scenes.Scene;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
@@ -133,6 +134,31 @@ public class ScenesListDataControl extends DataControl {
 
 		return elementAdded;
 	}
+	
+	@Override
+	public boolean duplicateElement( DataControl dataControl ) {
+		if (!(dataControl instanceof SceneDataControl))
+			return false;
+		
+		try {
+			Scene newElement = (Scene) (((Scene) (dataControl.getContent())).clone());
+			String id = newElement.getId();
+			int i = 1;
+			do {
+				id = newElement.getId() + i;
+				i++;
+			} while (!controller.isElementIdValid(id, false));
+			newElement.setId(id);
+			scenesList.add(newElement);
+			scenesDataControlList.add( new SceneDataControl(newElement, controller.getPlayerImagePath()));
+			controller.getIdentifierSummary().addSceneId( id);
+			return true;
+		} catch (CloneNotSupportedException e) {
+			ReportDialog.GenerateErrorReport(e, true, "Could not clone scene");	
+			return false;
+		} 
+	}
+
 
 	@Override
 	public String getDefaultId(int type) {

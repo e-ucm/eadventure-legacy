@@ -3,6 +3,7 @@ package es.eucm.eadventure.editor.control.controllers.scene;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.elements.Barrier;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
@@ -124,6 +125,25 @@ public class BarriersListDataControl extends DataControl {
 
 		return elementAdded;
 	}
+	
+	@Override
+	public boolean duplicateElement( DataControl dataControl ) {
+		if (!(dataControl instanceof BarrierDataControl))
+			return false;
+		
+		try {
+			Barrier newElement = (Barrier) (((Barrier) (dataControl.getContent())).clone());
+			newElement.setId(Integer.toString(id));
+			id++;
+			barriersList.add(newElement);
+			barriersDataControlList.add( new BarrierDataControl(sceneDataControl, newElement));
+			return true;
+		} catch (CloneNotSupportedException e) {
+			ReportDialog.GenerateErrorReport(e, true, "Could not clone barrier");	
+			return false;
+		} 
+	}
+
 
 	@Override
 	public boolean deleteElement( DataControl dataControl , boolean askConfirmation ) {

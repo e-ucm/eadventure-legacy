@@ -154,7 +154,7 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
 		 
 		list = new JTable(childData);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		StructureElementRenderer renderer = new StructureElementRenderer();
+		StructureElementRenderer renderer = new StructureElementRenderer(element);
 		list.getColumnModel().getColumn(0).setCellRenderer(renderer);
 		list.getColumnModel().getColumn(0).setCellEditor(renderer);
 		list.setCellSelectionEnabled(true);
