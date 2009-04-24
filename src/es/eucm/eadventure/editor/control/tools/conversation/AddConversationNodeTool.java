@@ -1,5 +1,11 @@
 package es.eucm.eadventure.editor.control.tools.conversation;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import es.eucm.eadventure.common.data.chapter.conditions.Condition;
+import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
@@ -7,6 +13,7 @@ import es.eucm.eadventure.common.data.chapter.conversation.node.DialogueConversa
 import es.eucm.eadventure.common.data.chapter.conversation.node.OptionConversationNode;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.tools.Tool;
 
 /**
@@ -24,14 +31,18 @@ public class AddConversationNodeTool extends Tool{
 	
 	protected int nodeType;
 	
-	public AddConversationNodeTool ( ConversationNode parent, int nodeType ){
+	protected Map<ConversationNodeView,List<ConditionsController>> allConditions;
+	
+	public AddConversationNodeTool ( ConversationNode parent, int nodeType ,Map<ConversationNodeView,List<ConditionsController>> allConditions){
 		this.parent = parent;
 		this.nodeType = nodeType;
+		this.allConditions = allConditions;
 	}
 	
-	public AddConversationNodeTool ( ConversationNodeView nodeView, int nodeType ){
+	public AddConversationNodeTool ( ConversationNodeView nodeView, int nodeType,Map<ConversationNodeView,List<ConditionsController>> allConditions ){
 		this.parent = (ConversationNode)nodeView;
 		this.nodeType = nodeType;
+		this.allConditions = allConditions;
 	}
 
 	
@@ -70,11 +81,15 @@ public class AddConversationNodeTool extends Tool{
 
 				// Add the child to the given node
 				parent.addChild( newChild );
+				
+				// Add to Conditions controller
+				allConditions.put((ConversationNodeView)newChild, new ArrayList<ConditionsController>());
 
 				// If the node was an option node, add a new line
-				if( parent.getType( ) == ConversationNode.OPTION )
+				if( parent.getType( ) == ConversationNode.OPTION ){
 					parent.addLine( new ConversationLine( ConversationLine.PLAYER, TextConstants.getText( "ConversationLine.NewOption" ) ) );
-				
+					allConditions.get((ConversationNodeView)parent).add(new ConditionsController(new Conditions()));
+				}
 				// Save the index of the newChild
 				index = -1;
 				for (int i=0; i<parent.getChildCount(); i++){
@@ -95,9 +110,13 @@ public class AddConversationNodeTool extends Tool{
 	@Override
 	public boolean redoTool() {
 		parent.addChild(index, newChild);
+		// Add to Conditions controller
+		allConditions.put((ConversationNodeView)newChild, new ArrayList<ConditionsController>());
 		// If the node was an option node, add a new line
-		if( parent.getType( ) == ConversationNode.OPTION )
+		if( parent.getType( ) == ConversationNode.OPTION ){
 			parent.addLine( index, new ConversationLine( ConversationLine.PLAYER, TextConstants.getText( "ConversationLine.NewOption" ) ) );
+			allConditions.get((ConversationNodeView)parent).add(new ConditionsController(new Conditions()));
+		}
 		Controller.getInstance().updatePanel();
 		return true;
 	}
@@ -105,8 +124,12 @@ public class AddConversationNodeTool extends Tool{
 	@Override
 	public boolean undoTool() {
 		parent.removeChild(index);
-		if( parent.getType( ) == ConversationNode.OPTION )
+		allConditions.remove((ConversationNodeView)newChild);
+		if( parent.getType( ) == ConversationNode.OPTION ){
 			parent.removeLine(index);
+			allConditions.get((ConversationNodeView)parent).remove(index);
+			
+		}
 		Controller.getInstance().updatePanel();
 		return true;
 	}

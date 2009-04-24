@@ -1267,7 +1267,8 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="ActionsList.Conditions">Conditions</entry>
 	<entry key="ActionsList.NeedsGoTo">Needs go to</entry>
 	<entry key="ActionsList.CustomName">Custom Name</entry>
-	<entry key="ActionList.Empty">No action selected.</entry>	
+	<entry key="ActionList.Empty">No action selected.</entry>
+	<entry key="ActionList.EditEffect">Edit Effect</entry>	
 
 	<entry key="SmallActionList.Action">Action</entry>
 

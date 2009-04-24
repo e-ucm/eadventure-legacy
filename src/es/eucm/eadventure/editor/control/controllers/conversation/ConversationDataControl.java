@@ -2,6 +2,7 @@ package es.eucm.eadventure.editor.control.controllers.conversation;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.conversation.Conversation;
@@ -133,8 +134,8 @@ public abstract class ConversationDataControl extends DataControl {
 	 *            Type of node to be added
 	 * @return True if a node was added, false otherwise
 	 */
-	public boolean addChild( ConversationNodeView nodeView, int nodeType ) {
-		return controller.addTool(new AddConversationNodeTool(nodeView, nodeType));
+	public boolean addChild( ConversationNodeView nodeView, int nodeType, Map<ConversationNodeView,List<ConditionsController>> allConditions ) {
+		return controller.addTool(new AddConversationNodeTool(nodeView, nodeType,allConditions));
 	}
 
 	/**
@@ -190,14 +191,12 @@ public abstract class ConversationDataControl extends DataControl {
 	 *            Index in which the line will be placed
 	 * @param name
 	 *            Name of the line
-	 * @param indexInConditions
-	 * 	      The index of new conversation line in allConditions list
-	 * @param allConditions
-	 * 	      The list with all conditions controllers
+	 * @param node
+	 * 	      The list with the conditions controllers for current node
 	 * 
 	 */
-	public void addNodeLine( ConversationNodeView nodeView, int lineIndex, String name, int indexInConditions, List<ConditionsController> allConditions ) {
-		controller.addTool(new AddNodeLineTool(nodeView, lineIndex, name,indexInConditions,allConditions));
+	public void addNodeLine( ConversationNodeView nodeView, int lineIndex, String name, List<ConditionsController> node) {
+		controller.addTool(new AddNodeLineTool(nodeView, lineIndex, name,node));
 	}
 
 	/**
@@ -287,14 +286,12 @@ public abstract class ConversationDataControl extends DataControl {
 	 *            Node in which the line will be deleted
 	 * @param lineIndex
 	 *            Index of the line to delete
-	 * @param indexInConditions
-	 * 	      The index of new conversation line in allConditions list
-	 * @param allConditions
-	 * 	      The list with all conditions controllers
+	 * @param node
+	 * 	      The list with the conditions controllers of the given node
 	 *
 	 */
-	public void deleteNodeLine( ConversationNodeView nodeView, int lineIndex,int indexInConditions, List<ConditionsController> allConditions  ) {
-		controller.addTool(new DeleteNodeLineTool(nodeView, lineIndex,indexInConditions,allConditions));
+	public void deleteNodeLine( ConversationNodeView nodeView, int lineIndex, List<ConditionsController> node ) {
+		controller.addTool(new DeleteNodeLineTool(nodeView, lineIndex,node));
 	}
 
 	/**
@@ -450,11 +447,4 @@ public abstract class ConversationDataControl extends DataControl {
 		return valid;
 	}
 	
-	/**
-	 * Returns the conditions controller associated to the given conversation line
-	 * @param convLine
-	 * @return Conditions controller
-	 * 		
-	 */
-	public abstract ConditionsController getLineConditionController(ConversationLine convLine);
 }

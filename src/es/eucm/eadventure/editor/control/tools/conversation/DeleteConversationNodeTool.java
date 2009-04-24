@@ -2,6 +2,7 @@ package es.eucm.eadventure.editor.control.tools.conversation;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import es.eucm.eadventure.common.data.chapter.conversation.Conversation;
 import es.eucm.eadventure.common.data.chapter.conversation.GraphConversation;
@@ -11,6 +12,7 @@ import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.tools.Tool;
 
 public class DeleteConversationNodeTool extends Tool{
@@ -38,19 +40,32 @@ public class DeleteConversationNodeTool extends Tool{
 	
 	private ConversationNode parentNode;
 	
+	/**
+	 * The condition controllers associated to the deleted node
+	 */
+	private List<ConditionsController> deletedConditions;
+	
+	/**
+	 * The condition associated to deleted conversation line (if deleted node is "option node")
+	 */
+	private ConditionsController deletedCondition;
+	
 	private int index;
 	
-	public DeleteConversationNodeTool ( int mode, ConversationNodeView _nodeView, Conversation conversation){
+	private Map<ConversationNodeView,List<ConditionsController>> allConditions;
+	
+	public DeleteConversationNodeTool ( int mode, ConversationNodeView _nodeView, Conversation conversation,Map<ConversationNodeView,List<ConditionsController>> allConditions){
 		this.mode = mode;
 		this.showConfirmation = (mode==MODE_TREE);
 		this.controller = Controller.getInstance();
 		this.nodeView = _nodeView;
 		this.conversation = conversation;
 		this.rootNode = conversation.getRootNode();
+		this.allConditions = allConditions;
 	}
 	
-	public DeleteConversationNodeTool ( ConversationNodeView _nodeView, GraphConversation conversation ){
-		this ( MODE_GRAPH, _nodeView, conversation);
+	public DeleteConversationNodeTool ( ConversationNodeView _nodeView, GraphConversation conversation,Map<ConversationNodeView,List<ConditionsController>> allConditions ){
+		this ( MODE_GRAPH, _nodeView, conversation,allConditions);
 	}
 	
 	@Override
@@ -102,10 +117,16 @@ public class DeleteConversationNodeTool extends Tool{
 							// Delete the child
 							deletedNode = parentNode.removeChild( j );
 							index = j;
-
+							
+							// remove the conditions associated to removed node
+							deletedConditions = allConditions.remove(deletedNode);
+							
 							// If the current node is an option node, delete the line too
-							if( parentNode.getType( ) == ConversationNode.OPTION )
+							if( parentNode.getType( ) == ConversationNode.OPTION ){
 								deletedLine = parentNode.removeLine( j );
+								// delete the associated condition data control
+								deletedCondition = allConditions.get(parentNode).remove(j);
+							}
 
 							// The node has been deleted
 							nodeDeleted = true;
@@ -125,9 +146,12 @@ public class DeleteConversationNodeTool extends Tool{
 	@Override
 	public boolean redoTool() {
 		parentNode.removeChild( index );
+		allConditions.remove(deletedNode);
 		// If the current node is an option node, delete the line too
-		if( parentNode.getType( ) == ConversationNode.OPTION )
+		if( parentNode.getType( ) == ConversationNode.OPTION ){
 			parentNode.removeLine( index );
+			allConditions.get(parentNode).remove(index);
+		}
 
 		controller.updatePanel();
 		return true;
@@ -137,9 +161,12 @@ public class DeleteConversationNodeTool extends Tool{
 	@Override
 	public boolean undoTool() {
 		parentNode.addChild( index, deletedNode );
+		allConditions.put(deletedNode, deletedConditions);
 		// If the current node is an option node, delete the line too
-		if( parentNode.getType( ) == ConversationNode.OPTION )
+		if( parentNode.getType( ) == ConversationNode.OPTION ){
 			parentNode.addLine( index, deletedLine );
+			allConditions.get(deletedNode).add(index,deletedCondition);
+		}
 
 		controller.reloadPanel();
 		return true;

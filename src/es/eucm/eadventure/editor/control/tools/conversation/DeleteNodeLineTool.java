@@ -17,20 +17,19 @@ public class DeleteNodeLineTool extends Tool {
 	
 	protected ConversationLine lineDeleted;
 	
-	protected int indexInAllConditions;
-	protected List<ConditionsController> allConditions;
+	protected List<ConditionsController> node;
+	
 	protected ConditionsController conditionDeleted;
 	
 	
-	public DeleteNodeLineTool ( ConversationNodeView nodeView, int lineIndex, int indexInAllConditions,List<ConditionsController> allConditions){
-		this ( (ConversationNode) nodeView, lineIndex ,indexInAllConditions,allConditions);
+	public DeleteNodeLineTool ( ConversationNodeView nodeView, int lineIndex,List<ConditionsController> node){
+		this ( (ConversationNode) nodeView, lineIndex ,node);
 	}
 	
-	public DeleteNodeLineTool ( ConversationNode parent, int lineIndex , int indexInAllConditions,List<ConditionsController> allConditions){
+	public DeleteNodeLineTool ( ConversationNode parent, int lineIndex ,List<ConditionsController> node){
 		this.parent = parent;
 		this.lineIndex = lineIndex;
-		this.indexInAllConditions = indexInAllConditions;
-		this.allConditions = allConditions;
+		this.node = node;
 	}
 
 	
@@ -53,14 +52,14 @@ public class DeleteNodeLineTool extends Tool {
 	public boolean doTool() {
 		lineDeleted = parent.getLine(lineIndex);
 		parent.removeLine(lineIndex);
-		conditionDeleted = allConditions.remove(this.indexInAllConditions);
+		conditionDeleted = node.remove(lineIndex);
 		return true;
 	}
 
 	@Override
 	public boolean redoTool() {
 		parent.removeLine(lineIndex);
-		allConditions.remove(this.indexInAllConditions);
+		node.remove(lineIndex);
 		Controller.getInstance().updatePanel();
 		return true;
 	}
@@ -68,7 +67,7 @@ public class DeleteNodeLineTool extends Tool {
 	@Override
 	public boolean undoTool() {
 		parent.addLine(lineIndex, lineDeleted);
-		allConditions.add(this.indexInAllConditions,conditionDeleted);
+		node.add(lineIndex,conditionDeleted);
 		Controller.getInstance().updatePanel();
 		return true;
 	}

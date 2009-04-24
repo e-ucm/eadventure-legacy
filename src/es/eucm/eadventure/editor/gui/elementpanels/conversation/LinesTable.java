@@ -17,6 +17,7 @@ import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
+import es.eucm.eadventure.editor.control.controllers.conversation.GraphConversationDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ConditionsCellRendererEditor;
 
 public class LinesTable extends JTable {
@@ -180,7 +181,7 @@ public class LinesTable extends JTable {
 						value = node;
 						break;
 					case 4:
-						value = conversationDataControl.getLineConditionController(node.getConversationLine(rowIndex));
+						value = ((GraphConversationDataControl)conversationDataControl).getLineConditionController(node,rowIndex);
 						break;
 				}
 			}

@@ -437,7 +437,7 @@ class LinesPanel extends JPanel {
 				name = selectedNode.getLineName( selectedRow );
 
 			// Insert the dialogue line in the selected position
-			conversationDataControl.addNodeLine( selectedNode, selectedRow + 1, name,((GraphConversationDataControl)conversationDataControl).getLineNumber(selectedNode.getConversationLine(selectedRow))+1  ,((GraphConversationDataControl)conversationDataControl).getAllConditions());
+			conversationDataControl.addNodeLine( selectedNode, selectedRow + 1, name,((GraphConversationDataControl)conversationDataControl).getAllConditions().get(selectedNode));
 
 			// Select the inserted line
 			lineTable.setRowSelectionInterval( selectedRow + 1, selectedRow + 1 );
@@ -457,7 +457,7 @@ class LinesPanel extends JPanel {
 			String name = selectedNode.getLineName( selectedRow );
 	
 			// Insert the dialogue line in the selected position
-			conversationDataControl.addNodeLine( selectedNode, selectedRow + 1, name,((GraphConversationDataControl)conversationDataControl).getLineNumber(selectedNode.getConversationLine(selectedRow))+1  ,((GraphConversationDataControl)conversationDataControl).getAllConditions());
+			conversationDataControl.addNodeLine( selectedNode, selectedRow + 1, name,((GraphConversationDataControl)conversationDataControl).getAllConditions().get(selectedNode));
 		}
 		((AbstractTableModel) lineTable.getModel()).fireTableDataChanged();
 		lineTable.changeSelection(selectedRow + 1, selectedRow + 1, false, false);
@@ -486,7 +486,7 @@ class LinesPanel extends JPanel {
 				selectedRow = lineTable.getRowCount( ) - 1;
 
 			// Insert the dialogue line in the selected position
-			conversationDataControl.addChild(selectedNode, ConversationNodeView.DIALOGUE );
+			conversationDataControl.addChild(selectedNode, ConversationNodeView.DIALOGUE,((GraphConversationDataControl)conversationDataControl).getAllConditions());
 
 			// Update the conversation panel and reload the options
 			conversationPanel.reloadOptions( );
@@ -512,7 +512,7 @@ class LinesPanel extends JPanel {
 			ConversationNodeView selectedNode = conversationPanel.getSelectedNode( );
 
 			// Delete the selected line
-			conversationDataControl.deleteNodeLine( selectedNode, selectedRow ,((GraphConversationDataControl)conversationDataControl).getLineNumber(selectedNode.getConversationLine(selectedRow))  ,((GraphConversationDataControl)conversationDataControl).getAllConditions());
+			conversationDataControl.deleteNodeLine( selectedNode, selectedRow ,((GraphConversationDataControl)conversationDataControl).getAllConditions().get(selectedNode));
 
 			// If there are no more lines, clear selection (this disables the "Delete line" button)
 			if( selectedNode.getLineCount( ) == 0 )
@@ -650,7 +650,7 @@ class LinesPanel extends JPanel {
 		}
 
 		public void actionPerformed( ActionEvent e ) {
-			if( conversationDataControl.addChild( conversationPanel.getSelectedNode( ), nodeType ) ) {
+			if( conversationDataControl.addChild( conversationPanel.getSelectedNode( ), nodeType ,((GraphConversationDataControl)conversationDataControl).getAllConditions())){
 				// Switch state to normal
 				conversationPanel.changeState( RepresentationPanel.NORMAL );
 
