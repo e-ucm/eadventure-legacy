@@ -2,15 +2,22 @@ package es.eucm.eadventure.editor.gui.elementpanels.conversation;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.ScrollPaneConstants;
 
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
 import es.eucm.eadventure.editor.gui.Updateable;
+import es.eucm.eadventure.editor.gui.displaydialogs.ConversationDialog;
 
 /**
  * This class centralizes all the operations for conversation structures and nodes. It has two panels, a panel to
@@ -24,6 +31,8 @@ public class ConversationPanel extends JPanel implements Updateable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	public static final int DEFAULT_SPLIT = 200;
+	
 	/**
 	 * Scroll pane containing the graphic representation of the tree.
 	 */
@@ -54,6 +63,12 @@ public class ConversationPanel extends JPanel implements Updateable {
 	 */
 	private ConversationNodeView selectedChild;
 
+	private JButton previewFromNode;
+	
+	private ConversationDataControl conversationDataControl;
+	
+	private JSplitPane linesSplit;
+	
 	/**
 	 * Constructor.
 	 * 
@@ -63,6 +78,7 @@ public class ConversationPanel extends JPanel implements Updateable {
 	public ConversationPanel( ConversationDataControl conversationDataControl ) {
 		selectedNode = null;
 		selectedChild = null;
+		this.conversationDataControl = conversationDataControl;
 
 		// Create the status bar
 		statusBar = new StatusBar( TextConstants.getText( "Conversation.StatusBarNormal" ) );
@@ -72,6 +88,24 @@ public class ConversationPanel extends JPanel implements Updateable {
 		linesPanel = new LinesPanel( this, conversationDataControl );
 		RepresentationZoomPanel zoomPanel = new RepresentationZoomPanel(representationPanel);
 
+		JPanel zoomPreviewPanel = new JPanel();
+		zoomPreviewPanel.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 0;
+		zoomPreviewPanel.add(zoomPanel, c);
+		
+		JButton preview = new JButton(TextConstants.getText( "Conversation.OptionPreviewConversation" ));
+		preview.addActionListener( new PreviewConversationActionListener( true ) );
+		previewFromNode = new JButton(TextConstants.getText( "Conversation.OptionPreviewPartialConversation" ));
+		previewFromNode.addActionListener( new PreviewConversationActionListener( true ) );
+		previewFromNode.setEnabled(false);
+		
+		c.gridx++;
+		zoomPreviewPanel.add(preview, c);
+		c.gridx++;
+		zoomPreviewPanel.add(previewFromNode, c);
+		
 		// Create a new panel, to be placed down, containing the node panel and the status bar
 		JPanel downPanel = new JPanel( );
 		downPanel.setPreferredSize( new Dimension( 0, 200 ) );
@@ -87,9 +121,17 @@ public class ConversationPanel extends JPanel implements Updateable {
 		// Add the scroll panel (conversation panel) and the down panel (node panel and status bar) to the principal
 		// panel
 		setLayout( new BorderLayout( ) );
-		add( zoomPanel, BorderLayout.NORTH );
-		add( scrollPanel, BorderLayout.CENTER );
-		add( downPanel, BorderLayout.SOUTH );
+		add( zoomPreviewPanel, BorderLayout.NORTH );
+		
+		linesSplit = new JSplitPane(JSplitPane.VERTICAL_SPLIT, scrollPanel, downPanel); 
+		linesSplit.setDividerLocation(Integer.MAX_VALUE);
+		linesSplit.setResizeWeight(1.0);
+		linesSplit.setDividerSize(10);
+		add( linesSplit, BorderLayout.CENTER );
+		
+		if (conversationDataControl.getRootNode().getChildCount() == 0) {
+			this.setSelectedNode(conversationDataControl.getRootNode());
+		}
 	}
 
 	/**
@@ -134,6 +176,12 @@ public class ConversationPanel extends JPanel implements Updateable {
 		// Sets the new selected node, and sets an empty selected child
 		this.selectedNode = selectedNode;
 		this.selectedChild = null;
+		
+		if (selectedNode != null)
+			linesSplit.setDividerLocation(- DEFAULT_SPLIT);
+		else
+			linesSplit.setDividerLocation(Integer.MAX_VALUE);
+		previewFromNode.setEnabled(selectedNode != null);
 
 		// Inform the node panel that a new node has been selected, and repaint the conversation panel
 		linesPanel.newSelectedNode( );
@@ -220,4 +268,48 @@ public class ConversationPanel extends JPanel implements Updateable {
 	public void updateRepresentation() {
 		representationPanel.updateRepresentation();
 	}
+
+	public JPanel getMenuPanel() {
+		return representationPanel.getMenuPanel();
+	}
+
+	public void changeState(int state) {
+		representationPanel.changeState(state);
+	}
+
+	public int getState() {
+		return representationPanel.getState();
+	}
+	
+	/**
+	 * Listener for the "Preview conversation" and "Preview conversation from this node" options
+	 */
+	private class PreviewConversationActionListener implements ActionListener {
+
+		/**
+		 * True if the conversation must be played from the root node, false from the selected node.
+		 */
+		private boolean completePreview;
+
+		/**
+		 * Constructor.
+		 * 
+		 * @param completePreview
+		 *            True if the conversation must be played from the root node, false from the selected node.
+		 */
+		public PreviewConversationActionListener( boolean completePreview ) {
+			this.completePreview = completePreview;
+		}
+
+		public void actionPerformed( ActionEvent e ) {
+			// If it is a complete preview, show the dialog for the root node
+			if( completePreview )
+				new ConversationDialog( conversationDataControl, conversationDataControl.getRootNode( ) );
+
+			// If not, take the selected node
+			else
+				new ConversationDialog( conversationDataControl, getSelectedNode( ) );
+		}
+	}
+
 }

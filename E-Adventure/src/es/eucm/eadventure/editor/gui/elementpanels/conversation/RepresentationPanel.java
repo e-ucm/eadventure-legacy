@@ -1,18 +1,20 @@
 package es.eucm.eadventure.editor.gui.elementpanels.conversation;
 
+import java.awt.AlphaComposite;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
 import javax.swing.JPanel;
 
 import es.eucm.eadventure.common.gui.TextConstants;
-import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.config.ConversationConfigData;
 import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
 import es.eucm.eadventure.editor.control.controllers.conversation.GraphConversationDataControl;
-import es.eucm.eadventure.editor.gui.elementpanels.conversation.representation.GraphGraphicRepresentation;
 import es.eucm.eadventure.editor.gui.elementpanels.conversation.representation.GraphicRepresentation;
+import es.eucm.eadventure.editor.gui.elementpanels.conversation.representation.graphicnode.GraphicNode;
 
 /**
  * This class is the panel used to display the graphical representation of the current conversation. It paints the
@@ -60,6 +62,8 @@ class RepresentationPanel extends JPanel {
 	 */
 	private ConversationPanel conversationPanel;
 	
+	private JPanel menuPanel;
+	
 	
 	/**
 	 * Constructor.
@@ -72,11 +76,14 @@ class RepresentationPanel extends JPanel {
 	public RepresentationPanel( ConversationPanel principalPanel, ConversationDataControl conversationDataControl ) {
 		this.conversationPanel = principalPanel;
 		this.conversationDataControl = conversationDataControl;
+		
+		conversationRepresentation = new GraphicRepresentation( (GraphConversationDataControl) conversationDataControl, getSize( ) );
 
-		// If the conversation is a graph conversation, create a new graph graphic representation
-		if( conversationDataControl.getType( ) == Controller.CONVERSATION_GRAPH )
-			conversationRepresentation = new GraphGraphicRepresentation( (GraphConversationDataControl) conversationDataControl, getSize( ) );
-
+		this.setLayout(null);
+		menuPanel = new MenuPanel();
+		menuPanel.setVisible(false);
+		this.add(menuPanel);
+		
 		// Add the mouse and resize listeners to the panel
 		ConversationPanelMouseListener mouseListener = new ConversationPanelMouseListener(conversationRepresentation, conversationDataControl, conversationPanel, this);
 		addMouseListener( mouseListener );
@@ -98,7 +105,7 @@ class RepresentationPanel extends JPanel {
 		revalidate( );
 		repaint( );
 	}
-
+	
 	public void paint( Graphics g ) {
 		super.paint( g );
 
@@ -110,6 +117,26 @@ class RepresentationPanel extends JPanel {
 			// Draw the conversation
 			conversationRepresentation.drawConversation( g );
 		}
+		
+		Point node = conversationRepresentation.getSelectedNodePosition();
+		if (node == null) {
+			menuPanel.setVisible(false);
+		} else {
+			int x = (int) (node.getX() + GraphicNode.NODE_RADIUS * conversationRepresentation.getScale());
+			int y = (int) (node.getY() + GraphicNode.NODE_RADIUS * conversationRepresentation.getScale() / 2);
+
+			if (x + menuPanel.getSize().getWidth() > conversationPanel.getScrollXValue() + conversationPanel.getScrollSize().getWidth()) {
+				x = (int) (node.getX() - GraphicNode.NODE_RADIUS * conversationRepresentation.getScale() - menuPanel.getWidth());
+			}
+			if (y + menuPanel.getSize().getHeight() > conversationPanel.getScrollYValue() + conversationPanel.getScrollSize().getHeight()) {
+				y = (int) (node.getY() - GraphicNode.NODE_RADIUS * conversationRepresentation.getScale() - menuPanel.getHeight());
+			}
+			
+			menuPanel.setLocation(x, y);
+			
+			menuPanel.setVisible(true);
+		}
+		menuPanel.repaint();
 	}
 
 	/**
@@ -161,6 +188,10 @@ class RepresentationPanel extends JPanel {
 	
 	public void setScale(float scale) {
 		conversationRepresentation.setScale(scale);
+	}
+	
+	public JPanel getMenuPanel() {
+		return menuPanel;
 	}
 
 }

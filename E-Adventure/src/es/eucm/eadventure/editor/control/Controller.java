@@ -1,6 +1,7 @@
 package es.eucm.eadventure.editor.control;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -3111,5 +3112,19 @@ public class Controller {
 
 	public AdvancedFeaturesDataControl getAdvancedFeaturesController() {
 		return this.chaptersController.getSelectedChapterDataControl().getAdvancedFeaturesController();
+	}
+	
+	public static Color generateColor(int i) {
+		int r = (i * 180) % 256;
+		int g = ((i + 4) * 130) % 256;
+		int b = ((i + 2) * 155) % 256;
+		
+		if (r > 250 && g > 250 && b > 250) {
+			r = 0;
+			g = 0;
+			b = 0;
+		}
+		
+		return new Color(r, g, b);
 	}
 }

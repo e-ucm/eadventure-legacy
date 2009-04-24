@@ -5,10 +5,6 @@ import java.util.List;
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfileDataControl;
-import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfilesDataControl;
-import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfileDataControl;
-import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfilesDataControl;
 import es.eucm.eadventure.editor.control.controllers.metadata.lomes.LOMESDataControl;
 import es.eucm.eadventure.editor.control.controllers.metadata.ims.IMSDataControl;
 import es.eucm.eadventure.editor.control.controllers.metadata.lom.LOMDataControl;
@@ -30,8 +26,6 @@ import es.eucm.eadventure.common.data.adventure.CustomArrow;
 import es.eucm.eadventure.common.data.adventure.CustomButton;
 import es.eucm.eadventure.common.data.adventure.CustomCursor;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
-import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
-import es.eucm.eadventure.common.data.adaptation.AdaptationProfile;
 
 /**
  * This class holds all the information of the adventure, including the chapters and the configuration of the HUD.

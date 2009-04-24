@@ -54,7 +54,7 @@ public class SceneElement {
 
 	private boolean visible;
 	
-	public SceneElement(SceneDataControl sceneDataControl) {
+	public SceneElement(SceneDataControl sceneDataControl, int i) {
 		this.sceneDataControl = sceneDataControl;
 		visible = true;
 		String temp = sceneDataControl.getPreviewBackground();
@@ -64,7 +64,7 @@ public class SceneElement {
         	image = new BufferedImage(800, 600, BufferedImage.TYPE_4BYTE_ABGR);
         	image.getGraphics().drawImage(icon.getImage(), 0, 0, 800, 600, null);
 		}
-		setColor();
+		color = Controller.generateColor(i);
 		exitElements = new ArrayList<ExitElement>();
 		activeAreaElements = new ArrayList<ActiveAreaElement>();
 		itemReferenceElements = new ArrayList<ItemReferenceElement>();

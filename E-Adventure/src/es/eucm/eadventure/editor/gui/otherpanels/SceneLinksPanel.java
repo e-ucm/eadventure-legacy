@@ -106,8 +106,10 @@ public class SceneLinksPanel extends JPanel {
 		}
 		
 		sceneElements = new ArrayList<SceneElement>();
+		int i = 0;
 		for (SceneDataControl scene : sldc.getScenes()) {
-			SceneElement element = new SceneElement(scene);
+			SceneElement element = new SceneElement(scene, i);
+			i++;
 			if (isConfig) {
 				element.setVisible(SceneLinksConfigData.getSceneVisible(element.getId()));
 				element.changePosition(SceneLinksConfigData.getSceneX(element.getId()), SceneLinksConfigData.getSceneY(element.getId()));

@@ -43,12 +43,13 @@ public class DialogueGraphicNode extends GraphicNode {
 		g.fillPolygon(polygon);
 
 		Point textPos = getTextPosition(position, scale, side, node.isTerminal());
-		g.setFont( new Font( "Monospaced", Font.PLAIN, (int) (10 * scale) ) );
+		g.setFont( new Font( "Monospaced", Font.PLAIN, (int) (15 * scale) ) );
 		if (node.hasEffects()) {
 			g.setColor(Color.BLACK);
 			g.drawString( TextConstants.getText("Effects.Title"), (int) textPos.getX( ), (int) textPos.getY( ));
-			textPos.setLocation(textPos.getX(), textPos.getY() - (10 * scale));
+			textPos.setLocation(textPos.getX(), textPos.getY() - (15 * scale));
 		}
+		/*
 		if (node.getLineCount() > 0) {
 			g.setColor( Color.BLUE );
 			String text = node.getLineText(0);
@@ -59,6 +60,7 @@ public class DialogueGraphicNode extends GraphicNode {
 			text += "...";
 			g.drawString( text, (int) textPos.getX( ), (int) textPos.getY( ));
 		}
+		*/
 		
 		g.setColor(Color.GRAY);
 		g.drawPolygon(polygon);

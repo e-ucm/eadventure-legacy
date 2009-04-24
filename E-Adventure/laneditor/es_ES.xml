@@ -1387,8 +1387,8 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="Conversations.MoveLineUp">Mover linea hacia arriba</entry>
 	<entry key="Conversations.MoveLineDown">Mover linea hacia abajo</entry>
 
-	<entry key="Conversation.OptionPreviewConversation">Previsualizar conversación</entry>
-	<entry key="Conversation.OptionPreviewPartialConversation">Previsualizar conversación desde este nodo</entry>
+	<entry key="Conversation.OptionPreviewConversation">Previsualizar</entry>
+	<entry key="Conversation.OptionPreviewPartialConversation">Previsualizar nodo seleccionado</entry>
 	<entry key="Conversation.OptionAddDialogueNode">Añadir nodo de diálogo</entry>
 	<entry key="Conversation.OptionAddOptionNode">Añadir nodo de opciones</entry>
 	<entry key="Conversation.OptionDeleteNode">Eliminar nodo</entry>
