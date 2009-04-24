@@ -247,7 +247,7 @@ public class ActiveAreaDataControl extends DataControl implements RectangleArea 
 
 	@Override
 	public boolean canBeRenamed( ) {
-		return false;
+		return true;
 	}
 
 	@Override
@@ -276,7 +276,32 @@ public class ActiveAreaDataControl extends DataControl implements RectangleArea 
 
 	@Override
 	public String renameElement( String name ) {
-		return name;
+		boolean elementRenamed = false;
+		String oldSceneId = activeArea.getId( );
+		String references = String.valueOf( controller.countIdentifierReferences( oldSceneId ) );
+
+		// Ask for confirmation
+		if( name != null || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.RenameSceneTitle" ), TextConstants.getText( "Operation.RenameElementWarning", new String[] { oldSceneId, references } ) ) ) {
+
+			// Show a dialog asking for the new scene id
+			String newSceneId = name;
+			if (name == null)
+				newSceneId = controller.showInputDialog( TextConstants.getText( "Operation.RenameSceneTitle" ), TextConstants.getText( "Operation.RenameSceneMessage" ), oldSceneId );
+
+			// If some value was typed and the identifiers are different
+			if( newSceneId != null && !newSceneId.equals( oldSceneId ) && controller.isElementIdValid( newSceneId ) ) {
+				activeArea.setId( newSceneId );
+				controller.replaceIdentifierReferences( oldSceneId, newSceneId );
+				controller.getIdentifierSummary( ).deleteActiveAreaId( oldSceneId );
+				controller.getIdentifierSummary( ).addActiveAreaId( newSceneId );
+				//controller.dataModified( );
+				elementRenamed = true;
+			}
+		}
+
+		if (elementRenamed)
+			return oldSceneId;
+		return null;
 	}
 
 	@Override
@@ -344,6 +369,7 @@ public class ActiveAreaDataControl extends DataControl implements RectangleArea 
 		return true;
 	}
 
+	
 	@Override
 	public void recursiveSearch() {
 		this.getActionsList().recursiveSearch();

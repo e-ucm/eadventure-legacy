@@ -10,9 +10,12 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.scene.ActiveAreasListDataControl;
+import es.eucm.eadventure.editor.control.tools.structurepanel.RenameElementTool;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.AuxEditCellRendererEditor;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ConditionsCellRendererEditor;
+import es.eucm.eadventure.editor.gui.elementpanels.general.tables.StringCellRendererEditor;
 import es.eucm.eadventure.editor.gui.otherpanels.IrregularAreaEditionPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 
@@ -47,8 +50,8 @@ public class ActiveAreasTable extends JTable {
 				}
 			}
 		});
-		
-		this.getColumnModel().getColumn(0).setCellEditor(new DefaultCellEditor(new JTextField()));
+		this.getColumnModel().getColumn(0).setCellEditor(new StringCellRendererEditor());
+		this.getColumnModel().getColumn(0).setCellRenderer(new StringCellRendererEditor());
 		this.getColumnModel().getColumn(1).setCellEditor(new DefaultCellEditor(new JTextField()));
 
 		this.getColumnModel().getColumn(2).setCellRenderer(new ConditionsCellRendererEditor());
@@ -104,7 +107,7 @@ public class ActiveAreasTable extends JTable {
 			if (columnIndex == 1) {
 				dataControl.getActiveAreas().get(rowIndex).setName((String) value);
 			} else if (columnIndex == 0) {
-				dataControl.getActiveAreas().get(rowIndex).renameElement((String) value);
+				Controller.getInstance().addTool(new RenameElementTool(dataControl.getActiveAreas().get(rowIndex), (String) value));
 			}
 		}
 		
