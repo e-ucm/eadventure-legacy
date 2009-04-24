@@ -307,10 +307,19 @@ public class ShowTextEffectDialog extends EffectDialog{
 	    JPanel container = new JPanel();
 	    JButton ok = new JButton("ok");
 	    ok.addActionListener(listener);
+	    ok.addActionListener(new ActionListener(){
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+		    EffectColorChooser.this.dispose();
+		    
+		}
+		
+	    });
 	    container.add(ok);
 	    this.add(container,BorderLayout.SOUTH);
 	    setResizable( false );
-		setSize( 300, 300 );
+		setSize( 450, 400 );
 		Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
 		setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
 		
