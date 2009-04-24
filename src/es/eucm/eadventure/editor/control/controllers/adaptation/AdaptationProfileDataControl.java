@@ -40,7 +40,10 @@ public class AdaptationProfileDataControl extends DataControl{
 	public AdaptationProfileDataControl(AdaptationProfile profile) {
 		number = 0;
 		dataControls = new ArrayList<AdaptationRuleDataControl>();
-		this.profile = profile;
+		if (profile== null)
+		    profile = new AdaptationProfile();
+		else
+		    this.profile = profile;
 		
 		if (profile != null && profile.getRules() != null)
 		for (AdaptationRule rule : profile.getRules()){
