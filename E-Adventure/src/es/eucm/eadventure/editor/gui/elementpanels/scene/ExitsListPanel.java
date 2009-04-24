@@ -36,6 +36,7 @@ import es.eucm.eadventure.editor.control.controllers.scene.ExitsListDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.NodeDataControl;
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
 import es.eucm.eadventure.editor.gui.Updateable;
+import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.editdialogs.ConditionsDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.EffectsDialog;
 import es.eucm.eadventure.editor.gui.elementpanels.DataControlSelectionListener;
@@ -62,6 +63,8 @@ public class ExitsListPanel extends JPanel implements DataControlsPanel, DataCon
 	private JPanel auxPanel;
 	
 	private JButton deleteButton;
+	
+	private JButton duplicateButton;
 	
 	private JSplitPane previewAuxSplit;
 	
@@ -122,10 +125,13 @@ public class ExitsListPanel extends JPanel implements DataControlsPanel, DataCon
 			public void valueChanged(ListSelectionEvent arg0) {
 				if (table.getSelectedRow() >= 0) {
 					deleteButton.setEnabled(true);
+					duplicateButton.setEnabled(true);
 					iaep.setRectangular(dataControl.getExits().get(table.getSelectedRow()));
 					iaep.repaint();
-				} else
+				} else {
 					deleteButton.setEnabled(false);
+					duplicateButton.setEnabled(false);
+				}
 				updateAuxPanel();
 				deleteButton.repaint();
 			}
@@ -135,10 +141,22 @@ public class ExitsListPanel extends JPanel implements DataControlsPanel, DataCon
 		JButton newButton = new JButton(new ImageIcon("img/icons/addNode.png"));
 		newButton.setContentAreaFilled( false );
 		newButton.setMargin( new Insets(0,0,0,0) );
+		newButton.setFocusable(false);
 		newButton.setToolTipText( TextConstants.getText( "ExitsList.AddExit" ) );
 		newButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				addExit();
+			}
+		});
+		duplicateButton = new JButton(new ImageIcon("img/icons/duplicateNode.png"));
+		duplicateButton.setContentAreaFilled( false );
+		duplicateButton.setMargin( new Insets(0,0,0,0) );
+		duplicateButton.setToolTipText( TextConstants.getText( "ExitsList.DuplicateExit" ) );
+		duplicateButton.setEnabled(false);
+		duplicateButton.setFocusable(false);
+		duplicateButton.addActionListener(new ActionListener(){
+			public void actionPerformed( ActionEvent e ) {
+				duplicateExit();
 			}
 		});
 		deleteButton = new JButton(new ImageIcon("img/icons/deleteNode.png"));
@@ -146,6 +164,7 @@ public class ExitsListPanel extends JPanel implements DataControlsPanel, DataCon
 		deleteButton.setMargin( new Insets(0,0,0,0) );
 		deleteButton.setToolTipText( TextConstants.getText( "ExitsList.DeleteExit" ) );
 		deleteButton.setEnabled(false);
+		deleteButton.setFocusable(false);
 		deleteButton.addActionListener(new ActionListener(){
 			public void actionPerformed( ActionEvent e ) {
 				deleteExit();
@@ -157,7 +176,15 @@ public class ExitsListPanel extends JPanel implements DataControlsPanel, DataCon
 		c.gridy = 0;
 		buttonsPanel.add(newButton, c);
 		c.gridy = 1;
+		buttonsPanel.add(duplicateButton, c);
+		c.gridy = 3;
 		buttonsPanel.add(deleteButton, c);
+
+		c.gridy = 2;
+		c.fill = GridBagConstraints.VERTICAL;
+		c.weighty = 2.0;
+		buttonsPanel.add(new JFiller(), c);
+		
 		
 		tablePanel.setLayout(new BorderLayout());
 		tablePanel.add(scroll, BorderLayout.CENTER);
@@ -207,7 +234,16 @@ public class ExitsListPanel extends JPanel implements DataControlsPanel, DataCon
 			table.changeSelection(dataControl.getExits().size() - 1, dataControl.getExits().size() - 1, false, false);
 		}
 	}
-	
+
+	protected void duplicateExit() {
+		if (dataControl.duplicateElement(dataControl.getExits().get(table.getSelectedRow()))) {
+			iaep.getScenePreviewEditionPanel().addExit(dataControl.getLastExit());
+			iaep.repaint();
+			((AbstractTableModel) table.getModel()).fireTableDataChanged();
+			table.changeSelection(dataControl.getExits().size() - 1, dataControl.getExits().size() - 1, false, false);
+		}
+	}
+
 	protected void deleteExit() {
 		iaep.getScenePreviewEditionPanel().removeElement(dataControl.getExits().get(table.getSelectedRow()));
 		dataControl.deleteElement(dataControl.getExits().get(table.getSelectedRow()), true);

@@ -3,6 +3,7 @@ package es.eucm.eadventure.editor.control.controllers.atrezzo;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.elements.Atrezzo;
 import es.eucm.eadventure.common.gui.TextConstants;
 
@@ -102,6 +103,31 @@ public class AtrezzoListDataControl extends DataControl {
 		}
 
 		return elementAdded;
+	}
+
+	
+	@Override
+	public boolean duplicateElement( DataControl dataControl ) {
+		if (!(dataControl instanceof AtrezzoDataControl))
+			return false;
+		
+		try {
+			Atrezzo newElement = (Atrezzo) (((Atrezzo) (dataControl.getContent())).clone());
+			String id = newElement.getId();
+			int i = 1;
+			do {
+				id = newElement.getId() + i;
+				i++;
+			} while (!controller.isElementIdValid(id, false));
+			newElement.setId(id);
+			atrezzoList.add(newElement);
+			atrezzoDataControlList.add( new AtrezzoDataControl(newElement));
+			controller.getIdentifierSummary().addAtrezzoId(id);
+			return true;
+		} catch (CloneNotSupportedException e) {
+			ReportDialog.GenerateErrorReport(e, true, "Could not clone atrezzo");	
+			return false;
+		} 
 	}
 
 	@Override

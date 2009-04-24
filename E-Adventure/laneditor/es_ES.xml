@@ -124,6 +124,7 @@ Si no desea crear un nuevo juego, puede abrir un archivo ya existente empleando 
 Por favor, seleccione una de las siguientes opciones:
 1) Borrar el capítulo, 2) Reemplazarlo con otro fichero, 3) Abortar el proceso.</entry>	
 	<entry key="GeneralText.Delete">Borrar</entry>
+	<entry key="GeneralText.Duplicate">Duplicar</entry>
 	<entry key="GeneralText.NotSelected">&lt; No Seleccionado &gt;</entry>
 	<entry key="GeneralText.Is">Es</entry>
 	<entry key="GeneralText.Replace">Reemplazar</entry>
@@ -931,7 +932,8 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="ExitsList.ConditionsAndEffects">Condiciones y efectos</entry>
 	<entry key="ExitsList.Edit">Editar</entry>
 	<entry key="ExitsList.AddExit">Añadir nueva salida</entry>
-	<entry key="ExitsList.DeleteExit">Eliminar salida seleccionada</entry>
+	<entry key="ExitsList.DeleteExit">Eliminar la salida seleccionada</entry>
+	<entry key="ExitsList.DuplicateExit">Duplicar la salida seleccionada</entry>
 
 	<entry key="ActiveAreasList.Title">Zonas activas</entry>
 	<entry key="ActiveAreasList.PreviewTitle">Previsualización de las zonas activas</entry>
@@ -942,7 +944,8 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="ActiveAreasList.Actions">Acciones</entry>
 	<entry key="ActiveAreasList.EditActions">Editar acciones</entry>
 	<entry key="ActiveAreasList.AddActiveArea">Añadir nueva zona activa</entry>
-	<entry key="ActiveAreasList.DeleteActiveArea">Eliminar zona activa seleccionada</entry>
+	<entry key="ActiveAreasList.DeleteActiveArea">Eliminar la zona activa seleccionada</entry>
+	<entry key="ActiveAreasList.DuplicateActiveArea">Duplicar la zona activa seleccionada</entry>
 
 	<entry key="BarriersList.Title">Barreras</entry>
 	<entry key="BarriersList.PreviewTitle">Previsualización de las barreras y edición de la trayectoria</entry>
@@ -957,7 +960,8 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="BarriersList.BarrierNumber">Barrera #</entry>
 	<entry key="BarriersList.Conditions">Condiciones</entry>
 	<entry key="BarriersList.AddBarrier">Añadir nueva barrera</entry>
-	<entry key="BarriersList.DeleteBarrier">Eliminar barrera selecionada</entry>
+	<entry key="BarriersList.DeleteBarrier">Eliminar la barrera selecionada</entry>
+	<entry key="BarriersList.DuplicateBarrier">Duplicar la barrera selecionada</entry>
 
 	<entry key="Exit.Title">Salida</entry>
 	<entry key="Exit.Documentation">Documentación de la salida</entry>

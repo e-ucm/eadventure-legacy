@@ -3,6 +3,7 @@ package es.eucm.eadventure.editor.control.controllers.conversation;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.conversation.Conversation;
 import es.eucm.eadventure.common.data.chapter.conversation.GraphConversation;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
@@ -137,6 +138,31 @@ public class ConversationsListDataControl extends DataControl {
 		return elementAdded;
 	}
 
+	@Override
+	public boolean duplicateElement( DataControl dataControl ) {
+		if (!(dataControl instanceof GraphConversationDataControl))
+			return false;
+		
+		try {
+			GraphConversation newElement = (GraphConversation) (((GraphConversation) (dataControl.getContent())).clone());
+			String id = newElement.getId();
+			int i = 1;
+			do {
+				id = newElement.getId() + i;
+				i++;
+			} while (!controller.isElementIdValid(id, false));
+			newElement.setId(id);
+			conversationsList.add(newElement);
+			conversationsDataControlList.add( new GraphConversationDataControl(newElement));
+			controller.getIdentifierSummary().addConversationId( id);
+			return true;
+		} catch (CloneNotSupportedException e) {
+			ReportDialog.GenerateErrorReport(e, true, "Could not clone conversation");	
+			return false;
+		} 
+	}
+
+	
 	@Override
 	public String getDefaultId(int type) {
 		return TextConstants.getText( "Operation.AddConversationDefaultValue" );

@@ -564,7 +564,7 @@ public class CutsceneDataControl extends DataControlWithResources {
 
 	@Override
 	public boolean canBeDuplicated( ) {
-		return true;
+		return false;
 	}
 
 	@Override

@@ -24,6 +24,7 @@ import javax.swing.SwingUtilities;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.tools.structurepanel.DuplicateElementTool;
 import es.eucm.eadventure.editor.control.tools.structurepanel.RemoveElementTool;
 import es.eucm.eadventure.editor.control.tools.structurepanel.RenameElementTool;
 
@@ -43,13 +44,16 @@ public class StructureElementCell extends JPanel {
 	private boolean isSelected;
 	
 	private JTextField name;
+	
+	private StructureListElement parent;
 		
-	public StructureElementCell(StructureElement value, JTable table, boolean isSelected) {
+	public StructureElementCell(StructureElement value, JTable table, boolean isSelected, StructureListElement parent) {
 		setOpaque(true);
 		setBackground(Color.white);
 		this.value = value;
 		this.table = table;
 		this.isSelected = isSelected;
+		this.parent = parent;
 		setLayout(new GridLayout(0, 1));
 
 		recreate();
@@ -111,6 +115,24 @@ public class StructureElementCell extends JPanel {
 				c.fill = GridBagConstraints.HORIZONTAL;
 				c.weightx = 2.0f;
 				optionsPanel.add(rename, c);
+				c.gridx++;
+				hasOptions = true;
+			}
+			if (((StructureElement) value).canBeDuplicated()) {
+				JButton remove = new JButton(new ImageIcon("img/icons/duplicateNode.png"));
+				remove.setContentAreaFilled( false );
+				remove.setMargin( new Insets(0,0,0,0) );
+				remove.setToolTipText(TextConstants.getText("GeneralText.Duplicate"));
+				remove.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						Controller.getInstance().addTool(new DuplicateElementTool(value, table, parent));
+					}
+				});
+				
+				remove.setFocusable(false);
+				c.fill = GridBagConstraints.NONE;
+				c.weightx = 0.0f;
+				optionsPanel.add(remove, c);
 				c.gridx++;
 				hasOptions = true;
 			}

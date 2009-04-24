@@ -3,6 +3,7 @@ package es.eucm.eadventure.editor.control.controllers.scene;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.elements.ActiveArea;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
@@ -127,6 +128,31 @@ public class ActiveAreasListDataControl extends DataControl {
 
 		return elementAdded;
 	}
+	
+	@Override
+	public boolean duplicateElement( DataControl dataControl ) {
+		if (!(dataControl instanceof ActiveAreaDataControl))
+			return false;
+		
+		try {
+			ActiveArea newElement = (ActiveArea) (((ActiveArea) (dataControl.getContent())).clone());
+			String id = newElement.getId();
+			int i = 1;
+			do {
+				id = newElement.getId() + i;
+				i++;
+			} while (!controller.isElementIdValid(id, false));
+			newElement.setId(id);
+			activeAreasList.add(newElement);
+			activeAreasDataControlList.add( new ActiveAreaDataControl(sceneDataControl, newElement));
+			controller.getIdentifierSummary().addActiveAreaId( id);
+			return true;
+		} catch (CloneNotSupportedException e) {
+			ReportDialog.GenerateErrorReport(e, true, "Could not clone activeArea");	
+			return false;
+		} 
+	}
+
 
 	@Override
 	public boolean deleteElement( DataControl dataControl , boolean askConfirmation) {

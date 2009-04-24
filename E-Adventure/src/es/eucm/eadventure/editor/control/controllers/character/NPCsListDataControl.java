@@ -3,6 +3,7 @@ package es.eucm.eadventure.editor.control.controllers.character;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.elements.NPC;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
@@ -132,6 +133,31 @@ public class NPCsListDataControl extends DataControl {
 		return elementAdded;
 	}
 
+	@Override
+	public boolean duplicateElement( DataControl dataControl ) {
+		if (!(dataControl instanceof NPCDataControl))
+			return false;
+		
+		try {
+			NPC newElement = (NPC) (((NPC) (dataControl.getContent())).clone());
+			String id = newElement.getId();
+			int i = 1;
+			do {
+				id = newElement.getId() + i;
+				i++;
+			} while (!controller.isElementIdValid(id, false));
+			newElement.setId(id);
+			npcsList.add(newElement);
+			npcsDataControlList.add( new NPCDataControl(newElement));
+			controller.getIdentifierSummary().addNPCId(id);
+			return true;
+		} catch (CloneNotSupportedException e) {
+			ReportDialog.GenerateErrorReport(e, true, "Could not clone npc");	
+			return false;
+		} 
+	}
+
+	
 	@Override
 	public String getDefaultId(int type) {
 		return TextConstants.getText( "Operation.AddNPCDefaultValue" );

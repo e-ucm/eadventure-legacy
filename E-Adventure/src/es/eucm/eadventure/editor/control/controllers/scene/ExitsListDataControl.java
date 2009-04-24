@@ -3,6 +3,7 @@ package es.eucm.eadventure.editor.control.controllers.scene;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.Exit;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
@@ -125,6 +126,22 @@ public class ExitsListDataControl extends DataControl {
 		}
 
 		return elementAdded;
+	}
+
+	@Override
+	public boolean duplicateElement( DataControl dataControl ) {
+		if (!(dataControl instanceof ExitDataControl))
+			return false;
+		
+		try {
+			Exit newElement = (Exit) (((Exit) (dataControl.getContent())).clone());
+			exitsList.add(newElement);
+			exitsDataControlList.add( new ExitDataControl(sceneDataControl, newElement));
+			return true;
+		} catch (CloneNotSupportedException e) {
+			ReportDialog.GenerateErrorReport(e, true, "Could not clone exit");	
+			return false;
+		} 
 	}
 
 	@Override

@@ -31,6 +31,7 @@ import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataC
 import es.eucm.eadventure.editor.control.controllers.scene.ExitDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.NodeDataControl;
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
+import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.elementpanels.DataControlSelectionListener;
 import es.eucm.eadventure.editor.gui.elementpanels.general.SmallActionsListPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.IrregularAreaEditionPanel;
@@ -48,6 +49,8 @@ public class ActiveAreasListPanel extends JPanel implements DataControlsPanel, D
 	public static final int VERTICAL_SPLIT_POSITION = 150;
 
 	private JButton deleteButton;
+	
+	private JButton duplicateButton;
 	
 	private ActiveAreasTable table;
 	
@@ -113,10 +116,13 @@ public class ActiveAreasListPanel extends JPanel implements DataControlsPanel, D
 
 		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent arg0) {
-				if (table.getSelectedRow() >= 0)
+				if (table.getSelectedRow() >= 0) {
 					deleteButton.setEnabled(true);
-				else
+					duplicateButton.setEnabled(true);
+				} else {
 					deleteButton.setEnabled(false);
+					duplicateButton.setEnabled(false);
+				}
 				updateAuxPanel();
 				deleteButton.repaint();
 			}
@@ -126,6 +132,7 @@ public class ActiveAreasListPanel extends JPanel implements DataControlsPanel, D
 		JButton newButton = new JButton(new ImageIcon("img/icons/addNode.png"));
 		newButton.setContentAreaFilled( false );
 		newButton.setMargin( new Insets(0,0,0,0) );
+		newButton.setFocusable(false);
 		newButton.setToolTipText( TextConstants.getText( "ActiveAreasList.AddActiveArea" ) );
 		newButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -137,9 +144,21 @@ public class ActiveAreasListPanel extends JPanel implements DataControlsPanel, D
 		deleteButton.setMargin( new Insets(0,0,0,0) );
 		deleteButton.setToolTipText( TextConstants.getText( "ActiveAreasList.DeleteActiveArea" ) );
 		deleteButton.setEnabled(false);
+		deleteButton.setFocusable(false);
 		deleteButton.addActionListener(new ActionListener(){
 			public void actionPerformed( ActionEvent e ) {
 				deleteActiveArea();
+			}
+		});
+		duplicateButton = new JButton(new ImageIcon("img/icons/duplicateNode.png"));
+		duplicateButton.setContentAreaFilled( false );
+		duplicateButton.setMargin( new Insets(0,0,0,0) );
+		duplicateButton.setToolTipText( TextConstants.getText( "ActiveAreasList.DuplicateActiveArea" ) );
+		duplicateButton.setEnabled(false);
+		duplicateButton.setFocusable(false);
+		duplicateButton.addActionListener(new ActionListener(){
+			public void actionPerformed( ActionEvent e ) {
+				duplicateActiveArea();
 			}
 		});
 		buttonsPanel.setLayout(new GridBagLayout());
@@ -148,8 +167,15 @@ public class ActiveAreasListPanel extends JPanel implements DataControlsPanel, D
 		c.gridy = 0;
 		buttonsPanel.add(newButton, c);
 		c.gridy = 1;
+		buttonsPanel.add(duplicateButton, c);
+		c.gridy = 3;
 		buttonsPanel.add(deleteButton, c);
 		
+		c.gridy = 2;
+		c.fill = GridBagConstraints.VERTICAL;
+		c.weighty = 2.0;
+		buttonsPanel.add(new JFiller(), c);
+
 		tablePanel.setLayout(new BorderLayout());
 		tablePanel.add(scroll, BorderLayout.CENTER);
 		tablePanel.add(buttonsPanel, BorderLayout.EAST);
@@ -165,7 +191,16 @@ public class ActiveAreasListPanel extends JPanel implements DataControlsPanel, D
 			table.changeSelection(dataControl.getActiveAreas().size() - 1, dataControl.getActiveAreas().size() - 1, false, false);
 		}
 	}
-	
+
+	protected void duplicateActiveArea() {
+		if (dataControl.duplicateElement(dataControl.getActiveAreas().get(table.getSelectedRow()))) {
+			iaep.getScenePreviewEditionPanel().addActiveArea(dataControl.getLastActiveArea());
+			iaep.repaint();
+			((AbstractTableModel) table.getModel()).fireTableDataChanged();
+			table.changeSelection(dataControl.getActiveAreas().size() - 1, dataControl.getActiveAreas().size() - 1, false, false);
+		}
+	}
+
 	protected void deleteActiveArea() {
 		iaep.getScenePreviewEditionPanel().removeElement(dataControl.getActiveAreas().get(table.getSelectedRow()));
 		dataControl.deleteElement(dataControl.getActiveAreas().get(table.getSelectedRow()), true);
