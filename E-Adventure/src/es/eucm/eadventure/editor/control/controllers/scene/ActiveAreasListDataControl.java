@@ -130,6 +130,11 @@ public class ActiveAreasListDataControl extends DataControl {
 	}
 	
 	@Override
+	public String getDefaultId(int type) {
+		return "IdObject";
+	}
+	
+	@Override
 	public boolean duplicateElement( DataControl dataControl ) {
 		if (!(dataControl instanceof ActiveAreaDataControl))
 			return false;

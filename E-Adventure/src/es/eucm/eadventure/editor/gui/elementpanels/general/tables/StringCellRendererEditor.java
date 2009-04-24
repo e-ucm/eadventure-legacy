@@ -1,5 +1,6 @@
 package es.eucm.eadventure.editor.gui.elementpanels.general.tables;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,8 +9,10 @@ import java.awt.event.FocusListener;
 
 import javax.swing.AbstractCellEditor;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
@@ -19,30 +22,45 @@ public class StringCellRendererEditor extends AbstractCellEditor implements Tabl
 	
 	private String value;
 	
+	private JTextField textField;
+	
 	@Override
 	public Object getCellEditorValue() {
 		return value;
 	}
-	
+
 	@Override
 	public Component getTableCellEditorComponent(final JTable table, Object value2, boolean isSelected, final int row, final int col) {
 		this.value = (String) value2;
-		final JTextField textField = new JTextField(this.value);
-		textField.addFocusListener(new FocusListener() {
+		JPanel temp = new JPanel();
+		
+		textField = new JTextField(this.value);
+		temp.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) {
+				SwingUtilities.invokeLater(new Runnable()
+				{
+				    public void run()
+				    {
+				        if (!textField.hasFocus()) {
+				        	textField.selectAll();
+				        	textField.requestFocusInWindow();
+				        }
+				    }
+				});
 			}
+			
 			public void focusLost(FocusEvent e) {
-				value = textField.getText();
-				stopCellEditing();
 			}
 		});
 		textField.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				value = textField.getText();
-				stopCellEditing();
-			}
+				public void actionPerformed(ActionEvent arg0) {
+					value = textField.getText();
+					stopCellEditing();
+				}
 		});
-		return textField;
+		temp.setLayout(new BorderLayout());
+		temp.add(textField, BorderLayout.CENTER);
+		return temp;
 	}
 
 	@Override

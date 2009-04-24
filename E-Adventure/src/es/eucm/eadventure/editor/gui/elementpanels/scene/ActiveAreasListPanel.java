@@ -36,6 +36,7 @@ import es.eucm.eadventure.editor.gui.elementpanels.DataControlSelectionListener;
 import es.eucm.eadventure.editor.gui.elementpanels.general.SmallActionsListPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.IrregularAreaEditionPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
+import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElement;
 
 public class ActiveAreasListPanel extends JPanel implements DataControlsPanel, DataControlSelectionListener {
 
@@ -184,11 +185,22 @@ public class ActiveAreasListPanel extends JPanel implements DataControlsPanel, D
 	}
 	
 	protected void addActiveArea() {
-		if (dataControl.addElement(dataControl.getAddableElements()[0], null)) {
+		String defaultId = dataControl.getDefaultId(dataControl.getAddableElements()[0]);
+		String id = defaultId;
+		int count = 0;
+		while (!Controller.getInstance().isElementIdValid( id, false )) {
+			count++;
+			id = defaultId + count;
+		}
+		if (dataControl.addElement(dataControl.getAddableElements()[0], id)) {
 			iaep.getScenePreviewEditionPanel().addActiveArea(dataControl.getLastActiveArea());
 			iaep.repaint();
 			((AbstractTableModel) table.getModel()).fireTableDataChanged();
 			table.changeSelection(dataControl.getActiveAreas().size() - 1, dataControl.getActiveAreas().size() - 1, false, false);
+			table.editCellAt(dataControl.getActiveAreas().size() - 1, 0);
+			if (table.isEditing()) {
+				table.getEditorComponent().requestFocusInWindow();
+			}
 		}
 	}
 
@@ -203,6 +215,7 @@ public class ActiveAreasListPanel extends JPanel implements DataControlsPanel, D
 
 	protected void deleteActiveArea() {
 		iaep.getScenePreviewEditionPanel().removeElement(dataControl.getActiveAreas().get(table.getSelectedRow()));
+		iaep.getScenePreviewEditionPanel().setSelectedElement((ImageElement) null);
 		dataControl.deleteElement(dataControl.getActiveAreas().get(table.getSelectedRow()), true);
 		((AbstractTableModel) table.getModel()).fireTableDataChanged();
 	}
