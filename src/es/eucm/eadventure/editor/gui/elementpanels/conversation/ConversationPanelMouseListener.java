@@ -6,11 +6,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
-import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
@@ -55,67 +53,6 @@ public class ConversationPanelMouseListener implements MouseListener, MouseMotio
 
 			// If some node was selected and the right button was clicked, show the menu
 			if( clickedNode != null && e.getButton( ) == MouseEvent.BUTTON3 ) {
-				// Create the popup menu
-				JPopupMenu nodePopupMenu = new JPopupMenu( );
-
-				// Add the preview options
-				JMenuItem previewConversationItem = new JMenuItem( TextConstants.getText( "Conversation.OptionPreviewConversation" ) );
-				previewConversationItem.addActionListener( new PreviewConversationActionListener( true ) );
-				nodePopupMenu.add( previewConversationItem );
-				JMenuItem previewPartialConversationItem = new JMenuItem( TextConstants.getText( "Conversation.OptionPreviewPartialConversation" ) );
-				previewPartialConversationItem.addActionListener( new PreviewConversationActionListener( false ) );
-				nodePopupMenu.add( previewPartialConversationItem );
-
-				// Add separator
-				nodePopupMenu.addSeparator( );
-
-				// Add the add operations
-				for( int nodeType : conversationDataControl.getAddableNodes( clickedNode ) ) {
-					JMenuItem addNodeItem = new JMenuItem( );
-					if( nodeType == ConversationNode.DIALOGUE )
-						addNodeItem.setText( TextConstants.getText( "Conversation.OptionAddDialogueNode" ) );
-					else if( nodeType == ConversationNode.OPTION )
-						addNodeItem.setText( TextConstants.getText( "Conversation.OptionAddOptionNode" ) );
-					addNodeItem.setEnabled( conversationDataControl.canAddChild( clickedNode, nodeType ) );
-					addNodeItem.addActionListener( new AddChildActionListener( nodeType ) );
-					nodePopupMenu.add( addNodeItem );
-				}
-
-				// Add separator
-				nodePopupMenu.addSeparator( );
-				
-				// Add the random option, if current node is option node
-				if (clickedNode.getType()==ConversationNode.OPTION){
-					JCheckBoxMenuItem itShowRandomly = new JCheckBoxMenuItem( TextConstants.getText( "Conversation.OptionRandomly"), conversationDataControl.isRandomActivate(clickedNode) );
-					itShowRandomly.addActionListener( new ChangeOptionRandomActionListener(clickedNode) );
-					nodePopupMenu.add( itShowRandomly );
-				}
-
-				// Add separator
-				nodePopupMenu.addSeparator( );
-				
-				// Add delete element
-				JMenuItem deleteNodeItem = new JMenuItem( TextConstants.getText( "Conversation.OptionDeleteNode" ) );
-				deleteNodeItem.setEnabled( conversationDataControl.canDeleteNode( clickedNode ) );
-				deleteNodeItem.addActionListener( new DeleteNodeActionListener( ) );
-				nodePopupMenu.add( deleteNodeItem );
-
-				// Add separator
-				nodePopupMenu.addSeparator( );
-
-				// Add the link and move operations
-				JMenuItem linkNodeItem = new JMenuItem( TextConstants.getText( "Conversation.OptionLinkNode" ) );
-				linkNodeItem.setEnabled( conversationDataControl.canLinkNode( clickedNode ) );
-				linkNodeItem.addActionListener( new LinkNodeActionListener( ) );
-				nodePopupMenu.add( linkNodeItem );
-
-				JMenuItem moveNodeItem = new JMenuItem( TextConstants.getText( "Conversation.OptionMoveNode" ) );
-				moveNodeItem.setEnabled( conversationDataControl.canMoveNode( clickedNode ) );
-				moveNodeItem.addActionListener( new MoveNodeActionListener( ) );
-				nodePopupMenu.add( moveNodeItem );
-
-				// Display the menu
-				nodePopupMenu.show( e.getComponent( ), e.getX( ), e.getY( ) );
 			}
 
 			// If the right button was pressed, show a dialog with the "Preview conversation" option only
@@ -230,112 +167,4 @@ public class ConversationPanelMouseListener implements MouseListener, MouseMotio
 				new ConversationDialog( conversationDataControl, conversationPanel.getSelectedNode( ) );
 		}
 	}
-
-	/**
-	 * Listener for the "Add child" option
-	 */
-	private class AddChildActionListener implements ActionListener {
-
-		/**
-		 * Type of node that this listener adds.
-		 */
-		private int nodeType;
-
-		/**
-		 * Constructor.
-		 * 
-		 * @param nodeType
-		 *            Type of the node to be added
-		 */
-		public AddChildActionListener( int nodeType ) {
-			this.nodeType = nodeType;
-		}
-
-		public void actionPerformed( ActionEvent e ) {
-			// If the child was added successfully
-			if( conversationDataControl.addChild( conversationPanel.getSelectedNode( ), nodeType ) ) {
-				// Switch state to normal
-				representationPanel.changeState( RepresentationPanel.NORMAL );
-
-				// Update the conversation panel and reload the options
-				conversationPanel.reloadOptions( );
-				representationPanel.updateRepresentation( );
-			}
-		}
-	}
-
-	/**
-	 * Listener for the "Order Options Randomly" option
-	 */
-	private class ChangeOptionRandomActionListener implements ActionListener {
-		
-		
-		/**
-		 * Current selected node.
-		 */
-		private ConversationNodeView clickedNode;
-		
-		/**
-		 * Constructor.
-		 * 
-		 * @param clickedNode
-		 * 					Selected node to change random option.
-		 */
-		public ChangeOptionRandomActionListener(ConversationNodeView clickedNode){
-			this.clickedNode = clickedNode;
-		}
-
-		public void actionPerformed( ActionEvent e ) {
-
-			conversationDataControl.setRandomlyOptions(clickedNode);
-			//( (JCheckBoxMenuItem) e.getSource( ) ).isSelected( )
-			//updateRepresentation();
-			
-		}
-	}
-	
-	
-	/**
-	 * Listener for the "Delete node" option
-	 */
-	private class DeleteNodeActionListener implements ActionListener {
-
-		public void actionPerformed( ActionEvent e ) {
-
-			// If the node is deleted
-			if( conversationDataControl.deleteNode( conversationPanel.getSelectedNode( ) ) ) {
-				// Empty the selection
-				conversationPanel.setSelectedNode( null );
-
-				// Switch state to normal
-				representationPanel.changeState( RepresentationPanel.NORMAL );
-
-				// Update the conversation panel
-				representationPanel.updateRepresentation( );
-			}
-		}
-	}
-
-	/**
-	 * Listener for the "Add link to..." option
-	 */
-	private class LinkNodeActionListener implements ActionListener {
-
-		public void actionPerformed( ActionEvent e ) {
-			if( representationPanel.getState() == RepresentationPanel.NORMAL )
-				representationPanel.changeState( RepresentationPanel.WAITING_SECOND_NODE_TO_LINK );
-		}
-	}
-
-	/**
-	 * Listener for the "Move node to..." option
-	 */
-	private class MoveNodeActionListener implements ActionListener {
-
-		public void actionPerformed( ActionEvent e ) {
-			if( representationPanel.getState() == RepresentationPanel.NORMAL )
-				representationPanel.changeState( RepresentationPanel.WAITING_SECOND_NODE_TO_MOVE );
-		}
-	}
-
 }

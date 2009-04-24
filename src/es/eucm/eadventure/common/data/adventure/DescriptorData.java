@@ -274,7 +274,7 @@ public class DescriptorData implements Cloneable, Described, Titled {
 	 * @param guiType
 	 *            New GUI type for the adventure
 	 */
-	public void setGUIType( int guiType ) {
+	public void setGUIType( Integer guiType ) {
 		this.guiType = guiType;
 	}
 

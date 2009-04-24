@@ -86,13 +86,13 @@ public class ConversationsListDataControl extends DataControl {
 
 	@Override
 	public int[] getAddableElements( ) {
-		return new int[] { Controller.CONVERSATION_TREE, Controller.CONVERSATION_GRAPH };
+		return new int[] { Controller.CONVERSATION_GRAPH };
 	}
 
 	@Override
 	public boolean canAddElement( int type ) {
 		// It can always add new characters
-		return type == Controller.CONVERSATION_TREE || type == Controller.CONVERSATION_GRAPH;
+		return type == Controller.CONVERSATION_GRAPH;
 	}
 
 	@Override
@@ -114,7 +114,7 @@ public class ConversationsListDataControl extends DataControl {
 	public boolean addElement( int type , String conversationId) {
 		boolean elementAdded = false;
 
-		if( type == Controller.CONVERSATION_TREE || type == Controller.CONVERSATION_GRAPH ) {
+		if( type == Controller.CONVERSATION_GRAPH ) {
 
 			// Show a dialog asking for the conversation id
 			if (conversationId == null)
@@ -122,14 +122,8 @@ public class ConversationsListDataControl extends DataControl {
 
 			// If some value was typed and the identifier is valid
 			if( conversationId != null && controller.isElementIdValid( conversationId ) ) {
-				Conversation newConversation = null;
-				ConversationDataControl newConversationDataControl = null;
-
-
-				if( type == Controller.CONVERSATION_GRAPH ) {
-					newConversation = new GraphConversation( conversationId );
-					newConversationDataControl = new GraphConversationDataControl( (GraphConversation) newConversation );
-				}
+				Conversation newConversation = new GraphConversation( conversationId );
+				ConversationDataControl newConversationDataControl = new GraphConversationDataControl( (GraphConversation) newConversation );
 
 				// Add the new conversation
 				conversationsList.add( newConversation );

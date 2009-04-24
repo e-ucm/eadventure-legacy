@@ -38,14 +38,14 @@ public class InitialGraphicNode extends GraphicNode {
 		g.fillOval(x, y, side, side);
 
 		Point textPos = new Point();
-		textPos.setLocation(position.x - NODE_RADIUS * scale, position.y + (10 * scale));
-		g.setFont( new Font( "Monospaced", Font.PLAIN, (int) (10 * scale) ) );
+		textPos.setLocation(position.x - NODE_RADIUS * scale + 2 * scale, position.y + (7 * scale));
+		g.setFont( new Font( "Monospaced", Font.PLAIN, (int) (15 * scale) ) );
 		if (node.hasEffects()) {
 			g.setColor(Color.BLACK);
 			g.drawString( TextConstants.getText("Effects.Title"), (int) textPos.getX( ), (int) textPos.getY( ));
-			textPos.setLocation(textPos.getX(), textPos.getY() - (10 * scale));
+			textPos.setLocation(textPos.getX(), textPos.getY() - (15 * scale));
 		}
-		if (node.getLineCount() > 0) {
+/*		if (node.getLineCount() > 0) {
 			g.setColor( Color.BLUE );
 			String text = node.getLineText(0);
 			if (text == null)
@@ -55,7 +55,7 @@ public class InitialGraphicNode extends GraphicNode {
 			text += "...";
 			g.drawString( text, (int) textPos.getX( ), (int) textPos.getY( ));
 		}
-		
+	*/	
 		g.setColor(Color.GRAY);
 		g.drawOval(x, y, side, side);
 		

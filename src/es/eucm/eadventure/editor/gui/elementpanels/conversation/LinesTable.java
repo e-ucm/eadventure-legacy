@@ -171,7 +171,7 @@ public class LinesTable extends JTable {
 							value = node.getLineName( rowIndex );
 						break;
 					case 1:
-						value = node.getLineText( rowIndex );
+						value = node;//.getLineText( rowIndex );
 						break;
 					case 2:
 						value = node;

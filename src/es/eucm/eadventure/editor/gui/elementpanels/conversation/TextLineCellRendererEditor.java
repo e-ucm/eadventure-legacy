@@ -1,5 +1,6 @@
 package es.eucm.eadventure.editor.gui.elementpanels.conversation;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -16,6 +17,9 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
+
+import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
+import es.eucm.eadventure.editor.control.Controller;
 
 public class TextLineCellRendererEditor extends AbstractCellEditor implements TableCellEditor, TableCellRenderer {
 
@@ -38,10 +42,14 @@ public class TextLineCellRendererEditor extends AbstractCellEditor implements Ta
 	
 	@Override
 	public Component getTableCellEditorComponent(JTable table, Object value2, boolean isSelected, final int row, final int col) {
-		this.value = (String) value2;
+		ConversationNodeView node = ((ConversationNodeView) value2);
+		this.value = node.getLineText(row);
+		Color color = getColor(node, row); 
+
 		textField = new JTextPane();
 		textField.setText(this.value);
 		textField.setAutoscrolls(true);
+		textField.setForeground(color);
 		textField.getDocument().addDocumentListener(new DocumentListener() {
 			public void changedUpdate(DocumentEvent arg0) {
 				value = textField.getText();
@@ -90,13 +98,33 @@ public class TextLineCellRendererEditor extends AbstractCellEditor implements Ta
 
 	@Override
 	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+		ConversationNodeView node = ((ConversationNodeView) value);
+		Color color = getColor(node, row); 
 		if (isSelected) {
 			JTextPane textPane = new JTextPane();
-			textPane.setText((String) value);
+			textPane.setText(node.getLineText(row));
+			textPane.setForeground(color);
 			textPane.setAutoscrolls(true);
 			return textPane;
-		} else
-			return new JLabel((String) value);
+		} else {
+			JLabel label = new JLabel(node.getLineText(row));
+			label.setForeground(color);
+			return label;
+		}
+	}
+	
+	private Color getColor(ConversationNodeView node, int row) {
+		Color color = Controller.generateColor(row);
+		if (node.getType() == ConversationNodeView.DIALOGUE) {
+			String name = node.getLineName(row);
+			color = Controller.generateColor(0);
+			String[] charactersArray = Controller.getInstance( ).getIdentifierSummary( ).getNPCIds( );
+			for (int i = 0; i < charactersArray.length; i++) {
+				if (charactersArray[i].equals(name))
+					color = Controller.generateColor(i + 1);
+			}
+		} 
+		return color;
 	}
 
 }

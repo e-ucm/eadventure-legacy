@@ -22,25 +22,11 @@ public class AdventureData extends DescriptorData {
 	protected List<Chapter> chapters;
 	
 	/**
-	 * List of assessment profiles in file. Can be used to store all the different profiles in zip file or just to store those referenced
-	 * in chapters
-	 */
-	//protected List<AssessmentProfile> assessmentProfiles;
-
-	/**
-	 * List of adaptation profiles in file. Can be used to store all the different profiles in zip file or just to store those referenced
-	 * in chapters
-	 */
-	//protected List<AdaptationProfile> adaptationProfiles;
-	
-	/**
 	 * Default constructor
 	 */
 	public AdventureData(){
 		super();
 		this.chapters = new ArrayList<Chapter>();
-		//this.assessmentProfiles = new ArrayList<AssessmentProfile>();
-		//this.adaptationProfiles = new ArrayList<AdaptationProfile>();
 	}
 	
 	/**
@@ -52,36 +38,6 @@ public class AdventureData extends DescriptorData {
 		chapters.add(chapter);
 	}
 	
-	/**
-	 * Adds a new assessment profile
-	 * @param profile
-	 */
-	/*public void addAssessmentProfile ( AssessmentProfile profile ){
-		assessmentProfiles.add(profile);
-	}*/
-	
-	/**
-	 * Adds a new adaptation profile
-	 * @param profile
-	 */
-	/*public void addAssessmentProfile ( AdaptationProfile profile ){
-		adaptationProfiles.add(profile);
-	}*/
-
-	/**
-	 * @return the assessmentProfiles
-	 */
-	/*public List<AssessmentProfile> getAssessmentProfiles() {
-		return assessmentProfiles;
-	}*/
-
-	/**
-	 * @return the adaptationProfiles
-	 */
-	/*public List<AdaptationProfile> getAdaptationProfiles() {
-		return adaptationProfiles;
-	}
-	*/
 
 	/**
 	 * @return the chapters
@@ -102,13 +58,6 @@ public class AdventureData extends DescriptorData {
 	
 	public Object clone() throws CloneNotSupportedException {
 		AdventureData ad = (AdventureData) super.clone();
-		/*ad.adaptationProfiles = new ArrayList<AdaptationProfile>();
-		for (AdaptationProfile ap : adaptationProfiles)
-			ad.adaptationProfiles.add((AdaptationProfile) ap.clone());
-		ad.assessmentProfiles = new ArrayList<AssessmentProfile>();
-		for (AssessmentProfile ap : assessmentProfiles)
-			ad.assessmentProfiles.add((AssessmentProfile) ap.clone());
-		*/
 		ad.buttons = new ArrayList<CustomButton>();
 		for (CustomButton cb : buttons)
 			ad.buttons.add((CustomButton) cb.clone());
