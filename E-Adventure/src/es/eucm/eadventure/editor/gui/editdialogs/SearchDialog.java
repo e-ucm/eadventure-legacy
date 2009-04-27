@@ -95,8 +95,8 @@ public class SearchDialog extends JDialog {
 		listMod.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);		
 		listMod.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent arg0) {
-				if (!arg0.getValueIsAdjusting())
-				StructureControl.getInstance().changeDataControl(dataControls.get(table.getSelectedRow()));
+				if (!arg0.getValueIsAdjusting() && table.getSelectedRow() != -1)
+					StructureControl.getInstance().changeDataControl(dataControls.get(table.getSelectedRow()));
 			}
 		});
 		table.setFillsViewportHeight(true);
@@ -122,6 +122,7 @@ public class SearchDialog extends JDialog {
 	protected void search() {
 		String text = textField.getText();
 		if (text != null && !text.equals("")) {
+			table.clearSelection();
 			while(dtm.getRowCount() > 0) {
 				dtm.removeRow(0);
 			}

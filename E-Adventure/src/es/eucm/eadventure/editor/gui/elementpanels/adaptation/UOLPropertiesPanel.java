@@ -155,19 +155,34 @@ class UOLPropertiesPanel extends JPanel implements Updateable{
 		tableScrollPanel = new JScrollPane( propertiesTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER );
 
 		// Up and down buttons
-		movePropertyUpButton = new JButton( new ImageIcon("img/icons/moveNodeUp.png"));
+		movePropertyUpButton = new JButton(new ImageIcon("img/icons/moveNodeUp.png"));
+		movePropertyUpButton.setContentAreaFilled( false );
+		movePropertyUpButton.setMargin( new Insets(0,0,0,0) );
+		movePropertyUpButton.setToolTipText( TextConstants.getText( "UOLProperties.MoveUp" ) );
 		movePropertyUpButton.addActionListener( new ListenerButtonMoveLineUp( ) );
-		movePropertyDownButton = new JButton( new ImageIcon("img/icons/moveNodeDown.png") );
+		movePropertyUpButton.setEnabled(false);
+
+		movePropertyDownButton = new JButton(new ImageIcon("img/icons/moveNodeDown.png"));
+		movePropertyDownButton.setContentAreaFilled( false );
+		movePropertyDownButton.setMargin( new Insets(0,0,0,0) );
+		movePropertyDownButton.setToolTipText( TextConstants.getText( "UOLProperties.MoveDown" ) );
 		movePropertyDownButton.addActionListener( new ListenerButtonMoveLineDown( ) );
+		movePropertyDownButton.setEnabled(false);
+
 		/* End of common elements */
 
 		/* Dialogue panel elements */
-		//TODO TextConstants
-		insertPropertyButton = new JButton( "Insert property" );
+		insertPropertyButton = new JButton(new ImageIcon("img/icons/addNode.png"));
+		insertPropertyButton.setContentAreaFilled( false );
+		insertPropertyButton.setMargin( new Insets(0,0,0,0) );
+		insertPropertyButton.setToolTipText( TextConstants.getText( "UOLProperties.InsertProperty" ) );
 		insertPropertyButton.addActionListener( new ListenerButtonInsertLine( ) );
-		deletePropertyButton = new JButton( "Delete property" );
+
+		deletePropertyButton = new JButton(new ImageIcon("img/icons/deleteNode.png"));
+		deletePropertyButton.setContentAreaFilled( false );
+		deletePropertyButton.setMargin( new Insets(0,0,0,0) );
+		deletePropertyButton.setToolTipText( TextConstants.getText( "UOLProperties.DeleteProperty" ) );
 		deletePropertyButton.addActionListener( new ListenerButtonDeleteLine( ) );
-		/* End of dialogue panel elements */
 
 		addComponents();
 	}
@@ -207,64 +222,31 @@ class UOLPropertiesPanel extends JPanel implements Updateable{
 	 * Removes all elements in the panel, and sets a dialogue node panel
 	 */
 	private void addComponents( ) {
-		// Remove all elements
 		removeAll( );
-
-		// Disable all buttons
 		movePropertyUpButton.setEnabled( false );
 		movePropertyDownButton.setEnabled( false );
 		deletePropertyButton.setEnabled( false );
 
-		// Create constraints
-		GridBagConstraints c = new GridBagConstraints( );
+		add (tableScrollPanel, BorderLayout.CENTER);
 
-		// Add the scroll panel (with the table)
-		JPanel tablePanel = new JPanel();
-		tablePanel.setLayout( new GridBagLayout() );
-		c.fill = GridBagConstraints.BOTH;
-		c.insets = new Insets( 2, 2, 2, 2 );
-		c.weightx = 0.98;
-		c.weighty = 1;
+		JPanel buttonsPanel = new JPanel();
+		buttonsPanel.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints( );
 		c.gridx = 0;
 		c.gridy = 0;
-		c.gridheight = 4;
-		tablePanel.add( tableScrollPanel, c );
-
-		// Add the up and down buttons
-		c.fill = GridBagConstraints.NONE;
-		//c.weightx = 0.005;
-		c.weightx=0; c.weighty=0.25;
-		c.gridx = 1;
-		c.gridy = 0;
-		c.gridheight = 1;
-		tablePanel.add( movePropertyUpButton, c );
-		
+		buttonsPanel.add(insertPropertyButton,c);
 		c.gridy = 1;
-		tablePanel.add( new JFiller(), c );
-
+		buttonsPanel.add(movePropertyUpButton,c);
 		c.gridy = 2;
-		tablePanel.add( new JFiller(), c );
-
+		buttonsPanel.add(movePropertyDownButton, c);
+		c.gridy = 4;
+		buttonsPanel.add(deletePropertyButton, c);
 		c.gridy = 3;
-		tablePanel.add( movePropertyDownButton, c );
-
+		c.fill = GridBagConstraints.VERTICAL;
+		c.weighty = 2.0;
+		buttonsPanel.add(new JFiller(), c);
 		
-		// Add the insert, delete and edit buttons
-		JPanel insertDeletePanel = new JPanel();
-		insertDeletePanel.add( insertPropertyButton );
-		insertDeletePanel.add( deletePropertyButton );
-		//c.fill = GridBagConstraints.BOTH;
-		//c.weightx = 0.015;
-		//c.gridx = 2;
-		//c.gridy = 1;
-		//add( insertPropertyButton, c );
-
-		//c.gridy = 2;
-		//add( deletePropertyButton, c );
-		
-		add (tablePanel, BorderLayout.CENTER);
-		add (insertDeletePanel, BorderLayout.SOUTH);
-		
+		add(buttonsPanel, BorderLayout.EAST);
 	}
 
 

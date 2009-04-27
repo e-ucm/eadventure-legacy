@@ -1,24 +1,18 @@
 package es.eucm.eadventure.editor.gui.elementpanels.adaptation;
 
 import java.awt.BorderLayout;
-import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Insets;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultCellEditor;
-import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -28,15 +22,13 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.event.TableModelEvent;
 import javax.swing.table.AbstractTableModel;
 
-import es.eucm.eadventure.common.data.adaptation.AdaptationProfile;
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfileDataControl;
-import es.eucm.eadventure.editor.gui.Updateable;
+import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.editdialogs.VarDialog;
 
 
@@ -149,10 +141,16 @@ class InitialStatePanel extends JPanel{
 		/* End of common elements */
 
 		/* Dialogue panel elements */
-		//TODO TextConstants
-		insertActionFlagButton = new JButton( TextConstants.getText("Operation.AdaptationPanel.InsertButton") );
+		insertActionFlagButton = new JButton(new ImageIcon("img/icons/addNode.png"));
+		insertActionFlagButton.setContentAreaFilled( false );
+		insertActionFlagButton.setMargin( new Insets(0,0,0,0) );
+		insertActionFlagButton.setToolTipText( TextConstants.getText( "Operation.AdaptationPanel.InsertButton" ) );
 		insertActionFlagButton.addActionListener( new ListenerButtonInsertLine( ) );
-		deleteActionFlagButton = new JButton( TextConstants.getText("Operation.AdaptationPanel.DeleteButton") );
+		
+		deleteActionFlagButton = new JButton(new ImageIcon("img/icons/deleteNode.png"));
+		deleteActionFlagButton.setContentAreaFilled( false );
+		deleteActionFlagButton.setMargin( new Insets(0,0,0,0) );
+		deleteActionFlagButton.setToolTipText( TextConstants.getText( "Operation.AdaptationPanel.DeleteButton" ) );
 		deleteActionFlagButton.addActionListener( new ListenerButtonDeleteLine( ) );
 		
 		String[] scenes = Controller.getInstance( ).getIdentifierSummary( ).getSceneIds( );
@@ -179,120 +177,42 @@ class InitialStatePanel extends JPanel{
 		
 		/* End of dialogue panel elements */
 
-		addComponents(showExpand);
+		addComponents(false);
 	}
 
 	/**
 	 * Removes all elements in the panel, and sets a dialogue node panel
 	 */
 	private void addComponents(boolean showExpand ) {
-		// Remove all elements
 		removeAll( );
-
-		// Disable all buttons
 		deleteActionFlagButton.setEnabled( false );
+		setLayout(new BorderLayout());
 
-		// Create constraints
-		GridBagConstraints c = new GridBagConstraints( );
-
-		// Add the scroll panel (with the table)
-		JPanel tablePanel = new JPanel();
-		tablePanel.setLayout( new GridBagLayout() );
-		c.fill = GridBagConstraints.BOTH;
-		c.insets = new Insets( 2, 2, 2, 2 );
-		c.weightx = 0.98;
-		c.weighty = 1;
-		c.gridx = 0;
-		c.gridy = 0;
-		c.gridheight = 4;
-		tablePanel.add( tableScrollPanel, c );
-
-		// Add the up and down buttons
-		c.fill = GridBagConstraints.NONE;
-		//c.weightx = 0.005;
-		c.weightx=0; c.weighty=0.25;
-		c.gridx = 1;
-		c.gridy = 0;
-		c.gridheight = 1;
-		
-		c.gridy = 1;
-
-		c.gridy = 2;
-
-		c.gridy = 3;
-
-		
-		// Add the insert, delete and edit buttons
-		JPanel insertDeletePanel = new JPanel();
-		insertDeletePanel.add( insertActionFlagButton );
-		insertDeletePanel.add( deleteActionFlagButton );
-		if (showExpand){
-		    JButton expand = new JButton(TextConstants.getText("AdaptationProfile.Expand"));
-		    expand.addActionListener(new ActionListener(){
-
-			@Override
-			    public void actionPerformed(ActionEvent e) {
-			    
-			    new InitialStateDialog();
-			}
-			
-		    });
-		    insertDeletePanel.add( expand);
-		}
-		//c.fill = GridBagConstraints.BOTH;
-		//c.weightx = 0.015;
-		//c.gridx = 2;
-		//c.gridy = 1;
-		//add( insertPropertyButton, c );
-
-		//c.gridy = 2;
-		//add( deletePropertyButton, c );
 		
 		JPanel initialScenePanel = new JPanel();
-		initialScenePanel.setLayout( new GridLayout() );
-		initialScenePanel.add( initialSceneCB );
-		
+		initialScenePanel.setLayout( new BorderLayout() );
+		initialScenePanel.add( initialSceneCB , BorderLayout.CENTER);
 		initialScenePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AdaptationRule.InitialState.InitialScene" ) ) );
 
+		add(initialScenePanel, BorderLayout.NORTH);
+		add(tableScrollPanel, BorderLayout.CENTER);
+
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints( );
+		c.gridx = 0;
+		c.gridy = 0;
+		buttonPanel.add(insertActionFlagButton, c);
+		c.gridy = 2;
+		buttonPanel.add(deleteActionFlagButton, c);
+		c.gridy = 1;
+		c.weighty = 2.0;
+		c.fill = GridBagConstraints.VERTICAL;
+		buttonPanel.add(new JFiller(), c);
 		
-		add (tablePanel, BorderLayout.CENTER);
-		add (insertDeletePanel, BorderLayout.SOUTH);
-		add (initialScenePanel, BorderLayout.NORTH);
-		
+		add(buttonPanel, BorderLayout.EAST);
 	}
 
-	/**
-	 * Class to show the initial state in a new window
-	 */
-	 private class InitialStateDialog extends JDialog{
-
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 1L;
-		
-		public InitialStateDialog(){
-		    super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "AdaptationProfile.InitialDialog.Title" ), Dialog.ModalityType.APPLICATION_MODAL);
-		    Controller.getInstance().pushWindow(this);
-		    
-		    this.add(new InitialStatePanel(adaptationProfileDataControl,false));
-		    
-		    addWindowListener( new WindowAdapter (){
-			@Override
-			public void windowClosed(WindowEvent e) {
-				Controller.getInstance().popWindow();
-				
-			}
-			
-		    });
-		    
-		    this.setSize( new Dimension(500,300) );
-			Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
-			setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
-			setResizable( false );
-			setVisible( true );
-		}
-	    }
 
 	/**
 	 * Listener for the "Insert property" button

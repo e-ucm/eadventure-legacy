@@ -7,6 +7,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -19,11 +20,13 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.macro.MacroDataControl;
 import es.eucm.eadventure.editor.control.controllers.macro.MacroListDataControl;
+import es.eucm.eadventure.editor.gui.DataControlsPanel;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 
-public class MacrosListPanel extends JPanel {
+public class MacrosListPanel extends JPanel implements DataControlsPanel {
 
 	/**
 	 * Required.
@@ -168,6 +171,16 @@ public class MacrosListPanel extends JPanel {
 		dataControl.deleteElement(dataControl.getMacros().get(table.getSelectedRow()), true);
 		table.clearSelection();
 		((AbstractTableModel) table.getModel()).fireTableDataChanged();
+	}
+
+	@Override
+	public void setSelectedItem(List<DataControl> path) {
+		if (path.size() > 0) {
+			for (int i = 0 ; i < dataControl.getMacros().size(); i++) {
+				if (dataControl.getMacros().get(i) == path.get(path.size() -1))
+					table.changeSelection(i, i, false, false);
+			}
+		}
 	}
 
 }

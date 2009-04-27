@@ -2,7 +2,6 @@ package es.eucm.eadventure.editor.control.tools.adaptation;
 
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
-import es.eucm.eadventure.common.data.adaptation.ContainsAdaptedState;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.tools.Tool;
