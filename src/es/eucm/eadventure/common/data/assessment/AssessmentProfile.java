@@ -316,6 +316,8 @@ public class AssessmentProfile implements Cloneable {
 				ap.vars.add((s != null ? new String(s) : null));
 			}
 		}
+		ap.scorm12 = scorm12;
+		ap.scorm2004 = scorm2004;
 		return ap;
 	}
 

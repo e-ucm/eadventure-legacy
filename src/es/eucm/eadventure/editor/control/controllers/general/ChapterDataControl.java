@@ -293,6 +293,7 @@ public class ChapterDataControl extends DataControl {
 	public void setAdaptationPath( ) {
 		Controller.getInstance().addTool(new ChangeSelectedProfileTool(chapter, ChangeSelectedProfileTool.MODE_ADAPTATION));
 	}
+	
 
 	/**
 	 * Sets the new initial scene identifier for the chapter.

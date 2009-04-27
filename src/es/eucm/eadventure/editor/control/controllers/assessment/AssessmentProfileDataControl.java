@@ -130,6 +130,8 @@ public class AssessmentProfileDataControl extends DataControl{
 				controller.getIdentifierSummary( ).deleteAssessmentRuleId( assRuleId );
 				//controller.dataModified( );
 				deleted = true;
+				if (controller.getSelectedChapterDataControl().getAssessmentName().equals(profile.getName()))
+				    controller.getSelectedChapterDataControl().deleteAssessmentPath();
 			}
 		}
 
