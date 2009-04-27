@@ -387,9 +387,6 @@ public class AssessmentRuleDataControl extends DataControl{
 			}
 
 		}
-
-		
-		
 	}
 
 	public String getPropertyId( int rowIndex, int effect ) {
@@ -520,6 +517,10 @@ public class AssessmentRuleDataControl extends DataControl{
 	@Override
 	public List<DataControl> getPathToDataControl(DataControl dataControl) {
 		return null;
+	}
+
+	public void setId(String value) {
+		Controller.getInstance().addTool(new ChangeIdTool(assessmentRule, value));
 	}
 
 }

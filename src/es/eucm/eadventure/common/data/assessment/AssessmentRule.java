@@ -2,12 +2,13 @@ package es.eucm.eadventure.common.data.assessment;
 
 import java.util.List;
 
+import es.eucm.eadventure.common.data.HasId;
 import es.eucm.eadventure.common.data.chapter.conditions.*;
 
 /**
  * Rule for the assesment engine
  */
-public class AssessmentRule implements Cloneable {
+public class AssessmentRule implements Cloneable, HasId {
     
     /**
      * Number of different importance values

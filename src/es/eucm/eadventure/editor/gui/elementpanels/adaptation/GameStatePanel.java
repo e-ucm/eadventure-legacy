@@ -41,6 +41,7 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationRuleDataControl;
 import es.eucm.eadventure.editor.gui.Updateable;
+import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.editdialogs.VarDialog;
 
 /**
@@ -152,10 +153,16 @@ class GameStatePanel extends JPanel implements Updateable{
 		/* End of common elements */
 
 		/* Dialogue panel elements */
-		//TODO TextConstants
-		insertActionFlagButton = new JButton( TextConstants.getText("Operation.AdaptationPanel.InsertButton")  );
+		insertActionFlagButton = new JButton(new ImageIcon("img/icons/addNode.png"));
+		insertActionFlagButton.setContentAreaFilled( false );
+		insertActionFlagButton.setMargin( new Insets(0,0,0,0) );
+		insertActionFlagButton.setToolTipText( TextConstants.getText( "Operation.AdaptationPanel.InsertButton" ) );
 		insertActionFlagButton.addActionListener( new ListenerButtonInsertLine( ) );
-		deleteActionFlagButton = new JButton( TextConstants.getText("Operation.AdaptationPanel.DeleteButton") );
+		
+		deleteActionFlagButton = new JButton(new ImageIcon("img/icons/deleteNode.png"));
+		deleteActionFlagButton.setContentAreaFilled( false );
+		deleteActionFlagButton.setMargin( new Insets(0,0,0,0) );
+		deleteActionFlagButton.setToolTipText( TextConstants.getText( "Operation.AdaptationPanel.DeleteButton" ) );
 		deleteActionFlagButton.addActionListener( new ListenerButtonDeleteLine( ) );
 		
 		String[] scenes = Controller.getInstance( ).getIdentifierSummary( ).getSceneIds( );
@@ -189,66 +196,32 @@ class GameStatePanel extends JPanel implements Updateable{
 	 * Removes all elements in the panel, and sets a dialogue node panel
 	 */
 	private void addComponents( ) {
-		// Remove all elements
 		removeAll( );
-
-		// Disable all buttons
 		deleteActionFlagButton.setEnabled( false );
-
-		// Create constraints
-		GridBagConstraints c = new GridBagConstraints( );
-
-		// Add the scroll panel (with the table)
-		JPanel tablePanel = new JPanel();
-		tablePanel.setLayout( new GridBagLayout() );
-		c.fill = GridBagConstraints.BOTH;
-		c.insets = new Insets( 2, 2, 2, 2 );
-		c.weightx = 0.98;
-		c.weighty = 1;
-		c.gridx = 0;
-		c.gridy = 0;
-		c.gridheight = 4;
-		tablePanel.add( tableScrollPanel, c );
-
-		// Add the up and down buttons
-		c.fill = GridBagConstraints.NONE;
-		//c.weightx = 0.005;
-		c.weightx=0; c.weighty=0.25;
-		c.gridx = 1;
-		c.gridy = 0;
-		c.gridheight = 1;
-		
-		c.gridy = 1;
-
-		c.gridy = 2;
-
-		c.gridy = 3;
-
-		
-		// Add the insert, delete and edit buttons
-		JPanel insertDeletePanel = new JPanel();
-		insertDeletePanel.add( insertActionFlagButton );
-		insertDeletePanel.add( deleteActionFlagButton );
-		//c.fill = GridBagConstraints.BOTH;
-		//c.weightx = 0.015;
-		//c.gridx = 2;
-		//c.gridy = 1;
-		//add( insertPropertyButton, c );
-
-		//c.gridy = 2;
-		//add( deletePropertyButton, c );
+		setLayout(new BorderLayout());
 		
 		JPanel initialScenePanel = new JPanel();
 		initialScenePanel.setLayout( new GridLayout() );
 		initialScenePanel.add( initialSceneCB );
-		
 		initialScenePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AdaptationRule.GameState.InitialScene" ) ) );
+		add(initialScenePanel, BorderLayout.NORTH);
+		
+		add(tableScrollPanel, BorderLayout.CENTER);
 
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints( );
+		c.gridx = 0;
+		c.gridy = 0;
+		buttonPanel.add( insertActionFlagButton, c );
+		c.gridy = 2;
+		buttonPanel.add( deleteActionFlagButton, c );
+		c.gridy = 1;
+		c.weighty = 2.0;
+		c.fill = GridBagConstraints.VERTICAL;
+		buttonPanel.add(new JFiller(), c);
 		
-		add (tablePanel, BorderLayout.CENTER);
-		add (insertDeletePanel, BorderLayout.SOUTH);
-		add (initialScenePanel, BorderLayout.NORTH);
-		
+		add(buttonPanel, BorderLayout.EAST);
 	}
 
 

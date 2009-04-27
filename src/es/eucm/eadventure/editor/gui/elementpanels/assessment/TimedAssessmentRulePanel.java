@@ -1,6 +1,5 @@
 package es.eucm.eadventure.editor.gui.elementpanels.assessment;
 
-import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -15,18 +14,15 @@ import java.awt.event.MouseListener;
 
 import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextPane;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
@@ -52,11 +48,6 @@ public class TimedAssessmentRulePanel extends JPanel {
 	private AssessmentRuleDataControl assessmentRuleDataControl;
 
 	/**
-	 * Combo box for the items in the script.
-	 */
-	private JComboBox importanceComboBox;
-
-	/**
 	 * Text area for the documentation.
 	 */
 	private JTextArea conceptTextArea;
@@ -68,12 +59,7 @@ public class TimedAssessmentRulePanel extends JPanel {
 	private JButton addEffectBlock;
 	
 	private JButton deleteEffectBlock;
-	
-	/**
-	 * Combo box for the items in the script.
-	 */
-	private JComboBox effectComboBox;
-	
+		
 	private JSpinner minTime;
 	
 	private JSpinner maxTime;
@@ -124,37 +110,13 @@ public class TimedAssessmentRulePanel extends JPanel {
 		GridBagConstraints c = new GridBagConstraints( );
 		c.insets = new Insets( 1, 5, 1, 5 );
 
-		// Info panel
-		
-		/*JTextPane informationTextPane = new JTextPane( );
-		informationTextPane.setEditable( false );
-		informationTextPane.setBackground( getBackground( ) );
-		informationTextPane.setText( TextConstants.getText( "TimedAssessmentRule.Information" ) );
-		JPanel informationPanel = new JPanel( );
-		informationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "GeneralText.Information" ) ) );
-		informationPanel.setLayout( new BorderLayout( ) );
-		informationPanel.add( informationTextPane, BorderLayout.CENTER );
-		add( informationPanel, c );*/
-		
 		GridBagConstraints g = new GridBagConstraints();
 		g.fill=GridBagConstraints.BOTH;
-		
-		// Create the combo box of importance
-		JPanel importancePanel = new JPanel( );		
-		importanceComboBox = new JComboBox( new String[]{TextConstants.getText( "AssessmentRule.Importance.VeryLow" ), TextConstants.getText( "AssessmentRule.Importance.Low" ), TextConstants.getText( "AssessmentRule.Importance.Normal" ), TextConstants.getText( "AssessmentRule.Importance.High" ), TextConstants.getText( "AssessmentRule.Importance.VeryHigh" )} );
-		importanceComboBox.setSelectedIndex( assessmentRuleDataControl.getImportance( ) );
-		importanceComboBox.addActionListener( new ImportanceComboBoxListener( ) );
-		importancePanel.add( importanceComboBox);
-		importancePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AssessmentRule.Importance.Title" ) ) );
 		
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1;
 		c.gridy=0;
-		//c.weighty=0;
-		container1.add( importancePanel, c );
 
-		// Create the text area for the concept
-		c.gridy++;
 		c.weighty=1;
 		c.ipady=20;
 		JPanel conceptPanel = new JPanel( );
@@ -416,22 +378,6 @@ public class TimedAssessmentRulePanel extends JPanel {
 	}
 
 	/**
-	 * Listener for the items combo box.
-	 */
-	private class ImportanceComboBoxListener implements ActionListener {
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-		 */
-		public void actionPerformed( ActionEvent e ) {
-			assessmentRuleDataControl.setImportance( importanceComboBox.getSelectedIndex( ) );
-
-		}
-	}
-	
-	/**
 	 * Listener for the effects combo box.
 	 */
 	private class EffectsTabPaneListener implements ChangeListener {
@@ -513,83 +459,6 @@ public class TimedAssessmentRulePanel extends JPanel {
 				container2.setSelectedIndex(0);
 			}
 		  }
-		}
-		
-	}
-	
-	private class AddEffectListener implements ActionListener {
-
-		public void actionPerformed( ActionEvent e ) {
-			assessmentRuleDataControl.addEffectBlock( currentEffect );
-			
-			if ( currentEffect == -1){
-				currentEffect = 0;
-				textTextArea.setText( assessmentRuleDataControl.getEffectText( currentEffect ) );
-				// Activate timer spinners
-				minTime.setEnabled( true );
-				minTime.setModel( new SpinnerNumberModel(assessmentRuleDataControl.getMinTime( currentEffect ), 0, Integer.MAX_VALUE, 1) );
-				maxTime.setModel( new SpinnerNumberModel(assessmentRuleDataControl.getMaxTime( currentEffect ), assessmentRuleDataControl.getMinTime( currentEffect )+1, Integer.MAX_VALUE, 1) );
-				minTime.updateUI( );
-				maxTime.updateUI( );
-				maxTime.setEnabled( true );
-			}
-			
-			// Update the combo box
-			effectComboBox.setModel( new DefaultComboBoxModel(assessmentRuleDataControl.getEffectNames( )) );
-			
-			propPanel.setEnabled(true);
-			propPanel.setCurrentIndex( currentEffect );
-			
-			effectComboBox.setSelectedIndex( currentEffect );
-			effectComboBox.updateUI( );
-			effectComboBox.setEnabled( true );
-			textTextArea.setEditable( true );
-		}
-		
-	}
-	
-	private class DeleteEffectListener implements ActionListener {
-
-		public void actionPerformed( ActionEvent e ) {
-			if (currentEffect>=0){
-				assessmentRuleDataControl.removeEffectBlock( currentEffect );
-				
-				// Update the combo box
-				effectComboBox.setModel( new DefaultComboBoxModel(assessmentRuleDataControl.getEffectNames( )) );
-				if ( currentEffect > 0)
-					currentEffect --;
-				else if (assessmentRuleDataControl.getEffectsCount( )==0)
-					currentEffect = -1;
-				else
-					currentEffect = 0;
-				
-				if (currentEffect!=-1){
-					effectComboBox.setEnabled( true );
-					textTextArea.setEditable( true );
-					textTextArea.setText( assessmentRuleDataControl.getEffectText( currentEffect ) );
-					effectComboBox.setSelectedIndex( currentEffect );
-					// Activate timer spinners
-					minTime.setEnabled( true );
-					minTime.setModel( new SpinnerNumberModel(assessmentRuleDataControl.getMinTime( currentEffect ), 0, Integer.MAX_VALUE, 1) );
-					maxTime.setModel( new SpinnerNumberModel(assessmentRuleDataControl.getMaxTime( currentEffect ), assessmentRuleDataControl.getMinTime( currentEffect )+1, Integer.MAX_VALUE, 1) );
-					minTime.updateUI( );
-					maxTime.updateUI( );
-					maxTime.setEnabled( true );
-				}else{
-					effectComboBox.setEnabled( false );
-					textTextArea.setText( "" );
-					textTextArea.setEditable( false );
-					// Activate timer spinners
-					minTime.setEnabled( false );
-					minTime.setModel( new SpinnerNumberModel() );
-					maxTime.setModel( new SpinnerNumberModel() );
-					minTime.updateUI( );
-					maxTime.updateUI( );
-					maxTime.setEnabled( false );
-					propPanel.setEnabled(false);
-				}
-				effectComboBox.updateUI( );
-			}
 		}
 		
 	}
@@ -808,8 +677,4 @@ public class TimedAssessmentRulePanel extends JPanel {
 	            }
 	        }
 	    };
-
-
-
-	
 }
