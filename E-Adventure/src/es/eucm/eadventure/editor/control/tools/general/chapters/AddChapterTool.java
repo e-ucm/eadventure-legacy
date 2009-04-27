@@ -46,6 +46,7 @@ public class AddChapterTool extends Tool{
 
 		// If some value was typed
 		if( chapterTitle != null ) {
+		    if (!chaptersController.exitsChapter(chapterTitle)){
 			// Create the new chapter, and the controller
 			newChapter = new Chapter( chapterTitle, TextConstants.getText( "DefaultValue.SceneId" ) );
 			chaptersController.addChapterDataControl(newChapter);
@@ -53,6 +54,10 @@ public class AddChapterTool extends Tool{
 
 			controller.reloadData();
 			return true;
+		    } else {
+			    controller.showErrorDialog(TextConstants.getText("Operation.CreateAdaptationFile.FileName.ExistValue.Title"), TextConstants.getText("Operation.NewChapter.ExistingName"));
+			    return false;
+		    }
 		}
 		return false;
 

@@ -216,7 +216,7 @@ public class AdaptationProfileDataControl extends DataControl{
 			
 			//Prompt for file name:
 			String fileName = name;
-			if (name == null)
+			if (name == null || name.equals(""))
 				fileName = controller.showInputDialog( TextConstants.getText( "Operation.RenameAssessmentFile.FileName" ), TextConstants.getText( "Operation.RenameAssessmentFile.FileName.Message" ), getFileName() );
 			
 			

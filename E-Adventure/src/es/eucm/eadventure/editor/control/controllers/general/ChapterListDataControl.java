@@ -409,6 +409,16 @@ public class ChapterListDataControl {
 	public int getChaptersCount () {
 		return chapters.size();
 	}
+	
+	public boolean exitsChapter(String chapterTitle){
+		// look the chapter titles
+		for( ChapterDataControl chapterDataControl : chapterDataControlList){
+			Chapter chapter = (Chapter)chapterDataControl.getContent();
+			if (chapter.getTitle().equals(chapterTitle))
+			    return true;
+		}
+	    return false;
+	}
 
 
 	/**

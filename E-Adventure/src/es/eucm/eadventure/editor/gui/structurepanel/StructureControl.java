@@ -32,9 +32,11 @@ public class StructureControl {
 	}
 		
 	public void changeDataControl(DataControl dataControl) {
-		List<DataControl> path = Controller.getInstance().getSelectedChapterDataControl().getPath(dataControl);
+		if (dataControl!=null){
+	    	List<DataControl> path = Controller.getInstance().getSelectedChapterDataControl().getPath(dataControl);
 		if (path != null) {
 			structurePanel.setSelectedItem(path);
+		}
 		}
 	}
 	
