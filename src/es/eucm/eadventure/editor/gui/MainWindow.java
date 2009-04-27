@@ -45,6 +45,8 @@ import es.eucm.eadventure.common.auxiliar.filefilters.FolderFileFilter;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
+import es.eucm.eadventure.editor.gui.editdialogs.GenericFileChooserDialog;
+import es.eucm.eadventure.editor.gui.editdialogs.GenericOptionPaneDialog;
 import es.eucm.eadventure.editor.gui.structurepanel.StructureControl;
 import es.eucm.eadventure.editor.gui.structurepanel.StructurePanel;
 
@@ -865,7 +867,8 @@ public class MainWindow extends JFrame {
 			path = ".";
 
 		// Create the file chooser dialog
-		JFileChooser fileDialog = new JFileChooser( path );
+		//JFileChooser fileDialog = new JFileChooser( path );
+		GenericFileChooserDialog fileDialog = new GenericFileChooserDialog( path );
 		fileDialog.setAcceptAllFileFilterUsed( false );
 		fileDialog.setFileFilter( filter );
 
@@ -894,7 +897,8 @@ public class MainWindow extends JFrame {
 			path = ".";
 
 		// Create the file chooser dialog
-		JFileChooser fileDialog = new JFileChooser( path );
+		//JFileChooser fileDialog = new JFileChooser( path );
+		GenericFileChooserDialog fileDialog = new GenericFileChooserDialog( path );
 		fileDialog.setAcceptAllFileFilterUsed( false );
 		fileDialog.setMultiSelectionEnabled( true );
 		fileDialog.setFileFilter( filter );
@@ -926,7 +930,8 @@ public class MainWindow extends JFrame {
 		String fileFullPath = null;
 
 		// Create the file chooser dialog
-		JFileChooser fileDialog = new JFileChooser( path );
+		//JFileChooser fileDialog = new JFileChooser( path );
+		GenericFileChooserDialog fileDialog = new GenericFileChooserDialog( path );
 		if (filter instanceof FolderFileFilter) {
 			((FolderFileFilter) filter).setFileChooser(fileDialog);
 		}
@@ -965,7 +970,8 @@ public class MainWindow extends JFrame {
 		messagePanel.add( messageTextPane, BorderLayout.CENTER );
 
 		// Show the dialog
-		return JOptionPane.showOptionDialog( peekWindow( ), messagePanel, title, JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, null );
+		//return JOptionPane.showOptionDialog( peekWindow( ), messagePanel, title, JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, null );
+		return (Integer)new GenericOptionPaneDialog( peekWindow( ), title, messagePanel, JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,options).getIntegerOption();
 	}
 
 	/**
@@ -979,7 +985,8 @@ public class MainWindow extends JFrame {
 	 *         JOptionPane.CANCEL_OPTION
 	 */
 	public int showConfirmDialog( String title, String message ) {
-		return JOptionPane.showConfirmDialog( peekWindow( ), message, title, JOptionPane.YES_NO_CANCEL_OPTION );
+		//return JOptionPane.showConfirmDialog( peekWindow( ), message, title, JOptionPane.YES_NO_CANCEL_OPTION );
+	    return (Integer)GenericOptionPaneDialog.showConfirmDialog(peekWindow( ), title ,message ,JOptionPane.QUESTION_MESSAGE, JOptionPane.YES_NO_CANCEL_OPTION );
 	}
 
 	/**
@@ -992,7 +999,8 @@ public class MainWindow extends JFrame {
 	 * @return True if the "Yes" button was pressed, false otherwise
 	 */
 	public boolean showStrictConfirmDialog( String title, String message ) {
-		return JOptionPane.showConfirmDialog( peekWindow( ), message, title, JOptionPane.YES_NO_OPTION ) == JOptionPane.YES_OPTION;
+		//return JOptionPane.showConfirmDialog( peekWindow( ), message, title, JOptionPane.YES_NO_OPTION ) == JOptionPane.YES_OPTION;
+	    	return (Integer)GenericOptionPaneDialog.showConfirmDialog(peekWindow(),title, message,JOptionPane.QUESTION_MESSAGE,JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
 	}
 
 	/**
@@ -1007,7 +1015,8 @@ public class MainWindow extends JFrame {
 	 * @return String typed in the dialog, null if the cancel button was pressed
 	 */
 	public String showInputDialog( String title, String message, String defaultValue ) {
-		return (String) JOptionPane.showInputDialog( peekWindow( ), message, title, JOptionPane.PLAIN_MESSAGE, null, null, defaultValue );
+		//return (String) JOptionPane.showInputDialog( peekWindow( ), message, title, JOptionPane.PLAIN_MESSAGE, null, null, defaultValue );
+	    	return (String) GenericOptionPaneDialog.showInputDialog(peekWindow( ), title, message,JOptionPane.PLAIN_MESSAGE,null,defaultValue);
 	}
 
 	/**
@@ -1022,7 +1031,8 @@ public class MainWindow extends JFrame {
 	 * @return Option selected in the dialog, null if the cancel button was pressed
 	 */
 	public String showInputDialog( String title, String message, Object[] selectionValues ) {
-		return (String) JOptionPane.showInputDialog( peekWindow( ), message, title, JOptionPane.PLAIN_MESSAGE, null, selectionValues, null );
+		//return (String) JOptionPane.showInputDialog( peekWindow( ), message, title, JOptionPane.PLAIN_MESSAGE, null, selectionValues, null );
+	    return (String) GenericOptionPaneDialog.showInputDialog(peekWindow( ), title, message,JOptionPane.PLAIN_MESSAGE,selectionValues,null);
 	}
 
 	/**
@@ -1034,7 +1044,8 @@ public class MainWindow extends JFrame {
 	 *            Message of the dialog
 	 */
 	public void showInformationDialog( String title, String message ) {
-		JOptionPane.showMessageDialog( peekWindow( ), message, title, JOptionPane.INFORMATION_MESSAGE );
+		//JOptionPane.showMessageDialog( peekWindow( ), message, title, JOptionPane.INFORMATION_MESSAGE );
+	    GenericOptionPaneDialog.showMessageDialog(peekWindow( ), title, message, JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	/**
@@ -1046,7 +1057,8 @@ public class MainWindow extends JFrame {
 	 *            Message of the dialog
 	 */
 	public void showWarningDialog( String title, String message ) {
-		JOptionPane.showMessageDialog( peekWindow( ), message, title, JOptionPane.WARNING_MESSAGE );
+		//JOptionPane.showMessageDialog( peekWindow( ), message, title, JOptionPane.WARNING_MESSAGE );
+	    GenericOptionPaneDialog.showMessageDialog(peekWindow( ), title, message, JOptionPane.WARNING_MESSAGE);
 	}
 
 	/**
@@ -1058,7 +1070,8 @@ public class MainWindow extends JFrame {
 	 *            Message of the dialog
 	 */
 	public void showErrorDialog( String title, String message ) {
-		JOptionPane.showMessageDialog( peekWindow( ), message, title, JOptionPane.ERROR_MESSAGE );
+		//JOptionPane.showMessageDialog( peekWindow( ), message, title, JOptionPane.ERROR_MESSAGE );
+	    GenericOptionPaneDialog.showMessageDialog(peekWindow( ), title, message, JOptionPane.ERROR_MESSAGE);
 	}
 
 	/**

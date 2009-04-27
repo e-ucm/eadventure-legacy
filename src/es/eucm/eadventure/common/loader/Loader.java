@@ -86,6 +86,8 @@ public class Loader {
 			incidences.add( Incidence.createDescriptorIncidence( TextConstants.getText( "Error.LoadDescriptor.SAX" ) ) );
 		} catch( IOException e ) {
 			incidences.add( Incidence.createDescriptorIncidence( TextConstants.getText( "Error.LoadDescriptor.IO" ) ) );
+		} catch (IllegalArgumentException e){
+		    incidences.add(Incidence.createDescriptorIncidence(TextConstants.getText( "Error.LoadDescriptor.NoDescriptor")));
 		}
 
 		return adventureData;
