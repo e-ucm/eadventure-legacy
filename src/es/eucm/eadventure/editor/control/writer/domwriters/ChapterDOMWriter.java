@@ -53,7 +53,7 @@ public class ChapterDOMWriter {
 
 			// Create and append the assessment configuration
 			if( !chapter.getAssessmentName( ).equals( "" ) ) {
-			    chapterNode.setAttribute("assessProfile", chapter.getAdaptationName());
+			    chapterNode.setAttribute("assessProfile", chapter.getAssessmentName());
 			}
 			
 			// Append the scene elements

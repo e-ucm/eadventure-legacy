@@ -36,8 +36,20 @@ public class AdaptationProfilesDataControl extends DataControl{
 			if (profileName == null)
 			    profileName = controller.showInputDialog( TextConstants.getText( "Operation.CreateAdaptationFile.FileName" ), TextConstants.getText( "Operation.CreateAdaptationFile.FileName.Message" ), TextConstants.getText( "Operation.CreateAdaptationFile.FileName.DefaultValue" ) );
 			if (profileName!=null&& controller.isElementIdValid( profileName )){
-				//Checks if the profile exists. In that case, communicate it
-				if (!existName(profileName )){
+				//Checks if the profile exists. Always profile name is set as TextConstants.getText("Operation.CreateAdaptationFile.FileName.DefaultValue");
+			    	// Increase the last number until create a not existing name
+			    	int i=1;
+			    	while (existName(profileName )){
+			    	    String lastIndex = profileName.substring(profileName.length()-1,profileName.length());
+			    	    try{
+			    		Integer.parseInt(lastIndex);
+			    	    }catch (NumberFormatException e){
+			    		profileName += i;
+			    	    }
+			    	    profileName = profileName.substring(0,profileName.length()-1);
+			    	    profileName += i;
+			    	   
+			    	}
 					List<AdaptationRule> newRules = new ArrayList<AdaptationRule>();
 					AdaptedState initialState = new AdaptedState();
 					this.profiles.add( new AdaptationProfileDataControl ( newRules, initialState,profileName) );
@@ -45,16 +57,18 @@ public class AdaptationProfilesDataControl extends DataControl{
 					//controller.dataModified( );
 					added = true;
 
-				}else {
-				    controller.showErrorDialog(TextConstants.getText("Operation.CreateAdaptationFile.FileName.ExistValue.Title"), TextConstants.getText("Operation.CreateAdaptationFile.FileName.ExistValue.Message"));
-				}
+				} 
+				//else {
+				   // controller.showErrorDialog(TextConstants.getText("Operation.CreateAdaptationFile.FileName.ExistValue.Title"), TextConstants.getText("Operation.CreateAdaptationFile.FileName.ExistValue.Message"));
+				//}
 			}
 			
 		}
-		}
 		return added;
-	}
-	private boolean existName(String name){
+		}
+		
+	
+	public boolean existName(String name){
 	    for (AdaptationProfileDataControl profile: this.profiles){
 		if (profile.getName().equals(name))
 		    return true;

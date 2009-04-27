@@ -425,7 +425,7 @@ class InitialStatePanel extends JPanel{
 			int rowCount = 0;
 
 			// If there is a node, the number of rows is the same as the number of lines
-			if( adaptationProfileDataControl != null )
+			if( adaptationProfileDataControl.getInitialState() != null )
 				rowCount = adaptationProfileDataControl.getFlagActionCount( );
 
 			return rowCount;

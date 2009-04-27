@@ -216,11 +216,21 @@ public class AdaptationProfileDataControl extends DataControl{
 			String fileName = name;
 			if (name == null)
 				fileName = controller.showInputDialog( TextConstants.getText( "Operation.RenameAssessmentFile.FileName" ), TextConstants.getText( "Operation.RenameAssessmentFile.FileName.Message" ), getFileName() );
-			if (fileName!=null && !fileName.equals( oldName ) && controller.isElementIdValid( fileName )){
-			    	//controller.dataModified( );
-				profile.setName( fileName );
-				renamed=true;
-			}
+			
+			
+			    if (fileName!=null && !fileName.equals( oldName ) && controller.isElementIdValid( fileName )){
+				if (!controller.getAdaptationController().existName(name)){
+				    //controller.dataModified( );
+					profile.setName( fileName );
+					renamed=true;
+				}else {
+				    controller.showErrorDialog(TextConstants.getText("Operation.CreateAdaptationFile.FileName.ExistValue.Title"), TextConstants.getText("Operation.CreateAdaptationFile.FileName.ExistValue.Message"));
+				}
+			    }
+			
+			
+			
+			
 			
 		}
 		
@@ -265,6 +275,9 @@ public class AdaptationProfileDataControl extends DataControl{
 	}
 	
 	public String getInitialScene(  ) {
+	    if (profile.getAdaptedState()==null)
+		return null;
+	    else
 		return profile.getAdaptedState().getTargetId( );
 	}
 
