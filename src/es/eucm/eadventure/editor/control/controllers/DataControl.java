@@ -263,7 +263,8 @@ public abstract class DataControl implements Cloneable {
 			places = new ArrayList<String>();
 			resultSet.put(this, places);
 		}
-		places.add(where);
+		if (!places.contains(where))
+			places.add(where);
 	}
 	
 	protected void check(String value, String desc) {

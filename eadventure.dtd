@@ -129,17 +129,30 @@
 	%rectangle;  
 >
 
-
 <!ELEMENT videoscene (documentation?, resources+, name, ( end-game? | next-scene* ))>
 <!ATTLIST videoscene
 	id ID #REQUIRED
 	start (yes | no) "no"
+	next (end-chapter | go-back | new-scene) "go-back"
+	idTarget IDREF #IMPLIED
+	destinyX NMTOKEN #IMPLIED
+	destinyY NMTOKEN #IMPLIED
+	transitionTime CDATA "0"
+	transitionType CDATA "0"
 >
+
 <!ELEMENT slidescene (documentation?, resources+, name, ( end-game? | next-scene* ))>
 <!ATTLIST slidescene
 	id ID #REQUIRED
 	start (yes | no) "no"
+	next (end-chapter | go-back | new-scene) "go-back"
+	idTarget IDREF #IMPLIED
+	destinyX NMTOKEN #IMPLIED
+	destinyY NMTOKEN #IMPLIED
+	transitionTime CDATA "0"
+	transitionType CDATA "0"
 >
+
 <!ELEMENT end-game EMPTY>
 <!ELEMENT book (documentation?, resources+, (text | pages))>
 <!ATTLIST book

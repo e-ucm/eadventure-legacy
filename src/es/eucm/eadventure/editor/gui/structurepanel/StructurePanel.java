@@ -94,7 +94,7 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
 		
 		for (StructureListElement element : structureElements) {
 			if (i == selectedElement)
-				add(createSelectedElementPanel(element, i), new Integer(element.getChildCount() != 0 || element.getDataControl().getAddableElements().length > 0 ? -1 : 39));
+				add(createSelectedElementPanel(element, i), new Integer(element.getChildCount() != 0 || element.getDataControl().getAddableElements().length > 0 ? -1 : 40));
 			else {
 				JButton button = new JButton(element.getName(), element.getIcon());
 				button.setHorizontalAlignment(SwingConstants.LEFT);

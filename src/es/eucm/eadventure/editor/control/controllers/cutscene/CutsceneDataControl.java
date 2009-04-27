@@ -3,7 +3,6 @@ package es.eucm.eadventure.editor.control.controllers.cutscene;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.eucm.eadventure.common.data.chapter.NextScene;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.data.chapter.scenes.Cutscene;
 import es.eucm.eadventure.common.gui.TextConstants;
@@ -12,10 +11,12 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
-import es.eucm.eadventure.editor.control.controllers.general.NextSceneDataControl;
+import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
+import es.eucm.eadventure.editor.control.tools.general.ChangeNSDestinyPositionTool;
 import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeDocumentationTool;
 import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeNameTool;
+import es.eucm.eadventure.editor.control.tools.generic.ChangeIntegerValueTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class CutsceneDataControl extends DataControlWithResources {
@@ -29,22 +30,7 @@ public class CutsceneDataControl extends DataControlWithResources {
 	 * Holds the type of the cutscene.
 	 */
 	private int cutsceneType;
-
-	/**
-	 * Contained set of next scenes in the cutscene.
-	 */
-	private List<NextScene> nextScenesList;
-
-	/**
-	 * List of next scene controllers.
-	 */
-	private List<NextSceneDataControl> nextScenesDataControlList;
-
-	/**
-	 * End scene controller.
-	 */
-	private EndSceneDataControl endSceneDataControl;
-
+	
 	/**
 	 * Constructor.
 	 * 
@@ -54,7 +40,6 @@ public class CutsceneDataControl extends DataControlWithResources {
 	public CutsceneDataControl( Cutscene cutscene ) {
 		this.cutscene = cutscene;
 		this.resourcesList = cutscene.getResources( );
-		this.nextScenesList = cutscene.getNextScenes( );
 
 		switch( cutscene.getType( ) ) {
 			case Cutscene.SLIDESCENE:
@@ -75,40 +60,8 @@ public class CutsceneDataControl extends DataControlWithResources {
 		resourcesDataControlList = new ArrayList<ResourcesDataControl>( );
 		for( Resources resources : resourcesList )
 			resourcesDataControlList.add( new ResourcesDataControl( resources, cutsceneType ) );
-
-		nextScenesDataControlList = new ArrayList<NextSceneDataControl>( );
-		for( NextScene nextScene : nextScenesList )
-			nextScenesDataControlList.add( new NextSceneDataControl( nextScene ) );
-
-		endSceneDataControl = cutscene.isEndScene( ) ? new EndSceneDataControl( ) : null;
 	}
 
-	/**
-	 * Returns the next scene list controller.
-	 * 
-	 * @return Next scene list controller
-	 */
-	public List<NextSceneDataControl> getNextScenes( ) {
-		return nextScenesDataControlList;
-	}
-
-	/**
-	 * Returns the last next scene controller of the list.
-	 * 
-	 * @return Last next scene controller
-	 */
-	public NextSceneDataControl getLastNextScene( ) {
-		return nextScenesDataControlList.get( nextScenesDataControlList.size( ) - 1 );
-	}
-
-	/**
-	 * Returns the controller of the "end-scene" tag (if present).
-	 * 
-	 * @return End scene controller
-	 */
-	public EndSceneDataControl getEndScene( ) {
-		return endSceneDataControl;
-	}
 
 	/**
 	 * Returns the type of the contained cutscene.
@@ -166,15 +119,14 @@ public class CutsceneDataControl extends DataControlWithResources {
 		controller.addTool(new ChangeNameTool(cutscene, name));
 	}
 
-	/**
-	 * Returns whether the cutscene ends the game or not.
-	 * 
-	 * @return True if it has an "end-scene" tag, false otherwise
-	 */
-	public boolean isEndScene( ) {
-		return cutscene.isEndScene( );
+	public String getTargetId() {
+		return cutscene.getTargetId();
 	}
-
+	
+	public void setTargetId(String targetId) {
+		cutscene.setTargetId(targetId);
+	}
+	
 	@Override
 	public Object getContent( ) {
 		return cutscene;
@@ -189,15 +141,6 @@ public class CutsceneDataControl extends DataControlWithResources {
 	@Override
 	public boolean canAddElement( int type ) {
 		boolean canAddElement = false;
-
-		//if( type == Controller.RESOURCES )
-		//	canAddElement = true;
-
-		if( type == Controller.NEXT_SCENE && !cutscene.isEndScene( ) )
-			canAddElement = true;
-
-		if( type == Controller.END_SCENE && nextScenesList.size( ) == 0 && !cutscene.isEndScene( ) )
-			canAddElement = true;
 
 		return canAddElement;
 	}
@@ -226,39 +169,6 @@ public class CutsceneDataControl extends DataControlWithResources {
 			Resources newResources = new Resources( );
 			resourcesList.add( newResources );
 			resourcesDataControlList.add( new ResourcesDataControl( newResources, cutsceneType ) );
-			//controller.dataModified( );
-			elementAdded = true;
-		}
-
-		// If the element is a next scene
-		else if( type == Controller.NEXT_SCENE ) {
-			// Take the list of the scenes
-			String[] generalScenes = controller.getIdentifierSummary( ).getGeneralSceneIds( );
-
-			// If the list has elements, show the dialog with the options
-			if( generalScenes.length > 0 ) {
-				if (selectedScene == null)
-					selectedScene = controller.showInputDialog( TextConstants.getText( "Operation.AddNextSceneTitle" ), TextConstants.getText( "Operation.AddNextSceneMessage" ), generalScenes );
-
-				// If some value was selected
-				if( selectedScene != null ) {
-					NextScene newNextScene = new NextScene( selectedScene );
-					nextScenesList.add( newNextScene );
-					nextScenesDataControlList.add( new NextSceneDataControl( newNextScene ) );
-					//controller.dataModified( );
-					elementAdded = true;
-				}
-			}
-
-			// If the list had no elements, show an error dialog
-			else
-				controller.showErrorDialog( TextConstants.getText( "Operation.AddNextSceneTitle" ), TextConstants.getText( "Operation.AddNextSceneErrorNoScenes" ) );
-		}
-
-		// If the element is an end scene
-		else if( type == Controller.END_SCENE ) {
-			cutscene.setEndScene( true );
-			endSceneDataControl = new EndSceneDataControl( );
 			//controller.dataModified( );
 			elementAdded = true;
 		}
@@ -292,20 +202,6 @@ public class CutsceneDataControl extends DataControlWithResources {
 				controller.showErrorDialog( TextConstants.getText( "Operation.DeleteResourcesTitle" ), TextConstants.getText( "Operation.DeleteResourcesErrorLastResources" ) );
 		}
 
-		// If the element is a next scene
-		else if( nextScenesList.contains( dataControl.getContent( ) ) ) {
-			nextScenesList.remove( dataControl.getContent( ) );
-			nextScenesDataControlList.remove( dataControl );
-			elementDeleted = true;
-		}
-
-		// If no resources blocks or next scenes were deleted, try with the end scene element
-		else if( endSceneDataControl == dataControl ) {
-			cutscene.setEndScene( false );
-			endSceneDataControl = null;
-			elementDeleted = true;
-		}
-
 		//if( elementDeleted )
 		//controller.dataModified( );
 
@@ -328,18 +224,6 @@ public class CutsceneDataControl extends DataControlWithResources {
 			}
 		}
 
-		// If the element to move is a next scene
-		else if( nextScenesList.contains( dataControl.getContent( ) ) ) {
-			int elementIndex = nextScenesList.indexOf( dataControl.getContent( ) );
-
-			if( elementIndex > 0 ) {
-				nextScenesList.add( elementIndex - 1, nextScenesList.remove( elementIndex ) );
-				nextScenesDataControlList.add( elementIndex - 1, nextScenesDataControlList.remove( elementIndex ) );
-				//controller.dataModified( );
-				elementMoved = true;
-			}
-		}
-
 		return elementMoved;
 	}
 
@@ -354,18 +238,6 @@ public class CutsceneDataControl extends DataControlWithResources {
 			if( elementIndex < resourcesList.size( ) - 1 ) {
 				resourcesList.add( elementIndex + 1, resourcesList.remove( elementIndex ) );
 				resourcesDataControlList.add( elementIndex + 1, resourcesDataControlList.remove( elementIndex ) );
-				//controller.dataModified( );
-				elementMoved = true;
-			}
-		}
-
-		// If the element to move is a next scene
-		else if( nextScenesList.contains( dataControl.getContent( ) ) ) {
-			int elementIndex = nextScenesList.indexOf( dataControl.getContent( ) );
-
-			if( elementIndex < nextScenesList.size( ) - 1 ) {
-				nextScenesList.add( elementIndex + 1, nextScenesList.remove( elementIndex ) );
-				nextScenesDataControlList.add( elementIndex + 1, nextScenesDataControlList.remove( elementIndex ) );
 				//controller.dataModified( );
 				elementMoved = true;
 			}
@@ -408,8 +280,7 @@ public class CutsceneDataControl extends DataControlWithResources {
 	@Override
 	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
 		// Iterate through each next scene
-		for( NextSceneDataControl nextSceneDataControl : nextScenesDataControlList )
-			nextSceneDataControl.updateVarFlagSummary( varFlagSummary );
+		EffectsController.updateVarFlagSummary( varFlagSummary, cutscene.getEffects( ) );
 	}
 
 	@Override
@@ -422,11 +293,7 @@ public class CutsceneDataControl extends DataControlWithResources {
 			valid &= resourcesDataControlList.get( i ).isValid( resourcesPath, incidences );
 		}
 
-		// Iterate through the next scenes
-		for( int i = 0; i < nextScenesDataControlList.size( ); i++ ) {
-			String nextScenePath = currentPath + " >> " + TextConstants.getElementName( Controller.NEXT_SCENE ) + " #" + ( i + 1 ) + " (" + nextScenesDataControlList.get( i ).getNextSceneId( ) + ")";
-			valid &= nextScenesDataControlList.get( i ).isValid( nextScenePath, incidences );
-		}
+		valid &= EffectsController.isValid( currentPath + " >> " + TextConstants.getText( "Element.Effects" ), incidences, cutscene.getEffects( ) );
 
 		return valid;
 	}
@@ -439,9 +306,7 @@ public class CutsceneDataControl extends DataControlWithResources {
 		for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
 			count += resourcesDataControl.countAssetReferences( assetPath );
 
-		// Iterate through each next scene
-		for( NextSceneDataControl nextSceneDataControl : nextScenesDataControlList )
-			count += nextSceneDataControl.countAssetReferences( assetPath );
+		count += EffectsController.countAssetReferences( assetPath, cutscene.getEffects( ) );
 
 		return count;
 	}
@@ -450,10 +315,9 @@ public class CutsceneDataControl extends DataControlWithResources {
 		// Iterate through the resources
 		for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
 			resourcesDataControl.getAssetReferences( assetPaths, assetTypes );
+		
+		EffectsController.getAssetReferences( assetPaths, assetTypes, cutscene.getEffects( ) );
 
-		// Iterate through each next scene
-		for( NextSceneDataControl nextSceneDataControl : nextScenesDataControlList )
-			nextSceneDataControl.getAssetReferences( assetPaths, assetTypes );
 	}
 	
 	@Override
@@ -462,43 +326,28 @@ public class CutsceneDataControl extends DataControlWithResources {
 		for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
 			resourcesDataControl.deleteAssetReferences( assetPath );
 
-		// Iterate through each next scene
-		for( NextSceneDataControl nextSceneDataControl : nextScenesDataControlList )
-			nextSceneDataControl.deleteAssetReferences( assetPath );
+		EffectsController.deleteAssetReferences( assetPath, cutscene.getEffects( ) );
 	}
 
 	@Override
 	public int countIdentifierReferences( String id ) {
 		int count = 0;
 
-		// Iterate through each next scene
-		for( NextSceneDataControl nextSceneDataControl : nextScenesDataControlList )
-			count += nextSceneDataControl.countIdentifierReferences( id );
+		count += EffectsController.countIdentifierReferences( id, cutscene.getEffects( ) );
 
 		return count;
 	}
 
 	@Override
 	public void replaceIdentifierReferences( String oldId, String newId ) {
-		// Iterate through each next scene
-		for( NextSceneDataControl nextSceneDataControl : nextScenesDataControlList )
-			nextSceneDataControl.replaceIdentifierReferences( oldId, newId );
+		EffectsController.replaceIdentifierReferences( oldId, newId, cutscene.getEffects( ) );
 	}
 
 	@Override
 	public void deleteIdentifierReferences( String id ) {
-		int i = 0;
-
-		// Check every next scene structure
-		while( i < nextScenesList.size( ) ) {
-			if( nextScenesList.get( i ).getTargetId( ).equals( id ) ) {
-				nextScenesList.remove( i );
-				nextScenesDataControlList.remove( i );
-			}
-
-			else
-				i++;
-		}
+		EffectsController.deleteIdentifierReferences( id, cutscene.getEffects( ) );
+		if (cutscene.getNext() == Cutscene.NEWSCENE && cutscene.getTargetId().equals(id))
+			cutscene.setNext(Cutscene.GOBACK);
 	}
 
 	@Override
@@ -511,10 +360,7 @@ public class CutsceneDataControl extends DataControlWithResources {
 		check(this.getId(), "ID");
 		check(this.getDocumentation(), TextConstants.getText("Search.Documentation"));
 		check(this.getName(), TextConstants.getText("Search.Name"));
-		if (this.getEndScene() != null)
-			this.getEndScene().recursiveSearch();
-		for (DataControl dc : getNextScenes())
-			dc.recursiveSearch();
+		check(this.getTargetId(), TextConstants.getText("Search.NextScene"));
 	}
 	
 	@Override
@@ -544,5 +390,98 @@ public class CutsceneDataControl extends DataControlWithResources {
 			return "img/icons/video.png";
 		}
 	}
+
+	public Integer getNext() {
+		return cutscene.getNext();
+	}
+	
+	public void setNext(Integer next) {
+		Controller.getInstance().addTool(new ChangeIntegerValueTool(cutscene, next, "getNext", "setNext"));
+		if (cutscene.getTargetId().equals("")) {
+			cutscene.setTargetId(Controller.getInstance().getIdentifierSummary().getGeneralSceneIds()[0]);			
+		} else {
+			boolean exists = false;
+			for (int i = 0; i < Controller.getInstance().getIdentifierSummary().getGeneralSceneIds().length; i++) {
+				if (Controller.getInstance().getIdentifierSummary().getGeneralSceneIds()[i].equals(cutscene.getTargetId()))
+					exists = true;
+			}
+			if (!exists)
+				cutscene.setTargetId(Controller.getInstance().getIdentifierSummary().getGeneralSceneIds()[0]);			
+		}
+	}
+
+	public String getNextSceneId() {
+		return cutscene.getTargetId();
+	}
+	
+	public void setNextSceneId(String targetId) {
+		cutscene.setTargetId(targetId);
+	}
+
+	public boolean hasDestinyPosition() {
+		return cutscene.hasPlayerPosition();
+	}
+
+	public Integer getTransitionType() {
+		return cutscene.getTransitionType();
+	}
+	
+	public Integer getTransitionTime() {
+		return cutscene.getTransitionTime();
+	}
+	
+	public void setTransitionTime(int value) {
+		Controller.getInstance().addTool(new ChangeIntegerValueTool(cutscene, value, "getTransitionTime", "setTransitionTime"));
+	}
+
+	public void setTransitionType(int value) {
+		Controller.getInstance().addTool(new ChangeIntegerValueTool(cutscene, value, "getTransitionType", "setTransitionType"));
+	}
+
+	/**
+	 * Toggles the destiny position. If the next scene has a destiny position deletes it, if it doesn't have one, set
+	 * initial values for it.
+	 */
+	public void toggleDestinyPosition( ) {
+		if( cutscene.hasPlayerPosition( ) )
+			controller.addTool(new ChangeNSDestinyPositionTool(cutscene, Integer.MIN_VALUE, Integer.MIN_VALUE));
+		else
+			controller.addTool(new ChangeNSDestinyPositionTool(cutscene, 0,0));
+	}
+	
+	/**
+	 * Returns the X coordinate of the destiny position
+	 * 
+	 * @return X coordinate of the destiny position
+	 */
+	public int getDestinyPositionX( ) {
+		return cutscene.getPositionX( );
+	}
+
+	/**
+	 * Returns the Y coordinate of the destiny position
+	 * 
+	 * @return Y coordinate of the destiny position
+	 */
+	public int getDestinyPositionY( ) {
+		return cutscene.getPositionY( );
+	}
+
+	/**
+	 * Sets the new destiny position of the next scene.
+	 * 
+	 * @param positionX
+	 *            X coordinate of the destiny position
+	 * @param positionY
+	 *            Y coordinate of the destiny position
+	 */
+	public void setDestinyPosition( int positionX, int positionY ) {
+		controller.addTool(new ChangeNSDestinyPositionTool(cutscene, positionX, positionY));
+	}
+
+	public EffectsController getEffects() {
+		return new EffectsController(cutscene.getEffects());
+	}
+
 
 }

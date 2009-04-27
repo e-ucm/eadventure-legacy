@@ -112,36 +112,50 @@ public class CutsceneSubParser extends SubParser {
 		if( subParsing == SUBPARSING_NONE ) {
 
 			// If it is a slidescene tag, create a new slidescene with its id
-			if( qName.equals( "slidescene" ) ) {
+			if( qName.equals( "slidescene" ) || qName.equals( "videoscene")) {
 				String slidesceneId = "";
 				boolean initialScene = false;
-
+				String idTarget = "";
+				int x = -1, y = -1;
+				int transitionType = 0, transitionTime = 0;
+				String next = "go-back";
+				
 				for( int i = 0; i < attrs.getLength( ); i++ ) {
 					if( attrs.getQName( i ).equals( "id" ) )
 						slidesceneId = attrs.getValue( i );
 					if( attrs.getQName( i ).equals( "start" ) )
 						initialScene = attrs.getValue( i ).equals( "yes" );
+					if( attrs.getQName( i ).equals( "idTarget" ) )
+						idTarget = attrs.getValue( i );
+					if( attrs.getQName( i ).equals( "x" ) )
+						x = Integer.parseInt( attrs.getValue( i ) );
+					if( attrs.getQName( i ).equals( "y" ) )
+						y = Integer.parseInt( attrs.getValue( i ) );
+					if (attrs.getQName( i ).equals( "transitionType"))
+						transitionType = Integer.parseInt( attrs.getValue(i));
+					if (attrs.getQName( i ).equals( "transitionTime"))
+						transitionTime = Integer.parseInt( attrs.getValue(i));
+					if (attrs.getQName( i ).equals( "next" ))
+						next = attrs.getValue( i );
 				}
 
-				cutscene = new Slidescene( slidesceneId );
+				if (qName.equals("slidescene"))
+					cutscene = new Slidescene( slidesceneId );
+				else
+					cutscene = new Videoscene( slidesceneId );
 				if( initialScene )
 					chapter.setTargetId( slidesceneId );
-			}
-
-			else if( qName.equals( "videoscene" ) ) {
-				String slidesceneId = "";
-				boolean initialScene = false;
-
-				for( int i = 0; i < attrs.getLength( ); i++ ) {
-					if( attrs.getQName( i ).equals( "id" ) )
-						slidesceneId = attrs.getValue( i );
-					if( attrs.getQName( i ).equals( "start" ) )
-						initialScene = attrs.getValue( i ).equals( "yes" );
-				}
-
-				cutscene = new Videoscene( slidesceneId );
-				if( initialScene )
-					chapter.setTargetId( slidesceneId );
+				cutscene.setTargetId(idTarget);
+				cutscene.setPositionX(x);
+				cutscene.setPositionY(y);
+				cutscene.setTransitionType(transitionType);
+				cutscene.setTransitionTime(transitionTime);
+				if (next.equals("go-back"))
+					cutscene.setNext(Cutscene.GOBACK);
+				else if (next.equals("new-scene"))
+					cutscene.setNext(Cutscene.NEWSCENE);
+				else if (next.equals("end-chapter"))
+					cutscene.setNext(Cutscene.ENDCHAPTER);
 			}
 
 			// If it is a resources tag, create new resources
@@ -167,7 +181,7 @@ public class CutsceneSubParser extends SubParser {
 
 			// If it is an end-game tag, store it in the slidescene
 			else if( qName.equals( "end-game" ) ) {
-				cutscene.setEndScene( true );
+				cutscene.setNext(Cutscene.ENDCHAPTER);
 			}
 
 			// If it is a next-scene tag, create the new next scene

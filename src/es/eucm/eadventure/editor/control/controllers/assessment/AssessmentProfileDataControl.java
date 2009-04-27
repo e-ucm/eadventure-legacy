@@ -368,8 +368,8 @@ public class AssessmentProfileDataControl extends DataControl{
 		check(getEmail(), TextConstants.getText("Search.EMail"));
 		check(this.getName(), TextConstants.getText("Search.Path"));
 		check(this.getSmtpPort(), TextConstants.getText("Search.SMTPPort"));
-		check(this.getSmtpServer(), TextConstants.getText("Search.SMPTServer"));
-		check(this.getSmtpUser(), TextConstants.getText("Search.SMPTUser"));
+		check(this.getSmtpServer(), TextConstants.getText("Search.SMTPServer"));
+		check(this.getSmtpUser(), TextConstants.getText("Search.SMTPUser"));
 	}
 	
 	@Override

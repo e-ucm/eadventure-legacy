@@ -12,6 +12,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JSpinner;
@@ -20,10 +21,10 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import es.eucm.eadventure.common.data.chapter.scenes.Cutscene;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.cutscene.CutsceneDataControl;
-import es.eucm.eadventure.editor.control.controllers.general.NextSceneDataControl;
 import es.eucm.eadventure.editor.gui.editdialogs.EffectsDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.PlayerPositionDialog;
 
@@ -108,17 +109,19 @@ public class NextScenePanel extends JPanel {
 	    SpinnerModel sm = new SpinnerNumberModel(0, 0, 5000, 100);
 		timeSpinner = new JSpinner(sm);
 		timeSpinner.addChangeListener(new TransitionSpinnerChangeListener());
+		transitionPanel.add(new JLabel(TextConstants.getText("NextScene.Transition")));
 		transitionPanel.add(transition);
+		transitionPanel.add(new JLabel(TextConstants.getText("NextScene.TransitionTime")));
 		transitionPanel.add(timeSpinner);
+		transitionPanel.add(new JLabel("seg"));
 		
-		detailsPanel.setLayout(new GridLayout(4,1));
+		detailsPanel.setLayout(new GridLayout(0,1));
 		JPanel temp = new JPanel();
+		temp.add(new JLabel(TextConstants.getText("NextScene.NextSceneId")));
 		temp.add(nextSceneCombo);
-		detailsPanel.add(temp);
-		detailsPanel.add(positionPanel);
-		temp = new JPanel();
 		temp.add(editEffects);
 		detailsPanel.add(temp);
+		detailsPanel.add(positionPanel);
 		detailsPanel.add(transitionPanel);
 		
 		add(detailsPanel, BorderLayout.CENTER);
@@ -131,19 +134,18 @@ public class NextScenePanel extends JPanel {
 		boolean enablePosition = false;
 		boolean enablePositionButton = false;
 		
-		if (dataControl.isEndScene()) {
+		if (dataControl.getNext() == Cutscene.ENDCHAPTER) {
 			endChapter.setSelected(true);
-		} else if (dataControl.getNextScenes().size() == 0) {
+		} else if (dataControl.getNext() == Cutscene.GOBACK) {
 			returnToPrevious.setSelected(true);
 		} else {
 			goToNewScene.setSelected(true);
-			NextSceneDataControl nextScene = dataControl.getNextScenes().get(0);
-			nextSceneCombo.setSelectedItem(nextScene.getNextSceneId());
-			usePosition.setSelected(nextScene.hasDestinyPosition());
-			transition.setSelectedIndex(nextScene.getTransitionType());
-			timeSpinner.setValue(nextScene.getTransitionTime());
-			enablePosition = Controller.getInstance( ).getIdentifierSummary( ).isScene( nextScene.getNextSceneId( ) );
-			enablePositionButton = enablePosition && nextScene.hasDestinyPosition();
+			nextSceneCombo.setSelectedItem(dataControl.getNextSceneId());
+			usePosition.setSelected(dataControl.hasDestinyPosition());
+			transition.setSelectedIndex(dataControl.getTransitionType());
+			timeSpinner.setValue(dataControl.getTransitionTime());
+			enablePosition = Controller.getInstance( ).getIdentifierSummary( ).isScene( dataControl.getNextSceneId( ) );
+			enablePositionButton = enablePosition && dataControl.hasDestinyPosition();
 		}
 		nextSceneCombo.setEnabled(goToNewScene.isSelected());
 		usePosition.setEnabled(enablePosition && goToNewScene.isSelected());
@@ -160,11 +162,7 @@ public class NextScenePanel extends JPanel {
 	 */
 	private class NextSceneComboBoxListener implements ActionListener {
 		public void actionPerformed( ActionEvent e ) {
-			if (dataControl.getNextScenes().size() == 0)
-				return;
-			
-			NextSceneDataControl nextSceneDataControl = dataControl.getNextScenes().get(0);
-			nextSceneDataControl.setNextSceneId( nextSceneCombo.getSelectedItem( ).toString( ) );
+			dataControl.setNextSceneId( nextSceneCombo.getSelectedItem( ).toString( ) );
 			updateNextSceneInfo();
 		}
 	}
@@ -174,11 +172,7 @@ public class NextScenePanel extends JPanel {
 	 */
 	private class DestinyPositionCheckBoxListener implements ActionListener {
 		public void actionPerformed( ActionEvent e ) {
-			if (dataControl.getNextScenes().size() == 0)
-				return;
-			
-			NextSceneDataControl nextSceneDataControl = dataControl.getNextScenes().get(0);
-			nextSceneDataControl.toggleDestinyPosition( );
+			dataControl.toggleDestinyPosition( );
 			updateNextSceneInfo();
 		}
 	}
@@ -188,12 +182,8 @@ public class NextScenePanel extends JPanel {
 	 */
 	private class DestinyPositionButtonListener implements ActionListener {
 		public void actionPerformed( ActionEvent arg0 ) {
-			if (dataControl.getNextScenes().size() == 0)
-				return;
-			
-			NextSceneDataControl nextSceneDataControl = dataControl.getNextScenes().get(0);
-			PlayerPositionDialog destinyPositionDialog = new PlayerPositionDialog( nextSceneCombo.getSelectedItem( ).toString( ), nextSceneDataControl.getDestinyPositionX( ), nextSceneDataControl.getDestinyPositionY( ) );
-			nextSceneDataControl.setDestinyPosition( destinyPositionDialog.getPositionX( ), destinyPositionDialog.getPositionY( ) );
+			PlayerPositionDialog destinyPositionDialog = new PlayerPositionDialog( nextSceneCombo.getSelectedItem( ).toString( ), dataControl.getDestinyPositionX( ), dataControl.getDestinyPositionY( ) );
+			dataControl.setDestinyPosition( destinyPositionDialog.getPositionX( ), destinyPositionDialog.getPositionY( ) );
 		}
 	}
 
@@ -203,33 +193,21 @@ public class NextScenePanel extends JPanel {
 	private class EffectsButtonListener implements ActionListener {
 
 		public void actionPerformed( ActionEvent e ) {
-			if (dataControl.getNextScenes().size() == 0)
-				return;
-			
-			NextSceneDataControl nextSceneDataControl = dataControl.getNextScenes().get(0);
-			new EffectsDialog( nextSceneDataControl.getEffects( ) );
+			new EffectsDialog( dataControl.getEffects( ) );
 		}
 	}
 	
 	private class TransitionComboChangeListener implements ActionListener {
 
 		public void actionPerformed( ActionEvent e ) {
-			if (dataControl.getNextScenes().size() == 0)
-				return;
-			
-			NextSceneDataControl nextSceneDataControl = dataControl.getNextScenes().get(0);
-			nextSceneDataControl.setTransitionType(transition.getSelectedIndex());
+			dataControl.setTransitionType(transition.getSelectedIndex());
 		}
 	}
 	
 	private class TransitionSpinnerChangeListener implements ChangeListener {
 
 		public void stateChanged(ChangeEvent e) {
-			if (dataControl.getNextScenes().size() == 0)
-				return;
-			
-			NextSceneDataControl nextSceneDataControl = dataControl.getNextScenes().get(0);
-			nextSceneDataControl.setTransitionTime((Integer) timeSpinner.getValue());					
+			dataControl.setTransitionTime((Integer) timeSpinner.getValue());					
 		}
 	}
 	
@@ -237,13 +215,7 @@ public class NextScenePanel extends JPanel {
 	private class ReturnToPreviousActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
 			if (returnToPrevious.isSelected()) {
-				if (dataControl.getNextScenes().size() >= 0) {
-					NextSceneDataControl nextSceneDataControl = dataControl.getNextScenes().get(0);
-					dataControl.deleteElement(nextSceneDataControl, false);
-				}
-				if (dataControl.isEndScene()) {
-					dataControl.deleteElement(dataControl.getEndScene(), false);
-				}
+				dataControl.setNext(Cutscene.GOBACK);
 				updateNextSceneInfo();
 			}
 		}
@@ -252,11 +224,7 @@ public class NextScenePanel extends JPanel {
 	private class GoToNewSceneActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			if (goToNewScene.isSelected()) {
-				if (dataControl.isEndScene()) {
-					dataControl.deleteElement(dataControl.getEndScene(), false);
-				}
-				if (dataControl.getNextScenes().size() == 0)
-					dataControl.addElement(Controller.NEXT_SCENE, (String) nextSceneCombo.getItemAt(0));
+				dataControl.setNext(Cutscene.NEWSCENE);
 				updateNextSceneInfo();
 			}
 		}
@@ -265,7 +233,7 @@ public class NextScenePanel extends JPanel {
 	private class EndChapterActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			if (endChapter.isSelected()) {
-				dataControl.addElement(Controller.END_SCENE, null);
+				dataControl.setNext(Cutscene.ENDCHAPTER);
 				updateNextSceneInfo();
 			}
 		}
