@@ -14,9 +14,9 @@ import javax.media.RealizeCompleteEvent;
 import javax.media.StopEvent;
 
 import es.eucm.eadventure.common.data.chapter.Exit;
-import es.eucm.eadventure.common.data.chapter.NextScene;
 import es.eucm.eadventure.common.data.chapter.effects.Effects;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
+import es.eucm.eadventure.common.data.chapter.scenes.Cutscene;
 import es.eucm.eadventure.common.data.chapter.scenes.Videoscene;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
@@ -115,31 +115,20 @@ public class GameStateVideoscene extends GameState  implements ControllerListene
             System.gc();
         }
 
-        if( videoscene.isEndScene( ) )
+        if( videoscene.getNext() == Cutscene.ENDCHAPTER )
             game.goToNextChapter( );
-
-        else {
-            NextScene nextScene = null;
-
-            for( NextScene currentNextScene : videoscene.getNextScenes( ) )
-                if( new FunctionalConditions ( currentNextScene.getConditions( ) ).allConditionsOk( ) )
-                    nextScene = currentNextScene;
-
-            if( nextScene != null ) {
-            	Exit exit = new Exit(nextScene.getTargetId());
-            	exit.setDestinyX(nextScene.getPositionX());
-            	exit.setDestinyY(nextScene.getPositionY());
-            	exit.setPostEffects(nextScene.getPostEffects());
-            	exit.setTransitionTime(nextScene.getTransitionTime());
-            	exit.setTransitionType(nextScene.getTransitionType());
+        else if (videoscene.getNext() == Cutscene.NEWSCENE ){
+            	Exit exit = new Exit(videoscene.getTargetId());
+            	exit.setDestinyX(videoscene.getPositionX());
+            	exit.setDestinyY(videoscene.getPositionY());
+            	exit.setPostEffects(videoscene.getEffects());
+            	exit.setTransitionTime(videoscene.getTransitionTime());
+            	exit.setTransitionType(videoscene.getTransitionType());
                 game.setNextScene( exit );
                 game.setState( Game.STATE_NEXT_SCENE );
-            }
-            else
-            	// this method also change the state to run effects
-                FunctionalEffects.storeAllEffects(new Effects());
-                //game.setState( Game.STATE_RUN_EFFECTS );
         }
+         else
+            FunctionalEffects.storeAllEffects(new Effects());
     }
 
     /*

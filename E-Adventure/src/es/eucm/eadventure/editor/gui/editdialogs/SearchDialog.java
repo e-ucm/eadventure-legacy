@@ -84,7 +84,9 @@ public class SearchDialog extends JDialog {
 		dtm.setColumnIdentifiers(ids);
 		//table = new JTable(dtm);
 	    table = new JTable(dtm){
-	        public boolean isCellEditable(int rowIndex, int colIndex) {
+			private static final long serialVersionUID = -4886780250056223726L;
+
+			public boolean isCellEditable(int rowIndex, int colIndex) {
 	          return false; 
 	        }
 	      };
@@ -140,8 +142,7 @@ public class SearchDialog extends JDialog {
 				dtm.addRow(row);
 				dataControls.add(dc);
 			}
-
-			table.updateUI();
+			dtm.fireTableDataChanged();
 		}
 	}	
 }

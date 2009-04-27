@@ -5,10 +5,10 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 import es.eucm.eadventure.common.data.chapter.Exit;
-import es.eucm.eadventure.common.data.chapter.NextScene;
 import es.eucm.eadventure.common.data.chapter.effects.Effects;
 import es.eucm.eadventure.common.data.chapter.resources.Asset;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
+import es.eucm.eadventure.common.data.chapter.scenes.Cutscene;
 import es.eucm.eadventure.common.data.chapter.scenes.Slidescene;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.animations.Animation;
@@ -127,38 +127,22 @@ public class GameStateSlidescene extends GameState {
     
     private void finishedSlides() {
         // If it is a endscene, go to the next chapter
-        if( !yetSkipped && slidescene.isEndScene( ) ) {
+        if( !yetSkipped && slidescene.getNext() == Cutscene.ENDCHAPTER ) {
             yetSkipped = true;
             game.goToNextChapter( );
         }
-
-        else {
-            // Search for a next scene structure
-            NextScene nextScene = null;
-            for( NextScene currentNextScene : slidescene.getNextScenes( ) )
-                if( new FunctionalConditions(currentNextScene.getConditions( )).allConditionsOk( ) )
-                    nextScene = currentNextScene;
-
-            // If it had a next scene, jump to it
-            if( nextScene != null ) {
-            	Exit exit = new Exit(nextScene.getTargetId());
-            	exit.setDestinyX(nextScene.getPositionX());
-            	exit.setDestinyY(nextScene.getPositionY());
-            	exit.setPostEffects(nextScene.getPostEffects());
-            	exit.setTransitionTime(nextScene.getTransitionTime());
-            	exit.setTransitionType(nextScene.getTransitionType());
+        else if (slidescene.getNext() == Cutscene.NEWSCENE) {
+            	Exit exit = new Exit(slidescene.getTargetId());
+            	exit.setDestinyX(slidescene.getPositionX());
+            	exit.setDestinyY(slidescene.getPositionY());
+            	exit.setPostEffects(slidescene.getEffects());
+            	exit.setTransitionTime(slidescene.getTransitionTime());
+            	exit.setTransitionType(slidescene.getTransitionType());
                 game.setNextScene( exit );
                 game.setState( Game.STATE_NEXT_SCENE );
-            }
-
-            // If it had not a next scene, keep executing effects
-            else
-            	// this method also change the state to run effects
-                FunctionalEffects.storeAllEffects(new Effects());
-                //game.setState( Game.STATE_RUN_EFFECTS );
-            
         }
-    	
+        else
+           FunctionalEffects.storeAllEffects(new Effects());    	
     }
     /**
      * Creates the current resource block to be used

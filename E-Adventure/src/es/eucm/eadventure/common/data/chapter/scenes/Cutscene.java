@@ -1,11 +1,11 @@
 package es.eucm.eadventure.common.data.chapter.scenes;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import es.eucm.eadventure.common.data.HasTargetId;
+import es.eucm.eadventure.common.data.Positioned;
 import es.eucm.eadventure.common.data.chapter.NextScene;
+import es.eucm.eadventure.common.data.chapter.effects.Effects;
 
-public abstract class Cutscene extends GeneralScene {
+public abstract class Cutscene extends GeneralScene implements HasTargetId, Positioned {
 
     /**
      * The tag for the video
@@ -22,16 +22,26 @@ public abstract class Cutscene extends GeneralScene {
      */
     public static final String RESOURCE_TYPE_MUSIC = "bgmusic";
 
-	/**
-	 * List of nextscenes of the slidescene
-	 */
-	private List<NextScene> nextScenes;
+    public static final int GOBACK = 0;
+    
+    public static final int ENDCHAPTER = 1;
+    
+    public static final int NEWSCENE = 2;
 
-	/**
-	 * Stores if the slidescene should end the game
-	 */
-	private boolean endScene;
-
+	private int next;
+	
+	private int transitionTime;
+	
+	private int transitionType;
+	
+	private int destinyX;
+	
+	private int destinyY;
+	
+	private String idTarget;
+	
+	private Effects effects;
+	
 	/**
 	 * Creates a new cutscene
 	 * 
@@ -43,17 +53,12 @@ public abstract class Cutscene extends GeneralScene {
 	protected Cutscene( int type, String id ) {
 		super( type, id );
 
-		nextScenes = new ArrayList<NextScene>( );
-		endScene = false;
-	}
-
-	/**
-	 * Returns the list of next scenes
-	 * 
-	 * @return the list of next scenes
-	 */
-	public List<NextScene> getNextScenes( ) {
-		return nextScenes;
+		effects = new Effects();
+		destinyX = Integer.MIN_VALUE;
+		destinyY = Integer.MIN_VALUE;
+		transitionType = NextScene.NO_TRANSITION;
+		transitionTime = 0;
+		next = GOBACK;
 	}
 
 	/**
@@ -63,7 +68,13 @@ public abstract class Cutscene extends GeneralScene {
 	 *            the next scene to add
 	 */
 	public void addNextScene( NextScene nextScene ) {
-		nextScenes.add( nextScene );
+		next = NEWSCENE;
+		idTarget = nextScene.getTargetId();
+		transitionTime = nextScene.getTransitionTime();
+		transitionType = nextScene.getTransitionType();
+		destinyX = nextScene.getPositionX();
+		destinyY = nextScene.getPositionY();
+		effects = nextScene.getPostEffects();
 	}
 
 	/**
@@ -72,7 +83,7 @@ public abstract class Cutscene extends GeneralScene {
 	 * @return True if the cutscene ends the chapter, false otherwise
 	 */
 	public boolean isEndScene( ) {
-		return endScene;
+		return (next == ENDCHAPTER);
 	}
 
 	/**
@@ -82,17 +93,137 @@ public abstract class Cutscene extends GeneralScene {
 	 *            True if the cutscene ends the chapter, false otherwise
 	 */
 	public void setEndScene( boolean endScene ) {
-		this.endScene = endScene;
+		if (endScene)
+			this.next = ENDCHAPTER;
+		else
+			this.next = GOBACK;
 	}
 	
+	
+	/**
+	 * Returns whether this scene has been assigned a position for a player that just came in
+	 * 
+	 * @return true if this scene has a position assigned, false otherwise
+	 */
+	public boolean hasPlayerPosition( ) {
+		return ( destinyX != Integer.MIN_VALUE ) && ( destinyY != Integer.MIN_VALUE );
+	}
+
+	/**
+	 * Returns the horizontal position of the player when he/she gets into this scene
+	 * 
+	 * @return the horizontal position of the player when he/she gets into this scene
+	 */
+	public int getPositionX( ) {
+		return destinyX;
+	}
+
+	/**
+	 * Returns the vertical position of the player when he/she gets into this scene
+	 * 
+	 * @return the verticalal position of the player when he/she gets into this scene
+	 */
+	public int getPositionY( ) {
+		return destinyY;
+	}
+
+	/**
+	 * Returns the effects for this next scene
+	 * 
+	 * @return the effects for this next scene
+	 */
+	public Effects getEffects( ) {
+		return effects;
+	}
+
+	/**
+	 * Sets a new next scene id.
+	 * 
+	 * @param nextSceneId
+	 *            New next scene id
+	 */
+	public void setTargetId( String nextSceneId ) {
+		this.idTarget = nextSceneId;
+	}
+
+	public String getTargetId() {
+		return idTarget;
+	}
+
+	/**
+	 * Sets the new destiny position for the next scene.
+	 * 
+	 * @param positionX
+	 *            X coordinate of the destiny position
+	 * @param positionY
+	 *            Y coordinate of the destiny position
+	 */
+	public void setDestinyPosition( int positionX, int positionY ) {
+		setPositionX( positionX);
+		setPositionY (positionY);
+	}
+	
+	/**
+	 * Sets the new destiny position X for the next scene.
+	 * 
+	 * @param positionX
+	 *            X coordinate of the destiny position
+	 */
+	public void setPositionX( int positionX) {
+		this.destinyX = positionX;
+	}
+	
+	/**
+	 * Sets the new destiny position Y for the next scene.
+	 * 
+	 * @param positionY
+	 *            Y coordinate of the destiny position
+	 */
+	public void setPositionY( int positionY) {
+		this.destinyY = positionY;
+	}
+
+	/**
+	 * Changes the effects for this next scene
+	 * 
+	 * @param effects
+	 *            The new effects
+	 */
+	public void setEffects( Effects effects ) {
+		this.effects = effects;
+	}
+
+    public Integer getTransitionType() {
+    	return transitionType;
+    }
+    
+    public Integer getTransitionTime() {
+    	return transitionTime;
+    }
+    
+    public void setTransitionType(Integer transitionType) {
+    	this.transitionType = transitionType;
+    }
+    
+    public void setTransitionTime(Integer transitionTime) {
+    	this.transitionTime = transitionTime;
+    }
+
+    public void setNext(Integer next) {
+    	this.next = next;
+    }
+    
+    public Integer getNext() {
+    	return next;
+    }
+    
 	public Object clone() throws CloneNotSupportedException {
 		Cutscene c = (Cutscene) super.clone();
-		c.endScene = endScene;
-		if (nextScenes != null) {
-			c.nextScenes = new ArrayList<NextScene>();
-			for (NextScene ns : nextScenes)
-				c.nextScenes.add((NextScene) ns.clone());
-		}
+		c.next = next;
+		c.destinyX = destinyX;
+		c.destinyY = destinyY;
+		c.effects = (effects != null ? (Effects) effects.clone() : null);
+		c.idTarget = (idTarget != null ? new String(idTarget) : null);
 		return c;
 	}
 }

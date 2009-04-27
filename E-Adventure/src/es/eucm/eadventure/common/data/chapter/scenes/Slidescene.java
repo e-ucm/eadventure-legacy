@@ -31,5 +31,4 @@ public class Slidescene extends Cutscene {
 		Slidescene s = (Slidescene) super.clone();
 		return s;
 	}
-
 }

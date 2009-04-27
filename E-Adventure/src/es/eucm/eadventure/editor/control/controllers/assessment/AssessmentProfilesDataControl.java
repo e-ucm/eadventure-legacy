@@ -25,7 +25,6 @@ public class AssessmentProfilesDataControl extends DataControl{
 		}
 	}
 	
-	
 	@Override
 	public boolean addElement( int type , String profileName) {
 		boolean added = false;
@@ -53,9 +52,6 @@ public class AssessmentProfilesDataControl extends DataControl{
 			    	    profileName += i;
 			    	   
 			    	}
-			    
-			    
-			    
 					List<AssessmentRule> newRules = new ArrayList<AssessmentRule>();
 					this.profiles.add( new AssessmentProfileDataControl ( newRules, profileName) );
 					data.add( (AssessmentProfile)profiles.get(profiles.size()-1).getContent() );

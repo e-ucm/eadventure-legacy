@@ -9,7 +9,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
-import es.eucm.eadventure.common.data.chapter.NextScene;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.data.chapter.scenes.Cutscene;
 
@@ -42,6 +41,31 @@ public class CutsceneDOMWriter {
 			else
 				cutsceneElement.setAttribute( "start", "no" );
 
+			if (cutscene.getNext() == Cutscene.NEWSCENE) {
+				cutsceneElement.setAttribute( "idTarget", cutscene.getTargetId( ) );
+	
+				// Append the destination position (if avalaible)
+				if( cutscene.hasPlayerPosition( ) ) {
+					cutsceneElement.setAttribute( "destinyX", String.valueOf( cutscene.getPositionX( ) ) );
+					cutsceneElement.setAttribute( "destinyY", String.valueOf( cutscene.getPositionY( ) ) );
+				}
+				cutsceneElement.setAttribute( "transitionTime", String.valueOf( cutscene.getTransitionTime()));
+				cutsceneElement.setAttribute( "transitionType", String.valueOf( cutscene.getTransitionType()));
+			}
+			
+			if (cutscene.getNext() == Cutscene.GOBACK)
+				cutsceneElement.setAttribute("next", "go-back");
+			else if (cutscene.getNext() == Cutscene.ENDCHAPTER)
+				cutsceneElement.setAttribute("next", "end-chapter");
+			else if (cutscene.getNext() == Cutscene.NEWSCENE)
+				cutsceneElement.setAttribute("next", "new-scene");
+			
+			if( !cutscene.getEffects( ).isEmpty( ) ) {
+				Node effectsNode = EffectsDOMWriter.buildDOM( EffectsDOMWriter.EFFECTS, cutscene.getEffects( ) );
+				doc.adoptNode( effectsNode );
+				cutsceneElement.appendChild( effectsNode );
+			}
+			
 			// Append the documentation (if avalaible)
 			if( cutscene.getDocumentation( ) != null ) {
 				Node cutsceneDocumentationNode = doc.createElement( "documentation" );
@@ -60,54 +84,6 @@ public class CutsceneDOMWriter {
 			Node nameNode = doc.createElement( "name" );
 			nameNode.appendChild( doc.createTextNode( cutscene.getName( ) ) );
 			cutsceneElement.appendChild( nameNode );
-
-			// If it is and end cutscene, insert the special tag
-			if( cutscene.isEndScene( ) ) {
-				cutsceneElement.appendChild( doc.createElement( "end-game" ) );
-			}
-
-			// If it doesn't finish the game, write the next scene elements
-			else {
-				// Append the next-scene structures
-				for( NextScene nextScene : cutscene.getNextScenes( ) ) {
-					// Create the next-scene element
-					Element nextSceneElement = doc.createElement( "next-scene" );
-					nextSceneElement.setAttribute( "idTarget", nextScene.getTargetId( ) );
-
-					// Append the destination position (if avalaible)
-					if( nextScene.hasPlayerPosition( ) ) {
-						nextSceneElement.setAttribute( "x", String.valueOf( nextScene.getPositionX( ) ) );
-						nextSceneElement.setAttribute( "y", String.valueOf( nextScene.getPositionY( ) ) );
-					}
-
-					nextSceneElement.setAttribute( "transitionTime", String.valueOf( nextScene.getTransitionTime()));
-					nextSceneElement.setAttribute( "transitionType", String.valueOf( nextScene.getTransitionType()));
-
-					// Append the conditions (if avalaible)
-					if( !nextScene.getConditions( ).isEmpty( ) ) {
-						Node conditionsNode = ConditionsDOMWriter.buildDOM( nextScene.getConditions( ) );
-						doc.adoptNode( conditionsNode );
-						nextSceneElement.appendChild( conditionsNode );
-					}
-
-					// Append the effects (if avalaible)
-					if( !nextScene.getEffects( ).isEmpty( ) ) {
-						Node effectsNode = EffectsDOMWriter.buildDOM( EffectsDOMWriter.EFFECTS, nextScene.getEffects( ) );
-						doc.adoptNode( effectsNode );
-						nextSceneElement.appendChild( effectsNode );
-					}
-
-					// Append the post-effects (if avalaible)
-					if( !nextScene.getPostEffects( ).isEmpty( ) ) {
-						Node postEffectsNode = EffectsDOMWriter.buildDOM( EffectsDOMWriter.POST_EFFECTS, nextScene.getPostEffects( ) );
-						doc.adoptNode( postEffectsNode );
-						nextSceneElement.appendChild( postEffectsNode );
-					}
-
-					// Append the next scene
-					cutsceneElement.appendChild( nextSceneElement );
-				}
-			}
 
 		} catch( ParserConfigurationException e ) {
         	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
