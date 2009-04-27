@@ -75,7 +75,10 @@ public class AdaptationProfile  implements Cloneable, ContainsAdaptedState{
 			AdaptedState initialState, String name,boolean scorm12, boolean scorm2004) {
 		this.name = name;
 		this.rules = rules;
-		this.initialState = initialState;
+		if (initialState == null)
+		    this.initialState = new AdaptedState();
+		else
+		    this.initialState = initialState;
 		flags = new ArrayList<String>();
 		vars = new ArrayList<String>();
 		this.scorm2004 = scorm2004;
@@ -92,6 +95,7 @@ public class AdaptationProfile  implements Cloneable, ContainsAdaptedState{
 		scorm12 = false;
 		flags = new ArrayList<String>();
 		vars = new ArrayList<String>();
+		initialState = new AdaptedState();
 	}
 	
 	/**
