@@ -10,6 +10,8 @@ public class ChangeSelectedProfileTool extends Tool{
 
 	public static final int MODE_ADAPTATION = Controller.ADAPTATION_PROFILE;
 	public static final int MODE_ASSESSMENT = Controller.ASSESSMENT_PROFILE;
+	public static final int MODE_DELETE_ASSESS = 0;
+	public static final int MODE_DELETE_ADAPT = 1;
 	public static final int MODE_UNKNOWN = -1;
 	
 	protected Chapter chapter;
@@ -53,7 +55,14 @@ public class ChangeSelectedProfileTool extends Tool{
 		else if (mode==MODE_ADAPTATION)
 		    profileNames = chapter.getAdaptationProfilesNames();
 		
-		
+		if (mode==MODE_DELETE_ASSESS){
+		    oldValue = chapter.getAssessmentName();
+		    chapter.setAssessmentName("");
+		}else if (mode==MODE_DELETE_ADAPT){
+		    oldValue = chapter.getAdaptationName();
+		    chapter.setAdaptationName("");
+		    
+		}else{
 		// If the list of profiles is empty, show an error message
 		if( profileNames.length == 0 )
 			controller.showErrorDialog( TextConstants.getText( "Resources.EditAsset" ), TextConstants.getText( "Resources.ErrorNoAssets" ) );
@@ -96,6 +105,7 @@ public class ChangeSelectedProfileTool extends Tool{
 				//controller.dataModified( );
 			}
 		}
+		}
 		// update var/flags summary, because in adaptation and/or assessement profiles may have new var/flag
 		controller.updateFlagSummary();
 		return done;
@@ -107,6 +117,10 @@ public class ChangeSelectedProfileTool extends Tool{
 			chapter.setAssessmentName(newValue);
 		} else if (mode == MODE_ADAPTATION){
 			chapter.setAdaptationName(newValue);
+		}else if (mode==MODE_DELETE_ASSESS){
+		    	chapter.setAssessmentName("");
+		}else if (mode==MODE_DELETE_ADAPT){
+		    	chapter.setAdaptationName("");
 		}
 		controller.reloadPanel();
 		controller.updateFlagSummary();
@@ -115,9 +129,9 @@ public class ChangeSelectedProfileTool extends Tool{
 
 	@Override
 	public boolean undoTool() {
-		if (mode == MODE_ASSESSMENT){
+		if (mode == MODE_ASSESSMENT || mode==MODE_DELETE_ASSESS){
 			chapter.setAssessmentName(oldValue);
-		} else if (mode == MODE_ADAPTATION){
+		} else if (mode == MODE_ADAPTATION || mode==MODE_DELETE_ADAPT){
 			chapter.setAdaptationName(oldValue);
 		}
 		controller.updateFlagSummary();

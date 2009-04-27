@@ -205,6 +205,8 @@ public class AdaptationProfile  implements Cloneable, ContainsAdaptedState{
 		ap.vars = new ArrayList<String>();
 		for (String s : vars)
 			ap.vars.add((s != null ? new String(s) : null));
+		ap.scorm12 = scorm12;
+		ap.scorm2004 = scorm2004;
 		return ap; 
 	}
 
@@ -333,5 +335,6 @@ public class AdaptationProfile  implements Cloneable, ContainsAdaptedState{
 	public AdaptedState getInitialState() {
 	    return initialState;
 	}
+	
 
 }
