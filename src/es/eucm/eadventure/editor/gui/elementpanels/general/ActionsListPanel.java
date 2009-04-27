@@ -28,6 +28,7 @@ import es.eucm.eadventure.editor.control.controllers.general.ActionDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ActionsListDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.CustomActionDataControl;
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
+import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ActionsTable;
 
 public class ActionsListPanel extends JPanel implements DataControlsPanel{
@@ -39,6 +40,8 @@ public class ActionsListPanel extends JPanel implements DataControlsPanel{
 	private JPanel actionPropertiesPanel;
 	
 	protected JButton deleteButton;
+	
+	protected JButton duplicateButton;
 	
 	protected JButton moveUpButton;
 
@@ -102,14 +105,25 @@ public class ActionsListPanel extends JPanel implements DataControlsPanel{
 		deleteButton = new JButton(new ImageIcon("img/icons/deleteNode.png"));
 		deleteButton.setContentAreaFilled( false );
 		deleteButton.setMargin( new Insets(0,0,0,0) );
-		deleteButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.Delete" ) );
+		deleteButton.setToolTipText( TextConstants.getText( "ActionsList.Delete" ) );
 		deleteButton.addActionListener(new ActionListener(){
 			public void actionPerformed( ActionEvent e ) {
 				delete();
 			}
-		});
-		
+		});	
 		deleteButton.setEnabled(false);
+
+		duplicateButton = new JButton(new ImageIcon("img/icons/duplicateNode.png"));
+		duplicateButton.setContentAreaFilled( false );
+		duplicateButton.setMargin( new Insets(0,0,0,0) );
+		duplicateButton.setToolTipText( TextConstants.getText( "ActionsList.Duplicate" ) );
+		duplicateButton.addActionListener(new ActionListener(){
+			public void actionPerformed( ActionEvent e ) {
+				duplicate();
+			}
+		});	
+		duplicateButton.setEnabled(false);
+
 		moveUpButton = new JButton(new ImageIcon("img/icons/moveNodeUp.png"));
 		moveUpButton.setContentAreaFilled( false );
 		moveUpButton.setMargin( new Insets(0,0,0,0) );
@@ -136,13 +150,18 @@ public class ActionsListPanel extends JPanel implements DataControlsPanel{
 		c.gridx = 0;
 		c.gridy = 0;
 		buttonsPanel.add( newButton , c );
-		c.gridy++;
-		buttonsPanel.add( deleteButton , c );
-		c.anchor = GridBagConstraints.SOUTH;
-		c.gridy++;
+		c.gridy = 1;
+		buttonsPanel.add(duplicateButton, c);
+		c.gridy = 2;
 		buttonsPanel.add( moveUpButton , c );
-		c.gridy++;
+		c.gridy = 3;
 		buttonsPanel.add( moveDownButton , c );
+		c.gridy= 5;
+		buttonsPanel.add( deleteButton , c );
+		c.gridy = 4;
+		c.weighty = 2.0;
+		c.fill = GridBagConstraints.VERTICAL;
+		buttonsPanel.add(new JFiller(), c);
 		
 		
 		tablePanel.add( buttonsPanel,BorderLayout.EAST);
@@ -164,11 +183,13 @@ public class ActionsListPanel extends JPanel implements DataControlsPanel{
 			}
 			actionPropertiesPanel.updateUI();
 			deleteButton.setEnabled(true);
+			duplicateButton.setEnabled(true);
 			//Enable moveUp and moveDown buttons when there is more than one element
 			moveUpButton.setEnabled( dataControl.getActions().size()>1 && selectedAction > 0);
 			moveDownButton.setEnabled( dataControl.getActions().size()>1 && selectedAction < table.getRowCount( )-1 );
 		} else {
 			deleteButton.setEnabled(false);
+			duplicateButton.setEnabled(false);
 			moveUpButton.setEnabled(false);
 			moveDownButton.setEnabled(false);
 		}
@@ -199,6 +220,13 @@ public class ActionsListPanel extends JPanel implements DataControlsPanel{
 		return addChildPopupMenu;
 	}
 	
+	protected void duplicate() {
+		if (dataControl.duplicateElement(dataControl.getActions().get(table.getSelectedRow()))) {
+			((AbstractTableModel) table.getModel()).fireTableDataChanged();
+			table.changeSelection(dataControl.getActions().size() - 1, 0, false, false);
+		}
+	}
+
 	protected void delete() {
 		if (dataControl.deleteElement(dataControl.getActions().get(table.getSelectedRow()), false)) {
 			table.clearSelection();

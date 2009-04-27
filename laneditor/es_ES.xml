@@ -1276,6 +1276,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="ActionsList.TalkToAction">Hablar con...</entry>
 	<entry key="ActionsList.Add">Añadir acción</entry>
 	<entry key="ActionsList.Delete">Borrar acción</entry>
+	<entry key="ActionsList.Duplicate">Duplicar acción</entry>
 	<entry key="ActionsList.MoveUp">Mover arriba</entry>
 	<entry key="ActionsList.MoveDown">Mover abajo</entry>
 	<entry key="ActionsList.NeedsGoTo">Necesita alcanzar objeto</entry>
@@ -1444,6 +1445,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="ResourcesList.Conditions">Condiciones</entry>
 	<entry key="ResourcesList.AddResourcesBlock">Añadir nuevo bloque de recursos</entry>
 	<entry key="ResourcesList.DeleteResourcesBlock">Eliminar el bloque de recursos seleccionado</entry>
+	<entry key="ResourcesList.DuplicateResourcesBlock">Duplicar el bloque de recursos seleccionado</entry>
 
 	<entry key="PlayerPosition.Title">Posición del protagonista</entry>
 	<entry key="PlayerPosition.PositionPanel">Seleccione el lugar en el que aparecerá el protagonista</entry>
@@ -2292,6 +2294,7 @@ Si no las cambia, el juego empleará las flechas por defecto.</entry>
 	<entry key="TimersList.Display">Mostrar en juego</entry>
 	<entry key="TimersList.AddTimer">Añadir nuevo temporizador</entry>
 	<entry key="TimersList.DeleteTimer">Eliminar el temporizador seleccionado</entry>
+	<entry key="TimersList.DuplicateTimer">Duplicar el temporizador seleccionado</entry>
 	
 	<entry key="AdvancedFeatures.Title">Características avanzadas</entry>
 	<entry key="AdvancedFeatures.Information">Esta sección del árbol se emplea para añadir y gestionar características avanzadas del editor.</entry>
@@ -2326,6 +2329,7 @@ Son especialmente útiles cuando se pretende hacer referencia al mismo grupo de 
 	<entry key="GlobalStatesList.ListTitle">Lista completa de referencias a los estados globales</entry>
 	<entry key="GlobalStatesList.AddGlobalState">Añadir nuevo estado global</entry>
 	<entry key="GlobalStatesList.DeleteGlobalState">Eliminar el estado global seleccionado</entry>
+	<entry key="GlobalStatesList.DuplicateGlobalState">Duplicar el estado global seleccionado</entry>
 	
 	<entry key="GlobalState.Documentation">Descripción (no se usa en el motor)</entry>
 	<entry key="GlobalState.Conditions">Lista de conciciones del estado global</entry>
@@ -2339,6 +2343,7 @@ ya que de esta manera se evita reescribirlos varias veces.</entry>
 	<entry key="MacrosList.ListTitle">Lista completa de macros y referencias</entry>
 	<entry key="MacrosList.AddMacro">Añadir nueva macro</entry>
 	<entry key="MacrosList.DeleteMacro">Eliminar la macro seleccionada</entry>
+	<entry key="MacrosList.DuplicateMacro">Duplicar la macro seleccionada</entry>
 	
 	<entry key="Macro.Documentation">Descripción (no se usa en el motor)</entry>
 	<entry key="Macro.Effects">Lista de efectos de la macro</entry>

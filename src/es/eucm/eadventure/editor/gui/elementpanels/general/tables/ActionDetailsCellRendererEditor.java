@@ -1,5 +1,6 @@
 package es.eucm.eadventure.editor.gui.elementpanels.general.tables;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -7,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.AbstractCellEditor;
+import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -46,6 +48,9 @@ public class ActionDetailsCellRendererEditor extends AbstractCellEditor implemen
 
 	private Component createComponent(boolean isSelected) {
 		JPanel temp = new JPanel();
+		if (isSelected)
+			temp.setBorder(BorderFactory.createMatteBorder(2, 0, 2, 0, Color.BLUE));
+
 		temp.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridx = 0;

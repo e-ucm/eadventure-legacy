@@ -21,6 +21,7 @@ import javax.swing.table.AbstractTableModel;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.timer.TimerDataControl;
 import es.eucm.eadventure.editor.control.controllers.timer.TimersListDataControl;
+import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 
 public class TimersListPanel extends JPanel {
 
@@ -38,6 +39,8 @@ public class TimersListPanel extends JPanel {
 	private JTable table;
 	
 	private JButton deleteButton;
+	
+	private JButton duplicateButton;
 	
 	/**
 	 * Constructor.
@@ -74,10 +77,14 @@ public class TimersListPanel extends JPanel {
 
 		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent arg0) {
-				if (table.getSelectedRow() >= 0)
+				if (table.getSelectedRow() >= 0) {
 					deleteButton.setEnabled(true);
-				else
+					duplicateButton.setEnabled(true);
+				}
+				else {
 					deleteButton.setEnabled(false);
+					duplicateButton.setEnabled(true);
+				}
 				updateInfoPanel(table.getSelectedRow());
 				deleteButton.repaint();
 			}			
@@ -103,13 +110,29 @@ public class TimersListPanel extends JPanel {
 				deleteTimer();
 			}
 		});
+		duplicateButton = new JButton(new ImageIcon("img/icons/duplicateNode.png"));
+		duplicateButton.setContentAreaFilled( false );
+		duplicateButton.setMargin( new Insets(0,0,0,0) );
+		duplicateButton.setToolTipText( TextConstants.getText( "TimersList.DuplicateTimer" ) );
+		duplicateButton.setEnabled(false);
+		duplicateButton.addActionListener(new ActionListener(){
+			public void actionPerformed( ActionEvent e ) {
+				duplicateTimer();
+			}
+		});
 		buttonsPanel.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridx = 0;
 		c.gridy = 0;
 		buttonsPanel.add(newButton, c);
 		c.gridy = 1;
+		buttonsPanel.add(duplicateButton, c);
+		c.gridy = 3;
 		buttonsPanel.add(deleteButton, c);
+		c.gridy = 2;
+		c.weighty = 2.0;
+		c.fill = GridBagConstraints.VERTICAL;
+		buttonsPanel.add(new JFiller(), c);
 		
 		tablePanel.setLayout(new BorderLayout());
 		tablePanel.add(scroll, BorderLayout.CENTER);
@@ -131,13 +154,21 @@ public class TimersListPanel extends JPanel {
 	
 	protected void addTimer() {
 		if (dataControl.addElement(dataControl.getAddableElements()[0], null)) {
-			table.getSelectionModel().setSelectionInterval(dataControl.getTimers().size() - 1, dataControl.getTimers().size() - 1);
 			((AbstractTableModel) table.getModel()).fireTableDataChanged();
+			table.changeSelection(dataControl.getTimers().size() - 1, 0, false, false);
 		}
 	}
-	
+
+	protected void duplicateTimer() {
+		if (dataControl.duplicateElement(dataControl.getTimers().get(table.getSelectedRow()))) {
+			((AbstractTableModel) table.getModel()).fireTableDataChanged();
+			table.changeSelection(dataControl.getTimers().size() - 1, 0, false, false);
+		}
+	}
+
 	protected void deleteTimer() {
 		dataControl.deleteElement(dataControl.getTimers().get(table.getSelectedRow()), true);
+		table.clearSelection();
 		((AbstractTableModel) table.getModel()).fireTableDataChanged();
 	}
 

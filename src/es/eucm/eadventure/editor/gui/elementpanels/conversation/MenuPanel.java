@@ -5,9 +5,10 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 
 public class MenuPanel extends JPanel {
+
+	private static final long serialVersionUID = 5188735838478736939L;
 
 	public MenuPanel() {
 		super();

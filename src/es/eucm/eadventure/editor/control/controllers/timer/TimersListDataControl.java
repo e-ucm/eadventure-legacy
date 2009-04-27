@@ -3,6 +3,7 @@ package es.eucm.eadventure.editor.control.controllers.timer;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.Timer;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
@@ -153,7 +154,24 @@ public class TimersListDataControl extends DataControl {
 
 		return elementAdded;
 	}
+
 	
+	@Override
+	public boolean duplicateElement( DataControl dataControl ) {
+		if (!(dataControl instanceof TimerDataControl))
+			return false;
+		
+		try {
+			Timer newElement = (Timer) (((Timer) (dataControl.getContent())).clone());
+			timersList.add(newElement);
+			timersDataControlList.add( new TimerDataControl(newElement));
+			return true;
+		} catch (CloneNotSupportedException e) {
+			ReportDialog.GenerateErrorReport(e, true, "Could not clone timer");	
+			return false;
+		} 
+	}
+
 	private int findDataControlIndex( DataControl dataControl ){
 		int index = -1;
 		for (int i=0; i<this.timersDataControlList.size( ); i++){

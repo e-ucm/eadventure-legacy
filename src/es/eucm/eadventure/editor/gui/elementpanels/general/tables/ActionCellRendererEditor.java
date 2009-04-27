@@ -1,5 +1,7 @@
 package es.eucm.eadventure.editor.gui.elementpanels.general.tables;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -7,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.AbstractCellEditor;
+import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -36,14 +39,14 @@ public class ActionCellRendererEditor extends AbstractCellEditor implements Tabl
 	@Override
 	public Component getTableCellEditorComponent(JTable table, Object value2, boolean isSelected, int row, int col) {
 		this.value = (ActionDataControl) value2;
-		return createComponent();
+		return createComponent(isSelected);
 	}
 
 	@Override
 	public Component getTableCellRendererComponent(JTable table, Object value2, boolean isSelected, boolean hasFocus, int row, int column) {
 		this.value = (ActionDataControl) value2;
 		if (table.getSelectedRow() == row) {
-			return createComponent();
+			return createComponent(isSelected);
 		}
 		
 		String text = getTypeText(value.getType());
@@ -53,12 +56,17 @@ public class ActionCellRendererEditor extends AbstractCellEditor implements Tabl
 		return new JLabel(text);
 	}
 
-	private Component createComponent() {
-		if (!value.hasIdTarget() && value.getType() != Controller.ACTION_CUSTOM)
-			return new JLabel(getTypeText(value.getType()));
-
-		
+	private Component createComponent(boolean isSelected) {
 		JPanel temp = new JPanel();
+		if (isSelected)
+			temp.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 0, Color.BLUE));
+		
+		if (!value.hasIdTarget() && value.getType() != Controller.ACTION_CUSTOM)  {
+			temp.setLayout(new BorderLayout());
+			temp.add(new JLabel(getTypeText(value.getType())), BorderLayout.CENTER);
+			return temp;
+		}
+
 		temp.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridx = 0;
@@ -87,7 +95,6 @@ public class ActionCellRendererEditor extends AbstractCellEditor implements Tabl
 			});
 			temp.add(combo, c);
 		}
-		
 		
 		return temp;
 	}

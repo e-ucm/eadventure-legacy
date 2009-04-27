@@ -21,6 +21,7 @@ import javax.swing.table.AbstractTableModel;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.macro.MacroDataControl;
 import es.eucm.eadventure.editor.control.controllers.macro.MacroListDataControl;
+import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 
 public class MacrosListPanel extends JPanel {
 
@@ -39,6 +40,8 @@ public class MacrosListPanel extends JPanel {
 	
 	private JButton deleteButton;
 
+	private JButton duplicateButton;
+	
 	/**
 	 * Constructor.
 	 * 
@@ -73,10 +76,14 @@ public class MacrosListPanel extends JPanel {
 
 		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent arg0) {
-				if (table.getSelectedRow() >= 0)
+				if (table.getSelectedRow() >= 0) {
 					deleteButton.setEnabled(true);
-				else
+					duplicateButton.setEnabled(true);
+				}
+				else {
 					deleteButton.setEnabled(false);
+					duplicateButton.setEnabled(false);
+				}
 				updateInfoPanel(table.getSelectedRow());
 				deleteButton.repaint();
 			}			
@@ -102,13 +109,29 @@ public class MacrosListPanel extends JPanel {
 				deleteMacro();
 			}
 		});
+		duplicateButton = new JButton(new ImageIcon("img/icons/duplicateNode.png"));
+		duplicateButton.setContentAreaFilled( false );
+		duplicateButton.setMargin( new Insets(0,0,0,0) );
+		duplicateButton.setToolTipText( TextConstants.getText( "MacrosList.DuplicateMacro" ) );
+		duplicateButton.setEnabled(false);
+		duplicateButton.addActionListener(new ActionListener(){
+			public void actionPerformed( ActionEvent e ) {
+				duplicateMacro();
+			}
+		});
 		buttonsPanel.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridx = 0;
 		c.gridy = 0;
 		buttonsPanel.add(newButton, c);
 		c.gridy = 1;
+		buttonsPanel.add(duplicateButton, c);
+		c.gridy = 3;
 		buttonsPanel.add(deleteButton, c);
+		c.gridy = 2;
+		c.weighty = 2.0;
+		c.fill = GridBagConstraints.VERTICAL;
+		buttonsPanel.add(new JFiller(), c);
 		
 		tablePanel.setLayout(new BorderLayout());
 		tablePanel.add(scroll, BorderLayout.CENTER);
@@ -129,13 +152,21 @@ public class MacrosListPanel extends JPanel {
 	
 	protected void addMacro() {
 		if (dataControl.addElement(dataControl.getAddableElements()[0], null)) {
-			table.getSelectionModel().setSelectionInterval(dataControl.getMacros().size() - 1, dataControl.getMacros().size() - 1);
 			((AbstractTableModel) table.getModel()).fireTableDataChanged();
+			table.changeSelection(dataControl.getMacros().size() - 1, 0, false, false);
 		}
 	}
-	
+
+	protected void duplicateMacro() {
+		if (dataControl.duplicateElement(dataControl.getMacros().get(table.getSelectedRow()))) {
+			((AbstractTableModel) table.getModel()).fireTableDataChanged();
+			table.changeSelection(dataControl.getMacros().size() - 1, 0, false, false);
+		}
+	}
+
 	protected void deleteMacro() {
 		dataControl.deleteElement(dataControl.getMacros().get(table.getSelectedRow()), true);
+		table.clearSelection();
 		((AbstractTableModel) table.getModel()).fireTableDataChanged();
 	}
 

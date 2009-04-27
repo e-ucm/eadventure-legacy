@@ -59,7 +59,7 @@ public class MacroDataControl extends DataControl{
 
 	@Override
 	public boolean canBeDuplicated() {
-		return false;
+		return true;
 	}
 
 	@Override

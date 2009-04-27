@@ -1265,6 +1265,7 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="ActionsList.TalkToAction">Talk to...</entry>
 	<entry key="ActionsList.Add">Add action</entry>
 	<entry key="ActionsList.Delete">Delete action</entry>
+	<entry key="ActionsList.Duplicate">Duplicate action</entry>
 	<entry key="ActionsList.MoveUp">Move action up</entry>
 	<entry key="ActionsList.MoveDown">Move action down</entry>
 	<entry key="ActionsList.ActionName">Action</entry>
@@ -1433,6 +1434,7 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="ResourcesList.Conditions">Conditions</entry>
 	<entry key="ResourcesList.AddResourcesBlock">Add new resources block</entry>
 	<entry key="ResourcesList.DeleteResourcesBlock">Delete the selected resources block</entry>
+	<entry key="ResourcesList.DuplicateResourcesBlock">Duplicate the selected resources block</entry>
 	
 	<entry key="PlayerPosition.Title">Position of the player</entry>
 	<entry key="PlayerPosition.PositionPanel">Select the position in which the player will appear</entry>
@@ -2282,6 +2284,7 @@ When not customized, default arrows will be used in the game.</entry>
 	<entry key="TimersList.Display">Display in game</entry>
 	<entry key="TimersList.AddTimer">Add new timer</entry>
 	<entry key="TimersList.DeleteTimer">Delete selected timer</entry>
+	<entry key="TimersList.DuplicateTimer">Duplicate selected timer</entry>
 	
 	<entry key="AdvancedFeatures.Title">Advanced features</entry>
 	<entry key="AdvancedFeatures.Information">Use this section of the tree to create and edit advanced features such as assessment and adaptation profiles and timers.</entry>
@@ -2321,6 +2324,7 @@ avoids retyping.</entry>
 	<entry key="GlobalStatesList.ListTitle">The whole list of global states and global state references</entry>
 	<entry key="GlobalStatesList.AddGlobalState">Add new global state</entry>
 	<entry key="GlobalStatesList.DeleteGlobalState">Delete selected global state</entry>
+	<entry key="GlobalStatesList.DuplicateGlobalState">Duplicate selected global state</entry>
 		
 	<entry key="GlobalState.Documentation">Documentation (not used in game engine)</entry>
 	<entry key="GlobalState.Conditions">List of conditions of the global state</entry>
@@ -2334,6 +2338,7 @@ avoids retyping.</entry>
 	<entry key="MacrosList.ListTitle">The whole list of macros and macro references</entry>
 	<entry key="MacrosList.AddMacro">Add new macro</entry>
 	<entry key="MacrosList.DeleteMacro">Delete selected macro</entry>
+	<entry key="MacrosList.DuplicateMacro">Duplicate selected macro</entry>
 	
 	<entry key="Macro.Documentation">Documentation (not used in game engine)</entry>
 	<entry key="Macro.Effects">List of effects of the macro</entry>

@@ -25,24 +25,9 @@ public class ItemDataControl extends DataControlWithResources {
 	private Item item;
 
 	/**
-	 * List of resources.
-	 */
-	private List<Resources> resourcesList;
-
-	/**
-	 * List of resources controllers.
-	 */
-	private List<ResourcesDataControl> resourcesDataControlList;
-
-	/**
 	 * Actions list controller.
 	 */
 	private ActionsListDataControl actionsListDataControl;
-
-	/**
-	 * The resources that must be used in the previews.
-	 */
-	private int selectedResources;
 
 	/**
 	 * Constructor.
@@ -69,48 +54,12 @@ public class ItemDataControl extends DataControlWithResources {
 	}
 
 	/**
-	 * Returns the list of resources controllers.
-	 * 
-	 * @return Resources controllers
-	 */
-	public List<ResourcesDataControl> getResources( ) {
-		return resourcesDataControlList;
-	}
-
-	/**
-	 * Returns the number of resources blocks contained.
-	 * 
-	 * @return Number of resources blocks
-	 */
-	public int getResourcesCount( ) {
-		return resourcesDataControlList.size( );
-	}
-
-	/**
-	 * Returns the last resources controller of the list.
-	 * 
-	 * @return Last resources controller
-	 */
-	public ResourcesDataControl getLastResources( ) {
-		return resourcesDataControlList.get( resourcesDataControlList.size( ) - 1 );
-	}
-
-	/**
 	 * Returns the actions list controller.
 	 * 
 	 * @return Actions list controller
 	 */
 	public ActionsListDataControl getActionsList( ) {
 		return actionsListDataControl;
-	}
-
-	/**
-	 * Returns the selected resources block of the list.
-	 * 
-	 * @return Selected block of resources
-	 */
-	public int getSelectedResources( ) {
-		return selectedResources;
 	}
 
 	/**
@@ -165,16 +114,6 @@ public class ItemDataControl extends DataControlWithResources {
 	 */
 	public String getDetailedDescription( ) {
 		return item.getDetailedDescription( );
-	}
-
-	/**
-	 * Sets the new selected resources block of the list.
-	 * 
-	 * @param selectedResources
-	 *            New selected block of resources
-	 */
-	public void setSelectedResources( int selectedResources ) {
-		this.selectedResources = selectedResources;
 	}
 
 	/**

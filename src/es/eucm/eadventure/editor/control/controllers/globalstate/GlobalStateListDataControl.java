@@ -3,6 +3,7 @@ package es.eucm.eadventure.editor.control.controllers.globalstate;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.conditions.GlobalState;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
@@ -130,6 +131,30 @@ public class GlobalStateListDataControl extends DataControl {
 		}
 
 		return elementAdded;
+	}
+
+	@Override
+	public boolean duplicateElement( DataControl dataControl ) {
+		if (!(dataControl instanceof GlobalStateDataControl))
+			return false;
+		
+		try {
+			GlobalState newElement = (GlobalState) (((GlobalState) (dataControl.getContent())).clone());
+			String id = newElement.getId();
+			int i = 1;
+			do {
+				id = newElement.getId() + i;
+				i++;
+			} while (!controller.isElementIdValid(id, false));
+			newElement.setId(id);
+			globalStatesList.add(newElement);
+			globalStatesDataControlList.add( new GlobalStateDataControl(newElement));
+			controller.getIdentifierSummary().addGlobalStateId( id);
+			return true;
+		} catch (CloneNotSupportedException e) {
+			ReportDialog.GenerateErrorReport(e, true, "Could not clone global state");	
+			return false;
+		} 
 	}
 
 	@Override

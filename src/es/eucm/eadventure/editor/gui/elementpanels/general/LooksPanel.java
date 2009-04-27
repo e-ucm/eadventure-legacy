@@ -22,13 +22,14 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
+import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ResourcesTable;
 
 public abstract class LooksPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	
-	private static final int HORIZONTAL_SPLIT_POSITION = 60;
+	private static final int HORIZONTAL_SPLIT_POSITION = 70;
 	
 	protected DataControlWithResources dataControl;
 
@@ -44,6 +45,8 @@ public abstract class LooksPanel extends JPanel {
 	protected JButton newResourcesBlock;
 	
 	protected JButton deleteResourcesBlock;
+	
+	protected JButton duplicateResourcesBlock;
 
 	protected ResourcesPanel resourcesPanel;
 	
@@ -74,10 +77,14 @@ public abstract class LooksPanel extends JPanel {
 			public void valueChanged(ListSelectionEvent arg0) {
 				if (resourcesTable.getSelectedRow() >= 0) {
 					updateResources();
+					duplicateResourcesBlock.setEnabled(true);
 					if (dataControl.getResourcesCount() > 1) {
 						deleteResourcesBlock.setEnabled(true);
-					} else
+					} else {
 						deleteResourcesBlock.setEnabled(false);
+					}
+				} else {
+					duplicateResourcesBlock.setEnabled(false);
 				}
 			}
 		});
@@ -100,7 +107,14 @@ public abstract class LooksPanel extends JPanel {
 		deleteResourcesBlock.setToolTipText( TextConstants.getText( "ResourcesList.DeleteResourcesBlock" ) );
 		deleteResourcesBlock.setEnabled(false);
 		deleteResourcesBlock.addActionListener( new DeleteButtonListener( ));
-		
+
+		this.duplicateResourcesBlock = new JButton(new ImageIcon("img/icons/duplicateNode.png"));
+		duplicateResourcesBlock.setContentAreaFilled( false );
+		duplicateResourcesBlock.setMargin( new Insets(0,0,0,0) );
+		duplicateResourcesBlock.setToolTipText( TextConstants.getText( "ResourcesList.DuplicateResourcesBlock" ) );
+		duplicateResourcesBlock.setEnabled(false);
+		duplicateResourcesBlock.addActionListener( new DuplicateButtonListener( ));
+
 		JPanel blockControls = new JPanel( );
 		
 		JPanel buttonsPanel = new JPanel();
@@ -110,7 +124,13 @@ public abstract class LooksPanel extends JPanel {
 		c.gridy = 0;
 		buttonsPanel.add(newResourcesBlock, c);
 		c.gridy = 1;
+		buttonsPanel.add(duplicateResourcesBlock, c);
+		c.gridy = 3;
 		buttonsPanel.add(deleteResourcesBlock, c);
+		c.gridy = 2;
+		c.weighty = 2.0;
+		c.fill = GridBagConstraints.VERTICAL;
+		buttonsPanel.add(new JFiller(), c);
 		
 		blockControls.setLayout(new BorderLayout());
 		blockControls.add(scroll, BorderLayout.CENTER);
@@ -166,14 +186,31 @@ public abstract class LooksPanel extends JPanel {
 			}
 		}
 	}
-	
+
+	private class DuplicateButtonListener implements ActionListener {
+		public void actionPerformed( ActionEvent e ) {
+			if ( resourcesTable.getSelectedIndex( )>=0 ){
+				dataControl.setSelectedResources( resourcesTable.getSelectedIndex( ) );
+				int selectedBlock = dataControl.getSelectedResources( );
+				DataControl resourcesToDuplicate = dataControl.getResources( ).get( selectedBlock );
+				if( dataControl.duplicateResources(resourcesToDuplicate) ) {
+					dataControl.setSelectedResources(dataControl.getResourcesCount() - 1);
+					resourcesTable.setSelectedIndex(dataControl.getResourcesCount() - 1);
+					updateResources( );
+					((AbstractTableModel) resourcesTable.getModel()).fireTableDataChanged();
+					resourcesTable.changeSelection(dataControl.getResourcesCount() - 1, 0, false, false);
+				}
+			}
+		}
+	}
+
 	private class NewButtonListener implements ActionListener {
 		public void actionPerformed( ActionEvent e ) {
 			if( dataControl.addElement( Controller.RESOURCES, null ) ) {
 				dataControl.setSelectedResources( dataControl.getResourcesCount( ) - 1 );
 				updateResources( );
-				resourcesTable.setSelectedIndex(dataControl.getResourcesCount() - 1);
 				((AbstractTableModel) resourcesTable.getModel()).fireTableDataChanged();
+				resourcesTable.changeSelection(dataControl.getResourcesCount() - 1, 0, false, false);
 			}
 		}
 	}

@@ -42,7 +42,7 @@ public class ActionsTable extends JTable{
 		this.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent arg0) {
 				setRowHeight(20);
-				setRowHeight(getSelectedRow(), 25);
+				setRowHeight(getSelectedRow(), 27);
 			}
 		});
 		this.setSize(200, 150);

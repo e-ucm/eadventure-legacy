@@ -118,6 +118,10 @@ public class ResourcesDataControl extends DataControl {
 		conditionsController = new ConditionsController( resources.getConditions( ) );
 	}
 
+	public int getResourcesType() {
+		return resourcesType;
+	}
+	
 	/**
 	 * Returns the conditions microcontroller.
 	 * 

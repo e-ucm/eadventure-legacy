@@ -26,6 +26,7 @@ import javax.swing.table.AbstractTableModel;
 import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
 
 import es.eucm.eadventure.editor.control.controllers.conversation.GraphConversationDataControl;
+import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
@@ -224,14 +225,17 @@ class LinesPanel extends JPanel {
 		c.gridx = 0;
 		c.gridy = 0;
 		buttonsPanel.add( insertLineButton , c );
-		c.gridy++;
-		buttonsPanel.add( deleteLineButton , c );
-		c.anchor = GridBagConstraints.SOUTH;
-		c.gridy++;
+		c.gridy = 1;
 		buttonsPanel.add( moveLineUpButton , c );
-		c.gridy++;
+		c.gridy = 2;
 		buttonsPanel.add( moveLineDownButton , c );
-
+		c.gridy = 4;
+		buttonsPanel.add( deleteLineButton , c );
+		c.gridy = 3;
+		c.weighty = 2.0;
+		c.fill = GridBagConstraints.VERTICAL;
+		buttonsPanel.add( new JFiller(), c);
+		
 		JPanel menuPanel = conversationPanel.getMenuPanel();
 		menuPanel.removeAll();
 		menuPanel.setLayout(new GridLayout(0,1));

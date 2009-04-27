@@ -6,6 +6,7 @@ import java.util.Random;
 
 import javax.swing.JOptionPane;
 
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.common.data.chapter.CustomAction;
 import es.eucm.eadventure.common.data.chapter.effects.TriggerConversationEffect;
@@ -281,6 +282,22 @@ public class ActionsListDataControl extends DataControl {
 		return elementDeleted;
 	}
 
+	@Override
+	public boolean duplicateElement( DataControl dataControl ) {
+		if (!(dataControl instanceof ActionDataControl))
+			return false;
+		
+		try {
+			Action newElement = (Action) (((Action) (dataControl.getContent())).clone());
+			actionsList.add(newElement);
+			actionsDataControlList.add( new ActionDataControl(newElement));
+			return true;
+		} catch (CloneNotSupportedException e) {
+			ReportDialog.GenerateErrorReport(e, true, "Could not clone action");	
+			return false;
+		} 
+	}
+	
 	@Override
 	public boolean moveElementUp( DataControl dataControl ) {
 		boolean elementMoved = false;
