@@ -38,16 +38,32 @@ public class AssessmentProfilesDataControl extends DataControl{
 			    profileName = controller.showInputDialog( TextConstants.getText( "Operation.CreateAssessmentFile.FileName" ), TextConstants.getText( "Operation.CreateAssessmentFile.FileName.Message" ), TextConstants.getText( "Operation.CreateAssessmentFile.FileName.DefaultValue" ) );
 			if (profileName!=null&& controller.isElementIdValid( profileName )){
 				//Checks if the profile exists. In that case, communicate it
-				if (!existName(profileName )){
+			  //Checks if the profile exists. Always profile name is set as TextConstants.getText("Operation.CreateAdaptationFile.FileName.DefaultValue");
+			    	// Increase the last number until create a not existing name
+			    	int i=1;
+			    	while (existName(profileName )){
+			    	    String lastIndex = profileName.substring(profileName.length()-1,profileName.length());
+			    	    try{
+			    		Integer.parseInt(lastIndex);
+			    	    }catch (NumberFormatException e){
+			    		profileName += i;
+			    	    }
+			    	    profileName = profileName.substring(0,profileName.length()-1);
+			    	    profileName += i;
+			    	   
+			    	}
+			    
+			    
+			    
 					List<AssessmentRule> newRules = new ArrayList<AssessmentRule>();
 					this.profiles.add( new AssessmentProfileDataControl ( newRules, profileName) );
 					data.add( (AssessmentProfile)profiles.get(profiles.size()-1).getContent() );
 					//controller.dataModified( );
 					added = true;
 
-				}else {
+				/*}else {
 				    controller.showErrorDialog(TextConstants.getText("Operation.CreateAdaptationFile.FileName.ExistValue.Title"), TextConstants.getText("Operation.CreateAdaptationFile.FileName.ExistValue.Message"));
-				}
+				}*/
 			}
 			
 		}
@@ -55,7 +71,7 @@ public class AssessmentProfilesDataControl extends DataControl{
 		return added;
 	}
 	
-	private boolean existName(String name){
+	public boolean existName(String name){
 	    for (AssessmentProfileDataControl profile: this.profiles){
 		if (profile.getName().equals(name))
 		    return true;

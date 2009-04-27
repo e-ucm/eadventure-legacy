@@ -205,11 +205,16 @@ public class AssessmentProfileDataControl extends DataControl{
 			String fileName = name;
 			if (name == null)
 				fileName = controller.showInputDialog( TextConstants.getText( "Operation.RenameAssessmentFile.FileName" ), TextConstants.getText( "Operation.RenameAssessmentFile.FileName.Message" ), getFileName() );
-			if (fileName!=null && !fileName.equals( oldName ) && controller.isElementIdValid( fileName )){
-			    	//controller.dataModified( );
-				profile.setName( fileName );
-				renamed=true;
+			if (!controller.getAssessmentController().existName(name)){
+				if (fileName!=null && !fileName.equals( oldName ) && controller.isElementIdValid( fileName )){
+				    //controller.dataModified( );
+				    profile.setName( fileName );
+				    renamed=true;
+				}
+			}else {
+			    controller.showErrorDialog(TextConstants.getText("Operation.CreateAdaptationFile.FileName.ExistValue.Title"), TextConstants.getText("Operation.CreateAdaptationFile.FileName.ExistValue.Message"));
 			}
+				
 			
 		}
 		
