@@ -31,19 +31,9 @@ public class CutsceneDataControl extends DataControlWithResources {
 	private int cutsceneType;
 
 	/**
-	 * List of resources.
-	 */
-	private List<Resources> resourcesList;
-
-	/**
 	 * Contained set of next scenes in the cutscene.
 	 */
 	private List<NextScene> nextScenesList;
-
-	/**
-	 * List of resources controllers.
-	 */
-	private List<ResourcesDataControl> resourcesDataControlList;
 
 	/**
 	 * List of next scene controllers.
@@ -54,11 +44,6 @@ public class CutsceneDataControl extends DataControlWithResources {
 	 * End scene controller.
 	 */
 	private EndSceneDataControl endSceneDataControl;
-
-	/**
-	 * The resources that must be used in the previews.
-	 */
-	private int selectedResources;
 
 	/**
 	 * Constructor.
@@ -99,33 +84,6 @@ public class CutsceneDataControl extends DataControlWithResources {
 	}
 
 	/**
-	 * Returns the list of resources controllers.
-	 * 
-	 * @return Resources controllers
-	 */
-	public List<ResourcesDataControl> getResources( ) {
-		return resourcesDataControlList;
-	}
-
-	/**
-	 * Returns the number of resources blocks contained.
-	 * 
-	 * @return Number of resources blocks
-	 */
-	public int getResourcesCount( ) {
-		return resourcesDataControlList.size( );
-	}
-
-	/**
-	 * Returns the last resources controller of the list.
-	 * 
-	 * @return Last resources controller
-	 */
-	public ResourcesDataControl getLastResources( ) {
-		return resourcesDataControlList.get( resourcesDataControlList.size( ) - 1 );
-	}
-
-	/**
 	 * Returns the next scene list controller.
 	 * 
 	 * @return Next scene list controller
@@ -162,15 +120,6 @@ public class CutsceneDataControl extends DataControlWithResources {
 	}
 
 	/**
-	 * Returns the selected resources block of the list.
-	 * 
-	 * @return Selected block of resources
-	 */
-	public int getSelectedResources( ) {
-		return selectedResources;
-	}
-
-	/**
 	 * Returns the id of the contained cutscene.
 	 * 
 	 * @return If of the contained cutscene
@@ -195,16 +144,6 @@ public class CutsceneDataControl extends DataControlWithResources {
 	 */
 	public String getName( ) {
 		return cutscene.getName( );
-	}
-
-	/**
-	 * Sets the new selected resources block of the list.
-	 * 
-	 * @param selectedResources
-	 *            New selected block of resources
-	 */
-	public void setSelectedResources( int selectedResources ) {
-		this.selectedResources = selectedResources;
 	}
 
 	/**

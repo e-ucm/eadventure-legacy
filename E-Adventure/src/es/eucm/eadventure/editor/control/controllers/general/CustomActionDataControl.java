@@ -18,21 +18,6 @@ public class CustomActionDataControl extends ActionDataControl {
 	private CustomAction customAction;
 	
 	/**
-	 * List of resources for the customAction
-	 */
-	private List<Resources> resourcesList;
-	
-	/**
-	 * List of resources controllers.
-	 */
-	private List<ResourcesDataControl> resourcesDataControlList;
-	
-	/**
-	 * The resources that must be used in the previews.
-	 */
-	private int selectedResources;
-
-	/**
 	 * Default constructor
 	 * 
 	 * @param action the custom Action
@@ -60,11 +45,6 @@ public class CustomActionDataControl extends ActionDataControl {
 	}
 
 	@Override
-	public ResourcesDataControl getLastResources() {
-		return resourcesDataControlList.get( resourcesDataControlList.size( ) - 1 );
-	}
-
-	@Override
 	public int countAssetReferences( String assetPath ) {
 		int count = super.countAssetReferences(assetPath);
 		
@@ -72,26 +52,6 @@ public class CustomActionDataControl extends ActionDataControl {
 			count += resources.countAssetReferences(assetPath);
 		
 		return count;
-	}
-
-	@Override
-	public List<ResourcesDataControl> getResources() {
-		return resourcesDataControlList;
-	}
-
-	@Override
-	public int getResourcesCount() {
-		return resourcesDataControlList.size();
-	}
-
-	@Override
-	public int getSelectedResources() {
-		return selectedResources;
-	}
-
-	@Override
-	public void setSelectedResources(int selectedResources) {
-		this.selectedResources = selectedResources;
 	}
 
 	/**

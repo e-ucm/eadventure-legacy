@@ -3,7 +3,6 @@ package es.eucm.eadventure.editor.control.controllers.general;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.Action;
-import es.eucm.eadventure.common.data.chapter.effects.Effects;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;

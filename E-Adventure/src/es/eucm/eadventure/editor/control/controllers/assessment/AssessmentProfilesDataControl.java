@@ -3,6 +3,7 @@ package es.eucm.eadventure.editor.control.controllers.assessment;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
 import es.eucm.eadventure.common.data.assessment.AssessmentRule;
 import es.eucm.eadventure.common.gui.TextConstants;
@@ -70,7 +71,28 @@ public class AssessmentProfilesDataControl extends DataControl{
 		}
 		return added;
 	}
-	
+
+	@Override
+	public boolean duplicateElement( DataControl dataControl ) {
+		if (!(dataControl instanceof AssessmentProfileDataControl))
+			return false;
+		try {
+			AssessmentProfile newElement = (AssessmentProfile) (((AssessmentProfile) (dataControl.getContent())).clone());
+			String id = newElement.getName();
+			int i = 1;
+			do {
+				id = newElement.getName() + i;
+				i++;
+			} while (existName(id));
+			newElement.setName(id);
+			profiles.add(new AssessmentProfileDataControl(newElement));
+			return true;
+		} catch (CloneNotSupportedException e) {
+			ReportDialog.GenerateErrorReport(e, true, "Could not clone assessment profile");	
+			return false;
+		} 
+	}
+
 	public boolean existName(String name){
 	    for (AssessmentProfileDataControl profile: this.profiles){
 		if (profile.getName().equals(name))

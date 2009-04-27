@@ -19,15 +19,11 @@ public class FrameDataControl extends DataControlWithResources {
 
 	private Frame frame;
 	
-	private List<ResourcesDataControl> resourcesDataControls;
-	
-	private int selectedResources;
-	
 	public FrameDataControl(Frame frame) {
 		this.frame = frame;
-		resourcesDataControls = new ArrayList<ResourcesDataControl>();
+		resourcesDataControlList = new ArrayList<ResourcesDataControl>();
 		for (Resources resources : frame.getResources()) {
-			resourcesDataControls.add(new ResourcesDataControl(resources, Controller.ANIMATION));
+			resourcesDataControlList.add(new ResourcesDataControl(resources, Controller.ANIMATION));
 		}
 	}
 	
@@ -172,34 +168,14 @@ public class FrameDataControl extends DataControlWithResources {
 
 	@Override
 	public ResourcesDataControl getLastResources() {
-		if (resourcesDataControls.size() == 0)
+		if (resourcesDataControlList.size() == 0)
 			return null;
-		return resourcesDataControls.get(resourcesDataControls.size() - 1);
-	}
-
-	@Override
-	public List<ResourcesDataControl> getResources() {
-		return resourcesDataControls;
-	}
-
-	@Override
-	public int getResourcesCount() {
-		return resourcesDataControls.size();
-	}
-
-	@Override
-	public int getSelectedResources() {
-		return selectedResources;
-	}
-
-	@Override
-	public void setSelectedResources(int selectedResources) {
-		this.selectedResources = selectedResources;
+		return resourcesDataControlList.get(resourcesDataControlList.size() - 1);
 	}
 
 	@Override
 	public List<DataControl> getPathToDataControl(DataControl dataControl) {
-		return getPathFromChild(dataControl, resourcesDataControls);
+		return getPathFromChild(dataControl, resourcesDataControlList);
 	}
 
 }

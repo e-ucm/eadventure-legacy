@@ -50,7 +50,6 @@ public class ConditionsCellRendererEditor extends AbstractCellEditor implements 
 		button.setFocusable(false);
 		button.setEnabled(isSelected);
 		return button;
-		
 	}
 
 }

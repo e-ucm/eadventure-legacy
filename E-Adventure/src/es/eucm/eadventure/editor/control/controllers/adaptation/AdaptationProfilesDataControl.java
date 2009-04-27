@@ -3,7 +3,7 @@ package es.eucm.eadventure.editor.control.controllers.adaptation;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.adaptation.AdaptationProfile;
 import es.eucm.eadventure.common.data.adaptation.AdaptationRule;
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
@@ -22,7 +22,6 @@ public class AdaptationProfilesDataControl extends DataControl{
 			profiles.add(new AdaptationProfileDataControl(ap));
 		}
 	}
-	
 	
 	@Override
 	public boolean addElement( int type , String profileName) {
@@ -65,8 +64,28 @@ public class AdaptationProfilesDataControl extends DataControl{
 			
 		}
 		return added;
-		}
+	}
 		
+	@Override
+	public boolean duplicateElement( DataControl dataControl ) {
+		if (!(dataControl instanceof AdaptationProfileDataControl))
+			return false;
+		try {
+			AdaptationProfile newElement = (AdaptationProfile) (((AdaptationProfile) (dataControl.getContent())).clone());
+			String id = newElement.getName();
+			int i = 1;
+			do {
+				id = newElement.getName() + i;
+				i++;
+			} while (existName(id));
+			newElement.setName(id);
+			profiles.add(new AdaptationProfileDataControl(newElement));
+			return true;
+		} catch (CloneNotSupportedException e) {
+			ReportDialog.GenerateErrorReport(e, true, "Could not clone adaptation profile");	
+			return false;
+		} 
+	}
 	
 	public boolean existName(String name){
 	    for (AdaptationProfileDataControl profile: this.profiles){

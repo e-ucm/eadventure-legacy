@@ -14,8 +14,6 @@ import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import es.eucm.eadventure.common.data.Documented;
 import es.eucm.eadventure.common.gui.TextConstants;

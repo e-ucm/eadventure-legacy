@@ -6,9 +6,6 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -21,9 +18,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
-import es.eucm.eadventure.common.data.chapter.effects.AbstractEffect;
 import es.eucm.eadventure.common.gui.TextConstants;
-import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ConditionsCellRendererEditor;
@@ -224,23 +219,6 @@ public class EffectsPanel extends JPanel implements Updateable{
 					updateButtons();
 				}
 			}
-		}
-	}
-
-	/**
-	 * Action listener for the effects table. It displays a dialog that allows to edit the effects when a double click
-	 * has been performed.
-	 */
-	private class EffectsTableMouseListener extends MouseAdapter {
-
-		@Override
-		public void mouseClicked( MouseEvent e ) {
-			int effectSelected = effectsTable.getSelectedRow( );
-
-			// If it was a double click and there is an effect selected
-			if( e.getClickCount( ) == 2 && effectSelected >= 0 )
-				if( effectsController.editEffect( effectSelected ) )
-					effectsTable.updateUI( );
 		}
 	}
 

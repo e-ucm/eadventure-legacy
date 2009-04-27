@@ -1,8 +1,6 @@
 package es.eucm.eadventure.editor.gui.elementpanels.conversation;
 
-import java.awt.AlphaComposite;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;

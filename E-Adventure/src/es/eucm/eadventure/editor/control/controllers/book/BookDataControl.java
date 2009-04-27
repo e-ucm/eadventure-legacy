@@ -26,16 +26,6 @@ public class BookDataControl extends DataControlWithResources {
 	private Book book;
 
 	/**
-	 * List of resources.
-	 */
-	private List<Resources> resourcesList;
-
-	/**
-	 * List of resources controllers.
-	 */
-	private List<ResourcesDataControl> resourcesDataControlList;
-
-	/**
 	 * Book paragraphs list controller.
 	 */
 	private BookParagraphsListDataControl bookParagraphsListDataControl;
@@ -44,12 +34,6 @@ public class BookDataControl extends DataControlWithResources {
 	 * Book pages list controller.
 	 */
 	private BookPagesListDataControl bookPagesListDataControl;
-
-
-	/**
-	 * The resources that must be used in the previews.
-	 */
-	private int selectedResources;
 
 	/**
 	 * Constructor.
@@ -79,33 +63,6 @@ public class BookDataControl extends DataControlWithResources {
 	}
 
 	/**
-	 * Returns the list of resources controllers.
-	 * 
-	 * @return Resources controllers
-	 */
-	public List<ResourcesDataControl> getResources( ) {
-		return resourcesDataControlList;
-	}
-
-	/**
-	 * Returns the number of resources blocks contained.
-	 * 
-	 * @return Number of resources blocks
-	 */
-	public int getResourcesCount( ) {
-		return resourcesDataControlList.size( );
-	}
-
-	/**
-	 * Returns the last resources controller of the list.
-	 * 
-	 * @return Last resources controller
-	 */
-	public ResourcesDataControl getLastResources( ) {
-		return resourcesDataControlList.get( resourcesDataControlList.size( ) - 1 );
-	}
-
-	/**
 	 * Returns the book paragraphs list controller.
 	 * 
 	 * @return Book paragraphs list controller
@@ -121,16 +78,6 @@ public class BookDataControl extends DataControlWithResources {
 	 */
 	public BookPagesListDataControl getBookPagesList( ) {
 		return bookPagesListDataControl;
-	}
-	
-
-	/**
-	 * Returns the selected resources block of the list.
-	 * 
-	 * @return Selected block of resources
-	 */
-	public int getSelectedResources( ) {
-		return selectedResources;
 	}
 
 	/**
@@ -149,16 +96,6 @@ public class BookDataControl extends DataControlWithResources {
 	 */
 	public String getDocumentation( ) {
 		return book.getDocumentation( );
-	}
-
-	/**
-	 * Sets the new selected resources block of the list.
-	 * 
-	 * @param selectedResources
-	 *            New selected block of resources
-	 */
-	public void setSelectedResources( int selectedResources ) {
-		this.selectedResources = selectedResources;
 	}
 
 	/**
@@ -366,9 +303,7 @@ public class BookDataControl extends DataControlWithResources {
 			bookParagraphsListDataControl.getAssetReferences( assetPaths, assetTypes );
 		else if (book.getType( ) == Book.TYPE_PAGES)
 			bookPagesListDataControl.getAssetReferences( assetPaths, assetTypes );
-
 	}
-
 
 	@Override
 	public void deleteAssetReferences( String assetPath ) {
@@ -381,7 +316,6 @@ public class BookDataControl extends DataControlWithResources {
 			bookParagraphsListDataControl.deleteAssetReferences( assetPath );
 		else if (book.getType( ) == Book.TYPE_PAGES)
 			bookPagesListDataControl.deleteAssetReferences( assetPath );
-		
 	}
 
 	@Override
@@ -408,7 +342,6 @@ public class BookDataControl extends DataControlWithResources {
 		return true;
 	}
 	
-
 	@Override
 	public void recursiveSearch() {
 		check(this.getDocumentation(), TextConstants.getText("Search.Documentation"));

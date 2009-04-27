@@ -1,6 +1,5 @@
 package es.eucm.eadventure.editor.control.controllers.animation;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.animation.Transition;
