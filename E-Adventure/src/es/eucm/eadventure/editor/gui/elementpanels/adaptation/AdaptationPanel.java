@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,19 +17,14 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
-import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.table.AbstractTableModel;
 
-import es.eucm.eadventure.common.data.Described;
 import es.eucm.eadventure.common.gui.TextConstants;
 
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfileDataControl;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationRuleDataControl;
-import es.eucm.eadventure.editor.control.tools.listeners.DescriptionChangeListener;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 
 public class AdaptationPanel extends JPanel{
@@ -155,7 +149,6 @@ public class AdaptationPanel extends JPanel{
 			    	delete.setEnabled(false);
 			}
 		});
-		informationTable.getSelectionModel( ).setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
 		//informationTable.removeEditor( );
 		ruleListPanel = new JPanel( );
 		ruleListPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AdaptationRulesList.ListTitle" ) ) );
@@ -216,29 +209,9 @@ public class AdaptationPanel extends JPanel{
 		    rulesInfoPanel.removeAll();
 		    // take the current rule data control
 		    AdaptationRuleDataControl adpRuleDataControl = dataControl.getAdaptationRules().get(informationTable.getSelectedRow());
-		    //create the infoPanel
-		    JPanel conceptPanel = new JPanel( );
-		    conceptPanel.setLayout( new GridLayout( ) );
-		    JTextArea descriptionTextArea = new JTextArea( adpRuleDataControl.getDescription( ), 4, 0 );
-		    descriptionTextArea.setLineWrap( true );
-		    descriptionTextArea.setWrapStyleWord( true );
-		    descriptionTextArea.getDocument( ).addDocumentListener( new DescriptionChangeListener( descriptionTextArea, (Described) adpRuleDataControl.getContent() ) );
-		    conceptPanel.add( new JScrollPane( descriptionTextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER ) );
-		    conceptPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AdaptationRule.Description" ) ) );
-		    // Create the LMS-state panel
+
 		    JPanel lmsPanel = new UOLPropertiesPanel( adpRuleDataControl,dataControl.isScorm12(),dataControl.isScorm2004()); 
-		    
-		    JPanel container = new JPanel(new GridBagLayout());
-		    GridBagConstraints c = new GridBagConstraints( );
-		    c.fill = GridBagConstraints.BOTH;
-		    c.weightx=1;
-		    c.weighty=1;
-		    c.ipady=-30;
-		    container.add(conceptPanel,c);
-		    c.ipady=0;
-		    c.gridx++;
-		    container.add(lmsPanel,c);
-		    rulesInfoPanel.addTab(TextConstants.getText("AdaptationProfile.TabbedLMSState"), container);
+		    rulesInfoPanel.addTab(TextConstants.getText("AdaptationProfile.TabbedLMSState"), lmsPanel);
 		    
 		    // Create the game-state panel
 		    JPanel gsPanel = new GameStatePanel( adpRuleDataControl ); 

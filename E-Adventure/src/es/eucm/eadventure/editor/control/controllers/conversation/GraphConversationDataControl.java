@@ -57,6 +57,19 @@ public class GraphConversationDataControl extends ConversationDataControl {
 	public ConversationNodeView getRootNode( ) {
 		return graphConversation.getRootNode( );
 	}
+	
+	public void updateAllConditions() {
+		allConditions.clear();
+		List<ConversationNodeView> nodes = getAllNodes( );
+		for( ConversationNodeView node : nodes ){
+		    ArrayList<ConditionsController> nodeConditions = new ArrayList<ConditionsController>();
+		    // add each condition for each conversation line
+		    for (int i=0;i<node.getLineCount();i++){
+		    	nodeConditions.add(new ConditionsController(node.getLineConditions(i)));
+		    }
+		    allConditions.put(node, nodeConditions);
+		}	    
+	}
 
 	/**
 	 * Store all line conditions in allConditions
@@ -69,10 +82,9 @@ public class GraphConversationDataControl extends ConversationDataControl {
 		    ArrayList<ConditionsController> nodeConditions = new ArrayList<ConditionsController>();
 		    // add each condition for each conversation line
 		    for (int i=0;i<node.getLineCount();i++){
-			nodeConditions.add(new ConditionsController(node.getLineConditions(i)));
+		    	nodeConditions.add(new ConditionsController(node.getLineConditions(i)));
 		    }
 		    allConditions.put(node, nodeConditions);
-		    
 		}	    
 	}
 	

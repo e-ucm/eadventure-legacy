@@ -1,13 +1,15 @@
 package es.eucm.eadventure.editor.gui.elementpanels.conversation;
 
+import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.config.ConversationConfigData;
 import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
 import es.eucm.eadventure.editor.control.controllers.conversation.GraphConversationDataControl;
@@ -60,7 +62,7 @@ class RepresentationPanel extends JPanel {
 	 */
 	private ConversationPanel conversationPanel;
 	
-	private JPanel menuPanel;
+	private MenuPanel menuPanel;
 	
 	
 	/**
@@ -78,8 +80,7 @@ class RepresentationPanel extends JPanel {
 		conversationRepresentation = new GraphicRepresentation( (GraphConversationDataControl) conversationDataControl, getSize( ) );
 
 		this.setLayout(null);
-		menuPanel = new MenuPanel();
-		menuPanel.setVisible(false);
+		menuPanel = new MenuPanel(conversationDataControl, conversationPanel);
 		this.add(menuPanel);
 		
 		// Add the mouse and resize listeners to the panel
@@ -129,10 +130,11 @@ class RepresentationPanel extends JPanel {
 			if (y + menuPanel.getSize().getHeight() > conversationPanel.getScrollYValue() + conversationPanel.getScrollSize().getHeight()) {
 				y = (int) (node.getY() - GraphicNode.NODE_RADIUS * conversationRepresentation.getScale() - menuPanel.getHeight());
 			}
-			
 			menuPanel.setLocation(x, y);
-			
-			menuPanel.setVisible(true);
+			if (state == WAITING_SECOND_NODE_TO_LINK)
+				menuPanel.setVisible(false);
+			else
+				menuPanel.setVisible(true);
 		}
 		menuPanel.repaint();
 	}
@@ -149,13 +151,15 @@ class RepresentationPanel extends JPanel {
 		// Change the status bar text in the main panel
 		switch( state ) {
 			case NORMAL:
-				conversationPanel.setStatusBarText( TextConstants.getText( "Conversation.StatusBarNormal" ) );
+				conversationPanel.setCursor(null);
 				break;
 			case WAITING_SECOND_NODE_TO_MOVE:
-				conversationPanel.setStatusBarText( TextConstants.getText( "Conversation.StatusWaitingToMove" ) );
+				conversationPanel.setCursor(null);
 				break;
 			case WAITING_SECOND_NODE_TO_LINK:
-				conversationPanel.setStatusBarText( TextConstants.getText( "Conversation.StatusWaitingToLink" ) );
+				ImageIcon icon = new ImageIcon("img/linkNodeCursor.png");
+				Cursor cursor = Toolkit.getDefaultToolkit().createCustomCursor(icon.getImage(), new Point(31,31), "img");
+				conversationPanel.setCursor(cursor);
 				break;
 		}
 	}
@@ -188,7 +192,7 @@ class RepresentationPanel extends JPanel {
 		conversationRepresentation.setScale(scale);
 	}
 	
-	public JPanel getMenuPanel() {
+	public MenuPanel getMenuPanel() {
 		return menuPanel;
 	}
 

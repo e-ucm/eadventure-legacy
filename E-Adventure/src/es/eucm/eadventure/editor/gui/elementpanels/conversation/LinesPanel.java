@@ -3,7 +3,6 @@ package es.eucm.eadventure.editor.gui.elementpanels.conversation;
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -88,10 +87,6 @@ class LinesPanel extends JPanel {
 	 */
 	private JButton deleteLineButton;
 		
-	/**
-	 * "Edit effect" button
-	 */
-	private JButton editEffectButton;
 
 	/**
 	 * "Delete option" button
@@ -99,14 +94,7 @@ class LinesPanel extends JPanel {
 	private JButton deleteOptionButton;
 
 	private JButton insertOptionButton;
-	
-	private JButton addOptionButton;
-	
-	private JButton addDialogButton;
-	
-	private JButton deleteNodeButton;
 
-	private JButton linkToButton;
 	
 	/**
 	 * Select the player or any exists character to speak selected conversation line
@@ -160,21 +148,6 @@ class LinesPanel extends JPanel {
 		moveLineDownButton.addActionListener( new ListenerButtonMoveLineDown( ) );
 		
 		
-		// Add the add operations
-		ImageIcon dialog = new ImageIcon("img/icons/dialogNode.png");
-		addDialogButton = new JButton(TextConstants.getText( "Conversation.OptionAddDialogueNode" ), dialog);
-		addDialogButton.addActionListener( new AddChildActionListener( ConversationNode.DIALOGUE ) );
-
-		ImageIcon option = new ImageIcon("img/icons/optionNode.png");
-		addOptionButton = new JButton(TextConstants.getText( "Conversation.OptionAddOptionNode" ), option);
-		addOptionButton.addActionListener( new AddChildActionListener( ConversationNode.OPTION ));
-
-		ImageIcon delete = new ImageIcon("img/icons/deleteNode.png");
-		deleteNodeButton = new JButton(TextConstants.getText( "Conversation.OptionDeleteNode" ), delete);
-		deleteNodeButton.addActionListener( new DeleteNodeActionListener ());
-		
-		linkToButton = new JButton( TextConstants.getText( "Conversation.OptionLinkNode" ));
-		linkToButton.addActionListener( new LinkNodeActionListener());
 		
 		
 		/* End of common elements */
@@ -191,8 +164,6 @@ class LinesPanel extends JPanel {
 		deleteLineButton.setMargin( new Insets(0,0,0,0) );
 		deleteLineButton.setToolTipText(TextConstants.getText( "Conversations.DeleteLine" ));
 		deleteLineButton.addActionListener( new ListenerButtonDeleteLine( ) );
-		editEffectButton = new JButton( TextConstants.getText( "Conversations.EditEffect" ) );
-		editEffectButton.addActionListener( new ListenerButtonEditEffect( ) );
 		/* End of dialogue panel elements */
 
 		/* Option panel elements */
@@ -236,23 +207,6 @@ class LinesPanel extends JPanel {
 		c.fill = GridBagConstraints.VERTICAL;
 		buttonsPanel.add( new JFiller(), c);
 		
-		JPanel menuPanel = conversationPanel.getMenuPanel();
-		menuPanel.removeAll();
-		menuPanel.setLayout(new GridLayout(0,1));
-		menuPanel.add(editEffectButton);
-		menuPanel.add(addDialogButton);
-		addDialogButton.setEnabled( conversationDataControl.canAddChild( conversationPanel.getSelectedNode(), ConversationNode.DIALOGUE ) );
-		menuPanel.add(addOptionButton);
-		addOptionButton.setEnabled( conversationDataControl.canAddChild( conversationPanel.getSelectedNode(), ConversationNode.OPTION ) );
-		menuPanel.setVisible(true);
-		menuPanel.add(deleteNodeButton);
-		deleteNodeButton.setEnabled( conversationDataControl.canDeleteNode( conversationPanel.getSelectedNode() ));
-		menuPanel.add(linkToButton);
-		linkToButton.setEnabled(conversationDataControl.canLinkNode( conversationPanel.getSelectedNode() ));
-
-		menuPanel.setSize(200, 100);
-
-		
 		setLayout(new BorderLayout());
 		add(buttonsPanel, BorderLayout.EAST);
 		add(tableScrollPanel, BorderLayout.CENTER);
@@ -285,19 +239,6 @@ class LinesPanel extends JPanel {
 		c.gridy++;
 		buttonsPanel.add( moveLineDownButton , c );
 		
-		JPanel menuPanel = conversationPanel.getMenuPanel();
-		menuPanel.removeAll();
-		menuPanel.setLayout(new GridLayout(0,1));
-		menuPanel.add(editEffectButton);
-		menuPanel.add(addDialogButton);
-		addDialogButton.setEnabled( conversationDataControl.canAddChild( conversationPanel.getSelectedNode(), ConversationNode.DIALOGUE ) );
-		menuPanel.add(deleteNodeButton);
-		deleteNodeButton.setEnabled( conversationDataControl.canDeleteNode( conversationPanel.getSelectedNode() ));
-		menuPanel.add(linkToButton);
-		linkToButton.setEnabled(conversationDataControl.canLinkNode( conversationPanel.getSelectedNode() ));
-
-		menuPanel.setSize(200, 80);
-
 		JCheckBox randomOrder = new JCheckBox(TextConstants.getText( "Conversation.OptionRandomly"), conversationDataControl.isRandomActivate(conversationPanel.getSelectedNode()));
 		randomOrder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -331,15 +272,14 @@ class LinesPanel extends JPanel {
 		// If a dialogue node has been selected, set the dialogue node panel and change the panel title
 		else if( selectedNode.getType( ) == ConversationNodeView.DIALOGUE ) {
 			border.setTitle( TextConstants.getText( "LinesPanel.DialogueNode" ) );
-			//TODO MODIFIED
-			//editEffectButton.setEnabled( selectedNode.isTerminal( ) );
-			editEffectButton.setEnabled( true );
+			conversationPanel.getMenuPanel().setDialoguePanel();
 			setDialoguePanel( );
 		}
 
 		// If a option node has been selected, set the option node panel and change the panel title
 		else if( selectedNode.getType( ) == ConversationNodeView.OPTION ) {
 			border.setTitle( TextConstants.getText( "LinesPanel.OptionNode" ) );
+			conversationPanel.getMenuPanel().setOptionPanel();
 			setOptionPanel( );
 		}
 
@@ -351,19 +291,6 @@ class LinesPanel extends JPanel {
 	 * Reload options at the menu, enabling, disabling and selecting them
 	 */
 	public void reloadOptions( ) {
-		// Take the selected node from the principal panel
-		ConversationNodeView selectedNode = conversationPanel.getSelectedNode( );
-
-		// If it is a dialogue node, update the buttons
-		if( selectedNode.getType( ) == ConversationNodeView.DIALOGUE ) {
-			//TODO MODIFIED
-			//editEffectButton.setEnabled( selectedNode.isTerminal( ) );
-			editEffectButton.setEnabled( true );
-			this.addDialogButton.setEnabled(conversationDataControl.canAddChild( conversationPanel.getSelectedNode(), ConversationNode.DIALOGUE ));
-			this.addOptionButton.setEnabled(conversationDataControl.canAddChild( conversationPanel.getSelectedNode(), ConversationNode.OPTION ));
-		}
-
-		// Update the table
 		lineTable.revalidate( );
 	}
 
@@ -533,22 +460,6 @@ class LinesPanel extends JPanel {
 		}
 	}
 	
-	/**
-	 * Listener for the "Edit effect" button
-	 */
-	private class ListenerButtonEditEffect implements ActionListener {
-
-		public void actionPerformed( ActionEvent e ) {
-			// Take the selected node
-			ConversationNodeView selectedNode = conversationPanel.getSelectedNode( );
-
-			// Edit the effects of the node
-			conversationDataControl.editNodeEffects( selectedNode );
-
-			// Repaint the conversation panel
-			conversationPanel.repaint( );
-		}
-	}
 
 	/**
 	 * Listener for the "Delete option" button
@@ -635,67 +546,5 @@ class LinesPanel extends JPanel {
 		}
 	}
 
-	/**
-	 * Listener for the "Add child" option
-	 */
-	private class AddChildActionListener implements ActionListener {
-
-		/**
-		 * Type of node that this listener adds.
-		 */
-		private int nodeType;
-
-		/**
-		 * Constructor.
-		 * 
-		 * @param nodeType
-		 *            Type of the node to be added
-		 */
-		public AddChildActionListener( int nodeType ) {
-			this.nodeType = nodeType;
-		}
-
-		public void actionPerformed( ActionEvent e ) {
-			if( conversationDataControl.addChild( conversationPanel.getSelectedNode( ), nodeType ,((GraphConversationDataControl)conversationDataControl).getAllConditions())){
-				// Switch state to normal
-				conversationPanel.changeState( RepresentationPanel.NORMAL );
-
-				// Update the conversation panel and reload the options
-				conversationPanel.reloadOptions( );
-				conversationPanel.updateRepresentation( );
-			}
-		}
-	}
-
-	/**
-	 * Listener for the "Delete node" option
-	 */
-	private class DeleteNodeActionListener implements ActionListener {
-
-		public void actionPerformed( ActionEvent e ) {
-
-			// If the node is deleted
-			if( conversationDataControl.deleteNode( conversationPanel.getSelectedNode( ) ) ) {
-				// Empty the selection
-				conversationPanel.setSelectedNode( null );
-
-				// Switch state to normal
-				conversationPanel.changeState( RepresentationPanel.NORMAL );
-
-				// Update the conversation panel
-				conversationPanel.updateRepresentation( );
-			}
-		}
-	}
-
-	/**
-	 * Listener for the "Add link to..." option
-	 */
-	private class LinkNodeActionListener implements ActionListener {
-		public void actionPerformed( ActionEvent e ) {
-			if( conversationPanel.getState() == RepresentationPanel.NORMAL )
-				conversationPanel.changeState( RepresentationPanel.WAITING_SECOND_NODE_TO_LINK );
-		}
-	}
 
 }

@@ -65,7 +65,6 @@ public class BookDocAppPanel extends JPanel implements Updateable{
 
 		// Set the layout
 		setLayout( new GridBagLayout( ) );
-		setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Book.Title" ) ) );
 		GridBagConstraints c = new GridBagConstraints( );
 		c.insets = new Insets( 5, 5, 5, 5 );
 
@@ -73,6 +72,7 @@ public class BookDocAppPanel extends JPanel implements Updateable{
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1;
 		c.weighty = 1;
+		c.gridy = 1;
 		JPanel documentationPanel = new JPanel( );
 		documentationPanel.setLayout( new GridLayout( ) );
 		documentationTextArea = new JTextArea( bookDataControl.getDocumentation( ), 4, 0 );
@@ -83,7 +83,7 @@ public class BookDocAppPanel extends JPanel implements Updateable{
 		documentationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Book.Documentation" ) ) );
 		add( documentationPanel, c );
 
-		c.gridy = 1;
+		c.gridy = 0;
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1;
 		c.weighty = 3;

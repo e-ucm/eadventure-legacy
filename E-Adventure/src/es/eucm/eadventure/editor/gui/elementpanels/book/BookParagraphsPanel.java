@@ -179,14 +179,7 @@ public class BookParagraphsPanel extends JPanel implements DataControlsPanel {
 		// Create the main panel
 		paragraphsPanel = new JPanel();
 		paragraphsPanel.setLayout( new BorderLayout() );
-		
-		// Create the info panel (NORTH)
-		JTextPane informationTextPane = new JTextPane( );
-		informationTextPane.setEditable( false );
-		informationTextPane.setBackground( getBackground( ) );
-		informationTextPane.setText( TextConstants.getText( "BookParagraphs.ListDescription" , Integer.toString( dataControl.getBookParagraphsList( ).getBookParagraphs( ).size( ) ) ));
-		paragraphsPanel.add( informationTextPane, BorderLayout.NORTH );
-		
+				
 		// Create the table (CENTER)
 		paragraphsTable = new ParagraphsTable(dataControl.getBookParagraphsList( ));
 		paragraphsTable.addMouseListener( new MouseAdapter(){
@@ -259,7 +252,6 @@ public class BookParagraphsPanel extends JPanel implements DataControlsPanel {
 		buttonsPanel.add( moveDownButton );
 		
 		paragraphsPanel.add( buttonsPanel, BorderLayout.SOUTH );
-		paragraphsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "BookParagraphs.List" ) ) );
 	}
 	
 	/**

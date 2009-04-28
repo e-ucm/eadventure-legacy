@@ -110,29 +110,26 @@ public class BookPagesPanel extends JPanel{
 		
 		updateSelectedPage();
 		
-		infoAndPreview = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
-				pageEditionPanelContainer, previewPanelContainer);	
+		pageEditionPanelContainer.setMinimumSize( new Dimension(250,200) );
+		previewPanelContainer.setMinimumSize( new Dimension(100,150) );
+		pagesPanel.setMinimumSize( new Dimension (150,0) );
+
+
+		splitAndTable = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, pageEditionPanelContainer, pagesPanel);
+		splitAndTable.setOneTouchExpandable(true);
+		splitAndTable.setDividerLocation(0.7);
+		splitAndTable.setDividerSize(10);
+		splitAndTable.setResizeWeight(0.5);
+
+		infoAndPreview = new JSplitPane(JSplitPane.VERTICAL_SPLIT, splitAndTable, previewPanelContainer);	
 		infoAndPreview.setOneTouchExpandable(true);
+		infoAndPreview.setDividerLocation(250);
 		infoAndPreview.setResizeWeight(0.5);
 		infoAndPreview.setDividerSize(10);
 		infoAndPreview.setContinuousLayout(true);
-		infoAndPreview.setDividerLocation(360);
-		
-		//JPanel leftPanel = new JPanel();
-		//leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.PAGE_AXIS));
-		pageEditionPanelContainer.setMinimumSize( new Dimension(100,300) );
-		previewPanelContainer.setMinimumSize( new Dimension(100,150) );
-		pagesPanel.setMinimumSize( new Dimension (150,0) );
-		// create split pane with two panels: infoAndPreview panel and table
-		splitAndTable = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
-				infoAndPreview, pagesPanel);
-		splitAndTable.setOneTouchExpandable(true);
-		splitAndTable.setDividerLocation(490);
-		splitAndTable.setDividerSize(10);
-		splitAndTable.setResizeWeight(0.5);
 		
 		setLayout( new BorderLayout( ) );
-		add(splitAndTable,BorderLayout.CENTER);
+		add(infoAndPreview,BorderLayout.CENTER);
 	}
 	
 	public void updatePreview(){
@@ -252,14 +249,7 @@ public class BookPagesPanel extends JPanel{
 		// Create the main panel
 		pagesPanel = new JPanel();
 		pagesPanel.setLayout( new BorderLayout() );
-		
-		// Create the info panel (NORTH)
-		JTextPane informationTextPane = new JTextPane( );
-		informationTextPane.setEditable( false );
-		informationTextPane.setBackground( getBackground( ) );
-		informationTextPane.setText( TextConstants.getText( "BookPages.ListDescription" , Integer.toString( dataControl.getBookPagesList( ).getBookPages( ).size( ) ) ));
-		pagesPanel.add( informationTextPane, BorderLayout.NORTH );
-		
+				
 		// Create the table (CENTER)
 		pagesTable = new PagesTable(dataControl.getBookPagesList( ));
 		pagesTable.addMouseListener( new MouseAdapter(){
@@ -337,7 +327,6 @@ public class BookPagesPanel extends JPanel{
 		buttonsPanel.add( moveDownButton );
 		
 		pagesPanel.add( buttonsPanel, BorderLayout.SOUTH );
-		pagesPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "BookPages.List" ) ) );
 	}
 	
 	/**

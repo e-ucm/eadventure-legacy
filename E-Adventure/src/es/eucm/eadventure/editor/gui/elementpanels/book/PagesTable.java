@@ -46,7 +46,7 @@ public class PagesTable extends JTable{
 			if (columnIndex ==1 ){
 				return dataControl.getBookPages( ).get( rowIndex ).getUri( );
 			} else {
-				return Integer.toString( rowIndex+1 );
+				return Integer.toString( rowIndex + 1 );
 			}
 			
 		}

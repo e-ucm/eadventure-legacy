@@ -2960,7 +2960,7 @@ public class Controller {
 	public void showAboutDialog( ) {
 		
 		try {
-			JDialog dialog = new JDialog(Controller.getInstance( ).peekWindow( ), TextConstants.getText( "About" ), Dialog.ModalityType.APPLICATION_MODAL);
+			JDialog dialog = new JDialog(Controller.getInstance( ).peekWindow( ), TextConstants.getText( "About" ), Dialog.ModalityType.TOOLKIT_MODAL);
 			dialog.getContentPane( ).setLayout( new BorderLayout() );
 			File file = new File(ReleaseFolders.LANGUAGE_DIR_EDITOR+"/"+ConfigData.getAboutFile( ));
 			if (file.exists( )){
@@ -3013,15 +3013,15 @@ public class Controller {
 	 */
 	public void setLanguage ( int language ){
 		if (language == ReleaseFolders.LANGUAGE_SPANISH && languageFile!=ReleaseFolders.LANGUAGE_SPANISH){
-			ConfigData.setLanguangeFile( "es_ES.xml", "aboutES.html", "img/Editor2D-Loading-Esp.png" );
-			languageFile =ReleaseFolders.LANGUAGE_SPANISH;
+			ConfigData.setLanguangeFile( "es_ES.xml", "aboutES.html", "img/Editor2D-Loading-Esp.png");
+			languageFile = ReleaseFolders.LANGUAGE_SPANISH;
 			TextConstants.loadStrings( ReleaseFolders.getLanguageFilePath4Editor(true, language) );
 			TextConstants.appendStrings(ReleaseFolders.getLanguageFilePath4Editor(false, languageFile));
 			loadingScreen.setImage( getLoadingImage() );
 			mainWindow.reloadData( );
 		}
 		else if (language == ReleaseFolders.LANGUAGE_ENGLISH && languageFile!=ReleaseFolders.LANGUAGE_ENGLISH){
-			ConfigData.setLanguangeFile( "en_EN.xml", "aboutEN.html", "img/Editor2D-Loading-Eng.png" );
+			ConfigData.setLanguangeFile( "en_EN.xml", "aboutEN.html", "img/Editor2D-Loading-Eng.png");
 			languageFile =ReleaseFolders.LANGUAGE_ENGLISH;
 			TextConstants.loadStrings( ReleaseFolders.getLanguageFilePath4Editor(true, language) );
 			TextConstants.appendStrings(ReleaseFolders.getLanguageFilePath4Editor(false, languageFile));

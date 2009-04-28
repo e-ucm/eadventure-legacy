@@ -18,7 +18,7 @@ public class ConfigData {
 	private static ConfigData instance;
 
 	private String configFile;
-
+	
 	/**
 	 * Stores the file that contains the GUI strings.
 	 */
@@ -95,7 +95,7 @@ public class ConfigData {
 		instance.showAtrezzoReferences = b;
 	}
 
-	public static void setLanguangeFile( String language, String about, String loadingImage ) {
+	public static void setLanguangeFile( String language, String about, String loadingImage) {
 		instance.languageFile = language;
 		instance.aboutFile = about;
 		instance.loadingImage = loadingImage;

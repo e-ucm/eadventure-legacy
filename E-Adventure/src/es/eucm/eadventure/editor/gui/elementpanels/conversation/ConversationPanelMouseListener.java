@@ -72,25 +72,17 @@ public class ConversationPanelMouseListener implements MouseListener, MouseMotio
 
 		// If we are waiting for a destination node to move the selected one
 		else if( representationPanel.getState() == RepresentationPanel.WAITING_SECOND_NODE_TO_MOVE ) {
-
-			// If the node is moved, update the representation
 			if( clickedNode != null && conversationDataControl.moveNode( conversationPanel.getSelectedNode( ), clickedNode ) )
 				representationPanel.updateRepresentation( );
-
-			// Switch to normal state
 			representationPanel.changeState( RepresentationPanel.NORMAL );
 		}
 
 		// If we are waiting for a destination node to link with the selected one
 		else if( representationPanel.getState() == RepresentationPanel.WAITING_SECOND_NODE_TO_LINK ) {
-
-			// If the node is linked, update the representation and reload the options
 			if( clickedNode != null && conversationDataControl.linkNode( conversationPanel.getSelectedNode( ), clickedNode ) ) {
 				conversationPanel.reloadOptions( );
 				representationPanel.updateRepresentation( );
 			}
-
-			// Switch to normal state
 			representationPanel.changeState( RepresentationPanel.NORMAL );
 		}
 	}

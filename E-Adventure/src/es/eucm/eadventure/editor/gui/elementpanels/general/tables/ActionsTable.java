@@ -24,6 +24,9 @@ public class ActionsTable extends JTable{
 		
 		this.setModel( new ActionsTableModel() );
 		this.getColumnModel( ).setColumnSelectionAllowed( false );
+		this.getColumnModel().getColumn(0).setHeaderRenderer(new InfoHeaderRenderer("test.html"));
+		this.getColumnModel().getColumn(1).setHeaderRenderer(new InfoHeaderRenderer());
+		this.getColumnModel().getColumn(2).setHeaderRenderer(new InfoHeaderRenderer());
 		this.setDragEnabled( false );
 		
 		this.getColumnModel().getColumn(0).setCellRenderer(new ActionCellRendererEditor());

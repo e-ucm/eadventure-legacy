@@ -49,11 +49,6 @@ public class ConversationPanel extends JPanel implements Updateable {
 	private LinesPanel linesPanel;
 
 	/**
-	 * Status bar
-	 */
-	private StatusBar statusBar;
-
-	/**
 	 * Selected node
 	 */
 	private ConversationNodeView selectedNode;
@@ -79,9 +74,6 @@ public class ConversationPanel extends JPanel implements Updateable {
 		selectedNode = null;
 		selectedChild = null;
 		this.conversationDataControl = conversationDataControl;
-
-		// Create the status bar
-		statusBar = new StatusBar( TextConstants.getText( "Conversation.StatusBarNormal" ) );
 
 		// Create the conversation and node panels
 		representationPanel = new RepresentationPanel( this, conversationDataControl );
@@ -113,7 +105,6 @@ public class ConversationPanel extends JPanel implements Updateable {
 		// Add the node panel and the status bar to the down panel
 		downPanel.setLayout( new BorderLayout( ) );
 		downPanel.add( linesPanel, BorderLayout.CENTER );
-		downPanel.add( statusBar, BorderLayout.SOUTH );
 
 		// Create the scroll panel which contains the conversation panel
 		scrollPanel = new JScrollPane( representationPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS );
@@ -135,16 +126,6 @@ public class ConversationPanel extends JPanel implements Updateable {
 	}
 
 	/**
-	 * Sets a new text in the status bar.
-	 * 
-	 * @param text
-	 *            New text
-	 */
-	public void setStatusBarText( String text ) {
-		statusBar.setText( text );
-	}
-
-	/**
 	 * Updates the graphic representation of the conversation panel, and informs the main window that the file has been
 	 * altered
 	 */
@@ -156,6 +137,7 @@ public class ConversationPanel extends JPanel implements Updateable {
 	 * Reloads the button of the lines panel.
 	 */
 	public void reloadOptions( ) {
+		representationPanel.getMenuPanel().reloadOptions();
 		linesPanel.reloadOptions( );
 	}
 
@@ -184,6 +166,7 @@ public class ConversationPanel extends JPanel implements Updateable {
 		previewFromNode.setEnabled(selectedNode != null);
 
 		// Inform the node panel that a new node has been selected, and repaint the conversation panel
+		
 		linesPanel.newSelectedNode( );
 		representationPanel.repaint( );
 		revalidate( );
@@ -269,7 +252,7 @@ public class ConversationPanel extends JPanel implements Updateable {
 		representationPanel.updateRepresentation();
 	}
 
-	public JPanel getMenuPanel() {
+	public MenuPanel getMenuPanel() {
 		return representationPanel.getMenuPanel();
 	}
 
