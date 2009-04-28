@@ -166,9 +166,10 @@ Se han borrado las referencias a dicho perfil.</entry>
 	<entry key="Error.AssetNotFound7">No se encontró el fichero de video "{#0}".</entry>
 	<entry key="Error.AssetNotFound8">No se encontró el cursor "{#0}".</entry>
 	<entry key="Error.AssetNotFound9">No se encontró el fichero de texto con estilo "{#0}".</entry>
-	
+	<entry key="Error.LoadDescriptor.NoDescriptor">Ocurrió un problema al leer el descriptor de la aventura: el descriptor no se encuentra</entry>
 	<entry key="Error.LoadDescriptor.SAX">Ocurrió un problema con la consistencia XML del descriptor de la aventura</entry>
 	<entry key="Error.LoadDescriptor.IO">Ocurrió un problema al leer el descriptor de la aventura</entry>
+	
 	<entry key="Error.LoadData.SAX">Ocurrió un problema con la consistencia XML de los datos</entry>
 	<entry key="Error.LoadData.IO">Ocurrió un problema al leer los datos</entry>
 	<entry key="Error.LoadAssessmentData.SAX">Ocurrió un problema con la consistencia XML de los datos de evaluación</entry>
@@ -518,7 +519,7 @@ Por favor, inténtelo de nuevo cambiando dicho directorio.</entry>
 	<entry key="Operation.ExportSCORM2004AGREGA.BadProfiles.Message">El perfil de evaluación y el de adaptación deben ser del tipo SCORM 2004 en caso de existir para poder exportar en formato AGREGA.</entry>
 	<entry key="Operation.AdaptationPanel.InsertButton">Insertar</entry>
 	<entry key="Operation.AdaptationPanel.DeleteButton">Borrar</entry>	
-	
+	<entry key="Operation.NewChapter.ExistingName">El nombre existe</entry>
 	
 	
 	<entry key="GUIStyles.Title">Estilo de GUI de la aventura</entry>
