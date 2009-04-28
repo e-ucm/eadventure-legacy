@@ -1,40 +1,29 @@
 package es.eucm.eadventure.editor.gui.elementpanels.adaptation;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.EventObject;
 
 import javax.swing.BorderFactory;
-import javax.swing.ButtonGroup;
 import javax.swing.DefaultCellEditor;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
-import javax.swing.event.CellEditorListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableCellEditor;
 
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
 import es.eucm.eadventure.common.gui.TextConstants;
@@ -85,11 +74,6 @@ class GameStatePanel extends JPanel implements Updateable{
 	 * "Delete property" button
 	 */
 	private JButton deleteActionFlagButton;
-	
-	/**
-	 * Combo box for the initial scene
-	 */
-	private JComboBox initialSceneCB;
 	
 	/**
 	 * Combo box to show the flags and vars in chapter
@@ -171,21 +155,6 @@ class GameStatePanel extends JPanel implements Updateable{
 		for (int i=0; i<scenes.length; i++){
 			isValues[i+1]=scenes[i];
 		}
-		this.initialSceneCB = new JComboBox(isValues);
-		
-		if (adaptationRuleDataControl.getInitialScene( )==null){
-			initialSceneCB.setSelectedIndex( 0 );
-		}else{
-			initialSceneCB.setSelectedItem( adaptationRuleDataControl.getInitialScene( ) );
-		}
-		initialSceneCB.addActionListener( new ActionListener(){
-
-			public void actionPerformed( ActionEvent e ) {
-				if (initialSceneCB.getSelectedIndex( )>0)
-					adaptationRuleDataControl.setInitialScene( initialSceneCB.getSelectedItem( ).toString( ) );
-			}
-			
-		});
 		
 		/* End of dialogue panel elements */
 
@@ -199,13 +168,7 @@ class GameStatePanel extends JPanel implements Updateable{
 		removeAll( );
 		deleteActionFlagButton.setEnabled( false );
 		setLayout(new BorderLayout());
-		
-		JPanel initialScenePanel = new JPanel();
-		initialScenePanel.setLayout( new GridLayout() );
-		initialScenePanel.add( initialSceneCB );
-		initialScenePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AdaptationRule.GameState.InitialScene" ) ) );
-		add(initialScenePanel, BorderLayout.NORTH);
-		
+				
 		add(tableScrollPanel, BorderLayout.CENTER);
 
 		JPanel buttonPanel = new JPanel();
@@ -571,20 +534,10 @@ class GameStatePanel extends JPanel implements Updateable{
 			isValues[i+1]=scenes[i];
 		}
 		
-		this.initialSceneCB.setModel(new DefaultComboBoxModel(isValues) );
-		
-		if (adaptationRuleDataControl.getInitialScene( )==null){
-			initialSceneCB.setSelectedIndex( 0 );
-		}else{
-			initialSceneCB.setSelectedItem( adaptationRuleDataControl.getInitialScene( ) );
-		}
-		
 		for (int i=0;i<actionFlagsTable.getRowCount();i++)
 		    setRowEditor(i,adaptationRuleDataControl.isFlag(i));
 		actionFlagsTable.tableChanged(new TableModelEvent(tableModel ));
-		
-		initialSceneCB.updateUI();
-		
+				
 		return true;
 	}
 }

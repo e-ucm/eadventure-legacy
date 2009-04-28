@@ -2485,4 +2485,5 @@ Los perfiles de adaptación y evaluación no utilizados permaneceran intactos.</
 	<entry key="ResizeableListPanel.Size1ToolTip">Ver los elementos en una lista con vistas previas pequeñas</entry>
 	<entry key="ResizeableListPanel.Size2ToolTip">Ver los elementos en una lista con vistas previas grandes</entry>
 
+	<entry key="HelpDialog.Title">Ayuda</entry>
 </properties>

@@ -57,8 +57,11 @@ public class ResourcesTable extends JTable {
 		public Object getValueAt( int rowIndex, int columnIndex ) {
 			if (columnIndex == 0)
 				return TextConstants.getText("ResourcesList.ResourcesBlockNumber") + (rowIndex + 1);
-			if (columnIndex == 1)
+			if (columnIndex == 1) {
+				if (dataControl.getResources().size() == 1)
+					return null;
 				return dataControl.getResources().get(rowIndex).getConditions();
+			}
 			return null;
 		}
 		

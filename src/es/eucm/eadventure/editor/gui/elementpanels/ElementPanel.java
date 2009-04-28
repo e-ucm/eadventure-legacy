@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
@@ -105,9 +106,12 @@ public class ElementPanel extends JTabbedPane implements Updateable, DataControl
 	private class ElementPanelTabChangeListener implements ChangeListener {
 		public void stateChanged(final ChangeEvent arg0) {
 			if (selected != getSelectedIndex()) {
+				if (selected >= 0)
+					ElementPanel.this.setTabComponentAt(selected, new JLabel(tabs.get(selected).getTitle()));
 				selected = getSelectedIndex();
 				((JPanel) getSelectedComponent()).removeAll();
 				PanelTab tab = tabs.get(getSelectedIndex());
+				ElementPanel.this.setTabComponentAt(selected, tab.getTab());
 				StructureControl.getInstance().visitDataControl(tab.getDataControl());
 				component = tab.getComponent();
 				((JPanel) getSelectedComponent()).add(component, BorderLayout.CENTER);

@@ -1,10 +1,22 @@
 package es.eucm.eadventure.editor.gui.elementpanels;
 
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.gui.Updateable;
+import es.eucm.eadventure.editor.gui.editdialogs.HelpDialog;
 
 /**
  * This class represents the content of a Tab in an ElementPanel.<br>
@@ -39,6 +51,8 @@ public abstract class PanelTab implements Updateable {
 	 */
 	private DataControl dataControl;
 	
+	private String helpPath;
+	
 	/**
 	 * Constructor.
 	 * 
@@ -67,6 +81,10 @@ public abstract class PanelTab implements Updateable {
 	 */
 	public void setToolTipText(String toolTipText) {
 		this.toolTipText = toolTipText;
+	}
+	
+	public void setHelpPath(String helpPath) {
+		this.helpPath = helpPath;
 	}
 	
 	/**
@@ -128,5 +146,32 @@ public abstract class PanelTab implements Updateable {
 	 */
 	public Icon getIcon() {
 		return icon;
+	}
+	
+	public JComponent getTab() {
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 0;
+		JLabel label = new JLabel(title);
+		label.setFont(label.getFont().deriveFont(Font.BOLD));
+		panel.add(label, c);
+		if (helpPath != null) {
+			JButton infoButton = new JButton(new ImageIcon("img/icons/information.png"));
+			infoButton.setContentAreaFilled( false );
+			infoButton.setMargin( new Insets(0,0,0,0) );
+			infoButton.setFocusable(false);
+			c.gridx = 1;
+			panel.add(infoButton, c);
+			infoButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					new HelpDialog(helpPath);
+				}
+			});
+		}
+		panel.setFocusable(false);
+		panel.setOpaque(false);
+		return panel;
 	}
 }

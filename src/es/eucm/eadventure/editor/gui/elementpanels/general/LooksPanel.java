@@ -161,6 +161,9 @@ public abstract class LooksPanel extends JPanel {
 		tableWithSplit.setContinuousLayout(true);
 		tableWithSplit.setResizeWeight(0);
 		tableWithSplit.setDividerSize(10);
+		
+		if (resourcesTable.getRowCount() == 1)
+			tableWithSplit.setDividerLocation(0);
 
 		setLayout(new BorderLayout());
 		add(tableWithSplit, BorderLayout.CENTER);

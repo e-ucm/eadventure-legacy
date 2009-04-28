@@ -19,7 +19,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -96,21 +95,9 @@ public class BookPagePanel extends JPanel implements Updateable {
 		resourceRadioButton = new JRadioButton( TextConstants.getText( "BookPageType.Resource" ) );
 		pageTypePanel.add( resourceRadioButton, c1 );
 
-		// Traditional description
-		c1.insets = new Insets( 0, 0, 5, 5 );
-		c1.gridy = 1;
-		c1.weightx = 1;
-		c1.fill = GridBagConstraints.BOTH;
-		c1.anchor = GridBagConstraints.CENTER;
-		JTextPane xmlReportInfo = new JTextPane( );
-		xmlReportInfo.setEditable( false );
-		xmlReportInfo.setBackground( getBackground( ) );
-		xmlReportInfo.setText( TextConstants.getText( "BookPageType.ResourceDescription" ) );
-		pageTypePanel.add( xmlReportInfo, c1 );
-
 		// Contextual radio button
 		c1.insets = new Insets( 5, 5, 3, 5 );
-		c1.gridy = 2;
+		c1.gridx = 1;
 		c1.fill = GridBagConstraints.NONE;
 		c1.anchor = GridBagConstraints.LINE_START;
 		urlRadioButton = new JRadioButton( TextConstants.getText( "BookPageType.URL" ) );
@@ -119,23 +106,9 @@ public class BookPagePanel extends JPanel implements Updateable {
 		} );
 		pageTypePanel.add( urlRadioButton, c1 );
 
-		// Contextual description
-		c1.insets = new Insets( 0, 0, 5, 5 );
-		c1.gridx = 0;
-		c1.gridy = 3;
-		c1.weightx = 1;
-		c1.fill = GridBagConstraints.BOTH;
-		c1.anchor = GridBagConstraints.CENTER;
-		JTextPane htmlReportInfo = new JTextPane( );
-		htmlReportInfo.setEditable( false );
-		htmlReportInfo.setBackground( getBackground( ) );
-		htmlReportInfo.setText( TextConstants.getText( "BookPageType.URLDescription" ) );
-		pageTypePanel.add( htmlReportInfo, c1 );
-
-		
 		// Contextual radio button
 		c1.insets = new Insets( 5, 5, 3, 5 );
-		c1.gridy = 4;
+		c1.gridx = 2;
 		c1.fill = GridBagConstraints.NONE;
 		c1.anchor = GridBagConstraints.LINE_START;
 		imageRadioButton = new JRadioButton( TextConstants.getText( "BookPageType.Image" ) );
@@ -143,19 +116,6 @@ public class BookPagePanel extends JPanel implements Updateable {
 			public void actionPerformed( ActionEvent arg0 ) {}
 		} );
 		pageTypePanel.add( imageRadioButton, c1 );
-
-		// Contextual description
-		c1.insets = new Insets( 0, 0, 5, 5 );
-		c1.gridx = 0;
-		c1.gridy = 5;
-		c1.weightx = 1;
-		c1.fill = GridBagConstraints.BOTH;
-		c1.anchor = GridBagConstraints.CENTER;
-		JTextPane imageReportInfo = new JTextPane( );
-		imageReportInfo.setEditable( false );
-		imageReportInfo.setBackground( getBackground( ) );
-		imageReportInfo.setText( TextConstants.getText( "BookPageType.ImageDescription" ) );
-		pageTypePanel.add( imageReportInfo, c1 );
 
 		// Configure the radio buttons
 		resourceRadioButton.addActionListener( new OptionChangedListener( ) );
@@ -223,31 +183,29 @@ public class BookPagePanel extends JPanel implements Updateable {
 		assetPathPanel.add( pathTextField, c2 );
 
 		// Create the "Select" button and insert it
-		c2.gridx = 2;
-		c2.fill = GridBagConstraints.NONE;
-		c2.weightx = 0;
+		c2.gridx = 0;
+		c2.gridy = 1;
+		c2.gridwidth = 2;
+		c2.fill = GridBagConstraints.HORIZONTAL;
+		c2.weightx = 2;
+		JPanel panel = new JPanel();
+		
 		selectButton = new JButton( TextConstants.getText( "Resources.Select" ) );
 		selectButton.addActionListener( new ExamineButtonListener( ) );
 		selectButton.setEnabled(bookPage!=null && ! pathTextField.isEditable( ) );
-		assetPathPanel.add( selectButton, c2 );
+		panel.add( selectButton );
 		
-		
-		c2.gridx = 3;
-		c2.fill = GridBagConstraints.NONE;
-		c2.weightx = 0;
 		createButton = new JButton( TextConstants.getText("Resources.Create"));
 		createButton.addActionListener(new CreateButtonListener());
 		createButton.setEnabled(bookPage != null && !pathTextField.isEditable() && bookPage.getType() != BookPage.TYPE_IMAGE);
-		assetPathPanel.add( createButton, c2);
+		panel.add( createButton);
 
-		
-		c2.gridx = 4;
-		c2.fill = GridBagConstraints.NONE;
-		c2.weightx = 0;
 		editButton = new JButton( TextConstants.getText("Resources.Edit"));
 		editButton.addActionListener(new EditButtonListener());
 		editButton.setEnabled(bookPage != null && !pathTextField.isEditable() && pathTextField.getText().length() > 0 && bookPage.getType() != BookPage.TYPE_IMAGE);
-		assetPathPanel.add( editButton, c2);
+		panel.add(editButton);
+		
+		assetPathPanel.add( panel, c2);
 
 		//---------------- Asset path panel -------------------------------------//
 		

@@ -180,6 +180,8 @@ public abstract class ConversationDataControl extends DataControl {
 	 * @return
 	 */
 	public abstract void setConversation( Conversation conversation );
+
+	public abstract void updateAllConditions();
 	
 	/**
 	 * Adds a line in the given node, with the given name and a default text.

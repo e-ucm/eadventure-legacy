@@ -607,8 +607,11 @@ public class TimedAssessmentRulePanel extends JPanel {
 			
 			deleteEffectBlock = new DeleteTabButton(new ImageIcon("img/icons/deleteNode.png"));
 			deleteEffectBlock.setContentAreaFilled( false );
+			deleteEffectBlock.setFocusable(false);
 			JPanel buttonCont =  new JPanel(new GridLayout(0,2));
+			buttonCont.setOpaque(false);
 			buttonCont.add(new JLabel("#"+Integer.toString(numEffects)));
+			buttonCont.setFocusable(false);
 			numEffects++;
 			buttonCont.add(deleteEffectBlock);
 			container2.add(cont,numEffects);

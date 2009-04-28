@@ -56,7 +56,7 @@ public class ParagraphsTable extends JTable{
 				List<BookParagraphDataControl> paragraphs = dataControl.getBookParagraphs( );
 				return paragraphs.get( rowIndex );
 			} else {
-				return Integer.toString( rowIndex );
+				return Integer.toString( rowIndex + 1);
 			}
 			
 		}

@@ -38,6 +38,7 @@ public class ScenePanel extends ElementPanel {
 		
 		public SceneLookPanelTab(SceneDataControl sDataControl) {
 			super(TextConstants.getText("Scene.LookPanelTitle"), sDataControl);
+			this.setHelpPath("test.html");
 			this.sDataControl = sDataControl;
 		}
 

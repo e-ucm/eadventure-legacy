@@ -2477,4 +2477,6 @@ Unreferenced assessment and adaptation profiles will remain intact.</entry>
 	<entry key="ResizeableListPanel.Size0ToolTip">View all the elements in a simple list</entry>
 	<entry key="ResizeableListPanel.Size1ToolTip">View all the elements in a list with small previews</entry>
 	<entry key="ResizeableListPanel.Size2ToolTip">View all the elements in a list with big previews</entry>
+
+	<entry key="HelpDialog.Title">Help</entry>
 </properties>

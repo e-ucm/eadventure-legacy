@@ -71,6 +71,7 @@ public class LinkConversationNodeTool extends Tool{
 
 				// The node was successfully linked
 				nodeLinked = true;
+				dataControl.updateAllConditions();
 			}
 		}
 
@@ -87,6 +88,7 @@ public class LinkConversationNodeTool extends Tool{
 		// If the father is an option node, add a new line
 		if( father.getType( ) == ConversationNode.OPTION )
 			father.addLine( new ConversationLine( ConversationLine.PLAYER, TextConstants.getText( "ConversationLine.DefaultText" ) ) );
+		dataControl.updateAllConditions();
 		controller.updatePanel();
 		return true;
 	}
@@ -110,6 +112,7 @@ public class LinkConversationNodeTool extends Tool{
 		// If the father is an option node, add a new line
 		if( father.getType( ) == ConversationNode.OPTION && index!=-1)
 			father.removeLine( index );
+		dataControl.updateAllConditions();
 		controller.updatePanel();
 		return true;
 	}
