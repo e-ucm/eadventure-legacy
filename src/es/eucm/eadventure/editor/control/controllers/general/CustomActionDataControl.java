@@ -24,8 +24,8 @@ public class CustomActionDataControl extends ActionDataControl {
 	 */
 	public CustomActionDataControl(CustomAction action) {
 		super(action);
-		//customAction = new CustomAction(action);
 		customAction = action;
+		
 		this.resourcesList = customAction.getResources( );
 		if (this.resourcesList.size() == 0)
 			this.resourcesList.add(new Resources());
@@ -35,6 +35,7 @@ public class CustomActionDataControl extends ActionDataControl {
 		for (Resources resources: resourcesList) {
 			resourcesDataControlList.add(new ResourcesDataControl( resources, Controller.ACTION_CUSTOM ));
 		}
+
 	}
 		
 	/**

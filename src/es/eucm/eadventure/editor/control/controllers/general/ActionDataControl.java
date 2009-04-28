@@ -1,8 +1,10 @@
 package es.eucm.eadventure.editor.control.controllers.general;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.Action;
+import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
@@ -50,6 +52,9 @@ public class ActionDataControl extends DataControlWithResources {
 	 */
 	public ActionDataControl( Action action ) {
 		this.action = action;
+		
+		this.resourcesList = new ArrayList<Resources>();
+		this.resourcesDataControlList = new ArrayList<ResourcesDataControl>();
 
 		// Store the type of the action
 		switch( action.getType( ) ) {
@@ -305,30 +310,6 @@ public class ActionDataControl extends DataControlWithResources {
 		return true;
 	}
 
-	@Override
-	public ResourcesDataControl getLastResources() {
-		return null;
-	}
-
-	@Override
-	public List<ResourcesDataControl> getResources() {
-		return null;
-	}
-
-	@Override
-	public int getResourcesCount() {
-		return 0;
-	}
-
-	@Override
-	public int getSelectedResources() {
-		return 0;
-	}
-
-	@Override
-	public void setSelectedResources(int selectedResources) {
-	}
-	
 	/**
 	 * @return the value of needsGoTo
 	 */
