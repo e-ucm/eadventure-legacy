@@ -159,6 +159,7 @@ All the references to the profile were deleted.</entry>
 	
 	<entry key="Error.LoadDescriptor.SAX">An error occurred with the XML consistency of the adventure descriptor file</entry>
 	<entry key="Error.LoadDescriptor.IO">An error occurred reading the adventure descriptor file</entry>
+	<entry key="Error.LoadDescriptor.NoDescriptor">An error occurred reading the adventure descriptor file: descriptor file is missing</entry>
 	<entry key="Error.LoadData.SAX">An error occurred with the XML consistency of the adventure data</entry>
 	<entry key="Error.LoadData.IO">An error occurred reading the data</entry>
 	<entry key="Error.LoadAssessmentData.SAX">An error occurred with the XML consistency of the assessment data</entry>
@@ -508,7 +509,8 @@ Please, try it again with other destiny directory.</entry>
 	<entry key="Operation.ExportSCORM2004AGREGA.BadProfiles.Title">Incorrect Profiles</entry>
 	<entry key="Operation.ExportSCORM2004AGREGA.BadProfiles.Message">The assessment and adaptation profile must be SCORM 2004 if they exists to export in AGREGA format.</entry>
 	<entry key="Operation.AdaptationPanel.InsertButton">Insert statement</entry>
-	<entry key="Operation.AdaptationPanel.DeleteButton">Delete statement</entry>	
+	<entry key="Operation.AdaptationPanel.DeleteButton">Delete statement</entry>
+	<entry key="Operation.NewChapter.ExistingName">The name already exists</entry>
 	
 	<entry key="GUIStyles.Title">GUI style for the adventure</entry>
 	<entry key="GUIStyles.Traditional">Traditional GUI</entry>
