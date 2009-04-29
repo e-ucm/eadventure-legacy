@@ -172,7 +172,7 @@ public class ActionsListPanel extends JPanel implements DataControlsPanel{
 		int selectedAction = table.getSelectedRow( );
 		actionPropertiesPanel.removeAll();
 
-		if (selectedAction != -1) {
+		if (selectedAction != -1&&dataControl.getActions().size()>0) {
 			ActionDataControl action = dataControl.getActions().get(selectedAction);
 			if (action instanceof CustomActionDataControl){
 			    JPanel actionPanel = new CustomActionPropertiesPanel((CustomActionDataControl)action);
@@ -188,6 +188,8 @@ public class ActionsListPanel extends JPanel implements DataControlsPanel{
 			moveUpButton.setEnabled( dataControl.getActions().size()>1 && selectedAction > 0);
 			moveDownButton.setEnabled( dataControl.getActions().size()>1 && selectedAction < table.getRowCount( )-1 );
 		} else {
+		    	actionPropertiesPanel.removeAll();
+		    	actionPropertiesPanel.updateUI();
 			deleteButton.setEnabled(false);
 			duplicateButton.setEnabled(false);
 			moveUpButton.setEnabled(false);

@@ -17,7 +17,8 @@ public class ChangesInSceneStructureListElement extends EffectsStructureListElem
     public ChangesInSceneStructureListElement() {
 	super(TextConstants.getText("EffectsGroup.ChangeInScene"));
 	icon = new ImageIcon( "img/icons/adaptationProfiles.png" );
-	groupEffects = COMPONENTS;
+	groupEffects = new String[]{TextConstants.getText( "Effect.ConsumeObject" ),TextConstants.getText( "Effect.GenerateObject" ),
+		TextConstants.getText( "Effect.MovePlayer" ),TextConstants.getText( "Effect.MoveCharacter" )};
 	path = LIST_URL;
 	
     }

@@ -723,6 +723,7 @@ función de estos estados</entry>
 	<entry key="EffectsGroup.Feedback">Notificación</entry>
 	<entry key="EffectsGroup.ChangeInScene">Cambios en la escena</entry>
 	<entry key="EffectsGroup.Main">Efectos</entry>
+	<entry key="SelectEffectDialog.Title">Panel de creación de efectos</entry>
 	
 
 	<entry key="ImageDialog.Title">Previsualización de imagen - {#0}</entry>

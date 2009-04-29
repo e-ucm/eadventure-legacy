@@ -40,7 +40,7 @@ public class SelectEffectsDialog extends ToolManagableDialog {
     
     
     public SelectEffectsDialog() {
-	super(Controller.getInstance( ).peekWindow( ),TextConstants.getText("") );
+	super(Controller.getInstance( ).peekWindow( ),TextConstants.getText("SelectEffectDialog.Title") );
 	
 	effectsStructurePanel = new EffectsStructurePanel();
 	StructureControl.getInstance().setStructurePanel(effectsStructurePanel);

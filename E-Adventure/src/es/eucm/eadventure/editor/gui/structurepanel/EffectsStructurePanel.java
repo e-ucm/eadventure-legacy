@@ -38,12 +38,12 @@ public class EffectsStructurePanel extends StructurePanel{
      */
     private static final long serialVersionUID = 1L;
 
-    private static final String ACTIVATE_URL = "";
+    private static final String ACTIVATE_URL = "Effects_Activate.html";
     
-    private static final String DEACTIVATE_URL = "";
-    private static final String INCR_URL = "";
-    private static final String DECR_URL = "";
-    private static final String SET_URL = "";
+    private static final String DEACTIVATE_URL = "Effects_Deactivate.html";
+    private static final String INCR_URL = "Effects_Increment.html";
+    private static final String DECR_URL = "Effects_Decrement.html";
+    private static final String SET_URL = "Effects_Setvar.html";
     private static final String LAUNCH_URL = "";
     private static final String CONSUME_URL = "";
     private static final String GENERATE_URL = "";
@@ -51,12 +51,12 @@ public class EffectsStructurePanel extends StructurePanel{
     private static final String SP_PLAYER_URL = "";
     private static final String SP_NPC_URL = "";
     private static final String BOOK_URL = "";
-    private static final String SOUND_URL = "";
-    private static final String ANIMATION_URL = "";
+    private static final String SOUND_URL = "Effects_Audio.html";
+    private static final String ANIMATION_URL = "Effects_Animation.html";
     private static final String MV_PLAYER_URL = "";
     private static final String MV_NPC_URL = "";
     private static final String CONV_URL = "";
-    private static final String CUTSCENE_URL = "";
+    private static final String CUTSCENE_URL = "Effects_Cutscene.html";
     private static final String SCENE_URL = "";
     private static final String LAST_SCENE_URL = "";
     private static final String RAMDON_URL = "";
@@ -130,7 +130,7 @@ public class EffectsStructurePanel extends StructurePanel{
 		public void valueChanged(ListSelectionEvent e) {
 			if (list.getSelectedRow() >= 0) {
 				list.setRowHeight(20);
-				list.setRowHeight(list.getSelectedRow(), 50);
+				list.setRowHeight(list.getSelectedRow(), 30);
 				list.editCellAt(list.getSelectedRow(), 0);
 				changeEffectEditPanel(getSelectedEffect());
 			} else {
