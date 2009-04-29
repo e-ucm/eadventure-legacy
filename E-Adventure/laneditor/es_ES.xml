@@ -716,7 +716,14 @@ función de estos estados</entry>
 	<entry key="Effect.RandomInfo">{#2} (probabilidad = {#0}%); {#3} (probabilidad = {#1}%)</entry>
 	<entry key="Effect.WaitTimeInfo">Esperar {#0} segundos</entry>
 	<entry key="Effect.ShowTextInfo">Mostrar {#0} en la posición x:{#1} y:{#2}</entry>
-
+	<entry key="EffectsGroup.GameState">Estado de Juego</entry>
+	<entry key="EffectsGroup.Multimedia">Multimedia</entry>
+	<entry key="EffectsGroup.Miscellaneous">Miscelánea</entry>
+	<entry key="EffectsGroup.Trigger">Lanzar eventos</entry>
+	<entry key="EffectsGroup.Feedback">Notificación</entry>
+	<entry key="EffectsGroup.ChangeInScene">Cambios en la escena</entry>
+	<entry key="EffectsGroup.Main">Efectos</entry>
+	
 
 	<entry key="ImageDialog.Title">Previsualización de imagen - {#0}</entry>
 	<entry key="SlidesDialog.Title">Previsualización de diapositivas - {#0}</entry>

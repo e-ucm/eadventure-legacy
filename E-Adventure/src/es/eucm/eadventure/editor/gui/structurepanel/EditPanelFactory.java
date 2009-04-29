@@ -1,5 +1,9 @@
 package es.eucm.eadventure.editor.gui.structurepanel;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.net.URL;
+
 import javax.swing.JComponent;
 
 import es.eucm.eadventure.editor.control.controllers.DataControl;
@@ -45,6 +49,7 @@ import es.eucm.eadventure.editor.gui.elementpanels.item.ItemPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.item.ItemsListPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.scene.ScenePanel;
 import es.eucm.eadventure.editor.gui.elementpanels.scene.ScenesListPanel;
+import es.eucm.eadventure.common.gui.TextConstants;
 
 public class EditPanelFactory {
 
@@ -96,4 +101,6 @@ public class EditPanelFactory {
 		
 		return null;
 	}
+	
+	
 }

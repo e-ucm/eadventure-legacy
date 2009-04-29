@@ -9,9 +9,9 @@ import es.eucm.eadventure.common.data.HasId;
 
 public class StructureElement {
 
-	private Icon icon;
+	protected Icon icon;
 	
-	private String name;
+	protected String name;
 	
 	private DataControl dataControl;
 

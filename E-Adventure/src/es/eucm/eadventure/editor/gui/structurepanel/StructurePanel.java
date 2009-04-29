@@ -52,13 +52,15 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
 	 */
 	private Container editorContainer;
 	
-	private int selectedElement;
+	protected int selectedElement;
 	
-	private int selectedListItem = -1;
+	protected int selectedListItem = -1;
 	
-	private List<StructureListElement> structureElements;
+	protected List<StructureListElement> structureElements;
 	
-	private JTable list;
+	protected JTable list;
+	
+	protected JButton button;
 		
 	public StructurePanel(Container editorContainer) {
 		this.editorContainer = editorContainer;
@@ -96,7 +98,7 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
 			if (i == selectedElement)
 				add(createSelectedElementPanel(element, i), new Integer(element.getChildCount() != 0 || element.getDataControl().getAddableElements().length > 0 ? -1 : 40));
 			else {
-				JButton button = new JButton(element.getName(), element.getIcon());
+				button = new JButton(element.getName(), element.getIcon());
 				button.setHorizontalAlignment(SwingConstants.LEFT);
 				Border b1 = BorderFactory.createRaisedBevelBorder();
 		        Border b2 = BorderFactory.createEmptyBorder(3, 10, 3, 10);
@@ -114,10 +116,10 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
 		this.updateUI();
 	}
 	
-	private JPanel createSelectedElementPanel(final StructureListElement element, final int index) {
+	protected JPanel createSelectedElementPanel(final StructureListElement element, final int index) {
 		final JPanel temp = new JPanel();
 		temp.setLayout(new StructureListElementLayout());
-		JButton button = new JButton(element.getName(), element.getIcon());
+		button = new JButton(element.getName(), element.getIcon());
 		button.setHorizontalAlignment(SwingConstants.LEFT);
 		//Border b1 = BorderFactory.createRaisedBevelBorder();
 		Border b1 = BorderFactory.createLineBorder(Color.GRAY, 3);
@@ -168,22 +170,25 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
 					list.setRowHeight(20);
 					list.setRowHeight(list.getSelectedRow(), 70);
 					list.editCellAt(list.getSelectedRow(), 0);
-					editorContainer.removeAll();
-					editorContainer.add(((StructureElement) list.getValueAt(list.getSelectedRow(), 0)).getEditPanel());
-					StructureControl.getInstance().visitDataControl(((StructureElement) list.getValueAt(list.getSelectedRow(), 0)).getDataControl());
-					editorContainer.validate( );
-					editorContainer.repaint( );
-				} else {
+					if (editorContainer!=null){
+					    editorContainer.removeAll();
+					    editorContainer.add(((StructureElement) list.getValueAt(list.getSelectedRow(), 0)).getEditPanel());
+					    StructureControl.getInstance().visitDataControl(((StructureElement) list.getValueAt(list.getSelectedRow(), 0)).getDataControl());
+					    editorContainer.validate( );
+					    editorContainer.repaint( );
+					}
+				} else if (editorContainer!=null){
 					editorContainer.removeAll();
 					editorContainer.add(structureElements.get(index).getEditPanel());
 					StructureControl.getInstance().visitDataControl(structureElements.get(index).getDataControl());
 					editorContainer.validate( );
 					editorContainer.repaint( );
-				}
+				    }
+				
 			}
 		});
 		
-		if (element.getDataControl().getAddableElements().length > 0) {
+		if (element.getDataControl()!=null&&element.getDataControl().getAddableElements().length > 0) {
 			JButton addButton = new JButton(new ImageIcon("img/icons/addNode.png"));
 			addButton.setContentAreaFilled( false );
 			addButton.setMargin( new Insets(0,0,0,0) );
@@ -214,21 +219,25 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
 		public void actionPerformed(ActionEvent arg0) {
 			selectedElement = index;
 			update();
-			editorContainer.removeAll();
-			editorContainer.add(structureElements.get(index).getEditPanel());
-			StructureControl.getInstance().visitDataControl(structureElements.get(index).getDataControl());
-			editorContainer.validate( );
-			editorContainer.repaint( );
+			if (editorContainer!=null){
+			    editorContainer.removeAll();
+			    editorContainer.add(structureElements.get(index).getEditPanel());
+			    StructureControl.getInstance().visitDataControl(structureElements.get(index).getDataControl());
+			    editorContainer.validate( );
+			    editorContainer.repaint( );
+			}
 			list.requestFocusInWindow();
 		}
 	}
 	
 	public void updateElementPanel() {
 		boolean temp = false;
-		if (editorContainer.getComponentCount() == 1) {
+		if (editorContainer!=null){
+		    if (editorContainer.getComponentCount() == 1) {
 			if (editorContainer.getComponent(0) instanceof Updateable) {
 				temp = ((Updateable) editorContainer.getComponent(0)).updateFields();
 			}
+		    }
 		}
 		if (!temp) {
 			reloadElementPanel();
@@ -236,6 +245,7 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
 	}
 
 	public void reloadElementPanel() {
+	    if (editorContainer!=null){
 		editorContainer.removeAll();
 		if (list == null || list.getSelectedRow() == -1) {
 			editorContainer.add(structureElements.get(selectedElement).getEditPanel());
@@ -245,6 +255,7 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
 		}
 		editorContainer.validate( );
 		editorContainer.repaint( );
+	    }
 	}
 
 	
@@ -274,8 +285,9 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
 				}
 			}
 		}
-		
+		if (editorContainer!=null){
 		editorContainer.removeAll();
+		
 		if (selectedListItem == -1) {
 			editorContainer.add(structureElements.get(selectedElement).getEditPanel());
 			StructureControl.getInstance().visitDataControl(structureElements.get(selectedElement).getDataControl());
@@ -290,6 +302,7 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
 		editorContainer.validate( );
 		editorContainer.repaint( );
 		list.requestFocusInWindow();
+		}
 	}
 	
 }
