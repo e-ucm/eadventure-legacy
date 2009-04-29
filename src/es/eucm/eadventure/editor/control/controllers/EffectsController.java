@@ -39,6 +39,7 @@ import es.eucm.eadventure.editor.control.tools.general.effects.MoveEffectInTable
 import es.eucm.eadventure.editor.control.tools.general.effects.ReplaceEffectTool;
 import es.eucm.eadventure.editor.control.tools.generic.MoveObjectTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
+import es.eucm.eadventure.editor.gui.editdialogs.SelectEffectsDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.effectdialogs.EffectDialog;
 
 /**
@@ -312,8 +313,8 @@ public class EffectsController {
 				Effect.SHOW_TEXT,Effect.WAIT_TIME};
 
 		// Show a dialog to select the type of the effect
-		String selectedValue = controller.showInputDialog( TextConstants.getText( "Effects.OperationAddEffect" ), TextConstants.getText( "Effects.SelectEffectType" ), effectNames );
-
+		//String selectedValue = controller.showInputDialog( TextConstants.getText( "Effects.OperationAddEffect" ), TextConstants.getText( "Effects.SelectEffectType" ), effectNames );
+		String selectedValue = SelectEffectsDialog.getSelectedEffect();
 		// If some effect was selected
 		if( selectedValue != null && 
 				!selectedValue.equals( TextConstants.getText( "Effect.RandomEffect" ) )) {

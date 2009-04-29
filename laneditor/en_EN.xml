@@ -706,7 +706,13 @@ based on the state of the flags.</entry>
 	<entry key="Effect.RandomInfo">{#2} (probability = {#0}%); {#3} (probability = {#1}%)</entry>
 	<entry key="Effect.WaitTimeInfo">Wait {#0} seconds</entry>
 	<entry key="Effect.ShowTextInfo">Show {#0} in position x:{#1} y:{#2}</entry>
-
+	<entry key="EffectsGroup.GameState">Game State</entry>
+	<entry key="EffectsGroup.Multimedia">Multimedia</entry>
+	<entry key="EffectsGroup.Miscellaneous">Miscellaneous</entry>
+	<entry key="EffectsGroup.Trigger">Trigger events</entry>
+	<entry key="EffectsGroup.Feedback">Feedback</entry>
+	<entry key="EffectsGroup.ChangeInScene">Changes in the scene</entry>
+	<entry key="EffectsGroup.Main">Effects</entry>
 
 	<entry key="ImageDialog.Title">Image preview - {#0}</entry>
 	<entry key="SlidesDialog.Title">Slides preview - {#0}</entry>

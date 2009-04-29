@@ -1,8 +1,12 @@
 package es.eucm.eadventure.editor.gui.structurepanel;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JComponent;
+
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 
@@ -18,6 +22,8 @@ public class StructureControl {
 
 	private StructurePanel structurePanel;
 	
+	private StructurePanel pastStructure;
+	
 	private List<DataControl> backList;
 	
 	private List<DataControl> forwardList;
@@ -28,8 +34,15 @@ public class StructureControl {
 	}
 	
 	public void setStructurePanel(StructurePanel structurePanel) {
-		this.structurePanel = structurePanel;
+	    if (structurePanel instanceof EffectsStructurePanel)
+		pastStructure = structurePanel;
+	    this.structurePanel = structurePanel;
 	}
+	
+	public void resetStructurePanel(){
+	    structurePanel=pastStructure;
+	}
+	
 		
 	public void changeDataControl(DataControl dataControl) {
 		if (dataControl!=null){
@@ -84,5 +97,7 @@ public class StructureControl {
 			forwardList = tempFwrd;
 		}
 	}
+
+	
 
 }
