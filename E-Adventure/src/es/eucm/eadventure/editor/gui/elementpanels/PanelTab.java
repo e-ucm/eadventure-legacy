@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.gui.Updateable;
@@ -154,7 +155,7 @@ public abstract class PanelTab implements Updateable {
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridx = 0;
 		c.gridy = 0;
-		JLabel label = new JLabel(title);
+		JLabel label = new JLabel(title, icon, SwingConstants.LEFT);
 		label.setFont(label.getFont().deriveFont(Font.BOLD));
 		panel.add(label, c);
 		if (helpPath != null) {

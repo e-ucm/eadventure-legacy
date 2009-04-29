@@ -8,6 +8,7 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -107,7 +108,7 @@ public class ElementPanel extends JTabbedPane implements Updateable, DataControl
 		public void stateChanged(final ChangeEvent arg0) {
 			if (selected != getSelectedIndex()) {
 				if (selected >= 0)
-					ElementPanel.this.setTabComponentAt(selected, new JLabel(tabs.get(selected).getTitle()));
+					ElementPanel.this.setTabComponentAt(selected, new JLabel(tabs.get(selected).getTitle(), tabs.get(selected).getIcon(), SwingConstants.LEFT));
 				selected = getSelectedIndex();
 				((JPanel) getSelectedComponent()).removeAll();
 				PanelTab tab = tabs.get(getSelectedIndex());

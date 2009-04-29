@@ -15,7 +15,6 @@ import java.awt.event.MouseListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -24,9 +23,9 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
-import javax.swing.JTextPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.data.chapter.book.BookPage;
 import es.eucm.eadventure.common.gui.TextConstants;
@@ -34,6 +33,8 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.book.BookDataControl;
 import es.eucm.eadventure.editor.control.controllers.book.BookPagesListDataControl;
+import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
+import es.eucm.eadventure.editor.gui.displaydialogs.StyledBookDialog;
 import es.eucm.eadventure.editor.gui.otherpanels.BookPagePreviewPanel;
 import es.eucm.eadventure.engine.core.gui.GUI;
 
@@ -58,10 +59,6 @@ public class BookPagesPanel extends JPanel{
 	
 	private JPanel pageNotLoadedPanel;
 	
-	private JPanel pageEditionPanel;
-	
-	private JPanel pageEditionPanelContainer;
-	
 	private JButton deleteButton;
 	
 	private JButton moveUpButton;
@@ -71,9 +68,7 @@ public class BookPagesPanel extends JPanel{
 	private JLabel previewLabel;
 
 	private JSplitPane infoAndPreview;
-	
-	private JSplitPane splitAndTable;
-	
+		
 	private JPanel createPageNotLoadedPanel (){
 		JPanel panel=new JPanel();
 		
@@ -93,47 +88,43 @@ public class BookPagesPanel extends JPanel{
 		
 		previewPanelContainer = new JPanel();
 		previewPanelContainer.setLayout( new BorderLayout() );
-		previewPanelContainer.setBorder( BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), TextConstants.getText("BookPages.Preview")) );
 		
-		// Create the info panel
-		JTextPane informationTextPane = new JTextPane( );
-		informationTextPane.setEditable( false );
-		informationTextPane.setBackground( getBackground( ) );
-		informationTextPane.setText( TextConstants.getText( "BookPages.PreviewDescription2" ) );
-		previewPanelContainer.add( informationTextPane, BorderLayout.NORTH );
 		this.pageNotLoadedPanel = this.createPageNotLoadedPanel( );
 		previewPanelScroll = new JScrollPane(pageNotLoadedPanel);
-		previewPanelContainer.add( previewPanelScroll, BorderLayout.CENTER );
+//		previewPanelContainer.add( previewPanelScroll, BorderLayout.CENTER );
+
+		JButton previewButton = new JButton (TextConstants.getText("Book.Preview"));
+		previewButton.addActionListener( new ActionListener(){
+			public void actionPerformed( ActionEvent e ) {
+				StyledBookDialog dialog = new StyledBookDialog(dataControl);
+				dialog.setVisible( true );
+				dialog.updatePreview( );
+			}
+		});
+
+		previewPanelContainer.add( previewButton, BorderLayout.SOUTH);
+		//updateSelectedPage();
 		
-		pageEditionPanelContainer = new JPanel();
-		pageEditionPanelContainer.setLayout( new BorderLayout() );
-		
-		updateSelectedPage();
-		
-		pageEditionPanelContainer.setMinimumSize( new Dimension(250,200) );
 		previewPanelContainer.setMinimumSize( new Dimension(100,150) );
-		pagesPanel.setMinimumSize( new Dimension (150,0) );
+		pagesPanel.setMinimumSize( new Dimension (0,150) );
 
-
-		splitAndTable = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, pageEditionPanelContainer, pagesPanel);
-		splitAndTable.setOneTouchExpandable(true);
-		splitAndTable.setDividerLocation(0.7);
-		splitAndTable.setDividerSize(10);
-		splitAndTable.setResizeWeight(0.5);
-
-		infoAndPreview = new JSplitPane(JSplitPane.VERTICAL_SPLIT, splitAndTable, previewPanelContainer);	
+		infoAndPreview = new JSplitPane(JSplitPane.VERTICAL_SPLIT, pagesPanel, previewPanelContainer);	
 		infoAndPreview.setOneTouchExpandable(true);
-		infoAndPreview.setDividerLocation(250);
-		infoAndPreview.setResizeWeight(0.5);
+		infoAndPreview.setDividerLocation(150);
+		infoAndPreview.setResizeWeight(0);
 		infoAndPreview.setDividerSize(10);
 		infoAndPreview.setContinuousLayout(true);
 		
 		setLayout( new BorderLayout( ) );
 		add(infoAndPreview,BorderLayout.CENTER);
+		
+		if (dataControl.getBookPagesList().getSelectedPage() != null) {
+			int index = dataControl.getBookPagesList().getBookPages().indexOf(dataControl.getBookPagesList().getSelectedPage());
+			pagesTable.changeSelection(index, 0, false, false);
+		}
 	}
 	
 	public void updatePreview(){
-
 		BookPage currentPage = dataControl.getBookPagesList( ).getSelectedPage( );
 		if (pageNotLoadedPanel!=null)
 			previewPanelContainer.remove( previewPanelScroll );
@@ -168,10 +159,7 @@ public class BookPagesPanel extends JPanel{
 	private void updateSelectedPage(){
 		int selectedPage = pagesTable.getSelectedRow( );
 		dataControl.getBookPagesList( ).changeCurrentPage( selectedPage );
-		if (pageEditionPanel!=null && pageEditionPanel instanceof BookPagePanel)
-			((BookPagePanel)pageEditionPanel).stop();
-		pageEditionPanel = new BookPagePanel(this, dataControl.getBookPagesList( ), selectedPage);
-
+		
 		// No valid row is selected
 		if (selectedPage<0 || selectedPage>=dataControl.getBookPagesList( ).getBookPages( ).size( )){
 			//Disable delete button
@@ -201,7 +189,7 @@ public class BookPagesPanel extends JPanel{
 			if (pageNotLoadedPanel!=null)
 				previewPanelContainer.remove( previewPanelScroll);
 			else if (previewPanel!=null)
-				previewPanelContainer.remove( previewPanelScroll );
+				previewPanelContainer.remove( previewLabel );
 			
 			pageNotLoadedPanel = null;
 			//Get the background image
@@ -221,21 +209,28 @@ public class BookPagesPanel extends JPanel{
 			previewPanelContainer.add(previewLabel, BorderLayout.CENTER );
 		}
 		
-		pageEditionPanelContainer.removeAll( );
-		pageEditionPanelContainer.add( pageEditionPanel, BorderLayout.CENTER );
-		pageEditionPanelContainer.updateUI( );
 		previewPanelContainer.updateUI( );
 		previewPanelScroll.updateUI();
+		previewPanelContainer.repaint();
+		previewPanel.repaint();
 	}
 
 	
     private Image getResizedImage( Image image ) {
         // set up the transform
         AffineTransform transform = new AffineTransform( );
-        transform.scale( 350/(double)image.getWidth( null ), 250/(double)image.getHeight( null ) );
+        int width = previewPanelContainer.getWidth() - 20;
+        if (width < 350)
+        	width = 350;
+        int height = previewPanelContainer.getHeight() - 20;
+        if (height < 250)
+        	height = 250;
+        
+        
+        transform.scale( width/(double)image.getWidth( null ), height/(double)image.getHeight( null ) );
 
         // create a transparent (not translucent) image
-        Image newImage = new BufferedImage( 350, 250, BufferedImage.TYPE_3BYTE_BGR );
+        Image newImage = new BufferedImage( width, height, BufferedImage.TYPE_3BYTE_BGR );
 
         // draw the transformed image
         Graphics2D g = (Graphics2D) newImage.getGraphics( );
@@ -251,7 +246,7 @@ public class BookPagesPanel extends JPanel{
 		pagesPanel.setLayout( new BorderLayout() );
 				
 		// Create the table (CENTER)
-		pagesTable = new PagesTable(dataControl.getBookPagesList( ));
+		pagesTable = new PagesTable(dataControl.getBookPagesList(), this);
 		pagesTable.addMouseListener( new MouseAdapter(){
 			public void mousePressed(MouseEvent e){
 				// By default the JTable only selects the nodes with the left click of the mouse
@@ -276,7 +271,8 @@ public class BookPagesPanel extends JPanel{
 		});
 		pagesTable.getSelectionModel( ).addListSelectionListener( new ListSelectionListener(){
 			public void valueChanged( ListSelectionEvent e ) {
-				updateSelectedPage();
+				if (!e.getValueIsAdjusting())
+					updateSelectedPage();
 			}
 		});
 
@@ -321,12 +317,23 @@ public class BookPagesPanel extends JPanel{
 			}
 		});
 
-		buttonsPanel.add( newButton );
-		buttonsPanel.add( deleteButton );
-		buttonsPanel.add( moveUpButton );
-		buttonsPanel.add( moveDownButton );
+		buttonsPanel.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 0;
+		buttonsPanel.add( newButton , c);
+		c.gridy = 1;
+		buttonsPanel.add( moveUpButton, c );
+		c.gridy = 2;
+		buttonsPanel.add( moveDownButton, c );
+		c.gridy = 4;
+		buttonsPanel.add( deleteButton , c);
+		c.gridy = 3;
+		c.weighty = 2.0;
+		c.fill = GridBagConstraints.VERTICAL;
+		buttonsPanel.add(new JFiller(), c);
 		
-		pagesPanel.add( buttonsPanel, BorderLayout.SOUTH );
+		pagesPanel.add( buttonsPanel, BorderLayout.EAST );
 	}
 	
 	/**
@@ -386,20 +393,16 @@ public class BookPagesPanel extends JPanel{
 
 	
 	private void addPage(){
-		
 		if (dataControl.getBookPagesList( ).addPage( )!=null){
-			
 			int selectedRow = pagesTable.getSelectedRow( ); 
-			//Set the new page selected (below the last selected page)
-			pagesTable.clearSelection( );
 			if (selectedRow != -1){
-			pagesTable.getSelectionModel( ).setSelectionInterval( selectedRow+1, selectedRow+1 );
-			
+				selectedRow++;
 			}else {
-				int selection = dataControl.getBookPagesList( ).getBookPages().size();
-				pagesTable.getSelectionModel( ).setSelectionInterval(selection , selection);
+				selectedRow = dataControl.getBookPagesList( ).getBookPages().size() - 1;
 			}
-			pagesTable.updateUI( );
+			pagesTable.clearSelection( );
+			((AbstractTableModel) pagesTable.getModel()).fireTableDataChanged();
+			pagesTable.changeSelection(selectedRow, 0, false, false);
 		}
 		
 	}
@@ -409,7 +412,7 @@ public class BookPagesPanel extends JPanel{
 		BookPage bookPage = pagesDataControl.getSelectedPage( );
 		if (bookPage!=null && pagesDataControl.deletePage( bookPage )){
 			pagesTable.clearSelection( );
-			pagesTable.updateUI( );
+			((AbstractTableModel) pagesTable.getModel()).fireTableDataChanged();
 		}
 	}
 
@@ -418,8 +421,8 @@ public class BookPagesPanel extends JPanel{
 		BookPagesListDataControl pagesDataControl = dataControl.getBookPagesList( );
 		BookPage bookPage = pagesDataControl.getSelectedPage( );
 		if (bookPage!=null && pagesDataControl.movePageUp( bookPage )){
-			pagesTable.getSelectionModel( ).setSelectionInterval( selectedRow-1, selectedRow-1 );
-			pagesTable.updateUI( );
+			((AbstractTableModel) pagesTable.getModel()).fireTableDataChanged();
+			pagesTable.changeSelection(selectedRow -1, 0, false, false);
 		}
 	}
 	
@@ -428,8 +431,8 @@ public class BookPagesPanel extends JPanel{
 		BookPagesListDataControl pagesDataControl = dataControl.getBookPagesList( );
 		BookPage bookPage = pagesDataControl.getSelectedPage( );
 		if (bookPage!=null && pagesDataControl.movePageDown( bookPage )){
-			pagesTable.getSelectionModel( ).setSelectionInterval( selectedRow+1, selectedRow+1 );
-			pagesTable.updateUI( );
+			((AbstractTableModel) pagesTable.getModel()).fireTableDataChanged();
+			pagesTable.changeSelection(selectedRow + 1, 0, false, false);
 		}
 	}
 

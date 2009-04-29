@@ -1144,14 +1144,20 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="Book.Title">Libro</entry>
 	<entry key="Book.Documentation">Documentación del libro</entry>
 	<entry key="Book.Preview">Previsualización del libro vacío</entry>
-	<entry key="Book.DocAndApp">Información adicional</entry>
+	<entry key="Book.Doc">Documentación</entry>
+	<entry key="Book.App">Apariencia</entry>
 	<entry key="Book.Contents">Contenido del libro</entry>
-	<entry key="Book.DocAndApp.Tip">Panel para introducir información adicional sobre el libro y modificar su apariencia</entry>
+	<entry key="Book.Doc.Tip">Panel para introducir la documentación del libro</entry>
+	<entry key="Book.App.Tip">Panel para modificar la apariencia del libro</entry>
 	<entry key="Book.Contents.Tip">Panel para editar los contenidos del libro</entry>
+	<entry key="Book.Preview">Previsualizar</entry>
 	
 	<entry key="BookPagesList.TypeResource">Archivo local</entry>
 	<entry key="BookPagesList.TypeURL">URL</entry>
 	<entry key="BookPagesList.Title">Lista de páginas</entry>
+	<entry key="BookPagesList.Type">Tipo</entry>
+	<entry key="BookPagesList.Content">Recurso</entry>
+	<entry key="BookPagesList.Margins">Margenes</entry>	
 	<entry key="BookPages.Preview">Previsualización del libro</entry>
 	<entry key="BookPages.PreviewDescription">Para ver una previsualización detallada del libro (como se verá dentro del juego), pulse el botón inferior</entry>
 	<entry key="BookPages.PreviewDescription2">Esta es una previsualización sencilla de la página seleccionada.</entry>
@@ -1194,8 +1200,8 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="BookParagraphsList.Title">Párrafos del libro</entry>
 	<entry key="BookParagraphsList.ListTitle">Lista de párrafos del libro</entry>
 	<entry key="BookParagraphsList.Information">Cada libro está compuesto por una serie de párrafos que son mostrados en orden. Estos parrafos pueden almacenar texto, títulos, listas, imágenes... y pueden ser combinados en cualquier orden.</entry>
-	<entry key="BookParagraphsList.ColumnHeader0">Tipo de párrafo</entry>
-	<entry key="BookParagraphsList.ColumnHeader1">Palabras</entry>
+	<entry key="BookParagraphsList.ParagraphType">Tipo de párrafo</entry>
+	<entry key="BookParagraphsList.Content">Contenido</entry>
 	<entry key="BookParagraphsList.TextParagraph">{#0} - Párrafo de texto</entry>
 	<entry key="BookParagraphsList.TitleParagraph">{#0} - Párrafo de título</entry>
 	<entry key="BookParagraphsList.BulletParagraph">{#0} - Párrafo de lista</entry>

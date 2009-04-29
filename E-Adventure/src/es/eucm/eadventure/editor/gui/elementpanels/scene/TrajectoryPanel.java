@@ -2,16 +2,17 @@ package es.eucm.eadventure.editor.gui.elementpanels.scene;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.scene.ActiveAreaDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.BarrierDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
@@ -20,9 +21,10 @@ import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.TrajectoryDataControl;
 import es.eucm.eadventure.editor.control.tools.scene.ChangeHasTrajectoryTool;
 import es.eucm.eadventure.editor.gui.Updateable;
-import es.eucm.eadventure.editor.gui.editdialogs.PlayerPositionDialog;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.TrajectoryEditionPanel;
+import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElement;
+import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElementPlayer;
 
 public class TrajectoryPanel extends JPanel implements Updateable {
 
@@ -42,11 +44,6 @@ public class TrajectoryPanel extends JPanel implements Updateable {
 
 	private JPanel initialPositionPanel = null;
 	
-	/**
-	 * Initial position button.
-	 */
-	private JButton initialPositionButton;
-
 	private String scenePath;
 	
 	/**
@@ -81,8 +78,6 @@ public class TrajectoryPanel extends JPanel implements Updateable {
 			initialPositionPanel = createInitialPositionPanel();
 			add(initialPositionPanel , BorderLayout.CENTER );
 		}
-		
-
 	}
 
 	private void fillSpep() {
@@ -119,25 +114,28 @@ public class TrajectoryPanel extends JPanel implements Updateable {
 		initialPositionCheckBox = new JCheckBox( TextConstants.getText( "Scene.UseInitialPosition" ), sceneDataControl.hasDefaultInitialPosition( ) );
 		initialPositionCheckBox.addActionListener( new InitialPositionCheckBoxListener( ) );
 		
-		initialPositionButton = new JButton( TextConstants.getText( "Scene.EditInitialPosition" ) );
-		initialPositionButton.setEnabled( sceneDataControl.hasDefaultInitialPosition( ) );
-		initialPositionButton.addActionListener( new InitialPositionButtonListener( ) );
-		
+
 		initialPositionPanel.add( initialPositionCheckBox );
-		initialPositionPanel.add( initialPositionButton );
 		initialPositionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Scene.DefaultInitialPosition" ) ) );
 		
-		return initialPositionPanel;
-	}
+		JPanel fullPanel = new JPanel();
+		fullPanel.setLayout(new BorderLayout());
+		fullPanel.add(initialPositionPanel, BorderLayout.NORTH);
 
-	/**
-	 * Listener for the "Set default initial position" button
-	 */
-	private class InitialPositionButtonListener implements ActionListener {
-		public void actionPerformed( ActionEvent arg0 ) {
-			PlayerPositionDialog initialPositionDialog = new PlayerPositionDialog( sceneDataControl.getId( ), sceneDataControl.getDefaultInitialPositionX( ), sceneDataControl.getDefaultInitialPositionY( ) );
-			sceneDataControl.setDefaultInitialPosition( initialPositionDialog.getPositionX( ), initialPositionDialog.getPositionY( ) );
+		spep = new ScenePreviewEditionPanel(false, scenePath);
+		fillSpep();
+		fullPanel.add(spep, BorderLayout.CENTER);
+		spep.setShowTextEdition(true);
+
+		if (sceneDataControl.hasDefaultInitialPosition( )) {
+			Image image = AssetsController.getImage(Controller.getInstance().getPlayerImagePath());
+			spep.addPlayer(sceneDataControl, image);
+			spep.setSelectedElement(new ImageElementPlayer(image, sceneDataControl));
+			spep.setFixedSelectedElement(true);
 		}
+		spep.repaint();
+		
+		return fullPanel;
 	}
 	
 	/**
@@ -146,7 +144,16 @@ public class TrajectoryPanel extends JPanel implements Updateable {
 	private class InitialPositionCheckBoxListener implements ActionListener {
 		public void actionPerformed( ActionEvent e ) {
 			sceneDataControl.toggleDefaultInitialPosition( );
-			initialPositionButton.setEnabled( sceneDataControl.hasDefaultInitialPosition( ) );
+			spep.setFixedSelectedElement(false);
+			spep.setSelectedElement((ImageElement) null);
+			spep.removeElements(ScenePreviewEditionPanel.CATEGORY_PLAYER);
+			if (sceneDataControl.hasDefaultInitialPosition( )) {
+				Image image = AssetsController.getImage(Controller.getInstance().getPlayerImagePath());
+				spep.addPlayer(sceneDataControl, image);
+				spep.setSelectedElement(new ImageElementPlayer(image, sceneDataControl));
+				spep.setFixedSelectedElement(true);
+			}
+			spep.repaint();
 		}
 	}
 
@@ -159,6 +166,7 @@ public class TrajectoryPanel extends JPanel implements Updateable {
 				remove(initialPositionPanel);
 				initialPositionPanel = null;
 			}
+			
 			if (tep != null) {
 				remove(tep);
 				tep = null;
@@ -186,7 +194,15 @@ public class TrajectoryPanel extends JPanel implements Updateable {
 		}
 		if (initialPositionCheckBox != null) {
 			initialPositionCheckBox.setSelected(sceneDataControl.hasDefaultInitialPosition( ));
-			initialPositionButton.setEnabled(sceneDataControl.hasDefaultInitialPosition( ));
+			spep.setFixedSelectedElement(false);
+			spep.setSelectedElement((ImageElement) null);
+			spep.removeElements(ScenePreviewEditionPanel.CATEGORY_PLAYER);
+			if (sceneDataControl.hasDefaultInitialPosition( )) {
+				Image image = AssetsController.getImage(Controller.getInstance().getPlayerImagePath());
+				spep.addPlayer(sceneDataControl, image);
+				spep.setSelectedElement(new ImageElementPlayer(image, sceneDataControl));
+				spep.setFixedSelectedElement(true);
+			}
 		}
 		return true;
 	}

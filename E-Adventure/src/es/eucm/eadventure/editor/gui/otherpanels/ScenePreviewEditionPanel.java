@@ -280,6 +280,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 		if (showCheckBoxes) {
 			checkBoxPanel = createCheckBoxPanel();
 			add(checkBoxPanel, BorderLayout.SOUTH);
+			updateUI();
 		}
 	}
 		
@@ -479,8 +480,10 @@ public class ScenePreviewEditionPanel extends JPanel {
 	public void removeElements(int category) {
 		Integer key = new Integer(category);
 		List<ImageElement> list = elements.get(key);
-		list.clear();
-		repaint();
+		if (list != null) {
+			list.clear();
+			repaint();
+		}
 	}
 
 	/**

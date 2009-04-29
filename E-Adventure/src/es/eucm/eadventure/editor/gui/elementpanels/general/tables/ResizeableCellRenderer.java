@@ -35,13 +35,13 @@ public abstract class ResizeableCellRenderer extends AbstractCellEditor implemen
 		if (image == null)
 			image = AssetsController.getImage("img/assets/EmptyImage.png");
 		
-		if (size == 2 && image.getHeight(null) > 170) {
-			int newWidth = (int) ((float) image.getWidth(null) / (float) image.getHeight(null) * 170.0);
-			image = image.getScaledInstance(newWidth, 170, Image.SCALE_FAST);
+		if (size == 2 && image.getHeight(null) > 160) {
+			int newWidth = (int) ((float) image.getWidth(null) / (float) image.getHeight(null) * 160.0);
+			image = image.getScaledInstance(newWidth, 160, Image.SCALE_FAST);
 		}
-		if (size == 1 && image.getHeight(null) > 70) {
-			int newWidth = (int) ((float) image.getWidth(null) / (float) image.getHeight(null) * 70.0);
-			image = image.getScaledInstance(newWidth, 70, Image.SCALE_FAST);
+		if (size == 1 && image.getHeight(null) > 60) {
+			int newWidth = (int) ((float) image.getWidth(null) / (float) image.getHeight(null) * 60.0);
+			image = image.getScaledInstance(newWidth, 60, Image.SCALE_FAST);
 		}
 		ImageIcon icon = new ImageIcon(image);
 		

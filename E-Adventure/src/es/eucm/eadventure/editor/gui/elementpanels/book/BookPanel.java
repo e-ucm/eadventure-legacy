@@ -15,24 +15,40 @@ public class BookPanel extends ElementPanel {
 	
 	public BookPanel (BookDataControl dataControl){
 		addTab(new BookContentPanel(dataControl));
-		addTab(new BookDocPanel(dataControl));
+		addTab(new BookAppPanelTab(dataControl));
+		addTab(new BookDocPanelTab(dataControl));
 	}
 	
-	private class BookDocPanel extends PanelTab {
+	private class BookDocPanelTab extends PanelTab {
 		private BookDataControl dataControl;
 		
-		public BookDocPanel(BookDataControl dataControl) {
-			super(TextConstants.getText("Book.DocAndApp"), dataControl);
-			setToolTipText(TextConstants.getText("Book.DocAndApp.Tip"));
+		public BookDocPanelTab(BookDataControl dataControl) {
+			super(TextConstants.getText("Book.Doc"), dataControl);
+			setToolTipText(TextConstants.getText("Book.Doc.Tip"));
 			this.dataControl = dataControl;
 		}
 
 		@Override
 		protected JComponent getTabComponent() {
-			return new BookDocAppPanel(dataControl);
+			return new BookDocPanel(dataControl);
 		}
 	}
-	
+
+	private class BookAppPanelTab extends PanelTab {
+		private BookDataControl dataControl;
+		
+		public BookAppPanelTab(BookDataControl dataControl) {
+			super(TextConstants.getText("Book.App"), dataControl);
+			setToolTipText(TextConstants.getText("Book.App.Tip"));
+			this.dataControl = dataControl;
+		}
+
+		@Override
+		protected JComponent getTabComponent() {
+			return new BookAppPanel(dataControl);
+		}
+	}
+
 	private class BookContentPanel extends PanelTab {
 		private BookDataControl dataControl;
 		
