@@ -9,15 +9,15 @@ import es.eucm.eadventure.common.gui.TextConstants;
 
 public class FeedbackStructureListElement extends EffectsStructureListElement{
 
-    private static final String[] COMPONENTS = {TextConstants.getText( "Effect.SpeakPlayer" ),TextConstants.getText( "Effect.SpeakCharacter" ),
-	TextConstants.getText( "Effect.TriggerBook" ),TextConstants.getText( "Effect.ShowText" ),TextConstants.getText( "Effect.TriggerCutscene" ),TextConstants.getText( "Effect.TriggerConversation" )};
-
+ 
     private static final String LIST_URL = "Effects_Feedback.html";
     
     public FeedbackStructureListElement() {
 	super(TextConstants.getText("EffectsGroup.Feedback"));
 	icon = new ImageIcon( "img/icons/adaptationProfiles.png" );
-	groupEffects = COMPONENTS;
+	groupEffects = new String[]{TextConstants.getText( "Effect.SpeakPlayer" ),TextConstants.getText( "Effect.SpeakCharacter" ),
+		TextConstants.getText( "Effect.TriggerBook" ),TextConstants.getText( "Effect.ShowText" ),TextConstants.getText( "Effect.TriggerCutscene" ),TextConstants.getText( "Effect.TriggerConversation" )};
+
 	path = LIST_URL;
     }
     

@@ -11,15 +11,15 @@ public class MultimediaStructureListElement extends EffectsStructureListElement{
 
     
     
-    private static final String[] COMPONENTS = {TextConstants.getText("Effect.PlaySound" ),TextConstants.getText( "Effect.PlayAnimation" ),
-	TextConstants.getText( "Effect.TriggerCutscene"  )};
     
     private static final String LIST_URL = "Effects_Multimedia.html";
     
     public MultimediaStructureListElement() {
 	super(TextConstants.getText("EffectsGroup.Multimedia"));
 	icon = new ImageIcon( "img/icons/adaptationProfiles.png" );
-	groupEffects = COMPONENTS;
+	groupEffects = new String[]{TextConstants.getText("Effect.PlaySound" ),TextConstants.getText( "Effect.PlayAnimation" ),
+		TextConstants.getText( "Effect.TriggerCutscene"  )};
+	    
 	path = LIST_URL;
     }
 

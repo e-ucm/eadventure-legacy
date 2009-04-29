@@ -713,7 +713,10 @@ based on the state of the flags.</entry>
 	<entry key="EffectsGroup.Feedback">Feedback</entry>
 	<entry key="EffectsGroup.ChangeInScene">Changes in the scene</entry>
 	<entry key="EffectsGroup.Main">Effects</entry>
+	<entry key="SelectEffectDialog.Title">Creation effect panel</entry>
 
+	
+	
 	<entry key="ImageDialog.Title">Image preview - {#0}</entry>
 	<entry key="SlidesDialog.Title">Slides preview - {#0}</entry>
 	<entry key="AnimationDialog.Title">Animation preview - {#0}</entry>
