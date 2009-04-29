@@ -212,7 +212,7 @@ public class SceneDataControl extends DataControlWithResources {
 		if( scene.hasDefaultPosition( ) )
 			controller.addTool(new ChangeNSDestinyPositionTool(scene, Integer.MIN_VALUE, Integer.MIN_VALUE));
 		else
-			controller.addTool(new ChangeNSDestinyPositionTool(scene, 0,0));
+			controller.addTool(new ChangeNSDestinyPositionTool(scene, 400, 300));
 	}
 
 	/**

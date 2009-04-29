@@ -101,9 +101,7 @@ public class VideoscenePanel extends JPanel {
 
 		public VideosceneLooksPanel( DataControlWithResources control ) {
 			super( control );
-			// TODO Parche, arreglar
 			lookPanel.setPreferredSize( new Dimension( 0, 90 ) );
-
 		}
 
 		@Override

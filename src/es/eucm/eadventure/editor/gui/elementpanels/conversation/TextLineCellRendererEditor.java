@@ -27,7 +27,7 @@ public class TextLineCellRendererEditor extends AbstractCellEditor implements Ta
 	
 	private String value;
 	
-	private JTextPane textField;
+	private JTextPane textPane;
 	
 	private LinesPanel linesPanel;
 	
@@ -46,25 +46,25 @@ public class TextLineCellRendererEditor extends AbstractCellEditor implements Ta
 		this.value = node.getLineText(row);
 		Color color = getColor(node, row); 
 
-		textField = new JTextPane();
-		textField.setText(this.value);
-		textField.setAutoscrolls(true);
-		textField.setForeground(color);
-		textField.getDocument().addDocumentListener(new DocumentListener() {
+		textPane = new JTextPane();
+		textPane.setText(this.value);
+		textPane.setAutoscrolls(true);
+		textPane.setForeground(color);
+		textPane.getDocument().addDocumentListener(new DocumentListener() {
 			public void changedUpdate(DocumentEvent arg0) {
-				value = textField.getText();
+				value = textPane.getText();
 			}
 			public void insertUpdate(DocumentEvent arg0) {
-				value = textField.getText();
+				value = textPane.getText();
 			}
 			public void removeUpdate(DocumentEvent arg0) {
-				value = textField.getText();
+				value = textPane.getText();
 			}
 		});
-		textField.addKeyListener(new KeyListener() {
+		textPane.addKeyListener(new KeyListener() {
 			public void keyPressed(KeyEvent arg0) {
 				if (arg0.getKeyCode() == KeyEvent.VK_ENTER) {
-					value = textField.getText();
+					value = textPane.getText();
 					stopCellEditing();
 					linesPanel.editNextLine();
 				}
@@ -74,7 +74,7 @@ public class TextLineCellRendererEditor extends AbstractCellEditor implements Ta
 			public void keyTyped(KeyEvent arg0) {
 			}
 		});
-		JScrollPane scrollPane = new JScrollPane(textField, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		JScrollPane scrollPane = new JScrollPane(textPane, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
 		scrollPane.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent arg0) {
@@ -82,7 +82,7 @@ public class TextLineCellRendererEditor extends AbstractCellEditor implements Ta
 				{
 				    public void run()
 				    {
-				    	textField.requestFocusInWindow();
+				    	textPane.requestFocusInWindow();
 				    }
 				});
 			}

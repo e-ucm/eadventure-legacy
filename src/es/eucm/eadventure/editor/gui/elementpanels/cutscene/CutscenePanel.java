@@ -1,5 +1,6 @@
 package es.eucm.eadventure.editor.gui.elementpanels.cutscene;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -20,6 +21,7 @@ import es.eucm.eadventure.editor.control.controllers.cutscene.CutsceneDataContro
 import es.eucm.eadventure.editor.control.tools.listeners.DocumentationChangeListener;
 import es.eucm.eadventure.editor.control.tools.listeners.NameChangeListener;
 import es.eucm.eadventure.editor.gui.elementpanels.general.LooksPanel;
+import es.eucm.eadventure.editor.gui.otherpanels.imagepanels.ImagePanel;
 
 public class CutscenePanel extends JPanel {
 
@@ -107,21 +109,33 @@ public class CutscenePanel extends JPanel {
 		 */
 		private static final long serialVersionUID = 1L;
 
+		private ImagePanel imagePanel;
+
 		public CutsceneLooksPanel( DataControlWithResources control ) {
 			super( control );
-			// TODO Parche, arreglar
-			lookPanel.setPreferredSize( new Dimension( 0, 90 ) );
-
 		}
 
 		@Override
-		
 		protected void createPreview( ) {
-
+			String imagePath = ((CutsceneDataControl)dataControl).getPreviewImage();
+			if (imagePath == null)
+				imagePath = "";
+			JPanel previewPanel = new JPanel();
+			previewPanel.setLayout( new BorderLayout() );
+			imagePanel = new ImagePanel( imagePath );
+			previewPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Book.Preview" ) ) );
+			previewPanel.add( imagePanel, BorderLayout.CENTER );
+			lookPanel.add( previewPanel, cLook );
+			lookPanel.setPreferredSize( new Dimension( 0, 90 ) );
 		}
 
 		@Override
 		public void updatePreview( ) {
+			String imagePath = ((CutsceneDataControl)dataControl).getPreviewImage();
+			if (imagePath == null)
+				imagePath = "";
+			imagePanel.loadImage(imagePath);
+			imagePanel.repaint( );
 			getParent( ).getParent( ).repaint( );
 		}
 

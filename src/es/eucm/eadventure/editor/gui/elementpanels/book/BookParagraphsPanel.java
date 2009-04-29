@@ -12,16 +12,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
-import javax.swing.JTextPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -35,6 +32,7 @@ import es.eucm.eadventure.editor.control.tools.books.DeleteParagraphElementTool;
 import es.eucm.eadventure.editor.control.tools.books.MoveParagraphElementDownTool;
 import es.eucm.eadventure.editor.control.tools.books.MoveParagraphElementUpTool;
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
+import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.otherpanels.imagepanels.BookImagePanel;
 
 public class BookParagraphsPanel extends JPanel implements DataControlsPanel {
@@ -44,19 +42,15 @@ public class BookParagraphsPanel extends JPanel implements DataControlsPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	public static final int VERTICAL_SPLIT_POSITION = 150;
+
 	private BookDataControl dataControl;
 	
 	private JPanel paragraphsPanel;
 	
 	private ParagraphsTable paragraphsTable;
 	
-	private JPanel previewPanelContainer;
-	
 	private BookImagePanel previewPanel;
-	
-	private JPanel paragraphEditionPanel;
-	
-	private JPanel paragraphEditionPanelContainer;
 	
 	private JButton deleteButton;
 	
@@ -65,123 +59,58 @@ public class BookParagraphsPanel extends JPanel implements DataControlsPanel {
 	private JButton moveDownButton;
 	
 	private JSplitPane infoAndPreview;
-	
-	private JSplitPane splitAndTable;
-	
+		
 	public BookParagraphsPanel (BookDataControl dControl){
 		this.dataControl = dControl;
 		
-		createParagraphsPanel();
-		
-		previewPanelContainer = new JPanel();
-		previewPanelContainer.setLayout( new BorderLayout() );
-		previewPanelContainer.setBorder( BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), TextConstants.getText("BookParagraphs.Preview")) );
 		previewPanel = new BookImagePanel(dControl.getPreviewImage( ), dControl.getBookParagraphsList( ));
+
+		createParagraphsPanel(previewPanel);
+		
 		paragraphsTable.getSelectionModel( ).addListSelectionListener( new ListSelectionListener(){
 			public void valueChanged( ListSelectionEvent e ) {
 				updateSelectedParagraph();
 			}
 		});
-		
-		// Create the info panel
-		JTextPane informationTextPane = new JTextPane( );
-		informationTextPane.setEditable( false );
-		informationTextPane.setBackground( getBackground( ) );
-		informationTextPane.setText( TextConstants.getText( "BookParagraphs.PreviewDescription" ) );
-		previewPanelContainer.add( informationTextPane, BorderLayout.NORTH );
-		previewPanelContainer.add( previewPanel, BorderLayout.CENTER );
-		
-		paragraphEditionPanelContainer = new JPanel();
-		paragraphEditionPanelContainer.setLayout( new BorderLayout() );
-		
-		updateSelectedParagraph();
+		paragraphsPanel.setMinimumSize(new Dimension(0, VERTICAL_SPLIT_POSITION));
 		
 		//Create a split pane with the two panels: info panel and preview panel
 		infoAndPreview = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
-				paragraphEditionPanelContainer, previewPanelContainer);	
+				paragraphsPanel, previewPanel);	
 		infoAndPreview.setOneTouchExpandable(true);
-		infoAndPreview.setResizeWeight(0.5);
+		infoAndPreview.setResizeWeight(1);
 		infoAndPreview.setContinuousLayout(true);
-		infoAndPreview.setDividerLocation(280);
+		infoAndPreview.setDividerLocation(VERTICAL_SPLIT_POSITION);
 		infoAndPreview.setDividerSize(10);
 
-		paragraphEditionPanelContainer.setMinimumSize( new Dimension(100,250) );
-		previewPanelContainer.setMinimumSize( new Dimension(100,250) );
 		paragraphsPanel.setMinimumSize( new Dimension (150,0) );
-		// create split pane with two panels: infoAndPreview panel and table
-		splitAndTable = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
-				infoAndPreview, paragraphsPanel);
-		splitAndTable.setOneTouchExpandable(true);
-		splitAndTable.setDividerLocation(490);
-		splitAndTable.setResizeWeight(0.5);
-		splitAndTable.setDividerSize(10);
+
 		setLayout( new BorderLayout( ) );
-		add(splitAndTable,BorderLayout.CENTER);
+		add(infoAndPreview,BorderLayout.CENTER);
 		
 	}
 	
 	private void updateSelectedParagraph(){
-		// No valid row is selected
 		if (paragraphsTable.getSelectedRow( )<0 || paragraphsTable.getSelectedRow( )>=dataControl.getBookParagraphsList( ).getBookParagraphs( ).size( )){
-			paragraphEditionPanel = new JPanel();
-			paragraphEditionPanel.setLayout( new GridBagLayout() );
-			GridBagConstraints c = new GridBagConstraints();
-			c.insets = new Insets( 5, 2, 5, 2 );
-			c.anchor = GridBagConstraints.FIRST_LINE_START;
-
-			// Create the info panel
-			JTextPane informationTextPane = new JTextPane( );
-			informationTextPane.setEditable( false );
-			informationTextPane.setBackground( getBackground( ) );
-			informationTextPane.setText( TextConstants.getText( "BookParagraph.DescriptionPanel" ) );
-			c.fill = GridBagConstraints.VERTICAL;c.weighty=1;
-			paragraphEditionPanel.add( informationTextPane, c );
-
-			c.gridy=1; c.anchor = GridBagConstraints.BASELINE;
-			paragraphEditionPanel.add( new JLabel(TextConstants.getText("BookParagraph.NotAvailable") ), c );
-			paragraphEditionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "BookParagraph.TitlePanel", new String[]{ "", TextConstants.getText( "BookParagraph.None" )} ) ) );
-			
-			//Disable delete button
 			deleteButton.setEnabled( false );
-			//Disable moveUp and moveDown buttons
 			moveUpButton.setEnabled( false );
 			moveDownButton.setEnabled( false );
 		}
-		
-		//When a paragraph has been selected
 		else {
-			int selectedParagraph = paragraphsTable.getSelectedRow( );
-			BookParagraphDataControl paragraphDataControl = dataControl.getBookParagraphsList( ).getBookParagraphs( ).get( selectedParagraph );
-			if (paragraphDataControl.getType( ) == Controller.BOOK_TITLE_PARAGRAPH ||
-				paragraphDataControl.getType( ) == Controller.BOOK_TEXT_PARAGRAPH || 
-				paragraphDataControl.getType( ) == Controller.BOOK_BULLET_PARAGRAPH){
-				paragraphEditionPanel = new TextBookParagraphPanel(paragraphDataControl, selectedParagraph);
-			} else if (paragraphDataControl.getType( ) == Controller.BOOK_IMAGE_PARAGRAPH){
-				paragraphEditionPanel = new ImageBookParagraphPanel(paragraphDataControl, selectedParagraph);
-			}
-
-			// Enable delete button
 			deleteButton.setEnabled( true );
-			//Enable moveUp and moveDown buttons when there is more than one element
-			moveUpButton.setEnabled( dataControl.getBookParagraphsList( ).getBookParagraphs( ).size( )>1 && selectedParagraph>0);
-			moveDownButton.setEnabled( dataControl.getBookParagraphsList( ).getBookParagraphs( ).size( )>1 && selectedParagraph<paragraphsTable.getRowCount( )-1 );
-
-		}
-		
-		paragraphEditionPanelContainer.removeAll( );
-		paragraphEditionPanelContainer.add( paragraphEditionPanel, BorderLayout.CENTER );
-		paragraphEditionPanelContainer.updateUI( );
-		
+			moveUpButton.setEnabled( dataControl.getBookParagraphsList( ).getBookParagraphs( ).size( )>1 && paragraphsTable.getSelectedRow( )>0);
+			moveDownButton.setEnabled( dataControl.getBookParagraphsList( ).getBookParagraphs( ).size( )>1 && paragraphsTable.getSelectedRow( )<paragraphsTable.getRowCount( )-1 );
+		}		
 		previewPanel.updatePreview( );
 	}
 
-	private void createParagraphsPanel(){
+	private void createParagraphsPanel(BookImagePanel previewPanel2){
 		// Create the main panel
 		paragraphsPanel = new JPanel();
 		paragraphsPanel.setLayout( new BorderLayout() );
 				
 		// Create the table (CENTER)
-		paragraphsTable = new ParagraphsTable(dataControl.getBookParagraphsList( ));
+		paragraphsTable = new ParagraphsTable(dataControl.getBookParagraphsList( ), previewPanel2);
 		paragraphsTable.addMouseListener( new MouseAdapter(){
 			public void mousePressed(MouseEvent e){
 				// By default the JTable only selects the nodes with the left click of the mouse
@@ -210,6 +139,7 @@ public class BookParagraphsPanel extends JPanel implements DataControlsPanel {
 		JPanel buttonsPanel = new JPanel();
 		JButton newButton = new JButton(new ImageIcon("img/icons/addNode.png"));
 		newButton.setContentAreaFilled( false );
+		newButton.setFocusable(false);
 		newButton.setMargin( new Insets(0,0,0,0) );
 		newButton.setToolTipText( TextConstants.getText( "BookParagraphs.AddParagraph" ) );
 		newButton.addMouseListener( new MouseAdapter(){
@@ -221,6 +151,7 @@ public class BookParagraphsPanel extends JPanel implements DataControlsPanel {
 		deleteButton = new JButton(new ImageIcon("img/icons/deleteNode.png"));
 		deleteButton.setContentAreaFilled( false );
 		deleteButton.setMargin( new Insets(0,0,0,0) );
+		deleteButton.setFocusable(false);
 		deleteButton.setToolTipText( TextConstants.getText( "BookParagraphs.DeleteParagraph" ) );
 		deleteButton.addActionListener(new ActionListener(){
 			public void actionPerformed( ActionEvent e ) {
@@ -230,6 +161,7 @@ public class BookParagraphsPanel extends JPanel implements DataControlsPanel {
 		moveUpButton = new JButton(new ImageIcon("img/icons/moveNodeUp.png"));
 		moveUpButton.setContentAreaFilled( false );
 		moveUpButton.setMargin( new Insets(0,0,0,0) );
+		moveUpButton.setFocusable(false);
 		moveUpButton.setToolTipText( TextConstants.getText( "BookParagraphs.MoveParagraphUp" ) );
 		moveUpButton.addActionListener( new ActionListener(){
 			public void actionPerformed( ActionEvent e ) {
@@ -239,6 +171,7 @@ public class BookParagraphsPanel extends JPanel implements DataControlsPanel {
 		moveDownButton = new JButton(new ImageIcon("img/icons/moveNodeDown.png"));
 		moveDownButton.setContentAreaFilled( false );
 		moveDownButton.setMargin( new Insets(0,0,0,0) );
+		moveDownButton.setFocusable(false);
 		moveDownButton.setToolTipText( TextConstants.getText( "BookParagraphs.MoveParagraphDown" ) );
 		moveDownButton.addActionListener( new ActionListener(){
 			public void actionPerformed( ActionEvent e ) {
@@ -246,12 +179,23 @@ public class BookParagraphsPanel extends JPanel implements DataControlsPanel {
 			}
 		});
 
-		buttonsPanel.add( newButton );
-		buttonsPanel.add( deleteButton );
-		buttonsPanel.add( moveUpButton );
-		buttonsPanel.add( moveDownButton );
+		buttonsPanel.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 0;
+		buttonsPanel.add( newButton , c);
+		c.gridy = 1;
+		buttonsPanel.add( moveUpButton, c );
+		c.gridy = 2;
+		buttonsPanel.add( moveDownButton, c );
+		c.gridy = 4;
+		buttonsPanel.add( deleteButton , c);
+		c.gridy = 3;
+		c.weighty = 2.0;
+		c.fill = GridBagConstraints.VERTICAL;
+		buttonsPanel.add(new JFiller(), c);
 		
-		paragraphsPanel.add( buttonsPanel, BorderLayout.SOUTH );
+		paragraphsPanel.add( buttonsPanel, BorderLayout.EAST );
 	}
 	
 	/**

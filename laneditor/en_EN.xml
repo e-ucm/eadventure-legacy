@@ -1133,14 +1133,20 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="Book.Title">Book</entry>
 	<entry key="Book.Documentation">Full description of the book</entry>
 	<entry key="Book.Preview">Graphical preview of the book</entry>
-	<entry key="Book.DocAndApp">Doc &amp; Appearance</entry>
+	<entry key="Book.Doc">Documentation</entry>
+	<entry key="Book.App">Appearance</entry>
 	<entry key="Book.Contents">Contents</entry>
-	<entry key="Book.DocAndApp.Tip">Use this panel for the edition of the documentation and background image of the book</entry>
+	<entry key="Book.Doc.Tip">Use this panel for the edition of the book's documentation</entry>
+	<entry key="Book.App.Tip">Use this panel for the edition of the book's background image</entry>
 	<entry key="Book.Contents.Tip">Use this panel for the edition of the contents of the book</entry>
+	<entry key="Book.Preview">Preview</entry>
 	
 	<entry key="BookPagesList.TypeResource">Local file</entry>
 	<entry key="BookPagesList.TypeURL">URL</entry>
 	<entry key="BookPagesList.Title">List of pages</entry>
+	<entry key="BookPagesList.Type">Type</entry>
+	<entry key="BookPagesList.Content">Asset</entry>
+	<entry key="BookPagesList.Margins">Margins</entry>
 	<entry key="BookPages.Preview">Preview of the book</entry>
 	<entry key="BookPages.PreviewDescription">To see a full-screen preview of the book (as it will be rendered in the game), press the button below</entry>
 	<entry key="BookPages.PreviewDescription2">This is a basic preview of the selected page.</entry>
@@ -1170,7 +1176,7 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="BookPage.NotValidResource">There are problems with the formatted text file provided, so it might not be shown in the game</entry>
 	<entry key="BookPage.NotValidImage">There are problems with the image format</entry>
 	<entry key="BookPage.Valid">There are no apparent problems with the content source provided.</entry>
-		
+	
 	
 	<entry key="BookPageType.Title">Source of the content</entry>
 	<entry key="BookPageType.Resource">Local resource</entry>
@@ -1183,8 +1189,8 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="BookParagraphsList.Title">Book paragraphs</entry>
 	<entry key="BookParagraphsList.ListTitle">List of book paragraphs</entry>
 	<entry key="BookParagraphsList.Information">Every book consists of a group of paragraphs, that are shown in order. These paragraphs represent plain text, titles, images, bullet paragraphs... and can be combined in any way.</entry>
-	<entry key="BookParagraphsList.ColumnHeader0">Paragraph type</entry>
-	<entry key="BookParagraphsList.ColumnHeader1">Word count</entry>
+	<entry key="BookParagraphsList.ParagraphType">Paragraph type</entry>
+	<entry key="BookParagraphsList.Content">Content</entry>
 	<entry key="BookParagraphsList.TextParagraph">{#0} - Text paragraph</entry>
 	<entry key="BookParagraphsList.TitleParagraph">{#0} - Title paragraph</entry>
 	<entry key="BookParagraphsList.BulletParagraph">{#0} - Bullet paragraph</entry>
