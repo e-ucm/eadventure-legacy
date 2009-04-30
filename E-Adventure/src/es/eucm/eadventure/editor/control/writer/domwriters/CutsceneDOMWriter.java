@@ -44,11 +44,9 @@ public class CutsceneDOMWriter {
 			if (cutscene.getNext() == Cutscene.NEWSCENE) {
 				cutsceneElement.setAttribute( "idTarget", cutscene.getTargetId( ) );
 	
-				// Append the destination position (if avalaible)
-				if( cutscene.hasPlayerPosition( ) ) {
-					cutsceneElement.setAttribute( "destinyX", String.valueOf( cutscene.getPositionX( ) ) );
-					cutsceneElement.setAttribute( "destinyY", String.valueOf( cutscene.getPositionY( ) ) );
-				}
+				cutsceneElement.setAttribute( "destinyX", String.valueOf( cutscene.getPositionX( ) ) );
+				cutsceneElement.setAttribute( "destinyY", String.valueOf( cutscene.getPositionY( ) ) );
+
 				cutsceneElement.setAttribute( "transitionTime", String.valueOf( cutscene.getTransitionTime()));
 				cutsceneElement.setAttribute( "transitionType", String.valueOf( cutscene.getTransitionType()));
 			}

@@ -116,7 +116,7 @@ public class CutsceneSubParser extends SubParser {
 				String slidesceneId = "";
 				boolean initialScene = false;
 				String idTarget = "";
-				int x = -1, y = -1;
+				int x = Integer.MIN_VALUE, y = Integer.MIN_VALUE;
 				int transitionType = 0, transitionTime = 0;
 				String next = "go-back";
 				
@@ -127,9 +127,9 @@ public class CutsceneSubParser extends SubParser {
 						initialScene = attrs.getValue( i ).equals( "yes" );
 					if( attrs.getQName( i ).equals( "idTarget" ) )
 						idTarget = attrs.getValue( i );
-					if( attrs.getQName( i ).equals( "x" ) )
+					if( attrs.getQName( i ).equals( "destinyX" ) )
 						x = Integer.parseInt( attrs.getValue( i ) );
-					if( attrs.getQName( i ).equals( "y" ) )
+					if( attrs.getQName( i ).equals( "destinyY" ) )
 						y = Integer.parseInt( attrs.getValue( i ) );
 					if (attrs.getQName( i ).equals( "transitionType"))
 						transitionType = Integer.parseInt( attrs.getValue(i));
@@ -188,7 +188,7 @@ public class CutsceneSubParser extends SubParser {
 			// If it is a next-scene tag, create the new next scene
 			else if( qName.equals( "next-scene" ) ) {
 				String idTarget = "";
-				int x = -1, y = -1;
+				int x = Integer.MIN_VALUE, y = Integer.MIN_VALUE;
 				int transitionType = 0, transitionTime = 0;
 				
 				for( int i = 0; i < attrs.getLength( ); i++ ) {
