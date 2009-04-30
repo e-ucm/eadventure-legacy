@@ -945,6 +945,7 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="ActiveAreasList.AddActiveArea">Add new active area</entry>
 	<entry key="ActiveAreasList.DeleteActiveArea">Delete selected active area</entry>
 	<entry key="ActiveAreasList.DuplicateActiveArea">Duplicate selected active area</entry>
+	<entry key="ActiveAreasList.Documentation">Documentation</entry>
 
 	<entry key="BarriersList.Title">Barriers</entry>
 	<entry key="BarriersList.PreviewTitle">Preview of the barriers location and edition of the trajectory</entry>
@@ -960,7 +961,7 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="BarriersList.Conditions">Conditions</entry>
 	<entry key="BarriersList.AddBarrier">Add new barrier</entry>
 	<entry key="BarriersList.DeleteBarrier">Delete selected barrier</entry>
-	<entry key="BarriersList.DeleteBarrier">Duplicate selected barrier</entry>
+	<entry key="BarriersList.DuplicateBarrier">Duplicate selected barrier</entry>
 	
 
 	<entry key="Exit.Title">Exit</entry>
@@ -1537,6 +1538,7 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="GeneralText.Close">Close</entry>
 	<entry key="GeneralText.Information">Information</entry>
 	<entry key="GeneralText.PreviewText">This is a preview text line</entry>
+	<entry key="GeneralText.EditDocumentation">Edit documentation</entry>
 	<entry key="GeneralText.EditConditions">Edit conditions</entry>
 	<entry key="GeneralText.EditInitConditions">Edit init conditions</entry>
 	<entry key="GeneralText.EditEndConditions">Edit end conditions</entry>

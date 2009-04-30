@@ -1,6 +1,5 @@
 package es.eucm.eadventure.editor.gui.elementpanels.general.tables;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -37,19 +36,19 @@ public class ActionDetailsCellRendererEditor extends AbstractCellEditor implemen
 	@Override
 	public Component getTableCellEditorComponent(JTable table, Object value2, boolean isSelected, int row, int col) {
 		this.value = (ActionDataControl) value2;
-		return createComponent(isSelected);
+		return createComponent(isSelected, table);
 	}
 
 	@Override
 	public Component getTableCellRendererComponent(JTable table, Object value2, boolean isSelected, boolean hasFocus, int row, int column) {
 		this.value = (ActionDataControl) value2;
-		return createComponent(isSelected);
+		return createComponent(isSelected, table);
 	}
 
-	private Component createComponent(boolean isSelected) {
+	private Component createComponent(boolean isSelected, JTable table) {
 		JPanel temp = new JPanel();
 		if (isSelected)
-			temp.setBorder(BorderFactory.createMatteBorder(2, 0, 2, 0, Color.BLUE));
+			temp.setBorder(BorderFactory.createMatteBorder(2, 0, 2, 0, table.getSelectionBackground()));
 
 		temp.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();

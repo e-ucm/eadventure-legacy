@@ -1,11 +1,14 @@
 package es.eucm.eadventure.editor.gui.elementpanels.general.tables;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.AbstractCellEditor;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.table.TableCellEditor;
@@ -34,6 +37,18 @@ public class AuxEditCellRendererEditor extends AbstractCellEditor implements Tab
 	
 	@Override
 	public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int col) {
+		return getComponent(isSelected, table);
+	}
+
+	@Override
+	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+		return getComponent(isSelected, table);
+	}
+	
+	private Component getComponent(boolean isSelected, JTable table) {
+		JPanel temp = new JPanel();
+		if (isSelected)
+			temp.setBorder(BorderFactory.createMatteBorder(2, 0, 2, 0, table.getSelectionBackground()));
 		JButton button = new JButton(text);
 		button.setFocusable(false);
 		button.setEnabled(isSelected);
@@ -45,15 +60,9 @@ public class AuxEditCellRendererEditor extends AbstractCellEditor implements Tab
 					previewAuxSplit.setDividerLocation(Integer.MAX_VALUE);
 			}
 		});
-		return button;
-	}
-
-	@Override
-	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-		JButton button = new JButton(text);
-		button.setFocusable(false);
-		button.setEnabled(isSelected);
-		return button;
+		temp.setLayout(new BorderLayout());
+		temp.add(button, BorderLayout.CENTER);
+		return temp;
 	}
 
 }

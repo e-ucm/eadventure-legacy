@@ -1,9 +1,7 @@
 package es.eucm.eadventure.editor.gui.elementpanels.scene;
 
-import javax.swing.DefaultCellEditor;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -15,6 +13,7 @@ import es.eucm.eadventure.editor.control.controllers.scene.ActiveAreasListDataCo
 import es.eucm.eadventure.editor.control.tools.structurepanel.RenameElementTool;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.AuxEditCellRendererEditor;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ConditionsCellRendererEditor;
+import es.eucm.eadventure.editor.gui.elementpanels.general.tables.DocumentationCellRendererEditor;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.StringCellRendererEditor;
 import es.eucm.eadventure.editor.gui.otherpanels.IrregularAreaEditionPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
@@ -50,19 +49,40 @@ public class ActiveAreasTable extends JTable {
 				}
 			}
 		});
+		
 		this.getColumnModel().getColumn(0).setCellEditor(new StringCellRendererEditor());
 		this.getColumnModel().getColumn(0).setCellRenderer(new StringCellRendererEditor());
-		this.getColumnModel().getColumn(1).setCellEditor(new DefaultCellEditor(new JTextField()));
+		
+		this.getColumnModel().getColumn(1).setCellEditor(new StringCellRendererEditor());
+		this.getColumnModel().getColumn(1).setCellRenderer(new StringCellRendererEditor());
 
 		this.getColumnModel().getColumn(2).setCellRenderer(new ConditionsCellRendererEditor());
 		this.getColumnModel().getColumn(2).setCellEditor(new ConditionsCellRendererEditor());
+		this.getColumnModel().getColumn(2).setMaxWidth(120);
+		this.getColumnModel().getColumn(2).setMinWidth(120);
 		
 		String text = TextConstants.getText("ActiveAreasList.EditActions");
 		this.getColumnModel().getColumn(3).setCellRenderer(new AuxEditCellRendererEditor(previewAuxSplit, ActiveAreasListPanel.VERTICAL_SPLIT_POSITION, text));
 		this.getColumnModel().getColumn(3).setCellEditor(new AuxEditCellRendererEditor(previewAuxSplit, ActiveAreasListPanel.VERTICAL_SPLIT_POSITION, text));
+		this.getColumnModel().getColumn(3).setMaxWidth(105);
+		this.getColumnModel().getColumn(3).setMinWidth(105);
 
+		this.getColumnModel().getColumn(4).setCellRenderer(new DocumentationCellRendererEditor());
+		this.getColumnModel().getColumn(4).setCellEditor(new DocumentationCellRendererEditor());
+		this.getColumnModel().getColumn(4).setMaxWidth(140);
+		this.getColumnModel().getColumn(4).setMinWidth(140);
 		
 		this.getSelectionModel( ).setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
+		
+		this.setRowHeight(22);
+		this.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent arg0) {
+				setRowHeight(22);
+				if (getSelectedRow() != -1)
+					setRowHeight(getSelectedRow(), 26);
+			}
+		});
+		
 		this.setSize(200, 150);
 	}
 	
@@ -72,7 +92,7 @@ public class ActiveAreasTable extends JTable {
 		private static final long serialVersionUID = 1L;
 		
 		public int getColumnCount( ) {
-			return 4;
+			return 5;
 		}
 
 		public int getRowCount( ) {
@@ -86,6 +106,8 @@ public class ActiveAreasTable extends JTable {
 				return dataControl.getActiveAreas().get(rowIndex).getName();
 			if (columnIndex == 2)
 				return dataControl.getActiveAreas().get(rowIndex).getConditions();
+			if (columnIndex == 4)
+				return dataControl.getActiveAreas().get(rowIndex);
 			return null;
 		}
 		
@@ -99,6 +121,8 @@ public class ActiveAreasTable extends JTable {
 				return TextConstants.getText( "ActiveAreasList.Conditions" );
 			if (columnIndex == 3)
 				return TextConstants.getText( "ActiveAreasList.Actions");
+			if (columnIndex == 4)
+				return TextConstants.getText( "ActiveAreasList.Documentation");
 			return "";
 		}
 		
