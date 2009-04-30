@@ -152,16 +152,22 @@ public class FunctionalTrajectory {
 			
 		Collections.sort(validPaths);
 		
-		FunctionalPath bestPath = validPaths.get(validPaths.size() - 1);
-		this.nearestX = (int) bestPath.getDestX();
-		this.nearestY = (int) bestPath.getDestY();
-		this.currentNode = null;
-		this.currentSide = bestPath.getSides().get(0).getSide();
-		this.getsTo = bestPath.isGetsTo();
-
-		System.out.println();
-
-		return bestPath.getSides();
+		if (validPaths.size() == 0) {
+			FunctionalPath bestPath = validPaths.get(validPaths.size() - 1);
+			this.nearestX = (int) bestPath.getDestX();
+			this.nearestY = (int) bestPath.getDestY();
+			this.currentNode = null;
+			this.currentSide = bestPath.getSides().get(0).getSide();
+			this.getsTo = bestPath.isGetsTo();
+			return bestPath.getSides();
+		} else {
+			this.currentNode = this.trajectory.getInitial();
+			this.currentSide = null;
+			this.nearestX = currentNode.getX();
+			this.nearestY = currentNode.getY();
+			this.getsTo = false;
+			return new ArrayList<FunctionalSide>();
+		}
 	}
 
 	/**
