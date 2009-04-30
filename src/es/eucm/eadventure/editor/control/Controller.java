@@ -8,6 +8,7 @@ import java.awt.Toolkit;
 import java.awt.Window;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -39,6 +40,7 @@ import es.eucm.eadventure.editor.control.config.ProjectConfigData;
 import es.eucm.eadventure.editor.control.config.SCORMConfigData;
 import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
+import es.eucm.eadventure.editor.control.controllers.SelectedEffectsController;
 import es.eucm.eadventure.editor.control.controllers.VarFlagsController;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfilesDataControl;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfilesDataControl;
@@ -493,6 +495,11 @@ public class Controller {
 		
 	private boolean isLomEs=false;
 	
+	  /**
+	   * Store all effects selection. Connects the type of effect with the number of times that has been used
+	   */
+	  private SelectedEffectsController selectedEffects;
+	
 	/**
 	 * Void and private constructor.
 	 */
@@ -646,12 +653,24 @@ public class Controller {
 		// Create the main window and hide it
 		
 		//mainWindow.setVisible( false );
-
+		
+		// initialize the selected effects container
+		selectedEffects = new SelectedEffectsController();
+		
+		
 		mainWindow.setResizable( true );
 		mainWindow.setEnabled( true );
 		mainWindow.setVisible( true );
 		//DEBUGGING
 		//tsd = new ToolSystemDebugger( chaptersController );
+	}
+	
+	public void addSelectedEffect(String name){
+	    selectedEffects.addSelectedEffect(name);
+	}
+	
+	public SelectedEffectsController getSelectedEffectsController(){
+	    return selectedEffects;
 	}
 		
 	public void startAutoSave(int minutes) {
@@ -3127,4 +3146,6 @@ public class Controller {
 		
 		return new Color(r, g, b);
 	}
+	
+	
 }
