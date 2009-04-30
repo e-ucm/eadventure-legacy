@@ -60,7 +60,7 @@ class RepresentationPanel extends JPanel {
 	/**
 	 * Link to the principal panel
 	 */
-	private ConversationPanel conversationPanel;
+	private ConversationEditionPanel conversationPanel;
 	
 	private MenuPanel menuPanel;
 	
@@ -68,13 +68,13 @@ class RepresentationPanel extends JPanel {
 	/**
 	 * Constructor.
 	 * 
-	 * @param principalPanel
+	 * @param conversationEditionPanel
 	 *            Link to the principal panel
 	 * @param conversationDataControl
 	 *            Conversation controller
 	 */
-	public RepresentationPanel( ConversationPanel principalPanel, ConversationDataControl conversationDataControl ) {
-		this.conversationPanel = principalPanel;
+	public RepresentationPanel( ConversationEditionPanel conversationEditionPanel, ConversationDataControl conversationDataControl ) {
+		this.conversationPanel = conversationEditionPanel;
 		this.conversationDataControl = conversationDataControl;
 		
 		conversationRepresentation = new GraphicRepresentation( (GraphConversationDataControl) conversationDataControl, getSize( ) );

@@ -36,12 +36,12 @@ public class MenuPanel extends JPanel {
 	
 	private ConversationDataControl conversationDataControl;
 
-	private ConversationPanel conversationPanel;
+	private ConversationEditionPanel conversationPanel;
 	
-	public MenuPanel(ConversationDataControl conversationDataControl, ConversationPanel conversationPanel) {
+	public MenuPanel(ConversationDataControl conversationDataControl, ConversationEditionPanel conversationPanel2) {
 		super();
 		this.conversationDataControl = conversationDataControl;
-		this.conversationPanel = conversationPanel;
+		this.conversationPanel = conversationPanel2;
 		this.setOpaque(false);
 		this.setVisible(false);
 		

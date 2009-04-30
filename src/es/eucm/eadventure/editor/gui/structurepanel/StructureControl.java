@@ -1,12 +1,8 @@
 package es.eucm.eadventure.editor.gui.structurepanel;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JComponent;
-
-import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 

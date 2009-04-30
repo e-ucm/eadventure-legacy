@@ -88,16 +88,19 @@ public class ElementPanel extends JTabbedPane implements Updateable, DataControl
 				if (tabs.get(i).getDataControl() == path.get(path.size() - 1)) {
 					path.remove(path.size() - 1);
 					this.setSelectedIndex(i);
-					if (component != null) {
-						if (component instanceof DataControlsPanel) {
-					    	((DataControlsPanel) component).setSelectedItem(path);
-					    	path = null;
-					    }
-					}
-					return;
+					break;
 				}
 			}
 		}
+		if (path.size() > 0) {
+			if (component != null) {
+				if (component instanceof DataControlsPanel) {
+			    	((DataControlsPanel) component).setSelectedItem(path);
+			    	path = null;
+			    }
+			}
+		}
+
 	}
 	
 	/**

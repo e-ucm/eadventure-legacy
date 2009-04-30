@@ -1107,7 +1107,9 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="Cutscene.ReturnToLastScene">Returns to the last scene</entry>
 	<entry key="Cutscene.GoToNextScene">Goes to a new scene</entry>
 	<entry key="Cutscene.ChapterEnd">Chapter ends</entry>
-	
+	<entry key="Cutscene.CutsceneEnd">Cutscene end configuration</entry>
+	<entry key="Cutscene.Doc">Documentation</entry>
+	<entry key="Cutscene.App">Appearence</entry>
 	
 	<entry key="Videoscene.Title">Videoscene</entry>
 	<entry key="Videoscene.Documentation">Full description of the videoscene</entry>
@@ -1399,6 +1401,7 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="Conversations.MoveLineUp">Move line up</entry>
 	<entry key="Conversations.MoveLineDown">Move line down</entry>
 
+	<entry key="Conversºtion.Title">Conversation</entry>
 	<entry key="Conversation.OptionPreviewConversation">Preview</entry>
 	<entry key="Conversation.OptionPreviewPartialConversation">Preview from selected node</entry>
 	<entry key="Conversation.OptionAddDialogueNode">Add dialogue node</entry>
@@ -1760,14 +1763,17 @@ When not customized, default arrows will be used in the game.</entry>
 	<entry key="AssessmentRulesList.Title">Assessment rules summary</entry>
 	<entry key="AssessmentRulesList.Information">These are all the assessment rules specified so far. You can edit whichever by browsing the tree and clicking on the specified rule.</entry>
 
+	<entry key="AssessmentProfile.Title">Assessment profile</entry>
 	<entry key="AssessmentProfile.Feedback.Title">Configuration of the student's feedback</entry>
 	<entry key="AssessmentProfile.Feedback.Description">Here you can find different mechanisms to provide feedback to the student. So far, you can only select to display the assessment report when the chapter is over.</entry>
 	<entry key="AssessmentProfile.Feedback.ShowReportAtEnd">Show assessment report when chapter is over</entry>
 	<entry key="AssessmentProfile.Feedback.SendByEmail">Send by email: </entry>
+	<entry key="AssessmentProfile.Feedback.EditSMTPConfiguration">Edit SMTP configuration</entry>
 
 	<entry key="AssessmentProfiles.Title">Assessment profiles</entry>
 	<entry key="AssessmentProfiles.Information">This section of the tree structure allows the creation and edition of new assessment profiles. To select which should be the active profile for the chapter use the combo box in the chapter panel</entry>
 	
+	<entry key="AdaptationProfile.Title">Adaptation profile</entry>
 	<entry key="AdaptationProfile.TypeDialog.Title">Select the profile type.</entry>
 	<entry key="AdaptationProfile.NormalProfile">Normal Profile</entry>
 	<entry key="AdaptationProfile.Scorm12Profile">Scorm v1.2 Profile</entry>
