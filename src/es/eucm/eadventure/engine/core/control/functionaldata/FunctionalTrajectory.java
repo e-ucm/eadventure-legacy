@@ -152,7 +152,7 @@ public class FunctionalTrajectory {
 			
 		Collections.sort(validPaths);
 		
-		if (validPaths.size() == 0) {
+		if (validPaths.size() > 0) {
 			FunctionalPath bestPath = validPaths.get(validPaths.size() - 1);
 			this.nearestX = (int) bestPath.getDestX();
 			this.nearestY = (int) bestPath.getDestY();
