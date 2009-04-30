@@ -48,6 +48,7 @@ public class EffectInfoPanel extends JPanel{
 		folder += "es_ES/";
 	else if (Controller.getInstance().getLanguage() == ReleaseFolders.LANGUAGE_ENGLISH)
 		folder += "en_EN/";
+	folder+="effects/";
 	File file = new File(folder + helpPath);
 	if (file.exists( )){
 		try {

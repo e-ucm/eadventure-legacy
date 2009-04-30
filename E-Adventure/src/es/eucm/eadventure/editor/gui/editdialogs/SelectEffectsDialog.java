@@ -18,7 +18,10 @@ import javax.swing.JSplitPane;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.config.ProjectConfigData;
+import es.eucm.eadventure.editor.control.controllers.SelectedEffectsController;
 import es.eucm.eadventure.editor.gui.structurepanel.EffectsStructurePanel;
+import es.eucm.eadventure.editor.gui.structurepanel.MostVisitedPanel;
 import es.eucm.eadventure.editor.gui.structurepanel.StructureControl;
 
 /**
@@ -38,6 +41,8 @@ public class SelectEffectsDialog extends ToolManagableDialog {
     
     private boolean isOk;
     
+    MostVisitedPanel visitPanel;
+    
     
     public SelectEffectsDialog() {
 	super(Controller.getInstance( ).peekWindow( ),TextConstants.getText("SelectEffectDialog.Title") );
@@ -46,16 +51,14 @@ public class SelectEffectsDialog extends ToolManagableDialog {
 	StructureControl.getInstance().setStructurePanel(effectsStructurePanel);
 	isOk=false;
 	JPanel leftPanel = new JPanel(new GridLayout(2,0));
-	
-	JPanel lastUsedElements = new JPanel();
-	JLabel last = new JLabel("Este es el panel de los ultimos elementos introducidos");
-	lastUsedElements.add(last);
+
+	visitPanel = new MostVisitedPanel(this);
 	
 	GridBagConstraints c = new GridBagConstraints();
 	c.fill = GridBagConstraints.BOTH;
 	c.weightx=1;
 	c.weighty=1;
-	leftPanel.add(lastUsedElements);
+	leftPanel.add(visitPanel);
 	c.gridy++;
 	leftPanel.add(effectsStructurePanel);
 	
@@ -123,11 +126,37 @@ public class SelectEffectsDialog extends ToolManagableDialog {
 
    
     
+    /**
+     * @param isOk the isOk to set
+     */
+    public void setOk(boolean isOk) {
+        this.isOk = isOk;
+    }
+
+
+
     public static String getSelectedEffect(){
 	SelectEffectsDialog dialog = new SelectEffectsDialog();
 	StructureControl.getInstance().resetStructurePanel();
-	if (dialog.isOk)
-	    return dialog.effectsStructurePanel.getSelectedEffect();
+	if (dialog.isOk){
+	    String selection=null;
+	    if (dialog.visitPanel.isPressed()){
+		selection = dialog.visitPanel.getSelectedName();
+	    }else {
+	   
+	    selection = dialog.effectsStructurePanel.getSelectedEffect();
+	    }
+	    // store the number of times that selected effect has been used
+	    int value=0;
+	    String realName=SelectedEffectsController.convertNames(selection);
+	    String numberOfUses=ProjectConfigData.getProperty(realName);
+	    if (numberOfUses!=null)
+		value = Integer.parseInt(numberOfUses);
+	    ProjectConfigData.setProperty(realName,String.valueOf( value+1));
+	    Controller.getInstance().addSelectedEffect(realName);
+	    return selection;
+	    
+	}
 	else 
 	    return null;
 	
