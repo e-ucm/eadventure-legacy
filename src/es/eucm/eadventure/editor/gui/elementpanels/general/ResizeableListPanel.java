@@ -1,8 +1,6 @@
 package es.eucm.eadventure.editor.gui.elementpanels.general;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -45,14 +43,7 @@ public class ResizeableListPanel extends JPanel {
 	
 	private void createPanel() {
 		// Set the layout and the border
-		setLayout( new GridBagLayout( ) );
-		GridBagConstraints c = new GridBagConstraints( );
-		c.insets = new Insets( 5, 5, 5, 5 );
-
-		// Create the text area for the documentation
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weightx = 1;
-		
+		setLayout( new BorderLayout( ) );
 		JPanel buttonsPanel = new JPanel();
 		JButton sizeZero = new JButton(new ImageIcon("img/icons/size0.png"));
 		sizeZero.setToolTipText(TextConstants.getText("ResizeableListPanel.Size0ToolTip"));
@@ -81,14 +72,8 @@ public class ResizeableListPanel extends JPanel {
 		});
 		buttonsPanel.add(sizeTwo);
 
-		add( buttonsPanel, c );
+		add( buttonsPanel, BorderLayout.NORTH );
 
-		// Create the table with the data
-		c.gridy = 1;
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 1;
-		c.weighty = 1;
-		
 		int size = ResizeableListConfigData.getSize(name);
 		model = new ResizableTableModel( dataControlList , size);
 		renderer.setSize(size);
@@ -107,7 +92,7 @@ public class ResizeableListPanel extends JPanel {
 			informationTable.setRowHeight(200);
 		informationTable.setTableHeader(null);
 
-		add( new JScrollPane( informationTable, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER ), c );
+		add( new JScrollPane( informationTable, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER ), BorderLayout.CENTER );
 	}
 	
 	private class InformationTableMouseListener extends MouseAdapter {

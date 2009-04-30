@@ -1,46 +1,51 @@
 package es.eucm.eadventure.editor.gui.elementpanels.assessment;
 
 import java.awt.BorderLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.swing.BorderFactory;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
-import javax.swing.JTextPane;
 
 import es.eucm.eadventure.common.gui.TextConstants;
-import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
+import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfileDataControl;
+import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfilesDataControl;
+import es.eucm.eadventure.editor.gui.elementpanels.ElementPanel;
+import es.eucm.eadventure.editor.gui.elementpanels.PanelTab;
+import es.eucm.eadventure.editor.gui.elementpanels.general.ResizeableListPanel;
+import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ResizeableCellRenderer;
 
-public class AssessmentProfilesPanel extends JPanel{
+public class AssessmentProfilesPanel extends ElementPanel {
 	/**
 	 * Required
 	 */
 	private static final long serialVersionUID = 6602692300239491332L;
 
-	public AssessmentProfilesPanel (){
-		// Set the layout and the border
-		setLayout( new GridBagLayout( ) );
-		setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AssessmentProfiles.Title" ) ) );
-		GridBagConstraints c = new GridBagConstraints( );
-		c.insets = new Insets( 5, 5, 5, 5 );
-
-		// Create the text area for the documentation
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weightx = 1;
-		JTextPane informationTextPane = new JTextPane( );
-		informationTextPane.setEditable( false );
-		informationTextPane.setBackground( getBackground( ) );
-		informationTextPane.setText( TextConstants.getText( "AssessmentProfiles.Information" ) );
-		JPanel informationPanel = new JPanel( );
-		informationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "GeneralText.Information" ) ) );
-		informationPanel.setLayout( new BorderLayout( ) );
-		informationPanel.add( informationTextPane, BorderLayout.CENTER );
-		add( informationPanel, c );
-		
-		c.fill = GridBagConstraints.BOTH;
-		c.weighty = 1;
-		c.gridy = 1;
-		add (new JFiller(),c);
+	public AssessmentProfilesPanel (AssessmentProfilesDataControl dataControl){
+		addTab(new AssessmentProfilesPanelTab(dataControl));
 	}
+
+	private class AssessmentProfilesPanelTab extends PanelTab {
+		private AssessmentProfilesDataControl sDataControl;
+		
+		public AssessmentProfilesPanelTab(AssessmentProfilesDataControl sDataControl) {
+			super(TextConstants.getText( "AssessmentProfiles.Title" ), sDataControl);
+			this.sDataControl = sDataControl;
+		}
+
+		@Override
+		protected JComponent getTabComponent() {
+			JPanel booksListPanel = new JPanel();
+			booksListPanel.setLayout( new BorderLayout( ) );
+			List<DataControl> dataControlList = new ArrayList<DataControl>();
+			for (AssessmentProfileDataControl item : sDataControl.getProfiles()) {
+				dataControlList.add(item);
+			}
+			ResizeableCellRenderer renderer = new AssessmentProfileCellRenderer();
+			booksListPanel.add(new ResizeableListPanel(dataControlList, renderer, "AssessmentProfileListPanel"), BorderLayout.CENTER);
+			return booksListPanel;
+		}
+	}
+
 }

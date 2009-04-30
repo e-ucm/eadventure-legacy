@@ -77,9 +77,9 @@ public class EditPanelFactory {
 		if (dataControl instanceof AtrezzoDataControl)
 			return new AtrezzoPanel((AtrezzoDataControl) dataControl);
 		if (dataControl instanceof AssessmentProfilesDataControl)
-			return new AssessmentProfilesPanel();
+			return new AssessmentProfilesPanel((AssessmentProfilesDataControl) dataControl);
 		if (dataControl instanceof AdaptationProfilesDataControl)
-			return new AdaptationProfilesPanel();
+			return new AdaptationProfilesPanel((AdaptationProfilesDataControl) dataControl);
 		if (dataControl instanceof PlayerDataControl)
 			return new PlayerPanel((PlayerDataControl) dataControl);
 		if (dataControl instanceof NPCDataControl)
