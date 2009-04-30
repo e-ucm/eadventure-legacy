@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 
 import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.common.data.chapter.CustomAction;
+import es.eucm.eadventure.common.data.chapter.ElementReference;
 import es.eucm.eadventure.common.data.chapter.InfluenceArea;
 import es.eucm.eadventure.common.data.chapter.elements.Element;
 import es.eucm.eadventure.common.data.chapter.elements.NPC;
@@ -117,38 +118,12 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
     
     private InfluenceArea influenceArea;
     
+    private ElementReference reference;
     
-    /**
-     * Creates a new FunctionalNCP
-     * @param npc the npc's data
-     * @param x the npc's horizontal position
-     * @param y the npc's vertical position
-     */
-    public FunctionalNPC( NPC npc, InfluenceArea influenceArea, int x, int y ) {
-        super( x, y );
-        this.npc = npc;
-        this.influenceArea = influenceArea;
-        
-        textFrontColor = generateColor( npc.getTextFrontColor( ) );
-        textBorderColor = generateColor( npc.getTextBorderColor( ) );
-        bubbleBorderColor = generateColor( npc.getBubbleBorderColor() );
-        bubbleBkgColor = generateColor( npc.getBubbleBkgColor() );
-        
-        // Select the resources
-        resources = createResourcesBlock( );
-        
-        // Create the states of the character
-        idleAnimation = new NPCIdle( this );
-        talkingAnimation = new NPCTalking( this );
-        walkingAnimation = new NPCWalking( this );
-        
-        destX = 0;
-        destY = 0;
-
-        currentState = idleAnimation;
-        
-        speedX = 0;
-        speedY = 0;
+    public FunctionalNPC( NPC npc, ElementReference reference) {
+    	this(npc, reference.getInfluenceArea(), reference.getX(), reference.getY(), reference.getLayer());
+    	this.reference = reference;
+    	this.scale = reference.getScale();
     }
     
     /**
@@ -158,7 +133,7 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
      * @param y the npc's vertical position
      * @param layer the npc´s layer, it means, it will be painted in that position
      */
-    public FunctionalNPC( NPC npc, InfluenceArea influenceArea, int x, int y, int layer ) {
+    private FunctionalNPC( NPC npc, InfluenceArea influenceArea, int x, int y, int layer ) {
         super( x, y );
         this.npc = npc;
         this.layer = layer;
@@ -620,4 +595,7 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
 		return npc.getShowsSpeechBubbles();
 	}
 
+	public ElementReference getReference() {
+		return reference;
+	}
 }

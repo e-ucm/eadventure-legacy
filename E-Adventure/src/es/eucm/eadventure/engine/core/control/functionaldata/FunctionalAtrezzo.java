@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 
 import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.common.data.chapter.CustomAction;
+import es.eucm.eadventure.common.data.chapter.ElementReference;
 import es.eucm.eadventure.common.data.chapter.InfluenceArea;
 import es.eucm.eadventure.common.data.chapter.elements.Atrezzo;
 import es.eucm.eadventure.common.data.chapter.elements.Element;
@@ -47,6 +48,15 @@ public class FunctionalAtrezzo extends FunctionalElement {
      */
     protected Atrezzo atrezzo;
 
+    private ElementReference reference;
+    
+    public FunctionalAtrezzo( Atrezzo atrezzo, ElementReference reference) {
+    	this(atrezzo, reference.getX(), reference.getY());
+    	this.reference = reference;
+    	this.layer = reference.getLayer();
+    	this.scale = reference.getScale();
+    }
+    
     /**
      * Creates a new FunctionalItem
      * @param atrezzo the atrezzo's data
@@ -68,36 +78,6 @@ public class FunctionalAtrezzo extends FunctionalElement {
             image = multimediaManager.loadImageFromZip( resources.getAssetPath( Item.RESOURCE_TYPE_IMAGE ), MultimediaManager.IMAGE_SCENE );
         //if( resources.existAsset( Item.RESOURCE_TYPE_ICON ) )
            // icon = multimediaManager.loadImageFromZip( resources.getAssetPath( Item.RESOURCE_TYPE_ICON ), MultimediaManager.IMAGE_SCENE );
-    }
-    /**
-     * Creates a new FunctionalItem
-     * @param atrezzo the atrezzo's data
-     * @param x the atrezzo's horizontal position
-     * @param y the atrezzo's vertical position
-     * @param layer the atrezzo´s layer, it means, it will be painted in that position
-     */
-    public FunctionalAtrezzo( Atrezzo atrezzo, int x, int y, int layer ) {
-    	 super( x, y );
-         this.atrezzo = atrezzo;
-         this.scale = 1;
-         image = null;
-         this.layer = layer;
-         //icon = null;
-         
-         resources = createResourcesBlock();
-         
-         // Load the resources
-         MultimediaManager multimediaManager = MultimediaManager.getInstance( );
-         if( resources.existAsset( Item.RESOURCE_TYPE_IMAGE ) )
-             image = multimediaManager.loadImageFromZip( resources.getAssetPath( Item.RESOURCE_TYPE_IMAGE ), MultimediaManager.IMAGE_SCENE );
-    }
-
-    /**
-     * Creates a new FunctionalAtrezzo at position (0, 0)
-     * @param atrezzo the atrezzo's data
-     */
-    public FunctionalAtrezzo( Atrezzo atrezzo ) {
-        this( atrezzo, 0, 0 );
     }
     
     /**
@@ -270,6 +250,10 @@ public class FunctionalAtrezzo extends FunctionalElement {
 	@Override
 	public InfluenceArea getInfluenceArea() {
 		return null;
+	}
+	
+	public ElementReference getReference() {
+		return reference;
 	}
 }
 

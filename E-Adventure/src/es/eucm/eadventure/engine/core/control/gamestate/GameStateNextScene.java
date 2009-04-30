@@ -6,7 +6,6 @@ import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalCondition
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalScene;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
 import es.eucm.eadventure.common.data.chapter.Exit;
-import es.eucm.eadventure.common.data.chapter.NextScene;
 import es.eucm.eadventure.common.data.chapter.Trajectory.Node;
 import es.eucm.eadventure.common.data.chapter.scenes.GeneralScene;
 import es.eucm.eadventure.common.data.chapter.scenes.Scene;

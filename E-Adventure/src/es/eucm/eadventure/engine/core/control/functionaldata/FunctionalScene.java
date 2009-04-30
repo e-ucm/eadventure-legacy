@@ -182,9 +182,7 @@ public class FunctionalScene implements Renderable {
                 if( itemSummary.isItemNormal( itemReference.getTargetId( ) ) )
                     for( Item currentItem : gameData.getItems( ) )
                         if( itemReference.getTargetId( ).equals( currentItem.getId( ) ) ) {
-                            FunctionalItem fitem = new FunctionalItem( currentItem, itemReference.getInfluenceArea(), itemReference.getX( ), itemReference.getY( ) );
-                        	fitem.setScale(itemReference.getScale());
-                        	fitem.setLayer(itemReference.getLayer());
+                            FunctionalItem fitem = new FunctionalItem( currentItem, itemReference );
                             items.add( fitem );
                         }
         // Add the functional characters
@@ -192,9 +190,7 @@ public class FunctionalScene implements Renderable {
             if( new FunctionalConditions(npcReference.getConditions( )).allConditionsOk( ) )
                 for( NPC currentNPC : gameData.getCharacters( ) )
                     if( npcReference.getTargetId( ).equals( currentNPC.getId( ) ) ) {
-                        FunctionalNPC fnpc = new FunctionalNPC( currentNPC, npcReference.getInfluenceArea(), npcReference.getX( ), npcReference.getY( ) );
-                    	fnpc.setScale(npcReference.getScale());
-                    	fnpc.setLayer(npcReference.getLayer());
+                        FunctionalNPC fnpc = new FunctionalNPC( currentNPC, npcReference);
                         npcs.add( fnpc );
                     }
         // Add the functional active areas
@@ -212,9 +208,7 @@ public class FunctionalScene implements Renderable {
             if( new FunctionalConditions(atrezzoReference.getConditions( )).allConditionsOk( ) )
                     for( Atrezzo currentAtrezzo : gameData.getAtrezzo() )
                         if( atrezzoReference.getTargetId( ).equals( currentAtrezzo.getId( ) ) ) {
-                            FunctionalAtrezzo fatrezzo = new FunctionalAtrezzo( currentAtrezzo, atrezzoReference.getX( ), atrezzoReference.getY( ));
-                        	fatrezzo.setScale(atrezzoReference.getScale());
-                            fatrezzo.setLayer(atrezzoReference.getLayer());
+                            FunctionalAtrezzo fatrezzo = new FunctionalAtrezzo( currentAtrezzo, atrezzoReference);
                         	atrezzo.add( fatrezzo );
                         }
 
@@ -256,7 +250,7 @@ public class FunctionalScene implements Renderable {
                 
                 // If the functional item is present, update its resources
                 for( FunctionalItem currentItem : items ) {
-                    if( itemReference.getTargetId( ).equals( currentItem.getItem( ).getId( ) ) ) {
+                    if( itemReference == currentItem.getReference() ) {
                         currentItem.updateResources( );
                         found = true;
                     }
@@ -267,27 +261,32 @@ public class FunctionalScene implements Renderable {
                     if( Game.getInstance( ).getItemSummary( ).isItemNormal( itemReference.getTargetId( ) ) ) {
                         for( Item currentItem : gameData.getItems( ) ) {
                             if( itemReference.getTargetId( ).equals( currentItem.getId( ) ) ) {
-                            	FunctionalItem fItem =new FunctionalItem( currentItem, itemReference.getInfluenceArea(), itemReference.getX( ), itemReference.getY( ) );
-                            	fItem.setScale(itemReference.getScale());
-                            	fItem.setLayer(itemReference.getLayer());
+                            	FunctionalItem fItem =new FunctionalItem( currentItem, itemReference );
                                 items.add( fItem );
                             }
                         }
                     }
                 }
+            } else {
+            	FunctionalItem remove = null;
+            	for ( FunctionalItem currentItem : items) {
+            		if (currentItem.getReference() == itemReference)
+            			remove = currentItem;
+            	}
+            	if (remove != null)
+            		items.remove(remove);
             }
         }
 
         // Check the character references of the scene
-        for( ElementReference npcReference : scene.getCharacterReferences( ) ) {
-            
+        for( ElementReference npcReference : scene.getCharacterReferences( ) ) {            
             // For every item that should be there
             if( new FunctionalConditions(npcReference.getConditions( )).allConditionsOk( ) ) {
                 boolean found = false;
                 
                 // If the functional character is present, update its resources
                 for( FunctionalNPC currentNPC : npcs ) {
-                    if( npcReference.getTargetId( ).equals( currentNPC.getNPC( ).getId( ) ) ) {
+                    if( npcReference == currentNPC.getReference() ) {
                         currentNPC.updateResources( );
                         found = true;
                     }
@@ -297,13 +296,19 @@ public class FunctionalScene implements Renderable {
                 if( !found ) {
                     for( NPC currentNPC : gameData.getCharacters( ) ) {
                         if( npcReference.getTargetId( ).equals( currentNPC.getId( ) ) ) {
-                        	FunctionalNPC fNPC = new FunctionalNPC( currentNPC, npcReference.getInfluenceArea(), npcReference.getX( ), npcReference.getY( ), npcReference.getLayer() );
-                        	fNPC.setScale(npcReference.getScale());
-                        	fNPC.setLayer(npcReference.getLayer());
+                        	FunctionalNPC fNPC = new FunctionalNPC( currentNPC, npcReference );
                         	npcs.add( fNPC );
                         }
                     }
                 }
+            } else {
+            	FunctionalNPC remove = null;
+            	for ( FunctionalNPC currentNPC : npcs) {
+            		if (currentNPC.getReference() == npcReference)
+            			remove = currentNPC;
+            	}
+            	if (remove != null)
+            		npcs.remove(remove);
             }
         }
         
@@ -332,7 +337,6 @@ public class FunctionalScene implements Renderable {
         // Check the barriers of the scene
         barriers.clear();
         for( Barrier barrier : scene.getBarriers( ) ) {
-            
             // For every barrier that should be there
             if( new FunctionalConditions(barrier.getConditions( )).allConditionsOk( ) ) {
                     barriers.add( new FunctionalBarrier (barrier) );
@@ -348,7 +352,7 @@ public class FunctionalScene implements Renderable {
                 
                 // If the functional atrezzo item is present, update its resources
                 for( FunctionalAtrezzo currentAtrezzo : atrezzo ) {
-                    if( atrezzoReference.getTargetId( ).equals( currentAtrezzo.getAtrezzo( ).getId( ) ) ) {
+                    if( atrezzoReference == currentAtrezzo.getReference() ) {
                         currentAtrezzo.updateResources( );
                         found = true;
                     }
@@ -356,66 +360,25 @@ public class FunctionalScene implements Renderable {
                 
                 // If it was not found, search for it and add it
                 if( !found ) {
-                    //if( Game.getInstance( ).getAtrezzoItemSummary( ).isFlagsNormal( atrezzoReference.getIdTarget( ) ) ) {
-                        for( Atrezzo currentAtrezzo : gameData.getAtrezzo( ) ) {
-                            if( atrezzoReference.getTargetId( ).equals( currentAtrezzo.getId( ) ) ) {
-                                FunctionalAtrezzo fAtrezzo = new FunctionalAtrezzo( currentAtrezzo, atrezzoReference.getX( ), atrezzoReference.getY( ), atrezzoReference.getLayer());
-                            	fAtrezzo.setScale(atrezzoReference.getScale());
-                            	fAtrezzo.setLayer(atrezzoReference.getLayer());
-                            	atrezzo.add( fAtrezzo );
-                            }
-                        }
-                    //}
+                     for( Atrezzo currentAtrezzo : gameData.getAtrezzo( ) ) {
+                         if( atrezzoReference.getTargetId( ).equals( currentAtrezzo.getId( ) ) ) {
+                             FunctionalAtrezzo fAtrezzo = new FunctionalAtrezzo( currentAtrezzo, atrezzoReference);
+                          	atrezzo.add( fAtrezzo );
+                         }
+                     }
                 }
+            } else {
+            	FunctionalAtrezzo remove = null;
+            	for ( FunctionalAtrezzo currentAtrezzo : atrezzo) {
+            		if (currentAtrezzo.getReference() == atrezzoReference)
+            			remove = currentAtrezzo;
+            	}
+            	if (remove != null)
+            		atrezzo.remove(remove);
             }
+            
         }
 
-        
-        // Create a list with the items to remove
-        ArrayList<FunctionalItem> itemsToRemove = new ArrayList<FunctionalItem>( );
-        for( FunctionalItem currentItem : items ) {
-            boolean keepItem = false;
-            
-            // For every present item, check if it must be kept
-            for( ElementReference itemReference : scene.getItemReferences( ) ) {
-                if( itemReference.getTargetId( ).equals( currentItem.getItem( ).getId( ) ) &&
-                		new FunctionalConditions(itemReference.getConditions( )).allConditionsOk( ) ) {
-                    keepItem = true;
-                }
-            }
-            
-            // If it must not be kept, add it to the remove list
-            if( !keepItem )
-                itemsToRemove.add( currentItem );
-        }
-        
-        // Remove the elements
-        for( FunctionalItem itemToRemove : itemsToRemove )
-            items.remove( itemToRemove );
-        
-        
-        // Create a list with the characters to remove
-        ArrayList<FunctionalNPC> npcsToRemove = new ArrayList<FunctionalNPC>( );
-        for( FunctionalNPC currentNPC : npcs ) {
-            boolean keepNPC = false;
-            
-            // For every present character, check if it must be kept
-            for( ElementReference npcReference : scene.getCharacterReferences( ) ) {
-                if( npcReference.getTargetId( ).equals( currentNPC.getNPC( ).getId( ) ) &&
-                		new FunctionalConditions(npcReference.getConditions( )).allConditionsOk( ) ) {
-                    keepNPC = true;
-                }
-            }
-            
-            // If it must not be kept, add it to the remove list
-            if( !keepNPC )
-                npcsToRemove.add( currentNPC );
-        }
-        
-        // Remove the elements
-        for( FunctionalNPC npcToRemove : npcsToRemove )
-            npcs.remove( npcToRemove );
-        
         // Create a list with the active areas to remove
         ArrayList<FunctionalActiveArea> activeAreasToRemove = new ArrayList<FunctionalActiveArea>( );
         for( FunctionalActiveArea currentActiveArea : areas ) {
@@ -436,30 +399,7 @@ public class FunctionalScene implements Renderable {
         
         // Remove the elements
         for( FunctionalActiveArea areaToRemove : activeAreasToRemove )
-            areas.remove( areaToRemove );
-        
-        // Create a list with the atrezzo items to remove
-        ArrayList<FunctionalAtrezzo> atrezzoToRemove = new ArrayList<FunctionalAtrezzo>( );
-        for( FunctionalAtrezzo currentAtrezzo : atrezzo ) {
-            boolean keepAtrezzo = false;
-            
-            // For every present item, check if it must be kept
-            for( ElementReference atrezzoReference : scene.getAtrezzoReferences( ) ) {
-                if( atrezzoReference.getTargetId( ).equals( currentAtrezzo.getAtrezzo( ).getId( ) ) &&
-                		new FunctionalConditions(atrezzoReference.getConditions( )).allConditionsOk( ) ) {
-                    keepAtrezzo = true;
-                }
-            }
-            
-            // If it must not be kept, add it to the remove list
-            if( !keepAtrezzo )
-                atrezzoToRemove.add( currentAtrezzo );
-        }
-        
-        // Remove the elements
-        for( FunctionalAtrezzo atrToRemove : atrezzoToRemove )
-            atrezzo.remove( atrToRemove );
-        
+            areas.remove( areaToRemove );        
 
     }
     

@@ -24,7 +24,7 @@ import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.data.chapter.Exit;
-import es.eucm.eadventure.common.data.chapter.NextScene;
+import es.eucm.eadventure.common.data.chapter.InfluenceArea;
 import es.eucm.eadventure.common.data.chapter.Timer;
 import es.eucm.eadventure.common.data.chapter.book.Book;
 import es.eucm.eadventure.common.data.chapter.conversation.Conversation;
@@ -901,11 +901,11 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      */
     public void generateItem( String itemId ) {
         if( itemSummary.isItemNormal( itemId ) ) {
-            inventory.storeItem( new FunctionalItem( gameData.getItem( itemId ), null ) );
+            inventory.storeItem( new FunctionalItem( gameData.getItem( itemId ), (InfluenceArea) null ) );
             itemSummary.grabItem( itemId );
         } else if ( itemSummary.isItemConsumed( itemId )){
             itemSummary.regenerateItem( itemId );
-            inventory.storeItem( new FunctionalItem( gameData.getItem( itemId ), null ) );
+            inventory.storeItem( new FunctionalItem( gameData.getItem( itemId ), (InfluenceArea) null ) );
             itemSummary.grabItem( itemId );
         }
     }
@@ -1370,7 +1370,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
                 inventory = new Inventory( );
                 ArrayList<String> grabbedItems = itemSummary.getGrabbedItems( );
                 for( String item : grabbedItems ) {
-                    inventory.storeItem( new FunctionalItem( gameData.getItem( item ), null ) );
+                    inventory.storeItem( new FunctionalItem( gameData.getItem( item ), (InfluenceArea) null ) );
                
                  
                 SaveTimer st = new SaveTimer(); 

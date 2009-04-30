@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 
 import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.common.data.chapter.CustomAction;
+import es.eucm.eadventure.common.data.chapter.ElementReference;
 import es.eucm.eadventure.common.data.chapter.InfluenceArea;
 import es.eucm.eadventure.common.data.chapter.elements.Element;
 import es.eucm.eadventure.common.data.chapter.elements.Item;
@@ -50,13 +51,22 @@ public class FunctionalItem extends FunctionalElement {
     
     private float oldScale = -1;
     
+    private ElementReference reference;
+
+    public FunctionalItem( Item item, ElementReference reference) {
+    	this(item, reference.getInfluenceArea(), reference.getX(), reference.getY());
+    	this.scale = reference.getScale();
+    	this.layer = reference.getLayer();
+    	this.reference = reference;
+    }
+    
     /**
      * Creates a new FunctionalItem
      * @param item the item's data
      * @param x the item's horizontal position
      * @param y the item's vertical position
      */
-    public FunctionalItem( Item item, InfluenceArea influenceArea, int x, int y ) {
+    protected FunctionalItem( Item item, InfluenceArea influenceArea, int x, int y ) {
         super( x, y );
         this.item = item;
         this.influenceArea = influenceArea;
@@ -74,30 +84,6 @@ public class FunctionalItem extends FunctionalElement {
             icon = multimediaManager.loadImageFromZip( resources.getAssetPath( Item.RESOURCE_TYPE_ICON ), MultimediaManager.IMAGE_SCENE );
     }
     
-    /**
-     * Creates a new FunctionalItem
-     * @param item the item's data
-     * @param x the item's horizontal position
-     * @param y the item's vertical position
-     * @param layer the item´s layer, it means, it will be painted in that position
-     */
-    public FunctionalItem( Item item, int x, int y, int layer ) {
-        super( x, y );
-        this.item = item;
-        this.layer = layer;
-        image = null;
-        icon = null;
-        
-        resources = createResourcesBlock();
-        
-        // Load the resources
-        MultimediaManager multimediaManager = MultimediaManager.getInstance( );
-        if( resources.existAsset( Item.RESOURCE_TYPE_IMAGE ) )
-            image = multimediaManager.loadImageFromZip( resources.getAssetPath( Item.RESOURCE_TYPE_IMAGE ), MultimediaManager.IMAGE_SCENE );
-        if( resources.existAsset( Item.RESOURCE_TYPE_ICON ) )
-            icon = multimediaManager.loadImageFromZip( resources.getAssetPath( Item.RESOURCE_TYPE_ICON ), MultimediaManager.IMAGE_SCENE );
-    }
-
     /**
      * Creates a new FunctionalItem at position (0, 0)
      * @param item the item's data
@@ -611,5 +597,9 @@ public class FunctionalItem extends FunctionalElement {
 	@Override
 	public InfluenceArea getInfluenceArea() {
 		return influenceArea;
+	}
+	
+	public ElementReference getReference() {
+		return reference;
 	}
 }
