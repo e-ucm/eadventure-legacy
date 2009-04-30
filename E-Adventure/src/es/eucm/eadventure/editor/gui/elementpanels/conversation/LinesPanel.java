@@ -50,7 +50,7 @@ class LinesPanel extends JPanel {
 	/**
 	 * Reference to the principal panel
 	 */
-	private ConversationPanel conversationPanel;
+	private ConversationEditionPanel conversationPanel;
 
 	/**
 	 * Border of the panel
@@ -105,14 +105,14 @@ class LinesPanel extends JPanel {
 	/**
 	 * Constructor
 	 * 
-	 * @param principalPanel
+	 * @param conversationEditionPanel
 	 *            Link to the principal panel, for sending signals
 	 * @param conversationDataControl
 	 *            Data controller to edit the lines
 	 */
-	public LinesPanel( ConversationPanel principalPanel, ConversationDataControl conversationDataControl ) {
+	public LinesPanel( ConversationEditionPanel conversationEditionPanel, ConversationDataControl conversationDataControl ) {
 		// Set the initial values
-		this.conversationPanel = principalPanel;
+		this.conversationPanel = conversationEditionPanel;
 		this.conversationDataControl = conversationDataControl;
 
 		// Create and set border (titled border in this case)

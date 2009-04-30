@@ -17,6 +17,8 @@ import es.eucm.eadventure.common.gui.TextConstants;
 
 public class DescriptorDataPanel extends JPanel {
 
+	private static final long serialVersionUID = -4705653880828167412L;
+
 	private DescriptorData currentDescriptor = null;
 
 	private JTextField titleTextField;

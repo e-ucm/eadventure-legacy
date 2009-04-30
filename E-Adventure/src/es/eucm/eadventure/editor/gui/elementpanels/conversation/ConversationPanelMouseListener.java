@@ -30,18 +30,17 @@ public class ConversationPanelMouseListener implements MouseListener, MouseMotio
 	/**
 	 * Link to the principal panel
 	 */
-	private ConversationPanel conversationPanel;
+	private ConversationEditionPanel conversationPanel;
 
 	private RepresentationPanel representationPanel;
 	
-	public ConversationPanelMouseListener(GraphicRepresentation conversationRepresentation, ConversationDataControl conversationDataControl, ConversationPanel conversationPanel, RepresentationPanel representationPanel) {
+	
+	public ConversationPanelMouseListener(GraphicRepresentation conversationRepresentation, ConversationDataControl conversationDataControl, ConversationEditionPanel conversationPanel2, RepresentationPanel representationPanel) {
 		this.conversationRepresentation = conversationRepresentation;
 		this.conversationDataControl = conversationDataControl;
-		this.conversationPanel = conversationPanel;
+		this.conversationPanel = conversationPanel2;
 		this.representationPanel = representationPanel;
 	}
-	
-	
 	
 	public void mouseClicked( MouseEvent e ) {
 		// Takes the node in which the click has been made (null if none) and send it to the principal panel

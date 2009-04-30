@@ -4,17 +4,19 @@ import java.awt.BorderLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.BorderFactory;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.character.NPCDataControl;
 import es.eucm.eadventure.editor.control.controllers.character.NPCsListDataControl;
+import es.eucm.eadventure.editor.gui.elementpanels.ElementPanel;
+import es.eucm.eadventure.editor.gui.elementpanels.PanelTab;
 import es.eucm.eadventure.editor.gui.elementpanels.general.ResizeableListPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ResizeableCellRenderer;
 
-public class NPCsListPanel extends JPanel {
+public class NPCsListPanel extends ElementPanel {
 
 	/**
 	 * Required.
@@ -29,15 +31,29 @@ public class NPCsListPanel extends JPanel {
 	 *            Characters list controller
 	 */
 	public NPCsListPanel( NPCsListDataControl npcsListDataControl ) {
-		setLayout( new BorderLayout( ) );
-		setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AtrezzoList.Title" ) ) );
-		List<DataControl> dataControlList = new ArrayList<DataControl>();
-		for (NPCDataControl item : npcsListDataControl.getNPCs()) {
-			dataControlList.add(item);
-		}
-		ResizeableCellRenderer renderer = new NPCCellRenderer();
-		setLayout( new BorderLayout( ) );
-		setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "NPCsList.Title" ) ) );
-		add(new ResizeableListPanel(dataControlList, renderer, "NPCsListPanel"), BorderLayout.CENTER);
+		addTab(new NPCsListPanelTab(npcsListDataControl));
 	}
+	
+	private class NPCsListPanelTab extends PanelTab {
+		private NPCsListDataControl sDataControl;
+		
+		public NPCsListPanelTab(NPCsListDataControl sDataControl) {
+			super(TextConstants.getText( "NPCsList.Title" ), sDataControl);
+			this.sDataControl = sDataControl;
+		}
+
+		@Override
+		protected JComponent getTabComponent() {
+			JPanel npcsListPanel = new JPanel();
+			npcsListPanel.setLayout( new BorderLayout( ) );
+			List<DataControl> dataControlList = new ArrayList<DataControl>();
+			for (NPCDataControl item : sDataControl.getNPCs()) {
+				dataControlList.add(item);
+			}
+			ResizeableCellRenderer renderer = new NPCCellRenderer();
+			npcsListPanel.add(new ResizeableListPanel(dataControlList, renderer, "NPCsListPanel"), BorderLayout.CENTER);
+			return npcsListPanel;
+		}
+	}
+
 }
