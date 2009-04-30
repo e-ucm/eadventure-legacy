@@ -1,51 +1,51 @@
 package es.eucm.eadventure.editor.gui.elementpanels.adaptation;
 
 import java.awt.BorderLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.swing.BorderFactory;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
-import javax.swing.JTextPane;
 
 import es.eucm.eadventure.common.gui.TextConstants;
-import es.eucm.eadventure.editor.gui.Updateable;
-import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
+import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfileDataControl;
+import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfilesDataControl;
+import es.eucm.eadventure.editor.gui.elementpanels.ElementPanel;
+import es.eucm.eadventure.editor.gui.elementpanels.PanelTab;
+import es.eucm.eadventure.editor.gui.elementpanels.general.ResizeableListPanel;
+import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ResizeableCellRenderer;
 
-public class AdaptationProfilesPanel extends JPanel implements Updateable{
+public class AdaptationProfilesPanel extends ElementPanel {
 	/**
 	 * Required
 	 */
 	private static final long serialVersionUID = 6602692300239491332L;
 
-	public AdaptationProfilesPanel (){
-		// Set the layout and the border
-		setLayout( new GridBagLayout( ) );
-		setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AdaptationProfiles.Title" ) ) );
-		GridBagConstraints c = new GridBagConstraints( );
-		c.insets = new Insets( 5, 5, 5, 5 );
+	public AdaptationProfilesPanel (AdaptationProfilesDataControl dataControl){
+		addTab(new AdaptationProfilesPanelTab(dataControl));
+	}
 
-		// Create the text area for the documentation
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weightx = 1;
-		JTextPane informationTextPane = new JTextPane( );
-		informationTextPane.setEditable( false );
-		informationTextPane.setBackground( getBackground( ) );
-		informationTextPane.setText( TextConstants.getText( "AdaptationProfiles.Information" ) );
-		JPanel informationPanel = new JPanel( );
-		informationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "GeneralText.Information" ) ) );
-		informationPanel.setLayout( new BorderLayout( ) );
-		informationPanel.add( informationTextPane, BorderLayout.CENTER );
-		add( informationPanel, c );
+	private class AdaptationProfilesPanelTab extends PanelTab {
+		private AdaptationProfilesDataControl sDataControl;
 		
-		c.fill = GridBagConstraints.BOTH;
-		c.weighty = 1;
-		c.gridy = 1;
-		add (new JFiller(),c);
+		public AdaptationProfilesPanelTab(AdaptationProfilesDataControl sDataControl) {
+			super(TextConstants.getText( "AdaptationProfiles.Title" ), sDataControl);
+			this.sDataControl = sDataControl;
+		}
+
+		@Override
+		protected JComponent getTabComponent() {
+			JPanel booksListPanel = new JPanel();
+			booksListPanel.setLayout( new BorderLayout( ) );
+			List<DataControl> dataControlList = new ArrayList<DataControl>();
+			for (AdaptationProfileDataControl item : sDataControl.getProfiles()) {
+				dataControlList.add(item);
+			}
+			ResizeableCellRenderer renderer = new AdaptationProfileCellRenderer();
+			booksListPanel.add(new ResizeableListPanel(dataControlList, renderer, "AdaptationProfileListPanel"), BorderLayout.CENTER);
+			return booksListPanel;
+		}
 	}
 
-	public boolean updateFields() {
-		return true;
-	}
 }
