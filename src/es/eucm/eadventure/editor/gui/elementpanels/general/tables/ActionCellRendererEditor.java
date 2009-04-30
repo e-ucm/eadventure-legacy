@@ -1,7 +1,6 @@
 package es.eucm.eadventure.editor.gui.elementpanels.general.tables;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -39,14 +38,14 @@ public class ActionCellRendererEditor extends AbstractCellEditor implements Tabl
 	@Override
 	public Component getTableCellEditorComponent(JTable table, Object value2, boolean isSelected, int row, int col) {
 		this.value = (ActionDataControl) value2;
-		return createComponent(isSelected);
+		return createComponent(isSelected, table);
 	}
 
 	@Override
 	public Component getTableCellRendererComponent(JTable table, Object value2, boolean isSelected, boolean hasFocus, int row, int column) {
 		this.value = (ActionDataControl) value2;
 		if (table.getSelectedRow() == row) {
-			return createComponent(isSelected);
+			return createComponent(isSelected, table);
 		}
 		
 		String text = getTypeText(value.getType());
@@ -56,10 +55,10 @@ public class ActionCellRendererEditor extends AbstractCellEditor implements Tabl
 		return new JLabel(text);
 	}
 
-	private Component createComponent(boolean isSelected) {
+	private Component createComponent(boolean isSelected, JTable table) {
 		JPanel temp = new JPanel();
 		if (isSelected)
-			temp.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 0, Color.BLUE));
+			temp.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 0, table.getSelectionBackground()));
 		
 		if (!value.hasIdTarget() && value.getType() != Controller.ACTION_CUSTOM)  {
 			temp.setLayout(new BorderLayout());

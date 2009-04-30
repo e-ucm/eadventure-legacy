@@ -956,6 +956,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="ActiveAreasList.AddActiveArea">Añadir nueva zona activa</entry>
 	<entry key="ActiveAreasList.DeleteActiveArea">Eliminar la zona activa seleccionada</entry>
 	<entry key="ActiveAreasList.DuplicateActiveArea">Duplicar la zona activa seleccionada</entry>
+	<entry key="ActiveAreasList.Documentation">Documentación</entry>
 
 	<entry key="BarriersList.Title">Barreras</entry>
 	<entry key="BarriersList.PreviewTitle">Previsualización de las barreras y edición de la trayectoria</entry>
@@ -1548,6 +1549,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="GeneralText.Close">Cerrar</entry>
 	<entry key="GeneralText.Information">Información</entry>
 	<entry key="GeneralText.PreviewText">Esta es una línea de prueba</entry>
+	<entry key="GeneralText.EditDocumentation">Editar documentación</entry>
 	<entry key="GeneralText.EditConditions">Editar condiciones</entry>
 	<entry key="GeneralText.EditInitConditions">Editar condiciones iniciales</entry>
 	<entry key="GeneralText.EditEndConditions">Editar condiciones finales</entry>

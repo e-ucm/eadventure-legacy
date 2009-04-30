@@ -6,6 +6,8 @@ import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
@@ -64,6 +66,15 @@ public class ElementReferencesTable extends JTable implements ElementReferenceSe
 		this.getColumnModel().getColumn(3).setCellRenderer(new ConditionsCellRendererEditor());
 		this.getColumnModel().getColumn(3).setCellEditor(new ConditionsCellRendererEditor());
 		this.getSelectionModel( ).setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
+		
+		setRowHeight(18);
+		this.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent arg0) {
+				setRowHeight(18);
+				if (getSelectedRow() != -1)
+					setRowHeight(getSelectedRow(), 24);
+			}
+		});
 		this.dataControl = dControl;
 		this.setSize(200, 150);
 	}

@@ -1,7 +1,6 @@
 package es.eucm.eadventure.editor.gui.elementpanels.general.tables;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -57,7 +56,7 @@ public class ExitLooksCellRendererEditor extends AbstractCellEditor implements T
 			this.value = (ExitLookDataControl) value;
 		else
 			this.value = null;
-		return newPanel(isSelected);
+		return newPanel(isSelected, table);
 	}
 
 	@Override
@@ -84,11 +83,11 @@ public class ExitLooksCellRendererEditor extends AbstractCellEditor implements T
 				this.value = (ExitLookDataControl) value;
 			else
 				this.value = null;
-			return newPanel(isSelected);
+			return newPanel(isSelected, table);
 		}
 	}
 	
-	private JPanel newPanel(final boolean isSelected) {
+	private JPanel newPanel(final boolean isSelected, JTable table) {
 		panel = new JPanel();
 		panel.setLayout(new GridBagLayout());
 		c = new GridBagConstraints();
@@ -178,7 +177,7 @@ public class ExitLooksCellRendererEditor extends AbstractCellEditor implements T
 		temp.add(text, BorderLayout.NORTH);
 		temp.add(panel, BorderLayout.CENTER);
 
-		temp.setBorder(BorderFactory.createMatteBorder(2, 0, 2, 0, Color.BLUE));
+		temp.setBorder(BorderFactory.createMatteBorder(2, 0, 2, 0, table.getSelectionBackground()));
 
 		return temp;
 	}

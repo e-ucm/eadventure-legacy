@@ -1,6 +1,5 @@
 package es.eucm.eadventure.editor.gui.elementpanels.general.tables;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -37,7 +36,7 @@ public class TransitionCellRendererEditor  extends AbstractCellEditor implements
 	@Override
 	public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int col) {
 		this.exit = (ExitDataControl) value;
-		return comboPanel();
+		return comboPanel(table);
 	}
 
 	@Override
@@ -66,13 +65,15 @@ public class TransitionCellRendererEditor  extends AbstractCellEditor implements
 			}
 			return new JLabel("" + exit.getTransitionType());
 		} else {
-			return comboPanel();
+			return comboPanel(table);
 		}
 	}
 	
-	private JPanel comboPanel() {
+	private JPanel comboPanel(JTable table) {
 		JPanel tempPanel = new JPanel();
 		tempPanel.setLayout(new GridBagLayout());
+		tempPanel.setBorder(BorderFactory.createMatteBorder(2, 0, 2, 0, table.getSelectionBackground()));
+
 		GridBagConstraints c = new GridBagConstraints();
 		
 		combo = new JComboBox();
@@ -113,7 +114,6 @@ public class TransitionCellRendererEditor  extends AbstractCellEditor implements
 		c.gridy++;
 		tempPanel.add(spinner, c);
 		
-		tempPanel.setBorder(BorderFactory.createMatteBorder(2, 0, 2, 0, Color.BLUE));
 		return tempPanel;
 	}
 

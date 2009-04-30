@@ -8,6 +8,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
 import javax.swing.AbstractCellEditor;
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -32,7 +33,13 @@ public class StringCellRendererEditor extends AbstractCellEditor implements Tabl
 	@Override
 	public Component getTableCellEditorComponent(final JTable table, Object value2, boolean isSelected, final int row, final int col) {
 		this.value = (String) value2;
+		return createPanel(isSelected, table);
+	}
+
+	private Component createPanel(boolean isSelected, JTable table) {
 		JPanel temp = new JPanel();
+		if (isSelected)
+			temp.setBorder(BorderFactory.createMatteBorder(2, 0, 2, 0, table.getSelectionBackground()));
 		
 		textField = new JTextField(this.value);
 		temp.addFocusListener(new FocusListener() {
@@ -64,10 +71,11 @@ public class StringCellRendererEditor extends AbstractCellEditor implements Tabl
 	}
 
 	@Override
-	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-		if (isSelected)
-			return new JTextField((String) value);
-		else
+	public Component getTableCellRendererComponent(JTable table, Object value2, boolean isSelected, boolean hasFocus, int row, int column) {
+		if (isSelected) {
+			this.value = (String) value2;
+			return createPanel(isSelected, table);
+		} else
 			return new JLabel((String) value);
 	}
 

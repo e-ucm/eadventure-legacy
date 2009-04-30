@@ -1,6 +1,5 @@
 package es.eucm.eadventure.editor.gui.elementpanels.general.tables;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -47,7 +46,7 @@ public class NextSceneCellRendererEditor  extends AbstractCellEditor implements 
 	public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int col) {
 		this.exit = (ExitDataControl) value;
 		selectedItem = exit.getNextSceneId();
-		return comboPanel();
+		return comboPanel(table);
 	}
 
 	@Override
@@ -62,11 +61,11 @@ public class NextSceneCellRendererEditor  extends AbstractCellEditor implements 
 		if (!isSelected) {
 			return new JLabel((String) selectedItem);
 		} else {
-			return comboPanel();
+			return comboPanel(table);
 		}
 	}
 	
-	private JPanel comboPanel() {
+	private JPanel comboPanel(JTable table) {
 		JPanel tempPanel = new JPanel();
 		tempPanel.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
@@ -103,7 +102,7 @@ public class NextSceneCellRendererEditor  extends AbstractCellEditor implements 
 			tempPanel.add(editPosition, c);
 		}
 		
-		tempPanel.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 0, Color.BLUE));
+		tempPanel.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 0, table.getSelectionBackground()));
 		return tempPanel;
 	}
 
