@@ -52,6 +52,10 @@ public class DrawPanel  extends JPanel {
 	 */
 	private static final int MARGIN = 0;
 
+	private static final int MARGIN_X = 300;
+	
+	private static final int MARGIN_Y = 300;
+	
 	/**
 	 * The margin left along the x-axis
 	 */
@@ -61,16 +65,6 @@ public class DrawPanel  extends JPanel {
 	 * The margin left along the y-axis
 	 */
 	private int marginY;
-	
-	/**
-	 * Width of the background image
-	 */
-	private int backgroundWidth;
-	
-	/**
-	 * Height of the background image
-	 */
-	private int backgroundHeight;
 
 	/**
 	 * The ratio between the size of the panel and the size of the background image
@@ -117,8 +111,8 @@ public class DrawPanel  extends JPanel {
 		zoom = 1.0;
 		this.setLayout(new BorderLayout());
 		insidePanel = createInsidePanel();
-		this.add(insidePanel, BorderLayout.CENTER);
 		
+		this.add(insidePanel, BorderLayout.CENTER);
 		addZoomElements(zoomable);
 	}
 	
@@ -174,6 +168,8 @@ public class DrawPanel  extends JPanel {
 		
 		scrollX = new JScrollBar(JScrollBar.HORIZONTAL, 0, 10, 0, 100);
 		scrollY = new JScrollBar(JScrollBar.VERTICAL, 0, 10, 0, 100);
+		scrollX.setValue(45);
+		scrollY.setValue(45);
 		scrollX.addAdjustmentListener(new AdjustmentListener() {
 			public void adjustmentValueChanged(AdjustmentEvent arg0) {
 				DrawPanel.this.getParent().repaint();
@@ -184,25 +180,22 @@ public class DrawPanel  extends JPanel {
 				DrawPanel.this.getParent().repaint();
 			}
 		});
-		scrollX.setEnabled(false);
-		scrollY.setEnabled(false);
-		if (zoomable) {
+		if (zoomable)
 			this.add(sliderPanel, BorderLayout.NORTH);
-			this.add(scrollX, BorderLayout.SOUTH);
-			this.add(scrollY, BorderLayout.EAST);
-		}
+		this.add(scrollX, BorderLayout.SOUTH);
+		this.add(scrollY, BorderLayout.EAST);
+		
 	}
 	
 	/**
+
 	 * Create the insidePanel where the back-buffer is drawn
 	 * 
 	 * @return the insidePanel
 	 */
 	private JPanel createInsidePanel() {
 		insidePanel = new JPanel() {
-			/**
-			 * 
-			 */
+
 			private static final long serialVersionUID = 1L;
 			
 			public void repaint() {
@@ -216,14 +209,15 @@ public class DrawPanel  extends JPanel {
 					}
 				}
 			}
+			
 			public void paint(Graphics g) {
 				super.paint(g);
 				if (backBuffer != null) {
-					int dx = marginX + (scrollX != null ? (int) ((scrollX.getValue() / 90.0) * (1 - 1/zoom) * backgroundWidth) : 0);
-					int dy = marginY + (scrollY != null ? (int) ((scrollY.getValue() / 90.0) * (1 - 1/zoom) * backgroundHeight) : 0);
-					int dw = dx + (int) (backgroundWidth / zoom);
-					int dh = dy + (int) (backgroundHeight / zoom);
-					g.drawImage(backBuffer, marginX, marginY, marginX + backgroundWidth, marginY + backgroundHeight, dx, dy, dw, dh, null);
+					int dx = (int) ((scrollX.getValue() / 90.0) * (1 - 1/zoom) * width);
+					int dy = (int) ((scrollY.getValue() / 90.0) * (1 - 1/zoom) * height);
+					int dw = (int) (width / zoom);
+					int dh = (int) (height / zoom);
+					g.drawImage(backBuffer, 0, 0, width, height, dx, dy, dx + dw, dy + dh, null);
 				}
 			}
 		};
@@ -237,13 +231,13 @@ public class DrawPanel  extends JPanel {
 	 */
 	public void setZoom(double zoom) {
 		this.zoom = zoom;
-		if (zoom > 1.0) {
+/*		if (zoom > 1.0) {
 			scrollX.setEnabled(true);
 			scrollY.setEnabled(true);
 		} else if (scrollX != null && scrollY != null){
 			scrollX.setEnabled(false);
 			scrollY.setEnabled(false);
-		}
+		} */
 	}
 	
 	/**
@@ -285,6 +279,11 @@ public class DrawPanel  extends JPanel {
 	 * Paints the background in the back-buffer
 	 */
 	public void paintBackground() {
+		if (backBuffer != null) {
+			Graphics2D g = (Graphics2D) backBuffer.getGraphics();
+			g.setColor(insidePanel.getBackground());
+			g.fillRect(0, 0, backBuffer.getWidth(), backBuffer.getHeight());
+		}
 		if (background != null) {
 			paintRelativeImage( background, background.getWidth(null)/2, background.getHeight(null), 1, 1.0f);
 		} else {
@@ -394,18 +393,14 @@ public class DrawPanel  extends JPanel {
 				int panelWidth = insidePanel.getWidth( ) - MARGIN * 2;
 				width = panelWidth;
 				height = (int) (panelWidth / imageRatio);
-			}
-
-			else {
+			} else {
 				int panelHeight = insidePanel.getHeight( ) - MARGIN * 2;
 				width = (int) ( panelHeight * imageRatio );
 				height = panelHeight;
 			}
 			
-			marginX = (insidePanel.getWidth() - width) / 2;
-			marginY = (insidePanel.getHeight() - height) / 2;
-			backgroundWidth = width;
-			backgroundHeight = height;
+			marginX = (insidePanel.getWidth() - width) / 2 - (int) ((scrollX.getValue() / 90.0 - 0.5) * MARGIN_X);
+			marginY = (insidePanel.getHeight() - height) / 2 - (int) ((scrollY.getValue() / 90.0 - 0.5) * MARGIN_Y);
 
 			sizeRatio = (double) width / (double) backgroundWidth2;
 		}
@@ -418,7 +413,8 @@ public class DrawPanel  extends JPanel {
 	 * @return
 	 */
 	public int getRealX(int mouseX) {
-		int dx = marginX - (scrollX != null ? (int) ((scrollX.getValue() / (90.0) * zoom) * (1 - 1/zoom) * backgroundWidth) : 0);
+		//int dx = marginX - (scrollX != null ? (int) ((scrollX.getValue() / (90.0) * zoom) * (1 - 1/zoom) * backgroundWidth) : 0);
+		int dx = (int) ((marginX - scrollX.getValue() / 90.0 * (1 - 1/zoom) * width) * zoom);
 		return (int) ((mouseX - dx) / sizeRatio / zoom);
 	}
 
@@ -441,7 +437,7 @@ public class DrawPanel  extends JPanel {
 	 * @return
 	 */
 	public int getRealY(int mouseY) {
-		int dy = marginY - (scrollY != null ? (int) ((scrollY.getValue() / (90.0) * zoom) * (1 - 1/zoom) * backgroundHeight) : 0);
+		int dy = (int) ((marginY - (scrollY.getValue() / 90.0) * (1 - 1/zoom) * height) * zoom);
 		return (int) ((mouseY - dy) / sizeRatio / zoom);
 	}
 

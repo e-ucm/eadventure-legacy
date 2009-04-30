@@ -77,7 +77,7 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel {
 		this.referencesListDataControl = referencesListDataControl;
 		String scenePath = Controller.getInstance( ).getSceneImagePath( referencesListDataControl.getParentSceneId( ) );
 				
-		spep = new ScenePreviewEditionPanel(false, scenePath);
+		spep = new ScenePreviewEditionPanel(true, scenePath);
 		spep.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ItemReferencesList.PreviewTitle" ) ) );
 
 		// Add the item references if an image was loaded
