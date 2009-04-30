@@ -22,6 +22,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JEditorPane;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -41,6 +42,8 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.JTextArea;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,7 +85,7 @@ public class StartDialog extends JFileChooser {
 
 	private JList list;
 
-	private JTextArea helpText;
+	private JEditorPane helpText;
 
 	private JTable todayTable;
 
@@ -175,12 +178,8 @@ public class StartDialog extends JFileChooser {
 
 		// Create the help Panel, which will show help text to guide the user
 		JScrollPane helpPanel = new JScrollPane( JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED );
-		helpText = new JTextArea( );
-		helpText.setLineWrap( true );
-		helpText.setMargin( new Insets( 5, 5, 5, 5 ) );
-		helpText.setEditable( false );
-		helpText.setWrapStyleWord( true );
-		helpText.setText( "" );
+		helpText = new JEditorPane( );
+		add(new JScrollPane(helpText, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER), BorderLayout.CENTER);
 		updateHelpText( );
 		helpText.setBorder( BorderFactory.createEtchedBorder( ) );
 		helpPanel.setViewportView( helpText );
@@ -476,19 +475,48 @@ public class StartDialog extends JFileChooser {
 	}
 
 	private void updateHelpText( ) {
+	    String helpPath=null;
 		if( fileType == Controller.FILE_ADVENTURE_1STPERSON_PLAYER ) {
-			helpText.setText( TextConstants.getText( "StartDialog.NewAdventure-TransparentMode.Description" ) );
+			//helpText.setText( TextConstants.getText( "StartDialog.NewAdventure-TransparentMode.Description" ) );
+		    helpPath = "startDialog/FirstPerson.html";
 		} else if( fileType == Controller.FILE_ADVENTURE_3RDPERSON_PLAYER ) {
-			helpText.setText( TextConstants.getText( "StartDialog.NewAdventure-VisibleMode.Description" ) );
+			//helpText.setText( TextConstants.getText( "StartDialog.NewAdventure-VisibleMode.Description" ) );
+		    helpPath="startDialog/ThirdPerson.html";
 		} else if( fileType == Controller.FILE_ASSESSMENT ) {
-			helpText.setText( TextConstants.getText( "StartDialog.NewAssessmentFile.Description" ) );
+			//helpText.setText( TextConstants.getText( "StartDialog.NewAssessmentFile.Description" ) );
+		    helpPath="";
 		} else {
-			helpText.setText( TextConstants.getText( "StartDialog.HelpMessage" ) );
+			//helpText.setText( TextConstants.getText( "StartDialog.HelpMessage" ) );
+		    helpPath="startDialog/Description.html";
 		}
-		helpText.setTabSize( 1 );
-		Font font = new Font( "Monospaced", Font.PLAIN, 12 );
-		helpText.setFont( font );
+		
+		String folder = "help/";
+		if (Controller.getInstance().getLanguage() == ReleaseFolders.LANGUAGE_SPANISH)
+			folder += "es_ES/";
+		else if (Controller.getInstance().getLanguage() == ReleaseFolders.LANGUAGE_ENGLISH)
+			folder += "en_EN/";
+		File file = new File(folder + helpPath);
+		if (file.exists( )){
+			try {
+			    helpText.setPage( file.toURI().toURL( ) );
+			    helpText.setEditable( false );
+			   
+			} catch (MalformedURLException e1) {
+				writeFileNotFound(folder + helpPath);
+			} catch (IOException e1) {
+				writeFileNotFound(folder + helpPath);
+			}
+		} else {
+			writeFileNotFound(folder + helpPath);
+		}
+		
+		helpText.updateUI();
+		
+		
 	}
+	private void writeFileNotFound(String path) {
+	    helpText.add(new JLabel(TextConstants.getText("HelpDialog.FileNotFound") + " " + path));
+	    }
 
 	private class RecentFilesTableModel extends AbstractTableModel implements MouseListener {
 
