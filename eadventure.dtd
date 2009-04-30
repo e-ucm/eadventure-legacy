@@ -129,7 +129,7 @@
 	%rectangle;  
 >
 
-<!ELEMENT videoscene (documentation?, resources+, name, ( end-game? | next-scene* ))>
+<!ELEMENT videoscene (documentation?, effect?,resources+, name, ( end-game? | next-scene* ))>
 <!ATTLIST videoscene
 	id ID #REQUIRED
 	start (yes | no) "no"
@@ -141,7 +141,7 @@
 	transitionType CDATA "0"
 >
 
-<!ELEMENT slidescene (documentation?, resources+, name, ( end-game? | next-scene* ))>
+<!ELEMENT slidescene (documentation?, effect?,resources+, name, ( end-game? | next-scene* ))>
 <!ATTLIST slidescene
 	id ID #REQUIRED
 	start (yes | no) "no"
