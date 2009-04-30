@@ -38,30 +38,29 @@ public class EffectsStructurePanel extends StructurePanel{
      */
     private static final long serialVersionUID = 1L;
 
-    private static final String ACTIVATE_URL = "Effects_Activate.html";
-    
+    private static final String ACTIVATE_URL = "Effects_Activate.html";    
     private static final String DEACTIVATE_URL = "Effects_Deactivate.html";
     private static final String INCR_URL = "Effects_Increment.html";
     private static final String DECR_URL = "Effects_Decrement.html";
     private static final String SET_URL = "Effects_Setvar.html";
-    private static final String LAUNCH_URL = "";
-    private static final String CONSUME_URL = "";
-    private static final String GENERATE_URL = "";
-    private static final String CANCEL_URL = "";
-    private static final String SP_PLAYER_URL = "";
-    private static final String SP_NPC_URL = "";
-    private static final String BOOK_URL = "";
+    private static final String MACRO_URL = "Effects_Macro.html";
+    private static final String CONSUME_URL = "Effects_Consume.html";
+    private static final String GENERATE_URL = "Effects_Generate.html";
+    private static final String CANCEL_URL = "Effects_Cancel.html";
+    private static final String SP_PLAYER_URL = "Effects_SP_Player.html";
+    private static final String SP_NPC_URL = "Effects_SP_NPC.html";
+    private static final String BOOK_URL = "Effects_Book.html";
     private static final String SOUND_URL = "Effects_Audio.html";
     private static final String ANIMATION_URL = "Effects_Animation.html";
-    private static final String MV_PLAYER_URL = "";
-    private static final String MV_NPC_URL = "";
-    private static final String CONV_URL = "";
+    private static final String MV_PLAYER_URL = "Effects_MV_Player.html";
+    private static final String MV_NPC_URL = "Effects_MV_NPC.html";
+    private static final String CONV_URL = "Effects_Conversation.html";
     private static final String CUTSCENE_URL = "Effects_Cutscene.html";
-    private static final String SCENE_URL = "";
-    private static final String LAST_SCENE_URL = "";
-    private static final String RAMDON_URL = "";
-    private static final String TEXT_URL = "";
-    private static final String TIME_URL = "";
+    private static final String SCENE_URL = "Effects_Scene.html";
+    private static final String LAST_SCENE_URL = "Effects_LastScene.html";
+    private static final String RAMDON_URL = "Effects_Random.html";
+    private static final String TEXT_URL = "Effects_ShowText.html";
+    private static final String TIME_URL = "Effects_WaitTime.html";
     
     private EffectInfoPanel infoPanel;
     
@@ -173,7 +172,7 @@ public class EffectsStructurePanel extends StructurePanel{
 	    }else if (name.equals( TextConstants.getText( "Effect.DecrementVar" ))){
 		text = DECR_URL;
 	    }else if (name.equals( TextConstants.getText(  "Effect.MacroReference" ))){
-		text = LAUNCH_URL;
+		text = MACRO_URL;
 	    }else if (name.equals( TextConstants.getText( "Effect.ConsumeObject" ))){
 		text = CONSUME_URL;
 	    }else if (name.equals( TextConstants.getText( "Effect.GenerateObject" ))){

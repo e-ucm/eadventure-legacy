@@ -50,6 +50,18 @@ public class GenericOptionPaneDialog extends ToolManagableDialog{
 		    });
 	    
 	    setResizable( false );
+	    if (((String)message).indexOf("\n")!=-1){
+		String[] split = ((String)message).split("\n");
+		int maxLenthIndex=0;
+		int maxLenth=-1;
+		for (int i=0;i<split.length;i++){
+		    if (split[i].length()>maxLenth){
+			maxLenthIndex=i;
+			maxLenth=split[i].length();
+		    }
+		}
+		message = split[maxLenthIndex];
+	    }
 	    int xSize = ((String)message).length()*MULTIPLIER_TEXT;
 		setSize( xSize,120 );
 		Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );

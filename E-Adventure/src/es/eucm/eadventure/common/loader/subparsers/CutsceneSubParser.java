@@ -150,12 +150,13 @@ public class CutsceneSubParser extends SubParser {
 				cutscene.setPositionY(y);
 				cutscene.setTransitionType(transitionType);
 				cutscene.setTransitionTime(transitionTime);
-				if (next.equals("go-back"))
+				if (next.equals("go-back")){
 					cutscene.setNext(Cutscene.GOBACK);
-				else if (next.equals("new-scene"))
+				}else if (next.equals("new-scene")){
 					cutscene.setNext(Cutscene.NEWSCENE);
-				else if (next.equals("end-chapter"))
+				}else if (next.equals("end-chapter")){
 					cutscene.setNext(Cutscene.ENDCHAPTER);
+				}
 			}
 
 			// If it is a resources tag, create new resources
@@ -306,14 +307,18 @@ public class CutsceneSubParser extends SubParser {
 
 			// If the effect tag is being closed, store the effect in the next scene and switch the state
 			if( qName.equals( "effect" ) ) {
-				currentNextScene.setEffects( currentEffects );
-				subParsing = SUBPARSING_NONE;
+			    if (currentNextScene != null)
+				currentNextScene.setEffects(currentEffects);
+			    else
+				cutscene.setEffects( currentEffects );
+			    subParsing = SUBPARSING_NONE;
 			}
 
 			// If the effect tag is being closed, add the post-effects to the current next scene and switch the state
 			if( qName.equals( "post-effect" ) ) {
-				currentNextScene.setPostEffects( currentEffects );
-				subParsing = SUBPARSING_NONE;
+				//currentNextScene.setPostEffects( currentEffects );
+			    
+			    	subParsing = SUBPARSING_NONE;
 			}
 		}
 	}

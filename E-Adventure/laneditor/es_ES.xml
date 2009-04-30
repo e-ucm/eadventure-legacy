@@ -725,7 +725,8 @@ función de estos estados</entry>
 	<entry key="EffectsGroup.Main">Efectos</entry>
 	<entry key="SelectEffectDialog.Title">Panel de creación de efectos</entry>
 	
-
+	<entry key="MoreVisitedPanel.Empty">No hay efectos creados por el usuario en el proyecto.</entry>
+	
 	<entry key="ImageDialog.Title">Previsualización de imagen - {#0}</entry>
 	<entry key="SlidesDialog.Title">Previsualización de diapositivas - {#0}</entry>
 	<entry key="AnimationDialog.Title">Previsualización de animación - {#0}</entry>
