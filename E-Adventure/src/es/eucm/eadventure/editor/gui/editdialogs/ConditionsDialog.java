@@ -1,19 +1,13 @@
 package es.eucm.eadventure.editor.gui.editdialogs;
 
-import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Toolkit;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.UIManager;
 
-import es.eucm.eadventure.common.data.chapter.conditions.Condition;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.common.data.chapter.conditions.FlagCondition;
 import es.eucm.eadventure.common.data.chapter.conditions.GlobalStateCondition;
@@ -21,9 +15,7 @@ import es.eucm.eadventure.common.data.chapter.conditions.VarCondition;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
-import es.eucm.eadventure.editor.gui.Updateable;
-import es.eucm.eadventure.editor.gui.elementpanels.condition.ConditionsPanel2;
-import es.eucm.eadventure.editor.gui.elementpanels.general.ConditionsPanel;
+import es.eucm.eadventure.editor.gui.elementpanels.condition.ConditionsPanel;
 
 /**
  * This class is the editing dialog for the conditions. Here the user can add conditions to the events of the script,
@@ -31,7 +23,7 @@ import es.eucm.eadventure.editor.gui.elementpanels.general.ConditionsPanel;
  * 
  * @author Bruno Torijano Bueno
  */
-public class ConditionsDialog extends JDialog/*ToolManagableDialog*/{
+public class ConditionsDialog extends ToolManagableDialog{
 
 	/**
 	 * Required.
@@ -39,8 +31,6 @@ public class ConditionsDialog extends JDialog/*ToolManagableDialog*/{
 	private static final long serialVersionUID = 1L;
 	
 	private ConditionsPanel conditionsPanel;
-	
-	private ConditionsPanel2 conditionsPanel2;
 
 
 	/**
@@ -52,7 +42,7 @@ public class ConditionsDialog extends JDialog/*ToolManagableDialog*/{
 	public ConditionsDialog( ConditionsController conditionsController ) {
 
 		// Call to the JDialog constructor
-		super( new JFrame()/*Controller.getInstance( ).peekWindow( )*/, TextConstants.getText( "Conditions.Title" ), false );
+		super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "Conditions.Title" ), false );
 
 		// Create the main panel and add it
 		setLayout( new GridBagLayout( ) );
@@ -61,8 +51,8 @@ public class ConditionsDialog extends JDialog/*ToolManagableDialog*/{
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1;
 		c.weighty = 1;
-		conditionsPanel2 = new ConditionsPanel2( conditionsController);
-		add( conditionsPanel2, c );
+		conditionsPanel = new ConditionsPanel( conditionsController);
+		add( conditionsPanel, c );
 
 		// Set the size, position and properties of the dialog
 		//setResizable( false );
@@ -75,10 +65,7 @@ public class ConditionsDialog extends JDialog/*ToolManagableDialog*/{
 	//@Override
 	public boolean updateFields() {
 		//this.removeAll();
-		if (conditionsPanel!=null)
-			return conditionsPanel.updateFields();
-		else 
-			return conditionsPanel2.updateFields();
+		return conditionsPanel.updateFields();
 	}
 	
 	public static void main (String[]args){

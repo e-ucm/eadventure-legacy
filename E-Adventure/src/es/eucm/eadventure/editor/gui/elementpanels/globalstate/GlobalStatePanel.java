@@ -14,7 +14,7 @@ import es.eucm.eadventure.common.data.Documented;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.globalstate.GlobalStateDataControl;
 import es.eucm.eadventure.editor.control.tools.listeners.DocumentationChangeListener;
-import es.eucm.eadventure.editor.gui.elementpanels.condition.ConditionsPanel2;
+import es.eucm.eadventure.editor.gui.elementpanels.condition.ConditionsPanel;
 
 /**
  * Panel for Global State
@@ -32,7 +32,7 @@ public class GlobalStatePanel extends JPanel{
 	/**
 	 * Conditions panel
 	 */
-	private ConditionsPanel2 conditionsPanel;
+	private ConditionsPanel conditionsPanel;
 	
 	
 	private JTextArea documentationTextArea;
@@ -63,7 +63,7 @@ public class GlobalStatePanel extends JPanel{
 		
 		c.weighty = 0.7;
 		c.gridy = 1;
-		conditionsPanel = new ConditionsPanel2 ( dataControl.getController( ));
+		conditionsPanel = new ConditionsPanel ( dataControl.getController( ));
 		conditionsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "GlobalState.Conditions" ) ) );
 		add ( conditionsPanel, c );
 	}

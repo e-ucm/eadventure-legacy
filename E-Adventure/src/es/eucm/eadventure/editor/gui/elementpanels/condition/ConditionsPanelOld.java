@@ -1,4 +1,4 @@
-package es.eucm.eadventure.editor.gui.elementpanels.general;
+package es.eucm.eadventure.editor.gui.elementpanels.condition;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -36,7 +36,7 @@ import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.editdialogs.ConditionDialog;
 
-public class ConditionsPanel extends JPanel implements Updateable{
+public class ConditionsPanelOld extends JPanel implements Updateable{
 
 	/**
 	 * Required.
@@ -105,7 +105,7 @@ public class ConditionsPanel extends JPanel implements Updateable{
 	 *            Controller for the conditions
 	 * @param keyListener 
 	 */
-	public ConditionsPanel( ConditionsController conditionController ) {
+	public ConditionsPanelOld( ConditionsController conditionController ) {
 		// Parent constructor
 		super( );
 		// Set the conditions controller and the icon
