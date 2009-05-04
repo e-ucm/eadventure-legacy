@@ -18,7 +18,7 @@ public class GlobalStateDataControl extends DataControl{
 	
 	public GlobalStateDataControl(GlobalState conditions) {
 		globalState = conditions;
-		controller = new ConditionsController ( globalState );
+		controller = new ConditionsController ( globalState, Controller.GLOBAL_STATE, globalState.getId() );
 	}
 	
 	public void setDocumentation ( String doc ){

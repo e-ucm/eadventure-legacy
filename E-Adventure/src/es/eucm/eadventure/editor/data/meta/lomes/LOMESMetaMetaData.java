@@ -2,8 +2,6 @@ package es.eucm.eadventure.editor.data.meta.lomes;
 
 import java.util.ArrayList;
 
-import es.eucm.eadventure.editor.data.meta.LangString;
-import es.eucm.eadventure.editor.data.meta.Vocabulary;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMContribute;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMESGeneralId;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMIdentifier;
@@ -61,7 +59,7 @@ public class LOMESMetaMetaData {
 	}
 	
 	public void setMetadatascheme(String metadatascheme){
-		this.metadatascheme = new ArrayList();
+		this.metadatascheme = new ArrayList<String>();
 		this.metadatascheme.add(metadatascheme);
 	}
 	

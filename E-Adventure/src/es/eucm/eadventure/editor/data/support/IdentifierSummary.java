@@ -316,11 +316,13 @@ public class IdentifierSummary {
 	 * 
 	 * @return Array of global state identifiers
 	 */
-	public String[] getGlobalStatesIds( String exception ) {
+	public String[] getGlobalStatesIds( String [] exceptions ) {
 		List<String> globalStateIds = new ArrayList<String>();
 		for (String id: this.globalStateIdentifiers){
-			if (!id.equals(exception))
+			for (String exception: exceptions){
+				if (!id.equals(exception))
 				globalStateIds.add(id);
+			}
 		}
 		return globalStateIds.toArray( new String[] {} );
 	}

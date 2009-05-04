@@ -3,6 +3,7 @@ package es.eucm.eadventure.editor.control.tools.conversation;
 import java.util.List;
 import java.util.Map;
 
+import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
@@ -55,14 +56,16 @@ public class AddNodeLineTool extends Tool {
 	public boolean doTool() {
 		lineAdded = new ConversationLine( name, TextConstants.getText( "ConversationLine.DefaultText" ) );
 		parent.addLine(lineIndex, lineAdded);
-		node.add(lineIndex,new ConditionsController(lineAdded.getConditions()));
+		node.add(lineIndex,new ConditionsController(lineAdded.getConditions(), 
+    			Controller.CONVERSATION_OPTION_LINE, Integer.toString(lineIndex)));
 		return true;
 	}
 
 	@Override
 	public boolean redoTool() {
 		parent.addLine(lineIndex, lineAdded);
-		node.add(lineIndex,new ConditionsController(lineAdded.getConditions()));
+		node.add(lineIndex,new ConditionsController(lineAdded.getConditions(), 
+    			Controller.CONVERSATION_OPTION_LINE, Integer.toString(lineIndex)));
 		Controller.getInstance().updatePanel();
 		return true;
 	}

@@ -5,7 +5,8 @@ import org.xml.sax.Attributes;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.data.chapter.conditions.Condition;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
-import es.eucm.eadventure.common.data.chapter.conditions.GlobalStateReference;
+import es.eucm.eadventure.common.data.chapter.conditions.FlagCondition;
+import es.eucm.eadventure.common.data.chapter.conditions.GlobalStateCondition;
 import es.eucm.eadventure.common.data.chapter.conditions.VarCondition;
 
 /**
@@ -76,9 +77,9 @@ public class ConditionSubParser extends SubParser {
                     
                     // Store the active flag in the conditions or either conditions
                     if( reading == READING_NONE )
-                        conditions.addCondition( new Condition( attrs.getValue( i ), Condition.FLAG_ACTIVE ) );
+                        conditions.add( new FlagCondition( attrs.getValue( i ), FlagCondition.FLAG_ACTIVE ) );
                     if( reading == READING_EITHER )
-                        currentEitherCondition.addCondition( new Condition( attrs.getValue( i ), Condition.FLAG_ACTIVE ) );
+                        currentEitherCondition.add( new FlagCondition( attrs.getValue( i ), FlagCondition.FLAG_ACTIVE ) );
                     
                     chapter.addFlag( attrs.getValue( i ) );
                 }
@@ -92,9 +93,9 @@ public class ConditionSubParser extends SubParser {
                     
                     // Store the inactive flag in the conditions or either conditions
                     if( reading == READING_NONE )
-                        conditions.addCondition( new Condition( attrs.getValue( i ), Condition.FLAG_INACTIVE ) );
+                        conditions.add( new FlagCondition( attrs.getValue( i ), FlagCondition.FLAG_INACTIVE ) );
                     if( reading == READING_EITHER )
-                        currentEitherCondition.addCondition( new Condition( attrs.getValue( i ), Condition.FLAG_INACTIVE ) );
+                        currentEitherCondition.add( new FlagCondition( attrs.getValue( i ), FlagCondition.FLAG_INACTIVE ) );
                     
                     chapter.addFlag( attrs.getValue( i ) );
                 }
@@ -117,9 +118,9 @@ public class ConditionSubParser extends SubParser {
             }
             // Store the inactive flag in the conditions or either conditions
             if( reading == READING_NONE )
-                conditions.addCondition( new VarCondition( var, Condition.VAR_GREATER_THAN, value ) );
+                conditions.add( new VarCondition( var, VarCondition.VAR_GREATER_THAN, value ) );
             if( reading == READING_EITHER )
-                currentEitherCondition.addCondition( new VarCondition( var, Condition.VAR_GREATER_THAN, value ) );
+                currentEitherCondition.add( new VarCondition( var, VarCondition.VAR_GREATER_THAN, value ) );
             chapter.addVar( var );
         }
 
@@ -139,9 +140,9 @@ public class ConditionSubParser extends SubParser {
             }
             // Store the inactive flag in the conditions or either conditions
             if( reading == READING_NONE )
-                conditions.addCondition( new VarCondition( var, Condition.VAR_GREATER_EQUALS_THAN, value ) );
+                conditions.add( new VarCondition( var, VarCondition.VAR_GREATER_EQUALS_THAN, value ) );
             if( reading == READING_EITHER )
-                currentEitherCondition.addCondition( new VarCondition( var, Condition.VAR_GREATER_EQUALS_THAN, value ) );
+                currentEitherCondition.add( new VarCondition( var, VarCondition.VAR_GREATER_EQUALS_THAN, value ) );
             chapter.addVar( var );
         }
 
@@ -161,9 +162,9 @@ public class ConditionSubParser extends SubParser {
             }
             // Store the inactive flag in the conditions or either conditions
             if( reading == READING_NONE )
-                conditions.addCondition( new VarCondition( var, Condition.VAR_LESS_THAN, value ) );
+                conditions.add( new VarCondition( var, VarCondition.VAR_LESS_THAN, value ) );
             if( reading == READING_EITHER )
-                currentEitherCondition.addCondition( new VarCondition( var, Condition.VAR_LESS_THAN, value ) );
+                currentEitherCondition.add( new VarCondition( var, VarCondition.VAR_LESS_THAN, value ) );
             chapter.addVar( var );
         }
 
@@ -183,9 +184,9 @@ public class ConditionSubParser extends SubParser {
             }
             // Store the inactive flag in the conditions or either conditions
             if( reading == READING_NONE )
-                conditions.addCondition( new VarCondition( var, Condition.VAR_LESS_EQUALS_THAN, value ) );
+                conditions.add( new VarCondition( var, VarCondition.VAR_LESS_EQUALS_THAN, value ) );
             if( reading == READING_EITHER )
-                currentEitherCondition.addCondition( new VarCondition( var, Condition.VAR_LESS_EQUALS_THAN, value ) );
+                currentEitherCondition.add( new VarCondition( var, VarCondition.VAR_LESS_EQUALS_THAN, value ) );
             chapter.addVar( var );
         }
 
@@ -205,9 +206,9 @@ public class ConditionSubParser extends SubParser {
             }
             // Store the inactive flag in the conditions or either conditions
             if( reading == READING_NONE )
-                conditions.addCondition( new VarCondition( var, Condition.VAR_EQUALS, value ) );
+                conditions.add( new VarCondition( var, VarCondition.VAR_EQUALS, value ) );
             if( reading == READING_EITHER )
-                currentEitherCondition.addCondition( new VarCondition( var, Condition.VAR_EQUALS, value ) );
+                currentEitherCondition.add( new VarCondition( var, VarCondition.VAR_EQUALS, value ) );
             chapter.addVar( var );
         }
 		
@@ -222,9 +223,9 @@ public class ConditionSubParser extends SubParser {
             }
             // Store the inactive flag in the conditions or either conditions
             if( reading == READING_NONE )
-                conditions.addCondition( new GlobalStateReference( id ) );
+                conditions.add( new GlobalStateCondition( id ) );
             if( reading == READING_EITHER )
-                currentEitherCondition.addCondition( new GlobalStateReference( id ) );
+                currentEitherCondition.add( new GlobalStateCondition( id ) );
         }
 
 	}
@@ -239,7 +240,7 @@ public class ConditionSubParser extends SubParser {
 		// If it is an either tag
 		if( qName.equals( "either" ) ) {
 			// Store the either condition in the condition, and switch the state back to normal
-			conditions.addEitherCondition( currentEitherCondition );
+			conditions.add( currentEitherCondition );
 			reading = READING_NONE;
 		}
 	}

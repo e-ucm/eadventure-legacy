@@ -9,6 +9,7 @@ import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -28,6 +29,8 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.VarFlagsController;
+import es.eucm.eadventure.editor.control.controllers.ConditionsController.ConditionContextProperty;
+import es.eucm.eadventure.editor.control.controllers.ConditionsController.ConditionRestrictions;
 import es.eucm.eadventure.editor.data.support.IdentifierSummary;
 
 /**
@@ -109,11 +112,9 @@ public class ConditionDialog extends ToolManagableDialog {
 	private int defaultValue;
 
 	/**
-	 * Dirty fix: ID is used as a class field to indicate that these conditionDialog 
-	 * owns to a global state. In such case it must be forbidden to refer to 
-	 * this own global state within its conditions.
+	 * The context. Used to retrieve restrictions
 	 */
-	public static String ID;
+	private HashMap<String, ConditionContextProperty> context;
 
 	/**
 	 * Constructor with no default selection data.
@@ -122,7 +123,7 @@ public class ConditionDialog extends ToolManagableDialog {
 	 *            Title of the dialog
 	 */
 	public ConditionDialog( String title ) {
-		this( new Integer ( Condition.FLAG_CONDITION), title, null, null, null, null, null );
+		this( ConditionsController.CONDITION_TYPE_FLAG, title, null, null, null, null, null, new HashMap<String, ConditionContextProperty>() );
 	}
 
 	/**
@@ -135,9 +136,10 @@ public class ConditionDialog extends ToolManagableDialog {
 	 * @param defaultFlag
 	 *            The default flag value, null if none
 	 */
-	public ConditionDialog( Integer defaultMode, String title, String defaultState, String defaultFlag, String defaultVar, String defaultId, String defaultValue ) {
+	public ConditionDialog( String defaultMode, String title, String defaultState, String defaultFlag, String defaultVar, String defaultId, String defaultValue, HashMap<String, ConditionContextProperty> context ) {
 		super( Controller.getInstance( ).peekWindow( ), title,false);//, Dialog.ModalityType.APPLICATION_MODAL );
 
+		this.context = context;
 		this.defaultFlag = defaultFlag;
 		this.defaultVar = defaultVar;
 		this.defaultId = defaultId;
@@ -189,7 +191,12 @@ public class ConditionDialog extends ToolManagableDialog {
 			add( buttonsPanel, BorderLayout.SOUTH );
 
 			setResizable( false );
-			this.selectedMode = defaultMode.intValue();
+			if (defaultMode.equals(ConditionsController.CONDITION_TYPE_FLAG))
+				selectedMode = Condition.FLAG_CONDITION;
+			if (defaultMode.equals(ConditionsController.CONDITION_TYPE_VAR))
+				selectedMode = Condition.VAR_CONDITION;
+			if (defaultMode.equals(ConditionsController.CONDITION_TYPE_GS))
+				selectedMode = Condition.GLOBAL_STATE_CONDITION;
 			updateDialog( );
 			Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
 			setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
@@ -271,8 +278,15 @@ public class ConditionDialog extends ToolManagableDialog {
 		return selectedId;
 	}
 	
-	public int getSelectedType( ) {
-		return selectedMode;
+	public String getSelectedType( ) {
+		if (selectedMode==Condition.FLAG_CONDITION)
+			return ConditionsController.CONDITION_TYPE_FLAG;
+		else if (selectedMode==Condition.VAR_CONDITION)
+			return ConditionsController.CONDITION_TYPE_VAR;
+		else if (selectedMode==Condition.GLOBAL_STATE_CONDITION)
+			return ConditionsController.CONDITION_TYPE_GS;
+		else 
+			return null;
 	}
 	
 	private void updateDialog (  ){
@@ -366,9 +380,10 @@ public class ConditionDialog extends ToolManagableDialog {
 		else if ( selectedMode == Condition.GLOBAL_STATE_CONDITION ){
 			featuresPanel.setLayout( new GridBagLayout() );
 			String[] globalStatesArray = null;
-			if (ID!=null)
-				globalStatesArray = Controller.getInstance( ).getIdentifierSummary().getGlobalStatesIds(ID);
-			else
+			if (context.containsKey(ConditionsController.CONDITION_RESTRICTIONS)){
+				ConditionRestrictions restrictions = (ConditionRestrictions)context.get(ConditionsController.CONDITION_RESTRICTIONS);
+				globalStatesArray = Controller.getInstance( ).getIdentifierSummary().getGlobalStatesIds(restrictions.getForbiddenIds());
+			}else
 				globalStatesArray = Controller.getInstance( ).getIdentifierSummary().getGlobalStatesIds();
 			
 			GridBagConstraints c = new GridBagConstraints( );

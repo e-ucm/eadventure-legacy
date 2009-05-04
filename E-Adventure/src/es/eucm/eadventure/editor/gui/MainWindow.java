@@ -150,6 +150,11 @@ public class MainWindow extends JFrame {
 		structureToolsPanel.setMaximumSize(new Dimension(210, Integer.MAX_VALUE));
 
 		structureToolsPanel.add(structurePanel, BorderLayout.CENTER);
+		
+//		treeToolsPanel.add(treePanel, BorderLayout.CENTER);
+		//JPanel treeToolsPanel = new JPanel();
+		//treeToolsPanel.setLayout(new BorderLayout());
+		//treeToolsPanel.add(structurePanel, BorderLayout.CENTER);
 	
 		JPanel toolsPanel = createToolsPanel();
 		structureToolsPanel.add(toolsPanel, BorderLayout.NORTH);

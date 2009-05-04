@@ -16,6 +16,10 @@ import javax.swing.JOptionPane;
  */
 public class TextConstants {
 
+	public static final int NORMAL_SENTENCE=1;
+	public static final int NO_CONDITION_SENTENCE=2;
+	
+	
 	/**
 	 * Properties set containing the strings.
 	 */
@@ -140,6 +144,31 @@ public class TextConstants {
 			JOptionPane.showMessageDialog( null, "There has been an error loading the language file, please check for problem accessing the files.\nThe default language (English) will be loaded.", "Error loading the language file", JOptionPane.ERROR_MESSAGE );
 		}
 	}
+
+	/**
+	 * Returns true if the string associated with the given identifier is on the language file.
+	 * 
+	 * @param tag
+	 *            String identifier
+	 * @return true if found, false otherwise
+	 */
+	public static boolean containsText( String tag ) {
+		return guiStrings.containsKey(tag);
+	}
+	
+	/**
+	 * Returns true if the string associated with the given identifier is on the language file.
+	 * 
+	 * @param tag
+	 *            String identifier
+	 * @param sentence 
+	 *            1 for normal sentence, 2 for no-condition sentence
+	 * @return true if found, false otherwise
+	 */
+	public static boolean containsConditionsContextText( int element, int sentence ) {
+		return containsText ( "Conditions.Context."+sentence+"."+element);
+	}
+
 	
 	/**
 	 * Returns the element name for the given element identifier.
@@ -150,6 +179,19 @@ public class TextConstants {
 	 */
 	public static String getElementName( int element ) {
 		return getText( "Element.Name" + element );
+	}
+	
+	/**
+	 * Returns the element name for the given element identifier.
+	 * 
+	 * @param element
+	 *            Element identifier
+	 * @param sentence 
+	 *            1 for normal sentence, 2 for no-condition sentence
+
+	 */
+	public static String getConditionsContextText( int element, int sentence ) {
+		return getText( "Conditions.Context."+sentence+"."+element );
 	}
 
 	/**

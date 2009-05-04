@@ -66,7 +66,7 @@ public abstract class DataControlWithResources extends DataControl {
 		try {
 			Resources newElement = (Resources) (((Resources) (dataControl.getContent())).clone());
 			resourcesList.add(newElement);
-			resourcesDataControlList.add( new ResourcesDataControl(newElement, ((ResourcesDataControl) dataControl).getResourcesType()));
+			resourcesDataControlList.add( new ResourcesDataControl(newElement, ((ResourcesDataControl) dataControl).getResourcesType() ));
 			return true;
 		} catch (CloneNotSupportedException e) {
 			ReportDialog.GenerateErrorReport(e, true, "Could not clone resources");	

@@ -179,7 +179,7 @@ public class StartDialog extends JFileChooser {
 		// Create the help Panel, which will show help text to guide the user
 		JScrollPane helpPanel = new JScrollPane( JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED );
 		helpText = new JEditorPane( );
-		add(new JScrollPane(helpText, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER), BorderLayout.CENTER);
+		//add(new JScrollPane(helpText, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER), BorderLayout.CENTER);
 		updateHelpText( );
 		helpText.setBorder( BorderFactory.createEtchedBorder( ) );
 		helpPanel.setViewportView( helpText );

@@ -238,7 +238,7 @@ public class ConditionsPanel extends JPanel implements Updateable{
 			// If the data was approved
 			if( conditionDialog.wasPressedOKButton( ) ) {
 				// Set the new values and update the table
-				conditionsController.addCondition( blockIndex, conditionDialog.getSelectedType(), conditionDialog.getSelectedId( ), conditionDialog.getSelectedState( ), conditionDialog.getSelectedValue( ) );
+				//conditionsController.addCondition( blockIndex, conditionDialog.getSelectedType(), conditionDialog.getSelectedId( ), conditionDialog.getSelectedState( ), conditionDialog.getSelectedValue( ) );
 				conditionsTable.updateUI( );
 			}
 		}
@@ -384,27 +384,27 @@ public class ConditionsPanel extends JPanel implements Updateable{
 					}
 
 
-					ConditionDialog conditionDialog = new ConditionDialog( new Integer( defaultMode ), TextConstants.getText( "Conditions.EditCondition" ), defaultState, defaultFlag, defaultVar, defaultId, defaultValue );
+					//ConditionDialog conditionDialog = new ConditionDialog( new Integer( defaultMode ), TextConstants.getText( "Conditions.EditCondition" ), defaultState, defaultFlag, defaultVar, defaultId, defaultValue );
 
 					// If the data was approved
-					if( conditionDialog.wasPressedOKButton( ) ) {
+					//if( conditionDialog.wasPressedOKButton( ) ) {
 
 						// Take the index of the table
-						int tableIndex = eitherConditionsTables.indexOf( conditionsTable );
-						if( tableIndex == -1 )
-							tableIndex = ConditionsController.MAIN_CONDITIONS_BLOCK;
+					//	int tableIndex = eitherConditionsTables.indexOf( conditionsTable );
+					//	if( tableIndex == -1 )
+					//		tableIndex = ConditionsController.MAIN_CONDITIONS_BLOCK;
 
 						// Set the new values
 						/*conditionsController.setConditionType( tableIndex, selectedCondition, conditionDialog.getSelectedType( ) );
 						conditionsController.setConditionState( tableIndex, selectedCondition, conditionDialog.getSelectedState( ) );
 						conditionsController.setConditionId( tableIndex, selectedCondition, conditionDialog.getSelectedId( ) );
 						conditionsController.setConditionValue( tableIndex, selectedCondition, conditionDialog.getSelectedValue( ) );*/
-						conditionsController.setCondition(tableIndex, selectedCondition, conditionDialog.getSelectedType( )
-								, conditionDialog.getSelectedId( ), conditionDialog.getSelectedState( ), conditionDialog.getSelectedValue( ));
+						//conditionsController.setCondition(tableIndex, selectedCondition, conditionDialog.getSelectedType( )
+						//		, conditionDialog.getSelectedId( ), conditionDialog.getSelectedState( ), conditionDialog.getSelectedValue( ));
 						
 						// Update the table
-						conditionsTable.updateUI( );
-					}
+					//	conditionsTable.updateUI( );
+					//}
 				}
 			}
 		}

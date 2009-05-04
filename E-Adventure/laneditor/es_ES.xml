@@ -127,6 +127,8 @@ Por favor, seleccione una de las siguientes opciones:
 	<entry key="GeneralText.Duplicate">Duplicar</entry>
 	<entry key="GeneralText.NotSelected">&lt; No Seleccionado &gt;</entry>
 	<entry key="GeneralText.Is">Es</entry>
+	<entry key="GeneralText.Is.Singular">está</entry>
+	<entry key="GeneralText.Is.Plural">están</entry>
 	<entry key="GeneralText.Replace">Reemplazar</entry>
 	<entry key="GeneralText.Abort">Abortar</entry>
 	<entry key="GeneralText.Select">Seleccionar</entry>
@@ -636,10 +638,14 @@ Si no puedes seleccionar alguno de los que son similares de la lista</entry>
 	<entry key="Conditions.Flags">Flags</entry>
 	<entry key="Conditions.Flag">Flag/Variable</entry>
 	<entry key="Conditions.Var">Variables</entry>
+	<entry key="Conditions.Or">O bien</entry>
+	<entry key="Conditions.And">Y además</entry>
 <entry key="Conditions.ConditionGroup">Ref. a un Estado Global</entry>
 	<entry key="Conditions.Group.Description">Cuando se va a usar un grupo de condiciones juntas más de una vez
 	es una buena idea definir "Estados Globales". Éstos se pueden referenciar en cualquier bloque de condiciones
 	sin tener que introducirlas una a una otra vez.</entry>
+	<entry key="Conditions.ConditionGroup.Satisfied">se cumple</entry>
+	<entry key="Conditions.ConditionGroup.NotSatisfied">no se cumple</entry>
 	<entry key="Conditions.Group.Title">Campos del Estado Global</entry>
 	<entry key="Conditions.Group.Id">Id. del estado global</entry>
 	<entry key="Conditions.Var.Id">Nombre de la variable</entry>
@@ -656,6 +662,8 @@ Los flags pueden estar activos o inactivos en un momento determinado,como una ba
 levantada o bajada bloqueando o desbloqueando el paso. En el juego se pueden establecer condiciones en
 función de estos estados</entry>
 	<entry key="Conditions.Flag.Title">Campos de la condición basada en flag</entry>
+	<entry key="Conditions.Flag.Active">activo</entry>
+	<entry key="Conditions.Flag.Inactive">inactivo</entry>
 	<entry key="Conditions.Value">Valor</entry>
 	<entry key="Conditions.ErrorNoFlags">Para añadir una condición, debe haber al menos un flag en el capítulo</entry>
 
@@ -913,7 +921,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="ScenesList.ItemsNumber">{#0} objetos</entry>
 	<entry key="ScenesList.NPCsNumber">{#0} personajes</entry>
 
-	<entry key="SceneLinksPanel.Show">Eseñar?</entry>
+	<entry key="SceneLinksPanel.Show">¿Mostrar?</entry>
 	<entry key="SceneLinksPanel.SceneID">ID de la escena</entry>
 
 	<entry key="Scene.Title">Escena</entry>
@@ -1597,6 +1605,8 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="Element.Name31">Conversaciones</entry>
 	<entry key="Element.Name32">Conversación de árbol</entry>
 	<entry key="Element.Name33">Conversación de grafo</entry>
+	<entry key="Element.Name330">Línea de diálogo</entry>
+	<entry key="Element.Name331">Opción</entry>
 	<entry key="Element.Name34">Bloque de recursos</entry>
 	<entry key="Element.Name35">Siguiente escena</entry>
 	<entry key="Element.Name36">Fin de escena</entry>
@@ -1628,6 +1638,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="Element.Name62">Nodo</entry>
 	<entry key="Element.Name63">Lado</entry>
 	<entry key="Element.Name64">Trayectoria</entry>
+	<entry key="Element.Name66">Efecto</entry>
 	
 		
 	<entry key="Element.Ref">Ref: {#0}</entry>
@@ -2508,5 +2519,51 @@ Los perfiles de adaptación y evaluación no utilizados permaneceran intactos.</
 	<entry key="ResizeableListPanel.Size1ToolTip">Ver los elementos en una lista con vistas previas pequeñas</entry>
 	<entry key="ResizeableListPanel.Size2ToolTip">Ver los elementos en una lista con vistas previas grandes</entry>
 
+	<entry key="Conditions.Context.Sentence1">El elemento </entry>
+	<entry key="Conditions.Context.Sentence2a"> estará activo cuando se cumpla la siguiente condición: </entry>
+	<entry key="Conditions.Context.Sentence2b"> estará &lt;b&gt;activo siempre&lt;/b&gt;, ya que no se ha establecido ninguna condición </entry>
+	<entry key="Conditions.Context.NoOwner"> Esta es la lista de condiciones: </entry>
+	
+	<entry key="Conditions.Context.TimedAssessmentRuleA1"> La {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se activará&lt;/b&gt; (el contador comenzará a contar) cuando se cumpla la siguiente condición:</entry>
+	<entry key="Conditions.Context.TimedAssessmentRuleA2"> La {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se activará nada más comenzar el capítulo&lt;/b&gt; (el contador comenzará a contar), ya que no se ha establecido ninguna condición:</entry>
+	
+	<entry key="Conditions.Context.TimedAssessmentRuleB1"> La {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se desactivará&lt;/b&gt; (el contador se detendrá y se ejecutará el bloque de post-efectos) cuando se cumpla la siguiente condición:</entry>
+	<entry key="Conditions.Context.TimedAssessmentRuleB2"> La {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se desactivará nada más comenzar a contar&lt;/b&gt;, ya que no se ha establecido ninguna condición:</entry>
+	
+	<entry key="Conditions.Context.1.330"> La {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se mostrará en pantalla&lt;/b&gt; cuando se cumpla la siguiente condición:</entry>
+	<entry key="Conditions.Context.2.330"> La {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se mostrará siempre&lt;/b&gt;, ya que no se ha establecido ninguna condición:</entry>
+	
+	<entry key="Conditions.Context.1.331"> La {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se mostrará en pantalla&lt;/b&gt;, y por tanto se desbloqueará el respectivo camino cuando se cumpla la siguiente condición:</entry>
+	<entry key="Conditions.Context.2.331"> La {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se mostrará siempre&lt;/b&gt;, ya que no se ha establecido ninguna condición:</entry>
+	
+	<entry key="Conditions.Context.1.21"> La acción {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se podrá llevar a cabo&lt;/b&gt; cuando se cumpla la siguiente condición:</entry>
+	<entry key="Conditions.Context.2.21"> La acción {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se podrá llevar a cabo siempre&lt;/b&gt;, ya que no se ha establecido ninguna condición:</entry>
+	<entry key="Conditions.Context.1.22"> La acción {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se podrá llevar a cabo&lt;/b&gt; cuando se cumpla la siguiente condición:</entry>
+	<entry key="Conditions.Context.2.22"> La acción {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se podrá llevar a cabo siempre&lt;/b&gt;, ya que no se ha establecido ninguna condición:</entry>
+	<entry key="Conditions.Context.1.23"> La acción {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se podrá llevar a cabo&lt;/b&gt; cuando se cumpla la siguiente condición:</entry>
+	<entry key="Conditions.Context.2.23"> La acción {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se podrá llevar a cabo siempre&lt;/b&gt;, ya que no se ha establecido ninguna condición:</entry>
+	<entry key="Conditions.Context.1.230"> La acción {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se podrá llevar a cabo&lt;/b&gt; cuando se cumpla la siguiente condición:</entry>
+	<entry key="Conditions.Context.2.230"> La acción {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se podrá llevar a cabo siempre&lt;/b&gt;, ya que no se ha establecido ninguna condición:</entry>
+	<entry key="Conditions.Context.1.231"> La acción {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se podrá llevar a cabo&lt;/b&gt; cuando se cumpla la siguiente condición:</entry>
+	<entry key="Conditions.Context.2.231"> La acción {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se podrá llevar a cabo siempre&lt;/b&gt;, ya que no se ha establecido ninguna condición:</entry>
+	<entry key="Conditions.Context.1.24"> La acción {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se podrá llevar a cabo&lt;/b&gt; cuando se cumpla la siguiente condición:</entry>
+	<entry key="Conditions.Context.2.24"> La acción {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se podrá llevar a cabo siempre&lt;/b&gt;, ya que no se ha establecido ninguna condición:</entry>
+	<entry key="Conditions.Context.1.25"> La acción {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se podrá llevar a cabo&lt;/b&gt; cuando se cumpla la siguiente condición:</entry>
+	<entry key="Conditions.Context.2.25"> La acción {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se podrá llevar a cabo siempre&lt;/b&gt;, ya que no se ha establecido ninguna condición:</entry>
+	<entry key="Conditions.Context.1.250"> La acción {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se podrá llevar a cabo&lt;/b&gt; cuando se cumpla la siguiente condición:</entry>
+	<entry key="Conditions.Context.2.250"> La acción {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se podrá llevar a cabo siempre&lt;/b&gt;, ya que no se ha establecido ninguna condición:</entry>
+	
+	<entry key="Conditions.Context.1.66"> El {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se ejecutará&lt;/b&gt; cuando se cumpla la siguiente condición. En caso contrario se saltará al siguiente efecto</entry>
+	<entry key="Conditions.Context.2.66"> El {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se ejecutará siempre&lt;/b&gt;, ya que no se ha establecido ninguna condición:</entry>
+	
+	<entry key="Conditions.Context.1.34"> El elemento {#ELEMENT_ID$} tomará esta &lt;b&gt;apariencia&lt;/b&gt; cuando se cumpla la siguiente condición:</entry>
+	<entry key="Conditions.Context.2.34"> El elemento {#ELEMENT_ID$} tomará esta &lt;b&gt;apariencia siempre&lt;/b&gt;, ya que no se ha establecido ninguna condición:</entry>
+
+	<entry key="Conditions.Context.1A.44"> El {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se activará&lt;/b&gt; (empezará a contar) cuando se cumpla la siguiente condición:</entry>
+	<entry key="Conditions.Context.2A.44"> El {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se activará nada más comenzar el capítulo&lt;/b&gt; (empezará a contar), ya que no se ha establecido ninguna condición:</entry>
+
+	<entry key="Conditions.Context.1B.44"> El {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se desactivará&lt;/b&gt; (dejará de contar) cuando se cumpla la siguiente condición:</entry>
+	<entry key="Conditions.Context.2B.44"> El {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;se desactivará nada más comenzar a contar&lt;/b&gt;, ya que no se ha establecido ninguna condición:</entry>
+	
 	<entry key="HelpDialog.Title">Ayuda</entry>
 </properties>

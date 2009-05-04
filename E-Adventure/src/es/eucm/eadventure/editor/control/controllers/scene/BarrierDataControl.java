@@ -1,11 +1,15 @@
 package es.eucm.eadventure.editor.control.controllers.scene;
 
+import java.util.HashMap;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.elements.Barrier;
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.ConditionsController.ConditionContextProperty;
+import es.eucm.eadventure.editor.control.controllers.ConditionsController.ConditionOwner;
 import es.eucm.eadventure.editor.control.tools.general.ChangeRectangleValueTool;
 import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeDescriptionTool;
 import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeDetailedDescriptionTool;
@@ -44,7 +48,13 @@ public class BarrierDataControl extends DataControl {
 		this.barrier = barrier;
 
 		// Create subcontrollers
-		conditionsController = new ConditionsController( barrier.getConditions( ) );
+		HashMap<String, ConditionContextProperty> context1 = new HashMap<String, ConditionContextProperty>();
+		ConditionOwner parent = new ConditionOwner(Controller.SCENE, sceneDataControl.getId());
+		ConditionOwner owner = new ConditionOwner(Controller.BARRIER, barrier.getId(), parent);
+		
+		context1.put(ConditionsController.CONDITION_OWNER, owner);
+
+		conditionsController = new ConditionsController( barrier.getConditions( ), context1 );
 
 	}
 

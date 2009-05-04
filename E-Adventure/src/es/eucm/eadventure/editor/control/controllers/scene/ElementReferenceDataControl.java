@@ -1,5 +1,6 @@
 package es.eucm.eadventure.editor.control.controllers.scene;
 
+import java.util.HashMap;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.ElementReference;
@@ -7,6 +8,8 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.ConditionsController.ConditionContextProperty;
+import es.eucm.eadventure.editor.control.controllers.ConditionsController.ConditionOwner;
 import es.eucm.eadventure.editor.control.controllers.atrezzo.AtrezzoDataControl;
 import es.eucm.eadventure.editor.control.controllers.atrezzo.AtrezzoListDataControl;
 import es.eucm.eadventure.editor.control.controllers.character.NPCDataControl;
@@ -60,8 +63,14 @@ public class ElementReferenceDataControl extends DataControl {
 		this.visible = true;
 		if (type == Controller.ITEM_REFERENCE || type == Controller.NPC_REFERENCE)
 			this.influenceAreaDataControl = new InfluenceAreaDataControl(sceneDataControl, elementReference.getInfluenceArea(), this);
+
 		// Create subcontrollers
-		conditionsController = new ConditionsController( elementReference.getConditions( ) );
+		HashMap<String, ConditionContextProperty> context1 = new HashMap<String, ConditionContextProperty>();
+		ConditionOwner parent = new ConditionOwner(Controller.SCENE, sceneDataControl.getId());
+		ConditionOwner owner = new ConditionOwner(type, elementReference.getTargetId(), parent);
+		context1.put(ConditionsController.CONDITION_OWNER, owner);
+
+		conditionsController = new ConditionsController( elementReference.getConditions( ), context1 );
 	}
 
 	
