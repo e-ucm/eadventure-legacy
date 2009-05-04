@@ -9,7 +9,7 @@ import es.eucm.eadventure.common.gui.TextConstants;
 
 public class MainStructureListElement extends EffectsStructureListElement{
 
-    private static final String LIST_URL = "Effects_General.html";
+    private static final String LIST_URL = "effects/Effects_General.html";
     
     public MainStructureListElement() {
 	super(TextConstants.getText("EffectsGroup.Main"));

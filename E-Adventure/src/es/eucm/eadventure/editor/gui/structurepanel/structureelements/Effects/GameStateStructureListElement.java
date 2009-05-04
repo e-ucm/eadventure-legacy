@@ -12,7 +12,7 @@ import es.eucm.eadventure.common.gui.TextConstants;
 public class GameStateStructureListElement extends EffectsStructureListElement{
 
     
-    private static final String LIST_URL = "Effects_GameState.html";
+    private static final String LIST_URL = "effects/Effects_GameState.html";
     
     public GameStateStructureListElement() {
 	super(TextConstants.getText("EffectsGroup.GameState"));
