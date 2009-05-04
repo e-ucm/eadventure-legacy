@@ -511,7 +511,7 @@ public class Controller {
 	  /**
 	   * Store all effects selection. Connects the type of effect with the number of times that has been used
 	   */
-	  private SelectedEffectsController selectedEffects;
+	 // private SelectedEffectsController selectedEffects;
 	
 	/**
 	 * Void and private constructor.
@@ -668,7 +668,7 @@ public class Controller {
 		//mainWindow.setVisible( false );
 		
 		// initialize the selected effects container
-		selectedEffects = new SelectedEffectsController();
+		//selectedEffects = new SelectedEffectsController();
 		
 		
 		mainWindow.setResizable( true );
@@ -678,13 +678,13 @@ public class Controller {
 		//tsd = new ToolSystemDebugger( chaptersController );
 	}
 	
-	public void addSelectedEffect(String name){
+	/*public void addSelectedEffect(String name){
 	    selectedEffects.addSelectedEffect(name);
 	}
 	
 	public SelectedEffectsController getSelectedEffectsController(){
 	    return selectedEffects;
-	}
+	}*/
 		
 	public void startAutoSave(int minutes) {
 		stopAutoSave();

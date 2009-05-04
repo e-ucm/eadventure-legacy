@@ -10,7 +10,7 @@ import es.eucm.eadventure.common.gui.TextConstants;
 public class FeedbackStructureListElement extends EffectsStructureListElement{
 
  
-    private static final String LIST_URL = "Effects_Feedback.html";
+    private static final String LIST_URL = "effects/Effects_Feedback.html";
     
     public FeedbackStructureListElement() {
 	super(TextConstants.getText("EffectsGroup.Feedback"));

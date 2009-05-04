@@ -5,6 +5,7 @@ import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,16 +13,20 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.Box;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.metadata.ims.IMSDataControl;
 import es.eucm.eadventure.editor.control.controllers.metadata.lom.LOMDataControl;
 import es.eucm.eadventure.editor.control.controllers.metadata.lomes.LOMESDataControl;
+import es.eucm.eadventure.editor.gui.editdialogs.HelpDialog;
 
 public class LOMESDialog extends JDialog{
 
@@ -31,11 +36,25 @@ public class LOMESDialog extends JDialog{
 	
 	private JButton ok;
 	
+	private int currentTab;
+	
+	private static final String helpPath="metadata/LOMES.html";
+	
 	public LOMESDialog (LOMESDataControl dataControl){
 		super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "LOM.Title" ), Dialog.ModalityType.APPLICATION_MODAL );
 		this.dataControl = dataControl;
 		
 		Controller.getInstance().pushWindow(this);
+		
+		JButton infoButton = new JButton(new ImageIcon("img/icons/information.png"));
+		infoButton.setContentAreaFilled( false );
+		infoButton.setMargin( new Insets(0,0,0,0) );
+		infoButton.setFocusable(false);
+		infoButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new HelpDialog(helpPath);
+			}
+		});
 		
 		tabs = new JTabbedPane();
 		tabs.insertTab( TextConstants.getText("LOM.General.Tab"), null, new LOMESGeneralPanel(dataControl.getGeneral( )), TextConstants.getText("LOM.General.Tip"), 0 );
@@ -43,6 +62,21 @@ public class LOMESDialog extends JDialog{
 		tabs.insertTab(TextConstants.getText("IMS.Meta.Tab"), null, new LOMESMetaMetaDataPanel(dataControl.getMetametadata()), TextConstants.getText("IMS.Meta.Tip"), 2 );
 		tabs.insertTab( TextConstants.getText("LOM.Educational.Tab"), null, new LOMESEducationalPanel(dataControl.getEducational( )), TextConstants.getText("LOM.Educational.Tip"), 3 );
 		tabs.insertTab(  TextConstants.getText("IMS.Rights.Tab")+" & "+TextConstants.getText("IMS.Classification.Tab"), null, new LOMESRightsAndClassificationPanel(dataControl.getRights(), dataControl.getClassification()), TextConstants.getText("IMS.Rights.Tip") + " & " + TextConstants.getText("IMS.Classification.Tip"), 4 );
+		
+		tabs.add(new JPanel(),5);
+		tabs.setTabComponentAt(5,infoButton );
+		tabs.addChangeListener(new ChangeListener(){
+		    @Override
+		    public void stateChanged(ChangeEvent e) {
+			 if (tabs.getSelectedIndex()==5){
+			       tabs.setSelectedIndex(currentTab);
+			   }else 
+			       currentTab=tabs.getSelectedIndex();
+			  }
+			
+		    });
+		tabs.setSelectedIndex(1);
+		currentTab=1;
 		
 		// create button to close the dialog
 		ok = new JButton ("OK");
@@ -70,7 +104,7 @@ public class LOMESDialog extends JDialog{
 		cont.add(ok,c);
 		// Set size and position and show the dialog
 		this.getContentPane( ).add( cont);
-		setMinimumSize( new Dimension( 450, 520) );
+		setMinimumSize( new Dimension( 490, 520) );
 		Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
 		setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
 		setVisible( true );

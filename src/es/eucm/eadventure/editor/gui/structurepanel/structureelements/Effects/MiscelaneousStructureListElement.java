@@ -10,7 +10,7 @@ import es.eucm.eadventure.common.gui.TextConstants;
 public class MiscelaneousStructureListElement extends EffectsStructureListElement{
 
     
-    private static final String LIST_URL = "Effects_Miscellaneous.html";
+    private static final String LIST_URL = "effects/Effects_Miscellaneous.html";
     
     public MiscelaneousStructureListElement() {
 	super(TextConstants.getText("EffectsGroup.Miscellaneous"));

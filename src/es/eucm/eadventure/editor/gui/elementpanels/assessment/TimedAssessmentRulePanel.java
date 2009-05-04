@@ -668,7 +668,7 @@ public class TimedAssessmentRulePanel extends JPanel {
 	            Component component = e.getComponent();
 	            if (component instanceof AbstractButton) {
 	                AbstractButton button = (AbstractButton) component;
-	                button.setBorderPainted(true);
+	                button.setBorderPainted(false);
 	            }
 	        }
 

@@ -12,7 +12,7 @@ public class MultimediaStructureListElement extends EffectsStructureListElement{
     
     
     
-    private static final String LIST_URL = "Effects_Multimedia.html";
+    private static final String LIST_URL = "effects/Effects_Multimedia.html";
     
     public MultimediaStructureListElement() {
 	super(TextConstants.getText("EffectsGroup.Multimedia"));

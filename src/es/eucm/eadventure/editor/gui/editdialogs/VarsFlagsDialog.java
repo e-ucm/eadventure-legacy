@@ -41,7 +41,18 @@ public class VarsFlagsDialog extends JDialog {
 	 * Required.
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * Path of .html file with help for flags
+	 */
+	private static final String flagsHelpPath="";
 
+	/**
+	 * Path of .html file with help for vars
+	 */
+	private static final String varsHelpPath="";
+
+	
 	/**
 	 * Controller for the flags.
 	 */
@@ -66,7 +77,7 @@ public class VarsFlagsDialog extends JDialog {
 	public VarsFlagsDialog( VarFlagsController flagController ) {
 
 		// Call to the JDialog constructor
-		super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "Ids.Title" ), Dialog.ModalityType.APPLICATION_MODAL );
+		super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "Ids.Title" ), Dialog.ModalityType.TOOLKIT_MODAL);
 
 		// Push the dialog into the stack, and add the window listener to pop in when closing
 		Controller.getInstance( ).pushWindow( this );
@@ -192,6 +203,20 @@ public class VarsFlagsDialog extends JDialog {
 		flagsTabComponent.add(flagsTitle, c1 );
 		flagsTabComponent.setBackground( ConditionsPanelOld.FLAG_COLOR );
 		mainPanel.setTabComponentAt(0, flagsTabComponent);
+		
+		// button for html help for flags
+		JButton flagsInfoButton = new JButton(new ImageIcon("img/icons/information.png"));
+		flagsInfoButton.setContentAreaFilled( false );
+		flagsInfoButton.setMargin( new Insets(0,0,0,0) );
+		flagsInfoButton.setFocusable(false);
+		flagsInfoButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new HelpDialog(flagsHelpPath);
+			}
+		});
+		c1.gridx++;
+		flagsTabComponent.add(flagsInfoButton, c1 );
+		
 
 		JPanel varsTabComponent = new JPanel();
 		varsTabComponent.setLayout(new GridBagLayout());
@@ -209,6 +234,20 @@ public class VarsFlagsDialog extends JDialog {
 		varsTabComponent.add(varsTitle, c2 );
 		varsTabComponent.setBackground( ConditionsPanelOld.VAR_COLOR );
 		mainPanel.setTabComponentAt(1, varsTabComponent);
+		
+		// button for html help for vars
+		JButton varsInfoButton = new JButton(new ImageIcon("img/icons/information.png"));
+		varsInfoButton.setContentAreaFilled( false );
+		varsInfoButton.setMargin( new Insets(0,0,0,0) );
+		varsInfoButton.setFocusable(false);
+		varsInfoButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new HelpDialog(varsHelpPath);
+			}
+		});
+		c2.gridx++;
+		varsTabComponent.add(varsInfoButton, c2 );
+		
 		
 		// Add the panel
 		setLayout( new GridBagLayout( ) );

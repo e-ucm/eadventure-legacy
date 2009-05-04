@@ -36,6 +36,8 @@ public class MostVisitedPanel extends JPanel{
     
     private SelectEffectsDialog dialog;
     
+    private SelectedEffectsController selectEffectControl;
+    
     
     public MostVisitedPanel(SelectEffectsDialog dialog){
 	this.dialog=dialog;
@@ -43,7 +45,8 @@ public class MostVisitedPanel extends JPanel{
 	GridBagConstraints c = new GridBagConstraints();
 	c.fill =GridBagConstraints.BOTH;
 	this.isPressed = false;
-	ListElements[] values = Controller.getInstance().getSelectedEffectsController().getMostVisiteEffects();
+	selectEffectControl = new SelectedEffectsController();
+	ListElements[] values = selectEffectControl.getMostVisiteEffects();
 	int addedButtons=0;
 	for (int i=0;i<4;i++){
 	if (values[i].getValue()>0){

@@ -9,7 +9,7 @@ import es.eucm.eadventure.common.gui.TextConstants;
 
 public class TriggerStructureListElement extends EffectsStructureListElement{
 
-   private static final String LIST_URL = "Effects_TriggerEvents.html";
+   private static final String LIST_URL = "effects/Effects_TriggerEvents.html";
     
     public TriggerStructureListElement() {
 	super(TextConstants.getText("EffectsGroup.Trigger"));
