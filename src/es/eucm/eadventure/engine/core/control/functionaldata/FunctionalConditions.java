@@ -1,6 +1,7 @@
 package es.eucm.eadventure.engine.core.control.functionaldata;
 
 import es.eucm.eadventure.common.data.chapter.conditions.Condition;
+import es.eucm.eadventure.common.data.chapter.conditions.FlagCondition;
 import es.eucm.eadventure.common.data.chapter.conditions.GlobalState;
 import es.eucm.eadventure.common.data.chapter.conditions.VarCondition;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
@@ -47,7 +48,8 @@ public class FunctionalConditions{
         for( Condition condition : conditions.getMainConditions() ){
             if( evaluation ){
             	if (condition.getType() == Condition.FLAG_CONDITION){
-            		evaluation = condition.isActiveState() == flags.isActiveFlag( condition.getId( ) );            		
+            		FlagCondition flagCondition = (FlagCondition)condition;
+            		evaluation = flagCondition.isActiveState() == flags.isActiveFlag( condition.getId( ) );            		
             	} else if (condition.getType() == Condition.VAR_CONDITION ){
             		VarCondition varCondition = (VarCondition)condition;
             		int actualValue = vars.getValue( varCondition.getId());
@@ -99,7 +101,8 @@ public class FunctionalConditions{
         for( Condition condition : conditions.getMainConditions() )
             if( !evaluation ){
             	if ( condition.getType() == Condition.FLAG_CONDITION ){
-            		evaluation = condition.isActiveState() == flags.isActiveFlag( condition.getId( ) );	
+            		FlagCondition flagCondition = (FlagCondition)condition;
+            		evaluation = flagCondition.isActiveState() == flags.isActiveFlag( condition.getId( ) );	
             	} else if ( condition.getType() == Condition.VAR_CONDITION ){
             		VarCondition varCondition = (VarCondition)condition;
             		int actualValue = vars.getValue( varCondition.getId());

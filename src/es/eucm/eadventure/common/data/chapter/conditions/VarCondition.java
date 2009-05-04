@@ -8,6 +8,31 @@ package es.eucm.eadventure.common.data.chapter.conditions;
 public class VarCondition extends Condition{
 
 	/**
+	 * Constant for greater-than var.
+	 */
+	public static final int VAR_GREATER_THAN = 2;
+	
+	/**
+	 * Constant for greater-than or equals var.
+	 */
+	public static final int VAR_GREATER_EQUALS_THAN = 3;
+
+	/**
+	 * Constant for equals var.
+	 */
+	public static final int VAR_EQUALS = 4;
+	
+	/**
+	 * Constant for less than or equals var.
+	 */
+	public static final int VAR_LESS_EQUALS_THAN = 5;
+
+	/**
+	 * Constant for less-than var.
+	 */
+	public static final int VAR_LESS_THAN = 6;
+
+	/**
 	 * MIN VALUE
 	 */
 	public static final int MIN_VALUE = 0;
@@ -29,9 +54,8 @@ public class VarCondition extends Condition{
 	 */
 	
 	public VarCondition(String flagVar, int state, int value) {
-		super(flagVar, state);
+		super(VAR_CONDITION, flagVar, state);
 		this.value = value;
-		this.type = VAR_CONDITION;
 	}
 
 	/**

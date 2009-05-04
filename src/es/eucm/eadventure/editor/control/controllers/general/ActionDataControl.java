@@ -85,7 +85,7 @@ public class ActionDataControl extends DataControlWithResources {
 		}
 
 		// Create subcontrollers
-		conditionsController = new ConditionsController( action.getConditions( ) );
+		conditionsController = new ConditionsController( action.getConditions( ), actionType, action.getTargetId() );
 		effectsController = new EffectsController( action.getEffects( ) );
 		notEffectsController = new EffectsController( action.getNotEffects() );
 	}

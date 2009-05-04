@@ -633,6 +633,9 @@ Otherwise you can select one of those found similar from the list.</entry>
 	without introducing all the conditions again.</entry>
 	<entry key="Conditions.Group.Title">Fields of the global state</entry>
 	<entry key="Conditions.Group.Id">Global State Id</entry>
+	<entry key="Conditions.ConditionGroup.Satisfied">is satisfied</entry>
+	<entry key="Conditions.ConditionGroup.NotSatisfied">is not satisfied</entry>
+	
 	<entry key="Conditions.Var.Id">Variable name</entry>
 	<entry key="Conditions.Var.State">Comparison</entry>
 	<entry key="Conditions.Var.Value">Value [0,Inf)</entry>
@@ -647,7 +650,13 @@ Flags can be active or inactive at any moment in the game, as traffic lights can
 green or red to allow or forbid crossing. In the game you can define conditions
 based on the state of the flags.</entry>
 	<entry key="Conditions.Flag.Title">Fields of the flag</entry>
+	<entry key="Conditions.Flag.Active">active</entry>
+	<entry key="Conditions.Flag.Inactive">inactive</entry>
 	<entry key="Conditions.Value">Value</entry>
+	
+	<entry key="Conditions.Or">Or</entry>
+	<entry key="Conditions.And">And</entry>
+		
 	<entry key="Conditions.ErrorNoFlags">To add a condition, there must be at least one flag in the chapter</entry>
 
 	<entry key="Effects.Title">Effects</entry>
@@ -1533,6 +1542,8 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="GeneralText.OK">OK</entry>
 	<entry key="GeneralText.Cancel">Cancel</entry>
 	<entry key="GeneralText.Is">Is</entry>
+	<entry key="GeneralText.Is.Singular">is</entry>
+	<entry key="GeneralText.Is.Plural">are</entry>
 	<entry key="GeneralText.New">New</entry>
 	<entry key="GeneralText.Open">Open</entry>
 	<entry key="GeneralText.Close">Close</entry>
@@ -1590,6 +1601,8 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="Element.Name31">Conversations</entry>
 	<entry key="Element.Name32">Tree conversation</entry>
 	<entry key="Element.Name33">Graph conversation</entry>
+	<entry key="Element.Name330">Dialogue line</entry>
+	<entry key="Element.Name331">Option line</entry>
 	<entry key="Element.Name34">Resources block</entry>
 	<entry key="Element.Name35">Next scene</entry>
 	<entry key="Element.Name36">End scene</entry>
@@ -1621,6 +1634,7 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="Element.Name62">Node</entry>
 	<entry key="Element.Name63">Side</entry>
 	<entry key="Element.Name64">Trajectory</entry>
+	<entry key="Element.Name66">Effect</entry>
 	
 		
 	<entry key="Element.Ref">Ref: {#0}</entry>
@@ -2500,6 +2514,11 @@ Unreferenced assessment and adaptation profiles will remain intact.</entry>
 	<entry key="ResizeableListPanel.Size0ToolTip">View all the elements in a simple list</entry>
 	<entry key="ResizeableListPanel.Size1ToolTip">View all the elements in a list with small previews</entry>
 	<entry key="ResizeableListPanel.Size2ToolTip">View all the elements in a list with big previews</entry>
+	
+	<entry key="Conditions.Context.Sentence1">The </entry>
+	<entry key="Conditions.Context.Sentence2a"> will be active when the next condition is satisfied: </entry>
+	<entry key="Conditions.Context.Sentence2b"> will be &lt;b&gt;always active&lt;/b&gt;, as it has no condition </entry>
+	<entry key="Conditions.Context.NoOwner"> This is the list of conditions: </entry>
 
 	<entry key="HelpDialog.Title">Help</entry>
 </properties>

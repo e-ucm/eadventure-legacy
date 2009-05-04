@@ -1,13 +1,18 @@
 package es.eucm.eadventure.editor.control.controllers.scene;
 
 import java.awt.Point;
+import java.util.HashMap;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.Rectangle;
 import es.eucm.eadventure.common.data.chapter.elements.ActiveArea;
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.ConditionsController.ConditionContextProperty;
+import es.eucm.eadventure.editor.control.controllers.ConditionsController.ConditionCustomMessage;
+import es.eucm.eadventure.editor.control.controllers.ConditionsController.ConditionOwner;
 import es.eucm.eadventure.editor.control.controllers.general.ActionsListDataControl;
 import es.eucm.eadventure.editor.control.tools.general.ChangeRectangleValueTool;
 import es.eucm.eadventure.editor.control.tools.general.areaedition.AddNewPointTool;
@@ -59,7 +64,14 @@ public class ActiveAreaDataControl extends DataControl implements RectangleArea 
 
 		// Create subcontrollers
 		actionsListDataControl = new ActionsListDataControl( activeArea.getActions( ), this );
-		conditionsController = new ConditionsController( activeArea.getConditions( ) );
+		
+		
+		HashMap<String, ConditionContextProperty> context1 = new HashMap<String, ConditionContextProperty>();
+		ConditionOwner parent = new ConditionOwner(Controller.SCENE, sceneDataControl.getId());
+		ConditionOwner owner = new ConditionOwner(Controller.ACTIVE_AREA, activeArea.getId(), parent);
+		
+		context1.put(ConditionsController.CONDITION_OWNER, owner);
+		conditionsController = new ConditionsController( activeArea.getConditions( ), context1 );
 	}
 
 	/**

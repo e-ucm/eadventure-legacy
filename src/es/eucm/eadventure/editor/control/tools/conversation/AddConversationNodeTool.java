@@ -88,7 +88,8 @@ public class AddConversationNodeTool extends Tool{
 				// If the node was an option node, add a new line
 				if( parent.getType( ) == ConversationNode.OPTION ){
 					parent.addLine( new ConversationLine( ConversationLine.PLAYER, TextConstants.getText( "ConversationLine.NewOption" ) ) );
-					allConditions.get((ConversationNodeView)parent).add(new ConditionsController(new Conditions()));
+					allConditions.get((ConversationNodeView)parent).add(new ConditionsController(new Conditions(), 
+			    			Controller.CONVERSATION_OPTION_LINE, Integer.toString(0)));
 				}
 				// Save the index of the newChild
 				index = -1;
@@ -115,7 +116,8 @@ public class AddConversationNodeTool extends Tool{
 		// If the node was an option node, add a new line
 		if( parent.getType( ) == ConversationNode.OPTION ){
 			parent.addLine( index, new ConversationLine( ConversationLine.PLAYER, TextConstants.getText( "ConversationLine.NewOption" ) ) );
-			allConditions.get((ConversationNodeView)parent).add(new ConditionsController(new Conditions()));
+			allConditions.get((ConversationNodeView)parent).add(new ConditionsController(new Conditions(), 
+	    			Controller.CONVERSATION_OPTION_LINE, Integer.toString(0)));
 		}
 		Controller.getInstance().updatePanel();
 		return true;

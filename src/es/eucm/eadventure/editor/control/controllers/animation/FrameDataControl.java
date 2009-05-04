@@ -23,7 +23,7 @@ public class FrameDataControl extends DataControlWithResources {
 		this.frame = frame;
 		resourcesDataControlList = new ArrayList<ResourcesDataControl>();
 		for (Resources resources : frame.getResources()) {
-			resourcesDataControlList.add(new ResourcesDataControl(resources, Controller.ANIMATION));
+			resourcesDataControlList.add(new ResourcesDataControl(resources, Controller.ANIMATION ));
 		}
 	}
 	

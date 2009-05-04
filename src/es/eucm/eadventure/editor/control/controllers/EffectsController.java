@@ -139,7 +139,7 @@ public class EffectsController {
 		conditionsList=new ArrayList<ConditionsController>();
 		// create the list of effects controllers
 		for (AbstractEffect effect:effects.getEffects()){
-			conditionsList.add(new ConditionsController(effect.getConditions()));
+			conditionsList.add(new ConditionsController(effect.getConditions(), Controller.EFFECT, getEffectInfo( effect)));
 		    }
 	}
 	

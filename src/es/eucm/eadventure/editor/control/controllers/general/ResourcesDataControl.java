@@ -44,7 +44,7 @@ public class ResourcesDataControl extends DataControl {
 	private ConditionsController conditionsController;
 	
 	private int resourcesType;
-
+	
 	private Map<String, String> imageIconMap;
 	
 	/**
@@ -115,7 +115,7 @@ public class ResourcesDataControl extends DataControl {
 		}
 
 		// Create subcontrollers
-		conditionsController = new ConditionsController( resources.getConditions( ) );
+		conditionsController = new ConditionsController( resources.getConditions( ), Controller.RESOURCES, TextConstants.getElementName(resourcesType) );
 	}
 
 	public int getResourcesType() {
@@ -435,5 +435,6 @@ public class ResourcesDataControl extends DataControl {
 	public List<DataControl> getPathToDataControl(DataControl dataControl) {
 		return null;
 	}
+
 
 }

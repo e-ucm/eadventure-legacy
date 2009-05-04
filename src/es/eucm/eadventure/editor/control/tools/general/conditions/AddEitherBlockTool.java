@@ -37,13 +37,13 @@ public class AddEitherBlockTool extends Tool{
 	@Override
 	public boolean doTool() {
 		addedBlock = new Conditions( );
-		conditions.addEitherCondition( addedBlock );
+		conditions.add( addedBlock );
 		return true;
 	}
 
 	@Override
 	public boolean redoTool() {
-		conditions.addEitherCondition( addedBlock );
+		conditions.add( addedBlock );
 		Controller.getInstance().updatePanel();
 		return true;
 	}
@@ -53,7 +53,7 @@ public class AddEitherBlockTool extends Tool{
 		boolean done = false;
 		for (int i=0; i<conditions.getEitherConditionsBlockCount(); i++){
 			if (conditions.getEitherBlock(i) == addedBlock){
-				conditions.deleteEitherCondition(i);
+				conditions.delete(i);
 				Controller.getInstance().updatePanel();
 				done = true;
 				break;

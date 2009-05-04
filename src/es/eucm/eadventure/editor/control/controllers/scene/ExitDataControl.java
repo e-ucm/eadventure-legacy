@@ -1,6 +1,7 @@
 package es.eucm.eadventure.editor.control.controllers.scene;
 
 import java.awt.Point;
+import java.util.HashMap;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.Exit;
@@ -10,6 +11,8 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
+import es.eucm.eadventure.editor.control.controllers.ConditionsController.ConditionContextProperty;
+import es.eucm.eadventure.editor.control.controllers.ConditionsController.ConditionOwner;
 import es.eucm.eadventure.editor.control.controllers.general.ExitLookDataControl;
 import es.eucm.eadventure.editor.control.tools.general.ChangeNSDestinyPositionTool;
 import es.eucm.eadventure.editor.control.tools.general.ChangeRectangleValueTool;
@@ -67,7 +70,12 @@ public class ExitDataControl extends DataControl implements RectangleArea {
 		postEffectsController = new EffectsController(exit.getPostEffects());
 		notEffectsController = new EffectsController(exit.getNotEffects());
 		
-		conditionsController = new ConditionsController( exit.getConditions( ) );
+		HashMap<String, ConditionContextProperty> context1 = new HashMap<String, ConditionContextProperty>();
+		ConditionOwner parent = new ConditionOwner(Controller.SCENE, sceneDataControl.getId());
+		ConditionOwner owner = new ConditionOwner(Controller.EXIT, exit.getNextSceneId(), parent);
+		context1.put(ConditionsController.CONDITION_OWNER, owner);
+
+		conditionsController = new ConditionsController( exit.getConditions( ), context1 );
 		exitLookDataControl = new ExitLookDataControl ( exit );
 	}
 

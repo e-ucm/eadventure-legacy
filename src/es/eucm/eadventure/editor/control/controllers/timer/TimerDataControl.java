@@ -1,12 +1,17 @@
 package es.eucm.eadventure.editor.control.controllers.timer;
 
+import java.util.HashMap;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.Timer;
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
+import es.eucm.eadventure.editor.control.controllers.ConditionsController.ConditionContextProperty;
+import es.eucm.eadventure.editor.control.controllers.ConditionsController.ConditionCustomMessage;
+import es.eucm.eadventure.editor.control.controllers.ConditionsController.ConditionOwner;
 import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeDocumentationTool;
 import es.eucm.eadventure.editor.control.tools.generic.ChangeBooleanValueTool;
 import es.eucm.eadventure.editor.control.tools.generic.ChangeLongValueTool;
@@ -50,8 +55,21 @@ public class TimerDataControl extends DataControl {
 		this.timer = timer;
 
 		// Create subcontrollers
-		initConditionsController = new ConditionsController( timer.getInitCond( ) );
-		endConditionsController = new ConditionsController( timer.getEndCond( ) );
+		HashMap<String, ConditionContextProperty> context1 = new HashMap<String, ConditionContextProperty>();
+		ConditionOwner owner = new ConditionOwner(Controller.TIMER, timer.getDisplayName());
+		context1.put(ConditionsController.CONDITION_OWNER, owner);
+		ConditionCustomMessage cMessage1 = new ConditionCustomMessage(TextConstants.getText("Conditions.Context.1A.44"),
+				TextConstants.getText("Conditions.Context.2A.44"));
+		context1.put(ConditionsController.CONDITION_CUSTOM_MESSAGE, cMessage1);
+		
+		HashMap<String, ConditionContextProperty> context2 = new HashMap<String, ConditionContextProperty>();
+		context2.put(ConditionsController.CONDITION_OWNER, owner);
+		ConditionCustomMessage cMessage2 = new ConditionCustomMessage(TextConstants.getText("Conditions.Context.1B.44"),
+				TextConstants.getText("Conditions.Context.2B.44"));
+		context2.put(ConditionsController.CONDITION_CUSTOM_MESSAGE, cMessage2);
+		
+		initConditionsController = new ConditionsController( timer.getInitCond( ),  context1);
+		endConditionsController = new ConditionsController( timer.getEndCond( ), context2 );
 		effectsController = new EffectsController( timer.getEffects( ) );
 		postEffectsController = new EffectsController( timer.getPostEffects( ) );
 

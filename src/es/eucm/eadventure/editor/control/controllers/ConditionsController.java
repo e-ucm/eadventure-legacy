@@ -1,9 +1,15 @@
 package es.eucm.eadventure.editor.control.controllers;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import es.eucm.eadventure.common.data.chapter.conditions.Condition;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
-import es.eucm.eadventure.common.data.chapter.conditions.GlobalStateReference;
+import es.eucm.eadventure.common.data.chapter.conditions.FlagCondition;
+import es.eucm.eadventure.common.data.chapter.conditions.GlobalStateCondition;
 import es.eucm.eadventure.common.data.chapter.conditions.VarCondition;
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.tools.general.conditions.AddConditionTool;
 import es.eucm.eadventure.editor.control.tools.general.conditions.AddEitherBlockTool;
@@ -65,10 +71,10 @@ public class ConditionsController {
 	 * @param conditions
 	 *            Conditions block of data
 	 */
-	public ConditionsController( Conditions conditions ) {
+	/*public ConditionsController( Conditions conditions ) {
 		this.conditions = conditions;
 		controller = Controller.getInstance( );
-	}
+	}*/
 
 	/**
 	 * Returns if the controller can add conditions to the blocks.
@@ -87,27 +93,6 @@ public class ConditionsController {
 	 */
 	public int getEitherConditionsBlockCount( ) {
 		return conditions.getEitherConditionsBlockCount( );
-	}
-
-	/**
-	 * Returns the number of conditions of the given block.
-	 * 
-	 * @param blockIndex
-	 *            The index of the conditions block. Use MAIN_CONDITIONS_BLOCK (-1) to select the main block of
-	 *            conditions, and values from 0 to getEitherConditionsBlockCount( ) to access the either blocks of
-	 *            conditions
-	 * @return Number of conditions
-	 */
-	public int getConditionCount( int blockIndex ) {
-		int conditionCount;
-
-		if( blockIndex == MAIN_CONDITIONS_BLOCK )
-			conditionCount = conditions.getMainConditions( ).size( );
-
-		else
-			conditionCount = conditions.getEitherConditions( blockIndex ).size( );
-
-		return conditionCount;
 	}
 
 	/**
@@ -283,25 +268,27 @@ public class ConditionsController {
 				Controller.getInstance().getIdentifierSummary().isGlobalStateId(conditionId)){
 			if( blockIndex == MAIN_CONDITIONS_BLOCK ){
 				if ( type == FLAG_CONDITION ){
-					Controller.getInstance().addTool(new AddConditionTool(conditions.getMainConditions( ),new Condition( conditionId, getStateFromString( conditionState ) ),controller.getVarFlagSummary() ));
+					Controller.getInstance().addTool(new AddConditionTool(conditions.getMainConditions( ),new FlagCondition( conditionId, getStateFromString( conditionState ) ),controller.getVarFlagSummary() ));
 				}else if ( type == VAR_CONDITION ){
 					Controller.getInstance().addTool(new AddConditionTool(conditions.getMainConditions( ),new VarCondition( conditionId, getStateFromString( conditionState ), Integer.parseInt(value) ),controller.getVarFlagSummary() ));
 				} else if (type == GLOBAL_STATE_CONDITION ){
-					Controller.getInstance().addTool(new AddConditionTool(conditions.getMainConditions( ),new GlobalStateReference( conditionId ),controller.getVarFlagSummary() ));
+					Controller.getInstance().addTool(new AddConditionTool(conditions.getMainConditions( ),new GlobalStateCondition( conditionId ),controller.getVarFlagSummary() ));
 				}
 	
 			}else{
 				if ( type == FLAG_CONDITION ){
-					Controller.getInstance().addTool(new AddConditionTool(conditions.getEitherConditions( blockIndex ),new Condition( conditionId, getStateFromString( conditionState ) ),controller.getVarFlagSummary() ));
+					Controller.getInstance().addTool(new AddConditionTool(conditions.getEitherConditions( blockIndex ),new FlagCondition( conditionId, getStateFromString( conditionState ) ),controller.getVarFlagSummary() ));
 				}else if ( type == VAR_CONDITION ){
 					Controller.getInstance().addTool(new AddConditionTool(conditions.getEitherConditions( blockIndex ),new VarCondition( conditionId, getStateFromString( conditionState ), Integer.parseInt(value) ),controller.getVarFlagSummary() ));					
 				}else if (type == GLOBAL_STATE_CONDITION ){
-					Controller.getInstance().addTool(new AddConditionTool(conditions.getEitherConditions( blockIndex ),new GlobalStateReference( conditionId ), controller.getVarFlagSummary()));
+					Controller.getInstance().addTool(new AddConditionTool(conditions.getEitherConditions( blockIndex ),new GlobalStateCondition( conditionId ), controller.getVarFlagSummary()));
 				}
 			}
 		}
 	}
 
+	
+	
 	/**
 	 * Deletes the given condition from the given block.
 	 * 
@@ -312,14 +299,14 @@ public class ConditionsController {
 	 * @param conditionIndex
 	 *            Index of the condition
 	 */
-	public void deleteCondition( int blockIndex, int conditionIndex ) {
-		if( blockIndex == MAIN_CONDITIONS_BLOCK ) {
-			controller.addTool(new DeleteConditionTool(conditions.getMainConditions( ), conditionIndex, controller.getVarFlagSummary()));
-		}
-		else {
-			controller.addTool(new DeleteConditionTool(conditions.getEitherConditions( blockIndex ), conditionIndex, controller.getVarFlagSummary()));
-		}
-	}
+	//public void deleteCondition( int blockIndex, int conditionIndex ) {
+	//	if( blockIndex == MAIN_CONDITIONS_BLOCK ) {
+	//		controller.addTool(new DeleteConditionTool(conditions.getMainConditions( ), conditionIndex, controller.getVarFlagSummary()));
+	//	}
+	////	else {
+	//		controller.addTool(new DeleteConditionTool(conditions.getEitherConditions( blockIndex ), conditionIndex, controller.getVarFlagSummary()));
+	//	}
+	//}
 
 	/**
 	 * Replaces the condition in block blockIndex in position conditionIndex with a new condition created
@@ -343,13 +330,13 @@ public class ConditionsController {
 				
 				// Create the new condition according to the type
 				if ( type == ConditionsController.FLAG_CONDITION ){
-					newCondition = new Condition ( id, getStateFromString(state) ) ;
+					newCondition = new FlagCondition ( id, getStateFromString(state) ) ;
 					controller.addTool(new ReplaceConditionTool(conditions.getMainConditions(), newCondition, conditionIndex,controller.getVarFlagSummary()));
 				} else if ( type == ConditionsController.VAR_CONDITION ){
 					newCondition = new VarCondition ( id, getStateFromString(state), Integer.parseInt(value) ) ;
 					controller.addTool(new ReplaceConditionTool(conditions.getMainConditions(), newCondition, conditionIndex,controller.getVarFlagSummary()));
 				} else if ( type == ConditionsController.GLOBAL_STATE_CONDITION ){
-					newCondition = new GlobalStateReference ( id ) ;
+					newCondition = new GlobalStateCondition ( id ) ;
 					controller.addTool(new ReplaceConditionTool(conditions.getMainConditions(), newCondition, conditionIndex,controller.getVarFlagSummary()));
 				}
 			}
@@ -361,13 +348,13 @@ public class ConditionsController {
 					oldCondition.getState()!=getStateFromString(state) ||
 					(type == VAR_CONDITION && ((VarCondition)oldCondition).getValue()!=Integer.parseInt(value))){
 				if ( type == ConditionsController.FLAG_CONDITION ){
-					newCondition = new Condition ( id, getStateFromString(state) ) ;
+					newCondition = new FlagCondition ( id, getStateFromString(state) ) ;
 					controller.addTool(new ReplaceConditionTool(conditions.getEitherConditions( blockIndex ), newCondition, conditionIndex,controller.getVarFlagSummary()));
 				} else if ( type == ConditionsController.VAR_CONDITION ){
 					newCondition = new VarCondition ( id, getStateFromString(state), Integer.parseInt(value) ) ;
 					controller.addTool(new ReplaceConditionTool(conditions.getEitherConditions( blockIndex ), newCondition, conditionIndex,controller.getVarFlagSummary()));
 				} else if ( type == ConditionsController.GLOBAL_STATE_CONDITION ){
-					newCondition = new GlobalStateReference ( id ) ;
+					newCondition = new GlobalStateCondition ( id ) ;
 					controller.addTool(new ReplaceConditionTool(conditions.getEitherConditions( blockIndex ), newCondition, conditionIndex,controller.getVarFlagSummary()));
 				}
 				
@@ -422,25 +409,25 @@ public class ConditionsController {
 		int state = Condition.NO_STATE;
 
 		if( stringState.equals( STATE_VALUES[0] ) )
-			state = Condition.FLAG_ACTIVE;
+			state = FlagCondition.FLAG_ACTIVE;
 
 		else if( stringState.equals( STATE_VALUES[1] ) )
-			state = Condition.FLAG_INACTIVE;
+			state = FlagCondition.FLAG_INACTIVE;
 		
 		else if( stringState.equals( STATE_VALUES[2] ) )
-			state = Condition.VAR_GREATER_THAN;
+			state = VarCondition.VAR_GREATER_THAN;
 
 		else if( stringState.equals( STATE_VALUES[3] ) )
-			state = Condition.VAR_GREATER_EQUALS_THAN;
+			state = VarCondition.VAR_GREATER_EQUALS_THAN;
 		
 		else if( stringState.equals( STATE_VALUES[4] ) )
-			state = Condition.VAR_LESS_THAN;
+			state = VarCondition.VAR_LESS_THAN;
 		
 		else if( stringState.equals( STATE_VALUES[5] ) )
-			state = Condition.VAR_LESS_EQUALS_THAN;
+			state = VarCondition.VAR_LESS_EQUALS_THAN;
 		
 		else if( stringState.equals( STATE_VALUES[6] ) )
-			state = Condition.VAR_EQUALS;
+			state = VarCondition.VAR_EQUALS;
 		return state;
 	}
 
@@ -454,25 +441,25 @@ public class ConditionsController {
 	private String getStringFromState( int state ) {
 		String stringState = null;
 
-		if( state == Condition.FLAG_ACTIVE )
+		if( state == FlagCondition.FLAG_ACTIVE )
 			stringState = STATE_VALUES[0];
 
-		else if( state == Condition.FLAG_INACTIVE )
+		else if( state == FlagCondition.FLAG_INACTIVE )
 			stringState = STATE_VALUES[1];
 
-		else if( state == Condition.VAR_GREATER_THAN )
+		else if( state == VarCondition.VAR_GREATER_THAN )
 			stringState = STATE_VALUES[2];
 		
-		else if( state == Condition.VAR_GREATER_EQUALS_THAN )
+		else if( state == VarCondition.VAR_GREATER_EQUALS_THAN )
 			stringState = STATE_VALUES[3];
 
-		else if( state == Condition.VAR_LESS_THAN )
+		else if( state == VarCondition.VAR_LESS_THAN )
 			stringState = STATE_VALUES[4];
 		
-		else if( state == Condition.VAR_LESS_EQUALS_THAN )
+		else if( state == VarCondition.VAR_LESS_EQUALS_THAN )
 			stringState = STATE_VALUES[5];
 
-		else if( state == Condition.VAR_EQUALS )
+		else if( state == VarCondition.VAR_EQUALS )
 			stringState = STATE_VALUES[6];
 
 		return stringState;
@@ -505,5 +492,542 @@ public class ConditionsController {
 			}
 	}
 
+	public int getConditionsCount() {
+		return conditions.size();
+	}
 
+	public List<Condition> getCondition(int i) {
+		if ( i>=0 && i<conditions.size())
+			return conditions.get(i);
+		return null;
+	}
+	
+	//***********************************************************/
+	// MËTODOS NUEVOS
+	//***********************************************************/
+
+	private static HashMap<String, ConditionContextProperty> createContextFromOwner(int ownerType, String ownerName){
+		HashMap<String, ConditionContextProperty> context1 = new HashMap<String, ConditionContextProperty>();
+		ConditionOwner owner = new ConditionOwner(ownerType, ownerName);
+		context1.put(ConditionsController.CONDITION_OWNER, owner);
+		
+		if (TextConstants.containsConditionsContextText(ownerType, TextConstants.NORMAL_SENTENCE)
+				&& TextConstants.containsConditionsContextText(ownerType, TextConstants.NO_CONDITION_SENTENCE)){
+			ConditionCustomMessage cMessage = new ConditionCustomMessage(TextConstants.getConditionsContextText(ownerType, TextConstants.NORMAL_SENTENCE)
+					, TextConstants.getConditionsContextText(ownerType, TextConstants.NO_CONDITION_SENTENCE));
+			context1.put(CONDITION_CUSTOM_MESSAGE, cMessage);
+		}
+		
+		return context1;
+	}
+	
+	private static HashMap<String, ConditionContextProperty> createContextFromOwnerMessage(int ownerType, String ownerName, String message1, String message2){
+		HashMap<String, ConditionContextProperty> context1 = new HashMap<String, ConditionContextProperty>();
+		ConditionOwner owner = new ConditionOwner(ownerType, ownerName);
+		
+		ConditionCustomMessage cMessage = new ConditionCustomMessage(message1, message2);
+		context1.put(CONDITION_CUSTOM_MESSAGE, cMessage);
+		context1.put(ConditionsController.CONDITION_OWNER, owner);
+		return context1;
+	}
+	
+	public ConditionsController( Conditions conditions ) {
+		this(conditions, new HashMap<String, ConditionContextProperty>());
+	}
+	
+	public ConditionsController( Conditions conditions, int ownerType, String ownerName) {
+		this(conditions, createContextFromOwner(ownerType, ownerName));
+	}
+	
+	public ConditionsController( Conditions conditions, int ownerType, String ownerName, String message1, String message2) {
+		this(conditions, createContextFromOwnerMessage(ownerType, ownerName, message1, message2));
+	}
+
+	
+	/**
+	 * Constructor.
+	 * 
+	 * @param conditions
+	 *            Conditions block of data
+	 */
+	public ConditionsController( Conditions conditions, HashMap<String,ConditionContextProperty> context) {
+		this.conditions = conditions;
+		this.context = context;
+		if (context.containsKey(CONDITION_OWNER)){
+			ConditionOwner owner = (ConditionOwner)context.get(CONDITION_OWNER);
+			if (owner.getOwnerType() == Controller.GLOBAL_STATE){
+				ConditionRestrictions restrictions = new ConditionRestrictions(new String[]{owner.getOwnerName()});
+				this.context.put(CONDITION_RESTRICTIONS, restrictions);
+			}
+		}
+		controller = Controller.getInstance( );
+	}
+
+	private HashMap<String,ConditionContextProperty> context;
+	
+	public boolean isEmpty(){
+		return conditions.isEmpty();
+	}
+	
+	// FLAG; VAR; GLOBAL_STATE
+	public static final String CONDITION_TYPE="condition-type";
+	public static final String CONDITION_TYPE_VAR="var";
+	public static final String CONDITION_TYPE_FLAG="flag";
+	public static final String CONDITION_TYPE_GS="global-state";
+	
+	public static final String CONDITION_ID ="condition-id";
+	
+	
+	public static final String CONDITION_VALUE="condition-value";
+	
+	//active|inactive|<,<=,>,>=,=
+	public static final String CONDITION_STATE="condition-state";
+	
+	public int getConditionCount (int index1){
+		// Check index
+		if (index1<0 || index1>=conditions.size())
+			return -1;
+		
+		return conditions.get(index1).size();
+	}
+	
+	public boolean deleteCondition( int index1, int index2 ){
+		// Check index
+		if (index1<0 || index1>=conditions.size())
+			return false;
+		
+		if (index2<0 || index2>=conditions.get(index1).size())
+			return false;
+		
+		conditions.get(index1).remove(index2);
+		if (conditions.get(index1).size()==0)
+			conditions.delete(index1);
+		return true;
+	}
+	
+	public boolean duplicateCondition( int index1, int index2 ){
+		// Check index
+		if (index1<0 || index1>=conditions.size())
+			return false;
+		
+		if (index2<0 || index2>=conditions.get(index1).size())
+			return false;
+		
+		try {
+			Condition duplicate = (Condition)(conditions.get(index1).get(index2).clone());
+			conditions.get(index1).add(index2+1, duplicate);
+			return true;
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean setCondition( int index1, int index2, HashMap<String, String> properties){
+		// Check index
+		if (index1<0 || index1>=conditions.size())
+			return false;
+		
+		if (index2<0 || index2>=conditions.get(index1).size())
+			return false;
+		
+		Condition condition = conditions.get(index1).get(index2);
+		Condition newCondition = null;
+		String newId = properties.get(CONDITION_ID);
+		String newType = properties.get(CONDITION_TYPE);
+		String newState = properties.get(CONDITION_STATE);
+		String newValue = properties.get(CONDITION_VALUE);
+		int newTypeInt = getTypeFromString(newType);
+		
+		if (newTypeInt!=condition.getType()){
+			if ( newTypeInt == Condition.FLAG_CONDITION ){
+				newCondition = new FlagCondition(newId, getStateFromString(newState));
+			}
+			else if ( newTypeInt == Condition.VAR_CONDITION ){
+				newCondition = new VarCondition(newId, getStateFromString(newState), Integer.parseInt(newValue));
+			}
+			else if ( newTypeInt == Condition.GLOBAL_STATE_CONDITION ){
+				newCondition = new GlobalStateCondition(newId, getStateFromString(newState));
+			}
+		} else {
+			newCondition = condition;
+			if (!newId.equals(newCondition.getId())){
+				newCondition.setId(newId);
+			}
+			if (!new Integer(getStateFromString(newState)).equals(newCondition.getState())){
+				newCondition.setState(new Integer(getStateFromString(newState)));
+			}
+			if (newCondition.getType() == Condition.VAR_CONDITION){
+				VarCondition varCondition = (VarCondition)condition;
+				if (!varCondition.getValue().equals(Integer.parseInt(newValue))){
+					varCondition.setValue(Integer.parseInt(newValue));
+				}
+			}
+		}
+
+		conditions.get(index1).remove(index2);
+		conditions.get(index1).add(index2, newCondition);
+		
+		return true;
+	}
+
+	private int getTypeFromString (String newType){
+		int newTypeInt = -1;
+		if (newType.equals(ConditionsController.CONDITION_TYPE_FLAG))
+			newTypeInt = Condition.FLAG_CONDITION;
+		if (newType.equals(ConditionsController.CONDITION_TYPE_VAR))
+			newTypeInt = Condition.VAR_CONDITION;
+		if (newType.equals(ConditionsController.CONDITION_TYPE_GS))
+			newTypeInt = Condition.GLOBAL_STATE_CONDITION;
+		return newTypeInt;
+	}
+	
+	public HashMap<String, String> getCondition(int index1, int index2){
+		HashMap<String, String> conditionProperties = new HashMap<String, String>();
+		
+		// Check index
+		if (index1<0 || index1>=conditions.size())
+			return null;
+		
+		List<Condition> conditionsList = conditions.get(index1);
+		// Check index2
+		if (index2<0 || index2>=conditionsList.size())
+			return null;
+		
+		Condition condition = conditionsList.get(index2);
+		// Put ID
+		conditionProperties.put(CONDITION_ID, condition.getId());
+		
+		// Put State
+		conditionProperties.put(CONDITION_STATE, Integer.toString(condition.getState()));
+		// Put Type
+		if (condition.getType() == Condition.FLAG_CONDITION){
+			conditionProperties.put(CONDITION_TYPE, CONDITION_TYPE_FLAG);
+			//Put value
+			conditionProperties.put(CONDITION_VALUE, Integer.toString(condition.getState()));
+		}
+		else if (condition.getType() == Condition.VAR_CONDITION){
+			conditionProperties.put(CONDITION_TYPE, CONDITION_TYPE_VAR);
+			//Put value
+			VarCondition varCondition = (VarCondition)condition;
+			conditionProperties.put(CONDITION_VALUE, Integer.toString(varCondition.getValue()));
+		}
+		else if (condition.getType() == Condition.GLOBAL_STATE_CONDITION){
+			conditionProperties.put(CONDITION_TYPE, CONDITION_TYPE_GS);
+			//Put value
+			conditionProperties.put(CONDITION_VALUE, Integer.toString(condition.getState()));
+		}
+		
+		return conditionProperties;
+	}
+	
+	/**
+	 * Adds a new condition to the given block.
+	 * 
+	 * @param blockIndex
+	 *            The index of the conditions block. Use MAIN_CONDITIONS_BLOCK (-1) to select the main block of
+	 *            conditions, and values from 0 to getEitherConditionsBlockCount( ) to access the either blocks of
+	 *            conditions
+	 * @param conditionId
+	 *            Id of the condition
+	 * @param conditionState
+	 *            State of the condition
+	 */
+	public boolean addCondition( int index1, int index2, String conditionType, String conditionId, String conditionState, String value ) {
+		
+		if (index1<0 || index1 >conditions.size())
+			return false;
+		
+		Condition newCondition = null;
+		int type=getTypeFromString(conditionType);
+		if ( type == FLAG_CONDITION ){
+			newCondition = new FlagCondition(conditionId, this.getStateFromString(conditionState));
+			//Controller.getInstance().addTool(new AddConditionTool(conditions.getMainConditions( ),new FlagCondition( conditionId, getStateFromString( conditionState ) ),controller.getVarFlagSummary() ));
+		}else if ( type == VAR_CONDITION ){
+			newCondition = new VarCondition(conditionId, this.getStateFromString(conditionState), Integer.parseInt(value));
+			//Controller.getInstance().addTool(new AddConditionTool(conditions.getMainConditions( ),new VarCondition( conditionId, getStateFromString( conditionState ), Integer.parseInt(value) ),controller.getVarFlagSummary() ));
+		} else if (type == GLOBAL_STATE_CONDITION ){
+			newCondition = new GlobalStateCondition(conditionId, this.getStateFromString(conditionState));
+			//Controller.getInstance().addTool(new AddConditionTool(conditions.getMainConditions( ),new GlobalStateCondition( conditionId ),controller.getVarFlagSummary() ));
+		}
+		
+		if (newCondition!=null){
+			if (index1<conditions.size()){
+				
+				if (index2==INDEX_NOT_USED){
+					// Add new block
+					List<Condition> newBlock = new ArrayList<Condition>();
+					newBlock.add(newCondition);
+					conditions.add(index1, newBlock);
+				} else {
+					List<Condition> block = conditions.get(index1);
+					if (index2<0 || index2>block.size())
+						return false;
+					
+					if (index2==conditions.size())
+						block.add(newCondition);
+					else
+						block.add(index2, newCondition);
+				}
+				
+			} else {
+				// Add new block
+				List<Condition> newBlock = new ArrayList<Condition>();
+				newBlock.add(newCondition);
+				conditions.add(newBlock);
+			}
+		}
+		return true;
+	}
+	
+	public static final int EVAL_FUNCTION_AND = 0;
+	public static final int EVAL_FUNCTION_OR = 1;
+	public static final int INDEX_NOT_USED=-1;
+	
+	public boolean setEvalFunction(int index1, int index2, int value){
+		// Check value
+		if (value!=EVAL_FUNCTION_AND && value!=EVAL_FUNCTION_OR)
+			return false;
+		
+		// Check index
+		// Check if the algorithm must search deeper (index2==-1 means no search inside blocks must be carried out)
+		if (index2==-1){
+			if (index1 <0 || index1 >=conditions.size()-1)
+				return false;
+		} else if (index2>=0){
+			if (index1 <0 || index1 >=conditions.size())
+				return false;
+		}
+
+		// Get upper and lower block
+		List<Condition> upper = conditions.get(index1);
+		List<Condition> lower = conditions.get(index1+1);
+		
+		// Check if the algorithm must search deeper (index2==-1 means no search inside blocks must be carried out)
+		if (index2>=0){
+
+			// Check index2
+			if (upper.size()==1 || index2 >=upper.size()-1 || value!= EVAL_FUNCTION_AND)
+				return false;
+			
+			// Either block must be split
+			List<List<Condition>> newBlocks = splitBlock(upper, index2);
+			List<Condition> firstBlock = newBlocks.get(0);
+			List<Condition> secondBlock = newBlocks.get(1);
+			
+			conditions.delete(index1);
+			if (firstBlock.size() == 1)
+				conditions.add(index1, firstBlock.get(0));
+			else
+				conditions.add(index1, firstBlock );
+			
+			if (secondBlock.size() == 1)
+				conditions.add(index1+1, secondBlock.get(0));
+			else
+				conditions.add(index1+1, secondBlock );
+			
+			return true;
+			
+		} 
+		// No deep search is needed. The "And" function must be changed to "OR"
+		else {
+			if (value!=EVAL_FUNCTION_OR)
+				return false;
+
+			// Merge both wrappers
+			Conditions newBlock = mergeBlocks(upper, lower);
+			// Insert in "upper" position
+			conditions.delete(index1);
+			conditions.delete(index1);
+			conditions.add(index1, newBlock);
+			
+			return true;
+		}
+	}
+	
+	private List<List<Condition>> splitBlock ( List<Condition> conditions, int index ){
+		List<List<Condition>> result = new ArrayList<List<Condition>>();
+	
+		if (index<0 || index>=conditions.size()-1)
+			return null;
+		
+		List<Condition> block1 = new ArrayList<Condition>();
+		List<Condition> block2 = new ArrayList<Condition>();
+		
+		for (int i=0; i<=index; i++){
+			block1.add(conditions.get(i));
+		}
+		for (int i=index+1; i<conditions.size(); i++){
+			block2.add(conditions.get(i));
+		}
+
+		result.add(block1);
+		result.add(block2);
+		
+		return result;
+	}
+	
+	private Conditions mergeBlocks ( List<Condition> wrapper1, List<Condition> wrapper2 ){
+		Conditions newBlock = new Conditions();
+		transferConditions(newBlock, wrapper1);
+		transferConditions(newBlock, wrapper2);
+		return newBlock;
+	}
+	
+	private void transferConditions ( Conditions container, List<Condition> wrapper1){
+		for (Condition condition: wrapper1 ){
+			container.add(condition);
+		}
+	}
+	
+	//Condition type. Values: GLOBAL_STATE | CONDITION
+	public static String CONDITION_GROUP_TYPE ="condition-type";
+
+	public static String CONDITION_RESTRICTIONS ="condition-restrictions";
+	
+	public static String CONDITION_OWNER ="condition-owner";
+	
+	public static String CONDITION_CUSTOM_MESSAGE ="condition-custom-message";
+	
+	public HashMap<String,ConditionContextProperty> getContext(){
+		/*HashMap<String,ConditionContextProperty> context = new HashMap<String, ConditionContextProperty>();
+		ConditionOwner parent = new ConditionOwner(Controller.SCENE, "Salón");
+		ConditionOwner owner = new ConditionOwner(Controller.NPC_REFERENCE, "Personaje", parent);
+		context.put(CONDITION_OWNER, owner);*/
+		return context;
+	}
+	
+	public static abstract class ConditionContextProperty {
+		
+		public ConditionContextProperty ( String type ){
+			this.type = type;
+		}
+		
+		private String type;
+		
+		public String getType(){
+			return type;
+		}
+	}
+	
+	public static class ConditionRestrictions extends ConditionContextProperty{
+		private String[] forbiddenIds;
+		
+		public ConditionRestrictions ( String[] forbiddenIds ){
+			super(CONDITION_RESTRICTIONS);
+			this.forbiddenIds = forbiddenIds;
+		}
+		
+		public ConditionRestrictions ( String forbiddenId ){
+			this (new String[]{forbiddenId});
+		}
+
+		public String[] getForbiddenIds(){
+			return forbiddenIds;
+		}
+	}
+	
+	
+	public static class ConditionCustomMessage extends ConditionContextProperty{
+
+		public static final String ELEMENT_TYPE = "{#ELEMENT_TYPE$}";
+		
+		public static final String ELEMENT_ID = "{#ELEMENT_ID$}";
+		
+		private String sentence;
+		
+		private String sentenceNoConditions;
+		
+		public ConditionCustomMessage( String[] sentenceStrings, String[] noConditionStrings ) {
+			super(CONDITION_CUSTOM_MESSAGE);
+			
+			sentence = "";
+			for (String string: sentenceStrings){
+				sentence+= string+" ";
+			}
+			if (sentenceStrings.length>0){
+				sentence = sentence.substring(0, sentence.length()-1);
+			}
+			
+			sentenceNoConditions = "";
+			for (String string: noConditionStrings){
+				sentenceNoConditions+= string+" ";
+			}
+			if (noConditionStrings.length>0){
+				sentenceNoConditions = sentenceNoConditions.substring(0, sentenceNoConditions.length()-1);
+			}
+		}
+		
+		public ConditionCustomMessage( List<String> sentenceStrings, List<String> noConditionStrings ) {
+			this (sentenceStrings.toArray(new String[]{}), noConditionStrings.toArray(new String[]{}));
+		}
+		public ConditionCustomMessage( String sentence, String noConditionSentence ) {
+			super(CONDITION_CUSTOM_MESSAGE);
+			this.sentence = sentence;
+			this.sentenceNoConditions = noConditionSentence;
+		}
+
+		private String formatSentence(ConditionOwner owner, String sentence){
+			String formattedSentence = new String(sentence);
+			if(sentence.contains(ELEMENT_TYPE)){
+				formattedSentence = formattedSentence.replace(ELEMENT_TYPE, "<i>"+TextConstants.getElementName(owner.getOwnerType())+"</i>");
+			}
+			if(sentence.contains(ELEMENT_ID)){
+				formattedSentence = formattedSentence.replace(ELEMENT_ID, "<b>\""+owner.getOwnerName()+"\"</b>");
+			}
+			return formattedSentence;
+		}
+
+		
+		public String getFormattedSentence(ConditionOwner owner){
+			return formatSentence(owner, sentence);
+		}
+		
+		public String getNoConditionFormattedSentence(ConditionOwner owner){
+			return formatSentence(owner, sentenceNoConditions);
+		}
+
+		
+	}
+	public static class ConditionOwner extends ConditionContextProperty{
+
+		private int ownerType;
+		
+		private String ownerName;
+		
+		private ConditionOwner parent;
+		
+		public ConditionOwner( int ownerType, String ownerName, ConditionOwner parent ) {
+			super( CONDITION_OWNER );
+			this.ownerType = ownerType;
+			this.ownerName = ownerName;
+			this.parent = parent;
+		}
+		
+		public ConditionOwner( int ownerType, String ownerName ){
+			this (ownerType, ownerName, null);
+		}
+
+		/**
+		 * @return the ownerType
+		 */
+		public int getOwnerType() {
+			return ownerType;
+		}
+		
+		/**
+		 * @return the owner name
+		 */
+		public String getOwnerName() {
+			return ownerName;
+		}
+		
+		/**
+		 * @return the owner name
+		 */
+		public ConditionOwner getParent() {
+			return parent;
+		}
+		
+	}
 }

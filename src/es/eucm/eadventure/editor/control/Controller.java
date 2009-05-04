@@ -273,6 +273,17 @@ public class Controller {
 	 * Id for the graph conversation element.
 	 */
 	public static final int CONVERSATION_GRAPH = 33;
+	
+	/**
+	 * Id for the graph conversation element.
+	 */
+	public static final int CONVERSATION_DIALOGUE_LINE = 330;
+	
+	/**
+	 * Id for the graph conversation element.
+	 */
+	public static final int CONVERSATION_OPTION_LINE = 331;
+
 
 	/**
 	 * Id for the resources element.
@@ -417,6 +428,8 @@ public class Controller {
 	public static final int TRAJECTORY = 64;
 	
 	public static final int ANIMATION = 65;
+	
+	public static final int EFFECT = 66;
 
 	//TYPES OF EAD FILES
 	public static final int FILE_ADVENTURE_1STPERSON_PLAYER = 0;

@@ -107,9 +107,9 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
 				button.addActionListener(new ElementButtonActionListener(i));
 				button.setFocusable(false);
 				if (i < selectedElement)
-					add(button, new Integer(25));
+					add(button, new Integer(35));
 				else if (i > selectedElement)
-					add(button, new Integer(25));
+					add(button, new Integer(35));
 			} 
 			i++;
 		}

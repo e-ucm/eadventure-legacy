@@ -1,5 +1,6 @@
 package es.eucm.eadventure.editor.control.controllers.assessment;
 
+import java.util.HashMap;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.assessment.AssessmentProperty;
@@ -10,6 +11,9 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.ConditionsController.ConditionContextProperty;
+import es.eucm.eadventure.editor.control.controllers.ConditionsController.ConditionCustomMessage;
+import es.eucm.eadventure.editor.control.controllers.ConditionsController.ConditionOwner;
 import es.eucm.eadventure.editor.control.tools.assessment.AddAssessmentPropertyTool;
 import es.eucm.eadventure.editor.control.tools.assessment.AddEffectTool;
 import es.eucm.eadventure.editor.control.tools.assessment.ChangeMinTimeValueTool;
@@ -38,10 +42,24 @@ public class AssessmentRuleDataControl extends DataControl{
 		// Create subcontrollers
 		if (this.isTimedRule( )){
 			TimedAssessmentRule tRule = (TimedAssessmentRule)assessmentRule;
-			initConditionsController = new ConditionsController( tRule.getInitConditions( ) );
-			endConditionsController = new ConditionsController( tRule.getEndConditions( ) );
+			
+			HashMap<String, ConditionContextProperty> context1 = new HashMap<String, ConditionContextProperty>();
+			ConditionOwner owner = new ConditionOwner(Controller.TIMED_ASSESSMENT_RULE, assessmentRule.getId());
+			context1.put(ConditionsController.CONDITION_OWNER, owner);
+			ConditionCustomMessage cMessage1 = new ConditionCustomMessage(TextConstants.getText("Conditions.Context.TimedAssessmentRuleA1"),
+					TextConstants.getText("Conditions.Context.TimedAssessmentRuleA2"));
+			context1.put(ConditionsController.CONDITION_CUSTOM_MESSAGE, cMessage1);
+			
+			HashMap<String, ConditionContextProperty> context2 = new HashMap<String, ConditionContextProperty>();
+			context2.put(ConditionsController.CONDITION_OWNER, owner);
+			ConditionCustomMessage cMessage2 = new ConditionCustomMessage(TextConstants.getText("Conditions.Context.TimedAssessmentRuleB1"),
+					TextConstants.getText("Conditions.Context.TimedAssessmentRuleB2"));
+			context2.put(ConditionsController.CONDITION_CUSTOM_MESSAGE, cMessage2);
+			
+			initConditionsController = new ConditionsController( tRule.getInitConditions( ), context1 );
+			endConditionsController = new ConditionsController( tRule.getEndConditions( ), context2 );
 		}else {
-			conditionsController = new ConditionsController( assessmentRule.getConditions( ) );	
+			conditionsController = new ConditionsController( assessmentRule.getConditions( ), Controller.ASSESSMENT_RULE, assessmentRule.getId() );	
 		}
 	}
 	

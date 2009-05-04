@@ -65,7 +65,9 @@ public class GraphConversationDataControl extends ConversationDataControl {
 		    ArrayList<ConditionsController> nodeConditions = new ArrayList<ConditionsController>();
 		    // add each condition for each conversation line
 		    for (int i=0;i<node.getLineCount();i++){
-		    	nodeConditions.add(new ConditionsController(node.getLineConditions(i)));
+		    	nodeConditions.add(new ConditionsController(node.getLineConditions(i), 
+		    			(node.getType()==ConversationNodeView.DIALOGUE?Controller.CONVERSATION_DIALOGUE_LINE:Controller.CONVERSATION_OPTION_LINE),
+		    					Integer.toString(i)));
 		    }
 		    allConditions.put(node, nodeConditions);
 		}	    
@@ -75,17 +77,8 @@ public class GraphConversationDataControl extends ConversationDataControl {
 	 * Store all line conditions in allConditions
 	 */
 	private void storeAllConditions(){
-	    	allConditions = new HashMap<ConversationNodeView,List<ConditionsController>>();
-	    	// Take all the nodes, and add the line count of each one
-		List<ConversationNodeView> nodes = getAllNodes( );
-		for( ConversationNodeView node : nodes ){
-		    ArrayList<ConditionsController> nodeConditions = new ArrayList<ConditionsController>();
-		    // add each condition for each conversation line
-		    for (int i=0;i<node.getLineCount();i++){
-		    	nodeConditions.add(new ConditionsController(node.getLineConditions(i)));
-		    }
-		    allConditions.put(node, nodeConditions);
-		}	    
+	    allConditions = new HashMap<ConversationNodeView,List<ConditionsController>>();
+	    updateAllConditions();	
 	}
 	
 	/**

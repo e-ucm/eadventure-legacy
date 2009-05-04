@@ -59,7 +59,7 @@ public class DeleteEitherBlockTool extends Tool{
 		deletedBlock = conditions.getEitherBlock(index);
 		
 		// Delete the block
-		conditions.deleteEitherCondition( index );
+		conditions.delete( index );
 		return true;
 	}
 
@@ -80,7 +80,7 @@ public class DeleteEitherBlockTool extends Tool{
 		}
 		
 		// Then, add the deleted block
-		conditions.addEitherCondition( index, deletedBlock );
+		conditions.add( index, deletedBlock );
 		Controller.getInstance().updatePanel();
 		return done;
 	}

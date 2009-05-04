@@ -45,7 +45,7 @@ public class AddEffectTool extends Tool{
 	public boolean doTool() {
 		effects.add(effectToAdd);
 		if (conditions!=null){
-		    condition = new ConditionsController(effectToAdd.getConditions());
+		    condition = new ConditionsController(effectToAdd.getConditions() );
 		    conditions.add(condition);
 		}
 		
