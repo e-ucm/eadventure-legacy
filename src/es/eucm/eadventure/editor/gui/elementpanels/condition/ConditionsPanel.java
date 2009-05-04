@@ -46,7 +46,7 @@ import es.eucm.eadventure.editor.control.controllers.ConditionsController.Condit
 import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.editdialogs.ConditionDialog;
 
-public class ConditionsPanel2 extends JPanel implements Updateable, ConditionsPanelController{
+public class ConditionsPanel extends JPanel implements Updateable, ConditionsPanelController{
 
 	/*
 	 * Colors
@@ -78,7 +78,7 @@ public class ConditionsPanel2 extends JPanel implements Updateable, ConditionsPa
 	 *            Controller for the conditions
 	 * @param keyListener 
 	 */
-	public ConditionsPanel2( ConditionsController conditionsController ) {
+	public ConditionsPanel( ConditionsController conditionsController ) {
 		this.setLayout(new BorderLayout());
 		this.conditionsController = conditionsController;
 		
@@ -88,7 +88,7 @@ public class ConditionsPanel2 extends JPanel implements Updateable, ConditionsPa
 		createButtonsPanel();
 		this.add(buttonsPanel, BorderLayout.SOUTH);
 		
-		centralPanel = createCentralPanel();
+		createCentralPanel();
 		
 	}
 
@@ -174,7 +174,7 @@ public class ConditionsPanel2 extends JPanel implements Updateable, ConditionsPa
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ConditionsPanel2.this.addCondition();
+				ConditionsPanel.this.addCondition();
 			}
 			
 		});
@@ -185,29 +185,13 @@ public class ConditionsPanel2 extends JPanel implements Updateable, ConditionsPa
 	}
 	
 	private JPanel createCentralPanel(){
-		JPanel centralPanel = new JPanel();
+		centralPanel = new JPanel();
 		centralPanel.setBorder(BorderFactory.createLineBorder(centralPanelLineColor));
 		centralPanel.setLayout(new BoxLayout(centralPanel, BoxLayout.PAGE_AXIS));
 		JScrollPane scroll = new JScrollPane (centralPanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		this.add(scroll, BorderLayout.CENTER);
-		//JTable table = new JTable();
 		
-		panels = new ArrayList<EditablePanel>();
-		for ( int i=0; i<conditionsController.getConditionsCount(); i++ ){
-
-			if (i>0){
-				EvalFunctionPanel labelPanel = new EvalFunctionPanel(this, i-1, ConditionsController.INDEX_NOT_USED, EvalFunctionPanel.AND);
-				panels.add(labelPanel);
-				centralPanel.add (labelPanel);
-			}
-			
-			EditablePanel subPanel = null;
-			subPanel = new CompositeConditionPanel(this, i);//subPanel = new ConditionPanel(1,null);//getConditionPanel ( wrapper.getEitherBlock(), false);
-			//subPanel.setBorder(new LineBorder( Color.DARK_GRAY, 1, true ));
-			//subPanel.setBorder( new CurvedBorder(50, Color.DARK_GRAY) );
-			panels.add(subPanel);
-			centralPanel.add ( subPanel );
-		}
+		updateCentralPanel();
 		
 		return centralPanel;
 	}
@@ -219,8 +203,10 @@ public class ConditionsPanel2 extends JPanel implements Updateable, ConditionsPa
 
 			if (i>0){
 				EvalFunctionPanel labelPanel = new EvalFunctionPanel(this, i-1, ConditionsController.INDEX_NOT_USED, EvalFunctionPanel.AND);
+				JPanel evalFunctionPanel = new JPanel();
+				evalFunctionPanel.add(labelPanel);
 				panels.add(labelPanel);
-				centralPanel.add (labelPanel);
+				centralPanel.add (evalFunctionPanel);
 			}
 			
 			EditablePanel subPanel = null;
@@ -312,8 +298,11 @@ public class ConditionsPanel2 extends JPanel implements Updateable, ConditionsPa
 		@Override
 		public void evalEditablePanelSelectionEvent(EditablePanel source,
 				int oldState, int newState) {
-			// TODO Auto-generated method stub
+			if (newState != EditablePanel.NO_SELECTED && selectedPanel!=null && selectedPanel!=source)
+				selectedPanel.deselect();
 			
+			if (newState != EditablePanel.NO_SELECTED)
+				selectedPanel = source;
 		}
 
 		@Override

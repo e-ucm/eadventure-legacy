@@ -27,7 +27,7 @@ import javax.swing.table.AbstractTableModel;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.VarFlagsController;
-import es.eucm.eadventure.editor.gui.elementpanels.general.ConditionsPanel;
+import es.eucm.eadventure.editor.gui.elementpanels.condition.ConditionsPanelOld;
 
 /**
  * This class is the editing dialog of the flags. Here the user can add new flags to use them in the script. Also, the
@@ -190,7 +190,7 @@ public class VarsFlagsDialog extends JDialog {
 		flagsTabComponent.add(new JLabel( flagsIcon ), c1 );
 		c1.gridx++;
 		flagsTabComponent.add(flagsTitle, c1 );
-		flagsTabComponent.setBackground( ConditionsPanel.FLAG_COLOR );
+		flagsTabComponent.setBackground( ConditionsPanelOld.FLAG_COLOR );
 		mainPanel.setTabComponentAt(0, flagsTabComponent);
 
 		JPanel varsTabComponent = new JPanel();
@@ -207,7 +207,7 @@ public class VarsFlagsDialog extends JDialog {
 		varsTabComponent.add(new JLabel( varsIcon ), c2 );
 		c2.gridx ++;
 		varsTabComponent.add(varsTitle, c2 );
-		varsTabComponent.setBackground( ConditionsPanel.VAR_COLOR );
+		varsTabComponent.setBackground( ConditionsPanelOld.VAR_COLOR );
 		mainPanel.setTabComponentAt(1, varsTabComponent);
 		
 		// Add the panel
