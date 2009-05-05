@@ -48,11 +48,13 @@ import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfileDataControl;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentRuleDataControl;
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
+import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
+import es.eucm.eadventure.editor.gui.elementpanels.adaptation.AdaptationRulesTable;
 import es.eucm.eadventure.editor.gui.elementpanels.general.TableScrollPane;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ConditionsCellRendererEditor;
 
-public class AssessmentEditionPanel extends JPanel implements DataControlsPanel {
+public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,Updateable {
 
 	private static final long serialVersionUID = -6772977555087637745L;
 
@@ -71,6 +73,12 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel 
 	 */
 	private JPanel ruleListPanel;
 
+	  
+	/**
+	 * Button to duplicate selected rule
+	 */
+	private JButton duplicate;
+	
 	/**
 	 * Panel which contains the initial state and LMS state of selected rule
 	 */
@@ -257,10 +265,13 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel 
 				new ListSelectionListener() {
 					public void valueChanged(ListSelectionEvent e) {
 						createRulesInfoPanel();
-						if (informationTable.getSelectedRow() == -1)
+						if (informationTable.getSelectedRow() == -1){
 							delete.setEnabled(false);
-						else
+							duplicate.setEnabled(false);
+						}else{
 							delete.setEnabled(true);
+							duplicate.setEnabled(true);
+						}
 					}
 				});
 		informationTable.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -298,6 +309,22 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel 
 				menu.show( evt.getComponent( ), evt.getX( ), evt.getY( ) );
 			}
 		});
+		
+		
+		duplicate = new JButton(new ImageIcon("img/icons/duplicateNode.png"));
+		duplicate.setContentAreaFilled( false );
+		duplicate.setMargin( new Insets(0,0,0,0) );
+		duplicate.setToolTipText( TextConstants.getText( "AdaptationProfile.Duplicate" ) );
+		duplicate.addActionListener(new ActionListener(){
+			public void actionPerformed( ActionEvent e ) {
+			    if (dataControl.duplicateElement(dataControl.getAssessmentRules().get(informationTable.getSelectedRow()))) {
+				((AssessmentRulesTableModel) informationTable
+					.getModel()).fireTableDataChanged();
+				informationTable.changeSelection(dataControl.getAssessmentRules().size() - 1, 0, false, false);
+				}
+			}
+		});	
+		duplicate.setEnabled(false);
 
 		delete = new JButton(new ImageIcon("img/icons/deleteNode.png"));
 		delete.setContentAreaFilled( false );
@@ -315,14 +342,17 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel 
 			}
 
 		});
+		delete.setEnabled(false);
 		JPanel buttonsPanel = new JPanel(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridx = 0;
 		c.gridy = 0;
 		buttonsPanel.add(add, c);
-		c.gridy = 2;
+		c.gridy=1;
+		buttonsPanel.add(duplicate, c);
+		c.gridy = 3;
 		buttonsPanel.add(delete, c);
-		c.gridy = 1;
+		c.gridy = 2;
 		c.weighty = 2.0;
 		c.fill = GridBagConstraints.VERTICAL;
 		buttonsPanel.add(new JFiller(), c);
@@ -704,5 +734,10 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel 
 					informationTable.changeSelection(i, 0, false, false);
 			}
 		}
+	}
+
+	@Override
+	public boolean updateFields() {
+	    return true;
 	}
 }

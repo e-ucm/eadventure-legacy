@@ -1001,7 +1001,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="Exit.ConditionsInactive">Condiciones inactivas</entry>
 	<entry key="Exit.ActiveWhenConditionsArent">Salida activa cuando condiciones inactivas</entry>
 	
-	<entry key="Trajectory.Title">Movimiento del Protagonista</entry>
+	<entry key="Trajectory.Title">Mvto del Protagonista</entry>
 	<entry key="Trajectory.Title.ToolTip">Aquí se puede activar o desactivar el uso de trajectorias en la escena así como editar la trajectoria concreta</entry>
 	
 	<entry key="NextSceneCell.EditDestinyPosition">Editar posición destino</entry>
@@ -1563,7 +1563,6 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="GeneralText.EditEndConditions">Editar condiciones finales</entry>
 	<entry key="GeneralText.EditEffects">Editar efectos</entry>
 	<entry key="GeneralText.EditPostEffects">Editar post efectos</entry>
-	<entry key="GeneralText.EmptyTable">No hay elementos en esta tabla</entry>
 
 	<entry key="DefaultValue.AdventureTitle">Título de la aventura</entry>
 	<entry key="DefaultValue.ChapterTitle">Título del capítulo</entry>
@@ -1808,6 +1807,7 @@ Si no las cambia, el juego empleará las flechas por defecto.</entry>
 	<entry key="AdaptationProfile.AddRule">Añadir regla</entry>
 	<entry key="AdaptationProfile.DeleteRule">Borrar regla</entry>
 	<entry key="AdaptationProfile.AddTimedRule">Añadir regla temporizada</entry>
+	<entry key="AdaptationProfile.Duplicate">Duplicar regla</entry>
 	
 	
 	<entry key="AdaptationRulesList.ColumnHeader0">Id</entry>

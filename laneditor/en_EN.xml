@@ -1804,6 +1804,7 @@ When not customized, default arrows will be used in the game.</entry>
 	<entry key="AdaptationProfile.AddRule">Add rule</entry>
 	<entry key="AdaptationProfile.DeleteRule">Delete rule</entry>
 	<entry key="AdaptationProfile.AddTimedRule">Add timed rule</entry>
+	<entry key="AdaptationProfile.Duplicate">Duplicate rule</entry>
 	
 	<entry key="AdaptationRulesList.ColumnHeader0">Id</entry>
 	<entry key="AdaptationRulesList.ColumnHeader1">UoL properties</entry>
