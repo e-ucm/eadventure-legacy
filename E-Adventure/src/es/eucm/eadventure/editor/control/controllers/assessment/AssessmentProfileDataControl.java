@@ -3,12 +3,15 @@ package es.eucm.eadventure.editor.control.controllers.assessment;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
+import es.eucm.eadventure.common.data.adaptation.AdaptationRule;
 import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
 import es.eucm.eadventure.common.data.assessment.AssessmentRule;
 import es.eucm.eadventure.common.data.assessment.TimedAssessmentRule;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationRuleDataControl;
 import es.eucm.eadventure.editor.control.tools.animation.ChangeAssessmentProfileTypeTool;
 import es.eucm.eadventure.editor.control.tools.assessment.ChangeReportSettingsTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
@@ -113,6 +116,20 @@ public class AssessmentProfileDataControl extends DataControl{
 	@Override
 	public void deleteAssetReferences( String assetPath ) {
 		
+	}
+	
+	public boolean duplicateElement( DataControl dataControl ) {
+	    if (!(dataControl instanceof AssessmentRuleDataControl))
+		return false;
+	
+	try {
+	    	AssessmentRule newRule = (AssessmentRule)(((AssessmentRule) (dataControl.getContent())).clone());
+	    	dataControls.add(new AssessmentRuleDataControl(newRule));
+		return true;
+	} catch (CloneNotSupportedException e) {
+		ReportDialog.GenerateErrorReport(e, true, "Could not clone action");	
+		return false;
+	} 
 	}
 
 	@Override

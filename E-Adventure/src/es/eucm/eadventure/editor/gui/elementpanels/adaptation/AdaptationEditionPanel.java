@@ -19,16 +19,18 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfileDataControl;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationRuleDataControl;
+import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.elementpanels.general.TableScrollPane;
 
-public class AdaptationEditionPanel extends JPanel{
+public class AdaptationEditionPanel extends JPanel implements Updateable{
 
     /**
      * 
@@ -56,6 +58,16 @@ public class AdaptationEditionPanel extends JPanel{
     private JTabbedPane rulesInfoPanel;
     
     /**
+     * Button to duplicate selected rule
+     */
+    private JButton duplicate;
+    
+    /**
+     * Button to delete selected rule
+     */
+    private JButton delete;
+    
+    /**
      * Data control
      */
     private AdaptationProfileDataControl dataControl;
@@ -65,7 +77,7 @@ public class AdaptationEditionPanel extends JPanel{
      */
     private JTable informationTable;
     
-    private JButton delete;
+    
     /**
      * 
      */
@@ -144,10 +156,13 @@ public class AdaptationEditionPanel extends JPanel{
 		informationTable.getSelectionModel( ).addListSelectionListener( new ListSelectionListener(){
 			public void valueChanged( ListSelectionEvent e ) {
 			    createRulesInfoPanel();
-			    if (informationTable.getSelectedRow() > -1)
+			    if (informationTable.getSelectedRow() > -1){
 			    	delete.setEnabled(true);
-			    else
+			    	duplicate.setEnabled(true);
+			    }else{
 			    	delete.setEnabled(false);
+			    	duplicate.setEnabled(false);
+			    }
 			}
 		});
 		//informationTable.removeEditor( );
@@ -167,6 +182,22 @@ public class AdaptationEditionPanel extends JPanel{
 				}
 		    }
 		});
+		
+		duplicate = new JButton(new ImageIcon("img/icons/duplicateNode.png"));
+		duplicate.setContentAreaFilled( false );
+		duplicate.setMargin( new Insets(0,0,0,0) );
+		duplicate.setToolTipText( TextConstants.getText( "AdaptationProfile.Duplicate" ) );
+		duplicate.addActionListener(new ActionListener(){
+			public void actionPerformed( ActionEvent e ) {
+			    if (dataControl.duplicateElement(dataControl.getAdaptationRules().get(informationTable.getSelectedRow()))) {
+				    ((AdaptationRulesTable) informationTable).fireTableDataChanged();
+					   informationTable.changeSelection(dataControl.getAdaptationRules().size() - 1, 0, false, false);
+				}
+			}
+		});	
+		duplicate.setEnabled(false);
+		
+		
 		delete = new JButton(new ImageIcon("img/icons/deleteNode.png"));
 		delete.setContentAreaFilled( false );
 		delete.setMargin( new Insets(0,0,0,0) );
@@ -186,9 +217,11 @@ public class AdaptationEditionPanel extends JPanel{
 		c.gridx = 0;
 		c.gridy = 0;
 		buttonsPanel.add(add, c);
-		c.gridy = 2;
+		c.gridy=1;
+		buttonsPanel.add(duplicate, c);
+		c.gridy = 3;
 		buttonsPanel.add(delete, c);
-		c.gridy = 1;
+		c.gridy = 2;
 		c.weighty = 2.0;
 		c.fill = GridBagConstraints.VERTICAL;
 		buttonsPanel.add(new JFiller(), c);
@@ -196,6 +229,8 @@ public class AdaptationEditionPanel extends JPanel{
 		ruleListPanel.setMinimumSize(new Dimension(0,30));
 		ruleListPanel.setMaximumSize(new Dimension(0,30));
     }
+    
+ 
     
     private void createRulesInfoPanel(){
 		if (informationTable.getSelectedRow( )<0 || informationTable.getSelectedRow( )>=dataControl.getAdaptationRules().size()){
@@ -221,6 +256,11 @@ public class AdaptationEditionPanel extends JPanel{
 		    rulesInfoPanel.updateUI();
 	
 		}
+    }
+
+    @Override
+    public boolean updateFields() {
+	return true;
     }
     
 

@@ -3,12 +3,15 @@ package es.eucm.eadventure.editor.control.controllers.adaptation;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.adaptation.AdaptationProfile;
 import es.eucm.eadventure.common.data.adaptation.AdaptationRule;
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
+import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.general.ActionDataControl;
 import es.eucm.eadventure.editor.control.tools.adaptation.AddActionTool;
 import es.eucm.eadventure.editor.control.tools.adaptation.ChangeActionTool;
 import es.eucm.eadventure.editor.control.tools.adaptation.ChangeAdaptationProfileTypeTool;
@@ -262,6 +265,21 @@ public class AdaptationProfileDataControl extends DataControl{
 			}
 		}
 	}
+	
+	public boolean duplicateElement( DataControl dataControl ) {
+	    if (!(dataControl instanceof AdaptationRuleDataControl))
+		return false;
+	
+	try {
+	    	AdaptationRule newRule = (AdaptationRule)(((AdaptationRule) (dataControl.getContent())).clone());
+	    	dataControls.add(new AdaptationRuleDataControl(newRule));
+		return true;
+	} catch (CloneNotSupportedException e) {
+		ReportDialog.GenerateErrorReport(e, true, "Could not clone adaptation rule");	
+		return false;
+	} 
+	}
+	
 
 	/**
 	 * @return the profile.getInitialState()
