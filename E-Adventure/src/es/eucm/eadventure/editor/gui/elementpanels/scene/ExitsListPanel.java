@@ -360,11 +360,11 @@ public class ExitsListPanel extends JPanel implements DataControlsPanel, DataCon
 
 	@Override
 	public boolean updateFields() {
-		int selection = table.getSelectedRow();
+		/*int selection = table.getSelectedRow();
 		((AbstractTableModel) table.getModel()).fireTableDataChanged();
 		table.clearSelection();
 		if (selection != -1)
-			table.changeSelection(selection, selection, false, false);
+			table.changeSelection(selection, selection, false, false);*/
 		return true;
 	}
 	

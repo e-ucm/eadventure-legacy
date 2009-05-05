@@ -181,7 +181,10 @@ public class StartDialog extends JFileChooser {
 		helpPanel.setViewportView( helpText );
 		helpPanel.setBackground( this.getBackground( ) );
 		helpPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "GeneralText.Information" ) ) );
-
+		helpPanel.setMaximumSize(new Dimension(320,200));
+		helpPanel.setMinimumSize(new Dimension(320,200));
+		
+		
 		// Create the selection list with the different types of <e-adventure> files a user can edit
 		JScrollPane documentTypes = new JScrollPane( JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED );
 		// Icon new adventure - MODE player visible (Monkey Island games)
@@ -197,17 +200,17 @@ public class StartDialog extends JFileChooser {
 		newAdventure2.add( new JLabel( new ImageIcon( "img/newAdventureTransparentMode65.png" ) ), BorderLayout.CENTER );
 		
 		// Icon assessment file
-		JPanel newAssessment = new JPanel( );
+		/*JPanel newAssessment = new JPanel( );
 		newAssessment.setLayout( new BorderLayout( ) );
 		newAssessment.setPreferredSize( new Dimension( 67, 67 ) );
 		newAssessment.add( new JLabel( new ImageIcon( "img/newAssessment65.png" ) ), BorderLayout.CENTER );
-		
+		*/
 		// Icon adaptation file
-		JPanel newAdaptation = new JPanel( );
+		/*JPanel newAdaptation = new JPanel( );
 		newAdaptation.setLayout( new BorderLayout( ) );
 		newAdaptation.setPreferredSize( new Dimension( 67, 67 ) );
 		newAdaptation.add( new JLabel( new ImageIcon( "img/newAdaptation65.png" ) ), BorderLayout.CENTER );
-
+		 */
 
 		//The list
 		list = new JList( );
@@ -239,8 +242,8 @@ public class StartDialog extends JFileChooser {
 
 		} );
 		list.setCellRenderer( new CellRenderer( ) );
-		list.setMinimumSize( new Dimension( 200, 200 ) );
-		list.setPreferredSize( new Dimension( 200, 200 ) );
+		list.setMinimumSize( new Dimension( 150, 200 ) );
+		list.setPreferredSize( new Dimension( 150, 200 ) );
 		documentTypes.setViewportView( list );
 		TitledBorder border = BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "StartDialog.DocumentTypes" ) );
 		border.setTitlePosition( TitledBorder.CENTER );
@@ -248,6 +251,8 @@ public class StartDialog extends JFileChooser {
 		documentTypes.setBackground( list.getBackground( ) );
 		documentTypes.setBorder( border );
 		documentTypes.setBackground( this.getBackground( ) );
+		documentTypes.setMaximumSize(new Dimension(150,200));
+		documentTypes.setMinimumSize(new Dimension(150,200));
 		list.setBorder( BorderFactory.createEtchedBorder( ) );
 		list.setLayoutOrientation( JList.HORIZONTAL_WRAP );
 

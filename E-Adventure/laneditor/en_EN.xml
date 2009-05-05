@@ -992,7 +992,7 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="Exit.ConditionsInactive">Conditions inactive</entry>
 	<entry key="Exit.ActiveWhenConditionsArent">Active when conditions are not</entry>
 	
-	<entry key="Trajectory.Title">Trajectory</entry>
+	<entry key="Trajectory.Title">Player Movement</entry>
 	<entry key="Trajectory.Title.ToolTip">Here you can activate or de-activate trajectories for the scene as well as edit the current trajectory</entry>
 	
 	<entry key="NextSceneCell.EditDestinyPosition">Edit destiny position</entry>

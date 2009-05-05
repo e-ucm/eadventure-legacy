@@ -9,6 +9,7 @@ import javax.swing.JTabbedPane;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.general.CustomActionDataControl;
+import es.eucm.eadventure.editor.gui.Updateable;
 
 /**
  * The panel for the edition of a custom action
@@ -16,7 +17,7 @@ import es.eucm.eadventure.editor.control.controllers.general.CustomActionDataCon
  * @author Eugenio Marchiori
  *
  */
-public class CustomActionPropertiesPanel extends JPanel implements ActionTypePanel{
+public class CustomActionPropertiesPanel extends JPanel implements ActionTypePanel,Updateable{
 
 	/**
 	 * Default generated serialVersionUID
@@ -116,6 +117,12 @@ public class CustomActionPropertiesPanel extends JPanel implements ActionTypePan
 	@Override
 	public int getType() {
 	    return ActionTypePanel.CUSTOM_TYPE;
+	}
+
+	@Override
+	public boolean updateFields() {
+	   boolean update = actionPanel.updateFields();
+	    return update;
 	}
 	
 }

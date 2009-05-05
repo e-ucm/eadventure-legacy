@@ -1001,7 +1001,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="Exit.ConditionsInactive">Condiciones inactivas</entry>
 	<entry key="Exit.ActiveWhenConditionsArent">Salida activa cuando condiciones inactivas</entry>
 	
-	<entry key="Trajectory.Title">Trayetoria</entry>
+	<entry key="Trajectory.Title">Movimiento del Protagonista</entry>
 	<entry key="Trajectory.Title.ToolTip">Aquí se puede activar o desactivar el uso de trajectorias en la escena así como editar la trajectoria concreta</entry>
 	
 	<entry key="NextSceneCell.EditDestinyPosition">Editar posición destino</entry>
@@ -1261,7 +1261,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="Item.LookPanelTip">Panel para la edición de las distintas apariencias del objeto</entry>
 	<entry key="Item.DocPanelTitle">Información</entry>
 	<entry key="Item.DocPanelTip">Panel para editar la información del objeto</entry>
-	<entry key="Item.ActionsPanelTitle">Actions</entry>
+	<entry key="Item.ActionsPanelTitle">Acciones</entry>
 
 	<entry key="AtrezzoList.Title">Objetos de atrezo</entry>
 	<entry key="AtrezzoList.ListTitle">Lista de objetos de atrezo</entry>

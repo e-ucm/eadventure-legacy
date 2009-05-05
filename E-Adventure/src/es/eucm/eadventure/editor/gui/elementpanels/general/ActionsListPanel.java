@@ -28,10 +28,11 @@ import es.eucm.eadventure.editor.control.controllers.general.ActionDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ActionsListDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.CustomActionDataControl;
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
+import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ActionsTable;
 
-public class ActionsListPanel extends JPanel implements DataControlsPanel{
+public class ActionsListPanel extends JPanel implements DataControlsPanel,Updateable{
 
 	private static final long serialVersionUID = 1L;
 
@@ -263,5 +264,19 @@ public class ActionsListPanel extends JPanel implements DataControlsPanel{
 					table.changeSelection(i, i, false, false);
 			}
 		}
+	}
+
+	@Override
+	public boolean updateFields() {
+	  /*boolean update = false;
+	   if (actionPropertiesPanel.getComponents()[0] instanceof CustomActionPropertiesPanel){
+		    update=((CustomActionPropertiesPanel)actionPropertiesPanel.getComponents()[0]).updateFields();
+		}else if (actionPropertiesPanel.getComponents()[0] instanceof ActionPropertiesPanel){
+		    update=((ActionPropertiesPanel)actionPropertiesPanel.getComponents()[0]).updateFields();
+		}
+		
+	
+	    return update;*/
+	    return true;
 	}
 }

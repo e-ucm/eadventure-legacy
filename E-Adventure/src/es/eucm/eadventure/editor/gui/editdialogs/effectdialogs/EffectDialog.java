@@ -91,6 +91,7 @@ public abstract class EffectDialog extends ToolManagableDialog {
 		public void actionPerformed( ActionEvent arg0 ) {
 			pressedOKButton( );
 			setVisible( false );
+			
 		}
 	}
 
@@ -100,6 +101,7 @@ public abstract class EffectDialog extends ToolManagableDialog {
 	private class CancelButtonActionListener implements ActionListener {
 		public void actionPerformed( ActionEvent arg0 ) {
 			setVisible( false );
+			
 		}
 	}
 

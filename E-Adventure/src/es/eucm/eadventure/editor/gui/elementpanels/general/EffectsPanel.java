@@ -167,6 +167,7 @@ public class EffectsPanel extends JPanel implements Updateable{
 	private class AddEffectListener implements ActionListener {
 		public void actionPerformed( ActionEvent e ) {
 			if( effectsController.addEffect( ) ) {
+				effectsTable.getSelectionModel().setSelectionInterval(effectsTable.getRowCount()-1, effectsTable.getRowCount()-1);
 				effectsTable.updateUI( );
 				updateButtons();
 			}
@@ -183,7 +184,6 @@ public class EffectsPanel extends JPanel implements Updateable{
 
 			if( effectIndex >= 0 ) {
 				effectsController.deleteEffect( effectIndex );
-				effectsTable.clearSelection( );
 				effectsTable.updateUI( );
 				updateButtons();
 			}

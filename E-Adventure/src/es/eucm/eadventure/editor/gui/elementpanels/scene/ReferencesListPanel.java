@@ -36,10 +36,11 @@ import es.eucm.eadventure.editor.control.controllers.scene.NodeDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ReferencesListDataControl;
 import es.eucm.eadventure.editor.control.tools.general.MovePlayerLayerInTableTool;
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
+import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.elementpanels.general.TableScrollPane;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 
-public class ReferencesListPanel extends JPanel implements DataControlsPanel {
+public class ReferencesListPanel extends JPanel implements DataControlsPanel,Updateable {
 
 	/**
 	 * Required.
@@ -456,5 +457,11 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel {
 					table.changeSelection(i, i, false, false);
 			}
 		}
+	}
+
+	@Override
+	public boolean updateFields() {
+	   // updateSelectedElementReference();
+	    return true;
 	}
 }
