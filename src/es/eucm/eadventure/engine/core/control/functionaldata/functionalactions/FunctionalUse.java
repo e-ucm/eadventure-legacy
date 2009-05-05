@@ -8,7 +8,6 @@ import es.eucm.eadventure.engine.core.control.DebugLog;
 import es.eucm.eadventure.engine.core.control.animations.Animation;
 import es.eucm.eadventure.engine.core.control.animations.AnimationState;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
-import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalItem;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
 import es.eucm.eadventure.engine.core.data.GameText;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
@@ -44,8 +43,7 @@ public class FunctionalUse extends FunctionalAction {
 		super(null);
 		this.type = ActionManager.ACTION_USE;
 		this.element = element;
-        FunctionalItem item = (FunctionalItem) element;
-        originalAction = item.getFirstValidAction(ActionManager.ACTION_USE);
+        originalAction = element.getFirstValidAction(ActionManager.ACTION_USE);
 		if (element.isInInventory() || originalAction == null) {
 			this.needsGoTo = false;
 		} else {
@@ -100,11 +98,10 @@ public class FunctionalUse extends FunctionalAction {
 	@Override
 	public void update(long elapsedTime) {
         totalTime += elapsedTime;
-        FunctionalItem item = (FunctionalItem) element;
         if (!finished && !canUse) {
-        	canUse = item.use();
+        	canUse = element.use();
         	if (!canUse) {
-        		DebugLog.player("Can't use " + item.getElement().getId());
+        		DebugLog.player("Can't use " + element.getElement().getId());
         		if (functionalPlayer.isAlwaysSynthesizer())
         			functionalPlayer.speakWithFreeTTS( GameText.getTextUseCannot(), functionalPlayer.getPlayerVoice());
         		else
@@ -113,7 +110,7 @@ public class FunctionalUse extends FunctionalAction {
                 finished = true;       		
         	}
         } else if(!finished && totalTime > 1000 ) {
-        	DebugLog.player("Used " + item.getElement().getId());
+        	DebugLog.player("Used " + element.getElement().getId());
             finished = true;
             functionalPlayer.popAnimation();
         }

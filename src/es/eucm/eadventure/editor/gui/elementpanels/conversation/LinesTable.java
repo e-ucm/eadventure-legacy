@@ -32,7 +32,7 @@ public class LinesTable extends JTable {
 		
 		setModel(new NodeTableModel( null ));
 		setAutoCreateColumnsFromModel( false );
-		getColumnModel( ).getColumn( 0 ).setMaxWidth( 60 );
+		getColumnModel( ).getColumn( 0 ).setMaxWidth( 80 );
 
 		getColumnModel().getColumn(1).setCellEditor(new TextLineCellRendererEditor(linesPanel));
 		getColumnModel().getColumn(1).setCellRenderer(new TextLineCellRendererEditor(linesPanel));

@@ -33,6 +33,7 @@ import es.eucm.eadventure.editor.control.tools.books.MoveParagraphElementDownToo
 import es.eucm.eadventure.editor.control.tools.books.MoveParagraphElementUpTool;
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
+import es.eucm.eadventure.editor.gui.elementpanels.general.TableScrollPane;
 import es.eucm.eadventure.editor.gui.otherpanels.imagepanels.BookImagePanel;
 
 public class BookParagraphsPanel extends JPanel implements DataControlsPanel {
@@ -133,7 +134,7 @@ public class BookParagraphsPanel extends JPanel implements DataControlsPanel {
 				}
 			}
 		});
-		paragraphsPanel.add( new JScrollPane(paragraphsTable, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER), BorderLayout.CENTER );
+		paragraphsPanel.add( new TableScrollPane(paragraphsTable, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER), BorderLayout.CENTER );
 		
 		//Create the buttons panel (SOUTH)
 		JPanel buttonsPanel = new JPanel();

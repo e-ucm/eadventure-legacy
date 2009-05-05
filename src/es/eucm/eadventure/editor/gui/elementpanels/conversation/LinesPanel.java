@@ -26,6 +26,7 @@ import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDa
 
 import es.eucm.eadventure.editor.control.controllers.conversation.GraphConversationDataControl;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
+import es.eucm.eadventure.editor.gui.elementpanels.general.TableScrollPane;
 import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNode;
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
@@ -127,7 +128,7 @@ class LinesPanel extends JPanel {
 		lineTable.getSelectionModel( ).addListSelectionListener( new NodeTableSelectionListener( ) );
 
 		// Table scrollPane
-		tableScrollPanel = new JScrollPane( lineTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER );
+		tableScrollPanel = new TableScrollPane( lineTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER );
 
 		// Create the set of values for the characters
 

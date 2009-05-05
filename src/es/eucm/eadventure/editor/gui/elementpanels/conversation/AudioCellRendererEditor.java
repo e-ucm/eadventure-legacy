@@ -75,6 +75,10 @@ public class AudioCellRendererEditor extends AbstractCellEditor implements Table
 	private JPanel createPanel(int row, boolean isSelected, JTable table) {
 		final int line = row;
 		panel = new JPanel();
+		if (!isSelected)
+			panel.setBackground(table.getBackground());
+		else
+			panel.setBackground(table.getSelectionBackground());
 		panel.setLayout(new GridLayout(2,1));
 		
 		if (this.value.hasAudioPath(row)) {
@@ -85,6 +89,7 @@ public class AudioCellRendererEditor extends AbstractCellEditor implements Table
 			ImageIcon icon = new ImageIcon("img/icons/noAudio.png");
 			label = new JLabel(TextConstants.getText("Conversations.NoAudio"), icon, SwingConstants.LEFT);
 		}
+		label.setOpaque(false);
 		panel.add(label);
 		
 		JPanel buttonPanel = new JPanel();
@@ -107,6 +112,7 @@ public class AudioCellRendererEditor extends AbstractCellEditor implements Table
 				}
 			}
 		} );
+		selectButton.setOpaque(false);
 		buttonPanel.add(selectButton, c);
 		
 		c.gridx = 1;
@@ -123,8 +129,10 @@ public class AudioCellRendererEditor extends AbstractCellEditor implements Table
 				updateTable(line);
 			}
 		} );
+		deleteButton.setOpaque(false);
 		buttonPanel.add(deleteButton, c);
 		
+		buttonPanel.setOpaque(false);
 		panel.add(buttonPanel);
 		return panel;
 	}

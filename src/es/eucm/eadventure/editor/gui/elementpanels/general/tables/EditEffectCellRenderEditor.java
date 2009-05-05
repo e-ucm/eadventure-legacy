@@ -46,11 +46,7 @@ public class EditEffectCellRenderEditor extends AbstractCellEditor implements Ta
 		if (value == null)
 			return null;
 		this.value = (EffectsController) value;
-		JButton button = new JButton(TextConstants
-				.getText("ActionList.EditEffect"));
-		button.setFocusable(false);
-		button.setEnabled(isSelected);
-		return button;
+		return getComponent(isSelected, table);
 	}
 
 	@Override

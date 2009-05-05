@@ -82,7 +82,7 @@ public class ActionCellRendererEditor extends AbstractCellEditor implements Tabl
 			temp.add(new JLabel(getTypeText(value.getType())), c);
 		}
 		
-		c.gridx ++;
+		c.gridy ++;
 		if (value.hasIdTarget()) {
 			JComboBox combo = new JComboBox();
 			combo = new JComboBox( value.getElementsList( ) );

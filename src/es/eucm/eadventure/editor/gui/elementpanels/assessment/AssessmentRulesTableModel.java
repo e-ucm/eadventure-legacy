@@ -1,5 +1,6 @@
 package es.eucm.eadventure.editor.gui.elementpanels.assessment;
 
+import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.gui.TextConstants;
@@ -20,6 +21,8 @@ public class AssessmentRulesTableModel extends AbstractTableModel {
 	 */
 	private AssessmentProfileDataControl dataControl;
 
+	private JTable table;
+	
 	/**
 	 * Constructor.
 	 * 
@@ -72,7 +75,7 @@ public class AssessmentRulesTableModel extends AbstractTableModel {
 	
 	@Override
 	public boolean isCellEditable(int rowIndex, int columnIndex) {
-		return true;
+		return table.getSelectedRow() == rowIndex;
 	}
 	
 	private String getImportance(int importance) {
@@ -97,6 +100,10 @@ public class AssessmentRulesTableModel extends AbstractTableModel {
 				return i;
 		}
 		return 0;
+	}
+
+	public void setTable(JTable informationTable) {
+		table = informationTable;
 	}
 		
 }

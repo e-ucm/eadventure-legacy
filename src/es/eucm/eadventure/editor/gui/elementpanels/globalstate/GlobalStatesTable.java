@@ -2,6 +2,8 @@ package es.eucm.eadventure.editor.gui.elementpanels.globalstate;
 
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.gui.TextConstants;
@@ -26,7 +28,16 @@ public class GlobalStatesTable extends JTable {
 		this.getColumnModel().getColumn(0).setCellRenderer(new StringCellRendererEditor());
 		
 		this.getSelectionModel( ).setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
-		
+
+		this.setRowHeight(20);
+		this.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent arg0) {
+				setRowHeight(20);
+				if (getSelectedRow() != -1)
+					setRowHeight(getSelectedRow(), 26);
+			}
+		});
+
 		this.setSize(200, 150);
 	}
 	

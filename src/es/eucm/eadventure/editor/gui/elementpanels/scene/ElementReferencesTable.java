@@ -127,7 +127,7 @@ public class ElementReferencesTable extends JTable implements ElementReferenceSe
 		
 		@Override
 		public boolean isCellEditable(int row, int column) {
-			return column == 1 || column == 3;
+			return row == getSelectedRow() && (column == 1 || column == 3);
 		}
 	}
 	

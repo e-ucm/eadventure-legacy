@@ -25,6 +25,7 @@ import es.eucm.eadventure.editor.control.controllers.macro.MacroDataControl;
 import es.eucm.eadventure.editor.control.controllers.macro.MacroListDataControl;
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
+import es.eucm.eadventure.editor.gui.elementpanels.general.TableScrollPane;
 
 public class MacrosListPanel extends JPanel implements DataControlsPanel {
 
@@ -74,7 +75,7 @@ public class MacrosListPanel extends JPanel implements DataControlsPanel {
 		JPanel tablePanel = new JPanel();
 		
 		table = new MacrosTable(dataControl);
-		JScrollPane scroll = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		JScrollPane scroll = new TableScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scroll.setMinimumSize(new Dimension(0, 	HORIZONTAL_SPLIT_POSITION));
 
 		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {

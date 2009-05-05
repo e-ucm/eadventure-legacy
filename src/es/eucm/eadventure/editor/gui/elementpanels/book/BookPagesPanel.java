@@ -1,6 +1,7 @@
 package es.eucm.eadventure.editor.gui.elementpanels.book;
 
 import java.awt.BorderLayout;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
@@ -23,6 +24,7 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
@@ -35,6 +37,7 @@ import es.eucm.eadventure.editor.control.controllers.book.BookDataControl;
 import es.eucm.eadventure.editor.control.controllers.book.BookPagesListDataControl;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.displaydialogs.StyledBookDialog;
+import es.eucm.eadventure.editor.gui.elementpanels.general.TableScrollPane;
 import es.eucm.eadventure.editor.gui.otherpanels.BookPagePreviewPanel;
 import es.eucm.eadventure.engine.core.gui.GUI;
 
@@ -271,12 +274,21 @@ public class BookPagesPanel extends JPanel{
 		});
 		pagesTable.getSelectionModel( ).addListSelectionListener( new ListSelectionListener(){
 			public void valueChanged( ListSelectionEvent e ) {
-				if (!e.getValueIsAdjusting())
+				if (!e.getValueIsAdjusting()) {
+					setCursor(new Cursor(Cursor.WAIT_CURSOR));
 					updateSelectedPage();
+					SwingUtilities.invokeLater(new Runnable()
+					{
+					    public void run()
+					    {
+							setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+					    }
+					});
+				}
 			}
 		});
 
-		pagesPanel.add( new JScrollPane(pagesTable, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER), BorderLayout.CENTER );
+		pagesPanel.add( new TableScrollPane(pagesTable, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER), BorderLayout.CENTER );
 		
 		//Create the buttons panel (SOUTH)
 		JPanel buttonsPanel = new JPanel();

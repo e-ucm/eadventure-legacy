@@ -42,7 +42,7 @@ public class SynthesizeCellRendererEditor extends AbstractCellEditor implements 
 		if (value2 == null)
 			return null;
 		this.value = (ConversationNodeView) value2;
-		return createPanel(row, isSelected);
+		return createPanel(row, isSelected, table);
 	}
 
 	@Override
@@ -54,15 +54,20 @@ public class SynthesizeCellRendererEditor extends AbstractCellEditor implements 
 			JCheckBox checkBox = new JCheckBox(TextConstants.getText("Conversations.Synthesize"));
 			checkBox.setSelected(this.value.getConversationLine(row).getSynthesizerVoice());
 			checkBox.setEnabled(isSelected && canSynthesize(row));
+			checkBox.setOpaque(false);
 			return checkBox;
 		} else
-			return createPanel(row, isSelected);
+			return createPanel(row, isSelected, table);
 
 	}
 	
-	private JPanel createPanel(int row, boolean isSelected) {
+	private JPanel createPanel(int row, boolean isSelected, JTable table) {
 		final int line = row;
 		JPanel panel = new JPanel();
+		if (!isSelected)
+			panel.setBackground(table.getBackground());
+		else
+			panel.setBackground(table.getSelectionBackground());
 		panel.setLayout(new GridLayout(2,1));
 		
 		JCheckBox checkBox = new JCheckBox(TextConstants.getText("Conversations.Synthesize"));
@@ -73,6 +78,7 @@ public class SynthesizeCellRendererEditor extends AbstractCellEditor implements 
 				Controller.getInstance().addTool(new ChangeBooleanValueTool(value.getConversationLine(line), ((JCheckBox) e.getSource()).isSelected(), "getSynthesizerVoice", "setSynthesizerVoice"));
 			}
 		});
+		checkBox.setOpaque(false);
 		panel.add(checkBox);
 		
 
@@ -87,6 +93,7 @@ public class SynthesizeCellRendererEditor extends AbstractCellEditor implements 
 				voice.speak(value.getLineText(line));
 			}
 		} );
+		button.setOpaque(false);
 		panel.add(button);
 		return panel;
 	}

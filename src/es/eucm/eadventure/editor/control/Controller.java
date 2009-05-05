@@ -8,7 +8,6 @@ import java.awt.Toolkit;
 import java.awt.Window;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -40,7 +39,6 @@ import es.eucm.eadventure.editor.control.config.ProjectConfigData;
 import es.eucm.eadventure.editor.control.config.SCORMConfigData;
 import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
-import es.eucm.eadventure.editor.control.controllers.SelectedEffectsController;
 import es.eucm.eadventure.editor.control.controllers.VarFlagsController;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfilesDataControl;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfilesDataControl;
@@ -880,14 +878,6 @@ public class Controller {
 	 */
 	public void setShowNPCReferences( boolean showNPCReferences ) {
 		ConfigData.setShowNPCReferences( showNPCReferences );
-	}
-
-	public void setShowStartDialog( boolean showStartDialog ) {
-		ConfigData.setShowStartDialog( showStartDialog );
-	}
-
-	public boolean getShowStartDialog( ) {
-		return ConfigData.showStartDialog( );
 	}
 
 	public boolean isPlayTransparent( ) {

@@ -117,7 +117,7 @@ public class ActionButtons {
 			addCustomActionButtons(((FunctionalItem) functionalElement).getItem().getActions(), functionalElement);
 		}
 		if (functionalElement instanceof FunctionalNPC) {
-			addDefaultCharacterButtons();
+			addDefaultCharacterButtons(((FunctionalNPC) functionalElement));
 			addCustomActionButtons(((FunctionalNPC) functionalElement).getNPC().getActions(), functionalElement);
 		}
 		recalculateButtonsPositions();
@@ -242,10 +242,16 @@ public class ActionButtons {
 
 	/**
 	 * Adds the default buttons for a character element
+	 * @param functionalNPC 
 	 */
-	private void addDefaultCharacterButtons() {
+	private void addDefaultCharacterButtons(FunctionalNPC functionalNPC) {
 		buttons.add(eyeButton);
 		buttons.add(mouthButton);
+		boolean use = functionalNPC.getFirstValidAction(Action.USE) != null;
+		if (use) {
+			handButton.setName(TextConstants.getText("ActionButton.Use"));
+			buttons.add(handButton);
+		}
 	}
 
 	/**

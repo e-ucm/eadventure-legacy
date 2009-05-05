@@ -85,8 +85,6 @@ public class MainWindow extends JFrame {
 
 	private JMenuItem itPlayerMode;
 
-	private JCheckBoxMenuItem itShowStartDialog;
-
 	private StructurePanel structurePanel;
 	
 	/**
@@ -630,13 +628,6 @@ public class MainWindow extends JFrame {
 			}
 		} );
 		configurationMenu.add( itShowAtrezzoReferences );
-		itShowStartDialog = new JCheckBoxMenuItem( TextConstants.getText( "MenuConfiguration.ShowStartDialog" ), controller.getShowStartDialog( ) );
-		itShowStartDialog.addActionListener( new ActionListener( ) {
-			public void actionPerformed( ActionEvent e ) {
-				controller.setShowStartDialog( ( (JCheckBoxMenuItem) e.getSource( ) ).isSelected( ) );
-			}
-		} );
-		configurationMenu.add( itShowStartDialog );
 		itAutoBackup = new JCheckBoxMenuItem( TextConstants.getText( "MenuConfiguration.AutoBackup"), controller.getAutoSaveEnabled() );
 		itAutoBackup.addActionListener( new ActionListener() {
 			public void actionPerformed( ActionEvent e) {
@@ -739,8 +730,6 @@ public class MainWindow extends JFrame {
 			itPlayerMode.setText( TextConstants.getText( "MenuAdventure.ChangeToModePlayerTransparent" ) );
 			itPlayerMode.setToolTipText( TextConstants.getText( "MenuAdventure.ModePlayerTransparent" ) );
 		}
-		//Update the Show Start Dialog item
-		itShowStartDialog.setSelected( controller.getShowStartDialog( ) );
 		itAutoBackup.setSelected( controller.getAutoSaveEnabled() );
 
 		StructureControl.getInstance().changeDataControl(controller.getSelectedChapterDataControl());

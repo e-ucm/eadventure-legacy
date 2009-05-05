@@ -292,11 +292,10 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
             case ActionManager.ACTION_GOTO:
             case ActionManager.ACTION_GIVE_TO:
             case ActionManager.ACTION_TALK:
+            case ActionManager.ACTION_USE:
                 canPerform = true;
                 break;
-
             case ActionManager.ACTION_GRAB:
-            case ActionManager.ACTION_USE:
             case ActionManager.ACTION_GIVE:
             case ActionManager.ACTION_USE_WITH:
                 canPerform = false;
@@ -373,6 +372,69 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
     public boolean isTalking( ) {
         return currentState == talkingAnimation;
     }
+
+    @Override
+    public boolean examine( ) {
+        boolean examined = false;
+        
+        // Only take the FIRST valid action
+        for( int i = 0; i < npc.getActions( ).size( ) && !examined; i++ ) {
+            Action action = npc.getAction( i );
+            if( action.getType( ) == Action.EXAMINE ) {
+                if( new FunctionalConditions( action.getConditions( ) ).allConditionsOk( ) ) {
+                    // Store the effects
+                	FunctionalEffects.storeAllEffects(action.getEffects( ));
+                    examined = true;
+                }
+            }
+        }
+        
+     // if no actions can be launched (because its conditions are't OK), lunch the first action which has activated not-effects
+        for( int i = 0; i < npc.getActions( ).size( ) && !examined; i++ ) {
+            Action action = npc.getAction( i );
+            if( action.getType( ) == Action.EXAMINE ) {
+                if( action.isActivatedNotEffects() ) {
+                    // Store the effects
+                	FunctionalEffects.storeAllEffects(action.getNotEffects());
+                    examined = true;
+                }
+            }
+        }  
+        return examined;
+    }
+    
+    /**
+     * Triggers the use action associated with the item
+     * @return True if the item was used, false otherwise
+     */
+    public boolean use( ) {
+        boolean used = false;
+        
+        // Only take the FIRST valid action
+        for( int i = 0; i < npc.getActions( ).size( ) && !used; i++ ) {
+            Action action = npc.getAction( i );
+            if( action.getType( ) == Action.USE ) {
+                if( new FunctionalConditions( action.getConditions( ) ).allConditionsOk( ) ) {
+                    // Store the effects
+                	FunctionalEffects.storeAllEffects(action.getEffects( ));
+                    used = true;
+                } 
+            }
+        }
+     // if no actions can be launched (because its conditions are't OK), lunch the first action which has activated not-effects
+        for( int i = 0; i < npc.getActions( ).size( ) && !used; i++ ) {
+            Action action = npc.getAction( i );
+            if( action.getType( ) == Action.USE ) {
+                if( action.isActivatedNotEffects() ) {
+                    // Store the effects
+                	FunctionalEffects.storeAllEffects(action.getNotEffects());
+                    used = true;
+                } 
+            }
+        }
+        return used;
+    }
+
     
     /**
      * Changes the destiny position of the npc
@@ -488,15 +550,15 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
     
     public Action getFirstValidAction(int actionType) {
         // Looks first in actions
-	for( Action action : npc.getActions() ) {
+    	for( Action action : npc.getActions() ) {
             if( action.getType( ) == actionType ) {
                 if( new FunctionalConditions(action.getConditions( ) ).allConditionsOk( ) ) {
                 	return action;
                 } 
             }
         }
-	// if no actions can be launched (because its conditions are't OK), lunch the first action which has not-effects
-	for( Action action : npc.getActions() ) {
+    	// if no actions can be launched (because its conditions are't OK), lunch the first action which has not-effects
+    	for( Action action : npc.getActions() ) {
             if( action.getType( ) == actionType ) {
                 if( action.isActivatedNotEffects()) {
                 	return action;
@@ -508,16 +570,16 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
     
 	@Override
 	public CustomAction getFirstValidCustomAction(String actionName) {
-	 // Looks first in actions
-	for( Action action : npc.getActions() ) {
+		// Looks first in actions
+		for( Action action : npc.getActions() ) {
             if( action.getType( ) == Action.CUSTOM && ((CustomAction) action).getName().equals(actionName) ) {
                 if( new FunctionalConditions(action.getConditions( ) ).allConditionsOk( ) ) {
                 	return (CustomAction) action;
                 } 
             }
         }
-	// if no actions can be launched (because its conditions are't OK), lunch the first action which has not-effects
-	for( Action action : npc.getActions() ) {
+		// if no actions can be launched (because its conditions are't OK), lunch the first action which has not-effects
+		for( Action action : npc.getActions() ) {
             if( action.getType( ) == Action.CUSTOM && ((CustomAction) action).getName().equals(actionName) ) {
                 if( action.isActivatedNotEffects() ) {
                 	return (CustomAction) action;
@@ -598,4 +660,10 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
 	public ElementReference getReference() {
 		return reference;
 	}
+	
+    @Override
+    public boolean canBeUsedAlone( ) {
+        return true;
+    }
+
 }
