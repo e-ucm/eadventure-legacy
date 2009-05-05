@@ -84,6 +84,7 @@ public abstract class ToolManagableDialog extends JDialog implements Updateable,
 		Controller.getInstance( ).popWindow( );
 		setVisible(false);
 		dispose();
+		//Controller.getInstance().updatePanel();
 	}
 	
 	public void windowOpened(WindowEvent e) {}

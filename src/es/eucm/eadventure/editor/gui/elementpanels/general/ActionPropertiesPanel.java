@@ -19,10 +19,11 @@ import es.eucm.eadventure.common.data.Documented;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.general.ActionDataControl;
 import es.eucm.eadventure.editor.control.tools.listeners.DocumentationChangeListener;
+import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.editdialogs.EffectsDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.effectdialogs.MacroReferenceEffectDialog;
 
-public class ActionPropertiesPanel extends JPanel implements ActionTypePanel{
+public class ActionPropertiesPanel extends JPanel implements ActionTypePanel,Updateable{
 
 	/**
 	 * Required.
@@ -38,6 +39,11 @@ public class ActionPropertiesPanel extends JPanel implements ActionTypePanel{
 	 * Data Control
 	 */
 	private ActionDataControl actionDataControl;
+	
+	/**
+	 * Panel with the associated effects
+	 */
+	private EffectsPanel effectsPanel;
 	
 	
 	/**
@@ -77,7 +83,8 @@ public class ActionPropertiesPanel extends JPanel implements ActionTypePanel{
 		c.weightx = 1;
 		c.weighty = 1;
 		MacroReferenceEffectDialog.ID = null;
-		add( new EffectsPanel( actionDataControl.getEffects( ) ), c );
+		effectsPanel = new EffectsPanel( actionDataControl.getEffects( ) );
+		add( effectsPanel, c );
 		
 		c.gridy++;
 		c.weighty = 0;
@@ -125,5 +132,11 @@ public class ActionPropertiesPanel extends JPanel implements ActionTypePanel{
 	@Override
 	public int getType() {
 	    return ActionTypePanel.ACTION_TYPE;
+	}
+
+	@Override
+	public boolean updateFields() {
+	   
+	    return effectsPanel.updateFields();
 	}
 }

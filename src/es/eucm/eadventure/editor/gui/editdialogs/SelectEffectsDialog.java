@@ -153,6 +153,7 @@ public class SelectEffectsDialog extends ToolManagableDialog {
 	    if (numberOfUses!=null)
 		value = Integer.parseInt(numberOfUses);
 	    ProjectConfigData.setProperty(realName,String.valueOf( value+1));
+	   
 	    return selection;
 	    
 	}

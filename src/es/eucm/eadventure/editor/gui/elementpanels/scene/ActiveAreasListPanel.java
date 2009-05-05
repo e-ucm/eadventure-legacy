@@ -31,6 +31,7 @@ import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataC
 import es.eucm.eadventure.editor.control.controllers.scene.ExitDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.NodeDataControl;
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
+import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.elementpanels.DataControlSelectionListener;
 import es.eucm.eadventure.editor.gui.elementpanels.general.SmallActionsListPanel;
@@ -39,7 +40,7 @@ import es.eucm.eadventure.editor.gui.otherpanels.IrregularAreaEditionPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElement;
 
-public class ActiveAreasListPanel extends JPanel implements DataControlsPanel, DataControlSelectionListener {
+public class ActiveAreasListPanel extends JPanel implements DataControlsPanel, DataControlSelectionListener,Updateable {
 
 	/**
 	 * Required.
@@ -290,5 +291,11 @@ public class ActiveAreasListPanel extends JPanel implements DataControlsPanel, D
 			}
 		} else
 			table.clearSelection();
+	}
+
+	@Override
+	public boolean updateFields() {
+	    //updateAuxPanel();
+	    return true;
 	}
 }
