@@ -49,6 +49,7 @@ import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfil
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentRuleDataControl;
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
+import es.eucm.eadventure.editor.gui.elementpanels.general.TableScrollPane;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ConditionsCellRendererEditor;
 
 public class AssessmentEditionPanel extends JPanel implements DataControlsPanel {
@@ -249,7 +250,9 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel 
 	}
 
 	private void createRuleListPanel() {
-		informationTable = new JTable(new AssessmentRulesTableModel(dataControl));
+		AssessmentRulesTableModel model = new AssessmentRulesTableModel(dataControl);
+		informationTable = new JTable(model);
+		model.setTable(informationTable);
 		informationTable.getSelectionModel().addListSelectionListener(
 				new ListSelectionListener() {
 					public void valueChanged(ListSelectionEvent e) {
@@ -280,7 +283,7 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel 
 				.createEtchedBorder(), TextConstants
 				.getText("AdaptationRulesList.ListTitle")));
 		ruleListPanel.setLayout(new BorderLayout());
-		ruleListPanel.add(new JScrollPane(informationTable,
+		ruleListPanel.add(new TableScrollPane(informationTable,
 				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER), BorderLayout.CENTER);
 		JButton add = new JButton(new ImageIcon("img/icons/addNode.png"));

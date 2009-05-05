@@ -72,11 +72,10 @@ public class StringCellRendererEditor extends AbstractCellEditor implements Tabl
 
 	@Override
 	public Component getTableCellRendererComponent(JTable table, Object value2, boolean isSelected, boolean hasFocus, int row, int column) {
+		this.value = (String) value2;
 		if (isSelected) {
-			this.value = (String) value2;
 			return createPanel(isSelected, table);
 		} else
 			return new JLabel((String) value);
 	}
-
 }

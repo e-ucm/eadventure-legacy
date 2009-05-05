@@ -1,6 +1,7 @@
 package es.eucm.eadventure.editor.gui.elementpanels;
 
 import java.awt.BorderLayout;
+import java.awt.Cursor;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -52,6 +54,7 @@ public class ElementPanel extends JTabbedPane implements Updateable, DataControl
 		super();
 		tabs = new ArrayList<PanelTab>();
 		this.addChangeListener(new ElementPanelTabChangeListener());
+		this.setFocusable(false);
 	}
 	
 	/**
@@ -110,6 +113,7 @@ public class ElementPanel extends JTabbedPane implements Updateable, DataControl
 	private class ElementPanelTabChangeListener implements ChangeListener {
 		public void stateChanged(final ChangeEvent arg0) {
 			if (selected != getSelectedIndex()) {
+				setCursor(new Cursor(Cursor.WAIT_CURSOR));
 				if (selected >= 0)
 					ElementPanel.this.setTabComponentAt(selected, new JLabel(tabs.get(selected).getTitle(), tabs.get(selected).getIcon(), SwingConstants.LEFT));
 				selected = getSelectedIndex();
@@ -120,6 +124,14 @@ public class ElementPanel extends JTabbedPane implements Updateable, DataControl
 				component = tab.getComponent();
 				((JPanel) getSelectedComponent()).add(component, BorderLayout.CENTER);
 				((JPanel) getSelectedComponent()).updateUI();
+				SwingUtilities.invokeLater(new Runnable()
+				{
+				    public void run()
+				    {
+						setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+				    }
+				});
+
 			}
 		}
 	}

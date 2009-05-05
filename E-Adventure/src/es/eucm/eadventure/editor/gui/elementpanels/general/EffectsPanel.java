@@ -92,7 +92,7 @@ public class EffectsPanel extends JPanel implements Updateable{
 			}
 		});
 		
-		JScrollPane tableScrollPane = new JScrollPane( effectsTable, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED );
+		JScrollPane tableScrollPane = new TableScrollPane( effectsTable, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED );
 		add( tableScrollPane, BorderLayout.CENTER );
 		
 

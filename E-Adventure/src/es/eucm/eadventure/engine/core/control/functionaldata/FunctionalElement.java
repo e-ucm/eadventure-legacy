@@ -160,5 +160,9 @@ public abstract class FunctionalElement implements Renderable {
 	}
 
 	public abstract InfluenceArea getInfluenceArea();
+
+	public boolean use() {
+		return false;
+	}
 }
 

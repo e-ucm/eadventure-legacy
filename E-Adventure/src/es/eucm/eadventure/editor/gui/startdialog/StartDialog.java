@@ -3,12 +3,10 @@ package es.eucm.eadventure.editor.gui.startdialog;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.HeadlessException;
 import java.awt.Image;
-import java.awt.Insets;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,7 +27,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
-import javax.swing.JCheckBox;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 import javax.swing.border.TitledBorder;
@@ -39,7 +36,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
-import javax.swing.JTextArea;
 
 import java.io.File;
 import java.io.IOException;
@@ -255,18 +251,6 @@ public class StartDialog extends JFileChooser {
 		list.setBorder( BorderFactory.createEtchedBorder( ) );
 		list.setLayoutOrientation( JList.HORIZONTAL_WRAP );
 
-		//Create the "Don't show this dialog" again check box
-		JCheckBox dontShowAgain = new JCheckBox( TextConstants.getText( "StartDialog.DoNotShow" ) );
-		dontShowAgain.setSelected( false );
-		dontShowAgain.addActionListener( new ActionListener( ) {
-
-			public void actionPerformed( ActionEvent e ) {
-				JCheckBox dontShowAgain = (JCheckBox) e.getSource( );
-				Controller.getInstance( ).setShowStartDialog( !dontShowAgain.isSelected( ) );
-			}
-
-		} );
-
 		//The panel with the buttons
 		buttonNew = new JButton( TextConstants.getText( "StartDialog.CreateNew" ) );
 		//buttonNew.setPreferredSize( new Dimension( 80, 30 ) );
@@ -310,13 +294,9 @@ public class StartDialog extends JFileChooser {
 		c1.fill = GridBagConstraints.BOTH;
 		panelNew.add( helpPanel, c1 );
 
-		c1.gridx = 0;
 		c1.gridy = 1;
 		c1.gridwidth = 1;
 		c1.fill = GridBagConstraints.NONE;
-		c1.anchor = GridBagConstraints.LINE_START;
-		panelNew.add( dontShowAgain, c1 );
-
 		c1.anchor = GridBagConstraints.CENTER;
 		c1.gridx = 1;
 		panelNew.add( southPanel, c1 );
@@ -688,70 +668,7 @@ public class StartDialog extends JFileChooser {
 		
 		return dialog;
 	}
-
-	//private int returnValue=-3;
 	
-	//private JDialog dialog;
-	
-    /*public int showDialog(Component parent, String approveButtonText) throws HeadlessException {
-    	if(approveButtonText != null) {
-    	    setApproveButtonText(approveButtonText);
-    	    setDialogType(CUSTOM_DIALOG);
-    	}
-    	dialog = createDialog(parent);
-    	dialog.addWindowListener(new WindowAdapter() {
-    	    public void windowClosing(WindowEvent e) {
-    		returnValue = CANCEL_OPTION;
-    	    }
-    	});
-    	returnValue = ERROR_OPTION;
-    	rescanCurrentDirectory();
-
-    	dialog.show();
-    	    firePropertyChange("JFileChooserDialogIsClosingProperty", dialog, null);
-    	//dialog.dispose();
-    	//dialog = null;
-    	    if( option == NO_CUSTOM_OPTION ) {
-    			return returnValue;
-    		} else
-    			return option;
-    	//return returnValue;
-    	
-    }
-	
-    public void end(){
-    	if (dialog!=null){
-    		dialog.setVisible( false );
-	    	dialog.dispose();
-	    	dialog = null;
-    	}
-    }
- 
-	public void approveSelection() {
-		returnValue = APPROVE_OPTION;
-		if(dialog != null) {
-		    //dialog.setVisible(false);
-		}
-		fireActionPerformed(APPROVE_SELECTION);
-	    }
-	
-	public void cancelSelection() {
-		returnValue = CANCEL_OPTION;
-		if(dialog != null) {
-		    //dialog.setVisible(false);
-		}
-		fireActionPerformed(CANCEL_SELECTION);
-	    }*/
-	
-    /*public void setDialogTitle(String dialogTitle) {
-    	String oldValue = this.dialogTitle;
-    	this.dialogTitle = dialogTitle;
-    	if(dialog != null) {
-    	    dialog.setTitle(dialogTitle);
-    	}
-    	firePropertyChange(DIALOG_TITLE_CHANGED_PROPERTY, oldValue, dialogTitle);
-        }*/
-
 	/**
 	 * @return the recentFile
 	 */

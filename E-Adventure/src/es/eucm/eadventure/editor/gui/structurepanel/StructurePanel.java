@@ -2,10 +2,17 @@ package es.eucm.eadventure.editor.gui.structurepanel;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +24,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -47,6 +55,10 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
 
 	private static final long serialVersionUID = -1768584184321389780L;
 	
+	private static final int INCREMENT = 5;
+	
+	private static final int UNSELECTED_BUTTON_HEIGHT = 35;
+
 	/**
 	 * The container in which the edition panel will be placed.
 	 */
@@ -62,11 +74,40 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
 	
 	protected JButton button;
 		
+	private Image image;
+	
+	private Image basicImage;
+	
+	private Image tempImage;
+	
+	private int increment;
+
+	private int top;
+	
+	private int bottom;
+	
+	private int cont;
+	
 	public StructurePanel(Container editorContainer) {
 		this.editorContainer = editorContainer;
 		this.selectedElement = 0;
 		this.setLayout(new StructurePanelLayout());
 		structureElements = new ArrayList<StructureListElement>();
+		this.addComponentListener(new ComponentListener() {
+			public void componentHidden(ComponentEvent arg0) {
+			}
+
+			public void componentMoved(ComponentEvent arg0) {
+			}
+
+			public void componentResized(ComponentEvent arg0) {
+				if (getWidth() > 0 && getHeight() > 0)
+					basicImage = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_4BYTE_ABGR);
+			}
+
+			public void componentShown(ComponentEvent arg0) {
+			}
+		});
 		update();
 	}
 	
@@ -90,6 +131,132 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
 		update();
 	}
 	
+	public void update(int oldIndex, final int newIndex) {
+		if (oldIndex != newIndex && oldIndex != -1) {
+			this.setEnabled(false);
+			setCursor(new Cursor(Cursor.WAIT_CURSOR));
+			increment = 10;
+			top = 0;
+			bottom = 0;
+			cont = 0;
+			
+			if (newIndex > oldIndex) {
+				if (this.structureElements.get(oldIndex).getDataControl().getAddableElements().length > 0) {
+					increment = -INCREMENT;
+					if (this.structureElements.get(newIndex).getDataControl().getAddableElements().length > 0) {
+						bottom = this.getHeight() - UNSELECTED_BUTTON_HEIGHT * (structureElements.size() - newIndex - 1);
+						top = bottom - UNSELECTED_BUTTON_HEIGHT * (newIndex - oldIndex);
+						int reach = UNSELECTED_BUTTON_HEIGHT * (oldIndex + 1);
+						cont = - (top - reach) / increment;
+					} else {
+						bottom = this.getHeight();
+						top = bottom - UNSELECTED_BUTTON_HEIGHT * (this.structureElements.size() - oldIndex - 1);
+						int reach = UNSELECTED_BUTTON_HEIGHT * (oldIndex + 1);
+						cont = - (top - reach) / increment;
+					}
+				} else {
+					if (this.structureElements.get(newIndex).getDataControl().getAddableElements().length > 0) {
+						increment = INCREMENT;
+						top = UNSELECTED_BUTTON_HEIGHT * newIndex  + 40;
+						bottom = top + UNSELECTED_BUTTON_HEIGHT * (this.structureElements.size() - newIndex - 1);
+						int reach = this.getHeight() - UNSELECTED_BUTTON_HEIGHT * (this.structureElements.size() - newIndex + 1);
+						cont = - (top - reach) / increment;
+					} else {
+						cont = 0;
+					}
+				}
+			} else {
+				if (this.structureElements.get(oldIndex).getDataControl().getAddableElements().length > 0) {
+					if (this.structureElements.get(newIndex).getDataControl().getAddableElements().length > 0) {
+						increment = INCREMENT;
+						top = UNSELECTED_BUTTON_HEIGHT * newIndex + UNSELECTED_BUTTON_HEIGHT;
+						bottom = top + UNSELECTED_BUTTON_HEIGHT * (oldIndex - newIndex - 1) + 40;
+						int reach = this.getHeight() - UNSELECTED_BUTTON_HEIGHT * (this.structureElements.size() - newIndex);
+						cont = - (top - reach) / increment;
+					} else {
+						increment = -INCREMENT;
+						top = this.getHeight() - UNSELECTED_BUTTON_HEIGHT * (structureElements.size() - oldIndex - 1);
+						bottom = this.getHeight();
+						int reach = UNSELECTED_BUTTON_HEIGHT * (oldIndex + 1);
+						cont = - (top - reach) / increment;
+					}
+				} else {
+					if (this.structureElements.get(newIndex).getDataControl().getAddableElements().length > 0) {
+						increment = INCREMENT;
+						top = UNSELECTED_BUTTON_HEIGHT * newIndex + UNSELECTED_BUTTON_HEIGHT;
+						bottom = UNSELECTED_BUTTON_HEIGHT * this.structureElements.size() - UNSELECTED_BUTTON_HEIGHT + 40;
+						int reach = this.getHeight() - UNSELECTED_BUTTON_HEIGHT * (this.structureElements.size() - newIndex);
+						cont = - (top - reach) / increment;
+					} else {
+						cont = 0;
+					}
+				}
+				
+			}
+
+			if (this.getHeight() > 0 && this.getWidth() > 0 && increment != 0 && cont != 0) {
+				image = basicImage;
+				this.paint(image.getGraphics());
+				if (bottom - top > 0) {
+					tempImage = new BufferedImage(this.getWidth(), bottom - top, BufferedImage.TYPE_4BYTE_ABGR);
+					tempImage.getGraphics().drawImage(image, 0, 0, this.getWidth(), bottom - top, 0, top, this.getWidth(), bottom, null);
+				} else {
+					image = null;
+					cont = 0;
+				}
+			}
+			selectedElement = newIndex;
+			new Thread( new Runnable() {
+				public void run() {
+					removeAll();
+					setIgnoreRepaint(true);
+					for (int i = 0; i < cont; i++) {
+						Graphics2D g2 = (Graphics2D) getGraphics();
+						Graphics g = image.getGraphics();
+						g.setColor(StructurePanel.this.getBackground());
+						if (i > 0)
+							g.fillRect(0, top + increment * (i - 1), getWidth(), bottom - top);
+						g.drawImage(tempImage, 0, top + increment * i, null);
+						g2.drawImage(image, 0, 0, null);
+						g2.finalize();
+						try {
+							Thread.sleep(700 / cont );
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+					}
+					image = null;
+					update();
+					list.requestFocusInWindow();
+					setEnabled(true);
+					setIgnoreRepaint(false);
+					SwingUtilities.invokeLater(new Runnable()
+					{
+					    public void run()
+					    {
+							setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+					    }
+					});
+				}
+			}).start( );
+			SwingUtilities.invokeLater(new Runnable()
+			{
+			    public void run()
+			    {
+					if (editorContainer != null) {
+					    editorContainer.removeAll();
+					    editorContainer.add(structureElements.get(newIndex).getEditPanel());
+					    StructureControl.getInstance().visitDataControl(structureElements.get(newIndex).getDataControl());
+					    editorContainer.validate( );
+					    editorContainer.repaint( );
+					}
+			    }
+			});
+
+		}
+		
+	}
+	
 	public void update() {
 		int i = 0;
 		removeAll();
@@ -107,9 +274,9 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
 				button.addActionListener(new ElementButtonActionListener(i));
 				button.setFocusable(false);
 				if (i < selectedElement)
-					add(button, new Integer(35));
+					add(button, new Integer(UNSELECTED_BUTTON_HEIGHT));
 				else if (i > selectedElement)
-					add(button, new Integer(35));
+					add(button, new Integer(UNSELECTED_BUTTON_HEIGHT));
 			} 
 			i++;
 		}
@@ -121,7 +288,6 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
 		temp.setLayout(new StructureListElementLayout());
 		button = new JButton(element.getName(), element.getIcon());
 		button.setHorizontalAlignment(SwingConstants.LEFT);
-		//Border b1 = BorderFactory.createRaisedBevelBorder();
 		Border b1 = BorderFactory.createLineBorder(Color.GRAY, 3);
 		Border b2 = BorderFactory.createEmptyBorder(5, 5, 5, 5);
         button.setBorder(BorderFactory.createCompoundBorder(b1,b2));
@@ -129,7 +295,6 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
 		button.addActionListener(new ElementButtonActionListener(index));
 		button.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 15));
 		button.setFocusable(false);
-		
 		
 		temp.add(button, "title");
 		
@@ -166,6 +331,7 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
 		list.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
 		list.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
+				setCursor(new Cursor(Cursor.WAIT_CURSOR));
 				if (list.getSelectedRow() >= 0) {
 					list.setRowHeight(20);
 					list.setRowHeight(list.getSelectedRow(), 70);
@@ -183,8 +349,15 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
 					StructureControl.getInstance().visitDataControl(structureElements.get(index).getDataControl());
 					editorContainer.validate( );
 					editorContainer.repaint( );
+				}	
+				SwingUtilities.invokeLater(new Runnable()
+				{
+				    public void run()
+				    {
+						setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 				    }
-				
+				});
+
 			}
 		});
 		
@@ -217,16 +390,7 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
 		}
 		
 		public void actionPerformed(ActionEvent arg0) {
-			selectedElement = index;
-			update();
-			if (editorContainer!=null){
-			    editorContainer.removeAll();
-			    editorContainer.add(structureElements.get(index).getEditPanel());
-			    StructureControl.getInstance().visitDataControl(structureElements.get(index).getDataControl());
-			    editorContainer.validate( );
-			    editorContainer.repaint( );
-			}
-			list.requestFocusInWindow();
+			update(selectedElement, index);
 		}
 	}
 	

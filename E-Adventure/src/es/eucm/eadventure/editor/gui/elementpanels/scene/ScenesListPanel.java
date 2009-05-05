@@ -31,6 +31,7 @@ public class ScenesListPanel extends ElementPanel {
 		
 		public SceneListPanelTab(ScenesListDataControl scenesListDataControl) {
 			super(TextConstants.getText("ScenesList.Title"), scenesListDataControl);
+			this.setHelpPath("scenes/Scenes_General.html");
 			this.scenesListDataControl = scenesListDataControl;
 		}
 

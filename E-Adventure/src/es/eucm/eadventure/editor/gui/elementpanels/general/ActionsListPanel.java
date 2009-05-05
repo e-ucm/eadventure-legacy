@@ -81,7 +81,7 @@ public class ActionsListPanel extends JPanel implements DataControlsPanel{
 		
 		table = new ActionsTable(dataControl);
 
-		tablePanel.add( new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER) ,BorderLayout.CENTER);
+		tablePanel.add( new TableScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER) ,BorderLayout.CENTER);
 		
 		table.getSelectionModel( ).addListSelectionListener( new ListSelectionListener(){
 			public void valueChanged( ListSelectionEvent e ) {

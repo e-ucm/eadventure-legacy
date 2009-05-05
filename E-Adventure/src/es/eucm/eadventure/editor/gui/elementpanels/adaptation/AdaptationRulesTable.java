@@ -25,8 +25,7 @@ public class AdaptationRulesTable extends JTable {
 		
 		getColumnModel().getColumn(0).setWidth(20);
 		getColumnModel().getColumn(0).setMaxWidth(20);
-		
-		
+
 		getColumnModel().getColumn(1).setCellEditor(new StringCellRendererEditor());
 		getColumnModel().getColumn(1).setCellRenderer(new StringCellRendererEditor());
 		getColumnModel().getColumn(2).setCellEditor(new InitialSceneCellRendererEditor());
@@ -83,8 +82,6 @@ public class AdaptationRulesTable extends JTable {
 				columnName = TextConstants.getText( "AdaptationRulesList.ColumnHeader1" );
 			else if( columnIndex == 2 )
 				columnName = TextConstants.getText( "AdaptationRule.InitialState.InitialScene" );
-			else if( columnIndex == 3 )
-				columnName = TextConstants.getText( "AdaptationRulesList.ColumnHeader3" );
 			return columnName;
 		}
 

@@ -36,6 +36,7 @@ import es.eucm.eadventure.editor.control.controllers.scene.NodeDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ReferencesListDataControl;
 import es.eucm.eadventure.editor.control.tools.general.MovePlayerLayerInTableTool;
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
+import es.eucm.eadventure.editor.gui.elementpanels.general.TableScrollPane;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 
 public class ReferencesListPanel extends JPanel implements DataControlsPanel {
@@ -216,7 +217,7 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel {
 		});
 		
 
-		tablePanel.add( new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER) ,BorderLayout.CENTER);
+		tablePanel.add( new TableScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER) ,BorderLayout.CENTER);
 		
 		table.getSelectionModel( ).addListSelectionListener( new ListSelectionListener(){
 			public void valueChanged( ListSelectionEvent e ) {

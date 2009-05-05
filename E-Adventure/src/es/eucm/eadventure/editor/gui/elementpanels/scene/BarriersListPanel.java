@@ -33,6 +33,7 @@ import es.eucm.eadventure.editor.gui.DataControlsPanel;
 import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.elementpanels.DataControlSelectionListener;
+import es.eucm.eadventure.editor.gui.elementpanels.general.TableScrollPane;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 
 public class BarriersListPanel extends JPanel implements Updateable, DataControlsPanel, DataControlSelectionListener {
@@ -85,7 +86,8 @@ public class BarriersListPanel extends JPanel implements Updateable, DataControl
 		JPanel tablePanel = new JPanel();
 		
 		table = new BarriersTable(dataControl);
-		JScrollPane scroll = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		JScrollPane scroll = new TableScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		
 		scroll.setMinimumSize(new Dimension(0, 	HORIZONTAL_SPLIT_POSITION));
 
 		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {

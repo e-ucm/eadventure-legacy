@@ -27,6 +27,7 @@ import es.eucm.eadventure.editor.control.controllers.SceneLinksController;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ScenesListDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.EditDataControlCellRendererEditor;
+import es.eucm.eadventure.editor.gui.elementpanels.general.tables.InfoHeaderRenderer;
 import es.eucm.eadventure.editor.gui.otherpanels.scenelistelements.ActiveAreaElement;
 import es.eucm.eadventure.editor.gui.otherpanels.scenelistelements.ExitElement;
 import es.eucm.eadventure.editor.gui.otherpanels.scenelistelements.ItemReferenceElement;
@@ -166,10 +167,13 @@ public class SceneLinksPanel extends JPanel {
 		};
 		checkBoxes = new JTable(dtm);
 		TableColumn tc = checkBoxes.getColumnModel().getColumn(0); 
+		tc.setHeaderRenderer(new InfoHeaderRenderer("scenes/Scenes_Show.html"));
 		tc.setCellEditor(checkBoxes.getDefaultEditor(Boolean.class)); 
 		tc.setCellRenderer(checkBoxes.getDefaultRenderer(Boolean.class)); 
-		tc.setMaxWidth(50);
+		tc.setMaxWidth(60);
+		checkBoxes.getColumnModel().getColumn(1).setHeaderRenderer(new InfoHeaderRenderer());
 		tc = checkBoxes.getColumnModel().getColumn(2);
+		tc.setHeaderRenderer(new InfoHeaderRenderer("scenes/Scene_Edit.html"));
 		tc.setCellEditor(new EditDataControlCellRendererEditor());
 		tc.setCellRenderer(new EditDataControlCellRendererEditor());
 		dtm.addTableModelListener(new TableModelListener(){ 

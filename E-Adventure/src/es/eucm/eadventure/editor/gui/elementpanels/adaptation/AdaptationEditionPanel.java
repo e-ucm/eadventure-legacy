@@ -26,6 +26,7 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfileDataControl;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationRuleDataControl;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
+import es.eucm.eadventure.editor.gui.elementpanels.general.TableScrollPane;
 
 public class AdaptationEditionPanel extends JPanel{
 
@@ -153,7 +154,7 @@ public class AdaptationEditionPanel extends JPanel{
 		ruleListPanel = new JPanel( );
 		ruleListPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AdaptationRulesList.ListTitle" ) ) );
 		ruleListPanel.setLayout( new BorderLayout( ) );
-		ruleListPanel.add( new JScrollPane( informationTable, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER ), BorderLayout.CENTER );
+		ruleListPanel.add( new TableScrollPane( informationTable, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER ), BorderLayout.CENTER );
 		JButton add = new JButton(new ImageIcon("img/icons/addNode.png"));
 		add.setContentAreaFilled( false );
 		add.setMargin( new Insets(0,0,0,0) );
