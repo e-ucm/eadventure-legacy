@@ -386,12 +386,11 @@ class LinesPanel extends JPanel {
 		final int selectedRow = lineTable.getSelectedRow( );
 		if (selectedRow == lineTable.getRowCount() - 1) {
 			ConversationNodeView selectedNode = conversationPanel.getSelectedNode( );
-	
-			// Set the default name for the new line
-			String name = selectedNode.getLineName( selectedRow );
-	
-			// Insert the dialogue line in the selected position
-			conversationDataControl.addNodeLine( selectedNode, selectedRow + 1, name,((GraphConversationDataControl)conversationDataControl).getAllConditions().get(selectedNode));
+			if (selectedNode.getType() == ConversationNodeView.DIALOGUE) {
+				String name = selectedNode.getLineName( selectedRow );
+				conversationDataControl.addNodeLine( selectedNode, selectedRow + 1, name,((GraphConversationDataControl)conversationDataControl).getAllConditions().get(selectedNode));
+			} else
+				conversationDataControl.addChild( selectedNode, ConversationNodeView.DIALOGUE ,((GraphConversationDataControl)conversationDataControl).getAllConditions());
 		}
 		((AbstractTableModel) lineTable.getModel()).fireTableDataChanged();
 		lineTable.changeSelection(selectedRow + 1, selectedRow + 1, false, false);
@@ -540,6 +539,7 @@ class LinesPanel extends JPanel {
 					// Take the selected child (at the same position of the selected line) and set it in the principal
 					// panel
 					// so it become painted in the conversational panel
+					conversationPanel.updateRepresentation();
 					ConversationNodeView selectedChild = conversationPanel.getSelectedNode( ).getChildView( selectedRow );
 					conversationPanel.setSelectedChild( selectedChild );
 				}

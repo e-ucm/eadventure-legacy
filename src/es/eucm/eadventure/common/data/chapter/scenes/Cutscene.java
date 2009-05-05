@@ -3,6 +3,7 @@ package es.eucm.eadventure.common.data.chapter.scenes;
 import es.eucm.eadventure.common.data.HasTargetId;
 import es.eucm.eadventure.common.data.Positioned;
 import es.eucm.eadventure.common.data.chapter.NextScene;
+import es.eucm.eadventure.common.data.chapter.effects.AbstractEffect;
 import es.eucm.eadventure.common.data.chapter.effects.Effects;
 
 public abstract class Cutscene extends GeneralScene implements HasTargetId, Positioned {
@@ -74,7 +75,12 @@ public abstract class Cutscene extends GeneralScene implements HasTargetId, Posi
 		transitionType = nextScene.getTransitionType();
 		destinyX = nextScene.getPositionX();
 		destinyY = nextScene.getPositionY();
-		effects = nextScene.getPostEffects();
+    	for (AbstractEffect effect : nextScene.getEffects().getEffects()) {
+    		effects.add(effect);
+    	}
+    	for (AbstractEffect effect : nextScene.getPostEffects().getEffects()) {
+    		effects.add(effect);
+    	}
 	}
 
 	/**

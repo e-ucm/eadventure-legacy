@@ -154,7 +154,7 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
         destY = 0;
 
         currentState = idleAnimation;
-        
+        currentState.initialize( );
         speedX = 0;
         speedY = 0;
     }

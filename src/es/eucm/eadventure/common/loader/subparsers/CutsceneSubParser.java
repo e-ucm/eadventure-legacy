@@ -5,6 +5,7 @@ import org.xml.sax.Attributes;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.data.chapter.NextScene;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
+import es.eucm.eadventure.common.data.chapter.effects.AbstractEffect;
 import es.eucm.eadventure.common.data.chapter.effects.Effects;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.data.chapter.scenes.Cutscene;
@@ -308,14 +309,26 @@ public class CutsceneSubParser extends SubParser {
 			// If the effect tag is being closed, store the effect in the next scene and switch the state
 			if( qName.equals( "effect" ) ) {
 			    if (currentNextScene != null)
-				currentNextScene.setEffects(currentEffects);
-			    else
-				cutscene.setEffects( currentEffects );
+			    	currentNextScene.setEffects(currentEffects);
+			    else {
+			    	Effects effects = cutscene.getEffects();
+			    	for (AbstractEffect effect : currentEffects.getEffects()) {
+			    		effects.add(effect);
+			    	}
+			    }
 			    subParsing = SUBPARSING_NONE;
 			}
 
 			// If the effect tag is being closed, add the post-effects to the current next scene and switch the state
 			if( qName.equals( "post-effect" ) ) {
+			    if (currentNextScene != null)
+			    	currentNextScene.setPostEffects(currentEffects);
+			    else {
+			    	Effects effects = cutscene.getEffects();
+			    	for (AbstractEffect effect : currentEffects.getEffects()) {
+			    		effects.add(effect);
+			    	}
+			    }
 				//currentNextScene.setPostEffects( currentEffects );
 			    
 			    	subParsing = SUBPARSING_NONE;
