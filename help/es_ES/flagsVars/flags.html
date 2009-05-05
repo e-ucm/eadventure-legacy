@@ -1,0 +1,53 @@
+<html>
+<head></head>
+<body lang=ES>
+
+<img src="../logo-editor.png" alt="TEST IMAGE fail!"/>
+
+<p><span lang=ES-TRAD><b><h1><center>Edición de los flags</center></b></h1><br><br>
+
+&nbsp;&nbsp;Los flags se pueden considerar como indicadores de una propiedad en concreto. El sentído de dicha propiedad viene dado por el nombre
+del flag. Si está activo, la propiedad se cumple. Los flags permiten dar un sentido narrativo a los juegos &lt e-Adventure &gt . La forma
+de dar dicha narración radica en el uso de flags (también de <A href="../flagsVars/vars.html" label="variables" title="variables">variables</A>)
+dentro de las condiciones, en las cuales se comprueba si estan activados o desactivados un conjunto de flags. <br><br>
+
+&nbsp;&nbsp;Por ejemplo, definimos un flag llamado "telefonoCogido". Asociamos una condición a la acción examinar de un objeto "telefono", en la que
+dicho flag deberá estar activado para que se lancen los efectos asociados a la acción. Si cuando pretendemos examinar el objeto "telefono"
+el flag está activado, se lanzarán los efectos asociados a la acción, y sino no ocurrirá nada. 
+
+
+
+<h2>Una condición simple</h2>
+
+&nbsp;&nbsp;Supongamos que tenemos un juego con dos objetos: una chuleta de carne y un pescado. La idea es que el jugador sólo pueda 
+coger el pescado cuando se haya cogido previamente la carne. En nuestra aventura traducimos esa condición al “lenguaje de flags”; para 
+ello definimos un flag “carneCogida”, que estará inactivo hasta que la carne sea cogida. En ese momento el flag pasará a estar activo, 
+y por tanto el pescado estará a disposición del jugador. Veamos el proceso completo:<br><br>
+
+&nbsp;&nbsp;Primero necesitamos añadir un flag nuevo. Para ello nos vamos al menú de Capítulo que encontramos en la barra superior.
+Allí seleccionamos la opción “Editar flags del capítulo” (abreviado ctrl. + F). A continuación se mostrará una ventana como la que 
+indica la figura siguiente. Pulse en el botón “Añadir flag” y escriba “carneCogida”. Pulse Aceptar y se creará un nuevo flag con 0 
+referencias.<br><br>
+(capturaªª!!!!!!!!!!!!!!!!!!!!!!!!!!!!!)<br><br>
+
+&nbsp;&nbsp;Puede usarse este diálogo para añadir o borrar flags (y variables) del capítulo (los flags son únicos para cada capítulo). 
+Sin embargo, si se quiere borrar un flag primero debe tener 0 referencias (hablamos por referencias a flags de aquellos elementos del 
+juego que utilizan ese flag, ya sea en una condición o en un efecto). Además hay que tener en cuenta algunas restricciones a la hora de 
+definir flags: no se permiten espacios en blanco y el primer carácter debe ser una letra.<br><br>
+
+&nbsp;&nbsp;Una vez el flag ha sido creado, ya se pueden hacer referencias a él. Entonces podemos ir a nuestro objeto “Pescado” y
+ añadir una nueva acción coger. Como recordatorio: Expandir el nodo del objeto > Botón derecho en “Acciones” > Añadir acción coger. Después de eso
+ pulse en el botón “Editar condiciones” situado en el panel de la acción. Se abrirá un diálogo para editar las condiciones. Presione 
+ el botón “Añadir condición” y se le preguntará que flag formará la condición y en qué estado debe estar para que la condición se evalúe
+ como cierta (activo o inactivo). En nuestro caso seleccionamos “activo” y el flag “carneCogida”.<br><br>
+ 
+ (CAPTURA!!!!!!!!!!!!!)<br><br>
+ 
+&nbsp;&nbsp;Nótese que la lista desplegable donde se selecciona el flag es editable. De esta manera podemos escribir a mano el nombre del flag.
+ Si este no existe aún, se creará automáticamente, evitando así recurrir al menú de capítulo tan a menudo.<br><br>
+
+
+</span>
+</body>
+
+</html>
