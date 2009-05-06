@@ -955,6 +955,7 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="ActiveAreasList.DeleteActiveArea">Delete selected active area</entry>
 	<entry key="ActiveAreasList.DuplicateActiveArea">Duplicate selected active area</entry>
 	<entry key="ActiveAreasList.Documentation">Documentation</entry>
+	<entry key="ActiveAreasList.ActiveWhenConditionsArent">Alternative effects</entry>
 
 	<entry key="BarriersList.Title">Barriers</entry>
 	<entry key="BarriersList.PreviewTitle">Preview of the barriers location and edition of the trajectory</entry>

@@ -965,6 +965,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="ActiveAreasList.DeleteActiveArea">Eliminar la zona activa seleccionada</entry>
 	<entry key="ActiveAreasList.DuplicateActiveArea">Duplicar la zona activa seleccionada</entry>
 	<entry key="ActiveAreasList.Documentation">Documentación</entry>
+	<entry key="ActiveAreasList.ActiveWhenConditionsArent">Efectos alternativos</entry>
 
 	<entry key="BarriersList.Title">Barreras</entry>
 	<entry key="BarriersList.PreviewTitle">Previsualización de las barreras y edición de la trayectoria</entry>
