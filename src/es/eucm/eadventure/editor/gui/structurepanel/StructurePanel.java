@@ -311,18 +311,18 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
 		TableModel childData = new AbstractTableModel() {
 			private static final long serialVersionUID = 3895333816471270996L;
 			
-			@Override
 			public int getColumnCount() {
 				return 1;
 			}
-			@Override
+
 			public int getRowCount() {
 				return element.getChildCount();
 			}
-			@Override
+
 			public Object getValueAt(int arg0, int arg1) {
 				return element.getChild(arg0);
 			}
+
 			@Override
 		    public boolean isCellEditable(int row, int col) {
 				return list.getSelectedRow() == row;
@@ -375,6 +375,7 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
 			JButton addButton = new JButton(new ImageIcon("img/icons/addNode.png"));
 			addButton.setContentAreaFilled( false );
 			addButton.setMargin( new Insets(0,0,0,0) );
+			addButton.setBorder(BorderFactory.createEmptyBorder());
 			addButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					Controller.getInstance().addTool(new AddElementTool(element, list));

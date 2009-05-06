@@ -57,7 +57,6 @@ public class LOMDialog extends JDialog{
 		tabs.add(new JPanel(),3);
 		tabs.setTabComponentAt(3,infoButton );
 		tabs.addChangeListener(new ChangeListener(){
-		    @Override
 		    public void stateChanged(ChangeEvent e) {
 			 if (tabs.getSelectedIndex()==3){
 			       tabs.setSelectedIndex(currentTab);

@@ -119,12 +119,14 @@ public class EffectsPanel extends JPanel implements Updateable{
 		JButton newButton = new JButton(new ImageIcon("img/icons/addNode.png"));
 		newButton.setContentAreaFilled( false );
 		newButton.setMargin( new Insets(0,0,0,0) );
+		newButton.setBorder(BorderFactory.createEmptyBorder());
 		newButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.AddParagraph" ) );
 		newButton.addActionListener( new AddEffectListener( ));
 		
 		deleteButton = new JButton(new ImageIcon("img/icons/deleteNode.png"));
 		deleteButton.setContentAreaFilled( false );
 		deleteButton.setMargin( new Insets(0,0,0,0) );
+		deleteButton.setBorder(BorderFactory.createEmptyBorder());
 		deleteButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.Delete" ) );
 		deleteButton.addActionListener(new DeleteEffectListener( ));
 		deleteButton.setEnabled(false);
@@ -132,6 +134,7 @@ public class EffectsPanel extends JPanel implements Updateable{
 		moveUpButton = new JButton(new ImageIcon("img/icons/moveNodeUp.png"));
 		moveUpButton.setContentAreaFilled( false );
 		moveUpButton.setMargin( new Insets(0,0,0,0) );
+		moveUpButton.setBorder(BorderFactory.createEmptyBorder());
 		moveUpButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.MoveUp" ) );
 		moveUpButton.addActionListener( new MoveUpEffectListener( ) );
 		moveUpButton.setEnabled(false);
@@ -139,6 +142,7 @@ public class EffectsPanel extends JPanel implements Updateable{
 		moveDownButton = new JButton(new ImageIcon("img/icons/moveNodeDown.png"));
 		moveDownButton.setContentAreaFilled( false );
 		moveDownButton.setMargin( new Insets(0,0,0,0) );
+		moveDownButton.setBorder(BorderFactory.createEmptyBorder());
 		moveDownButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.MoveDown" ) );
 		moveDownButton.addActionListener( new MoveDownEffectListener( ));
 		moveDownButton.setEnabled(false);

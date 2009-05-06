@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -141,6 +142,7 @@ public class ExitsListPanel extends JPanel implements DataControlsPanel, DataCon
 		JButton newButton = new JButton(new ImageIcon("img/icons/addNode.png"));
 		newButton.setContentAreaFilled( false );
 		newButton.setMargin( new Insets(0,0,0,0) );
+		newButton.setBorder(BorderFactory.createEmptyBorder());
 		newButton.setFocusable(false);
 		newButton.setToolTipText( TextConstants.getText( "ExitsList.AddExit" ) );
 		newButton.addActionListener(new ActionListener() {
@@ -151,6 +153,7 @@ public class ExitsListPanel extends JPanel implements DataControlsPanel, DataCon
 		duplicateButton = new JButton(new ImageIcon("img/icons/duplicateNode.png"));
 		duplicateButton.setContentAreaFilled( false );
 		duplicateButton.setMargin( new Insets(0,0,0,0) );
+		duplicateButton.setBorder(BorderFactory.createEmptyBorder());
 		duplicateButton.setToolTipText( TextConstants.getText( "ExitsList.DuplicateExit" ) );
 		duplicateButton.setEnabled(false);
 		duplicateButton.setFocusable(false);
@@ -162,6 +165,7 @@ public class ExitsListPanel extends JPanel implements DataControlsPanel, DataCon
 		deleteButton = new JButton(new ImageIcon("img/icons/deleteNode.png"));
 		deleteButton.setContentAreaFilled( false );
 		deleteButton.setMargin( new Insets(0,0,0,0) );
+		deleteButton.setBorder(BorderFactory.createEmptyBorder());
 		deleteButton.setToolTipText( TextConstants.getText( "ExitsList.DeleteExit" ) );
 		deleteButton.setEnabled(false);
 		deleteButton.setFocusable(false);
@@ -334,7 +338,6 @@ public class ExitsListPanel extends JPanel implements DataControlsPanel, DataCon
 		}
 	}
 
-	@Override
 	public void setSelectedItem(List<DataControl> path) {
 		if (path.size() > 0) {
 			for (int i = 0 ; i < dataControl.getExits().size(); i++) {
@@ -344,8 +347,6 @@ public class ExitsListPanel extends JPanel implements DataControlsPanel, DataCon
 		}
 	}
 
-
-	@Override
 	public void dataControlSelected(DataControl dataControl2) {
 		if (dataControl2 != null) {
 			for (int i = 0 ; i < dataControl.getExits().size(); i++) {
@@ -357,8 +358,6 @@ public class ExitsListPanel extends JPanel implements DataControlsPanel, DataCon
 		}
 	}
 
-
-	@Override
 	public boolean updateFields() {
 		/*int selection = table.getSelectedRow();
 		((AbstractTableModel) table.getModel()).fireTableDataChanged();

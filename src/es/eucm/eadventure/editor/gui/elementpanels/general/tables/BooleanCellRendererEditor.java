@@ -16,12 +16,10 @@ public class BooleanCellRendererEditor extends AbstractCellEditor implements Tab
 	
 	private Boolean value;
 	
-	@Override
 	public Object getCellEditorValue() {
 		return value;
 	}
 	
-	@Override
 	public Component getTableCellEditorComponent(final JTable table, Object value, boolean isSelected, final int row, final int col) {
 		this.value = (Boolean) value;
 		JCheckBox checkBox = new JCheckBox();
@@ -40,7 +38,6 @@ public class BooleanCellRendererEditor extends AbstractCellEditor implements Tab
 		return checkBox;
 	}
 
-	@Override
 	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 		if (value instanceof Boolean) { 
 			JCheckBox checkBox = new JCheckBox();

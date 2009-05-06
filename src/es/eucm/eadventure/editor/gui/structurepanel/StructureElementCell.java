@@ -122,6 +122,7 @@ public class StructureElementCell extends JPanel {
 				JButton remove = new JButton(new ImageIcon("img/icons/duplicateNode.png"));
 				remove.setContentAreaFilled( false );
 				remove.setMargin( new Insets(0,0,0,0) );
+				remove.setBorder(BorderFactory.createEmptyBorder());
 				remove.setToolTipText(TextConstants.getText("GeneralText.Duplicate"));
 				remove.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
@@ -140,6 +141,7 @@ public class StructureElementCell extends JPanel {
 				JButton remove = new JButton(new ImageIcon("img/icons/deleteNode.png"));
 				remove.setContentAreaFilled( false );
 				remove.setMargin( new Insets(0,0,0,0) );
+				remove.setBorder(BorderFactory.createEmptyBorder());
 				remove.setToolTipText(TextConstants.getText("GeneralText.Delete"));
 				remove.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {

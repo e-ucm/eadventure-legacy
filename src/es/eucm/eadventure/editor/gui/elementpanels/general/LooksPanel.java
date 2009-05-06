@@ -9,6 +9,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -98,12 +99,14 @@ public abstract class LooksPanel extends JPanel {
 		newResourcesBlock = new JButton(new ImageIcon("img/icons/addNode.png"));
 		newResourcesBlock.setContentAreaFilled( false );
 		newResourcesBlock.setMargin( new Insets(0,0,0,0) );
+		newResourcesBlock.setBorder(BorderFactory.createEmptyBorder());
 		newResourcesBlock.setToolTipText( TextConstants.getText( "ResourcesList.AddResourcesBlock" ) );
 		newResourcesBlock.addActionListener( new NewButtonListener() );
 
 		this.deleteResourcesBlock = new JButton(new ImageIcon("img/icons/deleteNode.png"));
 		deleteResourcesBlock.setContentAreaFilled( false );
 		deleteResourcesBlock.setMargin( new Insets(0,0,0,0) );
+		deleteResourcesBlock.setBorder(BorderFactory.createEmptyBorder());
 		deleteResourcesBlock.setToolTipText( TextConstants.getText( "ResourcesList.DeleteResourcesBlock" ) );
 		deleteResourcesBlock.setEnabled(false);
 		deleteResourcesBlock.addActionListener( new DeleteButtonListener( ));
@@ -111,6 +114,7 @@ public abstract class LooksPanel extends JPanel {
 		this.duplicateResourcesBlock = new JButton(new ImageIcon("img/icons/duplicateNode.png"));
 		duplicateResourcesBlock.setContentAreaFilled( false );
 		duplicateResourcesBlock.setMargin( new Insets(0,0,0,0) );
+		duplicateResourcesBlock.setBorder(BorderFactory.createEmptyBorder());
 		duplicateResourcesBlock.setToolTipText( TextConstants.getText( "ResourcesList.DuplicateResourcesBlock" ) );
 		duplicateResourcesBlock.setEnabled(false);
 		duplicateResourcesBlock.addActionListener( new DuplicateButtonListener( ));

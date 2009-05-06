@@ -53,7 +53,6 @@ public class AssessmentRulesTableModel extends AbstractTableModel {
 		return columnName;
 	}
 
-	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		if (columnIndex == 0)
 			return dataControl.getAssessmentRules().get(rowIndex).getId();

@@ -202,12 +202,10 @@ public class DialogueConversationNode extends ConversationNode {
 		return dcn;
 	}
 
-	@Override
 	public Conditions getLineConditions(int index) {
 	   return dialogue.get(index).getConditions();
 	}
 
-	@Override
 	public ConversationLine getConversationLine(int index) {
 	    return dialogue.get(index);
 	}

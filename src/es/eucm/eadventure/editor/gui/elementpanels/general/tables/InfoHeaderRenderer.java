@@ -40,7 +40,6 @@ public class InfoHeaderRenderer extends JPanel implements TableCellRenderer {
 		setLayout(new GridBagLayout());
 	}
 	
-	@Override
 	public Component getTableCellRendererComponent(final JTable table, final Object value,
 		boolean isSelected, boolean hasFocus, int row, final int column) {
 		removeAll();
@@ -55,6 +54,7 @@ public class InfoHeaderRenderer extends JPanel implements TableCellRenderer {
 			infoButton = new JButton(new ImageIcon("img/icons/information.png"));
 			infoButton.setContentAreaFilled( false );
 			infoButton.setMargin( new Insets(0,0,0,0) );
+			infoButton.setBorder(BorderFactory.createEmptyBorder());
 			c.gridx = 1;
 			add(infoButton, c);
 			JTableHeader header = table.getTableHeader(); 

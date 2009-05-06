@@ -232,6 +232,7 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel,Upd
 		JButton newButton = new JButton(new ImageIcon("img/icons/addNode.png"));
 		newButton.setContentAreaFilled( false );
 		newButton.setMargin( new Insets(0,0,0,0) );
+		newButton.setBorder(BorderFactory.createEmptyBorder());
 		newButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.AddParagraph" ) );
 		newButton.addMouseListener( new MouseAdapter(){
 			public void mouseClicked (MouseEvent evt){
@@ -242,6 +243,7 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel,Upd
 		deleteButton = new JButton(new ImageIcon("img/icons/deleteNode.png"));
 		deleteButton.setContentAreaFilled( false );
 		deleteButton.setMargin( new Insets(0,0,0,0) );
+		deleteButton.setBorder(BorderFactory.createEmptyBorder());
 		deleteButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.Delete" ) );
 		deleteButton.addActionListener(new ActionListener(){
 			public void actionPerformed( ActionEvent e ) {
@@ -252,6 +254,7 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel,Upd
 		moveUpButton = new JButton(new ImageIcon("img/icons/moveNodeUp.png"));
 		moveUpButton.setContentAreaFilled( false );
 		moveUpButton.setMargin( new Insets(0,0,0,0) );
+		moveUpButton.setBorder(BorderFactory.createEmptyBorder());
 		moveUpButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.MoveUp" ) );
 		moveUpButton.addActionListener( new ActionListener(){
 			public void actionPerformed( ActionEvent e ) {
@@ -262,6 +265,7 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel,Upd
 		moveDownButton = new JButton(new ImageIcon("img/icons/moveNodeDown.png"));
 		moveDownButton.setContentAreaFilled( false );
 		moveDownButton.setMargin( new Insets(0,0,0,0) );
+		moveDownButton.setBorder(BorderFactory.createEmptyBorder());
 		moveDownButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.MoveDown" ) );
 		moveDownButton.addActionListener( new ActionListener(){
 			public void actionPerformed( ActionEvent e ) {
@@ -449,7 +453,6 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel,Upd
 		}
 	}
 	
-	@Override
 	public void setSelectedItem(List<DataControl> path) {
 		if (path.size() > 0) {
 			for (int i = 0 ; i < referencesListDataControl.getAllReferencesDataControl().size(); i++) {
@@ -459,7 +462,6 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel,Upd
 		}
 	}
 
-	@Override
 	public boolean updateFields() {
 	   // updateSelectedElementReference();
 	    return true;

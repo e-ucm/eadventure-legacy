@@ -23,12 +23,10 @@ public class DocumentationCellRendererEditor extends AbstractCellEditor implemen
 	
 	private DataControl value;
 	
-	@Override
 	public Object getCellEditorValue() {
 		return value;
 	}
 	
-	@Override
 	public Component getTableCellEditorComponent(JTable table, Object value2, boolean isSelected, int row, int col) {
 		if (value2 == null)
 			return null;
@@ -36,7 +34,6 @@ public class DocumentationCellRendererEditor extends AbstractCellEditor implemen
 		return getComponent(isSelected, table);
 	}
 
-	@Override
 	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 		if (value == null)
 			return null;

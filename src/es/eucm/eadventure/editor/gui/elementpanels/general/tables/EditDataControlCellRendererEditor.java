@@ -20,12 +20,10 @@ public class EditDataControlCellRendererEditor extends AbstractCellEditor implem
 	
 	protected DataControl value;
 	
-	@Override
 	public Object getCellEditorValue() {
 		return value;
 	}
 	
-	@Override
 	public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int col) {
 		this.value = (DataControl) value;
 		JButton button = new JButton(TextConstants.getText( "GeneralText.Edit" ));
@@ -35,7 +33,6 @@ public class EditDataControlCellRendererEditor extends AbstractCellEditor implem
 		return button;
 	}
 
-	@Override
 	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 		JButton button = new JButton(TextConstants.getText( "GeneralText.Edit" ));
 		button.setFocusable(false);

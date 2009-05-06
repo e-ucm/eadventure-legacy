@@ -12,17 +12,14 @@ public class LeftLineBorder implements Border{
 	private Color line = Color.black;
 	private Color background = Color.yellow;
 	
-	@Override
 	public Insets getBorderInsets(Component c) {
 		return new Insets (10,10,10,0);
 	}
 
-	@Override
 	public boolean isBorderOpaque() {
 		return false;
 	}
 
-	@Override
 	public void paintBorder(Component c, Graphics g, int x, int y, int width,
 			int height) {
 		g.setColor(line);

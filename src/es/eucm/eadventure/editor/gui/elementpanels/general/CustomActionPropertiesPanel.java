@@ -114,12 +114,10 @@ public class CustomActionPropertiesPanel extends JPanel implements ActionTypePan
 
 	}
 
-	@Override
 	public int getType() {
 	    return ActionTypePanel.CUSTOM_TYPE;
 	}
 
-	@Override
 	public boolean updateFields() {
 	   boolean update = actionPanel.updateFields();
 	    return update;

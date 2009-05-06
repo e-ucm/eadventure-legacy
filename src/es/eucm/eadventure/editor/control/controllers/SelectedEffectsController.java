@@ -210,11 +210,10 @@ public class SelectedEffectsController {
 		    return value;
 		}
 		
-		@Override
 		public int compareTo(Object o) {
 		    ListElements listElement= (ListElements)o;
 		    return this.value.compareTo(listElement.value);
 		}
 		
-	    }
+    }
 }

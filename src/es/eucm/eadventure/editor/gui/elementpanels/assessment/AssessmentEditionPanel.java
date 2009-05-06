@@ -300,6 +300,7 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
 		JButton add = new JButton(new ImageIcon("img/icons/addNode.png"));
 		add.setContentAreaFilled( false );
 		add.setMargin( new Insets(0,0,0,0) );
+		add.setBorder(BorderFactory.createEmptyBorder());
 		add.setFocusable(false);
 		add.setToolTipText( TextConstants.getText("AdaptationProfile.AddRule" ) );
 
@@ -314,6 +315,7 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
 		duplicate = new JButton(new ImageIcon("img/icons/duplicateNode.png"));
 		duplicate.setContentAreaFilled( false );
 		duplicate.setMargin( new Insets(0,0,0,0) );
+		duplicate.setBorder(BorderFactory.createEmptyBorder());
 		duplicate.setToolTipText( TextConstants.getText( "AdaptationProfile.Duplicate" ) );
 		duplicate.addActionListener(new ActionListener(){
 			public void actionPerformed( ActionEvent e ) {
@@ -329,6 +331,7 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
 		delete = new JButton(new ImageIcon("img/icons/deleteNode.png"));
 		delete.setContentAreaFilled( false );
 		delete.setMargin( new Insets(0,0,0,0) );
+		delete.setBorder(BorderFactory.createEmptyBorder());
 		delete.setFocusable(false);
 		delete.setToolTipText(TextConstants.getText("AdaptationProfile.DeleteRule"));
 		delete.addActionListener(new ActionListener() {
@@ -726,7 +729,6 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
 		}
 	}
 	
-	@Override
 	public void setSelectedItem(List<DataControl> path) {
 		if (path.size() > 0) {
 			for (int i = 0; i < dataControl.getAssessmentRules().size(); i++) {
@@ -736,7 +738,6 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
 		}
 	}
 
-	@Override
 	public boolean updateFields() {
 	    return true;
 	}

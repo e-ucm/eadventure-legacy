@@ -16,6 +16,7 @@ import java.awt.event.MouseListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -295,6 +296,7 @@ public class BookPagesPanel extends JPanel{
 		JButton newButton = new JButton(new ImageIcon("img/icons/addNode.png"));
 		newButton.setContentAreaFilled( false );
 		newButton.setMargin( new Insets(0,0,0,0) );
+		newButton.setBorder(BorderFactory.createEmptyBorder());
 		newButton.setToolTipText( TextConstants.getText( "BookPages.AddPage" ) );
 		newButton.addMouseListener( new MouseAdapter(){
 			public void mouseClicked (MouseEvent evt){
@@ -304,6 +306,7 @@ public class BookPagesPanel extends JPanel{
 		deleteButton = new JButton(new ImageIcon("img/icons/deleteNode.png"));
 		deleteButton.setContentAreaFilled( false );
 		deleteButton.setMargin( new Insets(0,0,0,0) );
+		deleteButton.setBorder(BorderFactory.createEmptyBorder());
 		deleteButton.setToolTipText( TextConstants.getText( "BookPages.DeletePage" ) );
 		deleteButton.addActionListener(new ActionListener(){
 			public void actionPerformed( ActionEvent e ) {
@@ -313,6 +316,7 @@ public class BookPagesPanel extends JPanel{
 		moveUpButton = new JButton(new ImageIcon("img/icons/moveNodeUp.png"));
 		moveUpButton.setContentAreaFilled( false );
 		moveUpButton.setMargin( new Insets(0,0,0,0) );
+		moveUpButton.setBorder(BorderFactory.createEmptyBorder());
 		moveUpButton.setToolTipText( TextConstants.getText( "BookPages.MovePageUp" ) );
 		moveUpButton.addActionListener( new ActionListener(){
 			public void actionPerformed( ActionEvent e ) {
@@ -322,6 +326,7 @@ public class BookPagesPanel extends JPanel{
 		moveDownButton = new JButton(new ImageIcon("img/icons/moveNodeDown.png"));
 		moveDownButton.setContentAreaFilled( false );
 		moveDownButton.setMargin( new Insets(0,0,0,0) );
+		moveDownButton.setBorder(BorderFactory.createEmptyBorder());
 		moveDownButton.setToolTipText( TextConstants.getText( "BookPages.MovePageDown" ) );
 		moveDownButton.addActionListener( new ActionListener(){
 			public void actionPerformed( ActionEvent e ) {

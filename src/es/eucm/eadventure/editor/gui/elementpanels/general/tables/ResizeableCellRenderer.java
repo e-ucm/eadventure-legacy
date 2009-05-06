@@ -79,7 +79,6 @@ public abstract class ResizeableCellRenderer extends AbstractCellEditor implemen
 		}
 	}
 
-	@Override
 	public Object getCellEditorValue() {
 		return null;
 	}

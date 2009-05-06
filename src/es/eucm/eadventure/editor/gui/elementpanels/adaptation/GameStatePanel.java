@@ -140,12 +140,14 @@ class GameStatePanel extends JPanel implements Updateable{
 		insertActionFlagButton = new JButton(new ImageIcon("img/icons/addNode.png"));
 		insertActionFlagButton.setContentAreaFilled( false );
 		insertActionFlagButton.setMargin( new Insets(0,0,0,0) );
+		insertActionFlagButton.setBorder(BorderFactory.createEmptyBorder());
 		insertActionFlagButton.setToolTipText( TextConstants.getText( "Operation.AdaptationPanel.InsertButton" ) );
 		insertActionFlagButton.addActionListener( new ListenerButtonInsertLine( ) );
 		
 		deleteActionFlagButton = new JButton(new ImageIcon("img/icons/deleteNode.png"));
 		deleteActionFlagButton.setContentAreaFilled( false );
 		deleteActionFlagButton.setMargin( new Insets(0,0,0,0) );
+		deleteActionFlagButton.setBorder(BorderFactory.createEmptyBorder());
 		deleteActionFlagButton.setToolTipText( TextConstants.getText( "Operation.AdaptationPanel.DeleteButton" ) );
 		deleteActionFlagButton.addActionListener( new ListenerButtonDeleteLine( ) );
 		

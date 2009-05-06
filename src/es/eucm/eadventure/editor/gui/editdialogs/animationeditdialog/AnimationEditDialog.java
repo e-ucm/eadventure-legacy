@@ -343,6 +343,7 @@ public class AnimationEditDialog extends ToolManagableDialog {
 		moveLeftButton = new JButton(new ImageIcon("img/icons/moveNodeLeft.png"));
 		moveLeftButton.setContentAreaFilled( false );
 		moveLeftButton.setMargin( new Insets(0,0,0,0) );
+		moveLeftButton.setBorder(BorderFactory.createEmptyBorder());
 		moveLeftButton.setToolTipText( TextConstants.getText( "Animation.MoveFrameLeft" ) );
 		moveLeftButton.addActionListener( new ActionListener(){
 			public void actionPerformed( ActionEvent e ) {
@@ -355,6 +356,7 @@ public class AnimationEditDialog extends ToolManagableDialog {
 		deleteButton = new JButton(new ImageIcon("img/icons/deleteNode.png"));
 		deleteButton.setContentAreaFilled( false );
 		deleteButton.setMargin( new Insets(0,0,0,0) );
+		deleteButton.setBorder(BorderFactory.createEmptyBorder());
 		deleteButton.setToolTipText( TextConstants.getText( "Animation.DeleteFrame" ) );
 		deleteButton.addActionListener( new ActionListener(){
 			public void actionPerformed( ActionEvent e ) {
@@ -367,6 +369,7 @@ public class AnimationEditDialog extends ToolManagableDialog {
 		addButton = new JButton(new ImageIcon("img/icons/addNode.png"));
 		addButton.setContentAreaFilled( false );
 		addButton.setMargin( new Insets(0,0,0,0) );
+		addButton.setBorder(BorderFactory.createEmptyBorder());
 		addButton.setToolTipText( TextConstants.getText( "Animation.AddFrame" ) );
 		addButton.addActionListener( new ActionListener(){
 			public void actionPerformed( ActionEvent e ) {
@@ -379,6 +382,7 @@ public class AnimationEditDialog extends ToolManagableDialog {
 		moveRightButton = new JButton(new ImageIcon("img/icons/moveNodeRight.png"));
 		moveRightButton.setContentAreaFilled( false );
 		moveRightButton.setMargin( new Insets(0,0,0,0) );
+		moveRightButton.setBorder(BorderFactory.createEmptyBorder());
 		moveRightButton.setToolTipText( TextConstants.getText( "Animation.MoveFrameRight" ) );
 		moveRightButton.addActionListener( new ActionListener(){
 			public void actionPerformed( ActionEvent e ) {

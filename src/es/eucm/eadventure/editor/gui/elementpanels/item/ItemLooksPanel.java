@@ -51,7 +51,6 @@ public class ItemLooksPanel extends LooksPanel implements Updateable {
 		getParent( ).repaint( );
 	}
 
-	@Override
 	public boolean updateFields() {
 		updatePreview();
 		return true;

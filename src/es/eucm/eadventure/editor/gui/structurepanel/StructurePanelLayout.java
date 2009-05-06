@@ -11,35 +11,28 @@ public class StructurePanelLayout implements LayoutManager2 {
 
 	List<StructureComponent> components = new ArrayList<StructureComponent>();
 	
-	@Override
 	public void addLayoutComponent(Component arg0, Object arg1) {
 		components.add(new StructureComponent(arg0, (Integer) arg1));
 	}
 
-	@Override
 	public float getLayoutAlignmentX(Container arg0) {
 		return 0;
 	}
 
-	@Override
 	public float getLayoutAlignmentY(Container arg0) {
 		return 0;
 	}
 
-	@Override
 	public void invalidateLayout(Container arg0) {
 	}
 
-	@Override
 	public Dimension maximumLayoutSize(Container arg0) {
 		return null;
 	}
 
-	@Override
 	public void addLayoutComponent(String arg0, Component arg1) {
 	}
 
-	@Override
 	public void layoutContainer(Container parent) {
 	    int width = parent.getWidth();
 	    int y = 0;
@@ -56,17 +49,14 @@ public class StructurePanelLayout implements LayoutManager2 {
 	    }
 	}
 
-	@Override
 	public Dimension minimumLayoutSize(Container arg0) {
 		return new Dimension(0,0);
 	}
 
-	@Override
 	public Dimension preferredLayoutSize(Container arg0) {
 		return new Dimension(arg0.getSize().width, arg0.getSize().height);
 	}
 
-	@Override
 	public void removeLayoutComponent(Component arg0) {
 		int k = -1;
 		for (int i = 0; i < components.size(); i++)

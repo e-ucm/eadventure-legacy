@@ -242,7 +242,6 @@ public class ConversationEditionPanel extends JPanel implements Updateable {
 		
 	}
 
-	@Override
 	public boolean updateFields() {
 		representationPanel.repaint( );
 		return true;

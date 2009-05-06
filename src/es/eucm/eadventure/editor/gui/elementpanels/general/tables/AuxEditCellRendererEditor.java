@@ -30,17 +30,14 @@ public class AuxEditCellRendererEditor extends AbstractCellEditor implements Tab
 		this.text = text;
 	}
 
-	@Override
 	public Object getCellEditorValue() {
 		return null;
 	}
 	
-	@Override
 	public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int col) {
 		return getComponent(isSelected, table);
 	}
 
-	@Override
 	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 		return getComponent(isSelected, table);
 	}

@@ -84,7 +84,6 @@ public class ElementPanel extends JTabbedPane implements Updateable, DataControl
 		return true;
 	}
 
-	@Override
 	public void setSelectedItem(List<DataControl> path) {
 		if (path.size() > 0) {
 			for (int i = 0; i < tabs.size(); i++) {
