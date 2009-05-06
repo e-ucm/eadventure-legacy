@@ -724,14 +724,20 @@ función de estos estados</entry>
 	<entry key="Effect.RandomInfo">{#2} (probabilidad = {#0}%); {#3} (probabilidad = {#1}%)</entry>
 	<entry key="Effect.WaitTimeInfo">Esperar {#0} segundos</entry>
 	<entry key="Effect.ShowTextInfo">Mostrar {#0} en la posición x:{#1} y:{#2}</entry>
-	<entry key="EffectsGroup.GameState">Estado de Juego</entry>
+	<entry key="EffectsGroup.GameState">Cambios estado del juego</entry>
 	<entry key="EffectsGroup.Multimedia">Multimedia</entry>
 	<entry key="EffectsGroup.Miscellaneous">Miscelánea</entry>
-	<entry key="EffectsGroup.Trigger">Lanzar eventos</entry>
-	<entry key="EffectsGroup.Feedback">Notificación</entry>
+	<entry key="EffectsGroup.Trigger">Lanzar evento</entry>
+	<entry key="EffectsGroup.Feedback">Mostrar mensaje</entry>
 	<entry key="EffectsGroup.ChangeInScene">Cambios en la escena</entry>
-	<entry key="EffectsGroup.Main">Efectos</entry>
+	<entry key="EffectsGroup.Main">Todos los efectos</entry>
 	<entry key="SelectEffectDialog.Title">Panel de creación de efectos</entry>
+	<entry key="SelectEffectDialog.ByCategory">Por categorías</entry>
+	<entry key="SelectEffectDialog.ByCategory.ToolTipText">Muestra los diferentes tipos de efectos ordenados por categorías</entry>
+	<entry key="SelectEffectDialog.Recent">Frecuentes</entry>
+	<entry key="SelectEffectDialog.Recent.ToolTipText">Muestra los efectos más recientemente usados</entry>
+	<entry key="SelectEffectDialog.AllEffects">Todos</entry>
+	<entry key="SelectEffectDialog.AllEffects.ToolTipText">Muestra todos los tipos de efectos</entry>
 	
 	<entry key="MoreVisitedPanel.Empty">No hay efectos creados por el usuario en el proyecto.</entry>
 	
