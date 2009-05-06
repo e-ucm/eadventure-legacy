@@ -28,10 +28,6 @@ public class GenericOptionPaneDialog extends ToolManagableDialog{
 	super(window, title,false);
 	 this.optionPane = new JOptionPane(message,messageType,optionType,icon,options,initialValue);
 	    this.add(optionPane,BorderLayout.CENTER);
-	    JPanel container = new JPanel();
-	    JButton ok = new JButton("ok");
-	   // ok.addActionListener(listener);
-	    this.add(container,BorderLayout.SOUTH);
 	    optionPane.addPropertyChangeListener(
 		    new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent e) {
@@ -44,7 +40,7 @@ public class GenericOptionPaneDialog extends ToolManagableDialog{
 				//If you were going to check something
 				//before closing the window, you'd do
 				//it here.
-				GenericOptionPaneDialog.this.setVisible(false);
+				GenericOptionPaneDialog.this.dispose();
 			    }
 			}
 		    });
