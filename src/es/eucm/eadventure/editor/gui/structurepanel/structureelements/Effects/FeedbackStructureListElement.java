@@ -14,7 +14,7 @@ public class FeedbackStructureListElement extends EffectsStructureListElement{
     
     public FeedbackStructureListElement() {
 	super(TextConstants.getText("EffectsGroup.Feedback"));
-	icon = new ImageIcon( "img/icons/adaptationProfiles.png" );
+	//icon = new ImageIcon( "img/icons/adaptationProfiles.png" );
 	groupEffects = new String[]{TextConstants.getText( "Effect.SpeakPlayer" ),TextConstants.getText( "Effect.SpeakCharacter" ),
 		TextConstants.getText( "Effect.TriggerBook" ),TextConstants.getText( "Effect.ShowText" ),TextConstants.getText( "Effect.TriggerCutscene" ),TextConstants.getText( "Effect.TriggerConversation" )};
 

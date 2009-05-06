@@ -14,7 +14,7 @@ public class MiscelaneousStructureListElement extends EffectsStructureListElemen
     
     public MiscelaneousStructureListElement() {
 	super(TextConstants.getText("EffectsGroup.Miscellaneous"));
-	icon = new ImageIcon( "img/icons/adaptationProfiles.png" );
+	//icon = new ImageIcon( "img/icons/adaptationProfiles.png" );
 	groupEffects = new String[] {TextConstants.getText( "Effect.MacroReference" ),TextConstants.getText( "Effect.CancelAction" ),
 		TextConstants.getText( "Effect.RandomEffect" ),TextConstants.getText( "Effect.WaitTime" )};
 ;

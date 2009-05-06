@@ -4,6 +4,7 @@ import java.net.URL;
 
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.gui.structurepanel.EffectsStructureElement;
+import es.eucm.eadventure.editor.gui.structurepanel.EffectsStructurePanel;
 import es.eucm.eadventure.editor.gui.structurepanel.StructureElement;
 import es.eucm.eadventure.editor.gui.structurepanel.StructureListElement;
 
@@ -18,7 +19,7 @@ public abstract class EffectsStructureListElement extends StructureListElement{
     
     public EffectsStructureListElement(String name) {
 	super(name, null);
-	
+	icon = EffectsStructurePanel.getEffectIcon(name, EffectsStructurePanel.ICON_SIZE_MEDIUM);
     }
 
     @Override
