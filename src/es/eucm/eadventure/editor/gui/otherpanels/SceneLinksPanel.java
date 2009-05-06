@@ -174,7 +174,7 @@ public class SceneLinksPanel extends JPanel {
 		tc.setMinWidth(90);
 		checkBoxes.getColumnModel().getColumn(1).setHeaderRenderer(new InfoHeaderRenderer());
 		tc = checkBoxes.getColumnModel().getColumn(2);
-		tc.setHeaderRenderer(new InfoHeaderRenderer("scenes/Scene_Edit.html"));
+		tc.setHeaderRenderer(new InfoHeaderRenderer("scenes/Scenes_Edit.html"));
 		tc.setCellEditor(new EditDataControlCellRendererEditor());
 		tc.setCellRenderer(new EditDataControlCellRendererEditor());
 		tc.setMaxWidth(100);

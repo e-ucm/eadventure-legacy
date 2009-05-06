@@ -1417,6 +1417,7 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="Conversation.OptionPreviewPartialConversation">Preview from selected node</entry>
 	<entry key="Conversation.OptionAddDialogueNode">Add dialogue node</entry>
 	<entry key="Conversation.OptionAddOptionNode">Add option node</entry>
+	<entry key="Conversation.OptionAddNewOption">Add new option</entry>
 	<entry key="Conversation.OptionDeleteNode">Delete node</entry>
 	<entry key="Conversation.OptionLinkNode">Link node to...</entry>
 	<entry key="Conversation.OptionMoveNode">Move node to...</entry>

@@ -1427,6 +1427,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="Conversation.OptionPreviewPartialConversation">Previsualizar nodo seleccionado</entry>
 	<entry key="Conversation.OptionAddDialogueNode">Añadir nodo de diálogo</entry>
 	<entry key="Conversation.OptionAddOptionNode">Añadir nodo de opciones</entry>
+	<entry key="Conversation.OptionAddNewOption">Añadir nueva opción</entry>
 	<entry key="Conversation.OptionDeleteNode">Eliminar nodo</entry>
 	<entry key="Conversation.OptionLinkNode">Enlazar nodo a...</entry>
 	<entry key="Conversation.OptionMoveNode">Mover nodo a...</entry>

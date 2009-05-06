@@ -29,8 +29,12 @@ public class MenuPanel extends JPanel {
 	private JButton addOptionButton;
 	
 	private JButton addDialogButton;
-	
+
+	private JButton addNewOptionButton;
+
 	private JButton deleteNodeButton;
+	
+	private JButton deleteLinkButton;
 
 	private JButton linkToButton;
 	
@@ -50,6 +54,9 @@ public class MenuPanel extends JPanel {
 		addDialogButton = new JButton(TextConstants.getText( "Conversation.OptionAddDialogueNode" ), dialog);
 		addDialogButton.addActionListener( new AddChildActionListener( ConversationNode.DIALOGUE ) );
 
+		addNewOptionButton = new JButton(TextConstants.getText( "Conversation.OptionAddNewOption"), dialog);
+		addNewOptionButton.addActionListener( new AddChildActionListener( ConversationNode.DIALOGUE));
+		
 		ImageIcon option = new ImageIcon("img/icons/optionNode.png");
 		addOptionButton = new JButton(TextConstants.getText( "Conversation.OptionAddOptionNode" ), option);
 		addOptionButton.addActionListener( new AddChildActionListener( ConversationNode.OPTION ));
@@ -62,6 +69,10 @@ public class MenuPanel extends JPanel {
 		linkToButton = new JButton( TextConstants.getText( "Conversation.OptionLinkNode" ), link);
 		linkToButton.addActionListener( new LinkNodeActionListener());
 
+		ImageIcon deleteLink = new ImageIcon("img/icons/deleteNodeLink.png");
+		deleteLinkButton = new JButton( TextConstants.getText( "Conversation.OperationDeleteLink" ), deleteLink);
+		deleteLinkButton.addActionListener( new DeleteLinkActionListener());
+		
 		editEffectButton = new JButton( TextConstants.getText( "Conversations.EditEffect" ) );
 		editEffectButton.addActionListener( new ListenerButtonEditEffect( ) );
 
@@ -84,6 +95,8 @@ public class MenuPanel extends JPanel {
 		deleteNodeButton.setEnabled( conversationDataControl.canDeleteNode( conversationPanel.getSelectedNode() ));
 		add(linkToButton);
 		linkToButton.setEnabled(conversationDataControl.canLinkNode( conversationPanel.getSelectedNode() ));
+		add(deleteLinkButton);
+		deleteLinkButton.setEnabled(!conversationDataControl.canLinkNode( conversationPanel.getSelectedNode()));
 		setSize(200, 100);
 	}
 
@@ -94,8 +107,8 @@ public class MenuPanel extends JPanel {
 		removeAll();
 		setLayout(new GridLayout(0,1));
 		add(editEffectButton);
-		add(addDialogButton);
-		addDialogButton.setEnabled( conversationDataControl.canAddChild( conversationPanel.getSelectedNode(), ConversationNode.DIALOGUE ) );
+		add(addNewOptionButton);
+		addNewOptionButton.setEnabled( conversationDataControl.canAddChild( conversationPanel.getSelectedNode(), ConversationNode.DIALOGUE ) );
 		add(deleteNodeButton);
 		deleteNodeButton.setEnabled( conversationDataControl.canDeleteNode( conversationPanel.getSelectedNode() ));
 		add(linkToButton);
@@ -110,6 +123,8 @@ public class MenuPanel extends JPanel {
 			editEffectButton.setEnabled( true );
 			this.addDialogButton.setEnabled(conversationDataControl.canAddChild( conversationPanel.getSelectedNode(), ConversationNode.DIALOGUE ));
 			this.addOptionButton.setEnabled(conversationDataControl.canAddChild( conversationPanel.getSelectedNode(), ConversationNode.OPTION ));
+			this.linkToButton.setEnabled(conversationDataControl.canLinkNode( conversationPanel.getSelectedNode()));
+			this.deleteLinkButton.setEnabled(!conversationDataControl.canLinkNode( conversationPanel.getSelectedNode()));
 		}
 	}
 
@@ -152,6 +167,8 @@ public class MenuPanel extends JPanel {
 				conversationPanel.updateRepresentation( );
 				addDialogButton.setEnabled( conversationDataControl.canAddChild( conversationPanel.getSelectedNode(), ConversationNode.DIALOGUE ) );
 				addOptionButton.setEnabled( conversationDataControl.canAddChild( conversationPanel.getSelectedNode(), ConversationNode.OPTION ) );
+				linkToButton.setEnabled(conversationDataControl.canLinkNode( conversationPanel.getSelectedNode()));
+				deleteLinkButton.setEnabled(!conversationDataControl.canLinkNode( conversationPanel.getSelectedNode()));
 			}
 		}
 	}
@@ -168,6 +185,19 @@ public class MenuPanel extends JPanel {
 			}
 		}
 	}
+	
+	/**
+	 * Listener for the "Delete node" option
+	 */
+	private class DeleteLinkActionListener implements ActionListener {
+		public void actionPerformed( ActionEvent e ) {
+			if( conversationDataControl.deleteNodeLink( conversationPanel.getSelectedNode( ) ) ) {
+				conversationPanel.setSelectedNode( null );
+				conversationPanel.changeState( RepresentationPanel.NORMAL );
+				conversationPanel.updateRepresentation( );
+			}
+		}
+	}	
 
 	/**
 	 * Listener for the "Add link to..." option

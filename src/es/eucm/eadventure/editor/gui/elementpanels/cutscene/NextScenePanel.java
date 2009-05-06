@@ -121,7 +121,8 @@ public class NextScenePanel extends JPanel {
 		temp.add(nextSceneCombo);
 		temp.add(editEffects);
 		detailsPanel.add(temp);
-		detailsPanel.add(positionPanel);
+		if (!Controller.getInstance().isPlayTransparent())
+			detailsPanel.add(positionPanel);
 		detailsPanel.add(transitionPanel);
 		
 		add(detailsPanel, BorderLayout.CENTER);
