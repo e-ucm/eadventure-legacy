@@ -29,7 +29,7 @@ public class AdaptationProfilesDataControl extends DataControl{
 		if (type == Controller.ADAPTATION_PROFILE){
 		
 		// Show confirmation dialog. If yes selected, mainwindow changes to assessment mode
-		if (controller.showStrictConfirmDialog( TextConstants.getText( "Operation.CreateAdaptationFile" ), TextConstants.getText( "Operation.CreateAdaptationFile.Message" ) )){
+		//if (controller.showStrictConfirmDialog( TextConstants.getText( "Operation.CreateAdaptationFile" ), TextConstants.getText( "Operation.CreateAdaptationFile.Message" ) )){
 			
 			//Prompt for profile name:
 			if (profileName == null)
@@ -62,7 +62,7 @@ public class AdaptationProfilesDataControl extends DataControl{
 				//}
 			}
 			
-		}
+		//}
 		return added;
 	}
 		
