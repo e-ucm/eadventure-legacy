@@ -52,14 +52,20 @@ public class SelectedEffectsController {
 	      init();
 	  }
 	  
-	  public ListElements[] getMostVisiteEffects(){
+	  public ListElements[] getMostVisiteEffects(int size){
 	      ArrayList<ListElements> list = new ArrayList<ListElements>(selectedEffects.values());
 	      Collections.sort(list);
-	      ListElements[] values=new ListElements[4];
-	      for (int i=0;i<4;i++){
-		  values[i]= list.get(NUMBER_OF_EFFECTS-i-1);
+	      ListElements[] values=(size>=1 && size<=NUMBER_OF_EFFECTS)?new ListElements[size]:new ListElements[NUMBER_OF_EFFECTS];
+	      for (int i=0;i<values.length;i++){
+	    	  values[i]= list.get(NUMBER_OF_EFFECTS-i-1);
 	      }
 	      return values;
+	  }
+	  
+	  public static String[] getAllEffectTypes(){
+		  return new String[]{ ACTIVATE,DEACTIVATE,INCREMENT,DECREMENT ,SETVALUE ,MACRO ,CONSUME,GENERATE ,
+				CANCEL ,SPPLAYER ,SPNPC,BOOK,SOUND,ANIMATION ,MVPLAYER ,MVNPC ,CONVERSATION ,CUTSCENE,SCENE ,LASTSCENE ,RANDOM ,
+				SHOWTEXT,WAITTIME };
 	  }
 	  
 	  /**
