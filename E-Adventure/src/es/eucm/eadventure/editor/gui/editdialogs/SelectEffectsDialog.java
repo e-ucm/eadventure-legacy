@@ -183,7 +183,7 @@ public class SelectEffectsDialog extends ToolManagableDialog{
 	
 	add(container);
 	
-	//setResizable( false );
+	setResizable( false );
 	//pack( );
 	this.setSize(new Dimension(600,400));
 	Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
