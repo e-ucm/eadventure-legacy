@@ -1503,7 +1503,7 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="TreeNode.AddElement231">Add "Talk to..." action</entry>
 	<entry key="TreeNode.AddElement24">Add "Use with" action</entry>
 	<entry key="TreeNode.AddElement25">Add "Give to" action</entry>
-	<entry key="TreeNode.AddElement250">Add "Custom interact" action</entry>
+	<entry key="TreeNode.AddElement250">Add "Custom" action</entry>
 	<entry key="TreeNode.AddElement26">Add player</entry>
 	<entry key="TreeNode.AddElement27">Add NPCs list</entry>
 	<entry key="TreeNode.AddElement28">Add NPC</entry>
@@ -2510,8 +2510,7 @@ avoids retyping.</entry>
 	<entry key="DeleteUnusedAssets.AssetsDeleted">Deleted {#0} unused assets</entry>
 	<entry key="DeleteUnusedAssets.NoUnsuedAssetsFound">No unused assets found</entry>
 	<entry key="DeleteUnusedAssets.Warning">All unreferenced assets will be deleted, this operation cannot be undone.
-It's strongly recommended that you backup your project before continuing.
-Unreferenced assessment and adaptation profiles will remain intact.</entry>
+It's strongly recommended that you backup your project before continuing.</entry>
 
 	<entry key="ResizeableListPanel.Size0ToolTip">View all the elements in a simple list</entry>
 	<entry key="ResizeableListPanel.Size1ToolTip">View all the elements in a list with small previews</entry>

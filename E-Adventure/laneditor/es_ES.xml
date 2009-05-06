@@ -1513,7 +1513,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="TreeNode.AddElement231">Añadir acción "Hablar con..."</entry>
 	<entry key="TreeNode.AddElement24">Añadir acción "Usar con"</entry>
 	<entry key="TreeNode.AddElement25">Añadir acción "Entregar a"</entry>
-	<entry key="TreeNode.AddElement250">Añadir acción "Intracción personalizable"</entry>
+	<entry key="TreeNode.AddElement250">Añadir acción "Personalizable"</entry>
 	<entry key="TreeNode.AddElement26">Añadir protagonista</entry>
 	<entry key="TreeNode.AddElement27">Añadir lista de personajes</entry>
 	<entry key="TreeNode.AddElement28">Añadir personaje</entry>
@@ -1563,6 +1563,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="GeneralText.EditEndConditions">Editar condiciones finales</entry>
 	<entry key="GeneralText.EditEffects">Editar efectos</entry>
 	<entry key="GeneralText.EditPostEffects">Editar post efectos</entry>
+	<entry key="GeneralText.EmptyTable">No hay elementos en esta tabla</entry>
 
 	<entry key="DefaultValue.AdventureTitle">Título de la aventura</entry>
 	<entry key="DefaultValue.ChapterTitle">Título del capítulo</entry>
@@ -2513,8 +2514,7 @@ ya que de esta manera se evita reescribirlos varias veces.</entry>
 	<entry key="DeleteUnusedAssets.NoUnsuedAssetsFound">No se encontraron recursos no utilizados</entry>
 
 	<entry key="DeleteUnusedAssets.Warning">Todos los recursos no referenciados serán eliminados del proyecto, esta operación no se puede deshacer.
-Es muy recomendable que haga una copia de seguridad de su proyecto antes de continuar.
-Los perfiles de adaptación y evaluación no utilizados permaneceran intactos.</entry>
+Es muy recomendable que haga una copia de seguridad de su proyecto antes de continuar.</entry>
 
 	<entry key="ResizeableListPanel.Size0ToolTip">Ver los elementos en una lista sencilla</entry>
 	<entry key="ResizeableListPanel.Size1ToolTip">Ver los elementos en una lista con vistas previas pequeñas</entry>

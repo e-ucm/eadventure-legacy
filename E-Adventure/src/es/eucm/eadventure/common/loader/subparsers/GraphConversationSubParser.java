@@ -306,15 +306,15 @@ public class GraphConversationSubParser extends SubParser {
 			subParser.endElement( namespaceURI, sName, qName );
 
 			// If the effect is being closed, insert the effect into the current node
-			if( qName.equals( "effect" ) ) {
+			if( qName.equals( "effect" ) && subParsing == SUBPARSING_EFFECT) {
 				currentNode.setEffects( currentEffects );
 				subParsing = SUBPARSING_NONE;
 			}
 			 // If the effect is being closed, insert the effect into the current node
-			else if( qName.equals( "condition" ) ) {
-			    		conversationLine.setConditions(currentConditions);
-					subParsing = SUBPARSING_NONE;
-				}
+			else if( qName.equals( "condition" ) && subParsing == SUBPARSING_CONDITION) {
+				conversationLine.setConditions(currentConditions);
+				subParsing = SUBPARSING_NONE;
+			}
 		}
 	}
 
