@@ -88,7 +88,7 @@ public class ShowTextEffectDialog extends EffectDialog{
 	 * @param currentProperties
 	 *     Set of initial values
 	 */
-	public ShowTextEffectDialog(HashMap<Integer, String> currentProperties){
+	public ShowTextEffectDialog(HashMap<Integer, Object> currentProperties){
 		 // Call the super method
 		super( TextConstants.getText( "ShowTextEffect.Title" ) , true);
 		
@@ -177,20 +177,20 @@ public class ShowTextEffectDialog extends EffectDialog{
 			int rgbBorder=0;
 
 			if( currentProperties.containsKey( EffectsController.EFFECT_PROPERTY_TEXT ) )
-				text.setText(currentProperties.get( EffectsController.EFFECT_PROPERTY_TEXT ) );
+				text.setText((String)currentProperties.get( EffectsController.EFFECT_PROPERTY_TEXT ) );
 
 			
 			if( currentProperties.containsKey( EffectsController.EFFECT_PROPERTY_X ) )
-				x = Integer.parseInt( currentProperties.get( EffectsController.EFFECT_PROPERTY_X ) );
+				x = Integer.parseInt( (String)currentProperties.get( EffectsController.EFFECT_PROPERTY_X ) );
 
 			if( currentProperties.containsKey( EffectsController.EFFECT_PROPERTY_Y ) )
-				y = Integer.parseInt( currentProperties.get( EffectsController.EFFECT_PROPERTY_Y ) );
+				y = Integer.parseInt( (String)currentProperties.get( EffectsController.EFFECT_PROPERTY_Y ) );
 
 			if( currentProperties.containsKey( EffectsController.EFFECT_PROPERTY_FRONT_COLOR ) )
-			    rgbFront = Integer.parseInt( currentProperties.get( EffectsController.EFFECT_PROPERTY_FRONT_COLOR) );
+			    rgbFront = Integer.parseInt( (String)currentProperties.get( EffectsController.EFFECT_PROPERTY_FRONT_COLOR) );
 			
 			if( currentProperties.containsKey( EffectsController.EFFECT_PROPERTY_BORDER_COLOR ) )
-			    rgbBorder = Integer.parseInt( currentProperties.get( EffectsController.EFFECT_PROPERTY_BORDER_COLOR ) );
+			    rgbBorder = Integer.parseInt( (String)currentProperties.get( EffectsController.EFFECT_PROPERTY_BORDER_COLOR ) );
 			
 			//create front and border colors
 			frontColor = new Color(rgbFront);
@@ -282,7 +282,7 @@ public class ShowTextEffectDialog extends EffectDialog{
     @Override
     protected void pressedOKButton() {
 	// Create a set of properties, and put the selected value
-	properties = new HashMap<Integer, String>( );
+	properties = new HashMap<Integer, Object>( );
 	properties.put( EffectsController.EFFECT_PROPERTY_TEXT, text.getText() );
 	properties.put( EffectsController.EFFECT_PROPERTY_X, String.valueOf( textPositionPanel.getPositionX( ) ) );
 	properties.put( EffectsController.EFFECT_PROPERTY_Y, String.valueOf( textPositionPanel.getPositionY( ) ) );

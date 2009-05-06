@@ -66,7 +66,7 @@ public class PlayAnimationEffectDialog extends EffectDialog {
 	 * @param currentProperties
 	 *            Set of initial values
 	 */
-	public PlayAnimationEffectDialog( EffectsController effectsController, HashMap<Integer, String> currentProperties ) {
+	public PlayAnimationEffectDialog( EffectsController effectsController, HashMap<Integer, Object> currentProperties ) {
 
 		// Call the super method
 		super( TextConstants.getText( "PlayAnimationEffect.Title" ) , true);
@@ -155,15 +155,15 @@ public class PlayAnimationEffectDialog extends EffectDialog {
 			int y = 0;
 
 			if( currentProperties.containsKey( EffectsController.EFFECT_PROPERTY_PATH ) ) {
-				pathTextField.setText( currentProperties.get( EffectsController.EFFECT_PROPERTY_PATH ) );
+				pathTextField.setText( (String)currentProperties.get( EffectsController.EFFECT_PROPERTY_PATH ) );
 				viewButton.setEnabled( pathTextField.getText( ) != null );
 			}
 
 			if( currentProperties.containsKey( EffectsController.EFFECT_PROPERTY_X ) )
-				x = Integer.parseInt( currentProperties.get( EffectsController.EFFECT_PROPERTY_X ) );
+				x = Integer.parseInt( (String) currentProperties.get( EffectsController.EFFECT_PROPERTY_X ) );
 
 			if( currentProperties.containsKey( EffectsController.EFFECT_PROPERTY_Y ) )
-				y = Integer.parseInt( currentProperties.get( EffectsController.EFFECT_PROPERTY_Y ) );
+				y = Integer.parseInt( (String)currentProperties.get( EffectsController.EFFECT_PROPERTY_Y ) );
 
 			pointPositionPanel = new PositionPanel( new PointImagePanel( ),x,y );
 			//pointPositionPanel.setPosition( x, y );
@@ -189,7 +189,7 @@ public class PlayAnimationEffectDialog extends EffectDialog {
 	@Override
 	protected void pressedOKButton( ) {
 		// Create a set of properties, and put the selected value
-		properties = new HashMap<Integer, String>( );
+		properties = new HashMap<Integer, Object>( );
 		properties.put( EffectsController.EFFECT_PROPERTY_PATH, pathTextField.getText( ) );
 		properties.put( EffectsController.EFFECT_PROPERTY_X, String.valueOf( pointPositionPanel.getPositionX( ) ) );
 		properties.put( EffectsController.EFFECT_PROPERTY_Y, String.valueOf( pointPositionPanel.getPositionY( ) ) );

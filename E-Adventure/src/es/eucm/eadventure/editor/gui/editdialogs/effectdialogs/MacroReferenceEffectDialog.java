@@ -40,7 +40,7 @@ public class MacroReferenceEffectDialog extends EffectDialog {
 	 * @param currentProperties
 	 *            Set of initial values
 	 */
-	public MacroReferenceEffectDialog( HashMap<Integer, String> currentProperties ) {
+	public MacroReferenceEffectDialog( HashMap<Integer, Object> currentProperties ) {
 
 		// Call the super method
 		super( TextConstants.getText( "MacroReferenceEffect.Title" ), false );
@@ -98,7 +98,7 @@ public class MacroReferenceEffectDialog extends EffectDialog {
 	@Override
 	protected void pressedOKButton( ) {
 		// Create a set of properties, and put the selected value
-		properties = new HashMap<Integer, String>( );
+		properties = new HashMap<Integer, Object>( );
 		properties.put( EffectsController.EFFECT_PROPERTY_TARGET, cutscenesComboBox.getSelectedItem( ).toString( ) );
 	}
 

@@ -162,7 +162,7 @@ public class RandomEffectDialog extends EffectDialog{
 
 	@Override
 	protected void pressedOKButton( ) {
-		properties = new HashMap<Integer, String>( );
+		properties = new HashMap<Integer, Object>( );
 		properties.put( SingleEffectController.EFFECT_PROPERTY_PROBABILITY, probabilitySpinner.getValue( ).toString( ) );
 	}
 

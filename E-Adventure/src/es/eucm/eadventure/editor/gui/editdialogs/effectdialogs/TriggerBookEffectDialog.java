@@ -33,7 +33,7 @@ public class TriggerBookEffectDialog extends EffectDialog {
 	 * @param currentProperties
 	 *            Set of initial values
 	 */
-	public TriggerBookEffectDialog( HashMap<Integer, String> currentProperties ) {
+	public TriggerBookEffectDialog( HashMap<Integer, Object> currentProperties ) {
 
 		// Call the super method
 		super( TextConstants.getText( "TriggerBookEffect.Title" ), false );
@@ -83,7 +83,7 @@ public class TriggerBookEffectDialog extends EffectDialog {
 	@Override
 	protected void pressedOKButton( ) {
 		// Create a set of properties, and put the selected value
-		properties = new HashMap<Integer, String>( );
+		properties = new HashMap<Integer, Object>( );
 		properties.put( EffectsController.EFFECT_PROPERTY_TARGET, booksComboBox.getSelectedItem( ).toString( ) );
 	}
 
