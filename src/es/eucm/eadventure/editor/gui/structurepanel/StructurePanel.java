@@ -253,6 +253,16 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
 			    }
 			});
 
+		} else {
+			update();
+			selectedElement = newIndex;
+			if (editorContainer != null) {
+			    editorContainer.removeAll();
+			    editorContainer.add(structureElements.get(newIndex).getEditPanel());
+			    StructureControl.getInstance().visitDataControl(structureElements.get(newIndex).getDataControl());
+			    editorContainer.validate( );
+			    editorContainer.repaint( );
+			}
 		}
 		
 	}

@@ -124,7 +124,7 @@ public class ActionsListDataControl extends DataControl {
 	@Override
 	public int[] getAddableElements( ) {
 		if (parent instanceof ItemDataControl) 
-			return new int[] { Controller.ACTION_EXAMINE, Controller.ACTION_GRAB, Controller.ACTION_USE, Controller.ACTION_CUSTOM, Controller.ACTION_USE_WITH, Controller.ACTION_GIVE_TO};
+			return new int[] { Controller.ACTION_EXAMINE, Controller.ACTION_GRAB, Controller.ACTION_USE, Controller.ACTION_CUSTOM_INTERACT, Controller.ACTION_USE_WITH, Controller.ACTION_GIVE_TO};
 		if (parent instanceof NPCDataControl)
 			return new int[] { Controller.ACTION_EXAMINE, Controller.ACTION_USE, Controller.ACTION_CUSTOM, Controller.ACTION_TALK_TO};
 		return new int[] { Controller.ACTION_EXAMINE, Controller.ACTION_GRAB, Controller.ACTION_USE, Controller.ACTION_CUSTOM, Controller.ACTION_USE_WITH, Controller.ACTION_GIVE_TO, Controller.ACTION_TALK_TO};
@@ -176,7 +176,7 @@ public class ActionsListDataControl extends DataControl {
 				controller.showErrorDialog( TextConstants.getText( "Action.OperationAddAction" ), TextConstants.getText( "Action.ErrorNoItems" ) );
 
 			
-		} else if( type == Controller.ACTION_CUSTOM) {
+		} else if( type == Controller.ACTION_CUSTOM_INTERACT) {
 			String name = JOptionPane.showInputDialog(null, TextConstants.getText("CustomAction.GetNameMessage"), TextConstants.getText("CustomAction.GetNameTitle"), JOptionPane.QUESTION_MESSAGE);
 			if (name.equals("")) {
 				name = "NONAME_" + (new Random()).nextInt(1000);
@@ -215,7 +215,15 @@ public class ActionsListDataControl extends DataControl {
 					controller.showErrorDialog( TextConstants.getText( "Action.OperationAddAction" ), TextConstants.getText( "Action.ErrorNoItems" ) );
 				
 			}
-		} 
+		} else if( type == Controller.ACTION_CUSTOM) {
+			String name = JOptionPane.showInputDialog(null, TextConstants.getText("CustomAction.GetNameMessage"), TextConstants.getText("CustomAction.GetNameTitle"), JOptionPane.QUESTION_MESSAGE);
+			if (name.equals("")) {
+				name = "NONAME_" + (new Random()).nextInt(1000);
+			}
+
+			newAction = new CustomAction( Action.CUSTOM );
+			((CustomAction) newAction).setName(name);
+		}
 
 		// If the type of action is use-with, we must ask for a second item
 		else if( type == Controller.ACTION_USE_WITH ) {

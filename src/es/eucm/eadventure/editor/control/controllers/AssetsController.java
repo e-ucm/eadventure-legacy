@@ -167,16 +167,6 @@ public class AssetsController {
 	private static final int CATEGORIES_COUNT = 11;
 
 	/**
-	 * Path for the assessment files.
-	 */
-	private static final String CATEGORY_ASSESSMENT_FOLDER = "assessment";
-
-	/**
-	 * Path for the adaptation files.
-	 */
-	private static final String CATEGORY_ADAPTATION_FOLDER = "adaptation";
-
-	/**
 	 * Path for the background assets.
 	 */
 	private static final String CATEGORY_BACKGROUND_FOLDER = "assets/background";
@@ -817,39 +807,22 @@ public class AssetsController {
 	 *            Destiny ZIP file
 	 */
 	public static void copyAssets( String sourceFile, String destinyFile ) {
-		//try {
-			// Copy the files for each category
-			for( int i = 0; i < CATEGORIES_COUNT; i++ ) {
-				// Take the source and destiny folders
-				File sourceCategoryPath = new File( sourceFile, getCategoryFolder( i ) );
-				File destinyCategoryPath = new File( destinyFile, getCategoryFolder( i ) );
-
-				// If the source category folder exists
-				if( sourceCategoryPath.exists( ) ) {
-					// For each file in the source category
-					//for( File sourceAssetFile : sourceCategoryPath.listFiles( sourceCategoryPath.getArchiveDetector( ) ) ) {
-					for( File sourceAssetFile : sourceCategoryPath.listFiles( ) ) {
-						// Create the destiny file and copy it
-						File destinyAssetFile = new File( destinyCategoryPath, sourceAssetFile.getName( ) );
-						
-						// Check those are not the same file
-						if ( !sourceAssetFile.getAbsolutePath().toLowerCase().equals(destinyAssetFile.getAbsolutePath().toLowerCase()) ){
-						
-							//If it is a directory, copy its contents (for HTML resources)
-							if (sourceAssetFile.isDirectory( ))
-								sourceAssetFile.copyAllTo( destinyAssetFile );
-							else
-								sourceAssetFile.copyTo( destinyAssetFile );
-						}
-					}
-				}
+		File assets = new File(sourceFile + "/assets");
+		if (assets.exists()) {
+			File destinyAssets = new File(destinyFile + "/assets");
+			if (destinyAssets.exists()) {
+				destinyAssets.deleteAll();
 			}
-
-			// Close the open ZIP files
-			//File.umount( );
-		//} catch( ArchiveException e ) {
-		//	e.printStackTrace( );
-		//}
+			assets.copyAllTo(destinyAssets);
+		}
+		File gui = new File(sourceFile + "/gui");
+		if (gui.exists()) {
+			File destinyGui = new File(destinyFile + "/gui");
+			if (destinyGui.exists()) {
+				destinyGui.deleteAll();
+			}
+			gui.copyAllTo(destinyGui);
+		}
 	}
 
 	/**
