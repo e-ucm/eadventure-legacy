@@ -9,6 +9,7 @@ public class EffectsStructureElement extends StructureElement{
     
     public EffectsStructureElement(StructureListElement parent,String effectName) {
 	super(effectName,null, parent);	
+	icon = EffectsStructurePanel.getEffectIcon(name, EffectsStructurePanel.ICON_SIZE_MEDIUM);
     }
     
     public String getName() {
