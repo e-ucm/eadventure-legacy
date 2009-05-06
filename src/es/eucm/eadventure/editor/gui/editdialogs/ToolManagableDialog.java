@@ -91,7 +91,11 @@ public abstract class ToolManagableDialog extends JDialog implements Updateable,
 	
 	public void windowActivated(WindowEvent e) {}
 
-	public void windowClosed(WindowEvent e) {}
+	public void windowClosed(WindowEvent e) {
+		KeyboardFocusManager.getCurrentKeyboardFocusManager().removeKeyEventDispatcher(undoRedoDispatcher);
+		Controller.getInstance( ).popWindow( );
+		setVisible(false);
+	}
 
 	public void windowDeactivated(WindowEvent e) {}
 
