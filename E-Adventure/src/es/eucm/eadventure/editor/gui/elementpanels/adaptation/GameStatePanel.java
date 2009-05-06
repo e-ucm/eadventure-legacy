@@ -19,7 +19,6 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EtchedBorder;
-import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TableModelEvent;
@@ -48,12 +47,6 @@ class GameStatePanel extends JPanel implements Updateable{
 	 * Adaptation rule data controller.
 	 */
 	private AdaptationRuleDataControl adaptationRuleDataControl;
-
-
-	/**
-	 * Border of the panel
-	 */
-	private TitledBorder border;
 
 	/**
 	 * Table in which the node lines are represented
@@ -99,10 +92,6 @@ class GameStatePanel extends JPanel implements Updateable{
 	public GameStatePanel( AdaptationRuleDataControl adpDataControl ) {
 		// Set the initial values
 		this.adaptationRuleDataControl = adpDataControl;
-
-		// Create and set border (titled border in this case)
-		border = BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( EtchedBorder.LOWERED ), TextConstants.getText( "AdaptationRule.GameState.Title" ), TitledBorder.CENTER, TitledBorder.TOP );
-		setBorder( border );
 
 		// Set a GridBagLayout
 		setLayout( new BorderLayout() );

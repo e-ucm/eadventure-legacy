@@ -37,7 +37,7 @@ public class BooksListPanel extends ElementPanel {
 		private BooksListDataControl sDataControl;
 		
 		public BooksListPanelTab(BooksListDataControl sDataControl) {
-			super(TextConstants.getText( "CutscenesList.Title" ), sDataControl);
+			super(TextConstants.getText( "BooksList.Title" ), sDataControl);
 			this.sDataControl = sDataControl;
 		}
 
