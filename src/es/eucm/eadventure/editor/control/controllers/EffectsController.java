@@ -104,6 +104,21 @@ public class EffectsController {
 	 */
 	public static final int EFFECT_PROPERTY_BORDER_COLOR= 10;
 	
+	/**
+	 * Constant for effect property. Refers to type (ACTIVATE | DEACTIVATE | MOVE-NPC...).
+	 */
+	public static final int EFFECT_PROPERTY_TYPE= 11;
+	
+	/**
+	 * Constant for effect property. Refers to first effect (RandomEffect).
+	 */
+	public static final int EFFECT_PROPERTY_FIRST_EFFECT= 12;
+	
+	/**
+	 * Constant for effect property. Refers to second effect (RandomEffect).
+	 */
+	public static final int EFFECT_PROPERTY_SECOND_EFFECT= 13;
+	
 
 	/**
 	 * Constant to filter the selection of an asset. Used for animations.
@@ -126,6 +141,8 @@ public class EffectsController {
 	protected Effects effects;
 	
 	protected List<ConditionsController> conditionsList; 
+	
+	protected boolean waitingForEffectSelection = false;
 
 	/**
 	 * Constructor.
@@ -284,7 +301,7 @@ public class EffectsController {
 	}
 
 	/**
-	 * Adds a new condition to the block.
+	 * Starts Adding a new condition to the block.
 	 * 
 	 * @return True if an effect was added, false otherwise
 	 */
@@ -292,7 +309,7 @@ public class EffectsController {
 		boolean effectAdded = false;
 
 		// Create a list with the names of the effects (in the same order as the next)
-		final String[] effectNames = { TextConstants.getText( "Effect.Activate" ), TextConstants.getText( "Effect.Deactivate" ),
+		/*final String[] effectNames = { TextConstants.getText( "Effect.Activate" ), TextConstants.getText( "Effect.Deactivate" ),
 				TextConstants.getText( "Effect.SetValue" ), TextConstants.getText( "Effect.IncrementVar" ), TextConstants.getText( "Effect.DecrementVar" ),
 				TextConstants.getText( "Effect.MacroReference" ),
 				TextConstants.getText( "Effect.ConsumeObject" ), TextConstants.getText( "Effect.GenerateObject" ), 
@@ -310,13 +327,14 @@ public class EffectsController {
 				Effect.MACRO_REF, Effect.CONSUME_OBJECT, Effect.GENERATE_OBJECT, Effect.CANCEL_ACTION, Effect.SPEAK_PLAYER, 
 				Effect.SPEAK_CHAR, Effect.TRIGGER_BOOK, Effect.PLAY_SOUND, Effect.PLAY_ANIMATION, Effect.MOVE_PLAYER, Effect.MOVE_NPC, 
 				Effect.TRIGGER_CONVERSATION, Effect.TRIGGER_CUTSCENE, Effect.TRIGGER_SCENE, Effect.TRIGGER_LAST_SCENE, Effect.RANDOM_EFFECT,
-				Effect.SHOW_TEXT,Effect.WAIT_TIME};
+				Effect.SHOW_TEXT,Effect.WAIT_TIME};*/
 
 		// Show a dialog to select the type of the effect
 		//String selectedValue = controller.showInputDialog( TextConstants.getText( "Effects.OperationAddEffect" ), TextConstants.getText( "Effects.SelectEffectType" ), effectNames );
-		String selectedValue = SelectEffectsDialog.getSelectedEffect();
+		//String selectedValue = SelectEffectsDialog.getSelectedEffect();
+		HashMap<Integer, Object> effectProperties = SelectEffectsDialog.getNewEffectProperties(this);
 		// If some effect was selected
-		if( selectedValue != null && 
+		/*if( selectedValue != null && 
 				!selectedValue.equals( TextConstants.getText( "Effect.RandomEffect" ) )) {
 			// Store the type of the effect selected
 			int selectedType = 0;
@@ -329,42 +347,55 @@ public class EffectsController {
 				Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.EffectMovePlayerNotAllowed.Title" ), TextConstants.getText( "Error.EffectMovePlayerNotAllowed.Message" ) );
 			}else{
 				effectProperties = EffectDialog.showAddEffectDialog( this, selectedType );	
-			}
+			}*/
 			
 
+		
 			if( effectProperties != null ) {
+				int selectedType = 0;
+				if (effectProperties.containsKey(EFFECT_PROPERTY_TYPE)){
+					selectedType = Integer.parseInt((String)effectProperties.get(EFFECT_PROPERTY_TYPE));
+				}
+					
 				AbstractEffect newEffect = null;
 
 				// Take all the values from the set
-				String target = effectProperties.get( EFFECT_PROPERTY_TARGET );
-				String path = effectProperties.get( EFFECT_PROPERTY_PATH );
-				String text = effectProperties.get( EFFECT_PROPERTY_TEXT );
-				String value = effectProperties.get( EFFECT_PROPERTY_VALUE );
+				String target = (String)effectProperties.get( EFFECT_PROPERTY_TARGET );
+				String path = (String)effectProperties.get( EFFECT_PROPERTY_PATH );
+				String text = (String)effectProperties.get( EFFECT_PROPERTY_TEXT );
+				String value = (String)effectProperties.get( EFFECT_PROPERTY_VALUE );
 
 				int x = 0;
 				if( effectProperties.containsKey( EFFECT_PROPERTY_X ) )
-					x = Integer.parseInt( effectProperties.get( EFFECT_PROPERTY_X ) );
+					x = Integer.parseInt( (String)effectProperties.get( EFFECT_PROPERTY_X ) );
 
 				int y = 0;
 				if( effectProperties.containsKey( EFFECT_PROPERTY_Y ) )
-					y = Integer.parseInt( effectProperties.get( EFFECT_PROPERTY_Y ) );
+					y = Integer.parseInt( (String)effectProperties.get( EFFECT_PROPERTY_Y ) );
 
 				boolean background = false;
 				if( effectProperties.containsKey( EFFECT_PROPERTY_BACKGROUND ) )
-					background = Boolean.parseBoolean( effectProperties.get( EFFECT_PROPERTY_BACKGROUND ) );
+					background = Boolean.parseBoolean( (String)effectProperties.get( EFFECT_PROPERTY_BACKGROUND ) );
 				
 				int time=0;
 				if ( effectProperties.containsKey( EFFECT_PROPERTY_TIME  ) )
-					time = Integer.parseInt( effectProperties.get( EFFECT_PROPERTY_TIME ) );
+					time = Integer.parseInt( (String)effectProperties.get( EFFECT_PROPERTY_TIME ) );
 
 				int frontColor=0;
 				if ( effectProperties.containsKey( EFFECT_PROPERTY_FRONT_COLOR  ) )
-				    frontColor = Integer.parseInt( effectProperties.get( EFFECT_PROPERTY_FRONT_COLOR ) );
+				    frontColor = Integer.parseInt( (String)effectProperties.get( EFFECT_PROPERTY_FRONT_COLOR ) );
 
 				int borderColor=0;
 				if ( effectProperties.containsKey( EFFECT_PROPERTY_BORDER_COLOR  ) )
-				    borderColor = Integer.parseInt( effectProperties.get( EFFECT_PROPERTY_BORDER_COLOR ) );
-
+				    borderColor = Integer.parseInt( (String)effectProperties.get( EFFECT_PROPERTY_BORDER_COLOR ) );
+				
+				AbstractEffect firstEffect  = null;
+				AbstractEffect secondEffect  = null;
+				if ( effectProperties.containsKey( EFFECT_PROPERTY_FIRST_EFFECT  ) )
+					firstEffect = (AbstractEffect)effectProperties.get(EFFECT_PROPERTY_FIRST_EFFECT );
+				if ( effectProperties.containsKey( EFFECT_PROPERTY_SECOND_EFFECT  ) )
+					secondEffect = (AbstractEffect)effectProperties.get(EFFECT_PROPERTY_SECOND_EFFECT );
+					
 
 				switch( selectedType ) {
 					case Effect.ACTIVATE:
@@ -433,37 +464,29 @@ public class EffectsController {
 						newEffect = new TriggerSceneEffect( target, x, y );
 						break;
 					case Effect.WAIT_TIME:
-					    	newEffect = new WaitTimeEffect(time);
-					    	break;
+					    newEffect = new WaitTimeEffect(time);
+					    break;
 					case Effect.SHOW_TEXT:
-					    	newEffect = new ShowTextEffect(text,x,y,frontColor,borderColor);
-					    	break;
+					    newEffect = new ShowTextEffect(text,x,y,frontColor,borderColor);
+					    break;
+					case Effect.RANDOM_EFFECT:
+						RandomEffect randomEffect = new RandomEffect(50);
+						if (effectProperties.containsKey( EffectsController.EFFECT_PROPERTY_PROBABILITY )){
+							randomEffect.setProbability( Integer.parseInt( (String)effectProperties.get( EFFECT_PROPERTY_PROBABILITY ) ) );
+						}
+						if (firstEffect!=null)
+							randomEffect.setPositiveEffect( firstEffect );
+						
+						if (secondEffect!=null)
+							randomEffect.setNegativeEffect( secondEffect );
+						newEffect = randomEffect;
+						break;
 				}
 				controller.addTool(new AddEffectTool(effects, newEffect,conditionsList));
 				effectAdded = true;
 			}
-		} else if (selectedValue != null){
-			RandomEffect randomEffect = new RandomEffect(50);
-			SingleEffectController posController = new SingleEffectController();
-			SingleEffectController negController = new SingleEffectController();
-			HashMap<Integer, String> effectProperties = EffectDialog.showEditRandomEffectDialog( 50, posController, negController );
-			if (effectProperties != null ){
-				if (effectProperties.containsKey( EffectsController.EFFECT_PROPERTY_PROBABILITY )){
-					randomEffect.setProbability( Integer.parseInt( effectProperties.get( EFFECT_PROPERTY_PROBABILITY ) ) );
-				}
-				if (posController.getEffect( )!=null)
-					randomEffect.setPositiveEffect( posController.getEffect( ) );
-				
-				if (negController.getEffect( )!=null)
-					randomEffect.setNegativeEffect( negController.getEffect( ) );
-				
-				controller.addTool(new AddEffectTool(effects, randomEffect,conditionsList));
-				effectAdded = true;
-			}
+			return effectAdded;
 		}
-
-		return effectAdded;
-	}
 
 	/**
 	 * Deletes the effect in the given position.
@@ -530,7 +553,7 @@ public class EffectsController {
 		int effectType = effect.getType( );
 
 		// Create the hashmap to store the current values
-		HashMap<Integer, String> currentValues = new HashMap<Integer, String>( );
+		HashMap<Integer, Object> currentValues = new HashMap<Integer, Object>( );
 
 		switch( effectType ) {
 			case Effect.ACTIVATE:
@@ -632,7 +655,7 @@ public class EffectsController {
 		}
 
 		// Show the editing dialog
-		HashMap<Integer, String> newProperties = null; 
+		HashMap<Integer, Object> newProperties = null; 
 		SingleEffectController pos = null;
 		SingleEffectController neg = null;
 		

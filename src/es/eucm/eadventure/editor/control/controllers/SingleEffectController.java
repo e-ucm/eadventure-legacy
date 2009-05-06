@@ -100,7 +100,7 @@ public class SingleEffectController extends EffectsController{
 				if( effectNames[i].equals( selectedValue ) )
 					selectedType = effectTypes[i];
 
-			HashMap<Integer, String> effectProperties = null;
+			HashMap<Integer, Object> effectProperties = null;
 			if (selectedType==Effect.MOVE_PLAYER && Controller.getInstance( ).isPlayTransparent( )){
 				Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.EffectMovePlayerNotAllowed.Title" ), TextConstants.getText( "Error.EffectMovePlayerNotAllowed.Message" ) );
 			}else{
@@ -112,37 +112,37 @@ public class SingleEffectController extends EffectsController{
 				AbstractEffect newEffect = null;
 
 				// Take all the values from the set
-				String target = effectProperties.get( EFFECT_PROPERTY_TARGET );
+				String target = (String)effectProperties.get( EFFECT_PROPERTY_TARGET );
 				int value = 0;
 				if (effectProperties.containsKey( EFFECT_PROPERTY_VALUE))
-					value =	Integer.parseInt( effectProperties.get( EFFECT_PROPERTY_VALUE) );
+					value =	Integer.parseInt( (String)effectProperties.get( EFFECT_PROPERTY_VALUE) );
 				
-				String path = effectProperties.get( EFFECT_PROPERTY_PATH );
-				String text = effectProperties.get( EFFECT_PROPERTY_TEXT );
+				String path = (String)effectProperties.get( EFFECT_PROPERTY_PATH );
+				String text = (String)effectProperties.get( EFFECT_PROPERTY_TEXT );
 
 				int x = 0;
 				if( effectProperties.containsKey( EFFECT_PROPERTY_X ) )
-					x = Integer.parseInt( effectProperties.get( EFFECT_PROPERTY_X ) );
+					x = Integer.parseInt((String)effectProperties.get( EFFECT_PROPERTY_X ) );
 
 				int y = 0;
 				if( effectProperties.containsKey( EFFECT_PROPERTY_Y ) )
-					y = Integer.parseInt( effectProperties.get( EFFECT_PROPERTY_Y ) );
+					y = Integer.parseInt( (String)effectProperties.get( EFFECT_PROPERTY_Y ) );
 
 				boolean background = false;
 				if( effectProperties.containsKey( EFFECT_PROPERTY_BACKGROUND ) )
-					background = Boolean.parseBoolean( effectProperties.get( EFFECT_PROPERTY_BACKGROUND ) );
+					background = Boolean.parseBoolean( (String)effectProperties.get( EFFECT_PROPERTY_BACKGROUND ) );
 
 				int time=0;
 				if ( effectProperties.containsKey( EFFECT_PROPERTY_TIME  ) )
-					time = Integer.parseInt( effectProperties.get( EFFECT_PROPERTY_TIME ) );
+					time = Integer.parseInt( (String)effectProperties.get( EFFECT_PROPERTY_TIME ) );
 
 				int frontColor=0;
 				if ( effectProperties.containsKey( EFFECT_PROPERTY_FRONT_COLOR  ) )
-				    frontColor = Integer.parseInt( effectProperties.get( EFFECT_PROPERTY_FRONT_COLOR ) );
+				    frontColor = Integer.parseInt( (String)effectProperties.get( EFFECT_PROPERTY_FRONT_COLOR ) );
 
 				int borderColor=0;
 				if ( effectProperties.containsKey( EFFECT_PROPERTY_BORDER_COLOR  ) )
-				    borderColor = Integer.parseInt( effectProperties.get( EFFECT_PROPERTY_BORDER_COLOR ) );
+				    borderColor = Integer.parseInt( (String)effectProperties.get( EFFECT_PROPERTY_BORDER_COLOR ) );
 
 				
 				switch( selectedType ) {
