@@ -2,11 +2,15 @@ package es.eucm.eadventure.editor.gui.structurepanel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -16,6 +20,7 @@ import javax.swing.event.ListSelectionListener;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.gui.editdialogs.SelectEffectsDialog;
 import es.eucm.eadventure.editor.gui.structurepanel.structureelements.Effects.ChangesInSceneStructureListElement;
 import es.eucm.eadventure.editor.gui.structurepanel.structureelements.Effects.EffectsStructureListElement;
 import es.eucm.eadventure.editor.gui.structurepanel.structureelements.Effects.FeedbackStructureListElement;
@@ -32,7 +37,6 @@ import es.eucm.eadventure.editor.gui.structurepanel.structureelements.Effects.Tr
 public class EffectsStructurePanel extends StructurePanel{
 
    
-
     /**
      * 
      */
@@ -64,60 +68,161 @@ public class EffectsStructurePanel extends StructurePanel{
     
     private EffectInfoPanel infoPanel;
     
-    public EffectsStructurePanel() {
-	
-	super(null);
-	infoPanel = new EffectInfoPanel();
-	recreateElements();
-	StructureControl.getInstance().setStructurePanel(this);
-	
-	changeEffectEditPanel(((EffectsStructureListElement)structureElements.get(0)).getPath());
+    private boolean showAll;
+    
+    private SelectEffectsDialog dialog;
+    
+    /*
+     * Constants for icon size in buttons. Three sizes are available: SMALL (16x16), MEDIUM (32x32) and LARGE (64x64)
+     */
+    public static final int ICON_SIZE_SMALL = 0;
+    public static final int ICON_SIZE_MEDIUM = 1;
+    public static final int ICON_SIZE_LARGE = 2;
+    public static final int ICON_SIZE_LARGE_HOT = 3;
+    
+    private static String getIconBasePath (int size){
+    	if (size == ICON_SIZE_SMALL)
+    		return "img/icons/effects/16x16/";
+    	else if (size == ICON_SIZE_LARGE)
+    		return "img/icons/effects/64x64/";
+    	else if (size == ICON_SIZE_LARGE_HOT)
+    		return "img/icons/effects/64x64-hot/";
+    	else
+    		return "img/icons/effects/32x32/";
+    }
+    
+    public static Icon getEffectIcon(String name, int size){
+
+    	Icon effectIcon = null;
+    	
+	    if (name.equals(TextConstants.getText("Effect.Activate"))){
+	    	effectIcon = new ImageIcon(getIconBasePath(size)+"activate.png");
+	    }else if (name.equals( TextConstants.getText( "Effect.Deactivate" ))){
+	    	effectIcon = new ImageIcon(getIconBasePath(size)+"deactivate.png");
+	    }else if (name.equals( TextConstants.getText( "Effect.SetValue" ))){
+	    	effectIcon = new ImageIcon(getIconBasePath(size)+"set-value.png");
+	    }else if (name.equals( TextConstants.getText( "Effect.IncrementVar" ))){
+	    	effectIcon = new ImageIcon(getIconBasePath(size)+"increment.png");
+	    }else if (name.equals( TextConstants.getText( "Effect.DecrementVar" ))){
+	    	effectIcon = new ImageIcon(getIconBasePath(size)+"decrement.png");
+	    }else if (name.equals( TextConstants.getText(  "Effect.MacroReference" ))){
+	    	effectIcon = new ImageIcon(getIconBasePath(size)+"macro.png");
+	    }else if (name.equals( TextConstants.getText( "Effect.ConsumeObject" ))){
+	    	effectIcon = new ImageIcon(getIconBasePath(size)+"consume-object.png");
+	    }else if (name.equals( TextConstants.getText( "Effect.GenerateObject" ))){
+	    	effectIcon = new ImageIcon(getIconBasePath(size)+"generate-object.png");
+	    }else if (name.equals( TextConstants.getText( "Effect.CancelAction"))){
+	    	effectIcon = new ImageIcon(getIconBasePath(size)+"cancel-action.png");
+	    }else if (name.equals( TextConstants.getText("Effect.SpeakPlayer"))){
+	    	effectIcon = new ImageIcon(getIconBasePath(size)+"speak-player.png");
+	    }else if (name.equals( TextConstants.getText( "Effect.SpeakCharacter" ))){
+	    	effectIcon = new ImageIcon(getIconBasePath(size)+"speak-npc.png");
+	    }else if (name.equals( TextConstants.getText(  "Effect.TriggerBook" ))){
+	    	effectIcon = new ImageIcon(getIconBasePath(size)+"trigger-book.png");
+	    }else if (name.equals( TextConstants.getText( "Effect.PlaySound" ))){
+	    	effectIcon = new ImageIcon(getIconBasePath(size)+"play-sound.png");
+	    }else if (name.equals( TextConstants.getText("Effect.PlayAnimation" ))){
+	    	effectIcon = new ImageIcon(getIconBasePath(size)+"play-animation.png");
+	    }else if (name.equals( TextConstants.getText( "Effect.MovePlayer" ))){
+	    	effectIcon = new ImageIcon(getIconBasePath(size)+"move-player.png");
+	    }else if (name.equals( TextConstants.getText("Effect.MoveCharacter" ))){
+	    	effectIcon = new ImageIcon(getIconBasePath(size)+"move-npc.png");
+	    }else if (name.equals( TextConstants.getText( "Effect.TriggerConversation" ))){
+	    	effectIcon = new ImageIcon(getIconBasePath(size)+"trigger-conversation.png");
+	    }else if (name.equals( TextConstants.getText( "Effect.TriggerCutscene" ))){
+	    	effectIcon = new ImageIcon(getIconBasePath(size)+"trigger-cutscene.png");
+	    }else if (name.equals( TextConstants.getText( "Effect.TriggerScene"))){
+	    	effectIcon = new ImageIcon(getIconBasePath(size)+"trigger-scene.png");
+	    }else if (name.equals( TextConstants.getText( "Effect.TriggerLastScene"))){
+	    	effectIcon = new ImageIcon(getIconBasePath(size)+"trigger-last-scene.png");
+	    }else if (name.equals( TextConstants.getText( "Effect.RandomEffect" ))){
+	    	effectIcon = new ImageIcon(getIconBasePath(size)+"random-effect.png");
+	    }else if (name.equals( TextConstants.getText(  "Effect.ShowText"  ))){
+	    	effectIcon = new ImageIcon(getIconBasePath(size)+"show-text.png");
+	    }else if (name.equals( TextConstants.getText( "Effect.WaitTime" ))){
+	    	effectIcon = new ImageIcon(getIconBasePath(size)+"wait.png");
+	    }else if (name.equals( TextConstants.getText(  "EffectsGroup.GameState"  ))){
+	    	effectIcon = new ImageIcon(getIconBasePath(size)+"game-state.png");
+	    }else if (name.equals( TextConstants.getText(  "EffectsGroup.Multimedia"  ))){
+	    	effectIcon = new ImageIcon(getIconBasePath(size)+"multimedia.png");
+	    }else if (name.equals( TextConstants.getText(  "EffectsGroup.Miscellaneous"  ))){
+	    	effectIcon = new ImageIcon(getIconBasePath(size)+"miscellaneous.png");
+	    }else if (name.equals( TextConstants.getText(  "EffectsGroup.Trigger"  ))){
+	    	effectIcon = new ImageIcon(getIconBasePath(size)+"trigger-events.png");
+	    }else if (name.equals( TextConstants.getText(  "EffectsGroup.Feedback"  ))){
+	    	effectIcon = new ImageIcon(getIconBasePath(size)+"feedback.png");
+	    }else if (name.equals( TextConstants.getText(  "EffectsGroup.ChangeInScene"  ))){
+	    	effectIcon = new ImageIcon(getIconBasePath(size)+"changes-in-scene.png");
+	    }else if (name.equals( TextConstants.getText(  "EffectsGroup.Main.png"  ))){
+	    	effectIcon = new ImageIcon(getIconBasePath(size)+"effects");
+	    }
+	    // when this method is called for structure list effects
+	    else 
+	    	effectIcon = new ImageIcon(getIconBasePath(size)+"effects");
+	    
+	    return effectIcon;
+	    
+	}
+    
+    
+    public EffectsStructurePanel(boolean showAll, SelectEffectsDialog dialog) {
+		super(null, 30, 55);
+		this.showAll = showAll;
+		this.dialog = dialog;
+		infoPanel = new EffectInfoPanel();
+		recreateElements();
+		//StructureControl.getInstance().setStructurePanel(this);
+		
+		changeEffectEditPanel(((EffectsStructureListElement)structureElements.get(0)).getPath());
     }
     
     
     public String getSelectedEffect(){
-	if (selectedElement==0 || list.getSelectedRow()==-1)
-	    return null;
-	return structureElements.get(selectedElement).getChild(list.getSelectedRow()).getName();
+		if (/*selectedElement==0 ||*/ list.getSelectedRow()==-1)
+		    return null;
+		return structureElements.get(selectedElement).getChild(list.getSelectedRow()).getName();
     }
     
     public void recreateElements() {
-	structureElements.clear();
-	structureElements.add(new MainStructureListElement());
-	structureElements.add(new GameStateStructureListElement());
-	structureElements.add(new MultimediaStructureListElement());
-	structureElements.add(new FeedbackStructureListElement());
-	structureElements.add(new TriggerStructureListElement());
-	structureElements.add(new ChangesInSceneStructureListElement());
-	structureElements.add(new MiscelaneousStructureListElement());
-	
-	
-	update();
+		structureElements.clear();
+		if (showAll)
+			structureElements.add(new MainStructureListElement());
+		else {
+			structureElements.add(new GameStateStructureListElement());
+			structureElements.add(new MultimediaStructureListElement());
+			structureElements.add(new FeedbackStructureListElement());
+			structureElements.add(new TriggerStructureListElement());
+			structureElements.add(new ChangesInSceneStructureListElement());
+			structureElements.add(new MiscelaneousStructureListElement());
+		}
+		update();
     }
     public void update() {
-	int i = 0;
-	removeAll();
-	
-	for (StructureListElement element : structureElements) {
-		if (i == selectedElement)
-			add(createSelectedElementPanel(element, i), new Integer(element.getChildCount() != 0 ? -1 : 40));
-		else {
-			button = new JButton(element.getName(), element.getIcon());
-			button.setHorizontalAlignment(SwingConstants.LEFT);
-			Border b1 = BorderFactory.createRaisedBevelBorder();
-	        Border b2 = BorderFactory.createEmptyBorder(3, 10, 3, 10);
-	        button.setBorder(BorderFactory.createCompoundBorder(b1,b2));
-	        button.setContentAreaFilled(false);
-			button.addActionListener(new ListElementButtonActionListener(i));
-			button.setFocusable(false);
-			if (i < selectedElement)
-				add(button, new Integer(25));
-			else if (i > selectedElement)
-				add(button, new Integer(25));
-		} 
-		i++;
-	}
-	this.updateUI();
+		int i = 0;
+		removeAll();
+		
+		for (StructureListElement element : structureElements) {
+			if (i == selectedElement)
+				add(createSelectedElementPanel(element, i), new Integer(element.getChildCount() != 0 ? -1 : 40));
+			else {
+				button = new JButton(element.getName(), element.getIcon());
+				button.setHorizontalAlignment(SwingConstants.LEFT);
+				Border b1 = BorderFactory.createRaisedBevelBorder();
+		        Border b2 = BorderFactory.createEmptyBorder(3, 10, 3, 10);
+		        button.setBorder(BorderFactory.createCompoundBorder(b1,b2));
+		        button.setContentAreaFilled(false);
+				button.addActionListener(new ListElementButtonActionListener(i));
+				button.setFocusable(false);
+				if (i < selectedElement)
+					//add(button, new Integer(selectedElement == 0?15:35));
+					add(button, new Integer(35));
+				else if (i > selectedElement)
+					//add(button, new Integer(selectedElement == 0?15:35));
+					add(button, new Integer(35));
+			} 
+			i++;
+		}
+		this.updateUI();
     }
     
     
@@ -125,6 +230,16 @@ public class EffectsStructurePanel extends StructurePanel{
     protected JPanel createSelectedElementPanel(final StructureListElement element, final int index) {
 	JPanel result = super.createSelectedElementPanel(element, index);
 	button.addActionListener(new ListElementButtonActionListener(index));
+	list.addMouseListener(new MouseAdapter(){
+		public void mouseClicked ( MouseEvent e ){
+			if (e.getClickCount() == 2){
+				//StructureElementRenderer elementRenderer = (StructureElementRenderer)list.getCellRenderer(list.getSelectedRow(), 0);
+				//StructureElement element = (StructureElement)elementRenderer.getCellEditorValue();
+				dialog.setOk(true);
+				//System.out.println(element.getName());
+			}
+		}
+	});
 	list.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 		public void valueChanged(ListSelectionEvent e) {
 			if (list.getSelectedRow() >= 0) {

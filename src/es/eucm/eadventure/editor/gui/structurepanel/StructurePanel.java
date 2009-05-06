@@ -55,6 +55,9 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
 
 	private static final long serialVersionUID = -1768584184321389780L;
 	
+	public static final int NORMAL_ROW_SIZE=20;
+	public static final int SELECTED_ROW_SIZE=70;
+	
 	private static final int INCREMENT = 5;
 	
 	private static final int UNSELECTED_BUTTON_HEIGHT = 35;
@@ -73,7 +76,15 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
 	protected JTable list;
 	
 	protected JButton button;
-		
+	
+	protected int normalRowSize;
+	
+	protected int selectedRowSize;
+
+	public StructurePanel(Container editorContainer ) {
+		this (editorContainer, NORMAL_ROW_SIZE, SELECTED_ROW_SIZE );
+	}
+	
 	private Image image;
 	
 	private Image basicImage;
@@ -88,8 +99,10 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
 	
 	private int cont;
 	
-	public StructurePanel(Container editorContainer) {
+	public StructurePanel(Container editorContainer,int normalRowSize, int selectedRowSize) {
 		this.editorContainer = editorContainer;
+		this.normalRowSize = normalRowSize;
+		this.selectedRowSize = selectedRowSize;
 		this.selectedElement = 0;
 		this.setLayout(new StructurePanelLayout());
 		structureElements = new ArrayList<StructureListElement>();
@@ -336,15 +349,15 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
 		list.getColumnModel().getColumn(0).setCellEditor(renderer);
 		list.setCellSelectionEnabled(true);
 		list.setShowHorizontalLines(true);
-		list.setRowHeight(20);
+		list.setRowHeight(normalRowSize);
 		list.setTableHeader(null);
 		list.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
 		list.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
 				setCursor(new Cursor(Cursor.WAIT_CURSOR));
 				if (list.getSelectedRow() >= 0) {
-					list.setRowHeight(20);
-					list.setRowHeight(list.getSelectedRow(), 70);
+					list.setRowHeight(normalRowSize);
+					list.setRowHeight(list.getSelectedRow(), selectedRowSize);
 					list.editCellAt(list.getSelectedRow(), 0);
 					if (editorContainer!=null){
 					    editorContainer.removeAll();
