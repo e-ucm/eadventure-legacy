@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+
 import es.eucm.eadventure.common.data.chapter.effects.AbstractEffect;
 import es.eucm.eadventure.common.data.chapter.effects.ActivateEffect;
 import es.eucm.eadventure.common.data.chapter.effects.CancelActionEffect;
@@ -193,6 +196,94 @@ public class EffectsController {
 		} else
 			return null;
 	}
+	
+	/**
+	 * Returns the icon of the effect in the given position.
+	 * 
+	 * @param index
+	 *            Position of the effect
+	 * @return Icon of the effect
+	 */
+	public Icon getEffectIcon( int index ) {
+		Icon icon = null;
+		if (index>=0 && index<effects.getEffects().size()){
+			AbstractEffect effect = effects.getEffects().get( index );
+			switch( effect.getType( ) ) {
+			case Effect.ACTIVATE:
+				icon = new ImageIcon("img/icons/effects/16x16/activate.png");
+				break;
+			case Effect.DEACTIVATE:
+				icon = new ImageIcon("img/icons/effects/16x16/deactivate.png");
+				break;
+			case Effect.SET_VALUE:
+				icon = new ImageIcon("img/icons/effects/16x16/set-value.png");				
+				break;				
+			case Effect.INCREMENT_VAR:
+				icon = new ImageIcon("img/icons/effects/16x16/increment.png");
+				break;
+			case Effect.DECREMENT_VAR:
+				icon = new ImageIcon("img/icons/effects/16x16/decrement.png");
+				break;
+			case Effect.MACRO_REF:
+				icon = new ImageIcon("img/icons/effects/16x16/macro.png");
+				break;				
+			case Effect.CONSUME_OBJECT:
+				icon = new ImageIcon("img/icons/effects/16x16/consume-object.png");
+				break;
+			case Effect.GENERATE_OBJECT:
+				icon = new ImageIcon("img/icons/effects/16x16/generate-object.png");
+				break;
+			case Effect.CANCEL_ACTION:
+				icon = new ImageIcon("img/icons/effects/16x16/cancel-action.png");
+				break;
+			case Effect.SPEAK_PLAYER:
+				icon = new ImageIcon("img/icons/effects/16x16/speak-player.png");
+				break;
+			case Effect.SPEAK_CHAR:
+				icon = new ImageIcon("img/icons/effects/16x16/speak-npc.png");
+				break;
+			case Effect.TRIGGER_BOOK:
+				icon = new ImageIcon("img/icons/effects/16x16/trigger-book.png");
+				break;
+			case Effect.PLAY_SOUND:
+				icon = new ImageIcon("img/icons/effects/16x16/play-sound.png");
+				break;
+			case Effect.PLAY_ANIMATION:
+				icon = new ImageIcon("img/icons/effects/16x16/play-animation.png");
+				break;
+			case Effect.MOVE_PLAYER:
+				icon = new ImageIcon("img/icons/effects/16x16/move-player.png");
+				break;
+			case Effect.MOVE_NPC:
+				icon = new ImageIcon("img/icons/effects/16x16/move-npc.png");
+				break;
+			case Effect.TRIGGER_CONVERSATION:
+				icon = new ImageIcon("img/icons/effects/16x16/trigger-conversation.png");
+				break;
+			case Effect.TRIGGER_CUTSCENE:
+				icon = new ImageIcon("img/icons/effects/16x16/trigger-cutscene.png");
+				break;
+			case Effect.TRIGGER_SCENE:
+				icon = new ImageIcon("img/icons/effects/16x16/trigger-scene.png");
+				break;
+			case Effect.TRIGGER_LAST_SCENE:
+				icon = new ImageIcon("img/icons/effects/16x16/trigger-last-scene.png");
+				break;
+			case Effect.RANDOM_EFFECT:
+				icon = new ImageIcon("img/icons/effects/16x16/random-effect.png");
+				break;
+			case Effect.WAIT_TIME:
+				icon = new ImageIcon("img/icons/effects/16x16/wait.png");
+			    break;
+			case Effect.SHOW_TEXT:
+				icon = new ImageIcon("img/icons/effects/16x16/show-text.png");
+			    break;
+			}
+		
+		}
+		return icon;
+	}
+	
 	protected static String getEffectInfo( AbstractEffect effect ) {
 		String effectInfo = null;
 
