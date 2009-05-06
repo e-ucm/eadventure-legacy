@@ -1,6 +1,7 @@
 package es.eucm.eadventure.editor.gui.editdialogs;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.Window;
@@ -11,6 +12,7 @@ import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 
 public class GenericOptionPaneDialog extends ToolManagableDialog{
@@ -19,8 +21,6 @@ public class GenericOptionPaneDialog extends ToolManagableDialog{
      * 
      */
     private static final long serialVersionUID = 1L;
-    
-    private static final int MULTIPLIER_TEXT = 7;
     
     private JOptionPane optionPane;
     
@@ -50,24 +50,13 @@ public class GenericOptionPaneDialog extends ToolManagableDialog{
 		    });
 	    
 	    setResizable( false );
-	    if (((String)message).indexOf("\n")!=-1){
-		String[] split = ((String)message).split("\n");
-		int maxLenthIndex=0;
-		int maxLenth=-1;
-		for (int i=0;i<split.length;i++){
-		    if (split[i].length()>maxLenth){
-			maxLenthIndex=i;
-			maxLenth=split[i].length();
-		    }
-		}
-		message = split[maxLenthIndex];
-	    }
-	    int xSize = ((String)message).length()*MULTIPLIER_TEXT;
-		setSize( xSize,120 );
-		Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
-		setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
-		//setVisible(true);
-		
+	 
+	    
+	    this.pack();
+	   
+	    Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
+	    setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
+				
     }
     
     public GenericOptionPaneDialog(Window window, String title, Object message,int messageType,int optionType){
@@ -119,7 +108,13 @@ public class GenericOptionPaneDialog extends ToolManagableDialog{
 	optionPane.setInitialSelectionValue(initialValue);
 	optionPane.selectInitialValue();
 	optionPane.setComponentOrientation(window.getComponentOrientation());
-	optionPane.setVisible(true);
+	
+	optionPane.setMinimumSize(new Dimension(200,250));
+	 Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
+	 optionPane.setLocation( ( screenSize.width - optionPane.getWidth( ) ) / 2, ( screenSize.height - optionPane.getHeight( ) ) / 2 );
+	optionPane.setVisible(true);	
+	
+	
 	Object value = optionPane.getInputValue();
 	if ( value == JOptionPane.UNINITIALIZED_VALUE)
 	    return null;
