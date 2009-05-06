@@ -40,17 +40,17 @@ public class ReplaceEffectTool extends Tool{
 
 	protected Effects effects;
 	protected AbstractEffect effect;
-	protected HashMap<Integer, String> newProperties;
+	protected HashMap<Integer, Object> newProperties;
 	protected AbstractEffect oldEffect;
 	
 	protected AbstractEffect pos;
 	protected AbstractEffect neg;
 	
-	public ReplaceEffectTool (Effects effects, AbstractEffect effect, HashMap<Integer, String> newProperties){
+	public ReplaceEffectTool (Effects effects, AbstractEffect effect, HashMap<Integer, Object> newProperties){
 		this(effects,effect,newProperties,null,null);
 	}
 	
-	public ReplaceEffectTool (Effects effects, AbstractEffect effect, HashMap<Integer, String> newProperties, AbstractEffect pos, AbstractEffect neg){
+	public ReplaceEffectTool (Effects effects, AbstractEffect effect, HashMap<Integer, Object> newProperties, AbstractEffect pos, AbstractEffect neg){
 		this.effects = effects;
 		this.effect = effect;
 		this.pos = pos;
@@ -90,105 +90,105 @@ public class ReplaceEffectTool extends Tool{
 			switch( effectType ) {
 				case Effect.ACTIVATE:
 					ActivateEffect activateEffect = (ActivateEffect) effect;
-					activateEffect.setTargetId( newProperties.get( EffectsController.EFFECT_PROPERTY_TARGET ) );
+					activateEffect.setTargetId( (String)newProperties.get( EffectsController.EFFECT_PROPERTY_TARGET ) );
 					Controller.getInstance( ).updateFlagSummary( );
 					break;
 				case Effect.DEACTIVATE:
 					DeactivateEffect deactivateEffect = (DeactivateEffect) effect;
-					deactivateEffect.setTargetId( newProperties.get( EffectsController.EFFECT_PROPERTY_TARGET ) );
+					deactivateEffect.setTargetId( (String)newProperties.get( EffectsController.EFFECT_PROPERTY_TARGET ) );
 					Controller.getInstance( ).updateFlagSummary( );
 					break;
 				case Effect.SET_VALUE:
 					SetValueEffect setValueEffect = (SetValueEffect) effect;
-					setValueEffect.setTargetId( newProperties.get( EffectsController.EFFECT_PROPERTY_TARGET ) );
-					setValueEffect.setValue( Integer.parseInt( newProperties.get( EffectsController.EFFECT_PROPERTY_VALUE ) ) );
+					setValueEffect.setTargetId( (String)newProperties.get( EffectsController.EFFECT_PROPERTY_TARGET ) );
+					setValueEffect.setValue( Integer.parseInt( (String)newProperties.get( EffectsController.EFFECT_PROPERTY_VALUE ) ) );
 					Controller.getInstance( ).updateFlagSummary( );
 					break;
 				case Effect.INCREMENT_VAR:
 					IncrementVarEffect incrementVarEffect = (IncrementVarEffect) effect;
-					incrementVarEffect.setTargetId( newProperties.get( EffectsController.EFFECT_PROPERTY_TARGET ) );
-					incrementVarEffect.setIncrement( Integer.parseInt( newProperties.get( EffectsController.EFFECT_PROPERTY_VALUE ) ) );
+					incrementVarEffect.setTargetId( (String)newProperties.get( EffectsController.EFFECT_PROPERTY_TARGET ) );
+					incrementVarEffect.setIncrement( Integer.parseInt((String) newProperties.get( EffectsController.EFFECT_PROPERTY_VALUE ) ) );
 					Controller.getInstance( ).updateFlagSummary( );
 					break;
 				case Effect.DECREMENT_VAR:
 					DecrementVarEffect decrementVarEffect = (DecrementVarEffect) effect;
-					decrementVarEffect.setTargetId( newProperties.get( EffectsController.EFFECT_PROPERTY_TARGET ) );
-					decrementVarEffect.setDecrement( Integer.parseInt( newProperties.get( EffectsController.EFFECT_PROPERTY_VALUE ) ) );
+					decrementVarEffect.setTargetId( (String)newProperties.get( EffectsController.EFFECT_PROPERTY_TARGET ) );
+					decrementVarEffect.setDecrement( Integer.parseInt( (String)newProperties.get( EffectsController.EFFECT_PROPERTY_VALUE ) ) );
 					Controller.getInstance( ).updateFlagSummary( );
 					break;
 				case Effect.MACRO_REF:
 					MacroReferenceEffect macroEffect = (MacroReferenceEffect) effect;
-					macroEffect.setTargetId( newProperties.get( EffectsController.EFFECT_PROPERTY_TARGET ) );
+					macroEffect.setTargetId( (String)newProperties.get( EffectsController.EFFECT_PROPERTY_TARGET ) );
 					break;
 				case Effect.CONSUME_OBJECT:
 					ConsumeObjectEffect consumeObjectEffect = (ConsumeObjectEffect) effect;
-					consumeObjectEffect.setTargetId( newProperties.get( EffectsController.EFFECT_PROPERTY_TARGET ) );
+					consumeObjectEffect.setTargetId( (String)newProperties.get( EffectsController.EFFECT_PROPERTY_TARGET ) );
 					break;
 				case Effect.GENERATE_OBJECT:
 					GenerateObjectEffect generateObjectEffect = (GenerateObjectEffect) effect;
-					generateObjectEffect.setTargetId( newProperties.get( EffectsController.EFFECT_PROPERTY_TARGET ) );
+					generateObjectEffect.setTargetId( (String)newProperties.get( EffectsController.EFFECT_PROPERTY_TARGET ) );
 					break;
 				case Effect.SPEAK_PLAYER:
 					SpeakPlayerEffect speakPlayerEffect = (SpeakPlayerEffect) effect;
-					speakPlayerEffect.setLine( newProperties.get( EffectsController.EFFECT_PROPERTY_TEXT ) );
+					speakPlayerEffect.setLine( (String)newProperties.get( EffectsController.EFFECT_PROPERTY_TEXT ) );
 					break;
 				case Effect.SPEAK_CHAR:
 					SpeakCharEffect speakCharEffect = (SpeakCharEffect) effect;
-					speakCharEffect.setTargetId( newProperties.get( EffectsController.EFFECT_PROPERTY_TARGET ) );
-					speakCharEffect.setLine( newProperties.get( EffectsController.EFFECT_PROPERTY_TEXT ) );
+					speakCharEffect.setTargetId( (String)newProperties.get( EffectsController.EFFECT_PROPERTY_TARGET ) );
+					speakCharEffect.setLine( (String)newProperties.get( EffectsController.EFFECT_PROPERTY_TEXT ) );
 					break;
 				case Effect.TRIGGER_BOOK:
 					TriggerBookEffect triggerBookEffect = (TriggerBookEffect) effect;
-					triggerBookEffect.setTargetId( newProperties.get( EffectsController.EFFECT_PROPERTY_TARGET ) );
+					triggerBookEffect.setTargetId( (String)newProperties.get( EffectsController.EFFECT_PROPERTY_TARGET ) );
 					break;
 				case Effect.PLAY_SOUND:
 					PlaySoundEffect playSoundEffect = (PlaySoundEffect) effect;
-					playSoundEffect.setPath( newProperties.get( EffectsController.EFFECT_PROPERTY_PATH ) );
-					playSoundEffect.setBackground( Boolean.parseBoolean( newProperties.get( EffectsController.EFFECT_PROPERTY_BACKGROUND ) ) );
+					playSoundEffect.setPath( (String)newProperties.get( EffectsController.EFFECT_PROPERTY_PATH ) );
+					playSoundEffect.setBackground( Boolean.parseBoolean( (String)newProperties.get( EffectsController.EFFECT_PROPERTY_BACKGROUND ) ) );
 					break;
 				case Effect.PLAY_ANIMATION:
 					PlayAnimationEffect playAnimationEffect = (PlayAnimationEffect) effect;
-					playAnimationEffect.setPath( newProperties.get( EffectsController.EFFECT_PROPERTY_PATH ) );
-					playAnimationEffect.setDestiny( Integer.parseInt( newProperties.get( EffectsController.EFFECT_PROPERTY_X ) ), Integer.parseInt( newProperties.get( EffectsController.EFFECT_PROPERTY_Y ) ) );
+					playAnimationEffect.setPath( (String)newProperties.get( EffectsController.EFFECT_PROPERTY_PATH ) );
+					playAnimationEffect.setDestiny( Integer.parseInt( (String)newProperties.get( EffectsController.EFFECT_PROPERTY_X ) ), Integer.parseInt( (String)newProperties.get( EffectsController.EFFECT_PROPERTY_Y ) ) );
 					break;
 				case Effect.MOVE_PLAYER:
 					MovePlayerEffect movePlayerEffect = (MovePlayerEffect) effect;
-					movePlayerEffect.setDestiny( Integer.parseInt( newProperties.get( EffectsController.EFFECT_PROPERTY_X ) ), Integer.parseInt( newProperties.get( EffectsController.EFFECT_PROPERTY_Y ) ) );
+					movePlayerEffect.setDestiny( Integer.parseInt( (String)newProperties.get( EffectsController.EFFECT_PROPERTY_X ) ), Integer.parseInt( (String)newProperties.get( EffectsController.EFFECT_PROPERTY_Y ) ) );
 					break;
 				case Effect.MOVE_NPC:
 					MoveNPCEffect moveNPCEffect = (MoveNPCEffect) effect;
-					moveNPCEffect.setTargetId( newProperties.get( EffectsController.EFFECT_PROPERTY_TARGET ) );
-					moveNPCEffect.setDestiny( Integer.parseInt( newProperties.get( EffectsController.EFFECT_PROPERTY_X ) ), Integer.parseInt( newProperties.get( EffectsController.EFFECT_PROPERTY_Y ) ) );
+					moveNPCEffect.setTargetId( (String)newProperties.get( EffectsController.EFFECT_PROPERTY_TARGET ) );
+					moveNPCEffect.setDestiny( Integer.parseInt( (String)newProperties.get( EffectsController.EFFECT_PROPERTY_X ) ), Integer.parseInt( (String)newProperties.get( EffectsController.EFFECT_PROPERTY_Y ) ) );
 					break;
 				case Effect.TRIGGER_CONVERSATION:
 					TriggerConversationEffect triggerConversationEffect = (TriggerConversationEffect) effect;
-					triggerConversationEffect.setTargetId( newProperties.get( EffectsController.EFFECT_PROPERTY_TARGET ) );
+					triggerConversationEffect.setTargetId( (String)newProperties.get( EffectsController.EFFECT_PROPERTY_TARGET ) );
 					break;
 				case Effect.TRIGGER_CUTSCENE:
 					TriggerCutsceneEffect triggerCutsceneEffect = (TriggerCutsceneEffect) effect;
-					triggerCutsceneEffect.setTargetId( newProperties.get( EffectsController.EFFECT_PROPERTY_TARGET ) );
+					triggerCutsceneEffect.setTargetId( (String)newProperties.get( EffectsController.EFFECT_PROPERTY_TARGET ) );
 					break;
 				case Effect.TRIGGER_SCENE:
 					TriggerSceneEffect triggerSceneEffect = (TriggerSceneEffect) effect;
-					triggerSceneEffect.setTargetId( newProperties.get( EffectsController.EFFECT_PROPERTY_TARGET ) );
-					triggerSceneEffect.setPosition( Integer.parseInt( newProperties.get( EffectsController.EFFECT_PROPERTY_X ) ), Integer.parseInt( newProperties.get( EffectsController.EFFECT_PROPERTY_Y ) ) );
+					triggerSceneEffect.setTargetId( (String)newProperties.get( EffectsController.EFFECT_PROPERTY_TARGET ) );
+					triggerSceneEffect.setPosition( Integer.parseInt( (String)newProperties.get( EffectsController.EFFECT_PROPERTY_X ) ), Integer.parseInt( (String)newProperties.get( EffectsController.EFFECT_PROPERTY_Y ) ) );
 					break;
 				case Effect.RANDOM_EFFECT:
 					RandomEffect randomEffect = (RandomEffect) effect;
-					randomEffect.setProbability( Integer.parseInt( newProperties.get( EffectsController.EFFECT_PROPERTY_PROBABILITY )  ) );
+					randomEffect.setProbability( Integer.parseInt( (String)newProperties.get( EffectsController.EFFECT_PROPERTY_PROBABILITY )  ) );
 					randomEffect.setPositiveEffect( pos );
 					randomEffect.setNegativeEffect( neg );
 					break;
 				case Effect.WAIT_TIME:
 				    	WaitTimeEffect waitTimeEffect = (WaitTimeEffect)effect;
-				    	waitTimeEffect.setTime(Integer.parseInt(newProperties.get( EffectsController.EFFECT_PROPERTY_TIME )  ) );
+				    	waitTimeEffect.setTime(Integer.parseInt((String)newProperties.get( EffectsController.EFFECT_PROPERTY_TIME )  ) );
 				    	break;
 				case Effect.SHOW_TEXT:
 				    	ShowTextEffect showTextEffect = (ShowTextEffect)effect;
-				    	showTextEffect.setText(newProperties.get( EffectsController.EFFECT_PROPERTY_TEXT )  );
-				    	showTextEffect.setTextPosition(Integer.parseInt(newProperties.get( EffectsController.EFFECT_PROPERTY_X )  ), Integer.parseInt(newProperties.get( EffectsController.EFFECT_PROPERTY_Y )  ));
-				    	showTextEffect.setRgbFrontColor(Integer.parseInt(newProperties.get( EffectsController.EFFECT_PROPERTY_FRONT_COLOR )  ));
-				    	showTextEffect.setRgbBorderColor(Integer.parseInt(newProperties.get( EffectsController.EFFECT_PROPERTY_BORDER_COLOR )));
+				    	showTextEffect.setText((String)newProperties.get( EffectsController.EFFECT_PROPERTY_TEXT )  );
+				    	showTextEffect.setTextPosition(Integer.parseInt((String)newProperties.get( EffectsController.EFFECT_PROPERTY_X )  ), Integer.parseInt((String)newProperties.get( EffectsController.EFFECT_PROPERTY_Y )  ));
+				    	showTextEffect.setRgbFrontColor(Integer.parseInt((String)newProperties.get( EffectsController.EFFECT_PROPERTY_FRONT_COLOR )  ));
+				    	showTextEffect.setRgbBorderColor(Integer.parseInt((String)newProperties.get( EffectsController.EFFECT_PROPERTY_BORDER_COLOR )));
 				    	break;
 			}
 			effectEdited = true;
