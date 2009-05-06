@@ -12,11 +12,13 @@ import javax.swing.JTextField;
 
 import es.eucm.eadventure.common.data.Described;
 import es.eucm.eadventure.common.data.Detailed;
+import es.eucm.eadventure.common.data.Named;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.tools.listeners.DescriptionChangeListener;
 import es.eucm.eadventure.editor.control.tools.listeners.DetailedDescriptionChangeListener;
+import es.eucm.eadventure.editor.control.tools.listeners.NameChangeListener;
 
 /**
  * This class is the editing dialog for the effects. Here the user can add effects to the events of the script.
@@ -29,6 +31,8 @@ public class DocumentationDialog extends ToolManagableDialog {
 	 * Required.
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private JTextField nameTextField;
 	
 	/**
 	 * Text field for the description.
@@ -49,7 +53,7 @@ public class DocumentationDialog extends ToolManagableDialog {
 	 *            Controller for the conditions
 	 */
 	public DocumentationDialog( DataControl dataControl ) {
-		super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "Documentation.Title" ), false );//, Dialog.ModalityType.APPLICATION_MODAL );
+		super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "ActiveAreasList.Documentation" ), false );//, Dialog.ModalityType.APPLICATION_MODAL );
 		this.dataControl = dataControl;
 		setLayout( new GridBagLayout( ) );
 		GridBagConstraints cDoc = new GridBagConstraints( );
@@ -60,6 +64,17 @@ public class DocumentationDialog extends ToolManagableDialog {
 		cDoc.gridx = 0;
 		cDoc.gridy = 0;
 		
+		if (dataControl.getContent() instanceof Named) {
+			JPanel descriptionPanel = new JPanel( );
+			descriptionPanel.setLayout( new GridLayout( ) );
+			nameTextField = new JTextField( ((Described) dataControl.getContent()).getDescription() );
+			nameTextField.getDocument().addDocumentListener(new NameChangeListener(nameTextField, (Named) dataControl.getContent()));
+			descriptionPanel.add( nameTextField );
+			descriptionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Item.Name" ) ) );
+			add( descriptionPanel, cDoc );
+			cDoc.gridy++;
+		}
+
 		if (dataControl.getContent() instanceof Described) {
 			JPanel descriptionPanel = new JPanel( );
 			descriptionPanel.setLayout( new GridLayout( ) );
@@ -93,6 +108,8 @@ public class DocumentationDialog extends ToolManagableDialog {
 			this.descriptionTextField.setText(((Described) dataControl.getContent()).getDescription());
 		if (detailedDescriptionTextField != null)
 			this.detailedDescriptionTextField.setText(((Detailed) dataControl.getContent()).getDetailedDescription());
+		if (nameTextField != null)
+			this.nameTextField.setText(((Named) dataControl.getContent()).getName());
 		return true;
 	}
 }

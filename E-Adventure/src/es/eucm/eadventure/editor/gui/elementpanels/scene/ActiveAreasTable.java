@@ -53,24 +53,21 @@ public class ActiveAreasTable extends JTable {
 		this.getColumnModel().getColumn(0).setCellEditor(new StringCellRendererEditor());
 		this.getColumnModel().getColumn(0).setCellRenderer(new StringCellRendererEditor());
 		
-		this.getColumnModel().getColumn(1).setCellEditor(new StringCellRendererEditor());
-		this.getColumnModel().getColumn(1).setCellRenderer(new StringCellRendererEditor());
-
-		this.getColumnModel().getColumn(2).setCellRenderer(new ConditionsCellRendererEditor());
-		this.getColumnModel().getColumn(2).setCellEditor(new ConditionsCellRendererEditor());
-		this.getColumnModel().getColumn(2).setMaxWidth(120);
-		this.getColumnModel().getColumn(2).setMinWidth(120);
+		this.getColumnModel().getColumn(1).setCellRenderer(new ConditionsCellRendererEditor());
+		this.getColumnModel().getColumn(1).setCellEditor(new ConditionsCellRendererEditor());
+		this.getColumnModel().getColumn(1).setMaxWidth(120);
+		this.getColumnModel().getColumn(1).setMinWidth(120);
 		
 		String text = TextConstants.getText("ActiveAreasList.EditActions");
-		this.getColumnModel().getColumn(3).setCellRenderer(new AuxEditCellRendererEditor(previewAuxSplit, ActiveAreasListPanel.VERTICAL_SPLIT_POSITION, text));
-		this.getColumnModel().getColumn(3).setCellEditor(new AuxEditCellRendererEditor(previewAuxSplit, ActiveAreasListPanel.VERTICAL_SPLIT_POSITION, text));
-		this.getColumnModel().getColumn(3).setMaxWidth(105);
-		this.getColumnModel().getColumn(3).setMinWidth(105);
+		this.getColumnModel().getColumn(2).setCellRenderer(new AuxEditCellRendererEditor(previewAuxSplit, ActiveAreasListPanel.VERTICAL_SPLIT_POSITION, text));
+		this.getColumnModel().getColumn(2).setCellEditor(new AuxEditCellRendererEditor(previewAuxSplit, ActiveAreasListPanel.VERTICAL_SPLIT_POSITION, text));
+		this.getColumnModel().getColumn(2).setMaxWidth(105);
+		this.getColumnModel().getColumn(2).setMinWidth(105);
 
-		this.getColumnModel().getColumn(4).setCellRenderer(new DocumentationCellRendererEditor());
-		this.getColumnModel().getColumn(4).setCellEditor(new DocumentationCellRendererEditor());
-		this.getColumnModel().getColumn(4).setMaxWidth(140);
-		this.getColumnModel().getColumn(4).setMinWidth(140);
+		this.getColumnModel().getColumn(3).setCellRenderer(new DocumentationCellRendererEditor());
+		this.getColumnModel().getColumn(3).setCellEditor(new DocumentationCellRendererEditor());
+		this.getColumnModel().getColumn(3).setMaxWidth(140);
+		this.getColumnModel().getColumn(3).setMinWidth(140);
 		
 		this.getSelectionModel( ).setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
 		
@@ -92,7 +89,7 @@ public class ActiveAreasTable extends JTable {
 		private static final long serialVersionUID = 1L;
 		
 		public int getColumnCount( ) {
-			return 5;
+			return 4;
 		}
 
 		public int getRowCount( ) {
@@ -103,10 +100,8 @@ public class ActiveAreasTable extends JTable {
 			if (columnIndex == 0)
 				return dataControl.getActiveAreas().get(rowIndex).getId();
 			if (columnIndex == 1)
-				return dataControl.getActiveAreas().get(rowIndex).getName();
-			if (columnIndex == 2)
 				return dataControl.getActiveAreas().get(rowIndex).getConditions();
-			if (columnIndex == 4)
+			if (columnIndex == 3)
 				return dataControl.getActiveAreas().get(rowIndex);
 			return null;
 		}
@@ -116,21 +111,17 @@ public class ActiveAreasTable extends JTable {
 			if (columnIndex == 0)
 				return TextConstants.getText( "ActiveAreasList.Id" );
 			if (columnIndex == 1)
-				return TextConstants.getText( "ActiveAreasList.Name" );
-			if (columnIndex == 2)
 				return TextConstants.getText( "ActiveAreasList.Conditions" );
-			if (columnIndex == 3)
+			if (columnIndex == 2)
 				return TextConstants.getText( "ActiveAreasList.Actions");
-			if (columnIndex == 4)
+			if (columnIndex == 3)
 				return TextConstants.getText( "ActiveAreasList.Documentation");
 			return "";
 		}
 		
 		@Override
 		public void setValueAt(Object value, int rowIndex, int columnIndex) {
-			if (columnIndex == 1) {
-				dataControl.getActiveAreas().get(rowIndex).setName((String) value);
-			} else if (columnIndex == 0) {
+			if (columnIndex == 0) {
 				Controller.getInstance().addTool(new RenameElementTool(dataControl.getActiveAreas().get(rowIndex), (String) value));
 			}
 		}
