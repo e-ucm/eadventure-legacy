@@ -7,6 +7,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -163,6 +164,7 @@ public abstract class PanelTab implements Updateable {
 			infoButton.setContentAreaFilled( false );
 			infoButton.setMargin( new Insets(0,0,0,0) );
 			infoButton.setFocusable(false);
+			infoButton.setBorder(BorderFactory.createEmptyBorder());
 			c.gridx = 1;
 			panel.add(infoButton, c);
 			infoButton.addActionListener(new ActionListener() {

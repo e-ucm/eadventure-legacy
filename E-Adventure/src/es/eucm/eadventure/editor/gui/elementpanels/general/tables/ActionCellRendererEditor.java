@@ -30,18 +30,15 @@ public class ActionCellRendererEditor extends AbstractCellEditor implements Tabl
 	
 	private ActionDataControl value;
 	
-	@Override
 	public Object getCellEditorValue() {
 		return value;
 	}
 	
-	@Override
 	public Component getTableCellEditorComponent(JTable table, Object value2, boolean isSelected, int row, int col) {
 		this.value = (ActionDataControl) value2;
 		return createComponent(isSelected, table);
 	}
 
-	@Override
 	public Component getTableCellRendererComponent(JTable table, Object value2, boolean isSelected, boolean hasFocus, int row, int column) {
 		this.value = (ActionDataControl) value2;
 		if (table.getSelectedRow() == row) {

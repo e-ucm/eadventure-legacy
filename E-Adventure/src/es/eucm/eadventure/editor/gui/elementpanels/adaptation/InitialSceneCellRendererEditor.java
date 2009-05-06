@@ -23,18 +23,15 @@ public class InitialSceneCellRendererEditor extends AbstractCellEditor implement
 	
 	private AdaptationRuleDataControl value;
 	
-	@Override
 	public Object getCellEditorValue() {
 		return value;
 	}
 	
-	@Override
 	public Component getTableCellEditorComponent(JTable table, Object value2, boolean isSelected, int row, int col) {
 		this.value = (AdaptationRuleDataControl) value2;
 		return createComponent(isSelected, table.getSelectionBackground());
 	}
 
-	@Override
 	public Component getTableCellRendererComponent(JTable table, Object value2, boolean isSelected, boolean hasFocus, int row, int column) {
 		this.value = (AdaptationRuleDataControl) value2;
 		if (table.getSelectedRow() == row) {

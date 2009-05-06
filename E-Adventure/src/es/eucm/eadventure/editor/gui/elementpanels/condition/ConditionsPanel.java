@@ -171,12 +171,9 @@ public class ConditionsPanel extends JPanel implements Updateable, ConditionsPan
 		addConditionButton = new JButton(new ImageIcon("img/icons/addNode.png"));
 		addConditionButton.setText(TextConstants.getText("Conditions.AddCondition"));
 		addConditionButton.addActionListener(new ActionListener(){
-
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				ConditionsPanel.this.addCondition();
 			}
-			
 		});
 		okButton = new JButton(TextConstants.getText("GeneralText.OK"));
 		buttonsPanel.add(addConditionButton);
@@ -220,7 +217,6 @@ public class ConditionsPanel extends JPanel implements Updateable, ConditionsPan
 		centralPanel.repaint();
 	}
 	
-	@Override
 	public boolean updateFields() {
 		return false;
 	}
@@ -235,36 +231,29 @@ public class ConditionsPanel extends JPanel implements Updateable, ConditionsPan
 			this.comp = comp;
 		}
 		
-		@Override
 		public void addLayoutComponent(Component comp, Object constraints) {
 			this.comp = comp;
 		}
 
-		@Override
 		public float getLayoutAlignmentX(Container target) {
 			return 0;
 		}
 
-		@Override
 		public float getLayoutAlignmentY(Container target) {
 			return 0;
 		}
 
-		@Override
 		public void invalidateLayout(Container target) {
 		}
 
-		@Override
 		public Dimension maximumLayoutSize(Container target) {
 			return target.getSize();
 		}
 
-		@Override
 		public void addLayoutComponent(String name, Component comp) {
 			
 		}
 
-		@Override
 		public void layoutContainer(Container parent) {
 			if (comp!=null){
 				int maxWidth = parent.getSize().width;
@@ -279,23 +268,18 @@ public class ConditionsPanel extends JPanel implements Updateable, ConditionsPan
 			}
 		}
 
-		@Override
 		public Dimension minimumLayoutSize(Container parent) {
 			return comp.getMinimumSize();
 		}
 
-		@Override
 		public Dimension preferredLayoutSize(Container parent) {
 			return parent.getPreferredSize();
 		}
 
-		@Override
 		public void removeLayoutComponent(Component comp) {
 		}
-		
 	}
 
-		@Override
 		public void evalEditablePanelSelectionEvent(EditablePanel source,
 				int oldState, int newState) {
 			if (newState != EditablePanel.NO_SELECTED && selectedPanel!=null && selectedPanel!=source)
@@ -305,7 +289,6 @@ public class ConditionsPanel extends JPanel implements Updateable, ConditionsPan
 				selectedPanel = source;
 		}
 
-		@Override
 		public void evalFunctionChanged(EvalFunctionPanel source, int index1,
 				int index2, int oldValue, int newValue) {
 			if (this.conditionsController.setEvalFunction(index1, index2, newValue)){
@@ -313,17 +296,14 @@ public class ConditionsPanel extends JPanel implements Updateable, ConditionsPan
 			}
 		}
 
-		@Override
 		public HashMap<String, String> getCondition(int index1, int index2) {
 			return conditionsController.getCondition(index1, index2);
 		}
 
-		@Override
 		public int getConditionCount(int index1) {
 			return conditionsController.getConditionCount(index1);
 		}
 
-		@Override
 		public void addCondition(int index1, int index2 ) {
 			// Display the dialog to add a new condition
 			ConditionDialog conditionDialog = new ConditionDialog( TextConstants.getText( "Conditions.AddCondition" ) );
@@ -337,19 +317,16 @@ public class ConditionsPanel extends JPanel implements Updateable, ConditionsPan
 			}
 		}
 
-		@Override
 		public void addCondition() {
 			addCondition (conditionsController.getConditionsCount(), ConditionsController.INDEX_NOT_USED);
 		}
 
-		@Override
 		public void deleteCondition(int index1, int index2) {
 			if (conditionsController.deleteCondition(index1, index2)){
 				update();
 			}
 		}
 
-		@Override
 		public void duplicateCondition(int index1, int index2) {
 			if (conditionsController.duplicateCondition(index1, index2)){
 				update();
@@ -357,7 +334,6 @@ public class ConditionsPanel extends JPanel implements Updateable, ConditionsPan
 			
 		}
 
-		@Override
 		public void editCondition(int index1, int index2) {
 			// Take the actual values of the condition, and display the editing dialog
 			//String stateValue = conditionsTable.getValueAt( selectedCondition, 0 ).toString( );

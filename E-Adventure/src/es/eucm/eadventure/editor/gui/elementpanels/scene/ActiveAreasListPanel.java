@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -135,6 +136,7 @@ public class ActiveAreasListPanel extends JPanel implements DataControlsPanel, D
 		JButton newButton = new JButton(new ImageIcon("img/icons/addNode.png"));
 		newButton.setContentAreaFilled( false );
 		newButton.setMargin( new Insets(0,0,0,0) );
+		newButton.setBorder(BorderFactory.createEmptyBorder());
 		newButton.setFocusable(false);
 		newButton.setToolTipText( TextConstants.getText( "ActiveAreasList.AddActiveArea" ) );
 		newButton.addActionListener(new ActionListener() {
@@ -145,6 +147,7 @@ public class ActiveAreasListPanel extends JPanel implements DataControlsPanel, D
 		deleteButton = new JButton(new ImageIcon("img/icons/deleteNode.png"));
 		deleteButton.setContentAreaFilled( false );
 		deleteButton.setMargin( new Insets(0,0,0,0) );
+		deleteButton.setBorder(BorderFactory.createEmptyBorder());
 		deleteButton.setToolTipText( TextConstants.getText( "ActiveAreasList.DeleteActiveArea" ) );
 		deleteButton.setEnabled(false);
 		deleteButton.setFocusable(false);
@@ -156,6 +159,7 @@ public class ActiveAreasListPanel extends JPanel implements DataControlsPanel, D
 		duplicateButton = new JButton(new ImageIcon("img/icons/duplicateNode.png"));
 		duplicateButton.setContentAreaFilled( false );
 		duplicateButton.setMargin( new Insets(0,0,0,0) );
+		duplicateButton.setBorder(BorderFactory.createEmptyBorder());
 		duplicateButton.setToolTipText( TextConstants.getText( "ActiveAreasList.DuplicateActiveArea" ) );
 		duplicateButton.setEnabled(false);
 		duplicateButton.setFocusable(false);
@@ -272,7 +276,6 @@ public class ActiveAreasListPanel extends JPanel implements DataControlsPanel, D
 		previewAuxSplit.setDividerLocation(Integer.MAX_VALUE);
 	}
 	
-	@Override
 	public void setSelectedItem(List<DataControl> path) {
 		if (path.size() > 0) {
 			for (int i = 0 ; i < dataControl.getActiveAreas().size(); i++) {
@@ -282,7 +285,6 @@ public class ActiveAreasListPanel extends JPanel implements DataControlsPanel, D
 		}
 	}
 
-	@Override
 	public void dataControlSelected(DataControl dataControl2) {
 		if (dataControl2 != null) {
 			for (int i = 0 ; i < dataControl.getActiveAreas().size(); i++) {
@@ -293,7 +295,6 @@ public class ActiveAreasListPanel extends JPanel implements DataControlsPanel, D
 			table.clearSelection();
 	}
 
-	@Override
 	public boolean updateFields() {
 	    //updateAuxPanel();
 	    return true;

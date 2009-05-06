@@ -143,23 +143,18 @@ public class ShowTextEffectDialog extends EffectDialog{
 		JPanel textContainer = new JPanel();
 		text = new JTextField(30);
 		text.addKeyListener(new KeyListener(){
-
-		    @Override
 		    public void keyPressed(KeyEvent e) {
 			
 		    }
 
-		    @Override
 		    public void keyReleased(KeyEvent e) {
 			imagePanel.setText(text.getText());
 			
 		    }
 
-		    @Override
 		    public void keyTyped(KeyEvent e) {
 			
 		    }
-		    
 		});
 		text.setEditable(true);
 		textContainer.add(text);
@@ -309,7 +304,6 @@ public class ShowTextEffectDialog extends EffectDialog{
 	    ok.addActionListener(listener);
 	    ok.addActionListener(new ActionListener(){
 
-		@Override
 		public void actionPerformed(ActionEvent e) {
 		    EffectColorChooser.this.dispose();
 		    

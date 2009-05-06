@@ -12,6 +12,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
@@ -142,6 +143,7 @@ public class BookParagraphsPanel extends JPanel implements DataControlsPanel {
 		newButton.setContentAreaFilled( false );
 		newButton.setFocusable(false);
 		newButton.setMargin( new Insets(0,0,0,0) );
+		newButton.setBorder(BorderFactory.createEmptyBorder());
 		newButton.setToolTipText( TextConstants.getText( "BookParagraphs.AddParagraph" ) );
 		newButton.addMouseListener( new MouseAdapter(){
 			public void mouseClicked (MouseEvent evt){
@@ -152,6 +154,7 @@ public class BookParagraphsPanel extends JPanel implements DataControlsPanel {
 		deleteButton = new JButton(new ImageIcon("img/icons/deleteNode.png"));
 		deleteButton.setContentAreaFilled( false );
 		deleteButton.setMargin( new Insets(0,0,0,0) );
+		deleteButton.setBorder(BorderFactory.createEmptyBorder());
 		deleteButton.setFocusable(false);
 		deleteButton.setToolTipText( TextConstants.getText( "BookParagraphs.DeleteParagraph" ) );
 		deleteButton.addActionListener(new ActionListener(){
@@ -162,6 +165,7 @@ public class BookParagraphsPanel extends JPanel implements DataControlsPanel {
 		moveUpButton = new JButton(new ImageIcon("img/icons/moveNodeUp.png"));
 		moveUpButton.setContentAreaFilled( false );
 		moveUpButton.setMargin( new Insets(0,0,0,0) );
+		moveUpButton.setBorder(BorderFactory.createEmptyBorder());
 		moveUpButton.setFocusable(false);
 		moveUpButton.setToolTipText( TextConstants.getText( "BookParagraphs.MoveParagraphUp" ) );
 		moveUpButton.addActionListener( new ActionListener(){
@@ -172,6 +176,7 @@ public class BookParagraphsPanel extends JPanel implements DataControlsPanel {
 		moveDownButton = new JButton(new ImageIcon("img/icons/moveNodeDown.png"));
 		moveDownButton.setContentAreaFilled( false );
 		moveDownButton.setMargin( new Insets(0,0,0,0) );
+		moveDownButton.setBorder(BorderFactory.createEmptyBorder());
 		moveDownButton.setFocusable(false);
 		moveDownButton.setToolTipText( TextConstants.getText( "BookParagraphs.MoveParagraphDown" ) );
 		moveDownButton.addActionListener( new ActionListener(){
@@ -334,7 +339,6 @@ public class BookParagraphsPanel extends JPanel implements DataControlsPanel {
 		}
 	}
 
-	@Override
 	public void setSelectedItem(List<DataControl> path) {
 		if (path.size() > 0) {
 			for (int i = 0 ; i < dataControl.getBookParagraphsList().getBookParagraphs().size(); i++) {

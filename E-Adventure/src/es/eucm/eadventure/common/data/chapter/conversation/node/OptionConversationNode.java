@@ -232,12 +232,10 @@ public class OptionConversationNode extends ConversationNode {
 	/**
 	 * In that case, return the conditions of the option equals to the given index.
 	 */
-	@Override
 	public Conditions getLineConditions(int index) {
 	    return options.get(index).getConditions();
 	}
 
-	@Override
 	public ConversationLine getConversationLine(int index) {
 	    return options.get(index);
 	}

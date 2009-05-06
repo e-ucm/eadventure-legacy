@@ -31,7 +31,6 @@ public class EditEffectCellRenderEditor extends AbstractCellEditor implements Ta
 		this.table = table;
 	}
 
-	@Override
 	public Component getTableCellEditorComponent(JTable table, Object value,
 			boolean isSelected, int row, int column) {
 		if (value == null)
@@ -40,7 +39,6 @@ public class EditEffectCellRenderEditor extends AbstractCellEditor implements Ta
 		return getComponent(isSelected, table);
 	}
 
-	@Override
 	public Component getTableCellRendererComponent(JTable table, Object value,
 			boolean isSelected, boolean hasFocus, int row, int column) {
 		if (value == null)
@@ -49,7 +47,6 @@ public class EditEffectCellRenderEditor extends AbstractCellEditor implements Ta
 		return getComponent(isSelected, table);
 	}
 
-	@Override
 	public Object getCellEditorValue() {
 		return value;
 	}

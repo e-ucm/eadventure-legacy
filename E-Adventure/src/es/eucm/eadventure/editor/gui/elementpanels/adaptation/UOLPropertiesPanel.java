@@ -158,6 +158,7 @@ class UOLPropertiesPanel extends JPanel implements Updateable{
 		movePropertyUpButton = new JButton(new ImageIcon("img/icons/moveNodeUp.png"));
 		movePropertyUpButton.setContentAreaFilled( false );
 		movePropertyUpButton.setMargin( new Insets(0,0,0,0) );
+		movePropertyUpButton.setBorder(BorderFactory.createEmptyBorder());
 		movePropertyUpButton.setToolTipText( TextConstants.getText( "UOLProperties.MoveUp" ) );
 		movePropertyUpButton.addActionListener( new ListenerButtonMoveLineUp( ) );
 		movePropertyUpButton.setEnabled(false);
@@ -165,6 +166,7 @@ class UOLPropertiesPanel extends JPanel implements Updateable{
 		movePropertyDownButton = new JButton(new ImageIcon("img/icons/moveNodeDown.png"));
 		movePropertyDownButton.setContentAreaFilled( false );
 		movePropertyDownButton.setMargin( new Insets(0,0,0,0) );
+		movePropertyDownButton.setBorder(BorderFactory.createEmptyBorder());
 		movePropertyDownButton.setToolTipText( TextConstants.getText( "UOLProperties.MoveDown" ) );
 		movePropertyDownButton.addActionListener( new ListenerButtonMoveLineDown( ) );
 		movePropertyDownButton.setEnabled(false);
@@ -175,12 +177,14 @@ class UOLPropertiesPanel extends JPanel implements Updateable{
 		insertPropertyButton = new JButton(new ImageIcon("img/icons/addNode.png"));
 		insertPropertyButton.setContentAreaFilled( false );
 		insertPropertyButton.setMargin( new Insets(0,0,0,0) );
+		insertPropertyButton.setBorder(BorderFactory.createEmptyBorder());
 		insertPropertyButton.setToolTipText( TextConstants.getText( "UOLProperties.InsertProperty" ) );
 		insertPropertyButton.addActionListener( new ListenerButtonInsertLine( ) );
 
 		deletePropertyButton = new JButton(new ImageIcon("img/icons/deleteNode.png"));
 		deletePropertyButton.setContentAreaFilled( false );
 		deletePropertyButton.setMargin( new Insets(0,0,0,0) );
+		deletePropertyButton.setBorder(BorderFactory.createEmptyBorder());
 		deletePropertyButton.setToolTipText( TextConstants.getText( "UOLProperties.DeleteProperty" ) );
 		deletePropertyButton.addActionListener( new ListenerButtonDeleteLine( ) );
 

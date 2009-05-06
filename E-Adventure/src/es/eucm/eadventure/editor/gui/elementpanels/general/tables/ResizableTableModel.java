@@ -45,7 +45,6 @@ public class ResizableTableModel extends AbstractTableModel {
 		return 0;
 	}
 
-	@Override
 	public Object getValueAt( int rowIndex, int columnIndex ) {
 		if (size == 2 && rowIndex * 2 + columnIndex < list.size())
 			return list.get(rowIndex * 2 + columnIndex);

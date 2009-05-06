@@ -25,12 +25,10 @@ public class StringCellRendererEditor extends AbstractCellEditor implements Tabl
 	
 	private JTextField textField;
 	
-	@Override
 	public Object getCellEditorValue() {
 		return value;
 	}
 
-	@Override
 	public Component getTableCellEditorComponent(final JTable table, Object value2, boolean isSelected, final int row, final int col) {
 		this.value = (String) value2;
 		return createPanel(isSelected, table);
@@ -70,7 +68,6 @@ public class StringCellRendererEditor extends AbstractCellEditor implements Tabl
 		return temp;
 	}
 
-	@Override
 	public Component getTableCellRendererComponent(JTable table, Object value2, boolean isSelected, boolean hasFocus, int row, int column) {
 		this.value = (String) value2;
 		if (isSelected) {

@@ -136,6 +136,7 @@ class LinesPanel extends JPanel {
 		moveLineUpButton = new JButton(new ImageIcon("img/icons/moveNodeUp.png"));
 		moveLineUpButton.setContentAreaFilled( false );
 		moveLineUpButton.setMargin( new Insets(0,0,0,0) );
+		moveLineUpButton.setBorder(BorderFactory.createEmptyBorder());
 		moveLineUpButton.setFocusable(false);
 		moveLineUpButton.setToolTipText( TextConstants.getText( "Conversations.MoveLineUp" ) );
 		moveLineUpButton.addActionListener( new ListenerButtonMoveLineUp( ) );
@@ -144,6 +145,7 @@ class LinesPanel extends JPanel {
 		moveLineDownButton = new JButton(new ImageIcon("img/icons/moveNodeDown.png"));
 		moveLineDownButton.setContentAreaFilled( false );
 		moveLineDownButton.setMargin( new Insets(0,0,0,0) );
+		moveLineDownButton.setBorder(BorderFactory.createEmptyBorder());
 		moveLineDownButton.setFocusable(false);
 		moveLineDownButton.setToolTipText( TextConstants.getText( "Conversations.MoveLineDown" ) );
 		moveLineDownButton.addActionListener( new ListenerButtonMoveLineDown( ) );
@@ -157,12 +159,14 @@ class LinesPanel extends JPanel {
 		insertLineButton = new JButton(new ImageIcon("img/icons/addNode.png"));
 		insertLineButton.setContentAreaFilled( false );
 		insertLineButton.setMargin( new Insets(0,0,0,0) );
+		insertLineButton.setBorder(BorderFactory.createEmptyBorder());
 		insertLineButton.setFocusable(false);
 		insertLineButton.setToolTipText( TextConstants.getText( "Conversations.InsertLine" ) );
 		insertLineButton.addActionListener( new ListenerButtonInsertLine( ) );
 		deleteLineButton = new JButton(new ImageIcon("img/icons/deleteNode.png"));
 		deleteLineButton.setContentAreaFilled( false );
 		deleteLineButton.setMargin( new Insets(0,0,0,0) );
+		deleteLineButton.setBorder(BorderFactory.createEmptyBorder());
 		deleteLineButton.setToolTipText(TextConstants.getText( "Conversations.DeleteLine" ));
 		deleteLineButton.addActionListener( new ListenerButtonDeleteLine( ) );
 		/* End of dialogue panel elements */
@@ -171,11 +175,13 @@ class LinesPanel extends JPanel {
 		deleteOptionButton = new JButton(new ImageIcon("img/icons/deleteNode.png"));
 		deleteOptionButton.setContentAreaFilled( false );
 		deleteOptionButton.setMargin( new Insets(0,0,0,0) );
+		deleteOptionButton.setBorder(BorderFactory.createEmptyBorder());
 		deleteOptionButton.setToolTipText(TextConstants.getText( "Conversations.DeleteOption" ));
 		deleteOptionButton.addActionListener( new ListenerButtonDeleteOption( ) );
 		insertOptionButton = new JButton(new ImageIcon("img/icons/addNode.png"));
 		insertOptionButton.setContentAreaFilled( false );
 		insertOptionButton.setMargin( new Insets(0,0,0,0) );
+		insertOptionButton.setBorder(BorderFactory.createEmptyBorder());
 		insertOptionButton.setFocusable(false);
 		insertOptionButton.setToolTipText( TextConstants.getText( "Conversations.InsertLine" ) );
 		insertOptionButton.addActionListener( new ListenerButtonInsertOption( ) );

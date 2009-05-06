@@ -563,22 +563,18 @@ public class Exit implements Cloneable, Documented, Rectangle, Positioned {
 		return ( destinyX != Integer.MIN_VALUE ) && ( destinyY != Integer.MIN_VALUE );
 	}
 
-	@Override
 	public int getPositionX() {
 		return destinyX;
 	}
 
-	@Override
 	public int getPositionY() {
 		return destinyY;
 	}
 
-	@Override
 	public void setPositionX(int newX) {
 		this.destinyX = newX;
 	}
 
-	@Override
 	public void setPositionY(int newY) {
 		this.destinyY = newY;
 	}

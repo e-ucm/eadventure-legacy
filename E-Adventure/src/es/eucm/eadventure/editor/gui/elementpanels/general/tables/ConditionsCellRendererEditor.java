@@ -23,12 +23,10 @@ public class ConditionsCellRendererEditor extends AbstractCellEditor implements 
 	
 	private ConditionsController value;
 	
-	@Override
 	public Object getCellEditorValue() {
 		return value;
 	}
 	
-	@Override
 	public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int col) {
 		if (value == null)
 			return null;
@@ -36,7 +34,6 @@ public class ConditionsCellRendererEditor extends AbstractCellEditor implements 
 		return createButton(isSelected, table);
 	}
 
-	@Override
 	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 		if (value == null)
 			return null;

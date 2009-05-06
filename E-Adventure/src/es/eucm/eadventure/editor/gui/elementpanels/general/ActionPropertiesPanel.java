@@ -104,13 +104,9 @@ public class ActionPropertiesPanel extends JPanel implements ActionTypePanel,Upd
 		JPanel notEffContainer = new JPanel(new GridBagLayout());
 		final JButton editNotEff = new JButton(TextConstants.getText("Exit.EditNotEffects"));
 		editNotEff.addActionListener(new ActionListener(){
-
-		    @Override
 		    public void actionPerformed(ActionEvent e) {
-			new EffectsDialog( actionDataControl.getNotEffectsController() );
-			
+		    	new EffectsDialog( actionDataControl.getNotEffectsController() );
 		    }
-		    
 		});
 		editNotEff.setEnabled(this.actionDataControl.isActivatedNotEffects());
 		
@@ -129,12 +125,10 @@ public class ActionPropertiesPanel extends JPanel implements ActionTypePanel,Upd
 		return notEffContainer;
 	}
 
-	@Override
 	public int getType() {
 	    return ActionTypePanel.ACTION_TYPE;
 	}
 
-	@Override
 	public boolean updateFields() {
 	   
 	    return effectsPanel.updateFields();

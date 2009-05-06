@@ -50,18 +50,15 @@ public class ParagraphCellRendererEditor extends AbstractCellEditor implements T
 		this.previewPanel = previewPanel2;
 	}
 
-	@Override
 	public Object getCellEditorValue() {
 		return value;
 	}
 	
-	@Override
 	public Component getTableCellEditorComponent(JTable table, Object value2, boolean isSelected, int row, int col) {
 		this.value = (BookParagraphDataControl) value2;
 		return createComponent(isSelected, table.getSelectionBackground());
 	}
 
-	@Override
 	public Component getTableCellRendererComponent(JTable table, Object value2, boolean isSelected, boolean hasFocus, int row, int column) {
 		this.value = (BookParagraphDataControl) value2;
 		if (table.getSelectedRow() == row) {

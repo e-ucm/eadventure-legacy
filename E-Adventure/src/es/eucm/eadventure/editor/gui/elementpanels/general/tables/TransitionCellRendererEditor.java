@@ -33,18 +33,15 @@ public class TransitionCellRendererEditor  extends AbstractCellEditor implements
 	
 	private JSpinner spinner;
 			
-	@Override
 	public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int col) {
 		this.exit = (ExitDataControl) value;
 		return comboPanel(table);
 	}
 
-	@Override
 	public Object getCellEditorValue() {
 		return exit;
 	}
 
-	@Override
 	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 		this.exit = (ExitDataControl) value;
 		if (!isSelected) {

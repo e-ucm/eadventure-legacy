@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -52,6 +53,7 @@ public class SmallActionsListPanel extends ActionsListPanel {
 		JButton newButton = new JButton(new ImageIcon("img/icons/addNode.png"));
 		newButton.setContentAreaFilled( false );
 		newButton.setMargin( new Insets(0,0,0,0) );
+		newButton.setBorder(BorderFactory.createEmptyBorder());
 		newButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.AddParagraph" ) );
 		newButton.addMouseListener( new MouseAdapter(){
 			public void mouseClicked (MouseEvent evt){
@@ -63,6 +65,7 @@ public class SmallActionsListPanel extends ActionsListPanel {
 		deleteButton = new JButton(new ImageIcon("img/icons/deleteNode.png"));
 		deleteButton.setContentAreaFilled( false );
 		deleteButton.setMargin( new Insets(0,0,0,0) );
+		deleteButton.setBorder(BorderFactory.createEmptyBorder());
 		deleteButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.Delete" ) );
 		deleteButton.addActionListener(new ActionListener(){
 			public void actionPerformed( ActionEvent e ) {
@@ -74,6 +77,7 @@ public class SmallActionsListPanel extends ActionsListPanel {
 		moveUpButton = new JButton(new ImageIcon("img/icons/moveNodeUp.png"));
 		moveUpButton.setContentAreaFilled( false );
 		moveUpButton.setMargin( new Insets(0,0,0,0) );
+		moveUpButton.setBorder(BorderFactory.createEmptyBorder());
 		moveUpButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.MoveUp" ) );
 		moveUpButton.addActionListener( new ActionListener(){
 			public void actionPerformed( ActionEvent e ) {
@@ -85,6 +89,7 @@ public class SmallActionsListPanel extends ActionsListPanel {
 		moveDownButton = new JButton(new ImageIcon("img/icons/moveNodeDown.png"));
 		moveDownButton.setContentAreaFilled( false );
 		moveDownButton.setMargin( new Insets(0,0,0,0) );
+		moveDownButton.setBorder(BorderFactory.createEmptyBorder());
 		moveDownButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.MoveDown" ) );
 		moveDownButton.addActionListener( new ActionListener(){
 			public void actionPerformed( ActionEvent e ) {

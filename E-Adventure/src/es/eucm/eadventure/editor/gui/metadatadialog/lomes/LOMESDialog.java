@@ -66,7 +66,6 @@ public class LOMESDialog extends JDialog{
 		tabs.add(new JPanel(),5);
 		tabs.setTabComponentAt(5,infoButton );
 		tabs.addChangeListener(new ChangeListener(){
-		    @Override
 		    public void stateChanged(ChangeEvent e) {
 			 if (tabs.getSelectedIndex()==5){
 			       tabs.setSelectedIndex(currentTab);

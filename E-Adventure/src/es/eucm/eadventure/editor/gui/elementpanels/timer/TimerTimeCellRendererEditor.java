@@ -21,18 +21,15 @@ public class TimerTimeCellRendererEditor extends AbstractCellEditor implements T
 	
 	private TimerDataControl value;
 	
-	@Override
 	public Object getCellEditorValue() {
 		return value;
 	}
 	
-	@Override
 	public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int col) {
 		this.value = (TimerDataControl) value;
 		return createSpinner();
 	}
 
-	@Override
 	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 		this.value = (TimerDataControl) value;
 		if (!isSelected)

@@ -35,19 +35,16 @@ public class ContentTypeCellRendererEditor extends AbstractCellEditor implements
 		this.control = control;
 	}
 
-	@Override
 	public Object getCellEditorValue() {
 		return value;
 	}
 	
-	@Override
 	public Component getTableCellEditorComponent(JTable table, Object value2, boolean isSelected, int row, int col) {
 		this.value = (BookPage) value2;
 		this.row = row;
 		return createComponent(isSelected, table.getSelectionBackground(), table);
 	}
 
-	@Override
 	public Component getTableCellRendererComponent(JTable table, Object value2, boolean isSelected, boolean hasFocus, int row, int column) {
 		this.value = (BookPage) value2;
 		this.row = row;

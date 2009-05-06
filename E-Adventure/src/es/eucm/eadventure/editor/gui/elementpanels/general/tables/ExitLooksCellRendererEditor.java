@@ -45,12 +45,10 @@ public class ExitLooksCellRendererEditor extends AbstractCellEditor implements T
 	
 	private GridBagConstraints c;
 	
-	@Override
 	public Object getCellEditorValue() {
 		return value;
 	}
 	
-	@Override
 	public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int col) {
 		if (value != null)
 			this.value = (ExitLookDataControl) value;
@@ -59,7 +57,6 @@ public class ExitLooksCellRendererEditor extends AbstractCellEditor implements T
 		return newPanel(isSelected, table);
 	}
 
-	@Override
 	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 		if (! isSelected) {
 			if (value != null) {

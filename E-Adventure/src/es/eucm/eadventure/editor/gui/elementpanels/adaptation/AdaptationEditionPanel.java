@@ -173,6 +173,7 @@ public class AdaptationEditionPanel extends JPanel implements Updateable{
 		JButton add = new JButton(new ImageIcon("img/icons/addNode.png"));
 		add.setContentAreaFilled( false );
 		add.setMargin( new Insets(0,0,0,0) );
+		add.setBorder(BorderFactory.createEmptyBorder());
 		add.setToolTipText( TextConstants.getText( "AdaptationProfile.AddRule" ) );
 		add.addActionListener(new ActionListener(){
 		    public void actionPerformed(ActionEvent e) {
@@ -186,6 +187,7 @@ public class AdaptationEditionPanel extends JPanel implements Updateable{
 		duplicate = new JButton(new ImageIcon("img/icons/duplicateNode.png"));
 		duplicate.setContentAreaFilled( false );
 		duplicate.setMargin( new Insets(0,0,0,0) );
+		duplicate.setBorder(BorderFactory.createEmptyBorder());
 		duplicate.setToolTipText( TextConstants.getText( "AdaptationProfile.Duplicate" ) );
 		duplicate.addActionListener(new ActionListener(){
 			public void actionPerformed( ActionEvent e ) {
@@ -201,6 +203,7 @@ public class AdaptationEditionPanel extends JPanel implements Updateable{
 		delete = new JButton(new ImageIcon("img/icons/deleteNode.png"));
 		delete.setContentAreaFilled( false );
 		delete.setMargin( new Insets(0,0,0,0) );
+		delete.setBorder(BorderFactory.createEmptyBorder());
 		delete.setToolTipText( TextConstants.getText( "AdaptationProfile.DeleteRule") );
 		delete.setEnabled(false);
 		delete.addActionListener(new ActionListener(){
@@ -258,9 +261,8 @@ public class AdaptationEditionPanel extends JPanel implements Updateable{
 		}
     }
 
-    @Override
     public boolean updateFields() {
-	return true;
+    	return true;
     }
     
 

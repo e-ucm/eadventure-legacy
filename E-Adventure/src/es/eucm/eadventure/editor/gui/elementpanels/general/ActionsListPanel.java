@@ -10,6 +10,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
@@ -95,6 +96,7 @@ public class ActionsListPanel extends JPanel implements DataControlsPanel,Update
 		JButton newButton = new JButton(new ImageIcon("img/icons/addNode.png"));
 		newButton.setContentAreaFilled( false );
 		newButton.setMargin( new Insets(0,0,0,0) );
+		newButton.setBorder(BorderFactory.createEmptyBorder());
 		newButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.AddParagraph" ) );
 		newButton.addMouseListener( new MouseAdapter(){
 			public void mouseClicked (MouseEvent evt){
@@ -106,6 +108,7 @@ public class ActionsListPanel extends JPanel implements DataControlsPanel,Update
 		deleteButton = new JButton(new ImageIcon("img/icons/deleteNode.png"));
 		deleteButton.setContentAreaFilled( false );
 		deleteButton.setMargin( new Insets(0,0,0,0) );
+		deleteButton.setBorder(BorderFactory.createEmptyBorder());
 		deleteButton.setToolTipText( TextConstants.getText( "ActionsList.Delete" ) );
 		deleteButton.addActionListener(new ActionListener(){
 			public void actionPerformed( ActionEvent e ) {
@@ -117,6 +120,7 @@ public class ActionsListPanel extends JPanel implements DataControlsPanel,Update
 		duplicateButton = new JButton(new ImageIcon("img/icons/duplicateNode.png"));
 		duplicateButton.setContentAreaFilled( false );
 		duplicateButton.setMargin( new Insets(0,0,0,0) );
+		duplicateButton.setBorder(BorderFactory.createEmptyBorder());
 		duplicateButton.setToolTipText( TextConstants.getText( "ActionsList.Duplicate" ) );
 		duplicateButton.addActionListener(new ActionListener(){
 			public void actionPerformed( ActionEvent e ) {
@@ -128,6 +132,7 @@ public class ActionsListPanel extends JPanel implements DataControlsPanel,Update
 		moveUpButton = new JButton(new ImageIcon("img/icons/moveNodeUp.png"));
 		moveUpButton.setContentAreaFilled( false );
 		moveUpButton.setMargin( new Insets(0,0,0,0) );
+		moveUpButton.setBorder(BorderFactory.createEmptyBorder());
 		moveUpButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.MoveUp" ) );
 		moveUpButton.addActionListener( new ActionListener(){
 			public void actionPerformed( ActionEvent e ) {
@@ -138,6 +143,7 @@ public class ActionsListPanel extends JPanel implements DataControlsPanel,Update
 		moveDownButton = new JButton(new ImageIcon("img/icons/moveNodeDown.png"));
 		moveDownButton.setContentAreaFilled( false );
 		moveDownButton.setMargin( new Insets(0,0,0,0) );
+		moveDownButton.setBorder(BorderFactory.createEmptyBorder());
 		moveDownButton.setToolTipText( TextConstants.getText( "ItemReferenceTable.MoveDown" ) );
 		moveDownButton.addActionListener( new ActionListener(){
 			public void actionPerformed( ActionEvent e ) {
@@ -256,7 +262,6 @@ public class ActionsListPanel extends JPanel implements DataControlsPanel,Update
 		table.editCellAt(selectedRow + 1, 0);
 	}
 
-	@Override
 	public void setSelectedItem(List<DataControl> path) {
 		if (path.size() > 0) {
 			for (int i = 0 ; i < dataControl.getActions().size(); i++) {
@@ -266,7 +271,6 @@ public class ActionsListPanel extends JPanel implements DataControlsPanel,Update
 		}
 	}
 
-	@Override
 	public boolean updateFields() {
 	  /*boolean update = false;
 	   if (actionPropertiesPanel.getComponents()[0] instanceof CustomActionPropertiesPanel){

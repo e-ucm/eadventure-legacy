@@ -42,19 +42,16 @@ public class NextSceneCellRendererEditor  extends AbstractCellEditor implements 
 		this.items = items;
 	}
 	
-	@Override
 	public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int col) {
 		this.exit = (ExitDataControl) value;
 		selectedItem = exit.getNextSceneId();
 		return comboPanel(table);
 	}
 
-	@Override
 	public Object getCellEditorValue() {
 		return exit;
 	}
 
-	@Override
 	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 		this.exit = (ExitDataControl) value;
 		selectedItem = exit.getNextSceneId();

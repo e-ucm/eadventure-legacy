@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -110,6 +111,7 @@ public class BarriersListPanel extends JPanel implements Updateable, DataControl
 		JButton newButton = new JButton(new ImageIcon("img/icons/addNode.png"));
 		newButton.setContentAreaFilled( false );
 		newButton.setMargin( new Insets(0,0,0,0) );
+		newButton.setBorder(BorderFactory.createEmptyBorder());
 		newButton.setToolTipText( TextConstants.getText( "BarriersList.AddBarrier" ) );
 		newButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -119,6 +121,7 @@ public class BarriersListPanel extends JPanel implements Updateable, DataControl
 		deleteButton = new JButton(new ImageIcon("img/icons/deleteNode.png"));
 		deleteButton.setContentAreaFilled( false );
 		deleteButton.setMargin( new Insets(0,0,0,0) );
+		deleteButton.setBorder(BorderFactory.createEmptyBorder());
 		deleteButton.setToolTipText( TextConstants.getText( "BarriersList.DeleteBarrier" ) );
 		deleteButton.setEnabled(false);
 		deleteButton.addActionListener(new ActionListener(){
@@ -129,6 +132,7 @@ public class BarriersListPanel extends JPanel implements Updateable, DataControl
 		duplicateButton = new JButton(new ImageIcon("img/icons/duplicateNode.png"));
 		duplicateButton.setContentAreaFilled( false );
 		duplicateButton.setMargin( new Insets(0,0,0,0) );
+		duplicateButton.setBorder(BorderFactory.createEmptyBorder());
 		duplicateButton.setToolTipText( TextConstants.getText( "BarriersList.DuplicateBarrier" ) );
 		duplicateButton.setEnabled(false);
 		duplicateButton.addActionListener(new ActionListener(){
@@ -225,7 +229,6 @@ public class BarriersListPanel extends JPanel implements Updateable, DataControl
 		return true;
 	}
 	
-	@Override
 	public void setSelectedItem(List<DataControl> path) {
 		if (path.size() > 0) {
 			for (int i = 0 ; i < dataControl.getBarriers().size(); i++) {
@@ -235,7 +238,6 @@ public class BarriersListPanel extends JPanel implements Updateable, DataControl
 		}
 	}
 
-	@Override
 	public void dataControlSelected(DataControl dataControl2) {
 		if (dataControl2 != null) {
 			for (int i = 0 ; i < dataControl.getBarriers().size(); i++) {

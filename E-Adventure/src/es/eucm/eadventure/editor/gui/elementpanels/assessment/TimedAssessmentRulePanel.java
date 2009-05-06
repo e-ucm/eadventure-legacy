@@ -174,6 +174,7 @@ public class TimedAssessmentRulePanel extends JPanel {
 				
 		addEffectBlock = new AddTabButton(new ImageIcon("img/icons/addNode.png"));
 		addEffectBlock.setContentAreaFilled( false );
+		addEffectBlock.setBorder(BorderFactory.createEmptyBorder());
 		//addEffectBlock.addActionListener( new AddEffectListener() );
 		
 		
@@ -192,6 +193,7 @@ public class TimedAssessmentRulePanel extends JPanel {
 		    container2.add(effectPanel);
 		    deleteEffectBlock = new DeleteTabButton(new ImageIcon("img/icons/deleteNode.png"));
 		    deleteEffectBlock.setContentAreaFilled( false );
+		    deleteEffectBlock.setBorder(BorderFactory.createEmptyBorder());
 		    JPanel buttonCont =  new JPanel(new GridLayout(0,2));
 		    buttonCont.add(new JLabel("#"+i));
 		    buttonCont.add(deleteEffectBlock);
@@ -410,7 +412,6 @@ public class TimedAssessmentRulePanel extends JPanel {
 			}
 		}*/
 
-		@Override
 		public void stateChanged(ChangeEvent e) {
 		    int pastTab =  currentTab;
 		    //currentEffect = container2.getSelectedIndex( )-1;

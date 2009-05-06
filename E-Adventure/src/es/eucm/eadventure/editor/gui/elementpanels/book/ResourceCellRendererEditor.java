@@ -60,18 +60,15 @@ public class ResourceCellRendererEditor extends AbstractCellEditor implements Ta
 		this.parentPanel = parentPanel;
 	}
 
-	@Override
 	public Object getCellEditorValue() {
 		return value;
 	}
 	
-	@Override
 	public Component getTableCellEditorComponent(JTable table, Object value2, boolean isSelected, int row, int col) {
 		this.value = (BookPage) value2;
 		return createComponent(isSelected, table.getSelectionBackground());
 	}
 
-	@Override
 	public Component getTableCellRendererComponent(JTable table, Object value2, boolean isSelected, boolean hasFocus, int row, int column) {
 		this.value = (BookPage) value2;
 		if (table.getSelectedRow() == row) {

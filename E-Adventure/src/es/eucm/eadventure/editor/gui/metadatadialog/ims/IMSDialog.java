@@ -68,7 +68,6 @@ public class IMSDialog extends JDialog{
 		tabs.add(new JPanel(),4);
 		tabs.setTabComponentAt(4,infoButton );
 		tabs.addChangeListener(new ChangeListener(){
-		    @Override
 		    public void stateChanged(ChangeEvent e) {
 			 if (tabs.getSelectedIndex()==4){
 			       tabs.setSelectedIndex(currentTab);

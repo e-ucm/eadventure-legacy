@@ -337,31 +337,24 @@ public class AtomicConditionPanel extends EditablePanel{
 			deleteButton.setMargin(new Insets(0,0,0,0));
 			deleteButton.setContentAreaFilled(false);
 			deleteButton.addActionListener(new ActionListener(){
-
-				@Override
 				public void actionPerformed(ActionEvent e) {
 					controller.deleteCondition(index1, index2);
 				}
-				
 			});
 			
 			duplicateButton = new JButton(new ImageIcon("img/icons/duplicateNode.png"));
 			duplicateButton.setMargin(new Insets(0,0,0,0));
 			duplicateButton.setContentAreaFilled(false);
 			duplicateButton.addActionListener(new ActionListener(){
-
-				@Override
 				public void actionPerformed(ActionEvent e) {
 					controller.duplicateCondition(index1, index2);
 				}
-				
 			});
 			
 			editButton = new JButton(new ImageIcon("img/icons/edit.png"));
 			editButton.setMargin(new Insets(0,0,0,0));
 			editButton.setContentAreaFilled(false);
 			editButton.addActionListener(new ActionListener(){
-				@Override
 				public void actionPerformed(ActionEvent e) {
 					controller.editCondition(index1, index2);
 				}
@@ -405,7 +398,6 @@ public class AtomicConditionPanel extends EditablePanel{
 		
 		public AlphaEffectTimer(){
 			super(INC_PERIOD, new ActionListener(){
-				@Override
 				public void actionPerformed(ActionEvent e) {
 					// Calculate new alpha
 					if (alpha<=1.0f-INCREMENT){

@@ -85,7 +85,6 @@ public class AdaptationRulesTable extends JTable {
 			return columnName;
 		}
 
-		@Override
 		public Object getValueAt( int rowIndex, int columnIndex ) {
 			if (columnIndex == 0)
 				return rowIndex;

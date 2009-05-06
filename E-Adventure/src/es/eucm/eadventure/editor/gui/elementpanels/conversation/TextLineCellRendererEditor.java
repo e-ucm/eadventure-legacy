@@ -35,12 +35,10 @@ public class TextLineCellRendererEditor extends AbstractCellEditor implements Ta
 		this.linesPanel = linesPanel;
 	}
 
-	@Override
 	public Object getCellEditorValue() {
 		return value;
 	}
 	
-	@Override
 	public Component getTableCellEditorComponent(JTable table, Object value2, boolean isSelected, final int row, final int col) {
 		ConversationNodeView node = ((ConversationNodeView) value2);
 		this.value = node.getLineText(row);
@@ -95,8 +93,6 @@ public class TextLineCellRendererEditor extends AbstractCellEditor implements Ta
 		
 	}
 	
-
-	@Override
 	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 		ConversationNodeView node = ((ConversationNodeView) value);
 		Color color = getColor(node, row); 
