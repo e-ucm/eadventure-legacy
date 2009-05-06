@@ -54,6 +54,8 @@ public class ConfigData {
 	private String reportsPath;
 
 	private String projectsPath;
+	
+	private int effectSelectorTab;
 
 	public static boolean showNPCReferences( ) {
 		return instance.showNPCReferences;
@@ -133,8 +135,12 @@ public class ConfigData {
 			configuration.setProperty( "ReportsDirectory", instance.reportsPath );
 		if (instance.projectsPath!=null)
 			configuration.setProperty( "ProjectsDirectory", instance.projectsPath );
+		if (instance.projectsPath!=null)
+			configuration.setProperty( "EffectSelectorTab", Integer.toString( instance.effectSelectorTab ) );
+		
 		instance.recentFiles.fillProperties( configuration );
 
+		
 		// Store the configuration into a file
 		try {
 			configuration.storeToXML( new FileOutputStream( instance.configFile ), "<e-Adventure> editor configuration" );
@@ -163,6 +169,11 @@ public class ConfigData {
             projectsPath = configuration.getProperty("ProjectsDirectory");
             if (projectsPath!=null)
             	ReleaseFolders.setProjectsPath(projectsPath);
+            try {
+            	effectSelectorTab = Integer.parseInt(configuration.getProperty("EffectSelectorTab"));
+            }catch (Exception e){
+            	effectSelectorTab = 0;
+            }
 			
 			recentFiles = new RecentFiles( configuration );
 		} catch( InvalidPropertiesFormatException e ) {} catch( FileNotFoundException e ) {} catch( IOException e ) {}
@@ -179,6 +190,20 @@ public class ConfigData {
 
 	public static String[][] getRecentFilesInfo( int l, int r ) {
 		return instance.recentFiles.getRecentFilesInfo( l, r );
+	}
+
+	/**
+	 * @return the effectSelectorTab
+	 */
+	public static int getEffectSelectorTab() {
+		return instance.effectSelectorTab;
+	}
+
+	/**
+	 * @param effectSelectorTab the effectSelectorTab to set
+	 */
+	public static void setEffectSelectorTab(int effectSelectorTab) {
+		instance.effectSelectorTab = effectSelectorTab;
 	}
 
 }
