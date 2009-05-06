@@ -2,6 +2,7 @@ package es.eucm.eadventure.editor.gui.structurepanel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.MalformedURLException;
@@ -233,10 +234,7 @@ public class EffectsStructurePanel extends StructurePanel{
 	list.addMouseListener(new MouseAdapter(){
 		public void mouseClicked ( MouseEvent e ){
 			if (e.getClickCount() == 2){
-				//StructureElementRenderer elementRenderer = (StructureElementRenderer)list.getCellRenderer(list.getSelectedRow(), 0);
-				//StructureElement element = (StructureElement)elementRenderer.getCellEditorValue();
 				dialog.setOk(true);
-				//System.out.println(element.getName());
 			}
 		}
 	});
