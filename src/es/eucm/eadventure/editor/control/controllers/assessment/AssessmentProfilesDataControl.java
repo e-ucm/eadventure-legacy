@@ -31,7 +31,7 @@ public class AssessmentProfilesDataControl extends DataControl{
 		if (type == Controller.ASSESSMENT_PROFILE){
 		
 		// Show confirmation dialog. If yes selected, mainwindow changes to assessment mode
-		if (controller.showStrictConfirmDialog( TextConstants.getText( "Operation.CreateAssessmentFile" ), TextConstants.getText( "Operation.CreateAssessmentFile.Message" ) )){
+		//if (controller.showStrictConfirmDialog( TextConstants.getText( "Operation.CreateAssessmentFile" ), TextConstants.getText( "Operation.CreateAssessmentFile.Message" ) )){
 			
 			//Prompt for profile name:
 			if (profileName == null)
@@ -64,7 +64,7 @@ public class AssessmentProfilesDataControl extends DataControl{
 			}
 			
 		}
-		}
+		//}
 		return added;
 	}
 
@@ -165,7 +165,7 @@ public class AssessmentProfilesDataControl extends DataControl{
 				int references = Controller.getInstance( ).countAssetReferences( path );
 				if(!askConfirmation || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { 
 						TextConstants.getElementName( Controller.ASSESSMENT_PROFILE ), Integer.toString( references ) } ) ) ) {
-					data.remove(profiles.indexOf(dataControl));
+					//data.remove(profiles.indexOf(dataControl));
 					deleted = this.profiles.remove( dataControl );
 					if (deleted){
 						Controller.getInstance( ).deleteAssetReferences( path );
