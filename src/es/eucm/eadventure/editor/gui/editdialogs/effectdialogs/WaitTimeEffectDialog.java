@@ -39,7 +39,7 @@ public class WaitTimeEffectDialog extends EffectDialog{
      * @param currentProperties
      *     Set of initial values
      */
-    public WaitTimeEffectDialog(HashMap<Integer, String> currentProperties){
+    public WaitTimeEffectDialog(HashMap<Integer, Object> currentProperties){
 	// Call the super method
 	super( TextConstants.getText( "WaitTimeEffect.Title" ) , true);
 	
@@ -58,7 +58,7 @@ public class WaitTimeEffectDialog extends EffectDialog{
 	if( currentProperties != null ) {
 	    int timeValue=0;
 	    if ( currentProperties.containsKey( EffectsController.EFFECT_PROPERTY_TIME  ) )
-		timeValue = Integer.parseInt( currentProperties.get( EffectsController.EFFECT_PROPERTY_TIME ) );
+		timeValue = Integer.parseInt( (String)currentProperties.get( EffectsController.EFFECT_PROPERTY_TIME ) );
 	    time = new JSpinner(new SpinnerNumberModel(timeValue,0,Integer.MAX_VALUE,1));
 	}else {
 	    time = new JSpinner(new SpinnerNumberModel(0,0,Integer.MAX_VALUE,1));
@@ -82,7 +82,7 @@ public class WaitTimeEffectDialog extends EffectDialog{
     
     protected void pressedOKButton() {
 	// Create a set of properties, and put the selected value
-	properties = new HashMap<Integer, String>( );
+	properties = new HashMap<Integer, Object>( );
 	properties.put( EffectsController.EFFECT_PROPERTY_TIME, Integer.toString((Integer)time.getModel().getValue() ));
 	
     }

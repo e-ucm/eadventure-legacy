@@ -40,7 +40,7 @@ public class SpeakCharacterEffectDialog extends EffectDialog {
 	 * @param currentProperties
 	 *            Set of initial values
 	 */
-	public SpeakCharacterEffectDialog( HashMap<Integer, String> currentProperties ) {
+	public SpeakCharacterEffectDialog( HashMap<Integer, Object> currentProperties ) {
 
 		// Call the super method
 		super( TextConstants.getText( "SpeakCharacterEffect.Title" ) , false);
@@ -80,7 +80,7 @@ public class SpeakCharacterEffectDialog extends EffectDialog {
 			// Set the defualt values (if present)
 			if( currentProperties != null ) {
 				if( currentProperties.containsKey( EffectsController.EFFECT_PROPERTY_TEXT ) )
-					textArea.setText( currentProperties.get( EffectsController.EFFECT_PROPERTY_TEXT ) );
+					textArea.setText( (String)currentProperties.get( EffectsController.EFFECT_PROPERTY_TEXT ) );
 			}
 
 			// Set the dialog
@@ -99,7 +99,7 @@ public class SpeakCharacterEffectDialog extends EffectDialog {
 	@Override
 	protected void pressedOKButton( ) {
 		// Create a set of properties, and put the selected value
-		properties = new HashMap<Integer, String>( );
+		properties = new HashMap<Integer, Object>( );
 		properties.put( EffectsController.EFFECT_PROPERTY_TARGET, charactersComboBox.getSelectedItem( ).toString( ) );
 		properties.put( EffectsController.EFFECT_PROPERTY_TEXT, textArea.getText( ) );
 	}

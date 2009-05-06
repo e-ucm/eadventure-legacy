@@ -33,7 +33,7 @@ public class TriggerCutsceneEffectDialog extends EffectDialog {
 	 * @param currentProperties
 	 *            Set of initial values
 	 */
-	public TriggerCutsceneEffectDialog( HashMap<Integer, String> currentProperties ) {
+	public TriggerCutsceneEffectDialog( HashMap<Integer, Object> currentProperties ) {
 
 		// Call the super method
 		super( TextConstants.getText( "TriggerCutsceneEffect.Title" ), false );
@@ -83,7 +83,7 @@ public class TriggerCutsceneEffectDialog extends EffectDialog {
 	@Override
 	protected void pressedOKButton( ) {
 		// Create a set of properties, and put the selected value
-		properties = new HashMap<Integer, String>( );
+		properties = new HashMap<Integer, Object>( );
 		properties.put( EffectsController.EFFECT_PROPERTY_TARGET, cutscenesComboBox.getSelectedItem( ).toString( ) );
 	}
 

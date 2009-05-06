@@ -50,7 +50,7 @@ public class MovePlayerEffectDialog extends EffectDialog {
 	 * @param currentProperties
 	 *            Set of initial values
 	 */
-	public MovePlayerEffectDialog( HashMap<Integer, String> currentProperties ) {
+	public MovePlayerEffectDialog( HashMap<Integer, Object> currentProperties ) {
 
 		// Call the super method
 		super( TextConstants.getText( "MovePlayerEffect.Title" ), true );
@@ -94,10 +94,10 @@ public class MovePlayerEffectDialog extends EffectDialog {
 			int y = 0;
 
 			if( currentProperties.containsKey( EffectsController.EFFECT_PROPERTY_X ) )
-				x = Integer.parseInt( currentProperties.get( EffectsController.EFFECT_PROPERTY_X ) );
+				x = Integer.parseInt( (String)currentProperties.get( EffectsController.EFFECT_PROPERTY_X ) );
 
 			if( currentProperties.containsKey( EffectsController.EFFECT_PROPERTY_Y ) )
-				y = Integer.parseInt( currentProperties.get( EffectsController.EFFECT_PROPERTY_Y ) );
+				y = Integer.parseInt( (String)currentProperties.get( EffectsController.EFFECT_PROPERTY_Y ) );
 
 			//playerPositionPanel.setPosition( x, y );
 			playerPositionPanel = new PositionPanel( new ElementImagePanel( null, playerPath ), x, y );
@@ -122,7 +122,7 @@ public class MovePlayerEffectDialog extends EffectDialog {
 	@Override
 	protected void pressedOKButton( ) {
 		// Create a set of properties, and put the selected value
-		properties = new HashMap<Integer, String>( );
+		properties = new HashMap<Integer, Object>( );
 		properties.put( EffectsController.EFFECT_PROPERTY_X, String.valueOf( playerPositionPanel.getPositionX( ) ) );
 		properties.put( EffectsController.EFFECT_PROPERTY_Y, String.valueOf( playerPositionPanel.getPositionY( ) ) );
 	}

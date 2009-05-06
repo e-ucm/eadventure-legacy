@@ -32,7 +32,7 @@ public abstract class EffectDialog extends ToolManagableDialog {
 	/**
 	 * Properties of the effect.
 	 */
-	protected HashMap<Integer, String> properties;
+	protected HashMap<Integer, Object> properties;
 
 	/**
 	 * Constructor.
@@ -75,7 +75,7 @@ public abstract class EffectDialog extends ToolManagableDialog {
 	 * 
 	 * @return Hash map with the effect properties and their values
 	 */
-	public HashMap<Integer, String> getEffectProperties( ) {
+	public HashMap<Integer, Object> getEffectProperties( ) {
 		return properties;
 	}
 
@@ -115,7 +115,7 @@ public abstract class EffectDialog extends ToolManagableDialog {
 	 *            Type of the effect to add
 	 * @return Hashmap with the properties of the effect, null if the action was cancelled
 	 */
-	public static HashMap<Integer, String> showAddEffectDialog( EffectsController effectsController, int effectType ) {
+	public static HashMap<Integer, Object> showAddEffectDialog( EffectsController effectsController, int effectType ) {
 		return showEditEffectDialog( effectsController, effectType, null );
 	}
 
@@ -131,8 +131,8 @@ public abstract class EffectDialog extends ToolManagableDialog {
 	 *            Current set of properties of the effect
 	 * @return Hashmap with the properties of the effect, null if the action was cancelled
 	 */
-	public static HashMap<Integer, String> showEditEffectDialog( EffectsController effectsController, int effectType, HashMap<Integer, String> currentProperties ) {
-		HashMap<Integer, String> effectProperties = null;
+	public static HashMap<Integer, Object> showEditEffectDialog( EffectsController effectsController, int effectType, HashMap<Integer, Object> currentProperties ) {
+		HashMap<Integer, Object> effectProperties = null;
 
 		switch( effectType ) {
 			case Effect.ACTIVATE:
@@ -161,7 +161,7 @@ public abstract class EffectDialog extends ToolManagableDialog {
 				break;
 			case Effect.CANCEL_ACTION:
 			case Effect.TRIGGER_LAST_SCENE:
-				effectProperties = new HashMap<Integer, String>( );
+				effectProperties = new HashMap<Integer, Object>( );
 				break;
 			case Effect.SPEAK_PLAYER:
 				effectProperties = new SpeakPlayerEffectDialog( currentProperties ).getEffectProperties( );
@@ -204,7 +204,7 @@ public abstract class EffectDialog extends ToolManagableDialog {
 		return effectProperties;
 	}
 	
-	public static HashMap<Integer, String> showEditRandomEffectDialog( int probability, SingleEffectController posEffectController, SingleEffectController negEffectController ) {
+	public static HashMap<Integer, Object> showEditRandomEffectDialog( int probability, SingleEffectController posEffectController, SingleEffectController negEffectController ) {
 		return new RandomEffectDialog ( probability, posEffectController, negEffectController).getEffectProperties( );
 	}
 }

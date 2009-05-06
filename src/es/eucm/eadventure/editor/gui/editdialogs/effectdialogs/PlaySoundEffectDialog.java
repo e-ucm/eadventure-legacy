@@ -57,7 +57,7 @@ public class PlaySoundEffectDialog extends EffectDialog {
 	 * @param currentProperties
 	 *            Set of initial values
 	 */
-	public PlaySoundEffectDialog( EffectsController effectsController, HashMap<Integer, String> currentProperties ) {
+	public PlaySoundEffectDialog( EffectsController effectsController, HashMap<Integer, Object> currentProperties ) {
 
 		// Call the super method
 		super( TextConstants.getText( "PlaySoundEffect.Title" ), false );
@@ -123,12 +123,12 @@ public class PlaySoundEffectDialog extends EffectDialog {
 		// Set the defualt values (if present)
 		if( currentProperties != null ) {
 			if( currentProperties.containsKey( EffectsController.EFFECT_PROPERTY_PATH ) ) {
-				pathTextField.setText( currentProperties.get( EffectsController.EFFECT_PROPERTY_PATH ) );
+				pathTextField.setText( (String)currentProperties.get( EffectsController.EFFECT_PROPERTY_PATH ) );
 				viewButton.setEnabled( pathTextField.getText( ) != null );
 			}
 
 			if( currentProperties.containsKey( EffectsController.EFFECT_PROPERTY_BACKGROUND ) ) {
-				backgroundCheckBox.setSelected( Boolean.parseBoolean( currentProperties.get( EffectsController.EFFECT_PROPERTY_BACKGROUND ) ) );
+				backgroundCheckBox.setSelected( Boolean.parseBoolean( (String)currentProperties.get( EffectsController.EFFECT_PROPERTY_BACKGROUND ) ) );
 			}
 		}
 
@@ -143,7 +143,7 @@ public class PlaySoundEffectDialog extends EffectDialog {
 	@Override
 	protected void pressedOKButton( ) {
 		// Create a set of properties, and put the selected value
-		properties = new HashMap<Integer, String>( );
+		properties = new HashMap<Integer, Object>( );
 		properties.put( EffectsController.EFFECT_PROPERTY_PATH, pathTextField.getText( ) );
 		properties.put( EffectsController.EFFECT_PROPERTY_BACKGROUND, String.valueOf( backgroundCheckBox.isSelected( ) ) );
 	}

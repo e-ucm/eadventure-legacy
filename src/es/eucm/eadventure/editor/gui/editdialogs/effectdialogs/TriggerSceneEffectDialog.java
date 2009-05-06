@@ -49,7 +49,7 @@ public class TriggerSceneEffectDialog extends EffectDialog {
 	 * @param currentProperties
 	 *            Set of initial values
 	 */
-	public TriggerSceneEffectDialog( HashMap<Integer, String> currentProperties ) {
+	public TriggerSceneEffectDialog( HashMap<Integer, Object> currentProperties ) {
 
 		// Call the super method
 		super( TextConstants.getText( "TriggerSceneEffect.Title" ), true );
@@ -93,10 +93,10 @@ public class TriggerSceneEffectDialog extends EffectDialog {
 					scenesComboBox.setSelectedItem( currentProperties.get( EffectsController.EFFECT_PROPERTY_TARGET ) );
 
 				if( currentProperties.containsKey( EffectsController.EFFECT_PROPERTY_X ) )
-					x = Integer.parseInt( currentProperties.get( EffectsController.EFFECT_PROPERTY_X ) );
+					x = Integer.parseInt( (String) currentProperties.get( EffectsController.EFFECT_PROPERTY_X ) );
 
 				if( currentProperties.containsKey( EffectsController.EFFECT_PROPERTY_Y ) )
-					y = Integer.parseInt( currentProperties.get( EffectsController.EFFECT_PROPERTY_Y ) );
+					y = Integer.parseInt( (String) currentProperties.get( EffectsController.EFFECT_PROPERTY_Y ) );
 
 				playerPositionPanel = new PositionPanel( new ElementImagePanel( null, playerPath ),x,y );
 				//playerPositionPanel.setPosition( x, y );
@@ -132,7 +132,7 @@ public class TriggerSceneEffectDialog extends EffectDialog {
 	@Override
 	protected void pressedOKButton( ) {
 		// Create a set of properties, and put the selected value
-		properties = new HashMap<Integer, String>( );
+		properties = new HashMap<Integer, Object>( );
 		properties.put( EffectsController.EFFECT_PROPERTY_TARGET, scenesComboBox.getSelectedItem( ).toString( ) );
 		properties.put( EffectsController.EFFECT_PROPERTY_X, String.valueOf( playerPositionPanel.getPositionX( ) ) );
 		properties.put( EffectsController.EFFECT_PROPERTY_Y, String.valueOf( playerPositionPanel.getPositionY( ) ) );

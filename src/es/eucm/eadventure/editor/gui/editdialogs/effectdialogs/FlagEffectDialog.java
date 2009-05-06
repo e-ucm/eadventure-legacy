@@ -57,7 +57,7 @@ public class FlagEffectDialog extends EffectDialog {
 	 * @param currentProperties
 	 *            Set of initial values
 	 */
-	public FlagEffectDialog( int type, HashMap<Integer, String> currentProperties ) {
+	public FlagEffectDialog( int type, HashMap<Integer, Object> currentProperties ) {
 
 		// Call the super method
 		super( TextConstants.getText( dialogTitles[type] ), false );
@@ -107,7 +107,7 @@ public class FlagEffectDialog extends EffectDialog {
 	@Override
 	protected void pressedOKButton( ) {
 		// Create a set of properties, and put the selected value
-		properties = new HashMap<Integer, String>( );
+		properties = new HashMap<Integer, Object>( );
 		
 		VarFlagsController varFlagsController = new VarFlagsController(Controller.getInstance().getVarFlagSummary( ));
 		String flag = null;

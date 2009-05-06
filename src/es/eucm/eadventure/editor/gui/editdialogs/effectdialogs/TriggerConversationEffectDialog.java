@@ -33,7 +33,7 @@ public class TriggerConversationEffectDialog extends EffectDialog {
 	 * @param currentProperties
 	 *            Set of initial values
 	 */
-	public TriggerConversationEffectDialog( HashMap<Integer, String> currentProperties ) {
+	public TriggerConversationEffectDialog( HashMap<Integer, Object> currentProperties ) {
 
 		// Call the super method
 		super( TextConstants.getText( "TriggerConversationEffect.Title" ), false );
@@ -83,7 +83,7 @@ public class TriggerConversationEffectDialog extends EffectDialog {
 	@Override
 	protected void pressedOKButton( ) {
 		// Create a set of properties, and put the selected value
-		properties = new HashMap<Integer, String>( );
+		properties = new HashMap<Integer, Object>( );
 		properties.put( EffectsController.EFFECT_PROPERTY_TARGET, conversationsComboBox.getSelectedItem( ).toString( ) );
 	}
 

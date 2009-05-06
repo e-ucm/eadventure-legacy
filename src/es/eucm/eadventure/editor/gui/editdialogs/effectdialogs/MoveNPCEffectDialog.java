@@ -61,7 +61,7 @@ public class MoveNPCEffectDialog extends EffectDialog {
 	 * @param currentProperties
 	 *            Set of initial values
 	 */
-	public MoveNPCEffectDialog( HashMap<Integer, String> currentProperties ) {
+	public MoveNPCEffectDialog( HashMap<Integer, Object> currentProperties ) {
 
 		// Call the super method
 		super( TextConstants.getText( "MoveNPCEffect.Title" ) , true);
@@ -125,10 +125,10 @@ public class MoveNPCEffectDialog extends EffectDialog {
 					charactersComboBox.setSelectedItem( currentProperties.get( EffectsController.EFFECT_PROPERTY_TARGET ) );
 
 				if( currentProperties.containsKey( EffectsController.EFFECT_PROPERTY_X ) )
-					x = Integer.parseInt( currentProperties.get( EffectsController.EFFECT_PROPERTY_X ) );
+					x = Integer.parseInt( (String)currentProperties.get( EffectsController.EFFECT_PROPERTY_X ) );
 
 				if( currentProperties.containsKey( EffectsController.EFFECT_PROPERTY_Y ) )
-					y = Integer.parseInt( currentProperties.get( EffectsController.EFFECT_PROPERTY_Y ) );
+					y = Integer.parseInt( (String) currentProperties.get( EffectsController.EFFECT_PROPERTY_Y ) );
 
 				npcPositionPanel= new PositionPanel( elementPositionImagePanel,x,y );
 				//npcPositionPanel.setPosition( x, y );
@@ -166,7 +166,7 @@ public class MoveNPCEffectDialog extends EffectDialog {
 	@Override
 	protected void pressedOKButton( ) {
 		// Create a set of properties, and put the selected value
-		properties = new HashMap<Integer, String>( );
+		properties = new HashMap<Integer, Object>( );
 		properties.put( EffectsController.EFFECT_PROPERTY_TARGET, charactersComboBox.getSelectedItem( ).toString( ) );
 		properties.put( EffectsController.EFFECT_PROPERTY_X, String.valueOf( npcPositionPanel.getPositionX( ) ) );
 		properties.put( EffectsController.EFFECT_PROPERTY_Y, String.valueOf( npcPositionPanel.getPositionY( ) ) );

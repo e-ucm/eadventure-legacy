@@ -55,7 +55,7 @@ public class ObjectEffectDialog extends EffectDialog {
 	 * @param currentProperties
 	 *            Set of initial values
 	 */
-	public ObjectEffectDialog( int type, HashMap<Integer, String> currentProperties ) {
+	public ObjectEffectDialog( int type, HashMap<Integer, Object> currentProperties ) {
 
 		// Call the super method
 		super( TextConstants.getText( dialogTitles[type] ) , false);
@@ -105,7 +105,7 @@ public class ObjectEffectDialog extends EffectDialog {
 	@Override
 	protected void pressedOKButton( ) {
 		// Create a set of properties, and put the selected value
-		properties = new HashMap<Integer, String>( );
+		properties = new HashMap<Integer, Object>( );
 		properties.put( EffectsController.EFFECT_PROPERTY_TARGET, itemsComboBox.getSelectedItem( ).toString( ) );
 	}
 
