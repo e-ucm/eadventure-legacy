@@ -1,6 +1,7 @@
 package es.eucm.eadventure.editor.gui.elementpanels.general;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -8,8 +9,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -17,6 +20,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableCellRenderer;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
@@ -69,6 +73,18 @@ public class EffectsPanel extends JPanel implements Updateable{
 
 		effectsTable = new JTable( new EffectsTableModel( ) );
 		effectsTable.getColumnModel( ).getColumn( 0 ).setMaxWidth( 60 );
+		
+		// Effect info colummn
+		effectsTable.getColumnModel().getColumn(1).setCellRenderer(new TableCellRenderer(){
+
+			@Override
+			public Component getTableCellRendererComponent(JTable table,
+					Object value, boolean isSelected, boolean hasFocus,
+					int row, int column) {
+				return (JPanel)value;
+			}
+			
+		});
 		
 		// Edit button
 		effectsTable.getColumnModel().getColumn(2).setCellRenderer(new EditEffectCellRenderEditor(effectsTable));
@@ -278,10 +294,17 @@ public class EffectsPanel extends JPanel implements Updateable{
 			if( columnIndex == 0 )
 				value = rowIndex + 1;
 
-			else if( columnIndex == 1 )
-				value = effectsController.getEffectInfo( rowIndex );
+			else if( columnIndex == 1 ){
+				JPanel effectPanel = new JPanel();
+				JLabel icon = new JLabel(effectsController.getEffectIcon( rowIndex ));
+				JLabel text = new JLabel(effectsController.getEffectInfo( rowIndex ));
+				effectPanel.setLayout(new BoxLayout(effectPanel, BoxLayout.LINE_AXIS));
+				effectPanel.add(icon);
+				effectPanel.add(text);
+				effectPanel.setOpaque(false);
+				value = effectPanel;
 			
-			else if (columnIndex == 2)
+			}else if (columnIndex == 2)
 			    	value = effectsController;	
 
 			
