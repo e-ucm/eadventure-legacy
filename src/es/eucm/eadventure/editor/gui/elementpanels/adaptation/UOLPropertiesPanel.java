@@ -19,8 +19,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.border.EtchedBorder;
-import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
@@ -47,12 +45,6 @@ class UOLPropertiesPanel extends JPanel implements Updateable{
 	 * Adaptation rule data controller.
 	 */
 	private AdaptationRuleDataControl adaptationRuleDataControl;
-
-
-	/**
-	 * Border of the panel
-	 */
-	private TitledBorder border;
 
 	/**
 	 * Table in which the node lines are represented
@@ -102,10 +94,6 @@ class UOLPropertiesPanel extends JPanel implements Updateable{
 	public UOLPropertiesPanel( AdaptationRuleDataControl adpDataControl,boolean scorm12, boolean scorm2004  ) {
 		// Set the initial values
 		this.adaptationRuleDataControl = adpDataControl;
-
-		// Create and set border (titled border in this case)
-		border = BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( EtchedBorder.LOWERED ), TextConstants.getText( "AdaptationRule.UOLState.Title" ), TitledBorder.CENTER, TitledBorder.TOP );
-		setBorder( border );
 
 		// Set a GridBagLayout
 		setLayout( new BorderLayout() );

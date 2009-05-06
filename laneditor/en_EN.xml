@@ -1813,8 +1813,8 @@ When not customized, default arrows will be used in the game.</entry>
 	<entry key="AdaptationRulesList.ListTitle">List of adaptation rules</entry>
 	<entry key="AdaptationRulesList.Title">Adaptation rules summary</entry>
 	<entry key="AdaptationRulesList.Information">These are all the adaptation rules specified so far. You can edit whichever by browsing the tree and clicking on the specified rule. Moreover, you are allowed to modify the initial state fields in this panel.</entry>
-	<entry key="AdaptationRulesList.Scorm2004">Set to SCORM 2004 profile</entry>
-	<entry key="AdaptationRulesList.Scorm12">Set to SCORM 1.2 profile</entry>
+	<entry key="AdaptationRulesList.Scorm2004">SCORM 2004 profile</entry>
+	<entry key="AdaptationRulesList.Scorm12">SCORM 1.2 profile</entry>
 	<entry key="AdaptationRulesList.Normal">Normal Profile</entry>
 	<entry key="AdaptationRulesList.ScormBorder">Change the Profile Type</entry>
 

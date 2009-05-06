@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.Stroke;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,6 +17,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 
+import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -130,6 +132,8 @@ public class DrawPanel  extends JPanel {
 		zoomout.setContentAreaFilled(false);
 		zoomout.setToolTipText(TextConstants.getText("DrawPanel.ZoomOut"));
 		zoomout.setFocusable(false);
+		zoomout.setMargin(new Insets(0,0,0,0));
+		zoomout.setBorder(BorderFactory.createEmptyBorder());
 		sliderPanel.add(zoomout);
 		
 		
@@ -152,6 +156,8 @@ public class DrawPanel  extends JPanel {
 		zoomin.setContentAreaFilled(false);
 		zoomin.setToolTipText(TextConstants.getText("DrawPanel.ZoomIn"));
 		zoomin.setFocusable(false);
+		zoomin.setMargin(new Insets(0,0,0,0));
+		zoomin.setBorder(BorderFactory.createEmptyBorder());
 		sliderPanel.add(zoomin);
 
 		zoomin.addActionListener(new ActionListener() {

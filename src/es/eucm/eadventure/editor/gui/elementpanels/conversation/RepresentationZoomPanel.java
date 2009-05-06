@@ -1,9 +1,11 @@
 package es.eucm.eadventure.editor.gui.elementpanels.conversation;
 
 import java.awt.Dimension;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -29,6 +31,8 @@ public class RepresentationZoomPanel extends JPanel {
 		zoomout.setContentAreaFilled(false);
 		zoomout.setToolTipText(TextConstants.getText("DrawPanel.ZoomOut"));
 		zoomout.setFocusable(false);
+		zoomout.setMargin(new Insets(0,0,0,0));
+		zoomout.setBorder(BorderFactory.createEmptyBorder());
 		add(zoomout);
 		
 		final JSlider slider = new JSlider(1, 10);
@@ -50,6 +54,8 @@ public class RepresentationZoomPanel extends JPanel {
 		zoomin.setContentAreaFilled(false);
 		zoomin.setToolTipText(TextConstants.getText("DrawPanel.ZoomIn"));
 		zoomin.setFocusable(false);
+		zoomin.setMargin(new Insets(0,0,0,0));
+		zoomin.setBorder(BorderFactory.createEmptyBorder());
 		add(zoomin);
 
 		zoomin.addActionListener(new ActionListener() {
