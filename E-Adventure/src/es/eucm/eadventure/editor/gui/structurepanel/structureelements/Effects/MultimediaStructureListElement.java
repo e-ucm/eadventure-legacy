@@ -16,7 +16,7 @@ public class MultimediaStructureListElement extends EffectsStructureListElement{
     
     public MultimediaStructureListElement() {
 	super(TextConstants.getText("EffectsGroup.Multimedia"));
-	icon = new ImageIcon( "img/icons/adaptationProfiles.png" );
+	//icon = new ImageIcon( "img/icons/adaptationProfiles.png" );
 	groupEffects = new String[]{TextConstants.getText("Effect.PlaySound" ),TextConstants.getText( "Effect.PlayAnimation" ),
 		TextConstants.getText( "Effect.TriggerCutscene"  )};
 	    

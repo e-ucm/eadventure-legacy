@@ -16,7 +16,7 @@ public class GameStateStructureListElement extends EffectsStructureListElement{
     
     public GameStateStructureListElement() {
 	super(TextConstants.getText("EffectsGroup.GameState"));
-	icon = new ImageIcon( "img/icons/adaptationProfiles.png" );
+	//icon = new ImageIcon( "img/icons/adaptationProfiles.png" );
 	groupEffects = new String[]{TextConstants.getText( "Effect.Activate" ),TextConstants.getText( "Effect.Deactivate" ),
 		TextConstants.getText( "Effect.SetValue" ), TextConstants.getText( "Effect.IncrementVar" ),TextConstants.getText( "Effect.DecrementVar" )};
 	    	
