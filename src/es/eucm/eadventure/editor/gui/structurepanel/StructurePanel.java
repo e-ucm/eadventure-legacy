@@ -435,11 +435,13 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
 	public void reloadElementPanel() {
 	    if (editorContainer!=null){
 		editorContainer.removeAll();
-		if (list == null || list.getSelectedRow() == -1) {
-			editorContainer.add(structureElements.get(selectedElement).getEditPanel());
-			StructureControl.getInstance().visitDataControl(structureElements.get(selectedElement).getDataControl());
-		} else {
-			editorContainer.add(structureElements.get(selectedElement).getChild(list.getSelectedRow()).getEditPanel());
+		if (selectedElement >= 0 && selectedElement < structureElements.size()) {
+			if (list == null || list.getSelectedRow() == -1) {
+				editorContainer.add(structureElements.get(selectedElement).getEditPanel());
+				StructureControl.getInstance().visitDataControl(structureElements.get(selectedElement).getDataControl());
+			} else {
+				editorContainer.add(structureElements.get(selectedElement).getChild(list.getSelectedRow()).getEditPanel());
+			}
 		}
 		editorContainer.validate( );
 		editorContainer.repaint( );
