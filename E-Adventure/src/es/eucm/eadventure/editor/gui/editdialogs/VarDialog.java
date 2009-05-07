@@ -16,6 +16,7 @@ import java.util.Locale;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -41,7 +42,7 @@ public class VarDialog extends JDialog{
     public VarDialog(int var){
 	
 	// Call to the JDialog constructor
-	super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "VarDialog.Title" ), Dialog.ModalityType.APPLICATION_MODAL );
+	super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "VarDialog.Title" ), Dialog.ModalityType.TOOLKIT_MODAL );
 
 	err=false;
 	
@@ -63,12 +64,28 @@ public class VarDialog extends JDialog{
 	
 	//setLayout(new BorderLayout());
 	add(cont);
+	// Create Ok button to close the dialog
+	JButton ok = new JButton("OK");
+	ok.addActionListener(new ActionListener(){
+
+	    @Override
+	    public void actionPerformed(ActionEvent e) {
+		dispose();
+		
+	    }
+	    
+	});
+	JPanel container= new JPanel();
+	container.add(ok);
+	add(ok,BorderLayout.SOUTH);
 	// Set the size, position and properties of the dialog
 	setResizable( false );
 	setSize( 250, 100);
 	Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
 	setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
 	setVisible( true );
+	ok.requestFocus();
+	
     }
 
 

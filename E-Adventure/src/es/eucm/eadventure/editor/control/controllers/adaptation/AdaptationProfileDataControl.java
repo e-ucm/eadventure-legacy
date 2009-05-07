@@ -377,6 +377,8 @@ public class AdaptationProfileDataControl extends DataControl{
 	
 	public void change(int rowIndex,String name){
 	    //profile.getAdaptedState().change(rowIndex, name);
+	    
+	    
 	    controller.addTool(new ChangeVarFlagTool(profile.getAdaptedState(),rowIndex,name));
 	}
 	

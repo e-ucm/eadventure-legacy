@@ -42,10 +42,6 @@ public class AdaptedState implements Cloneable, HasTargetId {
      */
     private List<String> actionsValues;
     
-    /**
-     * Store if each component of allFlagsVars is flag (true value) or var (false value)
-     */
-    private List<Boolean> isFlagOrVar;
     
     /**
      * Constructor
@@ -54,7 +50,7 @@ public class AdaptedState implements Cloneable, HasTargetId {
         initialScene = null;
         allFlagsVars = new ArrayList<String>( );
         actionsValues = new ArrayList<String>( );
-        isFlagOrVar = new ArrayList<Boolean>();
+      
     }
     
     /**
@@ -88,7 +84,7 @@ public class AdaptedState implements Cloneable, HasTargetId {
     public void addActivatedFlag( String flag ) {
         allFlagsVars.add( flag );
         actionsValues.add( ACTIVATE );
-        isFlagOrVar.add(true);
+        
     }
     
     /**
@@ -98,7 +94,7 @@ public class AdaptedState implements Cloneable, HasTargetId {
     public void addDeactivatedFlag( String flag ) {
         allFlagsVars.add( flag );
         actionsValues.add( DEACTIVATE );
-        isFlagOrVar.add(true);
+        
     }
 
     /**

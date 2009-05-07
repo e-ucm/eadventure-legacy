@@ -10,7 +10,7 @@ import es.eucm.eadventure.editor.gui.structurepanel.EffectsStructurePanel;
 
 public class MainStructureListElement extends EffectsStructureListElement{
 
-    private static final String LIST_URL = "effects/Effects_General.html";
+    private static final String LIST_URL = "effects_short/Effects_General.html";
     
     public MainStructureListElement() {
 		super(TextConstants.getText("EffectsGroup.Main"));
