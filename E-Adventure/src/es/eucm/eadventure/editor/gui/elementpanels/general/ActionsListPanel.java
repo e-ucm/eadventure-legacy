@@ -51,6 +51,8 @@ public class ActionsListPanel extends JPanel implements DataControlsPanel,Update
 	
 	protected JTable table;
 	
+	protected JPanel actionPanel;
+	
 	private static final int HORIZONTAL_SPLIT_POSITION = 140;
 
 	/**
@@ -182,10 +184,10 @@ public class ActionsListPanel extends JPanel implements DataControlsPanel,Update
 		if (selectedAction != -1&&dataControl.getActions().size()>0) {
 			ActionDataControl action = dataControl.getActions().get(selectedAction);
 			if (action instanceof CustomActionDataControl){
-			    JPanel actionPanel = new CustomActionPropertiesPanel((CustomActionDataControl)action);
+			    actionPanel = new CustomActionPropertiesPanel((CustomActionDataControl)action);
 			    actionPropertiesPanel.add(actionPanel,BorderLayout.CENTER);
 			}else if (action instanceof ActionDataControl){
-			    JPanel actionPanel = new ActionPropertiesPanel(action);
+			    actionPanel = new ActionPropertiesPanel(action);
 			    actionPropertiesPanel.add(actionPanel,BorderLayout.CENTER);
 			}
 			actionPropertiesPanel.updateUI();
@@ -195,8 +197,9 @@ public class ActionsListPanel extends JPanel implements DataControlsPanel,Update
 			moveUpButton.setEnabled( dataControl.getActions().size()>1 && selectedAction > 0);
 			moveDownButton.setEnabled( dataControl.getActions().size()>1 && selectedAction < table.getRowCount( )-1 );
 		} else {
-		    	actionPropertiesPanel.removeAll();
-		    	actionPropertiesPanel.updateUI();
+		    actionPropertiesPanel.removeAll();
+		    actionPanel = null;
+		    actionPropertiesPanel.updateUI();
 			deleteButton.setEnabled(false);
 			duplicateButton.setEnabled(false);
 			moveUpButton.setEnabled(false);
@@ -282,6 +285,9 @@ public class ActionsListPanel extends JPanel implements DataControlsPanel,Update
 				table.changeSelection(selected, 0, false, false);
 				if (table.getEditorComponent() != null)
 					table.editCellAt(selected, table.getEditingColumn());
+				if (actionPanel != null && actionPanel instanceof Updateable) {
+					((Updateable) actionPanel).updateFields();
+				}
 			}
 		}
 		
