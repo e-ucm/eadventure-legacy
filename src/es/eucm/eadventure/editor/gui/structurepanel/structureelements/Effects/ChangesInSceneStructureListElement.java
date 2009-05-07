@@ -12,7 +12,7 @@ public class ChangesInSceneStructureListElement extends EffectsStructureListElem
     private static final String[] COMPONENTS = {TextConstants.getText( "Effect.ConsumeObject" ),TextConstants.getText( "Effect.GenerateObject" ),
 	TextConstants.getText( "Effect.MovePlayer" ),TextConstants.getText( "Effect.MoveCharacter" )};
 
-    private static final String LIST_URL = "effects/Effects_SceneChanges.html";
+    private static final String LIST_URL = "effects_short/Effects_SceneChanges.html";
     
     public ChangesInSceneStructureListElement() {
 	super(TextConstants.getText("EffectsGroup.ChangeInScene"));
