@@ -154,25 +154,7 @@ public class AdventureDataControl {
     	return DescriptorData.typeAllowed[adventureData.getGUIType()][type];
     }
     
-    public void updateAssessmentFlagSummary(String assessmentPath , VarFlagSummary varFlagSummary) {
-	/*for (int i = 0; i<assessmentProfilesDataControl.getProfiles().size();i++){
-	    if (assessmentProfilesDataControl.getProfiles().get(i).getPath().equals(assessmentPath)){
-		assessmentProfilesDataControl.getProfiles().get(i).updateVarFlagSummary( varFlagSummary );
-		break;
-	    }
-	}*/
-    }
-    
-    public void updateAdaptationFlagSummary(String adaptationPath , VarFlagSummary varFlagSummary) {
-	/*for (int i = 0; i<adaptationProfilesDataControl.getProfiles().size();i++){
-	    if (adaptationProfilesDataControl.getProfiles().get(i).getName().equals(adaptationPath)){
-		adaptationProfilesDataControl.getProfiles().get(i).updateVarFlagSummary( varFlagSummary );
-		break;
-	    }
-	}*/
-    }
-
-	
+ 	
 	/**
 	 * Returns the title of the adventure
 	 * 

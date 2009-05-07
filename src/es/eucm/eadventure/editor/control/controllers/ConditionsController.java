@@ -12,29 +12,53 @@ import es.eucm.eadventure.common.data.chapter.conditions.VarCondition;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.tools.general.conditions.AddConditionTool;
-import es.eucm.eadventure.editor.control.tools.general.conditions.AddEitherBlockTool;
 import es.eucm.eadventure.editor.control.tools.general.conditions.DeleteConditionTool;
-import es.eucm.eadventure.editor.control.tools.general.conditions.DeleteEitherBlockTool;
-import es.eucm.eadventure.editor.control.tools.general.conditions.ReplaceConditionTool;
+import es.eucm.eadventure.editor.control.tools.general.conditions.DuplicateConditionTool;
+import es.eucm.eadventure.editor.control.tools.general.conditions.SetEvalFunctionTool;
+import es.eucm.eadventure.editor.control.tools.general.conditions.SetConditionTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 /**
  * Controller for the conditions. This class operates on the conditions blocks to add new single conditions, and either
  * conditions blocks.
  * 
- * @author Bruno Torijano Bueno
+ * @author Javier Torrente Vigil
  */
 public class ConditionsController {
 
 	public static final int VAR_CONDITION = Condition.VAR_CONDITION;
 	public static final int FLAG_CONDITION = Condition.FLAG_CONDITION;
 	public static final int GLOBAL_STATE_CONDITION = Condition.GLOBAL_STATE_CONDITION;
-	
-	/**
-	 * Constant for the index of the main conditions block.
-	 */
-	public static final int MAIN_CONDITIONS_BLOCK = -1;
 
+	/*
+	 * Constants for KEYs (and some VALUES) of the HashMap getCondition returns
+	 */
+	// FLAG; VAR; GLOBAL_STATE
+	public static final String CONDITION_TYPE="condition-type";
+	public static final String CONDITION_TYPE_VAR="var";
+	public static final String CONDITION_TYPE_FLAG="flag";
+	public static final String CONDITION_TYPE_GS="global-state";
+
+	public static final String CONDITION_ID ="condition-id";
+	public static final String CONDITION_VALUE="condition-value";
+	
+	//active|inactive|<,<=,>,>=,=
+	public static final String CONDITION_STATE="condition-state";
+	
+	/*
+	 * Constants for setEvalFunction (param value)
+	 */
+	public static final int EVAL_FUNCTION_AND = 0;
+	public static final int EVAL_FUNCTION_OR = 1;
+	// Constant for setEvalFunction (index)
+	public static final int INDEX_NOT_USED=-1;
+	
+	// KEYS FOR Context HashMap
+	public static String CONDITION_GROUP_TYPE ="condition-type";
+	public static String CONDITION_RESTRICTIONS ="condition-restrictions";
+	public static String CONDITION_OWNER ="condition-owner";
+	public static String CONDITION_CUSTOM_MESSAGE ="condition-custom-message";
+	
 	/**
 	 * String values for the states of a condition
 	 */
@@ -51,352 +75,6 @@ public class ConditionsController {
 	 * String values for the states of a varcondition
 	 */
 	public static final String[] STATE_VALUES_VARS = { ">", ">=","<", "<=", "=" };
-
-	/**
-	 * Link to the main controller.
-	 */
-	private Controller controller;
-
-
-	/**
-	 * Conditions data.
-	 */
-	private Conditions conditions;
-	
-	
-
-	/**
-	 * Constructor.
-	 * 
-	 * @param conditions
-	 *            Conditions block of data
-	 */
-	/*public ConditionsController( Conditions conditions ) {
-		this.conditions = conditions;
-		controller = Controller.getInstance( );
-	}*/
-
-	/**
-	 * Returns if the controller can add conditions to the blocks.
-	 * 
-	 * @return True if the controller can add conditions, false otherwise
-	 */
-	public boolean canAddConditions( ) {
-		return controller.getVarFlagSummary( ).getFlagCount( ) > 0 || 
-		controller.getVarFlagSummary( ).getVarCount( ) > 0; 
-	}
-
-	/**
-	 * Returns the number of either conditions blocks present in the conditions data.
-	 * 
-	 * @return Number of either conditions blocks
-	 */
-	public int getEitherConditionsBlockCount( ) {
-		return conditions.getEitherConditionsBlockCount( );
-	}
-
-	/**
-	 * Returns the id of the condition in the given position of the given block.
-	 * 
-	 * @param blockIndex
-	 *            The index of the conditions block. Use MAIN_CONDITIONS_BLOCK (-1) to select the main block of
-	 *            conditions, and values from 0 to getEitherConditionsBlockCount( ) to access the either blocks of
-	 *            conditions
-	 * @param conditionIndex
-	 *            Index of the condition
-	 * @return Id of the condition
-	 */
-	public String getConditionId( int blockIndex, int conditionIndex ) {
-		String conditionId;
-
-		if( blockIndex == MAIN_CONDITIONS_BLOCK )
-			conditionId = conditions.getMainConditions( ).get( conditionIndex ).getId( );
-
-		else
-			conditionId = conditions.getEitherConditions( blockIndex ).get( conditionIndex ).getId( );
-
-		return conditionId;
-	}
-	
-	/**
-	 * Returns the id of the condition in the given position of the given block.
-	 * 
-	 * @param blockIndex
-	 *            The index of the conditions block. Use MAIN_CONDITIONS_BLOCK (-1) to select the main block of
-	 *            conditions, and values from 0 to getEitherConditionsBlockCount( ) to access the either blocks of
-	 *            conditions
-	 * @param conditionIndex
-	 *            Index of the condition
-	 * @return Id of the condition
-	 */
-	public int getConditionType( int blockIndex, int conditionIndex ) {
-		int conditionType;
-
-		if( blockIndex == MAIN_CONDITIONS_BLOCK )
-			conditionType = conditions.getMainConditions( ).get( conditionIndex ).getType();
-
-		else
-			conditionType = conditions.getEitherConditions( blockIndex ).get( conditionIndex ).getType();
-
-		return conditionType;
-	}
-	
-	
-	/**
-	 * Checks if the selected condition is a var or a flag condition
-	 * 
-	 * @param blockIndex
-	 *            The index of the conditions block. Use MAIN_CONDITIONS_BLOCK (-1) to select the main block of
-	 *            conditions, and values from 0 to getEitherConditionsBlockCount( ) to access the either blocks of
-	 *            conditions
-	 * @param conditionIndex
-	 *            Index of the condition
-	 * @return Id of the condition
-	 */
-	public boolean isFlagCondtion( int blockIndex, int conditionIndex ) {
-		boolean isFlag = false;
-
-		if( blockIndex == MAIN_CONDITIONS_BLOCK )
-			isFlag = conditions.getMainConditions( ).get( conditionIndex ).getType() == Condition.FLAG_CONDITION;
-		else
-			isFlag = conditions.getEitherConditions( blockIndex ).get( conditionIndex ).getType() == Condition.FLAG_CONDITION;
-
-		return isFlag;
-	}
-	
-	/**
-	 * Checks if the selected condition is a var or a flag condition
-	 * 
-	 * @param blockIndex
-	 *            The index of the conditions block. Use MAIN_CONDITIONS_BLOCK (-1) to select the main block of
-	 *            conditions, and values from 0 to getEitherConditionsBlockCount( ) to access the either blocks of
-	 *            conditions
-	 * @param conditionIndex
-	 *            Index of the condition
-	 * @return Id of the condition
-	 */
-	public boolean isVarCondtion( int blockIndex, int conditionIndex ) {
-		boolean isFlag = false;
-
-		if( blockIndex == MAIN_CONDITIONS_BLOCK )
-			isFlag = conditions.getMainConditions( ).get( conditionIndex ).getType() == Condition.VAR_CONDITION;
-		else
-			isFlag = conditions.getEitherConditions( blockIndex ).get( conditionIndex ).getType() == Condition.VAR_CONDITION;
-
-		return isFlag;
-	}
-	
-	/**
-	 * Checks if the selected condition is a var or a flag condition
-	 * 
-	 * @param blockIndex
-	 *            The index of the conditions block. Use MAIN_CONDITIONS_BLOCK (-1) to select the main block of
-	 *            conditions, and values from 0 to getEitherConditionsBlockCount( ) to access the either blocks of
-	 *            conditions
-	 * @param conditionIndex
-	 *            Index of the condition
-	 * @return Id of the condition
-	 */
-	public boolean isGlobalStateCondtion( int blockIndex, int conditionIndex ) {
-		boolean isFlag = false;
-
-		if( blockIndex == MAIN_CONDITIONS_BLOCK )
-			isFlag = conditions.getMainConditions( ).get( conditionIndex ).getType() == Condition.GLOBAL_STATE_CONDITION;
-		else
-			isFlag = conditions.getEitherConditions( blockIndex ).get( conditionIndex ).getType() == Condition.GLOBAL_STATE_CONDITION;
-
-		return isFlag;
-	}
-
-
-	/**
-	 * Returns the state of the condition in the index position of the given block.
-	 * 
-	 * @param blockIndex
-	 *            The index of the conditions block. Use MAIN_CONDITIONS_BLOCK (-1) to select the main block of
-	 *            conditions, and values from 0 to getEitherConditionsBlockCount( ) to access the either blocks of
-	 *            conditions
-	 * @param conditionIndex
-	 *            Index of the condition
-	 * @return State of the condition
-	 */
-	public String getConditionState( int blockIndex, int conditionIndex ) {
-		String conditionState;
-
-		if( blockIndex == MAIN_CONDITIONS_BLOCK )
-			conditionState = getStringFromState( conditions.getMainConditions( ).get( conditionIndex ).getState( ) );
-
-		else
-			conditionState = getStringFromState( conditions.getEitherConditions( blockIndex ).get( conditionIndex ).getState( ) );
-
-		return conditionState;
-	}
-
-	/**
-	 * Adds a new either conditions block.
-	 */
-	public void addEitherConditionsBlock( ) {
-		controller.addTool(new AddEitherBlockTool(conditions));
-	}
-
-	/**
-	 * Deletes the given either conditions block.
-	 * 
-	 * @param index
-	 *            Index of the either conditions block
-	 */
-	public void deleteEitherConditionsBlock( int index ) {
-		controller.addTool(new DeleteEitherBlockTool(conditions,controller.getVarFlagSummary(),index));
-	}
-
-	/**
-	 * Adds a new condition to the given block.
-	 * 
-	 * @param blockIndex
-	 *            The index of the conditions block. Use MAIN_CONDITIONS_BLOCK (-1) to select the main block of
-	 *            conditions, and values from 0 to getEitherConditionsBlockCount( ) to access the either blocks of
-	 *            conditions
-	 * @param conditionId
-	 *            Id of the condition
-	 * @param conditionState
-	 *            State of the condition
-	 */
-	public void addCondition( int blockIndex, int type, String conditionId, String conditionState, String value ) {
-
-		
-		if (Controller.getInstance( ).getVarFlagSummary( ).existsId( conditionId ) || 
-				Controller.getInstance().getIdentifierSummary().isGlobalStateId(conditionId)){
-			if( blockIndex == MAIN_CONDITIONS_BLOCK ){
-				if ( type == FLAG_CONDITION ){
-					Controller.getInstance().addTool(new AddConditionTool(conditions.getMainConditions( ),new FlagCondition( conditionId, getStateFromString( conditionState ) ),controller.getVarFlagSummary() ));
-				}else if ( type == VAR_CONDITION ){
-					Controller.getInstance().addTool(new AddConditionTool(conditions.getMainConditions( ),new VarCondition( conditionId, getStateFromString( conditionState ), Integer.parseInt(value) ),controller.getVarFlagSummary() ));
-				} else if (type == GLOBAL_STATE_CONDITION ){
-					Controller.getInstance().addTool(new AddConditionTool(conditions.getMainConditions( ),new GlobalStateCondition( conditionId ),controller.getVarFlagSummary() ));
-				}
-	
-			}else{
-				if ( type == FLAG_CONDITION ){
-					Controller.getInstance().addTool(new AddConditionTool(conditions.getEitherConditions( blockIndex ),new FlagCondition( conditionId, getStateFromString( conditionState ) ),controller.getVarFlagSummary() ));
-				}else if ( type == VAR_CONDITION ){
-					Controller.getInstance().addTool(new AddConditionTool(conditions.getEitherConditions( blockIndex ),new VarCondition( conditionId, getStateFromString( conditionState ), Integer.parseInt(value) ),controller.getVarFlagSummary() ));					
-				}else if (type == GLOBAL_STATE_CONDITION ){
-					Controller.getInstance().addTool(new AddConditionTool(conditions.getEitherConditions( blockIndex ),new GlobalStateCondition( conditionId ), controller.getVarFlagSummary()));
-				}
-			}
-		}
-	}
-
-	
-	
-	/**
-	 * Deletes the given condition from the given block.
-	 * 
-	 * @param blockIndex
-	 *            The index of the conditions block. Use MAIN_CONDITIONS_BLOCK (-1) to select the main block of
-	 *            conditions, and values from 0 to getEitherConditionsBlockCount( ) to access the either blocks of
-	 *            conditions
-	 * @param conditionIndex
-	 *            Index of the condition
-	 */
-	//public void deleteCondition( int blockIndex, int conditionIndex ) {
-	//	if( blockIndex == MAIN_CONDITIONS_BLOCK ) {
-	//		controller.addTool(new DeleteConditionTool(conditions.getMainConditions( ), conditionIndex, controller.getVarFlagSummary()));
-	//	}
-	////	else {
-	//		controller.addTool(new DeleteConditionTool(conditions.getEitherConditions( blockIndex ), conditionIndex, controller.getVarFlagSummary()));
-	//	}
-	//}
-
-	/**
-	 * Replaces the condition in block blockIndex in position conditionIndex with a new condition created
-	 * with the given arguments
-	 * @param blockIndex
-	 * @param conditionIndex
-	 * @param type
-	 * @param id
-	 * @param state
-	 * @param value
-	 */
-	public void setCondition ( int blockIndex, int conditionIndex, int type, String id, String state, String value){
-		Condition newCondition = null;
-		
-		if( blockIndex == MAIN_CONDITIONS_BLOCK ){
-			Condition oldCondition = conditions.getMainConditions( ).get( conditionIndex );
-			// Check if there are any changes: (type, id, state or value must be different)
-			if (oldCondition.getType()!=type || !oldCondition.getId().equals(id) || 
-					oldCondition.getState()!=getStateFromString(state) ||
-					(type == VAR_CONDITION && ((VarCondition)oldCondition).getValue()!=Integer.parseInt(value))){
-				
-				// Create the new condition according to the type
-				if ( type == ConditionsController.FLAG_CONDITION ){
-					newCondition = new FlagCondition ( id, getStateFromString(state) ) ;
-					controller.addTool(new ReplaceConditionTool(conditions.getMainConditions(), newCondition, conditionIndex,controller.getVarFlagSummary()));
-				} else if ( type == ConditionsController.VAR_CONDITION ){
-					newCondition = new VarCondition ( id, getStateFromString(state), Integer.parseInt(value) ) ;
-					controller.addTool(new ReplaceConditionTool(conditions.getMainConditions(), newCondition, conditionIndex,controller.getVarFlagSummary()));
-				} else if ( type == ConditionsController.GLOBAL_STATE_CONDITION ){
-					newCondition = new GlobalStateCondition ( id ) ;
-					controller.addTool(new ReplaceConditionTool(conditions.getMainConditions(), newCondition, conditionIndex,controller.getVarFlagSummary()));
-				}
-			}
-		}
-		
-		else {
-			Condition oldCondition = conditions.getEitherConditions( blockIndex ).get( conditionIndex );
-			if (oldCondition.getType()!=type || !oldCondition.getId().equals(id) || 
-					oldCondition.getState()!=getStateFromString(state) ||
-					(type == VAR_CONDITION && ((VarCondition)oldCondition).getValue()!=Integer.parseInt(value))){
-				if ( type == ConditionsController.FLAG_CONDITION ){
-					newCondition = new FlagCondition ( id, getStateFromString(state) ) ;
-					controller.addTool(new ReplaceConditionTool(conditions.getEitherConditions( blockIndex ), newCondition, conditionIndex,controller.getVarFlagSummary()));
-				} else if ( type == ConditionsController.VAR_CONDITION ){
-					newCondition = new VarCondition ( id, getStateFromString(state), Integer.parseInt(value) ) ;
-					controller.addTool(new ReplaceConditionTool(conditions.getEitherConditions( blockIndex ), newCondition, conditionIndex,controller.getVarFlagSummary()));
-				} else if ( type == ConditionsController.GLOBAL_STATE_CONDITION ){
-					newCondition = new GlobalStateCondition ( id ) ;
-					controller.addTool(new ReplaceConditionTool(conditions.getEitherConditions( blockIndex ), newCondition, conditionIndex,controller.getVarFlagSummary()));
-				}
-				
-			}
-		}
-	}
-	
-	/**
-	 * Sets the new value (only vars) of the given condition of the given block.
-	 * 
-	 * @param blockIndex
-	 *            The index of the conditions block. Use MAIN_CONDITIONS_BLOCK (-1) to select the main block of
-	 *            conditions, and values from 0 to getEitherConditionsBlockCount( ) to access the either blocks of
-	 *            conditions
-	 * @param conditionIndex
-	 *            Index of the condition
-	 * @param value
-	 *            New value of the var condition
-	 */
-
-	public String getConditionValue(int blockIndex, int conditionIndex) {
-		// Stores the old flag
-		String value = null;
-
-		if( blockIndex == MAIN_CONDITIONS_BLOCK ) {
-			if ( conditions.getMainConditions( ).get( conditionIndex ) instanceof VarCondition ){
-				value = Integer.toString( ((VarCondition)(conditions.getMainConditions( ).get( conditionIndex ))).getValue( ) );	
-			}
-			
-		}
-
-		else {
-			if ( conditions.getEitherConditions( blockIndex ).get( conditionIndex ) instanceof VarCondition ){
-				value = Integer.toString( ((VarCondition)(conditions.getEitherConditions( blockIndex ).get( conditionIndex ))).getValue( ) );
-			}
-		}
-
-		// Updates the flag references
-		//controller.dataModified( );
-
-		return value;
-	}
 	
 	/**
 	 * Returns the int value of the string state given.
@@ -405,7 +83,7 @@ public class ConditionsController {
 	 *            Condition state in String form
 	 * @return Int value of state
 	 */
-	private int getStateFromString( String stringState ) {
+	public static int getStateFromString( String stringState ) {
 		int state = Condition.NO_STATE;
 
 		if( stringState.equals( STATE_VALUES[0] ) )
@@ -430,41 +108,18 @@ public class ConditionsController {
 			state = VarCondition.VAR_EQUALS;
 		return state;
 	}
-
-	/**
-	 * Returns the string value of the boolean state given.
-	 * 
-	 * @param state
-	 *            Condition state in int form
-	 * @return String value of state
-	 */
-	private String getStringFromState( int state ) {
-		String stringState = null;
-
-		if( state == FlagCondition.FLAG_ACTIVE )
-			stringState = STATE_VALUES[0];
-
-		else if( state == FlagCondition.FLAG_INACTIVE )
-			stringState = STATE_VALUES[1];
-
-		else if( state == VarCondition.VAR_GREATER_THAN )
-			stringState = STATE_VALUES[2];
-		
-		else if( state == VarCondition.VAR_GREATER_EQUALS_THAN )
-			stringState = STATE_VALUES[3];
-
-		else if( state == VarCondition.VAR_LESS_THAN )
-			stringState = STATE_VALUES[4];
-		
-		else if( state == VarCondition.VAR_LESS_EQUALS_THAN )
-			stringState = STATE_VALUES[5];
-
-		else if( state == VarCondition.VAR_EQUALS )
-			stringState = STATE_VALUES[6];
-
-		return stringState;
+	
+	public static int getTypeFromString (String newType){
+		int newTypeInt = -1;
+		if (newType.equals(ConditionsController.CONDITION_TYPE_FLAG))
+			newTypeInt = Condition.FLAG_CONDITION;
+		if (newType.equals(ConditionsController.CONDITION_TYPE_VAR))
+			newTypeInt = Condition.VAR_CONDITION;
+		if (newType.equals(ConditionsController.CONDITION_TYPE_GS))
+			newTypeInt = Condition.GLOBAL_STATE_CONDITION;
+		return newTypeInt;
 	}
-
+	
 	/**
 	 * Updates the given flag summary, adding the flag references contained in the given conditions.
 	 * 
@@ -491,21 +146,7 @@ public class ConditionsController {
 					varFlagSummary.addVarReference( condition.getId( ) );
 			}
 	}
-
-	public int getConditionsCount() {
-		return conditions.size();
-	}
-
-	public List<Condition> getCondition(int i) {
-		if ( i>=0 && i<conditions.size())
-			return conditions.get(i);
-		return null;
-	}
 	
-	//***********************************************************/
-	// MËTODOS NUEVOS
-	//***********************************************************/
-
 	private static HashMap<String, ConditionContextProperty> createContextFromOwner(int ownerType, String ownerName){
 		HashMap<String, ConditionContextProperty> context1 = new HashMap<String, ConditionContextProperty>();
 		ConditionOwner owner = new ConditionOwner(ownerType, ownerName);
@@ -530,20 +171,52 @@ public class ConditionsController {
 		context1.put(ConditionsController.CONDITION_OWNER, owner);
 		return context1;
 	}
+
+	// Attributes
+	private HashMap<String,ConditionContextProperty> context;
+
+	/**
+	 * Conditions data.
+	 */
+	private Conditions conditions;
+
+	// Constructors
 	
+	/**
+	 * Creates a new conditions controller with an empty context. Thus the controller will not know
+	 * anything about its context (where it is, the parent it belongs to, special restrictions, etc.)
+	 */
 	public ConditionsController( Conditions conditions ) {
 		this(conditions, new HashMap<String, ConditionContextProperty>());
 	}
 	
+	/**
+	 * Creates a new conditions controller and sets the context with information about the parent of the conditions (that is,
+	 * the node of the data tree which owns the conditions). The information provided is the type of the owner (e.g. Controller.ACTIVE_AREA)
+	 * and its name. This information will only be used by the ConditionsPanel
+	 * @param conditions
+	 * @param ownerType
+	 * @param ownerName
+	 */
 	public ConditionsController( Conditions conditions, int ownerType, String ownerName) {
 		this(conditions, createContextFromOwner(ownerType, ownerName));
 	}
 	
+	/**
+	 * Creates a new conditions controller and sets the context with information about the parent of the conditions (that is,
+	 * the node of the data tree which owns the conditions). In addition customized messages for ConditionsPanel are provided. 
+	 * The information provided is the type of the owner (e.g. Controller.ACTIVE_AREA) and its name.
+	 * This information will only be used by the ConditionsPanel, along with the messages used to format the text to be displayed
+	 * @param conditions
+	 * @param ownerType
+	 * @param ownerName
+	 * @param message1
+	 * @param message2
+	 */
 	public ConditionsController( Conditions conditions, int ownerType, String ownerName, String message1, String message2) {
 		this(conditions, createContextFromOwnerMessage(ownerType, ownerName, message1, message2));
 	}
 
-	
 	/**
 	 * Constructor.
 	 * 
@@ -560,29 +233,33 @@ public class ConditionsController {
 				this.context.put(CONDITION_RESTRICTIONS, restrictions);
 			}
 		}
-		controller = Controller.getInstance( );
 	}
 
-	private HashMap<String,ConditionContextProperty> context;
 	
+	
+	/**
+	 * Returns the number of blocks of the condition group. Simple conditions and either groups are considered as blocks.
+	 * @return The number of blocks
+	 */
+	public int getBlocksCount() {
+		return conditions.size();
+	}
+
+	/**
+	 * Returns true if the conditions group has no blocks. False otherwise
+	 * @return
+	 */
 	public boolean isEmpty(){
 		return conditions.isEmpty();
 	}
 	
-	// FLAG; VAR; GLOBAL_STATE
-	public static final String CONDITION_TYPE="condition-type";
-	public static final String CONDITION_TYPE_VAR="var";
-	public static final String CONDITION_TYPE_FLAG="flag";
-	public static final String CONDITION_TYPE_GS="global-state";
-	
-	public static final String CONDITION_ID ="condition-id";
-	
-	
-	public static final String CONDITION_VALUE="condition-value";
-	
-	//active|inactive|<,<=,>,>=,=
-	public static final String CONDITION_STATE="condition-state";
-	
+	/**
+	 * Returns the number of simple conditions a block with the given index has. If index1 is not in the range -1 is returned.
+	 * This method can be used to determine if a block is a simple condition (size==1) or an either block (size>1). 
+	 * This method never returns 0
+	 * @param index1
+	 * @return
+	 */
 	public int getConditionCount (int index1){
 		// Check index
 		if (index1<0 || index1>=conditions.size())
@@ -591,6 +268,12 @@ public class ConditionsController {
 		return conditions.get(index1).size();
 	}
 	
+	/**
+	 * Deletes the selected condition, if indexes are in range
+	 * @param index1
+	 * @param index2
+	 * @return
+	 */
 	public boolean deleteCondition( int index1, int index2 ){
 		// Check index
 		if (index1<0 || index1>=conditions.size())
@@ -599,12 +282,15 @@ public class ConditionsController {
 		if (index2<0 || index2>=conditions.get(index1).size())
 			return false;
 		
-		conditions.get(index1).remove(index2);
-		if (conditions.get(index1).size()==0)
-			conditions.delete(index1);
-		return true;
+		return Controller.getInstance().addTool(new DeleteConditionTool(conditions, index1, index2));
 	}
 	
+	/**
+	 * Duplicates the selected condition
+	 * @param index1
+	 * @param index2
+	 * @return
+	 */
 	public boolean duplicateCondition( int index1, int index2 ){
 		// Check index
 		if (index1<0 || index1>=conditions.size())
@@ -613,14 +299,7 @@ public class ConditionsController {
 		if (index2<0 || index2>=conditions.get(index1).size())
 			return false;
 		
-		try {
-			Condition duplicate = (Condition)(conditions.get(index1).get(index2).clone());
-			conditions.get(index1).add(index2+1, duplicate);
-			return true;
-		} catch (CloneNotSupportedException e) {
-			e.printStackTrace();
-			return false;
-		}
+		return Controller.getInstance().addTool(new DuplicateConditionTool(conditions, index1, index2));
 	}
 	
 	public boolean setCondition( int index1, int index2, HashMap<String, String> properties){
@@ -630,57 +309,19 @@ public class ConditionsController {
 		
 		if (index2<0 || index2>=conditions.get(index1).size())
 			return false;
-		
-		Condition condition = conditions.get(index1).get(index2);
-		Condition newCondition = null;
-		String newId = properties.get(CONDITION_ID);
-		String newType = properties.get(CONDITION_TYPE);
-		String newState = properties.get(CONDITION_STATE);
-		String newValue = properties.get(CONDITION_VALUE);
-		int newTypeInt = getTypeFromString(newType);
-		
-		if (newTypeInt!=condition.getType()){
-			if ( newTypeInt == Condition.FLAG_CONDITION ){
-				newCondition = new FlagCondition(newId, getStateFromString(newState));
-			}
-			else if ( newTypeInt == Condition.VAR_CONDITION ){
-				newCondition = new VarCondition(newId, getStateFromString(newState), Integer.parseInt(newValue));
-			}
-			else if ( newTypeInt == Condition.GLOBAL_STATE_CONDITION ){
-				newCondition = new GlobalStateCondition(newId, getStateFromString(newState));
-			}
-		} else {
-			newCondition = condition;
-			if (!newId.equals(newCondition.getId())){
-				newCondition.setId(newId);
-			}
-			if (!new Integer(getStateFromString(newState)).equals(newCondition.getState())){
-				newCondition.setState(new Integer(getStateFromString(newState)));
-			}
-			if (newCondition.getType() == Condition.VAR_CONDITION){
-				VarCondition varCondition = (VarCondition)condition;
-				if (!varCondition.getValue().equals(Integer.parseInt(newValue))){
-					varCondition.setValue(Integer.parseInt(newValue));
-				}
-			}
-		}
 
-		conditions.get(index1).remove(index2);
-		conditions.get(index1).add(index2, newCondition);
 		
-		return true;
+		if (properties.get(CONDITION_TYPE)==null || properties.get(CONDITION_ID)==null || properties.get(CONDITION_STATE) ==null)
+			return false;
+		
+		if (properties.get(CONDITION_TYPE).equals(ConditionsController.CONDITION_TYPE_VAR) && properties.get(CONDITION_VALUE)==null)
+			return false;
+
+		
+		return Controller.getInstance().addTool(new SetConditionTool(conditions, index1, index2,properties));
 	}
 
-	private int getTypeFromString (String newType){
-		int newTypeInt = -1;
-		if (newType.equals(ConditionsController.CONDITION_TYPE_FLAG))
-			newTypeInt = Condition.FLAG_CONDITION;
-		if (newType.equals(ConditionsController.CONDITION_TYPE_VAR))
-			newTypeInt = Condition.VAR_CONDITION;
-		if (newType.equals(ConditionsController.CONDITION_TYPE_GS))
-			newTypeInt = Condition.GLOBAL_STATE_CONDITION;
-		return newTypeInt;
-	}
+
 	
 	public HashMap<String, String> getCondition(int index1, int index2){
 		HashMap<String, String> conditionProperties = new HashMap<String, String>();
@@ -738,52 +379,24 @@ public class ConditionsController {
 		if (index1<0 || index1 >conditions.size())
 			return false;
 		
-		Condition newCondition = null;
-		int type=getTypeFromString(conditionType);
-		if ( type == FLAG_CONDITION ){
-			newCondition = new FlagCondition(conditionId, this.getStateFromString(conditionState));
-			//Controller.getInstance().addTool(new AddConditionTool(conditions.getMainConditions( ),new FlagCondition( conditionId, getStateFromString( conditionState ) ),controller.getVarFlagSummary() ));
-		}else if ( type == VAR_CONDITION ){
-			newCondition = new VarCondition(conditionId, this.getStateFromString(conditionState), Integer.parseInt(value));
-			//Controller.getInstance().addTool(new AddConditionTool(conditions.getMainConditions( ),new VarCondition( conditionId, getStateFromString( conditionState ), Integer.parseInt(value) ),controller.getVarFlagSummary() ));
-		} else if (type == GLOBAL_STATE_CONDITION ){
-			newCondition = new GlobalStateCondition(conditionId, this.getStateFromString(conditionState));
-			//Controller.getInstance().addTool(new AddConditionTool(conditions.getMainConditions( ),new GlobalStateCondition( conditionId ),controller.getVarFlagSummary() ));
-		}
+		if (conditionType == null || conditionId==null || conditionState ==null)
+			return false;
 		
-		if (newCondition!=null){
-			if (index1<conditions.size()){
-				
-				if (index2==INDEX_NOT_USED){
-					// Add new block
-					List<Condition> newBlock = new ArrayList<Condition>();
-					newBlock.add(newCondition);
-					conditions.add(index1, newBlock);
-				} else {
-					List<Condition> block = conditions.get(index1);
-					if (index2<0 || index2>block.size())
-						return false;
-					
-					if (index2==conditions.size())
-						block.add(newCondition);
-					else
-						block.add(index2, newCondition);
-				}
-				
-			} else {
-				// Add new block
-				List<Condition> newBlock = new ArrayList<Condition>();
-				newBlock.add(newCondition);
-				conditions.add(newBlock);
-			}
-		}
-		return true;
+		if (conditionType.equals(ConditionsController.CONDITION_TYPE_VAR) && value==null)
+			return false;
+		
+		return Controller.getInstance().addTool(new AddConditionTool(conditions, index1, index2,conditionType, conditionId,
+				conditionState,value));
 	}
 	
-	public static final int EVAL_FUNCTION_AND = 0;
-	public static final int EVAL_FUNCTION_OR = 1;
-	public static final int INDEX_NOT_USED=-1;
-	
+
+	/**
+	 * Sets the evaluation function at the given index
+	 * @param index1 Int value in rage 
+	 * @param index2 Int value in rage or {@link #INDEX_NOT_USED} if not applicable
+	 * @param value {@link #EVAL_FUNCTION_AND} | {@link #EVAL_FUNCTION_OR}
+	 * @return
+	 */
 	public boolean setEvalFunction(int index1, int index2, int value){
 		// Check value
 		if (value!=EVAL_FUNCTION_AND && value!=EVAL_FUNCTION_OR)
@@ -799,101 +412,17 @@ public class ConditionsController {
 				return false;
 		}
 
-		// Get upper and lower block
-		List<Condition> upper = conditions.get(index1);
-		List<Condition> lower = conditions.get(index1+1);
-		
-		// Check if the algorithm must search deeper (index2==-1 means no search inside blocks must be carried out)
-		if (index2>=0){
+		return Controller.getInstance().addTool(new SetEvalFunctionTool(conditions, index1, index2,value));
+	}
+	
 
-			// Check index2
-			if (upper.size()==1 || index2 >=upper.size()-1 || value!= EVAL_FUNCTION_AND)
-				return false;
-			
-			// Either block must be split
-			List<List<Condition>> newBlocks = splitBlock(upper, index2);
-			List<Condition> firstBlock = newBlocks.get(0);
-			List<Condition> secondBlock = newBlocks.get(1);
-			
-			conditions.delete(index1);
-			if (firstBlock.size() == 1)
-				conditions.add(index1, firstBlock.get(0));
-			else
-				conditions.add(index1, firstBlock );
-			
-			if (secondBlock.size() == 1)
-				conditions.add(index1+1, secondBlock.get(0));
-			else
-				conditions.add(index1+1, secondBlock );
-			
-			return true;
-			
-		} 
-		// No deep search is needed. The "And" function must be changed to "OR"
-		else {
-			if (value!=EVAL_FUNCTION_OR)
-				return false;
-
-			// Merge both wrappers
-			Conditions newBlock = mergeBlocks(upper, lower);
-			// Insert in "upper" position
-			conditions.delete(index1);
-			conditions.delete(index1);
-			conditions.add(index1, newBlock);
-			
-			return true;
-		}
-	}
-	
-	private List<List<Condition>> splitBlock ( List<Condition> conditions, int index ){
-		List<List<Condition>> result = new ArrayList<List<Condition>>();
-	
-		if (index<0 || index>=conditions.size()-1)
-			return null;
-		
-		List<Condition> block1 = new ArrayList<Condition>();
-		List<Condition> block2 = new ArrayList<Condition>();
-		
-		for (int i=0; i<=index; i++){
-			block1.add(conditions.get(i));
-		}
-		for (int i=index+1; i<conditions.size(); i++){
-			block2.add(conditions.get(i));
-		}
-
-		result.add(block1);
-		result.add(block2);
-		
-		return result;
-	}
-	
-	private Conditions mergeBlocks ( List<Condition> wrapper1, List<Condition> wrapper2 ){
-		Conditions newBlock = new Conditions();
-		transferConditions(newBlock, wrapper1);
-		transferConditions(newBlock, wrapper2);
-		return newBlock;
-	}
-	
-	private void transferConditions ( Conditions container, List<Condition> wrapper1){
-		for (Condition condition: wrapper1 ){
-			container.add(condition);
-		}
-	}
 	
 	//Condition type. Values: GLOBAL_STATE | CONDITION
-	public static String CONDITION_GROUP_TYPE ="condition-type";
-
-	public static String CONDITION_RESTRICTIONS ="condition-restrictions";
 	
-	public static String CONDITION_OWNER ="condition-owner";
-	
-	public static String CONDITION_CUSTOM_MESSAGE ="condition-custom-message";
-	
+	/**
+	 * The HashMap of the context
+	 */
 	public HashMap<String,ConditionContextProperty> getContext(){
-		/*HashMap<String,ConditionContextProperty> context = new HashMap<String, ConditionContextProperty>();
-		ConditionOwner parent = new ConditionOwner(Controller.SCENE, "Salón");
-		ConditionOwner owner = new ConditionOwner(Controller.NPC_REFERENCE, "Personaje", parent);
-		context.put(CONDITION_OWNER, owner);*/
 		return context;
 	}
 	
@@ -927,7 +456,10 @@ public class ConditionsController {
 		}
 	}
 	
-	
+	/**
+	 * @author Javier
+	 *
+	 */
 	public static class ConditionCustomMessage extends ConditionContextProperty{
 
 		public static final String ELEMENT_TYPE = "{#ELEMENT_TYPE$}";
@@ -989,6 +521,12 @@ public class ConditionsController {
 
 		
 	}
+	
+	/**
+	 * Class associated with KEY #CONDITION_OWNER
+	 * @author Javier
+	 *
+	 */
 	public static class ConditionOwner extends ConditionContextProperty{
 
 		private int ownerType;

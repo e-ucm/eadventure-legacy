@@ -75,7 +75,7 @@ public class ChangeActionTool extends Tool{
 					}
 				}
 				if (added)
-					Controller.getInstance( ).updateFlagSummary( );
+					Controller.getInstance( ).updateVarFlagSummary( );
 			} catch (CloneNotSupportedException e) {
 				ReportDialog.GenerateErrorReport(e, false, "Could not clone adaptedState "+((state==null)?"null":state.getClass().toString()));
 			}
@@ -112,7 +112,7 @@ public class ChangeActionTool extends Tool{
 				state.getActionsValues().add(flagVar);
 			}
 			oldState = temp;
-			Controller.getInstance( ).updateFlagSummary( );
+			Controller.getInstance( ).updateVarFlagSummary( );
 			Controller.getInstance().updatePanel();
 			return true;
 		} catch (CloneNotSupportedException e) {

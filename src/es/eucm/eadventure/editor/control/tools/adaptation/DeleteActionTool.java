@@ -51,7 +51,7 @@ public class DeleteActionTool extends Tool{
 			try {
 				oldState = (AdaptedState) state.clone();
 				state.removeFlagVar( index );
-				Controller.getInstance().updateFlagSummary( );
+				Controller.getInstance().updateVarFlagSummary( );
 				deleted = true;
 			} catch (CloneNotSupportedException e) {
 				ReportDialog.GenerateErrorReport(e, false, "Could not clone adaptedState "+((state==null)?"null":state.getClass().toString()));
@@ -84,7 +84,7 @@ public class DeleteActionTool extends Tool{
 				state.getActionsValues().add(flagVar);
 			}
 			oldState = temp;
-			Controller.getInstance( ).updateFlagSummary( );
+			Controller.getInstance( ).updateVarFlagSummary( );
 			Controller.getInstance().updatePanel();
 			return true;
 		} catch (CloneNotSupportedException e) {

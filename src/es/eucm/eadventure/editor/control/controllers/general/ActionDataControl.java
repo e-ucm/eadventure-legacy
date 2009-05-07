@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.Action;
+import es.eucm.eadventure.common.data.chapter.CustomAction;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
@@ -56,36 +57,47 @@ public class ActionDataControl extends DataControlWithResources {
 		this.resourcesList = new ArrayList<Resources>();
 		this.resourcesDataControlList = new ArrayList<ResourcesDataControl>();
 
+		String actionName=null;
 		// Store the type of the action
 		switch( action.getType( ) ) {
 			case Action.EXAMINE:
 				actionType = Controller.ACTION_EXAMINE;
+				actionName = "";
 				break;
 			case Action.GRAB:
 				actionType = Controller.ACTION_GRAB;
+				actionName = "";
 				break;
 			case Action.USE:
 				actionType = Controller.ACTION_USE;
+				actionName = "";
 				break;
 			case Action.CUSTOM:
 				actionType = Controller.ACTION_CUSTOM;
+				CustomAction custom = (CustomAction)action;
+				actionName = custom.getName();
 				break;
 			case Action.USE_WITH:
 				actionType = Controller.ACTION_USE_WITH;
+				actionName = action.getTargetId();
 				break;
 			case Action.GIVE_TO:
 				actionType = Controller.ACTION_GIVE_TO;
+				actionName = action.getTargetId();
 				break;
 			case Action.CUSTOM_INTERACT:
 				actionType = Controller.ACTION_CUSTOM_INTERACT;
+				CustomAction custom2 = (CustomAction)action;
+				actionName = custom2.getName()+" "+action.getTargetId();
 				break;
 			case Action.TALK_TO:
 				actionType = Controller.ACTION_TALK_TO;
+				actionName = action.getTargetId();
 				break;
 		}
 
 		// Create subcontrollers
-		conditionsController = new ConditionsController( action.getConditions( ), actionType, action.getTargetId() );
+		conditionsController = new ConditionsController( action.getConditions( ), actionType, actionName );
 		effectsController = new EffectsController( action.getEffects( ) );
 		notEffectsController = new EffectsController( action.getNotEffects() );
 	}

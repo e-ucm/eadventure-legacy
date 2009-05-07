@@ -1,11 +1,17 @@
 package es.eucm.eadventure.editor.gui.elementpanels.condition;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
-import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 import javax.swing.border.Border;
 
 
@@ -24,10 +30,39 @@ public abstract class EditablePanel extends JPanel {
 	protected Border borderOver=new CurvedBorder(40, Color.DARK_GRAY);
 	protected Border borderNone=null;
 	
+	/*
+	 * Buttons panel
+	 */
+	private ButtonsPanel buttonsPanel;
 	
-	public EditablePanel (ConditionsPanelController controller, int index1){
+	/*
+	 * Elements for alpha effect
+	 */
+	protected AlphaEffectTimer timer;
+	protected AlphaComposite alphaComposite;//=AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.2f);
+	protected float alpha = 0;
+	
+	protected boolean useAlphaEffect;
+	protected boolean useButtons;
+	
+	public EditablePanel (ConditionsPanelController controller, int index1 ){
+		this (controller, index1, true, true);
+	}
+	
+	public EditablePanel (ConditionsPanelController controller, int index1, boolean useButtons, boolean useAlphaEffect){
 		this.controller = controller;
 		this.index1=index1;
+		this.useAlphaEffect = useAlphaEffect;
+		this.useButtons = useButtons;
+		
+		if(useAlphaEffect)
+			// Create timer
+			timer = new AlphaEffectTimer();
+		
+		// Create buttons Panel
+		if (useButtons)
+			buttonsPanel = createButtonsPanel();
+		
 		borderOver = borderSelected=new CurvedBorder(40, Color.DARK_GRAY);
 		addMouseListener(new MouseAdapter(){
 			public void mouseEntered(MouseEvent e){
@@ -91,21 +126,21 @@ public abstract class EditablePanel extends JPanel {
 			if (state == NO_SELECTED){
 				this.setBorder(borderNone);
 				this.removeAll();
-				addComponents(NO_SELECTED);
+				updateTimerButtonsComponents(NO_SELECTED);
 				this.updateUI();
 				changed = true;
 			}
 			else if (state == OVER){
 				this.setBorder( borderOver );
 				this.removeAll();
-				addComponents(OVER);
+				updateTimerButtonsComponents(OVER);
 				this.updateUI();
 				changed = true;
 			}
 			else if (state == SELECTED){
 				this.setBorder( borderSelected );
 				this.removeAll();
-				addComponents(SELECTED);
+				updateTimerButtonsComponents(SELECTED);
 				this.updateUI();
 				changed = true;
 			}
@@ -115,6 +150,114 @@ public abstract class EditablePanel extends JPanel {
 			controller.evalEditablePanelSelectionEvent(EditablePanel.this, oldState, newState);
 	}
 
+	private void updateTimerButtonsComponents(int newState){
+		
+		if(useAlphaEffect){
+			// Check timer update
+			if (newState!=NO_SELECTED){
+				timer.start();
+			} else {
+				if (timer!=null&&timer.isRunning())
+					timer.stop();
+			}
+		}
+		addComponents(newState);
+		
+		if (useButtons){
+			// Add buttonsPanel
+			add (buttonsPanel);
+			buttonsPanel.setVisible(state!=NO_SELECTED);
+			if (state!=NO_SELECTED)
+				buttonsPanel.repaint();
+		}
+	}
 	
 	protected abstract void addComponents (int newState);
+	
+	protected abstract ButtonsPanel createButtonsPanel();
+	
+	/**
+	 * Timer that controlls the alpha effect when mouse is over the panel
+	 * @author Javier
+	 *
+	 */
+	public class AlphaEffectTimer extends Timer {
+		
+		/**
+		 * Required
+		 */
+		private static final long serialVersionUID = 1349344660294956997L;
+		private static final int INC_PERIOD=10; //MILIS
+		private static final float INCREMENT=0.015f; // Range:0-1
+
+		public void start(){
+			alpha = 0;
+			alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
+			((CurvedBorder)borderOver).setAlphaComposite(alphaComposite);
+			repaint();
+			super.start();
+		}
+		
+		public AlphaEffectTimer(){
+			super(INC_PERIOD, new ActionListener(){
+				public void actionPerformed(ActionEvent e) {
+					// Calculate new alpha
+					if (alpha<=1.0f-INCREMENT){
+						alpha+=INCREMENT;
+					} else{
+						alpha = 1.0f;
+					}
+
+					// Create new alphaComposite object
+					alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
+					
+					// Update border
+					((CurvedBorder)borderOver).setAlphaComposite(alphaComposite);
+					
+					// Repaint all panel
+					repaint();
+
+					//Adjust alpha if necessary
+					if (alpha>=1.0f){
+						alpha = 1.0f;
+						alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);
+						((CurvedBorder)borderOver).setAlphaComposite(alphaComposite);
+						repaint();
+						((AlphaEffectTimer)e.getSource()).stop();
+					}
+					
+					if (useButtons)
+						// Repaint the last part (buttons)
+						buttonsPanel.repaint();	
+					
+				}
+				
+			});
+		}
+	}		
+	
+	/**
+	 * Panel with nice alpha effect for buttons
+	 * @author Javier
+	 *
+	 */
+	protected abstract class ButtonsPanel extends JPanel {
+		
+		protected abstract void createAddButtons();
+		
+		public ButtonsPanel(){
+			setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+			setBorder(new LeftLineBorder());
+			setOpaque(false);
+			createAddButtons();
+			setVisible(false);
+		}
+		
+		public void paint(Graphics g){
+			if (useAlphaEffect && alphaComposite!=null)
+				((Graphics2D) g).setComposite(alphaComposite);
+			super.paint(g);
+		}
+	}
+
 }

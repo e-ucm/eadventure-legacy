@@ -2,41 +2,21 @@ package es.eucm.eadventure.editor.gui.elementpanels.condition;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.LayoutManager2;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JEditorPane;
-import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSpinner;
-import javax.swing.JTable;
-import javax.swing.ListCellRenderer;
-import javax.swing.SpinnerNumberModel;
 
-import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
-import es.eucm.eadventure.common.data.chapter.conditions.FlagCondition;
-import es.eucm.eadventure.common.data.chapter.conditions.GlobalStateCondition;
-import es.eucm.eadventure.common.data.chapter.conditions.VarCondition;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
@@ -45,9 +25,17 @@ import es.eucm.eadventure.editor.control.controllers.ConditionsController.Condit
 import es.eucm.eadventure.editor.control.controllers.ConditionsController.ConditionOwner;
 import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.editdialogs.ConditionDialog;
+import es.eucm.eadventure.editor.gui.editdialogs.ConditionsDialog;
 
 public class ConditionsPanel extends JPanel implements Updateable, ConditionsPanelController{
 
+	/**
+	 * Required
+	 */
+	private static final long serialVersionUID = -3452049823030669523L;
+	public static final Color FLAG_COLOR = Color.RED;
+	public static final Color VAR_COLOR = Color.BLUE;
+	
 	/*
 	 * Colors
 	 */
@@ -175,9 +163,29 @@ public class ConditionsPanel extends JPanel implements Updateable, ConditionsPan
 				ConditionsPanel.this.addCondition();
 			}
 		});
-		okButton = new JButton(TextConstants.getText("GeneralText.OK"));
 		buttonsPanel.add(addConditionButton);
-		buttonsPanel.add(okButton);
+		
+		ConditionOwner owner = (ConditionOwner)conditionsController.getContext().get(ConditionsController.CONDITION_OWNER);
+		if (owner.getOwnerType()!=Controller.GLOBAL_STATE){
+			okButton = new JButton(TextConstants.getText("GeneralText.OK"));
+			okButton.addActionListener(new ActionListener(){
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					Container parent = getParent();
+					int i=0;
+					while (i<10&&!(parent instanceof ConditionsDialog)){
+						parent = parent.getParent();
+						i++;
+					}
+					if (i<10){
+						((ConditionsDialog)parent).setVisible(false);
+					}
+				}
+				
+			});
+			buttonsPanel.add(okButton);
+		}
 		buttonsPanel.setBorder(BorderFactory.createLineBorder(buttonsPanelLineColor));
 	}
 	
@@ -196,7 +204,7 @@ public class ConditionsPanel extends JPanel implements Updateable, ConditionsPan
 	private void updateCentralPanel(){
 		centralPanel.removeAll();
 		panels = new ArrayList<EditablePanel>();
-		for ( int i=0; i<conditionsController.getConditionsCount(); i++ ){
+		for ( int i=0; i<conditionsController.getBlocksCount(); i++ ){
 
 			if (i>0){
 				EvalFunctionPanel labelPanel = new EvalFunctionPanel(this, i-1, ConditionsController.INDEX_NOT_USED, EvalFunctionPanel.AND);
@@ -218,67 +226,10 @@ public class ConditionsPanel extends JPanel implements Updateable, ConditionsPan
 	}
 	
 	public boolean updateFields() {
-		return false;
+		update();
+		return true;
 	}
 
-		private class SpecialLayout implements LayoutManager2{
-
-		public static final int GAP = 3;
-		
-		private Component comp;
-		
-		public SpecialLayout(Component comp){
-			this.comp = comp;
-		}
-		
-		public void addLayoutComponent(Component comp, Object constraints) {
-			this.comp = comp;
-		}
-
-		public float getLayoutAlignmentX(Container target) {
-			return 0;
-		}
-
-		public float getLayoutAlignmentY(Container target) {
-			return 0;
-		}
-
-		public void invalidateLayout(Container target) {
-		}
-
-		public Dimension maximumLayoutSize(Container target) {
-			return target.getSize();
-		}
-
-		public void addLayoutComponent(String name, Component comp) {
-			
-		}
-
-		public void layoutContainer(Container parent) {
-			if (comp!=null){
-				int maxWidth = parent.getSize().width;
-				int maxHeight = parent.getSize().height;
-				
-				int compWidth = comp.getPreferredSize().width;
-				int compHeight = comp.getPreferredSize().height;
-				
-				int x = maxWidth-GAP-compWidth;
-				int y = maxHeight-GAP-compHeight;
-				comp.setBounds(x, y, compWidth, compHeight);
-			}
-		}
-
-		public Dimension minimumLayoutSize(Container parent) {
-			return comp.getMinimumSize();
-		}
-
-		public Dimension preferredLayoutSize(Container parent) {
-			return parent.getPreferredSize();
-		}
-
-		public void removeLayoutComponent(Component comp) {
-		}
-	}
 
 		public void evalEditablePanelSelectionEvent(EditablePanel source,
 				int oldState, int newState) {
@@ -318,7 +269,7 @@ public class ConditionsPanel extends JPanel implements Updateable, ConditionsPan
 		}
 
 		public void addCondition() {
-			addCondition (conditionsController.getConditionsCount(), ConditionsController.INDEX_NOT_USED);
+			addCondition (conditionsController.getBlocksCount(), ConditionsController.INDEX_NOT_USED);
 		}
 
 		public void deleteCondition(int index1, int index2) {

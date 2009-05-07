@@ -250,7 +250,7 @@ public class ChapterListDataControl {
 		return hasProfiles;
 	}
 
-	public void updateFlagSummary( ) {
+	public void updateVarFlagSummary( ) {
 		getSelectedChapterDataControl( ).updateVarFlagSummary( varFlagSummary );
 	}
 

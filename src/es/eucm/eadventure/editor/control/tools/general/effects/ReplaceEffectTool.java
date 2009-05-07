@@ -91,30 +91,30 @@ public class ReplaceEffectTool extends Tool{
 				case Effect.ACTIVATE:
 					ActivateEffect activateEffect = (ActivateEffect) effect;
 					activateEffect.setTargetId( (String)newProperties.get( EffectsController.EFFECT_PROPERTY_TARGET ) );
-					Controller.getInstance( ).updateFlagSummary( );
+					Controller.getInstance( ).updateVarFlagSummary( );
 					break;
 				case Effect.DEACTIVATE:
 					DeactivateEffect deactivateEffect = (DeactivateEffect) effect;
 					deactivateEffect.setTargetId( (String)newProperties.get( EffectsController.EFFECT_PROPERTY_TARGET ) );
-					Controller.getInstance( ).updateFlagSummary( );
+					Controller.getInstance( ).updateVarFlagSummary( );
 					break;
 				case Effect.SET_VALUE:
 					SetValueEffect setValueEffect = (SetValueEffect) effect;
 					setValueEffect.setTargetId( (String)newProperties.get( EffectsController.EFFECT_PROPERTY_TARGET ) );
 					setValueEffect.setValue( Integer.parseInt( (String)newProperties.get( EffectsController.EFFECT_PROPERTY_VALUE ) ) );
-					Controller.getInstance( ).updateFlagSummary( );
+					Controller.getInstance( ).updateVarFlagSummary( );
 					break;
 				case Effect.INCREMENT_VAR:
 					IncrementVarEffect incrementVarEffect = (IncrementVarEffect) effect;
 					incrementVarEffect.setTargetId( (String)newProperties.get( EffectsController.EFFECT_PROPERTY_TARGET ) );
 					incrementVarEffect.setIncrement( Integer.parseInt((String) newProperties.get( EffectsController.EFFECT_PROPERTY_VALUE ) ) );
-					Controller.getInstance( ).updateFlagSummary( );
+					Controller.getInstance( ).updateVarFlagSummary( );
 					break;
 				case Effect.DECREMENT_VAR:
 					DecrementVarEffect decrementVarEffect = (DecrementVarEffect) effect;
 					decrementVarEffect.setTargetId( (String)newProperties.get( EffectsController.EFFECT_PROPERTY_TARGET ) );
 					decrementVarEffect.setDecrement( Integer.parseInt( (String)newProperties.get( EffectsController.EFFECT_PROPERTY_VALUE ) ) );
-					Controller.getInstance( ).updateFlagSummary( );
+					Controller.getInstance( ).updateVarFlagSummary( );
 					break;
 				case Effect.MACRO_REF:
 					MacroReferenceEffect macroEffect = (MacroReferenceEffect) effect;
@@ -202,7 +202,7 @@ public class ReplaceEffectTool extends Tool{
 		int index = effects.getEffects().indexOf(oldEffect);
 		effects.getEffects().remove(oldEffect);
 		effects.getEffects().add(index, effect);
-		Controller.getInstance( ).updateFlagSummary( );
+		Controller.getInstance( ).updateVarFlagSummary( );
 		Controller.getInstance().updatePanel();
 		return true;
 	}
@@ -212,7 +212,7 @@ public class ReplaceEffectTool extends Tool{
 		int index = effects.getEffects().indexOf(effect);
 		effects.getEffects().remove(effect);
 		effects.getEffects().add(index, oldEffect);
-		Controller.getInstance( ).updateFlagSummary( );
+		Controller.getInstance( ).updateVarFlagSummary( );
 		Controller.getInstance().updatePanel();
 		return true;
 	}

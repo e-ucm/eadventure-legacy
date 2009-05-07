@@ -223,6 +223,7 @@ public class ConditionDialog extends ToolManagableDialog {
 		button1.addActionListener( new ConditionModeButtonListener( Condition.FLAG_CONDITION ) );
 		button2.addActionListener( new ConditionModeButtonListener( Condition.VAR_CONDITION ) );
 		button3.addActionListener( new ConditionModeButtonListener( Condition.GLOBAL_STATE_CONDITION ) );
+		button3.setEnabled( Controller.getInstance().getIdentifierSummary().getGlobalStatesIds().length>0 );
 		panel.add( button1 );
 		panel.add( button2 );
 		panel.add( button3 );

@@ -2527,6 +2527,48 @@ It's strongly recommended that you backup your project before continuing.</entry
 	<entry key="Conditions.Context.Sentence2a"> will be active when the next condition is satisfied: </entry>
 	<entry key="Conditions.Context.Sentence2b"> will be &lt;b&gt;always active&lt;/b&gt;, as it has no condition </entry>
 	<entry key="Conditions.Context.NoOwner"> This is the list of conditions: </entry>
+	
+	<entry key="Conditions.Context.TimedAssessmentRuleA1"> The {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will get active&lt;/b&gt; (the timer will start) when the next condition is satisfied:</entry>
+	<entry key="Conditions.Context.TimedAssessmentRuleA2"> The {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will get active when the chapter starts&lt;/b&gt; (the timer will start), as no condition has been defined:</entry>
+	
+	<entry key="Conditions.Context.TimedAssessmentRuleB1"> The {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will get inactive&lt;/b&gt; (the timer will stop and the post-effect block will be executed) when the next condition is satisfied:</entry>
+	<entry key="Conditions.Context.TimedAssessmentRuleB2"> The {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will get inactive as soon as it starts&lt;/b&gt;, as no condition has been defined:</entry>
+	
+	<entry key="Conditions.Context.1.330"> The {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will be displayed&lt;/b&gt; when the next condition is satisfied:</entry>
+	<entry key="Conditions.Context.2.330"> The {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will be always displayed&lt;/b&gt;, as no condition has been defined:</entry>
+	
+	<entry key="Conditions.Context.1.331"> The {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will be displayed&lt;/b&gt; when the next condition is satisfied:</entry>
+	<entry key="Conditions.Context.2.331"> The {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will be always displayed&lt;/b&gt;, as no condition has been defined:</entry>
+	
+	<entry key="Conditions.Context.1.21"> The action {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will become executable&lt;/b&gt; when the next condition is satisfied:</entry>
+	<entry key="Conditions.Context.2.21"> The action {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will be always executable&lt;/b&gt;, as no condition has been defined:</entry>
+	<entry key="Conditions.Context.1.22"> The action {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will become executable&lt;/b&gt; when the next condition is satisfied:</entry>
+	<entry key="Conditions.Context.2.22"> The action {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will be always executable&lt;/b&gt;, as no condition has been defined:</entry>
+	<entry key="Conditions.Context.1.23"> The action {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will become executable&lt;/b&gt; when the next condition is satisfied:</entry>
+	<entry key="Conditions.Context.2.23"> The action {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will be always executable&lt;/b&gt;, as no condition has been defined:</entry>
+	<entry key="Conditions.Context.1.230"> The action {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will become executable&lt;/b&gt; when the next condition is satisfied:</entry>
+	<entry key="Conditions.Context.2.230"> The action {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will be always executable&lt;/b&gt;, as no condition has been defined:</entry>
+	<entry key="Conditions.Context.1.231"> The action {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will become executable&lt;/b&gt; when the next condition is satisfied:</entry>
+	<entry key="Conditions.Context.2.231"> The action {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will be always executable&lt;/b&gt;, as no condition has been defined:</entry>
+	<entry key="Conditions.Context.1.24"> The action {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will become executable&lt;/b&gt; when the next condition is satisfied:</entry>
+	<entry key="Conditions.Context.2.24"> The action {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will be always executable&lt;/b&gt;, as no condition has been defined:</entry>
+	<entry key="Conditions.Context.1.25"> The action {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will become executable&lt;/b&gt; when the next condition is satisfied:</entry>
+	<entry key="Conditions.Context.2.25"> The action {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will be always executable&lt;/b&gt;, as no condition has been defined:</entry>
+	<entry key="Conditions.Context.1.250"> The action {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will become executable&lt;/b&gt; when the next condition is satisfied:</entry>
+	<entry key="Conditions.Context.2.250"> The action {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will be always executable&lt;/b&gt;, as no condition has been defined:</entry>
+	
+	<entry key="Conditions.Context.1.66"> The {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will be executed&lt;/b&gt; when the next condition is satisfied. Otherwise next effect in the block will be processed</entry>
+	<entry key="Conditions.Context.2.66"> The {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will be always executed&lt;/b&gt;, as no condition has been defined:</entry>
+	
+	<entry key="Conditions.Context.1.34"> The element {#ELEMENT_ID$} will take &lt;b&gt;this appearance&lt;/b&gt; when the next condition is satisfied:</entry>
+	<entry key="Conditions.Context.2.34"> The element {#ELEMENT_ID$} will take &lt;b&gt;this appearance always&lt;/b&gt;, as no condition has been defined:</entry>
+
+	<entry key="Conditions.Context.1A.44"> The {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will start&lt;/b&gt; when the next condition is satisfied:</entry>
+	<entry key="Conditions.Context.2A.44"> The {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will start as soon as the chapter starts&lt;/b&gt;, as no condition has been defined:</entry>
+
+	<entry key="Conditions.Context.1B.44"> The {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will stop&lt;/b&gt; when the next condition is satisfied:</entry>
+	<entry key="Conditions.Context.2B.44"> The {#ELEMENT_TYPE$} {#ELEMENT_ID$} &lt;b&gt;will stop immediately&lt;/b&gt;, as no condition has been defined:</entry>
+	
 
 	<entry key="HelpDialog.Title">Help</entry>
 </properties>

@@ -4,10 +4,15 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Insets;
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -20,6 +25,7 @@ import com.sun.media.ui.ComboBox;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
+import es.eucm.eadventure.editor.gui.elementpanels.condition.EditablePanel.ButtonsPanel;
 
 public class EvalFunctionPanel extends EditablePanel{
 	
@@ -32,6 +38,8 @@ public class EvalFunctionPanel extends EditablePanel{
 	
 	private int value;
 	private int index2;
+	
+	private JButton editButton;
 	
 	public EvalFunctionPanel ( ConditionsPanelController controller, int index1, int index2, int value){
 		super (controller, index1);
@@ -100,13 +108,36 @@ public class EvalFunctionPanel extends EditablePanel{
 		}
 		
 	}
-	
-	/*public void paint (Graphics g){
-		if(state !=SELECTED){
-			super.paint(g);
-		}else {
-			g.drawRoundRect(x, y, w-1, h-1, sinkLevel, sinkLevel);
+
+	/**
+	 * Panel with nice alpha effect for buttons
+	 * @author Javier
+	 *
+	 */
+	private class EvalFunctionButtonsPanel extends ButtonsPanel {
+		
+		protected void createAddButtons(){
+			
+			editButton = new JButton(new ImageIcon("img/icons/edit.png"));
+			editButton.setMargin(new Insets(0,0,0,0));
+			editButton.setContentAreaFilled(false);
+			editButton.addActionListener(new ActionListener(){
+				public void actionPerformed(ActionEvent e) {
+					if ( EvalFunctionPanel.this.state==OVER ){
+						EvalFunctionPanel.this.setState( SELECTED );
+					}
+				}
+			});
+
+			add(editButton);
+			
 		}
-	}*/
+	}
+
+
+	@Override
+	protected ButtonsPanel createButtonsPanel() {
+		return new EvalFunctionButtonsPanel();
+	}
 	
 }
