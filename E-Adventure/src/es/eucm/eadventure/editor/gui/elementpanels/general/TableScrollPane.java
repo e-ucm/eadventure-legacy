@@ -35,6 +35,8 @@ public class TableScrollPane extends JScrollPane {
 		if (table.getRowCount() == 0) {
 			int x = this.getWidth() / 2;
 			int y = this.getHeight() / 2;
+			if (y < 55)
+			    y = 55;
 			g.setColor(Color.BLACK);
 			x -= g.getFontMetrics().stringWidth(textMessage) / 2;
 			g.drawString(textMessage, x, y);
