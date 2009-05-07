@@ -20,6 +20,7 @@ import es.eucm.eadventure.editor.control.controllers.scene.ElementContainer;
 import es.eucm.eadventure.editor.control.controllers.scene.ReferencesListDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.book.IconTextPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ConditionsCellRendererEditor;
+import es.eucm.eadventure.editor.gui.elementpanels.general.tables.InfoHeaderRenderer;
 import es.eucm.eadventure.editor.gui.otherpanels.ElementReferenceSelectionListener;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 
@@ -37,6 +38,13 @@ public class ElementReferencesTable extends JTable implements ElementReferenceSe
 		
 		this.setModel( new ElementsTableModel() );
 		this.getColumnModel( ).setColumnSelectionAllowed( false );
+		
+		this.getColumnModel().getColumn(0).setHeaderRenderer(new InfoHeaderRenderer());
+		this.getColumnModel().getColumn(1).setHeaderRenderer(new InfoHeaderRenderer());
+		this.getColumnModel().getColumn(2).setHeaderRenderer(new InfoHeaderRenderer());
+		this.getColumnModel().getColumn(3).setHeaderRenderer(new InfoHeaderRenderer("general/Conditions.html"));
+		
+		
 		this.setDragEnabled( false );
 		this.getColumnModel().getColumn(0).setMaxWidth( 55 );
 		this.getColumnModel().getColumn(0).setPreferredWidth(50);

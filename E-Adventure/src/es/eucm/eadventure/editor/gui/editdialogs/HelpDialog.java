@@ -70,6 +70,7 @@ public class HelpDialog extends JDialog implements HyperlinkListener {
 				pane.setPage( file.toURI().toURL( ) );
 				backList.add(file.toURI().toURL());
 				pane.setEditable( false );
+				pane.setHighlighter(null);
 				pane.addHyperlinkListener(this);
 				add(new JScrollPane(pane, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER), BorderLayout.CENTER);
 			} catch (MalformedURLException e1) {
@@ -91,15 +92,19 @@ public class HelpDialog extends JDialog implements HyperlinkListener {
 	}
 	
 	public void hyperlinkUpdate(HyperlinkEvent event) {
-	    if (event.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
+	   if (event.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
 	      try {
-	        pane.setPage(event.getURL());
-	        backList.add(event.getURL());
-	        forwardList.clear();
-	        updateButtons();
+	    	  if (event.getDescription().toLowerCase().contains("http:")) {
+	    		  openURI(event.getDescription());
+	    	  } else {
+		        pane.setPage(event.getURL());
+		        backList.add(event.getURL());
+		        forwardList.clear();
+		        updateButtons();
+	    	  }
 	      } catch(IOException ioe) {
 	      }
-	    }
+	   }
 	}
 	
 	private void goBack() {
@@ -162,4 +167,32 @@ public class HelpDialog extends JDialog implements HyperlinkListener {
 	public void writeFileNotFound(String path) {
 		add(new JLabel(TextConstants.getText("HelpDialog.FileNotFound") + " " + path));
 	}
+	
+	
+	public void openURI(String url) {
+	        if( !java.awt.Desktop.isDesktopSupported() ) {
+	            System.err.println( "Desktop is not supported (fatal)" );
+	            System.exit( 1 );
+	        }
+
+	        java.awt.Desktop desktop = java.awt.Desktop.getDesktop();
+
+	        if( !desktop.isSupported( java.awt.Desktop.Action.BROWSE ) ) {
+
+	            System.err.println( "Desktop doesn't support the browse action (fatal)" );
+	            System.exit( 1 );
+	        }
+
+
+	            try {
+
+	                java.net.URI uri = new java.net.URI( url );
+	                desktop.browse( uri );
+	            }
+	            catch ( Exception e ) {
+
+	                System.err.println( e.getMessage() );
+	            }
+	}
 }
+

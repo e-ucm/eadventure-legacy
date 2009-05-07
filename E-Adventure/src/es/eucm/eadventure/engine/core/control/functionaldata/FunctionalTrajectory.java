@@ -1,7 +1,6 @@
 package es.eucm.eadventure.engine.core.control.functionaldata;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.InfluenceArea;
@@ -80,6 +79,7 @@ public class FunctionalTrajectory {
 	 * The element the player wants to get to (can be null if a point is given)
 	 */
 	private FunctionalElement destinationElement;
+
 	
 	/**
 	 * Create a new FunctionalTrajectory form a Trajectory
@@ -93,8 +93,12 @@ public class FunctionalTrajectory {
 		this.barriers = barriers;
 		if (trajectory != null) {
 			for (Side side : trajectory.getSides()) {
-				sides.add(new FunctionalSide(side, trajectory, false));
-				sides.add(new FunctionalSide(side, trajectory, true));
+				FunctionalSide temp = new FunctionalSide(side, trajectory, false);
+				if (!sides.contains(temp))
+					sides.add(temp);
+				temp = new FunctionalSide(side, trajectory, true);
+				if (!sides.contains(temp))
+					sides.add(temp);
 			}
 			currentSide = null;
 			currentNode = trajectory.getInitial();
@@ -141,19 +145,16 @@ public class FunctionalTrajectory {
 		for (FunctionalSide currentSide : currentSides) {
 			List<FunctionalSide> tempSides = new ArrayList<FunctionalSide>();
 			tempSides.add(currentSide);
-			float dist = getDistance(fromX, fromY, currentSide.getEndNode().getX(), currentSide.getEndNode().getY());
+			float dist = getDistanceFast(fromX, fromY, currentSide.getEndNode().getX(), currentSide.getEndNode().getY());
 			FunctionalPath newPath = new FunctionalPath(dist, Float.MAX_VALUE, tempSides);
 			tempPaths.add(newPath);
 		}
-		
+
 		List<FunctionalPath> fullPathList = getFullPathList(tempPaths);
 		
-		List<FunctionalPath> validPaths = getValidPaths(fullPathList, fromX, fromY, toX, toY);
-			
-		Collections.sort(validPaths);
-		
-		if (validPaths.size() > 0) {
-			FunctionalPath bestPath = validPaths.get(validPaths.size() - 1);
+		FunctionalPath bestPath = getValidPaths(fullPathList, fromX, fromY, toX, toY);
+				
+		if (bestPath != null) {
 			this.nearestX = (int) bestPath.getDestX();
 			this.nearestY = (int) bestPath.getDestY();
 			this.currentNode = null;
@@ -182,9 +183,12 @@ public class FunctionalTrajectory {
 	private float getDistance(float x1, float y1, float x2, float y2) {
 		double xsq = Math.pow(x1 - x2, 2);
 		double ysq = Math.pow(y1 - y2, 2);
-		return (float) Math.sqrt(xsq + ysq);	
+		return (float) Math.sqrt(xsq + ysq);
 	}
-	
+
+	static float getDistanceFast(float x1, float y1, float x2, float y2) {
+		return (x1- x2) * (x1 - x2) + (y1 - y2) * (y1 - y2);		
+	}
 	/**
 	 * Returns a list of the valid paths (paths that get to the desired destination) from a list of all
 	 * the possible paths form the starting position. If an element is set as the destination, the valid
@@ -197,12 +201,16 @@ public class FunctionalTrajectory {
 	 * @param toY The destination position along the y-axis
 	 * @return A list with all the paths that get to the destination.
 	 */
-	private List<FunctionalPath> getValidPaths(List<FunctionalPath> fullPathList, float fromX, float fromY, int toX, int toY) {
-		List<FunctionalPath> validPaths = new ArrayList<FunctionalPath>();
+	private FunctionalPath getValidPaths(List<FunctionalPath> fullPathList, float fromX, float fromY, int toX, int toY) {
+		FunctionalPath best = null;
+		
+		for (FunctionalSide side : sides) {
+			side.updateMinimunDistance(toX, toY, destinationElement, barriers);
+		}
 		
 		for (FunctionalPath tempPath : fullPathList) {
 			FunctionalPath newPath = new FunctionalPath(0, Float.MAX_VALUE, new ArrayList<FunctionalSide>());
-			float length = getDistance(fromX, fromY, tempPath.getSides().get(0).getEndNode().getX(), tempPath.getSides().get(0).getEndNode().getY());
+			float length = getDistanceFast(fromX, fromY, tempPath.getSides().get(0).getEndNode().getX(), tempPath.getSides().get(0).getEndNode().getY());
 			newPath.addSide(length, Float.MAX_VALUE, tempPath.getSides().get(0));
 			
 			float posX = fromX;
@@ -211,38 +219,54 @@ public class FunctionalTrajectory {
 			boolean end = false;
 			int sideNr = 1;
 			while (!end && sideNr <= tempPath.getSides().size()) {
-				Node endNode = newPath.getSides().get(sideNr - 1).getEndNode();
-				float deltaX = endNode.getX() - posX;
-				float deltaY = endNode.getY() - posY;
-				
-				int delta = (int) (Math.abs(deltaX) > Math.abs(deltaY) ? Math.abs(deltaX) : Math.abs(deltaY));
-				
-				for (int i = 0; i < delta && !end; i++) {
-					posY = posY + deltaY / delta;
-					posX = posX + deltaX / delta;
-					if (inBarrier(posX, posY))
-						end = true;
-					else if (destinationElement != null && inInfluenceArea(posX, posY)) {
-						float dist = getDistance(posX, posY, destinationElement.getX(), destinationElement.getY());
-						newPath.updateUpTo(dist, posX, posY);
-						newPath.setGetsTo(true);
-					} else if (destinationElement == null){
-						float dist = getDistance(posX, posY, toX, toY);
-						newPath.updateUpTo(dist, posX, posY);
+				if (sideNr == 1) {
+					Node endNode = newPath.getSides().get(sideNr - 1).getEndNode();
+					float deltaX = endNode.getX() - posX;
+					float deltaY = endNode.getY() - posY;
+					
+					int delta = (int) (Math.abs(deltaX) > Math.abs(deltaY) ? Math.abs(deltaX) : Math.abs(deltaY));
+					
+					for (int i = 0; i < delta && !end; i++) {
+						posY = posY + deltaY / delta;
+						posX = posX + deltaX / delta;
+						if (inBarrier(posX, posY))
+							end = true;
+						else if (destinationElement != null && inInfluenceArea(posX, posY)) {
+							float dist = getDistanceFast(posX, posY, destinationElement.getX(), destinationElement.getY());
+							newPath.updateUpTo(dist, posX, posY);
+							newPath.setGetsTo(true);
+							end = true;
+						} else if (destinationElement == null){
+							float dist = getDistanceFast(posX, posY, toX, toY);
+							newPath.updateUpTo(dist, posX, posY);
+						}
 					}
+				} else {
+					FunctionalSide side = newPath.getSides().get(sideNr - 1);
+					end = side.end;
+					newPath.updateUpTo(side.dist, side.posX, side.posY);
+					newPath.setGetsTo(side.getsTo);
+					posX = side.posX;
+					posY = side.posY;
 				}
 				
-				validPaths.add(newPath);
+				if (best == null)
+					best = newPath;
+				else if (best.compareTo(newPath) < 0) {
+					best = newPath;
+				}
+					
 				if (sideNr < tempPath.getSides().size()) {
 					newPath = newPath.newFunctionalPath(tempPath.getSides().get(sideNr).getLenght(), Float.MAX_VALUE, tempPath.getSides().get(sideNr));
 					posX = tempPath.getSides().get(sideNr).getStartNode().getX();
 					posY = tempPath.getSides().get(sideNr).getStartNode().getY();
 				}
+				
 				sideNr++;
 			}
 		}
 		
-		return validPaths;
+		return best;
 	}
 	
 	/**
@@ -309,6 +333,7 @@ public class FunctionalTrajectory {
 	private List<FunctionalPath> getFullPathList(List<FunctionalPath> tempPaths) {
 		List<FunctionalPath> fullPathList = new ArrayList<FunctionalPath>();
 		
+		
 		while(!tempPaths.isEmpty()) {	
 			FunctionalPath originalPath = tempPaths.get(0);
 			tempPaths.remove(0);
@@ -317,7 +342,7 @@ public class FunctionalTrajectory {
 	
 			boolean continues = false;
 			for (FunctionalSide side : sides) {
-				if (side.getSide() != lastSide.getSide() && side.getStartNode().getID().equals(lastSide.getEndNode().getID())) {
+				if (side.getStartNode() == lastSide.getEndNode() && side.getEndNode() != lastSide.getStartNode()) {
 					FunctionalPath temp = originalPath.newFunctionalPath(side.getLenght(), 0, side);
 					if (temp != null) {
 						tempPaths.add(temp);
@@ -325,10 +350,10 @@ public class FunctionalTrajectory {
 					}
 				}
 			}
-			if (!continues)
+			if (!continues) {
 				fullPathList.add(originalPath);
+			}
 		}
-		
 		return fullPathList;
 	}
 	

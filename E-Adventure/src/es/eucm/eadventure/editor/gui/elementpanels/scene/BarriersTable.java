@@ -7,6 +7,7 @@ import javax.swing.table.AbstractTableModel;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.scene.BarriersListDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ConditionsCellRendererEditor;
+import es.eucm.eadventure.editor.gui.elementpanels.general.tables.InfoHeaderRenderer;
 
 public class BarriersTable extends JTable {
 
@@ -22,6 +23,8 @@ public class BarriersTable extends JTable {
 		this.getColumnModel( ).setColumnSelectionAllowed( false );
 		this.setDragEnabled( false );
 		
+		this.getColumnModel().getColumn(0).setHeaderRenderer(new InfoHeaderRenderer());
+		this.getColumnModel().getColumn(1).setHeaderRenderer(new InfoHeaderRenderer("general/Conditions.html"));
 		
 		this.getColumnModel().getColumn(1).setCellRenderer(new ConditionsCellRendererEditor());
 		this.getColumnModel().getColumn(1).setCellEditor(new ConditionsCellRendererEditor());

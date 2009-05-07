@@ -272,15 +272,19 @@ public class ActionsListPanel extends JPanel implements DataControlsPanel,Update
 	}
 
 	public boolean updateFields() {
-	  /*boolean update = false;
-	   if (actionPropertiesPanel.getComponents()[0] instanceof CustomActionPropertiesPanel){
-		    update=((CustomActionPropertiesPanel)actionPropertiesPanel.getComponents()[0]).updateFields();
-		}else if (actionPropertiesPanel.getComponents()[0] instanceof ActionPropertiesPanel){
-		    update=((ActionPropertiesPanel)actionPropertiesPanel.getComponents()[0]).updateFields();
+		System.out.println("Actions update fields");
+		int selected = table.getSelectedRow();
+		int items = table.getRowCount();
+		((AbstractTableModel) table.getModel()).fireTableDataChanged();
+		
+		if (items == table.getRowCount()) {
+			if (selected != -1) {
+				table.changeSelection(selected, 0, false, false);
+				if (table.getEditorComponent() != null)
+					table.editCellAt(selected, table.getEditingColumn());
+			}
 		}
 		
-	
-	    return update;*/
 	    return true;
 	}
 }

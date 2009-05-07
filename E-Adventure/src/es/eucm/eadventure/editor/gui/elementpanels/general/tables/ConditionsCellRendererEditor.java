@@ -4,8 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import javax.swing.AbstractCellEditor;
 import javax.swing.BorderFactory;
@@ -98,6 +96,7 @@ public class ConditionsCellRendererEditor extends AbstractCellEditor implements 
 	
 	private Component createButton(boolean isSelected, JTable table) {
 		JPanel temp = new JPanel();
+		temp.setOpaque(false);
 		if (isSelected)
 			temp.setBorder(BorderFactory.createMatteBorder(2, 0, 2, 0, table.getSelectionBackground()));
 		JButton button = null;
