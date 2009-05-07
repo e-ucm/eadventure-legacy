@@ -113,9 +113,11 @@ public class ConditionsCellRendererEditor extends AbstractCellEditor implements 
 		
 		// Create button
 		if (text!=null && icon!=null){
-			button =new JButton(text, icon); 
+			button =new JButton(text, icon);
+			button.setToolTipText(text);
 		} else if (text!=null){
 			button =new JButton(text);
+			button.setToolTipText(text);
 		} else if (icon!=null){
 			button = new JButton(icon);
 			button.setContentAreaFilled(false);
@@ -124,6 +126,7 @@ public class ConditionsCellRendererEditor extends AbstractCellEditor implements 
 		
 		button.setFocusable(false);
 		button.setEnabled(isSelected);
+		
 		//button.setOpaque(false);
 		//button.setContentAreaFilled(false);
 		//button.setRolloverIcon(new ImageIcon("img/icons/conditions-hot-16x16.png"));
