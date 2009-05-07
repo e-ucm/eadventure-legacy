@@ -66,6 +66,8 @@ public class ActiveAreasListPanel extends JPanel implements DataControlsPanel, D
 	
 	private JPanel auxPanel;
 	
+	private SmallActionsListPanel smallActions = null;
+	
 	/**
 	 * Constructor.
 	 * 
@@ -265,13 +267,15 @@ public class ActiveAreasListPanel extends JPanel implements DataControlsPanel, D
 		if (auxPanel == null)
 			return;
 		auxPanel.removeAll();
+		smallActions = null;
 		if (table.getSelectedRow() == -1) {
 			previewAuxSplit.setDividerLocation(Integer.MAX_VALUE);
 			return;
 		}
 		
 		auxPanel.setLayout(new BorderLayout());
-		auxPanel.add(new SmallActionsListPanel(dataControl.getActiveAreas().get(this.table.getSelectedRow()).getActionsList()));
+		smallActions = new SmallActionsListPanel(dataControl.getActiveAreas().get(this.table.getSelectedRow()).getActionsList());
+		auxPanel.add(smallActions);
 
 		previewAuxSplit.setDividerLocation(Integer.MAX_VALUE);
 	}
@@ -296,7 +300,21 @@ public class ActiveAreasListPanel extends JPanel implements DataControlsPanel, D
 	}
 
 	public boolean updateFields() {
-	    //updateAuxPanel();
+		int selected = table.getSelectedRow();
+		int items = table.getRowCount();
+		((AbstractTableModel) table.getModel()).fireTableDataChanged();
+		
+		if (items == table.getRowCount()) {
+			if (selected != -1) {
+				table.changeSelection(selected, 0, false, false);
+				if (table.getEditorComponent() != null)
+					table.editCellAt(selected, table.getEditingColumn());
+				if (smallActions != null && smallActions instanceof Updateable) {
+					((Updateable) smallActions).updateFields();
+				}
+			}
+		}
+		iaep.repaint();
 	    return true;
 	}
 }

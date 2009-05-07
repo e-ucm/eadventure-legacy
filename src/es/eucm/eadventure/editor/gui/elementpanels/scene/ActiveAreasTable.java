@@ -79,7 +79,7 @@ public class ActiveAreasTable extends JTable {
 		
 		this.getColumnModel().getColumn(0).setHeaderRenderer(new InfoHeaderRenderer());
 		this.getColumnModel().getColumn(1).setHeaderRenderer(new InfoHeaderRenderer("general/Conditions.html"));
-		this.getColumnModel().getColumn(2).setHeaderRenderer(new InfoHeaderRenderer("scene/Scene_ActiveAreaActions.html"));
+		this.getColumnModel().getColumn(2).setHeaderRenderer(new InfoHeaderRenderer("scenes/Scene_ActiveAreaActions.html"));
 		this.getColumnModel().getColumn(3).setHeaderRenderer(new InfoHeaderRenderer());
 
 		
