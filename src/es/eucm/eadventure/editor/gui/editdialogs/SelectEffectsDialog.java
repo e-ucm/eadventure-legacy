@@ -34,6 +34,7 @@ import es.eucm.eadventure.editor.control.controllers.SelectedEffectsController;
 import es.eucm.eadventure.editor.control.controllers.SingleEffectController;
 import es.eucm.eadventure.editor.control.tools.general.effects.AddEffectTool;
 import es.eucm.eadventure.editor.gui.editdialogs.effectdialogs.EffectDialog;
+import es.eucm.eadventure.editor.gui.structurepanel.EffectInfoPanel;
 import es.eucm.eadventure.editor.gui.structurepanel.EffectsStructurePanel;
 import es.eucm.eadventure.editor.gui.structurepanel.MostVisitedPanel;
 import es.eucm.eadventure.editor.gui.structurepanel.StructureControl;
@@ -97,11 +98,13 @@ public class SelectEffectsDialog extends ToolManagableDialog{
 		public void stateChanged(ChangeEvent e) {
 			if (infoPlusButtons!=null){
 				if (tabPane.getSelectedComponent() == effectsStructurePanel){
-					infoPlusButtons.add( effectsStructurePanel.getInfoPanel(), BorderLayout.CENTER);
-					ok.setEnabled(true);
+					//infoPlusButtons.add( effectsStructurePanel.getInfoPanel(), BorderLayout.CENTER);
+				    	createInfoPlusButtons( effectsStructurePanel.getInfoPanel());
+				    	ok.setEnabled(true);
 				} else if (tabPane.getSelectedComponent() == allEffectsStructurePanel){
-					infoPlusButtons.add( allEffectsStructurePanel.getInfoPanel(), BorderLayout.CENTER);
-					ok.setEnabled(true);
+					//infoPlusButtons.add( allEffectsStructurePanel.getInfoPanel(), BorderLayout.CENTER);
+				    	createInfoPlusButtons( allEffectsStructurePanel.getInfoPanel());
+				    	ok.setEnabled(true);
 				} 
 			} 
 			if (ok!=null){
@@ -146,8 +149,33 @@ public class SelectEffectsDialog extends ToolManagableDialog{
 	//this.add(leftPanel,c2);
 	//this.add(effectsStructurePanel);
 	
+	
+	c2.gridx=1;
+	//this.add(infoPlusButtons,c2);
+	
 	infoPlusButtons = new JPanel(new BorderLayout());
-	infoPlusButtons.add(effectsStructurePanel.getInfoPanel(),BorderLayout.CENTER);
+	createInfoPlusButtons(effectsStructurePanel.getInfoPanel());
+	
+	JSplitPane container = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,leftPanel,infoPlusButtons);
+	leftPanel.setMaximumSize(new Dimension(225,0));
+	leftPanel.setMinimumSize(new Dimension(200,0));
+	container.setDividerLocation(200);
+	
+	add(container);
+	
+	setResizable( false );
+	//pack( );
+	this.setSize(new Dimension(600,400));
+	Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
+	setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
+	this.setVisible( true );
+	
+    }
+
+   private void createInfoPlusButtons(EffectInfoPanel infoPanel){
+
+	infoPlusButtons.removeAll();
+	infoPlusButtons.add(infoPanel,BorderLayout.CENTER);
 	
 	JPanel buttonPane = new JPanel(new GridLayout(0,2));
 	ok = new JButton(TextConstants.getText("GeneralText.OK"));
@@ -171,28 +199,7 @@ public class SelectEffectsDialog extends ToolManagableDialog{
 	buttonPane.add(cancel);
 	
 	infoPlusButtons.add(buttonPane,BorderLayout.SOUTH);
-	
-	c2.gridx=1;
-	//this.add(infoPlusButtons,c2);
-	
-	
-	JSplitPane container = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,leftPanel,infoPlusButtons);
-	leftPanel.setMaximumSize(new Dimension(225,0));
-	leftPanel.setMinimumSize(new Dimension(200,0));
-	container.setDividerLocation(200);
-	
-	add(container);
-	
-	setResizable( false );
-	//pack( );
-	this.setSize(new Dimension(600,400));
-	Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
-	setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
-	this.setVisible( true );
-	
-    }
-
-   
+   }
     
     /**
      * @param isOk the isOk to set

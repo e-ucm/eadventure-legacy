@@ -37,12 +37,13 @@ public class EffectInfoPanel extends JPanel{
 	
 	editorPane = new JEditorPane();
 	this.setLayout(new BorderLayout());
-	
+	add(new JScrollPane(editorPane, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER), BorderLayout.CENTER);
 	
     }
     
     public void setHTMLText(String helpPath){
-	this.removeAll();
+	//this.removeAll();
+	
 	String folder = "help/";
 	if (Controller.getInstance().getLanguage() == ReleaseFolders.LANGUAGE_SPANISH)
 		folder += "es_ES/";
@@ -53,7 +54,7 @@ public class EffectInfoPanel extends JPanel{
 		try {
 		    editorPane.setPage( file.toURI().toURL( ) );
 		    editorPane.setEditable( false );
-		    add(new JScrollPane(editorPane, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER), BorderLayout.CENTER);
+		    editorPane.setHighlighter(null);
 		} catch (MalformedURLException e1) {
 			writeFileNotFound(folder + helpPath);
 		} catch (IOException e1) {
@@ -62,8 +63,7 @@ public class EffectInfoPanel extends JPanel{
 	} else {
 		writeFileNotFound(folder + helpPath);
 	}
-	
-	updateUI();
+
 	
 	
     }
