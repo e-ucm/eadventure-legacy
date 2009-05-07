@@ -63,7 +63,6 @@ public class InfoHeaderRenderer extends JPanel implements TableCellRenderer {
 			old = new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					System.out.print("" + e.getX() + " " + e.getY());
 					int mouseX = e.getX();
 					int mouseY = e.getY();
 					mouseX -= infoButton.getX();
