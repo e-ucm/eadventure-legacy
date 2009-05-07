@@ -19,6 +19,7 @@ import es.eucm.eadventure.editor.control.tools.structurepanel.RenameElementTool;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.AuxEditCellRendererEditor;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ConditionsCellRendererEditor;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.DocumentationCellRendererEditor;
+import es.eucm.eadventure.editor.gui.elementpanels.general.tables.InfoHeaderRenderer;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.StringCellRendererEditor;
 import es.eucm.eadventure.editor.gui.otherpanels.IrregularAreaEditionPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
@@ -75,6 +76,12 @@ public class ActiveAreasTable extends JTable {
 				}
 			}
 		});
+		
+		this.getColumnModel().getColumn(0).setHeaderRenderer(new InfoHeaderRenderer());
+		this.getColumnModel().getColumn(1).setHeaderRenderer(new InfoHeaderRenderer("general/Conditions.html"));
+		this.getColumnModel().getColumn(2).setHeaderRenderer(new InfoHeaderRenderer("scene/Scene_ActiveAreaActions.html"));
+		this.getColumnModel().getColumn(3).setHeaderRenderer(new InfoHeaderRenderer());
+
 		
 		this.getColumnModel().getColumn(0).setCellEditor(new StringCellRendererEditor());
 		this.getColumnModel().getColumn(0).setCellRenderer(new StringCellRendererEditor());

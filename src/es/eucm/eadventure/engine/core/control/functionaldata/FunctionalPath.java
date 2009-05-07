@@ -31,7 +31,7 @@ public class FunctionalPath implements Comparable<FunctionalPath> {
 	}
 
 	public void setGetsTo(boolean b) {
-		getsTo = true;
+		getsTo = b;
 	}
 
 	public boolean isGetsTo() {
@@ -91,10 +91,10 @@ public class FunctionalPath implements Comparable<FunctionalPath> {
 			return -1;
 		}
 		int distDif = (int) (arg0.distance - distance);
-		if (Math.abs(distDif) < 10) {
+		if (Math.abs(distDif) < 100) {
 			return (int) (arg0.length - length);
 		} else {
-			return  distDif;
+			return distDif;
 		}
 	}		
 	
@@ -104,5 +104,12 @@ public class FunctionalPath implements Comparable<FunctionalPath> {
 	
 	public float getDestY() {
 		return destY;
+	}
+
+	public void print() {
+		for (FunctionalSide side : sides) {
+			System.out.print(side.getStartNode().getID() + "->" );
+		}
+		System.out.println(sides.get(sides.size() - 1).getEndNode().getID());
 	}
 }

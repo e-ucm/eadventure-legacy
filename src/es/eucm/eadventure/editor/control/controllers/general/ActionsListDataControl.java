@@ -15,6 +15,7 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.character.NPCDataControl;
 import es.eucm.eadventure.editor.control.controllers.item.ItemDataControl;
+import es.eucm.eadventure.editor.control.controllers.scene.ActiveAreaDataControl;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class ActionsListDataControl extends DataControl {
@@ -127,6 +128,8 @@ public class ActionsListDataControl extends DataControl {
 			return new int[] { Controller.ACTION_EXAMINE, Controller.ACTION_GRAB, Controller.ACTION_USE, Controller.ACTION_CUSTOM_INTERACT, Controller.ACTION_USE_WITH, Controller.ACTION_GIVE_TO};
 		if (parent instanceof NPCDataControl)
 			return new int[] { Controller.ACTION_EXAMINE, Controller.ACTION_USE, Controller.ACTION_CUSTOM, Controller.ACTION_TALK_TO};
+		if (parent instanceof ActiveAreaDataControl)
+			return new int[] { Controller.ACTION_EXAMINE, Controller.ACTION_GRAB, Controller.ACTION_USE, Controller.ACTION_CUSTOM_INTERACT};
 		return new int[] { Controller.ACTION_EXAMINE, Controller.ACTION_GRAB, Controller.ACTION_USE, Controller.ACTION_CUSTOM, Controller.ACTION_USE_WITH, Controller.ACTION_GIVE_TO, Controller.ACTION_TALK_TO};
 	}
 

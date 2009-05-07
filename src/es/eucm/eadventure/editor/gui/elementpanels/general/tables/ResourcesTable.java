@@ -25,6 +25,9 @@ public class ResourcesTable extends JTable {
 		this.getColumnModel( ).setColumnSelectionAllowed( false );
 		this.setDragEnabled( false );
 		
+		this.getColumnModel().getColumn(0).setHeaderRenderer(new InfoHeaderRenderer("general/Appearence.html"));
+		this.getColumnModel().getColumn(1).setHeaderRenderer(new InfoHeaderRenderer("general/Conditions.html"));
+
 		
 		this.getColumnModel().getColumn(1).setCellRenderer(new ConditionsCellRendererEditor());
 		this.getColumnModel().getColumn(1).setCellEditor(new ConditionsCellRendererEditor());
