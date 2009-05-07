@@ -107,7 +107,7 @@ public class ChangeSelectedProfileTool extends Tool{
 		}
 		}
 		// update var/flags summary, because in adaptation and/or assessement profiles may have new var/flag
-		controller.updateFlagSummary();
+		controller.updateVarFlagSummary();
 		return done;
 	}
 
@@ -123,7 +123,7 @@ public class ChangeSelectedProfileTool extends Tool{
 		    	chapter.setAdaptationName("");
 		}
 		controller.reloadPanel();
-		controller.updateFlagSummary();
+		controller.updateVarFlagSummary();
 		return true;
 	}
 
@@ -134,7 +134,7 @@ public class ChangeSelectedProfileTool extends Tool{
 		} else if (mode == MODE_ADAPTATION || mode==MODE_DELETE_ADAPT){
 			chapter.setAdaptationName(oldValue);
 		}
-		controller.updateFlagSummary();
+		controller.updateVarFlagSummary();
 		controller.reloadPanel();
 		return true;
 	}

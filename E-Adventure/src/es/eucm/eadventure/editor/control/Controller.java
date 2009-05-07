@@ -2471,15 +2471,8 @@ public class Controller {
 		mainWindow.reloadData(  );
 	}
 	
-	public void updateFlagSummary( ) {
-		chaptersController.updateFlagSummary();
-		// Update the summary with assessment and adaptation elements (if there are someone added in current chapter)
-		String adaptationPath = chaptersController.getSelectedChapterDataControl().getAdaptationName();
-		String assessmentPath = chaptersController.getSelectedChapterDataControl().getAssessmentName();
-		if (!adaptationPath.equals(""))
-		    adventureData.updateAdaptationFlagSummary(adaptationPath, chaptersController.getVarFlagSummary());
-		if (!assessmentPath.equals(""))
-		    adventureData.updateAssessmentFlagSummary(assessmentPath, chaptersController.getVarFlagSummary());
+	public void updateVarFlagSummary( ) {
+		chaptersController.updateVarFlagSummary();
 	}
 
 	/**

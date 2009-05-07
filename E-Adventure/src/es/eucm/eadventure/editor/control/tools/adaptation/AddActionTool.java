@@ -52,7 +52,7 @@ public class AddActionTool extends Tool{
 				this.oldState = (AdaptedState) state.clone();
 				//	By default, the flag is activated. Default flag will be the first one
 				state.addActivatedFlag( flags[0] );
-				Controller.getInstance( ).updateFlagSummary( );
+				Controller.getInstance( ).updateVarFlagSummary( );
 				added=true;
 			} catch (CloneNotSupportedException e) {
 				ReportDialog.GenerateErrorReport(e, false, "Could not clone adaptedState "+((state==null)?"null":state.getClass().toString()));
@@ -89,7 +89,7 @@ public class AddActionTool extends Tool{
 				state.getActionsValues().add(flagVar);
 			}
 			oldState = temp;
-			Controller.getInstance( ).updateFlagSummary( );
+			Controller.getInstance( ).updateVarFlagSummary( );
 			Controller.getInstance().updatePanel();
 			return true;
 		} catch (CloneNotSupportedException e) {

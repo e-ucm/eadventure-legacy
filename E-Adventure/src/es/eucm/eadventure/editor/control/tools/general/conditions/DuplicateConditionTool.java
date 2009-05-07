@@ -1,27 +1,24 @@
 package es.eucm.eadventure.editor.control.tools.general.conditions;
 
-import java.util.List;
-
 import es.eucm.eadventure.common.data.chapter.conditions.Condition;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.tools.Tool;
 
 /**
- * Edition tool for deleting a condition
- * @author Javier
+ * Edition tool for duplicating a condition
+ * @author Javier Torrente
  *
  */
-public class DeleteConditionTool extends Tool{
+public class DuplicateConditionTool extends Tool{
 
 	private Conditions conditions;
 	private int index1;
 	private int index2;
 	
-	private List<Condition> blockRemoved;
-	private Condition singleConditionRemoved;
+	private Condition duplicate;
 	
-	public DeleteConditionTool (Conditions conditions, int index1, int index2){
+	public DuplicateConditionTool (Conditions conditions, int index1, int index2){
 		this.conditions = conditions;
 		this.index1 = index1;
 		this.index2 = index2;
@@ -44,15 +41,17 @@ public class DeleteConditionTool extends Tool{
 
 	@Override
 	public boolean doTool() {
-		if (conditions.get(index1).size() == 1){
-			this.blockRemoved = conditions.delete(index1);
-		} 
-		else 
-			this.singleConditionRemoved = conditions.get(index1).remove(index2);
-		
-		Controller.getInstance().updateVarFlagSummary();
-		Controller.getInstance().updatePanel();
-		return true;
+		try {
+			if (duplicate==null)
+				duplicate = (Condition)(conditions.get(index1).get(index2).clone());
+			conditions.get(index1).add(index2+1, duplicate);
+			Controller.getInstance().updateVarFlagSummary();
+			Controller.getInstance().updatePanel();
+			return true;
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
@@ -62,11 +61,7 @@ public class DeleteConditionTool extends Tool{
 
 	@Override
 	public boolean undoTool() {
-		if (blockRemoved!=null){
-			conditions.add(index1, blockRemoved);
-		} else if (singleConditionRemoved!=null){
-			conditions.get(index1).add(index2, singleConditionRemoved);
-		}
+		conditions.get(index1).remove(index2+1);
 		Controller.getInstance().updateVarFlagSummary();
 		Controller.getInstance().updatePanel();
 		return true;

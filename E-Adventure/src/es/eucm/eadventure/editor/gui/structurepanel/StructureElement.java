@@ -64,7 +64,7 @@ public class StructureElement {
 	
 	public boolean delete( boolean askConfirmation ) {
 		if( getDataControl( ).canBeDeleted( ) && parent.getDataControl( ).deleteElement( getDataControl( ), askConfirmation ) ) {
-			Controller.getInstance( ).updateFlagSummary( );
+			Controller.getInstance( ).updateVarFlagSummary( );
 			return true;
 		}
 		return false;

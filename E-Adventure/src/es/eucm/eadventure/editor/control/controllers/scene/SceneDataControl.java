@@ -369,7 +369,13 @@ public class SceneDataControl extends DataControlWithResources {
 		// Update the flag summary with the exits, item and character references
 		exitsListDataControl.updateVarFlagSummary( varFlagSummary );
 		referencesListDataControl.updateVarFlagSummary( varFlagSummary );
-		this.activeAreasListDataControl.updateVarFlagSummary( varFlagSummary );
+		activeAreasListDataControl.updateVarFlagSummary( varFlagSummary );
+		barriersListDataControl.updateVarFlagSummary( varFlagSummary );
+		trajectoryDataControl.updateVarFlagSummary( varFlagSummary );
+		// Iterate through the resources
+		for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
+			resourcesDataControl.updateVarFlagSummary(varFlagSummary);
+		
 	}
 
 	@Override

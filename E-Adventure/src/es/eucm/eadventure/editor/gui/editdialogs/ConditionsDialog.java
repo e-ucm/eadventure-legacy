@@ -6,12 +6,6 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Toolkit;
 
-import javax.swing.UIManager;
-
-import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
-import es.eucm.eadventure.common.data.chapter.conditions.FlagCondition;
-import es.eucm.eadventure.common.data.chapter.conditions.GlobalStateCondition;
-import es.eucm.eadventure.common.data.chapter.conditions.VarCondition;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
@@ -21,7 +15,7 @@ import es.eucm.eadventure.editor.gui.elementpanels.condition.ConditionsPanel;
  * This class is the editing dialog for the conditions. Here the user can add conditions to the events of the script,
  * using the flags defined in the Flags dialog.
  * 
- * @author Bruno Torijano Bueno
+ * @author Javier Torrente
  */
 public class ConditionsDialog extends ToolManagableDialog{
 
@@ -68,47 +62,4 @@ public class ConditionsDialog extends ToolManagableDialog{
 		return conditionsPanel.updateFields();
 	}
 	
-	public static void main (String[]args){
-		// Set the look and feel
-		try {
-			//UIManager.setLookAndFeel( UIManager.getCrossPlatformLookAndFeelClassName( ) );
-			UIManager.setLookAndFeel( UIManager.getSystemLookAndFeelClassName( ) );
-		} catch( Exception e ) {
-        	//ErrorReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
-		}
-		
-		
-		try {
-			TextConstants.loadStrings("laneditor/en_EN.xml");
-			
-			Conditions conditions = new Conditions();
-			FlagCondition condition = new FlagCondition("Flag1");
-			VarCondition condition2 = new VarCondition("Var1", VarCondition.VAR_EQUALS, 2);
-			GlobalStateCondition condition3 = new GlobalStateCondition( "GS1" );
-
-			FlagCondition condition4= (FlagCondition)condition.clone();
-			VarCondition condition5= (VarCondition)condition2.clone();
-			GlobalStateCondition condition6= (GlobalStateCondition)condition3.clone();
-			
-			Conditions either = new Conditions();
-			either.add(condition4);
-			either.add(condition5);
-			either.add(condition6);
-			
-			Conditions either2 = (Conditions)either.clone();
-			conditions.add(condition);
-			conditions.add(either);
-			conditions.add(condition2);
-			conditions.add(either2);
-			conditions.add(condition3);
-			
-			ConditionsController controller = new ConditionsController(conditions);
-			ConditionsDialog dialog = new ConditionsDialog(controller);
-			
-		} catch (CloneNotSupportedException e) {
-			e.printStackTrace();
-		}
-		
-		
-	}
 }

@@ -283,11 +283,16 @@ public abstract class DataControl implements Cloneable {
 	}
 	
 	protected void check(ConditionsController conditions, String desc) {
-		for (int i = 0; i < conditions.getEitherConditionsBlockCount(); i++) {
+	
+		for (int i = 0; i < conditions.getBlocksCount(); i++) {
 			for (int j = 0; j < conditions.getConditionCount(i); j++) {
-				check(conditions.getConditionId(i, j), desc + " (ID)");
-				check(conditions.getConditionState(i, j), desc + " (" + TextConstants.getText("Search.State") + ")");
-				check(conditions.getConditionValue(i, j), desc + " (" + TextConstants.getText("Search.Value") + ")");
+				HashMap<String,String> properties = conditions.getCondition(i, j);
+				if (properties.containsKey(ConditionsController.CONDITION_ID))
+					check(properties.get(ConditionsController.CONDITION_ID), desc + " (ID)");
+				if (properties.containsKey(ConditionsController.CONDITION_STATE))
+					check(properties.get(ConditionsController.CONDITION_STATE), desc + " (" + TextConstants.getText("Search.State") + ")");
+				if (properties.containsKey(ConditionsController.CONDITION_VALUE))
+					check(properties.get(ConditionsController.CONDITION_VALUE), desc + " (" + TextConstants.getText("Search.Value") + ")");
 			}
 		}
 	}
