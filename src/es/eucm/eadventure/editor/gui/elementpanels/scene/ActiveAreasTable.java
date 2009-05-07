@@ -1,11 +1,16 @@
 package es.eucm.eadventure.editor.gui.elementpanels.scene;
 
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
+
+import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableCellRenderer;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
@@ -40,6 +45,27 @@ public class ActiveAreasTable extends JTable {
 		this.setModel( new ElementsTableModel() );
 		this.getColumnModel( ).setColumnSelectionAllowed( false );
 		this.setDragEnabled( false );
+		this.addMouseMotionListener(new MouseMotionListener(){
+
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				
+			}
+
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				int col = columnAtPoint(e.getPoint());
+				int row = rowAtPoint(e.getPoint());
+				TableCellRenderer r =getCellRenderer(row, col);
+				//System.out.println("MOUSE TABLE: "+row+" , "+col);
+				if (r instanceof ConditionsCellRendererEditor){
+					ConditionsCellRendererEditor condRE = (ConditionsCellRendererEditor)r;
+				}
+			}
+			
+		});
+		
+		
 		
 		this.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent arg0) {
@@ -83,6 +109,23 @@ public class ActiveAreasTable extends JTable {
 		this.setSize(200, 150);
 	}
 	
+	
+	public void processMouseEvent(MouseEvent e){
+		int col = columnAtPoint(e.getPoint());
+		int row = rowAtPoint(e.getPoint());
+		if (row!=-1 && col!=-1){
+			TableCellRenderer r =getCellRenderer(row, col);
+			//System.out.println("MOUSE TABLE: "+row+" , "+col);
+			if (r instanceof ConditionsCellRendererEditor){
+				ConditionsCellRendererEditor condRE = (ConditionsCellRendererEditor)r;
+				JPanel panel = (JPanel)condRE.getTableCellRendererComponent(this, condRE.getCellEditorValue(), true, true,row, col);
+				panel.requestFocusInWindow();
+				e.setSource(panel);
+				panel.dispatchEvent(e);
+			}		
+		}
+		super.processMouseEvent(e);
+	}
 	
 	private class ElementsTableModel extends AbstractTableModel {
 
