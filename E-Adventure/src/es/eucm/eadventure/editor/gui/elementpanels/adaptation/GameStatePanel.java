@@ -125,8 +125,8 @@ class GameStatePanel extends JPanel implements Updateable{
 		actionFlagsTable.setIntercellSpacing( new Dimension( 1, 1 ) );
 
 		// Add selection listener to the table
-		//actionFlagsTable.getSelectionModel( ).addListSelectionListener( new NodeTableSelectionListener( ) );
-		actionFlagsTable.getSelectionModel( ).setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
+		actionFlagsTable.getSelectionModel( ).addListSelectionListener( new NodeTableSelectionListener( ) );
+		//actionFlagsTable.getSelectionModel( ).setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
 		
 	
 		
