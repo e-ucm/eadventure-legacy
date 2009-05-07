@@ -156,7 +156,7 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
 		if (informationTable.getSelectedRow() < 0 || informationTable.getSelectedRow() >= dataControl.getAssessmentRules().size()) {
 			rulesInfoPanel.removeAll();
 			JPanel empty = new JPanel();
-			JLabel label = new JLabel(TextConstants.getText("AdaptationProfile.Empty"));
+			JLabel label = new JLabel(TextConstants.getText("AssessmentProfile.Empty"));
 			empty.add(label);
 			rulesInfoPanel.add(empty);
 			rulesInfoPanel.setMinimumSize(new Dimension(0, 190));
