@@ -160,6 +160,7 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
 			empty.add(label);
 			rulesInfoPanel.add(empty);
 			rulesInfoPanel.setMinimumSize(new Dimension(0, 190));
+			rulesInfoPanel.updateUI();
 		} else {
 			rulesInfoPanel.removeAll();
 			// take the current rule data control

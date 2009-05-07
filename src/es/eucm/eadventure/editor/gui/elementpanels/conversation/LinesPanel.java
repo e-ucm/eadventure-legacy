@@ -66,7 +66,7 @@ class LinesPanel extends JPanel {
 	/**
 	 * Scroll panel that holds the table
 	 */
-	private JScrollPane tableScrollPanel;
+	private TableScrollPane tableScrollPanel;
 
 	/**
 	 * Move line up ( /\ ) button
@@ -454,8 +454,10 @@ class LinesPanel extends JPanel {
 			conversationDataControl.deleteNodeLine( selectedNode, selectedRow ,((GraphConversationDataControl)conversationDataControl).getAllConditions().get(selectedNode));
 
 			// If there are no more lines, clear selection (this disables the "Delete line" button)
-			if( selectedNode.getLineCount( ) == 0 )
+			if( selectedNode.getLineCount( ) == 0 ){
 				lineTable.clearSelection( );
+				tableScrollPanel.updateUI();
+			}
 
 			// If the deleted line was the last one, select the new last line in the node
 			else if( selectedNode.getLineCount( ) == selectedRow )
