@@ -3,7 +3,6 @@ package es.eucm.eadventure.editor.gui.elementpanels.scene;
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -166,17 +165,7 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel,Upd
 	private void createReferencesTablePanel(){
 		// Create the main panel
 		tablePanel = new JPanel(new BorderLayout());
-		
-		
-		JPanel temp = new JPanel();
-		temp.setLayout(new GridLayout(2,1));
-		JTextPane layerTextPane = new JTextPane( );
-		layerTextPane.setEditable( false );
-		layerTextPane.setBackground( getBackground( ) );
-		layerTextPane.setText( TextConstants.getText( "ItemReferenceTable.LayerExplanation" ));
-		
-		temp.add(layerTextPane);
-		
+				
 		JCheckBox isAllowPlayerLayer = new JCheckBox(TextConstants.getText("Scene.AllowPlayer"),referencesListDataControl.getSceneDataControl().isAllowPlayer());
 		isAllowPlayerLayer.setSelected( referencesListDataControl.getSceneDataControl().isAllowPlayer() );
 		isAllowPlayerLayer.addActionListener(new ActionListener() {
@@ -184,12 +173,9 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel,Upd
 				referencesListDataControl.getSceneDataControl().changeAllowPlayerLayer(((JCheckBox) arg0.getSource()).isSelected(), null);
 			}
 		});
-		temp.add(isAllowPlayerLayer);
 		
 		if (!Controller.getInstance().isPlayTransparent())
-			tablePanel.add(temp, BorderLayout.SOUTH);
-		else
-			tablePanel.add(layerTextPane,BorderLayout.SOUTH);
+			tablePanel.add(isAllowPlayerLayer, BorderLayout.SOUTH);
 		
 		// Create the table (CENTER)
 		table = new ElementReferencesTable(referencesListDataControl, spep);
