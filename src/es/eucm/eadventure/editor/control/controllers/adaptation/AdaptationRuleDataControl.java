@@ -3,6 +3,7 @@ package es.eucm.eadventure.editor.control.controllers.adaptation;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.adaptation.AdaptationRule;
+import es.eucm.eadventure.common.data.adaptation.AdaptedState;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.tools.adaptation.AddActionTool;
@@ -134,6 +135,10 @@ public class AdaptationRuleDataControl extends DataControl{
 		return adaptationRule.getAdaptedState( ).getTargetId( );
 	}
 
+	private AdaptedState getGameState(){
+	    return adaptationRule.getAdaptedState();
+	}
+	
 	public boolean moveUOLPropertyUp( int selectedRow ) {
 		return	controller.addTool(new MoveObjectTool(adaptationRule.getUOLProperties( ),selectedRow,MoveObjectTool.MODE_UP));
 	}
@@ -244,15 +249,18 @@ public class AdaptationRuleDataControl extends DataControl{
 		check(getDescription(), TextConstants.getText("Search.Description"));
 		check(getId(), "ID");
 		check(getInitialScene(), TextConstants.getText("Search.InitialScene"));
+		
 		for (int i = 0; i < this.getFlagActionCount(); i++){
 		    if (isFlag(i))
 			check(getFlag(i), TextConstants.getText("Search.Flag"));
 		    else
 			check(getFlag(i), TextConstants.getText("Search.Var"));
+		    
+		    check(getAction(i), TextConstants.getText("Search.ActionOverGameState"));
 		}
 		for (int i = 0; i < this.getUOLPropertyCount(); i++) {
-			check(this.getUOLPropertyId(i), TextConstants.getText("Search.UOLPropertyID"));
-			check(this.getUOLPropertyValue(i), TextConstants.getText("Search.UOLPropertyValue"));
+			check(this.getUOLPropertyId(i), TextConstants.getText("Search.LMSPropertyID"));
+			check(this.getUOLPropertyValue(i), TextConstants.getText("Search.LMSPropertyValue"));
 		}
 	}
 
