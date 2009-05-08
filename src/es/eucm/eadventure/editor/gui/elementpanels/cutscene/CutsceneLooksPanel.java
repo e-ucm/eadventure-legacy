@@ -9,10 +9,11 @@ import javax.swing.JPanel;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.cutscene.CutsceneDataControl;
 
+import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.elementpanels.general.LooksPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.imagepanels.ImagePanel;
 
-public class CutsceneLooksPanel extends LooksPanel {
+public class CutsceneLooksPanel extends LooksPanel implements Updateable{
 
 	/**
 	 * Required.
@@ -58,5 +59,11 @@ public class CutsceneLooksPanel extends LooksPanel {
 	public void updateResources( ) {
 		super.updateResources( );
 		getParent( ).getParent( ).repaint( );
+	}
+
+	@Override
+	public boolean updateFields() {
+		updatePreview();
+		return true;
 	}
 }

@@ -1,13 +1,11 @@
 package es.eucm.eadventure.editor.control.controllers;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.conditions.Condition;
 import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.common.data.chapter.conditions.FlagCondition;
-import es.eucm.eadventure.common.data.chapter.conditions.GlobalStateCondition;
 import es.eucm.eadventure.common.data.chapter.conditions.VarCondition;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
@@ -130,7 +128,7 @@ public class ConditionsController {
 	 */
 	public static void updateVarFlagSummary( VarFlagSummary varFlagSummary, Conditions conditions ) {
 		// First check the main block of conditions
-		for( Condition condition : conditions.getMainConditions( ) ){
+		for( Condition condition : conditions.getSimpleConditions( ) ){
 			if ( condition.getType() == Condition.FLAG_CONDITION )
 				varFlagSummary.addFlagReference( condition.getId( ) );
 			else if ( condition.getType() == Condition.VAR_CONDITION )

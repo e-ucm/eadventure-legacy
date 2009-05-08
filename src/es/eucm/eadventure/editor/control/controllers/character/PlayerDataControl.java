@@ -1,5 +1,6 @@
 package es.eucm.eadventure.editor.control.controllers.character;
 
+import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
 import es.eucm.eadventure.common.data.chapter.elements.Player;
 import es.eucm.eadventure.editor.control.Controller;
@@ -87,7 +88,9 @@ public class PlayerDataControl extends NPCDataControl {
 
 	@Override
 	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
-
+		// Iterate through the resources
+		for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
+			resourcesDataControl.updateVarFlagSummary(varFlagSummary);
 	}
 
 	@Override

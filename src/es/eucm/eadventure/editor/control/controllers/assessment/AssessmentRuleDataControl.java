@@ -175,7 +175,7 @@ public class AssessmentRuleDataControl extends DataControl{
 			ConditionsController.updateVarFlagSummary( varFlagSummary, tRule.getInitConditions( ) );
 			ConditionsController.updateVarFlagSummary( varFlagSummary, tRule.getEndConditions( ) );
 		}else
-		ConditionsController.updateVarFlagSummary( varFlagSummary, assessmentRule.getConditions( ) );
+			ConditionsController.updateVarFlagSummary( varFlagSummary, assessmentRule.getConditions( ) );
 		
 	}
 

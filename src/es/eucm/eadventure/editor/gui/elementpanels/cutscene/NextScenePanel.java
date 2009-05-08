@@ -25,11 +25,12 @@ import es.eucm.eadventure.common.data.chapter.scenes.Cutscene;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.cutscene.CutsceneDataControl;
+import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.editdialogs.EffectsDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.PlayerPositionDialog;
 
 
-public class NextScenePanel extends JPanel {
+public class NextScenePanel extends JPanel implements Updateable{
 
 	/**
 	 * 
@@ -239,5 +240,11 @@ public class NextScenePanel extends JPanel {
 			}
 		}
 		
+	}
+
+	@Override
+	public boolean updateFields() {
+		updateNextSceneInfo();
+		return true;
 	}
 }

@@ -7,6 +7,11 @@ import es.eucm.eadventure.editor.control.controllers.cutscene.CutsceneDataContro
 import es.eucm.eadventure.editor.gui.elementpanels.ElementPanel;
 import es.eucm.eadventure.editor.gui.elementpanels.PanelTab;
 
+/**
+ * Does not need to implement Updateable, as ElementPanel already implements Updateable
+ * @author Javier
+ *
+ */
 public class CutscenePanel extends ElementPanel {
 
 	/**

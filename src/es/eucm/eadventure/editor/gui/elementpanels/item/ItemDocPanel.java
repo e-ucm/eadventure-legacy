@@ -111,6 +111,7 @@ public class ItemDocPanel extends JPanel implements Updateable {
 		this.descriptionTextField.setText(itemDataControl.getBriefDescription());
 		this.detailedDescriptionTextField.setText(itemDataControl.getDetailedDescription());
 		this.documentationTextArea.setText(itemDataControl.getDocumentation());
+		this.nameTextField.setText(itemDataControl.getName());
 		return true;
 	}
 }

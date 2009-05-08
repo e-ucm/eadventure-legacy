@@ -259,9 +259,9 @@ public class AdaptationProfileDataControl extends DataControl{
 		if (profile != null && profile.getAdaptedState() != null) {
 	 		for (String flag: profile.getAdaptedState().getFlagsVars( )){
 			    if (profile.getAdaptedState().isFlag(flag))
-				varFlagSummary.addFlagReference( flag );
+			    	varFlagSummary.addFlagReference( flag );
 			    else 
-				varFlagSummary.addVarReference(flag);
+			    	varFlagSummary.addVarReference(flag);
 			}
 		}
 	}

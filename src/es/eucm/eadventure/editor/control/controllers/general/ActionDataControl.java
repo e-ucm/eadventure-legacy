@@ -264,6 +264,8 @@ public class ActionDataControl extends DataControlWithResources {
 	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
 		// Update the flag summary with the effects of the action
 		EffectsController.updateVarFlagSummary( varFlagSummary, action.getEffects( ) );
+		if (action.getNotEffects()!=null)
+			EffectsController.updateVarFlagSummary( varFlagSummary, action.getNotEffects() );
 		ConditionsController.updateVarFlagSummary( varFlagSummary, action.getConditions( ) );
 	}
 

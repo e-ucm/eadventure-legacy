@@ -279,7 +279,10 @@ public class AtrezzoDataControl extends DataControlWithResources {
 
 	@Override
 	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
-		//This method is empty because the atrezzo items there aren´t interactive, and its haven´t associated flags/vars 
+		// Iterate through the resources
+		for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
+			resourcesDataControl.updateVarFlagSummary(varFlagSummary);
+
 	}
 
 	@Override

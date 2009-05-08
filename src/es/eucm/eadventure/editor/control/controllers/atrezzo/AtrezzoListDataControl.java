@@ -9,6 +9,7 @@ import es.eucm.eadventure.common.gui.TextConstants;
 
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
 
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
@@ -301,8 +302,9 @@ public class AtrezzoListDataControl extends DataControl {
 
 	@Override
 	public void updateVarFlagSummary(VarFlagSummary varFlagSummary) {
-		//This method is empty because the atrezzo items there aren´t interactive, and its haven´t associated flags/vars 
-		
+		// Iterate through each item
+		for( AtrezzoDataControl atrezzoDataControl : atrezzoDataControlList )
+			atrezzoDataControl.updateVarFlagSummary( varFlagSummary );
 	}
 
 	@Override

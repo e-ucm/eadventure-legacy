@@ -294,10 +294,16 @@ public class GraphConversationDataControl extends ConversationDataControl {
 	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
 		// Check every node on the conversation
 		List<ConversationNode> conversationNodes = graphConversation.getAllNodes( );
-		for( ConversationNode conversationNode : conversationNodes )
+		for( ConversationNode conversationNode : conversationNodes ){
 			// Update the summary with the effects, if avalaible
 			if( conversationNode.hasEffects( ) )
 				EffectsController.updateVarFlagSummary( varFlagSummary, conversationNode.getEffects( ) );
+			
+			// Update the summary with the conditions of the lines
+			for ( int i=0; i<conversationNode.getLineCount(); i++){
+				ConditionsController.updateVarFlagSummary(varFlagSummary, conversationNode.getLineConditions(i));
+			}
+		}
 	}
 
 	@Override
