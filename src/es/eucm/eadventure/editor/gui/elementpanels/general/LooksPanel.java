@@ -262,7 +262,8 @@ public abstract class LooksPanel extends JPanel implements Updateable{
 	public boolean updateFields() {
 		resourcesTable.setSelectedIndex( dataControl.getSelectedResources() );
 		updateResources();
-		((AbstractTableModel)resourcesTable.getModel()).fireTableDataChanged();
+		resourcesTable.resetModel();
+		resourcesTable.setSelectedIndex( dataControl.getSelectedResources() );
 		return true;
 	}
 }

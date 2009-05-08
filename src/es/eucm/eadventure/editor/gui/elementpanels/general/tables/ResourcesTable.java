@@ -37,6 +37,19 @@ public class ResourcesTable extends JTable {
 		this.setSize(200, 150);
 	}
 	
+	public void resetModel(){
+		this.setModel(new ElementsTableModel());
+		this.getColumnModel().getColumn(0).setHeaderRenderer(new InfoHeaderRenderer("general/Appearence.html"));
+		this.getColumnModel().getColumn(1).setHeaderRenderer(new InfoHeaderRenderer("general/Conditions.html"));
+
+		
+		this.getColumnModel().getColumn(1).setCellRenderer(new ConditionsCellRendererEditor());
+		this.getColumnModel().getColumn(1).setCellEditor(new ConditionsCellRendererEditor());
+		
+		this.getSelectionModel( ).setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
+		((AbstractTableModel)this.getModel()).fireTableDataChanged();
+	}
+	
 	public int getSelectedIndex() {
 		return getSelectedRow();
 	}
