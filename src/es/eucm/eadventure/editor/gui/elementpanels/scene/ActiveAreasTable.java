@@ -3,7 +3,6 @@ package es.eucm.eadventure.editor.gui.elementpanels.scene;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 
-import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -114,24 +113,6 @@ public class ActiveAreasTable extends JTable {
 		});
 		
 		this.setSize(200, 150);
-	}
-	
-	
-	public void processMouseEvent(MouseEvent e){
-		int col = columnAtPoint(e.getPoint());
-		int row = rowAtPoint(e.getPoint());
-		if (row!=-1 && col!=-1){
-			TableCellRenderer r =getCellRenderer(row, col);
-			//System.out.println("MOUSE TABLE: "+row+" , "+col);
-			if (r instanceof ConditionsCellRendererEditor){
-				ConditionsCellRendererEditor condRE = (ConditionsCellRendererEditor)r;
-				JPanel panel = (JPanel)condRE.getTableCellRendererComponent(this, condRE.getCellEditorValue(), true, true,row, col);
-				panel.requestFocusInWindow();
-				e.setSource(panel);
-				panel.dispatchEvent(e);
-			}		
-		}
-		super.processMouseEvent(e);
 	}
 	
 	private class ElementsTableModel extends AbstractTableModel {
