@@ -172,7 +172,8 @@ public class ActiveAreasTable extends JTable {
 		@Override
 		public void setValueAt(Object value, int rowIndex, int columnIndex) {
 			if (columnIndex == 0) {
-				Controller.getInstance().addTool(new RenameElementTool(dataControl.getActiveAreas().get(rowIndex), (String) value));
+				if (dataControl.getActiveAreas().size() > rowIndex)
+					Controller.getInstance().addTool(new RenameElementTool(dataControl.getActiveAreas().get(rowIndex), (String) value));
 			}
 		}
 		

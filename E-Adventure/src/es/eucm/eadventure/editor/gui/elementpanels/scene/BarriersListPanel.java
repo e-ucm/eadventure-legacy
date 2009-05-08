@@ -30,12 +30,15 @@ import es.eucm.eadventure.editor.control.controllers.scene.BarriersListDataContr
 import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ExitDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.NodeDataControl;
+import es.eucm.eadventure.editor.control.tools.scene.AddBarrierTool;
+import es.eucm.eadventure.editor.control.tools.scene.DeleteBarrierTool;
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
 import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.elementpanels.DataControlSelectionListener;
 import es.eucm.eadventure.editor.gui.elementpanels.general.TableScrollPane;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
+import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElement;
 
 public class BarriersListPanel extends JPanel implements Updateable, DataControlsPanel, DataControlSelectionListener {
 
@@ -93,7 +96,7 @@ public class BarriersListPanel extends JPanel implements Updateable, DataControl
 
 		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent arg0) {
-				if (table.getSelectedRow() >= 0) {
+				if (table.getSelectedRow() >= 0 && table.getSelectedRow() < dataControl.getBarriers().size()) {
 					deleteButton.setEnabled(true);
 					duplicateButton.setEnabled(true);
 					spep.setSelectedElement(dataControl.getBarriers().get(table.getSelectedRow()));
@@ -200,12 +203,9 @@ public class BarriersListPanel extends JPanel implements Updateable, DataControl
 	}
 	
 	protected void addBarrier() {
-		if (dataControl.addElement(dataControl.getAddableElements()[0], null)) {
-			spep.addBarrier(dataControl.getLastBarrier());
-			spep.repaint();
-			((AbstractTableModel) table.getModel()).fireTableDataChanged();
-			table.changeSelection(dataControl.getBarriers().size() - 1, dataControl.getBarriers().size() - 1, false, false);
-		}
+		Controller.getInstance().addTool(new AddBarrierTool(dataControl, spep));
+		((AbstractTableModel) table.getModel()).fireTableDataChanged();
+		table.changeSelection(dataControl.getBarriers().size() - 1, dataControl.getBarriers().size() - 1, false, false);
 	}
 
 	protected void duplicateBarrier() {
@@ -218,14 +218,25 @@ public class BarriersListPanel extends JPanel implements Updateable, DataControl
 	}
 
 	protected void deleteBarrier() {
-		spep.removeElement(dataControl.getBarriers().get(table.getSelectedRow()));
-		dataControl.deleteElement(dataControl.getBarriers().get(table.getSelectedRow()), true);
-		((AbstractTableModel) table.getModel()).fireTableDataChanged();
+		Controller.getInstance().addTool(new DeleteBarrierTool(dataControl, table, spep));
 	}
 
 	
 	public boolean updateFields() {
-		spep.repaint();
+		int selected = table.getSelectedRow();
+		int items = table.getRowCount();
+		((AbstractTableModel) table.getModel()).fireTableDataChanged();
+
+		if (items != 0 && items == table.getRowCount()) {
+			if (selected != -1) {
+				table.changeSelection(selected, 0, false, false);
+				if (table.getEditorComponent() != null)
+					table.editCellAt(selected, table.getEditingColumn());
+			}
+		} else {
+			spep.setSelectedElement((ImageElement) null);
+		}
+	    spep.repaint();
 		return true;
 	}
 	

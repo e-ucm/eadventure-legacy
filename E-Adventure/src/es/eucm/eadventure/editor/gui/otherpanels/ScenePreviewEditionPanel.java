@@ -459,14 +459,15 @@ public class ScenePreviewEditionPanel extends JPanel {
 		Integer key = new Integer(category);
 		List<ImageElement> list = elements.get(key);
 		int index;
-		if (list!= null){
+		if (list!= null) {
 			for ( index=0; index < list.size();index++)	
 					if (list.get(index).getDataControl().equals(element))
 						break;
-			if (index>=0){
-			list.remove(index);
-				
-		}
+			if (index>=0 && index < list.size()){
+				if (this.selectedElement == list.get(index))
+					selectedElement = null;
+				list.remove(index);
+			}
 		}
 		
 		repaint();

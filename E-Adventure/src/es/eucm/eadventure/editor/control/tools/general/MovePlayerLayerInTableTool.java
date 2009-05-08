@@ -3,7 +3,6 @@ package es.eucm.eadventure.editor.control.tools.general;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementContainer;
 import es.eucm.eadventure.editor.control.controllers.scene.ReferencesListDataControl;
 import es.eucm.eadventure.editor.control.tools.Tool;
-import es.eucm.eadventure.editor.gui.elementpanels.scene.ActiveAreasTable;
 import es.eucm.eadventure.editor.gui.elementpanels.scene.ElementReferencesTable;
 
 
@@ -20,10 +19,16 @@ public class MovePlayerLayerInTableTool extends Tool{
 	
 	private boolean moveUp;
 	
+	private ElementContainer element;
+	
+	private int selectedRow;
+	
 	public MovePlayerLayerInTableTool(ReferencesListDataControl rldc, ElementReferencesTable table2, boolean isMoveUp){
 		this.referencesListDataControl = rldc;
 		this.table = table2 ;
-		this.moveUp = isMoveUp; 
+		this.moveUp = isMoveUp;
+		selectedRow = table.getSelectedRow( );
+		element = referencesListDataControl.getAllReferencesDataControl().get( selectedRow );
 	}
 	
 	@Override
@@ -33,13 +38,11 @@ public class MovePlayerLayerInTableTool extends Tool{
 
 	@Override
 	public boolean canUndo() {
-		
 		return true;
 	}
 
 	@Override
 	public boolean combine(Tool other) {
-		
 		return false;
 	}
 
@@ -50,8 +53,6 @@ public class MovePlayerLayerInTableTool extends Tool{
 	}
 	
 	private void action(boolean up){
-		int selectedRow = table.getSelectedRow( );
-		ElementContainer element = referencesListDataControl.getAllReferencesDataControl().get( selectedRow );
 		// do moveDown 
 		if (!up&&referencesListDataControl.moveElementDown( element.getErdc() )){
 			table.getSelectionModel( ).setSelectionInterval( selectedRow+1, selectedRow+1 );
@@ -62,9 +63,7 @@ public class MovePlayerLayerInTableTool extends Tool{
 				table.getSelectionModel( ).setSelectionInterval( selectedRow-1, selectedRow-1 );
 				table.updateUI( );
 		}
-		
 		moveUp = !moveUp;
-		
 	}
 	
 
