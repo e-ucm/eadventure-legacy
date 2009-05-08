@@ -30,10 +30,10 @@ public class RenameElementTool extends Tool {
 	@Override
 	public boolean doTool() {
 	    if (newName.length() == 0)
-		return false;
+	    	return false;
 		if( dataControl.canBeRenamed( )) {
 			oldName = dataControl.renameElement( newName );
-			if (oldName != null) {
+			if (oldName != null && !oldName.equals(newName)) {
 				return true;
 			}
 		}

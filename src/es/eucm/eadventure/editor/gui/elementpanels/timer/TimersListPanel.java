@@ -29,10 +29,11 @@ import es.eucm.eadventure.editor.control.tools.timer.AddTimerTool;
 import es.eucm.eadventure.editor.control.tools.timer.DeleteTimerTool;
 import es.eucm.eadventure.editor.control.tools.timer.DuplicateTimerTool;
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
+import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.elementpanels.general.TableScrollPane;
 
-public class TimersListPanel extends JPanel implements DataControlsPanel {
+public class TimersListPanel extends JPanel implements DataControlsPanel, Updateable {
 
 	/**
 	 * Required.
@@ -191,5 +192,20 @@ public class TimersListPanel extends JPanel implements DataControlsPanel {
 		}
 	}
 
+	public boolean updateFields() {
+		int selected = table.getSelectedRow();
+		int items = table.getRowCount();
+		((AbstractTableModel) table.getModel()).fireTableDataChanged();
+		
+		if (items > 0 && items == dataControl.getTimers().size()) {
+			if (selected != -1 && selected < table.getRowCount()) {
+				table.changeSelection(selected, 0, false, false);
+//				if (table.getEditorComponent() != null)
+//					table.editCellAt(selected, table.getEditingColumn());
+				updateInfoPanel(table.getSelectedRow());
+			}
+		}
+		return true;
+	}
 
 }
