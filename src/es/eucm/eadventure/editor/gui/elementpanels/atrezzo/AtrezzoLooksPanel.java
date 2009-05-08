@@ -50,7 +50,8 @@ public class AtrezzoLooksPanel extends LooksPanel{
 
 	public void updateResources( ) {
 		super.updateResources( );
-		getParent( ).repaint( );
+		if (getParent()!=null)
+			getParent( ).repaint( );
 	}
 
 
