@@ -74,7 +74,7 @@ public abstract class LooksPanel extends JPanel implements Updateable{
 
 		//resourcesComboBox = new JComboBox( getResourceNames() );
 		resourcesTable = new ResourcesTable(dataControl, this);
-		resourcesTable.setSelectedIndex( dataControl.getSelectedResources( ) );
+		resourcesTable.setSelectedIndex(-1);
 		resourcesTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent arg0) {
 				if (resourcesTable.getSelectedRow() >= 0) {
@@ -90,6 +90,7 @@ public abstract class LooksPanel extends JPanel implements Updateable{
 				}
 			}
 		});
+		
 		JScrollPane scroll = new JScrollPane(resourcesTable, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scroll.setMinimumSize(new Dimension(0, 	HORIZONTAL_SPLIT_POSITION));
 
@@ -172,6 +173,8 @@ public abstract class LooksPanel extends JPanel implements Updateable{
 
 		setLayout(new BorderLayout());
 		add(tableWithSplit, BorderLayout.CENTER);
+		
+		resourcesTable.setSelectedIndex( dataControl.getSelectedResources( ) );
 	}
 
 	public abstract void updatePreview( );

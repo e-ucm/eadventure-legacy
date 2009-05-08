@@ -142,12 +142,8 @@ public class NPCLooksPanel extends LooksPanel implements Updateable {
 
 	public void updateResources( ) {
 		super.updateResources( );
-		getParent( ).getParent( ).repaint( );
+		if (getParent() != null && getParent().getParent() != null)
+			getParent( ).getParent( ).repaint( );
 	}
 
-	public boolean updateFields() {
-		updateResources();
-		updatePreview();
-		return true;
-	}
 }

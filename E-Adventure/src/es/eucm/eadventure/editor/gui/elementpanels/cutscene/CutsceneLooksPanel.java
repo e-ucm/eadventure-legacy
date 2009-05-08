@@ -53,17 +53,14 @@ public class CutsceneLooksPanel extends LooksPanel implements Updateable{
 			imagePath = "";
 		imagePanel.loadImage(imagePath);
 		imagePanel.repaint( );
-		getParent( ).getParent( ).repaint( );
+		if (getParent() != null && getParent().getParent() != null)
+			getParent( ).getParent( ).repaint( );
 	}
 
 	public void updateResources( ) {
 		super.updateResources( );
-		getParent( ).getParent( ).repaint( );
+		if (getParent() != null && getParent().getParent() != null)
+			getParent( ).getParent( ).repaint( );
 	}
 
-	@Override
-	public boolean updateFields() {
-		updatePreview();
-		return true;
-	}
 }

@@ -91,12 +91,14 @@ public class BookAppPanel extends JPanel {
 		public void updatePreview( ) {
 			imagePanel.loadImage( bookDataControl.getPreviewImage( ) );
 			imagePanel.repaint( );
-			getParent( ).getParent( ).repaint( );
+			if (getParent() != null && getParent().getParent() != null)
+				getParent( ).getParent( ).repaint( );
 		}
 
 		public void updateResources( ) {
 			super.updateResources( );
-			getParent( ).getParent( ).repaint( );
+			if (getParent() != null && getParent().getParent() != null)
+				getParent( ).getParent( ).repaint( );
 		}
 
 	}

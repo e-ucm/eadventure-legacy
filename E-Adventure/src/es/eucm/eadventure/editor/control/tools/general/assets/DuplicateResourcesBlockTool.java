@@ -56,7 +56,7 @@ public class DuplicateResourcesBlockTool extends Tool{
 			return false;
 		
 		try {
-			Resources newElement = (Resources) (((Resources) (dataControl.getContent())).clone());
+			newElement = (Resources) (((Resources) (dataControl.getContent())).clone());
 			newDataControl = new ResourcesDataControl(newElement, ((ResourcesDataControl) dataControl).getResourcesType() );
 			resourcesList.add(newElement);
 			resourcesDataControlList.add( newDataControl );
@@ -82,7 +82,7 @@ public class DuplicateResourcesBlockTool extends Tool{
 		boolean undone= resourcesList.remove(newElement) && resourcesDataControlList.remove(newDataControl);
 		if (undone){
 			parent.setSelectedResources(resourcesList.size()-1);
-			Controller.getInstance().updatePanel();
+			Controller.getInstance().reloadPanel();
 		}
 		return undone;
 	}

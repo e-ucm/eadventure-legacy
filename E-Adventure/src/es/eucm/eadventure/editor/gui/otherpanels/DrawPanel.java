@@ -251,7 +251,7 @@ public class DrawPanel  extends JPanel {
 	 * 
 	 * @param background the background image
 	 */
-	public void setBackground(Image background) {
+	public void setBackgroundImg(Image background) {
 		this.background = background;
 		this.calculateSize();
 	}

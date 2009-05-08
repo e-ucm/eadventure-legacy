@@ -532,7 +532,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 	 * @param background the background image
 	 */
 	public void setBackground(Image background) {
-		drawPanel.setBackground(background);
+		drawPanel.setBackgroundImg(background);
 		repaint();
 	}
 	
@@ -668,7 +668,9 @@ public class ScenePreviewEditionPanel extends JPanel {
 	 */
 	public void loadBackground( String imagePath ) {
 		if( imagePath != null && imagePath.length( ) > 0 )
-			drawPanel.setBackground(AssetsController.getImage( imagePath ));
+			drawPanel.setBackgroundImg(AssetsController.getImage( imagePath ));
+		else
+			drawPanel.setBackgroundImg(null);
 		repaint();
 	}
 
