@@ -31,6 +31,9 @@ import es.eucm.eadventure.editor.control.controllers.scene.BarrierDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ExitDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.NodeDataControl;
+import es.eucm.eadventure.editor.control.tools.scene.AddActiveAreaTool;
+import es.eucm.eadventure.editor.control.tools.scene.DeleteActiveAreaTool;
+import es.eucm.eadventure.editor.control.tools.scene.DuplicateActiveAreaTool;
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
 import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
@@ -39,7 +42,6 @@ import es.eucm.eadventure.editor.gui.elementpanels.general.SmallActionsListPanel
 import es.eucm.eadventure.editor.gui.elementpanels.general.TableScrollPane;
 import es.eucm.eadventure.editor.gui.otherpanels.IrregularAreaEditionPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
-import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElement;
 
 public class ActiveAreasListPanel extends JPanel implements DataControlsPanel, DataControlSelectionListener,Updateable {
 
@@ -200,32 +202,22 @@ public class ActiveAreasListPanel extends JPanel implements DataControlsPanel, D
 			count++;
 			id = defaultId + count;
 		}
-		if (dataControl.addElement(dataControl.getAddableElements()[0], id)) {
-			iaep.getScenePreviewEditionPanel().addActiveArea(dataControl.getLastActiveArea());
-			iaep.repaint();
-			((AbstractTableModel) table.getModel()).fireTableDataChanged();
-			table.changeSelection(dataControl.getActiveAreas().size() - 1, dataControl.getActiveAreas().size() - 1, false, false);
-			table.editCellAt(dataControl.getActiveAreas().size() - 1, 0);
-			if (table.isEditing()) {
-				table.getEditorComponent().requestFocusInWindow();
-			}
+		Controller.getInstance().addTool(new AddActiveAreaTool(dataControl, id, iaep));
+		((AbstractTableModel) table.getModel()).fireTableDataChanged();
+		table.changeSelection(dataControl.getActiveAreas().size() - 1, dataControl.getActiveAreas().size() - 1, false, false);
+		table.editCellAt(dataControl.getActiveAreas().size() - 1, 0);
+		if (table.isEditing()) {
+			table.getEditorComponent().requestFocusInWindow();
 		}
 	}
 
 	protected void duplicateActiveArea() {
-		if (dataControl.duplicateElement(dataControl.getActiveAreas().get(table.getSelectedRow()))) {
-			iaep.getScenePreviewEditionPanel().addActiveArea(dataControl.getLastActiveArea());
-			iaep.repaint();
-			((AbstractTableModel) table.getModel()).fireTableDataChanged();
-			table.changeSelection(dataControl.getActiveAreas().size() - 1, dataControl.getActiveAreas().size() - 1, false, false);
-		}
+		Controller.getInstance().addTool(new DuplicateActiveAreaTool(dataControl, iaep, table));
 	}
 
 	protected void deleteActiveArea() {
-		iaep.getScenePreviewEditionPanel().removeElement(dataControl.getActiveAreas().get(table.getSelectedRow()));
-		iaep.getScenePreviewEditionPanel().setSelectedElement((ImageElement) null);
-		dataControl.deleteElement(dataControl.getActiveAreas().get(table.getSelectedRow()), true);
-		((AbstractTableModel) table.getModel()).fireTableDataChanged();
+		Controller.getInstance().addTool(new DeleteActiveAreaTool(dataControl, iaep, table));
+		
 	}
 	
 	private void addElementsToPreview(ScenePreviewEditionPanel spep, String scenePath, ActiveAreasListDataControl activeAreasListDataControl) {
@@ -304,8 +296,8 @@ public class ActiveAreasListPanel extends JPanel implements DataControlsPanel, D
 		int items = table.getRowCount();
 		((AbstractTableModel) table.getModel()).fireTableDataChanged();
 		
-		if (items == table.getRowCount()) {
-			if (selected != -1) {
+		if (items > 0 && items == dataControl.getActiveAreas().size()) {
+			if (selected != -1 && selected < table.getRowCount()) {
 				table.changeSelection(selected, 0, false, false);
 				if (table.getEditorComponent() != null)
 					table.editCellAt(selected, table.getEditingColumn());

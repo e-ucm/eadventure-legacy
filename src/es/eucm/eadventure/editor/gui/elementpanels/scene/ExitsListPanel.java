@@ -35,6 +35,9 @@ import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataC
 import es.eucm.eadventure.editor.control.controllers.scene.ExitDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ExitsListDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.NodeDataControl;
+import es.eucm.eadventure.editor.control.tools.scene.AddExitTool;
+import es.eucm.eadventure.editor.control.tools.scene.DeleteExitTool;
+import es.eucm.eadventure.editor.control.tools.scene.DuplicateExitTool;
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
 import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
@@ -232,27 +235,19 @@ public class ExitsListPanel extends JPanel implements DataControlsPanel, DataCon
 	}
 	
 	protected void addExit() {
-		if (dataControl.addElement(dataControl.getAddableElements()[0], null)) {
-			iaep.getScenePreviewEditionPanel().addExit(dataControl.getLastExit());
-			iaep.repaint();
-			((AbstractTableModel) table.getModel()).fireTableDataChanged();
-			table.changeSelection(dataControl.getExits().size() - 1, dataControl.getExits().size() - 1, false, false);
-		}
+		Controller.getInstance().addTool(new AddExitTool(dataControl, iaep));
+		((AbstractTableModel) table.getModel()).fireTableDataChanged();
+		table.changeSelection(dataControl.getExits().size() - 1, dataControl.getExits().size() - 1, false, false);
 	}
 
 	protected void duplicateExit() {
-		if (dataControl.duplicateElement(dataControl.getExits().get(table.getSelectedRow()))) {
-			iaep.getScenePreviewEditionPanel().addExit(dataControl.getLastExit());
-			iaep.repaint();
-			((AbstractTableModel) table.getModel()).fireTableDataChanged();
-			table.changeSelection(dataControl.getExits().size() - 1, dataControl.getExits().size() - 1, false, false);
-		}
+		Controller.getInstance().addTool(new DuplicateExitTool(dataControl, iaep, table.getSelectedRow()));
+		((AbstractTableModel) table.getModel()).fireTableDataChanged();
+		table.changeSelection(dataControl.getExits().size() - 1, dataControl.getExits().size() - 1, false, false);
 	}
 
 	protected void deleteExit() {
-		iaep.getScenePreviewEditionPanel().removeElement(dataControl.getExits().get(table.getSelectedRow()));
-		dataControl.deleteElement(dataControl.getExits().get(table.getSelectedRow()), true);
-		((AbstractTableModel) table.getModel()).fireTableDataChanged();
+		Controller.getInstance().addTool(new DeleteExitTool(dataControl, table, iaep));
 	}
 	
 	protected void updateAuxPanel() {
@@ -360,12 +355,19 @@ public class ExitsListPanel extends JPanel implements DataControlsPanel, DataCon
 	}
 
 	public boolean updateFields() {
-		/*int selection = table.getSelectedRow();
+		int selected = table.getSelectedRow();
+		int items = table.getRowCount();
 		((AbstractTableModel) table.getModel()).fireTableDataChanged();
-		table.clearSelection();
-		if (selection != -1)
-			table.changeSelection(selection, selection, false, false);*/
-		return true;
+		
+		if (items > 0 && items == dataControl.getExits().size()) {
+			if (selected != -1 && selected < table.getRowCount()) {
+				table.changeSelection(selected, 0, false, false);
+				if (table.getEditorComponent() != null)
+					table.editCellAt(selected, table.getEditingColumn());
+			}
+		}
+		iaep.repaint();
+	    return true;
 	}
 	
 }

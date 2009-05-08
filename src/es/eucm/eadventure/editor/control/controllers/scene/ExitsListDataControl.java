@@ -326,4 +326,8 @@ public class ExitsListDataControl extends DataControl {
 		return getPathFromChild(dataControl, exitsDataControlList);
 	}
 
+	public List<Exit> getExitsList() {
+		return this.exitsList;
+	}
+
 }

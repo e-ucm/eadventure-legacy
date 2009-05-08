@@ -334,5 +334,9 @@ public class ActiveAreasListDataControl extends DataControl {
 		return getPathFromChild(dataControl, activeAreasDataControlList);
 	}
 
+	public List<ActiveArea> getActiveAreasList() {
+		return this.activeAreasList;
+	}
+
 
 }

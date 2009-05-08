@@ -24,6 +24,7 @@ import javax.swing.JTextPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.plaf.basic.BasicSplitPaneDivider;
+import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.data.chapter.Trajectory;
 import es.eucm.eadventure.common.gui.TextConstants;
@@ -34,10 +35,13 @@ import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataC
 import es.eucm.eadventure.editor.control.controllers.scene.NodeDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ReferencesListDataControl;
 import es.eucm.eadventure.editor.control.tools.general.MovePlayerLayerInTableTool;
+import es.eucm.eadventure.editor.control.tools.scene.AddReferenceTool;
+import es.eucm.eadventure.editor.control.tools.scene.DeleteReferenceTool;
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
 import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.elementpanels.general.TableScrollPane;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
+import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElement;
 
 public class ReferencesListPanel extends JPanel implements DataControlsPanel,Updateable {
 
@@ -68,6 +72,8 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel,Upd
 	
 	private ReferencesListDataControl referencesListDataControl;
 		
+	private JCheckBox isAllowPlayerLayer;
+	
 	/**
 	 * Constructor.
 	 * 
@@ -166,7 +172,7 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel,Upd
 		// Create the main panel
 		tablePanel = new JPanel(new BorderLayout());
 				
-		JCheckBox isAllowPlayerLayer = new JCheckBox(TextConstants.getText("Scene.AllowPlayer"),referencesListDataControl.getSceneDataControl().isAllowPlayer());
+		isAllowPlayerLayer = new JCheckBox(TextConstants.getText("Scene.AllowPlayer"),referencesListDataControl.getSceneDataControl().isAllowPlayer());
 		isAllowPlayerLayer.setSelected( referencesListDataControl.getSceneDataControl().isAllowPlayer() );
 		isAllowPlayerLayer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -281,15 +287,7 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel,Upd
 	}
 	
 	private void delete( ) {
-		ElementContainer element = referencesListDataControl.getAllReferencesDataControl().get( table.getSelectedRow( ) );
-		if (referencesListDataControl.deleteElement( element.getErdc(), true )){
-			if (!element.isPlayer()){
-				spep.removeElement(transformType(element.getErdc().getType()), element.getErdc());
-				table.clearSelection( );
-				table.changeSelection(0, 1, false, false);
-				table.updateUI( );
-			}
-		}
+		Controller.getInstance().addTool(new DeleteReferenceTool(referencesListDataControl, table, spep));
 	}
 	
 	private void moveUp(){
@@ -298,12 +296,10 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel,Upd
 	}
 	
 
-	
 	private void moveDown(){
 		Controller.getInstance().addTool(new MovePlayerLayerInTableTool(referencesListDataControl,table,false));
 		
 	}
-	
 	
 	/**
 	 * Returns a popup menu with the add operations.
@@ -380,25 +376,6 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel,Upd
 		return completePopupMenu;
 	}
 	
-	/**
-	 * Catch the type of the element reference control data and return the associated scene preview category
-	 * 
-	 * @param type
-	 * @return
-	 * 			the scene preview category
-	 */
-	private int transformType(int type){
-		int category = 0;
-		if( type == Controller.ITEM_REFERENCE ) 
-			category = ScenePreviewEditionPanel.CATEGORY_OBJECT;
-		else if( type == Controller.ATREZZO_REFERENCE )
-			 category = ScenePreviewEditionPanel.CATEGORY_ATREZZO;
-		else if( type == Controller.NPC_REFERENCE )
-			 category = ScenePreviewEditionPanel.CATEGORY_CHARACTER;
-		else if (type == -1)
-			category = ScenePreviewEditionPanel.CATEGORY_PLAYER;
-		return category;
-	}
 	
 	/**
 	 * This class is the action listener for the add buttons of the popup menus.
@@ -421,21 +398,8 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel,Upd
 		}
 
 		public void actionPerformed( ActionEvent e ) {
+			Controller.getInstance().addTool(new AddReferenceTool(referencesListDataControl, type, spep, table));
 			
-			int category;
-			if (referencesListDataControl.addElement( type, null )){
-				category = transformType(type);
-	
-				if (category!=0&&referencesListDataControl.getLastElementContainer()!=null){
-					// it is not necessary to check if it is an player element container because never a player will be added
-					spep.addElement(category, referencesListDataControl.getLastElementContainer().getErdc());
-					spep.setSelectedElement(referencesListDataControl.getLastElementContainer().getErdc());
-					spep.repaint();
-					int layer = referencesListDataControl.getLastElementContainer().getErdc().getElementReference().getLayer();
-					table.getSelectionModel().setSelectionInterval(layer, layer);
-					table.updateUI( );
-				}
-			}
 		}
 	}
 	
@@ -449,7 +413,24 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel,Upd
 	}
 
 	public boolean updateFields() {
-	   // updateSelectedElementReference();
+		int selected = table.getSelectedRow();
+		int items = table.getRowCount();
+		((AbstractTableModel) table.getModel()).fireTableDataChanged();
+
+		if (isAllowPlayerLayer != null)
+			isAllowPlayerLayer.setSelected( referencesListDataControl.getSceneDataControl().isAllowPlayer() );
+
+		if (items == table.getRowCount()) {
+			if (selected != -1) {
+				table.changeSelection(selected, 0, false, false);
+				if (table.getEditorComponent() != null)
+					table.editCellAt(selected, table.getEditingColumn());
+			}
+		} else {
+			spep.setSelectedElement((ImageElement) null);
+		}
+	    spep.repaint();
+
 	    return true;
 	}
 }

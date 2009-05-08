@@ -323,4 +323,9 @@ public class BarriersListDataControl extends DataControl {
 		return getPathFromChild(dataControl, barriersDataControlList);
 	}
 
+	public List<Barrier> getBarriersList() {
+		return this.barriersList;
+	}
+
+	
 }

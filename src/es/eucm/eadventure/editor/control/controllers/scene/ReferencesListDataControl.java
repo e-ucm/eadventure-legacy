@@ -12,6 +12,7 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
+import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 
 /**
  * Data control for the list of references in the scene
@@ -41,21 +42,6 @@ public class ReferencesListDataControl extends DataControl{
 	 * List of non-player character references.
 	 */
 	private List<ElementReference> npcReferencesList;
-
-	/**
-	 * List of item reference controllers.
-	 */
-	private List<ElementReferenceDataControl> itemReferencesDataControlList;
-
-	/**
-	 * List of atrezzo reference controllers.
-	 */
-	private List<ElementReferenceDataControl> atrezzoReferencesDataControlList;
-	
-	/**
-	 * List of non-player character reference controllers.
-	 */
-	private List<ElementReferenceDataControl> npcReferencesDataControlList;
 		
 	/**
 	 * List of all elements order by number of layer (or y position when they have the same layer "-1")
@@ -101,29 +87,25 @@ public class ReferencesListDataControl extends DataControl{
 		this.lastElementContainer = null;
 		this.playerPositionInAllReferences = NO_PLAYER;
 		this.imagePathHasChanged = false;
-		// Check if one of references has layer -1: if it is true, it means that element references has not layer. 
+		// Check if one of references has layer -1: if it is true, it means that element references has no layer. 
 		// Create subcontrollers
-		itemReferencesDataControlList = new ArrayList<ElementReferenceDataControl>( );
+
 		boolean hasLayer = hasLayer();
 		for( ElementReference itemReference : itemReferencesList ){
 			int counter = count(itemReference);
 			ElementReferenceDataControl erdc = new ElementReferenceDataControl( sceneDataControl, itemReference, Controller.ITEM_REFERENCE,counter) ;
-			itemReferencesDataControlList.add(erdc );
 			insertInOrder(new ElementContainer(erdc,-1,null),hasLayer);
 		}
 		
-		atrezzoReferencesDataControlList = new ArrayList<ElementReferenceDataControl>();
 		for (ElementReference atrezzoReference : atrezzoReferencesList){
 			int counter = count(atrezzoReference);
 			ElementReferenceDataControl erdc = new ElementReferenceDataControl(sceneDataControl, atrezzoReference, Controller.ATREZZO_REFERENCE,counter);
-			atrezzoReferencesDataControlList.add(erdc );
 			insertInOrder(new ElementContainer(erdc,-1,null),hasLayer);
 		}
-		npcReferencesDataControlList = new ArrayList<ElementReferenceDataControl>();
+
 		for (ElementReference npcReference : npcReferencesList){
 			int counter = count(npcReference);
 			ElementReferenceDataControl erdc  =  new ElementReferenceDataControl(sceneDataControl, npcReference, Controller.NPC_REFERENCE,counter);
-			npcReferencesDataControlList.add(erdc);
 			insertInOrder(new ElementContainer(erdc,-1,null),hasLayer);
 		}
 		
@@ -160,20 +142,18 @@ public class ReferencesListDataControl extends DataControl{
 	 * 			true, if there are not one references with -1
 	 */
 	private boolean hasLayer(){
-	 
-		
 		if (!itemReferencesList.isEmpty()){
 			if (itemReferencesList.get(0).getLayer() == Scene.PLAYER_WITHOUT_LAYER)
 				return false;
 			else 
 				return true;
-		}else if (!atrezzoReferencesList.isEmpty()){
+		} else if (!atrezzoReferencesList.isEmpty()){
 				if (atrezzoReferencesList.get(0).getLayer() == Scene.PLAYER_WITHOUT_LAYER)
 					return false;
 				else 
 					return true;
-		}if (!npcReferencesList.isEmpty()){
-			if (npcReferencesList.get(0).getLayer() ==Scene.PLAYER_WITHOUT_LAYER)
+		} else if (!npcReferencesList.isEmpty()){
+			if (npcReferencesList.get(0).getLayer() == Scene.PLAYER_WITHOUT_LAYER)
 				return false;
 			else 
 				return true;
@@ -217,18 +197,13 @@ public class ReferencesListDataControl extends DataControl{
         // While the element has not been added, and
         // we haven't checked every previous element
         while( !added && (i < allReferencesDataControl.size( ) || empty) ) {
-            
-            // Insert the element in the correct position
         	if (!empty){
         		if (hasLayer){
-            			//check the layer
         			if( element.getLayer() <= allReferencesDataControl.get( i ).getLayer() ) {
         				allReferencesDataControl.add( i,  element);
-        				//reassignLayerAllReferencesDataControl(i);
         				added = true;
         			}
         		}else {
-        			//check the y position
         			if( element.getY() <= Math.round(allReferencesDataControl.get( i ).getY()) ) {
         				allReferencesDataControl.add( i,  element);
             			reassignLayerAllReferencesDataControl(i);
@@ -274,16 +249,14 @@ public class ReferencesListDataControl extends DataControl{
 	 * @return List of item reference controllers
 	 */
 	public List<ElementReferenceDataControl> getItemReferences( ) {
-		return itemReferencesDataControlList;
-	}
-
-	/**
-	 * Returns the last item reference controller of the list.
-	 * 
-	 * @return Last item reference controller
-	 */
-	public ElementReferenceDataControl getLastItemReference( ) {
-		return itemReferencesDataControlList.get( itemReferencesDataControlList.size( ) - 1 );
+		List<ElementReferenceDataControl> list = new ArrayList<ElementReferenceDataControl>();
+		for (ElementContainer element : allReferencesDataControl) {
+			if (element.getErdc() != null && element.getErdc().getType() == Controller.ITEM_REFERENCE) {
+				list.add(element.getErdc());
+			}
+		}
+		return list;
+//		return itemReferencesDataControlList;
 	}
 
 	/**
@@ -292,16 +265,13 @@ public class ReferencesListDataControl extends DataControl{
 	 * @return List of atrezzo item reference controllers
 	 */
 	public List<ElementReferenceDataControl> getAtrezzoReferences( ) {
-		return atrezzoReferencesDataControlList;
-	}
-
-	/**
-	 * Returns the last atrezzo item reference controller of the list.
-	 * 
-	 * @return Last atrezzo item reference controller
-	 */
-	public ElementReferenceDataControl getLastAtrezzoReference( ) {
-		return atrezzoReferencesDataControlList.get( atrezzoReferencesDataControlList.size( ) - 1 );
+		List<ElementReferenceDataControl> list = new ArrayList<ElementReferenceDataControl>();
+		for (ElementContainer element : allReferencesDataControl) {
+			if (element.getErdc() != null && element.getErdc().getType() == Controller.ATREZZO_REFERENCE) {
+				list.add(element.getErdc());
+			}
+		}
+		return list;
 	}
 
 	/**
@@ -310,16 +280,13 @@ public class ReferencesListDataControl extends DataControl{
 	 * @return List of npc reference controllers
 	 */
 	public List<ElementReferenceDataControl> getNPCReferences( ) {
-		return npcReferencesDataControlList;
-	}
-
-	/**
-	 * Returns the last npc reference controller of the list.
-	 * 
-	 * @return Last npc reference controller
-	 */
-	public ElementReferenceDataControl getLastNPCReference( ) {
-		return npcReferencesDataControlList.get( npcReferencesDataControlList.size( ) - 1 );
+		List<ElementReferenceDataControl> list = new ArrayList<ElementReferenceDataControl>();
+		for (ElementContainer element : allReferencesDataControl) {
+			if (element.getErdc() != null && element.getErdc().getType() == Controller.NPC_REFERENCE) {
+				list.add(element.getErdc());
+			}
+		}
+		return list;
 	}
 
 	/**
@@ -363,10 +330,6 @@ public class ReferencesListDataControl extends DataControl{
 		return false;
 	}
 	
-	
-	
-
-
 	@Override
 	public boolean addElement( int type, String id ) {
 		boolean elementAdded = false;
@@ -374,7 +337,6 @@ public class ReferencesListDataControl extends DataControl{
 		if( type == Controller.ITEM_REFERENCE ) {
 			// Take the list of the items
 			String[] items = controller.getIdentifierSummary( ).getItemIds( );
-
 			// If the list has elements, show the dialog with the options
 			if( items.length > 0 ) {
 				String selectedItem = controller.showInputDialog( TextConstants.getText( "Operation.AddItemReferenceTitle" ), TextConstants.getText( "Operation.AddItemReferenceMessage" ), items );
@@ -385,73 +347,53 @@ public class ReferencesListDataControl extends DataControl{
 					int counter = count(newElementReference);
 					ElementReferenceDataControl erdc = new ElementReferenceDataControl( sceneDataControl, newElementReference,type,counter );
 					itemReferencesList.add( newElementReference );
-					itemReferencesDataControlList.add( erdc );
 					ElementContainer ec = new ElementContainer(erdc,-1,null);
 					lastElementContainer = ec;
 					reassignLayerAllReferencesDataControl(insertInOrder(ec,false));
-					//controller.dataModified( );
 					elementAdded = true;
 				}
 			}
-
-			// If the list had no elements, show an error dialog
 			else
 				controller.showErrorDialog( TextConstants.getText( "Operation.AddItemReferenceTitle" ), TextConstants.getText( "Operation.AddItemReferenceErrorNoItems" ) );
 		}
 
 		
 		if( type == Controller.ATREZZO_REFERENCE ) {
-			// Take the list of the items
 			String[] items = controller.getIdentifierSummary( ).getAtrezzoIds();
 
 			// If the list has elements, show the dialog with the options
 			if( items.length > 0 ) {
 				String selectedItem = controller.showInputDialog( TextConstants.getText( "Operation.AddAtrezzoReferenceTitle" ), TextConstants.getText( "Operation.AddAtrezzoReferenceMessage" ), items );
-
-				// If some value was selected
 				if( selectedItem != null ) {
 					ElementReference newElementReference = new ElementReference( selectedItem, 50, 50 );
 					int counter = count(newElementReference);
 					ElementReferenceDataControl erdc = new ElementReferenceDataControl( sceneDataControl, newElementReference,type,counter );
 					atrezzoReferencesList.add( newElementReference );
-					atrezzoReferencesDataControlList.add( erdc );
 					ElementContainer ec = new ElementContainer(erdc,-1,null);
 					lastElementContainer = ec;
 					reassignLayerAllReferencesDataControl(insertInOrder(ec,false));
-					//controller.dataModified( );
 					elementAdded = true;
 				}
 			}
-
-			// If the list had no elements, show an error dialog
 			else
 				controller.showErrorDialog( TextConstants.getText( "Operation.AddAtrezzoReferenceTitle" ), TextConstants.getText( "Operation.AddReferenceErrorNoAtrezzo" ) );
 		}
 
 		if( type == Controller.NPC_REFERENCE ) {
-			// Take the list of the items
 			String[] items = controller.getIdentifierSummary( ).getNPCIds();
-
-			// If the list has elements, show the dialog with the options
 			if( items.length > 0 ) {
 				String selectedItem = controller.showInputDialog( TextConstants.getText( "Operation.AddNPCReferenceTitle" ), TextConstants.getText( "Operation.AddNPCReferenceMessage" ), items );
-
-				// If some value was selected
 				if( selectedItem != null ) {
 					ElementReference newElementReference = new ElementReference( selectedItem, 50, 50 );
 					int counter = count(newElementReference);
 					ElementReferenceDataControl erdc = new ElementReferenceDataControl( sceneDataControl, newElementReference,type,counter );
 					npcReferencesList.add( newElementReference );
-					npcReferencesDataControlList.add( erdc );
 					ElementContainer ec = new ElementContainer(erdc,-1,null);
 					lastElementContainer = ec;
 					reassignLayerAllReferencesDataControl(insertInOrder(ec,false));
-					//controller.dataModified( );
 					elementAdded = true;
 				}
 			}
-
-			// If the list had no elements, show an error dialog
 			else
 				controller.showErrorDialog( TextConstants.getText( "Operation.AddNPCReferenceTitle" ), TextConstants.getText( "Operation.AddReferenceErrorNoNPC" ) );
 		}
@@ -460,11 +402,10 @@ public class ReferencesListDataControl extends DataControl{
 	}
 	
 	private void reassignLayerAllReferencesDataControl(int index){
-
 		for (int i = index; i<allReferencesDataControl.size();i++){
 			allReferencesDataControl.get(i).setLayer(i);
 			if (allReferencesDataControl.get(i).isPlayer())
-				playerPositionInAllReferences=i;
+				playerPositionInAllReferences = i;
 		}
 		
 	}
@@ -478,15 +419,13 @@ public class ReferencesListDataControl extends DataControl{
 	private void delete(DataControl dataControl){
 		if (dataControl != null){
 			int index=0;
-			
-				
-				for (index=0; index < allReferencesDataControl.size();index++)
+			for (index=0; index < allReferencesDataControl.size();index++)
 				if (!allReferencesDataControl.get(index).isPlayer())	
 					if (allReferencesDataControl.get(index).getErdc().equals(dataControl))
 						break;
-			if (index>=0){
-			allReferencesDataControl.remove(index);
-			reassignLayerAllReferencesDataControl(index);
+			if (index>=0 && index < allReferencesDataControl.size()){
+				allReferencesDataControl.remove(index);
+				reassignLayerAllReferencesDataControl(index);
 			}
 			
 		}
@@ -496,32 +435,27 @@ public class ReferencesListDataControl extends DataControl{
 	public boolean deleteElement( DataControl dataControl, boolean askConfirmation ) {
 		boolean elementDeleted = false;
 		if (dataControl != null){
-		if( itemReferencesList.remove( dataControl.getContent( ) ) ) {
-			itemReferencesDataControlList.remove( dataControl );
+			itemReferencesList.remove( dataControl.getContent( ) );
+			atrezzoReferencesList.remove( dataControl.getContent( ) );
+			npcReferencesList.remove( dataControl.getContent( ) );
+			delete(dataControl);
+			elementDeleted = true;
 		}
-
-		if( atrezzoReferencesList.remove( dataControl.getContent( ) ) ) {
-			atrezzoReferencesDataControlList.remove( dataControl );
-		}
-
-		if( npcReferencesList.remove( dataControl.getContent( ) ) ) {
-			npcReferencesDataControlList.remove( dataControl );
-		}
-		// delete in allReferencesDataControl
-		delete(dataControl);
-		//controller.dataModified( );
-		elementDeleted = true;
-		
-		}
-		//if it is a player, we don´t allow to delete it
-		 
-			
-
 		return elementDeleted;
 	}
 	
+	public void addElement(ElementContainer element) {
+		if (element.getErdc().getType() == Controller.ITEM_REFERENCE)
+			itemReferencesList.add((ElementReference) element.getErdc().getContent());
+		else if (element.getErdc().getType() == Controller.ATREZZO_REFERENCE)
+			atrezzoReferencesList.add((ElementReference) element.getErdc().getContent());
+		else if (element.getErdc().getType() == Controller.NPC_REFERENCE)
+			npcReferencesList.add((ElementReference) element.getErdc().getContent());
+		allReferencesDataControl.add(element.getLayer(), element);
+		reassignLayerAllReferencesDataControl(element.getLayer());
+	}
+	
 	private void moveUp(DataControl dataControl){
-		
 		boolean player;
 		int index=0;
 		if (dataControl != null){
@@ -536,9 +470,7 @@ public class ReferencesListDataControl extends DataControl{
 			player = true;
 		}
 		if (index>0){
-			//change the elements
 			allReferencesDataControl.add(index-1, allReferencesDataControl.remove(index));
-			//update element layer
 			allReferencesDataControl.get(index).setLayer(index);
 			allReferencesDataControl.get(index-1).setLayer(index-1);
 			if (player)
@@ -552,33 +484,11 @@ public class ReferencesListDataControl extends DataControl{
 	public boolean moveElementUp( DataControl dataControl ) {
 		boolean elementMoved = false;
 		if (dataControl!=null){
-		int itemElementIndex = itemReferencesList.indexOf( dataControl.getContent( ) );
-		int atrezzoElementIndex = atrezzoReferencesList.indexOf( dataControl.getContent( ) );
-		int npcElementIndex = npcReferencesList.indexOf( dataControl.getContent( ) );
-		// check if element is item, atrezzo or npc
-		if( itemElementIndex >= 0 ) {
-			//itemReferencesList.add( itemElementIndex - 1, itemReferencesList.remove( itemElementIndex ) );
-			//itemReferencesDataControlList.add( itemElementIndex - 1, itemReferencesDataControlList.remove( itemElementIndex ) );
 			moveUp(dataControl);
-			//controller.dataModified( );
-			elementMoved = true;
-		} else if (atrezzoElementIndex >= 0) {
-			//atrezzoReferencesList.add( atrezzoElementIndex - 1, atrezzoReferencesList.remove( atrezzoElementIndex ) );
-			//atrezzoReferencesDataControlList.add( atrezzoElementIndex - 1, atrezzoReferencesDataControlList.remove( atrezzoElementIndex ) );
-			moveUp(dataControl);
-			//controller.dataModified( );
-			elementMoved = true;
-		} else if (npcElementIndex >= 0) {
-			//npcReferencesList.add( npcElementIndex - 1, npcReferencesList.remove( npcElementIndex ) );
-			//npcReferencesDataControlList.add( npcElementIndex - 1, npcReferencesDataControlList.remove( npcElementIndex ) );
-			moveUp(dataControl);
-			//controller.dataModified( );
 			elementMoved = true;
 		}
-		}// if it is a player
 		else {
 			moveUp(dataControl);
-			//controller.dataModified();
 			elementMoved = true;
 		}
 
@@ -618,32 +528,10 @@ public class ReferencesListDataControl extends DataControl{
 		boolean elementMoved = false;
 		
 		if (dataControl != null){
-		int itemElementIndex = itemReferencesList.indexOf( dataControl.getContent( ) );
-		int atrezzoElementIndex = atrezzoReferencesList.indexOf( dataControl.getContent());
-		int npcElementIndex = npcReferencesList.indexOf( dataControl.getContent());
-		
-		if( itemElementIndex >= 0 && itemElementIndex <= itemReferencesList.size( ) - 1 ) {
-			//itemReferencesList.add( itemElementIndex + 1, itemReferencesList.remove( itemElementIndex ) );
-			//itemReferencesDataControlList.add( itemElementIndex + 1, itemReferencesDataControlList.remove( itemElementIndex ) );
 			moveDown(dataControl);
-			//controller.dataModified( );
 			elementMoved = true;
-		} else if( atrezzoElementIndex >= 0 && atrezzoElementIndex <= atrezzoReferencesList.size( ) - 1 ) {
-			//atrezzoReferencesList.add( atrezzoElementIndex + 1, atrezzoReferencesList.remove( atrezzoElementIndex ) );
-			//atrezzoReferencesDataControlList.add( atrezzoElementIndex + 1, atrezzoReferencesDataControlList.remove( atrezzoElementIndex ) );
-			moveDown(dataControl);
-			//controller.dataModified( );
-			elementMoved = true;
-		} else if( npcElementIndex >= 0 && npcElementIndex <= npcReferencesList.size( ) - 1 ) {
-			//npcReferencesList.add( npcElementIndex + 1, npcReferencesList.remove( npcElementIndex ) );
-			//npcReferencesDataControlList.add( npcElementIndex + 1, npcReferencesDataControlList.remove( npcElementIndex ) );
-			moveDown(dataControl);
-			//controller.dataModified( );
-			elementMoved = true;
-		}
 		} else {
 			moveDown(dataControl);
-			//controller.dataModified();
 			elementMoved = true;
 		}
 
@@ -658,13 +546,10 @@ public class ReferencesListDataControl extends DataControl{
 
 	@Override
 	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
-		// Iterate through each item
-		for( ElementReferenceDataControl elementReferenceDataControl : itemReferencesDataControlList )
-			elementReferenceDataControl.updateVarFlagSummary( varFlagSummary );
-		for( ElementReferenceDataControl elementReferenceDataControl : atrezzoReferencesDataControlList )
-			elementReferenceDataControl.updateVarFlagSummary( varFlagSummary );
-		for( ElementReferenceDataControl elementReferenceDataControl : npcReferencesDataControlList )
-			elementReferenceDataControl.updateVarFlagSummary( varFlagSummary );
+		for (ElementContainer element : allReferencesDataControl) {
+			if (!element.isPlayer())
+				element.getErdc().updateVarFlagSummary(varFlagSummary);
+		}
 	}
 
 	@Override
@@ -690,56 +575,45 @@ public class ReferencesListDataControl extends DataControl{
 	public int countIdentifierReferences( String id ) {
 		int count = 0;
 
-		// Iterate through each item
-		for( ElementReferenceDataControl elementReferenceDataControl : itemReferencesDataControlList )
-			count += elementReferenceDataControl.countIdentifierReferences( id );
-		for( ElementReferenceDataControl elementReferenceDataControl : atrezzoReferencesDataControlList )
-			count += elementReferenceDataControl.countIdentifierReferences( id );
-		for( ElementReferenceDataControl elementReferenceDataControl : npcReferencesDataControlList )
-			count += elementReferenceDataControl.countIdentifierReferences( id );
-
+		for (ElementContainer element : allReferencesDataControl) {
+			if (!element.isPlayer())
+				count += element.getErdc().countIdentifierReferences(id);
+		}
 		return count;
 	}
 
 	@Override
 	public void replaceIdentifierReferences( String oldId, String newId ) {
-		// Iterate through each item
-		for( ElementReferenceDataControl elementReferenceDataControl : itemReferencesDataControlList )
-			elementReferenceDataControl.replaceIdentifierReferences( oldId, newId );
-		for( ElementReferenceDataControl elementReferenceDataControl : atrezzoReferencesDataControlList )
-			elementReferenceDataControl.replaceIdentifierReferences( oldId, newId );
-		for( ElementReferenceDataControl elementReferenceDataControl : npcReferencesDataControlList )
-			elementReferenceDataControl.replaceIdentifierReferences( oldId, newId );
+		for (ElementContainer element : allReferencesDataControl) {
+			if (!element.isPlayer())
+				element.getErdc().replaceIdentifierReferences(oldId, newId);
+		}
 	}
 
 	@Override
 	public void deleteIdentifierReferences( String id ) {
+		deleteIdentifierFromReferenceList(itemReferencesList, id);
+		deleteIdentifierFromReferenceList(atrezzoReferencesList, id);
+		deleteIdentifierFromReferenceList(npcReferencesList, id);
+	}
+	
+	private void deleteIdentifierFromReferenceList(List<ElementReference> list, String id ) {
 		int i = 0;
-		// Check every item reference
-		while( i < itemReferencesList.size( ) ) {
-			if( itemReferencesList.get( i ).getTargetId( ).equals( id ) ) {
-				itemReferencesList.remove( i );
-				itemReferencesDataControlList.remove( i );
+		while (i < list.size()) {
+			if (list.get(i).getTargetId().equals(id)) {
+				deleteReferenceFromAll(npcReferencesList.get(i));
+				list.remove(i);
 			} else
 				i++;
 		}
-		
-		i = 0;
-		// Check every item reference
-		while( i < atrezzoReferencesList.size( ) ) {
-			if( atrezzoReferencesList.get( i ).getTargetId( ).equals( id ) ) {
-				atrezzoReferencesList.remove( i );
-				atrezzoReferencesDataControlList.remove( i );
-			} else
-				i++;
-		}
-
-		i = 0;
-		// Check every item reference
-		while( i < npcReferencesList.size( ) ) {
-			if( npcReferencesList.get( i ).getTargetId( ).equals( id ) ) {
-				npcReferencesList.remove( i );
-				npcReferencesDataControlList.remove( i );
+	}
+	
+	private void deleteReferenceFromAll(Object reference) {
+		int i = 0;
+		while ( i < allReferencesDataControl.size()) {
+			ElementContainer element = allReferencesDataControl.get(i);
+			if (!element.isPlayer() && element.getErdc().getContent() == reference) {
+				allReferencesDataControl.remove(i);
 			} else
 				i++;
 		}
@@ -747,17 +621,14 @@ public class ReferencesListDataControl extends DataControl{
 
 	@Override
 	public boolean canBeDuplicated( ) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	public boolean containsDataControl(ElementReferenceDataControl dataControl) {
-		if (itemReferencesDataControlList.contains(dataControl))
-			return true;
-		if (atrezzoReferencesDataControlList.contains(dataControl))
-			return true;
-		if (npcReferencesDataControlList.contains(dataControl))
-			return true;
+		for (ElementContainer container : allReferencesDataControl) {
+			if (!container.isPlayer() && container.getErdc() == dataControl)
+				return true;
+		}
 		return false;
 	}
 
@@ -776,8 +647,7 @@ public class ReferencesListDataControl extends DataControl{
 	 * @param lastElementContainer
 	 * 			the new element container
 	 */
-	public void setLastElementContainer(
-			ElementContainer lastElementContainer) {
+	public void setLastElementContainer(ElementContainer lastElementContainer) {
 		this.lastElementContainer = lastElementContainer;
 	}
 
@@ -816,10 +686,8 @@ public class ReferencesListDataControl extends DataControl{
 			allReferencesDataControl.remove(playerPositionInAllReferences);
 			reassignLayerAllReferencesDataControl(playerPositionInAllReferences);
 			playerPositionInAllReferences  = NO_PLAYER;
-			//sets player layer to no allowed
 			sceneDataControl.setPlayerLayer(Scene.PLAYER_NO_ALLOWED);
-			}
-		
+		}
 	}
 	
 	// this function was made to insert player in correct position in SwapPlayerModeTool
@@ -869,11 +737,32 @@ public class ReferencesListDataControl extends DataControl{
 	
 	@Override
 	public List<DataControl> getPathToDataControl(DataControl dataControl) {
-		List<DataControl> path = getPathFromChild(dataControl, itemReferencesDataControlList);
-		if (path != null) return path;
-		path = getPathFromChild(dataControl, atrezzoReferencesDataControlList);
-		if (path != null) return path;
-		return getPathFromChild(dataControl, npcReferencesDataControlList);
+		List<DataControl> list = new ArrayList<DataControl>();
+		for (ElementContainer container : allReferencesDataControl) {
+			if (container.getErdc() != null)
+				list.add(container.getErdc());
+		}
+		return getPathFromChild(dataControl, list);
+	}
+
+	/**
+	 * Catch the type of the element reference control data and return the associated scene preview category
+	 * 
+	 * @param type
+	 * @return
+	 * 			the scene preview category
+	 */
+	public static int transformType(int type){
+		int category = 0;
+		if( type == Controller.ITEM_REFERENCE ) 
+			category = ScenePreviewEditionPanel.CATEGORY_OBJECT;
+		else if( type == Controller.ATREZZO_REFERENCE )
+			category = ScenePreviewEditionPanel.CATEGORY_ATREZZO;
+		else if( type == Controller.NPC_REFERENCE )
+			 category = ScenePreviewEditionPanel.CATEGORY_CHARACTER;
+		else if (type == -1)
+			category = ScenePreviewEditionPanel.CATEGORY_PLAYER;
+		return category;
 	}
 
 }
