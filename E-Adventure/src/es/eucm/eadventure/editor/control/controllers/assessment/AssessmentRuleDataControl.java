@@ -1,7 +1,9 @@
 package es.eucm.eadventure.editor.control.controllers.assessment;
 
+
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import es.eucm.eadventure.common.data.assessment.AssessmentProperty;
 import es.eucm.eadventure.common.data.assessment.AssessmentRule;
@@ -190,6 +192,7 @@ public class AssessmentRuleDataControl extends DataControl{
 		} else {
 			return assessmentRule.getText( );
 		}
+		
 	}
 
 	public void setConcept( String text ) {
@@ -499,26 +502,31 @@ public class AssessmentRuleDataControl extends DataControl{
 	public void recursiveSearch() {
 		
 		check(this.getConcept(), TextConstants.getText("Search.Concept"));
-		
-		if (assessmentRule instanceof AssessmentRule){
-			for (int j = 0; j < this.getPropertyCount(-1); j++)
-				check(this.getPropertyId(j,-1), TextConstants.getText("Search.PropertyID"));
-		
-			check(this.getEffectText(-1), TextConstants.getText("Search.EffectText"));
-		
-		}
 		check(this.getId(), "ID");
-		check(this.getConditions(), TextConstants.getText("Search.Conditions"));
+		
+		check(this.getEndConditions(), TextConstants.getText("Search.EndConditions"));
+		
 		
 		if (assessmentRule instanceof TimedAssessmentRule){
 		for (int i = 0; i < this.getEffectsCount(); i++) {
 			check(this.getEffectNames()[i], TextConstants.getText("Search.EffectName"));
 			check(this.getEffectText(i), TextConstants.getText("Search.EffectText"));
-			for (int j = 0; j < this.getPropertyCount(i); j++)
+			for (int j = 0; j < this.getPropertyCount(i); j++){
 				check(this.getPropertyId(j,i), TextConstants.getText("Search.PropertyID"));
+				check(this.getPropertyValue(j,i), TextConstants.getText("Search.PropertyValue"));
+			}
+			check(this.getInitConditions(), TextConstants.getText("Search.Conditions"));
+			
 		}
+		}else if (assessmentRule instanceof AssessmentRule){
+			for (int j = 0; j < this.getPropertyCount(-1); j++){
+				check(this.getPropertyId(j,-1), TextConstants.getText("Search.PropertyID"));
+				check(this.getPropertyValue(j,-1), TextConstants.getText("Search.PropertyValue"));
+			}
+			check(this.getEffectText(-1), TextConstants.getText("Search.EffectText"));
+			check(this.getConditions(), TextConstants.getText("Search.Conditions"));
 		}
-		check(this.getEndConditions(), TextConstants.getText("Search.EndConditions"));
+		
 	}
 
 	public boolean isUsesEndConditions() {
