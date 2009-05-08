@@ -54,7 +54,6 @@ public abstract class ToolManagableDialog extends JDialog implements Updateable,
 	public ToolManagableDialog (Window window, String title, boolean worksInLocal){
 		super (window, title, Dialog.ModalityType.TOOLKIT_MODAL);
 		this.worksInLocal = worksInLocal;
-		addUndoRedoDispatcher();
 		this.addWindowListener(this);
 	}
 
@@ -68,20 +67,33 @@ public abstract class ToolManagableDialog extends JDialog implements Updateable,
 	}
 	
 	public void setVisible(boolean visible){
-		Controller.getInstance( ).pushWindow( this );
-		if (worksInLocal){
-			if (visible){
-				Controller.getInstance().pushLocalToolManager();
-			} else {
-				Controller.getInstance().popLocalToolManager();
+		if (visible!=this.isVisible()){
+			if (visible)
+				addUndoRedoDispatcher();
+			else
+				KeyboardFocusManager.getCurrentKeyboardFocusManager().removeKeyEventDispatcher(undoRedoDispatcher);
+			
+			if (visible && Controller.getInstance().peekWindow() != this)
+				Controller.getInstance( ).pushWindow( this );
+			else if (!visible && Controller.getInstance().peekWindow() == this){
+				Controller.getInstance( ).popWindow( );
 			}
+			
+			if (worksInLocal){
+				if (visible){
+					Controller.getInstance().pushLocalToolManager();
+				} else {
+					Controller.getInstance().popLocalToolManager();
+				}
+			}
+			super.setVisible(visible);
 		}
-		super.setVisible(visible);
 	}
 	
 	public void windowClosing(WindowEvent e) {
 		KeyboardFocusManager.getCurrentKeyboardFocusManager().removeKeyEventDispatcher(undoRedoDispatcher);
-		Controller.getInstance( ).popWindow( );
+		if (Controller.getInstance().peekWindow() == this)
+			Controller.getInstance( ).popWindow( );
 		setVisible(false);
 		dispose();
 		//Controller.getInstance().updatePanel();
@@ -93,7 +105,8 @@ public abstract class ToolManagableDialog extends JDialog implements Updateable,
 
 	public void windowClosed(WindowEvent e) {
 		KeyboardFocusManager.getCurrentKeyboardFocusManager().removeKeyEventDispatcher(undoRedoDispatcher);
-		Controller.getInstance( ).popWindow( );
+		if (Controller.getInstance().peekWindow() == this)
+			Controller.getInstance( ).popWindow( );
 		setVisible(false);
 	}
 

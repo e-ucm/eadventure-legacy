@@ -363,7 +363,7 @@ public class ChapterListDataControl {
 		if ( !tool.doesClone() ){
 			done =chapterToolManagers.get( getSelectedChapter() ).addTool(tool);
 		} else {
-			if (tool.doTool()) {
+			if (done=tool.doTool()) {
 				chapterToolManagers.get( getSelectedChapter() ).clear();
 				chapterToolManagers.get( getSelectedChapter() ).addTool(false, tool);
 			} else 

@@ -73,7 +73,7 @@ public class DuplicateResourcesBlockTool extends Tool{
 		resourcesList.add(newElement);
 		resourcesDataControlList.add( newDataControl );
 		parent.setSelectedResources(resourcesList.size()-1);
-		Controller.getInstance().updatePanel();
+		Controller.getInstance().reloadPanel();
 		return true;
 	}
 
