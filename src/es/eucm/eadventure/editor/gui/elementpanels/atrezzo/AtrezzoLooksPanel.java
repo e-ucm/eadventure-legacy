@@ -6,11 +6,10 @@ import javax.swing.BorderFactory;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.atrezzo.AtrezzoDataControl;
-import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.elementpanels.general.LooksPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.imagepanels.ImagePanel;
 
-public class AtrezzoLooksPanel extends LooksPanel implements Updateable{
+public class AtrezzoLooksPanel extends LooksPanel{
 
 	/**
 	 * 
@@ -47,7 +46,6 @@ public class AtrezzoLooksPanel extends LooksPanel implements Updateable{
 	public void updatePreview( ) {
 		imagePanel.loadImage( atrezzoDataControl.getPreviewImage( ) );
 		imagePanel.repaint( );
-
 	}
 
 	public void updateResources( ) {
@@ -55,9 +53,6 @@ public class AtrezzoLooksPanel extends LooksPanel implements Updateable{
 		getParent( ).repaint( );
 	}
 
-	public boolean updateFields() {
-		updatePreview();
-		return true;
-	}
+
 }
 

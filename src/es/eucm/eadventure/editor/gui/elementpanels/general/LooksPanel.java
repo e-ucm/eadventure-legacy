@@ -23,10 +23,11 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
+import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ResourcesTable;
 
-public abstract class LooksPanel extends JPanel {
+public abstract class LooksPanel extends JPanel implements Updateable{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -178,6 +179,7 @@ public abstract class LooksPanel extends JPanel {
 	protected abstract void createPreview( );
 
 	private class DeleteButtonListener implements ActionListener {
+		// XXX 8/5/2009: Revisado tool añadir recursos (en todos los elementos)
 		public void actionPerformed( ActionEvent e ) {
 			if ( resourcesTable.getSelectedIndex( )>=0 ){
 				dataControl.setSelectedResources( resourcesTable.getSelectedIndex( ) );
@@ -196,6 +198,7 @@ public abstract class LooksPanel extends JPanel {
 
 	private class DuplicateButtonListener implements ActionListener {
 		public void actionPerformed( ActionEvent e ) {
+			// XXX 8/5/2009: Revisado tool añadir recursos (en todos los elementos)
 			if ( resourcesTable.getSelectedIndex( )>=0 ){
 				dataControl.setSelectedResources( resourcesTable.getSelectedIndex( ) );
 				int selectedBlock = dataControl.getSelectedResources( );
@@ -213,6 +216,7 @@ public abstract class LooksPanel extends JPanel {
 
 	private class NewButtonListener implements ActionListener {
 		public void actionPerformed( ActionEvent e ) {
+			// XXX 8/5/2009: Revisado tool añadir recursos (en todos los elementos)
 			if( dataControl.addElement( Controller.RESOURCES, null ) ) {
 				dataControl.setSelectedResources( dataControl.getResourcesCount( ) - 1 );
 				updateResources( );
@@ -250,5 +254,11 @@ public abstract class LooksPanel extends JPanel {
 	public void updateResources(int group) {
 		this.selectedResourceGroup = group;
 		updatePreview();
+	}
+	
+	public boolean updateFields() {
+		resourcesTable.setSelectedIndex( dataControl.getSelectedResources() );
+		updateResources();
+		return true;
 	}
 }

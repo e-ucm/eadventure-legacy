@@ -20,7 +20,7 @@ import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 /**
  * Microcontroller for the resources data.
  * 
- * @author Bruno Torijano Bueno
+ * @author Javier Torrente
  */
 public class ResourcesDataControl extends DataControl {
 

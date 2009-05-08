@@ -14,6 +14,7 @@ import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
 import es.eucm.eadventure.editor.control.tools.general.ChangeNSDestinyPositionTool;
+import es.eucm.eadventure.editor.control.tools.general.assets.AddResourcesBlockTool;
 import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeDocumentationTool;
 import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeNameTool;
 import es.eucm.eadventure.editor.control.tools.generic.ChangeIntegerValueTool;
@@ -166,46 +167,10 @@ public class CutsceneDataControl extends DataControlWithResources {
 
 		// If the element is a resources block
 		if( type == Controller.RESOURCES ) {
-			Resources newResources = new Resources( );
-			resourcesList.add( newResources );
-			resourcesDataControlList.add( new ResourcesDataControl( newResources, cutsceneType ) );
-			//controller.dataModified( );
-			elementAdded = true;
+			elementAdded = Controller.getInstance().addTool( new AddResourcesBlockTool(resourcesList, resourcesDataControlList, cutsceneType, this) );
 		}
 
 		return elementAdded;
-	}
-
-	@Override
-	public boolean deleteElement( DataControl dataControl , boolean askConfirmation) {
-		boolean elementDeleted = false;
-
-		// If the element is a resources block
-		if( resourcesList.contains( dataControl.getContent( ) ) ) {
-			// Delete the block only if it is not the last one
-			if( resourcesList.size( ) > 1 ) {
-				if( resourcesList.remove( dataControl.getContent( ) ) ) {
-					int resourcesIndex = resourcesDataControlList.indexOf( dataControl );
-					resourcesDataControlList.remove( dataControl );
-
-					// Decrease the selected index if necessary
-					if( selectedResources > 0 && selectedResources >= resourcesIndex )
-						selectedResources--;
-
-					//controller.dataModified( );
-					elementDeleted = true;
-				}
-			}
-
-			// If it was the last one, show an error message
-			else
-				controller.showErrorDialog( TextConstants.getText( "Operation.DeleteResourcesTitle" ), TextConstants.getText( "Operation.DeleteResourcesErrorLastResources" ) );
-		}
-
-		//if( elementDeleted )
-		//controller.dataModified( );
-
-		return elementDeleted;
 	}
 
 	@Override

@@ -2,9 +2,10 @@ package es.eucm.eadventure.editor.control.controllers;
 
 import java.util.List;
 
-import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
+import es.eucm.eadventure.editor.control.tools.general.assets.DeleteResourcesBlockTool;
+import es.eucm.eadventure.editor.control.tools.general.assets.DuplicateResourcesBlockTool;
 
 public abstract class DataControlWithResources extends DataControl {
 
@@ -59,19 +60,15 @@ public abstract class DataControlWithResources extends DataControl {
 		this.selectedResources = selectedResources;
 	}
 	
+	@Override
+	// This method only caters for deleting RESOURCES. Subclasses should override this method
+	// to implement removal of other element types
+	public boolean deleteElement( DataControl dataControl , boolean askConfirmation) {
+		return controller.addTool( new DeleteResourcesBlockTool(resourcesList, resourcesDataControlList, dataControl, this) );
+	}
+	
 	public boolean duplicateResources(DataControl dataControl) {
-		if (!(dataControl instanceof ResourcesDataControl))
-			return false;
-		
-		try {
-			Resources newElement = (Resources) (((Resources) (dataControl.getContent())).clone());
-			resourcesList.add(newElement);
-			resourcesDataControlList.add( new ResourcesDataControl(newElement, ((ResourcesDataControl) dataControl).getResourcesType() ));
-			return true;
-		} catch (CloneNotSupportedException e) {
-			ReportDialog.GenerateErrorReport(e, true, "Could not clone resources");	
-			return false;
-		} 		
+		return controller.addTool( new DuplicateResourcesBlockTool(dataControl, resourcesList, resourcesDataControlList, this) );
 	}
 	
 }

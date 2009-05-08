@@ -14,6 +14,7 @@ import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataContro
 import es.eucm.eadventure.editor.control.tools.general.ChangeAllowPlayerInSceneTool;
 import es.eucm.eadventure.editor.control.tools.general.ChangeNSDestinyPositionTool;
 import es.eucm.eadventure.editor.control.tools.general.ChangePositionTool;
+import es.eucm.eadventure.editor.control.tools.general.assets.AddResourcesBlockTool;
 import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeDocumentationTool;
 import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeNameTool;
 import es.eucm.eadventure.editor.control.tools.scene.ChangePlayerScaleTool;
@@ -264,44 +265,10 @@ public class SceneDataControl extends DataControlWithResources {
 		boolean elementAdded = false;
 
 		if( type == Controller.RESOURCES ) {
-			Resources newResources = new Resources( );
-			resourcesList.add( newResources );
-			resourcesDataControlList.add( new ResourcesDataControl( newResources, Controller.SCENE ) );
-			//controller.dataModified( );
-			elementAdded = true;
+			elementAdded = Controller.getInstance().addTool( new AddResourcesBlockTool(resourcesList, resourcesDataControlList, Controller.SCENE, this) );
 		}
 
 		return elementAdded;
-	}
-
-	@Override
-	public boolean deleteElement( DataControl dataControl, boolean askConfirmation ) {
-		boolean elementDeleted = false;
-
-		// Delete the block only if it is not the last one
-		if( resourcesList.size( ) > 1 ) {
-			//Show confirmation dialog
-//			if (controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteResourcesBlock.Confirmation.Title" ), TextConstants.getText( "Operation.DeleteResourcesBlock.Confirmation.Message" ) )){
-				
-				if( resourcesList.remove( dataControl.getContent( ) ) ) {
-					int resourcesIndex = resourcesDataControlList.indexOf( dataControl );
-					resourcesDataControlList.remove( dataControl );
-
-					// Decrease the selected index if necessary
-					if( selectedResources > 0 && selectedResources >= resourcesIndex )
-						selectedResources--;
-
-					//controller.dataModified( );
-					elementDeleted = true;
-				}
-	//		}
-		}
-
-		// If it was the last one, show an error message
-		else
-			controller.showErrorDialog( TextConstants.getText( "Operation.DeleteResourcesTitle" ), TextConstants.getText( "Operation.DeleteResourcesErrorLastResources" ) );
-
-		return elementDeleted;
 	}
 
 	@Override
