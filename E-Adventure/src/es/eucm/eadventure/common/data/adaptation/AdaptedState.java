@@ -177,11 +177,11 @@ public class AdaptedState implements Cloneable, HasTargetId {
     
     public String getValueForVar(int i){
 	String val = actionsValues.get(i);
-	if (val.contains(VALUE)){
+	//if (val.contains(VALUE)){
 	    return Integer.toString(getValueToSet(i));
-	}else {
-	    return null;
-	}
+	//}else {
+	  //  return null;
+	//}
     }
     
    

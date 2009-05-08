@@ -127,7 +127,7 @@ public class AdaptationDOMWriter {
 					}
 									
 					// Append activate / deactivate flags or set value var
-					Element actionFlag;
+					Element actionFlag=null;
 					for (int i=0; i<rule.getAdaptedState( ).getFlagsVars( ).size( ); i++){
 					    if (rule.getAdaptedState( ).isFlag(i)){
 						actionFlag = doc.createElement( rule.getAdaptedState( ).getAction( i ) );
@@ -135,18 +135,23 @@ public class AdaptationDOMWriter {
 						
 					    } else {
 						// check if this operation is "set-value"
-						boolean isValue = rule.getAdaptedState( ).getAction( i ).contains(AdaptedState.VALUE);
-						if (isValue)
+						if (rule.getAdaptedState( ).getAction( i ).contains(AdaptedState.VALUE))
 						   // get only the title of the operation
 						    actionFlag = doc.createElement( AdaptedState.VALUE );
-						else 
-						    // get the title
-						    actionFlag = doc.createElement( rule.getAdaptedState( ).getAction( i ) );
+						// check if this operation is "increment"
+						else if (rule.getAdaptedState( ).getAction( i ).contains(AdaptedState.INCREMENT))
+						 // get only the title of the operation
+						    actionFlag = doc.createElement( AdaptedState.INCREMENT );
+						// check if this operation is "decrement"
+						else if (rule.getAdaptedState( ).getAction( i ).contains(AdaptedState.DECREMENT))
+							 // get only the title of the operation
+							    actionFlag = doc.createElement( AdaptedState.DECREMENT );
+							
+						
 						//set the name of the current var
 						actionFlag.setAttribute( "var", rule.getAdaptedState( ).getFlagVar( i ) );
-						// if is "set-value" operation, also store the future value
-						if (isValue)
-						    actionFlag.setAttribute( "value", rule.getAdaptedState( ).getValueForVar(i) );
+						// store the future value
+						actionFlag.setAttribute( "value", rule.getAdaptedState( ).getValueForVar(i) );
 					    
 					    }
 					    gameStateNode.appendChild( actionFlag );

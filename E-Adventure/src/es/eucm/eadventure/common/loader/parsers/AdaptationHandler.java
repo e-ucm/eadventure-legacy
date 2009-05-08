@@ -18,7 +18,9 @@ import es.eucm.eadventure.common.data.adaptation.UOLProperty;
 import es.eucm.eadventure.common.loader.InputStreamCreator;
 
 /**
- * This handler reads the initial values for the adaptation engine
+ * This handler reads the initial values for the adaptation engine. This class is only used for specific xml adaptation files,
+ * that is a past characteristic, to preserve past game version. In new versions, the adaptation info is in chapter.xml file.For this reason
+ * the parsing of assessment is now in chapter parsing (ChapterHandler)
  */
 public class AdaptationHandler extends DefaultHandler {
     
