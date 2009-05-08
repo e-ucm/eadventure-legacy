@@ -383,7 +383,7 @@ public class AssessmentProfileDataControl extends DataControl{
 		for (DataControl dc : dataControls)
 			dc.recursiveSearch( );
 		check(getEmail(), TextConstants.getText("Search.EMail"));
-		check(this.getName(), TextConstants.getText("Search.Path"));
+		check(this.getName(), TextConstants.getText("Search.Name"));
 		check(this.getSmtpPort(), TextConstants.getText("Search.SMTPPort"));
 		check(this.getSmtpServer(), TextConstants.getText("Search.SMTPServer"));
 		check(this.getSmtpUser(), TextConstants.getText("Search.SMTPUser"));
@@ -392,6 +392,13 @@ public class AssessmentProfileDataControl extends DataControl{
 	@Override
 	public List<DataControl> getPathToDataControl(DataControl dataControl) {
 		return getPathFromChild(dataControl, dataControls);
+	}
+
+	/**
+	 * @return the dataControls
+	 */
+	public List<AssessmentRuleDataControl> getDataControls() {
+	    return dataControls;
 	}
 
 }
