@@ -4,7 +4,6 @@ import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.table.AbstractTableModel;
 
-import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.tools.Tool;
 import es.eucm.eadventure.editor.gui.structurepanel.StructureElement;
 import es.eucm.eadventure.editor.gui.structurepanel.StructureElementCell;

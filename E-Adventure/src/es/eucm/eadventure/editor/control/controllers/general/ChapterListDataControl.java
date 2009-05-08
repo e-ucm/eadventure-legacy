@@ -361,7 +361,7 @@ public class ChapterListDataControl {
 	public boolean addTool(Tool tool) {
 		boolean done = true;
 		if ( !tool.doesClone() ){
-			done =chapterToolManagers.get( getSelectedChapter() ).addTool(tool);
+			done = chapterToolManagers.get( getSelectedChapter() ).addTool(tool);
 		} else {
 			if (done=tool.doTool()) {
 				chapterToolManagers.get( getSelectedChapter() ).clear();

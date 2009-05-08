@@ -12,6 +12,7 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.scene.ExitsListDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.AuxEditCellRendererEditor;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ExitLooksCellRendererEditor;
+import es.eucm.eadventure.editor.gui.elementpanels.general.tables.InfoHeaderRenderer;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.NextSceneCellRendererEditor;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.TransitionCellRendererEditor;
 import es.eucm.eadventure.editor.gui.otherpanels.IrregularAreaEditionPanel;
@@ -56,6 +57,12 @@ public class ExitsTable extends JTable {
 		this.getColumnModel().getColumn(3).setCellEditor(new AuxEditCellRendererEditor(previewAuxSplit, ExitsListPanel.VERTICAL_SPLIT_POSITION, text));
 		this.getColumnModel().getColumn(3).setMaxWidth(120);
 		this.getColumnModel().getColumn(3).setMinWidth(120);
+		
+		this.getColumnModel().getColumn(0).setHeaderRenderer(new InfoHeaderRenderer("scenes/Scene_NextScene.html"));
+		this.getColumnModel().getColumn(1).setHeaderRenderer(new InfoHeaderRenderer("scenes/Scene_Transition.html"));
+		this.getColumnModel().getColumn(2).setHeaderRenderer(new InfoHeaderRenderer("scenes/Scene_ExitAppearence.html"));
+		this.getColumnModel().getColumn(3).setHeaderRenderer(new InfoHeaderRenderer());
+		
 		
 		this.setRowHeight(25);
 		this.getSelectionModel( ).setSelectionMode( ListSelectionModel.SINGLE_SELECTION );

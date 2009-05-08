@@ -2,7 +2,6 @@ package es.eucm.eadventure.editor.control.controllers;
 
 import java.util.Stack;
 
-import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.tools.Tool;
 
 public class ChapterToolManager {
@@ -36,11 +35,19 @@ public class ChapterToolManager {
 	
 	public boolean addTool( boolean execute, Tool tool ) {
 		if (localToolManagers.isEmpty()){
-			System.out.println("[ToolManager] Global Tool Manager: Tool \""+ tool.getToolName() + "\" ADDED");
-			return globalToolManager.addTool(execute, tool);
+			boolean added = globalToolManager.addTool(execute, tool);
+			if (added)
+				System.out.println("[ToolManager] Global Tool Manager: Tool \""+ tool.getToolName() + "\" ADDED");
+			else
+				System.out.println("[ToolManager] Global Tool Manager: Tool \""+ tool.getToolName() + "\" NOT ADDED");
+			return added;
 		}else{
-			System.out.println("[ToolManager] Local Tool Manager: Tool \""+ tool.getToolName() + "\" ADDED");
-			return localToolManagers.peek().addTool(execute, tool);
+			boolean added = localToolManagers.peek().addTool(execute, tool);
+			if (added)
+				System.out.println("[ToolManager] Local Tool Manager: Tool \""+ tool.getToolName() + "\" ADDED");
+			else
+				System.out.println("[ToolManager] Local Tool Manager: Tool \""+ tool.getToolName() + "\" NOT ADDED");
+			return added;
 		}
 	}
 

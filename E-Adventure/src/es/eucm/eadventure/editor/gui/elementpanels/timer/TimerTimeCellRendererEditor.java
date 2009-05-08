@@ -27,17 +27,17 @@ public class TimerTimeCellRendererEditor extends AbstractCellEditor implements T
 	
 	public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int col) {
 		this.value = (TimerDataControl) value;
-		return createSpinner();
+		return createSpinner(table, isSelected);
 	}
 
 	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 		this.value = (TimerDataControl) value;
 		if (!isSelected)
 			return new JLabel("" + this.value.getTime() + " seg");
-		return createSpinner();
+		return createSpinner(table, isSelected);
 	}
 	
-	private JPanel createSpinner() {
+	private JPanel createSpinner(JTable table, boolean isSelected) {
 		long current = value.getTime( );
 		long min = 1;
 		long max = 99 * 3600;
@@ -48,7 +48,8 @@ public class TimerTimeCellRendererEditor extends AbstractCellEditor implements T
 		JPanel temp = new JPanel();
 		temp.add(timeSpinner);
 		temp.add(totalTime);
-
+		if (isSelected)
+			temp.setBackground(table.getSelectionBackground());
 		return temp;
 	}
 	
@@ -56,10 +57,10 @@ public class TimerTimeCellRendererEditor extends AbstractCellEditor implements T
 	 * Listener for the time spinner
 	 */
 	private class TimeSpinnerListener implements ChangeListener {
-			public void stateChanged(ChangeEvent e) {
-				JSpinner timeSpinner = (JSpinner)e.getSource( );
-				SpinnerNumberModel model = (SpinnerNumberModel) timeSpinner.getModel();
-				value.setTime( model.getNumber( ).longValue( ) );
-			}
+		public void stateChanged(ChangeEvent e) {
+			JSpinner timeSpinner = (JSpinner)e.getSource( );
+			SpinnerNumberModel model = (SpinnerNumberModel) timeSpinner.getModel();
+			value.setTime( model.getNumber( ).longValue( ) );
+		}
 	}
 }
