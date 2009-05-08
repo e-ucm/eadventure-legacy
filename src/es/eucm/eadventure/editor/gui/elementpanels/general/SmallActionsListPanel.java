@@ -17,12 +17,14 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.general.ActionsListDataControl;
+import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.SmallActionsTable;
 
-public class SmallActionsListPanel extends ActionsListPanel {
+public class SmallActionsListPanel extends ActionsListPanel implements Updateable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -125,5 +127,21 @@ public class SmallActionsListPanel extends ActionsListPanel {
 			moveDownButton.setEnabled(false);
 		}
 	}
-	
+
+	public boolean updateFields() {
+		int selected = table.getSelectedRow();
+		int items = table.getRowCount();
+		((AbstractTableModel) table.getModel()).fireTableDataChanged();
+		
+		if (items == table.getRowCount()) {
+			if (selected != -1) {
+				table.changeSelection(selected, 0, false, false);
+				if (table.getEditorComponent() != null)
+					table.editCellAt(selected, table.getEditingColumn());
+			}
+		}
+		
+	    return true;
+	}
+
 }

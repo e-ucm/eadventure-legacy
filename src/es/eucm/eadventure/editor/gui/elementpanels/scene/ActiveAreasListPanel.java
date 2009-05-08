@@ -69,7 +69,7 @@ public class ActiveAreasListPanel extends JPanel implements DataControlsPanel, D
 	private JPanel auxPanel;
 	
 	private SmallActionsListPanel smallActions = null;
-	
+		
 	/**
 	 * Constructor.
 	 * 
@@ -307,6 +307,6 @@ public class ActiveAreasListPanel extends JPanel implements DataControlsPanel, D
 			}
 		}
 		iaep.repaint();
-	    return true;
+		return true;
 	}
 }
