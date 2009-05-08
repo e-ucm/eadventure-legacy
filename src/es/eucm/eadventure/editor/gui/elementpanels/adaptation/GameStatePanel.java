@@ -126,9 +126,15 @@ class GameStatePanel extends JPanel implements Updateable{
 
 		// Add selection listener to the table
 		actionFlagsTable.getSelectionModel( ).addListSelectionListener( new NodeTableSelectionListener( ) );
+		actionFlagsTable.getSelectionModel( ).setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
 		//actionFlagsTable.getSelectionModel( ).setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
 		
-	
+		// set cell render and editor
+		actionFlagsTable.getColumnModel().getColumn(0).setCellRenderer(actionFlagsTable.getDefaultRenderer(Boolean.class));
+		actionFlagsTable.getColumnModel().getColumn(0).setCellEditor(actionFlagsTable.getDefaultEditor(Boolean.class));
+		
+		actionFlagsTable.getColumnModel().getColumn(1).setCellRenderer(actionFlagsTable.getDefaultRenderer(Boolean.class));
+		actionFlagsTable.getColumnModel().getColumn(1).setCellEditor(actionFlagsTable.getDefaultEditor(Boolean.class));
 		
 		
 		actionFlagsTable.getColumnModel().getColumn(2).setCellRenderer(new FlagsVarListRenderer());
@@ -137,6 +143,10 @@ class GameStatePanel extends JPanel implements Updateable{
 		
 		actionFlagsTable.getColumnModel().getColumn(3).setCellRenderer(new FlagsVarListRenderer());
 		actionFlagsTable.getColumnModel().getColumn(3).setCellEditor(new FlagsVarListRenderer());
+		
+		
+		
+		actionFlagsTable.setRowHeight(22);
 		
 		
 		// Table scrollPane
@@ -380,7 +390,7 @@ class GameStatePanel extends JPanel implements Updateable{
 		public void setValueAt( Object value, int rowIndex, int columnIndex ) {
 
 			// If the value isn't an empty string
-			if( value!=null && !value.toString( ).trim( ).equals( "" ) ) {
+			if( value!=null && !value.toString( ).trim( ).equals( "" ) && columnIndex<=1) {
 			    	
 			    	if( columnIndex == 0){
 			    	    // if not selected
@@ -420,37 +430,7 @@ class GameStatePanel extends JPanel implements Updateable{
 			    	}
 			    		
 			    	}
-			    	
-			    	// If the action is being edited, and it has really changed
-				if( columnIndex == 2){
-				    // if is a "set value" action, ask for that value
-				   // if (((String)((JComboBox)value).getSelectedItem()).equals(AdaptedState.VALUE)){
-					VarDialog dialog= new VarDialog(adaptationRuleDataControl.getValueToSet(rowIndex));
-					if (!dialog.getValue().equals("error"))
-					    adaptationRuleDataControl.setAction( rowIndex, (String)((JComboBox)value).getSelectedItem()  + " " +dialog.getValue() );
-				   /* }
-				    else 
-					adaptationRuleDataControl.setAction( rowIndex, (String)((JComboBox)value).getSelectedItem() );*/
-				}
-
-				// If the flag is being edited, and it has really changed
-				if( columnIndex == 3 ){
-				    String selectedValue = (String)((JComboBox)value).getSelectedItem() ;
-				   if ((Boolean)isFlag(rowIndex,0)){
-    				    if (!Controller.getInstance().getVarFlagSummary().existsVar(selectedValue)){
-    					Controller.getInstance().getVarFlagSummary().addVar(selectedValue);
-    					Controller.getInstance().getVarFlagSummary().addVarReference(selectedValue);
-    					
-    				    }
-				    }else if ((Boolean)isFlag(rowIndex,1)){
-    				    if (!Controller.getInstance().getVarFlagSummary().existsFlag(selectedValue)){
-        					Controller.getInstance().getVarFlagSummary().addFlag(selectedValue);
-        					Controller.getInstance().getVarFlagSummary().addFlagReference(selectedValue);
-        	
-        				     }	
-				    }
-				   adaptationRuleDataControl.setFlag( rowIndex, selectedValue  );
-				}
+			    
 
 				fireTableRowsUpdated( rowIndex, rowIndex );
 			}
@@ -477,31 +457,12 @@ class GameStatePanel extends JPanel implements Updateable{
 				    	break;
 			
 				case 2:
-					// Action
-					value = adaptationRuleDataControl.getAction( rowIndex );
-				    	break;
 				case 3:
-					// Flag/Var name
-					value = adaptationRuleDataControl.getFlag( rowIndex );
+					value = adaptationRuleDataControl;
 				    	break;
 			}
 
 			return value;
-		}
-		
-		private boolean isFlag(int rowIndex, int columnIndex){
-		    boolean value=false;
-		    switch( columnIndex ) {
-		    case 0: // IsVar 
-		    	
-		    	value = !adaptationRuleDataControl.isFlag(rowIndex);
-		    	break;
-		    	
-		    case 1: // IsFlag 
-		    	value = adaptationRuleDataControl.isFlag(rowIndex);
-		    	break;
-		    }
-		    return value;
 		}
 
 	}

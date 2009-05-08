@@ -30,7 +30,7 @@ public class AudioDialog extends JDialog {
 	 *            Path to the file to be played
 	 */
 	public AudioDialog( String soundPath ) {
-		super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "AudioDialog.Title", AssetsController.getFilename( soundPath ) ), Dialog.ModalityType.APPLICATION_MODAL );
+		super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "AudioDialog.Title", AssetsController.getFilename( soundPath ) ), Dialog.ModalityType.TOOLKIT_MODAL );
 
 		// Add a audio panel
 		add( new AudioPanel( soundPath ) );

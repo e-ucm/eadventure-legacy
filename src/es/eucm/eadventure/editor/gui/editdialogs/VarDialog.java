@@ -3,6 +3,7 @@ package es.eucm.eadventure.editor.gui.editdialogs;
 import java.awt.BorderLayout;
 import java.awt.Dialog;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,6 +18,7 @@ import java.util.Locale;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -34,36 +36,62 @@ import es.eucm.eadventure.editor.control.Controller;
 public class VarDialog extends JDialog{
 
     
+    public static final String ERROR = "error";
+    
+    public static final String CLOSE = "close";
+    
     private WholeNumberField value;
     
     private boolean err;
     
+    private JComboBox actions;
     
-    public VarDialog(int var){
+    private boolean isVar;
+    
+    private boolean close;
+    
+    public VarDialog(int var,String[] actionsValues,String action){
 	
 	// Call to the JDialog constructor
 	super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "VarDialog.Title" ), Dialog.ModalityType.TOOLKIT_MODAL );
 
 	err=false;
+	close = false;
+	isVar=true;
+	if (var==-1){
+	    isVar=false;
+	}
 	
 	// Push the dialog into the stack, and add the window listener to pop in when closing
 	Controller.getInstance( ).pushWindow( this );
 	addWindowListener( new WindowAdapter( ) {
 		public void windowClosing( WindowEvent e ) {
 			Controller.getInstance( ).popWindow( );
+			 close = true;
 		}
 	} );
 	
+	actions = new JComboBox(actionsValues);
+	actions.setSelectedItem(action);
+	JPanel cont1 = new JPanel();
+	cont1.add(actions,BorderLayout.CENTER);
+	cont1.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "VarDialog.Value" ) ) );
 	
+	if (isVar){
+	    value = new WholeNumberField(var,5);
+	    //value.setPreferredSize(new Dimension (150,20));
+	    JPanel cont = new JPanel();
+	    cont.add(value,BorderLayout.CENTER);
+	    cont.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "VarDialog.Value" ) ) );
 	
-	value = new WholeNumberField(var,10);
-	//value.setPreferredSize(new Dimension (150,20));
-	JPanel cont = new JPanel();
-	cont.add(value);
-	cont.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "VarDialog.Value" ) ) );
-	
-	//setLayout(new BorderLayout());
-	add(cont);
+	    JPanel both = new JPanel();
+	    both.setLayout(new GridLayout(0,2));
+	    both.add(cont1);
+	    both.add(cont);
+	    add(both);
+	}else {
+	    add(cont1);
+	}
 	// Create Ok button to close the dialog
 	JButton ok = new JButton("OK");
 	ok.addActionListener(new ActionListener(){
@@ -92,9 +120,15 @@ public class VarDialog extends JDialog{
 	
 	public String getValue(){
 	    if (err)
-		return "error";
+		return ERROR;
 	    else
-		return value.getText();
+		if (close)
+		    return CLOSE;
+		else
+		    if (isVar)
+			return (String)actions.getSelectedItem()+ " " + value.getText();
+		    else
+			return (String)actions.getSelectedItem();
 	}
 
     	/**

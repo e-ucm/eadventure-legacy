@@ -50,7 +50,7 @@ import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentRuleDa
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
 import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
-import es.eucm.eadventure.editor.gui.elementpanels.adaptation.AdaptationRulesTable;
+import es.eucm.eadventure.editor.gui.editdialogs.GenericOptionPaneDialog;
 import es.eucm.eadventure.editor.gui.elementpanels.general.TableScrollPane;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ConditionsCellRendererEditor;
 
@@ -528,8 +528,8 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
 					dataControl.setSmtpSSL(smtpSSL.isSelected());
 					dataControl.setSmtpUser(smtpUser.getText());
 				} else {
-					JOptionPane.showMessageDialog(null, "Invalid data",
-							"Invalid data", JOptionPane.ERROR_MESSAGE);
+					GenericOptionPaneDialog.showMessageDialog(null, "Invalid data", "Invalid data", JOptionPane.ERROR_MESSAGE);
+			
 				}
 			}
 
@@ -555,7 +555,7 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
 		public SMTPDialog() {
 			super(Controller.getInstance().peekWindow(), TextConstants
 					.getText("AdaptationProfile.TypeDialog.Title"),
-					Dialog.ModalityType.APPLICATION_MODAL);
+					Dialog.ModalityType.TOOLKIT_MODAL);
 			Controller.getInstance().pushWindow(this);
 
 			JPanel tempPanel = new JPanel();

@@ -34,7 +34,7 @@ public abstract class GraphicDialog extends JDialog {
 	public GraphicDialog( ) {
 
 		// Call to the JDialog constructor
-		super( Controller.getInstance( ).peekWindow( ), Dialog.ModalityType.APPLICATION_MODAL );
+		super( Controller.getInstance( ).peekWindow( ), Dialog.ModalityType.TOOLKIT_MODAL );
 
 		// Set the panel to paint the animation
 		setLayout( new GridBagLayout( ) );
