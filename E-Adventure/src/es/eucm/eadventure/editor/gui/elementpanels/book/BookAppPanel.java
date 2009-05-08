@@ -12,11 +12,10 @@ import javax.swing.JPanel;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.book.BookDataControl;
-import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.elementpanels.general.LooksPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.imagepanels.ImagePanel;
 
-public class BookAppPanel extends JPanel implements Updateable{
+public class BookAppPanel extends JPanel {
 
 	/**
 	 * Required.
@@ -100,15 +99,6 @@ public class BookAppPanel extends JPanel implements Updateable{
 			getParent( ).getParent( ).repaint( );
 		}
 
-	}
-	
-
-	
-	public boolean updateFields() {
-		bookLooks.updateResources();
-		bookLooks.updatePreview();
-		bookLooks.repaint();
-		return true;
 	}
 
 }

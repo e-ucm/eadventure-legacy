@@ -4,11 +4,10 @@ import javax.swing.BorderFactory;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.item.ItemDataControl;
-import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.elementpanels.general.LooksPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.imagepanels.ImagePanel;
 
-public class ItemLooksPanel extends LooksPanel implements Updateable {
+public class ItemLooksPanel extends LooksPanel {
 
 	/**
 	 * 
@@ -49,11 +48,6 @@ public class ItemLooksPanel extends LooksPanel implements Updateable {
 	public void updateResources( ) {
 		super.updateResources( );
 		getParent( ).repaint( );
-	}
-
-	public boolean updateFields() {
-		updatePreview();
-		return true;
 	}
 
 }

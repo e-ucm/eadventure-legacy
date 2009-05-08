@@ -14,6 +14,7 @@ import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.general.ActionsListDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
+import es.eucm.eadventure.editor.control.tools.general.assets.AddResourcesBlockTool;
 import es.eucm.eadventure.editor.control.tools.generic.ChangeBooleanValueTool;
 import es.eucm.eadventure.editor.control.tools.generic.ChangeStringValueTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
@@ -294,40 +295,10 @@ public class NPCDataControl extends DataControlWithResources {
 		boolean elementAdded = false;
 
 		if( type == Controller.RESOURCES ) {
-			Resources newResources = new Resources( );
-			resourcesList.add( newResources );
-			resourcesDataControlList.add( new ResourcesDataControl( newResources, Controller.NPC ) );
-			//controller.dataModified( );
-			elementAdded = true;
+			elementAdded = Controller.getInstance().addTool( new AddResourcesBlockTool(resourcesList, resourcesDataControlList, Controller.NPC, this ) );
 		}
 
 		return elementAdded;
-	}
-
-	@Override
-	public boolean deleteElement( DataControl dataControl, boolean askConfirmation ) {
-		boolean elementDeleted = false;
-
-		// Delete the block only if it is not the last one
-		if( resourcesList.size( ) > 1 ) {
-			if( resourcesList.remove( dataControl.getContent( ) ) ) {
-				int resourcesIndex = resourcesDataControlList.indexOf( dataControl );
-				resourcesDataControlList.remove( dataControl );
-
-				// Decrease the selected index if necessary
-				if( selectedResources > 0 && selectedResources >= resourcesIndex )
-					selectedResources--;
-
-				//controller.dataModified( );
-				elementDeleted = true;
-			}
-		}
-
-		// If it was the last one, show an error message
-		else
-			controller.showErrorDialog( TextConstants.getText( "Operation.DeleteResourcesTitle" ), TextConstants.getText( "Operation.DeleteResourcesErrorLastResources" ) );
-
-		return elementDeleted;
 	}
 
 	@Override

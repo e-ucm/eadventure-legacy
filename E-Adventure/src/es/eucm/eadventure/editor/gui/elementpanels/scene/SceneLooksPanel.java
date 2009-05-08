@@ -8,11 +8,10 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
-import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.elementpanels.general.LooksPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 
-public class SceneLooksPanel extends LooksPanel implements Updateable {
+public class SceneLooksPanel extends LooksPanel{
 
 	private SceneDataControl sceneDataControl;
 
@@ -93,10 +92,9 @@ public class SceneLooksPanel extends LooksPanel implements Updateable {
 		return sceneDataControl;
 	}
 	
-	public boolean updateFields() {
+		public boolean updateFields() {
 		updateResources();
 		updatePreview();
 		return true;
 	}
-
 }
