@@ -29,7 +29,6 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfileDataControl;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
-import es.eucm.eadventure.editor.gui.editdialogs.VarDialog;
 import es.eucm.eadventure.editor.gui.elementpanels.general.TableScrollPane;
 
 
@@ -122,20 +121,37 @@ class InitialStatePanel extends JPanel{
 		actionFlagsTable.getColumnModel( ).getColumn( 0 ).setMaxWidth( 60 );
 		actionFlagsTable.getColumnModel( ).getColumn( 1 ).setMaxWidth( 60 );
 		
-
+		
 		// Selection properties
 		actionFlagsTable.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
 		actionFlagsTable.setCellSelectionEnabled( false );
 		actionFlagsTable.setColumnSelectionAllowed( false );
 		actionFlagsTable.setRowSelectionAllowed( true );
-
-		// Misc properties
-		//propertiesTable.setTableHeader( null );
 		actionFlagsTable.setIntercellSpacing( new Dimension( 1, 1 ) );
 
 		// Add selection listener to the table
 		actionFlagsTable.getSelectionModel( ).addListSelectionListener( new NodeTableSelectionListener( ) );
-
+		actionFlagsTable.getSelectionModel( ).setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
+		//actionFlagsTable.getSelectionModel( ).setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
+		
+		// set cell render and editor
+		actionFlagsTable.getColumnModel().getColumn(0).setCellRenderer(actionFlagsTable.getDefaultRenderer(Boolean.class));
+		actionFlagsTable.getColumnModel().getColumn(0).setCellEditor(actionFlagsTable.getDefaultEditor(Boolean.class));
+		
+		actionFlagsTable.getColumnModel().getColumn(1).setCellRenderer(actionFlagsTable.getDefaultRenderer(Boolean.class));
+		actionFlagsTable.getColumnModel().getColumn(1).setCellEditor(actionFlagsTable.getDefaultEditor(Boolean.class));
+		
+		
+		actionFlagsTable.getColumnModel().getColumn(2).setCellRenderer(new FlagsVarListRenderer());
+		actionFlagsTable.getColumnModel().getColumn(2).setCellEditor(new FlagsVarListRenderer());
+		
+		
+		actionFlagsTable.getColumnModel().getColumn(3).setCellRenderer(new FlagsVarListRenderer());
+		actionFlagsTable.getColumnModel().getColumn(3).setCellEditor(new FlagsVarListRenderer());
+		
+		
+		
+		actionFlagsTable.setRowHeight(22);
 		// Table scrollPane
 		tableScrollPanel = new TableScrollPane( actionFlagsTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER );
 		tableScrollPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( EtchedBorder.LOWERED ), TextConstants.getText( "AdaptationRule.InitialState.ActionFlags" ) ));
@@ -318,15 +334,20 @@ class InitialStatePanel extends JPanel{
 		 */
 		private static final long serialVersionUID = 1L;
 
-
+		/**
+		 * Store if each element in table is flag or variable (true for flags and false for vars)
+		 */
+		//private ArrayList<Boolean> isFlagVar;
+		
 		/**
 		 * Constructor
 		 */
 		public NodeTableModel(  ) {
+		   // isFlagVar = new ArrayList<Boolean>();
 		}
 
 		public String getColumnName ( int columnIndex ){
-		    String name = "";
+			String name = "";
 			if (columnIndex == 0)
 				name = "Var?";
 			else if (columnIndex == 1)
@@ -348,7 +369,7 @@ class InitialStatePanel extends JPanel{
 			int rowCount = 0;
 
 			// If there is a node, the number of rows is the same as the number of lines
-			if( adaptationProfileDataControl.getInitialState() != null )
+			if( adaptationProfileDataControl != null )
 				rowCount = adaptationProfileDataControl.getFlagActionCount( );
 
 			return rowCount;
@@ -390,24 +411,24 @@ class InitialStatePanel extends JPanel{
 		public void setValueAt( Object value, int rowIndex, int columnIndex ) {
 
 			// If the value isn't an empty string
-			if( value!=null && !value.toString( ).trim( ).equals( "" ) ) {
+			if( value!=null && !value.toString( ).trim( ).equals( "" ) && columnIndex<=1) {
 			    	
 			    	if( columnIndex == 0){
 			    	    // if not selected
 			    	    if (adaptationProfileDataControl.isFlag(rowIndex)){
 			    		
-			    		
+			    		if (actionFlagsTable.getSelectedRow()==rowIndex){
 			    		String[] names = Controller.getInstance( ).getVarFlagSummary( ).getVars();
 			    		// take any var if there are at least one 
 			    		if (names.length==0){
-			    		    Controller.getInstance().showErrorDialog(TextConstants.getText("Error.NoVarsAvailable.Title"), TextConstants.getText("Error.NoVarsAvailable.Message"));
+			    		   //Controller.getInstance().showErrorDialog(TextConstants.getText("Error.NoVarsAvailable.Title"), TextConstants.getText("Error.NoVarsAvailable.Message"));
 			    		    // change to var
-			    		    adaptationProfileDataControl.change(rowIndex, "");
+			    		adaptationProfileDataControl.change(rowIndex, "");
 			    		}else 
 			    		    // change to var
-			    		    adaptationProfileDataControl.change(rowIndex, names[0]);
+			    		adaptationProfileDataControl.change(rowIndex, names[0]);
+			    		}
 			    	    }
-			    	    
 			    	    
 			    		
 			    	}
@@ -416,51 +437,21 @@ class InitialStatePanel extends JPanel{
 			    	    // if not selected
 			    	if (!adaptationProfileDataControl.isFlag(rowIndex)){
 			    		
-			    		
+			    	if (actionFlagsTable.getSelectedRow()==rowIndex){
 			    		String[] names = Controller.getInstance( ).getVarFlagSummary( ).getFlags();
 			    		// take any flag if there are at least one 
 			    		if (names.length==0){
-			    		    Controller.getInstance().showErrorDialog(TextConstants.getText("Error.NoFlagsAvailable.Title"), TextConstants.getText("Error.NoFlagsAvailable.Message"));
+			    		    //Controller.getInstance().showErrorDialog(TextConstants.getText("Error.NoFlagsAvailable.Title"), TextConstants.getText("Error.NoFlagsAvailable.Message"));
 			    		    // change to flag
-			    		    adaptationProfileDataControl.change(rowIndex, "");
-			    		}else    
+			    		adaptationProfileDataControl.change(rowIndex, "");
+			    		}   else
 			    		 // change to flag
-			    		    adaptationProfileDataControl.change(rowIndex, names[0]);		
-			    	    
+			    		adaptationProfileDataControl.change(rowIndex, names[0]);		
 			    	    }
+			    	}
 			    		
 			    	}
-			    	
-			    	// If the action is being edited, and it has really changed
-				if( columnIndex == 2){
-				    // if is a "set value" action, ask for that value
-				    if (value.toString().equals(AdaptedState.VALUE)){
-					VarDialog dialog= new VarDialog(adaptationProfileDataControl.getValueToSet(rowIndex));
-					if (!dialog.getValue().equals("error"))
-					    adaptationProfileDataControl.setAction( rowIndex, value.toString() + " " +dialog.getValue() );
-				    }
-				    else 
-					adaptationProfileDataControl.setAction( rowIndex, value.toString( ) );
-				}
-				// If the flag is being edited, and it has really changed
-				if( columnIndex == 3 ){
-				    if ((Boolean)isFlag(rowIndex,0)){
-        				    if (!Controller.getInstance().getVarFlagSummary().existsVar(value.toString( ))){
-        					Controller.getInstance().getVarFlagSummary().addVar(value.toString());
-        					Controller.getInstance().getVarFlagSummary().addVarReference(value.toString());
-        					flagsCB.addItem( value.toString( ) );
-        				    }
-				    }else if ((Boolean)isFlag(rowIndex,1)){
-        				    if (!Controller.getInstance().getVarFlagSummary().existsFlag(value.toString( ))){
-            					Controller.getInstance().getVarFlagSummary().addFlag(value.toString());
-            					Controller.getInstance().getVarFlagSummary().addFlagReference(value.toString());
-            					flagsCB.addItem( value.toString( ) );
-            				     }	
-				    }
-				    adaptationProfileDataControl.setFlag( rowIndex, value.toString( ) );
-				}
-				
-
+			    
 
 				fireTableRowsUpdated( rowIndex, rowIndex );
 			}
@@ -472,7 +463,7 @@ class InitialStatePanel extends JPanel{
 		 * @see javax.swing.table.TableModel#getValueAt(int, int)
 		 */
 		public Object getValueAt( int rowIndex, int columnIndex ) {
-		    Object value = null;
+			Object value = null;
 
 			// Return value depending of the selected row
 			switch( columnIndex ) {
@@ -480,44 +471,23 @@ class InitialStatePanel extends JPanel{
 				case 0: // IsVar 
 				    	
 				    	value = !adaptationProfileDataControl.isFlag(rowIndex);
-				    	setRowEditor(rowIndex,(Boolean)value);
 				    	break;
 				    	
 				case 1: // IsFlag 
 				    	value = adaptationProfileDataControl.isFlag(rowIndex);
-				    	setRowEditor(rowIndex,(Boolean)value);
 				    	break;
 			
 				case 2:
-					// Id of the property
-					value = adaptationProfileDataControl.getAction( rowIndex );
-					break;
 				case 3:
-					// Property value
-					value = adaptationProfileDataControl.getFlag( rowIndex );
-					break;
+					value = adaptationProfileDataControl;
+				    	break;
 			}
 
 			return value;
-	}
-		
-		private boolean isFlag(int rowIndex, int columnIndex){
-		    boolean value=false;
-		    switch( columnIndex ) {
-		    case 0: // IsVar 
-		    	
-		    	value = !adaptationProfileDataControl.isFlag(rowIndex);
-		    	break;
-		    	
-		    case 1: // IsFlag 
-		    	value = adaptationProfileDataControl.isFlag(rowIndex);
-		    	break;
-		    }
-		    return value;
 		}
-		
-		
+
 	}
+	
 
 	
 	private void setRowEditor(int index, boolean isFlag){

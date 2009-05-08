@@ -37,9 +37,7 @@ public class GenericOptionPaneDialog extends ToolManagableDialog{
 			     && (e.getSource() == optionPane)
 			     && (prop.equals(JOptionPane.VALUE_PROPERTY) ||
 				 prop.equals(JOptionPane.INPUT_VALUE_PROPERTY))) {
-				//If you were going to check something
-				//before closing the window, you'd do
-				//it here.
+				
 				GenericOptionPaneDialog.this.dispose();
 			    }
 			}

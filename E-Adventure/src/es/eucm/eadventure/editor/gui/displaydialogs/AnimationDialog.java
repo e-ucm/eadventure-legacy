@@ -33,7 +33,7 @@ public class AnimationDialog extends JDialog {
 	 */
 	public AnimationDialog( String animationPath ) {
 		// Call to the JDialog constructor
-		super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "AnimationDialog.Title", AssetsController.getFilename( animationPath ) ), Dialog.ModalityType.APPLICATION_MODAL );
+		super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "AnimationDialog.Title", AssetsController.getFilename( animationPath ) ), Dialog.ModalityType.TOOLKIT_MODAL );
 
 		
 		if (animationPath.endsWith(".eaa")) {

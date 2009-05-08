@@ -39,7 +39,7 @@ public class VideoDialog extends JDialog {
 	 *            Path to the file to be played
 	 */
 	public VideoDialog( String videoPath ) {
-		super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "VideoDialog.Title", AssetsController.getFilename( videoPath ) ), Dialog.ModalityType.APPLICATION_MODAL );
+		super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "VideoDialog.Title", AssetsController.getFilename( videoPath ) ), Dialog.ModalityType.TOOLKIT_MODAL );
 
 		// Add a video panel
 		 videoPanel = new VideoPanel( videoPath );
