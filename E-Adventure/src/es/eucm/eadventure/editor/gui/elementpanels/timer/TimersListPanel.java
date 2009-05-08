@@ -21,9 +21,13 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.timer.TimerDataControl;
 import es.eucm.eadventure.editor.control.controllers.timer.TimersListDataControl;
+import es.eucm.eadventure.editor.control.tools.timer.AddTimerTool;
+import es.eucm.eadventure.editor.control.tools.timer.DeleteTimerTool;
+import es.eucm.eadventure.editor.control.tools.timer.DuplicateTimerTool;
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.elementpanels.general.TableScrollPane;
@@ -161,21 +165,19 @@ public class TimersListPanel extends JPanel implements DataControlsPanel {
 	}
 	
 	protected void addTimer() {
-		if (dataControl.addElement(dataControl.getAddableElements()[0], null)) {
-			((AbstractTableModel) table.getModel()).fireTableDataChanged();
-			table.changeSelection(dataControl.getTimers().size() - 1, 0, false, false);
-		}
+		Controller.getInstance().addTool(new AddTimerTool(dataControl));
+		((AbstractTableModel) table.getModel()).fireTableDataChanged();
+		table.changeSelection(dataControl.getTimers().size() - 1, 0, false, false);
 	}
 
 	protected void duplicateTimer() {
-		if (dataControl.duplicateElement(dataControl.getTimers().get(table.getSelectedRow()))) {
-			((AbstractTableModel) table.getModel()).fireTableDataChanged();
-			table.changeSelection(dataControl.getTimers().size() - 1, 0, false, false);
-		}
+		Controller.getInstance().addTool(new DuplicateTimerTool(dataControl, table.getSelectedRow()));
+		((AbstractTableModel) table.getModel()).fireTableDataChanged();
+		table.changeSelection(dataControl.getTimers().size() - 1, 0, false, false);
 	}
 
 	protected void deleteTimer() {
-		dataControl.deleteElement(dataControl.getTimers().get(table.getSelectedRow()), true);
+		Controller.getInstance().addTool(new DeleteTimerTool(dataControl, table.getSelectedRow()));
 		table.clearSelection();
 		((AbstractTableModel) table.getModel()).fireTableDataChanged();
 	}

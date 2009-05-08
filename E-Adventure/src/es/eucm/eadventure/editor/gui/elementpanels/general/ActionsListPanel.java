@@ -24,10 +24,14 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ActionDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ActionsListDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.CustomActionDataControl;
+import es.eucm.eadventure.editor.control.tools.general.actions.AddActionTool;
+import es.eucm.eadventure.editor.control.tools.general.actions.DeleteActionTool;
+import es.eucm.eadventure.editor.control.tools.general.actions.DuplicateActionTool;
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
 import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
@@ -181,7 +185,7 @@ public class ActionsListPanel extends JPanel implements DataControlsPanel,Update
 		int selectedAction = table.getSelectedRow( );
 		actionPropertiesPanel.removeAll();
 
-		if (selectedAction != -1&&dataControl.getActions().size()>0) {
+		if (selectedAction != -1 && selectedAction < dataControl.getActions().size()) {
 			ActionDataControl action = dataControl.getActions().get(selectedAction);
 			if (action instanceof CustomActionDataControl){
 			    actionPanel = new CustomActionPropertiesPanel((CustomActionDataControl)action);
@@ -220,10 +224,9 @@ public class ActionsListPanel extends JPanel implements DataControlsPanel,Update
 			addChildMenuItem.setEnabled( true );
 			addChildMenuItem.addActionListener( new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					if (dataControl.addElement(type, null)) {
-						((AbstractTableModel) table.getModel()).fireTableDataChanged();
-						table.changeSelection(table.getRowCount() - 1, table.getRowCount() - 1, false, false);
-					}
+					Controller.getInstance().addTool(new AddActionTool(dataControl, type));
+					((AbstractTableModel) table.getModel()).fireTableDataChanged();
+					table.changeSelection(table.getRowCount() - 1, table.getRowCount() - 1, false, false);
 				}
 			});
 			addChildPopupMenu.add( addChildMenuItem );
@@ -233,18 +236,15 @@ public class ActionsListPanel extends JPanel implements DataControlsPanel,Update
 	}
 	
 	protected void duplicate() {
-		if (dataControl.duplicateElement(dataControl.getActions().get(table.getSelectedRow()))) {
-			((AbstractTableModel) table.getModel()).fireTableDataChanged();
-			table.changeSelection(dataControl.getActions().size() - 1, 0, false, false);
-		}
+		Controller.getInstance().addTool(new DuplicateActionTool(dataControl, table.getSelectedRow()));
+		
+		((AbstractTableModel) table.getModel()).fireTableDataChanged();
+		table.changeSelection(dataControl.getActions().size() - 1, 0, false, false);
 	}
 
 	protected void delete() {
-		if (dataControl.deleteElement(dataControl.getActions().get(table.getSelectedRow()), false)) {
-			table.clearSelection();
-			table.changeSelection(0, 1, false, false);
-			table.updateUI();
-		}
+		Controller.getInstance().addTool(new DeleteActionTool(dataControl, table.getSelectedRow()));
+		((AbstractTableModel) table.getModel()).fireTableDataChanged();
 	}
 	
 	protected void moveUp() {
@@ -286,6 +286,18 @@ public class ActionsListPanel extends JPanel implements DataControlsPanel,Update
 					table.editCellAt(selected, table.getEditingColumn());
 				if (actionPanel != null && actionPanel instanceof Updateable) {
 					((Updateable) actionPanel).updateFields();
+				} else if (actionPanel != null) {
+					actionPropertiesPanel.removeAll();
+					if (selected != -1 && selected < dataControl.getActions().size()) {
+						ActionDataControl action = dataControl.getActions().get(selected);
+						if (action instanceof CustomActionDataControl){
+						    actionPanel = new CustomActionPropertiesPanel((CustomActionDataControl)action);
+						    actionPropertiesPanel.add(actionPanel,BorderLayout.CENTER);
+						}else if (action instanceof ActionDataControl){
+						    actionPanel = new ActionPropertiesPanel(action);
+						    actionPropertiesPanel.add(actionPanel,BorderLayout.CENTER);
+						}
+					}
 				}
 			}
 		}

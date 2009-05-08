@@ -327,4 +327,8 @@ public class TimersListDataControl extends DataControl {
 		return getPathFromChild(dataControl, timersDataControlList);
 	}
 
+	public List<Timer> getTimersList() {
+		return timersList;
+	}
+
 }

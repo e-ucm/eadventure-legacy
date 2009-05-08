@@ -445,4 +445,8 @@ public class ActionsListDataControl extends DataControl {
 		return getPathFromChild(dataControl, actionsDataControlList);
 	}
 
+	public List<Action> getActionsList() {
+		return this.actionsList;
+	}
+
 }
