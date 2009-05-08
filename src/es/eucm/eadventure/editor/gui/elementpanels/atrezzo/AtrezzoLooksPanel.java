@@ -39,7 +39,7 @@ public class AtrezzoLooksPanel extends LooksPanel implements Updateable{
 		imagePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Atrezzo.Preview" ) ) );
 		lookPanel.add( imagePanel, cLook );
 		// TODO Parche, arreglar
-		lookPanel.setPreferredSize( new Dimension( 0, 90 ) );
+		lookPanel.setPreferredSize( new Dimension( 0, 120 ) );
 
 	}
 
