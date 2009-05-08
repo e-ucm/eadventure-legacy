@@ -112,8 +112,6 @@ public class FlagsVarListRenderer extends AbstractCellEditor implements TableCel
 	    
 	    values = new JComboBox(flagsvars);
 	    values.setEditable(true);
-	    if (isSelected) 
-		values.setBorder(BorderFactory.createLineBorder(Color.GRAY, 2));
 	    
 	    // if there are no flag/var for this property, and there are some flag/var in chapter, take the first one
 	    if (selectedFlagVar.equals("")&&flagsvars.length>0)
@@ -123,6 +121,10 @@ public class FlagsVarListRenderer extends AbstractCellEditor implements TableCel
 	    
 	    //add action listener
 	    values.addActionListener(new ComboListener(rowIndex,values,isFlag));
+	    // create border if it is selected
+	    if (isSelected) 
+		values.setBorder(BorderFactory.createLineBorder(Color.GRAY, 2));
+	    
 	    
 	    return values;
 	}
@@ -190,6 +192,7 @@ public class FlagsVarListRenderer extends AbstractCellEditor implements TableCel
 	       labelCont.add(valueLabel,c);
 	   }
 	   component.add(edit); 
+	   // create border if it is selected
 	   if (isSelected) 
 	       component.setBorder(BorderFactory.createLineBorder(Color.GRAY, 2));
 	   
