@@ -7,6 +7,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -24,13 +25,15 @@ import javax.swing.table.AbstractTableModel;
 import es.eucm.eadventure.common.gui.TextConstants;
 
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfileDataControl;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationRuleDataControl;
+import es.eucm.eadventure.editor.gui.DataControlsPanel;
 import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.elementpanels.general.TableScrollPane;
 
-public class AdaptationEditionPanel extends JPanel implements Updateable{
+public class AdaptationEditionPanel extends JPanel implements Updateable,DataControlsPanel{
 
     /**
      * 
@@ -279,6 +282,16 @@ public class AdaptationEditionPanel extends JPanel implements Updateable{
 	}
 	
 	return true;
+    }
+
+    @Override
+    public void setSelectedItem(List<DataControl> path) {
+	if (path.size() > 0) {
+	    for (int i = 0 ; i < dataControl.getDataControls().size(); i++) {
+			if (dataControl.getDataControls().get(i) == path.get(path.size() -1))
+			    informationTable.changeSelection(i, i, false, false);
+		}
+	    }
     }
     
 
