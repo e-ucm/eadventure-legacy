@@ -80,10 +80,8 @@ public class AtrezzoDocPanel extends JPanel implements Updateable{
 
 	}
 
-	@Override
 	public boolean updateFields() {
-		this.documentationTextArea.setText(atrezzoDataControl.getDocumentation());
-		this.nameTextField.setText(atrezzoDataControl.getName());
-		return true;
+		return false;
 	}
+
 }
