@@ -45,27 +45,6 @@ public class ActiveAreasTable extends JTable {
 		this.setModel( new ElementsTableModel() );
 		this.getColumnModel( ).setColumnSelectionAllowed( false );
 		this.setDragEnabled( false );
-		this.addMouseMotionListener(new MouseMotionListener(){
-
-			@Override
-			public void mouseDragged(MouseEvent e) {
-				
-			}
-
-			@Override
-			public void mouseMoved(MouseEvent e) {
-				int col = columnAtPoint(e.getPoint());
-				int row = rowAtPoint(e.getPoint());
-				TableCellRenderer r =getCellRenderer(row, col);
-				//System.out.println("MOUSE TABLE: "+row+" , "+col);
-				if (r instanceof ConditionsCellRendererEditor){
-					ConditionsCellRendererEditor condRE = (ConditionsCellRendererEditor)r;
-				}
-			}
-			
-		});
-		
-		
 		
 		this.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent arg0) {

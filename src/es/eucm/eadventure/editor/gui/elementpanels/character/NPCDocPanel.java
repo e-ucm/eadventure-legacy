@@ -105,12 +105,9 @@ public class NPCDocPanel extends JPanel {
 	}
 	
 	public boolean updateFields() {
-		this.descriptionTextField.setText(dataControl.getBriefDescription());
-		this.detailedDescriptionTextField.setText(dataControl.getDetailedDescription());
-		this.documentationTextArea.setText(dataControl.getDocumentation());
-		this.nameTextField.setText(dataControl.getName());
-		return true;
+		return false;
 	}
+
 
 
 }

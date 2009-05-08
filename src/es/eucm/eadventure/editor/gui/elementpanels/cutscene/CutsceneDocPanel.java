@@ -81,11 +81,10 @@ public class CutsceneDocPanel extends JPanel implements Updateable{
 		namePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Cutscene.Name" ) ) );
 		add( namePanel, c );
 	}
-
-	@Override
+	
 	public boolean updateFields() {
-		documentationTextArea.setText(cutsceneDataControl.getDocumentation( ));
-		nameTextField.setText(cutsceneDataControl.getName());
-		return true;
+		return false;
 	}
+
+
 }

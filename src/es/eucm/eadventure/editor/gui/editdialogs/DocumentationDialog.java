@@ -104,9 +104,10 @@ public class DocumentationDialog extends ToolManagableDialog {
 	}
 	
 	public boolean updateFields(){
-		if (descriptionTextField != null)
+		if (descriptionTextField != null){
+			//descriptionTextField.getDocument().
 			this.descriptionTextField.setText(((Described) dataControl.getContent()).getDescription());
-		if (detailedDescriptionTextField != null)
+		}if (detailedDescriptionTextField != null)
 			this.detailedDescriptionTextField.setText(((Detailed) dataControl.getContent()).getDetailedDescription());
 		if (nameTextField != null)
 			this.nameTextField.setText(((Named) dataControl.getContent()).getName());

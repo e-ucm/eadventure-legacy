@@ -64,8 +64,7 @@ public class BookDocPanel extends JPanel implements Updateable{
 	}
 
 	public boolean updateFields() {
-		documentationTextArea.setText(this.bookDataControl.getDocumentation());
-		return true;
+		return false;
 	}
 
 }

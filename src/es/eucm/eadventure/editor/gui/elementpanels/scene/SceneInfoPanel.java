@@ -84,9 +84,13 @@ public class SceneInfoPanel extends JPanel implements Updateable{
 
 
 	public boolean updateFields() {
-		documentationTextArea.setText( sceneDataControl.getDocumentation( ) );
-		nameTextField.setText( sceneDataControl.getName( ) );
-		return true;
+		/*if (sceneDataControl.getDocumentation()!=null && documentationTextArea.getText()!=null && 
+				!sceneDataControl.getDocumentation().equals(documentationTextArea.getText()))
+			documentationTextArea.setText( sceneDataControl.getDocumentation( ) );
+		if (sceneDataControl.getName()!=null && nameTextField.getText()!=null && 
+				!sceneDataControl.getName().equals(nameTextField.getText()))
+			nameTextField.setText( sceneDataControl.getName( ) );*/
+		return false;
 	}
 
 }
