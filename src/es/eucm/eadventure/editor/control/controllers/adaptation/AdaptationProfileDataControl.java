@@ -336,6 +336,7 @@ public class AdaptationProfileDataControl extends DataControl{
 		return profile.getAdaptedState().getValueToSet(rowIndex);
 
 	}
+	
 	public String[][] getAdaptationRulesInfo( ) {
 		String[][] info = new String[profile.getRules().size( )][4];
 		
@@ -369,9 +370,17 @@ public class AdaptationProfileDataControl extends DataControl{
 			dc.recursiveSearch( );
 		}
 		check("" + number, TextConstants.getText("Search.Number"));
-		check(getFileName(), TextConstants.getText("Search.FileName"));
+		check(getFileName(), TextConstants.getText("Search.Name"));
 		check(getInitialScene(), TextConstants.getText("Search.InitialScene"));
-		check(getName(), TextConstants.getText("Search.Path"));
+		for (int i=0; i<this.getFlagActionCount();i++){
+		    if (isFlag(i))
+			check(getFlag(i), TextConstants.getText("Search.Flag"));
+		    else
+			check(getFlag(i), TextConstants.getText("Search.Var"));
+		    
+		    check(getAction(i), TextConstants.getText("Search.ActionOverGameState"));
+		}
+		//check(getName(), TextConstants.getText("Search.Path"));
 	}
 	
 	
@@ -410,5 +419,12 @@ public class AdaptationProfileDataControl extends DataControl{
 	@Override
 	public List<DataControl> getPathToDataControl(DataControl dataControl) {
 		return getPathFromChild(dataControl, dataControls);
+	}
+
+	/**
+	 * @return the dataControls
+	 */
+	public List<AdaptationRuleDataControl> getDataControls() {
+	    return dataControls;
 	}
 }
