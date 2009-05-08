@@ -3,7 +3,7 @@ package es.eucm.eadventure.common.data.adaptation;
 import java.io.Serializable;
 
 /**
- * Assessment property, stores an id and a value
+ * LMS property, stores an id and a value, for adaptation purposes
  */
 public class UOLProperty implements Serializable, Cloneable {
 
