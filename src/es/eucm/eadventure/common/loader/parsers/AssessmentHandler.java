@@ -24,7 +24,9 @@ import es.eucm.eadventure.common.data.chapter.conditions.VarCondition;
 import es.eucm.eadventure.common.loader.InputStreamCreator;
 
 /**
- * This class is the handler to parse the assesment rules file of the adventure
+ * This class is the handler to parse the assesment rules file of the adventure. This class is only used for specific xml assessment files,
+ * that is a past characteristic, to preserve past game version. In new versions, the assessment info is in chapter.xml file. For this reason
+ * the parsing of assessment is now in chapter parsing (ChapterHandler)
  */
 public class AssessmentHandler extends DefaultHandler {
     

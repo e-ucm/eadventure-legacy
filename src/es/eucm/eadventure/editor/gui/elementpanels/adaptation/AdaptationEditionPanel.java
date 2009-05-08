@@ -262,7 +262,23 @@ public class AdaptationEditionPanel extends JPanel implements Updateable{
     }
 
     public boolean updateFields() {
-    	return true;
+	int selected = informationTable.getSelectedRow();
+	int items = informationTable.getRowCount();
+	((AbstractTableModel) informationTable.getModel()).fireTableDataChanged();
+	
+	if (items == informationTable.getRowCount()) {
+		if (selected != -1) {
+		    informationTable.changeSelection(selected, 0, false, false);
+			if (informationTable.getEditorComponent() != null)
+			    informationTable.editCellAt(selected, informationTable.getEditingColumn());
+			// TODO quizas falte actualizar el tabbed pane rulesInfoPanel
+			//if (actionPanel != null && actionPanel instanceof Updateable) {
+			//	((Updateable) actionPanel).updateFields();
+			//}
+		}
+	}
+	
+	return true;
     }
     
 

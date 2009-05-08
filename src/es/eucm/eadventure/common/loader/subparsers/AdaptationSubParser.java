@@ -150,18 +150,20 @@ public class AdaptationSubParser extends SubParser{
         // If the tag increment a var
         else if( qName.equals( "increment" ) ) {
         	String var = null;
-        	int value = 0;
+        	String value = null;
             for( int i = 0; i < attrs.getLength( ); i++ ) {
                 if( attrs.getQName( i ).equals( "var" ) ) {
                 	var = attrs.getValue( i );
+                }else if( attrs.getQName( i ).equals( "value" ) ) {
+                	value =  attrs.getValue ( i ) ;
                 }
                 
             }
                 	
             if (parsing==INITIAL_STATE) {
-                initialState.addVarValue(var, AdaptedState.INCREMENT);
+                initialState.addVarValue(var, AdaptedState.INCREMENT+" "+value);
             } else {
-                rule_temp.addVarValue(var, AdaptedState.INCREMENT);
+                rule_temp.addVarValue(var, AdaptedState.INCREMENT+" "+value);
             }
             profile.addVar ( var );
    
@@ -170,18 +172,20 @@ public class AdaptationSubParser extends SubParser{
         // If the tag decrement a var
         else if( qName.equals( "decrement" ) ) {
         	String var = null;
-        	int value = 0;
+        	String value = null;
             for( int i = 0; i < attrs.getLength( ); i++ ) {
                 if( attrs.getQName( i ).equals( "var" ) ) {
                 	var = attrs.getValue( i );
+                }else if( attrs.getQName( i ).equals( "value" ) ) {
+                	value =  attrs.getValue ( i ) ;
                 }
                
             }
                 	
             if (parsing==INITIAL_STATE) {
-                initialState.addVarValue(var, AdaptedState.DECREMENT);
+                initialState.addVarValue(var, AdaptedState.DECREMENT+" "+value);
             } else {
-                rule_temp.addVarValue(var, AdaptedState.DECREMENT);
+                rule_temp.addVarValue(var, AdaptedState.DECREMENT+" "+value);
             }
             profile.addVar ( var );
    

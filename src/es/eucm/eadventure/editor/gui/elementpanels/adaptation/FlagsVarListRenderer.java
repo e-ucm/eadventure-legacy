@@ -8,21 +8,15 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.util.ArrayList;
 
 import javax.swing.AbstractCellEditor;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
-import javax.swing.SwingUtilities;
-import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
@@ -56,23 +50,38 @@ public class FlagsVarListRenderer extends AbstractCellEditor implements TableCel
 	    
 	    this.value = (DataControl)value;    
 	    	
+	    boolean isFlag=false;
+	    
+	    if (this.value instanceof AdaptationRuleDataControl){
+		isFlag = ((AdaptationRuleDataControl)value).isFlag(row);      
+	    }else if (this.value instanceof AdaptationProfileDataControl){
+		isFlag = ((AdaptationProfileDataControl)value).isFlag(row);
+	    } 
+	    
 	    if (col==2)
-	    	return prepareAction((Boolean)table.getModel().getValueAt(row, 1),row,table,isSelected);
+	    	return prepareAction(isFlag,row,table,isSelected);
 	    else if (col==3) 
-	    	return prepareValue((Boolean)table.getModel().getValueAt(row, 1),row,isSelected);
+	    	return prepareValue(isFlag,row,isSelected,table);
 	    return null;
 	}	
 
 	@Override
 	public Component getTableCellEditorComponent(JTable table, Object value,
 			boolean isSelected, int row, int col) {
-	    
 	    this.value = (DataControl)value;    
 	    	
+	    boolean isFlag=false;
+	    
+	    if (this.value instanceof AdaptationRuleDataControl){
+		isFlag = ((AdaptationRuleDataControl)value).isFlag(row);      
+	    }else if (this.value instanceof AdaptationProfileDataControl){
+		isFlag = ((AdaptationProfileDataControl)value).isFlag(row);
+	    } 
+	    
 	    if (col==2)
-	    	return prepareAction((Boolean)table.getModel().getValueAt(row, 1),row,table,isSelected);
-		else if (col==3) 
-			return prepareValue((Boolean)table.getModel().getValueAt(row, 1),row,isSelected);
+	    	return prepareAction(isFlag,row,table,isSelected);
+	    else if (col==3) 
+	    	return prepareValue(isFlag,row,isSelected,table);
 	    return null;
 	}
 
@@ -82,7 +91,7 @@ public class FlagsVarListRenderer extends AbstractCellEditor implements TableCel
 	}
 	
 	
-	private JComboBox prepareValue(boolean isFlag,int rowIndex,boolean isSelected){
+	private JComboBox prepareValue(boolean isFlag,int rowIndex,boolean isSelected,JTable table){
 	    JComboBox values=null;
 	    String selectedFlagVar = null;
 	    // get the flag/var from the data control
@@ -111,7 +120,7 @@ public class FlagsVarListRenderer extends AbstractCellEditor implements TableCel
 	    values.addActionListener(new ComboListener(rowIndex,values,isFlag));
 	    // create border if it is selected
 	    if (isSelected) 
-	    	values.setBorder(BorderFactory.createLineBorder(Color.GRAY, 2));
+	    	values.setBorder(BorderFactory.createMatteBorder(2, 0, 2, 0, table.getSelectionBackground()));
 	    
 	    return values;
 	}
@@ -180,7 +189,7 @@ public class FlagsVarListRenderer extends AbstractCellEditor implements TableCel
 	   component.add(edit); 
 	   // create border if it is selected
 	   if (isSelected) 
-	       component.setBorder(BorderFactory.createLineBorder(Color.GRAY, 2));
+	       component.setBorder(BorderFactory.createMatteBorder(2, 0, 2, 0, table.getSelectionBackground()));
 	   
 	   
 	   return component;
@@ -214,15 +223,18 @@ public class FlagsVarListRenderer extends AbstractCellEditor implements TableCel
 			    if (!Controller.getInstance().getVarFlagSummary().existsVar(selectedValue)){
 				Controller.getInstance().getVarFlagSummary().addVar(selectedValue);
 				Controller.getInstance().getVarFlagSummary().addVarReference(selectedValue);
-				
+				// add new value to combo
+				combo.addItem(selectedValue);
 			    }
 		    }else if (isFlag){
 			    if (!Controller.getInstance().getVarFlagSummary().existsFlag(selectedValue)){
 				Controller.getInstance().getVarFlagSummary().addFlag(selectedValue);
 				Controller.getInstance().getVarFlagSummary().addFlagReference(selectedValue);
-
+				// add new value to combo
+				combo.addItem(selectedValue);
 			     }	
 		    }
+		
 		   //Set the flag/var    
 		    if (value instanceof AdaptationRuleDataControl){
 			((AdaptationRuleDataControl)value).setFlag(rowIndex, selectedValue);

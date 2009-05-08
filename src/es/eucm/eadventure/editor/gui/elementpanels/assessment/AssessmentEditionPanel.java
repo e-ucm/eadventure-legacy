@@ -41,6 +41,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
@@ -740,6 +741,22 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
 	}
 
 	public boolean updateFields() {
-	    return true;
+	    int selected = informationTable.getSelectedRow();
+		int items = informationTable.getRowCount();
+		((AbstractTableModel) informationTable.getModel()).fireTableDataChanged();
+		
+		if (items == informationTable.getRowCount()) {
+			if (selected != -1) {
+			    informationTable.changeSelection(selected, 0, false, false);
+				if (informationTable.getEditorComponent() != null)
+				    informationTable.editCellAt(selected, informationTable.getEditingColumn());
+				// TODO quizas falte actualizar el tabbed pane rulesInfoPanel
+				//if (actionPanel != null && actionPanel instanceof Updateable) {
+				//	((Updateable) actionPanel).updateFields();
+				//}
+			}
+		}
+		
+		return true;
 	}
 }
