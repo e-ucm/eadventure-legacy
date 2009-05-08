@@ -94,7 +94,7 @@ public class DeleteResourcesBlockTool extends Tool{
 		resourcesList.add( resourcesIndex, (Resources)dataControl.getContent() );
 		resourcesDataControlList.add( resourcesIndex, (ResourcesDataControl)dataControl );
 		parentDataControl.setSelectedResources(lastSelectedResources);
-		Controller.getInstance().updatePanel();
+		Controller.getInstance().reloadPanel();
 		return true;
 	}
 

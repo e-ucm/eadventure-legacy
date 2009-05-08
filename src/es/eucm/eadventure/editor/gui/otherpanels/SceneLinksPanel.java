@@ -132,7 +132,7 @@ public class SceneLinksPanel extends JPanel {
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 2.0;
 		c.weighty = 2.0;
-		drawPanel.setBackground(background);
+		drawPanel.setBackgroundImg(background);
 		add(drawPanel, c);
 
 		c.gridy = 0;

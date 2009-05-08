@@ -77,24 +77,23 @@ public class SceneLooksPanel extends LooksPanel{
 
 	@Override
 	public void updatePreview( ) {
-		if (scenePreviewEditionPanel != null)
+		if (scenePreviewEditionPanel != null){
+			System.out.println(sceneDataControl.getPreviewBackground( ));
 			scenePreviewEditionPanel.loadBackground(sceneDataControl.getPreviewBackground( ) );
+			System.out.println("BG UPDATED!!");
+		}
 		if (getParent() != null && getParent().getParent() != null)
 			getParent( ).getParent( ).repaint( );
 	}
 
 	public void updateResources( ) {
 		super.updateResources( );
-		getParent( ).getParent( ).repaint( );
+		if (getParent() != null && getParent().getParent() != null)
+			getParent( ).getParent( ).repaint( );
 	}
 
 	public SceneDataControl getSceneDataControl() {
 		return sceneDataControl;
 	}
 	
-		public boolean updateFields() {
-		updateResources();
-		updatePreview();
-		return true;
-	}
 }
