@@ -488,32 +488,9 @@ class InitialStatePanel extends JPanel{
 
 	}
 	
-
 	
-	private void setRowEditor(int index, boolean isFlag){
-	    	
-	    
-	    	//Edition of column 2: combo box (activate, deactivate for flags; increment, decrement, set value for vars )
-		String[] actionValues;
-		if (isFlag)
-		    actionValues = new String[]{"activate", "deactivate"};
-		else 
-		    actionValues = new String[]{"increment", "decrement", "set-value"};
-		JComboBox actionValuesCB = new JComboBox (actionValues);
-		actionValuesCB.setFocusable(false);
-		actionFlagsTable.getColumnModel( ).getColumn( 2 ).setCellEditor( new DefaultCellEditor( actionValuesCB ) );
 	
-		//Edition of column 3: combo box (flags or var list)
-		String [] flagsVars;
-		if (isFlag)
-		    flagsVars = Controller.getInstance( ).getVarFlagSummary( ).getFlags( );
-		else
-		    flagsVars = Controller.getInstance( ).getVarFlagSummary( ).getVars();
-		
-		flagsCB = new JComboBox (flagsVars);
-		flagsCB.setEditable(true);
-		actionFlagsTable.getColumnModel( ).getColumn( 3 ).setCellEditor( new DefaultCellEditor( flagsCB ) );
-	}
+	
 	
 	/*public boolean updateFields() {
 	    
