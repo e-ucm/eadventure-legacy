@@ -379,7 +379,7 @@ class GameStatePanel extends JPanel implements Updateable{
 		 * @see javax.swing.table.TableModel#isCellEditable(int, int)
 		 */
 		public boolean isCellEditable( int rowIndex, int columnIndex ) {
-			return true;
+			return rowIndex ==	actionFlagsTable.getSelectedRow();
 		}
 
 		/*

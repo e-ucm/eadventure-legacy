@@ -275,7 +275,6 @@ public class ActionsListPanel extends JPanel implements DataControlsPanel,Update
 	}
 
 	public boolean updateFields() {
-		System.out.println("Actions update fields");
 		int selected = table.getSelectedRow();
 		int items = table.getRowCount();
 		((AbstractTableModel) table.getModel()).fireTableDataChanged();
