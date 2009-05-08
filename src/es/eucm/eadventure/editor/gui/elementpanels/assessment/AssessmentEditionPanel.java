@@ -731,14 +731,7 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
 		}
 	}
 	
-	public void setSelectedItem(List<DataControl> path) {
-		if (path.size() > 0) {
-			for (int i = 0; i < dataControl.getAssessmentRules().size(); i++) {
-				if (dataControl.getAssessmentRules().get(i) == path.get(path.size() - 1))
-					informationTable.changeSelection(i, 0, false, false);
-			}
-		}
-	}
+	
 
 	public boolean updateFields() {
 	    int selected = informationTable.getSelectedRow();
@@ -759,4 +752,14 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
 		
 		return true;
 	}
+	
+	@Override
+	    public void setSelectedItem(List<DataControl> path) {
+		if (path.size() > 0) {
+		    for (int i = 0 ; i < dataControl.getDataControls().size(); i++) {
+				if (dataControl.getDataControls().get(i) == path.get(path.size() -1))
+				    informationTable.changeSelection(i, i, false, false);
+			}
+		    }
+	    }
 }
