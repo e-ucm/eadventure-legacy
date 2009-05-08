@@ -55,17 +55,12 @@ public class FlagsVarListRenderer extends AbstractCellEditor implements TableCel
 			boolean isSelected, boolean isFocus, int row, int col) {
 	    
 	    this.value = (DataControl)value;    
-	    JComponent component = null;
 	    	
-	    if (col==2){
-		component = prepareAction((Boolean)table.getModel().getValueAt(row, 1),row,table,isSelected);
-		
-	    }else if (col==3){ 
-		component = prepareValue((Boolean)table.getModel().getValueAt(row, 1),row,isSelected);
-	    }
-	    
-	  
-	    return component;
+	    if (col==2)
+	    	return prepareAction((Boolean)table.getModel().getValueAt(row, 1),row,table,isSelected);
+	    else if (col==3) 
+	    	return prepareValue((Boolean)table.getModel().getValueAt(row, 1),row,isSelected);
+	    return null;
 	}	
 
 	@Override
@@ -73,16 +68,12 @@ public class FlagsVarListRenderer extends AbstractCellEditor implements TableCel
 			boolean isSelected, int row, int col) {
 	    
 	    this.value = (DataControl)value;    
-	    JComponent component = null;
 	    	
-	    if (col==2){
-		component = prepareAction((Boolean)table.getModel().getValueAt(row, 1),row,table,isSelected);
-		
-	    }else if (col==3){ 
-		component = prepareValue((Boolean)table.getModel().getValueAt(row, 1),row,isSelected);
-	    }
-	   
-	    return component;
+	    if (col==2)
+	    	return prepareAction((Boolean)table.getModel().getValueAt(row, 1),row,table,isSelected);
+		else if (col==3) 
+			return prepareValue((Boolean)table.getModel().getValueAt(row, 1),row,isSelected);
+	    return null;
 	}
 
 	@Override
@@ -92,9 +83,6 @@ public class FlagsVarListRenderer extends AbstractCellEditor implements TableCel
 	
 	
 	private JComboBox prepareValue(boolean isFlag,int rowIndex,boolean isSelected){
-	    
-	    
-	    
 	    JComboBox values=null;
 	    String selectedFlagVar = null;
 	    // get the flag/var from the data control
@@ -123,8 +111,7 @@ public class FlagsVarListRenderer extends AbstractCellEditor implements TableCel
 	    values.addActionListener(new ComboListener(rowIndex,values,isFlag));
 	    // create border if it is selected
 	    if (isSelected) 
-		values.setBorder(BorderFactory.createLineBorder(Color.GRAY, 2));
-	    
+	    	values.setBorder(BorderFactory.createLineBorder(Color.GRAY, 2));
 	    
 	    return values;
 	}
@@ -137,7 +124,6 @@ public class FlagsVarListRenderer extends AbstractCellEditor implements TableCel
 	 * @return
 	 */
 	private JPanel prepareAction(boolean isFlag, int rowIndex,JTable table,boolean isSelected){
-	   
 	    String[] operations = null;
 	    String selectedAction = null;
 	    int varVal=-1;
