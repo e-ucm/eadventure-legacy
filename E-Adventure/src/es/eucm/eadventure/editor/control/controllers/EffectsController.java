@@ -48,7 +48,7 @@ import es.eucm.eadventure.editor.gui.editdialogs.effectdialogs.EffectDialog;
 /**
  * This class is the controller of the effects blocks. It manages the insertion and modification of the effects lists.
  * 
- * @author Bruno Torijano Bueno
+ * @author Javier Torrente
  */
 public class EffectsController {
 
@@ -853,7 +853,7 @@ public class EffectsController {
 	public static void updateVarFlagSummary( VarFlagSummary varFlagSummary, Effects effects ) {
 		// Search every effect
 		for( Effect effect : effects.getEffects( ) ) {
-			
+
 			updateVarFlagSummary ( varFlagSummary, effect );
 			
 			if( effect.getType() == Effect.RANDOM_EFFECT ) {
@@ -893,6 +893,9 @@ public class EffectsController {
 			DecrementVarEffect decrementEffect = (DecrementVarEffect)effect;
 			varFlagSummary.addVarReference( decrementEffect.getTargetId() );
 		}
+		
+		// UPdate conditions
+		ConditionsController.updateVarFlagSummary(varFlagSummary, ((AbstractEffect)effect).getConditions());
 	}
 
 	/**

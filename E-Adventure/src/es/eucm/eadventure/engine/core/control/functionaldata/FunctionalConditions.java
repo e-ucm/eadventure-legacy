@@ -45,7 +45,7 @@ public class FunctionalConditions{
         FlagSummary flags = Game.getInstance( ).getFlags( );
         VarSummary vars = Game.getInstance( ).getVars( );
         
-        for( Condition condition : conditions.getMainConditions() ){
+        for( Condition condition : conditions.getSimpleConditions() ){
             if( evaluation ){
             	if (condition.getType() == Condition.FLAG_CONDITION){
             		FlagCondition flagCondition = (FlagCondition)condition;
@@ -98,7 +98,7 @@ public class FunctionalConditions{
         FlagSummary flags = Game.getInstance( ).getFlags( );
         VarSummary vars = Game.getInstance( ).getVars( );
         
-        for( Condition condition : conditions.getMainConditions() )
+        for( Condition condition : conditions.getSimpleConditions() )
             if( !evaluation ){
             	if ( condition.getType() == Condition.FLAG_CONDITION ){
             		FlagCondition flagCondition = (FlagCondition)condition;

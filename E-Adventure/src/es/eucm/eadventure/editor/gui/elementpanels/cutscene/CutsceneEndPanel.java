@@ -6,13 +6,19 @@ import java.awt.GridBagLayout;
 import javax.swing.JPanel;
 
 import es.eucm.eadventure.editor.control.controllers.cutscene.CutsceneDataControl;
+import es.eucm.eadventure.editor.gui.Updateable;
 
-public class CutsceneEndPanel extends JPanel {
+public class CutsceneEndPanel extends JPanel implements Updateable {
 
 	/**
 	 * Required.
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * NextScenePanel
+	 */
+	private NextScenePanel nextScenePanel;
 
 	/**
 	 * Constructor.
@@ -32,6 +38,12 @@ public class CutsceneEndPanel extends JPanel {
 		c.weighty = 0.3;
 		c.fill = GridBagConstraints.HORIZONTAL;
 		
-		add( new NextScenePanel(cutsceneDataControl) , c);
+		this.nextScenePanel = new NextScenePanel(cutsceneDataControl);
+		add( nextScenePanel , c);
+	}
+
+	@Override
+	public boolean updateFields() {
+		return nextScenePanel.updateFields();
 	}
 }

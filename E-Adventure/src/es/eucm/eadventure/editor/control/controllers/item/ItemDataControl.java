@@ -293,6 +293,9 @@ public class ItemDataControl extends DataControlWithResources {
 	@Override
 	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
 		actionsListDataControl.updateVarFlagSummary( varFlagSummary );
+		// Iterate through the resources
+		for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
+			resourcesDataControl.updateVarFlagSummary(varFlagSummary);
 	}
 
 	@Override

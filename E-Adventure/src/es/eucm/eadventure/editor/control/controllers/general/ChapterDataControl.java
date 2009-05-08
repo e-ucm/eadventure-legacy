@@ -383,11 +383,13 @@ public class ChapterDataControl extends DataControl {
 		scenesListDataControl.updateVarFlagSummary( varFlagSummary );
 		cutscenesListDataControl.updateVarFlagSummary( varFlagSummary );
 		itemsListDataControl.updateVarFlagSummary( varFlagSummary );
+		atrezzoListDataControl.updateVarFlagSummary( varFlagSummary );
 		npcsListDataControl.updateVarFlagSummary( varFlagSummary );
+		playerDataControl.updateVarFlagSummary( varFlagSummary );
 		conversationsListDataControl.updateVarFlagSummary( varFlagSummary );
 		advancedFeaturesDataControl.updateVarFlagSummary( varFlagSummary );
-		adaptationProfilesDataControl.updateVarFlagSummary(varFlagSummary);
-		assessmentProfilesDataControl.updateVarFlagSummary(varFlagSummary);
+		adaptationProfilesDataControl.updateVarFlagSummary( varFlagSummary );
+		assessmentProfilesDataControl.updateVarFlagSummary( varFlagSummary );
 	}
 
 	@Override

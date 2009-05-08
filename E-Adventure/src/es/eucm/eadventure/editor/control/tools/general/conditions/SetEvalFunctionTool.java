@@ -94,7 +94,7 @@ public class SetEvalFunctionTool extends Tool{
 			merged = true;
 			// Merge both wrappers
 			Conditions newBlock = mergeBlocks(upper, lower);
-			lb= newBlock.getMainConditions();
+			lb= newBlock.getSimpleConditions();
 			// Insert in "upper" position
 			la1=conditions.delete(index1);
 			la2=conditions.delete(index1);

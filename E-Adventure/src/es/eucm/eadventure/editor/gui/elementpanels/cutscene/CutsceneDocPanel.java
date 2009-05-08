@@ -17,8 +17,9 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.cutscene.CutsceneDataControl;
 import es.eucm.eadventure.editor.control.tools.listeners.DocumentationChangeListener;
 import es.eucm.eadventure.editor.control.tools.listeners.NameChangeListener;
+import es.eucm.eadventure.editor.gui.Updateable;
 
-public class CutsceneDocPanel extends JPanel {
+public class CutsceneDocPanel extends JPanel implements Updateable{
 
 	/**
 	 * Required.
@@ -34,6 +35,11 @@ public class CutsceneDocPanel extends JPanel {
 	 * Text field for the name
 	 */
 	private JTextField nameTextField;
+	
+	/**
+	 * The dataCOntrol
+	 */
+	private CutsceneDataControl cutsceneDataControl;
 
 	/**
 	 * Constructor.
@@ -42,6 +48,8 @@ public class CutsceneDocPanel extends JPanel {
 	 *            Cutscene controller
 	 */
 	public CutsceneDocPanel( CutsceneDataControl cutsceneDataControl ) {
+		this.cutsceneDataControl = cutsceneDataControl;
+		
 		// Set the layout
 		setLayout( new GridBagLayout( ) );
 		GridBagConstraints c = new GridBagConstraints( );
@@ -72,5 +80,12 @@ public class CutsceneDocPanel extends JPanel {
 		namePanel.add( nameTextField );
 		namePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Cutscene.Name" ) ) );
 		add( namePanel, c );
+	}
+
+	@Override
+	public boolean updateFields() {
+		documentationTextArea.setText(cutsceneDataControl.getDocumentation( ));
+		nameTextField.setText(cutsceneDataControl.getName());
+		return true;
 	}
 }

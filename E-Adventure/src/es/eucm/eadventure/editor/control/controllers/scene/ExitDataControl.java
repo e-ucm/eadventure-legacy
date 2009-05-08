@@ -225,6 +225,12 @@ public class ExitDataControl extends DataControl implements RectangleArea {
 	@Override
 	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
 		ConditionsController.updateVarFlagSummary( varFlagSummary, exit.getConditions( ) );
+		if (exit.getEffects()!=null)
+			EffectsController.updateVarFlagSummary( varFlagSummary, exit.getEffects() );
+		if (exit.getPostEffects()!=null)
+			EffectsController.updateVarFlagSummary( varFlagSummary, exit.getPostEffects() );
+		if (exit.getNotEffects()!=null)
+			EffectsController.updateVarFlagSummary( varFlagSummary, exit.getNotEffects() );
 	}
 
 	@Override

@@ -281,6 +281,9 @@ public class CutsceneDataControl extends DataControlWithResources {
 	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
 		// Iterate through each next scene
 		EffectsController.updateVarFlagSummary( varFlagSummary, cutscene.getEffects( ) );
+		// Iterate through the resources
+		for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
+			resourcesDataControl.updateVarFlagSummary(varFlagSummary);
 	}
 
 	@Override

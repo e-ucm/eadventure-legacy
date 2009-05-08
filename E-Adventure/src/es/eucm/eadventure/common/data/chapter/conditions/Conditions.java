@@ -53,7 +53,7 @@ public class Conditions implements Cloneable {
 	 *            the conditions to add
 	 */
 	public void add( Conditions conditions ) {
-		conditionsList.add( conditions.getMainConditions() );
+		conditionsList.add( conditions.getSimpleConditions() );
 	}
 	
 	/**
@@ -65,7 +65,7 @@ public class Conditions implements Cloneable {
 	 *            the index where conditions must be inserted
 	 */
 	public void add( int index, Conditions conditions ) {
-		conditionsList.add( index, conditions.getMainConditions() );
+		conditionsList.add( index, conditions.getSimpleConditions() );
 	}
 	
 	/**
@@ -117,7 +117,7 @@ public class Conditions implements Cloneable {
 	 * 
 	 * @return List of conditions
 	 */
-	public List<Condition> getMainConditions( ) {
+	public List<Condition> getSimpleConditions( ) {
 		List<Condition> conditions = new ArrayList<Condition>( );
 		for ( List<Condition> wrapper: conditionsList ){
 			if ( wrapper.size() == 1 ){
@@ -164,7 +164,7 @@ public class Conditions implements Cloneable {
 	 * @return List of conditions
 	 */
 	public List<Condition> getEitherConditions( int index ) {
-		return getEitherConditions().get( index ).getMainConditions( );
+		return getEitherConditions().get( index ).getSimpleConditions( );
 	}
 	
 	/**
