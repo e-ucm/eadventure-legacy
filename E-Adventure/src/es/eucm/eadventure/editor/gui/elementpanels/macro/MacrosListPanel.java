@@ -21,14 +21,19 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.macro.MacroDataControl;
 import es.eucm.eadventure.editor.control.controllers.macro.MacroListDataControl;
+import es.eucm.eadventure.editor.control.tools.macro.AddMacroTool;
+import es.eucm.eadventure.editor.control.tools.macro.DeleteMacroTool;
+import es.eucm.eadventure.editor.control.tools.macro.DuplicateMacroTool;
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
+import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.elementpanels.general.TableScrollPane;
 
-public class MacrosListPanel extends JPanel implements DataControlsPanel {
+public class MacrosListPanel extends JPanel implements DataControlsPanel, Updateable {
 
 	/**
 	 * Required.
@@ -159,21 +164,19 @@ public class MacrosListPanel extends JPanel implements DataControlsPanel {
 	}
 	
 	protected void addMacro() {
-		if (dataControl.addElement(dataControl.getAddableElements()[0], null)) {
-			((AbstractTableModel) table.getModel()).fireTableDataChanged();
-			table.changeSelection(dataControl.getMacros().size() - 1, 0, false, false);
-		}
+		Controller.getInstance().addTool(new AddMacroTool(dataControl));
+		((AbstractTableModel) table.getModel()).fireTableDataChanged();
+		table.changeSelection(dataControl.getMacros().size() - 1, 0, false, false);
 	}
 
 	protected void duplicateMacro() {
-		if (dataControl.duplicateElement(dataControl.getMacros().get(table.getSelectedRow()))) {
-			((AbstractTableModel) table.getModel()).fireTableDataChanged();
-			table.changeSelection(dataControl.getMacros().size() - 1, 0, false, false);
-		}
+		Controller.getInstance().addTool(new DuplicateMacroTool(dataControl, table.getSelectedRow()));
+		((AbstractTableModel) table.getModel()).fireTableDataChanged();
+		table.changeSelection(dataControl.getMacros().size() - 1, 0, false, false);
 	}
 
 	protected void deleteMacro() {
-		dataControl.deleteElement(dataControl.getMacros().get(table.getSelectedRow()), true);
+		Controller.getInstance().addTool(new DeleteMacroTool(dataControl, table.getSelectedRow()));
 		table.clearSelection();
 		((AbstractTableModel) table.getModel()).fireTableDataChanged();
 	}
@@ -185,6 +188,23 @@ public class MacrosListPanel extends JPanel implements DataControlsPanel {
 					table.changeSelection(i, i, false, false);
 			}
 		}
+	}
+
+	@Override
+	public boolean updateFields() {
+		int selected = table.getSelectedRow();
+		int items = table.getRowCount();
+		((AbstractTableModel) table.getModel()).fireTableDataChanged();
+		
+		if (items > 0 && items == dataControl.getMacros().size()) {
+			if (selected != -1 && selected < table.getRowCount()) {
+				table.changeSelection(selected, 0, false, false);
+//				if (table.getEditorComponent() != null)
+//					table.editCellAt(selected, table.getEditingColumn());
+				updateInfoPanel(table.getSelectedRow());
+			}
+		}
+		return true;
 	}
 
 }
