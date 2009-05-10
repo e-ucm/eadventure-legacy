@@ -307,4 +307,8 @@ public class GlobalStateListDataControl extends DataControl {
 		return getPathFromChild(dataControl, globalStatesDataControlList);
 	}
 
+	public List<GlobalState> getGlobalStatesList() {
+		return this.globalStatesList;
+	}
+
 }

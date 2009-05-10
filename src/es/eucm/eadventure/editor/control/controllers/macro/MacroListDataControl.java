@@ -307,4 +307,8 @@ public class MacroListDataControl extends DataControl {
 		return getPathFromChild(dataControl, macrosDataControlList);
 	}
 
+	public List<Macro> getMacrosList() {
+		return this.macrosList;
+	}
+
 }

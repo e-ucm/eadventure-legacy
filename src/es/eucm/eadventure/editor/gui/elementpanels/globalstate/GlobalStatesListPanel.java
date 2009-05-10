@@ -21,14 +21,19 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.globalstate.GlobalStateDataControl;
 import es.eucm.eadventure.editor.control.controllers.globalstate.GlobalStateListDataControl;
+import es.eucm.eadventure.editor.control.tools.globalstate.AddGlobalStateTool;
+import es.eucm.eadventure.editor.control.tools.globalstate.DeleteGlobalStateTool;
+import es.eucm.eadventure.editor.control.tools.globalstate.DuplicateGlobalStateTool;
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
+import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.elementpanels.general.TableScrollPane;
 
-public class GlobalStatesListPanel extends JPanel implements DataControlsPanel {
+public class GlobalStatesListPanel extends JPanel implements DataControlsPanel, Updateable {
 
 	/**
 	 * Required.
@@ -160,21 +165,19 @@ public class GlobalStatesListPanel extends JPanel implements DataControlsPanel {
 	}
 	
 	protected void addGlobalState() {
-		if (dataControl.addElement(dataControl.getAddableElements()[0], null)) {
-			((AbstractTableModel) table.getModel()).fireTableDataChanged();
-			table.changeSelection(dataControl.getGlobalStates().size() - 1, 0, false, false);
-		}
+		Controller.getInstance().addTool(new AddGlobalStateTool(dataControl));
+		((AbstractTableModel) table.getModel()).fireTableDataChanged();
+		table.changeSelection(dataControl.getGlobalStates().size() - 1, 0, false, false);
 	}
 
 	protected void duplicateGlobalState() {
-		if (dataControl.duplicateElement(dataControl.getGlobalStates().get(table.getSelectedRow()))) {
-			((AbstractTableModel) table.getModel()).fireTableDataChanged();
-			table.changeSelection(dataControl.getGlobalStates().size() - 1, 0, false, false);
-		}
+		Controller.getInstance().addTool(new DuplicateGlobalStateTool(dataControl, table.getSelectedRow()));
+		((AbstractTableModel) table.getModel()).fireTableDataChanged();
+		table.changeSelection(dataControl.getGlobalStates().size() - 1, 0, false, false);
 	}
 	
 	protected void deleteGlobalState() {
-		dataControl.deleteElement(dataControl.getGlobalStates().get(table.getSelectedRow()), true);
+		Controller.getInstance().addTool(new DeleteGlobalStateTool(dataControl, table.getSelectedRow()));
 		table.clearSelection();
 		((AbstractTableModel) table.getModel()).fireTableDataChanged();
 	}
@@ -187,5 +190,22 @@ public class GlobalStatesListPanel extends JPanel implements DataControlsPanel {
 			}
 		}
 	}
+
+
+	@Override
+	public boolean updateFields() {
+		int selected = table.getSelectedRow();
+		int items = table.getRowCount();
+		((AbstractTableModel) table.getModel()).fireTableDataChanged();
+		
+		if (items > 0 && items == dataControl.getGlobalStates().size()) {
+			if (selected != -1 && selected < table.getRowCount()) {
+				table.changeSelection(selected, 0, false, false);
+//				if (table.getEditorComponent() != null)
+//					table.editCellAt(selected, table.getEditingColumn());
+				updateInfoPanel(table.getSelectedRow());
+			}
+		}
+		return true;	}
 
 }

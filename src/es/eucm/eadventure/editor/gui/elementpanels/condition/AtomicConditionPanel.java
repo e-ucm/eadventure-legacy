@@ -17,6 +17,7 @@ import es.eucm.eadventure.common.data.chapter.conditions.FlagCondition;
 import es.eucm.eadventure.common.data.chapter.conditions.GlobalStateCondition;
 import es.eucm.eadventure.common.data.chapter.conditions.VarCondition;
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.gui.editdialogs.customizeguidialog.ButtonsPanel;
 
 public class AtomicConditionPanel extends EditablePanel{
 
