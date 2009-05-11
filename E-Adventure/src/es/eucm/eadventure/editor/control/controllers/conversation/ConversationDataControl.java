@@ -84,6 +84,9 @@ public abstract class ConversationDataControl extends DataControl {
 	 */
 	public abstract boolean canLinkNode( ConversationNodeView nodeView );
 
+	
+	public abstract boolean canDeleteLink( ConversationNodeView nodeView);
+	
 	/**
 	 * Returns if it is possible to link a given node with another one
 	 * 
