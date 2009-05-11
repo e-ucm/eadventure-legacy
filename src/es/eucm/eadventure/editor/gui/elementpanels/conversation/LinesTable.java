@@ -32,7 +32,7 @@ public class LinesTable extends JTable {
 		
 		setModel(new NodeTableModel( null ));
 		setAutoCreateColumnsFromModel( false );
-		getColumnModel( ).getColumn( 0 ).setMaxWidth( 80 );
+		getColumnModel( ).getColumn( 0 ).setMaxWidth( 90 );
 
 		getColumnModel().getColumn(1).setCellEditor(new TextLineCellRendererEditor(linesPanel));
 		getColumnModel().getColumn(1).setCellRenderer(new TextLineCellRendererEditor(linesPanel));
@@ -49,8 +49,8 @@ public class LinesTable extends JTable {
 		getColumnModel().getColumn(3).setCellEditor(new SynthesizeCellRendererEditor());
 		getColumnModel().getColumn(3).setCellRenderer(new SynthesizeCellRendererEditor());
 		
-		getColumnModel().getColumn(4).setMaxWidth(120);
-		getColumnModel().getColumn(4).setMinWidth(120);
+		getColumnModel().getColumn(4).setMaxWidth(40);
+		getColumnModel().getColumn(4).setMinWidth(40);
 		getColumnModel().getColumn(4).setWidth(120);
 		getColumnModel().getColumn(4).setCellRenderer(new ConditionsCellRendererEditor());
 		getColumnModel().getColumn(4).setCellEditor(new ConditionsCellRendererEditor());
