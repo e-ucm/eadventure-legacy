@@ -1417,7 +1417,7 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="Conversations.MoveLineUp">Move line up</entry>
 	<entry key="Conversations.MoveLineDown">Move line down</entry>
 
-	<entry key="Conversºtion.Title">Conversation</entry>
+	<entry key="Conversation.Title">Conversation</entry>
 	<entry key="Conversation.OptionPreviewConversation">Preview</entry>
 	<entry key="Conversation.OptionPreviewPartialConversation">Preview from selected node</entry>
 	<entry key="Conversation.OptionAddDialogueNode">Add dialogue node</entry>
