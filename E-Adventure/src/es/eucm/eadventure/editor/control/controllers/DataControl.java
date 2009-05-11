@@ -280,4 +280,15 @@ public abstract class DataControl extends Searchable implements Cloneable {
 		}
 		return null;
 	}
+	
+	protected List<Searchable> getPathFromSearchableChild(Searchable dataControl, Searchable child){
+	    if (child != null) {
+		List<Searchable> path = child.getPath(dataControl);
+		if (path != null) {
+			path.add(this);
+			return path;
+		}
+	}
+	return null;
+	}
 }

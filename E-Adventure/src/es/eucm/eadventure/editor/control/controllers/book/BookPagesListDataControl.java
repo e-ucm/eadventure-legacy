@@ -355,11 +355,9 @@ public class BookPagesListDataControl extends Searchable{
 	    for (int i=0;i<bookPagesList.size();i++){
 		if (bookPagesList.get(i).getType()!=BookPage.TYPE_URL){
 		    JEditorPane editor = new JEditorPane();
-		    
-			File file = new File(AssetsController.getRealAssetPath(bookPagesList.get(i).getUri()));
-			if (file.exists( )){
+		 
 				try {
-				    editor.setPage( file.toURI().toURL( ) );
+				    editor.setPage( AssetsController.getResourceAsURLFromZip(bookPagesList.get(i).getUri()));
 				    
 				    check(editor.getDocument().getText(0, editor.getDocument().getLength()), TextConstants.getText("Search.HTMLBookPage"));
 				} catch (MalformedURLException e1) {
@@ -370,9 +368,19 @@ public class BookPagesListDataControl extends Searchable{
 				    // TODO Auto-generated catch block
 				    e.printStackTrace();
 				}
-			} 		   		    
+					   		    
 		}
 	    }
 	    
+	}
+
+	@Override
+	protected List<Searchable> getPath(Searchable dataControl) {
+	    if (dataControl == this) {
+		List<Searchable> path = new ArrayList<Searchable>();
+		path.add(this);
+		return path;
+	}
+	    return null;
 	}
 }

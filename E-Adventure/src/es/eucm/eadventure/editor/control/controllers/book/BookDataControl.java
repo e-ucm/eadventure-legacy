@@ -329,7 +329,9 @@ public class BookDataControl extends DataControlWithResources {
 	public List<Searchable> getPathToDataControl(Searchable dataControl) {
 		List<Searchable> path = getPathFromChild(dataControl, resourcesDataControlList);
 		if (path != null) return path;
-		return getPathFromChild(dataControl, bookParagraphsListDataControl);
+		path = getPathFromChild(dataControl, bookParagraphsListDataControl);
+		if (path != null) return path;
+		return getPathFromSearchableChild(dataControl, bookPagesListDataControl);
 	}
 
 }

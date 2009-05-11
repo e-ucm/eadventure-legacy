@@ -141,9 +141,7 @@ public class AdaptationProfileDataControl extends DataControl{
 				controller.getIdentifierSummary( ).deleteAdaptationRuleId( adpRuleId );
 				//controller.dataModified( );
 				deleted = true;
-				if (controller.getSelectedChapterDataControl().getAdaptationName().equals(profile.getName()))
-				    controller.getSelectedChapterDataControl().deleteAdaptationPath();
-			}
+				}
 		}
 
 		return deleted;

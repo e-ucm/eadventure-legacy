@@ -73,6 +73,8 @@ public abstract class Searchable {
 		}
 	}
 	
+	protected abstract List<Searchable> getPath(Searchable dataControl);
+	
 	
 
 }
