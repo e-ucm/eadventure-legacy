@@ -25,7 +25,7 @@ public class ConversationCellRenderer extends ResizeableCellRenderer {
 		
 		GraphicRepresentation graphicRepresentation = new GraphicRepresentation((GraphConversationDataControl) value2, new Dimension(200,250));
 		float scale = 1.0f;
-		scale -= 0.1f * ((GraphConversationDataControl) value2).getAllNodes().size();
+		scale -= 0.1f * ((GraphConversationDataControl) value2).getAllNodesViews().size();
 		if (scale < 0.1f)
 			scale = 0.1f;
 		graphicRepresentation.setScale(scale);
@@ -44,7 +44,7 @@ public class ConversationCellRenderer extends ResizeableCellRenderer {
 		
 		GraphicRepresentation graphicRepresentation = new GraphicRepresentation((GraphConversationDataControl) value2, new Dimension(200,200));
 		float scale = 1.0f;
-		scale -= 0.1f * ((GraphConversationDataControl) value2).getAllNodes().size();
+		scale -= 0.1f * ((GraphConversationDataControl) value2).getAllNodesViews().size();
 		if (scale < 0.1f)
 			scale = 0.1f;
 		graphicRepresentation.setScale(scale);

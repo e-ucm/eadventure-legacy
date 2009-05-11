@@ -6,6 +6,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -22,9 +23,11 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
+import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
 
 import es.eucm.eadventure.editor.control.controllers.conversation.GraphConversationDataControl;
+import es.eucm.eadventure.editor.gui.DataControlsPanel;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.elementpanels.general.TableScrollPane;
 import es.eucm.eadventure.common.data.chapter.conversation.line.ConversationLine;
@@ -36,7 +39,7 @@ import es.eucm.eadventure.common.gui.TextConstants;
  * This class is the panel used to display and edit nodes. It holds node operations, like adding and removing lines,
  * editing end effects, remove links and reposition lines and children
  */
-class LinesPanel extends JPanel {
+class LinesPanel extends JPanel implements DataControlsPanel {
 
 	/**
 	 * Required
@@ -552,6 +555,14 @@ class LinesPanel extends JPanel {
 					conversationPanel.setSelectedChild( selectedChild );
 				}
 			}
+		}
+	}
+
+	@Override
+	public void setSelectedItem(List<Searchable> path) {
+		if (path.size() > 0 && path.get(path.size() - 1) instanceof es.eucm.eadventure.editor.control.controllers.conversation.ConversationLine) {
+			es.eucm.eadventure.editor.control.controllers.conversation.ConversationLine line = (es.eucm.eadventure.editor.control.controllers.conversation.ConversationLine) path.get(path.size() - 1);
+			lineTable.changeSelection(line.getLine(), 0, false, false);
 		}
 	}
 

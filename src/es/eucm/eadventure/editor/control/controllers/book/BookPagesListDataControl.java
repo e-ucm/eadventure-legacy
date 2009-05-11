@@ -26,7 +26,7 @@ import es.eucm.eadventure.editor.control.tools.books.MoveBookPageUpTool;
 import es.eucm.eadventure.editor.gui.assetchooser.AssetChooser;
 import es.eucm.eadventure.editor.gui.otherpanels.FormattedTextPanel;
 
-public class BookPagesListDataControl extends Searchable{
+public class BookPagesListDataControl extends Searchable {
 	
 	/**
 	 * List of book paragraphs.
@@ -62,34 +62,6 @@ public class BookPagesListDataControl extends Searchable{
 	 */
 	public List<BookPage> getBookPages( ) {
 		return bookPagesList;
-	}
-
-	/**
-	 * Returns the info of the book paragraphs contained in the list.
-	 * 
-	 * @return Array with the information of the book paragraphs. It contains the number of each paragraph, the type of
-	 *         the paragraph, and the word count if applicable
-	 */
-	public String[][] getBookPagesInfo( ) {
-		String[][] bookPagesInfo = null;
-
-		// Create the list for the book paragraphs
-		bookPagesInfo = new String[bookPagesList.size( )][3];
-
-		// Fill the array with the info
-		for( int i = 0; i < bookPagesList.size( ); i++ ) {
-			BookPage bookPage = bookPagesList.get( i );
-
-			if( bookPage.getType( ) == BookPage.TYPE_RESOURCE )
-				bookPagesInfo[i][0] = TextConstants.getText( "BookPagesList.TypeResource" );
-			else if( bookPage.getType( ) == BookPage.TYPE_URL )
-				bookPagesInfo[i][0] = TextConstants.getText( "BookPagesList.TypeURL" );
-
-			bookPagesInfo[i][1] = Integer.toString( bookPage.getMargin( ) );
-			bookPagesInfo[i][2] = bookPage.getScrollable( )?TextConstants.getText( "BookPage.Scrollable" ):TextConstants.getText( "BookPage.NotScrollable" );
-		}
-
-		return bookPagesInfo;
 	}
 
 	public BookPage addPage( ) {
@@ -377,10 +349,10 @@ public class BookPagesListDataControl extends Searchable{
 	@Override
 	protected List<Searchable> getPath(Searchable dataControl) {
 	    if (dataControl == this) {
-		List<Searchable> path = new ArrayList<Searchable>();
-		path.add(this);
-		return path;
-	}
+			List<Searchable> path = new ArrayList<Searchable>();
+			path.add(this);
+			return path;
+	    }
 	    return null;
 	}
 }

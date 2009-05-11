@@ -108,7 +108,7 @@ public class GraphicRepresentation {
 		String convId = graphConversationDataControl.getId( );
 		
 		// Extract all the nodes in the conversation 
-		List<ConversationNodeView> nodes = graphConversationDataControl.getAllNodes( );
+		List<ConversationNodeView> nodes = graphConversationDataControl.getAllNodesViews( );
 
 		// Calculate the radius and the center of the circumference
 		double radius = ( nodes.size( ) * GraphicNode.NODE_DIAMETER * 2 ) / ( 2 * Math.PI );
@@ -308,7 +308,7 @@ public class GraphicRepresentation {
 	 */
 	public void update( ) {
 		// Pick all the nodes from the conversation
-		List<ConversationNodeView> nodes = graphConversationDataControl.getAllNodes( );
+		List<ConversationNodeView> nodes = graphConversationDataControl.getAllNodesViews( );
 
 		// New vector to store the nodes that are not currently represented (the new nodes)
 		List<ConversationNodeView> newReducedConversationNodes = new ArrayList<ConversationNodeView>( );
@@ -396,7 +396,7 @@ public class GraphicRepresentation {
 		ConversationNodeView father = null;
 
 		// Pick all the nodes in the conversation
-		List<ConversationNodeView> nodes = graphConversationDataControl.getAllNodes( );
+		List<ConversationNodeView> nodes = graphConversationDataControl.getAllNodesViews( );
 
 		// For each node in the conversation
 		for( int i = 0; i < nodes.size( ) && father == null; i++ ) {
@@ -425,7 +425,7 @@ public class GraphicRepresentation {
 		ConversationNodeView father = null;
 
 		// Pick all the nodes in the conversation
-		List<ConversationNodeView> nodes = graphConversationDataControl.getAllNodes( );
+		List<ConversationNodeView> nodes = graphConversationDataControl.getAllNodesViews( );
 
 		// For each node in the conversation
 		for( int i = 0; i < nodes.size( ) && father == null; i++ ) {
@@ -626,7 +626,7 @@ public class GraphicRepresentation {
 	 */
 	private void updateLinksBetweenNodes( ) {
 		// Get all the conversational nodes
-		List<ConversationNodeView> nodes = graphConversationDataControl.getAllNodes( );
+		List<ConversationNodeView> nodes = graphConversationDataControl.getAllNodesViews( );
 
 		// Link nodes
 		for( int i = 0; i < graphicNodes.size( ); i++ ) {

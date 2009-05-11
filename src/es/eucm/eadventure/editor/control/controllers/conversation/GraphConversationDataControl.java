@@ -14,7 +14,6 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
-import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.tools.conversation.DeleteConversationNodeTool;
@@ -61,7 +60,7 @@ public class GraphConversationDataControl extends ConversationDataControl {
 	
 	public void updateAllConditions() {
 		allConditions.clear();
-		List<ConversationNodeView> nodes = getAllNodes( );
+		List<ConversationNodeView> nodes = getAllNodesViews( );
 		for( ConversationNodeView node : nodes ){
 		    ArrayList<ConditionsController> nodeConditions = new ArrayList<ConditionsController>();
 		    // add each condition for each conversation line
@@ -98,7 +97,7 @@ public class GraphConversationDataControl extends ConversationDataControl {
 		int lineCount = 0;
 
 		// Take all the nodes, and add the line count of each one
-		List<ConversationNodeView> nodes = getAllNodes( );
+		List<ConversationNodeView> nodes = getAllNodesViews( );
 		for( ConversationNodeView node : nodes )
 			lineCount += node.getLineCount( );
 
@@ -212,7 +211,7 @@ public class GraphConversationDataControl extends ConversationDataControl {
 	 * 
 	 * @return List with the nodes of the conversation
 	 */
-	public List<ConversationNodeView> getAllNodes( ) {
+	public List<ConversationNodeView> getAllNodesViews( ) {
 		// Create another list
 		List<ConversationNode> nodes = graphConversation.getAllNodes( );
 		List<ConversationNodeView> nodeViews = new ArrayList<ConversationNodeView>( );
@@ -220,6 +219,23 @@ public class GraphConversationDataControl extends ConversationDataControl {
 		// Copy the data
 		for( ConversationNode node : nodes )
 			nodeViews.add( node );
+
+		return nodeViews;
+	}
+
+	/**
+	 * Returns a list with all the nodes in the conversation.
+	 * 
+	 * @return List with the nodes of the conversation
+	 */
+	public List<SearchableNode> getAllSearchableNodes( ) {
+		// Create another list
+		List<ConversationNode> nodes = graphConversation.getAllNodes( );
+		List<SearchableNode> nodeViews = new ArrayList<SearchableNode>( );
+
+		// Copy the data
+		for( ConversationNode node : nodes )
+			nodeViews.add( new SearchableNode(node) );
 
 		return nodeViews;
 	}
@@ -466,11 +482,8 @@ public class GraphConversationDataControl extends ConversationDataControl {
 	@Override
 	public void recursiveSearch() {
 		check(this.getId(), "ID");
-		for (ConversationNodeView cnv : this.getAllNodes()) {
-			for (int i = 0; i < cnv.getLineCount(); i++) {
-				check(cnv.getLineName(i) , TextConstants.getText("Search.LineName"));
-				check(cnv.getLineText(i), TextConstants.getText("Search.LineText"));
-			}
+		for (SearchableNode cnv : this.getAllSearchableNodes()) {
+			cnv.recursiveSearch();
 		}
 	}
 
@@ -488,7 +501,14 @@ public class GraphConversationDataControl extends ConversationDataControl {
 	
 	@Override
 	public List<Searchable> getPathToDataControl(Searchable dataControl) {
-		return null;
+		List<Searchable> path =  getPathFromChild(dataControl, this.getAllSearchableNodes());
+		if (path != null) return path;
+	    if (dataControl == this) {
+			path = new ArrayList<Searchable>();
+			path.add(this);
+			return path;
+	    }
+	    return null;
 	}
 
 	/**

@@ -59,31 +59,6 @@ public class BooksListDataControl extends DataControl {
 		return booksDataControlList.get( booksDataControlList.size( ) - 1 );
 	}
 
-	/**
-	 * Returns the info of the books contained in the list.
-	 * 
-	 * @return Array with the information of the books. It contains the identifier of each book, and the number of
-	 *         paragraphs
-	 */
-	public String[][] getBooksInfo( ) {
-		String[][] booksInfo = null;
-
-		// Create the list for the books
-		booksInfo = new String[booksList.size( )][2];
-
-		// Fill the array with the info
-		for( int i = 0; i < booksList.size( ); i++ ) {
-			Book book = booksList.get( i );
-			booksInfo[i][0] = book.getId( );
-			if (book.getType( ) == Book.TYPE_PARAGRAPHS)
-				booksInfo[i][1] = TextConstants.getText( "BooksList.ParagraphsNumber", String.valueOf( book.getParagraphs( ).size( ) ) );
-			else if (book.getType( ) == Book.TYPE_PAGES)
-				booksInfo[i][1] = TextConstants.getText( "BooksList.PagesNumber", String.valueOf( book.getPageURLs( ).size( ) ) );
-		}
-
-		return booksInfo;
-	}
-
 	@Override
 	public Object getContent( ) {
 		return booksList;

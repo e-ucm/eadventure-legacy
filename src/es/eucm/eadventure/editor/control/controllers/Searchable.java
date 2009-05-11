@@ -75,7 +75,40 @@ public abstract class Searchable {
 	
 	protected abstract List<Searchable> getPath(Searchable dataControl);
 	
+	protected List<Searchable> getPathFromChild(Searchable dataControl, DataControl child) {
+		if (child != null) {
+			List<Searchable> path = child.getPath(dataControl);
+			if (path != null) {
+				path.add(this);
+				return path;
+			}
+		}
+		return null;
+	}
 	
+	@SuppressWarnings("unchecked")
+	protected List<Searchable> getPathFromChild(Searchable dataControl, List list) {
+		for (Object temp : list) {
+			List<Searchable> path = ((Searchable) temp).getPath(dataControl);
+			if (path != null) {
+				path.add(this);
+				return path;
+			}
+		}
+		return null;
+	}
+	
+	protected List<Searchable> getPathFromSearchableChild(Searchable dataControl, Searchable child){
+	    if (child != null) {
+		List<Searchable> path = child.getPath(dataControl);
+		if (path != null) {
+			path.add(this);
+			return path;
+		}
+	}
+	return null;
+	}
+
 
 }
 

@@ -60,27 +60,6 @@ public class ConversationsListDataControl extends DataControl {
 		return conversationsDataControlList.get( conversationsDataControlList.size( ) - 1 );
 	}
 
-	/**
-	 * Returns the info of the conversations contained in the list.
-	 * 
-	 * @return Array with the information of the conversations. It contains the identifier of each conversation, and the
-	 *         number of lines
-	 */
-	public String[][] getConversationsInfo( ) {
-		String[][] conversationsInfo = null;
-
-		// Create the list for the conversations
-		conversationsInfo = new String[conversationsList.size( )][2];
-
-		// Fill the array with the info
-		for( int i = 0; i < conversationsList.size( ); i++ ) {
-			conversationsInfo[i][0] = conversationsList.get( i ).getId( );
-			conversationsInfo[i][1] = TextConstants.getText( "ConversationsList.LinesNumber", String.valueOf( conversationsDataControlList.get( i ).getConversationLineCount( ) ) );
-		}
-
-		return conversationsInfo;
-	}
-
 	@Override
 	public Object getContent( ) {
 		return conversationsList;
