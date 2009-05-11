@@ -33,7 +33,6 @@ import javax.swing.table.TableModel;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.general.ChapterDataControl;
 import es.eucm.eadventure.editor.control.tools.structurepanel.AddElementTool;
@@ -52,11 +51,17 @@ import es.eucm.eadventure.editor.gui.structurepanel.structureelements.NPCsListSt
 import es.eucm.eadventure.editor.gui.structurepanel.structureelements.PlayerStructureElement;
 import es.eucm.eadventure.editor.gui.structurepanel.structureelements.ScenesListStructureElement;
 
+/**
+ * This is the class of the StructurePanel, the panel at the right of the editor.<p>
+ * 
+ * @author Eugenio Marchiori
+ */
 public class StructurePanel extends JPanel implements DataControlsPanel {
 
 	private static final long serialVersionUID = -1768584184321389780L;
 	
 	public static final int NORMAL_ROW_SIZE=20;
+	
 	public static final int SELECTED_ROW_SIZE=70;
 	
 	private static final int INCREMENT = 5;
@@ -154,59 +159,7 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
 			bottom = 0;
 			cont = 0;
 			
-			if (newIndex > oldIndex) {
-				if (this.structureElements.get(oldIndex).getDataControl().getAddableElements().length > 0) {
-					increment = -INCREMENT;
-					if (this.structureElements.get(newIndex).getDataControl().getAddableElements().length > 0) {
-						bottom = this.getHeight() - UNSELECTED_BUTTON_HEIGHT * (structureElements.size() - newIndex - 1);
-						top = bottom - UNSELECTED_BUTTON_HEIGHT * (newIndex - oldIndex);
-						int reach = UNSELECTED_BUTTON_HEIGHT * (oldIndex + 1);
-						cont = - (top - reach) / increment;
-					} else {
-						bottom = this.getHeight();
-						top = bottom - UNSELECTED_BUTTON_HEIGHT * (this.structureElements.size() - oldIndex - 1);
-						int reach = UNSELECTED_BUTTON_HEIGHT * (oldIndex + 1);
-						cont = - (top - reach) / increment;
-					}
-				} else {
-					if (this.structureElements.get(newIndex).getDataControl().getAddableElements().length > 0) {
-						increment = INCREMENT;
-						top = UNSELECTED_BUTTON_HEIGHT * newIndex  + 40;
-						bottom = top + UNSELECTED_BUTTON_HEIGHT * (this.structureElements.size() - newIndex - 1);
-						int reach = this.getHeight() - UNSELECTED_BUTTON_HEIGHT * (this.structureElements.size() - newIndex + 1);
-						cont = - (top - reach) / increment;
-					} else {
-						cont = 0;
-					}
-				}
-			} else {
-				if (this.structureElements.get(oldIndex).getDataControl().getAddableElements().length > 0) {
-					if (this.structureElements.get(newIndex).getDataControl().getAddableElements().length > 0) {
-						increment = INCREMENT;
-						top = UNSELECTED_BUTTON_HEIGHT * newIndex + UNSELECTED_BUTTON_HEIGHT;
-						bottom = top + UNSELECTED_BUTTON_HEIGHT * (oldIndex - newIndex - 1) + 40;
-						int reach = this.getHeight() - UNSELECTED_BUTTON_HEIGHT * (this.structureElements.size() - newIndex);
-						cont = - (top - reach) / increment;
-					} else {
-						increment = -INCREMENT;
-						top = this.getHeight() - UNSELECTED_BUTTON_HEIGHT * (structureElements.size() - oldIndex - 1);
-						bottom = this.getHeight();
-						int reach = UNSELECTED_BUTTON_HEIGHT * (oldIndex + 1);
-						cont = - (top - reach) / increment;
-					}
-				} else {
-					if (this.structureElements.get(newIndex).getDataControl().getAddableElements().length > 0) {
-						increment = INCREMENT;
-						top = UNSELECTED_BUTTON_HEIGHT * newIndex + UNSELECTED_BUTTON_HEIGHT;
-						bottom = UNSELECTED_BUTTON_HEIGHT * this.structureElements.size() - UNSELECTED_BUTTON_HEIGHT + 40;
-						int reach = this.getHeight() - UNSELECTED_BUTTON_HEIGHT * (this.structureElements.size() - newIndex);
-						cont = - (top - reach) / increment;
-					} else {
-						cont = 0;
-					}
-				}
-				
-			}
+			calculateTranslateConstants(newIndex, oldIndex);
 
 			if (this.getHeight() > 0 && this.getWidth() > 0 && increment != 0 && cont != 0) {
 				image = basicImage;
@@ -281,6 +234,61 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
 		
 	}
 	
+	private void calculateTranslateConstants(int newIndex, int oldIndex) {
+		if (newIndex > oldIndex) {
+			if (this.structureElements.get(oldIndex).getDataControl().getAddableElements().length > 0) {
+				increment = -INCREMENT;
+				if (this.structureElements.get(newIndex).getDataControl().getAddableElements().length > 0) {
+					bottom = this.getHeight() - UNSELECTED_BUTTON_HEIGHT * (structureElements.size() - newIndex - 1);
+					top = bottom - UNSELECTED_BUTTON_HEIGHT * (newIndex - oldIndex);
+					int reach = UNSELECTED_BUTTON_HEIGHT * (oldIndex + 1);
+					cont = - (top - reach) / increment;
+				} else {
+					bottom = this.getHeight();
+					top = bottom - UNSELECTED_BUTTON_HEIGHT * (this.structureElements.size() - oldIndex - 1);
+					int reach = UNSELECTED_BUTTON_HEIGHT * (oldIndex + 1);
+					cont = - (top - reach) / increment;
+				}
+			} else {
+				if (this.structureElements.get(newIndex).getDataControl().getAddableElements().length > 0) {
+					increment = INCREMENT;
+					top = UNSELECTED_BUTTON_HEIGHT * newIndex  + 40;
+					bottom = top + UNSELECTED_BUTTON_HEIGHT * (this.structureElements.size() - newIndex - 1);
+					int reach = this.getHeight() - UNSELECTED_BUTTON_HEIGHT * (this.structureElements.size() - newIndex + 1);
+					cont = - (top - reach) / increment;
+				} else {
+					cont = 0;
+				}
+			}
+		} else {
+			if (this.structureElements.get(oldIndex).getDataControl().getAddableElements().length > 0) {
+				if (this.structureElements.get(newIndex).getDataControl().getAddableElements().length > 0) {
+					increment = INCREMENT;
+					top = UNSELECTED_BUTTON_HEIGHT * newIndex + UNSELECTED_BUTTON_HEIGHT;
+					bottom = top + UNSELECTED_BUTTON_HEIGHT * (oldIndex - newIndex - 1) + 40;
+					int reach = this.getHeight() - UNSELECTED_BUTTON_HEIGHT * (this.structureElements.size() - newIndex);
+					cont = - (top - reach) / increment;
+				} else {
+					increment = -INCREMENT;
+					top = this.getHeight() - UNSELECTED_BUTTON_HEIGHT * (structureElements.size() - oldIndex - 1);
+					bottom = this.getHeight();
+					int reach = UNSELECTED_BUTTON_HEIGHT * (oldIndex + 1);
+					cont = - (top - reach) / increment;
+				}
+			} else {
+				if (this.structureElements.get(newIndex).getDataControl().getAddableElements().length > 0) {
+					increment = INCREMENT;
+					top = UNSELECTED_BUTTON_HEIGHT * newIndex + UNSELECTED_BUTTON_HEIGHT;
+					bottom = UNSELECTED_BUTTON_HEIGHT * this.structureElements.size() - UNSELECTED_BUTTON_HEIGHT + 40;
+					int reach = this.getHeight() - UNSELECTED_BUTTON_HEIGHT * (this.structureElements.size() - newIndex);
+					cont = - (top - reach) / increment;
+				} else {
+					cont = 0;
+				}
+			}
+		}
+	}
+
 	public void update() {
 		int i = 0;
 		removeAll();
