@@ -1,10 +1,8 @@
 package es.eucm.eadventure.editor.control.controllers;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
@@ -258,37 +256,4 @@ public abstract class DataControl extends Searchable implements Cloneable {
 	 
 	protected abstract List<Searchable> getPathToDataControl(Searchable dataControl);
 
-	protected List<Searchable> getPathFromChild(Searchable dataControl, DataControl child) {
-		if (child != null) {
-			List<Searchable> path = child.getPath(dataControl);
-			if (path != null) {
-				path.add(this);
-				return path;
-			}
-		}
-		return null;
-	}
-	
-	@SuppressWarnings("unchecked")
-	protected List<Searchable> getPathFromChild(Searchable dataControl, List list) {
-		for (Object temp : list) {
-			List<Searchable> path = ((DataControl) temp).getPath(dataControl);
-			if (path != null) {
-				path.add(this);
-				return path;
-			}
-		}
-		return null;
-	}
-	
-	protected List<Searchable> getPathFromSearchableChild(Searchable dataControl, Searchable child){
-	    if (child != null) {
-		List<Searchable> path = child.getPath(dataControl);
-		if (path != null) {
-			path.add(this);
-			return path;
-		}
-	}
-	return null;
-	}
 }

@@ -6,6 +6,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -15,7 +16,10 @@ import javax.swing.ScrollPaneConstants;
 
 import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
+import es.eucm.eadventure.editor.control.controllers.conversation.SearchableNode;
+import es.eucm.eadventure.editor.gui.DataControlsPanel;
 import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.displaydialogs.ConversationDialog;
 
@@ -24,7 +28,7 @@ import es.eucm.eadventure.editor.gui.displaydialogs.ConversationDialog;
  * represent the conversation graphically (RepresentationPanel), and a panel to display and edit the content of nodes
  * (LinesPanel). It also has a status bar which informs the user of the status of the application
  */
-public class ConversationEditionPanel extends JPanel implements Updateable {
+public class ConversationEditionPanel extends JPanel implements Updateable, DataControlsPanel {
 
 	/**
 	 * Required
@@ -291,6 +295,17 @@ public class ConversationEditionPanel extends JPanel implements Updateable {
 			// If not, take the selected node
 			else
 				new ConversationDialog( conversationDataControl, getSelectedNode( ) );
+		}
+	}
+
+	@Override
+	public void setSelectedItem(List<Searchable> path) {
+		if (path.size() > 0 && path.get(path.size() - 1) instanceof SearchableNode) {
+			this.setSelectedNode(((SearchableNode) path.get(path.size() - 1)).getConversationNodeView());
+			path.remove(path.size() - 1);
+			if (linesPanel != null) {
+				linesPanel.setSelectedItem(path);
+			}
 		}
 	}
 
