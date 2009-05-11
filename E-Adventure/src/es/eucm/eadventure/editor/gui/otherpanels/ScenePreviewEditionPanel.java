@@ -271,6 +271,7 @@ public class ScenePreviewEditionPanel extends JPanel {
 		if (showTextEdition && selectedElement != null) {
 			preciseEditionPanel = createTextEditionPanel();
 			add(preciseEditionPanel, BorderLayout.NORTH);
+			updateUI();
 		}
 	}
 	
