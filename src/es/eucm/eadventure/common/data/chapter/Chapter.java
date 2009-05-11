@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.HasTargetId;
+import es.eucm.eadventure.common.data.adaptation.AdaptationProfile;
 import es.eucm.eadventure.common.data.adventure.ChapterSummary;
+import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
 import es.eucm.eadventure.common.data.chapter.book.Book;
 import es.eucm.eadventure.common.data.chapter.conditions.GlobalState;
 import es.eucm.eadventure.common.data.chapter.conversation.Conversation;
@@ -705,6 +707,18 @@ public class Chapter extends ChapterSummary implements HasTargetId {
 			for (String s : vars)
 				c.vars.add(new String(s));
 		}
+		if (assessmentProfiles != null){
+		    c.assessmentProfiles = new ArrayList<AssessmentProfile>();
+		    for (AssessmentProfile ap: assessmentProfiles)
+			c.assessmentProfiles.add(ap);
+		}
+		
+		if (adaptationProfiles != null){
+		    c.adaptationProfiles = new ArrayList<AdaptationProfile>();
+		    for (AdaptationProfile ap: adaptationProfiles)
+			c.adaptationProfiles.add(ap);
+		}
+		
 		return c;
 	}	
 }

@@ -744,6 +744,7 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
 			    informationTable.changeSelection(selected, 0, false, false);
 				if (informationTable.getEditorComponent() != null)
 				    informationTable.editCellAt(selected, informationTable.getEditingColumn());
+				
 				// TODO quizas falte actualizar el tabbed pane rulesInfoPanel
 				//if (actionPanel != null && actionPanel instanceof Updateable) {
 				//	((Updateable) actionPanel).updateFields();
