@@ -74,7 +74,7 @@ public class SelectEffectsDialog extends ToolManagableDialog{
     private HashMap<Integer, Object> effectProperties;
     
     public SelectEffectsDialog(EffectsController controller) {
-	super(Controller.getInstance( ).peekWindow( ),TextConstants.getText("SelectEffectDialog.Title") );
+	super(Controller.getInstance( ).peekWindow( ),TextConstants.getText("SelectEffectDialog.Title") , false);
 	this.controller = controller;
 	effectsStructurePanel = new EffectsStructurePanel(false,this);
 	allEffectsStructurePanel = new EffectsStructurePanel(true,this);

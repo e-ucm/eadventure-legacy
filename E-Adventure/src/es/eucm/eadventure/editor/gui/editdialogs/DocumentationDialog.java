@@ -33,6 +33,7 @@ public class DocumentationDialog extends ToolManagableDialog {
 	private static final long serialVersionUID = 1L;
 	
 	private JTextField nameTextField;
+	private NameChangeListener nameChangeListener; 
 	
 	/**
 	 * Text field for the description.
@@ -68,7 +69,8 @@ public class DocumentationDialog extends ToolManagableDialog {
 			JPanel descriptionPanel = new JPanel( );
 			descriptionPanel.setLayout( new GridLayout( ) );
 			nameTextField = new JTextField( ((Described) dataControl.getContent()).getDescription() );
-			nameTextField.getDocument().addDocumentListener(new NameChangeListener(nameTextField, (Named) dataControl.getContent()));
+			nameChangeListener= new NameChangeListener(nameTextField, (Named) dataControl.getContent());
+			nameTextField.getDocument().addDocumentListener(nameChangeListener);
 			descriptionPanel.add( nameTextField );
 			descriptionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Item.Name" ) ) );
 			add( descriptionPanel, cDoc );
@@ -105,7 +107,7 @@ public class DocumentationDialog extends ToolManagableDialog {
 	
 	public boolean updateFields(){
 		if (descriptionTextField != null){
-			//descriptionTextField.getDocument().
+			descriptionTextField.getDocument().removeDocumentListener(nameChangeListener);
 			this.descriptionTextField.setText(((Described) dataControl.getContent()).getDescription());
 		}if (detailedDescriptionTextField != null)
 			this.detailedDescriptionTextField.setText(((Detailed) dataControl.getContent()).getDetailedDescription());

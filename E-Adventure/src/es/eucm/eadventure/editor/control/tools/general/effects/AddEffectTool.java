@@ -55,8 +55,10 @@ public class AddEffectTool extends Tool{
 	@Override
 	public boolean redoTool() {
 		boolean done = doTool();
-		if (done)
+		if (done){
+			Controller.getInstance().updateVarFlagSummary();
 			Controller.getInstance().updatePanel();
+		}
 		return done;
 	}
 
@@ -66,6 +68,7 @@ public class AddEffectTool extends Tool{
 		if (conditions!=null){
 		    conditions.remove(condition);
 		}
+		Controller.getInstance().updateVarFlagSummary();
 		Controller.getInstance().updatePanel();
 		return true;
 	}
