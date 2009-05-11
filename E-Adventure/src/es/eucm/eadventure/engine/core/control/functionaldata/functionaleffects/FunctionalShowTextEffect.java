@@ -90,7 +90,7 @@ public class FunctionalShowTextEffect extends FunctionalEffect{
     public void draw(){
 	GUI.getInstance( ).getGraphics().setFont(GUI.getInstance( ).getGraphics().getFont( ).deriveFont( 18.0f ));
 	    FontMetrics fontMetrics =GUI.getInstance( ).getGraphics().getFontMetrics();
-	    GUI.getInstance( ).addTextToDraw( text, ((ShowTextEffect)effect).getX()- Game.getInstance( ).getFunctionalScene( ).getOffsetX( ), ((ShowTextEffect)effect).getY() -  (fontMetrics.stringWidth( ((ShowTextEffect)effect).getText() ) /2), new Color(((ShowTextEffect)effect).getRgbFrontColor()), new Color(((ShowTextEffect)effect).getRgbBorderColor()));
+	    GUI.getInstance( ).addTextToDraw( text, ((ShowTextEffect)effect).getX()- Game.getInstance( ).getFunctionalScene( ).getOffsetX( ), ((ShowTextEffect)effect).getY() , new Color(((ShowTextEffect)effect).getRgbFrontColor()), new Color(((ShowTextEffect)effect).getRgbBorderColor()));
 	
     }
  }
