@@ -334,6 +334,7 @@ public class EffectsPanel extends JPanel implements Updateable{
 
 	public boolean updateFields() {
 		effectsTable.updateUI();
+		//effectsTable.setModel(new EffectsTableModel( ));
 		return true;
 	}
 	

@@ -573,8 +573,7 @@ public class EffectsController {
 						newEffect = randomEffect;
 						break;
 				}
-				controller.addTool(new AddEffectTool(effects, newEffect,conditionsList));
-				effectAdded = true;
+				effectAdded = controller.addTool(new AddEffectTool(effects, newEffect,conditionsList));
 			}
 			return effectAdded;
 		}
