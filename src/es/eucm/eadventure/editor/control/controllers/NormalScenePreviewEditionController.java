@@ -5,6 +5,8 @@ import java.awt.event.MouseEvent;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElement;
 import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElementInfluenceArea;
+import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElementReference;
+import es.eucm.eadventure.editor.gui.structurepanel.StructureControl;
 
 public class NormalScenePreviewEditionController implements ScenePreviewEditionController {
 
@@ -59,12 +61,12 @@ public class NormalScenePreviewEditionController implements ScenePreviewEditionC
 	
 	public void mouseClicked(MouseEvent e) {
 		setMouseUnder(e.getX(), e.getY());
-		if (underMouse != null && !spep.getFixedSelectedElement() && !(underMouse instanceof ImageElementInfluenceArea)) {
-			if (e.getButton() == MouseEvent.BUTTON1) {
-				spep.setSelectedElement(underMouse);
-				spep.notifySelectionListener();
-				spep.repaint();
-			}
+		if (spep.getSelectedElement() != null && e.getClickCount() == 2 && spep.getSelectedElement() instanceof ImageElementReference) {
+			StructureControl.getInstance().changeDataControl(spep.getSelectedElement().getReferencedDataControl());
+		} else if (underMouse != null && !spep.getFixedSelectedElement() && !(spep.getSelectedElement() instanceof ImageElementInfluenceArea)) {
+			spep.setSelectedElement(underMouse);
+			spep.notifySelectionListener();
+			spep.repaint();
 		} else if (underMouse == null && !spep.getFixedSelectedElement()) {
 			spep.setSelectedElement((ImageElement) null);
 			spep.notifySelectionListener();

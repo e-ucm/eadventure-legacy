@@ -25,6 +25,7 @@ import javax.swing.table.TableCellRenderer;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.gui.Updateable;
+import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ConditionsCellRendererEditor;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.EditEffectCellRenderEditor;
 
@@ -112,7 +113,7 @@ public class EffectsPanel extends JPanel implements Updateable{
 		add( tableScrollPane, BorderLayout.CENTER );
 		
 
-		add( createButtonsPanel(), BorderLayout.SOUTH );
+		add( createButtonsPanel(), BorderLayout.EAST );
 	}
 
 	private void updateButtons() {
@@ -163,18 +164,25 @@ public class EffectsPanel extends JPanel implements Updateable{
 		moveDownButton.addActionListener( new MoveDownEffectListener( ));
 		moveDownButton.setEnabled(false);
 
+		
+		
 		buttonsPanel.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridx = 0;
 		c.gridy = 0;
 		buttonsPanel.add( newButton , c );
-		c.gridx++;
-		buttonsPanel.add( deleteButton , c );
-		c.anchor = GridBagConstraints.SOUTH;
-		c.gridx++;
+		c.gridy++;
 		buttonsPanel.add( moveUpButton , c );
-		c.gridx++;
+		c.gridy++;
 		buttonsPanel.add( moveDownButton , c );
+		c.gridy++;
+		c.gridy++;
+		buttonsPanel.add( deleteButton , c );
+
+		c.gridy--;
+		c.fill = GridBagConstraints.VERTICAL;
+		c.weighty = 1.0;
+		buttonsPanel.add(new JFiller(), c);
 		
 		return buttonsPanel;
 	}

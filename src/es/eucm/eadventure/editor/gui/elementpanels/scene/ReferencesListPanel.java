@@ -39,6 +39,7 @@ import es.eucm.eadventure.editor.control.tools.scene.AddReferenceTool;
 import es.eucm.eadventure.editor.control.tools.scene.DeleteReferenceTool;
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
 import es.eucm.eadventure.editor.gui.Updateable;
+import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.elementpanels.general.TableScrollPane;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElement;
@@ -272,13 +273,17 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel,Upd
 		c.gridy = 0;
 		buttonsPanel.add( newButton , c );
 		c.gridy++;
-		buttonsPanel.add( deleteButton , c );
-		c.anchor = GridBagConstraints.SOUTH;
-		c.gridy++;
 		buttonsPanel.add( moveUpButton , c );
 		c.gridy++;
 		buttonsPanel.add( moveDownButton , c );
-		
+		c.gridy++;
+		c.gridy++;
+		buttonsPanel.add( deleteButton , c );
+
+		c.gridy--;
+		c.fill = GridBagConstraints.VERTICAL;
+		c.weighty = 1.0;
+		buttonsPanel.add(new JFiller(), c);
 		
 		tablePanel.add( buttonsPanel,BorderLayout.EAST);
 //		tablePanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "ItemReferenceTable.TableBorder" ) ) );
