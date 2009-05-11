@@ -141,7 +141,9 @@ public class FunctionalNPC extends FunctionalElement implements TalkingElement {
         
         textFrontColor = generateColor( npc.getTextFrontColor( ) );
         textBorderColor = generateColor( npc.getTextBorderColor( ) );
-
+        bubbleBkgColor = generateColor( npc.getBubbleBkgColor());
+        bubbleBorderColor = generateColor ( npc.getBubbleBorderColor());
+        
         // Select the resources
         resources = createResourcesBlock( );
         

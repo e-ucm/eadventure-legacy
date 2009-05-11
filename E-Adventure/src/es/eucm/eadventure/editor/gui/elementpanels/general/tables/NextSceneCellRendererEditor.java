@@ -72,9 +72,11 @@ public class NextSceneCellRendererEditor  extends AbstractCellEditor implements 
 			public void actionPerformed(ActionEvent arg0) {
 				selectedItem = combo.getSelectedItem();
 				exit.setNextSceneId((String) selectedItem);
-				hasPosition.setEnabled( Controller.getInstance( ).getIdentifierSummary( ).isScene( exit.getNextSceneId( ) ) );
-				editPosition.setEnabled(hasPosition.isEnabled() && exit.hasDestinyPosition());
-				hasPosition.setSelected(exit.hasDestinyPosition());
+				if (hasPosition != null && editPosition != null) {
+					hasPosition.setEnabled( Controller.getInstance( ).getIdentifierSummary( ).isScene( exit.getNextSceneId( ) ) );
+					editPosition.setEnabled(hasPosition.isEnabled() && exit.hasDestinyPosition());
+					hasPosition.setSelected(exit.hasDestinyPosition());
+				}
 			}
 		});
 		c.gridx = 0;
