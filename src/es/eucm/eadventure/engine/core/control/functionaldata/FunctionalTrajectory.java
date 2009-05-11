@@ -333,12 +333,15 @@ public class FunctionalTrajectory {
 	/**
 	 * Get all the possible paths from the list of full paths.<p>
 	 * Example:
+	 * <code>
 	 *    B - D
 	 *   /   / \
 	 * A    /   \
 	 *   \ /     \
 	 *    C -----E
+	 * </code>
 	 * with the player in A, the full paths will be:
+	 * <code>
 	 *                     |-D
 	 *             |-E---C-|-A
 	 *             |
@@ -351,7 +354,7 @@ public class FunctionalTrajectory {
 	 *         |           
 	 *         |-E---D-|-C
 	 *                 |-B---A
-	 * 
+	 * </code>
 	 * @param tempPaths A list of the full paths
 	 * @return A list of all the possible paths for the givven full paths
 	 */
@@ -382,6 +385,12 @@ public class FunctionalTrajectory {
 		return fullPathList;
 	}
 	
+	
+	/**
+	 * Returns the valid startings sides.<p>
+	 * 
+	 * @return
+	 */
 	private List<FunctionalSide> getCurrentValidSides() {
 		List<FunctionalSide> tempList = new ArrayList<FunctionalSide>();
 		if (currentNode != null) {
