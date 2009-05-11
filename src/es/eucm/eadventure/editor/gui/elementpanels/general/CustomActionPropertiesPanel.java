@@ -104,12 +104,14 @@ public class CustomActionPropertiesPanel extends JPanel implements ActionTypePan
 
 		@Override
 		public void updatePreview( ) {
-			getParent( ).getParent( ).repaint( );
+			if (getParent() != null && getParent().getParent() != null)
+				getParent( ).getParent( ).repaint( );
 		}
 
 		public void updateResources( ) {
 			super.updateResources( );
-			getParent( ).getParent( ).repaint( );
+			if (getParent() != null && getParent().getParent() != null)
+				getParent( ).getParent( ).repaint( );
 		}
 
 	}
