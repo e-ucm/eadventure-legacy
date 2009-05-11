@@ -188,13 +188,13 @@ public class SceneDOMWriter {
 					
 					
 					if (exit.getEffects() != null && !exit.getEffects().isEmpty()) {
-						Node effectsNode = EffectsDOMWriter.buildDOM( EffectsDOMWriter.POST_EFFECTS, exit.getEffects( ) );
+						Node effectsNode = EffectsDOMWriter.buildDOM( EffectsDOMWriter.EFFECTS, exit.getEffects( ) );
 						doc.adoptNode( effectsNode );
 						exitElement.appendChild( effectsNode );
 					}
 
 					if (exit.getPostEffects() != null && !exit.getPostEffects().isEmpty()) {
-						Node postEffectsNode = EffectsDOMWriter.buildDOM( EffectsDOMWriter.EFFECTS, exit.getPostEffects( ) );
+						Node postEffectsNode = EffectsDOMWriter.buildDOM( EffectsDOMWriter.POST_EFFECTS, exit.getPostEffects( ) );
 						doc.adoptNode( postEffectsNode );
 						exitElement.appendChild( postEffectsNode );
 					}
