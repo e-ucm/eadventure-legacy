@@ -192,7 +192,13 @@ public class FunctionalTrajectory {
 	/**
 	 * Returns a list of the valid paths (paths that get to the desired destination) from a list of all
 	 * the possible paths form the starting position. If an element is set as the destination, the valid
-	 * paths will be those that get to the influence area of said element.
+	 * paths will be those that get to the influence area of said element.<p>
+	 * The method starts out by precalculating the values for the sides.<br>
+	 * Then it searches though every "full path" to determine it's distance to the destination, if it is
+	 * inside a active area and the length of the path, always keeping the best path found up to that moment.<br>
+	 * When the side is in the middle (because the player doesn't start out in a node) then it "moves along" it
+	 * calculating the different values. When a side must be search form beging to end, it uses the pre-calculated
+	 * values.
 	 * 
 	 * @param fullPathList A list of the paths from the current position
 	 * @param fromX The current position along the x-axis
@@ -325,7 +331,26 @@ public class FunctionalTrajectory {
 	}
 		
 	/**
-	 * Get all the possible paths from the list of full paths.
+	 * Get all the possible paths from the list of full paths.<p>
+	 * Example:
+	 *    B - D
+	 *   /   / \
+	 * A    /   \
+	 *   \ /     \
+	 *    C -----E
+	 * with the player in A, the full paths will be:
+	 *                     |-D
+	 *             |-E---C-|-A
+	 *             |
+	 *             |   |-A 
+	 *   A-|-B---D-|-C-|-D
+	 *     |           |-E---D
+	 *     |
+	 *     |-C-|-D-|-E---C
+	 *         |   |-B---A
+	 *         |           
+	 *         |-E---D-|-C
+	 *                 |-B---A
 	 * 
 	 * @param tempPaths A list of the full paths
 	 * @return A list of all the possible paths for the givven full paths
