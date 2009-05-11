@@ -46,6 +46,7 @@ import javax.swing.table.AbstractTableModel;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfileDataControl;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentRuleDataControl;
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
@@ -754,7 +755,7 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
 	}
 	
 	@Override
-	    public void setSelectedItem(List<DataControl> path) {
+	    public void setSelectedItem(List<Searchable> path) {
 		if (path.size() > 0) {
 		    for (int i = 0 ; i < dataControl.getDataControls().size(); i++) {
 				if (dataControl.getDataControls().get(i) == path.get(path.size() -1))

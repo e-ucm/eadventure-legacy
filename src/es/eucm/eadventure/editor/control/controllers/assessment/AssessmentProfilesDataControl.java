@@ -9,6 +9,7 @@ import es.eucm.eadventure.common.data.assessment.AssessmentRule;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class AssessmentProfilesDataControl extends DataControl{
@@ -336,7 +337,7 @@ public class AssessmentProfilesDataControl extends DataControl{
 	}
 	
 	@Override
-	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+	public List<Searchable> getPathToDataControl(Searchable dataControl) {
 		return getPathFromChild(dataControl, profiles);
 	}
 

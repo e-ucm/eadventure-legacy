@@ -6,6 +6,7 @@ import es.eucm.eadventure.common.data.adaptation.AdaptationRule;
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.tools.adaptation.AddActionTool;
 import es.eucm.eadventure.editor.control.tools.adaptation.AddUOLPropertyTool;
 import es.eucm.eadventure.editor.control.tools.adaptation.ChangeActionTool;
@@ -265,7 +266,7 @@ public class AdaptationRuleDataControl extends DataControl{
 	}
 
 	@Override
-	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+	public List<Searchable> getPathToDataControl(Searchable dataControl) {
 		return null;
 	}
 }

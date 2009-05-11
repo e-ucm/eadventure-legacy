@@ -6,6 +6,7 @@ import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfileDataControl;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfilesDataControl;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfileDataControl;
@@ -615,8 +616,8 @@ public class ChapterDataControl extends DataControl {
 	}
 	
 	@Override
-	public List<DataControl> getPathToDataControl(DataControl dataControl) {
-		List<DataControl> path;
+	public List<Searchable> getPathToDataControl(Searchable dataControl) {
+		List<Searchable> path;
 		path = getPathFromChild(dataControl, scenesListDataControl);
 		if (path != null) return path;
 		path = getPathFromChild(dataControl, cutscenesListDataControl);

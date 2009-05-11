@@ -11,6 +11,7 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 
@@ -735,9 +736,11 @@ public class ReferencesListDataControl extends DataControl{
 		this.playerPositionInAllReferences = playerPositionInAllReferences;
 	}
 	
+	
+	
 	@Override
-	public List<DataControl> getPathToDataControl(DataControl dataControl) {
-		List<DataControl> list = new ArrayList<DataControl>();
+	public List<Searchable> getPathToDataControl(Searchable dataControl) {
+		List<Searchable> list = new ArrayList<Searchable>();
 		for (ElementContainer container : allReferencesDataControl) {
 			if (container.getErdc() != null)
 				list.add(container.getErdc());

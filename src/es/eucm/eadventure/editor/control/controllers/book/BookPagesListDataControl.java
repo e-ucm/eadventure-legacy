@@ -1,14 +1,20 @@
 package es.eucm.eadventure.editor.control.controllers.book;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JEditorPane;
+import javax.swing.text.BadLocationException;
 
 import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.common.data.chapter.book.BookPage;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
+import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.tools.books.AddBookPageTool;
 import es.eucm.eadventure.editor.control.tools.books.ChangeBookPageMarginsTool;
 import es.eucm.eadventure.editor.control.tools.books.ChangeBookPageScrollableTool;
@@ -20,7 +26,7 @@ import es.eucm.eadventure.editor.control.tools.books.MoveBookPageUpTool;
 import es.eucm.eadventure.editor.gui.assetchooser.AssetChooser;
 import es.eucm.eadventure.editor.gui.otherpanels.FormattedTextPanel;
 
-public class BookPagesListDataControl{
+public class BookPagesListDataControl extends Searchable{
 	
 	/**
 	 * List of book paragraphs.
@@ -342,5 +348,31 @@ public class BookPagesListDataControl{
 	
 	public BookPage getLastPage(){
 		return bookPagesList.get( bookPagesList.size( )-1 );
+	}
+	
+	public void recursiveSearch() {
+	    
+	    for (int i=0;i<bookPagesList.size();i++){
+		if (bookPagesList.get(i).getType()!=BookPage.TYPE_URL){
+		    JEditorPane editor = new JEditorPane();
+		    
+			File file = new File(AssetsController.getRealAssetPath(bookPagesList.get(i).getUri()));
+			if (file.exists( )){
+				try {
+				    editor.setPage( file.toURI().toURL( ) );
+				    
+				    check(editor.getDocument().getText(0, editor.getDocument().getLength()), TextConstants.getText("Search.HTMLBookPage"));
+				} catch (MalformedURLException e1) {
+					//writeFileNotFound(folder + helpPath);
+				} catch (IOException e1) {
+					//writeFileNotFound(folder + helpPath);
+				} catch (BadLocationException e) {
+				    // TODO Auto-generated catch block
+				    e.printStackTrace();
+				}
+			} 		   		    
+		}
+	    }
+	    
 	}
 }

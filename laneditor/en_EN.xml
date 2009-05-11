@@ -2473,8 +2473,8 @@ avoids retyping.</entry>
 	<entry key="Search.Path">Path</entry>
 	<entry key="Search.Description">Description</entry>
 	<entry key="Search.Flag">Flag</entry>
-	<entry key="Search.UOLPropertyID">UOL Property ID</entry>
-	<entry key="Search.UOLPropertyValue">UOL Property Value</entry>
+	<entry key="Search.LMSPropertyID">LMS Property ID</entry>
+	<entry key="Search.LMSPropertyValue">LMS Property Value</entry>
 	<entry key="Search.EMail">e-mail</entry>
 	<entry key="Search.SMTPPort">SMTP Port</entry>
 	<entry key="Search.SMTPServer">SMTP Server</entry>
@@ -2484,6 +2484,7 @@ avoids retyping.</entry>
 	<entry key="Search.EffectName">Effect Name</entry>
 	<entry key="Search.EffectConditions">Effect Conditions</entry>
 	<entry key="Search.PropertyID">Property ID</entry>
+	<entry key="Search.PropertyValue">Property Value</entry>
 	<entry key="Search.EndConditions">End Conditions</entry>
 	<entry key="Search.InitConditions">Init Conditions</entry>
 	<entry key="Search.BriefDescription">Brief Description</entry>
@@ -2508,6 +2509,8 @@ avoids retyping.</entry>
 	<entry key="Search.Conditions">Conditions</entry>
 	<entry key="Search.Var">Variable</entry>
 	<entry key="Search.CustomizedText">Customized text</entry>
+	<entry key="Search.ActionOverGameState">Action on game-state</entry>
+	<entry key="Search.HTMLBookPage">HTML book content</entry>
 	
 	<entry key="DrawPanel.ZoomIn">Zoom in</entry>
 	<entry key="DrawPanel.ZoomOut">Zoom out</entry>

@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.util.List;
 
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.tools.general.areaedition.ChangePointValueTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
@@ -166,7 +167,7 @@ public class PointDataControl extends DataControl {
 	}	
 	
 	@Override
-	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+	public List<Searchable> getPathToDataControl(Searchable dataControl) {
 		return null;
 	}
 

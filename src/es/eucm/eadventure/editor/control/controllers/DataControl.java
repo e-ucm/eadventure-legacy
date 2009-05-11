@@ -14,15 +14,9 @@ import es.eucm.eadventure.editor.data.support.VarFlagSummary;
  * 
  * @author Bruno Torijano Bueno
  */
-public abstract class DataControl implements Cloneable {
+public abstract class DataControl extends Searchable implements Cloneable {
 
-	protected static HashMap<DataControl, List<String>> resultSet = new HashMap<DataControl, List<String>>();
 	
-	protected static String searchedText;
-
-	private static boolean caseSensitive;
-
-	private static boolean fullMatch;
 	
 	/**
 	 * Link to the main controller.
@@ -243,59 +237,7 @@ public abstract class DataControl implements Cloneable {
 	 */
 	public abstract void deleteIdentifierReferences( String id );
 	
-	public HashMap<DataControl, List<String>> search(String text, boolean caseSensitive, boolean fullMatch) {
-		resultSet.clear();
-		if (caseSensitive)
-			DataControl.searchedText = text;
-		else
-			DataControl.searchedText = text.toLowerCase();
-		DataControl.caseSensitive = caseSensitive;
-		DataControl.fullMatch = fullMatch;
-		this.recursiveSearch();
-		return DataControl.resultSet;
-	}
-	
-	public abstract void recursiveSearch ();
-	
-	protected void addResult (String where) {
-		List<String> places = resultSet.get(this);
-		if (places == null) {
-			places = new ArrayList<String>();
-			resultSet.put(this, places);
-		}
-		if (!places.contains(where))
-			places.add(where);
-	}
-	
-	protected void check(String value, String desc) {
-		if (value != null) {
-			if (!fullMatch) {
-				if (!caseSensitive && value.toLowerCase().contains(searchedText))
-					addResult(desc);
-				else if (caseSensitive && value.contains(searchedText))
-					addResult(desc);
-			} else {
-				if (!caseSensitive && value.toLowerCase().equals(searchedText))
-					addResult(desc);
-				else if (caseSensitive && value.equals(searchedText));
-			}
-		}
-	}
-	
-	protected void check(ConditionsController conditions, String desc) {
-	
-		for (int i = 0; i < conditions.getBlocksCount(); i++) {
-			for (int j = 0; j < conditions.getConditionCount(i); j++) {
-				HashMap<String,String> properties = conditions.getCondition(i, j);
-				if (properties.containsKey(ConditionsController.CONDITION_ID))
-					check(properties.get(ConditionsController.CONDITION_ID), desc + " (ID)");
-				if (properties.containsKey(ConditionsController.CONDITION_STATE))
-					check(properties.get(ConditionsController.CONDITION_STATE), desc + " (" + TextConstants.getText("Search.State") + ")");
-				if (properties.containsKey(ConditionsController.CONDITION_VALUE))
-					check(properties.get(ConditionsController.CONDITION_VALUE), desc + " (" + TextConstants.getText("Search.Value") + ")");
-			}
-		}
-	}
+
 	
 	public void setJustCreated(boolean justCreated) {
 		this.justCreated = justCreated;
@@ -305,20 +247,20 @@ public abstract class DataControl implements Cloneable {
 		return justCreated;
 	}
 	
-	public List<DataControl> getPath(DataControl dataControl) {
+	public List<Searchable> getPath(Searchable dataControl) {
 		if (dataControl == this) {
-			List<DataControl> path = new ArrayList<DataControl>();
+			List<Searchable> path = new ArrayList<Searchable>();
 			path.add(this);
 			return path;
 		}
 		return getPathToDataControl(dataControl);
 	}
 	 
-	protected abstract List<DataControl> getPathToDataControl(DataControl dataControl);
+	protected abstract List<Searchable> getPathToDataControl(Searchable dataControl);
 
-	protected List<DataControl> getPathFromChild(DataControl dataControl, DataControl child) {
+	protected List<Searchable> getPathFromChild(Searchable dataControl, DataControl child) {
 		if (child != null) {
-			List<DataControl> path = child.getPath(dataControl);
+			List<Searchable> path = child.getPath(dataControl);
 			if (path != null) {
 				path.add(this);
 				return path;
@@ -328,9 +270,9 @@ public abstract class DataControl implements Cloneable {
 	}
 	
 	@SuppressWarnings("unchecked")
-	protected List<DataControl> getPathFromChild(DataControl dataControl, List list) {
+	protected List<Searchable> getPathFromChild(Searchable dataControl, List list) {
 		for (Object temp : list) {
-			List<DataControl> path = ((DataControl) temp).getPath(dataControl);
+			List<Searchable> path = ((DataControl) temp).getPath(dataControl);
 			if (path != null) {
 				path.add(this);
 				return path;

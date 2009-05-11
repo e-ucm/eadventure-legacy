@@ -5,6 +5,7 @@ import java.util.List;
 import es.eucm.eadventure.common.data.animation.Transition;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.tools.animation.ChangeTimeTool;
 import es.eucm.eadventure.editor.control.tools.animation.ChangeTransitionTypeTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
@@ -141,7 +142,7 @@ public class TransitionDataControl extends DataControl {
 	}
 
 	@Override
-	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+	public List<Searchable> getPathToDataControl(Searchable dataControl) {
 		return null;
 	}
 }

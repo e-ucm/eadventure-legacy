@@ -23,6 +23,7 @@ import javax.swing.table.AbstractTableModel;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.macro.MacroDataControl;
 import es.eucm.eadventure.editor.control.controllers.macro.MacroListDataControl;
 import es.eucm.eadventure.editor.control.tools.macro.AddMacroTool;
@@ -181,7 +182,7 @@ public class MacrosListPanel extends JPanel implements DataControlsPanel, Update
 		((AbstractTableModel) table.getModel()).fireTableDataChanged();
 	}
 
-	public void setSelectedItem(List<DataControl> path) {
+	public void setSelectedItem(List<Searchable> path) {
 		if (path.size() > 0) {
 			for (int i = 0 ; i < dataControl.getMacros().size(); i++) {
 				if (dataControl.getMacros().get(i) == path.get(path.size() -1))

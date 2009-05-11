@@ -10,6 +10,7 @@ import es.eucm.eadventure.common.data.animation.Transition;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.tools.animation.AddNewFrameTool;
 import es.eucm.eadventure.editor.control.tools.animation.ChangeSlidesTool;
 import es.eucm.eadventure.editor.control.tools.animation.ChangeUseTransitionsTool;
@@ -285,8 +286,8 @@ public class AnimationDataControl extends DataControl {
 	}
 
 	@Override
-	public List<DataControl> getPathToDataControl(DataControl dataControl) {
-		List<DataControl> path = getPathFromChild(dataControl, frameDataControls);
+	public List<Searchable> getPathToDataControl(Searchable dataControl) {
+		List<Searchable> path = getPathFromChild(dataControl, frameDataControls);
 		if (path != null) return path;
 		path = getPathFromChild(dataControl, transitionDataControls);
 		return path;

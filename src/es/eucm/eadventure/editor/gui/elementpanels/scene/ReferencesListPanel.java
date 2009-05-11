@@ -30,6 +30,7 @@ import es.eucm.eadventure.common.data.chapter.Trajectory;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementContainer;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.NodeDataControl;
@@ -408,7 +409,7 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel,Upd
 		}
 	}
 	
-	public void setSelectedItem(List<DataControl> path) {
+	public void setSelectedItem(List<Searchable> path) {
 		if (path.size() > 0) {
 			for (int i = 0 ; i < referencesListDataControl.getAllReferencesDataControl().size(); i++) {
 				if (referencesListDataControl.getAllReferencesDataControl().get(i).getErdc() == path.get(path.size() -1))

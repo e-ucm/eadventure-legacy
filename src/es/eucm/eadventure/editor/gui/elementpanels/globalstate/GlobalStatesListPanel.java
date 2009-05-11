@@ -23,6 +23,7 @@ import javax.swing.table.AbstractTableModel;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.globalstate.GlobalStateDataControl;
 import es.eucm.eadventure.editor.control.controllers.globalstate.GlobalStateListDataControl;
 import es.eucm.eadventure.editor.control.tools.globalstate.AddGlobalStateTool;
@@ -182,7 +183,7 @@ public class GlobalStatesListPanel extends JPanel implements DataControlsPanel, 
 		((AbstractTableModel) table.getModel()).fireTableDataChanged();
 	}
 
-	public void setSelectedItem(List<DataControl> path) {
+	public void setSelectedItem(List<Searchable> path) {
 		if (path.size() > 0) {
 			for (int i = 0 ; i < dataControl.getGlobalStates().size(); i++) {
 				if (dataControl.getGlobalStates().get(i) == path.get(path.size() -1))

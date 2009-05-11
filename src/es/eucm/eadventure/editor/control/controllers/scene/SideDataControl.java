@@ -4,6 +4,7 @@ import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.Trajectory.Side;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class SideDataControl extends DataControl {
@@ -170,7 +171,7 @@ public class SideDataControl extends DataControl {
 	}
 
 	@Override
-	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+	public List<Searchable> getPathToDataControl(Searchable dataControl) {
 		return null;
 	}
 

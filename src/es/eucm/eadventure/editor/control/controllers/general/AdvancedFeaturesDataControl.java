@@ -3,6 +3,7 @@ package es.eucm.eadventure.editor.control.controllers.general;
 import java.util.List;
 
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.globalstate.GlobalStateListDataControl;
 import es.eucm.eadventure.editor.control.controllers.macro.MacroListDataControl;
 import es.eucm.eadventure.editor.control.controllers.timer.TimersListDataControl;
@@ -197,8 +198,8 @@ public class AdvancedFeaturesDataControl extends DataControl {
 	}
 	
 	@Override
-	public List<DataControl> getPathToDataControl(DataControl dataControl) {
-		List<DataControl> path = getPathFromChild(dataControl, globalStatesListDataControl);
+	public List<Searchable> getPathToDataControl(Searchable dataControl) {
+		List<Searchable> path = getPathFromChild(dataControl, globalStatesListDataControl);
 		if (path != null) return path;
 		path = getPathFromChild(dataControl, timersListDataControl);
 		if (path != null) return path;

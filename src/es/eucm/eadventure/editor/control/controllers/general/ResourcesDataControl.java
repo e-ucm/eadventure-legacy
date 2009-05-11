@@ -10,6 +10,7 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.tools.general.assets.DeleteAssetReferencesInResources;
 import es.eucm.eadventure.editor.control.tools.general.assets.DeleteResourceTool;
 import es.eucm.eadventure.editor.control.tools.general.assets.EditResourceTool;
@@ -432,7 +433,7 @@ public class ResourcesDataControl extends DataControl {
 	}
 
 	@Override
-	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+	public List<Searchable> getPathToDataControl(Searchable dataControl) {
 		return null;
 	}
 

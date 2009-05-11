@@ -26,6 +26,7 @@ import es.eucm.eadventure.common.gui.TextConstants;
 
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfileDataControl;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationRuleDataControl;
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
@@ -285,7 +286,7 @@ public class AdaptationEditionPanel extends JPanel implements Updateable,DataCon
     }
 
     @Override
-    public void setSelectedItem(List<DataControl> path) {
+    public void setSelectedItem(List<Searchable> path) {
 	if (path.size() > 0) {
 	    for (int i = 0 ; i < dataControl.getDataControls().size(); i++) {
 			if (dataControl.getDataControls().get(i) == path.get(path.size() -1))
