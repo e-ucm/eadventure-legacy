@@ -96,7 +96,7 @@ public class MenuPanel extends JPanel {
 		add(linkToButton);
 		linkToButton.setEnabled(conversationDataControl.canLinkNode( conversationPanel.getSelectedNode() ));
 		add(deleteLinkButton);
-		deleteLinkButton.setEnabled(!conversationDataControl.canLinkNode( conversationPanel.getSelectedNode()));
+		deleteLinkButton.setEnabled(conversationDataControl.canDeleteLink( conversationPanel.getSelectedNode()));
 		setSize(200, 100);
 	}
 
@@ -124,7 +124,7 @@ public class MenuPanel extends JPanel {
 			this.addDialogButton.setEnabled(conversationDataControl.canAddChild( conversationPanel.getSelectedNode(), ConversationNode.DIALOGUE ));
 			this.addOptionButton.setEnabled(conversationDataControl.canAddChild( conversationPanel.getSelectedNode(), ConversationNode.OPTION ));
 			this.linkToButton.setEnabled(conversationDataControl.canLinkNode( conversationPanel.getSelectedNode()));
-			this.deleteLinkButton.setEnabled(!conversationDataControl.canLinkNode( conversationPanel.getSelectedNode()));
+			this.deleteLinkButton.setEnabled(conversationDataControl.canDeleteLink( conversationPanel.getSelectedNode()));
 		}
 	}
 
@@ -168,7 +168,7 @@ public class MenuPanel extends JPanel {
 				addDialogButton.setEnabled( conversationDataControl.canAddChild( conversationPanel.getSelectedNode(), ConversationNode.DIALOGUE ) );
 				addOptionButton.setEnabled( conversationDataControl.canAddChild( conversationPanel.getSelectedNode(), ConversationNode.OPTION ) );
 				linkToButton.setEnabled(conversationDataControl.canLinkNode( conversationPanel.getSelectedNode()));
-				deleteLinkButton.setEnabled(!conversationDataControl.canLinkNode( conversationPanel.getSelectedNode()));
+				deleteLinkButton.setEnabled(conversationDataControl.canDeleteLink( conversationPanel.getSelectedNode()));
 			}
 		}
 	}

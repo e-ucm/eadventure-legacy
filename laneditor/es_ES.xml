@@ -1798,9 +1798,16 @@ Si no las cambia, el juego empleará las flechas por defecto.</entry>
 	<entry key="AssessmentProfile.Feedback.ShowReportAtEnd">Mostrar informe de evaluación al final del capítulo</entry>
 	<entry key="AssessmentProfile.Feedback.SendByEmail">Enviar por e-mail: </entry>
 	<entry key="AssessmentProfile.Feedback.EditSMTPConfiguration">Editar configuración SMTP</entry>
+	<entry key="AssessmentProfile.Empty">Ninguna propiedad seleccionada</entry>
 
 	<entry key="AssessmentProfiles.Title">Perfiles de evaluación</entry>
 	<entry key="AssessmentProfiles.Information">Esta sección del árbol permite la creación y modificación de los perfiles de evaluación. Para activar uno de los perfiles, emplee el selector en la pantalla de edición de las propiedades generales del capítulo.</entry>
+	
+	<entry key="AssessmentProperties.MoveUp">Mover propiedad seleccionada hacia arriba</entry>
+	<entry key="AssessmentProperties.MoveDown">Mover propiedad seleccionada hacia abajo</entry>
+	<entry key="AssessmentProperties.InsertProperty">Añadir nueva propiedad</entry>
+	<entry key="AssessmentProperties.DeleteProperty">Eliminar propiedad seleccionada</entry>
+	
 	
 	<entry key="AdaptationProfile.Title">Perfil de adaptación</entry>
 	<entry key="AdaptationProfile.TypeDialog.Title">Seleccione el tipo de perfil.</entry>

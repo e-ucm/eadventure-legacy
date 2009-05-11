@@ -153,6 +153,24 @@ public class GraphConversationDataControl extends ConversationDataControl {
 	}
 
 	@Override
+	public boolean canDeleteLink( ConversationNodeView nodeView ) {
+		boolean canLinkNode = false;
+
+		// The node must not be the root
+		if( nodeView != graphConversation.getRootNode( ) ) {
+			// A dialogue node only can link it it is terminal
+			if( nodeView.getType( ) == ConversationNode.DIALOGUE && nodeView.isTerminal( ) )
+				canLinkNode = true;
+
+			// An option node can always link to another node
+			if( nodeView.getType( ) == ConversationNode.OPTION )
+				canLinkNode = true;
+		}
+
+		return !canLinkNode && this.getAllNodesViews().size() > 1;
+	}
+
+	@Override
 	public boolean canLinkNodeTo( ConversationNodeView fatherView, ConversationNodeView childView ) {
 		boolean canLinkNodeTo = false;
 
