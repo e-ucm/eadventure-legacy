@@ -8,6 +8,7 @@ import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
+import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
 import es.eucm.eadventure.editor.control.tools.animation.ChangeImageURITool;
 import es.eucm.eadventure.editor.control.tools.animation.ChangeSoundUriTool;
@@ -174,7 +175,7 @@ public class FrameDataControl extends DataControlWithResources {
 	}
 
 	@Override
-	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+	public List<Searchable> getPathToDataControl(Searchable dataControl) {
 		return getPathFromChild(dataControl, resourcesDataControlList);
 	}
 

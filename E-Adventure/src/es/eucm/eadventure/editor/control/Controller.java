@@ -522,7 +522,7 @@ public class Controller {
 		return ReleaseFolders.exportsFolder().getAbsolutePath( );
 	}
 	
-	private String getCurrentLoadFolder(){
+	public String getCurrentLoadFolder(){
 		return ReleaseFolders.projectsFolder( ).getAbsolutePath( );
 	}
 	

@@ -2476,8 +2476,8 @@ ya que de esta manera se evita reescribirlos varias veces.</entry>
 	<entry key="Search.Path">Ubicación</entry>
 	<entry key="Search.Description">Descripción</entry>
 	<entry key="Search.Flag">Flag</entry>
-	<entry key="Search.UOLPropertyID">ID de propiedad UOL</entry>
-	<entry key="Search.UOLPropertyValue">Valor de propiedad UOL</entry>
+	<entry key="Search.LMSPropertyID">ID de propiedad del LMS</entry>
+	<entry key="Search.LMSPropertyValue">Valor de propiedad del LMS</entry>
 	<entry key="Search.EMail">e-mail</entry>
 	<entry key="Search.SMTPPort">SMTP Port</entry>
 	<entry key="Search.SMTPPwd">SMTP Pwd</entry>
@@ -2488,6 +2488,7 @@ ya que de esta manera se evita reescribirlos varias veces.</entry>
 	<entry key="Search.EffectName">Nombre del efecto</entry>
 	<entry key="Search.EffectConditions">Condiciones del efecto</entry>
 	<entry key="Search.PropertyID">ID de la propiedad</entry>
+	<entry key="Search.PropertyValue">Valor de la propiedad</entry>
 	<entry key="Search.EndConditions">Condiciones finales</entry>
 	<entry key="Search.InitConditions">Condiciones iniciales</entry>
 	<entry key="Search.BriefDescription">Descripción breve</entry>
@@ -2512,6 +2513,8 @@ ya que de esta manera se evita reescribirlos varias veces.</entry>
 	<entry key="Search.Conditions">Condiciones</entry>
 	<entry key="Search.Var">Variable</entry>
 	<entry key="Search.CustomizedText">Texto personalizado</entry>
+	<entry key="Search.ActionOverGameState">Acción sobre el estado del juego</entry>
+	<entry key="Search.HTMLBookPage">Contenido de libro html</entry>
 
 	<entry key="DrawPanel.ZoomIn">Más zoom</entry>
 	<entry key="DrawPanel.ZoomOut">Menos zoom</entry>

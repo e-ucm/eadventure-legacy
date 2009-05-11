@@ -24,6 +24,7 @@ import es.eucm.eadventure.common.data.chapter.Trajectory;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.scene.ActiveAreaDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.BarrierDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.BarriersListDataControl;
@@ -240,7 +241,7 @@ public class BarriersListPanel extends JPanel implements Updateable, DataControl
 		return true;
 	}
 	
-	public void setSelectedItem(List<DataControl> path) {
+	public void setSelectedItem(List<Searchable> path) {
 		if (path.size() > 0) {
 			for (int i = 0 ; i < dataControl.getBarriers().size(); i++) {
 				if (dataControl.getBarriers().get(i) == path.get(path.size() -1))

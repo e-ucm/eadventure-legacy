@@ -12,6 +12,7 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
+import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.general.ActionsListDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
 import es.eucm.eadventure.editor.control.tools.general.assets.AddResourcesBlockTool;
@@ -478,8 +479,8 @@ public class NPCDataControl extends DataControlWithResources {
 	}
 
 	@Override
-	public List<DataControl> getPathToDataControl(DataControl dataControl) {
-		List<DataControl> path = getPathFromChild(dataControl, resourcesDataControlList);
+	public List<Searchable> getPathToDataControl(Searchable dataControl) {
+		List<Searchable> path = getPathFromChild(dataControl, resourcesDataControlList);
 		if (path != null) return path;
 		return getPathFromChild(dataControl, actionsListDataControl);
 	}

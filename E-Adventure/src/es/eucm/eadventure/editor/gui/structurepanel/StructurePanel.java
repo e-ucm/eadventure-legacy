@@ -34,6 +34,7 @@ import javax.swing.table.TableModel;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.general.ChapterDataControl;
 import es.eucm.eadventure.editor.control.tools.structurepanel.AddElementTool;
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
@@ -449,7 +450,7 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
 	}
 
 	
-	public void setSelectedItem(List<DataControl> path) {
+	public void setSelectedItem(List<Searchable> path) {
 		boolean element = true;
 		while (path.size() > 0 && element) {
 			element = false;

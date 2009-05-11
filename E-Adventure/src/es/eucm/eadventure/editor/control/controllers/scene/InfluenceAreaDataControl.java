@@ -4,6 +4,7 @@ import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.InfluenceArea;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.tools.general.ChangeRectangleValueTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
@@ -228,7 +229,7 @@ public class InfluenceAreaDataControl extends DataControl {
 	}
 
 	@Override
-	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+	public List<Searchable> getPathToDataControl(Searchable dataControl) {
 		return null;
 	}
 

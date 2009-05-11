@@ -13,6 +13,7 @@ import es.eucm.eadventure.common.data.chapter.effects.TriggerConversationEffect;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.character.NPCDataControl;
 import es.eucm.eadventure.editor.control.controllers.item.ItemDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ActiveAreaDataControl;
@@ -441,7 +442,7 @@ public class ActionsListDataControl extends DataControl {
 	}
 	
 	@Override
-	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+	public List<Searchable> getPathToDataControl(Searchable dataControl) {
 		return getPathFromChild(dataControl, actionsDataControlList);
 	}
 

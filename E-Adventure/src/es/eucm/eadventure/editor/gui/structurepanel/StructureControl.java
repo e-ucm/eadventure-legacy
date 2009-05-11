@@ -5,6 +5,7 @@ import java.util.List;
 
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.Searchable;
 
 public class StructureControl {
 
@@ -40,9 +41,9 @@ public class StructureControl {
 	}
 	
 		
-	public void changeDataControl(DataControl dataControl) {
+	public void changeDataControl(Searchable dataControl) {
 		if (dataControl!=null){
-	    	List<DataControl> path = Controller.getInstance().getSelectedChapterDataControl().getPath(dataControl);
+	    	List<Searchable> path = Controller.getInstance().getSelectedChapterDataControl().getPath(dataControl);
 		if (path != null) {
 			structurePanel.setSelectedItem(path);
 		}

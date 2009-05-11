@@ -8,6 +8,7 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
+import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.tools.general.ChangeNSDestinyPositionTool;
 import es.eucm.eadventure.editor.control.tools.general.ChangeTransitionTimeTool;
 import es.eucm.eadventure.editor.control.tools.general.ChangeTransitionTypeTool;
@@ -319,7 +320,7 @@ public class NextSceneDataControl extends DataControl {
 	}
 	
 	@Override
-	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+	public List<Searchable> getPathToDataControl(Searchable dataControl) {
 		return null;
 	}
 

@@ -1344,6 +1344,32 @@ public class AssetsController {
     public static InputStreamCreator getInputStreamCreator (String absolutePath){
     	return new InputStreamCreatorEditor(absolutePath);
     }
+    
+    /**
+     * Returns real path like URL type
+     * @param assestPath
+     * @return
+     */
+    public static String getRealAssetPath(String assestPath){
+	/*String[] parts = Controller.getInstance().getCurrentLoadFolder().split("\\\\");
+	String realPath= new String();
+	for (int i=1;i<parts.length;i++){
+	    if (!parts[i].equals(".."))
+	    realPath += parts[i]+"/";
+	}
+	return realPath+assestPath;
+	  */  
+	
+	String[] parts = Controller.getInstance().getCurrentLoadFolder().split("\\\\");
+	String realPath= new String();
+	for (int i=1;i<parts.length;i++){
+	    if (!parts[i].equals(".."))
+	    realPath += parts[i]+"/";
+	}
+	return realPath+assestPath;
+	    
+	    
+    }
 
 
 }

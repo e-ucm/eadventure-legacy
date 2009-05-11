@@ -15,6 +15,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
 import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.structurepanel.StructureControl;
@@ -85,7 +86,7 @@ public class ElementPanel extends JTabbedPane implements Updateable, DataControl
 		return true;
 	}
 
-	public void setSelectedItem(List<DataControl> path) {
+	public void setSelectedItem(List<Searchable> path) {
 		if (path.size() > 0) {
 			for (int i = 0; i < tabs.size(); i++) {
 				if (tabs.get(i).getDataControl() == path.get(path.size() - 1)) {

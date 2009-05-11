@@ -26,6 +26,7 @@ import javax.swing.table.AbstractTableModel;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.general.ActionDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ActionsListDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.CustomActionDataControl;
@@ -265,7 +266,7 @@ public class ActionsListPanel extends JPanel implements DataControlsPanel,Update
 		table.editCellAt(selectedRow + 1, 0);
 	}
 
-	public void setSelectedItem(List<DataControl> path) {
+	public void setSelectedItem(List<Searchable> path) {
 		if (path.size() > 0) {
 			for (int i = 0 ; i < dataControl.getActions().size(); i++) {
 				if (dataControl.getActions().get(i) == path.get(path.size() -1))

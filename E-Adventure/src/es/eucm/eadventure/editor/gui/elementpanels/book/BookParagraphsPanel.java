@@ -26,6 +26,7 @@ import javax.swing.event.ListSelectionListener;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.book.BookDataControl;
 import es.eucm.eadventure.editor.control.controllers.book.BookParagraphDataControl;
 import es.eucm.eadventure.editor.control.tools.books.AddParagraphElementTool;
@@ -339,7 +340,7 @@ public class BookParagraphsPanel extends JPanel implements DataControlsPanel {
 		}
 	}
 
-	public void setSelectedItem(List<DataControl> path) {
+	public void setSelectedItem(List<Searchable> path) {
 		if (path.size() > 0) {
 			for (int i = 0 ; i < dataControl.getBookParagraphsList().getBookParagraphs().size(); i++) {
 				if (dataControl.getBookParagraphsList().getBookParagraphs().get(i) == path.get(path.size() - 1))

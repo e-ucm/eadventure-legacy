@@ -8,6 +8,7 @@ import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeNameTool;
 
 public class CustomActionDataControl extends ActionDataControl {
@@ -69,7 +70,7 @@ public class CustomActionDataControl extends ActionDataControl {
 	}
 
 	@Override
-	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+	public List<Searchable> getPathToDataControl(Searchable dataControl) {
 		return getPathFromChild(dataControl, resourcesDataControlList);
 	}
 

@@ -25,6 +25,7 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.NormalScenePreviewEditionController;
+import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.scene.ActiveAreaDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ActiveAreasListDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.BarrierDataControl;
@@ -272,7 +273,7 @@ public class ActiveAreasListPanel extends JPanel implements DataControlsPanel, D
 		previewAuxSplit.setDividerLocation(Integer.MAX_VALUE);
 	}
 	
-	public void setSelectedItem(List<DataControl> path) {
+	public void setSelectedItem(List<Searchable> path) {
 		if (path.size() > 0) {
 			for (int i = 0 ; i < dataControl.getActiveAreas().size(); i++) {
 				if (dataControl.getActiveAreas().get(i) == path.get(path.size() -1))

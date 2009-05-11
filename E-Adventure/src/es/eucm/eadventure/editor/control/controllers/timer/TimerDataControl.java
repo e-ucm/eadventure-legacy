@@ -9,6 +9,7 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
+import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController.ConditionContextProperty;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController.ConditionCustomMessage;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController.ConditionOwner;
@@ -362,7 +363,7 @@ public class TimerDataControl extends DataControl {
 	}
 	
 	@Override
-	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+	public List<Searchable> getPathToDataControl(Searchable dataControl) {
 		return null;
 	}
 

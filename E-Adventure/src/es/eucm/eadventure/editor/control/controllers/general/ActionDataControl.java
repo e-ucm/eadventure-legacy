@@ -12,6 +12,7 @@ import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
+import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeDocumentationTool;
 import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeTargetIdTool;
 import es.eucm.eadventure.editor.control.tools.generic.ChangeBooleanValueTool;
@@ -393,7 +394,7 @@ public class ActionDataControl extends DataControlWithResources {
 	}
 	
 	@Override
-	public List<DataControl> getPathToDataControl(DataControl dataControl) {
+	public List<Searchable> getPathToDataControl(Searchable dataControl) {
 		return null;
 	}
 }

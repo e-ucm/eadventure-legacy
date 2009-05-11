@@ -9,6 +9,7 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
+import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
 import es.eucm.eadventure.editor.control.tools.general.assets.AddResourcesBlockTool;
 import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeDocumentationTool;
@@ -319,12 +320,14 @@ public class BookDataControl extends DataControlWithResources {
 		check(this.getId(), "ID");
 		if (this.getBookParagraphsList() != null)
 			this.getBookParagraphsList().recursiveSearch();
+		if (this.getBookPagesList() != null)
+		    this.getBookPagesList().recursiveSearch();
 		check(this.getPreviewImage(), TextConstants.getText("Search.PreviewImage"));
 	}
 	
 	@Override
-	public List<DataControl> getPathToDataControl(DataControl dataControl) {
-		List<DataControl> path = getPathFromChild(dataControl, resourcesDataControlList);
+	public List<Searchable> getPathToDataControl(Searchable dataControl) {
+		List<Searchable> path = getPathFromChild(dataControl, resourcesDataControlList);
 		if (path != null) return path;
 		return getPathFromChild(dataControl, bookParagraphsListDataControl);
 	}

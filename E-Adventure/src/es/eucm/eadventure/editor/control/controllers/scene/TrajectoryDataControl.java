@@ -9,6 +9,7 @@ import es.eucm.eadventure.common.data.chapter.Trajectory.Side;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.tools.scene.AddTrajectoryNodeTool;
 import es.eucm.eadventure.editor.control.tools.scene.AddTrajectorySideTool;
 import es.eucm.eadventure.editor.control.tools.scene.DeleteTrajectoryNodeTool;
@@ -353,8 +354,8 @@ public class TrajectoryDataControl extends DataControl {
 	}
 	
 	@Override
-	public List<DataControl> getPathToDataControl(DataControl dataControl) {
-		List<DataControl> path = getPathFromChild(dataControl, nodeDataControlList);
+	public List<Searchable> getPathToDataControl(Searchable dataControl) {
+		List<Searchable> path = getPathFromChild(dataControl, nodeDataControlList);
 		if (path != null) return path;
 		return getPathFromChild(dataControl, sideDataControlList);
 	}

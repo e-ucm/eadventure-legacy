@@ -26,6 +26,7 @@ import javax.swing.table.DefaultTableModel;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
+import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.gui.structurepanel.StructureControl;
 
 public class SearchDialog extends JDialog {
@@ -47,7 +48,7 @@ public class SearchDialog extends JDialog {
 	
 	private DefaultTableModel dtm;
 	
-	private List<DataControl> dataControls;
+	private List<Searchable> dataControls;
 	
 	public SearchDialog() {
 		controller = Controller.getInstance();
@@ -77,7 +78,7 @@ public class SearchDialog extends JDialog {
 		this.add(inputPanel, BorderLayout.NORTH);
 
 		
-		dataControls = new ArrayList<DataControl>();
+		dataControls = new ArrayList<Searchable>();
 		dtm = new DefaultTableModel();
 		dtm.setColumnCount(2);
 		String[] ids = {TextConstants.getText("Search.Where"), TextConstants.getText("Search.Places")};
@@ -131,9 +132,9 @@ public class SearchDialog extends JDialog {
 			boolean caseSensitive = this.caseSensitive.isSelected();
 			boolean fullMatch = this.fullMatch.isSelected();
 			
-			HashMap<DataControl, List<String>> result = controller.getSelectedChapterDataControl().search(text, caseSensitive, fullMatch);
+			HashMap<Searchable, List<String>> result = controller.getSelectedChapterDataControl().search(text, caseSensitive, fullMatch);
 			
-			for (DataControl dc : result.keySet()) {
+			for (Searchable dc : result.keySet()) {
 				String where = "";
 				for (String s : result.get(dc))
 					where += (s + "|");
