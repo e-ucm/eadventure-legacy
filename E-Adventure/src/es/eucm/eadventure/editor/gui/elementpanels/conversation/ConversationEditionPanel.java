@@ -94,7 +94,7 @@ public class ConversationEditionPanel extends JPanel implements Updateable, Data
 		JButton preview = new JButton(TextConstants.getText( "Conversation.OptionPreviewConversation" ));
 		preview.addActionListener( new PreviewConversationActionListener( true ) );
 		previewFromNode = new JButton(TextConstants.getText( "Conversation.OptionPreviewPartialConversation" ));
-		previewFromNode.addActionListener( new PreviewConversationActionListener( true ) );
+		previewFromNode.addActionListener( new PreviewConversationActionListener( false ) );
 		previewFromNode.setEnabled(false);
 		
 		c.gridx++;
