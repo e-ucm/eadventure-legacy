@@ -79,7 +79,7 @@ public class AdaptationRulesTable extends JTable {
 			if( columnIndex == 0 )
 				columnName = TextConstants.getText( "AdaptationRulesList.ColumnHeader0" );
 			else if( columnIndex == 1 )
-				columnName = TextConstants.getText( "AdaptationRulesList.ColumnHeader1" );
+				columnName = TextConstants.getText( "AdaptationRule.Description" );
 			else if( columnIndex == 2 )
 				columnName = TextConstants.getText( "AdaptationRule.InitialState.InitialScene" );
 			return columnName;

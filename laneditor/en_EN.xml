@@ -1839,10 +1839,15 @@ When not customized, default arrows will be used in the game.</entry>
 	
 	<entry key="AdaptationRule.InitialState.Title">Initial State</entry>
 	<entry key="AdaptationRule.InitialState.InitialScene">Initial scene (optional)</entry>
-	<entry key="AdaptationRule.InitialState.ActionFlags">Statements over flags</entry>
+	<entry key="AdaptationRule.InitialState.ActionFlags">Flags state</entry>
 	
 	<entry key="EndScene.Information">The end: when the game reaches this next scene, the chapter will end.</entry>
 	<entry key="EndScene.Title">End scene</entry>
+	
+	<entry key="UOLProperties.MoveUp">Move selected property up</entry>
+	<entry key="UOLProperties.MoveDown">Move selected property down</entry>
+	<entry key="UOLProperties.InsertProperty">Add new property</entry>
+	<entry key="UOLProperties.DeleteProperty">Delete selected property</entry>
 	
 	<entry key="LOM.Title">Learning Object Properties</entry>
 	<entry key="LOM.General.Tab">General</entry>

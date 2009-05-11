@@ -1850,6 +1850,11 @@ Si no las cambia, el juego empleará las flechas por defecto.</entry>
 	<entry key="EndScene.Information">Escena final: Cuando el juego ejecute esta transición el capítulo terminará.</entry>
 	<entry key="EndScene.Title">Escena final</entry>
 	
+	<entry key="UOLProperties.MoveUp">Mover propiedad hacia arriba</entry>
+	<entry key="UOLProperties.MoveDown">Mover propiedad hacia abajo</entry>
+	<entry key="UOLProperties.InsertProperty">Insertar nueva propiedad</entry>
+	<entry key="UOLProperties.DeleteProperty">Eliminar propiedad seleccionada</entry>
+	
 	<entry key="LOM.Title">Propiedades del Objeto de Aprendizaje (LO)</entry>
 	<entry key="LOM.General.Tab">General</entry> <!--No traducimos los nombres propios del estándar -->
 	<entry key="LOM.General.Tip">Información general del recurso</entry>
