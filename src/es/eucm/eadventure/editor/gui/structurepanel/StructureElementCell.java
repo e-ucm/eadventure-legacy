@@ -28,25 +28,55 @@ import es.eucm.eadventure.editor.control.tools.structurepanel.DuplicateElementTo
 import es.eucm.eadventure.editor.control.tools.structurepanel.RemoveElementTool;
 import es.eucm.eadventure.editor.control.tools.structurepanel.RenameElementTool;
 
+/**
+ * This class is the one that represents an element in the list of the
+ * StructurePanel.<p>
+ * 
+ * @author Eugenio Marchiori
+ *
+ */
 public class StructureElementCell extends JPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -2096132139472242178L;
 
+	/**
+	 * The value of the the element
+	 */
 	private StructureElement value;
 	
+	/**
+	 * The table where it is shown
+	 */
 	private JTable table;
 	
+	/**
+	 * Boolean indicating if the element is being renamed
+	 */
 	private boolean renaming;
 	
+	/**
+	 * Boolean indicating if the element in selected
+	 */
 	private boolean isSelected;
 	
+	/**
+	 * Filed where the name of the element is written
+	 */
 	private JTextField name;
 	
+	/**
+	 * The parent element
+	 */
 	private StructureListElement parent;
 		
+	/**
+	 * Constructur for the cell.<p>
+	 * 
+	 * @param value The value of the cell
+	 * @param table The table where the cell is
+	 * @param isSelected Boolean indicating if it is selected
+	 * @param parent The parent element
+	 */
 	public StructureElementCell(StructureElement value, JTable table, boolean isSelected, StructureListElement parent) {
 		setOpaque(true);
 		setBackground(Color.white);
@@ -75,9 +105,11 @@ public class StructureElementCell extends JPanel {
 				
 			}
 		});
-
 	}
 		
+	/**
+	 * Method to recreate the element 
+	 */
 	public void recreate() {
 		removeAll();
 
@@ -100,66 +132,21 @@ public class StructureElementCell extends JPanel {
 			c.gridx = 0;
 			c.gridy = 0;
 			if (((StructureElement) value).isCanRename()) {
-				JButton rename = new JButton(TextConstants.getText("GeneralText.Rename"));
-				
-				rename.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						renaming = true;
-						recreate();
-						repaint();
-						updateUI();
-					}
-				});
-				
-				rename.setFocusable(false);
-				c.fill = GridBagConstraints.HORIZONTAL;
-				c.weightx = 2.0f;
-				optionsPanel.add(rename, c);
-				c.gridx++;
+				addRenameButton(c, optionsPanel);
 				hasOptions = true;
 			}
 			if (((StructureElement) value).canBeDuplicated()) {
-				JButton remove = new JButton(new ImageIcon("img/icons/duplicateNode.png"));
-				remove.setContentAreaFilled( false );
-				remove.setMargin( new Insets(0,0,0,0) );
-				remove.setBorder(BorderFactory.createEmptyBorder());
-				remove.setToolTipText(TextConstants.getText("GeneralText.Duplicate"));
-				remove.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						Controller.getInstance().addTool(new DuplicateElementTool(value, table, parent));
-					}
-				});
-				
-				remove.setFocusable(false);
-				c.fill = GridBagConstraints.NONE;
-				c.weightx = 0.0f;
-				optionsPanel.add(remove, c);
-				c.gridx++;
+				addDuplicateButton(c, optionsPanel);
 				hasOptions = true;
 			}
 			if (((StructureElement) value).canBeRemoved()) {
-				JButton remove = new JButton(new ImageIcon("img/icons/deleteNode.png"));
-				remove.setContentAreaFilled( false );
-				remove.setMargin( new Insets(0,0,0,0) );
-				remove.setBorder(BorderFactory.createEmptyBorder());
-				remove.setToolTipText(TextConstants.getText("GeneralText.Delete"));
-				remove.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						Controller.getInstance().addTool(new RemoveElementTool(StructureElementCell.this.table, StructureElementCell.this.value));
-					}
-				});
-				
-				remove.setFocusable(false);
-				c.fill = GridBagConstraints.NONE;
-				c.weightx = 0.0f;
-				optionsPanel.add(remove, c);
+				addRemoveButton(c, optionsPanel);
 				hasOptions = true;
 			}
 			if (hasOptions)
 				add(optionsPanel);
 			this.setMinimumSize(new Dimension(this.getWidth(), 60));
 		} else if (isSelected && (renaming || ((StructureElement) value).isJustCreated())) {
-//			JLabel label = new JLabel(((StructureElement) value).getName(), SwingConstants.CENTER);
 			name = new JTextField(((StructureElement) value).getName());
 			name.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
@@ -168,45 +155,19 @@ public class StructureElementCell extends JPanel {
 			});
 			name.addFocusListener(new FocusListener() {
 				public void focusGained(FocusEvent arg0) {
-					// TODO Auto-generated method stub
-					
+					// Do nothing
 				}
 				public void focusLost(FocusEvent arg0) {
 					cancelRename();
 				}
 			});
-//			label.setFont(label.getFont().deriveFont(Font.BOLD));
 			add(name);
 			name.requestFocusInWindow();
 			setBorder(BorderFactory.createLineBorder(Color.blue, 2));
 			
-			
-			
-			JPanel optionsPanel = new JPanel();
-			optionsPanel.setLayout(new GridLayout(1,0));
-			optionsPanel.setBackground(Color.WHITE);
-
-			JButton rename = new JButton(TextConstants.getText("GeneralText.OK"));
-			
-			rename.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					acceptRename();
-				}
-			});
-			rename.setFocusable(false);
-			optionsPanel.add(rename);
-
-			JButton cancel = new JButton(TextConstants.getText("GeneralText.Cancel"));
-				
-			cancel.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent arg0) {
-					cancelRename();
-				}
-			});
-		
-			cancel.setFocusable(false);
-				optionsPanel.add(cancel);
+			JPanel optionsPanel = createOKCancelButtons();
 			add(optionsPanel);
+
 			this.setMinimumSize(new Dimension(this.getWidth(), 60));
 		} else {
 			renaming = false;
@@ -222,6 +183,115 @@ public class StructureElementCell extends JPanel {
 
 	}
 	
+	/**
+	 * Create a panel with the OK and Cancel buttons for the changes in the name
+	 * of the element.<p>
+	 * 
+	 * @return
+	 */
+	private JPanel createOKCancelButtons() {
+		JPanel optionsPanel = new JPanel();
+		optionsPanel.setLayout(new GridLayout(1,0));
+		optionsPanel.setBackground(Color.WHITE);
+
+		JButton rename = new JButton(TextConstants.getText("GeneralText.OK"));
+		rename.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				acceptRename();
+			}
+		});
+		rename.setFocusable(false);
+		optionsPanel.add(rename);
+
+		JButton cancel = new JButton(TextConstants.getText("GeneralText.Cancel"));
+		cancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				cancelRename();
+			}
+		});
+	
+		cancel.setFocusable(false);
+			optionsPanel.add(cancel);
+		return optionsPanel;
+	}
+
+	/**
+	 * Add the rename button to the cell
+	 * 
+	 * @param c The constraints for the elemetns in the cell
+	 * @param optionsPanel The panel where the button goes
+	 */
+	private void addRemoveButton(GridBagConstraints c, JPanel optionsPanel) {
+		JButton remove = new JButton(new ImageIcon("img/icons/deleteNode.png"));
+		remove.setContentAreaFilled( false );
+		remove.setMargin( new Insets(0,0,0,0) );
+		remove.setBorder(BorderFactory.createEmptyBorder());
+		remove.setToolTipText(TextConstants.getText("GeneralText.Delete"));
+		remove.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Controller.getInstance().addTool(new RemoveElementTool(table, value));
+			}
+		});
+		
+		remove.setFocusable(false);
+		c.fill = GridBagConstraints.NONE;
+		c.weightx = 0.0f;
+		optionsPanel.add(remove, c);
+	}
+
+	/**
+	 * Add the duplicate button to the cell
+	 * 
+	 * @param c The constraints for the elements in the cell
+	 * @param optionsPanel The panel where the button goes
+	 */
+	private void addDuplicateButton(GridBagConstraints c, JPanel optionsPanel) {
+		JButton remove = new JButton(new ImageIcon("img/icons/duplicateNode.png"));
+		remove.setContentAreaFilled( false );
+		remove.setMargin( new Insets(0,0,0,0) );
+		remove.setBorder(BorderFactory.createEmptyBorder());
+		remove.setToolTipText(TextConstants.getText("GeneralText.Duplicate"));
+		remove.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Controller.getInstance().addTool(new DuplicateElementTool(value, table, parent));
+			}
+		});
+		
+		remove.setFocusable(false);
+		c.fill = GridBagConstraints.NONE;
+		c.weightx = 0.0f;
+		optionsPanel.add(remove, c);
+		c.gridx++;
+	}
+
+	/**
+	 * Add the rename button to the cell
+	 * 
+	 * @param c The constraints for the elements in the cell
+	 * @param optionsPanel The panel where the button goes
+	 */
+	private void addRenameButton(GridBagConstraints c, JPanel optionsPanel) {
+		JButton rename = new JButton(TextConstants.getText("GeneralText.Rename"));
+		
+		rename.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				renaming = true;
+				recreate();
+				repaint();
+				updateUI();
+			}
+		});
+		
+		rename.setFocusable(false);
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.weightx = 2.0f;
+		optionsPanel.add(rename, c);
+		c.gridx++;
+	}
+
+	/**
+	 * Accept the changes to the name and rename the element
+	 */
 	private void acceptRename() {
 		Controller.getInstance().addTool(new RenameElementTool(StructureElementCell.this.value.getDataControl(), name.getText()));				
 		((StructureElement) value).setJustCreated(false);		
@@ -231,6 +301,9 @@ public class StructureElementCell extends JPanel {
 		updateUI();
 	}
 	
+	/**
+	 * Cancel the changes to the name and keep the old element name
+	 */
 	private void cancelRename() {
 		renaming = false;
 		recreate();
@@ -244,6 +317,9 @@ public class StructureElementCell extends JPanel {
 		}
 	}
 	
+	/**
+	 * @return The value of the element
+	 */
 	public Object getValue() {
 		return value;
 	}
