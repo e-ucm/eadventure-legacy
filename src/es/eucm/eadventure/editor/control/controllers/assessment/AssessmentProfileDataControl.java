@@ -114,7 +114,7 @@ public class AssessmentProfileDataControl extends DataControl{
 		// Do nothing
 	}
 
-	@Override
+	
 	public void deleteAssetReferences( String assetPath ) {
 		
 	}
@@ -126,7 +126,8 @@ public class AssessmentProfileDataControl extends DataControl{
 	try {
 	    	AssessmentRule newRule = (AssessmentRule)(((AssessmentRule) (dataControl.getContent())).clone());
 	    	dataControls.add(new AssessmentRuleDataControl(newRule));
-		return true;
+	    	controller.getIdentifierSummary( ).addAssessmentRuleId( newRule.getId() );
+	    	return true;
 	} catch (CloneNotSupportedException e) {
 		ReportDialog.GenerateErrorReport(e, true, "Could not clone action");	
 		return false;
@@ -405,8 +406,13 @@ public class AssessmentProfileDataControl extends DataControl{
 	/**
 	 * @param dataControls the dataControls to set
 	 */
-	public void setDataControls(List<AssessmentRuleDataControl> dataControls) {
+	public void setDataControlsAndData(List<AssessmentRuleDataControl> dataControls) {
 	    this.dataControls = dataControls;
+	    ArrayList<AssessmentRule> rules = new ArrayList<AssessmentRule>();
+	    for (AssessmentRuleDataControl dataControl:dataControls)
+		rules.add((AssessmentRule)dataControl.getContent());
+	    
+	    this.profile.setRules(rules);
 	}
 
 }

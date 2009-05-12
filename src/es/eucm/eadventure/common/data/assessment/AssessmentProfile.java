@@ -137,6 +137,13 @@ public class AssessmentProfile implements Cloneable {
 	public void addRule ( AssessmentRule rule ){
 		this.rules.add(rule);
 	}
+	
+	/**
+	 * Adds a new rule to the structure in the given position
+	 */
+	public void addRule ( AssessmentRule rule , int index){
+		this.rules.add(index,rule);
+	}
 
 	/**
 	 * Set all the rules
