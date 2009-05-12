@@ -116,7 +116,7 @@ public class AssessmentEngine implements TimerEventListener {
 			//assessmentProfile = Loader.loadAssessmentProfile(ResourceHandler
 			//		.getInstance(), assessmentPath, new ArrayList<Incidence>());
 			assessmentProfile = profile;
-	    		assessmentRules = assessmentProfile.getRules();
+    		assessmentRules = new ArrayList<AssessmentRule>(assessmentProfile.getRules());
 
 			FlagSummary flags = Game.getInstance().getFlags();
 			VarSummary vars = Game.getInstance().getVars();

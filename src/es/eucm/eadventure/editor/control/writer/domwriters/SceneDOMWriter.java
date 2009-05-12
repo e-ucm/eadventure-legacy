@@ -186,6 +186,11 @@ public class SceneDOMWriter {
 						}
 					}
 					
+					if (exit.getConditions() != null && !exit.getConditions().isEmpty()) {
+						Node conditionsNode = ConditionsDOMWriter.buildDOM( exit.getConditions());
+						doc.adoptNode(conditionsNode);
+						exitElement.appendChild(conditionsNode);
+					}
 					
 					if (exit.getEffects() != null && !exit.getEffects().isEmpty()) {
 						Node effectsNode = EffectsDOMWriter.buildDOM( EffectsDOMWriter.EFFECTS, exit.getEffects( ) );
