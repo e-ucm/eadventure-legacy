@@ -32,6 +32,8 @@ import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfil
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationRuleDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
 import es.eucm.eadventure.editor.control.tools.adaptation.AddRuleTool;
+import es.eucm.eadventure.editor.control.tools.adaptation.DeleteRuleTool;
+import es.eucm.eadventure.editor.control.tools.adaptation.DuplicateRuleTool;
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
 import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
@@ -213,7 +215,7 @@ public class AdaptationEditionPanel extends JPanel implements Updateable,DataCon
 		duplicate.setToolTipText( TextConstants.getText( "AdaptationProfile.Duplicate" ) );
 		duplicate.addActionListener(new ActionListener(){
 			public void actionPerformed( ActionEvent e ) {
-			    if (dataControl.duplicateElement(dataControl.getAdaptationRules().get(informationTable.getSelectedRow()))) {
+			    if (Controller.getInstance().addTool(new DuplicateRuleTool(dataControl,Controller.ADAPTATION_RULE,informationTable.getSelectedRow()))) {
 				    ((AdaptationRulesTable) informationTable).fireTableDataChanged();
 					   informationTable.changeSelection(dataControl.getAdaptationRules().size() - 1, 0, false, false);
 				}
@@ -230,7 +232,7 @@ public class AdaptationEditionPanel extends JPanel implements Updateable,DataCon
 		delete.setEnabled(false);
 		delete.addActionListener(new ActionListener(){
 		    public void actionPerformed(ActionEvent e) {
-				if (dataControl.canBeDeleted()&&dataControl.deleteElement(dataControl.getAdaptationRules().get(informationTable.getSelectedRow()), false)){
+				if (Controller.getInstance().addTool(new DeleteRuleTool(dataControl,Controller.ADAPTATION_RULE,informationTable.getSelectedRow()))){
 				   ((AdaptationRulesTable) informationTable).fireTableDataChanged();
 				   informationTable.clearSelection( );
 				}

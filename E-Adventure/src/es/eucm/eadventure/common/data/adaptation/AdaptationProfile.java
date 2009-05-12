@@ -133,6 +133,13 @@ public class AdaptationProfile  implements Cloneable, ContainsAdaptedState{
 	public void addRule ( AdaptationRule rule ){
 		this.rules.add(rule);
 	}
+	
+	/**
+	 * Adds a new rule to the structure
+	 */
+	public void addRule ( AdaptationRule rule, int index ){
+		this.rules.add(index ,rule);
+	}
 
 	/**
 	 * @return the initialState
@@ -338,6 +345,13 @@ public class AdaptationProfile  implements Cloneable, ContainsAdaptedState{
 	 */
 	public AdaptedState getInitialState() {
 	    return initialState;
+	}
+
+	/**
+	 * @param rules the rules to set
+	 */
+	public void setRules(List<AdaptationRule> rules) {
+	    this.rules = rules;
 	}
 	
 

@@ -268,7 +268,8 @@ public class AdaptationProfileDataControl extends DataControl{
 	try {
 	    	AdaptationRule newRule = (AdaptationRule)(((AdaptationRule) (dataControl.getContent())).clone());
 	    	dataControls.add(new AdaptationRuleDataControl(newRule));
-		return true;
+	    	controller.getIdentifierSummary( ).addAdaptationRuleId( newRule.getId() );
+	    	return true;
 	} catch (CloneNotSupportedException e) {
 		ReportDialog.GenerateErrorReport(e, true, "Could not clone adaptation rule");	
 		return false;
@@ -426,7 +427,14 @@ public class AdaptationProfileDataControl extends DataControl{
 	/**
 	 * @param dataControls the dataControls to set
 	 */
-	public void setDataControls(List<AdaptationRuleDataControl> dataControls) {
+	public void setDataControlsAndData(List<AdaptationRuleDataControl> dataControls) {
 	    this.dataControls = dataControls;
+	    ArrayList<AdaptationRule> rules = new ArrayList<AdaptationRule>();
+	    for (AdaptationRuleDataControl dataControl:dataControls)
+		rules.add((AdaptationRule)dataControl.getContent());
+	    
+	    this.profile.setRules(rules);
+	    
+	    
 	}
 }

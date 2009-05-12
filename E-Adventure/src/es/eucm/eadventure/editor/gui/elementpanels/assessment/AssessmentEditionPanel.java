@@ -49,6 +49,9 @@ import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfileDataControl;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentRuleDataControl;
+import es.eucm.eadventure.editor.control.tools.adaptation.AddRuleTool;
+import es.eucm.eadventure.editor.control.tools.adaptation.DeleteRuleTool;
+import es.eucm.eadventure.editor.control.tools.adaptation.DuplicateRuleTool;
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
 import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
@@ -322,7 +325,7 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
 		duplicate.setToolTipText( TextConstants.getText( "AdaptationProfile.Duplicate" ) );
 		duplicate.addActionListener(new ActionListener(){
 			public void actionPerformed( ActionEvent e ) {
-			    if (dataControl.duplicateElement(dataControl.getAssessmentRules().get(informationTable.getSelectedRow()))) {
+			    if (Controller.getInstance().addTool(new DuplicateRuleTool(dataControl,Controller.ASSESSMENT_RULE,informationTable.getSelectedRow()))) {
 				((AssessmentRulesTableModel) informationTable
 					.getModel()).fireTableDataChanged();
 				informationTable.changeSelection(dataControl.getAssessmentRules().size() - 1, 0, false, false);
@@ -339,8 +342,7 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
 		delete.setToolTipText(TextConstants.getText("AdaptationProfile.DeleteRule"));
 		delete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (dataControl.canBeDeleted() &&
-						dataControl.deleteElement(dataControl.getAssessmentRules().get(informationTable.getSelectedRow()), true)) {
+				if (Controller.getInstance().addTool(new DeleteRuleTool(dataControl,Controller.ASSESSMENT_RULE,informationTable.getSelectedRow()))){
 					informationTable.clearSelection();
 					((AssessmentRulesTableModel) informationTable.getModel()).fireTableDataChanged();
 					createRulesInfoPanel();
@@ -634,9 +636,7 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
 		addChildMenuItem.setEnabled( true );
 		addChildMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (dataControl.canAddElement(Controller.ASSESSMENT_RULE)
-						&& dataControl.addElement(Controller.ASSESSMENT_RULE,
-								null)) {
+				if (Controller.getInstance().addTool(new AddRuleTool(dataControl,Controller.ASSESSMENT_RULE))){
 					((AssessmentRulesTableModel) informationTable
 							.getModel()).fireTableDataChanged();
 					informationTable.changeSelection(dataControl.getAssessmentRules().size() - 1, 0, false, false);
@@ -648,9 +648,7 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
 		addChildMenuItem = new JMenuItem(TextConstants.getText("AdaptationProfile.AddTimedRule"));
 		addChildMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (dataControl.canAddElement(Controller.TIMED_ASSESSMENT_RULE)
-						&& dataControl.addElement(
-								Controller.TIMED_ASSESSMENT_RULE, null)) {
+				if (Controller.getInstance().addTool(new AddRuleTool(dataControl,Controller.TIMED_ASSESSMENT_RULE))){
 					((AssessmentRulesTableModel) informationTable
 							.getModel()).fireTableDataChanged();
 					informationTable.changeSelection(dataControl.getAssessmentRules().size() - 1, 0, false, false);
@@ -737,20 +735,23 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
 	public boolean updateFields() {
 	    int selected = informationTable.getSelectedRow();
 		int items = informationTable.getRowCount();
+		//int selectedTab = rulesInfoPanel.getSelectedIndex();
+		if (rulesInfoPanel!=null && rulesInfoPanel instanceof Updateable)
+		    ((Updateable) rulesInfoPanel).updateFields();
+		
 		((AbstractTableModel) informationTable.getModel()).fireTableDataChanged();
 		
 		if (items == informationTable.getRowCount()) {
 			if (selected != -1) {
+			    if (selected>=items)
+				selected=items-1;
 			    informationTable.changeSelection(selected, 0, false, false);
 				if (informationTable.getEditorComponent() != null)
 				    informationTable.editCellAt(selected, informationTable.getEditingColumn());
 				
-				// TODO quizas falte actualizar el tabbed pane rulesInfoPanel
-				//if (actionPanel != null && actionPanel instanceof Updateable) {
-				//	((Updateable) actionPanel).updateFields();
-				//}
-			}
+			} 
 		}
+		
 		
 		return true;
 	}
