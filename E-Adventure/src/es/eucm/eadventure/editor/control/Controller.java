@@ -2548,7 +2548,6 @@ public class Controller {
 		if( !title.equals( adventureData.getTitle( ) ) ) {
 			// Set the new title and modify the data
 			adventureData.setTitle( title );
-			dataModified( );
 		}
 	}
 
@@ -2563,7 +2562,6 @@ public class Controller {
 		if( !description.equals( adventureData.getDescription( ) ) ) {
 			// Set the new description and modify the data
 			adventureData.setDescription( description );
-			dataModified( );
 		}
 	}
 

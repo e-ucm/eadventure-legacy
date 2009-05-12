@@ -7,10 +7,8 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ChapterListDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
-import es.eucm.eadventure.editor.control.controllers.scene.ScenesListDataControl;
 import es.eucm.eadventure.editor.control.tools.Tool;
 import java.util.ArrayList;
-import java.util.List;
 
 public class SwapPlayerModeTool extends Tool{
 
@@ -56,14 +54,13 @@ public class SwapPlayerModeTool extends Tool{
 	@Override
 	public boolean doTool() {
 		boolean done = action();
-		controller.updatePanel();
 		return done;
 	}
 	
 	@Override
 	public boolean redoTool() {
 		boolean done = action();
-		controller.updatePanel();
+		controller.reloadData( );
 		return done;
 	}
 
@@ -84,7 +81,8 @@ public class SwapPlayerModeTool extends Tool{
 			// set if the player is not allowed in the scene
 			scene.setAllowPlayerLayer(oldPlayerLayer.get(i)!=Scene.PLAYER_NO_ALLOWED);
 		}
-		controller.updatePanel();
+		controller.reloadData( );
+
 		return done;
 	}
 	

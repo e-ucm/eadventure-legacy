@@ -19,7 +19,6 @@ import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeDescript
 import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeTitleTool;
 import es.eucm.eadventure.editor.control.tools.generic.ChangeBooleanValueTool;
 import es.eucm.eadventure.editor.control.tools.generic.ChangeIntegerValueTool;
-import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 import es.eucm.eadventure.editor.gui.editdialogs.GUIStylesDialog;
 import es.eucm.eadventure.common.data.adventure.AdventureData;
 import es.eucm.eadventure.common.data.adventure.CustomArrow;
