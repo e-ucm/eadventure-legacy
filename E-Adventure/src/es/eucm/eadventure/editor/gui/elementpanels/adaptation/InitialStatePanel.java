@@ -22,12 +22,14 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.event.TableModelEvent;
 import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfileDataControl;
+import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.editor.gui.elementpanels.general.TableScrollPane;
 
@@ -36,7 +38,7 @@ import es.eucm.eadventure.editor.gui.elementpanels.general.TableScrollPane;
  * This class is the panel used to display and edit nodes. It holds node operations, like adding and removing lines,
  * editing end effects, remove links and reposition lines and children
  */
-class InitialStatePanel extends JPanel{
+class InitialStatePanel extends JPanel implements Updateable{
 
 	/**
 	 * Required
@@ -172,7 +174,7 @@ class InitialStatePanel extends JPanel{
 		deleteActionFlagButton.setToolTipText( TextConstants.getText( "Operation.AdaptationPanel.DeleteButton" ) );
 		deleteActionFlagButton.addActionListener( new ListenerButtonDeleteLine( ) );
 		
-		String[] scenes = Controller.getInstance( ).getIdentifierSummary( ).getSceneIds( );
+		String[] scenes = Controller.getInstance( ).getIdentifierSummary( ).getAllSceneIds();
 		String[] isValues = new String[scenes.length+1];
 		isValues[0] = TextConstants.getText("GeneralText.NotSelected");
 		for (int i=0; i<scenes.length; i++){
@@ -489,36 +491,19 @@ class InitialStatePanel extends JPanel{
 	}
 	
 	
-	
-	
-	
-	/*public boolean updateFields() {
-	    
-	    	
+
+	public boolean updateFields() {
+		int selection = actionFlagsTable.getSelectedRow();
+		actionFlagsTable.clearSelection();
+		//actionFlagsTable.updateUI();
 		deleteActionFlagButton.setEnabled( false );
 		
-		String[] scenes = Controller.getInstance( ).getIdentifierSummary( ).getSceneIds( );
-		String[] isValues = new String[scenes.length+1];
-		isValues[0] = TextConstants.getText("GeneralText.NotSelected");
-		for (int i=0; i<scenes.length; i++){
-			isValues[i+1]=scenes[i];
-		}
+		if (actionFlagsTable.getCellEditor() != null)
+			actionFlagsTable.getCellEditor().stopCellEditing();
+		((AbstractTableModel)actionFlagsTable.getModel()).fireTableDataChanged();
+		//((AbstractTableModel)actionFlagsTable.getModel()).fireTableRowsUpdated(selection, selection);
 		
-		this.initialSceneCB.setModel(new DefaultComboBoxModel(isValues) );
-		
-		if (adaptationProfileDataControl.getInitialScene( )==null){
-			initialSceneCB.setSelectedIndex( 0 );
-		}else{
-			initialSceneCB.setSelectedItem( adaptationProfileDataControl.getInitialScene( ) );
-		}
-		actionFlagsTable.clearSelection();
-		initialSceneCB.requestFocus();
-		actionFlagsTable.updateUI();
-		
-		
-		
-		initialSceneCB.updateUI();
-		
+		actionFlagsTable.getSelectionModel().setSelectionInterval(selection,selection);		
 		return true;
-	}*/
+	}
 }

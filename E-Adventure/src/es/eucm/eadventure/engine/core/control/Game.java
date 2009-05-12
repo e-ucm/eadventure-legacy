@@ -942,9 +942,14 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     * 
     * @param gs GameState to store 
     */
+    // this method is only used with GameStateConversation
     public void pushCurrentState(GameState gs){
         
     	stackOfState.push(gs);
+    	
+    	// store the name of the conversation for future conversation restoring. It will be needed to
+    	// restore the effects in nodes of this conversation.
+    	((GameStateConversation)currentState).setConvID(conversation.getId());
     	
     	
     }
@@ -1010,10 +1015,15 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     }
     
     
-    public void evaluateState(boolean fromConversation){
+    public void evaluateState(){
     	
-    	if 	(numberConv<stackOfState.size())
+    	if 	(numberConv<stackOfState.size()){
     		currentState = stackOfState.pop();
+    		// set the game attribute conversation to stored conversation
+    		setConversation(((GameStateConversation)currentState).getConvID());
+    		
+    		
+    	}
     	else if (!isEmptyFIFOinStack())
         		setState(STATE_RUN_EFFECTS);
             else 
@@ -1141,7 +1151,9 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     	if (fromConversation) 
     		numberConv++;
     	
-    	setState( STATE_RUN_EFFECTS );
+    	if (!(currentState instanceof GameStateRunEffects )){
+    	    setState( STATE_RUN_EFFECTS );
+    	}
     }
     
     /**
@@ -1191,7 +1203,9 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     public void endConversation(){
     	if (!isEmptyFIFOinStack())
     		setState(STATE_RUN_EFFECTS);
-        else 
+        else if (!stackOfState.isEmpty())
+            evaluateState();
+        else
         	setState (STATE_PLAYING);
     	
     }

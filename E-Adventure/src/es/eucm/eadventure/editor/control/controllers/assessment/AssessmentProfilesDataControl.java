@@ -83,6 +83,7 @@ public class AssessmentProfilesDataControl extends DataControl{
 			} while (existName(id));
 			newElement.setName(id);
 			profiles.add(new AssessmentProfileDataControl(newElement));
+			data.add( (AssessmentProfile)profiles.get(profiles.size()-1).getContent() );
 			return true;
 		} catch (CloneNotSupportedException e) {
 			ReportDialog.GenerateErrorReport(e, true, "Could not clone assessment profile");	
@@ -166,7 +167,7 @@ public class AssessmentProfilesDataControl extends DataControl{
 				int references = Controller.getInstance( ).countAssetReferences( path );
 				if(!askConfirmation || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { 
 						TextConstants.getElementName( Controller.ASSESSMENT_PROFILE ), Integer.toString( references ) } ) ) ) {
-					//data.remove(profiles.indexOf(dataControl));
+					data.remove(profiles.indexOf(dataControl));
 					deleted = this.profiles.remove( dataControl );
 					if (deleted){
 						Controller.getInstance( ).deleteAssetReferences( path );
@@ -187,8 +188,10 @@ public class AssessmentProfilesDataControl extends DataControl{
 	@Override
 	public void deleteIdentifierReferences( String id ) {
 		for (AssessmentProfileDataControl profile:profiles){
-			if (profile.getName( ).equals( id ))
-			profiles.remove( profile );break; 
+			if (profile.getName( ).equals( id )){
+			profiles.remove( profile );
+			data.remove(profiles.indexOf(profile));break; 
+			}
 		}
 
 		for (AssessmentProfileDataControl profile:profiles){
@@ -340,5 +343,6 @@ public class AssessmentProfilesDataControl extends DataControl{
 	public List<Searchable> getPathToDataControl(Searchable dataControl) {
 		return getPathFromChild(dataControl, profiles);
 	}
-
+	
+	
 }

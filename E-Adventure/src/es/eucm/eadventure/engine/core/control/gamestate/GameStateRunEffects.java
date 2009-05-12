@@ -88,7 +88,7 @@ public class GameStateRunEffects extends GameState {
             } */
             
             boolean stop = false;
-            // Execute effects while some of them is not instantaneous
+            // Execute effects while are instantaneous
             
             while( !stop /*&& !game.isEmptyFIFOinStack()*/ ) {
                 FunctionalEffect currentEffect = game.getFirstElementOfTop();
@@ -97,7 +97,7 @@ public class GameStateRunEffects extends GameState {
                     GUI.getInstance().toggleHud( true );
                     stop = true;
                     // Look if there are some stored conversation state, and change to correct one.               
-                    game.evaluateState(fromConversation);
+                    game.evaluateState();
    
                 }else {
                     // Check if all conditions associated to effect are OK

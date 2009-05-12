@@ -1,5 +1,6 @@
 package es.eucm.eadventure.common.loader;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,6 +10,7 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +33,7 @@ import es.eucm.eadventure.common.loader.parsers.AnimationHandler;
 import es.eucm.eadventure.common.loader.parsers.AssessmentHandler;
 import es.eucm.eadventure.common.loader.parsers.ChapterHandler;
 import es.eucm.eadventure.common.loader.parsers.DescriptorHandler;
+import es.eucm.eadventure.editor.control.controllers.AssetsController;
 
 /**
  * This class loads the e-Adventure data from a XML file
@@ -246,6 +249,7 @@ public class Loader {
 	
 				// Parse the data and close the data
 				InputStream assessmentIS = isCreator.buildInputStream(xmlFile);
+				
 				saxParser.parse( assessmentIS, assParser );
 				assessmentIS.close( );
 				
@@ -254,6 +258,7 @@ public class Loader {
 				
 				// Fill flags & vars
 				newProfile = profile;
+				
 
 			} catch( ParserConfigurationException e ) {
 				incidences.add( Incidence.createAssessmentIncidence( false, TextConstants.getText( "Error.LoadAssessmentData.SAX" ), xmlFile ) );
@@ -303,6 +308,7 @@ public class Loader {
 	
 				// Parse the data and close the data
 				InputStream adaptationIS = isCreator.buildInputStream(xmlFile);
+				
 				saxParser.parse( adaptationIS, adpParser );
 				adaptationIS.close( );
 				
@@ -317,6 +323,9 @@ public class Loader {
 				newProfile.setFlags(adpParser.getFlags());
 				System.out.println("ADP PARSER FLAGS:"+adpParser.getFlags());
 				newProfile.setVars(adpParser.getVars());
+				
+				
+				
 	
 			} catch( ParserConfigurationException e ) {
 				incidences.add( Incidence.createAdaptationIncidence( false, TextConstants.getText( "Error.LoadAdaptationData.SAX" ), xmlFile ) );

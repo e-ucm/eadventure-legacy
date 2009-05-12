@@ -13,6 +13,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -29,10 +30,16 @@ import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfileDataControl;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationRuleDataControl;
+import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
+import es.eucm.eadventure.editor.control.tools.adaptation.AddRuleTool;
 import es.eucm.eadventure.editor.gui.DataControlsPanel;
 import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
+import es.eucm.eadventure.editor.gui.elementpanels.AuxTabPanel;
+import es.eucm.eadventure.editor.gui.elementpanels.ElementPanel;
+import es.eucm.eadventure.editor.gui.elementpanels.PanelTab;
 import es.eucm.eadventure.editor.gui.elementpanels.general.TableScrollPane;
+import es.eucm.eadventure.editor.gui.elementpanels.scene.BarriersListPanel;
 
 public class AdaptationEditionPanel extends JPanel implements Updateable,DataControlsPanel{
 
@@ -49,7 +56,7 @@ public class AdaptationEditionPanel extends JPanel implements Updateable,DataCon
     /**
      * Panel which contains the initial state
      */
-    private JPanel initialStatePanel; 
+    private InitialStatePanel initialStatePanel; 
     
     /**
      * Panel which contains all the rules associated with current profile
@@ -59,6 +66,7 @@ public class AdaptationEditionPanel extends JPanel implements Updateable,DataCon
     /**
      * Panel which contains the initial state and LMS state of selected rule
      */
+   // private AuxTabPanel rulesInfoPanel;
     private JTabbedPane rulesInfoPanel;
     
     /**
@@ -77,6 +85,11 @@ public class AdaptationEditionPanel extends JPanel implements Updateable,DataCon
     private AdaptationProfileDataControl dataControl;
     
     /**
+     * Last used rule
+     */
+    private AdaptationRuleDataControl lastRule;
+    
+    /**
      * Table with all profile's rules
      */
     private JTable informationTable;
@@ -93,8 +106,8 @@ public class AdaptationEditionPanel extends JPanel implements Updateable,DataCon
 		createInitialState();
 		createRuleListPanel();
 		rulesInfoPanel = new JTabbedPane();
-		createRulesInfoPanel();
 		
+		createRulesInfoPanel();
 		
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints( );
@@ -159,14 +172,17 @@ public class AdaptationEditionPanel extends JPanel implements Updateable,DataCon
     	informationTable = new AdaptationRulesTable(dataControl);
 		informationTable.getSelectionModel( ).addListSelectionListener( new ListSelectionListener(){
 			public void valueChanged( ListSelectionEvent e ) {
-			    createRulesInfoPanel();
+			   
+			   
 			    if (informationTable.getSelectedRow() > -1){
 			    	delete.setEnabled(true);
 			    	duplicate.setEnabled(true);
+			    	lastRule = dataControl.getAdaptationRules().get(informationTable.getSelectedRow());
 			    }else{
 			    	delete.setEnabled(false);
 			    	duplicate.setEnabled(false);
 			    }
+			    createRulesInfoPanel();
 			}
 		});
 		//informationTable.removeEditor( );
@@ -174,6 +190,8 @@ public class AdaptationEditionPanel extends JPanel implements Updateable,DataCon
 		ruleListPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AdaptationRulesList.ListTitle" ) ) );
 		ruleListPanel.setLayout( new BorderLayout( ) );
 		ruleListPanel.add( new TableScrollPane( informationTable, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER ), BorderLayout.CENTER );
+		
+		
 		JButton add = new JButton(new ImageIcon("img/icons/addNode.png"));
 		add.setContentAreaFilled( false );
 		add.setMargin( new Insets(0,0,0,0) );
@@ -181,7 +199,7 @@ public class AdaptationEditionPanel extends JPanel implements Updateable,DataCon
 		add.setToolTipText( TextConstants.getText( "AdaptationProfile.AddRule" ) );
 		add.addActionListener(new ActionListener(){
 		    public void actionPerformed(ActionEvent e) {
-				if (dataControl.canAddElement(Controller.ADAPTATION_RULE)&&dataControl.addElement(Controller.ADAPTATION_RULE, null)){
+				if (Controller.getInstance().addTool(new AddRuleTool(dataControl,Controller.ADAPTATION_RULE))){
 				   ((AdaptationRulesTable) informationTable).fireTableDataChanged();
 				   informationTable.changeSelection(dataControl.getAdaptationRules().size() - 1, 0, false, false);
 				}
@@ -212,7 +230,7 @@ public class AdaptationEditionPanel extends JPanel implements Updateable,DataCon
 		delete.setEnabled(false);
 		delete.addActionListener(new ActionListener(){
 		    public void actionPerformed(ActionEvent e) {
-				if (dataControl.canBeDeleted()&&dataControl.deleteElement(dataControl.getAdaptationRules().get(informationTable.getSelectedRow()), true)){
+				if (dataControl.canBeDeleted()&&dataControl.deleteElement(dataControl.getAdaptationRules().get(informationTable.getSelectedRow()), false)){
 				   ((AdaptationRulesTable) informationTable).fireTableDataChanged();
 				   informationTable.clearSelection( );
 				}
@@ -241,46 +259,102 @@ public class AdaptationEditionPanel extends JPanel implements Updateable,DataCon
     
     private void createRulesInfoPanel(){
 		if (informationTable.getSelectedRow( )<0 || informationTable.getSelectedRow( )>=dataControl.getAdaptationRules().size()){
-		    rulesInfoPanel.removeAll();
+		//int i = informationTable.getRowCount();   
+		//if (informationTable.getRowCount()<=0){
+			rulesInfoPanel.removeAll();
 			JPanel empty = new JPanel();
 			JLabel label = new JLabel(TextConstants.getText("AdaptationProfile.Empty"));
 			empty.add(label);
-			rulesInfoPanel.addTab(TextConstants.getText("AdaptationProfile.TabbedLMSState"), empty);
-			rulesInfoPanel.addTab(TextConstants.getText("AdaptationProfile.TabbedInitialState"),empty);
+			//rulesInfoPanel.addTab(/*TextConstants.getText("AdaptationProfile.TabbedLMSState"),*/ empty);
+			//rulesInfoPanel.addTab(TextConstants.getText("AdaptationProfile.TabbedInitialState"),empty);
+			rulesInfoPanel.add(empty);
+			//rulesInfoPanel.setSelectedIndex(0);
 			rulesInfoPanel.setMinimumSize(new Dimension(0,100));
 		}else {
 		    rulesInfoPanel.removeAll();
 		    // take the current rule data control
-		    AdaptationRuleDataControl adpRuleDataControl = dataControl.getAdaptationRules().get(informationTable.getSelectedRow());
-
-		    JPanel lmsPanel = new UOLPropertiesPanel( adpRuleDataControl,dataControl.isScorm12(),dataControl.isScorm2004()); 
-		    rulesInfoPanel.addTab(TextConstants.getText("AdaptationProfile.TabbedLMSState"), lmsPanel);
+		    //AdaptationRuleDataControl adpRuleDataControl = dataControl.getAdaptationRules().get(lastRule); 
+		   // rulesInfoPanel.addTab(new UOLPropertiesPanelTab( lastRule,dataControl.isScorm12(),dataControl.isScorm2004()));
+		    
+		    JPanel Uol =new UOLPropertiesPanel( lastRule,dataControl.isScorm12(),dataControl.isScorm2004());
+		    rulesInfoPanel.addTab(TextConstants.getText("AdaptationProfile.TabbedLMSState"),Uol);
+		    
+		    
+		    JPanel gameStatePanel = new GameStatePanel( lastRule);
+		    rulesInfoPanel.addTab(TextConstants.getText("AdaptationProfile.TabbedInitialState"),gameStatePanel);
 		    
 		    // Create the game-state panel
-		    JPanel gsPanel = new GameStatePanel( adpRuleDataControl ); 
-		    rulesInfoPanel.addTab(TextConstants.getText("AdaptationProfile.TabbedInitialState"),gsPanel);
+		    //rulesInfoPanel.addTab(new GameStatePanelTab(lastRule));
 		    rulesInfoPanel.setPreferredSize(new Dimension(0,250));
+		   // rulesInfoPanel.setSelectedIndex(0);
 		    rulesInfoPanel.updateUI();
 	
 		}
     }
+    
+    
+    
+    
+    private class GameStatePanelTab extends PanelTab {
+	private AdaptationRuleDataControl dataControl;
+	
+	public GameStatePanelTab(AdaptationRuleDataControl adpRuleDataControl) {
+		super(TextConstants.getText("AdaptationProfile.TabbedInitialState"), adpRuleDataControl);
+		//this.setHelpPath("scenes/Scene_Barriers.html");
+		this.dataControl = adpRuleDataControl;
+	}
+
+	@Override
+	protected JComponent getTabComponent() {
+		return new GameStatePanel( dataControl ); 
+	}
+    }
+    
+    private class UOLPropertiesPanelTab extends PanelTab {
+	private AdaptationRuleDataControl dataControl;
+	private  boolean isScorm12;
+	private boolean isScorm2004;
+	
+	public UOLPropertiesPanelTab(AdaptationRuleDataControl dataControl, boolean isScorm12, boolean isScorm2004) {
+		super(TextConstants.getText("AdaptationProfile.TabbedLMSState"), dataControl);
+		//this.setHelpPath("scenes/Scene_Barriers.html");
+		this.dataControl = dataControl;
+		this.isScorm12 = isScorm12;
+		this.isScorm2004 = isScorm2004;
+		}
+
+	@Override
+	protected JComponent getTabComponent() {
+		return new UOLPropertiesPanel( dataControl,isScorm12,isScorm2004);
+	}
+    }
+    
+    
+    
 
     public boolean updateFields() {
 	int selected = informationTable.getSelectedRow();
 	int items = informationTable.getRowCount();
+	int selectedTab = rulesInfoPanel.getSelectedIndex();
+	if (rulesInfoPanel!=null && rulesInfoPanel instanceof Updateable)
+	    ((Updateable) rulesInfoPanel).updateFields();
+	
 	((AbstractTableModel) informationTable.getModel()).fireTableDataChanged();
 	
 	if (items == informationTable.getRowCount()) {
 		if (selected != -1) {
+		    if (selected>=items)
+			selected=items-1;
 		    informationTable.changeSelection(selected, 0, false, false);
 			if (informationTable.getEditorComponent() != null)
 			    informationTable.editCellAt(selected, informationTable.getEditingColumn());
-			// TODO quizas falte actualizar el tabbed pane rulesInfoPanel
-			//if (actionPanel != null && actionPanel instanceof Updateable) {
-			//	((Updateable) actionPanel).updateFields();
-			//}
-		}
+			
+		} if (selectedTab!=-1)
+		    rulesInfoPanel.setSelectedIndex(selectedTab);
 	}
+	
+	if (initialStatePanel instanceof Updateable)
+	    ((Updateable)initialStatePanel).updateFields();
 	
 	return true;
     }

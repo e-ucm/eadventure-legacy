@@ -211,7 +211,7 @@ public class AssessmentProfileDataControl extends DataControl{
 
 	@Override
 	public String renameElement( String name ) {
-		boolean renamed = false;
+	    boolean renamed = false;
 		String oldName = null;
 		if (this.profile.getName() != null) {
 		    oldName = this.profile.getName();
@@ -223,19 +223,20 @@ public class AssessmentProfileDataControl extends DataControl{
 			
 			//Prompt for file name:
 			String fileName = name;
-			if (name == null)
+			if (name == null || name.equals(""))
 				fileName = controller.showInputDialog( TextConstants.getText( "Operation.RenameAssessmentFile.FileName" ), TextConstants.getText( "Operation.RenameAssessmentFile.FileName.Message" ), getFileName() );
-			if (!controller.getAssessmentController().existName(name)){
-				if (fileName!=null && !fileName.equals( oldName ) && controller.isElementIdValid( fileName )){
-				    //controller.dataModified( );
-				    profile.setName( fileName );
-				    renamed=true;
-				}
-			}else {
-			    controller.showErrorDialog(TextConstants.getText("Operation.CreateAdaptationFile.FileName.ExistValue.Title"), TextConstants.getText("Operation.CreateAdaptationFile.FileName.ExistValue.Message"));
-			}
-				
 			
+			
+			    if (fileName!=null && !fileName.equals( oldName ) && controller.isElementIdValid( fileName )){
+				if (!controller.getAdaptationController().existName(name)){
+				    //controller.dataModified( );
+					profile.setName( fileName );
+					renamed=true;
+				}else {
+				    controller.showErrorDialog(TextConstants.getText("Operation.CreateAdaptationFile.FileName.ExistValue.Title"), TextConstants.getText("Operation.CreateAdaptationFile.FileName.ExistValue.Message"));
+				}
+			    }
+		
 		}
 		
 		if (renamed)
@@ -243,7 +244,6 @@ public class AssessmentProfileDataControl extends DataControl{
 		
 		return null;
 	}
-
 	@Override
 	public void replaceIdentifierReferences( String oldId, String newId ) {
 	}
@@ -400,6 +400,13 @@ public class AssessmentProfileDataControl extends DataControl{
 	 */
 	public List<AssessmentRuleDataControl> getDataControls() {
 	    return dataControls;
+	}
+
+	/**
+	 * @param dataControls the dataControls to set
+	 */
+	public void setDataControls(List<AssessmentRuleDataControl> dataControls) {
+	    this.dataControls = dataControls;
 	}
 
 }

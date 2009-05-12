@@ -47,12 +47,16 @@ public class AddActionTool extends Tool{
 		//Check there is at least one flag
 
 		String[] flags = Controller.getInstance( ).getVarFlagSummary( ).getFlags( );
-		if (flags!=null && flags.length>0){
+		if (flags!=null ){
 			try {
 				this.oldState = (AdaptedState) state.clone();
 				//	By default, the flag is activated. Default flag will be the first one
-				state.addActivatedFlag( flags[0] );
-				Controller.getInstance( ).updateVarFlagSummary( );
+				if (flags.length==0){
+				    state.addActivatedFlag( "flag" );
+				}else {
+				    state.addActivatedFlag( flags[0] );
+				    Controller.getInstance( ).updateVarFlagSummary( );
+				}
 				added=true;
 			} catch (CloneNotSupportedException e) {
 				ReportDialog.GenerateErrorReport(e, false, "Could not clone adaptedState "+((state==null)?"null":state.getClass().toString()));
@@ -61,8 +65,8 @@ public class AddActionTool extends Tool{
 		
 		//Otherwise, prompt error message
 		// If the list had no elements, show an error message
-		else
-			Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Adaptation.ErrorNoFlags.Title" ), TextConstants.getText( "Adaptation.ErrorNoFlags" ) );
+		//else
+		//	Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Adaptation.ErrorNoFlags.Title" ), TextConstants.getText( "Adaptation.ErrorNoFlags" ) );
 		
 		return added;
 	}

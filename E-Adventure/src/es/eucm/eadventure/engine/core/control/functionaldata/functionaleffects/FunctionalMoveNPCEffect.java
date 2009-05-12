@@ -50,6 +50,8 @@ public class FunctionalMoveNPCEffect extends FunctionalEffect {
         FunctionalNPC npc = Game.getInstance( ).getFunctionalScene( ).getNPC( ((MoveNPCEffect)effect).getTargetId() );
         if( npc != null ) {
             stillRunning = npc.isWalking();
+           // stillRunning = !(((MoveNPCEffect)effect).getX()==npc.getX()&&((MoveNPCEffect)effect).getY()==npc.getY());
+            
         }
         return stillRunning;
     }

@@ -476,21 +476,16 @@ class GameStatePanel extends JPanel implements Updateable{
 	
 
 	public boolean updateFields() {
+		int selection = actionFlagsTable.getSelectedRow();
 		actionFlagsTable.clearSelection();
-		actionFlagsTable.updateUI();
 		deleteActionFlagButton.setEnabled( false );
 		
-		String[] scenes = Controller.getInstance( ).getIdentifierSummary( ).getSceneIds( );
-		String[] isValues = new String[scenes.length+1];
-		isValues[0] = TextConstants.getText("GeneralText.NotSelected");
-		for (int i=0; i<scenes.length; i++){
-			isValues[i+1]=scenes[i];
-		}
+		if (actionFlagsTable.getCellEditor() != null)
+			actionFlagsTable.getCellEditor().stopCellEditing();
+		((AbstractTableModel)actionFlagsTable.getModel()).fireTableDataChanged();
+		//((AbstractTableModel)actionFlagsTable.getModel()).fireTableRowsUpdated(selection, selection);
 		
-		//for (int i=0;i<actionFlagsTable.getRowCount();i++)
-		  //  setRowEditor(i,adaptationRuleDataControl.isFlag(i));
-		actionFlagsTable.tableChanged(new TableModelEvent(tableModel ));
-				
+		actionFlagsTable.getSelectionModel().setSelectionInterval(selection,selection);		
 		return true;
 	}
 }

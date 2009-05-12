@@ -231,11 +231,7 @@ public class AdaptationProfileDataControl extends DataControl{
 				    controller.showErrorDialog(TextConstants.getText("Operation.CreateAdaptationFile.FileName.ExistValue.Title"), TextConstants.getText("Operation.CreateAdaptationFile.FileName.ExistValue.Message"));
 				}
 			    }
-			
-			
-			
-			
-			
+		
 		}
 		
 		if (renamed)
@@ -425,5 +421,12 @@ public class AdaptationProfileDataControl extends DataControl{
 	 */
 	public List<AdaptationRuleDataControl> getDataControls() {
 	    return dataControls;
+	}
+
+	/**
+	 * @param dataControls the dataControls to set
+	 */
+	public void setDataControls(List<AdaptationRuleDataControl> dataControls) {
+	    this.dataControls = dataControls;
 	}
 }

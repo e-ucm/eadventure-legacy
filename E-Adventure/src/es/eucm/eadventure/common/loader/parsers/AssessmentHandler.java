@@ -98,7 +98,10 @@ public class AssessmentHandler extends DefaultHandler {
      */
     public AssessmentHandler( InputStreamCreator isCreator, AssessmentProfile profile ) {
     	this.profile = profile; 
-        assessmentRules = profile.getRules();
+    	if (profile.getRules()==null)
+    	    assessmentRules= new ArrayList<AssessmentRule>();
+    	else
+    	    assessmentRules = profile.getRules();
         currentAssessmentRule = null;
         currentString = new StringBuffer( );
         vars = new ArrayList<String>();

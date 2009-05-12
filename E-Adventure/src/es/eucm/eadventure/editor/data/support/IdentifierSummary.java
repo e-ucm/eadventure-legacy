@@ -247,6 +247,17 @@ public class IdentifierSummary {
 	public String[] getCutsceneIds( ) {
 		return cutsceneIdentifiers.toArray( new String[] {} );
 	}
+	
+	/**
+	 * Returns all scenes ids (scenes and cutsecene)
+	 * 
+	 * @return Array of cutscene plus scene identifiers
+	 */
+	public String[] getAllSceneIds(){
+	    ArrayList<String> allScenes = new ArrayList<String>(cutsceneIdentifiers);
+	    allScenes.addAll(new ArrayList<String>(sceneIdentifiers));
+	    return allScenes.toArray( new String[] {} );
+	}
 
 	/**
 	 * Returns an array of book identifiers.
