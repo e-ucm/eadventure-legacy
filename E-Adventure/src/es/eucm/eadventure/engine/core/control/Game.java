@@ -409,12 +409,20 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         timerManager = TimerManager.getInstance( );
         timerManager.reset( );
         
-        // Load the assessment rules and adaptation data
+        // Load the assessment rules and adaptation data (from specific xml file)
         if (chapter.hasAdaptationProfile())
              adaptationEngine.init( chapter.getSelectedAdaptationProfile() );
         
         if (chapter.hasAssessmentProfile())
             assessmentEngine.loadAssessmentRules( chapter.getSelectedAssessmentProfile() );
+        
+     // Load the assessment rules and adaptation data (from chapter xml file)
+        if (gameData.hasAdaptationProfile())
+             adaptationEngine.init( gameData.getSelectedAdaptationProfile() );
+        
+        if (gameData.hasAssessmentProfile())
+            assessmentEngine.loadAssessmentRules( gameData.getSelectedAssessmentProfile() );
+        
         
         // Initialize the required elements of the game
         actionManager = new ActionManager( );
