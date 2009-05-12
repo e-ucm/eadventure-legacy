@@ -54,8 +54,10 @@ public class AdventureDataDialog extends ToolManagableDialog {
 	private JTextField titleTextField;
 	
 	private JLabel commentariesLabel;
+	
 	private JCheckBox commentariesCheckBox;
 
+	private DocumentListener documentListener;
 	/**
 	 * Constructor.
 	 */
@@ -94,7 +96,8 @@ public class AdventureDataDialog extends ToolManagableDialog {
 		JPanel descriptionPanel = new JPanel( );
 		descriptionPanel.setLayout( new GridLayout( ) );
 		descriptionTextArea = new JTextArea( adventureDescription, 4, 0 );
-		descriptionTextArea.getDocument( ).addDocumentListener( new DescriptionTextAreaChangesListener( ) );
+		documentListener = new DescriptionTextAreaChangesListener( );
+		descriptionTextArea.getDocument( ).addDocumentListener( documentListener );
 		descriptionTextArea.setLineWrap( true );
 		descriptionTextArea.setWrapStyleWord( true );
 		descriptionPanel.add( new JScrollPane( descriptionTextArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER ) );
@@ -181,8 +184,8 @@ public class AdventureDataDialog extends ToolManagableDialog {
 		add( buttonsPanel, BorderLayout.SOUTH );
 
 		// Set size and position and show the dialog
-		setSize( new Dimension( 450, 450 ) );
-		setMinimumSize( new Dimension( 450, 450 ) );
+		setSize( new Dimension( 450, 500 ) );
+		setMinimumSize( new Dimension( 450, 500 ) );
 		Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
 		setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
 		setVisible( true );
@@ -266,7 +269,9 @@ public class AdventureDataDialog extends ToolManagableDialog {
 	}
 	
 	public boolean updateFields(){
+		descriptionTextArea.getDocument().removeDocumentListener(documentListener);
 		descriptionTextArea.setText( Controller.getInstance().getAdventureDescription() );
+		descriptionTextArea.getDocument().addDocumentListener(documentListener);
 		titleTextField.setText( Controller.getInstance().getAdventureTitle() );
 		if (controller.isCommentaries()) {
 			commentariesCheckBox.setSelected(true);

@@ -7,8 +7,6 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.text.NumberFormat;
@@ -16,14 +14,11 @@ import java.text.ParseException;
 import java.util.Locale;
 
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
@@ -35,8 +30,9 @@ import es.eucm.eadventure.editor.control.Controller;
 
 public class VarDialog extends JDialog{
 
-    
-    public static final String ERROR = "error";
+	private static final long serialVersionUID = 2389765067746677296L;
+
+	public static final String ERROR = "error";
     
     public static final String CLOSE = "close";
     
@@ -131,27 +127,14 @@ public class VarDialog extends JDialog{
 			return (String)actions.getSelectedItem();
 	}
 
-    	/**
-	 * Called when a text field has changed, so that we can check the new values.
-	 * 
-	 * @param String
-	 * 		
-	 */
-	private void valueChanged( String source ) {
-		// Check the if the field is a number
-		try{
-		    Integer.parseInt(source);
-		    err=true;
-		}catch (NumberFormatException er){
-		   
-		}
-		
-	}
-	
 	
 	public class WholeNumberField extends JTextField {
 
-	    private Toolkit toolkit;
+	    /**
+		 * 
+		 */
+		private static final long serialVersionUID = 5121937653771983070L;
+		private Toolkit toolkit;
 	    private NumberFormat integerFormatter;
 
 	    public WholeNumberField(int value, int columns) {
@@ -184,7 +167,12 @@ public class VarDialog extends JDialog{
 
 	    protected class WholeNumberDocument extends PlainDocument {
 
-	        public void insertString(int offs, String str, AttributeSet a) 
+	        /**
+			 * 
+			 */
+			private static final long serialVersionUID = 3398461058646116687L;
+
+			public void insertString(int offs, String str, AttributeSet a) 
 	            throws BadLocationException {
 
 	            char[] source = str.toCharArray();
