@@ -820,65 +820,6 @@ public class Controller {
 			mainWindow.updateTitle( );
 		}
 	}
-	
-
-
-	/**
-	 * Returns whether the item references must be displayed by default.
-	 * 
-	 * @return True if the item references must be displayed, false otherwise
-	 */
-	public boolean getShowItemReferences( ) {
-		return ConfigData.showItemReferences( );
-	}
-
-	/**
-	 * Sets whether the item references must be displayed by default.
-	 * 
-	 * @param showItemReferences
-	 *            True if the item references must be displayed, false otherwise
-	 */
-	public void setShowItemReferences( boolean showItemReferences ) {
-		ConfigData.setShowItemReferences( showItemReferences );
-	}
-	
-	/**
-	 * Returns whether the atrezzo item references must be displayed by default.
-	 * 
-	 * @return True if the atrezzo item references must be displayed, false otherwise
-	 */
-	public boolean getShowAtrezzoReferences( ) {
-		return ConfigData.showAtrezzoReferences( );
-	}
-
-	/**
-	 * Sets whether the atrezzo item references must be displayed by default.
-	 * 
-	 * @param showAtrezzoReferences
-	 *            True if the atrezzo item references must be displayed, false otherwise
-	 */
-	public void setShowAtrezzoReferences( boolean showAtrezzoReferences ) {
-		ConfigData.setShowAtrezzoReferences( showAtrezzoReferences );
-	}
-
-	/**
-	 * Returns whether the NPC references must be displayed by default.
-	 * 
-	 * @return True if the NPC references must be displayed, false otherwise
-	 */
-	public boolean getShowNPCReferences( ) {
-		return ConfigData.showNPCReferences( );
-	}
-
-	/**
-	 * Sets whether the NPC references must be displayed by default.
-	 * 
-	 * @param showNPCReferences
-	 *            True if the NPC references must be displayed, false otherwise
-	 */
-	public void setShowNPCReferences( boolean showNPCReferences ) {
-		ConfigData.setShowNPCReferences( showNPCReferences );
-	}
 
 	public boolean isPlayTransparent( ) {
 		if (adventureData==null){
