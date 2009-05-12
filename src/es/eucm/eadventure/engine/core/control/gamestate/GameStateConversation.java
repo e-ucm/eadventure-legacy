@@ -99,6 +99,12 @@ public class GameStateConversation extends GameState {
      * Store only the option which has all conditions OK
      */
     private ArrayList<ConversationLine> optionsToShow;
+    
+    /**
+     * The name of conversation
+     */
+    private String convID;
+    
     /**
      * Creates a new GameStateConversation
      */
@@ -113,7 +119,7 @@ public class GameStateConversation extends GameState {
         optionHighlighted = -1;
         optionsToShow = new ArrayList<ConversationLine>();
         isOptionSelected = false;
-
+        convID = new String();
        
     }
 
@@ -462,5 +468,19 @@ public class GameStateConversation extends GameState {
             firstLineDisplayed = 0;
             currentLine = 0;
         }
+    }
+
+    /**
+     * @param convName the convName to set
+     */
+    public void setConvID(String convName) {
+        this.convID = convName;
+    }
+
+    /**
+     * @return the convID
+     */
+    public String getConvID() {
+        return convID;
     }    
 }

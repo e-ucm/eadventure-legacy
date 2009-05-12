@@ -73,7 +73,10 @@ public class AdaptationHandler extends DefaultHandler {
      */
     public AdaptationHandler( InputStreamCreator isCreator, List<AdaptationRule> rules, AdaptedState iState ) {
         initialState = iState;
-        externalRules=rules;
+        if (rules==null)
+            externalRules=new ArrayList<AdaptationRule>();
+        else
+            externalRules=rules;
         currentString = new StringBuffer( );
         vars = new ArrayList<String>();
         flags = new ArrayList<String>();

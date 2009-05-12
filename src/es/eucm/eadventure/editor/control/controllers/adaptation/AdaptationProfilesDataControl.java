@@ -7,6 +7,7 @@ import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.adaptation.AdaptationProfile;
 import es.eucm.eadventure.common.data.adaptation.AdaptationRule;
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
+import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
@@ -17,8 +18,11 @@ public class AdaptationProfilesDataControl extends DataControl{
 
 	private List<AdaptationProfileDataControl> profiles;
 	
+	private List<AdaptationProfile> data;
+	
 	public AdaptationProfilesDataControl (List<AdaptationProfile> data) {
 		this.profiles = new ArrayList<AdaptationProfileDataControl>();
+		this.data=data;
 		for (AdaptationProfile ap: data){
 			profiles.add(new AdaptationProfileDataControl(ap));
 		}
@@ -53,7 +57,7 @@ public class AdaptationProfilesDataControl extends DataControl{
 					List<AdaptationRule> newRules = new ArrayList<AdaptationRule>();
 					AdaptedState initialState = new AdaptedState();
 					this.profiles.add( new AdaptationProfileDataControl ( newRules, initialState,profileName) );
-					//data.add( (AssessmentProfile)profiles.get(profiles.size()-1).getContent() );
+					data.add( (AdaptationProfile)profiles.get(profiles.size()-1).getContent() );
 					//controller.dataModified( );
 					added = true;
 
@@ -81,6 +85,7 @@ public class AdaptationProfilesDataControl extends DataControl{
 			} while (existName(id));
 			newElement.setName(id);
 			profiles.add(new AdaptationProfileDataControl(newElement));
+			data.add( (AdaptationProfile)profiles.get(profiles.size()-1).getContent() );
 			return true;
 		} catch (CloneNotSupportedException e) {
 			ReportDialog.GenerateErrorReport(e, true, "Could not clone adaptation profile");	
@@ -165,7 +170,8 @@ public class AdaptationProfilesDataControl extends DataControl{
 				int references = Controller.getInstance( ).countAssetReferences( path );
 				if(!askConfirmation || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { 
 						TextConstants.getElementName( Controller.ADAPTATION_PROFILE ), Integer.toString( references ) } ) ) ) {
-					deleted = this.profiles.remove( dataControl );
+				    	data.remove(profiles.indexOf(dataControl));
+				    	deleted = this.profiles.remove( dataControl );
 					if (deleted){
 						Controller.getInstance( ).deleteAssetReferences( path );
 						
@@ -189,8 +195,10 @@ public class AdaptationProfilesDataControl extends DataControl{
 	@Override
 	public void deleteIdentifierReferences( String id ) {
 		for (AdaptationProfileDataControl profile:profiles){
-			if (profile.getName( ).equals( id ))
-			profiles.remove( profile );break; 
+			if (profile.getName( ).equals( id )){
+			profiles.remove( profile );
+			data.remove(profiles.indexOf(profile));break; 
+			}
 		}
 		for (AdaptationProfileDataControl profile:profiles){
 			profile.deleteIdentifierReferences( id ); 
@@ -226,6 +234,7 @@ public class AdaptationProfilesDataControl extends DataControl{
 
 		if( elementIndex < profiles.size( ) - 1 ) {
 			profiles.add( elementIndex + 1, profiles.remove( elementIndex ) );
+			data.add( elementIndex + 1, data.remove( elementIndex ) );
 			//controller.dataModified( );
 			elementMoved = true;
 		}
@@ -240,6 +249,7 @@ public class AdaptationProfilesDataControl extends DataControl{
 
 		if( elementIndex > 0 ) {
 			profiles.add( elementIndex - 1, profiles.remove( elementIndex ) );
+			data.add( elementIndex - 1, data.remove( elementIndex ) );
 			//controller.dataModified( );
 			elementMoved = true;
 		}
@@ -338,4 +348,8 @@ public class AdaptationProfilesDataControl extends DataControl{
 	public List<Searchable> getPathToDataControl(Searchable dataControl) {
 		return  getPathFromChild(dataControl, profiles);
 	}
+	
+
+	
+	
 }

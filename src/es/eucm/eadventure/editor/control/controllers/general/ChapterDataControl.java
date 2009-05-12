@@ -492,6 +492,8 @@ public class ChapterDataControl extends DataControl {
 		count += npcsListDataControl.countIdentifierReferences( id );
 		count += conversationsListDataControl.countIdentifierReferences( id );
 		count += advancedFeaturesDataControl.countIdentifierReferences(id);
+		count += adaptationProfilesDataControl.countIdentifierReferences(id);
+		count += assessmentProfilesDataControl.countIdentifierReferences(id);
 
 		return count;
 	}
@@ -510,6 +512,8 @@ public class ChapterDataControl extends DataControl {
 		npcsListDataControl.replaceIdentifierReferences( oldId, newId );
 		conversationsListDataControl.replaceIdentifierReferences( oldId, newId );
 		advancedFeaturesDataControl.replaceIdentifierReferences(oldId, newId);
+		assessmentProfilesDataControl.replaceIdentifierReferences(oldId, newId);
+		adaptationProfilesDataControl.replaceIdentifierReferences(oldId, newId);
 	}
 
 	
@@ -528,6 +532,8 @@ public class ChapterDataControl extends DataControl {
 		npcsListDataControl.deleteIdentifierReferences( id );
 		conversationsListDataControl.deleteIdentifierReferences( id );
 		advancedFeaturesDataControl.deleteIdentifierReferences(id);
+		assessmentProfilesDataControl.deleteIdentifierReferences(id);
+		adaptationProfilesDataControl.deleteIdentifierReferences(id);
 	}
 
 	@Override

@@ -53,11 +53,13 @@ public class DeleteActionTool extends Tool{
 				state.removeFlagVar( index );
 				Controller.getInstance().updateVarFlagSummary( );
 				deleted = true;
+				//Controller.getInstance().updatePanel();
 			} catch (CloneNotSupportedException e) {
 				ReportDialog.GenerateErrorReport(e, false, "Could not clone adaptedState "+((state==null)?"null":state.getClass().toString()));
 			}
 
 		}
+		
 		return deleted;
 	}
 

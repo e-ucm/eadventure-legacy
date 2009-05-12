@@ -30,10 +30,7 @@ import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 import es.eucm.eadventure.common.data.adaptation.AdaptationProfile;
 
-/**
- * This class is the panel used to display and edit nodes. It holds node operations, like adding and removing lines,
- * editing end effects, remove links and reposition lines and children
- */
+
 class UOLPropertiesPanel extends JPanel implements Updateable{
 
 	/**

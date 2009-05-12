@@ -152,26 +152,50 @@ public class AdventureHandler extends DefaultHandler {
 	 * Load the assessment and adaptation profiles from xml.
 	 * 
 	 */
-	//This method must be called after all chapter data is parse, because is a past funtionality, and must be preserved in order
-	// to bringh the posibility to load game of past versions. Now the adaptation and assessment profiles are into chapter.xml, and not 
+	//This method must be called after all chapter data is parse, because is a past functionality, and must be preserved in order
+	// to bring the possibility to load game of past versions. Now the adaptation and assessment profiles are into chapter.xml, and not 
 	// in separate files.
 	public void loadProfiles(){
 	 // Load all the assessment files in each chapter
 		for (String assessmentPath : assessmentPaths){
-		    
+		    boolean added = false;
 		    AssessmentProfile assessProfile = Loader.loadAssessmentProfile ( isCreator, assessmentPath, incidences) ;
-			for (Chapter chapter : adventureData.getChapters()){
+		    if (assessProfile!=null){	
+		    for (Chapter chapter : adventureData.getChapters()){
+			if (chapter.getAssessmentName().equals(assessProfile.getName())){
 			    chapter.addAssessmentProfile(assessProfile);
+			    added=true;
 			}
+			}
+		    if (!added){
+			for (Chapter chapter : adventureData.getChapters()){
+				    chapter.addAssessmentProfile(assessProfile);
+				}
+		    }
+		    
+		    
+		    }
 		}
 		
 		// Load all the adaptation files in each chapter
 		for (String adaptationPath: adaptationPaths){
+		    boolean added=false;
 		    AdaptationProfile adaptProfile= Loader.loadAdaptationProfile( isCreator, adaptationPath, incidences) ;
-		    for (Chapter chapter : adventureData.getChapters()){
-			    chapter.addAdaptationProfile(adaptProfile);
-			}
+		    if (adaptProfile!=null){
+			for (Chapter chapter : adventureData.getChapters()){
+				if (chapter.getAdaptationName().equals(adaptProfile.getName())){
+				    chapter.addAdaptationProfile(adaptProfile);
+				    added=true;
+				}
+				}
+			    if (!added){
+				for (Chapter chapter : adventureData.getChapters()){
+					    chapter.addAdaptationProfile(adaptProfile);
+					}
+			    }
 		}
+		}
+		    
 	}
 
 	/**

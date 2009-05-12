@@ -45,7 +45,7 @@ public class InitialSceneCellRendererEditor extends AbstractCellEditor implement
 		if (isSelected)
 			temp.setBackground(background);
 
-		String[] scenes = Controller.getInstance( ).getIdentifierSummary( ).getSceneIds( );
+		String[] scenes = Controller.getInstance( ).getIdentifierSummary( ).getAllSceneIds();
 		String[] isValues = new String[scenes.length+1];
 		isValues[0] = TextConstants.getText("GeneralText.NotSelected");
 		for (int i=0; i<scenes.length; i++){
