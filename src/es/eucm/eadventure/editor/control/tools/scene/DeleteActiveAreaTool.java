@@ -2,8 +2,10 @@ package es.eucm.eadventure.editor.control.tools.scene;
 
 import javax.swing.table.AbstractTableModel;
 
-import es.eucm.eadventure.common.data.chapter.elements.ActiveArea;
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
+import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.controllers.general.ChapterDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ActiveAreaDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ActiveAreasListDataControl;
 import es.eucm.eadventure.editor.control.tools.Tool;
@@ -22,12 +24,25 @@ public class DeleteActiveAreaTool extends Tool {
 	private ActiveAreaDataControl element;
 	
 	private int position;
+
+	private ChapterDataControl chapterDataControl;
+	
+	private Chapter chapter;
+
 	
 	public DeleteActiveAreaTool(ActiveAreasListDataControl dataControl2,
 			IrregularAreaEditionPanel iaep, ActiveAreasTable table2) {
 		this.dataControl = dataControl2;
 		this.table = table2;
 		this.iaep = iaep;
+		
+		chapterDataControl = Controller.getInstance().getSelectedChapterDataControl();
+		try {
+			chapter = (Chapter) (((Chapter) chapterDataControl.getContent()).clone());
+		} catch (Exception e) {
+			ReportDialog.GenerateErrorReport(e, true, "Could not clone chapter");	
+		}
+
 	}
 
 	@Override
@@ -37,7 +52,7 @@ public class DeleteActiveAreaTool extends Tool {
 
 	@Override
 	public boolean canUndo() {
-		return true;
+		return (chapter != null);
 	}
 
 	@Override
@@ -49,29 +64,28 @@ public class DeleteActiveAreaTool extends Tool {
 	public boolean doTool() {
 		position = table.getSelectedRow();
 		element = dataControl.getActiveAreas().get(position);
-		iaep.getScenePreviewEditionPanel().removeElement(element);
-		iaep.getScenePreviewEditionPanel().setSelectedElement((ImageElement) null);
-		dataControl.deleteElement(element, true);
-		((AbstractTableModel) table.getModel()).fireTableDataChanged();
-		return true;
+		if (dataControl.deleteElement(element, true)) {
+			iaep.getScenePreviewEditionPanel().removeElement(element);
+			iaep.getScenePreviewEditionPanel().setSelectedElement((ImageElement) null);
+			((AbstractTableModel) table.getModel()).fireTableDataChanged();
+			return true;
+		}
+		return false;
+		
+		
 	}
 
 	@Override
 	public boolean redoTool() {
-		iaep.getScenePreviewEditionPanel().removeElement(element);
-		dataControl.deleteElement(element, true);
-		Controller.getInstance().getIdentifierSummary().deleteActiveAreaId(element.getId());
-		Controller.getInstance().updatePanel();
+		Controller.getInstance().replaceSelectedChapter((Chapter)chapterDataControl.getContent());
+		Controller.getInstance().reloadData();
 		return true;
 	}
 
 	@Override
 	public boolean undoTool() {
-		dataControl.getActiveAreas().add(position, element);
-		dataControl.getActiveAreasList().add(position, (ActiveArea) element.getContent());
-		iaep.getScenePreviewEditionPanel().removeElement(element);
-		Controller.getInstance().getIdentifierSummary().addActiveAreaId(element.getId());
-		Controller.getInstance().updatePanel();
+		Controller.getInstance().replaceSelectedChapter(chapter);
+		Controller.getInstance().reloadData();
 		return true;
 	}
 }

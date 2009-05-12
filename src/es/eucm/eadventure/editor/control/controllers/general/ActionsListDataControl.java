@@ -420,6 +420,9 @@ public class ActionsListDataControl extends DataControl {
 			if( ( action.getType( ) == Action.GIVE_TO || action.getType( ) == Action.USE_WITH ) && action.getTargetId( ).equals( id ) ) {
 				actionsList.remove( i );
 				actionsDataControlList.remove( i );
+			} else if ( (action.getType() == Action.CUSTOM_INTERACT && action.getTargetId().equals(id))) {
+				actionsList.remove(i);
+				actionsDataControlList.remove(i);
 			}
 
 			// If not, spread the call and increase the counter
@@ -428,6 +431,7 @@ public class ActionsListDataControl extends DataControl {
 				i++;
 			}
 		}
+
 	}
 
 	@Override

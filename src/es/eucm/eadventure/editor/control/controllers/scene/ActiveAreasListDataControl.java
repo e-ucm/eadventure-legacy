@@ -163,14 +163,18 @@ public class ActiveAreasListDataControl extends DataControl {
 	@Override
 	public boolean deleteElement( DataControl dataControl , boolean askConfirmation) {
 		boolean elementDeleted = false;
+		String id = ( (ActiveAreaDataControl) dataControl ).getId( );
+		String references = String.valueOf( controller.countIdentifierReferences( id ) );
 
-		if( activeAreasList.remove( dataControl.getContent( ) ) ) {
-			activeAreasDataControlList.remove( dataControl );
-			controller.getIdentifierSummary().deleteActiveAreaId(((ActiveArea) dataControl.getContent()).getId());
-			//controller.dataModified( );
-			elementDeleted = true;
+		if(!askConfirmation || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { id, references } ) ) ) {
+			if( activeAreasList.remove( dataControl.getContent( ) ) ) {
+				activeAreasDataControlList.remove( dataControl );
+				controller.deleteIdentifierReferences( id );
+				controller.getIdentifierSummary().deleteActiveAreaId(((ActiveArea) dataControl.getContent()).getId());
+				elementDeleted = true;
+			}
 		}
-
+		
 		return elementDeleted;
 	}
 
