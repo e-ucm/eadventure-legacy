@@ -18,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
@@ -356,6 +357,7 @@ public class ExitsListPanel extends JPanel implements DataControlsPanel, DataCon
 	}
 
 	public boolean updateFields() {
+		final int divider = previewAuxSplit.getDividerLocation();
 		int selected = table.getSelectedRow();
 		int items = table.getRowCount();
 		
@@ -367,6 +369,13 @@ public class ExitsListPanel extends JPanel implements DataControlsPanel, DataCon
 		if (items > 0 && items == dataControl.getExits().size()) {
 			if (selected != -1 && selected < table.getRowCount()) {
 				table.changeSelection(selected, 0, false, false);
+				SwingUtilities.invokeLater(new Runnable()
+				{
+				    public void run()
+				    {
+						previewAuxSplit.setDividerLocation(divider);
+				    }
+				});
 			}
 		}
 		iaep.repaint();

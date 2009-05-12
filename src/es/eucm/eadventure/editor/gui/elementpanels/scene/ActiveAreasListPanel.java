@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
@@ -293,6 +294,7 @@ public class ActiveAreasListPanel extends JPanel implements DataControlsPanel, D
 	}
 
 	public boolean updateFields() {
+		final int divider = previewAuxSplit.getDividerLocation();
 		int selected = table.getSelectedRow();
 		int items = table.getRowCount();
 		if (table.getCellEditor() != null) {
@@ -307,6 +309,13 @@ public class ActiveAreasListPanel extends JPanel implements DataControlsPanel, D
 				if (smallActions != null && smallActions instanceof Updateable) {
 					((Updateable) smallActions).updateFields();
 				}
+				SwingUtilities.invokeLater(new Runnable()
+				{
+				    public void run()
+				    {
+						previewAuxSplit.setDividerLocation(divider);
+				    }
+				});
 			}
 		}
 		iaep.repaint();
