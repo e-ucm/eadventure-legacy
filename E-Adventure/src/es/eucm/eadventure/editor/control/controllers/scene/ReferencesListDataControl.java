@@ -602,7 +602,7 @@ public class ReferencesListDataControl extends DataControl{
 		int i = 0;
 		while (i < list.size()) {
 			if (list.get(i).getTargetId().equals(id)) {
-				deleteReferenceFromAll(npcReferencesList.get(i));
+				deleteReferenceFromAll(list.get(i));
 				list.remove(i);
 			} else
 				i++;

@@ -3,6 +3,7 @@ package es.eucm.eadventure.editor.gui.structurepanel;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -147,6 +148,7 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
 			structureElements.add(new AdaptationControllerStructureElement(Controller.getInstance().getAdaptationController()));
 			structureElements.add(new AssessmentControllerStructureElement(Controller.getInstance().getAssessmentController()));
 		}
+		setMinimumSize(new Dimension(0 ,11 * UNSELECTED_BUTTON_HEIGHT + 2 * UNSELECTED_BUTTON_HEIGHT + SELECTED_ROW_SIZE + NORMAL_ROW_SIZE));
 		update();
 	}
 	
