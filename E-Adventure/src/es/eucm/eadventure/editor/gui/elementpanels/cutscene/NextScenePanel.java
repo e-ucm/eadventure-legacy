@@ -25,6 +25,7 @@ import es.eucm.eadventure.common.data.chapter.scenes.Cutscene;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.cutscene.CutsceneDataControl;
+import es.eucm.eadventure.editor.control.tools.generic.ChangeStringValueTool;
 import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.editdialogs.EffectsDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.PlayerPositionDialog;
@@ -164,7 +165,8 @@ public class NextScenePanel extends JPanel implements Updateable{
 	 */
 	private class NextSceneComboBoxListener implements ActionListener {
 		public void actionPerformed( ActionEvent e ) {
-			dataControl.setNextSceneId( nextSceneCombo.getSelectedItem( ).toString( ) );
+			Controller.getInstance().addTool(new ChangeStringValueTool(dataControl, nextSceneCombo.getSelectedItem().toString(), "getNextSceneId", "setNextSceneId"));
+//			dataControl.setNextSceneId( nextSceneCombo.getSelectedItem( ).toString( ) );
 			updateNextSceneInfo();
 		}
 	}

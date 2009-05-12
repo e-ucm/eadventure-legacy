@@ -14,6 +14,8 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
@@ -53,15 +55,30 @@ public class StringCellRendererEditor extends AbstractCellEditor implements Tabl
 				    }
 				});
 			}
-			
 			public void focusLost(FocusEvent e) {
+			}
+		});
+		textField.addFocusListener(new FocusListener() {
+			public void focusGained(FocusEvent arg0) {
+			}
+			public void focusLost(FocusEvent arg0) {
+				stopCellEditing();
 			}
 		});
 		textField.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					value = textField.getText();
 					stopCellEditing();
 				}
+		});
+		textField.getDocument().addDocumentListener(new DocumentListener() {
+			public void changedUpdate(DocumentEvent arg0) {
+			}
+			public void insertUpdate(DocumentEvent arg0) {
+				value = textField.getText();
+			}
+			public void removeUpdate(DocumentEvent arg0) {
+				value = textField.getText();
+			}
 		});
 		temp.setLayout(new BorderLayout());
 		temp.add(textField, BorderLayout.CENTER);

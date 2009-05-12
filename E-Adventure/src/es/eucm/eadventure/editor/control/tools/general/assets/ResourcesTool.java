@@ -72,7 +72,7 @@ public abstract class ResourcesTool extends Tool{
 			for (String type: oldResourceTypes){
 				oldResources.addAsset(type, temp.getAssetPath(type));
 			}
-			controller.reloadPanel();
+//			controller.reloadPanel();
 			return true;
 		} catch (CloneNotSupportedException e) {
 			e.printStackTrace();

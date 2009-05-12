@@ -7,7 +7,6 @@ import es.eucm.eadventure.common.data.chapter.ExitLook;
 import es.eucm.eadventure.common.data.chapter.NextScene;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
-import es.eucm.eadventure.editor.control.tools.general.ChangeExitCustomTextTool;
 import es.eucm.eadventure.editor.control.tools.general.InvalidExitCursorTool;
 import es.eucm.eadventure.editor.control.tools.general.assets.SelectExitCursorPathTool;
 
@@ -57,7 +56,7 @@ public class ExitLookDataControl {
 	}
 
 	public void setExitText(String text){
-		Controller.getInstance().addTool(new ChangeExitCustomTextTool (exitLook, text));
+		this.exitLook.setExitText(text);
 	}
 
 	public void editCursorPath( ){

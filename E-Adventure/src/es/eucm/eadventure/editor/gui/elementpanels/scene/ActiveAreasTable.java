@@ -1,20 +1,16 @@
 package es.eucm.eadventure.editor.gui.elementpanels.scene;
 
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
-
 import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableCellRenderer;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.scene.ActiveAreasListDataControl;
-import es.eucm.eadventure.editor.control.tools.structurepanel.RenameElementTool;
+import es.eucm.eadventure.editor.control.tools.scene.RenameActiveAreaTool;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.AuxEditCellRendererEditor;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.ConditionsCellRendererEditor;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.DocumentationCellRendererEditor;
@@ -42,6 +38,8 @@ public class ActiveAreasTable extends JTable {
 		this.iaep = iaep2;
 		this.dataControl = dControl;
 		
+		putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
+
 		this.setModel( new ElementsTableModel() );
 		this.getColumnModel( ).setColumnSelectionAllowed( false );
 		this.setDragEnabled( false );
@@ -133,7 +131,7 @@ public class ActiveAreasTable extends JTable {
 		public void setValueAt(Object value, int rowIndex, int columnIndex) {
 			if (columnIndex == 0) {
 				if (dataControl.getActiveAreas().size() > rowIndex)
-					Controller.getInstance().addTool(new RenameElementTool(dataControl.getActiveAreas().get(rowIndex), (String) value));
+					Controller.getInstance().addTool(new RenameActiveAreaTool(dataControl.getActiveAreas().get(rowIndex), (String) value));
 			}
 		}
 		

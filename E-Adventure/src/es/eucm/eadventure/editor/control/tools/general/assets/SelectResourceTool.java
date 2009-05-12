@@ -13,7 +13,7 @@ import es.eucm.eadventure.editor.gui.assetchooser.AssetChooser;
  * @author Javier
  *
  */
-public class SelectResourceTool extends ResourcesTool{
+public class SelectResourceTool extends ResourcesTool {
 
 	
 	public SelectResourceTool(Resources resources,
@@ -82,6 +82,24 @@ public class SelectResourceTool extends ResourcesTool{
 			else{
 				done = resources.addAsset( assetsInformation[index].name, assetPaths[assetIndex] );
 			}
+		}
+		return done;
+	}
+	
+	@Override
+	public boolean undoTool() {
+		boolean done = super.undoTool();
+		if (done) {
+			Controller.getInstance().updatePanel();
+		}
+		return done;
+	}
+	
+	@Override
+	public boolean redoTool() {
+		boolean done = super.redoTool();
+		if (done) {
+			Controller.getInstance().updatePanel();
 		}
 		return done;
 	}

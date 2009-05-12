@@ -67,6 +67,14 @@ public class CustomActionPropertiesPanel extends JPanel implements ActionTypePan
 
 	}
 	
+	public int getSelectedIndex() {
+		return tabPanel.getSelectedIndex();
+	}
+	
+	public void setSelectedIndex(int index) {
+		tabPanel.setSelectedIndex(index);
+	}
+	
 	/**
 	 * Creates the panel where the personalization elements of the action
 	 * are placed.
@@ -121,8 +129,7 @@ public class CustomActionPropertiesPanel extends JPanel implements ActionTypePan
 	}
 
 	public boolean updateFields() {
-	   boolean update = actionPanel.updateFields();
-	    return update;
+		return false;
 	}
 	
 }

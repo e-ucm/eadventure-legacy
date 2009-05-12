@@ -44,6 +44,7 @@ public class ActionDetailsCellRendererEditor extends AbstractCellEditor implemen
 
 	private Component createComponent(boolean isSelected, JTable table) {
 		JPanel temp = new JPanel();
+		temp.setBackground(table.getBackground());
 		if (isSelected)
 			temp.setBorder(BorderFactory.createMatteBorder(2, 0, 2, 0, table.getSelectionBackground()));
 
@@ -59,6 +60,7 @@ public class ActionDetailsCellRendererEditor extends AbstractCellEditor implemen
 
 		final JCheckBox checkBox = new JCheckBox("");
 		checkBox.setSelected(value.getNeedsGoTo());
+		checkBox.setOpaque(false);
 		checkBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				value.setNeedsGoTo(checkBox.isSelected());

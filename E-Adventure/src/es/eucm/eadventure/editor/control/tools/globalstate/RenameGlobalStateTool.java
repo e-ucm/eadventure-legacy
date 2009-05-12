@@ -1,10 +1,10 @@
-package es.eucm.eadventure.editor.control.tools.structurepanel;
+package es.eucm.eadventure.editor.control.tools.globalstate;
 
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.tools.Tool;
 
-public class RenameElementTool extends Tool {
+public class RenameGlobalStateTool extends Tool {
 
 	private DataControl dataControl;
 	
@@ -12,7 +12,7 @@ public class RenameElementTool extends Tool {
 	
 	private String newName;
 		
-	public RenameElementTool(DataControl dataControl, String string) {
+	public RenameGlobalStateTool(DataControl dataControl, String string) {
 		this.dataControl = dataControl;
 		this.newName = string;
 	}

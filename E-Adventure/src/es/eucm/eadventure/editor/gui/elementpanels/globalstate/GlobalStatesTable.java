@@ -7,7 +7,9 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.globalstate.GlobalStateListDataControl;
+import es.eucm.eadventure.editor.control.tools.globalstate.RenameGlobalStateTool;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.StringCellRendererEditor;
 
 public class GlobalStatesTable extends JTable {
@@ -23,7 +25,9 @@ public class GlobalStatesTable extends JTable {
 		this.setModel( new BarriersTableModel() );
 		this.getColumnModel( ).setColumnSelectionAllowed( false );
 		this.setDragEnabled( false );
-				
+		
+		putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
+
 		this.getColumnModel().getColumn(0).setCellEditor(new StringCellRendererEditor());
 		this.getColumnModel().getColumn(0).setCellRenderer(new StringCellRendererEditor());
 		
@@ -70,7 +74,7 @@ public class GlobalStatesTable extends JTable {
 		@Override
 		public void setValueAt(Object value, int rowIndex, int columnIndex) {
 			if (columnIndex == 0)
-				dataControl.getGlobalStates().get(rowIndex).renameElement((String) value);
+				Controller.getInstance().addTool(new RenameGlobalStateTool(((GlobalStateListDataControl) dataControl).getGlobalStates().get(rowIndex), (String) value));
 		}
 		
 		@Override

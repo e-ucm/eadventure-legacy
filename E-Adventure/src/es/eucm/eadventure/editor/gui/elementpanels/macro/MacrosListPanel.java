@@ -194,13 +194,14 @@ public class MacrosListPanel extends JPanel implements DataControlsPanel, Update
 	public boolean updateFields() {
 		int selected = table.getSelectedRow();
 		int items = table.getRowCount();
+		if (table.getCellEditor() != null)
+			table.getCellEditor().cancelCellEditing();
+
 		((AbstractTableModel) table.getModel()).fireTableDataChanged();
 		
 		if (items > 0 && items == dataControl.getMacros().size()) {
 			if (selected != -1 && selected < table.getRowCount()) {
 				table.changeSelection(selected, 0, false, false);
-//				if (table.getEditorComponent() != null)
-//					table.editCellAt(selected, table.getEditingColumn());
 				updateInfoPanel(table.getSelectedRow());
 			}
 		}

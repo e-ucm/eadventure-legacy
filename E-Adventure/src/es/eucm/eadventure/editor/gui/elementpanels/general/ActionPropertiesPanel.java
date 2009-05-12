@@ -17,7 +17,9 @@ import javax.swing.JTextArea;
 
 import es.eucm.eadventure.common.data.Documented;
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.general.ActionDataControl;
+import es.eucm.eadventure.editor.control.tools.generic.ChangeBooleanValueTool;
 import es.eucm.eadventure.editor.control.tools.listeners.DocumentationChangeListener;
 import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.editdialogs.EffectsDialog;
@@ -114,7 +116,8 @@ public class ActionPropertiesPanel extends JPanel implements ActionTypePanel,Upd
 		enableNotEff.setSelected(this.actionDataControl.isActivatedNotEffects());
 		enableNotEff.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			    actionDataControl.setActivatedNotEffects(enableNotEff.isSelected());
+//			    actionDataControl.setActivatedNotEffects(enableNotEff.isSelected());
+			    Controller.getInstance().addTool(new ChangeBooleanValueTool(actionDataControl, enableNotEff.isSelected(), "isActivatedNotEffects","setActivatedNotEffects"));
 			    editNotEff.setEnabled(enableNotEff.isSelected());
 			}
 		});

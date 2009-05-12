@@ -109,8 +109,6 @@ public class ChangeStringValueTool extends Tool{
 			
 		}
 		return done;
-		
-		
 	}
 
 	@Override

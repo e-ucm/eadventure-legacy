@@ -54,6 +54,7 @@ public class ActionCellRendererEditor extends AbstractCellEditor implements Tabl
 
 	private Component createComponent(boolean isSelected, JTable table) {
 		JPanel temp = new JPanel();
+		temp.setBackground(table.getBackground());
 		if (isSelected)
 			temp.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 0, table.getSelectionBackground()));
 		
@@ -84,6 +85,7 @@ public class ActionCellRendererEditor extends AbstractCellEditor implements Tabl
 			JComboBox combo = new JComboBox();
 			combo = new JComboBox( value.getElementsList( ) );
 			combo.setSelectedItem( value.getIdTarget( ) );
+			combo.setFocusable(false);
 			combo.addActionListener( new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					value.setIdTarget( ((JComboBox) arg0.getSource()).getSelectedItem( ).toString( ) );

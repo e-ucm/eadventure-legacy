@@ -25,7 +25,6 @@ import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.general.ActionDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ActionsListDataControl;
@@ -276,23 +275,32 @@ public class ActionsListPanel extends JPanel implements DataControlsPanel,Update
 	}
 
 	public boolean updateFields() {
+		int index = 0;
+		if (actionPanel instanceof CustomActionPropertiesPanel)
+			index = ((CustomActionPropertiesPanel) actionPanel).getSelectedIndex();
+
+		
 		int selected = table.getSelectedRow();
 		int items = table.getRowCount();
+		if (table.getCellEditor() != null)
+			table.getCellEditor().cancelCellEditing();
+		
 		((AbstractTableModel) table.getModel()).fireTableDataChanged();
 		
 		if (items == table.getRowCount()) {
 			if (selected != -1) {
 				table.changeSelection(selected, 0, false, false);
-				if (table.getEditorComponent() != null)
-					table.editCellAt(selected, table.getEditingColumn());
+				boolean updated = false;
 				if (actionPanel != null && actionPanel instanceof Updateable) {
-					((Updateable) actionPanel).updateFields();
-				} else if (actionPanel != null) {
+					updated = ((Updateable) actionPanel).updateFields();
+				} 
+				if (!updated && actionPanel != null) {
 					actionPropertiesPanel.removeAll();
 					if (selected != -1 && selected < dataControl.getActions().size()) {
 						ActionDataControl action = dataControl.getActions().get(selected);
 						if (action instanceof CustomActionDataControl){
 						    actionPanel = new CustomActionPropertiesPanel((CustomActionDataControl)action);
+						    ((CustomActionPropertiesPanel) actionPanel).setSelectedIndex(index);
 						    actionPropertiesPanel.add(actionPanel,BorderLayout.CENTER);
 						}else if (action instanceof ActionDataControl){
 						    actionPanel = new ActionPropertiesPanel(action);
