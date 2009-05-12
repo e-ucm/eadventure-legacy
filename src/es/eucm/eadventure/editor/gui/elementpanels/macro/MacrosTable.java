@@ -7,7 +7,9 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.macro.MacroListDataControl;
+import es.eucm.eadventure.editor.control.tools.macro.RenameMacroTool;
 import es.eucm.eadventure.editor.gui.elementpanels.general.tables.StringCellRendererEditor;
 
 public class MacrosTable extends JTable {
@@ -20,10 +22,12 @@ public class MacrosTable extends JTable {
 		super();
 		this.dataControl = dControl;
 		
+		
 		this.setModel( new MacrosTableModel() );
 		this.getColumnModel( ).setColumnSelectionAllowed( false );
 		this.setDragEnabled( false );
-				
+		putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
+		
 		this.getColumnModel().getColumn(0).setCellEditor(new StringCellRendererEditor());
 		this.getColumnModel().getColumn(0).setCellRenderer(new StringCellRendererEditor());
 		
@@ -69,8 +73,9 @@ public class MacrosTable extends JTable {
 		
 		@Override
 		public void setValueAt(Object value, int rowIndex, int columnIndex) {
-			if (columnIndex == 0)
-				dataControl.getMacros().get(rowIndex).renameElement((String) value);
+			if (columnIndex == 0) {
+				Controller.getInstance().addTool(new RenameMacroTool(((MacroListDataControl) dataControl).getMacros().get(rowIndex), (String) value));
+			}
 		}
 		
 		@Override

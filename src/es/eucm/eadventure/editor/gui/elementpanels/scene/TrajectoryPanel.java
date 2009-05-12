@@ -160,48 +160,59 @@ public class TrajectoryPanel extends JPanel implements Updateable {
 	private class TrajectoryCheckBoxListener implements ActionListener {
 		public void actionPerformed( ActionEvent e ) {
 			Controller.getInstance().addTool(new ChangeHasTrajectoryTool(((JCheckBox) e.getSource()).isSelected(), sceneDataControl));
-			dataControl = sceneDataControl.getTrajectory();
-			
-			if (initialPositionPanel != null) {
-				remove(initialPositionPanel);
-				initialPositionPanel = null;
-			}
-			
-			if (tep != null) {
-				remove(tep);
-				tep = null;
-			}
-
-			if (dataControl.hasTrajectory()) {
-				tep = new TrajectoryEditionPanel(scenePath, dataControl);
-				spep = tep.getScenePreviewEditionPanel();
-				fillSpep();
-				add( tep, BorderLayout.CENTER );
-			} else {
-				initialPositionPanel = createInitialPositionPanel();
-				add(initialPositionPanel , BorderLayout.CENTER );
-			}
-			
-		    updateUI();
+			updateContents();
 		}
 	}
 
-	public boolean updateFields() {
-		useTrajectoryCheckBox.setEnabled(sceneDataControl.getTrajectory().hasTrajectory());
-		if (spep != null) {
-			spep.updateUI();
-			spep.repaint();
+	private void updateContents() {
+		dataControl = sceneDataControl.getTrajectory();
+		
+		if (initialPositionPanel != null) {
+			remove(initialPositionPanel);
+			initialPositionPanel = null;
 		}
-		if (initialPositionCheckBox != null) {
-			initialPositionCheckBox.setSelected(sceneDataControl.hasDefaultInitialPosition( ));
-			spep.setFixedSelectedElement(false);
-			spep.setSelectedElement((ImageElement) null);
-			spep.removeElements(ScenePreviewEditionPanel.CATEGORY_PLAYER);
-			if (sceneDataControl.hasDefaultInitialPosition( )) {
-				Image image = AssetsController.getImage(Controller.getInstance().getPlayerImagePath());
-				spep.addPlayer(sceneDataControl, image);
-				spep.setSelectedElement(new ImageElementPlayer(image, sceneDataControl));
-				spep.setFixedSelectedElement(true);
+		
+		if (tep != null) {
+			remove(tep);
+			tep = null;
+		}
+
+		if (dataControl.hasTrajectory()) {
+			tep = new TrajectoryEditionPanel(scenePath, dataControl);
+			spep = tep.getScenePreviewEditionPanel();
+			fillSpep();
+			add( tep, BorderLayout.CENTER );
+		} else {
+			initialPositionPanel = createInitialPositionPanel();
+			add(initialPositionPanel , BorderLayout.CENTER );
+		}
+		
+	    updateUI();
+	}
+	
+	public boolean updateFields() {
+		if (sceneDataControl.getTrajectory().hasTrajectory() != useTrajectoryCheckBox.isSelected()) {
+			useTrajectoryCheckBox.setSelected(sceneDataControl.getTrajectory().hasTrajectory());
+			updateContents();
+		}
+		else {
+			if (spep != null) {
+				spep.updateUI();
+				spep.repaint();
+			}
+			if (initialPositionCheckBox != null) {
+				initialPositionCheckBox.setSelected(sceneDataControl.hasDefaultInitialPosition( ));
+				spep.setFixedSelectedElement(false);
+				spep.setSelectedElement((ImageElement) null);
+				spep.removeElements(ScenePreviewEditionPanel.CATEGORY_PLAYER);
+				if (sceneDataControl.hasDefaultInitialPosition( )) {
+					Image image = AssetsController.getImage(Controller.getInstance().getPlayerImagePath());
+					spep.addPlayer(sceneDataControl, image);
+					spep.setSelectedElement(new ImageElementPlayer(image, sceneDataControl));
+					spep.setFixedSelectedElement(true);
+				}
+				spep.updateUI();
+				spep.repaint();
 			}
 		}
 		return true;

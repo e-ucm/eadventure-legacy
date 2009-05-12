@@ -366,11 +366,11 @@ public class ActionDataControl extends DataControlWithResources {
 	 * Change activated not effects
 	 * @param activated
 	 */
-	public void setActivatedNotEffects(boolean activated){
+	public void setActivatedNotEffects(Boolean activated){
 	    action.setActivatedNotEffects(activated);
 	}
 	
-	public boolean isActivatedNotEffects(){
+	public Boolean isActivatedNotEffects(){
 	    return action.isActivatedNotEffects();
 	}
 	

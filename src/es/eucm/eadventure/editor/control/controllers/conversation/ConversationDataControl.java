@@ -450,5 +450,7 @@ public abstract class ConversationDataControl extends DataControl {
 		}
 		return valid;
 	}
+
+	public abstract List<ConversationNodeView> getAllNodes();
 	
 }

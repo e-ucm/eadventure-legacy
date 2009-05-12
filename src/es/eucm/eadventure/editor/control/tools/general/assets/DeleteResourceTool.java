@@ -1,6 +1,7 @@
 package es.eucm.eadventure.editor.control.tools.general.assets;
 
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
+import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.data.AssetInformation;
 
 /**
@@ -23,6 +24,24 @@ public class DeleteResourceTool extends ResourcesTool{
 		if( resources.getAssetPath( assetsInformation[index].name ) != null ) {
 			resources.deleteAsset( assetsInformation[index].name );
 			done = true;
+		}
+		return done;
+	}
+
+	@Override
+	public boolean undoTool() {
+		boolean done = super.undoTool();
+		if (done) {
+			Controller.getInstance().updatePanel();
+		}
+		return done;
+	}
+	
+	@Override
+	public boolean redoTool() {
+		boolean done = super.redoTool();
+		if (done) {
+			Controller.getInstance().updatePanel();
 		}
 		return done;
 	}

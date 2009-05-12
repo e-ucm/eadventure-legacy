@@ -295,13 +295,15 @@ public class ActiveAreasListPanel extends JPanel implements DataControlsPanel, D
 	public boolean updateFields() {
 		int selected = table.getSelectedRow();
 		int items = table.getRowCount();
+		if (table.getCellEditor() != null) {
+			table.getCellEditor().cancelCellEditing();
+		}		
+		
 		((AbstractTableModel) table.getModel()).fireTableDataChanged();
 		
 		if (items > 0 && items == dataControl.getActiveAreas().size()) {
 			if (selected != -1 && selected < table.getRowCount()) {
 				table.changeSelection(selected, 0, false, false);
-				if (table.getEditorComponent() != null)
-					table.editCellAt(selected, table.getEditingColumn());
 				if (smallActions != null && smallActions instanceof Updateable) {
 					((Updateable) smallActions).updateFields();
 				}

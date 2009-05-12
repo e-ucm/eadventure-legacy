@@ -143,14 +143,18 @@ public class ExitLooksCellRendererEditor extends AbstractCellEditor implements T
 		
 		deleteContentButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				value.setCursorPath(null);
-				Image image = AssetsController.getImage(Controller.getInstance().getDefaultExitCursorPath());
-				tooltip = Controller.getInstance().getDefaultExitCursorPath();
-				ImageIcon cursorPreview = new ImageIcon(image);
-				panel.remove(label);
-				label = new JLabel(cursorPreview);
-				panel.add(label, c);
-				panel.validate();
+				if (value.isCursorCustomized()) {
+					Controller.getInstance().addTool(new ChangeStringValueTool(value, null, "getCustomizedCursor", "setCursorPath"));
+					
+	//				value.setCursorPath(null);
+					Image image = AssetsController.getImage(Controller.getInstance().getDefaultExitCursorPath());
+					tooltip = Controller.getInstance().getDefaultExitCursorPath();
+					ImageIcon cursorPreview = new ImageIcon(image);
+					panel.remove(label);
+					label = new JLabel(cursorPreview);
+					panel.add(label, c);
+					panel.validate();
+				}
 			}
 		});
 

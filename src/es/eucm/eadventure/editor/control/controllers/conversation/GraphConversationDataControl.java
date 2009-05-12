@@ -536,4 +536,9 @@ public class GraphConversationDataControl extends ConversationDataControl {
 	    return allConditions;
 	}
 
+	@Override
+	public List<ConversationNodeView> getAllNodes() {
+		return this.getAllNodesViews();
+	}
+
 }

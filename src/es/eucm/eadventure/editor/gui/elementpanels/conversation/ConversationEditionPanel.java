@@ -247,6 +247,17 @@ public class ConversationEditionPanel extends JPanel implements Updateable, Data
 	}
 
 	public boolean updateFields() {
+		
+		if (getSelectedNode() != null && !conversationDataControl.getAllNodes().contains(getSelectedNode())) {
+			setSelectedNode(null);
+			setSelectedChild(null);
+		} else if (getSelectedChild() != null && !conversationDataControl.getAllNodes().contains(getSelectedChild())) {
+			setSelectedChild(null);
+		} else {
+			setSelectedNode(getSelectedNode());
+			setSelectedChild(getSelectedChild());
+		}
+		representationPanel.updateRepresentation();
 		representationPanel.repaint( );
 		return true;
 	}

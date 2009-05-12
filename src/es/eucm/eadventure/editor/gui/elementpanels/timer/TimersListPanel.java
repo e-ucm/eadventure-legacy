@@ -22,7 +22,6 @@ import javax.swing.table.AbstractTableModel;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.timer.TimerDataControl;
 import es.eucm.eadventure.editor.control.controllers.timer.TimersListDataControl;
@@ -196,13 +195,14 @@ public class TimersListPanel extends JPanel implements DataControlsPanel, Update
 	public boolean updateFields() {
 		int selected = table.getSelectedRow();
 		int items = table.getRowCount();
+		if (table.getCellEditor() != null)
+			table.getCellEditor().cancelCellEditing();
+		
 		((AbstractTableModel) table.getModel()).fireTableDataChanged();
 		
 		if (items > 0 && items == dataControl.getTimers().size()) {
 			if (selected != -1 && selected < table.getRowCount()) {
 				table.changeSelection(selected, 0, false, false);
-//				if (table.getEditorComponent() != null)
-//					table.editCellAt(selected, table.getEditingColumn());
 				updateInfoPanel(table.getSelectedRow());
 			}
 		}
