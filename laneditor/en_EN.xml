@@ -868,7 +868,7 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="Resources.DescriptionCharacterAnimationSpeakUp">Speaking up</entry>
 	<entry key="Resources.DescriptionCharacterAnimationSpeakDown">Speaking down</entry>
 	<entry key="Resources.DescriptionCharacterAnimationSpeakRight">Speaking right</entry>
-	<entry key="Resources.DescriptionCharacterAnimationSpeakleft">Speaking left</entry>
+	<entry key="Resources.DescriptionCharacterAnimationSpeakLeft">Speaking left</entry>
 	<entry key="Resources.DescriptionCharacterAnimationUseRight">Object to the right</entry>
 	<entry key="Resources.DescriptionCharacterAnimationUseLeft">Object to the left</entry>
 	<entry key="Resources.DescriptionCharacterAnimationWalkUp">Walking up</entry>

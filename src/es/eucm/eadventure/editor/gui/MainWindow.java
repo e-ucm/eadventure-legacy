@@ -62,16 +62,6 @@ public class MainWindow extends JFrame {
 	 * Required.
 	 */
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * Total margin on the x axis
-	 */
-	private static final int WINDOW_MARGIN_X = 80;
-	
-	/**
-	 * Total margin on the y axis
-	 */
-	private static final int WINDOW_MARGIN_Y = 150;
 	
 	/**
 	 * Instance of the controller.
@@ -180,8 +170,8 @@ public class MainWindow extends JFrame {
 		// Set size and position
 		setMinimumSize( new Dimension( 640, 400 ) );
 		Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
-		int width = 850;//screenSize.width - WINDOW_MARGIN_X;
-		int height = 700;//screenSize.height - WINDOW_MARGIN_Y;
+		int width = 900;
+		int height = 740;
 		setSize(width , height );
 		setLocation( ( screenSize.width - width) / 2, ( screenSize.height - height ) / 2 );
 		
@@ -606,28 +596,6 @@ public class MainWindow extends JFrame {
 		});
 		runMenu.add( debugRun );
 		
-		// Create the "Configuration" elements
-		JCheckBoxMenuItem itShowItemReferences = new JCheckBoxMenuItem( TextConstants.getText( "MenuConfiguration.ShowItemReferences" ), controller.getShowItemReferences( ) );
-		itShowItemReferences.addActionListener( new ActionListener( ) {
-			public void actionPerformed( ActionEvent e ) {
-				controller.setShowItemReferences( ( (JCheckBoxMenuItem) e.getSource( ) ).isSelected( ) );
-			}
-		} );
-		configurationMenu.add( itShowItemReferences );
-		JCheckBoxMenuItem itShowNPCReferences = new JCheckBoxMenuItem( TextConstants.getText( "MenuConfiguration.ShowNPCReferences" ), controller.getShowNPCReferences( ) );
-		itShowNPCReferences.addActionListener( new ActionListener( ) {
-			public void actionPerformed( ActionEvent e ) {
-				controller.setShowNPCReferences( ( (JCheckBoxMenuItem) e.getSource( ) ).isSelected( ) );
-			}
-		} );
-		configurationMenu.add( itShowNPCReferences );
-		JCheckBoxMenuItem itShowAtrezzoReferences = new JCheckBoxMenuItem( TextConstants.getText( "MenuConfiguration.ShowAtrezzoReferences" ), controller.getShowAtrezzoReferences( ) );
-		itShowNPCReferences.addActionListener( new ActionListener( ) {
-			public void actionPerformed( ActionEvent e ) {
-				controller.setShowAtrezzoReferences( ( (JCheckBoxMenuItem) e.getSource( ) ).isSelected( ) );
-			}
-		} );
-		configurationMenu.add( itShowAtrezzoReferences );
 		itAutoBackup = new JCheckBoxMenuItem( TextConstants.getText( "MenuConfiguration.AutoBackup"), controller.getAutoSaveEnabled() );
 		itAutoBackup.addActionListener( new ActionListener() {
 			public void actionPerformed( ActionEvent e) {
@@ -655,58 +623,6 @@ public class MainWindow extends JFrame {
 		return windowMenu;
 	}
 	
-
-	/*private JMenuBar createMenuBarAssessmentMode (){
-		JMenuBar windowMenu = new JMenuBar( );
-		// Create the menus
-		JMenu fileMenu = new JMenu( TextConstants.getText( "MenuFile.Title" ) );
-		fileMenu.setMnemonic( KeyEvent.VK_F );
-		windowMenu.add( fileMenu );
-
-		// Create the "File" elements
-		JMenuItem itNewFile = new JMenuItem( TextConstants.getText( "MenuFile.NewAssessmentFile" ) );
-		itNewFile.addActionListener( new ActionListener( ) {
-			public void actionPerformed( ActionEvent e ) {
-				controller.newFile( Controller.FILE_ASSESSMENT );
-			}
-		} );
-		fileMenu.add( itNewFile );
-		JMenuItem itFileLoad = new JMenuItem( TextConstants.getText( "MenuFile.Load" ) );
-		itFileLoad.addActionListener( new ActionListener( ) {
-			public void actionPerformed( ActionEvent e ) {
-				controller.loadFile( );
-			}
-		} );
-		itFileLoad.setAccelerator( KeyStroke.getKeyStroke( 'L', InputEvent.CTRL_MASK ) );
-		fileMenu.add( itFileLoad );
-		fileMenu.addSeparator( );
-		JMenuItem itFileSave = new JMenuItem( TextConstants.getText( "MenuFile.Save" ) );
-		itFileSave.addActionListener( new ActionListener( ) {
-			public void actionPerformed( ActionEvent e ) {
-				controller.saveFile( false );
-			}
-		} );
-		itFileSave.setAccelerator( KeyStroke.getKeyStroke( 'S', InputEvent.CTRL_MASK ) );
-		fileMenu.add( itFileSave );
-		JMenuItem itFileSaveAs = new JMenuItem( TextConstants.getText( "MenuFile.SaveAs" ) );
-		itFileSaveAs.addActionListener( new ActionListener( ) {
-			public void actionPerformed( ActionEvent e ) {
-				controller.saveFile( true );
-			}
-		} );
-		fileMenu.add( itFileSaveAs );
-		fileMenu.addSeparator( );
-		JMenuItem itFileExit = new JMenuItem( TextConstants.getText( "MenuFile.Exit" ) );
-		itFileExit.addActionListener( new ActionListener( ) {
-			public void actionPerformed( ActionEvent e ) {
-				controller.exit( );
-			}
-		} );
-		fileMenu.add( itFileExit );
-
-		return windowMenu;
-	}*/
-
 	public void setNormalRunAvailable ( boolean available ){
 		this.normalRun.setEnabled ( available );
 		this.debugRun.setEnabled(available);
