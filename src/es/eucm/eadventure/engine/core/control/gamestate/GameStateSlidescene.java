@@ -4,6 +4,8 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
+import javax.swing.JOptionPane;
+
 import es.eucm.eadventure.common.data.chapter.Exit;
 import es.eucm.eadventure.common.data.chapter.effects.Effects;
 import es.eucm.eadventure.common.data.chapter.resources.Asset;
@@ -15,6 +17,7 @@ import es.eucm.eadventure.engine.core.control.animations.Animation;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffects;
 import es.eucm.eadventure.common.data.chapter.scenes.Scene;
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
@@ -141,8 +144,14 @@ public class GameStateSlidescene extends GameState {
                 game.setNextScene( exit );
                 game.setState( Game.STATE_NEXT_SCENE );
         }
-        else
-           FunctionalEffects.storeAllEffects(new Effects());    	
+        else {
+           if (game.getFunctionalScene() == null) {
+        	   JOptionPane.showMessageDialog(null, TextConstants.getText("DesignError.Message"), TextConstants.getText("DesignError.Title"), JOptionPane.ERROR_MESSAGE);
+        	   yetSkipped = true;
+        	   game.goToNextChapter();
+           }
+           FunctionalEffects.storeAllEffects(new Effects());
+        }
     }
     /**
      * Creates the current resource block to be used

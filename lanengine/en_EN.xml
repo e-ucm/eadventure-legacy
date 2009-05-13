@@ -177,5 +177,7 @@
 	<entry key="DebugFrameLog.All">All</entry>
 	<entry key="DebugFrameLog.AllTip">Shows all logs</entry>
 	
+	<entry key="DesignError.Title">Desing error</entry>
+	<entry key="DesignError.Message">Design error: can go back to scene when there is no scene to go back to</entry>
 
 </properties>

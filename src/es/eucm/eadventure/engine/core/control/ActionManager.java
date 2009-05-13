@@ -7,7 +7,6 @@ import java.awt.event.MouseEvent;
 import java.util.HashMap;
 
 import es.eucm.eadventure.common.data.chapter.Exit;
-import es.eucm.eadventure.common.data.chapter.NextScene;
 import es.eucm.eadventure.common.data.chapter.scenes.GeneralScene;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalConditions;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
@@ -213,7 +212,6 @@ public class ActionManager {
         if( elementInside != null ) {
             setElementOver( elementInside );
         } else if( exit != null && actionSelected == ACTION_GOTO ) {
-        	
             boolean isCursorSet = getCursorPath( exit ) != null && !getCursorPath( exit ).equals( "" );
 
             if(isCursorSet && !cursors.containsKey( exit )){
@@ -238,8 +236,10 @@ public class ActionManager {
                     nextScene = game.getCurrentChapterData( ).getGeneralScene( exit.getNextScenes( ).get( i ).getTargetId( ) );
 
             //Check the text (customized or not)
-            if (getExitText( exit )!=null ){
+            if (getExitText( exit )!=null && !getExitText(exit).equals("")){
                 setExit (getExitText( exit  ));
+            } else if (getExitText(exit) != null) {
+            	setExit(" ");
             } else if( nextScene != null )
                 setExit( nextScene.getName( ) );
         }
