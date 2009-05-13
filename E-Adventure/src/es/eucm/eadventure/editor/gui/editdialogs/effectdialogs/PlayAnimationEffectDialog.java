@@ -11,18 +11,26 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import es.eucm.eadventure.common.auxiliar.File;
+import es.eucm.eadventure.common.data.animation.Animation;
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
+import es.eucm.eadventure.editor.control.writer.AnimationWriter;
 import es.eucm.eadventure.editor.gui.displaydialogs.AnimationDialog;
+import es.eucm.eadventure.editor.gui.editdialogs.animationeditdialog.AnimationEditDialog;
 import es.eucm.eadventure.editor.gui.otherpanels.positionimagepanels.PointImagePanel;
 import es.eucm.eadventure.editor.gui.otherpanels.positionpanel.PositionPanel;
 
@@ -116,11 +124,16 @@ public class PlayAnimationEffectDialog extends EffectDialog {
 		c.weightx = 0;
 		assetPanel.add( selectButton, c );
 
+		JButton editButton = new JButton( TextConstants.getText("Resources.Create") + "/" + TextConstants.getText("Resources.Edit"));
+		editButton.addActionListener( new EditButtonListener());
+		c.gridx = 3;
+		assetPanel.add(editButton);
+
 		// Create the "View" button and insert it
 		viewButton = new JButton( TextConstants.getText( "Resources.ViewAsset" ) );
 		viewButton.setEnabled( false );
 		viewButton.addActionListener( new ViewButtonActionListener( ) );
-		c.gridx = 3;
+		c.gridx = 4;
 		assetPanel.add( viewButton, c );
 
 		// Create the main panel
@@ -271,4 +284,68 @@ public class PlayAnimationEffectDialog extends EffectDialog {
 				pointPositionPanel.loadImage( controller.getSceneImagePath( scenesComboBox.getSelectedItem( ).toString( ) ) );
 		}
 	}
+	
+	/**
+	 * This class is the listener for the "Edit" buttons on the panels.
+	 */
+	private class EditButtonListener implements ActionListener {
+		
+		/**
+		 * Constructor.
+		 * @param currentProperties 
+		 * 
+		 * @param assetIndex
+		 *            Index of the asset
+		 */
+		public EditButtonListener() {
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
+		public void actionPerformed( ActionEvent e ) {
+			String path = pathTextField.getText();
+			
+			if (path != null && 
+					path.toLowerCase().endsWith(".eaa") &&
+					!path.equals(AssetsController.ASSET_EMPTY_ANIMATION)) {
+				new AnimationEditDialog(path, null);
+			} else {
+				String filename= null;
+				String animationName = "anim" + (new Random()).nextInt(1000);
+				if (path != null && !path.equals("")) {
+					String[] temp = path.split("/");
+					animationName = temp[temp.length-1];
+					filename = AssetsController.TempFileGenerator.generateTempFileOverwriteExisting(animationName, "eaa");				
+				} else {
+					animationName = JOptionPane.showInputDialog(Controller.getInstance().peekWindow(), TextConstants.getText("Animation.AskFilename"), TextConstants.getText("Animation.AskFilenameTitle"), JOptionPane.QUESTION_MESSAGE);
+					if (animationName!=null && animationName.length() > 0) {
+						filename = AssetsController.TempFileGenerator.generateTempFileOverwriteExisting(animationName, "eaa");
+					}
+				}
+				if (filename!=null){
+					File file = new File(filename);
+					file.create();
+					AnimationWriter.writeAnimation(filename, new Animation(animationName));
+					
+					Animation animation = new Animation(animationName);
+					if (path != null) {
+						animation.framesFromImages(path);
+						AnimationWriter.writeAnimation(filename, animation);
+					}
+					
+					String selectedAsset = (new File(filename)).getName();
+
+					pathTextField.setText(AssetsController.CATEGORY_ANIMATION_FOLDER + "/" + selectedAsset);
+					new AnimationEditDialog(AssetsController.CATEGORY_ANIMATION_FOLDER + "/" + selectedAsset, animation);
+				}
+				
+			}
+			viewButton.setEnabled(true);
+			
+		}
+	}
+
 }

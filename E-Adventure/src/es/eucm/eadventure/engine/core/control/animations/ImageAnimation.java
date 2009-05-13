@@ -52,9 +52,10 @@ public class ImageAnimation extends ImageSet {
      * Updates this animation's current image (frame) if neccesary.
      */
     public void update( long elapsedTime ) {
+        // Add the elapsed time to the accumulated
+        accumulatedAnimationTime += elapsedTime;
+
         if( imageSet.length > 1 ) {
-            // Add the elapsed time to the accumulated
-            accumulatedAnimationTime += elapsedTime;
 
             // Skip frame for every TIME_PER_FRAME miliseconds
             while( accumulatedAnimationTime > TIME_PER_FRAME ) {
@@ -66,6 +67,8 @@ public class ImageAnimation extends ImageSet {
                 currentFrameIndex %= imageSet.length;
                 playingFirstTime = false;
             }
+        } else if (accumulatedAnimationTime > TIME_PER_FRAME) {
+        	playingFirstTime = false;
         }
     }
     
