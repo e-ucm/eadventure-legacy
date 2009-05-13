@@ -80,6 +80,7 @@ public class TextLineCellRendererEditor extends AbstractCellEditor implements Ta
 				{
 				    public void run()
 				    {
+				    	textPane.selectAll();
 				    	textPane.requestFocusInWindow();
 				    }
 				});

@@ -59,12 +59,12 @@ public class ConditionDialog extends ToolManagableDialog {
 	 * Combo box for the flags.
 	 */
 	private JComboBox idsComboBox;
-	
+
 	/**
 	 * Spinner for values (vars)
 	 */
 	private JSpinner valueSpinner;
-	
+
 	/**
 	 * Options panel: flag/var/state(group of conditions)
 	 */
@@ -74,38 +74,38 @@ public class ConditionDialog extends ToolManagableDialog {
 	 * This panel is updated with diverse features according to the selected one
 	 */
 	private JPanel featuresPanel;
-	
+
 	/**
 	 * Selected id 
 	 */
 	private String selectedId;
-	
+
 	/**
 	 * Current mode selected for the condition.
 	 * Valid values: #Condition.VAR_CONDITION, #Condition.FLAG_CONDITION, #Condition.GROUP_CONDITION
 	 */
 	private int selectedMode;
-	
+
 	/**
 	 * Default flag
 	 */
 	private String defaultFlag;
-	
+
 	/**
 	 * Default id
 	 */
 	private String defaultId;
-	
+
 	/**
 	 * Default var
 	 */
 	private String defaultVar;
-	
+
 	/**
 	 * Default state (vars)
 	 */
 	private String defaultState;
-	
+
 	/**
 	 * Default value (vars)
 	 */
@@ -137,7 +137,7 @@ public class ConditionDialog extends ToolManagableDialog {
 	 *            The default flag value, null if none
 	 */
 	public ConditionDialog( String defaultMode, String title, String defaultState, String defaultFlag, String defaultVar, String defaultId, String defaultValue, HashMap<String, ConditionContextProperty> context ) {
-		super( Controller.getInstance( ).peekWindow( ), title,false);//, Dialog.ModalityType.APPLICATION_MODAL );
+		super( Controller.getInstance( ).peekWindow( ), title,false);
 
 		this.context = context;
 		this.defaultFlag = defaultFlag;
@@ -148,66 +148,59 @@ public class ConditionDialog extends ToolManagableDialog {
 			this.defaultValue = Integer.parseInt( defaultValue );
 		else
 			this.defaultValue = 1;
-		
-		// If it is not empty
-		//if( flagsArray.length > 0 ) {
 
-			pressedOKButton = false;
 
-			JPanel mainPanel = new JPanel( );
-			mainPanel.setLayout( new GridBagLayout( ) );
-			GridBagConstraints c = new GridBagConstraints( );
-			c.insets = new Insets( 14, 14, 14, 4 );
-			c.fill = GridBagConstraints.HORIZONTAL;
-			c.gridwidth = 3;
-			c.weightx = 1;
-			mainPanel.add( new JLabel( TextConstants.getText( "Conditions.EditConditionMessage" ) ), c );
-			
-			c.gridy = 1;
-			optionsPanel = createOptionsPanel();
-			mainPanel.add( optionsPanel, c );
+		pressedOKButton = false;
 
-			featuresPanel = new JPanel();
-			c.gridy = 2;
-			mainPanel.add( featuresPanel, c );
-			
-			add( mainPanel, BorderLayout.CENTER );
+		JPanel mainPanel = new JPanel( );
+		mainPanel.setLayout( new GridBagLayout( ) );
+		GridBagConstraints c = new GridBagConstraints( );
+		c.insets = new Insets( 14, 14, 14, 4 );
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridwidth = 3;
+		c.weightx = 1;
+		mainPanel.add( new JLabel( TextConstants.getText( "Conditions.EditConditionMessage" ) ), c );
 
-			JPanel buttonsPanel = new JPanel( );
-			buttonsPanel.setLayout( new FlowLayout( FlowLayout.RIGHT, 4, 4 ) );
+		c.gridy = 1;
+		optionsPanel = createOptionsPanel();
+		mainPanel.add( optionsPanel, c );
 
-			JButton okButton = new JButton( TextConstants.getText( "GeneralText.OK" ) );
-			okButton.addActionListener( new OKButtonListener( ) );
-			buttonsPanel.add( okButton );
+		featuresPanel = new JPanel();
+		c.gridy = 2;
+		mainPanel.add( featuresPanel, c );
 
-			JButton cancelButton = new JButton( TextConstants.getText( "GeneralText.Cancel" ) );
-			cancelButton.addActionListener( new ActionListener( ) {
-				public void actionPerformed( ActionEvent e ) {
-					setVisible( false );
-				}
-			} );
-			buttonsPanel.add( cancelButton );
+		add( mainPanel, BorderLayout.CENTER );
 
-			add( buttonsPanel, BorderLayout.SOUTH );
+		JPanel buttonsPanel = new JPanel( );
+		buttonsPanel.setLayout( new FlowLayout( FlowLayout.RIGHT, 4, 4 ) );
 
-			setResizable( false );
-			if (defaultMode.equals(ConditionsController.CONDITION_TYPE_FLAG))
-				selectedMode = Condition.FLAG_CONDITION;
-			if (defaultMode.equals(ConditionsController.CONDITION_TYPE_VAR))
-				selectedMode = Condition.VAR_CONDITION;
-			if (defaultMode.equals(ConditionsController.CONDITION_TYPE_GS))
-				selectedMode = Condition.GLOBAL_STATE_CONDITION;
-			updateDialog( );
-			Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
-			setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
-			setVisible( true );
-		//}
+		JButton okButton = new JButton( TextConstants.getText( "GeneralText.OK" ) );
+		okButton.addActionListener( new OKButtonListener( ) );
+		buttonsPanel.add( okButton );
 
-		// If the list had no elements, show an error message
-		//else
-			//Controller.getInstance( ).showErrorDialog( getTitle( ), TextConstants.getText( "Conditions.ErrorNoFlags" ) );
+		JButton cancelButton = new JButton( TextConstants.getText( "GeneralText.Cancel" ) );
+		cancelButton.addActionListener( new ActionListener( ) {
+			public void actionPerformed( ActionEvent e ) {
+				setVisible( false );
+			}
+		} );
+		buttonsPanel.add( cancelButton );
+
+		add( buttonsPanel, BorderLayout.SOUTH );
+
+		setResizable( false );
+		if (defaultMode.equals(ConditionsController.CONDITION_TYPE_FLAG))
+			selectedMode = Condition.FLAG_CONDITION;
+		if (defaultMode.equals(ConditionsController.CONDITION_TYPE_VAR))
+			selectedMode = Condition.VAR_CONDITION;
+		if (defaultMode.equals(ConditionsController.CONDITION_TYPE_GS))
+			selectedMode = Condition.GLOBAL_STATE_CONDITION;
+		updateDialog( );
+		Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
+		setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
+		setVisible( true );
 	}
-	
+
 	private JPanel createOptionsPanel ( ){
 		JPanel panel = new JPanel();
 		panel = new JPanel();
@@ -230,7 +223,6 @@ public class ConditionDialog extends ToolManagableDialog {
 		group.add( button1 );
 		group.add( button2 );
 		group.add( button3 );
-
 		return panel;
 	}
 
@@ -254,7 +246,7 @@ public class ConditionDialog extends ToolManagableDialog {
 		else 
 			return null;
 	}
-	
+
 	/**
 	 * Returns the value (vars).
 	 * 
@@ -273,12 +265,9 @@ public class ConditionDialog extends ToolManagableDialog {
 	 * @return The flag value
 	 */
 	public String getSelectedId( ) {
-		/*if (flagsComboBox.getSelectedItem( )!=null)
-			return flagsComboBox.getSelectedItem( ).toString( );
-		else return null;*/
 		return selectedId;
 	}
-	
+
 	public String getSelectedType( ) {
 		if (selectedMode==Condition.FLAG_CONDITION)
 			return ConditionsController.CONDITION_TYPE_FLAG;
@@ -289,16 +278,16 @@ public class ConditionDialog extends ToolManagableDialog {
 		else 
 			return null;
 	}
-	
+
 	private void updateDialog (  ){
-		
+
 		this.featuresPanel.removeAll();
 		featuresPanel.updateUI();
-		
+
 		if ( selectedMode == Condition.FLAG_CONDITION ){
 			featuresPanel.setLayout( new GridBagLayout() );
 			String[] flagsArray = Controller.getInstance( ).getVarFlagSummary( ).getFlags( );
-			
+
 			GridBagConstraints c = new GridBagConstraints( );
 			c.insets = new Insets( 4, 4, 2, 4 );
 			c.gridy = 0;
@@ -309,7 +298,7 @@ public class ConditionDialog extends ToolManagableDialog {
 			c.gridx = 1;
 			c.weightx = 0.2;
 			featuresPanel.add( new JLabel( TextConstants.getText( "Conditions.Flag.State"  ) ), c );
-			
+
 			c.insets = new Insets( 2, 4, 4, 4 );
 			c.gridx = 0;
 			c.gridy = 1;
@@ -327,15 +316,15 @@ public class ConditionDialog extends ToolManagableDialog {
 				stateComboBox.setSelectedItem( defaultState );
 			}
 			featuresPanel.add( stateComboBox, c );
-			
+
 			featuresPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder(), TextConstants.getText("Conditions.Flag.Title")));
 
 		}
-		
+
 		else if ( selectedMode == Condition.VAR_CONDITION ){
 			featuresPanel.setLayout( new GridBagLayout() );
 			String[] varsArray = Controller.getInstance( ).getVarFlagSummary( ).getVars( );
-			
+
 			GridBagConstraints c = new GridBagConstraints( );
 			c.insets = new Insets( 4, 4, 2, 4 );
 			c.gridy = 0;
@@ -346,11 +335,11 @@ public class ConditionDialog extends ToolManagableDialog {
 			c.gridx = 1;
 			c.weightx = 0.2;
 			featuresPanel.add( new JLabel( TextConstants.getText( "Conditions.Var.State"  ) ), c );
-			
+
 			c.gridx = 2;
 			c.weightx = 0.2;
 			featuresPanel.add( new JLabel( TextConstants.getText( "Conditions.Var.Value"  ) ), c );
-			
+
 			c.insets = new Insets( 2, 4, 4, 4 );
 			c.gridx = 0;
 			c.gridy = 1;
@@ -368,16 +357,16 @@ public class ConditionDialog extends ToolManagableDialog {
 				stateComboBox.setSelectedItem( defaultState );
 			}
 			featuresPanel.add( stateComboBox, c );
-			
+
 			c.gridx = 2;
 			c.weightx = 0.2;
 			valueSpinner = new JSpinner( new SpinnerNumberModel( defaultValue, VarCondition.MIN_VALUE, VarCondition.MAX_VALUE, 1 ) );
 			featuresPanel.add( valueSpinner, c );
-			
+
 			featuresPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder(), TextConstants.getText("Conditions.Var.Title")));
-			
+
 		} 
-		
+
 		else if ( selectedMode == Condition.GLOBAL_STATE_CONDITION ){
 			featuresPanel.setLayout( new GridBagLayout() );
 			String[] globalStatesArray = null;
@@ -386,7 +375,7 @@ public class ConditionDialog extends ToolManagableDialog {
 				globalStatesArray = Controller.getInstance( ).getIdentifierSummary().getGlobalStatesIds(restrictions.getForbiddenIds());
 			}else
 				globalStatesArray = Controller.getInstance( ).getIdentifierSummary().getGlobalStatesIds();
-			
+
 			GridBagConstraints c = new GridBagConstraints( );
 			c.insets = new Insets( 4, 4, 2, 4 );
 			c.gridy = 0;
@@ -407,9 +396,8 @@ public class ConditionDialog extends ToolManagableDialog {
 		}
 		featuresPanel.doLayout();
 		pack();
-
 	}
-	
+
 	/**
 	 * Listener for mode buttons
 	 * @author Javier
@@ -421,19 +409,19 @@ public class ConditionDialog extends ToolManagableDialog {
 		 * Mode represented by the button linked to this listener
 		 */
 		private int mode;
-		
+
 		public ConditionModeButtonListener ( int mode ){
 			this.mode = mode;
 		}
-		
+
 		public void actionPerformed(ActionEvent e) {
 			// Change current mode
 			selectedMode = mode;
 			updateDialog ( );
 		}
-		
+
 	}
-	
+
 	private class OKButtonListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
@@ -443,40 +431,36 @@ public class ConditionDialog extends ToolManagableDialog {
 				String id = null;
 				if (idsComboBox.getSelectedItem( )!=null)
 					id = idsComboBox.getSelectedItem( ).toString( );
-				
+
 				if (varFlagsController.existsId( id ) || idSummary.isGlobalStateId(id)){
 					idsComboBox.setSelectedItem( id  );
 					selectedId = id;
 				} 
 				else if (id!=null){
 					String idAdded = varFlagsController.addShortCutFlagVar( selectedMode == Condition.FLAG_CONDITION, id );
-					
+
 					if ( selectedMode == Condition.FLAG_CONDITION)
 						idsComboBox.setModel( new DefaultComboBoxModel(Controller.getInstance( ).getVarFlagSummary( ).getFlags( )) );
 					else if ( selectedMode == Condition.VAR_CONDITION)
 						idsComboBox.setModel( new DefaultComboBoxModel(Controller.getInstance( ).getVarFlagSummary( ).getVars( )) );
-					
+
 					if (idAdded!=null){
 						idsComboBox.setSelectedItem( idAdded );
 						selectedId = idAdded;
 					} 
 					idsComboBox.updateUI( );
-					//updateDialog ( );
 				} else if (id == null){
 					selectedId = null;
 				}
-				
+
 			} else {
 				selectedId = null;
 			}
 			pressedOKButton = true;
 			setVisible( false );
-			
 		}
-
-		
 	}
-	
+
 	public boolean updateFields(){
 		updateDialog();
 		return true;

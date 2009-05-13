@@ -9,6 +9,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
 import javax.swing.JDialog;
+import javax.swing.SwingUtilities;
 
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.gui.Updateable;
@@ -92,8 +93,18 @@ public abstract class ToolManagableDialog extends JDialog implements Updateable,
 					Controller.getInstance().popLocalToolManager();
 				}
 			}
+			if (visible) {
+				SwingUtilities.invokeLater(new Runnable()
+				{
+				    public void run()
+				    {
+				    	repaint();
+				    }
+				});
+			}
 			super.setVisible(visible);
 		}
+		
 	}
 	
 	public void windowClosing(WindowEvent e) {
