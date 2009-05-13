@@ -177,4 +177,7 @@
 	<entry key="DebugFrameLog.All">Todo</entry>
 	<entry key="DebugFrameLog.AllTip">Muestra todos los logs</entry>
 	
+	<entry key="DesignError.Title">Error de diseño</entry>
+	<entry key="DesignError.Message">Error de diseño: no se puede volver a una escena cuando no hay escena a la que volver</entry>
+	
 </properties>
