@@ -903,7 +903,6 @@ public class AssetsController {
 		// Remove the suffix in the PNG animations
 		if( assetPath.toLowerCase( ).endsWith( "_01.png" ) )
 			assetPath = assetPath.substring( 0, assetPath.length( ) - 7 );
-
 		// Remove the suffix in the JPG slides
 		else if( assetPath.toLowerCase( ).endsWith( "_01.jpg" ) ) {
 			assetPath = assetPath.substring( 0, assetPath.length( ) - 7 );
