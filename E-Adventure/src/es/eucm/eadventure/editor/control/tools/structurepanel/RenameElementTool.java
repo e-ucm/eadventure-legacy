@@ -3,6 +3,7 @@ package es.eucm.eadventure.editor.control.tools.structurepanel;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.tools.Tool;
+import es.eucm.eadventure.editor.gui.structurepanel.StructureControl;
 
 public class RenameElementTool extends Tool {
 
@@ -45,7 +46,8 @@ public class RenameElementTool extends Tool {
 		if( dataControl.canBeRenamed( )) {
 			oldName = dataControl.renameElement( newName );
 			if (oldName != null) {
-				Controller.getInstance().updatePanel();
+				Controller.getInstance().updateStructure();
+				StructureControl.getInstance().changeDataControl(dataControl);
 				return true;
 			}
 		}		
@@ -57,7 +59,8 @@ public class RenameElementTool extends Tool {
 		if( dataControl.canBeRenamed( )) {
 			newName = dataControl.renameElement( oldName );
 			if (newName != null) {
-				Controller.getInstance().updatePanel();
+				Controller.getInstance().updateStructure();
+				StructureControl.getInstance().changeDataControl(dataControl);
 				return true;
 			}
 		}		

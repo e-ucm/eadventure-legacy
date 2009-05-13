@@ -58,17 +58,18 @@ public class CutsceneDOMWriter {
 			else if (cutscene.getNext() == Cutscene.NEWSCENE)
 				cutsceneElement.setAttribute("next", "new-scene");
 			
-			if( !cutscene.getEffects( ).isEmpty( ) ) {
-				Node effectsNode = EffectsDOMWriter.buildDOM( EffectsDOMWriter.EFFECTS, cutscene.getEffects( ) );
-				doc.adoptNode( effectsNode );
-				cutsceneElement.appendChild( effectsNode );
-			}
 			
 			// Append the documentation (if avalaible)
 			if( cutscene.getDocumentation( ) != null ) {
 				Node cutsceneDocumentationNode = doc.createElement( "documentation" );
 				cutsceneDocumentationNode.appendChild( doc.createTextNode( cutscene.getDocumentation( ) ) );
 				cutsceneElement.appendChild( cutsceneDocumentationNode );
+			}
+
+			if( !cutscene.getEffects( ).isEmpty( ) ) {
+				Node effectsNode = EffectsDOMWriter.buildDOM( EffectsDOMWriter.EFFECTS, cutscene.getEffects( ) );
+				doc.adoptNode( effectsNode );
+				cutsceneElement.appendChild( effectsNode );
 			}
 
 			// Append the resources

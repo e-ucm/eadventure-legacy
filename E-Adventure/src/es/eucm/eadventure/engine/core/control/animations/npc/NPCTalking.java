@@ -133,7 +133,7 @@ public class NPCTalking extends NPCState {
     public void update( long elapsedTime ) {
         totalTime += elapsedTime;
         if( totalTime > timeTalking && (audioId==-1 || !MultimediaManager.getInstance( ).isPlaying( audioId )) &&(!ttsInUse)) {
-            npc.setState( FunctionalNPC.IDLE );
+        	npc.setState( FunctionalNPC.IDLE );
             stopTTSTalking();
         }
     }
@@ -142,7 +142,7 @@ public class NPCTalking extends NPCState {
     public void draw( int x, int y , float scale, int depth) {
     	super.draw( x, y , scale,depth);
 		// If there is a line to speak, draw it
-        if( !text.equals( "" ) ) {
+        if( text.length >= 1 && !text[0].equals( "" ) ) {
         	if (npc.getShowsSpeechBubbles())
                 GUI.getInstance( ).addTextToDraw( text, x - Game.getInstance( ).getFunctionalScene( ).getOffsetX( ), y - Math.round(npc.getHeight( ) * scale) - 15, npc.getTextFrontColor( ), npc.getTextBorderColor( ) , npc.getBubbleBkgColor(), npc.getBubbleBorderColor());
         	else

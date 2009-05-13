@@ -117,7 +117,6 @@ public abstract class AnimationState {
    	*/
     public void draw( int x, int y, float scale , int depth) {
         Image image = getCurrentAnimation().getImage();
-        
         int realX = (int) (x - ( image.getWidth( null ) * scale / 2 ) - Game.getInstance( ).getFunctionalScene( ).getOffsetX( ));
         int realY = (int) (y - ( image.getHeight( null ) * scale )); 
 
