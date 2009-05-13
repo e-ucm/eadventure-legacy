@@ -121,7 +121,7 @@ public class EffectsPanel extends JPanel implements Updateable{
 			moveUpButton.setEnabled(false);
 			moveDownButton.setEnabled(false);
 		} else {
-			deleteButton.setEnabled(true);
+			deleteButton.setEnabled(effectsController.getEffectCount() > 0);
 			moveUpButton.setEnabled(selected > 0);
 			moveDownButton.setEnabled(selected < effectsTable.getRowCount() - 1);
 		}
@@ -331,6 +331,7 @@ public class EffectsPanel extends JPanel implements Updateable{
 	}
 
 	public boolean updateFields() {
+		updateButtons();
 		effectsTable.updateUI();
 		//effectsTable.setModel(new EffectsTableModel( ));
 		return true;
