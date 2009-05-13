@@ -211,6 +211,11 @@ public class NextScenePanel extends JPanel implements Updateable{
 	private class TransitionSpinnerChangeListener implements ChangeListener {
 
 		public void stateChanged(ChangeEvent e) {
+			if (((Integer) timeSpinner.getValue()).intValue() == 900)
+				timeSpinner.setValue(new Integer(0));
+			else if (((Integer) timeSpinner.getValue()).intValue() == 100)
+				timeSpinner.setValue(new Integer(1000));
+
 			dataControl.setTransitionTime((Integer) timeSpinner.getValue());					
 		}
 	}

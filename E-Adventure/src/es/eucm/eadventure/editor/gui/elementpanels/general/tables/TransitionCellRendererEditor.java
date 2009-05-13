@@ -96,6 +96,10 @@ public class TransitionCellRendererEditor  extends AbstractCellEditor implements
 	    spinner = new JSpinner(sm);
 	    spinner.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
+				if (((Integer) spinner.getValue()).intValue() == 900)
+					spinner.setValue(new Integer(0));
+				else if (((Integer) spinner.getValue()).intValue() == 100)
+					spinner.setValue(new Integer(1000));
 				exit.setTransitionTime((Integer) spinner.getValue());
 			}
 		});

@@ -9,6 +9,7 @@ import es.eucm.eadventure.editor.control.controllers.scene.ExitDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.ExitsListDataControl;
 import es.eucm.eadventure.editor.control.tools.Tool;
 import es.eucm.eadventure.editor.gui.otherpanels.IrregularAreaEditionPanel;
+import es.eucm.eadventure.editor.gui.otherpanels.imageelements.ImageElement;
 
 public class DeleteExitTool extends Tool {
 
@@ -49,6 +50,8 @@ public class DeleteExitTool extends Tool {
 		int position = table.getSelectedRow();
 		element = dataControl.getExits().get(position);
 		iaep.getScenePreviewEditionPanel().removeElement(element);
+		iaep.setRectangular(null);
+		iaep.getScenePreviewEditionPanel().setSelectedElement((ImageElement) null);
 		dataControl.deleteElement(element, true);
 		((AbstractTableModel) table.getModel()).fireTableDataChanged();
 		return true;

@@ -146,11 +146,15 @@ public class SmallActionCellRendererEditor extends AbstractCellEditor implements
 		c.gridy++;
 		final JCheckBox getToCheckBox = new JCheckBox("Needs get to");
 		getToCheckBox.setSelected(value.getNeedsGoTo());
+		if (Controller.getInstance().isPlayTransparent())
+			getToCheckBox.setEnabled(false);
 		temp.add(getToCheckBox, c);
 		
 		c.gridy++;
 		SpinnerModel sm = new SpinnerNumberModel(value.getKeepDistance(), 0, 100, 5);
 		final JSpinner keepDistanceSpinner = new JSpinner(sm);
+		if (Controller.getInstance().isPlayTransparent())
+			keepDistanceSpinner.setEnabled(false);
 		temp.add(keepDistanceSpinner, c);
 		
 		

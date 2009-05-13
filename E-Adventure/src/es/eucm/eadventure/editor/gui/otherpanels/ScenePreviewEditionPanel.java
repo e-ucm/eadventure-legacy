@@ -465,8 +465,11 @@ public class ScenePreviewEditionPanel extends JPanel {
 					if (list.get(index).getDataControl().equals(element))
 						break;
 			if (index>=0 && index < list.size()){
-				if (this.selectedElement == list.get(index))
+				if (this.selectedElement == list.get(index)) {
 					selectedElement = null;
+					this.removeElements(CATEGORY_INFLUENCEAREA);
+					influenceArea = null;
+				}
 				list.remove(index);
 			}
 		}
@@ -1324,6 +1327,11 @@ public class ScenePreviewEditionPanel extends JPanel {
 			}
 			if (temp != null) {
 				elements.get(key).remove(temp);
+				if (selectedElement == temp) {
+					selectedElement = null;
+					this.removeElements(CATEGORY_INFLUENCEAREA);
+					influenceArea = null;
+				}
 				temp = null;
 			}
 		}

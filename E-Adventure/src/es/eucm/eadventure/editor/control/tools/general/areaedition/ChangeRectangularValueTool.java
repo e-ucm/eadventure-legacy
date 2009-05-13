@@ -42,14 +42,14 @@ public class ChangeRectangularValueTool extends Tool {
 	@Override
 	public boolean redoTool() {
 		rectangle.setRectangular(rectangular);
-		Controller.getInstance().reloadPanel();
+		Controller.getInstance().updatePanel();
 		return true;
 	}
 
 	@Override
 	public boolean undoTool() {
 		rectangle.setRectangular(!rectangular);
-		Controller.getInstance().reloadPanel();
+		Controller.getInstance().updatePanel();
 		return true;
 	}
 

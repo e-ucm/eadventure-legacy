@@ -149,6 +149,7 @@ public class IrregularAreaEditionPanel extends JPanel {
 			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_EXIT, rectangleArea instanceof ExitDataControl);
 			spep.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_POINT, false);
 			spep.removeElements(ScenePreviewEditionPanel.CATEGORY_POINT);
+			spep.setIrregularRectangle(null, null);
 			if (rectangleArea != null && rectangleArea instanceof ActiveAreaDataControl) { 
 				spep.setSelectedElement((ActiveAreaDataControl) rectangleArea);
 				if (((ActiveAreaDataControl) rectangleArea).getInfluenceArea() != null)
