@@ -103,7 +103,7 @@ public class GenericOptionPaneDialog extends ToolManagableDialog{
 	optionPane.selectInitialValue();
 	optionPane.setComponentOrientation(window.getComponentOrientation());
 	if (selectionValues!=null)
-	    optionPane.setMinimumSize(new Dimension(200,250));
+	    optionPane.setMinimumSize(new Dimension(200,150));
 	 Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
 	 optionPane.setLocation( ( screenSize.width - optionPane.getWidth( ) ) / 2, ( screenSize.height - optionPane.getHeight( ) ) / 2 );
 	optionPane.setVisible(true);	
