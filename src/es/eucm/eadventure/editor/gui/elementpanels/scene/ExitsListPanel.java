@@ -26,7 +26,6 @@ import javax.swing.table.AbstractTableModel;
 import es.eucm.eadventure.common.data.chapter.Trajectory;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.control.controllers.NormalScenePreviewEditionController;
@@ -271,7 +270,7 @@ public class ExitsListPanel extends JPanel implements DataControlsPanel, DataCon
 		c.fill = GridBagConstraints.HORIZONTAL;
 		
 		JButton editConditions = new JButton(TextConstants.getText("Exit.EditConditions"));
-		editConditions.addActionListener(new EditConditionsListener(exit.getConditions()));
+		editConditions.addActionListener(new EditConditionsListener(exit));
 		auxPanel.add(editConditions, c);
 		
 		c.gridy++;
@@ -325,14 +324,14 @@ public class ExitsListPanel extends JPanel implements DataControlsPanel, DataCon
 	}
 
 	private class EditConditionsListener implements ActionListener {
-		private ConditionsController conditions;
+		private ExitDataControl exit;
 		
-		public EditConditionsListener(ConditionsController conditions) {
-			this.conditions = conditions;
+		public EditConditionsListener(ExitDataControl exit) {
+			this.exit = exit;
 		}
 		
 		public void actionPerformed(ActionEvent e) {
-			new ConditionsDialog( conditions );
+			new ConditionsDialog( exit.getConditions() );
 		}
 	}
 

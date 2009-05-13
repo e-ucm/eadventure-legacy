@@ -12,7 +12,6 @@ import es.eucm.eadventure.editor.control.controllers.ConditionsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController.ConditionContextProperty;
-import es.eucm.eadventure.editor.control.controllers.ConditionsController.ConditionCustomMessage;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController.ConditionOwner;
 import es.eucm.eadventure.editor.control.controllers.general.ActionsListDataControl;
 import es.eucm.eadventure.editor.control.tools.general.ChangeRectangleValueTool;
@@ -67,12 +66,6 @@ public class ActiveAreaDataControl extends DataControl implements RectangleArea 
 		actionsListDataControl = new ActionsListDataControl( activeArea.getActions( ), this );
 		
 		
-		HashMap<String, ConditionContextProperty> context1 = new HashMap<String, ConditionContextProperty>();
-		ConditionOwner parent = new ConditionOwner(Controller.SCENE, sceneDataControl.getId());
-		ConditionOwner owner = new ConditionOwner(Controller.ACTIVE_AREA, activeArea.getId(), parent);
-		
-		context1.put(ConditionsController.CONDITION_OWNER, owner);
-		conditionsController = new ConditionsController( activeArea.getConditions( ), context1 );
 	}
 
 	/**
@@ -374,6 +367,13 @@ public class ActiveAreaDataControl extends DataControl implements RectangleArea 
 	 * @return Conditions of the element reference
 	 */
 	public ConditionsController getConditions( ) {
+		HashMap<String, ConditionContextProperty> context1 = new HashMap<String, ConditionContextProperty>();
+		ConditionOwner parent = new ConditionOwner(Controller.SCENE, sceneDataControl.getId());
+		ConditionOwner owner = new ConditionOwner(Controller.ACTIVE_AREA, activeArea.getId(), parent);
+		
+		context1.put(ConditionsController.CONDITION_OWNER, owner);
+		conditionsController = new ConditionsController( activeArea.getConditions( ), context1 );
+
 		return conditionsController;
 	}
 

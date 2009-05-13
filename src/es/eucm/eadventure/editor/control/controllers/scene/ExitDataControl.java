@@ -71,12 +71,6 @@ public class ExitDataControl extends DataControl implements RectangleArea {
 		postEffectsController = new EffectsController(exit.getPostEffects());
 		notEffectsController = new EffectsController(exit.getNotEffects());
 		
-		HashMap<String, ConditionContextProperty> context1 = new HashMap<String, ConditionContextProperty>();
-		ConditionOwner parent = new ConditionOwner(Controller.SCENE, sceneDataControl.getId());
-		ConditionOwner owner = new ConditionOwner(Controller.EXIT, exit.getNextSceneId(), parent);
-		context1.put(ConditionsController.CONDITION_OWNER, owner);
-
-		conditionsController = new ConditionsController( exit.getConditions( ), context1 );
 		exitLookDataControl = new ExitLookDataControl ( exit );
 	}
 
@@ -353,6 +347,13 @@ public class ExitDataControl extends DataControl implements RectangleArea {
 	 * @return Conditions of the element reference
 	 */
 	public ConditionsController getConditions( ) {
+		HashMap<String, ConditionContextProperty> context1 = new HashMap<String, ConditionContextProperty>();
+		ConditionOwner parent = new ConditionOwner(Controller.SCENE, sceneDataControl.getId());
+		ConditionOwner owner = new ConditionOwner(Controller.EXIT, exit.getNextSceneId(), parent);
+		context1.put(ConditionsController.CONDITION_OWNER, owner);
+
+		conditionsController = new ConditionsController( exit.getConditions( ), context1 );
+
 		return conditionsController;
 	}
 
