@@ -77,8 +77,6 @@ public class EffectsPanel extends JPanel implements Updateable{
 		
 		// Effect info colummn
 		effectsTable.getColumnModel().getColumn(1).setCellRenderer(new TableCellRenderer(){
-
-			@Override
 			public Component getTableCellRendererComponent(JTable table,
 					Object value, boolean isSelected, boolean hasFocus,
 					int row, int column) {

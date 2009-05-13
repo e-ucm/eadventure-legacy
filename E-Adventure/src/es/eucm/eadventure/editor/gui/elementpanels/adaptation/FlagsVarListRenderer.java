@@ -43,8 +43,6 @@ public class FlagsVarListRenderer extends AbstractCellEditor implements TableCel
      */
     private DataControl value;
     
-
-	@Override
 	public Component getTableCellRendererComponent(JTable table, Object value,
 			boolean isSelected, boolean isFocus, int row, int col) {
 	    
@@ -65,7 +63,6 @@ public class FlagsVarListRenderer extends AbstractCellEditor implements TableCel
 	    return null;
 	}	
 
-	@Override
 	public Component getTableCellEditorComponent(JTable table, Object value,
 			boolean isSelected, int row, int col) {
 	    this.value = (DataControl)value;    
@@ -85,7 +82,6 @@ public class FlagsVarListRenderer extends AbstractCellEditor implements TableCel
 	    return null;
 	}
 
-	@Override
 	public Object getCellEditorValue() {
 		return value;
 	}
@@ -214,7 +210,6 @@ public class FlagsVarListRenderer extends AbstractCellEditor implements TableCel
 		this.isFlag = isFlag;
 	    }
 	    
-	    @Override
 	    public void actionPerformed(ActionEvent e) {
 		
 		    String selectedValue = (String)combo.getSelectedItem() ;
@@ -287,7 +282,6 @@ public class FlagsVarListRenderer extends AbstractCellEditor implements TableCel
 		this.action = action;
 	    }
 	    
-	    @Override
 	    public void actionPerformed(ActionEvent e) {
 		// ask for new values
 		VarDialog dialog = new VarDialog(varVal,actions,action);

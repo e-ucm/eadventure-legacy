@@ -558,7 +558,6 @@ class LinesPanel extends JPanel implements DataControlsPanel {
 		}
 	}
 
-	@Override
 	public void setSelectedItem(List<Searchable> path) {
 		if (path.size() > 0 && path.get(path.size() - 1) instanceof es.eucm.eadventure.editor.control.controllers.conversation.ConversationLine) {
 			es.eucm.eadventure.editor.control.controllers.conversation.ConversationLine line = (es.eucm.eadventure.editor.control.controllers.conversation.ConversationLine) path.get(path.size() - 1);

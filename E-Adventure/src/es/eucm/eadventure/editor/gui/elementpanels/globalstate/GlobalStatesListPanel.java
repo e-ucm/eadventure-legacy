@@ -191,8 +191,6 @@ public class GlobalStatesListPanel extends JPanel implements DataControlsPanel, 
 		}
 	}
 
-
-	@Override
 	public boolean updateFields() {
 		int selected = table.getSelectedRow();
 		int items = table.getRowCount();

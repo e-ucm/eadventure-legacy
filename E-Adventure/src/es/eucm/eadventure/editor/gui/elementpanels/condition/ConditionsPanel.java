@@ -169,8 +169,6 @@ public class ConditionsPanel extends JPanel implements Updateable, ConditionsPan
 		if (owner.getOwnerType()!=Controller.GLOBAL_STATE){
 			okButton = new JButton(TextConstants.getText("GeneralText.OK"));
 			okButton.addActionListener(new ActionListener(){
-
-				@Override
 				public void actionPerformed(ActionEvent e) {
 					Container parent = getParent();
 					int i=0;
