@@ -38,7 +38,7 @@ public class NPCIdle extends NPCState {
         MultimediaManager multimedia = MultimediaManager.getInstance( );
         animations[EAST] = multimedia.loadAnimation( resources.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ), false, MultimediaManager.IMAGE_SCENE );
         if (resources.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT ) != null && !resources.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT ).equals(AssetsController.ASSET_EMPTY_ANIMATION))
-        	animations[WEST] = multimedia.loadAnimation( resources.getAssetPath(NPC.RESOURCE_TYPE_SPEAK_LEFT), false, MultimediaManager.IMAGE_SCENE);
+        	animations[WEST] = multimedia.loadAnimation( resources.getAssetPath(NPC.RESOURCE_TYPE_STAND_LEFT), false, MultimediaManager.IMAGE_SCENE);
         else
         	animations[WEST] = multimedia.loadAnimation( resources.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ), true, MultimediaManager.IMAGE_SCENE );
         animations[NORTH] = multimedia.loadAnimation( resources.getAssetPath( NPC.RESOURCE_TYPE_STAND_UP ), false, MultimediaManager.IMAGE_SCENE );
