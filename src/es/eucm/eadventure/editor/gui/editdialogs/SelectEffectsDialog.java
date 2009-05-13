@@ -93,8 +93,6 @@ public class SelectEffectsDialog extends ToolManagableDialog{
 	}
 	
 	tabPane.addChangeListener(new ChangeListener(){
-
-		@Override
 		public void stateChanged(ChangeEvent e) {
 			if (infoPlusButtons!=null){
 				if (tabPane.getSelectedComponent() == effectsStructurePanel){

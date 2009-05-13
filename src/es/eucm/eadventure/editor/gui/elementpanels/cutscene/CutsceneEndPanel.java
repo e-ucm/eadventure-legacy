@@ -42,7 +42,6 @@ public class CutsceneEndPanel extends JPanel implements Updateable {
 		add( nextScenePanel , c);
 	}
 
-	@Override
 	public boolean updateFields() {
 		return nextScenePanel.updateFields();
 	}

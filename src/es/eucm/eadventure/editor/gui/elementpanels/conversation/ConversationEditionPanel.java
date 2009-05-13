@@ -309,7 +309,6 @@ public class ConversationEditionPanel extends JPanel implements Updateable, Data
 		}
 	}
 
-	@Override
 	public void setSelectedItem(List<Searchable> path) {
 		if (path.size() > 0 && path.get(path.size() - 1) instanceof SearchableNode) {
 			this.setSelectedNode(((SearchableNode) path.get(path.size() - 1)).getConversationNodeView());

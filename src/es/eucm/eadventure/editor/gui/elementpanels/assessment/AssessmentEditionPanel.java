@@ -756,7 +756,6 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
 		return true;
 	}
 	
-	@Override
 	    public void setSelectedItem(List<Searchable> path) {
 		if (path.size() > 0) {
 		    for (int i = 0 ; i < dataControl.getDataControls().size(); i++) {

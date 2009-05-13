@@ -190,7 +190,6 @@ public class MacrosListPanel extends JPanel implements DataControlsPanel, Update
 		}
 	}
 
-	@Override
 	public boolean updateFields() {
 		int selected = table.getSelectedRow();
 		int items = table.getRowCount();

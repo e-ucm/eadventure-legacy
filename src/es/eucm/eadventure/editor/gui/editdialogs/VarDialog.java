@@ -91,11 +91,8 @@ public class VarDialog extends JDialog{
 	// Create Ok button to close the dialog
 	JButton ok = new JButton("OK");
 	ok.addActionListener(new ActionListener(){
-
-	    @Override
 	    public void actionPerformed(ActionEvent e) {
-		dispose();
-		
+	    	dispose();
 	    }
 	    
 	});

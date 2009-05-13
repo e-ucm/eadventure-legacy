@@ -244,7 +244,6 @@ public class NextScenePanel extends JPanel implements Updateable{
 		
 	}
 
-	@Override
 	public boolean updateFields() {
 		updateNextSceneInfo();
 		return true;
