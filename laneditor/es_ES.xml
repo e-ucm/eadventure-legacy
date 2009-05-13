@@ -1318,6 +1318,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="ActionsList.ActionName">Acción</entry>
 	<entry key="ActionsList.Conditions">Condiciones</entry>
 	<entry key="ActionsList.CustomName">Nombre personalizado</entry>
+	<entry key="ActionsList.NotRelevant">No es relevante</entry>
 	<entry key="ActionList.Empty">No se ha seleccionado ninguna acción.</entry>
 	<entry key="ActionList.EditEffect">Editar Efecto</entry>
 	

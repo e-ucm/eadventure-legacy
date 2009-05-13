@@ -20,6 +20,8 @@ import javax.swing.event.ChangeListener;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
+import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.general.ActionDataControl;
 
 public class ActionDetailsCellRendererEditor extends AbstractCellEditor implements TableCellEditor, TableCellRenderer {
@@ -78,6 +80,11 @@ public class ActionDetailsCellRendererEditor extends AbstractCellEditor implemen
 			temp.add(new JLabel("" + value.getKeepDistance()), c);
 		}
 
+		if (Controller.getInstance().isPlayTransparent()) {
+			temp.removeAll();
+			temp.add(new JLabel(TextConstants.getText("ActionsList.NotRelevant")));
+		}
+	
 		return temp;
 	}
 	
