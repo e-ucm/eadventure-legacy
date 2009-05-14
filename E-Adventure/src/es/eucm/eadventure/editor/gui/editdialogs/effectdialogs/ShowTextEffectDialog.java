@@ -18,11 +18,9 @@ import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -34,7 +32,6 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.gui.auxiliar.components.TextPreviewPanel;
 import es.eucm.eadventure.editor.gui.editdialogs.ToolManagableDialog;
-import es.eucm.eadventure.editor.gui.otherpanels.positionimagepanels.ElementImagePanel;
 import es.eucm.eadventure.editor.gui.otherpanels.positionimagepanels.TextImagePanel;
 import es.eucm.eadventure.editor.gui.otherpanels.positionpanel.PositionPanel;
 
@@ -45,7 +42,11 @@ import es.eucm.eadventure.editor.gui.otherpanels.positionpanel.PositionPanel;
  */
 public class ShowTextEffectDialog extends EffectDialog{
 
-    
+   	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7405590437950803927L;
+
 	/**
 	 * Combo box with the scenes.
 	 */
@@ -200,6 +201,16 @@ public class ShowTextEffectDialog extends EffectDialog{
 			imagePanel = new TextImagePanel( text.getText(),frontColor, borderColor  );
 			textPreviewPanel.setTextFrontColor(frontColor);
 			textPreviewPanel.setTextBorderColor(borderColor);
+			
+			if (x > 5000)
+				x = 5000;
+			if (x < -2000)
+				x = -2000;
+			if (y > 5000)
+				y = 5000;
+			if (y < -2000)
+				y = -2000;
+			
 			textPositionPanel= new PositionPanel( imagePanel,x,y );
 			
 		} else{
@@ -293,49 +304,50 @@ public class ShowTextEffectDialog extends EffectDialog{
     
     private class EffectColorChooser extends ToolManagableDialog{
 	
-	JColorChooser colorChooser;
-
-	public EffectColorChooser(Window window,Color initColor,ActionListener listener ){
-	    super(window,"",false);
-	    this.colorChooser = new JColorChooser(initColor);
-	    this.add(colorChooser,BorderLayout.CENTER);
-	    JPanel container = new JPanel();
-	    JButton ok = new JButton("ok");
-	    ok.addActionListener(listener);
-	    ok.addActionListener(new ActionListener(){
-
-		public void actionPerformed(ActionEvent e) {
-		    EffectColorChooser.this.dispose();
-		    
+    	/**
+		 * 
+		 */
+		private static final long serialVersionUID = 5119982246314726323L;
+		
+		JColorChooser colorChooser;
+	
+		public EffectColorChooser(Window window,Color initColor,ActionListener listener ){
+		    super(window,"",false);
+		    this.colorChooser = new JColorChooser(initColor);
+		    this.add(colorChooser,BorderLayout.CENTER);
+		    JPanel container = new JPanel();
+		    JButton ok = new JButton("ok");
+		    ok.addActionListener(listener);
+		    ok.addActionListener(new ActionListener(){
+				public void actionPerformed(ActionEvent e) {
+				    EffectColorChooser.this.dispose();
+				    
+				}
+		    });
+		    container.add(ok);
+		    this.add(container,BorderLayout.SOUTH);
+		    setResizable( false );
+			setSize( 450, 400 );
+			Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
+			setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
+			
 		}
 		
-	    });
-	    container.add(ok);
-	    this.add(container,BorderLayout.SOUTH);
-	    setResizable( false );
-		setSize( 450, 400 );
-		Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
-		setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
+		public void setPreviewPanel(JComponent preview){
+		    colorChooser.setPreviewPanel(preview);
+		}
 		
-	}
-	
-	public void setPreviewPanel(JComponent preview){
-	    colorChooser.setPreviewPanel(preview);
-	}
-	
-	public ColorSelectionModel getSelectionModel(){
-	   return colorChooser.getSelectionModel();
-	}
-	
-	public void setColor(Color color){
-	    colorChooser.setColor(color);
-	}
-	
-	public Color getColor(){
-	    return colorChooser.getColor();
-	}
-	
-	
+		public ColorSelectionModel getSelectionModel(){
+		   return colorChooser.getSelectionModel();
+		}
+		
+		public void setColor(Color color){
+		    colorChooser.setColor(color);
+		}
+		
+		public Color getColor(){
+		    return colorChooser.getColor();
+		}
     }
     
     /**

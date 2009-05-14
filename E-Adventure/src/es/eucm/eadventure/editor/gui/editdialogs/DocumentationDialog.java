@@ -9,6 +9,7 @@ import java.awt.Toolkit;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.event.DocumentListener;
 
 import es.eucm.eadventure.common.data.Described;
 import es.eucm.eadventure.common.data.Detailed;
@@ -33,6 +34,7 @@ public class DocumentationDialog extends ToolManagableDialog {
 	private static final long serialVersionUID = 1L;
 	
 	private JTextField nameTextField;
+	
 	private NameChangeListener nameChangeListener; 
 	
 	/**
@@ -46,6 +48,10 @@ public class DocumentationDialog extends ToolManagableDialog {
 	private JTextField detailedDescriptionTextField;
 	
 	private DataControl dataControl;
+
+	private DescriptionChangeListener descriptionChangeListener;
+
+	private DocumentListener detailedDescriptionListener;
 
 	/**
 	 * Constructor.
@@ -68,7 +74,7 @@ public class DocumentationDialog extends ToolManagableDialog {
 		if (dataControl.getContent() instanceof Named) {
 			JPanel descriptionPanel = new JPanel( );
 			descriptionPanel.setLayout( new GridLayout( ) );
-			nameTextField = new JTextField( ((Described) dataControl.getContent()).getDescription() );
+			nameTextField = new JTextField( ((Named) dataControl.getContent()).getName() );
 			nameChangeListener= new NameChangeListener(nameTextField, (Named) dataControl.getContent());
 			nameTextField.getDocument().addDocumentListener(nameChangeListener);
 			descriptionPanel.add( nameTextField );
@@ -81,7 +87,8 @@ public class DocumentationDialog extends ToolManagableDialog {
 			JPanel descriptionPanel = new JPanel( );
 			descriptionPanel.setLayout( new GridLayout( ) );
 			descriptionTextField = new JTextField( ((Described) dataControl.getContent()).getDescription() );
-			descriptionTextField.getDocument().addDocumentListener(new DescriptionChangeListener(descriptionTextField, (Described) dataControl.getContent()));
+			descriptionChangeListener = new DescriptionChangeListener(descriptionTextField, (Described) dataControl.getContent());
+			descriptionTextField.getDocument().addDocumentListener(descriptionChangeListener);
 			descriptionPanel.add( descriptionTextField );
 			descriptionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Item.Description" ) ) );
 			add( descriptionPanel, cDoc );
@@ -92,7 +99,8 @@ public class DocumentationDialog extends ToolManagableDialog {
 			JPanel detailedDescriptionPanel = new JPanel( );
 			detailedDescriptionPanel.setLayout( new GridLayout( ) );
 			detailedDescriptionTextField = new JTextField( ((Detailed) dataControl.getContent()).getDetailedDescription( ) );
-			detailedDescriptionTextField.getDocument().addDocumentListener( new DetailedDescriptionChangeListener( detailedDescriptionTextField, (Detailed) dataControl.getContent()));
+			detailedDescriptionListener = new DetailedDescriptionChangeListener( detailedDescriptionTextField, (Detailed) dataControl.getContent());
+			detailedDescriptionTextField.getDocument().addDocumentListener(detailedDescriptionListener );
 			detailedDescriptionPanel.add( detailedDescriptionTextField );
 			detailedDescriptionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Item.DetailedDescription" ) ) );
 			add( detailedDescriptionPanel, cDoc );
@@ -107,12 +115,20 @@ public class DocumentationDialog extends ToolManagableDialog {
 	
 	public boolean updateFields(){
 		if (descriptionTextField != null){
-			descriptionTextField.getDocument().removeDocumentListener(nameChangeListener);
+			descriptionTextField.getDocument().removeDocumentListener(descriptionChangeListener);
 			this.descriptionTextField.setText(((Described) dataControl.getContent()).getDescription());
-		}if (detailedDescriptionTextField != null)
+			descriptionTextField.getDocument().addDocumentListener(descriptionChangeListener);
+		}
+		if (detailedDescriptionTextField != null) {
+			detailedDescriptionTextField.getDocument().removeDocumentListener(detailedDescriptionListener);
 			this.detailedDescriptionTextField.setText(((Detailed) dataControl.getContent()).getDetailedDescription());
-		if (nameTextField != null)
+			detailedDescriptionTextField.getDocument().addDocumentListener(detailedDescriptionListener);
+		}
+		if (nameTextField != null) {
+			nameTextField.getDocument().removeDocumentListener(nameChangeListener);
 			this.nameTextField.setText(((Named) dataControl.getContent()).getName());
+			nameTextField.getDocument().addDocumentListener(nameChangeListener);
+		}
 		return true;
 	}
 }

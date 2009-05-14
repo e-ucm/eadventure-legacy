@@ -98,8 +98,15 @@ public class TriggerSceneEffectDialog extends EffectDialog {
 				if( currentProperties.containsKey( EffectsController.EFFECT_PROPERTY_Y ) )
 					y = Integer.parseInt( (String) currentProperties.get( EffectsController.EFFECT_PROPERTY_Y ) );
 
+				if (x > 5000)
+					x = 5000;
+				if (x < -2000)
+					x = -2000;
+				if (y > 5000)
+					y = 5000;
+				if (y < -2000)
+					y = -2000;
 				playerPositionPanel = new PositionPanel( new ElementImagePanel( null, playerPath ),x,y );
-				//playerPositionPanel.setPosition( x, y );
 			} else {
 				// Select the first element
 				scenesComboBox.setSelectedIndex( 0 );
