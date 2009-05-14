@@ -1,5 +1,7 @@
 package es.eucm.eadventure.editor.control.tools.scene;
 
+import java.util.Random;
+
 import es.eucm.eadventure.common.data.chapter.Trajectory;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
@@ -48,7 +50,7 @@ public class ChangeHasTrajectoryTool extends Tool {
 			sceneDataControl.setTrajectoryDataControl(newTrajectoryDataControl);
 		} else {
 			Trajectory trajectory = new Trajectory();
-			trajectory.addNode(300, 300, 1.0f);
+			trajectory.addNode("node" + (new Random()).nextInt(10000), 300, 300, 1.0f);
 			newTrajectoryDataControl = new TrajectoryDataControl(sceneDataControl, trajectory);
 			sceneDataControl.setTrajectory(trajectory);
 			sceneDataControl.setTrajectoryDataControl(newTrajectoryDataControl);
