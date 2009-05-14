@@ -401,8 +401,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
 
         preLoadAnimations();
 
-        chapter.setAdaptationName(gameData.getAdaptationName());
-        chapter.setAssessmentName(gameData.getAssessmentName());
+        
         // Create the flags & vars summaries and the assessment engine
         flags = new FlagSummary( gameData.getFlags( ), debug );
         vars = new VarSummary( gameData.getVars( ), debug );
@@ -410,6 +409,11 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         // Init the time manager
         timerManager = TimerManager.getInstance( );
         timerManager.reset( );
+        
+        if (gameData.getAdaptationName()!="")
+        chapter.setAdaptationName(gameData.getAdaptationName());
+        if (gameData.getAssessmentName()!="")
+        chapter.setAssessmentName(gameData.getAssessmentName());
         
         // Load the assessment rules and adaptation data (from specific xml file)
         if (chapter.hasAdaptationProfile())
@@ -425,7 +429,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         if (gameData.hasAssessmentProfile())
             assessmentEngine.loadAssessmentRules( gameData.getSelectedAssessmentProfile() );
         
-        
+       
         // Initialize the required elements of the game
         actionManager = new ActionManager( );
         itemSummary = new ItemSummary( gameData.getItems( ) );

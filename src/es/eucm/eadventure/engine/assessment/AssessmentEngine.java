@@ -115,8 +115,9 @@ public class AssessmentEngine implements TimerEventListener {
 		//if (assessmentPath != null && !assessmentPath.equals("")) {
 			//assessmentProfile = Loader.loadAssessmentProfile(ResourceHandler
 			//		.getInstance(), assessmentPath, new ArrayList<Incidence>());
-			assessmentProfile = profile;
-    		assessmentRules = new ArrayList<AssessmentRule>(assessmentProfile.getRules());
+			if (profile!=null){
+	    		assessmentProfile = profile;
+			assessmentRules = new ArrayList<AssessmentRule>(assessmentProfile.getRules());
 
 			FlagSummary flags = Game.getInstance().getFlags();
 			VarSummary vars = Game.getInstance().getVars();
@@ -139,6 +140,7 @@ public class AssessmentEngine implements TimerEventListener {
 			}
 		}
 		processRules();
+			}
 	}
 
 	public static AssessmentProfile loadAssessmentProfile(String assessmentPath) {
