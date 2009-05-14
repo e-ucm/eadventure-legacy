@@ -17,10 +17,6 @@ public class Trajectory implements Cloneable {
 		initial = null;
 	}
 	
-	public Node addNode(int x, int y, float scale) {
-		return addNode(generateID(), x, y, scale);
-	}
-	
 	public Node addNode(String id, int x, int y, float scale) {
 		Node node = new Node(id, x, y, scale);
 		if (nodes.contains(node)) {

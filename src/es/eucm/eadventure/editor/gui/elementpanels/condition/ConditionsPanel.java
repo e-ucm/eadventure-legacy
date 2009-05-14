@@ -203,7 +203,6 @@ public class ConditionsPanel extends JPanel implements Updateable, ConditionsPan
 		centralPanel.removeAll();
 		panels = new ArrayList<EditablePanel>();
 		for ( int i=0; i<conditionsController.getBlocksCount(); i++ ){
-
 			if (i>0){
 				EvalFunctionPanel labelPanel = new EvalFunctionPanel(this, i-1, ConditionsController.INDEX_NOT_USED, EvalFunctionPanel.AND);
 				JPanel evalFunctionPanel = new JPanel();
