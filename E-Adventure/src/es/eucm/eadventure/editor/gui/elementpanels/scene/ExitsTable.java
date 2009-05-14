@@ -55,8 +55,8 @@ public class ExitsTable extends JTable {
 		String text = TextConstants.getText("ExitsList.Edit");
 		this.getColumnModel().getColumn(3).setCellRenderer(new AuxEditCellRendererEditor(previewAuxSplit, ExitsListPanel.VERTICAL_SPLIT_POSITION, text));
 		this.getColumnModel().getColumn(3).setCellEditor(new AuxEditCellRendererEditor(previewAuxSplit, ExitsListPanel.VERTICAL_SPLIT_POSITION, text));
-		this.getColumnModel().getColumn(3).setMaxWidth(120);
-		this.getColumnModel().getColumn(3).setMinWidth(120);
+		this.getColumnModel().getColumn(3).setMaxWidth(130);
+		this.getColumnModel().getColumn(3).setMinWidth(130);
 		
 		this.getColumnModel().getColumn(0).setHeaderRenderer(new InfoHeaderRenderer("scenes/Scene_NextScene.html"));
 		this.getColumnModel().getColumn(1).setHeaderRenderer(new InfoHeaderRenderer("scenes/Scene_Transition.html"));

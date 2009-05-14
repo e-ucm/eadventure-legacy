@@ -2895,11 +2895,11 @@ public class Controller {
 	}
 
 	public String getEditorMinVersion(){
-		return "0.10";
+		return "0.11";
 	}
 	
 	public String getEditorVersion(){
-		return "0.10";
+		return "0.11";
 	}
 
 	public void updateLOMLanguage( ) {
