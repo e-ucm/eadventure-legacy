@@ -27,7 +27,7 @@ import javax.swing.*;
  */
 public class EAdventure {
     
-	public static String VERSION = "0.9";
+	public static String VERSION = "0.11";
 	
 	/**
      * Launchs a new e-Adventure game
