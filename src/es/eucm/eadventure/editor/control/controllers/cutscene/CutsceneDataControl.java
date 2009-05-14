@@ -366,7 +366,7 @@ public class CutsceneDataControl extends DataControlWithResources {
 	
 	public void setNext(Integer next) {
 		Controller.getInstance().addTool(new ChangeIntegerValueTool(cutscene, next, "getNext", "setNext"));
-		if (cutscene.getTargetId().equals("")) {
+		if (cutscene.getTargetId() == null || cutscene.getTargetId().equals("")) {
 			cutscene.setTargetId(Controller.getInstance().getIdentifierSummary().getGeneralSceneIds()[0]);			
 		} else {
 			boolean exists = false;
@@ -415,7 +415,7 @@ public class CutsceneDataControl extends DataControlWithResources {
 		if( cutscene.hasPlayerPosition( ) )
 			controller.addTool(new ChangeNSDestinyPositionTool(cutscene, Integer.MIN_VALUE, Integer.MIN_VALUE));
 		else
-			controller.addTool(new ChangeNSDestinyPositionTool(cutscene, 0,0));
+			controller.addTool(new ChangeNSDestinyPositionTool(cutscene, 400,300));
 	}
 	
 	/**

@@ -94,7 +94,7 @@ public class PositionPanel extends JPanel implements Positioned{
 		xCoordinatePanel.add( new JLabel( TextConstants.getText( "SceneLocation.XCoordinate" ) ) );
 
 		// Create and add the x position text field
-		positionXTextField = new NoEditableNumberSpinner( positionX, 0, 1000000,1 );
+		positionXTextField = new NoEditableNumberSpinner( positionX, -2000, 5000,1 );
 		positionXTextField.addChangeListener(new ChangeValueListener());
 		//positionXTextField.addActionListener( new TextFieldChangesListener( ) );
 		//positionXTextField.addFocusListener( new TextFieldChangesListener( ) );
@@ -115,7 +115,7 @@ public class PositionPanel extends JPanel implements Positioned{
 		yCoordinatePanel.add( new JLabel( TextConstants.getText( "SceneLocation.YCoordinate" ) ), c );
 
 		// Create and add the y position text field
-		positionYTextField = new NoEditableNumberSpinner( positionY, 0, 1000000,1 );
+		positionYTextField = new NoEditableNumberSpinner( positionY, -2000, 5000,1 );
 		//positionYTextField.setEnabled(false);
 		positionYTextField.addChangeListener(new ChangeValueListener());
 		

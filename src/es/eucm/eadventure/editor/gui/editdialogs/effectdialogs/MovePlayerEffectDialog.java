@@ -99,7 +99,14 @@ public class MovePlayerEffectDialog extends EffectDialog {
 			if( currentProperties.containsKey( EffectsController.EFFECT_PROPERTY_Y ) )
 				y = Integer.parseInt( (String)currentProperties.get( EffectsController.EFFECT_PROPERTY_Y ) );
 
-			//playerPositionPanel.setPosition( x, y );
+			if (x > 5000)
+				x = 5000;
+			if (x < -2000)
+				x = -2000;
+			if (y > 5000)
+				y = 5000;
+			if (y < -2000)
+				y = -2000;
 			playerPositionPanel = new PositionPanel( new ElementImagePanel( null, playerPath ), x, y );
 		}else {
 			playerPositionPanel = new PositionPanel( new ElementImagePanel( null, playerPath ), 400, 500 );

@@ -189,9 +189,8 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
 						g2.drawImage(image, 0, 0, null);
 						g2.finalize();
 						try {
-							Thread.sleep(700 / cont );
+							Thread.sleep(400 / cont );
 						} catch (InterruptedException e) {
-							e.printStackTrace();
 						}
 					}
 					image = null;
@@ -487,22 +486,22 @@ public class StructurePanel extends JPanel implements DataControlsPanel {
 			}
 		}
 		if (editorContainer!=null){
-		editorContainer.removeAll();
-		
-		if (selectedListItem == -1) {
-			editorContainer.add(structureElements.get(selectedElement).getEditPanel());
-			StructureControl.getInstance().visitDataControl(structureElements.get(selectedElement).getDataControl());
-		} else {
-			list.changeSelection(selectedListItem, 0, false, false);
-		}
-		
-		if (editorContainer.getComponent(0) instanceof DataControlsPanel) {
-			((DataControlsPanel) editorContainer.getComponent(0)).setSelectedItem(path);
-		}
-		
-		editorContainer.validate( );
-		editorContainer.repaint( );
-		list.requestFocusInWindow();
+			editorContainer.removeAll();
+			
+			if (selectedListItem == -1) {
+				editorContainer.add(structureElements.get(selectedElement).getEditPanel());
+				StructureControl.getInstance().visitDataControl(structureElements.get(selectedElement).getDataControl());
+			} else {
+				list.changeSelection(selectedListItem, 0, false, false);
+			}
+			
+			if (editorContainer.getComponent(0) instanceof DataControlsPanel) {
+				((DataControlsPanel) editorContainer.getComponent(0)).setSelectedItem(path);
+			}
+			
+			editorContainer.validate( );
+			editorContainer.repaint( );
+			list.requestFocusInWindow();
 		}
 	}
 	

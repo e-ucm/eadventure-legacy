@@ -59,6 +59,17 @@ public class PlayerPositionDialog extends ToolManagableDialog {
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1;
 		c.weighty = 1;
+		
+		if (positionX > 5000)
+			positionX = 5000;
+		if (positionX < -2000)
+			positionX = -2000;
+		if (positionY > 5000)
+			positionY = 5000;
+		if (positionY < -2000)
+			positionY = -2000;
+
+		
 		playerPositionPanel = new PositionPanel(new ElementImagePanel( scenePath, playerPath, trajectory ),positionX, positionY );
 		playerPositionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "PlayerPosition.PositionPanel" ) ) );
 		//playerPositionPanel.setPosition( positionX, positionY );
