@@ -401,6 +401,8 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
 
         preLoadAnimations();
 
+        chapter.setAdaptationName(gameData.getAdaptationName());
+        chapter.setAssessmentName(gameData.getAssessmentName());
         // Create the flags & vars summaries and the assessment engine
         flags = new FlagSummary( gameData.getFlags( ), debug );
         vars = new VarSummary( gameData.getVars( ), debug );
