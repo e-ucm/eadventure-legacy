@@ -237,7 +237,8 @@ public class Loader {
 				
 				String name = xmlFile;
 				name = name.substring(name.indexOf("/")+1);
-				name = name.substring(0,name.indexOf("."));
+				if (name.indexOf(".")!=-1)
+				   name = name.substring(0,name.indexOf("."));
 				profile.setName(name);
 				AssessmentHandler assParser = new AssessmentHandler( isCreator, profile );
 	

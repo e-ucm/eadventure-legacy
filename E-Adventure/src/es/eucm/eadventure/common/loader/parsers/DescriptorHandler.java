@@ -219,8 +219,8 @@ public class DescriptorHandler extends DefaultHandler {
 	                if( attrs.getQName( i ).equals( "path" ) ){
 	                    String adaptationName = attrs.getValue( i );
 	                    // delete the path's characteristics
-	                    adaptationName = adaptationName.substring(adaptationName.indexOf("/")+1);
-	                    adaptationName = adaptationName.substring(0,adaptationName.indexOf("."));
+	                   // adaptationName = adaptationName.substring(adaptationName.indexOf("/")+1);
+	                   // adaptationName = adaptationName.substring(0,adaptationName.indexOf("."));
 			    currentChapter.setAdaptationName( adaptationName );
 	                }
 			
@@ -236,8 +236,8 @@ public class DescriptorHandler extends DefaultHandler {
 	                if( attrs.getQName( i ).equals( "path" ) ){
 	                    String assessmentName = attrs.getValue( i );
 	                    // delete the path's characteristics
-	                    assessmentName = assessmentName.substring(assessmentName.indexOf("/")+1);
-	                    assessmentName = assessmentName.substring(0,assessmentName.indexOf("."));
+	                   // assessmentName = assessmentName.substring(assessmentName.indexOf("/")+1);
+	                   // assessmentName = assessmentName.substring(0,assessmentName.indexOf("."));
 	                    currentChapter.setAssessmentName( assessmentName );
 	                }
 	        }
