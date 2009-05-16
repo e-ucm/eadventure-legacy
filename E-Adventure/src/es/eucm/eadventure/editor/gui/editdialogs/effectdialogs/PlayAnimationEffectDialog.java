@@ -28,6 +28,7 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
+import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
 import es.eucm.eadventure.editor.control.writer.AnimationWriter;
 import es.eucm.eadventure.editor.gui.displaydialogs.AnimationDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.animationeditdialog.AnimationEditDialog;
@@ -339,7 +340,7 @@ public class PlayAnimationEffectDialog extends EffectDialog {
 					
 					Animation animation = new Animation(animationName);
 					if (path != null) {
-						animation.framesFromImages(path);
+						ResourcesDataControl.framesFromImages(animation, path);
 						AnimationWriter.writeAnimation(filename, animation);
 					}
 					
