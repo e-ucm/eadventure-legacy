@@ -1,4 +1,4 @@
-package es.eucm.eadventure.common.auxiliar.filefilters;
+package es.eucm.eadventure.editor.auxiliar.filefilters;
 
 import java.io.File;
 

@@ -19,20 +19,21 @@ import java.io.FileInputStream;
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.common.auxiliar.FileFilter;
-import es.eucm.eadventure.common.auxiliar.categoryfilters.AnimationFileFilter;
-import es.eucm.eadventure.common.auxiliar.categoryfilters.AudioFileFilter;
-import es.eucm.eadventure.common.auxiliar.categoryfilters.FormattedTextFileFilter;
-import es.eucm.eadventure.common.auxiliar.categoryfilters.ImageFileFilter;
-import es.eucm.eadventure.common.auxiliar.categoryfilters.VideoFileFilter;
-import es.eucm.eadventure.common.auxiliar.filefilters.JPGSlidesFileFilter;
-import es.eucm.eadventure.common.auxiliar.filefilters.MP3FileFilter;
-import es.eucm.eadventure.common.auxiliar.filefilters.PNGAnimationFileFilter;
+import es.eucm.eadventure.common.auxiliar.SpecialAssetPaths;
 import es.eucm.eadventure.common.data.animation.Animation;
 import es.eucm.eadventure.common.data.animation.Frame;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.common.loader.incidences.Incidence;
 import es.eucm.eadventure.common.loader.InputStreamCreator;
 import es.eucm.eadventure.common.loader.Loader;
+import es.eucm.eadventure.editor.auxiliar.categoryfilters.AnimationFileFilter;
+import es.eucm.eadventure.editor.auxiliar.categoryfilters.AudioFileFilter;
+import es.eucm.eadventure.editor.auxiliar.categoryfilters.FormattedTextFileFilter;
+import es.eucm.eadventure.editor.auxiliar.categoryfilters.ImageFileFilter;
+import es.eucm.eadventure.editor.auxiliar.categoryfilters.VideoFileFilter;
+import es.eucm.eadventure.editor.auxiliar.filefilters.JPGSlidesFileFilter;
+import es.eucm.eadventure.editor.auxiliar.filefilters.MP3FileFilter;
+import es.eucm.eadventure.editor.auxiliar.filefilters.PNGAnimationFileFilter;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.gui.assetchooser.AnimationChooser;
 import es.eucm.eadventure.editor.gui.assetchooser.AssetChooser;
@@ -51,7 +52,7 @@ import es.eucm.eadventure.editor.gui.assetchooser.VideoChooser;
  * 
  * @author Bruno Torijano Bueno
  */
-public class AssetsController {
+public class AssetsController implements SpecialAssetPaths{
 
 	/**
 	 * Assessment files category.
@@ -141,25 +142,7 @@ public class AssetsController {
 
 	//TODO: VIDEO FILTERS
 
-	/**
-	 * Asset path for the empty image. For use only in assets.
-	 */
-	public static final String ASSET_EMPTY_IMAGE = "assets/special/EmptyImage.png";
 
-	/**
-	 * Asset path for the empty icon. For use only in assets.
-	 */
-	public static final String ASSET_EMPTY_ICON = "assets/special/EmptyIcon.png";
-
-	/**
-	 * Asset path for the empty animation. For use only in assets.
-	 */
-	public static final String ASSET_EMPTY_ANIMATION = "assets/special/EmptyAnimation";
-	
-	/**
-	 * Asset path for the default book image. For use only in assets.
-	 */
-	public static final String ASSET_DEFAULT_BOOK_IMAGE = "assets/special/DefaultBook.jpg";
 	
 	/**
 	 * Number of categories.

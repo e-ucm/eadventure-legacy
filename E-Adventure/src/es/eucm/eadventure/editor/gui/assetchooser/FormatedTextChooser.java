@@ -9,8 +9,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import es.eucm.eadventure.common.auxiliar.FileFilter;
-import es.eucm.eadventure.common.auxiliar.categoryfilters.FormattedTextFileFilter;
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.auxiliar.categoryfilters.FormattedTextFileFilter;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.gui.otherpanels.FormattedTextPanel;
 

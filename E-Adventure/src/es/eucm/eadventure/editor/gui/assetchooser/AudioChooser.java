@@ -5,8 +5,8 @@ import java.awt.Container;
 import javax.swing.BorderFactory;
 
 import es.eucm.eadventure.common.auxiliar.FileFilter;
-import es.eucm.eadventure.common.auxiliar.categoryfilters.AudioFileFilter;
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.auxiliar.categoryfilters.AudioFileFilter;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.gui.otherpanels.AudioPanel;
 

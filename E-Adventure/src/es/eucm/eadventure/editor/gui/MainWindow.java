@@ -41,8 +41,8 @@ import javax.swing.filechooser.FileFilter;
 
 import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
-import es.eucm.eadventure.common.auxiliar.filefilters.FolderFileFilter;
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.auxiliar.filefilters.FolderFileFilter;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.gui.editdialogs.GenericFileChooserDialog;

@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
 import es.eucm.eadventure.comm.AdventureApplet;
 import es.eucm.eadventure.comm.manager.commManager.CommManagerApi;
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
+import es.eucm.eadventure.common.auxiliar.SpecialAssetPaths;
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
 import es.eucm.eadventure.common.data.adventure.ChapterSummary;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
@@ -33,7 +34,6 @@ import es.eucm.eadventure.common.data.chapter.elements.Player;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.data.chapter.scenes.Scene;
 import es.eucm.eadventure.common.gui.TextConstants;
-import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.engine.adaptation.AdaptationEngine;
 import es.eucm.eadventure.engine.assessment.AssessmentEngine;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalItem;
@@ -73,7 +73,7 @@ import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
  * Updated by Javier Torrente. 
  * New functionalities: Load effects wherever in a conversation
  */
-public class Game implements KeyListener, MouseListener, MouseMotionListener, Runnable, TimerEventListener {
+public class Game implements KeyListener, MouseListener, MouseMotionListener, Runnable, TimerEventListener, SpecialAssetPaths {
 
     /**
      * Constant for loading state
@@ -382,6 +382,14 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     }
 
     /**
+     * Returns true if the current player mode is Transparent. False otherwise
+     * @return
+     */
+    public boolean isTransparent(){
+    	return getGameDescriptor().getPlayerMode() == DescriptorData.MODE_PLAYER_1STPERSON; 
+    }
+    
+    /**
      * Init the game parameters
      */
     private void loadCurrentChapter( Graphics2D g ) {
@@ -551,7 +559,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         MultimediaManager multimedia = MultimediaManager.getInstance( );
     	for (Resources r : gameData.getPlayer().getResources()) {
             multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_STAND_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
-            if (r.getAssetPath( Player.RESOURCE_TYPE_STAND_LEFT) != null && !r.getAssetPath( Player.RESOURCE_TYPE_STAND_LEFT).equals(AssetsController.ASSET_EMPTY_ANIMATION))
+            if (r.getAssetPath( Player.RESOURCE_TYPE_STAND_LEFT) != null && !r.getAssetPath( Player.RESOURCE_TYPE_STAND_LEFT).equals(ASSET_EMPTY_ANIMATION))
             	multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_STAND_LEFT), false, MultimediaManager.IMAGE_PLAYER);
             else
             	multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_STAND_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
@@ -559,7 +567,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_STAND_DOWN ), false, MultimediaManager.IMAGE_PLAYER );
             
             multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_SPEAK_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
-            if (r.getAssetPath( Player.RESOURCE_TYPE_SPEAK_LEFT) != null && !r.getAssetPath( Player.RESOURCE_TYPE_SPEAK_LEFT).equals(AssetsController.ASSET_EMPTY_ANIMATION))
+            if (r.getAssetPath( Player.RESOURCE_TYPE_SPEAK_LEFT) != null && !r.getAssetPath( Player.RESOURCE_TYPE_SPEAK_LEFT).equals(ASSET_EMPTY_ANIMATION))
             	multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_SPEAK_LEFT), false, MultimediaManager.IMAGE_PLAYER);
             else
             	multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_SPEAK_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
@@ -567,13 +575,13 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_SPEAK_DOWN ), false, MultimediaManager.IMAGE_PLAYER );
 
             multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_USE_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
-            if (r.getAssetPath( Player.RESOURCE_TYPE_USE_LEFT) != null && !r.getAssetPath( Player.RESOURCE_TYPE_USE_LEFT).equals(AssetsController.ASSET_EMPTY_ANIMATION))
+            if (r.getAssetPath( Player.RESOURCE_TYPE_USE_LEFT) != null && !r.getAssetPath( Player.RESOURCE_TYPE_USE_LEFT).equals(ASSET_EMPTY_ANIMATION))
             	multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_USE_LEFT), false, MultimediaManager.IMAGE_PLAYER);
             else
             	multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_USE_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
 
             multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_WALK_RIGHT ), false, MultimediaManager.IMAGE_PLAYER );
-            if (r.getAssetPath( Player.RESOURCE_TYPE_WALK_LEFT) != null && !r.getAssetPath( Player.RESOURCE_TYPE_WALK_LEFT).equals(AssetsController.ASSET_EMPTY_ANIMATION))
+            if (r.getAssetPath( Player.RESOURCE_TYPE_WALK_LEFT) != null && !r.getAssetPath( Player.RESOURCE_TYPE_WALK_LEFT).equals(ASSET_EMPTY_ANIMATION))
             	multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_WALK_LEFT), false, MultimediaManager.IMAGE_PLAYER);
             else
             	multimedia.loadAnimation( r.getAssetPath( Player.RESOURCE_TYPE_WALK_RIGHT ), true, MultimediaManager.IMAGE_PLAYER );
@@ -583,7 +591,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     	for (NPC npc : gameData.getCharacters()) {
     		for (Resources r : npc.getResources()) {
                 multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ), false, MultimediaManager.IMAGE_SCENE );
-                if (r.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT).equals(AssetsController.ASSET_EMPTY_ANIMATION))
+                if (r.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT).equals(ASSET_EMPTY_ANIMATION))
                 	multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT), false, MultimediaManager.IMAGE_SCENE);
                 else
                 	multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ), true, MultimediaManager.IMAGE_SCENE );
@@ -591,7 +599,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
                 multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_STAND_DOWN ), false, MultimediaManager.IMAGE_SCENE );
                 
                 multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_RIGHT ), false, MultimediaManager.IMAGE_SCENE );
-                if (r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_LEFT) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_LEFT).equals(AssetsController.ASSET_EMPTY_ANIMATION))
+                if (r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_LEFT) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_LEFT).equals(ASSET_EMPTY_ANIMATION))
                 	multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_LEFT), false, MultimediaManager.IMAGE_SCENE);
                 else
                 	multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_RIGHT ), true, MultimediaManager.IMAGE_SCENE );
@@ -599,13 +607,13 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
                 multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_SPEAK_DOWN ), false, MultimediaManager.IMAGE_SCENE );
 
                 multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_USE_RIGHT ), false, MultimediaManager.IMAGE_SCENE );
-                if (r.getAssetPath( NPC.RESOURCE_TYPE_USE_LEFT) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_USE_LEFT).equals(AssetsController.ASSET_EMPTY_ANIMATION))
+                if (r.getAssetPath( NPC.RESOURCE_TYPE_USE_LEFT) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_USE_LEFT).equals(ASSET_EMPTY_ANIMATION))
                 	multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_USE_LEFT), false, MultimediaManager.IMAGE_SCENE);
                 else
                 	multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_USE_RIGHT ), true, MultimediaManager.IMAGE_SCENE );
 
                 multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_RIGHT ), false, MultimediaManager.IMAGE_SCENE );
-                if (r.getAssetPath( NPC.RESOURCE_TYPE_WALK_LEFT) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_WALK_LEFT).equals(AssetsController.ASSET_EMPTY_ANIMATION))
+                if (r.getAssetPath( NPC.RESOURCE_TYPE_WALK_LEFT) != null && !r.getAssetPath( NPC.RESOURCE_TYPE_WALK_LEFT).equals(ASSET_EMPTY_ANIMATION))
                 	multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_LEFT), false, MultimediaManager.IMAGE_SCENE);
                 else
                 	multimedia.loadAnimation( r.getAssetPath( NPC.RESOURCE_TYPE_WALK_RIGHT ), true, MultimediaManager.IMAGE_SCENE );
