@@ -448,7 +448,7 @@ public class ResourcesDataControl extends DataControl {
 	 * @param assetPath The path to the previous animation
 	 */
 	// TODO: Remove calls to editor
-	public void framesFromImages(Animation animation, String assetPath) {
+	public static void framesFromImages(Animation animation, String assetPath) {
 		animation.getFrames().clear();
 		animation.getTransitions().clear();
 		animation.getTransitions().add(new Transition());
@@ -478,7 +478,7 @@ public class ResourcesDataControl extends DataControl {
      * @param n number to convert to a String
      * @return a 2 character string with value n
      */
-    private String leadingZeros( int n ) {
+    private static String leadingZeros( int n ) {
         String s;
         if( n < 10 )
             s = "0";
