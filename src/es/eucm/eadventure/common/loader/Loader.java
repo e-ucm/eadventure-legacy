@@ -1,6 +1,5 @@
 package es.eucm.eadventure.common.loader;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,7 +31,6 @@ import es.eucm.eadventure.common.loader.parsers.AnimationHandler;
 import es.eucm.eadventure.common.loader.parsers.AssessmentHandler;
 import es.eucm.eadventure.common.loader.parsers.ChapterHandler;
 import es.eucm.eadventure.common.loader.parsers.DescriptorHandler;
-import es.eucm.eadventure.editor.control.controllers.AssetsController;
 
 /**
  * This class loads the e-Adventure data from a XML file

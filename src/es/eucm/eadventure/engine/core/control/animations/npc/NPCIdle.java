@@ -1,6 +1,6 @@
 package es.eucm.eadventure.engine.core.control.animations.npc;
 
-import es.eucm.eadventure.editor.control.controllers.AssetsController;
+import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalNPC;
 import es.eucm.eadventure.common.data.chapter.elements.NPC;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
@@ -37,7 +37,7 @@ public class NPCIdle extends NPCState {
 
         MultimediaManager multimedia = MultimediaManager.getInstance( );
         animations[EAST] = multimedia.loadAnimation( resources.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ), false, MultimediaManager.IMAGE_SCENE );
-        if (resources.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT ) != null && !resources.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT ).equals(AssetsController.ASSET_EMPTY_ANIMATION))
+        if (resources.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT ) != null && !resources.getAssetPath( NPC.RESOURCE_TYPE_STAND_LEFT ).equals(Game.ASSET_EMPTY_ANIMATION))
         	animations[WEST] = multimedia.loadAnimation( resources.getAssetPath(NPC.RESOURCE_TYPE_STAND_LEFT), false, MultimediaManager.IMAGE_SCENE);
         else
         	animations[WEST] = multimedia.loadAnimation( resources.getAssetPath( NPC.RESOURCE_TYPE_STAND_RIGHT ), true, MultimediaManager.IMAGE_SCENE );

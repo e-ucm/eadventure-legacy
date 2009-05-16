@@ -468,7 +468,8 @@ public class ResourcesPanel extends JPanel {
 				animation.setDocumentation(resourcesDataControl.getAssetDescription(assetIndex));
 				if (resourcesDataControl.getAssetPath(assetIndex) != null) {
 					// Añadir las imagenes de la animación antigua
-					animation.framesFromImages(resourcesDataControl.getAssetPath(assetIndex));
+					//animation.framesFromImages(resourcesDataControl.getAssetPath(assetIndex));
+					resourcesDataControl.framesFromImages(animation, resourcesDataControl.getAssetPath(assetIndex));
 					AnimationWriter.writeAnimation(filename, animation);
 				}
 				// Poner la nueva animacion en el assetPath

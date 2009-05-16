@@ -46,10 +46,10 @@ import java.util.List;
 import javax.swing.JFileChooser;
 
 import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
-import es.eucm.eadventure.common.auxiliar.filefilters.EADAndFolderFileFilter;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.common.loader.Loader;
+import es.eucm.eadventure.editor.auxiliar.filefilters.EADAndFolderFileFilter;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.config.ConfigData;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;

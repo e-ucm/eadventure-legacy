@@ -3,7 +3,7 @@ package es.eucm.eadventure.editor.gui.assetchooser;
 import java.awt.Container;
 
 import es.eucm.eadventure.common.auxiliar.FileFilter;
-import es.eucm.eadventure.common.auxiliar.categoryfilters.VideoFileFilter;
+import es.eucm.eadventure.editor.auxiliar.categoryfilters.VideoFileFilter;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 
 public class VideoChooser extends AssetChooser {

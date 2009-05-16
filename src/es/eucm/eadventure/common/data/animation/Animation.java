@@ -13,7 +13,6 @@ import javax.swing.ImageIcon;
 import es.eucm.eadventure.common.data.Documented;
 import es.eucm.eadventure.common.data.HasId;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
-import es.eucm.eadventure.editor.control.controllers.AssetsController;
 
 /**
  * This class holds an "animation" data.
@@ -468,7 +467,8 @@ public class Animation implements Cloneable, Documented, HasId {
 	 * 
 	 * @param assetPath The path to the previous animation
 	 */
-	public void framesFromImages(String assetPath) {
+	// TODO: Remove calls to editor
+	/*public void framesFromImages(String assetPath) {
 		frames.clear();
 		transitions.clear();
 		transitions.add(new Transition());
@@ -492,13 +492,13 @@ public class Animation implements Cloneable, Documented, HasId {
         		this.addFrame(-1, new Frame(file));
             i++;
         }	
-	}
+	}*/
 
     /**
      * @param n number to convert to a String
      * @return a 2 character string with value n
      */
-    private String leadingZeros( int n ) {
+    /*private String leadingZeros( int n ) {
         String s;
         if( n < 10 )
             s = "0";
@@ -506,7 +506,7 @@ public class Animation implements Cloneable, Documented, HasId {
             s = "";
         s = s + n;
         return s;
-    }
+    }*/
     
 
 

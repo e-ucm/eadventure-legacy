@@ -1,4 +1,4 @@
-package es.eucm.eadventure.common.auxiliar.categoryfilters;
+package es.eucm.eadventure.editor.auxiliar.categoryfilters;
 
 import java.io.File;
 

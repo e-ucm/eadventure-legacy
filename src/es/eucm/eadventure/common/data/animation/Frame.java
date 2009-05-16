@@ -237,6 +237,7 @@ public class Frame implements Cloneable, Timed {
 			if (where == Animation.ENGINE)
 				image = ResourceHandler.getInstance( ).getResourceAsImageFromZip(uri);
 			else if (where == Animation.EDITOR)
+				//TODO REMOVE THIS INVOKATION
 				image = AssetsController.getImage(uri);
 			else if (where == Animation.PREVIEW)
 				image = getImageFromAnimationPath();
@@ -280,7 +281,9 @@ public class Frame implements Cloneable, Timed {
 			if( inputStream != null ) {
 				image = ImageIO.read( inputStream );
 				if (image == null || image.getHeight(null) == -1 || image.getWidth(null) == -1) {
-					Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.ImageTypeNotSupported") );
+					//TODO: This invokation should not be here
+					if (Controller.getInstance()!=null)
+						Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.ImageTypeNotSupported") );
 				}
 				inputStream.close( );
 			}

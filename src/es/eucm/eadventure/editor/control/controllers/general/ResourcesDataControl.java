@@ -1,9 +1,13 @@
 package es.eucm.eadventure.editor.control.controllers.general;
 
+import java.awt.Image;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import es.eucm.eadventure.common.data.animation.Animation;
+import es.eucm.eadventure.common.data.animation.Frame;
+import es.eucm.eadventure.common.data.animation.Transition;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
@@ -437,5 +441,51 @@ public class ResourcesDataControl extends DataControl {
 		return null;
 	}
 
+	/**
+	 * This method creates the frames of the animation from the images
+	 * belonging to the previous animation format.
+	 * 
+	 * @param assetPath The path to the previous animation
+	 */
+	// TODO: Remove calls to editor
+	public void framesFromImages(Animation animation, String assetPath) {
+		animation.getFrames().clear();
+		animation.getTransitions().clear();
+		animation.getTransitions().add(new Transition());
+		animation.getTransitions().add(new Transition());
+		
+        int i = 1;
+        Image currentSlide = null;
+        boolean end = false;
+        
+        while( !end ) {
+            String file = assetPath + "_" + leadingZeros( i ) + ".jpg";
+            //TODO: Estas referencias al editor desde common hay que quitarlas
+        	currentSlide = AssetsController.getImage(file);
+        	if (currentSlide == null) {
+                file = assetPath + "_" + leadingZeros( i ) + ".png";
+            	currentSlide = AssetsController.getImage(file);
+        	}
+        	if (currentSlide == null)
+        		end = true;
+        	else
+        		animation.addFrame(-1, new Frame(file));
+            i++;
+        }	
+	}
+
+    /**
+     * @param n number to convert to a String
+     * @return a 2 character string with value n
+     */
+    private String leadingZeros( int n ) {
+        String s;
+        if( n < 10 )
+            s = "0";
+        else
+            s = "";
+        s = s + n;
+        return s;
+    }
 
 }

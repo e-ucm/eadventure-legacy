@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.data.chapter.ElementReference;
 import es.eucm.eadventure.common.data.chapter.Exit;
@@ -17,7 +18,6 @@ import es.eucm.eadventure.common.data.chapter.elements.NPC;
 import es.eucm.eadventure.common.data.chapter.resources.Asset;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.data.chapter.scenes.Scene;
-import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.engine.core.control.ActionManager;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.ItemSummary;
@@ -147,7 +147,7 @@ public class FunctionalScene implements Renderable {
         if( resources.existAsset( Scene.RESOURCE_TYPE_BACKGROUND ) )
             background = MultimediaManager.getInstance( ).loadImageFromZip( resources.getAssetPath( Scene.RESOURCE_TYPE_BACKGROUND ), MultimediaManager.IMAGE_SCENE );
 
-        if (Controller.getInstance().isPlayTransparent() && background != null && background.getWidth(null) > GUI.WINDOW_WIDTH) {
+        if ( Game.getInstance().isTransparent() && background != null && background.getWidth(null) > GUI.WINDOW_WIDTH) {
         	showsOffsetArrows = true;
         }
 
@@ -418,7 +418,7 @@ public class FunctionalScene implements Renderable {
             if( resources.existAsset( Scene.RESOURCE_TYPE_BACKGROUND ) )
                 background = MultimediaManager.getInstance( ).loadImageFromZip( resources.getAssetPath( Scene.RESOURCE_TYPE_BACKGROUND ), MultimediaManager.IMAGE_SCENE );
             
-            if (Controller.getInstance().isPlayTransparent() && background != null && background.getWidth(null) > GUI.WINDOW_WIDTH) {
+            if (Game.getInstance().isTransparent() && background != null && background.getWidth(null) > GUI.WINDOW_WIDTH) {
             	showsOffsetArrows = true;
             }
             
@@ -541,7 +541,7 @@ public class FunctionalScene implements Renderable {
      */
     private boolean updateOffset( ) {
         // TODO Francis: Comentar
-    	if (Controller.getInstance().isPlayTransparent())
+    	if (Game.getInstance().isTransparent())
     		return false;
         boolean updated = false;
         
