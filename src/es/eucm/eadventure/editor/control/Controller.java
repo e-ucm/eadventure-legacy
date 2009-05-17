@@ -556,7 +556,7 @@ public class Controller {
 	/**
 	 * Initializing function.
 	 */
-	public void init( ) {
+	public void init( String arg ) {
 		// Load the configuration
 		ConfigData.loadFromXML( ReleaseFolders.configFileEditorRelativePath() );
 		ProjectConfigData.init();
@@ -612,8 +612,20 @@ public class Controller {
 			
 			//mainWindow.setEnabled( false );
 			mainWindow.setVisible( false );
-
-			if( ConfigData.showStartDialog( ) ) {
+			
+			if ( arg!=null ){
+				File projectFile = new File(arg);
+				if (projectFile.exists()){
+					if (projectFile.getAbsolutePath().toLowerCase().endsWith(".eap")) {
+						String absolutePath = projectFile.getPath();
+						loadFile(absolutePath.substring(0, absolutePath.length() - 4), true);
+					} else if (projectFile.isDirectory( ) && projectFile.exists( ))
+						loadFile( start.getSelectedFile( ).getAbsolutePath( ), true );
+				}
+			}
+			
+			
+			else if( ConfigData.showStartDialog( ) ) {
 				int op = start.showOpenDialog( null );
 				//start.end();
 				if( op == StartDialog.NEW_FILE_OPTION ) {
