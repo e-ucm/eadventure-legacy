@@ -39,7 +39,11 @@ public class AdventureEditor {
 
 		try{
 			Controller controller = Controller.getInstance( );
-			controller.init( );
+			if (args.length>0)
+				controller.init( args[0] );
+			else
+				controller.init( null );
+				
 		}catch( Exception e){
 			ReportDialog.GenerateErrorReport(e, true, "Error in main AdventureEditor");
 		}
