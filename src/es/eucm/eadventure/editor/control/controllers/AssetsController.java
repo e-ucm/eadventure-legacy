@@ -74,6 +74,8 @@ public class AssetsController implements SpecialAssetPaths{
 	 */
 	public static final int CATEGORY_ANIMATION = 1;
 
+	
+	
 	/**
 	 * Image category.
 	 */
