@@ -106,7 +106,13 @@ public class AssessmentProfileDataControl extends DataControl{
 
 	@Override
 	public int countIdentifierReferences( String id ) {
-		return 0;
+	    int count =0;
+	    if (id.equals(profile.getName()))
+		    count++;
+	    for (AssessmentRuleDataControl rule : dataControls){
+		count += rule.countIdentifierReferences(id);
+	    }
+	    return count;
 	}
 	
 	@Override
@@ -149,8 +155,7 @@ public class AssessmentProfileDataControl extends DataControl{
 				controller.getIdentifierSummary( ).deleteAssessmentRuleId( assRuleId );
 				//controller.dataModified( );
 				deleted = true;
-				if (controller.getSelectedChapterDataControl().getAssessmentName().equals(profile.getName()))
-				    controller.getSelectedChapterDataControl().deleteAssessmentPath();
+				
 			}
 		}
 
@@ -159,6 +164,13 @@ public class AssessmentProfileDataControl extends DataControl{
 
 	@Override
 	public void deleteIdentifierReferences( String id ) {
+	    // profiles identifiers are deleted in assessmentProfilesDataControl
+	    for (AssessmentRuleDataControl rule:dataControls){
+		if (id.equals(rule.getId())){
+		    dataControls.remove(rule);
+		}else 
+		rule.deleteIdentifierReferences(id);
+	    }
 	}
 
 	@Override
@@ -229,9 +241,11 @@ public class AssessmentProfileDataControl extends DataControl{
 			
 			
 			    if (fileName!=null && !fileName.equals( oldName ) && controller.isElementIdValid( fileName )){
-				if (!controller.getAdaptationController().existName(name)){
+				if (!controller.getIdentifierSummary().isAssessmentProfileId(name)){
 				    //controller.dataModified( );
 					profile.setName( fileName );
+					controller.getIdentifierSummary().deleteAssessmentProfileId(oldName);
+					controller.getIdentifierSummary().addAssessmentProfileId(fileName);
 					renamed=true;
 				}else {
 				    controller.showErrorDialog(TextConstants.getText("Operation.CreateAdaptationFile.FileName.ExistValue.Title"), TextConstants.getText("Operation.CreateAdaptationFile.FileName.ExistValue.Message"));
@@ -247,6 +261,10 @@ public class AssessmentProfileDataControl extends DataControl{
 	}
 	@Override
 	public void replaceIdentifierReferences( String oldId, String newId ) {
+	    for (AssessmentRuleDataControl rule:dataControls)
+		    if (rule.getId().equals(oldId)){
+			rule.renameElement(newId);
+		    }
 	}
 
 	@Override

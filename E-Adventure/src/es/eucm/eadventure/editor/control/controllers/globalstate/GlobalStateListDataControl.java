@@ -288,8 +288,10 @@ public class GlobalStateListDataControl extends DataControl {
 	@Override
 	public void deleteIdentifierReferences( String id ) {
 		// Spread the call to every globalState
-		for( GlobalStateDataControl globalStateDataControl : globalStatesDataControlList )
+		for( GlobalStateDataControl globalStateDataControl : globalStatesDataControlList ){
 			globalStateDataControl.deleteIdentifierReferences( id );
+		    
+		}
 	}
 
 	@Override

@@ -64,11 +64,13 @@ public class ChangeSelectedProfileTool extends Tool{
 		    
 		}else{
 		// If the list of profiles is empty, show an error message
-		if( profileNames.length == 0 )
-			controller.showErrorDialog( TextConstants.getText( "Resources.EditAsset" ), TextConstants.getText( "Resources.ErrorNoAssets" ) );
-
+		if( profileNames.length == 0 ){
+		    if (mode==MODE_ASSESSMENT)
+			controller.showErrorDialog( TextConstants.getText( "Resources.EditAsset" ), TextConstants.getText( "Operation.AssignAssessmentProfile" ) );
+		    else if (mode==MODE_ADAPTATION)
+			controller.showErrorDialog( TextConstants.getText( "Resources.EditAsset" ), TextConstants.getText( "Operation.AssignAdaptationProfile" ) );
 		// If not empty, select one of them
-		else {
+		}else {
 			// Let the user choose between the profiles
 			String selectedProfile = controller.showInputDialog( TextConstants.getText( "Resources.EditAsset" ), TextConstants.getText( "Resources.EditAssetMessage" ), profileNames );
 

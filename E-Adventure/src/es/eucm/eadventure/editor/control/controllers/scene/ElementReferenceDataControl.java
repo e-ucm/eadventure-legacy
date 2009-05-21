@@ -304,18 +304,22 @@ public class ElementReferenceDataControl extends DataControl {
 
 	@Override
 	public int countIdentifierReferences( String id ) {
-		return elementReference.getTargetId( ).equals( id ) ? 1 : 0;
+	    int count =0;
+	    count +=elementReference.getTargetId( ).equals( id ) ? 1 : 0;
+	    count += conditionsController.countIdentifierReferences(id);
+		return count;
 	}
 
 	@Override
 	public void replaceIdentifierReferences( String oldId, String newId ) {
 		if( elementReference.getTargetId( ).equals( oldId ) )
 			elementReference.setTargetId( newId );
+		conditionsController.replaceIdentifierReferences(oldId, newId);
 	}
 
 	@Override
 	public void deleteIdentifierReferences( String id ) {
-	// Do nothing
+	        conditionsController.deleteIdentifierReferences(id);
 	}
 
 	@Override

@@ -88,6 +88,21 @@ public class ExitLookDataControl {
 		}
 
 	}
+	
+	public int countAssetReferences( String assetPath ) {
+	    if (exitLook.getCursorPath( ).equals(assetPath))
+		return 1;
+	    else
+		return 0;
+	    
+	}
+	
+	public void deleteAssetReferences( String assetPath ) {
+	    if (exitLook.getCursorPath( ).equals(assetPath))
+		exitLook.setCursorPath("");
+	    
+	    
+	}
 
 	public void setCursorPath(String value) {
 		exitLook.setCursorPath(value);

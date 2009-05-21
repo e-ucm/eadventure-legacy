@@ -441,9 +441,15 @@ public class GraphConversationDataControl extends ConversationDataControl {
 
 				// Add the references from the effects
 				if( conversationNode.hasEffects( ) )
-					EffectsController.countIdentifierReferences( id, conversationNode.getEffects( ) );
+					count += EffectsController.countIdentifierReferences( id, conversationNode.getEffects( ) );
+				
 			}
 		}
+		
+		// add conditions references
+		for (List<ConditionsController> conditions :allConditions.values())
+		    for (ConditionsController condition: conditions )
+			count += condition.countIdentifierReferences(id);
 
 		return count;
 	}
@@ -466,6 +472,11 @@ public class GraphConversationDataControl extends ConversationDataControl {
 				if( conversationNode.hasEffects( ) )
 					EffectsController.replaceIdentifierReferences( oldId, newId, conversationNode.getEffects( ) );
 			}
+			
+			// add conditions references
+			for (List<ConditionsController> conditions :allConditions.values())
+			    for (ConditionsController condition: conditions )
+				condition.replaceIdentifierReferences(oldId,newId);
 		}
 	}
 
@@ -489,6 +500,11 @@ public class GraphConversationDataControl extends ConversationDataControl {
 				if( conversationNode.hasEffects( ) )
 					EffectsController.deleteIdentifierReferences( id, conversationNode.getEffects( ) );
 			}
+			
+			// add conditions references
+			for (List<ConditionsController> conditions :allConditions.values())
+			    for (ConditionsController condition: conditions )
+				condition.deleteIdentifierReferences(id);
 		}
 	}
 

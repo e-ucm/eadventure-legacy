@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.Rectangle;
+import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.common.data.chapter.elements.ActiveArea;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
@@ -59,7 +60,7 @@ public class ActiveAreaDataControl extends DataControl implements RectangleArea 
 	public ActiveAreaDataControl( SceneDataControl sceneDataControl, ActiveArea activeArea ) {
 		this.sceneDataControl = sceneDataControl;
 		this.activeArea = activeArea;
-
+		conditionsController = new ConditionsController(new Conditions());
 		this.influenceAreaDataControl = new InfluenceAreaDataControl(sceneDataControl, activeArea.getInfluenceArea(), this);
 
 		// Create subcontrollers
@@ -348,17 +349,22 @@ public class ActiveAreaDataControl extends DataControl implements RectangleArea 
 
 	@Override
 	public int countIdentifierReferences( String id ) {
-		return actionsListDataControl.countIdentifierReferences( id );
+	    int count=0;
+	    count += actionsListDataControl.countIdentifierReferences( id );
+	    count += conditionsController.countIdentifierReferences(id);
+	    return count;
 	}
 
 	@Override
 	public void replaceIdentifierReferences( String oldId, String newId ) {
 		actionsListDataControl.replaceIdentifierReferences( oldId, newId );
+		conditionsController.replaceIdentifierReferences(oldId, newId);
 	}
 
 	@Override
 	public void deleteIdentifierReferences( String id ) {
 		actionsListDataControl.deleteIdentifierReferences( id );
+		conditionsController.deleteIdentifierReferences(id);
 	}
 	
 	/**

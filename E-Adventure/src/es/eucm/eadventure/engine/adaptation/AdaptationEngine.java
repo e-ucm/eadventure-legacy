@@ -52,8 +52,10 @@ public class AdaptationEngine {
     	    loadAdaptationProfile(adaptationProfile);
     	  //  inited = true;
     	//} else {
+    	    if (initialAdaptedState==null || externalAdaptationRules==null){
     		initialAdaptedState = new AdaptedState();
     		externalAdaptationRules = new ArrayList<AdaptationRule>();
+    	    }
     	//}
 		    
 	   // if(inited) {

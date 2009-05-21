@@ -74,9 +74,12 @@ public class GameStatePlaying extends GameState {
             
             // If it has an initial scene, set it
             if( game.getAdaptedStateToExecute( ).getTargetId( ) != null ) {
-                game.setNextScene( new Exit( game.getAdaptedStateToExecute( ).getTargetId( ) ) );
+        	// check the scene is in chapter
+        	if (game.getCurrentChapterData().getScenes().contains(game.getAdaptedStateToExecute( ).getTargetId( ))){
+        	game.setNextScene( new Exit( game.getAdaptedStateToExecute( ).getTargetId( ) ) );
                 game.setState( Game.STATE_NEXT_SCENE );
                 game.flushEffectsQueue( );
+        	}
             }
             
             // Set the flag values

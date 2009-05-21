@@ -6,6 +6,7 @@ import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.Exit;
 import es.eucm.eadventure.common.data.chapter.Rectangle;
+import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
@@ -70,7 +71,7 @@ public class ExitDataControl extends DataControl implements RectangleArea {
 		effectsController = new EffectsController(exit.getEffects());
 		postEffectsController = new EffectsController(exit.getPostEffects());
 		notEffectsController = new EffectsController(exit.getNotEffects());
-		
+		conditionsController = new ConditionsController(new Conditions());
 		exitLookDataControl = new ExitLookDataControl ( exit );
 	}
 
@@ -238,15 +239,12 @@ public class ExitDataControl extends DataControl implements RectangleArea {
 
 	@Override
 	public int countAssetReferences( String assetPath ) {
-		int count = 0;
-
-
-		return count;
+		return exitLookDataControl.countAssetReferences(assetPath);
 	}
 
 	@Override
 	public void deleteAssetReferences( String assetPath ) {
-
+	    exitLookDataControl.deleteAssetReferences(assetPath);
 	}
 
 	@Override
@@ -258,7 +256,7 @@ public class ExitDataControl extends DataControl implements RectangleArea {
 		count += EffectsController.countIdentifierReferences(id, exit.getEffects());
 		count += EffectsController.countIdentifierReferences(id, exit.getPostEffects());
 		count += EffectsController.countIdentifierReferences(id, exit.getNotEffects());
-
+		count += conditionsController.countIdentifierReferences(id);
 		return count;
 	}
 
@@ -269,6 +267,7 @@ public class ExitDataControl extends DataControl implements RectangleArea {
 		EffectsController.replaceIdentifierReferences(oldId, newId, exit.getEffects());
 		EffectsController.replaceIdentifierReferences(oldId, newId, exit.getPostEffects());
 		EffectsController.replaceIdentifierReferences(oldId, newId, exit.getNotEffects());
+		conditionsController.replaceIdentifierReferences(oldId, newId);
 	}
 
 	@Override
@@ -276,6 +275,7 @@ public class ExitDataControl extends DataControl implements RectangleArea {
 		EffectsController.deleteIdentifierReferences(id, exit.getEffects());
 		EffectsController.deleteIdentifierReferences(id, exit.getPostEffects());
 		EffectsController.deleteIdentifierReferences(id, exit.getNotEffects());
+		conditionsController.deleteIdentifierReferences(id);
 		if (id.equals(exit.getNextSceneId()))
 			exit.setNextSceneId(null);
 	}

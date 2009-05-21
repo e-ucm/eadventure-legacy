@@ -459,7 +459,10 @@ named 'descriptor.xml' or 'chapterXX.xml' where XX is a number.</entry>
 	<entry key="Operation.CreateAdaptationFile.FileName.DefaultValue">adaptation-profile</entry>
 	<entry key="Operation.CreateAdaptationFile.FileName.ExistValue.Message">The new name already exists in current chapter.</entry>
 	<entry key="Operation.CreateAdaptationFile.FileName.ExistValue.Title">The new name exists.</entry>
-
+	<entry key="Operation.AssignAdaptationProfile">There are not adaptation files for this chapter.</entry>
+	
+	<entry key="Operation.AssignAssessmentProfile">There are not assessment files for this chapter.</entry>
+	
 	<entry key="Operation.OverwriteAdaptationFile">File already exists</entry>
 	<entry key="Operation.OverwriteAssessmentFile">File already exists</entry>
 	<entry key="Operation.OverwriteAdaptationFile.Message">The selected file exists. Overwrite it?</entry>
@@ -607,6 +610,8 @@ In the game you can define conditions based on the value of the variables.</entr
 	<entry key="Vars.ConfirmNewVar.Text">The name you typed is very similar to other(s).
 Do you really want to create it? 
 Otherwise you can select one of those found similar from the list.</entry>
+	<entry key="Vars.DefaultVarName">newVar</entry>
+	<entry key="Flags.DefaultFlagName">newFlag</entry>
 	<entry key="Flags.ConfirmNewFlag.Title">Create new flag?</entry>
 	<entry key="Flags.ConfirmNewFlag.Text">The name you typed is very similar to other(s).
 Do you really want to create it? 

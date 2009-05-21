@@ -155,7 +155,7 @@ public class AdaptedState implements Cloneable, HasTargetId {
      */
     public void change(int index,String name){
 	if (isFlag(index)){
-	    actionsValues.set(index, INCREMENT);
+	    actionsValues.set(index, INCREMENT + " 0");
 	    allFlagsVars.set(index, name);
 	}else {
 	    actionsValues.set(index, ACTIVATE);

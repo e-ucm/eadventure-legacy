@@ -5,6 +5,8 @@ import javax.swing.JTable;
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfileDataControl;
+import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfileDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ChapterDataControl;
 import es.eucm.eadventure.editor.control.tools.Tool;
 import es.eucm.eadventure.editor.gui.structurepanel.StructureElement;
@@ -49,6 +51,7 @@ public class RemoveElementTool extends Tool {
 	public boolean doTool() {
 		if (element.delete(true)) {
 			table.clearSelection();
+			removeSelectedProfile();
 			Controller.getInstance().updateStructure();
 			return true;
 		}
@@ -67,6 +70,18 @@ public class RemoveElementTool extends Tool {
 		Controller.getInstance().replaceSelectedChapter(chapter);
 		Controller.getInstance().reloadData();
 		return true;
+	}
+	
+	public void removeSelectedProfile(){
+	    if (element.getDataControl() instanceof AdaptationProfileDataControl){
+	    if (Controller.getInstance().getSelectedChapterDataControl().getAdaptationName().equals(((AdaptationProfileDataControl)element.getDataControl()).getName()))
+		((Chapter)Controller.getInstance().getSelectedChapterDataControl().getContent()).setAdaptationName("");
+	    }
+	    
+	    if (element.getDataControl() instanceof AssessmentProfileDataControl){
+		    if (Controller.getInstance().getSelectedChapterDataControl().getAssessmentName().equals(((AssessmentProfileDataControl)element.getDataControl()).getName()))
+			((Chapter)Controller.getInstance().getSelectedChapterDataControl().getContent()).setAssessmentName("");
+		    }
 	}
 
 }

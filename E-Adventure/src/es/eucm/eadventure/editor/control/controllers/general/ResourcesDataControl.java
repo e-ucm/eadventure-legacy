@@ -359,17 +359,17 @@ public class ResourcesDataControl extends DataControl {
 
 	@Override
 	public int countIdentifierReferences( String id ) {
-		return 0;
+		return this.conditionsController.countIdentifierReferences(id);
 	}
 
 	@Override
 	public void replaceIdentifierReferences( String oldId, String newId ) {
-	// Do nothing
+		conditionsController.replaceIdentifierReferences(oldId, newId);
 	}
 
 	@Override
 	public void deleteIdentifierReferences( String id ) {
-	// Do nothing
+		conditionsController.deleteIdentifierReferences(id);
 	}
 
 

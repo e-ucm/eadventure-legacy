@@ -87,4 +87,11 @@ public abstract class ResizeableCellRenderer extends AbstractCellEditor implemen
 		this.size = size;
 	}
 
+	/**
+	 * @return the size
+	 */
+	public int getSize() {
+	    return size;
+	}
+
 }

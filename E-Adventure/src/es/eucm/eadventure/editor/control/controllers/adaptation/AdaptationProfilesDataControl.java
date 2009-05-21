@@ -43,7 +43,7 @@ public class AdaptationProfilesDataControl extends DataControl{
 				//Checks if the profile exists. Always profile name is set as TextConstants.getText("Operation.CreateAdaptationFile.FileName.DefaultValue");
 			    	// Increase the last number until create a not existing name
 			    	int i=1;
-			    	while (existName(profileName )){
+			    	while (/*existName(profileName )*/controller.getIdentifierSummary().isAdaptationProfileId(profileName)){
 			    	    String lastIndex = profileName.substring(profileName.length()-1,profileName.length());
 			    	    try{
 			    		Integer.parseInt(lastIndex);
@@ -58,6 +58,7 @@ public class AdaptationProfilesDataControl extends DataControl{
 					AdaptedState initialState = new AdaptedState();
 					this.profiles.add( new AdaptationProfileDataControl ( newRules, initialState,profileName) );
 					data.add( (AdaptationProfile)profiles.get(profiles.size()-1).getContent() );
+					controller.getIdentifierSummary().addAdaptationProfileId(profileName);
 					//controller.dataModified( );
 					added = true;
 
@@ -82,10 +83,11 @@ public class AdaptationProfilesDataControl extends DataControl{
 			do {
 				id = newElement.getName() + i;
 				i++;
-			} while (existName(id));
+			} while (/*existName(id)*/controller.getIdentifierSummary().isAdaptationProfileId(id));
 			newElement.setName(id);
 			profiles.add(new AdaptationProfileDataControl(newElement));
 			data.add( (AdaptationProfile)profiles.get(profiles.size()-1).getContent() );
+			controller.getIdentifierSummary().addAdaptationProfileId(id);
 			return true;
 		} catch (CloneNotSupportedException e) {
 			ReportDialog.GenerateErrorReport(e, true, "Could not clone adaptation profile");	
@@ -93,13 +95,13 @@ public class AdaptationProfilesDataControl extends DataControl{
 		} 
 	}
 	
-	public boolean existName(String name){
+	/*public boolean existName(String name){
 	    for (AdaptationProfileDataControl profile: this.profiles){
 		if (profile.getName().equals(name))
 		    return true;
 	    }
 	    return false;
-	}
+	}*/
 	
 	@Override
 	public String getDefaultId(int type) {
@@ -129,19 +131,13 @@ public class AdaptationProfilesDataControl extends DataControl{
 
 	@Override
 	public int countAssetReferences( String assetPath ) {
-		int count = 0;
-		for (AdaptationProfileDataControl profile:profiles){
-			count += profile.countAssetReferences( assetPath ); 
-		}
-		return count;
+		return 0;
 	}
 	
 	@Override
 	public void getAssetReferences( List<String> assetPaths, List<Integer> assetTypes ) {
 		// Iterate through each profile
-		for (AdaptationProfileDataControl profile:profiles){
-			profile.getAssetReferences( assetPaths, assetTypes );
-		}
+		
 	}
 
 
@@ -149,16 +145,16 @@ public class AdaptationProfilesDataControl extends DataControl{
 	public int countIdentifierReferences( String id ) {
 		int count = 0;
 		for (AdaptationProfileDataControl profile:profiles){
-			count += profile.countIdentifierReferences( id ); 
+		    if (profile.getName().equals(id))
+			count++;
+		    count += profile.countIdentifierReferences( id ); 
 		}
 		return count;
 	}
 
 	@Override
 	public void deleteAssetReferences( String assetPath ) {
-		for (AdaptationProfileDataControl profile:profiles){
-			profile.deleteAssetReferences( assetPath ); 
-		}
+		
 	}
 
 	@Override
@@ -173,16 +169,9 @@ public class AdaptationProfilesDataControl extends DataControl{
 				    	data.remove(profiles.indexOf(dataControl));
 				    	deleted = this.profiles.remove( dataControl );
 					if (deleted){
-						Controller.getInstance( ).deleteAssetReferences( path );
+							
+					    controller.getIdentifierSummary( ).deleteAdaptationProfileId(profile.getName());
 						
-						if (controller.getSelectedChapterDataControl().getAdaptationName().equals(profile.getName()))
-						    controller.getSelectedChapterDataControl().deleteAdaptationPath();
-					
-						// Delete the file
-						//File deletedFile = new File (Controller.getInstance( ).getProjectFolder( )+"/"+path);
-						//if (deletedFile.exists( ))
-						//	deleted =deletedFile.delete( );
-						//controller.dataModified( );
 						break;
 					}
 				}
@@ -265,7 +254,9 @@ public class AdaptationProfilesDataControl extends DataControl{
 	@Override
 	public void replaceIdentifierReferences( String oldId, String newId ) {
 		for (AdaptationProfileDataControl profile:profiles){
-			profile.replaceIdentifierReferences( oldId, newId );
+		    if (profile.getName().equals(oldId))
+			profile.renameElement(newId);
+		    profile.replaceIdentifierReferences( oldId, newId );
 		}
 	}
 

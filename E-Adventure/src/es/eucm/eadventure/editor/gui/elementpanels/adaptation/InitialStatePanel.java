@@ -192,6 +192,10 @@ class InitialStatePanel extends JPanel implements Updateable{
 			public void actionPerformed( ActionEvent e ) {
 				if (initialSceneCB.getSelectedIndex( )>0)
 					adaptationProfileDataControl.setInitialScene( initialSceneCB.getSelectedItem( ).toString( ) );
+				if (initialSceneCB.getSelectedIndex( )==0)
+				    // null value for initial scene means no initial scene
+				    adaptationProfileDataControl.setInitialScene(null);
+				
 			}
 			
 		});
@@ -425,7 +429,7 @@ class InitialStatePanel extends JPanel implements Updateable{
 			    		if (names.length==0){
 			    		   //Controller.getInstance().showErrorDialog(TextConstants.getText("Error.NoVarsAvailable.Title"), TextConstants.getText("Error.NoVarsAvailable.Message"));
 			    		    // change to var
-			    		adaptationProfileDataControl.change(rowIndex, "");
+			    		adaptationProfileDataControl.change(rowIndex, TextConstants.getText("Vars.DefaultVarName"));
 			    		}else 
 			    		    // change to var
 			    		adaptationProfileDataControl.change(rowIndex, names[0]);
@@ -445,7 +449,7 @@ class InitialStatePanel extends JPanel implements Updateable{
 			    		if (names.length==0){
 			    		    //Controller.getInstance().showErrorDialog(TextConstants.getText("Error.NoFlagsAvailable.Title"), TextConstants.getText("Error.NoFlagsAvailable.Message"));
 			    		    // change to flag
-			    		adaptationProfileDataControl.change(rowIndex, "");
+			    		adaptationProfileDataControl.change(rowIndex, TextConstants.getText("Vars.DefaultVarName"));
 			    		}   else
 			    		 // change to flag
 			    		adaptationProfileDataControl.change(rowIndex, names[0]);		

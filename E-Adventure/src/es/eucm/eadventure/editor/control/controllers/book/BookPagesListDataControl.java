@@ -94,9 +94,8 @@ public class BookPagesListDataControl extends Searchable {
 
 		// Spread the call to the pages
 		for( BookPage bookPage : bookPagesList )
-			if (bookPage.getUri( ).equals( assetPath ) && bookPage.getType() == BookPage.TYPE_RESOURCE)
+			if (bookPage.getUri( ).equals( assetPath ) && (bookPage.getType() == BookPage.TYPE_RESOURCE||bookPage.getType() == BookPage.TYPE_IMAGE))
 				count++;
-
 		return count;
 	}
 
@@ -105,7 +104,7 @@ public class BookPagesListDataControl extends Searchable {
 		for( BookPage bookPage : bookPagesList ){
 			
 			String uri = bookPage.getUri( );
-			if (uri!=null && !uri.equals( "" ) && bookPage.getType() == BookPage.TYPE_RESOURCE){
+			if (uri!=null && !uri.equals( "" ) && (bookPage.getType() == BookPage.TYPE_RESOURCE||bookPage.getType() == BookPage.TYPE_IMAGE)){
 				// Search assetPaths
 				boolean add = true;
 				for (String asset: assetPaths){
@@ -116,7 +115,10 @@ public class BookPagesListDataControl extends Searchable {
 				if (add){
 					int last = assetPaths.size( );
 					assetPaths.add( last, uri );
-					assetTypes.add( last, AssetsController.CATEGORY_STYLED_TEXT );
+					if (bookPage.getType() == BookPage.TYPE_RESOURCE)
+					    assetTypes.add( last, AssetsController.CATEGORY_STYLED_TEXT );
+					else if (bookPage.getType() == BookPage.TYPE_IMAGE)
+					    assetTypes.add( last, AssetsController.CATEGORY_IMAGE );
 				}
 			}
 		}
@@ -128,7 +130,7 @@ public class BookPagesListDataControl extends Searchable {
 		
 		//Spread the call to the paragraphs
 		for( BookPage bookPage : bookPagesList )
-			if (bookPage.getUri( ).equals( assetPath ) && bookPage.getType( ) == BookPage.TYPE_RESOURCE)
+			if (bookPage.getUri( ).equals( assetPath ) && (bookPage.getType( ) == BookPage.TYPE_RESOURCE||bookPage.getType( ) == BookPage.TYPE_IMAGE))
 				toRemove.add( bookPage );
 		
 		for (BookPage bookPage: toRemove)

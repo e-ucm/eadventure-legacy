@@ -85,6 +85,11 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
 	private JButton duplicate;
 	
 	/**
+	 * Combo box for profile type
+	 */
+	private JComboBox comboProfile;
+	
+	/**
 	 * Panel which contains the initial state and LMS state of selected rule
 	 */
 	private JPanel rulesInfoPanel;
@@ -298,7 +303,7 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
 		ruleListPanel = new JPanel();
 		ruleListPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory
 				.createEtchedBorder(), TextConstants
-				.getText("AdaptationRulesList.ListTitle")));
+				.getText("AssessmentRulesList.ListTitle")));
 		ruleListPanel.setLayout(new BorderLayout());
 		ruleListPanel.add(new TableScrollPane(informationTable,
 				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
@@ -376,7 +381,7 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
 		String[] options = new String[]{TextConstants.getText("AdaptationRulesList.Scorm2004"),
 									  TextConstants.getText("AdaptationRulesList.Scorm12"),
 									  TextConstants.getText("AdaptationRulesList.Normal")};
-		JComboBox comboProfile = new JComboBox(options);
+		 comboProfile = new JComboBox(options);
 		if (dataControl.isScorm12())
 			comboProfile.setSelectedIndex(1);
 		else if (dataControl.isScorm2004())
@@ -384,22 +389,37 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
 		else
 			comboProfile.setSelectedIndex(2);
 		
-		comboProfile.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JComboBox combo = ((JComboBox) e.getSource());
-				informationTable.clearSelection();
-				if (combo.getSelectedIndex() == 0) {
-					dataControl.changeToScorm2004Profile();
-				} else if (combo.getSelectedIndex() == 1) {
-					dataControl.changeToScorm12Profile();
-				} else if (combo.getSelectedIndex() == 2) {
-					dataControl.changeToNormalProfile();
-				}
-			}
-		});
+		comboProfile.addActionListener(new ComboListener(comboProfile.getSelectedIndex()));
 
 		profileTypePanel.add(comboProfile, BorderLayout.CENTER);
 	}
+	
+	private class ComboListener implements ActionListener{
+
+		private int pastSelection;
+		
+		public ComboListener(int pastSelection){
+		    this.pastSelection = pastSelection;
+		}
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+		    JComboBox combo = ((JComboBox) e.getSource());
+		    if (pastSelection!=combo.getSelectedIndex() ){
+		    	informationTable.clearSelection();
+			if (combo.getSelectedIndex() == 0) {
+				dataControl.changeToScorm2004Profile();
+			} else if (combo.getSelectedIndex() == 1) {
+				dataControl.changeToScorm12Profile();
+			} else if (combo.getSelectedIndex() == 2) {
+				dataControl.changeToNormalProfile();
+			}
+			pastSelection = combo.getSelectedIndex();
+		    }
+		    
+		}
+		
+	    }
 
 	public void createFeedbackPanel() {
 		feedbackPanel = createFeedbackPanel(dataControl);
@@ -740,6 +760,15 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
 		    ((Updateable) rulesInfoPanel).updateFields();
 		
 		((AbstractTableModel) informationTable.getModel()).fireTableDataChanged();
+		
+		// update the combobox
+		if (dataControl.isScorm12())
+			comboProfile.setSelectedIndex(1);
+		else if (dataControl.isScorm2004())
+			comboProfile.setSelectedIndex(0);
+		else
+			comboProfile.setSelectedIndex(2);
+		
 		
 		if (items == informationTable.getRowCount()) {
 			if (selected != -1) {

@@ -295,17 +295,17 @@ public class BarrierDataControl extends DataControl {
 
 	@Override
 	public int countIdentifierReferences( String id ) {
-		return 0;
+		return conditionsController.countIdentifierReferences(id);
 	}
 
 	@Override
 	public void replaceIdentifierReferences( String oldId, String newId ) {
-		//actionsListDataControl.replaceIdentifierReferences( oldId, newId );
+		conditionsController.replaceIdentifierReferences(oldId, newId);
 	}
 
 	@Override
 	public void deleteIdentifierReferences( String id ) {
-		//actionsListDataControl.deleteIdentifierReferences( id );
+	    conditionsController.deleteIdentifierReferences(id);
 	}
 	
 	/**

@@ -24,6 +24,7 @@ public class AdaptationPanel extends ElementPanel{
 		
 		public AdaptationEditionPanelTab(AdaptationProfileDataControl sDataControl) {
 			super(TextConstants.getText( "AdaptationProfile.Title" ), sDataControl);
+			//this.setHelpPath("assessment/assessmentProfile.html");
 			this.sDataControl = sDataControl;
 		}
 

@@ -298,6 +298,7 @@ public class ActionDataControl extends DataControlWithResources {
 		// Add to the counter the references in the effects block
 		count += EffectsController.countIdentifierReferences( id, action.getEffects( ) );
 
+		count+= conditionsController.countIdentifierReferences(id);		
 		return count;
 	}
 
@@ -308,11 +309,13 @@ public class ActionDataControl extends DataControlWithResources {
 			action.setTargetId( newId );
 
 		EffectsController.replaceIdentifierReferences( oldId, newId, action.getEffects( ) );
+		conditionsController.replaceIdentifierReferences(oldId, newId);
 	}
 
 	@Override
 	public void deleteIdentifierReferences( String id ) {
 		EffectsController.deleteIdentifierReferences( id, action.getEffects( ) );
+		conditionsController.deleteIdentifierReferences(id);
 	}
 
 	@Override

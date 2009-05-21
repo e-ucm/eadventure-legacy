@@ -153,7 +153,7 @@ public class ChapterInfoPanel extends JPanel {
 		c2.fill = GridBagConstraints.HORIZONTAL;
 		c2.weightx = 1;
 		String assessName=null;
-		if (Controller.getInstance().getAssessmentController().existName(chapterDataControl.getAssessmentName( )))
+		if (Controller.getInstance().getIdentifierSummary().isAssessmentProfileId(chapterDataControl.getAssessmentName( )))
 		    assessName=chapterDataControl.getAssessmentName( );
 		assessmentPathTextField = new JTextField( assessName );
 		assessmentPathTextField.setEditable( false );
@@ -195,7 +195,7 @@ public class ChapterInfoPanel extends JPanel {
 		c2.fill = GridBagConstraints.HORIZONTAL;
 		c2.weightx = 1;
 		String adaptName=null;
-		if (Controller.getInstance().getAdaptationController().existName(chapterDataControl.getAdaptationName( )))
+		if (Controller.getInstance().getIdentifierSummary().isAdaptationProfileId(chapterDataControl.getAdaptationName( )))
 		    adaptName=chapterDataControl.getAdaptationName( );
 		adaptationPathTextField = new JTextField(adaptName  );
 		adaptationPathTextField.setEditable( false );
