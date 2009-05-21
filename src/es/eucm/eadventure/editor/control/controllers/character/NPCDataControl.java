@@ -424,16 +424,30 @@ public class NPCDataControl extends DataControlWithResources {
 
 	@Override
 	public int countIdentifierReferences( String id ) {
-		return actionsListDataControl.countIdentifierReferences( id );
+	    	int count=0;
+	    	// Iterate through the resources
+		for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
+			resourcesDataControl.countIdentifierReferences(id);
+
+		count += actionsListDataControl.countIdentifierReferences( id );
+		return count;
 	}
 
 	@Override
 	public void replaceIdentifierReferences( String oldId, String newId ) {
+	 // Iterate through the resources
+		for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
+			resourcesDataControl.replaceIdentifierReferences(oldId,newId);
+
 		actionsListDataControl.replaceIdentifierReferences( oldId, newId );
 	}
 
 	@Override
 	public void deleteIdentifierReferences( String id ) {
+	 // Iterate through the resources
+		for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
+			resourcesDataControl.deleteIdentifierReferences(id);
+
 		actionsListDataControl.deleteIdentifierReferences( id );
 	}
 

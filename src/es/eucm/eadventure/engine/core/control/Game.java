@@ -476,7 +476,9 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
 
             // If it has an initial scene, set it
             if( adaptedStateToExecute.getTargetId( ) != null ) 
-                firstScene.setNextSceneId(adaptedStateToExecute.getTargetId( ));
+        	// check the scene is in chapter
+        	if (gameData.getScenes().contains(adaptedStateToExecute.getTargetId( )))
+        	    firstScene.setNextSceneId(adaptedStateToExecute.getTargetId( ));
 
             // Set the flags
             for( String flag : adaptedStateToExecute.getActivatedFlags( ) )
@@ -503,10 +505,14 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         	else{
         	    if (vars.existVar(varName)){
         	    int currentValue = vars.getValue(varName);
-        	    if (AdaptedState.isIncrementOp(varValue)){
-            	    	vars.setVarValue(varName, currentValue + 1);
-        	    }else if (AdaptedState.isDecrementOp(varValue)){
-            	    	vars.setVarValue(varName, currentValue - 1);
+        	    int operationValue = Integer.parseInt(varValue.substring(varValue.indexOf(" ")+1));
+        	    if (AdaptedState.isIncrementOp(varValue.substring(0,varValue.indexOf(" ")))){
+            	    	vars.setVarValue(varName, currentValue + operationValue);
+        	    }else if (AdaptedState.isDecrementOp(varValue.substring(0,varValue.indexOf(" ")))){
+        		if (currentValue - operationValue>=0)
+            	    		vars.setVarValue(varName, currentValue - operationValue);
+        		else 
+        		    vars.setVarValue(varName, 0);
         	    }
         	    }
         	}

@@ -1127,11 +1127,14 @@ public class EffectsController {
 				EffectsController.countIdentifierReferences( id, e );
 				
 			}
-
+			
+			ConditionsController conditionsController = new ConditionsController(((AbstractEffect)effect).getConditions());
+			count += conditionsController.countIdentifierReferences(id);
 		}
 
 		return count;
 	}
+
 
 	/**
 	 * Replaces all the references to the given identifier to references to a new one in the block of effects.
@@ -1194,6 +1197,9 @@ public class EffectsController {
 				EffectsController.replaceIdentifierReferences( oldId, newId, e );
 				
 			}
+			
+			ConditionsController conditionsController = new ConditionsController(((AbstractEffect)effect).getConditions());
+			conditionsController.replaceIdentifierReferences(oldId, newId);
 
 		}
 	}
@@ -1212,10 +1218,15 @@ public class EffectsController {
 
 		// For earch effect
 		while( i < effects.getEffects( ).size( ) ) {
+		    
 			// Get the effect and the type
 			Effect effect = effects.getEffects( ).get( i );
 			int type = effect.getType( );
 			boolean deleteEffect = false;
+			
+			// check identifier references in conditions
+			ConditionsController conditionsController = new ConditionsController(((AbstractEffect)effect).getConditions());
+			conditionsController.deleteIdentifierReferences(id);
 			// If random effect
 			if ( type == Effect.RANDOM_EFFECT){
 				RandomEffect randomEffect = (RandomEffect) effect;
@@ -1243,6 +1254,8 @@ public class EffectsController {
 				effects.getEffects( ).remove( i );
 			else
 				i++;
+			
+			
 		}
 	}
 	

@@ -118,7 +118,13 @@ public class AdaptationProfileDataControl extends DataControl{
 
 	@Override
 	public int countIdentifierReferences( String id ) {
-		return 0;
+	    int count =0;
+	    if (id.equals(profile.getName()))
+		    count++;
+	    for (AdaptationRuleDataControl rule : dataControls){
+		count += rule.countIdentifierReferences(id);
+	    }
+	    return count;
 	}
 
 	@Override
@@ -133,6 +139,9 @@ public class AdaptationProfileDataControl extends DataControl{
 		String adpRuleId = ( (AdaptationRuleDataControl) dataControl ).getId( );
 		String references = String.valueOf( controller.countIdentifierReferences( adpRuleId ) );
 
+		if (Integer.parseInt(references) == 0){
+		    askConfirmation=false;
+		}
 		// Ask for confirmation
 		if(!askConfirmation || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { adpRuleId, references } ) ) ) {
 			if( profile.getRules().remove( dataControl.getContent( ) ) ) {
@@ -149,6 +158,12 @@ public class AdaptationProfileDataControl extends DataControl{
 
 	@Override
 	public void deleteIdentifierReferences( String id ) {
+	    // profiles identifiers are deleted in adaptationProfilesDataControl
+	    for (AdaptationRuleDataControl rule:dataControls){
+		if (id.equals(rule.getId())){
+		    dataControls.remove(rule);
+		}
+	    }
 	}
 
 	@Override
@@ -223,9 +238,12 @@ public class AdaptationProfileDataControl extends DataControl{
 			
 			
 			    if (fileName!=null && !fileName.equals( oldName ) && controller.isElementIdValid( fileName )){
-				if (!controller.getAdaptationController().existName(name)){
+				if (!controller.getIdentifierSummary().isAdaptationProfileId(name)){
 				    //controller.dataModified( );
 					profile.setName( fileName );
+					controller.getIdentifierSummary().deleteAdaptationProfileId(oldName);
+					controller.getIdentifierSummary().addAdaptationProfileId(fileName);
+					
 					renamed=true;
 				}else {
 				    controller.showErrorDialog(TextConstants.getText("Operation.CreateAdaptationFile.FileName.ExistValue.Title"), TextConstants.getText("Operation.CreateAdaptationFile.FileName.ExistValue.Message"));
@@ -242,7 +260,10 @@ public class AdaptationProfileDataControl extends DataControl{
 	
 	@Override
 	public void replaceIdentifierReferences( String oldId, String newId ) {
-		
+		for (AdaptationRuleDataControl rule:dataControls)
+		    if (rule.getId().equals(oldId)){
+			rule.renameElement(newId);
+		    }
 	}
 
 	@Override

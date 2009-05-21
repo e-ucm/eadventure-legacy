@@ -86,7 +86,7 @@ public class VarSummary implements Serializable {
      * @return
      */
     public boolean existVar(String varName){
-	return vars.containsValue(varName);
+	return vars.containsKey(varName);
     }
     
     /**

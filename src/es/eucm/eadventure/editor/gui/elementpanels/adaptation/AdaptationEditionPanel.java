@@ -96,6 +96,11 @@ public class AdaptationEditionPanel extends JPanel implements Updateable,DataCon
      */
     private JTable informationTable;
     
+    /**
+     * Combo box for adaptation profile type
+     */
+    private JComboBox comboProfile;
+    
     
     /**
      * 
@@ -141,7 +146,7 @@ public class AdaptationEditionPanel extends JPanel implements Updateable,DataCon
 		String[] options = new String[]{TextConstants.getText("AdaptationRulesList.Scorm2004"),
 									  TextConstants.getText("AdaptationRulesList.Scorm12"),
 									  TextConstants.getText("AdaptationRulesList.Normal")};
-		JComboBox comboProfile = new JComboBox(options);
+		 comboProfile = new JComboBox(options);
 		if (dataControl.isScorm12())
 			comboProfile.setSelectedIndex(1);
 		else if (dataControl.isScorm2004())
@@ -149,25 +154,40 @@ public class AdaptationEditionPanel extends JPanel implements Updateable,DataCon
 		else
 			comboProfile.setSelectedIndex(2);
 		
-		comboProfile.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JComboBox combo = ((JComboBox) e.getSource());
-				informationTable.clearSelection();
-				if (combo.getSelectedIndex() == 0) {
-					dataControl.changeToScorm2004Profile();
-				} else if (combo.getSelectedIndex() == 1) {
-					dataControl.changeToScorm12Profile();
-				} else if (combo.getSelectedIndex() == 2) {
-					dataControl.changeToNormalProfile();
-				}
-			}
-		});
+		comboProfile.addActionListener(new ComboListener(comboProfile.getSelectedIndex()));
 
 		profileTypePanel.add(comboProfile);
     }
     
     public void createInitialState(){
     	initialStatePanel = new InitialStatePanel(dataControl,true);
+    }
+    
+    private class ComboListener implements ActionListener{
+
+	private int pastSelection;
+	
+	public ComboListener(int pastSelection){
+	    this.pastSelection = pastSelection;
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+	    JComboBox combo = ((JComboBox) e.getSource());
+	    if (pastSelection!=combo.getSelectedIndex() ){
+	    	informationTable.clearSelection();
+		if (combo.getSelectedIndex() == 0) {
+			dataControl.changeToScorm2004Profile();
+		} else if (combo.getSelectedIndex() == 1) {
+			dataControl.changeToScorm12Profile();
+		} else if (combo.getSelectedIndex() == 2) {
+			dataControl.changeToNormalProfile();
+		}
+		pastSelection = combo.getSelectedIndex();
+	    }
+	    
+	}
+	
     }
     
     private void createRuleListPanel(){
@@ -340,8 +360,14 @@ public class AdaptationEditionPanel extends JPanel implements Updateable,DataCon
 	int selectedTab = rulesInfoPanel.getSelectedIndex();
 	if (rulesInfoPanel!=null && rulesInfoPanel instanceof Updateable)
 	    ((Updateable) rulesInfoPanel).updateFields();
-	
 	((AbstractTableModel) informationTable.getModel()).fireTableDataChanged();
+	// update combo box
+	if (dataControl.isScorm12())
+		comboProfile.setSelectedIndex(1);
+	else if (dataControl.isScorm2004())
+		comboProfile.setSelectedIndex(0);
+	else
+		comboProfile.setSelectedIndex(2);
 	
 	if (items == informationTable.getRowCount()) {
 		if (selected != -1) {

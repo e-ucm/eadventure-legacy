@@ -596,6 +596,10 @@ public class ReferencesListDataControl extends DataControl{
 		deleteIdentifierFromReferenceList(itemReferencesList, id);
 		deleteIdentifierFromReferenceList(atrezzoReferencesList, id);
 		deleteIdentifierFromReferenceList(npcReferencesList, id);
+		for (ElementContainer element:allReferencesDataControl){
+		    if (element.getErdc() != null)
+		    element.getErdc().deleteIdentifierReferences(id);
+		}
 	}
 	
 	private void deleteIdentifierFromReferenceList(List<ElementReference> list, String id ) {

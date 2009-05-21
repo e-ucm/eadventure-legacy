@@ -191,7 +191,7 @@ public class AtrezzoListDataControl extends DataControl {
 	public void deleteAssetReferences(String assetPath) {
 		// Iterate through each atrezzo item
 		for( AtrezzoDataControl atrezzoDataControl : atrezzoDataControlList )
-			atrezzoDataControl.deleteAssetReferences( assetPath );
+			atrezzoDataControl.deleteIdentifierReferences( assetPath );
 		
 	}
 

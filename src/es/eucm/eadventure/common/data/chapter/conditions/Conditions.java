@@ -146,6 +146,33 @@ public class Conditions implements Cloneable {
 		}
 		return conditions;
 	}
+	
+	
+	
+
+	
+	/**
+	 * @return the conditionsList
+	 */
+	public List<List<Condition>> getConditionsList() {
+	    return conditionsList;
+	}
+
+	/**
+	 * Return all global state ids for this controller
+	 * 
+	 * @return
+	 */
+	public List<String> getGloblaStateIds(){
+	    List<String> conditions = new ArrayList<String>( );
+	    for (List<Condition> wrapper : conditionsList){
+		for (Condition condition: wrapper){
+		    if (condition.getType() == Condition.GLOBAL_STATE_CONDITION)
+			conditions.add(condition.getId());
+		}
+	    }
+	    return conditions;
+	}
 
 	/**
 	 * Returns the number of either conditions blocks present.

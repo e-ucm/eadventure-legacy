@@ -251,7 +251,7 @@ public class ChapterSummary implements Cloneable, Titled, Described {
 	 */
 	public AdaptationProfile getSelectedAdaptationProfile(){
 	    for (AdaptationProfile profile: adaptationProfiles){
-		if (profile.getName().equals(assessmentName))
+		if (profile.getName().equals(adaptationName))
 			return profile;
 	    }
 	    return null;

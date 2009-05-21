@@ -199,6 +199,7 @@ public class EffectsStructurePanel extends StructurePanel{
 		update();
     }
     public void update() {
+		super.update();
 		int i = 0;
 		removeAll();
 		

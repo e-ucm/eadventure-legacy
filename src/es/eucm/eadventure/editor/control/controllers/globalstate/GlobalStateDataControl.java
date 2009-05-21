@@ -80,7 +80,9 @@ public class GlobalStateDataControl extends DataControl{
 
 	@Override
 	public int countIdentifierReferences(String id) {
-		return 0;
+		int count=0;
+	    	count += controller.countIdentifierReferences(id);
+	    	return count;
 	}
 
 	@Override
@@ -94,6 +96,7 @@ public class GlobalStateDataControl extends DataControl{
 	
 	@Override
 	public void deleteIdentifierReferences(String id) {
+	    controller.deleteIdentifierReferences(id);
 	}
 
 	@Override
@@ -159,7 +162,12 @@ public class GlobalStateDataControl extends DataControl{
 
 	@Override
 	public void replaceIdentifierReferences(String oldId, String newId) {
-		
+		if (globalState.getId().equals(oldId)){
+		    globalState.setId(newId);
+		    Controller.getInstance().getIdentifierSummary().deleteGlobalStateId(oldId);
+		    Controller.getInstance().getIdentifierSummary().addGlobalStateId(newId);
+		}
+		controller.replaceIdentifierReferences(oldId, newId);
 	}
 
 	@Override

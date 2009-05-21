@@ -103,7 +103,17 @@ public class AssessmentRuleDataControl extends DataControl{
 
 	@Override
 	public int countIdentifierReferences( String id ) {
-		return 0;
+		int count=0;
+		if (assessmentRule.getId().equals(id)){
+		    count++;
+		}
+		if (this.isTimedRule( )){
+		    count += initConditionsController.countIdentifierReferences(id);
+		    count += endConditionsController.countIdentifierReferences(id);
+		}else {
+		    count+= conditionsController.countIdentifierReferences(id);
+		}
+		return count;
 	}
 
 	@Override
@@ -118,7 +128,12 @@ public class AssessmentRuleDataControl extends DataControl{
 	
 	@Override
 	public void deleteIdentifierReferences( String id ) {
-		
+	    if (this.isTimedRule( )){
+		    initConditionsController.deleteIdentifierReferences(id);  
+		    endConditionsController.deleteIdentifierReferences(id);
+		}else {
+		    conditionsController.deleteIdentifierReferences(id);
+		}
 	}
 
 	@Override
@@ -157,7 +172,7 @@ public class AssessmentRuleDataControl extends DataControl{
 
 		// If some value was typed and the identifier is valid
 		if( assRuleId != null && controller.isElementIdValid( assRuleId ) ) {
-			controller.deleteIdentifierReferences( assessmentRule.getId( ) );
+		    	controller.replaceIdentifierReferences( assessmentRule.getId( ),assRuleId );
 			assessmentRule.setId( assRuleId );
 			return oldName;
 		}
@@ -168,7 +183,13 @@ public class AssessmentRuleDataControl extends DataControl{
 
 	@Override
 	public void replaceIdentifierReferences( String oldId, String newId ) {
-		
+	    if (this.isTimedRule( )){
+		    initConditionsController.replaceIdentifierReferences(oldId, newId);  
+		    endConditionsController.replaceIdentifierReferences(oldId, newId);
+		}else {
+		    
+		    conditionsController.replaceIdentifierReferences(oldId, newId);
+		}
 	}
 
 	@Override

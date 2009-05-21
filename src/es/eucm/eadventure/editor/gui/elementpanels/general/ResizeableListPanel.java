@@ -102,7 +102,12 @@ public class ResizeableListPanel extends JPanel {
 				JTable table = (JTable) e.getSource();
 				int row = table.rowAtPoint(e.getPoint());
 				int column = table.columnAtPoint(e.getPoint());
-				int index = row * 2 + column;
+				int size =1;
+				if (renderer.getSize() == 1)
+				    size = 4;
+				else if (renderer.getSize() == 2)
+				    size = 2;
+				int index = row * size + column;
 				if (index < dataControlList.size()) {
 					DataControl dataControl = dataControlList.get(index);
 					StructureControl.getInstance().changeDataControl(dataControl);

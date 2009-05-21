@@ -213,7 +213,8 @@ public class TimerDataControl extends DataControl {
 		// Add to the counter the values of the effects and posteffects
 		count += EffectsController.countIdentifierReferences( id, timer.getEffects( ) );
 		count += EffectsController.countIdentifierReferences( id, timer.getPostEffects( ) );
-
+		count += initConditionsController.countIdentifierReferences(id);
+		count += endConditionsController.countIdentifierReferences(id);
 		return count;
 	}
 
@@ -222,12 +223,17 @@ public class TimerDataControl extends DataControl {
 
 		EffectsController.replaceIdentifierReferences( oldId, newId, timer.getEffects( ) );
 		EffectsController.replaceIdentifierReferences( oldId, newId, timer.getPostEffects( ) );
+		initConditionsController.replaceIdentifierReferences(oldId, newId);
+		endConditionsController.replaceIdentifierReferences(oldId, newId);
+		
 	}
 
 	@Override
 	public void deleteIdentifierReferences( String id ) {
 		EffectsController.deleteIdentifierReferences( id, timer.getEffects( ) );
 		EffectsController.deleteIdentifierReferences( id, timer.getPostEffects( ) );
+		initConditionsController.deleteIdentifierReferences(id);
+		endConditionsController.deleteIdentifierReferences(id);
 	}
 
 	/**

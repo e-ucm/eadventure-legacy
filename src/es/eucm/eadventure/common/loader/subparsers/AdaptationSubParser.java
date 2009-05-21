@@ -76,6 +76,7 @@ public class AdaptationSubParser extends SubParser{
         //Start parsing the initial state
         if (qName.equals( "initial-state" )) {
             parsing = INITIAL_STATE;
+            initialState = new AdaptedState();
         }
         
         //Start parsing an adaptation rule

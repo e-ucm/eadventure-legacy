@@ -42,7 +42,7 @@ public class AssessmentProfilesDataControl extends DataControl{
 			  //Checks if the profile exists. Always profile name is set as TextConstants.getText("Operation.CreateAdaptationFile.FileName.DefaultValue");
 			    	// Increase the last number until create a not existing name
 			    	int i=1;
-			    	while (existName(profileName )){
+			    	while (controller.getIdentifierSummary().isAssessmentProfileId(profileName )){
 			    	    String lastIndex = profileName.substring(profileName.length()-1,profileName.length());
 			    	    try{
 			    		Integer.parseInt(lastIndex);
@@ -56,6 +56,7 @@ public class AssessmentProfilesDataControl extends DataControl{
 					List<AssessmentRule> newRules = new ArrayList<AssessmentRule>();
 					this.profiles.add( new AssessmentProfileDataControl ( newRules, profileName) );
 					data.add( (AssessmentProfile)profiles.get(profiles.size()-1).getContent() );
+					controller.getIdentifierSummary().addAssessmentProfileId(profileName);
 					//controller.dataModified( );
 					added = true;
 
@@ -80,10 +81,11 @@ public class AssessmentProfilesDataControl extends DataControl{
 			do {
 				id = newElement.getName() + i;
 				i++;
-			} while (existName(id));
+			} while (controller.getIdentifierSummary().isAssessmentProfileId(id));
 			newElement.setName(id);
 			profiles.add(new AssessmentProfileDataControl(newElement));
 			data.add( (AssessmentProfile)profiles.get(profiles.size()-1).getContent() );
+			controller.getIdentifierSummary().addAssessmentProfileId(id);
 			return true;
 		} catch (CloneNotSupportedException e) {
 			ReportDialog.GenerateErrorReport(e, true, "Could not clone assessment profile");	
@@ -91,13 +93,13 @@ public class AssessmentProfilesDataControl extends DataControl{
 		} 
 	}
 
-	public boolean existName(String name){
+	/*public boolean existName(String name){
 	    for (AssessmentProfileDataControl profile: this.profiles){
 		if (profile.getName().equals(name))
 		    return true;
 	    }
 	    return false;
-	}
+	}*/
 
 	@Override
 	public String getDefaultId(int type) {
@@ -126,19 +128,12 @@ public class AssessmentProfilesDataControl extends DataControl{
 
 	@Override
 	public int countAssetReferences( String assetPath ) {
-		int count = 0;
-		for (AssessmentProfileDataControl profile:profiles){
-			count += profile.countAssetReferences( assetPath ); 
-		}
-		return count;
+		return 0;
 	}
 	
 	@Override
 	public void getAssetReferences( List<String> assetPaths, List<Integer> assetTypes ) {
-		// Iterate through each profile
-		for (AssessmentProfileDataControl profile:profiles){
-			profile.getAssetReferences( assetPaths, assetTypes );
-		}
+		
 	}
 
 
@@ -146,16 +141,16 @@ public class AssessmentProfilesDataControl extends DataControl{
 	public int countIdentifierReferences( String id ) {
 		int count = 0;
 		for (AssessmentProfileDataControl profile:profiles){
-			count += profile.countIdentifierReferences( id ); 
+		    if (profile.getName().equals(id))
+			count++;
+		    count += profile.countIdentifierReferences( id ); 
 		}
 		return count;
 	}
 
 	@Override
 	public void deleteAssetReferences( String assetPath ) {
-		for (AssessmentProfileDataControl profile:profiles){
-			profile.deleteAssetReferences( assetPath ); 
-		}
+		
 	}
 
 	@Override
@@ -170,13 +165,8 @@ public class AssessmentProfilesDataControl extends DataControl{
 					data.remove(profiles.indexOf(dataControl));
 					deleted = this.profiles.remove( dataControl );
 					if (deleted){
-						Controller.getInstance( ).deleteAssetReferences( path );
-						// Delete the file
-						//File deletedFile = new File (Controller.getInstance( ).getProjectFolder( )+"/"+path);
-						//if (deletedFile.exists( ))
-						//	deleted =deletedFile.delete( );
-
-						//controller.dataModified( );
+					    controller.getIdentifierSummary( ).deleteAssessmentProfileId(profile.getName());
+						
 						break;
 					}
 				}
@@ -261,7 +251,9 @@ public class AssessmentProfilesDataControl extends DataControl{
 	@Override
 	public void replaceIdentifierReferences( String oldId, String newId ) {
 		for (AssessmentProfileDataControl profile:profiles){
-			profile.replaceIdentifierReferences( oldId, newId );
+		    if (profile.getName().equals(oldId))
+			profile.renameElement(newId);
+		    profile.replaceIdentifierReferences( oldId, newId );
 		}
 	}
 

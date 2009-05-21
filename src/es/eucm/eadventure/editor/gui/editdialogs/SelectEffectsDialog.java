@@ -152,7 +152,12 @@ public class SelectEffectsDialog extends ToolManagableDialog{
 	//this.add(infoPlusButtons,c2);
 	
 	infoPlusButtons = new JPanel(new BorderLayout());
-	createInfoPlusButtons(effectsStructurePanel.getInfoPanel());
+	if (tabPane.getSelectedIndex()==0)
+	    createInfoPlusButtons(effectsStructurePanel.getInfoPanel());
+	else if (tabPane.getSelectedIndex()==1)
+		createInfoPlusButtons(allEffectsStructurePanel.getInfoPanel());
+	else if (tabPane.getSelectedIndex()==2)
+	    createInfoPlusButtons(allEffectsStructurePanel.getInfoPanel());
 	
 	JSplitPane container = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,leftPanel,infoPlusButtons);
 	leftPanel.setMaximumSize(new Dimension(225,0));

@@ -1,6 +1,7 @@
 package es.eucm.eadventure.editor.control.controllers;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.conditions.Condition;
@@ -318,6 +319,60 @@ public class ConditionsController {
 		
 		return Controller.getInstance().addTool(new SetConditionTool(conditions, index1, index2,properties));
 	}
+	
+	/**
+	 * Delete all global states with "id"
+	 * 
+	 * @param id
+	 * 	the global state identifier to delete
+	 */
+	public void deleteIdentifierReferences( String id ) {
+	    Iterator<List<Condition>> listIt = conditions.getConditionsList().iterator();
+	    while (listIt.hasNext()){
+		List<Condition> wrapper = listIt.next();
+		Iterator<Condition> it= wrapper.iterator();
+		while (it.hasNext()){
+		    Condition condition = (Condition)it.next();
+		    if (condition.getType() == Condition.GLOBAL_STATE_CONDITION&&condition.getId().equals(id)){
+			it.remove();
+		    }
+		}
+		if (wrapper.size()==0){
+		    listIt.remove();
+		} 
+   
+	    }
+	}
+	
+	/**
+	 * Replace identifiers, if oldId is found.
+	 * 
+	 * @param oldId
+	 * @param newId
+	 */
+	public void replaceIdentifierReferences( String oldId, String newId ) {
+	    for (String conditionId:conditions.getGloblaStateIds()){
+		if (conditionId.equals(oldId))
+		    conditionId = newId;
+	    }
+	}
+	
+	/**
+	 * Count the number of times that id appears in conditions
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public int countIdentifierReferences( String id ) {
+	    int count =0;
+	    for (String conditionId:conditions.getGloblaStateIds()){
+		if (conditionId.equals(id))
+		    count++;
+	    }
+		
+	    return count;
+	}
+
 
 
 	

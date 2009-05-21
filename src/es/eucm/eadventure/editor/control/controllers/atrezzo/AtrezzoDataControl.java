@@ -299,17 +299,25 @@ public class AtrezzoDataControl extends DataControlWithResources {
 
 	@Override
 	public int countIdentifierReferences( String id ) {
-		return 0;
+	    int count=0;
+	    // Iterate through the resources
+		for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
+		    count += resourcesDataControl.countIdentifierReferences(id);
+		return count;
 	}
 
 	@Override
 	public void replaceIdentifierReferences( String oldId, String newId ) {
-		//This method is empty
+	 // Iterate through the resources
+		for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
+		    resourcesDataControl.replaceIdentifierReferences(oldId, newId);
 	}
 
 	@Override
 	public void deleteIdentifierReferences( String id ) {
-		//This method is empty 
+	 // Iterate through the resources
+		for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
+		    resourcesDataControl.deleteIdentifierReferences(id);
 	}
 
 	@Override

@@ -20,6 +20,7 @@ import javax.swing.JTable;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfileDataControl;
@@ -107,9 +108,25 @@ public class FlagsVarListRenderer extends AbstractCellEditor implements TableCel
 	    values.setEditable(true);
 	    
 	    // if there are no flag/var for this property, and there are some flag/var in chapter, take the first one
-	    if (selectedFlagVar.equals("")&&flagsvars.length>0)
+	    if (selectedFlagVar== null||selectedFlagVar.equals("")&&flagsvars.length>0)
 		selectedFlagVar=flagsvars[0];
-		
+	    
+	    if (flagsvars.length==0){
+		if (isFlag){
+		    selectedFlagVar = TextConstants.getText("Flags.DefaultFlagName");			
+		    Controller.getInstance().getVarFlagSummary().addVar(selectedFlagVar);
+		    Controller.getInstance().getVarFlagSummary().addVarReference(selectedFlagVar);
+
+		}
+		else if (!isFlag){
+		    selectedFlagVar = TextConstants.getText("Vars.DefaultVarName");			
+		    Controller.getInstance().getVarFlagSummary().addVar(selectedFlagVar);
+		    Controller.getInstance().getVarFlagSummary().addVarReference(selectedFlagVar);
+
+		}
+	    values.addItem(selectedFlagVar);
+	    }
+	    
 	    values.setSelectedItem(selectedFlagVar);
 	    
 	    //add action listener
@@ -215,14 +232,14 @@ public class FlagsVarListRenderer extends AbstractCellEditor implements TableCel
 		    String selectedValue = (String)combo.getSelectedItem() ;
 		   // get the flags/vars from current chapter
 		    if (!isFlag){
-			    if (!Controller.getInstance().getVarFlagSummary().existsVar(selectedValue)){
+			    if (!Controller.getInstance().getVarFlagSummary().existsVar(selectedValue)&&!selectedValue.equals("")){
 				Controller.getInstance().getVarFlagSummary().addVar(selectedValue);
 				Controller.getInstance().getVarFlagSummary().addVarReference(selectedValue);
 				// add new value to combo
 				combo.addItem(selectedValue);
 			    }
 		    }else if (isFlag){
-			    if (!Controller.getInstance().getVarFlagSummary().existsFlag(selectedValue)){
+			    if (!Controller.getInstance().getVarFlagSummary().existsFlag(selectedValue)&&!selectedValue.equals("")){
 				Controller.getInstance().getVarFlagSummary().addFlag(selectedValue);
 				Controller.getInstance().getVarFlagSummary().addFlagReference(selectedValue);
 				// add new value to combo

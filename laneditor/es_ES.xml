@@ -469,7 +469,9 @@ donde XX es un múmero cualquiera.</entry>
 	<entry key="Operation.CreateAdaptationFile.FileName.DefaultValue">adaptacion</entry>
 	<entry key="Operation.CreateAdaptationFile.FileName.ExistValue.Message">El nuevo nombre existe en el capítulo actual.</entry>
 	<entry key="Operation.CreateAdaptationFile.FileName.ExistValue.Title">El nombre existe.</entry>
-
+	<entry key="Operation.AssignAdaptationProfile">No hay ficheros de adaptación creados en este capítulo.</entry>
+	
+	<entry key="Operation.AssignAssessmentProfile">No hay ficheros de evaluación creados en este capítulo.</entry>
 
 	<entry key="Operation.OverwriteAdaptationFile">El archivo ya existe</entry>
 	<entry key="Operation.OverwriteAssessmentFile">El archivo ya existe</entry>
@@ -618,6 +620,8 @@ A las variables se les puede asignar un valor entero y establecer condiciones en
 	<entry key="Vars.ConfirmNewVar.Text">El nombre introducido se parece mucho a otros.
 ¿Estás seguro de que quieres crearlo? 
 Si no puedes seleccionar alguno de los que son similares de la lista</entry>
+	<entry key="Vars.DefaultVarName">nuevaVar</entry>
+	<entry key="Flags.DefaultFlagName">nuevoFlag</entry>
 	<entry key="Flags.ConfirmNewFlag.Title">¿Crear flag nuevo?</entry>
 	<entry key="Flags.ConfirmNewFlag.Text">El nombre introducido se parece mucho a otros.
 ¿Estás seguro de que quieres crearlo? 

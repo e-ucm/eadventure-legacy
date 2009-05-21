@@ -20,6 +20,7 @@ public class AssessmentPanel extends ElementPanel {
 		
 		public AssessmentEditionPanelTab(AssessmentProfileDataControl sDataControl) {
 			super(TextConstants.getText( "AssessmentProfile.Title" ), sDataControl);
+			this.setHelpPath("assessment/assessmentProfile.html");
 			this.sDataControl = sDataControl;
 		}
 

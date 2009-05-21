@@ -301,7 +301,10 @@ public class CutsceneDataControl extends DataControlWithResources {
 	@Override
 	public int countIdentifierReferences( String id ) {
 		int count = 0;
-
+		
+		if (cutscene.getTargetId().equals(id))
+		    count++;
+		
 		count += EffectsController.countIdentifierReferences( id, cutscene.getEffects( ) );
 
 		return count;
