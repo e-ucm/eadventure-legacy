@@ -1574,7 +1574,7 @@ public class Controller {
 			mainWindow.showInformationDialog( 
 					TextConstants.getText( "Operation.FileNotSavedTitle" ), 
 					TextConstants.getText( "Operation.FileNotSavedMessage" ) );
-
+			
 		}
 			//loadingScreen.close( );
 			loadingScreen.setVisible( false );

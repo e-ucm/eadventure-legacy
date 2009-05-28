@@ -90,7 +90,7 @@ public class ExitLookDataControl {
 	}
 	
 	public int countAssetReferences( String assetPath ) {
-	    if (exitLook.getCursorPath( ).equals(assetPath))
+	    if (exitLook.getCursorPath( ) != null &&exitLook.getCursorPath( ).equals(assetPath))
 		return 1;
 	    else
 		return 0;

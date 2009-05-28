@@ -353,7 +353,7 @@ public class AdaptedState implements Cloneable, HasTargetId {
 	 * @return
 	 */
 	public static boolean isIncrementOp(String op){
-	    return op.equals(INCREMENT);
+	    return op.contains(INCREMENT);
 	}
 	
 	/**
@@ -363,7 +363,7 @@ public class AdaptedState implements Cloneable, HasTargetId {
 	 * @return
 	 */
 	public static boolean isDecrementOp(String op){
-	    return op.equals(DECREMENT);
+	    return op.contains(DECREMENT);
 	}
 	
 	/**
