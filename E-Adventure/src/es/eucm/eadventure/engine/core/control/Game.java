@@ -431,9 +431,10 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             assessmentEngine.loadAssessmentRules( chapter.getSelectedAssessmentProfile() );
         
      // Load the assessment rules and adaptation data (from chapter xml file)
-        if (gameData.hasAdaptationProfile())
-             adaptationEngine.init( gameData.getSelectedAdaptationProfile() );
-        
+        if (gameData.hasAdaptationProfile()){
+            System.out.println("Entramos en INIT desde game");
+            adaptationEngine.init( gameData.getSelectedAdaptationProfile() );
+        }
         if (gameData.hasAssessmentProfile())
             assessmentEngine.loadAssessmentRules( gameData.getSelectedAssessmentProfile() );
         

@@ -67,19 +67,22 @@ public class AdaptationDOMWriter {
 					actionFlag.setAttribute( "flag", initialState.getFlagVar( i ) );
 					
 				    } else {
-					// check if this operation is "set-value"
-					boolean isValue = initialState.getAction( i ).contains(AdaptedState.VALUE);
-					if (isValue)
+					// check the operation's type
+					actionFlag=null;
+					if (AdaptedState.isSetValueOp(initialState.getAction( i )))
 					   // get only the title of the operation
 					    actionFlag = doc.createElement( AdaptedState.VALUE );
 					else 
-					    // get the title
-					    actionFlag = doc.createElement( initialState.getAction( i ) );
+					    if (AdaptedState.isIncrementOp(initialState.getAction( i )))
+						actionFlag = doc.createElement( AdaptedState.INCREMENT );
+					    else 
+						if (AdaptedState.isDecrementOp(initialState.getAction( i )))
+						    actionFlag = doc.createElement( AdaptedState.DECREMENT);
+								
 					//set the name of the current var
 					actionFlag.setAttribute( "var", initialState.getFlagVar( i ) );
-					// if is "set-value" operation, also store the future value
-					if (isValue)
-					    actionFlag.setAttribute( "value", initialState.getValueForVar(i));
+					// set the value
+					actionFlag.setAttribute( "value", initialState.getValueForVar(i));
 				    }
 				    initialStateNode.appendChild( actionFlag );
 				}
@@ -135,15 +138,15 @@ public class AdaptationDOMWriter {
 						
 					    } else {
 						// check if this operation is "set-value"
-						if (rule.getAdaptedState( ).getAction( i ).contains(AdaptedState.VALUE))
+						if (AdaptedState.isSetValueOp(rule.getAdaptedState( ).getAction( i )))
 						   // get only the title of the operation
 						    actionFlag = doc.createElement( AdaptedState.VALUE );
 						// check if this operation is "increment"
-						else if (rule.getAdaptedState( ).getAction( i ).contains(AdaptedState.INCREMENT))
+						else if (AdaptedState.isIncrementOp(rule.getAdaptedState( ).getAction( i )))
 						 // get only the title of the operation
 						    actionFlag = doc.createElement( AdaptedState.INCREMENT );
 						// check if this operation is "decrement"
-						else if (rule.getAdaptedState( ).getAction( i ).contains(AdaptedState.DECREMENT))
+						else if (AdaptedState.isDecrementOp(rule.getAdaptedState( ).getAction( i )))
 							 // get only the title of the operation
 							    actionFlag = doc.createElement( AdaptedState.DECREMENT );
 							
