@@ -1285,12 +1285,17 @@ public class Controller {
 					loadFile = saveFile( false );
 	
 				// If the data must not be saved, load the new data directly
-				else if( option == JOptionPane.NO_OPTION )
+				else if( option == JOptionPane.NO_OPTION ){
 					loadFile = true;
+					dataModified = false;
+				}
 	
 				// Cancel the action if selected
-				else if( option == JOptionPane.CANCEL_OPTION )
-					loadFile = false;
+				else if( option == JOptionPane.CANCEL_OPTION ){
+				    loadFile = false;
+				    dataModified = false;
+				}
+				
 			}
 	
 			if( loadFile && completeFilePath == null ) {
