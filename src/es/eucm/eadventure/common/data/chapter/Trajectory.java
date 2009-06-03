@@ -225,6 +225,7 @@ public class Trajectory implements Cloneable {
 	public void deleteUnconnectedNodes() {
 		List<Node> connected = new ArrayList<Node>();
 		if (initial == null) {
+		    if (nodes.size()>0)
 			initial = nodes.get(0);
 		}
 		connected.add(initial);

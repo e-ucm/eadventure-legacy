@@ -32,6 +32,11 @@ public class TrajectorySubParser extends SubParser {
 	 * Subparser for effects and conditions.
 	 */
 	private SubParser subParser;
+	
+	/**
+	 * Scene to add the trajectory
+	 */
+	private Scene scene;
 
 	/* Methods */
 
@@ -44,7 +49,8 @@ public class TrajectorySubParser extends SubParser {
 	public TrajectorySubParser( Chapter chapter, Scene scene ) {
 		super( chapter );
 		this.trajectory = new Trajectory();
-		scene.setTrajectory(trajectory);
+		//scene.setTrajectory(trajectory);
+		this.scene = scene;
 	}
 	
 	/*
@@ -129,6 +135,14 @@ public class TrajectorySubParser extends SubParser {
 
 			// Reset the current string
 			currentString = new StringBuffer( );
+		}
+		
+		if (qName.equals("trajectory")) {
+		    if (trajectory.getNodes().size()!=0){
+			trajectory.deleteUnconnectedNodes();
+			scene.setTrajectory(trajectory);
+			
+		    }
 		}
 
 
