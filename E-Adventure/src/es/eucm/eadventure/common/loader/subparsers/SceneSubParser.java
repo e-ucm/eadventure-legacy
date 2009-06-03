@@ -419,7 +419,7 @@ public class SceneSubParser extends SubParser {
 			
 			else if( qName.equals( "trajectory") ) {
 				subParsing = SUBPARSING_TRAJECTORY;
-				subParser = new TrajectorySubParser( chapter, scene);
+				subParser = new TrajectorySubParser( chapter,scene);
 			}
 
 		}
@@ -627,7 +627,8 @@ public class SceneSubParser extends SubParser {
 			subParser.endElement( namespaceURI, sName, qName);
 			if (qName.equals("trajectory")) {
 				subParsing = SUBPARSING_NONE;
-				scene.getTrajectory().deleteUnconnectedNodes();
+				// next line is moved to TrayectorySubParser
+				//scene.getTrajectory().deleteUnconnectedNodes();
 			}
 		}
 
