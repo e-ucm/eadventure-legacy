@@ -25,8 +25,7 @@ function connect()
    // alert("RTE founded!!!!");
    // alert("Attempting to conect to LSM");
     var applet = document.getElementById('eadventure');
-    //document.eadventure.connectionEstablished();
-    applet.connectionEstablished("Se inicia la conexion con el LMS!!");
+    //applet.connectionEstablished("Se inicia la conexion con el LMS!!");
 	if (APIVersion == "SCORM12"){
 	communicationIni = API.LMSInitialize("");
 	} else if (APIVersion == "SCORM2004"){
@@ -43,7 +42,7 @@ function connect()
 		   
 		                      
       } else {
-           alert("Begin the comunication with LSM");
+         //  alert("Begin the comunication with LSM");
 				//applet.connectionEstablished();
       }
    }
@@ -71,7 +70,7 @@ function disconnect(){
            
                   
       } else {
-            alert("The conexion with LMS has finised ok");
+          //  alert("The conexion with LMS has finised ok");
             applet.disconnectOK();
       }
       
@@ -89,7 +88,7 @@ function getLMSData(adventureMessage){
     var OK;
     if (API != null)
    {
-  alert("Se realiza API.LMSGetValue("+adventureMessage+")" );
+ // alert("Se realiza API.LMSGetValue("+adventureMessage+")" );
 			if (APIVersion == "SCORM12"){
 				charString = API.LMSGetValue(adventureMessage);  
 				OK = API.LMSGetLastError("");
@@ -99,7 +98,7 @@ function getLMSData(adventureMessage){
 			}
 	
 	
-   alert("Nos llega "+charString);
+   !!alert("Nos llega "+charString);
     var applet = document.getElementById('eadventure');
     applet.dataFromLMS(adventureMessage,charString);
     //document.eadventure.dataReceived(adventureMessage,charString);
@@ -109,7 +108,7 @@ function getLMSData(adventureMessage){
       } else {
         //ver como se llama el metodo de eagema para pillar datos del LMS
         applet.dataFormLMS(adventureMessage,charString);
-		alert(charString + " was send by LMS!!");
+		//alert(charString + " was send by LMS!!");
       }
    }
    else
@@ -163,11 +162,9 @@ function setLMSData(valueFromApplet1,valueFromApplet2){
     if (!ok){
          alert("The conexion has failed, error " );
                   
-      } else {
-        //ver como se llama el metodo de eagame para pillar datos del LMS
-       //document.eagame.getDataS(carString);
-        alert("The data has been send OK!!ole!");
-      }
+      } //else {
+		//alert("The data has been send OK!!ole!");
+      //}
    }
    else
    {
@@ -177,48 +174,9 @@ function setLMSData(valueFromApplet1,valueFromApplet2){
 };
 
 
-/*
-function initRequest(){
-var request = false;
-try {
-request = new ActiveXObject("Msxml2.XMLHTTP");
-} catch (e) {
-try {
-request = new ActiveXObject("Microsoft.XMLHTTP");
-} catch (E) {
-request = false;
-}
-}
-
-if ( ! request && typeof XMLHttpRequest != 'undefined') {
-request = new XMLHttpRequest();
-}
-return request;
-}
 
 
-//
-function sendRequest(type, url, callback) {
-var ajax = initRequest();
-if (ajax != null) {
-ajax.onreadystatechange = function() {
-if (ajax.readyState == 4) {
-callback(ajax.responseText);
 
-}
-}
-ajax.open(type, url, true);
-ajax.send(null);
-return true;
-}
-alert("No requester object ative!");
-return false;
-};
-
- */
-
-
-//
 function searchRTE(win)
 {
    while ((win.API == null) && (win.parent != null) && 
