@@ -32,7 +32,7 @@ function connect()
 	communicationIni = API.Initialize("");
 	}
       if (!communicationIni){
-          alert("The conexion has failed, error ");
+          alert("The connection has failed, error ");
            	if (APIVersion == "SCORM12"){
 				applet.connectionFailed(API.LMSGetLastError());
 			} else if (APIVersion == "SCORM2004"){
@@ -66,7 +66,7 @@ function disconnect(){
 			}
     
     if (!endComm){
-         alert("The end conexion has failed, error ");
+         alert("The end connection has failed, error ");
            
                   
       } else {
@@ -98,7 +98,7 @@ function getLMSData(adventureMessage){
 			}
 	
 	
-   !!alert("Nos llega "+charString);
+   //alert("Nos llega "+charString);
     var applet = document.getElementById('eadventure');
     applet.dataFromLMS(adventureMessage,charString);
     //document.eadventure.dataReceived(adventureMessage,charString);
@@ -106,7 +106,6 @@ function getLMSData(adventureMessage){
            alert("The get operation was failed, error " );
                   
       } else {
-        //ver como se llama el metodo de eagema para pillar datos del LMS
         applet.dataFormLMS(adventureMessage,charString);
 		//alert(charString + " was send by LMS!!");
       }
@@ -160,7 +159,7 @@ function setLMSData(valueFromApplet1,valueFromApplet2){
    
     
     if (!ok){
-         alert("The conexion has failed, error " );
+         alert("The connection has failed, error " );
                   
       } //else {
 		//alert("The data has been send OK!!ole!");
