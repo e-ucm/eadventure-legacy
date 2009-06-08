@@ -1819,7 +1819,7 @@ When not customized, default arrows will be used in the game.</entry>
 	<entry key="AdaptationProfile.Expand">Expand</entry>
 	<entry key="AdaptationProfile.InitialDialog.Title">Initial State</entry>
 	<entry key="AdaptationProfile.Empty">No rule selected.</entry>
-	<entry key="AdaptationProfile.TabbedInitialState">Initial State</entry>
+	<entry key="AdaptationProfile.TabbedInitialState">Game State</entry>
 	<entry key="AdaptationProfile.TabbedLMSState">LMS State</entry>
 	<entry key="AdaptationProfile.AddRule">Add rule</entry>
 	<entry key="AdaptationProfile.DeleteRule">Delete rule</entry>
