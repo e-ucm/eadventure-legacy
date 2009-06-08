@@ -1823,7 +1823,7 @@ Si no las cambia, el juego empleará las flechas por defecto.</entry>
 	<entry key="AdaptationProfile.Expand">Expandir</entry>
 	<entry key="AdaptationProfile.InitialDialog.Title">Estado inicial</entry>
 	<entry key="AdaptationProfile.Empty">No hay ninguna regla seleccionada.</entry>
-	<entry key="AdaptationProfile.TabbedInitialState">Estado Inicial</entry>
+	<entry key="AdaptationProfile.TabbedInitialState">Estado de juego</entry>
 	<entry key="AdaptationProfile.TabbedLMSState">Estado del LMS</entry>
 	<entry key="AdaptationProfile.AddRule">Añadir regla</entry>
 	<entry key="AdaptationProfile.DeleteRule">Borrar regla</entry>
