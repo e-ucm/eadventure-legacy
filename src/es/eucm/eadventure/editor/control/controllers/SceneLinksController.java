@@ -4,6 +4,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
+import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.gui.otherpanels.SceneLinksPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.scenelistelements.SceneElement;
 import es.eucm.eadventure.editor.gui.structurepanel.StructureControl;
@@ -64,6 +65,7 @@ public class SceneLinksController implements MouseListener, MouseMotionListener 
 			int y = originalY + changeY;
 			under.changePosition(x, y);
 			slp.repaint();
+			Controller.getInstance().dataModified();
 		}
 	}
 
