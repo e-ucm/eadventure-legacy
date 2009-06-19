@@ -55,11 +55,11 @@ public class Loader {
 	 *            Path to the zip file which holds the adventure
 	 * @return The adventure data, null if there was an error
 	 */
-	public static AdventureData loadAdventureData(InputStreamCreator isCreator, List<Incidence> incidences ) {
+	public static AdventureData loadAdventureData(InputStreamCreator isCreator, List<Incidence> incidences, boolean validate ) {
 		AdventureData adventureData = null;
 		try {
 			// Set the adventure handler
-			AdventureHandler adventureParser = new AdventureHandler( isCreator,  incidences );
+			AdventureHandler adventureParser = new AdventureHandler( isCreator,  incidences, validate );
 
 			// Create a new factory
 			SAXParserFactory factory = SAXParserFactory.newInstance( );
@@ -81,13 +81,13 @@ public class Loader {
 			
 
 		} catch( ParserConfigurationException e ) {
-			incidences.add( Incidence.createDescriptorIncidence( TextConstants.getText( "Error.LoadDescriptor.SAX" ) ) );
+			incidences.add( Incidence.createDescriptorIncidence( TextConstants.getText( "Error.LoadDescriptor.SAX" ), e ) );
 		} catch( SAXException e ) {
-			incidences.add( Incidence.createDescriptorIncidence( TextConstants.getText( "Error.LoadDescriptor.SAX" ) ) );
+			incidences.add( Incidence.createDescriptorIncidence( TextConstants.getText( "Error.LoadDescriptor.SAX" ) , e) );
 		} catch( IOException e ) {
-			incidences.add( Incidence.createDescriptorIncidence( TextConstants.getText( "Error.LoadDescriptor.IO" ) ) );
+			incidences.add( Incidence.createDescriptorIncidence( TextConstants.getText( "Error.LoadDescriptor.IO" ) , e));
 		} catch (IllegalArgumentException e){
-		    incidences.add(Incidence.createDescriptorIncidence(TextConstants.getText( "Error.LoadDescriptor.NoDescriptor")));
+		    incidences.add(Incidence.createDescriptorIncidence(TextConstants.getText( "Error.LoadDescriptor.NoDescriptor"), e) );
 		}
 
 		return adventureData;
@@ -136,9 +136,10 @@ public class Loader {
     /**
      * Loads the script data from the given XML file
      * @param filename Name of the XML file containing the script
+     * @param validate distinguish between if the load is made in editor or engine
      * @return The script stored as game data
      */
-	public static Chapter loadChapterData (InputStreamCreator isCreator, String fileName,  List<Incidence> incidences ){
+	public static Chapter loadChapterData (InputStreamCreator isCreator, String fileName,  List<Incidence> incidences, boolean validate ){
 		// Create the chapter
 		Chapter currentChapter = new Chapter( );
 		boolean chapterFound = false;
@@ -179,11 +180,11 @@ public class Loader {
 			try {
 				if (chapterIS!=null){
 					// Set the chapter handler
-					ChapterHandler chapterParser = new ChapterHandler( isCreator, currentChapter );
+					ChapterHandler chapterParser = new ChapterHandler( isCreator, currentChapter);
 		
 					// Create a new factory
 					SAXParserFactory factory = SAXParserFactory.newInstance( );
-					factory.setValidating( true );
+					factory.setValidating( validate );
 					SAXParser saxParser = factory.newSAXParser( );
 		
 					// Parse the data and close the data
@@ -192,11 +193,11 @@ public class Loader {
 				}
 		
 			} catch( ParserConfigurationException e ) {
-				incidences.add( Incidence.createChapterIncidence( TextConstants.getText( "Error.LoadData.SAX" ), fileName ) );
+				incidences.add( Incidence.createChapterIncidence( TextConstants.getText( "Error.LoadData.SAX" ), fileName, e ) );
 			} catch( SAXException e ) {
-				incidences.add( Incidence.createChapterIncidence( TextConstants.getText( "Error.LoadData.SAX" ), fileName ) );
+				incidences.add( Incidence.createChapterIncidence( TextConstants.getText( "Error.LoadData.SAX" ), fileName , e) );
 			} catch( IOException e ) {
-				incidences.add( Incidence.createChapterIncidence( TextConstants.getText( "Error.LoadData.IO" ), fileName ) );
+				incidences.add( Incidence.createChapterIncidence( TextConstants.getText( "Error.LoadData.IO" ), fileName , e) );
 			}
 		}
 		return currentChapter;
@@ -259,11 +260,11 @@ public class Loader {
 				
 
 			} catch( ParserConfigurationException e ) {
-				incidences.add( Incidence.createAssessmentIncidence( false, TextConstants.getText( "Error.LoadAssessmentData.SAX" ), xmlFile ) );
+				incidences.add( Incidence.createAssessmentIncidence( false, TextConstants.getText( "Error.LoadAssessmentData.SAX" ), xmlFile , e) );
 			} catch( SAXException e ) {
-				incidences.add( Incidence.createAssessmentIncidence( false, TextConstants.getText( "Error.LoadAssessmentData.SAX" ), xmlFile ) );
+				incidences.add( Incidence.createAssessmentIncidence( false, TextConstants.getText( "Error.LoadAssessmentData.SAX" ), xmlFile , e) );
 			} catch( IOException e ) {
-				incidences.add( Incidence.createAssessmentIncidence( false, TextConstants.getText( "Error.LoadAssessmentData.IO" ), xmlFile ) );
+				incidences.add( Incidence.createAssessmentIncidence( false, TextConstants.getText( "Error.LoadAssessmentData.IO" ), xmlFile , e) );
 			}
 		}
 		return newProfile;
@@ -326,11 +327,11 @@ public class Loader {
 				
 	
 			} catch( ParserConfigurationException e ) {
-				incidences.add( Incidence.createAdaptationIncidence( false, TextConstants.getText( "Error.LoadAdaptationData.SAX" ), xmlFile ) );
+				incidences.add( Incidence.createAdaptationIncidence( false, TextConstants.getText( "Error.LoadAdaptationData.SAX" ), xmlFile, e) );
 			} catch( SAXException e ) {
-				incidences.add( Incidence.createAdaptationIncidence( false, TextConstants.getText( "Error.LoadAdaptationData.SAX" ), xmlFile ) );
+				incidences.add( Incidence.createAdaptationIncidence( false, TextConstants.getText( "Error.LoadAdaptationData.SAX" ), xmlFile, e) );
 			} catch( IOException e ) {
-				incidences.add( Incidence.createAdaptationIncidence( false, TextConstants.getText( "Error.LoadAdaptationData.IO" ), xmlFile ) );
+				incidences.add( Incidence.createAdaptationIncidence( false, TextConstants.getText( "Error.LoadAdaptationData.IO" ), xmlFile, e) );
 			}
 		}
 		return newProfile;

@@ -69,6 +69,26 @@ public class Incidence {
 	 * zip / folder
 	 */
 	private boolean referenced;
+	
+	/**
+	 * the exception
+	 */
+	private Exception exception;
+	
+	
+	/**
+	 * @return the exception
+	 */
+	public Exception getException() {
+	    return exception;
+	}
+
+	/**
+	 * @param exception the exception to set
+	 */
+	public void setException(Exception exception) {
+	    this.exception = exception;
+	}
 
 	/**
 	 * @return the type
@@ -162,59 +182,60 @@ public class Incidence {
 	 * @param message
 	 * @param referenced
 	 */
-	public Incidence( int type, int affectedArea, String affectedResource, int importance, String message, boolean referenced ) {
+	public Incidence( int type, int affectedArea, String affectedResource, int importance, String message, boolean referenced, Exception exception ) {
 		this.type = type;
 		this.affectedArea = affectedArea;
 		this.affectedResource = affectedResource;
 		this.importance = importance;
 		this.message = message;
 		this.referenced = referenced;
+		this.exception = exception;
 	}
 	
-	public static Incidence createDescriptorIncidence (String message){
+	public static Incidence createDescriptorIncidence (String message,  Exception exception ){
 		int type = XML_INCIDENCE;
 		int affectedArea = DESCRIPTOR_INCIDENCE;
 		String affectedResource = "descriptor.xml";
 		int importance = IMPORTANCE_CRITICAL;
 		boolean referenced = true;
-		return new Incidence (type,affectedArea,affectedResource,importance,message,referenced);
+		return new Incidence (type,affectedArea,affectedResource,importance,message,referenced, exception);
 	}
 	
-	public static Incidence createAssessmentIncidence(boolean referenced, String message, String profilePath){
+	public static Incidence createAssessmentIncidence(boolean referenced, String message, String profilePath,  Exception exception ){
 		int type = XML_INCIDENCE;
 		int affectedArea = ASSESSMENT_INCIDENCE;
 		String affectedResource = profilePath;
 		int importance = IMPORTANCE_LOW;
 		if (referenced)
 			importance = IMPORTANCE_MEDIUM;
-		return new Incidence (type,affectedArea,affectedResource,importance,message,referenced);
+		return new Incidence (type,affectedArea,affectedResource,importance,message,referenced,exception);
 		
 	}
 	
-	public static Incidence createAdaptationIncidence(boolean referenced, String message, String profilePath){
+	public static Incidence createAdaptationIncidence(boolean referenced, String message, String profilePath,Exception exception){
 		int type = XML_INCIDENCE;
 		int affectedArea = ADAPTATION_INCIDENCE;
 		String affectedResource = profilePath;
 		int importance = IMPORTANCE_LOW;
 		if (referenced)
 			importance = IMPORTANCE_MEDIUM;
-		return new Incidence (type,affectedArea,affectedResource,importance,message,referenced);
+		return new Incidence (type,affectedArea,affectedResource,importance,message,referenced,exception);
 	}
 
-	public static Incidence createChapterIncidence(String message, String chapterPath){
+	public static Incidence createChapterIncidence(String message, String chapterPath,  Exception exception ){
 		int type = XML_INCIDENCE;
 		int affectedArea = CHAPTER_INCIDENCE;
 		String affectedResource = chapterPath;
 		int importance = IMPORTANCE_HIGH;
 		boolean referenced = true;
-		return new Incidence (type,affectedArea,affectedResource,importance,message,referenced);
+		return new Incidence (type,affectedArea,affectedResource,importance,message,referenced,exception);
 	}
 
-	public static Incidence createAssetIncidence( boolean notPresent, int assetType, String message, String assetPath ){
+	public static Incidence createAssetIncidence( boolean notPresent, int assetType, String message, String assetPath , Exception exception ){
 		int type = ASSET_INCIDENCE;
 		int affectedArea = assetType;
 		int importance = IMPORTANCE_MEDIUM;
-		return new Incidence (type,affectedArea,assetPath,importance,message,notPresent);
+		return new Incidence (type,affectedArea,assetPath,importance,message,notPresent,exception);
 	}
 	
 	public static void sortIncidences (List<Incidence> incidences ){

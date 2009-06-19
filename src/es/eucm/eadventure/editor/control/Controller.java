@@ -1113,6 +1113,8 @@ public class Controller {
 			Incidence current = incidences.get( i );
 			// Critical importance: abort operation, the game could not be loaded
 			if (current.getImportance( ) == Incidence.IMPORTANCE_CRITICAL){
+			    if (current.getException()!=null)
+				    ReportDialog.GenerateErrorReport(current.getException(), true, TextConstants.getText("GeneralText.LoadError"));
 				abort = true;break;
 			}
 			// High importance: the game is partially unreadable, but it is possible to continue.
@@ -1125,7 +1127,7 @@ public class Controller {
 					String dialogMessage = TextConstants.getText( "ErrorSolving.Chapter.Message", new String[]{current.getMessage( ), current.getAffectedResource( )} );
 					String[] options = {TextConstants.getText( "GeneralText.Delete" ), 
 										TextConstants.getText( "GeneralText.Replace" ),
-										TextConstants.getText( "GeneralText.Abort" )};
+										TextConstants.getText( "GeneralText.Abort" ),TextConstants.getText("GeneralText.ReportError") };
 					
 					int option = showOptionDialog( dialogTitle, dialogMessage, options );
 					// Delete chapter
@@ -1162,7 +1164,7 @@ public class Controller {
 							String absolutePath = xmlChooser.getSelectedFile( ).getAbsolutePath( );
 							// Try to load chapter with it
 							List<Incidence> newChapterIncidences = new ArrayList<Incidence>();
-							Chapter chapter = Loader.loadChapterData( AssetsController.getInputStreamCreator(), absolutePath, incidences );
+							Chapter chapter = Loader.loadChapterData( AssetsController.getInputStreamCreator(), absolutePath, incidences,true );
 							// IF no incidences occurred
 							if (chapter!=null && newChapterIncidences.size( ) == 0){
 								// Try comparing names
@@ -1198,6 +1200,13 @@ public class Controller {
 							mainWindow.showWarningDialog( TextConstants.getText( "ErrorSolving.Chapter.NotReplaced.Title" ), TextConstants.getText( "ErrorSolving.Chapter.NotReplaced.Message" ) );
 						}
 					} 
+					// Report Dialog
+					else if (option == 3){
+					    if (current.getException()!=null)
+						    ReportDialog.GenerateErrorReport(current.getException(), true, TextConstants.getText("GeneralText.LoadError"));
+					    abort=true;
+					
+					}
 					// Other case: abort
 					else {
 						abort = true; break;
@@ -1210,6 +1219,9 @@ public class Controller {
 				if (current.getType( ) == Incidence.ASSET_INCIDENCE){
 					this.deleteAssetReferences( current.getAffectedResource( ) );
 					mainWindow.showInformationDialog( TextConstants.getText( "ErrorSolving.Asset.Deleted.Title" )+" - Error "+(i+1)+"/"+incidences.size( ), TextConstants.getText( "ErrorSolving.Asset.Deleted.Message", current.getAffectedResource( ) ) );
+					if (current.getException()!=null)
+					    ReportDialog.GenerateErrorReport(current.getException(), true, TextConstants.getText("GeneralText.LoadError"));
+					    
 				} 
 				// If it was an assessment profile (referenced) delete the assessment configuration of the chapter
 				else if (current.getAffectedArea( ) == Incidence.ASSESSMENT_INCIDENCE){
@@ -1220,6 +1232,8 @@ public class Controller {
 							dataModified( );
 						}
 					}
+					if (current.getException()!=null)
+					    ReportDialog.GenerateErrorReport(current.getException(), true, TextConstants.getText("GeneralText.LoadError"));
 				//	adventureData.getAssessmentRulesListDataControl( ).deleteIdentifierReferences( current.getAffectedResource( ) );
 				}
 				// If it was an assessment profile (referenced) delete the assessment configuration of the chapter
@@ -1231,6 +1245,8 @@ public class Controller {
 							dataModified( );
 						}
 					}
+					if (current.getException()!=null)
+					    ReportDialog.GenerateErrorReport(current.getException(), true, TextConstants.getText("GeneralText.LoadError"));
 					//adventureData.getAdaptationRulesListDataControl( ).deleteIdentifierReferences( current.getAffectedResource( ) );
 				}
 
@@ -1274,6 +1290,7 @@ public class Controller {
 	private boolean loadFile( String completeFilePath, boolean loadingImage ) {
 		
 		boolean fileLoaded = false;
+		boolean hasIncedence = false;
 		try{
 			boolean loadFile = true;
 			// If the data was not saved, ask for an action (save, discard changes...)
@@ -1360,7 +1377,7 @@ public class Controller {
 						AssetsController.getCategoryFolder(AssetsController.CATEGORY_ASSESSMENT),
 						AssetsController.getCategoryFolder(AssetsController.CATEGORY_ADAPTATION),incidences );
 				 */
-				AdventureData loadedAdventureData = Loader.loadAdventureData( AssetsController.getInputStreamCreator(completeFilePath),incidences );
+				AdventureData loadedAdventureData = Loader.loadAdventureData( AssetsController.getInputStreamCreator(completeFilePath),incidences,true );
 			
 				//mainWindow.setNormalState( );
 				
@@ -1381,8 +1398,10 @@ public class Controller {
 					// If there is any incidence
 					if (incidences.size( )>0){
 						boolean abort = fixIncidences( incidences );
-						if (abort)
+						if (abort){
 							mainWindow.showInformationDialog( TextConstants.getText( "Error.LoadAborted.Title" ), TextConstants.getText( "Error.LoadAborted.Message" ) );
+							hasIncedence=true;
+						}
 					}
 	
 					ProjectConfigData.loadFromXML( );
@@ -1409,9 +1428,15 @@ public class Controller {
 				
 				// Feedback
 				//loadingScreen.close( );
+				if (!hasIncedence)
 				mainWindow.showInformationDialog( 
 						TextConstants.getText( "Operation.FileLoadedTitle" ), 
 						TextConstants.getText( "Operation.FileLoadedMessage" ) );
+				else 
+				    mainWindow.showInformationDialog( 
+						TextConstants.getText( "Operation.FileLoadedWithErrorTitle" ), 
+						TextConstants.getText( "Operation.FileLoadedWithErrorMessage" ) );
+				    
 			} else {
 				// Feedback
 				//loadingScreen.close( );
