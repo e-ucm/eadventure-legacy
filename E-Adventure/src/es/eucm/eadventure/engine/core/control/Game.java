@@ -405,7 +405,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         ChapterSummary chapter = gameDescriptor.getChapterSummaries( ).get( currentChapter );
         
         // Load the script data
-        gameData = Loader.loadChapterData( ResourceHandler.getInstance(), chapter.getChapterPath(), new ArrayList<Incidence>() );
+        gameData = Loader.loadChapterData( ResourceHandler.getInstance(), chapter.getChapterPath(), new ArrayList<Incidence>(), true );
 
         preLoadAnimations();
 
@@ -432,7 +432,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         
      // Load the assessment rules and adaptation data (from chapter xml file)
         if (gameData.hasAdaptationProfile()){
-            System.out.println("Entramos en INIT desde game");
+            //System.out.println("Entramos en INIT desde game");
             adaptationEngine.init( gameData.getSelectedAdaptationProfile() );
         }
         if (gameData.hasAssessmentProfile())
@@ -1391,7 +1391,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             	currentChapter = saveGame.getChapter();
                 
                 ChapterSummary chapter = gameDescriptor.getChapterSummaries( ).get( currentChapter );
-                gameData = Loader.loadChapterData( ResourceHandler.getInstance(), chapter.getChapterPath( ), new ArrayList<Incidence>() );
+                gameData = Loader.loadChapterData( ResourceHandler.getInstance(), chapter.getChapterPath( ), new ArrayList<Incidence>(),true );
                 
                 totalTime = saveGame.getTotalTime();
                 flags = saveGame.getFlags( );

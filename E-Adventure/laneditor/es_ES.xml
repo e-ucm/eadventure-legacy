@@ -122,7 +122,7 @@ Si no desea crear un nuevo juego, puede abrir un archivo ya existente empleando 
 	<entry key="ErrorSolving.Chapter.Title">Error: Capítulo Ilegible</entry>
 	<entry key="ErrorSolving.Chapter.Message">Al leer el capítulo "{#1}" ocurrió el siguiente problema: {#0}.
 Por favor, seleccione una de las siguientes opciones:
-1) Borrar el capítulo, 2) Reemplazarlo con otro fichero, 3) Abortar el proceso.</entry>	
+1) Borrar el capítulo, 2) Reemplazarlo con otro fichero, 3) Abortar el proceso 4) Reportar informe de errores.</entry>	
 	<entry key="GeneralText.Delete">Borrar</entry>
 	<entry key="GeneralText.Duplicate">Duplicar</entry>
 	<entry key="GeneralText.NotSelected">&lt; No Seleccionado &gt;</entry>
@@ -138,7 +138,8 @@ Por favor, seleccione una de las siguientes opciones:
 	<entry key="GeneralText.Rename">Renombrar</entry>
 	<entry key="GeneralText.AddNew">Añadir nuevo/a</entry>
 	<entry key="GeneralText.Edit">Editar</entry>
-
+	<entry key="GeneralText.ReportError">Reportar Error</entry>
+	<entry key="GeneralText.LoadError">Error en Carga</entry>
 	<entry key="GeneralText.FinishingBackup">Creando copia de seguridad</entry>
 	<entry key="ErrorSolving.Chapter.NotReplaced.Title">Error al reemplazar el capítulo.</entry>
 	<entry key="ErrorSolving.Chapter.NotReplaced.Message">Ocurrió un error al reemplazar el capítulo. 
@@ -279,6 +280,10 @@ donde XX es un múmero cualquiera.</entry>
 	<entry key="Operation.FileLoadedTitle">Proyecto cargado correctamente</entry>
 	<entry key="Operation.FileLoadedMessage">El proyecto pudo cargarse correctamente.</entry>
 
+	<entry key="Operation.FileLoadedWithErrorTitle">Proyecto cargado con incidencias</entry>
+	<entry key="Operation.FileLoadedWithErrorMessage">El proyecto se cargó parcialmente debido a la existencia de incidencias.</entry>
+
+	
 	<entry key="Operation.FileNotLoadedTitle">¡No se pudo cargar el proecto!</entry>
 	<entry key="Operation.FileNotLoadedMessage">El proyecto no pudo cargarse.</entry>
 	

@@ -116,7 +116,7 @@
 	
 	<entry key="ErrorSolving.Chapter.Title">Error: Unreadable Chapter</entry>
 	<entry key="ErrorSolving.Chapter.Message">When reading the chapter "{#1}" the next problem was found: {#0}.
-Please, select what to do: 1) Delete the chapter, 2) Replace it with other file, 3) Abort process.</entry>
+Please, select what to do: 1) Delete the chapter, 2) Replace it with other file, 3) Abort process 4) Report error.</entry>
 	<entry key="GeneralText.Delete">Delete</entry>
 	<entry key="GeneralText.Duplicate">Duplicate</entry>
 	<entry key="GeneralText.NotSelected">&lt; Not Selected &gt;</entry>
@@ -128,6 +128,8 @@ Please, select what to do: 1) Delete the chapter, 2) Replace it with other file,
 	<entry key="GeneralText.New">New</entry>
 	<entry key="GeneralText.NewProjectFolder">NewProject</entry>
 	<entry key="GeneralText.FinishingBackup">Finishing backup</entry>
+	<entry key="GeneralText.ReportError">Report Error</entry>
+	<entry key="GeneralText.LoadError">Load Error</entry>
 	<entry key="ErrorSolving.Chapter.NotReplaced.Title">Chapter not replaced</entry>
 	<entry key="ErrorSolving.Chapter.NotReplaced.Message">An error occurred replacing the chapter.
 The operation was aborted.</entry>
@@ -267,6 +269,10 @@ named 'descriptor.xml' or 'chapterXX.xml' where XX is a number.</entry>
 	<entry key="Operation.FileLoadedTitle">Project loaded successfully</entry>
 	<entry key="Operation.FileLoadedMessage">The project was successfully loaded</entry>
 
+	<entry key="Operation.FileLoadedTitle">Project loaded with incidences.</entry>
+	<entry key="Operation.FileLoadedWithErrorMessage">The project was loaded with incidences. Perhaps not all data was loaded.</entry>
+
+	
 	<entry key="Operation.FileNotLoadedTitle">Project not loaded!</entry>
 	<entry key="Operation.FileNotLoadedMessage">The project was not successfully loaded</entry>
 	

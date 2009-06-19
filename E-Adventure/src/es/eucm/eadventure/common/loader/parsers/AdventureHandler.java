@@ -109,6 +109,12 @@ public class AdventureHandler extends DefaultHandler {
 	 */
 	private List<String> adaptationPaths;
 	
+	/**
+	 * To validate or not the XML with DTD
+	 * 
+	 */
+	private boolean validate;
+	
 	private static void getXMLFilePaths (InputStreamCreator isCreator,List<String> assessmentPaths, List<String> adaptationPaths){
 
 		// Assessment
@@ -133,7 +139,7 @@ public class AdventureHandler extends DefaultHandler {
 	 * @param zipFile
 	 *            Path to the zip file which helds the chapter files
 	 */
-	public AdventureHandler(  InputStreamCreator isCreator, List<Incidence> incidences ) {
+	public AdventureHandler(  InputStreamCreator isCreator, List<Incidence> incidences, boolean validate ) {
 		this.isCreator = isCreator;
 		assessmentPaths = new ArrayList<String>();
 		adaptationPaths = new ArrayList<String>();
@@ -142,6 +148,7 @@ public class AdventureHandler extends DefaultHandler {
 		adventureData = new AdventureData( );
 		this.incidences = incidences;
 		chapters = new ArrayList<Chapter>( );
+		this.validate = validate;
 		//this.assessmentController = adventureData.getAssessmentProfiles();
 		//this.adaptationController = adventureData.getAdaptationProfiles();
 		
@@ -338,11 +345,11 @@ public class AdventureHandler extends DefaultHandler {
 			// Open the file and load the data
 			try {
 				// Set the chapter handler
-				ChapterHandler chapterParser = new ChapterHandler( isCreator, currentChapter );
+				ChapterHandler chapterParser = new ChapterHandler( isCreator, currentChapter);
 
 				// Create a new factory
 				SAXParserFactory factory = SAXParserFactory.newInstance( );
-				factory.setValidating( true );
+				factory.setValidating( validate );
 				SAXParser saxParser = factory.newSAXParser( );
 
 				// Set the input stream with the file
@@ -353,11 +360,11 @@ public class AdventureHandler extends DefaultHandler {
 				chapterIS.close( );
 
 			} catch( ParserConfigurationException e ) {
-				incidences.add( Incidence.createChapterIncidence( TextConstants.getText( "Error.LoadData.SAX" ), chapterPath ) );
+				incidences.add( Incidence.createChapterIncidence( TextConstants.getText( "Error.LoadData.SAX" ), chapterPath , e) );
 			} catch( SAXException e ) {
-			    	incidences.add( Incidence.createChapterIncidence( TextConstants.getText( "Error.LoadData.SAX" ), chapterPath ) );
+			    	incidences.add( Incidence.createChapterIncidence( TextConstants.getText( "Error.LoadData.SAX" ), chapterPath , e) );
 			} catch( IOException e ) {
-				incidences.add( Incidence.createChapterIncidence( TextConstants.getText( "Error.LoadData.IO" ), chapterPath ) );
+				incidences.add( Incidence.createChapterIncidence( TextConstants.getText( "Error.LoadData.IO" ), chapterPath, e) );
 			}
 
 		}
@@ -379,7 +386,7 @@ public class AdventureHandler extends DefaultHandler {
 						if (current.getAffectedArea( ) == Incidence.ADAPTATION_INCIDENCE && current.getAffectedResource( ).equals( adaptationName )){
 							String message = current.getMessage( );
 							incidences.remove( j );
-							incidences.add( j, Incidence.createAdaptationIncidence( true, message+TextConstants.getText( "Error.LoadAdaptation.Referenced" ), adaptationName ) );
+							incidences.add( j, Incidence.createAdaptationIncidence( true, message+TextConstants.getText( "Error.LoadAdaptation.Referenced" ), adaptationName , null) );
 						}
 					}
 				}
@@ -402,7 +409,7 @@ public class AdventureHandler extends DefaultHandler {
 						if (current.getAffectedArea( ) == Incidence.ASSESSMENT_INCIDENCE && current.getAffectedResource( ).equals( assessmentName )){
 							String message = current.getMessage( );
 							incidences.remove( j );
-							incidences.add( j, Incidence.createAssessmentIncidence( true, message+TextConstants.getText( "Error.LoadAssessment.Referenced" ), assessmentName ) );
+							incidences.add( j, Incidence.createAssessmentIncidence( true, message+TextConstants.getText( "Error.LoadAssessment.Referenced" ), assessmentName ,null) );
 						}
 					}
 

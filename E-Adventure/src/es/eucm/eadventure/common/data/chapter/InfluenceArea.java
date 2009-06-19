@@ -78,6 +78,7 @@ public class InfluenceArea implements Cloneable, Rectangle {
 	 * @param x the x to set
 	 */
 	public void setX(int x) {
+	    if (x>0)
 		this.x = x;
 	}
 
@@ -92,6 +93,7 @@ public class InfluenceArea implements Cloneable, Rectangle {
 	 * @param y the y to set
 	 */
 	public void setY(int y) {
+	    if (y>0)
 		this.y = y;
 	}
 
@@ -106,7 +108,8 @@ public class InfluenceArea implements Cloneable, Rectangle {
 	 * @param width the width to set
 	 */
 	public void setWidth(int width) {
-		this.width = width;
+	    if (width>0)
+	    	this.width = width;
 	}
 
 	/**
@@ -120,6 +123,7 @@ public class InfluenceArea implements Cloneable, Rectangle {
 	 * @param height the height to set
 	 */
 	public void setHeight(int height) {
+	    if (height>0)
 		this.height = height;
 	}
 

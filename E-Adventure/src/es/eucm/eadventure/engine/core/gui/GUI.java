@@ -786,7 +786,7 @@ public abstract class GUI implements FocusListener {
              // Insert the element in the correct position
         	 // TODO: Hey guys, watch this carefully!! I've changed this line
              if( depth <= elementsToDraw.get( i ).getOriginalY()) {
-        	 //if( depth <= getRealMinY(elementsToDraw.get( i ), x)+elementsToDraw.get( i ).y) {
+        	// if( depth <= getRealMinY(elementsToDraw.get( i ), x)+elementsToDraw.get( i ).y) {
             	 element.setDepth(i);
                  elementsToDraw.add( i, element );
                  added = true;
@@ -796,7 +796,7 @@ public abstract class GUI implements FocusListener {
          
          // If the element wasn't added, add it in the last position
          if( !added ){
-        	 element.setDepth(elementsToDraw.size()-1);
+             element.setDepth(elementsToDraw.size()-1);
              elementsToDraw.add( element );
              
          }

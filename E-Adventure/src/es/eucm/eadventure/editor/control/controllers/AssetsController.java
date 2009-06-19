@@ -1003,7 +1003,7 @@ public class AssetsController implements SpecialAssetPaths{
 			}
 			
 			if (!assetValid){
-				incidences.add( Incidence.createAssetIncidence( notPresent, assetCategory, message, assetPath ) );
+				incidences.add( Incidence.createAssetIncidence( notPresent, assetCategory, message, assetPath ,null) );
 			}
 		}
 	}
