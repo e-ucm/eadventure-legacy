@@ -8,6 +8,7 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
@@ -300,12 +301,71 @@ public class ContextualHUD extends HUD {
         		button = true;
         }
         
-        if(!button && e.getButton( ) == MouseEvent.BUTTON3) {
+        if ( (!button && e.getButton( ) == MouseEvent.BUTTON3 && elementInCursor==null ) || 
+        	 (e.getClickCount() == 2 && System.getProperty("os.name").contains("Windows")) ||
+        	 (!button && actionManager.getElementOver()==null && elementInCursor!=null)) {
+        	System.out.println("RIGHT CLICK o similar");
         	inHud = processRightClickNoButton(actionManager.getElementOver(), e);
         	DebugLog.user("Mouse click, no action button. " + e.getX() + " , " + e.getY());
+        }
+        
+        else if ( showActionButtons ){
+            actionButtons.mouseClicked( e );
+            if( actionButtons.getButtonPressed()!=null ){
+            	DebugLog.user("Mouse click, inside action button: " + actionButtons.getButtonPressed().getName());
+            	inHud = processButtonPressed(actionManager, e);
+                showActionButtons = false;
+                elementAction = null;
+            }
+        }
+        
+        else if( showInventory && ( e.getY( ) > Inventory.BOTTOM_INVENTORY_PANEL_Y || e.getY( ) < Inventory.UPPER_INVENTORY_PANEL_Y + Inventory.INVENTORY_PANEL_HEIGHT ) ) {
+        	DebugLog.user("Mouse click in inventory");
+        	inHud = processInventoryClick(actionManager, e);
+            showActionButtons = false;
+            elementAction = null;
+        }
+        
+        else if( actionManager.getElementOver( ) != null /*&& actionManager.isBinaryAction()*/ ){
+        	DebugLog.user("Mouse click over element at " + e.getX() + " , " + e.getY());
+            inHud = processElementClick(actionManager);
+            System.out.println("INHUD = "+inHud);
+            showActionButtons = false;
+            elementAction = null;
+        }
+        
+
+        if ( !inHud ){
+        	showActionButtons = false;
+        	elementAction = null;
+        }
+        // If a button was pressed
+        /*if(!button) {
+        	
+        	// Right click 
+        	if ( e.getButton( ) == MouseEvent.BUTTON3 && 
+        		elementInCursor==null ) {
+        	
+	        	if ( actionManager.getElementOver() !=null){
+	        		System.out.println("["+c+"] ELMENT OVER");
+	        	} else {
+	        		System.out.println("["+c+"] ELMENT NOT OVER");
+	        	}
+	        	c++;
+	        	inHud = processRightClickNoButton(actionManager.getElementOver(), e);
+	        	DebugLog.user("Mouse click, no action button. " + e.getX() + " , " + e.getY());
+        	}
         }else{
+        	// Check double click: In such case show contextual HUD (as a right button click)
         	if (e.getClickCount() == 2 && System.getProperty("os.name").contains("Windows")) {
-    			processRightClickNoButton(actionManager.getElementOver(), e);
+        		if ( actionManager.getElementOver() !=null){
+            		System.out.println("["+c+"] ** ELMENT OVER");
+            	} else {
+            		System.out.println("["+c+"] ** ELMENT NOT OVER");
+            	}
+            	c++;
+    			inHud = processRightClickNoButton(actionManager.getElementOver(), e);
+    			System.out.println("INHUD = "+inHud);
         	} else {
 	            if( showActionButtons ) {
 	                actionButtons.mouseClicked( e );
@@ -316,14 +376,14 @@ public class ContextualHUD extends HUD {
 	            }else if( showInventory && ( e.getY( ) > Inventory.BOTTOM_INVENTORY_PANEL_Y || e.getY( ) < Inventory.UPPER_INVENTORY_PANEL_Y + Inventory.INVENTORY_PANEL_HEIGHT ) ) {
 	            	DebugLog.user("Mouse click in inventory");
 	            	inHud = processInventoryClick(actionManager, e);
-	            }else if( actionManager.getElementOver( ) != null ){
+	            }else if( actionManager.getElementOver( ) != null /*&& actionManager.isBinaryAction() ){
 	            	DebugLog.user("Mouse click over element at " + e.getX() + " , " + e.getY());
 	                inHud = processElementClick(actionManager);
 	            }
 	            showActionButtons = false;
 	            elementAction = null;
         	}
-        }
+        }*/
         
         return inHud;
     }
@@ -391,7 +451,22 @@ public class ContextualHUD extends HUD {
         }
         return false;
 	}
-    
+ 
+	@Override
+	public boolean keyTyped(KeyEvent e) {
+		if (e.getKeyCode()== KeyEvent.VK_ESCAPE){
+			ActionManager manager = Game.getInstance().getActionManager();
+			if (!showActionButtons && manager.getElementOver()==null && elementInCursor!=null){
+		        elementInCursor = null;
+		        gui.setDefaultCursor( );
+	            elementAction = null;
+	            showActionButtons = false;
+	            return true;
+			}
+		}
+		return false;
+	}
+	
     /**
      * Method called when an element is clicked
      * 
@@ -517,6 +592,7 @@ public class ContextualHUD extends HUD {
 			MouseEvent e) {
         elementInCursor = null;
         gui.setDefaultCursor( );
+        System.out.println(((elementOver!=null)?elementOver.getElement().getId():"")+" "+e.getID()+ " ");
         if( elementOver != null ){
             elementAction = elementOver;
             actionButtons.recreate(e.getX(), e.getY(), elementAction);
@@ -645,5 +721,6 @@ public class ContextualHUD extends HUD {
     }
     
     private static int NUPDATES = 0;
+
 
 }

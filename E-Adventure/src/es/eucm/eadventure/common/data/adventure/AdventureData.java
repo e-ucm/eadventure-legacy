@@ -27,6 +27,7 @@ public class AdventureData extends DescriptorData {
 	public AdventureData(){
 		super();
 		this.chapters = new ArrayList<Chapter>();
+		contents = null;
 	}
 	
 	/**
@@ -34,7 +35,7 @@ public class AdventureData extends DescriptorData {
 	 * @param chapter
 	 */
 	public void addChapter ( Chapter chapter ){
-		contents.add(chapter);
+		//contents.add(chapter);
 		chapters.add(chapter);
 	}
 	
@@ -43,6 +44,10 @@ public class AdventureData extends DescriptorData {
 	 * @return the chapters
 	 */
 	public List<Chapter> getChapters() {
+		/*List<Chapter> chapters = new ArrayList<Chapter>();
+		for (ChapterSummary summary: contents){
+			chapters.add((Chapter)summary);
+		}*/
 		return chapters;
 	}
 
@@ -50,11 +55,34 @@ public class AdventureData extends DescriptorData {
 	 * @param chapters the chapters to set
 	 */
 	public void setChapters(List<Chapter> chapters) {
-		this.chapters = chapters;
+		/*this.contents = new ArrayList<ChapterSummary>();
 		for (Chapter chapter: chapters){
 			contents.add(chapter);
-		}
+		}*/
+		this.chapters = chapters;
 	}
+	
+	/*
+	 * Redefine ChapterSummaries handling so no data is duplicated
+	 *  
+	 */
+	public void addChapterSummary( ChapterSummary chapter ) {
+		if ( chapter instanceof Chapter){
+			chapters.add((Chapter)chapter);
+		}
+    }
+	
+    /**
+     * Returns the list of chapters of the game
+     * @return List of chapters of the game
+     */
+    public List<ChapterSummary> getChapterSummaries( ) {
+    	List<ChapterSummary> summary = new ArrayList<ChapterSummary>();
+    	for (Chapter chapter: chapters){
+    		summary.add( (ChapterSummary)chapter );
+    	}
+    	return summary;
+    }
 	
 	public Object clone() throws CloneNotSupportedException {
 		AdventureData ad = (AdventureData) super.clone();
@@ -63,9 +91,9 @@ public class AdventureData extends DescriptorData {
 			ad.buttons.add((CustomButton) cb.clone());
 		for (CustomArrow ca : arrows)
 			ad.arrows.add((CustomArrow) ca.clone());
-		ad.chapters = new ArrayList<Chapter>();
-		for (Chapter c : chapters)
-			ad.chapters.add((Chapter) c.clone());
+		//ad.chapters = new ArrayList<Chapter>();
+		//for (Chapter c : chapters)
+		//	ad.chapters.add((Chapter) c.clone());
 		ad.commentaries = commentaries;
 		ad.contents = new ArrayList<ChapterSummary>();
 		for (ChapterSummary cs : contents)

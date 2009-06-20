@@ -581,7 +581,7 @@ public class ReportDialog extends JDialog {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		ReportDialog.GenerateErrorReport(new Exception(), false, "ERROR MESSAJE");
+		ReportDialog.GenerateErrorReport(new Exception(), false, "ERROR MESSAGE");
 		//ReportDialog.GenerateCommentsReport();
 	}
 }

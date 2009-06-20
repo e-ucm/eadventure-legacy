@@ -117,7 +117,7 @@ public class DescriptorDataPanel extends JPanel {
 		if( descriptor == null ) {
 			playerMode = new JTextField( "" );
 			playerModeDescription.setText( "" );
-		} else if( descriptor.getPlayerMode( ) == DescriptorData.MODE_PLAYER_3RDPERSON ) {
+		} else if( descriptor.getPlayerMode( ) == DescriptorData.MODE_PLAYER_1STPERSON ) {
 			playerMode = new JTextField( TextConstants.getText( "Adventure.ModePlayerTransparent.Name" ) );
 			playerModeDescription.setText( TextConstants.getText( "Adventure.ModePlayerTransparent.Description" ) );
 		} else {
@@ -159,7 +159,7 @@ public class DescriptorDataPanel extends JPanel {
 		if( currentDescriptor == null ) {
 			playerMode.setText( "" );
 			playerModeDescription.setText( "" );
-		} else if( currentDescriptor.getPlayerMode( ) == DescriptorData.MODE_PLAYER_3RDPERSON ) {
+		} else if( currentDescriptor.getPlayerMode( ) == DescriptorData.MODE_PLAYER_1STPERSON ) {
 			playerMode.setText( TextConstants.getText( "Adventure.ModePlayerTransparent.Name" ) );
 			playerModeDescription.setText( TextConstants.getText( "Adventure.ModePlayerTransparent.Description" ) );
 		} else {

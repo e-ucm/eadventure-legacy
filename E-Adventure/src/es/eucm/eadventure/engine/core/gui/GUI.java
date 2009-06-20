@@ -17,6 +17,7 @@ import java.awt.Stroke;
 import java.awt.Toolkit;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
@@ -696,6 +697,14 @@ public abstract class GUI implements FocusListener {
      */
     public boolean mouseMovedinHud( MouseEvent e ) {
         return hud.mouseMoved( e );
+    }
+    
+    /**
+     * KeyEvent on HUD
+     * @return boolean True if something done, false otherwise
+     */
+    public boolean keyInHud( KeyEvent e ) {
+        return hud.keyTyped(e);
     }
     
     /**

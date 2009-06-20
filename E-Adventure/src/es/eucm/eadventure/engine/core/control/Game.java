@@ -1,6 +1,7 @@
 package es.eucm.eadventure.engine.core.control;
 
 import java.awt.Graphics2D;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -307,6 +308,18 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      * Stack to store each conversation nested 
      */
     private Stack<GameState> stackOfState;
+    
+    /**
+     * Temp Variable that is used to store the last MousePressed Event.
+     * It is needed to avoid "fake drags".
+     */
+    private MouseEvent lastPressedEvent;
+    
+    /**
+     * Temp Variable that is used to store the state of the FSM that controls 
+     * the removal of "fake drags".
+     */
+    private String state="";
     
     private boolean debug = false;
     
@@ -1480,6 +1493,68 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     public void keyTyped( KeyEvent arg0 ) {
     }
 
+    /**
+     * During the last months it had been detected some anomalies dealing with 
+     * MouseEvents. If the mouse is not completely stopped before hitting a button then a MouseDragged Event is 
+     * generated in spite of a MouseClicked event. As a result the user thinks that the system is not capturing
+     * the mouse interaction events.
+     *  
+     * This method solve this problem. After studying such situations we discovered that 
+     * when a mouse clicked is lost the sequence of mouse events that Java produces is :
+     * 					MousePressed   MouseDragged+   MouseReleased
+     * Then we use a Finite State Machine to detect that situations. When the pattern is matched an artificial
+     * MouseClickedEvent is generated, using the coordinates of the first MousePressed Event
+     * 
+     * Therefore the FSM works as follows:
+     * 			
+     * 				Nothing                   MousePressed
+     *             Detected  ------------->     Detected
+     *         --->  State      m pressed/-       State
+     *         |     ("")                         ("P")
+     *         |                                    |
+     *         |                                    |
+     *         |                                    | m dragged /-
+     *         |                                    |
+     *         |                                    |
+     *         |   	            MouseDragged        |       
+     *         |                  Detected          |
+     *          --------------      State   <-------
+     *            m released/       ("PD")
+     *             generate         ^    |
+     *              click           |    | m dragged,
+     *                              |    | m moved/-
+     *                               ----    
+     *                
+     * MouseMoved events are ignored and MouseClicked real events always reset the FSM
+     * as they are considered to have the highest priority
+     * 
+     * This method is invoked by all the methods that deal with mouse input when a new
+     * Mouse Event is triggered.
+     * 
+     * @param e The current MouseEvent. Used for deciding the next state transition in the FSM
+     */
+    private void removeFakeDrags(MouseEvent e){
+    	if (e.getID() == MouseEvent.MOUSE_PRESSED){
+    		state = "P";
+    		lastPressedEvent = e;
+    	} else if (e.getID() == MouseEvent.MOUSE_DRAGGED && state.equals( "P" )){
+    		state = "PD";
+    	} else if (e.getID() == MouseEvent.MOUSE_RELEASED && state.equals( "PD" )){
+    		// Pressed Dragged* Released sequence detected. Add artificial MouseClicked event
+    		MouseEvent newClickEvent = new MouseEvent(lastPressedEvent.getComponent(), MouseEvent.MOUSE_CLICKED, lastPressedEvent.getWhen(), lastPressedEvent.getModifiers(),
+                    lastPressedEvent.getX(), lastPressedEvent.getY(), lastPressedEvent.getXOnScreen(), lastPressedEvent.getYOnScreen(),
+                    1, lastPressedEvent.isPopupTrigger(), lastPressedEvent.getButton());
+        	currentState.mouseClicked( newClickEvent );
+        	
+    		state = ""; lastPressedEvent = null;
+    	} else if (e.getID() == MouseEvent.MOUSE_CLICKED){
+    		// MouseClicked events have more priority than any other, so then reset the FSM.
+    		state =""; lastPressedEvent = null;
+    	} else if (e.getID() == MouseEvent.MOUSE_MOVED){
+    		// Do nothing
+    	}
+    }
+    
     /*
      *  (non-Javadoc)
      * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
@@ -1501,7 +1576,15 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      */
     public void mouseClicked( MouseEvent e ) {
         currentState.mouseClicked( e );
+        removeFakeDrags(e);
+        long gap = e.getWhen()-last;
+        last = e.getWhen();
+        System.out.println("//MOUSE CLICKED "+e.getClickCount()+" GAP="+gap);
+        
+        
     }
+    
+    private long last = 0L;
 
     /*
      *  (non-Javadoc)
@@ -1510,6 +1593,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     public void mouseMoved( MouseEvent e ) {
         currentState.mouseMoved( e );
         lastMouseEvent = e;
+        removeFakeDrags(e);
     }
 
     /*
@@ -1518,6 +1602,8 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      */
     public void mousePressed( MouseEvent e ) {
         currentState.mousePressed( e );
+        removeFakeDrags(e);
+        System.out.println("//MOUSE PRESSED "+e.getClickCount());
     }
 
     /*
@@ -1526,6 +1612,8 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      */
     public void mouseReleased( MouseEvent e ) {
         currentState.mouseReleased( e );
+        removeFakeDrags(e);
+        System.out.println("//MOUSE RELEASED "+e.getClickCount());
     }
 
     /*
@@ -1548,6 +1636,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      */
     public void mouseDragged( MouseEvent e ) {
         currentState.mouseDragged( e );
+        removeFakeDrags(e);
     }   
     
     /**

@@ -424,5 +424,17 @@ public class AdventureDataControl {
 		return adventureData.countAssetReferences(assetPath);
 	}
 
+	public void getAssetReferences(List<String> assetPaths, List<Integer> assetTypes){
+		adventureData.getAssetReferences(assetPaths, assetTypes);
+	}
+	/**
+	 * Deletes a given asset from the script, removing all occurrences.
+	 * 
+	 * @param assetPath
+	 *            Path of the asset (relative to the ZIP), without suffix in case of an animation or set of slides
+	 */
+	public void deleteAssetReferences( String assetPath ) {
+		adventureData.deleteAssetReferences(assetPath);
+	}
 
 }

@@ -1,6 +1,7 @@
 package es.eucm.eadventure.engine.core.gui.hud;
 
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 import es.eucm.eadventure.engine.core.control.Game;
@@ -84,6 +85,14 @@ public abstract class HUD {
      * @return boolean If the click is in the HUD
      */
     public abstract boolean mouseClicked( MouseEvent e );
+    
+    /**
+     * Processes KeyEvents for the HUD. Its main purpose is to support the use of Esc 
+     * for canceling an action
+     * @param e Key Event
+     * @return True if any changes made. False otherwise
+     */
+    public abstract boolean keyTyped ( KeyEvent e );
     
     /**
      * Draw the HUD with the action button, action and element selected
