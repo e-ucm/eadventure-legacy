@@ -475,7 +475,7 @@ public class Controller {
 	/**
 	 * The data of the adventure being edited.
 	 */
-	private AdventureDataControl adventureData;
+	private AdventureDataControl adventureDataControl;
 
 
 	/**
@@ -550,7 +550,7 @@ public class Controller {
 	}
 
 	public int playerMode(){
-		return adventureData.getPlayerMode();
+		return adventureDataControl.getPlayerMode();
 	}
 	
 	/**
@@ -834,15 +834,15 @@ public class Controller {
 	}
 
 	public boolean isPlayTransparent( ) {
-		if (adventureData==null){
+		if (adventureDataControl==null){
 			return false;
 		}
-		return adventureData.getPlayerMode( ) == DescriptorData.MODE_PLAYER_1STPERSON;
+		return adventureDataControl.getPlayerMode( ) == DescriptorData.MODE_PLAYER_1STPERSON;
 	
 	}
 
 	public void swapPlayerMode( boolean showConfirmation ) {
-		addTool( new SwapPlayerModeTool( showConfirmation, adventureData, chaptersController ) );
+		addTool( new SwapPlayerModeTool( showConfirmation, adventureDataControl, chaptersController ) );
 	}
 
 	// ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1040,10 +1040,10 @@ public class Controller {
 				playerMode = DescriptorData.MODE_PLAYER_3RDPERSON;
 			else if( fileType == FILE_ADVENTURE_1STPERSON_PLAYER )
 				playerMode = DescriptorData.MODE_PLAYER_1STPERSON;
-			adventureData = new AdventureDataControl( TextConstants.getText( "DefaultValue.AdventureTitle" ), TextConstants.getText( "DefaultValue.ChapterTitle" ), TextConstants.getText( "DefaultValue.SceneId" ), playerMode );
+			adventureDataControl = new AdventureDataControl( TextConstants.getText( "DefaultValue.AdventureTitle" ), TextConstants.getText( "DefaultValue.ChapterTitle" ), TextConstants.getText( "DefaultValue.SceneId" ), playerMode );
 
 			// Clear the list of data controllers and refill it
-			chaptersController = new ChapterListDataControl ( adventureData.getChapters() );
+			chaptersController = new ChapterListDataControl ( adventureDataControl.getChapters() );
 
 			// Init project properties (empty)
 			ProjectConfigData.init();
@@ -1055,7 +1055,7 @@ public class Controller {
 			boolean valid = chaptersController.isValid(null, null);
 
 			// Save the data
-			if( Writer.writeData( currentZipFile, adventureData, valid ) ) {
+			if( Writer.writeData( currentZipFile, adventureDataControl, valid ) ) {
 				// Set modified to false and update the window title
 				dataModified = false;
 				try {
@@ -1107,7 +1107,7 @@ public class Controller {
 	
 	public boolean fixIncidences(List<Incidence> incidences ){
 		boolean abort = false;
-		List<Chapter> chapters = this.adventureData.getChapters( );
+		List<Chapter> chapters = this.adventureDataControl.getChapters( );
 		
 		for (int i=0; i<incidences.size( ); i++){
 			Incidence current = incidences.get( i );
@@ -1388,9 +1388,9 @@ public class Controller {
 					currentZipFile = newFile.getAbsolutePath( );
 					currentZipPath = newFile.getParent( );
 					currentZipName = newFile.getName( );
-					adventureData = new AdventureDataControl(loadedAdventureData);
+					adventureDataControl = new AdventureDataControl(loadedAdventureData);
 
-					chaptersController = new ChapterListDataControl( adventureData.getChapters() );
+					chaptersController = new ChapterListDataControl( adventureDataControl.getChapters() );
 					
 					// Check asset files
 					AssetsController.checkAssetFilesConsistency( incidences );
@@ -1564,7 +1564,7 @@ public class Controller {
 					mainWindow.showWarningDialog( TextConstants.getText( "Operation.AdventureConsistencyTitle" ), TextConstants.getText( "Operation.AdventurInconsistentWarning" ) );
 	
 				// Save the data
-				if( Writer.writeData( currentZipFile, adventureData, valid ) ) {
+				if( Writer.writeData( currentZipFile, adventureDataControl, valid ) ) {
 					File eapFile = new File(currentZipFile + ".eap");
 					if (!eapFile.exists())
 						eapFile.create();
@@ -1855,7 +1855,7 @@ public class Controller {
 
 			category.create( );
 
-			if( Writer.writeData( currentZipFile + File.separatorChar + "backup", adventureData, valid ) ) {
+			if( Writer.writeData( currentZipFile + File.separatorChar + "backup", adventureDataControl, valid ) ) {
 				fileSaved = true;
 			}
 
@@ -2064,20 +2064,20 @@ public class Controller {
 											loadingScreen.setVisible( true );
 											this.updateLOMLanguage( );
 											
-											if (type == 0 && Writer.exportAsLearningObject( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, adventureData )){
+											if (type == 0 && Writer.exportAsLearningObject( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, adventureDataControl )){
 												mainWindow.showInformationDialog( TextConstants.getText( "Operation.ExportT.Success.Title" ), 
 														TextConstants.getText( "Operation.ExportT.Success.Message" ) );
-											} else if (type == 1 && Writer.exportAsWebCTObject( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, adventureData )) { 
+											} else if (type == 1 && Writer.exportAsWebCTObject( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, adventureDataControl )) { 
 												mainWindow.showInformationDialog( TextConstants.getText( "Operation.ExportT.Success.Title" ), 
 														TextConstants.getText( "Operation.ExportT.Success.Message" ) );
-											} else if (type == 2 && Writer.exportAsSCORM( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, adventureData )){
+											} else if (type == 2 && Writer.exportAsSCORM( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, adventureDataControl )){
 												mainWindow.showInformationDialog( TextConstants.getText( "Operation.ExportT.Success.Title" ), 
 														TextConstants.getText( "Operation.ExportT.Success.Message" ) );
 												
-											}  else if (type == 3 &&Writer.exportAsSCORM2004( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, adventureData )){
+											}  else if (type == 3 &&Writer.exportAsSCORM2004( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, adventureDataControl )){
 														mainWindow.showInformationDialog( TextConstants.getText( "Operation.ExportT.Success.Title" ), 
 																TextConstants.getText( "Operation.ExportT.Success.Message" ) );		
-											}else if (type == 4 &&Writer.exportAsAGREGA( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, adventureData )){
+											}else if (type == 4 &&Writer.exportAsAGREGA( completeFilePath, loName, authorName, organization, windowed, this.currentZipFile, adventureDataControl )){
 												mainWindow.showInformationDialog( TextConstants.getText( "Operation.ExportT.Success.Title" ), 
 														TextConstants.getText( "Operation.ExportT.Success.Message" ) );		
 											}else {
@@ -2128,11 +2128,11 @@ public class Controller {
 		
 		if (scormType == SCORM12){
 			// check that adaptation and assessment profiles are scorm 1.2 profiles
-		 return chaptersController.hasScorm12Profiles(adventureData);
+		 return chaptersController.hasScorm12Profiles(adventureDataControl);
 			 
 		}else if (scormType == SCORM2004||scormType == AGREGA){
 			// check that adaptation and assessment profiles are scorm 2004 profiles
-			return chaptersController.hasScorm2004Profiles(adventureData);
+			return chaptersController.hasScorm2004Profiles(adventureDataControl);
 					
 		}
 		
@@ -2156,7 +2156,7 @@ public class Controller {
 					mainWindow.setNormalRunAvailable( false );
 					// First update flags
 					chaptersController.updateVarsFlagsForRunning();
-					EAdventureDebug.normalRun(Controller.getInstance().adventureData.getAdventureData(), AssetsController.getInputStreamCreator());
+					EAdventureDebug.normalRun(Controller.getInstance().adventureDataControl.getAdventureData(), AssetsController.getInputStreamCreator());
 					Controller.getInstance().startAutoSave(15);
 					mainWindow.setNormalRunAvailable( true );
 				}
@@ -2181,7 +2181,7 @@ public class Controller {
 				public void run() {
 					mainWindow.setNormalRunAvailable( false );
 					chaptersController.updateVarsFlagsForRunning();
-					EAdventureDebug.debug(Controller.getInstance().adventureData.getAdventureData(), AssetsController.getInputStreamCreator());
+					EAdventureDebug.debug(Controller.getInstance().adventureDataControl.getAdventureData(), AssetsController.getInputStreamCreator());
 					Controller.getInstance().startAutoSave(15);
 					mainWindow.setNormalRunAvailable( true );
 				}
@@ -2307,7 +2307,7 @@ public class Controller {
 	 */
 	public void showLOMDataDialog( ) {
 	    	isLomEs=false;
-		new LOMDialog( adventureData.getLomController( ) );
+		new LOMDialog( adventureDataControl.getLomController( ) );
 	}
 	
 	/**
@@ -2315,7 +2315,7 @@ public class Controller {
 	 */
 	public void showLOMSCORMDataDialog( ) {
 	    	isLomEs=false;
-		new IMSDialog( adventureData.getImsController( ) );
+		new IMSDialog( adventureDataControl.getImsController( ) );
 	}
 	
 	/**
@@ -2323,7 +2323,7 @@ public class Controller {
 	 */
 	public void showLOMESDataDialog( ) {
 	    	isLomEs=true;
-		new LOMESDialog( adventureData.getLOMESController());
+		new LOMESDialog( adventureDataControl.getLOMESController());
 	}
 	
 
@@ -2332,7 +2332,7 @@ public class Controller {
 	 * Shows the GUI style selection dialog.
 	 */
 	public void showGUIStylesDialog( ) {
-		adventureData.showGUIStylesDialog();
+		adventureDataControl.showGUIStylesDialog();
 	}
 	
 	/**
@@ -2499,7 +2499,7 @@ public class Controller {
 	 * @return Adventure's title
 	 */
 	public String getAdventureTitle( ) {
-		return adventureData.getTitle( );
+		return adventureDataControl.getTitle( );
 	}
 
 	/**
@@ -2508,7 +2508,7 @@ public class Controller {
 	 * @return Adventure's description
 	 */
 	public String getAdventureDescription( ) {
-		return adventureData.getDescription( );
+		return adventureDataControl.getDescription( );
 	}
 
 	/**
@@ -2518,7 +2518,7 @@ public class Controller {
 	 * 
 	 */
 	public LOMDataControl getLOMDataControl(){
-		return adventureData.getLomController();
+		return adventureDataControl.getLomController();
 	}
 	/**
 	 * Sets the new title of the adventure.
@@ -2528,9 +2528,9 @@ public class Controller {
 	 */
 	public void setAdventureTitle( String title ) {
 		// If the value is different
-		if( !title.equals( adventureData.getTitle( ) ) ) {
+		if( !title.equals( adventureDataControl.getTitle( ) ) ) {
 			// Set the new title and modify the data
-			adventureData.setTitle( title );
+			adventureDataControl.setTitle( title );
 		}
 	}
 
@@ -2542,9 +2542,9 @@ public class Controller {
 	 */
 	public void setAdventureDescription( String description ) {
 		// If the value is different
-		if( !description.equals( adventureData.getDescription( ) ) ) {
+		if( !description.equals( adventureDataControl.getDescription( ) ) ) {
 			// Set the new description and modify the data
-			adventureData.setDescription( description );
+			adventureDataControl.setDescription( description );
 		}
 	}
 
@@ -2729,7 +2729,7 @@ public class Controller {
 	 * @return Number of references to the given asset
 	 */
 	public int countAssetReferences( String assetPath ) {
-		return adventureData.countAssetReferences(assetPath) + chaptersController.countAssetReferences(assetPath);
+		return adventureDataControl.countAssetReferences(assetPath) + chaptersController.countAssetReferences(assetPath);
 	}
 
 	/**
@@ -2738,6 +2738,7 @@ public class Controller {
 	 * @param assetTypes
 	 */
 	public void getAssetReferences(List<String> assetPaths, List<Integer> assetTypes){
+		adventureDataControl.getAssetReferences(assetPaths, assetTypes);
 		chaptersController.getAssetReferences(assetPaths, assetTypes);
 	}
 	
@@ -2748,6 +2749,7 @@ public class Controller {
 	 *            Path of the asset (relative to the ZIP), without suffix in case of an animation or set of slides
 	 */
 	public void deleteAssetReferences( String assetPath ) {
+		adventureDataControl.deleteAssetReferences(assetPath);
 		chaptersController.deleteAssetReferences(assetPath);
 	}
 
@@ -2929,7 +2931,7 @@ public class Controller {
 	}
 	
 	public void showCustomizeGUIDialog (){
-		new CustomizeGUIDialog(this.adventureData);
+		new CustomizeGUIDialog(this.adventureDataControl);
 	}
 
 	public boolean isFolderLoaded( ) {
@@ -2945,12 +2947,12 @@ public class Controller {
 	}
 
 	public void updateLOMLanguage( ) {
-		this.adventureData.getLomController( ).updateLanguage( );
+		this.adventureDataControl.getLomController( ).updateLanguage( );
 		
 	}
 	
 	public void updateIMSLanguage(){
-		this.adventureData.getImsController().updateLanguage();
+		this.adventureDataControl.getImsController().updateLanguage();
 	}
 
 	public void showAboutDialog( ) {
@@ -2986,11 +2988,11 @@ public class Controller {
 	}
 
 	public boolean isCommentaries( ) {
-		return this.adventureData.isCommentaries( );
+		return this.adventureDataControl.isCommentaries( );
 	}
 
 	public void setCommentaries( boolean b ) {
-		this.adventureData.setCommentaries( b );
+		this.adventureDataControl.setCommentaries( b );
 		
 	}
 	
@@ -3032,12 +3034,12 @@ public class Controller {
 	
 	public void showGraphicConfigDialog() {
 		// Show the dialog
-		GraphicConfigDialog guiStylesDialog = new GraphicConfigDialog( adventureData.getGraphicConfig( ) );
+		GraphicConfigDialog guiStylesDialog = new GraphicConfigDialog( adventureDataControl.getGraphicConfig( ) );
 
 		// If the new GUI style is different from the current, and valid, change the value
 		int optionSelected = guiStylesDialog.getOptionSelected( );
-		if( optionSelected != -1 && this.adventureData.getGraphicConfig( ) != optionSelected ) {
-			adventureData.setGraphicConfig(optionSelected);
+		if( optionSelected != -1 && this.adventureDataControl.getGraphicConfig( ) != optionSelected ) {
+			adventureDataControl.setGraphicConfig(optionSelected);
 		}
 	}
 
@@ -3099,7 +3101,7 @@ public class Controller {
 	}
 	
 	public String getDefaultExitCursorPath() {
-		String temp = this.adventureData.getCursorPath("exit");
+		String temp = this.adventureDataControl.getCursorPath("exit");
 		if (temp != null && temp.length() > 0)
 			return temp;
 		else

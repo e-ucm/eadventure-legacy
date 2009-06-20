@@ -1,5 +1,6 @@
 package es.eucm.eadventure.engine.core.control.gamestate;
 
+import java.awt.Component;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -188,12 +189,13 @@ public class GameStatePlaying extends GameState {
 		GUI.getInstance().mouseDraggedinHud( e );
 	}
 
-
+	
     @Override
     public void keyPressed( KeyEvent e ) {
         switch( e.getKeyCode( ) ) {
             case KeyEvent.VK_ESCAPE:
-                game.setState( Game.STATE_OPTIONS );
+            	if (!GUI.getInstance().keyInHud(e))
+            		game.setState( Game.STATE_OPTIONS );
                 break;
         }
     }

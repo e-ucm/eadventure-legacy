@@ -69,6 +69,17 @@ public class ActionManager {
     public static final int ACTION_CUSTOM = 9;
     
     public static final int ACTION_CUSTOM_INTERACT = 10;
+    
+    
+    /**
+     * Returns true if the given action (int value) needs to operands (e.g. Give X to Y)
+     * @param action
+     * @return
+     */
+    private static boolean isBinaryAction(int action){
+    	return action == ACTION_CUSTOM_INTERACT || action == ACTION_GIVE_TO || 
+    	action == ACTION_USE_WITH || action ==  ACTION_GIVE;
+    }
 
     /**
      * Functional element in which the cursor is placed.
@@ -105,7 +116,7 @@ public class ActionManager {
      */
     public ActionManager( ) {
         elementOver = null;
-        actionSelected = 6;
+        actionSelected = ACTION_GOTO;
         exit = "";
         exitCursor=null;
         cursors = new HashMap<Exit, Cursor>();
@@ -186,15 +197,25 @@ public class ActionManager {
     }
 
     /**
+     * Returns true if the selected action needs to operands (e.g. Give X to Y)
+     * @return
+     */
+    public boolean isBinaryAction(){
+    	return isBinaryAction(actionSelected);
+    }
+    
+    /**
      * Called when a mouse click event has been triggered
      * @param e Mouse event
      */
     public void mouseClicked( MouseEvent e ) {
         Game game = Game.getInstance();
-        if( e.getButton( ) == MouseEvent.BUTTON1 ) {
+        
+        //if( //this.elementOver!=null && isBinaryAction ( actionSelected ) || 
+        //		e.getButton( ) == MouseEvent.BUTTON1 ) {
         	DebugLog.user("Mouse clicked in scene: " + e.getX() + " , " + e.getY());
             game.getFunctionalScene( ).mouseClicked( e.getX( ), e.getY( ) );
-        }
+        //}
     }
     
     /**

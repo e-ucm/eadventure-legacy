@@ -98,8 +98,10 @@ public class SoundMidi extends Sound {
     @Override
     public synchronized void finalize( ) {
         // Free resources
-        sequencer.stop( );
-        sequencer.close( );
+    	if (sequencer != null && sequencer.isOpen( )){
+	        sequencer.stop( );
+	        sequencer.close( );
+    	}
         sequencer = null;
         sequence = null;
         

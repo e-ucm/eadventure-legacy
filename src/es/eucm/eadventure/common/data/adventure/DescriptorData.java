@@ -3,6 +3,7 @@ package es.eucm.eadventure.common.data.adventure;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.common.auxiliar.AssetsConstants;
 import es.eucm.eadventure.common.data.Described;
 import es.eucm.eadventure.common.data.Titled;
 
@@ -447,7 +448,85 @@ public class DescriptorData implements Cloneable, Described, Titled {
 		
 		return count;
 	}
+	
+	public void getAssetReferences(List<String> assetPaths, List<Integer> assetTypes) {
+		if (assetPaths!=null && assetTypes!=null){
+			// Firstly iterate arrows
+			for (CustomArrow arrow: arrows){
+				int assetType = AssetsConstants.CATEGORY_BUTTON;
+				String assetPath = arrow.getPath();
+				getAssetReferencesForOneAsset(assetPaths, assetTypes, assetPath, assetType);
+			}
+			// Secondly iterate buttons
+			for (CustomButton button: buttons){
+				int assetType = AssetsConstants.CATEGORY_BUTTON;
+				String assetPath = button.getPath();
+				getAssetReferencesForOneAsset(assetPaths, assetTypes, assetPath, assetType);
+			}
+			// Finally iterate cursors
+			for (CustomCursor cursor: cursors){
+				int assetType = AssetsConstants.CATEGORY_CURSOR;
+				String assetPath = cursor.getPath();
+				getAssetReferencesForOneAsset(assetPaths, assetTypes, assetPath, assetType);
+			}
 
+		}
+	}
+
+	
+	private void getAssetReferencesForOneAsset(List<String> assetPaths, List<Integer> assetTypes, String assetPath, int assetType){
+		if (assetPath==null)
+			return;
+
+		boolean found = false;
+		for (String path: assetPaths){
+			if (path.toLowerCase().equals(assetPath.toLowerCase())){
+				found = true;break;
+			}
+		}
+		if (!found){
+			int last = assetPaths.size( );
+			assetPaths.add( last, assetPath );
+			assetTypes.add( last, assetType );
+		}		
+	}
+
+	
+	/**
+	 * Deletes a given asset from the script, removing all occurrences.
+	 * 
+	 * @param assetPath
+	 *            Path of the asset (relative to the ZIP), without suffix in case of an animation or set of slides
+	 */
+	public void deleteAssetReferences( String assetPath ) {
+		if (assetPath!=null ){
+			// Firstly iterate arrows
+			for (int i=0; i<arrows.size(); i++){
+				CustomArrow arrow= arrows.get(i);
+				if (arrow.getPath()!= null && arrow.getPath().equals(assetPath)){
+					arrows.remove(i);
+					i--;
+				}
+			}
+			// Secondly iterate buttons
+			for (int i=0; i<buttons.size(); i++){
+				CustomButton button= buttons.get(i);
+				if (button.getPath()!= null && button.getPath().equals(assetPath)){
+					buttons.remove(i);
+					i--;
+				}
+			}
+			// Finally iterate cursors
+			for (int i=0; i<cursors.size(); i++){
+				CustomCursor cursor= cursors.get(i);
+				if (cursor.getPath()!= null && cursor.getPath().equals(assetPath)){
+					cursors.remove(i);
+					i--;
+				}
+			}
+		}		
+	}
+	
 	public Object clone() throws CloneNotSupportedException {
 		DescriptorData dd = (DescriptorData) super.clone();
 		if (buttons != null) {

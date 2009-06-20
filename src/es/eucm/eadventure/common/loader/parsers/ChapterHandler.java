@@ -274,8 +274,15 @@ public class ChapterHandler extends DefaultHandler {
 		}
 
 		// If an element is being subparsed, spread the call
-		if( subParsing != NONE )
-			subParser.startElement( namespaceURI, sName, qName, attrs );
+		if( subParsing != NONE ){
+			//try {
+				subParser.startElement( namespaceURI, sName, qName, attrs );	
+			//} catch (Exception e){
+			//	System.out.println("Marihuanhell es muy malo pero hemos capturado la excepción");
+				//e.printStackTrace();
+			//}
+			
+		}
 	}
 
 	@Override
@@ -391,4 +398,9 @@ public class ChapterHandler extends DefaultHandler {
         return new InputSource( inputStream );
     }
 
+    public void fatalError (SAXParseException e)
+	throws SAXException
+    {
+	//throw e;
+    }
 }

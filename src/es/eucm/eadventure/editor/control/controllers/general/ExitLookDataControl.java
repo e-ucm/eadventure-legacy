@@ -98,7 +98,7 @@ public class ExitLookDataControl {
 	}
 	
 	public void deleteAssetReferences( String assetPath ) {
-	    if (exitLook.getCursorPath( ).equals(assetPath))
+	    if (exitLook.getCursorPath()!=null && exitLook.getCursorPath( ).equals(assetPath))
 		exitLook.setCursorPath("");
 	    
 	    

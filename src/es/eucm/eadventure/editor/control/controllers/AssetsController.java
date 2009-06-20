@@ -16,6 +16,7 @@ import javax.media.MediaLocator;
 
 import java.io.FileInputStream;
 
+import es.eucm.eadventure.common.auxiliar.AssetsConstants;
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.common.auxiliar.FileFilter;
@@ -52,7 +53,7 @@ import es.eucm.eadventure.editor.gui.assetchooser.VideoChooser;
  * 
  * @author Bruno Torijano Bueno
  */
-public class AssetsController implements SpecialAssetPaths{
+public class AssetsController implements SpecialAssetPaths, AssetsConstants{
 
 	/**
 	 * Assessment files category.
@@ -64,62 +65,7 @@ public class AssetsController implements SpecialAssetPaths{
 	 */
 	//public static final int CATEGORY_ADAPTATION = 1;
 
-	/**
-	 * Background category.
-	 */
-	public static final int CATEGORY_BACKGROUND = 0;
-
-	/**
-	 * Animation category.
-	 */
-	public static final int CATEGORY_ANIMATION = 1;
-
 	
-	
-	/**
-	 * Image category.
-	 */
-	public static final int CATEGORY_IMAGE = 2;
-
-	/**
-	 * Icon category.
-	 */
-	public static final int CATEGORY_ICON = 3;
-
-	/**
-	 * Audio category.
-	 */
-	public static final int CATEGORY_AUDIO = 4;
-
-	/**
-	 * Video category.
-	 */
-	public static final int CATEGORY_VIDEO = 5;
-	
-	/**
-	 * Cursor category.
-	 */
-	public static final int CATEGORY_CURSOR = 6;
-
-	/**
-	 * Cursor category.
-	 */
-	public static final int CATEGORY_STYLED_TEXT = 7;
-
-	/**
-	 * Animation Image category
-	 */
-	public static final int CATEGORY_ANIMATION_IMAGE = 8;
-
-	/**
-	 * Customized button category
-	 */
-	public static final int CATEGORY_BUTTON = 9;
-	
-	/**
-	 * Animation sound category
-	 */
-	public static final int CATEGORY_ANIMATION_AUDIO = 10;
 
 
 	/**
@@ -144,12 +90,6 @@ public class AssetsController implements SpecialAssetPaths{
 
 	//TODO: VIDEO FILTERS
 
-
-	
-	/**
-	 * Number of categories.
-	 */
-	private static final int CATEGORIES_COUNT = 11;
 
 	/**
 	 * Path for the background assets.

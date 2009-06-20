@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
@@ -683,6 +684,11 @@ public class TraditionalHUD extends HUD {
 	
 	@Override
 	public boolean mouseDragged(MouseEvent e) {
+		return false;
+	}
+
+	@Override
+	public boolean keyTyped(KeyEvent e) {
 		return false;
 	}
 }
