@@ -269,7 +269,7 @@ named 'descriptor.xml' or 'chapterXX.xml' where XX is a number.</entry>
 	<entry key="Operation.FileLoadedTitle">Project loaded successfully</entry>
 	<entry key="Operation.FileLoadedMessage">The project was successfully loaded</entry>
 
-	<entry key="Operation.FileLoadedTitle">Project loaded with incidences.</entry>
+	<entry key="Operation.FileLoadedWithErrorMessage">Project loaded with incidences.</entry>
 	<entry key="Operation.FileLoadedWithErrorMessage">The project was loaded with incidences. Perhaps not all data was loaded.</entry>
 
 	

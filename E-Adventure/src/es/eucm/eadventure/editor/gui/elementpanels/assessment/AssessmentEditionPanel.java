@@ -578,7 +578,7 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
 
 		public SMTPDialog() {
 			super(Controller.getInstance().peekWindow(), TextConstants
-					.getText("AdaptationProfile.TypeDialog.Title"),
+					.getText("AssessmentProfile.Feedback.EditSMTPConfiguration"),
 					Dialog.ModalityType.TOOLKIT_MODAL);
 			Controller.getInstance().pushWindow(this);
 
