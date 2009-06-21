@@ -50,7 +50,7 @@ public class GenericOptionPaneDialog extends ToolManagableDialog{
 	  // this.setVisible(true);
 	    Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
 	    setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
-	    this.setVisible(true);
+	   // this.setVisible(true);
     }
     
     public GenericOptionPaneDialog(Window window, String title, Object message,int messageType,int optionType){
