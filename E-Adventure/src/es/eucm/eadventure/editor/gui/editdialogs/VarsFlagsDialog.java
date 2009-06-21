@@ -45,12 +45,12 @@ public class VarsFlagsDialog extends JDialog {
 	/**
 	 * Path of .html file with help for flags
 	 */
-	private static final String flagsHelpPath="flagsVars/flags.html";
+	private static final String flagsHelpPath="flagVars/flags.html";
 
 	/**
 	 * Path of .html file with help for vars
 	 */
-	private static final String varsHelpPath="flagsVars/vars.html";
+	private static final String varsHelpPath="flagVars/vars.html";
 
 	
 	/**
