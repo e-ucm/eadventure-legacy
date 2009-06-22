@@ -576,18 +576,13 @@ public class Controller {
 			exportsFolder.mkdirs( );
 		}
 		
-		// Set default values for the item and NPC references
-
-		languageFile = ReleaseFolders.getLanguageFromPath(ConfigData.getLanguangeFile( ));
-		// Default language: english
-		if (languageFile == ReleaseFolders.LANGUAGE_UNKNOWN)
-			languageFile = ReleaseFolders.LANGUAGE_ENGLISH;
+		//Create splash screen
 		loadingScreen = new LoadingScreen("PRUEBA",ConfigData.getLoadingImage( ),null);
-
-		// Init the strings of the application
-		TextConstants.loadStrings( ReleaseFolders.getLanguageFilePath4Editor(true, languageFile) );
-		TextConstants.appendStrings( ReleaseFolders.getLanguageFilePath4Editor(false, languageFile) );
-
+		
+		// Set values for language config
+		languageFile = ReleaseFolders.LANGUAGE_UNKNOWN;
+		setLanguage(ReleaseFolders.getLanguageFromPath(ConfigData.getLanguangeFile( )), false);
+		
 		// Create a list for the chapters
 		chaptersController = new ChapterListDataControl();
 
@@ -601,7 +596,8 @@ public class Controller {
 		//identifierSummary = new IdentifierSummary( getSelectedChapterData( ) );
 		
 		dataModified = false;
-
+		
+		//Create main window and hide it
 		mainWindow = new MainWindow( );
 		mainWindow.setVisible( false );
 
@@ -2948,11 +2944,11 @@ public class Controller {
 	}
 
 	public String getEditorMinVersion(){
-		return "0.11";
+		return "1.0";
 	}
 	
 	public String getEditorVersion(){
-		return "0.11";
+		return "1.0";
 	}
 
 	public void updateLOMLanguage( ) {
@@ -3012,28 +3008,39 @@ public class Controller {
 	public int getLanguage(){
 		return this.languageFile;
 	}
-	
+
 	/**
 	 * Sets the current language of the editor. Accepted values are {@value #LANGUAGE_ENGLISH} & {@value #LANGUAGE_ENGLISH}.
-	 * This method automatically updates the about, language strings, and loading image parameters.
+	 * This method automatically updates the about, language strings, and loading image parameters. 
+	 * 
+	 * The method will reload the main window always
 	 * @param language
 	 */
 	public void setLanguage ( int language ){
-		if (language == ReleaseFolders.LANGUAGE_SPANISH && languageFile!=ReleaseFolders.LANGUAGE_SPANISH){
-			ConfigData.setLanguangeFile( "es_ES.xml", "aboutES.html", "img/Editor2D-Loading-Esp.png");
-			languageFile = ReleaseFolders.LANGUAGE_SPANISH;
-			TextConstants.loadStrings( ReleaseFolders.getLanguageFilePath4Editor(true, language) );
+		setLanguage (language, true);
+	}
+
+	
+	/**
+	 * Sets the current language of the editor. Accepted values are {@value #LANGUAGE_ENGLISH} & {@value #LANGUAGE_ENGLISH}.
+	 * This method automatically updates the about, language strings, and loading image parameters. 
+	 * 
+	 * The method will reload the main window if reloadData is true
+	 * @param language
+	 */
+	public void setLanguage ( int language, boolean reloadData ){
+		if (language == ReleaseFolders.LANGUAGE_SPANISH && languageFile!=ReleaseFolders.LANGUAGE_SPANISH ||
+				language == ReleaseFolders.LANGUAGE_ENGLISH && languageFile!=ReleaseFolders.LANGUAGE_ENGLISH){
+			ConfigData.setLanguangeFile( 
+					ReleaseFolders.getLanguageFilePath(language), 
+					ReleaseFolders.getAboutFilePath(language),
+					ReleaseFolders.getLoadingImagePath(language));
+			languageFile = language;
+			TextConstants.loadStrings( ReleaseFolders.getLanguageFilePath4Editor(true, languageFile) );
 			TextConstants.appendStrings(ReleaseFolders.getLanguageFilePath4Editor(false, languageFile));
 			loadingScreen.setImage( getLoadingImage() );
-			mainWindow.reloadData( );
-		}
-		else if (language == ReleaseFolders.LANGUAGE_ENGLISH && languageFile!=ReleaseFolders.LANGUAGE_ENGLISH){
-			ConfigData.setLanguangeFile( "en_EN.xml", "aboutEN.html", "img/Editor2D-Loading-Eng.png");
-			languageFile =ReleaseFolders.LANGUAGE_ENGLISH;
-			TextConstants.loadStrings( ReleaseFolders.getLanguageFilePath4Editor(true, language) );
-			TextConstants.appendStrings(ReleaseFolders.getLanguageFilePath4Editor(false, languageFile));
-			loadingScreen.setImage( getLoadingImage() );
-			mainWindow.reloadData( );
+			if (reloadData)
+				mainWindow.reloadData( );
 		}
 	}
 	

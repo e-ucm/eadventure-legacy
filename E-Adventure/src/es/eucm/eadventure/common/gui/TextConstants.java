@@ -35,7 +35,9 @@ public class TextConstants {
         try {
             loadStrings ( new FileInputStream( languageFile ) );
         } catch( FileNotFoundException e ) {
+        	guiStrings = new Properties( );
             e.printStackTrace();
+            JOptionPane.showMessageDialog( null, "The language file was not found, please verify that the language files are on the disk.\nAlthough you may still be able to use the adventure editor, you might get occasional problems or get some unreadable texts.\nIf you get this error again, please try reinstalling the application.", "Error loading the language file", JOptionPane.ERROR_MESSAGE );
         }
     }
 
@@ -80,24 +82,24 @@ public class TextConstants {
 	 *            Name of the file containing the text
 	 */
 	public static void loadStrings( InputStream languageFile ) {
+		guiStrings = new Properties( );
 		try {
-			guiStrings = new Properties( );
 			guiStrings.loadFromXML( languageFile );
 		}
 
 		// If the file is bad formed
 		catch( InvalidPropertiesFormatException e ) {
-			JOptionPane.showMessageDialog( null, "The language file is bad-formed, please try to use another language file.\nThe default language (English) will be loaded.", "Error loading the language file", JOptionPane.ERROR_MESSAGE );
+			JOptionPane.showMessageDialog( null, "The language file is bad-formed, please try to use another language file.\nAlthough you may still be able to use the adventure editor, you might get occasional problems or get some unreadable texts.\nIf you get this error again, please try reinstalling the application.", "Error loading the language file", JOptionPane.ERROR_MESSAGE );
 		}
 
 		// If the file was not found
 		catch( FileNotFoundException e ) {
-			JOptionPane.showMessageDialog( null, "The language file was not found, please verify that the \"config.xml\" file contains a reference to a valid language file.\nThe default language (English) will be loaded.", "Error loading the language file", JOptionPane.ERROR_MESSAGE );
+			JOptionPane.showMessageDialog( null, "The language file was not found, please verify that the language files are on the disk.\nAlthough you may still be able to use the adventure editor, you might get occasional problems or get some unreadable texts.\nIf you get this error again, please try reinstalling the application.", "Error loading the language file", JOptionPane.ERROR_MESSAGE );
 		}
 
 		// If there was a I/O exception
 		catch( IOException e ) {
-			JOptionPane.showMessageDialog( null, "There has been an error loading the language file, please check for problem accessing the files.\nThe default language (English) will be loaded.", "Error loading the language file", JOptionPane.ERROR_MESSAGE );
+			JOptionPane.showMessageDialog( null, "There has been an error loading the language file, please check for problem accessing the files.\nAlthough you may still be able to use the adventure editor, you might get occasional problems or get some unreadable texts.\nIf you get this error again, please try reinstalling the application.", "Error loading the language file", JOptionPane.ERROR_MESSAGE );
 		}
 	}
 
@@ -111,6 +113,7 @@ public class TextConstants {
             appendStrings ( new FileInputStream( languageFile ) );
         } catch( FileNotFoundException e ) {
             e.printStackTrace();
+            JOptionPane.showMessageDialog( null, "One of the language file required was not found, please verify that the language files are on the disk.\nAlthough you may still be able to use the adventure editor, you might get occasional problems or get some unreadable texts.\nIf you get this error again, please try reinstalling the application.", "Error loading the language file", JOptionPane.ERROR_MESSAGE );
         }
 	}
 
@@ -131,17 +134,17 @@ public class TextConstants {
 
 		// If the file is bad formed
 		catch( InvalidPropertiesFormatException e ) {
-			JOptionPane.showMessageDialog( null, "The language file is bad-formed, please try to use another language file.\nThe default language (English) will be loaded.", "Error loading the language file", JOptionPane.ERROR_MESSAGE );
+			JOptionPane.showMessageDialog( null, "The language file is bad-formed, please try to use another language file.\nAlthough you may still be able to use the adventure editor, you might get occasional problems or get some unreadable texts.\nIf you get this error again, please try reinstalling the application.", "Error loading the language file", JOptionPane.ERROR_MESSAGE );
 		}
 
 		// If the file was not found
 		catch( FileNotFoundException e ) {
-			JOptionPane.showMessageDialog( null, "The language file was not found, please verify that the \"config.xml\" file contains a reference to a valid language file.\nThe default language (English) will be loaded.", "Error loading the language file", JOptionPane.ERROR_MESSAGE );
+			JOptionPane.showMessageDialog( null, "One of the language file required was not found, please verify that the language files are on the disk.\nAlthough you may still be able to use the adventure editor, you might get occasional problems or get some unreadable texts.\nIf you get this error again, please try reinstalling the application.", "Error loading the language file", JOptionPane.ERROR_MESSAGE );
 		}
 
 		// If there was a I/O exception
 		catch( IOException e ) {
-			JOptionPane.showMessageDialog( null, "There has been an error loading the language file, please check for problem accessing the files.\nThe default language (English) will be loaded.", "Error loading the language file", JOptionPane.ERROR_MESSAGE );
+			JOptionPane.showMessageDialog( null, "There has been an error loading the language file, please check for problem accessing the files.\nAlthough you may still be able to use the adventure editor, you might get occasional problems or get some unreadable texts.\nIf you get this error again, please try reinstalling the application.", "Error loading the language file", JOptionPane.ERROR_MESSAGE );
 		}
 	}
 

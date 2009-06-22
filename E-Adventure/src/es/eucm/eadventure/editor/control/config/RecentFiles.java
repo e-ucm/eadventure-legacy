@@ -29,7 +29,11 @@ public class RecentFiles {
 	public RecentFiles( Properties properties ) {
 		nFiles = 0;
 		if( properties.containsKey( "RecentFiles" ) ) {
-			nFiles = Integer.parseInt( properties.getProperty( "RecentFiles" ) );
+			try {
+				nFiles = Integer.parseInt( properties.getProperty( "RecentFiles" ) );
+			} catch (Exception e){
+				// If any problem reading or parsing the number of recent files, do not use that field
+			}
 		}
 		recentFiles = new RecentFile[MAX_FILES];
 		int nCorrectFiles = nFiles;
@@ -45,7 +49,10 @@ public class RecentFiles {
 					RecentFile recentFile = new RecentFile( path, date );
 					recentFiles[i] = recentFile;
 				} catch( ParseException e ) {
-		        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
+		        	//ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
+					// If any errors, just discard the recent file
+					recentFiles[i] = null;
+					nCorrectFiles--;
 				}
 			} else {
 				recentFiles[i] = null;

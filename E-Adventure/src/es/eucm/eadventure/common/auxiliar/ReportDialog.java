@@ -10,10 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -49,7 +47,6 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import es.eucm.eadventure.common.gui.TextConstants;
-import es.eucm.eadventure.engine.EAdventure;
 
 
 /**
@@ -290,21 +287,26 @@ public class ReportDialog extends JDialog {
 		release = null;
 		if (moreinfo.exists()) {
 			try {
-				FileReader fis = new FileReader(moreinfo);
-				BufferedReader dis = new BufferedReader(fis);
-				release = "RELEASE: ";
-				if (dis.ready()) {
-					release += dis.readLine();
+				FileInputStream fis = new FileInputStream(moreinfo);
+				BufferedInputStream bis = new BufferedInputStream(fis);
+				int nextChar = -1;
+				while ((nextChar = bis.read()) != -1) {
+					if (release == null)
+						release = "RELEASE: " + (char)nextChar;
+					else
+						release += (char)nextChar;
 				}
-				JLabel lrelease = new JLabel(release);
-				this.add(lrelease, c);
-				c.gridy++;
-				dis.close();
-				fis.close();
+				
+				if (release!=null){
+					JLabel lrelease = new JLabel(release);
+					this.add(lrelease, c);
+					c.gridy++;
+				}
 			} catch (Exception ex) {
-				ex.printStackTrace();
 			}
+		} else {
 		}
+
 
 		JPanel descriptionPanel = new JPanel();
 		descriptionPanel.setLayout(new BorderLayout());
@@ -396,21 +398,28 @@ public class ReportDialog extends JDialog {
 		this.add(ljava, c);
 		c.gridy++;
 
-		File moreinfo = new File("./RELEASE");
+		File moreinfo = new File("RELEASE");
 		release = null;
 		if (moreinfo.exists()) {
 			try {
 				FileInputStream fis = new FileInputStream(moreinfo);
 				BufferedInputStream bis = new BufferedInputStream(fis);
-				DataInputStream dis = new DataInputStream(bis);
-				if (dis.available() != 0) {
-					release = "RELEASE: " + dis.readUTF();
+				int nextChar = -1;
+				while ((nextChar = bis.read()) != -1) {
+					if (release == null)
+						release = "RELEASE: " + (char)nextChar;
+					else
+						release += (char)nextChar;
+				}
+				
+				if (release!=null){
 					JLabel lrelease = new JLabel(release);
 					this.add(lrelease, c);
 					c.gridy++;
 				}
 			} catch (Exception ex) {
 			}
+		} else {
 		}
 
 		
@@ -519,7 +528,7 @@ public class ReportDialog extends JDialog {
 			HttpURLConnection.setFollowRedirects(true);
 			con.setInstanceFollowRedirects(true);
 			DataOutputStream out = new DataOutputStream(con.getOutputStream());
-			String content = "type=" + (error ? "bug" : "comment" ) + "&version=" + EAdventure.VERSION + "&file=" + report;
+			String content = "type=" + (error ? "bug" : "comment" ) + "&version=" + release + "&file=" + report;
 			out.writeBytes (content);
 			out.flush ();
 			out.close ();

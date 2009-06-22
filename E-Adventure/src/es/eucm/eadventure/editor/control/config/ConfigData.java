@@ -156,6 +156,7 @@ public class ConfigData {
 			languageFile = configuration.getProperty( "LanguageFile" );
 			aboutFile = configuration.getProperty( "AboutFile" );
 			loadingImage = configuration.getProperty( "LoadingImage" );
+			
 			showItemReferences = Boolean.parseBoolean( configuration.getProperty( "ShowItemReferences" ) );
 			showNPCReferences = Boolean.parseBoolean( configuration.getProperty( "ShowNPCReferences" ) );
 			showStartDialog = Boolean.parseBoolean( configuration.getProperty( "ShowStartDialog" ) );

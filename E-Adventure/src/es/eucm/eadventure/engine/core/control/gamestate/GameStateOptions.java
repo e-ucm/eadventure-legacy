@@ -238,14 +238,32 @@ public class GameStateOptions extends GameState {
         }
         
         imgButton = MultimediaManager.getInstance( ).loadImage( "gui/options/Button.png", MultimediaManager.IMAGE_MENU );
+        if (imgButton==null)
+        	imgButton = createImage(190,48, "");
         imgPressedButton = MultimediaManager.getInstance( ).loadImage( "gui/options/PressedButton.png", MultimediaManager.IMAGE_MENU );
+        if (imgPressedButton==null)
+        	imgPressedButton = createImage(190,48, "");
 
         imgPanel = new Image[ NUMBER_OF_PANELS ];
         imgPanel[OPTIONS_PANEL] = MultimediaManager.getInstance( ).loadImage( TextConstants.getText( "Options.OptionsPanel" ), MultimediaManager.IMAGE_MENU );
+        if (imgPanel[OPTIONS_PANEL]==null)
+        	imgPanel[OPTIONS_PANEL] = createImage(200,300, "Options");
+        	
         imgPanel[SAVELOAD_PANEL] = MultimediaManager.getInstance( ).loadImage( TextConstants.getText( "Options.SaveLoadPanel" ), MultimediaManager.IMAGE_MENU );
+        if (imgPanel[SAVELOAD_PANEL]==null)
+        	imgPanel[SAVELOAD_PANEL] = createImage(200,204, "Save/Load");
+        
         imgPanel[SAVE_PANEL] = MultimediaManager.getInstance( ).loadImage( TextConstants.getText( "Options.SavePanel" ), MultimediaManager.IMAGE_MENU );
+        if (imgPanel[SAVE_PANEL]==null)
+        	imgPanel[SAVE_PANEL] = createImage(200,300, "Save game");
+        
         imgPanel[LOAD_PANEL] = MultimediaManager.getInstance( ).loadImage( TextConstants.getText( "Options.LoadPanel" ), MultimediaManager.IMAGE_MENU );
+        if (imgPanel[LOAD_PANEL]==null)
+        	imgPanel[LOAD_PANEL] = createImage(200,300, "Load game");
+        
         imgPanel[CONFIGURATION_PANEL] = MultimediaManager.getInstance( ).loadImage( TextConstants.getText( "Options.ConfigurationPanel" ), MultimediaManager.IMAGE_MENU );
+        if (imgPanel[CONFIGURATION_PANEL]==null)
+        	imgPanel[CONFIGURATION_PANEL] = createImage(200,252, "Configuration");
 
         panelPosition = new Point( ( GAME_AREA_WIDTH - imgPanel[currentPanel].getWidth( null ) ) / 2, ( GAME_AREA_HEIGHT - imgPanel[currentPanel].getHeight( null ) ) / 2 );
 
@@ -674,5 +692,22 @@ public class GameStateOptions extends GameState {
     		break; 		
     	}
    
+    }
+    
+    private BufferedImage createImage ( int width, int height, String text){
+    	BufferedImage im = new BufferedImage ( width, height, BufferedImage.TYPE_INT_RGB);
+    	
+    	Graphics2D gr = (Graphics2D)im.getGraphics();
+    	gr.setColor(Color.black);
+    	gr.fillRect(0, 0, width, height);
+    	gr.setColor(Color.LIGHT_GRAY);
+    	for (int i=0; i<5; i++)
+    		gr.drawRect(i, i, width-i, height-i);
+    	gr.setColor(Color.white);
+    	gr.setFont( optionsFont );
+    	gr.drawString(text, 5, 25);
+    	gr.dispose();
+    	
+    	return im;
     }
 }

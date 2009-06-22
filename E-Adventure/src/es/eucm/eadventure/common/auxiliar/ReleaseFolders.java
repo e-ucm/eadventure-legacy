@@ -34,6 +34,14 @@ public class ReleaseFolders {
 	
 	private static final String SPANISH_FILE = "es_ES.xml";
 	
+	private static final String ENGLISH_ABOUT_FILE = "aboutEN.html";
+	
+	private static final String SPANISH_ABOUT_FILE = "aboutES.html";
+	
+	private static final String ENGLISH_LOADING_IMAGE = "img/Editor2D-Loading-Eng.png";
+	
+	private static final String SPANISH_LOADING_IMAGE = "img/Editor2D-Loading-Esp.png";
+	
 	/**
 	 * Language constant for Unknown language
 	 */
@@ -49,6 +57,11 @@ public class ReleaseFolders {
 	 */
 	public static final int LANGUAGE_ENGLISH = 1;
 	
+	/**
+	 * Language constant for Default language
+	 */
+	public static final int LANGUAGE_DEFAULT = LANGUAGE_ENGLISH;
+
 	public static final File projectsFolder(){
 		return new File(PROJECTS_FOLDER);
 	}
@@ -107,20 +120,64 @@ public class ReleaseFolders {
 	
 	/**
 	 * Returns the language ({@link #LANGUAGE_ENGLISH} or {@value #LANGUAGE_SPANISH}) associated to the relative path passed as argument. If no language is
-	 * recognized, returns {@value #LANGUAGE_UNKNOWN}
+	 * recognized, or if path is null, the method returns {@value #LANGUAGE_DEFAULT}
 	 * @param path
 	 * @return
 	 */
 	public static int getLanguageFromPath ( String path ){
-		if (path.toLowerCase().contains(ENGLISH_FILE.toLowerCase())){
+		if (path!=null && path.toLowerCase().contains(ENGLISH_FILE.toLowerCase())){
 			return LANGUAGE_ENGLISH;
 		}
-		else if (path.toLowerCase().contains(SPANISH_FILE.toLowerCase())){
+		else if (path!=null && path.toLowerCase().contains(SPANISH_FILE.toLowerCase())){
 			return LANGUAGE_SPANISH;
 		} else 
-			return LANGUAGE_UNKNOWN;
+			return LANGUAGE_DEFAULT;
 
 	}
+	
+	public static final String getAboutFilePath ( int language ){
+		if (language == LANGUAGE_ENGLISH){
+			return ENGLISH_ABOUT_FILE;
+		}
+		
+		else if (language == LANGUAGE_SPANISH){
+			return SPANISH_ABOUT_FILE;
+		}
+		
+		else{
+			return getAboutFilePath ( LANGUAGE_DEFAULT );
+		}
+	}
+	
+	public static final String getLoadingImagePath ( int language ){
+		if (language == LANGUAGE_ENGLISH){
+			return ENGLISH_LOADING_IMAGE;
+		}
+		
+		else if (language == LANGUAGE_SPANISH){
+			return SPANISH_LOADING_IMAGE;
+		}
+		
+		else{
+			return getLoadingImagePath ( LANGUAGE_DEFAULT );
+		}
+	}
+	
+	public static final String getLanguageFilePath ( int language ){
+		if (language == LANGUAGE_ENGLISH){
+			return ENGLISH_FILE;
+		}
+		
+		else if (language == LANGUAGE_SPANISH){
+			return SPANISH_FILE;
+		}
+		
+		else{
+			return getLanguageFilePath ( LANGUAGE_DEFAULT );
+		}
+	}
+
+
 
 	/**
 	 * @param projects_folder the pROJECTS_FOLDER to set

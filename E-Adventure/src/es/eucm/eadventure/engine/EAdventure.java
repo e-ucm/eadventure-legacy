@@ -27,7 +27,27 @@ import javax.swing.*;
  */
 public class EAdventure {
     
-	public static String VERSION = "0.11";
+	public static String VERSION = "1.0";
+	
+	public static int languageFile=ReleaseFolders.LANGUAGE_UNKNOWN;
+	
+	/**
+	 * Sets the current language of the editor. Accepted values are {@value #LANGUAGE_ENGLISH} & {@value #LANGUAGE_ENGLISH}.
+	 * This method automatically updates the about, language strings, and loading image parameters. 
+	 * 
+	 * The method will reload the main window if reloadData is true
+	 * @param language
+	 */
+	public static void setLanguage ( int language ){
+		if (language == ReleaseFolders.LANGUAGE_SPANISH && languageFile!=ReleaseFolders.LANGUAGE_SPANISH ||
+				language == ReleaseFolders.LANGUAGE_ENGLISH && languageFile!=ReleaseFolders.LANGUAGE_ENGLISH){
+			ConfigData.setLanguangeFile( 
+					ReleaseFolders.getLanguageFilePath(language), 
+					ReleaseFolders.getAboutFilePath(language));
+			languageFile = language;
+			TextConstants.loadStrings( ReleaseFolders.getLanguageFilePath4Engine(languageFile) );
+		}
+	}
 	
 	/**
      * Launchs a new e-Adventure game
@@ -37,10 +57,13 @@ public class EAdventure {
 
         // Load the configuration
         ConfigData.loadFromXML( ReleaseFolders.configFileEngineRelativePath() );
-        String languageFile = ConfigData.getLanguangeFile( );
+        
+        if (args.length >= 2){
+        	setLanguage(ReleaseFolders.getLanguageFromPath(args[1]));
+        } else
+        	setLanguage(ReleaseFolders.getLanguageFromPath(ConfigData.getLanguangeFile( )));
+        
 
-        // Init the strings of the application
-        TextConstants.loadStrings( ReleaseFolders.LANGUAGE_DIR_ENGINE+"/"+languageFile );
         File.setDefaultArchiveDetector(new DefaultArchiveDetector(
                 ArchiveDetector.NULL, // delegate
                 new String[] {
@@ -77,12 +100,9 @@ public class EAdventure {
         		file = new File("");
         	}
         } 
-        if (args.length >= 2){
-        	languageFile = args[1];
-        } else
-        	languageFile = "";
+
         
-        gameLauncher.init(file, languageFile);
+        gameLauncher.init(file);
         /*if (args.length == 0) 
             gameLauncher.init( new File( "" ), "" );
         else {

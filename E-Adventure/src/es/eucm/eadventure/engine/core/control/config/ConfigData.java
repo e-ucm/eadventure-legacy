@@ -16,8 +16,6 @@ import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
 
 public class ConfigData {
 
-    private boolean showStartDialog;
-    
     private static ConfigData instance;
 
     private String configFile;
@@ -36,29 +34,6 @@ public class ConfigData {
      */
     private String aboutFile;
     
-    /**
-     * Stores the file that contains the loading screen.
-     */
-    private String loadingImage;
-
-    /**
-     * Stores whether the item references must be displayed by default.
-     */
-    private boolean showItemReferences;
-
-    /**
-     * Stores whether the character references must be displayed by default.
-     */
-    private boolean showNPCReferences;
-
-    public static boolean showNPCReferences( ) {
-        return instance.showNPCReferences;
-    }
-
-    public static boolean showItemReferences( ) {
-        return instance.showItemReferences;
-    }
-
     public static String getLanguangeFile( ) {
         return instance.languageFile;
     }
@@ -67,40 +42,16 @@ public class ConfigData {
         return instance.aboutFile;
     }
     
-    public static String getLoadingImage( ) {
-        return instance.loadingImage;
-    }
 
-    public static boolean showStartDialog( ) {
-        return instance.showStartDialog;
-    }
-
-    public static void setShowNPCReferences( boolean b ) {
-        instance.showNPCReferences = b;
-    }
-
-    public static void setShowItemReferences( boolean b ) {
-        instance.showItemReferences = b;
-    }
-
-    public static void setLanguangeFile( String language, String about, String loadingImage ) {
+    public static void setLanguangeFile( String language, String about) {
         instance.languageFile = language;
         instance.aboutFile = about;
-        instance.loadingImage = loadingImage;
     }
     
     public static void setAboutFile( String s ) {
         instance.aboutFile = s;
     }
     
-    public static void setLoadingImage( String s ) {
-        instance.loadingImage = s;
-    }
-
-    public static void setShowStartDialog( boolean b ) {
-        instance.showStartDialog = b;
-    }
-
     public static void loadFromXML( String configFile ) {
         instance = new ConfigData( configFile );
     }
@@ -114,10 +65,14 @@ public class ConfigData {
         if (instance.configFile!=null){
             // Load the current configuration
             Properties configuration = new Properties( );
-            configuration.setProperty( "LanguageFile", instance.languageFile );
-            configuration.setProperty( "AboutFile", instance.aboutFile );
-    		configuration.setProperty( "ExportsDirectory", instance.exportsPath );
-    		configuration.setProperty( "ReportsDirectory", instance.reportsPath );
+            if (instance.languageFile!=null)
+            	configuration.setProperty( "LanguageFile", instance.languageFile );
+            if (instance.aboutFile!=null)
+            	configuration.setProperty( "AboutFile", instance.aboutFile );
+            if (instance.exportsPath!=null)
+            	configuration.setProperty( "ExportsDirectory", instance.exportsPath );
+            if (instance.reportsPath!=null)
+            	configuration.setProperty( "ReportsDirectory", instance.reportsPath );
             // Store the configuration into a file
             try {
                 configuration.storeToXML( new FileOutputStream( instance.configFile ), "<e-Adventure> engine configuration" );
