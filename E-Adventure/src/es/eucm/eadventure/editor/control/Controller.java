@@ -887,12 +887,12 @@ public class Controller {
 			else if( option == JOptionPane.NO_OPTION ){
 				createNewFile = true;
 				dataModified = false;
+				mainWindow.updateTitle();
 			}
 
 			// Cancel the action if selected
 			else if( option == JOptionPane.CANCEL_OPTION ){
 				createNewFile = false;
-				dataModified = false;
 			}
 
 		}
@@ -1309,12 +1309,12 @@ public class Controller {
 				else if( option == JOptionPane.NO_OPTION ){
 					loadFile = true;
 					dataModified = false;
+					mainWindow.updateTitle();
 				}
 	
 				// Cancel the action if selected
 				else if( option == JOptionPane.CANCEL_OPTION ){
 				    loadFile = false;
-				    dataModified = false;
 				}
 				
 			}
@@ -1638,12 +1638,12 @@ public class Controller {
 				else if( option == JOptionPane.NO_OPTION ){
 					importGame = true;
 					dataModified = false;
+					mainWindow.updateTitle();
 				}
 	
 				// Cancel the action if selected
 				else if( option == JOptionPane.CANCEL_OPTION ){
 				    importGame = false;
-				    dataModified = false;
 				}
 					
 	
