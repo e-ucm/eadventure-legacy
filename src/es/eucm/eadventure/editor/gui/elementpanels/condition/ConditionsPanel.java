@@ -33,8 +33,8 @@ public class ConditionsPanel extends JPanel implements Updateable, ConditionsPan
 	 * Required
 	 */
 	private static final long serialVersionUID = -3452049823030669523L;
-	public static final Color FLAG_COLOR = Color.RED;
-	public static final Color VAR_COLOR = Color.BLUE;
+	public static final Color FLAG_COLOR = new Color(220,5,5,50);
+	public static final Color VAR_COLOR = new Color (5,5,220,50);
 	
 	/*
 	 * Colors
