@@ -620,7 +620,7 @@ public class Controller {
 						String absolutePath = projectFile.getPath();
 						loadFile(absolutePath.substring(0, absolutePath.length() - 4), true);
 					} else if (projectFile.isDirectory( ) && projectFile.exists( ))
-						loadFile( start.getSelectedFile( ).getAbsolutePath( ), true );
+						loadFile( start.getSelectedFile( ).getAbsolutePath( ), true);
 				}
 			}
 			
@@ -636,12 +636,12 @@ public class Controller {
 						String absolutePath = selectedFile.getPath();
 						loadFile(absolutePath.substring(0, absolutePath.length() - 4), true);
 					} else if (selectedFile.isDirectory( ) && selectedFile.exists( ))
-						loadFile( start.getSelectedFile( ).getAbsolutePath( ), true );
+						loadFile( start.getSelectedFile( ).getAbsolutePath( ), true);
 					else {
 						this.importGame( selectedFile.getAbsolutePath( ) );
 					}
 				} else if( op == StartDialog.RECENT_FILE_OPTION ) {
-					loadFile( start.getRecentFile( ).getAbsolutePath( ), true );
+					loadFile( start.getRecentFile( ).getAbsolutePath( ), true);
 				} else if( op == StartDialog.CANCEL_OPTION ) {
 					exit( );
 				}
@@ -884,12 +884,16 @@ public class Controller {
 				createNewFile = saveFile( false );
 
 			// If the data must not be saved, create the new data directly
-			else if( option == JOptionPane.NO_OPTION )
+			else if( option == JOptionPane.NO_OPTION ){
 				createNewFile = true;
+				dataModified = false;
+			}
 
 			// Cancel the action if selected
-			else if( option == JOptionPane.CANCEL_OPTION )
+			else if( option == JOptionPane.CANCEL_OPTION ){
 				createNewFile = false;
+				dataModified = false;
+			}
 
 		}
 		
@@ -1336,12 +1340,12 @@ public class Controller {
 						String absolutePath = selectedFile.getPath();
 						loadFile(absolutePath.substring(0, absolutePath.length() - 4), true);
 					} else if (selectedFile.isDirectory( ) && selectedFile.exists( ))
-						loadFile( start.getSelectedFile( ).getAbsolutePath( ), true );
+						loadFile( start.getSelectedFile( ).getAbsolutePath( ), true);
 					else {
 						this.importGame( selectedFile.getAbsolutePath( ) );
 					}
 				} else if( op == StartDialog.RECENT_FILE_OPTION ) {
-					loadFile( start.getRecentFile( ).getAbsolutePath( ), true );
+					loadFile( start.getRecentFile( ).getAbsolutePath( ), true);
 				} else if( op == StartDialog.CANCEL_OPTION ) {
 					exit( );
 				}
@@ -1631,12 +1635,17 @@ public class Controller {
 					importGame = saveFile( false );
 	
 				// If the data must not be saved, load the new data directly
-				else if( option == JOptionPane.NO_OPTION )
+				else if( option == JOptionPane.NO_OPTION ){
 					importGame = true;
+					dataModified = false;
+				}
 	
 				// Cancel the action if selected
-				else if( option == JOptionPane.CANCEL_OPTION )
-					importGame = false;
+				else if( option == JOptionPane.CANCEL_OPTION ){
+				    importGame = false;
+				    dataModified = false;
+				}
+					
 	
 			}
 			
@@ -1740,7 +1749,7 @@ public class Controller {
 							//ProjectConfigData.loadFromXML( );
 							
 							// Load new project
-							loadFile( selectedDir.getAbsolutePath( ), false );
+							loadFile( selectedDir.getAbsolutePath( ), false);
 							//loadingScreen.close( );
 							loadingScreen.setVisible( false );
 						}
