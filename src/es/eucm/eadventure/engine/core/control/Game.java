@@ -1,7 +1,6 @@
 package es.eucm.eadventure.engine.core.control;
 
 import java.awt.Graphics2D;
-import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -413,6 +412,11 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         MultimediaManager.getInstance( ).flushImagePool( MultimediaManager.IMAGE_PLAYER );
         MultimediaManager.getInstance().flushAnimationPool();
         System.gc( );
+        
+        // REset game strings
+        GameText.reloadStrings();
+        // REset menu images
+		MultimediaManager.getInstance().flushImagePool(MultimediaManager.IMAGE_MENU);
 
         // Extract the chapter
         ChapterSummary chapter = gameDescriptor.getChapterSummaries( ).get( currentChapter );
@@ -1577,15 +1581,8 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     public void mouseClicked( MouseEvent e ) {
         currentState.mouseClicked( e );
         removeFakeDrags(e);
-        long gap = e.getWhen()-last;
-        last = e.getWhen();
-        System.out.println("//MOUSE CLICKED "+e.getClickCount()+" GAP="+gap);
-        
-        
     }
     
-    private long last = 0L;
-
     /*
      *  (non-Javadoc)
      * @see java.awt.event.MouseMotionListener#mouseMoved(java.awt.event.MouseEvent)
@@ -1603,7 +1600,6 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     public void mousePressed( MouseEvent e ) {
         currentState.mousePressed( e );
         removeFakeDrags(e);
-        System.out.println("//MOUSE PRESSED "+e.getClickCount());
     }
 
     /*
@@ -1613,7 +1609,6 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     public void mouseReleased( MouseEvent e ) {
         currentState.mouseReleased( e );
         removeFakeDrags(e);
-        System.out.println("//MOUSE RELEASED "+e.getClickCount());
     }
 
     /*

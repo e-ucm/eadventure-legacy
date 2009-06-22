@@ -23,7 +23,7 @@ public class File extends java.io.File{
 	private static final long serialVersionUID = -756962356996164247L;
 
 	private static String lastSlash ( String absolutePath ){
-		if (absolutePath.endsWith( "/" ) || absolutePath.endsWith( "\\" )){
+		if (absolutePath!=null && (absolutePath.endsWith( "/" ) || absolutePath.endsWith( "\\" ))){
 			return absolutePath.substring( 0, Math.max (absolutePath.lastIndexOf( "\\" ), absolutePath.lastIndexOf( "/" ) ));
 		}
 		else {

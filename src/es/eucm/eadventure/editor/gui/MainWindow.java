@@ -111,10 +111,14 @@ public class MainWindow extends JFrame {
 		// Create the list of icons of the window
 		List<Image> icons = new ArrayList<Image>();
 		
-		icons.add( AssetsController.getImage("img/Icono-Editor-16x16.png") );
+		/*icons.add( AssetsController.getImage("img/Icono-Editor-16x16.png") );
 		icons.add( AssetsController.getImage("img/Icono-Editor-32x32.png") );
 		icons.add( AssetsController.getImage("img/Icono-Editor-64x64.png") );
-		icons.add( AssetsController.getImage("img/Icono-Editor-128x128.png") );
+		icons.add( AssetsController.getImage("img/Icono-Editor-128x128.png") );*/
+		icons.add( new ImageIcon("img/Icono-Editor-16x16.png").getImage() );
+		icons.add( new ImageIcon("img/Icono-Editor-32x32.png").getImage() );
+		icons.add( new ImageIcon("img/Icono-Editor-64x64.png").getImage() );
+		icons.add( new ImageIcon("img/Icono-Editor-128x128.png").getImage() );
 		this.setIconImages(icons);
 
 		// First of all, create the bar

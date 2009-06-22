@@ -3,7 +3,6 @@ package es.eucm.eadventure.engine.gamelauncher;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
@@ -13,6 +12,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -48,8 +49,8 @@ import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.SAXException;
 
 import es.eucm.eadventure.engine.EAdventure;
-import es.eucm.eadventure.engine.core.control.config.ConfigData;
 import es.eucm.eadventure.engine.core.control.Game;
+import es.eucm.eadventure.engine.core.control.config.ConfigData;
 import es.eucm.eadventure.engine.gamelauncher.gameentry.GameEntry;
 import es.eucm.eadventure.engine.gamelauncher.gameentry.GameEntryHandler;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
@@ -77,11 +78,6 @@ public class GameLauncher extends JFrame implements Runnable {
 	 */
 	private static final long serialVersionUID = 95641854718010553L;
 
-	/**
-     * Stores the file that contains the GUI strings.
-     */
-    private String languageFile;
-    
     /**
      * Window's width
      */
@@ -178,7 +174,7 @@ public class GameLauncher extends JFrame implements Runnable {
     /**
      * Initializes the frame and loads the games in the current directory
      */
-    public void init( File file, String language ) {
+    public void init( File file ) {
 
 		// Create the list of icons of the window
 		List<Image> icons = new ArrayList<Image>();
@@ -191,15 +187,7 @@ public class GameLauncher extends JFrame implements Runnable {
     	
     	initGameLoad = false;
         // Load the configuration
-        ConfigData.loadFromXML( ReleaseFolders.configFileEngineRelativePath() );
-    	if (language == "")
-    		languageFile = ConfigData.getLanguangeFile( );
-    	else 
-    		languageFile = language;
-
-
-        // Init the strings of the application
-        TextConstants.loadStrings( ReleaseFolders.LANGUAGE_DIR_ENGINE+"/"+languageFile );
+        //ConfigData.loadFromXML( ReleaseFolders.configFileEngineRelativePath() );
         
         // Setup the window
         setSize( WINDOW_WIDTH, WINDOW_HEIGHT );
@@ -207,7 +195,19 @@ public class GameLauncher extends JFrame implements Runnable {
         setLocation( ( screenSize.width - WINDOW_WIDTH ) / 2, ( screenSize.height - WINDOW_HEIGHT ) / 2);
 
         setTitle(TextConstants.getText( "MainWindow.GameLauncherTitle" ));
-        setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+        setDefaultCloseOperation( JFrame.DO_NOTHING_ON_CLOSE );
+        this.addWindowListener(new WindowAdapter(){
+
+			@Override
+			public void windowClosed(WindowEvent e) {
+			}
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+				end = true;
+			}
+        	
+        });
         
         // Creation of the three panels
         currentDirectoryPanel = createCurrentDirectoryPanel( file );
@@ -460,9 +460,9 @@ public class GameLauncher extends JFrame implements Runnable {
     		args[0] = "";
     		
     		if ( combo.getSelectedItem().toString().equals(TextConstants.getText("MainWindow.Spanish")) ) {
-    			args[1] = "es_ES.xml";
-    		} else  
-        		args[1] = "en_EN.xml";
+    			args[1] = ReleaseFolders.getLanguageFilePath(ReleaseFolders.LANGUAGE_SPANISH);
+    		} else
+        		args[1] = ReleaseFolders.getLanguageFilePath(ReleaseFolders.LANGUAGE_ENGLISH);
 
     		EAdventure.main(args);
         	
@@ -515,6 +515,9 @@ public class GameLauncher extends JFrame implements Runnable {
             } catch( InterruptedException e ) {
             }
         }
+        
+        ConfigData.storeToXML();
+        
         this.setEnabled( false );
         this.setVisible( false );
         this.setFocusable( false );
