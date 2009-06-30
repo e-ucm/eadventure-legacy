@@ -71,7 +71,7 @@ public class NPCDataControl extends DataControlWithResources {
 	 * @return Path to the image, null if not present
 	 */
 	public String getPreviewImage( ) {
-		String previewImagePath = resourcesDataControlList.get( selectedResources ).getAssetPath( "standdown" );
+		String previewImagePath = getExistingPreviewImagePath();
 
 		// Add the extension of the frame
 		if( previewImagePath != null && !previewImagePath.toLowerCase().endsWith(".eaa"))
@@ -81,6 +81,30 @@ public class NPCDataControl extends DataControlWithResources {
 		}
 		
 		return previewImagePath;
+	}
+	
+	/**
+	 * Look for one image path. If there no one, return empty animation path
+	 * 
+	 */
+	private String getExistingPreviewImagePath(){
+	    String path = null;
+	    for  (ResourcesDataControl resource : resourcesDataControlList) {
+	    path = resource.getAssetPath( "standright" );
+	    if (path!=null){
+		return path;
+	    }
+	    
+	    for (int i=0;i<resource.getAssetCount();i++){
+		path = resource.getAssetPath(resource.getAssetName(i));
+		if (path!=null){
+		    return path;
+		}
+	    }
+	    }
+	    
+	    
+	    return "assets/special/EmptyAnimation";
 	}
 
 	/**
