@@ -8,6 +8,7 @@ import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
 import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
+import es.eucm.eadventure.editor.control.config.RecentFiles;
 
 /**
  * This class is the one developed by Bruno, used in the Editor, modified to allow the use in 
@@ -93,9 +94,32 @@ public class ConfigData {
             reportsPath = configuration.getProperty("ReportsDirectory");
             if (reportsPath!=null)
             	ReleaseFolders.setReportsPath(reportsPath);
-        } catch( InvalidPropertiesFormatException e ) {} catch( FileNotFoundException e ) {} catch( IOException e ) {}
+        } catch( InvalidPropertiesFormatException e ) {
+        	checkConsistency();
+        } catch( FileNotFoundException e ) {
+        	checkConsistency();
+        } catch( IOException e ) {
+        	checkConsistency();
+        }
 
     }
+    
+	private void checkConsistency(){
+		if (languageFile == null){
+			languageFile = ReleaseFolders.getLanguageFilePath(ReleaseFolders.LANGUAGE_ENGLISH);
+		} 
+		if (aboutFile == null){
+			aboutFile = ReleaseFolders.getAboutFilePath(ReleaseFolders.LANGUAGE_ENGLISH);
+		}
+		if ( exportsPath==null){
+			
+		}
+		if (reportsPath ==null){
+			
+		}
+		
+		
+	}
 
    private ConfigData ( String languageFile, String aboutFile ){
        configFile = null;
