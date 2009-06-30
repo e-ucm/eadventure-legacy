@@ -144,6 +144,19 @@ public class ResourcesDataControl extends DataControl {
 	public int getAssetCount( ) {
 		return assetsInformation.length;
 	}
+	
+	
+	/**
+	 * Returns the name of the asset in the given position.
+	 * 
+	 * @param index
+	 *            Index of the asset
+	 * @return Name of the asset
+	 */
+	public String getAssetName( int index ) {
+		return assetsInformation[index].name;
+	}
+	
 
 	/**
 	 * Returns the description of the asset in the given position.
