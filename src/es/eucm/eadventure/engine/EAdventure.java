@@ -27,7 +27,7 @@ import javax.swing.*;
  */
 public class EAdventure {
     
-	public static String VERSION = "1.0";
+	public static String VERSION = "1.0b";
 	
 	public static int languageFile=ReleaseFolders.LANGUAGE_UNKNOWN;
 	

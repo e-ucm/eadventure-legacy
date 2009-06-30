@@ -1,8 +1,10 @@
 package es.eucm.eadventure.editor.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dialog;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.Window;
@@ -12,6 +14,7 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import es.eucm.eadventure.common.auxiliar.CreateImage;
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.editor.control.Controller;
 
@@ -19,7 +22,7 @@ public class LoadingScreen extends JDialog{
 
 	private String message;
 	
-	private ImageIcon icon = new ImageIcon(Controller.getInstance().getLoadingImage());
+	private ImageIcon icon;//=new ImageIcon(Controller.getInstance().getLoadingImage());
 	
 	private int status;
 	
@@ -44,7 +47,7 @@ public class LoadingScreen extends JDialog{
 		//this.setVisible( true );
 		
 		//this.setLayout( new BorderLayout() );
-		icon = new ImageIcon(imagePath);
+		setImage(imagePath);
 		//this.add( new JLabel(icon), BorderLayout.CENTER );
 		this.message = message;
 		int width = icon.getImage( ).getWidth( this );
@@ -86,7 +89,18 @@ public class LoadingScreen extends JDialog{
 	}
 	
 	public void setImage ( String imagePath ){
-		this.icon = new ImageIcon (imagePath);
+		if (imagePath!=null)
+			icon = new ImageIcon (imagePath);
+		else
+			icon = null;
+		
+		if (icon!=null&&icon.getImage() == null)
+			icon = null;
+		
+		if (icon == null){
+			icon = new ImageIcon(CreateImage.createImage(400, 300, new Color(250,208,108), 15, new Color(158,94,30), "Loading / Cargando", new Color(158,94,30), 
+					CreateImage.CENTER, CreateImage.CENTER, new Font ("Arial", Font.PLAIN, 14)));
+		}
 	}
 	
 	public class Timer extends Thread {

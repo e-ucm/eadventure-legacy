@@ -177,8 +177,42 @@ public class ConfigData {
             }
 			
 			recentFiles = new RecentFiles( configuration );
-		} catch( InvalidPropertiesFormatException e ) {} catch( FileNotFoundException e ) {} catch( IOException e ) {}
+		} catch( InvalidPropertiesFormatException e ) {
+			checkConsistency();
+		} catch( FileNotFoundException e ) {
+			checkConsistency();
+		} catch( IOException e ) {
+			checkConsistency();
+		} catch ( Exception e ){
+			checkConsistency();
+		}
 
+	}
+	
+	private void checkConsistency(){
+		if (languageFile == null){
+			languageFile = ReleaseFolders.getLanguageFilePath(ReleaseFolders.LANGUAGE_ENGLISH);
+		} 
+		if (aboutFile == null){
+			aboutFile = ReleaseFolders.getAboutFilePath(ReleaseFolders.LANGUAGE_ENGLISH);
+		}
+		if (loadingImage == null){
+			loadingImage = ReleaseFolders.getLoadingImagePath(ReleaseFolders.LANGUAGE_ENGLISH);
+		}
+		if ( exportsPath==null){
+			
+		}
+		if (projectsPath ==null){
+			
+		}
+		if (reportsPath ==null){
+			
+		}
+		if (recentFiles == null){
+			recentFiles = new RecentFiles( new Properties() );	
+		}
+		
+		
 	}
 
 	public static void fileLoaded( String file ) {

@@ -577,7 +577,7 @@ public class Controller {
 		}
 		
 		//Create splash screen
-		loadingScreen = new LoadingScreen("PRUEBA",ConfigData.getLoadingImage( ),null);
+		loadingScreen = new LoadingScreen("PRUEBA",getLoadingImage( ),null);
 		
 		// Set values for language config
 		languageFile = ReleaseFolders.LANGUAGE_UNKNOWN;
@@ -2944,11 +2944,11 @@ public class Controller {
 	}
 
 	public String getEditorMinVersion(){
-		return "1.0";
+		return "1.0b";
 	}
 	
 	public String getEditorVersion(){
-		return "1.0";
+		return "1.0b";
 	}
 
 	public void updateLOMLanguage( ) {
@@ -3035,6 +3035,7 @@ public class Controller {
 					ReleaseFolders.getLanguageFilePath(language), 
 					ReleaseFolders.getAboutFilePath(language),
 					ReleaseFolders.getLoadingImagePath(language));
+			//null);
 			languageFile = language;
 			TextConstants.loadStrings( ReleaseFolders.getLanguageFilePath4Editor(true, languageFile) );
 			TextConstants.appendStrings(ReleaseFolders.getLanguageFilePath4Editor(false, languageFile));

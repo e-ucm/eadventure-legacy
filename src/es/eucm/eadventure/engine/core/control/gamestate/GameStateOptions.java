@@ -22,6 +22,7 @@ import es.eucm.eadventure.engine.core.data.SaveGame;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
+import es.eucm.eadventure.common.auxiliar.CreateImage;
 import es.eucm.eadventure.common.gui.TextConstants;
 
 public class GameStateOptions extends GameState {
@@ -694,8 +695,9 @@ public class GameStateOptions extends GameState {
    
     }
     
-    private BufferedImage createImage ( int width, int height, String text){
-    	BufferedImage im = new BufferedImage ( width, height, BufferedImage.TYPE_INT_RGB);
+    private Image createImage ( int width, int height, String text){
+    	return CreateImage.createImage(width, height, text, optionsFont);
+    	/*BufferedImage im = new BufferedImage ( width, height, BufferedImage.TYPE_INT_RGB);
     	
     	Graphics2D gr = (Graphics2D)im.getGraphics();
     	gr.setColor(Color.black);
@@ -708,6 +710,6 @@ public class GameStateOptions extends GameState {
     	gr.drawString(text, 5, 25);
     	gr.dispose();
     	
-    	return im;
+    	return im;*/
     }
 }
