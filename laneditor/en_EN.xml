@@ -935,7 +935,7 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="Scene.Documentation">Full description of the scene</entry>
 	<entry key="Scene.Name">Name of the scene</entry>
 	<entry key="Scene.DefaultInitialPosition">Default initial position for the player</entry>
-	<entry key="Scene.UseInitialPosition">Use a default initial position in this scene</entry>
+	<entry key="Scene.UseInitialPosition">Use initial position </entry>
 	<entry key="Scene.EditInitialPosition">Edit the default initial position of the scene</entry>
 	<entry key="Scene.Preview">Preview of the complete scene</entry>
 	<entry key="Scene.LookPanelTitle">Appearance</entry>
@@ -943,7 +943,7 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="Scene.DocPanelTitle">Documentation</entry>
 	<entry key="Scene.DocPanelTip">Panel for the edition of the documentation of the scene</entry>
 	<entry key="Scene.UseTrajectory">Use trajectory</entry>
-	<entry key="Scene.UseTrajectoryPanel">Use trajectory</entry>
+	<entry key="Scene.UseTrajectoryPanel">Use trajectory or initial position</entry>
 	<entry key="Scene.AllowPlayer">Allow to choose the player´s layer</entry>
 	<entry key="Scene.AllowPlayerBorder">The player has painting layer </entry>
 	
