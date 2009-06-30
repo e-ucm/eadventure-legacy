@@ -101,7 +101,8 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel,Upd
 			for( ElementReferenceDataControl elementReference : referencesListDataControl.getNPCReferences( ) ) {
 				spep.addElement(ScenePreviewEditionPanel.CATEGORY_CHARACTER, elementReference);
 			}
-			if (!Controller.getInstance().isPlayTransparent()&& referencesListDataControl.getSceneDataControl().isAllowPlayer())
+			// Deleted the checking if player has layer
+			if (!Controller.getInstance().isPlayTransparent()/*&& referencesListDataControl.getSceneDataControl().isAllowPlayer()*/)
 				spep.addPlayer(referencesListDataControl.getSceneDataControl(), referencesListDataControl.getPlayerImage());
 		}
 		
@@ -175,10 +176,12 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel,Upd
 		tablePanel = new JPanel(new BorderLayout());
 				
 		isAllowPlayerLayer = new JCheckBox(TextConstants.getText("Scene.AllowPlayer"),referencesListDataControl.getSceneDataControl().isAllowPlayer());
-		isAllowPlayerLayer.setSelected( referencesListDataControl.getSceneDataControl().isAllowPlayer() );
+		//isAllowPlayerLayer.setSelected( referencesListDataControl.getSceneDataControl().isAllowPlayer() );
 		isAllowPlayerLayer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				referencesListDataControl.getSceneDataControl().changeAllowPlayerLayer(((JCheckBox) arg0.getSource()).isSelected(), null);
+				referencesListDataControl.getSceneDataControl().changeAllowPlayerLayer(((JCheckBox) arg0.getSource()).isSelected(), spep);
+				//spep.setDisplayCategory(int, true);
+				//spep.repaint();
 			}
 		});
 		

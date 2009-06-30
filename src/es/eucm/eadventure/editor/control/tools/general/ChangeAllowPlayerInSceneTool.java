@@ -5,6 +5,7 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
 import es.eucm.eadventure.editor.control.tools.Tool;
 import es.eucm.eadventure.editor.gui.elementpanels.scene.SceneLooksPanel;
+import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 
 public class ChangeAllowPlayerInSceneTool extends Tool{
 
@@ -12,14 +13,14 @@ public class ChangeAllowPlayerInSceneTool extends Tool{
 	
 	private boolean isAllow;
 	
-	private SceneLooksPanel looksPanel;
+	private ScenePreviewEditionPanel scenePreviewEditionPanel;
 	
 	private SceneDataControl scene ;
 	
-	public ChangeAllowPlayerInSceneTool(boolean isAllow,SceneLooksPanel looksPanel,SceneDataControl scene ){
+	public ChangeAllowPlayerInSceneTool(boolean isAllow,ScenePreviewEditionPanel scenePreviewEditionPanel,SceneDataControl scene ){
 		controller = Controller.getInstance();
 		this.isAllow = isAllow;
-		this.looksPanel = looksPanel;
+		this.scenePreviewEditionPanel = scenePreviewEditionPanel;
 		this.scene = scene;
 	}
 	
@@ -53,8 +54,11 @@ public class ChangeAllowPlayerInSceneTool extends Tool{
 		else{	
 			scene.deletePlayerInReferenceList();
 		}
-		if (looksPanel != null)
-			looksPanel.addPlayer();
+		if (scenePreviewEditionPanel != null){
+		    if (!Controller.getInstance().isPlayTransparent())
+			scenePreviewEditionPanel.addPlayer(scene, scene.getReferencesList().getPlayerImage());
+		scenePreviewEditionPanel.repaint();
+		}
 		
 		controller.updatePanel();
 		/*looksPanel = new SceneLooksPanel(looksPanel.getSceneDataControl());

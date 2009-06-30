@@ -44,8 +44,8 @@
 	hasInfluenceArea (yes | no) "no" 
 	%influence_area;
 	idTarget IDREF #IMPLIED
-	destinyX NMTOKEN #IMPLIED
-	destinyY NMTOKEN #IMPLIED
+	destinyX NMTOKEN "400"
+	destinyY NMTOKEN "300"
 	transitionTime CDATA "0"
 	transitionType CDATA "0"
 	not-effects (yes | no) "no"
@@ -135,8 +135,8 @@
 	start (yes | no) "no"
 	next (end-chapter | go-back | new-scene) "go-back"
 	idTarget IDREF #IMPLIED
-	destinyX NMTOKEN #IMPLIED
-	destinyY NMTOKEN #IMPLIED
+	destinyX NMTOKEN "400"
+	destinyY NMTOKEN "300"
 	transitionTime CDATA "0"
 	transitionType CDATA "0"
 >
@@ -147,8 +147,8 @@
 	start (yes | no) "no"
 	next (end-chapter | go-back | new-scene) "go-back"
 	idTarget IDREF #IMPLIED
-	destinyX NMTOKEN #IMPLIED
-	destinyY NMTOKEN #IMPLIED
+	destinyX NMTOKEN "400"
+	destinyY NMTOKEN "300"
 	transitionTime CDATA "0"
 	transitionType CDATA "0"
 >

@@ -164,8 +164,10 @@ public class ReferencesListDataControl extends DataControl{
 	
 	
 	public Image getPlayerImage(){
-		if (playerPositionInAllReferences==NO_PLAYER)
-			return null;
+	    	//CHANGE: Now, the image of the player must be taken from
+	   return AssetsController.getImage(Controller.getInstance().getPlayerImagePath());
+	    	/*if (playerPositionInAllReferences==NO_PLAYER)
+			return AssetsController.getImage(Controller.getInstance().getPlayerImagePath());
 		else{
 			if (imagePathHasChanged){
 				allReferencesDataControl.get(playerPositionInAllReferences).setImage(AssetsController.getImage( this.playerImagePath ));
@@ -173,7 +175,7 @@ public class ReferencesListDataControl extends DataControl{
 			}
 		//	if (allReferences!=null)
 				return allReferencesDataControl.get(playerPositionInAllReferences).getImage();
-		}
+		}*/
 			
 	}
 	
@@ -691,6 +693,7 @@ public class ReferencesListDataControl extends DataControl{
 			allReferencesDataControl.remove(playerPositionInAllReferences);
 			reassignLayerAllReferencesDataControl(playerPositionInAllReferences);
 			playerPositionInAllReferences  = NO_PLAYER;
+			playerImagePath = null;
 			sceneDataControl.setPlayerLayer(Scene.PLAYER_NO_ALLOWED);
 		}
 	}
@@ -706,6 +709,7 @@ public class ReferencesListDataControl extends DataControl{
 	
 	public void addPlayer(){
 		if (sceneDataControl.isAllowPlayer()){
+		    	playerImagePath = Controller.getInstance().getPlayerImagePath();
 			ElementContainer ec = new ElementContainer(null,0,AssetsController.getImage( this.playerImagePath ));
 			int layer = insertInOrder(ec,true);
 			reassignLayerAllReferencesDataControl(layer);

@@ -21,6 +21,7 @@ import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeNameTool
 import es.eucm.eadventure.editor.control.tools.scene.ChangePlayerScaleTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 import es.eucm.eadventure.editor.gui.elementpanels.scene.SceneLooksPanel;
+import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
 
 public class SceneDataControl extends DataControlWithResources {
 
@@ -473,8 +474,8 @@ public class SceneDataControl extends DataControlWithResources {
 		
 	}
 	
-	public void changeAllowPlayerLayer(boolean isAllowPlayerLayer, SceneLooksPanel looksPanel){		
-		Controller.getInstance().addTool(new ChangeAllowPlayerInSceneTool(isAllowPlayerLayer,looksPanel,this));
+	public void changeAllowPlayerLayer(boolean isAllowPlayerLayer, ScenePreviewEditionPanel scenePreviewEditionPanel){		
+		Controller.getInstance().addTool(new ChangeAllowPlayerInSceneTool(isAllowPlayerLayer,scenePreviewEditionPanel,this));
 	}
 	
 	

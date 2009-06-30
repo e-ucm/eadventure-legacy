@@ -109,8 +109,10 @@ public class Scene extends GeneralScene implements Positioned{
 	public Scene( String id ) {
 		super( GeneralScene.SCENE, id );
 
-		defaultX = Integer.MIN_VALUE;
-		defaultY = Integer.MIN_VALUE;
+		//defaultX = Integer.MIN_VALUE;
+		//defaultY = Integer.MIN_VALUE;
+		defaultX = 400;
+		defaultY = 300;
 		exits = new ArrayList<Exit>( );
 		itemReferences = new ArrayList<ElementReference>( );
 		atrezzoReferences = new ArrayList<ElementReference>( );
@@ -118,7 +120,7 @@ public class Scene extends GeneralScene implements Positioned{
 		activeAreas = new ArrayList<ActiveArea>();
 		barriers = new ArrayList<Barrier>();
 		playerLayer = PLAYER_WITHOUT_LAYER;
-		allowPlayerLayer = true;
+		allowPlayerLayer = false;
 		playerScale = 1.0f;
 	}
 
