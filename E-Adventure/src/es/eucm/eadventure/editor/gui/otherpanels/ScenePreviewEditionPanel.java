@@ -316,13 +316,18 @@ public class ScenePreviewEditionPanel extends JPanel {
 	 * @param image the image of the player
 	 */
 	public void addPlayer(SceneDataControl scene, Image image){
+	    addPlayer(scene,image,true);
+	}
+	
+	public void addPlayer(SceneDataControl scene, Image image,boolean isMovable){
 		Integer key = new Integer(CATEGORY_PLAYER);
-		addCategory(key, true, true);
+		addCategory(key, true, isMovable);
 		List<ImageElement> list = elements.get(key);
 		list.add(new ImageElementPlayer(image, scene));
 		recreateCheckBoxPanel();
 	}
 	
+		
 	/**
 	 * Add a barrier to the panel
 	 * 

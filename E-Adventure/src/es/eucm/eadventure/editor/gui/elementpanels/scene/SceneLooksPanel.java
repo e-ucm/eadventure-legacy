@@ -1,11 +1,13 @@
 package es.eucm.eadventure.editor.gui.elementpanels.scene;
 
 import java.awt.Dimension;
+import java.awt.Image;
 
 import javax.swing.BorderFactory;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
+import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.general.LooksPanel;
@@ -57,9 +59,11 @@ public class SceneLooksPanel extends LooksPanel{
 		for( ElementReferenceDataControl elementReference : sceneDataControl.getReferencesList( ).getAtrezzoReferences( ) ) {
 			scenePreviewEditionPanel.addElement(ScenePreviewEditionPanel.CATEGORY_ATREZZO, elementReference);
 		}
-		if (!Controller.getInstance().isPlayTransparent() && sceneDataControl.isAllowPlayer() )
-			scenePreviewEditionPanel.addPlayer(sceneDataControl, sceneDataControl.getReferencesList().getPlayerImage());
-		
+		// Deleted the checking if player has layer
+		if (!Controller.getInstance().isPlayTransparent() /*&& sceneDataControl.isAllowPlayer()*/ )
+			//scenePreviewEditionPanel.addPlayer(sceneDataControl, sceneDataControl.getReferencesList().getPlayerImage());
+		    scenePreviewEditionPanel.addPlayer(sceneDataControl, AssetsController.getImage(Controller.getInstance().getPlayerImagePath()));
+		    	
 		scenePreviewEditionPanel.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_OBJECT, false);
 		scenePreviewEditionPanel.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_CHARACTER, false);
 		scenePreviewEditionPanel.setMovableCategory(ScenePreviewEditionPanel.CATEGORY_ATREZZO, false);
@@ -70,7 +74,8 @@ public class SceneLooksPanel extends LooksPanel{
 	}
 	
 	public void addPlayer(){
-		if (!Controller.getInstance().isPlayTransparent() && sceneDataControl.isAllowPlayer())
+	 // Deleted the checking if player has layer
+		if (!Controller.getInstance().isPlayTransparent()/* && sceneDataControl.isAllowPlayer()*/)
 			scenePreviewEditionPanel.addPlayer(sceneDataControl, sceneDataControl.getReferencesList().getPlayerImage());
 		scenePreviewEditionPanel.repaint();
 	}

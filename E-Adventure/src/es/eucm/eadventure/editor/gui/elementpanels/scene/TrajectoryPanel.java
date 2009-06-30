@@ -5,10 +5,14 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
@@ -38,9 +42,9 @@ public class TrajectoryPanel extends JPanel implements Updateable {
 		
 	private SceneDataControl sceneDataControl;
 	
-	private JCheckBox useTrajectoryCheckBox;
+	private JRadioButton useTrajectoryRadioButton;
 	
-	private JCheckBox initialPositionCheckBox;
+	private JRadioButton initialPositionRadioButton;
 
 	private JPanel initialPositionPanel = null;
 	
@@ -60,16 +64,36 @@ public class TrajectoryPanel extends JPanel implements Updateable {
 		setLayout( new BorderLayout( ) );
 
 		
-		JPanel useTrajectoryPanel = new JPanel();
-		useTrajectoryPanel.setLayout( new GridLayout(0,1));
-		useTrajectoryCheckBox = new JCheckBox(TextConstants.getText("Scene.UseTrajectory"), sceneDataControl.getTrajectory().hasTrajectory());
-		useTrajectoryCheckBox.addActionListener( new TrajectoryCheckBoxListener() );
-		useTrajectoryPanel.add(useTrajectoryCheckBox);
-		useTrajectoryPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Scene.UseTrajectoryPanel" ) ) );
-
-		add(useTrajectoryPanel, BorderLayout.NORTH);
 		
-		if (dataControl.hasTrajectory()) {
+		// create button panel container
+		//JPanel useTrajectoryPanel = new JPanel();
+		//useTrajectoryPanel.setLayout( new GridLayout(0,1));
+		
+		JPanel buttonContainer = new JPanel();
+		buttonContainer.setLayout( new GridLayout(0,2));
+		
+		// create trajectory button
+		useTrajectoryRadioButton = new JRadioButton(TextConstants.getText("Scene.UseTrajectory"), sceneDataControl.getTrajectory().hasTrajectory());
+		useTrajectoryRadioButton.addItemListener( new TrajectoryCheckBoxListener() );
+		//useTrajectoryPanel.add(useTrajectoryRadioButton);
+		//useTrajectoryPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Scene.UseTrajectoryPanel" ) ) );
+		buttonContainer.add(useTrajectoryRadioButton);
+		buttonContainer.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Scene.UseTrajectoryPanel" ) ) );
+
+		// Create initial Position button
+		initialPositionRadioButton = new JRadioButton( TextConstants.getText( "Scene.UseInitialPosition" ), !sceneDataControl.getTrajectory().hasTrajectory());
+		initialPositionRadioButton.addItemListener( new InitialPositionCheckBoxListener( ) );
+		buttonContainer.add(initialPositionRadioButton);
+		
+		ButtonGroup buttonGroup = new ButtonGroup();
+		buttonGroup.add( useTrajectoryRadioButton );
+		buttonGroup.add( initialPositionRadioButton );
+		
+		add(buttonContainer, BorderLayout.NORTH);
+		
+		changePanel();
+		
+		/*if (dataControl.hasTrajectory()) {
 			tep = new TrajectoryEditionPanel(scenePath, dataControl);
 			spep = tep.getScenePreviewEditionPanel();
 			fillSpep();
@@ -77,8 +101,35 @@ public class TrajectoryPanel extends JPanel implements Updateable {
 		} else {
 			initialPositionPanel = createInitialPositionPanel();
 			add(initialPositionPanel , BorderLayout.CENTER );
-		}
+		}*/
 	}
+	
+	private void changePanel(){
+	    if (useTrajectoryRadioButton.isSelected()){
+		tep = new TrajectoryEditionPanel(scenePath, dataControl);
+		spep = tep.getScenePreviewEditionPanel();
+		fillSpep();
+		add( tep, BorderLayout.CENTER );
+	    }else{
+		initialPositionPanel = new JPanel();
+		initialPositionPanel.setLayout(new BorderLayout());
+		spep = new ScenePreviewEditionPanel(false, scenePath);
+		fillSpep();
+		initialPositionPanel.add(spep, BorderLayout.CENTER);
+		spep.setShowTextEdition(true);
+
+		if (initialPositionRadioButton.isSelected()) {
+		    Image image = AssetsController.getImage(Controller.getInstance().getPlayerImagePath());
+		    spep.addPlayer(sceneDataControl, image);
+		    spep.setSelectedElement(new ImageElementPlayer(image, sceneDataControl));
+		    spep.setFixedSelectedElement(true);
+		}
+		spep.repaint();
+		add(initialPositionPanel , BorderLayout.CENTER );
+	    }
+	   
+	}
+	
 
 	private void fillSpep() {
 		if( scenePath != null && spep != null) {
@@ -108,14 +159,15 @@ public class TrajectoryPanel extends JPanel implements Updateable {
 		}
 	}
 	
+	// NOT USED!!
 	private JPanel createInitialPositionPanel() {
 		JPanel initialPositionPanel = new JPanel( );
 		initialPositionPanel.setLayout( new GridLayout( 0, 1 ) );
-		initialPositionCheckBox = new JCheckBox( TextConstants.getText( "Scene.UseInitialPosition" ), sceneDataControl.hasDefaultInitialPosition( ) );
-		initialPositionCheckBox.addActionListener( new InitialPositionCheckBoxListener( ) );
+		initialPositionRadioButton = new JRadioButton( TextConstants.getText( "Scene.UseInitialPosition" ), !sceneDataControl.getTrajectory().hasTrajectory());
+		//initialPositionRadioButton.addActionListener( new InitialPositionCheckBoxListener( ) );
 		
 
-		initialPositionPanel.add( initialPositionCheckBox );
+		initialPositionPanel.add( initialPositionRadioButton );
 		initialPositionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Scene.DefaultInitialPosition" ) ) );
 		
 		JPanel fullPanel = new JPanel();
@@ -127,7 +179,7 @@ public class TrajectoryPanel extends JPanel implements Updateable {
 		fullPanel.add(spep, BorderLayout.CENTER);
 		spep.setShowTextEdition(true);
 
-		if (sceneDataControl.hasDefaultInitialPosition( )) {
+		if (initialPositionRadioButton.isSelected()) {
 			Image image = AssetsController.getImage(Controller.getInstance().getPlayerImagePath());
 			spep.addPlayer(sceneDataControl, image);
 			spep.setSelectedElement(new ImageElementPlayer(image, sceneDataControl));
@@ -141,8 +193,8 @@ public class TrajectoryPanel extends JPanel implements Updateable {
 	/**
 	 * Listener for the "Use initial position in this scene" check box.
 	 */
-	private class InitialPositionCheckBoxListener implements ActionListener {
-		public void actionPerformed( ActionEvent e ) {
+	private class InitialPositionCheckBoxListener implements ItemListener {
+	    /*public void actionPerformed( ActionEvent e ) {
 			sceneDataControl.toggleDefaultInitialPosition( );
 			spep.setFixedSelectedElement(false);
 			spep.setSelectedElement((ImageElement) null);
@@ -154,13 +206,36 @@ public class TrajectoryPanel extends JPanel implements Updateable {
 				spep.setFixedSelectedElement(true);
 			}
 			spep.repaint();
+		}*/
+
+		@Override
+		public void itemStateChanged(ItemEvent e) {
+		    sceneDataControl.toggleDefaultInitialPosition( );
+			spep.setFixedSelectedElement(false);
+			spep.setSelectedElement((ImageElement) null);
+			spep.removeElements(ScenePreviewEditionPanel.CATEGORY_PLAYER);
+			//if (sceneDataControl.hasDefaultInitialPosition( )) {
+				Image image = AssetsController.getImage(Controller.getInstance().getPlayerImagePath());
+				spep.addPlayer(sceneDataControl, image);
+				spep.setSelectedElement(new ImageElementPlayer(image, sceneDataControl));
+				spep.setFixedSelectedElement(true);
+			//}
+			spep.repaint();
+		    
 		}
 	}
 
-	private class TrajectoryCheckBoxListener implements ActionListener {
-		public void actionPerformed( ActionEvent e ) {
-			Controller.getInstance().addTool(new ChangeHasTrajectoryTool(((JCheckBox) e.getSource()).isSelected(), sceneDataControl));
+	private class TrajectoryCheckBoxListener implements ItemListener {
+		/*public void actionPerformed( ActionEvent e ) {
+			Controller.getInstance().addTool(new ChangeHasTrajectoryTool(((JRadioButton) e.getSource()).isSelected(), sceneDataControl));
 			updateContents();
+		}*/
+
+		@Override
+		public void itemStateChanged(ItemEvent e) {
+		    Controller.getInstance().addTool(new ChangeHasTrajectoryTool(((JRadioButton) e.getSource()).isSelected(), sceneDataControl));
+			updateContents();
+		    
 		}
 	}
 
@@ -177,22 +252,49 @@ public class TrajectoryPanel extends JPanel implements Updateable {
 			tep = null;
 		}
 
-		if (dataControl.hasTrajectory()) {
+		
+		changePanel();
+		/*if (dataControl.hasTrajectory()) {
 			tep = new TrajectoryEditionPanel(scenePath, dataControl);
 			spep = tep.getScenePreviewEditionPanel();
 			fillSpep();
 			add( tep, BorderLayout.CENTER );
 		} else {
-			initialPositionPanel = createInitialPositionPanel();
+		    // Maybe it can be reafactored (look at changePab)
+		    initialPositionPanel = new JPanel();
+			initialPositionPanel.setLayout(new BorderLayout());
+			spep = new ScenePreviewEditionPanel(false, scenePath);
+			fillSpep();
+			initialPositionPanel.add(spep, BorderLayout.CENTER);
+			spep.setShowTextEdition(true);
+
+			if (initialPositionRadioButton.isSelected()) {
+			    Image image = AssetsController.getImage(Controller.getInstance().getPlayerImagePath());
+			    spep.addPlayer(sceneDataControl, image);
+			    spep.setSelectedElement(new ImageElementPlayer(image, sceneDataControl));
+			    spep.setFixedSelectedElement(true);
+			}
+			spep.repaint();
 			add(initialPositionPanel , BorderLayout.CENTER );
-		}
+			
+		}*/
 		
 	    updateUI();
 	}
 	
 	public boolean updateFields() {
-		if (sceneDataControl.getTrajectory().hasTrajectory() != useTrajectoryCheckBox.isSelected()) {
-			useTrajectoryCheckBox.setSelected(sceneDataControl.getTrajectory().hasTrajectory());
+	    
+	    changePanel();
+	    if (spep != null) {
+		spep.updateUI();
+		spep.repaint();
+	    }
+	    
+	    
+	    /*
+	    
+		if (sceneDataControl.getTrajectory().hasTrajectory() != useTrajectoryRadioButton.isSelected()) {
+		    useTrajectoryRadioButton.setSelected(sceneDataControl.getTrajectory().hasTrajectory());
 			updateContents();
 		}
 		else {
@@ -214,7 +316,7 @@ public class TrajectoryPanel extends JPanel implements Updateable {
 				spep.updateUI();
 				spep.repaint();
 			}
-		}
+		}*/
 		return true;
 	}
 }
