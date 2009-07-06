@@ -240,6 +240,8 @@ Esto puede provocar errores al cargar las aventuras.</entry>
 	<entry key="Operation.LoadProject">Operación: Cargando proyecto</entry>
 	<entry key="Operation.SaveProject">Operación: Guardando proyecto</entry>
 	<entry key="Operation.SaveProjectAs">Operación: Guardando proyecto como</entry>
+	<entry key="Operation.SaveProjectAs.TargetFolderInUse.Title">La operación "Guardar como" no pudo realizarse</entry>
+	<entry key="Operation.SaveProjectAs.TargetFolderInUse.Message">El directorio seleccionado coincide con el actual. Por favor, seleccione un directorio distinto.</entry>
 	<entry key="Operation.ImportProject">Operación: Importando proyecto</entry>
 	<entry key="Operation.ExportProject.AsLO">Operación: Exportando proyecto como Objeto de Aprendizaje</entry>
 	<entry key="Operation.ExportProject.AsJAR">Operación: Exportando proyecto como juego autocontenido (.JAR)</entry>
