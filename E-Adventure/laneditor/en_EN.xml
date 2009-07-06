@@ -230,6 +230,8 @@ This could provoke errors when executing or loading the adventures.</entry>
 	<entry key="Operation.LoadProject">Operation: Loading project</entry>
 	<entry key="Operation.SaveProject">Operation: Saving project</entry>
 	<entry key="Operation.SaveProjectAs">Operation: Saving project as</entry>
+	<entry key="Operation.SaveProjectAs.TargetFolderInUse.Title">"Save project as" cannot be performed</entry>
+	<entry key="Operation.SaveProjectAs.TargetFolderInUse.Message">The target folder that you have selected is the same of the current project. Please select a different one.</entry>
 	<entry key="Operation.ImportProject">Operation: Importing project</entry>
 	<entry key="Operation.ExportProject.AsLO">Operation: Exporting project as Learning Object</entry>
 	<entry key="Operation.ExportProject.AsJAR">Operation: Exporting project as Standalone game (.JAR)</entry>
