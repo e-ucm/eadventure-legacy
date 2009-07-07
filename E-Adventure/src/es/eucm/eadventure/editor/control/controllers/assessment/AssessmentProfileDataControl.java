@@ -1,6 +1,7 @@
 package es.eucm.eadventure.editor.control.controllers.assessment;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
@@ -165,13 +166,22 @@ public class AssessmentProfileDataControl extends DataControl{
 	@Override
 	public void deleteIdentifierReferences( String id ) {
 	    // profiles identifiers are deleted in assessmentProfilesDataControl
-	    for (AssessmentRuleDataControl rule:dataControls){
+	    AssessmentRuleDataControl ruleToDelete=null;
+	    AssessmentRuleDataControl rule = null;
+	    Iterator<AssessmentRuleDataControl> itera = this.dataControls.iterator();
+	   
+	    while(itera.hasNext())
+		{
+		rule = itera.next();
 		if (id.equals(rule.getId())){
-		    dataControls.remove(rule);
-		}else 
-		rule.deleteIdentifierReferences(id);
+		    itera.remove();
+		    
+		}else
+		    rule.deleteIdentifierReferences( id ); 
+		}
+	    	    
+		
 	    }
-	}
 
 	@Override
 	public int[] getAddableElements( ) {
