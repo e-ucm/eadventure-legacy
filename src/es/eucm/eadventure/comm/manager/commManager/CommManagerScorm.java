@@ -51,7 +51,6 @@ public class CommManagerScorm extends AdventureApplet{
 	        
 	        this.sendJavaScript(command);
 	        
-	      //TODO no se xk hay que devolver algo aki, ver si se cambia!!!
 		return false;
 	}
 
@@ -103,12 +102,13 @@ public class CommManagerScorm extends AdventureApplet{
 	}
 
 	public void connectionFailed(String serverComment) {
-		System.out.println(serverComment);		
+		System.out.println(serverComment);	
+		connected = false;
 	}
 
 	public void dataFromLMS(String key, String value) {
 		
-		System.out.println("Esto es lo que nos ha devuelto el LMS: "+ value);
+		//System.out.println("Esto es lo que nos ha devuelto el LMS: "+ value);
 
 		if (value==null)
 			value = new String("");
@@ -138,7 +138,7 @@ public class CommManagerScorm extends AdventureApplet{
 
 	public void notifyRelevantState( List<AssessmentProperty> list) {
 		
-		System.out.println("Entramos en notify relevant state");
+		//System.out.println("Entramos en notify relevant state");
 		Iterator<AssessmentProperty> it = list.iterator();
 		while (it.hasNext()){
 			AssessmentProperty assessProp = it.next();
@@ -154,7 +154,6 @@ public class CommManagerScorm extends AdventureApplet{
 	}
 
 	public boolean isConnected() {
-		
 		return connected;
 	}
 

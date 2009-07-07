@@ -123,7 +123,6 @@ public class EAdventureAppletScorm extends CommManagerScorm{
     
     public void dataFromLMS(String key, String value){
     	super.dataFromLMS(key, value);
-    	System.out.println("Recivimos el dato "+ key + " " + value);
     }
 	
 }
