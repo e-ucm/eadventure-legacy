@@ -81,7 +81,14 @@ public class DescriptorHandler extends DefaultHandler {
 	     */
 	    public void startElement( String namespaceURI, String sName, String qName, Attributes attrs ) throws SAXException {
 	        
-	        
+		if (qName.equals( "game-descriptor" )){
+		    for( int i = 0; i < attrs.getLength( ); i++ )
+			if( attrs.getQName( i ).equals( "versionNumber" ) ){
+			    gameDescriptor.setVersionNumber(attrs.getValue(i));
+			}
+		}
+		
+		
 	        // If the element is the GUI configuration, store the values
 	        if( qName.equals( "gui" ) ) {
 	            int guiType = DescriptorData.GUI_TRADITIONAL;

@@ -217,7 +217,15 @@ public class AdventureHandler extends DefaultHandler {
 	@Override
 	public void startElement( String namespaceURI, String sName, String qName, Attributes attrs ) throws SAXException {
 
-		// If reading a title, empty the current string
+		if (qName.equals( "game-descriptor" )){
+		    for( int i = 0; i < attrs.getLength( ); i++ )
+			if( attrs.getQName( i ).equals( "versionNumber" ) ){
+			    adventureData.setVersionNumber(attrs.getValue(i));
+			}
+		}
+		    
+	    
+	    	// If reading a title, empty the current string
 		if( qName.equals( "title" ) || qName.equals( "description" ) ) {
 			currentString = new StringBuffer( );
 		}

@@ -1,4 +1,8 @@
 <!ELEMENT game-descriptor (title, description, invalid?, automatic-commentaries?,metadata?, configuration, contents)>
+<!ATTLIST game-descriptor
+	versionNumber CDATA "0"
+
+>
 
 <!ELEMENT title (#PCDATA)>
 <!ELEMENT description ANY>

@@ -51,7 +51,11 @@ public class VarSummary implements Serializable {
      */
     public void setVarValue( String varName, int value ) {
         Var var = vars.get( varName );
-        var.setValue(value);
+        // Controls problems with Load games with less vars than original game.
+        // if in game edition stage, the user save one game (i.e "game_0"), and later adds a new var and use it in some
+        // game parts, and later load the "game_0", the last added vars will not appear in it.
+        if (var!=null)
+            var.setValue(value);
         if (debug)
         	changes.add(varName);
     }
@@ -62,7 +66,11 @@ public class VarSummary implements Serializable {
      */
     public void incrementVar( String varName, int increment ) {
         Var var = vars.get( varName );
-        var.increment(increment);
+     // Controls problems with Load games with less vars than original game.
+        // if in game edition stage, the user save one game (i.e "game_0"), and later adds a new var and use it in some
+        // game parts, and later load the "game_0", the last added vars will not appear in it.
+        if (var!=null)
+            var.increment(increment);
         if (debug)
         	changes.add(varName);
     }
@@ -73,7 +81,11 @@ public class VarSummary implements Serializable {
      */
     public void decrementVar( String varName, int decrement ) {
         Var var = vars.get( varName );
-        var.decrement(decrement);
+     // Controls problems with Load games with less vars than original game.
+        // if in game edition stage, the user save one game (i.e "game_0"), and later adds a new var and use it in some
+        // game parts, and later load the "game_0", the last added vars will not appear in it.
+        if (var!=null)
+        	var.decrement(decrement);
         if (debug)
         	changes.add(varName);
     }
@@ -96,7 +108,10 @@ public class VarSummary implements Serializable {
      */
     public int getValue ( String varName ){
     	Var var = vars.get( varName );
-    	return var.getValue();
+    	if (var!=null)
+    	    return var.getValue();
+    	else 
+    	    return 0;
     }
     
     /**
@@ -115,7 +130,11 @@ public class VarSummary implements Serializable {
 		String[] names = getVarNames();
 		String[] values = new String[names.length];
 		for (int i=0; i<names.length; i++){
-			values[i] = Integer.toString(vars.get(names[i]).getValue());
+		    	// Controls problems with Load games with less vars than original game.
+		        // if in game edition stage, the user save one game (i.e "game_0"), and later adds a new var and use it in some
+		        // game parts, and later load the "game_0", the last added vars will not appear in it.
+		        if (vars.get(names[i])!=null)
+		            values[i] = Integer.toString(vars.get(names[i]).getValue());
 		}
 		return values;
 	}   

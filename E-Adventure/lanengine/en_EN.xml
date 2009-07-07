@@ -20,6 +20,9 @@
 	<entry key="MainWindow.Spanish">Spanish</entry>
 	<entry key="MainWindow.SelectLanguage">Select Language</entry>
 	
+	
+	<entry key="Options.versionError1">Version error</entry>
+	<entry key="Options.versionError2">The saved game has another version of the current game</entry>
 	<entry key="Information.FileAbout">aboutEN.html</entry>
 	<entry key="GUI.NoFullscreenTitle">Problem displaying fullscreen</entry>
 	<entry key="GUI.NoFullscreenContent">There seems to be a problem that doesn't allow the game to be displayed as intented</entry>

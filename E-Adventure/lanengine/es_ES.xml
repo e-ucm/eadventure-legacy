@@ -54,6 +54,9 @@
 	<entry key="Options.SavePanel">gui/options/SavePanelES.png</entry>
 	<entry key="Options.LoadPanel">gui/options/LoadPanelES.png</entry>
 	<entry key="Options.ConfigurationPanel">gui/options/ConfigurationPanelES.png</entry>
+	<entry key="Options.versionError1">Error de versión</entry>
+	<entry key="Options.versionError2">La partida guardada es de otra versión distinta a la del juego actual</entry>
+		
 	
 	<entry key="GameText.PleaseWait">Por favor, espera</entry>
 	<entry key="GameText.LoadingData">Cargando datos...</entry>

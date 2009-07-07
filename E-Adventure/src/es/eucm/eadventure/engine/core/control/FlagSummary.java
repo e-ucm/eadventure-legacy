@@ -49,6 +49,10 @@ public class FlagSummary implements Serializable {
      */
     public void deactivateFlag( String flagName ) {
         Flag flag = flags.get( flagName );
+     // Controls problems with Load games with less flags than original game.
+        // if in game edition stage, the user save one game (i.e "game_0"), and later adds a new flag and use it in some
+        // game parts, and later load the "game_0", the last added flags will not appear in it.
+        if (flag!=null)
         flag.deactivate();
         if (debug)
         	changes.add(flagName);
@@ -60,7 +64,11 @@ public class FlagSummary implements Serializable {
      */
     public void activateFlag( String flagName ) {
         Flag flag = flags.get( flagName );
-        flag.activate();
+        // Controls problems with Load games with less flags than original game.
+        // if in game edition stage, the user save one game (i.e "game_0"), and later adds a new flag and use it in some
+        // game parts, and later load the "game_0", the last added flags will not appear in it.
+        if (flag!=null)
+            flag.activate();
         if (debug)
         	changes.add(flagName);
     }
@@ -73,6 +81,9 @@ public class FlagSummary implements Serializable {
     public boolean isActiveFlag( String flagName ) {
         boolean activeFlag = false;
         Flag flag = flags.get( flagName );
+        // Controls problems with Load games with less flags than original game.
+        // if in game edition stage, the user save one game (i.e "game_0"), and later adds a new flag and use it in some
+        // game parts, and later load the "game_0", the last added flags will not appear in it.
         if (flag != null) {
             activeFlag = flag.isActive( );
         }
@@ -87,8 +98,13 @@ public class FlagSummary implements Serializable {
         Set<String> keys = flags.keySet( );
         for( String key : keys ) {
             Flag flag = flags.get( key );
+            // Controls problems with Load games with less flags than original game.
+            // if in game edition stage, the user save one game (i.e "game_0"), and later adds a new flag and use it in some
+            // game parts, and later load the "game_0", the last added flags will not appear in it.
+            if (flag!=null){
             if(flag.isActive( )) {
                 activeFlags.add( key );
+            }
             }
         }
         return activeFlags;
@@ -111,8 +127,13 @@ public class FlagSummary implements Serializable {
         Set<String> keys = flags.keySet( );
         for( String key : keys ) {
             Flag flag = flags.get( key );
+            // Controls problems with Load games with less flags than original game.
+            // if in game edition stage, the user save one game (i.e "game_0"), and later adds a new flag and use it in some
+            // game parts, and later load the "game_0", the last added flags will not appear in it.
+            if (flag!=null){
             if(!flag.isActive( )) {
                 inactiveFlags.add( key );
+            }
             }
         }
         return inactiveFlags;

@@ -44,6 +44,12 @@
 	<entry key="MenuRun.Debug">Depurar</entry>
 	
 	
+	<entry key="Options.versionError1">Error de versión</entry>
+	<entry key="Options.versionError2">La partida guardada es de otra versión distinta a la del juego actual</entry>
+	<entry key="Run.CanBeRun.Title">El proyecto no ha sido guardado</entry>
+	<entry key="Run.CanBeRun.Text">Antes de ejecutar debe guardar el proyecto. ¿Desea guardar y ejecutar?</entry>
+	
+	
 	<entry key="MenuReturnMode.Option">Volver al modo de Edición de Aventura</entry>
 	<entry key="MenuReturnMode">Modo de edición</entry>
 	

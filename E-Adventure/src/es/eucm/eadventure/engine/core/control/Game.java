@@ -495,9 +495,10 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             // If it has an initial scene, set it
             if( adaptedStateToExecute.getTargetId( ) != null ) 
         	// check the scene is in chapter
-        	if (gameData.getScenes().contains(adaptedStateToExecute.getTargetId( )))
+        	for (Scene scene: gameData.getScenes()){
+        	if (scene.getId().equals(adaptedStateToExecute.getTargetId( )))
         	    firstScene.setNextSceneId(adaptedStateToExecute.getTargetId( ));
-
+        	}
             // Set the flags
             for( String flag : adaptedStateToExecute.getActivatedFlags( ) )
               if (flags.existFlag(flag))
@@ -679,6 +680,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             	// TODO possibly add dialog to tell player the game couldn't get loaded
             	return;
             }
+            gameDescriptor.setProjectName(adventureName);
             
             GUI.setGraphicConfig(gameDescriptor.getGraphicConfig());
             
@@ -1381,6 +1383,8 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
     
     public void save(String saveFile) {
         SaveGame saveGame = new SaveGame( );
+        saveGame.setVersionNumber(Integer.parseInt(gameDescriptor.getVersionNumber()));
+        saveGame.setProjectName( gameDescriptor.getProjectName());
         saveGame.setTitle( gameDescriptor.getTitle( ) );
         saveGame.setChapter( currentChapter );
         Calendar calendar = new GregorianCalendar();
@@ -1407,12 +1411,15 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             	 
             	currentChapter = saveGame.getChapter();
                 
-                ChapterSummary chapter = gameDescriptor.getChapterSummaries( ).get( currentChapter );
-                gameData = Loader.loadChapterData( ResourceHandler.getInstance(), chapter.getChapterPath( ), new ArrayList<Incidence>(),true );
-                
+            	if (gameDescriptor.getChapterSummaries( ).get( currentChapter )!=null){
+                	ChapterSummary chapter = gameDescriptor.getChapterSummaries( ).get( currentChapter );
+            		gameData = Loader.loadChapterData( ResourceHandler.getInstance(), chapter.getChapterPath( ), new ArrayList<Incidence>(),true );
+            	}
                 totalTime = saveGame.getTotalTime();
-                flags = saveGame.getFlags( );
-                vars = saveGame.getVars( );
+                if (saveGame.getFlags()!=null)
+                    flags = saveGame.getFlags( );
+                if (saveGame.getVars()!=null)
+                    vars = saveGame.getVars( );
                 
                 itemSummary = saveGame.getItemSummary( );
                 
@@ -1423,15 +1430,18 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
                 functionalPlayer.cancelActions();
                 functionalPlayer.cancelAnimations();
                 
-                functionalScene = new FunctionalScene( (Scene) gameData.getGeneralScene( saveGame.getIdScene( ) ), functionalPlayer );
+                if (gameData.getGeneralScene( saveGame.getIdScene( ) )!=null)
+                    functionalScene = new FunctionalScene( (Scene) gameData.getGeneralScene( saveGame.getIdScene( ) ), functionalPlayer );
+                
                 functionalPlayer.setX( saveGame.getPlayerX( ) );
                 functionalPlayer.setY( saveGame.getPlayerY( ) );
                 
                 inventory = new Inventory( );
                 ArrayList<String> grabbedItems = itemSummary.getGrabbedItems( );
-                for( String item : grabbedItems ) {
+            
+                for( String item : grabbedItems ) 
                     inventory.storeItem( new FunctionalItem( gameData.getItem( item ), (InfluenceArea) null ) );
-               
+                
                  
                 SaveTimer st = new SaveTimer(); 
                 String[] timers = saveGame.getLoadTimers();
@@ -1463,11 +1473,12 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
                     	// If it is assessment timer, set the correct values in assessmentEngine
                     	if (isAssessment){
                     		// current time - the time in second that has been
-                    		assessmentEngine.getTimedAssessmentRule(new Integer(i)).setStartTime(System.currentTimeMillis()/1000 - Integer.valueOf(aux[2]).longValue());
+                    	if (assessmentEngine.getTimedAssessmentRule(new Integer(i))!=null)
+                    	    assessmentEngine.getTimedAssessmentRule(new Integer(i)).setStartTime(System.currentTimeMillis()/1000 - Integer.valueOf(aux[2]).longValue());
                     	}
                    
                  } 
-                }
+                
                 //TODO no estoy seguro 
                 lastMouseEvent = null;
                 }

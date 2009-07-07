@@ -172,7 +172,8 @@ public class DescriptorData implements Cloneable, Described, Titled {
 	 * Adventure mode (1st person/3rd person)
 	 */
 	protected int playerMode;
-
+	
+	
     /**
      * Stores if the GUI's graphics are customized
      */
@@ -206,6 +207,25 @@ public class DescriptorData implements Cloneable, Described, Titled {
     protected String playerName = "";
     
     protected Integer inventoryPosition = INVENTORY_TOP_BOTTOM;
+    
+    
+    /**
+     * The version number of the current game/proyect
+     */
+    protected String versionNumber;
+    
+    /**
+     * This is not store in physical descriptor xml file.
+     * 
+     * Is used to only allow to load a saved game in the same project or .ead game
+     */
+    protected String projectName;
+
+    
+    /**
+     * Constant for identify when a game is executed from engine
+     */
+    public static final String ENGINE_EXECUTION="engine";
        
     /**
      * Constructor
@@ -220,6 +240,8 @@ public class DescriptorData implements Cloneable, Described, Titled {
 		guiType = -1;
 		playerMode = MODE_PLAYER_1STPERSON;
 		graphicConfig = GRAPHICS_WINDOWED;
+		projectName = ENGINE_EXECUTION;
+	versionNumber = "0";
     }
 
 	/**
@@ -559,6 +581,34 @@ public class DescriptorData implements Cloneable, Described, Titled {
 		dd.title = (title != null ? new String(title) : null);
 		dd.inventoryPosition = new Integer(inventoryPosition);
 		return dd;
+	}
+
+	/**
+	 * @return the versionNumber
+	 */
+	public String getVersionNumber() {
+	    return versionNumber;
+	}
+
+	/**
+	 * @param versionNumber the versionNumber to set
+	 */
+	public void setVersionNumber(String versionNumber) {
+	    this.versionNumber = versionNumber;
+	}
+
+	/**
+	 * @return the projectName
+	 */
+	public String getProjectName() {
+	    return projectName;
+	}
+
+	/**
+	 * @param projectName the projectName to set
+	 */
+	public void setProjectName(String projectName) {
+	    this.projectName = projectName;
 	}
 
 }

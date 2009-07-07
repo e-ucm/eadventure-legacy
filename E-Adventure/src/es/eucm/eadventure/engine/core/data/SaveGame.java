@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.eucm.eadventure.engine.core.control.FlagSummary;
+import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.ItemSummary;
 import es.eucm.eadventure.engine.core.control.VarSummary;
 import es.eucm.eadventure.engine.core.control.TimerManager;
@@ -26,7 +27,8 @@ public class SaveGame implements Serializable {
      */
     private static final long serialVersionUID = 1L;
     
-    private static final int NUMBEROFMARKS = 10;
+    // version number has not to be checked
+    private static final int NUMBEROFCHECKMARKS = 10;
  
     private static final String TITLEMARK = "TITLE#";
     
@@ -48,7 +50,7 @@ public class SaveGame implements Serializable {
     
     private static final String TIMERSMARK = "TIMER#";
        
-    
+    private static final String VERSIONNUMBERMARK = "VERSIONNUMBER#";
     
     private SaveGameData saveGameData;
 
@@ -58,7 +60,7 @@ public class SaveGame implements Serializable {
      */
     public SaveGame( ) {
         saveGameData = new SaveGameData( );
-        check = new boolean[10];
+        check = new boolean[NUMBEROFCHECKMARKS];
      
     }
    
@@ -68,8 +70,15 @@ public class SaveGame implements Serializable {
     	try {
 			BufferedReader  file = new BufferedReader ( new FileReader( name ) );
 			saveGameData = new SaveGameData( );
+			
             String line;
-            line = file.readLine().trim().split("#")[1].split("&")[0];; 
+            line = file.readLine().trim();
+            if (VERSIONNUMBERMARK.equals(line.split("#")[0]+"#")){
+        	saveGameData.versionNumber = Integer.parseInt(line.split("#")[1].split("&")[0]);
+        	saveGameData.projectName = line.split("#")[1].split("&")[1];
+        	line = file.readLine().trim().split("#")[1].split("&")[0];
+            }else 
+        	line = line.split("#")[1].split("&")[0];
             
             saveGameData.title = line;
             line = file.readLine().trim();
@@ -86,7 +95,7 @@ public class SaveGame implements Serializable {
 
     
     private void initializeCheck(){
-    	for (int i=0; i<NUMBEROFMARKS; i++){
+    	for (int i=0; i<NUMBEROFCHECKMARKS; i++){
     		check[i]=false;
     	}
     }
@@ -123,12 +132,14 @@ public class SaveGame implements Serializable {
         } catch(NullPointerException e){
         	// the file is empty
         	check();
-        }
+        }catch (NumberFormatException e){
+		loaded=false;
+	  }
         return loaded;
     }
     
     private void check() throws SaveGameException{
-    	for (int i=0;i<NUMBEROFMARKS;i++){
+    	for (int i=0;i<NUMBEROFCHECKMARKS;i++){
     		if (!check[i])
     			throw new SaveGameException("Error loading");
     		
@@ -136,7 +147,7 @@ public class SaveGame implements Serializable {
     }
     
 
-    private void analyzeString(String[] str) throws SaveGameException{
+    private void analyzeString(String[] str) throws SaveGameException,NumberFormatException{
 
     	String mark = str[0];
     	mark +=  "#";
@@ -197,6 +208,12 @@ public class SaveGame implements Serializable {
     		check[9] = true;
     		
     		
+    	}
+    	else if (mark.equals(VERSIONNUMBERMARK)){
+    	    String[] aux = str[1].split("&");
+    	    saveGameData.versionNumber = Integer.parseInt(aux[0]);
+    	    saveGameData.projectName = aux[1];
+    	    
     	}
     		}
     	}
@@ -408,7 +425,10 @@ public class SaveGame implements Serializable {
     public boolean saveTxt( String filename ) {
         boolean saved = true;
         try {
+            
             PrintStream file = new PrintStream(new FileOutputStream( filename ));
+            
+            file.println( VERSIONNUMBERMARK + saveGameData.versionNumber + "&" + saveGameData.projectName+ "&");
             file.println( TITLEMARK + saveGameData.title + "&");
             file.println( CHAPTERMARK + saveGameData.chapter + "&");
             file.println( SAVETIMEMARK + saveGameData.saveTime + "&");
@@ -635,8 +655,28 @@ public class SaveGame implements Serializable {
     	return saveGameData.loadTimers;
     }
     
+    public int getVersionNumber(){
+	return saveGameData.versionNumber;
+    }
+    
+    public void setVersionNumber(int versionNumber){
+	saveGameData.versionNumber=versionNumber;
+    }
+    
+    public void setProjectName(String projectName){
+	saveGameData.projectName = projectName;
+    }
+    
+    public String getProjectName(){
+	return saveGameData.projectName;
+    }
+    
     private class SaveGameData {
         
+	private int versionNumber;
+	
+	private String projectName;
+	
         private String title;
         
         private int chapter;
