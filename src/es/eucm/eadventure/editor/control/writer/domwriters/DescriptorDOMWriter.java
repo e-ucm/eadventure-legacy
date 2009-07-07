@@ -43,6 +43,7 @@ public class DescriptorDOMWriter {
 
 			// Create the root node
 			descriptorNode = doc.createElement( "game-descriptor" );
+			((Element)descriptorNode).setAttribute("versionNumber", adventureData.getAdventureData().getVersionNumber());
 
 			// Create and append the title
 			Node adventureTitleNode = doc.createElement( "title" );

@@ -50,6 +50,12 @@
 	<entry key="MenuChapters.MoveChapterUp">Move chapter up</entry>
 	<entry key="MenuChapters.MoveChapterDown">Move chapter down</entry>
 
+	<entry key="Options.versionError1">Version error</entry>
+	<entry key="Options.versionError2">The saved game has another version of the current game</entry>
+	<entry key="Run.CanBeRun.Title">The project is not saved</entry>
+	<entry key="Run.CanBeRun.Text">Before run the game, you must save the project. Save and Run?</entry>
+	
+	
 	<entry key="MenuAdventure.Title">Adventure</entry>
 	<entry key="MenuAdventure.CheckConsistency">Check adventure consistency</entry>
 	<entry key="MenuAdventure.AdventureData">Edit adventure data...</entry>

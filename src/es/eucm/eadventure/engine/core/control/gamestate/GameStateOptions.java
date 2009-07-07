@@ -393,20 +393,23 @@ public class GameStateOptions extends GameState {
         // The save and the load panel have special painting functions
         if( currentPanel == SAVE_PANEL || currentPanel == LOAD_PANEL ) {
             int i;
-            
             // For every savegame slot
             g.setFont( savegameFont );
             for( i = 0; i < MAX_NUM_SAVEGAME_SLOTS; i++ ) {
-                // Draw the button
-                g.drawImage( (highlightedOption == i && mouseButtonPressed)? imgPressedButton : imgButton, panelPosition.x + FIRST_BUTTON_OFFSET_X, panelPosition.y + FIRST_BUTTON_OFFSET_Y + BUTTON_HEIGHT * i, null );
+                boolean isValidSlot = isValidSlotGame(i);
+        	// Draw the button
+                g.drawImage( (highlightedOption == i && mouseButtonPressed && isValidSlot)? imgPressedButton : imgButton, panelPosition.x + FIRST_BUTTON_OFFSET_X, panelPosition.y + FIRST_BUTTON_OFFSET_Y + BUTTON_HEIGHT * i, null );
                 
                 // Set the color of the text
-                g.setColor( highlightedOption == i ? HIGHLIGHTED_COLOR : NORMAL_COLOR );
+                g.setColor( (highlightedOption == i && isValidSlot)? HIGHLIGHTED_COLOR : NORMAL_COLOR );
                 
                 // If the slot exists, draw the data
                 if( existsSaveGame[i] ) {
                     String[] title = {saveGames[i].getTitle( ), saveGames[i].getSaveTime() };
-                    //TODO kkkkkkkkkk mirar que no se salga del boton!!!!!111111
+                    if (!isValidSlot) {
+                	title[0]= TextConstants.getText("Options.versionError1");
+                	title[1]= TextConstants.getText("Options.versionError2");
+                    }
                 
                     GUI.drawString( g, title, GUI.WINDOW_WIDTH / 2, panelPosition.y + FIRST_BUTTON_OFFSET_Y + BUTTON_HEIGHT / 2 + BUTTON_HEIGHT * i );
                 }
@@ -478,6 +481,12 @@ public class GameStateOptions extends GameState {
         
         if( loadGame )
             loadGame( slotGame );
+    }
+    
+    private boolean isValidSlotGame(int i){
+	return saveGames[i].getVersionNumber()==Integer.parseInt(Game.getInstance().getGameDescriptor().getVersionNumber())
+			&& (saveGames[i].getProjectName()==null || saveGames[i].getProjectName().equals(Game.getInstance().getGameDescriptor().getProjectName()));
+
     }
     
     @Override
@@ -588,7 +597,7 @@ public class GameStateOptions extends GameState {
             changePanel( SAVELOAD_PANEL );
         }else{
             for(int i=0; i<MAX_NUM_SAVEGAME_SLOTS; i++){
-                if(i==highlightedOption){
+                if(i==highlightedOption && isValidSlotGame(i)){
                     loadGame = true;
                     slotGame = i;
                 }

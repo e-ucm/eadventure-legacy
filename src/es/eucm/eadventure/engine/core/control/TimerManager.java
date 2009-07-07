@@ -134,10 +134,13 @@ public class TimerManager {
     		return -1;
     	} else {
     		FunctionalTimer currentTimer = timers.get( new Integer( i ) );
-    		currentTimer.setLastUpdate(st.getLastUpdate());
-    		currentTimer.setState(st.getState());
-    		currentTimer.setTimeUpdate(st.getTimeUpdate());
-    		return i;
+    		if (currentTimer!=null){
+    			currentTimer.setLastUpdate(st.getLastUpdate());
+    			currentTimer.setState(st.getState());
+    			currentTimer.setTimeUpdate(st.getTimeUpdate());
+    			return i;
+    		}
+    		return -1;
     	}
     }
     

@@ -1378,7 +1378,7 @@ public class Controller {
 						AssetsController.getCategoryFolder(AssetsController.CATEGORY_ADAPTATION),incidences );
 				 */
 				AdventureData loadedAdventureData = Loader.loadAdventureData( AssetsController.getInputStreamCreator(completeFilePath),incidences,true );
-			
+				
 				//mainWindow.setNormalState( );
 				
 				
@@ -1388,6 +1388,7 @@ public class Controller {
 					currentZipFile = newFile.getAbsolutePath( );
 					currentZipPath = newFile.getParent( );
 					currentZipName = newFile.getName( );
+					loadedAdventureData.setProjectName(currentZipName);
 					adventureDataControl = new AdventureDataControl(loadedAdventureData);
 
 					chaptersController = new ChapterListDataControl( adventureDataControl.getChapters() );
@@ -1572,7 +1573,11 @@ public class Controller {
 				// If the data is not valid, show an error message
 				if( !valid )
 					mainWindow.showWarningDialog( TextConstants.getText( "Operation.AdventureConsistencyTitle" ), TextConstants.getText( "Operation.AdventurInconsistentWarning" ) );
-	
+				
+				// Control the version number
+				String newValue=increaseVersionNumber(adventureDataControl.getAdventureData().getVersionNumber());
+				adventureDataControl.getAdventureData().setVersionNumber(newValue);
+				
 				// Save the data
 				if( Writer.writeData( currentZipFile, adventureDataControl, valid ) ) {
 					File eapFile = new File(currentZipFile + ".eap");
@@ -1620,6 +1625,41 @@ public class Controller {
 			loadingScreen.setVisible( false );
 
 		return fileSaved;
+	}
+	
+	/**
+	 * Increase the game version number
+	 * 
+	 * @param digits
+	 * @param index
+	 * @return the version number after increase it
+	 */
+	private  String increaseVersionNumber(char[] digits, int index){
+	    
+		   
+		   
+	    if (digits[index]!='9'){
+		// increase in "1" the ASCII code 
+		digits[index]++;
+		return new String(digits);
+	    }else if (index==0){
+		char[] aux = new char[digits.length+1];
+		aux[0]='1';
+		aux[1]='0';
+		for (int i=2;i<aux.length;i++)
+		    aux[i]=digits[i-1];
+		return new String(aux);
+		
+	    }else {
+		digits[index]='0';
+		return increaseVersionNumber(digits,--index);
+	    }
+	    
+	}
+	
+	private String increaseVersionNumber(String versionNumber){
+	    char[] digits = versionNumber.toCharArray();
+	    return increaseVersionNumber(digits,digits.length-1);
 	}
 
 	public void importChapter(){
@@ -2168,12 +2208,15 @@ public class Controller {
 				
 				@Override
 				public void run() {
+				    if (canBeRun()){
 					mainWindow.setNormalRunAvailable( false );
 					// First update flags
 					chaptersController.updateVarsFlagsForRunning();
 					EAdventureDebug.normalRun(Controller.getInstance().adventureDataControl.getAdventureData(), AssetsController.getInputStreamCreator());
 					Controller.getInstance().startAutoSave(15);
 					mainWindow.setNormalRunAvailable( true );
+				    }
+					
 				}
 				
 			}, 1000);
@@ -2194,15 +2237,33 @@ public class Controller {
 				
 				@Override
 				public void run() {
+				    if (canBeRun()){
 					mainWindow.setNormalRunAvailable( false );
 					chaptersController.updateVarsFlagsForRunning();
 					EAdventureDebug.debug(Controller.getInstance().adventureDataControl.getAdventureData(), AssetsController.getInputStreamCreator());
 					Controller.getInstance().startAutoSave(15);
 					mainWindow.setNormalRunAvailable( true );
+				    }
 				}
 				
 			}, 1000);
 		}
+	}
+	
+	/**
+	 * Check if the current project is saved before run. If not, ask user to save it.
+	 * @return
+	 * 	if false is returned, the game will not be launched
+	 */
+	private boolean canBeRun(){
+	    if (dataModified){ 
+		if (mainWindow.showStrictConfirmDialog(TextConstants.getText("Run.CanBeRun.Title"), TextConstants.getText("Run.CanBeRun.Text"))){
+		    this.saveFile(false);
+		    return true;
+		}else
+		    return false;
+	    }else 
+		return true;
 	}
 
 	
