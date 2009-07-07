@@ -25,14 +25,14 @@ function connect()
    // alert("RTE founded!!!!");
    // alert("Attempting to conect to LSM");
     var applet = document.getElementById('eadventure');
-    //applet.connectionEstablished("Se inicia la conexion con el LMS!!");
+    applet.connectionEstablished("The connection has been established");
 	if (APIVersion == "SCORM12"){
 	communicationIni = API.LMSInitialize("");
 	} else if (APIVersion == "SCORM2004"){
 	communicationIni = API.Initialize("");
 	}
       if (!communicationIni){
-          alert("The connection has failed, error ");
+          //alert("The connection has failed, error ");
            	if (APIVersion == "SCORM12"){
 				applet.connectionFailed(API.LMSGetLastError());
 			} else if (APIVersion == "SCORM2004"){
@@ -88,7 +88,7 @@ function getLMSData(adventureMessage){
     var OK;
     if (API != null)
    {
- // alert("Se realiza API.LMSGetValue("+adventureMessage+")" );
+	//alert("Se realiza API.LMSGetValue("+adventureMessage+")" );
 			if (APIVersion == "SCORM12"){
 				charString = API.LMSGetValue(adventureMessage);  
 				OK = API.LMSGetLastError("");
@@ -101,7 +101,6 @@ function getLMSData(adventureMessage){
    //alert("Nos llega "+charString);
     var applet = document.getElementById('eadventure');
     applet.dataFromLMS(adventureMessage,charString);
-    //document.eadventure.dataReceived(adventureMessage,charString);
     if (!OK ){
            alert("The get operation was failed, error " );
                   
@@ -117,7 +116,7 @@ function getLMSData(adventureMessage){
     
 };
 
-/*function commit(valueFromApplet1,valueFromApplet2){
+function commit(valueFromApplet1,valueFromApplet2){
     
     var ok;
     if (API != null)
@@ -125,14 +124,9 @@ function getLMSData(adventureMessage){
     ok = API.LMSCommit("");
     
     if (!ok){
-         //  alert("The end conexion has failed, error " + API.LMSGetErrorString(API.LMSGetLastError("")) );
+          alert("The commit has failed, error " + API.LMSGetErrorString(API.LMSGetLastError("")) );
                   
-      } else {
-      alert("Haciendo Commit");
-        //ver como se llama el metodo de eagame para pillar datos del LMS
-       ///document.eagame.getDataS(carString);
-         //alert("The data has been send OK!!ole!");
-      }
+      } 
    }
    else
    {
@@ -140,7 +134,7 @@ function getLMSData(adventureMessage){
    }
     
 };
-*/
+
 
 function setLMSData(valueFromApplet1,valueFromApplet2){
     
@@ -155,15 +149,11 @@ function setLMSData(valueFromApplet1,valueFromApplet2){
 				res = API.SetValue(valueFromApplet1,valueFromApplet2); 
 				ok = API.GetLastError("");
 			}
-    
-   
-    
+			
     if (!ok){
          alert("The connection has failed, error " );
                   
-      } //else {
-		//alert("The data has been send OK!!ole!");
-      //}
+      }
    }
    else
    {
