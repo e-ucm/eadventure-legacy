@@ -1,6 +1,7 @@
 package es.eucm.eadventure.editor.control.controllers.adaptation;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
@@ -161,11 +162,20 @@ public class AdaptationProfileDataControl extends DataControl{
 	@Override
 	public void deleteIdentifierReferences( String id ) {
 	    // profiles identifiers are deleted in adaptationProfilesDataControl
-	    for (AdaptationRuleDataControl rule:dataControls){
+	    AdaptationRuleDataControl ruleToDelete=null;
+	    AdaptationRuleDataControl rule = null;
+	    Iterator<AdaptationRuleDataControl> itera = this.dataControls.iterator();
+	    while(itera.hasNext())
+		{
+		rule = itera.next();
 		if (id.equals(rule.getId())){
-		    dataControls.remove(rule);
+		    itera.remove();
+		 
+		}else 
+		    rule.deleteIdentifierReferences( id ); 
 		}
-	    }
+	   
+
 	}
 
 	@Override
