@@ -18,7 +18,9 @@ import es.eucm.eadventure.editor.control.tools.adaptation.ChangeActionTool;
 import es.eucm.eadventure.editor.control.tools.adaptation.ChangeAdaptationProfileTypeTool;
 import es.eucm.eadventure.editor.control.tools.adaptation.ChangeVarFlagTool;
 import es.eucm.eadventure.editor.control.tools.adaptation.DeleteActionTool;
+import es.eucm.eadventure.editor.control.tools.adaptation.MoveRuleTool;
 import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeTargetIdTool;
+import es.eucm.eadventure.editor.control.tools.generic.MoveObjectTool;
 import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class AdaptationProfileDataControl extends DataControl{
@@ -185,6 +187,15 @@ public class AdaptationProfileDataControl extends DataControl{
 		return true;
 	}
 
+	
+	public boolean moveElementDown(AdaptationRuleDataControl dataControl){
+	    return controller.addTool(new MoveRuleTool(this,dataControl,MoveRuleTool.MODE_DOWN));
+	}
+	
+	public boolean moveElementUp(AdaptationRuleDataControl dataControl){
+	    return controller.addTool(new MoveRuleTool(this,dataControl,MoveRuleTool.MODE_UP));
+	}
+	
 	@Override
 	public boolean moveElementDown( DataControl dataControl ) {
 		boolean elementMoved = false;

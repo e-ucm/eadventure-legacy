@@ -440,9 +440,10 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         if (gameData.getAssessmentName()!="")
         chapter.setAssessmentName(gameData.getAssessmentName());
         
+        AdaptedState initialState=null;
         // Load the assessment rules and adaptation data (from specific xml file)
         if (chapter.hasAdaptationProfile())
-             adaptationEngine.init( chapter.getSelectedAdaptationProfile() );
+            initialState  = adaptationEngine.init( chapter.getSelectedAdaptationProfile() );
         
         if (chapter.hasAssessmentProfile())
             assessmentEngine.loadAssessmentRules( chapter.getSelectedAssessmentProfile() );
@@ -450,7 +451,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      // Load the assessment rules and adaptation data (from chapter xml file)
         if (gameData.hasAdaptationProfile()){
             //System.out.println("Entramos en INIT desde game");
-            adaptationEngine.init( gameData.getSelectedAdaptationProfile() );
+            initialState = adaptationEngine.init( gameData.getSelectedAdaptationProfile() );
         }
         if (gameData.hasAssessmentProfile())
             assessmentEngine.loadAssessmentRules( gameData.getSelectedAssessmentProfile() );
@@ -489,27 +490,64 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         Exit firstScene = new Exit(true, 0, 0, 40, 40);
         firstScene.setNextSceneId(gameData.getInitialGeneralScene().getId());
         
-        // If there is an adapted state to be executed
-        if( adaptedStateToExecute != null ) {
+        // process the initial adapted state
+        processAdaptedState(firstScene, initialState);
+        // process the adaptedStateOfExecute (this var will has value if any adaptation rule has been achieve)
+        processAdaptedState(firstScene, adaptedStateToExecute);
+        // Set the next scene
+        setNextScene( firstScene );
+        
+        // Create the functional player
+        functionalPlayer = new FunctionalPlayer( gameData.getPlayer( ) );
+        functionalPlayer.setTransparent( gameDescriptor.getPlayerMode( )==DescriptorData.MODE_PLAYER_1STPERSON );
+       
+        // Add timers to the TimerManager
+        this.gameTimers = new HashMap<Integer, Timer>();
+        for (Timer timer: gameData.getTimers( )){
+            int id = timerManager.addTimer( timer, this, timer.getTime( ) );
+            gameTimers.put( new Integer(id), timer );
+        }
+        
+        g.clearRect( 0, 0, 800, 600 );
+        GUI.drawString( g, GameText.TEXT_LOADING_FINISHED, 400, 300 );
+        GUI.getInstance( ).endDraw( );
+
+        currentState = new GameStateNextScene( );
+        
+        nextChapter = false;
+        
+    	DebugLog.general("Chapter loaded");
+    }
+
+    /**
+     * Processes the adapted state
+     * 
+     * @param firstScene
+     * 		to add it a new scene
+     * @param adaptedState
+     */
+    private void processAdaptedState(Exit firstScene, AdaptedState adaptedState){
+	// If there is an adapted state to be executed
+        if( adaptedState != null ) {
 
             // If it has an initial scene, set it
-            if( adaptedStateToExecute.getTargetId( ) != null ) 
+            if( adaptedState.getTargetId( ) != null ) 
         	// check the scene is in chapter
         	for (Scene scene: gameData.getScenes()){
-        	if (scene.getId().equals(adaptedStateToExecute.getTargetId( )))
-        	    firstScene.setNextSceneId(adaptedStateToExecute.getTargetId( ));
+        	if (scene.getId().equals(adaptedState.getTargetId( )))
+        	    firstScene.setNextSceneId(adaptedState.getTargetId( ));
         	}
             // Set the flags
-            for( String flag : adaptedStateToExecute.getActivatedFlags( ) )
+            for( String flag : adaptedState.getActivatedFlags( ) )
               if (flags.existFlag(flag))
         	flags.activateFlag( flag );
-            for( String flag : adaptedStateToExecute.getDeactivatedFlags( ) )
+            for( String flag : adaptedState.getDeactivatedFlags( ) )
         	if (flags.existFlag(flag))
         	    flags.deactivateFlag( flag );
             // Set the vars
             List<String> adaptedVars = new ArrayList<String>();
             List<String> adaptedValues = new ArrayList<String>();
-            adaptedStateToExecute.getVarsValues(adaptedVars, adaptedValues );
+            adaptedState.getVarsValues(adaptedVars, adaptedValues );
             for ( int i=0; i<adaptedVars.size(); i++ ){
         	String varName = adaptedVars.get(i);
         	String varValue = adaptedValues.get(i);
@@ -538,32 +576,8 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
             }
             	
         }
-        
-        // Set the next scene
-        setNextScene( firstScene );
-        
-        // Create the functional player
-        functionalPlayer = new FunctionalPlayer( gameData.getPlayer( ) );
-        functionalPlayer.setTransparent( gameDescriptor.getPlayerMode( )==DescriptorData.MODE_PLAYER_1STPERSON );
-       
-        // Add timers to the TimerManager
-        this.gameTimers = new HashMap<Integer, Timer>();
-        for (Timer timer: gameData.getTimers( )){
-            int id = timerManager.addTimer( timer, this, timer.getTime( ) );
-            gameTimers.put( new Integer(id), timer );
-        }
-        
-        g.clearRect( 0, 0, 800, 600 );
-        GUI.drawString( g, GameText.TEXT_LOADING_FINISHED, 400, 300 );
-        GUI.getInstance( ).endDraw( );
-
-        currentState = new GameStateNextScene( );
-        
-        nextChapter = false;
-        
-    	DebugLog.general("Chapter loaded");
     }
-
+    
     public void repaintDebug() {
     	if (debug) {
     		debugChangesPanel.updateUI();
@@ -1280,6 +1294,8 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
      */
     public void setComm( AdventureApplet comm ) {
         this.comm = comm;
+        if (this.comm!=null)
+            System.out.println("comm se instala bien");
     }
     
     /**
@@ -1379,6 +1395,7 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         functionalScene.updateScene( );
         if (gameData.hasAssessmentProfile())
             assessmentEngine.processRules( );
+            
     }
     
     public void save(String saveFile) {

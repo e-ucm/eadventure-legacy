@@ -120,7 +120,7 @@ public class AdaptationRule implements Cloneable, Described, ContainsAdaptedStat
     			return property.getValue();
     		}
     	}
-    	return null;
+    	return new String("");
     	
     }
     
@@ -135,7 +135,7 @@ public class AdaptationRule implements Cloneable, Described, ContainsAdaptedStat
 			return property.getOperation();
 		}
 	}
-	return null;
+	return new String("");
     }
     
 	public Object clone() throws CloneNotSupportedException {

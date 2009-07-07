@@ -44,19 +44,20 @@ public class AdaptationEngine {
     /**
      * Loads the adaptation data.
      * @param adaptationPath Path of the file containing the adaptation data
+     * @return the initial adapted state
      */
     @SuppressWarnings("unchecked")
-    public void init( AdaptationProfile adaptationProfile ) {
+    public AdaptedState init( AdaptationProfile adaptationProfile ) {
     	//boolean inited = false;
     	//if (adaptationPath!=null && !adaptationPath.equals("")){
     	    loadAdaptationProfile(adaptationProfile);
     	  //  inited = true;
     	//} else {
-    	    if (initialAdaptedState==null ){
+    	    //if (initialAdaptedState==null ){
     		   
-    		initialAdaptedState = new AdaptedState();
+    		//initialAdaptedState = new AdaptedState();
     		
-    	    }
+    	    //}
     	    
     	    if (externalAdaptationRules==null){
     		externalAdaptationRules = new ArrayList<AdaptationRule>();
@@ -64,8 +65,11 @@ public class AdaptationEngine {
     	//}
 		    
 	   // if(inited) {
-	        Game.getInstance().setAdaptedStateToExecute(initialAdaptedState);
-	    //}
+	       
+    	    //Game.getInstance().setAdaptedStateToExecute(initialAdaptedState);
+    	    // the inital state is returned at the end of method
+
+	//}
 	 //System.out.println("antes de comprobar si esta en modo applet");
 	    //If we are an applet...
 	    if(Game.getInstance( ).isAppletMode( )) {
@@ -83,6 +87,8 @@ public class AdaptationEngine {
 	        }
 	        
 	    }
+	    return initialAdaptedState;
+	    
     }
     
     /**
@@ -94,6 +100,7 @@ public class AdaptationEngine {
 	
 	//AdaptationProfile profile = Loader.loadAdaptationProfile( ResourceHandler.getInstance(), adaptationPath, new ArrayList<Incidence>() );  
 	if (adaptationProfile!=null){
+	    	// add profile vars and flags to game vars and flags
 		    FlagSummary flags = Game.getInstance().getFlags();
 		    VarSummary vars = Game.getInstance().getVars();
 		    for (String flag: adaptationProfile.getFlags() ){
@@ -155,6 +162,7 @@ public class AdaptationEngine {
         		runRule = checkOperation(keys,lmsInitialStates,propertyName,rule);
     		} 
         	if (runRule){
+        	    // merge the adapted state, beca
         		Game.getInstance( ).setAdaptedStateToExecute( rule.getAdaptedState( ) );
         		//System.out.println("Se tendria que ejecutar la regla");
         	}
@@ -164,7 +172,7 @@ public class AdaptationEngine {
     private boolean checkOperation(Set<String> keys, HashMap<String,String> lmsInitialStates,String propertyName,AdaptationRule rule){
 	boolean runRule=true;
 	try{
-	   
+
 	if (keys.contains(propertyName)){
 	    String op = rule.getPropertyOp(propertyName);
 	    if (op.equals(AdaptationProfile.EQUALS)){

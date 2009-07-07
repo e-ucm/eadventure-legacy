@@ -101,6 +101,16 @@ public class AdaptationEditionPanel extends JPanel implements Updateable,DataCon
      */
     private JComboBox comboProfile;
     
+    /**
+	 * Move property up ( /\ ) button
+	 */
+	private JButton movePropertyUpButton;
+
+	/**
+	 * Move property down ( \/ ) button
+	 */
+	private JButton movePropertyDownButton;
+
     
     /**
      * 
@@ -199,10 +209,14 @@ public class AdaptationEditionPanel extends JPanel implements Updateable,DataCon
 			    if (informationTable.getSelectedRow() > -1){
 			    	delete.setEnabled(true);
 			    	duplicate.setEnabled(true);
+			    	movePropertyUpButton.setEnabled(true);
+			    	movePropertyDownButton.setEnabled(true);
 			    	lastRule = dataControl.getAdaptationRules().get(informationTable.getSelectedRow());
 			    }else{
 			    	delete.setEnabled(false);
 			    	duplicate.setEnabled(false);
+			    	movePropertyUpButton.setEnabled(false);
+			    	movePropertyDownButton.setEnabled(false	);
 			    }
 			    createRulesInfoPanel();
 			}
@@ -259,6 +273,23 @@ public class AdaptationEditionPanel extends JPanel implements Updateable,DataCon
 		    }
 		});
 		
+		// Up and down buttons
+		movePropertyUpButton = new JButton(new ImageIcon("img/icons/moveNodeUp.png"));
+		movePropertyUpButton.setContentAreaFilled( false );
+		movePropertyUpButton.setMargin( new Insets(0,0,0,0) );
+		movePropertyUpButton.setBorder(BorderFactory.createEmptyBorder());
+		movePropertyUpButton.setToolTipText( TextConstants.getText( "UOLProperties.MoveUp" ) );
+		movePropertyUpButton.addActionListener( new ListenerButtonMoveLineUp( ) );
+		movePropertyUpButton.setEnabled(false);
+
+		movePropertyDownButton = new JButton(new ImageIcon("img/icons/moveNodeDown.png"));
+		movePropertyDownButton.setContentAreaFilled( false );
+		movePropertyDownButton.setMargin( new Insets(0,0,0,0) );
+		movePropertyDownButton.setBorder(BorderFactory.createEmptyBorder());
+		movePropertyDownButton.setToolTipText( TextConstants.getText( "UOLProperties.MoveDown" ) );
+		movePropertyDownButton.addActionListener( new ListenerButtonMoveLineDown( ) );
+		movePropertyDownButton.setEnabled(false);
+		
 		JPanel buttonsPanel = new JPanel(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridx = 0;
@@ -267,9 +298,13 @@ public class AdaptationEditionPanel extends JPanel implements Updateable,DataCon
 		c.gridy=1;
 		buttonsPanel.add(duplicate, c);
 		c.gridy = 3;
+		buttonsPanel.add(movePropertyUpButton,c);
+		c.gridy = 4;
+		buttonsPanel.add(movePropertyDownButton,c);
+		c.gridy = 5;
 		buttonsPanel.add(delete, c);
 		c.gridy = 2;
-		c.weighty = 2.0;
+		c.weighty = 1.0;
 		c.fill = GridBagConstraints.VERTICAL;
 		buttonsPanel.add(new JFiller(), c);
 		ruleListPanel.add(buttonsPanel,BorderLayout.EAST);
@@ -381,11 +416,69 @@ public class AdaptationEditionPanel extends JPanel implements Updateable,DataCon
 		    rulesInfoPanel.setSelectedIndex(selectedTab);
 	}
 	
+	informationTable.clearSelection();
+	informationTable.updateUI();
+	
+	movePropertyDownButton.setEnabled(false);
+	movePropertyUpButton.setEnabled(false);
+	delete.setEnabled(false);
+	duplicate.setEnabled(false);
+	
 	if (initialStatePanel instanceof Updateable)
 	    ((Updateable)initialStatePanel).updateFields();
 	
 	return true;
     }
+    
+    /**
+	 * Listener for the move line up ( /\ ) button
+	 */
+	private class ListenerButtonMoveLineUp implements ActionListener {
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
+		public void actionPerformed( ActionEvent e ) {
+			// Take the selected row, and the selected node
+			int selectedRow = informationTable.getSelectedRow( );
+
+			// If the line was moved
+			if( dataControl.moveElementUp( dataControl.getAdaptationRules().get(selectedRow )) ) {
+
+				// Move the selection along with the line
+			    informationTable.setRowSelectionInterval( selectedRow - 1, selectedRow - 1 );
+			    informationTable.scrollRectToVisible( informationTable.getCellRect( selectedRow - 1, 0, true ) );
+
+			}
+		}
+	}
+
+	/**
+	 * Listener for the move line down ( \/ ) button
+	 */
+	private class ListenerButtonMoveLineDown implements ActionListener {
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+		 */
+		public void actionPerformed( ActionEvent e ) {
+			// Take the selected row, and the selected node
+			int selectedRow = informationTable.getSelectedRow( );
+
+			// If the line was moved
+			if( dataControl.moveElementDown( dataControl.getAdaptationRules().get(selectedRow )) ){
+
+				// Move the selection along with the line
+			    informationTable.setRowSelectionInterval( selectedRow + 1, selectedRow + 1 );
+			    informationTable.scrollRectToVisible( informationTable.getCellRect( selectedRow + 1, 0, true ) );
+
+			}
+		}
+	}
 
     public void setSelectedItem(List<Searchable> path) {
 	if (path.size() > 0) {
