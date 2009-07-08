@@ -102,6 +102,13 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel,Upd
 				spep.addElement(ScenePreviewEditionPanel.CATEGORY_CHARACTER, elementReference);
 			}
 			// Deleted the checking if player has layer
+			if (referencesListDataControl.getSceneDataControl().getTrajectory().hasTrajectory()) {
+				spep.setTrajectory((Trajectory) referencesListDataControl.getSceneDataControl().getTrajectory().getContent());
+				for (NodeDataControl nodeDataControl: referencesListDataControl.getSceneDataControl().getTrajectory().getNodes())
+					spep.addNode(nodeDataControl);
+				spep.setShowInfluenceArea(true);
+			}else 
+			
 			if (!Controller.getInstance().isPlayTransparent()/*&& referencesListDataControl.getSceneDataControl().isAllowPlayer()*/)
 				spep.addPlayer(referencesListDataControl.getSceneDataControl(), referencesListDataControl.getPlayerImage());
 		}
@@ -151,8 +158,11 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel,Upd
 		
 		//When a element has been selected
 		else {
+		    
 			int selectedReference = table.getSelectedRow( );
 			ElementContainer elementContainer = referencesListDataControl.getAllReferencesDataControl().get( selectedReference);
+			if (elementContainer.isPlayer()&&!referencesListDataControl.getSceneDataControl().getTrajectory().hasTrajectory()
+				||!elementContainer.isPlayer()){
 			referencesListDataControl.setLastElementContainer(elementContainer);
 			spep.setSelectedElement(elementContainer.getErdc(),elementContainer.getImage(),referencesListDataControl.getSceneDataControl());
 			//spep.repaint();
@@ -164,7 +174,7 @@ public class ReferencesListPanel extends JPanel implements DataControlsPanel,Upd
 			//Enable moveUp and moveDown buttons when there is more than one element
 			moveUpButton.setEnabled( referencesListDataControl.getAllReferencesDataControl().size( )>1 && selectedReference>0);
 			moveDownButton.setEnabled( referencesListDataControl.getAllReferencesDataControl().size( )>1 && selectedReference<table.getRowCount( )-1 );
-
+			}
 		}
 		updateUI( );
 		

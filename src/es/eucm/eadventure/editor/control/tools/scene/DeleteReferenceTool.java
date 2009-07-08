@@ -17,10 +17,13 @@ public class DeleteReferenceTool extends Tool {
 
 	private ElementContainer element;
 	
+	private int selectedRow;
+	
 	public DeleteReferenceTool(ReferencesListDataControl referencesListDataControl, ElementReferencesTable table, ScenePreviewEditionPanel spep) {
 		this.table = table;
 		this.referencesListDataControl = referencesListDataControl;
 		this.spep = spep;
+		this.selectedRow = table.getSelectedRow();
 	}
 
 	@Override
@@ -40,7 +43,7 @@ public class DeleteReferenceTool extends Tool {
 
 	@Override
 	public boolean doTool() {
-		element = referencesListDataControl.getAllReferencesDataControl().get( table.getSelectedRow( ) );
+		element = referencesListDataControl.getAllReferencesDataControl().get( selectedRow);
 		if (referencesListDataControl.deleteElement( element.getErdc(), true )){
 			if (!element.isPlayer()){
 				spep.removeElement(ReferencesListDataControl.transformType(element.getErdc().getType()), element.getErdc());
@@ -55,10 +58,13 @@ public class DeleteReferenceTool extends Tool {
 
 	@Override
 	public boolean redoTool() {
-		ElementContainer element = referencesListDataControl.getAllReferencesDataControl().get( table.getSelectedRow( ) );
+		ElementContainer element = referencesListDataControl.getAllReferencesDataControl().get( selectedRow );
 		if (referencesListDataControl.deleteElement( element.getErdc(), true )){
 			if (!element.isPlayer()){
 				spep.removeElement(ReferencesListDataControl.transformType(element.getErdc().getType()), element.getErdc());
+				table.clearSelection( );
+				table.changeSelection(0, 1, false, false);
+				table.updateUI( );
 			}
 			Controller.getInstance().updatePanel();
 			return true;
@@ -70,6 +76,9 @@ public class DeleteReferenceTool extends Tool {
 	public boolean undoTool() {
 		referencesListDataControl.addElement(element);
 		spep.addElement(element.getErdc().getType(), element.getErdc());
+		table.clearSelection( );
+		table.changeSelection(selectedRow, 1, false, false);
+		table.updateUI( );
 		Controller.getInstance().updatePanel();
 		return true;
 	}

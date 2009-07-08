@@ -2438,7 +2438,7 @@ avoids retyping.</entry>
 	<entry key="SPEP.ShowUncategorized">Other elements</entry>
 	<entry key="SPEP.ShowObjectReferences">Items</entry>
 	<entry key="SPEP.ShowPlayer">Player</entry>
-	<entry key="SPEP.ShowTrajectory">Trajectory</entry>
+	<entry key="SPEP.ShowTrajectory">Player's trajectory</entry>
 	<entry key="SPEP.ShowPanelTitle">Show/hide components</entry>
 	<entry key="SPEP.XCoordinate">X coordinate</entry>
 	<entry key="SPEP.YCoordinate">Y coordinate</entry>
