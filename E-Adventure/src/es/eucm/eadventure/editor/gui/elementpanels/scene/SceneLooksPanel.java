@@ -5,10 +5,12 @@ import java.awt.Image;
 
 import javax.swing.BorderFactory;
 
+import es.eucm.eadventure.common.data.chapter.Trajectory;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.scene.ElementReferenceDataControl;
+import es.eucm.eadventure.editor.control.controllers.scene.NodeDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
 import es.eucm.eadventure.editor.gui.elementpanels.general.LooksPanel;
 import es.eucm.eadventure.editor.gui.otherpanels.ScenePreviewEditionPanel;
@@ -59,6 +61,13 @@ public class SceneLooksPanel extends LooksPanel{
 		for( ElementReferenceDataControl elementReference : sceneDataControl.getReferencesList( ).getAtrezzoReferences( ) ) {
 			scenePreviewEditionPanel.addElement(ScenePreviewEditionPanel.CATEGORY_ATREZZO, elementReference);
 		}
+		if (sceneDataControl.getTrajectory().hasTrajectory()) {
+		    scenePreviewEditionPanel.setTrajectory((Trajectory) sceneDataControl.getTrajectory().getContent());
+			for (NodeDataControl nodeDataControl: sceneDataControl.getTrajectory().getNodes())
+			    scenePreviewEditionPanel.addNode(nodeDataControl);
+			scenePreviewEditionPanel.setShowInfluenceArea(true);
+		} else 
+		
 		// Deleted the checking if player has layer
 		if (!Controller.getInstance().isPlayTransparent() /*&& sceneDataControl.isAllowPlayer()*/ )
 			//scenePreviewEditionPanel.addPlayer(sceneDataControl, sceneDataControl.getReferencesList().getPlayerImage());

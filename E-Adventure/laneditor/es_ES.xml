@@ -2438,8 +2438,8 @@ ya que de esta manera se evita reescribirlos varias veces.</entry>
 	<entry key="SPEP.ShowExits">Salidas</entry>
 	<entry key="SPEP.ShowUncategorized">Otros elementos</entry>
 	<entry key="SPEP.ShowObjectReferences">Objetos</entry>
-	<entry key="SPEP.ShowPlayer">Jugador</entry>
-	<entry key="SPEP.ShowTrajectory">Trayectoria</entry>
+	<entry key="SPEP.ShowPlayer">Protagonista</entry>
+	<entry key="SPEP.ShowTrajectory">Trayectoria del protagonista</entry>
 	<entry key="SPEP.ShowPanelTitle">Mostrar/ocultar elementos</entry>
 	<entry key="SPEP.XCoordinate">Coordenada X</entry>
 	<entry key="SPEP.YCoordinate">Coordenada Y</entry>

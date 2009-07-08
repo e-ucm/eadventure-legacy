@@ -466,7 +466,8 @@ class UOLPropertiesPanel extends JPanel implements Updateable{
 			// If the value isn't an empty string
 			if (value != null){
 			if( !value.toString( ).trim( ).equals( "" ) ) {
-				// If the name is being edited, and it has really changed
+			if (rowIndex<adaptationRuleDataControl.getUOLPropertyCount( )){
+			    	// If the name is being edited, and it has really changed
 				if( columnIndex == 0 )
 					adaptationRuleDataControl.setUOLPropertyId( rowIndex, value.toString( ) );
 
@@ -481,6 +482,7 @@ class UOLPropertiesPanel extends JPanel implements Updateable{
 
 
 				fireTableCellUpdated( rowIndex, columnIndex );
+			}
 			}
 			}
 		}

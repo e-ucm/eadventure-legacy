@@ -54,11 +54,12 @@ public class ChangeAllowPlayerInSceneTool extends Tool{
 		else{	
 			scene.deletePlayerInReferenceList();
 		}
-		if (scenePreviewEditionPanel != null){
-		    if (!Controller.getInstance().isPlayTransparent())
-			scenePreviewEditionPanel.addPlayer(scene, scene.getReferencesList().getPlayerImage());
-		scenePreviewEditionPanel.repaint();
-		}
+		// Now, the player is always showed in scenePreviewEditionPanel
+		//if (scenePreviewEditionPanel != null){
+		  //  if (!Controller.getInstance().isPlayTransparent())
+			//scenePreviewEditionPanel.addPlayer(scene, scene.getReferencesList().getPlayerImage());
+		//scenePreviewEditionPanel.repaint();
+		//}
 		
 		controller.updatePanel();
 		/*looksPanel = new SceneLooksPanel(looksPanel.getSceneDataControl());
