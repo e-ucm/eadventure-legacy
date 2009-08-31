@@ -1,34 +1,36 @@
 /**
- * <e-Adventure> is an <e-UCM> research project.
- * <e-UCM>, Department of Software Engineering and Artificial Intelligence.
- * Faculty of Informatics, Complutense University of Madrid (Spain).
- * @author Del Blanco, A., Marchiori, E., Torrente, F.J.
+ * <e-Adventure> is an <e-UCM> research project. <e-UCM>, Department of Software
+ * Engineering and Artificial Intelligence. Faculty of Informatics, Complutense
+ * University of Madrid (Spain).
+ * 
+ * @author Del Blanco, A., Marchiori, E., Torrente, F.J. (alphabetical order) *
+ * @author López Mañas, E., Pérez Padilla, F., Sollet, E., Torijano, B. (former
+ *         developers by alphabetical order)
  * @author Moreno-Ger, P. & Fernández-Manjón, B. (directors)
- * @year 2009
- * Web-site: http://e-adventure.e-ucm.es
+ * @year 2009 Web-site: http://e-adventure.e-ucm.es
  */
 
 /*
-    Copyright (C) 2004-2009 <e-UCM> research group
-
-    This file is part of <e-Adventure> project, an educational game & game-like 
-    simulation authoring tool, availabe at http://e-adventure.e-ucm.es. 
-
-    <e-Adventure> is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    <e-Adventure> is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with <e-Adventure>; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-*/
+ * Copyright (C) 2004-2009 <e-UCM> research group
+ * 
+ * This file is part of <e-Adventure> project, an educational game & game-like
+ * simulation authoring tool, available at http://e-adventure.e-ucm.es.
+ * 
+ * <e-Adventure> is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version.
+ * 
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place, Suite 330, Boston, MA 02111-1307 USA
+ * 
+ */
 package es.eucm.eadventure.editor.control.controllers.atrezzo;
 
 import java.util.ArrayList;
@@ -51,325 +53,352 @@ import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class AtrezzoDataControl extends DataControlWithResources {
 
-	/**
-	 * Contained atrezzo item.
-	 */
-	private Atrezzo atrezzo;
-	
-	/**
-	 * Constructor.
-	 * 
-	 * @param atrezzo
-	 *            Contained atrezzo item
-	 */
-	public AtrezzoDataControl( Atrezzo atrezzo ) {
-		this.atrezzo = atrezzo;
-		this.resourcesList = atrezzo.getResources( );
+    /**
+     * Contained atrezzo item.
+     */
+    private Atrezzo atrezzo;
 
-		selectedResources = 0;
+    /**
+     * Constructor.
+     * 
+     * @param atrezzo
+     *            Contained atrezzo item
+     */
+    public AtrezzoDataControl( Atrezzo atrezzo ) {
 
-		// Add a new resource if the list is empty
-		if( resourcesList.size( ) == 0 )
-			resourcesList.add( new Resources( ) );
+        this.atrezzo = atrezzo;
+        this.resourcesList = atrezzo.getResources( );
 
-		// Create the subcontrollers
-		resourcesDataControlList = new ArrayList<ResourcesDataControl>( );
-		for( Resources resources : resourcesList )
-			resourcesDataControlList.add( new ResourcesDataControl( resources, Controller.ATREZZO ) );
+        selectedResources = 0;
 
-		
-	}
-	
-	
+        // Add a new resource if the list is empty
+        if( resourcesList.size( ) == 0 )
+            resourcesList.add( new Resources( ) );
 
-	/**
-	 * Returns the path to the selected preview image.
-	 * 
-	 * @return Path to the image, null if not present
-	 */
-	public String getPreviewImage( ) {
-		return resourcesDataControlList.get( selectedResources ).getAssetPath( "image" );
-	}
+        // Create the subcontrollers
+        resourcesDataControlList = new ArrayList<ResourcesDataControl>( );
+        for( Resources resources : resourcesList )
+            resourcesDataControlList.add( new ResourcesDataControl( resources, Controller.ATREZZO ) );
 
-	/**
-	 * Returns the id of the atrezzo item.
-	 * 
-	 * @return Atrezzo's id
-	 */
-	public String getId( ) {
-		return atrezzo.getId( );
-	}
+    }
 
-	/**
-	 * Returns the documentation of the atrezzo item.
-	 * 
-	 * @return Atrezzo's documentation
-	 */
-	public String getDocumentation( ) {
-		return atrezzo.getDocumentation( );
-	}
+    /**
+     * Returns the path to the selected preview image.
+     * 
+     * @return Path to the image, null if not present
+     */
+    public String getPreviewImage( ) {
 
-	/**
-	 * Returns the name of the atrezzo item.
-	 * 
-	 * @return Atrezzo's name
-	 */
-	public String getName( ) {
-		return atrezzo.getName( );
-	}
+        return resourcesDataControlList.get( selectedResources ).getAssetPath( "image" );
+    }
 
-	/**
-	 * Returns the brief description of the atrezzo item.
-	 * 
-	 * @return Atrezzo's description
-	 */
-	public String getBriefDescription( ) {
-		return atrezzo.getDescription( );
-	}
+    /**
+     * Returns the id of the atrezzo item.
+     * 
+     * @return Atrezzo's id
+     */
+    public String getId( ) {
 
-	/**
-	 * Returns the detailed description of the atrezzo item.
-	 * 
-	 * @return Atrezzo's detailed description
-	 */
-	public String getDetailedDescription( ) {
-		return atrezzo.getDetailedDescription( );
-	}
+        return atrezzo.getId( );
+    }
 
-	/**
-	 * Sets the new documentation of the atrezzo item.
-	 * 
-	 * @param documentation
-	 *            Documentation of the atrezzo item
-	 */
-	public void setDocumentation( String documentation ) {
-		controller.addTool(new ChangeDocumentationTool(atrezzo, documentation));
-	}
+    /**
+     * Returns the documentation of the atrezzo item.
+     * 
+     * @return Atrezzo's documentation
+     */
+    public String getDocumentation( ) {
 
-	/**
-	 * Sets the new name of the atrezzo item.
-	 * 
-	 * @param name
-	 *            Name of the atrezzo item
-	 */
-	public void setName( String name ) {
-		controller.addTool(new ChangeNameTool(atrezzo, name));
-	}
+        return atrezzo.getDocumentation( );
+    }
 
-	/**
-	 * Sets the new brief description of the atrezzo item.
-	 * 
-	 * @param description
-	 *            Description of the atrezzo item
-	 */
-	public void setBriefDescription( String description ) {
-		controller.addTool(new ChangeDescriptionTool(atrezzo, description));
-	}
+    /**
+     * Returns the name of the atrezzo item.
+     * 
+     * @return Atrezzo's name
+     */
+    public String getName( ) {
 
-	/**
-	 * Sets the new detailed description of the atrezzo item.
-	 * 
-	 * @param detailedDescription
-	 *            Detailed description of the atrezzo item
-	 */
-	public void setDetailedDescription( String detailedDescription ) {
-		controller.addTool(new ChangeDetailedDescriptionTool(atrezzo, detailedDescription));
-	}
+        return atrezzo.getName( );
+    }
 
-	@Override
-	public Object getContent( ) {
-		return atrezzo;
-	}
+    /**
+     * Returns the brief description of the atrezzo item.
+     * 
+     * @return Atrezzo's description
+     */
+    public String getBriefDescription( ) {
 
-	@Override
-	public int[] getAddableElements( ) {
-		//return new int[] { Controller.RESOURCES };
-		return new int[] {};
-	}
+        return atrezzo.getDescription( );
+    }
 
-	@Override
-	public boolean canAddElement( int type ) {
-		// It can always add new resources
-		return false;
-	}
+    /**
+     * Returns the detailed description of the atrezzo item.
+     * 
+     * @return Atrezzo's detailed description
+     */
+    public String getDetailedDescription( ) {
 
-	@Override
-	public boolean canBeDeleted( ) {
-		return true;
-	}
+        return atrezzo.getDetailedDescription( );
+    }
 
-	@Override
-	public boolean canBeMoved( ) {
-		return true;
-	}
+    /**
+     * Sets the new documentation of the atrezzo item.
+     * 
+     * @param documentation
+     *            Documentation of the atrezzo item
+     */
+    public void setDocumentation( String documentation ) {
 
-	@Override
-	public boolean canBeRenamed( ) {
-		return true;
-	}
+        controller.addTool( new ChangeDocumentationTool( atrezzo, documentation ) );
+    }
 
-	@Override
-	public boolean addElement( int type, String id ) {
-		boolean elementAdded = false;
+    /**
+     * Sets the new name of the atrezzo item.
+     * 
+     * @param name
+     *            Name of the atrezzo item
+     */
+    public void setName( String name ) {
 
-		if( type == Controller.RESOURCES ) {
-			elementAdded = Controller.getInstance().addTool( new AddResourcesBlockTool(resourcesList, resourcesDataControlList, Controller.ATREZZO, this) );
-		}
+        controller.addTool( new ChangeNameTool( atrezzo, name ) );
+    }
 
-		return elementAdded;
-	}
+    /**
+     * Sets the new brief description of the atrezzo item.
+     * 
+     * @param description
+     *            Description of the atrezzo item
+     */
+    public void setBriefDescription( String description ) {
 
-	@Override
-	public boolean moveElementUp( DataControl dataControl ) {
-		boolean elementMoved = false;
-		int elementIndex = resourcesList.indexOf( dataControl.getContent( ) );
+        controller.addTool( new ChangeDescriptionTool( atrezzo, description ) );
+    }
 
-		if( elementIndex > 0 ) {
-			resourcesList.add( elementIndex - 1, resourcesList.remove( elementIndex ) );
-			resourcesDataControlList.add( elementIndex - 1, resourcesDataControlList.remove( elementIndex ) );
-			//controller.dataModified( );
-			elementMoved = true;
-		}
+    /**
+     * Sets the new detailed description of the atrezzo item.
+     * 
+     * @param detailedDescription
+     *            Detailed description of the atrezzo item
+     */
+    public void setDetailedDescription( String detailedDescription ) {
 
-		return elementMoved;
-	}
+        controller.addTool( new ChangeDetailedDescriptionTool( atrezzo, detailedDescription ) );
+    }
 
-	@Override
-	public boolean moveElementDown( DataControl dataControl ) {
-		boolean elementMoved = false;
-		int elementIndex = resourcesList.indexOf( dataControl.getContent( ) );
+    @Override
+    public Object getContent( ) {
 
-		if( elementIndex < resourcesList.size( ) - 1 ) {
-			resourcesList.add( elementIndex + 1, resourcesList.remove( elementIndex ) );
-			resourcesDataControlList.add( elementIndex + 1, resourcesDataControlList.remove( elementIndex ) );
-			//controller.dataModified( );
-			elementMoved = true;
-		}
+        return atrezzo;
+    }
 
-		return elementMoved;
-	}
+    @Override
+    public int[] getAddableElements( ) {
 
-	@Override
-	public String renameElement( String name ) {
-		boolean elementRenamed = false;
-		String oldAtrezzoId = atrezzo.getId( );
-		String references = String.valueOf( controller.countIdentifierReferences( oldAtrezzoId ) );
+        //return new int[] { Controller.RESOURCES };
+        return new int[] {};
+    }
 
-		// Ask for confirmation 
-		if(name != null || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.RenameAtrezzoTitle" ), TextConstants.getText( "Operation.RenameElementWarning", new String[] { oldAtrezzoId, references } ) ) ) {
+    @Override
+    public boolean canAddElement( int type ) {
 
-			// Show a dialog asking for the new atrezzo item id
-			String newAtrezzoId = name;
-			if (name == null)
-				newAtrezzoId = controller.showInputDialog( TextConstants.getText( "Operation.RenameAtrezzoTitle" ), TextConstants.getText( "Operation.RenameAtrezzoMessage" ), oldAtrezzoId );
+        // It can always add new resources
+        return false;
+    }
 
-			// If some value was typed and the identifiers are different
-			if( newAtrezzoId != null && !newAtrezzoId.equals( oldAtrezzoId ) && controller.isElementIdValid( newAtrezzoId ) ) {
-				atrezzo.setId( newAtrezzoId );
-				controller.replaceIdentifierReferences( oldAtrezzoId, newAtrezzoId );
-				controller.getIdentifierSummary( ).deleteAtrezzoId( oldAtrezzoId );
-				controller.getIdentifierSummary( ).addAtrezzoId( newAtrezzoId );
-				//controller.dataModified( );
-				elementRenamed = true;
-			}
-		}
+    @Override
+    public boolean canBeDeleted( ) {
 
-		if (elementRenamed)
-			return oldAtrezzoId;
-		else
-			return null;
-	}
+        return true;
+    }
 
-	@Override
-	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
-		// Iterate through the resources
-		for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
-			resourcesDataControl.updateVarFlagSummary(varFlagSummary);
+    @Override
+    public boolean canBeMoved( ) {
 
-	}
+        return true;
+    }
 
-	@Override
-	public boolean isValid( String currentPath, List<String> incidences ) {
-		boolean valid = true;
+    @Override
+    public boolean canBeRenamed( ) {
 
-		// Iterate through the resources
-		for( int i = 0; i < resourcesDataControlList.size( ); i++ ) {
-			String resourcesPath = currentPath + " >> " + TextConstants.getElementName( Controller.RESOURCES ) + " #" + ( i + 1 );
-			valid &= resourcesDataControlList.get( i ).isValid( resourcesPath, incidences );
-		}
+        return true;
+    }
 
+    @Override
+    public boolean addElement( int type, String id ) {
 
-		return valid;
-	}
+        boolean elementAdded = false;
 
-	@Override
-	public int countAssetReferences( String assetPath ) {
-		int count = 0;
+        if( type == Controller.RESOURCES ) {
+            elementAdded = Controller.getInstance( ).addTool( new AddResourcesBlockTool( resourcesList, resourcesDataControlList, Controller.ATREZZO, this ) );
+        }
 
-		// Iterate through the resources
-		for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
-			count += resourcesDataControl.countAssetReferences( assetPath );
+        return elementAdded;
+    }
 
-		return count;
-	}
-	
-	public void getAssetReferences( List<String> assetPaths, List<Integer> assetTypes){
-		// Iterate through the resources
-		for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
-			resourcesDataControl.getAssetReferences( assetPaths, assetTypes );
+    @Override
+    public boolean moveElementUp( DataControl dataControl ) {
 
-	}
+        boolean elementMoved = false;
+        int elementIndex = resourcesList.indexOf( dataControl.getContent( ) );
 
+        if( elementIndex > 0 ) {
+            resourcesList.add( elementIndex - 1, resourcesList.remove( elementIndex ) );
+            resourcesDataControlList.add( elementIndex - 1, resourcesDataControlList.remove( elementIndex ) );
+            //controller.dataModified( );
+            elementMoved = true;
+        }
 
-	@Override
-	public void deleteAssetReferences( String assetPath ) {
-		// Iterate through the resources
-		for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
-			resourcesDataControl.deleteAssetReferences( assetPath );
-	}
+        return elementMoved;
+    }
 
-	@Override
-	public int countIdentifierReferences( String id ) {
-	    int count=0;
-	    // Iterate through the resources
-		for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
-		    count += resourcesDataControl.countIdentifierReferences(id);
-		return count;
-	}
+    @Override
+    public boolean moveElementDown( DataControl dataControl ) {
 
-	@Override
-	public void replaceIdentifierReferences( String oldId, String newId ) {
-	 // Iterate through the resources
-		for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
-		    resourcesDataControl.replaceIdentifierReferences(oldId, newId);
-	}
+        boolean elementMoved = false;
+        int elementIndex = resourcesList.indexOf( dataControl.getContent( ) );
 
-	@Override
-	public void deleteIdentifierReferences( String id ) {
-	 // Iterate through the resources
-		for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
-		    resourcesDataControl.deleteIdentifierReferences(id);
-	}
+        if( elementIndex < resourcesList.size( ) - 1 ) {
+            resourcesList.add( elementIndex + 1, resourcesList.remove( elementIndex ) );
+            resourcesDataControlList.add( elementIndex + 1, resourcesDataControlList.remove( elementIndex ) );
+            //controller.dataModified( );
+            elementMoved = true;
+        }
 
-	@Override
-	public boolean canBeDuplicated( ) {
-		return true;
-	}
+        return elementMoved;
+    }
 
+    @Override
+    public String renameElement( String name ) {
 
-	@Override
-	public void recursiveSearch() {
-		check(this.getBriefDescription(), TextConstants.getText("Search.BriefDescription"));
-		check(this.getDetailedDescription(), TextConstants.getText("Search.DetailedDescription"));
-		check(this.getDocumentation(), TextConstants.getText("Search.Documentation"));
-		check(this.getId(), "ID");
-		check(this.getName(), TextConstants.getText("Search.Name"));
-		check(this.getPreviewImage(), TextConstants.getText("Search.PreviewImage"));
-	}
-	
-	@Override
-	public List<Searchable> getPathToDataControl(Searchable dataControl) {
-		return getPathFromChild(dataControl, resourcesDataControlList);
-	}
+        boolean elementRenamed = false;
+        String oldAtrezzoId = atrezzo.getId( );
+        String references = String.valueOf( controller.countIdentifierReferences( oldAtrezzoId ) );
+
+        // Ask for confirmation 
+        if( name != null || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.RenameAtrezzoTitle" ), TextConstants.getText( "Operation.RenameElementWarning", new String[] { oldAtrezzoId, references } ) ) ) {
+
+            // Show a dialog asking for the new atrezzo item id
+            String newAtrezzoId = name;
+            if( name == null )
+                newAtrezzoId = controller.showInputDialog( TextConstants.getText( "Operation.RenameAtrezzoTitle" ), TextConstants.getText( "Operation.RenameAtrezzoMessage" ), oldAtrezzoId );
+
+            // If some value was typed and the identifiers are different
+            if( newAtrezzoId != null && !newAtrezzoId.equals( oldAtrezzoId ) && controller.isElementIdValid( newAtrezzoId ) ) {
+                atrezzo.setId( newAtrezzoId );
+                controller.replaceIdentifierReferences( oldAtrezzoId, newAtrezzoId );
+                controller.getIdentifierSummary( ).deleteAtrezzoId( oldAtrezzoId );
+                controller.getIdentifierSummary( ).addAtrezzoId( newAtrezzoId );
+                //controller.dataModified( );
+                elementRenamed = true;
+            }
+        }
+
+        if( elementRenamed )
+            return oldAtrezzoId;
+        else
+            return null;
+    }
+
+    @Override
+    public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
+
+        // Iterate through the resources
+        for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
+            resourcesDataControl.updateVarFlagSummary( varFlagSummary );
+
+    }
+
+    @Override
+    public boolean isValid( String currentPath, List<String> incidences ) {
+
+        boolean valid = true;
+
+        // Iterate through the resources
+        for( int i = 0; i < resourcesDataControlList.size( ); i++ ) {
+            String resourcesPath = currentPath + " >> " + TextConstants.getElementName( Controller.RESOURCES ) + " #" + ( i + 1 );
+            valid &= resourcesDataControlList.get( i ).isValid( resourcesPath, incidences );
+        }
+
+        return valid;
+    }
+
+    @Override
+    public int countAssetReferences( String assetPath ) {
+
+        int count = 0;
+
+        // Iterate through the resources
+        for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
+            count += resourcesDataControl.countAssetReferences( assetPath );
+
+        return count;
+    }
+
+    @Override
+    public void getAssetReferences( List<String> assetPaths, List<Integer> assetTypes ) {
+
+        // Iterate through the resources
+        for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
+            resourcesDataControl.getAssetReferences( assetPaths, assetTypes );
+
+    }
+
+    @Override
+    public void deleteAssetReferences( String assetPath ) {
+
+        // Iterate through the resources
+        for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
+            resourcesDataControl.deleteAssetReferences( assetPath );
+    }
+
+    @Override
+    public int countIdentifierReferences( String id ) {
+
+        int count = 0;
+        // Iterate through the resources
+        for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
+            count += resourcesDataControl.countIdentifierReferences( id );
+        return count;
+    }
+
+    @Override
+    public void replaceIdentifierReferences( String oldId, String newId ) {
+
+        // Iterate through the resources
+        for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
+            resourcesDataControl.replaceIdentifierReferences( oldId, newId );
+    }
+
+    @Override
+    public void deleteIdentifierReferences( String id ) {
+
+        // Iterate through the resources
+        for( ResourcesDataControl resourcesDataControl : resourcesDataControlList )
+            resourcesDataControl.deleteIdentifierReferences( id );
+    }
+
+    @Override
+    public boolean canBeDuplicated( ) {
+
+        return true;
+    }
+
+    @Override
+    public void recursiveSearch( ) {
+
+        check( this.getBriefDescription( ), TextConstants.getText( "Search.BriefDescription" ) );
+        check( this.getDetailedDescription( ), TextConstants.getText( "Search.DetailedDescription" ) );
+        check( this.getDocumentation( ), TextConstants.getText( "Search.Documentation" ) );
+        check( this.getId( ), "ID" );
+        check( this.getName( ), TextConstants.getText( "Search.Name" ) );
+        check( this.getPreviewImage( ), TextConstants.getText( "Search.PreviewImage" ) );
+    }
+
+    @Override
+    public List<Searchable> getPathToDataControl( Searchable dataControl ) {
+
+        return getPathFromChild( dataControl, resourcesDataControlList );
+    }
 
 }

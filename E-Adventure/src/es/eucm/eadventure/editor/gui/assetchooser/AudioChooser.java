@@ -1,82 +1,88 @@
 /**
- * <e-Adventure> is an <e-UCM> research project.
- * <e-UCM>, Department of Software Engineering and Artificial Intelligence.
- * Faculty of Informatics, Complutense University of Madrid (Spain).
- * @author Del Blanco, A., Marchiori, E., Torrente, F.J.
+ * <e-Adventure> is an <e-UCM> research project. <e-UCM>, Department of Software
+ * Engineering and Artificial Intelligence. Faculty of Informatics, Complutense
+ * University of Madrid (Spain).
+ * 
+ * @author Del Blanco, A., Marchiori, E., Torrente, F.J. (alphabetical order) *
+ * @author López Mañas, E., Pérez Padilla, F., Sollet, E., Torijano, B. (former
+ *         developers by alphabetical order)
  * @author Moreno-Ger, P. & Fernández-Manjón, B. (directors)
- * @year 2009
- * Web-site: http://e-adventure.e-ucm.es
+ * @year 2009 Web-site: http://e-adventure.e-ucm.es
  */
 
 /*
-    Copyright (C) 2004-2009 <e-UCM> research group
-
-    This file is part of <e-Adventure> project, an educational game & game-like 
-    simulation authoring tool, availabe at http://e-adventure.e-ucm.es. 
-
-    <e-Adventure> is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    <e-Adventure> is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with <e-Adventure>; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-*/
+ * Copyright (C) 2004-2009 <e-UCM> research group
+ * 
+ * This file is part of <e-Adventure> project, an educational game & game-like
+ * simulation authoring tool, available at http://e-adventure.e-ucm.es.
+ * 
+ * <e-Adventure> is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version.
+ * 
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place, Suite 330, Boston, MA 02111-1307 USA
+ * 
+ */
 package es.eucm.eadventure.editor.gui.assetchooser;
 
 import java.awt.Container;
 
 import javax.swing.BorderFactory;
 
-import es.eucm.eadventure.common.auxiliar.FileFilter;
+import es.eucm.eadventure.common.auxiliar.AssetsConstants;
 import es.eucm.eadventure.common.gui.TextConstants;
-import es.eucm.eadventure.editor.auxiliar.categoryfilters.AudioFileFilter;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.gui.otherpanels.AudioPanel;
 
 public class AudioChooser extends AssetChooser {
 
-	private AudioPanel audioPanel;
+    private AudioPanel audioPanel;
 
-	public AudioChooser( int filter ) {
-		super( AssetsController.CATEGORY_AUDIO, filter, AssetChooser.PREVIEW_LOCATION_SOUTH, TextConstants.getText( "AssetsChooser.Audio" ) );
-	}
+    public AudioChooser( int filter ) {
 
-	@Override
-	protected void createPreviewPanel( Container parent ) {
-		// Create a panel for the element preview
-		audioPanel = new AudioPanel( );
-		audioPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AudioAssets.Preview" ) ) );
-		parent.add( audioPanel );
-	}
+        super( AssetsConstants.CATEGORY_AUDIO, filter, AssetChooser.PREVIEW_LOCATION_SOUTH, TextConstants.getText( "AssetsChooser.Audio" ) );
+    }
 
-	@Override
-	protected void updatePreview( ) {
-		// If there is an asset selected, show it
-		if( getSelectedAsset( ) != null ) {
-			String[] assetFilenames = AssetsController.getAssetFilenames( AssetsController.CATEGORY_AUDIO );
-			String[] assetPaths = AssetsController.getAssetsList( AssetsController.CATEGORY_AUDIO );
-			int assetIndex = -1;
-			for( int i = 0; i < assetFilenames.length; i++ )
-				if( assetFilenames[i].equals( getSelectedAsset( ) ) )
-					assetIndex = i;
+    @Override
+    protected void createPreviewPanel( Container parent ) {
 
-			audioPanel.loadAudio( assetPaths[assetIndex] );
-		} else if( getSelectedFile( ) != null ) {
-			audioPanel.loadAudio( getSelectedFile( ).getAbsolutePath( ) );
+        // Create a panel for the element preview
+        audioPanel = new AudioPanel( );
+        audioPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AudioAssets.Preview" ) ) );
+        parent.add( audioPanel );
+    }
 
-			// Else, delete the preview image
-		} else {
-			audioPanel.removeAudio( );
-		}
+    @Override
+    protected void updatePreview( ) {
 
-	}
+        // If there is an asset selected, show it
+        if( getSelectedAsset( ) != null ) {
+            String[] assetFilenames = AssetsController.getAssetFilenames( AssetsConstants.CATEGORY_AUDIO );
+            String[] assetPaths = AssetsController.getAssetsList( AssetsConstants.CATEGORY_AUDIO );
+            int assetIndex = -1;
+            for( int i = 0; i < assetFilenames.length; i++ )
+                if( assetFilenames[i].equals( getSelectedAsset( ) ) )
+                    assetIndex = i;
+
+            audioPanel.loadAudio( assetPaths[assetIndex] );
+        }
+        else if( getSelectedFile( ) != null ) {
+            audioPanel.loadAudio( getSelectedFile( ).getAbsolutePath( ) );
+
+            // Else, delete the preview image
+        }
+        else {
+            audioPanel.removeAudio( );
+        }
+
+    }
 
 }

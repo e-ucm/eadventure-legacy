@@ -1,34 +1,36 @@
 /**
- * <e-Adventure> is an <e-UCM> research project.
- * <e-UCM>, Department of Software Engineering and Artificial Intelligence.
- * Faculty of Informatics, Complutense University of Madrid (Spain).
- * @author Del Blanco, A., Marchiori, E., Torrente, F.J.
+ * <e-Adventure> is an <e-UCM> research project. <e-UCM>, Department of Software
+ * Engineering and Artificial Intelligence. Faculty of Informatics, Complutense
+ * University of Madrid (Spain).
+ * 
+ * @author Del Blanco, A., Marchiori, E., Torrente, F.J. (alphabetical order) *
+ * @author López Mañas, E., Pérez Padilla, F., Sollet, E., Torijano, B. (former
+ *         developers by alphabetical order)
  * @author Moreno-Ger, P. & Fernández-Manjón, B. (directors)
- * @year 2009
- * Web-site: http://e-adventure.e-ucm.es
+ * @year 2009 Web-site: http://e-adventure.e-ucm.es
  */
 
 /*
-    Copyright (C) 2004-2009 <e-UCM> research group
-
-    This file is part of <e-Adventure> project, an educational game & game-like 
-    simulation authoring tool, availabe at http://e-adventure.e-ucm.es. 
-
-    <e-Adventure> is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    <e-Adventure> is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with <e-Adventure>; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-*/
+ * Copyright (C) 2004-2009 <e-UCM> research group
+ * 
+ * This file is part of <e-Adventure> project, an educational game & game-like
+ * simulation authoring tool, available at http://e-adventure.e-ucm.es.
+ * 
+ * <e-Adventure> is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version.
+ * 
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place, Suite 330, Boston, MA 02111-1307 USA
+ * 
+ */
 package es.eucm.eadventure.editor.control.controllers.scene;
 
 import java.util.ArrayList;
@@ -44,322 +46,361 @@ import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class ExitsListDataControl extends DataControl {
 
-	/**
-	 * Scene controller that contains this element reference.
-	 */
-	private SceneDataControl sceneDataControl;
+    /**
+     * Scene controller that contains this element reference.
+     */
+    private SceneDataControl sceneDataControl;
 
-	/**
-	 * List of exits.
-	 */
-	private List<Exit> exitsList;
+    /**
+     * List of exits.
+     */
+    private List<Exit> exitsList;
 
-	/**
-	 * List of exits controllers.
-	 */
-	private List<ExitDataControl> exitsDataControlList;
+    /**
+     * List of exits controllers.
+     */
+    private List<ExitDataControl> exitsDataControlList;
 
-	/**
-	 * Constructor.
-	 * 
-	 * @param sceneDataControl
-	 *            Link to the parent scene controller
-	 * @param exitsList
-	 *            List of exits
-	 */
-	public ExitsListDataControl( SceneDataControl sceneDataControl, List<Exit> exitsList ) {
-		this.sceneDataControl = sceneDataControl;
-		this.exitsList = exitsList;
+    /**
+     * Constructor.
+     * 
+     * @param sceneDataControl
+     *            Link to the parent scene controller
+     * @param exitsList
+     *            List of exits
+     */
+    public ExitsListDataControl( SceneDataControl sceneDataControl, List<Exit> exitsList ) {
 
-		// Create subcontrollers
-		exitsDataControlList = new ArrayList<ExitDataControl>( );
-		for( Exit exit : exitsList )
-			exitsDataControlList.add( new ExitDataControl( sceneDataControl, exit ) );
-	}
+        this.sceneDataControl = sceneDataControl;
+        this.exitsList = exitsList;
 
-	/**
-	 * Returns the list of exits controllers.
-	 * 
-	 * @return List of exits controllers
-	 */
-	public List<ExitDataControl> getExits( ) {
-		return exitsDataControlList;
-	}
+        // Create subcontrollers
+        exitsDataControlList = new ArrayList<ExitDataControl>( );
+        for( Exit exit : exitsList )
+            exitsDataControlList.add( new ExitDataControl( sceneDataControl, exit ) );
+    }
 
-	/**
-	 * Returns the last exit controller from the list.
-	 * 
-	 * @return Last exit controller
-	 */
-	public ExitDataControl getLastExit( ) {
-		return exitsDataControlList.get( exitsDataControlList.size( ) - 1 );
-	}
+    /**
+     * Returns the list of exits controllers.
+     * 
+     * @return List of exits controllers
+     */
+    public List<ExitDataControl> getExits( ) {
 
-	/**
-	 * Returns the id of the scene that contains this exits list.
-	 * 
-	 * @return Parent scene id
-	 */
-	public String getParentSceneId( ) {
-		return sceneDataControl.getId( );
-	}
+        return exitsDataControlList;
+    }
 
-	@Override
-	public Object getContent( ) {
-		return exitsList;
-	}
+    /**
+     * Returns the last exit controller from the list.
+     * 
+     * @return Last exit controller
+     */
+    public ExitDataControl getLastExit( ) {
 
-	@Override
-	public int[] getAddableElements( ) {
-		return new int[] { Controller.EXIT };
-	}
+        return exitsDataControlList.get( exitsDataControlList.size( ) - 1 );
+    }
 
-	@Override
-	public boolean canAddElement( int type ) {
-		// It can always add new exit
-		return type == Controller.EXIT;
-	}
+    /**
+     * Returns the id of the scene that contains this exits list.
+     * 
+     * @return Parent scene id
+     */
+    public String getParentSceneId( ) {
 
-	@Override
-	public boolean canBeDeleted( ) {
-		return false;
-	}
+        return sceneDataControl.getId( );
+    }
 
-	@Override
-	public boolean canBeMoved( ) {
-		return false;
-	}
+    @Override
+    public Object getContent( ) {
 
-	@Override
-	public boolean canBeRenamed( ) {
-		return false;
-	}
+        return exitsList;
+    }
 
-	@Override
-	public boolean addElement( int type, String id ) {
-		boolean elementAdded = false;
+    @Override
+    public int[] getAddableElements( ) {
 
-		if( type == Controller.EXIT ) {
-			String[] generalScenes = controller.getIdentifierSummary( ).getGeneralSceneIds( );
+        return new int[] { Controller.EXIT };
+    }
 
-			if( generalScenes.length > 0 ) {
-				String selectedScene = controller.showInputDialog( TextConstants.getText( "Operation.AddNextSceneTitle" ), TextConstants.getText( "Operation.AddNextSceneMessage" ), generalScenes );
-				if( selectedScene != null ) {
-					Exit newExit = new Exit( true, 240, 240, 100, 100 );
-					newExit.setNextSceneId(selectedScene);
-					ExitDataControl newExitDataControl = new ExitDataControl( sceneDataControl, newExit );
+    @Override
+    public boolean canAddElement( int type ) {
 
-					exitsList.add( newExit );
-					exitsDataControlList.add( newExitDataControl );
-					elementAdded = true;
-				}
-			}
-			
-		}
+        // It can always add new exit
+        return type == Controller.EXIT;
+    }
 
-		return elementAdded;
-	}
+    @Override
+    public boolean canBeDeleted( ) {
 
-	@Override
-	public boolean duplicateElement( DataControl dataControl ) {
-		if (!(dataControl instanceof ExitDataControl))
-			return false;
-		
-		try {
-			Exit newElement = (Exit) (((Exit) (dataControl.getContent())).clone());
-			exitsList.add(newElement);
-			exitsDataControlList.add( new ExitDataControl(sceneDataControl, newElement));
-			return true;
-		} catch (CloneNotSupportedException e) {
-			ReportDialog.GenerateErrorReport(e, true, "Could not clone exit");	
-			return false;
-		} 
-	}
+        return false;
+    }
 
-	@Override
-	public boolean deleteElement( DataControl dataControl, boolean askConfirmation ) {
-		boolean elementDeleted = false;
+    @Override
+    public boolean canBeMoved( ) {
 
-		if( exitsList.remove( dataControl.getContent( ) ) ) {
-			exitsDataControlList.remove( dataControl );
-			//controller.dataModified( );
-			elementDeleted = true;
-		}
+        return false;
+    }
 
-		return elementDeleted;
-	}
+    @Override
+    public boolean canBeRenamed( ) {
 
-	@Override
-	public boolean moveElementUp( DataControl dataControl ) {
-		boolean elementMoved = false;
-		int elementIndex = exitsList.indexOf( dataControl.getContent( ) );
+        return false;
+    }
 
-		if( elementIndex > 0 ) {
-			exitsList.add( elementIndex - 1, exitsList.remove( elementIndex ) );
-			exitsDataControlList.add( elementIndex - 1, exitsDataControlList.remove( elementIndex ) );
-			//controller.dataModified( );
-			elementMoved = true;
-		}
+    @Override
+    public boolean addElement( int type, String id ) {
 
-		return elementMoved;
-	}
+        boolean elementAdded = false;
 
-	@Override
-	public boolean moveElementDown( DataControl dataControl ) {
-		boolean elementMoved = false;
-		int elementIndex = exitsList.indexOf( dataControl.getContent( ) );
+        if( type == Controller.EXIT ) {
+            String[] generalScenes = controller.getIdentifierSummary( ).getGeneralSceneIds( );
 
-		if( elementIndex < exitsList.size( ) - 1 ) {
-			exitsList.add( elementIndex + 1, exitsList.remove( elementIndex ) );
-			exitsDataControlList.add( elementIndex + 1, exitsDataControlList.remove( elementIndex ) );
-			//controller.dataModified( );
-			elementMoved = true;
-		}
+            if( generalScenes.length > 0 ) {
+                String selectedScene = controller.showInputDialog( TextConstants.getText( "Operation.AddNextSceneTitle" ), TextConstants.getText( "Operation.AddNextSceneMessage" ), generalScenes );
+                if( selectedScene != null ) {
+                    Exit newExit = new Exit( true, 240, 240, 100, 100 );
+                    newExit.setNextSceneId( selectedScene );
+                    ExitDataControl newExitDataControl = new ExitDataControl( sceneDataControl, newExit );
 
-		return elementMoved;
-	}
+                    exitsList.add( newExit );
+                    exitsDataControlList.add( newExitDataControl );
+                    elementAdded = true;
+                }
+            }
 
-	@Override
-	public String renameElement( String name) {
-		return null;
-	}
+        }
 
-	@Override
-	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
-		// Iterate through each exit
-		for( ExitDataControl exitDataControl : exitsDataControlList )
-			exitDataControl.updateVarFlagSummary( varFlagSummary );
-	}
+        return elementAdded;
+    }
 
-	@Override
-	public boolean isValid( String currentPath, List<String> incidences ) {
-		boolean valid = true;
+    @Override
+    public boolean duplicateElement( DataControl dataControl ) {
 
-		// Iterate through the exits
-		for( int i = 0; i < exitsDataControlList.size( ); i++ ) {
-			String exitPath = currentPath + " >> " + TextConstants.getElementName( Controller.EXIT ) + " #" + ( i + 1 );
-			valid &= exitsDataControlList.get( i ).isValid( exitPath, incidences );
-		}
+        if( !( dataControl instanceof ExitDataControl ) )
+            return false;
 
-		return valid;
-	}
+        try {
+            Exit newElement = (Exit) ( ( (Exit) ( dataControl.getContent( ) ) ).clone( ) );
+            exitsList.add( newElement );
+            exitsDataControlList.add( new ExitDataControl( sceneDataControl, newElement ) );
+            return true;
+        }
+        catch( CloneNotSupportedException e ) {
+            ReportDialog.GenerateErrorReport( e, true, "Could not clone exit" );
+            return false;
+        }
+    }
 
-	@Override
-	public int countAssetReferences( String assetPath ) {
-		int count = 0;
+    @Override
+    public boolean deleteElement( DataControl dataControl, boolean askConfirmation ) {
 
-		// Iterate through each exit
-		for( ExitDataControl exitDataControl : exitsDataControlList )
-			count += exitDataControl.countAssetReferences( assetPath );
+        boolean elementDeleted = false;
 
-		return count;
-	}
+        if( exitsList.remove( dataControl.getContent( ) ) ) {
+            exitsDataControlList.remove( dataControl );
+            //controller.dataModified( );
+            elementDeleted = true;
+        }
 
-	@Override
-	public void getAssetReferences( List<String> assetPaths, List<Integer> assetTypes ) {
-		// Iterate through each exit
-		for( ExitDataControl exitDataControl : exitsDataControlList )
-			exitDataControl.getAssetReferences( assetPaths, assetTypes );
-	}
-	
-	@Override
-	public void deleteAssetReferences( String assetPath ) {
-		// Iterate through each exit
-		for( ExitDataControl exitDataControl : exitsDataControlList )
-			exitDataControl.deleteAssetReferences( assetPath );
-	}
+        return elementDeleted;
+    }
 
-	@Override
-	public int countIdentifierReferences( String id ) {
-		int count = 0;
+    @Override
+    public boolean moveElementUp( DataControl dataControl ) {
 
-		// Iterate through each exit
-		for( ExitDataControl exitDataControl : exitsDataControlList )
-			count += exitDataControl.countIdentifierReferences( id );
+        boolean elementMoved = false;
+        int elementIndex = exitsList.indexOf( dataControl.getContent( ) );
 
-		return count;
-	}
+        if( elementIndex > 0 ) {
+            exitsList.add( elementIndex - 1, exitsList.remove( elementIndex ) );
+            exitsDataControlList.add( elementIndex - 1, exitsDataControlList.remove( elementIndex ) );
+            //controller.dataModified( );
+            elementMoved = true;
+        }
 
-	@Override
-	public void replaceIdentifierReferences( String oldId, String newId ) {
-		// Iterate through each exit
-		for( ExitDataControl exitDataControl : exitsDataControlList )
-			exitDataControl.replaceIdentifierReferences( oldId, newId );
-	}
+        return elementMoved;
+    }
 
-	@Override
-	public void deleteIdentifierReferences( String id ) {
-		// Spread the call to every exit
-		for( ExitDataControl exitDataControl : exitsDataControlList )
-			exitDataControl.deleteIdentifierReferences( id );
-		
-		int i = 0;
-		while( i < exitsList.size( ) ) {
-			if( exitsList.get( i ).getNextSceneId() == null ) {
-				exitsList.remove( i );
-				exitsDataControlList.remove( i );
-			} else
-				i++;
-		}
-	}
+    @Override
+    public boolean moveElementDown( DataControl dataControl ) {
 
-	@Override
-	public boolean canBeDuplicated( ) {
-		return false;
-	}
-	
-	/**
-	 * Returns the data controllers of the item references of the scene that contains this element reference.
-	 * 
-	 * @return List of item references (including the one being edited)
-	 */
-	public List<ElementReferenceDataControl> getParentSceneItemReferences( ) {
-		return sceneDataControl.getReferencesList( ).getItemReferences( );
-	}
+        boolean elementMoved = false;
+        int elementIndex = exitsList.indexOf( dataControl.getContent( ) );
 
-	/**
-	 * Returns the data controllers of the character references of the scene that contains this element reference.
-	 * 
-	 * @return List of character references (including the one being edited)
-	 */
-	public List<ElementReferenceDataControl> getParentSceneNPCReferences( ) {
-		return sceneDataControl.getReferencesList( ).getNPCReferences( );
-	}
-	
-	/**
-	 * Returns the data controllers of the atrezzo items references of the scene that contains this element reference.
-	 * 
-	 * @return List of atrezzo references (including the one being edited)
-	 */
-	public List<ElementReferenceDataControl> getParentSceneAtrezzoReferences( ) {
-		return sceneDataControl.getReferencesList( ).getAtrezzoReferences( );
-	}
+        if( elementIndex < exitsList.size( ) - 1 ) {
+            exitsList.add( elementIndex + 1, exitsList.remove( elementIndex ) );
+            exitsDataControlList.add( elementIndex + 1, exitsDataControlList.remove( elementIndex ) );
+            //controller.dataModified( );
+            elementMoved = true;
+        }
 
-	public List<BarrierDataControl> getParentSceneBarriers() {
-		return sceneDataControl.getBarriersList().getBarriers();
-	}
+        return elementMoved;
+    }
 
-	public List<ActiveAreaDataControl> getParentSceneActiveAreas() {
-		return sceneDataControl.getActiveAreasList().getActiveAreas();
-	}
+    @Override
+    public String renameElement( String name ) {
 
-	@Override
-	public void recursiveSearch() {
-		for (DataControl dc : this.exitsDataControlList)
-			dc.recursiveSearch();
-	}
+        return null;
+    }
 
-	public SceneDataControl getSceneDataControl() {
-		return sceneDataControl;
-	}
+    @Override
+    public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
 
-	@Override
-	public List<Searchable> getPathToDataControl(Searchable dataControl) {
-		return getPathFromChild(dataControl, exitsDataControlList);
-	}
+        // Iterate through each exit
+        for( ExitDataControl exitDataControl : exitsDataControlList )
+            exitDataControl.updateVarFlagSummary( varFlagSummary );
+    }
 
-	public List<Exit> getExitsList() {
-		return this.exitsList;
-	}
+    @Override
+    public boolean isValid( String currentPath, List<String> incidences ) {
+
+        boolean valid = true;
+
+        // Iterate through the exits
+        for( int i = 0; i < exitsDataControlList.size( ); i++ ) {
+            String exitPath = currentPath + " >> " + TextConstants.getElementName( Controller.EXIT ) + " #" + ( i + 1 );
+            valid &= exitsDataControlList.get( i ).isValid( exitPath, incidences );
+        }
+
+        return valid;
+    }
+
+    @Override
+    public int countAssetReferences( String assetPath ) {
+
+        int count = 0;
+
+        // Iterate through each exit
+        for( ExitDataControl exitDataControl : exitsDataControlList )
+            count += exitDataControl.countAssetReferences( assetPath );
+
+        return count;
+    }
+
+    @Override
+    public void getAssetReferences( List<String> assetPaths, List<Integer> assetTypes ) {
+
+        // Iterate through each exit
+        for( ExitDataControl exitDataControl : exitsDataControlList )
+            exitDataControl.getAssetReferences( assetPaths, assetTypes );
+    }
+
+    @Override
+    public void deleteAssetReferences( String assetPath ) {
+
+        // Iterate through each exit
+        for( ExitDataControl exitDataControl : exitsDataControlList )
+            exitDataControl.deleteAssetReferences( assetPath );
+    }
+
+    @Override
+    public int countIdentifierReferences( String id ) {
+
+        int count = 0;
+
+        // Iterate through each exit
+        for( ExitDataControl exitDataControl : exitsDataControlList )
+            count += exitDataControl.countIdentifierReferences( id );
+
+        return count;
+    }
+
+    @Override
+    public void replaceIdentifierReferences( String oldId, String newId ) {
+
+        // Iterate through each exit
+        for( ExitDataControl exitDataControl : exitsDataControlList )
+            exitDataControl.replaceIdentifierReferences( oldId, newId );
+    }
+
+    @Override
+    public void deleteIdentifierReferences( String id ) {
+
+        // Spread the call to every exit
+        for( ExitDataControl exitDataControl : exitsDataControlList )
+            exitDataControl.deleteIdentifierReferences( id );
+
+        int i = 0;
+        while( i < exitsList.size( ) ) {
+            if( exitsList.get( i ).getNextSceneId( ) == null ) {
+                exitsList.remove( i );
+                exitsDataControlList.remove( i );
+            }
+            else
+                i++;
+        }
+    }
+
+    @Override
+    public boolean canBeDuplicated( ) {
+
+        return false;
+    }
+
+    /**
+     * Returns the data controllers of the item references of the scene that
+     * contains this element reference.
+     * 
+     * @return List of item references (including the one being edited)
+     */
+    public List<ElementReferenceDataControl> getParentSceneItemReferences( ) {
+
+        return sceneDataControl.getReferencesList( ).getItemReferences( );
+    }
+
+    /**
+     * Returns the data controllers of the character references of the scene
+     * that contains this element reference.
+     * 
+     * @return List of character references (including the one being edited)
+     */
+    public List<ElementReferenceDataControl> getParentSceneNPCReferences( ) {
+
+        return sceneDataControl.getReferencesList( ).getNPCReferences( );
+    }
+
+    /**
+     * Returns the data controllers of the atrezzo items references of the scene
+     * that contains this element reference.
+     * 
+     * @return List of atrezzo references (including the one being edited)
+     */
+    public List<ElementReferenceDataControl> getParentSceneAtrezzoReferences( ) {
+
+        return sceneDataControl.getReferencesList( ).getAtrezzoReferences( );
+    }
+
+    public List<BarrierDataControl> getParentSceneBarriers( ) {
+
+        return sceneDataControl.getBarriersList( ).getBarriers( );
+    }
+
+    public List<ActiveAreaDataControl> getParentSceneActiveAreas( ) {
+
+        return sceneDataControl.getActiveAreasList( ).getActiveAreas( );
+    }
+
+    @Override
+    public void recursiveSearch( ) {
+
+        for( DataControl dc : this.exitsDataControlList )
+            dc.recursiveSearch( );
+    }
+
+    public SceneDataControl getSceneDataControl( ) {
+
+        return sceneDataControl;
+    }
+
+    @Override
+    public List<Searchable> getPathToDataControl( Searchable dataControl ) {
+
+        return getPathFromChild( dataControl, exitsDataControlList );
+    }
+
+    public List<Exit> getExitsList( ) {
+
+        return this.exitsList;
+    }
 
 }

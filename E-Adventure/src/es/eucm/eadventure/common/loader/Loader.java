@@ -1,34 +1,36 @@
 /**
- * <e-Adventure> is an <e-UCM> research project.
- * <e-UCM>, Department of Software Engineering and Artificial Intelligence.
- * Faculty of Informatics, Complutense University of Madrid (Spain).
- * @author Del Blanco, A., Marchiori, E., Torrente, F.J.
+ * <e-Adventure> is an <e-UCM> research project. <e-UCM>, Department of Software
+ * Engineering and Artificial Intelligence. Faculty of Informatics, Complutense
+ * University of Madrid (Spain).
+ * 
+ * @author Del Blanco, A., Marchiori, E., Torrente, F.J. (alphabetical order) *
+ * @author López Mañas, E., Pérez Padilla, F., Sollet, E., Torijano, B. (former
+ *         developers by alphabetical order)
  * @author Moreno-Ger, P. & Fernández-Manjón, B. (directors)
- * @year 2009
- * Web-site: http://e-adventure.e-ucm.es
+ * @year 2009 Web-site: http://e-adventure.e-ucm.es
  */
 
 /*
-    Copyright (C) 2004-2009 <e-UCM> research group
-
-    This file is part of <e-Adventure> project, an educational game & game-like 
-    simulation authoring tool, availabe at http://e-adventure.e-ucm.es. 
-
-    <e-Adventure> is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    <e-Adventure> is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with <e-Adventure>; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-*/
+ * Copyright (C) 2004-2009 <e-UCM> research group
+ * 
+ * This file is part of <e-Adventure> project, an educational game & game-like
+ * simulation authoring tool, available at http://e-adventure.e-ucm.es.
+ * 
+ * <e-Adventure> is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version.
+ * 
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place, Suite 330, Boston, MA 02111-1307 USA
+ * 
+ */
 package es.eucm.eadventure.common.loader;
 
 import java.io.FileNotFoundException;
@@ -68,370 +70,412 @@ import es.eucm.eadventure.common.loader.parsers.DescriptorHandler;
  */
 public class Loader {
 
-	/**
-	 * AdventureData structure which has been previously read.
-	 * (For Debug execution)
-	 */
-	private static AdventureData adventureData;
-	
-	/**
-	 * Private constructor
-	 */
-	private Loader( ) {}
+    /**
+     * AdventureData structure which has been previously read. (For Debug
+     * execution)
+     */
+    private static AdventureData adventureData;
 
-	/**
-	 * Loads the adventure data from the given ZIP file.
-	 * 
-	 * @param zipFile
-	 *            Path to the zip file which holds the adventure
-	 * @return The adventure data, null if there was an error
-	 */
-	public static AdventureData loadAdventureData(InputStreamCreator isCreator, List<Incidence> incidences, boolean validate ) {
-		AdventureData adventureData = null;
-		try {
-			// Set the adventure handler
-			AdventureHandler adventureParser = new AdventureHandler( isCreator,  incidences, validate );
+    /**
+     * Private constructor
+     */
+    private Loader( ) {
 
-			// Create a new factory
-			SAXParserFactory factory = SAXParserFactory.newInstance( );
-			factory.setValidating( true );
-			SAXParser saxParser = factory.newSAXParser( );
+    }
 
-			// Read and close the input stream
-			InputStream descriptorIS = isCreator.buildInputStream("descriptor.xml");
-			saxParser.parse( descriptorIS, adventureParser );
-			descriptorIS.close( );
-			
-			// Load the assessment and adaptation profiles. It must be after parse
-			// the adventure data because the profile's load from xml inserts each profile
-			// in each chapter.
-			adventureParser.loadProfiles();
-			// Store the adventure data
-			adventureData = adventureParser.getAdventureData( );
-			
-			
+    /**
+     * Loads the adventure data from the given ZIP file.
+     * 
+     * @param zipFile
+     *            Path to the zip file which holds the adventure
+     * @return The adventure data, null if there was an error
+     */
+    public static AdventureData loadAdventureData( InputStreamCreator isCreator, List<Incidence> incidences, boolean validate ) {
 
-		} catch( ParserConfigurationException e ) {
-			incidences.add( Incidence.createDescriptorIncidence( TextConstants.getText( "Error.LoadDescriptor.SAX" ), e ) );
-		} catch( SAXException e ) {
-			incidences.add( Incidence.createDescriptorIncidence( TextConstants.getText( "Error.LoadDescriptor.SAX" ) , e) );
-		} catch( IOException e ) {
-			incidences.add( Incidence.createDescriptorIncidence( TextConstants.getText( "Error.LoadDescriptor.IO" ) , e));
-		} catch (IllegalArgumentException e){
-		    incidences.add(Incidence.createDescriptorIncidence(TextConstants.getText( "Error.LoadDescriptor.NoDescriptor"), e) );
-		}
+        AdventureData adventureData = null;
+        try {
+            // Set the adventure handler
+            AdventureHandler adventureParser = new AdventureHandler( isCreator, incidences, validate );
 
-		return adventureData;
-	}
+            // Create a new factory
+            SAXParserFactory factory = SAXParserFactory.newInstance( );
+            factory.setValidating( true );
+            SAXParser saxParser = factory.newSAXParser( );
+
+            // Read and close the input stream
+            InputStream descriptorIS = isCreator.buildInputStream( "descriptor.xml" );
+            saxParser.parse( descriptorIS, adventureParser );
+            descriptorIS.close( );
+
+            // Load the assessment and adaptation profiles. It must be after parse
+            // the adventure data because the profile's load from xml inserts each profile
+            // in each chapter.
+            adventureParser.loadProfiles( );
+            // Store the adventure data
+            adventureData = adventureParser.getAdventureData( );
+
+        }
+        catch( ParserConfigurationException e ) {
+            incidences.add( Incidence.createDescriptorIncidence( TextConstants.getText( "Error.LoadDescriptor.SAX" ), e ) );
+        }
+        catch( SAXException e ) {
+            incidences.add( Incidence.createDescriptorIncidence( TextConstants.getText( "Error.LoadDescriptor.SAX" ), e ) );
+        }
+        catch( IOException e ) {
+            incidences.add( Incidence.createDescriptorIncidence( TextConstants.getText( "Error.LoadDescriptor.IO" ), e ) );
+        }
+        catch( IllegalArgumentException e ) {
+            incidences.add( Incidence.createDescriptorIncidence( TextConstants.getText( "Error.LoadDescriptor.NoDescriptor" ), e ) );
+        }
+
+        return adventureData;
+    }
 
     /**
      * Loads the descriptor of the current ZIP adventure loaded
+     * 
      * @return The descriptor data of the game
-     */	
-	public static DescriptorData loadDescriptorData( InputStreamCreator isCreator ) {
-		DescriptorData descriptorData = null;
-		
-		if (Loader.adventureData!=null){
-			descriptorData = Loader.adventureData;
-		} else {
-		
-			try {
-				// Set the adventure handler
-				DescriptorHandler descriptorParser = new DescriptorHandler( isCreator );
-	
-				// Create a new factory
-				SAXParserFactory factory = SAXParserFactory.newInstance( );
-				factory.setValidating( true );
-				SAXParser saxParser = factory.newSAXParser( );
-	
-				// Read and close the inputstrea
-				InputStream descriptorIS = isCreator.buildInputStream("descriptor.xml");
-				saxParser.parse( descriptorIS, descriptorParser );
-				descriptorIS.close( );
-	
-				// Store the adventure data
-				descriptorData = descriptorParser.getGameDescriptor();
-	
-			} catch( ParserConfigurationException e ) {
-	        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
-			} catch( SAXException e ) {
-	        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
-			} catch( IOException e ) {
-	        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
-			}
-		}
-		return descriptorData;
+     */
+    public static DescriptorData loadDescriptorData( InputStreamCreator isCreator ) {
 
-	}
-	
+        DescriptorData descriptorData = null;
+
+        if( Loader.adventureData != null ) {
+            descriptorData = Loader.adventureData;
+        }
+        else {
+
+            try {
+                // Set the adventure handler
+                DescriptorHandler descriptorParser = new DescriptorHandler( isCreator );
+
+                // Create a new factory
+                SAXParserFactory factory = SAXParserFactory.newInstance( );
+                factory.setValidating( true );
+                SAXParser saxParser = factory.newSAXParser( );
+
+                // Read and close the inputstrea
+                InputStream descriptorIS = isCreator.buildInputStream( "descriptor.xml" );
+                saxParser.parse( descriptorIS, descriptorParser );
+                descriptorIS.close( );
+
+                // Store the adventure data
+                descriptorData = descriptorParser.getGameDescriptor( );
+
+            }
+            catch( ParserConfigurationException e ) {
+                ReportDialog.GenerateErrorReport( e, true, "UNKNOWERROR" );
+            }
+            catch( SAXException e ) {
+                ReportDialog.GenerateErrorReport( e, true, "UNKNOWERROR" );
+            }
+            catch( IOException e ) {
+                ReportDialog.GenerateErrorReport( e, true, "UNKNOWERROR" );
+            }
+        }
+        return descriptorData;
+
+    }
+
     /**
      * Loads the script data from the given XML file
-     * @param filename Name of the XML file containing the script
-     * @param validate distinguish between if the load is made in editor or engine
+     * 
+     * @param filename
+     *            Name of the XML file containing the script
+     * @param validate
+     *            distinguish between if the load is made in editor or engine
      * @return The script stored as game data
      */
-	public static Chapter loadChapterData (InputStreamCreator isCreator, String fileName,  List<Incidence> incidences, boolean validate ){
-		// Create the chapter
-		Chapter currentChapter = new Chapter( );
-		boolean chapterFound = false;
-		if (Loader.adventureData!=null){
-			for (Chapter chapter: adventureData.getChapters()){
-				if (chapter!=null && chapter.getChapterPath()!=null && chapter.getChapterPath().equals(fileName)){
-					currentChapter = chapter;chapterFound = true; break;
-					
-				} else if (chapter!=null && chapter.getChapterPath() == null){
-					
-					currentChapter = chapter; chapterFound = true; currentChapter.setChapterPath("chapter1.xml");break;
-					
-				}
-			}
-			
-		} 
-		if (!chapterFound){
+    public static Chapter loadChapterData( InputStreamCreator isCreator, String fileName, List<Incidence> incidences, boolean validate ) {
 
-			InputStream chapterIS = null;
-			
-			//if (zipFile!=null){
-				chapterIS = isCreator.buildInputStream(fileName);
-				currentChapter.setChapterPath( fileName );
-				
-			//} else{
-				// Then fileName is an absolutePath
-				//String chapterPath = fileName.substring( Math.max (fileName.lastIndexOf( '\\' ), fileName.lastIndexOf( '/' ) ), fileName.length( ));
-				//currentChapter.setName( chapterPath );
-				//try {
-				//	chapterIS = new FileInputStream( fileName );
-				//} catch (FileNotFoundException e) {
-					//e.printStackTrace();
-				//	incidences.add( Incidence.createChapterIncidence( TextConstants.getText( "Error.LoadData.IO" ), fileName ) );
-				//}
-			//}
-		
-			// Open the file and load the data
-			try {
-				if (chapterIS!=null){
-					// Set the chapter handler
-					ChapterHandler chapterParser = new ChapterHandler( isCreator, currentChapter);
-		
-					// Create a new factory
-					SAXParserFactory factory = SAXParserFactory.newInstance( );
-					factory.setValidating( validate );
-					SAXParser saxParser = factory.newSAXParser( );
-		
-					// Parse the data and close the data
-					saxParser.parse( chapterIS, chapterParser );
-					chapterIS.close( );
-				}
-		
-			} catch( ParserConfigurationException e ) {
-				incidences.add( Incidence.createChapterIncidence( TextConstants.getText( "Error.LoadData.SAX" ), fileName, e ) );
-			} catch( SAXException e ) {
-				incidences.add( Incidence.createChapterIncidence( TextConstants.getText( "Error.LoadData.SAX" ), fileName , e) );
-			} catch( IOException e ) {
-				incidences.add( Incidence.createChapterIncidence( TextConstants.getText( "Error.LoadData.IO" ), fileName , e) );
-			}
-		}
-		return currentChapter;
-	}
-	
-	/**
-	 * Loads the assessment profile (set of assessment rules) stored in file with path xmlFile in zipFile
-	 * @param zipFile
-	 * @param xmlFile
-	 * @param incidences
-	 * @return
-	 */
-	public static AssessmentProfile loadAssessmentProfile ( InputStreamCreator isCreator, String xmlFile, List<Incidence> incidences ){
-		
-		AssessmentProfile newProfile = null;
-		if (Loader.adventureData!=null){
-		    for (Chapter chapter : Loader.adventureData.getChapters()){
-			if (chapter.getAssessmentProfiles().size()!=0){
-			for (AssessmentProfile profile: chapter.getAssessmentProfiles()){
-				if (profile.getName().equals(xmlFile)){
-					try {
-					    newProfile = (AssessmentProfile)profile.clone();
-					} catch (CloneNotSupportedException e) {
-					    e.printStackTrace();
-					} break;
-				}
-			}
-		}
-		}	
-		} else {
-		
-			// Open the file and load the data
-			try {
-				// Set the chapter handler
-				AssessmentProfile profile = new AssessmentProfile();
-				
-				String name = xmlFile;
-				name = name.substring(name.indexOf("/")+1);
-				if (name.indexOf(".")!=-1)
-				   name = name.substring(0,name.indexOf("."));
-				profile.setName(name);
-				AssessmentHandler assParser = new AssessmentHandler( isCreator, profile );
-	
-				// Create a new factory
-				SAXParserFactory factory = SAXParserFactory.newInstance( );
-				factory.setValidating( true );
-				SAXParser saxParser = factory.newSAXParser( );
-	
-				// Parse the data and close the data
-				InputStream assessmentIS = isCreator.buildInputStream(xmlFile);
-				
-				saxParser.parse( assessmentIS, assParser );
-				assessmentIS.close( );
-				
-				// Finally add the new controller to the list
-				// Create the new profile
-				
-				// Fill flags & vars
-				newProfile = profile;
-				
+        // Create the chapter
+        Chapter currentChapter = new Chapter( );
+        boolean chapterFound = false;
+        if( Loader.adventureData != null ) {
+            for( Chapter chapter : adventureData.getChapters( ) ) {
+                if( chapter != null && chapter.getChapterPath( ) != null && chapter.getChapterPath( ).equals( fileName ) ) {
+                    currentChapter = chapter;
+                    chapterFound = true;
+                    break;
 
-			} catch( ParserConfigurationException e ) {
-				incidences.add( Incidence.createAssessmentIncidence( false, TextConstants.getText( "Error.LoadAssessmentData.SAX" ), xmlFile , e) );
-			} catch( SAXException e ) {
-				incidences.add( Incidence.createAssessmentIncidence( false, TextConstants.getText( "Error.LoadAssessmentData.SAX" ), xmlFile , e) );
-			} catch( IOException e ) {
-				incidences.add( Incidence.createAssessmentIncidence( false, TextConstants.getText( "Error.LoadAssessmentData.IO" ), xmlFile , e) );
-			}
-		}
-		return newProfile;
-	}
+                }
+                else if( chapter != null && chapter.getChapterPath( ) == null ) {
 
-	/**
-	 * Loads the adaptation profile (set of adaptation rules + initial state) stored in file with path xmlFile in zipFile
-	 * @param zipFile
-	 * @param xmlFile
-	 * @param incidences
-	 * @return
-	 */
-	public static AdaptationProfile loadAdaptationProfile (InputStreamCreator isCreator,  String xmlFile, List<Incidence> incidences ){
-		
-		AdaptationProfile newProfile = null;
-		if (Loader.adventureData!=null){
-		    for (Chapter chapter : Loader.adventureData.getChapters()){
-			if (chapter.getAssessmentProfiles().size()!=0){
-			    for (AdaptationProfile profile:chapter.getAdaptationProfiles())
-			
-				if (profile.getName().equals(xmlFile)){
-					newProfile = profile; break;
-				}
-			}
-		    }
-			
-		} else {
-		
-			// Open the file and load the data
-			try {
-				// Set the chapter handler
-				List<AdaptationRule> rules = new ArrayList<AdaptationRule>();
-				AdaptedState initialState = new AdaptedState();
-				AdaptationHandler adpParser = new AdaptationHandler( isCreator, rules, initialState );
-	
-				// Create a new factory
-				SAXParserFactory factory = SAXParserFactory.newInstance( );
-				factory.setValidating( true );
-				SAXParser saxParser = factory.newSAXParser( );
-	
-				// Parse the data and close the data
-				InputStream adaptationIS = isCreator.buildInputStream(xmlFile);
-				
-				saxParser.parse( adaptationIS, adpParser );
-				adaptationIS.close( );
-				
-				// Finally add the new controller to the list
-				// Create the new profile
-				String name = xmlFile;
-				name = name.substring(name.indexOf("/")+1);
-				name = name.substring(0,name.indexOf("."));
-				newProfile = new AdaptationProfile(adpParser.getAdaptationRules(), adpParser.getInitialState(), name , adpParser.isScorm12(), adpParser.isScorm2004());
-			
-				
-				newProfile.setFlags(adpParser.getFlags());
-				System.out.println("ADP PARSER FLAGS:"+adpParser.getFlags());
-				newProfile.setVars(adpParser.getVars());
-				
-				
-				
-	
-			} catch( ParserConfigurationException e ) {
-				incidences.add( Incidence.createAdaptationIncidence( false, TextConstants.getText( "Error.LoadAdaptationData.SAX" ), xmlFile, e) );
-			} catch( SAXException e ) {
-				incidences.add( Incidence.createAdaptationIncidence( false, TextConstants.getText( "Error.LoadAdaptationData.SAX" ), xmlFile, e) );
-			} catch( IOException e ) {
-				incidences.add( Incidence.createAdaptationIncidence( false, TextConstants.getText( "Error.LoadAdaptationData.IO" ), xmlFile, e) );
-			}
-		}
-		return newProfile;
-	}
+                    currentChapter = chapter;
+                    chapterFound = true;
+                    currentChapter.setChapterPath( "chapter1.xml" );
+                    break;
 
-	/**
-	 * @return the adventureData
-	 */
-	public static AdventureData getAdventureData() {
-		return adventureData;
-	}
+                }
+            }
 
-	/**
-	 * @param adventureData the adventureData to set
-	 */
-	public static void setAdventureData(AdventureData adventureData) {
-		Loader.adventureData = adventureData;
-	}
+        }
+        if( !chapterFound ) {
 
-	/**
-	 * Loads an animation from a filename
-	 * 
-	 * @param filename
-	 * 			The xml descriptor for the animation
-	 * @return the loaded Animation
-	 */
-	public static Animation loadAnimation(InputStreamCreator isCreator, String filename) {
-		AnimationHandler animationHandler = new AnimationHandler( isCreator );
+            InputStream chapterIS = null;
 
-		// Create a new factory
-		SAXParserFactory factory = SAXParserFactory.newInstance( );
-		factory.setValidating( true );
-		SAXParser saxParser;
-		try {
-			saxParser = factory.newSAXParser( );
+            //if (zipFile!=null){
+            chapterIS = isCreator.buildInputStream( fileName );
+            currentChapter.setChapterPath( fileName );
 
-			// Read and close the input stream
-			//File file = new File(filename);
-			InputStream descriptorIS = null;
-			/*try {
-				System.out.println("FILENAME="+filename);
-				descriptorIS = ResourceHandler.getInstance( ).buildInputStream(filename);
-				System.out.println("descriptorIS==null?"+(descriptorIS==null));
-				
-				//descriptorIS = new InputStream(ResourceHandler.getInstance().getResourceAsURLFromZip(filename));
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			if (descriptorIS == null) {
-				descriptorIS = AssetsController.getInputStream(filename);
-			}*/
-			descriptorIS = isCreator.buildInputStream(filename);
-			
-			saxParser.parse( descriptorIS, animationHandler );
-			descriptorIS.close( );
-		
-		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
-		} catch (SAXException e) {
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+            //} else{
+            // Then fileName is an absolutePath
+            //String chapterPath = fileName.substring( Math.max (fileName.lastIndexOf( '\\' ), fileName.lastIndexOf( '/' ) ), fileName.length( ));
+            //currentChapter.setName( chapterPath );
+            //try {
+            //	chapterIS = new FileInputStream( fileName );
+            //} catch (FileNotFoundException e) {
+            //e.printStackTrace();
+            //	incidences.add( Incidence.createChapterIncidence( TextConstants.getText( "Error.LoadData.IO" ), fileName ) );
+            //}
+            //}
 
-		if (animationHandler.getAnimation() != null)
-			return animationHandler.getAnimation();
-		else
-			return new Animation("anim" + (new Random()).nextInt(1000));
-	}
+            // Open the file and load the data
+            try {
+                if( chapterIS != null ) {
+                    // Set the chapter handler
+                    ChapterHandler chapterParser = new ChapterHandler( isCreator, currentChapter );
+
+                    // Create a new factory
+                    SAXParserFactory factory = SAXParserFactory.newInstance( );
+                    factory.setValidating( validate );
+                    SAXParser saxParser = factory.newSAXParser( );
+
+                    // Parse the data and close the data
+                    saxParser.parse( chapterIS, chapterParser );
+                    chapterIS.close( );
+                }
+
+            }
+            catch( ParserConfigurationException e ) {
+                incidences.add( Incidence.createChapterIncidence( TextConstants.getText( "Error.LoadData.SAX" ), fileName, e ) );
+            }
+            catch( SAXException e ) {
+                incidences.add( Incidence.createChapterIncidence( TextConstants.getText( "Error.LoadData.SAX" ), fileName, e ) );
+            }
+            catch( IOException e ) {
+                incidences.add( Incidence.createChapterIncidence( TextConstants.getText( "Error.LoadData.IO" ), fileName, e ) );
+            }
+        }
+        return currentChapter;
+    }
+
+    /**
+     * Loads the assessment profile (set of assessment rules) stored in file
+     * with path xmlFile in zipFile
+     * 
+     * @param zipFile
+     * @param xmlFile
+     * @param incidences
+     * @return
+     */
+    public static AssessmentProfile loadAssessmentProfile( InputStreamCreator isCreator, String xmlFile, List<Incidence> incidences ) {
+
+        AssessmentProfile newProfile = null;
+        if( Loader.adventureData != null ) {
+            for( Chapter chapter : Loader.adventureData.getChapters( ) ) {
+                if( chapter.getAssessmentProfiles( ).size( ) != 0 ) {
+                    for( AssessmentProfile profile : chapter.getAssessmentProfiles( ) ) {
+                        if( profile.getName( ).equals( xmlFile ) ) {
+                            try {
+                                newProfile = (AssessmentProfile) profile.clone( );
+                            }
+                            catch( CloneNotSupportedException e ) {
+                                e.printStackTrace( );
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        else {
+
+            // Open the file and load the data
+            try {
+                // Set the chapter handler
+                AssessmentProfile profile = new AssessmentProfile( );
+
+                String name = xmlFile;
+                name = name.substring( name.indexOf( "/" ) + 1 );
+                if( name.indexOf( "." ) != -1 )
+                    name = name.substring( 0, name.indexOf( "." ) );
+                profile.setName( name );
+                AssessmentHandler assParser = new AssessmentHandler( isCreator, profile );
+
+                // Create a new factory
+                SAXParserFactory factory = SAXParserFactory.newInstance( );
+                factory.setValidating( true );
+                SAXParser saxParser = factory.newSAXParser( );
+
+                // Parse the data and close the data
+                InputStream assessmentIS = isCreator.buildInputStream( xmlFile );
+
+                saxParser.parse( assessmentIS, assParser );
+                assessmentIS.close( );
+
+                // Finally add the new controller to the list
+                // Create the new profile
+
+                // Fill flags & vars
+                newProfile = profile;
+
+            }
+            catch( ParserConfigurationException e ) {
+                incidences.add( Incidence.createAssessmentIncidence( false, TextConstants.getText( "Error.LoadAssessmentData.SAX" ), xmlFile, e ) );
+            }
+            catch( SAXException e ) {
+                incidences.add( Incidence.createAssessmentIncidence( false, TextConstants.getText( "Error.LoadAssessmentData.SAX" ), xmlFile, e ) );
+            }
+            catch( IOException e ) {
+                incidences.add( Incidence.createAssessmentIncidence( false, TextConstants.getText( "Error.LoadAssessmentData.IO" ), xmlFile, e ) );
+            }
+        }
+        return newProfile;
+    }
+
+    /**
+     * Loads the adaptation profile (set of adaptation rules + initial state)
+     * stored in file with path xmlFile in zipFile
+     * 
+     * @param zipFile
+     * @param xmlFile
+     * @param incidences
+     * @return
+     */
+    public static AdaptationProfile loadAdaptationProfile( InputStreamCreator isCreator, String xmlFile, List<Incidence> incidences ) {
+
+        AdaptationProfile newProfile = null;
+        if( Loader.adventureData != null ) {
+            for( Chapter chapter : Loader.adventureData.getChapters( ) ) {
+                if( chapter.getAssessmentProfiles( ).size( ) != 0 ) {
+                    for( AdaptationProfile profile : chapter.getAdaptationProfiles( ) )
+
+                        if( profile.getName( ).equals( xmlFile ) ) {
+                            newProfile = profile;
+                            break;
+                        }
+                }
+            }
+
+        }
+        else {
+
+            // Open the file and load the data
+            try {
+                // Set the chapter handler
+                List<AdaptationRule> rules = new ArrayList<AdaptationRule>( );
+                AdaptedState initialState = new AdaptedState( );
+                AdaptationHandler adpParser = new AdaptationHandler( isCreator, rules, initialState );
+
+                // Create a new factory
+                SAXParserFactory factory = SAXParserFactory.newInstance( );
+                factory.setValidating( true );
+                SAXParser saxParser = factory.newSAXParser( );
+
+                // Parse the data and close the data
+                InputStream adaptationIS = isCreator.buildInputStream( xmlFile );
+
+                saxParser.parse( adaptationIS, adpParser );
+                adaptationIS.close( );
+
+                // Finally add the new controller to the list
+                // Create the new profile
+                String name = xmlFile;
+                name = name.substring( name.indexOf( "/" ) + 1 );
+                name = name.substring( 0, name.indexOf( "." ) );
+                newProfile = new AdaptationProfile( adpParser.getAdaptationRules( ), adpParser.getInitialState( ), name, adpParser.isScorm12( ), adpParser.isScorm2004( ) );
+
+                newProfile.setFlags( adpParser.getFlags( ) );
+                System.out.println( "ADP PARSER FLAGS:" + adpParser.getFlags( ) );
+                newProfile.setVars( adpParser.getVars( ) );
+
+            }
+            catch( ParserConfigurationException e ) {
+                incidences.add( Incidence.createAdaptationIncidence( false, TextConstants.getText( "Error.LoadAdaptationData.SAX" ), xmlFile, e ) );
+            }
+            catch( SAXException e ) {
+                incidences.add( Incidence.createAdaptationIncidence( false, TextConstants.getText( "Error.LoadAdaptationData.SAX" ), xmlFile, e ) );
+            }
+            catch( IOException e ) {
+                incidences.add( Incidence.createAdaptationIncidence( false, TextConstants.getText( "Error.LoadAdaptationData.IO" ), xmlFile, e ) );
+            }
+        }
+        return newProfile;
+    }
+
+    /**
+     * @return the adventureData
+     */
+    public static AdventureData getAdventureData( ) {
+
+        return adventureData;
+    }
+
+    /**
+     * @param adventureData
+     *            the adventureData to set
+     */
+    public static void setAdventureData( AdventureData adventureData ) {
+
+        Loader.adventureData = adventureData;
+    }
+
+    /**
+     * Loads an animation from a filename
+     * 
+     * @param filename
+     *            The xml descriptor for the animation
+     * @return the loaded Animation
+     */
+    public static Animation loadAnimation( InputStreamCreator isCreator, String filename ) {
+
+        AnimationHandler animationHandler = new AnimationHandler( isCreator );
+
+        // Create a new factory
+        SAXParserFactory factory = SAXParserFactory.newInstance( );
+        factory.setValidating( true );
+        SAXParser saxParser;
+        try {
+            saxParser = factory.newSAXParser( );
+
+            // Read and close the input stream
+            //File file = new File(filename);
+            InputStream descriptorIS = null;
+            /*try {
+            	System.out.println("FILENAME="+filename);
+            	descriptorIS = ResourceHandler.getInstance( ).buildInputStream(filename);
+            	System.out.println("descriptorIS==null?"+(descriptorIS==null));
+            	
+            	//descriptorIS = new InputStream(ResourceHandler.getInstance().getResourceAsURLFromZip(filename));
+            } catch (Exception e) {
+            	e.printStackTrace();
+            }
+            if (descriptorIS == null) {
+            	descriptorIS = AssetsController.getInputStream(filename);
+            }*/
+            descriptorIS = isCreator.buildInputStream( filename );
+
+            saxParser.parse( descriptorIS, animationHandler );
+            descriptorIS.close( );
+
+        }
+        catch( ParserConfigurationException e ) {
+            e.printStackTrace( );
+        }
+        catch( SAXException e ) {
+            e.printStackTrace( );
+        }
+        catch( FileNotFoundException e ) {
+            e.printStackTrace( );
+        }
+        catch( IOException e ) {
+            e.printStackTrace( );
+        }
+
+        if( animationHandler.getAnimation( ) != null )
+            return animationHandler.getAnimation( );
+        else
+            return new Animation( "anim" + ( new Random( ) ).nextInt( 1000 ) );
+    }
 }

@@ -1,34 +1,36 @@
 /**
- * <e-Adventure> is an <e-UCM> research project.
- * <e-UCM>, Department of Software Engineering and Artificial Intelligence.
- * Faculty of Informatics, Complutense University of Madrid (Spain).
- * @author Del Blanco, A., Marchiori, E., Torrente, F.J.
+ * <e-Adventure> is an <e-UCM> research project. <e-UCM>, Department of Software
+ * Engineering and Artificial Intelligence. Faculty of Informatics, Complutense
+ * University of Madrid (Spain).
+ * 
+ * @author Del Blanco, A., Marchiori, E., Torrente, F.J. (alphabetical order) *
+ * @author López Mañas, E., Pérez Padilla, F., Sollet, E., Torijano, B. (former
+ *         developers by alphabetical order)
  * @author Moreno-Ger, P. & Fernández-Manjón, B. (directors)
- * @year 2009
- * Web-site: http://e-adventure.e-ucm.es
+ * @year 2009 Web-site: http://e-adventure.e-ucm.es
  */
 
 /*
-    Copyright (C) 2004-2009 <e-UCM> research group
-
-    This file is part of <e-Adventure> project, an educational game & game-like 
-    simulation authoring tool, availabe at http://e-adventure.e-ucm.es. 
-
-    <e-Adventure> is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    <e-Adventure> is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with <e-Adventure>; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-*/
+ * Copyright (C) 2004-2009 <e-UCM> research group
+ * 
+ * This file is part of <e-Adventure> project, an educational game & game-like
+ * simulation authoring tool, available at http://e-adventure.e-ucm.es.
+ * 
+ * <e-Adventure> is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version.
+ * 
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place, Suite 330, Boston, MA 02111-1307 USA
+ * 
+ */
 package es.eucm.eadventure.engine.resourcehandler;
 
 import java.io.FileInputStream;
@@ -48,10 +50,11 @@ import de.schlichtherle.io.File;
 import es.eucm.eadventure.engine.resourcehandler.zipurl.ZipURL;
 
 /**
- * This resource handler loads files for being used on a standard java application
+ * This resource handler loads files for being used on a standard java
+ * application
  */
 class ResourceHandlerUnrestricted extends ResourceHandler {
-    
+
     /**
      * Singleton
      */
@@ -62,14 +65,19 @@ class ResourceHandlerUnrestricted extends ResourceHandler {
      * @see es.eucm.eadventure.engine.resourcehandler.ResourceHandler#getInstance()
      */
     public static ResourceHandler getInstance( ) {
+
         return instance;
     }
-    public static void create(){
+
+    public static void create( ) {
+
         instance = new ResourceHandlerUnrestricted( );
     }
-    public static void delete(){
-        if (instance!=null && instance.tempFiles!=null){
-            for (TempFile file: instance.tempFiles){
+
+    public static void delete( ) {
+
+        if( instance != null && instance.tempFiles != null ) {
+            for( TempFile file : instance.tempFiles ) {
                 file.delete( );
             }
         }
@@ -80,15 +88,18 @@ class ResourceHandlerUnrestricted extends ResourceHandler {
      * Empty constructor
      */
     private ResourceHandlerUnrestricted( ) {
+
     }
-    
+
     /*
      *  (non-Javadoc)
      * @see es.eucm.eadventure.engine.resourcehandler.ResourceHandler#setZipFile(java.lang.String)
      */
+    @Override
     public void setZipFile( String zipFilename ) {
+
         try {
-            this.zipPath=zipFilename;
+            ResourceHandler.zipPath = zipFilename;
             zipFile = new ZipFile( zipFilename );
             /*Enumeration entries = zipFile.entries( ); 
             int n =0;
@@ -97,18 +108,22 @@ class ResourceHandlerUnrestricted extends ResourceHandler {
                 ZipEntry entry = (ZipEntry)entries.nextElement( );
                 System.out.println( n+" "+entry.getName( )+" - "+(entry.isDirectory( )?"DIR":""));
             }*/
-        } catch( ZipException e ) {
+        }
+        catch( ZipException e ) {
             e.printStackTrace( );
-        } catch( IOException e ) {
+        }
+        catch( IOException e ) {
             e.printStackTrace( );
         }
     }
-    
+
     /*
      *  (non-Javadoc)
      * @see es.eucm.eadventure.engine.resourcehandler.ResourceHandler#getOutputStream(java.lang.String)
      */
+    @Override
     public OutputStream getOutputStream( String path ) {
+
         OutputStream os = null;
 
         if( path.startsWith( "/" ) ) {
@@ -117,9 +132,11 @@ class ResourceHandlerUnrestricted extends ResourceHandler {
 
         try {
             os = new FileOutputStream( path );
-        } catch( SecurityException e ) {
+        }
+        catch( SecurityException e ) {
             e.printStackTrace( );
-        } catch( FileNotFoundException e ) {
+        }
+        catch( FileNotFoundException e ) {
             os = null;
         }
 
@@ -130,6 +147,7 @@ class ResourceHandlerUnrestricted extends ResourceHandler {
      *  (non-Javadoc)
      * @see es.eucm.eadventure.engine.resourcehandler.ResourceHandler#getResourceAsStream(java.lang.String)
      */
+    @Override
     public InputStream getResourceAsStream( String path ) {
 
         InputStream is = null;
@@ -140,82 +158,94 @@ class ResourceHandlerUnrestricted extends ResourceHandler {
 
         try {
             is = new FileInputStream( path );
-        } catch( SecurityException e ) {
+        }
+        catch( SecurityException e ) {
             e.printStackTrace( );
-        } catch( FileNotFoundException e ) {
+        }
+        catch( FileNotFoundException e ) {
             is = null;
         }
 
         return is;
     }
+
     @Override
     public MediaLocator getResourceAsMediaLocator( String path ) {
+
         // Add the file
-        String absolutePath=generateTempFileAbsolutePath( getExtension(path ) );
+        String absolutePath = generateTempFileAbsolutePath( getExtension( path ) );
         File sourceFile = new File( zipPath, path );
         File destinyFile = new File( absolutePath );
         if( sourceFile.exists( ) )
             sourceFile.copyTo( destinyFile );
-        
-        
-        if (destinyFile.exists( ))
+
+        if( destinyFile.exists( ) )
             try {
-                
-                MediaLocator mediaLocator= new MediaLocator(destinyFile.toURI( ).toURL( ));
-                TempFile tempFile = new TempFile(destinyFile.getAbsolutePath());
-                tempFile.setOriginalAssetPath(path);
+
+                MediaLocator mediaLocator = new MediaLocator( destinyFile.toURI( ).toURL( ) );
+                TempFile tempFile = new TempFile( destinyFile.getAbsolutePath( ) );
+                tempFile.setOriginalAssetPath( path );
                 tempFiles.add( tempFile );
                 return mediaLocator;
-            } catch( MalformedURLException e ) {
-                e.printStackTrace();
+            }
+            catch( MalformedURLException e ) {
+                e.printStackTrace( );
                 return null;
             }
         else
             return null;
     }
-    
-    public URL getResourceAsURLFromZip( String path ){
+
+    @Override
+    public URL getResourceAsURLFromZip( String path ) {
+
         try {
             return ZipURL.createAssetURL( zipPath, path );
-        } catch( MalformedURLException e ) {
+        }
+        catch( MalformedURLException e ) {
             return null;
         }
     }
 
-	public InputStream buildInputStream( String filePath) {
-		return getResourceAsStreamFromZip ( filePath );
-	}
+    public InputStream buildInputStream( String filePath ) {
 
-	public String[] listNames( String filePath ) {
-		File dir = new File ( zipPath, filePath );
-		return dir.list();
-	}
-	
+        return getResourceAsStreamFromZip( filePath );
+    }
+
+    public String[] listNames( String filePath ) {
+
+        File dir = new File( zipPath, filePath );
+        return dir.list( );
+    }
+
     /**
-     * Extracts the resource and get it copied to a file in the local system. 
+     * Extracts the resource and get it copied to a file in the local system.
      * Required when an asset cannot be loaded directly from zip
+     * 
      * @param assetPath
-     * @return
-     *      The absolute path of the destiny file where the asset was copied
+     * @return The absolute path of the destiny file where the asset was copied
      */
-    public URL getResourceAsURL (String assetPath){
-        URL toReturn =null;
-        try{
-            String filePath = generateTempFileAbsolutePath (getExtension(assetPath));
-            File sourceFile = new File(zipPath, assetPath);
-            File destinyFile = new File(filePath);
-            if (sourceFile.copyTo( destinyFile )){
-                toReturn = destinyFile.toURI().toURL();
-                TempFile tempFile = new TempFile(destinyFile.getAbsolutePath());
-                tempFile.setOriginalAssetPath(assetPath);
+    @Override
+    public URL getResourceAsURL( String assetPath ) {
+
+        URL toReturn = null;
+        try {
+            String filePath = generateTempFileAbsolutePath( getExtension( assetPath ) );
+            File sourceFile = new File( zipPath, assetPath );
+            File destinyFile = new File( filePath );
+            if( sourceFile.copyTo( destinyFile ) ) {
+                toReturn = destinyFile.toURI( ).toURL( );
+                TempFile tempFile = new TempFile( destinyFile.getAbsolutePath( ) );
+                tempFile.setOriginalAssetPath( assetPath );
                 tempFiles.add( tempFile );
             }
             else
                 toReturn = null;
-        } catch (Exception e){
+        }
+        catch( Exception e ) {
             toReturn = null;
         }
-            
+
         return toReturn;
     }
 }

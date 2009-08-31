@@ -1,34 +1,36 @@
 /**
- * <e-Adventure> is an <e-UCM> research project.
- * <e-UCM>, Department of Software Engineering and Artificial Intelligence.
- * Faculty of Informatics, Complutense University of Madrid (Spain).
- * @author Del Blanco, A., Marchiori, E., Torrente, F.J.
+ * <e-Adventure> is an <e-UCM> research project. <e-UCM>, Department of Software
+ * Engineering and Artificial Intelligence. Faculty of Informatics, Complutense
+ * University of Madrid (Spain).
+ * 
+ * @author Del Blanco, A., Marchiori, E., Torrente, F.J. (alphabetical order) *
+ * @author López Mañas, E., Pérez Padilla, F., Sollet, E., Torijano, B. (former
+ *         developers by alphabetical order)
  * @author Moreno-Ger, P. & Fernández-Manjón, B. (directors)
- * @year 2009
- * Web-site: http://e-adventure.e-ucm.es
+ * @year 2009 Web-site: http://e-adventure.e-ucm.es
  */
 
 /*
-    Copyright (C) 2004-2009 <e-UCM> research group
-
-    This file is part of <e-Adventure> project, an educational game & game-like 
-    simulation authoring tool, availabe at http://e-adventure.e-ucm.es. 
-
-    <e-Adventure> is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    <e-Adventure> is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with <e-Adventure>; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-*/
+ * Copyright (C) 2004-2009 <e-UCM> research group
+ * 
+ * This file is part of <e-Adventure> project, an educational game & game-like
+ * simulation authoring tool, available at http://e-adventure.e-ucm.es.
+ * 
+ * <e-Adventure> is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version.
+ * 
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place, Suite 330, Boston, MA 02111-1307 USA
+ * 
+ */
 package es.eucm.eadventure.editor.data.support;
 
 import java.util.ArrayList;
@@ -43,400 +45,425 @@ import es.eucm.eadventure.common.auxiliar.ReportDialog;
  */
 public class VarFlagSummary {
 
-	/**
-	 * List of flags.
-	 */
-	private List<String> flags;
+    /**
+     * List of flags.
+     */
+    private List<String> flags;
 
-	/**
-	 * List of flag references.
-	 */
-	private List<Integer> flagReferences;
-	
-	/**
-	 * List of vars.
-	 */
-	private List<String> vars;
+    /**
+     * List of flag references.
+     */
+    private List<Integer> flagReferences;
 
-	/**
-	 * List of var references.
-	 */
-	private List<Integer> varReferences;
+    /**
+     * List of vars.
+     */
+    private List<String> vars;
 
-	/**
-	 * Constructor.
-	 */
-	public VarFlagSummary( ) {
-		// Create the lists
-		flags = new ArrayList<String>( );
-		flagReferences = new ArrayList<Integer>( );
-		vars = new ArrayList<String>( );
-		varReferences = new ArrayList<Integer>( );
-	}
+    /**
+     * List of var references.
+     */
+    private List<Integer> varReferences;
 
-	/**
-	 * Clears the summary, deleting all flags and references.
-	 */
-	public void clear( ) {
-		// Clear both lists
-		flags.clear( );
-		flagReferences.clear( );
-		vars.clear( );
-		varReferences.clear( );
-	}
+    /**
+     * Constructor.
+     */
+    public VarFlagSummary( ) {
 
-	/**
-	 * Adds a new flag to the list (with zero references).
-	 * 
-	 * @param flag
-	 *            New flag
-	 * @return True if the flag was added, false otherwise
-	 */
-	public boolean addFlag( String flag ) {
-		boolean addedFlag = false;
+        // Create the lists
+        flags = new ArrayList<String>( );
+        flagReferences = new ArrayList<Integer>( );
+        vars = new ArrayList<String>( );
+        varReferences = new ArrayList<Integer>( );
+    }
 
-		// Add it only if it doesn't exist
-		if( !existsFlag( flag ) ) {
-			flags.add( flag );
-			flagReferences.add( 0 );
-			addedFlag = true;
+    /**
+     * Clears the summary, deleting all flags and references.
+     */
+    public void clear( ) {
 
-			// Sort the list
-			sortList( flags, flagReferences );
-		}
+        // Clear both lists
+        flags.clear( );
+        flagReferences.clear( );
+        vars.clear( );
+        varReferences.clear( );
+    }
 
-		return addedFlag;
-	}
+    /**
+     * Adds a new flag to the list (with zero references).
+     * 
+     * @param flag
+     *            New flag
+     * @return True if the flag was added, false otherwise
+     */
+    public boolean addFlag( String flag ) {
 
-	/**
-	 * Deletes the given flag from the list.
-	 * 
-	 * @param flag
-	 *            Flag to be deleted
-	 * @return True if the flag was deleted, false otherwise
-	 */
-	public boolean deleteFlag( String flag ) {
-		boolean deletedFlag = false;
+        boolean addedFlag = false;
 
-		// Get the index of the flag
-		int flagIndex = flags.indexOf( flag );
+        // Add it only if it doesn't exist
+        if( !existsFlag( flag ) ) {
+            flags.add( flag );
+            flagReferences.add( 0 );
+            addedFlag = true;
 
-		// If the flag exists, delete the info
-		if( flagIndex >= 0 ) {
-			flags.remove( flagIndex );
-			flagReferences.remove( flagIndex );
-			deletedFlag = true;
-		}
+            // Sort the list
+            sortList( flags, flagReferences );
+        }
 
-		return deletedFlag;
-	}
+        return addedFlag;
+    }
 
-	/**
-	 * Adds a new var to the list (with zero references).
-	 * 
-	 * @param flag
-	 *            New var
-	 * @return True if the var was added, false otherwise
-	 */
-	public boolean addVar( String var ) {
-		boolean addedVar = false;
+    /**
+     * Deletes the given flag from the list.
+     * 
+     * @param flag
+     *            Flag to be deleted
+     * @return True if the flag was deleted, false otherwise
+     */
+    public boolean deleteFlag( String flag ) {
 
-		// Add it only if it doesn't exist
-		if( !existsFlag( var ) ) {
-			vars.add( var );
-			varReferences.add( 0 );
-			addedVar = true;
+        boolean deletedFlag = false;
 
-			// Sort the list
-			sortList( vars, varReferences );
-		}
+        // Get the index of the flag
+        int flagIndex = flags.indexOf( flag );
 
-		return addedVar;
-	}
+        // If the flag exists, delete the info
+        if( flagIndex >= 0 ) {
+            flags.remove( flagIndex );
+            flagReferences.remove( flagIndex );
+            deletedFlag = true;
+        }
 
-	/**
-	 * Deletes the given var from the list.
-	 * 
-	 * @param var
-	 *            Var to be deleted
-	 * @return True if the var was deleted, false otherwise
-	 */
-	public boolean deleteVar( String var ) {
-		boolean deletedVar = false;
+        return deletedFlag;
+    }
 
-		// Get the index of the flag
-		int varIndex = vars.indexOf( var );
+    /**
+     * Adds a new var to the list (with zero references).
+     * 
+     * @param flag
+     *            New var
+     * @return True if the var was added, false otherwise
+     */
+    public boolean addVar( String var ) {
 
-		// If the var exists, delete the info
-		if( varIndex >= 0 ) {
-			vars.remove( varIndex );
-			varReferences.remove( varIndex );
-			deletedVar = true;
-		}
+        boolean addedVar = false;
 
-		return deletedVar;
-	}
-	
-	/**
-	 * Adds a new reference (if the id provided is a flag addFlagReference is invoked, if the id provided is a var addVarReference is called).
-	 * 
-	 * @param id
-	 *            New ref id
-	 */
-	public void addReference( String id ) {
+        // Add it only if it doesn't exist
+        if( !existsFlag( var ) ) {
+            vars.add( var );
+            varReferences.add( 0 );
+            addedVar = true;
 
-		if ( flags.contains( id ) ){
-			addFlagReference ( id );
-		} else if ( vars.contains( id ) ){
-			addVarReference ( id );
-		}
-	}
-	
-	/**
-	 * Adds a new flag reference (creates the flag with one reference, or updates the references).
-	 * 
-	 * @param flag
-	 *            New flag
-	 */
-	public void addFlagReference( String flag ) {
+            // Sort the list
+            sortList( vars, varReferences );
+        }
 
-		// Get the index of the flag
-		int flagIndex = flags.indexOf( flag );
+        return addedVar;
+    }
 
-		// If the flag was on the list, update the references
-		if( flagIndex >= 0 ) {
-			int references = flagReferences.get( flagIndex ) + 1;
-			flagReferences.set( flagIndex, references );
-		}
+    /**
+     * Deletes the given var from the list.
+     * 
+     * @param var
+     *            Var to be deleted
+     * @return True if the var was deleted, false otherwise
+     */
+    public boolean deleteVar( String var ) {
 
-		// If the flag wasn't on the list, add it
-		else {
-			flags.add( flag );
-			flagReferences.add( 1 );
+        boolean deletedVar = false;
 
-			// Sort the list
-			sortList( flags, flagReferences );
-		}
-	}
+        // Get the index of the flag
+        int varIndex = vars.indexOf( var );
 
-	/**
-	 * Deletes the given flag from the list
-	 * 
-	 * @param flag
-	 *            Flag to be deleted
-	 */
-	public void deleteFlagReference( String flag ) {
+        // If the var exists, delete the info
+        if( varIndex >= 0 ) {
+            vars.remove( varIndex );
+            varReferences.remove( varIndex );
+            deletedVar = true;
+        }
 
-		// Get the index of the flag
-		int flagIndex = flags.indexOf( flag );
+        return deletedVar;
+    }
 
-		// If the flag is on the list
-		if( flagIndex >= 0 ) {
-			// Get the number of references, decrease it and update
-			int references = flagReferences.get( flagIndex ) - 1;
-			flagReferences.set( flagIndex, references );
-		}
+    /**
+     * Adds a new reference (if the id provided is a flag addFlagReference is
+     * invoked, if the id provided is a var addVarReference is called).
+     * 
+     * @param id
+     *            New ref id
+     */
+    public void addReference( String id ) {
 
-		// If it is not, show an error message
-		else
-			System.err.println( "Error: Trying to delete a nonexistent flag" );
-	}
-	
-	/**
-	 * Deletes the given if (either flag or var) from the list
-	 * 
-	 * @param id
-	 *            Id to be deleted
-	 */
-	public void deleteReference( String id ) {
+        if( flags.contains( id ) ) {
+            addFlagReference( id );
+        }
+        else if( vars.contains( id ) ) {
+            addVarReference( id );
+        }
+    }
 
-		if ( flags.contains( id ) ){
-			deleteFlagReference ( id );
-		} else if ( vars.contains( id ) ){
-			deleteVarReference ( id );
-		}
-	}
+    /**
+     * Adds a new flag reference (creates the flag with one reference, or
+     * updates the references).
+     * 
+     * @param flag
+     *            New flag
+     */
+    public void addFlagReference( String flag ) {
 
-	/**
-	 * Adds a new var reference (creates the var with one reference, or updates the references).
-	 * 
-	 * @param var
-	 *            New var
-	 */
-	public void addVarReference( String var ) {
+        // Get the index of the flag
+        int flagIndex = flags.indexOf( flag );
 
-		// Get the index of the var
-		int varIndex = vars.indexOf( var );
+        // If the flag was on the list, update the references
+        if( flagIndex >= 0 ) {
+            int references = flagReferences.get( flagIndex ) + 1;
+            flagReferences.set( flagIndex, references );
+        }
 
-		// If the var was on the list, update the references
-		if( varIndex >= 0 ) { 
-			int references = varReferences.get( varIndex ) + 1;
-			varReferences.set( varIndex, references );
-		}
- 
-		// If the var wasn't on the list, add it
-		else {
-			vars.add( var );
-			varReferences.add( 1 );
+        // If the flag wasn't on the list, add it
+        else {
+            flags.add( flag );
+            flagReferences.add( 1 );
 
-			// Sort the list
-			sortList( vars, varReferences );
-		}
-	}
+            // Sort the list
+            sortList( flags, flagReferences );
+        }
+    }
 
-	/**
-	 * Deletes the given var from the list
-	 * 
-	 * @param var
-	 *            Var to be deleted
-	 */
-	public void deleteVarReference( String var ) {
+    /**
+     * Deletes the given flag from the list
+     * 
+     * @param flag
+     *            Flag to be deleted
+     */
+    public void deleteFlagReference( String flag ) {
 
-		// Get the index of the var
-		int varIndex = vars.indexOf( var );
+        // Get the index of the flag
+        int flagIndex = flags.indexOf( flag );
 
-		// If the var is on the list
-		if( varIndex >= 0 ) {
-			// Get the number of references, decrease it and update
-			int references = varReferences.get( varIndex ) - 1;
-			varReferences.set( varIndex, references );
-		}
+        // If the flag is on the list
+        if( flagIndex >= 0 ) {
+            // Get the number of references, decrease it and update
+            int references = flagReferences.get( flagIndex ) - 1;
+            flagReferences.set( flagIndex, references );
+        }
 
-		// If it is not, show an error message
-		else
-			System.err.println( "Error: Trying to delete a nonexistent var" );
-	}
-	
-	/**
-	 * Returns if the flag summary contains the given flag.
-	 * 
-	 * @param flag
-	 *            Flag to be checked
-	 * @return True if the list contains the flag, false otherwise
-	 */
-	public boolean existsFlag( String flag ) {
-		return flags.contains( flag );
-	}
-	
-	/**
-	 * Returns if the var summary contains the given var.
-	 * 
-	 * @param var
-	 *            Var to be checked
-	 * @return True if the list contains the var, false otherwise
-	 */
-	public boolean existsVar( String var ) {
-		return vars.contains( var );
-	}
-	
-	/**
-	 * Returns if the summary contains the given id (both flags & vars are checked).
-	 * 
-	 * @param id
-	 *            Id to be checked
-	 * @return True if some of the lists contain the id, false otherwise
-	 */
-	public boolean existsId( String id ) {
-		return existsFlag ( id ) || existsVar ( id );
-	}
+        // If it is not, show an error message
+        else
+            System.err.println( "Error: Trying to delete a nonexistent flag" );
+    }
 
-	/**
-	 * Returns the number of flags present in the summary.
-	 * 
-	 * @return Number of flags
-	 */
-	public int getFlagCount( ) {
-		return flags.size( );
-	}
-	
-	/**
-	 * Returns the number of varss present in the summary.
-	 * 
-	 * @return Number of vars
-	 */
-	public int getVarCount( ) {
-		return vars.size( );
-	}
+    /**
+     * Deletes the given if (either flag or var) from the list
+     * 
+     * @param id
+     *            Id to be deleted
+     */
+    public void deleteReference( String id ) {
 
-	/**
-	 * Returns the flag name in the given position.
-	 * 
-	 * @param index
-	 *            Index for the flag
-	 * @return Flag name
-	 */
-	public String getFlag( int index ) {
-		return flags.get( index );
-	}
-	
-	/**
-	 * Returns the var name in the given position.
-	 * 
-	 * @param index
-	 *            Index for the var
-	 * @return Var name
-	 */
-	public String getVar( int index ) {
-		return vars.get( index );
-	}
+        if( flags.contains( id ) ) {
+            deleteFlagReference( id );
+        }
+        else if( vars.contains( id ) ) {
+            deleteVarReference( id );
+        }
+    }
 
-	/**
-	 * Returns the flag references number in the given position.
-	 * 
-	 * @param index
-	 *            Index for the flag
-	 * @return Number of references of the flag
-	 */
-	public int getFlagReferences( int index ) {
-		return flagReferences.get( index );
-	}
-	
-	/**
-	 * Returns the var references number in the given position.
-	 * 
-	 * @param index
-	 *            Index for the var
-	 * @return Number of references of the var
-	 */
-	public int getVarReferences( int index ) {
-		return varReferences.get( index );
-	}
+    /**
+     * Adds a new var reference (creates the var with one reference, or updates
+     * the references).
+     * 
+     * @param var
+     *            New var
+     */
+    public void addVarReference( String var ) {
 
-	/**
-	 * Returns an array with all the flags of the list
-	 * 
-	 * @return Array with all the flags
-	 */
-	public String[] getFlags( ) {
-		return flags.toArray( new String[] {} );
-	}
+        // Get the index of the var
+        int varIndex = vars.indexOf( var );
 
-	/**
-	 * Returns an array with all the vars of the list
-	 * 
-	 * @return Array with all the vars
-	 */
-	public String[] getVars( ) {
-		return vars.toArray( new String[] {} );
-	}
-	
-	/**
-	 * Sorts the lists of flags and resources, by the name of the flags.
-	 */
-	private void sortList( List<String> list, List<Integer> refsList ) {
-		// Bubble sorting
-		try{
-		for( int i = 0; i < list.size( ) - 1; i++ ) {
-			for( int j = 0; j < ( list.size( ) - 1 ) - i; j++ ) {
-				// If the current flag is greater than the next one, swap values (flag and references)
-				if( list.get( j ).compareTo( list.get( j + 1 ) ) > 0 ) {
-					list.add( j + 1, list.remove( j ) );
-					refsList.add( j + 1, refsList.remove( j ) );
-				}
-			}
-		}}
-		catch(NullPointerException e){
-        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
-		}
-	}
+        // If the var was on the list, update the references
+        if( varIndex >= 0 ) {
+            int references = varReferences.get( varIndex ) + 1;
+            varReferences.set( varIndex, references );
+        }
+
+        // If the var wasn't on the list, add it
+        else {
+            vars.add( var );
+            varReferences.add( 1 );
+
+            // Sort the list
+            sortList( vars, varReferences );
+        }
+    }
+
+    /**
+     * Deletes the given var from the list
+     * 
+     * @param var
+     *            Var to be deleted
+     */
+    public void deleteVarReference( String var ) {
+
+        // Get the index of the var
+        int varIndex = vars.indexOf( var );
+
+        // If the var is on the list
+        if( varIndex >= 0 ) {
+            // Get the number of references, decrease it and update
+            int references = varReferences.get( varIndex ) - 1;
+            varReferences.set( varIndex, references );
+        }
+
+        // If it is not, show an error message
+        else
+            System.err.println( "Error: Trying to delete a nonexistent var" );
+    }
+
+    /**
+     * Returns if the flag summary contains the given flag.
+     * 
+     * @param flag
+     *            Flag to be checked
+     * @return True if the list contains the flag, false otherwise
+     */
+    public boolean existsFlag( String flag ) {
+
+        return flags.contains( flag );
+    }
+
+    /**
+     * Returns if the var summary contains the given var.
+     * 
+     * @param var
+     *            Var to be checked
+     * @return True if the list contains the var, false otherwise
+     */
+    public boolean existsVar( String var ) {
+
+        return vars.contains( var );
+    }
+
+    /**
+     * Returns if the summary contains the given id (both flags & vars are
+     * checked).
+     * 
+     * @param id
+     *            Id to be checked
+     * @return True if some of the lists contain the id, false otherwise
+     */
+    public boolean existsId( String id ) {
+
+        return existsFlag( id ) || existsVar( id );
+    }
+
+    /**
+     * Returns the number of flags present in the summary.
+     * 
+     * @return Number of flags
+     */
+    public int getFlagCount( ) {
+
+        return flags.size( );
+    }
+
+    /**
+     * Returns the number of varss present in the summary.
+     * 
+     * @return Number of vars
+     */
+    public int getVarCount( ) {
+
+        return vars.size( );
+    }
+
+    /**
+     * Returns the flag name in the given position.
+     * 
+     * @param index
+     *            Index for the flag
+     * @return Flag name
+     */
+    public String getFlag( int index ) {
+
+        return flags.get( index );
+    }
+
+    /**
+     * Returns the var name in the given position.
+     * 
+     * @param index
+     *            Index for the var
+     * @return Var name
+     */
+    public String getVar( int index ) {
+
+        return vars.get( index );
+    }
+
+    /**
+     * Returns the flag references number in the given position.
+     * 
+     * @param index
+     *            Index for the flag
+     * @return Number of references of the flag
+     */
+    public int getFlagReferences( int index ) {
+
+        return flagReferences.get( index );
+    }
+
+    /**
+     * Returns the var references number in the given position.
+     * 
+     * @param index
+     *            Index for the var
+     * @return Number of references of the var
+     */
+    public int getVarReferences( int index ) {
+
+        return varReferences.get( index );
+    }
+
+    /**
+     * Returns an array with all the flags of the list
+     * 
+     * @return Array with all the flags
+     */
+    public String[] getFlags( ) {
+
+        return flags.toArray( new String[] {} );
+    }
+
+    /**
+     * Returns an array with all the vars of the list
+     * 
+     * @return Array with all the vars
+     */
+    public String[] getVars( ) {
+
+        return vars.toArray( new String[] {} );
+    }
+
+    /**
+     * Sorts the lists of flags and resources, by the name of the flags.
+     */
+    private void sortList( List<String> list, List<Integer> refsList ) {
+
+        // Bubble sorting
+        try {
+            for( int i = 0; i < list.size( ) - 1; i++ ) {
+                for( int j = 0; j < ( list.size( ) - 1 ) - i; j++ ) {
+                    // If the current flag is greater than the next one, swap values (flag and references)
+                    if( list.get( j ).compareTo( list.get( j + 1 ) ) > 0 ) {
+                        list.add( j + 1, list.remove( j ) );
+                        refsList.add( j + 1, refsList.remove( j ) );
+                    }
+                }
+            }
+        }
+        catch( NullPointerException e ) {
+            ReportDialog.GenerateErrorReport( e, true, "UNKNOWERROR" );
+        }
+    }
 }

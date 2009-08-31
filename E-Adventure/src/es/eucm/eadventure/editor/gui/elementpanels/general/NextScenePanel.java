@@ -1,34 +1,36 @@
 /**
- * <e-Adventure> is an <e-UCM> research project.
- * <e-UCM>, Department of Software Engineering and Artificial Intelligence.
- * Faculty of Informatics, Complutense University of Madrid (Spain).
- * @author Del Blanco, A., Marchiori, E., Torrente, F.J.
+ * <e-Adventure> is an <e-UCM> research project. <e-UCM>, Department of Software
+ * Engineering and Artificial Intelligence. Faculty of Informatics, Complutense
+ * University of Madrid (Spain).
+ * 
+ * @author Del Blanco, A., Marchiori, E., Torrente, F.J. (alphabetical order) *
+ * @author López Mañas, E., Pérez Padilla, F., Sollet, E., Torijano, B. (former
+ *         developers by alphabetical order)
  * @author Moreno-Ger, P. & Fernández-Manjón, B. (directors)
- * @year 2009
- * Web-site: http://e-adventure.e-ucm.es
+ * @year 2009 Web-site: http://e-adventure.e-ucm.es
  */
 
 /*
-    Copyright (C) 2004-2009 <e-UCM> research group
-
-    This file is part of <e-Adventure> project, an educational game & game-like 
-    simulation authoring tool, availabe at http://e-adventure.e-ucm.es. 
-
-    <e-Adventure> is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    <e-Adventure> is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with <e-Adventure>; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-*/
+ * Copyright (C) 2004-2009 <e-UCM> research group
+ * 
+ * This file is part of <e-Adventure> project, an educational game & game-like
+ * simulation authoring tool, available at http://e-adventure.e-ucm.es.
+ * 
+ * <e-Adventure> is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version.
+ * 
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place, Suite 330, Boston, MA 02111-1307 USA
+ * 
+ */
 package es.eucm.eadventure.editor.gui.elementpanels.general;
 
 import java.awt.Dimension;
@@ -67,272 +69,280 @@ import es.eucm.eadventure.editor.gui.structurepanel.StructureControl;
 
 public class NextScenePanel extends JTabbedPane {
 
-	/**
-	 * Required.
-	 */
-	private static final long serialVersionUID = 1L;
+    /**
+     * Required.
+     */
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * Controller of the cutscene.
-	 */
-	private NextSceneDataControl nextSceneDataControl;
+    /**
+     * Controller of the cutscene.
+     */
+    private NextSceneDataControl nextSceneDataControl;
 
-	/**
-	 * Combo box for the possible scenes.
-	 */
-	private JComboBox scenesComboBox;
+    /**
+     * Combo box for the possible scenes.
+     */
+    private JComboBox scenesComboBox;
 
-	/**
-	 * Destiny position check box (to use it or not).
-	 */
-	private JCheckBox destinyPositionCheckBox;
+    /**
+     * Destiny position check box (to use it or not).
+     */
+    private JCheckBox destinyPositionCheckBox;
 
-	/**
-	 * Destiny position button.
-	 */
-	private JButton destinyPositionButton;
-	
-	private JSpinner spinner;
+    /**
+     * Destiny position button.
+     */
+    private JButton destinyPositionButton;
 
-	private JComboBox transitionCombo;
-	
-	/**
-	 * Constructor.
-	 * 
-	 * @param nextSceneDataControl
-	 *            Cutscene controller
-	 */
-	public NextScenePanel( NextSceneDataControl nextSceneDataControl ) {
+    private JSpinner spinner;
 
-		JPanel mainPanel = new JPanel();
-		
-		// Set the controller
-		this.nextSceneDataControl = nextSceneDataControl;
+    private JComboBox transitionCombo;
 
-		// Set the layout
-		mainPanel.setLayout( new GridBagLayout( ) );
-		//setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "NextScene.Title" ) ) );
-		GridBagConstraints c = new GridBagConstraints( );
-		c.insets = new Insets( 5, 5, 5, 5 );
+    /**
+     * Constructor.
+     * 
+     * @param nextSceneDataControl
+     *            Cutscene controller
+     */
+    public NextScenePanel( NextSceneDataControl nextSceneDataControl ) {
 
-		// Create the combo box of scenes
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weightx = 1;
-		JPanel nextSceneIdPanel = new JPanel( );
-		nextSceneIdPanel.setLayout( new GridBagLayout( ) );
-		GridBagConstraints c2 = new GridBagConstraints();
-		c2.fill = GridBagConstraints.HORIZONTAL;
-		c2.gridx = 0;
-		c2.gridy = 0;
-		c2.weightx = 1.0;		
-		
-		scenesComboBox = new JComboBox( Controller.getInstance( ).getIdentifierSummary( ).getGeneralSceneIds( ) );
-		scenesComboBox.setSelectedItem( nextSceneDataControl.getNextSceneId( ) );
-		scenesComboBox.addActionListener( new NextSceneComboBoxListener( ) );
-		nextSceneIdPanel.add( scenesComboBox , c2);
+        JPanel mainPanel = new JPanel( );
 
-		Icon goToIcon = new ImageIcon( "img/icons/moveNodeRight.png" );
-		JButton goToButton = new JButton (goToIcon);
-		goToButton.setPreferredSize(new Dimension(20,20));
-		goToButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				ScenesListDataControl cldc = Controller.getInstance().getSelectedChapterDataControl().getScenesList();
-				for (SceneDataControl cdc : cldc.getScenes()) {
-					if (cdc.getId().equals(NextScenePanel.this.nextSceneDataControl.getNextSceneId())) {
-						StructureControl.getInstance().changeDataControl(cdc);
-					}
-				}
-			}
-		});
-		c2.gridx = 1;
-		c2.weightx = 0.1;
-		nextSceneIdPanel.add( goToButton, c2);		
-		
-		
-		nextSceneIdPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "NextScene.NextSceneId" ) ) );
-		mainPanel.add( nextSceneIdPanel, c );
+        // Set the controller
+        this.nextSceneDataControl = nextSceneDataControl;
 
-		// Create the button for the initial point
-		c.gridy = 1;
-		JPanel destinyPositionPanel = new JPanel( );
-		destinyPositionPanel.setLayout( new GridLayout( 0, 1 ) );
-		destinyPositionCheckBox = new JCheckBox( TextConstants.getText( "NextScene.UseDestinyPosition" ), nextSceneDataControl.hasDestinyPosition( ) );
-		destinyPositionCheckBox.setEnabled( Controller.getInstance( ).getIdentifierSummary( ).isScene( nextSceneDataControl.getNextSceneId( ) ) );
-		destinyPositionCheckBox.addActionListener( new DestinyPositionCheckBoxListener( ) );
-		
-		destinyPositionButton = new JButton( TextConstants.getText( "NextScene.EditDestinyPosition" ) );
-		destinyPositionButton.setEnabled( nextSceneDataControl.hasDestinyPosition( ) );
-		destinyPositionButton.addActionListener( new DestinyPositionButtonListener( ) );
-		
-		if (!Controller.getInstance( ).isPlayTransparent( )){
-			destinyPositionPanel.add( destinyPositionCheckBox );
-			destinyPositionPanel.add( destinyPositionButton );
-			destinyPositionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "NextScene.DestinyPosition" ) ) );
-		}
-		
-		mainPanel.add( destinyPositionPanel, c );
+        // Set the layout
+        mainPanel.setLayout( new GridBagLayout( ) );
+        //setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "NextScene.Title" ) ) );
+        GridBagConstraints c = new GridBagConstraints( );
+        c.insets = new Insets( 5, 5, 5, 5 );
 
-		// Create the button for the conditions
-		c.gridy = 2;
-		JPanel conditionsPanel = new JPanel( );
-		conditionsPanel.setLayout( new GridLayout( ) );
-		JButton conditionsButton = new JButton( TextConstants.getText( "GeneralText.EditConditions" ) );
-		conditionsButton.addActionListener( new ConditionsButtonListener( ) );
-		conditionsPanel.add( conditionsButton );
-		conditionsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "NextScene.Conditions" ) ) );
-		mainPanel.add( conditionsPanel, c );
+        // Create the combo box of scenes
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 1;
+        JPanel nextSceneIdPanel = new JPanel( );
+        nextSceneIdPanel.setLayout( new GridBagLayout( ) );
+        GridBagConstraints c2 = new GridBagConstraints( );
+        c2.fill = GridBagConstraints.HORIZONTAL;
+        c2.gridx = 0;
+        c2.gridy = 0;
+        c2.weightx = 1.0;
 
-		// Create the button for the effects
-		c.gridy = 3;
-		JPanel effectsPanel = new JPanel( );
-		effectsPanel.setLayout( new GridLayout( ) );
-		JButton effectsButton = new JButton( TextConstants.getText( "GeneralText.EditEffects" ) );
-		effectsButton.addActionListener( new EffectsButtonListener( ) );
-		effectsPanel.add( effectsButton );
-		effectsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "NextScene.Effects" ) ) );
-		mainPanel.add( effectsPanel, c );
+        scenesComboBox = new JComboBox( Controller.getInstance( ).getIdentifierSummary( ).getGeneralSceneIds( ) );
+        scenesComboBox.setSelectedItem( nextSceneDataControl.getNextSceneId( ) );
+        scenesComboBox.addActionListener( new NextSceneComboBoxListener( ) );
+        nextSceneIdPanel.add( scenesComboBox, c2 );
 
-		// Create the button for the post-effects
-		c.gridy = 4;
-		JPanel postEffectsPanel = new JPanel( );
-		postEffectsPanel.setLayout( new GridLayout( ) );
-		JButton postEffectsButton = new JButton( TextConstants.getText( "GeneralText.EditPostEffects" ) );
-		postEffectsButton.addActionListener( new PostEffectsButtonListener( ) );
-		postEffectsPanel.add( postEffectsButton );
-		postEffectsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "NextScene.PostEffects" ) ) );
-		mainPanel.add( postEffectsPanel, c );
+        Icon goToIcon = new ImageIcon( "img/icons/moveNodeRight.png" );
+        JButton goToButton = new JButton( goToIcon );
+        goToButton.setPreferredSize( new Dimension( 20, 20 ) );
+        goToButton.addActionListener( new ActionListener( ) {
 
-		
-		c.gridy = 5;
-		JPanel transitionPanel = new JPanel();
-		transitionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "NextScene.Transition" ) ) );
-		String[] options = new String[]{ TextConstants.getText("NextScene.NoTransition"),
-				TextConstants.getText("NextScene.TopToBottom"),
-				TextConstants.getText("NextScene.BottomToTop"),
-				TextConstants.getText("NextScene.LeftToRight"),
-				TextConstants.getText("NextScene.RightToLeft"),
-				TextConstants.getText("NextScene.FadeIn")};
-		transitionCombo = new JComboBox(options);
-		transitionCombo.setSelectedIndex(nextSceneDataControl.getTransitionType());
-		transitionCombo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				comboModified();
-			}
-		});
-		transitionPanel.add(transitionCombo);
-	
-		JPanel temp = new JPanel();
-		temp.add(new JLabel(TextConstants.getText("Animation.Duration") + ": "));
-	    SpinnerModel sm = new SpinnerNumberModel(nextSceneDataControl.getTransitionTime(), 0, 5000, 100);
-	    spinner = new JSpinner(sm);
-	    spinner.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent arg0) {
-				spinnerModified();
-			}});
-	    temp.add(spinner);
+            public void actionPerformed( ActionEvent arg0 ) {
 
-	    transitionPanel.add(temp);
-		
-		mainPanel.add(transitionPanel, c);
-		
-		// Add a filler at the end
-		c.gridy++;
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 1;
-		c.weighty = 1;
-		mainPanel.add( new JFiller( ), c );
-		this.insertTab( TextConstants.getText( "NextScene.Title" ), null, mainPanel, TextConstants.getText( "NextScene.Title" ), 0 );
-		
-		this.insertTab( TextConstants.getText( "NextScene.AdvancedOptions" ), null, new ExitLookPanel(nextSceneDataControl.getExitLookDataController( )), TextConstants.getText( "NextScene.AdvancedOptions" ), 1 );
-		
-	}
+                ScenesListDataControl cldc = Controller.getInstance( ).getSelectedChapterDataControl( ).getScenesList( );
+                for( SceneDataControl cdc : cldc.getScenes( ) ) {
+                    if( cdc.getId( ).equals( NextScenePanel.this.nextSceneDataControl.getNextSceneId( ) ) ) {
+                        StructureControl.getInstance( ).changeDataControl( cdc );
+                    }
+                }
+            }
+        } );
+        c2.gridx = 1;
+        c2.weightx = 0.1;
+        nextSceneIdPanel.add( goToButton, c2 );
 
-	protected void comboModified() {
-		nextSceneDataControl.setTransitionType(transitionCombo.getSelectedIndex());
-	}
+        nextSceneIdPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "NextScene.NextSceneId" ) ) );
+        mainPanel.add( nextSceneIdPanel, c );
 
-	protected void spinnerModified() {
-		nextSceneDataControl.setTransitionTime((Integer) spinner.getValue());					
-	}
+        // Create the button for the initial point
+        c.gridy = 1;
+        JPanel destinyPositionPanel = new JPanel( );
+        destinyPositionPanel.setLayout( new GridLayout( 0, 1 ) );
+        destinyPositionCheckBox = new JCheckBox( TextConstants.getText( "NextScene.UseDestinyPosition" ), nextSceneDataControl.hasDestinyPosition( ) );
+        destinyPositionCheckBox.setEnabled( Controller.getInstance( ).getIdentifierSummary( ).isScene( nextSceneDataControl.getNextSceneId( ) ) );
+        destinyPositionCheckBox.addActionListener( new DestinyPositionCheckBoxListener( ) );
 
-	/**
-	 * Listener for next scene combo box.
-	 */
-	private class NextSceneComboBoxListener implements ActionListener {
+        destinyPositionButton = new JButton( TextConstants.getText( "NextScene.EditDestinyPosition" ) );
+        destinyPositionButton.setEnabled( nextSceneDataControl.hasDestinyPosition( ) );
+        destinyPositionButton.addActionListener( new DestinyPositionButtonListener( ) );
 
-		public void actionPerformed( ActionEvent e ) {
-			nextSceneDataControl.setNextSceneId( scenesComboBox.getSelectedItem( ).toString( ) );
+        if( !Controller.getInstance( ).isPlayTransparent( ) ) {
+            destinyPositionPanel.add( destinyPositionCheckBox );
+            destinyPositionPanel.add( destinyPositionButton );
+            destinyPositionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "NextScene.DestinyPosition" ) ) );
+        }
 
-			// If the selected target is a scene, enable the destiny position check box
-			if( Controller.getInstance( ).getIdentifierSummary( ).isScene( scenesComboBox.getSelectedItem( ).toString( ) ) )
-				destinyPositionCheckBox.setEnabled( true );
+        mainPanel.add( destinyPositionPanel, c );
 
-			// If it is a cutscene, disable the check box (and erase the data if it was present)
-			else {
-				destinyPositionCheckBox.setEnabled( false );
+        // Create the button for the conditions
+        c.gridy = 2;
+        JPanel conditionsPanel = new JPanel( );
+        conditionsPanel.setLayout( new GridLayout( ) );
+        JButton conditionsButton = new JButton( TextConstants.getText( "GeneralText.EditConditions" ) );
+        conditionsButton.addActionListener( new ConditionsButtonListener( ) );
+        conditionsPanel.add( conditionsButton );
+        conditionsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "NextScene.Conditions" ) ) );
+        mainPanel.add( conditionsPanel, c );
 
-				// If the next scene had a destiny position, erase it
-				if( nextSceneDataControl.hasDestinyPosition( ) ) {
-					nextSceneDataControl.toggleDestinyPosition( );
-					destinyPositionCheckBox.setSelected( false );
-					destinyPositionButton.setEnabled( false );
-				}
-			}
-		}
-	}
+        // Create the button for the effects
+        c.gridy = 3;
+        JPanel effectsPanel = new JPanel( );
+        effectsPanel.setLayout( new GridLayout( ) );
+        JButton effectsButton = new JButton( TextConstants.getText( "GeneralText.EditEffects" ) );
+        effectsButton.addActionListener( new EffectsButtonListener( ) );
+        effectsPanel.add( effectsButton );
+        effectsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "NextScene.Effects" ) ) );
+        mainPanel.add( effectsPanel, c );
 
-	/**
-	 * Listener for the "Use destiny position in this next scene" check box.
-	 */
-	private class DestinyPositionCheckBoxListener implements ActionListener {
+        // Create the button for the post-effects
+        c.gridy = 4;
+        JPanel postEffectsPanel = new JPanel( );
+        postEffectsPanel.setLayout( new GridLayout( ) );
+        JButton postEffectsButton = new JButton( TextConstants.getText( "GeneralText.EditPostEffects" ) );
+        postEffectsButton.addActionListener( new PostEffectsButtonListener( ) );
+        postEffectsPanel.add( postEffectsButton );
+        postEffectsPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "NextScene.PostEffects" ) ) );
+        mainPanel.add( postEffectsPanel, c );
 
-		public void actionPerformed( ActionEvent e ) {
-			nextSceneDataControl.toggleDestinyPosition( );
-			destinyPositionButton.setEnabled( nextSceneDataControl.hasDestinyPosition( ) );
-		}
-	}
+        c.gridy = 5;
+        JPanel transitionPanel = new JPanel( );
+        transitionPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "NextScene.Transition" ) ) );
+        String[] options = new String[] { TextConstants.getText( "NextScene.NoTransition" ), TextConstants.getText( "NextScene.TopToBottom" ), TextConstants.getText( "NextScene.BottomToTop" ), TextConstants.getText( "NextScene.LeftToRight" ), TextConstants.getText( "NextScene.RightToLeft" ), TextConstants.getText( "NextScene.FadeIn" ) };
+        transitionCombo = new JComboBox( options );
+        transitionCombo.setSelectedIndex( nextSceneDataControl.getTransitionType( ) );
+        transitionCombo.addActionListener( new ActionListener( ) {
 
-	/**
-	 * Listener for the "Set destiny player position" button
-	 */
-	private class DestinyPositionButtonListener implements ActionListener {
+            public void actionPerformed( ActionEvent arg0 ) {
 
-		public void actionPerformed( ActionEvent arg0 ) {
-			// Create the dialog with the destiny and show it
-			PlayerPositionDialog destinyPositionDialog = new PlayerPositionDialog( scenesComboBox.getSelectedItem( ).toString( ), nextSceneDataControl.getDestinyPositionX( ), nextSceneDataControl.getDestinyPositionY( ) );
+                comboModified( );
+            }
+        } );
+        transitionPanel.add( transitionCombo );
 
-			// Set the new data
-			nextSceneDataControl.setDestinyPosition( destinyPositionDialog.getPositionX( ), destinyPositionDialog.getPositionY( ) );
-		}
-	}
+        JPanel temp = new JPanel( );
+        temp.add( new JLabel( TextConstants.getText( "Animation.Duration" ) + ": " ) );
+        SpinnerModel sm = new SpinnerNumberModel( nextSceneDataControl.getTransitionTime( ), 0, 5000, 100 );
+        spinner = new JSpinner( sm );
+        spinner.addChangeListener( new ChangeListener( ) {
 
-	/**
-	 * Listener for the edit conditions button.
-	 */
-	private class ConditionsButtonListener implements ActionListener {
+            public void stateChanged( ChangeEvent arg0 ) {
 
-		public void actionPerformed( ActionEvent e ) {
-			new ConditionsDialog( nextSceneDataControl.getConditions( ) );
-		}
-	}
+                spinnerModified( );
+            }
+        } );
+        temp.add( spinner );
 
-	/**
-	 * Listener for the edit effects button.
-	 */
-	private class EffectsButtonListener implements ActionListener {
+        transitionPanel.add( temp );
 
-		public void actionPerformed( ActionEvent e ) {
-			new EffectsDialog( nextSceneDataControl.getEffects( ) );
-		}
-	}
+        mainPanel.add( transitionPanel, c );
 
-	/**
-	 * Listener for the edit post-effects button.
-	 */
-	private class PostEffectsButtonListener implements ActionListener {
+        // Add a filler at the end
+        c.gridy++;
+        c.fill = GridBagConstraints.BOTH;
+        c.weightx = 1;
+        c.weighty = 1;
+        mainPanel.add( new JFiller( ), c );
+        this.insertTab( TextConstants.getText( "NextScene.Title" ), null, mainPanel, TextConstants.getText( "NextScene.Title" ), 0 );
 
-		public void actionPerformed( ActionEvent e ) {
-			new EffectsDialog( nextSceneDataControl.getPostEffects( ) );
-		}
-	}
+        this.insertTab( TextConstants.getText( "NextScene.AdvancedOptions" ), null, new ExitLookPanel( nextSceneDataControl.getExitLookDataController( ) ), TextConstants.getText( "NextScene.AdvancedOptions" ), 1 );
+
+    }
+
+    protected void comboModified( ) {
+
+        nextSceneDataControl.setTransitionType( transitionCombo.getSelectedIndex( ) );
+    }
+
+    protected void spinnerModified( ) {
+
+        nextSceneDataControl.setTransitionTime( (Integer) spinner.getValue( ) );
+    }
+
+    /**
+     * Listener for next scene combo box.
+     */
+    private class NextSceneComboBoxListener implements ActionListener {
+
+        public void actionPerformed( ActionEvent e ) {
+
+            nextSceneDataControl.setNextSceneId( scenesComboBox.getSelectedItem( ).toString( ) );
+
+            // If the selected target is a scene, enable the destiny position check box
+            if( Controller.getInstance( ).getIdentifierSummary( ).isScene( scenesComboBox.getSelectedItem( ).toString( ) ) )
+                destinyPositionCheckBox.setEnabled( true );
+
+            // If it is a cutscene, disable the check box (and erase the data if it was present)
+            else {
+                destinyPositionCheckBox.setEnabled( false );
+
+                // If the next scene had a destiny position, erase it
+                if( nextSceneDataControl.hasDestinyPosition( ) ) {
+                    nextSceneDataControl.toggleDestinyPosition( );
+                    destinyPositionCheckBox.setSelected( false );
+                    destinyPositionButton.setEnabled( false );
+                }
+            }
+        }
+    }
+
+    /**
+     * Listener for the "Use destiny position in this next scene" check box.
+     */
+    private class DestinyPositionCheckBoxListener implements ActionListener {
+
+        public void actionPerformed( ActionEvent e ) {
+
+            nextSceneDataControl.toggleDestinyPosition( );
+            destinyPositionButton.setEnabled( nextSceneDataControl.hasDestinyPosition( ) );
+        }
+    }
+
+    /**
+     * Listener for the "Set destiny player position" button
+     */
+    private class DestinyPositionButtonListener implements ActionListener {
+
+        public void actionPerformed( ActionEvent arg0 ) {
+
+            // Create the dialog with the destiny and show it
+            PlayerPositionDialog destinyPositionDialog = new PlayerPositionDialog( scenesComboBox.getSelectedItem( ).toString( ), nextSceneDataControl.getDestinyPositionX( ), nextSceneDataControl.getDestinyPositionY( ) );
+
+            // Set the new data
+            nextSceneDataControl.setDestinyPosition( destinyPositionDialog.getPositionX( ), destinyPositionDialog.getPositionY( ) );
+        }
+    }
+
+    /**
+     * Listener for the edit conditions button.
+     */
+    private class ConditionsButtonListener implements ActionListener {
+
+        public void actionPerformed( ActionEvent e ) {
+
+            new ConditionsDialog( nextSceneDataControl.getConditions( ) );
+        }
+    }
+
+    /**
+     * Listener for the edit effects button.
+     */
+    private class EffectsButtonListener implements ActionListener {
+
+        public void actionPerformed( ActionEvent e ) {
+
+            new EffectsDialog( nextSceneDataControl.getEffects( ) );
+        }
+    }
+
+    /**
+     * Listener for the edit post-effects button.
+     */
+    private class PostEffectsButtonListener implements ActionListener {
+
+        public void actionPerformed( ActionEvent e ) {
+
+            new EffectsDialog( nextSceneDataControl.getPostEffects( ) );
+        }
+    }
 }

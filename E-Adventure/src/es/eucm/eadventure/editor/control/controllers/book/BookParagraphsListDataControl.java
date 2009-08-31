@@ -1,34 +1,36 @@
 /**
- * <e-Adventure> is an <e-UCM> research project.
- * <e-UCM>, Department of Software Engineering and Artificial Intelligence.
- * Faculty of Informatics, Complutense University of Madrid (Spain).
- * @author Del Blanco, A., Marchiori, E., Torrente, F.J.
+ * <e-Adventure> is an <e-UCM> research project. <e-UCM>, Department of Software
+ * Engineering and Artificial Intelligence. Faculty of Informatics, Complutense
+ * University of Madrid (Spain).
+ * 
+ * @author Del Blanco, A., Marchiori, E., Torrente, F.J. (alphabetical order) *
+ * @author López Mañas, E., Pérez Padilla, F., Sollet, E., Torijano, B. (former
+ *         developers by alphabetical order)
  * @author Moreno-Ger, P. & Fernández-Manjón, B. (directors)
- * @year 2009
- * Web-site: http://e-adventure.e-ucm.es
+ * @year 2009 Web-site: http://e-adventure.e-ucm.es
  */
 
 /*
-    Copyright (C) 2004-2009 <e-UCM> research group
-
-    This file is part of <e-Adventure> project, an educational game & game-like 
-    simulation authoring tool, availabe at http://e-adventure.e-ucm.es. 
-
-    <e-Adventure> is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    <e-Adventure> is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with <e-Adventure>; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-*/
+ * Copyright (C) 2004-2009 <e-UCM> research group
+ * 
+ * This file is part of <e-Adventure> project, an educational game & game-like
+ * simulation authoring tool, available at http://e-adventure.e-ucm.es.
+ * 
+ * <e-Adventure> is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version.
+ * 
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place, Suite 330, Boston, MA 02111-1307 USA
+ * 
+ */
 package es.eucm.eadventure.editor.control.controllers.book;
 
 import java.util.ArrayList;
@@ -43,262 +45,289 @@ import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class BookParagraphsListDataControl extends DataControl {
 
-	/**
-	 * List of book paragraphs.
-	 */
-	private List<BookParagraph> bookParagraphsList;
+    /**
+     * List of book paragraphs.
+     */
+    private List<BookParagraph> bookParagraphsList;
 
-	/**
-	 * Book paragraph controllers.
-	 */
-	private List<BookParagraphDataControl> bookParagraphsDataControlList;
+    /**
+     * Book paragraph controllers.
+     */
+    private List<BookParagraphDataControl> bookParagraphsDataControlList;
 
-	/**
-	 * Constructor.
-	 * 
-	 * @param bookParagraphsList
-	 *            List of book paragraphs
-	 */
-	public BookParagraphsListDataControl( List<BookParagraph> bookParagraphsList ) {
-		this.bookParagraphsList = bookParagraphsList;
+    /**
+     * Constructor.
+     * 
+     * @param bookParagraphsList
+     *            List of book paragraphs
+     */
+    public BookParagraphsListDataControl( List<BookParagraph> bookParagraphsList ) {
 
-		// Create the subcontrollers
-		bookParagraphsDataControlList = new ArrayList<BookParagraphDataControl>( );
-		for( BookParagraph bookParagraph : bookParagraphsList )
-			bookParagraphsDataControlList.add( new BookParagraphDataControl( bookParagraph ) );
-	}
+        this.bookParagraphsList = bookParagraphsList;
 
-	/**
-	 * Return the list of book paragraph controllers.
-	 * 
-	 * @return Book paragraph controllers
-	 */
-	public List<BookParagraphDataControl> getBookParagraphs( ) {
-		return bookParagraphsDataControlList;
-	}
+        // Create the subcontrollers
+        bookParagraphsDataControlList = new ArrayList<BookParagraphDataControl>( );
+        for( BookParagraph bookParagraph : bookParagraphsList )
+            bookParagraphsDataControlList.add( new BookParagraphDataControl( bookParagraph ) );
+    }
 
-	/**
-	 * Returns the last book paragraph controller of the list.
-	 * 
-	 * @return Last book paragraph
-	 */
-	public BookParagraphDataControl getLastBookParagraph( ) {
-		return bookParagraphsDataControlList.get( bookParagraphsDataControlList.size( ) - 1 );
-	}
+    /**
+     * Return the list of book paragraph controllers.
+     * 
+     * @return Book paragraph controllers
+     */
+    public List<BookParagraphDataControl> getBookParagraphs( ) {
 
-	/**
-	 * Returns the info of the book paragraphs contained in the list.
-	 * 
-	 * @return Array with the information of the book paragraphs. It contains the number of each paragraph, the type of
-	 *         the paragraph, and the word count if applicable
-	 */
-	public String[][] getBookParagraphsInfo( ) {
-		String[][] bookParagraphsInfo = null;
+        return bookParagraphsDataControlList;
+    }
 
-		// Create the list for the book paragraphs
-		bookParagraphsInfo = new String[bookParagraphsList.size( )][3];
+    /**
+     * Returns the last book paragraph controller of the list.
+     * 
+     * @return Last book paragraph
+     */
+    public BookParagraphDataControl getLastBookParagraph( ) {
 
-		// Fill the array with the info
-		for( int i = 0; i < bookParagraphsList.size( ); i++ ) {
-			BookParagraph bookParagraph = bookParagraphsList.get( i );
+        return bookParagraphsDataControlList.get( bookParagraphsDataControlList.size( ) - 1 );
+    }
 
-			if( bookParagraph.getType( ) == BookParagraph.TEXT )
-				bookParagraphsInfo[i][0] = TextConstants.getText( "BookParagraphsList.TextParagraph", String.valueOf( i + 1 ) );
-			else if( bookParagraph.getType( ) == BookParagraph.TITLE )
-				bookParagraphsInfo[i][0] = TextConstants.getText( "BookParagraphsList.TitleParagraph", String.valueOf( i + 1 ) );
-			else if( bookParagraph.getType( ) == BookParagraph.BULLET )
-				bookParagraphsInfo[i][0] = TextConstants.getText( "BookParagraphsList.BulletParagraph", String.valueOf( i + 1 ) );
-			else if( bookParagraph.getType( ) == BookParagraph.IMAGE )
-				bookParagraphsInfo[i][0] = TextConstants.getText( "BookParagraphsList.ImageParagraph", String.valueOf( i + 1 ) );
+    /**
+     * Returns the info of the book paragraphs contained in the list.
+     * 
+     * @return Array with the information of the book paragraphs. It contains
+     *         the number of each paragraph, the type of the paragraph, and the
+     *         word count if applicable
+     */
+    public String[][] getBookParagraphsInfo( ) {
 
-			if( bookParagraph.getType( ) != BookParagraph.IMAGE )
-				bookParagraphsInfo[i][1] = TextConstants.getText( "BookParagraphsList.WordCount", String.valueOf( bookParagraph.getContent( ).split( " " ).length ) );
-			else
-				bookParagraphsInfo[i][1] = TextConstants.getText( "BookParagraphsList.NotApplicable" );
-		}
+        String[][] bookParagraphsInfo = null;
 
-		return bookParagraphsInfo;
-	}
+        // Create the list for the book paragraphs
+        bookParagraphsInfo = new String[ bookParagraphsList.size( ) ][ 3 ];
 
-	@Override
-	public Object getContent( ) {
-		return bookParagraphsList;
-	}
+        // Fill the array with the info
+        for( int i = 0; i < bookParagraphsList.size( ); i++ ) {
+            BookParagraph bookParagraph = bookParagraphsList.get( i );
 
-	@Override
-	public int[] getAddableElements( ) {
-		return new int[] { Controller.BOOK_TITLE_PARAGRAPH, Controller.BOOK_TEXT_PARAGRAPH, Controller.BOOK_BULLET_PARAGRAPH, Controller.BOOK_IMAGE_PARAGRAPH };
-	}
+            if( bookParagraph.getType( ) == BookParagraph.TEXT )
+                bookParagraphsInfo[i][0] = TextConstants.getText( "BookParagraphsList.TextParagraph", String.valueOf( i + 1 ) );
+            else if( bookParagraph.getType( ) == BookParagraph.TITLE )
+                bookParagraphsInfo[i][0] = TextConstants.getText( "BookParagraphsList.TitleParagraph", String.valueOf( i + 1 ) );
+            else if( bookParagraph.getType( ) == BookParagraph.BULLET )
+                bookParagraphsInfo[i][0] = TextConstants.getText( "BookParagraphsList.BulletParagraph", String.valueOf( i + 1 ) );
+            else if( bookParagraph.getType( ) == BookParagraph.IMAGE )
+                bookParagraphsInfo[i][0] = TextConstants.getText( "BookParagraphsList.ImageParagraph", String.valueOf( i + 1 ) );
 
-	@Override
-	public boolean canAddElement( int type ) {
-		// It can always add new paragraphs
-		return type == Controller.BOOK_TITLE_PARAGRAPH || type == Controller.BOOK_TEXT_PARAGRAPH || type == Controller.BOOK_BULLET_PARAGRAPH || type == Controller.BOOK_IMAGE_PARAGRAPH;
-	}
+            if( bookParagraph.getType( ) != BookParagraph.IMAGE )
+                bookParagraphsInfo[i][1] = TextConstants.getText( "BookParagraphsList.WordCount", String.valueOf( bookParagraph.getContent( ).split( " " ).length ) );
+            else
+                bookParagraphsInfo[i][1] = TextConstants.getText( "BookParagraphsList.NotApplicable" );
+        }
 
-	@Override
-	public boolean canBeDeleted( ) {
-		return false;
-	}
+        return bookParagraphsInfo;
+    }
 
-	@Override
-	public boolean canBeMoved( ) {
-		return false;
-	}
+    @Override
+    public Object getContent( ) {
 
-	@Override
-	public boolean canBeRenamed( ) {
-		return false;
-	}
+        return bookParagraphsList;
+    }
 
-	@Override
-	public boolean addElement( int type , String id) {
-		BookParagraph newBookParagraph = null;
+    @Override
+    public int[] getAddableElements( ) {
 
-		if( type == Controller.BOOK_TITLE_PARAGRAPH )
-			newBookParagraph = new BookParagraph( BookParagraph.TITLE );
+        return new int[] { Controller.BOOK_TITLE_PARAGRAPH, Controller.BOOK_TEXT_PARAGRAPH, Controller.BOOK_BULLET_PARAGRAPH, Controller.BOOK_IMAGE_PARAGRAPH };
+    }
 
-		else if( type == Controller.BOOK_TEXT_PARAGRAPH )
-			newBookParagraph = new BookParagraph( BookParagraph.TEXT );
+    @Override
+    public boolean canAddElement( int type ) {
 
-		else if( type == Controller.BOOK_BULLET_PARAGRAPH )
-			newBookParagraph = new BookParagraph( BookParagraph.BULLET );
+        // It can always add new paragraphs
+        return type == Controller.BOOK_TITLE_PARAGRAPH || type == Controller.BOOK_TEXT_PARAGRAPH || type == Controller.BOOK_BULLET_PARAGRAPH || type == Controller.BOOK_IMAGE_PARAGRAPH;
+    }
 
-		else if( type == Controller.BOOK_IMAGE_PARAGRAPH )
-			newBookParagraph = new BookParagraph( BookParagraph.IMAGE );
+    @Override
+    public boolean canBeDeleted( ) {
 
-		// If a paragraph was added, add the controller to the list
-		if( newBookParagraph != null ) {
-			bookParagraphsList.add( newBookParagraph );
-			bookParagraphsDataControlList.add( new BookParagraphDataControl( newBookParagraph ) );
-			//controller.dataModified( );
-		}
+        return false;
+    }
 
-		return newBookParagraph != null;
-	}
+    @Override
+    public boolean canBeMoved( ) {
 
-	@Override
-	public boolean deleteElement( DataControl dataControl, boolean askConfirmation ) {
-		boolean elementDeleted = false;
+        return false;
+    }
 
-		if( bookParagraphsList.remove( dataControl.getContent( ) ) ) {
-			bookParagraphsDataControlList.remove( dataControl );
-			elementDeleted = true;
-		}
+    @Override
+    public boolean canBeRenamed( ) {
 
-		return elementDeleted;
-	}
+        return false;
+    }
 
-	@Override
-	public boolean moveElementUp( DataControl dataControl ) {
-		boolean elementMoved = false;
-		int elementIndex = bookParagraphsList.indexOf( dataControl.getContent( ) );
+    @Override
+    public boolean addElement( int type, String id ) {
 
-		if( elementIndex > 0 ) {
-			bookParagraphsList.add( elementIndex - 1, bookParagraphsList.remove( elementIndex ) );
-			bookParagraphsDataControlList.add( elementIndex - 1, bookParagraphsDataControlList.remove( elementIndex ) );
-			elementMoved = true;
-		}
+        BookParagraph newBookParagraph = null;
 
-		return elementMoved;
-	}
+        if( type == Controller.BOOK_TITLE_PARAGRAPH )
+            newBookParagraph = new BookParagraph( BookParagraph.TITLE );
 
-	@Override
-	public boolean moveElementDown( DataControl dataControl ) {
-		boolean elementMoved = false;
-		int elementIndex = bookParagraphsList.indexOf( dataControl.getContent( ) );
+        else if( type == Controller.BOOK_TEXT_PARAGRAPH )
+            newBookParagraph = new BookParagraph( BookParagraph.TEXT );
 
-		if( elementIndex < bookParagraphsList.size( ) - 1 ) {
-			bookParagraphsList.add( elementIndex + 1, bookParagraphsList.remove( elementIndex ) );
-			bookParagraphsDataControlList.add( elementIndex + 1, bookParagraphsDataControlList.remove( elementIndex ) );
-			elementMoved = true;
-		}
+        else if( type == Controller.BOOK_BULLET_PARAGRAPH )
+            newBookParagraph = new BookParagraph( BookParagraph.BULLET );
 
-		return elementMoved;
-	}
+        else if( type == Controller.BOOK_IMAGE_PARAGRAPH )
+            newBookParagraph = new BookParagraph( BookParagraph.IMAGE );
 
-	@Override
-	public String renameElement(String name ) {
-		return null;
-	}
+        // If a paragraph was added, add the controller to the list
+        if( newBookParagraph != null ) {
+            bookParagraphsList.add( newBookParagraph );
+            bookParagraphsDataControlList.add( new BookParagraphDataControl( newBookParagraph ) );
+            //controller.dataModified( );
+        }
 
-	@Override
-	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
-	// Do nothing
-	}
+        return newBookParagraph != null;
+    }
 
-	@Override
-	public boolean isValid( String currentPath, List<String> incidences ) {
-		boolean valid = true;
+    @Override
+    public boolean deleteElement( DataControl dataControl, boolean askConfirmation ) {
 
-		// Iterate through the paragraphs
-		for( int i = 0; i < bookParagraphsDataControlList.size( ); i++ ) {
-			String bookParagraphPath = currentPath + " >> " + TextConstants.getText( "Element.BookParagraph" ) + " #" + ( i + 1 ) + " (" + TextConstants.getElementName( bookParagraphsDataControlList.get( i ).getType( ) ) + ")";
-			valid &= bookParagraphsDataControlList.get( i ).isValid( bookParagraphPath, incidences );
-		}
+        boolean elementDeleted = false;
 
-		return valid;
-	}
+        if( bookParagraphsList.remove( dataControl.getContent( ) ) ) {
+            bookParagraphsDataControlList.remove( dataControl );
+            elementDeleted = true;
+        }
 
-	@Override
-	public int countAssetReferences( String assetPath ) {
-		int count = 0;
+        return elementDeleted;
+    }
 
-		// Spread the call to the paragraphs
-		for( BookParagraphDataControl bookParagraphDataControl : bookParagraphsDataControlList )
-			count += bookParagraphDataControl.countAssetReferences( assetPath );
+    @Override
+    public boolean moveElementUp( DataControl dataControl ) {
 
-		return count;
-	}
+        boolean elementMoved = false;
+        int elementIndex = bookParagraphsList.indexOf( dataControl.getContent( ) );
 
-	@Override
-	public void getAssetReferences( List<String> assetPaths, List<Integer> assetTypes ) {
-		// Spread the call to the paragraphs
-		for( BookParagraphDataControl bookParagraphDataControl : bookParagraphsDataControlList )
-			bookParagraphDataControl.getAssetReferences( assetPaths, assetTypes );
-	}
+        if( elementIndex > 0 ) {
+            bookParagraphsList.add( elementIndex - 1, bookParagraphsList.remove( elementIndex ) );
+            bookParagraphsDataControlList.add( elementIndex - 1, bookParagraphsDataControlList.remove( elementIndex ) );
+            elementMoved = true;
+        }
 
-	
-	@Override
-	public void deleteAssetReferences( String assetPath ) {
-		// Spread the call to the paragraphs
-		for( BookParagraphDataControl bookParagraphDataControl : bookParagraphsDataControlList )
-			bookParagraphDataControl.deleteAssetReferences( assetPath );
-	}
+        return elementMoved;
+    }
 
-	@Override
-	public int countIdentifierReferences( String id ) {
-		return 0;
-	}
+    @Override
+    public boolean moveElementDown( DataControl dataControl ) {
 
-	@Override
-	public void replaceIdentifierReferences( String oldId, String newId ) {
-	// Do nothing
-	}
+        boolean elementMoved = false;
+        int elementIndex = bookParagraphsList.indexOf( dataControl.getContent( ) );
 
-	@Override
-	public void deleteIdentifierReferences( String id ) {
-	// Do nothing
-	}
+        if( elementIndex < bookParagraphsList.size( ) - 1 ) {
+            bookParagraphsList.add( elementIndex + 1, bookParagraphsList.remove( elementIndex ) );
+            bookParagraphsDataControlList.add( elementIndex + 1, bookParagraphsDataControlList.remove( elementIndex ) );
+            elementMoved = true;
+        }
 
-	@Override
-	public boolean canBeDuplicated( ) {
-		return false;
-	}
+        return elementMoved;
+    }
 
-	@Override
-	public void recursiveSearch() {
-		for (DataControl dc : bookParagraphsDataControlList)
-			dc.recursiveSearch();
-	}
+    @Override
+    public String renameElement( String name ) {
 
-	public List<BookParagraph> getBookParagraphsList() {
-		return bookParagraphsList;
-	}
-	
-	@Override
-	public List<Searchable> getPathToDataControl(Searchable dataControl) {
-		return getPathFromChild(dataControl, bookParagraphsDataControlList);
-	}
+        return null;
+    }
+
+    @Override
+    public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
+
+        // Do nothing
+    }
+
+    @Override
+    public boolean isValid( String currentPath, List<String> incidences ) {
+
+        boolean valid = true;
+
+        // Iterate through the paragraphs
+        for( int i = 0; i < bookParagraphsDataControlList.size( ); i++ ) {
+            String bookParagraphPath = currentPath + " >> " + TextConstants.getText( "Element.BookParagraph" ) + " #" + ( i + 1 ) + " (" + TextConstants.getElementName( bookParagraphsDataControlList.get( i ).getType( ) ) + ")";
+            valid &= bookParagraphsDataControlList.get( i ).isValid( bookParagraphPath, incidences );
+        }
+
+        return valid;
+    }
+
+    @Override
+    public int countAssetReferences( String assetPath ) {
+
+        int count = 0;
+
+        // Spread the call to the paragraphs
+        for( BookParagraphDataControl bookParagraphDataControl : bookParagraphsDataControlList )
+            count += bookParagraphDataControl.countAssetReferences( assetPath );
+
+        return count;
+    }
+
+    @Override
+    public void getAssetReferences( List<String> assetPaths, List<Integer> assetTypes ) {
+
+        // Spread the call to the paragraphs
+        for( BookParagraphDataControl bookParagraphDataControl : bookParagraphsDataControlList )
+            bookParagraphDataControl.getAssetReferences( assetPaths, assetTypes );
+    }
+
+    @Override
+    public void deleteAssetReferences( String assetPath ) {
+
+        // Spread the call to the paragraphs
+        for( BookParagraphDataControl bookParagraphDataControl : bookParagraphsDataControlList )
+            bookParagraphDataControl.deleteAssetReferences( assetPath );
+    }
+
+    @Override
+    public int countIdentifierReferences( String id ) {
+
+        return 0;
+    }
+
+    @Override
+    public void replaceIdentifierReferences( String oldId, String newId ) {
+
+        // Do nothing
+    }
+
+    @Override
+    public void deleteIdentifierReferences( String id ) {
+
+        // Do nothing
+    }
+
+    @Override
+    public boolean canBeDuplicated( ) {
+
+        return false;
+    }
+
+    @Override
+    public void recursiveSearch( ) {
+
+        for( DataControl dc : bookParagraphsDataControlList )
+            dc.recursiveSearch( );
+    }
+
+    public List<BookParagraph> getBookParagraphsList( ) {
+
+        return bookParagraphsList;
+    }
+
+    @Override
+    public List<Searchable> getPathToDataControl( Searchable dataControl ) {
+
+        return getPathFromChild( dataControl, bookParagraphsDataControlList );
+    }
 
 }

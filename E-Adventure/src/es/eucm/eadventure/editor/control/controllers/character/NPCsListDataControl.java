@@ -1,34 +1,36 @@
 /**
- * <e-Adventure> is an <e-UCM> research project.
- * <e-UCM>, Department of Software Engineering and Artificial Intelligence.
- * Faculty of Informatics, Complutense University of Madrid (Spain).
- * @author Del Blanco, A., Marchiori, E., Torrente, F.J.
+ * <e-Adventure> is an <e-UCM> research project. <e-UCM>, Department of Software
+ * Engineering and Artificial Intelligence. Faculty of Informatics, Complutense
+ * University of Madrid (Spain).
+ * 
+ * @author Del Blanco, A., Marchiori, E., Torrente, F.J. (alphabetical order) *
+ * @author López Mañas, E., Pérez Padilla, F., Sollet, E., Torijano, B. (former
+ *         developers by alphabetical order)
  * @author Moreno-Ger, P. & Fernández-Manjón, B. (directors)
- * @year 2009
- * Web-site: http://e-adventure.e-ucm.es
+ * @year 2009 Web-site: http://e-adventure.e-ucm.es
  */
 
 /*
-    Copyright (C) 2004-2009 <e-UCM> research group
-
-    This file is part of <e-Adventure> project, an educational game & game-like 
-    simulation authoring tool, availabe at http://e-adventure.e-ucm.es. 
-
-    <e-Adventure> is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    <e-Adventure> is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with <e-Adventure>; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-*/
+ * Copyright (C) 2004-2009 <e-UCM> research group
+ * 
+ * This file is part of <e-Adventure> project, an educational game & game-like
+ * simulation authoring tool, available at http://e-adventure.e-ucm.es.
+ * 
+ * <e-Adventure> is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version.
+ * 
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place, Suite 330, Boston, MA 02111-1307 USA
+ * 
+ */
 package es.eucm.eadventure.editor.control.controllers.character;
 
 import java.util.ArrayList;
@@ -44,300 +46,327 @@ import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class NPCsListDataControl extends DataControl {
 
-	/**
-	 * List of characters.
-	 */
-	private List<NPC> npcsList;
+    /**
+     * List of characters.
+     */
+    private List<NPC> npcsList;
 
-	/**
-	 * List of character controller.
-	 */
-	private List<NPCDataControl> npcsDataControlList;
+    /**
+     * List of character controller.
+     */
+    private List<NPCDataControl> npcsDataControlList;
 
-	/**
-	 * Constructor.
-	 * 
-	 * @param npcsList
-	 *            List of characters
-	 */
-	public NPCsListDataControl( List<NPC> npcsList ) {
-		this.npcsList = npcsList;
+    /**
+     * Constructor.
+     * 
+     * @param npcsList
+     *            List of characters
+     */
+    public NPCsListDataControl( List<NPC> npcsList ) {
 
-		// Create the subcontrollers
-		npcsDataControlList = new ArrayList<NPCDataControl>( );
-		for( NPC npc : npcsList )
-			npcsDataControlList.add( new NPCDataControl( npc ) );
-	}
+        this.npcsList = npcsList;
 
-	/**
-	 * Returns the list of NPC controllers.
-	 * 
-	 * @return NPC controllers
-	 */
-	public List<NPCDataControl> getNPCs( ) {
-		return npcsDataControlList;
-	}
+        // Create the subcontrollers
+        npcsDataControlList = new ArrayList<NPCDataControl>( );
+        for( NPC npc : npcsList )
+            npcsDataControlList.add( new NPCDataControl( npc ) );
+    }
 
-	/**
-	 * Returns the last NPC controller of the list.
-	 * 
-	 * @return Last NPC controller
-	 */
-	public NPCDataControl getLastNPC( ) {
-		return npcsDataControlList.get( npcsDataControlList.size( ) - 1 );
-	}
+    /**
+     * Returns the list of NPC controllers.
+     * 
+     * @return NPC controllers
+     */
+    public List<NPCDataControl> getNPCs( ) {
 
-	/**
-	 * Returns the info of the characters contained in the list.
-	 * 
-	 * @return Array with the information of the characters. It contains the identifier of each character, and the
-	 *         number of conversations
-	 */
-	public String[][] getNPCsInfo( ) {
-		String[][] npcsInfo = null;
+        return npcsDataControlList;
+    }
 
-		// Create the list for the characters
-		npcsInfo = new String[npcsList.size( )][2];
+    /**
+     * Returns the last NPC controller of the list.
+     * 
+     * @return Last NPC controller
+     */
+    public NPCDataControl getLastNPC( ) {
 
-		// Fill the array with the info
-		for( int i = 0; i < npcsList.size( ); i++ ) {
-			NPC npc = npcsList.get( i );
-			npcsInfo[i][0] = npc.getId( );
-			npcsInfo[i][1] = TextConstants.getText( "NPCsList.ActionsNumber", String.valueOf( npc.getActions().size( ) ) );
-		}
+        return npcsDataControlList.get( npcsDataControlList.size( ) - 1 );
+    }
 
-		return npcsInfo;
-	}
+    /**
+     * Returns the info of the characters contained in the list.
+     * 
+     * @return Array with the information of the characters. It contains the
+     *         identifier of each character, and the number of conversations
+     */
+    public String[][] getNPCsInfo( ) {
 
-	@Override
-	public Object getContent( ) {
-		return npcsList;
-	}
+        String[][] npcsInfo = null;
 
-	@Override
-	public int[] getAddableElements( ) {
-		return new int[] { Controller.NPC };
-	}
+        // Create the list for the characters
+        npcsInfo = new String[ npcsList.size( ) ][ 2 ];
 
-	@Override
-	public boolean canAddElement( int type ) {
-		// It can always add new characters
-		return type == Controller.NPC;
-	}
+        // Fill the array with the info
+        for( int i = 0; i < npcsList.size( ); i++ ) {
+            NPC npc = npcsList.get( i );
+            npcsInfo[i][0] = npc.getId( );
+            npcsInfo[i][1] = TextConstants.getText( "NPCsList.ActionsNumber", String.valueOf( npc.getActions( ).size( ) ) );
+        }
 
-	@Override
-	public boolean canBeDeleted( ) {
-		return false;
-	}
+        return npcsInfo;
+    }
 
-	@Override
-	public boolean canBeMoved( ) {
-		return false;
-	}
+    @Override
+    public Object getContent( ) {
 
-	@Override
-	public boolean canBeRenamed( ) {
-		return false;
-	}
+        return npcsList;
+    }
 
-	@Override
-	public boolean addElement( int type, String npcId ) {
-		boolean elementAdded = false;
+    @Override
+    public int[] getAddableElements( ) {
 
-		if( type == Controller.NPC ) {
+        return new int[] { Controller.NPC };
+    }
 
-			// Show a dialog asking for the character id
-			if (npcId == null)
-				npcId = controller.showInputDialog( TextConstants.getText( "Operation.AddNPCTitle" ), TextConstants.getText( "Operation.AddNPCMessage" ), TextConstants.getText( "Operation.AddNPCDefaultValue" ) );
+    @Override
+    public boolean canAddElement( int type ) {
 
-			// If some value was typed and the identifier is valid
-			if( npcId != null && controller.isElementIdValid( npcId ) ) {
-				// Add thew new character
-				NPC newNPC = new NPC( npcId );
-				npcsList.add( newNPC );
-				npcsDataControlList.add( new NPCDataControl( newNPC ) );
-				controller.getIdentifierSummary( ).addNPCId( npcId );
-				//controller.dataModified( );
-				elementAdded = true;
-			}
-		}
+        // It can always add new characters
+        return type == Controller.NPC;
+    }
 
-		return elementAdded;
-	}
+    @Override
+    public boolean canBeDeleted( ) {
 
-	@Override
-	public boolean duplicateElement( DataControl dataControl ) {
-		if (!(dataControl instanceof NPCDataControl))
-			return false;
-		
-		try {
-			NPC newElement = (NPC) (((NPC) (dataControl.getContent())).clone());
-			String id = newElement.getId();
-			int i = 1;
-			do {
-				id = newElement.getId() + i;
-				i++;
-			} while (!controller.isElementIdValid(id, false));
-			newElement.setId(id);
-			npcsList.add(newElement);
-			npcsDataControlList.add( new NPCDataControl(newElement));
-			controller.getIdentifierSummary().addNPCId(id);
-			return true;
-		} catch (CloneNotSupportedException e) {
-			ReportDialog.GenerateErrorReport(e, true, "Could not clone npc");	
-			return false;
-		} 
-	}
+        return false;
+    }
 
-	
-	@Override
-	public String getDefaultId(int type) {
-		return TextConstants.getText( "Operation.AddNPCDefaultValue" );
-	}
+    @Override
+    public boolean canBeMoved( ) {
 
-	@Override
-	public boolean deleteElement( DataControl dataControl , boolean askConfirmation) {
-		boolean elementDeleted = false;
-		String npcId = ( (NPCDataControl) dataControl ).getId( );
-		String references = String.valueOf( controller.countIdentifierReferences( npcId ) );
+        return false;
+    }
 
-		// Ask for confirmation
-		if(!askConfirmation || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { npcId, references } ) ) ) {
-			if( npcsList.remove( dataControl.getContent( ) ) ) {
-				npcsDataControlList.remove( dataControl );
-				controller.deleteIdentifierReferences( npcId );
-				controller.getIdentifierSummary( ).deleteNPCId( npcId );
-				//controller.dataModified( );
-				elementDeleted = true;
-			}
-		}
+    @Override
+    public boolean canBeRenamed( ) {
 
-		return elementDeleted;
-	}
+        return false;
+    }
 
-	@Override
-	public boolean moveElementUp( DataControl dataControl ) {
-		boolean elementMoved = false;
-		int elementIndex = npcsList.indexOf( dataControl.getContent( ) );
+    @Override
+    public boolean addElement( int type, String npcId ) {
 
-		if( elementIndex > 0 ) {
-			npcsList.add( elementIndex - 1, npcsList.remove( elementIndex ) );
-			npcsDataControlList.add( elementIndex - 1, npcsDataControlList.remove( elementIndex ) );
-			//controller.dataModified( );
-			elementMoved = true;
-		}
+        boolean elementAdded = false;
 
-		return elementMoved;
-	}
+        if( type == Controller.NPC ) {
 
-	@Override
-	public boolean moveElementDown( DataControl dataControl ) {
-		boolean elementMoved = false;
-		int elementIndex = npcsList.indexOf( dataControl.getContent( ) );
+            // Show a dialog asking for the character id
+            if( npcId == null )
+                npcId = controller.showInputDialog( TextConstants.getText( "Operation.AddNPCTitle" ), TextConstants.getText( "Operation.AddNPCMessage" ), TextConstants.getText( "Operation.AddNPCDefaultValue" ) );
 
-		if( elementIndex < npcsList.size( ) - 1 ) {
-			npcsList.add( elementIndex + 1, npcsList.remove( elementIndex ) );
-			npcsDataControlList.add( elementIndex + 1, npcsDataControlList.remove( elementIndex ) );
-			//controller.dataModified( );
-			elementMoved = true;
-		}
+            // If some value was typed and the identifier is valid
+            if( npcId != null && controller.isElementIdValid( npcId ) ) {
+                // Add thew new character
+                NPC newNPC = new NPC( npcId );
+                npcsList.add( newNPC );
+                npcsDataControlList.add( new NPCDataControl( newNPC ) );
+                controller.getIdentifierSummary( ).addNPCId( npcId );
+                //controller.dataModified( );
+                elementAdded = true;
+            }
+        }
 
-		return elementMoved;
-	}
+        return elementAdded;
+    }
 
-	@Override
-	public String renameElement( String name ) {
-		return null;
-	}
+    @Override
+    public boolean duplicateElement( DataControl dataControl ) {
 
-	@Override
-	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
-		// Iterate through each character
-		for( NPCDataControl npcDataControl : npcsDataControlList )
-			npcDataControl.updateVarFlagSummary( varFlagSummary );
-	}
+        if( !( dataControl instanceof NPCDataControl ) )
+            return false;
 
-	@Override
-	public boolean isValid( String currentPath, List<String> incidences ) {
-		boolean valid = true;
+        try {
+            NPC newElement = (NPC) ( ( (NPC) ( dataControl.getContent( ) ) ).clone( ) );
+            String id = newElement.getId( );
+            int i = 1;
+            do {
+                id = newElement.getId( ) + i;
+                i++;
+            } while( !controller.isElementIdValid( id, false ) );
+            newElement.setId( id );
+            npcsList.add( newElement );
+            npcsDataControlList.add( new NPCDataControl( newElement ) );
+            controller.getIdentifierSummary( ).addNPCId( id );
+            return true;
+        }
+        catch( CloneNotSupportedException e ) {
+            ReportDialog.GenerateErrorReport( e, true, "Could not clone npc" );
+            return false;
+        }
+    }
 
-		// Update the current path
-		currentPath += " >> " + TextConstants.getElementName( Controller.NPCS_LIST );
+    @Override
+    public String getDefaultId( int type ) {
 
-		// Iterate through the characters
-		for( NPCDataControl npcDataControl : npcsDataControlList ) {
-			String npcPath = currentPath + " >> " + npcDataControl.getId( );
-			valid &= npcDataControl.isValid( npcPath, incidences );
-		}
+        return TextConstants.getText( "Operation.AddNPCDefaultValue" );
+    }
 
-		return valid;
-	}
+    @Override
+    public boolean deleteElement( DataControl dataControl, boolean askConfirmation ) {
 
-	@Override
-	public int countAssetReferences( String assetPath ) {
-		int count = 0;
+        boolean elementDeleted = false;
+        String npcId = ( (NPCDataControl) dataControl ).getId( );
+        String references = String.valueOf( controller.countIdentifierReferences( npcId ) );
 
-		// Iterate through each character
-		for( NPCDataControl npcDataControl : npcsDataControlList )
-			count += npcDataControl.countAssetReferences( assetPath );
+        // Ask for confirmation
+        if( !askConfirmation || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { npcId, references } ) ) ) {
+            if( npcsList.remove( dataControl.getContent( ) ) ) {
+                npcsDataControlList.remove( dataControl );
+                controller.deleteIdentifierReferences( npcId );
+                controller.getIdentifierSummary( ).deleteNPCId( npcId );
+                //controller.dataModified( );
+                elementDeleted = true;
+            }
+        }
 
-		return count;
-	}
-	
-	@Override
-	public void getAssetReferences( List<String> assetPaths, List<Integer> assetTypes ) {
-		// Iterate through each item
-		for( NPCDataControl npcDataControl : npcsDataControlList )
-			npcDataControl.getAssetReferences( assetPaths, assetTypes );
-	}
+        return elementDeleted;
+    }
 
+    @Override
+    public boolean moveElementUp( DataControl dataControl ) {
 
-	@Override
-	public void deleteAssetReferences( String assetPath ) {
-		// Iterate through each character
-		for( NPCDataControl npcDataControl : npcsDataControlList )
-			npcDataControl.deleteAssetReferences( assetPath );
-	}
+        boolean elementMoved = false;
+        int elementIndex = npcsList.indexOf( dataControl.getContent( ) );
 
-	@Override
-	public int countIdentifierReferences( String id ) {
-		int count = 0;
+        if( elementIndex > 0 ) {
+            npcsList.add( elementIndex - 1, npcsList.remove( elementIndex ) );
+            npcsDataControlList.add( elementIndex - 1, npcsDataControlList.remove( elementIndex ) );
+            //controller.dataModified( );
+            elementMoved = true;
+        }
 
-		// Iterate through each character
-		for( NPCDataControl npcDataControl : npcsDataControlList )
-			count += npcDataControl.countIdentifierReferences( id );
+        return elementMoved;
+    }
 
-		return count;
-	}
+    @Override
+    public boolean moveElementDown( DataControl dataControl ) {
 
-	@Override
-	public void replaceIdentifierReferences( String oldId, String newId ) {
-		// Iterate through each character
-		for( NPCDataControl npcDataControl : npcsDataControlList )
-			npcDataControl.replaceIdentifierReferences( oldId, newId );
-	}
+        boolean elementMoved = false;
+        int elementIndex = npcsList.indexOf( dataControl.getContent( ) );
 
-	@Override
-	public void deleteIdentifierReferences( String id ) {
-		// Spread the call to every character
-		for( NPCDataControl npcDataControl : npcsDataControlList )
-			npcDataControl.deleteIdentifierReferences( id );
-	}
+        if( elementIndex < npcsList.size( ) - 1 ) {
+            npcsList.add( elementIndex + 1, npcsList.remove( elementIndex ) );
+            npcsDataControlList.add( elementIndex + 1, npcsDataControlList.remove( elementIndex ) );
+            //controller.dataModified( );
+            elementMoved = true;
+        }
 
-	@Override
-	public boolean canBeDuplicated( ) {
-		return false;
-	}
+        return elementMoved;
+    }
 
-	@Override
-	public void recursiveSearch() {
-		for (DataControl dc : this.npcsDataControlList) {
-			dc.recursiveSearch();
-		}
-	}
-	
-	@Override
-	public List<Searchable> getPathToDataControl(Searchable dataControl) {
-		return getPathFromChild(dataControl, npcsDataControlList);
-	}
+    @Override
+    public String renameElement( String name ) {
+
+        return null;
+    }
+
+    @Override
+    public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
+
+        // Iterate through each character
+        for( NPCDataControl npcDataControl : npcsDataControlList )
+            npcDataControl.updateVarFlagSummary( varFlagSummary );
+    }
+
+    @Override
+    public boolean isValid( String currentPath, List<String> incidences ) {
+
+        boolean valid = true;
+
+        // Update the current path
+        currentPath += " >> " + TextConstants.getElementName( Controller.NPCS_LIST );
+
+        // Iterate through the characters
+        for( NPCDataControl npcDataControl : npcsDataControlList ) {
+            String npcPath = currentPath + " >> " + npcDataControl.getId( );
+            valid &= npcDataControl.isValid( npcPath, incidences );
+        }
+
+        return valid;
+    }
+
+    @Override
+    public int countAssetReferences( String assetPath ) {
+
+        int count = 0;
+
+        // Iterate through each character
+        for( NPCDataControl npcDataControl : npcsDataControlList )
+            count += npcDataControl.countAssetReferences( assetPath );
+
+        return count;
+    }
+
+    @Override
+    public void getAssetReferences( List<String> assetPaths, List<Integer> assetTypes ) {
+
+        // Iterate through each item
+        for( NPCDataControl npcDataControl : npcsDataControlList )
+            npcDataControl.getAssetReferences( assetPaths, assetTypes );
+    }
+
+    @Override
+    public void deleteAssetReferences( String assetPath ) {
+
+        // Iterate through each character
+        for( NPCDataControl npcDataControl : npcsDataControlList )
+            npcDataControl.deleteAssetReferences( assetPath );
+    }
+
+    @Override
+    public int countIdentifierReferences( String id ) {
+
+        int count = 0;
+
+        // Iterate through each character
+        for( NPCDataControl npcDataControl : npcsDataControlList )
+            count += npcDataControl.countIdentifierReferences( id );
+
+        return count;
+    }
+
+    @Override
+    public void replaceIdentifierReferences( String oldId, String newId ) {
+
+        // Iterate through each character
+        for( NPCDataControl npcDataControl : npcsDataControlList )
+            npcDataControl.replaceIdentifierReferences( oldId, newId );
+    }
+
+    @Override
+    public void deleteIdentifierReferences( String id ) {
+
+        // Spread the call to every character
+        for( NPCDataControl npcDataControl : npcsDataControlList )
+            npcDataControl.deleteIdentifierReferences( id );
+    }
+
+    @Override
+    public boolean canBeDuplicated( ) {
+
+        return false;
+    }
+
+    @Override
+    public void recursiveSearch( ) {
+
+        for( DataControl dc : this.npcsDataControlList ) {
+            dc.recursiveSearch( );
+        }
+    }
+
+    @Override
+    public List<Searchable> getPathToDataControl( Searchable dataControl ) {
+
+        return getPathFromChild( dataControl, npcsDataControlList );
+    }
 }

@@ -1,34 +1,36 @@
 /**
- * <e-Adventure> is an <e-UCM> research project.
- * <e-UCM>, Department of Software Engineering and Artificial Intelligence.
- * Faculty of Informatics, Complutense University of Madrid (Spain).
- * @author Del Blanco, A., Marchiori, E., Torrente, F.J.
+ * <e-Adventure> is an <e-UCM> research project. <e-UCM>, Department of Software
+ * Engineering and Artificial Intelligence. Faculty of Informatics, Complutense
+ * University of Madrid (Spain).
+ * 
+ * @author Del Blanco, A., Marchiori, E., Torrente, F.J. (alphabetical order) *
+ * @author López Mañas, E., Pérez Padilla, F., Sollet, E., Torijano, B. (former
+ *         developers by alphabetical order)
  * @author Moreno-Ger, P. & Fernández-Manjón, B. (directors)
- * @year 2009
- * Web-site: http://e-adventure.e-ucm.es
+ * @year 2009 Web-site: http://e-adventure.e-ucm.es
  */
 
 /*
-    Copyright (C) 2004-2009 <e-UCM> research group
-
-    This file is part of <e-Adventure> project, an educational game & game-like 
-    simulation authoring tool, availabe at http://e-adventure.e-ucm.es. 
-
-    <e-Adventure> is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    <e-Adventure> is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with <e-Adventure>; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-*/
+ * Copyright (C) 2004-2009 <e-UCM> research group
+ * 
+ * This file is part of <e-Adventure> project, an educational game & game-like
+ * simulation authoring tool, available at http://e-adventure.e-ucm.es.
+ * 
+ * <e-Adventure> is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version.
+ * 
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place, Suite 330, Boston, MA 02111-1307 USA
+ * 
+ */
 package es.eucm.eadventure.editor.gui.elementpanels.character;
 
 import javax.swing.JComponent;
@@ -40,79 +42,92 @@ import es.eucm.eadventure.editor.gui.elementpanels.general.ActionsListPanel;
 
 public class NPCPanel extends ElementPanel {
 
-	/**
-	 * Required.
-	 */
-	private static final long serialVersionUID = 1L;
+    /**
+     * Required.
+     */
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * Constructor.
-	 * 
-	 * @param playerDataControl
-	 *            Player controller
-	 */
-	public NPCPanel( NPCDataControl dataControl ) {
-		addTab(new LooksPanelTab(dataControl));
-		addTab(new DocPanelTab(dataControl));
-		addTab(new DialogPanelTab(dataControl));
-		addTab(new ActionsPanelTab(dataControl));
-	}
-	
-	private class DocPanelTab extends PanelTab {
-		private NPCDataControl dataControl;
-		
-		public DocPanelTab(NPCDataControl dataControl) {
-			super(TextConstants.getText("NPC.DocPanelTitle"), dataControl);
-			this.dataControl = dataControl;
-		}
+    /**
+     * Constructor.
+     * 
+     * @param playerDataControl
+     *            Player controller
+     */
+    public NPCPanel( NPCDataControl dataControl ) {
 
-		@Override
-		protected JComponent getTabComponent() {
-			return new NPCDocPanel(dataControl);
-		}
-	}
-	
-	private class LooksPanelTab extends PanelTab {
-		private NPCDataControl dataControl;
-		
-		public LooksPanelTab(NPCDataControl dataControl) {
-			super(TextConstants.getText("NPC.LookPanelTitle"), dataControl);
-			this.dataControl = dataControl;
-		}
+        addTab( new LooksPanelTab( dataControl ) );
+        addTab( new DocPanelTab( dataControl ) );
+        addTab( new DialogPanelTab( dataControl ) );
+        addTab( new ActionsPanelTab( dataControl ) );
+    }
 
-		@Override
-		protected JComponent getTabComponent() {
-			return new NPCLooksPanel(dataControl);
-		}
-	}
+    private class DocPanelTab extends PanelTab {
 
-	private class DialogPanelTab extends PanelTab {
-		private NPCDataControl dataControl;
-		
-		public DialogPanelTab(NPCDataControl dataControl) {
-			super(TextConstants.getText("NPC.DialogPanelTitle"), dataControl);
-			setToolTipText(TextConstants.getText("NPC.DialogPanelTip"));
-			this.dataControl = dataControl;
-		}
+        private NPCDataControl dataControl;
 
-		@Override
-		protected JComponent getTabComponent() {
-			return new NPCDialogPanel(dataControl);
-		}
-	}
+        public DocPanelTab( NPCDataControl dataControl ) {
 
-	private class ActionsPanelTab extends PanelTab {
-		private NPCDataControl dataControl;
+            super( TextConstants.getText( "NPC.DocPanelTitle" ), dataControl );
+            this.dataControl = dataControl;
+        }
 
-		public ActionsPanelTab(NPCDataControl dataControl) {
-			super(TextConstants.getText( "NPC.ActionsPanelTitle" ), dataControl.getActionsList());
-			setToolTipText(TextConstants.getText("NPC.ActionsPanelTip"));
-			this.dataControl = dataControl;
-		}
+        @Override
+        protected JComponent getTabComponent( ) {
 
-		@Override
-		protected JComponent getTabComponent() {
-			return new ActionsListPanel ( dataControl.getActionsList());
-		}
-	}
+            return new NPCDocPanel( dataControl );
+        }
+    }
+
+    private class LooksPanelTab extends PanelTab {
+
+        private NPCDataControl dataControl;
+
+        public LooksPanelTab( NPCDataControl dataControl ) {
+
+            super( TextConstants.getText( "NPC.LookPanelTitle" ), dataControl );
+            this.dataControl = dataControl;
+        }
+
+        @Override
+        protected JComponent getTabComponent( ) {
+
+            return new NPCLooksPanel( dataControl );
+        }
+    }
+
+    private class DialogPanelTab extends PanelTab {
+
+        private NPCDataControl dataControl;
+
+        public DialogPanelTab( NPCDataControl dataControl ) {
+
+            super( TextConstants.getText( "NPC.DialogPanelTitle" ), dataControl );
+            setToolTipText( TextConstants.getText( "NPC.DialogPanelTip" ) );
+            this.dataControl = dataControl;
+        }
+
+        @Override
+        protected JComponent getTabComponent( ) {
+
+            return new NPCDialogPanel( dataControl );
+        }
+    }
+
+    private class ActionsPanelTab extends PanelTab {
+
+        private NPCDataControl dataControl;
+
+        public ActionsPanelTab( NPCDataControl dataControl ) {
+
+            super( TextConstants.getText( "NPC.ActionsPanelTitle" ), dataControl.getActionsList( ) );
+            setToolTipText( TextConstants.getText( "NPC.ActionsPanelTip" ) );
+            this.dataControl = dataControl;
+        }
+
+        @Override
+        protected JComponent getTabComponent( ) {
+
+            return new ActionsListPanel( dataControl.getActionsList( ) );
+        }
+    }
 }

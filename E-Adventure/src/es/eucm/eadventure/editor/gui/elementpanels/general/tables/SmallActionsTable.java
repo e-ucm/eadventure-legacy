@@ -1,34 +1,36 @@
 /**
- * <e-Adventure> is an <e-UCM> research project.
- * <e-UCM>, Department of Software Engineering and Artificial Intelligence.
- * Faculty of Informatics, Complutense University of Madrid (Spain).
- * @author Del Blanco, A., Marchiori, E., Torrente, F.J.
+ * <e-Adventure> is an <e-UCM> research project. <e-UCM>, Department of Software
+ * Engineering and Artificial Intelligence. Faculty of Informatics, Complutense
+ * University of Madrid (Spain).
+ * 
+ * @author Del Blanco, A., Marchiori, E., Torrente, F.J. (alphabetical order) *
+ * @author López Mañas, E., Pérez Padilla, F., Sollet, E., Torijano, B. (former
+ *         developers by alphabetical order)
  * @author Moreno-Ger, P. & Fernández-Manjón, B. (directors)
- * @year 2009
- * Web-site: http://e-adventure.e-ucm.es
+ * @year 2009 Web-site: http://e-adventure.e-ucm.es
  */
 
 /*
-    Copyright (C) 2004-2009 <e-UCM> research group
-
-    This file is part of <e-Adventure> project, an educational game & game-like 
-    simulation authoring tool, availabe at http://e-adventure.e-ucm.es. 
-
-    <e-Adventure> is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    <e-Adventure> is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with <e-Adventure>; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-*/
+ * Copyright (C) 2004-2009 <e-UCM> research group
+ * 
+ * This file is part of <e-Adventure> project, an educational game & game-like
+ * simulation authoring tool, available at http://e-adventure.e-ucm.es.
+ * 
+ * <e-Adventure> is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version.
+ * 
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place, Suite 330, Boston, MA 02111-1307 USA
+ * 
+ */
 package es.eucm.eadventure.editor.gui.elementpanels.general.tables;
 
 import java.util.List;
@@ -44,76 +46,82 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.general.ActionDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ActionsListDataControl;
 
-public class SmallActionsTable extends JTable{
-	
-   	private static final long serialVersionUID = -777111416961485368L;
+public class SmallActionsTable extends JTable {
 
-	private ActionsListDataControl dataControl;
-	
-	public SmallActionsTable (ActionsListDataControl dControl){
-		super();
-		this.dataControl = dControl;
-		
-		this.setModel( new ActionsTableModel() );
-		this.getColumnModel( ).setColumnSelectionAllowed( false );
-		this.setDragEnabled( false );
-		
-		this.getColumnModel().getColumn(0).setCellRenderer(new SmallActionCellRendererEditor());
-		this.getColumnModel().getColumn(0).setCellEditor(new SmallActionCellRendererEditor());
-		
-		this.getSelectionModel( ).setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
-		this.setRowHeight(20);
-		this.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-			public void valueChanged(ListSelectionEvent arg0) {
-				setRowHeight(20);
-				if (getSelectedRow() != -1) {
-					if (dataControl.getActions().get(getSelectedRow()).getType() == Controller.ACTION_CUSTOM ||
-							dataControl.getActions().get(getSelectedRow()).getType() == Controller.ACTION_CUSTOM_INTERACT)
-						setRowHeight(getSelectedRow(), 185);
-					else
-						setRowHeight(getSelectedRow(), 155);
-				}
-			}
-		});
-		
-		this.setSize(200, 150);
-	}
-	
-	
-	private class ActionsTableModel extends AbstractTableModel{
+    private static final long serialVersionUID = -777111416961485368L;
 
-	    private static final long serialVersionUID = -243535410363608581L;
-		
-		public int getColumnCount( ) {
-			return 1;
-		}
+    private ActionsListDataControl dataControl;
 
-		public int getRowCount( ) {
-			return dataControl.getActions().size();
-		}
+    public SmallActionsTable( ActionsListDataControl dControl ) {
 
-		public Object getValueAt( int rowIndex, int columnIndex ) {
-		    List<ActionDataControl> actions = dataControl.getActions();
-		    if (columnIndex == 0)
-		    	return actions.get(rowIndex);
-		    return null;
-		}
-		
-		@Override
-		public String getColumnName(int columnIndex) {
-			if (columnIndex==0)
-				return TextConstants.getText( "SmallActionList.Action" );
-			return "";
-		}
-		
-		@Override
-		public void setValueAt(Object value, int rowIndex, int columnIndex) {
-		    	
-		}
-		
-		@Override
-		public boolean isCellEditable(int row, int column) {
-			return row == getSelectedRow();
-		}
-	}
+        super( );
+        this.dataControl = dControl;
+
+        this.setModel( new ActionsTableModel( ) );
+        this.getColumnModel( ).setColumnSelectionAllowed( false );
+        this.setDragEnabled( false );
+
+        this.getColumnModel( ).getColumn( 0 ).setCellRenderer( new SmallActionCellRendererEditor( ) );
+        this.getColumnModel( ).getColumn( 0 ).setCellEditor( new SmallActionCellRendererEditor( ) );
+
+        this.getSelectionModel( ).setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
+        this.setRowHeight( 20 );
+        this.getSelectionModel( ).addListSelectionListener( new ListSelectionListener( ) {
+
+            public void valueChanged( ListSelectionEvent arg0 ) {
+
+                setRowHeight( 20 );
+                if( getSelectedRow( ) != -1 ) {
+                    if( dataControl.getActions( ).get( getSelectedRow( ) ).getType( ) == Controller.ACTION_CUSTOM || dataControl.getActions( ).get( getSelectedRow( ) ).getType( ) == Controller.ACTION_CUSTOM_INTERACT )
+                        setRowHeight( getSelectedRow( ), 185 );
+                    else
+                        setRowHeight( getSelectedRow( ), 155 );
+                }
+            }
+        } );
+
+        this.setSize( 200, 150 );
+    }
+
+    private class ActionsTableModel extends AbstractTableModel {
+
+        private static final long serialVersionUID = -243535410363608581L;
+
+        public int getColumnCount( ) {
+
+            return 1;
+        }
+
+        public int getRowCount( ) {
+
+            return dataControl.getActions( ).size( );
+        }
+
+        public Object getValueAt( int rowIndex, int columnIndex ) {
+
+            List<ActionDataControl> actions = dataControl.getActions( );
+            if( columnIndex == 0 )
+                return actions.get( rowIndex );
+            return null;
+        }
+
+        @Override
+        public String getColumnName( int columnIndex ) {
+
+            if( columnIndex == 0 )
+                return TextConstants.getText( "SmallActionList.Action" );
+            return "";
+        }
+
+        @Override
+        public void setValueAt( Object value, int rowIndex, int columnIndex ) {
+
+        }
+
+        @Override
+        public boolean isCellEditable( int row, int column ) {
+
+            return row == getSelectedRow( );
+        }
+    }
 }

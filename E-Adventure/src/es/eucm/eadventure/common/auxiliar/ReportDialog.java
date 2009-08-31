@@ -1,34 +1,36 @@
 /**
- * <e-Adventure> is an <e-UCM> research project.
- * <e-UCM>, Department of Software Engineering and Artificial Intelligence.
- * Faculty of Informatics, Complutense University of Madrid (Spain).
- * @author Del Blanco, A., Marchiori, E., Torrente, F.J.
+ * <e-Adventure> is an <e-UCM> research project. <e-UCM>, Department of Software
+ * Engineering and Artificial Intelligence. Faculty of Informatics, Complutense
+ * University of Madrid (Spain).
+ * 
+ * @author Del Blanco, A., Marchiori, E., Torrente, F.J. (alphabetical order) *
+ * @author López Mañas, E., Pérez Padilla, F., Sollet, E., Torijano, B. (former
+ *         developers by alphabetical order)
  * @author Moreno-Ger, P. & Fernández-Manjón, B. (directors)
- * @year 2009
- * Web-site: http://e-adventure.e-ucm.es
+ * @year 2009 Web-site: http://e-adventure.e-ucm.es
  */
 
 /*
-    Copyright (C) 2004-2009 <e-UCM> research group
-
-    This file is part of <e-Adventure> project, an educational game & game-like 
-    simulation authoring tool, availabe at http://e-adventure.e-ucm.es. 
-
-    <e-Adventure> is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    <e-Adventure> is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with <e-Adventure>; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-*/
+ * Copyright (C) 2004-2009 <e-UCM> research group
+ * 
+ * This file is part of <e-Adventure> project, an educational game & game-like
+ * simulation authoring tool, available at http://e-adventure.e-ucm.es.
+ * 
+ * <e-Adventure> is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version.
+ * 
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place, Suite 330, Boston, MA 02111-1307 USA
+ * 
+ */
 package es.eucm.eadventure.common.auxiliar;
 
 import java.awt.BorderLayout;
@@ -59,7 +61,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import java.util.InvalidPropertiesFormatException;
 import java.text.ParseException;
-import java.io.UnsupportedEncodingException;  
+import java.io.UnsupportedEncodingException;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.sound.midi.InvalidMidiDataException;
@@ -67,7 +69,6 @@ import javax.sound.midi.MidiUnavailableException;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.text.BadLocationException;
-
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -79,549 +80,568 @@ import javax.swing.JTextField;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 
-
 /**
- * This class has methods used to generate and send an error or comments report to
- * the e-adventure server.
+ * This class has methods used to generate and send an error or comments report
+ * to the e-adventure server.
  * 
  * @author Eugenio Marchiori
  */
 public class ReportDialog extends JDialog {
 
-	/**
-	 * Default serial version UID
-	 */
-	private static final long serialVersionUID = 1L;
+    /**
+     * Default serial version UID
+     */
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * The width of the panel
-	 */
-	private static int PANEL_WIDTH = 500;
-	
-	/**
-	 * The height of the panel
-	 */
-	private static int PANEL_HEIGHT = 500;
-	
-	/**
-	 * The text field for the name
-	 */
-	private JTextField nameTextField;
+    /**
+     * The width of the panel
+     */
+    private static int PANEL_WIDTH = 500;
 
-	/**
-	 * The text field for the email
-	 */
-	private JTextField emailTextField;
-	
-	/**
-	 * The area where to write the description
-	 */
-	private JTextArea descriptionTextArea;
-		
-	/**
-	 * The send button
-	 */
-	private JButton sendButton;
-	
-	/**
-	 * The don't send or cancel button
-	 */
-	private JButton dontSendButton;
-	
-	/**
-	 * Boolean indicating if the panel should ask for the name
-	 */
-	private boolean askName;
-	
-	/**
-	 * The string with the exception
-	 */
-	private String exception = "";
-	
-	/**
-	 * The string with the message
-	 */
-	private String message = "";
+    /**
+     * The height of the panel
+     */
+    private static int PANEL_HEIGHT = 500;
 
-	/**
-	 * The string with the os
-	 */
-	private String os;
-	
-	/**
-	 * The string with the java version
-	 */
-	private String java;
-	
-	/**
-	 * The string with the release
-	 */
-	private String release;
-	
-	/**
-	 * Generate an error report panel from an exception.
-	 * 
-	 * @param e The exception
-	 * @param askName if true, the name and email will be asked
-	 * @param message A message with more information
-	 */
-	public static void GenerateErrorReport(Exception e, boolean askName, String message) {
-		if (isInterestingException(e))
-			new ReportDialog(e, askName, message);
-		else
-			e.printStackTrace();
-	}
-	
-	/**
-	 * Generate a comments report panel
-	 */
-	public static void GenerateCommentsReport() {
-		new ReportDialog();
-	}
-	
-	/**
-	 * Filter for the interesting exceptions and the known and
-	 * managed ones.
-	 * 
-	 * @param e The exception
-	 * @return True if the exception is interesting (should be reported)
-	 */
-	private static boolean isInterestingException(Exception e) {
-		if (e instanceof NullPointerException)
-			return true;
-		if (e instanceof IndexOutOfBoundsException)
-			return true;
-		if (e instanceof IOException)
-			return false;
-		if (e instanceof AuthenticationFailedException)
-			return false;
-		if (e instanceof MessagingException)
-			return true;
-		if (e instanceof MalformedURLException)
-			return true;
-		if (e instanceof FileNotFoundException)
-			return true;
-		if (e instanceof ParserConfigurationException)
-			return true;
-		if (e instanceof SAXException)
-			return true;
-		if (e instanceof InvalidPropertiesFormatException)
-			return true;
-		if (e instanceof SAXParseException)
-			return true;
-		if (e instanceof ParseException)
-			return true;
-		if (e instanceof UnsupportedEncodingException)
-			return true;
-		if (e instanceof TransformerConfigurationException)
-			return true;
-		if (e instanceof TransformerException)
-			return true;
-		if (e instanceof InterruptedException)
-			return true;
-		if (e instanceof java.awt.HeadlessException)
-			return true;
-		if (e instanceof InvalidMidiDataException)
-			return false;
-		if (e instanceof MidiUnavailableException)
-			return false;
-		if (e instanceof LineUnavailableException)
-			return false;
-		if (e instanceof UnsupportedAudioFileException)
-			return false;
-		if (e instanceof BadLocationException)
-			return false;
-		if (e instanceof RuntimeException)
-			return true;
-		if (e instanceof NumberFormatException)
-			return true;
-		if (e instanceof java.util.MissingResourceException)
-			return true;
-		if (e instanceof javax.media.NoPlayerException)
-			return true;
-		if (e instanceof java.util.zip.ZipException)
-			return true;
-		if (e instanceof SecurityException)
-			return true;
-		if (e instanceof es.eucm.eadventure.engine.core.data.SaveGameException)
-			return true;
-		if (e instanceof java.awt.FontFormatException)
-			return true;
+    /**
+     * The text field for the name
+     */
+    private JTextField nameTextField;
 
-//		if (e instanceof StackOverflowException)
-//			return true;
-		
-		return true;
-	}
-	
-	/**
-	 * Constructor for the error report dialog.
-	 * 
-	 * @param e The exception
-	 * @param askName True if the name and email should be asked
-	 * @param message A message with more information on the error
-	 */
-	private ReportDialog(Exception e, boolean askName, String message) {
-		super();
-		
-		this.setSize(PANEL_WIDTH, PANEL_HEIGHT);
-		this.setResizable(false);
-		this.setModalityType(Dialog.ModalityType.TOOLKIT_MODAL);
-		
-		
-		String title = TextConstants.getText("ErrorReport.Title");
-		this.setTitle((!title.equals("Error") ? title : "Error Report"));
-		
-		this.setLayout(new GridBagLayout());
-		this.askName = askName;
-		this.message = message;
-		
-		double screenWidth = Toolkit.getDefaultToolkit().getScreenSize( ).getWidth( );
-		double screenHeight = Toolkit.getDefaultToolkit().getScreenSize( ).getHeight( );
-		int locX = Math.round(((int)screenWidth - PANEL_WIDTH)/2.0f);
-		int locY = Math.round(((int)screenHeight - PANEL_HEIGHT)/2.0f);
-		this.setLocation( locX, locY );
+    /**
+     * The text field for the email
+     */
+    private JTextField emailTextField;
 
-		
-		GridBagConstraints c = new GridBagConstraints();
-		
-		c.gridx = 0;
-		c.gridy = 0;
-		c.weightx = 0.9;
-		c.weighty = 0.1;
-		
-		c .fill = GridBagConstraints.HORIZONTAL;
-		JTextArea topMessage = new JTextArea(message); 
-		topMessage.setLineWrap(true);
-		topMessage.setEditable(false);
-		this.add(topMessage, c);
-		c.gridy++;
-		
+    /**
+     * The area where to write the description
+     */
+    private JTextArea descriptionTextArea;
 
-		c .fill = GridBagConstraints.NONE;
-		if (askName) {
-			this.add(createNamePanel(), c);
-			c.gridy++;
-		}
-		
-		os = "OS: " + System.getProperty("os.name");
-		JLabel los = new JLabel(os);
-		this.add(los, c);
-		c.gridy++;
-		
-		java = "JAVA: " + System.getProperty("java.version") + " from " + System.getProperty("java.vendor");
-		JLabel ljava = new JLabel(java);
-		this.add(ljava, c);
-		c.gridy++;
-		
-		File moreinfo = new File("RELEASE");
-		release = null;
-		if (moreinfo.exists()) {
-			try {
-				FileInputStream fis = new FileInputStream(moreinfo);
-				BufferedInputStream bis = new BufferedInputStream(fis);
-				int nextChar = -1;
-				while ((nextChar = bis.read()) != -1) {
-					if (release == null)
-						release = "RELEASE: " + (char)nextChar;
-					else
-						release += (char)nextChar;
-				}
-				
-				if (release!=null){
-					JLabel lrelease = new JLabel(release);
-					this.add(lrelease, c);
-					c.gridy++;
-				}
-			} catch (Exception ex) {
-			}
-		} else {
-		}
+    /**
+     * The send button
+     */
+    private JButton sendButton;
 
+    /**
+     * The don't send or cancel button
+     */
+    private JButton dontSendButton;
 
-		JPanel descriptionPanel = new JPanel();
-		descriptionPanel.setLayout(new BorderLayout());
-		String shortDesc = TextConstants.getText("ErrorReport.ShortDescription");
-		descriptionPanel.add(new JLabel((!shortDesc.equals("Error") ? shortDesc : "Short description")), BorderLayout.NORTH);
-		
-		descriptionTextArea = new JTextArea();
-		descriptionTextArea.setLineWrap(true);
-		JScrollPane scrollPaneDescription = new JScrollPane(descriptionTextArea);
-		scrollPaneDescription.setSize(PANEL_WIDTH, PANEL_HEIGHT / 2 - 100);
-		
-		descriptionPanel.add(scrollPaneDescription, BorderLayout.CENTER);
-		c.weighty = 1.0f;
-		c.weightx = 1.0f;
-		c.fill = GridBagConstraints.BOTH;
-		this.add(descriptionPanel, c);
-		c.gridy++;
-		
-		JPanel exceptionPanel = new JPanel();
-		exceptionPanel.setLayout(new BorderLayout());
-		String foundException = TextConstants.getText("ErrorReport.FoundException");
-		exceptionPanel.add(new JLabel((!foundException.equals("Error") ? foundException : "Found exception")), BorderLayout.NORTH);
-		
-		JTextArea exceptionTextArea = new JTextArea();
-		if (e != null) {
-			StringWriter sw = new StringWriter();
-	        PrintWriter pw = new PrintWriter(sw, true);
-	        e.printStackTrace(pw);
-	        pw.flush();
-	        sw.flush();
-	        exception = sw.toString();
-		}
-		exceptionTextArea.setText(exception);
-		exceptionTextArea.setEditable(false);
-		
-		JScrollPane scrollPaneException = new JScrollPane(exceptionTextArea);
-		exceptionPanel.add(scrollPaneException, BorderLayout.CENTER);
+    /**
+     * Boolean indicating if the panel should ask for the name
+     */
+    private boolean askName;
 
-		this.add(exceptionPanel, c);
-		c.gridy++;
-		
-		c.weighty = 0.1;
-		c.fill = GridBagConstraints.NONE;
-		this.add(createButtonPanel(true), c);
-		
-		this.setVisible(true);
-	}
-	
-	/**
-	 * Constructor for the comments report dialog
-	 */
-	private ReportDialog() {
-		super();
-		
-		this.setSize(PANEL_WIDTH, PANEL_HEIGHT);
-		this.setResizable(false);
-		
-		this.setTitle(TextConstants.getText("ErrorReport.TitleComments"));
-		
-		this.setLayout(new GridBagLayout());
-		
-		double screenWidth = Toolkit.getDefaultToolkit().getScreenSize( ).getWidth( );
-		double screenHeight = Toolkit.getDefaultToolkit().getScreenSize( ).getHeight( );
-		int locX = Math.round(((int)screenWidth - PANEL_WIDTH)/2.0f);
-		int locY = Math.round(((int)screenHeight - PANEL_HEIGHT)/2.0f);
-		this.setLocation( locX, locY );
+    /**
+     * The string with the exception
+     */
+    private String exception = "";
 
-		
-		GridBagConstraints c = new GridBagConstraints();
-		
-		c.gridx = 0;
-		c.gridy = 0;
-		c.weightx = 0.9;
-		c.weighty = 0.1;
-		
-		
+    /**
+     * The string with the message
+     */
+    private String message = "";
 
-		c .fill = GridBagConstraints.NONE;
-		this.add(createNamePanel(), c);
-		c.gridy++;
-		
-		os = "OS: " + System.getProperty("os.name");
-		JLabel los = new JLabel(os);
-		this.add(los, c);
-		c.gridy++;
-		
-		java = "JAVA: " + System.getProperty("java.version") + " from " + System.getProperty("java.vendor");
-		JLabel ljava = new JLabel(java);
-		this.add(ljava, c);
-		c.gridy++;
+    /**
+     * The string with the os
+     */
+    private String os;
 
-		File moreinfo = new File("RELEASE");
-		release = null;
-		if (moreinfo.exists()) {
-			try {
-				FileInputStream fis = new FileInputStream(moreinfo);
-				BufferedInputStream bis = new BufferedInputStream(fis);
-				int nextChar = -1;
-				while ((nextChar = bis.read()) != -1) {
-					if (release == null)
-						release = "RELEASE: " + (char)nextChar;
-					else
-						release += (char)nextChar;
-				}
-				
-				if (release!=null){
-					JLabel lrelease = new JLabel(release);
-					this.add(lrelease, c);
-					c.gridy++;
-				}
-			} catch (Exception ex) {
-			}
-		} else {
-		}
+    /**
+     * The string with the java version
+     */
+    private String java;
 
-		
-		JPanel descriptionPanel = new JPanel();
-		descriptionPanel.setLayout(new BorderLayout());
-		descriptionPanel.add(new JLabel(TextConstants.getText("ErrorReport.Comments")), BorderLayout.NORTH);
-		
-		descriptionTextArea = new JTextArea();
-		descriptionTextArea.setLineWrap(true);
-		JScrollPane scrollPaneDescription = new JScrollPane(descriptionTextArea);
-		scrollPaneDescription.setSize(PANEL_WIDTH, PANEL_HEIGHT / 2 - 100);
-		
-		descriptionPanel.add(scrollPaneDescription, BorderLayout.CENTER);
-		c.weighty = 1.0f;
-		c.weightx = 1.0f;
-		c.fill = GridBagConstraints.BOTH;
-		this.add(descriptionPanel, c);
-		c.gridy++;
-				
-		c.weighty = 0.1;
-		c.fill = GridBagConstraints.NONE;
-		this.add(createButtonPanel(false), c);
-		
-		
-		this.setVisible(true);
-	}
-	
-	/**
-	 * Creates and returns the button panel (send and cancel)
-	 * 
-	 * @param error Indicates if the buttons are of an error or comments
-	 * @return The new JPanel
-	 */
-	private JPanel createButtonPanel(final boolean error) {
-		JPanel buttonPanel = new JPanel();
-		String send = TextConstants.getText("ErrorReport.Send");
-		sendButton = new JButton((!send.equals("Error") ? send : "Send"));
-		sendButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ReportDialog.this.sendReport(error);
-				ReportDialog.this.setVisible(false);
-			}
-		});
-		buttonPanel.add(sendButton);
-		
-		String cancel = TextConstants.getText("ErrorReport.Cancel");
-		dontSendButton = new JButton((!cancel.equals("Error") ? cancel : "Cancel"));
-		dontSendButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				ReportDialog.this.setVisible(false);
-			}
-		});
-		
-		buttonPanel.add(dontSendButton);
-		return buttonPanel;
-	}
-	
-	/**
-	 * Generate the actual report and send it using php to the e-adventure server
-	 * 
-	 * @param error Indicates if it is an error or comments report
-	 */
-	protected void sendReport(boolean error) {
-		String report;
-		if (error) {
-			report = "ERROR REPORT\n" + message + "\n\n";
-			
-			if (askName) {
-				report += "USER: " + nameTextField.getText() + "\n";
-				report += "EMAIL: " + emailTextField.getText() + "\n\n";
-			}
-			
-			report += os + "\n";
-			report += java + "\n";
-			if (release != null)
-				report += release + "\n";
-			report += "\n";
-			
-			report += "DESCRIPTION:\n" + descriptionTextArea.getText() + "\n\n\n";
-			report += "STACK TRACE:\n" + exception + "\n";
-		}
-		else {
-			report = "USER COMMENTS\n\n";
-			
-			report += "USER: " + nameTextField.getText() + "\n";
-			report += "EMAIL: " + emailTextField.getText() + "\n\n";
+    /**
+     * The string with the release
+     */
+    private String release;
 
-			report += os + "\n";
-			report += java + "\n";
-			if (release != null)
-				report += release + "\n";
-			report += "\n";
+    /**
+     * Generate an error report panel from an exception.
+     * 
+     * @param e
+     *            The exception
+     * @param askName
+     *            if true, the name and email will be asked
+     * @param message
+     *            A message with more information
+     */
+    public static void GenerateErrorReport( Exception e, boolean askName, String message ) {
 
-			report += "COMMENTS AND SUGGESTIONS:\n" + descriptionTextArea.getText() + "\n";
-		}
-		        
-		try {
-			URL url = new URL("http://backend-ea.e-ucm.es/reports.php");
-			HttpURLConnection con = (HttpURLConnection)url.openConnection();
-			con.setRequestMethod("POST");
-			con.setDoInput (true);
-			con.setDoOutput (true);
+        if( isInterestingException( e ) )
+            new ReportDialog( e, askName, message );
+        else
+            e.printStackTrace( );
+    }
 
-			con.setUseCaches (false);
-			con.setAllowUserInteraction(true);
-			HttpURLConnection.setFollowRedirects(true);
-			con.setInstanceFollowRedirects(true);
-			DataOutputStream out = new DataOutputStream(con.getOutputStream());
-			String content = "type=" + (error ? "bug" : "comment" ) + "&version=" + release + "&file=" + report;
-			out.writeBytes (content);
-			out.flush ();
-			out.close ();
-			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-			//System.out.print(in.readLine());
-			in.readLine();
-		} catch (Exception e) {
-			//e.printStackTrace();
-		}
-        
-	}
+    /**
+     * Generate a comments report panel
+     */
+    public static void GenerateCommentsReport( ) {
 
-	/**
-	 * Create the panel where the name and email are inputed
-	 * 
-	 * @return the new JPanel
-	 */
-	private JPanel createNamePanel() {
-		JPanel temp = new JPanel();
-		temp.setLayout(new GridBagLayout());
-		GridBagConstraints c = new GridBagConstraints();
-		
-		c.gridx = 0;
-		c.gridy = 0;
-		c.fill = GridBagConstraints.NONE;
-		String name = TextConstants.getText("ErrorReport.Name");
-		temp.add(new JLabel((!name.equals("Error") ? name : "Name")), c);
-		
-		nameTextField = new JTextField(25) {
-			private static final long serialVersionUID = 1L;
+        new ReportDialog( );
+    }
 
-			public Dimension getMinimumSize() {
-			    return getPreferredSize();
-			}
-		};
-		
-		c.gridx++;
-		c.fill = GridBagConstraints.HORIZONTAL;
-		temp.add(nameTextField, c);
-		
-		c.gridy++;
-		c.gridx = 0;
-		c.fill = GridBagConstraints.NONE;
-		String email = TextConstants.getText("ErrorReport.Email");
-		temp.add(new JLabel((!email.equals("Error") ? email : "e-mail")), c);
-		
-		emailTextField = new JTextField(200);
-		c.gridx++;
-		c.fill = GridBagConstraints.HORIZONTAL;
-		temp.add(emailTextField, c);
-		
-		return temp;
-	}
-	
+    /**
+     * Filter for the interesting exceptions and the known and managed ones.
+     * 
+     * @param e
+     *            The exception
+     * @return True if the exception is interesting (should be reported)
+     */
+    private static boolean isInterestingException( Exception e ) {
 
-	/**
-	 * Test method
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		ReportDialog.GenerateErrorReport(new Exception(), false, "ERROR MESSAGE");
-		//ReportDialog.GenerateCommentsReport();
-	}
+        if( e instanceof NullPointerException )
+            return true;
+        if( e instanceof IndexOutOfBoundsException )
+            return true;
+        if( e instanceof IOException )
+            return false;
+        if( e instanceof AuthenticationFailedException )
+            return false;
+        if( e instanceof MessagingException )
+            return true;
+        if( e instanceof MalformedURLException )
+            return true;
+        if( e instanceof FileNotFoundException )
+            return true;
+        if( e instanceof ParserConfigurationException )
+            return true;
+        if( e instanceof SAXException )
+            return true;
+        if( e instanceof InvalidPropertiesFormatException )
+            return true;
+        if( e instanceof SAXParseException )
+            return true;
+        if( e instanceof ParseException )
+            return true;
+        if( e instanceof UnsupportedEncodingException )
+            return true;
+        if( e instanceof TransformerConfigurationException )
+            return true;
+        if( e instanceof TransformerException )
+            return true;
+        if( e instanceof InterruptedException )
+            return true;
+        if( e instanceof java.awt.HeadlessException )
+            return true;
+        if( e instanceof InvalidMidiDataException )
+            return false;
+        if( e instanceof MidiUnavailableException )
+            return false;
+        if( e instanceof LineUnavailableException )
+            return false;
+        if( e instanceof UnsupportedAudioFileException )
+            return false;
+        if( e instanceof BadLocationException )
+            return false;
+        if( e instanceof RuntimeException )
+            return true;
+        if( e instanceof NumberFormatException )
+            return true;
+        if( e instanceof java.util.MissingResourceException )
+            return true;
+        if( e instanceof javax.media.NoPlayerException )
+            return true;
+        if( e instanceof java.util.zip.ZipException )
+            return true;
+        if( e instanceof SecurityException )
+            return true;
+        if( e instanceof es.eucm.eadventure.engine.core.data.SaveGameException )
+            return true;
+        if( e instanceof java.awt.FontFormatException )
+            return true;
+
+        //		if (e instanceof StackOverflowException)
+        //			return true;
+
+        return true;
+    }
+
+    /**
+     * Constructor for the error report dialog.
+     * 
+     * @param e
+     *            The exception
+     * @param askName
+     *            True if the name and email should be asked
+     * @param message
+     *            A message with more information on the error
+     */
+    private ReportDialog( Exception e, boolean askName, String message ) {
+
+        super( );
+
+        this.setSize( PANEL_WIDTH, PANEL_HEIGHT );
+        this.setResizable( false );
+        this.setModalityType( Dialog.ModalityType.TOOLKIT_MODAL );
+
+        String title = TextConstants.getText( "ErrorReport.Title" );
+        this.setTitle( ( !title.equals( "Error" ) ? title : "Error Report" ) );
+
+        this.setLayout( new GridBagLayout( ) );
+        this.askName = askName;
+        this.message = message;
+
+        double screenWidth = Toolkit.getDefaultToolkit( ).getScreenSize( ).getWidth( );
+        double screenHeight = Toolkit.getDefaultToolkit( ).getScreenSize( ).getHeight( );
+        int locX = Math.round( ( (int) screenWidth - PANEL_WIDTH ) / 2.0f );
+        int locY = Math.round( ( (int) screenHeight - PANEL_HEIGHT ) / 2.0f );
+        this.setLocation( locX, locY );
+
+        GridBagConstraints c = new GridBagConstraints( );
+
+        c.gridx = 0;
+        c.gridy = 0;
+        c.weightx = 0.9;
+        c.weighty = 0.1;
+
+        c.fill = GridBagConstraints.HORIZONTAL;
+        JTextArea topMessage = new JTextArea( message );
+        topMessage.setLineWrap( true );
+        topMessage.setEditable( false );
+        this.add( topMessage, c );
+        c.gridy++;
+
+        c.fill = GridBagConstraints.NONE;
+        if( askName ) {
+            this.add( createNamePanel( ), c );
+            c.gridy++;
+        }
+
+        os = "OS: " + System.getProperty( "os.name" );
+        JLabel los = new JLabel( os );
+        this.add( los, c );
+        c.gridy++;
+
+        java = "JAVA: " + System.getProperty( "java.version" ) + " from " + System.getProperty( "java.vendor" );
+        JLabel ljava = new JLabel( java );
+        this.add( ljava, c );
+        c.gridy++;
+
+        File moreinfo = new File( "RELEASE" );
+        release = null;
+        if( moreinfo.exists( ) ) {
+            try {
+                FileInputStream fis = new FileInputStream( moreinfo );
+                BufferedInputStream bis = new BufferedInputStream( fis );
+                int nextChar = -1;
+                while( ( nextChar = bis.read( ) ) != -1 ) {
+                    if( release == null )
+                        release = "RELEASE: " + (char) nextChar;
+                    else
+                        release += (char) nextChar;
+                }
+
+                if( release != null ) {
+                    JLabel lrelease = new JLabel( release );
+                    this.add( lrelease, c );
+                    c.gridy++;
+                }
+            }
+            catch( Exception ex ) {
+            }
+        }
+        else {
+        }
+
+        JPanel descriptionPanel = new JPanel( );
+        descriptionPanel.setLayout( new BorderLayout( ) );
+        String shortDesc = TextConstants.getText( "ErrorReport.ShortDescription" );
+        descriptionPanel.add( new JLabel( ( !shortDesc.equals( "Error" ) ? shortDesc : "Short description" ) ), BorderLayout.NORTH );
+
+        descriptionTextArea = new JTextArea( );
+        descriptionTextArea.setLineWrap( true );
+        JScrollPane scrollPaneDescription = new JScrollPane( descriptionTextArea );
+        scrollPaneDescription.setSize( PANEL_WIDTH, PANEL_HEIGHT / 2 - 100 );
+
+        descriptionPanel.add( scrollPaneDescription, BorderLayout.CENTER );
+        c.weighty = 1.0f;
+        c.weightx = 1.0f;
+        c.fill = GridBagConstraints.BOTH;
+        this.add( descriptionPanel, c );
+        c.gridy++;
+
+        JPanel exceptionPanel = new JPanel( );
+        exceptionPanel.setLayout( new BorderLayout( ) );
+        String foundException = TextConstants.getText( "ErrorReport.FoundException" );
+        exceptionPanel.add( new JLabel( ( !foundException.equals( "Error" ) ? foundException : "Found exception" ) ), BorderLayout.NORTH );
+
+        JTextArea exceptionTextArea = new JTextArea( );
+        if( e != null ) {
+            StringWriter sw = new StringWriter( );
+            PrintWriter pw = new PrintWriter( sw, true );
+            e.printStackTrace( pw );
+            pw.flush( );
+            sw.flush( );
+            exception = sw.toString( );
+        }
+        exceptionTextArea.setText( exception );
+        exceptionTextArea.setEditable( false );
+
+        JScrollPane scrollPaneException = new JScrollPane( exceptionTextArea );
+        exceptionPanel.add( scrollPaneException, BorderLayout.CENTER );
+
+        this.add( exceptionPanel, c );
+        c.gridy++;
+
+        c.weighty = 0.1;
+        c.fill = GridBagConstraints.NONE;
+        this.add( createButtonPanel( true ), c );
+
+        this.setVisible( true );
+    }
+
+    /**
+     * Constructor for the comments report dialog
+     */
+    private ReportDialog( ) {
+
+        super( );
+
+        this.setSize( PANEL_WIDTH, PANEL_HEIGHT );
+        this.setResizable( false );
+
+        this.setTitle( TextConstants.getText( "ErrorReport.TitleComments" ) );
+
+        this.setLayout( new GridBagLayout( ) );
+
+        double screenWidth = Toolkit.getDefaultToolkit( ).getScreenSize( ).getWidth( );
+        double screenHeight = Toolkit.getDefaultToolkit( ).getScreenSize( ).getHeight( );
+        int locX = Math.round( ( (int) screenWidth - PANEL_WIDTH ) / 2.0f );
+        int locY = Math.round( ( (int) screenHeight - PANEL_HEIGHT ) / 2.0f );
+        this.setLocation( locX, locY );
+
+        GridBagConstraints c = new GridBagConstraints( );
+
+        c.gridx = 0;
+        c.gridy = 0;
+        c.weightx = 0.9;
+        c.weighty = 0.1;
+
+        c.fill = GridBagConstraints.NONE;
+        this.add( createNamePanel( ), c );
+        c.gridy++;
+
+        os = "OS: " + System.getProperty( "os.name" );
+        JLabel los = new JLabel( os );
+        this.add( los, c );
+        c.gridy++;
+
+        java = "JAVA: " + System.getProperty( "java.version" ) + " from " + System.getProperty( "java.vendor" );
+        JLabel ljava = new JLabel( java );
+        this.add( ljava, c );
+        c.gridy++;
+
+        File moreinfo = new File( "RELEASE" );
+        release = null;
+        if( moreinfo.exists( ) ) {
+            try {
+                FileInputStream fis = new FileInputStream( moreinfo );
+                BufferedInputStream bis = new BufferedInputStream( fis );
+                int nextChar = -1;
+                while( ( nextChar = bis.read( ) ) != -1 ) {
+                    if( release == null )
+                        release = "RELEASE: " + (char) nextChar;
+                    else
+                        release += (char) nextChar;
+                }
+
+                if( release != null ) {
+                    JLabel lrelease = new JLabel( release );
+                    this.add( lrelease, c );
+                    c.gridy++;
+                }
+            }
+            catch( Exception ex ) {
+            }
+        }
+        else {
+        }
+
+        JPanel descriptionPanel = new JPanel( );
+        descriptionPanel.setLayout( new BorderLayout( ) );
+        descriptionPanel.add( new JLabel( TextConstants.getText( "ErrorReport.Comments" ) ), BorderLayout.NORTH );
+
+        descriptionTextArea = new JTextArea( );
+        descriptionTextArea.setLineWrap( true );
+        JScrollPane scrollPaneDescription = new JScrollPane( descriptionTextArea );
+        scrollPaneDescription.setSize( PANEL_WIDTH, PANEL_HEIGHT / 2 - 100 );
+
+        descriptionPanel.add( scrollPaneDescription, BorderLayout.CENTER );
+        c.weighty = 1.0f;
+        c.weightx = 1.0f;
+        c.fill = GridBagConstraints.BOTH;
+        this.add( descriptionPanel, c );
+        c.gridy++;
+
+        c.weighty = 0.1;
+        c.fill = GridBagConstraints.NONE;
+        this.add( createButtonPanel( false ), c );
+
+        this.setVisible( true );
+    }
+
+    /**
+     * Creates and returns the button panel (send and cancel)
+     * 
+     * @param error
+     *            Indicates if the buttons are of an error or comments
+     * @return The new JPanel
+     */
+    private JPanel createButtonPanel( final boolean error ) {
+
+        JPanel buttonPanel = new JPanel( );
+        String send = TextConstants.getText( "ErrorReport.Send" );
+        sendButton = new JButton( ( !send.equals( "Error" ) ? send : "Send" ) );
+        sendButton.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+                ReportDialog.this.sendReport( error );
+                ReportDialog.this.setVisible( false );
+            }
+        } );
+        buttonPanel.add( sendButton );
+
+        String cancel = TextConstants.getText( "ErrorReport.Cancel" );
+        dontSendButton = new JButton( ( !cancel.equals( "Error" ) ? cancel : "Cancel" ) );
+        dontSendButton.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent arg0 ) {
+
+                ReportDialog.this.setVisible( false );
+            }
+        } );
+
+        buttonPanel.add( dontSendButton );
+        return buttonPanel;
+    }
+
+    /**
+     * Generate the actual report and send it using php to the e-adventure
+     * server
+     * 
+     * @param error
+     *            Indicates if it is an error or comments report
+     */
+    protected void sendReport( boolean error ) {
+
+        String report;
+        if( error ) {
+            report = "ERROR REPORT\n" + message + "\n\n";
+
+            if( askName ) {
+                report += "USER: " + nameTextField.getText( ) + "\n";
+                report += "EMAIL: " + emailTextField.getText( ) + "\n\n";
+            }
+
+            report += os + "\n";
+            report += java + "\n";
+            if( release != null )
+                report += release + "\n";
+            report += "\n";
+
+            report += "DESCRIPTION:\n" + descriptionTextArea.getText( ) + "\n\n\n";
+            report += "STACK TRACE:\n" + exception + "\n";
+        }
+        else {
+            report = "USER COMMENTS\n\n";
+
+            report += "USER: " + nameTextField.getText( ) + "\n";
+            report += "EMAIL: " + emailTextField.getText( ) + "\n\n";
+
+            report += os + "\n";
+            report += java + "\n";
+            if( release != null )
+                report += release + "\n";
+            report += "\n";
+
+            report += "COMMENTS AND SUGGESTIONS:\n" + descriptionTextArea.getText( ) + "\n";
+        }
+
+        try {
+            URL url = new URL( "http://backend-ea.e-ucm.es/reports.php" );
+            HttpURLConnection con = (HttpURLConnection) url.openConnection( );
+            con.setRequestMethod( "POST" );
+            con.setDoInput( true );
+            con.setDoOutput( true );
+
+            con.setUseCaches( false );
+            con.setAllowUserInteraction( true );
+            HttpURLConnection.setFollowRedirects( true );
+            con.setInstanceFollowRedirects( true );
+            DataOutputStream out = new DataOutputStream( con.getOutputStream( ) );
+            String content = "type=" + ( error ? "bug" : "comment" ) + "&version=" + release + "&file=" + report;
+            out.writeBytes( content );
+            out.flush( );
+            out.close( );
+            BufferedReader in = new BufferedReader( new InputStreamReader( con.getInputStream( ) ) );
+            //System.out.print(in.readLine());
+            in.readLine( );
+        }
+        catch( Exception e ) {
+            //e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * Create the panel where the name and email are inputed
+     * 
+     * @return the new JPanel
+     */
+    private JPanel createNamePanel( ) {
+
+        JPanel temp = new JPanel( );
+        temp.setLayout( new GridBagLayout( ) );
+        GridBagConstraints c = new GridBagConstraints( );
+
+        c.gridx = 0;
+        c.gridy = 0;
+        c.fill = GridBagConstraints.NONE;
+        String name = TextConstants.getText( "ErrorReport.Name" );
+        temp.add( new JLabel( ( !name.equals( "Error" ) ? name : "Name" ) ), c );
+
+        nameTextField = new JTextField( 25 ) {
+
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public Dimension getMinimumSize( ) {
+
+                return getPreferredSize( );
+            }
+        };
+
+        c.gridx++;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        temp.add( nameTextField, c );
+
+        c.gridy++;
+        c.gridx = 0;
+        c.fill = GridBagConstraints.NONE;
+        String email = TextConstants.getText( "ErrorReport.Email" );
+        temp.add( new JLabel( ( !email.equals( "Error" ) ? email : "e-mail" ) ), c );
+
+        emailTextField = new JTextField( 200 );
+        c.gridx++;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        temp.add( emailTextField, c );
+
+        return temp;
+    }
+
+    /**
+     * Test method
+     * 
+     * @param args
+     */
+    public static void main( String[] args ) {
+
+        ReportDialog.GenerateErrorReport( new Exception( ), false, "ERROR MESSAGE" );
+        //ReportDialog.GenerateCommentsReport();
+    }
 }

@@ -1,46 +1,47 @@
 /**
- * <e-Adventure> is an <e-UCM> research project.
- * <e-UCM>, Department of Software Engineering and Artificial Intelligence.
- * Faculty of Informatics, Complutense University of Madrid (Spain).
- * @author Del Blanco, A., Marchiori, E., Torrente, F.J.
+ * <e-Adventure> is an <e-UCM> research project. <e-UCM>, Department of Software
+ * Engineering and Artificial Intelligence. Faculty of Informatics, Complutense
+ * University of Madrid (Spain).
+ * 
+ * @author Del Blanco, A., Marchiori, E., Torrente, F.J. (alphabetical order) *
+ * @author López Mañas, E., Pérez Padilla, F., Sollet, E., Torijano, B. (former
+ *         developers by alphabetical order)
  * @author Moreno-Ger, P. & Fernández-Manjón, B. (directors)
- * @year 2009
- * Web-site: http://e-adventure.e-ucm.es
+ * @year 2009 Web-site: http://e-adventure.e-ucm.es
  */
 
 /*
-    Copyright (C) 2004-2009 <e-UCM> research group
-
-    This file is part of <e-Adventure> project, an educational game & game-like 
-    simulation authoring tool, availabe at http://e-adventure.e-ucm.es. 
-
-    <e-Adventure> is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    <e-Adventure> is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with <e-Adventure>; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-*/
+ * Copyright (C) 2004-2009 <e-UCM> research group
+ * 
+ * This file is part of <e-Adventure> project, an educational game & game-like
+ * simulation authoring tool, available at http://e-adventure.e-ucm.es.
+ * 
+ * <e-Adventure> is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version.
+ * 
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place, Suite 330, Boston, MA 02111-1307 USA
+ * 
+ */
 package es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects;
 
 import java.util.ArrayList;
 
-import es.eucm.eadventure.common.data.chapter.effects.Effect;
 import es.eucm.eadventure.common.data.chapter.effects.AbstractEffect;
 import es.eucm.eadventure.common.data.chapter.effects.Effects;
 import es.eucm.eadventure.engine.core.control.Game;
 
 /**
- * A list of effects that can be triggered by an unique
- * player's action during the game.
+ * A list of effects that can be triggered by an unique player's action during
+ * the game.
  */
 public class FunctionalEffects {
 
@@ -57,7 +58,8 @@ public class FunctionalEffects {
     /**
      * Creates a new, empty list of FunctionalEffects.
      */
-    public FunctionalEffects(  ) {
+    public FunctionalEffects( ) {
+
         functionalEffects = new ArrayList<FunctionalEffect>( );
         hasCancelAction = false;
     }
@@ -66,41 +68,49 @@ public class FunctionalEffects {
      * Creates a new, empty list of FunctionalEffects.
      */
     public FunctionalEffects( Effects effects ) {
-    	this();
-    	// Add a new functional effect to the list for each effect in effects structure
-    	for ( AbstractEffect effect: effects.getEffects() ){
-    		FunctionalEffect fe = FunctionalEffect.buildFunctionalEffect(effect);
-    		if (fe!=null)
-    			functionalEffects.add(fe);
-    	}
-    	// If the effects structure has cancel action, add it
-    	hasCancelAction = effects.hasCancelAction( );
+
+        this( );
+        // Add a new functional effect to the list for each effect in effects structure
+        for( AbstractEffect effect : effects.getEffects( ) ) {
+            FunctionalEffect fe = FunctionalEffect.buildFunctionalEffect( effect );
+            if( fe != null )
+                functionalEffects.add( fe );
+        }
+        // If the effects structure has cancel action, add it
+        hasCancelAction = effects.hasCancelAction( );
     }
-    
-    
 
     /**
      * Return the effect in the given position.
-     * @param index the effect position
+     * 
+     * @param index
+     *            the effect position
      * @return the effect in the given position
      */
     public FunctionalEffect getEffect( int index ) {
+
         return functionalEffects.get( index );
     }
 
     /**
      * Sets whether the list of effects has a cancel action.
-     * @param hasCancelAction true if the list of effects has a cancel action, false otherwise
+     * 
+     * @param hasCancelAction
+     *            true if the list of effects has a cancel action, false
+     *            otherwise
      */
     public void setHasCancelAction( boolean hasCancelAction ) {
+
         this.hasCancelAction = hasCancelAction;
     }
 
     /**
      * Returns whether the list of effects has a cancel action.
+     * 
      * @return true if the list of effects has a cancel action, false otherwise
      */
     public boolean hasCancelAction( ) {
+
         return hasCancelAction;
     }
 
@@ -108,32 +118,36 @@ public class FunctionalEffects {
      * Queues the effects in the game effects queue to be done when possible.
      */
     public static void storeAllEffects( Effects effects ) {
-        Game.getInstance( ).storeEffectsInQueue( new FunctionalEffects(effects).getEffects(), false );
-    }
-    
-    public static void storeAllEffects( Effects effects , boolean fromConversation) {
-        Game.getInstance( ).storeEffectsInQueue( new FunctionalEffects(effects).getEffects(), fromConversation );
-    }
-    
-    public static void storeAllEffects( FunctionalEffects functionalEffects ) {
-        Game.getInstance( ).storeEffectsInQueue( functionalEffects.getEffects() ,false);
-    }
-    
-    
 
-	/**
-	 * @return the functionalEffects
-	 */
-	public ArrayList<FunctionalEffect> getEffects() {
-		return functionalEffects;
-	}
-	
-	/**
-	 * Add new functional effect
-	 * @param functionalEffect
-	 */
-	public void addEffect(FunctionalEffect functionalEffect){
-		functionalEffects.add(functionalEffect);
-	}
+        Game.getInstance( ).storeEffectsInQueue( new FunctionalEffects( effects ).getEffects( ), false );
+    }
+
+    public static void storeAllEffects( Effects effects, boolean fromConversation ) {
+
+        Game.getInstance( ).storeEffectsInQueue( new FunctionalEffects( effects ).getEffects( ), fromConversation );
+    }
+
+    public static void storeAllEffects( FunctionalEffects functionalEffects ) {
+
+        Game.getInstance( ).storeEffectsInQueue( functionalEffects.getEffects( ), false );
+    }
+
+    /**
+     * @return the functionalEffects
+     */
+    public ArrayList<FunctionalEffect> getEffects( ) {
+
+        return functionalEffects;
+    }
+
+    /**
+     * Add new functional effect
+     * 
+     * @param functionalEffect
+     */
+    public void addEffect( FunctionalEffect functionalEffect ) {
+
+        functionalEffects.add( functionalEffect );
+    }
 
 }

@@ -1,34 +1,36 @@
 /**
- * <e-Adventure> is an <e-UCM> research project.
- * <e-UCM>, Department of Software Engineering and Artificial Intelligence.
- * Faculty of Informatics, Complutense University of Madrid (Spain).
- * @author Del Blanco, A., Marchiori, E., Torrente, F.J.
+ * <e-Adventure> is an <e-UCM> research project. <e-UCM>, Department of Software
+ * Engineering and Artificial Intelligence. Faculty of Informatics, Complutense
+ * University of Madrid (Spain).
+ * 
+ * @author Del Blanco, A., Marchiori, E., Torrente, F.J. (alphabetical order) *
+ * @author López Mañas, E., Pérez Padilla, F., Sollet, E., Torijano, B. (former
+ *         developers by alphabetical order)
  * @author Moreno-Ger, P. & Fernández-Manjón, B. (directors)
- * @year 2009
- * Web-site: http://e-adventure.e-ucm.es
+ * @year 2009 Web-site: http://e-adventure.e-ucm.es
  */
 
 /*
-    Copyright (C) 2004-2009 <e-UCM> research group
-
-    This file is part of <e-Adventure> project, an educational game & game-like 
-    simulation authoring tool, availabe at http://e-adventure.e-ucm.es. 
-
-    <e-Adventure> is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    <e-Adventure> is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with <e-Adventure>; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-*/
+ * Copyright (C) 2004-2009 <e-UCM> research group
+ * 
+ * This file is part of <e-Adventure> project, an educational game & game-like
+ * simulation authoring tool, available at http://e-adventure.e-ucm.es.
+ * 
+ * <e-Adventure> is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version.
+ * 
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place, Suite 330, Boston, MA 02111-1307 USA
+ * 
+ */
 package es.eucm.eadventure.editor.control.writer.domwriters;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -45,92 +47,96 @@ import es.eucm.eadventure.common.data.chapter.resources.Resources;
 
 public class PlayerDOMWriter {
 
-	/**
-	 * Private constructor.
-	 */
-	private PlayerDOMWriter( ) {}
+    /**
+     * Private constructor.
+     */
+    private PlayerDOMWriter( ) {
 
-	public static Node buildDOM( Player player ) {
-		Node playerNode = null;
+    }
 
-		try {
-			// Create the necessary elements to create the DOM
-			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance( );
-			DocumentBuilder db = dbf.newDocumentBuilder( );
-			Document doc = db.newDocument( );
+    public static Node buildDOM( Player player ) {
 
-			// Create the root node
-			playerNode = doc.createElement( "player" );
+        Node playerNode = null;
 
-			// Append the documentation (if avalaible)
-			if( player.getDocumentation( ) != null ) {
-				Node playerDocumentationNode = doc.createElement( "documentation" );
-				playerDocumentationNode.appendChild( doc.createTextNode( player.getDocumentation( ) ) );
-				playerNode.appendChild( playerDocumentationNode );
-			}
+        try {
+            // Create the necessary elements to create the DOM
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance( );
+            DocumentBuilder db = dbf.newDocumentBuilder( );
+            Document doc = db.newDocument( );
 
-			// Append the resources
-			for( Resources resources : player.getResources( ) ) {
-				Node resourcesNode = ResourcesDOMWriter.buildDOM( resources, ResourcesDOMWriter.RESOURCES_CHARACTER );
-				doc.adoptNode( resourcesNode );
-				playerNode.appendChild( resourcesNode );
-			}
+            // Create the root node
+            playerNode = doc.createElement( "player" );
 
-			// Create the textcolor
-			Element textColorNode = doc.createElement( "textcolor" );
-			textColorNode.setAttribute( "showsSpeechBubble", (player.getShowsSpeechBubbles() ? "yes" : "no"));
-			textColorNode.setAttribute( "bubbleBkgColor", player.getBubbleBkgColor());
-			textColorNode.setAttribute( "bubbleBorderColor", player.getBubbleBorderColor());
+            // Append the documentation (if avalaible)
+            if( player.getDocumentation( ) != null ) {
+                Node playerDocumentationNode = doc.createElement( "documentation" );
+                playerDocumentationNode.appendChild( doc.createTextNode( player.getDocumentation( ) ) );
+                playerNode.appendChild( playerDocumentationNode );
+            }
 
-			// Create and append the frontcolor
-			Element frontColorElement = doc.createElement( "frontcolor" );
-			frontColorElement.setAttribute( "color", player.getTextFrontColor( ) );
-			textColorNode.appendChild( frontColorElement );
+            // Append the resources
+            for( Resources resources : player.getResources( ) ) {
+                Node resourcesNode = ResourcesDOMWriter.buildDOM( resources, ResourcesDOMWriter.RESOURCES_CHARACTER );
+                doc.adoptNode( resourcesNode );
+                playerNode.appendChild( resourcesNode );
+            }
 
-			// Create and append the bordercolor
-			Element borderColoElement = doc.createElement( "bordercolor" );
-			borderColoElement.setAttribute( "color", player.getTextBorderColor( ) );
-			textColorNode.appendChild( borderColoElement );
+            // Create the textcolor
+            Element textColorNode = doc.createElement( "textcolor" );
+            textColorNode.setAttribute( "showsSpeechBubble", ( player.getShowsSpeechBubbles( ) ? "yes" : "no" ) );
+            textColorNode.setAttribute( "bubbleBkgColor", player.getBubbleBkgColor( ) );
+            textColorNode.setAttribute( "bubbleBorderColor", player.getBubbleBorderColor( ) );
 
-			// Append the textcolor
-			playerNode.appendChild( textColorNode );
+            // Create and append the frontcolor
+            Element frontColorElement = doc.createElement( "frontcolor" );
+            frontColorElement.setAttribute( "color", player.getTextFrontColor( ) );
+            textColorNode.appendChild( frontColorElement );
 
-			// Create the description
-			Node descriptionNode = doc.createElement( "description" );
+            // Create and append the bordercolor
+            Element borderColoElement = doc.createElement( "bordercolor" );
+            borderColoElement.setAttribute( "color", player.getTextBorderColor( ) );
+            textColorNode.appendChild( borderColoElement );
 
-			// Create and append the name, brief description and detailed description
-			Node nameNode = doc.createElement( "name" );
-			nameNode.appendChild( doc.createTextNode( player.getName( ) ) );
-			descriptionNode.appendChild( nameNode );
+            // Append the textcolor
+            playerNode.appendChild( textColorNode );
 
-			Node briefNode = doc.createElement( "brief" );
-			briefNode.appendChild( doc.createTextNode( player.getDescription( ) ) );
-			descriptionNode.appendChild( briefNode );
+            // Create the description
+            Node descriptionNode = doc.createElement( "description" );
 
-			Node detailedNode = doc.createElement( "detailed" );
-			detailedNode.appendChild( doc.createTextNode( player.getDetailedDescription( ) ) );
-			descriptionNode.appendChild( detailedNode );
+            // Create and append the name, brief description and detailed description
+            Node nameNode = doc.createElement( "name" );
+            nameNode.appendChild( doc.createTextNode( player.getName( ) ) );
+            descriptionNode.appendChild( nameNode );
 
-			// Append the description
-			playerNode.appendChild( descriptionNode );
+            Node briefNode = doc.createElement( "brief" );
+            briefNode.appendChild( doc.createTextNode( player.getDescription( ) ) );
+            descriptionNode.appendChild( briefNode );
 
-			// Create the voice tag
-			Element voiceNode = doc.createElement("voice");
-			// Create and append the voice name and if is alwaysSynthesizer
-			voiceNode.setAttribute("name", player.getVoice());
-			if (player.isAlwaysSynthesizer())
-				voiceNode.setAttribute("synthesizeAlways", "yes");
-			else 
-				voiceNode.setAttribute("synthesizeAlways", "no");
-			
-			// Append the voice tag
-			
-			playerNode.appendChild(voiceNode);
-			
-		} catch( ParserConfigurationException e ) {
-        	ReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
-		}
+            Node detailedNode = doc.createElement( "detailed" );
+            detailedNode.appendChild( doc.createTextNode( player.getDetailedDescription( ) ) );
+            descriptionNode.appendChild( detailedNode );
 
-		return playerNode;
-	}
+            // Append the description
+            playerNode.appendChild( descriptionNode );
+
+            // Create the voice tag
+            Element voiceNode = doc.createElement( "voice" );
+            // Create and append the voice name and if is alwaysSynthesizer
+            voiceNode.setAttribute( "name", player.getVoice( ) );
+            if( player.isAlwaysSynthesizer( ) )
+                voiceNode.setAttribute( "synthesizeAlways", "yes" );
+            else
+                voiceNode.setAttribute( "synthesizeAlways", "no" );
+
+            // Append the voice tag
+
+            playerNode.appendChild( voiceNode );
+
+        }
+        catch( ParserConfigurationException e ) {
+            ReportDialog.GenerateErrorReport( e, true, "UNKNOWERROR" );
+        }
+
+        return playerNode;
+    }
 }

@@ -1,34 +1,36 @@
 /**
- * <e-Adventure> is an <e-UCM> research project.
- * <e-UCM>, Department of Software Engineering and Artificial Intelligence.
- * Faculty of Informatics, Complutense University of Madrid (Spain).
- * @author Del Blanco, A., Marchiori, E., Torrente, F.J.
+ * <e-Adventure> is an <e-UCM> research project. <e-UCM>, Department of Software
+ * Engineering and Artificial Intelligence. Faculty of Informatics, Complutense
+ * University of Madrid (Spain).
+ * 
+ * @author Del Blanco, A., Marchiori, E., Torrente, F.J. (alphabetical order) *
+ * @author López Mañas, E., Pérez Padilla, F., Sollet, E., Torijano, B. (former
+ *         developers by alphabetical order)
  * @author Moreno-Ger, P. & Fernández-Manjón, B. (directors)
- * @year 2009
- * Web-site: http://e-adventure.e-ucm.es
+ * @year 2009 Web-site: http://e-adventure.e-ucm.es
  */
 
 /*
-    Copyright (C) 2004-2009 <e-UCM> research group
-
-    This file is part of <e-Adventure> project, an educational game & game-like 
-    simulation authoring tool, availabe at http://e-adventure.e-ucm.es. 
-
-    <e-Adventure> is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    <e-Adventure> is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with <e-Adventure>; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-*/
+ * Copyright (C) 2004-2009 <e-UCM> research group
+ * 
+ * This file is part of <e-Adventure> project, an educational game & game-like
+ * simulation authoring tool, available at http://e-adventure.e-ucm.es.
+ * 
+ * <e-Adventure> is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version.
+ * 
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place, Suite 330, Boston, MA 02111-1307 USA
+ * 
+ */
 package es.eucm.eadventure.editor.gui.structurepanel;
 
 import javax.swing.JComponent;
@@ -79,54 +81,53 @@ import es.eucm.eadventure.editor.gui.elementpanels.scene.ScenesListPanel;
 
 public class EditPanelFactory {
 
-	public static JComponent getEditPanel(DataControl dataControl) {
-		if (dataControl instanceof ScenesListDataControl)
-			return new ScenesListPanel((ScenesListDataControl) dataControl);
-		if (dataControl instanceof CutscenesListDataControl)
-			return new CutscenesListPanel((CutscenesListDataControl) dataControl);
-		if (dataControl instanceof BooksListDataControl)
-			return new BooksListPanel( (BooksListDataControl) dataControl );
-		if (dataControl instanceof ItemsListDataControl)
-			return new ItemsListPanel((ItemsListDataControl) dataControl);
-		if (dataControl instanceof AtrezzoListDataControl)
-			return new AtrezzoListPanel((AtrezzoListDataControl) dataControl);
-		if (dataControl instanceof AdvancedFeaturesDataControl)
-			return new AdvancedFeaturesPanel((AdvancedFeaturesDataControl) dataControl);
-		if (dataControl instanceof NPCsListDataControl)
-			return new NPCsListPanel((NPCsListDataControl) dataControl);
-		if (dataControl instanceof ConversationsListDataControl)
-			return new ConversationsListPanel((ConversationsListDataControl) dataControl);
+    public static JComponent getEditPanel( DataControl dataControl ) {
 
-		if (dataControl instanceof SceneDataControl)
-			return new ScenePanel((SceneDataControl) dataControl);
-		if (dataControl instanceof BookDataControl)
-			return new BookPanel((BookDataControl) dataControl);
-		if (dataControl instanceof CutsceneDataControl)
-			return new CutscenePanel((CutsceneDataControl) dataControl);
-		if (dataControl instanceof ItemDataControl)
-			return new ItemPanel((ItemDataControl) dataControl);
-		if (dataControl instanceof AtrezzoDataControl)
-			return new AtrezzoPanel((AtrezzoDataControl) dataControl);
-		if (dataControl instanceof AssessmentProfilesDataControl)
-			return new AssessmentProfilesPanel((AssessmentProfilesDataControl) dataControl);
-		if (dataControl instanceof AdaptationProfilesDataControl)
-			return new AdaptationProfilesPanel((AdaptationProfilesDataControl) dataControl);
-		if (dataControl instanceof PlayerDataControl)
-			return new PlayerPanel((PlayerDataControl) dataControl);
-		if (dataControl instanceof NPCDataControl)
-			return new NPCPanel((NPCDataControl) dataControl);
-		if (dataControl instanceof ConversationDataControl)
-			return new ConversationPanel((ConversationDataControl) dataControl);
-		if (dataControl instanceof ChapterDataControl)
-			return new ChapterPanel((ChapterDataControl) dataControl);
-		if (dataControl instanceof AssessmentProfileDataControl)
-			return new AssessmentPanel((AssessmentProfileDataControl) dataControl);
-		if (dataControl instanceof AdaptationProfileDataControl)
-			return new AdaptationPanel((AdaptationProfileDataControl) dataControl);
-		
-		
-		return null;
-	}
-	
-	
+        if( dataControl instanceof ScenesListDataControl )
+            return new ScenesListPanel( (ScenesListDataControl) dataControl );
+        if( dataControl instanceof CutscenesListDataControl )
+            return new CutscenesListPanel( (CutscenesListDataControl) dataControl );
+        if( dataControl instanceof BooksListDataControl )
+            return new BooksListPanel( (BooksListDataControl) dataControl );
+        if( dataControl instanceof ItemsListDataControl )
+            return new ItemsListPanel( (ItemsListDataControl) dataControl );
+        if( dataControl instanceof AtrezzoListDataControl )
+            return new AtrezzoListPanel( (AtrezzoListDataControl) dataControl );
+        if( dataControl instanceof AdvancedFeaturesDataControl )
+            return new AdvancedFeaturesPanel( (AdvancedFeaturesDataControl) dataControl );
+        if( dataControl instanceof NPCsListDataControl )
+            return new NPCsListPanel( (NPCsListDataControl) dataControl );
+        if( dataControl instanceof ConversationsListDataControl )
+            return new ConversationsListPanel( (ConversationsListDataControl) dataControl );
+
+        if( dataControl instanceof SceneDataControl )
+            return new ScenePanel( (SceneDataControl) dataControl );
+        if( dataControl instanceof BookDataControl )
+            return new BookPanel( (BookDataControl) dataControl );
+        if( dataControl instanceof CutsceneDataControl )
+            return new CutscenePanel( (CutsceneDataControl) dataControl );
+        if( dataControl instanceof ItemDataControl )
+            return new ItemPanel( (ItemDataControl) dataControl );
+        if( dataControl instanceof AtrezzoDataControl )
+            return new AtrezzoPanel( (AtrezzoDataControl) dataControl );
+        if( dataControl instanceof AssessmentProfilesDataControl )
+            return new AssessmentProfilesPanel( (AssessmentProfilesDataControl) dataControl );
+        if( dataControl instanceof AdaptationProfilesDataControl )
+            return new AdaptationProfilesPanel( (AdaptationProfilesDataControl) dataControl );
+        if( dataControl instanceof PlayerDataControl )
+            return new PlayerPanel( (PlayerDataControl) dataControl );
+        if( dataControl instanceof NPCDataControl )
+            return new NPCPanel( (NPCDataControl) dataControl );
+        if( dataControl instanceof ConversationDataControl )
+            return new ConversationPanel( (ConversationDataControl) dataControl );
+        if( dataControl instanceof ChapterDataControl )
+            return new ChapterPanel( (ChapterDataControl) dataControl );
+        if( dataControl instanceof AssessmentProfileDataControl )
+            return new AssessmentPanel( (AssessmentProfileDataControl) dataControl );
+        if( dataControl instanceof AdaptationProfileDataControl )
+            return new AdaptationPanel( (AdaptationProfileDataControl) dataControl );
+
+        return null;
+    }
+
 }

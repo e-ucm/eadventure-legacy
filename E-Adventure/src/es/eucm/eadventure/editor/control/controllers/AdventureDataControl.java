@@ -1,34 +1,36 @@
 /**
- * <e-Adventure> is an <e-UCM> research project.
- * <e-UCM>, Department of Software Engineering and Artificial Intelligence.
- * Faculty of Informatics, Complutense University of Madrid (Spain).
- * @author Del Blanco, A., Marchiori, E., Torrente, F.J.
+ * <e-Adventure> is an <e-UCM> research project. <e-UCM>, Department of Software
+ * Engineering and Artificial Intelligence. Faculty of Informatics, Complutense
+ * University of Madrid (Spain).
+ * 
+ * @author Del Blanco, A., Marchiori, E., Torrente, F.J. (alphabetical order) *
+ * @author López Mañas, E., Pérez Padilla, F., Sollet, E., Torijano, B. (former
+ *         developers by alphabetical order)
  * @author Moreno-Ger, P. & Fernández-Manjón, B. (directors)
- * @year 2009
- * Web-site: http://e-adventure.e-ucm.es
+ * @year 2009 Web-site: http://e-adventure.e-ucm.es
  */
 
 /*
-    Copyright (C) 2004-2009 <e-UCM> research group
-
-    This file is part of <e-Adventure> project, an educational game & game-like 
-    simulation authoring tool, availabe at http://e-adventure.e-ucm.es. 
-
-    <e-Adventure> is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    <e-Adventure> is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with <e-Adventure>; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-*/
+ * Copyright (C) 2004-2009 <e-UCM> research group
+ * 
+ * This file is part of <e-Adventure> project, an educational game & game-like
+ * simulation authoring tool, available at http://e-adventure.e-ucm.es.
+ * 
+ * <e-Adventure> is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version.
+ * 
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place, Suite 330, Boston, MA 02111-1307 USA
+ * 
+ */
 package es.eucm.eadventure.editor.control.controllers;
 
 import java.util.List;
@@ -58,414 +60,463 @@ import es.eucm.eadventure.common.data.adventure.CustomCursor;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 
 /**
- * This class holds all the information of the adventure, including the chapters and the configuration of the HUD.
+ * This class holds all the information of the adventure, including the chapters
+ * and the configuration of the HUD.
  * 
  * @author Bruno Torijano Bueno
  */
 public class AdventureDataControl {
 
-	/**
-	 * The whole data of the adventure
-	 */
-	private AdventureData adventureData;
-	
-	/**
-	 * Controller for LOM data (only required when
-	 * exporting games to LOM)
-	 */
-	private LOMDataControl lomController;
-	
-	/**
-	 * Controller for IMS data (only required when exporting
-	 * games to SCORM)
-	 */
-	private IMSDataControl imsController;
-	
-	/**
-	 * Controller for LOM-ES data (require to export games as ODE)
-	 */
-	private LOMESDataControl lomesController;
-	
-	/**
-	 * Assessment file data controller
-	 */
-	//private AssessmentProfilesDataControl assessmentProfilesDataControl;
-	
-	/**
-	 * Adaptation file data controller
-	 */
-	//private AdaptationProfilesDataControl adaptationProfilesDataControl;
+    /**
+     * The whole data of the adventure
+     */
+    private AdventureData adventureData;
 
-	/**
-	 * Constructs the data control with the adventureData
-	 */
-	public AdventureDataControl( AdventureData data ){
-		this( );
-		adventureData = data;
+    /**
+     * Controller for LOM data (only required when exporting games to LOM)
+     */
+    private LOMDataControl lomController;
 
-		// add profiles subcontrollers
-		/*for ( AssessmentProfile profile: data.getAssessmentProfiles() ){
-			assessmentProfilesDataControl.getProfiles().add(new AssessmentProfileDataControl(profile))	;
-		}
-		
-		for ( AdaptationProfile profile: data.getAdaptationProfiles() ){
-			adaptationProfilesDataControl.getProfiles().add(new AdaptationProfileDataControl(profile))	;
-		}*/
-		
+    /**
+     * Controller for IMS data (only required when exporting games to SCORM)
+     */
+    private IMSDataControl imsController;
 
-	}
-	
-	/**
-	 * Empty constructor. Sets all values to null.
-	 */
-	public AdventureDataControl( ) {
-		adventureData = new AdventureData();
-		lomController = new LOMDataControl();
-		imsController = new IMSDataControl();
-		lomesController = new LOMESDataControl();
-	}
+    /**
+     * Controller for LOM-ES data (require to export games as ODE)
+     */
+    private LOMESDataControl lomesController;
 
-	/**
-	 * Constructor which creates an adventure data with default title and description, traditional GUI and one empty
-	 * chapter (with a scene).
-	 * 
-	 * @param adventureTitle
-	 *            Default title for the adventure
-	 * @param chapterTitle
-	 *            Default title for the chapter
-	 * @param sceneId
-	 *            Default identifier for the scene
-	 */
-	public AdventureDataControl( String adventureTitle, String chapterTitle, String sceneId, int playerMode ) {
-		adventureData = new AdventureData( );
-		adventureData.setTitle(adventureTitle);
-		adventureData.setDescription("");
-		adventureData.setGUIType( DescriptorData.GUI_CONTEXTUAL );
-		adventureData.setPlayerMode( playerMode );
-		adventureData.addChapter( new Chapter( chapterTitle, sceneId ) );
-		lomController = new LOMDataControl();
-		imsController = new IMSDataControl();
-	}
+    /**
+     * Assessment file data controller
+     */
+    //private AssessmentProfilesDataControl assessmentProfilesDataControl;
+    /**
+     * Adaptation file data controller
+     */
+    //private AdaptationProfilesDataControl adaptationProfilesDataControl;
+    /**
+     * Constructs the data control with the adventureData
+     */
+    public AdventureDataControl( AdventureData data ) {
 
-	public AdventureDataControl( String adventureTitle, String chapterTitle, String sceneId ) {
-		this( adventureTitle, chapterTitle, sceneId, DescriptorData.MODE_PLAYER_3RDPERSON );
-	}
+        this( );
+        adventureData = data;
 
-	/**
-	 * Constructor gith given parameters.
-	 * 
-	 * @param title
-	 *            Title of the adventure
-	 * @param description
-	 *            Description of the adventure
-	 * @param guiType
-	 *            Type of the GUI
-	 * @param chapters
-	 *            Chapters of the adventure
-	 */
-	public AdventureDataControl( String title, String description, List<Chapter> chapters ) {
-		adventureData = new AdventureData();
-		adventureData.setTitle(title);
-		adventureData.setDescription(description);
-		adventureData.setGUIType( DescriptorData.GUI_TRADITIONAL );
-		adventureData.setChapters( chapters );
-		adventureData.setGraphicConfig( DescriptorData.GRAPHICS_WINDOWED);
-		adventureData.setPlayerMode( DescriptorData.MODE_PLAYER_3RDPERSON );
-		 
-		lomController = new LOMDataControl();
-		imsController = new IMSDataControl();
-	}
+        // add profiles subcontrollers
+        /*for ( AssessmentProfile profile: data.getAssessmentProfiles() ){
+        	assessmentProfilesDataControl.getProfiles().add(new AssessmentProfileDataControl(profile))	;
+        }
+        
+        for ( AdaptationProfile profile: data.getAdaptationProfiles() ){
+        	adaptationProfilesDataControl.getProfiles().add(new AdaptationProfileDataControl(profile))	;
+        }*/
 
-    public boolean isCursorTypeAllowed( String type ){
-    	return isCursorTypeAllowed(DescriptorData.getCursorTypeIndex( type ));
     }
 
-    public boolean isCursorTypeAllowed( int type ){
-    	return DescriptorData.typeAllowed[adventureData.getGUIType()][type];
-    }
-    
- 	
-	/**
-	 * Returns the title of the adventure
-	 * 
-	 * @return Adventure's title
-	 */
-	public String getTitle( ) {
-		return adventureData.getTitle();
-	}
+    /**
+     * Empty constructor. Sets all values to null.
+     */
+    public AdventureDataControl( ) {
 
-	/**
-	 * Returns the description of the adventure.
-	 * 
-	 * @return Adventure's description
-	 */
-	public String getDescription( ) {
-		return adventureData.getDescription();
-	}
-
-	/**
-	 * Returns the GUI type of the adventure.
-	 * 
-	 * @return Adventure's GUI type
-	 */
-	public Integer getGUIType( ) {
-		return adventureData.getGUIType();
-	}
-
-	/**
-	 * Returns the list of chapters of the adventure.
-	 * 
-	 * @return Adventure's chapters list
-	 */
-	public List<Chapter> getChapters( ) {
-		return adventureData.getChapters();
-	}
-
-	/**
-	 * Sets the title of the adventure.
-	 * 
-	 * @param title
-	 *            New title for the adventure
-	 */
-	public void setTitle( String title ) {
-		Tool tool = new ChangeTitleTool(adventureData, title);
-		Controller.getInstance().addTool(tool);
-	}
-
-	/**
-	 * Sets the description of the adventure.
-	 * 
-	 * @param description
-	 *            New description for the adventure
-	 */
-	public void setDescription( String description ) {
-		Tool tool = new ChangeDescriptionTool(adventureData, description);
-		Controller.getInstance().addTool(tool);
-	}
-
-	/**
-	 * Shows the GUI style selection dialog.
-	 */
-	public void showGUIStylesDialog( ) {
-		// Show the dialog
-		GUIStylesDialog guiStylesDialog = new GUIStylesDialog( adventureData.getGUIType( ) );
-
-		// If the new GUI style is different from the current, and valid, change the value
-		int optionSelected = guiStylesDialog.getOptionSelected( );
-		if( optionSelected != -1 ) {
-			Tool tool =new ChangeIntegerValueTool( adventureData, optionSelected, "getGUIType", "setGUIType" );
-			Controller.getInstance().addTool (tool);
-		}
-	}
-
-	/**
-	 * @return the playerMode
-	 */
-	public int getPlayerMode( ) {
-		return adventureData.getPlayerMode();
-	}
-
-	/**
-	 * @param playerMode the playerMode to set
-	 */
-	public void setPlayerMode( int playerMode ) {
-		Tool tool = new ChangeIntegerValueTool(adventureData, playerMode, "getPlayerMode", "setPlayerMode");
-		Controller.getInstance().addTool( tool );
-	}
-	
-    public List<CustomCursor> getCursors(){
-        return adventureData.getCursors();
-    }
-    
-    public List<CustomButton> getButtons(){
-        return adventureData.getButtons();
+        adventureData = new AdventureData( );
+        lomController = new LOMDataControl( );
+        imsController = new IMSDataControl( );
+        lomesController = new LOMESDataControl( );
     }
 
-    public List<CustomArrow> getArrows(){
-    	return adventureData.getArrows();
+    /**
+     * Constructor which creates an adventure data with default title and
+     * description, traditional GUI and one empty chapter (with a scene).
+     * 
+     * @param adventureTitle
+     *            Default title for the adventure
+     * @param chapterTitle
+     *            Default title for the chapter
+     * @param sceneId
+     *            Default identifier for the scene
+     */
+    public AdventureDataControl( String adventureTitle, String chapterTitle, String sceneId, int playerMode ) {
+
+        adventureData = new AdventureData( );
+        adventureData.setTitle( adventureTitle );
+        adventureData.setDescription( "" );
+        adventureData.setGUIType( DescriptorData.GUI_CONTEXTUAL );
+        adventureData.setPlayerMode( playerMode );
+        adventureData.addChapter( new Chapter( chapterTitle, sceneId ) );
+        lomController = new LOMDataControl( );
+        imsController = new IMSDataControl( );
     }
-    
-    public String getCursorPath(String type){
-        for (CustomCursor cursor: adventureData.getCursors()){
-            if (cursor.getType( ).equals( type )){
+
+    public AdventureDataControl( String adventureTitle, String chapterTitle, String sceneId ) {
+
+        this( adventureTitle, chapterTitle, sceneId, DescriptorData.MODE_PLAYER_3RDPERSON );
+    }
+
+    /**
+     * Constructor gith given parameters.
+     * 
+     * @param title
+     *            Title of the adventure
+     * @param description
+     *            Description of the adventure
+     * @param guiType
+     *            Type of the GUI
+     * @param chapters
+     *            Chapters of the adventure
+     */
+    public AdventureDataControl( String title, String description, List<Chapter> chapters ) {
+
+        adventureData = new AdventureData( );
+        adventureData.setTitle( title );
+        adventureData.setDescription( description );
+        adventureData.setGUIType( DescriptorData.GUI_TRADITIONAL );
+        adventureData.setChapters( chapters );
+        adventureData.setGraphicConfig( DescriptorData.GRAPHICS_WINDOWED );
+        adventureData.setPlayerMode( DescriptorData.MODE_PLAYER_3RDPERSON );
+
+        lomController = new LOMDataControl( );
+        imsController = new IMSDataControl( );
+    }
+
+    public boolean isCursorTypeAllowed( String type ) {
+
+        return isCursorTypeAllowed( DescriptorData.getCursorTypeIndex( type ) );
+    }
+
+    public boolean isCursorTypeAllowed( int type ) {
+
+        return DescriptorData.typeAllowed[adventureData.getGUIType( )][type];
+    }
+
+    /**
+     * Returns the title of the adventure
+     * 
+     * @return Adventure's title
+     */
+    public String getTitle( ) {
+
+        return adventureData.getTitle( );
+    }
+
+    /**
+     * Returns the description of the adventure.
+     * 
+     * @return Adventure's description
+     */
+    public String getDescription( ) {
+
+        return adventureData.getDescription( );
+    }
+
+    /**
+     * Returns the GUI type of the adventure.
+     * 
+     * @return Adventure's GUI type
+     */
+    public Integer getGUIType( ) {
+
+        return adventureData.getGUIType( );
+    }
+
+    /**
+     * Returns the list of chapters of the adventure.
+     * 
+     * @return Adventure's chapters list
+     */
+    public List<Chapter> getChapters( ) {
+
+        return adventureData.getChapters( );
+    }
+
+    /**
+     * Sets the title of the adventure.
+     * 
+     * @param title
+     *            New title for the adventure
+     */
+    public void setTitle( String title ) {
+
+        Tool tool = new ChangeTitleTool( adventureData, title );
+        Controller.getInstance( ).addTool( tool );
+    }
+
+    /**
+     * Sets the description of the adventure.
+     * 
+     * @param description
+     *            New description for the adventure
+     */
+    public void setDescription( String description ) {
+
+        Tool tool = new ChangeDescriptionTool( adventureData, description );
+        Controller.getInstance( ).addTool( tool );
+    }
+
+    /**
+     * Shows the GUI style selection dialog.
+     */
+    public void showGUIStylesDialog( ) {
+
+        // Show the dialog
+        GUIStylesDialog guiStylesDialog = new GUIStylesDialog( adventureData.getGUIType( ) );
+
+        // If the new GUI style is different from the current, and valid, change the value
+        int optionSelected = guiStylesDialog.getOptionSelected( );
+        if( optionSelected != -1 ) {
+            Tool tool = new ChangeIntegerValueTool( adventureData, optionSelected, "getGUIType", "setGUIType" );
+            Controller.getInstance( ).addTool( tool );
+        }
+    }
+
+    /**
+     * @return the playerMode
+     */
+    public int getPlayerMode( ) {
+
+        return adventureData.getPlayerMode( );
+    }
+
+    /**
+     * @param playerMode
+     *            the playerMode to set
+     */
+    public void setPlayerMode( int playerMode ) {
+
+        Tool tool = new ChangeIntegerValueTool( adventureData, playerMode, "getPlayerMode", "setPlayerMode" );
+        Controller.getInstance( ).addTool( tool );
+    }
+
+    public List<CustomCursor> getCursors( ) {
+
+        return adventureData.getCursors( );
+    }
+
+    public List<CustomButton> getButtons( ) {
+
+        return adventureData.getButtons( );
+    }
+
+    public List<CustomArrow> getArrows( ) {
+
+        return adventureData.getArrows( );
+    }
+
+    public String getCursorPath( String type ) {
+
+        for( CustomCursor cursor : adventureData.getCursors( ) ) {
+            if( cursor.getType( ).equals( type ) ) {
                 return cursor.getPath( );
             }
         }
         return null;
     }
-    
-    public String getCursorPath(int type){
-        return getCursorPath(DescriptorData.getCursorTypeString(type));
-    }
-    
-    public void deleteCursor(int type){
-    	String typeS = DescriptorData.getCursorTypeString(type);
-    	int position=-1;
-    	for (int i=0; i<adventureData.getCursors().size( ); i++){
-    		if (adventureData.getCursors().get(i).getType( ).equals( typeS )){
-    			position= i;break;
-    		}
-    	}
-    	if (position>=0){
-    		Controller.getInstance().addTool( new DeleteCursorTool(adventureData, position));
-    	}
+
+    public String getCursorPath( int type ) {
+
+        return getCursorPath( DescriptorData.getCursorTypeString( type ) );
     }
 
-    public void editCursorPath(int t){
-    	try {
-			Controller.getInstance().addTool( new SelectCursorPathTool( adventureData, t  ) );
-		} catch (CloneNotSupportedException e) {
-			ReportDialog.GenerateErrorReport(e, false, "Could not clone cursor-adventureData");
-		}
+    public void deleteCursor( int type ) {
+
+        String typeS = DescriptorData.getCursorTypeString( type );
+        int position = -1;
+        for( int i = 0; i < adventureData.getCursors( ).size( ); i++ ) {
+            if( adventureData.getCursors( ).get( i ).getType( ).equals( typeS ) ) {
+                position = i;
+                break;
+            }
+        }
+        if( position >= 0 ) {
+            Controller.getInstance( ).addTool( new DeleteCursorTool( adventureData, position ) );
+        }
     }
 
-    public String getArrowPath(String type){
-    	for (CustomArrow arrow: adventureData.getArrows()) {
-    		if (arrow.getType().equals(type)) {
-    			return arrow.getPath();
-    		}
-    	}
-    	return null;
+    public void editCursorPath( int t ) {
+
+        try {
+            Controller.getInstance( ).addTool( new SelectCursorPathTool( adventureData, t ) );
+        }
+        catch( CloneNotSupportedException e ) {
+            ReportDialog.GenerateErrorReport( e, false, "Could not clone cursor-adventureData" );
+        }
     }
-    
-    public void deleteArrow(String type) {
-    	int position=-1;
-    	for (int i=0; i<adventureData.getArrows().size( ); i++){
-    		if (adventureData.getArrows().get(i).getType( ).equals( type )){
-    			position= i;break;
-    		}
-    	}
-    	if (position>=0){
-    		Controller.getInstance().addTool( new DeleteArrowTool(adventureData, position));
-    	}
+
+    public String getArrowPath( String type ) {
+
+        for( CustomArrow arrow : adventureData.getArrows( ) ) {
+            if( arrow.getType( ).equals( type ) ) {
+                return arrow.getPath( );
+            }
+        }
+        return null;
     }
-    
-	/**
-	 * @return the lomController
-	 */
-	public LOMDataControl getLomController( ) {
-		return lomController;
-	}
 
-	/**
-	 * @param lomController the lomController to set
-	 */
-	public void setLomController( LOMDataControl lomController ) {
-		this.lomController = lomController;
-	}
-	
-	/**
-	 * @return the imsController
-	 */
-	public IMSDataControl getImsController() {
-		return imsController;
-	}
-	
-	/**
-	 * @return the lomesController
-	 */
-	public LOMESDataControl getLOMESController(){
-		return lomesController;
-		}
+    public void deleteArrow( String type ) {
 
-	/**
-	 * @param imsController the imsController to set
-	 */
-	public void setImsController(IMSDataControl imsController) {
-		this.imsController = imsController;
-	}
+        int position = -1;
+        for( int i = 0; i < adventureData.getArrows( ).size( ); i++ ) {
+            if( adventureData.getArrows( ).get( i ).getType( ).equals( type ) ) {
+                position = i;
+                break;
+            }
+        }
+        if( position >= 0 ) {
+            Controller.getInstance( ).addTool( new DeleteArrowTool( adventureData, position ) );
+        }
+    }
 
-	/**
-	 * @return the assessmentRulesListDataControl
-	 */
-	/*public AssessmentProfilesDataControl getAssessmentRulesListDataControl( ) {
-		return assessmentProfilesDataControl;
-	}*/
+    /**
+     * @return the lomController
+     */
+    public LOMDataControl getLomController( ) {
 
-	/**
-	 * @return the adaptationRulesListDataControl
-	 */
-	/*public AdaptationProfilesDataControl getAdaptationRulesListDataControl( ) {
-		return adaptationProfilesDataControl;
-	}*/
+        return lomController;
+    }
 
-	public boolean isCommentaries() {
-		return adventureData.isCommentaries();
-	}
+    /**
+     * @param lomController
+     *            the lomController to set
+     */
+    public void setLomController( LOMDataControl lomController ) {
 
-	public void setCommentaries(boolean commentaries) {
-		Tool tool = new ChangeBooleanValueTool(adventureData, commentaries, "isCommentaries","setCommentaries");
-		Controller.getInstance().addTool( tool );
-	}
-	
-	public int getGraphicConfig() {
-		return adventureData.getGraphicConfig();
-	}
-	 
-	public void setGraphicConfig(int graphicConfig) {
-		Tool tool = new ChangeIntegerValueTool(adventureData, graphicConfig, "getGraphicConfig","setGraphicConfig");
-		Controller.getInstance().addTool( tool );
-	}
+        this.lomController = lomController;
+    }
 
-	/**
-	 * @return the adventureData
-	 */
-	public AdventureData getAdventureData() {
-		return adventureData;
-	}
-	
-	public String getButtonPath(String action, String type) {
-		CustomButton button = new CustomButton(action, type, null);
-		for (CustomButton cb : adventureData.getButtons()) {
-			if (cb.equals(button))
-				return cb.getPath();
-		}
-		return null;
-	}
+    /**
+     * @return the imsController
+     */
+    public IMSDataControl getImsController( ) {
 
-	public void deleteButton(String action, String type) {
-		Controller.getInstance().addTool( new DeleteButtonTool( adventureData, action, type ) );
-	}
+        return imsController;
+    }
 
-	public void editButtonPath(String action, String type) {
-		try {
-			Controller.getInstance().addTool( new SelectButtonTool( adventureData, action, type ) );
-		} catch (CloneNotSupportedException e) {
-			ReportDialog.GenerateErrorReport(e, false, "Could not clone resources: buttons");
-		}
-	}
-	
-	public void editArrowPath(String type) {
-		try {
-			Controller.getInstance().addTool( new SelectArrowTool( adventureData, type ) );
-		} catch (CloneNotSupportedException e) {
-			ReportDialog.GenerateErrorReport(e, false, "Could not clone resources: arrows");
-		}
-	}
-	
-	public int getInventoryPosition() {
-		return adventureData.getInventoryPosition();
-	}
-	
-	public void setInventoryPosition(int inventoryPosition) {
-		Controller.getInstance().addTool( new ChangeIntegerValueTool(adventureData, inventoryPosition, "getInventoryPosition", "setInventoryPosition"));
-	}
+    /**
+     * @return the lomesController
+     */
+    public LOMESDataControl getLOMESController( ) {
 
-	public int countAssetReferences(String assetPath) {
-		return adventureData.countAssetReferences(assetPath);
-	}
+        return lomesController;
+    }
 
-	public void getAssetReferences(List<String> assetPaths, List<Integer> assetTypes){
-		adventureData.getAssetReferences(assetPaths, assetTypes);
-	}
-	/**
-	 * Deletes a given asset from the script, removing all occurrences.
-	 * 
-	 * @param assetPath
-	 *            Path of the asset (relative to the ZIP), without suffix in case of an animation or set of slides
-	 */
-	public void deleteAssetReferences( String assetPath ) {
-		adventureData.deleteAssetReferences(assetPath);
-	}
+    /**
+     * @param imsController
+     *            the imsController to set
+     */
+    public void setImsController( IMSDataControl imsController ) {
+
+        this.imsController = imsController;
+    }
+
+    /**
+     * @return the assessmentRulesListDataControl
+     */
+    /*public AssessmentProfilesDataControl getAssessmentRulesListDataControl( ) {
+    	return assessmentProfilesDataControl;
+    }*/
+
+    /**
+     * @return the adaptationRulesListDataControl
+     */
+    /*public AdaptationProfilesDataControl getAdaptationRulesListDataControl( ) {
+    	return adaptationProfilesDataControl;
+    }*/
+
+    public boolean isCommentaries( ) {
+
+        return adventureData.isCommentaries( );
+    }
+
+    public void setCommentaries( boolean commentaries ) {
+
+        Tool tool = new ChangeBooleanValueTool( adventureData, commentaries, "isCommentaries", "setCommentaries" );
+        Controller.getInstance( ).addTool( tool );
+    }
+
+    public int getGraphicConfig( ) {
+
+        return adventureData.getGraphicConfig( );
+    }
+
+    public void setGraphicConfig( int graphicConfig ) {
+
+        Tool tool = new ChangeIntegerValueTool( adventureData, graphicConfig, "getGraphicConfig", "setGraphicConfig" );
+        Controller.getInstance( ).addTool( tool );
+    }
+
+    /**
+     * @return the adventureData
+     */
+    public AdventureData getAdventureData( ) {
+
+        return adventureData;
+    }
+
+    public String getButtonPath( String action, String type ) {
+
+        CustomButton button = new CustomButton( action, type, null );
+        for( CustomButton cb : adventureData.getButtons( ) ) {
+            if( cb.equals( button ) )
+                return cb.getPath( );
+        }
+        return null;
+    }
+
+    public void deleteButton( String action, String type ) {
+
+        Controller.getInstance( ).addTool( new DeleteButtonTool( adventureData, action, type ) );
+    }
+
+    public void editButtonPath( String action, String type ) {
+
+        try {
+            Controller.getInstance( ).addTool( new SelectButtonTool( adventureData, action, type ) );
+        }
+        catch( CloneNotSupportedException e ) {
+            ReportDialog.GenerateErrorReport( e, false, "Could not clone resources: buttons" );
+        }
+    }
+
+    public void editArrowPath( String type ) {
+
+        try {
+            Controller.getInstance( ).addTool( new SelectArrowTool( adventureData, type ) );
+        }
+        catch( CloneNotSupportedException e ) {
+            ReportDialog.GenerateErrorReport( e, false, "Could not clone resources: arrows" );
+        }
+    }
+
+    public int getInventoryPosition( ) {
+
+        return adventureData.getInventoryPosition( );
+    }
+
+    public void setInventoryPosition( int inventoryPosition ) {
+
+        Controller.getInstance( ).addTool( new ChangeIntegerValueTool( adventureData, inventoryPosition, "getInventoryPosition", "setInventoryPosition" ) );
+    }
+
+    public int countAssetReferences( String assetPath ) {
+
+        return adventureData.countAssetReferences( assetPath );
+    }
+
+    public void getAssetReferences( List<String> assetPaths, List<Integer> assetTypes ) {
+
+        adventureData.getAssetReferences( assetPaths, assetTypes );
+    }
+
+    /**
+     * Deletes a given asset from the script, removing all occurrences.
+     * 
+     * @param assetPath
+     *            Path of the asset (relative to the ZIP), without suffix in
+     *            case of an animation or set of slides
+     */
+    public void deleteAssetReferences( String assetPath ) {
+
+        adventureData.deleteAssetReferences( assetPath );
+    }
 
 }

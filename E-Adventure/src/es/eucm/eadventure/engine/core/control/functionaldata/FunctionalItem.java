@@ -1,34 +1,36 @@
 /**
- * <e-Adventure> is an <e-UCM> research project.
- * <e-UCM>, Department of Software Engineering and Artificial Intelligence.
- * Faculty of Informatics, Complutense University of Madrid (Spain).
- * @author Del Blanco, A., Marchiori, E., Torrente, F.J.
+ * <e-Adventure> is an <e-UCM> research project. <e-UCM>, Department of Software
+ * Engineering and Artificial Intelligence. Faculty of Informatics, Complutense
+ * University of Madrid (Spain).
+ * 
+ * @author Del Blanco, A., Marchiori, E., Torrente, F.J. (alphabetical order) *
+ * @author López Mañas, E., Pérez Padilla, F., Sollet, E., Torijano, B. (former
+ *         developers by alphabetical order)
  * @author Moreno-Ger, P. & Fernández-Manjón, B. (directors)
- * @year 2009
- * Web-site: http://e-adventure.e-ucm.es
+ * @year 2009 Web-site: http://e-adventure.e-ucm.es
  */
 
 /*
-    Copyright (C) 2004-2009 <e-UCM> research group
-
-    This file is part of <e-Adventure> project, an educational game & game-like 
-    simulation authoring tool, availabe at http://e-adventure.e-ucm.es. 
-
-    <e-Adventure> is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    <e-Adventure> is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with <e-Adventure>; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-*/
+ * Copyright (C) 2004-2009 <e-UCM> research group
+ * 
+ * This file is part of <e-Adventure> project, an educational game & game-like
+ * simulation authoring tool, available at http://e-adventure.e-ucm.es.
+ * 
+ * <e-Adventure> is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version.
+ * 
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place, Suite 330, Boston, MA 02111-1307 USA
+ * 
+ */
 package es.eucm.eadventure.engine.core.control.functionaldata;
 
 import java.awt.Image;
@@ -53,7 +55,7 @@ import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
  * An object in the game
  */
 public class FunctionalItem extends FunctionalElement {
-    
+
     /**
      * Resources being used in the item
      */
@@ -73,40 +75,46 @@ public class FunctionalItem extends FunctionalElement {
      * Item containing the data
      */
     protected Item item;
-        
+
     protected InfluenceArea influenceArea;
 
     private Image oldOriginalImage = null;
-    
+
     private Image oldImage = null;
-    
+
     private float oldScale = -1;
-    
+
     private ElementReference reference;
 
-    public FunctionalItem( Item item, ElementReference reference) {
-    	this(item, reference.getInfluenceArea(), reference.getX(), reference.getY());
-    	this.scale = reference.getScale();
-    	this.layer = reference.getLayer();
-    	this.reference = reference;
+    public FunctionalItem( Item item, ElementReference reference ) {
+
+        this( item, reference.getInfluenceArea( ), reference.getX( ), reference.getY( ) );
+        this.scale = reference.getScale( );
+        this.layer = reference.getLayer( );
+        this.reference = reference;
     }
-    
+
     /**
      * Creates a new FunctionalItem
-     * @param item the item's data
-     * @param x the item's horizontal position
-     * @param y the item's vertical position
+     * 
+     * @param item
+     *            the item's data
+     * @param x
+     *            the item's horizontal position
+     * @param y
+     *            the item's vertical position
      */
     protected FunctionalItem( Item item, InfluenceArea influenceArea, int x, int y ) {
+
         super( x, y );
         this.item = item;
         this.influenceArea = influenceArea;
-        
+
         image = null;
         icon = null;
-        
-        resources = createResourcesBlock();
-        
+
+        resources = createResourcesBlock( );
+
         // Load the resources
         MultimediaManager multimediaManager = MultimediaManager.getInstance( );
         if( resources.existAsset( Item.RESOURCE_TYPE_IMAGE ) )
@@ -114,26 +122,31 @@ public class FunctionalItem extends FunctionalElement {
         if( resources.existAsset( Item.RESOURCE_TYPE_ICON ) )
             icon = multimediaManager.loadImageFromZip( resources.getAssetPath( Item.RESOURCE_TYPE_ICON ), MultimediaManager.IMAGE_SCENE );
     }
-    
+
     /**
      * Creates a new FunctionalItem at position (0, 0)
-     * @param item the item's data
+     * 
+     * @param item
+     *            the item's data
      */
-    public FunctionalItem( Item item, InfluenceArea influenceArea) {
+    public FunctionalItem( Item item, InfluenceArea influenceArea ) {
+
         this( item, influenceArea, 0, 0 );
     }
-    
+
     /**
-     * Updates the resources of the icon (if the current resources and the new one are different)
+     * Updates the resources of the icon (if the current resources and the new
+     * one are different)
      */
     public void updateResources( ) {
+
         // Get the new resources
-        Resources newResources = createResourcesBlock ( );
-        
+        Resources newResources = createResourcesBlock( );
+
         // If the resources have changed, load the new one
         if( resources != newResources ) {
             resources = newResources;
-            
+
             // Load the resources
             MultimediaManager multimediaManager = MultimediaManager.getInstance( );
             if( resources.existAsset( Item.RESOURCE_TYPE_IMAGE ) )
@@ -145,32 +158,39 @@ public class FunctionalItem extends FunctionalElement {
 
     /**
      * Returns this item's data
+     * 
      * @return this item's data
      */
     public Item getItem( ) {
+
         return item;
     }
 
     /**
      * Returns this item's icon image
+     * 
      * @return this item's icon image
      */
     public Image getIconImage( ) {
+
         return icon;
     }
 
     @Override
     public Element getElement( ) {
+
         return item;
     }
 
     @Override
     public int getWidth( ) {
+
         return image.getWidth( null );
     }
 
     @Override
     public int getHeight( ) {
+
         return image.getHeight( null );
     }
 
@@ -179,6 +199,7 @@ public class FunctionalItem extends FunctionalElement {
      * @see es.eucm.eadventure.engine.core.control.functionaldata.Renderable#update(long)
      */
     public void update( long elapsedTime ) {
+
         // Do nothing
     }
 
@@ -187,47 +208,51 @@ public class FunctionalItem extends FunctionalElement {
      * @see es.eucm.eadventure.engine.core.control.functionaldata.Renderable#draw(java.awt.Graphics2D)
      */
     public void draw( ) {
-    	int x_image = Math.round( x - ( getWidth( ) * scale / 2 ) ) - Game.getInstance( ).getFunctionalScene( ).getOffsetX( );
-    	int y_image = Math.round( y - getHeight( ) * scale);
-    	if (scale != 1) {
-    		Image temp;
-    		if (image == oldOriginalImage && scale == oldScale) {
-    			temp = oldImage;
-    		} else {
-    			temp = image.getScaledInstance(Math.round(image.getWidth(null) * scale), Math.round(image.getHeight(null) * scale), Image.SCALE_SMOOTH);
-    			oldImage = temp;
-    			oldOriginalImage = image;
-    			oldScale = scale;
-    		}
-    		if (layer==-1)
-    			GUI.getInstance().addElementToDraw(temp, x_image, y_image, Math.round(y), Math.round(y));
-    		else 
-    			GUI.getInstance().addElementToDraw(temp, x_image, y_image, layer, Math.round(y));
-    	} else 
-    		if (layer==-1)
-    			GUI.getInstance( ).addElementToDraw( image, x_image, y_image, Math.round( y ), Math.round(y) );
-    		else
-    			GUI.getInstance( ).addElementToDraw( image, x_image, y_image, layer, Math.round(y));
+
+        int x_image = Math.round( x - ( getWidth( ) * scale / 2 ) ) - Game.getInstance( ).getFunctionalScene( ).getOffsetX( );
+        int y_image = Math.round( y - getHeight( ) * scale );
+        if( scale != 1 ) {
+            Image temp;
+            if( image == oldOriginalImage && scale == oldScale ) {
+                temp = oldImage;
+            }
+            else {
+                temp = image.getScaledInstance( Math.round( image.getWidth( null ) * scale ), Math.round( image.getHeight( null ) * scale ), Image.SCALE_SMOOTH );
+                oldImage = temp;
+                oldOriginalImage = image;
+                oldScale = scale;
+            }
+            if( layer == -1 )
+                GUI.getInstance( ).addElementToDraw( temp, x_image, y_image, Math.round( y ), Math.round( y ) );
+            else
+                GUI.getInstance( ).addElementToDraw( temp, x_image, y_image, layer, Math.round( y ) );
+        }
+        else if( layer == -1 )
+            GUI.getInstance( ).addElementToDraw( image, x_image, y_image, Math.round( y ), Math.round( y ) );
+        else
+            GUI.getInstance( ).addElementToDraw( image, x_image, y_image, layer, Math.round( y ) );
     }
-    
+
     @Override
     public boolean isPointInside( float x, float y ) {
+
         boolean isInside = false;
-        
-        int mousex = (int)( x - ( this.x - getWidth( ) *scale/ 2 ) );
-        int mousey = (int)( y - ( this.y - getHeight( ) *scale) );
-        
-        if( ( mousex >= 0 ) && ( mousex < getWidth() *scale) && ( mousey >= 0 ) && ( mousey < getHeight() * scale) ) {
+
+        int mousex = (int) ( x - ( this.x - getWidth( ) * scale / 2 ) );
+        int mousey = (int) ( y - ( this.y - getHeight( ) * scale ) );
+
+        if( ( mousex >= 0 ) && ( mousex < getWidth( ) * scale ) && ( mousey >= 0 ) && ( mousey < getHeight( ) * scale ) ) {
             BufferedImage bufferedImage = (BufferedImage) image;
-            int alpha = bufferedImage.getRGB( (int) (mousex / scale), (int) (mousey / scale)) >>> 24;
+            int alpha = bufferedImage.getRGB( (int) ( mousex / scale ), (int) ( mousey / scale ) ) >>> 24;
             isInside = alpha > 128;
         }
-        
+
         return isInside;
     }
 
     @Override
     public boolean canPerform( int action ) {
+
         boolean canPerform = false;
 
         // The item can't be given to, nor talked to
@@ -254,245 +279,260 @@ public class FunctionalItem extends FunctionalElement {
 
     @Override
     public boolean isInInventory( ) {
+
         return Game.getInstance( ).getItemSummary( ).isItemGrabbed( item.getId( ) );
     }
-   
+
     @Override
     public boolean examine( ) {
+
         boolean examined = false;
-        
+
         // Only take the FIRST valid action
         for( int i = 0; i < item.getActions( ).size( ) && !examined; i++ ) {
             Action action = item.getAction( i );
             if( action.getType( ) == Action.EXAMINE ) {
                 if( new FunctionalConditions( action.getConditions( ) ).allConditionsOk( ) ) {
                     // Store the effects
-                	FunctionalEffects.storeAllEffects(action.getEffects( ));
+                    FunctionalEffects.storeAllEffects( action.getEffects( ) );
                     examined = true;
                 }
             }
         }
-        
-     // if no actions can be launched (because its conditions are't OK), lunch the first action which has activated not-effects
+
+        // if no actions can be launched (because its conditions are't OK), lunch the first action which has activated not-effects
         for( int i = 0; i < item.getActions( ).size( ) && !examined; i++ ) {
             Action action = item.getAction( i );
             if( action.getType( ) == Action.EXAMINE ) {
-                if( action.isActivatedNotEffects() ) {
+                if( action.isActivatedNotEffects( ) ) {
                     // Store the effects
-                	FunctionalEffects.storeAllEffects(action.getNotEffects());
+                    FunctionalEffects.storeAllEffects( action.getNotEffects( ) );
                     examined = true;
                 }
             }
-        }  
+        }
         return examined;
     }
 
     @Override
     public boolean canBeUsedAlone( ) {
+
         boolean canBeUsedAlone = false;
-        
+
         // Check only for one valid use action
         for( int i = 0; i < item.getActions( ).size( ) && !canBeUsedAlone; i++ ) {
             Action action = item.getAction( i );
             if( action.getType( ) == Action.USE ) {
                 if( new FunctionalConditions( action.getConditions( ) ).allConditionsOk( ) ) {
                     canBeUsedAlone = true;
-                } 
+                }
             }
         }
-        
+
         return canBeUsedAlone;
     }
-    
-    public Action getFirstValidAction(int actionType) {
-        for( Action action : item.getActions() ) {
+
+    @Override
+    public Action getFirstValidAction( int actionType ) {
+
+        for( Action action : item.getActions( ) ) {
             if( action.getType( ) == actionType ) {
-                if( new FunctionalConditions(action.getConditions( ) ).allConditionsOk( ) ) {
-                	return action;
-                } 
+                if( new FunctionalConditions( action.getConditions( ) ).allConditionsOk( ) ) {
+                    return action;
+                }
             }
         }
-        
+
         // if no actions can be launched (because its conditions are't OK), lunch the first action which has activated not-effects
-        for( Action action : item.getActions() ) {
+        for( Action action : item.getActions( ) ) {
             if( action.getType( ) == actionType ) {
-                if( action.isActivatedNotEffects() ) {
-                	return action;
-                } 
+                if( action.isActivatedNotEffects( ) ) {
+                    return action;
+                }
             }
         }
         return null;
     }
-    
-    public CustomAction getFirstValidCustomAction(String actionName) {
-        for( Action action : item.getActions() ) {
-            if( action.getType( ) == Action.CUSTOM && ((CustomAction) action).getName().equals(actionName) ) {
-                if( new FunctionalConditions(action.getConditions( ) ).allConditionsOk( ) ) {
-                	return (CustomAction) action;
-                } 
+
+    @Override
+    public CustomAction getFirstValidCustomAction( String actionName ) {
+
+        for( Action action : item.getActions( ) ) {
+            if( action.getType( ) == Action.CUSTOM && ( (CustomAction) action ).getName( ).equals( actionName ) ) {
+                if( new FunctionalConditions( action.getConditions( ) ).allConditionsOk( ) ) {
+                    return (CustomAction) action;
+                }
             }
         }
-        
-     // if no actions can be launched (because its conditions are't OK), lunch the first action which has activated not-effects
-        for( Action action : item.getActions() ) {
-            if( action.getType( ) == Action.CUSTOM && ((CustomAction) action).getName().equals(actionName) ) {
-                if( action.isActivatedNotEffects() ) {
-                	return (CustomAction) action;
-                } 
+
+        // if no actions can be launched (because its conditions are't OK), lunch the first action which has activated not-effects
+        for( Action action : item.getActions( ) ) {
+            if( action.getType( ) == Action.CUSTOM && ( (CustomAction) action ).getName( ).equals( actionName ) ) {
+                if( action.isActivatedNotEffects( ) ) {
+                    return (CustomAction) action;
+                }
             }
         }
-        
+
         return null;
     }
-    
-    public CustomAction getFirstValidCustomInteraction(String actionName) {
-    	for (Action action : item.getActions()) {
-    		if (action.getType() == Action.CUSTOM_INTERACT && ((CustomAction) action).getName().endsWith(actionName)) {
-    			if ( new FunctionalConditions(action.getConditions()).allConditionsOk()) {
-    				return (CustomAction) action;
-    			}
-    		}
-    	}
-    	  // if no actions can be launched (because its conditions are't OK), lunch the first action which has activated not-effects
-    	for (Action action : item.getActions()) {
-		if (action.getType() == Action.CUSTOM_INTERACT && ((CustomAction) action).getName().endsWith(actionName)) {
-			if ( action.isActivatedNotEffects()) {
-				return (CustomAction) action;
-			}
-		}
-	}
-    	return null;
+
+    @Override
+    public CustomAction getFirstValidCustomInteraction( String actionName ) {
+
+        for( Action action : item.getActions( ) ) {
+            if( action.getType( ) == Action.CUSTOM_INTERACT && ( (CustomAction) action ).getName( ).endsWith( actionName ) ) {
+                if( new FunctionalConditions( action.getConditions( ) ).allConditionsOk( ) ) {
+                    return (CustomAction) action;
+                }
+            }
+        }
+        // if no actions can be launched (because its conditions are't OK), lunch the first action which has activated not-effects
+        for( Action action : item.getActions( ) ) {
+            if( action.getType( ) == Action.CUSTOM_INTERACT && ( (CustomAction) action ).getName( ).endsWith( actionName ) ) {
+                if( action.isActivatedNotEffects( ) ) {
+                    return (CustomAction) action;
+                }
+            }
+        }
+        return null;
     }
-    
-    
-    
+
     /**
      * Triggers the grabbing action associated with the item
+     * 
      * @return True if the item was grabbed, false otherwise
      */
     public boolean grab( ) {
+
         boolean grabbed = false;
-        
+
         // Only take the FIRST valid action
         for( int i = 0; i < item.getActions( ).size( ) && !grabbed; i++ ) {
             Action action = item.getAction( i );
             if( action.getType( ) == Action.GRAB ) {
-                if( new FunctionalConditions(action.getConditions( ) ).allConditionsOk( ) ) {
+                if( new FunctionalConditions( action.getConditions( ) ).allConditionsOk( ) ) {
                     // If the it has not a cancel action, grab the item
                     if( !action.getEffects( ).hasCancelAction( ) )
                         Game.getInstance( ).grabItem( item.getId( ) );
-                    
+
                     // Store the effects
-                    FunctionalEffects.storeAllEffects(action.getEffects( ));
+                    FunctionalEffects.storeAllEffects( action.getEffects( ) );
                     grabbed = true;
-                } 
+                }
             }
         }
         // if no actions can be launched (because its conditions are't OK), lunch the first action which has activated not-effects
         for( int i = 0; i < item.getActions( ).size( ) && !grabbed; i++ ) {
             Action action = item.getAction( i );
             if( action.getType( ) == Action.GRAB ) {
-                if( action.isActivatedNotEffects() ) {
+                if( action.isActivatedNotEffects( ) ) {
                     // If the it has not a cancel action, grab the item
                     if( !action.getEffects( ).hasCancelAction( ) )
                         Game.getInstance( ).grabItem( item.getId( ) );
-                    
+
                     // Store the effects
-                    FunctionalEffects.storeAllEffects(action.getNotEffects());
+                    FunctionalEffects.storeAllEffects( action.getNotEffects( ) );
                     grabbed = true;
-                } 
+                }
             }
         }
         return grabbed;
     }
-    
+
     /**
      * Triggers the use action associated with the item
+     * 
      * @return True if the item was used, false otherwise
      */
+    @Override
     public boolean use( ) {
+
         boolean used = false;
-        
+
         // Only take the FIRST valid action
         for( int i = 0; i < item.getActions( ).size( ) && !used; i++ ) {
             Action action = item.getAction( i );
             if( action.getType( ) == Action.USE ) {
                 if( new FunctionalConditions( action.getConditions( ) ).allConditionsOk( ) ) {
                     // Store the effects
-                	FunctionalEffects.storeAllEffects(action.getEffects( ));
+                    FunctionalEffects.storeAllEffects( action.getEffects( ) );
                     used = true;
-                } 
+                }
             }
         }
-     // if no actions can be launched (because its conditions are't OK), lunch the first action which has activated not-effects
+        // if no actions can be launched (because its conditions are't OK), lunch the first action which has activated not-effects
         for( int i = 0; i < item.getActions( ).size( ) && !used; i++ ) {
             Action action = item.getAction( i );
             if( action.getType( ) == Action.USE ) {
-                if( action.isActivatedNotEffects() ) {
+                if( action.isActivatedNotEffects( ) ) {
                     // Store the effects
-                	FunctionalEffects.storeAllEffects(action.getNotEffects());
+                    FunctionalEffects.storeAllEffects( action.getNotEffects( ) );
                     used = true;
-                } 
+                }
             }
         }
         return used;
     }
 
-    public boolean custom(String actionName) {
+    public boolean custom( String actionName ) {
+
         boolean custom = false;
-        
+
         // Only take the FIRST valid action
         for( int i = 0; i < item.getActions( ).size( ) && !custom; i++ ) {
             Action action = item.getAction( i );
-            if( action.getType( ) == Action.CUSTOM && ((CustomAction) action).getName().equals(actionName) ) {
+            if( action.getType( ) == Action.CUSTOM && ( (CustomAction) action ).getName( ).equals( actionName ) ) {
                 if( new FunctionalConditions( action.getConditions( ) ).allConditionsOk( ) ) {
                     // Store the effects
-                	FunctionalEffects.storeAllEffects(action.getEffects( ));
+                    FunctionalEffects.storeAllEffects( action.getEffects( ) );
                     custom = true;
-                } 
+                }
             }
         }
-     // if no actions can be launched (because its conditions are't OK), lunch the first action which has activated not-effects
+        // if no actions can be launched (because its conditions are't OK), lunch the first action which has activated not-effects
         for( int i = 0; i < item.getActions( ).size( ) && !custom; i++ ) {
             Action action = item.getAction( i );
-            if( action.getType( ) == Action.CUSTOM && ((CustomAction) action).getName().equals(actionName) ) {
-                if( action.isActivatedNotEffects()) {
+            if( action.getType( ) == Action.CUSTOM && ( (CustomAction) action ).getName( ).equals( actionName ) ) {
+                if( action.isActivatedNotEffects( ) ) {
                     // Store the effects
-                	FunctionalEffects.storeAllEffects(action.getNotEffects());
+                    FunctionalEffects.storeAllEffects( action.getNotEffects( ) );
                     custom = true;
-                } 
+                }
             }
         }
         return custom;
     }
 
-    
     /**
      * Triggers the using with action associated with the item
-     * @param anotherItem The second item necessary for the use with action
+     * 
+     * @param anotherItem
+     *            The second item necessary for the use with action
      * @return True if the items were used, false otherwise
      */
     public boolean useWith( FunctionalItem anotherItem ) {
+
         boolean usedWith = false;
-        
+
         // Only take the FIRST valid action
         for( int i = 0; i < item.getActions( ).size( ) && !usedWith; i++ ) {
             Action action = item.getAction( i );
             if( action.getType( ) == Action.USE_WITH && action.getTargetId( ).equals( anotherItem.getItem( ).getId( ) ) ) {
                 if( new FunctionalConditions( action.getConditions( ) ).allConditionsOk( ) ) {
                     // Store the effects
-                	FunctionalEffects.storeAllEffects(action.getEffects( ));
+                    FunctionalEffects.storeAllEffects( action.getEffects( ) );
                     usedWith = true;
                 }
             }
         }
-     // if no actions can be launched (because its conditions are't OK), lunch the first action which has activated not-effects
+        // if no actions can be launched (because its conditions are't OK), lunch the first action which has activated not-effects
         for( int i = 0; i < item.getActions( ).size( ) && !usedWith; i++ ) {
             Action action = item.getAction( i );
             if( action.getType( ) == Action.USE_WITH && action.getTargetId( ).equals( anotherItem.getItem( ).getId( ) ) ) {
-                if( action.isActivatedNotEffects() ) {
+                if( action.isActivatedNotEffects( ) ) {
                     // Store the effects
-                	FunctionalEffects.storeAllEffects(action.getNotEffects());
+                    FunctionalEffects.storeAllEffects( action.getNotEffects( ) );
                     usedWith = true;
                 }
             }
@@ -500,64 +540,59 @@ public class FunctionalItem extends FunctionalElement {
         return usedWith;
     }
 
-    public boolean customInteract(String actionName, FunctionalItem anotherItem ) {
+    public boolean customInteract( String actionName, FunctionalItem anotherItem ) {
+
         boolean customInteract = false;
-        
+
         // Only take the FIRST valid action
         for( int i = 0; i < item.getActions( ).size( ) && !customInteract; i++ ) {
             Action action = item.getAction( i );
-            if( action.getType( ) == Action.CUSTOM_INTERACT && ((CustomAction) action).getName().equals(actionName)
-            		&& action.getTargetId() != null && action.getTargetId( ).equals( anotherItem.getItem( ).getId( ) ) ) {
+            if( action.getType( ) == Action.CUSTOM_INTERACT && ( (CustomAction) action ).getName( ).equals( actionName ) && action.getTargetId( ) != null && action.getTargetId( ).equals( anotherItem.getItem( ).getId( ) ) ) {
                 if( new FunctionalConditions( action.getConditions( ) ).allConditionsOk( ) ) {
                     // Store the effects
-                	FunctionalEffects.storeAllEffects(action.getEffects( ));
-                	customInteract = true;
+                    FunctionalEffects.storeAllEffects( action.getEffects( ) );
+                    customInteract = true;
                 }
             }
         }
         // if no actions can be launched (because its conditions are't OK), lunch the first action which has activated not-effects
         for( int i = 0; i < item.getActions( ).size( ) && !customInteract; i++ ) {
             Action action = item.getAction( i );
-            if( action.getType( ) == Action.CUSTOM_INTERACT && ((CustomAction) action).getName().equals(actionName)
-            		&& action.getTargetId() != null && action.getTargetId( ).equals( anotherItem.getItem( ).getId( ) ) ) {
-                if( action.isActivatedNotEffects() ) {
+            if( action.getType( ) == Action.CUSTOM_INTERACT && ( (CustomAction) action ).getName( ).equals( actionName ) && action.getTargetId( ) != null && action.getTargetId( ).equals( anotherItem.getItem( ).getId( ) ) ) {
+                if( action.isActivatedNotEffects( ) ) {
                     // Store the effects
-                	FunctionalEffects.storeAllEffects(action.getNotEffects());
-                	customInteract = true;
+                    FunctionalEffects.storeAllEffects( action.getNotEffects( ) );
+                    customInteract = true;
                 }
             }
         }
-        
+
         return customInteract;
     }
 
-    
-    public boolean customInteract(String actionName, FunctionalNPC npc ) {
+    public boolean customInteract( String actionName, FunctionalNPC npc ) {
+
         boolean customInteract = false;
-        
+
         // Only take the FIRST valid action
         for( int i = 0; i < item.getActions( ).size( ) && !customInteract; i++ ) {
             Action action = item.getAction( i );
-            if( action.getType( ) == Action.CUSTOM_INTERACT 
-            		&& action.getTargetId( ).equals( npc.getNPC().getId( ) ) 
-            		&& ((CustomAction) action).getName().equals(actionName)) {
+            if( action.getType( ) == Action.CUSTOM_INTERACT && action.getTargetId( ).equals( npc.getNPC( ).getId( ) ) && ( (CustomAction) action ).getName( ).equals( actionName ) ) {
                 if( new FunctionalConditions( action.getConditions( ) ).allConditionsOk( ) ) {
                     // Store the effects
-                	FunctionalEffects.storeAllEffects(action.getEffects( ));
-                	customInteract = true;
+                    FunctionalEffects.storeAllEffects( action.getEffects( ) );
+                    customInteract = true;
                 }
             }
         }
-     // if no actions can be launched (because its conditions are't OK), lunch the first action which has activated not-effects
+        // if no actions can be launched (because its conditions are't OK), lunch the first action which has activated not-effects
         for( int i = 0; i < item.getActions( ).size( ) && !customInteract; i++ ) {
             Action action = item.getAction( i );
-            if( action.getType( ) == Action.CUSTOM_INTERACT 
-            		&& action.getTargetId( ).equals( npc.getNPC().getId( ) ) 
-            		&& ((CustomAction) action).getName().equals(actionName)) {
-                if( action.isActivatedNotEffects()) {
+            if( action.getType( ) == Action.CUSTOM_INTERACT && action.getTargetId( ).equals( npc.getNPC( ).getId( ) ) && ( (CustomAction) action ).getName( ).equals( actionName ) ) {
+                if( action.isActivatedNotEffects( ) ) {
                     // Store the effects
-                	FunctionalEffects.storeAllEffects(action.getNotEffects());
-                	customInteract = true;
+                    FunctionalEffects.storeAllEffects( action.getNotEffects( ) );
+                    customInteract = true;
                 }
             }
         }
@@ -566,12 +601,15 @@ public class FunctionalItem extends FunctionalElement {
 
     /**
      * Triggers the giving action associated with the item
-     * @param npc The character receiver of the item
+     * 
+     * @param npc
+     *            The character receiver of the item
      * @return True if the item was given, false otherwise
      */
     public boolean giveTo( FunctionalNPC npc ) {
+
         boolean givenTo = false;
-        
+
         // Only take the FIRST valid action
         for( int i = 0; i < item.getActions( ).size( ) && !givenTo; i++ ) {
             Action action = item.getAction( i );
@@ -580,24 +618,24 @@ public class FunctionalItem extends FunctionalElement {
                     // If the item has not a cancel action, consume the item
                     if( !action.getEffects( ).hasCancelAction( ) )
                         Game.getInstance( ).consumeItem( item.getId( ) );
-                    
+
                     // Store the effects
-                    FunctionalEffects.storeAllEffects(action.getEffects( ));
+                    FunctionalEffects.storeAllEffects( action.getEffects( ) );
                     givenTo = true;
                 }
             }
         }
-     // if no actions can be launched (because its conditions are't OK), lunch the first action which has activated not-effects
+        // if no actions can be launched (because its conditions are't OK), lunch the first action which has activated not-effects
         for( int i = 0; i < item.getActions( ).size( ) && !givenTo; i++ ) {
             Action action = item.getAction( i );
             if( action.getType( ) == Action.GIVE_TO && action.getTargetId( ).equals( npc.getElement( ).getId( ) ) ) {
-                if( action.isActivatedNotEffects() ) {
+                if( action.isActivatedNotEffects( ) ) {
                     // If the item has not a cancel action, consume the item
                     if( !action.getEffects( ).hasCancelAction( ) )
                         Game.getInstance( ).consumeItem( item.getId( ) );
-                    
+
                     // Store the effects
-                    FunctionalEffects.storeAllEffects(action.getNotEffects());
+                    FunctionalEffects.storeAllEffects( action.getNotEffects( ) );
                     givenTo = true;
                 }
             }
@@ -609,7 +647,7 @@ public class FunctionalItem extends FunctionalElement {
      * Creates the current resource block to be used
      */
     public Resources createResourcesBlock( ) {
-        
+
         // Get the active resources block
         Resources newResources = null;
         for( int i = 0; i < item.getResources( ).size( ) && newResources == null; i++ )
@@ -617,20 +655,22 @@ public class FunctionalItem extends FunctionalElement {
                 newResources = item.getResources( ).get( i );
 
         // If no resource block is available, create a default one 
-        if (newResources == null){
-            newResources = new Resources();
+        if( newResources == null ) {
+            newResources = new Resources( );
             newResources.addAsset( new Asset( Item.RESOURCE_TYPE_ICON, ResourceHandler.DEFAULT_ICON ) );
             newResources.addAsset( new Asset( Item.RESOURCE_TYPE_IMAGE, ResourceHandler.DEFAULT_IMAGE ) );
         }
         return newResources;
     }
 
-	@Override
-	public InfluenceArea getInfluenceArea() {
-		return influenceArea;
-	}
-	
-	public ElementReference getReference() {
-		return reference;
-	}
+    @Override
+    public InfluenceArea getInfluenceArea( ) {
+
+        return influenceArea;
+    }
+
+    public ElementReference getReference( ) {
+
+        return reference;
+    }
 }

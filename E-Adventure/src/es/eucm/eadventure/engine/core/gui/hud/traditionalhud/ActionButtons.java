@@ -1,34 +1,36 @@
 /**
- * <e-Adventure> is an <e-UCM> research project.
- * <e-UCM>, Department of Software Engineering and Artificial Intelligence.
- * Faculty of Informatics, Complutense University of Madrid (Spain).
- * @author Del Blanco, A., Marchiori, E., Torrente, F.J.
+ * <e-Adventure> is an <e-UCM> research project. <e-UCM>, Department of Software
+ * Engineering and Artificial Intelligence. Faculty of Informatics, Complutense
+ * University of Madrid (Spain).
+ * 
+ * @author Del Blanco, A., Marchiori, E., Torrente, F.J. (alphabetical order) *
+ * @author López Mañas, E., Pérez Padilla, F., Sollet, E., Torijano, B. (former
+ *         developers by alphabetical order)
  * @author Moreno-Ger, P. & Fernández-Manjón, B. (directors)
- * @year 2009
- * Web-site: http://e-adventure.e-ucm.es
+ * @year 2009 Web-site: http://e-adventure.e-ucm.es
  */
 
 /*
-    Copyright (C) 2004-2009 <e-UCM> research group
-
-    This file is part of <e-Adventure> project, an educational game & game-like 
-    simulation authoring tool, availabe at http://e-adventure.e-ucm.es. 
-
-    <e-Adventure> is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    <e-Adventure> is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with <e-Adventure>; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-*/
+ * Copyright (C) 2004-2009 <e-UCM> research group
+ * 
+ * This file is part of <e-Adventure> project, an educational game & game-like
+ * simulation authoring tool, available at http://e-adventure.e-ucm.es.
+ * 
+ * <e-Adventure> is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version.
+ * 
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place, Suite 330, Boston, MA 02111-1307 USA
+ * 
+ */
 package es.eucm.eadventure.engine.core.gui.hud.traditionalhud;
 
 import java.awt.Graphics2D;
@@ -68,64 +70,67 @@ public class ActionButtons {
      * Array of the button images when they are pressed
      */
     private Image[] button_pressed;
-    
+
     /**
      * Array of the action of each button
      */
     private int[] button_acction;
-    
+
     /**
      * Default action
      */
     public static final int ACTION_NOACTION = -1;
-    
+
     /**
      * Number of action/buttons
      */
     private static final int ACTION_COUNT = 6;
-    
+
     /**
      * Action look
      */
     private static final int ACTION_LOOK = 0;
-    
+
     /**
      * Action grab
      */
     private static final int ACTION_GRAB = 1;
-    
+
     /**
      * Action talk
      */
     private static final int ACTION_TALK = 2;
-    
+
     /**
      * Action examine
      */
     private static final int ACTION_EXAMINE = 3;
-    
+
     /**
      * Action use
      */
     private static final int ACTION_USE = 4;
-    
+
     /**
      * Action give
      */
     private static final int ACTION_GIVE = 5;
 
     /**
-     * Constructor of the class.
-     * Requires that the MultimediaManager class is loaded.
-     * @param customized True if the graphics of the HUD are customized, false otherwise
+     * Constructor of the class. Requires that the MultimediaManager class is
+     * loaded.
+     * 
+     * @param customized
+     *            True if the graphics of the HUD are customized, false
+     *            otherwise
      */
     public ActionButtons( boolean customized ) {
 
         index_button_over = -1;
         index_button_pressed = -1;
-        
-        button_acction = new int[ACTION_COUNT];
-        
+
+        button_acction = new int[ ACTION_COUNT ];
+
         button_acction[ACTION_LOOK] = ActionManager.ACTION_LOOK;
         button_acction[ACTION_GRAB] = ActionManager.ACTION_GRAB;
         button_acction[ACTION_TALK] = ActionManager.ACTION_TALK;
@@ -133,7 +138,7 @@ public class ActionButtons {
         button_acction[ACTION_USE] = ActionManager.ACTION_USE;
         button_acction[ACTION_GIVE] = ActionManager.ACTION_GIVE;
 
-        button_normal = new Image[ACTION_COUNT];
+        button_normal = new Image[ ACTION_COUNT ];
         if( customized ) {
             button_normal[ACTION_USE] = MultimediaManager.getInstance( ).loadImageFromZip( TextConstants.getText( "HUD.Traditional.btnUse" ), MultimediaManager.IMAGE_MENU );
             button_normal[ACTION_LOOK] = MultimediaManager.getInstance( ).loadImageFromZip( TextConstants.getText( "HUD.Traditional.btnLook" ), MultimediaManager.IMAGE_MENU );
@@ -141,7 +146,8 @@ public class ActionButtons {
             button_normal[ACTION_TALK] = MultimediaManager.getInstance( ).loadImageFromZip( TextConstants.getText( "HUD.Traditional.btnTalk" ), MultimediaManager.IMAGE_MENU );
             button_normal[ACTION_GRAB] = MultimediaManager.getInstance( ).loadImageFromZip( TextConstants.getText( "HUD.Traditional.btnGrab" ), MultimediaManager.IMAGE_MENU );
             button_normal[ACTION_GIVE] = MultimediaManager.getInstance( ).loadImageFromZip( TextConstants.getText( "HUD.Traditional.btnGive" ), MultimediaManager.IMAGE_MENU );
-        } else {
+        }
+        else {
             button_normal[ACTION_USE] = MultimediaManager.getInstance( ).loadImage( TextConstants.getText( "HUD.Traditional.btnUse" ), MultimediaManager.IMAGE_MENU );
             button_normal[ACTION_LOOK] = MultimediaManager.getInstance( ).loadImage( TextConstants.getText( "HUD.Traditional.btnLook" ), MultimediaManager.IMAGE_MENU );
             button_normal[ACTION_EXAMINE] = MultimediaManager.getInstance( ).loadImage( TextConstants.getText( "HUD.Traditional.btnExamine" ), MultimediaManager.IMAGE_MENU );
@@ -150,7 +156,7 @@ public class ActionButtons {
             button_normal[ACTION_GIVE] = MultimediaManager.getInstance( ).loadImage( TextConstants.getText( "HUD.Traditional.btnGive" ), MultimediaManager.IMAGE_MENU );
         }
 
-        button_over = new Image[ACTION_COUNT];
+        button_over = new Image[ ACTION_COUNT ];
         if( customized ) {
             button_over[ACTION_USE] = MultimediaManager.getInstance( ).loadImageFromZip( TextConstants.getText( "HUD.Traditional.btnUseFocus" ), MultimediaManager.IMAGE_MENU );
             button_over[ACTION_LOOK] = MultimediaManager.getInstance( ).loadImageFromZip( TextConstants.getText( "HUD.Traditional.btnLookFocus" ), MultimediaManager.IMAGE_MENU );
@@ -158,7 +164,8 @@ public class ActionButtons {
             button_over[ACTION_TALK] = MultimediaManager.getInstance( ).loadImageFromZip( TextConstants.getText( "HUD.Traditional.btnTalkFocus" ), MultimediaManager.IMAGE_MENU );
             button_over[ACTION_GRAB] = MultimediaManager.getInstance( ).loadImageFromZip( TextConstants.getText( "HUD.Traditional.btnGrabFocus" ), MultimediaManager.IMAGE_MENU );
             button_over[ACTION_GIVE] = MultimediaManager.getInstance( ).loadImageFromZip( TextConstants.getText( "HUD.Traditional.btnGiveFocus" ), MultimediaManager.IMAGE_MENU );
-        } else {
+        }
+        else {
             button_over[ACTION_USE] = MultimediaManager.getInstance( ).loadImage( TextConstants.getText( "HUD.Traditional.btnUseFocus" ), MultimediaManager.IMAGE_MENU );
             button_over[ACTION_LOOK] = MultimediaManager.getInstance( ).loadImage( TextConstants.getText( "HUD.Traditional.btnLookFocus" ), MultimediaManager.IMAGE_MENU );
             button_over[ACTION_EXAMINE] = MultimediaManager.getInstance( ).loadImage( TextConstants.getText( "HUD.Traditional.btnExamineFocus" ), MultimediaManager.IMAGE_MENU );
@@ -167,7 +174,7 @@ public class ActionButtons {
             button_over[ACTION_GIVE] = MultimediaManager.getInstance( ).loadImage( TextConstants.getText( "HUD.Traditional.btnGiveFocus" ), MultimediaManager.IMAGE_MENU );
         }
 
-        button_pressed = new Image[ACTION_COUNT];
+        button_pressed = new Image[ ACTION_COUNT ];
         if( customized ) {
             button_pressed[ACTION_USE] = MultimediaManager.getInstance( ).loadImageFromZip( TextConstants.getText( "HUD.Traditional.btnUsePressed" ), MultimediaManager.IMAGE_MENU );
             button_pressed[ACTION_LOOK] = MultimediaManager.getInstance( ).loadImageFromZip( TextConstants.getText( "HUD.Traditional.btnLookPressed" ), MultimediaManager.IMAGE_MENU );
@@ -175,7 +182,8 @@ public class ActionButtons {
             button_pressed[ACTION_TALK] = MultimediaManager.getInstance( ).loadImageFromZip( TextConstants.getText( "HUD.Traditional.btnTalkPressed" ), MultimediaManager.IMAGE_MENU );
             button_pressed[ACTION_GRAB] = MultimediaManager.getInstance( ).loadImageFromZip( TextConstants.getText( "HUD.Traditional.btnGrabPressed" ), MultimediaManager.IMAGE_MENU );
             button_pressed[ACTION_GIVE] = MultimediaManager.getInstance( ).loadImageFromZip( TextConstants.getText( "HUD.Traditional.btnGivePressed" ), MultimediaManager.IMAGE_MENU );
-        } else {
+        }
+        else {
             button_pressed[ACTION_USE] = MultimediaManager.getInstance( ).loadImage( TextConstants.getText( "HUD.Traditional.btnUsePressed" ), MultimediaManager.IMAGE_MENU );
             button_pressed[ACTION_LOOK] = MultimediaManager.getInstance( ).loadImage( TextConstants.getText( "HUD.Traditional.btnLookPressed" ), MultimediaManager.IMAGE_MENU );
             button_pressed[ACTION_EXAMINE] = MultimediaManager.getInstance( ).loadImage( TextConstants.getText( "HUD.Traditional.btnExaminePressed" ), MultimediaManager.IMAGE_MENU );
@@ -188,10 +196,14 @@ public class ActionButtons {
 
     /**
      * There has been a mouse moved over the action buttons
-     * @param x int coordinate
-     * @param y int coordinate
+     * 
+     * @param x
+     *            int coordinate
+     * @param y
+     *            int coordinate
      */
     public void mouseMoved( MouseEvent e ) {
+
         index_button_over = ACTION_NOACTION;
         if( e != null ) {
             int i = 0;
@@ -213,16 +225,20 @@ public class ActionButtons {
 
     /**
      * There has been a click in the action buttons
-     * @param x int coordinate
-     * @param y int coordinate
+     * 
+     * @param x
+     *            int coordinate
+     * @param y
+     *            int coordinate
      */
     public void mouseClicked( MouseEvent e ) {
+
         index_button_pressed = ACTION_NOACTION;
         if( e != null ) {
             int pointX = TraditionalHUD.FIRST_ACTIONBUTTON_X;
             int pointY = TraditionalHUD.FIRST_ACTIONBUTTON_Y;
             int i = 0;
-            
+
             while( index_button_pressed == ACTION_NOACTION && i < ACTION_COUNT ) {
                 if( e.getX( ) > pointX && e.getX( ) < pointX + TraditionalHUD.ACTIONBUTTON_WIDTH && e.getY( ) > pointY && e.getY( ) < pointY + TraditionalHUD.ACTIONBUTTON_HEIGHT ) {
                     index_button_pressed = i;
@@ -239,7 +255,9 @@ public class ActionButtons {
 
     /**
      * Draw the action buttons given a Graphics2D
-     * @param g Graphics2D to be used
+     * 
+     * @param g
+     *            Graphics2D to be used
      */
     public void draw( Graphics2D g ) {
 
@@ -248,9 +266,11 @@ public class ActionButtons {
         for( int i = 0; i < ACTION_COUNT; i++ ) {
             if( index_button_pressed == i ) {
                 g.drawImage( button_pressed[i], pointX, pointY, null );
-            } else if( index_button_over == i ) {
+            }
+            else if( index_button_over == i ) {
                 g.drawImage( button_over[i], pointX, pointY, null );
-            } else {
+            }
+            else {
                 g.drawImage( button_normal[i], pointX, pointY, null );
             }
 
@@ -264,18 +284,23 @@ public class ActionButtons {
 
     /**
      * Forces a button to be pressed
-     * @param button int corresponding the button to be pressed
+     * 
+     * @param button
+     *            int corresponding the button to be pressed
      */
     public void setButtonPressed( int button ) {
+
         index_button_pressed = button;
-            
+
     }
-    
+
     /**
      * Get the action of the current button pressed
+     * 
      * @return Action of the button
      */
     public int getActionPressed( ) {
+
         return button_acction[index_button_pressed];
     }
 

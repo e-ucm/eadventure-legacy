@@ -1,34 +1,36 @@
 /**
- * <e-Adventure> is an <e-UCM> research project.
- * <e-UCM>, Department of Software Engineering and Artificial Intelligence.
- * Faculty of Informatics, Complutense University of Madrid (Spain).
- * @author Del Blanco, A., Marchiori, E., Torrente, F.J.
+ * <e-Adventure> is an <e-UCM> research project. <e-UCM>, Department of Software
+ * Engineering and Artificial Intelligence. Faculty of Informatics, Complutense
+ * University of Madrid (Spain).
+ * 
+ * @author Del Blanco, A., Marchiori, E., Torrente, F.J. (alphabetical order) *
+ * @author López Mañas, E., Pérez Padilla, F., Sollet, E., Torijano, B. (former
+ *         developers by alphabetical order)
  * @author Moreno-Ger, P. & Fernández-Manjón, B. (directors)
- * @year 2009
- * Web-site: http://e-adventure.e-ucm.es
+ * @year 2009 Web-site: http://e-adventure.e-ucm.es
  */
 
 /*
-    Copyright (C) 2004-2009 <e-UCM> research group
-
-    This file is part of <e-Adventure> project, an educational game & game-like 
-    simulation authoring tool, availabe at http://e-adventure.e-ucm.es. 
-
-    <e-Adventure> is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    <e-Adventure> is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with <e-Adventure>; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-*/
+ * Copyright (C) 2004-2009 <e-UCM> research group
+ * 
+ * This file is part of <e-Adventure> project, an educational game & game-like
+ * simulation authoring tool, available at http://e-adventure.e-ucm.es.
+ * 
+ * <e-Adventure> is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version.
+ * 
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place, Suite 330, Boston, MA 02111-1307 USA
+ * 
+ */
 package es.eucm.eadventure.engine.core.control.animations;
 
 import java.awt.Image;
@@ -38,8 +40,8 @@ import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.gui.GUI;
 
 /**
- * Abstract class that has a set of animations, with functions to react to
- * mouse events 
+ * Abstract class that has a set of animations, with functions to react to mouse
+ * events
  */
 public abstract class AnimationState {
 
@@ -69,21 +71,24 @@ public abstract class AnimationState {
     public static final int WEST = 3;
 
     private float oldScale = -1;
-    
+
     private Image oldImage = null;
-    
+
     private Image oldOriginalImage = null;
-    
+
     /**
      * Creates a new AnimationState
      */
     public AnimationState( ) {
+
         animations = new Animation[ 4 ];
     }
 
     /**
      * Updates the animation
-     * @param elapsedTime the elapsed time from the last update
+     * 
+     * @param elapsedTime
+     *            the elapsed time from the last update
      */
     public abstract void update( long elapsedTime );
 
@@ -96,32 +101,37 @@ public abstract class AnimationState {
      * Updates the animation
      */
     public void updateAnimation( ) {
+
         int tempDirection = -1;
 
-        if( getCurrentDirection() == -1 ) setCurrentDirection( SOUTH );
+        if( getCurrentDirection( ) == -1 )
+            setCurrentDirection( SOUTH );
         //Si es el eje Norte-Sur
         if( Math.abs( getVelocityY( ) ) > Math.abs( getVelocityX( ) ) ) {
             //Si baja
             //FIXME: EL = del IF se ha puesto a pelo, sin ver que pasa en juegos 3ªpersona
             if( getVelocityY( ) >= 0 ) {
                 tempDirection = SOUTH;
-            } else if( getVelocityY( ) < 0 ) {
+            }
+            else if( getVelocityY( ) < 0 ) {
                 tempDirection = NORTH;
             }
             //Si es el eje Este-Oeste
-        } else {
+        }
+        else {
             //Si a la derecha
             //FIXME: EL = del IF se ha puesto a pelo, sin ver que pasa en juegos 3ªpersona
             if( getVelocityX( ) >= 0 ) {
                 tempDirection = EAST;
-            } else if( getVelocityX( ) < 0 ) {
+            }
+            else if( getVelocityX( ) < 0 ) {
                 tempDirection = WEST;
             }
         }
 
-        if( Math.abs(getVelocityX()) != 0 && Math.abs(getVelocityY()) != 0 && tempDirection != -1 && tempDirection != getCurrentDirection() ) {
+        if( Math.abs( getVelocityX( ) ) != 0 && Math.abs( getVelocityY( ) ) != 0 && tempDirection != -1 && tempDirection != getCurrentDirection( ) ) {
             setCurrentDirection( tempDirection );
-            animations[getCurrentDirection()].start( );
+            animations[getCurrentDirection( )].start( );
         }
     }
 
@@ -129,60 +139,71 @@ public abstract class AnimationState {
      * Returns the current frame of the animation
      */
     public Image getImage( ) {
-        return getCurrentAnimation().getImage( );
+
+        return getCurrentAnimation( ).getImage( );
     }
 
     /**
      * Returns the current animation of the character
      */
     public Animation getCurrentAnimation( ) {
-        return animations[getCurrentDirection()];
+
+        return animations[getCurrentDirection( )];
     }
 
     /**
      * Draws the current frame of the animation
-     * @param x the horizontal position where paint the frame
-     * @param y the vertical position where paint the frame
-     * @param scale 
-     * @param depth Position where will be drawn 
-   	*/
-    public void draw( int x, int y, float scale , int depth) {
-        Image image = getCurrentAnimation().getImage();
-        int realX = (int) (x - ( image.getWidth( null ) * scale / 2 ) - Game.getInstance( ).getFunctionalScene( ).getOffsetX( ));
-        int realY = (int) (y - ( image.getHeight( null ) * scale )); 
+     * 
+     * @param x
+     *            the horizontal position where paint the frame
+     * @param y
+     *            the vertical position where paint the frame
+     * @param scale
+     * @param depth
+     *            Position where will be drawn
+     */
+    public void draw( int x, int y, float scale, int depth ) {
 
-        if (image == oldOriginalImage && scale == oldScale) {
-        	image = oldImage;
-        } else if (scale != 1) {
-    		oldOriginalImage = image;
-        	image = image.getScaledInstance(Math.round(image.getWidth(null) * scale), Math.round(image.getHeight(null) * scale), Image.SCALE_SMOOTH);
-        } else {
-        	oldOriginalImage = image;
+        Image image = getCurrentAnimation( ).getImage( );
+        int realX = (int) ( x - ( image.getWidth( null ) * scale / 2 ) - Game.getInstance( ).getFunctionalScene( ).getOffsetX( ) );
+        int realY = (int) ( y - ( image.getHeight( null ) * scale ) );
+
+        if( image == oldOriginalImage && scale == oldScale ) {
+            image = oldImage;
         }
-        
+        else if( scale != 1 ) {
+            oldOriginalImage = image;
+            image = image.getScaledInstance( Math.round( image.getWidth( null ) * scale ), Math.round( image.getHeight( null ) * scale ), Image.SCALE_SMOOTH );
+        }
+        else {
+            oldOriginalImage = image;
+        }
+
         oldScale = scale;
         oldImage = image;
-        
-        if (depth==Scene.PLAYER_WITHOUT_LAYER||depth==Scene.PLAYER_NO_ALLOWED)
-          	GUI.getInstance( ).addPlayerToDraw( image, realX, realY, Math.round( y ), Math.round(y));
-        else 
-           	GUI.getInstance( ).addElementToDraw( image, realX, realY, depth, Math.round(y) );
+
+        if( depth == Scene.PLAYER_WITHOUT_LAYER || depth == Scene.PLAYER_NO_ALLOWED )
+            GUI.getInstance( ).addPlayerToDraw( image, realX, realY, Math.round( y ), Math.round( y ) );
+        else
+            GUI.getInstance( ).addElementToDraw( image, realX, realY, depth, Math.round( y ) );
     }
-    
+
     /**
      * Load the animation resources
      */
-    public abstract void loadResources();
-    
+    public abstract void loadResources( );
+
     /**
      * Changes the animation's current direction
-     * @param direction new animation's direction
+     * 
+     * @param direction
+     *            new animation's direction
      */
     protected abstract void setCurrentDirection( int direction );
-    
-    protected abstract int getCurrentDirection();
-    
-    protected abstract float getVelocityX();
-    
-    protected abstract float getVelocityY();
+
+    protected abstract int getCurrentDirection( );
+
+    protected abstract float getVelocityX( );
+
+    protected abstract float getVelocityY( );
 }

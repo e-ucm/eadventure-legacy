@@ -1,34 +1,36 @@
 /**
- * <e-Adventure> is an <e-UCM> research project.
- * <e-UCM>, Department of Software Engineering and Artificial Intelligence.
- * Faculty of Informatics, Complutense University of Madrid (Spain).
- * @author Del Blanco, A., Marchiori, E., Torrente, F.J.
+ * <e-Adventure> is an <e-UCM> research project. <e-UCM>, Department of Software
+ * Engineering and Artificial Intelligence. Faculty of Informatics, Complutense
+ * University of Madrid (Spain).
+ * 
+ * @author Del Blanco, A., Marchiori, E., Torrente, F.J. (alphabetical order) *
+ * @author López Mañas, E., Pérez Padilla, F., Sollet, E., Torijano, B. (former
+ *         developers by alphabetical order)
  * @author Moreno-Ger, P. & Fernández-Manjón, B. (directors)
- * @year 2009
- * Web-site: http://e-adventure.e-ucm.es
+ * @year 2009 Web-site: http://e-adventure.e-ucm.es
  */
 
 /*
-    Copyright (C) 2004-2009 <e-UCM> research group
-
-    This file is part of <e-Adventure> project, an educational game & game-like 
-    simulation authoring tool, availabe at http://e-adventure.e-ucm.es. 
-
-    <e-Adventure> is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    <e-Adventure> is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with <e-Adventure>; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-*/
+ * Copyright (C) 2004-2009 <e-UCM> research group
+ * 
+ * This file is part of <e-Adventure> project, an educational game & game-like
+ * simulation authoring tool, available at http://e-adventure.e-ucm.es.
+ * 
+ * <e-Adventure> is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version.
+ * 
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place, Suite 330, Boston, MA 02111-1307 USA
+ * 
+ */
 package es.eucm.eadventure.engine.core.control.functionaldata;
 
 import java.awt.Color;
@@ -39,8 +41,8 @@ import es.eucm.eadventure.common.data.chapter.InfluenceArea;
 import es.eucm.eadventure.common.data.chapter.elements.Element;
 
 /**
- * This class defines the common behaviour from the characters and
- * the objects in the game
+ * This class defines the common behaviour from the characters and the objects
+ * in the game
  */
 public abstract class FunctionalElement implements Renderable {
 
@@ -53,9 +55,9 @@ public abstract class FunctionalElement implements Renderable {
      * Vertical position of the element
      */
     protected float y;
-    
+
     protected float scale;
-    
+
     /**
      * The position in which will be painted this element
      */
@@ -63,10 +65,14 @@ public abstract class FunctionalElement implements Renderable {
 
     /**
      * Creates a new FunctionalElement
-     * @param x horizontal position of the element
-     * @param y vertical position of the element
+     * 
+     * @param x
+     *            horizontal position of the element
+     * @param y
+     *            vertical position of the element
      */
     public FunctionalElement( int x, int y ) {
+
         this.x = x;
         this.y = y;
         this.scale = 1;
@@ -75,30 +81,36 @@ public abstract class FunctionalElement implements Renderable {
 
     /**
      * Returns this element's data
+     * 
      * @return this element's data
      */
     public abstract Element getElement( );
 
     /**
      * Returns the horizontal position of this element
+     * 
      * @return the horizontal position of this element
      */
     public float getX( ) {
+
         return x;
     }
 
     /**
      * Returns the vertical position of this element
+     * 
      * @return the vertical position of this element
      */
     public float getY( ) {
+
         return y;
     }
 
-    public float getScale() {
-    	return scale;
+    public float getScale( ) {
+
+        return scale;
     }
-    
+
     /**
      * Gets this Sprite's width, based on the size of the current image.
      */
@@ -111,89 +123,113 @@ public abstract class FunctionalElement implements Renderable {
 
     /**
      * Sets the horizontal position of this element
-     * @param x the new horizontal position
+     * 
+     * @param x
+     *            the new horizontal position
      */
     public void setX( float x ) {
+
         this.x = x;
     }
 
     /**
      * Sets the vertical position of this element
-     * @param y the new vertical position
+     * 
+     * @param y
+     *            the new vertical position
      */
     public void setY( float y ) {
+
         this.y = y;
     }
 
-    public void setScale(float scale) {
-    	this.scale = scale;
+    public void setScale( float scale ) {
+
+        this.scale = scale;
     }
+
     /**
      * Returns whether the given point is inside this element
-     * @param x the horizontal position of the point
-     * @param y the vertical position of the point
+     * 
+     * @param x
+     *            the horizontal position of the point
+     * @param y
+     *            the vertical position of the point
      * @return true if the given point is inside this element, false otherwise
      */
     public abstract boolean isPointInside( float x, float y );
 
     /**
      * Returns whether this element can perform the given action
-     * @param action the action to be performed
+     * 
+     * @param action
+     *            the action to be performed
      * @return true if the action can be performed, false otherwise
      */
     public abstract boolean canPerform( int action );
-    
+
     /**
      * Returns if the element can be used alone, without any other element
+     * 
      * @return True if the element can be used, false otherwise
      */
     public boolean canBeUsedAlone( ) {
+
         return false;
     }
 
     /**
      * Triggers the examining action associated with the element
+     * 
      * @return True if the element was examined, false otherwise
      */
     public boolean examine( ) {
+
         return false;
     }
 
     /**
      * Returns whether this element is in the player's inventory
+     * 
      * @return true if this is in the inventory, false otherwise
      */
     public boolean isInInventory( ) {
+
         return false;
     }
-    
+
     /**
      * Returns a color from the given string
-     * @param colorText Color in format "#RRGGBB"
+     * 
+     * @param colorText
+     *            Color in format "#RRGGBB"
      * @return Described color
      */
     protected Color generateColor( String colorText ) {
+
         return new Color( Integer.valueOf( colorText.substring( 1 ), 16 ).intValue( ) );
     }
-    
-    public abstract Action getFirstValidAction(int actionType);
-    
-    public abstract CustomAction getFirstValidCustomAction(String actionName);
 
-    public abstract CustomAction getFirstValidCustomInteraction(String actionName);
+    public abstract Action getFirstValidAction( int actionType );
 
-	public int getLayer() {
-		return layer;
-	}
+    public abstract CustomAction getFirstValidCustomAction( String actionName );
 
-	public void setLayer(int layer) {
-		this.layer = layer;
-	}
+    public abstract CustomAction getFirstValidCustomInteraction( String actionName );
 
-	public abstract InfluenceArea getInfluenceArea();
+    public int getLayer( ) {
 
-	public boolean use() {
-		return false;
-	}
+        return layer;
+    }
+
+    public void setLayer( int layer ) {
+
+        this.layer = layer;
+    }
+
+    public abstract InfluenceArea getInfluenceArea( );
+
+    public boolean use( ) {
+
+        return false;
+    }
 }
-

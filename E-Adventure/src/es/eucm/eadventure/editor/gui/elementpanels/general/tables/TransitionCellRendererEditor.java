@@ -1,34 +1,36 @@
 /**
- * <e-Adventure> is an <e-UCM> research project.
- * <e-UCM>, Department of Software Engineering and Artificial Intelligence.
- * Faculty of Informatics, Complutense University of Madrid (Spain).
- * @author Del Blanco, A., Marchiori, E., Torrente, F.J.
+ * <e-Adventure> is an <e-UCM> research project. <e-UCM>, Department of Software
+ * Engineering and Artificial Intelligence. Faculty of Informatics, Complutense
+ * University of Madrid (Spain).
+ * 
+ * @author Del Blanco, A., Marchiori, E., Torrente, F.J. (alphabetical order) *
+ * @author López Mañas, E., Pérez Padilla, F., Sollet, E., Torijano, B. (former
+ *         developers by alphabetical order)
  * @author Moreno-Ger, P. & Fernández-Manjón, B. (directors)
- * @year 2009
- * Web-site: http://e-adventure.e-ucm.es
+ * @year 2009 Web-site: http://e-adventure.e-ucm.es
  */
 
 /*
-    Copyright (C) 2004-2009 <e-UCM> research group
-
-    This file is part of <e-Adventure> project, an educational game & game-like 
-    simulation authoring tool, availabe at http://e-adventure.e-ucm.es. 
-
-    <e-Adventure> is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    <e-Adventure> is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with <e-Adventure>; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-*/
+ * Copyright (C) 2004-2009 <e-UCM> research group
+ * 
+ * This file is part of <e-Adventure> project, an educational game & game-like
+ * simulation authoring tool, available at http://e-adventure.e-ucm.es.
+ * 
+ * <e-Adventure> is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version.
+ * 
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place, Suite 330, Boston, MA 02111-1307 USA
+ * 
+ */
 package es.eucm.eadventure.editor.gui.elementpanels.general.tables;
 
 import java.awt.Component;
@@ -54,104 +56,119 @@ import javax.swing.table.TableCellRenderer;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.scene.ExitDataControl;
 
-public class TransitionCellRendererEditor  extends AbstractCellEditor implements TableCellEditor, TableCellRenderer {
+public class TransitionCellRendererEditor extends AbstractCellEditor implements TableCellEditor, TableCellRenderer {
 
-	private static final long serialVersionUID = 4870491701696223525L;
+    private static final long serialVersionUID = 4870491701696223525L;
 
-	private JComboBox combo;
-	
-	private ExitDataControl exit;
-	
-	private JSpinner spinner;
-			
-	public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int col) {
-		this.exit = (ExitDataControl) value;
-		return comboPanel(table);
-	}
+    private JComboBox combo;
 
-	public Object getCellEditorValue() {
-		return exit;
-	}
+    private ExitDataControl exit;
 
-	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-		this.exit = (ExitDataControl) value;
-		if (!isSelected) {
-			switch (exit.getTransitionType()) {
-			case 0:
-				return new JLabel(TextConstants.getText("Exit.NoTransition"));
-			case 1:
-				return new JLabel(TextConstants.getText("Exit.TopToBottom"));
-			case 2:
-				return new JLabel(TextConstants.getText("Exit.BottomToTop"));
-			case 3:
-				return new JLabel(TextConstants.getText("Exit.LeftToRight"));
-			case 4:
-				return new JLabel(TextConstants.getText("Exit.RightToLeft"));
-			case 5:
-				return new JLabel(TextConstants.getText("Exit.FadeIn"));
-			default:
-			}
-			return new JLabel("" + exit.getTransitionType());
-		} else {
-			return comboPanel(table);
-		}
-	}
-	
-	private JPanel comboPanel(JTable table) {
-		JPanel tempPanel = new JPanel();
-		tempPanel.setLayout(new GridBagLayout());
-		tempPanel.setBorder(BorderFactory.createMatteBorder(2, 0, 2, 0, table.getSelectionBackground()));
+    private JSpinner spinner;
 
-		GridBagConstraints c = new GridBagConstraints();
-		
-		combo = new JComboBox();
-		combo.addItem(makeObj(TextConstants.getText("Exit.NoTransition")));
-		combo.addItem(makeObj(TextConstants.getText("Exit.TopToBottom")));
-		combo.addItem(makeObj(TextConstants.getText("Exit.BottomToTop")));
-		combo.addItem(makeObj(TextConstants.getText("Exit.LeftToRight")));
-		combo.addItem(makeObj(TextConstants.getText("Exit.RightToLeft")));
-		combo.addItem(makeObj(TextConstants.getText("Exit.FadeIn")));
-		combo.setSelectedIndex(exit.getTransitionType());
+    public Component getTableCellEditorComponent( JTable table, Object value, boolean isSelected, int row, int col ) {
 
-		combo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				exit.setTransitionType(combo.getSelectedIndex());
-				if (combo.getSelectedIndex() == 0)
-					spinner.setEnabled(false);
-				else
-					spinner.setEnabled(true);
-			}
-		});
-		
-	    SpinnerModel sm = new SpinnerNumberModel(exit.getTransitionTime(), 0, 5000, 100);
-	    spinner = new JSpinner(sm);
-	    spinner.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent arg0) {
-				if (((Integer) spinner.getValue()).intValue() == 900)
-					spinner.setValue(new Integer(0));
-				else if (((Integer) spinner.getValue()).intValue() == 100)
-					spinner.setValue(new Integer(1000));
-				exit.setTransitionTime((Integer) spinner.getValue());
-			}
-		});
-	    spinner.setEnabled(combo.getSelectedIndex() != 0);
+        this.exit = (ExitDataControl) value;
+        return comboPanel( table );
+    }
 
-		
-		c.gridx = 0;
-		c.gridy = 0;
-		c.weightx = 2.0;
-		c.fill = GridBagConstraints.HORIZONTAL;
-		tempPanel.add(combo, c);
-		
-		c.gridy++;
-		tempPanel.add(spinner, c);
-		
-		return tempPanel;
-	}
+    public Object getCellEditorValue( ) {
 
-	private Object makeObj(final String item)  {
-	    return new Object() { public String toString() { return item; } };
-	 }
+        return exit;
+    }
 
+    public Component getTableCellRendererComponent( JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column ) {
+
+        this.exit = (ExitDataControl) value;
+        if( !isSelected ) {
+            switch( exit.getTransitionType( ) ) {
+                case 0:
+                    return new JLabel( TextConstants.getText( "Exit.NoTransition" ) );
+                case 1:
+                    return new JLabel( TextConstants.getText( "Exit.TopToBottom" ) );
+                case 2:
+                    return new JLabel( TextConstants.getText( "Exit.BottomToTop" ) );
+                case 3:
+                    return new JLabel( TextConstants.getText( "Exit.LeftToRight" ) );
+                case 4:
+                    return new JLabel( TextConstants.getText( "Exit.RightToLeft" ) );
+                case 5:
+                    return new JLabel( TextConstants.getText( "Exit.FadeIn" ) );
+                default:
+            }
+            return new JLabel( "" + exit.getTransitionType( ) );
+        }
+        else {
+            return comboPanel( table );
+        }
+    }
+
+    private JPanel comboPanel( JTable table ) {
+
+        JPanel tempPanel = new JPanel( );
+        tempPanel.setLayout( new GridBagLayout( ) );
+        tempPanel.setBorder( BorderFactory.createMatteBorder( 2, 0, 2, 0, table.getSelectionBackground( ) ) );
+
+        GridBagConstraints c = new GridBagConstraints( );
+
+        combo = new JComboBox( );
+        combo.addItem( makeObj( TextConstants.getText( "Exit.NoTransition" ) ) );
+        combo.addItem( makeObj( TextConstants.getText( "Exit.TopToBottom" ) ) );
+        combo.addItem( makeObj( TextConstants.getText( "Exit.BottomToTop" ) ) );
+        combo.addItem( makeObj( TextConstants.getText( "Exit.LeftToRight" ) ) );
+        combo.addItem( makeObj( TextConstants.getText( "Exit.RightToLeft" ) ) );
+        combo.addItem( makeObj( TextConstants.getText( "Exit.FadeIn" ) ) );
+        combo.setSelectedIndex( exit.getTransitionType( ) );
+
+        combo.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent arg0 ) {
+
+                exit.setTransitionType( combo.getSelectedIndex( ) );
+                if( combo.getSelectedIndex( ) == 0 )
+                    spinner.setEnabled( false );
+                else
+                    spinner.setEnabled( true );
+            }
+        } );
+
+        SpinnerModel sm = new SpinnerNumberModel( exit.getTransitionTime( ), 0, 5000, 100 );
+        spinner = new JSpinner( sm );
+        spinner.addChangeListener( new ChangeListener( ) {
+
+            public void stateChanged( ChangeEvent arg0 ) {
+
+                if( ( (Integer) spinner.getValue( ) ).intValue( ) == 900 )
+                    spinner.setValue( new Integer( 0 ) );
+                else if( ( (Integer) spinner.getValue( ) ).intValue( ) == 100 )
+                    spinner.setValue( new Integer( 1000 ) );
+                exit.setTransitionTime( (Integer) spinner.getValue( ) );
+            }
+        } );
+        spinner.setEnabled( combo.getSelectedIndex( ) != 0 );
+
+        c.gridx = 0;
+        c.gridy = 0;
+        c.weightx = 2.0;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        tempPanel.add( combo, c );
+
+        c.gridy++;
+        tempPanel.add( spinner, c );
+
+        return tempPanel;
+    }
+
+    private Object makeObj( final String item ) {
+
+        return new Object( ) {
+
+            @Override
+            public String toString( ) {
+
+                return item;
+            }
+        };
+    }
 
 }

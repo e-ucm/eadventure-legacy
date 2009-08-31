@@ -1,34 +1,36 @@
 /**
- * <e-Adventure> is an <e-UCM> research project.
- * <e-UCM>, Department of Software Engineering and Artificial Intelligence.
- * Faculty of Informatics, Complutense University of Madrid (Spain).
- * @author Del Blanco, A., Marchiori, E., Torrente, F.J.
+ * <e-Adventure> is an <e-UCM> research project. <e-UCM>, Department of Software
+ * Engineering and Artificial Intelligence. Faculty of Informatics, Complutense
+ * University of Madrid (Spain).
+ * 
+ * @author Del Blanco, A., Marchiori, E., Torrente, F.J. (alphabetical order) *
+ * @author López Mañas, E., Pérez Padilla, F., Sollet, E., Torijano, B. (former
+ *         developers by alphabetical order)
  * @author Moreno-Ger, P. & Fernández-Manjón, B. (directors)
- * @year 2009
- * Web-site: http://e-adventure.e-ucm.es
+ * @year 2009 Web-site: http://e-adventure.e-ucm.es
  */
 
 /*
-    Copyright (C) 2004-2009 <e-UCM> research group
-
-    This file is part of <e-Adventure> project, an educational game & game-like 
-    simulation authoring tool, availabe at http://e-adventure.e-ucm.es. 
-
-    <e-Adventure> is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    <e-Adventure> is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with <e-Adventure>; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-*/
+ * Copyright (C) 2004-2009 <e-UCM> research group
+ * 
+ * This file is part of <e-Adventure> project, an educational game & game-like
+ * simulation authoring tool, available at http://e-adventure.e-ucm.es.
+ * 
+ * <e-Adventure> is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version.
+ * 
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place, Suite 330, Boston, MA 02111-1307 USA
+ * 
+ */
 package es.eucm.eadventure.editor.control.controllers.item;
 
 import java.util.ArrayList;
@@ -44,297 +46,324 @@ import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class ItemsListDataControl extends DataControl {
 
-	/**
-	 * List of items.
-	 */
-	private List<Item> itemsList;
+    /**
+     * List of items.
+     */
+    private List<Item> itemsList;
 
-	/**
-	 * List of item controllers.
-	 */
-	private List<ItemDataControl> itemsDataControlList;
+    /**
+     * List of item controllers.
+     */
+    private List<ItemDataControl> itemsDataControlList;
 
-	/**
-	 * Constructor.
-	 * 
-	 * @param itemsList
-	 *            List of items
-	 */
-	public ItemsListDataControl( List<Item> itemsList ) {
-		this.itemsList = itemsList;
+    /**
+     * Constructor.
+     * 
+     * @param itemsList
+     *            List of items
+     */
+    public ItemsListDataControl( List<Item> itemsList ) {
 
-		// Create subcontrollers
-		itemsDataControlList = new ArrayList<ItemDataControl>( );
-		for( Item item : itemsList )
-			itemsDataControlList.add( new ItemDataControl( item ) );
-	}
+        this.itemsList = itemsList;
 
-	/**
-	 * Returns the list of item controllers.
-	 * 
-	 * @return Item controllers
-	 */
-	public List<ItemDataControl> getItems( ) {
-		return itemsDataControlList;
-	}
+        // Create subcontrollers
+        itemsDataControlList = new ArrayList<ItemDataControl>( );
+        for( Item item : itemsList )
+            itemsDataControlList.add( new ItemDataControl( item ) );
+    }
 
-	/**
-	 * Returns the last item controller from the list.
-	 * 
-	 * @return Last item controller
-	 */
-	public ItemDataControl getLastItem( ) {
-		return itemsDataControlList.get( itemsDataControlList.size( ) - 1 );
-	}
+    /**
+     * Returns the list of item controllers.
+     * 
+     * @return Item controllers
+     */
+    public List<ItemDataControl> getItems( ) {
 
-	/**
-	 * Returns the info of the items contained in the list.
-	 * 
-	 * @return Array with the information of the items. It contains the identifier of each item, and the number of
-	 *         actions
-	 */
-	public String[][] getItemsInfo( ) {
-		String[][] itemsInfo = null;
+        return itemsDataControlList;
+    }
 
-		// Create the list for the items
-		itemsInfo = new String[itemsList.size( )][2];
+    /**
+     * Returns the last item controller from the list.
+     * 
+     * @return Last item controller
+     */
+    public ItemDataControl getLastItem( ) {
 
-		// Fill the array with the info
-		for( int i = 0; i < itemsList.size( ); i++ ) {
-			Item item = itemsList.get( i );
-			itemsInfo[i][0] = item.getId( );
-			itemsInfo[i][1] = TextConstants.getText( "ItemsList.ActionsNumber", String.valueOf( item.getActions( ).size( ) ) );
-		}
+        return itemsDataControlList.get( itemsDataControlList.size( ) - 1 );
+    }
 
-		return itemsInfo;
-	}
+    /**
+     * Returns the info of the items contained in the list.
+     * 
+     * @return Array with the information of the items. It contains the
+     *         identifier of each item, and the number of actions
+     */
+    public String[][] getItemsInfo( ) {
 
-	@Override
-	public Object getContent( ) {
-		return itemsList;
-	}
+        String[][] itemsInfo = null;
 
-	@Override
-	public int[] getAddableElements( ) {
-		return new int[] { Controller.ITEM };
-	}
+        // Create the list for the items
+        itemsInfo = new String[ itemsList.size( ) ][ 2 ];
 
-	@Override
-	public boolean canAddElement( int type ) {
-		// It can always add new items
-		return type == Controller.ITEM;
-	}
+        // Fill the array with the info
+        for( int i = 0; i < itemsList.size( ); i++ ) {
+            Item item = itemsList.get( i );
+            itemsInfo[i][0] = item.getId( );
+            itemsInfo[i][1] = TextConstants.getText( "ItemsList.ActionsNumber", String.valueOf( item.getActions( ).size( ) ) );
+        }
 
-	@Override
-	public boolean canBeDeleted( ) {
-		return false;
-	}
+        return itemsInfo;
+    }
 
-	@Override
-	public boolean canBeMoved( ) {
-		return false;
-	}
+    @Override
+    public Object getContent( ) {
 
-	@Override
-	public boolean canBeRenamed( ) {
-		return false;
-	}
+        return itemsList;
+    }
 
-	@Override
-	public boolean addElement( int type, String itemId) {
-		boolean elementAdded = false;
+    @Override
+    public int[] getAddableElements( ) {
 
-		if( type == Controller.ITEM ) {
+        return new int[] { Controller.ITEM };
+    }
 
-			if (itemId == null)
-				itemId = controller.showInputDialog( TextConstants.getText( "Operation.AddItemTitle" ), TextConstants.getText( "Operation.AddItemMessage" ), TextConstants.getText( "Operation.AddItemDefaultValue" ) );
+    @Override
+    public boolean canAddElement( int type ) {
 
-			if( itemId != null && controller.isElementIdValid( itemId ) ) {
-				Item newItem = new Item( itemId );
-				itemsList.add( newItem );
-				itemsDataControlList.add( new ItemDataControl( newItem ) );
-				controller.getIdentifierSummary( ).addItemId( itemId );
-				elementAdded = true;
-			}
-		}
+        // It can always add new items
+        return type == Controller.ITEM;
+    }
 
-		return elementAdded;
-	}
+    @Override
+    public boolean canBeDeleted( ) {
 
-	@Override
-	public boolean duplicateElement( DataControl dataControl ) {
-		if (!(dataControl instanceof ItemDataControl))
-			return false;
-		
-		try {
-			Item newElement = (Item) (((Item) (dataControl.getContent())).clone());
-			String id = newElement.getId();
-			int i = 1;
-			do {
-				id = newElement.getId() + i;
-				i++;
-			} while (!controller.isElementIdValid(id, false));
-			newElement.setId(id);
-			itemsList.add(newElement);
-			itemsDataControlList.add( new ItemDataControl(newElement));
-			controller.getIdentifierSummary().addItemId( id);
-			return true;
-		} catch (CloneNotSupportedException e) {
-			ReportDialog.GenerateErrorReport(e, true, "Could not clone item");	
-			return false;
-		} 
-	}
+        return false;
+    }
 
-	
-	@Override
-	public String getDefaultId(int type) {
-		return TextConstants.getText( "Operation.AddItemDefaultValue" );
-	}
+    @Override
+    public boolean canBeMoved( ) {
 
-	@Override
-	public boolean deleteElement( DataControl dataControl , boolean askConfirmation) {
-		boolean elementDeleted = false;
-		String itemId = ( (ItemDataControl) dataControl ).getId( );
-		String references = String.valueOf( controller.countIdentifierReferences( itemId ) );
+        return false;
+    }
 
-		// Ask for confirmation
-		if(!askConfirmation || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { itemId, references } ) ) ) {
-			if( itemsList.remove( dataControl.getContent( ) ) ) {
-				itemsDataControlList.remove( dataControl );
-				controller.deleteIdentifierReferences( itemId );
-				controller.getIdentifierSummary( ).deleteItemId( itemId );
-				//controller.dataModified( );
-				elementDeleted = true;
-			}
-		}
+    @Override
+    public boolean canBeRenamed( ) {
 
-		return elementDeleted;
-	}
+        return false;
+    }
 
-	@Override
-	public boolean moveElementUp( DataControl dataControl ) {
-		boolean elementMoved = false;
-		int elementIndex = itemsList.indexOf( dataControl.getContent( ) );
+    @Override
+    public boolean addElement( int type, String itemId ) {
 
-		if( elementIndex > 0 ) {
-			itemsList.add( elementIndex - 1, itemsList.remove( elementIndex ) );
-			itemsDataControlList.add( elementIndex - 1, itemsDataControlList.remove( elementIndex ) );
-			//controller.dataModified( );
-			elementMoved = true;
-		}
+        boolean elementAdded = false;
 
-		return elementMoved;
-	}
+        if( type == Controller.ITEM ) {
 
-	@Override
-	public boolean moveElementDown( DataControl dataControl ) {
-		boolean elementMoved = false;
-		int elementIndex = itemsList.indexOf( dataControl.getContent( ) );
+            if( itemId == null )
+                itemId = controller.showInputDialog( TextConstants.getText( "Operation.AddItemTitle" ), TextConstants.getText( "Operation.AddItemMessage" ), TextConstants.getText( "Operation.AddItemDefaultValue" ) );
 
-		if( elementIndex < itemsList.size( ) - 1 ) {
-			itemsList.add( elementIndex + 1, itemsList.remove( elementIndex ) );
-			itemsDataControlList.add( elementIndex + 1, itemsDataControlList.remove( elementIndex ) );
-			//controller.dataModified( );
-			elementMoved = true;
-		}
+            if( itemId != null && controller.isElementIdValid( itemId ) ) {
+                Item newItem = new Item( itemId );
+                itemsList.add( newItem );
+                itemsDataControlList.add( new ItemDataControl( newItem ) );
+                controller.getIdentifierSummary( ).addItemId( itemId );
+                elementAdded = true;
+            }
+        }
 
-		return elementMoved;
-	}
+        return elementAdded;
+    }
 
-	@Override
-	public String renameElement( String name ) {
-		return null;
-	}
+    @Override
+    public boolean duplicateElement( DataControl dataControl ) {
 
-	@Override
-	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
-		// Iterate through each item
-		for( ItemDataControl itemDataControl : itemsDataControlList )
-			itemDataControl.updateVarFlagSummary( varFlagSummary );
-	}
+        if( !( dataControl instanceof ItemDataControl ) )
+            return false;
 
-	@Override
-	public boolean isValid( String currentPath, List<String> incidences ) {
-		boolean valid = true;
+        try {
+            Item newElement = (Item) ( ( (Item) ( dataControl.getContent( ) ) ).clone( ) );
+            String id = newElement.getId( );
+            int i = 1;
+            do {
+                id = newElement.getId( ) + i;
+                i++;
+            } while( !controller.isElementIdValid( id, false ) );
+            newElement.setId( id );
+            itemsList.add( newElement );
+            itemsDataControlList.add( new ItemDataControl( newElement ) );
+            controller.getIdentifierSummary( ).addItemId( id );
+            return true;
+        }
+        catch( CloneNotSupportedException e ) {
+            ReportDialog.GenerateErrorReport( e, true, "Could not clone item" );
+            return false;
+        }
+    }
 
-		// Update the current path
-		currentPath += " >> " + TextConstants.getElementName( Controller.ITEMS_LIST );
+    @Override
+    public String getDefaultId( int type ) {
 
-		// Iterate through the items
-		for( ItemDataControl itemDataControl : itemsDataControlList ) {
-			String itemPath = currentPath + " >> " + itemDataControl.getId( );
-			valid &= itemDataControl.isValid( itemPath, incidences );
-		}
+        return TextConstants.getText( "Operation.AddItemDefaultValue" );
+    }
 
-		return valid;
-	}
+    @Override
+    public boolean deleteElement( DataControl dataControl, boolean askConfirmation ) {
 
-	@Override
-	public int countAssetReferences( String assetPath ) {
-		int count = 0;
+        boolean elementDeleted = false;
+        String itemId = ( (ItemDataControl) dataControl ).getId( );
+        String references = String.valueOf( controller.countIdentifierReferences( itemId ) );
 
-		// Iterate through each item
-		for( ItemDataControl itemDataControl : itemsDataControlList )
-			count += itemDataControl.countAssetReferences( assetPath );
+        // Ask for confirmation
+        if( !askConfirmation || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { itemId, references } ) ) ) {
+            if( itemsList.remove( dataControl.getContent( ) ) ) {
+                itemsDataControlList.remove( dataControl );
+                controller.deleteIdentifierReferences( itemId );
+                controller.getIdentifierSummary( ).deleteItemId( itemId );
+                //controller.dataModified( );
+                elementDeleted = true;
+            }
+        }
 
-		return count;
-	}
-	
-	@Override
-	public void getAssetReferences( List<String> assetPaths, List<Integer> assetTypes ) {
-		// Iterate through each item
-		for( ItemDataControl itemDataControl : itemsDataControlList )
-			itemDataControl.getAssetReferences( assetPaths, assetTypes );
-	}
+        return elementDeleted;
+    }
 
+    @Override
+    public boolean moveElementUp( DataControl dataControl ) {
 
-	@Override
-	public void deleteAssetReferences( String assetPath ) {
-		// Iterate through each item
-		for( ItemDataControl itemDataControl : itemsDataControlList )
-			itemDataControl.deleteAssetReferences( assetPath );
-	}
+        boolean elementMoved = false;
+        int elementIndex = itemsList.indexOf( dataControl.getContent( ) );
 
-	@Override
-	public int countIdentifierReferences( String id ) {
-		int count = 0;
+        if( elementIndex > 0 ) {
+            itemsList.add( elementIndex - 1, itemsList.remove( elementIndex ) );
+            itemsDataControlList.add( elementIndex - 1, itemsDataControlList.remove( elementIndex ) );
+            //controller.dataModified( );
+            elementMoved = true;
+        }
 
-		// Iterate through each item
-		for( ItemDataControl itemDataControl : itemsDataControlList )
-			count += itemDataControl.countIdentifierReferences( id );
+        return elementMoved;
+    }
 
-		return count;
-	}
+    @Override
+    public boolean moveElementDown( DataControl dataControl ) {
 
-	@Override
-	public void replaceIdentifierReferences( String oldId, String newId ) {
-		// Iterate through each item
-		for( ItemDataControl itemDataControl : itemsDataControlList )
-			itemDataControl.replaceIdentifierReferences( oldId, newId );
-	}
+        boolean elementMoved = false;
+        int elementIndex = itemsList.indexOf( dataControl.getContent( ) );
 
-	@Override
-	public void deleteIdentifierReferences( String id ) {
-		// Spread the call to every item
-		for( ItemDataControl itemDataControl : itemsDataControlList )
-			itemDataControl.deleteIdentifierReferences( id );
-	}
+        if( elementIndex < itemsList.size( ) - 1 ) {
+            itemsList.add( elementIndex + 1, itemsList.remove( elementIndex ) );
+            itemsDataControlList.add( elementIndex + 1, itemsDataControlList.remove( elementIndex ) );
+            //controller.dataModified( );
+            elementMoved = true;
+        }
 
-	@Override
-	public boolean canBeDuplicated( ) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+        return elementMoved;
+    }
 
-	@Override
-	public void recursiveSearch() {
-		for (DataControl dc : this.itemsDataControlList)
-			dc.recursiveSearch();
-	}
-	
-	@Override
-	public List<Searchable> getPathToDataControl(Searchable dataControl) {
-		return getPathFromChild(dataControl, itemsDataControlList);
-	}
+    @Override
+    public String renameElement( String name ) {
+
+        return null;
+    }
+
+    @Override
+    public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
+
+        // Iterate through each item
+        for( ItemDataControl itemDataControl : itemsDataControlList )
+            itemDataControl.updateVarFlagSummary( varFlagSummary );
+    }
+
+    @Override
+    public boolean isValid( String currentPath, List<String> incidences ) {
+
+        boolean valid = true;
+
+        // Update the current path
+        currentPath += " >> " + TextConstants.getElementName( Controller.ITEMS_LIST );
+
+        // Iterate through the items
+        for( ItemDataControl itemDataControl : itemsDataControlList ) {
+            String itemPath = currentPath + " >> " + itemDataControl.getId( );
+            valid &= itemDataControl.isValid( itemPath, incidences );
+        }
+
+        return valid;
+    }
+
+    @Override
+    public int countAssetReferences( String assetPath ) {
+
+        int count = 0;
+
+        // Iterate through each item
+        for( ItemDataControl itemDataControl : itemsDataControlList )
+            count += itemDataControl.countAssetReferences( assetPath );
+
+        return count;
+    }
+
+    @Override
+    public void getAssetReferences( List<String> assetPaths, List<Integer> assetTypes ) {
+
+        // Iterate through each item
+        for( ItemDataControl itemDataControl : itemsDataControlList )
+            itemDataControl.getAssetReferences( assetPaths, assetTypes );
+    }
+
+    @Override
+    public void deleteAssetReferences( String assetPath ) {
+
+        // Iterate through each item
+        for( ItemDataControl itemDataControl : itemsDataControlList )
+            itemDataControl.deleteAssetReferences( assetPath );
+    }
+
+    @Override
+    public int countIdentifierReferences( String id ) {
+
+        int count = 0;
+
+        // Iterate through each item
+        for( ItemDataControl itemDataControl : itemsDataControlList )
+            count += itemDataControl.countIdentifierReferences( id );
+
+        return count;
+    }
+
+    @Override
+    public void replaceIdentifierReferences( String oldId, String newId ) {
+
+        // Iterate through each item
+        for( ItemDataControl itemDataControl : itemsDataControlList )
+            itemDataControl.replaceIdentifierReferences( oldId, newId );
+    }
+
+    @Override
+    public void deleteIdentifierReferences( String id ) {
+
+        // Spread the call to every item
+        for( ItemDataControl itemDataControl : itemsDataControlList )
+            itemDataControl.deleteIdentifierReferences( id );
+    }
+
+    @Override
+    public boolean canBeDuplicated( ) {
+
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public void recursiveSearch( ) {
+
+        for( DataControl dc : this.itemsDataControlList )
+            dc.recursiveSearch( );
+    }
+
+    @Override
+    public List<Searchable> getPathToDataControl( Searchable dataControl ) {
+
+        return getPathFromChild( dataControl, itemsDataControlList );
+    }
 
 }

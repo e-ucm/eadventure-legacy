@@ -1,34 +1,36 @@
 /**
- * <e-Adventure> is an <e-UCM> research project.
- * <e-UCM>, Department of Software Engineering and Artificial Intelligence.
- * Faculty of Informatics, Complutense University of Madrid (Spain).
- * @author Del Blanco, A., Marchiori, E., Torrente, F.J.
+ * <e-Adventure> is an <e-UCM> research project. <e-UCM>, Department of Software
+ * Engineering and Artificial Intelligence. Faculty of Informatics, Complutense
+ * University of Madrid (Spain).
+ * 
+ * @author Del Blanco, A., Marchiori, E., Torrente, F.J. (alphabetical order) *
+ * @author López Mañas, E., Pérez Padilla, F., Sollet, E., Torijano, B. (former
+ *         developers by alphabetical order)
  * @author Moreno-Ger, P. & Fernández-Manjón, B. (directors)
- * @year 2009
- * Web-site: http://e-adventure.e-ucm.es
+ * @year 2009 Web-site: http://e-adventure.e-ucm.es
  */
 
 /*
-    Copyright (C) 2004-2009 <e-UCM> research group
-
-    This file is part of <e-Adventure> project, an educational game & game-like 
-    simulation authoring tool, availabe at http://e-adventure.e-ucm.es. 
-
-    <e-Adventure> is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    <e-Adventure> is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with <e-Adventure>; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-*/
+ * Copyright (C) 2004-2009 <e-UCM> research group
+ * 
+ * This file is part of <e-Adventure> project, an educational game & game-like
+ * simulation authoring tool, available at http://e-adventure.e-ucm.es.
+ * 
+ * <e-Adventure> is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version.
+ * 
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place, Suite 330, Boston, MA 02111-1307 USA
+ * 
+ */
 package es.eucm.eadventure.editor.data.support;
 
 import java.util.ArrayList;
@@ -55,697 +57,739 @@ import es.eucm.eadventure.common.data.chapter.scenes.Scene;
  */
 public class IdentifierSummary {
 
-	/**
-	 * List of all identifiers in the script.
-	 */
-	private List<String> globalIdentifiers;
-	
-	/**
-	 * List of all scene identifiers in the chapter (including playable scenes and cutscenes).
-	 */
-	private List<String> generalSceneIdentifiers;
+    /**
+     * List of all identifiers in the script.
+     */
+    private List<String> globalIdentifiers;
 
-	/**
-	 * List of all ccutscene identifiers in the script.
-	 */
-	private List<String> sceneIdentifiers;
+    /**
+     * List of all scene identifiers in the chapter (including playable scenes
+     * and cutscenes).
+     */
+    private List<String> generalSceneIdentifiers;
 
-	/**
-	 * List of all identifiers of cutscenes in the script.
-	 */
-	private List<String> cutsceneIdentifiers;
+    /**
+     * List of all ccutscene identifiers in the script.
+     */
+    private List<String> sceneIdentifiers;
 
-	/**
-	 * List of all book identifiers in the script.
-	 */
-	private List<String> bookIdentifiers;
+    /**
+     * List of all identifiers of cutscenes in the script.
+     */
+    private List<String> cutsceneIdentifiers;
 
-	/**
-	 * List of all item identifiers in the script.
-	 */
-	private List<String> itemIdentifiers;
+    /**
+     * List of all book identifiers in the script.
+     */
+    private List<String> bookIdentifiers;
 
-	/**
-	 * List of all atrezzo item identifiers in the script.
-	 */
-	private List<String> atrezzoIdentifiers;
-	
-	/**
-	 * List of all NPC identifiers in the script.
-	 */
-	private List<String> npcIdentifiers;
+    /**
+     * List of all item identifiers in the script.
+     */
+    private List<String> itemIdentifiers;
 
-	/**
-	 * List of all conversation identifiers in the script.
-	 */
-	private List<String> conversationIdentifiers;
-	
-	/**
-	 * List of all assessment rule identifiers in the script.
-	 */
-	private List<String> assessmentRuleIdentifiers;
-	
-	/**
-	 * List of all assessment profiles identifiers in the script.
-	 */
-	private List<String> assessmentProfileIdentifiers;
-	
-	
-	/**
-	 * List of all adaptation rule identifiers in the script.
-	 */
-	private List<String> adaptationRuleIdentifiers;
+    /**
+     * List of all atrezzo item identifiers in the script.
+     */
+    private List<String> atrezzoIdentifiers;
 
-	/**
-	 * List of all adaptation profile identifiers in the script.
-	 */
-	private List<String> adaptationProfileIdentifiers;
+    /**
+     * List of all NPC identifiers in the script.
+     */
+    private List<String> npcIdentifiers;
 
-	
-	/**
-	 * List of all global states identifiers in the script.
-	 */
-	private List<String> globalStateIdentifiers;
-	
-	/**
-	 * List of all macro identifiers in the script.
-	 */
-	private List<String> macroIdentifiers;
+    /**
+     * List of all conversation identifiers in the script.
+     */
+    private List<String> conversationIdentifiers;
 
-	
-	private List<String> activeAreaIdentifiers;
+    /**
+     * List of all assessment rule identifiers in the script.
+     */
+    private List<String> assessmentRuleIdentifiers;
 
-	/**
-	 * Constructor.
-	 * 
-	 * @param chapter
-	 *            Chapter data which will provide the identifiers
-	 */
-	public IdentifierSummary( Chapter chapter ) {
+    /**
+     * List of all assessment profiles identifiers in the script.
+     */
+    private List<String> assessmentProfileIdentifiers;
 
-		// Create the lists
-		globalIdentifiers = new ArrayList<String>( );
-		generalSceneIdentifiers = new ArrayList<String>( );
-		sceneIdentifiers = new ArrayList<String>( );
-		cutsceneIdentifiers = new ArrayList<String>( );
-		bookIdentifiers = new ArrayList<String>( );
-		itemIdentifiers = new ArrayList<String>( );
-		atrezzoIdentifiers = new ArrayList<String>();
-		npcIdentifiers = new ArrayList<String>( );
-		conversationIdentifiers = new ArrayList<String>( );
-		assessmentRuleIdentifiers = new ArrayList<String>( );
-		adaptationRuleIdentifiers = new ArrayList<String>( );
-		globalStateIdentifiers = new ArrayList<String>( );
-		macroIdentifiers = new ArrayList<String>( );
-		activeAreaIdentifiers = new ArrayList<String>();
-		assessmentProfileIdentifiers = new ArrayList<String>();
-		adaptationProfileIdentifiers = new ArrayList<String>();
+    /**
+     * List of all adaptation rule identifiers in the script.
+     */
+    private List<String> adaptationRuleIdentifiers;
 
-		// Fill all the lists
-		loadIdentifiers( chapter );
-	}
+    /**
+     * List of all adaptation profile identifiers in the script.
+     */
+    private List<String> adaptationProfileIdentifiers;
 
-	/**
-	 * Reloads the identifiers with the given chapter data.
-	 * 
-	 * @param chapter
-	 *            Chapter data which will provide the identifiers
-	 */
-	public void loadIdentifiers( Chapter chapter ) {
+    /**
+     * List of all global states identifiers in the script.
+     */
+    private List<String> globalStateIdentifiers;
 
-		// Clear the lists
-		globalIdentifiers.clear( );
-		generalSceneIdentifiers.clear( );
-		sceneIdentifiers.clear( );
-		cutsceneIdentifiers.clear( );
-		bookIdentifiers.clear( );
-		itemIdentifiers.clear( );
-		atrezzoIdentifiers.clear();
-		npcIdentifiers.clear( );
-		conversationIdentifiers.clear( );
-		globalStateIdentifiers.clear( );
-		macroIdentifiers.clear( );
-		activeAreaIdentifiers.clear();
-		assessmentRuleIdentifiers.clear();
-		adaptationRuleIdentifiers.clear();
-		assessmentProfileIdentifiers.clear();
-		adaptationProfileIdentifiers.clear();
+    /**
+     * List of all macro identifiers in the script.
+     */
+    private List<String> macroIdentifiers;
 
-		// Add scene IDs
-		for( Scene scene : chapter.getScenes( ) ) {
-			addSceneId( scene.getId( ) );
-			for ( ActiveArea activeArea : scene.getActiveAreas()) {
-				if (activeArea.getId() != null && !activeArea.getId().equals(""))
-					addActiveAreaId( activeArea.getId());
-			}
-		}
+    private List<String> activeAreaIdentifiers;
 
-		// Add cutscene IDs
-		for( Cutscene cutscene : chapter.getCutscenes( ) )
-			addCutsceneId( cutscene.getId( ) );
+    /**
+     * Constructor.
+     * 
+     * @param chapter
+     *            Chapter data which will provide the identifiers
+     */
+    public IdentifierSummary( Chapter chapter ) {
 
-		// Add book IDs
-		for( Book book : chapter.getBooks( ) )
-			addBookId( book.getId( ) );
+        // Create the lists
+        globalIdentifiers = new ArrayList<String>( );
+        generalSceneIdentifiers = new ArrayList<String>( );
+        sceneIdentifiers = new ArrayList<String>( );
+        cutsceneIdentifiers = new ArrayList<String>( );
+        bookIdentifiers = new ArrayList<String>( );
+        itemIdentifiers = new ArrayList<String>( );
+        atrezzoIdentifiers = new ArrayList<String>( );
+        npcIdentifiers = new ArrayList<String>( );
+        conversationIdentifiers = new ArrayList<String>( );
+        assessmentRuleIdentifiers = new ArrayList<String>( );
+        adaptationRuleIdentifiers = new ArrayList<String>( );
+        globalStateIdentifiers = new ArrayList<String>( );
+        macroIdentifiers = new ArrayList<String>( );
+        activeAreaIdentifiers = new ArrayList<String>( );
+        assessmentProfileIdentifiers = new ArrayList<String>( );
+        adaptationProfileIdentifiers = new ArrayList<String>( );
 
-		// Add item IDs
-		for( Item item : chapter.getItems( ) )
-			addItemId( item.getId( ) );
-		
-		// Add atrezzo items IDs
-		for (Atrezzo atrezzo : chapter.getAtrezzo())
-			addAtrezzoId(atrezzo.getId());
+        // Fill all the lists
+        loadIdentifiers( chapter );
+    }
 
-		// Add NPC IDs
-		for( NPC npc : chapter.getCharacters( ) )
-			addNPCId( npc.getId( ) );
+    /**
+     * Reloads the identifiers with the given chapter data.
+     * 
+     * @param chapter
+     *            Chapter data which will provide the identifiers
+     */
+    public void loadIdentifiers( Chapter chapter ) {
 
-		// Add conversation IDs
-		for( Conversation conversation : chapter.getConversations( ) )
-			addConversationId( conversation.getId( ) );
-		
-		// Add global state IDs
-		for( GlobalState globalState : chapter.getGlobalStates( ) )
-			addGlobalStateId( globalState.getId( ) );
-		
-		// Add macro IDs
-		for( Macro macro : chapter.getMacros( ) )
-			addMacroId( macro.getId( ) );
-		
-		// Add assessment rules ids and asssessmnet profiles ids
-		for (AssessmentProfile profile : chapter.getAssessmentProfiles()){
-		    	addAssessmentProfileId(profile.getName());
-		    	for (AssessmentRule rule: profile.getRules())
-		    	    this.addAssessmentRuleId(rule.getId());
-		}
-		
-		// Add adaptation rules ids and asssessmnet profiles ids
-		for (AdaptationProfile profile : chapter.getAdaptationProfiles()){
-		    	addAdaptationProfileId(profile.getName());
-		    	for (AdaptationRule rule: profile.getRules())
-		    	    this.addAssessmentRuleId(rule.getId());
-		}
+        // Clear the lists
+        globalIdentifiers.clear( );
+        generalSceneIdentifiers.clear( );
+        sceneIdentifiers.clear( );
+        cutsceneIdentifiers.clear( );
+        bookIdentifiers.clear( );
+        itemIdentifiers.clear( );
+        atrezzoIdentifiers.clear( );
+        npcIdentifiers.clear( );
+        conversationIdentifiers.clear( );
+        globalStateIdentifiers.clear( );
+        macroIdentifiers.clear( );
+        activeAreaIdentifiers.clear( );
+        assessmentRuleIdentifiers.clear( );
+        adaptationRuleIdentifiers.clear( );
+        assessmentProfileIdentifiers.clear( );
+        adaptationProfileIdentifiers.clear( );
 
+        // Add scene IDs
+        for( Scene scene : chapter.getScenes( ) ) {
+            addSceneId( scene.getId( ) );
+            for( ActiveArea activeArea : scene.getActiveAreas( ) ) {
+                if( activeArea.getId( ) != null && !activeArea.getId( ).equals( "" ) )
+                    addActiveAreaId( activeArea.getId( ) );
+            }
+        }
 
-	}
+        // Add cutscene IDs
+        for( Cutscene cutscene : chapter.getCutscenes( ) )
+            addCutsceneId( cutscene.getId( ) );
 
-	/**
-	 * Returns if the given id exists or not.
-	 * 
-	 * @param id
-	 *            Id to be checked
-	 * @return True if the id exists, false otherwise
-	 */
-	public boolean existsId( String id ) {
-		return globalIdentifiers.contains( id );
-	}
+        // Add book IDs
+        for( Book book : chapter.getBooks( ) )
+            addBookId( book.getId( ) );
 
-	/**
-	 * Returns whether the given identifier is a scene or not.
-	 * 
-	 * @param sceneId
-	 *            Scene identifier
-	 * @return True if the identifier belongs to a scene, false otherwise
-	 */
-	public boolean isScene( String sceneId ) {
-		return sceneIdentifiers.contains( sceneId );
-	}
+        // Add item IDs
+        for( Item item : chapter.getItems( ) )
+            addItemId( item.getId( ) );
 
-	/**
-	 * Returns whether the given identifier is a conversation or not.
-	 * 
-	 * @param sceneId
-	 *            Scene identifier
-	 * @return True if the identifier belongs to a scene, false otherwise
-	 */
-	public boolean isConversation( String convId ) {
-		return conversationIdentifiers.contains( convId );
-	}
+        // Add atrezzo items IDs
+        for( Atrezzo atrezzo : chapter.getAtrezzo( ) )
+            addAtrezzoId( atrezzo.getId( ) );
 
+        // Add NPC IDs
+        for( NPC npc : chapter.getCharacters( ) )
+            addNPCId( npc.getId( ) );
 
-	/**
-	 * Returns an array of general scene identifiers.
-	 * 
-	 * @return Array of general scene identifiers
-	 */
-	public String[] getGeneralSceneIds( ) {
-		return generalSceneIdentifiers.toArray( new String[] {} );
-	}
+        // Add conversation IDs
+        for( Conversation conversation : chapter.getConversations( ) )
+            addConversationId( conversation.getId( ) );
 
-	/**
-	 * Returns an array of scene identifiers.
-	 * 
-	 * @return Array of scene identifiers
-	 */
-	public String[] getSceneIds( ) {
-		return sceneIdentifiers.toArray( new String[] {} );
-	}
+        // Add global state IDs
+        for( GlobalState globalState : chapter.getGlobalStates( ) )
+            addGlobalStateId( globalState.getId( ) );
 
-	/**
-	 * Returns an array of cutscene identifiers.
-	 * 
-	 * @return Array of cutscene identifiers
-	 */
-	public String[] getCutsceneIds( ) {
-		return cutsceneIdentifiers.toArray( new String[] {} );
-	}
-	
-	/**
-	 * Returns all scenes ids (scenes and cutsecene)
-	 * 
-	 * @return Array of cutscene plus scene identifiers
-	 */
-	public String[] getAllSceneIds(){
-	    ArrayList<String> allScenes = new ArrayList<String>(cutsceneIdentifiers);
-	    allScenes.addAll(new ArrayList<String>(sceneIdentifiers));
-	    return allScenes.toArray( new String[] {} );
-	}
+        // Add macro IDs
+        for( Macro macro : chapter.getMacros( ) )
+            addMacroId( macro.getId( ) );
 
-	/**
-	 * Returns an array of book identifiers.
-	 * 
-	 * @return Array of book identifiers
-	 */
-	public String[] getBookIds( ) {
-		return bookIdentifiers.toArray( new String[] {} );
-	}
+        // Add assessment rules ids and asssessmnet profiles ids
+        for( AssessmentProfile profile : chapter.getAssessmentProfiles( ) ) {
+            addAssessmentProfileId( profile.getName( ) );
+            for( AssessmentRule rule : profile.getRules( ) )
+                this.addAssessmentRuleId( rule.getId( ) );
+        }
 
-	/**
-	 * Returns an array of item identifiers.
-	 * 
-	 * @return Array of item identifiers
-	 */
-	public String[] getItemIds( ) {
-		return itemIdentifiers.toArray( new String[] {} );
-	}
-	
-	/**
-	 * Returns an array of atrezzo item identifiers.
-	 * 
-	 * @return Array of atrezzo item identifiers
-	 */
-	public String[] getAtrezzoIds( ) {
-		return atrezzoIdentifiers.toArray( new String[] {} );
-	}
+        // Add adaptation rules ids and asssessmnet profiles ids
+        for( AdaptationProfile profile : chapter.getAdaptationProfiles( ) ) {
+            addAdaptationProfileId( profile.getName( ) );
+            for( AdaptationRule rule : profile.getRules( ) )
+                this.addAssessmentRuleId( rule.getId( ) );
+        }
 
-	/**
-	 * Returns an array of NPC identifiers.
-	 * 
-	 * @return Array of NPC identifiers
-	 */
-	public String[] getNPCIds( ) {
-		return npcIdentifiers.toArray( new String[] {} );
-	}
+    }
 
-	/**
-	 * Returns an array of conversation identifiers.
-	 * 
-	 * @return Array of conversation identifiers
-	 */
-	public String[] getConversationsIds( ) {
-		return conversationIdentifiers.toArray( new String[] {} );
-	}
-	
-	/**
-	 * Returns an array of global state identifiers.
-	 * 
-	 * @return Array of global state identifiers
-	 */
-	public String[] getGlobalStatesIds( ) {
-		return globalStateIdentifiers.toArray( new String[] {} );
-	}
-	
-	/**
-	 * Returns an array of macro identifiers.
-	 * 
-	 * @return Array of macro identifiers
-	 */
-	public String[] getMacroIds( ) {
-		return macroIdentifiers.toArray( new String[] {} );
-	}
+    /**
+     * Returns if the given id exists or not.
+     * 
+     * @param id
+     *            Id to be checked
+     * @return True if the id exists, false otherwise
+     */
+    public boolean existsId( String id ) {
 
-	/**
-	 * Returns an array of global state identifiers.
-	 * 
-	 * @return Array of global state identifiers
-	 */
-	public String[] getGlobalStatesIds( String [] exceptions ) {
-		List<String> globalStateIds = new ArrayList<String>();
-		for (String id: this.globalStateIdentifiers){
-			for (String exception: exceptions){
-				if (!id.equals(exception))
-				globalStateIds.add(id);
-			}
-		}
-		return globalStateIds.toArray( new String[] {} );
-	}
-	
-	/**
-	 * Returns an array of macro identifiers.
-	 * 
-	 * @return Array of macro identifiers
-	 */
-	public String[] getMacroIds( String exception ) {
-		List<String> macroIds = new ArrayList<String>();
-		for (String id: this.macroIdentifiers){
-			if (!id.equals(exception))
-				macroIds.add(id);
-		}
-		return macroIds.toArray( new String[] {} );
-	}
+        return globalIdentifiers.contains( id );
+    }
 
-	/**
-	 * Adds a new scene id.
-	 * 
-	 * @param sceneId
-	 *            New scene id
-	 */
-	public void addSceneId( String sceneId ) {
-		globalIdentifiers.add( sceneId );
-		generalSceneIdentifiers.add( sceneId );
-		sceneIdentifiers.add( sceneId );
-	}
+    /**
+     * Returns whether the given identifier is a scene or not.
+     * 
+     * @param sceneId
+     *            Scene identifier
+     * @return True if the identifier belongs to a scene, false otherwise
+     */
+    public boolean isScene( String sceneId ) {
 
-	/**
-	 * Adds a new cutscene id.
-	 * 
-	 * @param cutsceneId
-	 *            New cutscene id
-	 */
-	public void addCutsceneId( String cutsceneId ) {
-		globalIdentifiers.add( cutsceneId );
-		generalSceneIdentifiers.add( cutsceneId );
-		cutsceneIdentifiers.add( cutsceneId );
-	}
+        return sceneIdentifiers.contains( sceneId );
+    }
 
-	/**
-	 * Adds a new book id.
-	 * 
-	 * @param bookId
-	 *            New book id
-	 */
-	public void addBookId( String bookId ) {
-		globalIdentifiers.add( bookId );
-		bookIdentifiers.add( bookId );
-	}
+    /**
+     * Returns whether the given identifier is a conversation or not.
+     * 
+     * @param sceneId
+     *            Scene identifier
+     * @return True if the identifier belongs to a scene, false otherwise
+     */
+    public boolean isConversation( String convId ) {
 
-	/**
-	 * Adds a new item id.
-	 * 
-	 * @param itemId
-	 *            New item id
-	 */
-	public void addItemId( String itemId ) {
-		globalIdentifiers.add( itemId );
-		itemIdentifiers.add( itemId );
-	}
-	
-	/**
-	 * Adds a new atrezzo item id.
-	 * 
-	 * @param atrezzoId
-	 *            New atrezzo item id
-	 */
-	public void addAtrezzoId( String atrezzoId ) {
-		globalIdentifiers.add( atrezzoId );
-		atrezzoIdentifiers.add( atrezzoId );
-	}
-	
+        return conversationIdentifiers.contains( convId );
+    }
 
-	/**
-	 * Adds a new NPC id.
-	 * 
-	 * @param npcId
-	 *            New NPC id
-	 */
-	public void addNPCId( String npcId ) {
-		globalIdentifiers.add( npcId );
-		npcIdentifiers.add( npcId );
-	}
+    /**
+     * Returns an array of general scene identifiers.
+     * 
+     * @return Array of general scene identifiers
+     */
+    public String[] getGeneralSceneIds( ) {
 
-	/**
-	 * Adds a new conversation id.
-	 * 
-	 * @param conversationId
-	 *            New conversation id
-	 */
-	public void addConversationId( String conversationId ) {
-		globalIdentifiers.add( conversationId );
-		conversationIdentifiers.add( conversationId );
-	}
-	
-	/**
-	 * Adds a new global state id.
-	 * 
-	 * @param globalStateId
-	 *            New conversation id
-	 */
-	public void addGlobalStateId( String globalStateId ) {
-		globalIdentifiers.add( globalStateId );
-		globalStateIdentifiers.add( globalStateId );
-	}
+        return generalSceneIdentifiers.toArray( new String[] {} );
+    }
 
-	/**
-	 * Adds a new macro id.
-	 * 
-	 * @param macroId
-	 *            New macro id
-	 */
-	public void addMacroId( String macroId ) {
-		globalIdentifiers.add( macroId );
-		macroIdentifiers.add( macroId );
-	}
-	
-	
-	/**
-	 * Adds a new assessment rule id.
-	 * 
-	 * @param assRuleId
-	 * 		New assessment rule id
-	 */
-	public void addAssessmentRuleId( String assRuleId ) {
-		globalIdentifiers.add( assRuleId );
-		this.assessmentRuleIdentifiers.add( assRuleId );
-	}
-	/**
-	 * Adds a new adaptation rule id.
-	 * 
-	 * @param assRuleId
-	 * 		New adaptation rule id
-	 */
-	public void addAdaptationRuleId( String adpRuleId ) {
-		globalIdentifiers.add( adpRuleId );
-		this.adaptationRuleIdentifiers.add( adpRuleId );
-	}
-	
-	/**
-	 * Adds a new assessment profile id.
-	 * 
-	 * @param assProfileId
-	 * 		New assessment profile id
-	 */
-	public void addAssessmentProfileId( String assProfileId ) {
-		globalIdentifiers.add( assProfileId );
-		this.assessmentProfileIdentifiers.add( assProfileId );
-	}
+    /**
+     * Returns an array of scene identifiers.
+     * 
+     * @return Array of scene identifiers
+     */
+    public String[] getSceneIds( ) {
 
-	/**
-	 * Adds a new adaptation profile id.
-	 * 
-	 * @param adaptProfileId
-	 * 		New adaptation profile id
-	 */
-	public void addAdaptationProfileId( String adaptProfileId ) {
-		globalIdentifiers.add( adaptProfileId );
-		this.adaptationProfileIdentifiers.add( adaptProfileId );
-	}
+        return sceneIdentifiers.toArray( new String[] {} );
+    }
 
-	
+    /**
+     * Returns an array of cutscene identifiers.
+     * 
+     * @return Array of cutscene identifiers
+     */
+    public String[] getCutsceneIds( ) {
 
-	/**
-	 * Deletes a new scene id.
-	 * 
-	 * @param sceneId
-	 *            Scene id to be deleted
-	 */
-	public void deleteSceneId( String sceneId ) {
-		globalIdentifiers.remove( sceneId );
-		generalSceneIdentifiers.remove( sceneId );
-		sceneIdentifiers.remove( sceneId );
-	}
+        return cutsceneIdentifiers.toArray( new String[] {} );
+    }
 
-	/**
-	 * Deletes a new cutscene id.
-	 * 
-	 * @param cutsceneId
-	 *            Cutscene id to be deleted
-	 */
-	public void deleteCutsceneId( String cutsceneId ) {
-		globalIdentifiers.remove( cutsceneId );
-		generalSceneIdentifiers.remove( cutsceneId );
-		cutsceneIdentifiers.remove( cutsceneId );
-	}
+    /**
+     * Returns all scenes ids (scenes and cutsecene)
+     * 
+     * @return Array of cutscene plus scene identifiers
+     */
+    public String[] getAllSceneIds( ) {
 
-	/**
-	 * Deletes a new book id.
-	 * 
-	 * @param bookId
-	 *            Book id to be deleted
-	 */
-	public void deleteBookId( String bookId ) {
-		globalIdentifiers.remove( bookId );
-		bookIdentifiers.remove( bookId );
-	}
+        ArrayList<String> allScenes = new ArrayList<String>( cutsceneIdentifiers );
+        allScenes.addAll( new ArrayList<String>( sceneIdentifiers ) );
+        return allScenes.toArray( new String[] {} );
+    }
 
-	/**
-	 * Deletes a new item id.
-	 * 
-	 * @param itemId
-	 *            Item id to be deleted
-	 */
-	public void deleteItemId( String itemId ) {
-		globalIdentifiers.remove( itemId );
-		itemIdentifiers.remove( itemId );
-	}
-	
-	/**
-	 * Deletes a new atrezzo item id.
-	 * 
-	 * @param atrezzoId
-	 *            atrezzo item id to be deleted
-	 */
-	public void deleteAtrezzoId( String atrezzoId ) {
-		globalIdentifiers.remove( atrezzoId );
-		atrezzoIdentifiers.remove( atrezzoId );
-	}
+    /**
+     * Returns an array of book identifiers.
+     * 
+     * @return Array of book identifiers
+     */
+    public String[] getBookIds( ) {
 
-	/**
-	 * Deletes a new NPC id.
-	 * 
-	 * @param npcId
-	 *            NPC id to be deleted
-	 */
-	public void deleteNPCId( String npcId ) {
-		globalIdentifiers.remove( npcId );
-		npcIdentifiers.remove( npcId );
-	}
+        return bookIdentifiers.toArray( new String[] {} );
+    }
 
-	/**
-	 * Deletes a new conversation id.
-	 * 
-	 * @param conversationId
-	 *            Conversation id to be deleted
-	 */
-	public void deleteConversationId( String conversationId ) {
-		globalIdentifiers.remove( conversationId );
-		conversationIdentifiers.remove( conversationId );
-	}
-	
-	/**
-	 * Deletes a new conversation id.
-	 * 
-	 * @param globalStateId
-	 *            Conversation id to be deleted
-	 */
-	public void deleteGlobalStateId( String globalStateId ) {
-		globalIdentifiers.remove( globalStateId );
-		globalStateIdentifiers.remove( globalStateId );
-	}
-	
-	/**
-	 * Deletes a macro id.
-	 * 
-	 * @param macroId
-	 *            Macro id to be deleted
-	 */
-	public void deleteMacroId( String macroId ) {
-		globalIdentifiers.remove( macroId );
-		macroIdentifiers.remove( macroId );
-	}
+    /**
+     * Returns an array of item identifiers.
+     * 
+     * @return Array of item identifiers
+     */
+    public String[] getItemIds( ) {
 
+        return itemIdentifiers.toArray( new String[] {} );
+    }
 
-	/**
-	 * Deleted an assessment rule id
-	 * 
-	 * @param id
-	 * 		Assessment rule id to be deleted
-	 */
-	public void deleteAssessmentRuleId( String id ) {
-		globalIdentifiers.remove( id );
-		assessmentRuleIdentifiers.remove( id );
-	}
+    /**
+     * Returns an array of atrezzo item identifiers.
+     * 
+     * @return Array of atrezzo item identifiers
+     */
+    public String[] getAtrezzoIds( ) {
 
-	/**
-	 * Deleted an adaptation rule id
-	 * 
-	 * @param id
-	 * 		adaptation rule id to be deleted
-	 */
-	public void deleteAdaptationRuleId( String id ) {
-		globalIdentifiers.remove( id );
-		adaptationRuleIdentifiers.remove( id );
-		
-	}
-	
-	/**
-	 * Deleted an assessment profile id
-	 * 
-	 * @param id
-	 * 		Assessment profile id to be deleted
-	 */
-	public void deleteAssessmentProfileId( String id ) {
-		globalIdentifiers.remove( id );
-		assessmentProfileIdentifiers.remove( id );
-	}
-	
-	/**
-	 * Deleted an adaptation profile id
-	 * 
-	 * @param id
-	 * 		adaptation profile id to be deleted
-	 */
-	public void deleteAdaptationProfileId( String id ) {
-		globalIdentifiers.remove( id );
-		adaptationProfileIdentifiers.remove( id );
-		
-	}
-	
-	public boolean isAdaptationProfileId(String id){
-	    return this.adaptationProfileIdentifiers.contains(id);
-	}
-	
-	public boolean isAssessmentProfileId(String id){
-	    return this.assessmentProfileIdentifiers.contains(id);
-	}
-	
-	public boolean isGlobalStateId ( String id ){
-		return globalStateIdentifiers.contains(id);
-	}
+        return atrezzoIdentifiers.toArray( new String[] {} );
+    }
 
-	public boolean isMacroId ( String id ){
-		return macroIdentifiers.contains(id);
-	}
+    /**
+     * Returns an array of NPC identifiers.
+     * 
+     * @return Array of NPC identifiers
+     */
+    public String[] getNPCIds( ) {
 
-	public void addActiveAreaId(String id) {
-		globalIdentifiers.add(id);
-		activeAreaIdentifiers.add(id);
-	}
-	
-	public void deleteActiveAreaId(String id) {
-		if (activeAreaIdentifiers.contains(id)) {
-			globalIdentifiers.remove(id);
-			activeAreaIdentifiers.remove(id);
-		}
-	}
-	
-	/**
-	 * Get a list of all ids of the items and active areas
-	 * @return ids of the items and activeAreas
-	 */
-	public String[] getItemAndActiveAreaIds() {
-		List<String> set = new ArrayList<String>(itemIdentifiers);
-		set.addAll(activeAreaIdentifiers);
-		return set.toArray( new String[] {} );
-	}
+        return npcIdentifiers.toArray( new String[] {} );
+    }
+
+    /**
+     * Returns an array of conversation identifiers.
+     * 
+     * @return Array of conversation identifiers
+     */
+    public String[] getConversationsIds( ) {
+
+        return conversationIdentifiers.toArray( new String[] {} );
+    }
+
+    /**
+     * Returns an array of global state identifiers.
+     * 
+     * @return Array of global state identifiers
+     */
+    public String[] getGlobalStatesIds( ) {
+
+        return globalStateIdentifiers.toArray( new String[] {} );
+    }
+
+    /**
+     * Returns an array of macro identifiers.
+     * 
+     * @return Array of macro identifiers
+     */
+    public String[] getMacroIds( ) {
+
+        return macroIdentifiers.toArray( new String[] {} );
+    }
+
+    /**
+     * Returns an array of global state identifiers.
+     * 
+     * @return Array of global state identifiers
+     */
+    public String[] getGlobalStatesIds( String[] exceptions ) {
+
+        List<String> globalStateIds = new ArrayList<String>( );
+        for( String id : this.globalStateIdentifiers ) {
+            for( String exception : exceptions ) {
+                if( !id.equals( exception ) )
+                    globalStateIds.add( id );
+            }
+        }
+        return globalStateIds.toArray( new String[] {} );
+    }
+
+    /**
+     * Returns an array of macro identifiers.
+     * 
+     * @return Array of macro identifiers
+     */
+    public String[] getMacroIds( String exception ) {
+
+        List<String> macroIds = new ArrayList<String>( );
+        for( String id : this.macroIdentifiers ) {
+            if( !id.equals( exception ) )
+                macroIds.add( id );
+        }
+        return macroIds.toArray( new String[] {} );
+    }
+
+    /**
+     * Adds a new scene id.
+     * 
+     * @param sceneId
+     *            New scene id
+     */
+    public void addSceneId( String sceneId ) {
+
+        globalIdentifiers.add( sceneId );
+        generalSceneIdentifiers.add( sceneId );
+        sceneIdentifiers.add( sceneId );
+    }
+
+    /**
+     * Adds a new cutscene id.
+     * 
+     * @param cutsceneId
+     *            New cutscene id
+     */
+    public void addCutsceneId( String cutsceneId ) {
+
+        globalIdentifiers.add( cutsceneId );
+        generalSceneIdentifiers.add( cutsceneId );
+        cutsceneIdentifiers.add( cutsceneId );
+    }
+
+    /**
+     * Adds a new book id.
+     * 
+     * @param bookId
+     *            New book id
+     */
+    public void addBookId( String bookId ) {
+
+        globalIdentifiers.add( bookId );
+        bookIdentifiers.add( bookId );
+    }
+
+    /**
+     * Adds a new item id.
+     * 
+     * @param itemId
+     *            New item id
+     */
+    public void addItemId( String itemId ) {
+
+        globalIdentifiers.add( itemId );
+        itemIdentifiers.add( itemId );
+    }
+
+    /**
+     * Adds a new atrezzo item id.
+     * 
+     * @param atrezzoId
+     *            New atrezzo item id
+     */
+    public void addAtrezzoId( String atrezzoId ) {
+
+        globalIdentifiers.add( atrezzoId );
+        atrezzoIdentifiers.add( atrezzoId );
+    }
+
+    /**
+     * Adds a new NPC id.
+     * 
+     * @param npcId
+     *            New NPC id
+     */
+    public void addNPCId( String npcId ) {
+
+        globalIdentifiers.add( npcId );
+        npcIdentifiers.add( npcId );
+    }
+
+    /**
+     * Adds a new conversation id.
+     * 
+     * @param conversationId
+     *            New conversation id
+     */
+    public void addConversationId( String conversationId ) {
+
+        globalIdentifiers.add( conversationId );
+        conversationIdentifiers.add( conversationId );
+    }
+
+    /**
+     * Adds a new global state id.
+     * 
+     * @param globalStateId
+     *            New conversation id
+     */
+    public void addGlobalStateId( String globalStateId ) {
+
+        globalIdentifiers.add( globalStateId );
+        globalStateIdentifiers.add( globalStateId );
+    }
+
+    /**
+     * Adds a new macro id.
+     * 
+     * @param macroId
+     *            New macro id
+     */
+    public void addMacroId( String macroId ) {
+
+        globalIdentifiers.add( macroId );
+        macroIdentifiers.add( macroId );
+    }
+
+    /**
+     * Adds a new assessment rule id.
+     * 
+     * @param assRuleId
+     *            New assessment rule id
+     */
+    public void addAssessmentRuleId( String assRuleId ) {
+
+        globalIdentifiers.add( assRuleId );
+        this.assessmentRuleIdentifiers.add( assRuleId );
+    }
+
+    /**
+     * Adds a new adaptation rule id.
+     * 
+     * @param assRuleId
+     *            New adaptation rule id
+     */
+    public void addAdaptationRuleId( String adpRuleId ) {
+
+        globalIdentifiers.add( adpRuleId );
+        this.adaptationRuleIdentifiers.add( adpRuleId );
+    }
+
+    /**
+     * Adds a new assessment profile id.
+     * 
+     * @param assProfileId
+     *            New assessment profile id
+     */
+    public void addAssessmentProfileId( String assProfileId ) {
+
+        globalIdentifiers.add( assProfileId );
+        this.assessmentProfileIdentifiers.add( assProfileId );
+    }
+
+    /**
+     * Adds a new adaptation profile id.
+     * 
+     * @param adaptProfileId
+     *            New adaptation profile id
+     */
+    public void addAdaptationProfileId( String adaptProfileId ) {
+
+        globalIdentifiers.add( adaptProfileId );
+        this.adaptationProfileIdentifiers.add( adaptProfileId );
+    }
+
+    /**
+     * Deletes a new scene id.
+     * 
+     * @param sceneId
+     *            Scene id to be deleted
+     */
+    public void deleteSceneId( String sceneId ) {
+
+        globalIdentifiers.remove( sceneId );
+        generalSceneIdentifiers.remove( sceneId );
+        sceneIdentifiers.remove( sceneId );
+    }
+
+    /**
+     * Deletes a new cutscene id.
+     * 
+     * @param cutsceneId
+     *            Cutscene id to be deleted
+     */
+    public void deleteCutsceneId( String cutsceneId ) {
+
+        globalIdentifiers.remove( cutsceneId );
+        generalSceneIdentifiers.remove( cutsceneId );
+        cutsceneIdentifiers.remove( cutsceneId );
+    }
+
+    /**
+     * Deletes a new book id.
+     * 
+     * @param bookId
+     *            Book id to be deleted
+     */
+    public void deleteBookId( String bookId ) {
+
+        globalIdentifiers.remove( bookId );
+        bookIdentifiers.remove( bookId );
+    }
+
+    /**
+     * Deletes a new item id.
+     * 
+     * @param itemId
+     *            Item id to be deleted
+     */
+    public void deleteItemId( String itemId ) {
+
+        globalIdentifiers.remove( itemId );
+        itemIdentifiers.remove( itemId );
+    }
+
+    /**
+     * Deletes a new atrezzo item id.
+     * 
+     * @param atrezzoId
+     *            atrezzo item id to be deleted
+     */
+    public void deleteAtrezzoId( String atrezzoId ) {
+
+        globalIdentifiers.remove( atrezzoId );
+        atrezzoIdentifiers.remove( atrezzoId );
+    }
+
+    /**
+     * Deletes a new NPC id.
+     * 
+     * @param npcId
+     *            NPC id to be deleted
+     */
+    public void deleteNPCId( String npcId ) {
+
+        globalIdentifiers.remove( npcId );
+        npcIdentifiers.remove( npcId );
+    }
+
+    /**
+     * Deletes a new conversation id.
+     * 
+     * @param conversationId
+     *            Conversation id to be deleted
+     */
+    public void deleteConversationId( String conversationId ) {
+
+        globalIdentifiers.remove( conversationId );
+        conversationIdentifiers.remove( conversationId );
+    }
+
+    /**
+     * Deletes a new conversation id.
+     * 
+     * @param globalStateId
+     *            Conversation id to be deleted
+     */
+    public void deleteGlobalStateId( String globalStateId ) {
+
+        globalIdentifiers.remove( globalStateId );
+        globalStateIdentifiers.remove( globalStateId );
+    }
+
+    /**
+     * Deletes a macro id.
+     * 
+     * @param macroId
+     *            Macro id to be deleted
+     */
+    public void deleteMacroId( String macroId ) {
+
+        globalIdentifiers.remove( macroId );
+        macroIdentifiers.remove( macroId );
+    }
+
+    /**
+     * Deleted an assessment rule id
+     * 
+     * @param id
+     *            Assessment rule id to be deleted
+     */
+    public void deleteAssessmentRuleId( String id ) {
+
+        globalIdentifiers.remove( id );
+        assessmentRuleIdentifiers.remove( id );
+    }
+
+    /**
+     * Deleted an adaptation rule id
+     * 
+     * @param id
+     *            adaptation rule id to be deleted
+     */
+    public void deleteAdaptationRuleId( String id ) {
+
+        globalIdentifiers.remove( id );
+        adaptationRuleIdentifiers.remove( id );
+
+    }
+
+    /**
+     * Deleted an assessment profile id
+     * 
+     * @param id
+     *            Assessment profile id to be deleted
+     */
+    public void deleteAssessmentProfileId( String id ) {
+
+        globalIdentifiers.remove( id );
+        assessmentProfileIdentifiers.remove( id );
+    }
+
+    /**
+     * Deleted an adaptation profile id
+     * 
+     * @param id
+     *            adaptation profile id to be deleted
+     */
+    public void deleteAdaptationProfileId( String id ) {
+
+        globalIdentifiers.remove( id );
+        adaptationProfileIdentifiers.remove( id );
+
+    }
+
+    public boolean isAdaptationProfileId( String id ) {
+
+        return this.adaptationProfileIdentifiers.contains( id );
+    }
+
+    public boolean isAssessmentProfileId( String id ) {
+
+        return this.assessmentProfileIdentifiers.contains( id );
+    }
+
+    public boolean isGlobalStateId( String id ) {
+
+        return globalStateIdentifiers.contains( id );
+    }
+
+    public boolean isMacroId( String id ) {
+
+        return macroIdentifiers.contains( id );
+    }
+
+    public void addActiveAreaId( String id ) {
+
+        globalIdentifiers.add( id );
+        activeAreaIdentifiers.add( id );
+    }
+
+    public void deleteActiveAreaId( String id ) {
+
+        if( activeAreaIdentifiers.contains( id ) ) {
+            globalIdentifiers.remove( id );
+            activeAreaIdentifiers.remove( id );
+        }
+    }
+
+    /**
+     * Get a list of all ids of the items and active areas
+     * 
+     * @return ids of the items and activeAreas
+     */
+    public String[] getItemAndActiveAreaIds( ) {
+
+        List<String> set = new ArrayList<String>( itemIdentifiers );
+        set.addAll( activeAreaIdentifiers );
+        return set.toArray( new String[] {} );
+    }
 
 }

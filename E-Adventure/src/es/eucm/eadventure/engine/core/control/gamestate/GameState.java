@@ -1,34 +1,36 @@
 /**
- * <e-Adventure> is an <e-UCM> research project.
- * <e-UCM>, Department of Software Engineering and Artificial Intelligence.
- * Faculty of Informatics, Complutense University of Madrid (Spain).
- * @author Del Blanco, A., Marchiori, E., Torrente, F.J.
+ * <e-Adventure> is an <e-UCM> research project. <e-UCM>, Department of Software
+ * Engineering and Artificial Intelligence. Faculty of Informatics, Complutense
+ * University of Madrid (Spain).
+ * 
+ * @author Del Blanco, A., Marchiori, E., Torrente, F.J. (alphabetical order) *
+ * @author López Mañas, E., Pérez Padilla, F., Sollet, E., Torijano, B. (former
+ *         developers by alphabetical order)
  * @author Moreno-Ger, P. & Fernández-Manjón, B. (directors)
- * @year 2009
- * Web-site: http://e-adventure.e-ucm.es
+ * @year 2009 Web-site: http://e-adventure.e-ucm.es
  */
 
 /*
-    Copyright (C) 2004-2009 <e-UCM> research group
-
-    This file is part of <e-Adventure> project, an educational game & game-like 
-    simulation authoring tool, availabe at http://e-adventure.e-ucm.es. 
-
-    <e-Adventure> is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    <e-Adventure> is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with <e-Adventure>; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-*/
+ * Copyright (C) 2004-2009 <e-UCM> research group
+ * 
+ * This file is part of <e-Adventure> project, an educational game & game-like
+ * simulation authoring tool, available at http://e-adventure.e-ucm.es.
+ * 
+ * <e-Adventure> is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version.
+ * 
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place, Suite 330, Boston, MA 02111-1307 USA
+ * 
+ */
 package es.eucm.eadventure.engine.core.control.gamestate;
 
 import java.awt.event.KeyEvent;
@@ -50,50 +52,78 @@ public abstract class GameState {
      * Creates a new GameState
      */
     public GameState( ) {
+
         this.game = Game.getInstance( );
     }
 
     /**
      * Perform an interation in the loop
-     * @param elapsedTime the elapsed time from the last iteration
-     * @param fps current frames per second
+     * 
+     * @param elapsedTime
+     *            the elapsed time from the last iteration
+     * @param fps
+     *            current frames per second
      */
     public abstract void mainLoop( long elapsedTime, int fps );
 
     /**
      * Notifies that the user has clicked the screen
-     * @param e The mouse event
+     * 
+     * @param e
+     *            The mouse event
      */
-    public void mouseClicked( MouseEvent e ) { }
-    
+    public void mouseClicked( MouseEvent e ) {
+
+    }
+
     /**
      * Notifies that the user has pressed a mouse button on the screen
-     * @param e The mouse event
+     * 
+     * @param e
+     *            The mouse event
      */
-    public void mousePressed( MouseEvent e ) { }
-    
+    public void mousePressed( MouseEvent e ) {
+
+    }
+
     /**
      * Notifies that the user has released a mouse button on the screen
-     * @param e The mouse event
+     * 
+     * @param e
+     *            The mouse event
      */
-    public void mouseReleased( MouseEvent e ) { }
-    
+    public void mouseReleased( MouseEvent e ) {
+
+    }
+
     /**
      * Notifies that the user is dragging the mouse on the screen
-     * @param e The mouse event
+     * 
+     * @param e
+     *            The mouse event
      */
-    public void mouseDragged( MouseEvent e ) { }
+    public void mouseDragged( MouseEvent e ) {
+
+    }
 
     /**
      * Notify that the user has moved the mouse
-     * @param e The mouse event
+     * 
+     * @param e
+     *            The mouse event
      */
-    public void mouseMoved( MouseEvent e ) { }
-    
+    public void mouseMoved( MouseEvent e ) {
+
+    }
+
     /**
      * Notify that the user has pressed a key
-     * @param e The key event
+     * 
+     * @param e
+     *            The key event
      */
-    public void keyPressed( KeyEvent e ) { }
+    public void keyPressed( KeyEvent e ) {
+
+    }
 
 }
