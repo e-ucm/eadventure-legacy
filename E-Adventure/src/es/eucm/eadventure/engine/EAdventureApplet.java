@@ -50,7 +50,8 @@ public class EAdventureApplet extends CommManagerLD {
                 ArchiveDetector.NULL, // delegate
                 new String[] {
                     //"ead", "de.schlichtherle.io.archive.zip.JarDriver",
-                    "ead", "de.schlichtherle.io.archive.zip.Zip32Driver",
+                    //"ead", "de.schlichtherle.io.archive.zip.Zip32Driver",
+                    "ead", "es.eucm.eadventure.common.auxiliar.EADDriver",
                 }));
         
         try {
