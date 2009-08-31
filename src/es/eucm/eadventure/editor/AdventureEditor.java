@@ -23,9 +23,13 @@ public class AdventureEditor {
 	public static void main( String[] args ) {
 		de.schlichtherle.io.File.setDefaultArchiveDetector( new DefaultArchiveDetector( ArchiveDetector.NULL, // delegate
 		new String[] {
-		"jar", "de.schlichtherle.io.archive.zip.JarDriver",
+		        		  
+                "jar", "de.schlichtherle.io.archive.zip.JarDriver",
+                "ead", "es.eucm.eadventure.common.auxiliar.EADDriver", 
+                "zip", "es.eucm.eadventure.common.auxiliar.EADDriver"} ) );
+		/*"jar", "de.schlichtherle.io.archive.zip.JarDriver",
 		"ead", "de.schlichtherle.io.archive.zip.Zip32Driver", 
-		"zip", "de.schlichtherle.io.archive.zip.Zip32Driver"} ) );
+		"zip", "de.schlichtherle.io.archive.zip.Zip32Driver"} ) );*/
 
 		try {
 			Codec video = (Codec) Class.forName(
