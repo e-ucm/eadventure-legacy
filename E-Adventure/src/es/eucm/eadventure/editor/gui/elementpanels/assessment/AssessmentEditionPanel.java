@@ -402,7 +402,7 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
 		    this.pastSelection = pastSelection;
 		}
 		
-		@Override
+		//@Override
 		public void actionPerformed(ActionEvent e) {
 		    JComboBox combo = ((JComboBox) e.getSource());
 		    if (pastSelection!=combo.getSelectedIndex() ){
