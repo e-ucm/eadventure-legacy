@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.6.0_12"/>
 	<classpathentry kind="lib" path="jars/jffmpeg-1.1.0.jar"/>
 	<classpathentry kind="lib" path="jars/jl1.0.jar"/>
 	<classpathentry kind="lib" path="jars/jmf.jar"/>
@@ -9,7 +9,7 @@
 	<classpathentry kind="lib" path="jars/plugin.jar"/>
 	<classpathentry kind="lib" path="jars/tools.jar"/>
 	<classpathentry kind="lib" path="jars/tritonus_share.jar"/>
-	<classpathentry kind="lib" path="jars/truezip-6.jar"/>
+	<classpathentry kind="lib" path="jars/truezip-6.jar" sourcepath="jars/truezip-6-src.zip"/>
 	<classpathentry kind="lib" path="jars/gnu-regexp-1.1.4.jar"/>
 	<classpathentry kind="lib" path="jars/kafenio-config.jar"/>
 	<classpathentry kind="lib" path="jars/kafenio-icons.jar"/>
