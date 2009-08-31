@@ -34,7 +34,7 @@
 		</copy>
 		<jar compress="true" destfile="web/eAdventure_S.jar">
 			<fileset dir="web/temp">
-				<exclude name="CVS/**" />
+				<exclude name=".svn/**" />
 				<include name="**" />
 			</fileset>
 			<zipfileset src="jars/truezip-6.jar" />
@@ -75,7 +75,7 @@
 		</copy>
 		<jar compress="true" destfile="web/eAdventure.jar">
 			<fileset dir="web/temp">
-				<exclude name="CVS/**" />
+				<exclude name=".svn/**" />
 				<include name="**" />
 			</fileset>
 			<zipfileset src="jars/truezip-6.jar" />
@@ -104,6 +104,7 @@
 		                <exclude name="**/MANIFEST.MF" /> 
 		        </zipfileset> 
 		</zip>
+		
 		
 	</target>
 	
