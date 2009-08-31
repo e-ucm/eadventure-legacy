@@ -1,34 +1,36 @@
 /**
- * <e-Adventure> is an <e-UCM> research project.
- * <e-UCM>, Department of Software Engineering and Artificial Intelligence.
- * Faculty of Informatics, Complutense University of Madrid (Spain).
- * @author Del Blanco, A., Marchiori, E., Torrente, F.J.
+ * <e-Adventure> is an <e-UCM> research project. <e-UCM>, Department of Software
+ * Engineering and Artificial Intelligence. Faculty of Informatics, Complutense
+ * University of Madrid (Spain).
+ * 
+ * @author Del Blanco, A., Marchiori, E., Torrente, F.J. (alphabetical order) *
+ * @author López Mañas, E., Pérez Padilla, F., Sollet, E., Torijano, B. (former
+ *         developers by alphabetical order)
  * @author Moreno-Ger, P. & Fernández-Manjón, B. (directors)
- * @year 2009
- * Web-site: http://e-adventure.e-ucm.es
+ * @year 2009 Web-site: http://e-adventure.e-ucm.es
  */
 
 /*
-    Copyright (C) 2004-2009 <e-UCM> research group
-
-    This file is part of <e-Adventure> project, an educational game & game-like 
-    simulation authoring tool, availabe at http://e-adventure.e-ucm.es. 
-
-    <e-Adventure> is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    <e-Adventure> is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with <e-Adventure>; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-*/
+ * Copyright (C) 2004-2009 <e-UCM> research group
+ * 
+ * This file is part of <e-Adventure> project, an educational game & game-like
+ * simulation authoring tool, available at http://e-adventure.e-ucm.es.
+ * 
+ * <e-Adventure> is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version.
+ * 
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place, Suite 330, Boston, MA 02111-1307 USA
+ * 
+ */
 package es.eucm.eadventure.editor.control.controllers.general;
 
 import java.util.List;
@@ -67,622 +69,690 @@ import es.eucm.eadventure.editor.data.support.VarFlagSummary;
  */
 public class ChapterDataControl extends DataControl {
 
-	/**
-	 * Chapter data contained.
-	 */
-	private Chapter chapter;
+    /**
+     * Chapter data contained.
+     */
+    private Chapter chapter;
 
-	/**
-	 * Scenes list data controller.
-	 */
-	private ScenesListDataControl scenesListDataControl;
+    /**
+     * Scenes list data controller.
+     */
+    private ScenesListDataControl scenesListDataControl;
 
-	/**
-	 * Cutscenes list data controller.
-	 */
-	private CutscenesListDataControl cutscenesListDataControl;
+    /**
+     * Cutscenes list data controller.
+     */
+    private CutscenesListDataControl cutscenesListDataControl;
 
-	/**
-	 * Books list data controller.
-	 */
-	private BooksListDataControl booksListDataControl;
+    /**
+     * Books list data controller.
+     */
+    private BooksListDataControl booksListDataControl;
 
-	/**
-	 * Items list data controller.
-	 */
-	private ItemsListDataControl itemsListDataControl;
-	
-	/**
-	 * Atrezzo items list data controller.
-	 */
-	private AtrezzoListDataControl atrezzoListDataControl;	
-	
-	/**
-	 * Player data controller.
-	 */
-	private PlayerDataControl playerDataControl;
+    /**
+     * Items list data controller.
+     */
+    private ItemsListDataControl itemsListDataControl;
 
-	/**
-	 * NPCs list data controller.
-	 */
-	private NPCsListDataControl npcsListDataControl;
+    /**
+     * Atrezzo items list data controller.
+     */
+    private AtrezzoListDataControl atrezzoListDataControl;
 
-	/**
-	 * Conversations list data controller.
-	 */
-	private ConversationsListDataControl conversationsListDataControl;
-	
-	/**
-	 * Assessment file data controller
-	 */
-	private AssessmentProfilesDataControl assessmentProfilesDataControl;
-	
-	/**
-	 * Adaptation file data controller
-	 */
-	private AdaptationProfilesDataControl adaptationProfilesDataControl;
+    /**
+     * Player data controller.
+     */
+    private PlayerDataControl playerDataControl;
 
-	/**
-	 * Advanced features data controller (timers, global states and macros)
-	 */
-	private AdvancedFeaturesDataControl advancedFeaturesDataControl;
-	
-	/**
-	 * Constructor.
-	 * 
-	 * @param chapter
-	 *            Contained chapter data
-	 */
-	public ChapterDataControl( Chapter chapter ) {
-		update ( chapter );
-	}
-	
-	/**
-	 * Updates the data contained in the data control with a new chapter. 
-	 * This method is essential for some undo/redo tools
-	 * @param chaper
-	 */
-	public void update ( Chapter chapter ){
-		this.chapter = chapter;
+    /**
+     * NPCs list data controller.
+     */
+    private NPCsListDataControl npcsListDataControl;
 
-		// Create the subcontrollers
-		playerDataControl = new PlayerDataControl( chapter.getPlayer( ) );
-		scenesListDataControl = new ScenesListDataControl( chapter.getScenes( ), this.getPlayer().getPreviewImage());
-		cutscenesListDataControl = new CutscenesListDataControl( chapter.getCutscenes( ) );
-		booksListDataControl = new BooksListDataControl( chapter.getBooks( ) );
-		itemsListDataControl = new ItemsListDataControl( chapter.getItems( ) );
-		atrezzoListDataControl = new AtrezzoListDataControl(chapter.getAtrezzo());
-		npcsListDataControl = new NPCsListDataControl( chapter.getCharacters( ) );
-		conversationsListDataControl = new ConversationsListDataControl( chapter.getConversations( ) );
-		TimersListDataControl timersListDataControl = new TimersListDataControl( chapter.getTimers( ) );
-		GlobalStateListDataControl globalStatesListDataControl = new GlobalStateListDataControl( chapter.getGlobalStates() );
-		MacroListDataControl macrosListDataControl = new MacroListDataControl ( chapter.getMacros( ) );		
-		advancedFeaturesDataControl = new AdvancedFeaturesDataControl();
-		advancedFeaturesDataControl.setTimerListDataControl(timersListDataControl);
-		advancedFeaturesDataControl.setGlobalStatesListDataContorl(globalStatesListDataControl);
-		advancedFeaturesDataControl.setMacrosListDataControl(macrosListDataControl);
-		assessmentProfilesDataControl = new AssessmentProfilesDataControl(chapter.getAssessmentProfiles());
-		adaptationProfilesDataControl = new AdaptationProfilesDataControl(chapter.getAdaptationProfiles());
-	}
+    /**
+     * Conversations list data controller.
+     */
+    private ConversationsListDataControl conversationsListDataControl;
 
-	/**
-	 * Returns the title of the chapter.
-	 * 
-	 * @return Chapter's title
-	 */
-	public String getTitle( ) {
-		return chapter.getTitle( );
-	}
+    /**
+     * Assessment file data controller
+     */
+    private AssessmentProfilesDataControl assessmentProfilesDataControl;
 
-	/**
-	 * Returns the description of the chapter.
-	 * 
-	 * @return Chapter's description
-	 */
-	public String getDescription( ) {
-		return chapter.getDescription( );
-	}
+    /**
+     * Adaptation file data controller
+     */
+    private AdaptationProfilesDataControl adaptationProfilesDataControl;
 
-	/**
-	 * Returns the name to the assessment profile of the chapter.
-	 * 
-	 * @return Name to the assessment profile of the chapter
-	 */
-	public String getAssessmentName( ) {
-		return chapter.getAssessmentName( );
-	}
+    /**
+     * Advanced features data controller (timers, global states and macros)
+     */
+    private AdvancedFeaturesDataControl advancedFeaturesDataControl;
 
-	/**
-	 * Returns the name to the adaptation profile of the chapter.
-	 * 
-	 * @return Name to the adaptation profile of the chapter
-	 */
-	public String getAdaptationName( ) {
-		return chapter.getAdaptationName( );
-	}
+    /**
+     * Constructor.
+     * 
+     * @param chapter
+     *            Contained chapter data
+     */
+    public ChapterDataControl( Chapter chapter ) {
 
-	/**
-	 * Returns the initial scene identifier of the chapter.
-	 * 
-	 * @return Initial scene identifier
-	 */
-	public String getInitialScene( ) {
-		return chapter.getTargetId( );
-	}
+        update( chapter );
+    }
 
-	/**
-	 * Returns the scenes list controller.
-	 * 
-	 * @return Scenes list controller
-	 */
-	public ScenesListDataControl getScenesList( ) {
-		return scenesListDataControl;
-	}
+    /**
+     * Updates the data contained in the data control with a new chapter. This
+     * method is essential for some undo/redo tools
+     * 
+     * @param chaper
+     */
+    public void update( Chapter chapter ) {
 
-	/**
-	 * Returns the cutscenes list controller.
-	 * 
-	 * @return Cutscenes list controller
-	 */
-	public CutscenesListDataControl getCutscenesList( ) {
-		return cutscenesListDataControl;
-	}
+        this.chapter = chapter;
 
-	/**
-	 * Returns the books list controller.
-	 * 
-	 * @return Books list controller
-	 */
-	public BooksListDataControl getBooksList( ) {
-		return booksListDataControl;
-	}
+        // Create the subcontrollers
+        playerDataControl = new PlayerDataControl( chapter.getPlayer( ) );
+        scenesListDataControl = new ScenesListDataControl( chapter.getScenes( ), this.getPlayer( ).getPreviewImage( ) );
+        cutscenesListDataControl = new CutscenesListDataControl( chapter.getCutscenes( ) );
+        booksListDataControl = new BooksListDataControl( chapter.getBooks( ) );
+        itemsListDataControl = new ItemsListDataControl( chapter.getItems( ) );
+        atrezzoListDataControl = new AtrezzoListDataControl( chapter.getAtrezzo( ) );
+        npcsListDataControl = new NPCsListDataControl( chapter.getCharacters( ) );
+        conversationsListDataControl = new ConversationsListDataControl( chapter.getConversations( ) );
+        TimersListDataControl timersListDataControl = new TimersListDataControl( chapter.getTimers( ) );
+        GlobalStateListDataControl globalStatesListDataControl = new GlobalStateListDataControl( chapter.getGlobalStates( ) );
+        MacroListDataControl macrosListDataControl = new MacroListDataControl( chapter.getMacros( ) );
+        advancedFeaturesDataControl = new AdvancedFeaturesDataControl( );
+        advancedFeaturesDataControl.setTimerListDataControl( timersListDataControl );
+        advancedFeaturesDataControl.setGlobalStatesListDataContorl( globalStatesListDataControl );
+        advancedFeaturesDataControl.setMacrosListDataControl( macrosListDataControl );
+        assessmentProfilesDataControl = new AssessmentProfilesDataControl( chapter.getAssessmentProfiles( ) );
+        adaptationProfilesDataControl = new AdaptationProfilesDataControl( chapter.getAdaptationProfiles( ) );
+    }
 
-	/**
-	 * Returns the items list controller.
-	 * 
-	 * @return Items list controller
-	 */
-	public ItemsListDataControl getItemsList( ) {
-		return itemsListDataControl;
-	}
-	
-	/**
-	 * Returns the atrezzo items list controller.
-	 * 
-	 * @return Atrezzo list controller
-	 */
-	public AtrezzoListDataControl getAtrezzoList( ) {
-		return atrezzoListDataControl;
-	}
+    /**
+     * Returns the title of the chapter.
+     * 
+     * @return Chapter's title
+     */
+    public String getTitle( ) {
 
-	/**
-	 * Returns the player controller.
-	 * 
-	 * @return Player controller
-	 */
-	public PlayerDataControl getPlayer( ) {
-		return playerDataControl;
-	}
+        return chapter.getTitle( );
+    }
 
-	/**
-	 * Returns the NPCs list controller.
-	 * 
-	 * @return NPCs list controller
-	 */
-	public NPCsListDataControl getNPCsList( ) {
-		return npcsListDataControl;
-	}
+    /**
+     * Returns the description of the chapter.
+     * 
+     * @return Chapter's description
+     */
+    public String getDescription( ) {
 
-	/**
-	 * Returns the conversations list controller.
-	 * 
-	 * @return Conversations list controller
-	 */
-	public ConversationsListDataControl getConversationsList( ) {
-		return conversationsListDataControl;
-	}
-	
-	/**
-	 * Returns the list of timers controller
-	 * @return Timers list controller
-	 */
-	public TimersListDataControl getTimersList(){
-		return this.advancedFeaturesDataControl.getTimersList();
-	}
+        return chapter.getDescription( );
+    }
 
-	/**
-	 * Sets the new title of the chapter.
-	 * 
-	 * @param title
-	 *            Title of the chapter
-	 */
-	public void setTitle( String title ) {
-		ChangeTitleTool tool = new ChangeTitleTool(chapter, title);
-		controller.addTool(tool);
-	}
+    /**
+     * Returns the name to the assessment profile of the chapter.
+     * 
+     * @return Name to the assessment profile of the chapter
+     */
+    public String getAssessmentName( ) {
 
-	/**
-	 * Sets the new description of the chapter.
-	 * 
-	 * @param description
-	 *            Description of the chapter
-	 */
-	public void setDescription( String description ) {
-		ChangeDescriptionTool tool = new ChangeDescriptionTool(chapter, description);
-		controller.addTool(tool);
-	}
+        return chapter.getAssessmentName( );
+    }
 
-	/**
-	 * Sets the new assessment file for the chapter, showing a dialog to the user.
-	 */
-	public void setAssessmentPath( ) {
-		Controller.getInstance().addTool(new ChangeSelectedProfileTool(chapter, ChangeSelectedProfileTool.MODE_ASSESSMENT));
-	}
+    /**
+     * Returns the name to the adaptation profile of the chapter.
+     * 
+     * @return Name to the adaptation profile of the chapter
+     */
+    public String getAdaptationName( ) {
 
-	/**
-	 * Sets the new adaptation file for the chapter, showing a dialog to the user.
-	 */
-	public void setAdaptationPath( ) {
-		Controller.getInstance().addTool(new ChangeSelectedProfileTool(chapter, ChangeSelectedProfileTool.MODE_ADAPTATION));
-	}
-	
+        return chapter.getAdaptationName( );
+    }
 
-	/**
-	 * Sets the new initial scene identifier for the chapter.
-	 * 
-	 * @param initialScene
-	 *            Initial scene identifier
-	 */
-	public void setInitialScene( String initialScene ) {
-		Controller.getInstance().addTool(new ChangeTargetIdTool(chapter, initialScene));
-	}
+    /**
+     * Returns the initial scene identifier of the chapter.
+     * 
+     * @return Initial scene identifier
+     */
+    public String getInitialScene( ) {
 
-	/**
-	 * Deletes the assessment file reference of the chapter.
-	 */
-	public void deleteAssessmentPath( ) {
-		Controller.getInstance().addTool(new SetNoSelectedProfileTool(chapter, SetNoSelectedProfileTool.MODE_ASSESSMENT ));
-	}
+        return chapter.getTargetId( );
+    }
 
-	/**
-	 * Deletes the adaptation file reference of the chapter.
-	 */
-	public void deleteAdaptationPath( ) {
-		Controller.getInstance().addTool(new SetNoSelectedProfileTool(chapter, SetNoSelectedProfileTool.MODE_ADAPTATION ));
-	}
+    /**
+     * Returns the scenes list controller.
+     * 
+     * @return Scenes list controller
+     */
+    public ScenesListDataControl getScenesList( ) {
 
-	@Override
-	public Object getContent( ) {
-		return chapter;
-	}
+        return scenesListDataControl;
+    }
 
-	@Override
-	public int[] getAddableElements( ) {
-		return new int[] {};
-	}
+    /**
+     * Returns the cutscenes list controller.
+     * 
+     * @return Cutscenes list controller
+     */
+    public CutscenesListDataControl getCutscenesList( ) {
 
-	@Override
-	public boolean canAddElement( int type ) {
-		return false;
-	}
+        return cutscenesListDataControl;
+    }
 
-	@Override
-	public boolean canBeDeleted( ) {
-		return false;
-	}
+    /**
+     * Returns the books list controller.
+     * 
+     * @return Books list controller
+     */
+    public BooksListDataControl getBooksList( ) {
 
-	@Override
-	public boolean canBeMoved( ) {
-		return false;
-	}
+        return booksListDataControl;
+    }
 
-	@Override
-	public boolean canBeRenamed( ) {
-		return false;
-	}
+    /**
+     * Returns the items list controller.
+     * 
+     * @return Items list controller
+     */
+    public ItemsListDataControl getItemsList( ) {
 
-	@Override
-	public boolean addElement( int type, String id ) {
-		return false;
-	}
+        return itemsListDataControl;
+    }
 
-	@Override
-	public boolean deleteElement( DataControl dataControl , boolean askConfirmation) {
-		return false;
-	}
-	
-	@Override
-	public boolean moveElementUp( DataControl dataControl ) {
-		return false;
-	}
+    /**
+     * Returns the atrezzo items list controller.
+     * 
+     * @return Atrezzo list controller
+     */
+    public AtrezzoListDataControl getAtrezzoList( ) {
 
-	@Override
-	public boolean moveElementDown( DataControl dataControl ) {
-		return false;
-	}
+        return atrezzoListDataControl;
+    }
 
-	@Override
-	public String renameElement( String name ) {
-		return null;
-	}
+    /**
+     * Returns the player controller.
+     * 
+     * @return Player controller
+     */
+    public PlayerDataControl getPlayer( ) {
 
-	@Override
-	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
-		// First of all, clear the summary
-		varFlagSummary.clear( );
+        return playerDataControl;
+    }
 
-		// Update the summary with the elements
-		scenesListDataControl.updateVarFlagSummary( varFlagSummary );
-		cutscenesListDataControl.updateVarFlagSummary( varFlagSummary );
-		itemsListDataControl.updateVarFlagSummary( varFlagSummary );
-		atrezzoListDataControl.updateVarFlagSummary( varFlagSummary );
-		npcsListDataControl.updateVarFlagSummary( varFlagSummary );
-		playerDataControl.updateVarFlagSummary( varFlagSummary );
-		conversationsListDataControl.updateVarFlagSummary( varFlagSummary );
-		advancedFeaturesDataControl.updateVarFlagSummary( varFlagSummary );
-		adaptationProfilesDataControl.updateVarFlagSummary( varFlagSummary );
-		assessmentProfilesDataControl.updateVarFlagSummary( varFlagSummary );
-	}
+    /**
+     * Returns the NPCs list controller.
+     * 
+     * @return NPCs list controller
+     */
+    public NPCsListDataControl getNPCsList( ) {
 
-	@Override
-	public boolean isValid( String currentPath, List<String> incidences ) {
-		boolean valid = true;
+        return npcsListDataControl;
+    }
 
-		// Set the current path
-		currentPath = getTitle( );
-		String playerPath = currentPath + " >> " + TextConstants.getElementName( Controller.PLAYER );
+    /**
+     * Returns the conversations list controller.
+     * 
+     * @return Conversations list controller
+     */
+    public ConversationsListDataControl getConversationsList( ) {
 
-		// Spread the call to the rest of te elements
-		valid &= scenesListDataControl.isValid( currentPath, incidences );
-		valid &= cutscenesListDataControl.isValid( currentPath, incidences );
-		valid &= booksListDataControl.isValid( currentPath, incidences );
-		valid &= itemsListDataControl.isValid( currentPath, incidences );
-		valid &= atrezzoListDataControl.isValid(currentPath, incidences);
-		valid &= playerDataControl.isValid( playerPath, incidences );
-		valid &= npcsListDataControl.isValid( currentPath, incidences );
-		valid &= conversationsListDataControl.isValid( currentPath, incidences );
-		valid &= advancedFeaturesDataControl.isValid( currentPath, incidences );
-		valid &= adaptationProfilesDataControl.isValid( currentPath, incidences );
-		valid &= assessmentProfilesDataControl.isValid( currentPath, incidences );
-		
-		return valid;
-	}
+        return conversationsListDataControl;
+    }
 
-	@Override
-	public int countAssetReferences( String assetPath ) {
-		int count = 0;
+    /**
+     * Returns the list of timers controller
+     * 
+     * @return Timers list controller
+     */
+    public TimersListDataControl getTimersList( ) {
 
-		// Add the references from the assessment and adaptation files
-		if( getAssessmentName( ).equals( assetPath ) )
-			count++;
-		if( getAdaptationName( ).equals( assetPath ) )
-			count++;
+        return this.advancedFeaturesDataControl.getTimersList( );
+    }
 
-		// Add the references from the elements
-		count += scenesListDataControl.countAssetReferences( assetPath );
-		count += cutscenesListDataControl.countAssetReferences( assetPath );
-		count += booksListDataControl.countAssetReferences( assetPath );
-		count += itemsListDataControl.countAssetReferences( assetPath );
-		count += atrezzoListDataControl.countAssetReferences(assetPath);
-		count += playerDataControl.countAssetReferences( assetPath );
-		count += npcsListDataControl.countAssetReferences( assetPath );
-		count += conversationsListDataControl.countAssetReferences( assetPath );
-		count += advancedFeaturesDataControl.countAssetReferences( assetPath );
+    /**
+     * Sets the new title of the chapter.
+     * 
+     * @param title
+     *            Title of the chapter
+     */
+    public void setTitle( String title ) {
 
-		return count;
-	}
+        ChangeTitleTool tool = new ChangeTitleTool( chapter, title );
+        controller.addTool( tool );
+    }
 
-	@Override
-	public void getAssetReferences( List<String> assetPaths, List<Integer> assetTypes ) {
-		scenesListDataControl.getAssetReferences( assetPaths, assetTypes );
-		cutscenesListDataControl.getAssetReferences( assetPaths, assetTypes );
-		booksListDataControl.getAssetReferences( assetPaths, assetTypes );
-		itemsListDataControl.getAssetReferences( assetPaths, assetTypes );
-		atrezzoListDataControl.getAssetReferences(assetPaths, assetTypes);
-		playerDataControl.getAssetReferences( assetPaths, assetTypes );
-		npcsListDataControl.getAssetReferences( assetPaths, assetTypes );
-		conversationsListDataControl.getAssetReferences( assetPaths, assetTypes );
-		advancedFeaturesDataControl.getAssetReferences(assetPaths, assetTypes);
-	}
-	
-	@Override
-	public void deleteAssetReferences( String assetPath ) {
-		// Delete the references for the assessment and adaptation files
-		if( getAssessmentName( ).equals( assetPath ) )
-			chapter.setAssessmentName("");
-		if( getAdaptationName( ).equals( assetPath ) )
-			chapter.setAdaptationName("");
+    /**
+     * Sets the new description of the chapter.
+     * 
+     * @param description
+     *            Description of the chapter
+     */
+    public void setDescription( String description ) {
 
-		// Delete the asset references in the chapter
-		scenesListDataControl.deleteAssetReferences( assetPath );
-		cutscenesListDataControl.deleteAssetReferences( assetPath );
-		booksListDataControl.deleteAssetReferences( assetPath );
-		itemsListDataControl.deleteAssetReferences( assetPath );
-		atrezzoListDataControl.deleteAssetReferences(assetPath);
-		playerDataControl.deleteAssetReferences( assetPath );
-		npcsListDataControl.deleteAssetReferences( assetPath );
-		conversationsListDataControl.deleteAssetReferences( assetPath );
-		advancedFeaturesDataControl.deleteAssetReferences( assetPath );
-		//assessmentProfilesDataControl.deleteAssetReferences( assetPath );
-		//adaptationProfilesDataControl.deleteAssetReferences( assetPath );
-	}
+        ChangeDescriptionTool tool = new ChangeDescriptionTool( chapter, description );
+        controller.addTool( tool );
+    }
 
-	@Override
-	public int countIdentifierReferences( String id ) {
-		int count = 0;
+    /**
+     * Sets the new assessment file for the chapter, showing a dialog to the
+     * user.
+     */
+    public void setAssessmentPath( ) {
 
-		// Count the initial scene
-		if( chapter.getTargetId( ).equals( id ) )
-			count++;
+        Controller.getInstance( ).addTool( new ChangeSelectedProfileTool( chapter, ChangeSelectedProfileTool.MODE_ASSESSMENT ) );
+    }
 
-		// Spread the call to the rest of the elements
-		count += scenesListDataControl.countIdentifierReferences( id );
-		count += cutscenesListDataControl.countIdentifierReferences( id );
-		count += itemsListDataControl.countIdentifierReferences( id );
-		count += atrezzoListDataControl.countIdentifierReferences(id);
-		count += npcsListDataControl.countIdentifierReferences( id );
-		count += conversationsListDataControl.countIdentifierReferences( id );
-		count += advancedFeaturesDataControl.countIdentifierReferences(id);
-		count += adaptationProfilesDataControl.countIdentifierReferences(id);
-		count += assessmentProfilesDataControl.countIdentifierReferences(id);
+    /**
+     * Sets the new adaptation file for the chapter, showing a dialog to the
+     * user.
+     */
+    public void setAdaptationPath( ) {
 
-		return count;
-	}
+        Controller.getInstance( ).addTool( new ChangeSelectedProfileTool( chapter, ChangeSelectedProfileTool.MODE_ADAPTATION ) );
+    }
 
-	@Override
-	public void replaceIdentifierReferences( String oldId, String newId ) {
-		// If the initial scene identifier has changed, update it
-		if( chapter.getTargetId( ).equals( oldId ) )
-			chapter.setTargetId( newId );
+    /**
+     * Sets the new initial scene identifier for the chapter.
+     * 
+     * @param initialScene
+     *            Initial scene identifier
+     */
+    public void setInitialScene( String initialScene ) {
 
-		// Spread the call to the rest of the elements
-		scenesListDataControl.replaceIdentifierReferences( oldId, newId );
-		cutscenesListDataControl.replaceIdentifierReferences( oldId, newId );
-		itemsListDataControl.replaceIdentifierReferences( oldId, newId );
-		atrezzoListDataControl.replaceIdentifierReferences(oldId, newId);
-		npcsListDataControl.replaceIdentifierReferences( oldId, newId );
-		conversationsListDataControl.replaceIdentifierReferences( oldId, newId );
-		advancedFeaturesDataControl.replaceIdentifierReferences(oldId, newId);
-		assessmentProfilesDataControl.replaceIdentifierReferences(oldId, newId);
-		adaptationProfilesDataControl.replaceIdentifierReferences(oldId, newId);
-	}
+        Controller.getInstance( ).addTool( new ChangeTargetIdTool( chapter, initialScene ) );
+    }
 
-	
-	
-	@Override
-	public void deleteIdentifierReferences( String id ) {
-		// If the initial scene has been deleted, change the value to the first one in the scenes list
-		if( chapter.getTargetId( ).equals( id ) )
-			chapter.setTargetId( controller.getIdentifierSummary( ).getGeneralSceneIds( )[0] );
+    /**
+     * Deletes the assessment file reference of the chapter.
+     */
+    public void deleteAssessmentPath( ) {
 
-		// Spread the call to the rest of the elements
-		scenesListDataControl.deleteIdentifierReferences( id );
-		cutscenesListDataControl.deleteIdentifierReferences( id );
-		itemsListDataControl.deleteIdentifierReferences( id );
-		atrezzoListDataControl.deleteIdentifierReferences(id);
-		npcsListDataControl.deleteIdentifierReferences( id );
-		conversationsListDataControl.deleteIdentifierReferences( id );
-		advancedFeaturesDataControl.deleteIdentifierReferences(id);
-		assessmentProfilesDataControl.deleteIdentifierReferences(id);
-		adaptationProfilesDataControl.deleteIdentifierReferences(id);
-	}
+        Controller.getInstance( ).addTool( new SetNoSelectedProfileTool( chapter, SetNoSelectedProfileTool.MODE_ASSESSMENT ) );
+    }
 
-	@Override
-	public boolean canBeDuplicated( ) {
-		return true;
-	}
+    /**
+     * Deletes the adaptation file reference of the chapter.
+     */
+    public void deleteAdaptationPath( ) {
 
-	/**
-	 * @return the globalStatesListDataControl
-	 */
-	public GlobalStateListDataControl getGlobalStatesListDataControl() {
-		return advancedFeaturesDataControl.getGlobalStatesListDataControl();
-	}
+        Controller.getInstance( ).addTool( new SetNoSelectedProfileTool( chapter, SetNoSelectedProfileTool.MODE_ADAPTATION ) );
+    }
 
-	/**
-	 * @return the globalStatesListDataControl
-	 */
-	public MacroListDataControl getMacrosListDataControl() {
-		return advancedFeaturesDataControl.getMacrosListDataControl();
-	}
+    @Override
+    public Object getContent( ) {
 
-	@Override
-	public void recursiveSearch() {
-		check(this.getAdaptationName(), TextConstants.getText("Search.AdaptationPath"));
-		check(this.getAssessmentName(), TextConstants.getText("Search.AssessmentPath"));
-		check(this.getDescription(), TextConstants.getText("Search.Description"));
-		check(this.getInitialScene(), TextConstants.getText("Search.InitialScene"));
-		check(this.getTitle(), TextConstants.getText("Search.Title"));
-		this.getAtrezzoList().recursiveSearch();
-		this.getBooksList().recursiveSearch();
-		this.getConversationsList().recursiveSearch();
-		this.getCutscenesList().recursiveSearch();
-		this.getItemsList().recursiveSearch();
-		this.getNPCsList().recursiveSearch();
-		this.getPlayer().recursiveSearch();
-		this.getScenesList().recursiveSearch();
-		this.getAdvancedFeaturesController().recursiveSearch();
-		this.getAdaptationProfilesDataControl().recursiveSearch();
-		this.getAssessmentProfilesDataControl().recursiveSearch();
-	}
+        return chapter;
+    }
 
-	/**
-	 * Returns the assessment profile that is actually selected
-	 * @return
-	 */
-	public AssessmentProfileDataControl getSelectedAssessmentProfile(){
-	    return assessmentProfilesDataControl.getProfileByPath(chapter.getAssessmentName());
-	}
-	
-	/**
-	 * Returns the adaptation profile that is actually selected
-	 * @return
-	 */
-	public AdaptationProfileDataControl getSelectedAdaptationProfile(){
-	    return adaptationProfilesDataControl.getProfileByPath(chapter.getAdaptationName());
-	}
-	
-	/**
-	 * @return the assessmentProfilesDataControl
-	 */
-	public AssessmentProfilesDataControl getAssessmentProfilesDataControl() {
-	    return assessmentProfilesDataControl;
-	}
+    @Override
+    public int[] getAddableElements( ) {
 
-	/**
-	 * @return the adaptationProfilesDataControl
-	 */
-	public AdaptationProfilesDataControl getAdaptationProfilesDataControl() {
-	    return adaptationProfilesDataControl;
-	}
-	
-	/**
-	 * Check if chapter has adaptation profile
-	 * @return
-	 */
-	public boolean hasAdaptationProfile(){
-	    return chapter.hasAdaptationProfile();
-	}
-	
-	/**
-	 * Check if chapter has assessment profile
-	 * @return
-	 */
-	public boolean hasAssessmentProfile(){
-	    return chapter.hasAssessmentProfile();
-	}
-	
-	@Override
-	public List<Searchable> getPathToDataControl(Searchable dataControl) {
-		List<Searchable> path;
-		path = getPathFromChild(dataControl, scenesListDataControl);
-		if (path != null) return path;
-		path = getPathFromChild(dataControl, cutscenesListDataControl);
-		if (path != null) return path;
-		path = getPathFromChild(dataControl, booksListDataControl);
-		if (path != null) return path;
-		path = getPathFromChild(dataControl, itemsListDataControl);
-		if (path != null) return path;
-		path = getPathFromChild(dataControl, atrezzoListDataControl);
-		if (path != null) return path;
-		path = getPathFromChild(dataControl, npcsListDataControl);
-		if (path != null) return path;
-		path = getPathFromChild(dataControl, playerDataControl);
-		if (path != null) return path;
-		path = getPathFromChild(dataControl, conversationsListDataControl);
-		if (path != null) return path;
-		path = getPathFromChild(dataControl, advancedFeaturesDataControl);
-		if (path != null) return path;
-		path = getPathFromChild(dataControl, assessmentProfilesDataControl);
-		if (path != null) return path;
-		path = getPathFromChild(dataControl, adaptationProfilesDataControl);
-		if (path != null) return path;
-		return null;
-	}
+        return new int[] {};
+    }
 
-	public AdvancedFeaturesDataControl getAdvancedFeaturesController() {
-		return this.advancedFeaturesDataControl;
-	}
+    @Override
+    public boolean canAddElement( int type ) {
+
+        return false;
+    }
+
+    @Override
+    public boolean canBeDeleted( ) {
+
+        return false;
+    }
+
+    @Override
+    public boolean canBeMoved( ) {
+
+        return false;
+    }
+
+    @Override
+    public boolean canBeRenamed( ) {
+
+        return false;
+    }
+
+    @Override
+    public boolean addElement( int type, String id ) {
+
+        return false;
+    }
+
+    @Override
+    public boolean deleteElement( DataControl dataControl, boolean askConfirmation ) {
+
+        return false;
+    }
+
+    @Override
+    public boolean moveElementUp( DataControl dataControl ) {
+
+        return false;
+    }
+
+    @Override
+    public boolean moveElementDown( DataControl dataControl ) {
+
+        return false;
+    }
+
+    @Override
+    public String renameElement( String name ) {
+
+        return null;
+    }
+
+    @Override
+    public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
+
+        // First of all, clear the summary
+        varFlagSummary.clear( );
+
+        // Update the summary with the elements
+        scenesListDataControl.updateVarFlagSummary( varFlagSummary );
+        cutscenesListDataControl.updateVarFlagSummary( varFlagSummary );
+        itemsListDataControl.updateVarFlagSummary( varFlagSummary );
+        atrezzoListDataControl.updateVarFlagSummary( varFlagSummary );
+        npcsListDataControl.updateVarFlagSummary( varFlagSummary );
+        playerDataControl.updateVarFlagSummary( varFlagSummary );
+        conversationsListDataControl.updateVarFlagSummary( varFlagSummary );
+        advancedFeaturesDataControl.updateVarFlagSummary( varFlagSummary );
+        adaptationProfilesDataControl.updateVarFlagSummary( varFlagSummary );
+        assessmentProfilesDataControl.updateVarFlagSummary( varFlagSummary );
+    }
+
+    @Override
+    public boolean isValid( String currentPath, List<String> incidences ) {
+
+        boolean valid = true;
+
+        // Set the current path
+        currentPath = getTitle( );
+        String playerPath = currentPath + " >> " + TextConstants.getElementName( Controller.PLAYER );
+
+        // Spread the call to the rest of te elements
+        valid &= scenesListDataControl.isValid( currentPath, incidences );
+        valid &= cutscenesListDataControl.isValid( currentPath, incidences );
+        valid &= booksListDataControl.isValid( currentPath, incidences );
+        valid &= itemsListDataControl.isValid( currentPath, incidences );
+        valid &= atrezzoListDataControl.isValid( currentPath, incidences );
+        valid &= playerDataControl.isValid( playerPath, incidences );
+        valid &= npcsListDataControl.isValid( currentPath, incidences );
+        valid &= conversationsListDataControl.isValid( currentPath, incidences );
+        valid &= advancedFeaturesDataControl.isValid( currentPath, incidences );
+        valid &= adaptationProfilesDataControl.isValid( currentPath, incidences );
+        valid &= assessmentProfilesDataControl.isValid( currentPath, incidences );
+
+        return valid;
+    }
+
+    @Override
+    public int countAssetReferences( String assetPath ) {
+
+        int count = 0;
+
+        // Add the references from the assessment and adaptation files
+        if( getAssessmentName( ).equals( assetPath ) )
+            count++;
+        if( getAdaptationName( ).equals( assetPath ) )
+            count++;
+
+        // Add the references from the elements
+        count += scenesListDataControl.countAssetReferences( assetPath );
+        count += cutscenesListDataControl.countAssetReferences( assetPath );
+        count += booksListDataControl.countAssetReferences( assetPath );
+        count += itemsListDataControl.countAssetReferences( assetPath );
+        count += atrezzoListDataControl.countAssetReferences( assetPath );
+        count += playerDataControl.countAssetReferences( assetPath );
+        count += npcsListDataControl.countAssetReferences( assetPath );
+        count += conversationsListDataControl.countAssetReferences( assetPath );
+        count += advancedFeaturesDataControl.countAssetReferences( assetPath );
+
+        return count;
+    }
+
+    @Override
+    public void getAssetReferences( List<String> assetPaths, List<Integer> assetTypes ) {
+
+        scenesListDataControl.getAssetReferences( assetPaths, assetTypes );
+        cutscenesListDataControl.getAssetReferences( assetPaths, assetTypes );
+        booksListDataControl.getAssetReferences( assetPaths, assetTypes );
+        itemsListDataControl.getAssetReferences( assetPaths, assetTypes );
+        atrezzoListDataControl.getAssetReferences( assetPaths, assetTypes );
+        playerDataControl.getAssetReferences( assetPaths, assetTypes );
+        npcsListDataControl.getAssetReferences( assetPaths, assetTypes );
+        conversationsListDataControl.getAssetReferences( assetPaths, assetTypes );
+        advancedFeaturesDataControl.getAssetReferences( assetPaths, assetTypes );
+    }
+
+    @Override
+    public void deleteAssetReferences( String assetPath ) {
+
+        // Delete the references for the assessment and adaptation files
+        if( getAssessmentName( ).equals( assetPath ) )
+            chapter.setAssessmentName( "" );
+        if( getAdaptationName( ).equals( assetPath ) )
+            chapter.setAdaptationName( "" );
+
+        // Delete the asset references in the chapter
+        scenesListDataControl.deleteAssetReferences( assetPath );
+        cutscenesListDataControl.deleteAssetReferences( assetPath );
+        booksListDataControl.deleteAssetReferences( assetPath );
+        itemsListDataControl.deleteAssetReferences( assetPath );
+        atrezzoListDataControl.deleteAssetReferences( assetPath );
+        playerDataControl.deleteAssetReferences( assetPath );
+        npcsListDataControl.deleteAssetReferences( assetPath );
+        conversationsListDataControl.deleteAssetReferences( assetPath );
+        advancedFeaturesDataControl.deleteAssetReferences( assetPath );
+        //assessmentProfilesDataControl.deleteAssetReferences( assetPath );
+        //adaptationProfilesDataControl.deleteAssetReferences( assetPath );
+    }
+
+    @Override
+    public int countIdentifierReferences( String id ) {
+
+        int count = 0;
+
+        // Count the initial scene
+        if( chapter.getTargetId( ).equals( id ) )
+            count++;
+
+        // Spread the call to the rest of the elements
+        count += scenesListDataControl.countIdentifierReferences( id );
+        count += cutscenesListDataControl.countIdentifierReferences( id );
+        count += itemsListDataControl.countIdentifierReferences( id );
+        count += atrezzoListDataControl.countIdentifierReferences( id );
+        count += npcsListDataControl.countIdentifierReferences( id );
+        count += conversationsListDataControl.countIdentifierReferences( id );
+        count += advancedFeaturesDataControl.countIdentifierReferences( id );
+        count += adaptationProfilesDataControl.countIdentifierReferences( id );
+        count += assessmentProfilesDataControl.countIdentifierReferences( id );
+
+        return count;
+    }
+
+    @Override
+    public void replaceIdentifierReferences( String oldId, String newId ) {
+
+        // If the initial scene identifier has changed, update it
+        if( chapter.getTargetId( ).equals( oldId ) )
+            chapter.setTargetId( newId );
+
+        // Spread the call to the rest of the elements
+        scenesListDataControl.replaceIdentifierReferences( oldId, newId );
+        cutscenesListDataControl.replaceIdentifierReferences( oldId, newId );
+        itemsListDataControl.replaceIdentifierReferences( oldId, newId );
+        atrezzoListDataControl.replaceIdentifierReferences( oldId, newId );
+        npcsListDataControl.replaceIdentifierReferences( oldId, newId );
+        conversationsListDataControl.replaceIdentifierReferences( oldId, newId );
+        advancedFeaturesDataControl.replaceIdentifierReferences( oldId, newId );
+        assessmentProfilesDataControl.replaceIdentifierReferences( oldId, newId );
+        adaptationProfilesDataControl.replaceIdentifierReferences( oldId, newId );
+    }
+
+    @Override
+    public void deleteIdentifierReferences( String id ) {
+
+        // If the initial scene has been deleted, change the value to the first one in the scenes list
+        if( chapter.getTargetId( ).equals( id ) )
+            chapter.setTargetId( controller.getIdentifierSummary( ).getGeneralSceneIds( )[0] );
+
+        // Spread the call to the rest of the elements
+        scenesListDataControl.deleteIdentifierReferences( id );
+        cutscenesListDataControl.deleteIdentifierReferences( id );
+        itemsListDataControl.deleteIdentifierReferences( id );
+        atrezzoListDataControl.deleteIdentifierReferences( id );
+        npcsListDataControl.deleteIdentifierReferences( id );
+        conversationsListDataControl.deleteIdentifierReferences( id );
+        advancedFeaturesDataControl.deleteIdentifierReferences( id );
+        assessmentProfilesDataControl.deleteIdentifierReferences( id );
+        adaptationProfilesDataControl.deleteIdentifierReferences( id );
+    }
+
+    @Override
+    public boolean canBeDuplicated( ) {
+
+        return true;
+    }
+
+    /**
+     * @return the globalStatesListDataControl
+     */
+    public GlobalStateListDataControl getGlobalStatesListDataControl( ) {
+
+        return advancedFeaturesDataControl.getGlobalStatesListDataControl( );
+    }
+
+    /**
+     * @return the globalStatesListDataControl
+     */
+    public MacroListDataControl getMacrosListDataControl( ) {
+
+        return advancedFeaturesDataControl.getMacrosListDataControl( );
+    }
+
+    @Override
+    public void recursiveSearch( ) {
+
+        check( this.getAdaptationName( ), TextConstants.getText( "Search.AdaptationPath" ) );
+        check( this.getAssessmentName( ), TextConstants.getText( "Search.AssessmentPath" ) );
+        check( this.getDescription( ), TextConstants.getText( "Search.Description" ) );
+        check( this.getInitialScene( ), TextConstants.getText( "Search.InitialScene" ) );
+        check( this.getTitle( ), TextConstants.getText( "Search.Title" ) );
+        this.getAtrezzoList( ).recursiveSearch( );
+        this.getBooksList( ).recursiveSearch( );
+        this.getConversationsList( ).recursiveSearch( );
+        this.getCutscenesList( ).recursiveSearch( );
+        this.getItemsList( ).recursiveSearch( );
+        this.getNPCsList( ).recursiveSearch( );
+        this.getPlayer( ).recursiveSearch( );
+        this.getScenesList( ).recursiveSearch( );
+        this.getAdvancedFeaturesController( ).recursiveSearch( );
+        this.getAdaptationProfilesDataControl( ).recursiveSearch( );
+        this.getAssessmentProfilesDataControl( ).recursiveSearch( );
+    }
+
+    /**
+     * Returns the assessment profile that is actually selected
+     * 
+     * @return
+     */
+    public AssessmentProfileDataControl getSelectedAssessmentProfile( ) {
+
+        return assessmentProfilesDataControl.getProfileByPath( chapter.getAssessmentName( ) );
+    }
+
+    /**
+     * Returns the adaptation profile that is actually selected
+     * 
+     * @return
+     */
+    public AdaptationProfileDataControl getSelectedAdaptationProfile( ) {
+
+        return adaptationProfilesDataControl.getProfileByPath( chapter.getAdaptationName( ) );
+    }
+
+    /**
+     * @return the assessmentProfilesDataControl
+     */
+    public AssessmentProfilesDataControl getAssessmentProfilesDataControl( ) {
+
+        return assessmentProfilesDataControl;
+    }
+
+    /**
+     * @return the adaptationProfilesDataControl
+     */
+    public AdaptationProfilesDataControl getAdaptationProfilesDataControl( ) {
+
+        return adaptationProfilesDataControl;
+    }
+
+    /**
+     * Check if chapter has adaptation profile
+     * 
+     * @return
+     */
+    public boolean hasAdaptationProfile( ) {
+
+        return chapter.hasAdaptationProfile( );
+    }
+
+    /**
+     * Check if chapter has assessment profile
+     * 
+     * @return
+     */
+    public boolean hasAssessmentProfile( ) {
+
+        return chapter.hasAssessmentProfile( );
+    }
+
+    @Override
+    public List<Searchable> getPathToDataControl( Searchable dataControl ) {
+
+        List<Searchable> path;
+        path = getPathFromChild( dataControl, scenesListDataControl );
+        if( path != null )
+            return path;
+        path = getPathFromChild( dataControl, cutscenesListDataControl );
+        if( path != null )
+            return path;
+        path = getPathFromChild( dataControl, booksListDataControl );
+        if( path != null )
+            return path;
+        path = getPathFromChild( dataControl, itemsListDataControl );
+        if( path != null )
+            return path;
+        path = getPathFromChild( dataControl, atrezzoListDataControl );
+        if( path != null )
+            return path;
+        path = getPathFromChild( dataControl, npcsListDataControl );
+        if( path != null )
+            return path;
+        path = getPathFromChild( dataControl, playerDataControl );
+        if( path != null )
+            return path;
+        path = getPathFromChild( dataControl, conversationsListDataControl );
+        if( path != null )
+            return path;
+        path = getPathFromChild( dataControl, advancedFeaturesDataControl );
+        if( path != null )
+            return path;
+        path = getPathFromChild( dataControl, assessmentProfilesDataControl );
+        if( path != null )
+            return path;
+        path = getPathFromChild( dataControl, adaptationProfilesDataControl );
+        if( path != null )
+            return path;
+        return null;
+    }
+
+    public AdvancedFeaturesDataControl getAdvancedFeaturesController( ) {
+
+        return this.advancedFeaturesDataControl;
+    }
 }
-
-

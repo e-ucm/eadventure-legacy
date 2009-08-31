@@ -1,34 +1,36 @@
 /**
- * <e-Adventure> is an <e-UCM> research project.
- * <e-UCM>, Department of Software Engineering and Artificial Intelligence.
- * Faculty of Informatics, Complutense University of Madrid (Spain).
- * @author Del Blanco, A., Marchiori, E., Torrente, F.J.
+ * <e-Adventure> is an <e-UCM> research project. <e-UCM>, Department of Software
+ * Engineering and Artificial Intelligence. Faculty of Informatics, Complutense
+ * University of Madrid (Spain).
+ * 
+ * @author Del Blanco, A., Marchiori, E., Torrente, F.J. (alphabetical order) *
+ * @author López Mañas, E., Pérez Padilla, F., Sollet, E., Torijano, B. (former
+ *         developers by alphabetical order)
  * @author Moreno-Ger, P. & Fernández-Manjón, B. (directors)
- * @year 2009
- * Web-site: http://e-adventure.e-ucm.es
+ * @year 2009 Web-site: http://e-adventure.e-ucm.es
  */
 
 /*
-    Copyright (C) 2004-2009 <e-UCM> research group
-
-    This file is part of <e-Adventure> project, an educational game & game-like 
-    simulation authoring tool, availabe at http://e-adventure.e-ucm.es. 
-
-    <e-Adventure> is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    <e-Adventure> is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with <e-Adventure>; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-*/
+ * Copyright (C) 2004-2009 <e-UCM> research group
+ * 
+ * This file is part of <e-Adventure> project, an educational game & game-like
+ * simulation authoring tool, available at http://e-adventure.e-ucm.es.
+ * 
+ * <e-Adventure> is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version.
+ * 
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place, Suite 330, Boston, MA 02111-1307 USA
+ * 
+ */
 package es.eucm.eadventure.editor.control.controllers.macro;
 
 import java.util.ArrayList;
@@ -44,303 +46,332 @@ import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class MacroListDataControl extends DataControl {
 
-	/**
-	 * List of macros.
-	 */
-	private List<Macro> macrosList;
+    /**
+     * List of macros.
+     */
+    private List<Macro> macrosList;
 
-	/**
-	 * List of macro controllers.
-	 */
-	private List<MacroDataControl> macrosDataControlList;
+    /**
+     * List of macro controllers.
+     */
+    private List<MacroDataControl> macrosDataControlList;
 
-	/**
-	 * Constructor.
-	 * 
-	 * @param macrosList
-	 *            List of macros
-	 */
-	public MacroListDataControl( List<Macro> macrosList ) {
-		this.macrosList = macrosList;
+    /**
+     * Constructor.
+     * 
+     * @param macrosList
+     *            List of macros
+     */
+    public MacroListDataControl( List<Macro> macrosList ) {
 
-		// Create subcontrollers
-		macrosDataControlList = new ArrayList<MacroDataControl>( );
-		for( Macro macro : macrosList )
-			macrosDataControlList.add( new MacroDataControl( macro ) );
-	}
+        this.macrosList = macrosList;
 
-	/**
-	 * Returns the list of macro controllers.
-	 * 
-	 * @return Macro controllers
-	 */
-	public List<MacroDataControl> getMacros( ) {
-		return macrosDataControlList;
-	}
+        // Create subcontrollers
+        macrosDataControlList = new ArrayList<MacroDataControl>( );
+        for( Macro macro : macrosList )
+            macrosDataControlList.add( new MacroDataControl( macro ) );
+    }
 
-	/**
-	 * Returns the last macro controller from the list.
-	 * 
-	 * @return Last macro controller
-	 */
-	public MacroDataControl getLastMacro( ) {
-		return macrosDataControlList.get( macrosDataControlList.size( ) - 1 );
-	}
+    /**
+     * Returns the list of macro controllers.
+     * 
+     * @return Macro controllers
+     */
+    public List<MacroDataControl> getMacros( ) {
 
-	/**
-	 * Returns the info of the macros contained in the list.
-	 * 
-	 * @return Array with the information of the macros. It contains the identifier of each macro, and the number of
-	 *         actions
-	 */
-	public String[][] getMacrosInfo( ) {
-		String[][] macrosInfo = null;
+        return macrosDataControlList;
+    }
 
-		// Create the list for the macros
-		macrosInfo = new String[macrosList.size( )][2];
+    /**
+     * Returns the last macro controller from the list.
+     * 
+     * @return Last macro controller
+     */
+    public MacroDataControl getLastMacro( ) {
 
-		// Fill the array with the info
-		for( int i = 0; i < macrosList.size( ); i++ ) {
-			Macro macro = macrosList.get( i );
-			macrosInfo[i][0] = macro.getId( );
-			macrosInfo[i][1] = Integer.toString( Controller.getInstance().countIdentifierReferences( macro.getId() ) );
-		}
+        return macrosDataControlList.get( macrosDataControlList.size( ) - 1 );
+    }
 
-		return macrosInfo;
-	}
+    /**
+     * Returns the info of the macros contained in the list.
+     * 
+     * @return Array with the information of the macros. It contains the
+     *         identifier of each macro, and the number of actions
+     */
+    public String[][] getMacrosInfo( ) {
 
-	@Override
-	public Object getContent( ) {
-		return macrosList;
-	}
+        String[][] macrosInfo = null;
 
-	@Override
-	public int[] getAddableElements( ) {
-		return new int[] { Controller.MACRO };
-	}
+        // Create the list for the macros
+        macrosInfo = new String[ macrosList.size( ) ][ 2 ];
 
-	@Override
-	public boolean canAddElement( int type ) {
-		// It can always add new macros
-		return type == Controller.MACRO;
-	}
+        // Fill the array with the info
+        for( int i = 0; i < macrosList.size( ); i++ ) {
+            Macro macro = macrosList.get( i );
+            macrosInfo[i][0] = macro.getId( );
+            macrosInfo[i][1] = Integer.toString( Controller.getInstance( ).countIdentifierReferences( macro.getId( ) ) );
+        }
 
-	@Override
-	public boolean canBeDeleted( ) {
-		return false;
-	}
+        return macrosInfo;
+    }
 
-	@Override
-	public boolean canBeMoved( ) {
-		return false;
-	}
+    @Override
+    public Object getContent( ) {
 
-	@Override
-	public boolean canBeRenamed( ) {
-		return false;
-	}
+        return macrosList;
+    }
 
-	@Override
-	public boolean addElement( int type, String macroId ) {
-		boolean elementAdded = false;
+    @Override
+    public int[] getAddableElements( ) {
 
-		if( type == Controller.MACRO ) {
+        return new int[] { Controller.MACRO };
+    }
 
-			// Show a dialog asking for the macro id
-			if (macroId == null)
-				macroId = controller.showInputDialog( TextConstants.getText( "Operation.AddMacroTitle" ), TextConstants.getText( "Operation.AddMacroMessage" ), TextConstants.getText( "Operation.AddMacroDefaultValue" ) );
+    @Override
+    public boolean canAddElement( int type ) {
 
-			// If some value was typed and the identifier is valid
-			if( macroId != null && controller.isElementIdValid( macroId ) ) {
-				// Add thew new macro
-				Macro newMacro = new Macro( macroId );
-				macrosList.add( newMacro );
-				macrosDataControlList.add( new MacroDataControl( newMacro ) );
-				controller.getIdentifierSummary( ).addMacroId( macroId );
-				//controller.dataModified( );
-				elementAdded = true;
-			}
-		}
+        // It can always add new macros
+        return type == Controller.MACRO;
+    }
 
-		return elementAdded;
-	}
-	
-	@Override
-	public boolean duplicateElement( DataControl dataControl ) {
-		if (!(dataControl instanceof MacroDataControl))
-			return false;
-		
-		try {
-			Macro newElement = (Macro) (((Macro) (dataControl.getContent())).clone());
-			String id = newElement.getId();
-			int i = 1;
-			do {
-				id = newElement.getId() + i;
-				i++;
-			} while (!controller.isElementIdValid(id, false));
-			newElement.setId(id);
-			macrosList.add(newElement);
-			macrosDataControlList.add( new MacroDataControl(newElement));
-			controller.getIdentifierSummary().addMacroId( id);
-			return true;
-		} catch (CloneNotSupportedException e) {
-			ReportDialog.GenerateErrorReport(e, true, "Could not clone macro");	
-			return false;
-		} 
-	}
+    @Override
+    public boolean canBeDeleted( ) {
 
-	@Override
-	public String getDefaultId(int type) {
-		return TextConstants.getText( "Operation.AddMacroDefaultValue" );
-	}
+        return false;
+    }
 
-	@Override
-	public boolean deleteElement( DataControl dataControl , boolean askConfirmation) {
-		boolean elementDeleted = false;
-		String macroId = ( (MacroDataControl) dataControl ).getId( );
-		String references = String.valueOf( controller.countIdentifierReferences( macroId ) );
+    @Override
+    public boolean canBeMoved( ) {
 
-		// Ask for confirmation
-		if(!askConfirmation || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { macroId, references } ) ) ) {
-			if( macrosList.remove( dataControl.getContent( ) ) ) {
-				macrosDataControlList.remove( dataControl );
-				controller.deleteIdentifierReferences( macroId );
-				controller.getIdentifierSummary( ).deleteMacroId( macroId );
-				//controller.dataModified( );
-				elementDeleted = true;
-			}
-		}
+        return false;
+    }
 
-		return elementDeleted;
-	}
+    @Override
+    public boolean canBeRenamed( ) {
 
-	@Override
-	public boolean moveElementUp( DataControl dataControl ) {
-		boolean elementMoved = false;
-		int elementIndex = macrosList.indexOf( dataControl.getContent( ) );
+        return false;
+    }
 
-		if( elementIndex > 0 ) {
-			macrosList.add( elementIndex - 1, macrosList.remove( elementIndex ) );
-			macrosDataControlList.add( elementIndex - 1, macrosDataControlList.remove( elementIndex ) );
-			//controller.dataModified( );
-			elementMoved = true;
-		}
+    @Override
+    public boolean addElement( int type, String macroId ) {
 
-		return elementMoved;
-	}
+        boolean elementAdded = false;
 
-	@Override
-	public boolean moveElementDown( DataControl dataControl ) {
-		boolean elementMoved = false;
-		int elementIndex = macrosList.indexOf( dataControl.getContent( ) );
+        if( type == Controller.MACRO ) {
 
-		if( elementIndex < macrosList.size( ) - 1 ) {
-			macrosList.add( elementIndex + 1, macrosList.remove( elementIndex ) );
-			macrosDataControlList.add( elementIndex + 1, macrosDataControlList.remove( elementIndex ) );
-			//controller.dataModified( );
-			elementMoved = true;
-		}
+            // Show a dialog asking for the macro id
+            if( macroId == null )
+                macroId = controller.showInputDialog( TextConstants.getText( "Operation.AddMacroTitle" ), TextConstants.getText( "Operation.AddMacroMessage" ), TextConstants.getText( "Operation.AddMacroDefaultValue" ) );
 
-		return elementMoved;
-	}
+            // If some value was typed and the identifier is valid
+            if( macroId != null && controller.isElementIdValid( macroId ) ) {
+                // Add thew new macro
+                Macro newMacro = new Macro( macroId );
+                macrosList.add( newMacro );
+                macrosDataControlList.add( new MacroDataControl( newMacro ) );
+                controller.getIdentifierSummary( ).addMacroId( macroId );
+                //controller.dataModified( );
+                elementAdded = true;
+            }
+        }
 
-	@Override
-	public String renameElement( String name ) {
-		return null;
-	}
+        return elementAdded;
+    }
 
-	@Override
-	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
-		// Iterate through each macro
-		for( MacroDataControl macroDataControl : macrosDataControlList )
-			macroDataControl.updateVarFlagSummary( varFlagSummary );
-	}
+    @Override
+    public boolean duplicateElement( DataControl dataControl ) {
 
-	@Override
-	public boolean isValid( String currentPath, List<String> incidences ) {
-		boolean valid = true;
+        if( !( dataControl instanceof MacroDataControl ) )
+            return false;
 
-		// Update the current path
-		currentPath += " >> " + TextConstants.getElementName( Controller.GLOBAL_STATE_LIST );
+        try {
+            Macro newElement = (Macro) ( ( (Macro) ( dataControl.getContent( ) ) ).clone( ) );
+            String id = newElement.getId( );
+            int i = 1;
+            do {
+                id = newElement.getId( ) + i;
+                i++;
+            } while( !controller.isElementIdValid( id, false ) );
+            newElement.setId( id );
+            macrosList.add( newElement );
+            macrosDataControlList.add( new MacroDataControl( newElement ) );
+            controller.getIdentifierSummary( ).addMacroId( id );
+            return true;
+        }
+        catch( CloneNotSupportedException e ) {
+            ReportDialog.GenerateErrorReport( e, true, "Could not clone macro" );
+            return false;
+        }
+    }
 
-		// Iterate through the macros
-		for( MacroDataControl macroDataControl : macrosDataControlList ) {
-			String macroPath = currentPath + " >> " + macroDataControl.getId( );
-			valid &= macroDataControl.isValid( macroPath, incidences );
-		}
+    @Override
+    public String getDefaultId( int type ) {
 
-		return valid;
-	}
+        return TextConstants.getText( "Operation.AddMacroDefaultValue" );
+    }
 
-	@Override
-	public int countAssetReferences( String assetPath ) {
-		int count = 0;
+    @Override
+    public boolean deleteElement( DataControl dataControl, boolean askConfirmation ) {
 
-		// Iterate through each macro
-		for( MacroDataControl macroDataControl : macrosDataControlList )
-			count += macroDataControl.countAssetReferences( assetPath );
+        boolean elementDeleted = false;
+        String macroId = ( (MacroDataControl) dataControl ).getId( );
+        String references = String.valueOf( controller.countIdentifierReferences( macroId ) );
 
-		return count;
-	}
-	
-	@Override
-	public void getAssetReferences( List<String> assetPaths, List<Integer> assetTypes ) {
-		// Iterate through each macro
-		for( MacroDataControl macroDataControl : macrosDataControlList )
-			macroDataControl.getAssetReferences( assetPaths, assetTypes );
-	}
+        // Ask for confirmation
+        if( !askConfirmation || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { macroId, references } ) ) ) {
+            if( macrosList.remove( dataControl.getContent( ) ) ) {
+                macrosDataControlList.remove( dataControl );
+                controller.deleteIdentifierReferences( macroId );
+                controller.getIdentifierSummary( ).deleteMacroId( macroId );
+                //controller.dataModified( );
+                elementDeleted = true;
+            }
+        }
 
+        return elementDeleted;
+    }
 
-	@Override
-	public void deleteAssetReferences( String assetPath ) {
-		// Iterate through each macro
-		for( MacroDataControl macroDataControl : macrosDataControlList )
-			macroDataControl.deleteAssetReferences( assetPath );
-	}
+    @Override
+    public boolean moveElementUp( DataControl dataControl ) {
 
-	@Override
-	public int countIdentifierReferences( String id ) {
-		int count = 0;
+        boolean elementMoved = false;
+        int elementIndex = macrosList.indexOf( dataControl.getContent( ) );
 
-		// Iterate through each macro
-		for( MacroDataControl macroDataControl : macrosDataControlList )
-			count += macroDataControl.countIdentifierReferences( id );
+        if( elementIndex > 0 ) {
+            macrosList.add( elementIndex - 1, macrosList.remove( elementIndex ) );
+            macrosDataControlList.add( elementIndex - 1, macrosDataControlList.remove( elementIndex ) );
+            //controller.dataModified( );
+            elementMoved = true;
+        }
 
-		return count;
-	}
+        return elementMoved;
+    }
 
-	@Override
-	public void replaceIdentifierReferences( String oldId, String newId ) {
-		// Iterate through each macro
-		for( MacroDataControl macroDataControl : macrosDataControlList )
-			macroDataControl.replaceIdentifierReferences( oldId, newId );
-	}
+    @Override
+    public boolean moveElementDown( DataControl dataControl ) {
 
-	@Override
-	public void deleteIdentifierReferences( String id ) {
-		// Spread the call to every macro
-		for( MacroDataControl macroDataControl : macrosDataControlList )
-			macroDataControl.deleteIdentifierReferences( id );
-	}
+        boolean elementMoved = false;
+        int elementIndex = macrosList.indexOf( dataControl.getContent( ) );
 
-	@Override
-	public boolean canBeDuplicated( ) {
-		return false;
-	}
+        if( elementIndex < macrosList.size( ) - 1 ) {
+            macrosList.add( elementIndex + 1, macrosList.remove( elementIndex ) );
+            macrosDataControlList.add( elementIndex + 1, macrosDataControlList.remove( elementIndex ) );
+            //controller.dataModified( );
+            elementMoved = true;
+        }
 
-	@Override
-	public void recursiveSearch() {
-		for (DataControl dc : this.macrosDataControlList)
-			dc.recursiveSearch();
-	}
-	
-	@Override
-	public List<Searchable> getPathToDataControl(Searchable dataControl) {
-		return getPathFromChild(dataControl, macrosDataControlList);
-	}
+        return elementMoved;
+    }
 
-	public List<Macro> getMacrosList() {
-		return this.macrosList;
-	}
+    @Override
+    public String renameElement( String name ) {
+
+        return null;
+    }
+
+    @Override
+    public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
+
+        // Iterate through each macro
+        for( MacroDataControl macroDataControl : macrosDataControlList )
+            macroDataControl.updateVarFlagSummary( varFlagSummary );
+    }
+
+    @Override
+    public boolean isValid( String currentPath, List<String> incidences ) {
+
+        boolean valid = true;
+
+        // Update the current path
+        currentPath += " >> " + TextConstants.getElementName( Controller.GLOBAL_STATE_LIST );
+
+        // Iterate through the macros
+        for( MacroDataControl macroDataControl : macrosDataControlList ) {
+            String macroPath = currentPath + " >> " + macroDataControl.getId( );
+            valid &= macroDataControl.isValid( macroPath, incidences );
+        }
+
+        return valid;
+    }
+
+    @Override
+    public int countAssetReferences( String assetPath ) {
+
+        int count = 0;
+
+        // Iterate through each macro
+        for( MacroDataControl macroDataControl : macrosDataControlList )
+            count += macroDataControl.countAssetReferences( assetPath );
+
+        return count;
+    }
+
+    @Override
+    public void getAssetReferences( List<String> assetPaths, List<Integer> assetTypes ) {
+
+        // Iterate through each macro
+        for( MacroDataControl macroDataControl : macrosDataControlList )
+            macroDataControl.getAssetReferences( assetPaths, assetTypes );
+    }
+
+    @Override
+    public void deleteAssetReferences( String assetPath ) {
+
+        // Iterate through each macro
+        for( MacroDataControl macroDataControl : macrosDataControlList )
+            macroDataControl.deleteAssetReferences( assetPath );
+    }
+
+    @Override
+    public int countIdentifierReferences( String id ) {
+
+        int count = 0;
+
+        // Iterate through each macro
+        for( MacroDataControl macroDataControl : macrosDataControlList )
+            count += macroDataControl.countIdentifierReferences( id );
+
+        return count;
+    }
+
+    @Override
+    public void replaceIdentifierReferences( String oldId, String newId ) {
+
+        // Iterate through each macro
+        for( MacroDataControl macroDataControl : macrosDataControlList )
+            macroDataControl.replaceIdentifierReferences( oldId, newId );
+    }
+
+    @Override
+    public void deleteIdentifierReferences( String id ) {
+
+        // Spread the call to every macro
+        for( MacroDataControl macroDataControl : macrosDataControlList )
+            macroDataControl.deleteIdentifierReferences( id );
+    }
+
+    @Override
+    public boolean canBeDuplicated( ) {
+
+        return false;
+    }
+
+    @Override
+    public void recursiveSearch( ) {
+
+        for( DataControl dc : this.macrosDataControlList )
+            dc.recursiveSearch( );
+    }
+
+    @Override
+    public List<Searchable> getPathToDataControl( Searchable dataControl ) {
+
+        return getPathFromChild( dataControl, macrosDataControlList );
+    }
+
+    public List<Macro> getMacrosList( ) {
+
+        return this.macrosList;
+    }
 
 }

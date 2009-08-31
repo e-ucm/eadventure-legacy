@@ -1,34 +1,36 @@
 /**
- * <e-Adventure> is an <e-UCM> research project.
- * <e-UCM>, Department of Software Engineering and Artificial Intelligence.
- * Faculty of Informatics, Complutense University of Madrid (Spain).
- * @author Del Blanco, A., Marchiori, E., Torrente, F.J.
+ * <e-Adventure> is an <e-UCM> research project. <e-UCM>, Department of Software
+ * Engineering and Artificial Intelligence. Faculty of Informatics, Complutense
+ * University of Madrid (Spain).
+ * 
+ * @author Del Blanco, A., Marchiori, E., Torrente, F.J. (alphabetical order) *
+ * @author López Mañas, E., Pérez Padilla, F., Sollet, E., Torijano, B. (former
+ *         developers by alphabetical order)
  * @author Moreno-Ger, P. & Fernández-Manjón, B. (directors)
- * @year 2009
- * Web-site: http://e-adventure.e-ucm.es
+ * @year 2009 Web-site: http://e-adventure.e-ucm.es
  */
 
 /*
-    Copyright (C) 2004-2009 <e-UCM> research group
-
-    This file is part of <e-Adventure> project, an educational game & game-like 
-    simulation authoring tool, availabe at http://e-adventure.e-ucm.es. 
-
-    <e-Adventure> is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    <e-Adventure> is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with <e-Adventure>; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-*/
+ * Copyright (C) 2004-2009 <e-UCM> research group
+ * 
+ * This file is part of <e-Adventure> project, an educational game & game-like
+ * simulation authoring tool, available at http://e-adventure.e-ucm.es.
+ * 
+ * <e-Adventure> is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version.
+ * 
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place, Suite 330, Boston, MA 02111-1307 USA
+ * 
+ */
 package es.eucm.eadventure.editor.gui.editdialogs;
 
 import java.awt.Dialog;
@@ -52,6 +54,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 import javax.swing.table.AbstractTableModel;
 
@@ -61,368 +64,385 @@ import es.eucm.eadventure.editor.control.controllers.VarFlagsController;
 import es.eucm.eadventure.editor.gui.elementpanels.condition.ConditionsPanel;
 
 /**
- * This class is the editing dialog of the flags. Here the user can add new flags to use them in the script. Also, the
- * flags can be deleted.
+ * This class is the editing dialog of the flags. Here the user can add new
+ * flags to use them in the script. Also, the flags can be deleted.
  * 
  * @author Bruno Torijano Bueno
  */
 public class VarsFlagsDialog extends JDialog {
 
-	/**
-	 * Required.
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	/**
-	 * Path of .html file with help for flags
-	 */
-	private static final String flagsHelpPath="flagsVars/flags.html";
+    /**
+     * Required.
+     */
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * Path of .html file with help for vars
-	 */
-	private static final String varsHelpPath="flagsVars/vars.html";
+    /**
+     * Path of .html file with help for flags
+     */
+    private static final String flagsHelpPath = "flagsVars/flags.html";
 
-	
-	/**
-	 * Controller for the flags.
-	 */
-	private VarFlagsController varFlagsController;
+    /**
+     * Path of .html file with help for vars
+     */
+    private static final String varsHelpPath = "flagsVars/vars.html";
 
-	/**
-	 * Table holding the flags.
-	 */
-	private JTable flagsTable;
-	
-	/**
-	 * Table holding the vars.
-	 */
-	private JTable varsTable;
-	
-	/**
-	 * Constructor.
-	 * 
-	 * @param flagController
-	 *            Controller for the flags
-	 */
-	public VarsFlagsDialog( VarFlagsController flagController ) {
+    /**
+     * Controller for the flags.
+     */
+    private VarFlagsController varFlagsController;
 
-		// Call to the JDialog constructor
-		super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "Ids.Title" ), Dialog.ModalityType.TOOLKIT_MODAL);
+    /**
+     * Table holding the flags.
+     */
+    private JTable flagsTable;
 
-		// Push the dialog into the stack, and add the window listener to pop in when closing
-		Controller.getInstance( ).pushWindow( this );
-		addWindowListener( new WindowAdapter( ) {
-			public void windowClosing( WindowEvent e ) {
-				Controller.getInstance( ).popWindow( );
-			}
-		} );
+    /**
+     * Table holding the vars.
+     */
+    private JTable varsTable;
 
-		// Set the flags controller
-		this.varFlagsController = flagController;
+    /**
+     * Constructor.
+     * 
+     * @param flagController
+     *            Controller for the flags
+     */
+    public VarsFlagsDialog( VarFlagsController flagController ) {
 
-		/////////////////////////////////////////
-		// FLAGS PANEL (TAB)
-		/////////////////////////////////////////
-		// Create a container panel, and set the properties
-		JPanel flagsMainPanel = new JPanel( );
-		flagsMainPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Flags.Title" ) ) );
-		flagsMainPanel.setLayout( new GridBagLayout( ) );
-		GridBagConstraints c = new GridBagConstraints( );
-		c.insets = new Insets( 5, 10, 5, 10 );
+        // Call to the JDialog constructor
+        super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "Ids.Title" ), Dialog.ModalityType.TOOLKIT_MODAL );
 
-		// Create the table and add it
-		flagsTable = new JTable( new FlagsTableModel( ) );
-		flagsTable.getColumnModel( ).getColumn( 1 ).setMaxWidth( 60 );
-		flagsTable.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 1;
-		c.weighty = 1;
-		flagsMainPanel.add( new JScrollPane( flagsTable, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER ), c );
+        // Push the dialog into the stack, and add the window listener to pop in when closing
+        Controller.getInstance( ).pushWindow( this );
+        addWindowListener( new WindowAdapter( ) {
 
-		// Add an "Add flag" button
-		JButton addFlag = new JButton( TextConstants.getText( "Flags.AddFlag" ) );
-		addFlag.addActionListener( new ActionListener( ) {
-			public void actionPerformed( ActionEvent e ) {
-				if( varFlagsController.addVarFlag( true ) )
-					flagsTable.updateUI( );
-			}
-		} );
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weighty = 0;
-		c.gridy = 1;
-		flagsMainPanel.add( addFlag, c );
+            @Override
+            public void windowClosing( WindowEvent e ) {
 
-		// Add an "Delete flag" button
-		JButton deleteFlag = new JButton( TextConstants.getText( "Flags.DeleteFlag" ) );
-		deleteFlag.addActionListener( new ActionListener( ) {
-			public void actionPerformed( ActionEvent e ) {
-				if( flagsTable.getSelectedRow( ) >= 0 )
-					if( varFlagsController.deleteFlag( flagsTable.getSelectedRow( ) ) )
-						flagsTable.updateUI( );
-			}
-		} );
-		c.gridy = 2;
-		flagsMainPanel.add( deleteFlag, c );
+                Controller.getInstance( ).popWindow( );
+            }
+        } );
 
-		/////////////////////////////////////////
-		// VARS PANEL (TAB)
-		/////////////////////////////////////////
-		// Create a container panel, and set the properties
-		JPanel varsMainPanel = new JPanel( );
-		varsMainPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Vars.Title" ) ) );
-		varsMainPanel.setLayout( new GridBagLayout( ) );
-		c = new GridBagConstraints( );
-		c.insets = new Insets( 5, 10, 5, 10 );
+        // Set the flags controller
+        this.varFlagsController = flagController;
 
-		// Create the table and add it
-		varsTable = new JTable( new VarsTableModel( ) );
-		varsTable.getColumnModel( ).getColumn( 1 ).setMaxWidth( 60 );
-		varsTable.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 1;
-		c.weighty = 1;
-		varsMainPanel.add( new JScrollPane( varsTable, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER ), c );
+        /////////////////////////////////////////
+        // FLAGS PANEL (TAB)
+        /////////////////////////////////////////
+        // Create a container panel, and set the properties
+        JPanel flagsMainPanel = new JPanel( );
+        flagsMainPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Flags.Title" ) ) );
+        flagsMainPanel.setLayout( new GridBagLayout( ) );
+        GridBagConstraints c = new GridBagConstraints( );
+        c.insets = new Insets( 5, 10, 5, 10 );
 
-		// Add an "Add var" button
-		JButton addVar = new JButton( TextConstants.getText( "Vars.AddVar" ) );
-		addVar.addActionListener( new ActionListener( ) {
-			public void actionPerformed( ActionEvent e ) {
-				if( varFlagsController.addVarFlag( false ) )
-					varsTable.updateUI( );
-			}
-		} );
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weighty = 0;
-		c.gridy = 1;
-		varsMainPanel.add( addVar, c );
+        // Create the table and add it
+        flagsTable = new JTable( new FlagsTableModel( ) );
+        flagsTable.getColumnModel( ).getColumn( 1 ).setMaxWidth( 60 );
+        flagsTable.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
+        c.fill = GridBagConstraints.BOTH;
+        c.weightx = 1;
+        c.weighty = 1;
+        flagsMainPanel.add( new JScrollPane( flagsTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER ), c );
 
-		// Add an "Delete var" button
-		JButton deleteVar = new JButton( TextConstants.getText( "Vars.DeleteVar" ) );
-		deleteVar.addActionListener( new ActionListener( ) {
-			public void actionPerformed( ActionEvent e ) {
-				if( varsTable.getSelectedRow( ) >= 0 )
-					if( varFlagsController.deleteVar( varsTable.getSelectedRow( ) ) )
-						varsTable.updateUI( );
-			}
-		} );
-		c.gridy = 2;
-		varsMainPanel.add( deleteVar, c );
+        // Add an "Add flag" button
+        JButton addFlag = new JButton( TextConstants.getText( "Flags.AddFlag" ) );
+        addFlag.addActionListener( new ActionListener( ) {
 
-		/////////////////////////////////////////
-		// CREATE TABBED PANE
-		/////////////////////////////////////////
-		JTabbedPane mainPanel = new JTabbedPane();
-		mainPanel.addTab(TextConstants.getText( "Flags.Flag" ), 
-				null, flagsMainPanel, TextConstants.getText( "Flags.FlagTip" ));
-		mainPanel.addTab(TextConstants.getText( "Vars.Var" ), 
-				null, varsMainPanel, TextConstants.getText( "Vars.VarTip" ));
-		
-		JPanel flagsTabComponent = new JPanel();
-		flagsTabComponent.setLayout(new GridBagLayout());
-		GridBagConstraints c1 = new GridBagConstraints();
-		c1.fill = GridBagConstraints.BOTH;
-		c1.weightx = 1;
-		c1.weighty = 1;
-		JLabel flagsTitle = new JLabel( TextConstants.getText( "Flags.Flag" ) );
-		flagsTitle.setHorizontalTextPosition(SwingConstants.CENTER);
-		flagsTitle.setAlignmentX(0.5f);
-		flagsTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		ImageIcon flagsIcon = new ImageIcon ("img/icons/flag16.png");
-		flagsTabComponent.add(new JLabel( flagsIcon ), c1 );
-		c1.gridx++;
-		flagsTabComponent.add(flagsTitle, c1 );
-		flagsTabComponent.setBackground( ConditionsPanel.FLAG_COLOR );
-		mainPanel.setTabComponentAt(0, flagsTabComponent);
-		
-		// button for html help for flags
-		JButton flagsInfoButton = new JButton(new ImageIcon("img/icons/information.png"));
-		flagsInfoButton.setContentAreaFilled( false );
-		flagsInfoButton.setMargin( new Insets(0,0,0,0) );
-		flagsInfoButton.setFocusable(false);
-		flagsInfoButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				new HelpDialog(flagsHelpPath);
-			}
-		});
-		c1.gridx++;
-		flagsTabComponent.add(flagsInfoButton, c1 );
-		
+            public void actionPerformed( ActionEvent e ) {
 
-		JPanel varsTabComponent = new JPanel();
-		varsTabComponent.setLayout(new GridBagLayout());
-		GridBagConstraints c2 = new GridBagConstraints();
-		c2.fill = GridBagConstraints.BOTH;
-		c2.weightx = 1;
-		c2.weighty = 1;
-		JLabel varsTitle = new JLabel( TextConstants.getText( "Vars.Var" ) );
-		varsTitle.setHorizontalTextPosition(SwingConstants.CENTER);
-		varsTitle.setAlignmentX(0.5f);
-		varsTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		ImageIcon varsIcon = new ImageIcon ("img/icons/var16.png");
-		varsTabComponent.add(new JLabel( varsIcon ), c2 );
-		c2.gridx ++;
-		varsTabComponent.add(varsTitle, c2 );
-		varsTabComponent.setBackground( ConditionsPanel.VAR_COLOR );
-		mainPanel.setTabComponentAt(1, varsTabComponent);
-		
-		// button for html help for vars
-		JButton varsInfoButton = new JButton(new ImageIcon("img/icons/information.png"));
-		varsInfoButton.setContentAreaFilled( false );
-		varsInfoButton.setMargin( new Insets(0,0,0,0) );
-		varsInfoButton.setFocusable(false);
-		varsInfoButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				new HelpDialog(varsHelpPath);
-			}
-		});
-		c2.gridx++;
-		varsTabComponent.add(varsInfoButton, c2 );
-		
-		
-		// Add the panel
-		setLayout( new GridBagLayout( ) );
-		c = new GridBagConstraints( );
-		c.insets = new Insets( 5, 5, 5, 5 );
-		c.fill = GridBagConstraints.BOTH;
-		c.weightx = 1;
-		c.weighty = 1;
-		add( mainPanel, c );
+                if( varFlagsController.addVarFlag( true ) )
+                    flagsTable.updateUI( );
+            }
+        } );
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weighty = 0;
+        c.gridy = 1;
+        flagsMainPanel.add( addFlag, c );
 
-		
-		// Set the size, position and properties of the dialog
-		setResizable( false );
-		setSize( 500, 400 );
-		Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
-		setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
-		setVisible( true );
-	}
+        // Add an "Delete flag" button
+        JButton deleteFlag = new JButton( TextConstants.getText( "Flags.DeleteFlag" ) );
+        deleteFlag.addActionListener( new ActionListener( ) {
 
-	/**
-	 * Table model to display the flags.
-	 */
-	private class FlagsTableModel extends AbstractTableModel {
+            public void actionPerformed( ActionEvent e ) {
 
-		/**
-		 * Required.
-		 */
-		private static final long serialVersionUID = 1L;
+                if( flagsTable.getSelectedRow( ) >= 0 )
+                    if( varFlagsController.deleteFlag( flagsTable.getSelectedRow( ) ) )
+                        flagsTable.updateUI( );
+            }
+        } );
+        c.gridy = 2;
+        flagsMainPanel.add( deleteFlag, c );
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.table.TableModel#getColumnCount()
-		 */
-		public int getColumnCount( ) {
-			// Two columns, always
-			return 2;
-		}
+        /////////////////////////////////////////
+        // VARS PANEL (TAB)
+        /////////////////////////////////////////
+        // Create a container panel, and set the properties
+        JPanel varsMainPanel = new JPanel( );
+        varsMainPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Vars.Title" ) ) );
+        varsMainPanel.setLayout( new GridBagLayout( ) );
+        c = new GridBagConstraints( );
+        c.insets = new Insets( 5, 10, 5, 10 );
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.table.TableModel#getRowCount()
-		 */
-		public int getRowCount( ) {
-			return varFlagsController.getFlagCount( );
-		}
+        // Create the table and add it
+        varsTable = new JTable( new VarsTableModel( ) );
+        varsTable.getColumnModel( ).getColumn( 1 ).setMaxWidth( 60 );
+        varsTable.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
+        c.fill = GridBagConstraints.BOTH;
+        c.weightx = 1;
+        c.weighty = 1;
+        varsMainPanel.add( new JScrollPane( varsTable, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER ), c );
 
-		@Override
-		public String getColumnName( int columnIndex ) {
-			String columnName = "";
+        // Add an "Add var" button
+        JButton addVar = new JButton( TextConstants.getText( "Vars.AddVar" ) );
+        addVar.addActionListener( new ActionListener( ) {
 
-			// The first column is the name
-			if( columnIndex == 0 )
-				columnName = TextConstants.getText( "Flags.FlagName" );
+            public void actionPerformed( ActionEvent e ) {
 
-			// The second one the references number
-			else if( columnIndex == 1 )
-				columnName = TextConstants.getText( "Flags.FlagReferences" );
+                if( varFlagsController.addVarFlag( false ) )
+                    varsTable.updateUI( );
+            }
+        } );
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weighty = 0;
+        c.gridy = 1;
+        varsMainPanel.add( addVar, c );
 
-			return columnName;
-		}
+        // Add an "Delete var" button
+        JButton deleteVar = new JButton( TextConstants.getText( "Vars.DeleteVar" ) );
+        deleteVar.addActionListener( new ActionListener( ) {
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.table.TableModel#getValueAt(int, int)
-		 */
-		public Object getValueAt( int rowIndex, int columnIndex ) {
-			Object value = null;
+            public void actionPerformed( ActionEvent e ) {
 
-			// The first column has the name
-			if( columnIndex == 0 )
-				value = varFlagsController.getFlag( rowIndex );
+                if( varsTable.getSelectedRow( ) >= 0 )
+                    if( varFlagsController.deleteVar( varsTable.getSelectedRow( ) ) )
+                        varsTable.updateUI( );
+            }
+        } );
+        c.gridy = 2;
+        varsMainPanel.add( deleteVar, c );
 
-			// The second one the references number
-			else if( columnIndex == 1 )
-				value = varFlagsController.getFlagReferences( rowIndex );
+        /////////////////////////////////////////
+        // CREATE TABBED PANE
+        /////////////////////////////////////////
+        JTabbedPane mainPanel = new JTabbedPane( );
+        mainPanel.addTab( TextConstants.getText( "Flags.Flag" ), null, flagsMainPanel, TextConstants.getText( "Flags.FlagTip" ) );
+        mainPanel.addTab( TextConstants.getText( "Vars.Var" ), null, varsMainPanel, TextConstants.getText( "Vars.VarTip" ) );
 
-			return value;
-		}
-	}
-	
-	/**
-	 * Table model to display the vars.
-	 */
-	private class VarsTableModel extends AbstractTableModel {
+        JPanel flagsTabComponent = new JPanel( );
+        flagsTabComponent.setLayout( new GridBagLayout( ) );
+        GridBagConstraints c1 = new GridBagConstraints( );
+        c1.fill = GridBagConstraints.BOTH;
+        c1.weightx = 1;
+        c1.weighty = 1;
+        JLabel flagsTitle = new JLabel( TextConstants.getText( "Flags.Flag" ) );
+        flagsTitle.setHorizontalTextPosition( SwingConstants.CENTER );
+        flagsTitle.setAlignmentX( 0.5f );
+        flagsTitle.setHorizontalAlignment( SwingConstants.CENTER );
+        ImageIcon flagsIcon = new ImageIcon( "img/icons/flag16.png" );
+        flagsTabComponent.add( new JLabel( flagsIcon ), c1 );
+        c1.gridx++;
+        flagsTabComponent.add( flagsTitle, c1 );
+        flagsTabComponent.setBackground( ConditionsPanel.FLAG_COLOR );
+        mainPanel.setTabComponentAt( 0, flagsTabComponent );
 
-		/**
-		 * Required.
-		 */
-		private static final long serialVersionUID = 1L;
+        // button for html help for flags
+        JButton flagsInfoButton = new JButton( new ImageIcon( "img/icons/information.png" ) );
+        flagsInfoButton.setContentAreaFilled( false );
+        flagsInfoButton.setMargin( new Insets( 0, 0, 0, 0 ) );
+        flagsInfoButton.setFocusable( false );
+        flagsInfoButton.addActionListener( new ActionListener( ) {
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.table.TableModel#getColumnCount()
-		 */
-		public int getColumnCount( ) {
-			// Two columns, always
-			return 2;
-		}
+            public void actionPerformed( ActionEvent arg0 ) {
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.table.TableModel#getRowCount()
-		 */
-		public int getRowCount( ) {
-			return varFlagsController.getVarCount( );
-		}
+                new HelpDialog( flagsHelpPath );
+            }
+        } );
+        c1.gridx++;
+        flagsTabComponent.add( flagsInfoButton, c1 );
 
-		@Override
-		public String getColumnName( int columnIndex ) {
-			String columnName = "";
+        JPanel varsTabComponent = new JPanel( );
+        varsTabComponent.setLayout( new GridBagLayout( ) );
+        GridBagConstraints c2 = new GridBagConstraints( );
+        c2.fill = GridBagConstraints.BOTH;
+        c2.weightx = 1;
+        c2.weighty = 1;
+        JLabel varsTitle = new JLabel( TextConstants.getText( "Vars.Var" ) );
+        varsTitle.setHorizontalTextPosition( SwingConstants.CENTER );
+        varsTitle.setAlignmentX( 0.5f );
+        varsTitle.setHorizontalAlignment( SwingConstants.CENTER );
+        ImageIcon varsIcon = new ImageIcon( "img/icons/var16.png" );
+        varsTabComponent.add( new JLabel( varsIcon ), c2 );
+        c2.gridx++;
+        varsTabComponent.add( varsTitle, c2 );
+        varsTabComponent.setBackground( ConditionsPanel.VAR_COLOR );
+        mainPanel.setTabComponentAt( 1, varsTabComponent );
 
-			// The first column is the name
-			if( columnIndex == 0 )
-				columnName = TextConstants.getText( "Vars.VarName" );
+        // button for html help for vars
+        JButton varsInfoButton = new JButton( new ImageIcon( "img/icons/information.png" ) );
+        varsInfoButton.setContentAreaFilled( false );
+        varsInfoButton.setMargin( new Insets( 0, 0, 0, 0 ) );
+        varsInfoButton.setFocusable( false );
+        varsInfoButton.addActionListener( new ActionListener( ) {
 
-			// The second one the references number
-			else if( columnIndex == 1 )
-				columnName = TextConstants.getText( "Vars.VarReferences" );
+            public void actionPerformed( ActionEvent arg0 ) {
 
-			return columnName;
-		}
+                new HelpDialog( varsHelpPath );
+            }
+        } );
+        c2.gridx++;
+        varsTabComponent.add( varsInfoButton, c2 );
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see javax.swing.table.TableModel#getValueAt(int, int)
-		 */
-		public Object getValueAt( int rowIndex, int columnIndex ) {
-			Object value = null;
+        // Add the panel
+        setLayout( new GridBagLayout( ) );
+        c = new GridBagConstraints( );
+        c.insets = new Insets( 5, 5, 5, 5 );
+        c.fill = GridBagConstraints.BOTH;
+        c.weightx = 1;
+        c.weighty = 1;
+        add( mainPanel, c );
 
-			// The first column has the name
-			if( columnIndex == 0 )
-				value = varFlagsController.getVar( rowIndex );
+        // Set the size, position and properties of the dialog
+        setResizable( false );
+        setSize( 500, 400 );
+        Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
+        setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
+        setVisible( true );
+    }
 
-			// The second one the references number
-			else if( columnIndex == 1 )
-				value = varFlagsController.getVarReferences( rowIndex );
+    /**
+     * Table model to display the flags.
+     */
+    private class FlagsTableModel extends AbstractTableModel {
 
-			return value;
-		}
-	}
+        /**
+         * Required.
+         */
+        private static final long serialVersionUID = 1L;
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see javax.swing.table.TableModel#getColumnCount()
+         */
+        public int getColumnCount( ) {
+
+            // Two columns, always
+            return 2;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see javax.swing.table.TableModel#getRowCount()
+         */
+        public int getRowCount( ) {
+
+            return varFlagsController.getFlagCount( );
+        }
+
+        @Override
+        public String getColumnName( int columnIndex ) {
+
+            String columnName = "";
+
+            // The first column is the name
+            if( columnIndex == 0 )
+                columnName = TextConstants.getText( "Flags.FlagName" );
+
+            // The second one the references number
+            else if( columnIndex == 1 )
+                columnName = TextConstants.getText( "Flags.FlagReferences" );
+
+            return columnName;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see javax.swing.table.TableModel#getValueAt(int, int)
+         */
+        public Object getValueAt( int rowIndex, int columnIndex ) {
+
+            Object value = null;
+
+            // The first column has the name
+            if( columnIndex == 0 )
+                value = varFlagsController.getFlag( rowIndex );
+
+            // The second one the references number
+            else if( columnIndex == 1 )
+                value = varFlagsController.getFlagReferences( rowIndex );
+
+            return value;
+        }
+    }
+
+    /**
+     * Table model to display the vars.
+     */
+    private class VarsTableModel extends AbstractTableModel {
+
+        /**
+         * Required.
+         */
+        private static final long serialVersionUID = 1L;
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see javax.swing.table.TableModel#getColumnCount()
+         */
+        public int getColumnCount( ) {
+
+            // Two columns, always
+            return 2;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see javax.swing.table.TableModel#getRowCount()
+         */
+        public int getRowCount( ) {
+
+            return varFlagsController.getVarCount( );
+        }
+
+        @Override
+        public String getColumnName( int columnIndex ) {
+
+            String columnName = "";
+
+            // The first column is the name
+            if( columnIndex == 0 )
+                columnName = TextConstants.getText( "Vars.VarName" );
+
+            // The second one the references number
+            else if( columnIndex == 1 )
+                columnName = TextConstants.getText( "Vars.VarReferences" );
+
+            return columnName;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see javax.swing.table.TableModel#getValueAt(int, int)
+         */
+        public Object getValueAt( int rowIndex, int columnIndex ) {
+
+            Object value = null;
+
+            // The first column has the name
+            if( columnIndex == 0 )
+                value = varFlagsController.getVar( rowIndex );
+
+            // The second one the references number
+            else if( columnIndex == 1 )
+                value = varFlagsController.getVarReferences( rowIndex );
+
+            return value;
+        }
+    }
 }

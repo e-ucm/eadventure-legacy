@@ -1,34 +1,36 @@
 /**
- * <e-Adventure> is an <e-UCM> research project.
- * <e-UCM>, Department of Software Engineering and Artificial Intelligence.
- * Faculty of Informatics, Complutense University of Madrid (Spain).
- * @author Del Blanco, A., Marchiori, E., Torrente, F.J.
+ * <e-Adventure> is an <e-UCM> research project. <e-UCM>, Department of Software
+ * Engineering and Artificial Intelligence. Faculty of Informatics, Complutense
+ * University of Madrid (Spain).
+ * 
+ * @author Del Blanco, A., Marchiori, E., Torrente, F.J. (alphabetical order) *
+ * @author LÛpez MaÒas, E., PÈrez Padilla, F., Sollet, E., Torijano, B. (former
+ *         developers by alphabetical order)
  * @author Moreno-Ger, P. & Fern√°ndez-Manj√≥n, B. (directors)
- * @year 2009
- * Web-site: http://e-adventure.e-ucm.es
+ * @year 2009 Web-site: http://e-adventure.e-ucm.es
  */
 
 /*
-    Copyright (C) 2004-2009 <e-UCM> research group
-
-    This file is part of <e-Adventure> project, an educational game & game-like 
-    simulation authoring tool, availabe at http://e-adventure.e-ucm.es. 
-
-    <e-Adventure> is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    <e-Adventure> is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with <e-Adventure>; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-*/
+ * Copyright (C) 2004-2009 <e-UCM> research group
+ * 
+ * This file is part of <e-Adventure> project, an educational game & game-like
+ * simulation authoring tool, available at http://e-adventure.e-ucm.es.
+ * 
+ * <e-Adventure> is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version.
+ * 
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place, Suite 330, Boston, MA 02111-1307 USA
+ * 
+ */
 package es.eucm.eadventure.engine.core.control.functionaldata;
 
 import java.awt.Font;
@@ -41,39 +43,43 @@ import es.eucm.eadventure.common.data.chapter.book.BookParagraph;
 import es.eucm.eadventure.engine.core.gui.GUI;
 
 /**
- * This is a block of text that can be put in a book scene 
+ * This is a block of text that can be put in a book scene
  */
 public class FunctionalBookTitle extends FunctionalBookParagraph {
-    
+
     /**
      * The text book
      */
     private BookParagraph bookTitle;
-    
+
     /**
      * The text of the book
      */
     private ArrayList<String> textLines;
-    
+
     /**
      * Creates a new FunctionalBookText
-     * @param text the text to be rendered
+     * 
+     * @param text
+     *            the text to be rendered
      */
     public FunctionalBookTitle( BookParagraph title ) {
+
         this.bookTitle = title;
-        this.init();
+        this.init( );
     }
-    
-    private void init(){
+
+    private void init( ) {
+
         textLines = new ArrayList<String>( );
 
         //Get the text of the book
-        String text = bookTitle.getContent();
+        String text = bookTitle.getContent( );
         String word = "";
         String line = "";
-        
+
         Font font = GUI.getInstance( ).getFrame( ).getFont( ).deriveFont( Font.PLAIN, 30 );
-        
+
         //while there is still text to be process
         while( !text.equals( "" ) ) {
             //get the first char
@@ -91,7 +97,8 @@ public class FunctionalBookTitle extends FunctionalBookParagraph {
                     //empy line and word
                     word = "";
                     line = "";
-                } else {
+                }
+                else {
                     textLines.add( line );
                     textLines.add( word.substring( 1 ) );
                     line = "";
@@ -126,7 +133,8 @@ public class FunctionalBookTitle extends FunctionalBookParagraph {
         Rectangle2D r = font.getStringBounds( line + " " + word, new FontRenderContext( null, false, true ) );
         if( r.getWidth( ) < FunctionalTextBook.TEXT_WIDTH ) {
             line = line + word;
-        } else {
+        }
+        else {
             textLines.add( line );
             line = word.substring( 1 );
         }
@@ -139,6 +147,7 @@ public class FunctionalBookTitle extends FunctionalBookParagraph {
      */
     @Override
     public boolean canBeSplitted( ) {
+
         return true;
     }
 
@@ -148,6 +157,7 @@ public class FunctionalBookTitle extends FunctionalBookParagraph {
      */
     @Override
     public void draw( Graphics2D g, int xIni, int yIni ) {
+
         //X and Y coordinates
         int x = xIni;
         int y = yIni;
@@ -155,16 +165,16 @@ public class FunctionalBookTitle extends FunctionalBookParagraph {
         for( int i = 0; i < textLines.size( ); i++ ) {
             //draw the line string
             String line = textLines.get( i );
-            
+
             // TODO ¬øparche?
             Font font = g.getFont( );
             g.setFont( font.deriveFont( Font.PLAIN, 30 ) );
-            g.drawString(line, x, y+FunctionalTextBook.TITLE_HEIGHT);
+            g.drawString( line, x, y + FunctionalTextBook.TITLE_HEIGHT );
             g.setFont( font );
-            
+
             //add the line height to the Y coordinate for the next line
             y = y + FunctionalTextBook.TITLE_HEIGHT;
-            
+
             /*if( i == 0 + FunctionalBook.TEXT_LINES ) {
                 x = FunctionalBook.TEXT_X_2;
                 y = FunctionalBook.TEXT_Y;
@@ -178,7 +188,8 @@ public class FunctionalBookTitle extends FunctionalBookParagraph {
      */
     @Override
     public int getHeight( ) {
-        return textLines.size( )*FunctionalTextBook.TITLE_HEIGHT;
+
+        return textLines.size( ) * FunctionalTextBook.TITLE_HEIGHT;
     }
 
 }

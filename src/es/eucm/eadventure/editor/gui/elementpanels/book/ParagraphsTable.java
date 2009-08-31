@@ -1,34 +1,36 @@
 /**
- * <e-Adventure> is an <e-UCM> research project.
- * <e-UCM>, Department of Software Engineering and Artificial Intelligence.
- * Faculty of Informatics, Complutense University of Madrid (Spain).
- * @author Del Blanco, A., Marchiori, E., Torrente, F.J.
+ * <e-Adventure> is an <e-UCM> research project. <e-UCM>, Department of Software
+ * Engineering and Artificial Intelligence. Faculty of Informatics, Complutense
+ * University of Madrid (Spain).
+ * 
+ * @author Del Blanco, A., Marchiori, E., Torrente, F.J. (alphabetical order) *
+ * @author López Mañas, E., Pérez Padilla, F., Sollet, E., Torijano, B. (former
+ *         developers by alphabetical order)
  * @author Moreno-Ger, P. & Fernández-Manjón, B. (directors)
- * @year 2009
- * Web-site: http://e-adventure.e-ucm.es
+ * @year 2009 Web-site: http://e-adventure.e-ucm.es
  */
 
 /*
-    Copyright (C) 2004-2009 <e-UCM> research group
-
-    This file is part of <e-Adventure> project, an educational game & game-like 
-    simulation authoring tool, availabe at http://e-adventure.e-ucm.es. 
-
-    <e-Adventure> is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    <e-Adventure> is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with <e-Adventure>; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-*/
+ * Copyright (C) 2004-2009 <e-UCM> research group
+ * 
+ * This file is part of <e-Adventure> project, an educational game & game-like
+ * simulation authoring tool, available at http://e-adventure.e-ucm.es.
+ * 
+ * <e-Adventure> is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version.
+ * 
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place, Suite 330, Boston, MA 02111-1307 USA
+ * 
+ */
 package es.eucm.eadventure.editor.gui.elementpanels.book;
 
 import java.awt.Component;
@@ -48,104 +50,116 @@ import es.eucm.eadventure.editor.control.controllers.book.BookParagraphDataContr
 import es.eucm.eadventure.editor.control.controllers.book.BookParagraphsListDataControl;
 import es.eucm.eadventure.editor.gui.otherpanels.imagepanels.BookImagePanel;
 
-public class ParagraphsTable extends JTable{
+public class ParagraphsTable extends JTable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	private BookParagraphsListDataControl dataControl;
-	
-	public ParagraphsTable (BookParagraphsListDataControl dControl, BookImagePanel previewPanel2){
-		super();
-		this.setModel( new ParagraphsTableModel() );
-		this.getColumnModel( ).setColumnSelectionAllowed( false );
-		this.setDragEnabled( false );
-		this.getColumnModel().getColumn(0).setMaxWidth(130);
-		this.getColumnModel().getColumn(0).setMinWidth(130);
-		this.getColumnModel().getColumn(0).setCellRenderer(new ParagraphsTableCellRenderer());
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
 
-		this.getColumnModel().getColumn(1).setCellEditor(new ParagraphCellRendererEditor(previewPanel2));
-		this.getColumnModel().getColumn(1).setCellRenderer(new ParagraphCellRendererEditor(previewPanel2));
-		
-		this.getSelectionModel( ).setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
-		this.dataControl = dControl;
-		
-		setRowHeight(22);
-		getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-			public void valueChanged(ListSelectionEvent arg0) {
-				setRowHeight(22);
-				if (getSelectedRow() != -1)
-					setRowHeight(getSelectedRow(), 50);
-			}
-		});
-	}
-	
-	private class ParagraphsTableModel extends AbstractTableModel{
+    private BookParagraphsListDataControl dataControl;
 
-		private static final long serialVersionUID = 1L;
+    public ParagraphsTable( BookParagraphsListDataControl dControl, BookImagePanel previewPanel2 ) {
 
-		public int getColumnCount( ) {
-			return 2;
-		}
+        super( );
+        this.setModel( new ParagraphsTableModel( ) );
+        this.getColumnModel( ).setColumnSelectionAllowed( false );
+        this.setDragEnabled( false );
+        this.getColumnModel( ).getColumn( 0 ).setMaxWidth( 130 );
+        this.getColumnModel( ).getColumn( 0 ).setMinWidth( 130 );
+        this.getColumnModel( ).getColumn( 0 ).setCellRenderer( new ParagraphsTableCellRenderer( ) );
 
-		public int getRowCount( ) {
-			return dataControl.getBookParagraphs( ).size( );
-		}
+        this.getColumnModel( ).getColumn( 1 ).setCellEditor( new ParagraphCellRendererEditor( previewPanel2 ) );
+        this.getColumnModel( ).getColumn( 1 ).setCellRenderer( new ParagraphCellRendererEditor( previewPanel2 ) );
 
-		public Object getValueAt( int rowIndex, int columnIndex ) {
-			if (columnIndex == 0) {
-				List<BookParagraphDataControl> paragraphs = dataControl.getBookParagraphs( );
-				return paragraphs.get( rowIndex );
-			}
-			if (columnIndex == 1) {
-				return dataControl.getBookParagraphs().get(rowIndex);
-			}
-			return null;
-		}
-		
-		@Override
-		public String getColumnName(int columnIndex) {
-			if (columnIndex==0)
-				return TextConstants.getText( "BookParagraphsList.ParagraphType" );
-			if (columnIndex==1)
-				return TextConstants.getText( "BookParagraphsList.Content");
-			else
-				return "";
-		}
-		
-		public boolean isCellEditable(int rowIndex, int columnIndex) {
-			return rowIndex == getSelectedRow() && columnIndex > 0;
-		}
-	}
-	
-	private class ParagraphsTableCellRenderer extends DefaultTableCellRenderer {
+        this.getSelectionModel( ).setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
+        this.dataControl = dControl;
 
-		private static final long serialVersionUID = 1L;
+        setRowHeight( 22 );
+        getSelectionModel( ).addListSelectionListener( new ListSelectionListener( ) {
 
-		@Override
-		public Component getTableCellRendererComponent(JTable table,
-				Object value, boolean isSelected, boolean hasFocus, int row,
-				int column) {
-			
-			if (value instanceof BookParagraphDataControl){
-				String elementName = TextConstants.getElementName( ((BookParagraphDataControl)value).getType( ) );
-				if (((BookParagraphDataControl)value).getType( ) == Controller.BOOK_TITLE_PARAGRAPH){
-					return new IconTextPanel("img/icons/titleBookParagraph.png", elementName, isSelected);				
-				} else if (((BookParagraphDataControl)value).getType( ) == Controller.BOOK_BULLET_PARAGRAPH){
-					return new IconTextPanel("img/icons/bulletBookParagraph.png", elementName,isSelected);
-				} else if (((BookParagraphDataControl)value).getType( ) == Controller.BOOK_TEXT_PARAGRAPH){
-					return new IconTextPanel("img/icons/textBookParagraph.png", elementName,isSelected);
-				} else if (((BookParagraphDataControl)value).getType( ) == Controller.BOOK_IMAGE_PARAGRAPH){
-					return new IconTextPanel("img/icons/imageBookParagraph.png", elementName,isSelected);
-				} else
-					return null;
-			} else {
-				return new JLabel(value.toString( ));
-			}
-		}
+            public void valueChanged( ListSelectionEvent arg0 ) {
 
-	}
+                setRowHeight( 22 );
+                if( getSelectedRow( ) != -1 )
+                    setRowHeight( getSelectedRow( ), 50 );
+            }
+        } );
+    }
+
+    private class ParagraphsTableModel extends AbstractTableModel {
+
+        private static final long serialVersionUID = 1L;
+
+        public int getColumnCount( ) {
+
+            return 2;
+        }
+
+        public int getRowCount( ) {
+
+            return dataControl.getBookParagraphs( ).size( );
+        }
+
+        public Object getValueAt( int rowIndex, int columnIndex ) {
+
+            if( columnIndex == 0 ) {
+                List<BookParagraphDataControl> paragraphs = dataControl.getBookParagraphs( );
+                return paragraphs.get( rowIndex );
+            }
+            if( columnIndex == 1 ) {
+                return dataControl.getBookParagraphs( ).get( rowIndex );
+            }
+            return null;
+        }
+
+        @Override
+        public String getColumnName( int columnIndex ) {
+
+            if( columnIndex == 0 )
+                return TextConstants.getText( "BookParagraphsList.ParagraphType" );
+            if( columnIndex == 1 )
+                return TextConstants.getText( "BookParagraphsList.Content" );
+            else
+                return "";
+        }
+
+        @Override
+        public boolean isCellEditable( int rowIndex, int columnIndex ) {
+
+            return rowIndex == getSelectedRow( ) && columnIndex > 0;
+        }
+    }
+
+    private class ParagraphsTableCellRenderer extends DefaultTableCellRenderer {
+
+        private static final long serialVersionUID = 1L;
+
+        @Override
+        public Component getTableCellRendererComponent( JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column ) {
+
+            if( value instanceof BookParagraphDataControl ) {
+                String elementName = TextConstants.getElementName( ( (BookParagraphDataControl) value ).getType( ) );
+                if( ( (BookParagraphDataControl) value ).getType( ) == Controller.BOOK_TITLE_PARAGRAPH ) {
+                    return new IconTextPanel( "img/icons/titleBookParagraph.png", elementName, isSelected );
+                }
+                else if( ( (BookParagraphDataControl) value ).getType( ) == Controller.BOOK_BULLET_PARAGRAPH ) {
+                    return new IconTextPanel( "img/icons/bulletBookParagraph.png", elementName, isSelected );
+                }
+                else if( ( (BookParagraphDataControl) value ).getType( ) == Controller.BOOK_TEXT_PARAGRAPH ) {
+                    return new IconTextPanel( "img/icons/textBookParagraph.png", elementName, isSelected );
+                }
+                else if( ( (BookParagraphDataControl) value ).getType( ) == Controller.BOOK_IMAGE_PARAGRAPH ) {
+                    return new IconTextPanel( "img/icons/imageBookParagraph.png", elementName, isSelected );
+                }
+                else
+                    return null;
+            }
+            else {
+                return new JLabel( value.toString( ) );
+            }
+        }
+
+    }
 
 }

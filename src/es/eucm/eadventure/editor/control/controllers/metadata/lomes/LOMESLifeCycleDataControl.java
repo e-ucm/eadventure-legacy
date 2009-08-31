@@ -1,108 +1,115 @@
 /**
- * <e-Adventure> is an <e-UCM> research project.
- * <e-UCM>, Department of Software Engineering and Artificial Intelligence.
- * Faculty of Informatics, Complutense University of Madrid (Spain).
- * @author Del Blanco, A., Marchiori, E., Torrente, F.J.
+ * <e-Adventure> is an <e-UCM> research project. <e-UCM>, Department of Software
+ * Engineering and Artificial Intelligence. Faculty of Informatics, Complutense
+ * University of Madrid (Spain).
+ * 
+ * @author Del Blanco, A., Marchiori, E., Torrente, F.J. (alphabetical order) *
+ * @author López Mañas, E., Pérez Padilla, F., Sollet, E., Torijano, B. (former
+ *         developers by alphabetical order)
  * @author Moreno-Ger, P. & Fernández-Manjón, B. (directors)
- * @year 2009
- * Web-site: http://e-adventure.e-ucm.es
+ * @year 2009 Web-site: http://e-adventure.e-ucm.es
  */
 
 /*
-    Copyright (C) 2004-2009 <e-UCM> research group
-
-    This file is part of <e-Adventure> project, an educational game & game-like 
-    simulation authoring tool, availabe at http://e-adventure.e-ucm.es. 
-
-    <e-Adventure> is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    <e-Adventure> is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with <e-Adventure>; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-*/
+ * Copyright (C) 2004-2009 <e-UCM> research group
+ * 
+ * This file is part of <e-Adventure> project, an educational game & game-like
+ * simulation authoring tool, available at http://e-adventure.e-ucm.es.
+ * 
+ * <e-Adventure> is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version.
+ * 
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place, Suite 330, Boston, MA 02111-1307 USA
+ * 
+ */
 package es.eucm.eadventure.editor.control.controllers.metadata.lomes;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.data.meta.auxiliar.LOMESContainer;
-import es.eucm.eadventure.editor.data.meta.auxiliar.LOMESLifeCycleDate;
-import es.eucm.eadventure.editor.data.meta.ims.IMSLifeCycle;
 import es.eucm.eadventure.editor.data.meta.lomes.LOMESLifeCycle;
 import es.eucm.eadventure.editor.data.meta.LangString;
-import es.eucm.eadventure.editor.data.meta.Vocabulary;
 
 public class LOMESLifeCycleDataControl {
 
-	private LOMESLifeCycle data;
-	
-	public LOMESLifeCycleDataControl (LOMESLifeCycle data){
-		this.data = data;
-	}
+    private LOMESLifeCycle data;
 
-	
-	public LOMESTextDataControl getVersionController (){
-		return new LOMESTextDataControl (){
+    public LOMESLifeCycleDataControl( LOMESLifeCycle data ) {
 
-			public String getText( ) {
-				return data.getVersion( ).getValue( 0 );
-			}
+        this.data = data;
+    }
 
-			public void setText( String text ) {
-				data.setVersion( new LangString(text) );
-			}
-			
-		};
-	}
-	
-	public LOMESOptionsDataControl getStatusController() {
-		return new LOMESOptionsDataControl (){
+    public LOMESTextDataControl getVersionController( ) {
 
-			public String[] getOptions( ) {
-				String[] options = new String[data.getStatus().getValues( ).length];
-				for (int i=0; i<options.length; i++){
-					options[i]=TextConstants.getText( "IMS.LifeCycle.Status"+i );
-				}
-				return options;
-			}
+        return new LOMESTextDataControl( ) {
 
-			public void setOption( int option ) {
-				data.getStatus().setValueIndex( option );
-			}
+            public String getText( ) {
 
-			public int getSelectedOption( ) {
-				return data.getStatus().getValueIndex( );
-			}
-			
-		};
-	}
-	
-	
-	
-	public LOMESContainer getContribute(){
-		return data.getContribute();
-	}
-	
-	
-	/**
-	 * @return the data
-	 */
-	public LOMESLifeCycle getData( ) {
-		return data;
-	}
+                return data.getVersion( ).getValue( 0 );
+            }
 
-	/**
-	 * @param data the data to set
-	 */
-	public void setData( LOMESLifeCycle data ) {
-		this.data = data;
-	}
+            public void setText( String text ) {
+
+                data.setVersion( new LangString( text ) );
+            }
+
+        };
+    }
+
+    public LOMESOptionsDataControl getStatusController( ) {
+
+        return new LOMESOptionsDataControl( ) {
+
+            public String[] getOptions( ) {
+
+                String[] options = new String[ data.getStatus( ).getValues( ).length ];
+                for( int i = 0; i < options.length; i++ ) {
+                    options[i] = TextConstants.getText( "IMS.LifeCycle.Status" + i );
+                }
+                return options;
+            }
+
+            public void setOption( int option ) {
+
+                data.getStatus( ).setValueIndex( option );
+            }
+
+            public int getSelectedOption( ) {
+
+                return data.getStatus( ).getValueIndex( );
+            }
+
+        };
+    }
+
+    public LOMESContainer getContribute( ) {
+
+        return data.getContribute( );
+    }
+
+    /**
+     * @return the data
+     */
+    public LOMESLifeCycle getData( ) {
+
+        return data;
+    }
+
+    /**
+     * @param data
+     *            the data to set
+     */
+    public void setData( LOMESLifeCycle data ) {
+
+        this.data = data;
+    }
 
 }

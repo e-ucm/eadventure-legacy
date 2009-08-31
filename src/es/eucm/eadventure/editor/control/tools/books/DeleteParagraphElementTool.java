@@ -1,34 +1,36 @@
 /**
- * <e-Adventure> is an <e-UCM> research project.
- * <e-UCM>, Department of Software Engineering and Artificial Intelligence.
- * Faculty of Informatics, Complutense University of Madrid (Spain).
- * @author Del Blanco, A., Marchiori, E., Torrente, F.J.
+ * <e-Adventure> is an <e-UCM> research project. <e-UCM>, Department of Software
+ * Engineering and Artificial Intelligence. Faculty of Informatics, Complutense
+ * University of Madrid (Spain).
+ * 
+ * @author Del Blanco, A., Marchiori, E., Torrente, F.J. (alphabetical order) *
+ * @author López Mañas, E., Pérez Padilla, F., Sollet, E., Torijano, B. (former
+ *         developers by alphabetical order)
  * @author Moreno-Ger, P. & Fernández-Manjón, B. (directors)
- * @year 2009
- * Web-site: http://e-adventure.e-ucm.es
+ * @year 2009 Web-site: http://e-adventure.e-ucm.es
  */
 
 /*
-    Copyright (C) 2004-2009 <e-UCM> research group
-
-    This file is part of <e-Adventure> project, an educational game & game-like 
-    simulation authoring tool, availabe at http://e-adventure.e-ucm.es. 
-
-    <e-Adventure> is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    <e-Adventure> is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with <e-Adventure>; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-*/
+ * Copyright (C) 2004-2009 <e-UCM> research group
+ * 
+ * This file is part of <e-Adventure> project, an educational game & game-like
+ * simulation authoring tool, available at http://e-adventure.e-ucm.es.
+ * 
+ * <e-Adventure> is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version.
+ * 
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place, Suite 330, Boston, MA 02111-1307 USA
+ * 
+ */
 package es.eucm.eadventure.editor.control.tools.books;
 
 import java.util.List;
@@ -42,67 +44,73 @@ import es.eucm.eadventure.editor.control.tools.Tool;
 
 public class DeleteParagraphElementTool extends Tool {
 
-	private List<BookParagraph> bookParagraphsList;
-	
-	private List<BookParagraphDataControl> bookParagraphsDataControlList;
-	
-	private DataControl elementDataControl;
-	
-	private int listIndex;
-	
-	private int dataControlListIndex;
-	
-	public DeleteParagraphElementTool(BookDataControl dataControl,
-			BookParagraphDataControl paragraph) {
-		this.bookParagraphsList = dataControl.getBookParagraphsList().getBookParagraphsList();
-		this.bookParagraphsDataControlList = dataControl.getBookParagraphsList().getBookParagraphs();
-		this.elementDataControl = paragraph;
-		this.listIndex = bookParagraphsList.indexOf(elementDataControl.getContent());
-		this.dataControlListIndex = bookParagraphsDataControlList.indexOf(elementDataControl);
-	}
+    private List<BookParagraph> bookParagraphsList;
 
-	@Override
-	public boolean canRedo() {
-		return true;
-	}
+    private List<BookParagraphDataControl> bookParagraphsDataControlList;
 
-	@Override
-	public boolean canUndo() {
-		return true;
-	}
+    private DataControl elementDataControl;
 
-	@Override
-	public boolean combine(Tool other) {
-		return false;
-	}
+    private int listIndex;
 
-	@Override
-	public boolean doTool() {
-		boolean temp = bookParagraphsList.remove(elementDataControl.getContent());
-		if (temp) {
-			bookParagraphsDataControlList.remove(elementDataControl);
-			return true;
-		}
-		return false;
-	}
+    private int dataControlListIndex;
 
-	@Override
-	public boolean redoTool() {
-		boolean temp = bookParagraphsList.remove(elementDataControl.getContent());
-		if (temp) {
-			bookParagraphsDataControlList.remove(elementDataControl);
-			Controller.getInstance().updatePanel();
-			return true;
-		}
-		return false;
-	}
+    public DeleteParagraphElementTool( BookDataControl dataControl, BookParagraphDataControl paragraph ) {
 
-	@Override
-	public boolean undoTool() {
-		bookParagraphsList.add(listIndex, (BookParagraph) elementDataControl.getContent());
-		bookParagraphsDataControlList.add(dataControlListIndex, (BookParagraphDataControl) elementDataControl);
-		Controller.getInstance().updatePanel();
-		return true;
-	}
+        this.bookParagraphsList = dataControl.getBookParagraphsList( ).getBookParagraphsList( );
+        this.bookParagraphsDataControlList = dataControl.getBookParagraphsList( ).getBookParagraphs( );
+        this.elementDataControl = paragraph;
+        this.listIndex = bookParagraphsList.indexOf( elementDataControl.getContent( ) );
+        this.dataControlListIndex = bookParagraphsDataControlList.indexOf( elementDataControl );
+    }
+
+    @Override
+    public boolean canRedo( ) {
+
+        return true;
+    }
+
+    @Override
+    public boolean canUndo( ) {
+
+        return true;
+    }
+
+    @Override
+    public boolean combine( Tool other ) {
+
+        return false;
+    }
+
+    @Override
+    public boolean doTool( ) {
+
+        boolean temp = bookParagraphsList.remove( elementDataControl.getContent( ) );
+        if( temp ) {
+            bookParagraphsDataControlList.remove( elementDataControl );
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean redoTool( ) {
+
+        boolean temp = bookParagraphsList.remove( elementDataControl.getContent( ) );
+        if( temp ) {
+            bookParagraphsDataControlList.remove( elementDataControl );
+            Controller.getInstance( ).updatePanel( );
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean undoTool( ) {
+
+        bookParagraphsList.add( listIndex, (BookParagraph) elementDataControl.getContent( ) );
+        bookParagraphsDataControlList.add( dataControlListIndex, (BookParagraphDataControl) elementDataControl );
+        Controller.getInstance( ).updatePanel( );
+        return true;
+    }
 
 }

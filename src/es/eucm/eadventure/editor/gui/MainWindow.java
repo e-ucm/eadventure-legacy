@@ -1,34 +1,36 @@
 /**
- * <e-Adventure> is an <e-UCM> research project.
- * <e-UCM>, Department of Software Engineering and Artificial Intelligence.
- * Faculty of Informatics, Complutense University of Madrid (Spain).
- * @author Del Blanco, A., Marchiori, E., Torrente, F.J.
+ * <e-Adventure> is an <e-UCM> research project. <e-UCM>, Department of Software
+ * Engineering and Artificial Intelligence. Faculty of Informatics, Complutense
+ * University of Madrid (Spain).
+ * 
+ * @author Del Blanco, A., Marchiori, E., Torrente, F.J. (alphabetical order) *
+ * @author López Mañas, E., Pérez Padilla, F., Sollet, E., Torijano, B. (former
+ *         developers by alphabetical order)
  * @author Moreno-Ger, P. & Fernández-Manjón, B. (directors)
- * @year 2009
- * Web-site: http://e-adventure.e-ucm.es
+ * @year 2009 Web-site: http://e-adventure.e-ucm.es
  */
 
 /*
-    Copyright (C) 2004-2009 <e-UCM> research group
-
-    This file is part of <e-Adventure> project, an educational game & game-like 
-    simulation authoring tool, availabe at http://e-adventure.e-ucm.es. 
-
-    <e-Adventure> is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    <e-Adventure> is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with <e-Adventure>; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-*/
+ * Copyright (C) 2004-2009 <e-UCM> research group
+ * 
+ * This file is part of <e-Adventure> project, an educational game & game-like
+ * simulation authoring tool, available at http://e-adventure.e-ucm.es.
+ * 
+ * <e-Adventure> is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version.
+ * 
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place, Suite 330, Boston, MA 02111-1307 USA
+ * 
+ */
 
 package es.eucm.eadventure.editor.gui;
 
@@ -67,7 +69,9 @@ import javax.swing.JSeparator;
 import javax.swing.JSplitPane;
 import javax.swing.JTextPane;
 import javax.swing.KeyStroke;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
+import javax.swing.WindowConstants;
 import javax.swing.filechooser.FileFilter;
 
 import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
@@ -75,978 +79,1082 @@ import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.auxiliar.filefilters.FolderFileFilter;
 import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.gui.editdialogs.GenericFileChooserDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.GenericOptionPaneDialog;
 import es.eucm.eadventure.editor.gui.structurepanel.StructureControl;
 import es.eucm.eadventure.editor.gui.structurepanel.StructurePanel;
 
 /**
- * This class represents the main frame of the application. It has all the elements of the view part of the application,
- * as well as the responsible functions for showing and requesting data.
+ * This class represents the main frame of the application. It has all the
+ * elements of the view part of the application, as well as the responsible
+ * functions for showing and requesting data.
  * 
  * @author Bruno Torijano Bueno
  */
 public class MainWindow extends JFrame {
 
-	/**
-	 * Required.
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	/**
-	 * Instance of the controller.
-	 */
-	private Controller controller;
-
-	/**
-	 * Chapters menu (to reload the chapters when needed).
-	 */
-	private JMenu chaptersMenu;
-
-	private JMenuItem itPlayerMode;
-
-	private StructurePanel structurePanel;
-	
-	/**
-	 * Stack of windows opened.
-	 */
-	private Stack<Window> windowsStack;
-	
-	private JMenuItem normalRun;
-	
-	private JMenuItem debugRun;
-	
-	private JMenuItem undo;
-	
-	private JMenuItem redo;
-	
-	private JCheckBoxMenuItem itAutoBackup;
-	
-	/**
-	 * Constructor. Creates the general layout.
-	 */
-	public MainWindow( ) {
-
-		// Store the controller
-		controller = Controller.getInstance( );
-
-		// Set the look and feel
-		try {
-			//UIManager.setLookAndFeel( UIManager.getCrossPlatformLookAndFeelClassName( ) );
-			UIManager.setLookAndFeel( UIManager.getSystemLookAndFeelClassName( ) );
-		} catch( Exception e ) {
-        	//ErrorReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
-		}
-
-		// Create the list of icons of the window
-		List<Image> icons = new ArrayList<Image>();
-		
-		/*icons.add( AssetsController.getImage("img/Icono-Editor-16x16.png") );
-		icons.add( AssetsController.getImage("img/Icono-Editor-32x32.png") );
-		icons.add( AssetsController.getImage("img/Icono-Editor-64x64.png") );
-		icons.add( AssetsController.getImage("img/Icono-Editor-128x128.png") );*/
-		icons.add( new ImageIcon("img/Icono-Editor-16x16.png").getImage() );
-		icons.add( new ImageIcon("img/Icono-Editor-32x32.png").getImage() );
-		icons.add( new ImageIcon("img/Icono-Editor-64x64.png").getImage() );
-		icons.add( new ImageIcon("img/Icono-Editor-128x128.png").getImage() );
-		this.setIconImages(icons);
-
-		// First of all, create the bar
-		setJMenuBar( createMenuBar() );
-		
-		// Create the two panels
-		JPanel editorContainer = new JPanel( );
-		editorContainer.setMinimumSize( new Dimension( 400, 0 ) );
-		editorContainer.setLayout( new BorderLayout( ) );
-
-		structurePanel = new StructurePanel(editorContainer);
-		structurePanel.recreateElements();
-		structurePanel.setMinimumSize(new Dimension(210, 0));
-		structurePanel.setMaximumSize(new Dimension(210, Integer.MAX_VALUE));
-		structurePanel.setPreferredSize(new Dimension(210, 0));
-		StructureControl.getInstance().setStructurePanel(structurePanel);
-
-		JPanel structureToolsPanel = new JPanel();
-		structureToolsPanel.setLayout(new BorderLayout());
-		structureToolsPanel.setMinimumSize( new Dimension( 210, 0 ) );
-		structureToolsPanel.setMaximumSize(new Dimension(210, Integer.MAX_VALUE));
-
-		structureToolsPanel.add(structurePanel, BorderLayout.CENTER);
-		
-//		treeToolsPanel.add(treePanel, BorderLayout.CENTER);
-		//JPanel treeToolsPanel = new JPanel();
-		//treeToolsPanel.setLayout(new BorderLayout());
-		//treeToolsPanel.add(structurePanel, BorderLayout.CENTER);
-	
-		JPanel toolsPanel = createToolsPanel();
-		structureToolsPanel.add(toolsPanel, BorderLayout.NORTH);
-		
-		// Create the split panel
-		JSplitPane splitPane = new JSplitPane( JSplitPane.HORIZONTAL_SPLIT, structureToolsPanel, editorContainer );
-		splitPane.setBorder( null );
-		
-		
-		// Add the panels to the frame
-		setLayout( new BorderLayout( ) );
-		add( splitPane, BorderLayout.CENTER );
-
-		// Set the "on close" operation and the closing listener
-		setDefaultCloseOperation( JFrame.DO_NOTHING_ON_CLOSE );
-		addWindowListener( new WindowAdapter( ) {
-			public void windowClosing( WindowEvent arg0 ) {
-				controller.exit( );
-			}
-		} );
-
-		// Create the windows stack
-		windowsStack = new Stack<Window>( );
-
-		// Set size and position
-		setMinimumSize( new Dimension( 640, 400 ) );
-		Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
-		int width = 900;
-		int height = 740;
-		setSize(width , height );
-		setLocation( ( screenSize.width - width) / 2, ( screenSize.height - height ) / 2 );
-		
-//		setExtendedState(JFrame.MAXIMIZED_BOTH);
-		
-		this.setModalExclusionType( Dialog.ModalExclusionType.APPLICATION_EXCLUDE );
-		// Set title and properties
-		updateTitle( );
-	}
-
-	
-	private JPanel createToolsPanel() {
-		JPanel temp = new JPanel();
-		
-		JButton undoButton = createToolButton( "img/icons/undo.png" , TextConstants.getText("Tools.Undo") );
-		JButton redoButton = createToolButton( "img/icons/redo.png" , TextConstants.getText("Tools.Redo") );
-		JButton backButton = createToolButton( "img/icons/moveNodeLeft.png" , TextConstants.getText("Tools.Back") );
-		JButton forwardButton = createToolButton( "img/icons/moveNodeRight.png" , TextConstants.getText("Tools.Forward") );
-		JButton findButton = createToolButton( "img/icons/find.png" , TextConstants.getText("Tools.Find") );
-		
-		undoButton.addActionListener( new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				controller.undoTool();
-			}
-		});
-		redoButton.addActionListener( new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				controller.redoTool();
-			}
-		});
-		findButton.addActionListener( new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				controller.search();
-			}
-		});
-		backButton.addActionListener( new ActionListener() {
-			public void actionPerformed ( ActionEvent e ) {
-				StructureControl.getInstance().goBack();
-			}
-		});
-		forwardButton.addActionListener( new ActionListener() {
-			public void actionPerformed ( ActionEvent e ) {
-				StructureControl.getInstance().goForward();
-			}
-		});
-
-		temp.setLayout( new FlowLayout( FlowLayout.CENTER ) );
-
-		temp.add( undoButton );
-		temp.add( redoButton );
-		JSeparator separator = new JSeparator( JSeparator.VERTICAL );
-		separator.setPreferredSize( new Dimension( 2, 24 ) );
-		temp.add( separator );
-		temp.add( findButton );
-		separator = new JSeparator( JSeparator.VERTICAL );
-		separator.setPreferredSize( new Dimension( 2, 24 ) );
-		temp.add( separator );
-		temp.add( backButton );
-		temp.add( forwardButton );
-		
-		temp.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText("Tools.Title") ) );
-
-		return temp;
-	}
-	
-	private JButton createToolButton( String icon, String toolTipText) {
-		JButton tempButton = new JButton( new ImageIcon(icon));		
-		tempButton.setPreferredSize( new Dimension( 24, 22 ) );
-		tempButton.setFocusPainted( false );
-		tempButton.setContentAreaFilled( false );
-		tempButton.setRolloverEnabled( true );
-		tempButton.setToolTipText(toolTipText);
-		return tempButton;
-	}
-
-
-	private JMenuBar createMenuBar (){
-		return createMenuBarAdventureMode();
-	}
-	
-	private JMenuBar createMenuBarAdventureMode (){
-		JMenuBar windowMenu = new JMenuBar( );
-		//windowMenu.setLayout( new BoxLayout(windowMenu, BoxLayout.LINE_AXIS));
-		windowMenu.setLayout( new FlowLayout(FlowLayout.LEFT));
-
-		// Create the menus
-		JMenu fileMenu = new JMenu( TextConstants.getText( "MenuFile.Title" ) );
-		fileMenu.setMnemonic( KeyEvent.VK_F );
-		windowMenu.add( fileMenu );
-		JMenu editMenu = new JMenu(TextConstants.getText("MenuEdit.Title"));
-		windowMenu.add(editMenu);
-		JMenu adventureMenu = new JMenu( TextConstants.getText( "MenuAdventure.Title" ) );
-		adventureMenu.setEnabled( Controller.getInstance( ).isFolderLoaded( ) );
-		adventureMenu.setMnemonic( KeyEvent.VK_A );
-		windowMenu.add( adventureMenu );
-		chaptersMenu = new JMenu( TextConstants.getText( "MenuChapters.Title" ) );
-		chaptersMenu.setEnabled( Controller.getInstance( ).isFolderLoaded( ) );
-		chaptersMenu.setMnemonic( KeyEvent.VK_H );
-		windowMenu.add( chaptersMenu );
-		JMenu runMenu = new JMenu( TextConstants.getText( "MenuRun.Title" ) );
-		runMenu.setEnabled( Controller.getInstance( ).isFolderLoaded( ) );
-		windowMenu.add( runMenu );
-		JMenu configurationMenu = new JMenu( TextConstants.getText( "MenuConfiguration.Title" ) );
-		configurationMenu.setMnemonic( KeyEvent.VK_T );
-		windowMenu.add( configurationMenu );
-		JMenu about = new JMenu( TextConstants.getText( "Menu.About" ) );
-		JMenuItem aboutEadventure = new JMenuItem ( TextConstants.getText( "Menu.AboutEAD" ) );
-		about.add(aboutEadventure);
-		aboutEadventure.setArmed( false );
-		aboutEadventure.addActionListener( new ActionListener(){
-			public void actionPerformed( ActionEvent arg0 ) {
-				controller.showAboutDialog();
-			}
-		});
-		JMenuItem sendComments = new JMenuItem ( TextConstants.getText( "Menu.SendComments" ) );
-		about.add(sendComments);
-		sendComments.setArmed( false );
-		sendComments.addActionListener( new ActionListener(){
-			public void actionPerformed( ActionEvent arg0 ) {
-				ReportDialog.GenerateCommentsReport();
-			}
-		});
-		windowMenu.add( about );
-
-		JMenuItem itFileNew = new JMenuItem( TextConstants.getText("MenuFile.New"));
-		itFileNew.addActionListener( new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				controller.newFile();
-			}
-		});
-		fileMenu.add( itFileNew );
-		
-		JMenuItem itFileLoad = new JMenuItem( TextConstants.getText( "MenuFile.Load" ) );
-		itFileLoad.addActionListener( new ActionListener( ) {
-			public void actionPerformed( ActionEvent e ) {
-				controller.loadFile( );
-			}
-		} );
-		
-		itFileLoad.setAccelerator( KeyStroke.getKeyStroke( 'L', InputEvent.CTRL_MASK ) );
-		fileMenu.add( itFileLoad );
-		fileMenu.addSeparator( );
-		JMenuItem itFileSave = new JMenuItem( TextConstants.getText( "MenuFile.Save" ) );
-		itFileSave.setEnabled( controller.isFolderLoaded( ) );
-		itFileSave.addActionListener( new ActionListener( ) {
-			public void actionPerformed( ActionEvent e ) {
-				//controller.saveFile( controller.isTempFile( ) );
-				controller.saveFile( false );
-			}
-		} );
-		itFileSave.setAccelerator( KeyStroke.getKeyStroke( 'S', InputEvent.CTRL_MASK ) );
-		fileMenu.add( itFileSave );
-		JMenuItem itFileSaveAs = new JMenuItem( TextConstants.getText( "MenuFile.SaveAs" ) );
-		itFileSaveAs.setEnabled( controller.isFolderLoaded( ) );
-		itFileSaveAs.addActionListener( new ActionListener( ) {
-			public void actionPerformed( ActionEvent e ) {
-				controller.saveFile( true );
-			}
-		} );
-		fileMenu.add( itFileSaveAs );
-		fileMenu.addSeparator( );
-		
-		
-		// create Lom Properties menu (IEEE LOM, IMS LOM, LOM-ES)
-		JMenu itLomProperties = new JMenu( TextConstants.getText( "MenuFile.AllLOMProperties" ) );
-		
-		
-		JMenuItem itLOMProp = new JMenuItem( TextConstants.getText( "MenuFile.LOMProperties" ) );
-		itLOMProp.setEnabled( controller.isFolderLoaded( ) );
-		itLOMProp.addActionListener(  new ActionListener( ) {
-			public void actionPerformed( ActionEvent e ) {
-				controller.showLOMDataDialog( );
-			}
-		} );
-		itLomProperties.add( itLOMProp );
-		//itLomProperties.addSeparator( );
-		
-		JMenuItem itLOMSCORMProp = new JMenuItem( TextConstants.getText( "MenuFile.LOMSCORMProperties" ) );
-		itLOMSCORMProp.setEnabled( controller.isFolderLoaded( ) );
-		itLOMSCORMProp.addActionListener(  new ActionListener( ) {
-			public void actionPerformed( ActionEvent e ) {
-				controller.showLOMSCORMDataDialog( );
-			}
-		} );
-		itLomProperties.add( itLOMSCORMProp );
-		//itLomProperties.addSeparator( );
-		
-		JMenuItem itLOMESProp = new JMenuItem( TextConstants.getText( "MenuFile.LOMESProperties" ) );
-		itLOMESProp.setEnabled( controller.isFolderLoaded( ) );
-		itLOMESProp.addActionListener(  new ActionListener( ) {
-			public void actionPerformed( ActionEvent e ) {
-				controller.showLOMESDataDialog();
-			}
-		} );
-		itLomProperties.add( itLOMESProp );
-		
-		fileMenu.add(itLomProperties);
-		fileMenu.addSeparator( );
-		
-		JMenuItem importChapter = new JMenuItem( TextConstants.getText( "MenuFile.ImportChapter" ) );
-		importChapter.addActionListener(  new ActionListener( ) {
-			public void actionPerformed( ActionEvent e ) {
-				controller.importChapter();
-			}
-		} );
-		
-		JMenu itExport = new JMenu( TextConstants.getText( "MenuFile.Export" ) );
-		itExport.setEnabled( controller.isFolderLoaded( ) );
-		JMenuItem itExportGame = new JMenuItem( TextConstants.getText( "MenuFile.ExportGame" ) );
-		itExportGame.addActionListener(  new ActionListener( ) {
-			public void actionPerformed( ActionEvent e ) {
-				controller.exportGame();
-			}
-		} );
-
-		JMenuItem itExportStandalone = new JMenuItem( TextConstants.getText( "MenuFile.ExportStandalone" ) );
-		itExportStandalone.addActionListener(  new ActionListener( ) {
-			public void actionPerformed( ActionEvent e ) {
-				controller.exportStandaloneGame( );
-			}
-		} );
-		
-		JMenuItem itExportLOM = new JMenuItem( TextConstants.getText( "MenuFile.ExportLOM" ) );
-		itExportLOM.addActionListener(  new ActionListener( ) {
-			public void actionPerformed( ActionEvent e ) {
-				controller.exportToLOM();
-			}
-		} );
-		
-		
-		
-		itExport.add( itExportGame );
-		itExport.add( itExportStandalone );
-		itExport.add( itExportLOM );
-		fileMenu.add( itExport );
-		fileMenu.addSeparator( );
-
-		JMenuItem itFileExit = new JMenuItem( TextConstants.getText( "MenuFile.Exit" ) );
-		itFileExit.addActionListener( new ActionListener( ) {
-			public void actionPerformed( ActionEvent e ) {
-				controller.exit( );
-			}
-		} );
-		fileMenu.add( itFileExit );
-
-		
-		undo = new JMenuItem(TextConstants.getText("MenuEdit.Undo"));
-		undo.addActionListener( new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				controller.undoTool();
-			}
-		});
-		undo.setAccelerator( KeyStroke.getKeyStroke( 'Z', InputEvent.CTRL_MASK ) );
-
-		redo = new JMenuItem(TextConstants.getText("MenuEdit.Redo"));
-		redo.addActionListener( new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				controller.redoTool();
-			}
-		});
-		redo.setAccelerator( KeyStroke.getKeyStroke( 'Y', InputEvent.CTRL_MASK ) );
-
-		JMenuItem search = new JMenuItem(TextConstants.getText("Search.DialogTitle"));
-		search.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				controller.search();
-			}
-		});
-		
-		editMenu.add(undo);
-		editMenu.add(redo);
-		editMenu.add(search);
-		
-		
-		// Create the "Adventure" elements
-		JMenuItem itCheckConsistency = new JMenuItem( TextConstants.getText( "MenuAdventure.CheckConsistency" ) );
-		itCheckConsistency.addActionListener( new ActionListener( ) {
-			public void actionPerformed( ActionEvent e ) {
-				controller.checkAdventureConsistency( );
-			}
-		} );
-		adventureMenu.add( itCheckConsistency );
-		adventureMenu.addSeparator( );
-		JMenuItem itAdventureData = new JMenuItem( TextConstants.getText( "MenuAdventure.AdventureData" ) );
-		itAdventureData.addActionListener( new ActionListener( ) {
-			public void actionPerformed( ActionEvent e ) {
-				controller.showAdventureDataDialog( );
-			}
-		} );
-		adventureMenu.add( itAdventureData );
-		
-		JMenu visualization = new JMenu(TextConstants.getText("MenuAdventure.Visualization"));
-		JMenuItem itGUIStyles = new JMenuItem( TextConstants.getText( "MenuAdventure.GUIStyles" ) );
-		itGUIStyles.addActionListener( new ActionListener( ) {
-			public void actionPerformed( ActionEvent e ) {
-				controller.showGUIStylesDialog( );
-			}
-		} );
-		visualization.add( itGUIStyles );
-		JMenuItem itCustomizeGUI = new JMenuItem( TextConstants.getText( "MenuAdventure.CustomizeGUI" ) );
-		itCustomizeGUI.addActionListener( new ActionListener( ) {
-			public void actionPerformed( ActionEvent e ) {
-				controller.showCustomizeGUIDialog( );
-			}
-		} );
-		visualization.add( itCustomizeGUI );
-		JMenuItem itGraphicConfig = new JMenuItem( TextConstants.getText( "MenuAdventure.GraphicConfig"));
-		itGraphicConfig.addActionListener( new ActionListener() {
-			public void actionPerformed( ActionEvent e) {
-				controller.showGraphicConfigDialog();
-			}
-		});
-		visualization.add( itGraphicConfig);
-		adventureMenu.add( visualization);
-		if ( controller.isFolderLoaded()){
-			if( controller.isPlayTransparent( ) ) {
-				itPlayerMode = new JMenuItem( TextConstants.getText( "MenuAdventure.ChangeToModePlayerVisible" ) );
-				itPlayerMode.setToolTipText( TextConstants.getText( "MenuAdventure.ModePlayerVisible" ) );
-			} else {
-				itPlayerMode = new JMenuItem( TextConstants.getText( "MenuAdventure.ChangeToModePlayerTransparent" ) );
-				itPlayerMode.setToolTipText( TextConstants.getText( "MenuAdventure.ModePlayerTransparent" ) );
-			}
-		} else {
-			itPlayerMode = new JMenuItem( TextConstants.getText( "MenuAdventure.ChangeToModePlayerVisible" ) );
-			itPlayerMode.setEnabled(false);
-		}
-		itPlayerMode.addActionListener( new ActionListener( ) {
-
-			public void actionPerformed( ActionEvent e ) {
-				controller.swapPlayerMode( true );
-				reloadData(  );
-			}
-
-		} );
-		adventureMenu.add( itPlayerMode );
-		adventureMenu.addSeparator( );
-		/*JMenuItem itAssessmentFiles = new JMenuItem( TextConstants.getText( "MenuAdventure.AssessmentFiles" ) );
-		itAssessmentFiles.addActionListener( new ActionListener( ) {
-			public void actionPerformed( ActionEvent e ) {
-				controller.showAssessmentFilesDialog( );
-			}
-		} );
-		adventureMenu.add( itAssessmentFiles );
-		JMenuItem itAdaptationFiles = new JMenuItem( TextConstants.getText( "MenuAdventure.AdaptationFiles" ) );
-		itAdaptationFiles.addActionListener( new ActionListener( ) {
-			public void actionPerformed( ActionEvent e ) {
-				controller.showAdaptationFilesDialog( );
-			}
-		} );
-		adventureMenu.add( itAdaptationFiles );*/
-		//adventureMenu.addSeparator( );
-		
-		JMenuItem itDeleteUnusedAssets = new JMenuItem (TextConstants.getText("MenuAdventure.DeleteUnusedAssets"));
-		itDeleteUnusedAssets.addActionListener( new ActionListener() {
-			public void actionPerformed( ActionEvent e) {
-				controller.deleteUnsuedAssets();
-			}
-		});
-		adventureMenu.add(itDeleteUnusedAssets);
-	
-
-		// Create the "Chapter" elements
-		JMenuItem itAddChapter = new JMenuItem( TextConstants.getText( "MenuChapters.AddChapter" ) );
-		itAddChapter.addActionListener( new ActionListener( ) {
-			public void actionPerformed( ActionEvent e ) {
-				controller.addChapter( );
-			}
-		} );
-		chaptersMenu.add( itAddChapter );
-		JMenuItem itDeleteChapter = new JMenuItem( TextConstants.getText( "MenuChapters.DeleteChapter" ) );
-		itDeleteChapter.addActionListener( new ActionListener( ) {
-			public void actionPerformed( ActionEvent e ) {
-				controller.deleteChapter( );
-			}
-		} );
-		chaptersMenu.add( itDeleteChapter );
-		chaptersMenu.addSeparator( );
-		JMenuItem itMoveChapterUp = new JMenuItem( TextConstants.getText( "MenuChapters.MoveChapterUp" ) );
-		itMoveChapterUp.addActionListener( new ActionListener( ) {
-			public void actionPerformed( ActionEvent e ) {
-				controller.moveChapterUp( );
-			}
-		} );
-		chaptersMenu.add( itMoveChapterUp );
-		JMenuItem itMoveChapterDown = new JMenuItem( TextConstants.getText( "MenuChapters.MoveChapterDown" ) );
-		itMoveChapterDown.addActionListener( new ActionListener( ) {
-			public void actionPerformed( ActionEvent e ) {
-				controller.moveChapterDown( );
-			}
-		} );
-		chaptersMenu.add( itMoveChapterDown );
-		chaptersMenu.addSeparator( );
-		JMenuItem itEditFlags = new JMenuItem( TextConstants.getText( "MenuChapters.Flags" ) );
-		itEditFlags.addActionListener( new ActionListener( ) {
-			public void actionPerformed( ActionEvent e ) {
-				controller.showEditFlagDialog( );
-			}
-		} );
-		itEditFlags.setAccelerator( KeyStroke.getKeyStroke( 'F', InputEvent.CTRL_MASK ) );
-		chaptersMenu.add( itEditFlags );
-		chaptersMenu.addSeparator( );
-		updateChapterMenu( );
-
-		// Create "run" elements
-		normalRun = new JMenuItem( TextConstants.getText( "MenuRun.Normal" ) );
-		normalRun.setAccelerator( KeyStroke.getKeyStroke( 'R', InputEvent.CTRL_MASK ) );
-		normalRun.addActionListener( new ActionListener(){
-			public void actionPerformed( ActionEvent e ) {
-				controller.run( );
-			}
-			
-		});
-		runMenu.add( normalRun );
-		
-		debugRun = new JMenuItem( TextConstants.getText( "MenuRun.Debug" ) );
-		debugRun.setAccelerator( KeyStroke.getKeyStroke( 'D', InputEvent.CTRL_MASK ) );
-		debugRun.addActionListener( new ActionListener(){
-			public void actionPerformed( ActionEvent e ) {
-				controller.debugRun( );
-			}
-			
-		});
-		runMenu.add( debugRun );
-		
-		itAutoBackup = new JCheckBoxMenuItem( TextConstants.getText( "MenuConfiguration.AutoBackup"), controller.getAutoSaveEnabled() );
-		itAutoBackup.addActionListener( new ActionListener() {
-			public void actionPerformed( ActionEvent e) {
-				controller.setAutoSaveEnabled( ((JCheckBoxMenuItem) e.getSource()).isSelected());
-			}
-		});
-//		configurationMenu.add( itAutoBackup );
-		JCheckBoxMenuItem itEnglish = new JCheckBoxMenuItem(TextConstants.getText( "MenuConfiguration.Language.English" ), controller.getLanguage( ) == ReleaseFolders.LANGUAGE_ENGLISH);
-		itEnglish.addActionListener( new ActionListener(){
-			public void actionPerformed( ActionEvent e ) {
-				controller.setLanguage( ReleaseFolders.LANGUAGE_ENGLISH );
-			}
-		});
-		JCheckBoxMenuItem itSpanish = new JCheckBoxMenuItem(TextConstants.getText( "MenuConfiguration.Language.Spanish" ), controller.getLanguage( ) == ReleaseFolders.LANGUAGE_SPANISH);
-		itSpanish.addActionListener( new ActionListener(){
-			public void actionPerformed( ActionEvent e ) {
-				controller.setLanguage( ReleaseFolders.LANGUAGE_SPANISH );
-			}
-		});
-		JMenu languageMenu = new JMenu(TextConstants.getText( "MenuConfiguration.Language") );
-		languageMenu.add( itEnglish );
-		languageMenu.add( itSpanish );
-		configurationMenu.add( languageMenu );
-				
-		return windowMenu;
-	}
-	
-	public void setNormalRunAvailable ( boolean available ){
-		this.normalRun.setEnabled ( available );
-		this.debugRun.setEnabled(available);
-	}
-	
-	/**
-	 * This method reloads the data of the window. It picks the new tree, along with the file name.
-	 */
-	public void reloadData( ) {
-		
-		structurePanel.recreateElements();
-		
-		updateChapterMenu( );
-			
-		//Update the change player mode item menu
-		if( controller.isPlayTransparent( ) ) {
-			itPlayerMode.setText( TextConstants.getText( "MenuAdventure.ChangeToModePlayerVisible" ) );
-			itPlayerMode.setToolTipText( TextConstants.getText( "MenuAdventure.ModePlayerVisible" ) );
-		}
-		else {
-			itPlayerMode.setText( TextConstants.getText( "MenuAdventure.ChangeToModePlayerTransparent" ) );
-			itPlayerMode.setToolTipText( TextConstants.getText( "MenuAdventure.ModePlayerTransparent" ) );
-		}
-		itAutoBackup.setSelected( controller.getAutoSaveEnabled() );
-
-		StructureControl.getInstance().changeDataControl(controller.getSelectedChapterDataControl());
-		StructureControl.getInstance().visitDataControl(controller.getSelectedChapterDataControl());
-		
-		// Update the menu bar
-		this.setJMenuBar( createMenuBar() );
-		this.getJMenuBar( ).updateUI( );
-
-		// Update the title
-		updateTitle( );
-		
-		this.repaint( );
-	}
-
-	/**
-	 * Updates the title of the window.
-	 */
-	public void updateTitle( ) {
-		String modified = controller.isDataModified( ) ? " *" : "";
-		//if( controller.isTempFile( ) ) {
-		//	setTitle( TextConstants.getText( "MainWindow.Title.NewFile" ) + modified );
-		//} else {
-
-			setTitle( TextConstants.getText( "MainWindow.Title", controller.getFileName( ) ) + modified );
-//		}
-	}
-
-	/**
-	 * Updates the chapter menu, deleting all the items and adding new ones.
-	 */
-	public void updateChapterMenu( ) {
-		// First, delete all chapter elements (there are eight elements above the chapters in the menu)
-		while( chaptersMenu.getItemCount( ) > 8 )
-			chaptersMenu.remove( 8 );
-
-		if (Controller.getInstance( ).isFolderLoaded( )){
-			// Then, add the new chapters to the menu
-			int chapterIndex = 0;
-			ButtonGroup chapterButtonGroup = new ButtonGroup( );
-			for( String chapterTitle : controller.getChapterTitles( ) ) {
-				// Create the button, add the action listener and set an accelerator for the first nine chapters
-				JRadioButtonMenuItem itChapter = new JRadioButtonMenuItem( ( chapterIndex + 1 ) + ": " + chapterTitle, controller.getSelectedChapter( ) == chapterIndex );
-				itChapter.setEnabled( true );
-				
-				itChapter.addActionListener( new ChapterMenuItemListener( chapterIndex ) );
-				if( chapterIndex < 9 )
-					itChapter.setAccelerator( KeyStroke.getKeyStroke( KeyEvent.VK_1 + chapterIndex++, InputEvent.CTRL_MASK ) );
-	
-				// Add to the chapter menu and the chapter button group
-				chapterButtonGroup.add( itChapter );
-				chaptersMenu.add( itChapter );
-			}
-		}
-	}
-
-	public void updateStructure() {
-		structurePanel.update();
-	}
-
-	public void updatePanel() {
-		for (Window window: windowsStack){
-			if (window instanceof Updateable){
-				((Updateable)window).updateFields();
-			}
-		}
-		structurePanel.updateElementPanel();
-	}
-
-	public void reloadPanel() {
-		for (Window window: windowsStack){
-			if (window instanceof Updateable){
-				((Updateable)window).updateFields();
-			}
-		}
-		structurePanel.reloadElementPanel();
-	}
-
-	/**
-	 * Returns the last window opened by the application.
-	 * 
-	 * @return Last window opened
-	 */
-	public Window peekWindow( ) {
-		Window window;
-
-		// If the stack is empty, take the main window
-		if( windowsStack.empty( ) )
-			window = this;
-		// If not, take a peek at the last window pushed
-		else
-			window = windowsStack.peek( );
-
-		return window;
-	}
-
-	/**
-	 * Pushes a new window in the windows stack.
-	 * 
-	 * @param window
-	 *            Window to push
-	 */
-	public void pushWindow( Window window ) {
-		windowsStack.push( window );
-	}
-
-	/**
-	 * Pops the last window pushed into the stack.
-	 */
-	public void popWindow( ) {
-		windowsStack.pop( );
-		structurePanel.updateElementPanel();
-	}
-
-	/**
-	 * Shows a load dialog to select a single existing file.
-	 * 
-	 * @param path
-	 *            Base path for the dialog
-	 * @param filter
-	 *            File filter for the dialog
-	 * @return Full path of the selected file, null if no file was selected
-	 */
-	public String showSingleSelectionLoadDialog( String path, FileFilter filter ) {
-		String fileFullPath = null;
-
-		// If no path gas given, set the path of the application
-		if( path == null )
-			path = ".";
-
-		// Create the file chooser dialog
-		//JFileChooser fileDialog = new JFileChooser( path );
-		GenericFileChooserDialog fileDialog = new GenericFileChooserDialog( path );
-		fileDialog.setAcceptAllFileFilterUsed( false );
-		fileDialog.setFileFilter( filter );
-
-		// If a file has really been choosen and opened, load it
-		if( fileDialog.showOpenDialog( peekWindow( ) ) == JFileChooser.APPROVE_OPTION ) {
-			fileFullPath = fileDialog.getSelectedFile( ).getAbsolutePath( );
-		}
-
-		return fileFullPath;
-	}
-
-	/**
-	 * Shows a load dialog to select multiple existing files.
-	 * 
-	 * @param path
-	 *            Base path for the dialog
-	 * @param filter
-	 *            File filter for the dialog
-	 * @return Full path of the selected files, null if no files were selected
-	 */
-	public String[] showMultipleSelectionLoadDialog( String path, FileFilter filter ) {
-		String[] filesFullPath = null;
-
-		// If no path gas given, set the path of the application
-		if( path == null )
-			path = ".";
-
-		// Create the file chooser dialog
-		//JFileChooser fileDialog = new JFileChooser( path );
-		GenericFileChooserDialog fileDialog = new GenericFileChooserDialog( path );
-		fileDialog.setAcceptAllFileFilterUsed( false );
-		fileDialog.setMultiSelectionEnabled( true );
-		fileDialog.setFileFilter( filter );
-
-		// If a file has really been choosen and opened, load it
-		if( fileDialog.showOpenDialog( peekWindow( ) ) == JFileChooser.APPROVE_OPTION ) {
-			// Take the selected files and initialize the array
-			File[] selectedFiles = fileDialog.getSelectedFiles( );
-			filesFullPath = new String[selectedFiles.length];
-
-			// Copy the data
-			for( int i = 0; i < selectedFiles.length; i++ )
-				filesFullPath[i] = selectedFiles[i].getAbsolutePath( );
-		}
-
-		return filesFullPath;
-	}
-
-	/**
-	 * Shows a save dialog to select a file.
-	 * 
-	 * @param path
-	 *            Base path for the dialog
-	 * @param filter
-	 *            File filter for the dialog
-	 * @return Full path of the selected file, null if no file was selected
-	 */
-	public String showSaveDialog( String path, FileFilter filter ) {
-		String fileFullPath = null;
-
-		// Create the file chooser dialog
-		//JFileChooser fileDialog = new JFileChooser( path );
-		GenericFileChooserDialog fileDialog = new GenericFileChooserDialog( path );
-		if (filter instanceof FolderFileFilter) {
-			((FolderFileFilter) filter).setFileChooser(fileDialog);
-		}
-		fileDialog.setFileFilter( filter );
-
-		// If a file has really been choosen and opened, load it
-		if( fileDialog.showSaveDialog( peekWindow( ) ) == JFileChooser.APPROVE_OPTION ) {
-			fileFullPath = fileDialog.getSelectedFile( ).getAbsolutePath( );
-		}
-
-		return fileFullPath;
-	}
-
-	/**
-	 * Shows a dialog with the given set of options.
-	 * 
-	 * @param title
-	 *            Title of the dialog
-	 * @param message
-	 *            Message of the dialog
-	 * @param options
-	 *            Array of strings containing the options of the dialog
-	 * @return The index of the option selected, JOptionPane.CLOSED_OPTION if the dialog was closed.
-	 */
-	public int showOptionDialog( String title, String message, String[] options ) {
-		// Create the panel
-		JPanel messagePanel = new JPanel( );
-		messagePanel.setLayout( new BorderLayout( ) );
-
-		// Create the text pane
-		JTextPane messageTextPane = new JTextPane( );
-		messageTextPane.setPreferredSize( new Dimension( 220, 80 ) );
-		messageTextPane.setEditable( false );
-		messageTextPane.setBackground( messagePanel.getBackground( ) );
-		messageTextPane.setText( message );
-		messagePanel.add( messageTextPane, BorderLayout.CENTER );
-
-		// Show the dialog
-		//return JOptionPane.showOptionDialog( peekWindow( ), messagePanel, title, JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, null );
-		return (Integer)new GenericOptionPaneDialog( peekWindow( ), title, messagePanel, JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,options).getIntegerOption();
-	}
-
-	/**
-	 * Shows a dialog with the options "Yes", "No" and "Cancel", with the given title and text.
-	 * 
-	 * @param title
-	 *            Title of the dialog
-	 * @param message
-	 *            Message of the dialog
-	 * @return Value for the option selected. It can be JOptionPane.YES_OPTION, JOptionPane.NO_OPTION or
-	 *         JOptionPane.CANCEL_OPTION
-	 */
-	public int showConfirmDialog( String title, String message ) {
-		//return JOptionPane.showConfirmDialog( peekWindow( ), message, title, JOptionPane.YES_NO_CANCEL_OPTION );
-	    return (Integer)GenericOptionPaneDialog.showConfirmDialog(peekWindow( ), title ,message ,JOptionPane.QUESTION_MESSAGE, JOptionPane.YES_NO_CANCEL_OPTION );
-	}
-
-	/**
-	 * Shows a dialog with the options "Yes" and "No", with the given title and text.
-	 * 
-	 * @param title
-	 *            Title of the dialog
-	 * @param message
-	 *            Message of the dialog
-	 * @return True if the "Yes" button was pressed, false otherwise
-	 */
-	public boolean showStrictConfirmDialog( String title, String message ) {
-		//return JOptionPane.showConfirmDialog( peekWindow( ), message, title, JOptionPane.YES_NO_OPTION ) == JOptionPane.YES_OPTION;
-	    	return (Integer)GenericOptionPaneDialog.showConfirmDialog(peekWindow(),title, message,JOptionPane.QUESTION_MESSAGE,JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
-	}
-
-	/**
-	 * Shows an input dialog with the given title, message and default value.
-	 * 
-	 * @param title
-	 *            Title of the dialog
-	 * @param message
-	 *            Message of the dialog
-	 * @param defaultValue
-	 *            Default value of the dialog
-	 * @return String typed in the dialog, null if the cancel button was pressed
-	 */
-	public String showInputDialog( String title, String message, String defaultValue ) {
-		//return (String) JOptionPane.showInputDialog( peekWindow( ), message, title, JOptionPane.PLAIN_MESSAGE, null, null, defaultValue );
-	    	return (String) GenericOptionPaneDialog.showInputDialog(peekWindow( ), title, message,JOptionPane.PLAIN_MESSAGE,null,defaultValue);
-	}
-
-	/**
-	 * Shows an input dialog with the given title, message and set of possible values.
-	 * 
-	 * @param title
-	 *            Title of the dialog
-	 * @param message
-	 *            Message of the dialog
-	 * @param selectionValues
-	 *            Possible selection values of the dialog
-	 * @return Option selected in the dialog, null if the cancel button was pressed
-	 */
-	public String showInputDialog( String title, String message, Object[] selectionValues ) {
-		//return (String) JOptionPane.showInputDialog( peekWindow( ), message, title, JOptionPane.PLAIN_MESSAGE, null, selectionValues, null );
-	    return (String) GenericOptionPaneDialog.showInputDialog(peekWindow( ), title, message,JOptionPane.PLAIN_MESSAGE,selectionValues,null);
-	}
-
-	/**
-	 * Shows an information dialog with the given title and message.
-	 * 
-	 * @param title
-	 *            Title of the dialog
-	 * @param message
-	 *            Message of the dialog
-	 */
-	public void showInformationDialog( String title, String message ) {
-		//JOptionPane.showMessageDialog( peekWindow( ), message, title, JOptionPane.INFORMATION_MESSAGE );
-	    GenericOptionPaneDialog.showMessageDialog(peekWindow( ), title, message, JOptionPane.INFORMATION_MESSAGE);
-	}
-
-	/**
-	 * Shows a warning dialog with the given title and message.
-	 * 
-	 * @param title
-	 *            Title of the dialog
-	 * @param message
-	 *            Message of the dialog
-	 */
-	public void showWarningDialog( String title, String message ) {
-		//JOptionPane.showMessageDialog( peekWindow( ), message, title, JOptionPane.WARNING_MESSAGE );
-	    GenericOptionPaneDialog.showMessageDialog(peekWindow( ), title, message, JOptionPane.WARNING_MESSAGE);
-	}
-
-	/**
-	 * Shows an error dialog with the given title and message.
-	 * 
-	 * @param title
-	 *            Title of the dialog
-	 * @param message
-	 *            Message of the dialog
-	 */
-	public void showErrorDialog( String title, String message ) {
-		//JOptionPane.showMessageDialog( peekWindow( ), message, title, JOptionPane.ERROR_MESSAGE );
-	    GenericOptionPaneDialog.showMessageDialog(peekWindow( ), title, message, JOptionPane.ERROR_MESSAGE);
-	}
-
-	/**
-	 * Listener for the chapter elements in the "Chapter" menu. Used to switch between chapters when the user desires
-	 * so.
-	 */
-	private class ChapterMenuItemListener implements ActionListener {
-
-		/**
-		 * Index of the chapter that holds this listener.
-		 */
-		private int chapterIndex;
-
-		/**
-		 * Constructor.
-		 * 
-		 * @param chapterIndex
-		 *            Chapter index of the button holding this listener
-		 */
-		public ChapterMenuItemListener( int chapterIndex ) {
-			this.chapterIndex = chapterIndex;
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
-		 */
-		public void actionPerformed( ActionEvent e ) {
-			controller.setSelectedChapter( chapterIndex );
-		}
-	}
+    /**
+     * Required.
+     */
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * Instance of the controller.
+     */
+    private Controller controller;
+
+    /**
+     * Chapters menu (to reload the chapters when needed).
+     */
+    private JMenu chaptersMenu;
+
+    private JMenuItem itPlayerMode;
+
+    private StructurePanel structurePanel;
+
+    /**
+     * Stack of windows opened.
+     */
+    private Stack<Window> windowsStack;
+
+    private JMenuItem normalRun;
+
+    private JMenuItem debugRun;
+
+    private JMenuItem undo;
+
+    private JMenuItem redo;
+
+    private JCheckBoxMenuItem itAutoBackup;
+
+    /**
+     * Constructor. Creates the general layout.
+     */
+    public MainWindow( ) {
+
+        // Store the controller
+        controller = Controller.getInstance( );
+
+        // Set the look and feel
+        try {
+            //UIManager.setLookAndFeel( UIManager.getCrossPlatformLookAndFeelClassName( ) );
+            UIManager.setLookAndFeel( UIManager.getSystemLookAndFeelClassName( ) );
+        }
+        catch( Exception e ) {
+            //ErrorReportDialog.GenerateErrorReport(e, true, "UNKNOWERROR");
+        }
+
+        // Create the list of icons of the window
+        List<Image> icons = new ArrayList<Image>( );
+
+        /*icons.add( AssetsController.getImage("img/Icono-Editor-16x16.png") );
+        icons.add( AssetsController.getImage("img/Icono-Editor-32x32.png") );
+        icons.add( AssetsController.getImage("img/Icono-Editor-64x64.png") );
+        icons.add( AssetsController.getImage("img/Icono-Editor-128x128.png") );*/
+        icons.add( new ImageIcon( "img/Icono-Editor-16x16.png" ).getImage( ) );
+        icons.add( new ImageIcon( "img/Icono-Editor-32x32.png" ).getImage( ) );
+        icons.add( new ImageIcon( "img/Icono-Editor-64x64.png" ).getImage( ) );
+        icons.add( new ImageIcon( "img/Icono-Editor-128x128.png" ).getImage( ) );
+        this.setIconImages( icons );
+
+        // First of all, create the bar
+        setJMenuBar( createMenuBar( ) );
+
+        // Create the two panels
+        JPanel editorContainer = new JPanel( );
+        editorContainer.setMinimumSize( new Dimension( 400, 0 ) );
+        editorContainer.setLayout( new BorderLayout( ) );
+
+        structurePanel = new StructurePanel( editorContainer );
+        structurePanel.recreateElements( );
+        structurePanel.setMinimumSize( new Dimension( 210, 0 ) );
+        structurePanel.setMaximumSize( new Dimension( 210, Integer.MAX_VALUE ) );
+        structurePanel.setPreferredSize( new Dimension( 210, 0 ) );
+        StructureControl.getInstance( ).setStructurePanel( structurePanel );
+
+        JPanel structureToolsPanel = new JPanel( );
+        structureToolsPanel.setLayout( new BorderLayout( ) );
+        structureToolsPanel.setMinimumSize( new Dimension( 210, 0 ) );
+        structureToolsPanel.setMaximumSize( new Dimension( 210, Integer.MAX_VALUE ) );
+
+        structureToolsPanel.add( structurePanel, BorderLayout.CENTER );
+
+        //		treeToolsPanel.add(treePanel, BorderLayout.CENTER);
+        //JPanel treeToolsPanel = new JPanel();
+        //treeToolsPanel.setLayout(new BorderLayout());
+        //treeToolsPanel.add(structurePanel, BorderLayout.CENTER);
+
+        JPanel toolsPanel = createToolsPanel( );
+        structureToolsPanel.add( toolsPanel, BorderLayout.NORTH );
+
+        // Create the split panel
+        JSplitPane splitPane = new JSplitPane( JSplitPane.HORIZONTAL_SPLIT, structureToolsPanel, editorContainer );
+        splitPane.setBorder( null );
+
+        // Add the panels to the frame
+        setLayout( new BorderLayout( ) );
+        add( splitPane, BorderLayout.CENTER );
+
+        // Set the "on close" operation and the closing listener
+        setDefaultCloseOperation( WindowConstants.DO_NOTHING_ON_CLOSE );
+        addWindowListener( new WindowAdapter( ) {
+
+            @Override
+            public void windowClosing( WindowEvent arg0 ) {
+
+                controller.exit( );
+            }
+        } );
+
+        // Create the windows stack
+        windowsStack = new Stack<Window>( );
+
+        // Set size and position
+        setMinimumSize( new Dimension( 640, 400 ) );
+        Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
+        int width = 900;
+        int height = 740;
+        setSize( width, height );
+        setLocation( ( screenSize.width - width ) / 2, ( screenSize.height - height ) / 2 );
+
+        //		setExtendedState(JFrame.MAXIMIZED_BOTH);
+
+        this.setModalExclusionType( Dialog.ModalExclusionType.APPLICATION_EXCLUDE );
+        // Set title and properties
+        updateTitle( );
+    }
+
+    private JPanel createToolsPanel( ) {
+
+        JPanel temp = new JPanel( );
+
+        JButton undoButton = createToolButton( "img/icons/undo.png", TextConstants.getText( "Tools.Undo" ) );
+        JButton redoButton = createToolButton( "img/icons/redo.png", TextConstants.getText( "Tools.Redo" ) );
+        JButton backButton = createToolButton( "img/icons/moveNodeLeft.png", TextConstants.getText( "Tools.Back" ) );
+        JButton forwardButton = createToolButton( "img/icons/moveNodeRight.png", TextConstants.getText( "Tools.Forward" ) );
+        JButton findButton = createToolButton( "img/icons/find.png", TextConstants.getText( "Tools.Find" ) );
+
+        undoButton.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+                controller.undoTool( );
+            }
+        } );
+        redoButton.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+                controller.redoTool( );
+            }
+        } );
+        findButton.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+                controller.search( );
+            }
+        } );
+        backButton.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+                StructureControl.getInstance( ).goBack( );
+            }
+        } );
+        forwardButton.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+                StructureControl.getInstance( ).goForward( );
+            }
+        } );
+
+        temp.setLayout( new FlowLayout( FlowLayout.CENTER ) );
+
+        temp.add( undoButton );
+        temp.add( redoButton );
+        JSeparator separator = new JSeparator( SwingConstants.VERTICAL );
+        separator.setPreferredSize( new Dimension( 2, 24 ) );
+        temp.add( separator );
+        temp.add( findButton );
+        separator = new JSeparator( SwingConstants.VERTICAL );
+        separator.setPreferredSize( new Dimension( 2, 24 ) );
+        temp.add( separator );
+        temp.add( backButton );
+        temp.add( forwardButton );
+
+        temp.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "Tools.Title" ) ) );
+
+        return temp;
+    }
+
+    private JButton createToolButton( String icon, String toolTipText ) {
+
+        JButton tempButton = new JButton( new ImageIcon( icon ) );
+        tempButton.setPreferredSize( new Dimension( 24, 22 ) );
+        tempButton.setFocusPainted( false );
+        tempButton.setContentAreaFilled( false );
+        tempButton.setRolloverEnabled( true );
+        tempButton.setToolTipText( toolTipText );
+        return tempButton;
+    }
+
+    private JMenuBar createMenuBar( ) {
+
+        return createMenuBarAdventureMode( );
+    }
+
+    private JMenuBar createMenuBarAdventureMode( ) {
+
+        JMenuBar windowMenu = new JMenuBar( );
+        //windowMenu.setLayout( new BoxLayout(windowMenu, BoxLayout.LINE_AXIS));
+        windowMenu.setLayout( new FlowLayout( FlowLayout.LEFT ) );
+
+        // Create the menus
+        JMenu fileMenu = new JMenu( TextConstants.getText( "MenuFile.Title" ) );
+        fileMenu.setMnemonic( KeyEvent.VK_F );
+        windowMenu.add( fileMenu );
+        JMenu editMenu = new JMenu( TextConstants.getText( "MenuEdit.Title" ) );
+        windowMenu.add( editMenu );
+        JMenu adventureMenu = new JMenu( TextConstants.getText( "MenuAdventure.Title" ) );
+        adventureMenu.setEnabled( Controller.getInstance( ).isFolderLoaded( ) );
+        adventureMenu.setMnemonic( KeyEvent.VK_A );
+        windowMenu.add( adventureMenu );
+        chaptersMenu = new JMenu( TextConstants.getText( "MenuChapters.Title" ) );
+        chaptersMenu.setEnabled( Controller.getInstance( ).isFolderLoaded( ) );
+        chaptersMenu.setMnemonic( KeyEvent.VK_H );
+        windowMenu.add( chaptersMenu );
+        JMenu runMenu = new JMenu( TextConstants.getText( "MenuRun.Title" ) );
+        runMenu.setEnabled( Controller.getInstance( ).isFolderLoaded( ) );
+        windowMenu.add( runMenu );
+        JMenu configurationMenu = new JMenu( TextConstants.getText( "MenuConfiguration.Title" ) );
+        configurationMenu.setMnemonic( KeyEvent.VK_T );
+        windowMenu.add( configurationMenu );
+        JMenu about = new JMenu( TextConstants.getText( "Menu.About" ) );
+        JMenuItem aboutEadventure = new JMenuItem( TextConstants.getText( "Menu.AboutEAD" ) );
+        about.add( aboutEadventure );
+        aboutEadventure.setArmed( false );
+        aboutEadventure.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent arg0 ) {
+
+                controller.showAboutDialog( );
+            }
+        } );
+        JMenuItem sendComments = new JMenuItem( TextConstants.getText( "Menu.SendComments" ) );
+        about.add( sendComments );
+        sendComments.setArmed( false );
+        sendComments.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent arg0 ) {
+
+                ReportDialog.GenerateCommentsReport( );
+            }
+        } );
+        windowMenu.add( about );
+
+        JMenuItem itFileNew = new JMenuItem( TextConstants.getText( "MenuFile.New" ) );
+        itFileNew.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+                controller.newFile( );
+            }
+        } );
+        fileMenu.add( itFileNew );
+
+        JMenuItem itFileLoad = new JMenuItem( TextConstants.getText( "MenuFile.Load" ) );
+        itFileLoad.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+                controller.loadFile( );
+            }
+        } );
+
+        itFileLoad.setAccelerator( KeyStroke.getKeyStroke( 'L', InputEvent.CTRL_MASK ) );
+        fileMenu.add( itFileLoad );
+        fileMenu.addSeparator( );
+        JMenuItem itFileSave = new JMenuItem( TextConstants.getText( "MenuFile.Save" ) );
+        itFileSave.setEnabled( controller.isFolderLoaded( ) );
+        itFileSave.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+                //controller.saveFile( controller.isTempFile( ) );
+                controller.saveFile( false );
+            }
+        } );
+        itFileSave.setAccelerator( KeyStroke.getKeyStroke( 'S', InputEvent.CTRL_MASK ) );
+        fileMenu.add( itFileSave );
+        JMenuItem itFileSaveAs = new JMenuItem( TextConstants.getText( "MenuFile.SaveAs" ) );
+        itFileSaveAs.setEnabled( controller.isFolderLoaded( ) );
+        itFileSaveAs.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+                controller.saveFile( true );
+            }
+        } );
+        fileMenu.add( itFileSaveAs );
+        fileMenu.addSeparator( );
+
+        // create Lom Properties menu (IEEE LOM, IMS LOM, LOM-ES)
+        JMenu itLomProperties = new JMenu( TextConstants.getText( "MenuFile.AllLOMProperties" ) );
+
+        JMenuItem itLOMProp = new JMenuItem( TextConstants.getText( "MenuFile.LOMProperties" ) );
+        itLOMProp.setEnabled( controller.isFolderLoaded( ) );
+        itLOMProp.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+                controller.showLOMDataDialog( );
+            }
+        } );
+        itLomProperties.add( itLOMProp );
+        //itLomProperties.addSeparator( );
+
+        JMenuItem itLOMSCORMProp = new JMenuItem( TextConstants.getText( "MenuFile.LOMSCORMProperties" ) );
+        itLOMSCORMProp.setEnabled( controller.isFolderLoaded( ) );
+        itLOMSCORMProp.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+                controller.showLOMSCORMDataDialog( );
+            }
+        } );
+        itLomProperties.add( itLOMSCORMProp );
+        //itLomProperties.addSeparator( );
+
+        JMenuItem itLOMESProp = new JMenuItem( TextConstants.getText( "MenuFile.LOMESProperties" ) );
+        itLOMESProp.setEnabled( controller.isFolderLoaded( ) );
+        itLOMESProp.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+                controller.showLOMESDataDialog( );
+            }
+        } );
+        itLomProperties.add( itLOMESProp );
+
+        fileMenu.add( itLomProperties );
+        fileMenu.addSeparator( );
+
+        JMenuItem importChapter = new JMenuItem( TextConstants.getText( "MenuFile.ImportChapter" ) );
+        importChapter.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+                controller.importChapter( );
+            }
+        } );
+
+        JMenu itExport = new JMenu( TextConstants.getText( "MenuFile.Export" ) );
+        itExport.setEnabled( controller.isFolderLoaded( ) );
+        JMenuItem itExportGame = new JMenuItem( TextConstants.getText( "MenuFile.ExportGame" ) );
+        itExportGame.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+                controller.exportGame( );
+            }
+        } );
+
+        JMenuItem itExportStandalone = new JMenuItem( TextConstants.getText( "MenuFile.ExportStandalone" ) );
+        itExportStandalone.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+                controller.exportStandaloneGame( );
+            }
+        } );
+
+        JMenuItem itExportLOM = new JMenuItem( TextConstants.getText( "MenuFile.ExportLOM" ) );
+        itExportLOM.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+                controller.exportToLOM( );
+            }
+        } );
+
+        itExport.add( itExportGame );
+        itExport.add( itExportStandalone );
+        itExport.add( itExportLOM );
+        fileMenu.add( itExport );
+        fileMenu.addSeparator( );
+
+        JMenuItem itFileExit = new JMenuItem( TextConstants.getText( "MenuFile.Exit" ) );
+        itFileExit.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+                controller.exit( );
+            }
+        } );
+        fileMenu.add( itFileExit );
+
+        undo = new JMenuItem( TextConstants.getText( "MenuEdit.Undo" ) );
+        undo.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+                controller.undoTool( );
+            }
+        } );
+        undo.setAccelerator( KeyStroke.getKeyStroke( 'Z', InputEvent.CTRL_MASK ) );
+
+        redo = new JMenuItem( TextConstants.getText( "MenuEdit.Redo" ) );
+        redo.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+                controller.redoTool( );
+            }
+        } );
+        redo.setAccelerator( KeyStroke.getKeyStroke( 'Y', InputEvent.CTRL_MASK ) );
+
+        JMenuItem search = new JMenuItem( TextConstants.getText( "Search.DialogTitle" ) );
+        search.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+                controller.search( );
+            }
+        } );
+
+        editMenu.add( undo );
+        editMenu.add( redo );
+        editMenu.add( search );
+
+        // Create the "Adventure" elements
+        JMenuItem itCheckConsistency = new JMenuItem( TextConstants.getText( "MenuAdventure.CheckConsistency" ) );
+        itCheckConsistency.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+                controller.checkAdventureConsistency( );
+            }
+        } );
+        adventureMenu.add( itCheckConsistency );
+        adventureMenu.addSeparator( );
+        JMenuItem itAdventureData = new JMenuItem( TextConstants.getText( "MenuAdventure.AdventureData" ) );
+        itAdventureData.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+                controller.showAdventureDataDialog( );
+            }
+        } );
+        adventureMenu.add( itAdventureData );
+
+        JMenu visualization = new JMenu( TextConstants.getText( "MenuAdventure.Visualization" ) );
+        JMenuItem itGUIStyles = new JMenuItem( TextConstants.getText( "MenuAdventure.GUIStyles" ) );
+        itGUIStyles.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+                controller.showGUIStylesDialog( );
+            }
+        } );
+        visualization.add( itGUIStyles );
+        JMenuItem itCustomizeGUI = new JMenuItem( TextConstants.getText( "MenuAdventure.CustomizeGUI" ) );
+        itCustomizeGUI.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+                controller.showCustomizeGUIDialog( );
+            }
+        } );
+        visualization.add( itCustomizeGUI );
+        JMenuItem itGraphicConfig = new JMenuItem( TextConstants.getText( "MenuAdventure.GraphicConfig" ) );
+        itGraphicConfig.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+                controller.showGraphicConfigDialog( );
+            }
+        } );
+        visualization.add( itGraphicConfig );
+        adventureMenu.add( visualization );
+        if( controller.isFolderLoaded( ) ) {
+            if( controller.isPlayTransparent( ) ) {
+                itPlayerMode = new JMenuItem( TextConstants.getText( "MenuAdventure.ChangeToModePlayerVisible" ) );
+                itPlayerMode.setToolTipText( TextConstants.getText( "MenuAdventure.ModePlayerVisible" ) );
+            }
+            else {
+                itPlayerMode = new JMenuItem( TextConstants.getText( "MenuAdventure.ChangeToModePlayerTransparent" ) );
+                itPlayerMode.setToolTipText( TextConstants.getText( "MenuAdventure.ModePlayerTransparent" ) );
+            }
+        }
+        else {
+            itPlayerMode = new JMenuItem( TextConstants.getText( "MenuAdventure.ChangeToModePlayerVisible" ) );
+            itPlayerMode.setEnabled( false );
+        }
+        itPlayerMode.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+                controller.swapPlayerMode( true );
+                reloadData( );
+            }
+
+        } );
+        adventureMenu.add( itPlayerMode );
+        adventureMenu.addSeparator( );
+        /*JMenuItem itAssessmentFiles = new JMenuItem( TextConstants.getText( "MenuAdventure.AssessmentFiles" ) );
+        itAssessmentFiles.addActionListener( new ActionListener( ) {
+        	public void actionPerformed( ActionEvent e ) {
+        		controller.showAssessmentFilesDialog( );
+        	}
+        } );
+        adventureMenu.add( itAssessmentFiles );
+        JMenuItem itAdaptationFiles = new JMenuItem( TextConstants.getText( "MenuAdventure.AdaptationFiles" ) );
+        itAdaptationFiles.addActionListener( new ActionListener( ) {
+        	public void actionPerformed( ActionEvent e ) {
+        		controller.showAdaptationFilesDialog( );
+        	}
+        } );
+        adventureMenu.add( itAdaptationFiles );*/
+        //adventureMenu.addSeparator( );
+        JMenuItem itDeleteUnusedAssets = new JMenuItem( TextConstants.getText( "MenuAdventure.DeleteUnusedAssets" ) );
+        itDeleteUnusedAssets.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+                controller.deleteUnsuedAssets( );
+            }
+        } );
+        adventureMenu.add( itDeleteUnusedAssets );
+
+        // Create the "Chapter" elements
+        JMenuItem itAddChapter = new JMenuItem( TextConstants.getText( "MenuChapters.AddChapter" ) );
+        itAddChapter.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+                controller.addChapter( );
+            }
+        } );
+        chaptersMenu.add( itAddChapter );
+        JMenuItem itDeleteChapter = new JMenuItem( TextConstants.getText( "MenuChapters.DeleteChapter" ) );
+        itDeleteChapter.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+                controller.deleteChapter( );
+            }
+        } );
+        chaptersMenu.add( itDeleteChapter );
+        chaptersMenu.addSeparator( );
+        JMenuItem itMoveChapterUp = new JMenuItem( TextConstants.getText( "MenuChapters.MoveChapterUp" ) );
+        itMoveChapterUp.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+                controller.moveChapterUp( );
+            }
+        } );
+        chaptersMenu.add( itMoveChapterUp );
+        JMenuItem itMoveChapterDown = new JMenuItem( TextConstants.getText( "MenuChapters.MoveChapterDown" ) );
+        itMoveChapterDown.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+                controller.moveChapterDown( );
+            }
+        } );
+        chaptersMenu.add( itMoveChapterDown );
+        chaptersMenu.addSeparator( );
+        JMenuItem itEditFlags = new JMenuItem( TextConstants.getText( "MenuChapters.Flags" ) );
+        itEditFlags.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+                controller.showEditFlagDialog( );
+            }
+        } );
+        itEditFlags.setAccelerator( KeyStroke.getKeyStroke( 'F', InputEvent.CTRL_MASK ) );
+        chaptersMenu.add( itEditFlags );
+        chaptersMenu.addSeparator( );
+        updateChapterMenu( );
+
+        // Create "run" elements
+        normalRun = new JMenuItem( TextConstants.getText( "MenuRun.Normal" ) );
+        normalRun.setAccelerator( KeyStroke.getKeyStroke( 'R', InputEvent.CTRL_MASK ) );
+        normalRun.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+                controller.run( );
+            }
+
+        } );
+        runMenu.add( normalRun );
+
+        debugRun = new JMenuItem( TextConstants.getText( "MenuRun.Debug" ) );
+        debugRun.setAccelerator( KeyStroke.getKeyStroke( 'D', InputEvent.CTRL_MASK ) );
+        debugRun.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+                controller.debugRun( );
+            }
+
+        } );
+        runMenu.add( debugRun );
+
+        itAutoBackup = new JCheckBoxMenuItem( TextConstants.getText( "MenuConfiguration.AutoBackup" ), controller.getAutoSaveEnabled( ) );
+        itAutoBackup.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+                controller.setAutoSaveEnabled( ( (JCheckBoxMenuItem) e.getSource( ) ).isSelected( ) );
+            }
+        } );
+        //		configurationMenu.add( itAutoBackup );
+        JCheckBoxMenuItem itEnglish = new JCheckBoxMenuItem( TextConstants.getText( "MenuConfiguration.Language.English" ), controller.getLanguage( ) == ReleaseFolders.LANGUAGE_ENGLISH );
+        itEnglish.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+                controller.setLanguage( ReleaseFolders.LANGUAGE_ENGLISH );
+            }
+        } );
+        JCheckBoxMenuItem itSpanish = new JCheckBoxMenuItem( TextConstants.getText( "MenuConfiguration.Language.Spanish" ), controller.getLanguage( ) == ReleaseFolders.LANGUAGE_SPANISH );
+        itSpanish.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+                controller.setLanguage( ReleaseFolders.LANGUAGE_SPANISH );
+            }
+        } );
+        JMenu languageMenu = new JMenu( TextConstants.getText( "MenuConfiguration.Language" ) );
+        languageMenu.add( itEnglish );
+        languageMenu.add( itSpanish );
+        configurationMenu.add( languageMenu );
+
+        return windowMenu;
+    }
+
+    public void setNormalRunAvailable( boolean available ) {
+
+        this.normalRun.setEnabled( available );
+        this.debugRun.setEnabled( available );
+    }
+
+    /**
+     * This method reloads the data of the window. It picks the new tree, along
+     * with the file name.
+     */
+    public void reloadData( ) {
+
+        structurePanel.recreateElements( );
+
+        updateChapterMenu( );
+
+        //Update the change player mode item menu
+        if( controller.isPlayTransparent( ) ) {
+            itPlayerMode.setText( TextConstants.getText( "MenuAdventure.ChangeToModePlayerVisible" ) );
+            itPlayerMode.setToolTipText( TextConstants.getText( "MenuAdventure.ModePlayerVisible" ) );
+        }
+        else {
+            itPlayerMode.setText( TextConstants.getText( "MenuAdventure.ChangeToModePlayerTransparent" ) );
+            itPlayerMode.setToolTipText( TextConstants.getText( "MenuAdventure.ModePlayerTransparent" ) );
+        }
+        itAutoBackup.setSelected( controller.getAutoSaveEnabled( ) );
+
+        StructureControl.getInstance( ).changeDataControl( controller.getSelectedChapterDataControl( ) );
+        StructureControl.getInstance( ).visitDataControl( controller.getSelectedChapterDataControl( ) );
+
+        // Update the menu bar
+        this.setJMenuBar( createMenuBar( ) );
+        this.getJMenuBar( ).updateUI( );
+
+        // Update the title
+        updateTitle( );
+
+        this.repaint( );
+    }
+
+    /**
+     * Updates the title of the window.
+     */
+    public void updateTitle( ) {
+
+        String modified = controller.isDataModified( ) ? " *" : "";
+        //if( controller.isTempFile( ) ) {
+        //	setTitle( TextConstants.getText( "MainWindow.Title.NewFile" ) + modified );
+        //} else {
+
+        setTitle( TextConstants.getText( "MainWindow.Title", controller.getFileName( ) ) + modified );
+        //		}
+    }
+
+    /**
+     * Updates the chapter menu, deleting all the items and adding new ones.
+     */
+    public void updateChapterMenu( ) {
+
+        // First, delete all chapter elements (there are eight elements above the chapters in the menu)
+        while( chaptersMenu.getItemCount( ) > 8 )
+            chaptersMenu.remove( 8 );
+
+        if( Controller.getInstance( ).isFolderLoaded( ) ) {
+            // Then, add the new chapters to the menu
+            int chapterIndex = 0;
+            ButtonGroup chapterButtonGroup = new ButtonGroup( );
+            for( String chapterTitle : controller.getChapterTitles( ) ) {
+                // Create the button, add the action listener and set an accelerator for the first nine chapters
+                JRadioButtonMenuItem itChapter = new JRadioButtonMenuItem( ( chapterIndex + 1 ) + ": " + chapterTitle, controller.getSelectedChapter( ) == chapterIndex );
+                itChapter.setEnabled( true );
+
+                itChapter.addActionListener( new ChapterMenuItemListener( chapterIndex ) );
+                if( chapterIndex < 9 )
+                    itChapter.setAccelerator( KeyStroke.getKeyStroke( KeyEvent.VK_1 + chapterIndex++, InputEvent.CTRL_MASK ) );
+
+                // Add to the chapter menu and the chapter button group
+                chapterButtonGroup.add( itChapter );
+                chaptersMenu.add( itChapter );
+            }
+        }
+    }
+
+    public void updateStructure( ) {
+
+        structurePanel.update( );
+    }
+
+    public void updatePanel( ) {
+
+        for( Window window : windowsStack ) {
+            if( window instanceof Updateable ) {
+                ( (Updateable) window ).updateFields( );
+            }
+        }
+        structurePanel.updateElementPanel( );
+    }
+
+    public void reloadPanel( ) {
+
+        for( Window window : windowsStack ) {
+            if( window instanceof Updateable ) {
+                ( (Updateable) window ).updateFields( );
+            }
+        }
+        structurePanel.reloadElementPanel( );
+    }
+
+    /**
+     * Returns the last window opened by the application.
+     * 
+     * @return Last window opened
+     */
+    public Window peekWindow( ) {
+
+        Window window;
+
+        // If the stack is empty, take the main window
+        if( windowsStack.empty( ) )
+            window = this;
+        // If not, take a peek at the last window pushed
+        else
+            window = windowsStack.peek( );
+
+        return window;
+    }
+
+    /**
+     * Pushes a new window in the windows stack.
+     * 
+     * @param window
+     *            Window to push
+     */
+    public void pushWindow( Window window ) {
+
+        windowsStack.push( window );
+    }
+
+    /**
+     * Pops the last window pushed into the stack.
+     */
+    public void popWindow( ) {
+
+        windowsStack.pop( );
+        structurePanel.updateElementPanel( );
+    }
+
+    /**
+     * Shows a load dialog to select a single existing file.
+     * 
+     * @param path
+     *            Base path for the dialog
+     * @param filter
+     *            File filter for the dialog
+     * @return Full path of the selected file, null if no file was selected
+     */
+    public String showSingleSelectionLoadDialog( String path, FileFilter filter ) {
+
+        String fileFullPath = null;
+
+        // If no path gas given, set the path of the application
+        if( path == null )
+            path = ".";
+
+        // Create the file chooser dialog
+        //JFileChooser fileDialog = new JFileChooser( path );
+        GenericFileChooserDialog fileDialog = new GenericFileChooserDialog( path );
+        fileDialog.setAcceptAllFileFilterUsed( false );
+        fileDialog.setFileFilter( filter );
+
+        // If a file has really been choosen and opened, load it
+        if( fileDialog.showOpenDialog( peekWindow( ) ) == JFileChooser.APPROVE_OPTION ) {
+            fileFullPath = fileDialog.getSelectedFile( ).getAbsolutePath( );
+        }
+
+        return fileFullPath;
+    }
+
+    /**
+     * Shows a load dialog to select multiple existing files.
+     * 
+     * @param path
+     *            Base path for the dialog
+     * @param filter
+     *            File filter for the dialog
+     * @return Full path of the selected files, null if no files were selected
+     */
+    public String[] showMultipleSelectionLoadDialog( String path, FileFilter filter ) {
+
+        String[] filesFullPath = null;
+
+        // If no path gas given, set the path of the application
+        if( path == null )
+            path = ".";
+
+        // Create the file chooser dialog
+        //JFileChooser fileDialog = new JFileChooser( path );
+        GenericFileChooserDialog fileDialog = new GenericFileChooserDialog( path );
+        fileDialog.setAcceptAllFileFilterUsed( false );
+        fileDialog.setMultiSelectionEnabled( true );
+        fileDialog.setFileFilter( filter );
+
+        // If a file has really been choosen and opened, load it
+        if( fileDialog.showOpenDialog( peekWindow( ) ) == JFileChooser.APPROVE_OPTION ) {
+            // Take the selected files and initialize the array
+            File[] selectedFiles = fileDialog.getSelectedFiles( );
+            filesFullPath = new String[ selectedFiles.length ];
+
+            // Copy the data
+            for( int i = 0; i < selectedFiles.length; i++ )
+                filesFullPath[i] = selectedFiles[i].getAbsolutePath( );
+        }
+
+        return filesFullPath;
+    }
+
+    /**
+     * Shows a save dialog to select a file.
+     * 
+     * @param path
+     *            Base path for the dialog
+     * @param filter
+     *            File filter for the dialog
+     * @return Full path of the selected file, null if no file was selected
+     */
+    public String showSaveDialog( String path, FileFilter filter ) {
+
+        String fileFullPath = null;
+
+        // Create the file chooser dialog
+        //JFileChooser fileDialog = new JFileChooser( path );
+        GenericFileChooserDialog fileDialog = new GenericFileChooserDialog( path );
+        if( filter instanceof FolderFileFilter ) {
+            ( (FolderFileFilter) filter ).setFileChooser( fileDialog );
+        }
+        fileDialog.setFileFilter( filter );
+
+        // If a file has really been choosen and opened, load it
+        if( fileDialog.showSaveDialog( peekWindow( ) ) == JFileChooser.APPROVE_OPTION ) {
+            fileFullPath = fileDialog.getSelectedFile( ).getAbsolutePath( );
+        }
+
+        return fileFullPath;
+    }
+
+    /**
+     * Shows a dialog with the given set of options.
+     * 
+     * @param title
+     *            Title of the dialog
+     * @param message
+     *            Message of the dialog
+     * @param options
+     *            Array of strings containing the options of the dialog
+     * @return The index of the option selected, JOptionPane.CLOSED_OPTION if
+     *         the dialog was closed.
+     */
+    public int showOptionDialog( String title, String message, String[] options ) {
+
+        // Create the panel
+        JPanel messagePanel = new JPanel( );
+        messagePanel.setLayout( new BorderLayout( ) );
+
+        // Create the text pane
+        JTextPane messageTextPane = new JTextPane( );
+        messageTextPane.setPreferredSize( new Dimension( 220, 80 ) );
+        messageTextPane.setEditable( false );
+        messageTextPane.setBackground( messagePanel.getBackground( ) );
+        messageTextPane.setText( message );
+        messagePanel.add( messageTextPane, BorderLayout.CENTER );
+
+        // Show the dialog
+        //return JOptionPane.showOptionDialog( peekWindow( ), messagePanel, title, JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, null );
+        return (Integer) new GenericOptionPaneDialog( peekWindow( ), title, messagePanel, JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, options ).getIntegerOption( );
+    }
+
+    /**
+     * Shows a dialog with the options "Yes", "No" and "Cancel", with the given
+     * title and text.
+     * 
+     * @param title
+     *            Title of the dialog
+     * @param message
+     *            Message of the dialog
+     * @return Value for the option selected. It can be JOptionPane.YES_OPTION,
+     *         JOptionPane.NO_OPTION or JOptionPane.CANCEL_OPTION
+     */
+    public int showConfirmDialog( String title, String message ) {
+
+        //return JOptionPane.showConfirmDialog( peekWindow( ), message, title, JOptionPane.YES_NO_CANCEL_OPTION );
+        return (Integer) GenericOptionPaneDialog.showConfirmDialog( peekWindow( ), title, message, JOptionPane.QUESTION_MESSAGE, JOptionPane.YES_NO_CANCEL_OPTION );
+    }
+
+    /**
+     * Shows a dialog with the options "Yes" and "No", with the given title and
+     * text.
+     * 
+     * @param title
+     *            Title of the dialog
+     * @param message
+     *            Message of the dialog
+     * @return True if the "Yes" button was pressed, false otherwise
+     */
+    public boolean showStrictConfirmDialog( String title, String message ) {
+
+        //return JOptionPane.showConfirmDialog( peekWindow( ), message, title, JOptionPane.YES_NO_OPTION ) == JOptionPane.YES_OPTION;
+        return (Integer) GenericOptionPaneDialog.showConfirmDialog( peekWindow( ), title, message, JOptionPane.QUESTION_MESSAGE, JOptionPane.YES_NO_OPTION ) == JOptionPane.YES_OPTION;
+    }
+
+    /**
+     * Shows an input dialog with the given title, message and default value.
+     * 
+     * @param title
+     *            Title of the dialog
+     * @param message
+     *            Message of the dialog
+     * @param defaultValue
+     *            Default value of the dialog
+     * @return String typed in the dialog, null if the cancel button was pressed
+     */
+    public String showInputDialog( String title, String message, String defaultValue ) {
+
+        //return (String) JOptionPane.showInputDialog( peekWindow( ), message, title, JOptionPane.PLAIN_MESSAGE, null, null, defaultValue );
+        return (String) GenericOptionPaneDialog.showInputDialog( peekWindow( ), title, message, JOptionPane.PLAIN_MESSAGE, null, defaultValue );
+    }
+
+    /**
+     * Shows an input dialog with the given title, message and set of possible
+     * values.
+     * 
+     * @param title
+     *            Title of the dialog
+     * @param message
+     *            Message of the dialog
+     * @param selectionValues
+     *            Possible selection values of the dialog
+     * @return Option selected in the dialog, null if the cancel button was
+     *         pressed
+     */
+    public String showInputDialog( String title, String message, Object[] selectionValues ) {
+
+        //return (String) JOptionPane.showInputDialog( peekWindow( ), message, title, JOptionPane.PLAIN_MESSAGE, null, selectionValues, null );
+        return (String) GenericOptionPaneDialog.showInputDialog( peekWindow( ), title, message, JOptionPane.PLAIN_MESSAGE, selectionValues, null );
+    }
+
+    /**
+     * Shows an information dialog with the given title and message.
+     * 
+     * @param title
+     *            Title of the dialog
+     * @param message
+     *            Message of the dialog
+     */
+    public void showInformationDialog( String title, String message ) {
+
+        //JOptionPane.showMessageDialog( peekWindow( ), message, title, JOptionPane.INFORMATION_MESSAGE );
+        GenericOptionPaneDialog.showMessageDialog( peekWindow( ), title, message, JOptionPane.INFORMATION_MESSAGE );
+    }
+
+    /**
+     * Shows a warning dialog with the given title and message.
+     * 
+     * @param title
+     *            Title of the dialog
+     * @param message
+     *            Message of the dialog
+     */
+    public void showWarningDialog( String title, String message ) {
+
+        //JOptionPane.showMessageDialog( peekWindow( ), message, title, JOptionPane.WARNING_MESSAGE );
+        GenericOptionPaneDialog.showMessageDialog( peekWindow( ), title, message, JOptionPane.WARNING_MESSAGE );
+    }
+
+    /**
+     * Shows an error dialog with the given title and message.
+     * 
+     * @param title
+     *            Title of the dialog
+     * @param message
+     *            Message of the dialog
+     */
+    public void showErrorDialog( String title, String message ) {
+
+        //JOptionPane.showMessageDialog( peekWindow( ), message, title, JOptionPane.ERROR_MESSAGE );
+        GenericOptionPaneDialog.showMessageDialog( peekWindow( ), title, message, JOptionPane.ERROR_MESSAGE );
+    }
+
+    /**
+     * Listener for the chapter elements in the "Chapter" menu. Used to switch
+     * between chapters when the user desires so.
+     */
+    private class ChapterMenuItemListener implements ActionListener {
+
+        /**
+         * Index of the chapter that holds this listener.
+         */
+        private int chapterIndex;
+
+        /**
+         * Constructor.
+         * 
+         * @param chapterIndex
+         *            Chapter index of the button holding this listener
+         */
+        public ChapterMenuItemListener( int chapterIndex ) {
+
+            this.chapterIndex = chapterIndex;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+         */
+        public void actionPerformed( ActionEvent e ) {
+
+            controller.setSelectedChapter( chapterIndex );
+        }
+    }
 }

@@ -1,40 +1,43 @@
 /**
- * <e-Adventure> is an <e-UCM> research project.
- * <e-UCM>, Department of Software Engineering and Artificial Intelligence.
- * Faculty of Informatics, Complutense University of Madrid (Spain).
- * @author Del Blanco, A., Marchiori, E., Torrente, F.J.
+ * <e-Adventure> is an <e-UCM> research project. <e-UCM>, Department of Software
+ * Engineering and Artificial Intelligence. Faculty of Informatics, Complutense
+ * University of Madrid (Spain).
+ * 
+ * @author Del Blanco, A., Marchiori, E., Torrente, F.J. (alphabetical order) *
+ * @author López Mañas, E., Pérez Padilla, F., Sollet, E., Torijano, B. (former
+ *         developers by alphabetical order)
  * @author Moreno-Ger, P. & Fernández-Manjón, B. (directors)
- * @year 2009
- * Web-site: http://e-adventure.e-ucm.es
+ * @year 2009 Web-site: http://e-adventure.e-ucm.es
  */
 
 /*
-    Copyright (C) 2004-2009 <e-UCM> research group
-
-    This file is part of <e-Adventure> project, an educational game & game-like 
-    simulation authoring tool, availabe at http://e-adventure.e-ucm.es. 
-
-    <e-Adventure> is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    <e-Adventure> is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with <e-Adventure>; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-*/
+ * Copyright (C) 2004-2009 <e-UCM> research group
+ * 
+ * This file is part of <e-Adventure> project, an educational game & game-like
+ * simulation authoring tool, available at http://e-adventure.e-ucm.es.
+ * 
+ * <e-Adventure> is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version.
+ * 
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place, Suite 330, Boston, MA 02111-1307 USA
+ * 
+ */
 package es.eucm.eadventure.editor.gui.assetchooser;
 
 import java.awt.Container;
 
 import javax.swing.BorderFactory;
 
+import es.eucm.eadventure.common.auxiliar.AssetsConstants;
 import es.eucm.eadventure.common.data.animation.Animation;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
@@ -42,42 +45,47 @@ import es.eucm.eadventure.editor.gui.otherpanels.AnimationPanel;
 
 public class AnimationChooser extends AssetChooser {
 
-	/**
-	 * Default generated serialVersionUID
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	private AnimationPanel animationPanel;
+    /**
+     * Default generated serialVersionUID
+     */
+    private static final long serialVersionUID = 1L;
 
-	public AnimationChooser( int filter ) {
-		super( AssetsController.CATEGORY_ANIMATION, filter, AssetChooser.PREVIEW_LOCATION_WEST, TextConstants.getText( "AssetsChooser.Animation" ) );
-	}
+    private AnimationPanel animationPanel;
 
-	@Override
-	protected void createPreviewPanel( Container parent ) {
-		animationPanel = new AnimationPanel( true , Animation.PREVIEW);
-		animationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AnimationAssets.Preview" ) ) );
-		parent.add( animationPanel );
-	}
+    public AnimationChooser( int filter ) {
 
-	@Override
-	protected void updatePreview( ) {
-		// If there is an asset selected, show it
-		if( getSelectedAsset( ) != null ) {
-			String[] assetFilenames = AssetsController.getAssetFilenames( AssetsController.CATEGORY_ANIMATION );
-			String[] assetPaths = AssetsController.getAssetsList( AssetsController.CATEGORY_ANIMATION );
-			int assetIndex = -1;
-			for( int i = 0; i < assetFilenames.length; i++ )
-				if( assetFilenames[i].equals( getSelectedAsset( ) ) )
-					assetIndex = i;
+        super( AssetsConstants.CATEGORY_ANIMATION, filter, AssetChooser.PREVIEW_LOCATION_WEST, TextConstants.getText( "AssetsChooser.Animation" ) );
+    }
 
-			animationPanel.loadAnimation( assetPaths[assetIndex] );
-		} else if( getSelectedFile( ) != null ) {
-			animationPanel.loadAnimation( getSelectedFile( ).getAbsolutePath( ) );
-			// Else, delete the preview image
-		} else {
-			animationPanel.removeAnimation( );
-		}
-	}
+    @Override
+    protected void createPreviewPanel( Container parent ) {
+
+        animationPanel = new AnimationPanel( true, Animation.PREVIEW );
+        animationPanel.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "AnimationAssets.Preview" ) ) );
+        parent.add( animationPanel );
+    }
+
+    @Override
+    protected void updatePreview( ) {
+
+        // If there is an asset selected, show it
+        if( getSelectedAsset( ) != null ) {
+            String[] assetFilenames = AssetsController.getAssetFilenames( AssetsConstants.CATEGORY_ANIMATION );
+            String[] assetPaths = AssetsController.getAssetsList( AssetsConstants.CATEGORY_ANIMATION );
+            int assetIndex = -1;
+            for( int i = 0; i < assetFilenames.length; i++ )
+                if( assetFilenames[i].equals( getSelectedAsset( ) ) )
+                    assetIndex = i;
+
+            animationPanel.loadAnimation( assetPaths[assetIndex] );
+        }
+        else if( getSelectedFile( ) != null ) {
+            animationPanel.loadAnimation( getSelectedFile( ).getAbsolutePath( ) );
+            // Else, delete the preview image
+        }
+        else {
+            animationPanel.removeAnimation( );
+        }
+    }
 
 }

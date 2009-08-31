@@ -1,34 +1,36 @@
 /**
- * <e-Adventure> is an <e-UCM> research project.
- * <e-UCM>, Department of Software Engineering and Artificial Intelligence.
- * Faculty of Informatics, Complutense University of Madrid (Spain).
- * @author Del Blanco, A., Marchiori, E., Torrente, F.J.
+ * <e-Adventure> is an <e-UCM> research project. <e-UCM>, Department of Software
+ * Engineering and Artificial Intelligence. Faculty of Informatics, Complutense
+ * University of Madrid (Spain).
+ * 
+ * @author Del Blanco, A., Marchiori, E., Torrente, F.J. (alphabetical order) *
+ * @author López Mañas, E., Pérez Padilla, F., Sollet, E., Torijano, B. (former
+ *         developers by alphabetical order)
  * @author Moreno-Ger, P. & Fernández-Manjón, B. (directors)
- * @year 2009
- * Web-site: http://e-adventure.e-ucm.es
+ * @year 2009 Web-site: http://e-adventure.e-ucm.es
  */
 
 /*
-    Copyright (C) 2004-2009 <e-UCM> research group
-
-    This file is part of <e-Adventure> project, an educational game & game-like 
-    simulation authoring tool, availabe at http://e-adventure.e-ucm.es. 
-
-    <e-Adventure> is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    <e-Adventure> is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with <e-Adventure>; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-*/
+ * Copyright (C) 2004-2009 <e-UCM> research group
+ * 
+ * This file is part of <e-Adventure> project, an educational game & game-like
+ * simulation authoring tool, available at http://e-adventure.e-ucm.es.
+ * 
+ * <e-Adventure> is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version.
+ * 
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place, Suite 330, Boston, MA 02111-1307 USA
+ * 
+ */
 package es.eucm.eadventure.editor.gui.editdialogs.effectdialogs;
 
 import java.awt.BorderLayout;
@@ -55,197 +57,205 @@ import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.control.controllers.SingleEffectController;
 
-public class RandomEffectDialog extends EffectDialog{
+public class RandomEffectDialog extends EffectDialog {
 
-	private SingleEffectController positiveEffectController;
-	
-	private SingleEffectController negativeEffectController;
-	
-	private JTextField positiveEffectDescription;
-	
-	private JTextField negativeEffectDescription;
-	
-	private JSpinner probabilitySpinner;
-	
-	public RandomEffectDialog( int probability, 
-			SingleEffectController positiveEffectController,
-			SingleEffectController negativeEffectController ) {
-		super( TextConstants.getText( "RandomEffect.Title" ) , false);
-		this.positiveEffectController = positiveEffectController;
-		this.negativeEffectController = negativeEffectController;
+    private SingleEffectController positiveEffectController;
 
-		/*
-		 * Probability panel
-		 */
-		SpinnerModel model =  new SpinnerNumberModel(   probability, //initial value
-														1,   //min
-														100, //max
-														1);  //step
+    private SingleEffectController negativeEffectController;
 
-		probabilitySpinner = new JSpinner( model );
-		
-		JPanel probabilityPanel = new JPanel();
-		probabilityPanel.setLayout( new GridBagLayout() );
-		probabilityPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "RandomEffect.Probability.Title" ) ) ) );
-		GridBagConstraints c = new GridBagConstraints( );
-		c.insets = new Insets( 4, 6, 4, 6 );
-		c.weightx = 0.5;
-		c.gridwidth = 1;
-		c.fill = GridBagConstraints.HORIZONTAL;
-		
-		c.gridx = 0;
-		JLabel descriptionLabel = new JLabel(TextConstants.getText( "RandomEffect.Probability.Description" ));
-		probabilityPanel.add( descriptionLabel, c );
-		
-		c.gridx = 1;
-		probabilityPanel.add( probabilitySpinner, c );
-		
-		/*
-		 * Main panel
-		 */
-		JPanel mainPanel = new JPanel();
-		mainPanel.setLayout( new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS) );
-		mainPanel.add( probabilityPanel );
-		mainPanel.add( Box.createVerticalStrut(2) );
-		mainPanel.add( createSingleEffectPanel (true) );
-		mainPanel.add( createSingleEffectPanel (false) );
-		
-		add ( mainPanel, BorderLayout.CENTER);
-		
-		// Set the dialog
-		setResizable( false );
-		pack( );
-		Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
-		setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
-		setVisible( true );
-	}
+    private JTextField positiveEffectDescription;
 
-	private JPanel createSingleEffectPanel (boolean positive){
-		// Load the image for the delete content button
-		Icon deleteContentIcon = new ImageIcon( "img/icons/deleteContent.png" );
+    private JTextField negativeEffectDescription;
 
-		// Create the main panel and set the border
-		JPanel mainPanel = new JPanel( );
-		mainPanel.setLayout( new GridBagLayout( ) );
-		GridBagConstraints c = new GridBagConstraints( );
-		c.insets = new Insets( 4, 4, 4, 4 );
+    private JSpinner probabilitySpinner;
 
-		// Set the border of the panel with the description
-		if (positive)
-			mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "RandomEffect.Positive.Title" ) ) ) );
-		else
-			mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "RandomEffect.Negative.Title" ) ) ) );
-		
+    public RandomEffectDialog( int probability, SingleEffectController positiveEffectController, SingleEffectController negativeEffectController ) {
 
-		// Create the delete content button
-		JButton deleteContentButton = new JButton( deleteContentIcon );
-		deleteContentButton.addActionListener( new DeleteEffectListener( positive ) );
-		deleteContentButton.setPreferredSize( new Dimension( 20, 20 ) );
-		deleteContentButton.setToolTipText( TextConstants.getText( "RandomEffect.DeleteEffect" ) );
-		c.gridy = 0;
-		c.gridx = 0;
-		c.gridwidth = 1;
-		c.fill = GridBagConstraints.NONE;
-		c.weightx = 0;
-		c.weighty = 0;
-		mainPanel.add( deleteContentButton, c );
+        super( TextConstants.getText( "RandomEffect.Title" ), false );
+        this.positiveEffectController = positiveEffectController;
+        this.negativeEffectController = negativeEffectController;
 
-		// Create the text field and insert it
-		JTextField pathTextField = new JTextField( );
-		pathTextField.setEditable( false );
-		c.gridx = 1;
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weightx = 1;
-		mainPanel.add( pathTextField, c );
+        /*
+         * Probability panel
+         */
+        SpinnerModel model = new SpinnerNumberModel( probability, //initial value
+        1, //min
+        100, //max
+        1 ); //step
 
-		// Create the "Edit" button and insert it
-		JButton selectButton = new JButton( TextConstants.getText( "RandomEffect.EditEffect" ) );
-		selectButton.addActionListener( new EditEffectListener( positive ) );
-		c.gridx = 2;
-		c.fill = GridBagConstraints.NONE;
-		c.weightx = 0;
-		mainPanel.add( selectButton, c );
+        probabilitySpinner = new JSpinner( model );
 
-		if (positive){
-			this.positiveEffectDescription = pathTextField;
-			if (positiveEffectController.getEffectInfo( )!= null){
-				pathTextField.setText( positiveEffectController.getEffectInfo( ) );
-			}
-		} else {
-			this.negativeEffectDescription = pathTextField;
-			if (negativeEffectController.getEffectInfo( )!= null){
-				pathTextField.setText( negativeEffectController.getEffectInfo( ) );
-			}
+        JPanel probabilityPanel = new JPanel( );
+        probabilityPanel.setLayout( new GridBagLayout( ) );
+        probabilityPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "RandomEffect.Probability.Title" ) ) ) );
+        GridBagConstraints c = new GridBagConstraints( );
+        c.insets = new Insets( 4, 6, 4, 6 );
+        c.weightx = 0.5;
+        c.gridwidth = 1;
+        c.fill = GridBagConstraints.HORIZONTAL;
 
-		}
+        c.gridx = 0;
+        JLabel descriptionLabel = new JLabel( TextConstants.getText( "RandomEffect.Probability.Description" ) );
+        probabilityPanel.add( descriptionLabel, c );
 
-		
-		return mainPanel;
+        c.gridx = 1;
+        probabilityPanel.add( probabilitySpinner, c );
 
-	}
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -5737206942292209020L;
+        /*
+         * Main panel
+         */
+        JPanel mainPanel = new JPanel( );
+        mainPanel.setLayout( new BoxLayout( mainPanel, BoxLayout.PAGE_AXIS ) );
+        mainPanel.add( probabilityPanel );
+        mainPanel.add( Box.createVerticalStrut( 2 ) );
+        mainPanel.add( createSingleEffectPanel( true ) );
+        mainPanel.add( createSingleEffectPanel( false ) );
 
-	@Override
-	protected void pressedOKButton( ) {
-		properties = new HashMap<Integer, Object>( );
-		properties.put( SingleEffectController.EFFECT_PROPERTY_PROBABILITY, probabilitySpinner.getValue( ).toString( ) );
-	}
+        add( mainPanel, BorderLayout.CENTER );
 
-	public void refresh(){
-		if (positiveEffectController.getEffectInfo( )!= null){
-			positiveEffectDescription.setText( positiveEffectController.getEffectInfo( ) );
-		} else {
-			positiveEffectDescription.setText( "" );
-		}
+        // Set the dialog
+        setResizable( false );
+        pack( );
+        Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
+        setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
+        setVisible( true );
+    }
 
-		if (negativeEffectController.getEffectInfo( )!= null){
-			negativeEffectDescription.setText( negativeEffectController.getEffectInfo( ) );
-		} else {
-			negativeEffectDescription.setText( "" );
-		}
+    private JPanel createSingleEffectPanel( boolean positive ) {
 
-	}
-	
-	private class EditEffectListener implements ActionListener{
-		
-		private boolean positive = false;
+        // Load the image for the delete content button
+        Icon deleteContentIcon = new ImageIcon( "img/icons/deleteContent.png" );
 
-		public EditEffectListener(boolean positive){
-			this.positive = positive;
-		}
-		
-		public void actionPerformed( ActionEvent e ) {
-			if (positive && positiveEffectController.editEffect( ) || 
-					!positive && negativeEffectController.editEffect( )) {
-				refresh();
-			}
-		}
-		
-	}
-	
-	private class DeleteEffectListener implements ActionListener{
-		
-		private boolean positive = false;
+        // Create the main panel and set the border
+        JPanel mainPanel = new JPanel( );
+        mainPanel.setLayout( new GridBagLayout( ) );
+        GridBagConstraints c = new GridBagConstraints( );
+        c.insets = new Insets( 4, 4, 4, 4 );
 
-		public DeleteEffectListener(boolean positive){
-			this.positive = positive;
-		}
-		
-		public void actionPerformed( ActionEvent e ) {
-			if (positive) {
-				positiveEffectController.deleteEffect( ) ; 
-			} else {
-				negativeEffectController.deleteEffect( );
-			}
-			refresh();
-		}
-		
-	}
+        // Set the border of the panel with the description
+        if( positive )
+            mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "RandomEffect.Positive.Title" ) ) ) );
+        else
+            mainPanel.setBorder( BorderFactory.createCompoundBorder( BorderFactory.createEmptyBorder( 5, 5, 0, 5 ), BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "RandomEffect.Negative.Title" ) ) ) );
+
+        // Create the delete content button
+        JButton deleteContentButton = new JButton( deleteContentIcon );
+        deleteContentButton.addActionListener( new DeleteEffectListener( positive ) );
+        deleteContentButton.setPreferredSize( new Dimension( 20, 20 ) );
+        deleteContentButton.setToolTipText( TextConstants.getText( "RandomEffect.DeleteEffect" ) );
+        c.gridy = 0;
+        c.gridx = 0;
+        c.gridwidth = 1;
+        c.fill = GridBagConstraints.NONE;
+        c.weightx = 0;
+        c.weighty = 0;
+        mainPanel.add( deleteContentButton, c );
+
+        // Create the text field and insert it
+        JTextField pathTextField = new JTextField( );
+        pathTextField.setEditable( false );
+        c.gridx = 1;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.weightx = 1;
+        mainPanel.add( pathTextField, c );
+
+        // Create the "Edit" button and insert it
+        JButton selectButton = new JButton( TextConstants.getText( "RandomEffect.EditEffect" ) );
+        selectButton.addActionListener( new EditEffectListener( positive ) );
+        c.gridx = 2;
+        c.fill = GridBagConstraints.NONE;
+        c.weightx = 0;
+        mainPanel.add( selectButton, c );
+
+        if( positive ) {
+            this.positiveEffectDescription = pathTextField;
+            if( positiveEffectController.getEffectInfo( ) != null ) {
+                pathTextField.setText( positiveEffectController.getEffectInfo( ) );
+            }
+        }
+        else {
+            this.negativeEffectDescription = pathTextField;
+            if( negativeEffectController.getEffectInfo( ) != null ) {
+                pathTextField.setText( negativeEffectController.getEffectInfo( ) );
+            }
+
+        }
+
+        return mainPanel;
+
+    }
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -5737206942292209020L;
+
+    @Override
+    protected void pressedOKButton( ) {
+
+        properties = new HashMap<Integer, Object>( );
+        properties.put( EffectsController.EFFECT_PROPERTY_PROBABILITY, probabilitySpinner.getValue( ).toString( ) );
+    }
+
+    public void refresh( ) {
+
+        if( positiveEffectController.getEffectInfo( ) != null ) {
+            positiveEffectDescription.setText( positiveEffectController.getEffectInfo( ) );
+        }
+        else {
+            positiveEffectDescription.setText( "" );
+        }
+
+        if( negativeEffectController.getEffectInfo( ) != null ) {
+            negativeEffectDescription.setText( negativeEffectController.getEffectInfo( ) );
+        }
+        else {
+            negativeEffectDescription.setText( "" );
+        }
+
+    }
+
+    private class EditEffectListener implements ActionListener {
+
+        private boolean positive = false;
+
+        public EditEffectListener( boolean positive ) {
+
+            this.positive = positive;
+        }
+
+        public void actionPerformed( ActionEvent e ) {
+
+            if( positive && positiveEffectController.editEffect( ) || !positive && negativeEffectController.editEffect( ) ) {
+                refresh( );
+            }
+        }
+
+    }
+
+    private class DeleteEffectListener implements ActionListener {
+
+        private boolean positive = false;
+
+        public DeleteEffectListener( boolean positive ) {
+
+            this.positive = positive;
+        }
+
+        public void actionPerformed( ActionEvent e ) {
+
+            if( positive ) {
+                positiveEffectController.deleteEffect( );
+            }
+            else {
+                negativeEffectController.deleteEffect( );
+            }
+            refresh( );
+        }
+
+    }
 
 }

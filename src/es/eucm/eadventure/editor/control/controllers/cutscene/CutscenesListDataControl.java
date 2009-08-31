@@ -1,40 +1,43 @@
 /**
- * <e-Adventure> is an <e-UCM> research project.
- * <e-UCM>, Department of Software Engineering and Artificial Intelligence.
- * Faculty of Informatics, Complutense University of Madrid (Spain).
- * @author Del Blanco, A., Marchiori, E., Torrente, F.J.
+ * <e-Adventure> is an <e-UCM> research project. <e-UCM>, Department of Software
+ * Engineering and Artificial Intelligence. Faculty of Informatics, Complutense
+ * University of Madrid (Spain).
+ * 
+ * @author Del Blanco, A., Marchiori, E., Torrente, F.J. (alphabetical order) *
+ * @author López Mañas, E., Pérez Padilla, F., Sollet, E., Torijano, B. (former
+ *         developers by alphabetical order)
  * @author Moreno-Ger, P. & Fernández-Manjón, B. (directors)
- * @year 2009
- * Web-site: http://e-adventure.e-ucm.es
+ * @year 2009 Web-site: http://e-adventure.e-ucm.es
  */
 
 /*
-    Copyright (C) 2004-2009 <e-UCM> research group
-
-    This file is part of <e-Adventure> project, an educational game & game-like 
-    simulation authoring tool, availabe at http://e-adventure.e-ucm.es. 
-
-    <e-Adventure> is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    <e-Adventure> is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with <e-Adventure>; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-*/
+ * Copyright (C) 2004-2009 <e-UCM> research group
+ * 
+ * This file is part of <e-Adventure> project, an educational game & game-like
+ * simulation authoring tool, available at http://e-adventure.e-ucm.es.
+ * 
+ * <e-Adventure> is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version.
+ * 
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place, Suite 330, Boston, MA 02111-1307 USA
+ * 
+ */
 package es.eucm.eadventure.editor.control.controllers.cutscene;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import es.eucm.eadventure.common.data.chapter.scenes.Cutscene;
+import es.eucm.eadventure.common.data.chapter.scenes.GeneralScene;
 import es.eucm.eadventure.common.data.chapter.scenes.Scene;
 import es.eucm.eadventure.common.data.chapter.scenes.Slidescene;
 import es.eucm.eadventure.common.data.chapter.scenes.Videoscene;
@@ -47,324 +50,350 @@ import es.eucm.eadventure.editor.gui.editdialogs.CutsceneTypesDialog;
 
 public class CutscenesListDataControl extends DataControl {
 
-	/**
-	 * List of cutscenes.
-	 */
-	private List<Cutscene> cutscenesList;
+    /**
+     * List of cutscenes.
+     */
+    private List<Cutscene> cutscenesList;
 
-	/**
-	 * List of cutscene controllers.
-	 */
-	private List<CutsceneDataControl> cutscenesDataControlList;
+    /**
+     * List of cutscene controllers.
+     */
+    private List<CutsceneDataControl> cutscenesDataControlList;
 
-	/**
-	 * Constructor.
-	 * 
-	 * @param cutscenesList
-	 *            List of cutscenes
-	 */
-	public CutscenesListDataControl( List<Cutscene> cutscenesList ) {
-		this.cutscenesList = cutscenesList;
+    /**
+     * Constructor.
+     * 
+     * @param cutscenesList
+     *            List of cutscenes
+     */
+    public CutscenesListDataControl( List<Cutscene> cutscenesList ) {
 
-		// Create subcontrollers
-		cutscenesDataControlList = new ArrayList<CutsceneDataControl>( );
-		for( Cutscene cutscene : cutscenesList )
-			cutscenesDataControlList.add( new CutsceneDataControl( cutscene ) );
-	}
+        this.cutscenesList = cutscenesList;
 
-	/**
-	 * Returns the list of cutscene controllers.
-	 * 
-	 * @return Cutscene controllers
-	 */
-	public List<CutsceneDataControl> getCutscenes( ) {
-		return cutscenesDataControlList;
-	}
+        // Create subcontrollers
+        cutscenesDataControlList = new ArrayList<CutsceneDataControl>( );
+        for( Cutscene cutscene : cutscenesList )
+            cutscenesDataControlList.add( new CutsceneDataControl( cutscene ) );
+    }
 
-	/**
-	 * Returns the last cutscene controller of the list.
-	 * 
-	 * @return Last cutscene controller
-	 */
-	public CutsceneDataControl getLastCutscene( ) {
-		return cutscenesDataControlList.get( cutscenesDataControlList.size( ) - 1 );
-	}
+    /**
+     * Returns the list of cutscene controllers.
+     * 
+     * @return Cutscene controllers
+     */
+    public List<CutsceneDataControl> getCutscenes( ) {
 
-	/**
-	 * Returns the info of the cutscenes contained in the list.
-	 * 
-	 * @return Array with the information of the cutscenes. It contains the identifier of each cutscene, and its type
-	 */
-	public String[][] getCutscenesInfo( ) {
-		String[][] cutscenesInfo = null;
+        return cutscenesDataControlList;
+    }
 
-		// Create the list for the cutscenes
-		cutscenesInfo = new String[cutscenesList.size( )][2];
+    /**
+     * Returns the last cutscene controller of the list.
+     * 
+     * @return Last cutscene controller
+     */
+    public CutsceneDataControl getLastCutscene( ) {
 
-		// Fill the array with the info
-		for( int i = 0; i < cutscenesList.size( ); i++ ) {
-			Cutscene cutscene = cutscenesList.get( i );
-			cutscenesInfo[i][0] = cutscene.getId( );
-			if( cutscene.getType( ) == Scene.SLIDESCENE )
-				cutscenesInfo[i][1] = TextConstants.getText( "CutscenesList.Slidescene" );
-			else if( cutscene.getType( ) == Scene.VIDEOSCENE )
-				cutscenesInfo[i][1] = TextConstants.getText( "CutscenesList.Videoscene" );
+        return cutscenesDataControlList.get( cutscenesDataControlList.size( ) - 1 );
+    }
 
-		}
+    /**
+     * Returns the info of the cutscenes contained in the list.
+     * 
+     * @return Array with the information of the cutscenes. It contains the
+     *         identifier of each cutscene, and its type
+     */
+    public String[][] getCutscenesInfo( ) {
 
-		return cutscenesInfo;
-	}
+        String[][] cutscenesInfo = null;
 
-	@Override
-	public Object getContent( ) {
-		return cutscenesList;
-	}
+        // Create the list for the cutscenes
+        cutscenesInfo = new String[ cutscenesList.size( ) ][ 2 ];
 
-	@Override
-	public int[] getAddableElements( ) {
-		return new int[] { Controller.CUTSCENE };
-	}
+        // Fill the array with the info
+        for( int i = 0; i < cutscenesList.size( ); i++ ) {
+            Cutscene cutscene = cutscenesList.get( i );
+            cutscenesInfo[i][0] = cutscene.getId( );
+            if( cutscene.getType( ) == GeneralScene.SLIDESCENE )
+                cutscenesInfo[i][1] = TextConstants.getText( "CutscenesList.Slidescene" );
+            else if( cutscene.getType( ) == GeneralScene.VIDEOSCENE )
+                cutscenesInfo[i][1] = TextConstants.getText( "CutscenesList.Videoscene" );
 
-	@Override
-	public boolean canAddElement( int type ) {
-		// It can always add new cutscenes
-		return type == Controller.CUTSCENE;
-	}
+        }
 
-	@Override
-	public boolean canBeDeleted( ) {
-		return false;
-	}
+        return cutscenesInfo;
+    }
 
-	@Override
-	public boolean canBeMoved( ) {
-		return false;
-	}
+    @Override
+    public Object getContent( ) {
 
-	@Override
-	public boolean canBeRenamed( ) {
-		return false;
-	}
+        return cutscenesList;
+    }
 
-	@Override
-	public boolean addElement( int type, String cutsceneId ) {
-		boolean elementAdded = false;
+    @Override
+    public int[] getAddableElements( ) {
 
-		
-		if ( type == Controller.CUTSCENE) {
-		
-			CutsceneTypesDialog cutscenesTypesDialog = new CutsceneTypesDialog();
-			type = cutscenesTypesDialog.getOptionSelected();
-			
-			
-			if( type == Controller.CUTSCENE_SLIDES ) {
-	
-				// Show a dialog asking for the cutscene id
-				if (cutsceneId == null)
-					cutsceneId = controller.showInputDialog( TextConstants.getText( "Operation.AddCutsceneTitle" ), TextConstants.getText( "Operation.AddCutsceneMessage" ), TextConstants.getText( "Operation.AddCutsceneDefaultValue" ) );
-	
-				// If some value was typed and the identifier is valid
-				if( cutsceneId != null && controller.isElementIdValid( cutsceneId ) ) {
-					Cutscene newCutscene = null;
-	
-					// Create the new cutscene
-					if( type == Controller.CUTSCENE_SLIDES )
-						newCutscene = new Slidescene( cutsceneId );
-	
-					// Add the new cutscene
-					cutscenesList.add( newCutscene );
-					cutscenesDataControlList.add( new CutsceneDataControl( newCutscene ) );
-					controller.getIdentifierSummary( ).addCutsceneId( cutsceneId );
-					//controller.dataModified( );
-					elementAdded = true;
-				}
-			}
-	
-			else if( type == Controller.CUTSCENE_VIDEO ) {
-	
-				// Show a dialog asking for the cutscene id
-				if (cutsceneId == null)
-					cutsceneId = controller.showInputDialog( TextConstants.getText( "Operation.AddCutsceneTitle" ), TextConstants.getText( "Operation.AddCutsceneMessage" ), TextConstants.getText( "Operation.AddCutsceneDefaultValue" ) );
-	
-				// If some value was typed and the identifier is valid
-				if( cutsceneId != null && controller.isElementIdValid( cutsceneId ) ) {
-					Cutscene newCutscene = null;
-	
-					// Create the new cutscene
-					if( type == Controller.CUTSCENE_VIDEO )
-						newCutscene = new Videoscene( cutsceneId );
-	
-					// Add the new cutscene
-					cutscenesList.add( newCutscene );
-					cutscenesDataControlList.add( new CutsceneDataControl( newCutscene ) );
-					controller.getIdentifierSummary( ).addCutsceneId( cutsceneId );
-					//controller.dataModified( );
-					elementAdded = true;
-				}
-			}
-		}
+        return new int[] { Controller.CUTSCENE };
+    }
 
-		return elementAdded;
-	}
+    @Override
+    public boolean canAddElement( int type ) {
 
-	@Override
-	public String getDefaultId(int type) {
-		return TextConstants.getText( "Operation.AddCutsceneDefaultValue" );
-	}
+        // It can always add new cutscenes
+        return type == Controller.CUTSCENE;
+    }
 
-	@Override
-	public boolean deleteElement( DataControl dataControl , boolean askConfirmation) {
-		boolean elementDeleted = false;
+    @Override
+    public boolean canBeDeleted( ) {
 
-		// Take the number of general scenes in the chapter
-		int generalScenesCount = controller.getIdentifierSummary( ).getGeneralSceneIds( ).length;
+        return false;
+    }
 
-		// If there are at least two scenes, this one can be deleted
-		if( generalScenesCount > 1 ) {
-			String cutsceneId = ( (CutsceneDataControl) dataControl ).getId( );
-			String references = String.valueOf( controller.countIdentifierReferences( cutsceneId ) );
+    @Override
+    public boolean canBeMoved( ) {
 
-			// Ask for confirmation
-			if(!askConfirmation || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { cutsceneId, references } ) ) ) {
-				if( cutscenesList.remove( dataControl.getContent( ) ) ) {
-					cutscenesDataControlList.remove( dataControl );
-					controller.deleteIdentifierReferences( cutsceneId );
-					controller.getIdentifierSummary( ).deleteCutsceneId( cutsceneId );
-					//controller.dataModified( );
-					elementDeleted = true;
-				}
-			}
-		}
+        return false;
+    }
 
-		// If this is the last scene, it can't be deleted
-		else
-			controller.showErrorDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.ErrorLastScene" ) );
+    @Override
+    public boolean canBeRenamed( ) {
 
-		return elementDeleted;
-	}
+        return false;
+    }
 
-	@Override
-	public boolean moveElementUp( DataControl dataControl ) {
-		boolean elementMoved = false;
-		int elementIndex = cutscenesList.indexOf( dataControl.getContent( ) );
+    @Override
+    public boolean addElement( int type, String cutsceneId ) {
 
-		if( elementIndex > 0 ) {
-			cutscenesList.add( elementIndex - 1, cutscenesList.remove( elementIndex ) );
-			cutscenesDataControlList.add( elementIndex - 1, cutscenesDataControlList.remove( elementIndex ) );
-			//controller.dataModified( );
-			elementMoved = true;
-		}
+        boolean elementAdded = false;
 
-		return elementMoved;
-	}
+        if( type == Controller.CUTSCENE ) {
 
-	@Override
-	public boolean moveElementDown( DataControl dataControl ) {
-		boolean elementMoved = false;
-		int elementIndex = cutscenesList.indexOf( dataControl.getContent( ) );
+            CutsceneTypesDialog cutscenesTypesDialog = new CutsceneTypesDialog( );
+            type = cutscenesTypesDialog.getOptionSelected( );
 
-		if( elementIndex < cutscenesList.size( ) - 1 ) {
-			cutscenesList.add( elementIndex + 1, cutscenesList.remove( elementIndex ) );
-			cutscenesDataControlList.add( elementIndex + 1, cutscenesDataControlList.remove( elementIndex ) );
-			//controller.dataModified( );
-			elementMoved = true;
-		}
+            if( type == Controller.CUTSCENE_SLIDES ) {
 
-		return elementMoved;
-	}
+                // Show a dialog asking for the cutscene id
+                if( cutsceneId == null )
+                    cutsceneId = controller.showInputDialog( TextConstants.getText( "Operation.AddCutsceneTitle" ), TextConstants.getText( "Operation.AddCutsceneMessage" ), TextConstants.getText( "Operation.AddCutsceneDefaultValue" ) );
 
-	@Override
-	public String renameElement( String name ) {
-		return null;
-	}
+                // If some value was typed and the identifier is valid
+                if( cutsceneId != null && controller.isElementIdValid( cutsceneId ) ) {
+                    Cutscene newCutscene = null;
 
-	@Override
-	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
-		// Iterate through each cutscene
-		for( CutsceneDataControl cutsceneDataControl : cutscenesDataControlList )
-			cutsceneDataControl.updateVarFlagSummary( varFlagSummary );
-	}
+                    // Create the new cutscene
+                    if( type == Controller.CUTSCENE_SLIDES )
+                        newCutscene = new Slidescene( cutsceneId );
 
-	@Override
-	public boolean isValid( String currentPath, List<String> incidences ) {
-		boolean valid = true;
+                    // Add the new cutscene
+                    cutscenesList.add( newCutscene );
+                    cutscenesDataControlList.add( new CutsceneDataControl( newCutscene ) );
+                    controller.getIdentifierSummary( ).addCutsceneId( cutsceneId );
+                    //controller.dataModified( );
+                    elementAdded = true;
+                }
+            }
 
-		// Update the current path
-		currentPath += " >> " + TextConstants.getElementName( Controller.CUTSCENES_LIST );
+            else if( type == Controller.CUTSCENE_VIDEO ) {
 
-		// Iterate through the cutscenes
-		for( CutsceneDataControl cutsceneDataControl : cutscenesDataControlList ) {
-			String cutscenePath = currentPath + " >> " + cutsceneDataControl.getId( );
-			valid &= cutsceneDataControl.isValid( cutscenePath, incidences );
-		}
+                // Show a dialog asking for the cutscene id
+                if( cutsceneId == null )
+                    cutsceneId = controller.showInputDialog( TextConstants.getText( "Operation.AddCutsceneTitle" ), TextConstants.getText( "Operation.AddCutsceneMessage" ), TextConstants.getText( "Operation.AddCutsceneDefaultValue" ) );
 
-		return valid;
-	}
+                // If some value was typed and the identifier is valid
+                if( cutsceneId != null && controller.isElementIdValid( cutsceneId ) ) {
+                    Cutscene newCutscene = null;
 
-	@Override
-	public int countAssetReferences( String assetPath ) {
-		int count = 0;
+                    // Create the new cutscene
+                    if( type == Controller.CUTSCENE_VIDEO )
+                        newCutscene = new Videoscene( cutsceneId );
 
-		// Iterate through each cutscene
-		for( CutsceneDataControl cutsceneDataControl : cutscenesDataControlList )
-			count += cutsceneDataControl.countAssetReferences( assetPath );
+                    // Add the new cutscene
+                    cutscenesList.add( newCutscene );
+                    cutscenesDataControlList.add( new CutsceneDataControl( newCutscene ) );
+                    controller.getIdentifierSummary( ).addCutsceneId( cutsceneId );
+                    //controller.dataModified( );
+                    elementAdded = true;
+                }
+            }
+        }
 
-		return count;
-	}
+        return elementAdded;
+    }
 
-	@Override
-	public void getAssetReferences( List<String> assetPaths, List<Integer> assetTypes ) {
-		// Iterate through each cutscene
-		for( CutsceneDataControl cutsceneDataControl : cutscenesDataControlList )
-			cutsceneDataControl.getAssetReferences( assetPaths, assetTypes );
-	}
+    @Override
+    public String getDefaultId( int type ) {
 
-	@Override
-	public void deleteAssetReferences( String assetPath ) {
-		// Iterate through each cutscene
-		for( CutsceneDataControl cutsceneDataControl : cutscenesDataControlList )
-			cutsceneDataControl.deleteAssetReferences( assetPath );
-	}
+        return TextConstants.getText( "Operation.AddCutsceneDefaultValue" );
+    }
 
-	@Override
-	public int countIdentifierReferences( String id ) {
-		int count = 0;
+    @Override
+    public boolean deleteElement( DataControl dataControl, boolean askConfirmation ) {
 
-		// Iterate through each cutscene
-		for( CutsceneDataControl cutsceneDataControl : cutscenesDataControlList )
-			count += cutsceneDataControl.countIdentifierReferences( id );
+        boolean elementDeleted = false;
 
-		return count;
-	}
+        // Take the number of general scenes in the chapter
+        int generalScenesCount = controller.getIdentifierSummary( ).getGeneralSceneIds( ).length;
 
-	@Override
-	public void replaceIdentifierReferences( String oldId, String newId ) {
-		// Iterate through each cutscene
-		for( CutsceneDataControl cutsceneDataControl : cutscenesDataControlList )
-			cutsceneDataControl.replaceIdentifierReferences( oldId, newId );
-	}
+        // If there are at least two scenes, this one can be deleted
+        if( generalScenesCount > 1 ) {
+            String cutsceneId = ( (CutsceneDataControl) dataControl ).getId( );
+            String references = String.valueOf( controller.countIdentifierReferences( cutsceneId ) );
 
-	@Override
-	public void deleteIdentifierReferences( String id ) {
-		// Spread the call to every cutscene
-		for( CutsceneDataControl cutsceneDataControl : cutscenesDataControlList )
-			cutsceneDataControl.deleteIdentifierReferences( id );
-	}
+            // Ask for confirmation
+            if( !askConfirmation || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { cutsceneId, references } ) ) ) {
+                if( cutscenesList.remove( dataControl.getContent( ) ) ) {
+                    cutscenesDataControlList.remove( dataControl );
+                    controller.deleteIdentifierReferences( cutsceneId );
+                    controller.getIdentifierSummary( ).deleteCutsceneId( cutsceneId );
+                    //controller.dataModified( );
+                    elementDeleted = true;
+                }
+            }
+        }
 
-	@Override
-	public boolean canBeDuplicated( ) {
-		return false;
-	}
+        // If this is the last scene, it can't be deleted
+        else
+            controller.showErrorDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.ErrorLastScene" ) );
 
-	@Override
-	public void recursiveSearch() {
-		for (DataControl dc : this.cutscenesDataControlList)
-			dc.recursiveSearch();
-	}
-	
-	@Override
-	public List<Searchable> getPathToDataControl(Searchable dataControl) {
-		return getPathFromChild(dataControl, cutscenesDataControlList);
-	}
+        return elementDeleted;
+    }
+
+    @Override
+    public boolean moveElementUp( DataControl dataControl ) {
+
+        boolean elementMoved = false;
+        int elementIndex = cutscenesList.indexOf( dataControl.getContent( ) );
+
+        if( elementIndex > 0 ) {
+            cutscenesList.add( elementIndex - 1, cutscenesList.remove( elementIndex ) );
+            cutscenesDataControlList.add( elementIndex - 1, cutscenesDataControlList.remove( elementIndex ) );
+            //controller.dataModified( );
+            elementMoved = true;
+        }
+
+        return elementMoved;
+    }
+
+    @Override
+    public boolean moveElementDown( DataControl dataControl ) {
+
+        boolean elementMoved = false;
+        int elementIndex = cutscenesList.indexOf( dataControl.getContent( ) );
+
+        if( elementIndex < cutscenesList.size( ) - 1 ) {
+            cutscenesList.add( elementIndex + 1, cutscenesList.remove( elementIndex ) );
+            cutscenesDataControlList.add( elementIndex + 1, cutscenesDataControlList.remove( elementIndex ) );
+            //controller.dataModified( );
+            elementMoved = true;
+        }
+
+        return elementMoved;
+    }
+
+    @Override
+    public String renameElement( String name ) {
+
+        return null;
+    }
+
+    @Override
+    public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
+
+        // Iterate through each cutscene
+        for( CutsceneDataControl cutsceneDataControl : cutscenesDataControlList )
+            cutsceneDataControl.updateVarFlagSummary( varFlagSummary );
+    }
+
+    @Override
+    public boolean isValid( String currentPath, List<String> incidences ) {
+
+        boolean valid = true;
+
+        // Update the current path
+        currentPath += " >> " + TextConstants.getElementName( Controller.CUTSCENES_LIST );
+
+        // Iterate through the cutscenes
+        for( CutsceneDataControl cutsceneDataControl : cutscenesDataControlList ) {
+            String cutscenePath = currentPath + " >> " + cutsceneDataControl.getId( );
+            valid &= cutsceneDataControl.isValid( cutscenePath, incidences );
+        }
+
+        return valid;
+    }
+
+    @Override
+    public int countAssetReferences( String assetPath ) {
+
+        int count = 0;
+
+        // Iterate through each cutscene
+        for( CutsceneDataControl cutsceneDataControl : cutscenesDataControlList )
+            count += cutsceneDataControl.countAssetReferences( assetPath );
+
+        return count;
+    }
+
+    @Override
+    public void getAssetReferences( List<String> assetPaths, List<Integer> assetTypes ) {
+
+        // Iterate through each cutscene
+        for( CutsceneDataControl cutsceneDataControl : cutscenesDataControlList )
+            cutsceneDataControl.getAssetReferences( assetPaths, assetTypes );
+    }
+
+    @Override
+    public void deleteAssetReferences( String assetPath ) {
+
+        // Iterate through each cutscene
+        for( CutsceneDataControl cutsceneDataControl : cutscenesDataControlList )
+            cutsceneDataControl.deleteAssetReferences( assetPath );
+    }
+
+    @Override
+    public int countIdentifierReferences( String id ) {
+
+        int count = 0;
+
+        // Iterate through each cutscene
+        for( CutsceneDataControl cutsceneDataControl : cutscenesDataControlList )
+            count += cutsceneDataControl.countIdentifierReferences( id );
+
+        return count;
+    }
+
+    @Override
+    public void replaceIdentifierReferences( String oldId, String newId ) {
+
+        // Iterate through each cutscene
+        for( CutsceneDataControl cutsceneDataControl : cutscenesDataControlList )
+            cutsceneDataControl.replaceIdentifierReferences( oldId, newId );
+    }
+
+    @Override
+    public void deleteIdentifierReferences( String id ) {
+
+        // Spread the call to every cutscene
+        for( CutsceneDataControl cutsceneDataControl : cutscenesDataControlList )
+            cutsceneDataControl.deleteIdentifierReferences( id );
+    }
+
+    @Override
+    public boolean canBeDuplicated( ) {
+
+        return false;
+    }
+
+    @Override
+    public void recursiveSearch( ) {
+
+        for( DataControl dc : this.cutscenesDataControlList )
+            dc.recursiveSearch( );
+    }
+
+    @Override
+    public List<Searchable> getPathToDataControl( Searchable dataControl ) {
+
+        return getPathFromChild( dataControl, cutscenesDataControlList );
+    }
 
 }

@@ -1,34 +1,36 @@
 /**
- * <e-Adventure> is an <e-UCM> research project.
- * <e-UCM>, Department of Software Engineering and Artificial Intelligence.
- * Faculty of Informatics, Complutense University of Madrid (Spain).
- * @author Del Blanco, A., Marchiori, E., Torrente, F.J.
+ * <e-Adventure> is an <e-UCM> research project. <e-UCM>, Department of Software
+ * Engineering and Artificial Intelligence. Faculty of Informatics, Complutense
+ * University of Madrid (Spain).
+ * 
+ * @author Del Blanco, A., Marchiori, E., Torrente, F.J. (alphabetical order) *
+ * @author López Mañas, E., Pérez Padilla, F., Sollet, E., Torijano, B. (former
+ *         developers by alphabetical order)
  * @author Moreno-Ger, P. & Fernández-Manjón, B. (directors)
- * @year 2009
- * Web-site: http://e-adventure.e-ucm.es
+ * @year 2009 Web-site: http://e-adventure.e-ucm.es
  */
 
 /*
-    Copyright (C) 2004-2009 <e-UCM> research group
-
-    This file is part of <e-Adventure> project, an educational game & game-like 
-    simulation authoring tool, availabe at http://e-adventure.e-ucm.es. 
-
-    <e-Adventure> is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    <e-Adventure> is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with <e-Adventure>; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-*/
+ * Copyright (C) 2004-2009 <e-UCM> research group
+ * 
+ * This file is part of <e-Adventure> project, an educational game & game-like
+ * simulation authoring tool, available at http://e-adventure.e-ucm.es.
+ * 
+ * <e-Adventure> is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version.
+ * 
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place, Suite 330, Boston, MA 02111-1307 USA
+ * 
+ */
 package es.eucm.eadventure.editor.control.controllers.timer;
 
 import java.util.ArrayList;
@@ -44,323 +46,355 @@ import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 
 public class TimersListDataControl extends DataControl {
 
-	/**
-	 * List of timers.
-	 */
-	private List<Timer> timersList;
+    /**
+     * List of timers.
+     */
+    private List<Timer> timersList;
 
-	/**
-	 * List of timer controllers.
-	 */
-	private List<TimerDataControl> timersDataControlList;
+    /**
+     * List of timer controllers.
+     */
+    private List<TimerDataControl> timersDataControlList;
 
-	/**
-	 * Constructor.
-	 * 
-	 * @param timersList
-	 *            List of timers
-	 */
-	public TimersListDataControl( List<Timer> timersList ) {
-		this.timersList = timersList;
+    /**
+     * Constructor.
+     * 
+     * @param timersList
+     *            List of timers
+     */
+    public TimersListDataControl( List<Timer> timersList ) {
 
-		// Create subcontrollers
-		timersDataControlList = new ArrayList<TimerDataControl>( );
-		for( Timer timer : timersList )
-			timersDataControlList.add( new TimerDataControl( timer ) );
-	}
+        this.timersList = timersList;
 
-	/**
-	 * Returns the list of cutscene controllers.
-	 * 
-	 * @return Cutscene controllers
-	 */
-	public List<TimerDataControl> getTimers( ) {
-		return timersDataControlList;
-	}
+        // Create subcontrollers
+        timersDataControlList = new ArrayList<TimerDataControl>( );
+        for( Timer timer : timersList )
+            timersDataControlList.add( new TimerDataControl( timer ) );
+    }
 
-	/**
-	 * Returns the last timer controller of the list.
-	 * 
-	 * @return Last timer controller
-	 */
-	public TimerDataControl getLastTimer( ) {
-		return timersDataControlList.get( timersDataControlList.size( ) - 1 );
-	}
+    /**
+     * Returns the list of cutscene controllers.
+     * 
+     * @return Cutscene controllers
+     */
+    public List<TimerDataControl> getTimers( ) {
 
-	/**
-	 * Returns the info of the timers contained in the list.
-	 * 
-	 * @return Array with the information of the timers. It contains the index of each timer, its time, and if it has init conditions, end conditions, effects or post-effects
-	 */
-	public String[][] getTimersInfo( ) {
-		String[][] timersInfo = null;
+        return timersDataControlList;
+    }
 
-		// Create the list for the timers info
-		timersInfo = new String[timersList.size( )][6];
+    /**
+     * Returns the last timer controller of the list.
+     * 
+     * @return Last timer controller
+     */
+    public TimerDataControl getLastTimer( ) {
 
-		// Fill the array with the info
-		for( int i = 0; i < timersList.size( ); i++ ) {
-			Timer timer = timersList.get( i );
-			timersInfo[i][0] = Integer.toString( i );
-			timersInfo[i][1] = timersDataControlList.get( i ).getTimeHhMmSs( );
-			
-			if (!timer.getInitCond( ).isEmpty( )){
-				timersInfo[i][2] = TextConstants.getText( "GeneralText.Yes" );	
-			} else {
-				timersInfo[i][2] = TextConstants.getText( "GeneralText.No" );
-			}
-			
-			if (!timer.getEndCond( ).isEmpty( )){
-				timersInfo[i][3] = TextConstants.getText( "GeneralText.Yes" );	
-			} else {
-				timersInfo[i][3] = TextConstants.getText( "GeneralText.No" );
-			}
-			
-			if (!timer.getEffects( ).isEmpty( )){
-				timersInfo[i][4] = TextConstants.getText( "GeneralText.Yes" );	
-			} else {
-				timersInfo[i][4] = TextConstants.getText( "GeneralText.No" );
-			}
-			
-			if (!timer.getPostEffects( ).isEmpty( )){
-				timersInfo[i][5] = TextConstants.getText( "GeneralText.Yes" );	
-			} else {
-				timersInfo[i][5] = TextConstants.getText( "GeneralText.No" );
-			}
+        return timersDataControlList.get( timersDataControlList.size( ) - 1 );
+    }
 
-		}
+    /**
+     * Returns the info of the timers contained in the list.
+     * 
+     * @return Array with the information of the timers. It contains the index
+     *         of each timer, its time, and if it has init conditions, end
+     *         conditions, effects or post-effects
+     */
+    public String[][] getTimersInfo( ) {
 
-		return timersInfo;
-	}
-	
-	
+        String[][] timersInfo = null;
 
-	@Override
-	public Object getContent( ) {
-		return timersList;
-	}
+        // Create the list for the timers info
+        timersInfo = new String[ timersList.size( ) ][ 6 ];
 
-	@Override
-	public int[] getAddableElements( ) {
-		return new int[] { Controller.TIMER};
-	}
+        // Fill the array with the info
+        for( int i = 0; i < timersList.size( ); i++ ) {
+            Timer timer = timersList.get( i );
+            timersInfo[i][0] = Integer.toString( i );
+            timersInfo[i][1] = timersDataControlList.get( i ).getTimeHhMmSs( );
 
-	@Override
-	public boolean canAddElement( int type ) {
-		// It can always add new cutscenes
-		return type == Controller.TIMER ;
-	}
+            if( !timer.getInitCond( ).isEmpty( ) ) {
+                timersInfo[i][2] = TextConstants.getText( "GeneralText.Yes" );
+            }
+            else {
+                timersInfo[i][2] = TextConstants.getText( "GeneralText.No" );
+            }
 
-	@Override
-	public boolean canBeDeleted( ) {
-		return false;
-	}
+            if( !timer.getEndCond( ).isEmpty( ) ) {
+                timersInfo[i][3] = TextConstants.getText( "GeneralText.Yes" );
+            }
+            else {
+                timersInfo[i][3] = TextConstants.getText( "GeneralText.No" );
+            }
 
-	@Override
-	public boolean canBeMoved( ) {
-		return false;
-	}
+            if( !timer.getEffects( ).isEmpty( ) ) {
+                timersInfo[i][4] = TextConstants.getText( "GeneralText.Yes" );
+            }
+            else {
+                timersInfo[i][4] = TextConstants.getText( "GeneralText.No" );
+            }
 
-	@Override
-	public boolean canBeRenamed( ) {
-		return false;
-	}
+            if( !timer.getPostEffects( ).isEmpty( ) ) {
+                timersInfo[i][5] = TextConstants.getText( "GeneralText.Yes" );
+            }
+            else {
+                timersInfo[i][5] = TextConstants.getText( "GeneralText.No" );
+            }
 
-	@Override
-	public boolean addElement( int type, String id ) {
-		boolean elementAdded = false;
+        }
 
-		if( type == Controller.TIMER ) {
-			// Create the new timer with default time
-				Timer newTimer = new Timer(  );
-				newTimer.setRunsInLoop(false);
-				newTimer.setMultipleStarts(false);
-				newTimer.setUsesEndCondition(false);
-				
-				// Add the new timer
-				timersList.add( newTimer );
-				timersDataControlList.add( new TimerDataControl( newTimer ) );
-				//controller.dataModified( );
-				elementAdded = true;
-		}
+        return timersInfo;
+    }
 
-		return elementAdded;
-	}
+    @Override
+    public Object getContent( ) {
 
-	
-	@Override
-	public boolean duplicateElement( DataControl dataControl ) {
-		if (!(dataControl instanceof TimerDataControl))
-			return false;
-		
-		try {
-			Timer newElement = (Timer) (((Timer) (dataControl.getContent())).clone());
-			timersList.add(newElement);
-			timersDataControlList.add( new TimerDataControl(newElement));
-			return true;
-		} catch (CloneNotSupportedException e) {
-			ReportDialog.GenerateErrorReport(e, true, "Could not clone timer");	
-			return false;
-		} 
-	}
+        return timersList;
+    }
 
-	private int findDataControlIndex( DataControl dataControl ){
-		int index = -1;
-		for (int i=0; i<this.timersDataControlList.size( ); i++){
-			if (timersDataControlList.get( i ) == dataControl){
-				index = i;
-				break;
-			}
-		}
-		return index;
-		
-	}
-	
-	@Override
-	public boolean deleteElement( DataControl dataControl, boolean askConfirmation ) {
-		boolean elementDeleted = false;
-		
-			int index = findDataControlIndex(dataControl);
+    @Override
+    public int[] getAddableElements( ) {
 
-			// Ask for confirmation
-			if(!askConfirmation || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { 
-					TextConstants.getElementName( Controller.TIMER )+" #"+Integer.toString( index ), "0" } ) ) ) {
-				if( timersList.remove( dataControl.getContent( ) ) ) {
-					timersDataControlList.remove( dataControl );
-					//controller.dataModified( );
-					elementDeleted = true;
-				}
-			}
+        return new int[] { Controller.TIMER };
+    }
 
-		return elementDeleted;
-	}
+    @Override
+    public boolean canAddElement( int type ) {
 
-	@Override
-	public boolean moveElementUp( DataControl dataControl ) {
-		boolean elementMoved = false;
-		int elementIndex = timersList.indexOf( dataControl.getContent( ) );
+        // It can always add new cutscenes
+        return type == Controller.TIMER;
+    }
 
-		if( elementIndex > 0 ) {
-			timersList.add( elementIndex - 1, timersList.remove( elementIndex ) );
-			timersDataControlList.add( elementIndex - 1, timersDataControlList.remove( elementIndex ) );
-			//controller.dataModified( );
-			elementMoved = true;
-		}
+    @Override
+    public boolean canBeDeleted( ) {
 
-		return elementMoved;
-	}
+        return false;
+    }
 
-	@Override
-	public boolean moveElementDown( DataControl dataControl ) {
-		boolean elementMoved = false;
-		int elementIndex = timersList.indexOf( dataControl.getContent( ) );
+    @Override
+    public boolean canBeMoved( ) {
 
-		if( elementIndex < timersList.size( ) - 1 ) {
-			timersList.add( elementIndex + 1, timersList.remove( elementIndex ) );
-			timersDataControlList.add( elementIndex + 1, timersDataControlList.remove( elementIndex ) );
-			//controller.dataModified( );
-			elementMoved = true;
-		}
+        return false;
+    }
 
-		return elementMoved;
-	}
+    @Override
+    public boolean canBeRenamed( ) {
 
-	@Override
-	public String renameElement( String name ) {
-		return null;
-	}
+        return false;
+    }
 
-	@Override
-	public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
-		// Iterate through each timer
-		for( TimerDataControl timerDataControl : timersDataControlList )
-			timerDataControl.updateVarFlagSummary( varFlagSummary );
-	}
+    @Override
+    public boolean addElement( int type, String id ) {
 
-	@Override
-	public boolean isValid( String currentPath, List<String> incidences ) {
-		boolean valid = true;
+        boolean elementAdded = false;
 
-		// Update the current path
-		currentPath += " >> " + TextConstants.getElementName( Controller.TIMERS_LIST );
+        if( type == Controller.TIMER ) {
+            // Create the new timer with default time
+            Timer newTimer = new Timer( );
+            newTimer.setRunsInLoop( false );
+            newTimer.setMultipleStarts( false );
+            newTimer.setUsesEndCondition( false );
 
-		// Iterate through the timers
-		for( int i=0; i< timersDataControlList.size(); i++ ) {
-			String cutscenePath = currentPath + " >> " + TextConstants.getElementName( Controller.TIMER ) +" #"+i;
-			valid &= timersDataControlList.get( i ).isValid( cutscenePath, incidences );
-		}
+            // Add the new timer
+            timersList.add( newTimer );
+            timersDataControlList.add( new TimerDataControl( newTimer ) );
+            //controller.dataModified( );
+            elementAdded = true;
+        }
 
-		return valid;
-	}
+        return elementAdded;
+    }
 
-	@Override
-	public int countAssetReferences( String assetPath ) {
-		int count = 0;
+    @Override
+    public boolean duplicateElement( DataControl dataControl ) {
 
-		// Iterate through each timer
-		for( TimerDataControl timerDataControl : timersDataControlList )
-			count += timerDataControl.countAssetReferences( assetPath );
+        if( !( dataControl instanceof TimerDataControl ) )
+            return false;
 
-		return count;
-	}
-	
-	@Override
-	public void getAssetReferences( List<String> assetPaths, List<Integer> assetTypes ) {
-		for ( TimerDataControl timerDataControl: timersDataControlList ){
-			timerDataControl.getAssetReferences( assetPaths, assetTypes );
-		}
-	}
+        try {
+            Timer newElement = (Timer) ( ( (Timer) ( dataControl.getContent( ) ) ).clone( ) );
+            timersList.add( newElement );
+            timersDataControlList.add( new TimerDataControl( newElement ) );
+            return true;
+        }
+        catch( CloneNotSupportedException e ) {
+            ReportDialog.GenerateErrorReport( e, true, "Could not clone timer" );
+            return false;
+        }
+    }
 
-	@Override
-	public void deleteAssetReferences( String assetPath ) {
-		// Iterate through each timer
-		for( TimerDataControl timerDataControl : timersDataControlList )
-			timerDataControl.deleteAssetReferences( assetPath );
-	}
+    private int findDataControlIndex( DataControl dataControl ) {
 
-	@Override
-	public int countIdentifierReferences( String id ) {
-		int count = 0;
+        int index = -1;
+        for( int i = 0; i < this.timersDataControlList.size( ); i++ ) {
+            if( timersDataControlList.get( i ) == dataControl ) {
+                index = i;
+                break;
+            }
+        }
+        return index;
 
-		// Iterate through each timer
-		for( TimerDataControl cutsceneDataControl : timersDataControlList )
-			count += cutsceneDataControl.countIdentifierReferences( id );
+    }
 
-		return count;
-	}
+    @Override
+    public boolean deleteElement( DataControl dataControl, boolean askConfirmation ) {
 
-	@Override
-	public void replaceIdentifierReferences( String oldId, String newId ) {
-		// Iterate through each timer
-		for( TimerDataControl timerDataControl : timersDataControlList )
-			timerDataControl.replaceIdentifierReferences( oldId, newId );
-	}
+        boolean elementDeleted = false;
 
-	@Override
-	public void deleteIdentifierReferences( String id ) {
-		// Spread the call to every timer
-		for( TimerDataControl timerDataControl : timersDataControlList )
-			timerDataControl.deleteIdentifierReferences( id );
-	}
+        int index = findDataControlIndex( dataControl );
 
-	@Override
-	public boolean canBeDuplicated( ) {
-		return false;
-	}
+        // Ask for confirmation
+        if( !askConfirmation || controller.showStrictConfirmDialog( TextConstants.getText( "Operation.DeleteElementTitle" ), TextConstants.getText( "Operation.DeleteElementWarning", new String[] { TextConstants.getElementName( Controller.TIMER ) + " #" + Integer.toString( index ), "0" } ) ) ) {
+            if( timersList.remove( dataControl.getContent( ) ) ) {
+                timersDataControlList.remove( dataControl );
+                //controller.dataModified( );
+                elementDeleted = true;
+            }
+        }
 
-	@Override
-	public void recursiveSearch() {
-		for (DataControl dc : this.timersDataControlList)
-			dc.recursiveSearch();
-	}
+        return elementDeleted;
+    }
 
-	@Override
-	public List<Searchable> getPathToDataControl(Searchable dataControl) {
-		return getPathFromChild(dataControl, timersDataControlList);
-	}
+    @Override
+    public boolean moveElementUp( DataControl dataControl ) {
 
-	public List<Timer> getTimersList() {
-		return timersList;
-	}
+        boolean elementMoved = false;
+        int elementIndex = timersList.indexOf( dataControl.getContent( ) );
+
+        if( elementIndex > 0 ) {
+            timersList.add( elementIndex - 1, timersList.remove( elementIndex ) );
+            timersDataControlList.add( elementIndex - 1, timersDataControlList.remove( elementIndex ) );
+            //controller.dataModified( );
+            elementMoved = true;
+        }
+
+        return elementMoved;
+    }
+
+    @Override
+    public boolean moveElementDown( DataControl dataControl ) {
+
+        boolean elementMoved = false;
+        int elementIndex = timersList.indexOf( dataControl.getContent( ) );
+
+        if( elementIndex < timersList.size( ) - 1 ) {
+            timersList.add( elementIndex + 1, timersList.remove( elementIndex ) );
+            timersDataControlList.add( elementIndex + 1, timersDataControlList.remove( elementIndex ) );
+            //controller.dataModified( );
+            elementMoved = true;
+        }
+
+        return elementMoved;
+    }
+
+    @Override
+    public String renameElement( String name ) {
+
+        return null;
+    }
+
+    @Override
+    public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
+
+        // Iterate through each timer
+        for( TimerDataControl timerDataControl : timersDataControlList )
+            timerDataControl.updateVarFlagSummary( varFlagSummary );
+    }
+
+    @Override
+    public boolean isValid( String currentPath, List<String> incidences ) {
+
+        boolean valid = true;
+
+        // Update the current path
+        currentPath += " >> " + TextConstants.getElementName( Controller.TIMERS_LIST );
+
+        // Iterate through the timers
+        for( int i = 0; i < timersDataControlList.size( ); i++ ) {
+            String cutscenePath = currentPath + " >> " + TextConstants.getElementName( Controller.TIMER ) + " #" + i;
+            valid &= timersDataControlList.get( i ).isValid( cutscenePath, incidences );
+        }
+
+        return valid;
+    }
+
+    @Override
+    public int countAssetReferences( String assetPath ) {
+
+        int count = 0;
+
+        // Iterate through each timer
+        for( TimerDataControl timerDataControl : timersDataControlList )
+            count += timerDataControl.countAssetReferences( assetPath );
+
+        return count;
+    }
+
+    @Override
+    public void getAssetReferences( List<String> assetPaths, List<Integer> assetTypes ) {
+
+        for( TimerDataControl timerDataControl : timersDataControlList ) {
+            timerDataControl.getAssetReferences( assetPaths, assetTypes );
+        }
+    }
+
+    @Override
+    public void deleteAssetReferences( String assetPath ) {
+
+        // Iterate through each timer
+        for( TimerDataControl timerDataControl : timersDataControlList )
+            timerDataControl.deleteAssetReferences( assetPath );
+    }
+
+    @Override
+    public int countIdentifierReferences( String id ) {
+
+        int count = 0;
+
+        // Iterate through each timer
+        for( TimerDataControl cutsceneDataControl : timersDataControlList )
+            count += cutsceneDataControl.countIdentifierReferences( id );
+
+        return count;
+    }
+
+    @Override
+    public void replaceIdentifierReferences( String oldId, String newId ) {
+
+        // Iterate through each timer
+        for( TimerDataControl timerDataControl : timersDataControlList )
+            timerDataControl.replaceIdentifierReferences( oldId, newId );
+    }
+
+    @Override
+    public void deleteIdentifierReferences( String id ) {
+
+        // Spread the call to every timer
+        for( TimerDataControl timerDataControl : timersDataControlList )
+            timerDataControl.deleteIdentifierReferences( id );
+    }
+
+    @Override
+    public boolean canBeDuplicated( ) {
+
+        return false;
+    }
+
+    @Override
+    public void recursiveSearch( ) {
+
+        for( DataControl dc : this.timersDataControlList )
+            dc.recursiveSearch( );
+    }
+
+    @Override
+    public List<Searchable> getPathToDataControl( Searchable dataControl ) {
+
+        return getPathFromChild( dataControl, timersDataControlList );
+    }
+
+    public List<Timer> getTimersList( ) {
+
+        return timersList;
+    }
 
 }

@@ -1,40 +1,43 @@
 /**
- * <e-Adventure> is an <e-UCM> research project.
- * <e-UCM>, Department of Software Engineering and Artificial Intelligence.
- * Faculty of Informatics, Complutense University of Madrid (Spain).
- * @author Del Blanco, A., Marchiori, E., Torrente, F.J.
+ * <e-Adventure> is an <e-UCM> research project. <e-UCM>, Department of Software
+ * Engineering and Artificial Intelligence. Faculty of Informatics, Complutense
+ * University of Madrid (Spain).
+ * 
+ * @author Del Blanco, A., Marchiori, E., Torrente, F.J. (alphabetical order) *
+ * @author López Mañas, E., Pérez Padilla, F., Sollet, E., Torijano, B. (former
+ *         developers by alphabetical order)
  * @author Moreno-Ger, P. & Fernández-Manjón, B. (directors)
- * @year 2009
- * Web-site: http://e-adventure.e-ucm.es
+ * @year 2009 Web-site: http://e-adventure.e-ucm.es
  */
 
 /*
-    Copyright (C) 2004-2009 <e-UCM> research group
-
-    This file is part of <e-Adventure> project, an educational game & game-like 
-    simulation authoring tool, availabe at http://e-adventure.e-ucm.es. 
-
-    <e-Adventure> is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    <e-Adventure> is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with <e-Adventure>; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-*/
+ * Copyright (C) 2004-2009 <e-UCM> research group
+ * 
+ * This file is part of <e-Adventure> project, an educational game & game-like
+ * simulation authoring tool, available at http://e-adventure.e-ucm.es.
+ * 
+ * <e-Adventure> is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version.
+ * 
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place, Suite 330, Boston, MA 02111-1307 USA
+ * 
+ */
 package es.eucm.eadventure.editor.control.controllers.animation;
 
 import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.eucm.eadventure.common.auxiliar.AssetsConstants;
 import es.eucm.eadventure.common.data.animation.Animation;
 import es.eucm.eadventure.common.data.animation.Frame;
 import es.eucm.eadventure.common.data.animation.Transition;
@@ -55,272 +58,317 @@ import es.eucm.eadventure.editor.gui.assetchooser.AssetChooser;
 
 public class AnimationDataControl extends DataControl {
 
-	private Animation animation;
-	
-	private String filename;
-	
-	private List<FrameDataControl> frameDataControls;
-	
-	private List<TransitionDataControl> transitionDataControls;
-		
-	public String getFilename() {
-		return filename;
-	}
+    private Animation animation;
 
-	public void setFilename(String filename) {
-		this.filename = filename;
-	}
+    private String filename;
 
-	public AnimationDataControl(Animation animation) {
-		this.animation = animation;
-		createDataControls();
-	}
+    private List<FrameDataControl> frameDataControls;
 
-	public void setAnimation(Animation animation) {
-		this.animation = animation;
-		createDataControls();
-	}
-	
-	public String getDocumentation() {
-		return animation.getDocumentation();
-	}
-	
-	public void setDocumentation(String documentation) {
-		Controller.getInstance().addTool(new ChangeDocumentationTool(animation, documentation));
-	}
-	
-	public String getId() {
-		return animation.getId();
-	}
-	
-	public void setId(String id) {
-		Controller.getInstance().addTool(new ChangeIdTool(animation, id));
-	}
+    private List<TransitionDataControl> transitionDataControls;
 
-	public boolean isUseTransitions() {
-		return animation.isUseTransitions();
-	}
-	
-	public boolean isSlides() {
-		return animation.isSlides();
-	}
-	
-	public void setUseTransitions(boolean useTransitions) {
-		Controller.getInstance().addTool(new ChangeUseTransitionsTool(animation, useTransitions));
-	}
-	
-	public void setSlides(boolean slides) {
-		Controller.getInstance().addTool(new ChangeSlidesTool(animation, slides));
-	}
-	
-	public FrameDataControl getFrameDataControl(int i) {
-		if (i >= 0 && i < frameDataControls.size())
-			return frameDataControls.get(i);
-		return null;
-	}
-	
-	public TransitionDataControl getTransitionDataControl(int i) {
-		if (i >= 0 && i < transitionDataControls.size()) 
-			return transitionDataControls.get(i);
-		return null;
-	}
+    public String getFilename( ) {
 
-	public List<TransitionDataControl> getTransitionDataControls() {
-		return transitionDataControls;
-	}
-	
-	public List<FrameDataControl> getFrameDataControls() {
-		return frameDataControls;
-	}
+        return filename;
+    }
 
-	public int indexOfFrame(Frame newFrame) {
-		return animation.getFrames().indexOf(newFrame);
-	}
-	
-	public int getFrameCount() {
-		return frameDataControls.size();
-	}
+    public void setFilename( String filename ) {
 
-	public void addFrame(int index, Frame newFrame) {
-		Controller.getInstance().addTool(new AddNewFrameTool(this, index, newFrame));
-	}
+        this.filename = filename;
+    }
 
-	public void moveFrameLeft(FrameDataControl temp) {
-		Controller.getInstance().addTool(new MoveFrameLeftTool(this, temp));
-	}
+    public AnimationDataControl( Animation animation ) {
 
-	public void moveFrameRight(FrameDataControl temp2) {
-		Controller.getInstance().addTool(new MoveFrameRightTool(this, temp2));
-	}
+        this.animation = animation;
+        createDataControls( );
+    }
 
-	public void deleteFrame(FrameDataControl selectedValue) {
-		Controller.getInstance().addTool(new DeleteFrameTool(this, selectedValue));
-	}
+    public void setAnimation( Animation animation ) {
 
-	private void createDataControls() {
-		frameDataControls = new ArrayList<FrameDataControl>();
-		transitionDataControls = new ArrayList<TransitionDataControl>();
-		for (Frame frame : animation.getFrames())
-			frameDataControls.add(new FrameDataControl(frame));
-		for (Transition transition : animation.getTransitions())
-			transitionDataControls.add(new TransitionDataControl(transition));
-	}
-	
-	public String getImagePath(Component window){
-		String selectedAsset = null;
+        this.animation = animation;
+        createDataControls( );
+    }
 
-		AssetChooser chooser = AssetsController.getAssetChooser( AssetsController.CATEGORY_IMAGE, AssetsController.FILTER_NONE );
-		int option = chooser.showAssetChooser( window );
-		//In case the asset was selected from the zip file
-		if( option == AssetChooser.ASSET_FROM_ZIP ) {
-			selectedAsset = chooser.getSelectedAsset( );
-			selectedAsset = AssetsController.getCategoryFolder(AssetsController.CATEGORY_IMAGE) + "/" + selectedAsset;
-		}
+    public String getDocumentation( ) {
 
-		//In case the asset was not in the zip file: first add it
-		else if( option == AssetChooser.ASSET_FROM_OUTSIDE ) {
-			boolean added = AssetsController.addSingleAsset( AssetsController.CATEGORY_ANIMATION_IMAGE, chooser.getSelectedFile( ).getAbsolutePath( ) );
-			
-			if( added ) {
-				selectedAsset = chooser.getSelectedFile( ).getName( );
-				selectedAsset = AssetsController.getCategoryFolder(AssetsController.CATEGORY_ANIMATION_IMAGE) + "/" + selectedAsset;
-			}
-		}
-		
-		return selectedAsset;
-	}
+        return animation.getDocumentation( );
+    }
 
-	public String getSoundPath(Component window){
-		String selectedAsset = null;
+    public void setDocumentation( String documentation ) {
 
-		AssetChooser chooser = AssetsController.getAssetChooser( AssetsController.CATEGORY_AUDIO, AssetsController.FILTER_NONE );
-		int option = chooser.showAssetChooser( window );
-		//In case the asset was selected from the zip file
-		if( option == AssetChooser.ASSET_FROM_ZIP ) {
-			selectedAsset = chooser.getSelectedAsset( );
-			selectedAsset = AssetsController.getCategoryFolder(AssetsController.CATEGORY_AUDIO) + "/" + selectedAsset;
-		}
+        Controller.getInstance( ).addTool( new ChangeDocumentationTool( animation, documentation ) );
+    }
 
-		//In case the asset was not in the zip file: first add it
-		else if( option == AssetChooser.ASSET_FROM_OUTSIDE ) {
-			boolean added = AssetsController.addSingleAsset( AssetsController.CATEGORY_ANIMATION_AUDIO, chooser.getSelectedFile( ).getAbsolutePath( ) );
-			
-			if( added ) {
-				selectedAsset = chooser.getSelectedFile( ).getName( );
-				selectedAsset = AssetsController.getCategoryFolder(AssetsController.CATEGORY_ANIMATION_AUDIO) + "/" + selectedAsset;
-			}
-		}
-		
-		return selectedAsset;
-	}
+    public String getId( ) {
 
-	@Override
-	public boolean addElement(int type, String id) {
-		return false;
-	}
+        return animation.getId( );
+    }
 
-	@Override
-	public boolean canAddElement(int type) {
-		return false;
-	}
+    public void setId( String id ) {
 
-	@Override
-	public boolean canBeDeleted() {
-		return false;
-	}
+        Controller.getInstance( ).addTool( new ChangeIdTool( animation, id ) );
+    }
 
-	@Override
-	public boolean canBeDuplicated() {
-		return false;
-	}
+    public boolean isUseTransitions( ) {
 
-	@Override
-	public boolean canBeMoved() {
-		return false;
-	}
+        return animation.isUseTransitions( );
+    }
 
-	@Override
-	public boolean canBeRenamed() {
-		return false;
-	}
+    public boolean isSlides( ) {
 
-	@Override
-	public int countAssetReferences(String assetPath) {
-		return 0;
-	}
+        return animation.isSlides( );
+    }
 
-	@Override
-	public int countIdentifierReferences(String id) {
-		return 0;
-	}
+    public void setUseTransitions( boolean useTransitions ) {
 
-	@Override
-	public void deleteAssetReferences(String assetPath) {
-	}
+        Controller.getInstance( ).addTool( new ChangeUseTransitionsTool( animation, useTransitions ) );
+    }
 
-	@Override
-	public boolean deleteElement(DataControl dataControl,
-			boolean askConfirmation) {
-		return false;
-	}
-	
+    public void setSlides( boolean slides ) {
 
-	@Override
-	public void deleteIdentifierReferences(String id) {
-	}
+        Controller.getInstance( ).addTool( new ChangeSlidesTool( animation, slides ) );
+    }
 
-	@Override
-	public int[] getAddableElements() {
-		return null;
-	}
+    public FrameDataControl getFrameDataControl( int i ) {
 
-	@Override
-	public void getAssetReferences(List<String> assetPaths,
-			List<Integer> assetTypes) {
-	}
+        if( i >= 0 && i < frameDataControls.size( ) )
+            return frameDataControls.get( i );
+        return null;
+    }
 
-	@Override
-	public Object getContent() {
-		return animation;
-	}
+    public TransitionDataControl getTransitionDataControl( int i ) {
 
-	@Override
-	public boolean isValid(String currentPath, List<String> incidences) {
-		return false;
-	}
+        if( i >= 0 && i < transitionDataControls.size( ) )
+            return transitionDataControls.get( i );
+        return null;
+    }
 
-	@Override
-	public boolean moveElementDown(DataControl dataControl) {
-		return false;
-	}
+    public List<TransitionDataControl> getTransitionDataControls( ) {
 
-	@Override
-	public boolean moveElementUp(DataControl dataControl) {
-		return false;
-	}
+        return transitionDataControls;
+    }
 
-	@Override
-	public void recursiveSearch() {
-	}
+    public List<FrameDataControl> getFrameDataControls( ) {
 
-	@Override
-	public String renameElement(String newName) {
-		return null;
-	}
+        return frameDataControls;
+    }
 
-	@Override
-	public void replaceIdentifierReferences(String oldId, String newId) {
-	}
+    public int indexOfFrame( Frame newFrame ) {
 
-	@Override
-	public void updateVarFlagSummary(VarFlagSummary varFlagSummary) {
-	}
+        return animation.getFrames( ).indexOf( newFrame );
+    }
 
-	@Override
-	public List<Searchable> getPathToDataControl(Searchable dataControl) {
-		List<Searchable> path = getPathFromChild(dataControl, frameDataControls);
-		if (path != null) return path;
-		path = getPathFromChild(dataControl, transitionDataControls);
-		return path;
-	}
+    public int getFrameCount( ) {
+
+        return frameDataControls.size( );
+    }
+
+    public void addFrame( int index, Frame newFrame ) {
+
+        Controller.getInstance( ).addTool( new AddNewFrameTool( this, index, newFrame ) );
+    }
+
+    public void moveFrameLeft( FrameDataControl temp ) {
+
+        Controller.getInstance( ).addTool( new MoveFrameLeftTool( this, temp ) );
+    }
+
+    public void moveFrameRight( FrameDataControl temp2 ) {
+
+        Controller.getInstance( ).addTool( new MoveFrameRightTool( this, temp2 ) );
+    }
+
+    public void deleteFrame( FrameDataControl selectedValue ) {
+
+        Controller.getInstance( ).addTool( new DeleteFrameTool( this, selectedValue ) );
+    }
+
+    private void createDataControls( ) {
+
+        frameDataControls = new ArrayList<FrameDataControl>( );
+        transitionDataControls = new ArrayList<TransitionDataControl>( );
+        for( Frame frame : animation.getFrames( ) )
+            frameDataControls.add( new FrameDataControl( frame ) );
+        for( Transition transition : animation.getTransitions( ) )
+            transitionDataControls.add( new TransitionDataControl( transition ) );
+    }
+
+    public String getImagePath( Component window ) {
+
+        String selectedAsset = null;
+
+        AssetChooser chooser = AssetsController.getAssetChooser( AssetsConstants.CATEGORY_IMAGE, AssetsController.FILTER_NONE );
+        int option = chooser.showAssetChooser( window );
+        //In case the asset was selected from the zip file
+        if( option == AssetChooser.ASSET_FROM_ZIP ) {
+            selectedAsset = chooser.getSelectedAsset( );
+            selectedAsset = AssetsController.getCategoryFolder( AssetsConstants.CATEGORY_IMAGE ) + "/" + selectedAsset;
+        }
+
+        //In case the asset was not in the zip file: first add it
+        else if( option == AssetChooser.ASSET_FROM_OUTSIDE ) {
+            boolean added = AssetsController.addSingleAsset( AssetsConstants.CATEGORY_ANIMATION_IMAGE, chooser.getSelectedFile( ).getAbsolutePath( ) );
+
+            if( added ) {
+                selectedAsset = chooser.getSelectedFile( ).getName( );
+                selectedAsset = AssetsController.getCategoryFolder( AssetsConstants.CATEGORY_ANIMATION_IMAGE ) + "/" + selectedAsset;
+            }
+        }
+
+        return selectedAsset;
+    }
+
+    public String getSoundPath( Component window ) {
+
+        String selectedAsset = null;
+
+        AssetChooser chooser = AssetsController.getAssetChooser( AssetsConstants.CATEGORY_AUDIO, AssetsController.FILTER_NONE );
+        int option = chooser.showAssetChooser( window );
+        //In case the asset was selected from the zip file
+        if( option == AssetChooser.ASSET_FROM_ZIP ) {
+            selectedAsset = chooser.getSelectedAsset( );
+            selectedAsset = AssetsController.getCategoryFolder( AssetsConstants.CATEGORY_AUDIO ) + "/" + selectedAsset;
+        }
+
+        //In case the asset was not in the zip file: first add it
+        else if( option == AssetChooser.ASSET_FROM_OUTSIDE ) {
+            boolean added = AssetsController.addSingleAsset( AssetsConstants.CATEGORY_ANIMATION_AUDIO, chooser.getSelectedFile( ).getAbsolutePath( ) );
+
+            if( added ) {
+                selectedAsset = chooser.getSelectedFile( ).getName( );
+                selectedAsset = AssetsController.getCategoryFolder( AssetsConstants.CATEGORY_ANIMATION_AUDIO ) + "/" + selectedAsset;
+            }
+        }
+
+        return selectedAsset;
+    }
+
+    @Override
+    public boolean addElement( int type, String id ) {
+
+        return false;
+    }
+
+    @Override
+    public boolean canAddElement( int type ) {
+
+        return false;
+    }
+
+    @Override
+    public boolean canBeDeleted( ) {
+
+        return false;
+    }
+
+    @Override
+    public boolean canBeDuplicated( ) {
+
+        return false;
+    }
+
+    @Override
+    public boolean canBeMoved( ) {
+
+        return false;
+    }
+
+    @Override
+    public boolean canBeRenamed( ) {
+
+        return false;
+    }
+
+    @Override
+    public int countAssetReferences( String assetPath ) {
+
+        return 0;
+    }
+
+    @Override
+    public int countIdentifierReferences( String id ) {
+
+        return 0;
+    }
+
+    @Override
+    public void deleteAssetReferences( String assetPath ) {
+
+    }
+
+    @Override
+    public boolean deleteElement( DataControl dataControl, boolean askConfirmation ) {
+
+        return false;
+    }
+
+    @Override
+    public void deleteIdentifierReferences( String id ) {
+
+    }
+
+    @Override
+    public int[] getAddableElements( ) {
+
+        return null;
+    }
+
+    @Override
+    public void getAssetReferences( List<String> assetPaths, List<Integer> assetTypes ) {
+
+    }
+
+    @Override
+    public Object getContent( ) {
+
+        return animation;
+    }
+
+    @Override
+    public boolean isValid( String currentPath, List<String> incidences ) {
+
+        return false;
+    }
+
+    @Override
+    public boolean moveElementDown( DataControl dataControl ) {
+
+        return false;
+    }
+
+    @Override
+    public boolean moveElementUp( DataControl dataControl ) {
+
+        return false;
+    }
+
+    @Override
+    public void recursiveSearch( ) {
+
+    }
+
+    @Override
+    public String renameElement( String newName ) {
+
+        return null;
+    }
+
+    @Override
+    public void replaceIdentifierReferences( String oldId, String newId ) {
+
+    }
+
+    @Override
+    public void updateVarFlagSummary( VarFlagSummary varFlagSummary ) {
+
+    }
+
+    @Override
+    public List<Searchable> getPathToDataControl( Searchable dataControl ) {
+
+        List<Searchable> path = getPathFromChild( dataControl, frameDataControls );
+        if( path != null )
+            return path;
+        path = getPathFromChild( dataControl, transitionDataControls );
+        return path;
+    }
 }

@@ -1,34 +1,36 @@
 /**
- * <e-Adventure> is an <e-UCM> research project.
- * <e-UCM>, Department of Software Engineering and Artificial Intelligence.
- * Faculty of Informatics, Complutense University of Madrid (Spain).
- * @author Del Blanco, A., Marchiori, E., Torrente, F.J.
+ * <e-Adventure> is an <e-UCM> research project. <e-UCM>, Department of Software
+ * Engineering and Artificial Intelligence. Faculty of Informatics, Complutense
+ * University of Madrid (Spain).
+ * 
+ * @author Del Blanco, A., Marchiori, E., Torrente, F.J. (alphabetical order) *
+ * @author López Mañas, E., Pérez Padilla, F., Sollet, E., Torijano, B. (former
+ *         developers by alphabetical order)
  * @author Moreno-Ger, P. & Fernández-Manjón, B. (directors)
- * @year 2009
- * Web-site: http://e-adventure.e-ucm.es
+ * @year 2009 Web-site: http://e-adventure.e-ucm.es
  */
 
 /*
-    Copyright (C) 2004-2009 <e-UCM> research group
-
-    This file is part of <e-Adventure> project, an educational game & game-like 
-    simulation authoring tool, availabe at http://e-adventure.e-ucm.es. 
-
-    <e-Adventure> is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    <e-Adventure> is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with <e-Adventure>; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-*/
+ * Copyright (C) 2004-2009 <e-UCM> research group
+ * 
+ * This file is part of <e-Adventure> project, an educational game & game-like
+ * simulation authoring tool, available at http://e-adventure.e-ucm.es.
+ * 
+ * <e-Adventure> is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version.
+ * 
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place, Suite 330, Boston, MA 02111-1307 USA
+ * 
+ */
 package es.eucm.eadventure.engine.core.gui.hud.traditionalhud;
 
 import java.awt.Color;
@@ -51,21 +53,22 @@ import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 
 /**
  * Updated feb 2008. UPDATES: Customized cursors
+ * 
  * @author Javier Torrente
- *
+ * 
  */
 public class TraditionalHUD extends HUD {
-    
+
     /**
      * Width of the playable area of the screen
      */
     private final int GAME_AREA_WIDTH = 800;
-    
+
     /**
      * Height of the playable area of the screen
      */
     private final int GAME_AREA_HEIGHT = 400;
-    
+
     /**
      * Width of the HUD
      */
@@ -85,29 +88,31 @@ public class TraditionalHUD extends HUD {
      * Upper most point of the HUD
      */
     private static final int HUD_Y = 400;
-    
+
     /**
      * Left most point of the response text block
      */
     private static final int RESPONSE_TEXT_X = HUD_X + 10;
-    
+
     /**
      * Upper most point of the response text block
      */
     private static final int RESPONSE_TEXT_Y = HUD_Y + 5;
-    
+
     /**
      * Number of response lines to display
      */
     private static final int RESPONSE_TEXT_NUMBER_LINES = 9;
-    
+
     /**
-     * Left most point of the panel that show the current action and element selected
+     * Left most point of the panel that show the current action and element
+     * selected
      */
     public static final int ACTIONTEXT_PANEL_X = HUD_X;
 
     /**
-     * Upper most point of the panel that show the current action and element selected
+     * Upper most point of the panel that show the current action and element
+     * selected
      */
     public static final int ACTIONTEXT_PANEL_Y = HUD_Y;
 
@@ -200,32 +205,32 @@ public class TraditionalHUD extends HUD {
      * Number of inventory items in each line of the inventory panel
      */
     public static final int INVENTORY_ITEMS_PER_LINE = 5;
-    
+
     /**
      * Witdh of the scroll buttons
      */
     public static final int SCROLL_WIDTH = 40;
-    
+
     /**
      * Height of the scroll buttons
      */
     public static final int SCROLL_HEIGHT = 72;
-    
+
     /**
      * Top left position of the scroll up button
      */
     public static final int SCROLL_UP_X = INVENTORY_PANEL_X + 11;
-    
+
     /**
-     * Top left position of the scroll up button 
+     * Top left position of the scroll up button
      */
     public static final int SCROLL_UP_Y = INVENTORY_PANEL_Y + 11;
-    
+
     /**
      * Top left position of the scroll down button
      */
     public static final int SCROLL_DOWN_X = INVENTORY_PANEL_X + 11;
-    
+
     /**
      * Top left position of the scroll down button
      */
@@ -280,12 +285,12 @@ public class TraditionalHUD extends HUD {
      * Height of the spacing between inventory items
      */
     public static final int ITEM_SPACING_Y = ITEM_HEIGHT;
-    
+
     /**
      * The ActionButtons element
      */
     private ActionButtons actionButtons;
-    
+
     /**
      * The Inventory element
      */
@@ -295,12 +300,12 @@ public class TraditionalHUD extends HUD {
      * The background for the HUD
      */
     private Image background;
-    
+
     /**
      * Boolean to control if the mouse is on the inventory panel
      */
     private boolean mouseInInventory;
-    
+
     /**
      * The different cursor for each action
      */
@@ -309,114 +314,128 @@ public class TraditionalHUD extends HUD {
     /**
      * Function that initializa the HUD class
      */
+    @Override
     public void init( ) {
+
         super.init( );
-        actionCursors = new Cursor[7];
+        actionCursors = new Cursor[ 7 ];
 
         background = MultimediaManager.getInstance( ).loadImage( "gui/hud/traditional/HUD.png", MultimediaManager.IMAGE_MENU );
-        
-        DescriptorData descriptor =Game.getInstance().getGameDescriptor( ); 
-        
-        if (descriptor.getCursorPath( DescriptorData.USE_CURSOR )==null){
-            actionCursors[0] = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImage( "gui/cursors/use.png", MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "useCursor" );            
+
+        DescriptorData descriptor = Game.getInstance( ).getGameDescriptor( );
+
+        if( descriptor.getCursorPath( DescriptorData.USE_CURSOR ) == null ) {
+            actionCursors[0] = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImage( "gui/cursors/use.png", MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "useCursor" );
         }
-        else{
-            actionCursors[0] = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( descriptor.getCursorPath( DescriptorData.USE_CURSOR ), MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "useCursor" );            
+        else {
+            actionCursors[0] = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( descriptor.getCursorPath( DescriptorData.USE_CURSOR ), MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "useCursor" );
         }
-        
-        if (descriptor.getCursorPath( DescriptorData.LOOK_CURSOR )==null){
-            actionCursors[1] = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImage( "gui/cursors/look.png", MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "lookCursor" );            
+
+        if( descriptor.getCursorPath( DescriptorData.LOOK_CURSOR ) == null ) {
+            actionCursors[1] = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImage( "gui/cursors/look.png", MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "lookCursor" );
         }
-        else{
-            actionCursors[1] = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( descriptor.getCursorPath( DescriptorData.LOOK_CURSOR ), MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "lookCursor" );            
+        else {
+            actionCursors[1] = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( descriptor.getCursorPath( DescriptorData.LOOK_CURSOR ), MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "lookCursor" );
         }
-        
-        if (descriptor.getCursorPath( DescriptorData.EXAMINE_CURSOR )==null){
-            actionCursors[2] = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImage( "gui/cursors/examine.png", MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "examineCursor" );            
+
+        if( descriptor.getCursorPath( DescriptorData.EXAMINE_CURSOR ) == null ) {
+            actionCursors[2] = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImage( "gui/cursors/examine.png", MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "examineCursor" );
         }
-        else{
-            actionCursors[2] = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( descriptor.getCursorPath( DescriptorData.EXAMINE_CURSOR ), MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "examineCursor" );            
+        else {
+            actionCursors[2] = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( descriptor.getCursorPath( DescriptorData.EXAMINE_CURSOR ), MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "examineCursor" );
         }
-        
-        if (descriptor.getCursorPath( DescriptorData.TALK_CURSOR )==null){
-            actionCursors[3] = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImage( "gui/cursors/talk.png", MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "talkCursor" );                        
+
+        if( descriptor.getCursorPath( DescriptorData.TALK_CURSOR ) == null ) {
+            actionCursors[3] = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImage( "gui/cursors/talk.png", MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "talkCursor" );
         }
-        else{
-            actionCursors[3] = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( descriptor.getCursorPath( DescriptorData.TALK_CURSOR ), MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "talkCursor" );            
+        else {
+            actionCursors[3] = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( descriptor.getCursorPath( DescriptorData.TALK_CURSOR ), MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "talkCursor" );
         }
-        
-        if (descriptor.getCursorPath( DescriptorData.GRAB_CURSOR )==null){
+
+        if( descriptor.getCursorPath( DescriptorData.GRAB_CURSOR ) == null ) {
             actionCursors[4] = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImage( "gui/cursors/grab.png", MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "grabCursor" );
         }
-        else{
-            actionCursors[4] = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( descriptor.getCursorPath( DescriptorData.GRAB_CURSOR ), MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "grabCursor" );            
+        else {
+            actionCursors[4] = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( descriptor.getCursorPath( DescriptorData.GRAB_CURSOR ), MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "grabCursor" );
         }
-        
-        if (descriptor.getCursorPath( DescriptorData.GIVE_CURSOR )==null){
+
+        if( descriptor.getCursorPath( DescriptorData.GIVE_CURSOR ) == null ) {
             actionCursors[5] = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImage( "gui/cursors/give.png", MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "giveCursor" );
         }
-        else{
-            actionCursors[5] = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( descriptor.getCursorPath( DescriptorData.GIVE_CURSOR ), MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "giveCursor" );            
+        else {
+            actionCursors[5] = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( descriptor.getCursorPath( DescriptorData.GIVE_CURSOR ), MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "giveCursor" );
         }
-        
-        if (descriptor.getCursorPath( DescriptorData.EXIT_CURSOR )==null){
+
+        if( descriptor.getCursorPath( DescriptorData.EXIT_CURSOR ) == null ) {
             actionCursors[6] = null;
         }
-        else{
-            actionCursors[6] = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( descriptor.getCursorPath( DescriptorData.EXIT_CURSOR ), MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "exitCursor" );            
+        else {
+            actionCursors[6] = Toolkit.getDefaultToolkit( ).createCustomCursor( MultimediaManager.getInstance( ).loadImageFromZip( descriptor.getCursorPath( DescriptorData.EXIT_CURSOR ), MultimediaManager.IMAGE_MENU ), new Point( 0, 0 ), "exitCursor" );
         }
-        
+
         actionButtons = new ActionButtons( false );
         inventory = new Inventory( );
-        
+
         mouseInInventory = false;
     }
-    
+
     /*
      * (non-Javadoc)
      * @see es.eucm.eadventure.engine.core.gui.hud.HUD#getGameAreaWidth()
      */
+    @Override
     public int getGameAreaWidth( ) {
+
         return GAME_AREA_WIDTH;
     }
-    
+
     /*
      * (non-Javadoc)
      * @see es.eucm.eadventure.engine.core.gui.hud.HUD#getGameAreaHeight()
      */
+    @Override
     public int getGameAreaHeight( ) {
+
         return GAME_AREA_HEIGHT;
     }
-    
+
     /*
      * (non-Javadoc)
      * @see es.eucm.eadventure.engine.core.gui.hud.HUD#getResponseTextX()
      */
+    @Override
     public int getResponseTextX( ) {
-       return RESPONSE_TEXT_X; 
+
+        return RESPONSE_TEXT_X;
     }
-    
+
     /*
      * (non-Javadoc)
      * @see es.eucm.eadventure.engine.core.gui.hud.HUD#getResponseTextY()
      */
+    @Override
     public int getResponseTextY( ) {
-        return RESPONSE_TEXT_Y; 
+
+        return RESPONSE_TEXT_Y;
     }
-    
+
     /*
      * (non-Javadoc)
      * @see es.eucm.eadventure.engine.core.gui.hud.HUD#getResponseTextNumberLines()
      */
+    @Override
     public int getResponseTextNumberLines( ) {
-        return RESPONSE_TEXT_NUMBER_LINES; 
+
+        return RESPONSE_TEXT_NUMBER_LINES;
     }
 
     /*
      * (non-Javadoc)
      * @see es.eucm.eadventure.engine.core.gui.hud.HUD#newActionSelected()
      */
+    @Override
     public void newActionSelected( ) {
+
         switch( game.getActionManager( ).getActionSelected( ) ) {
             case ActionManager.ACTION_GOTO:
                 gui.setDefaultCursor( );
@@ -453,32 +472,35 @@ public class TraditionalHUD extends HUD {
      *  (non-Javadoc)
      * @see es.eucm.eadventure.engine.core.gui.hud.HUD#mouseMoved(java.awt.event.MouseEvent)
      */
+    @Override
     public boolean mouseMoved( MouseEvent e ) {
+
         boolean res = false;
         ActionManager actionManager = game.getActionManager( );
-        
+
         actionButtons.mouseMoved( null );
         // The cursor is in the hud
-        if( e.getX( ) > HUD_X && e.getX( )<HUD_X+HUD_WIDTH && e.getY( ) > HUD_Y && e.getY( )<HUD_Y+HUD_HEIGHT ) {
+        if( e.getX( ) > HUD_X && e.getX( ) < HUD_X + HUD_WIDTH && e.getY( ) > HUD_Y && e.getY( ) < HUD_Y + HUD_HEIGHT ) {
             res = true;
-            
+
             // The cursor is in the actionButtons
-            if( e.getX( ) > ACTIONBUTTONS_PANEL_X && e.getX( )<ACTIONBUTTONS_PANEL_X+ACTIONBUTTONS_PANEL_WIDTH && e.getY( ) > ACTIONBUTTONS_PANEL_Y && e.getY( )<ACTIONBUTTONS_PANEL_Y+ACTIONBUTTONS_PANEL_HEIGHT ) {
+            if( e.getX( ) > ACTIONBUTTONS_PANEL_X && e.getX( ) < ACTIONBUTTONS_PANEL_X + ACTIONBUTTONS_PANEL_WIDTH && e.getY( ) > ACTIONBUTTONS_PANEL_Y && e.getY( ) < ACTIONBUTTONS_PANEL_Y + ACTIONBUTTONS_PANEL_HEIGHT ) {
                 if( mouseInInventory ) {
                     if( actionManager.getActionSelected( ) == ActionManager.ACTION_LOOK ) {
                         actionManager.setActionSelected( ActionManager.ACTION_GOTO );
                     }
                     mouseInInventory = false;
                 }
-                    actionButtons.mouseMoved( e );
+                actionButtons.mouseMoved( e );
             }
             // The cursor is in the  inventory
-            else if( e.getX( ) > INVENTORY_PANEL_X && e.getX( )<INVENTORY_PANEL_X+INVENTORY_PANEL_WIDTH && e.getY( ) > INVENTORY_PANEL_Y && e.getY( )<INVENTORY_PANEL_Y+INVENTORY_PANEL_HEIGHT ) {
+            else if( e.getX( ) > INVENTORY_PANEL_X && e.getX( ) < INVENTORY_PANEL_X + INVENTORY_PANEL_WIDTH && e.getY( ) > INVENTORY_PANEL_Y && e.getY( ) < INVENTORY_PANEL_Y + INVENTORY_PANEL_HEIGHT ) {
                 if( e.getX( ) > ITEMS_PANEL_X && e.getX( ) < ITEMS_PANEL_X + ITEMS_PANEL_WIDTH && e.getY( ) > ITEMS_PANEL_Y && e.getY( ) < ITEMS_PANEL_Y + ITEMS_PANEL_HEIGHT ) {
                     if( actionManager.getActionSelected( ) == ActionManager.ACTION_GOTO ) {
                         actionManager.setActionSelected( ActionManager.ACTION_LOOK );
                     }
-                }else {
+                }
+                else {
                     if( actionManager.getActionSelected( ) == ActionManager.ACTION_LOOK ) {
                         actionManager.setActionSelected( ActionManager.ACTION_GOTO );
                     }
@@ -486,7 +508,8 @@ public class TraditionalHUD extends HUD {
                 if( !mouseInInventory )
                     mouseInInventory = true;
                 inventory.mouseMoved( e );
-            }else{
+            }
+            else {
                 if( mouseInInventory ) {
                     if( actionManager.getActionSelected( ) == ActionManager.ACTION_LOOK ) {
                         actionManager.setActionSelected( ActionManager.ACTION_GOTO );
@@ -494,9 +517,10 @@ public class TraditionalHUD extends HUD {
                     mouseInInventory = false;
                 }
             }
-        }else
+        }
+        else
             res = false;
-        
+
         return res;
     }
 
@@ -504,16 +528,18 @@ public class TraditionalHUD extends HUD {
      *  (non-Javadoc)
      * @see es.eucm.eadventure.engine.core.gui.hud.HUD#mouseClicked(java.awt.event.MouseEvent)
      */
+    @Override
     public boolean mouseClicked( MouseEvent e ) {
+
         boolean res = false;
         ActionManager actionManager = game.getActionManager( );
-        
+
         // The click is with the right mouse button
         if( e.getButton( ) == MouseEvent.BUTTON3 ) {
             // The click is in the hud
-            if( e.getX( ) > HUD_X && e.getX( )<HUD_X+HUD_WIDTH && e.getY( ) > HUD_Y && e.getY( )<HUD_Y+HUD_HEIGHT ) {
-                if( e.getX( ) > INVENTORY_PANEL_X && e.getX( )<INVENTORY_PANEL_X+INVENTORY_PANEL_WIDTH && e.getY( ) > INVENTORY_PANEL_Y && e.getY( )<INVENTORY_PANEL_Y+INVENTORY_PANEL_HEIGHT ){
-                    if( e.getX( )> FIRST_ITEM_X && e.getY( ) > FIRST_ITEM_Y){
+            if( e.getX( ) > HUD_X && e.getX( ) < HUD_X + HUD_WIDTH && e.getY( ) > HUD_Y && e.getY( ) < HUD_Y + HUD_HEIGHT ) {
+                if( e.getX( ) > INVENTORY_PANEL_X && e.getX( ) < INVENTORY_PANEL_X + INVENTORY_PANEL_WIDTH && e.getY( ) > INVENTORY_PANEL_Y && e.getY( ) < INVENTORY_PANEL_Y + INVENTORY_PANEL_HEIGHT ) {
+                    if( e.getX( ) > FIRST_ITEM_X && e.getY( ) > FIRST_ITEM_Y ) {
                         actionManager.setActionSelected( ActionManager.ACTION_LOOK );
                     }
                     mouseInInventory = true;
@@ -521,30 +547,30 @@ public class TraditionalHUD extends HUD {
                 res = true;
             }
             //The click is in the scene
-            else{
-            	// TODO it might be needed to clear the actionPool of the player
+            else {
+                // TODO it might be needed to clear the actionPool of the player
                 //game.getFunctionalPlayer( ).setState( FunctionalPlayer.IDLE );
                 actionManager.setActionSelected( ActionManager.ACTION_GOTO );
                 res = false;
             }
         }
-        
+
         //The click is with other button
         else {
             //The click is in the hud
-            if( e.getX( ) > HUD_X && e.getX( )<HUD_X+HUD_WIDTH && e.getY( ) > HUD_Y && e.getY( )<HUD_Y+HUD_HEIGHT ) {
+            if( e.getX( ) > HUD_X && e.getX( ) < HUD_X + HUD_WIDTH && e.getY( ) > HUD_Y && e.getY( ) < HUD_Y + HUD_HEIGHT ) {
                 actionButtons.mouseClicked( null );
                 //The click is in the actionButtons
-                if( e.getX( ) > ACTIONBUTTONS_PANEL_X && e.getX( ) < ACTIONBUTTONS_PANEL_X + ACTIONBUTTONS_PANEL_WIDTH && e.getY( ) > ACTIONBUTTONS_PANEL_Y && e.getY( ) < ACTIONBUTTONS_PANEL_Y + ACTIONBUTTONS_PANEL_HEIGHT ){
+                if( e.getX( ) > ACTIONBUTTONS_PANEL_X && e.getX( ) < ACTIONBUTTONS_PANEL_X + ACTIONBUTTONS_PANEL_WIDTH && e.getY( ) > ACTIONBUTTONS_PANEL_Y && e.getY( ) < ACTIONBUTTONS_PANEL_Y + ACTIONBUTTONS_PANEL_HEIGHT ) {
                     actionButtons.mouseClicked( e );
                     if( actionButtons.getActionPressed( ) != ActionButtons.ACTION_NOACTION ) {
                         actionManager.setActionSelected( actionButtons.getActionPressed( ) );
                     }
                 }
                 //The click is in the inventory
-                else  if( e.getX( ) > INVENTORY_PANEL_X && e.getX( ) < INVENTORY_PANEL_X + INVENTORY_PANEL_WIDTH && e.getY( ) > INVENTORY_PANEL_Y && e.getY( ) < INVENTORY_PANEL_Y + INVENTORY_PANEL_HEIGHT ) {
+                else if( e.getX( ) > INVENTORY_PANEL_X && e.getX( ) < INVENTORY_PANEL_X + INVENTORY_PANEL_WIDTH && e.getY( ) > INVENTORY_PANEL_Y && e.getY( ) < INVENTORY_PANEL_Y + INVENTORY_PANEL_HEIGHT ) {
                     inventory.mouseClicked( e );
-                    
+
                     // If the action is not "Use with" or "Give to", set the "Look" action
                     if( actionManager.getActionSelected( ) != ActionManager.ACTION_USE_WITH && actionManager.getActionSelected( ) != ActionManager.ACTION_GIVE_TO ) {
                         if( e.getX( ) > ITEMS_PANEL_X && e.getX( ) < ITEMS_PANEL_X + ITEMS_PANEL_WIDTH && e.getY( ) > ITEMS_PANEL_Y && e.getY( ) < ITEMS_PANEL_Y + ITEMS_PANEL_HEIGHT ) {
@@ -552,174 +578,180 @@ public class TraditionalHUD extends HUD {
                         }
                     }
                 }
-                
+
                 res = true;
             }
             //The click is in the scene
             else
                 res = false;
         }
-        
+
         return res;
     }
 
     /**
      * Draw the HUD with the action button, action and element selected
      * 
-     * NOTE: Important changes where made so that it works with the new "FunctionlAction" classes, it is possible for
-     * some more errors to appear
-     *  
-     * @param g Graphics2D where will be drawn
+     * NOTE: Important changes where made so that it works with the new
+     * "FunctionlAction" classes, it is possible for some more errors to appear
+     * 
+     * @param g
+     *            Graphics2D where will be drawn
      */
+    @Override
     public void draw( Graphics2D g ) {
-        
-        g.clearRect( HUD_X, HUD_Y, HUD_WIDTH, HUD_HEIGHT);
-                
+
+        g.clearRect( HUD_X, HUD_Y, HUD_WIDTH, HUD_HEIGHT );
+
         // Get the action manager
         ActionManager actionManager = game.getActionManager( );
-        
+
         g.setFont( new Font( null, Font.BOLD, 16 ) );
 
         String textAction = "";
-        switch( actionManager.getActionSelected( ) ){
+        switch( actionManager.getActionSelected( ) ) {
             case ActionManager.ACTION_GOTO:
                 textAction = GameText.TEXT_GO;
                 if( actionManager.getElementOver( ) != null )
                     textAction += " " + GameText.TEXT_TO + " " + actionManager.getElementOver( ).getElement( ).getName( );
-                else
-                    if( !actionManager.getExit( ).equals( "" ) ){
-                        textAction += " " + GameText.TEXT_TO + " " + actionManager.getExit( );
-                        if (actionManager.getExitCursor( )!=null)
-                            GUI.getInstance( ).setCursor( actionManager.getExitCursor( ) );
-                        else if (actionCursors[6]!=null)
-                            GUI.getInstance( ).setCursor( this.actionCursors[6] );
-                        else
-                            GUI.getInstance( ).setDefaultCursor( );
-                    }
-                    else{
+                else if( !actionManager.getExit( ).equals( "" ) ) {
+                    textAction += " " + GameText.TEXT_TO + " " + actionManager.getExit( );
+                    if( actionManager.getExitCursor( ) != null )
+                        GUI.getInstance( ).setCursor( actionManager.getExitCursor( ) );
+                    else if( actionCursors[6] != null )
+                        GUI.getInstance( ).setCursor( this.actionCursors[6] );
+                    else
                         GUI.getInstance( ).setDefaultCursor( );
-                    }
+                }
+                else {
+                    GUI.getInstance( ).setDefaultCursor( );
+                }
                 break;
             case ActionManager.ACTION_EXAMINE:
                 textAction = GameText.TEXT_EXAMINE;
                 //if( game.getFunctionalPlayer( ).getFinalElement( ) != null )
                 //   textAction += " " + game.getFunctionalPlayer( ).getFinalElement( ).getElement( ).getName( );
                 //else
-                    if( actionManager.getElementOver( ) != null )
-                        textAction += " " + actionManager.getElementOver( ).getElement( ).getName( );
+                if( actionManager.getElementOver( ) != null )
+                    textAction += " " + actionManager.getElementOver( ).getElement( ).getName( );
                 break;
             case ActionManager.ACTION_GRAB:
                 textAction = GameText.TEXT_GRAB;
                 //if( game.getFunctionalPlayer( ).getFinalElement( ) != null )
                 //   textAction += " " + game.getFunctionalPlayer( ).getFinalElement( ).getElement( ).getName( );
                 //else
-                    if( actionManager.getElementOver( ) != null )
-                        textAction += " " + actionManager.getElementOver( ).getElement( ).getName( );
+                if( actionManager.getElementOver( ) != null )
+                    textAction += " " + actionManager.getElementOver( ).getElement( ).getName( );
                 break;
             case ActionManager.ACTION_TALK:
                 textAction = GameText.TEXT_TALK;
                 //if( game.getFunctionalPlayer( ).getFinalElement( ) != null )
                 //   textAction += " " + GameText.TEXT_TO + " " + game.getFunctionalPlayer( ).getFinalElement( ).getElement( ).getName( );
                 //else
-                    if( actionManager.getElementOver( ) != null )
-                        textAction += " " + GameText.TEXT_TO + " " + actionManager.getElementOver( ).getElement( ).getName( );
+                if( actionManager.getElementOver( ) != null )
+                    textAction += " " + GameText.TEXT_TO + " " + actionManager.getElementOver( ).getElement( ).getName( );
                 break;
             case ActionManager.ACTION_GIVE:
                 textAction = GameText.TEXT_GIVE;
                 //if( game.getFunctionalPlayer( ).getOptionalElement( ) != null )
                 //   textAction += " " + game.getFunctionalPlayer( ).getOptionalElement( ).getElement( ).getName( );
                 //else
-                    if( actionManager.getElementOver( ) != null )
-                        textAction += " " + actionManager.getElementOver( ).getElement( ).getName( );
+                if( actionManager.getElementOver( ) != null )
+                    textAction += " " + actionManager.getElementOver( ).getElement( ).getName( );
                 break;
             case ActionManager.ACTION_GIVE_TO:
                 textAction = GameText.TEXT_GIVE;
-/*                if( game.getFunctionalPlayer( ).getOptionalElement( ) != null ){
-                    textAction += " " + game.getFunctionalPlayer( ).getOptionalElement( ).getElement( ).getName( );
-                    if( game.getFunctionalPlayer( ).getFinalElement( ) != null )
-                       textAction += " " + GameText.TEXT_TO + " " + game.getFunctionalPlayer( ).getFinalElement( ).getElement( ).getName( );
-                    else
-                        if( actionManager.getElementOver( ) != null )
-                            textAction += " " + GameText.TEXT_TO + " " + actionManager.getElementOver( ).getElement( ).getName( );
+                /*                if( game.getFunctionalPlayer( ).getOptionalElement( ) != null ){
+                                    textAction += " " + game.getFunctionalPlayer( ).getOptionalElement( ).getElement( ).getName( );
+                                    if( game.getFunctionalPlayer( ).getFinalElement( ) != null )
+                                       textAction += " " + GameText.TEXT_TO + " " + game.getFunctionalPlayer( ).getFinalElement( ).getElement( ).getName( );
+                                    else
+                                        if( actionManager.getElementOver( ) != null )
+                                            textAction += " " + GameText.TEXT_TO + " " + actionManager.getElementOver( ).getElement( ).getName( );
+                                }
+                                
+                */
+                if( game.getFunctionalPlayer( ).getCurrentAction( ).getAnotherElement( ) != null ) {
+                    textAction += " " + game.getFunctionalPlayer( ).getCurrentAction( ).getAnotherElement( ).getElement( ).getName( );
+                    if( actionManager.getElementOver( ) != null )
+                        textAction += " " + GameText.TEXT_TO + " " + actionManager.getElementOver( ).getElement( ).getName( );
                 }
-                
-*/ 
-                if (game.getFunctionalPlayer().getCurrentAction().getAnotherElement() != null) {
-				    textAction += " " + game.getFunctionalPlayer().getCurrentAction().getAnotherElement().getElement().getName( );
-			        if( actionManager.getElementOver( ) != null )
-			            textAction += " " + GameText.TEXT_TO + " " + actionManager.getElementOver( ).getElement( ).getName( );	
-				}
                 break;
             case ActionManager.ACTION_USE:
                 textAction = GameText.TEXT_USE;
                 //if( game.getFunctionalPlayer( ).getOptionalElement( ) != null )
                 //   textAction += " " + game.getFunctionalPlayer( ).getOptionalElement( ).getElement( ).getName( );
                 //else
-                    if( actionManager.getElementOver( ) != null )
-                        textAction += " " + actionManager.getElementOver( ).getElement( ).getName( );
+                if( actionManager.getElementOver( ) != null )
+                    textAction += " " + actionManager.getElementOver( ).getElement( ).getName( );
                 //break;
             case ActionManager.ACTION_USE_WITH:
                 textAction = GameText.TEXT_USE;
-/*                if( game.getFunctionalPlayer( ).getOptionalElement( ) != null ){
-                    textAction += " " + game.getFunctionalPlayer( ).getOptionalElement( ).getElement( ).getName( );
-                    if( game.getFunctionalPlayer( ).getFinalElement( ) != null )
-                       textAction += " " + GameText.TEXT_WITH + " " + game.getFunctionalPlayer( ).getFinalElement( ).getElement( ).getName( );
-                    else
-                        if( actionManager.getElementOver( ) != null )
-                            textAction += " " + GameText.TEXT_WITH + " " + actionManager.getElementOver( ).getElement( ).getName( );
+                /*                if( game.getFunctionalPlayer( ).getOptionalElement( ) != null ){
+                                    textAction += " " + game.getFunctionalPlayer( ).getOptionalElement( ).getElement( ).getName( );
+                                    if( game.getFunctionalPlayer( ).getFinalElement( ) != null )
+                                       textAction += " " + GameText.TEXT_WITH + " " + game.getFunctionalPlayer( ).getFinalElement( ).getElement( ).getName( );
+                                    else
+                                        if( actionManager.getElementOver( ) != null )
+                                            textAction += " " + GameText.TEXT_WITH + " " + actionManager.getElementOver( ).getElement( ).getName( );
+                                }
+                 */
+                if( game.getFunctionalPlayer( ).getCurrentAction( ).getAnotherElement( ) != null ) {
+                    textAction += " " + game.getFunctionalPlayer( ).getCurrentAction( ).getAnotherElement( ).getElement( ).getName( );
+                    if( actionManager.getElementOver( ) != null )
+                        textAction += " " + GameText.TEXT_WITH + " " + actionManager.getElementOver( ).getElement( ).getName( );
                 }
- */
-                if (game.getFunctionalPlayer().getCurrentAction().getAnotherElement() != null) {
-				    textAction += " " + game.getFunctionalPlayer().getCurrentAction().getAnotherElement().getElement().getName( );
-			        if( actionManager.getElementOver( ) != null )
-			            textAction += " " + GameText.TEXT_WITH + " " + actionManager.getElementOver( ).getElement( ).getName( );	
-				}
                 break;
             case ActionManager.ACTION_LOOK:
                 textAction = GameText.TEXT_LOOK;
                 //if( game.getFunctionalPlayer( ).getFinalElement( ) != null )
                 //   textAction += " " + GameText.TEXT_AT + " " + game.getFunctionalPlayer( ).getFinalElement( ).getElement( ).getName( );
                 //else
-                    if( actionManager.getElementOver( ) != null )
-                        textAction += " " + GameText.TEXT_AT + " " + actionManager.getElementOver( ).getElement( ).getName( );
+                if( actionManager.getElementOver( ) != null )
+                    textAction += " " + GameText.TEXT_AT + " " + actionManager.getElementOver( ).getElement( ).getName( );
                 break;
         }
-        
+
         g.setColor( Color.WHITE );
-        GUI.drawString( g, textAction, ACTIONTEXT_PANEL_WIDTH / 2, ACTIONTEXT_PANEL_Y + ACTIONTEXT_PANEL_HEIGHT/2 );
-        
+        GUI.drawString( g, textAction, ACTIONTEXT_PANEL_WIDTH / 2, ACTIONTEXT_PANEL_Y + ACTIONTEXT_PANEL_HEIGHT / 2 );
+
         g.drawImage( background, ACTIONBUTTONS_PANEL_X, ACTIONBUTTONS_PANEL_Y, null );
-        
+
         actionButtons.draw( g );
-    
+
         inventory.draw( g );
     }
-    
+
     /*
      *  (non-Javadoc)
      * @see es.eucm.eadventure.engine.core.gui.hud.HUD#update(long)
      */
+    @Override
     public void update( long elapsedTime ) {
-        
+
     }
 
-	@Override
-	public boolean mousePressed(MouseEvent e) {
-		return false;
-	}
+    @Override
+    public boolean mousePressed( MouseEvent e ) {
 
-	@Override
-	public boolean mouseReleased(MouseEvent e) {
-		return false;
-	}
-	
-	@Override
-	public boolean mouseDragged(MouseEvent e) {
-		return false;
-	}
+        return false;
+    }
 
-	@Override
-	public boolean keyTyped(KeyEvent e) {
-		return false;
-	}
+    @Override
+    public boolean mouseReleased( MouseEvent e ) {
+
+        return false;
+    }
+
+    @Override
+    public boolean mouseDragged( MouseEvent e ) {
+
+        return false;
+    }
+
+    @Override
+    public boolean keyTyped( KeyEvent e ) {
+
+        return false;
+    }
 }

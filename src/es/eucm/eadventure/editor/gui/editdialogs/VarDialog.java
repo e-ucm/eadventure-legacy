@@ -1,34 +1,36 @@
 /**
- * <e-Adventure> is an <e-UCM> research project.
- * <e-UCM>, Department of Software Engineering and Artificial Intelligence.
- * Faculty of Informatics, Complutense University of Madrid (Spain).
- * @author Del Blanco, A., Marchiori, E., Torrente, F.J.
+ * <e-Adventure> is an <e-UCM> research project. <e-UCM>, Department of Software
+ * Engineering and Artificial Intelligence. Faculty of Informatics, Complutense
+ * University of Madrid (Spain).
+ * 
+ * @author Del Blanco, A., Marchiori, E., Torrente, F.J. (alphabetical order) *
+ * @author López Mañas, E., Pérez Padilla, F., Sollet, E., Torijano, B. (former
+ *         developers by alphabetical order)
  * @author Moreno-Ger, P. & Fernández-Manjón, B. (directors)
- * @year 2009
- * Web-site: http://e-adventure.e-ucm.es
+ * @year 2009 Web-site: http://e-adventure.e-ucm.es
  */
 
 /*
-    Copyright (C) 2004-2009 <e-UCM> research group
-
-    This file is part of <e-Adventure> project, an educational game & game-like 
-    simulation authoring tool, availabe at http://e-adventure.e-ucm.es. 
-
-    <e-Adventure> is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    <e-Adventure> is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with <e-Adventure>; if not, write to the Free Software
-    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-*/
+ * Copyright (C) 2004-2009 <e-UCM> research group
+ * 
+ * This file is part of <e-Adventure> project, an educational game & game-like
+ * simulation authoring tool, available at http://e-adventure.e-ucm.es.
+ * 
+ * <e-Adventure> is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option) any
+ * later version.
+ * 
+ * <e-Adventure> is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * <e-Adventure>; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place, Suite 330, Boston, MA 02111-1307 USA
+ * 
+ */
 package es.eucm.eadventure.editor.gui.editdialogs;
 
 import java.awt.BorderLayout;
@@ -58,169 +60,177 @@ import javax.swing.text.PlainDocument;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 
+public class VarDialog extends JDialog {
 
-public class VarDialog extends JDialog{
+    private static final long serialVersionUID = 2389765067746677296L;
 
-	private static final long serialVersionUID = 2389765067746677296L;
+    public static final String ERROR = "error";
 
-	public static final String ERROR = "error";
-    
     public static final String CLOSE = "close";
-    
-    private WholeNumberField value;
-    
-    private boolean err;
-    
-    private JComboBox actions;
-    
-    private boolean isVar;
-    
-    private boolean close;
-    
-    public VarDialog(int var,String[] actionsValues,String action){
-	
-	// Call to the JDialog constructor
-	super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "VarDialog.Title" ), Dialog.ModalityType.TOOLKIT_MODAL );
 
-	err=false;
-	close = false;
-	isVar=true;
-	if (var==-1){
-	    isVar=false;
-	}
-	
-	// Push the dialog into the stack, and add the window listener to pop in when closing
-	Controller.getInstance( ).pushWindow( this );
-	addWindowListener( new WindowAdapter( ) {
-		public void windowClosing( WindowEvent e ) {
-			Controller.getInstance( ).popWindow( );
-			 close = true;
-		}
-	} );
-	
-	actions = new JComboBox(actionsValues);
-	actions.setSelectedItem(action);
-	JPanel cont1 = new JPanel();
-	cont1.add(actions,BorderLayout.CENTER);
-	cont1.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "VarDialog.Value" ) ) );
-	
-	if (isVar){
-	    value = new WholeNumberField(var,5);
-	    //value.setPreferredSize(new Dimension (150,20));
-	    JPanel cont = new JPanel();
-	    cont.add(value,BorderLayout.CENTER);
-	    cont.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "VarDialog.Value" ) ) );
-	
-	    JPanel both = new JPanel();
-	    both.setLayout(new GridLayout(0,2));
-	    both.add(cont1);
-	    both.add(cont);
-	    add(both);
-	}else {
-	    add(cont1);
-	}
-	// Create Ok button to close the dialog
-	JButton ok = new JButton("OK");
-	ok.addActionListener(new ActionListener(){
-	    public void actionPerformed(ActionEvent e) {
-	    	dispose();
-	    }
-	    
-	});
-	JPanel container= new JPanel();
-	container.add(ok);
-	add(ok,BorderLayout.SOUTH);
-	// Set the size, position and properties of the dialog
-	setResizable( false );
-	setSize( 250, 100);
-	Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
-	setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
-	setVisible( true );
-	ok.requestFocus();
-	
+    private WholeNumberField value;
+
+    private boolean err;
+
+    private JComboBox actions;
+
+    private boolean isVar;
+
+    private boolean close;
+
+    public VarDialog( int var, String[] actionsValues, String action ) {
+
+        // Call to the JDialog constructor
+        super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "VarDialog.Title" ), Dialog.ModalityType.TOOLKIT_MODAL );
+
+        err = false;
+        close = false;
+        isVar = true;
+        if( var == -1 ) {
+            isVar = false;
+        }
+
+        // Push the dialog into the stack, and add the window listener to pop in when closing
+        Controller.getInstance( ).pushWindow( this );
+        addWindowListener( new WindowAdapter( ) {
+
+            @Override
+            public void windowClosing( WindowEvent e ) {
+
+                Controller.getInstance( ).popWindow( );
+                close = true;
+            }
+        } );
+
+        actions = new JComboBox( actionsValues );
+        actions.setSelectedItem( action );
+        JPanel cont1 = new JPanel( );
+        cont1.add( actions, BorderLayout.CENTER );
+        cont1.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "VarDialog.Value" ) ) );
+
+        if( isVar ) {
+            value = new WholeNumberField( var, 5 );
+            //value.setPreferredSize(new Dimension (150,20));
+            JPanel cont = new JPanel( );
+            cont.add( value, BorderLayout.CENTER );
+            cont.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), TextConstants.getText( "VarDialog.Value" ) ) );
+
+            JPanel both = new JPanel( );
+            both.setLayout( new GridLayout( 0, 2 ) );
+            both.add( cont1 );
+            both.add( cont );
+            add( both );
+        }
+        else {
+            add( cont1 );
+        }
+        // Create Ok button to close the dialog
+        JButton ok = new JButton( "OK" );
+        ok.addActionListener( new ActionListener( ) {
+
+            public void actionPerformed( ActionEvent e ) {
+
+                dispose( );
+            }
+
+        } );
+        JPanel container = new JPanel( );
+        container.add( ok );
+        add( ok, BorderLayout.SOUTH );
+        // Set the size, position and properties of the dialog
+        setResizable( false );
+        setSize( 250, 100 );
+        Dimension screenSize = Toolkit.getDefaultToolkit( ).getScreenSize( );
+        setLocation( ( screenSize.width - getWidth( ) ) / 2, ( screenSize.height - getHeight( ) ) / 2 );
+        setVisible( true );
+        ok.requestFocus( );
+
     }
 
+    public String getValue( ) {
 
-	
-	public String getValue(){
-	    if (err)
-		return ERROR;
-	    else
-		if (close)
-		    return CLOSE;
-		else
-		    if (isVar)
-			return (String)actions.getSelectedItem()+ " " + value.getText();
-		    else
-			return (String)actions.getSelectedItem();
-	}
+        if( err )
+            return ERROR;
+        else if( close )
+            return CLOSE;
+        else if( isVar )
+            return (String) actions.getSelectedItem( ) + " " + value.getText( );
+        else
+            return (String) actions.getSelectedItem( );
+    }
 
-	
-	public class WholeNumberField extends JTextField {
+    public class WholeNumberField extends JTextField {
 
-	    /**
-		 * 
-		 */
-		private static final long serialVersionUID = 5121937653771983070L;
-		private Toolkit toolkit;
-	    private NumberFormat integerFormatter;
+        /**
+         * 
+         */
+        private static final long serialVersionUID = 5121937653771983070L;
 
-	    public WholeNumberField(int value, int columns) {
-	        super(columns);
-	        toolkit = Toolkit.getDefaultToolkit();
-	        integerFormatter = NumberFormat.getNumberInstance(Locale.US);
-	        integerFormatter.setParseIntegerOnly(true);
-	        setValue(value);
-	    }
+        private Toolkit toolkit;
 
-	    public int getValue() {
-	        int retVal = 0;
-	        try {
-	            retVal = integerFormatter.parse(getText()).intValue();
-	        } catch (ParseException e) {
-	            // This should never happen because insertString allows
-	            // only properly formatted data to get in the field.
-	            toolkit.beep();
-	        }
-	        return retVal;
-	    }
+        private NumberFormat integerFormatter;
 
-	    public void setValue(int value) {
-	        setText(integerFormatter.format(value));
-	    }
+        public WholeNumberField( int value, int columns ) {
 
-	    protected Document createDefaultModel() {
-	        return new WholeNumberDocument();
-	    }
+            super( columns );
+            toolkit = Toolkit.getDefaultToolkit( );
+            integerFormatter = NumberFormat.getNumberInstance( Locale.US );
+            integerFormatter.setParseIntegerOnly( true );
+            setValue( value );
+        }
 
-	    protected class WholeNumberDocument extends PlainDocument {
+        public int getValue( ) {
 
-	        /**
-			 * 
-			 */
-			private static final long serialVersionUID = 3398461058646116687L;
+            int retVal = 0;
+            try {
+                retVal = integerFormatter.parse( getText( ) ).intValue( );
+            }
+            catch( ParseException e ) {
+                // This should never happen because insertString allows
+                // only properly formatted data to get in the field.
+                toolkit.beep( );
+            }
+            return retVal;
+        }
 
-			public void insertString(int offs, String str, AttributeSet a) 
-	            throws BadLocationException {
+        public void setValue( int value ) {
 
-	            char[] source = str.toCharArray();
-	            char[] result = new char[source.length];
-	            int j = 0;
+            setText( integerFormatter.format( value ) );
+        }
 
-	            for (int i = 0; i < result.length; i++) {
-	                if (Character.isDigit(source[i]))
-	                    result[j++] = source[i];
-	                else {
-	                    toolkit.beep();
-	                    Controller.getInstance().showErrorDialog(TextConstants.getText("VarDialog.Err.Title"), TextConstants.getText("VarDialog.Err.Message"));
-			    err = false;
-	                }
-	            }
-	            super.insertString(offs, new String(result, 0, j), a);
-	        }
-	    }
+        @Override
+        protected Document createDefaultModel( ) {
 
-	}
+            return new WholeNumberDocument( );
+        }
 
-	    
+        protected class WholeNumberDocument extends PlainDocument {
+
+            /**
+             * 
+             */
+            private static final long serialVersionUID = 3398461058646116687L;
+
+            @Override
+            public void insertString( int offs, String str, AttributeSet a ) throws BadLocationException {
+
+                char[] source = str.toCharArray( );
+                char[] result = new char[ source.length ];
+                int j = 0;
+
+                for( int i = 0; i < result.length; i++ ) {
+                    if( Character.isDigit( source[i] ) )
+                        result[j++] = source[i];
+                    else {
+                        toolkit.beep( );
+                        Controller.getInstance( ).showErrorDialog( TextConstants.getText( "VarDialog.Err.Title" ), TextConstants.getText( "VarDialog.Err.Message" ) );
+                        err = false;
+                    }
+                }
+                super.insertString( offs, new String( result, 0, j ), a );
+            }
+        }
+
+    }
+
 }
