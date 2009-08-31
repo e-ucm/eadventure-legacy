@@ -1,11 +1,7 @@
 package es.eucm.eadventure.editor.gui.elementpanels.condition;
 
-import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.Insets;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -15,21 +11,20 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.ListCellRenderer;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 
-import sun.swing.DefaultLookup;
-
-import com.sun.media.ui.ComboBox;
 
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.ConditionsController;
-import es.eucm.eadventure.editor.gui.elementpanels.condition.EditablePanel.ButtonsPanel;
 
 public class EvalFunctionPanel extends EditablePanel{
 	
-	public static final int AND=ConditionsController.EVAL_FUNCTION_AND;
+	/**
+     * REQUIRED
+     */
+    private static final long serialVersionUID = 8504903213813852589L;
+    
+    public static final int AND=ConditionsController.EVAL_FUNCTION_AND;
 	public static final int OR=ConditionsController.EVAL_FUNCTION_OR;
 	
 	private JComboBox comboBox;
@@ -116,7 +111,12 @@ public class EvalFunctionPanel extends EditablePanel{
 	 */
 	private class EvalFunctionButtonsPanel extends ButtonsPanel {
 		
-		protected void createAddButtons(){
+		/**
+         * REQUIRED
+         */
+        private static final long serialVersionUID = 1L;
+
+        protected void createAddButtons(){
 			
 			editButton = new JButton(new ImageIcon("img/icons/edit.png"));
 			editButton.setMargin(new Insets(0,0,0,0));
