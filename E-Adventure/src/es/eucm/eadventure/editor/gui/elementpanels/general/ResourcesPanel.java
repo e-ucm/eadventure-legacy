@@ -66,6 +66,7 @@ import es.eucm.eadventure.common.auxiliar.SpecialAssetPaths;
 import es.eucm.eadventure.common.data.animation.Animation;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
+import es.eucm.eadventure.editor.control.controllers.EditorImageLoader;
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
 import es.eucm.eadventure.editor.control.writer.AnimationWriter;
 import es.eucm.eadventure.editor.gui.displaydialogs.AnimationDialog;
@@ -512,9 +513,9 @@ public class ResourcesPanel extends JPanel {
                 if( filename != null ) {
                     File file = new File( filename );
                     file.create( );
-                    AnimationWriter.writeAnimation( filename, new Animation( animationName ) );
+                    AnimationWriter.writeAnimation( filename, new Animation( animationName, new EditorImageLoader()  ) );
 
-                    Animation animation = new Animation( animationName );
+                    Animation animation = new Animation( animationName, new EditorImageLoader() );
                     animation.setDocumentation( resourcesDataControl.getAssetDescription( assetIndex ) );
                     if( resourcesDataControl.getAssetPath( assetIndex ) != null ) {
                         // Añadir las imagenes de la animación antigua

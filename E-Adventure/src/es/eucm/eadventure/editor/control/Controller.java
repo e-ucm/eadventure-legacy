@@ -51,9 +51,9 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 
-import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.adventure.AdventureData;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.data.animation.Animation;
@@ -72,16 +72,17 @@ import es.eucm.eadventure.editor.control.config.ProjectConfigData;
 import es.eucm.eadventure.editor.control.config.SCORMConfigData;
 import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
+import es.eucm.eadventure.editor.control.controllers.EditorImageLoader;
 import es.eucm.eadventure.editor.control.controllers.VarFlagsController;
 import es.eucm.eadventure.editor.control.controllers.adaptation.AdaptationProfilesDataControl;
 import es.eucm.eadventure.editor.control.controllers.assessment.AssessmentProfilesDataControl;
+import es.eucm.eadventure.editor.control.controllers.atrezzo.AtrezzoDataControl;
 import es.eucm.eadventure.editor.control.controllers.character.NPCDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.AdvancedFeaturesDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ChapterDataControl;
 import es.eucm.eadventure.editor.control.controllers.general.ChapterListDataControl;
 import es.eucm.eadventure.editor.control.controllers.item.ItemDataControl;
 import es.eucm.eadventure.editor.control.controllers.metadata.lom.LOMDataControl;
-import es.eucm.eadventure.editor.control.controllers.atrezzo.AtrezzoDataControl;
 import es.eucm.eadventure.editor.control.controllers.scene.SceneDataControl;
 import es.eucm.eadventure.editor.control.tools.Tool;
 import es.eucm.eadventure.editor.control.tools.general.SwapPlayerModeTool;
@@ -89,13 +90,17 @@ import es.eucm.eadventure.editor.control.tools.general.chapters.AddChapterTool;
 import es.eucm.eadventure.editor.control.tools.general.chapters.DeleteChapterTool;
 import es.eucm.eadventure.editor.control.tools.general.chapters.MoveChapterTool;
 import es.eucm.eadventure.editor.control.writer.Writer;
-import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 import es.eucm.eadventure.editor.data.support.IdentifierSummary;
+import es.eucm.eadventure.editor.data.support.VarFlagSummary;
 import es.eucm.eadventure.editor.gui.LoadingScreen;
 import es.eucm.eadventure.editor.gui.MainWindow;
 import es.eucm.eadventure.editor.gui.ProjectFolderChooser;
 import es.eucm.eadventure.editor.gui.displaydialogs.InvalidReportDialog;
-import es.eucm.eadventure.editor.gui.editdialogs.*;
+import es.eucm.eadventure.editor.gui.editdialogs.AdventureDataDialog;
+import es.eucm.eadventure.editor.gui.editdialogs.ExportToLOMDialog;
+import es.eucm.eadventure.editor.gui.editdialogs.GraphicConfigDialog;
+import es.eucm.eadventure.editor.gui.editdialogs.SearchDialog;
+import es.eucm.eadventure.editor.gui.editdialogs.VarsFlagsDialog;
 import es.eucm.eadventure.editor.gui.editdialogs.customizeguidialog.CustomizeGUIDialog;
 import es.eucm.eadventure.editor.gui.metadatadialog.ims.IMSDialog;
 import es.eucm.eadventure.editor.gui.metadatadialog.lomdialog.LOMDialog;
@@ -2573,7 +2578,7 @@ public class Controller {
             if( countAssetReferences( AssetsController.removeSuffix( temp ) ) != 0 ) {
                 assets.remove( temp );
                 if( temp.endsWith( "eaa" ) ) {
-                    Animation a = Loader.loadAnimation( AssetsController.getInputStreamCreator( ), temp );
+                    Animation a = Loader.loadAnimation( AssetsController.getInputStreamCreator( ), temp, new EditorImageLoader() );
                     for( Frame f : a.getFrames( ) ) {
                         if( f.getUri( ) != null && assets.contains( f.getUri( ) ) ) {
                             for( int j = 0; j < assets.size( ); j++ ) {

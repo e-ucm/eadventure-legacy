@@ -48,6 +48,7 @@ import es.eucm.eadventure.engine.core.control.animations.FrameAnimation;
 import es.eucm.eadventure.engine.core.control.animations.ImageAnimation;
 import es.eucm.eadventure.engine.core.control.animations.ImageSet;
 import es.eucm.eadventure.engine.core.gui.GUI;
+import es.eucm.eadventure.engine.resourcehandler.EngineImageLoader;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 
 /**
@@ -532,7 +533,7 @@ public class MultimediaManager {
             return temp;
 
         if( animationPath != null && animationPath.endsWith( ".eaa" ) ) {
-            FrameAnimation animation = new FrameAnimation( Loader.loadAnimation( ResourceHandler.getInstance( ), animationPath ) );
+            FrameAnimation animation = new FrameAnimation( Loader.loadAnimation( ResourceHandler.getInstance( ), animationPath, new EngineImageLoader() ) );
             animation.setMirror( mirror );
             temp = animation;
         }
@@ -579,7 +580,7 @@ public class MultimediaManager {
 
         ImageSet imageSet = null;
         if( slidesPath.endsWith( ".eaa" ) ) {
-            FrameAnimation animation = new FrameAnimation( Loader.loadAnimation( ResourceHandler.getInstance( ), slidesPath ) );
+            FrameAnimation animation = new FrameAnimation( Loader.loadAnimation( ResourceHandler.getInstance( ), slidesPath, new EngineImageLoader()) );
             animation.setFullscreen( true );
             return animation;
         }

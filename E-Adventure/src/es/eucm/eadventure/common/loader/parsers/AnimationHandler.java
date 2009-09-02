@@ -44,6 +44,7 @@ import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import es.eucm.eadventure.common.data.animation.Animation;
+import es.eucm.eadventure.common.data.animation.ImageLoaderFactory;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.loader.InputStreamCreator;
 import es.eucm.eadventure.common.loader.subparsers.FrameSubParser;
@@ -96,9 +97,12 @@ public class AnimationHandler extends DefaultHandler {
      * Applet mode)
      */
     private InputStreamCreator isCreator;
+    
+    private ImageLoaderFactory factory;
 
-    public AnimationHandler( InputStreamCreator isCreator ) {
+    public AnimationHandler( InputStreamCreator isCreator, ImageLoaderFactory imageloader ) {
 
+        this.factory = imageloader;
         this.isCreator = isCreator;
     }
 
@@ -110,7 +114,7 @@ public class AnimationHandler extends DefaultHandler {
             if( qName.equals( "animation" ) ) {
                 for( int i = 0; i < attrs.getLength( ); i++ ) {
                     if( attrs.getQName( i ).equals( "id" ) ) {
-                        animation = new Animation( attrs.getValue( i ) );
+                        animation = new Animation( attrs.getValue( i ), factory );
                         animation.getFrames( ).clear( );
                         animation.getTransitions( ).clear( );
                     }

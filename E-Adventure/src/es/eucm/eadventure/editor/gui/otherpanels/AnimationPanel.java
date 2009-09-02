@@ -49,6 +49,7 @@ import es.eucm.eadventure.common.data.animation.Animation;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.common.loader.Loader;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
+import es.eucm.eadventure.editor.control.controllers.EditorImageLoader;
 import es.eucm.eadventure.editor.gui.audio.Sound;
 import es.eucm.eadventure.editor.gui.audio.SoundMidi;
 import es.eucm.eadventure.editor.gui.audio.SoundMp3;
@@ -186,7 +187,7 @@ public class AnimationPanel extends JPanel implements ClockListener {
         this.animation = null;
 
         if( animationPath.endsWith( ".eaa" ) ) {
-            this.animation = Loader.loadAnimation( AssetsController.getInputStreamCreator( ), animationPath );
+            this.animation = Loader.loadAnimation( AssetsController.getInputStreamCreator( ), animationPath, new EditorImageLoader());
             this.animation.setAbsolutePath( animationPath );
         }
         else {
