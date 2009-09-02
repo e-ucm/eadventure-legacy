@@ -67,6 +67,7 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.common.loader.Loader;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
+import es.eucm.eadventure.editor.control.controllers.EditorImageLoader;
 import es.eucm.eadventure.editor.control.controllers.animation.AnimationDataControl;
 import es.eucm.eadventure.editor.control.controllers.animation.FrameDataControl;
 import es.eucm.eadventure.editor.control.tools.listeners.DocumentationChangeListener;
@@ -161,7 +162,7 @@ public class AnimationEditDialog extends ToolManagableDialog {
     public AnimationEditDialog( ) {
 
         super( Controller.getInstance( ).peekWindow( ), "", true );
-        animationDataControl = new AnimationDataControl( new Animation( "id", new Frame( ) ) );
+        animationDataControl = new AnimationDataControl( new Animation( "id", new Frame(new EditorImageLoader()), new EditorImageLoader() ) );
 
         buildInterface( );
     }
@@ -179,7 +180,7 @@ public class AnimationEditDialog extends ToolManagableDialog {
 
         super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "Animation.DialogTitle", filename ), true );
         if( animation == null ) {
-            animationDataControl = new AnimationDataControl( Loader.loadAnimation( AssetsController.getInputStreamCreator( ), filename ) );
+            animationDataControl = new AnimationDataControl( Loader.loadAnimation( AssetsController.getInputStreamCreator( ), filename, new EditorImageLoader()  ) );
         }
         else {
             animationDataControl = new AnimationDataControl( animation );
@@ -469,7 +470,7 @@ public class AnimationEditDialog extends ToolManagableDialog {
      */
     protected void addFrame( ) {
 
-        Frame newFrame = new Frame( );
+        Frame newFrame = new Frame( animationDataControl.getImageLoaderFactory( )  );
 
         int index = frameList.getSelectedIndex( ) / 2;
         if( !animationDataControl.isUseTransitions( ) ) {

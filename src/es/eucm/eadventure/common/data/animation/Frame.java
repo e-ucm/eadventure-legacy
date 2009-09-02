@@ -51,10 +51,7 @@ import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.gui.TextConstants;
-import es.eucm.eadventure.editor.control.Controller;
-import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.engine.core.gui.GUI;
-import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 
 /**
  * This class holds the information for an animation frame
@@ -116,12 +113,14 @@ public class Frame implements Cloneable, Timed {
     private int maxSoundTime;
 
     private String animationPath;
+    
+    private ImageLoaderFactory factory;
 
     /**
      * Creates a new empty frame
      */
-    public Frame( ) {
-
+    public Frame( ImageLoaderFactory factory ) {
+        this.factory = factory;
         uri = "";
         type = TYPE_IMAGE;
         time = DEFAULT_TIME;
@@ -138,9 +137,9 @@ public class Frame implements Cloneable, Timed {
      * @param uri
      *            the uri for the image
      */
-    public Frame( String uri ) {
-
+    public Frame( ImageLoaderFactory factory, String uri ) {
         this.uri = uri;
+        this.factory = factory;
         type = TYPE_IMAGE;
         time = DEFAULT_TIME;
         image = null;
@@ -158,9 +157,9 @@ public class Frame implements Cloneable, Timed {
      * @param time
      *            The time (duration) of the frame
      */
-    public Frame( String uri, long time ) {
-
+    public Frame( ImageLoaderFactory factory, String uri, long time ) {
         this.uri = uri;
+        this.factory = factory;
         type = TYPE_IMAGE;
         this.time = time;
         image = null;
@@ -290,11 +289,8 @@ public class Frame implements Cloneable, Timed {
         if( image != null )
             return image;
         if( uri != null && uri.length( ) > 0 ) {
-            if( where == Animation.ENGINE )
-                image = ResourceHandler.getInstance( ).getResourceAsImageFromZip( uri );
-            else if( where == Animation.EDITOR )
-                //TODO REMOVE THIS INVOKATION
-                image = AssetsController.getImage( uri );
+            if( where == Animation.ENGINE || where == Animation.EDITOR)
+                image = factory.getImageFromPath(  uri );
             else if( where == Animation.PREVIEW )
                 image = getImageFromAnimationPath( );
         }
@@ -338,9 +334,7 @@ public class Frame implements Cloneable, Timed {
             if( inputStream != null ) {
                 image = ImageIO.read( inputStream );
                 if( image == null || image.getHeight( null ) == -1 || image.getWidth( null ) == -1 ) {
-                    //TODO: This invokation should not be here
-                    if( Controller.getInstance( ) != null )
-                        Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.Title" ), TextConstants.getText( "Error.ImageTypeNotSupported" ) );
+                    factory.showErrorDialog( TextConstants.getText( "Error.Title") , TextConstants.getText( "Error.ImageTypeNotSupported" ) );
                 }
                 inputStream.close( );
             }

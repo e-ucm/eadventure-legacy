@@ -115,6 +115,8 @@ public class Animation implements Cloneable, Documented, HasId {
     private int lastSoundFrame = -1;
 
     private String animationPath;
+    
+    private ImageLoaderFactory factory;
 
     /**
      * Creates a new Animation. It can be created without any frames (empty =
@@ -126,13 +128,14 @@ public class Animation implements Cloneable, Documented, HasId {
      * @param empty
      *            boolean indicating where the animation should be empty or not
      */
-    public Animation( String id ) {
+    public Animation( String id, ImageLoaderFactory factory ) {
+        this.factory = factory;
 
         this.id = id;
         resources = new ArrayList<Resources>( );
         frames = new ArrayList<Frame>( );
         transitions = new ArrayList<Transition>( );
-        frames.add( new Frame( ) );
+        frames.add( new Frame( factory ) );
         transitions.add( new Transition( ) );
         transitions.add( new Transition( ) );
         skippedFrames = 0;
@@ -148,9 +151,9 @@ public class Animation implements Cloneable, Documented, HasId {
      * @param frame
      *            the default frame of the animation
      */
-    public Animation( String id, Frame frame ) {
+    public Animation( String id, Frame frame, ImageLoaderFactory factory ) {
 
-        this( id );
+        this( id , factory);
         frames.clear( );
         frames.add( frame );
     }
@@ -218,7 +221,7 @@ public class Animation implements Cloneable, Documented, HasId {
         if( after >= frames.size( ) || after < 0 )
             after = frames.size( ) - 1;
         if( frame == null )
-            frame = new Frame( );
+            frame = new Frame( factory );
 
         if( frames.size( ) == 1 && frames.get( 0 ).getUri( ).equals( "" ) ) {
             frames.remove( 0 );
@@ -666,6 +669,10 @@ public class Animation implements Cloneable, Documented, HasId {
     public String getAboslutePath( ) {
 
         return animationPath;
+    }
+
+    public ImageLoaderFactory getImageLoaderFactory( ) {
+        return factory;
     }
 
 }

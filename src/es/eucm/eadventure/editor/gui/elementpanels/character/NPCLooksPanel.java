@@ -45,6 +45,7 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.common.loader.Loader;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
+import es.eucm.eadventure.editor.control.controllers.EditorImageLoader;
 import es.eucm.eadventure.editor.control.controllers.character.NPCDataControl;
 import es.eucm.eadventure.editor.gui.Updateable;
 import es.eucm.eadventure.editor.gui.elementpanels.general.LooksPanel;
@@ -172,7 +173,7 @@ public class NPCLooksPanel extends LooksPanel implements Updateable {
         temp.setBorder( BorderFactory.createTitledBorder( BorderFactory.createEtchedBorder( ), title ) );
         if( animationPath != null ) {
             if( animationPath.endsWith( ".eaa" ) )
-                temp.add( new AnimationPanel( false, Loader.loadAnimation( AssetsController.getInputStreamCreator( ), animationPath ) ), BorderLayout.CENTER );
+                temp.add( new AnimationPanel( false, Loader.loadAnimation( AssetsController.getInputStreamCreator( ), animationPath, new EditorImageLoader()  ) ), BorderLayout.CENTER );
             else
                 temp.add( new AnimationPanel( false, animationPath + "_01.png" ), BorderLayout.CENTER );
         }

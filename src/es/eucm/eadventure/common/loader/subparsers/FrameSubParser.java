@@ -51,7 +51,7 @@ public class FrameSubParser extends DefaultHandler {
     public FrameSubParser( Animation animation ) {
 
         this.animation = animation;
-        frame = new Frame( );
+        frame = new Frame( animation.getImageLoaderFactory( ) );
     }
 
     @Override

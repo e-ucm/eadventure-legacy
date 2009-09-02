@@ -67,7 +67,7 @@ public class AddNewFrameTool extends Tool {
         this.index = index;
         this.newFrame = newFrame;
         if( newFrame == null )
-            newFrame = new Frame( );
+            newFrame = new Frame( animationDataControl.getImageLoaderFactory( ) );
         this.animation = (Animation) animationDataControl.getContent( );
         this.newFrameDataControl = new FrameDataControl( newFrame );
         this.newTransition = new Transition( );

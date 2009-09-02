@@ -36,16 +36,15 @@ package es.eucm.eadventure.common.loader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.SAXException;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.adaptation.AdaptationProfile;
@@ -54,6 +53,7 @@ import es.eucm.eadventure.common.data.adaptation.AdaptedState;
 import es.eucm.eadventure.common.data.adventure.AdventureData;
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.data.animation.Animation;
+import es.eucm.eadventure.common.data.animation.ImageLoaderFactory;
 import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
 import es.eucm.eadventure.common.data.chapter.Chapter;
 import es.eucm.eadventure.common.gui.TextConstants;
@@ -428,9 +428,9 @@ public class Loader {
      *            The xml descriptor for the animation
      * @return the loaded Animation
      */
-    public static Animation loadAnimation( InputStreamCreator isCreator, String filename ) {
+    public static Animation loadAnimation( InputStreamCreator isCreator, String filename, ImageLoaderFactory imageloader ) {
 
-        AnimationHandler animationHandler = new AnimationHandler( isCreator );
+        AnimationHandler animationHandler = new AnimationHandler( isCreator, imageloader );
 
         // Create a new factory
         SAXParserFactory factory = SAXParserFactory.newInstance( );
@@ -476,6 +476,6 @@ public class Loader {
         if( animationHandler.getAnimation( ) != null )
             return animationHandler.getAnimation( );
         else
-            return new Animation( "anim" + ( new Random( ) ).nextInt( 1000 ) );
+            return new Animation( "anim" + ( new Random( ) ).nextInt( 1000 ) , imageloader);
     }
 }

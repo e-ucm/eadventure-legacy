@@ -240,7 +240,6 @@ public class TrajectoryPanel extends JPanel implements Updateable {
         	spep.repaint();
         }*/
 
-        @Override
         public void itemStateChanged( ItemEvent e ) {
 
             sceneDataControl.toggleDefaultInitialPosition( );
@@ -265,7 +264,6 @@ public class TrajectoryPanel extends JPanel implements Updateable {
         	updateContents();
         }*/
 
-        @Override
         public void itemStateChanged( ItemEvent e ) {
 
             Controller.getInstance( ).addTool( new ChangeHasTrajectoryTool( ( (JRadioButton) e.getSource( ) ).isSelected( ), sceneDataControl ) );

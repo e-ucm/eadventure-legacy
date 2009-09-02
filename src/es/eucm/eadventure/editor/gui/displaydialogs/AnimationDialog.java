@@ -44,6 +44,7 @@ import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.common.loader.Loader;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
+import es.eucm.eadventure.editor.control.controllers.EditorImageLoader;
 import es.eucm.eadventure.editor.gui.otherpanels.AnimationPanel;
 
 /**
@@ -70,7 +71,7 @@ public class AnimationDialog extends JDialog {
         super( Controller.getInstance( ).peekWindow( ), TextConstants.getText( "AnimationDialog.Title", AssetsController.getFilename( animationPath ) ), Dialog.ModalityType.TOOLKIT_MODAL );
 
         if( animationPath.endsWith( ".eaa" ) ) {
-            add( new AnimationPanel( true, Loader.loadAnimation( AssetsController.getInputStreamCreator( ), animationPath ) ) );
+            add( new AnimationPanel( true, Loader.loadAnimation( AssetsController.getInputStreamCreator( ), animationPath, new EditorImageLoader() ) ) );
         }
         else {
             // Create and add the animation panel (a PNG suffix is attached to the path)

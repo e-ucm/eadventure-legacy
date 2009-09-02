@@ -45,6 +45,7 @@ import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
 import es.eucm.eadventure.editor.control.controllers.DataControl;
 import es.eucm.eadventure.editor.control.controllers.DataControlWithResources;
+import es.eucm.eadventure.editor.control.controllers.EditorImageLoader;
 import es.eucm.eadventure.editor.control.controllers.EffectsController;
 import es.eucm.eadventure.editor.control.controllers.Searchable;
 import es.eucm.eadventure.editor.control.controllers.general.ResourcesDataControl;
@@ -421,7 +422,7 @@ public class CutsceneDataControl extends DataControlWithResources {
             if( previewImagePath != null && !previewImagePath.toLowerCase( ).endsWith( ".eaa" ) )
                 previewImagePath += "_01.jpg";
             else if( previewImagePath != null ) {
-                return Loader.loadAnimation( AssetsController.getInputStreamCreator( ), previewImagePath ).getFrame( 0 ).getUri( );
+                return Loader.loadAnimation( AssetsController.getInputStreamCreator( ), previewImagePath, new EditorImageLoader()).getFrame( 0 ).getUri( );
             }
 
             return previewImagePath;

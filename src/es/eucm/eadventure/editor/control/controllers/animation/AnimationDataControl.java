@@ -40,6 +40,7 @@ import java.util.List;
 import es.eucm.eadventure.common.auxiliar.AssetsConstants;
 import es.eucm.eadventure.common.data.animation.Animation;
 import es.eucm.eadventure.common.data.animation.Frame;
+import es.eucm.eadventure.common.data.animation.ImageLoaderFactory;
 import es.eucm.eadventure.common.data.animation.Transition;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
@@ -370,5 +371,9 @@ public class AnimationDataControl extends DataControl {
             return path;
         path = getPathFromChild( dataControl, transitionDataControls );
         return path;
+    }
+    
+    public ImageLoaderFactory getImageLoaderFactory() {
+        return animation.getImageLoaderFactory();
     }
 }

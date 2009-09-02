@@ -34,6 +34,7 @@
 package es.eucm.eadventure.editor.control.controllers;
 
 import java.awt.Image;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -47,19 +48,17 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.media.MediaLocator;
 
-import java.io.FileInputStream;
-
 import es.eucm.eadventure.common.auxiliar.AssetsConstants;
-import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.common.auxiliar.FileFilter;
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.auxiliar.SpecialAssetPaths;
 import es.eucm.eadventure.common.data.animation.Animation;
 import es.eucm.eadventure.common.data.animation.Frame;
 import es.eucm.eadventure.common.gui.TextConstants;
-import es.eucm.eadventure.common.loader.incidences.Incidence;
 import es.eucm.eadventure.common.loader.InputStreamCreator;
 import es.eucm.eadventure.common.loader.Loader;
+import es.eucm.eadventure.common.loader.incidences.Incidence;
 import es.eucm.eadventure.editor.auxiliar.categoryfilters.AnimationFileFilter;
 import es.eucm.eadventure.editor.auxiliar.categoryfilters.AudioFileFilter;
 import es.eucm.eadventure.editor.auxiliar.categoryfilters.FormattedTextFileFilter;
@@ -632,7 +631,7 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants {
             }
             else if( assetsCategory == CATEGORY_ANIMATION ) {
 
-                Animation animation = Loader.loadAnimation( AssetsController.getInputStreamCreator( ), assetPath );
+                Animation animation = Loader.loadAnimation( AssetsController.getInputStreamCreator( ), assetPath, new EditorImageLoader() );
                 animation.setAbsolutePath( assetPath );
                 File sourceFile = new File( assetPath );
                 File destinyFile = new File( categoryFolder, sourceFile.getName( ) );

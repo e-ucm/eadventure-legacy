@@ -541,7 +541,7 @@ public class ResourcesDataControl extends DataControl {
             if( currentSlide == null )
                 end = true;
             else
-                animation.addFrame( -1, new Frame( file ) );
+                animation.addFrame( -1, new Frame( animation.getImageLoaderFactory( ), file ) );
             i++;
         }
     }
