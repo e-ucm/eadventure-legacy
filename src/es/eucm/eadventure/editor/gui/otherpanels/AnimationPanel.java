@@ -394,4 +394,8 @@ public class AnimationPanel extends JPanel implements ClockListener {
 
         }
     }
+
+    public void setWhere( int where ) {
+        this.where = where;
+    }
 }

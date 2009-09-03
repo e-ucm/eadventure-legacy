@@ -77,9 +77,11 @@ public class AnimationChooser extends AssetChooser {
                 if( assetFilenames[i].equals( getSelectedAsset( ) ) )
                     assetIndex = i;
 
+            animationPanel.setWhere(Animation.EDITOR);
             animationPanel.loadAnimation( assetPaths[assetIndex] );
         }
         else if( getSelectedFile( ) != null ) {
+            animationPanel.setWhere(Animation.PREVIEW);
             animationPanel.loadAnimation( getSelectedFile( ).getAbsolutePath( ) );
             // Else, delete the preview image
         }

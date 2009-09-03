@@ -518,7 +518,6 @@ public class ResourcesDataControl extends DataControl {
      * @param assetPath
      *            The path to the previous animation
      */
-    // TODO: Remove calls to editor
     public static void framesFromImages( Animation animation, String assetPath ) {
 
         animation.getFrames( ).clear( );
@@ -532,7 +531,6 @@ public class ResourcesDataControl extends DataControl {
 
         while( !end ) {
             String file = assetPath + "_" + leadingZeros( i ) + ".jpg";
-            //TODO: Estas referencias al editor desde common hay que quitarlas
             currentSlide = AssetsController.getImage( file );
             if( currentSlide == null ) {
                 file = assetPath + "_" + leadingZeros( i ) + ".png";
