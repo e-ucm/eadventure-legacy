@@ -523,55 +523,6 @@ public class Animation implements Cloneable, Documented, HasId {
         }
     }
 
-    /**
-     * This method creates the frames of the animation from the images belonging
-     * to the previous animation format.
-     * 
-     * @param assetPath
-     *            The path to the previous animation
-     */
-    // TODO: Remove calls to editor
-    /*public void framesFromImages(String assetPath) {
-    	frames.clear();
-    	transitions.clear();
-    	transitions.add(new Transition());
-    	transitions.add(new Transition());
-    	
-        int i = 1;
-        Image currentSlide = null;
-        boolean end = false;
-        
-        while( !end ) {
-            String file = assetPath + "_" + leadingZeros( i ) + ".jpg";
-            //TODO: Estas referencias al editor desde common hay que quitarlas
-        	currentSlide = AssetsController.getImage(file);
-        	if (currentSlide == null) {
-                file = assetPath + "_" + leadingZeros( i ) + ".png";
-            	currentSlide = AssetsController.getImage(file);
-        	}
-        	if (currentSlide == null)
-        		end = true;
-        	else
-        		this.addFrame(-1, new Frame(file));
-            i++;
-        }	
-    }*/
-
-    /**
-     * @param n
-     *            number to convert to a String
-     * @return a 2 character string with value n
-     */
-    /*private String leadingZeros( int n ) {
-        String s;
-        if( n < 10 )
-            s = "0";
-        else
-            s = "";
-        s = s + n;
-        return s;
-    }*/
-
     public void setMirror( boolean mirror ) {
 
         this.mirror = mirror;

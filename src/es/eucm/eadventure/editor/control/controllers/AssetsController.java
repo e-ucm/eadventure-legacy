@@ -652,7 +652,7 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants {
                         sourceFile = new File( image );
                         destinyFile = new File( categoryFolder, sourceFile.getName( ) );
                         sourceFile.copyTo( destinyFile );
-
+                        
                         String sound = frame.getSoundAbsolutePath( );
                         if( sound != null ) {
                             sourceFile = new File( sound );
@@ -1312,7 +1312,9 @@ public class AssetsController implements SpecialAssetPaths, AssetsConstants {
 
             if( absolutePath == null ) {
                 if( filePath.startsWith( "/" ) || filePath.startsWith( "\\" ) ) {
-                    filePath = filePath.substring( 1, filePath.length( ) );
+                   String os = System.getProperty( "os.name" ).toLowerCase( );
+                   if ( !os.contains("mac") )
+                       filePath = filePath.substring( 1, filePath.length( ) );
                 }
                 return getInputStream( filePath );
             }
