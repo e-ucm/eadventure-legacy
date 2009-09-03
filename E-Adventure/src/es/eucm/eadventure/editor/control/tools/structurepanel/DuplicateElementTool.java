@@ -89,7 +89,7 @@ public class DuplicateElementTool extends Tool {
     @Override
     public String getToolName( ) {
 
-        return "Add child";
+        return "Duplicate element";
     }
 
     @Override
