@@ -403,9 +403,7 @@ public class File extends java.io.File {
      *            Complete path of the destiny zip file (product)
      */
     public static void mergeZipAndDirToJar( String originZipFile, String originDir, ZipOutputStream zos ) {
-
         try {
-
             FileInputStream fis = new FileInputStream( originZipFile );
             CheckedInputStream checksum = new CheckedInputStream( fis, new Adler32( ) );
             ZipInputStream zis = new ZipInputStream( new BufferedInputStream( checksum ) );
@@ -437,4 +435,41 @@ public class File extends java.io.File {
         }
     }
 
+    public static void addJarContentsToZip(String library, ZipOutputStream zos) {
+        try {
+            FileInputStream fis = new FileInputStream( library );
+            CheckedInputStream checksum = new CheckedInputStream( fis, new Adler32( ) );
+            ZipInputStream zis = new ZipInputStream( new BufferedInputStream( checksum ) );
+            ZipEntry entry = null;
+
+            // Write the contents of the origin zip file to the destiny jar file
+            while( ( entry = zis.getNextEntry( ) ) != null ) {
+                
+                if (!entry.getName( ).equals( "META-INF/" ) && !entry.getName( ).equals( "META-INF/MANIFEST.MF" )) {
+                try {    
+                 
+                //System.out.println("Extracting: " +entry);
+                // write the files to the disk
+                JarEntry newEntry = new JarEntry( entry.getName( ).replace( '/', File.separatorChar ) );
+                
+                zos.putNextEntry( newEntry );
+                byte[] readBuffer = new byte[ 1024 ];
+                int bytesIn = 0;
+                while( ( bytesIn = zis.read( readBuffer ) ) != -1 ) {
+                    zos.write( readBuffer, 0, bytesIn );
+                }
+                //close the Stream
+                zos.closeEntry( );
+                } catch (java.util.zip.ZipException e) {}
+                }
+                
+            }
+            zis.close( );
+        }
+        catch( Exception e ) {
+            ReportDialog.GenerateErrorReport( e, true, "UNKNOWERROR" );
+        }
+        
+    }
+    
 }

@@ -33,7 +33,11 @@
  */
 package es.eucm.eadventure.engine.core.control.animations;
 
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Transparency;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 
 import es.eucm.eadventure.common.data.chapter.scenes.Scene;
 import es.eucm.eadventure.engine.core.control.Game;
@@ -173,7 +177,10 @@ public abstract class AnimationState {
         }
         else if( scale != 1 ) {
             oldOriginalImage = image;
-            image = image.getScaledInstance( Math.round( image.getWidth( null ) * scale ), Math.round( image.getHeight( null ) * scale ), Image.SCALE_SMOOTH );
+            //image = image.getScaledInstance( Math.round( image.getWidth( null ) * scale ), Math.round( image.getHeight( null ) * scale ), Image.SCALE_SMOOTH );
+            BufferedImage temp = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( Math.round( image.getWidth( null ) * scale ),  Math.round( image.getHeight( null ) * scale ), Transparency.BITMASK );
+            ((Graphics2D) temp.getGraphics( )).drawImage( image, AffineTransform.getScaleInstance( scale, scale ), null );
+            image = temp;
         }
         else {
             oldOriginalImage = image;

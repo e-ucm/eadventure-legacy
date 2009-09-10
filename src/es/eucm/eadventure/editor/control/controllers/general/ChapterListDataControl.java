@@ -97,6 +97,10 @@ public class ChapterListDataControl {
             setSelectedChapterInternal( 0 );
         this.chapters = chapters;
     }
+    
+    public List<ChapterDataControl> getChapters() {
+        return chapterDataControlList;
+    }
 
     public void setSelectedChapterInternal( int newSelectedChapter ) {
 

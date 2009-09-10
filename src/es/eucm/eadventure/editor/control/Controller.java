@@ -864,6 +864,10 @@ public class Controller {
         return chaptersController.getVarFlagSummary( );
     }
 
+    public ChapterListDataControl getCharapterList() {
+        return chaptersController;
+    }
+    
     /**
      * Returns whether the data has been modified since the last save.
      * 

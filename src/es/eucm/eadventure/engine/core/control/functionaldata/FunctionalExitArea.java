@@ -38,6 +38,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Polygon;
+import java.awt.Transparency;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
@@ -45,6 +46,7 @@ import es.eucm.eadventure.common.data.chapter.Exit;
 import es.eucm.eadventure.common.data.chapter.InfluenceArea;
 import es.eucm.eadventure.common.data.chapter.elements.Item;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
+import es.eucm.eadventure.engine.core.gui.GUI;
 
 public class FunctionalExitArea extends FunctionalItem {
 
@@ -78,7 +80,7 @@ public class FunctionalExitArea extends FunctionalItem {
         this.influenceArea = influenceArea;
 
         // Create transparent image
-        BufferedImage bImagenTransparente = new BufferedImage( exit.getWidth( ), exit.getHeight( ), BufferedImage.TYPE_INT_ARGB );
+        BufferedImage bImagenTransparente = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( exit.getWidth( ), exit.getHeight( ), Transparency.BITMASK );
 
         Graphics2D g2d = bImagenTransparente.createGraphics( );
 

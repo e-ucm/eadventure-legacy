@@ -33,7 +33,9 @@
  */
 package es.eucm.eadventure.engine.core.control.functionaldata;
 
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Transparency;
 import java.awt.image.BufferedImage;
 
 import es.eucm.eadventure.common.data.chapter.Action;
@@ -81,6 +83,10 @@ public class FunctionalItem extends FunctionalElement {
     private Image oldOriginalImage = null;
 
     private Image oldImage = null;
+    
+    private int width, height;
+    
+    private int x1, y1, x2, y2;
 
     private float oldScale = -1;
 
@@ -109,7 +115,8 @@ public class FunctionalItem extends FunctionalElement {
         super( x, y );
         this.item = item;
         this.influenceArea = influenceArea;
-
+        Image tempimage = null;
+        
         image = null;
         icon = null;
 
@@ -117,10 +124,47 @@ public class FunctionalItem extends FunctionalElement {
 
         // Load the resources
         MultimediaManager multimediaManager = MultimediaManager.getInstance( );
-        if( resources.existAsset( Item.RESOURCE_TYPE_IMAGE ) )
-            image = multimediaManager.loadImageFromZip( resources.getAssetPath( Item.RESOURCE_TYPE_IMAGE ), MultimediaManager.IMAGE_SCENE );
+        if( resources.existAsset( Item.RESOURCE_TYPE_IMAGE ) ) {
+            tempimage = multimediaManager.loadImageFromZip( resources.getAssetPath( Item.RESOURCE_TYPE_IMAGE ), MultimediaManager.IMAGE_SCENE );
+            removeTransparentParts(tempimage);
+        }
         if( resources.existAsset( Item.RESOURCE_TYPE_ICON ) )
             icon = multimediaManager.loadImageFromZip( resources.getAssetPath( Item.RESOURCE_TYPE_ICON ), MultimediaManager.IMAGE_SCENE );
+    }
+
+    private void removeTransparentParts(Image tempimage) {
+        x1 = tempimage.getWidth( null ); y1 = tempimage.getHeight( null ); x2 = 0; y2 = 0;
+        width = x1;
+        height = y1;
+        for (int i = 0; i < tempimage.getWidth( null ); i++) {
+            boolean x_clear = true;
+            for (int j = 0; j < tempimage.getHeight( null ); j++) {
+                boolean y_clear = true;
+                BufferedImage bufferedImage = (BufferedImage) tempimage;
+                int alpha = bufferedImage.getRGB( i, j ) >>> 24;
+                if (alpha > 128) {
+                    if (x_clear)
+                        x1 = Math.min( x1, i );
+                    if (y_clear)
+                        y1 = Math.min( y1, j );
+                    x_clear = false;
+                    y_clear = false;
+                    x2 = Math.max( x2, i );
+                    y2 = Math.max( y2, j );
+                }
+            }
+        }
+        
+        // create a transparent (not translucent) image
+        image = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( x2 - x1, y2 - y1, Transparency.BITMASK );
+
+        // draw the transformed image
+        Graphics2D g = (Graphics2D) image.getGraphics( );
+
+        g.drawImage( tempimage, 0, 0, x2-x1, y2-y1, x1, y1, x2, y2, null);
+//        g.drawImage( image, transform, null );
+        g.dispose( );
+        
     }
 
     /**
@@ -142,15 +186,18 @@ public class FunctionalItem extends FunctionalElement {
 
         // Get the new resources
         Resources newResources = createResourcesBlock( );
-
+        
         // If the resources have changed, load the new one
         if( resources != newResources ) {
             resources = newResources;
 
             // Load the resources
             MultimediaManager multimediaManager = MultimediaManager.getInstance( );
-            if( resources.existAsset( Item.RESOURCE_TYPE_IMAGE ) )
-                image = multimediaManager.loadImageFromZip( resources.getAssetPath( Item.RESOURCE_TYPE_IMAGE ), MultimediaManager.IMAGE_SCENE );
+            Image tempimage = null;
+            if( resources.existAsset( Item.RESOURCE_TYPE_IMAGE ) ) {
+                tempimage = multimediaManager.loadImageFromZip( resources.getAssetPath( Item.RESOURCE_TYPE_IMAGE ), MultimediaManager.IMAGE_SCENE );
+                removeTransparentParts(tempimage);
+            }
             if( resources.existAsset( Item.RESOURCE_TYPE_ICON ) )
                 icon = multimediaManager.loadImageFromZip( resources.getAssetPath( Item.RESOURCE_TYPE_ICON ), MultimediaManager.IMAGE_SCENE );
         }
@@ -185,13 +232,13 @@ public class FunctionalItem extends FunctionalElement {
     @Override
     public int getWidth( ) {
 
-        return image.getWidth( null );
+        return width;//image.getWidth( null );
     }
 
     @Override
     public int getHeight( ) {
 
-        return image.getHeight( null );
+        return height;//image.getHeight( null );
     }
 
     /*
@@ -211,6 +258,8 @@ public class FunctionalItem extends FunctionalElement {
 
         int x_image = Math.round( x - ( getWidth( ) * scale / 2 ) ) - Game.getInstance( ).getFunctionalScene( ).getOffsetX( );
         int y_image = Math.round( y - getHeight( ) * scale );
+        x_image+=x1;
+        y_image+=y1;
         if( scale != 1 ) {
             Image temp;
             if( image == oldOriginalImage && scale == oldScale ) {
@@ -218,6 +267,7 @@ public class FunctionalItem extends FunctionalElement {
             }
             else {
                 temp = image.getScaledInstance( Math.round( image.getWidth( null ) * scale ), Math.round( image.getHeight( null ) * scale ), Image.SCALE_SMOOTH );
+                
                 oldImage = temp;
                 oldOriginalImage = image;
                 oldScale = scale;
@@ -240,6 +290,11 @@ public class FunctionalItem extends FunctionalElement {
 
         int mousex = (int) ( x - ( this.x - getWidth( ) * scale / 2 ) );
         int mousey = (int) ( y - ( this.y - getHeight( ) * scale ) );
+
+        if (mousex < x1 || mousey < y1 || mousex >= x2 || mousey >= y2)
+            return false;
+        mousex = mousex - x1;
+        mousey = mousey - y1;
 
         if( ( mousex >= 0 ) && ( mousex < getWidth( ) * scale ) && ( mousey >= 0 ) && ( mousey < getHeight( ) * scale ) ) {
             BufferedImage bufferedImage = (BufferedImage) image;

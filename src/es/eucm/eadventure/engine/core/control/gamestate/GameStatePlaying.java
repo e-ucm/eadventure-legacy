@@ -33,15 +33,16 @@
  */
 package es.eucm.eadventure.engine.core.control.gamestate;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
 import es.eucm.eadventure.common.data.chapter.Exit;
+import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.gui.GUI;
 
 /**
@@ -69,7 +70,7 @@ public class GameStatePlaying extends GameState {
      */
     @Override
     public synchronized void mainLoop( long elapsedTime, int fps ) {
-
+ 
         // Process the mouse events
         while( vMouse.size( ) > 0 ) {
             if( vMouse.get( 0 ).getID( ) == MouseEvent.MOUSE_CLICKED )
@@ -96,12 +97,15 @@ public class GameStatePlaying extends GameState {
 
         // Draw the functional scene, and then the GUI
         game.getFunctionalScene( ).draw( );
+        
         GUI.getInstance( ).drawScene( g, elapsedTime );
+        
+
         GUI.getInstance( ).drawHUD( g );
 
         // Draw the FPS
-        //g.setColor( Color.WHITE );
-        //g.drawString( Integer.toString( fps ), 780, 14 );
+        g.setColor( Color.WHITE );
+        g.drawString( Integer.toString( fps ), 780, 14 );
 
         // If there is an adapted state to be executed
         if( game.getAdaptedStateToExecute( ) != null ) {
@@ -154,6 +158,8 @@ public class GameStatePlaying extends GameState {
 
         }
 
+
+        
         // Update the data pending from the flags
         game.updateDataPendingFromState( true );
 

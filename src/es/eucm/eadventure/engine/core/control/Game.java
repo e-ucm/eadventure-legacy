@@ -63,10 +63,11 @@ import es.eucm.eadventure.common.data.chapter.Timer;
 import es.eucm.eadventure.common.data.chapter.book.Book;
 import es.eucm.eadventure.common.data.chapter.conversation.Conversation;
 import es.eucm.eadventure.common.data.chapter.elements.NPC;
-import es.eucm.eadventure.common.data.chapter.elements.Player;
 import es.eucm.eadventure.common.data.chapter.resources.Resources;
 import es.eucm.eadventure.common.data.chapter.scenes.Scene;
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.common.loader.Loader;
+import es.eucm.eadventure.common.loader.incidences.Incidence;
 import es.eucm.eadventure.engine.adaptation.AdaptationEngine;
 import es.eucm.eadventure.engine.assessment.AssessmentEngine;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalItem;
@@ -90,12 +91,9 @@ import es.eucm.eadventure.engine.core.data.GameText;
 import es.eucm.eadventure.engine.core.data.SaveGame;
 import es.eucm.eadventure.engine.core.data.SaveGameException;
 import es.eucm.eadventure.engine.core.data.SaveTimer;
-
-import es.eucm.eadventure.engine.core.gui.DebugValuesPanel;
 import es.eucm.eadventure.engine.core.gui.DebugLogPanel;
+import es.eucm.eadventure.engine.core.gui.DebugValuesPanel;
 import es.eucm.eadventure.engine.core.gui.GUI;
-import es.eucm.eadventure.common.loader.Loader;
-import es.eucm.eadventure.common.loader.incidences.Incidence;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 
@@ -827,11 +825,11 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
                     }
 
                     currentState.mainLoop( elapsedTime, oldFps );
-
+                    
                     MultimediaManager.getInstance( ).update( );
-
+                    
                     try {
-                        Thread.sleep( 10 );
+                        Thread.sleep( Math.max((10 - (System.currentTimeMillis( ) - time)), 0) );
                     }
                     catch( InterruptedException e ) {
                     }

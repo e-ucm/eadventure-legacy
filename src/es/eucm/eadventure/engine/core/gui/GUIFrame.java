@@ -177,6 +177,9 @@ public class GUIFrame extends GUI implements FocusListener {
         bkgFrame.add( gameFrame );//, BorderLayout.CENTER);
 
         String os = System.getProperty( "os.name" );
+        if (os.contains( "Mac" ))
+            System.setProperty( "apple.awt.rendering", "speed" );
+        
         if( os.contains( "Windows" ) && graphicConfig == DescriptorData.GRAPHICS_FULLSCREEN && !Game.getInstance( ).isDebug( ) ) {
             GraphicsEnvironment environment;
             GraphicsDevice gm = null;
