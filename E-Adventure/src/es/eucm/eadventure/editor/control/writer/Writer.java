@@ -34,6 +34,7 @@
 package es.eucm.eadventure.editor.control.writer;
 
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -57,20 +58,23 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import java.io.FileOutputStream;
-
-import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.auxiliar.File;
+import es.eucm.eadventure.common.auxiliar.ReportDialog;
 import es.eucm.eadventure.common.data.adaptation.AdaptationProfile;
 import es.eucm.eadventure.common.data.adaptation.AdaptationRule;
 import es.eucm.eadventure.common.data.adaptation.AdaptedState;
 import es.eucm.eadventure.common.data.assessment.AssessmentProfile;
 import es.eucm.eadventure.common.data.chapter.Chapter;
+import es.eucm.eadventure.common.data.chapter.conversation.node.ConversationNodeView;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.auxiliar.filefilters.XMLFileFilter;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.AdventureDataControl;
 import es.eucm.eadventure.editor.control.controllers.AssetsController;
+import es.eucm.eadventure.editor.control.controllers.character.NPCDataControl;
+import es.eucm.eadventure.editor.control.controllers.conversation.ConversationDataControl;
+import es.eucm.eadventure.editor.control.controllers.cutscene.CutsceneDataControl;
+import es.eucm.eadventure.editor.control.controllers.general.ChapterDataControl;
 import es.eucm.eadventure.editor.control.security.JARSigner;
 import es.eucm.eadventure.editor.control.writer.domwriters.AdaptationDOMWriter;
 import es.eucm.eadventure.editor.control.writer.domwriters.AssessmentDOMWriter;
@@ -554,15 +558,55 @@ public class Writer {
         return exported;
         //return true;
     }
-
+    
+    public static void addNeededLibrariesToJar(ZipOutputStream os, Controller controller ) {
+        //TODO: check for used libraries and add as needed
+        
+        boolean needsFreeTts = false;
+        boolean needsJFFMpeg = false;
+        for (ChapterDataControl chapter :controller.getCharapterList( ).getChapters( )) {
+            for (CutsceneDataControl cutscene : chapter.getCutscenesList( ).getCutscenes( )) {
+                if (cutscene.getType( ) == Controller.CUTSCENE_VIDEO)
+                    needsJFFMpeg = true;
+            }
+            for (NPCDataControl npc: chapter.getNPCsList( ).getNPCs( )) {
+                if (npc.isAlwaysSynthesizer( ))
+                    needsFreeTts = true;
+            }
+            if (chapter.getPlayer( ).isAlwaysSynthesizer( ))
+                needsFreeTts = true;
+            for (ConversationDataControl conversation: chapter.getConversationsList( ).getConversations( )) {
+                for (ConversationNodeView cnv : conversation.getAllNodes( )) {
+                    for (int i = 0; i < cnv.getLineCount( ); i++)
+                        if (cnv.getConversationLine( i ).getSynthesizerVoice( ))
+                            needsFreeTts = true;
+                }
+            }
+        }        
+        if (needsFreeTts) {
+            File.addJarContentsToZip("jars/en_us.jar", os);
+            File.addJarContentsToZip("jars/freetts.jar", os);
+            File.addJarContentsToZip("jars/cmu_time_awb.jar", os);
+            File.addJarContentsToZip("jars/cmu_us_kal.jar", os);
+            File.addJarContentsToZip("jars/cmudict04.jar", os);
+            File.addJarContentsToZip("jars/cmulex.jar", os);
+            File.addJarContentsToZip("jars/cmutimelex.jar", os);
+        }
+        if (needsJFFMpeg) {
+            File.addJarContentsToZip("jars/jffmpeg-1.1.0.jar", os );
+        }
+        
+    }
+    
     /**
      * Exports the game as a jar file
      * 
      * @param projectDirectory
      * @param destinyJARPath
+     * @param controller 
      * @return
      */
-    public static boolean exportStandalone( String projectDirectory, String destinyJARPath ) {
+    public static boolean exportStandalone( String projectDirectory, String destinyJARPath) {
 
         boolean exported = true;
 
@@ -588,6 +632,8 @@ public class Writer {
             // Merge projectDirectory and web/eAdventure_temp.jar into output stream
             File.mergeZipAndDirToJar( "web/eAdventure_temp.jar", projectDirectory, os );
 
+            addNeededLibrariesToJar(os, Controller.getInstance( ));
+            
             // Create and copy the manifest into the output stream
             String manifest = Writer.defaultManifestFile( "es.eucm.eadventure.engine.EAdventureStandalone" );
             ZipEntry manifestEntry = new ZipEntry( "META-INF/MANIFEST.MF" );
@@ -679,6 +725,7 @@ public class Writer {
 
             // Merge projectDirectory and web/eAdventure_temp.jar into output stream
             File.mergeZipAndDirToJar( "web/eAdventure_temp.jar", gameFilename, os );
+            addNeededLibrariesToJar(os, Controller.getInstance( ));
 
             // Create and copy the manifest into the output stream
             //TODO hay que hacerlo pa seleccionar

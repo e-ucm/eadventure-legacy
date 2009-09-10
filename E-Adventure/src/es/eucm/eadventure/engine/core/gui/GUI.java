@@ -700,25 +700,27 @@ public abstract class GUI implements FocusListener {
     }
 
     public void drawToGraphics( Graphics2D g ) {
-
         if( background != null ) {
             background.draw( g );
             //background = null;
         }
-
+ 
         for( ElementImage element : elementsToDraw )
             element.draw( g );
         elementsToDraw.clear( );
 
+ 
         if( foreground != null ) {
             foreground.draw( g );
             foreground = null;
         }
 
+
         TimerManager timerManager = TimerManager.getInstance( );
         if( timerManager != null ) {
             timerManager.draw( g );
         }
+
 
         if( showsOffsetArrows ) {
             g.setColor( Color.BLACK );
@@ -750,6 +752,7 @@ public abstract class GUI implements FocusListener {
         for( Text text : textToDraw )
             text.draw( g );
         textToDraw.clear( );
+
     }
 
     public void clearBackground( ) {

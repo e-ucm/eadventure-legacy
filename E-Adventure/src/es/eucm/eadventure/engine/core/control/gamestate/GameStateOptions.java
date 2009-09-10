@@ -39,6 +39,7 @@ import java.awt.FontFormatException;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.Transparency;
 import java.awt.color.ColorSpace;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -47,6 +48,8 @@ import java.awt.image.ColorConvertOp;
 import java.io.IOException;
 import java.io.InputStream;
 
+import es.eucm.eadventure.common.auxiliar.CreateImage;
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.engine.assessment.ReportDialog;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.Options;
@@ -55,8 +58,6 @@ import es.eucm.eadventure.engine.core.data.SaveGame;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
-import es.eucm.eadventure.common.auxiliar.CreateImage;
-import es.eucm.eadventure.common.gui.TextConstants;
 
 public class GameStateOptions extends GameState {
 
@@ -417,7 +418,7 @@ public class GameStateOptions extends GameState {
 
         // If the background image is not loaded, load it
         if( gameImage == null ) {
-            gameImage = new BufferedImage( 800, 600, BufferedImage.TYPE_INT_RGB );
+            gameImage = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage( 800, 600, Transparency.OPAQUE );
             Graphics2D graphicGrey = (Graphics2D) gameImage.getGraphics( );
             game.getFunctionalScene( ).draw( );
             GUI.getInstance( ).drawScene( graphicGrey, elapsedTime );
