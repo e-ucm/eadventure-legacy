@@ -102,36 +102,49 @@ public class ResourcesDataControl extends DataControl {
         // Initialize the assetsInformation, depending on the assets type
         switch( resourcesType ) {
             case Controller.SCENE:
-                assetsInformation = new AssetInformation[] { new AssetInformation( TextConstants.getText( "Resources.DescriptionSceneBackground" ), "background", true, AssetsConstants.CATEGORY_BACKGROUND, AssetsController.FILTER_JPG ), new AssetInformation( TextConstants.getText( "Resources.DescriptionSceneForeground" ), "foreground", false, AssetsConstants.CATEGORY_BACKGROUND, AssetsController.FILTER_PNG ), /*new AssetInformation( TextConstants.getText( "Resources.DescriptionSceneHardMap" ), "hardmap", false, AssetsController.CATEGORY_BACKGROUND, AssetsController.FILTER_PNG ), */new AssetInformation( TextConstants.getText( "Resources.DescriptionSceneMusic" ), "bgmusic", false, AssetsConstants.CATEGORY_AUDIO, AssetsController.FILTER_NONE ) };
+                assetsInformation = new AssetInformation[] { new AssetInformation("Resources.DescriptionSceneBackground" , "background", true, AssetsConstants.CATEGORY_BACKGROUND, AssetsController.FILTER_JPG ), new AssetInformation( "Resources.DescriptionSceneForeground" , "foreground", false, AssetsConstants.CATEGORY_BACKGROUND, AssetsController.FILTER_PNG ), /*new AssetInformation( TextConstants.getText( "Resources.DescriptionSceneHardMap" ), "hardmap", false, AssetsController.CATEGORY_BACKGROUND, AssetsController.FILTER_PNG ), */new AssetInformation( "Resources.DescriptionSceneMusic" , "bgmusic", false, AssetsConstants.CATEGORY_AUDIO, AssetsController.FILTER_NONE ) };
                 break;
             case Controller.CUTSCENE_SLIDES:
-                assetsInformation = new AssetInformation[] { new AssetInformation( TextConstants.getText( "Resources.DescriptionSlidesceneSlides" ), "slides", true, AssetsConstants.CATEGORY_ANIMATION, AssetsController.FILTER_JPG ), new AssetInformation( TextConstants.getText( "Resources.DescriptionSceneMusic" ), "bgmusic", false, AssetsConstants.CATEGORY_AUDIO, AssetsController.FILTER_NONE ) };
+                assetsInformation = new AssetInformation[] { new AssetInformation(  "Resources.DescriptionSlidesceneSlides" , "slides", true, AssetsConstants.CATEGORY_ANIMATION, AssetsController.FILTER_JPG ), new AssetInformation( "Resources.DescriptionSceneMusic" , "bgmusic", false, AssetsConstants.CATEGORY_AUDIO, AssetsController.FILTER_NONE ) };
                 break;
             case Controller.ACTION_CUSTOM:
             case Controller.ACTION_CUSTOM_INTERACT:
-                assetsInformation = new AssetInformation[] { new AssetInformation( TextConstants.getText( "Resources.DescriptionButtonNormal" ), "buttonNormal", true, AssetsConstants.CATEGORY_BUTTON, AssetsController.FILTER_PNG ), new AssetInformation( TextConstants.getText( "Resources.DescriptionButtonOver" ), "buttonOver", true, AssetsConstants.CATEGORY_BUTTON, AssetsController.FILTER_PNG ), new AssetInformation( TextConstants.getText( "Resources.DescriptionButtonPressed" ), "buttonPressed", true, AssetsConstants.CATEGORY_BUTTON, AssetsController.FILTER_PNG ), new AssetInformation( TextConstants.getText( "Resources.DescriptionActionAnimation" ), "actionAnimation", false, AssetsConstants.CATEGORY_ANIMATION, AssetsController.FILTER_NONE ), new AssetInformation( TextConstants.getText( "Resources.DescriptionActionAnimationLeft" ), "actionAnimationLeft", false, AssetsConstants.CATEGORY_ANIMATION, AssetsController.FILTER_NONE ) };
+                assetsInformation = new AssetInformation[] { new AssetInformation(  "Resources.DescriptionButtonNormal" , "buttonNormal", true, AssetsConstants.CATEGORY_BUTTON, AssetsController.FILTER_PNG ), new AssetInformation(  "Resources.DescriptionButtonOver" , "buttonOver", true, AssetsConstants.CATEGORY_BUTTON, AssetsController.FILTER_PNG ), new AssetInformation( "Resources.DescriptionButtonPressed" , "buttonPressed", true, AssetsConstants.CATEGORY_BUTTON, AssetsController.FILTER_PNG ), new AssetInformation(  "Resources.DescriptionActionAnimation" , "actionAnimation", false, AssetsConstants.CATEGORY_ANIMATION, AssetsController.FILTER_NONE ), new AssetInformation( "Resources.DescriptionActionAnimationLeft" , "actionAnimationLeft", false, AssetsConstants.CATEGORY_ANIMATION, AssetsController.FILTER_NONE ) };
                 assetsGroups = new int[][] { { 0, 1, 2 }, { 3, 4 } };
-                groupsInfo = new String[] { TextConstants.getText( "Resources.Button" ), TextConstants.getText( "Resources.Animations" ) };
+                groupsInfo = new String[] { "Resources.Button" , "Resources.Animations"  };
                 break;
             case Controller.CUTSCENE_VIDEO:
-                assetsInformation = new AssetInformation[] { new AssetInformation( TextConstants.getText( "Resources.DescriptionVideoscenes" ), "video", true, AssetsConstants.CATEGORY_VIDEO, AssetsController.FILTER_NONE ) };
+                assetsInformation = new AssetInformation[] { new AssetInformation(  "Resources.DescriptionVideoscenes" , "video", true, AssetsConstants.CATEGORY_VIDEO, AssetsController.FILTER_NONE ) };
                 break;
             case Controller.BOOK:
-                assetsInformation = new AssetInformation[] { new AssetInformation( TextConstants.getText( "Resources.DescriptionBookBackground" ), "background", true, AssetsConstants.CATEGORY_BACKGROUND, AssetsController.FILTER_JPG ) };
+                assetsInformation = new AssetInformation[] { new AssetInformation(  "Resources.DescriptionBookBackground" , "background", true, AssetsConstants.CATEGORY_BACKGROUND, AssetsController.FILTER_JPG ) };
                 break;
             case Controller.ITEM:
-                assetsInformation = new AssetInformation[] { new AssetInformation( TextConstants.getText( "Resources.DescriptionItemImage" ), "image", false, AssetsConstants.CATEGORY_IMAGE, AssetsController.FILTER_NONE ), new AssetInformation( TextConstants.getText( "Resources.DescriptionItemIcon" ), "icon", false, AssetsConstants.CATEGORY_ICON, AssetsController.FILTER_NONE ) };
+                assetsInformation = new AssetInformation[] { new AssetInformation(  "Resources.DescriptionItemImage" , "image", false, AssetsConstants.CATEGORY_IMAGE, AssetsController.FILTER_NONE ), new AssetInformation( "Resources.DescriptionItemIcon" , "icon", false, AssetsConstants.CATEGORY_ICON, AssetsController.FILTER_NONE ) };
                 imageIconMap = new HashMap<String, String>( );
                 imageIconMap.put( "icon", "image" );
                 break;
             case Controller.PLAYER:
             case Controller.NPC:
-                assetsInformation = new AssetInformation[] { new AssetInformation( TextConstants.getText( "Resources.DescriptionCharacterAnimationStandUp" ), "standup", false, AssetsConstants.CATEGORY_ANIMATION, AssetsController.FILTER_PNG ), new AssetInformation( TextConstants.getText( "Resources.DescriptionCharacterAnimationStandDown" ), "standdown", false, AssetsConstants.CATEGORY_ANIMATION, AssetsController.FILTER_PNG ), new AssetInformation( TextConstants.getText( "Resources.DescriptionCharacterAnimationStandRight" ), "standright", false, AssetsConstants.CATEGORY_ANIMATION, AssetsController.FILTER_PNG ), new AssetInformation( TextConstants.getText( "Resources.DescriptionCharacterAnimationStandLeft" ), "standleft", false, AssetsConstants.CATEGORY_ANIMATION, AssetsController.FILTER_PNG ), new AssetInformation( TextConstants.getText( "Resources.DescriptionCharacterAnimationSpeakUp" ), "speakup", false, AssetsConstants.CATEGORY_ANIMATION, AssetsController.FILTER_PNG ), new AssetInformation( TextConstants.getText( "Resources.DescriptionCharacterAnimationSpeakDown" ), "speakdown", false, AssetsConstants.CATEGORY_ANIMATION, AssetsController.FILTER_PNG ), new AssetInformation( TextConstants.getText( "Resources.DescriptionCharacterAnimationSpeakRight" ), "speakright", false, AssetsConstants.CATEGORY_ANIMATION, AssetsController.FILTER_PNG ), new AssetInformation( TextConstants.getText( "Resources.DescriptionCharacterAnimationSpeakLeft" ), "speakleft", false, AssetsConstants.CATEGORY_ANIMATION, AssetsController.FILTER_PNG ), new AssetInformation( TextConstants.getText( "Resources.DescriptionCharacterAnimationUseRight" ), "useright", false, AssetsController.CATEGORY_ANIMATION, AssetsController.FILTER_PNG ), new AssetInformation( TextConstants.getText( "Resources.DescriptionCharacterAnimationUseLeft" ), "useleft", false, AssetsController.CATEGORY_ANIMATION, AssetsController.FILTER_PNG ), new AssetInformation( TextConstants.getText( "Resources.DescriptionCharacterAnimationWalkUp" ), "walkup", false, AssetsController.CATEGORY_ANIMATION, AssetsController.FILTER_PNG ), new AssetInformation( TextConstants.getText( "Resources.DescriptionCharacterAnimationWalkDown" ), "walkdown", false, AssetsController.CATEGORY_ANIMATION, AssetsController.FILTER_PNG ), new AssetInformation( TextConstants.getText( "Resources.DescriptionCharacterAnimationWalkRight" ), "walkright", false, AssetsController.CATEGORY_ANIMATION, AssetsController.FILTER_PNG ), new AssetInformation( TextConstants.getText( "Resources.DescriptionCharacterAnimationWalkLeft" ), "walkleft", false, AssetsController.CATEGORY_ANIMATION, AssetsController.FILTER_PNG ) };
+                assetsInformation = new AssetInformation[] { new AssetInformation( "Resources.DescriptionCharacterAnimationStandUp" , "standup", false, AssetsConstants.CATEGORY_ANIMATION, AssetsController.FILTER_PNG ), 
+                        new AssetInformation( "Resources.DescriptionCharacterAnimationStandDown" , "standdown", false, AssetsConstants.CATEGORY_ANIMATION, AssetsController.FILTER_PNG ), 
+                        new AssetInformation( "Resources.DescriptionCharacterAnimationStandRight" , "standright", false, AssetsConstants.CATEGORY_ANIMATION, AssetsController.FILTER_PNG ), 
+                        new AssetInformation( "Resources.DescriptionCharacterAnimationStandLeft" , "standleft", false, AssetsConstants.CATEGORY_ANIMATION, AssetsController.FILTER_PNG ), 
+                        new AssetInformation( "Resources.DescriptionCharacterAnimationSpeakUp", "speakup", false, AssetsConstants.CATEGORY_ANIMATION, AssetsController.FILTER_PNG ), 
+                        new AssetInformation( "Resources.DescriptionCharacterAnimationSpeakDown" , "speakdown", false, AssetsConstants.CATEGORY_ANIMATION, AssetsController.FILTER_PNG ), 
+                        new AssetInformation( "Resources.DescriptionCharacterAnimationSpeakRight", "speakright", false, AssetsConstants.CATEGORY_ANIMATION, AssetsController.FILTER_PNG ), 
+                        new AssetInformation( "Resources.DescriptionCharacterAnimationSpeakLeft" , "speakleft", false, AssetsConstants.CATEGORY_ANIMATION, AssetsController.FILTER_PNG ), 
+                        new AssetInformation( "Resources.DescriptionCharacterAnimationUseRight" , "useright", false, AssetsController.CATEGORY_ANIMATION, AssetsController.FILTER_PNG ), 
+                        new AssetInformation( "Resources.DescriptionCharacterAnimationUseLeft", "useleft", false, AssetsController.CATEGORY_ANIMATION, AssetsController.FILTER_PNG ), 
+                        new AssetInformation( "Resources.DescriptionCharacterAnimationWalkUp", "walkup", false, AssetsController.CATEGORY_ANIMATION, AssetsController.FILTER_PNG ), 
+                        new AssetInformation( "Resources.DescriptionCharacterAnimationWalkDown" , "walkdown", false, AssetsController.CATEGORY_ANIMATION, AssetsController.FILTER_PNG ), 
+                        new AssetInformation( "Resources.DescriptionCharacterAnimationWalkRight" , "walkright", false, AssetsController.CATEGORY_ANIMATION, AssetsController.FILTER_PNG ), 
+                        new AssetInformation( "Resources.DescriptionCharacterAnimationWalkLeft" , "walkleft", false, AssetsController.CATEGORY_ANIMATION, AssetsController.FILTER_PNG ) };
                 assetsGroups = new int[][] { { 0, 1, 2, 3 }, { 4, 5, 6, 7 }, { 8, 9 }, { 10, 11, 12, 13 } };
-                groupsInfo = new String[] { TextConstants.getText( "Resources.StandingAnimations" ), TextConstants.getText( "Resources.SpeakingAnimations" ), TextConstants.getText( "Resources.UsingAnimations" ), TextConstants.getText( "Resources.WalkingAnimations" ) };
+                groupsInfo = new String[] { "Resources.StandingAnimations" , "Resources.SpeakingAnimations" , "Resources.UsingAnimations" , "Resources.WalkingAnimations" };
                 break;
             case Controller.ATREZZO:
-                assetsInformation = new AssetInformation[] { new AssetInformation( TextConstants.getText( "Resources.DescriptionItemImage" ), "image", false, AssetsController.CATEGORY_IMAGE, AssetsController.FILTER_NONE ) };
+                assetsInformation = new AssetInformation[] { new AssetInformation( "Resources.DescriptionItemImage" , "image", false, AssetsController.CATEGORY_IMAGE, AssetsController.FILTER_NONE ) };
                 break;
         }
 
@@ -172,7 +185,6 @@ public class ResourcesDataControl extends DataControl {
      * @return Name of the asset
      */
     public String getAssetName( int index ) {
-
         return assetsInformation[index].name;
     }
 
@@ -184,8 +196,8 @@ public class ResourcesDataControl extends DataControl {
      * @return Description of the asset
      */
     public String getAssetDescription( int index ) {
-
-        return assetsInformation[index].description;
+        return TextConstants.getText(assetsInformation[index].description);
+        //return assetsInformation[index].description;
     }
 
     /**
@@ -473,7 +485,7 @@ public class ResourcesDataControl extends DataControl {
 
     public String getGroupInfo( int i ) {
 
-        return groupsInfo[i];
+        return TextConstants.getText(groupsInfo[i]);
     }
 
     public int getGroupAssetCount( int selectedIndex ) {
