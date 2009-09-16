@@ -1671,14 +1671,14 @@ public class Controller {
                 ProjectConfigData.storeToXML( );
                 AssetsController.resetCache( );
                 // also, look for adaptation and assessment folder, and delete them
-                File currentAssessFolder = new File( currentZipFile + "\\" + "assessment" );
+                File currentAssessFolder = new File( currentZipFile + File.separator + "assessment" );
                 if( currentAssessFolder.exists( ) ) {
                     File[] files = currentAssessFolder.listFiles( );
                     for( int x = 0; x < files.length; x++ )
                         files[x].delete( );
                     currentAssessFolder.delete( );
                 }
-                File currentAdaptFolder = new File( currentZipFile + "\\" + "adaptation" );
+                File currentAdaptFolder = new File( currentZipFile + File.separator + "adaptation" );
                 if( currentAdaptFolder.exists( ) ) {
                     File[] files = currentAdaptFolder.listFiles( );
                     for( int x = 0; x < files.length; x++ )
