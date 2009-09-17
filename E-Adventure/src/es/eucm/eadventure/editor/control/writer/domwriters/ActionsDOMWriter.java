@@ -105,6 +105,10 @@ public class ActionsDOMWriter {
                             actionElement = doc.createElement( "give-to" );
                             actionElement.setAttribute( "idTarget", action.getTargetId( ) );
                             break;
+                        case Action.DRAG_TO:
+                            actionElement = doc.createElement( "drag-to" );
+                            actionElement.setAttribute( "idTarget", action.getTargetId( ) );
+                            break;
                         case Action.CUSTOM:
                             actionElement = doc.createElement( "custom" );
                             actionElement.setAttribute( "name", ( (CustomAction) action ).getName( ) );

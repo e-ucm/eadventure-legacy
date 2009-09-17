@@ -71,7 +71,15 @@ public class ActionButtons {
      */
     public static final int ACTIONBUTTON_MOUTH = 2;
 
-    public static final int ACTIONBUTTON_CUSTOM = 3;
+    /**
+     * Drag index action button
+     */
+    public static final int ACTIONBUTTON_DRAG = 3;
+
+    /**
+     * Custom index action button
+     */
+    public static final int ACTIONBUTTON_CUSTOM = 4;
 
     public static final int MAX_BUTTON_WIDTH = 50;
 
@@ -177,9 +185,14 @@ public class ActionButtons {
     private void addCustomActionButtons( List<Action> actions, FunctionalElement functionalElement ) {
 
         List<CustomAction> added = new ArrayList<CustomAction>( );
+        boolean drag_to = false;
         for( Action action : actions ) {
             if( buttons.size( ) >= 8 )
                 return;
+            if( action.getType( ) == Action.DRAG_TO && !drag_to) {
+                buttons.add( new ActionButton(ActionButton.DRAG_BUTTON) );
+                drag_to = true;
+            }
             if( action.getType( ) == Action.CUSTOM ) {
                 boolean add = functionalElement.getFirstValidCustomAction( ( (CustomAction) action ).getName( ) ) != null;
                 for( CustomAction customAction : added ) {
@@ -191,7 +204,7 @@ public class ActionButtons {
                     added.add( (CustomAction) action );
                 }
             }
-            if( action.getType( ) == Action.CUSTOM_INTERACT && functionalElement.isInInventory( ) ) {
+            else if( action.getType( ) == Action.CUSTOM_INTERACT && functionalElement.isInInventory( ) ) {
                 boolean add = functionalElement.getFirstValidCustomInteraction( ( (CustomAction) action ).getName( ) ) != null;
                 for( CustomAction customAction : added ) {
                     if( customAction.getName( ).equals( ( (CustomAction) action ).getName( ) ) )

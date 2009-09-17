@@ -82,6 +82,11 @@ public class Action implements Cloneable, Documented, HasTargetId {
      * An action of the type talk-to
      */
     public static final int TALK_TO = 7;
+    
+    /**
+     * An action of type drag to
+     */
+    public static final int DRAG_TO = 8;
 
     /**
      * Stores the action type
@@ -162,6 +167,10 @@ public class Action implements Cloneable, Documented, HasTargetId {
             case TALK_TO:
                 needsGoTo = true;
                 keepDistance = 35;
+                break;
+            case DRAG_TO:
+                needsGoTo = false;
+                keepDistance = 0;
                 break;
             default:
                 needsGoTo = false;
@@ -373,7 +382,6 @@ public class Action implements Cloneable, Documented, HasTargetId {
 
     @Override
     public Object clone( ) throws CloneNotSupportedException {
-
         Action a = (Action) super.clone( );
         a.conditions = ( conditions != null ? (Conditions) conditions.clone( ) : null );
         a.documentation = ( documentation != null ? new String( documentation ) : null );

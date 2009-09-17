@@ -194,7 +194,7 @@
 <!ELEMENT name (#PCDATA)>
 <!ELEMENT brief (#PCDATA)>
 <!ELEMENT detailed (#PCDATA)>
-<!ELEMENT actions (examine | grab | use | use-with | give-to | custom | custom-interact | talk-to )+>
+<!ELEMENT actions (examine | grab | use | use-with | give-to | custom | custom-interact | talk-to | drag-to)+>
 <!ELEMENT examine (documentation?, condition?, effect?,not-effect?)>
 <!ATTLIST examine
 	needsGoTo (yes | no) "yes"
@@ -225,6 +225,13 @@
 	idTarget IDREF #REQUIRED
 	needsGoTo (yes | no) "yes"
 	keepDistance CDATA "35"
+	not-effects (yes | no) "no"
+>
+<!ELEMENT drag-to (documentation?, condition?, effect?,not-effect?)>
+<!ATTLIST drag-to
+	idTarget IDREF #REQUIRED
+	needsGoTo (yes | no) "no"
+	keepDistance CDATA "0"
 	not-effects (yes | no) "no"
 >
 <!ELEMENT talk-to (documentation?, condition?, effect?,not-effect?)>

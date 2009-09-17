@@ -74,6 +74,17 @@ public class ActionButton {
      * Constant that represents the mouth button
      */
     public static final int MOUTH_BUTTON = 2;
+    
+    /**
+     * Constant that represents the drag button
+     */
+    public static final int DRAG_BUTTON = 3;
+    
+    /**
+     * Constant that represents the custom button
+     */
+    public static final int CUSTOM_BUTTON = 4;
+    
 
     /**
      * Image of the button in it's normal state
@@ -146,6 +157,10 @@ public class ActionButton {
                 loadButtonImages( DescriptorData.TALK_BUTTON, "btnMouth" );
                 actionName = TextConstants.getText( "ActionButton.Talk" );
                 break;
+            case DRAG_BUTTON:
+                loadButtonImages( DescriptorData.USE_GRAB_BUTTON, "btnHand" );
+                actionName = TextConstants.getText( "ActionButton.Drag" );
+                break;
         }
         this.type = type;
     }
@@ -206,7 +221,7 @@ public class ActionButton {
         buttonOver = scaleButton( buttonOver );
         buttonPressed = scaleButton( buttonPressed );
 
-        this.type = ActionButtons.ACTIONBUTTON_CUSTOM;
+        this.type = CUSTOM_BUTTON;
     }
 
     /**

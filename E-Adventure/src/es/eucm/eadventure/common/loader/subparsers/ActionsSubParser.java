@@ -202,7 +202,7 @@ public class ActionsSubParser extends SubParser {
             }
 
             // If it is an use-with or give-to tag, create new conditions and effects, and store the idTarget
-            else if( qName.equals( "use-with" ) || qName.equals( "give-to" ) ) {
+            else if( qName.equals( "use-with" ) || qName.equals( "give-to" ) || qName.equals( "drag-to" )) {
                 for( int i = 0; i < attrs.getLength( ); i++ ) {
                     if( attrs.getQName( i ).equals( "idTarget" ) )
                         currentIdTarget = attrs.getValue( i );
@@ -365,6 +365,17 @@ public class ActionsSubParser extends SubParser {
             // If it is an use-with tag, store the new action in the object
             else if( qName.equals( "use-with" ) ) {
                 Action useWithAction = new Action( Action.USE_WITH, currentIdTarget, currentConditions, currentEffects, currentNotEffects );
+                useWithAction.setDocumentation( currentDocumentation );
+                useWithAction.setKeepDistance( currentKeepDistance );
+                useWithAction.setNeedsGoTo( currentNeedsGoTo );
+                useWithAction.setActivatedNotEffects( activateNotEffects );
+                element.addAction( useWithAction );
+                reading = READING_NONE;
+            }
+
+            // If it is an use-with tag, store the new action in the object
+            else if( qName.equals( "drag-to" ) ) {
+                Action useWithAction = new Action( Action.DRAG_TO, currentIdTarget, currentConditions, currentEffects, currentNotEffects );
                 useWithAction.setDocumentation( currentDocumentation );
                 useWithAction.setKeepDistance( currentKeepDistance );
                 useWithAction.setNeedsGoTo( currentNeedsGoTo );

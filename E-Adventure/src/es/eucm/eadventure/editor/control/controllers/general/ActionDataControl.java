@@ -129,6 +129,10 @@ public class ActionDataControl extends DataControlWithResources {
                 actionType = Controller.ACTION_TALK_TO;
                 actionName = action.getTargetId( );
                 break;
+            case Action.DRAG_TO:
+                actionType = Controller.ACTION_DRAG_TO;
+                actionName = action.getTargetId( );
+                break;
         }
 
         // Create subcontrollers
@@ -175,7 +179,7 @@ public class ActionDataControl extends DataControlWithResources {
     public boolean hasIdTarget( ) {
 
         // The use-with and give-to actions accept id target
-        return action.getType( ) == Action.USE_WITH || action.getType( ) == Action.GIVE_TO || action.getType( ) == Action.CUSTOM_INTERACT;
+        return action.getType( ) == Action.USE_WITH || action.getType( ) == Action.GIVE_TO || action.getType( ) == Action.CUSTOM_INTERACT || action.getType( ) == Action.DRAG_TO;
     }
 
     /**
@@ -191,6 +195,8 @@ public class ActionDataControl extends DataControlWithResources {
             elements = controller.getIdentifierSummary( ).getItemAndActiveAreaIds( );
         else if( action.getType( ) == Action.GIVE_TO )
             elements = controller.getIdentifierSummary( ).getNPCIds( );
+        else if( action.getType( ) == Action.DRAG_TO )
+            elements = controller.getIdentifierSummary( ).getItemActiveAreaNPCIds();
         else if( action.getType( ) == Action.CUSTOM_INTERACT ) {
             String[] temp1 = controller.getIdentifierSummary( ).getNPCIds( );
             String[] temp2 = controller.getIdentifierSummary( ).getItemAndActiveAreaIds( );
@@ -351,7 +357,7 @@ public class ActionDataControl extends DataControlWithResources {
         int count = 0;
 
         // If the action references to the given identifier, increase the counter
-        if( ( action.getType( ) == Action.GIVE_TO || action.getType( ) == Action.USE_WITH || action.getType( ) == Action.CUSTOM_INTERACT ) && action.getTargetId( ).equals( id ) )
+        if( ( action.getType( ) == Action.GIVE_TO || action.getType( ) == Action.USE_WITH || action.getType( ) == Action.DRAG_TO || action.getType( ) == Action.CUSTOM_INTERACT ) && action.getTargetId( ).equals( id ) )
             count++;
 
         // Add to the counter the references in the effects block
@@ -365,7 +371,7 @@ public class ActionDataControl extends DataControlWithResources {
     public void replaceIdentifierReferences( String oldId, String newId ) {
 
         // Only the "Give to" and "Use with" have item references
-        if( ( action.getType( ) == Action.GIVE_TO || action.getType( ) == Action.USE_WITH || action.getType( ) == Action.CUSTOM_INTERACT ) && action.getTargetId( ).equals( oldId ) )
+        if( ( action.getType( ) == Action.GIVE_TO || action.getType( ) == Action.USE_WITH || action.getType( ) == Action.DRAG_TO || action.getType( ) == Action.CUSTOM_INTERACT ) && action.getTargetId( ).equals( oldId ) )
             action.setTargetId( newId );
 
         EffectsController.replaceIdentifierReferences( oldId, newId, action.getEffects( ) );
@@ -404,13 +410,7 @@ public class ActionDataControl extends DataControlWithResources {
      *            the needsGoTo to set
      */
     public void setNeedsGoTo( boolean needsGoTo ) {
-
         controller.addTool( new ChangeBooleanValueTool( action, needsGoTo, "isNeedsGoTo", "setNeedsGoTo" ) );
-
-        /*if (needsGoTo != action.isNeedsGoTo()) {
-        	action.setNeedsGoTo(needsGoTo);
-        	controller.dataModified();
-        }*/
     }
 
     /**
@@ -426,11 +426,6 @@ public class ActionDataControl extends DataControlWithResources {
      *            the keepDistance to set
      */
     public void setKeepDistance( int keepDistance ) {
-
-        /*if (keepDistance != action.getKeepDistance()) {
-        	action.setKeepDistance(keepDistance);
-        	controller.dataModified();
-        }*/
         controller.addTool( new ChangeIntegerValueTool( action, keepDistance, "getKeepDistance", "setKeepDistance" ) );
     }
 
@@ -453,20 +448,17 @@ public class ActionDataControl extends DataControlWithResources {
      * @return the notEffectsController
      */
     public EffectsController getNotEffectsController( ) {
-
         return notEffectsController;
     }
 
     @Override
     public void recursiveSearch( ) {
-
         check( this.getConditions( ), TextConstants.getText( "Search.Conditions" ) );
         check( this.getIdTarget( ), TextConstants.getText( "Search.IDTarget" ) );
 
         for( int i = 0; i < this.getEffects( ).getEffectCount( ); i++ ) {
             check( this.getEffects( ).getEffectInfo( i ), TextConstants.getText( "Search.Effect" ) );
         }
-
     }
 
     @Override

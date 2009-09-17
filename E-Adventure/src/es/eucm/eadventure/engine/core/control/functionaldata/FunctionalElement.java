@@ -181,7 +181,7 @@ public abstract class FunctionalElement implements Renderable {
 
         return false;
     }
-
+    
     /**
      * Triggers the examining action associated with the element
      * 
@@ -243,5 +243,14 @@ public abstract class FunctionalElement implements Renderable {
     
     public FunctionalHighlight getHighlight() {
         return highlight;
+    }
+
+    /**
+     * Returns true if the element can be dragged
+     * 
+     * @return True if the element can be dragged, false otherwise
+     */
+    public boolean canBeDragged( ) {
+        return false;
     }
 }

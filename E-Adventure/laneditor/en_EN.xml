@@ -1360,6 +1360,7 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="Action.Documentation">Full description of the action</entry>
 	<entry key="Action.IdTarget">Target element of this action</entry>
 	<entry key="Action.Conditions">Conditions of the action</entry>
+	<entry key="Action.ActiveWhenConditionsArent">Active when conditions are not</entry>
 	
 
 	<entry key="CustomAction.Appearance">Appearance</entry>

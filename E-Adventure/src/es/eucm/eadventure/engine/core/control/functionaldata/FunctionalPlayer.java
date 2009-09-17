@@ -57,6 +57,7 @@ import es.eucm.eadventure.engine.core.control.animations.AnimationState;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionalactions.FunctionalAction;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionalactions.FunctionalCustom;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionalactions.FunctionalCustomInteract;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionalactions.FunctionalDragTo;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionalactions.FunctionalExamine;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionalactions.FunctionalGive;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionalactions.FunctionalGoTo;
@@ -435,6 +436,18 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
                 else {
                     popAction( );
                     speak( GameText.getTextUseNPC( ) );
+                }
+                break;
+            case ActionManager.ACTION_DRAG_TO:
+                if (getCurrentAction().getType( ) == Action.DRAG_TO) {
+                    nextAction = getCurrentAction();
+                    popAction();
+                    if (nextAction != null && element != null && nextAction instanceof FunctionalDragTo) {
+                        ((FunctionalDragTo) nextAction).setAnotherElement(element);
+                    }
+                }
+                else {
+                    nextAction = new FunctionalDragTo( element );
                 }
                 break;
             case ActionManager.ACTION_CUSTOM:

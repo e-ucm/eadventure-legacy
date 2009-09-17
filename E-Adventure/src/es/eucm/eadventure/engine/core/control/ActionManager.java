@@ -100,21 +100,20 @@ public class ActionManager {
      */
     public static final int ACTION_GIVE_TO = 8;
 
+    /**
+     * Constant for custom action
+     */
     public static final int ACTION_CUSTOM = 9;
 
-    public static final int ACTION_CUSTOM_INTERACT = 10;
-
     /**
-     * Returns true if the given action (int value) needs to operands (e.g. Give
-     * X to Y)
-     * 
-     * @param action
-     * @return
+     * Constant for custom interact action
      */
-    private static boolean isBinaryAction( int action ) {
-
-        return action == ACTION_CUSTOM_INTERACT || action == ACTION_GIVE_TO || action == ACTION_USE_WITH || action == ACTION_GIVE;
-    }
+    public static final int ACTION_CUSTOM_INTERACT = 10;
+    
+    /**
+     * Constant for drag to action
+     */
+    public static final int ACTION_DRAG_TO = 11;
 
     /**
      * Functional element in which the cursor is placed.
@@ -251,16 +250,6 @@ public class ActionManager {
 
         setExit( exit );
         setExitCursor( cursor );
-    }
-
-    /**
-     * Returns true if the selected action needs to operands (e.g. Give X to Y)
-     * 
-     * @return
-     */
-    public boolean isBinaryAction( ) {
-
-        return isBinaryAction( actionSelected );
     }
 
     /**
