@@ -221,7 +221,7 @@ public class EffectsStructurePanel extends StructurePanel {
             effectIcon = new ImageIcon( getIconBasePath( size ) + "wait.png" );
         }
         else if (name.equals( TextConstants.getText( "Effect.HighlightItem" ) )) {
-            effectIcon = new ImageIcon( getIconBasePath( size ) + "highlight.png");
+            effectIcon = new ImageIcon( getIconBasePath( size ) + "highlight-item.png");
         }
         else if( name.equals( TextConstants.getText( "EffectsGroup.GameState" ) ) ) {
             effectIcon = new ImageIcon( getIconBasePath( size ) + "game-state.png" );
