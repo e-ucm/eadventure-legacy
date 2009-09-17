@@ -46,12 +46,12 @@ public class FunctionalHighlightBlue extends FunctionalHighlight {
     
     @Override
     public Image getHighlightedImage( Image image ) {
-        BufferedImage temp = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage(image.getWidth( null ), image.getHeight( null ), Transparency.BITMASK );
         
         if (animated)
             calculateDisplacements(image.getWidth( null ), image.getHeight( null ));
         
         if (oldImage == null || oldImage != image) {
+            BufferedImage temp = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage(image.getWidth( null ), image.getHeight( null ), Transparency.BITMASK );
             temp.getGraphics( ).drawImage( image, 0, 0, null );
             
             for (int i = 0 ; i < image.getWidth( null ); i++) {
