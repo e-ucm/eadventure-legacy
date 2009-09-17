@@ -330,7 +330,7 @@ public class EffectsController {
                     icon = new ImageIcon( "img/icons/effects/16x16/show-text.png" );
                     break;
                 case Effect.HIGHLIGHT_ITEM:
-                    icon = new ImageIcon( "img/icons/effects/16x15/highlight-item.png");
+                    icon = new ImageIcon( "img/icons/effects/16x16/highlight-item.png");
                     break;
             }
 
