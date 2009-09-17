@@ -1302,6 +1302,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="Item.DocPanelTitle">Información</entry>
 	<entry key="Item.DocPanelTip">Panel para editar la información del objeto</entry>
 	<entry key="Item.ActionsPanelTitle">Acciones</entry>
+	<entry key="Item.ReturnsWhenDragged">El objeto vuelve a su posición inicial después de ser arrastrado</entry>
 
 	<entry key="AtrezzoList.Title">Objetos de atrezo</entry>
 	<entry key="AtrezzoList.ListTitle">Lista de objetos de atrezo</entry>
@@ -1352,6 +1353,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="ActionsList.Conditions">Condiciones</entry>
 	<entry key="ActionsList.CustomName">Nombre personalizado</entry>
 	<entry key="ActionsList.NotRelevant">No es relevante</entry>
+	<entry key="ActionsList.DragToAction">Arrastrar a: {#0}</entry>
 	<entry key="ActionList.Empty">No se ha seleccionado ninguna acción.</entry>
 	<entry key="ActionList.EditEffect">Editar Efecto</entry>
 	<entry key="TalkToAction.MessageSelectConversation">Seleccione una conversación</entry>
@@ -1560,6 +1562,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="TreeNode.AddElement24">Añadir acción "Usar con"</entry>
 	<entry key="TreeNode.AddElement25">Añadir acción "Entregar a"</entry>
 	<entry key="TreeNode.AddElement250">Añadir acción "Personalizable"</entry>
+	<entry key="TreeNode.AddElement251">Añadir acción "Arrastrar a"</entry>
 	<entry key="TreeNode.AddElement26">Añadir protagonista</entry>
 	<entry key="TreeNode.AddElement27">Añadir lista de personajes</entry>
 	<entry key="TreeNode.AddElement28">Añadir personaje</entry>

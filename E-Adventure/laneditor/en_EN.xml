@@ -1293,6 +1293,7 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="Item.DocPanelTitle">Documentation</entry>
 	<entry key="Item.DocPanelTip">Panel for the edition of the documentation of the item</entry>
 	<entry key="Item.ActionsPanelTitle">Actions</entry>
+	<entry key="Item.ReturnsWhenDragged">Object returns to it's original position after being dragged</entry>
 
 	<entry key="AtrezzoList.Title">Set items</entry>
 	<entry key="AtrezzoList.ListTitle">List of set items</entry>
@@ -1343,6 +1344,7 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="ActionsList.NeedsGoTo">Needs go to</entry>
 	<entry key="ActionsList.CustomName">Custom Name</entry>
 	<entry key="ActionsList.NotRelevant">Not relevant</entry>
+	<entry key="ActionsList.DragToAction">Drag to: {#0}</entry>
 	<entry key="ActionList.Empty">No action selected.</entry>
 	<entry key="ActionList.EditEffect">Edit Effect</entry>	
 	<entry key="TalkToAction.MessageSelectConversation">Select a conversation</entry>
@@ -1549,6 +1551,7 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="TreeNode.AddElement24">Add "Use with" action</entry>
 	<entry key="TreeNode.AddElement25">Add "Give to" action</entry>
 	<entry key="TreeNode.AddElement250">Add "Custom" action</entry>
+	<entry key="TreeNode.AddElement251">Add "Drag to" action</entry>
 	<entry key="TreeNode.AddElement26">Add player</entry>
 	<entry key="TreeNode.AddElement27">Add NPCs list</entry>
 	<entry key="TreeNode.AddElement28">Add NPC</entry>

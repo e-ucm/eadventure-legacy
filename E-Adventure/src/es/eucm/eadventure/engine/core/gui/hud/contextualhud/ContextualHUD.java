@@ -474,8 +474,6 @@ public class ContextualHUD extends HUD {
         DebugLog.user( "Mouse released after " + pressedTime );
 
         
-        
-        
         if( pressedTime >= 800 && pressedTime < 60000 ) {
             if( Math.abs( pressedX - e.getX( ) ) < 20 && Math.abs( pressedY - e.getY( ) ) < 20 ) {
                 processRightClickNoButton( pressedElement, e );
@@ -501,11 +499,9 @@ public class ContextualHUD extends HUD {
 
     @Override
     public boolean mouseDragged( MouseEvent e ) {
-        if( System.currentTimeMillis( ) - pressedTime >= 0 && System.currentTimeMillis( ) - pressedTime <= 800 ) {
-            if( Math.abs( pressedX - e.getX( ) ) < 20 && Math.abs( pressedY - e.getY( ) ) < 20 ) {
-                return true;
-            }
-            else if (pressedElement != null && pressedElement.canBeDragged()) {
+        if( System.currentTimeMillis( ) - pressedTime >= 0 && System.currentTimeMillis( ) - pressedTime <= 800 && Math.abs( pressedX - e.getX( ) ) < 20 && Math.abs( pressedY - e.getY( ) ) < 20 )
+             return true;
+        if (pressedElement != null && pressedElement.canBeDragged()) {
                 elementAction = pressedElement;
                 elementInCursor = elementAction;
                 // TODO: set specific cursor for dragging
@@ -517,8 +513,8 @@ public class ContextualHUD extends HUD {
                 originalDragY = draggingElement.getY( );
                 pressedElement = null;
                 pressedTime = Long.MAX_VALUE;                
-                return true;
-            } else {
+                return false;
+         } else {
                 FunctionalScene functionalScene = game.getFunctionalScene( );
                 if( functionalScene != null ) {
                     FunctionalElement elementInside = functionalScene.getElementInside( e.getX( ), e.getY( ), draggingElement );
@@ -530,18 +526,6 @@ public class ContextualHUD extends HUD {
                     draggingElement.setX( originalDragX - pressedX + e.getX() );
                     draggingElement.setY( originalDragY - pressedY + e.getY( ) );
                 }
-            }
-        } else {
-            FunctionalScene functionalScene = game.getFunctionalScene( );
-            if( functionalScene != null ) {
-                FunctionalElement elementInside = functionalScene.getElementInside( e.getX( ), e.getY( ), draggingElement );
-                game.getActionManager( ).setElementOver( elementInside );
-            }            
-            lastMouseMoved = e;
-            if (draggingElement != null) {
-                draggingElement.setX( originalDragX - pressedX + e.getX( ) );
-                draggingElement.setY( originalDragY - pressedY + e.getY( ) );
-            }
         }
         return false;
     }
