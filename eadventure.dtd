@@ -391,8 +391,8 @@
 >
 
 <!ELEMENT either (%basic-condition;)+>
-<!ENTITY % effects "((activate | deactivate | set-value | increment | decrement | macro-ref | consume-object | generate-object | cancel-action | speak-player | speak-char | play-sound | play-animation | move-player | move-npc | trigger-book | trigger-conversation | trigger-cutscene | trigger-scene | trigger-last-scene | random-effect | wait-time | show-text), condition?)*">
-<!ENTITY % simple-effect "(activate | deactivate | set-value | increment | decrement | macro-ref | consume-object | generate-object | speak-player | speak-char | play-sound | play-animation | move-player | move-npc | trigger-book | trigger-conversation | trigger-cutscene | trigger-scene | trigger-last-scene | wait-time | show-text )?">
+<!ENTITY % effects "((activate | deactivate | set-value | increment | decrement | macro-ref | consume-object | generate-object | cancel-action | speak-player | speak-char | play-sound | play-animation | move-player | move-npc | trigger-book | trigger-conversation | trigger-cutscene | trigger-scene | trigger-last-scene | random-effect | wait-time | show-text | highlight-item), condition?)*">
+<!ENTITY % simple-effect "(activate | deactivate | set-value | increment | decrement | macro-ref | consume-object | generate-object | speak-player | speak-char | play-sound | play-animation | move-player | move-npc | trigger-book | trigger-conversation | trigger-cutscene | trigger-scene | trigger-last-scene | wait-time | show-text | highlight-item)?">
 <!ELEMENT effect (%effects;)>
 <!ELEMENT random-effect (%simple-effect;, %simple-effect;,condition?)>
 <!ATTLIST random-effect
@@ -450,6 +450,12 @@
 <!ELEMENT trigger-book EMPTY>
 <!ATTLIST trigger-book
 	idTarget IDREF #REQUIRED
+>
+<!ELEMENT highlight-item EMPTY>
+<!ATTLIST highlight-item
+	idTarget IDREF #REQUIRED
+	animated (yes | no) "no"
+	type (none | blue | red | green | border) "none"
 >
 <!ELEMENT play-sound EMPTY>
 <!ATTLIST play-sound

@@ -710,7 +710,8 @@ based on the state of the flags.</entry>
 	<entry key="Effect.MacroReference">Launch a macro</entry>
 	<entry key="Effect.ShowText">Show text</entry>
 	<entry key="Effect.WaitTime">Wait time</entry>
-
+	<entry key="Effect.HighlightItem">Highlight item</entry>
+	
 	<entry key="Effect.ActivateInfo">Activate flag: {#0}</entry>
 	<entry key="Effect.DeactivateInfo">Deactivate flag: {#0}</entry>
 	<entry key="Effect.SetValueInfo">Set var "{#0}" with value "{#1}"</entry>	
@@ -734,6 +735,11 @@ based on the state of the flags.</entry>
 	<entry key="Effect.RandomInfo">{#2} (probability = {#0}%); {#3} (probability = {#1}%)</entry>
 	<entry key="Effect.WaitTimeInfo">Wait {#0} seconds</entry>
 	<entry key="Effect.ShowTextInfo">Show {#0} in position x:{#1} y:{#2}</entry>
+	<entry key="Effect.NoHighlightItemInfo">Don't highlight {#0}</entry>
+	<entry key="Effect.BlueHighlightItemInfo">Highlight {#0} in blue</entry>
+	<entry key="Effect.GreenHighlightItemInfo">Highlight {#0} in green</entry>
+	<entry key="Effect.RedHighlightItemInfo">Highlight {#0} in red</entry>
+	<entry key="Effect.BorderHighlightItemInfo">Highlight borders of {#0}</entry>
 	<entry key="EffectsGroup.GameState">Change the game state</entry>
 	<entry key="EffectsGroup.Multimedia">Multimedia</entry>
 	<entry key="EffectsGroup.Miscellaneous">Miscellaneous</entry>
@@ -826,6 +832,16 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="TriggerSceneEffect.Title">Trigger scene effect</entry>
 	<entry key="TriggerSceneEffect.Description">Select the scene you want to trigger and the insertion point of the player</entry>
 	<entry key="TriggerSceneEffect.ErrorNoScenes">To add this type of effect, there must be at least one scene in the chapter</entry>
+
+	<entry key="HighlightItemEffect.Title">Highlight item effect</entry>
+	<entry key="HighlightItemEffect.Description">Select the item you want to highlight, the type of highlighting to use and if the object should be animated</entry>
+	<entry key="HighlightItemEffect.ErrorNoScenes">To add this type of effect, there must be at least one item in the chapter</entry>
+	<entry key="HighlightItemEffect.None">No highlighting</entry>
+	<entry key="HighlightItemEffect.Blue">Blue highlighting</entry>
+	<entry key="HighlightItemEffect.Red">Red highlighting</entry>
+	<entry key="HighlightItemEffect.Green">Green highlighting</entry>
+	<entry key="HighlightItemEffect.Border">Highlight borders</entry>
+	<entry key="HighlightItemEffect.Animated">Animated</entry>
 
 	<entry key="RandomEffect.Title">Effect with probability</entry>
 	<entry key="RandomEffect.DeleteEffect">Delete this effect</entry>

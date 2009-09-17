@@ -39,6 +39,7 @@ import es.eucm.eadventure.common.data.chapter.Action;
 import es.eucm.eadventure.common.data.chapter.CustomAction;
 import es.eucm.eadventure.common.data.chapter.InfluenceArea;
 import es.eucm.eadventure.common.data.chapter.elements.Element;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionalhighlights.FunctionalHighlight;
 
 /**
  * This class defines the common behaviour from the characters and the objects
@@ -63,6 +64,8 @@ public abstract class FunctionalElement implements Renderable {
      */
     protected int layer;
 
+    protected FunctionalHighlight highlight;
+    
     /**
      * Creates a new FunctionalElement
      * 
@@ -77,6 +80,7 @@ public abstract class FunctionalElement implements Renderable {
         this.y = y;
         this.scale = 1;
         this.layer = -1;
+        this.highlight = null;
     }
 
     /**
@@ -231,5 +235,13 @@ public abstract class FunctionalElement implements Renderable {
     public boolean use( ) {
 
         return false;
+    }
+
+    public void setHighlight( FunctionalHighlight b ) {
+        this.highlight = b;
+    }
+    
+    public FunctionalHighlight getHighlight() {
+        return highlight;
     }
 }

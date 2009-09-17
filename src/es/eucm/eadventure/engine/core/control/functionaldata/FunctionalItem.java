@@ -273,14 +273,14 @@ public class FunctionalItem extends FunctionalElement {
                 oldScale = scale;
             }
             if( layer == -1 )
-                GUI.getInstance( ).addElementToDraw( temp, x_image, y_image, Math.round( y ), Math.round( y ) );
+                GUI.getInstance( ).addElementToDraw( temp, x_image, y_image, Math.round( y ), Math.round( y ), highlight );
             else
-                GUI.getInstance( ).addElementToDraw( temp, x_image, y_image, layer, Math.round( y ) );
+                GUI.getInstance( ).addElementToDraw( temp, x_image, y_image, layer, Math.round( y ), highlight );
         }
         else if( layer == -1 )
-            GUI.getInstance( ).addElementToDraw( image, x_image, y_image, Math.round( y ), Math.round( y ) );
+            GUI.getInstance( ).addElementToDraw( image, x_image, y_image, Math.round( y ), Math.round( y ), highlight );
         else
-            GUI.getInstance( ).addElementToDraw( image, x_image, y_image, layer, Math.round( y ) );
+            GUI.getInstance( ).addElementToDraw( image, x_image, y_image, layer, Math.round( y ), highlight );
     }
 
     @Override
@@ -291,12 +291,13 @@ public class FunctionalItem extends FunctionalElement {
         int mousex = (int) ( x - ( this.x - getWidth( ) * scale / 2 ) );
         int mousey = (int) ( y - ( this.y - getHeight( ) * scale ) );
 
-        if (mousex < x1 || mousey < y1 || mousex >= x2 || mousey >= y2)
+        
+        if (mousex < x1 * scale || mousey < y1 * scale || mousex >= x2 * scale || mousey >= y2 * scale)
             return false;
-        mousex = mousex - x1;
-        mousey = mousey - y1;
+        mousex = mousex - (int) (x1 * scale);
+        mousey = mousey - (int) (y1 * scale);
 
-        if( ( mousex >= 0 ) && ( mousex < getWidth( ) * scale ) && ( mousey >= 0 ) && ( mousey < getHeight( ) * scale ) ) {
+        if( ( mousex >= 0 ) && ( mousex < (x2 - x1) * scale ) && ( mousey >= 0 ) && ( mousey < (y2 - y1) * scale ) ) {
             BufferedImage bufferedImage = (BufferedImage) image;
             int alpha = bufferedImage.getRGB( (int) ( mousex / scale ), (int) ( mousey / scale ) ) >>> 24;
             isInside = alpha > 128;

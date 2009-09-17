@@ -153,6 +153,12 @@ public interface Effect extends Cloneable {
      * Constant for show-text effect
      */
     public static final int SHOW_TEXT = 22;
+    
+    /**
+     * Constant for highlight element effect
+     */
+    public static final int HIGHLIGHT_ITEM = 23;
+    
 
     /**
      * Returns the type of the effect.

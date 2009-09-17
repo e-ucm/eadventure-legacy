@@ -251,15 +251,15 @@ public class FunctionalAtrezzo extends FunctionalElement {
                 oldScale = scale;
             }
             if( layer == -1 )
-                GUI.getInstance( ).addElementToDraw( temp, x_image, y_image, Math.round( y ), Math.round( y ) );
+                GUI.getInstance( ).addElementToDraw( temp, x_image, y_image, Math.round( y ), Math.round( y ), null);
             else
-                GUI.getInstance( ).addElementToDraw( temp, x_image, y_image, layer, Math.round( y ) );
+                GUI.getInstance( ).addElementToDraw( temp, x_image, y_image, layer, Math.round( y ), null );
 
         }
         else if( layer == -1 )
-            GUI.getInstance( ).addElementToDraw( image, x_image, y_image, Math.round( y ), Math.round( y ) );
+            GUI.getInstance( ).addElementToDraw( image, x_image, y_image, Math.round( y ), Math.round( y ), null );
         else
-            GUI.getInstance( ).addElementToDraw( image, x_image, y_image, layer, Math.round( y ) );
+            GUI.getInstance( ).addElementToDraw( image, x_image, y_image, layer, Math.round( y ), null );
     }
 
     @Override

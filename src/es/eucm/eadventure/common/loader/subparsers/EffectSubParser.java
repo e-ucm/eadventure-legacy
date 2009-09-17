@@ -45,6 +45,7 @@ import es.eucm.eadventure.common.data.chapter.effects.DeactivateEffect;
 import es.eucm.eadventure.common.data.chapter.effects.DecrementVarEffect;
 import es.eucm.eadventure.common.data.chapter.effects.Effects;
 import es.eucm.eadventure.common.data.chapter.effects.GenerateObjectEffect;
+import es.eucm.eadventure.common.data.chapter.effects.HighlightItemEffect;
 import es.eucm.eadventure.common.data.chapter.effects.IncrementVarEffect;
 import es.eucm.eadventure.common.data.chapter.effects.MacroReferenceEffect;
 import es.eucm.eadventure.common.data.chapter.effects.MoveNPCEffect;
@@ -432,7 +433,33 @@ public class EffectSubParser extends SubParser {
                     borderColor = Integer.parseInt( attrs.getValue( i ) );
             }
 
-        }// If it is a condition tag, create new conditions and switch the state
+        }
+        
+        else if (qName.equals( "highlight-item" )) {
+            int type = 0;
+            boolean animated = false;
+            String id = "";
+            for (int i = 0; i < attrs.getLength(); i++) {
+                if (attrs.getQName( i ).equals( "idTarget" ))
+                    id = attrs.getValue( i );
+                if (attrs.getQName( i ).equals( "animated" ))
+                    animated = (attrs.getValue( i ).equals( "yes" ) ? true : false);
+                if (attrs.getQName( i ).equals( "type" )) {
+                    if (attrs.getValue( i ).equals( "none" ))
+                        type = HighlightItemEffect.NO_HIGHLIGHT;
+                    if (attrs.getValue( i ).equals( "green" ))
+                        type = HighlightItemEffect.HIGHLIGHT_GREEN;
+                    if (attrs.getValue( i ).equals( "red" ))
+                        type = HighlightItemEffect.HIGHLIGHT_RED;
+                    if (attrs.getValue( i ).equals( "blue" ))
+                        type = HighlightItemEffect.HIGHLIGHT_BLUE;
+                    if (attrs.getValue( i ).equals( "border" ))
+                        type = HighlightItemEffect.HIGHLIGHT_BORDER;
+                }
+            }
+            newEffect = new HighlightItemEffect(id, type, animated);
+        }
+        // If it is a condition tag, create new conditions and switch the state
         else if( qName.equals( "condition" ) ) {
             currentConditions = new Conditions( );
             subParser = new ConditionSubParser( currentConditions, chapter );

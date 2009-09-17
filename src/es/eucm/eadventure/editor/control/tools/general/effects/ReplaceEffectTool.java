@@ -44,6 +44,7 @@ import es.eucm.eadventure.common.data.chapter.effects.DecrementVarEffect;
 import es.eucm.eadventure.common.data.chapter.effects.Effect;
 import es.eucm.eadventure.common.data.chapter.effects.Effects;
 import es.eucm.eadventure.common.data.chapter.effects.GenerateObjectEffect;
+import es.eucm.eadventure.common.data.chapter.effects.HighlightItemEffect;
 import es.eucm.eadventure.common.data.chapter.effects.IncrementVarEffect;
 import es.eucm.eadventure.common.data.chapter.effects.MacroReferenceEffect;
 import es.eucm.eadventure.common.data.chapter.effects.MoveNPCEffect;
@@ -235,6 +236,12 @@ public class ReplaceEffectTool extends Tool {
                     showTextEffect.setRgbFrontColor( Integer.parseInt( (String) newProperties.get( EffectsController.EFFECT_PROPERTY_FRONT_COLOR ) ) );
                     showTextEffect.setRgbBorderColor( Integer.parseInt( (String) newProperties.get( EffectsController.EFFECT_PROPERTY_BORDER_COLOR ) ) );
                     break;
+                case Effect.HIGHLIGHT_ITEM:
+                    HighlightItemEffect highlightItemEffect = (HighlightItemEffect) effect;
+                    highlightItemEffect.setTargetId( (String ) newProperties.get( EffectsController.EFFECT_PROPERTY_TARGET ));
+                    highlightItemEffect.setHighlightAnimated( (Boolean ) newProperties.get( EffectsController.EFFECT_PROPERTY_ANIMATED ));
+                    highlightItemEffect.setHighlightType( (Integer) newProperties.get( EffectsController.EFFECT_PROPERTY_HIGHLIGHT_TYPE ) );
+                    break;
             }
             effectEdited = true;
         }
@@ -244,7 +251,6 @@ public class ReplaceEffectTool extends Tool {
 
     @Override
     public boolean redoTool( ) {
-
         int index = effects.getEffects( ).indexOf( oldEffect );
         effects.getEffects( ).remove( oldEffect );
         effects.getEffects( ).add( index, effect );
@@ -255,7 +261,6 @@ public class ReplaceEffectTool extends Tool {
 
     @Override
     public boolean undoTool( ) {
-
         int index = effects.getEffects( ).indexOf( effect );
         effects.getEffects( ).remove( effect );
         effects.getEffects( ).add( index, oldEffect );
