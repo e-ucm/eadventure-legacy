@@ -57,8 +57,6 @@ public class GUIApplet extends GUI {
 
     private static JApplet applet;
 
-    private Component component;
-
     @Override
     public Frame getJFrame( ) {
 

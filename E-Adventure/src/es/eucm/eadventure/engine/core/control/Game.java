@@ -478,28 +478,28 @@ public class Game implements KeyListener, MouseListener, MouseMotionListener, Ru
         // Init the time manager
         timerManager = TimerManager.getInstance( );
         timerManager.reset( );
-
-        if( gameData.getAdaptationName( ) != "" )
-            chapter.setAdaptationName( gameData.getAdaptationName( ) );
-        if( gameData.getAssessmentName( ) != "" )
-            chapter.setAssessmentName( gameData.getAssessmentName( ) );
-
-        AdaptedState initialState = null;
-        // Load the assessment rules and adaptation data (from specific xml file)
-        if( chapter.hasAdaptationProfile( ) )
-            initialState = adaptationEngine.init( chapter.getSelectedAdaptationProfile( ) );
-
-        if( chapter.hasAssessmentProfile( ) )
-            assessmentEngine.loadAssessmentRules( chapter.getSelectedAssessmentProfile( ) );
-
+        
+        if (gameData.getAdaptationName()!="")
+        chapter.setAdaptationName(gameData.getAdaptationName());
+        if (gameData.getAssessmentName()!="")
+        chapter.setAssessmentName(gameData.getAssessmentName());
+        
+        AdaptedState initialState=null;
+        // Load the assessment rules and adaptation data 
+        if (gameData.hasAdaptationProfile())
+            initialState = adaptationEngine.init( gameData.getSelectedAdaptationProfile() );
+       
+        if (gameData.hasAssessmentProfile())
+            assessmentEngine.loadAssessmentRules( gameData.getSelectedAssessmentProfile() );
+        
+        
         // Load the assessment rules and adaptation data (from chapter xml file)
-        if( gameData.hasAdaptationProfile( ) ) {
-            //System.out.println("Entramos en INIT desde game");
-            initialState = adaptationEngine.init( gameData.getSelectedAdaptationProfile( ) );
-        }
-        if( gameData.hasAssessmentProfile( ) )
-            assessmentEngine.loadAssessmentRules( gameData.getSelectedAssessmentProfile( ) );
-
+        if (!gameData.hasAdaptationProfile()&&chapter.hasAdaptationProfile())
+            initialState  = adaptationEngine.init( chapter.getSelectedAdaptationProfile() );
+        
+        if (!gameData.hasAssessmentProfile()&&chapter.hasAssessmentProfile())
+            assessmentEngine.loadAssessmentRules( chapter.getSelectedAssessmentProfile() );
+     
         // Initialize the required elements of the game
         actionManager = new ActionManager( );
         itemSummary = new ItemSummary( gameData.getItems( ) );

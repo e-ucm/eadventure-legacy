@@ -73,8 +73,6 @@ public class GUIFrame extends GUI implements FocusListener {
 
     private static DisplayMode originalDisplayMode;
 
-    private Component component = null;
-
     /**
      * Create the singleton instance
      */
