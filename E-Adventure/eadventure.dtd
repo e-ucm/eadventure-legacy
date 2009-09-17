@@ -551,13 +551,13 @@
 
 <!ELEMENT assessment-rule (concept?, condition?, assessEffect?)>
 <!ATTLIST assessment-rule
-	id ID #REQUIRED
+	id NMTOKEN #REQUIRED
 	importance ( verylow | low | normal | high | veryhigh ) #REQUIRED
 >
 
 <!ELEMENT timed-assessment-rule (concept?, init-condition?, end-condition?, assessEffect*)>
 <!ATTLIST timed-assessment-rule
-	id ID #REQUIRED
+	id NMTOKEN #REQUIRED
 	importance ( verylow | low | normal | high | veryhigh ) #REQUIRED
 	usesEndConditions ( yes | no) "yes"
 >
