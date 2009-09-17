@@ -202,6 +202,14 @@ public class ItemDataControl extends DataControlWithResources {
 
         controller.addTool( new ChangeDetailedDescriptionTool( item, detailedDescription ) );
     }
+    
+    public void setReturnsWhenDragged(Boolean returnsWhenDragged) {
+        item.setReturnsWhenDragged( returnsWhenDragged );
+    }
+    
+    public Boolean isReturnsWhenDragged() {
+        return item.isReturnsWhenDragged( );
+    }
 
     @Override
     public Object getContent( ) {

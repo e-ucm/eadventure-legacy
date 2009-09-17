@@ -67,6 +67,7 @@ public class ItemDOMWriter {
             // Create the root node
             itemElement = doc.createElement( "object" );
             itemElement.setAttribute( "id", item.getId( ) );
+            itemElement.setAttribute( "returnsWhenDragged", (item.isReturnsWhenDragged( ) ? "yes" : "no" ));
 
             // Append the documentation (if avalaible)
             if( item.getDocumentation( ) != null ) {

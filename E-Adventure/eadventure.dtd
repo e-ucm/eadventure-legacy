@@ -185,6 +185,7 @@
 <!ELEMENT object (documentation?, instance*, resources+, description, actions?)>
 <!ATTLIST object
 	id ID #IMPLIED
+	returnsWhenDragged ( yes | no) "yes"
 >
 <!ELEMENT instance EMPTY>
 <!ATTLIST instance

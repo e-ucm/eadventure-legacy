@@ -281,7 +281,7 @@ public class ActionManager {
         FunctionalScene functionalScene = game.getFunctionalScene( );
         if( functionalScene == null )
             return;
-        FunctionalElement elementInside = functionalScene.getElementInside( e.getX( ), e.getY( ) );
+        FunctionalElement elementInside = functionalScene.getElementInside( e.getX( ), e.getY( ), null );
         Exit exit = functionalScene.getExitInside( e.getX( ), e.getY( ) );
 
         if( elementInside != null ) {
