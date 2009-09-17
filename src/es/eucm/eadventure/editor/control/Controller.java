@@ -266,6 +266,11 @@ public class Controller {
     public static final int ACTION_GIVE_TO = 25;
 
     /**
+     * Id for the "Drag-to" action element.
+     */
+    public static final int ACTION_DRAG_TO = 26;
+    
+    /**
      * Id for the "Custom interact" action element.
      */
     public static final int ACTION_CUSTOM_INTERACT = 250;

@@ -786,9 +786,20 @@ public class IdentifierSummary {
      * @return ids of the items and activeAreas
      */
     public String[] getItemAndActiveAreaIds( ) {
-
         List<String> set = new ArrayList<String>( itemIdentifiers );
         set.addAll( activeAreaIdentifiers );
+        return set.toArray( new String[] {} );
+    }
+
+    /**
+     * Get a list of all ids of the items, active areas and npcs
+     * 
+     * @return ids of the items, activeAreas and npcs
+     */
+    public String[] getItemActiveAreaNPCIds( ) {
+        List<String> set = new ArrayList<String>( itemIdentifiers );
+        set.addAll( activeAreaIdentifiers );
+        set.addAll( npcIdentifiers );
         return set.toArray( new String[] {} );
     }
 

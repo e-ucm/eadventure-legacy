@@ -130,11 +130,6 @@ public class Trajectory implements Cloneable {
         return sides;
     }
 
-    private String generateID( ) {
-
-        return "";
-    }
-
     public class Node implements Cloneable {
 
         private String id;

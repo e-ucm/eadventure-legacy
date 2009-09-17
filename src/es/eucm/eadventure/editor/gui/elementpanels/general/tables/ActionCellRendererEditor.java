@@ -165,6 +165,9 @@ public class ActionCellRendererEditor extends AbstractCellEditor implements Tabl
             case Controller.ACTION_TALK_TO:
                 text = TextConstants.getText( "ActionsList.TalkToAction" );
                 break;
+            case Controller.ACTION_DRAG_TO:
+                text = TextConstants.getText( "ActionsList.DragToAction", "" );
+                break;
         }
         return text;
 

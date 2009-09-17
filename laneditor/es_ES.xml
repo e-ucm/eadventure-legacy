@@ -1372,6 +1372,7 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="Action.Documentation">Documentación de la acción</entry>
 	<entry key="Action.IdTarget">Elemento de destino para la acción</entry>
 	<entry key="Action.Conditions">Condición de la acción</entry>
+	<entry key="Action.ActiveWhenConditionsArent">Acción activa cuando condiciones inactivas</entry>
 
 	<entry key="CustomAction.Appearance">Apariencia</entry>
 	<entry key="CustomAction.PersonalizationTitle">Personalización</entry>

@@ -52,6 +52,7 @@ import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalElement;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalItem;
 import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalPlayer;
+import es.eucm.eadventure.engine.core.control.functionaldata.FunctionalScene;
 import es.eucm.eadventure.engine.core.gui.GUI;
 import es.eucm.eadventure.engine.core.gui.hud.HUD;
 import es.eucm.eadventure.engine.multimedia.MultimediaManager;
@@ -392,7 +393,7 @@ public class ContextualHUD extends HUD {
             elementAction = null;
         }
 
-        else if( actionManager.getElementOver( ) != null /*&& actionManager.isBinaryAction()*/) {
+        else if( actionManager.getElementOver( ) != null ) {
             DebugLog.user( "Mouse click over element at " + e.getX( ) + " , " + e.getY( ) );
             inHud = processElementClick( actionManager );
             System.out.println( "INHUD = " + inHud );
@@ -404,51 +405,6 @@ public class ContextualHUD extends HUD {
             showActionButtons = false;
             elementAction = null;
         }
-        // If a button was pressed
-        /*if(!button) {
-        	
-        	// Right click 
-        	if ( e.getButton( ) == MouseEvent.BUTTON3 && 
-        		elementInCursor==null ) {
-        	
-            	if ( actionManager.getElementOver() !=null){
-            		System.out.println("["+c+"] ELMENT OVER");
-            	} else {
-            		System.out.println("["+c+"] ELMENT NOT OVER");
-            	}
-            	c++;
-            	inHud = processRightClickNoButton(actionManager.getElementOver(), e);
-            	DebugLog.user("Mouse click, no action button. " + e.getX() + " , " + e.getY());
-        	}
-        }else{
-        	// Check double click: In such case show contextual HUD (as a right button click)
-        	if (e.getClickCount() == 2 && System.getProperty("os.name").contains("Windows")) {
-        		if ( actionManager.getElementOver() !=null){
-            		System.out.println("["+c+"] ** ELMENT OVER");
-            	} else {
-            		System.out.println("["+c+"] ** ELMENT NOT OVER");
-            	}
-            	c++;
-        		inHud = processRightClickNoButton(actionManager.getElementOver(), e);
-        		System.out.println("INHUD = "+inHud);
-        	} else {
-                if( showActionButtons ) {
-                    actionButtons.mouseClicked( e );
-                    if( actionButtons.getButtonPressed()!=null ){
-                    	DebugLog.user("Mouse click, inside action button: " + actionButtons.getButtonPressed().getName());
-                    	inHud = processButtonPressed(actionManager, e);
-                    }
-                }else if( showInventory && ( e.getY( ) > Inventory.BOTTOM_INVENTORY_PANEL_Y || e.getY( ) < Inventory.UPPER_INVENTORY_PANEL_Y + Inventory.INVENTORY_PANEL_HEIGHT ) ) {
-                	DebugLog.user("Mouse click in inventory");
-                	inHud = processInventoryClick(actionManager, e);
-                }else if( actionManager.getElementOver( ) != null /*&& actionManager.isBinaryAction() ){
-                	DebugLog.user("Mouse click over element at " + e.getX() + " , " + e.getY());
-                    inHud = processElementClick(actionManager);
-                }
-                showActionButtons = false;
-                elementAction = null;
-        	}
-        }*/
 
         return inHud;
     }
@@ -473,6 +429,19 @@ public class ContextualHUD extends HUD {
 
         mouseReleased = false;
         if( pressedElement == null ) {
+            if( elementInCursor != null  && game.getFunctionalPlayer( ).getCurrentAction( ).getType( ) == Action.DRAG_TO) {
+                game.getActionManager( ).setActionSelected( ActionManager.ACTION_DRAG_TO );
+                FunctionalScene functionalScene = game.getFunctionalScene( );
+                if( functionalScene == null )
+                    return false;
+                FunctionalElement elementInside = functionalScene.getElementInside( e.getX( ), e.getY( ) );
+
+                game.getFunctionalPlayer( ).performActionInElement( elementInside );
+                elementInCursor = null;
+                gui.setDefaultCursor( );
+                mouseReleased = true;
+                return true;
+            }
             pressedTime = Long.MAX_VALUE;
             return false;
         }
@@ -481,6 +450,9 @@ public class ContextualHUD extends HUD {
 
         DebugLog.user( "Mouse released after " + pressedTime );
 
+        
+        
+        
         if( pressedTime >= 800 && pressedTime < 60000 ) {
             if( Math.abs( pressedX - e.getX( ) ) < 20 && Math.abs( pressedY - e.getY( ) ) < 20 ) {
                 processRightClickNoButton( pressedElement, e );
@@ -506,14 +478,35 @@ public class ContextualHUD extends HUD {
 
     @Override
     public boolean mouseDragged( MouseEvent e ) {
-
         if( System.currentTimeMillis( ) - pressedTime >= 0 && System.currentTimeMillis( ) - pressedTime <= 800 ) {
             if( Math.abs( pressedX - e.getX( ) ) < 20 && Math.abs( pressedY - e.getY( ) ) < 20 ) {
                 return true;
             }
-            else {
+            else if (pressedElement != null && pressedElement.canBeDragged()) {
+                elementAction = pressedElement;
+                elementInCursor = elementAction;
+                gui.setCursor( Toolkit.getDefaultToolkit( ).createCustomCursor( ( (FunctionalItem) elementInCursor ).getIconImage( ), new Point( 5, 5 ), "elementInCursor" ) );
+                game.getActionManager( ).setActionSelected( ActionManager.ACTION_DRAG_TO );
+                game.getFunctionalPlayer( ).performActionInElement( elementAction );
+                pressedElement = null;
+                pressedTime = Long.MAX_VALUE;
+                return true;
+            } else {
+                FunctionalScene functionalScene = game.getFunctionalScene( );
+                if( functionalScene != null ) {
+                    FunctionalElement elementInside = functionalScene.getElementInside( e.getX( ), e.getY( ) );
+                    game.getActionManager( ).setElementOver( elementInside );
+                }
+                lastMouseMoved = e;
                 pressedTime = Long.MAX_VALUE;
             }
+        } else {
+            FunctionalScene functionalScene = game.getFunctionalScene( );
+            if( functionalScene != null ) {
+                FunctionalElement elementInside = functionalScene.getElementInside( e.getX( ), e.getY( ) );
+                game.getActionManager( ).setElementOver( elementInside );
+            }            
+            lastMouseMoved = e;
         }
         return false;
     }
@@ -546,6 +539,9 @@ public class ContextualHUD extends HUD {
         if( elementInCursor != null ) {
             if( game.getFunctionalPlayer( ).getCurrentAction( ).getType( ) == Action.CUSTOM_INTERACT ) {
                 actionManager.setActionSelected( ActionManager.ACTION_CUSTOM_INTERACT );
+            }
+            else if (game.getFunctionalPlayer( ).getCurrentAction( ).getType( ) == Action.DRAG_TO) {
+                actionManager.setActionSelected( ActionManager.ACTION_DRAG_TO );
             }
             else {
                 if( actionManager.getElementOver( ).canPerform( ActionManager.ACTION_GIVE_TO ) ) {
@@ -609,9 +605,8 @@ public class ContextualHUD extends HUD {
      * @return Value of inHud
      */
     private boolean processButtonPressed( ActionManager actionManager, MouseEvent e ) {
-
         switch( actionButtons.getButtonPressed( ).getType( ) ) {
-            case ActionButtons.ACTIONBUTTON_HAND:
+            case ActionButton.HAND_BUTTON:
                 elementInCursor = null;
                 gui.setDefaultCursor( );
                 if( elementAction.canBeUsedAlone( ) ) {
@@ -629,15 +624,21 @@ public class ContextualHUD extends HUD {
                     }
                 }
                 break;
-            case ActionButtons.ACTIONBUTTON_EYE:
+            case ActionButton.EYE_BUTTON:
                 actionManager.setActionSelected( ActionManager.ACTION_EXAMINE );
                 game.getFunctionalPlayer( ).performActionInElement( elementAction );
                 break;
-            case ActionButtons.ACTIONBUTTON_MOUTH:
+            case ActionButton.MOUTH_BUTTON:
                 actionManager.setActionSelected( ActionManager.ACTION_TALK );
                 game.getFunctionalPlayer( ).performActionInElement( elementAction );
                 break;
-            case ActionButtons.ACTIONBUTTON_CUSTOM:
+            case ActionButton.DRAG_BUTTON:
+                elementInCursor = elementAction;
+                gui.setCursor( Toolkit.getDefaultToolkit( ).createCustomCursor( ( (FunctionalItem) elementInCursor ).getIconImage( ), new Point( 5, 5 ), "elementInCursor" ) );
+                actionManager.setActionSelected( ActionManager.ACTION_DRAG_TO );
+                game.getFunctionalPlayer( ).performActionInElement( elementAction );
+                break;
+            case ActionButton.CUSTOM_BUTTON:
                 if( actionButtons.getButtonPressed( ).getCustomAction( ).getType( ) == Action.CUSTOM ) {
                     actionManager.setActionSelected( ActionManager.ACTION_CUSTOM );
                     actionManager.setCustomActionName( actionButtons.getButtonPressed( ).getName( ) );

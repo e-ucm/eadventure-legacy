@@ -142,6 +142,8 @@ public class ActionsListDataControl extends DataControl {
                 actionsInfo[i][0] = TextConstants.getText( "ActionsList.UseAction" );
             else if( action.getType( ) == Action.TALK_TO )
                 actionsInfo[i][0] = TextConstants.getText( "ActionsList.TalkToAction" );
+            else if( action.getType( ) == Action.DRAG_TO )
+                actionsInfo[i][0] = TextConstants.getText( "ActionsList.DragToAction" );
 
             if( action.getConditions( ).isEmpty( ) )
                 actionsInfo[i][1] = TextConstants.getText( "GeneralText.No" );
@@ -167,7 +169,7 @@ public class ActionsListDataControl extends DataControl {
     public int[] getAddableElements( ) {
 
         if( parent instanceof ItemDataControl )
-            return new int[] { Controller.ACTION_EXAMINE, Controller.ACTION_GRAB, Controller.ACTION_USE, Controller.ACTION_CUSTOM_INTERACT, Controller.ACTION_USE_WITH, Controller.ACTION_GIVE_TO };
+            return new int[] { Controller.ACTION_EXAMINE, Controller.ACTION_GRAB, Controller.ACTION_USE, Controller.ACTION_CUSTOM_INTERACT, Controller.ACTION_USE_WITH, Controller.ACTION_GIVE_TO, Controller.ACTION_DRAG_TO };
         if( parent instanceof NPCDataControl )
             return new int[] { Controller.ACTION_EXAMINE, Controller.ACTION_USE, Controller.ACTION_CUSTOM, Controller.ACTION_TALK_TO };
         if( parent instanceof ActiveAreaDataControl )
@@ -178,7 +180,7 @@ public class ActionsListDataControl extends DataControl {
     @Override
     public boolean canAddElement( int type ) {
 
-        return type == Controller.ACTION_EXAMINE || type == Controller.ACTION_GRAB || type == Controller.ACTION_USE || type == Controller.ACTION_CUSTOM || type == Controller.ACTION_USE_WITH || type == Controller.ACTION_GIVE_TO || type == Controller.ACTION_CUSTOM_INTERACT || type == Controller.ACTION_TALK_TO;
+        return type == Controller.ACTION_EXAMINE || type == Controller.ACTION_GRAB || type == Controller.ACTION_USE || type == Controller.ACTION_CUSTOM || type == Controller.ACTION_USE_WITH || type == Controller.ACTION_GIVE_TO || type == Controller.ACTION_CUSTOM_INTERACT || type == Controller.ACTION_TALK_TO || type == Controller.ACTION_DRAG_TO;
     }
 
     @Override
@@ -290,6 +292,25 @@ public class ActionsListDataControl extends DataControl {
                 // If some value was selected
                 if( selectedItem != null )
                     newAction = new Action( Action.USE_WITH, selectedItem );
+            }
+
+            // If the list had no elements, show an error dialog
+            else
+                controller.showErrorDialog( TextConstants.getText( "Action.OperationAddAction" ), TextConstants.getText( "Action.ErrorNoItems" ) );
+        }
+
+        // If the type of action is drag-to, we must ask for a second item
+        else if( type == Controller.ACTION_DRAG_TO ) {
+            // Take the list of the items
+            String[] items = controller.getIdentifierSummary( ).getItemActiveAreaNPCIds( );
+
+            // If the list has elements, show the dialog with the options
+            if( items.length > 0 ) {
+                String selectedItem = controller.showInputDialog( TextConstants.getText( "Action.OperationAddAction" ), TextConstants.getText( "Action.MessageSelectItem" ), items );
+
+                // If some value was selected
+                if( selectedItem != null )
+                    newAction = new Action( Action.DRAG_TO, selectedItem );
             }
 
             // If the list had no elements, show an error dialog
@@ -479,7 +500,7 @@ public class ActionsListDataControl extends DataControl {
             Action action = actionsList.get( i );
 
             // If the action has a reference to the identifier, delete it
-            if( ( action.getType( ) == Action.GIVE_TO || action.getType( ) == Action.USE_WITH ) && action.getTargetId( ).equals( id ) ) {
+            if( ( action.getType( ) == Action.GIVE_TO || action.getType( ) == Action.USE_WITH || action.getType() == Action.DRAG_TO) && action.getTargetId( ).equals( id ) ) {
                 actionsList.remove( i );
                 actionsDataControlList.remove( i );
             }
