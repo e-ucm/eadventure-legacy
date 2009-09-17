@@ -47,14 +47,14 @@ public class FunctionalHighlightRed extends FunctionalHighlight {
     
     @Override
     public Image getHighlightedImage( Image image ) {
-        BufferedImage temp = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage(image.getWidth( null ), image.getHeight( null ), Transparency.BITMASK );
 
         if (animated)
             calculateDisplacements(image.getWidth( null ), image.getHeight( null ));
-        temp.getGraphics( ).drawImage( image, 0, 0, null );
 
         if (oldImage == null || oldImage != image) {
-            for (int i = 0 ; i < image.getWidth( null ); i++) {
+            BufferedImage temp = GUI.getInstance( ).getGraphicsConfiguration( ).createCompatibleImage(image.getWidth( null ), image.getHeight( null ), Transparency.BITMASK );
+            temp.getGraphics( ).drawImage( image, 0, 0, null );
+           for (int i = 0 ; i < image.getWidth( null ); i++) {
                 for (int j = 0; j < image.getHeight( null ); j++) {
                     temp.setRGB( i, j, temp.getRGB( i, j ) | 0x00ff0000 );
                 }
