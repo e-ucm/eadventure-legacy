@@ -46,6 +46,7 @@ import java.awt.event.MouseEvent;
 
 import es.eucm.eadventure.common.data.adventure.DescriptorData;
 import es.eucm.eadventure.common.data.chapter.Action;
+import es.eucm.eadventure.common.data.chapter.elements.Item;
 import es.eucm.eadventure.engine.core.control.ActionManager;
 import es.eucm.eadventure.engine.core.control.DebugLog;
 import es.eucm.eadventure.engine.core.control.Game;
@@ -157,6 +158,12 @@ public class ContextualHUD extends HUD {
     private int pressedY;
 
     private FunctionalElement pressedElement;
+    
+    private FunctionalElement draggingElement;
+    
+    private float originalDragX;
+    
+    private float originalDragY;
 
     private boolean mouseReleased = false;
 
@@ -423,26 +430,42 @@ public class ContextualHUD extends HUD {
 
         return true;
     }
+    
+    private void clearDraggingElement() {
+        if(draggingElement != null) {
+            if (draggingElement.getElement( ) instanceof Item) {
+                if (((Item) draggingElement.getElement( )).isReturnsWhenDragged( )) {
+                    draggingElement.setX( originalDragX );
+                    draggingElement.setY( originalDragY );
+                }
+            }
+        }
+        draggingElement = null;
+    }
 
     @Override
     public boolean mouseReleased( MouseEvent e ) {
-
+     
         mouseReleased = false;
         if( pressedElement == null ) {
-            if( elementInCursor != null  && game.getFunctionalPlayer( ).getCurrentAction( ).getType( ) == Action.DRAG_TO) {
+            if( draggingElement != null  && game.getFunctionalPlayer( ).getCurrentAction( ).getType( ) == Action.DRAG_TO) {
                 game.getActionManager( ).setActionSelected( ActionManager.ACTION_DRAG_TO );
                 FunctionalScene functionalScene = game.getFunctionalScene( );
-                if( functionalScene == null )
+                if( functionalScene == null ) {
+                    clearDraggingElement();
                     return false;
-                FunctionalElement elementInside = functionalScene.getElementInside( e.getX( ), e.getY( ) );
+                }
+                FunctionalElement elementInside = functionalScene.getElementInside( e.getX( ), e.getY( ), draggingElement );
 
                 game.getFunctionalPlayer( ).performActionInElement( elementInside );
                 elementInCursor = null;
                 gui.setDefaultCursor( );
                 mouseReleased = true;
+                clearDraggingElement();
                 return true;
             }
             pressedTime = Long.MAX_VALUE;
+            clearDraggingElement();
             return false;
         }
 
@@ -485,28 +508,40 @@ public class ContextualHUD extends HUD {
             else if (pressedElement != null && pressedElement.canBeDragged()) {
                 elementAction = pressedElement;
                 elementInCursor = elementAction;
-                gui.setCursor( Toolkit.getDefaultToolkit( ).createCustomCursor( ( (FunctionalItem) elementInCursor ).getIconImage( ), new Point( 5, 5 ), "elementInCursor" ) );
+                // TODO: set specific cursor for dragging
+                // gui.setCursor( Toolkit.getDefaultToolkit( ).createCustomCursor( ( (FunctionalItem) elementInCursor ).getIconImage( ), new Point( 5, 5 ), "elementInCursor" ) );
                 game.getActionManager( ).setActionSelected( ActionManager.ACTION_DRAG_TO );
                 game.getFunctionalPlayer( ).performActionInElement( elementAction );
+                draggingElement = pressedElement;
+                originalDragX = draggingElement.getX( );
+                originalDragY = draggingElement.getY( );
                 pressedElement = null;
-                pressedTime = Long.MAX_VALUE;
+                pressedTime = Long.MAX_VALUE;                
                 return true;
             } else {
                 FunctionalScene functionalScene = game.getFunctionalScene( );
                 if( functionalScene != null ) {
-                    FunctionalElement elementInside = functionalScene.getElementInside( e.getX( ), e.getY( ) );
+                    FunctionalElement elementInside = functionalScene.getElementInside( e.getX( ), e.getY( ), draggingElement );
                     game.getActionManager( ).setElementOver( elementInside );
                 }
                 lastMouseMoved = e;
                 pressedTime = Long.MAX_VALUE;
+                if (draggingElement != null) {
+                    draggingElement.setX( originalDragX - pressedX + e.getX() );
+                    draggingElement.setY( originalDragY - pressedY + e.getY( ) );
+                }
             }
         } else {
             FunctionalScene functionalScene = game.getFunctionalScene( );
             if( functionalScene != null ) {
-                FunctionalElement elementInside = functionalScene.getElementInside( e.getX( ), e.getY( ) );
+                FunctionalElement elementInside = functionalScene.getElementInside( e.getX( ), e.getY( ), draggingElement );
                 game.getActionManager( ).setElementOver( elementInside );
             }            
             lastMouseMoved = e;
+            if (draggingElement != null) {
+                draggingElement.setX( originalDragX - pressedX + e.getX( ) );
+                draggingElement.setY( originalDragY - pressedY + e.getY( ) );
+            }
         }
         return false;
     }
@@ -634,7 +669,8 @@ public class ContextualHUD extends HUD {
                 break;
             case ActionButton.DRAG_BUTTON:
                 elementInCursor = elementAction;
-                gui.setCursor( Toolkit.getDefaultToolkit( ).createCustomCursor( ( (FunctionalItem) elementInCursor ).getIconImage( ), new Point( 5, 5 ), "elementInCursor" ) );
+                // TODO: set the specific cursor for dragging
+                //gui.setCursor( Toolkit.getDefaultToolkit( ).createCustomCursor( ( (FunctionalItem) elementInCursor ).getIconImage( ), new Point( 5, 5 ), "elementInCursor" ) );
                 actionManager.setActionSelected( ActionManager.ACTION_DRAG_TO );
                 game.getFunctionalPlayer( ).performActionInElement( elementAction );
                 break;

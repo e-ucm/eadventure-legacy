@@ -669,7 +669,7 @@ public class FunctionalScene implements Renderable {
      *            the vertical position
      * @return the element in the given position
      */
-    public FunctionalElement getElementInside( int x, int y ) {
+    public FunctionalElement getElementInside( int x, int y, FunctionalElement exclude ) {
 
         FunctionalElement element = null;
         if( isInsideOffsetArrow( x, y ) )
@@ -678,21 +678,21 @@ public class FunctionalScene implements Renderable {
         Iterator<FunctionalItem> ito = items.iterator( );
         while( ito.hasNext( ) && element == null ) {
             FunctionalItem currentItem = ito.next( );
-            if( currentItem.isPointInside( x + Game.getInstance( ).getFunctionalScene( ).getOffsetX( ), y ) )
+            if( currentItem != exclude && currentItem.isPointInside( x + Game.getInstance( ).getFunctionalScene( ).getOffsetX( ), y ) )
                 element = currentItem;
         }
 
         Iterator<FunctionalActiveArea> ita = areas.iterator( );
         while( ita.hasNext( ) && element == null ) {
             FunctionalActiveArea currentActiveArea = ita.next( );
-            if( currentActiveArea.isPointInside( x + Game.getInstance( ).getFunctionalScene( ).getOffsetX( ), y ) )
+            if( currentActiveArea != exclude && currentActiveArea.isPointInside( x + Game.getInstance( ).getFunctionalScene( ).getOffsetX( ), y ) )
                 element = currentActiveArea;
         }
 
         Iterator<FunctionalNPC> itp = npcs.iterator( );
         while( itp.hasNext( ) && element == null ) {
             FunctionalNPC currentNPC = itp.next( );
-            if( currentNPC.isPointInside( x + Game.getInstance( ).getFunctionalScene( ).getOffsetX( ), y ) )
+            if( currentNPC != exclude && currentNPC.isPointInside( x + Game.getInstance( ).getFunctionalScene( ).getOffsetX( ), y ) )
                 element = currentNPC;
         }
         
@@ -766,7 +766,7 @@ public class FunctionalScene implements Renderable {
                 updateOffset( false );
         }
 
-        FunctionalElement element = getElementInside( x + offsetX, y );
+        FunctionalElement element = getElementInside( x + offsetX, y , null);
         if( Game.getInstance( ).getActionManager( ).getActionSelected( ) == ActionManager.ACTION_GOTO || element == null ) {
             int destX = x + offsetX;
             int destY = y;

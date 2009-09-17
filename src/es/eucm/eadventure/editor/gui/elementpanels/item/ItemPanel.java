@@ -100,7 +100,6 @@ public class ItemPanel extends ElementPanel {
         private ItemDataControl itemDataControl;
 
         public ActionsPanelTab( ItemDataControl itemDataControl ) {
-
             super( TextConstants.getText( "Item.ActionsPanelTitle" ), itemDataControl.getActionsList( ) );
             this.itemDataControl = itemDataControl;
         }

@@ -86,6 +86,11 @@ public abstract class Element implements Cloneable, Named, HasId, Documented, De
     protected List<Action> actions;
 
     /**
+     * If true, the element returns to its last position when dragged
+     */
+    private boolean returnsWhenDragged;
+    
+    /**
      * Creates a new element
      * 
      * @param id
@@ -97,6 +102,7 @@ public abstract class Element implements Cloneable, Named, HasId, Documented, De
         this.name = "";
         this.description = "";
         this.detailedDescription = "";
+        this.returnsWhenDragged = true;
         resources = new ArrayList<Resources>( );
         actions = new ArrayList<Action>( );
     }
@@ -283,6 +289,26 @@ public abstract class Element implements Cloneable, Named, HasId, Documented, De
         this.actions = actions;
     }
 
+    
+    /**
+     * Changes the returns when dragged value
+     * 
+     * @param returnsWhenDragged
+     *              the new value
+     */
+    public void setReturnsWhenDragged(boolean returnsWhenDragged) {
+        this.returnsWhenDragged = returnsWhenDragged;
+    }
+    
+    /**
+     * Returns if the element must return when dragged
+     * 
+     * @return true if the element must return when dragged
+     */
+    public boolean isReturnsWhenDragged() {
+        return returnsWhenDragged;
+    }
+    
     /*
      * (non-Javadoc)
      * 
@@ -322,6 +348,7 @@ public abstract class Element implements Cloneable, Named, HasId, Documented, De
         e.documentation = ( documentation != null ? new String( documentation ) : null );
         e.id = ( id != null ? new String( id ) : null );
         e.name = ( name != null ? new String( name ) : null );
+        e.returnsWhenDragged = returnsWhenDragged;
         if( resources != null ) {
             e.resources = new ArrayList<Resources>( );
             for( Resources r : resources ) {

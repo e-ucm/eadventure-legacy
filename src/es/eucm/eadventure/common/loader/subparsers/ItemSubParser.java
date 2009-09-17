@@ -137,12 +137,17 @@ public class ItemSubParser extends SubParser {
             // If it is a object tag, create the new object (with its id)
             if( qName.equals( "object" ) ) {
                 String objectId = "";
-
-                for( int i = 0; i < attrs.getLength( ); i++ )
+                boolean returnsWhenDragged = true;
+                
+                for( int i = 0; i < attrs.getLength( ); i++ ) {
                     if( attrs.getQName( i ).equals( "id" ) )
                         objectId = attrs.getValue( i );
+                    if( attrs.getQName( i ).equals( "returnsWhenDragged" ))
+                        returnsWhenDragged = (attrs.getValue( i ).equals( "yes" ) ? true : false);
+                }
 
                 object = new Item( objectId );
+                object.setReturnsWhenDragged( returnsWhenDragged );
             }
 
             // If it is a resources tag, create the new resources and switch the state

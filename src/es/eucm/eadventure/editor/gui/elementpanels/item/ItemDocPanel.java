@@ -37,8 +37,11 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -50,7 +53,9 @@ import es.eucm.eadventure.common.data.Detailed;
 import es.eucm.eadventure.common.data.Documented;
 import es.eucm.eadventure.common.data.Named;
 import es.eucm.eadventure.common.gui.TextConstants;
+import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.controllers.item.ItemDataControl;
+import es.eucm.eadventure.editor.control.tools.generic.ChangeBooleanValueTool;
 import es.eucm.eadventure.editor.control.tools.listeners.DescriptionChangeListener;
 import es.eucm.eadventure.editor.control.tools.listeners.DetailedDescriptionChangeListener;
 import es.eucm.eadventure.editor.control.tools.listeners.DocumentationChangeListener;
@@ -61,8 +66,6 @@ import es.eucm.eadventure.editor.gui.auxiliar.components.JFiller;
 public class ItemDocPanel extends JPanel implements Updateable {
 
     private static final long serialVersionUID = 4556146180537102976L;
-
-    private ItemDataControl itemDataControl;
 
     /**
      * Text area for the documentation.
@@ -83,11 +86,15 @@ public class ItemDocPanel extends JPanel implements Updateable {
      * Text field for the detailed description.
      */
     private JTextField detailedDescriptionTextField;
+    
+    private JCheckBox returnsWhenDraggedCheckBox;
 
+    private ItemDataControl itemDataControl;
+    
     public ItemDocPanel( ItemDataControl itemDataControl ) {
 
-        setLayout( new GridBagLayout( ) );
         this.itemDataControl = itemDataControl;
+        setLayout( new GridBagLayout( ) );
         GridBagConstraints cDoc = new GridBagConstraints( );
 
         cDoc.insets = new Insets( 5, 5, 5, 5 );
@@ -136,6 +143,17 @@ public class ItemDocPanel extends JPanel implements Updateable {
         add( detailedDescriptionPanel, cDoc );
 
         cDoc.gridy = 4;
+        returnsWhenDraggedCheckBox = new JCheckBox(TextConstants.getText( "Item.ReturnsWhenDragged" ));
+        returnsWhenDraggedCheckBox.setSelected( itemDataControl.isReturnsWhenDragged( ) );
+        returnsWhenDraggedCheckBox.addActionListener( new ActionListener( ) {
+            public void actionPerformed( ActionEvent e ) {
+                Controller.getInstance( ).addTool( new ChangeBooleanValueTool( ItemDocPanel.this.itemDataControl, ( (JCheckBox) e.getSource( ) ).isSelected( ), "isReturnsWhenDragged", "setReturnsWhenDragged" ) );
+            }
+        } );
+
+        add(returnsWhenDraggedCheckBox, cDoc);
+        
+        cDoc.gridy = 5;
         cDoc.fill = GridBagConstraints.BOTH;
         cDoc.weightx = 1;
         cDoc.weighty = 0.5;
@@ -143,7 +161,6 @@ public class ItemDocPanel extends JPanel implements Updateable {
     }
 
     public boolean updateFields( ) {
-
         return false;
     }
 
