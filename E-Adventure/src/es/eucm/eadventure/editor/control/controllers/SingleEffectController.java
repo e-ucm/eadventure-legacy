@@ -36,29 +36,8 @@ package es.eucm.eadventure.editor.control.controllers;
 import java.util.HashMap;
 
 import es.eucm.eadventure.common.data.chapter.effects.AbstractEffect;
-import es.eucm.eadventure.common.data.chapter.effects.ActivateEffect;
-import es.eucm.eadventure.common.data.chapter.effects.ConsumeObjectEffect;
-import es.eucm.eadventure.common.data.chapter.effects.DeactivateEffect;
-import es.eucm.eadventure.common.data.chapter.effects.DecrementVarEffect;
 import es.eucm.eadventure.common.data.chapter.effects.Effect;
 import es.eucm.eadventure.common.data.chapter.effects.Effects;
-import es.eucm.eadventure.common.data.chapter.effects.GenerateObjectEffect;
-import es.eucm.eadventure.common.data.chapter.effects.IncrementVarEffect;
-import es.eucm.eadventure.common.data.chapter.effects.MacroReferenceEffect;
-import es.eucm.eadventure.common.data.chapter.effects.MoveNPCEffect;
-import es.eucm.eadventure.common.data.chapter.effects.MovePlayerEffect;
-import es.eucm.eadventure.common.data.chapter.effects.PlayAnimationEffect;
-import es.eucm.eadventure.common.data.chapter.effects.PlaySoundEffect;
-import es.eucm.eadventure.common.data.chapter.effects.SetValueEffect;
-import es.eucm.eadventure.common.data.chapter.effects.ShowTextEffect;
-import es.eucm.eadventure.common.data.chapter.effects.SpeakCharEffect;
-import es.eucm.eadventure.common.data.chapter.effects.SpeakPlayerEffect;
-import es.eucm.eadventure.common.data.chapter.effects.TriggerBookEffect;
-import es.eucm.eadventure.common.data.chapter.effects.TriggerConversationEffect;
-import es.eucm.eadventure.common.data.chapter.effects.TriggerCutsceneEffect;
-import es.eucm.eadventure.common.data.chapter.effects.TriggerLastSceneEffect;
-import es.eucm.eadventure.common.data.chapter.effects.TriggerSceneEffect;
-import es.eucm.eadventure.common.data.chapter.effects.WaitTimeEffect;
 import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.editor.control.Controller;
 import es.eucm.eadventure.editor.control.tools.general.effects.AddEffectTool;
@@ -150,110 +129,8 @@ public class SingleEffectController extends EffectsController {
             if( effectProperties != null ) {
                 AbstractEffect newEffect = null;
 
-                // Take all the values from the set
-                String target = (String) effectProperties.get( EFFECT_PROPERTY_TARGET );
-                int value = 0;
-                if( effectProperties.containsKey( EFFECT_PROPERTY_VALUE ) )
-                    value = Integer.parseInt( (String) effectProperties.get( EFFECT_PROPERTY_VALUE ) );
-
-                String path = (String) effectProperties.get( EFFECT_PROPERTY_PATH );
-                String text = (String) effectProperties.get( EFFECT_PROPERTY_TEXT );
-
-                int x = 0;
-                if( effectProperties.containsKey( EFFECT_PROPERTY_X ) )
-                    x = Integer.parseInt( (String) effectProperties.get( EFFECT_PROPERTY_X ) );
-
-                int y = 0;
-                if( effectProperties.containsKey( EFFECT_PROPERTY_Y ) )
-                    y = Integer.parseInt( (String) effectProperties.get( EFFECT_PROPERTY_Y ) );
-
-                boolean background = false;
-                if( effectProperties.containsKey( EFFECT_PROPERTY_BACKGROUND ) )
-                    background = Boolean.parseBoolean( (String) effectProperties.get( EFFECT_PROPERTY_BACKGROUND ) );
-
-                int time = 0;
-                if( effectProperties.containsKey( EFFECT_PROPERTY_TIME ) )
-                    time = Integer.parseInt( (String) effectProperties.get( EFFECT_PROPERTY_TIME ) );
-
-                int frontColor = 0;
-                if( effectProperties.containsKey( EFFECT_PROPERTY_FRONT_COLOR ) )
-                    frontColor = Integer.parseInt( (String) effectProperties.get( EFFECT_PROPERTY_FRONT_COLOR ) );
-
-                int borderColor = 0;
-                if( effectProperties.containsKey( EFFECT_PROPERTY_BORDER_COLOR ) )
-                    borderColor = Integer.parseInt( (String) effectProperties.get( EFFECT_PROPERTY_BORDER_COLOR ) );
-
-                switch( selectedType ) {
-                    case Effect.ACTIVATE:
-                        newEffect = new ActivateEffect( target );
-                        controller.getVarFlagSummary( ).addFlagReference( target );
-                        break;
-                    case Effect.DEACTIVATE:
-                        newEffect = new DeactivateEffect( target );
-                        controller.getVarFlagSummary( ).addFlagReference( target );
-                        break;
-                    case Effect.SET_VALUE:
-                        newEffect = new SetValueEffect( target, value );
-                        controller.getVarFlagSummary( ).addVarReference( target );
-                        break;
-                    case Effect.INCREMENT_VAR:
-                        newEffect = new IncrementVarEffect( target, value );
-                        controller.getVarFlagSummary( ).addVarReference( target );
-                        break;
-                    case Effect.DECREMENT_VAR:
-                        newEffect = new DecrementVarEffect( target, value );
-                        controller.getVarFlagSummary( ).addVarReference( target );
-                        break;
-                    case Effect.MACRO_REF:
-                        newEffect = new MacroReferenceEffect( target );
-                        break;
-
-                    case Effect.CONSUME_OBJECT:
-                        newEffect = new ConsumeObjectEffect( target );
-                        break;
-                    case Effect.GENERATE_OBJECT:
-                        newEffect = new GenerateObjectEffect( target );
-                        break;
-                    case Effect.TRIGGER_LAST_SCENE:
-                        newEffect = new TriggerLastSceneEffect( );
-                        break;
-                    case Effect.SPEAK_PLAYER:
-                        newEffect = new SpeakPlayerEffect( text );
-                        break;
-                    case Effect.SPEAK_CHAR:
-                        newEffect = new SpeakCharEffect( target, text );
-                        break;
-                    case Effect.TRIGGER_BOOK:
-                        newEffect = new TriggerBookEffect( target );
-                        break;
-                    case Effect.PLAY_SOUND:
-                        newEffect = new PlaySoundEffect( background, path );
-                        break;
-                    case Effect.PLAY_ANIMATION:
-                        newEffect = new PlayAnimationEffect( path, x, y );
-                        break;
-                    case Effect.MOVE_PLAYER:
-                        newEffect = new MovePlayerEffect( x, y );
-                        break;
-                    case Effect.MOVE_NPC:
-                        newEffect = new MoveNPCEffect( target, x, y );
-                        break;
-                    case Effect.TRIGGER_CONVERSATION:
-                        newEffect = new TriggerConversationEffect( target );
-                        break;
-                    case Effect.TRIGGER_CUTSCENE:
-                        newEffect = new TriggerCutsceneEffect( target );
-                        break;
-                    case Effect.TRIGGER_SCENE:
-                        newEffect = new TriggerSceneEffect( target, x, y );
-                        break;
-                    case Effect.WAIT_TIME:
-                        newEffect = new WaitTimeEffect( time );
-                        break;
-                    case Effect.SHOW_TEXT:
-                        newEffect = new ShowTextEffect( text, x, y, frontColor, borderColor );
-                        break;
-                }
+                newEffect = createNewEffect(effectProperties);
+                
 
                 effectAdded = controller.addTool( new AddEffectTool( effects, newEffect, null ) );
             }
@@ -269,7 +146,6 @@ public class SingleEffectController extends EffectsController {
      *            Index of the effect
      */
     public void deleteEffect( ) {
-
         if( getEffectCount( ) > 0 )
             deleteEffect( 0 );
     }

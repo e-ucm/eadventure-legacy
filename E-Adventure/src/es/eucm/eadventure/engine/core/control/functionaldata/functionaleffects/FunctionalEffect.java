@@ -40,6 +40,7 @@ import es.eucm.eadventure.common.data.chapter.effects.DeactivateEffect;
 import es.eucm.eadventure.common.data.chapter.effects.DecrementVarEffect;
 import es.eucm.eadventure.common.data.chapter.effects.Effect;
 import es.eucm.eadventure.common.data.chapter.effects.GenerateObjectEffect;
+import es.eucm.eadventure.common.data.chapter.effects.HighlightItemEffect;
 import es.eucm.eadventure.common.data.chapter.effects.IncrementVarEffect;
 import es.eucm.eadventure.common.data.chapter.effects.MacroReferenceEffect;
 import es.eucm.eadventure.common.data.chapter.effects.MoveNPCEffect;
@@ -184,6 +185,9 @@ public abstract class FunctionalEffect {
                 break;
             case Effect.WAIT_TIME:
                 fe = new FunctionalWaitTimeEffect( (WaitTimeEffect) effect );
+                break;
+            case Effect.HIGHLIGHT_ITEM:
+                fe = new FunctionalHighlightItemEffect( (HighlightItemEffect) effect );
                 break;
         }
         return fe;

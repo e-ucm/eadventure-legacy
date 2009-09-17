@@ -92,6 +92,8 @@ public class SelectedEffectsController {
     private static final String SHOWTEXT = "SHOWTEXT";
 
     private static final String WAITTIME = "WAITTIME";
+    
+    private static final String HIGHLIGHT = "HIGHLIGHT";
 
     /**
      * Store all effects selection. Connects the type of effect with the number
@@ -213,7 +215,9 @@ public class SelectedEffectsController {
         }
         else if( effectName.equals( TextConstants.getText( "Effect.WaitTime" ) ) )
             return WAITTIME;
-
+        else if( effectName.equals( TextConstants.getText( "Effect.HighlightItem" ) ))
+            return HIGHLIGHT;
+        
         return null;
     }
 

@@ -716,6 +716,7 @@ función de estos estados</entry>
 	<entry key="Effect.MacroReference">Lanzar una macro</entry>
 	<entry key="Effect.ShowText">Mostrar texto</entry>
 	<entry key="Effect.WaitTime">Esperar tiempo</entry>
+	<entry key="Effect.HighlightItem">Resaltar elemento</entry>
 
 
 	<entry key="Effect.ActivateInfo">Activar flag: {#0}</entry>
@@ -741,6 +742,11 @@ función de estos estados</entry>
 	<entry key="Effect.RandomInfo">{#2} (probabilidad = {#0}%); {#3} (probabilidad = {#1}%)</entry>
 	<entry key="Effect.WaitTimeInfo">Esperar {#0} segundos</entry>
 	<entry key="Effect.ShowTextInfo">Mostrar {#0} en la posición x:{#1} y:{#2}</entry>
+	<entry key="Effect.NoHighlightItemInfo">No reslatar {#0}</entry>
+	<entry key="Effect.BlueHighlightItemInfo">Resltar {#0} en azul</entry>
+	<entry key="Effect.GreenHighlightItemInfo">Reslatar {#0} en verde</entry>
+	<entry key="Effect.RedHighlightItemInfo">Reslatar {#0} en rojo</entry>
+	<entry key="Effect.BorderHighlightItemInfo">Reslatar bordes de {#0} </entry>
 	<entry key="EffectsGroup.GameState">Cambios estado del juego</entry>
 	<entry key="EffectsGroup.Multimedia">Multimedia</entry>
 	<entry key="EffectsGroup.Miscellaneous">Miscelánea</entry>
@@ -834,6 +840,16 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="TriggerSceneEffect.Title">Efecto lanzar escena</entry>
 	<entry key="TriggerSceneEffect.Description">Seleccione la escena que se ejecutará:</entry>
 	<entry key="TriggerSceneEffect.ErrorNoScenes">Para añadir este tipo de efecto, debe haber al menos una escena en el capítulo</entry>
+	
+	<entry key="HighlightItemEffect.Title">Efecto resaltar objeto</entry>
+	<entry key="HighlightItemEffect.Description">Seleccione el objeto que desea resaltar, el tipo de resaltamiento y si el objeto debe animarse</entry>
+	<entry key="HighlightItemEffect.ErrorNoScenes">Para añadir este tipo de efecto, debe haber al menos un objeto en el capítulo</entry>
+	<entry key="HighlightItemEffect.None">No reslatar</entry>
+	<entry key="HighlightItemEffect.Blue">Resaltar en azul</entry>
+	<entry key="HighlightItemEffect.Red">Resaltar en rojo</entry>
+	<entry key="HighlightItemEffect.Green">Resltar en verde</entry>
+	<entry key="HighlightItemEffect.Border">Resltar los bordes</entry>
+	<entry key="HighlightItemEffect.Animated">Animado</entry>
 	
 	<entry key="RandomEffect.Title">Efecto con probabilidad</entry>
 	<entry key="RandomEffect.DeleteEffect">Borrar este efecto</entry>

@@ -41,15 +41,16 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 import es.eucm.eadventure.common.auxiliar.AssetsConstants;
+import es.eucm.eadventure.common.data.HasTargetId;
 import es.eucm.eadventure.common.data.chapter.effects.AbstractEffect;
 import es.eucm.eadventure.common.data.chapter.effects.ActivateEffect;
-import es.eucm.eadventure.common.data.chapter.effects.CancelActionEffect;
 import es.eucm.eadventure.common.data.chapter.effects.ConsumeObjectEffect;
 import es.eucm.eadventure.common.data.chapter.effects.DeactivateEffect;
 import es.eucm.eadventure.common.data.chapter.effects.DecrementVarEffect;
 import es.eucm.eadventure.common.data.chapter.effects.Effect;
 import es.eucm.eadventure.common.data.chapter.effects.Effects;
 import es.eucm.eadventure.common.data.chapter.effects.GenerateObjectEffect;
+import es.eucm.eadventure.common.data.chapter.effects.HighlightItemEffect;
 import es.eucm.eadventure.common.data.chapter.effects.IncrementVarEffect;
 import es.eucm.eadventure.common.data.chapter.effects.MacroReferenceEffect;
 import es.eucm.eadventure.common.data.chapter.effects.MoveNPCEffect;
@@ -159,6 +160,17 @@ public class EffectsController {
     public static final int EFFECT_PROPERTY_SECOND_EFFECT = 13;
 
     /**
+     * Constant for effect property. Refers to the type of the highlight (none, blue, green, ...)
+     */
+    public static final int EFFECT_PROPERTY_HIGHLIGHT_TYPE = 14;
+    
+    /**
+     * Constant for effect property. Refers to "animated" flag of the highlight
+     */
+    public static final int EFFECT_PROPERTY_ANIMATED = 15;
+    
+    
+    /**
      * Constant to filter the selection of an asset. Used for animations.
      */
     public static final int ASSET_ANIMATION = 0;
@@ -216,7 +228,6 @@ public class EffectsController {
      * @return Number of effects
      */
     public int getEffectCount( ) {
-
         return effects.getEffects( ).size( );
     }
 
@@ -228,7 +239,6 @@ public class EffectsController {
      * @return Information about the effect
      */
     public String getEffectInfo( int index ) {
-
         if( getEffectCount( ) > 0 ) {
             AbstractEffect effect = effects.getEffects( ).get( index );
             return getEffectInfo( effect );
@@ -318,6 +328,9 @@ public class EffectsController {
                     break;
                 case Effect.SHOW_TEXT:
                     icon = new ImageIcon( "img/icons/effects/16x16/show-text.png" );
+                    break;
+                case Effect.HIGHLIGHT_ITEM:
+                    icon = new ImageIcon( "img/icons/effects/16x15/highlight-item.png");
                     break;
             }
 
@@ -425,7 +438,21 @@ public class EffectsController {
                 ShowTextEffect showTextInfo = (ShowTextEffect) effect;
                 effectInfo = TextConstants.getText( "Effect.ShowTextInfo", new String[] { showTextInfo.getText( ), Integer.toString( showTextInfo.getX( ) ), Integer.toString( showTextInfo.getY( ) ) } );
                 break;
+            case Effect.HIGHLIGHT_ITEM:
+                HighlightItemEffect highlightItemEffect = (HighlightItemEffect) effect;
+                if (highlightItemEffect.getHighlightType( ) == HighlightItemEffect.NO_HIGHLIGHT)
+                    effectInfo = TextConstants.getText( "Effect.NoHighlightItemInfo", new String[] { highlightItemEffect.getTargetId( ) } );
+                if (highlightItemEffect.getHighlightType( ) == HighlightItemEffect.HIGHLIGHT_BLUE)
+                    effectInfo = TextConstants.getText( "Effect.BlueHighlightItemInfo", new String[] { highlightItemEffect.getTargetId( ) } );
+                if (highlightItemEffect.getHighlightType( ) == HighlightItemEffect.HIGHLIGHT_GREEN)
+                    effectInfo = TextConstants.getText( "Effect.GreenHighlightItemInfo", new String[] { highlightItemEffect.getTargetId( ) } );
+                if (highlightItemEffect.getHighlightType( ) == HighlightItemEffect.HIGHLIGHT_RED)
+                    effectInfo = TextConstants.getText( "Effect.RedHighlightItemInfo", new String[] { highlightItemEffect.getTargetId( ) } );
+                if (highlightItemEffect.getHighlightType( ) == HighlightItemEffect.HIGHLIGHT_BORDER)
+                    effectInfo = TextConstants.getText( "Effect.BorderHighlightItemInfo", new String[] { highlightItemEffect.getTargetId( ) } );
+                break;
         }
+        
 
         return effectInfo;
     }
@@ -444,46 +471,7 @@ public class EffectsController {
 
         boolean effectAdded = false;
 
-        // Create a list with the names of the effects (in the same order as the next)
-        /*final String[] effectNames = { TextConstants.getText( "Effect.Activate" ), TextConstants.getText( "Effect.Deactivate" ),
-        		TextConstants.getText( "Effect.SetValue" ), TextConstants.getText( "Effect.IncrementVar" ), TextConstants.getText( "Effect.DecrementVar" ),
-        		TextConstants.getText( "Effect.MacroReference" ),
-        		TextConstants.getText( "Effect.ConsumeObject" ), TextConstants.getText( "Effect.GenerateObject" ), 
-        		TextConstants.getText( "Effect.CancelAction" ), TextConstants.getText( "Effect.SpeakPlayer" ), 
-        		TextConstants.getText( "Effect.SpeakCharacter" ), TextConstants.getText( "Effect.TriggerBook" ), 
-        		TextConstants.getText( "Effect.PlaySound" ), TextConstants.getText( "Effect.PlayAnimation" ), 
-        		TextConstants.getText( "Effect.MovePlayer" ), TextConstants.getText( "Effect.MoveCharacter" ), 
-        		TextConstants.getText( "Effect.TriggerConversation" ), TextConstants.getText( "Effect.TriggerCutscene" ), 
-        		TextConstants.getText( "Effect.TriggerScene" ), TextConstants.getText( "Effect.TriggerLastScene" ) , 
-        		TextConstants.getText( "Effect.RandomEffect" ),TextConstants.getText( "Effect.ShowText" ),
-        		TextConstants.getText( "Effect.WaitTime" )};
-
-        // Create a list with the types of the effects (in the same order as the previous)
-        final int[] effectTypes = { Effect.ACTIVATE, Effect.DEACTIVATE, Effect.SET_VALUE, Effect.INCREMENT_VAR, Effect.DECREMENT_VAR, 
-        		Effect.MACRO_REF, Effect.CONSUME_OBJECT, Effect.GENERATE_OBJECT, Effect.CANCEL_ACTION, Effect.SPEAK_PLAYER, 
-        		Effect.SPEAK_CHAR, Effect.TRIGGER_BOOK, Effect.PLAY_SOUND, Effect.PLAY_ANIMATION, Effect.MOVE_PLAYER, Effect.MOVE_NPC, 
-        		Effect.TRIGGER_CONVERSATION, Effect.TRIGGER_CUTSCENE, Effect.TRIGGER_SCENE, Effect.TRIGGER_LAST_SCENE, Effect.RANDOM_EFFECT,
-        		Effect.SHOW_TEXT,Effect.WAIT_TIME};*/
-
-        // Show a dialog to select the type of the effect
-        //String selectedValue = controller.showInputDialog( TextConstants.getText( "Effects.OperationAddEffect" ), TextConstants.getText( "Effects.SelectEffectType" ), effectNames );
-        //String selectedValue = SelectEffectsDialog.getSelectedEffect();
         HashMap<Integer, Object> effectProperties = SelectEffectsDialog.getNewEffectProperties( this );
-        // If some effect was selected
-        /*if( selectedValue != null && 
-        		!selectedValue.equals( TextConstants.getText( "Effect.RandomEffect" ) )) {
-        	// Store the type of the effect selected
-        	int selectedType = 0;
-        	for( int i = 0; i < effectNames.length; i++ )
-        		if( effectNames[i].equals( selectedValue ) )
-        			selectedType = effectTypes[i];
-
-        	HashMap<Integer, String> effectProperties = null;
-        	if (selectedType==Effect.MOVE_PLAYER && Controller.getInstance( ).isPlayTransparent( )){
-        		Controller.getInstance( ).showErrorDialog( TextConstants.getText( "Error.EffectMovePlayerNotAllowed.Title" ), TextConstants.getText( "Error.EffectMovePlayerNotAllowed.Message" ) );
-        	}else{
-        		effectProperties = EffectDialog.showAddEffectDialog( this, selectedType );	
-        	}*/
 
         if( effectProperties != null ) {
             int selectedType = 0;
@@ -491,133 +479,160 @@ public class EffectsController {
                 selectedType = Integer.parseInt( (String) effectProperties.get( EFFECT_PROPERTY_TYPE ) );
             }
 
-            AbstractEffect newEffect = null;
+            AbstractEffect newEffect = createNewEffect(effectProperties) ;
 
-            // Take all the values from the set
-            String target = (String) effectProperties.get( EFFECT_PROPERTY_TARGET );
-            String path = (String) effectProperties.get( EFFECT_PROPERTY_PATH );
-            String text = (String) effectProperties.get( EFFECT_PROPERTY_TEXT );
-            String value = (String) effectProperties.get( EFFECT_PROPERTY_VALUE );
+            if (selectedType == Effect.RANDOM_EFFECT) {
+                AbstractEffect firstEffect = null;
+                AbstractEffect secondEffect = null;
+                if( effectProperties.containsKey( EFFECT_PROPERTY_FIRST_EFFECT ) )
+                    firstEffect = (AbstractEffect) effectProperties.get( EFFECT_PROPERTY_FIRST_EFFECT );
+                if( effectProperties.containsKey( EFFECT_PROPERTY_SECOND_EFFECT ) )
+                    secondEffect = (AbstractEffect) effectProperties.get( EFFECT_PROPERTY_SECOND_EFFECT );
 
-            int x = 0;
-            if( effectProperties.containsKey( EFFECT_PROPERTY_X ) )
-                x = Integer.parseInt( (String) effectProperties.get( EFFECT_PROPERTY_X ) );
-
-            int y = 0;
-            if( effectProperties.containsKey( EFFECT_PROPERTY_Y ) )
-                y = Integer.parseInt( (String) effectProperties.get( EFFECT_PROPERTY_Y ) );
-
-            boolean background = false;
-            if( effectProperties.containsKey( EFFECT_PROPERTY_BACKGROUND ) )
-                background = Boolean.parseBoolean( (String) effectProperties.get( EFFECT_PROPERTY_BACKGROUND ) );
-
-            int time = 0;
-            if( effectProperties.containsKey( EFFECT_PROPERTY_TIME ) )
-                time = Integer.parseInt( (String) effectProperties.get( EFFECT_PROPERTY_TIME ) );
-
-            int frontColor = 0;
-            if( effectProperties.containsKey( EFFECT_PROPERTY_FRONT_COLOR ) )
-                frontColor = Integer.parseInt( (String) effectProperties.get( EFFECT_PROPERTY_FRONT_COLOR ) );
-
-            int borderColor = 0;
-            if( effectProperties.containsKey( EFFECT_PROPERTY_BORDER_COLOR ) )
-                borderColor = Integer.parseInt( (String) effectProperties.get( EFFECT_PROPERTY_BORDER_COLOR ) );
-
-            AbstractEffect firstEffect = null;
-            AbstractEffect secondEffect = null;
-            if( effectProperties.containsKey( EFFECT_PROPERTY_FIRST_EFFECT ) )
-                firstEffect = (AbstractEffect) effectProperties.get( EFFECT_PROPERTY_FIRST_EFFECT );
-            if( effectProperties.containsKey( EFFECT_PROPERTY_SECOND_EFFECT ) )
-                secondEffect = (AbstractEffect) effectProperties.get( EFFECT_PROPERTY_SECOND_EFFECT );
-
-            switch( selectedType ) {
-                case Effect.ACTIVATE:
-                    newEffect = new ActivateEffect( target );
-                    controller.getVarFlagSummary( ).addFlagReference( target );
-                    break;
-                case Effect.DEACTIVATE:
-                    newEffect = new DeactivateEffect( target );
-                    controller.getVarFlagSummary( ).addFlagReference( target );
-                    break;
-                case Effect.SET_VALUE:
-                    newEffect = new SetValueEffect( target, Integer.parseInt( value ) );
-                    controller.getVarFlagSummary( ).addVarReference( target );
-                    break;
-                case Effect.INCREMENT_VAR:
-                    newEffect = new IncrementVarEffect( target, Integer.parseInt( value ) );
-                    controller.getVarFlagSummary( ).addVarReference( target );
-                    break;
-                case Effect.DECREMENT_VAR:
-                    newEffect = new DecrementVarEffect( target, Integer.parseInt( value ) );
-                    controller.getVarFlagSummary( ).addVarReference( target );
-                    break;
-                case Effect.MACRO_REF:
-                    newEffect = new MacroReferenceEffect( target );
-                    break;
-                case Effect.CONSUME_OBJECT:
-                    newEffect = new ConsumeObjectEffect( target );
-                    break;
-                case Effect.GENERATE_OBJECT:
-                    newEffect = new GenerateObjectEffect( target );
-                    break;
-                case Effect.CANCEL_ACTION:
-                    newEffect = new CancelActionEffect( );
-                    break;
-                case Effect.TRIGGER_LAST_SCENE:
-                    newEffect = new TriggerLastSceneEffect( );
-                    break;
-                case Effect.SPEAK_PLAYER:
-                    newEffect = new SpeakPlayerEffect( text );
-                    break;
-                case Effect.SPEAK_CHAR:
-                    newEffect = new SpeakCharEffect( target, text );
-                    break;
-                case Effect.TRIGGER_BOOK:
-                    newEffect = new TriggerBookEffect( target );
-                    break;
-                case Effect.PLAY_SOUND:
-                    newEffect = new PlaySoundEffect( background, path );
-                    break;
-                case Effect.PLAY_ANIMATION:
-                    newEffect = new PlayAnimationEffect( path, x, y );
-                    break;
-                case Effect.MOVE_PLAYER:
-                    newEffect = new MovePlayerEffect( x, y );
-                    break;
-                case Effect.MOVE_NPC:
-                    newEffect = new MoveNPCEffect( target, x, y );
-                    break;
-                case Effect.TRIGGER_CONVERSATION:
-                    newEffect = new TriggerConversationEffect( target );
-                    break;
-                case Effect.TRIGGER_CUTSCENE:
-                    newEffect = new TriggerCutsceneEffect( target );
-                    break;
-                case Effect.TRIGGER_SCENE:
-                    newEffect = new TriggerSceneEffect( target, x, y );
-                    break;
-                case Effect.WAIT_TIME:
-                    newEffect = new WaitTimeEffect( time );
-                    break;
-                case Effect.SHOW_TEXT:
-                    newEffect = new ShowTextEffect( text, x, y, frontColor, borderColor );
-                    break;
-                case Effect.RANDOM_EFFECT:
                     RandomEffect randomEffect = new RandomEffect( 50 );
                     if( effectProperties.containsKey( EffectsController.EFFECT_PROPERTY_PROBABILITY ) ) {
                         randomEffect.setProbability( Integer.parseInt( (String) effectProperties.get( EFFECT_PROPERTY_PROBABILITY ) ) );
                     }
                     if( firstEffect != null )
                         randomEffect.setPositiveEffect( firstEffect );
-
                     if( secondEffect != null )
                         randomEffect.setNegativeEffect( secondEffect );
                     newEffect = randomEffect;
-                    break;
             }
             effectAdded = controller.addTool( new AddEffectTool( effects, newEffect, conditionsList ) );
         }
         return effectAdded;
+    }
+    
+    /**
+     * Creates a new effect of the appropriate type except for the "RANDOM" type
+     * 
+     * @param effectProperties
+     * @return
+     */
+    protected AbstractEffect createNewEffect( HashMap<Integer, Object> effectProperties ) {
+        int selectedType = 0;
+        if( effectProperties.containsKey( EFFECT_PROPERTY_TYPE ) ) {
+            selectedType = Integer.parseInt( (String) effectProperties.get( EFFECT_PROPERTY_TYPE ) );
+        }
+
+        AbstractEffect newEffect = null;
+
+        // Take all the values from the set
+        String target = (String) effectProperties.get( EFFECT_PROPERTY_TARGET );
+        String path = (String) effectProperties.get( EFFECT_PROPERTY_PATH );
+        String text = (String) effectProperties.get( EFFECT_PROPERTY_TEXT );
+        int value = 0;
+        if ( effectProperties.containsKey( EFFECT_PROPERTY_VALUE ))
+            value = Integer.parseInt( (String ) effectProperties.get( EFFECT_PROPERTY_VALUE ));
+
+        int x = 0;
+        if( effectProperties.containsKey( EFFECT_PROPERTY_X ) )
+            x = Integer.parseInt( (String) effectProperties.get( EFFECT_PROPERTY_X ) );
+
+        int y = 0;
+        if( effectProperties.containsKey( EFFECT_PROPERTY_Y ) )
+            y = Integer.parseInt( (String) effectProperties.get( EFFECT_PROPERTY_Y ) );
+
+        boolean background = false;
+        if( effectProperties.containsKey( EFFECT_PROPERTY_BACKGROUND ) )
+            background = Boolean.parseBoolean( (String) effectProperties.get( EFFECT_PROPERTY_BACKGROUND ) );
+
+        int time = 0;
+        if( effectProperties.containsKey( EFFECT_PROPERTY_TIME ) )
+            time = Integer.parseInt( (String) effectProperties.get( EFFECT_PROPERTY_TIME ) );
+
+        int frontColor = 0;
+        if( effectProperties.containsKey( EFFECT_PROPERTY_FRONT_COLOR ) )
+            frontColor = Integer.parseInt( (String) effectProperties.get( EFFECT_PROPERTY_FRONT_COLOR ) );
+
+        int borderColor = 0;
+        if( effectProperties.containsKey( EFFECT_PROPERTY_BORDER_COLOR ) )
+            borderColor = Integer.parseInt( (String) effectProperties.get( EFFECT_PROPERTY_BORDER_COLOR ) );
+
+        int type = 0;
+        if ( effectProperties.containsKey( EFFECT_PROPERTY_HIGHLIGHT_TYPE  ))
+            type = (Integer) effectProperties.get( EFFECT_PROPERTY_HIGHLIGHT_TYPE );
+        
+        boolean animated = false;
+        if( effectProperties.containsKey( EFFECT_PROPERTY_ANIMATED ) )
+            animated = (Boolean) effectProperties.get( EFFECT_PROPERTY_ANIMATED );
+        
+        switch( selectedType ) {
+            case Effect.ACTIVATE:
+                newEffect = new ActivateEffect( target );
+                controller.getVarFlagSummary( ).addFlagReference( target );
+                break;
+            case Effect.DEACTIVATE:
+                newEffect = new DeactivateEffect( target );
+                controller.getVarFlagSummary( ).addFlagReference( target );
+                break;
+            case Effect.SET_VALUE:
+                newEffect = new SetValueEffect( target, value );
+                controller.getVarFlagSummary( ).addVarReference( target );
+                break;
+            case Effect.INCREMENT_VAR:
+                newEffect = new IncrementVarEffect( target, value );
+                controller.getVarFlagSummary( ).addVarReference( target );
+                break;
+            case Effect.DECREMENT_VAR:
+                newEffect = new DecrementVarEffect( target, value );
+                controller.getVarFlagSummary( ).addVarReference( target );
+                break;
+            case Effect.MACRO_REF:
+                newEffect = new MacroReferenceEffect( target );
+                break;
+            case Effect.CONSUME_OBJECT:
+                newEffect = new ConsumeObjectEffect( target );
+                break;
+            case Effect.GENERATE_OBJECT:
+                newEffect = new GenerateObjectEffect( target );
+                break;
+            case Effect.TRIGGER_LAST_SCENE:
+                newEffect = new TriggerLastSceneEffect( );
+                break;
+            case Effect.SPEAK_PLAYER:
+                newEffect = new SpeakPlayerEffect( text );
+                break;
+            case Effect.SPEAK_CHAR:
+                newEffect = new SpeakCharEffect( target, text );
+                break;
+            case Effect.TRIGGER_BOOK:
+                newEffect = new TriggerBookEffect( target );
+                break;
+            case Effect.PLAY_SOUND:
+                newEffect = new PlaySoundEffect( background, path );
+                break;
+            case Effect.PLAY_ANIMATION:
+                newEffect = new PlayAnimationEffect( path, x, y );
+                break;
+            case Effect.MOVE_PLAYER:
+                newEffect = new MovePlayerEffect( x, y );
+                break;
+            case Effect.MOVE_NPC:
+                newEffect = new MoveNPCEffect( target, x, y );
+                break;
+            case Effect.TRIGGER_CONVERSATION:
+                newEffect = new TriggerConversationEffect( target );
+                break;
+            case Effect.TRIGGER_CUTSCENE:
+                newEffect = new TriggerCutsceneEffect( target );
+                break;
+            case Effect.TRIGGER_SCENE:
+                newEffect = new TriggerSceneEffect( target, x, y );
+                break;
+            case Effect.WAIT_TIME:
+                newEffect = new WaitTimeEffect( time );
+                break;
+            case Effect.SHOW_TEXT:
+                newEffect = new ShowTextEffect( text, x, y, frontColor, borderColor );
+                break;
+            case Effect.HIGHLIGHT_ITEM:
+                newEffect = new HighlightItemEffect( target, type, animated);
+                break;
+        }
+
+        return newEffect;
     }
 
     /**
@@ -627,7 +642,6 @@ public class EffectsController {
      *            Index of the effect
      */
     public void deleteEffect( int index ) {
-
         controller.addTool( new DeleteEffectTool( effects, index, conditionsList ) );
     }
 
@@ -639,17 +653,7 @@ public class EffectsController {
      * @return True if the effect was moved, false otherwise
      */
     public boolean moveUpEffect( int index ) {
-
         return controller.addTool( new MoveEffectInTableTool( effects, index, MoveObjectTool.MODE_UP, conditionsList ) );
-        /*boolean effectMoved = false;
-
-        if( index > 0 ) {
-        	effects.getEffects( ).add( index - 1, effects.getEffects( ).remove( index ) );
-        	controller.dataModified( );
-        	effectMoved = true;
-        }*/
-
-        //return effectMoved;
     }
 
     /**
@@ -660,17 +664,7 @@ public class EffectsController {
      * @return True if the effect was moved, false otherwise
      */
     public boolean moveDownEffect( int index ) {
-
         return controller.addTool( new MoveEffectInTableTool( effects, index, MoveObjectTool.MODE_DOWN, conditionsList ) );
-        /*boolean effectMoved = false;
-
-        if( index < effects.getEffects( ).size( ) - 1 ) {
-        	effects.getEffects( ).add( index + 1, effects.getEffects( ).remove( index ) );
-        	controller.dataModified( );
-        	effectMoved = true;
-        }
-
-        return effectMoved;*/
     }
 
     /**
@@ -691,41 +685,31 @@ public class EffectsController {
         // Create the hashmap to store the current values
         HashMap<Integer, Object> currentValues = new HashMap<Integer, Object>( );
 
+        if (effect instanceof HasTargetId) {
+            currentValues.put( EFFECT_PROPERTY_TARGET, ((HasTargetId) effect ).getTargetId( ));
+        }
+        
         switch( effectType ) {
             case Effect.ACTIVATE:
-                ActivateEffect activateEffect = (ActivateEffect) effect;
-                currentValues.put( EFFECT_PROPERTY_TARGET, activateEffect.getTargetId( ) );
-                break;
             case Effect.DEACTIVATE:
-                DeactivateEffect deactivateEffect = (DeactivateEffect) effect;
-                currentValues.put( EFFECT_PROPERTY_TARGET, deactivateEffect.getTargetId( ) );
+            case Effect.MACRO_REF:
+            case Effect.CONSUME_OBJECT:
+            case Effect.GENERATE_OBJECT:
+            case Effect.TRIGGER_BOOK:
+            case Effect.TRIGGER_CONVERSATION:
+            case Effect.TRIGGER_CUTSCENE:
                 break;
             case Effect.SET_VALUE:
                 SetValueEffect setValueEffect = (SetValueEffect) effect;
-                currentValues.put( EFFECT_PROPERTY_TARGET, setValueEffect.getTargetId( ) );
                 currentValues.put( EFFECT_PROPERTY_VALUE, Integer.toString( setValueEffect.getValue( ) ) );
                 break;
             case Effect.INCREMENT_VAR:
                 IncrementVarEffect incrementVarEffect = (IncrementVarEffect) effect;
-                currentValues.put( EFFECT_PROPERTY_TARGET, incrementVarEffect.getTargetId( ) );
                 currentValues.put( EFFECT_PROPERTY_VALUE, Integer.toString( incrementVarEffect.getIncrement( ) ) );
                 break;
             case Effect.DECREMENT_VAR:
                 DecrementVarEffect decrementVarEffect = (DecrementVarEffect) effect;
-                currentValues.put( EFFECT_PROPERTY_TARGET, decrementVarEffect.getTargetId( ) );
                 currentValues.put( EFFECT_PROPERTY_VALUE, Integer.toString( decrementVarEffect.getDecrement( ) ) );
-                break;
-            case Effect.MACRO_REF:
-                MacroReferenceEffect macroRefEffect = (MacroReferenceEffect) effect;
-                currentValues.put( EFFECT_PROPERTY_TARGET, macroRefEffect.getTargetId( ) );
-                break;
-            case Effect.CONSUME_OBJECT:
-                ConsumeObjectEffect consumeObjectEffect = (ConsumeObjectEffect) effect;
-                currentValues.put( EFFECT_PROPERTY_TARGET, consumeObjectEffect.getTargetId( ) );
-                break;
-            case Effect.GENERATE_OBJECT:
-                GenerateObjectEffect generateObjectEffect = (GenerateObjectEffect) effect;
-                currentValues.put( EFFECT_PROPERTY_TARGET, generateObjectEffect.getTargetId( ) );
                 break;
             case Effect.SPEAK_PLAYER:
                 SpeakPlayerEffect speakPlayerEffect = (SpeakPlayerEffect) effect;
@@ -733,12 +717,7 @@ public class EffectsController {
                 break;
             case Effect.SPEAK_CHAR:
                 SpeakCharEffect speakCharEffect = (SpeakCharEffect) effect;
-                currentValues.put( EFFECT_PROPERTY_TARGET, speakCharEffect.getTargetId( ) );
                 currentValues.put( EFFECT_PROPERTY_TEXT, speakCharEffect.getLine( ) );
-                break;
-            case Effect.TRIGGER_BOOK:
-                TriggerBookEffect triggerBookEffect = (TriggerBookEffect) effect;
-                currentValues.put( EFFECT_PROPERTY_TARGET, triggerBookEffect.getTargetId( ) );
                 break;
             case Effect.PLAY_SOUND:
                 PlaySoundEffect playSoundEffect = (PlaySoundEffect) effect;
@@ -758,21 +737,11 @@ public class EffectsController {
                 break;
             case Effect.MOVE_NPC:
                 MoveNPCEffect moveNPCEffect = (MoveNPCEffect) effect;
-                currentValues.put( EFFECT_PROPERTY_TARGET, moveNPCEffect.getTargetId( ) );
                 currentValues.put( EFFECT_PROPERTY_X, String.valueOf( moveNPCEffect.getX( ) ) );
                 currentValues.put( EFFECT_PROPERTY_Y, String.valueOf( moveNPCEffect.getY( ) ) );
                 break;
-            case Effect.TRIGGER_CONVERSATION:
-                TriggerConversationEffect triggerConversationEffect = (TriggerConversationEffect) effect;
-                currentValues.put( EFFECT_PROPERTY_TARGET, triggerConversationEffect.getTargetId( ) );
-                break;
-            case Effect.TRIGGER_CUTSCENE:
-                TriggerCutsceneEffect triggerCutsceneEffect = (TriggerCutsceneEffect) effect;
-                currentValues.put( EFFECT_PROPERTY_TARGET, triggerCutsceneEffect.getTargetId( ) );
-                break;
             case Effect.TRIGGER_SCENE:
                 TriggerSceneEffect triggerSceneEffect = (TriggerSceneEffect) effect;
-                currentValues.put( EFFECT_PROPERTY_TARGET, triggerSceneEffect.getTargetId( ) );
                 currentValues.put( EFFECT_PROPERTY_X, String.valueOf( triggerSceneEffect.getX( ) ) );
                 currentValues.put( EFFECT_PROPERTY_Y, String.valueOf( triggerSceneEffect.getY( ) ) );
                 break;
@@ -787,6 +756,11 @@ public class EffectsController {
                 currentValues.put( EFFECT_PROPERTY_Y, Integer.toString( showTextEffect.getY( ) ) );
                 currentValues.put( EFFECT_PROPERTY_FRONT_COLOR, Integer.toString( showTextEffect.getRgbFrontColor( ) ) );
                 currentValues.put( EFFECT_PROPERTY_BORDER_COLOR, Integer.toString( showTextEffect.getRgbBorderColor( ) ) );
+                break;
+            case Effect.HIGHLIGHT_ITEM:
+                HighlightItemEffect highlightItem = (HighlightItemEffect) effect;
+                currentValues.put( EFFECT_PROPERTY_HIGHLIGHT_TYPE, highlightItem.getHighlightType( ) );
+                currentValues.put( EFFECT_PROPERTY_ANIMATED, highlightItem.isHighlightAnimated( ) );
                 break;
         }
 
@@ -829,50 +803,6 @@ public class EffectsController {
      *         selected
      */
     public String selectAsset( int assetType ) {
-
-        /*String selectedAsset = null;
-        String assetPath = null;
-        
-        // Show a dialog to select a file, with the fitting file filter
-        int assetCategory = -1;
-        if( assetType == ASSET_ANIMATION )
-        	assetCategory = AssetsController.CATEGORY_ANIMATION;
-        else if( assetType == ASSET_SOUND )
-        	assetCategory = AssetsController.CATEGORY_AUDIO;
-
-        AssetChooser chooser = AssetsController.getAssetChooser( assetCategory, AssetsController.FILTER_NONE );
-        int option = chooser.showAssetChooser( controller.peekWindow( ) );
-        //In case the asset was selected from the zip file
-        if( option == AssetChooser.ASSET_FROM_ZIP ) {
-        	selectedAsset = chooser.getSelectedAsset( );
-        }
-
-        //In case the asset was not in the zip file: first add it
-        else if( option == AssetChooser.ASSET_FROM_OUTSIDE ) {
-        	boolean added = AssetsController.addSingleAsset( assetCategory, chooser.getSelectedFile( ).getAbsolutePath( ) );
-        	if( added ) {
-        		selectedAsset = chooser.getSelectedFile( ).getName( );
-        	}
-        }
-
-        // If a file was selected
-        if( selectedAsset != null ) {
-        	// Get the list of assets from the ZIP file
-        	String[] assetFilenames = AssetsController.getAssetFilenames( assetCategory );
-        	String[] assetPaths = AssetsController.getAssetsList( assetCategory );
-        	int assetIndex = -1;
-        	for( int i = 0; i < assetFilenames.length; i++ )
-        		if( assetFilenames[i].equals( selectedAsset ) )
-        			assetIndex = i;
-
-        	// Store the data in the resources block (removing the suffix if necessary)
-        	if( assetCategory == AssetsController.CATEGORY_ANIMATION ){
-        		assetPath = AssetsController.removeSuffix( assetPaths[assetIndex] ) ;
-        	}
-        	else if( assetType == ASSET_SOUND )
-        		assetPath = assetPaths[assetIndex];
-        	controller.dataModified( );
-        }*/
         int assetCategory = -1;
         int assetFilter = AssetsController.FILTER_NONE;
         if( assetType == ASSET_ANIMATION ) {
@@ -1136,7 +1066,6 @@ public class EffectsController {
                 PlayAnimationEffect playAnimationEffect = (PlayAnimationEffect) effect;
                 if( playAnimationEffect.getPath( ).equals( assetPath ) ) {
                     playAnimationEffect.setPath( "" );
-                    //Controller.getInstance( ).dataModified( );
                 }
             }
             else if( type == Effect.PLAY_SOUND ) {
@@ -1144,13 +1073,11 @@ public class EffectsController {
                 PlaySoundEffect playSoundEffect = (PlaySoundEffect) effect;
                 if( playSoundEffect.getPath( ).equals( assetPath ) ) {
                     playSoundEffect.setPath( "" );
-                    //Controller.getInstance( ).dataModified( );
                 }
             }
 
             // If random effect
             else if( type == Effect.RANDOM_EFFECT ) {
-
                 RandomEffect randomEffect = (RandomEffect) effect;
                 Effects e = new Effects( );
                 if( randomEffect.getPositiveEffect( ) != null )
@@ -1158,9 +1085,7 @@ public class EffectsController {
                 if( randomEffect.getNegativeEffect( ) != null )
                     e.add( randomEffect.getNegativeEffect( ) );
                 EffectsController.deleteAssetReferences( assetPath, e );
-
             }
-
         }
     }
 
@@ -1218,54 +1143,12 @@ public class EffectsController {
      *            Block of effects
      */
     public static void replaceIdentifierReferences( String oldId, String newId, Effects effects ) {
-
-        // For each effect
         for( Effect effect : effects.getEffects( ) ) {
-            int type = effect.getType( );
-
-            // Check the type and the identifier reference, if the identifier matches replace it with the new one
-            if( type == Effect.CONSUME_OBJECT ) {
-                ConsumeObjectEffect consumeObjectEffect = (ConsumeObjectEffect) effect;
-                if( consumeObjectEffect.getTargetId( ).equals( oldId ) )
-                    consumeObjectEffect.setTargetId( newId );
+            if (effect instanceof HasTargetId) {
+                if (((HasTargetId) effect).getTargetId( ).equals( oldId ))
+                    ((HasTargetId) effect).setTargetId( newId );
             }
-            else if( type == Effect.GENERATE_OBJECT ) {
-                GenerateObjectEffect generateObjectEffect = (GenerateObjectEffect) effect;
-                if( generateObjectEffect.getTargetId( ).equals( oldId ) )
-                    generateObjectEffect.setTargetId( newId );
-            }
-            else if( type == Effect.SPEAK_CHAR ) {
-                SpeakCharEffect speakCharEffect = (SpeakCharEffect) effect;
-                if( speakCharEffect.getTargetId( ).equals( oldId ) )
-                    speakCharEffect.setTargetId( newId );
-            }
-            else if( type == Effect.TRIGGER_BOOK ) {
-                TriggerBookEffect triggerBookEffect = (TriggerBookEffect) effect;
-                if( triggerBookEffect.getTargetId( ).equals( oldId ) )
-                    triggerBookEffect.setTargetId( newId );
-            }
-            else if( type == Effect.MOVE_NPC ) {
-                MoveNPCEffect moveNPCEffect = (MoveNPCEffect) effect;
-                if( moveNPCEffect.getTargetId( ).equals( oldId ) )
-                    moveNPCEffect.setTargetId( newId );
-            }
-            else if( type == Effect.TRIGGER_CONVERSATION ) {
-                TriggerConversationEffect trigerConversationEffect = (TriggerConversationEffect) effect;
-                if( trigerConversationEffect.getTargetId( ).equals( oldId ) )
-                    trigerConversationEffect.setTargetId( newId );
-            }
-            else if( type == Effect.TRIGGER_SCENE ) {
-                TriggerSceneEffect triggerSceneEffect = (TriggerSceneEffect) effect;
-                if( triggerSceneEffect.getTargetId( ).equals( oldId ) )
-                    triggerSceneEffect.setTargetId( newId );
-            }
-            else if( type == Effect.TRIGGER_CUTSCENE ) {
-                TriggerCutsceneEffect triggerCutsceneEffect = (TriggerCutsceneEffect) effect;
-                if( triggerCutsceneEffect.getTargetId( ).equals( oldId ) )
-                    triggerCutsceneEffect.setTargetId( newId );
-            } // If random effect
-            else if( type == Effect.RANDOM_EFFECT ) {
-
+            else if( effect.getType( ) == Effect.RANDOM_EFFECT ) {
                 RandomEffect randomEffect = (RandomEffect) effect;
                 Effects e = new Effects( );
                 if( randomEffect.getPositiveEffect( ) != null )
@@ -1273,12 +1156,10 @@ public class EffectsController {
                 if( randomEffect.getNegativeEffect( ) != null )
                     e.add( randomEffect.getNegativeEffect( ) );
                 EffectsController.replaceIdentifierReferences( oldId, newId, e );
-
             }
 
             ConditionsController conditionsController = new ConditionsController( ( (AbstractEffect) effect ).getConditions( ) );
             conditionsController.replaceIdentifierReferences( oldId, newId );
-
         }
     }
 
@@ -1339,27 +1220,12 @@ public class EffectsController {
     }
 
     private static boolean deleteSingleEffect( String id, Effect effect ) {
-
         boolean deleteEffect = false;
-        int type = effect.getType( );
+        
+        if (effect instanceof HasTargetId) {
+            deleteEffect = ((HasTargetId) effect).getTargetId( ).equals( id );
+        }
 
-        // Check if the effect must be deleted
-        if( type == Effect.CONSUME_OBJECT )
-            deleteEffect = ( (ConsumeObjectEffect) effect ).getTargetId( ).equals( id );
-        else if( type == Effect.GENERATE_OBJECT )
-            deleteEffect = ( (GenerateObjectEffect) effect ).getTargetId( ).equals( id );
-        else if( type == Effect.SPEAK_CHAR )
-            deleteEffect = ( (SpeakCharEffect) effect ).getTargetId( ).equals( id );
-        else if( type == Effect.TRIGGER_BOOK )
-            deleteEffect = ( (TriggerBookEffect) effect ).getTargetId( ).equals( id );
-        else if( type == Effect.MOVE_NPC )
-            deleteEffect = ( (MoveNPCEffect) effect ).getTargetId( ).equals( id );
-        else if( type == Effect.TRIGGER_CONVERSATION )
-            deleteEffect = ( (TriggerConversationEffect) effect ).getTargetId( ).equals( id );
-        else if( type == Effect.TRIGGER_SCENE )
-            deleteEffect = ( (TriggerSceneEffect) effect ).getTargetId( ).equals( id );
-        else if( type == Effect.TRIGGER_CUTSCENE )
-            deleteEffect = ( (TriggerCutsceneEffect) effect ).getTargetId( ).equals( id );
         return deleteEffect;
     }
 }

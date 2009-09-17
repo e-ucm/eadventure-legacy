@@ -38,7 +38,7 @@ import es.eucm.eadventure.common.data.chapter.conditions.Conditions;
 public abstract class AbstractEffect implements Effect {
 
     private Conditions conditions;
-
+    
     public AbstractEffect( ) {
 
         conditions = new Conditions( );

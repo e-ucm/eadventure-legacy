@@ -33,6 +33,9 @@
  */
 package es.eucm.eadventure.editor.control.tools.animation;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import es.eucm.eadventure.common.auxiliar.AssetsConstants;
 import es.eucm.eadventure.common.data.animation.Animation;
 import es.eucm.eadventure.common.data.animation.Frame;
@@ -61,6 +64,14 @@ public class AddNewFrameTool extends Tool {
 
     private TransitionDataControl newTransitionDataControl;
 
+    private List<Frame> newFrameList;
+    
+    private List<FrameDataControl> newFrameDataControlList;
+    
+    private List<Transition> newTransitionList;
+    
+    private List<TransitionDataControl> newTransitionDataControlList;
+    
     public AddNewFrameTool( AnimationDataControl animationDataControl, int index, Frame newFrame ) {
 
         this.animationDataControl = animationDataControl;
@@ -72,6 +83,12 @@ public class AddNewFrameTool extends Tool {
         this.newFrameDataControl = new FrameDataControl( newFrame );
         this.newTransition = new Transition( );
         this.newTransitionDataControl = new TransitionDataControl( newTransition );
+        
+        this.newFrameList = new ArrayList<Frame>();
+        this.newTransitionList = new ArrayList<Transition>();
+        this.newFrameDataControlList = new ArrayList<FrameDataControl>();
+        this.newTransitionDataControlList = new ArrayList<TransitionDataControl>();
+        
     }
 
     @Override
@@ -96,28 +113,63 @@ public class AddNewFrameTool extends Tool {
     public boolean doTool( ) {
 
         String selectedAsset = null;
+        java.io.File[] selectedFiles = null;
         AssetChooser chooser = AssetsController.getAssetChooser( AssetsConstants.CATEGORY_IMAGE, AssetsController.FILTER_NONE );
+        chooser.setMultiSelectionEnabled( true );
+        String[] selectedAssets = null;
         int option = chooser.showAssetChooser( Controller.getInstance( ).peekWindow( ) );
         if( option == AssetChooser.ASSET_FROM_ZIP ) {
-            selectedAsset = chooser.getSelectedAsset( );
-            selectedAsset = AssetsController.getCategoryFolder( AssetsConstants.CATEGORY_IMAGE ) + "/" + selectedAsset;
+            
+//            selectedAsset = chooser.getSelectedAsset( );
+//            selectedAsset = AssetsController.getCategoryFolder( AssetsConstants.CATEGORY_IMAGE ) + "/" + selectedAsset;
+            Object[] assets = chooser.getSelectedAssets( );
+            selectedAssets = new String[assets.length];
+            for (int i = 0; i < assets.length; i++) {
+                selectedAssets[i] = AssetsController.getCategoryFolder( AssetsConstants.CATEGORY_IMAGE ) + "/" + assets[i].toString();
+            }
         }
         else if( option == AssetChooser.ASSET_FROM_OUTSIDE ) {
             boolean added = AssetsController.addSingleAsset( AssetsConstants.CATEGORY_ANIMATION_IMAGE, chooser.getSelectedFile( ).getAbsolutePath( ) );
             if( added ) {
-                selectedAsset = chooser.getSelectedFile( ).getName( );
-                selectedAsset = AssetsController.getCategoryFolder( AssetsConstants.CATEGORY_ANIMATION_IMAGE ) + "/" + selectedAsset;
+//                selectedAsset = chooser.getSelectedFile( ).getName( );
+ //               selectedAsset = AssetsController.getCategoryFolder( AssetsConstants.CATEGORY_ANIMATION_IMAGE ) + "/" + selectedAsset;
+                selectedFiles = chooser.getSelectedFiles( );
+                selectedAssets = new String[selectedFiles.length];
+                for (int i = 0; i < selectedFiles.length; i++) {
+                    selectedAssets[i] = AssetsController.getCategoryFolder( AssetsConstants.CATEGORY_ANIMATION_IMAGE ) + "/" + selectedFiles[i].getName( );
+                }
             }
         }
 
-        newFrame.setUri( ( selectedAsset == null ? "" : selectedAsset ) );
+        for (int i = 0; i < selectedAssets.length; i++) {
+            Frame newFrame = new Frame( animationDataControl.getImageLoaderFactory( ) );
+            FrameDataControl newFrameDataControl = new FrameDataControl( newFrame );
+            Transition newTransition = new Transition( );
+            TransitionDataControl newTransitionDataControl = new TransitionDataControl( newTransition );
 
-        if( index >= animationDataControl.getFrameCount( ) || index < 0 )
-            index = animationDataControl.getFrameCount( ) - 1;
-        animation.getFrames( ).add( index + 1, newFrame );
-        animation.getTransitions( ).add( index + 2, newTransition );
-        animationDataControl.getFrameDataControls( ).add( index + 1, newFrameDataControl );
-        animationDataControl.getTransitionDataControls( ).add( index + 2, newTransitionDataControl );
+            newFrame.setUri( selectedAssets[i] );
+            if( index >= animationDataControl.getFrameCount( ) || index < 0 )
+                index = animationDataControl.getFrameCount( ) - 1;
+            animation.getFrames( ).add( index + i + 1, newFrame );
+            animation.getTransitions( ).add( index + i + 2, newTransition );
+            animationDataControl.getFrameDataControls( ).add( index + i + 1, newFrameDataControl );
+            animationDataControl.getTransitionDataControls( ).add( index + i + 2, newTransitionDataControl );
+
+            newFrameList.add(newFrame);
+            newFrameDataControlList.add(newFrameDataControl);
+            newTransitionList.add(newTransition);
+            newTransitionDataControlList.add(newTransitionDataControl);
+/*            
+            newFrame.setUri( ( selectedAsset == null ? "" : selectedAsset ) );
+            if( index >= animationDataControl.getFrameCount( ) || index < 0 )
+                index = animationDataControl.getFrameCount( ) - 1;
+            animation.getFrames( ).add( index + 1, newFrame );
+            animation.getTransitions( ).add( index + 2, newTransition );
+            animationDataControl.getFrameDataControls( ).add( index + 1, newFrameDataControl );
+            animationDataControl.getTransitionDataControls( ).add( index + 2, newTransitionDataControl );
+            */
+        }
+        
         return true;
     }
 

@@ -50,6 +50,7 @@ import es.eucm.eadventure.common.data.chapter.effects.DecrementVarEffect;
 import es.eucm.eadventure.common.data.chapter.effects.Effect;
 import es.eucm.eadventure.common.data.chapter.effects.Effects;
 import es.eucm.eadventure.common.data.chapter.effects.GenerateObjectEffect;
+import es.eucm.eadventure.common.data.chapter.effects.HighlightItemEffect;
 import es.eucm.eadventure.common.data.chapter.effects.IncrementVarEffect;
 import es.eucm.eadventure.common.data.chapter.effects.Macro;
 import es.eucm.eadventure.common.data.chapter.effects.MacroReferenceEffect;
@@ -313,6 +314,29 @@ public class EffectsDOMWriter {
                 effectElement.setAttribute( "frontColor", String.valueOf( showTextEffect.getRgbFrontColor( ) ) );
                 effectElement.setAttribute( "borderColor", String.valueOf( showTextEffect.getRgbBorderColor( ) ) );
                 effectElement.appendChild( doc.createTextNode( showTextEffect.getText( ) ) );
+                break;
+            case Effect.HIGHLIGHT_ITEM:
+                HighlightItemEffect highlightItemEffect = (HighlightItemEffect) effect;
+                effectElement = doc.createElement( "highlight-item" );
+                effectElement.setAttribute( "idTarget", highlightItemEffect.getTargetId( ) );
+                effectElement.setAttribute( "animated", (highlightItemEffect.isHighlightAnimated( ) ? "yes" : "no" ));
+                switch(highlightItemEffect.getHighlightType( )) {
+                    case HighlightItemEffect.HIGHLIGHT_BLUE:
+                        effectElement.setAttribute( "type", "blue" );
+                        break;
+                    case HighlightItemEffect.HIGHLIGHT_BORDER:
+                        effectElement.setAttribute( "type", "border" );
+                        break;
+                    case HighlightItemEffect.HIGHLIGHT_RED:
+                        effectElement.setAttribute( "type", "red" );
+                        break;
+                    case HighlightItemEffect.HIGHLIGHT_GREEN:
+                        effectElement.setAttribute( "type", "green" );
+                        break;
+                    case HighlightItemEffect.NO_HIGHLIGHT:
+                        effectElement.setAttribute( "type", "none" );
+                        break;
+                }
                 break;
 
         }

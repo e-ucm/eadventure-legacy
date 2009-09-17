@@ -44,10 +44,11 @@ import es.eucm.eadventure.editor.gui.otherpanels.imagepanels.ImagePanel;
 
 public class ImageChooser extends AssetChooser {
 
+    private static final long serialVersionUID = -5312107844187014076L;
+    
     private ImagePanel imagePanel;
 
     public ImageChooser( int filter ) {
-
         super( AssetsConstants.CATEGORY_IMAGE, filter, AssetChooser.PREVIEW_LOCATION_SOUTH, TextConstants.getText( "AssetsChooser.Image" ) );
     }
 

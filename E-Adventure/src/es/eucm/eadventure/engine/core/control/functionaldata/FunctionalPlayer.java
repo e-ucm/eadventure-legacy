@@ -35,7 +35,6 @@ package es.eucm.eadventure.engine.core.control.functionaldata;
 
 import java.awt.Color;
 import java.awt.Image;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,9 +52,6 @@ import es.eucm.eadventure.common.data.chapter.scenes.Scene;
 import es.eucm.eadventure.engine.core.control.ActionManager;
 import es.eucm.eadventure.engine.core.control.DebugLog;
 import es.eucm.eadventure.engine.core.control.Game;
-import es.eucm.eadventure.engine.core.gui.GUI;
-import es.eucm.eadventure.engine.multimedia.MultimediaManager;
-import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 import es.eucm.eadventure.engine.core.control.animations.Animation;
 import es.eucm.eadventure.engine.core.control.animations.AnimationState;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionalactions.FunctionalAction;
@@ -72,6 +68,9 @@ import es.eucm.eadventure.engine.core.control.functionaldata.functionalactions.F
 import es.eucm.eadventure.engine.core.control.functionaldata.functionalactions.FunctionalUse;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionalactions.FunctionalUseWith;
 import es.eucm.eadventure.engine.core.data.GameText;
+import es.eucm.eadventure.engine.core.gui.GUI;
+import es.eucm.eadventure.engine.multimedia.MultimediaManager;
+import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
 
 /**
  * The player
@@ -515,7 +514,7 @@ public class FunctionalPlayer extends FunctionalElement implements TalkingElemen
             if( layer == Scene.PLAYER_WITHOUT_LAYER || layer == Scene.PLAYER_NO_ALLOWED )
                 GUI.getInstance( ).addPlayerToDraw( image, realX, realY, Math.round( y ), Math.round( y ) );
             else
-                GUI.getInstance( ).addElementToDraw( image, realX, realY, layer, Math.round( y ) );
+                GUI.getInstance( ).addElementToDraw( image, realX, realY, layer, Math.round( y ), null );
         }
         if( getCurrentAction( ).isStarted( ) && !getCurrentAction( ).isFinished( ) )
             getCurrentAction( ).drawAditionalElements( );

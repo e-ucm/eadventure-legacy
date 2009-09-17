@@ -46,6 +46,7 @@ import java.awt.event.WindowEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -54,6 +55,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -67,8 +69,6 @@ import javax.swing.event.ListSelectionListener;
 
 import sun.swing.FilePane;
 import sun.swing.WindowsPlacesBar;
-import javax.swing.JFileChooser;
-
 import es.eucm.eadventure.common.auxiliar.File;
 import es.eucm.eadventure.common.auxiliar.FileFilter;
 import es.eucm.eadventure.common.gui.TextConstants;
@@ -126,6 +126,8 @@ public abstract class AssetChooser extends JFileChooser {
     private int previewLocation;
 
     private String selectedAsset;
+    
+    private List<String> selectedAssets;
 
     private String title;
 
@@ -143,6 +145,7 @@ public abstract class AssetChooser extends JFileChooser {
             customizeWindowsChooser( );
         }
         this.title = title;
+        this.selectedAssets = new ArrayList<String>();
     }
 
     private int categorizeAssetChooser( ) {
@@ -314,7 +317,10 @@ public abstract class AssetChooser extends JFileChooser {
         assetsList = new JList( );
         assetsList.setLayoutOrientation( JList.VERTICAL_WRAP );
         String[] assets = AssetsController.getAssetFilenames( assetCategory, filter );
-        assetsList.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
+        if (this.isMultiSelectionEnabled( ))
+            assetsList.setSelectionMode( ListSelectionModel.MULTIPLE_INTERVAL_SELECTION );
+        else
+            assetsList.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
         assetsList.setListData( assets );
         assetsList.addListSelectionListener( new ResourcesListListener( ) );
         //assetsList.setMinimumSize( new Dimension( filePanel.getMinimumSize( ).width + min.width, filePanel.getMinimumSize( ).height + min.height ) );
@@ -337,7 +343,10 @@ public abstract class AssetChooser extends JFileChooser {
             this.zipContentsPanel = new JScrollPane( ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER );
         }
         String[] assets = AssetsController.getAssetFilenames( assetCategory );
-        assetsList.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
+        if (this.isMultiSelectionEnabled( ))
+            assetsList.setSelectionMode( ListSelectionModel.MULTIPLE_INTERVAL_SELECTION );
+        else
+            assetsList.setSelectionMode( ListSelectionModel.SINGLE_SELECTION );
         assetsList.setListData( assets );
         assetsList.addListSelectionListener( new ResourcesListListener( ) );
         zipContentsPanel.setViewportView( assetsList );
@@ -395,15 +404,15 @@ public abstract class AssetChooser extends JFileChooser {
      */
     private class ResourcesListListener implements ListSelectionListener {
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.event.ListSelectionListener#valueChanged(javax.swing.event.ListSelectionEvent)
-         */
         public void valueChanged( ListSelectionEvent e ) {
 
             // If there is an asset selected, show it
 
+            if (AssetChooser.this.isMultiSelectionEnabled( )) {
+                AssetChooser.this.selectedAssets.clear( );
+                for (Object asset : AssetChooser.this.assetsList.getSelectedValues( ))
+                    AssetChooser.this.selectedAssets.add( asset.toString( ) );
+            }
             if( ( (JList) e.getSource( ) ).getSelectedIndex( ) >= 0 )
                 setSelectedAsset( ( (JList) e.getSource( ) ).getSelectedValue( ).toString( ) );
             else
@@ -426,11 +435,6 @@ public abstract class AssetChooser extends JFileChooser {
      */
     private class DefaultResourcesListListener implements ListSelectionListener {
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see javax.swing.event.ListSelectionListener#valueChanged(javax.swing.event.ListSelectionEvent)
-         */
         public void valueChanged( ListSelectionEvent e ) {
 
             // If there is an asset selected, show it
@@ -483,11 +487,19 @@ public abstract class AssetChooser extends JFileChooser {
 
             if( e.getSource( ) == approveButton ) {
                 if( showingZipContents ) {
-                    if( assetsList.getSelectedValue( ) == null ) {
-                        selectedAsset = null;
-                    }
-                    else {
-                        selectedAsset = assetsList.getSelectedValue( ).toString( );
+                    if (!AssetChooser.this.isMultiSelectionEnabled( )) {
+                        if( assetsList.getSelectedValue( ) == null ) {
+                            selectedAsset = null;
+                            selectedAssets.clear( );
+                        }
+                        else {
+                            selectedAsset = assetsList.getSelectedValue( ).toString( );
+                        }
+                    } else {
+                        selectedAssets.clear( );
+                        for (Object asset : assetsList.getSelectedValues( )) {
+                            selectedAssets.add( asset.toString( ) );
+                        }
                     }
                 }
                 else if( getSelectedFile( ) != null && getSelectedFile( ).getParentFile( ) != null ) {
@@ -498,6 +510,7 @@ public abstract class AssetChooser extends JFileChooser {
             }
             else if( e.getSource( ) == cancelButton ) {
                 selectedAsset = null;
+                selectedAssets.clear( );
                 cancelSelection( );
             }
         }
@@ -519,6 +532,10 @@ public abstract class AssetChooser extends JFileChooser {
     public void setSelectedAsset( String selectedAsset ) {
 
         this.selectedAsset = selectedAsset;
+    }
+    
+    public Object[] getSelectedAssets() {
+        return selectedAssets.toArray( );
     }
 
     @Override
@@ -550,9 +567,13 @@ public abstract class AssetChooser extends JFileChooser {
 
         int value = showDialog( parent, title );
         if( value == JFileChooser.APPROVE_OPTION ) {
-            if( selectedAsset == null && getSelectedFile( ) != null ) {
+            if( selectedAsset == null && ((!this.isMultiSelectionEnabled( ) && getSelectedFile( ) != null) || (this.isMultiSelectionEnabled( ) && getSelectedFiles().length > 0)) ) {
                 // Check that selectedFile is not exactly in project folder
-                if( getSelectedFile( ).getAbsolutePath( ).startsWith( AssetsController.getCategoryAbsoluteFolder( assetCategory ) ) ) {
+                if( !this.isMultiSelectionEnabled( ) && getSelectedFile( ).getAbsolutePath( ).startsWith( AssetsController.getCategoryAbsoluteFolder( assetCategory ) ) ) {
+                    selectedAsset = getSelectedFile( ).getName( );
+                    return ASSET_FROM_ZIP;
+                }
+                else if( this.isMultiSelectionEnabled( ) && getSelectedFiles( )[0].getAbsolutePath( ).startsWith( AssetsController.getCategoryAbsoluteFolder( assetCategory ) ) ) {
                     selectedAsset = getSelectedFile( ).getName( );
                     return ASSET_FROM_ZIP;
                 }

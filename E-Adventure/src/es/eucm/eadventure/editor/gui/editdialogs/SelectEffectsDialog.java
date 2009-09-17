@@ -122,12 +122,10 @@ public class SelectEffectsDialog extends ToolManagableDialog {
 
                 if( infoPlusButtons != null ) {
                     if( tabPane.getSelectedComponent( ) == effectsStructurePanel ) {
-                        //infoPlusButtons.add( effectsStructurePanel.getInfoPanel(), BorderLayout.CENTER);
                         createInfoPlusButtons( effectsStructurePanel.getInfoPanel( ) );
                         ok.setEnabled( true );
                     }
                     else if( tabPane.getSelectedComponent( ) == allEffectsStructurePanel ) {
-                        //infoPlusButtons.add( allEffectsStructurePanel.getInfoPanel(), BorderLayout.CENTER);
                         createInfoPlusButtons( allEffectsStructurePanel.getInfoPanel( ) );
                         ok.setEnabled( true );
                     }
@@ -266,10 +264,10 @@ public class SelectEffectsDialog extends ToolManagableDialog {
     public HashMap<Integer, Object> buildEffectProperties( ) {
 
         // Create a list with the names of the effects (in the same order as the next)
-        final String[] effectNames = { TextConstants.getText( "Effect.Activate" ), TextConstants.getText( "Effect.Deactivate" ), TextConstants.getText( "Effect.SetValue" ), TextConstants.getText( "Effect.IncrementVar" ), TextConstants.getText( "Effect.DecrementVar" ), TextConstants.getText( "Effect.MacroReference" ), TextConstants.getText( "Effect.ConsumeObject" ), TextConstants.getText( "Effect.GenerateObject" ), TextConstants.getText( "Effect.CancelAction" ), TextConstants.getText( "Effect.SpeakPlayer" ), TextConstants.getText( "Effect.SpeakCharacter" ), TextConstants.getText( "Effect.TriggerBook" ), TextConstants.getText( "Effect.PlaySound" ), TextConstants.getText( "Effect.PlayAnimation" ), TextConstants.getText( "Effect.MovePlayer" ), TextConstants.getText( "Effect.MoveCharacter" ), TextConstants.getText( "Effect.TriggerConversation" ), TextConstants.getText( "Effect.TriggerCutscene" ), TextConstants.getText( "Effect.TriggerScene" ), TextConstants.getText( "Effect.TriggerLastScene" ), TextConstants.getText( "Effect.RandomEffect" ), TextConstants.getText( "Effect.ShowText" ), TextConstants.getText( "Effect.WaitTime" ) };
+        final String[] effectNames = { TextConstants.getText( "Effect.Activate" ), TextConstants.getText( "Effect.Deactivate" ), TextConstants.getText( "Effect.SetValue" ), TextConstants.getText( "Effect.IncrementVar" ), TextConstants.getText( "Effect.DecrementVar" ), TextConstants.getText( "Effect.MacroReference" ), TextConstants.getText( "Effect.ConsumeObject" ), TextConstants.getText( "Effect.GenerateObject" ), TextConstants.getText( "Effect.CancelAction" ), TextConstants.getText( "Effect.SpeakPlayer" ), TextConstants.getText( "Effect.SpeakCharacter" ), TextConstants.getText( "Effect.TriggerBook" ), TextConstants.getText( "Effect.PlaySound" ), TextConstants.getText( "Effect.PlayAnimation" ), TextConstants.getText( "Effect.MovePlayer" ), TextConstants.getText( "Effect.MoveCharacter" ), TextConstants.getText( "Effect.TriggerConversation" ), TextConstants.getText( "Effect.TriggerCutscene" ), TextConstants.getText( "Effect.TriggerScene" ), TextConstants.getText( "Effect.TriggerLastScene" ), TextConstants.getText( "Effect.RandomEffect" ), TextConstants.getText( "Effect.ShowText" ), TextConstants.getText( "Effect.WaitTime" ), TextConstants.getText( "Effect.HighlightItem" ) };
 
         // Create a list with the types of the effects (in the same order as the previous)
-        final int[] effectTypes = { Effect.ACTIVATE, Effect.DEACTIVATE, Effect.SET_VALUE, Effect.INCREMENT_VAR, Effect.DECREMENT_VAR, Effect.MACRO_REF, Effect.CONSUME_OBJECT, Effect.GENERATE_OBJECT, Effect.CANCEL_ACTION, Effect.SPEAK_PLAYER, Effect.SPEAK_CHAR, Effect.TRIGGER_BOOK, Effect.PLAY_SOUND, Effect.PLAY_ANIMATION, Effect.MOVE_PLAYER, Effect.MOVE_NPC, Effect.TRIGGER_CONVERSATION, Effect.TRIGGER_CUTSCENE, Effect.TRIGGER_SCENE, Effect.TRIGGER_LAST_SCENE, Effect.RANDOM_EFFECT, Effect.SHOW_TEXT, Effect.WAIT_TIME };
+        final int[] effectTypes = { Effect.ACTIVATE, Effect.DEACTIVATE, Effect.SET_VALUE, Effect.INCREMENT_VAR, Effect.DECREMENT_VAR, Effect.MACRO_REF, Effect.CONSUME_OBJECT, Effect.GENERATE_OBJECT, Effect.CANCEL_ACTION, Effect.SPEAK_PLAYER, Effect.SPEAK_CHAR, Effect.TRIGGER_BOOK, Effect.PLAY_SOUND, Effect.PLAY_ANIMATION, Effect.MOVE_PLAYER, Effect.MOVE_NPC, Effect.TRIGGER_CONVERSATION, Effect.TRIGGER_CUTSCENE, Effect.TRIGGER_SCENE, Effect.TRIGGER_LAST_SCENE, Effect.RANDOM_EFFECT, Effect.SHOW_TEXT, Effect.WAIT_TIME, Effect.HIGHLIGHT_ITEM };
 
         String selectedValue = getSelectedEffect( );
 
@@ -333,7 +331,6 @@ public class SelectEffectsDialog extends ToolManagableDialog {
     }
 
     public static HashMap<Integer, Object> getNewEffectProperties( EffectsController controller ) {
-
         instance = new SelectEffectsDialog( controller );
         return instance.effectProperties;
     }

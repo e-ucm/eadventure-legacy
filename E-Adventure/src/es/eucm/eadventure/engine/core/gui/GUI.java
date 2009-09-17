@@ -59,6 +59,7 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 
 import es.eucm.eadventure.engine.core.control.TimerManager;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionalhighlights.FunctionalHighlight;
 import es.eucm.eadventure.engine.core.gui.hud.HUD;
 
 /**
@@ -912,13 +913,13 @@ public abstract class GUI implements FocusListener {
      * @param depth
      *            Depth of the image
      */
-    public void addElementToDraw( Image image, int x, int y, int depth, int originalY ) {
+    public void addElementToDraw( Image image, int x, int y, int depth, int originalY, FunctionalHighlight highlight ) {
 
         boolean added = false;
         int i = 0;
 
         // Create the image to store it 
-        ElementImage element = new ElementImage( image, x, y, depth, originalY );
+        ElementImage element = new ElementImage( image, x, y, depth, originalY, highlight );
 
         // While the element has not been added, and
         // we haven't checked every previous element
@@ -1184,6 +1185,8 @@ public abstract class GUI implements FocusListener {
          */
         private int depth;
 
+        private FunctionalHighlight highlight;
+        
         /**
          * Constructor of the class
          * 
@@ -1197,12 +1200,17 @@ public abstract class GUI implements FocusListener {
          *            Depth to draw the image
          */
         public ElementImage( Image image, int x, int y, int depth, int originalY ) {
-
             this.image = image;
             this.x = x;
             this.y = y;
             this.depth = depth;
             this.originalY = originalY;
+            this.highlight = null;
+        }
+        
+        public ElementImage( Image image, int x, int y, int depth, int originalY, FunctionalHighlight highlight) {
+            this(image, x, y, depth, originalY);
+            this.highlight = highlight;
         }
 
         /**
@@ -1212,8 +1220,11 @@ public abstract class GUI implements FocusListener {
          *            Graphics2D to draw the image
          */
         public void draw( Graphics2D g ) {
-
-            g.drawImage( image, x, y, null );
+            if (highlight != null) {
+                g.drawImage( highlight.getHighlightedImage( image ), x + highlight.getDisplacementX( ), y + highlight.getDisplacementY( ), null );
+            } else {
+                g.drawImage( image, x, y, null );
+            }
         }
 
         /**

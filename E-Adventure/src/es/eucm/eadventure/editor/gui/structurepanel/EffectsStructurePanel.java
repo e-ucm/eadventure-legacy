@@ -37,6 +37,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -114,6 +115,8 @@ public class EffectsStructurePanel extends StructurePanel {
     private static final String TEXT_URL = "effects_short/Effects_ShowText.html";
 
     private static final String TIME_URL = "effects_short/Effects_WaitTime.html";
+    
+    private static final String HIGHLIGHT_URL = "effects_short/Effects_HighlightItem.html";
 
     private EffectInfoPanel infoPanel;
 
@@ -217,6 +220,9 @@ public class EffectsStructurePanel extends StructurePanel {
         else if( name.equals( TextConstants.getText( "Effect.WaitTime" ) ) ) {
             effectIcon = new ImageIcon( getIconBasePath( size ) + "wait.png" );
         }
+        else if (name.equals( TextConstants.getText( "Effect.HighlightItem" ) )) {
+            effectIcon = new ImageIcon( getIconBasePath( size ) + "highlight.png");
+        }
         else if( name.equals( TextConstants.getText( "EffectsGroup.GameState" ) ) ) {
             effectIcon = new ImageIcon( getIconBasePath( size ) + "game-state.png" );
         }
@@ -265,6 +271,7 @@ public class EffectsStructurePanel extends StructurePanel {
         return structureElements.get( selectedElement ).getChild( list.getSelectedRow( ) ).getName( );
     }
 
+    @Override
     public void recreateElements( ) {
 
         structureElements.clear( );
@@ -281,6 +288,7 @@ public class EffectsStructurePanel extends StructurePanel {
         update( );
     }
 
+    @Override
     public void update( ) {
 
         super.update( );
@@ -311,12 +319,14 @@ public class EffectsStructurePanel extends StructurePanel {
         this.updateUI( );
     }
 
+    @Override
     protected JPanel createSelectedElementPanel( final StructureListElement element, final int index ) {
 
         JPanel result = super.createSelectedElementPanel( element, index );
         button.addActionListener( new ListElementButtonActionListener( index ) );
         list.addMouseListener( new MouseAdapter( ) {
 
+            @Override
             public void mouseClicked( MouseEvent e ) {
 
                 if( e.getClickCount( ) == 2 ) {
@@ -431,6 +441,9 @@ public class EffectsStructurePanel extends StructurePanel {
         }
         else if( name.equals( TextConstants.getText( "Effect.WaitTime" ) ) ) {
             text = TIME_URL;
+        }
+        else if( name.equals( TextConstants.getText( "Effect.HighlightItem" ) )) {
+            text = HIGHLIGHT_URL;
         }// when this method is called for structure list effects
         else
             text = name;

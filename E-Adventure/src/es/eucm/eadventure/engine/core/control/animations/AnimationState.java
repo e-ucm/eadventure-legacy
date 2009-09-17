@@ -192,7 +192,7 @@ public abstract class AnimationState {
         if( depth == Scene.PLAYER_WITHOUT_LAYER || depth == Scene.PLAYER_NO_ALLOWED )
             GUI.getInstance( ).addPlayerToDraw( image, realX, realY, Math.round( y ), Math.round( y ) );
         else
-            GUI.getInstance( ).addElementToDraw( image, realX, realY, depth, Math.round( y ) );
+            GUI.getInstance( ).addElementToDraw( image, realX, realY, depth, Math.round( y ), null );
     }
 
     /**
