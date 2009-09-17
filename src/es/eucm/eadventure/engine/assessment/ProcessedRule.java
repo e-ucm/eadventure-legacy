@@ -144,11 +144,20 @@ public class ProcessedRule {
         code.append( "<h3>" );
         code.append( rule.getConcept( ) );
         code.append( " (" );
-        code.append( time / 3600 );
+        if (time / 3600 < 10)
+            code.append("0"+Integer.toString(time / 3600 ));
+        else 
+            code.append(Integer.toString(time / 3600 ));
         code.append( ":" );
-        code.append( ( time / 60 ) % 60 );
+        if (( time / 60 ) % 60 < 10)      
+            code.append("0"+( time / 60 ) % 60  );
+        else 
+            code.append(( time / 60 ) % 60  );
         code.append( ":" );
-        code.append( time % 60 );
+        if (time % 60 <10)
+            code.append("0"+ time % 60 );
+        else
+            code.append(time % 60 );
         code.append( ")" );
         code.append( "</h3>" );
 

@@ -1329,7 +1329,7 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="ActionsList.NotRelevant">Not relevant</entry>
 	<entry key="ActionList.Empty">No action selected.</entry>
 	<entry key="ActionList.EditEffect">Edit Effect</entry>	
-	
+	<entry key="TalkToAction.MessageSelectConversation">Select a conversation</entry>
 
 	<entry key="SmallActionList.Action">Action</entry>
 

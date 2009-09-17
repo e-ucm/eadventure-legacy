@@ -111,6 +111,25 @@ public class AdventureData extends DescriptorData {
             chapters.add( (Chapter) chapter );
         }
     }
+    
+    /**
+     * Returns if the chapter.xml has adaptation and/or assessment data
+     * 
+     * @return
+     */
+    public boolean hasAdapOrAssesData(){
+	
+	for (int i=0;i<chapters.size();i++){
+	    String[] apn = chapters.get(i).getAdaptationProfilesNames();
+	   if (apn.length>0)
+	       return true;
+	   String[] aspn = chapters.get(i).getAssessmentProfilesNames();
+	   if (aspn.length>0)
+	       return true;
+	}
+	
+	return false;
+    }
 
     /**
      * Returns the list of chapters of the game

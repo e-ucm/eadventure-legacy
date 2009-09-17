@@ -153,6 +153,11 @@ public abstract class GUI implements FocusListener {
      * List of texts to be painted.
      */
     protected ArrayList<Text> textToDraw;
+    
+    /**
+     * Stores the static component for show (report,book,video, etc)
+     */
+    protected Component component;
 
     private Transition transition = null;
 
@@ -238,6 +243,14 @@ public abstract class GUI implements FocusListener {
         return hud.getGameAreaHeight( );
     }
 
+    /**
+     * Repaint call to the "component"
+     */
+    public void componentRepaint(){
+	if (component!=null)
+		component.repaint();
+    }
+    
     /**
      * Returns the X point of the response block text
      * 
