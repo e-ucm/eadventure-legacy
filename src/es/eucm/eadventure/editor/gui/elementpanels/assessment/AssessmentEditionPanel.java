@@ -788,10 +788,12 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
         int items = informationTable.getRowCount( );
         //int selectedTab = rulesInfoPanel.getSelectedIndex();
         if( rulesInfoPanel != null && rulesInfoPanel instanceof Updateable )
-            ( (Updateable) rulesInfoPanel ).updateFields( );
-
+            ( (Updateable) rulesInfoPanel ).updateFields( );     
+        if( informationTable.getCellEditor( ) != null ) {
+            informationTable.getCellEditor( ).cancelCellEditing( );
+        }
         ( (AbstractTableModel) informationTable.getModel( ) ).fireTableDataChanged( );
-
+        
         // update the combobox
         if( dataControl.isScorm12( ) )
             comboProfile.setSelectedIndex( 1 );
@@ -799,7 +801,7 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
             comboProfile.setSelectedIndex( 0 );
         else
             comboProfile.setSelectedIndex( 2 );
-
+       
         if( items == informationTable.getRowCount( ) ) {
             if( selected != -1 ) {
                 if( selected >= items )
@@ -811,6 +813,7 @@ public class AssessmentEditionPanel extends JPanel implements DataControlsPanel,
             }
         }
 
+       
         return true;
     }
 

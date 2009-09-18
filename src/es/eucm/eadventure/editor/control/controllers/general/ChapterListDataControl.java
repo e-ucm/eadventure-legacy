@@ -431,8 +431,8 @@ public class ChapterListDataControl {
 
         if( getSelectedChapterDataControl( ) != null )
             getSelectedChapterDataControl( ).deleteIdentifierReferences( id );
-        else
-            this.identifierSummary.deleteAssessmentRuleId( id );
+      //  else
+        //    this.identifierSummary.deleteAssessmentRuleId( id );
     }
 
     public boolean addTool( Tool tool ) {

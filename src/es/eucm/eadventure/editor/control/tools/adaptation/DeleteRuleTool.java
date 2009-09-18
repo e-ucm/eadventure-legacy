@@ -136,13 +136,13 @@ public class DeleteRuleTool extends Tool {
 
         if( type == Controller.ADAPTATION_RULE ) {
             ( (AdaptationProfileDataControl) dataControl ).setDataControlsAndData( new ArrayList( oldAdapRules ) );
-            Controller.getInstance( ).getIdentifierSummary( ).addAdaptationRuleId( oldAdapRules.get( index ).getId( ) );
+            Controller.getInstance( ).getIdentifierSummary( ).addAdaptationRuleId( oldAdapRules.get( index ).getId( ), ( (AdaptationProfileDataControl) dataControl ).getName() );
             Controller.getInstance( ).updatePanel( );
             return true;
         }
         else if( type == Controller.ASSESSMENT_RULE || type == Controller.TIMED_ASSESSMENT_RULE ) {
             ( (AssessmentProfileDataControl) dataControl ).setDataControlsAndData( new ArrayList( oldAssessRules ) );
-            Controller.getInstance( ).getIdentifierSummary( ).addAssessmentRuleId( oldAssessRules.get( index ).getId( ) );
+            Controller.getInstance( ).getIdentifierSummary( ).addAssessmentRuleId( oldAssessRules.get( index ).getId( ) , ( (AssessmentProfileDataControl) dataControl ).getName() );
             Controller.getInstance( ).updatePanel( );
             return true;
         }

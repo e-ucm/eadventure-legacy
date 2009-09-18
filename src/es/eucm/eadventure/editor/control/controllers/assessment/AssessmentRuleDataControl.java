@@ -53,6 +53,7 @@ import es.eucm.eadventure.editor.control.tools.assessment.ChangeMinTimeValueTool
 import es.eucm.eadventure.editor.control.tools.assessment.ChangeUsesEndCondition;
 import es.eucm.eadventure.editor.control.tools.assessment.DeleteAssessmentPropertyTool;
 import es.eucm.eadventure.editor.control.tools.assessment.DeleteEffectTool;
+import es.eucm.eadventure.editor.control.tools.assessment.RenameRuleTool;
 import es.eucm.eadventure.editor.control.tools.general.commontext.ChangeIdTool;
 import es.eucm.eadventure.editor.control.tools.generic.ChangeIntegerValueTool;
 import es.eucm.eadventure.editor.control.tools.generic.ChangeStringValueTool;
@@ -68,10 +69,13 @@ public class AssessmentRuleDataControl extends DataControl {
     private ConditionsController initConditionsController;
 
     private ConditionsController endConditionsController;
+    
+    private String profileName;
 
-    public AssessmentRuleDataControl( AssessmentRule assessmentRule ) {
+    public AssessmentRuleDataControl( AssessmentRule assessmentRule, String profileName ) {
 
         this.assessmentRule = assessmentRule;
+        this.profileName = profileName;
 
         // Create subcontrollers
         if( this.isTimedRule( ) ) {
@@ -142,7 +146,7 @@ public class AssessmentRuleDataControl extends DataControl {
     public int countIdentifierReferences( String id ) {
 
         int count = 0;
-        if( assessmentRule.getId( ).equals( id ) ) {
+        if( id.equals(profileName+"."+assessmentRule.getId( )) ) {
             count++;
         }
         if( this.isTimedRule( ) ) {
@@ -219,8 +223,11 @@ public class AssessmentRuleDataControl extends DataControl {
             assRuleId = controller.showInputDialog( TextConstants.getText( "Operation.RenameAssessmentRuleTitle" ), TextConstants.getText( "Operation.RenameAssessmentRuleMessage" ), TextConstants.getText( "Operation.AddAssessmentRuleDefaultValue" ) );
 
         // If some value was typed and the identifier is valid
-        if( assRuleId != null && controller.isElementIdValid( assRuleId ) ) {
-            controller.replaceIdentifierReferences( assessmentRule.getId( ), assRuleId );
+        // To control the identifiers properly, the id must be composed by "profileName.asRuleId"
+        if( assRuleId != null && controller.isElementIdValid( profileName + "." + assRuleId ) ) {
+      	    //controller.replaceIdentifierReferences( assessmentRule.getId( ), assRuleId );
+            controller.getIdentifierSummary( ).deleteAssessmentRuleId( oldName, profileName );
+            controller.getIdentifierSummary( ).addAssessmentRuleId( assRuleId, profileName );
             assessmentRule.setId( assRuleId );
             return oldName;
         }
@@ -645,7 +652,8 @@ public class AssessmentRuleDataControl extends DataControl {
 
     public void setId( String value ) {
 
-        Controller.getInstance( ).addTool( new ChangeIdTool( assessmentRule, value ) );
+        //Controller.getInstance( ).addTool( new ChangeIdTool( assessmentRule, value ) );
+	Controller.getInstance( ).addTool( new RenameRuleTool( this, value ) );
     }
 
 }
