@@ -73,19 +73,6 @@
 			<zipfileset src="jars/mp3spi1.9.4.jar" />
 			<zipfileset src="jars/jmf.jar" />
 			<zipfileset src="jars/jl1.0.jar" />
-			<zipfileset src="jars/jffmpeg-1.1.0.jar" />
-			<zipfileset src="jars/cmu_time_awb.jar" />
-			<zipfileset src="jars/cmu_us_kal.jar"/>
-			<zipfileset src="jars/cmudict04.jar" />
-			<zipfileset src="jars/cmulex.jar" />
-			<zipfileset src="jars/cmutimelex.jar" />
-			<zipfileset src="jars/en_us.jar" />
-			<zipfileset src="jars/freetts.jar" />
-			<zipfileset src="jars/mailapi.jar" />
-			<zipfileset src="jars/smtp.jar" />
-			<!--<zipfileset src="jars/kafenio-config.jar" />
-			<zipfileset src="jars/kafenio-icons.jar" />
-			<zipfileset src="jars/kafenio.jar" />-->
 			
 			<manifest>
 				<attribute name="Main-Class" value="es.eucm.eadventure.engine.EAdventureApplet" />
