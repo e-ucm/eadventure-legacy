@@ -66,7 +66,7 @@ public class AssessmentProfileDataControl extends DataControl {
         dataControls = new ArrayList<AssessmentRuleDataControl>( );
         this.profile = profile;
         for( AssessmentRule rule : profile.getRules( ) ) {
-            dataControls.add( new AssessmentRuleDataControl( rule ) );
+            dataControls.add( new AssessmentRuleDataControl( rule, profile.getName() ) );
         }
     }
 
@@ -101,8 +101,8 @@ public class AssessmentProfileDataControl extends DataControl {
                     assRule = new AssessmentRule( assRuleId, AssessmentRule.IMPORTANCE_NORMAL );
                 }
                 this.profile.getRules( ).add( assRule );
-                dataControls.add( new AssessmentRuleDataControl( assRule ) );
-                controller.getIdentifierSummary( ).addAssessmentRuleId( assRuleId );
+                dataControls.add( new AssessmentRuleDataControl( assRule, profile.getName() ) );
+                controller.getIdentifierSummary( ).addAssessmentRuleId( assRuleId, profile.getName() );
                 //controller.dataModified( );
                 added = true;
             }
@@ -177,8 +177,8 @@ public class AssessmentProfileDataControl extends DataControl {
 
         try {
             AssessmentRule newRule = (AssessmentRule) ( ( (AssessmentRule) ( dataControl.getContent( ) ) ).clone( ) );
-            dataControls.add( new AssessmentRuleDataControl( newRule ) );
-            controller.getIdentifierSummary( ).addAssessmentRuleId( newRule.getId( ) );
+            dataControls.add( new AssessmentRuleDataControl( newRule, profile.getName() ) );
+            controller.getIdentifierSummary( ).addAssessmentRuleId( newRule.getId( ), profile.getName() );
             return true;
         }
         catch( CloneNotSupportedException e ) {
@@ -200,7 +200,7 @@ public class AssessmentProfileDataControl extends DataControl {
             if( this.profile.getRules( ).remove( dataControl.getContent( ) ) ) {
                 dataControls.remove( dataControl );
                 controller.deleteIdentifierReferences( assRuleId );
-                controller.getIdentifierSummary( ).deleteAssessmentRuleId( assRuleId );
+                controller.getIdentifierSummary( ).deleteAssessmentRuleId( assRuleId, profile.getName() );
                 //controller.dataModified( );
                 deleted = true;
 
@@ -249,7 +249,11 @@ public class AssessmentProfileDataControl extends DataControl {
 
     @Override
     public boolean isValid( String currentPath, List<String> incidences ) {
-
+	
+	for (Iterator<AssessmentRuleDataControl> it = dataControls.iterator();it.hasNext();){
+	    if (it.next().getId().equals(currentPath))
+		return false;
+	}
         return true;
     }
 
@@ -306,8 +310,9 @@ public class AssessmentProfileDataControl extends DataControl {
                 if( !controller.getIdentifierSummary( ).isAssessmentProfileId( name ) ) {
                     //controller.dataModified( );
                     profile.setName( fileName );
-                    controller.getIdentifierSummary( ).deleteAssessmentProfileId( oldName );
-                    controller.getIdentifierSummary( ).addAssessmentProfileId( fileName );
+                    
+                    controller.getIdentifierSummary( ).renameAssessmentProfile(oldName, fileName);
+                    
                     renamed = true;
                 }
                 else {
@@ -328,7 +333,7 @@ public class AssessmentProfileDataControl extends DataControl {
 
         for( AssessmentRuleDataControl rule : dataControls )
             if( rule.getId( ).equals( oldId ) ) {
-                rule.renameElement( newId );
+                boolean a=true;
             }
     }
 

@@ -133,13 +133,13 @@ public class AddRuleTool extends Tool {
 
         if( type == Controller.ADAPTATION_RULE ) {
             ( (AdaptationProfileDataControl) dataControl ).setDataControlsAndData( new ArrayList<AdaptationRuleDataControl>( oldAdapRules ) );
-            Controller.getInstance( ).getIdentifierSummary( ).deleteAdaptationRuleId( ruleId );
+            Controller.getInstance( ).getIdentifierSummary( ).deleteAdaptationRuleId( ruleId, ( (AdaptationProfileDataControl) dataControl ).getName() );
             Controller.getInstance( ).updatePanel( );
             return true;
         }
         else if( type == Controller.ASSESSMENT_RULE || type == Controller.TIMED_ASSESSMENT_RULE ) {
             ( (AssessmentProfileDataControl) dataControl ).setDataControlsAndData( new ArrayList<AssessmentRuleDataControl>( oldAssessRules ) );
-            Controller.getInstance( ).getIdentifierSummary( ).deleteAssessmentRuleId( ruleId );
+            Controller.getInstance( ).getIdentifierSummary( ).deleteAssessmentRuleId( ruleId, ( (AssessmentProfileDataControl) dataControl ).getName() );
             Controller.getInstance( ).updatePanel( );
             return true;
         }

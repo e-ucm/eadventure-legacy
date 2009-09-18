@@ -34,7 +34,9 @@
 package es.eucm.eadventure.editor.data.support;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import es.eucm.eadventure.common.data.adaptation.AdaptationProfile;
 import es.eucm.eadventure.common.data.adaptation.AdaptationRule;
@@ -104,25 +106,15 @@ public class IdentifierSummary {
     private List<String> conversationIdentifiers;
 
     /**
-     * List of all assessment rule identifiers in the script.
+     * List of all assessment profile identifiers in the script and its associated assessment rules. 
      */
-    private List<String> assessmentRuleIdentifiers;
+    private Map<String,List<String>> assessmentIdentifiers;
 
     /**
-     * List of all assessment profiles identifiers in the script.
+     * List of all adaptation profile identifiers in the script and its associated adaptation rules.
      */
-    private List<String> assessmentProfileIdentifiers;
-
-    /**
-     * List of all adaptation rule identifiers in the script.
-     */
-    private List<String> adaptationRuleIdentifiers;
-
-    /**
-     * List of all adaptation profile identifiers in the script.
-     */
-    private List<String> adaptationProfileIdentifiers;
-
+    private Map<String,List<String>> adaptationIdentifiers;
+    
     /**
      * List of all global states identifiers in the script.
      */
@@ -153,14 +145,12 @@ public class IdentifierSummary {
         atrezzoIdentifiers = new ArrayList<String>( );
         npcIdentifiers = new ArrayList<String>( );
         conversationIdentifiers = new ArrayList<String>( );
-        assessmentRuleIdentifiers = new ArrayList<String>( );
-        adaptationRuleIdentifiers = new ArrayList<String>( );
+        assessmentIdentifiers = new HashMap<String,List<String>>( );
+        adaptationIdentifiers = new HashMap<String,List<String>>( );
         globalStateIdentifiers = new ArrayList<String>( );
         macroIdentifiers = new ArrayList<String>( );
         activeAreaIdentifiers = new ArrayList<String>( );
-        assessmentProfileIdentifiers = new ArrayList<String>( );
-        adaptationProfileIdentifiers = new ArrayList<String>( );
-
+        
         // Fill all the lists
         loadIdentifiers( chapter );
     }
@@ -186,11 +176,9 @@ public class IdentifierSummary {
         globalStateIdentifiers.clear( );
         macroIdentifiers.clear( );
         activeAreaIdentifiers.clear( );
-        assessmentRuleIdentifiers.clear( );
-        adaptationRuleIdentifiers.clear( );
-        assessmentProfileIdentifiers.clear( );
-        adaptationProfileIdentifiers.clear( );
-
+        assessmentIdentifiers.clear( );
+        adaptationIdentifiers.clear( );
+        
         // Add scene IDs
         for( Scene scene : chapter.getScenes( ) ) {
             addSceneId( scene.getId( ) );
@@ -234,16 +222,18 @@ public class IdentifierSummary {
 
         // Add assessment rules ids and asssessmnet profiles ids
         for( AssessmentProfile profile : chapter.getAssessmentProfiles( ) ) {
-            addAssessmentProfileId( profile.getName( ) );
+            String name = profile.getName();
+            addAssessmentProfileId( name );
             for( AssessmentRule rule : profile.getRules( ) )
-                this.addAssessmentRuleId( rule.getId( ) );
+                this.addAssessmentRuleId( rule.getId( ), name );
         }
 
         // Add adaptation rules ids and asssessmnet profiles ids
         for( AdaptationProfile profile : chapter.getAdaptationProfiles( ) ) {
-            addAdaptationProfileId( profile.getName( ) );
+            String name = profile.getName( ) ;
+            addAdaptationProfileId( name );
             for( AdaptationRule rule : profile.getRules( ) )
-                this.addAssessmentRuleId( rule.getId( ) );
+                this.addAdaptationRuleId( rule.getId( ), name );
         }
 
     }
@@ -539,27 +529,34 @@ public class IdentifierSummary {
     }
 
     /**
-     * Adds a new assessment rule id.
+     * Adds a new assessment rule id. 
+     * The id has the name of its profile and the name of the rule :  "profile.assRuleId"
      * 
      * @param assRuleId
      *            New assessment rule id
+     * @param profile
+     *            The name of profile which contains the rule
      */
-    public void addAssessmentRuleId( String assRuleId ) {
-
-        globalIdentifiers.add( assRuleId );
-        this.assessmentRuleIdentifiers.add( assRuleId );
+    public void addAssessmentRuleId( String assRuleId, String profile ) {
+	
+        globalIdentifiers.add( profile+"."+assRuleId );
+        this.assessmentIdentifiers.get(profile).add( assRuleId );
     }
 
     /**
-     * Adds a new adaptation rule id.
+     * Adds a new adaptation rule id. 
+     * The id has the name of its profile and the name of the rule :  "profile.assRuleId"
      * 
      * @param assRuleId
      *            New adaptation rule id
+     *            
+     * @param profile
+     *            The name of profile which contains the rule
      */
-    public void addAdaptationRuleId( String adpRuleId ) {
+    public void addAdaptationRuleId( String adpRuleId, String profile  ) {
 
-        globalIdentifiers.add( adpRuleId );
-        this.adaptationRuleIdentifiers.add( adpRuleId );
+	 globalIdentifiers.add( profile+"."+adpRuleId );
+	 this.adaptationIdentifiers.get(profile).add( adpRuleId );
     }
 
     /**
@@ -571,7 +568,7 @@ public class IdentifierSummary {
     public void addAssessmentProfileId( String assProfileId ) {
 
         globalIdentifiers.add( assProfileId );
-        this.assessmentProfileIdentifiers.add( assProfileId );
+        this.assessmentIdentifiers.put(assProfileId, new ArrayList<String>());
     }
 
     /**
@@ -583,7 +580,7 @@ public class IdentifierSummary {
     public void addAdaptationProfileId( String adaptProfileId ) {
 
         globalIdentifiers.add( adaptProfileId );
-        this.adaptationProfileIdentifiers.add( adaptProfileId );
+        this.adaptationIdentifiers.put(adaptProfileId, new ArrayList<String>() );
     }
 
     /**
@@ -702,10 +699,10 @@ public class IdentifierSummary {
      * @param id
      *            Assessment rule id to be deleted
      */
-    public void deleteAssessmentRuleId( String id ) {
+    public void deleteAssessmentRuleId( String id, String profile ) {
 
-        globalIdentifiers.remove( id );
-        assessmentRuleIdentifiers.remove( id );
+        globalIdentifiers.remove( profile + "." + id );
+        assessmentIdentifiers.get(profile).remove(id);
     }
 
     /**
@@ -714,11 +711,10 @@ public class IdentifierSummary {
      * @param id
      *            adaptation rule id to be deleted
      */
-    public void deleteAdaptationRuleId( String id ) {
+    public void deleteAdaptationRuleId( String id, String profile ) {
 
-        globalIdentifiers.remove( id );
-        adaptationRuleIdentifiers.remove( id );
-
+        globalIdentifiers.remove( profile + "." + id );
+        adaptationIdentifiers.get(profile).remove(id);
     }
 
     /**
@@ -730,7 +726,7 @@ public class IdentifierSummary {
     public void deleteAssessmentProfileId( String id ) {
 
         globalIdentifiers.remove( id );
-        assessmentProfileIdentifiers.remove( id );
+        assessmentIdentifiers.remove( id );
     }
 
     /**
@@ -742,18 +738,66 @@ public class IdentifierSummary {
     public void deleteAdaptationProfileId( String id ) {
 
         globalIdentifiers.remove( id );
-        adaptationProfileIdentifiers.remove( id );
+        adaptationIdentifiers.remove( id );
 
+    }
+    
+    /**
+     * Rename the adaptation profile and all of its associated rules
+     * 
+     * @param oldName
+     * 		The old profile's name.
+     * @param newName
+     * 		The new profile's name.
+     */
+    public void renameAdaptationProfile( String oldName, String newName ){
+	// delete all adaptation rules ids associated to deleted profile
+	List<String> adp = adaptationIdentifiers.get(oldName);
+	for (int i = 0; i<adp.size(); i++ ){
+	    this.deleteAdaptationRuleId(adp.get(i), oldName );
+	}
+	// delete the profile ID
+	this.deleteAdaptationProfileId(oldName);
+	
+	// Add the new adaptation ID and its rules ids
+	this.addAdaptationProfileId(newName);
+	for (int i = 0; i<adp.size(); i++ ){
+	    this.addAdaptationRuleId(adp.get(i), newName );
+	}
+    }
+    
+    /**
+     * Rename the asssessment profile and all of its associated rules
+     * 
+     * @param oldName
+     * 		The old profile's name.
+     * @param newName
+     * 		The new profile's name.
+     */
+    public void renameAssessmentProfile( String oldName, String newName ){
+	// delete all adaptation rules ids associated to deleted profile
+	List<String> adp = assessmentIdentifiers.get(oldName);
+	for (int i = 0; i<adp.size(); i++ ){
+	    this.deleteAssessmentRuleId(adp.get(i), oldName );
+	}
+	// delete the profile ID
+	this.deleteAssessmentProfileId(oldName);
+	
+	// Add the new assessment ID and its rules ids
+	this.addAssessmentProfileId(newName);
+	for (int i = 0; i<adp.size(); i++ ){
+	    this.addAssessmentRuleId(adp.get(i), newName );
+	}
     }
 
     public boolean isAdaptationProfileId( String id ) {
 
-        return this.adaptationProfileIdentifiers.contains( id );
+        return this.adaptationIdentifiers.keySet().contains( id );
     }
 
     public boolean isAssessmentProfileId( String id ) {
 
-        return this.assessmentProfileIdentifiers.contains( id );
+        return this.assessmentIdentifiers.keySet().contains( id );
     }
 
     public boolean isGlobalStateId( String id ) {

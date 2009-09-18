@@ -111,7 +111,7 @@ public class AdaptationProfileDataControl extends DataControl {
             adpRule.setId( adpRuleId );
             profile.addRule( adpRule );
             dataControls.add( new AdaptationRuleDataControl( adpRule ) );
-            controller.getIdentifierSummary( ).addAdaptationRuleId( adpRuleId );
+            controller.getIdentifierSummary( ).addAdaptationRuleId( adpRuleId, profile.getName() );
             //controller.dataModified( );
             added = true;
 
@@ -193,7 +193,7 @@ public class AdaptationProfileDataControl extends DataControl {
             if( profile.getRules( ).remove( dataControl.getContent( ) ) ) {
                 dataControls.remove( dataControl );
                 controller.deleteIdentifierReferences( adpRuleId );
-                controller.getIdentifierSummary( ).deleteAdaptationRuleId( adpRuleId );
+                controller.getIdentifierSummary( ).deleteAdaptationRuleId( adpRuleId, profile.getName() );
                 //controller.dataModified( );
                 deleted = true;
             }
@@ -312,8 +312,7 @@ public class AdaptationProfileDataControl extends DataControl {
                 if( !controller.getIdentifierSummary( ).isAdaptationProfileId( name ) ) {
                     //controller.dataModified( );
                     profile.setName( fileName );
-                    controller.getIdentifierSummary( ).deleteAdaptationProfileId( oldName );
-                    controller.getIdentifierSummary( ).addAdaptationProfileId( fileName );
+                    controller.getIdentifierSummary( ).renameAdaptationProfile(oldName, fileName );
 
                     renamed = true;
                 }
@@ -365,7 +364,7 @@ public class AdaptationProfileDataControl extends DataControl {
         try {
             AdaptationRule newRule = (AdaptationRule) ( ( (AdaptationRule) ( dataControl.getContent( ) ) ).clone( ) );
             dataControls.add( new AdaptationRuleDataControl( newRule ) );
-            controller.getIdentifierSummary( ).addAdaptationRuleId( newRule.getId( ) );
+            controller.getIdentifierSummary( ).addAdaptationRuleId( newRule.getId( ), profile.getName() );
             return true;
         }
         catch( CloneNotSupportedException e ) {
