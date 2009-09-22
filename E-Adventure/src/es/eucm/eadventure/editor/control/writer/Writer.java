@@ -563,6 +563,7 @@ public class Writer {
         //TODO: check for used libraries and add as needed
         
         boolean needsFreeTts = false;
+
         boolean needsJFFMpeg = false;
         for (ChapterDataControl chapter :controller.getCharapterList( ).getChapters( )) {
             for (CutsceneDataControl cutscene : chapter.getCutscenesList( ).getCutscenes( )) {
@@ -593,7 +594,7 @@ public class Writer {
             File.addJarContentsToZip("jars/cmutimelex.jar", os);
         }
         if (needsJFFMpeg) {
-            File.addJarContentsToZip("jars/jffmpeg-1.1.0.jar", os );
+           File.addJarContentsToZip("jars/jffmpeg-1.1.0.jar", os );
         }
         
     }
