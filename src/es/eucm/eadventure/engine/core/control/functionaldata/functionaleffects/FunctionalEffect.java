@@ -44,6 +44,7 @@ import es.eucm.eadventure.common.data.chapter.effects.HighlightItemEffect;
 import es.eucm.eadventure.common.data.chapter.effects.IncrementVarEffect;
 import es.eucm.eadventure.common.data.chapter.effects.MacroReferenceEffect;
 import es.eucm.eadventure.common.data.chapter.effects.MoveNPCEffect;
+import es.eucm.eadventure.common.data.chapter.effects.MoveObjectEffect;
 import es.eucm.eadventure.common.data.chapter.effects.MovePlayerEffect;
 import es.eucm.eadventure.common.data.chapter.effects.PlayAnimationEffect;
 import es.eucm.eadventure.common.data.chapter.effects.PlaySoundEffect;
@@ -188,6 +189,9 @@ public abstract class FunctionalEffect {
                 break;
             case Effect.HIGHLIGHT_ITEM:
                 fe = new FunctionalHighlightItemEffect( (HighlightItemEffect) effect );
+                break;
+            case Effect.MOVE_OBJECT:
+                fe = new FunctionalMoveObjectEffect( (MoveObjectEffect) effect);
                 break;
         }
         return fe;

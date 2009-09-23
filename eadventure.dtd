@@ -399,8 +399,8 @@
 >
 
 <!ELEMENT either (%basic-condition;)+>
-<!ENTITY % effects "((activate | deactivate | set-value | increment | decrement | macro-ref | consume-object | generate-object | cancel-action | speak-player | speak-char | play-sound | play-animation | move-player | move-npc | trigger-book | trigger-conversation | trigger-cutscene | trigger-scene | trigger-last-scene | random-effect | wait-time | show-text | highlight-item), condition?)*">
-<!ENTITY % simple-effect "(activate | deactivate | set-value | increment | decrement | macro-ref | consume-object | generate-object | speak-player | speak-char | play-sound | play-animation | move-player | move-npc | trigger-book | trigger-conversation | trigger-cutscene | trigger-scene | trigger-last-scene | wait-time | show-text | highlight-item)?">
+<!ENTITY % effects "((activate | deactivate | set-value | increment | decrement | macro-ref | consume-object | generate-object | cancel-action | speak-player | speak-char | play-sound | play-animation | move-player | move-npc | trigger-book | trigger-conversation | trigger-cutscene | trigger-scene | trigger-last-scene | random-effect | wait-time | show-text | highlight-item | move-object), condition?)*">
+<!ENTITY % simple-effect "(activate | deactivate | set-value | increment | decrement | macro-ref | consume-object | generate-object | speak-player | speak-char | play-sound | play-animation | move-player | move-npc | trigger-book | trigger-conversation | trigger-cutscene | trigger-scene | trigger-last-scene | wait-time | show-text | highlight-item | move-object)?">
 <!ELEMENT effect (%effects;)>
 <!ELEMENT random-effect (%simple-effect;, %simple-effect;,condition?)>
 <!ATTLIST random-effect
@@ -464,6 +464,16 @@
 	idTarget IDREF #REQUIRED
 	animated (yes | no) "no"
 	type (none | blue | red | green | border) "none"
+>
+<!ELEMENT move-object EMPTY>
+<!ATTLIST move-object
+	idTarget IDREF #REQUIRED
+	x NMTOKEN #REQUIRED
+	y NMTOKEN #REQUIRED
+	scale NMTOKEN #REQUIRED
+	animated (yes | no) "yes"
+	translateSpeed NMTOKEN #REQUIRED
+	scaleSpeed NMTOKEN #REQUIRED
 >
 <!ELEMENT play-sound EMPTY>
 <!ATTLIST play-sound

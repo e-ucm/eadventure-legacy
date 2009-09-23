@@ -73,6 +73,8 @@ public class PositionPanel extends JPanel implements Positioned {
      * Text field containing the Y position.
      */
     private NoEditableNumberSpinner positionYTextField;
+    
+    private NoEditableNumberSpinner scaleTextField;
 
     /**
      * Panel with the image.
@@ -89,6 +91,11 @@ public class PositionPanel extends JPanel implements Positioned {
      */
     private int positionY;
 
+    private boolean withScale = false;
+    
+    private float scale;
+    
+    
     /**
      * Constructor.
      * 
@@ -98,6 +105,17 @@ public class PositionPanel extends JPanel implements Positioned {
     public PositionPanel( PositionImagePanel positionImagePanel, int initialX, int initialY ) {
 
         this( null, positionImagePanel, initialX, initialY );
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param positionImagePanel
+     *            Position image panel
+     */
+    public PositionPanel( PositionImagePanel positionImagePanel, int initialX, int initialY, float scale ) {
+
+        this( null, positionImagePanel, initialX, initialY, scale );
     }
 
     /**
@@ -116,6 +134,31 @@ public class PositionPanel extends JPanel implements Positioned {
         this.positionX = initialX;
         this.positionY = initialY;
 
+        createPanel();
+    }
+
+    /**
+     * Constructor
+     * 
+     * @param positionPanelListener
+     *            Listener for the changes on the position panel
+     * @param positionImagePanel
+     *            Position image panel
+     */
+    public PositionPanel( PositionPanelListener positionPanelListener, PositionImagePanel positionImagePanel, int initialX, int initialY , float scale) {
+
+        // Set the panel
+        this.positionPanelListener = positionPanelListener;
+        this.positionImagePanel = positionImagePanel;
+        this.positionX = initialX;
+        this.positionY = initialY;
+        this.scale = scale;
+        this.withScale = true;
+        
+        createPanel();
+    }
+
+    private void createPanel() {
         // Set the layout
         setLayout( new GridBagLayout( ) );
         GridBagConstraints c = new GridBagConstraints( );
@@ -130,8 +173,6 @@ public class PositionPanel extends JPanel implements Positioned {
         // Create and add the x position text field
         positionXTextField = new NoEditableNumberSpinner( positionX, -2000, 5000, 1 );
         positionXTextField.addChangeListener( new ChangeValueListener( ) );
-        //positionXTextField.addActionListener( new TextFieldChangesListener( ) );
-        //positionXTextField.addFocusListener( new TextFieldChangesListener( ) );
         xCoordinatePanel.add( positionXTextField, c );
 
         // Add the X coordinate panel
@@ -146,22 +187,29 @@ public class PositionPanel extends JPanel implements Positioned {
         yCoordinatePanel.setLayout( new FlowLayout( ) );
 
         // Create and add the y position label
-        yCoordinatePanel.add( new JLabel( TextConstants.getText( "SceneLocation.YCoordinate" ) ), c );
+        yCoordinatePanel.add( new JLabel( TextConstants.getText( "SceneLocation.YCoordinate" ) ));
 
         // Create and add the y position text field
         positionYTextField = new NoEditableNumberSpinner( positionY, -2000, 5000, 1 );
-        //positionYTextField.setEnabled(false);
         positionYTextField.addChangeListener( new ChangeValueListener( ) );
 
-        //positionYTextField = new JTextField( String.valueOf( positionY ), 5 );
-        //positionYTextField.addActionListener( new TextFieldChangesListener( ) );
-        //positionYTextField.addFocusListener( new TextFieldChangesListener( ) );
-        yCoordinatePanel.add( positionYTextField, c );
+        yCoordinatePanel.add( positionYTextField);
 
         // Add the Y coordinate panel
         c.gridx = 1;
         add( yCoordinatePanel, c );
 
+        if (withScale) {
+            JPanel scalePanel = new JPanel();
+            scalePanel.setLayout( new FlowLayout() );
+            scalePanel.add( new JLabel(TextConstants.getText( "SceneLocation.Scale" )), c);
+            scaleTextField = new NoEditableNumberSpinner( scale, 0.1f, 5.0f, 0.1f);
+            scaleTextField.addChangeListener( new ChangeValueListener());
+            scalePanel.add(scaleTextField);
+            c.gridx = 2;
+            add( scalePanel, c);
+        }
+        
         // Create and add the panel
         c.fill = GridBagConstraints.BOTH;
         c.gridx = 0;
@@ -174,8 +222,12 @@ public class PositionPanel extends JPanel implements Positioned {
 
         // Set the actual position in the panel and repaint it
         positionImagePanel.setSelectedPoint( positionX, positionY );
+        positionImagePanel.setScale(scale);
         positionImagePanel.repaint( );
+        
     }
+    
+    
 
     /**
      * Loads a new background image.
@@ -272,8 +324,19 @@ public class PositionPanel extends JPanel implements Positioned {
                 positionX = (Integer) positionXTextField.getValue( );
             if( e.getSource( ) == positionYTextField )
                 positionY = (Integer) positionYTextField.getValue( );
+            if (e.getSource( ) == scaleTextField)
+                scale = (Float) scaleTextField.getValue( );
             positionImagePanel.setSelectedPoint( positionX, positionY );
+            positionImagePanel.setScale(scale);
             positionImagePanel.repaint( );
         }
+    }
+
+    public float getScale( ) {
+        return scale;
+    }
+    
+    public void setPositionImage(PositionImagePanel positionImagePanel) {
+        this.positionImagePanel = positionImagePanel;
     }
 }

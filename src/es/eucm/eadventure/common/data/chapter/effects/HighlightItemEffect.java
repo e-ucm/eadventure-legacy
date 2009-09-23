@@ -92,6 +92,8 @@ public class HighlightItemEffect extends AbstractEffect implements HasTargetId {
     public Object clone( ) throws CloneNotSupportedException {
         HighlightItemEffect coe = (HighlightItemEffect) super.clone( );
         coe.idTarget = ( idTarget != null ? new String( idTarget ) : null );
+        coe.highlightType = highlightType;
+        coe.highlightAnimated = highlightAnimated;
         return coe;
     }
 

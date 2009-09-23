@@ -37,7 +37,7 @@ import es.eucm.eadventure.common.gui.TextConstants;
 
 public class ChangesInSceneStructureListElement extends EffectsStructureListElement {
 
-    private static final String[] COMPONENTS = { TextConstants.getText( "Effect.ConsumeObject" ), TextConstants.getText( "Effect.GenerateObject" ), TextConstants.getText( "Effect.MovePlayer" ), TextConstants.getText( "Effect.MoveCharacter" ), TextConstants.getText( "Effect.HighlightItem" ) };
+//    private static final String[] COMPONENTS = { TextConstants.getText( "Effect.ConsumeObject" ), TextConstants.getText( "Effect.GenerateObject" ), TextConstants.getText( "Effect.MovePlayer" ), TextConstants.getText( "Effect.MoveCharacter" ), TextConstants.getText( "Effect.HighlightItem" ), TextConstants.getText( "Effect.MoveObject" ) };
 
     private static final String LIST_URL = "effects_short/Effects_SceneChanges.html";
 
@@ -45,7 +45,7 @@ public class ChangesInSceneStructureListElement extends EffectsStructureListElem
 
         super( TextConstants.getText( "EffectsGroup.ChangeInScene" ) );
         //icon = new ImageIcon( "img/icons/adaptationProfiles.png" );
-        groupEffects = new String[] { TextConstants.getText( "Effect.ConsumeObject" ), TextConstants.getText( "Effect.GenerateObject" ), TextConstants.getText( "Effect.MovePlayer" ), TextConstants.getText( "Effect.MoveCharacter" ), TextConstants.getText( "Effect.HighlightItem" ) };
+        groupEffects = new String[] { TextConstants.getText( "Effect.ConsumeObject" ), TextConstants.getText( "Effect.GenerateObject" ), TextConstants.getText( "Effect.MovePlayer" ), TextConstants.getText( "Effect.MoveCharacter" ), TextConstants.getText( "Effect.HighlightItem" ), TextConstants.getText( "Effect.MoveObject" ) };
         path = LIST_URL;
 
     }

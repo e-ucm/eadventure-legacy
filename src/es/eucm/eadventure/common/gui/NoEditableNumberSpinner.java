@@ -33,6 +33,8 @@
  */
 package es.eucm.eadventure.common.gui;
 
+import java.text.NumberFormat;
+
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
@@ -73,12 +75,83 @@ public class NoEditableNumberSpinner extends JSpinner {
         editor = new JLabel( value.toString( ) );
         this.setEditor( editor );
         this.addChangeListener( new ChangeListener( ) {
-
             public void stateChanged( ChangeEvent e ) {
-
                 editor.setText( getValue( ).toString( ) );
             }
-
         } );
     }
+    
+    /**
+     * Constructor. Must be argumented with the selected value, min valid value,
+     * max valid value and the step
+     * 
+     * @param value
+     * @param min
+     * @param max
+     * @param step
+     */
+    public NoEditableNumberSpinner( Number value, float min, float max, Number step ) {
+
+        super( new FloatSpinnerNumberModel( value, min, max, step ) );
+        NumberFormat nf = NumberFormat.getInstance( );
+        nf.setMaximumFractionDigits( 1 );
+        editor = new JLabel(nf.format(((Float)getValue( )).floatValue( ) ) );
+        this.setEditor( editor );
+        this.addChangeListener( new ChangeListener( ) {
+            public void stateChanged( ChangeEvent e ) {
+                NumberFormat nf = NumberFormat.getInstance( );
+                nf.setMaximumFractionDigits( 1 );
+                editor.setText( nf.format(((Float)getValue( )).floatValue( ) ));
+            }
+        } );
+    }
+
+    private static class FloatSpinnerNumberModel extends SpinnerNumberModel {
+        /**
+         * 
+         */
+        private static final long serialVersionUID = 5181715509494977849L;
+
+        private Comparable<Float> max;
+        
+        private Comparable<Float> min;
+        
+        public FloatSpinnerNumberModel(Number value, float min, float max, Number step) {
+            super(value, min, max, step);
+            this.max = max;
+            this.min = min;
+        }
+        
+        private Number incrValue(int dir) 
+        {
+            Number value = getNumber();
+            Number stepSize = getStepSize();
+            Float newValue ;
+        
+            float v = value.floatValue( ) + (stepSize.floatValue() * dir);
+            newValue = new Float(v);
+
+            if ((max != null) && (max.compareTo(newValue) < 0)) {
+                return null;
+            }
+            if ((min != null) && (min.compareTo(newValue) > 0)) {
+                return null;
+            }
+            else {
+                return newValue;
+            }
+        } 
+    
+    @Override
+    public Object getNextValue() {
+        return incrValue(+1);
+    }
+
+    @Override
+    public Object getPreviousValue() {
+        return incrValue(-1);
+    }
+    }
+
+    
 }

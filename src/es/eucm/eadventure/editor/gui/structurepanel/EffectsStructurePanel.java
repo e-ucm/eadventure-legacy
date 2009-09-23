@@ -117,6 +117,8 @@ public class EffectsStructurePanel extends StructurePanel {
     private static final String TIME_URL = "effects_short/Effects_WaitTime.html";
     
     private static final String HIGHLIGHT_URL = "effects_short/Effects_HighlightItem.html";
+    
+    private static final String MOVE_OBJECT_URL = "effects_short/Effects_MoveObject.html";
 
     private EffectInfoPanel infoPanel;
 
@@ -222,6 +224,9 @@ public class EffectsStructurePanel extends StructurePanel {
         }
         else if (name.equals( TextConstants.getText( "Effect.HighlightItem" ) )) {
             effectIcon = new ImageIcon( getIconBasePath( size ) + "highlight-item.png");
+        }
+        else if (name.equals( TextConstants.getText( "Effect.MoveObject" ) )) {
+            effectIcon = new ImageIcon( getIconBasePath( size ) + "move-object.png");
         }
         else if( name.equals( TextConstants.getText( "EffectsGroup.GameState" ) ) ) {
             effectIcon = new ImageIcon( getIconBasePath( size ) + "game-state.png" );
@@ -444,7 +449,11 @@ public class EffectsStructurePanel extends StructurePanel {
         }
         else if( name.equals( TextConstants.getText( "Effect.HighlightItem" ) )) {
             text = HIGHLIGHT_URL;
-        }// when this method is called for structure list effects
+        }
+        else if( name.equals( TextConstants.getText( "Effect.MoveObject" ))) {
+            text = MOVE_OBJECT_URL;
+        }
+        // when this method is called for structure list effects
         else
             text = name;
 

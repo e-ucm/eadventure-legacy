@@ -711,6 +711,7 @@ based on the state of the flags.</entry>
 	<entry key="Effect.ShowText">Show text</entry>
 	<entry key="Effect.WaitTime">Wait time</entry>
 	<entry key="Effect.HighlightItem">Highlight item</entry>
+	<entry key="Effect.MoveObject">Move object</entry>
 	
 	<entry key="Effect.ActivateInfo">Activate flag: {#0}</entry>
 	<entry key="Effect.DeactivateInfo">Deactivate flag: {#0}</entry>
@@ -732,6 +733,7 @@ based on the state of the flags.</entry>
 	<entry key="Effect.TriggerCutsceneInfo">Trigger cutscene {#0}</entry>
 	<entry key="Effect.TriggerSceneInfo">Trigger scene {#0}</entry>
 	<entry key="Effect.TriggerLastSceneInfo">Trigger last scene</entry>
+	<entry key="Effect.MoveObjectInfo">Move object: {#0}</entry>
 	<entry key="Effect.RandomInfo">{#2} (probability = {#0}%); {#3} (probability = {#1}%)</entry>
 	<entry key="Effect.WaitTimeInfo">Wait {#0} seconds</entry>
 	<entry key="Effect.ShowTextInfo">Show {#0} in position x:{#1} y:{#2}</entry>
@@ -860,12 +862,21 @@ Please remember that you cannot make any reference to a macro in its definition<
 	<entry key="ShowTextEffect.Border">Preview</entry>
 	<entry key="ShowTextEffect.TextLabel">Introduce text: </entry>
 
+	<entry key="MoveObjectEffect.Title">Effect to move object in a scene</entry>
+	<entry key="MoveObjectEffect.NoSceneSelected">No scene selected</entry>
+	<entry key="MoveObjectEffect.NoItemSelected">No item selected</entry>
+	<entry key="MoveObjectEffect.Animated">Animate</entry>
+	<entry key="MoveObjectEffect.TranslateSpeed">Translate speed</entry>
+	<entry key="MoveObjectEffect.ScaleSpeed">Scale speed</entry>
+	
+
 	<entry key="SceneLocation.SceneListDescription">Select a scene to pick a destination point</entry>
 	<entry key="SceneLocation.NoSceneSelected">No scene selected</entry>
 	<entry key="SceneLocation.XCoordinate">X coordinate</entry>
 	<entry key="SceneLocation.YCoordinate">Y coordinate</entry>
 	<entry key="SceneLocation.Width">Area width</entry>
 	<entry key="SceneLocation.Height">Area height</entry>
+	<entry key="SceneLocation.Scale">Scale</entry>
 
 	<entry key="Resources.Title">Appearance</entry>
 	<entry key="Resources.Information">In this panel you can edit the appearance of the element. In e-Adventure you can create different appearances for visual elements. Therefore the appearance will change according to the conditions specified for each block. Use the "Examine" buttons to select assets for the element, and the "Preview"/"Play" buttons to take a look at the selected assets.</entry>
