@@ -51,6 +51,8 @@ public abstract class PositionImagePanel extends ImagePanel {
      * Y coord of the bottom of the element.
      */
     protected int selectedY;
+    
+    protected float scale;
 
     /**
      * Constructor.
@@ -64,6 +66,7 @@ public abstract class PositionImagePanel extends ImagePanel {
 
         selectedX = 0;
         selectedY = 0;
+        scale = 1.0f;
     }
 
     /**
@@ -98,6 +101,10 @@ public abstract class PositionImagePanel extends ImagePanel {
     public int getSelectedtY( ) {
 
         return selectedY;
+    }
+
+    public void setScale( float scale ) {
+        this.scale = scale;
     }
 
 }

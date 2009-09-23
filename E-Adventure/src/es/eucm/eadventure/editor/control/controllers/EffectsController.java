@@ -54,6 +54,7 @@ import es.eucm.eadventure.common.data.chapter.effects.HighlightItemEffect;
 import es.eucm.eadventure.common.data.chapter.effects.IncrementVarEffect;
 import es.eucm.eadventure.common.data.chapter.effects.MacroReferenceEffect;
 import es.eucm.eadventure.common.data.chapter.effects.MoveNPCEffect;
+import es.eucm.eadventure.common.data.chapter.effects.MoveObjectEffect;
 import es.eucm.eadventure.common.data.chapter.effects.MovePlayerEffect;
 import es.eucm.eadventure.common.data.chapter.effects.PlayAnimationEffect;
 import es.eucm.eadventure.common.data.chapter.effects.PlaySoundEffect;
@@ -168,6 +169,12 @@ public class EffectsController {
      * Constant for effect property. Refers to "animated" flag of the highlight
      */
     public static final int EFFECT_PROPERTY_ANIMATED = 15;
+    
+    public static final int EFFECT_PROPERTY_SCALE = 16;
+    
+    public static final int EFFECT_PROPERTY_TRANSLATION_SPEED = 17;
+    
+    public static final int EFFECT_PROPERTY_SCALE_SPEED = 18;
     
     
     /**
@@ -332,6 +339,9 @@ public class EffectsController {
                 case Effect.HIGHLIGHT_ITEM:
                     icon = new ImageIcon( "img/icons/effects/16x16/highlight-item.png");
                     break;
+                case Effect.MOVE_OBJECT:
+                    icon = new ImageIcon( "img/icons/effects/16x16/move-object.png");
+                    break;
             }
 
         }
@@ -451,6 +461,10 @@ public class EffectsController {
                 if (highlightItemEffect.getHighlightType( ) == HighlightItemEffect.HIGHLIGHT_BORDER)
                     effectInfo = TextConstants.getText( "Effect.BorderHighlightItemInfo", new String[] { highlightItemEffect.getTargetId( ) } );
                 break;
+            case Effect.MOVE_OBJECT:
+                MoveObjectEffect moveObjectEffect = (MoveObjectEffect) effect;
+                effectInfo = TextConstants.getText( "Effect.MoveObjectInfo", moveObjectEffect.getTargetId( ) );
+                break;
         }
         
 
@@ -558,6 +572,18 @@ public class EffectsController {
         if( effectProperties.containsKey( EFFECT_PROPERTY_ANIMATED ) )
             animated = (Boolean) effectProperties.get( EFFECT_PROPERTY_ANIMATED );
         
+        float scale = 1.0f;
+        if (effectProperties.containsKey( EFFECT_PROPERTY_SCALE ))
+            scale = (Float) effectProperties.get( EFFECT_PROPERTY_SCALE );
+        
+        int translationSpeed = 20;
+        if (effectProperties.containsKey( EFFECT_PROPERTY_TRANSLATION_SPEED ))
+            translationSpeed = (Integer) effectProperties.get( EFFECT_PROPERTY_TRANSLATION_SPEED );
+        
+        int scaleSpeed = 20;
+        if (effectProperties.containsKey( EFFECT_PROPERTY_SCALE_SPEED ))
+            scaleSpeed = (Integer) effectProperties.get( EFFECT_PROPERTY_SCALE_SPEED );
+        
         switch( selectedType ) {
             case Effect.ACTIVATE:
                 newEffect = new ActivateEffect( target );
@@ -629,6 +655,9 @@ public class EffectsController {
                 break;
             case Effect.HIGHLIGHT_ITEM:
                 newEffect = new HighlightItemEffect( target, type, animated);
+                break;
+            case Effect.MOVE_OBJECT:
+                newEffect = new MoveObjectEffect(target, x, y, scale, animated, translationSpeed, scaleSpeed);
                 break;
         }
 
@@ -761,6 +790,15 @@ public class EffectsController {
                 HighlightItemEffect highlightItem = (HighlightItemEffect) effect;
                 currentValues.put( EFFECT_PROPERTY_HIGHLIGHT_TYPE, highlightItem.getHighlightType( ) );
                 currentValues.put( EFFECT_PROPERTY_ANIMATED, highlightItem.isHighlightAnimated( ) );
+                break;
+            case Effect.MOVE_OBJECT:
+                MoveObjectEffect moveObject = (MoveObjectEffect) effect;
+                currentValues.put( EFFECT_PROPERTY_X, String.valueOf(moveObject.getX( )) );
+                currentValues.put( EFFECT_PROPERTY_Y, String.valueOf(moveObject.getY())  );
+                currentValues.put( EFFECT_PROPERTY_SCALE, moveObject.getScale( ));
+                currentValues.put( EFFECT_PROPERTY_ANIMATED, moveObject.isAnimated( ) );
+                currentValues.put( EFFECT_PROPERTY_TRANSLATION_SPEED, moveObject.getTranslateSpeed( ) );
+                currentValues.put( EFFECT_PROPERTY_SCALE_SPEED, moveObject.getScaleSpeed() );
                 break;
         }
 
@@ -1107,12 +1145,8 @@ public class EffectsController {
         for( Effect effect : effects.getEffects( ) ) {
             int type = effect.getType( );
 
-            // If the identifier appears in some effect with references, increase the counter
-            if( ( type == Effect.CONSUME_OBJECT && ( (ConsumeObjectEffect) effect ).getTargetId( ).equals( id ) ) || ( type == Effect.GENERATE_OBJECT && ( (GenerateObjectEffect) effect ).getTargetId( ).equals( id ) ) || ( type == Effect.SPEAK_CHAR && ( (SpeakCharEffect) effect ).getTargetId( ).equals( id ) ) || ( type == Effect.TRIGGER_BOOK && ( (TriggerBookEffect) effect ).getTargetId( ).equals( id ) ) || ( type == Effect.MOVE_NPC && ( (MoveNPCEffect) effect ).getTargetId( ).equals( id ) ) || ( type == Effect.TRIGGER_CONVERSATION && ( (TriggerConversationEffect) effect ).getTargetId( ).equals( id ) ) || ( type == Effect.TRIGGER_SCENE && ( (TriggerSceneEffect) effect ).getTargetId( ).equals( id ) ) || ( type == Effect.TRIGGER_CUTSCENE && ( (TriggerCutsceneEffect) effect ).getTargetId( ).equals( id ) ) )
-                count++;
-
             // If random effect
-            else if( type == Effect.RANDOM_EFFECT ) {
+            if( type == Effect.RANDOM_EFFECT ) {
 
                 RandomEffect randomEffect = (RandomEffect) effect;
                 Effects e = new Effects( );
@@ -1121,8 +1155,8 @@ public class EffectsController {
                 if( randomEffect.getNegativeEffect( ) != null )
                     e.add( randomEffect.getNegativeEffect( ) );
                 EffectsController.countIdentifierReferences( id, e );
-
-            }
+            } else if(effect instanceof HasTargetId && ((HasTargetId) effect).getTargetId( ).equals( id ))
+                count++;
 
             ConditionsController conditionsController = new ConditionsController( ( (AbstractEffect) effect ).getConditions( ) );
             count += conditionsController.countIdentifierReferences( id );

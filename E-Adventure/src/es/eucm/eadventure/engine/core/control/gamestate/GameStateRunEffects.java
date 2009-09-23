@@ -36,6 +36,7 @@ package es.eucm.eadventure.engine.core.control.gamestate;
 import java.awt.Graphics2D;
 
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalEffect;
+import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalMoveObjectEffect;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalPlayAnimationEffect;
 import es.eucm.eadventure.engine.core.control.functionaldata.functionaleffects.FunctionalShowTextEffect;
 import es.eucm.eadventure.engine.core.gui.GUI;
@@ -148,6 +149,9 @@ public class GameStateRunEffects extends GameState {
             if( currentExecutingEffect instanceof FunctionalPlayAnimationEffect ) {
                 ( (FunctionalPlayAnimationEffect) currentExecutingEffect ).draw( g );
                 ( (FunctionalPlayAnimationEffect) currentExecutingEffect ).update( elapsedTime );
+            }
+            if (currentExecutingEffect instanceof FunctionalMoveObjectEffect) {
+                ((FunctionalMoveObjectEffect) currentExecutingEffect).update(elapsedTime);
             }
         }
 

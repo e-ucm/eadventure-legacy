@@ -36,6 +36,7 @@ package es.eucm.eadventure.editor.gui.structurepanel;
 import java.awt.BorderLayout;
 import java.io.IOException;
 import java.net.MalformedURLException;
+
 import javax.swing.JEditorPane;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -53,6 +54,11 @@ import es.eucm.eadventure.editor.control.Controller;
  */
 public class EffectInfoPanel extends JPanel {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -5172698031996946042L;
+    
     /**
      * Pane to show HTML formatted text
      */

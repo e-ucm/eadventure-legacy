@@ -40,6 +40,7 @@ import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -322,17 +323,17 @@ public class ImagePanel extends JPanel {
      * @param highlighted
      *            True if the image must be painted with a border
      */
-    protected void paintRelativeImage( Graphics g, Image image, int x, int y, boolean highlighted ) {
+    protected void paintRelativeImage( Graphics g, Image image, int x, int y, float scale, boolean highlighted ) {
 
         // If the image was loaded
         if( isImageLoaded( ) ) {
             // Calculate the size of the image
-            int width = (int) ( image.getWidth( null ) * sizeRatio );
-            int height = (int) ( image.getHeight( null ) * sizeRatio );
+            int width = (int) ( image.getWidth( null ) * sizeRatio * scale);
+            int height = (int) ( image.getHeight( null ) * sizeRatio * scale);
 
             // Calculate the position of the image
-            int posX = getAbsoluteX( x - ( image.getWidth( null ) / 2 ) );
-            int posY = getAbsoluteY( y - image.getHeight( null ) );
+            int posX = getAbsoluteX( (int) ( x - ( image.getWidth( null ) * scale / 2 ) ) );
+            int posY = getAbsoluteY( (int) ( y - image.getHeight( null ) * scale ) );
 
             // Draw the image
             g.drawImage( image, posX, posY, width, height, null );

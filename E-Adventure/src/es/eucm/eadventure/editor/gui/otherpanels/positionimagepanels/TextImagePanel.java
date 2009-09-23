@@ -150,7 +150,7 @@ public class TextImagePanel extends PositionImagePanel {
             g2.setColor( textFrontColor );
             g2.drawString( text, x, y );
 
-            paintRelativeImage( g, image, selectedX, selectedY, false );
+            paintRelativeImage( g, image, selectedX, selectedY, scale, false );
             // Draw the image
             //g.drawImage( image, posX, posY, width, height, null );
         }

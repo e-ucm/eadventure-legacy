@@ -55,6 +55,7 @@ import es.eucm.eadventure.common.data.chapter.effects.IncrementVarEffect;
 import es.eucm.eadventure.common.data.chapter.effects.Macro;
 import es.eucm.eadventure.common.data.chapter.effects.MacroReferenceEffect;
 import es.eucm.eadventure.common.data.chapter.effects.MoveNPCEffect;
+import es.eucm.eadventure.common.data.chapter.effects.MoveObjectEffect;
 import es.eucm.eadventure.common.data.chapter.effects.MovePlayerEffect;
 import es.eucm.eadventure.common.data.chapter.effects.PlayAnimationEffect;
 import es.eucm.eadventure.common.data.chapter.effects.PlaySoundEffect;
@@ -314,6 +315,17 @@ public class EffectsDOMWriter {
                 effectElement.setAttribute( "frontColor", String.valueOf( showTextEffect.getRgbFrontColor( ) ) );
                 effectElement.setAttribute( "borderColor", String.valueOf( showTextEffect.getRgbBorderColor( ) ) );
                 effectElement.appendChild( doc.createTextNode( showTextEffect.getText( ) ) );
+                break;
+            case Effect.MOVE_OBJECT:
+                MoveObjectEffect moveObjectEffect = (MoveObjectEffect) effect;
+                effectElement = doc.createElement( "move-object" );
+                effectElement.setAttribute( "idTarget", moveObjectEffect.getTargetId( ) );
+                effectElement.setAttribute( "x", String.valueOf( moveObjectEffect.getX() ) );
+                effectElement.setAttribute( "y", String.valueOf( moveObjectEffect.getY( ) ) );
+                effectElement.setAttribute( "scale", String.valueOf( moveObjectEffect.getScale( ) ) );
+                effectElement.setAttribute( "animated", (moveObjectEffect.isAnimated( ) ? "yes" : "no" ));
+                effectElement.setAttribute( "translateSpeed", String.valueOf( moveObjectEffect.getTranslateSpeed( ) ) );
+                effectElement.setAttribute( "scaleSpeed", String.valueOf( moveObjectEffect.getScaleSpeed( )) );
                 break;
             case Effect.HIGHLIGHT_ITEM:
                 HighlightItemEffect highlightItemEffect = (HighlightItemEffect) effect;

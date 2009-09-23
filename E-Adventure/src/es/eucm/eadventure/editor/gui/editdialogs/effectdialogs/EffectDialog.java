@@ -244,6 +244,9 @@ public abstract class EffectDialog extends ToolManagableDialog {
             case Effect.HIGHLIGHT_ITEM:
                 effectProperties = new HighlightItemEffectDialog( HighlightItemEffectDialog.HIGHLIGHT, currentProperties ).getEffectProperties( );
                 break;
+            case Effect.MOVE_OBJECT:
+                effectProperties = new MoveObjectEffectDialog( currentProperties ).getEffectProperties( );
+                break;
         }
 
         return effectProperties;

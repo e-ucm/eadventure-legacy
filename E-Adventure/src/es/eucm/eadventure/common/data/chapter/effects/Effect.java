@@ -159,6 +159,11 @@ public interface Effect extends Cloneable {
      */
     public static final int HIGHLIGHT_ITEM = 23;
     
+    /**
+     * Constant for move object effect
+     */
+    public static final int MOVE_OBJECT = 24;
+    
 
     /**
      * Returns the type of the effect.

@@ -48,6 +48,7 @@ import es.eucm.eadventure.common.data.chapter.effects.HighlightItemEffect;
 import es.eucm.eadventure.common.data.chapter.effects.IncrementVarEffect;
 import es.eucm.eadventure.common.data.chapter.effects.MacroReferenceEffect;
 import es.eucm.eadventure.common.data.chapter.effects.MoveNPCEffect;
+import es.eucm.eadventure.common.data.chapter.effects.MoveObjectEffect;
 import es.eucm.eadventure.common.data.chapter.effects.MovePlayerEffect;
 import es.eucm.eadventure.common.data.chapter.effects.PlayAnimationEffect;
 import es.eucm.eadventure.common.data.chapter.effects.PlaySoundEffect;
@@ -241,6 +242,16 @@ public class ReplaceEffectTool extends Tool {
                     highlightItemEffect.setTargetId( (String ) newProperties.get( EffectsController.EFFECT_PROPERTY_TARGET ));
                     highlightItemEffect.setHighlightAnimated( (Boolean ) newProperties.get( EffectsController.EFFECT_PROPERTY_ANIMATED ));
                     highlightItemEffect.setHighlightType( (Integer) newProperties.get( EffectsController.EFFECT_PROPERTY_HIGHLIGHT_TYPE ) );
+                    break;
+                case Effect.MOVE_OBJECT:
+                    MoveObjectEffect moveObjectEffect = (MoveObjectEffect) effect;
+                    moveObjectEffect.setTargetId( (String ) newProperties.get( EffectsController.EFFECT_PROPERTY_TARGET ));
+                    moveObjectEffect.setX( Integer.parseInt( (String) newProperties.get( EffectsController.EFFECT_PROPERTY_X) )  ); 
+                    moveObjectEffect.setY( Integer.parseInt( (String) newProperties.get( EffectsController.EFFECT_PROPERTY_Y) )  );
+                    moveObjectEffect.setScale( (Float ) newProperties.get( EffectsController.EFFECT_PROPERTY_SCALE ));
+                    moveObjectEffect.setAnimated( (Boolean ) newProperties.get( EffectsController.EFFECT_PROPERTY_ANIMATED ));
+                    moveObjectEffect.setScaleSpeed( (Integer ) newProperties.get( EffectsController.EFFECT_PROPERTY_SCALE_SPEED));
+                    moveObjectEffect.setTranslateSpeed( (Integer ) newProperties.get( EffectsController.EFFECT_PROPERTY_TRANSLATION_SPEED ));
                     break;
             }
             effectEdited = true;

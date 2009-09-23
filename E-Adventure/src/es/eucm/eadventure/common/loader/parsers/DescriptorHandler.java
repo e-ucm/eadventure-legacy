@@ -372,9 +372,10 @@ public class DescriptorHandler extends DefaultHandler {
         }
 
         // 2) Secondly use the inputStreamCreator
-        if( inputStream == null )
+        if( inputStream == null ) {
             inputStream = isCreator.buildInputStream( filename );
-
+        }
+        
         return new InputSource( inputStream );
     }
 

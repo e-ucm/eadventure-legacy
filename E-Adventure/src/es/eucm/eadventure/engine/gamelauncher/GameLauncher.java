@@ -47,20 +47,21 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
-import java.io.*;
 
-import javax.swing.JComboBox;
 import javax.swing.DefaultListModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -82,14 +83,14 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.SAXException;
 
+import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
+import es.eucm.eadventure.common.gui.TextConstants;
 import es.eucm.eadventure.engine.EAdventure;
 import es.eucm.eadventure.engine.core.control.Game;
 import es.eucm.eadventure.engine.core.control.config.ConfigData;
 import es.eucm.eadventure.engine.gamelauncher.gameentry.GameEntry;
 import es.eucm.eadventure.engine.gamelauncher.gameentry.GameEntryHandler;
 import es.eucm.eadventure.engine.resourcehandler.ResourceHandler;
-import es.eucm.eadventure.common.auxiliar.ReleaseFolders;
-import es.eucm.eadventure.common.gui.TextConstants;
 
 /**
  * This window shows the available games with their descriptions. The user can

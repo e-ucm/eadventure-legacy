@@ -49,6 +49,7 @@ import es.eucm.eadventure.common.data.chapter.effects.HighlightItemEffect;
 import es.eucm.eadventure.common.data.chapter.effects.IncrementVarEffect;
 import es.eucm.eadventure.common.data.chapter.effects.MacroReferenceEffect;
 import es.eucm.eadventure.common.data.chapter.effects.MoveNPCEffect;
+import es.eucm.eadventure.common.data.chapter.effects.MoveObjectEffect;
 import es.eucm.eadventure.common.data.chapter.effects.MovePlayerEffect;
 import es.eucm.eadventure.common.data.chapter.effects.PlayAnimationEffect;
 import es.eucm.eadventure.common.data.chapter.effects.PlaySoundEffect;
@@ -458,6 +459,32 @@ public class EffectSubParser extends SubParser {
                 }
             }
             newEffect = new HighlightItemEffect(id, type, animated);
+        }
+        else if (qName.equals( "move-object" )) {
+            boolean animated = false;
+            String id = "";
+            int x = 0;
+            int y = 0;
+            float scale = 1.0f;
+            int translateSpeed = 20;
+            int scaleSpeed = 20;
+            for (int i = 0; i < attrs.getLength( ); i++) {
+                if (attrs.getQName( i ).equals( "idTarget" ))
+                    id = attrs.getValue( i );
+                if (attrs.getQName( i ).equals( "animated" ))
+                    animated = (attrs.getValue( i ).equals( "yes" ) ? true : false);
+                if (attrs.getQName( i ).equals( "x" ))
+                    x = Integer.parseInt( attrs.getValue( i ) );
+                if (attrs.getQName( i ).equals( "y" ))
+                    y = Integer.parseInt( attrs.getValue( i ) );
+                if (attrs.getQName( i ).equals( "scale" ))
+                    scale = Float.parseFloat( attrs.getValue( i ));
+                if (attrs.getQName( i ).equals( "translateSpeed" ))
+                    translateSpeed = Integer.parseInt( attrs.getValue( i ) );
+                if (attrs.getQName( i ).equals( "scaleSpeed" ))
+                    scaleSpeed = Integer.parseInt( attrs.getValue( i ) );
+            }
+            newEffect = new MoveObjectEffect(id, x, y, scale, animated, translateSpeed, scaleSpeed);
         }
         // If it is a condition tag, create new conditions and switch the state
         else if( qName.equals( "condition" ) ) {

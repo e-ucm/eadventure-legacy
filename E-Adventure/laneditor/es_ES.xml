@@ -717,6 +717,7 @@ función de estos estados</entry>
 	<entry key="Effect.ShowText">Mostrar texto</entry>
 	<entry key="Effect.WaitTime">Esperar tiempo</entry>
 	<entry key="Effect.HighlightItem">Resaltar elemento</entry>
+	<entry key="Effect.MoveObject">Mover elemento</entry>
 
 
 	<entry key="Effect.ActivateInfo">Activar flag: {#0}</entry>
@@ -739,6 +740,7 @@ función de estos estados</entry>
 	<entry key="Effect.TriggerCutsceneInfo">Lanzar escena intermedia {#0}</entry>
 	<entry key="Effect.TriggerSceneInfo">Lanzar escena {#0}</entry>
 	<entry key="Effect.TriggerLastSceneInfo">Lanzar última escena</entry>
+	<entry key="Effect.MoveObjectInfo">Mover objeto: {#0}</entry>	
 	<entry key="Effect.RandomInfo">{#2} (probabilidad = {#0}%); {#3} (probabilidad = {#1}%)</entry>
 	<entry key="Effect.WaitTimeInfo">Esperar {#0} segundos</entry>
 	<entry key="Effect.ShowTextInfo">Mostrar {#0} en la posición x:{#1} y:{#2}</entry>
@@ -868,12 +870,20 @@ Recuerde que no puede hacer referencia a una macro en la propia definición del 
 	<entry key="ShowTextEffect.Border">Previsualización</entry>
 	<entry key="ShowTextEffect.TextLabel">Introduzca el texto: </entry>
 
+	<entry key="MoveObjectEffect.Title">Efecto para mover un object en la escena</entry>
+	<entry key="MoveObjectEffect.NoSceneSelected">Ninguna escena seleccionada</entry>
+	<entry key="MoveObjectEffect.NoItemSelected">Ningun objeto seleccionado</entry>
+	<entry key="MoveObjectEffect.Animated">Animar</entry>
+	<entry key="MoveObjectEffect.TranslateSpeed">Velocidad de desplazamiento</entry>
+	<entry key="MoveObjectEffect.ScaleSpeed">Velocidad de escalado</entry>
+
 	<entry key="SceneLocation.SceneListDescription">Seleccione la escena para escoger el punto de destino:</entry>
 	<entry key="SceneLocation.NoSceneSelected">Ninguna escena seleccionada</entry>
 	<entry key="SceneLocation.XCoordinate">Coordenada X</entry>
 	<entry key="SceneLocation.YCoordinate">Coordenada Y</entry>
 	<entry key="SceneLocation.Width">Ancho del área</entry>
 	<entry key="SceneLocation.Height">Alto del área</entry>
+	<entry key="SceneLocation.Height">Escala</entry>
 
 	<entry key="Resources.Title">Recursos</entry>
 	<entry key="Resources.Information">En este panel puede editar los recursos del elemento. Use los botones de "Examinar" para escoger los recursos para el elemento, y "Ver"/"Reproducir" para llevar a cabo una vista previa</entry>

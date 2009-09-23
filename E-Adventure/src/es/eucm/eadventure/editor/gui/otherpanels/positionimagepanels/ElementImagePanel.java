@@ -36,6 +36,7 @@ package es.eucm.eadventure.editor.gui.otherpanels.positionimagepanels;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+
 import es.eucm.eadventure.common.data.chapter.Trajectory;
 import es.eucm.eadventure.common.data.chapter.Trajectory.Node;
 import es.eucm.eadventure.common.data.chapter.Trajectory.Side;
@@ -103,6 +104,10 @@ public class ElementImagePanel extends PositionImagePanel {
         else
             element = null;
     }
+    
+    public void removeElementImage() {
+        element = null;
+    }
 
     @Override
     public void paint( Graphics g ) {
@@ -131,7 +136,7 @@ public class ElementImagePanel extends PositionImagePanel {
 
             // If the element is avalaible, paint it
             if( element != null )
-                paintRelativeImage( g, element, selectedX, selectedY, true );
+                paintRelativeImage( g, element, selectedX, selectedY, scale, true );
 
             // If it is not avalaible, draw a circle
             else {
